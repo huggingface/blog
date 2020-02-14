@@ -37,7 +37,7 @@ The final training corpus has a size of 3 GB, which is still small – for your 
 
 ## 2. Train a tokenizer
 
-We choose to train a byte-level Byte-pair encoding tokenizer (the same as GPT-2), with the same special tokens as RoBERTa. Let’s pick its size to be 52,000.
+We choose to train a byte-level Byte-pair encoding tokenizer (the same as GPT-2), with the same special tokens as RoBERTa. Let’s arbitrarily pick its size to be 52,000.
 
 We recommend training a byte-level BPE as 
 
