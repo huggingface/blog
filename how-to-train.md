@@ -1,6 +1,6 @@
 ---
 title: How to train a new language model from scratch using Transformers and Tokenizers
-thumbnail: assets/EsperBERTo-thumbnail-v2.png
+thumbnail: https://huggingface.co/blog/assets/how-to-train_blogpost.png
 ---
 
 # How to train a new language model from scratch using Transformers and Tokenizers
