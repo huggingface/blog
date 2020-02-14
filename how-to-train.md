@@ -8,7 +8,7 @@ thumbnail: assets/EsperBERTo-thumbnail.png
 <small>Published Feb 14, 2020.</small>
 
 
-Over the past few weeks, we made several improvements to our `transformers` and `tokenizers` libraries, with the goal of making it way easier to **train a new language model from scratch**.
+Over the past few weeks, we made several improvements to our [`transformers`](https://github.com/huggingface/transformers) and [`tokenizers`](https://github.com/huggingface/tokenizers) libraries, with the goal of making it way easier to **train a new language model from scratch**.
 
 In this post we'll demo how to train a “small” model (84 M parameters = 6 layers, 768 hidden size, 12 attention heads) – that’s the same number of layers & heads as DistilBERT – on **Esperanto**. We'll then fine-tune the model on a downstream task of part-of-speech tagging.
 
