@@ -137,7 +137,7 @@ print(
 
 ## 3. Train a language model from scratch
 
-We will now train our language model using the [`run_language_modeling.py`](https://github.com/huggingface/transformers/blob/master/examples/run_language_modeling.py) script from `transformers` (newly renamed from `run_lm_finetuning.py` as it now supports training from scratch more seamlessly).
+We will now train our language model using the [`run_language_modeling.py`](https://github.com/huggingface/transformers/blob/master/examples/run_language_modeling.py) script from `transformers` (newly renamed from `run_lm_finetuning.py` as it now supports training from scratch more seamlessly). Just remember to leave `--model_name_or_path` to `None` to train from scratch vs. from an existing model or checkpoint.
 
 > We’ll train a RoBERTa-like model, which is a BERT-like with a couple of changes (check the [documentation](https://huggingface.co/transformers/model_doc/roberta.html) for more details).
 
