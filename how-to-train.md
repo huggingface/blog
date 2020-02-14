@@ -67,6 +67,7 @@ tokenizer.save(".", "esperberto")
 And here’s a slightly accelerated capture of the output:
 
 ![tokenizers](assets/tokenizers-fast.gif)
+<small>On our dataset, training took about ~5 minutes.</small>
 
 🔥🔥 Wow, that was fast! ⚡️🔥
 
@@ -143,7 +144,7 @@ We just need to do two things:
 - Choose and experiment with different sets of hyperparameters.
 
 
-Here’s a simple version of our EsperantoDataset. If your dataset is very large, you can opt to load and tokenize on the fly, not as a preprocessing step like here.
+Here’s a simple version of our EsperantoDataset.
 
 ```python
 class EsperantoDataset(Dataset):
@@ -174,6 +175,8 @@ class EsperantoDataset(Dataset):
         # We’ll pad at the batch level.
         return torch.tensor(self.examples[i])
 ```
+
+If your dataset is very large, you can opt to load and tokenize examples on the fly, rather than as a preprocessing step.
 
 Here is one specific set of **hyper-parameters and arguments** we pass to the script:
 
