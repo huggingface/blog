@@ -44,7 +44,7 @@ We recommend training a byte-level BPE as
 ```python
 from pathlib import Path
 
-from tokenizers.implementations.byte_level_bpe import ByteLevelBPETokenizer
+from tokenizers import ByteLevelBPETokenizer
 
 paths = [str(x) for x in Path("./epo-data/").glob("**/*.txt")]
 
@@ -132,7 +132,7 @@ print(
 
 ## 3. Train a language model from scratch
 
-We will now train our language model using the `run_language_modeling.py` script from `transformers` (newly renamed from `run_lm_finetuning.py` as it now supports training from scratch more seamlessly).
+We will now train our language model using the [`run_language_modeling.py`](https://github.com/huggingface/transformers/blob/master/examples/run_language_modeling.py) script from `transformers` (newly renamed from `run_lm_finetuning.py` as it now supports training from scratch more seamlessly).
 
 > We’ll train a RoBERTa-like model, which is a BERT-like with a couple of changes (check the [documentation](https://huggingface.co/transformers/model_doc/roberta.html) for more details).
 
@@ -204,6 +204,8 @@ As usual, pick the largest batch size you can fit on your GPU(s).
 Here you can check our Tensorboard for [one particular set of hyper-parameters](https://tensorboard.dev/experiment/8AjtzdgPR1qG6bDIe1eKfw/#scalars):
 
 [![tb](assets/tensorboard.png)](https://tensorboard.dev/experiment/8AjtzdgPR1qG6bDIe1eKfw/#scalars)
+
+> Our example scripts log into the Tensorboard format by default, under `runs/`. Then to view your board just run `tensorboard dev upload --logdir runs` – this will set up [tensorboard.dev](https://tensorboard.dev/), a Google-managed hosted version that lets you share your ML experiment with anyone.
 
 ## 4. Check that the LM actually trained
 
