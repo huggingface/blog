@@ -157,6 +157,7 @@ class EsperantoDataset(Dataset):
             ("<s>", tokenizer.token_to_id("<s>")),
         )
         tokenizer.enable_truncation(max_length=512)
+        # or use the RobertaTokenizer from `transformers` directly.
 
         self.examples = []
 
