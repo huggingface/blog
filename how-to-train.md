@@ -1,8 +1,12 @@
 ---
-title: How to train a new language model using Transformers and Tokenizers
+title: How to train a new language model from scratch using Transformers and Tokenizers
+thumbnail: assets/EsperBERTo-thumbnail.png
 ---
 
-# How to train a new language model using Transformers and Tokenizers
+# How to train a new language model from scratch using Transformers and Tokenizers
+
+<small>Published Feb 14, 2020.</small>
+
 
 Over the past few weeks, we made several improvements to our `transformers` and `tokenizers` libraries, with the goal of making it way easier to **train a new language model from scratch**.
 
