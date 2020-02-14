@@ -12,7 +12,7 @@ Over the past few weeks, we made several improvements to our `transformers` and 
 
 In this post we'll demo how to train a “small” model (84 M parameters = 6 layers, 768 hidden size, 12 attention heads) – that’s the same number of layers & heads as DistilBERT – on **Esperanto**. We'll then fine-tune the model on a downstream task of part-of-speech tagging.
 
-Esperanto is a *constructed language* with a goal of being easy to learn. We picked it for this demo for several reasons:
+Esperanto is a *constructed language* with a goal of being easy to learn. We pick it for this demo for several reasons:
 - it is a relatively low-resource language (even though it's spoken by ~2 million people) so this demo is less boring than training one more English model 😁
 - its grammar is highly regular (e.g. all common nouns end in -o, all adjectives in -a) so we should get interesting linguistic results even on a small dataset.
 - finally, the overarching goal at the foundation of the language is to bring people closer (fostering world peace and international understanding) which one could argue is aligned with the goal of the NLP community 💚
@@ -32,12 +32,14 @@ OSCAR is a huge multilingual corpus obtained by language classification and filt
 
 The Esperanto portion of the dataset is only 299M, so we'll concatenate with the Esperanto sub-corpus of the [Leipzig Corpora Collection](https://wortschatz.uni-leipzig.de/en/download), which is comprised of text from diverse sources like news, literature, and wikipedia.
 
-The final training corpus has a size of 3 GB, which is still small – if you can, get more data to pretrain on. 
+The final training corpus has a size of 3 GB, which is still small – for your model, you will get better results the more data you can get to pretrain on. 
 
 
 ## 2. Train a tokenizer
 
-We choose to train a Byte-level Byte-pair encoding tokenizer (the same as GPT-2), with the same special tokens as RoBERTa. Let's pick its size to be 52,000.
+We choose to train a byte-level Byte-pair encoding tokenizer (the same as GPT-2), with the same special tokens as RoBERTa. Let's pick its size to be 52,000.
+
+We recommend training a byte-level BPE as 
 
 ```python
 from pathlib import Path
@@ -68,7 +70,7 @@ And here's a slightly accelerated capture of the output:
 
 🔥🔥 Wow, that was fast! ⚡️🔥
 
-We now have both a `vocab.json` which is a list of the most frequent tokens ranked by frequency, and a `merges.txt` list of merges.
+We now have both a `vocab.json`, which is a list of the most frequent tokens ranked by frequency, and a `merges.txt` list of merges.
 
 ```json
 {
@@ -101,9 +103,9 @@ t a
 # ...
 ```
 
-What is great here is that our tokenizer is now optimized for the Esperanto language: compared to using a pretrained GPT-2 or RoBERTa tokenizer for instance (which are trained on English corpora) way more words are going to be represented by a single token, and we'll represent sequences of text in a more efficient manner. Here on this corpus, the average length of encoded sequences is ~30% smaller as when using the pretrained GPT-2 tokenizer.
+What is great is that our tokenizer is optimized for Esperanto. Compared to a generic tokenizer trained for English, more native words are represented by a single, unsplit token. We also represent sequences in a more efficient manner. Here on this corpus, the average length of encoded sequences is ~30% smaller as when using the pretrained GPT-2 tokenizer.
 
-Below here is a snippet of how you can use it in `tokenizers`, including handling the RoBERTa special tokens – of course, you'll also be able to use it direcly from `transformers`.
+Here's  how you can use it in `tokenizers`, including handling the RoBERTa special tokens – of course, you'll also be able to use it direcly from `transformers`.
 
 ```python
 from tokenizers.implementations import ByteLevelBPETokenizer
@@ -133,15 +135,15 @@ We will now train our language model using the `run_language_modeling.py` script
 
 > We'll train a RoBERTa-like model, which is a BERT-like with a couple of changes (check the [documentation](https://huggingface.co/transformers/model_doc/roberta.html) for more details).
 
-As the model is BERT-like, we'll train it on a task of *Masked language modeling*, i.e. the predict how to fill arbitraty tokens that we randomly mask in the dataset. This is taken care of by the example script.
+As the model is BERT-like, we'll train it on a task of *Masked language modeling*, i.e. the predict how to fill arbitrary tokens that we randomly mask in the dataset. This is taken care of by the example script.
 
 We just need to do two things:
 - implement a simple subclass of `Dataset` that loads data from our text files
-	- Depending on your use case, you might not even need to write your own subclass of Dataset, if one of the provided examples (`TextDataset` and `LineByLineTextDataset`) works – but there are lots of custom tweaks that you might want to add based on what your corpus looks like).
-- Choose and experiment with some sets of hyperparameters.
+	- Depending on your use case, you might not even need to write your own subclass of Dataset, if one of the provided examples (`TextDataset` and `LineByLineTextDataset`) works – but there are lots of custom tweaks that you might want to add based on what your corpus looks like.
+- Choose and experiment with different sets of hyperparameters.
 
 
-Here's a simple version of our EsperantoDataset. If your dataset is very large, you can opt to only load and tokenize on the fly, not as a preprocessing step like here.
+Here's a simple version of our EsperantoDataset. If your dataset is very large, you can opt to load and tokenize on the fly, not as a preprocessing step like here.
 
 ```python
 class EsperantoDataset(Dataset):
@@ -201,9 +203,9 @@ Here you can check our Tensorboard for [one particular set of hyper-parameters](
 
 ## 4. Check that the LM actually trained
 
-Aside from looking at the training and eval losses going down, the easiest way to check whether our language model learnt something interesting is via the `FillMaskPipeline`.
+Aside from looking at the training and eval losses going down, the easiest way to check whether our language model is learning anything interesting is via the `FillMaskPipeline`.
 
-Pipelines are simple wrappers around tokenizers and models, and the fill-mask one will let you input a sequence containing a masked token (here, `<mask>`) and return a list of the most probable filled sequences, with their probabilities.
+Pipelines are simple wrappers around tokenizers and models, and the 'fill-mask' one will let you input a sequence containing a masked token (here, `<mask>`) and return a list of the most probable filled sequences, with their probabilities.
 
 ```python
 from transformers import pipeline
@@ -236,9 +238,9 @@ fill_mask("Bonan <mask>, virinojn!")
 
 TODO replace with an actual Esperanto example or two (preferentially fun)
 
-## 5. Fine-tune LM on a downstream task
+## 5. Fine-tune your LM on a downstream task
 
-In this last part, we will fine-tune our new Esperanto language model on a downstream task of Part-of-speech tagging.
+We now can fine-tune our new Esperanto language model on a downstream task of Part-of-speech tagging.
 
 todo todo todo
 
