@@ -10,14 +10,14 @@ thumbnail: assets/EsperBERTo-thumbnail.png
 
 Over the past few weeks, we made several improvements to our [`transformers`](https://github.com/huggingface/transformers) and [`tokenizers`](https://github.com/huggingface/tokenizers) libraries, with the goal of making it way easier to **train a new language model from scratch**.
 
-In this post we'll demo how to train a “small” model (84 M parameters = 6 layers, 768 hidden size, 12 attention heads) – that’s the same number of layers & heads as DistilBERT – on **Esperanto**. We'll then fine-tune the model on a downstream task of part-of-speech tagging.
+In this post we’ll demo how to train a “small” model (84 M parameters = 6 layers, 768 hidden size, 12 attention heads) – that’s the same number of layers & heads as DistilBERT – on **Esperanto**. We’ll then fine-tune the model on a downstream task of part-of-speech tagging.
 
 Esperanto is a *constructed language* with a goal of being easy to learn. We pick it for this demo for several reasons:
-- it is a relatively low-resource language (even though it's spoken by ~2 million people) so this demo is less boring than training one more English model 😁
+- it is a relatively low-resource language (even though it’s spoken by ~2 million people) so this demo is less boring than training one more English model 😁
 - its grammar is highly regular (e.g. all common nouns end in -o, all adjectives in -a) so we should get interesting linguistic results even on a small dataset.
 - finally, the overarching goal at the foundation of the language is to bring people closer (fostering world peace and international understanding) which one could argue is aligned with the goal of the NLP community 💚
 
-> N.B. You won't need to understand Esperanto to understand this post, but if you do want to learn it, [Duolingo](https://www.duolingo.com/enroll/eo/en/Learn-Esperanto) has a nice course with 280k active learners.
+> N.B. You won’t need to understand Esperanto to understand this post, but if you do want to learn it, [Duolingo](https://www.duolingo.com/enroll/eo/en/Learn-Esperanto) has a nice course with 280k active learners.
 
 Our model is going to be called… wait for it… **EsperBERTo** 😂
 
@@ -25,19 +25,19 @@ Our model is going to be called… wait for it… **EsperBERTo** 😂
 
 ## 1. Find a dataset
 
-First, let us find a corpus of text in Esperanto. Here we'll use the Esperanto portion of the [OSCAR corpus](https://traces1.inria.fr/oscar/) from INRIA.
+First, let us find a corpus of text in Esperanto. Here we’ll use the Esperanto portion of the [OSCAR corpus](https://traces1.inria.fr/oscar/) from INRIA.
 OSCAR is a huge multilingual corpus obtained by language classification and filtering of [Common Crawl](https://commoncrawl.org/) dumps of the Web.
 
 <img src="/blog/assets/oscar.png" style="margin: auto; display: block; width: 260px;">
 
-The Esperanto portion of the dataset is only 299M, so we'll concatenate with the Esperanto sub-corpus of the [Leipzig Corpora Collection](https://wortschatz.uni-leipzig.de/en/download), which is comprised of text from diverse sources like news, literature, and wikipedia.
+The Esperanto portion of the dataset is only 299M, so we’ll concatenate with the Esperanto sub-corpus of the [Leipzig Corpora Collection](https://wortschatz.uni-leipzig.de/en/download), which is comprised of text from diverse sources like news, literature, and wikipedia.
 
 The final training corpus has a size of 3 GB, which is still small – for your model, you will get better results the more data you can get to pretrain on. 
 
 
 ## 2. Train a tokenizer
 
-We choose to train a byte-level Byte-pair encoding tokenizer (the same as GPT-2), with the same special tokens as RoBERTa. Let's pick its size to be 52,000.
+We choose to train a byte-level Byte-pair encoding tokenizer (the same as GPT-2), with the same special tokens as RoBERTa. Let’s pick its size to be 52,000.
 
 We recommend training a byte-level BPE as 
 
@@ -64,7 +64,7 @@ tokenizer.train(files=paths, vocab_size=52_000, min_frequency=2, special_tokens=
 tokenizer.save(".", "esperberto")
 ```
 
-And here's a slightly accelerated capture of the output:
+And here’s a slightly accelerated capture of the output:
 
 ![tokenizers](assets/tokenizers-fast.gif)
 
@@ -105,7 +105,7 @@ t a
 
 What is great is that our tokenizer is optimized for Esperanto. Compared to a generic tokenizer trained for English, more native words are represented by a single, unsplit token. We also represent sequences in a more efficient manner. Here on this corpus, the average length of encoded sequences is ~30% smaller as when using the pretrained GPT-2 tokenizer.
 
-Here's  how you can use it in `tokenizers`, including handling the RoBERTa special tokens – of course, you'll also be able to use it direcly from `transformers`.
+Here’s  how you can use it in `tokenizers`, including handling the RoBERTa special tokens – of course, you’ll also be able to use it direcly from `transformers`.
 
 ```python
 from tokenizers.implementations import ByteLevelBPETokenizer
@@ -133,9 +133,9 @@ print(
 
 We will now train our language model using the `run_language_modeling.py` script from `transformers` (newly renamed from `run_lm_finetuning.py` as it now supports training from scratch more seamlessly).
 
-> We'll train a RoBERTa-like model, which is a BERT-like with a couple of changes (check the [documentation](https://huggingface.co/transformers/model_doc/roberta.html) for more details).
+> We’ll train a RoBERTa-like model, which is a BERT-like with a couple of changes (check the [documentation](https://huggingface.co/transformers/model_doc/roberta.html) for more details).
 
-As the model is BERT-like, we'll train it on a task of *Masked language modeling*, i.e. the predict how to fill arbitrary tokens that we randomly mask in the dataset. This is taken care of by the example script.
+As the model is BERT-like, we’ll train it on a task of *Masked language modeling*, i.e. the predict how to fill arbitrary tokens that we randomly mask in the dataset. This is taken care of by the example script.
 
 We just need to do two things:
 - implement a simple subclass of `Dataset` that loads data from our text files
@@ -143,7 +143,7 @@ We just need to do two things:
 - Choose and experiment with different sets of hyperparameters.
 
 
-Here's a simple version of our EsperantoDataset. If your dataset is very large, you can opt to load and tokenize on the fly, not as a preprocessing step like here.
+Here’s a simple version of our EsperantoDataset. If your dataset is very large, you can opt to load and tokenize on the fly, not as a preprocessing step like here.
 
 ```python
 class EsperantoDataset(Dataset):
@@ -170,7 +170,7 @@ class EsperantoDataset(Dataset):
         return len(self.examples)
 
     def __getitem__(self, i):
-        # We'll pad at the batch level.
+        # We’ll pad at the batch level.
         return torch.tensor(self.examples[i])
 ```
 
@@ -195,7 +195,7 @@ Here is one specific set of **hyper-parameters and arguments** we pass to the sc
 
 As usual, pick the largest batch size you can fit on your GPU(s). 
 
-**🔥🔥🔥 Let's start training!! 🔥🔥🔥**
+**🔥🔥🔥 Let’s start training!! 🔥🔥🔥**
 
 Here you can check our Tensorboard for [one particular set of hyper-parameters](https://tensorboard.dev/experiment/8AjtzdgPR1qG6bDIe1eKfw/#scalars):
 
