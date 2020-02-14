@@ -258,3 +258,7 @@ yadda yada
 
 [![tb](assets/model_page.png)](https://tensorboard.dev/experiment/8AjtzdgPR1qG6bDIe1eKfw/#scalars)
 
+
+If you want to take a look at LM in different languages, check https://huggingface.co/models
+
+[![](https://huggingface.co/front/thumbnails/models.png)](https://huggingface.co/models)
