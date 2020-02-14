@@ -1,6 +1,6 @@
 ---
 title: How to train a new language model from scratch using Transformers and Tokenizers
-thumbnail: assets/EsperBERTo-thumbnail.png
+thumbnail: assets/EsperBERTo-thumbnail-v2.png
 ---
 
 # How to train a new language model from scratch using Transformers and Tokenizers
@@ -44,14 +44,14 @@ The final training corpus has a size of 3 GB, which is still small – for your 
 
 We choose to train a byte-level Byte-pair encoding tokenizer (the same as GPT-2), with the same special tokens as RoBERTa. Let’s arbitrarily pick its size to be 52,000.
 
-We recommend training a byte-level BPE as 
+We recommend training a byte-level BPE (rather than let’s say, a WordPiece tokenizer like BERT) because it will start building its vocabulary from an alphabet of single bytes, so all words will be decomposable into tokens (no more `<unk>` tokens!).
 
 ```python
 from pathlib import Path
 
 from tokenizers import ByteLevelBPETokenizer
 
-paths = [str(x) for x in Path("./epo-data/").glob("**/*.txt")]
+paths = [str(x) for x in Path("./eo_data/").glob("**/*.txt")]
 
 # Initialize a tokenizer
 tokenizer = ByteLevelBPETokenizer()
@@ -273,3 +273,5 @@ yadda yada
 If you want to take a look at LM in different languages, check https://huggingface.co/models
 
 [![](https://huggingface.co/front/thumbnails/models.png)](https://huggingface.co/models)
+
+![](assets/EsperBERTo-thumbnail-v2.png)
