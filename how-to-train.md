@@ -5,8 +5,13 @@ thumbnail: assets/EsperBERTo-thumbnail.png
 
 # How to train a new language model from scratch using Transformers and Tokenizers
 
-<small>Published Feb 14, 2020.</small>
-
+<div class="blog-metadata">
+    <small>Published Feb 14, 2020.</small>
+    <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/how-to-train.md">
+        <img src="/front/assets/icon-github.svg">
+        Update on GitHub
+    </a>
+</div>
 
 Over the past few weeks, we made several improvements to our [`transformers`](https://github.com/huggingface/transformers) and [`tokenizers`](https://github.com/huggingface/tokenizers) libraries, with the goal of making it way easier to **train a new language model from scratch**.
 
