@@ -296,7 +296,7 @@ Training and eval losses converge to small residual values as the task is rather
 This time, let’s use a `TokenClassificationPipeline`:
 
 ```python
-from transformers import pipeline
+from transformers import TokenClassificationPipeline, pipeline
 
 
 MODEL_PATH = "./models/EsperBERTo-small-pos/"
@@ -306,7 +306,9 @@ nlp = pipeline(
     model=MODEL_PATH,
     tokenizer=MODEL_PATH,
 )
-x = nlp("Mi estas viro kej estas tago varma.")
+# or instantiate a TokenClassificationPipeline directly.
+
+nlp("Mi estas viro kej estas tago varma.")
 
 # {'entity': 'PRON', 'score': 0.9979867339134216, 'word': ' Mi'}
 # {'entity': 'VERB', 'score': 0.9683094620704651, 'word': ' estas'}
