@@ -10,7 +10,7 @@ thumbnail: assets/EsperBERTo-thumbnail.png
 
 Over the past few weeks, we made several improvements to our `transformers` and `tokenizers` libraries, with the goal of making it way easier to **train a new language model from scratch**.
 
-In this post we'll demo how to train a “small” (84 M parameters = 6 layers, 768 hidden size, 12 attention heads) – that’s the same size as DistilBERT – on **Esperanto**. We'll then fine-tune the model to a downstream task of part-of-speech tagging.
+In this post we'll demo how to train a “small” model (84 M parameters = 6 layers, 768 hidden size, 12 attention heads) – that’s the same number of layers & heads as DistilBERT – on **Esperanto**. We'll then fine-tune the model on a downstream task of part-of-speech tagging.
 
 Esperanto is a *constructed language* with a goal of being easy to learn. We picked it for this demo for several reasons:
 - it is a relatively low-resource language (even though it's spoken by ~2 million people) so this demo is less boring than training one more English model 😁
