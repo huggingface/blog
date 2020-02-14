@@ -227,51 +227,121 @@ fill_mask = pipeline(
     tokenizer="./models/EspertBERTo-small"
 )
 
+# The sun <mask>.
+# =>
+
 result = fill_mask("La suno <mask>.")
-# {'score': 0.05867236852645874, 'sequence': '<s> La suno malaperis.</s>', 'token': 4286}
-# {'score': 0.05144098773598671, 'sequence': '<s> La suno estas.</s>', 'token': 315}
-# {'score': 0.03619285672903061, 'sequence': '<s> La suno dormas.</s>', 'token': 12445}
-# {'score': 0.027554208412766457, 'sequence': '<s> La suno kreskas.</s>', 'token': 5019}
-# {'score': 0.014812440611422062, 'sequence': '<s> La suno okazis.</s>', 'token': 1180}
+
+# {'score': 0.2526160776615143, 'sequence': '<s> La suno brilis.</s>', 'token': 10820}
+# {'score': 0.0999930202960968, 'sequence': '<s> La suno lumis.</s>', 'token': 23833}
+# {'score': 0.04382849484682083, 'sequence': '<s> La suno brilas.</s>', 'token': 15006}
+# {'score': 0.026011141017079353, 'sequence': '<s> La suno falas.</s>', 'token': 7392}
+# {'score': 0.016859788447618484, 'sequence': '<s> La suno pasis.</s>', 'token': 4552}
 ```
+
+Ok, simple syntax/grammar works. Let’s try a slightly more interesting prompt:
 
 ```python
-fill_mask("Bonan <mask>, virinojn!")
+fill_mask("Jen la komenco de bela <mask>.")
 
-# Good <mask>, ladies!
+# This is the beginning of a beautiful <mask>.
+# =>
 
-# {'score': 0.02966943569481373, 'sequence': '<s> Bonan vorton, virinojn!</s>', 'token': 3246}
-# {'score': 0.02172263152897358, 'sequence': '<s> Bonan tagon, virinojn!</s>', 'token': 2960}
-# {'score': 0.020237216725945473, 'sequence': '<s> Bonan amon, virinojn!</s>', 'token': 6194}
-# {'score': 0.01287781447172165, 'sequence': '<s> Bonan leteron, virinojn!</s>', 'token': 6098}
-# {'score': 0.012435879558324814, 'sequence': '<s> Bonan vesperon, virinojn!</s>', 'token': 10577}
+# {
+#     'score':0.06502299010753632
+#     'sequence':'<s> Jen la komenco de bela vivo.</s>'
+#     'token':1099
+# }
+# {
+#     'score':0.0421181358397007
+#     'sequence':'<s> Jen la komenco de bela vespero.</s>'
+#     'token':5100
+# }
+# {
+#     'score':0.024884626269340515
+#     'sequence':'<s> Jen la komenco de bela laboro.</s>'
+#     'token':1570
+# }
+# {
+#     'score':0.02324388362467289
+#     'sequence':'<s> Jen la komenco de bela tago.</s>'
+#     'token':1688
+# }
+# {
+#     'score':0.020378097891807556
+#     'sequence':'<s> Jen la komenco de bela festo.</s>'
+#     'token':4580
+# }
 ```
 
-TODO replace with an actual Esperanto example or two (preferentially fun)
+> “**Jen la komenco de bela tago**”, indeed!
+
+With more complex prompts, you can probe whether your language model captured more semantic knowledge or even some sort of (statistical) common sense reasoning.
+
 
 ## 5. Fine-tune your LM on a downstream task
 
-We now can fine-tune our new Esperanto language model on a downstream task of Part-of-speech tagging.
+We now can fine-tune our new Esperanto language model on a downstream task of **Part-of-speech tagging.**
 
-todo todo todo
+As mentioned before, Esperanto is a highly regular language where word endings typically condition the grammatical part of speech. Using a dataset of annotated  Esperanto POS tags formatted in the CoNLL-2003 format (see example below), we can use the [`run_ner.py`](https://github.com/huggingface/transformers/blob/master/examples/run_ner.py) script from `transformers`.
 
-Example of `TokenClassificationPipeline`
+> POS tagging is a token classification task just as NER so we can just use the exact same script.
 
-yadda yada
+![conll](assets/conll-2003.png)
+
+Again, here’s the hosted **[Tensorboard](https://tensorboard.dev/experiment/lOZn2wOWQo6ixpwtWyyDfQ/#scalars)** for this fine-tuning. We train for 3 epochs using a batch size of 64 per GPU.
+
+Training and eval losses converge to small residual values as the task is rather easy (the language is regular) – it’s still fun to be able to train it end-to-end 😃.
+
+This time, let’s use a `TokenClassificationPipeline`:
+
+```python
+from transformers import pipeline
+
+
+MODEL_PATH = "./models/EsperBERTo-small-pos/"
+
+nlp = pipeline(
+    "ner",
+    model=MODEL_PATH,
+    tokenizer=MODEL_PATH,
+)
+x = nlp("Mi estas viro kej estas tago varma.")
+
+# {'entity': 'PRON', 'score': 0.9979867339134216, 'word': ' Mi'}
+# {'entity': 'VERB', 'score': 0.9683094620704651, 'word': ' estas'}
+# {'entity': 'VERB', 'score': 0.9797462821006775, 'word': ' estas'}
+# {'entity': 'NOUN', 'score': 0.8509314060211182, 'word': ' tago'}
+# {'entity': 'ADJ', 'score': 0.9996201395988464, 'word': ' varma'}
+```
+
+**Looks like it worked! 🔥**
+
+<small>For a more challenging dataset for NER, <a href="https://github.com/stefan-it">@stefan-it</a> recommended that we could train on the silver standard dataset from WikiANN</small>
 
 ## 6. Share your model 🎉
 
-- upload your model using the CLI
-- write a README.md model card and add it to the repo under `model_cards/`. Your model card should ideally include a model description, training params (dataset, preprocessing, hyperparameters), evaluation results, intended uses & limitations, etc.
+Finally, when you have a nice model, please think about sharing it with the community:
+
+- upload your model using the CLI: `transformers-cli upload`
+- write a README.md model card and add it to the repository under `model_cards/`. Your model card should ideally include:
+    - a model description,
+    - training params (dataset, preprocessing, hyperparameters), 
+    - evaluation results,
+    - intended uses & limitations
+    - whatever else is helpful! 🤓
+
+### **TADA!**
+
+➡️ Your model has a page on http://huggingface.co/models and everyone can load it using `AutoModel.from_pretrained("username/model_name")`.
+
+[![tb](assets/model_page.png)](https://huggingface.co/julien-c/EsperBERTo-small)
 
 
-**TADA!**
+If you want to take a look at models in different languages, check https://huggingface.co/models
 
-[![tb](assets/model_page.png)](https://tensorboard.dev/experiment/8AjtzdgPR1qG6bDIe1eKfw/#scalars)
+[![all models](https://huggingface.co/front/thumbnails/models.png)](https://huggingface.co/models)
 
-
-If you want to take a look at LM in different languages, check https://huggingface.co/models
-
-[![](https://huggingface.co/front/thumbnails/models.png)](https://huggingface.co/models)
+## Thank you!
 
 ![](assets/EsperBERTo-thumbnail-v2.png)
