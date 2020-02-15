@@ -170,7 +170,7 @@ class EsperantoDataset(Dataset):
         src_files = Path("./data/").glob("*-eval.txt") if evaluate else Path("./data/").glob("*-train.txt")
         for src_file in src_files:
             print("🔥", src_file)
-	    lines = src_file.read_text(encoding="utf-8").splitlines()
+        lines = src_file.read_text(encoding="utf-8").splitlines()
             self.examples += [x.ids for x in tokenizer.encode_batch(lines)]
 
     def __len__(self):
