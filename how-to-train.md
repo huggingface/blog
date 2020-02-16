@@ -6,7 +6,7 @@ thumbnail: https://huggingface.co/blog/assets/how-to-train_blogpost.png
 # How to train a new language model from scratch using Transformers and Tokenizers
 
 <div class="blog-metadata">
-    <small>Published Feb 14, 2020.</small>
+    <small>Published Feb 14, 2020. Last update Feb 16.</small>
     <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/how-to-train.md">
         <img src="/front/assets/icon-github.svg">
         Update on GitHub
@@ -47,6 +47,8 @@ We choose to train a byte-level Byte-pair encoding tokenizer (the same as GPT-2)
 We recommend training a byte-level BPE (rather than let’s say, a WordPiece tokenizer like BERT) because it will start building its vocabulary from an alphabet of single bytes, so all words will be decomposable into tokens (no more `<unk>` tokens!).
 
 ```python
+#! pip install tokenizers==0.4.2
+
 from pathlib import Path
 
 from tokenizers import ByteLevelBPETokenizer
