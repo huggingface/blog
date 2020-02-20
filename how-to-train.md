@@ -225,8 +225,8 @@ from transformers import pipeline
 
 fill_mask = pipeline(
     "fill-mask",
-    model="./models/EspertBERTo-small",
-    tokenizer="./models/EspertBERTo-small"
+    model="./models/EsperBERTo-small",
+    tokenizer="./models/EsperBERTo-small"
 )
 
 # The sun <mask>.
