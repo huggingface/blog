@@ -214,7 +214,7 @@ As usual, pick the largest batch size you can fit on your GPU(s).
 
 Here you can check our Tensorboard for [one particular set of hyper-parameters](https://tensorboard.dev/experiment/8AjtzdgPR1qG6bDIe1eKfw/#scalars):
 
-[![tb](assets/tensorboard.png)](https://tensorboard.dev/experiment/8AjtzdgPR1qG6bDIe1eKfw/#scalars)
+[![tb](assets/tensorboard.jpg)](https://tensorboard.dev/experiment/8AjtzdgPR1qG6bDIe1eKfw/#scalars)
 
 > Our example scripts log into the Tensorboard format by default, under `runs/`. Then to view your board just run `tensorboard dev upload --logdir runs` – this will set up [tensorboard.dev](https://tensorboard.dev/), a Google-managed hosted version that lets you share your ML experiment with anyone.
 
@@ -343,7 +343,7 @@ Finally, when you have a nice model, please think about sharing it with the comm
 
 ➡️ Your model has a page on http://huggingface.co/models and everyone can load it using `AutoModel.from_pretrained("username/model_name")`.
 
-[![tb](assets/model_page.png)](https://huggingface.co/julien-c/EsperBERTo-small)
+[![tb](assets/model_page.jpg)](https://huggingface.co/julien-c/EsperBERTo-small)
 
 
 If you want to take a look at models in different languages, check https://huggingface.co/models
@@ -352,4 +352,4 @@ If you want to take a look at models in different languages, check https://huggi
 
 ## Thank you!
 
-![](assets/EsperBERTo-thumbnail-v2.png)
+![](assets/EsperBERTo-thumbnail-v2.jpg)
