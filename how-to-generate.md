@@ -1,5 +1,3 @@
-<div class="cell markdown" data-colab_type="text" id="view-in-github">
-
 <style TYPE="text/css">
 code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
 </style>
@@ -18,6 +16,8 @@ MathJax.Hub.Queue(function() {
 });
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML-full"></script>
+
+<div class="cell markdown" data-colab_type="text" id="view-in-github">
 
 <a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/add_language_generation_tutorial/02_how_to_generate.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
@@ -57,7 +57,7 @@ a refresher). In short, *auto-regressive* language generation is based
 on the assumption that the probability distribution of a word sequence
 can be decomposed into the product of conditional next word
 distributions:
-\[ P(w_{1:T} | W_0 ) = \prod_{t=1}^T P(w_{t} | w_{1: t-1}, W_0) \text{ ,with }  w_{1: 0} = \emptyset, \]
+`$$ P(w_{1:T} | W_0 ) = \prod_{t=1}^T P(w_{t} | w_{1: t-1}, W_0) \text{ ,with }  w_{1: 0} = \emptyset, $$`
 
 and \(W_0\) being the initial *context* word sequence. The length \(T\)
 of the word sequence is usually determined *on-the-fly* and corresponds
