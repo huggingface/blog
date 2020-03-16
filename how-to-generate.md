@@ -41,7 +41,7 @@ distributions:
 
 ![equation](https://latex.codecogs.com/gif.latex?P%28w_%7B1%3AT%7D%20%7C%20W_0%20%29%20%3D%20%5Cprod_%7Bt%3D1%7D%5ET%20P%28w_%7Bt%7D%20%7C%20w_%7B1%3A%20t-1%7D%2C%20W_0%29%20%5Ctext%7B%20%2Cwith%20%7D%20w_%7B1%3A%200%7D%20%3D%20%5Cemptyset%2C)
 
-and \(W_0\) being the initial *context* word sequence. The length \(T\)
+and ![equation](https://latex.codecogs.com/gif.latex?W_0) being the initial *context* word sequence. The length \(T\)
 of the word sequence is usually determined *on-the-fly* and corresponds
 to the timestep \(t=T\) the EOS token is generated from
 \(P(w_{t} | w_{1: t-1}, W_{0})\).
