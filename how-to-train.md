@@ -1,357 +1,679 @@
----
-title: How to train a new language model from scratch using Transformers and Tokenizers
-thumbnail: https://huggingface.co/blog/assets/how-to-train_blogpost.png
----
+::: {.cell .markdown colab_type="text" id="view-in-github"}
+`<a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/add_language_generation_tutorial/02_how_to_generate.ipynb" target="_parent">`{=html}`<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>`{=html}`</a>`{=html}
+:::
 
-# How to train a new language model from scratch using Transformers and Tokenizers
+::: {.cell .markdown colab_type="text" id="Vp3XPuaTu9jl"}
+How to use different decoding methods for open-ended language generation with `transformers`
+============================================================================================
+:::
 
-<div class="blog-metadata">
-    <small>Published Feb 14, 2020. Last update Feb 27.</small>
-    <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/how-to-train.md">
-        <img src="/front/assets/icon-github.svg">
-        Update on GitHub
-    </a>
-</div>
+::: {.cell .markdown colab_type="text" id="KxLvv6UaPa33"}
+### **Introduction**
 
-<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/master/notebooks/01_how_to_train.ipynb">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg">
-</a>
+In recent years, there has been an increasing interest in open-ended
+language generation thanks to the rise of large transformer-based
+language models trained on millions of webpages, such as OpenAI\'s
+famous [GPT2 model](https://openai.com/blog/better-language-models/).
+The results on conditioned open-ended language generation are
+impressive, e.g. [GPT2 on
+unicorns](https://openai.com/blog/better-language-models/#samples),
+[XLNet](https://medium.com/@amanrusia/xlnet-speaks-comparison-to-gpt-2-ea1a4e9ba39e),
+[Controlled language with
+CTRL](https://blog.einstein.ai/introducing-a-conditional-transformer-language-model-for-controllable-generation/).
+Besides the improved transformer architecture and massive unsupervised
+training data, **better decoding methods** have also played an important
+role.
 
-Over the past few weeks, we made several improvements to our [`transformers`](https://github.com/huggingface/transformers) and [`tokenizers`](https://github.com/huggingface/tokenizers) libraries, with the goal of making it way easier to **train a new language model from scratch**.
+This blog post gives a brief overview of different decoding strategies
+and more importantly shows how *you* can implement them with very little
+effort using the popular `transformers` library!
 
-In this post we’ll demo how to train a “small” model (84 M parameters = 6 layers, 768 hidden size, 12 attention heads) – that’s the same number of layers & heads as DistilBERT – on **Esperanto**. We’ll then fine-tune the model on a downstream task of part-of-speech tagging.
+All of the following functionalities can be used for **auto-regressive**
+language generation ([here](http://jalammar.github.io/illustrated-gpt2/)
+a refresher). In short, *auto-regressive* language generation is based
+on the assumption that the probability distribution of a word sequence
+can be decomposed into the product of conditional next word
+distributions:
+$$ P(w_{1:T} | W_0 ) = \prod_{t=1}^T P(w_{t} | w_{1: t-1}, W_0) \text{ ,with }  w_{1: 0} = \emptyset, $$
 
-Esperanto is a *constructed language* with a goal of being easy to learn. We pick it for this demo for several reasons:
-- it is a relatively low-resource language (even though it’s spoken by ~2 million people) so this demo is less boring than training one more English model 😁
-- its grammar is highly regular (e.g. all common nouns end in -o, all adjectives in -a) so we should get interesting linguistic results even on a small dataset.
-- finally, the overarching goal at the foundation of the language is to bring people closer (fostering world peace and international understanding) which one could argue is aligned with the goal of the NLP community 💚
+and $W_0$ being the initial *context* word sequence. The length $T$ of
+the word sequence is usually determined *on-the-fly* and corresponds to
+the timestep $t=T$ the EOS token is generated from
+$P(w_{t} | w_{1: t-1}, W_{0})$.
 
-> N.B. You won’t need to understand Esperanto to understand this post, but if you do want to learn it, [Duolingo](https://www.duolingo.com/enroll/eo/en/Learn-Esperanto) has a nice course with 280k active learners.
+Auto-regressive language generation is now available for `GPT2`,
+`XLNet`, `OpenAi-GPT`, `CTRL`, `TransfoXL`, `XLM`, `Bart`, `T5` in both
+PyTorch and Tensorflow \>= 2.0!
 
-Our model is going to be called… wait for it… **EsperBERTo** 😂
+We will give a tour of the currently most prominent decoding methods,
+mainly *Greedy search*, *Beam search*, *Top-K sampling* and *Top-p
+sampling*.
+:::
 
-<img src="/blog/assets/eo.svg" alt="Esperanto flag" style="margin: auto; display: block; width: 260px;">
+::: {.cell .markdown colab_type="text" id="Si4GyYhOQMzi"}
+Let\'s quickly install transformers and load the model. We will use GPT2
+in Tensorflow 2.1 for demonstration, but the API is 1-to-1 the same for
+PyTorch.
+:::
 
-## 1. Find a dataset
+::: {.cell .code execution_count="0" colab="{}" colab_type="code" id="XbzZ_IVTtoQe"}
+``` {.python}
+!pip install -q git+https://github.com/huggingface/transformers.git
+!pip install -q tensorflow==2.1
+```
+:::
 
-First, let us find a corpus of text in Esperanto. Here we’ll use the Esperanto portion of the [OSCAR corpus](https://traces1.inria.fr/oscar/) from INRIA.
-OSCAR is a huge multilingual corpus obtained by language classification and filtering of [Common Crawl](https://commoncrawl.org/) dumps of the Web.
-
-<img src="/blog/assets/oscar.png" style="margin: auto; display: block; width: 260px;">
-
-The Esperanto portion of the dataset is only 299M, so we’ll concatenate with the Esperanto sub-corpus of the [Leipzig Corpora Collection](https://wortschatz.uni-leipzig.de/en/download), which is comprised of text from diverse sources like news, literature, and wikipedia.
-
-The final training corpus has a size of 3 GB, which is still small – for your model, you will get better results the more data you can get to pretrain on. 
+::: {.cell .code execution_count="0" colab="{}" colab_type="code" id="ue2kOQhXTAMU"}
+``` {.python}
+import tensorflow as tf
+from transformers import TFGPT2LMHeadModel, GPT2Tokenizer
 
 
-## 2. Train a tokenizer
+tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 
-We choose to train a byte-level Byte-pair encoding tokenizer (the same as GPT-2), with the same special tokens as RoBERTa. Let’s arbitrarily pick its size to be 52,000.
+# add the EOS token as PAD token to avoid warnings
+model = TFGPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_token_id)
+```
+:::
 
-We recommend training a byte-level BPE (rather than let’s say, a WordPiece tokenizer like BERT) because it will start building its vocabulary from an alphabet of single bytes, so all words will be decomposable into tokens (no more `<unk>` tokens!).
+::: {.cell .markdown colab_type="text" id="a8Y7cgu9ohXP"}
+### **Greedy Search**
 
-```python
-#! pip install tokenizers==0.4.2
+Greedy search simply selects the word with the highest probability as
+its next word: $w_t = argmax_{w}P(w | w_{1:t-1})$ at each timestep $t$.
+The following sketch shows greedy search.
 
-from pathlib import Path
+![Greedy
+Search](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/greedy_search.png)
 
-from tokenizers import ByteLevelBPETokenizer
+Starting from the word $\text{"The"}$, the algorithm greedily chooses
+the next word of highest probability $\text{"nice"}$ and so on, so that
+the final generated word sequence is $\text{"The", "nice", "woman"}$
+having an overall probability of $0.5 \times 0.4 = 0.2$.
 
-paths = [str(x) for x in Path("./eo_data/").glob("**/*.txt")]
+In the following we will generate word sequences using GPT2 on the
+context $(\text{"I", "enjoy", "walking", "with", "my", "cute", "dog"})$.
+Let\'s see how greedy search can be used in `transformers` by setting
+`do_sample=False` when calling the `generate()` method:
+:::
 
-# Initialize a tokenizer
-tokenizer = ByteLevelBPETokenizer()
+::: {.cell .code execution_count="4" colab="{\"height\":122,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="OWLd_J6lXz_t" outputId="3b9dfd1e-21e6-44f4-f27f-8e975010f9af"}
+``` {.python}
+# encode context the generation is conditioned on
+input_ids = tokenizer.encode('I enjoy walking with my cute dog', return_tensors='tf')
 
-# Customize training
-tokenizer.train(files=paths, vocab_size=52_000, min_frequency=2, special_tokens=[
-    "<s>",
-    "<pad>",
-    "</s>",
-    "<unk>",
-    "<mask>",
-])
+# generate text until the output length (which includes the context length) reaches 50
+greedy_output = model.generate(input_ids, do_sample=False, max_length=50)
 
-# Save files to disk
-tokenizer.save(".", "esperberto")
+print("Output:\n" + 100 * '-')
+print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
 ```
 
-And here’s a slightly accelerated capture of the output:
+::: {.output .stream .stdout}
+    Output:
+    ----------------------------------------------------------------------------------------------------
+    I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with my dog. I'm not sure if I'll ever be able to walk with my dog.
 
-![tokenizers](assets/tokenizers-fast.gif)
-<small>On our dataset, training took about ~5 minutes.</small>
+    I'm not sure if I'll
+:::
+:::
 
-🔥🔥 Wow, that was fast! ⚡️🔥
+::: {.cell .markdown colab_type="text" id="BBn1ePmJvhrl"}
+Alright! We have generated our first short text with GPT2 😊. The
+generated words following the context are reasonable, but the model
+quickly starts repeating itself! This is a very common problem in
+language generation in general and seems to be even more so in greedy
+and beam search - check out [Vijayakumar et al.,
+2016](https://arxiv.org/abs/1610.02424) and [Shao et al.,
+2017](https://arxiv.org/abs/1701.03185).
 
-We now have both a `vocab.json`, which is a list of the most frequent tokens ranked by frequency, and a `merges.txt` list of merges.
+The major drawback of greedy search though is that it misses high
+probability words hidden behind a low probability word as can be seen in
+our sketch above:
 
-```json
-{
-	"<s>": 0,
-	"<pad>": 1,
-	"</s>": 2,
-	"<unk>": 3,
-	"<mask>": 4,
-	"!": 5,
-	"\"": 6,
-	"#": 7,
-	"$": 8,
-	"%": 9,
-	"&": 10,
-	"'": 11,
-	"(": 12,
-	")": 13,
-	# ...
-}
+The word $\text{"has"}$ with its high conditional probability of $0.9$
+is hidden behind the word $\text{"dog"}$, which has only the
+second-highest conditional probability, so that greedy search misses the
+word sequence $\text{"The"}, \text{"dog"}, \text{"has"}$.
 
-# merges.txt
-l a
-Ġ k
-o n
-Ġ la
-t a
-Ġ e
-Ġ d
-Ġ p
-# ...
-```
+Thankfully, we have beam search to alleviate this problem!
+:::
 
-What is great is that our tokenizer is optimized for Esperanto. Compared to a generic tokenizer trained for English, more native words are represented by a single, unsplit token. Diacritics, i.e. accented characters used in Esperanto – `ĉ`, `ĝ`, `ĥ`, `ĵ`, `ŝ`, and `ŭ` – are encoded natively. We also represent sequences in a more efficient manner. Here on this corpus, the average length of encoded sequences is ~30% smaller as when using the pretrained GPT-2 tokenizer.
+::: {.cell .markdown colab_type="text" id="g8DnXZ1WiuNd"}
+### **Beam search**
 
-Here’s  how you can use it in `tokenizers`, including handling the RoBERTa special tokens – of course, you’ll also be able to use it direcly from `transformers`.
+Beam search reduces the risk of missing hidden high probability word
+sequences by keeping the most likely `num_beams` of hypotheses at each
+time step and eventually choosing the hypothesis that has the overall
+highest probability. Let\'s illustrate with `num_beams=2`:
 
-```python
-from tokenizers.implementations import ByteLevelBPETokenizer
-from tokenizers.processors import BertProcessing
+![Beam
+search](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/beam_search.png)
 
+At time step $1$, besides the most likely hypothesis
+$\text{"The", "woman"}$, beam search also keeps track of the second most
+likely one $\text{"The", "dog"}$. At time step $2$, beam search finds
+that the word sequence $\text{"The", "dog", "has"}$ has with $0.36$ a
+higher probability than $\text{"The", "nice", "woman"}$, which has
+$0.2$. Great, it has found the most likely word sequence in our toy
+example!
 
-tokenizer = ByteLevelBPETokenizer(
-    "./models/EsperBERTo-small/vocab.json",
-    "./models/EsperBERTo-small/merges.txt",
-)
-tokenizer._tokenizer.post_processor = BertProcessing(
-    ("</s>", tokenizer.token_to_id("</s>")),
-    ("<s>", tokenizer.token_to_id("<s>")),
-)
-tokenizer.enable_truncation(max_length=512)
+Beam search will always find an output sequence with higher probability
+than greedy search, but is not guaranteed to find the most likely
+output.
 
-print(
-    tokenizer.encode("Mi estas Julien.")
-)
-# Encoding(num_tokens=7, ...)
-# tokens: ['<s>', 'Mi', 'Ġestas', 'ĠJuli', 'en', '.', '</s>']
-```
+Let\'s see how beam search can be used in `transformers`. We set
+`num_beams > 1` and `early_stopping=True` so that generation is finished
+when all beam hypotheses reached the EOS token.
+:::
 
-## 3. Train a language model from scratch
-
-We will now train our language model using the [`run_language_modeling.py`](https://github.com/huggingface/transformers/blob/master/examples/run_language_modeling.py) script from `transformers` (newly renamed from `run_lm_finetuning.py` as it now supports training from scratch more seamlessly). Just remember to leave `--model_name_or_path` to `None` to train from scratch vs. from an existing model or checkpoint.
-
-> We’ll train a RoBERTa-like model, which is a BERT-like with a couple of changes (check the [documentation](https://huggingface.co/transformers/model_doc/roberta.html) for more details).
-
-As the model is BERT-like, we’ll train it on a task of *Masked language modeling*, i.e. the predict how to fill arbitrary tokens that we randomly mask in the dataset. This is taken care of by the example script.
-
-We just need to do two things:
-- implement a simple subclass of `Dataset` that loads data from our text files
-	- Depending on your use case, you might not even need to write your own subclass of Dataset, if one of the provided examples (`TextDataset` and `LineByLineTextDataset`) works – but there are lots of custom tweaks that you might want to add based on what your corpus looks like.
-- Choose and experiment with different sets of hyperparameters.
-
-
-Here’s a simple version of our EsperantoDataset.
-
-```python
-class EsperantoDataset(Dataset):
-    def __init__(self, evaluate: bool = false):
-        tokenizer = ByteLevelBPETokenizer(
-            "./models/EsperBERTo-small/vocab.json",
-            "./models/EsperBERTo-small/merges.txt",
-        )
-        tokenizer._tokenizer.post_processor = BertProcessing(
-            ("</s>", tokenizer.token_to_id("</s>")),
-            ("<s>", tokenizer.token_to_id("<s>")),
-        )
-        tokenizer.enable_truncation(max_length=512)
-        # or use the RobertaTokenizer from `transformers` directly.
-
-        self.examples = []
-
-        src_files = Path("./data/").glob("*-eval.txt") if evaluate else Path("./data/").glob("*-train.txt")
-        for src_file in src_files:
-            print("🔥", src_file)
-        lines = src_file.read_text(encoding="utf-8").splitlines()
-            self.examples += [x.ids for x in tokenizer.encode_batch(lines)]
-
-    def __len__(self):
-        return len(self.examples)
-
-    def __getitem__(self, i):
-        # We’ll pad at the batch level.
-        return torch.tensor(self.examples[i])
-```
-
-If your dataset is very large, you can opt to load and tokenize examples on the fly, rather than as a preprocessing step.
-
-Here is one specific set of **hyper-parameters and arguments** we pass to the script:
-
-```
-	--output_dir ./models/EsperBERTo-small-v1
-	--model_type roberta
-	--mlm
-	--config_name ./models/EsperBERTo-small
-	--tokenizer_name ./models/EsperBERTo-small
-	--do_train
-	--do_eval
-	--learning_rate 1e-4
-	--num_train_epochs 5
-	--save_total_limit 2
-	--save_steps 2000
-	--per_gpu_train_batch_size 16
-	--evaluate_during_training
-	--seed 42
-```
-
-As usual, pick the largest batch size you can fit on your GPU(s). 
-
-**🔥🔥🔥 Let’s start training!! 🔥🔥🔥**
-
-Here you can check our Tensorboard for [one particular set of hyper-parameters](https://tensorboard.dev/experiment/8AjtzdgPR1qG6bDIe1eKfw/#scalars):
-
-[![tb](assets/tensorboard.png)](https://tensorboard.dev/experiment/8AjtzdgPR1qG6bDIe1eKfw/#scalars)
-
-> Our example scripts log into the Tensorboard format by default, under `runs/`. Then to view your board just run `tensorboard dev upload --logdir runs` – this will set up [tensorboard.dev](https://tensorboard.dev/), a Google-managed hosted version that lets you share your ML experiment with anyone.
-
-## 4. Check that the LM actually trained
-
-Aside from looking at the training and eval losses going down, the easiest way to check whether our language model is learning anything interesting is via the `FillMaskPipeline`.
-
-Pipelines are simple wrappers around tokenizers and models, and the 'fill-mask' one will let you input a sequence containing a masked token (here, `<mask>`) and return a list of the most probable filled sequences, with their probabilities.
-
-```python
-from transformers import pipeline
-
-fill_mask = pipeline(
-    "fill-mask",
-    model="./models/EsperBERTo-small",
-    tokenizer="./models/EsperBERTo-small"
+::: {.cell .code execution_count="5" colab="{\"height\":102,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="R1R5kx30Ynej" outputId="574f068b-f418-48b5-8334-8451d2221032"}
+``` {.python}
+# activate beam search and early_stopping
+beam_output = model.generate(
+    input_ids, 
+    do_sample=False, 
+    max_length=50, 
+    num_beams=5, 
+    early_stopping=True
 )
 
-# The sun <mask>.
-# =>
-
-result = fill_mask("La suno <mask>.")
-
-# {'score': 0.2526160776615143, 'sequence': '<s> La suno brilis.</s>', 'token': 10820}
-# {'score': 0.0999930202960968, 'sequence': '<s> La suno lumis.</s>', 'token': 23833}
-# {'score': 0.04382849484682083, 'sequence': '<s> La suno brilas.</s>', 'token': 15006}
-# {'score': 0.026011141017079353, 'sequence': '<s> La suno falas.</s>', 'token': 7392}
-# {'score': 0.016859788447618484, 'sequence': '<s> La suno pasis.</s>', 'token': 4552}
+print("Output:\n" + 100 * '-')
+print(tokenizer.decode(beam_output[0], skip_special_tokens=True))
 ```
 
-Ok, simple syntax/grammar works. Let’s try a slightly more interesting prompt:
+::: {.output .stream .stdout}
+    Output:
+    ----------------------------------------------------------------------------------------------------
+    I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
 
-```python
-fill_mask("Jen la komenco de bela <mask>.")
+    I'm not sure if I'll ever be able to walk with him again. I'm not sure if I'll
+:::
+:::
 
-# This is the beginning of a beautiful <mask>.
-# =>
+::: {.cell .markdown colab_type="text" id="AZ6xs-KLi9jT"}
+While the result is arguably more fluent, the output still includes
+repetitions of the same word sequences.\
+A simple remedy is to introduce *n-grams* (*a.k.a* word sequences of $n$
+words) penalties as introduced by [Paulus et al.
+(2017)](https://arxiv.org/abs/1705.04304) and [Klein et al.
+(2017)](https://arxiv.org/abs/1701.02810). The most common *n-grams*
+penalty makes sure that no *n-gram* appears twice by manually setting
+the probability of next words that could create an already seen *n-gram*
+to $0$.
 
-# {
-#     'score':0.06502299010753632
-#     'sequence':'<s> Jen la komenco de bela vivo.</s>'
-#     'token':1099
-# }
-# {
-#     'score':0.0421181358397007
-#     'sequence':'<s> Jen la komenco de bela vespero.</s>'
-#     'token':5100
-# }
-# {
-#     'score':0.024884626269340515
-#     'sequence':'<s> Jen la komenco de bela laboro.</s>'
-#     'token':1570
-# }
-# {
-#     'score':0.02324388362467289
-#     'sequence':'<s> Jen la komenco de bela tago.</s>'
-#     'token':1688
-# }
-# {
-#     'score':0.020378097891807556
-#     'sequence':'<s> Jen la komenco de bela festo.</s>'
-#     'token':4580
-# }
-```
+Let\'s try it out by setting `no_repeat_ngram_size=2` so that no
+*2-gram* appears twice:
+:::
 
-> “**Jen la komenco de bela tago**”, indeed!
-
-With more complex prompts, you can probe whether your language model captured more semantic knowledge or even some sort of (statistical) common sense reasoning.
-
-
-## 5. Fine-tune your LM on a downstream task
-
-We now can fine-tune our new Esperanto language model on a downstream task of **Part-of-speech tagging.**
-
-As mentioned before, Esperanto is a highly regular language where word endings typically condition the grammatical part of speech. Using a dataset of annotated  Esperanto POS tags formatted in the CoNLL-2003 format (see example below), we can use the [`run_ner.py`](https://github.com/huggingface/transformers/blob/master/examples/run_ner.py) script from `transformers`.
-
-> POS tagging is a token classification task just as NER so we can just use the exact same script.
-
-![conll](assets/conll-2003.png)
-
-Again, here’s the hosted **[Tensorboard](https://tensorboard.dev/experiment/lOZn2wOWQo6ixpwtWyyDfQ/#scalars)** for this fine-tuning. We train for 3 epochs using a batch size of 64 per GPU.
-
-Training and eval losses converge to small residual values as the task is rather easy (the language is regular) – it’s still fun to be able to train it end-to-end 😃.
-
-This time, let’s use a `TokenClassificationPipeline`:
-
-```python
-from transformers import TokenClassificationPipeline, pipeline
-
-
-MODEL_PATH = "./models/EsperBERTo-small-pos/"
-
-nlp = pipeline(
-    "ner",
-    model=MODEL_PATH,
-    tokenizer=MODEL_PATH,
+::: {.cell .code execution_count="6" colab="{\"height\":102,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="jy3iVJgfnkMi" outputId="4d3e6511-711a-4594-a715-aaeb6e48e1a9"}
+``` {.python}
+# set no_repeat_ngram_size to 2
+beam_output = model.generate(
+    input_ids, 
+    do_sample=False, 
+    max_length=50, 
+    num_beams=5, 
+    no_repeat_ngram_size=2, 
+    early_stopping=True
 )
-# or instantiate a TokenClassificationPipeline directly.
 
-nlp("Mi estas viro kej estas tago varma.")
-
-# {'entity': 'PRON', 'score': 0.9979867339134216, 'word': ' Mi'}
-# {'entity': 'VERB', 'score': 0.9683094620704651, 'word': ' estas'}
-# {'entity': 'VERB', 'score': 0.9797462821006775, 'word': ' estas'}
-# {'entity': 'NOUN', 'score': 0.8509314060211182, 'word': ' tago'}
-# {'entity': 'ADJ', 'score': 0.9996201395988464, 'word': ' varma'}
+print("Output:\n" + 100 * '-')
+print(tokenizer.decode(beam_output[0], skip_special_tokens=True))
 ```
 
-**Looks like it worked! 🔥**
+::: {.output .stream .stdout}
+    Output:
+    ----------------------------------------------------------------------------------------------------
+    I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
 
-<small>For a more challenging dataset for NER, <a href="https://github.com/stefan-it">@stefan-it</a> recommended that we could train on the silver standard dataset from WikiANN</small>
+    I've been thinking about this for a while now, and I think it's time for me to take a break
+:::
+:::
 
-## 6. Share your model 🎉
+::: {.cell .markdown colab_type="text" id="nxsksOGDpmA0"}
+Nice, that looks much better! We can see that the repetition does not
+appear anymore. Nevertheless, *n-gram* penalties have to be used with
+care. An article generated about the city *New York* should not use a
+*2-gram* penalty or otherwise, the name of the city would only appear
+once in the whole text!
 
-Finally, when you have a nice model, please think about sharing it with the community:
+Another important feature about beam search is that we can compare the
+top beams after generation and choose the generated beam that fits our
+purpose best.
 
-- upload your model using the CLI: `transformers-cli upload`
-- write a README.md model card and add it to the repository under `model_cards/`. Your model card should ideally include:
-    - a model description,
-    - training params (dataset, preprocessing, hyperparameters), 
-    - evaluation results,
-    - intended uses & limitations
-    - whatever else is helpful! 🤓
+In `transformers`, we simply set the parameter `num_return_sequences` to
+the number of highest scoring beams that should be returned. Make sure
+though that `num_return_sequences <= num_beams`!
+:::
 
-### **TADA!**
+::: {.cell .code execution_count="7" colab="{\"height\":306,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="5ClO3VphqGp6" outputId="2296891c-024f-4fd2-9071-bff7c11a3e04"}
+``` {.python}
+# set return_num_sequences > 1
+beam_outputs = model.generate(
+    input_ids, 
+    do_sample=False, 
+    max_length=50, 
+    num_beams=5, 
+    no_repeat_ngram_size=2, 
+    num_return_sequences=5, 
+    early_stopping=True
+)
 
-➡️ Your model has a page on http://huggingface.co/models and everyone can load it using `AutoModel.from_pretrained("username/model_name")`.
+# now we have 3 output sequences
+print("Output:\n" + 100 * '-')
+for i, beam_output in enumerate(beam_outputs):
+  print("{}: {}".format(i, tokenizer.decode(beam_output, skip_special_tokens=True)))
+```
 
-[![tb](assets/model_page.png)](https://huggingface.co/julien-c/EsperBERTo-small)
+::: {.output .stream .stdout}
+    Output:
+    ----------------------------------------------------------------------------------------------------
+    0: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
+
+    I've been thinking about this for a while now, and I think it's time for me to take a break
+    1: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
+
+    I've been thinking about this for a while now, and I think it's time for me to get back to
+    2: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with her again.
+
+    I've been thinking about this for a while now, and I think it's time for me to take a break
+    3: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with her again.
+
+    I've been thinking about this for a while now, and I think it's time for me to get back to
+    4: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
+
+    I've been thinking about this for a while now, and I think it's time for me to take a step
+:::
+:::
+
+::: {.cell .markdown colab_type="text" id="HhLKyfdbsjXc"}
+As can be seen, the five beam hypotheses are only marginally different
+to each other - which should not be too surprising when using only 5
+beams.
+
+In open-ended generation, a couple of reasons have recently been brought
+forward why beam search might not be the best possible option:
+
+-   Beam search can work very well in tasks where the length of the
+    desired generation is more or less predictable as in machine
+    translation or summarization - see [Murray et
+    al. (2018)](https://arxiv.org/abs/1808.10006) and [Yang et
+    al. (2018)](https://arxiv.org/abs/1808.09582). But this is not the
+    case for open-ended generation where the desired output length can
+    vary greatly, e.g. dialog and story generation.
+
+-   We have seen that beam search heavily suffers from repetitive
+    generation. This is especially hard to control with *n-gram*- or
+    other penalties in story generation since finding a good trade-off
+    between forced \"no-repetition\" and repeating cycles of identical
+    *n-grams* requires a lot of finetuning.
+
+-   As argued in [Ari Holtzman et
+    al. (2019)](https://arxiv.org/abs/1904.09751), high quality human
+    language does not follow a distribution of high probability next
+    words. In other words, as humans, we want generated text to surprise
+    us and not to be boring/predictable. The authors show this nicely by
+    plotting the probability, a model would give to human text vs. what
+    beam search does.
+
+![alt
+text](https://blog.fastforwardlabs.com/images/2019/05/Screen_Shot_2019_05_08_at_3_06_36_PM-1557342561886.png)
+
+So let\'s stop being boring and introduce some randomness 🤪.
+:::
+
+::: {.cell .markdown colab_type="text" id="XbbIyK84wHq6"}
+### **Sampling**
+
+In its most basic form, sampling means randomly picking the next word
+$w_t$ according to its conditional probability distribution:
+
+$$w_t \sim P(w|w_{1:t-1})$$
+
+Taking the example from above, the following graphic visualizes language
+generation when sampling.
+
+![vanilla\_sampling](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/sampling_search.png)
+
+It becomes obvious that language generation using sampling is not
+*deterministic* anymore. The word $\text{"car"}$ is sampled from the
+conditioned probability distribution $P(w | \text{"The"})$, followed by
+sampling $\text{"drives"}$ from $P(w | \text{"The"}, \text{"car"})$.
+
+In `transformers`, we set `do_sample=True` and deactivate *Top-K*
+sampling (more on this later) via `top_k=0`. In the following, we will
+fix `random_seed=0` for illustration purposes. Feel free to change the
+`random_seed` to play around with the model.
+:::
+
+::: {.cell .code execution_count="8" colab="{\"height\":136,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="aRAz4D-Ks0_4" outputId="1b78d191-15f6-4cbe-e2b1-23c77366fc21"}
+``` {.python}
+# set seed to reproduce results. Feel free to change the seed though to get different results
+tf.random.set_seed(0)
+
+# activate sampling and deactivate top_k by setting top_k sampling to 0
+sample_output = model.generate(
+    input_ids, 
+    do_sample=True, 
+    max_length=50, 
+    top_k=0
+)
+
+print("Output:\n" + 100 * '-')
+print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
+```
+
+::: {.output .stream .stdout}
+    Output:
+    ----------------------------------------------------------------------------------------------------
+    I enjoy walking with my cute dog. He just gave me a whole new hand sense."
+
+    But it seems that the dogs have learned a lot from teasing at the local batte harness once they take on the outside.
+
+    "I take
+:::
+:::
+
+::: {.cell .markdown colab_type="text" id="mQHuo911wfT-"}
+Interesting! The text seems alright - but when taking a closer look, it
+is not very coherent. the *3-grams* *new hand sense* and *local batte
+harness* are very weird and don\'t sound like they were written by a
+human. That is the big problem when sampling word sequences: The models
+often generate incoherent gibberish, *cf.* [Ari Holtzman et al.
+(2019)](https://arxiv.org/abs/1904.09751).
+
+A trick is to make the distribution $P(w|w_{1:t-1})$ sharper (increasing
+the likelihood of high probability words and decreasing the likelihood
+of low probability words) by lowering the so-called `temperature` of the
+[softmax](https://en.wikipedia.org/wiki/Softmax_function#Smooth_arg_max).
+
+An illustration of applying temperature to our example from above could
+look as follows.
+
+![top\_p\_sampling](https://github.com/patrickvonplaten/scientific_images/blob/master/sampling_search_with_temp.png?raw=true)
+
+The conditional next word distribution of step $t=1$ becomes much
+sharper leaving almost no chance for word $\text{"car"}$ to be selected.
+
+Let\'s see how we can cool down the distribution in the library by
+setting `temperature=0.7`:
+:::
+
+::: {.cell .code execution_count="9" colab="{\"height\":88,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="WgJredc-0j0Z" outputId="a4e79355-8e3c-4788-fa21-c4e28bf61c5b"}
+``` {.python}
+# set seed to reproduce results. Feel free to change the seed though to get different results
+tf.random.set_seed(0)
+
+# use temperature to decrease the sensitivity to low probability candidates
+sample_output = model.generate(
+    input_ids, 
+    do_sample=True, 
+    max_length=50, 
+    top_k=0, 
+    temperature=0.7
+)
+
+print("Output:\n" + 100 * '-')
+print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
+```
+
+::: {.output .stream .stdout}
+    Output:
+    ----------------------------------------------------------------------------------------------------
+    I enjoy walking with my cute dog, but I don't like to be at home too much. I also find it a bit weird when I'm out shopping. I am always away from my house a lot, but I do have a few friends
+:::
+:::
+
+::: {.cell .markdown colab_type="text" id="kzGuu24hZZnq"}
+OK. There are less weird n-grams and the output is a bit more coherent
+now! While applying temperature can make a distribution less random, in
+its limit, when setting `temperature` \$ \\to 0\$, temperature scaled
+sampling becomes equal to greedy decoding and will suffer from the same
+problems as before.
+:::
+
+::: {.cell .markdown colab_type="text" id="binNTroyzQBu"}
+### **Top-K Sampling**
+
+[Fan et. al (2018)](https://arxiv.org/pdf/1805.04833.pdf) introduced a
+simple, but very powerful sampling scheme, called ***Top-K*** sampling.
+In *Top-K* sampling, the *K* most likely next words are filtered and the
+probability mass is redistributed among only those *K* next words. GPT2
+adopted this sampling scheme, which was one of the reasons for its
+success in story generation.
+
+We extend the range of words used for both sampling steps in the example
+above from 3 words to 10 words to better illustrate *Top-K* sampling.
+
+![top\_k\_sampling](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/top_k_sampling.png)
+
+Having set $K = 6$, in both sampling steps we limit our sampling pool to
+6 words. While the 6 most likely words, defined as $V_{\text{top-K}}$
+encompass only *ca.* two-thirds of the whole probability mass in the
+first step, it includes almost all of the probability mass in the second
+step. Nevertheless, we see that it successfully eliminates the rather
+weird candidates $\text{"not", "the", "small", "told"}$ in the second
+sampling step.
+
+Let\'s see how *Top-K* can be used in the library by setting `top_k=50`:
+:::
+
+::: {.cell .code execution_count="11" colab="{\"height\":156,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="HBtDOdD0wx3l" outputId="cfc97fac-0956-42ee-a6e5-cad14fc942d3"}
+``` {.python}
+# set seed to reproduce results. Feel free to change the seed though to get different results
+tf.random.set_seed(0)
+
+# set top_k to 50
+sample_output = model.generate(
+    input_ids, 
+    do_sample=True, 
+    max_length=50, 
+    top_k=50
+)
+
+print("Output:\n" + 100 * '-')
+print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
+```
+
+::: {.output .stream .stdout}
+    Output:
+    ----------------------------------------------------------------------------------------------------
+    I enjoy walking with my cute dog. It's so good to have an environment where your dog is available to share with you and we'll be taking care of you.
+
+    We hope you'll find this story interesting!
+
+    I am from
+:::
+:::
+
+::: {.cell .markdown colab_type="text" id="Y77H5m4ZmhEX"}
+Not bad at all! The text is arguably the most *human-sounding* text so
+far. One concern though with *Top-K* sampling is that it does not
+dynamically adapt the number of words that are filtered from the next
+word probability distribution $P(w|w_{1:t-1})$. This can be problematic
+as some words might be sampled from a very sharp distribution
+(distribution on the right in the graph above), whereas others from a
+much more flat distribution (distribution on the left in the graph
+above).
+
+In step $t=1$, *Top-K* eliminates the possibility to sample
+$\text{"people", "big", "house", "cat"}$, which seem like reasonable
+candidates. On the other hand, in step $t=2$ the method includes the
+arguably ill-fitted words $\text{"down", "a"}$ in the sample pool of
+words. Thus, limiting the sample pool to a fixed size *K* could endanger
+the model to produce gibberish for sharp distributions and limit the
+model\'s creativity for flat distribution. This intuition led [Ari
+Holtzman et al. (2019)](https://arxiv.org/abs/1904.09751) to create
+***Top-p***- or ***nucleus***-sampling.
+:::
+
+::: {.cell .markdown colab_type="text" id="ki9LAaexzV3H"}
+### **Top-p (nucleus) sampling**
+
+Instead of sampling only from the most likely *K* words, in *Top-p*
+sampling chooses from the smallest possible set of words whose
+cumulative probability exceeds the probability *p*. The probability mass
+is then redistributed among this set of words. This way, the size of the
+set of words (*a.k.a* the number of words in the set) can dynamically
+increase and decrease according to the next word\'s probability
+distribution. Ok, that was very wordy, let\'s visualize.
+
+![top\_p\_sampling](https://github.com/patrickvonplaten/scientific_images/blob/master/top_p_sampling.png?raw=true)
+
+Having set $p=0.92$, *Top-p* sampling picks the *minimum* number of
+words to exceed together $p=92\%$ of the probability mass, defined as
+$V_{\text{top-p}}$. In the first example, this included the 9 most
+likely words, whereas it only has to pick the top 3 words in the second
+example to exceed 92%. Quite simple actually! It can be seen that it
+keeps a wide range of words where the next word is arguably less
+predictable, *e.g.* $P(w | \text{"The"})$, and only a few words when the
+next word seems more predictable, *e.g.* $P(w | \text{"The", "car"})$.
+
+Alright, time to check it out in `transformers`! We activate *Top-p*
+sampling by setting `0 < top_p < 1`:
+:::
+
+::: {.cell .code execution_count="10" colab="{\"height\":170,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="EvwIc7YAx77F" outputId="57e2b785-5dcb-4e06-9869-078b758b6a82"}
+``` {.python}
+# set seed to reproduce results. Feel free to change the seed though to get different results
+tf.random.set_seed(0)
+
+# deactivate top_k sampling and sample only from 92% most likely words
+sample_output = model.generate(
+    input_ids, 
+    do_sample=True, 
+    max_length=50, 
+    top_p=0.92, 
+    top_k=0
+)
+
+print("Output:\n" + 100 * '-')
+print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
+```
+
+::: {.output .stream .stdout}
+    Output:
+    ----------------------------------------------------------------------------------------------------
+    I enjoy walking with my cute dog. He will never be the same. I watch him play.
 
 
-If you want to take a look at models in different languages, check https://huggingface.co/models
+    Guys, my dog needs a name. Especially if he is found with wings.
 
-[![all models](https://huggingface.co/front/thumbnails/models.png)](https://huggingface.co/models)
 
-## Thank you!
+    What was that? I had a lot of
+:::
+:::
 
-![](assets/EsperBERTo-thumbnail-v2.png)
+::: {.cell .markdown colab_type="text" id="tn-8gLaR4lat"}
+Great, that sounds like it could have been written by a human. Well,
+maybe not quite yet.
 
-<div class="typeform-widget" data-url="https://clement407383.typeform.com/to/LsohIc" style="width: 100%; height: 500px;"></div> <script> (function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm", b="https://embed.typeform.com/"; if(!gi.call(d,id)) { js=ce.call(d,"script"); js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })() </script>
+While in theory, *Top-p* seems more elegant than *Top-K*, both methods
+work well in practice. *Top-p* can also be used in combination with
+*Top-K*, which can avoid very low ranked words while allowing for some
+dynamic selection.
+
+Finally, to get multiple independently sampled outputs, we can *again*
+set the parameter `num_return_sequences > 1`:
+:::
+
+::: {.cell .code execution_count="12" colab="{\"height\":190,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="3kY8P9VG8Gi9" outputId="6103051e-1681-4ab9-a9c1-1fad437c299d"}
+``` {.python}
+# set seed to reproduce results. Feel free to change the seed though to get different results
+tf.random.set_seed(0)
+
+# set top_k = 50 and set top_p = 0.95 and num_return_sequences = 3
+sample_outputs = model.generate(
+    input_ids,
+    do_sample=True, 
+    max_length=50, 
+    top_k=50, 
+    top_p=0.95, 
+    num_return_sequences=3
+)
+
+print("Output:\n" + 100 * '-')
+for i, sample_output in enumerate(sample_outputs):
+  print("{}: {}".format(i, tokenizer.decode(sample_output, skip_special_tokens=True)))
+```
+
+::: {.output .stream .stdout}
+    Output:
+    ----------------------------------------------------------------------------------------------------
+    0: I enjoy walking with my cute dog. It's so good to have the chance to walk with a dog. But I have this problem with the dog and how he's always looking at us and always trying to make me see that I can do something
+    1: I enjoy walking with my cute dog, she loves taking trips to different places on the planet, even in the desert! The world isn't big enough for us to travel by the bus with our beloved pup, but that's where I find my love
+    2: I enjoy walking with my cute dog and playing with our kids," said David J. Smith, director of the Humane Society of the US.
+
+    "So as a result, I've got more work in my time," he said.
+:::
+:::
+
+::: {.cell .markdown colab_type="text" id="-vRPfMl88rk0"}
+Cool, now you should have all the tools to let your model write your
+stories with `transformers`!
+:::
+
+::: {.cell .markdown colab_type="text" id="NsWd7e98Vcs3"}
+### **Conclusion**
+
+As *ad-hoc* decoding methods, *top-p* and *top-K* sampling seem to
+produce more fluent text than traditional *greedy* - and *beam* search
+on open-ended language generation. Recently, there has been more
+evidence though that the apparent flaws of *greedy* and *beam* search -
+mainly generating repetitive word sequences - are caused by the model
+(especially the way the model is trained), rather than the decoding
+method, *cf.* [Welleck et al.
+(2019)](https://arxiv.org/pdf/1908.04319.pdf). Also, as demonstrated in
+[Welleck et al. (2020)](https://arxiv.org/abs/2002.02492), it looks as
+*top-K* and *top-p* sampling also suffer from generating repetitive word
+sequences.
+
+In [Welleck et al. (2019)](https://arxiv.org/pdf/1908.04319.pdf), the
+authors show that according to human evaluations, *beam* search can
+generate more fluent text than *Top-p* sampling, when adapting the
+model\'s training objective.
+
+Open-ended language generation is a rapidly evolving field of research
+and as it is often the case there is no one-size-fits-all method here,
+so one has to see what works best in one\'s specific use case.
+
+Good thing, that *you* can try out all the different decoding methods in
+`transfomers` 🤗.
+
+That was a short introduction on how to use different decoding methods
+in `transformers` and recent trends in open-ended language generation.
+Feedback and questions are very welcome on the [Github
+repository](https://github.com/huggingface/transformers).
+:::
+
+::: {.cell .markdown colab_type="text" id="w4CYi91h11yd"}
+### **Appendix**
+
+There are a couple of additional parameters for the `generate` method
+that were not mentioned above. We will explain them here briefly!
+
+-   `min_length` can be used to force the model to not produce an EOS
+    token (= not finish the sentence) before `min_length` is reached.
+    This is used quite frequently in summarization, but can be useful in
+    general if the user wants to have longer outputs.
+
+-   `repetition_penalty` can be used to penalize words that were already
+    generated or belong to the context. It was first introduced by
+    [Kesker et al. (2019)](https://arxiv.org/abs/1909.05858) and is also
+    used in the training objective in [Welleck et
+    al. (2019)](https://arxiv.org/pdf/1908.04319.pdf). It can be quite
+    effective at preventing repetitions, but seems to be very sensitive
+    to different models and use cases, *e.g.* see this
+    [discussion](https://github.com/huggingface/transformers/pull/2303)
+    on Github.
+
+-   `attention_mask` can be used to mask padded tokens
+
+-   `pad_token_id`, `bos_token_id`, `eos_token_id`: If the model does
+    not have those tokens by default, the user can manually choose other
+    token ids to represent them.
+
+For more information please also look into the `generate` function
+[docstring](https://huggingface.co/transformers/main_classes/model.html?highlight=generate#transformers.TFPreTrainedModel.generate).
+:::

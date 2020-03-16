@@ -1,35 +1,25 @@
----
-jupyter:
-  accelerator: GPU
-  colab:
-    include_colab_link: true
-    name: 02\_how\_to\_generate.ipynb
-    toc_visible: true
-  kernelspec:
-    display_name: Python 3
-    name: python3
-  nbformat: 4
-  nbformat_minor: 0
----
+<div class="cell markdown" data-colab_type="text" id="view-in-github">
 
-::: {.cell .markdown colab_type="text" id="view-in-github"}
-`<a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/add_language_generation_tutorial/02_how_to_generate.ipynb" target="_parent">`{=html}`<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>`{=html}`</a>`{=html}
-:::
+<a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/add_language_generation_tutorial/02_how_to_generate.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
-::: {.cell .markdown colab_type="text" id="Vp3XPuaTu9jl"}
-How to use different decoding methods for open-ended language generation with `transformers`
-============================================================================================
-:::
+</div>
 
-::: {.cell .markdown colab_type="text" id="KxLvv6UaPa33"}
+<div class="cell markdown" data-colab_type="text" id="Vp3XPuaTu9jl">
+
+# How to use different decoding methods for open-ended language generation with `transformers`
+
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="KxLvv6UaPa33">
+
 ### **Introduction**
 
 In recent years, there has been an increasing interest in open-ended
 language generation thanks to the rise of large transformer-based
-language models trained on millions of webpages, such as OpenAI\'s
-famous [GPT2 model](https://openai.com/blog/better-language-models/).
-The results on conditioned open-ended language generation are
-impressive, e.g. [GPT2 on
+language models trained on millions of webpages, such as OpenAI's famous
+[GPT2 model](https://openai.com/blog/better-language-models/). The
+results on conditioned open-ended language generation are impressive,
+e.g. [GPT2 on
 unicorns](https://openai.com/blog/better-language-models/#samples),
 [XLNet](https://medium.com/@amanrusia/xlnet-speaks-comparison-to-gpt-2-ea1a4e9ba39e),
 [Controlled language with
@@ -40,7 +30,7 @@ role.
 
 This blog post gives a brief overview of different decoding strategies
 and more importantly shows how *you* can implement them with very little
-effort using the popular `transformers` library!
+effort using the popular `transformers` library\!
 
 All of the following functionalities can be used for **auto-regressive**
 language generation ([here](http://jalammar.github.io/illustrated-gpt2/)
@@ -48,37 +38,43 @@ a refresher). In short, *auto-regressive* language generation is based
 on the assumption that the probability distribution of a word sequence
 can be decomposed into the product of conditional next word
 distributions:
-$$ P(w_{1:T} | W_0 ) = \prod_{t=1}^T P(w_{t} | w_{1: t-1}, W_0) \text{ ,with }  w_{1: 0} = \emptyset, $$
+\[ P(w_{1:T} | W_0 ) = \prod_{t=1}^T P(w_{t} | w_{1: t-1}, W_0) \text{ ,with }  w_{1: 0} = \emptyset, \]
 
-and $W_0$ being the initial *context* word sequence. The length $T$ of
-the word sequence is usually determined *on-the-fly* and corresponds to
-the timestep $t=T$ the EOS token is generated from
-$P(w_{t} | w_{1: t-1}, W_{0})$.
+and \(W_0\) being the initial *context* word sequence. The length \(T\)
+of the word sequence is usually determined *on-the-fly* and corresponds
+to the timestep \(t=T\) the EOS token is generated from
+\(P(w_{t} | w_{1: t-1}, W_{0})\).
 
 Auto-regressive language generation is now available for `GPT2`,
 `XLNet`, `OpenAi-GPT`, `CTRL`, `TransfoXL`, `XLM`, `Bart`, `T5` in both
-PyTorch and Tensorflow \>= 2.0!
+PyTorch and Tensorflow \>= 2.0\!
 
 We will give a tour of the currently most prominent decoding methods,
 mainly *Greedy search*, *Beam search*, *Top-K sampling* and *Top-p
 sampling*.
-:::
 
-::: {.cell .markdown colab_type="text" id="Si4GyYhOQMzi"}
-Let\'s quickly install transformers and load the model. We will use GPT2
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="Si4GyYhOQMzi">
+
+Let's quickly install transformers and load the model. We will use GPT2
 in Tensorflow 2.1 for demonstration, but the API is 1-to-1 the same for
 PyTorch.
-:::
 
-::: {.cell .code execution_count="0" colab="{}" colab_type="code" id="XbzZ_IVTtoQe"}
-``` {.python}
+</div>
+
+<div class="cell code" data-execution_count="0" data-colab="{}" data-colab_type="code" id="XbzZ_IVTtoQe">
+
+``` python
 !pip install -q git+https://github.com/huggingface/transformers.git
 !pip install -q tensorflow==2.1
 ```
-:::
 
-::: {.cell .code execution_count="0" colab="{}" colab_type="code" id="ue2kOQhXTAMU"}
-``` {.python}
+</div>
+
+<div class="cell code" data-execution_count="0" data-colab="{}" data-colab_type="code" id="ue2kOQhXTAMU">
+
+``` python
 import tensorflow as tf
 from transformers import TFGPT2LMHeadModel, GPT2Tokenizer
 
@@ -88,31 +84,36 @@ tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 # add the EOS token as PAD token to avoid warnings
 model = TFGPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_token_id)
 ```
-:::
 
-::: {.cell .markdown colab_type="text" id="a8Y7cgu9ohXP"}
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="a8Y7cgu9ohXP">
+
 ### **Greedy Search**
 
 Greedy search simply selects the word with the highest probability as
-its next word: $w_t = argmax_{w}P(w | w_{1:t-1})$ at each timestep $t$.
-The following sketch shows greedy search.
+its next word: \(w_t = argmax_{w}P(w | w_{1:t-1})\) at each timestep
+\(t\). The following sketch shows greedy search.
 
-![Greedy
-Search](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/greedy_search.png)
+![Greedy Search](images/dd829fd63059ed261dd8281a28925f768f680bc0.png)
 
-Starting from the word $\text{"The"}$, the algorithm greedily chooses
-the next word of highest probability $\text{"nice"}$ and so on, so that
-the final generated word sequence is $\text{"The", "nice", "woman"}$
-having an overall probability of $0.5 \times 0.4 = 0.2$.
+Starting from the word \(\text{"The"}\), the algorithm greedily chooses
+the next word of highest probability \(\text{"nice"}\) and so on, so
+that the final generated word sequence is
+\(\text{"The", "nice", "woman"}\) having an overall probability of
+\(0.5 \times 0.4 = 0.2\).
 
 In the following we will generate word sequences using GPT2 on the
-context $(\text{"I", "enjoy", "walking", "with", "my", "cute", "dog"})$.
-Let\'s see how greedy search can be used in `transformers` by setting
+context
+\((\text{"I", "enjoy", "walking", "with", "my", "cute", "dog"})\). Let's
+see how greedy search can be used in `transformers` by setting
 `do_sample=False` when calling the `generate()` method:
-:::
 
-::: {.cell .code execution_count="4" colab="{\"height\":122,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="OWLd_J6lXz_t" outputId="3b9dfd1e-21e6-44f4-f27f-8e975010f9af"}
-``` {.python}
+</div>
+
+<div class="cell code" data-execution_count="4" data-colab="{&quot;height&quot;:122,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="OWLd_J6lXz_t" data-outputId="3b9dfd1e-21e6-44f4-f27f-8e975010f9af">
+
+``` python
 # encode context the generation is conditioned on
 input_ids = tokenizer.encode('I enjoy walking with my cute dog', return_tensors='tf')
 
@@ -123,66 +124,73 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
 ```
 
-::: {.output .stream .stdout}
+<div class="output stream stdout">
+
     Output:
     ----------------------------------------------------------------------------------------------------
     I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with my dog. I'm not sure if I'll ever be able to walk with my dog.
-
+    
     I'm not sure if I'll
-:::
-:::
 
-::: {.cell .markdown colab_type="text" id="BBn1ePmJvhrl"}
-Alright! We have generated our first short text with GPT2 😊. The
+</div>
+
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="BBn1ePmJvhrl">
+
+Alright\! We have generated our first short text with GPT2 😊. The
 generated words following the context are reasonable, but the model
-quickly starts repeating itself! This is a very common problem in
+quickly starts repeating itself\! This is a very common problem in
 language generation in general and seems to be even more so in greedy
-and beam search - check out [Vijayakumar et al.,
-2016](https://arxiv.org/abs/1610.02424) and [Shao et al.,
-2017](https://arxiv.org/abs/1701.03185).
+and beam search - check out [Vijayakumar et
+al., 2016](https://arxiv.org/abs/1610.02424) and [Shao et
+al., 2017](https://arxiv.org/abs/1701.03185).
 
 The major drawback of greedy search though is that it misses high
 probability words hidden behind a low probability word as can be seen in
 our sketch above:
 
-The word $\text{"has"}$ with its high conditional probability of $0.9$
-is hidden behind the word $\text{"dog"}$, which has only the
+The word \(\text{"has"}\) with its high conditional probability of
+\(0.9\) is hidden behind the word \(\text{"dog"}\), which has only the
 second-highest conditional probability, so that greedy search misses the
-word sequence $\text{"The"}, \text{"dog"}, \text{"has"}$.
+word sequence \(\text{"The"}, \text{"dog"}, \text{"has"}\).
 
-Thankfully, we have beam search to alleviate this problem!
-:::
+Thankfully, we have beam search to alleviate this problem\!
 
-::: {.cell .markdown colab_type="text" id="g8DnXZ1WiuNd"}
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="g8DnXZ1WiuNd">
+
 ### **Beam search**
 
 Beam search reduces the risk of missing hidden high probability word
 sequences by keeping the most likely `num_beams` of hypotheses at each
 time step and eventually choosing the hypothesis that has the overall
-highest probability. Let\'s illustrate with `num_beams=2`:
+highest probability. Let's illustrate with `num_beams=2`:
 
-![Beam
-search](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/beam_search.png)
+![Beam search](images/1a630b9672e34416f7a8658cb8c8746fe00ed2a0.png)
 
-At time step $1$, besides the most likely hypothesis
-$\text{"The", "woman"}$, beam search also keeps track of the second most
-likely one $\text{"The", "dog"}$. At time step $2$, beam search finds
-that the word sequence $\text{"The", "dog", "has"}$ has with $0.36$ a
-higher probability than $\text{"The", "nice", "woman"}$, which has
-$0.2$. Great, it has found the most likely word sequence in our toy
-example!
+At time step \(1\), besides the most likely hypothesis
+\(\text{"The", "woman"}\), beam search also keeps track of the second
+most likely one \(\text{"The", "dog"}\). At time step \(2\), beam search
+finds that the word sequence \(\text{"The", "dog", "has"}\) has with
+\(0.36\) a higher probability than \(\text{"The", "nice", "woman"}\),
+which has \(0.2\). Great, it has found the most likely word sequence in
+our toy example\!
 
 Beam search will always find an output sequence with higher probability
 than greedy search, but is not guaranteed to find the most likely
 output.
 
-Let\'s see how beam search can be used in `transformers`. We set
+Let's see how beam search can be used in `transformers`. We set
 `num_beams > 1` and `early_stopping=True` so that generation is finished
 when all beam hypotheses reached the EOS token.
-:::
 
-::: {.cell .code execution_count="5" colab="{\"height\":102,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="R1R5kx30Ynej" outputId="574f068b-f418-48b5-8334-8451d2221032"}
-``` {.python}
+</div>
+
+<div class="cell code" data-execution_count="5" data-colab="{&quot;height&quot;:102,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="R1R5kx30Ynej" data-outputId="574f068b-f418-48b5-8334-8451d2221032">
+
+``` python
 # activate beam search and early_stopping
 beam_output = model.generate(
     input_ids, 
@@ -196,32 +204,38 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(beam_output[0], skip_special_tokens=True))
 ```
 
-::: {.output .stream .stdout}
+<div class="output stream stdout">
+
     Output:
     ----------------------------------------------------------------------------------------------------
     I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
-
+    
     I'm not sure if I'll ever be able to walk with him again. I'm not sure if I'll
-:::
-:::
 
-::: {.cell .markdown colab_type="text" id="AZ6xs-KLi9jT"}
+</div>
+
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="AZ6xs-KLi9jT">
+
 While the result is arguably more fluent, the output still includes
-repetitions of the same word sequences.\
-A simple remedy is to introduce *n-grams* (*a.k.a* word sequences of $n$
-words) penalties as introduced by [Paulus et al.
+repetitions of the same word sequences.  
+A simple remedy is to introduce *n-grams* (*a.k.a* word sequences of
+\(n\) words) penalties as introduced by [Paulus et al.
 (2017)](https://arxiv.org/abs/1705.04304) and [Klein et al.
 (2017)](https://arxiv.org/abs/1701.02810). The most common *n-grams*
 penalty makes sure that no *n-gram* appears twice by manually setting
 the probability of next words that could create an already seen *n-gram*
-to $0$.
+to \(0\).
 
-Let\'s try it out by setting `no_repeat_ngram_size=2` so that no
-*2-gram* appears twice:
-:::
+Let's try it out by setting `no_repeat_ngram_size=2` so that no *2-gram*
+appears twice:
 
-::: {.cell .code execution_count="6" colab="{\"height\":102,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="jy3iVJgfnkMi" outputId="4d3e6511-711a-4594-a715-aaeb6e48e1a9"}
-``` {.python}
+</div>
+
+<div class="cell code" data-execution_count="6" data-colab="{&quot;height&quot;:102,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="jy3iVJgfnkMi" data-outputId="4d3e6511-711a-4594-a715-aaeb6e48e1a9">
+
+``` python
 # set no_repeat_ngram_size to 2
 beam_output = model.generate(
     input_ids, 
@@ -236,21 +250,25 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(beam_output[0], skip_special_tokens=True))
 ```
 
-::: {.output .stream .stdout}
+<div class="output stream stdout">
+
     Output:
     ----------------------------------------------------------------------------------------------------
     I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
-
+    
     I've been thinking about this for a while now, and I think it's time for me to take a break
-:::
-:::
 
-::: {.cell .markdown colab_type="text" id="nxsksOGDpmA0"}
-Nice, that looks much better! We can see that the repetition does not
+</div>
+
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="nxsksOGDpmA0">
+
+Nice, that looks much better\! We can see that the repetition does not
 appear anymore. Nevertheless, *n-gram* penalties have to be used with
 care. An article generated about the city *New York* should not use a
 *2-gram* penalty or otherwise, the name of the city would only appear
-once in the whole text!
+once in the whole text\!
 
 Another important feature about beam search is that we can compare the
 top beams after generation and choose the generated beam that fits our
@@ -258,11 +276,13 @@ purpose best.
 
 In `transformers`, we simply set the parameter `num_return_sequences` to
 the number of highest scoring beams that should be returned. Make sure
-though that `num_return_sequences <= num_beams`!
-:::
+though that `num_return_sequences <= num_beams`\!
 
-::: {.cell .code execution_count="7" colab="{\"height\":306,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="5ClO3VphqGp6" outputId="2296891c-024f-4fd2-9071-bff7c11a3e04"}
-``` {.python}
+</div>
+
+<div class="cell code" data-execution_count="7" data-colab="{&quot;height&quot;:306,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="5ClO3VphqGp6" data-outputId="2296891c-024f-4fd2-9071-bff7c11a3e04">
+
+``` python
 # set return_num_sequences > 1
 beam_outputs = model.generate(
     input_ids, 
@@ -280,28 +300,32 @@ for i, beam_output in enumerate(beam_outputs):
   print("{}: {}".format(i, tokenizer.decode(beam_output, skip_special_tokens=True)))
 ```
 
-::: {.output .stream .stdout}
+<div class="output stream stdout">
+
     Output:
     ----------------------------------------------------------------------------------------------------
     0: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
-
+    
     I've been thinking about this for a while now, and I think it's time for me to take a break
     1: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
-
+    
     I've been thinking about this for a while now, and I think it's time for me to get back to
     2: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with her again.
-
+    
     I've been thinking about this for a while now, and I think it's time for me to take a break
     3: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with her again.
-
+    
     I've been thinking about this for a while now, and I think it's time for me to get back to
     4: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
-
+    
     I've been thinking about this for a while now, and I think it's time for me to take a step
-:::
-:::
 
-::: {.cell .markdown colab_type="text" id="HhLKyfdbsjXc"}
+</div>
+
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="HhLKyfdbsjXc">
+
 As can be seen, the five beam hypotheses are only marginally different
 to each other - which should not be too surprising when using only 5
 beams.
@@ -309,60 +333,64 @@ beams.
 In open-ended generation, a couple of reasons have recently been brought
 forward why beam search might not be the best possible option:
 
--   Beam search can work very well in tasks where the length of the
+  - Beam search can work very well in tasks where the length of the
     desired generation is more or less predictable as in machine
-    translation or summarization - see [Murray et
-    al. (2018)](https://arxiv.org/abs/1808.10006) and [Yang et
-    al. (2018)](https://arxiv.org/abs/1808.09582). But this is not the
-    case for open-ended generation where the desired output length can
-    vary greatly, e.g. dialog and story generation.
+    translation or summarization - see [Murray et al.
+    (2018)](https://arxiv.org/abs/1808.10006) and [Yang et al.
+    (2018)](https://arxiv.org/abs/1808.09582). But this is not the case
+    for open-ended generation where the desired output length can vary
+    greatly, e.g. dialog and story generation.
 
--   We have seen that beam search heavily suffers from repetitive
+  - We have seen that beam search heavily suffers from repetitive
     generation. This is especially hard to control with *n-gram*- or
     other penalties in story generation since finding a good trade-off
-    between forced \"no-repetition\" and repeating cycles of identical
+    between forced "no-repetition" and repeating cycles of identical
     *n-grams* requires a lot of finetuning.
 
--   As argued in [Ari Holtzman et
-    al. (2019)](https://arxiv.org/abs/1904.09751), high quality human
+  - As argued in [Ari Holtzman et al.
+    (2019)](https://arxiv.org/abs/1904.09751), high quality human
     language does not follow a distribution of high probability next
     words. In other words, as humans, we want generated text to surprise
     us and not to be boring/predictable. The authors show this nicely by
     plotting the probability, a model would give to human text vs. what
     beam search does.
 
-![alt
-text](https://blog.fastforwardlabs.com/images/2019/05/Screen_Shot_2019_05_08_at_3_06_36_PM-1557342561886.png)
+![alt text](images/9440e28fce11fc1bebb39f4dddefa24ad152148e.png)
 
-So let\'s stop being boring and introduce some randomness 🤪.
-:::
+So let's stop being boring and introduce some randomness 🤪.
 
-::: {.cell .markdown colab_type="text" id="XbbIyK84wHq6"}
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="XbbIyK84wHq6">
+
 ### **Sampling**
 
 In its most basic form, sampling means randomly picking the next word
-$w_t$ according to its conditional probability distribution:
+\(w_t\) according to its conditional probability distribution:
 
-$$w_t \sim P(w|w_{1:t-1})$$
+\[w_t \sim P(w|w_{1:t-1})\]
 
 Taking the example from above, the following graphic visualizes language
 generation when sampling.
 
-![vanilla\_sampling](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/sampling_search.png)
+![vanilla\_sampling](images/b52f44cf799cbc148384002dea77b2ef355ecd83.png)
 
 It becomes obvious that language generation using sampling is not
-*deterministic* anymore. The word $\text{"car"}$ is sampled from the
-conditioned probability distribution $P(w | \text{"The"})$, followed by
-sampling $\text{"drives"}$ from $P(w | \text{"The"}, \text{"car"})$.
+*deterministic* anymore. The word \(\text{"car"}\) is sampled from the
+conditioned probability distribution \(P(w | \text{"The"})\), followed
+by sampling \(\text{"drives"}\) from
+\(P(w | \text{"The"}, \text{"car"})\).
 
 In `transformers`, we set `do_sample=True` and deactivate *Top-K*
 sampling (more on this later) via `top_k=0`. In the following, we will
 fix `random_seed=0` for illustration purposes. Feel free to change the
 `random_seed` to play around with the model.
-:::
 
-::: {.cell .code execution_count="8" colab="{\"height\":136,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="aRAz4D-Ks0_4" outputId="1b78d191-15f6-4cbe-e2b1-23c77366fc21"}
-``` {.python}
+</div>
+
+<div class="cell code" data-execution_count="8" data-colab="{&quot;height&quot;:136,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="aRAz4D-Ks0_4" data-outputId="1b78d191-15f6-4cbe-e2b1-23c77366fc21">
+
+``` python
 # set seed to reproduce results. Feel free to change the seed though to get different results
 tf.random.set_seed(0)
 
@@ -378,44 +406,52 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 ```
 
-::: {.output .stream .stdout}
+<div class="output stream stdout">
+
     Output:
     ----------------------------------------------------------------------------------------------------
     I enjoy walking with my cute dog. He just gave me a whole new hand sense."
-
+    
     But it seems that the dogs have learned a lot from teasing at the local batte harness once they take on the outside.
-
+    
     "I take
-:::
-:::
 
-::: {.cell .markdown colab_type="text" id="mQHuo911wfT-"}
-Interesting! The text seems alright - but when taking a closer look, it
+</div>
+
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="mQHuo911wfT-">
+
+Interesting\! The text seems alright - but when taking a closer look, it
 is not very coherent. the *3-grams* *new hand sense* and *local batte
-harness* are very weird and don\'t sound like they were written by a
+harness* are very weird and don't sound like they were written by a
 human. That is the big problem when sampling word sequences: The models
 often generate incoherent gibberish, *cf.* [Ari Holtzman et al.
 (2019)](https://arxiv.org/abs/1904.09751).
 
-A trick is to make the distribution $P(w|w_{1:t-1})$ sharper (increasing
-the likelihood of high probability words and decreasing the likelihood
-of low probability words) by lowering the so-called `temperature` of the
+A trick is to make the distribution \(P(w|w_{1:t-1})\) sharper
+(increasing the likelihood of high probability words and decreasing the
+likelihood of low probability words) by lowering the so-called
+`temperature` of the
 [softmax](https://en.wikipedia.org/wiki/Softmax_function#Smooth_arg_max).
 
 An illustration of applying temperature to our example from above could
 look as follows.
 
-![top\_p\_sampling](https://github.com/patrickvonplaten/scientific_images/blob/master/sampling_search_with_temp.png?raw=true)
+![top\_p\_sampling](images/149d0dcecab953c4d8a547f6c438d175700f2d58.png)
 
-The conditional next word distribution of step $t=1$ becomes much
-sharper leaving almost no chance for word $\text{"car"}$ to be selected.
+The conditional next word distribution of step \(t=1\) becomes much
+sharper leaving almost no chance for word \(\text{"car"}\) to be
+selected.
 
-Let\'s see how we can cool down the distribution in the library by
+Let's see how we can cool down the distribution in the library by
 setting `temperature=0.7`:
-:::
 
-::: {.cell .code execution_count="9" colab="{\"height\":88,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="WgJredc-0j0Z" outputId="a4e79355-8e3c-4788-fa21-c4e28bf61c5b"}
-``` {.python}
+</div>
+
+<div class="cell code" data-execution_count="9" data-colab="{&quot;height&quot;:88,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="WgJredc-0j0Z" data-outputId="a4e79355-8e3c-4788-fa21-c4e28bf61c5b">
+
+``` python
 # set seed to reproduce results. Feel free to change the seed though to get different results
 tf.random.set_seed(0)
 
@@ -432,22 +468,28 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 ```
 
-::: {.output .stream .stdout}
+<div class="output stream stdout">
+
     Output:
     ----------------------------------------------------------------------------------------------------
     I enjoy walking with my cute dog, but I don't like to be at home too much. I also find it a bit weird when I'm out shopping. I am always away from my house a lot, but I do have a few friends
-:::
-:::
 
-::: {.cell .markdown colab_type="text" id="kzGuu24hZZnq"}
+</div>
+
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="kzGuu24hZZnq">
+
 OK. There are less weird n-grams and the output is a bit more coherent
-now! While applying temperature can make a distribution less random, in
-its limit, when setting `temperature` \$ \\to 0\$, temperature scaled
+now\! While applying temperature can make a distribution less random, in
+its limit, when setting `temperature` $ \\to 0$, temperature scaled
 sampling becomes equal to greedy decoding and will suffer from the same
 problems as before.
-:::
 
-::: {.cell .markdown colab_type="text" id="binNTroyzQBu"}
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="binNTroyzQBu">
+
 ### **Top-K Sampling**
 
 [Fan et. al (2018)](https://arxiv.org/pdf/1805.04833.pdf) introduced a
@@ -460,21 +502,23 @@ success in story generation.
 We extend the range of words used for both sampling steps in the example
 above from 3 words to 10 words to better illustrate *Top-K* sampling.
 
-![top\_k\_sampling](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/top_k_sampling.png)
+![top\_k\_sampling](images/21b168525982529a760920276c2cf6bd06310cd2.png)
 
-Having set $K = 6$, in both sampling steps we limit our sampling pool to
-6 words. While the 6 most likely words, defined as $V_{\text{top-K}}$
-encompass only *ca.* two-thirds of the whole probability mass in the
-first step, it includes almost all of the probability mass in the second
-step. Nevertheless, we see that it successfully eliminates the rather
-weird candidates $\text{"not", "the", "small", "told"}$ in the second
-sampling step.
+Having set \(K = 6\), in both sampling steps we limit our sampling pool
+to 6 words. While the 6 most likely words, defined as
+\(V_{\text{top-K}}\) encompass only *ca.* two-thirds of the whole
+probability mass in the first step, it includes almost all of the
+probability mass in the second step. Nevertheless, we see that it
+successfully eliminates the rather weird candidates
+\(\text{"not", "the", "small", "told"}\) in the second sampling step.
 
-Let\'s see how *Top-K* can be used in the library by setting `top_k=50`:
-:::
+Let's see how *Top-K* can be used in the library by setting `top_k=50`:
 
-::: {.cell .code execution_count="11" colab="{\"height\":156,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="HBtDOdD0wx3l" outputId="cfc97fac-0956-42ee-a6e5-cad14fc942d3"}
-``` {.python}
+</div>
+
+<div class="cell code" data-execution_count="11" data-colab="{&quot;height&quot;:156,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="HBtDOdD0wx3l" data-outputId="cfc97fac-0956-42ee-a6e5-cad14fc942d3">
+
+``` python
 # set seed to reproduce results. Feel free to change the seed though to get different results
 tf.random.set_seed(0)
 
@@ -490,39 +534,45 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 ```
 
-::: {.output .stream .stdout}
+<div class="output stream stdout">
+
     Output:
     ----------------------------------------------------------------------------------------------------
     I enjoy walking with my cute dog. It's so good to have an environment where your dog is available to share with you and we'll be taking care of you.
-
+    
     We hope you'll find this story interesting!
-
+    
     I am from
-:::
-:::
 
-::: {.cell .markdown colab_type="text" id="Y77H5m4ZmhEX"}
-Not bad at all! The text is arguably the most *human-sounding* text so
+</div>
+
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="Y77H5m4ZmhEX">
+
+Not bad at all\! The text is arguably the most *human-sounding* text so
 far. One concern though with *Top-K* sampling is that it does not
 dynamically adapt the number of words that are filtered from the next
-word probability distribution $P(w|w_{1:t-1})$. This can be problematic
-as some words might be sampled from a very sharp distribution
-(distribution on the right in the graph above), whereas others from a
-much more flat distribution (distribution on the left in the graph
-above).
+word probability distribution \(P(w|w_{1:t-1})\). This can be
+problematic as some words might be sampled from a very sharp
+distribution (distribution on the right in the graph above), whereas
+others from a much more flat distribution (distribution on the left in
+the graph above).
 
-In step $t=1$, *Top-K* eliminates the possibility to sample
-$\text{"people", "big", "house", "cat"}$, which seem like reasonable
-candidates. On the other hand, in step $t=2$ the method includes the
-arguably ill-fitted words $\text{"down", "a"}$ in the sample pool of
+In step \(t=1\), *Top-K* eliminates the possibility to sample
+\(\text{"people", "big", "house", "cat"}\), which seem like reasonable
+candidates. On the other hand, in step \(t=2\) the method includes the
+arguably ill-fitted words \(\text{"down", "a"}\) in the sample pool of
 words. Thus, limiting the sample pool to a fixed size *K* could endanger
 the model to produce gibberish for sharp distributions and limit the
-model\'s creativity for flat distribution. This intuition led [Ari
+model's creativity for flat distribution. This intuition led [Ari
 Holtzman et al. (2019)](https://arxiv.org/abs/1904.09751) to create
 ***Top-p***- or ***nucleus***-sampling.
-:::
 
-::: {.cell .markdown colab_type="text" id="ki9LAaexzV3H"}
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="ki9LAaexzV3H">
+
 ### **Top-p (nucleus) sampling**
 
 Instead of sampling only from the most likely *K* words, in *Top-p*
@@ -530,26 +580,29 @@ sampling chooses from the smallest possible set of words whose
 cumulative probability exceeds the probability *p*. The probability mass
 is then redistributed among this set of words. This way, the size of the
 set of words (*a.k.a* the number of words in the set) can dynamically
-increase and decrease according to the next word\'s probability
-distribution. Ok, that was very wordy, let\'s visualize.
+increase and decrease according to the next word's probability
+distribution. Ok, that was very wordy, let's visualize.
 
-![top\_p\_sampling](https://github.com/patrickvonplaten/scientific_images/blob/master/top_p_sampling.png?raw=true)
+![top\_p\_sampling](images/16ecfd1749fd9a765af50fa48d494e91d653d134.png)
 
-Having set $p=0.92$, *Top-p* sampling picks the *minimum* number of
-words to exceed together $p=92\%$ of the probability mass, defined as
-$V_{\text{top-p}}$. In the first example, this included the 9 most
+Having set \(p=0.92\), *Top-p* sampling picks the *minimum* number of
+words to exceed together \(p=92\%\) of the probability mass, defined as
+\(V_{\text{top-p}}\). In the first example, this included the 9 most
 likely words, whereas it only has to pick the top 3 words in the second
-example to exceed 92%. Quite simple actually! It can be seen that it
+example to exceed 92%. Quite simple actually\! It can be seen that it
 keeps a wide range of words where the next word is arguably less
-predictable, *e.g.* $P(w | \text{"The"})$, and only a few words when the
-next word seems more predictable, *e.g.* $P(w | \text{"The", "car"})$.
+predictable, *e.g.* \(P(w | \text{"The"})\), and only a few words when
+the next word seems more predictable, *e.g.*
+\(P(w | \text{"The", "car"})\).
 
-Alright, time to check it out in `transformers`! We activate *Top-p*
+Alright, time to check it out in `transformers`\! We activate *Top-p*
 sampling by setting `0 < top_p < 1`:
-:::
 
-::: {.cell .code execution_count="10" colab="{\"height\":170,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="EvwIc7YAx77F" outputId="57e2b785-5dcb-4e06-9869-078b758b6a82"}
-``` {.python}
+</div>
+
+<div class="cell code" data-execution_count="10" data-colab="{&quot;height&quot;:170,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="EvwIc7YAx77F" data-outputId="57e2b785-5dcb-4e06-9869-078b758b6a82">
+
+``` python
 # set seed to reproduce results. Feel free to change the seed though to get different results
 tf.random.set_seed(0)
 
@@ -566,20 +619,24 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 ```
 
-::: {.output .stream .stdout}
+<div class="output stream stdout">
+
     Output:
     ----------------------------------------------------------------------------------------------------
     I enjoy walking with my cute dog. He will never be the same. I watch him play.
-
-
+    
+    
     Guys, my dog needs a name. Especially if he is found with wings.
-
-
+    
+    
     What was that? I had a lot of
-:::
-:::
 
-::: {.cell .markdown colab_type="text" id="tn-8gLaR4lat"}
+</div>
+
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="tn-8gLaR4lat">
+
 Great, that sounds like it could have been written by a human. Well,
 maybe not quite yet.
 
@@ -590,10 +647,12 @@ dynamic selection.
 
 Finally, to get multiple independently sampled outputs, we can *again*
 set the parameter `num_return_sequences > 1`:
-:::
 
-::: {.cell .code execution_count="12" colab="{\"height\":190,\"base_uri\":\"https://localhost:8080/\"}" colab_type="code" id="3kY8P9VG8Gi9" outputId="6103051e-1681-4ab9-a9c1-1fad437c299d"}
-``` {.python}
+</div>
+
+<div class="cell code" data-execution_count="12" data-colab="{&quot;height&quot;:190,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="3kY8P9VG8Gi9" data-outputId="6103051e-1681-4ab9-a9c1-1fad437c299d">
+
+``` python
 # set seed to reproduce results. Feel free to change the seed though to get different results
 tf.random.set_seed(0)
 
@@ -612,23 +671,33 @@ for i, sample_output in enumerate(sample_outputs):
   print("{}: {}".format(i, tokenizer.decode(sample_output, skip_special_tokens=True)))
 ```
 
-::: {.output .stream .stdout}
-    Output:
-    ----------------------------------------------------------------------------------------------------
-    0: I enjoy walking with my cute dog. It's so good to have the chance to walk with a dog. But I have this problem with the dog and how he's always looking at us and always trying to make me see that I can do something
-    1: I enjoy walking with my cute dog, she loves taking trips to different places on the planet, even in the desert! The world isn't big enough for us to travel by the bus with our beloved pup, but that's where I find my love
-    2: I enjoy walking with my cute dog and playing with our kids," said David J. Smith, director of the Humane Society of the US.
+<div class="output stream stdout">
 
-    "So as a result, I've got more work in my time," he said.
-:::
-:::
+``` 
+Output:
+----------------------------------------------------------------------------------------------------
+0: I enjoy walking with my cute dog. It's so good to have the chance to walk with a dog. But I have this problem with the dog and how he's always looking at us and always trying to make me see that I can do something
+1: I enjoy walking with my cute dog, she loves taking trips to different places on the planet, even in the desert! The world isn't big enough for us to travel by the bus with our beloved pup, but that's where I find my love
+2: I enjoy walking with my cute dog and playing with our kids," said David J. Smith, director of the Humane Society of the US.
 
-::: {.cell .markdown colab_type="text" id="-vRPfMl88rk0"}
+"So as a result, I've got more work in my time," he said.
+
+
+```
+
+</div>
+
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="-vRPfMl88rk0">
+
 Cool, now you should have all the tools to let your model write your
-stories with `transformers`!
-:::
+stories with `transformers`\!
 
-::: {.cell .markdown colab_type="text" id="NsWd7e98Vcs3"}
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="NsWd7e98Vcs3">
+
 ### **Conclusion**
 
 As *ad-hoc* decoding methods, *top-p* and *top-K* sampling seem to
@@ -646,11 +715,11 @@ sequences.
 In [Welleck et al. (2019)](https://arxiv.org/pdf/1908.04319.pdf), the
 authors show that according to human evaluations, *beam* search can
 generate more fluent text than *Top-p* sampling, when adapting the
-model\'s training objective.
+model's training objective.
 
 Open-ended language generation is a rapidly evolving field of research
 and as it is often the case there is no one-size-fits-all method here,
-so one has to see what works best in one\'s specific use case.
+so one has to see what works best in one's specific use case.
 
 Good thing, that *you* can try out all the different decoding methods in
 `transfomers` 🤗.
@@ -659,35 +728,38 @@ That was a short introduction on how to use different decoding methods
 in `transformers` and recent trends in open-ended language generation.
 Feedback and questions are very welcome on the [Github
 repository](https://github.com/huggingface/transformers).
-:::
 
-::: {.cell .markdown colab_type="text" id="w4CYi91h11yd"}
+</div>
+
+<div class="cell markdown" data-colab_type="text" id="w4CYi91h11yd">
+
 ### **Appendix**
 
 There are a couple of additional parameters for the `generate` method
-that were not mentioned above. We will explain them here briefly!
+that were not mentioned above. We will explain them here briefly\!
 
--   `min_length` can be used to force the model to not produce an EOS
+  - `min_length` can be used to force the model to not produce an EOS
     token (= not finish the sentence) before `min_length` is reached.
     This is used quite frequently in summarization, but can be useful in
     general if the user wants to have longer outputs.
 
--   `repetition_penalty` can be used to penalize words that were already
+  - `repetition_penalty` can be used to penalize words that were already
     generated or belong to the context. It was first introduced by
     [Kesker et al. (2019)](https://arxiv.org/abs/1909.05858) and is also
-    used in the training objective in [Welleck et
-    al. (2019)](https://arxiv.org/pdf/1908.04319.pdf). It can be quite
+    used in the training objective in [Welleck et al.
+    (2019)](https://arxiv.org/pdf/1908.04319.pdf). It can be quite
     effective at preventing repetitions, but seems to be very sensitive
     to different models and use cases, *e.g.* see this
     [discussion](https://github.com/huggingface/transformers/pull/2303)
     on Github.
 
--   `attention_mask` can be used to mask padded tokens
+  - `attention_mask` can be used to mask padded tokens
 
--   `pad_token_id`, `bos_token_id`, `eos_token_id`: If the model does
+  - `pad_token_id`, `bos_token_id`, `eos_token_id`: If the model does
     not have those tokens by default, the user can manually choose other
     token ids to represent them.
 
 For more information please also look into the `generate` function
 [docstring](https://huggingface.co/transformers/main_classes/model.html?highlight=generate#transformers.TFPreTrainedModel.generate).
-:::
+
+</div>
