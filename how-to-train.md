@@ -8,7 +8,7 @@ thumbnail: https://huggingface.co/blog/assets/01_how_to_train/how-to-train_blogp
 <div class="blog-metadata">
     <small>Published Feb 14, 2020. Last update Feb 27.</small>
     <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/how-to-train.md">
-        <img src="/front/assets/01_how_to_train/icon-github.svg">
+        <img src="/front/assets/icon-github.svg">
         Update on GitHub
     </a>
 </div>
