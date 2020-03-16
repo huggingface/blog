@@ -38,13 +38,12 @@ a refresher). In short, *auto-regressive* language generation is based
 on the assumption that the probability distribution of a word sequence
 can be decomposed into the product of conditional next word
 distributions:
+\[ P(w_{1:T} | W_0 ) = \prod_{t=1}^T P(w_{t} | w_{1: t-1}, W_0) \text{ ,with }  w_{1: 0} = \emptyset, \]
 
-![equation](https://latex.codecogs.com/gif.latex?P%28w_%7B1%3AT%7D%20%7C%20W_0%20%29%20%3D%20%5Cprod_%7Bt%3D1%7D%5ET%20P%28w_%7Bt%7D%20%7C%20w_%7B1%3A%20t-1%7D%2C%20W_0%29%20%5Ctext%7B%20%2Cwith%20%7D%20w_%7B1%3A%200%7D%20%3D%20%5Cemptyset%2C)
-
-and ![equation](https://latex.codecogs.com/gif.latex?W_0) being the initial *context* word sequence. The length ![equation](https://latex.codecogs.com/gif.latex?T) 
+and \(W_0\) being the initial *context* word sequence. The length \(T\)
 of the word sequence is usually determined *on-the-fly* and corresponds
-to the timestep ![equation](https://latex.codecogs.com/gif.latex?t%3DT) the EOS token is generated from
-![equation](https://latex.codecogs.com/gif.latex?P%28w_%7Bt%7D%20%7C%20w_%7B1%3A%20t-1%7D%2C%20W_%7B0%7D%29)
+to the timestep \(t=T\) the EOS token is generated from
+\(P(w_{t} | w_{1: t-1}, W_{0})\).
 
 Auto-regressive language generation is now available for `GPT2`,
 `XLNet`, `OpenAi-GPT`, `CTRL`, `TransfoXL`, `XLM`, `Bart`, `T5` in both
@@ -93,20 +92,21 @@ model = TFGPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_tok
 ### **Greedy Search**
 
 Greedy search simply selects the word with the highest probability as
-its next word: ![equation](https://latex.codecogs.com/gif.latex?w_t%20%3D%20argmax_%7Bw%7DP%28w%20%7C%20w_%7B1%3At-1%7D%29) at each timestep
-![equation](https://latex.codecogs.com/gif.latex?t). The following sketch shows greedy search.
+its next word: \(w_t = argmax_{w}P(w | w_{1:t-1})\) at each timestep
+\(t\). The following sketch shows greedy search.
 
-![Greedy Search](images/dd829fd63059ed261dd8281a28925f768f680bc0.png)
+![Greedy
+Search](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/greedy_search.png)
 
-Starting from the word "The", the algorithm greedily chooses
-the next word of highest probability "nice" and so on, so
+Starting from the word \(\text{"The"}\), the algorithm greedily chooses
+the next word of highest probability \(\text{"nice"}\) and so on, so
 that the final generated word sequence is
-("The", "nice", "woman") having an overall probability of
-![equation](https://latex.codecogs.com/gif.latex?0.5%20%5Ctimes%200.4%20%3D%200.2).
+\(\text{"The", "nice", "woman"}\) having an overall probability of
+\(0.5 \times 0.4 = 0.2\).
 
 In the following we will generate word sequences using GPT2 on the
 context
-("I", "enjoy", "walking", "with", "my", "cute", "dog"). Let's
+\((\text{"I", "enjoy", "walking", "with", "my", "cute", "dog"})\). Let's
 see how greedy search can be used in `transformers` by setting
 `do_sample=False` when calling the `generate()` method:
 
@@ -151,10 +151,10 @@ The major drawback of greedy search though is that it misses high
 probability words hidden behind a low probability word as can be seen in
 our sketch above:
 
-The word "has" with its high conditional probability of
-0.9 is hidden behind the word dog, which has only the
+The word \(\text{"has"}\) with its high conditional probability of
+\(0.9\) is hidden behind the word \(\text{"dog"}\), which has only the
 second-highest conditional probability, so that greedy search misses the
-word sequence ("The", "dog", "has").
+word sequence \(\text{"The"}, \text{"dog"}, \text{"has"}\).
 
 Thankfully, we have beam search to alleviate this problem\!
 
@@ -169,14 +169,15 @@ sequences by keeping the most likely `num_beams` of hypotheses at each
 time step and eventually choosing the hypothesis that has the overall
 highest probability. Let's illustrate with `num_beams=2`:
 
-![Beam search](images/1a630b9672e34416f7a8658cb8c8746fe00ed2a0.png)
+![Beam
+search](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/beam_search.png)
 
-At time step 1, besides the most likely hypothesis
-("The", "woman"), beam search also keeps track of the second
-most likely one ("The", "dog"). At time step 2, beam search
-finds that the word sequence ("The", "dog", "has") has with
-0.36 a higher probability than ("The", "nice", "woman"),
-which has 0.2. Great, it has found the most likely word sequence in
+At time step \(1\), besides the most likely hypothesis
+\(\text{"The", "woman"}\), beam search also keeps track of the second
+most likely one \(\text{"The", "dog"}\). At time step \(2\), beam search
+finds that the word sequence \(\text{"The", "dog", "has"}\) has with
+\(0.36\) a higher probability than \(\text{"The", "nice", "woman"}\),
+which has \(0.2\). Great, it has found the most likely word sequence in
 our toy example\!
 
 Beam search will always find an output sequence with higher probability
@@ -222,12 +223,12 @@ print(tokenizer.decode(beam_output[0], skip_special_tokens=True))
 While the result is arguably more fluent, the output still includes
 repetitions of the same word sequences.  
 A simple remedy is to introduce *n-grams* (*a.k.a* word sequences of
-n words) penalties as introduced by [Paulus et al.
+\(n\) words) penalties as introduced by [Paulus et al.
 (2017)](https://arxiv.org/abs/1705.04304) and [Klein et al.
 (2017)](https://arxiv.org/abs/1701.02810). The most common *n-grams*
 penalty makes sure that no *n-gram* appears twice by manually setting
 the probability of next words that could create an already seen *n-gram*
-to 0.
+to \(0\).
 
 Let's try it out by setting `no_repeat_ngram_size=2` so that no *2-gram*
 appears twice:
@@ -356,7 +357,8 @@ forward why beam search might not be the best possible option:
     plotting the probability, a model would give to human text vs. what
     beam search does.
 
-![alt text](images/9440e28fce11fc1bebb39f4dddefa24ad152148e.png)
+![alt
+text](https://blog.fastforwardlabs.com/images/2019/05/Screen_Shot_2019_05_08_at_3_06_36_PM-1557342561886.png)
 
 So let's stop being boring and introduce some randomness 🤪.
 
@@ -367,20 +369,20 @@ So let's stop being boring and introduce some randomness 🤪.
 ### **Sampling**
 
 In its most basic form, sampling means randomly picking the next word
-![equation](https://latex.codecogs.com/gif.latex?w_t) according to its conditional probability distribution:
+\(w_t\) according to its conditional probability distribution:
 
-![equation](https://latex.codecogs.com/gif.latex?w_t%20%5Csim%20P%28w%7Cw_%7B1%3At-1%7D%29)
+\[w_t \sim P(w|w_{1:t-1})\]
 
 Taking the example from above, the following graphic visualizes language
 generation when sampling.
 
-![vanilla\_sampling](images/b52f44cf799cbc148384002dea77b2ef355ecd83.png)
+![vanilla\_sampling](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/sampling_search.png)
 
 It becomes obvious that language generation using sampling is not
-*deterministic* anymore. The word "car" is sampled from the
-conditioned probability distribution ![equation](https://latex.codecogs.com/gif.latex?P%28w%20%7C%20%5Ctext%7B%60%60The%27%27%7D%29), followed
-by sampling "drives" from
-![equation](https://latex.codecogs.com/gif.latex?P%28w%20%7C%20%5Ctext%7B%60%60The%27%27%7D%2C%20%5Ctext%7B%60%60car%27%27%7D%29)
+*deterministic* anymore. The word \(\text{"car"}\) is sampled from the
+conditioned probability distribution \(P(w | \text{"The"})\), followed
+by sampling \(\text{"drives"}\) from
+\(P(w | \text{"The"}, \text{"car"})\).
 
 In `transformers`, we set `do_sample=True` and deactivate *Top-K*
 sampling (more on this later) via `top_k=0`. In the following, we will
@@ -439,10 +441,10 @@ likelihood of low probability words) by lowering the so-called
 An illustration of applying temperature to our example from above could
 look as follows.
 
-![top\_p\_sampling](images/149d0dcecab953c4d8a547f6c438d175700f2d58.png)
+![top\_p\_sampling](https://github.com/patrickvonplaten/scientific_images/blob/master/sampling_search_with_temp.png?raw=true)
 
-The conditional next word distribution of step ![equation](https://latex.codecogs.com/gif.latex?t%3D1) becomes much
-sharper leaving almost no chance for word "car" to be
+The conditional next word distribution of step \(t=1\) becomes much
+sharper leaving almost no chance for word \(\text{"car"}\) to be
 selected.
 
 Let's see how we can cool down the distribution in the library by
@@ -503,16 +505,15 @@ success in story generation.
 We extend the range of words used for both sampling steps in the example
 above from 3 words to 10 words to better illustrate *Top-K* sampling.
 
-![top\_k\_sampling](images/21b168525982529a760920276c2cf6bd06310cd2.png)
+![top\_k\_sampling](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/top_k_sampling.png)
 
 Having set \(K = 6\), in both sampling steps we limit our sampling pool
 to 6 words. While the 6 most likely words, defined as
-![equation](https://latex.codecogs.com/gif.latex?V_%7B%5Ctext%7Btop-K%7D%7D)
-encompass only *ca.* two-thirds of the whole
+\(V_{\text{top-K}}\) encompass only *ca.* two-thirds of the whole
 probability mass in the first step, it includes almost all of the
 probability mass in the second step. Nevertheless, we see that it
 successfully eliminates the rather weird candidates
-"not", "the", "small", "told" in the second sampling step.
+\(\text{"not", "the", "small", "told"}\) in the second sampling step.
 
 Let's see how *Top-K* can be used in the library by setting `top_k=50`:
 
@@ -555,18 +556,16 @@ print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 Not bad at all\! The text is arguably the most *human-sounding* text so
 far. One concern though with *Top-K* sampling is that it does not
 dynamically adapt the number of words that are filtered from the next
-word probability distribution 
-![equation](https://latex.codecogs.com/gif.latex?P%28w%7Cw_%7B1%3At-1%7D%29).
-This can be
+word probability distribution \(P(w|w_{1:t-1})\). This can be
 problematic as some words might be sampled from a very sharp
 distribution (distribution on the right in the graph above), whereas
 others from a much more flat distribution (distribution on the left in
 the graph above).
 
-In step ![equation](https://latex.codecogs.com/gif.latex?t%3D1), *Top-K* eliminates the possibility to sample
-"people", "big", "house", "cat", which seem like reasonable
-candidates. On the other hand, in step ![equation](https://latex.codecogs.com/gif.latex?t%3D2) the method includes the
-arguably ill-fitted words "down", "a" in the sample pool of
+In step \(t=1\), *Top-K* eliminates the possibility to sample
+\(\text{"people", "big", "house", "cat"}\), which seem like reasonable
+candidates. On the other hand, in step \(t=2\) the method includes the
+arguably ill-fitted words \(\text{"down", "a"}\) in the sample pool of
 words. Thus, limiting the sample pool to a fixed size *K* could endanger
 the model to produce gibberish for sharp distributions and limit the
 model's creativity for flat distribution. This intuition led [Ari
@@ -587,18 +586,17 @@ set of words (*a.k.a* the number of words in the set) can dynamically
 increase and decrease according to the next word's probability
 distribution. Ok, that was very wordy, let's visualize.
 
-![top\_p\_sampling](images/16ecfd1749fd9a765af50fa48d494e91d653d134.png)
+![top\_p\_sampling](https://github.com/patrickvonplaten/scientific_images/blob/master/top_p_sampling.png?raw=true)
 
-Having set ![equation](https://latex.codecogs.com/gif.latex?p%3D0.92), *Top-p* sampling picks the *minimum* number of
-words to exceed together ![equation](https://latex.codecogs.com/gif.latex?p%3D92%5C%25) 
-of the probability mass, defined as
-![equation](https://latex.codecogs.com/gif.latex?V_%7B%5Ctext%7Btop-p%7D%7D). In the first example, this included the 9 most
+Having set \(p=0.92\), *Top-p* sampling picks the *minimum* number of
+words to exceed together \(p=92\%\) of the probability mass, defined as
+\(V_{\text{top-p}}\). In the first example, this included the 9 most
 likely words, whereas it only has to pick the top 3 words in the second
 example to exceed 92%. Quite simple actually\! It can be seen that it
 keeps a wide range of words where the next word is arguably less
-predictable, *e.g.* ![equation](https://latex.codecogs.com/gif.latex?P%28w%20%7C%20%5Ctext%7B%60%60The%27%27%7D%29), and only a few words when
+predictable, *e.g.* \(P(w | \text{"The"})\), and only a few words when
 the next word seems more predictable, *e.g.*
-![equation](https://latex.codecogs.com/gif.latex?P%28w%20%7C%20%5Ctext%7B%60%60The%27%27%2C%20%60%60car%27%27%7D%29).
+\(P(w | \text{"The", "car"})\).
 
 Alright, time to check it out in `transformers`\! We activate *Top-p*
 sampling by setting `0 < top_p < 1`:
