@@ -101,7 +101,7 @@ its next word: ![equation](https://latex.codecogs.com/gif.latex?w_t%20%3D%20argm
 Starting from the word "The", the algorithm greedily chooses
 the next word of highest probability "nice" and so on, so
 that the final generated word sequence is
-"The", "nice", "woman" having an overall probability of
+("The", "nice", "woman") having an overall probability of
 ![equation](https://latex.codecogs.com/gif.latex?0.5%20%5Ctimes%200.4%20%3D%200.2).
 
 In the following we will generate word sequences using GPT2 on the
