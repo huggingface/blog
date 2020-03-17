@@ -13,12 +13,19 @@ thumbnail: https://huggingface.co/blog/assets/02_how-to-generate/thumbnail.png
     </a>
 </div>
 
+<div class="author-card">
+    <a href="/patrickvonplaten">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1584435275418-5dfcb1aada6d0311fd3d5448.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>patrickvonplaten</code>
+            <span class="fullname">Patrick von Platen</span>
+        </div>
+    </a>
+</div>
+
 <a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/add_language_generation_tutorial/02_how_to_generate.ipynb" target="_parent">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
-
-
-<div class="cell markdown" data-colab_type="text" id="KxLvv6UaPa33">
 
 ### **Introduction**
 
@@ -62,7 +69,6 @@ We will give a tour of the currently most prominent decoding methods,
 mainly *Greedy search*, *Beam search*, *Top-K sampling* and *Top-p
 sampling*.
 
-</div>
 
 <div class="cell markdown" data-colab_type="text" id="Si4GyYhOQMzi">
 
