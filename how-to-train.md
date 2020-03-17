@@ -13,7 +13,7 @@ thumbnail: https://huggingface.co/blog/assets/01_how-to-train/how-to-train_blogp
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/master/notebooks/01_how-to-train.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/master/notebooks/01_how_to_train.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg">
 </a>
 

@@ -23,7 +23,7 @@ thumbnail: https://huggingface.co/blog/assets/02_how-to-generate/thumbnail.png
     </a>
 </div>
 
-<a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/add_language_generation_tutorial/02_how_to_generate.ipynb" target="_parent">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/master/notebooks/02_how_to_generate.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -110,8 +110,8 @@ Greedy search simply selects the word with the highest probability as
 its next word: \\(w_t = argmax_{w}P(w | w_{1:t-1})\\) at each timestep
 \\(t\\). The following sketch shows greedy search.
 
-![Greedy
-Search](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/greedy_search.png)
+
+<img src="/blog/assets/02_how-to-generate/greedy_search.png" alt="greedy search" style="margin: auto; display: block;">
 
 Starting from the word \\(\text{"The"}\\), the algorithm greedily chooses
 the next word of highest probability \\(\text{"nice"}\\) and so on, so
@@ -184,8 +184,7 @@ sequences by keeping the most likely `num_beams` of hypotheses at each
 time step and eventually choosing the hypothesis that has the overall
 highest probability. Let's illustrate with `num_beams=2`:
 
-![Beam
-search](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/beam_search.png)
+<img src="/blog/assets/02_how-to-generate/beam_search.png" alt="beam search" style="margin: auto; display: block;">
 
 At time step \\(1\\), besides the most likely hypothesis
 \\(\text{"The", "woman"}\\), beam search also keeps track of the second
@@ -386,12 +385,12 @@ So let's stop being boring and introduce some randomness 🤪.
 In its most basic form, sampling means randomly picking the next word
 \\(w_t\\) according to its conditional probability distribution:
 
-\[w_t \sim P(w|w_{1:t-1})\]
+$$ w_t \sim P(w|w_{1:t-1}) $$
 
 Taking the example from above, the following graphic visualizes language
 generation when sampling.
 
-![vanilla\_sampling](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/sampling_search.png)
+<img src="/blog/assets/02_how-to-generate/sampling_search.png" alt="sampling search" style="margin: auto; display: block;">
 
 It becomes obvious that language generation using sampling is not
 *deterministic* anymore. The word \\(\text{"car"}\\) is sampled from the
@@ -456,7 +455,7 @@ likelihood of low probability words) by lowering the so-called
 An illustration of applying temperature to our example from above could
 look as follows.
 
-![top\_p\_sampling](https://github.com/patrickvonplaten/scientific_images/blob/master/sampling_search_with_temp.png?raw=true)
+<img src="/blog/assets/02_how-to-generate/sampling_search_with_temp.png" alt="sampling temp search" style="margin: auto; display: block;">
 
 The conditional next word distribution of step \\(t=1\\) becomes much
 sharper leaving almost no chance for word \\(\text{"car"}\\) to be
@@ -520,7 +519,7 @@ success in story generation.
 We extend the range of words used for both sampling steps in the example
 above from 3 words to 10 words to better illustrate *Top-K* sampling.
 
-![top\_k\_sampling](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/top_k_sampling.png)
+<img src="/blog/assets/02_how-to-generate/top_k_sampling.png" alt="Top K sampling" style="margin: auto; display: block;">
 
 Having set \\(K = 6\\), in both sampling steps we limit our sampling pool
 to 6 words. While the 6 most likely words, defined as
@@ -601,7 +600,7 @@ set of words (*a.k.a* the number of words in the set) can dynamically
 increase and decrease according to the next word's probability
 distribution. Ok, that was very wordy, let's visualize.
 
-![top\_p\_sampling](https://github.com/patrickvonplaten/scientific_images/blob/master/top_p_sampling.png?raw=true)
+<img src="/blog/assets/02_how-to-generate/top_p_sampling.png" alt="Top p sampling" style="margin: auto; display: block;">
 
 Having set \\(p=0.92\\), *Top-p* sampling picks the *minimum* number of
 words to exceed together \\(p=92\%\\) of the probability mass, defined as
@@ -744,8 +743,14 @@ Good thing, that *you* can try out all the different decoding methods in
 
 That was a short introduction on how to use different decoding methods
 in `transformers` and recent trends in open-ended language generation.
+
 Feedback and questions are very welcome on the [Github
 repository](https://github.com/huggingface/transformers).
+
+For more fun generating stories, please take a look at [Writing with Transformers](https://transformer.huggingface.co/)
+
+Thanks to everybody, who has contributed to the blog post: Alexander Rush, Julien Chaumand, Thomas Wolf, Victor Sanh, Sam Shleifer, Clément Delangue, Yacine Jernite, Oliver Åstrand and John de Wasseige.
+
 
 </div>
 
