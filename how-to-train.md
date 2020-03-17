@@ -1,6 +1,6 @@
 ---
 title: How to train a new language model from scratch using Transformers and Tokenizers
-thumbnail: https://huggingface.co/blog/assets/01_how_to_train/how-to-train_blogpost.png
+thumbnail: https://huggingface.co/blog/assets/01_how-to-train/how-to-train_blogpost.png
 ---
 
 # How to train a new language model from scratch using Transformers and Tokenizers
@@ -13,7 +13,7 @@ thumbnail: https://huggingface.co/blog/assets/01_how_to_train/how-to-train_blogp
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/master/notebooks/01_how_to_train.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/master/notebooks/01_how-to-train.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg">
 </a>
 
@@ -30,14 +30,14 @@ Esperanto is a *constructed language* with a goal of being easy to learn. We pic
 
 Our model is going to be called… wait for it… **EsperBERTo** 😂
 
-<img src="/blog/assets/01_how_to_train/eo.svg" alt="Esperanto flag" style="margin: auto; display: block; width: 260px;">
+<img src="/blog/assets/01_how-to-train/eo.svg" alt="Esperanto flag" style="margin: auto; display: block; width: 260px;">
 
 ## 1. Find a dataset
 
 First, let us find a corpus of text in Esperanto. Here we’ll use the Esperanto portion of the [OSCAR corpus](https://traces1.inria.fr/oscar/) from INRIA.
 OSCAR is a huge multilingual corpus obtained by language classification and filtering of [Common Crawl](https://commoncrawl.org/) dumps of the Web.
 
-<img src="/blog/assets/01_how_to_train/oscar.png" style="margin: auto; display: block; width: 260px;">
+<img src="/blog/assets/01_how-to-train/oscar.png" style="margin: auto; display: block; width: 260px;">
 
 The Esperanto portion of the dataset is only 299M, so we’ll concatenate with the Esperanto sub-corpus of the [Leipzig Corpora Collection](https://wortschatz.uni-leipzig.de/en/download), which is comprised of text from diverse sources like news, literature, and wikipedia.
 
@@ -77,7 +77,7 @@ tokenizer.save(".", "esperberto")
 
 And here’s a slightly accelerated capture of the output:
 
-![tokenizers](assets/01_how_to_train/tokenizers-fast.gif)
+![tokenizers](assets/01_how-to-train/tokenizers-fast.gif)
 <small>On our dataset, training took about ~5 minutes.</small>
 
 🔥🔥 Wow, that was fast! ⚡️🔥
@@ -214,7 +214,7 @@ As usual, pick the largest batch size you can fit on your GPU(s).
 
 Here you can check our Tensorboard for [one particular set of hyper-parameters](https://tensorboard.dev/experiment/8AjtzdgPR1qG6bDIe1eKfw/#scalars):
 
-[![tb](assets/01_how_to_train/tensorboard.png)](https://tensorboard.dev/experiment/8AjtzdgPR1qG6bDIe1eKfw/#scalars)
+[![tb](assets/01_how-to-train/tensorboard.png)](https://tensorboard.dev/experiment/8AjtzdgPR1qG6bDIe1eKfw/#scalars)
 
 > Our example scripts log into the Tensorboard format by default, under `runs/`. Then to view your board just run `tensorboard dev upload --logdir runs` – this will set up [tensorboard.dev](https://tensorboard.dev/), a Google-managed hosted version that lets you share your ML experiment with anyone.
 
@@ -293,7 +293,7 @@ As mentioned before, Esperanto is a highly regular language where word endings t
 
 > POS tagging is a token classification task just as NER so we can just use the exact same script.
 
-![conll](assets/01_how_to_train/conll-2003.png)
+![conll](assets/01_how-to-train/conll-2003.png)
 
 Again, here’s the hosted **[Tensorboard](https://tensorboard.dev/experiment/lOZn2wOWQo6ixpwtWyyDfQ/#scalars)** for this fine-tuning. We train for 3 epochs using a batch size of 64 per GPU.
 
@@ -343,7 +343,7 @@ Finally, when you have a nice model, please think about sharing it with the comm
 
 ➡️ Your model has a page on http://huggingface.co/models and everyone can load it using `AutoModel.from_pretrained("username/model_name")`.
 
-[![tb](assets/01_how_to_train/model_page.png)](https://huggingface.co/julien-c/EsperBERTo-small)
+[![tb](assets/01_how-to-train/model_page.png)](https://huggingface.co/julien-c/EsperBERTo-small)
 
 
 If you want to take a look at models in different languages, check https://huggingface.co/models
@@ -352,6 +352,6 @@ If you want to take a look at models in different languages, check https://huggi
 
 ## Thank you!
 
-![](assets/01_how_to_train/EsperBERTo-thumbnail-v2.png)
+![](assets/01_how-to-train/EsperBERTo-thumbnail-v2.png)
 
 <div class="typeform-widget" data-url="https://clement407383.typeform.com/to/LsohIc" style="width: 100%; height: 500px;"></div> <script> (function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm", b="https://embed.typeform.com/"; if(!gi.call(d,id)) { js=ce.call(d,"script"); js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })() </script>
