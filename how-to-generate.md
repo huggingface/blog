@@ -122,8 +122,7 @@ that the final generated word sequence is
 In the following we will generate word sequences using GPT2 on the
 context
 \\((\text{"I", "enjoy", "walking", "with", "my", "cute", "dog"})\\). Let's
-see how greedy search can be used in `transformers` by setting
-`do_sample=False` when calling the `generate()` method:
+see how greedy search can be used in `transformers`:
 
 </div>
 
@@ -134,7 +133,7 @@ see how greedy search can be used in `transformers` by setting
 input_ids = tokenizer.encode('I enjoy walking with my cute dog', return_tensors='tf')
 
 # generate text until the output length (which includes the context length) reaches 50
-greedy_output = model.generate(input_ids, do_sample=False, max_length=50)
+greedy_output = model.generate(input_ids, max_length=50)
 
 print("Output:\n" + 100 * '-')
 print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
@@ -210,7 +209,6 @@ when all beam hypotheses reached the EOS token.
 # activate beam search and early_stopping
 beam_output = model.generate(
     input_ids, 
-    do_sample=False, 
     max_length=50, 
     num_beams=5, 
     early_stopping=True
@@ -255,7 +253,6 @@ appears twice:
 # set no_repeat_ngram_size to 2
 beam_output = model.generate(
     input_ids, 
-    do_sample=False, 
     max_length=50, 
     num_beams=5, 
     no_repeat_ngram_size=2, 
@@ -302,7 +299,6 @@ though that `num_return_sequences <= num_beams`\!
 # set return_num_sequences > 1
 beam_outputs = model.generate(
     input_ids, 
-    do_sample=False, 
     max_length=50, 
     num_beams=5, 
     no_repeat_ngram_size=2, 
