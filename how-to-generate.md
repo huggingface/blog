@@ -1,14 +1,22 @@
-<div class="cell markdown" data-colab_type="text" id="view-in-github">
+---
+title: How to use different decoding methods for open-ended language generation with transformers
+thumbnail: https://huggingface.co/blog/assets/01_how_to_train/how-to-train_blogpost.png
+---
 
-<a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/add_language_generation_tutorial/02_how_to_generate.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+# How to use different decoding methods for open-ended language generation with transformers
 
+<div class="blog-metadata">
+    <small>Published March 17, 2020.</small>
+    <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/how-to-generate.md">
+        <img src="/front/assets/icon-github.svg">
+        Update on GitHub
+    </a>
 </div>
 
-<div class="cell markdown" data-colab_type="text" id="Vp3XPuaTu9jl">
+<a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/add_language_generation_tutorial/02_how_to_generate.ipynb" target="_parent">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 
-# How to use different decoding methods for open-ended language generation with `transformers`
-
-</div>
 
 <div class="cell markdown" data-colab_type="text" id="KxLvv6UaPa33">
 
@@ -38,12 +46,13 @@ a refresher). In short, *auto-regressive* language generation is based
 on the assumption that the probability distribution of a word sequence
 can be decomposed into the product of conditional next word
 distributions:
-\[ P(w_{1:T} | W_0 ) = \prod_{t=1}^T P(w_{t} | w_{1: t-1}, W_0) \text{ ,with }  w_{1: 0} = \emptyset, \]
 
-and \(W_0\) being the initial *context* word sequence. The length \(T\)
+$$ P(w_{1:T} | W_0 ) = \prod_{t=1}^T P(w_{t} | w_{1: t-1}, W_0) \text{ ,with }  w_{1: 0} = \emptyset, $$
+
+and \\(W_0\\) being the initial *context* word sequence. The length \\(T\\)
 of the word sequence is usually determined *on-the-fly* and corresponds
-to the timestep \(t=T\) the EOS token is generated from
-\(P(w_{t} | w_{1: t-1}, W_{0})\).
+to the timestep \\(t=T\\) the EOS token is generated from
+\\(P(w_{t} | w_{1: t-1}, W_{0})\\).
 
 Auto-regressive language generation is now available for `GPT2`,
 `XLNet`, `OpenAi-GPT`, `CTRL`, `TransfoXL`, `XLM`, `Bart`, `T5` in both
@@ -92,21 +101,21 @@ model = TFGPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_tok
 ### **Greedy Search**
 
 Greedy search simply selects the word with the highest probability as
-its next word: \(w_t = argmax_{w}P(w | w_{1:t-1})\) at each timestep
-\(t\). The following sketch shows greedy search.
+its next word: \\(w_t = argmax_{w}P(w | w_{1:t-1})\\) at each timestep
+\\(t\\). The following sketch shows greedy search.
 
 ![Greedy
 Search](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/greedy_search.png)
 
-Starting from the word \(\text{"The"}\), the algorithm greedily chooses
-the next word of highest probability \(\text{"nice"}\) and so on, so
+Starting from the word \\(\text{"The"}\\), the algorithm greedily chooses
+the next word of highest probability \\(\text{"nice"}\\) and so on, so
 that the final generated word sequence is
-\(\text{"The", "nice", "woman"}\) having an overall probability of
-\(0.5 \times 0.4 = 0.2\).
+\\(\text{"The", "nice", "woman"}\\) having an overall probability of
+\\(0.5 \times 0.4 = 0.2\\).
 
 In the following we will generate word sequences using GPT2 on the
 context
-\((\text{"I", "enjoy", "walking", "with", "my", "cute", "dog"})\). Let's
+\\((\text{"I", "enjoy", "walking", "with", "my", "cute", "dog"})\\). Let's
 see how greedy search can be used in `transformers` by setting
 `do_sample=False` when calling the `generate()` method:
 
@@ -151,10 +160,10 @@ The major drawback of greedy search though is that it misses high
 probability words hidden behind a low probability word as can be seen in
 our sketch above:
 
-The word \(\text{"has"}\) with its high conditional probability of
-\(0.9\) is hidden behind the word \(\text{"dog"}\), which has only the
+The word \\(\text{"has"}\\) with its high conditional probability of
+\\(0.9\\) is hidden behind the word \\(\text{"dog"}\\), which has only the
 second-highest conditional probability, so that greedy search misses the
-word sequence \(\text{"The"}, \text{"dog"}, \text{"has"}\).
+word sequence \\(\text{"The"}, \text{"dog"}, \text{"has"}\\).
 
 Thankfully, we have beam search to alleviate this problem\!
 
@@ -172,12 +181,12 @@ highest probability. Let's illustrate with `num_beams=2`:
 ![Beam
 search](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/beam_search.png)
 
-At time step \(1\), besides the most likely hypothesis
-\(\text{"The", "woman"}\), beam search also keeps track of the second
-most likely one \(\text{"The", "dog"}\). At time step \(2\), beam search
-finds that the word sequence \(\text{"The", "dog", "has"}\) has with
-\(0.36\) a higher probability than \(\text{"The", "nice", "woman"}\),
-which has \(0.2\). Great, it has found the most likely word sequence in
+At time step \\(1\\), besides the most likely hypothesis
+\\(\text{"The", "woman"}\\), beam search also keeps track of the second
+most likely one \\(\text{"The", "dog"}\\). At time step \\(2\\), beam search
+finds that the word sequence \\(\text{"The", "dog", "has"}\\) has with
+\\(0.36\\) a higher probability than \\(\text{"The", "nice", "woman"}\\),
+which has \\(0.2\\). Great, it has found the most likely word sequence in
 our toy example\!
 
 Beam search will always find an output sequence with higher probability
@@ -223,12 +232,12 @@ print(tokenizer.decode(beam_output[0], skip_special_tokens=True))
 While the result is arguably more fluent, the output still includes
 repetitions of the same word sequences.  
 A simple remedy is to introduce *n-grams* (*a.k.a* word sequences of
-\(n\) words) penalties as introduced by [Paulus et al.
+\\(n\\) words) penalties as introduced by [Paulus et al.
 (2017)](https://arxiv.org/abs/1705.04304) and [Klein et al.
 (2017)](https://arxiv.org/abs/1701.02810). The most common *n-grams*
 penalty makes sure that no *n-gram* appears twice by manually setting
 the probability of next words that could create an already seen *n-gram*
-to \(0\).
+to \\(0\\).
 
 Let's try it out by setting `no_repeat_ngram_size=2` so that no *2-gram*
 appears twice:
@@ -369,7 +378,7 @@ So let's stop being boring and introduce some randomness 🤪.
 ### **Sampling**
 
 In its most basic form, sampling means randomly picking the next word
-\(w_t\) according to its conditional probability distribution:
+\\(w_t\\) according to its conditional probability distribution:
 
 \[w_t \sim P(w|w_{1:t-1})\]
 
@@ -379,10 +388,10 @@ generation when sampling.
 ![vanilla\_sampling](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/sampling_search.png)
 
 It becomes obvious that language generation using sampling is not
-*deterministic* anymore. The word \(\text{"car"}\) is sampled from the
-conditioned probability distribution \(P(w | \text{"The"})\), followed
-by sampling \(\text{"drives"}\) from
-\(P(w | \text{"The"}, \text{"car"})\).
+*deterministic* anymore. The word \\(\text{"car"}\\) is sampled from the
+conditioned probability distribution \\(P(w | \text{"The"})\\), followed
+by sampling \\(\text{"drives"}\\) from
+\\(P(w | \text{"The"}, \text{"car"})\\).
 
 In `transformers`, we set `do_sample=True` and deactivate *Top-K*
 sampling (more on this later) via `top_k=0`. In the following, we will
@@ -432,7 +441,7 @@ human. That is the big problem when sampling word sequences: The models
 often generate incoherent gibberish, *cf.* [Ari Holtzman et al.
 (2019)](https://arxiv.org/abs/1904.09751).
 
-A trick is to make the distribution \(P(w|w_{1:t-1})\) sharper
+A trick is to make the distribution \\(P(w|w_{1:t-1})\\) sharper
 (increasing the likelihood of high probability words and decreasing the
 likelihood of low probability words) by lowering the so-called
 `temperature` of the
@@ -443,8 +452,8 @@ look as follows.
 
 ![top\_p\_sampling](https://github.com/patrickvonplaten/scientific_images/blob/master/sampling_search_with_temp.png?raw=true)
 
-The conditional next word distribution of step \(t=1\) becomes much
-sharper leaving almost no chance for word \(\text{"car"}\) to be
+The conditional next word distribution of step \\(t=1\\) becomes much
+sharper leaving almost no chance for word \\(\text{"car"}\\) to be
 selected.
 
 Let's see how we can cool down the distribution in the library by
@@ -507,13 +516,13 @@ above from 3 words to 10 words to better illustrate *Top-K* sampling.
 
 ![top\_k\_sampling](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/top_k_sampling.png)
 
-Having set \(K = 6\), in both sampling steps we limit our sampling pool
+Having set \\(K = 6\\), in both sampling steps we limit our sampling pool
 to 6 words. While the 6 most likely words, defined as
-\(V_{\text{top-K}}\) encompass only *ca.* two-thirds of the whole
+\\(V_{\text{top-K}}\\) encompass only *ca.* two-thirds of the whole
 probability mass in the first step, it includes almost all of the
 probability mass in the second step. Nevertheless, we see that it
 successfully eliminates the rather weird candidates
-\(\text{"not", "the", "small", "told"}\) in the second sampling step.
+\\(\text{"not", "the", "small", "told"}\\) in the second sampling step.
 
 Let's see how *Top-K* can be used in the library by setting `top_k=50`:
 
@@ -556,16 +565,16 @@ print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 Not bad at all\! The text is arguably the most *human-sounding* text so
 far. One concern though with *Top-K* sampling is that it does not
 dynamically adapt the number of words that are filtered from the next
-word probability distribution \(P(w|w_{1:t-1})\). This can be
+word probability distribution \\(P(w|w_{1:t-1})\\). This can be
 problematic as some words might be sampled from a very sharp
 distribution (distribution on the right in the graph above), whereas
 others from a much more flat distribution (distribution on the left in
 the graph above).
 
-In step \(t=1\), *Top-K* eliminates the possibility to sample
-\(\text{"people", "big", "house", "cat"}\), which seem like reasonable
-candidates. On the other hand, in step \(t=2\) the method includes the
-arguably ill-fitted words \(\text{"down", "a"}\) in the sample pool of
+In step \\(t=1\\), *Top-K* eliminates the possibility to sample
+\\(\text{"people", "big", "house", "cat"}\\), which seem like reasonable
+candidates. On the other hand, in step \\(t=2\\) the method includes the
+arguably ill-fitted words \\(\text{"down", "a"}\\) in the sample pool of
 words. Thus, limiting the sample pool to a fixed size *K* could endanger
 the model to produce gibberish for sharp distributions and limit the
 model's creativity for flat distribution. This intuition led [Ari
@@ -588,15 +597,15 @@ distribution. Ok, that was very wordy, let's visualize.
 
 ![top\_p\_sampling](https://github.com/patrickvonplaten/scientific_images/blob/master/top_p_sampling.png?raw=true)
 
-Having set \(p=0.92\), *Top-p* sampling picks the *minimum* number of
-words to exceed together \(p=92\%\) of the probability mass, defined as
-\(V_{\text{top-p}}\). In the first example, this included the 9 most
+Having set \\(p=0.92\\), *Top-p* sampling picks the *minimum* number of
+words to exceed together \\(p=92\%\\) of the probability mass, defined as
+\\(V_{\text{top-p}}\\). In the first example, this included the 9 most
 likely words, whereas it only has to pick the top 3 words in the second
 example to exceed 92%. Quite simple actually\! It can be seen that it
 keeps a wide range of words where the next word is arguably less
-predictable, *e.g.* \(P(w | \text{"The"})\), and only a few words when
+predictable, *e.g.* \\(P(w | \text{"The"})\\), and only a few words when
 the next word seems more predictable, *e.g.*
-\(P(w | \text{"The", "car"})\).
+\\(P(w | \text{"The", "car"})\\).
 
 Alright, time to check it out in `transformers`\! We activate *Top-p*
 sampling by setting `0 < top_p < 1`:
