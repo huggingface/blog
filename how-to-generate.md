@@ -3,7 +3,6 @@ title: How to use different decoding methods for open-ended language generation 
 thumbnail: https://huggingface.co/blog/assets/02_how-to-generate/thumbnail.png
 ---
 
-# How to use different decoding methods for open-ended language generation with transformers
 # How to generate text: using different decoding methods for language generation with Transformers
 
 <div class="blog-metadata">
