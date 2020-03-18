@@ -1,12 +1,12 @@
 ---
-title: How to generate text: using different decoding methods for language generation with Transformers
+title: "How to generate text: using different decoding methods for language generation with Transformers"
 thumbnail: https://huggingface.co/blog/assets/02_how-to-generate/thumbnail.png
 ---
 
 # How to generate text: using different decoding methods for language generation with Transformers
 
 <div class="blog-metadata">
-    <small>Published March 17, 2020.</small>
+    <small>Published March 18, 2020.</small>
     <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/how-to-generate.md">
         <img src="/front/assets/icon-github.svg">
         Update on GitHub
