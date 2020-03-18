@@ -1,5 +1,5 @@
 ---
-title: How to use different decoding methods for open-ended language generation with transformers
+title: How to generate text: using different decoding methods for language generation with Transformers
 thumbnail: https://huggingface.co/blog/assets/02_how-to-generate/thumbnail.png
 ---
 
