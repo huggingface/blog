@@ -205,6 +205,7 @@ Here is one specific set of **hyper-parameters and arguments** we pass to the sc
 	--save_steps 2000
 	--per_gpu_train_batch_size 16
 	--evaluate_during_training
+	--block-size 512
 	--seed 42
 ```
 
