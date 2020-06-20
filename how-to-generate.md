@@ -113,7 +113,7 @@ its next word: \\(w_t = argmax_{w}P(w | w_{1:t-1})\\) at each timestep
 
 <img src="/blog/assets/02_how-to-generate/greedy_search.png" alt="greedy search" style="margin: auto; display: block;">
 
-Starting from the word \\(\text{"The"}\\), the algorithm greedily chooses
+Starting from the word \\(\text{``The"}\\), the algorithm greedily chooses
 the next word of highest probability \\(\text{"nice"}\\) and so on, so
 that the final generated word sequence is
 \\(\text{"The", "nice", "woman"}\\) having an overall probability of
