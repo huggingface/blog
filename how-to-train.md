@@ -3,7 +3,7 @@ title: How to train a new language model from scratch using Transformers and Tok
 thumbnail: https://huggingface.co/blog/assets/01_how-to-train/how-to-train_blogpost.png
 ---
 
-# How to train a new language model from scratch using Transformers and Tokenizers
+<h1 class="no-top-margin">How to train a new language model from scratch using Transformers and Tokenizers</h1>
 
 <div class="blog-metadata">
     <small>Published Feb 14, 2020. Last update May 15.</small>
@@ -343,7 +343,7 @@ Finally, when you have a nice model, please think about sharing it with the comm
 
 ### **TADA!**
 
-➡️ Your model has a page on http://huggingface.co/models and everyone can load it using `AutoModel.from_pretrained("username/model_name")`.
+➡️ Your model has a page on https://huggingface.co/models and everyone can load it using `AutoModel.from_pretrained("username/model_name")`.
 
 [![tb](assets/01_how-to-train/model_page.png)](https://huggingface.co/julien-c/EsperBERTo-small)
 
@@ -356,4 +356,3 @@ If you want to take a look at models in different languages, check https://huggi
 
 ![](assets/01_how-to-train/EsperBERTo-thumbnail-v2.png)
 
-<div class="typeform-widget" data-url="https://clement407383.typeform.com/to/LsohIc" style="width: 100%; height: 500px;"></div> <script> (function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName, id="typef_orm", b="https://embed.typeform.com/"; if(!gi.call(d,id)) { js=ce.call(d,"script"); js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })() </script>

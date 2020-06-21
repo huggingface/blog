@@ -3,7 +3,7 @@ title: "How to generate text: using different decoding methods for language gene
 thumbnail: https://huggingface.co/blog/assets/02_how-to-generate/thumbnail.png
 ---
 
-# How to generate text: using different decoding methods for language generation with Transformers
+<h1 class="no-top-margin">How to generate text: using different decoding methods for language generation with Transformers</h1>
 
 <div class="blog-metadata">
     <small>Published March 18, 2020.</small>
@@ -27,7 +27,7 @@ thumbnail: https://huggingface.co/blog/assets/02_how-to-generate/thumbnail.png
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-### **Introduction**
+### Introduction
 
 In recent years, there has been an increasing interest in open-ended
 language generation thanks to the rise of large transformer-based
@@ -70,24 +70,15 @@ mainly *Greedy search*, *Beam search*, *Top-K sampling* and *Top-p
 sampling*.
 
 
-<div class="cell markdown" data-colab_type="text" id="Si4GyYhOQMzi">
-
 Let's quickly install transformers and load the model. We will use GPT2
 in Tensorflow 2.1 for demonstration, but the API is 1-to-1 the same for
 PyTorch.
 
-</div>
-
-<div class="cell code" data-execution_count="0" data-colab="{}" data-colab_type="code" id="XbzZ_IVTtoQe">
 
 ``` python
 !pip install -q git+https://github.com/huggingface/transformers.git
 !pip install -q tensorflow==2.1
 ```
-
-</div>
-
-<div class="cell code" data-execution_count="0" data-colab="{}" data-colab_type="code" id="ue2kOQhXTAMU">
 
 ``` python
 import tensorflow as tf
@@ -100,11 +91,8 @@ tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
 model = TFGPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_token_id)
 ```
 
-</div>
 
-<div class="cell markdown" data-colab_type="text" id="a8Y7cgu9ohXP">
-
-### **Greedy Search**
+### Greedy Search
 
 Greedy search simply selects the word with the highest probability as
 its next word: \\(w_t = argmax_{w}P(w | w_{1:t-1})\\) at each timestep
@@ -124,9 +112,7 @@ context
 \\((\text{"I", "enjoy", "walking", "with", "my", "cute", "dog"})\\). Let's
 see how greedy search can be used in `transformers`:
 
-</div>
 
-<div class="cell code" data-execution_count="4" data-colab="{&quot;height&quot;:122,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="OWLd_J6lXz_t" data-outputId="3b9dfd1e-21e6-44f4-f27f-8e975010f9af">
 
 ``` python
 # encode context the generation is conditioned on
@@ -149,9 +135,7 @@ print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
 
 </div>
 
-</div>
 
-<div class="cell markdown" data-colab_type="text" id="BBn1ePmJvhrl">
 
 Alright\! We have generated our first short text with GPT2 😊. The
 generated words following the context are reasonable, but the model
@@ -172,11 +156,9 @@ word sequence \\(\text{"The"}, \text{"dog"}, \text{"has"}\\).
 
 Thankfully, we have beam search to alleviate this problem\!
 
-</div>
 
-<div class="cell markdown" data-colab_type="text" id="g8DnXZ1WiuNd">
 
-### **Beam search**
+### Beam search
 
 Beam search reduces the risk of missing hidden high probability word
 sequences by keeping the most likely `num_beams` of hypotheses at each
@@ -201,9 +183,7 @@ Let's see how beam search can be used in `transformers`. We set
 `num_beams > 1` and `early_stopping=True` so that generation is finished
 when all beam hypotheses reached the EOS token.
 
-</div>
 
-<div class="cell code" data-execution_count="5" data-colab="{&quot;height&quot;:102,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="R1R5kx30Ynej" data-outputId="574f068b-f418-48b5-8334-8451d2221032">
 
 ``` python
 # activate beam search and early_stopping
@@ -228,9 +208,6 @@ print(tokenizer.decode(beam_output[0], skip_special_tokens=True))
 
 </div>
 
-</div>
-
-<div class="cell markdown" data-colab_type="text" id="AZ6xs-KLi9jT">
 
 While the result is arguably more fluent, the output still includes
 repetitions of the same word sequences.  
@@ -245,9 +222,6 @@ to \\(0\\).
 Let's try it out by setting `no_repeat_ngram_size=2` so that no *2-gram*
 appears twice:
 
-</div>
-
-<div class="cell code" data-execution_count="6" data-colab="{&quot;height&quot;:102,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="jy3iVJgfnkMi" data-outputId="4d3e6511-711a-4594-a715-aaeb6e48e1a9">
 
 ``` python
 # set no_repeat_ngram_size to 2
@@ -273,9 +247,7 @@ print(tokenizer.decode(beam_output[0], skip_special_tokens=True))
 
 </div>
 
-</div>
 
-<div class="cell markdown" data-colab_type="text" id="nxsksOGDpmA0">
 
 Nice, that looks much better\! We can see that the repetition does not
 appear anymore. Nevertheless, *n-gram* penalties have to be used with
@@ -291,9 +263,7 @@ In `transformers`, we simply set the parameter `num_return_sequences` to
 the number of highest scoring beams that should be returned. Make sure
 though that `num_return_sequences <= num_beams`\!
 
-</div>
 
-<div class="cell code" data-execution_count="7" data-colab="{&quot;height&quot;:306,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="5ClO3VphqGp6" data-outputId="2296891c-024f-4fd2-9071-bff7c11a3e04">
 
 ``` python
 # set return_num_sequences > 1
@@ -334,9 +304,6 @@ for i, beam_output in enumerate(beam_outputs):
 
 </div>
 
-</div>
-
-<div class="cell markdown" data-colab_type="text" id="HhLKyfdbsjXc">
 
 As can be seen, the five beam hypotheses are only marginally different
 to each other - which should not be too surprising when using only 5
@@ -372,11 +339,9 @@ text](https://blog.fastforwardlabs.com/images/2019/05/Screen_Shot_2019_05_08_at_
 
 So let's stop being boring and introduce some randomness 🤪.
 
-</div>
 
-<div class="cell markdown" data-colab_type="text" id="XbbIyK84wHq6">
 
-### **Sampling**
+### Sampling
 
 In its most basic form, sampling means randomly picking the next word
 \\(w_t\\) according to its conditional probability distribution:
@@ -399,9 +364,7 @@ sampling (more on this later) via `top_k=0`. In the following, we will
 fix `random_seed=0` for illustration purposes. Feel free to change the
 `random_seed` to play around with the model.
 
-</div>
 
-<div class="cell code" data-execution_count="8" data-colab="{&quot;height&quot;:136,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="aRAz4D-Ks0_4" data-outputId="1b78d191-15f6-4cbe-e2b1-23c77366fc21">
 
 ``` python
 # set seed to reproduce results. Feel free to change the seed though to get different results
@@ -431,9 +394,7 @@ print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 
 </div>
 
-</div>
 
-<div class="cell markdown" data-colab_type="text" id="mQHuo911wfT-">
 
 Interesting\! The text seems alright - but when taking a closer look, it
 is not very coherent. the *3-grams* *new hand sense* and *local batte
@@ -460,9 +421,7 @@ selected.
 Let's see how we can cool down the distribution in the library by
 setting `temperature=0.7`:
 
-</div>
 
-<div class="cell code" data-execution_count="9" data-colab="{&quot;height&quot;:88,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="WgJredc-0j0Z" data-outputId="a4e79355-8e3c-4788-fa21-c4e28bf61c5b">
 
 ``` python
 # set seed to reproduce results. Feel free to change the seed though to get different results
@@ -489,9 +448,7 @@ print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 
 </div>
 
-</div>
 
-<div class="cell markdown" data-colab_type="text" id="kzGuu24hZZnq">
 
 OK. There are less weird n-grams and the output is a bit more coherent
 now\! While applying temperature can make a distribution less random, in
@@ -499,11 +456,9 @@ its limit, when setting `temperature` $ \\to 0$, temperature scaled
 sampling becomes equal to greedy decoding and will suffer from the same
 problems as before.
 
-</div>
 
-<div class="cell markdown" data-colab_type="text" id="binNTroyzQBu">
 
-### **Top-K Sampling**
+### Top-K Sampling
 
 [Fan et. al (2018)](https://arxiv.org/pdf/1805.04833.pdf) introduced a
 simple, but very powerful sampling scheme, called ***Top-K*** sampling.
@@ -527,9 +482,7 @@ successfully eliminates the rather weird candidates
 
 Let's see how *Top-K* can be used in the library by setting `top_k=50`:
 
-</div>
 
-<div class="cell code" data-execution_count="11" data-colab="{&quot;height&quot;:156,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="HBtDOdD0wx3l" data-outputId="cfc97fac-0956-42ee-a6e5-cad14fc942d3">
 
 ``` python
 # set seed to reproduce results. Feel free to change the seed though to get different results
@@ -559,9 +512,7 @@ print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 
 </div>
 
-</div>
 
-<div class="cell markdown" data-colab_type="text" id="Y77H5m4ZmhEX">
 
 Not bad at all\! The text is arguably the most *human-sounding* text so
 far. One concern though with *Top-K* sampling is that it does not
@@ -582,11 +533,9 @@ model's creativity for flat distribution. This intuition led [Ari
 Holtzman et al. (2019)](https://arxiv.org/abs/1904.09751) to create
 ***Top-p***- or ***nucleus***-sampling.
 
-</div>
 
-<div class="cell markdown" data-colab_type="text" id="ki9LAaexzV3H">
 
-### **Top-p (nucleus) sampling**
+### Top-p (nucleus) sampling
 
 Instead of sampling only from the most likely *K* words, in *Top-p*
 sampling chooses from the smallest possible set of words whose
@@ -611,9 +560,7 @@ the next word seems more predictable, *e.g.*
 Alright, time to check it out in `transformers`\! We activate *Top-p*
 sampling by setting `0 < top_p < 1`:
 
-</div>
 
-<div class="cell code" data-execution_count="10" data-colab="{&quot;height&quot;:170,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="EvwIc7YAx77F" data-outputId="57e2b785-5dcb-4e06-9869-078b758b6a82">
 
 ``` python
 # set seed to reproduce results. Feel free to change the seed though to get different results
@@ -632,23 +579,19 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 ```
 
-<div class="output stream stdout">
+``` 
+Output:
+----------------------------------------------------------------------------------------------------
+I enjoy walking with my cute dog. He will never be the same. I watch him play.
 
-    Output:
-    ----------------------------------------------------------------------------------------------------
-    I enjoy walking with my cute dog. He will never be the same. I watch him play.
-    
-    
-    Guys, my dog needs a name. Especially if he is found with wings.
-    
-    
-    What was that? I had a lot of
 
-</div>
+Guys, my dog needs a name. Especially if he is found with wings.
 
-</div>
 
-<div class="cell markdown" data-colab_type="text" id="tn-8gLaR4lat">
+What was that? I had a lot o
+```
+
+
 
 Great, that sounds like it could have been written by a human. Well,
 maybe not quite yet.
@@ -661,9 +604,7 @@ dynamic selection.
 Finally, to get multiple independently sampled outputs, we can *again*
 set the parameter `num_return_sequences > 1`:
 
-</div>
 
-<div class="cell code" data-execution_count="12" data-colab="{&quot;height&quot;:190,&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}" data-colab_type="code" id="3kY8P9VG8Gi9" data-outputId="6103051e-1681-4ab9-a9c1-1fad437c299d">
 
 ``` python
 # set seed to reproduce results. Feel free to change the seed though to get different results
@@ -684,7 +625,6 @@ for i, sample_output in enumerate(sample_outputs):
   print("{}: {}".format(i, tokenizer.decode(sample_output, skip_special_tokens=True)))
 ```
 
-<div class="output stream stdout">
 
 ``` 
 Output:
@@ -698,20 +638,14 @@ Output:
 
 ```
 
-</div>
 
-</div>
-
-<div class="cell markdown" data-colab_type="text" id="-vRPfMl88rk0">
 
 Cool, now you should have all the tools to let your model write your
-stories with `transformers`\!
+stories with `transformers`!
 
-</div>
 
-<div class="cell markdown" data-colab_type="text" id="NsWd7e98Vcs3">
 
-### **Conclusion**
+### Conclusion
 
 As *ad-hoc* decoding methods, *top-p* and *top-K* sampling seem to
 produce more fluent text than traditional *greedy* - and *beam* search
@@ -748,14 +682,12 @@ For more fun generating stories, please take a look at [Writing with Transformer
 Thanks to everybody, who has contributed to the blog post: Alexander Rush, Julien Chaumand, Thomas Wolf, Victor Sanh, Sam Shleifer, Clément Delangue, Yacine Jernite, Oliver Åstrand and John de Wasseige.
 
 
-</div>
 
-<div class="cell markdown" data-colab_type="text" id="w4CYi91h11yd">
 
-### **Appendix**
+### Appendix
 
 There are a couple of additional parameters for the `generate` method
-that were not mentioned above. We will explain them here briefly\!
+that were not mentioned above. We will explain them here briefly!
 
   - `min_length` can be used to force the model to not produce an EOS
     token (= not finish the sentence) before `min_length` is reached.
@@ -781,4 +713,3 @@ that were not mentioned above. We will explain them here briefly\!
 For more information please also look into the `generate` function
 [docstring](https://huggingface.co/transformers/main_classes/model.html?highlight=generate#transformers.TFPreTrainedModel.generate).
 
-</div>
