@@ -160,8 +160,10 @@ We just need to do two things:
 Here’s a simple version of our EsperantoDataset.
 
 ```python
+from torch.utils.data import Dataset
+
 class EsperantoDataset(Dataset):
-    def __init__(self, evaluate: bool = false):
+    def __init__(self, evaluate: bool = False):
         tokenizer = ByteLevelBPETokenizer(
             "./models/EsperBERTo-small/vocab.json",
             "./models/EsperBERTo-small/merges.txt",
