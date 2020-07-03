@@ -62,7 +62,7 @@ This blog post uses the same notation and coloring as the popular blog post [The
 
 ### Recap Global Self-Attention
 
-The core of every Transformer model is the **self-attention** layer. To recap the conventional self-attention layer, which we refer to here as the **global self-attention** layer, let us assume we apply a transformer layer on the embedding vector sequence \\(\mathbf{X} = \mathbf{x}_1, \ldots, \mathbf{x}_n\\) where each vector \\(\mathbf{x}_i\\) is of size `config.hidden_size`, *i.e.* \\(d_h\\). 
+The core of every Transformer model is the **self-attention** layer. To recap the conventional self-attention layer, which we refer to here as the **global self-attention** layer, let us assume we apply a transformer layer on the embedding vector sequence \\(\mathbf{X} = \mathbf{x}_1, \ldots, \mathbf{x}_n\\) where each vector \\(\mathbf{x}_{i}\\) is of size `config.hidden_size`, *i.e.* \\(d_h\\). 
 
 In short, a global self-attention layer projects \\(\mathbf{X}\\) to the query, key and value matrices \\(\mathbf{Q}, \mathbf{K}, \mathbf{V}\\) and computes the output \\(\mathbf{Z}\\) using the *softmax* operation as follows:
  \\(\mathbf{Z} = \text{SelfAttn}(\mathbf{X}) = \text{softmax}(\mathbf{Q}\mathbf{K}^T) \mathbf{V}\\) with \\(\mathbf{Z}\\) being of dimension \\(d_h \times n\\) (leaving out the key normalization factor and self-attention weights \\(\mathbf{W}^{O}\\) for simplicity). For more detail on the complete transformer operation, see [the illustrated transformer](http://jalammar.github.io/illustrated-transformer/).
@@ -71,38 +71,38 @@ Visually, we can illustrate this operation as follows for \\(n=16, d_h=3\\):
 
 ![alt text](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/reformer_benchmark/conventional_attention.png)
 
-Note that for all visualizations `batch_size` and `config.num_attention_heads` is assumed to be 1. Some vectors, *e.g.* \\(\mathbf{x_3}\\) and its corresponding output vector \\(\mathbf{z_3}\\) are marked so that *LSH self-attention* can later be better explained. The presented logic can effortlessly be extended for multi-head self-attention (`config.num_attention_heads` > 1). The reader is advised to read [the illustrated transformer](http://jalammar.github.io/illustrated-transformer/) as a reference for multi-head self-attention.
+Note that for all visualizations `batch_size` and `config.num_attention_{h}eads` is assumed to be 1. Some vectors, *e.g.* \\(\mathbf{x_3}\\) and its corresponding output vector \\(\mathbf{z_3}\\) are marked so that *LSH self-attention* can later be better explained. The presented logic can effortlessly be extended for multi-head self-attention (`config.num_attention_{h}eads` > 1). The reader is advised to read [the illustrated transformer](http://jalammar.github.io/illustrated-transformer/) as a reference for multi-head self-attention.
 
-Important to remember is that for each output vector \\(\mathbf{z}_i\\), the whole input sequence \\(\mathbf{X}\\) is processed. The tensor of the inner dot-product \\(\mathbf{Q}\mathbf{K}^T\\) has an asymptotic memory complexity of \\(\mathcal{O}(n^2)\\) which usually represents the memory bottleneck in a transformer model. 
+Important to remember is that for each output vector \\(\mathbf{z}_{i}\\), the whole input sequence \\(\mathbf{X}\\) is processed. The tensor of the inner dot-product \\(\mathbf{Q}\mathbf{K}^T\\) has an asymptotic memory complexity of \\(\mathcal{O}(n^2)\\) which usually represents the memory bottleneck in a transformer model. 
 
 This is also the reason why `bert-base-cased` has a `config.max_position_embedding_size` of only 512.
 
 ### Local Self-Attention
 
  **Local self-attention** is the obvious solution to reducing the \\(\mathcal{O}(n^2)\\) memory bottleneck, allowing us to model longer sequences with a reduced computational cost. 
-In local self-attention the input \\( \mathbf{X} = \mathbf{X}_{1:n} = \mathbf{x}_1, \ldots, \mathbf{x}_n \\) 
-is cut into \\(n_c\\) chunks: \\( \mathbf{X} = \left[\mathbf{X}_{1:l_c}, \ldots, \mathbf{X}_{(n_c - 1) * l_c : n_c * l_c}\right] \\) each 
-of length `config.local_chunk_length`, *i.e.* \\(l_c\\), and subsequently global self-attention is applied on each chunk separately.
+In local self-attention the input \\( \mathbf{X} = \mathbf{X}_{1:n} = \mathbf{x}_{1}, \ldots, \mathbf{x}_{n} \\) 
+is cut into \\(n_{c}\\) chunks: \\( \mathbf{X} = \left[\mathbf{X}_{1:l_{c}}, \ldots, \mathbf{X}_{(n_{c} - 1) * l_{c} : n_{c} * l_{c}}\right] \\) each 
+of length `config.local_chunk_length`, *i.e.* \\(l_{c}\\), and subsequently global self-attention is applied on each chunk separately.
 
 Let's take our input sequence for \\(n=16, d_h=3\\) again for visualization:
 
 ![alt text](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/reformer_benchmark/input.png)
 
-Assuming \\(l_c = 4, n_c = 4\\), chunked attention can be illustrated as follows:
+Assuming \\(l_{c} = 4, n_{c} = 4\\), chunked attention can be illustrated as follows:
 
 ![alt text](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/reformer_benchmark/chunked_attention_1.png)
 
 As can be seen, the attention operation is applied for each chunk \\(\mathbf{X}_{1:4}, \mathbf{X}_{5:8}, \mathbf{X}_{9:12}, \mathbf{X}_{13:16}\\) individually.
-The first drawback of this architecture becomes obvious: Some input vectors have no access to their immediate context, *e.g.* \\(\mathbf{x}_9\\) has no access to \\(\mathbf{x}_8\\) and vice-versa in our example. This is problematic because these tokens are not able to learn word representations that take their immediate context into account.
+The first drawback of this architecture becomes obvious: Some input vectors have no access to their immediate context, *e.g.* \\(\mathbf{x}_9\\) has no access to \\(\mathbf{x}_{8}\\) and vice-versa in our example. This is problematic because these tokens are not able to learn word representations that take their immediate context into account.
 
-A simple remedy is to augment each chunk with `config.local_num_chunks_before`, *i.e.* \\(n_p\\), chunks and `config.local_num_chunks_after`, *i.e.* \\(n_a\\), so that every input vector has at least access to \\(n_p\\) previous input vectors and \\(n_a\\) following input vectors. This can also be understood as chunking with overlap whereas \\(n_p\\) and \\(n_a\\) define the amount of overlap each chunk has with all previous chunks and following chunks. We denote this extended local self-attention as follows: 
+A simple remedy is to augment each chunk with `config.local_num_chunks_before`, *i.e.* \\(n_{p}\\), chunks and `config.local_num_chunks_after`, *i.e.* \\(n_{a}\\), so that every input vector has at least access to \\(n_{p}\\) previous input vectors and \\(n_{a}\\) following input vectors. This can also be understood as chunking with overlap whereas \\(n_{p}\\) and \\(n_{a}\\) define the amount of overlap each chunk has with all previous chunks and following chunks. We denote this extended local self-attention as follows: 
 
-$$\mathbf{Z}^{\text{loc}} = \left[\mathbf{Z}_{1:l_c}^{\text{loc}}, \ldots, \mathbf{Z}_{(n_c - 1) * l_c : n_c * l_c}^{\text{loc}}\right] \text{, with } \mathbf{Z}_{l_c * (i - 1) + 1 : l_c * i}^{\text{loc}} = \text{SelfAttn}(\mathbf{X}_{l_c * (i - 1 - n_p) + 1: l_c * (i + n_a)})\left[n_p * l_c: -n_a * l_c\right], \forall i \in \{1, \ldots, n_c \}$$
+$$\mathbf{Z}^{\text{loc}} = \left[\mathbf{Z}_{1:l_{c}}^{\text{loc}}, \ldots, \mathbf{Z}_{(n_{c} - 1) * l_{c} : n_{c} * l_{c}}^{\text{loc}}\right] \text{, with } \mathbf{Z}_{l_{c} * (i - 1) + 1 : l_{c} * i}^{\text{loc}} = \text{SelfAttn}(\mathbf{X}_{l_{c} * (i - 1 - n_{p}) + 1: l_{c} * (i + n_{a})})\left[n_{p} * l_{c}: -n_{a} * l_{c}\right], \forall i \in \{1, \ldots, n_{c} \}$$
 
 Okay, this formula looks quite complicated. Let's make it easier.
-In Reformer's self-attention layers \\(n_a\\) is usually set to 0 and \\(n_p\\) is set to 1, so let's write down the formula again for \\(i = 1\\):
+In Reformer's self-attention layers \\(n_{a}\\) is usually set to 0 and \\(n_{p}\\) is set to 1, so let's write down the formula again for \\(i = 1\\):
 
-$$\mathbf{Z}_{1:l_c}^{\text{loc}} = \text{SelfAttn}(\mathbf{X}_{-l_c + 1: l_c})\left[l_c:\right]$$
+$$\mathbf{Z}_{1:l_{c}}^{\text{loc}} = \text{SelfAttn}(\mathbf{X}_{-l_{c} + 1: l_{c}})\left[l_{c}:\right]$$
 
 We notice that we have a circular relationship so that the first segment can attend the last segment as well. Let's illustrate this slightly enhanced local attention again. First, we apply self-attention within each windowed segment and keep only the central output segment.
 
@@ -114,9 +114,9 @@ Finally, the relevant output is concatenated to \\(\mathbf{Z}^{\text{loc}}\\) an
 
 Note that local self-attention is implemented efficiently way so that no output is computed and subsequently "thrown-out" as shown here for illustration purposes by the red cross.
 
-It's important to note here that extending the input vectors for each chunked self-attention function allows *each* single output vector \\( \mathbf{z}_i \\) of this self-attention function to learn better vector representations. E.g. each of the output vectors \\( \mathbf{z}_{5}^{\text{loc}}, \mathbf{z}_{6}^{\text{loc}}, \mathbf{z}_{7}^{\text{loc}}, \mathbf{z}_{8}^{\text{loc}} \\) can take into account all of the input vectors \\( \mathbf{X}_{1:8} \\) to learn better representations.
+It's important to note here that extending the input vectors for each chunked self-attention function allows *each* single output vector \\( \mathbf{z}_{i} \\) of this self-attention function to learn better vector representations. E.g. each of the output vectors \\( \mathbf{z}_{5}^{\text{loc}}, \mathbf{z}_{6}^{\text{loc}}, \mathbf{z}_{7}^{\text{loc}}, \mathbf{z}_{8}^{\text{loc}} \\) can take into account all of the input vectors \\( \mathbf{X}_{1:8} \\) to learn better representations.
 
-The gain in memory consumption is quite obvious: The \\( \mathcal{O}(n^2) \\) memory complexity is broken down for each segment individually so that the total asymptotic memory consumption is reduced to \\( \mathcal{O}(n_c * l_c^2) = \mathcal{O}(n * l_c) \\).
+The gain in memory consumption is quite obvious: The \\( \mathcal{O}(n^2) \\) memory complexity is broken down for each segment individually so that the total asymptotic memory consumption is reduced to \\( \mathcal{O}(n_{c} * l_{c}^2) = \mathcal{O}(n * l_{c}) \\).
 
 This enhanced local self-attention is better than the vanilla local self-attention architecture but still has a major drawback in that every input vector can only attend to a local context of predefined size. For NLP tasks that do not require the transformer model to learn long-range dependencies between the input vectors, which include arguably *e.g.* speech recognition, named entity recognition and causal language modeling of short sentences, this might not be a big issue. Many NLP tasks do require the model to learn long-range dependencies, so that local self-attention could lead to significant performance degradation, *e.g.* 
 * *Question-answering*: the model has to learn the relationship between the question tokens and relevant answer tokens which will most likely not be in the same local range
@@ -139,24 +139,24 @@ LSH self-attention relies on the LSH algorithm as presented in [Andoni et al (20
 The idea behind LSH self-attention is based on the insight that if \\(n\\) is large, the softmax applied on the \\(\mathbf{Q}\mathbf{K}^T\\) attention dot-product weights only very few value vectors  with values significantly larger than 0 for each query vector. 
 
 Let's explain this in more detail.
-Let \\(\mathbf{k}_i \in \mathbf{K} = \left[\mathbf{k}_1, \ldots, \mathbf{k}_n \right]^T\\) and \\(\mathbf{q}_i \in \mathbf{Q} = \left[\mathbf{q}_1, \ldots, \mathbf{q}_n\right]^T\\) be the key and query vectors. For each \\(\mathbf{q}_i\\), the computation \\(\text{softmax}(\mathbf{q}_i^T \mathbf{K}^T)\\) can be approximated by using only those key vectors of \\(\mathbf{k}_j\\) that have a high cosine similarity with \\(\mathbf{q}_i\\). This owes to the fact that the softmax function puts exponentially more weight on larger input values.
+Let \\(\mathbf{k}_{i} \in \mathbf{K} = \left[\mathbf{k}_1, \ldots, \mathbf{k}_n \right]^T\\) and \\(\mathbf{q}_{i} \in \mathbf{Q} = \left[\mathbf{q}_1, \ldots, \mathbf{q}_n\right]^T\\) be the key and query vectors. For each \\(\mathbf{q}_{i}\\), the computation \\(\text{softmax}(\mathbf{q}_{i}^T \mathbf{K}^T)\\) can be approximated by using only those key vectors of \\(\mathbf{k}_{j}\\) that have a high cosine similarity with \\(\mathbf{q}_{i}\\). This owes to the fact that the softmax function puts exponentially more weight on larger input values.
 So far so good, the next problem is to efficiently find the vectors that have a
-high cosine similarity with \\(\mathbf{q}_i\\) for all \\(i\\).
+high cosine similarity with \\(\mathbf{q}_{i}\\) for all \\(i\\).
 
 First, the authors of Reformer notice that sharing the query and key projections: \\(\mathbf{Q} = \mathbf{K}\\) does not impact the performance of a transformer model \\({}^1\\). Now, instead of having to find the key vectors of high cosine similarity for each query vector \\(q_i\\), only the cosine similarity of query vectors to each other has to be found. 
-This is important because there is a transitive property to the query-query vector dot product approximation: If \\(\mathbf{q}_i\\) has a high cosine similarity to the query vectors \\(\mathbf{q}_j\\) and \\(\mathbf{q}_k\\), then \\(\mathbf{q}_j\\) also has a high cosine similarity to \\(\mathbf{q}_k\\). Therefore, the query vectors can be clustered into buckets, such that all query vectors that belong to the same bucket have a high cosine similarity to each other. Let's define \\(C_m\\) as the *mth* set of position indices, such that their corresponding query vectors are in the same bucket: \\(C_m = \{ i | \text{ s.t. } \mathbf{q}_i \in \text{mth cluster}\}\\) and `config.num_buckets`, *i.e.* \\(n_b\\), as the number of buckets.
+This is important because there is a transitive property to the query-query vector dot product approximation: If \\(\mathbf{q}_{i}\\) has a high cosine similarity to the query vectors \\(\mathbf{q}_{j}\\) and \\(\mathbf{q}_{k}\\), then \\(\mathbf{q}_{j}\\) also has a high cosine similarity to \\(\mathbf{q}_{k}\\). Therefore, the query vectors can be clustered into buckets, such that all query vectors that belong to the same bucket have a high cosine similarity to each other. Let's define \\(C_{m}\\) as the *mth* set of position indices, such that their corresponding query vectors are in the same bucket: \\(C_{m} = \{ i | \text{ s.t. } \mathbf{q}_{i} \in \text{mth cluster}\}\\) and `config.num_buckets`, *i.e.* \\(n_{b}\\), as the number of buckets.
 
-For each set of indices \\(C_m\\), the softmax function on the corresponding bucket of query vectors \\(\text{softmax}(\mathbf{Q}_{i \in C_m} \mathbf{Q}^T_{i \in C_m})\\)  approximates the softmax function of global self-attention with shared query and key projections \\(\text{softmax}(\mathbf{q}_i^T \mathbf{Q}^T)\\) for all position indices \\(i\\) in \\(C_m\\).
+For each set of indices \\(C_{m}\\), the softmax function on the corresponding bucket of query vectors \\(\text{softmax}(\mathbf{Q}_{i \in C_{m}} \mathbf{Q}^T_{i \in C_{m}})\\)  approximates the softmax function of global self-attention with shared query and key projections \\(\text{softmax}(\mathbf{q}_{i}^T \mathbf{Q}^T)\\) for all position indices \\(i\\) in \\(C_{m}\\).
 
-Second, the authors make use of the **LSH** algorithm to cluster the query vectors into a predefined number of buckets \\(n_b\\). The LSH algorithm is an ideal choice here because it is very efficient and is an approximation of the nearest neighbor algorithm for cosine similarity. Explaining the LSH scheme is out-of-scope for this notebook, so let's just keep in mind that for each vector \\(\mathbf{q}_i\\) the LSH algorithm attributes its position index \\(i\\) to one of \\(n_b\\) predefined buckets, *i.e.* \\(\text{LSH}(\mathbf{q}_i) = m\\) with \\(i \in \{1, \ldots, n\}\\) and \\(m \in \{1, \ldots, n_b\}\\).
+Second, the authors make use of the **LSH** algorithm to cluster the query vectors into a predefined number of buckets \\(n_{b}\\). The LSH algorithm is an ideal choice here because it is very efficient and is an approximation of the nearest neighbor algorithm for cosine similarity. Explaining the LSH scheme is out-of-scope for this notebook, so let's just keep in mind that for each vector \\(\mathbf{q}_{i}\\) the LSH algorithm attributes its position index \\(i\\) to one of \\(n_{b}\\) predefined buckets, *i.e.* \\(\text{LSH}(\mathbf{q}_{i}) = m\\) with \\(i \in \{1, \ldots, n\}\\) and \\(m \in \{1, \ldots, n_{b}\}\\).
 
 Visually, we can illustrate this as follows for our original example:
 
 ![alt text](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/reformer_benchmark/lsh_hashing.png)
 
-Third, it can be noted that having clustered all query vectors in \\(n_b\\) buckets, the corresponding set of indices \\(C_m\\) can be used to permute the input vectors \\(\mathbf{x}_1, \ldots, \mathbf{x}_n\\) accordingly \\({}^2\\) so that shared query-key self-attention can be applied piecewise similar to local attention. 
+Third, it can be noted that having clustered all query vectors in \\(n_{b}\\) buckets, the corresponding set of indices \\(C_{m}\\) can be used to permute the input vectors \\(\mathbf{x}_1, \ldots, \mathbf{x}_n\\) accordingly \\({}^2\\) so that shared query-key self-attention can be applied piecewise similar to local attention. 
 
-Let's clarify with our example input vectors \\(\mathbf{X} = \mathbf{x}_1, ..., \mathbf{x}_{16}\\) and assume `config.num_buckets=4` and `config.lsh_chunk_length = 4`. Looking at the graphic above we can see that we have assigned each query vector \\( \mathbf{q}_1, \ldots, \mathbf{q}_{16} \\) to one of the clusters \\( \mathcal{C}_1, \mathcal{C}_2, \mathcal{C}_3, \mathcal{C}_{4} \\) . 
+Let's clarify with our example input vectors \\(\mathbf{X} = \mathbf{x}_1, ..., \mathbf{x}_{16}\\) and assume `config.num_buckets=4` and `config.lsh_chunk_length = 4`. Looking at the graphic above we can see that we have assigned each query vector \\( \mathbf{q}_1, \ldots, \mathbf{q}_{16} \\) to one of the clusters \\( \mathcal{C}_{1}, \mathcal{C}_{2}, \mathcal{C}_{3}, \mathcal{C}_{4} \\) . 
 If we now sort the corresponding input vectors \\( \mathbf{x}_1, \ldots, \mathbf{x}_{16} \\) accordingly, we get the following permuted input \\( \mathbf{X'} \\):
 
 ![alt text](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/reformer_benchmark/lsh_perm.png)
@@ -171,9 +171,9 @@ As can be seen, the self-attention function operates on different sizes of matri
 
 To overcome this problem, the permuted input can be chunked the same way it is done for local attention so that each chunk is of size `config.lsh_chunk_length`. By chunking the permuted input, a bucket might be split into two different chunks. To remedy this problem, in LSH self-attention each chunk attends to its previous chunk `config.lsh_num_chunks_before=1` in addition to itself, the same way local self-attention does (`config.lsh_num_chunks_after` is usually set to 0). This way, we can be assured that all vectors in a bucket attend to each other with a high probability \\({}^3\\).
 
-All in all for all chunks \\( k \in \{1, \ldots, n_c\} \\), LSH self-attention can be noted down as follows:
+All in all for all chunks \\( k \in \{1, \ldots, n_{c}\} \\), LSH self-attention can be noted down as follows:
 
-$$ \mathbf{Z'}_{l_c * k + 1:l_c * (k + 1)}^{\text{LSH}} = \text{SelfAttn}_{\mathbf{Q} = \mathbf{K}}(\mathbf{X'}_{l_c * k + 1): l_c * (k + 1)})\left[l_c:\right] $$
+$$ \mathbf{Z'}_{l_{c} * k + 1:l_{c} * (k + 1)}^{\text{LSH}} = \text{SelfAttn}_{\mathbf{Q} = \mathbf{K}}(\mathbf{X'}_{l_{c} * k + 1): l_{c} * (k + 1)})\left[l_{c}:\right] $$
 
 with \\(\mathbf{X'}\\) and \\( \mathbf{Z'} \\) being the input and output vectors permuted according to the LSH algorithm.
 Enough complicated formulas, let's illustrate LSH self-attention.
@@ -186,21 +186,21 @@ Finally, the output \\(\mathbf{Z'}^{\text{LSH}}\\) is reordered to its original 
 
 ![alt text](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/reformer_benchmark/lsh_attention_3.png)
 
-One important feature to mention here as well is that the accuracy of LSH self-attention can be improved by running LSH self-attention `config.num_hashes`, *e.g.* \\(n_h \\) times in parallel, each with a different random LSH hash. 
-By setting `config.num_hashes > 1`, for each output position \\( i \\), multiple output vectors \\( \mathbf{z}^{\text{LSH}, 1}_i, \ldots, \mathbf{z}^{\text{LSH}, n_h}_i \\) are computed 
-and subsequently merged: \\( \mathbf{z}^{\text{LSH}}_i = \sum_k^{n_h} \mathbf{Z}^{\text{LSH}, k}_i * \text{weight}^k_i \\). The \\( \text{weight}^k_i \\) represents the importance of the output vectors \\( \mathbf{z}^{\text{LSH}, k}_i \\) of hashing round \\( k \\) in comparison to the other hashing rounds, and is exponentially proportional to the normalization term of their softmax computation. The intuition behind this is that if the corresponding query vector \\( \mathbf{q}_i^{k} \\) have a high cosine similarity with all other query vectors in its respective chunk, then the softmax normalization term of this chunk tends to be high, so that the corresponding output vectors \\( \mathbf{q}_i^{k} \\) should be a better approximation to global attention and thus receive more weight than output vectors of hashing rounds with a lower softmax normalization term. For more detail see Appendix A of the [paper](https://arxiv.org/pdf/2001.04451.pdf). For our example, multi-round LSH self-attention can be illustrated as follows.
+One important feature to mention here as well is that the accuracy of LSH self-attention can be improved by running LSH self-attention `config.num_hashes`, e.g. \\(n_{h} \\) times in parallel, each with a different random LSH hash. 
+By setting `config.num_hashes > 1`, for each output position \\( i \\), multiple output vectors \\( \mathbf{z}^{\text{LSH}, 1}_{i}, \ldots, \mathbf{z}^{\text{LSH}, n_{h}}_{i} \\) are computed 
+and subsequently merged: \\( \mathbf{z}^{\text{LSH}}_{i} = \sum_k^{n_{h}} \mathbf{Z}^{\text{LSH}, k}_{i} * \text{weight}^k_i \\). The \\( \text{weight}^k_i \\) represents the importance of the output vectors \\( \mathbf{z}^{\text{LSH}, k}_{i} \\) of hashing round \\( k \\) in comparison to the other hashing rounds, and is exponentially proportional to the normalization term of their softmax computation. The intuition behind this is that if the corresponding query vector \\( \mathbf{q}_{i}^{k} \\) have a high cosine similarity with all other query vectors in its respective chunk, then the softmax normalization term of this chunk tends to be high, so that the corresponding output vectors \\( \mathbf{q}_{i}^{k} \\) should be a better approximation to global attention and thus receive more weight than output vectors of hashing rounds with a lower softmax normalization term. For more detail see Appendix A of the [paper](https://arxiv.org/pdf/2001.04451.pdf). For our example, multi-round LSH self-attention can be illustrated as follows.
 
 ![alt text](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/reformer_benchmark/lsh_attention_4.png)
 
 Great. That's it. Now we know how LSH self-attention works in Reformer. 
 
-Regarding the memory complexity, we now have two terms that compete which each other to be the memory bottleneck: the dot-product: \\( \mathcal{O}(n_h * n_c * l_c^2) = \mathcal{O}(n * n_h * l_c) \\) and the required memory for LSH bucketing: \\( \mathcal{O}(n * n_h * \frac{n_b}{2}) \\) with \\( l_c \\) being the chunk length. Because for large \\( n \\), the number of buckets \\( \frac{n_b}{2} \\) grows much faster than the chunk length \\( l_c \\), the user can again factorize the number of buckets `config.num_buckets` as explained [here](https://huggingface.co/transformers/model_doc/reformer.html#lsh-self-attention).
+Regarding the memory complexity, we now have two terms that compete which each other to be the memory bottleneck: the dot-product: \\( \mathcal{O}(n_{h} * n_{c} * l_{c}^2) = \mathcal{O}(n * n_{h} * l_{c}) \\) and the required memory for LSH bucketing: \\( \mathcal{O}(n * n_{h} * \frac{n_{b}}{2}) \\) with \\( l_{c} \\) being the chunk length. Because for large \\( n \\), the number of buckets \\( \frac{n_{b}}{2} \\) grows much faster than the chunk length \\( l_{c} \\), the user can again factorize the number of buckets `config.num_buckets` as explained [here](https://huggingface.co/transformers/model_doc/reformer.html#lsh-self-attention).
 
 Let's recap quickly what we have gone through above:
 
 1. We want to approximate global attention using the knowledge that the softmax operation only puts significant weights on very few key vectors.
-2. If key vectors are equal to query vectors this means that *for each* query vector \\( \mathbf{q}_i \\), the softmax only puts significant weight on other query vectors that are similar in terms of cosine similarity.
-3. This relationship works in both ways, meaning if \\( \mathbf{q}_j \\) is similar to \\( \mathbf{q}_i \\) than \\(\mathbf{q}_j \\) is also similar to \\( \mathbf{q}_i \\), so that we can do a global clustering before applying self-attention on a permuted input.
+2. If key vectors are equal to query vectors this means that *for each* query vector \\( \mathbf{q}_{i} \\), the softmax only puts significant weight on other query vectors that are similar in terms of cosine similarity.
+3. This relationship works in both ways, meaning if \\( \mathbf{q}_{j} \\) is similar to \\( \mathbf{q}_{i} \\) than \\(\mathbf{q}_{j} \\) is also similar to \\( \mathbf{q}_{i} \\), so that we can do a global clustering before applying self-attention on a permuted input.
 4. We apply local self-attention on the permuted input and re-order the output to its original permutation.
 
 ---
@@ -208,7 +208,7 @@ Let's recap quickly what we have gone through above:
 
  \\( {}^{2} \\) To be more exact the query vectors within a bucket are sorted according to their original order. This means if, *e.g.* the vectors \\( \mathbf{q}_1, \mathbf{q}_3, \mathbf{q}_7 \\) are all hashed to bucket 2, the order of the vectors in bucket 2 would still be \\( \mathbf{q}_1 \\), followed by \\( \mathbf{q}_3 \\) and \\( \mathbf{q}_7 \\).
 
- \\( {}^3 \\) On a side note, it is to mention the authors put a mask on the query vector \\( \mathbf{q}_i \\) to prevent the vector from attending to itself. Because the cosine similarity of a vector to itself will always be as high or higher than the cosine similarity to other vectors, the query vectors in shared query key self-attention are strongly discouraged to attend to themselves.
+ \\( {}^3 \\) On a side note, it is to mention the authors put a mask on the query vector \\( \mathbf{q}_{i} \\) to prevent the vector from attending to itself. Because the cosine similarity of a vector to itself will always be as high or higher than the cosine similarity to other vectors, the query vectors in shared query key self-attention are strongly discouraged to attend to themselves.
 
 
 
@@ -319,7 +319,7 @@ Let's illustrate the feed forward layers for \\( \mathbf{\overline{z}}_1, \ldots
 
 ![alt text](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/reformer_benchmark/feed_forward.png)
 
-As can be depicted from the illustration, all input vectors \\( \mathbf{\overline{z}}_i \\) are processed by the same feed forward layer in parallel.
+As can be depicted from the illustration, all input vectors \\( \mathbf{\overline{z}}_{i} \\) are processed by the same feed forward layer in parallel.
 
 It becomes interesting when one takes a look at the output dimensions of the feed forward layers. In Reformer, the output dimension of \\( \text{Linear}_{\text{int}} \\) is defined as `config.feed_forward_size`, *e.g.* \\( d_{f} \\), and the output dimension of \\( \text{Linear}_{\text{int}} \\) is defined as `config.hidden_size`, *i.e.* \\( d_{h} \\). 
 
@@ -346,7 +346,7 @@ Finally, it is important to remember that *chunked linear layers* yield a mathem
 
  \\( {}^2 \\) In `bert-base-uncased`, *e.g.* the intermediate dimension \\( d_{f} \\) is with 3072 four times larger than the output dimension \\( d_{h} \\).
 
- \\( {}^3 \\) As a reminder, the output `config.num_attention_heads` is assumed to be 1 for the sake of clarity and illustration in this notebook, so that the output of the self-attention layers can be assumed to be of size `config.hidden_size`.
+ \\( {}^3 \\) As a reminder, the output `config.num_attention_{h}eads` is assumed to be 1 for the sake of clarity and illustration in this notebook, so that the output of the self-attention layers can be assumed to be of size `config.hidden_size`.
 
 More information on chunked linear / feed forward layers can also be found [here](https://huggingface.co/transformers/glossary.html#feed-forward-chunking) on the 🤗Transformers docs.
 
@@ -403,8 +403,8 @@ Let's see what happens to the memory peak usage if we increase the size of the f
 
 
 ```
-config_no_chunk = ReformerConfig.from_pretrained("google/reformer-enwik8", chunk_size_feed_forward=0, num_attention_heads=2, feed_forward_size=16384)  # no chuck
-config_chunk = ReformerConfig.from_pretrained("google/reformer-enwik8", chunk_size_feed_forward=1, num_attention_heads=2, feed_forward_size=16384)  # feed forward chunk
+config_no_chunk = ReformerConfig.from_pretrained("google/reformer-enwik8", chunk_size_feed_forward=0, num_attention_{h}eads=2, feed_forward_size=16384)  # no chuck
+config_chunk = ReformerConfig.from_pretrained("google/reformer-enwik8", chunk_size_feed_forward=1, num_attention_{h}eads=2, feed_forward_size=16384)  # feed forward chunk
 benchmark_args = PyTorchBenchmarkArguments(sequence_lengths=[1024, 2048, 4096], batch_sizes=[8], models=["Reformer-No-Chunk", "Reformer-Chunk"], no_speed=True, no_env_print=True)
 benchmark = PyTorchBenchmark(configs=[config_no_chunk, config_chunk], args=benchmark_args)
 result = benchmark.run()
