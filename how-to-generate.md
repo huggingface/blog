@@ -100,9 +100,10 @@ its next word: \\(w_t = argmax_{w}P(w | w_{1:t-1})\\) at each timestep
 
 <img src="/blog/assets/02_how-to-generate/greedy_search.png" alt="greedy search" style="margin: auto; display: block;">
 
-Starting from the word \\((\text{``The"})\\), the algorithm greedily chooses
-the next word of highest probability \\((\text{``nice"})\\) and so on, so
-that the final generated word sequence is \\((\text{``The"}, \text{``nice"}, \text{``woman"})\\) having an overall probability of \\(0.5 \times 0.4 = 0.2\\) .
+Starting from the word \\(\text{``The"},\\) the algorithm greedily chooses
+the next word of highest probability \\(\text{``nice"}\\) and so on, so
+that the final generated word sequence is \\((\text{``The"}, \text{``nice"}, \text{``woman"})\\) 
+having an overall probability of \\(0.5 \times 0.4 = 0.2\\) .
 
 In the following we will generate word sequences using GPT2 on the
 context \\((\text{``I"}, \text{``enjoy"}, \text{``walking"}, \text{``with"}, \text{``my"}, \text{``cute"}, \text{``dog"})\\). Let's
@@ -145,7 +146,8 @@ The major drawback of greedy search though is that it misses high
 probability words hidden behind a low probability word as can be seen in
 our sketch above:
 
-The word \\(\text{``has"}\\) with its high conditional probability of \\(0.9\\) 
+The word \\(\text{``has"}\\) 
+with its high conditional probability of \\(0.9\\) 
 is hidden behind the word \\(\text{``dog"}\\), which has only the
 second-highest conditional probability, so that greedy search misses the
 word sequence \\(\text{``The"}, \text{``dog"}, \text{``has"}\\) .
@@ -163,10 +165,11 @@ highest probability. Let's illustrate with `num_beams=2`:
 
 <img src="/blog/assets/02_how-to-generate/beam_search.png" alt="beam search" style="margin: auto; display: block;">
 
-At time step 1, besides the most likely hypothesis \\((\text{``The"}, \text{``woman"})\\), 
+At time step 1, besides the most likely hypothesis \\((\text{``The"}, \text{``woman"},)\\),
 beam search also keeps track of the second
-most likely one \\((\text{``The"}, \text{``dog"})\\). At time step 2, beam search
-finds that the word sequence \\((\text{``The"}, \text{``dog"}, \text{``has"})\\), has with \\(0.36\\) 
+most likely one \\((\text{``The"}, \text{``dog"})\\). 
+At time step 2, beam search finds that the word sequence \\((\text{``The"}, \text{``dog"}, \text{``has"})\\), 
+has with \\(0.36\\) 
 a higher probability than \\((\text{``The"}, \text{``nice"}, \text{``woman"})\\),
 which has \\(0.2\\) . Great, it has found the most likely word sequence in
 our toy example\!
