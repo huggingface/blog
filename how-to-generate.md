@@ -58,8 +58,7 @@ $$ P(w_{1:T} | W_0 ) = \prod_{t=1}^T P(w_{t} | w_{1: t-1}, W_0) \text{ ,with }  
 
 and \\(W_0\\) being the initial *context* word sequence. The length \\(T\\)
 of the word sequence is usually determined *on-the-fly* and corresponds
-to the timestep \\(t=T\\) the EOS token is generated from
-\\(P(w_{t} | w_{1: t-1}, W_{0})\\) .
+to the timestep \\(t=T\\) the EOS token is generated from \\(P(w_{t} | w_{1: t-1}, W_{0})\\).
 
 Auto-regressive language generation is now available for `GPT2`,
 `XLNet`, `OpenAi-GPT`, `CTRL`, `TransfoXL`, `XLM`, `Bart`, `T5` in both
@@ -96,20 +95,20 @@ model = TFGPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_tok
 
 Greedy search simply selects the word with the highest probability as
 its next word: \\(w_t = argmax_{w}P(w | w_{1:t-1})\\) at each timestep
-\\(t\\) . The following sketch shows greedy search.
+ \\(t\\). The following sketch shows greedy search.
 
 
 <img src="/blog/assets/02_how-to-generate/greedy_search.png" alt="greedy search" style="margin: auto; display: block;">
 
-Starting from the word \\(\text{``The"}\\), the algorithm greedily chooses
-the next word of highest probability \\(\text{"nice"}\\) and so on, so
+Starting from the word \\(\text{``The''}\\), the algorithm greedily chooses
+the next word of highest probability \\(\text{``nice''}\\) and so on, so
 that the final generated word sequence is
-\\(\text{``The", ``nice", ``woman"}\\) having an overall probability of
+\\(\text{``The'', ``nice'', ``woman''}\\) having an overall probability of
 \\(0.5 \times 0.4 = 0.2\\) .
 
 In the following we will generate word sequences using GPT2 on the
 context
-\\((\text{``I", ``enjoy", ``walking", ``with", ``my", ``cute", ``dog"})\\). Let's
+\\((\text{``I'', ``enjoy'', ``walking'', ``with'', ``my'', ``cute'', ``dog'')\\). Let's
 see how greedy search can be used in `transformers`:
 
 
@@ -168,10 +167,10 @@ highest probability. Let's illustrate with `num_beams=2`:
 <img src="/blog/assets/02_how-to-generate/beam_search.png" alt="beam search" style="margin: auto; display: block;">
 
 At time step 1, besides the most likely hypothesis
-\\(\text{``The", ``woman"}\\), beam search also keeps track of the second
-most likely one \\(\text{``The", ``dog"}\\). At time step 2, beam search
-finds that the word sequence \\(\text{``The", ``dog", ``has"}\\) has with
-\\(0.36\\) a higher probability than \\(\text{``The", ``nice", ``woman"}\\),
+\\(\text{``The'', ``woman''}\\), beam search also keeps track of the second
+most likely one \\(\text{``The'', ``dog''}\\). At time step 2, beam search
+finds that the word sequence \\(\text{``The'', ``dog'', ``has''}\\) has with \\(0.36\\) 
+a higher probability than \\(\text{``The'', ``nice'', ``woman''}\\),
 which has \\(0.2\\) . Great, it has found the most likely word sequence in
 our toy example\!
 
@@ -353,10 +352,10 @@ generation when sampling.
 <img src="/blog/assets/02_how-to-generate/sampling_search.png" alt="sampling search" style="margin: auto; display: block;">
 
 It becomes obvious that language generation using sampling is not
-*deterministic* anymore. The word \\(\text{"car"}\\) is sampled from the
-conditioned probability distribution \\(P(w | \text{"The"})\\), followed
-by sampling \\(\text{"drives"}\\) from
-\\(P(w | \text{"The"}, \text{"car"})\\) .
+*deterministic* anymore. The word \\(\text{``car''}\\) is sampled from the
+conditioned probability distribution \\(P(w | \text{``The''})\\), followed
+by sampling \\(\text{``drives''}\\) from
+\\(P(w | \text{``The''}, \text{``car''})\\) .
 
 In `transformers`, we set `do_sample=True` and deactivate *Top-K*
 sampling (more on this later) via `top_k=0`. In the following, we will
@@ -414,7 +413,7 @@ look as follows.
 <img src="/blog/assets/02_how-to-generate/sampling_search_with_temp.png" alt="sampling temp search" style="margin: auto; display: block;">
 
 The conditional next word distribution of step \\(t=1\\) becomes much
-sharper leaving almost no chance for word \\(\text{"car"}\\) to be
+sharper leaving almost no chance for word \\(\text{``car''}\\) to be
 selected.
 
 Let's see how we can cool down the distribution in the library by
@@ -476,7 +475,7 @@ to 6 words. While the 6 most likely words, defined as
  \\(V_{\text{top-K}}\\) encompass only *ca.* two-thirds of the whole
 probability mass in the first step, it includes almost all of the
 probability mass in the second step. Nevertheless, we see that it
-successfully eliminates the rather weird candidates \\(\text{``not", ``the", ``small", ``told"}\\) in the second sampling step.
+successfully eliminates the rather weird candidates \\(\text{``not'', ``the'', ``small'', ``told''}\\) in the second sampling step.
 
 Let's see how *Top-K* can be used in the library by setting `top_k=50`:
 
@@ -522,7 +521,7 @@ others from a much more flat distribution (distribution on the left in
 the graph above).
 
 In step \\(t=1\\), *Top-K* eliminates the possibility to sample
-\\(\text{``people", ``big", ``house", ``cat"}\\), which seem like reasonable
+ \\(\text{``people'', ``big'', ``house'', ``cat''}\\), which seem like reasonable
 candidates. On the other hand, in step \\(t=2\\) the method includes the
 arguably ill-fitted words \\(\text{``down", ``a"}\\) in the sample pool of
 words. Thus, limiting the sample pool to a fixed size *K* could endanger
@@ -547,13 +546,13 @@ distribution. Ok, that was very wordy, let's visualize.
 
 Having set \\(p=0.92\\), *Top-p* sampling picks the *minimum* number of
 words to exceed together \\(p=92\%\\) of the probability mass, defined as
-\\(V_{\text{top-p}}\\). In the first example, this included the 9 most
+ \\(V_{\text{top-p}}\\). In the first example, this included the 9 most
 likely words, whereas it only has to pick the top 3 words in the second
 example to exceed 92%. Quite simple actually\! It can be seen that it
 keeps a wide range of words where the next word is arguably less
-predictable, *e.g.* \\(P(w | \text{``The"})\\), and only a few words when
+predictable, *e.g.* \\(P(w | \text{``The''})\\), and only a few words when
 the next word seems more predictable, *e.g.*
-\\(P(w | \text{``The", ``car"})\\).
+ \\(P(w | \text{``The'', ``car''})\\).
 
 Alright, time to check it out in `transformers`\! We activate *Top-p*
 sampling by setting `0 < top_p < 1`:
