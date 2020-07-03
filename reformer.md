@@ -26,7 +26,7 @@ thumbnail: https://huggingface.co/blog/assets/03_reformer/thumbnail.png
 <a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/add_reformer_notebook/Reformer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 
-# How the Reformer uses less than 8GB of RAM to train on sequences of half a million tokens
+## ***How the Reformer uses less than 8GB of RAM to train on sequences of half a million tokens***
 
 The Reformer model as introduced by [Kitaev, Kaiser et al. (2020)](https://arxiv.org/pdf/2001.04451.pdf) is one of the most memory-efficient transformer models for long sequence modeling as of today.
 
@@ -303,10 +303,10 @@ For our example input $\mathbf{x}_1, \ldots, \mathbf{x}_{16}$, we illustrate the
 
 ![alt text](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/reformer_benchmark/layer_normed_output.png)
 
-Now, the second part of a *transformer block* usually consists of two feed forward layers$^{1}$, defined as $\text{Linear}_{\text{int}}(\ldots)$ that processes $\mathbf{\overline{Z}}$, to an intermediate output $\mathbf{Y}_{\text{int}}$ and $\text{Linear}_{\text{out}}(\ldots)$ that processes the intermediate output to the output $\mathbf{Y}_{\text{out}}$. The two feed forward layers can be defined by $\mathbf{Y}_{\text{out}} = \text{Linear}_{\text{out}}(\mathbf{Y}_\text{int}) = 
-\text{Linear}_{\text{out}}(\text{Linear}_{\text{int}}(\mathbf{\overline{Z}}))$.
+Now, the second part of a *transformer block* usually consists of two feed forward layers$^{1}$, defined as $\text{Linear}_{\text{int}}(\ldots)$ that processes $\mathbf{\overline{Z}}$, to an intermediate output $\mathbf{Y}_{\text{int}}$ and $\text{Linear}_{\text{out}}(\ldots)$ that processes the intermediate output to the output $\mathbf{Y}_{\text{out}}$. The two feed forward layers can be defined by $$\mathbf{Y}_{\text{out}} = \text{Linear}_{\text{out}}(\mathbf{Y}_\text{int}) = 
+\text{Linear}_{\text{out}}(\text{Linear}_{\text{int}}(\mathbf{\overline{Z}})).$$
 
-It is important to remember at this point that mathematically the output of a feed forward layer at position $\mathbf{y}_{\text{out}, i}$ only depends on the input at this position $\mathbf{\overline{y}}_i$. In contrast to the self-attention layer, every output $\mathbf{y}_{\text{out}, i}$ is therefore completely independent of all inputs $\mathbf{\overline{y}}_{j \ne i} of different positions$. 
+It is important to remember at this point that mathematically the output of a feed forward layer at position $\mathbf{y}_{\text{out}, i}$ only depends on the input at this position $\mathbf{\overline{y}}_i$. In contrast to the self-attention layer, every output $\mathbf{y}_{\text{out}, i}$ is therefore completely independent of all inputs $\mathbf{\overline{y}}_{j \ne i}$ of different positions.
 
 Let's illustrate the feed forward layers for $\mathbf{\overline{z}}_1, \ldots, \mathbf{\overline{z}}_{16}$.
 
