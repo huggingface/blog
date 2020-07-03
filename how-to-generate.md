@@ -100,9 +100,9 @@ its next word: \\(w_t = argmax_{w}P(w | w_{1:t-1})\\) at each timestep
 
 <img src="/blog/assets/02_how-to-generate/greedy_search.png" alt="greedy search" style="margin: auto; display: block;">
 
-Starting from the word \\(\text{``The"}\\), the algorithm greedily chooses
-the next word of highest probability \\(\text{``nice"}\\) and so on, so
-that the final generated word sequence is \\(\text{``The"}, \text{``nice"}, \text{``woman"}\\) having an overall probability of \\(0.5 \times 0.4 = 0.2\\) .
+Starting from the word \\((\text{``The"})\\), the algorithm greedily chooses
+the next word of highest probability \\((\text{``nice"})\\) and so on, so
+that the final generated word sequence is \\((\text{``The"}, \text{``nice"}, \text{``woman"})\\) having an overall probability of \\(0.5 \times 0.4 = 0.2\\) .
 
 In the following we will generate word sequences using GPT2 on the
 context \\((\text{``I"}, \text{``enjoy"}, \text{``walking"}, \text{``with"}, \text{``my"}, \text{``cute"}, \text{``dog"})\\). Let's
@@ -163,11 +163,11 @@ highest probability. Let's illustrate with `num_beams=2`:
 
 <img src="/blog/assets/02_how-to-generate/beam_search.png" alt="beam search" style="margin: auto; display: block;">
 
-At time step 1, besides the most likely hypothesis \\(\text{``The"}, \text{``woman"}\\), 
+At time step 1, besides the most likely hypothesis \\((\text{``The"}, \text{``woman"})\\), 
 beam search also keeps track of the second
-most likely one \\(\text{``The"}, \text{``dog"}\\). At time step 2, beam search
-finds that the word sequence \\(\text{``The"}, \text{``dog"}, \text{``has"}\\) has with \\(0.36\\) 
-a higher probability than \\(\text{``The"}, \text{``nice"}, \text{``woman"}\\),
+most likely one \\((\text{``The"}, \text{``dog"})\\). At time step 2, beam search
+finds that the word sequence \\((\text{``The"}, \text{``dog"}, \text{``has"})\\), has with \\(0.36\\) 
+a higher probability than \\((\text{``The"}, \text{``nice"}, \text{``woman"})\\),
 which has \\(0.2\\) . Great, it has found the most likely word sequence in
 our toy example\!
 
@@ -349,9 +349,9 @@ generation when sampling.
 <img src="/blog/assets/02_how-to-generate/sampling_search.png" alt="sampling search" style="margin: auto; display: block;">
 
 It becomes obvious that language generation using sampling is not
-*deterministic* anymore. The word \\(\text{``car"}\\) is sampled from the
+*deterministic* anymore. The word \\((\text{``car"})\\) is sampled from the
 conditioned probability distribution \\(P(w | \text{``The"})\\), followed
-by sampling \\(\text{``drives"}\\) from
+by sampling \\((\text{``drives"})\\) from
 \\(P(w | \text{``The"}, \text{``car"})\\) .
 
 In `transformers`, we set `do_sample=True` and deactivate *Top-K*
@@ -410,7 +410,7 @@ look as follows.
 <img src="/blog/assets/02_how-to-generate/sampling_search_with_temp.png" alt="sampling temp search" style="margin: auto; display: block;">
 
 The conditional next word distribution of step \\(t=1\\) becomes much
-sharper leaving almost no chance for word \\(\text{``car"}\\) to be
+sharper leaving almost no chance for word \\((\text{``car"})\\) to be
 selected.
 
 Let's see how we can cool down the distribution in the library by
@@ -447,7 +447,7 @@ print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 
 OK. There are less weird n-grams and the output is a bit more coherent
 now\! While applying temperature can make a distribution less random, in
-its limit, when setting `temperature` $ \\to 0$, temperature scaled
+its limit, when setting `temperature` \\(\to 0\\), temperature scaled
 sampling becomes equal to greedy decoding and will suffer from the same
 problems as before.
 
@@ -472,7 +472,7 @@ to 6 words. While the 6 most likely words, defined as
  \\(V_{\text{top-K}}\\) encompass only *ca.* two-thirds of the whole
 probability mass in the first step, it includes almost all of the
 probability mass in the second step. Nevertheless, we see that it
-successfully eliminates the rather weird candidates \\(\text{``not"}, \text{``the"}, \text{``small"}, \text{``told"}\\) in the second sampling step.
+successfully eliminates the rather weird candidates \\((\text{``not"}, \text{``the"}, \text{``small"}, \text{``told"})\\) in the second sampling step.
 
 Let's see how *Top-K* can be used in the library by setting `top_k=50`:
 
@@ -518,9 +518,9 @@ others from a much more flat distribution (distribution on the left in
 the graph above).
 
 In step \\(t=1\\), *Top-K* eliminates the possibility to sample
- \\(\text{``people"}, \text{``big", \text{``house"}, \text{``cat"}\\), which seem like reasonable
+ \\((\text{``people"}, \text{``big"}, \text{``house"}, \text{``cat"})\\), which seem like reasonable
 candidates. On the other hand, in step \\(t=2\\) the method includes the
-arguably ill-fitted words \\(\text{``down", ``a"}\\) in the sample pool of
+arguably ill-fitted words \\((\text{``down"}, \text{``a"})\\) in the sample pool of
 words. Thus, limiting the sample pool to a fixed size *K* could endanger
 the model to produce gibberish for sharp distributions and limit the
 model's creativity for flat distribution. This intuition led [Ari
