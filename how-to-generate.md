@@ -100,13 +100,13 @@ its next word: \\(w_t = argmax_{w}P(w | w_{1:t-1})\\) at each timestep
 
 <img src="/blog/assets/02_how-to-generate/greedy_search.png" alt="greedy search" style="margin: auto; display: block;">
 
-Starting from the word \\(\text{"The"},\\) the algorithm greedily chooses
-the next word of highest probability \\(\text{"nice"}\\) and so on, so
-that the final generated word sequence is \\((\text{"The"}, \text{"nice"}, \text{"woman"})\\) 
+Starting from the word \\(\text{``The"},\\) the algorithm greedily chooses
+the next word of highest probability \\(\text{``nice"}\\) and so on, so
+that the final generated word sequence is \\((\text{``The"}, \text{``nice"}, \text{``woman"})\\) 
 having an overall probability of \\(0.5 \times 0.4 = 0.2\\) .
 
 In the following we will generate word sequences using GPT2 on the
-context \\((\text{"I"}, \text{"enjoy"}, \text{"walking"}, \text{"with"}, \text{"my"}, \text{"cute"}, \text{"dog"})\\). Let's
+context \\((\text{``I"}, \text{``enjoy"}, \text{``walking"}, \text{``with"}, \text{``my"}, \text{``cute"}, \text{``dog"})\\). Let's
 see how greedy search can be used in `transformers`:
 
 
@@ -146,11 +146,11 @@ The major drawback of greedy search though is that it misses high
 probability words hidden behind a low probability word as can be seen in
 our sketch above:
 
-The word \\(\text{"has"}\\) 
+The word \\(\text{``has"}\\) 
 with its high conditional probability of \\(0.9\\) 
-is hidden behind the word \\(\text{"dog"}\\), which has only the
+is hidden behind the word \\(\text{``dog"}\\), which has only the
 second-highest conditional probability, so that greedy search misses the
-word sequence \\(\text{"The"}, \text{"dog"}, \text{"has"}\\) .
+word sequence \\(\text{``The"}, \text{``dog"}, \text{``has"}\\) .
 
 Thankfully, we have beam search to alleviate this problem\!
 
@@ -165,12 +165,12 @@ highest probability. Let's illustrate with `num_beams=2`:
 
 <img src="/blog/assets/02_how-to-generate/beam_search.png" alt="beam search" style="margin: auto; display: block;">
 
-At time step 1, besides the most likely hypothesis \\((\text{"The"}, \text{"woman"},)\\),
+At time step 1, besides the most likely hypothesis \\((\text{``The"}, \text{``woman"},)\\),
 beam search also keeps track of the second
-most likely one \\((\text{"The"}, \text{"dog"})\\). 
-At time step 2, beam search finds that the word sequence \\((\text{"The"}, \text{"dog"}, \text{"has"})\\), 
+most likely one \\((\text{``The"}, \text{``dog"})\\). 
+At time step 2, beam search finds that the word sequence \\((\text{``The"}, \text{``dog"}, \text{``has"})\\), 
 has with \\(0.36\\) 
-a higher probability than \\((\text{"The"}, \text{"nice"}, \text{"woman"})\\),
+a higher probability than \\((\text{``The"}, \text{``nice"}, \text{``woman"})\\),
 which has \\(0.2\\) . Great, it has found the most likely word sequence in
 our toy example\!
 
@@ -352,10 +352,9 @@ generation when sampling.
 <img src="/blog/assets/02_how-to-generate/sampling_search.png" alt="sampling search" style="margin: auto; display: block;">
 
 It becomes obvious that language generation using sampling is not
-*deterministic* anymore. The word \\((\text{"car"})\\) is sampled from the
-conditioned probability distribution \\(P(w | \text{"The"})\\), followed
-by sampling \\((\text{"drives"})\\) from
-\\(P(w | \text{"The"}, \text{"car"})\\) .
+*deterministic* anymore. The word \\((\text{``car"})\\) is sampled from the
+conditioned probability distribution \\( P(w | \text{``The"})\\), followed
+by sampling \\((\text{``drives"})\\) from \\(P(w | \text{``The"}, \text{``car"})\\) .
 
 In `transformers`, we set `do_sample=True` and deactivate *Top-K*
 sampling (more on this later) via `top_k=0`. In the following, we will
@@ -413,7 +412,7 @@ look as follows.
 <img src="/blog/assets/02_how-to-generate/sampling_search_with_temp.png" alt="sampling temp search" style="margin: auto; display: block;">
 
 The conditional next word distribution of step \\(t=1\\) becomes much
-sharper leaving almost no chance for word \\((\text{"car"})\\) to be
+sharper leaving almost no chance for word \\((\text{``car"})\\) to be
 selected.
 
 Let's see how we can cool down the distribution in the library by
@@ -521,9 +520,9 @@ others from a much more flat distribution (distribution on the left in
 the graph above).
 
 In step \\(t=1\\), *Top-K* eliminates the possibility to sample
- \\((\text{"people"}, \text{"big"}, \text{"house"}, \text{"cat"})\\), which seem like reasonable
+ \\((\text{``people"}, \text{``big"}, \text{``house"}, \text{``cat"})\\), which seem like reasonable
 candidates. On the other hand, in step \\(t=2\\) the method includes the
-arguably ill-fitted words \\((\text{"down"}, \text{"a"})\\) in the sample pool of
+arguably ill-fitted words \\((\text{``down"}, \text{``a"})\\) in the sample pool of
 words. Thus, limiting the sample pool to a fixed size *K* could endanger
 the model to produce gibberish for sharp distributions and limit the
 model's creativity for flat distribution. This intuition led [Ari
@@ -550,9 +549,9 @@ words to exceed together \\(p=92\%\\) of the probability mass, defined as
 likely words, whereas it only has to pick the top 3 words in the second
 example to exceed 92%. Quite simple actually\! It can be seen that it
 keeps a wide range of words where the next word is arguably less
-predictable, *e.g.* \\(P(w | \text{"The''})\\), and only a few words when
+predictable, *e.g.* \\(P(w | \text{``The"})\\), and only a few words when
 the next word seems more predictable, *e.g.*
- \\(P(w | \text{"The"}, \text{"car"})\\).
+ \\(P(w | \text{``The"}, \text{``car"})\\).
 
 Alright, time to check it out in `transformers`\! We activate *Top-p*
 sampling by setting `0 < top_p < 1`:
