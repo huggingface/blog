@@ -26,7 +26,7 @@ thumbnail: https://huggingface.co/blog/assets/03_reformer/thumbnail.png
 <a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/add_reformer_notebook/Reformer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 
-## ***How the Reformer uses less than 8GB of RAM to train on sequences of half a million tokens***
+## How the Reformer uses less than 8GB of RAM to train on sequences of half a million tokens
 
 The Reformer model as introduced by [Kitaev, Kaiser et al. (2020)](https://arxiv.org/pdf/2001.04451.pdf) is one of the most memory-efficient transformer models for long sequence modeling as of today.
 
