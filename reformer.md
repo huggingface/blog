@@ -23,7 +23,7 @@ thumbnail: https://huggingface.co/blog/assets/03_reformer/thumbnail.png
     </a>
 </div>
 
-<a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/add_reformer_notebook/Reformer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/master/notebooks/03_reformer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 
 ## How the Reformer uses less than 8GB of RAM to train on sequences of half a million tokens
