@@ -71,7 +71,7 @@ Visually, we can illustrate this operation as follows for \\(n=16, d_h=3\\):
 
 ![alt text](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/reformer_benchmark/conventional_attention.png)
 
-Note that for all visualizations `batch_size` and `config.num_attention_{h}eads` is assumed to be 1. Some vectors, *e.g.* \\(\mathbf{x_3}\\) and its corresponding output vector \\(\mathbf{z_3}\\) are marked so that *LSH self-attention* can later be better explained. The presented logic can effortlessly be extended for multi-head self-attention (`config.num_attention_{h}eads` > 1). The reader is advised to read [the illustrated transformer](http://jalammar.github.io/illustrated-transformer/) as a reference for multi-head self-attention.
+Note that for all visualizations `batch_size` and `config.num_attention_heads` is assumed to be 1. Some vectors, *e.g.* \\(\mathbf{x_3}\\) and its corresponding output vector \\(\mathbf{z_3}\\) are marked so that *LSH self-attention* can later be better explained. The presented logic can effortlessly be extended for multi-head self-attention (`config.num_attention_{h}eads` > 1). The reader is advised to read [the illustrated transformer](http://jalammar.github.io/illustrated-transformer/) as a reference for multi-head self-attention.
 
 Important to remember is that for each output vector \\(\mathbf{z}_{i}\\), the whole input sequence \\(\mathbf{X}\\) is processed. The tensor of the inner dot-product \\(\mathbf{Q}\mathbf{K}^T\\) has an asymptotic memory complexity of \\(\mathcal{O}(n^2)\\) which usually represents the memory bottleneck in a transformer model. 
 
@@ -97,7 +97,9 @@ The first drawback of this architecture becomes obvious: Some input vectors have
 
 A simple remedy is to augment each chunk with `config.local_num_chunks_before`, *i.e.* \\(n_{p}\\), chunks and `config.local_num_chunks_after`, *i.e.* \\(n_{a}\\), so that every input vector has at least access to \\(n_{p}\\) previous input vectors and \\(n_{a}\\) following input vectors. This can also be understood as chunking with overlap whereas \\(n_{p}\\) and \\(n_{a}\\) define the amount of overlap each chunk has with all previous chunks and following chunks. We denote this extended local self-attention as follows: 
 
-$$\mathbf{Z}^{\text{loc}} = \left[\mathbf{Z}_{1:l_{c}}^{\text{loc}}, \ldots, \mathbf{Z}_{(n_{c} - 1) * l_{c} : n_{c} * l_{c}}^{\text{loc}}\right] \text{, with } \mathbf{Z}_{l_{c} * (i - 1) + 1 : l_{c} * i}^{\text{loc}} = \text{SelfAttn}(\mathbf{X}_{l_{c} * (i - 1 - n_{p}) + 1: l_{c} * (i + n_{a})})\left[n_{p} * l_{c}: -n_{a} * l_{c}\right], \forall i \in \{1, \ldots, n_{c} \}$$
+$$\mathbf{Z}^{\text{loc}} = \left[\mathbf{Z}_{1:l_{c}}^{\text{loc}}, \ldots, \mathbf{Z}_{(n_{c} - 1) * l_{c} : n_{c} * l_{c}}^{\text{loc}}\right], $$ 
+with
+$$\mathbf{Z}_{l_{c} * (i - 1) + 1 : l_{c} * i}^{\text{loc}} = \text{SelfAttn}(\mathbf{X}_{l_{c} * (i - 1 - n_{p}) + 1: l_{c} * (i + n_{a})})\left[n_{p} * l_{c}: -n_{a} * l_{c}\right], \forall i \in \{1, \ldots, n_{c} \}$$
 
 Okay, this formula looks quite complicated. Let's make it easier.
 In Reformer's self-attention layers \\(n_{a}\\) is usually set to 0 and \\(n_{p}\\) is set to 1, so let's write down the formula again for \\(i = 1\\):
@@ -300,7 +302,7 @@ First introduced in the Reformer paper, feed forward chunking is a technique tha
 
 ### Chunked Feed Forward Layer in Reformer
 
-In Reformer, the *LSH*- or *local* self-attention layer is usually followed by a residual connection, which then defines the first part in a *transformer block*. For more detail on this please refer to this [blog](http://jalammar.github.io/illustrated-transformer/). 
+In Reformer, the _LSH_- or _local_ self-attention layer is usually followed by a residual connection, which then defines the first part in a *transformer block*. For more detail on this please refer to this [blog](http://jalammar.github.io/illustrated-transformer/). 
 
 The output of the first part of the *transformer block*, called *normed self-attention* output can be written as \\( \mathbf{\overline{Z}} = \mathbf{Z} + \mathbf{X} \\), with \\( \mathbf{Z} \\) being either \\( \mathbf{Z}^{\text{LSH}} \\) or \\( \mathbf{Z}^\text{loc} \\) in Reformer.
 
@@ -323,13 +325,13 @@ As can be depicted from the illustration, all input vectors \\( \mathbf{\overlin
 
 It becomes interesting when one takes a look at the output dimensions of the feed forward layers. In Reformer, the output dimension of \\( \text{Linear}_{\text{int}} \\) is defined as `config.feed_forward_size`, *e.g.* \\( d_{f} \\), and the output dimension of \\( \text{Linear}_{\text{int}} \\) is defined as `config.hidden_size`, *i.e.* \\( d_{h} \\). 
 
-The Reformer authors observed that in a transformer model the intermediate dimension \\( d_{f} \\) usually tends to be much larger than the output dimension\\( ^{2} \\) \\( d_{h} \\). This means that the tensor \\( \mathbf{\mathbf{Y}}_\text{int} \\) of dimension \\( d_{f} \times n \\) allocates a significant amount of the total memory and can even become the memory bottleneck.
+The Reformer authors observed that in a transformer model the intermediate dimension \\( d_{f} \\) usually tends to be much larger than the output dimension \\(^{2}\\) \\( d_{h} \\). This means that the tensor \\( \mathbf{\mathbf{Y}}_\text{int} \\) of dimension \\( d_{f} \times n \\) allocates a significant amount of the total memory and can even become the memory bottleneck.
 
 To get a better feeling for the differences in dimensions let's picture the matrices \\( \mathbf{Y}_\text{int} \\) and \\( \mathbf{Y}_\text{out} \\) for our example.
 
 ![alt text](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/reformer_benchmark/feed_forward_matrix.png)
 
-It is becoming quite obvious that the tensor \\( \mathbf{Y}_\text{int} \\) holds much more memory (\\( \frac{d_{f}}{d_{h}} \times n \\) as much to be exact) than \\( \mathbf{Y}_{\text{out}} \\). But, is it even necessary to compute the full intermediate matrix \\( \mathbf{Y}_\text{int} \\) ? Not really, because relevant is only the output matrix \\( \mathbf{Y}_\text{out} \\). 
+It is becoming quite obvious that the tensor \\( \mathbf{Y}_\text{int} \\) holds much more memory ( \\( \frac{d_{f}}{d_{h}} \times n \\) as much to be exact) than \\( \mathbf{Y}_{\text{out}} \\). But, is it even necessary to compute the full intermediate matrix \\( \mathbf{Y}_\text{int} \\) ? Not really, because relevant is only the output matrix \\( \mathbf{Y}_\text{out} \\). 
 To trade memory for speed, one can thus chunk the linear layers computation to only process one chunk at the time. Defining `config.chunk_size_feed_forward` as \\( c_{f} \\), chunked linear layers are defined as \\( \mathbf{Y}_{\text{out}} = \left[\mathbf{Y}_{\text{out}, 1: c_{f}}, \ldots, \mathbf{Y}_{\text{out}, (n - c_{f}): n}\right] \\) with \\( \mathbf{Y}_{\text{out}, (c_{f} * i): (i * c_{f} + i)} = \text{Linear}_{\text{out}}(\text{Linear}_{\text{int}}(\mathbf{\overline{Z}}_{(c_{f} * i): (i * c_{f} + i)})) \\). 
 In practice, it just means that the output is incrementally computed and concatenated to avoid having to store the whole intermediate tensor \\( \mathbf{Y}_{\text{int}} \\) in memory.
 
@@ -337,7 +339,7 @@ Assuming \\( c_{f}=1 \\) for our example we can illustrate the incremental compu
 
 ![alt text](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/reformer_benchmark/chunked_feed_forward.png)
 
-By processing the inputs in chunks of size 1, the only tensors that have to be stored in memory at the same time are \\( \mathbf{Y}_\text{out} \\) of a maximum size of \\( 16 \times d_{h} \\), \\( \mathbf{y}_{\text{int}, i} \\) of size \\( d_{f} \\) and the input \\( \mathbf{\overline{Z}} \\) of size \\( 16 \times d_{h} \\), with \\( d_{h} \\) being `config.hidden_size`\\( ^{3} \\).
+By processing the inputs in chunks of size 1, the only tensors that have to be stored in memory at the same time are \\( \mathbf{Y}_\text{out} \\) of a maximum size of \\( 16 \times d_{h} \\), \\( \mathbf{y}_{\text{int}, i} \\) of size \\( d_{f} \\) and the input \\( \mathbf{\overline{Z}} \\) of size \\( 16 \times d_{h} \\), with \\( d_{h} \\) being `config.hidden_size` \\(^{3}\\).
 
 Finally, it is important to remember that *chunked linear layers* yield a mathematically equivalent output to conventional linear layers and can therefore be applied to all transformer linear layers. Making use of `config.chunk_size_feed_forward` therefore allows a better trade-off between memory and speed in certain use cases.
 
@@ -346,7 +348,7 @@ Finally, it is important to remember that *chunked linear layers* yield a mathem
 
  \\( {}^2 \\) In `bert-base-uncased`, *e.g.* the intermediate dimension \\( d_{f} \\) is with 3072 four times larger than the output dimension \\( d_{h} \\).
 
- \\( {}^3 \\) As a reminder, the output `config.num_attention_{h}eads` is assumed to be 1 for the sake of clarity and illustration in this notebook, so that the output of the self-attention layers can be assumed to be of size `config.hidden_size`.
+ \\( {}^3 \\) As a reminder, the output `config.num_attention_heads` is assumed to be 1 for the sake of clarity and illustration in this notebook, so that the output of the self-attention layers can be assumed to be of size `config.hidden_size`.
 
 More information on chunked linear / feed forward layers can also be found [here](https://huggingface.co/transformers/glossary.html#feed-forward-chunking) on the 🤗Transformers docs.
 
@@ -600,14 +602,8 @@ We can see that we have cut the embedding vectors into \\( \mathbf{e}_\text{down
 Now for the "sub"-vectors \\( \mathbf{E}_\text{down} = \left[\mathbf{e}_{\text{down},1}, \ldots, \mathbf{e}_{\text{down},49}\right] \\) only the first row, *a.k.a.* the width in the graphic, of \\( 7 \\) is kept and expanded along the column dimension, *a.k.a.* the depth of the graphic. Inversely, for the "sub"-vectors \\( \mathbf{E}_\text{up} = \left[\mathbf{e}_{\text{up},1}, \ldots, \mathbf{e}_{\text{up},49}\right] \\) only the first column of \\( 7 \\) is kept and expanded along the row dimension.
 The resulting embedding vectors \\( \mathbf{e'}_{i} \\) then correspond to
 
-$$
-  \begin{align}
-    \mathbf{e'}_{i} &= \begin{bmatrix}
-           \mathbf{e}_{\text{down, } i \% n_\text{max}^1} \\
-           \mathbf{e}_{\text{up, } \left \lfloor{\frac{i}{n_{\text{max}^2}}}\right \rceil}
-         \end{bmatrix}
-  \end{align}
-$$
+$$\mathbf{e'}_{i} = \left[ \left[\mathbf{e}_{\text{down, } i \% n_\text{max}^1}\right]^T, \left[\mathbf{e}_{\text{up, } \left \lfloor{\frac{i}{{n}^2_{\text{max}}}}\right \rfloor} \right]^T \right]^T $$
+
 whereas \\( n_\text{max}^1 = 7 \\) and \\( n_\text{max}^2 = 7 \\) in our example.
 These new encodings \\( \mathbf{E'} = \left[\mathbf{e'}_{1}, \ldots, \mathbf{e'}_{n_\text{max}}\right] \\) are called **Axial Position Encodings**. 
 
