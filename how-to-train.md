@@ -14,7 +14,7 @@ thumbnail: https://huggingface.co/blog/assets/01_how-to-train/how-to-train_blogp
 </div>
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/master/notebooks/01_how_to_train.ipynb">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">
 </a>
 
 Over the past few months, we made several improvements to our [`transformers`](https://github.com/huggingface/transformers) and [`tokenizers`](https://github.com/huggingface/tokenizers) libraries, with the goal of making it easier than ever to **train a new language model from scratch**.
