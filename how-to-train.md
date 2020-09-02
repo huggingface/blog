@@ -181,7 +181,7 @@ class EsperantoDataset(Dataset):
         for src_file in src_files:
             print("🔥", src_file)
         lines = src_file.read_text(encoding="utf-8").splitlines()
-            self.examples += [x.ids for x in tokenizer.encode_batch(lines)]
+        self.examples += [x.ids for x in tokenizer.encode_batch(lines)]
 
     def __len__(self):
         return len(self.examples)
