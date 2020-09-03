@@ -38,7 +38,7 @@ That's why we ran out of patience, we took some time this summer to address this
 and we are releasing today the extension [pytorch_block_sparse](https://github.com/huggingface/pytorch_block_sparse).
 
 ## Usage
-The provided BlockSparseLinear module is a drop in replacement for torch.nn.Linear, and it's reallay trivial to use 
+The provided BlockSparseLinear module is a drop in replacement for torch.nn.Linear, and it's really trivial to use 
 it in your own model:
 
 ```python
