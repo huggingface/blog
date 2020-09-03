@@ -1,6 +1,6 @@
 ---
 title: Block Sparse Matrices for Smaller and Faster Language Models
-thumbnail: https://huggingface.co/blog/assets/01_how-to-train/how-to-train_blogpost.png
+thumbnail: https://huggingface.co/blog/assets/04_pytorch_block_sparse/thumbnail.png
 ---
 
 <h1 class="no-top-margin">Block Sparse Matrices for Smaller and Faster Language Models</h1>
