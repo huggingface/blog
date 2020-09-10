@@ -6,7 +6,7 @@ thumbnail: https://huggingface.co/blog/assets/04_pytorch_block_sparse/thumbnail.
 <h1 class="no-top-margin">Block Sparse Matrices for Smaller and Faster Language Models</h1>
 
 <div class="blog-metadata">
-    <small>Published Sep 2, 2020.</small>
+    <small>Published Sep 10, 2020.</small>
     <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/pytorch_block_sparse.md">
         <img src="/front/assets/icon-github.svg">
         Update on GitHub
