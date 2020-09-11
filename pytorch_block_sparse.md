@@ -14,7 +14,7 @@ thumbnail: https://huggingface.co/blog/assets/04_pytorch_block_sparse/thumbnail.
 </div>
 
 <div class="author-card">
-    <a href="https://twitter.com/madlag">
+    <a href="/madlag">
         <img class="avatar avatar-user" src="https://www.gravatar.com/avatar/205c3e49902572f215d99796656526c7?d=retro&size=200" title="Gravatar">
         <div class="bfc">
             <code>madlag</code>
