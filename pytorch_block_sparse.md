@@ -46,7 +46,7 @@ something Hugging Face considers crucial to let anybody use
 neural networks in production at **low cost**, and to **improve the experience** for the end user.
 
 ## Usage
-The provided `BlockSparseLinear` module is a drop in replacement for `torch.nn.Linear`, and is trivial to use 
+The provided `BlockSparseLinear` module is a drop in replacement for `torch.nn.Linear`, and it is trivial to use 
 it in your models:
 
 ```python
