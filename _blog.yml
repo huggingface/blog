@@ -33,3 +33,7 @@
   thumbnail: https://huggingface.co/blog/assets/04_pytorch_block_sparse/thumbnail.png
   date: Sep 10, 2020
 
+- external: https://huggingface.co/rag
+  title: "Retrieval Augmented Generation (RAG)"
+  author: yjernite
+  date: September 28, 2020
