@@ -22,7 +22,7 @@ thumbnail: https://huggingface.co/blog/assets/05_encoder_decoder/thumbnail.png
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/master/notebooks/05_how_to_generate.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Encoder_Decoder_Model.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
