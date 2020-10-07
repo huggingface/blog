@@ -1,39 +1,45 @@
-- local: how-to-train
-  title: How to train a new language model from scratch using Transformers and Tokenizers
-  thumbnail: https://huggingface.co/blog/assets/01_how-to-train/how-to-train_blogpost.png
-  date: February-May, 2020
+- local: encoder-decoder
+  title: "Transformer-based Encoder-Decoder Models"
+  thumbnail: https://huggingface.co/blog/assets/05_encoder_decoder/thumbnail.png
+  date: October 10, 2020
 
-- local: how-to-generate
-  title: "How to generate text: using different decoding methods for language generation with Transformers"
-  thumbnail: https://huggingface.co/blog/assets/02_how-to-generate/thumbnail.png
-  date: March, 2020
-
-- external: https://huggingface.co/zero-shot
-  title: "Zero Shot Topic Classification"
-  author: joeddav
-  date: May 29, 2020
-
-- external: https://huggingface.co/calculator
-  title: "How Big Should My Language Model Be?"
-  author: teven
-  date: June 8, 2020
-
-- external: https://yjernite.github.io/lfqa.html
-  title: "Long Form Question Answering with ELI5"
-  author: yjernite
-  date: June 17, 2020
+- local: pytorch_block_sparse
+  title: "Block Sparse Matrices for Smaller and Faster Language Models"
+  thumbnail: https://huggingface.co/blog/assets/04_pytorch_block_sparse/thumbnail.png
+  date: September 10, 2020
 
 - local: reformer
   title: "The Reformer - Pushing the limits of language modeling"
   thumbnail: https://huggingface.co/blog/assets/03_reformer/thumbnail.png
   date: July 3, 2020
 
-- local: pytorch_block_sparse
-  title: Block Sparse Matrices for Smaller and Faster Language Models
-  thumbnail: https://huggingface.co/blog/assets/04_pytorch_block_sparse/thumbnail.png
-  date: Sep 10, 2020
+- local: how-to-generate
+  title: "How to generate text: using different decoding methods for language generation with Transformers"
+  thumbnail: https://huggingface.co/blog/assets/02_how-to-generate/thumbnail.png
+  date: March, 2020
+
+- local: how-to-train
+  title: "How to train a new language model from scratch using Transformers and Tokenizers"
+  thumbnail: https://huggingface.co/blog/assets/01_how-to-train/how-to-train_blogpost.png
+  date: February-May, 2020
 
 - external: https://huggingface.co/rag
   title: "Retrieval Augmented Generation (RAG)"
   author: yjernite
   date: September 28, 2020
+
+- external: https://yjernite.github.io/lfqa.html
+  title: "Long Form Question Answering with ELI5"
+  author: yjernite
+  date: June 17, 2020
+
+- external: https://huggingface.co/calculator
+  title: "How Big Should My Language Model Be?"
+  author: teven
+  date: June 8, 2020
+
+- external: https://huggingface.co/zero-shot
+  title: "Zero Shot Topic Classification"
+  author: joeddav
+  date: May 29, 2020
+
