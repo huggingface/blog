@@ -692,7 +692,7 @@ Once the upload was completed, these models could be accessed as (*):
 tokenizer = FSMTTokenizer.from_pretrained("stas/wmt19-en-ru")
 ```
 
-* footnote:`stas` is my username at https://huggingface.com.
+* footnote:`stas` is my username at https://huggingface.co.
 
 Before I made this upload I had to use the local path to the folder with the model files, e.g.:
 ```
