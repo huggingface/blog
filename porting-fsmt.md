@@ -927,7 +927,7 @@ This is a ported version of
 As you can see we define the languages, tags, license, datasets, and metrics. There is a full guide for writing these at [Model sharing and uploading](https://huggingface.co/transformers/model_sharing.html#add-a-model-card). The rest is the markdown document describing the model and its nuances.
 You can also try out the models directly from the model pages thanks to the Inference widgets. For example for English-to-russian translation: https://huggingface.co/facebook/wmt19-en-ru?text=My+name+is+Diego+and+I+live+in+Moscow.
 
-(add screenshot)
+![break point group](https://github.com/stas00/porting/raw/master/transformers/fairseq-wmt19/images/inference_api.png)
 
 ## Documentation
 
