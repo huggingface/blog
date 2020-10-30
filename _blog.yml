@@ -1,11 +1,11 @@
 - local: how-to-train
   title: How to train a new language model from scratch using Transformers and Tokenizers
-  thumbnail: https://huggingface.co/blog/assets/01_how-to-train/how-to-train_blogpost.png
+  thumbnail: ./assets/01_how-to-train/how-to-train_blogpost.png
   date: February-May, 2020
 
 - local: how-to-generate
   title: "How to generate text: using different decoding methods for language generation with Transformers"
-  thumbnail: https://huggingface.co/blog/assets/02_how-to-generate/thumbnail.png
+  thumbnail: ./assets/02_how-to-generate/thumbnail.png
   date: March, 2020
 
 - external: https://huggingface.co/zero-shot
@@ -25,12 +25,12 @@
 
 - local: reformer
   title: "The Reformer - Pushing the limits of language modeling"
-  thumbnail: https://huggingface.co/blog/assets/03_reformer/thumbnail.png
+  thumbnail: ./assets/03_reformer/thumbnail.png
   date: July 3, 2020
 
 - local: pytorch_block_sparse
   title: Block Sparse Matrices for Smaller and Faster Language Models
-  thumbnail: https://huggingface.co/blog/assets/04_pytorch_block_sparse/thumbnail.png
+  thumbnail: ./assets/04_pytorch_block_sparse/thumbnail.png
   date: Sep 10, 2020
 
 - external: https://huggingface.co/rag
@@ -40,5 +40,12 @@
 
 - local: encoder-decoder
   title: "Transformer-based Encoder-Decoder Models"
-  thumbnail: https://huggingface.co/blog/assets/05_encoder_decoder/thumbnail.png
+  thumbnail: ./assets/05_encoder_decoder/thumbnail.png
   date: October 10, 2020
+
+- local: ray-tune
+  title: "Hyperparameter Search with Transformers and Ray Tune"
+  thumbnail: ./assets/06_ray_tune/ray-hf.jpg
+  author: ray-project
+  guest: true
+  date: October 30, 2020
