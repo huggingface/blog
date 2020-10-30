@@ -42,3 +42,10 @@
   title: "Transformer-based Encoder-Decoder Models"
   thumbnail: https://huggingface.co/blog/assets/05_encoder_decoder/thumbnail.png
   date: October 10, 2020
+
+- local: porting-fsmt
+  title: "Porting fairseq wmt19 translation system to transformers"
+  thumbnail: /blog/assets/07_porting_fsmt/thumbnail.png
+  author: stas
+  guest: true
+  date: October 10, 2020

@@ -1,6 +1,6 @@
 ---
 title: "Porting fairseq wmt19 translation system to transformers"
-thumbnail: https://huggingface.co/blog/assets/06_encoder_decoder/thumbnail.png
+thumbnail: /blog/assets/07_porting_fsmt/thumbnail.png
 ---
 
 <h1 class="no-top-margin">Porting fairseq wmt19 translation system to transformers</h1>
@@ -11,16 +11,20 @@ thumbnail: https://huggingface.co/blog/assets/06_encoder_decoder/thumbnail.png
         <img src="/front/assets/icon-github.svg">
         Update on GitHub
     </a>
+</div>
 
 <div class="author-card">
     <a href="/stas">
-        <img class="avatar avatar-user" src="https://raw.githubusercontent.com/huggingface/blog/master/assets/06_porting_fsmt/stas-bekman-300x300.jpg" title="Image">
+        <img class="avatar avatar-user" src="/blog/assets/07_porting_fsmt/stas-bekman-300x300.jpg">
         <div class="bfc">
             <code>stas</code>
             <span class="fullname">Stas Bekman</span>
+            <span class="mono-label" style="color: var(--text-main);">guest</span>
         </div>
     </a>
 </div>
+
+##### A guest blog post by Stas Bekman
 
 
 # **Porting fairseq wmt19 translation system to transformers**
