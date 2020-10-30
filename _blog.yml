@@ -49,3 +49,10 @@
   author: ray-project
   guest: true
   date: October 30, 2020
+
+- local: porting-fsmt
+  title: "Porting fairseq wmt19 translation system to transformers"
+  thumbnail: /blog/assets/07_porting_fsmt/thumbnail.png
+  author: stas
+  guest: true
+  date: November 2, 2020
