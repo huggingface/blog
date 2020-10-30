@@ -1,29 +1,32 @@
 ---
 title: Hyperparameter Search with Transformers and Ray Tune
-thumbnail: https://huggingface.co/blog/assets/04_ray_tune/thumbnail.png
+thumbnail: /blog/assets/06_ray_tune/ray-hf.jpg
 ---
 
-<h1 class="no-top-margin">Hyperparameter Search with Transformers and Ray Tune</h1>
+<h1 class="no-top-margin">
+    Hyperparameter Search with Transformers and Ray Tune
+</h1>
 
 <div class="blog-metadata">
     <small>Published Oct 31, 2020.</small>
-    <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/ray_tune.md">
+    <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/ray-tune.md">
         <img src="/front/assets/icon-github.svg">
         Update on GitHub
     </a>
 </div>
 
 <div class="author-card">
-    <a href="/richardliaw">
-        <img class="avatar avatar-user" src="" title="Gravatar">
+    <a href="/ray-project">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1603836776822-5f989a3b777efc07d7f1e290.png?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
-            <code>richardliaw</code>
-            <span class="fullname">Richard Liaw</span>
+            <code>ray-project</code>
+            <span class="fullname">Ray Project (Anyscale)</span>
+            <span class="mono-label" style="color: var(--text-main);">guest</span>
         </div>
     </a>
 </div>
 
-# Hyperparameter Search with Transformers and Ray Tune
+##### A guest blog post by Richard Liaw from the Anyscale team
 
 With cutting edge research implementations, thousands of trained models easily accessible, the Hugging Face [transformers](https://github.com/huggingface/transformers) library has become critical to the success and growth of natural language processing today.
 
@@ -97,7 +100,7 @@ To demonstrate this new [Hugging Face](https://github.com/huggingface/transforme
 
 To run this example, please first run:
 
-**pip install "ray[tune]" transformers datasets**
+**`pip install "ray[tune]" transformers datasets`**
 
 Simply plug in one of Ray’s standard tuning algorithms by just adding a few lines of code.
 
@@ -150,7 +153,7 @@ trainer.hyperparameter_search(direction="maximize", backend="ray", n_jobs=2)
 You can also easily swap different parameter tuning algorithms such as [HyperBand](https://docs.ray.io/en/latest/tune/api_docs/schedulers.html#asha-tune-schedulers-ashascheduler), [Bayesian Optimization](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html), [Population-Based Training](https://docs.ray.io/en/latest/tune/api_docs/schedulers.html#population-based-training-tune-schedulers-populationbasedtraining):
 
 
-```ptyhon
+```python
 trainer = Trainer(
     args=training_args,
     tokenizer=tokenizer,
