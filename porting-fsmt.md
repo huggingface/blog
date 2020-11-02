@@ -617,7 +617,7 @@ After a few very failing attempts to get somewhere (*) - I quickly realized that
 
 Over time I found a great feature in `pycharm` that allowed me to group breakpoints by functionality and I could turn whole groups on and off depending on what I was debugging. For example, here I have beam-search related break-points off and decoder ones on:
 
-![break point group](https://github.com/stas00/porting/raw/master/transformers/fairseq-wmt19/images/pycharm-break-point-groups.png)
+![break point group](./assets/07_porting_fsmt/pycharm-break-point-groups.png)
 
 Now that I have used this debugger to port FSMT, I know that it would have taken me many times over to use pdb to do the same - I may have even given it up.
 
@@ -931,7 +931,10 @@ This is a ported version of
 As you can see we define the languages, tags, license, datasets, and metrics. There is a full guide for writing these at [Model sharing and uploading](https://huggingface.co/transformers/model_sharing.html#add-a-model-card). The rest is the markdown document describing the model and its nuances.
 You can also try out the models directly from the model pages thanks to the Inference widgets. For example for English-to-russian translation: https://huggingface.co/facebook/wmt19-en-ru?text=My+name+is+Diego+and+I+live+in+Moscow.
 
-![break point group](https://github.com/stas00/porting/raw/master/transformers/fairseq-wmt19/images/inference_api.png)
+![break point group](./assets/07_porting_fsmt/inference_api.png)
+
+
+
 
 ## Documentation
 
