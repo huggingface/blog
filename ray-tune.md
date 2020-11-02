@@ -146,7 +146,12 @@ trainer = Trainer(
 
 # Defaut objective is the sum of all metrics
 # when metrics are provided, so we have to maximize it.
-trainer.hyperparameter_search(direction="maximize", backend="ray", n_jobs=2)
+trainer.hyperparameter_search(
+    direction="maximize", 
+    backend="ray", 
+    n_samples=10, # number of trials
+    # n_jobs=2  # number of parallel jobs, if multiple GPUs
+)
 ```
 
 
@@ -192,7 +197,7 @@ trainer = Trainer(
 best_trial = trainer.hyperparameter_search(
     direction="maximize",
     backend="ray",
-    n_jobs=4,  # number of parallel jobs
+    n_jobs=4,  # number of parallel jobs, if multiple GPUs
     n_trials=4,  # number of hyperparameter samples
     # Aggressive termination of trials
     scheduler=AsyncHyperBand())
