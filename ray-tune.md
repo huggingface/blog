@@ -8,7 +8,7 @@ thumbnail: /blog/assets/06_ray_tune/ray-hf.jpg
 </h1>
 
 <div class="blog-metadata">
-    <small>Published Oct 31, 2020.</small>
+    <small>Published Nov 2, 2020.</small>
     <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/ray-tune.md">
         <img src="/front/assets/icon-github.svg">
         Update on GitHub
