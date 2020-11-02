@@ -149,6 +149,7 @@ trainer = Trainer(
 trainer.hyperparameter_search(
     direction="maximize", 
     backend="ray", 
+    n_samples=10, # number of trials
     # n_jobs=2  # number of parallel jobs, if multiple GPUs
 )
 ```
