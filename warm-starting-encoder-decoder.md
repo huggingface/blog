@@ -12,6 +12,7 @@ thumbnail: https://huggingface.co/blog/assets/08_warm_starting_encoder_decoder/t
         <img src="/front/assets/icon-github.svg">
         Update on GitHub
     </a>
+</div>
 
 <div class="author-card">
     <a href="/patrickvonplaten">
