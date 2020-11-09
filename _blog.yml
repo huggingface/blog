@@ -56,3 +56,8 @@
   author: stas
   guest: true
   date: November 3, 2020
+
+- local: warm-starting-encoder-decoder
+  title: "Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models"
+  thumbnail: ./assets/08_warm_starting_encoder_decoder/thumbnail.png
+  date: November 09, 2020
