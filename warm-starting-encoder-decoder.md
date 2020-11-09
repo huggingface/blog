@@ -1,6 +1,6 @@
 ---
 title: "Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models"
-thumbnail: https://huggingface.co/blog/assets/08_warm-starting-encoder_decoder/thumbnail.png
+thumbnail: https://huggingface.co/blog/assets/08_warm_starting_encoder_decoder/thumbnail.png
 ---
 
 <h1 class="no-top-margin"> Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models
@@ -90,14 +90,14 @@ models.
 
 ## **Introduction**
 
-Recently, pre-trained language models${}^1$ have revolutionized the
+Recently, pre-trained language models \\({}^1\\) have revolutionized the
 field of natural language processing (NLP).
 
 The first pre-trained language models were based on recurrent neural
 networks (RNN) as proposed [Dai et al.
 (2015)](https://arxiv.org/pdf/1511.01432.pdf). *Dai et. al* showed that
 pre-training an RNN-based model on unlabelled data and subsequently
-fine-tuning${}^2$ it on a specific task yields better results than
+fine-tuning \\({}^2\\) it on a specific task yields better results than
 training a randomly initialized model directly on such a task. However,
 it was only in 2018, when pre-trained language models become widely
 accepted in NLP. [ELMO by Peters et
@@ -113,7 +113,7 @@ respectively. The improved efficiency of *transformer-based* language
 models over RNNs allowed GPT2 and BERT to be pre-trained on massive
 amounts of unlabeled text data. Once pre-trained, BERT and GPT were
 shown to require very little fine-tuning to shatter state-of-art results
-on more than a dozen NLU tasks ${}^3$.
+on more than a dozen NLU tasks \\({}^3\\).
 
 The capability of pre-trained language models to effectively transfer
 *task-agnostic* knowledge to *task-specific* knowledge turned out to be
@@ -131,19 +131,19 @@ standalone BERT and GPT models have been less successful for
 translation*, *sentence-rephrasing*, etc.
 
 Sequence-to-sequence tasks are defined as a mapping from an input
-sequence $\mathbf{X}_{1:n}$ to an output sequence $\mathbf{Y}_{1:m}$ of
-*a-priori* unknown output length $m$. Hence, a sequence-to-sequence
+sequence \\(\mathbf{X}_{1:n}\\) to an output sequence \\(\mathbf{Y}_{1:m}\\) of
+*a-priori* unknown output length \\(m\\). Hence, a sequence-to-sequence
 model should define the conditional probability distribution of the
-output sequence $\mathbf{Y}_{1:m}$ conditioned on the input sequence
-$\mathbf{X}_{1:n}$:
+output sequence \\(\mathbf{Y}_{1:m}\\) conditioned on the input sequence
+\\(\mathbf{X}_{1:n}\\):
 
 $$ p_{\theta_{\text{model}}}(\mathbf{Y}_{1:m} | \mathbf{X}_{1:n}). $$
 
-Without loss of generality, an input word sequence of $n$ words is
+Without loss of generality, an input word sequence of \\(n\\) words is
 hereby represented by the vector sequnece
-$\mathbf{X}_{1:n} = \mathbf{x}_1, \ldots, \mathbf{x}_n$ and an output
-sequence of $m$ words as
-$\mathbf{Y}_{1:m} = \mathbf{y}_1, \ldots, \mathbf{y}_m$.
+\\(\mathbf{X}_{1:n} = \mathbf{x}_1, \ldots, \mathbf{x}_n\\) and an output
+sequence of \\(m\\) words as
+\\(\mathbf{Y}_{1:m} = \mathbf{y}_1, \ldots, \mathbf{y}_m\\).
 
 Let\'s see how BERT and GPT2 would be fit to model sequence-to-sequence
 tasks.
@@ -151,27 +151,27 @@ tasks.
 ### **BERT**
 
 BERT is an *encoder-only* model, which maps an input sequence
-$\mathbf{X}_{1:n}$ to a *contextualized* encoded sequence
-$\mathbf{\overline{X}}_{1:n}$:
+\\(\mathbf{X}_{1:n}\\) to a *contextualized* encoded sequence
+\\(\mathbf{\overline{X}}_{1:n}\\):
 
 $$ f_{\theta_{\text{BERT}}}: \mathbf{X}_{1:n} \to \mathbf{\overline{X}}_{1:n}. $$
 
-BERT\'s contextualized encoded sequence $\mathbf{\overline{X}}_{1:n}$
+BERT\'s contextualized encoded sequence \\(\mathbf{\overline{X}}_{1:n}\\)
 can then further be processed by a classification layer for NLU
 classification tasks, such as *sentiment analysis*, *natural language
 inference*, etc. To do so, the classification layer, *i.e.* typically a
 pooling layer followed by a feed-forward layer, is added as a final
 layer on top of BERT to map the contextualized encoded sequence
-$\mathbf{\overline{X}}_{1:n}$ to a class $c$:
+\\(\mathbf{\overline{X}}_{1:n}\\) to a class \\(c\\):
 
 $$
   f_{\theta{\text{p,c}}}: \mathbf{\overline{X}}_{1:n} \to c.
  $$
 
 It has been shown that adding a pooling- and classification layer,
-defined as $\theta_{\text{p,c}}$, on top of a pre-trained BERT model
-$\theta_{\text{BERT}}$ and subsequently fine-tuning the complete model
-$\{\theta_{\text{p,c}}, \theta_{\text{BERT}}\}$ can yield
+defined as \\(\theta_{\text{p,c}}\\), on top of a pre-trained BERT model
+\\(\theta_{\text{BERT}}\\) and subsequently fine-tuning the complete model
+\\(\{\theta_{\text{p,c}}, \theta_{\text{BERT}}\}\\) can yield
 state-of-the-art performances on a variety of NLU tasks, *cf.* to [BERT
 by Devlin et al.](https://arxiv.org/abs/1810.04805).
 
@@ -186,12 +186,12 @@ layers (shown in the lower part of the red box) and two feed-forward
 layers (short in the upper part of the red box).
 
 Each BERT block makes use of **bi-directional** self-attention to
-process an input sequence $\mathbf{x'}_1, \ldots, \mathbf{x'}_n$ (shown
+process an input sequence \\(\mathbf{x'}_1, \ldots, \mathbf{x'}_n\\) (shown
 in light grey) to a more \"refined\" contextualized output sequence
-$\mathbf{x''}_1, \ldots, \mathbf{x''}_n$ (shown in slightly darker grey)
-${}^4$. The contextualized output sequence of the final BERT block,
-*i.e.* $\mathbf{\overline{X}}_{1:n}$, can then be mapped to a single
-output class $c$ by adding a *task-specific* classification layer (shown
+\\(\mathbf{x''}_1, \ldots, \mathbf{x''}_n\\) (shown in slightly darker grey)
+\\({}^4\\). The contextualized output sequence of the final BERT block,
+*i.e.* \\(\mathbf{\overline{X}}_{1:n}\\), can then be mapped to a single
+output class \\(c\\) by adding a *task-specific* classification layer (shown
 in orange) as explained above.
 
 *Encoder-only* models can only map an input sequence to an output
@@ -210,24 +210,24 @@ notebook](https://colab.research.google.com/drive/19wkOLQIjBBXQ-j3WWTEiud6nGBEw4
 
 GPT2 is a *decoder-only* model, which makes use of *uni-directional*
 (*i.e.* \"causal\") self-attention to define a mapping from an input
-sequence $\mathbf{Y}_{0: m - 1}$ ${}^1$ to a \"next-word\" logit vector
-sequence $\mathbf{L}_{1:m}$:
+sequence \\(\mathbf{Y}_{0: m - 1}\\) \\({}^1\\) to a \"next-word\" logit vector
+sequence \\(\mathbf{L}_{1:m}\\):
 
 $$ f_{\theta_{\text{GPT2}}}: \mathbf{Y}_{0: m - 1} \to \mathbf{L}_{1:m}. $$
 
-By processing the logit vectors $\mathbf{L}_{1:m}$ with the *softmax*
+By processing the logit vectors \\(\mathbf{L}_{1:m}\\) with the *softmax*
 operation, the model can define the probability distribution of the word
-sequence $\mathbf{Y}_{1:m}$. To be exact, the probability distribution
-of the word sequence $\mathbf{Y}_{1:m}$ can be factorized into $m-1$
+sequence \\(\mathbf{Y}_{1:m}\\). To be exact, the probability distribution
+of the word sequence \\(\mathbf{Y}_{1:m}\\) can be factorized into \\(m-1\\)
 conditional \"next word\" distributions:
 
 $$ p_{\theta_{\text{GPT2}}}(\mathbf{Y}_{1:m}) = \prod_{i=1}^{m} p_{\theta_{\text{GPT2}}}(\mathbf{y}_i | \mathbf{Y}_{0:i-1}). $$
 
-$p_{\theta_{\text{GPT2}}}(\mathbf{y}_i | \mathbf{Y}_{0:i-1})$ hereby
-presents the probability distribution of the next word $\mathbf{y}_i$
-given all previous words $\mathbf{y}_0, \ldots, \mathbf{y}_{i-1}$ ${}^3$
+\\(p_{\theta_{\text{GPT2}}}(\mathbf{y}_i | \mathbf{Y}_{0:i-1})\\) hereby
+presents the probability distribution of the next word \\(\mathbf{y}_i\\)
+given all previous words \\(\mathbf{y}_0, \ldots, \mathbf{y}_{i-1}\\) \\({}^3\\)
 and is defined as the softmax operation applied on the logit vector
-$\mathbf{l}_i$. To summarize, the following equations hold true.
+\\(\mathbf{l}_i\\). To summarize, the following equations hold true.
 
 $$ p_{\theta_{\text{gpt2}}}(\mathbf{y}_i | \mathbf{Y}_{0:i-1}) = \textbf{Softmax}(\mathbf{l}_i) = \textbf{Softmax}(f_{\theta_{\text{GPT2}}}(\mathbf{Y}_{0: i - 1})).$$
 
@@ -243,37 +243,37 @@ lien](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/maste
 Analogous to BERT, GPT2 is composed of a stack of *GPT2 blocks*. In
 contrast to BERT block, GPT2 block makes use of **uni-directional**
 self-attention to process some input vectors
-$\mathbf{y'}_0, \ldots, \mathbf{y'}_{m-1}$ (shown in light blue on the
+\\(\mathbf{y'}_0, \ldots, \mathbf{y'}_{m-1}\\) (shown in light blue on the
 bottom right) to an output vector sequence
-$\mathbf{y''}_0, \ldots, \mathbf{y''}_{m-1}$ (shown in darker blue on
+\\(\mathbf{y''}_0, \ldots, \mathbf{y''}_{m-1}\\) (shown in darker blue on
 the top right). In addition to the GPT2 block stack, the model also has
 a linear layer, called *LM Head*, which maps the output vectors of the
 final GPT2 block to the logit vectors
-$\mathbf{l}_1, \ldots, \mathbf{l}_m$. As mentioned earlier, a logit
-vector $\mathbf{l}_i$ can then be used to sample of new input vector
-$\mathbf{y}_i$ ${}^5$.
+\\(\mathbf{l}_1, \ldots, \mathbf{l}_m\\). As mentioned earlier, a logit
+vector \\(\mathbf{l}_i\\) can then be used to sample of new input vector
+\\(\mathbf{y}_i\\) \\({}^5\\).
 
 GPT2 is mainly used for *open-domain* text generation. First, an input
-prompt $\mathbf{Y}_{0:i-1}$ is fed to the model to yield the conditional
+prompt \\(\mathbf{Y}_{0:i-1}\\) is fed to the model to yield the conditional
 distribution
-$p_{\theta_{\text{gpt2}}}(\mathbf{y} | \mathbf{Y}_{0:i-1})$. Then the
-next word $\mathbf{y}_i$ is sampled from the distribution (represented
+\\(p_{\theta_{\text{gpt2}}}(\mathbf{y} | \mathbf{Y}_{0:i-1})\\). Then the
+next word \\(\mathbf{y}_i\\) is sampled from the distribution (represented
 by the grey arrows in the graph above) and consequently append to the
-input. In an auto-regressive fashion the word $\mathbf{y}_{i+1}$ can
+input. In an auto-regressive fashion the word \\(\mathbf{y}_{i+1}\\) can
 then be sampled from
-$p_{\theta_{\text{gpt2}}}(\mathbf{y} | \mathbf{Y}_{0:i})$ and so on.
+\\(p_{\theta_{\text{gpt2}}}(\mathbf{y} | \mathbf{Y}_{0:i})\\) and so on.
 
 GPT2 is therefore well-suited for *language generation*, but less so for
 *conditional* generation. By setting the input prompt
-$\mathbf{Y}_{0: i-1}$ equal to the sequence input $\mathbf{X}_{1:n}$,
+\\(\mathbf{Y}_{0: i-1}\\) equal to the sequence input \\(\mathbf{X}_{1:n}\\),
 GPT2 can very well be used for conditional generation. However, the
 model architecture has a fundamental drawback compared to the
 encoder-decoder architecture as explained in [Raffel et al.
 (2019)](https://arxiv.org/abs/1910.10683) on page 17. In short,
 uni-directional self-attention forces the model\'s representation of the
-sequence input $\mathbf{X}_{1:n}$ to be unnecessarily limited since
-$\mathbf{x}_i$ cannot depend on
-$\mathbf{x}_{i+1}, \forall i \in \{1,\ldots, n\}$.
+sequence input \\(\mathbf{X}_{1:n}\\) to be unnecessarily limited since
+\\(\mathbf{x}_i\\) cannot depend on
+\\(\mathbf{x}_{i+1}, \forall i \in \{1,\ldots, n\}\\).
 
 ### **Encoder-Decoder**
 
@@ -319,7 +319,7 @@ and also gives practical tips for better performance.
 
 ------------------------------------------------------------------------
 
-${}^1$ A *pre-trained language model* is defined as a neural network:
+\\({}^1\\) A *pre-trained language model* is defined as a neural network:
 
 -   that has been trained on *unlabeled* text data, *i.e.* in a
     task-agnostic, unsupervised fashion, and
@@ -329,18 +329,23 @@ ${}^1$ A *pre-trained language model* is defined as a neural network:
     is not considered a pre-trained language model because the
     embeddings are context-agnostic.
 
-${}^2$ *Fine-tuning* is defined as the *task-specific* training of a
+
+
+\\({}^2\\) *Fine-tuning* is defined as the *task-specific* training of a
 model that has been initialized with the weights of a pre-trained
 language model.
 
-${}^3$ The input vector $\mathbf{y}_0$ corresponds hereby to the
-$\text{BOS}$ embedding vector required to predict the very first output
-word $\mathbf{y}_1$.
 
-${}^4$ Without loss of generalitiy, we exclude the normalization layers
+\\({}^3\\) The input vector \\(\mathbf{y}_0\\) corresponds hereby to the
+\\(\text{BOS}\\) embedding vector required to predict the very first output
+word \\(\mathbf{y}_1\\).
+
+
+\\({}^4\\) Without loss of generalitiy, we exclude the normalization layers
 to not clutter the equations and illustrations.
 
-${}^5$ For more detail on why uni-directional self-attention is used for
+
+\\({}^5\\) For more detail on why uni-directional self-attention is used for
 \"decoder-only\" models, such as GPT2, and how sampling works exactly,
 please refer to the
 [decoder](https://huggingface.co/blog/encoder-decoder#decoder) section
@@ -381,23 +386,23 @@ lien](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/maste
 
 The encoder (shown in green) is a stack of *encoder blocks*. Each
 encoder block is composed of a *bi-directional self-attention* layer,
-and two feed-forward layers ${}^1$. The decoder (shown in orange) is a
+and two feed-forward layers \\({}^1\\). The decoder (shown in orange) is a
 stack of *decoder blocks*, followed by a dense layer, called *LM Head*.
 Each decoder block is composed of a *uni-directional self-attention*
 layer, a *cross-attention* layer, and two feed-forward layers.
 
-The encoder maps the input sequence $\mathbf{X}_{1:n}$ to a
-contextualized encoded sequence $\mathbf{\overline{X}}_{1:n}$ in the
+The encoder maps the input sequence \\(\mathbf{X}_{1:n}\\) to a
+contextualized encoded sequence \\(\mathbf{\overline{X}}_{1:n}\\) in the
 exact same way BERT does. The decoder then maps the contextualized
-encoded sequence $\mathbf{\overline{X}}_{1:n}$ and a target sequence
-$\mathbf{Y}_{0:m-1}$ to the logit vectors $\mathbf{L}_{1:m}$. Analogous
+encoded sequence \\(\mathbf{\overline{X}}_{1:n}\\) and a target sequence
+\\(\mathbf{Y}_{0:m-1}\\) to the logit vectors \\(\mathbf{L}_{1:m}\\). Analogous
 to GPT2, the logits are then used to define the distribution of the
-target sequence $\mathbf{Y}_{1:m}$ conditioned on the input sequence
-$\mathbf{X}_{1:n}$ by means of a *softmax* operation.
+target sequence \\(\mathbf{Y}_{1:m}\\) conditioned on the input sequence
+\\(\mathbf{X}_{1:n}\\) by means of a *softmax* operation.
 
 To put it into mathematical terms, first, the conditional distribution
-is factorized into $m - 1$ conditional distributions of the next word
-$\mathbf{y}_i$ by Bayes\' rule.
+is factorized into \\(m - 1\\) conditional distributions of the next word
+\\(\mathbf{y}_i\\) by Bayes\' rule.
 
 $$
  p_{\theta_{\text{enc, dec}}}(\mathbf{Y}_{1:m} | \mathbf{X}_{1:n}) = p_{\theta_{\text{dec}}}(\mathbf{Y}_{1:m} | \mathbf{\overline{X}}_{1:n}) = \prod_{i=1}^m p_{\theta_{\text{dec}}}(\mathbf{y}_i | \mathbf{Y}_{0: i -1}, \mathbf{\overline{X}}_{1:n}), \text{ with }  \mathbf{\overline{X}}_{1:n} = f_{\theta_{\text{enc}}}(\mathbf{X}_{1:n}).
@@ -434,21 +439,21 @@ self-attention layer* and the two *feed-forward layers* of **all**
 encoder blocks are initialized with the weight parameters of the
 respective BERT blocks. This is illustrated examplary for the second
 encoder block (red boxes at bottow) whose weight parameters
-$\theta_{\text{enc}}^{\text{self-attn}, 2}$ and
-$\theta_{\text{enc}}^{\text{feed-forward}, 2}$ are set to BERT\'s weight
-parameters $\theta_{\text{BERT}}^{\text{feed-forward}, 2}$ and
-$\theta_{\text{BERT}}^{\text{self-attn}, 2}$, respectively at
+\\(\theta_{\text{enc}}^{\text{self-attn}, 2}\\) and
+\\(\theta_{\text{enc}}^{\text{feed-forward}, 2}\\) are set to BERT\'s weight
+parameters \\(\theta_{\text{BERT}}^{\text{feed-forward}, 2}\\) and
+\\(\theta_{\text{BERT}}^{\text{self-attn}, 2}\\), respectively at
 initialization.
 
 Before fine-tuning, the encoder therefore behaves exactly like a
 pre-trained BERT model. Assuming the input sequence
-$\mathbf{x}_1, \ldots, \mathbf{x}_n$ (shown in green) passed to the
+\\(\mathbf{x}_1, \ldots, \mathbf{x}_n\\) (shown in green) passed to the
 encoder is equal to the input sequence
-$\mathbf{x}_1^{\text{BERT}}, \ldots, \mathbf{x}_n^{\text{BERT}}$ (shown
+\\(\mathbf{x}_1^{\text{BERT}}, \ldots, \mathbf{x}_n^{\text{BERT}}\\) (shown
 in grey) passed to BERT, this means that the respective output vector
-sequences $\mathbf{\overline{x}}_1, \ldots, \mathbf{\overline{x}}_n$
+sequences \\(\mathbf{\overline{x}}_1, \ldots, \mathbf{\overline{x}}_n\\)
 (shown in darker green) and
-$\mathbf{\overline{x}}_1^{\text{BERT}}, \ldots, \mathbf{\overline{x}}_n^{\text{BERT}}$
+\\(\mathbf{\overline{x}}_1^{\text{BERT}}, \ldots, \mathbf{\overline{x}}_n^{\text{BERT}}\\)
 (shown in darker grey) also have to be equal.
 
 Next, let\'s illustrate how the decoder is warm-started.
@@ -460,17 +465,17 @@ The architecture of the decoder is different from BERT\'s architecture
 in three ways.
 
 1.  First, the decoder has to be conditioned on the contextualized
-    encoded sequence $\mathbf{\overline{X}}_{1:n}$ by means of
+    encoded sequence \\(\mathbf{\overline{X}}_{1:n}\\) by means of
     cross-attention layers. Consequently, randomly initialized
     cross-attention layers are added between the self-attention layer
     and the two feed-forward layers in each BERT block. This is
     represented exemplary for the second block by
-    $+\theta_{\text{dec}}^{\text{cross-attention, 2}}$ and illustrated
+    \\(+\theta_{\text{dec}}^{\text{cross-attention, 2}}\\) and illustrated
     by the newly added fully connected graph in red in the lower red box
     on the right. This necessarily changes the behavior of each modified
-    BERT block so that an input vector, *e.g.* $\mathbf{y'}_0$ now
-    yields a random output vector $\mathbf{y''}_0$ (highlighted by the
-    red border around the output vector $\mathbf{y''}_0$).
+    BERT block so that an input vector, *e.g.* \\(\mathbf{y'}_0\\) now
+    yields a random output vector \\(\mathbf{y''}_0\\) (highlighted by the
+    red border around the output vector \\(\mathbf{y''}_0\\)).
 
 2.  Second, BERT\'s *bi-directional* self-attention layers have to be
     changed to *uni-directional* self-attention layers to comply with
@@ -481,10 +486,7 @@ in three ways.
     self-attention layer weights. *E.g.* the query, key and value weight
     parameters of the decoder\'s uni-directional self-attention layer
     are initialized with those of BERT\'s bi-directional self-attention
-    layer: $$
-    \theta_{\text{BERT}}^{\text{self-attn}, 2} = \{\mathbf{W}_{\text{BERT}, k}^{\text{self-attn}, 2}, \mathbf{W}_{\text{BERT}, v}^{\text{self-attn}, 2}, \mathbf{W}_{\text{BERT}, q}^{\text{self-attn}, 2} \} \to
-    \theta_{\text{dec}}^{\text{self-attn}, 2} = \{\mathbf{W}_{\text{dec}, k}^{\text{self-attn}, 2}, \mathbf{W}_{\text{dec}, v}^{\text{self-attn}, 2}, \mathbf{W}_{\text{dec}, q}^{\text{self-attn}, 2} \}.
-    $$ However, in *uni-directional* self-attention each token only
+    layer \\(\theta_{\text{BERT}}^{\text{self-attn}, 2} = \{\mathbf{W}_{\text{BERT}, k}^{\text{self-attn}, 2}, \mathbf{W}_{\text{BERT}, v}^{\text{self-attn}, 2}, \mathbf{W}_{\text{BERT}, q}^{\text{self-attn}, 2} \} \to \theta_{\text{dec}}^{\text{self-attn}, 2} = \{\mathbf{W}_{\text{dec}, k}^{\text{self-attn}, 2}, \mathbf{W}_{\text{dec}, v}^{\text{self-attn}, 2}, \mathbf{W}_{\text{dec}, q}^{\text{self-attn}, 2} \}. \\) However, in *uni-directional* self-attention each token only
     attends to all previous tokens, so that the decoder\'s
     self-attention layers yield different output vectors than BERT\'s
     self-attention layers even though they share the same weights.
@@ -492,15 +494,15 @@ in three ways.
     box versus BERT\'s fully connected graph in the left box.
 
 3.  Third, the decoder outputs a sequence of logit vectors
-    $\mathbf{L}_{1:m}$ in order to define the conditional probability
+    \\(\mathbf{L}_{1:m}\\) in order to define the conditional probability
     distribution
-    $p_{\theta_{\text{dec}}}(\mathbf{Y}_{1:n} | \mathbf{\overline{X}})$.
+    \\(p_{\theta_{\text{dec}}}(\mathbf{Y}_{1:n} | \mathbf{\overline{X}})\\).
     As a result, a *LM Head* layer is added on top of the last decoder
     block. The weight parameters of the *LM Head* layer usually
     correspond to the weight parameters of the word embedding
-    $\mathbf{W}_{\text{emb}}$ and thus are not randomly initialized.
+    \\(\mathbf{W}_{\text{emb}}\\) and thus are not randomly initialized.
     This is illustrated in the top by the initialization
-    $\theta_{\text{BERT}}^{\text{word-emb}} \to \theta_{\text{dec}}^{\text{lm-head}}$.
+    \\(\theta_{\text{BERT}}^{\text{word-emb}} \to \theta_{\text{dec}}^{\text{lm-head}}\\).
 
 To conclude, when warm-starting the decoder from a pre-trained BERT
 model only the cross-attention layer weights are randomly initialized.
@@ -529,26 +531,26 @@ lien](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/maste
 We can see that decoder is more similar to GPT2 than it is to BERT. The
 weight parameters of decoder\'s *LM Head* can directly be initialized
 with GPT2\'s *LM Head* weight parameters, *e.g.*
-$\theta_{\text{GPT2}}^{\text{lm-head}} \to \theta_{\text{dec}}^{\text{lm-head}}$.
+\\(\theta_{\text{GPT2}}^{\text{lm-head}} \to \theta_{\text{dec}}^{\text{lm-head}}\\).
 In addition, the blocks of the decoder and GPT2 both make use of
 *uni-directional* self-attention so that the output vectors of the
 decoder\'s self-attention layer are equivalent to GPT2\'s output vectors
 assuming the input vectors are the same, *e.g.*
-$\mathbf{y'}_0^{\text{GPT2}} = \mathbf{y'}_0$. In contrast to the
+\\(\mathbf{y'}_0^{\text{GPT2}} = \mathbf{y'}_0\\). In contrast to the
 BERT-initialized decoder, the GPT2-initialized decoder, therefore, keeps
 the causal connected graph of the self-attention layer as can be seen in
 the red boxes on the bottom.
 
 Nevertheless, the GPT2-initialized decoder also has to condition the
-decoder on $\mathbf{\overline{X}}_{1:n}$. Analoguos to the
+decoder on \\(\mathbf{\overline{X}}_{1:n}\\). Analoguos to the
 BERT-initialized decoder, randomly initialized weight parameters for the
 cross-attention layer are therefore added to each decoder block. This is
 illustrated *e.g.* for the second encoder block by
-$+\theta_{\text{dec}}^{\text{cross-attention, 2}}$.
+\\(+\theta_{\text{dec}}^{\text{cross-attention, 2}}\\).
 
 Even though GPT2 resembles the decoder part of an encoder-decoder model
 more than BERT, a GPT2-initialized decoder will also yield random logit
-vectors $\mathbf{L}_{1:m}$ without fine-tuning due to randomly
+vectors \\(\mathbf{L}_{1:m}\\) without fine-tuning due to randomly
 initialized cross-attention layers in every decoder block. It would be
 interesting to investigate whether a GPT2-initialized decoder yields
 better results or can be fine-tuned more efficiently.
@@ -565,18 +567,18 @@ in the encoder share the same weight parameters, *i.e.* the same node in
 the network\'s computation graph.\
 *E.g.* the query, key, and value projection matrices of the
 self-attention layer in the third encoder block, defined as
-$\mathbf{W}^{\text{self-attn}, 3}_{\text{Enc}, k}$,
-$\mathbf{W}^{\text{self-attn}, 3}_{\text{Enc}, v}$,
-$\mathbf{W}^{\text{self-attn}, 3}_{\text{Enc}, q}$ are identical to the
+\\(\mathbf{W}^{\text{self-attn}, 3}_{\text{Enc}, k}\\),
+\\(\mathbf{W}^{\text{self-attn}, 3}_{\text{Enc}, v}\\),
+\\(\mathbf{W}^{\text{self-attn}, 3}_{\text{Enc}, q}\\) are identical to the
 respective query, key, and value projections matrices of the
-self-attention layer in the third decoder block ${}^2$:
+self-attention layer in the third decoder block \\({}^2\\):
 
 $$ \mathbf{W}^{\text{self-attn}, 3}_{k} = \mathbf{W}^{\text{self-attn}, 3}_{\text{enc}, k} \equiv \mathbf{W}^{\text{self-attn}, 3}_{\text{dec}, k}, $$
 $$ \mathbf{W}^{\text{self-attn}, 3}_{q} = \mathbf{W}^{\text{self-attn}, 3}_{\text{enc}, q} \equiv \mathbf{W}^{\text{self-attn}, 3}_{\text{dec}, q}, $$
 $$ \mathbf{W}^{\text{self-attn}, 3}_{v} = \mathbf{W}^{\text{self-attn}, 3}_{\text{enc}, v} \equiv \mathbf{W}^{\text{self-attn}, 3}_{\text{dec}, v}, $$
 
 As a result, the key projection weights
-$\mathbf{W}^{\text{self-attn}, 3}_{k}, \mathbf{W}^{\text{self-attn}, 3}_{v}, \mathbf{W}^{\text{self-attn}, 3}_{q}$
+\\(\mathbf{W}^{\text{self-attn}, 3}_{k}, \mathbf{W}^{\text{self-attn}, 3}_{v}, \mathbf{W}^{\text{self-attn}, 3}_{q}\\)
 are updated twice for each backward propagation pass - once when the
 gradient is backpropagated through the third decoder block and once when
 the gradient is backprapageted thourgh the third encoder block.
@@ -594,10 +596,10 @@ Let\'s now look at some results.
 
 ------------------------------------------------------------------------
 
-${}^1$ Without loss of generality, we exclude the normalization layers
+\\({}^1\\) Without loss of generality, we exclude the normalization layers
 to not clutter the equations and illustrations.
 
-${}^2$ For more detail on how self-attention layers function, please
+\\({}^2\\) For more detail on how self-attention layers function, please
 refer to [this
 section](https://huggingface.co/blog/encoder-decoder#encoder) of the
 transformer-based encoder-decoder model blog post for the encoder-part
@@ -792,7 +794,7 @@ evaluated a 24-layer *RobertaShare (large)* model which outperforms all
 
 Next, the authors evaluated warm-started encoder-decoder models on the
 probably most common benchmark in machine translation (MT) - the *En*
-$\to$ *De* and *De* $\to$ *En* WMT14 dataset. In this notebook, we
+\\(\to\\) *De* and *De* \\(\to\\) *En* WMT14 dataset. In this notebook, we
 present the results on the *newstest2014* eval dataset. Because the
 benchmark requires the model to understand both an English and a German
 vocabulary the BERT-initialized encoder-decoder models were warm-started
@@ -802,9 +804,9 @@ multilingual RoBERTa checkpoint, RoBERTa-initialized encoder-decoder
 models were excluded for MT. GPT2-initialized models were initialized
 from the `gpt2` pre-trained checkpoint as in the previous experiment.
 The translation results are reported using the BLUE-4 score metric
-${}^1$.
+\\({}^1\\).
 
-  |Model                       |En $\to$ De (BLEU-4)   |De $\to$ En (BLEU-4)
+  |Model                       |En \\(\to\\) De (BLEU-4)   |De \\(\to\\) En (BLEU-4)
   |--------------------------- |---------------------- |----------------------
   |Rnd2Rnd                     |         26.0          |         29.1
   |Rnd2BERT                    |         27.2          |         30.4
@@ -819,13 +821,13 @@ ${}^1$.
 
 Again, we observe a significant performance boost by warm-starting the
 encoder-part, with *BERT2Rnd* and *BERT2BERT* yielding the best results
-on both the *En* $\to$ *De* and *De* $\to$ *En* tasks. *GPT2*
+on both the *En* \\(\to\\) *De* and *De* \\(\to\\) *En* tasks. *GPT2*
 initialized models perform significantly worse even than the *Rnd2Rnd*
-baseline on *En* $\to$ *De*. Taking into consideration that the `gpt2`
+baseline on *En* \\(\to\\) *De*. Taking into consideration that the `gpt2`
 checkpoint was trained only on English text, it is not very surprising
 that *BERT2GPT2* and *Rnd2GPT2* models have difficulties generating
 German translations. This hypothesis is supported by the competitive
-results (*e.g.* 31.4 vs. 32.7) of *BERT2GPT2* on the *De* $\to$ *En*
+results (*e.g.* 31.4 vs. 32.7) of *BERT2GPT2* on the *De* \\(\to\\) *En*
 task for which GPT2\'s vocabulary fits the English output format.
 Contrary to the results obtained on sentence fusion and sentence
 splitting, sharing encoder and decoder weight parameters does not yield
@@ -839,7 +841,7 @@ authors include
 
 Since the *bert-base-multilingual-cased* checkpoint was trained on more
 than 100 languages, its vocabulary is probably undesirably large for
-*En* $\to$ *De* and *De* $\to$ *En* MT. Thus, the authors pre-trained a
+*En* \\(\to\\) *De* and *De* \\(\to\\) *En* MT. Thus, the authors pre-trained a
 large BERT encoder-only checkpoint on the English and German subset of
 the Wikipedia dump and subsequently used it to warm-start a *BERT2Rnd*
 and *BERTShare* encoder-decoder model. Thanks to the improved
@@ -945,7 +947,7 @@ Alright, let\'s draw a conclusion and try to derive some practical tips.
     decoder weights, especially if the target distribution is similar to
     the input distribution (*e.g.* BBC XSum). However, for datasets
     whose target data distribution differs more significantly from the
-    input data distribution and for which model capacity${}^2$ is known
+    input data distribution and for which model capacity \\({}^2\\) is known
     to play an important role, *e.g.* WMT14, encoder-decoder weight
     sharing seems to be disadvantageous.
 
@@ -953,7 +955,7 @@ Alright, let\'s draw a conclusion and try to derive some practical tips.
     of the pre-trained \"stand-alone\" checkpoints fit the vocabulary
     required to solve the sequence-to-sequence task. *E.g.* a
     warm-started BERT2GPT2 encoder-decoder will perform poorly on *En*
-    $\to$ *De* MT because GPT2 was pre-trained on English whereas the
+    \\(\to\\) *De* MT because GPT2 was pre-trained on English whereas the
     target language is German. The overall poor performance of the
     *BERT2GPT2*, *Rnd2GPT2*, and *RoBERTa2GPT2* compared to *BERT2BERT*,
     *BERTShared*, and *RoBERTaShared* suggests that it is more effective
@@ -969,9 +971,9 @@ For each of the above tasks, the most performant models were ported to
     [google/roberta2roberta\_L-24\_wikisplit](https://huggingface.co/google/roberta2roberta_L-24_wikisplit).
 -   *RoBERTaShared (large)* - *Discofuse*:
     [google/roberta2roberta\_L-24\_discofuse](https://huggingface.co/google/roberta2roberta_L-24_discofuse).
--   *BERT2BERT (large)* - *WMT en $\to$ de*:
+-   *BERT2BERT (large)* - *WMT en \\(\to\\) de*:
     [google/bert2bert\_L-24\_wmt\_en\_de](https://huggingface.co/google/bert2bert_L-24_wmt_en_de).
--   *BERT2BERT (large)* - *WMT de $\to$ en*:
+-   *BERT2BERT (large)* - *WMT de \\(\to\\) en*:
     [google/bert2bert\_L-24\_wmt\_de\_en](https://huggingface.co/google/bert2bert_L-24_wmt_de_en).
 -   *RoBERTaShared (large)* - *CNN/Dailymail*:
     [google/roberta2roberta\_L-24\_cnn\_daily\_mail](https://huggingface.co/google/roberta2roberta_L-24_cnn_daily_mail).
@@ -982,7 +984,7 @@ For each of the above tasks, the most performant models were ported to
 
 ------------------------------------------------------------------------
 
-${}^1$ To retrieve BLEU-4 scores, a script from the Tensorflow Official
+\\({}^1\\) To retrieve BLEU-4 scores, a script from the Tensorflow Official
 Transformer implementation <https://github.com/tensorflow/models/tree>
 master/official/nlp/transformer was used. Note that, differently from
 the tensor2tensor/utils/ `get_ende_bleu.sh` used by Vaswani et al.
@@ -990,7 +992,8 @@ the tensor2tensor/utils/ `get_ende_bleu.sh` used by Vaswani et al.
 normalized to ascii quotes after having noted that the pre-processed
 training set contains only ascii quotes.
 
-${}^2$ Model capacity is an informal definition of how good the model is
+
+\\({}^2\\) Model capacity is an informal definition of how good the model is
 at modeling complex patterns. It is also sometimes defined as *the
 ability of a model to learn from more and more data*. Model capacity is
 broadly measured by the number of trainable parameters - the more
@@ -1014,7 +1017,7 @@ models.
     [here](https://colab.research.google.com/drive/1Ekd5pUeCX7VOrMx94_czTkwNtLN32Uyu?usp=sharing).
 -   for **RoBERTaShare** on *BBC XSum*, click
     [here](https://colab.research.google.com/drive/1vHZHXOCFqOXIvdsF8j4WBRaAOAjAroTi?usp=sharing).
--   for **BERT2Rnd** on *WMT14 En $\to$ De*, click [here]().
+-   for **BERT2Rnd** on *WMT14 En \\(\to\\) De*, click [here]().
 -   for **RoBERTa2GPT2** on *DiscoFuse*, click [here]().
 
 ***Note***: This notebook only uses a few training, validation, and test
