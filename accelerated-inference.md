@@ -8,6 +8,12 @@ At HuggingFace we're running a [hosted inference API](https://huggingface.co/pri
 all the models from the hub for a small price. One of the perks of using the API besides running
 your own is that we provide with accelerated API that speeds up models by up to 100x (mostly likely 10x). This blogpost describes how we are achieving it.
 
+
+<p align="center">
+  <img src="/blog/assets/accelerated-inference/thumbnail.png" />
+</p>
+
+
 This blogpost will assume some knowledge of the internals of transformers in general
 and will link to relevant parts for everything we don't explain here.
 
@@ -36,7 +42,7 @@ Here is a small visualization:
 
 | Naive version                                                                                             | Optimized version                                                                                       |
 |:---------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------:|
-|![](https://raw.githubusercontent.com/Narsil/narsil.github.io/master/assets/images/Unoptimized%20graph.png)|![](https://raw.githubusercontent.com/Narsil/narsil.github.io/master/assets/images/Optimized%20graph.png)|
+|![](/blog/assets/accelerated-inference/unoptimized_graph.png)|![](/blog/assets/accelerated-inference/optimized_graph.png)|
 
 That's achieved within transformers by using `past_key_values` input, which is
 given to you when you call a model. 

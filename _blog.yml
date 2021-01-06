@@ -61,3 +61,8 @@
   title: "Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models"
   thumbnail: ./assets/08_warm_starting_encoder_decoder/thumbnail.png
   date: November 09, 2020
+
+- local: accelerated-inference
+  title: Accelerated Inference (up to 100x speedup from naive implementations)
+  thumbnail: ./assets/accelerated-inference/thumbnail.png
+  date: January 07, 2021
