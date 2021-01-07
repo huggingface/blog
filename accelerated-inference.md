@@ -21,7 +21,7 @@ and will link to relevant parts for everything we don't explain here.
 
 The first speedup you should get is already implemented for you for free directly
 within [transformers](https://github.com/huggingface/transformers). And it's enabled
-by using [pipelines](https://huggingface.co/transformers/main_classes/pipelines.html?highlight=pipelines) instead of coming up with your own code to run the inference.
+by using [pipelines](https://huggingface.co/transformers/main_classes/pipelines.html?highlight=pipelines) instead of rolling out your own code to run the inference.
 It works only for Seq2Seq models and generation models, but that encompasses the
 most popular models that we see used for inference. [gpt2](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf), [Bart](https://arxiv.org/abs/1910.13461),
 [Pegasus](https://arxiv.org/abs/1912.08777), [t5](https://arxiv.org/abs/1910.10683), [gpt3](https://arxiv.org/abs/2005.14165) etc... It's also currently implemented only for [pytorch](https://pytorch.org/)
