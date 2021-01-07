@@ -1,5 +1,5 @@
 ---
-title: "Speeding up inference by 10-100x for 4000 models"
+title: "Speeding up inference by 10-100x for 5000 models"
 thumbnail: ./assets/09_accelerated-inference/thumbnail.png
 ---
 
@@ -11,8 +11,11 @@ your own is that we provide an accelerated API that speeds up models by up to 10
 
 
 <p align="center">
-  <img src="/blog/assets/accelerated-inference/thumbnail.png" />
+  <img src="/blog/assets/09_accelerated_inference/thumbnail.png" />
 </p>
+
+To get a sense of how fast inference becomes, we are getting very close to GPU
+inference speed on a simple CPU (GPU is only 40% faster, but it's 4x times the cost).
 
 
 This blogpost will assume some knowledge of the internals of transformers in general
@@ -43,7 +46,7 @@ Here is a small visualization:
 
 | Naive version                                                                                             | Optimized version                                                                                       |
 |:---------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------:|
-|![](/blog/assets/accelerated-inference/unoptimized_graph.png)|![](/blog/assets/accelerated-inference/optimized_graph.png)|
+|![](/blog/assets/09_accelerated_inference/unoptimized_graph.png)|![](/blog/assets/09_accelerated_inference/optimized_graph.png)|
 
 That's achieved within transformers by using `past_key_values` input, which is
 given to you when you call a model. 
