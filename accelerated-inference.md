@@ -1,5 +1,6 @@
 ---
 title: "Speeding up inference by 10-100x for 4000 models"
+thumbnail: ./assets/09_accelerated-inference/thumbnail.png
 ---
 
 # **Speeding up inference by 10-100x for 5,000 models**
