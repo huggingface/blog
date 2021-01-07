@@ -2,7 +2,7 @@
 title: "Speeding up inference by 10-100x for 4000 models"
 ---
 
-# **Speeding up inference by 10-100x for 4000 models**
+# **Speeding up inference by 10-100x for 5,000 models**
 
 At HuggingFace we're running a [hosted inference API](https://huggingface.co/pricing) that runs
 all the models from the hub for a small price. One of the perks of using the API besides running
