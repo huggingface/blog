@@ -6,7 +6,7 @@ title: "Speeding up inference by 10-100x for 4000 models"
 
 At HuggingFace we're running a [hosted inference API](https://huggingface.co/pricing) that runs
 all the models from the hub for a small price. One of the perks of using the API besides running
-your own is that we provide with accelerated API that speeds up models by up to 100x (mostly likely 10x). This blogpost describes how we are achieving it.
+your own is that we provide an accelerated API that speeds up models by up to 100x (mostly likely 10x). This blogpost describes how we are achieving it.
 
 
 <p align="center">
