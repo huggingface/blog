@@ -28,7 +28,7 @@ most popular models that we see used for inference. [gpt2](https://cdn.openai.co
 implementations, but we're working on enabling it on [TF](https://www.tensorflow.org/) too.
 
 Within the architecture of transformers, there are Attention layers which are
-the most important part of it's success. The core of it, is that it's a NxN
+the most important part of its success. The core of it, is that it's a NxN
 matrix computations between all the tokens of the input. That means for each
 pass of the model we're computing a `N²` matrix for each layer of attention.
 That's quite intensive. When we're running a `generation` task, that means we're
