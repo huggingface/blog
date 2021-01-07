@@ -72,7 +72,7 @@ your usage it can be a significant part of the speedup too !
 For the last part of the speedup (another ~10x) we're going to need to dive 
 a little bit more into gory details.
 We're going to focus on CPU speedups as most inference are run on CPU (it's much cheaper than GPU) but
-the same principles can be also applied to GPU.
+the same principles can also be applied to GPU.
 
 In order to accelerate inference, there are 2 strategies we can employ with a static graph
 
