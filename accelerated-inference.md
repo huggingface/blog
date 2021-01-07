@@ -51,7 +51,7 @@ Here is a small visualization:
 That's achieved within transformers by using `past_key_values` input, which is
 given to you when you call a model. 
 
-Overall this performance boost achieves ~10x improvement.
+Overall this performance boost achieves ~5x improvement.
 
 
 ## Fast tokenizers (Open-source and already within transformers)
