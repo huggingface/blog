@@ -20,7 +20,7 @@ thumbnail: https://huggingface.co/blog/assets/09_tf-serving/tf-serving_thumbnail
 For a few months the Hugging Face team has been working hard on improving transformer’s TensorFlow models to make them more robust and faster. The recent improvements are mainly focused on two aspects:
 
 1. Computational performance: Bert, Roberta, Electra and MPNet have been improved in order to have a much faster computation time. This gain of computational performance is noticeable for all the computational aspects: graph/eager mode, TF Serving and for CPU/GPU/TPU devices.
-2. Serving: each TensorFlow model now benefits from a proper serving.
+2. TensorFlow Serving: each of these TensorFlow model can be deployed wit TensorFlow Serving to benefit of this gain of computational performance for inference.
 
 ## Computational Performance
 
@@ -41,7 +41,7 @@ The current implementation of Bert in master is faster than the 4.1.1 release im
 
 ## TensorFlow Serving
 
-Now that we've seen the dramatic increase in computational performance, let's walk through a step-by-step explanation of how to deploy TFBert with TF Serving.
+The previous section demonstrates that the brand new Bert model got a dramatic increase of computational performance in the last version of Transformers. Now, this section focuses on a walkthrough step-by-step explanation of how to deploy this improved Bert model with TensorFlow Serving and to benefit from this computational performance in a production environment.
 
 ### What is TensorFlow Serving?
 
@@ -53,42 +53,45 @@ There are three ways to install and use TensorFlow Serving, one is through a Doc
 
 ### How to create a saved model?
 
-Saved model is the format expected by TensorFlow serving. Up to the 4.1.1 release of Transformers, creating a saved model had three main issues:
+Saved model is the format expected by TensorFlow serving. From the new release of Transformers, creating a saved model brings these three main features:
 
-1. The length of the sequences was fixed to 5.
-2. One was able to only pass the input_ids to the model.
-3. When `output_attentions` or `output_hidden_states` was set to True, the output contained as many outputs as the number of attentions or hidden states, instead of being grouped into a single output.
+1. The sequence length is not fixed to a specific length.
+2. Any expected input by the model can be used to run an inference.
+3. When `output_attentions` or `output_hidden_states` is set to True, the attentions or the hidden states are grouped into a single output.
 
-As stated above, here a screenshot of how looked like a saved model of a `TFBertForSequenceClassification` with `output_attentions=True`, with an input length fixed to 5 and 12 attentions outputs:
-
-<img src="/blog/assets/09_tf_serving/old_saved_model_attns.svg" alt="Old saved model with attentions" style="margin: auto; display: block; width: 260px;">
-
-With the master implementation the three main issues are now fixed, namely 1) the variable sequence length, 2) multiple inputs are accepted and 3) the attentions are grouped. As shown in this screenshot:
+Here a better idea of how looks like the inputs/outputs of a saved model for `TFBertForSequenceClassification`:
 
 <img src="/blog/assets/09_tf_serving/new_saved_model_attns.svg" alt="New saved model with attentions" style="margin: auto; display: block; width: 260px;">
 
-It is possible to create a different list of inputs than the default by extending the model. For example by using `input_embeds` instead of `input_ids`. To do so, the serving method has to be overridden by the expected `input_signature`. The `serving` method is used to define how will behave a saved model when deployed with TF Serving. The two calls inside this methods are `output=self.call(inputs)` and `return self.serving_output(output)`. They are both mandatory and must not be modified because they respectively represents the model’s serving behavior.
+The following snippet of code shows how to use `inputs_embeds` instead of `input_ids` as input:
 
 ```python
 from transformers import TFBertForSequenceClassification
 import tensorflow as tf
 
+# Creation of a subclass in order to define a new serving signature
 class MyOwnModel(TFBertForSequenceClassification):
+    # Decorate the serving method with the new input_signature
+    # an input_signature represents the name, the data type and the shape of an expected input
     @tf.function(input_signature=[{
         "inputs_embeds": tf.TensorSpec((None, None, 768), tf.float32, name="inputs_embeds"),
         "attention_mask": tf.TensorSpec((None, None), tf.int32, name="attention_mask"),
         "token_type_ids": tf.TensorSpec((None, None), tf.int32, name="token_type_ids"),
     }])
     def serving(self, inputs):
+        # call the model to process the inputs
         output = self.call(inputs)
 
+        # return the formated output
         return self.serving_output(output)
 
+# Instanciate the model with the new serving method
 model = MyOwnModel.from_pretrained("bert-base-cased")
+# save it with saved_model=True in order to have a saved model version along with the h5 weights.
 model.save_pretrained("my_model", saved_model=True)
 ```
 
-And now the saved model looks like as expected, see the `inputs_embeds`:
+Basically, in this example the new model directly expects the embeddings of the tokens instead of the token ids as input. The serving method has to be overridden by the new `input_signature`. See the [official documentation](https://www.tensorflow.org/api_docs/python/tf/function#args_1) to know more about the `input_signature` argument. The `serving` method is used to define how will behave a saved model when deployed with TensorFlow Serving. Now the saved model looks like as expected, see the new `inputs_embeds` input:
 
 <img src="/blog/assets/09_tf_serving/embeds_saved_model.svg" alt="Saved model with inputs embeds" style="margin: auto; display: block; width: 260px;">
 
@@ -166,7 +169,7 @@ label_id = np.argmax(abs_scores)
 print(config.id2label[label_id])
 ```
 
-And get POSITIVE. It is also possible to pass by the gRPC API to get the same result:
+This should return POSITIVE. It is also possible to pass by the gRPC (google Remote Procedure Call) API to get the same result:
 
 ```python
 from transformers import BertTokenizerFast, BertConfig
