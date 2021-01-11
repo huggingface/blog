@@ -61,3 +61,8 @@
   title: "Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models"
   thumbnail: ./assets/08_warm_starting_encoder_decoder/thumbnail.png
   date: November 09, 2020
+
+- local: tf-serving
+  title: "Faster TensorFlow models in Hugging Face Transformers"
+  thumbnail: ./assets/09_tf-serving/tf-serving_thumbnail.png
+  date: X Y, Z
