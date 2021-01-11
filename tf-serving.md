@@ -47,6 +47,9 @@ The previous section demonstrates that the brand new Bert model got a dramatic i
 
 TensorFlow Serving belongs to the set of tools provided by [TensorFlow Extended (TFX)](https://www.tensorflow.org/tfx/guide/serving) that makes the task of deploying a model to a server easier than ever. TensorFlow Serving provides two APIs, one that can be called upon using HTTP requests and another one using gRPC to run inference on the server.
 
+### What is a SavedModel?
+A SavedModel contains a complete TensorFlow model, including its weights and its architecture. It does not require the original source of the model to be run, which makes it useful for sharing or deploying with any backend that supports reading a SavedModel such as Java, Go, C++ or JavaScript among others.
+
 ### How to install TensorFlow Serving?
 
 There are three ways to install and use TensorFlow Serving, one is through a Docker container, another one through an apt package and a last one with pip. To make things easier and compliant with all the existing OS, we will use Docker in this tutorial.
