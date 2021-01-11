@@ -24,20 +24,20 @@ For a few months the Hugging Face team has been working hard on improving transf
 
 ## Computational Performance
 
-To demonstrate the better computational performance we have done a thorough benchmark where we compare the Bert’s performance with TF Serving of master to the 4.1.1 release and the official implementation from [Google](https://github.com/tensorflow/models/tree/master/official/nlp/bert). The benchmark has been run on a GPU V100 using a sequence length of 128:
+To demonstrate the better computational performance we have done a thorough benchmark where we compare the Bert’s performance with TensorFlow Serving of master to the official implementation from [Google](https://github.com/tensorflow/models/tree/master/official/nlp/bert). The benchmark has been run on a GPU V100 using a sequence length of 128:
 
-| Batch size | v4.1.1 implementation | Google implementation | Current master implementation   | Relative difference 4.1.1/master implem | Relative difference Google/master implem |
-|:----------:|:---------------------:|:---------------------:|:-------------------------------:|:---------------------------------------:|:----------------------------------------:|
-|      1     |          21.3         |          6.7          |              6.26               |                 109.14%                 |                   6.79%                  |
-|      2     |          24.2         |          9.4          |              8.68               |                  94.4%                  |                   7.96%                  |
-|      4     |          28.1         |          14.4         |              13.1               |                  72.82%                 |                   9.45%                  |
-|      8     |          36.9         |           24          |              21.5               |                  52.74%                 |                  10.99%                  |
-|     16     |          58.6         |          46.6         |              42.3               |                  32.31%                 |                   9.67%                  |
-|     32     |          94.7         |          83.9         |              80.4               |                  16.33%                 |                   4.26%                  |
-|     64     |         171.4         |         171.5         |              156                |                  9.41%                  |                   9.47%                  |
-|     128    |         324.5         |         338.5         |              309                |                  4.89%                  |                   9.11%                  |
+| Batch size | Google implementation | Current master implementation   | Relative difference Google/master implem |
+|:----------:|:---------------------:|:-------------------------------:|:----------------------------------------:|
+|      1     |          6.7          |              6.26               |                   6.79%                  |
+|      2     |          9.4          |              8.68               |                   7.96%                  |
+|      4     |          14.4         |              13.1               |                   9.45%                  |
+|      8     |           24          |              21.5               |                  10.99%                  |
+|     16     |          46.6         |              42.3               |                   9.67%                  |
+|     32     |          83.9         |              80.4               |                   4.26%                  |
+|     64     |         171.5         |              156                |                   9.47%                  |
+|     128    |         338.5         |              309                |                   9.11%                  |
 
-The current implementation of Bert in master is faster than the 4.1.1 release implementation by up to ~100% and the Google implementation by up to ~10%.
+The current implementation of Bert in master is faster than the Google implementation by up to ~10%. Apart from that it is also twice faster than the 4.1.1 release.
 
 ## TensorFlow Serving
 
