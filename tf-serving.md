@@ -63,7 +63,7 @@ Saved model is the format expected by TensorFlow serving. Since Transformers` v4
 2. All model inputs are now available for inference.
 3. If retrieving the Transformer hidden states or attention values using the `output_attentions` and `output_hidden_states` flags, these values are now grouped into a single output.
 
-Here a better idea of how looks like the inputs/outputs of a saved model for `TFBertForSequenceClassification`:
+Below, you can find the inputs and outputs representations of a `TFBertForSequenceClassification` saved as a TensorFlow saved model:
 
 <img src="/blog/assets/09_tf_serving/new_saved_model_attns.svg" alt="New saved model with attentions" style="margin: auto; display: block; width: 260px;">
 
