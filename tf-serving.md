@@ -60,7 +60,7 @@ There are three ways to install and use TensorFlow Serving, one is through a Doc
 Saved model is the format expected by TensorFlow serving. Since Transformers` v4.2.0, creating a saved model has three additional features:
 
 1. The sequence length can be modified freely between runs.
-2. Any expected input by the model can be used to run an inference.
+2. All model inputs are now available for inference.
 3. When `output_attentions` or `output_hidden_states` is set to True, the attentions or the hidden states are grouped into a single output.
 
 Here a better idea of how looks like the inputs/outputs of a saved model for `TFBertForSequenceClassification`:
