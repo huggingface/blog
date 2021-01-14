@@ -149,10 +149,9 @@ Method name is: tensorflow/serving/predict
 
 ## How to deploy and use a saved model?
 
-Let’s see step by step how to deploy and use a sentiment classification Bert model.
+Let’s see step by step how to deploy and use a sentiment classification BERT model.
 
-Step 1: create a saved model. To create a saved model we load a PyTorch model called `nateraw/bert-base-uncased-imdb`
-trained on the IMBD dataset:
+Step 1: create a saved model. To create a saved model, the Transformers library is so awesome to let you load a PyTorch model called `nateraw/bert-base-uncased-imdb` trained on the IMBD dataset and convert it to a TensorFlow Keras model for you:
 
 ```python
 from transformers import TFBertForSequenceClassification
