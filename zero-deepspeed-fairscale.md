@@ -194,8 +194,9 @@ While you don't really need understand how any of these projects work and you ca
 * FairScale github https://github.com/facebookresearch/fairscale
 * DeepSpeed github https://github.com/microsoft/DeepSpeed
 
-* Paper ZeRO: Memory Optimizations Toward Training Trillion Parameter Models https://arxiv.org/abs/1910.02054. The paper is very interesting, but it's very terse.
+* Paper: ZeRO: Memory Optimizations Toward Training Trillion Parameter Models https://arxiv.org/abs/1910.02054. The paper is very interesting, but it's very terse.
 * Here is a good [video discussion](https://www.youtube.com/watch?v=tC01FRB0M7w) of the paper with visuals
+* DeepSpeed configuration and tutorials: https://www.deepspeed.ai/getting-started/
 * In addition to the paper, I highly recommend to read the following detailed blog posts with diagrams:
   - [DeepSpeed: Extreme-scale model training for everyone]( https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/)
   - [ZeRO & DeepSpeed: New system optimizations enable training models with over 100 billion parameters](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/)
