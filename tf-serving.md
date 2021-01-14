@@ -185,7 +185,7 @@ docker run -d --name serving_base tensorflow/serving
 docker cp my_model/saved_model serving_base:/models/bert
 ```
 
-Next, commit the container that serves the model by changing MODEL_NAME to match the model's name (here `bert`), the name (`bert`) corresponds to the name we want to give to our saved model:
+,commit the container that serves the model by changing MODEL_NAME to match the model's name (here `bert`), the name (`bert`) corresponds to the name we want to give to our saved model:
 ```
 docker commit --change "ENV MODEL_NAME bert" serving_base my_bert_model
 ```
