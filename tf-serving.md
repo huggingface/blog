@@ -89,7 +89,7 @@ class MyOwnModel(TFBertForSequenceClassification):
         # return the formated output
         return self.serving_output(output)
 
-# Instanciate the model with the new serving method
+# Instantiate the model with the new serving method
 model = MyOwnModel.from_pretrained("bert-base-cased")
 # save it with saved_model=True in order to have a saved model version along with the h5 weights.
 model.save_pretrained("my_model", saved_model=True)
