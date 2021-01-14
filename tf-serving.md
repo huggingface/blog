@@ -190,7 +190,7 @@ docker cp my_model/saved_model serving_base:/models/bert
 docker commit --change "ENV MODEL_NAME bert" serving_base my_bert_model
 ```
 
-Next, kill the serving_base image ran as a daemon because we don't need it anymore:
+and kill the serving_base image ran as a daemon because we don't need it anymore:
 ```
 docker kill serving_base
 ```
