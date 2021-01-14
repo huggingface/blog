@@ -17,7 +17,7 @@ thumbnail: https://huggingface.co/blog/assets/09_tf-serving/tf-serving_thumbnail
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">
 </a>
 
-For a few months the Hugging Face team has been working hard on improving transformer’s TensorFlow models to make them more robust and faster. The recent improvements are mainly focused on two aspects:
+The last few months, the Hugging Face team has been working hard on improving transformer’s TensorFlow models to make them more robust and faster. The recent improvements are mainly focused on two aspects:
 
 1. Computational performance: Bert, Roberta, Electra and MPNet have been improved in order to have a much faster computation time. This gain of computational performance is noticeable for all the computational aspects: graph/eager mode, TF Serving and for CPU/GPU/TPU devices.
 2. TensorFlow Serving: each of these TensorFlow model can be deployed wit TensorFlow Serving to benefit of this gain of computational performance for inference.
