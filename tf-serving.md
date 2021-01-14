@@ -180,7 +180,7 @@ Next, run a serving image as a daemon named serving_base:
 docker run -d --name serving_base tensorflow/serving
 ```
 
-Next, copy the newly created saved model into the serving_base container's models folder:
+, copy the newly created saved model into the serving_base container's models folder:
 ```
 docker cp my_model/saved_model serving_base:/models/bert
 ```
