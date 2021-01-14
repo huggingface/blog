@@ -65,7 +65,7 @@ To make things easier and compliant with all the existing OS, we will use Docker
 SavedModel is the format expected by TensorFlow serving. Since Transformers v4.2.0, creating a saved model has three additional features:
 
 1. The sequence length can be modified freely between runs.
-2. All model inputs are now available for inference.
+2. All model inputs are available for inference.
 3. If retrieving the Transformer hidden states or attention values using the `output_attentions` and `output_hidden_states` flags, these values are now grouped into a single output.
 
 Below, you can find the inputs and outputs representations of a `TFBertForSequenceClassification` saved as a TensorFlow saved model:
