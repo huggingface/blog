@@ -29,18 +29,18 @@ thumbnail: /blog/assets/09_zero_deepspeed_fairscale/thumbnail.png
 
 # **Fit More and Train Faster With ZeRO via DeepSpeed and FairScale**
 
-As of recent Machine Learning models have been growing much faster than the amount of GPU memory added to newly released cards and many users are unable to train or even just load some of those huge models onto their hardware. While there is an ongoing effort to distill some of those huge models to be of a more manageable size -- that effort isn't producing models small enough soon enough.
+As recent Machine Learning models have been growing much faster than the amount of GPU memory added to newly released cards, many users are unable to train or even just load some of those huge models onto their hardware. While there is an ongoing effort to distill some of those huge models to be of a more manageable size -- that effort isn't producing models small enough soon enough.
 
 In the fall of 2019 Samyam Rajbhandari, Jeff Rasley, Olatunji Ruwase and Yuxiong He published a paper:
-[ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/abs/1910.02054), which contains a plethora of ingenious new ideas on how one could make their hardware do much more than what it was thought possible before. A short time later [DeepSpeed](https://github.com/microsoft/deepspeed) has been released that gave to the world the open source implementation of most of the ideas in that paper (a few ideas are still in works) and in parallel the team from Facebook released [FairScale](https://github.com/facebookresearch/fairscale/) which also implemented some of the core ideas from the ZeRO paper.
+[ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/abs/1910.02054), which contains a plethora of ingenious new ideas on how one could make their hardware do much more than what it was thought possible before. A short time later [DeepSpeed](https://github.com/microsoft/deepspeed) has been released that gave to the world the open source implementation of most of the ideas in that paper (a few ideas are still in works) and in parallel a team from Facebook released [FairScale](https://github.com/facebookresearch/fairscale/) which also implemented some of the core ideas from the ZeRO paper.
 
-If you use the HF Trainer, as of `transformers` v4.2.0 you have the initial experimental support for DeepSpeed's and FairScale's ZeRO features. The new `--sharded_ddp` and `--deepspeed` command line trainer arguments provide FairScale and DeepSpeed integration respectively. Here is [the full documentation](https://huggingface.co/transformers/master/main_classes/trainer.html#trainer-integrations).
+If you use the Hugging Face Trainer, as of `transformers` v4.2.0 you have the initial experimental support for DeepSpeed's and FairScale's ZeRO features. The new `--sharded_ddp` and `--deepspeed` command line `Trainer` arguments provide FairScale and DeepSpeed integration respectively. Here is [the full documentation](https://huggingface.co/transformers/master/main_classes/trainer.html#trainer-integrations).
 
 This blog post will describe how you can benefit from ZeRO regardless of whether you own just a single GPU or a whole stack of them.
 
-# Huge Speedups with multi-gpu setups
+# Huge Speedups with multi-GPU setups
 
-Let's do a small finetuning with translation task experiment, using `t5-large` model and  `finetune_trainer.py` script which you can find under [`examples/seq2seq`](https://github.com/huggingface/transformers/tree/master/examples/seq2seq) in the `transformers` github repo.
+Let's do a small finetuning with translation task experiment, using a `t5-large` model and the `finetune_trainer.py` script which you can find under [`examples/seq2seq`](https://github.com/huggingface/transformers/tree/master/examples/seq2seq) in the `transformers` GitHub repo.
 
 We have 2x 24GB (Titan RTX) GPUs to test with.
 
@@ -69,12 +69,12 @@ Next we are going to re-run the benchmark every time adding one of the following
 
 Since the key optimization here is that each technique deploys GPU RAM more efficiently, we will try to continually increase the batch size and expect the training and evaluation to complete faster (while keeping the metrics steady or even improving some, but we won't focus on these here).
 
-Remember that training and evaluation stages are very different from each other, because during training models weights are being modified, gradients are being calculated, and optimizer states are stored. During evaluation, none of these happen, but in this particular task of translation the model will try to search for the best hypothesis, so it actually has to do multiple runs before it's satisfied, so it's not fast, especially when a model is large.
+Remember that training and evaluation stages are very different from each other, because during training models weights are being modified, gradients are being calculated, and optimizer states are stored. During evaluation, none of these happen, but in this particular task of translation the model will try to search for the best hypothesis, so it actually has to do multiple runs before it's satisfied. That's why it's not fast, especially when a model is large.
 
-Let's look at the results of these 6 test runs:
+Let's look at the results of these six test runs:
 
 | Method                    | max BS |  train time |   eval time |
-|---------------------------+--------+-------------+-------------|
+|---------------------------|--------|-------------|-------------|
 | baseline                  |     16 |     30.9458 |     56.3310 |
 | fp16                      |     20 |     21.4943 |     53.4675 |
 | sharded_ddp               |     30 |     25.9085 |     47.5589 |
@@ -82,9 +82,9 @@ Let's look at the results of these 6 test runs:
 | deepspeed w/o cpu offload |     40 | **10.4007** |     34.9289 |
 | deepspeed w/ cpu offload  | **50** |     20.9706 | **32.1409** |
 
-It's easy to see that both FairScale and DeepSpeed provide great improvements over the baseline, in the total train/eval time but also in the batch size. DeepSpeed implements more magic as of this writing and seems to be the short term winner, but Fairscale is easier to deploy. For DeepSpeed you need to write a simple configuration file and change your command line's launcher, with Fairscale you only need to add the `--sharded_ddp` command line argument, so you may want to try it first as it's the most low-hanging fruit.
+It's easy to see that both FairScale and DeepSpeed provide great improvements over the baseline, in the total train and evaluation time but also in the batch size. DeepSpeed implements more magic as of this writing and seems to be the short term winner, but Fairscale is easier to deploy. For DeepSpeed you need to write a simple configuration file and change your command line's launcher, with Fairscale you only need to add the `--sharded_ddp` command line argument, so you may want to try it first as it's the most low-hanging fruit.
 
-Following the 80:20 rule, I have only spent a few hours on these benchmarks and I haven't tried to squeeze every MB and second by refining the command line arguments and configuration, since it's pretty obvious from the simple table what you'd want to try next. When you will face a real project that will be running for hours and perhaps days, definitely spend more time to make sure you use the most optimal possible hyper parameters to get your job done faster and at a minimal cost.
+Following the 80:20 rule, I have only spent a few hours on these benchmarks and I haven't tried to squeeze every MB and second by refining the command line arguments and configuration, since it's pretty obvious from the simple table what you'd want to try next. When you will face a real project that will be running for hours and perhaps days, definitely spend more time to make sure you use the most optimal possible hyper-parameters to get your job done faster and at a minimal cost.
 
 If you would like to experiment with this benchmark yourself or want to know more details about the hardware and software used to run it, please, refer to this [post](https://github.com/huggingface/transformers/issues/8771#issuecomment-759248400).
 
@@ -111,7 +111,7 @@ RuntimeError: CUDA out of memory. Tried to allocate 64.00 MiB (GPU 0; 23.70 GiB 
 21.37 GiB already allocated; 45.69 MiB free; 22.05 GiB reserved in total by PyTorch)
 ```
 
-Now update your `transformers` to v4.0.2 or higher, then install DeepSpeed:
+Now update your `transformers` to v4.2.0 or higher, then install DeepSpeed:
 ```
 pip install deepspeed
 ```
@@ -152,11 +152,11 @@ The key feature is 3D parallelism, which combines data parallelism (DP), pipelin
 
 Let's briefly touch on each of the 3 types:
 
-1. **Data Parallelism** is what you get from `DataParallel` - we replicate the model to each GPU, then split the data and feed part of it to each GPU in mini-batches. But as we know this means we need to copy and allocate memory for all of model's params, gradients and optimizer states on each GPU, which doesn't help with memory usage.
+1. **Data Parallelism** is what you get from `DataParallel` or `DistributedDataParallel` - we replicate the model to each GPU, then split the data and feed part of it to each GPU in mini-batches. But as we know this means we need to copy and allocate memory for all of model's parameters, gradients and optimizer states on each GPU, which doesn't help with memory usage.
 2. And so ZeRO's ingenious approach is to give each GPU only a small chunk of params, gradients and optimizer states of each layer of the model. It doesn't assign groups of layers to GPUs, sometimes referred to as vertical slicing type of MP, but instead partitions (shards) each layer horizontally. This leads to zero overlap between GPUs. At runtime each GPU builds up each layer's data on the fly by asking participating GPUs to send the information it's lacking. This idea could be difficult to grasp, and you will find my attempt at explanation [here](https://github.com/huggingface/transformers/issues/8771#issuecomment-758418429).
-3. Finally, **Pipeline Parallelism** is added. As I explained [here](https://github.com/huggingface/transformers/issues/8771#issuecomment-758250421) a naive model parallelism suffers from a serious under-utilization of GPU resources, due to GPU idling, while waiting for other GPUs to finish their work. And PP solves this problem, but splitting mini-batches into micro-batches and feeding the idling GPUs new data while it's waiting for the other GPUs to complete their `forward` and `backward` stages.
+3. Finally, **Pipeline Parallelism** is added. As I explained [here](https://github.com/huggingface/transformers/issues/8771#issuecomment-758250421) a naive model parallelism suffers from a serious under-utilization of GPU resources, due to GPU idling, while waiting for other GPUs to finish their work. And PP solves this problem, by splitting mini-batches into micro-batches and feeding the idling GPUs new data while it's waiting for the other GPUs to complete their `forward` and `backward` stages.
 
-As of this writing FairScale and DeepSpeed only perform Model Parallelism (Sharding) for the optimizer states and gradients. Model params sharding is supposedly coming soon in DeepSpeed.
+As of this writing FairScale and DeepSpeed only perform Model Parallelism (Sharding) for the optimizer states and gradients. Model parameters sharding is supposedly coming soon in DeepSpeed.
 
 The other powerful feature is ZeRO-Offload. This feature offloads some of the processing and memory needs to the host's CPU, thus allowing more to be fit onto the GPU. You saw its dramatic impact in the success at running `t5-3b` on a 24GB GPU.
 
@@ -165,9 +165,9 @@ One other problem that a lot of people complain about on pytorch forums is GPU m
 RuntimeError: CUDA out of memory. Tried to allocate 1.48 GiB (GPU 0; 23.65 GiB total capacity;
 16.22 GiB already allocated; 111.12 MiB free; 22.52 GiB reserved in total by PyTorch)
 ```
-The program wants to allocate ~1.5GB and the GPU still has some 6-7GBs of unused memory, but it reports to have only ~100MB of contiguous free memory and it fails with the OOM (Out Of Memory) error. This happens as chunks of different size get allocated and de-allocated again and again, and over time holes get created leading to memory fragmentation, where there is a lot of unused memory but no contiguous chunks of the desired size. In the example above the program could probably allocate 100MB of contiguous memory, but clearly it can't get 1.5GB in a single chunk.
+The program wants to allocate ~1.5GB and the GPU still has some 6-7GBs of unused memory, but it reports to have only ~100MB of contiguous free memory and it fails with the OOM error. This happens as chunks of different size get allocated and de-allocated again and again, and over time holes get created leading to memory fragmentation, where there is a lot of unused memory but no contiguous chunks of the desired size. In the example above the program could probably allocate 100MB of contiguous memory, but clearly it can't get 1.5GB in a single chunk.
 
-DeepSpeed attacks this problem by managing GPU memory by itself and ensuring that long term memory allocations don't mix with short-term ones and thus there is much less fragmentation. While the paper doesn't go into details, the source code is available, so it's possible to see how DeepSpeed accomplishes that.
+DeepSpeed attacks this problem by managing GPU memory by itself and ensuring that long term memory allocations don't mix with short-term ones and thus there is much less fragmentation. While the paper doesn't go into details, the [source code](https://github.com/microsoft/DeepSpeed) is available, so it's possible to see how DeepSpeed accomplishes that.
 
 As ZeRO stands for Zero Redundancy Optimizer, it's easy to see that it lives up to its name.
 
@@ -191,17 +191,17 @@ But if you have problems with DeepSpeed and FairScale installation, configuratio
 
 While you don't really need understand how any of these projects work and you can just deploy them via the `transformers` Trainer, should you want to figure out the whys and hows please refer to the following resources.
 
-* FairScale github https://github.com/facebookresearch/fairscale
-* DeepSpeed github https://github.com/microsoft/DeepSpeed
+* [FairScale GitHub](https://github.com/facebookresearch/fairscale)
+* [DeepSpeed GitHub](https://github.com/microsoft/DeepSpeed)
 
-* Paper: ZeRO: Memory Optimizations Toward Training Trillion Parameter Models https://arxiv.org/abs/1910.02054. The paper is very interesting, but it's very terse.
+* Paper: [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/abs/1910.02054). The paper is very interesting, but it's very terse.
 * Here is a good [video discussion](https://www.youtube.com/watch?v=tC01FRB0M7w) of the paper with visuals
-* DeepSpeed configuration and tutorials: https://www.deepspeed.ai/getting-started/
+* DeepSpeed [configuration and tutorials](https://www.deepspeed.ai/getting-started/)
 * In addition to the paper, I highly recommend to read the following detailed blog posts with diagrams:
   - [DeepSpeed: Extreme-scale model training for everyone]( https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/)
   - [ZeRO & DeepSpeed: New system optimizations enable training models with over 100 billion parameters](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/)
   - [Turing-NLG: A 17-billion-parameter language model by Microsoft](https://www.microsoft.com/en-us/research/blog/turing-nlg-a-17-billion-parameter-language-model-by-microsoft/)
-* DeepSpeed examples git https://github.com/microsoft/DeepSpeedExamples
+* DeepSpeed [examples on GitHub](https://github.com/microsoft/DeepSpeedExamples)
 
 # Gratitude
 
