@@ -24,7 +24,7 @@ thumbnail: /blog/assets/09_zero_deepspeed_fairscale/thumbnail.png
     </a>
 </div>
 
-##### A guest blog post by Stas Bekman
+##### A guest blog post by Hugging Face fellow Stas Bekman
 
 
 # **Fit More and Train Faster With ZeRO via DeepSpeed and FairScale**
