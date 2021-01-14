@@ -91,7 +91,7 @@ The given SavedModel SignatureDef contains the following output(s):
 Method name is: tensorflow/serving/predict
 ```
 
-The following snippet of code shows how to use `inputs_embeds` instead of `input_ids` as input. The `inputs_embeds` argument represents the embeddings of the tokens, which means that now the model waits the embeddings of the tokens instead of their id.
+To use `inputs_embeds` (the embeddings of the tokens) instead of `input_ids` (the IDs of the tokens) as inputs, we need to subclass the model to have a new serving signature. The following snippet of code shows how to do this:
 
 ```python
 from transformers import TFBertForSequenceClassification
