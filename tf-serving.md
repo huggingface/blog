@@ -37,7 +37,7 @@ To demonstrate the computational performance improvements, we have done a thorou
 |     64     |        171.5          |          156          |                   9.47%                  |
 |    128     |        338.5          |          309          |                   9.11%                  |
 
-The current implementation of Bert in v4.2.0 is faster than the Google implementation by up to ~10%. Apart from that it is also twice faster than the 4.1.1 release.
+The current implementation of Bert in v4.2.0 is faster than the Google implementation by up to ~10%. Apart from that it is also twice as fast as the implementations in the 4.1.1 release.
 
 ## TensorFlow Serving
 
