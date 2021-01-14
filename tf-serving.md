@@ -41,7 +41,7 @@ The current implementation of Bert in v4.2.0 is faster than the Google implement
 
 ## TensorFlow Serving
 
-The previous section demonstrates that the brand new Bert model got a dramatic increase of computational performance in the last version of Transformers. Now, this section focuses on a walkthrough step-by-step explanation of how to deploy this improved Bert model with TensorFlow Serving and to benefit from this computational performance in a production environment.
+The previous section demonstrates that the brand new Bert model got a dramatic increase in computational performance in the last version of Transformers. In this section, we will show you step-by-step how to deploy a Bert model with TensorFlow Serving to benefit from the increase in computational performance in a production environment.
 
 ### What is TensorFlow Serving?
 
