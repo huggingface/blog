@@ -65,9 +65,33 @@ Saved model is the format expected by TensorFlow serving. Since Transformers` v4
 
 Below, you can find the inputs and outputs representations of a `TFBertForSequenceClassification` saved as a TensorFlow saved model:
 
-<img src="/blog/assets/09_tf_serving/new_saved_model_attns.svg" alt="New saved model with attentions" style="margin: auto; display: block; width: 260px;">
+```
+The given SavedModel SignatureDef contains the following input(s):
+  inputs['attention_mask'] tensor_info:
+      dtype: DT_INT32
+      shape: (-1, -1)
+      name: serving_default_attention_mask:0
+  inputs['input_ids'] tensor_info:
+      dtype: DT_INT32
+      shape: (-1, -1)
+      name: serving_default_input_ids:0
+  inputs['token_type_ids'] tensor_info:
+      dtype: DT_INT32
+      shape: (-1, -1)
+      name: serving_default_token_type_ids:0
+The given SavedModel SignatureDef contains the following output(s):
+  outputs['attentions'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (12, -1, 12, -1, -1)
+      name: StatefulPartitionedCall:0
+  outputs['logits'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, 2)
+      name: StatefulPartitionedCall:1
+Method name is: tensorflow/serving/predict
+```
 
-The following snippet of code shows how to use `inputs_embeds` instead of `input_ids` as input:
+The following snippet of code shows how to use `inputs_embeds` instead of `input_ids` as input. The `inputs_embeds` argument represents the embeddings of the tokens, which means that now the model waits the embeddings of the tokens instead of their id.
 
 ```python
 from transformers import TFBertForSequenceClassification
@@ -95,9 +119,33 @@ model = MyOwnModel.from_pretrained("bert-base-cased")
 model.save_pretrained("my_model", saved_model=True)
 ```
 
-Basically, in this example the new model directly expects the embeddings of the tokens instead of the token ids as input. The serving method has to be overridden by the new `input_signature`. See the [official documentation](https://www.tensorflow.org/api_docs/python/tf/function#args_1) to know more about the `input_signature` argument. The `serving` method is used to define how will behave a saved model when deployed with TensorFlow Serving. Now the saved model looks like as expected, see the new `inputs_embeds` input:
+The serving method has to be overridden by the new `input_signature`. See the [official documentation](https://www.tensorflow.org/api_docs/python/tf/function#args_1) to know more about the `input_signature` argument. The `serving` method is used to define how will behave a saved model when deployed with TensorFlow Serving. Now the saved model looks like as expected, see the new `inputs_embeds` input:
 
-<img src="/blog/assets/09_tf_serving/embeds_saved_model.svg" alt="Saved model with inputs embeds" style="margin: auto; display: block; width: 260px;">
+```
+The given SavedModel SignatureDef contains the following input(s):
+  inputs['attention_mask'] tensor_info:
+      dtype: DT_INT32
+      shape: (-1, -1)
+      name: serving_default_attention_mask:0
+  inputs['inputs_embeds'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, -1, 768)
+      name: serving_default_inputs_embeds:0
+  inputs['token_type_ids'] tensor_info:
+      dtype: DT_INT32
+      shape: (-1, -1)
+      name: serving_default_token_type_ids:0
+The given SavedModel SignatureDef contains the following output(s):
+  outputs['attentions'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (12, -1, 12, -1, -1)
+      name: StatefulPartitionedCall:0
+  outputs['logits'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, 2)
+      name: StatefulPartitionedCall:1
+Method name is: tensorflow/serving/predict
+```
 
 ## How to deploy and use a saved model?
 
@@ -148,27 +196,38 @@ import json
 import numpy as np
 
 sentence = "I love the new TensorFlow update in transformers."
+
 # Load the corresponding tokenizer of our saved model
 tokenizer = BertTokenizerFast.from_pretrained("nateraw/bert-base-uncased-imdb")
+
 # Load the model config of our saved model
 config = BertConfig.from_pretrained("nateraw/bert-base-uncased-imdb")
+
 # Tokenize the sentence
 batch = tokenizer(sentence)
+
 # Convert the batch into a proper dict
 batch = dict(batch)
+
 # Put the example into a list of size 1, that corresponds to the batch size
 batch = [batch]
+
 # The REST API needs a JSON that contains the key instances to declare the examples to process
 input_data = {"instances": batch}
+
 # Query the REST API, the path corresponds to http://host:port/model_version/models_root_folder/model_name:method
 r = requests.post("http://localhost:8501/v1/models/bert:predict", data=json.dumps(input_data))
+
 # Parse the JSON result. The results are contained in a list with a root key called "predictions"
 # and as there is only one example, takes the first element of the list
 result = json.loads(r.text)["predictions"][0]
-# The returned results are probabilities, that can be positive/negative hence we take their absolute value
+
+# The returned results are probabilities, that can be positive or negative hence we take their absolute value
 abs_scores = np.abs(result)
+
 # Take the argmax that correspond to the index of the max probability.
 label_id = np.argmax(abs_scores)
+
 # Print the proper LABEL with its index
 print(config.id2label[label_id])
 ```
@@ -186,6 +245,7 @@ import grpc
 sentence = "I love the new TensorFlow update in transformers."
 tokenizer = BertTokenizerFast.from_pretrained("nateraw/bert-base-uncased-imdb")
 config = BertConfig.from_pretrained("nateraw/bert-base-uncased-imdb")
+
 # Tokenize the sentence but this time with TensorFlow tensors as output already batch sized to 1. Ex:
 # {
 #    'input_ids': <tf.Tensor: shape=(1, 3), dtype=int32, numpy=array([[  101, 19082,   102]])>,
@@ -193,23 +253,32 @@ config = BertConfig.from_pretrained("nateraw/bert-base-uncased-imdb")
 #    'attention_mask': <tf.Tensor: shape=(1, 3), dtype=int32, numpy=array([[1, 1, 1]])>
 # }
 batch = tokenizer(sentence, return_tensors="tf")
+
 # Create a channel that will be connected to the gRPC port of the container
 channel = grpc.insecure_channel("localhost:8500")
+
 # Create a stub made for prediction. This stub will be used to send the gRPC request to the TF Server.
 stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
+
 # Create a gRPC request made for prediction
 request = predict_pb2.PredictRequest()
+
 # Set the name of the model, for this use case it is bert
 request.model_spec.name = "bert"
+
 # Set which signature is used to format the gRPC query, here the default one
 request.model_spec.signature_name = "serving_default"
+
 # Set the input_ids input from the input_ids given by the tokenizer
 # tf.make_tensor_proto turns a TensorFlow tensor into a Protobuf tensor
 request.inputs["input_ids"].CopyFrom(tf.make_tensor_proto(batch["input_ids"]))
+
 # Same with attention mask
 request.inputs["attention_mask"].CopyFrom(tf.make_tensor_proto(batch["attention_mask"]))
+
 # Same with token type ids
 request.inputs["token_type_ids"].CopyFrom(tf.make_tensor_proto(batch["token_type_ids"]))
+
 # Send the gRPC request to the TF Server
 result = stub.Predict(request)
 
@@ -217,9 +286,10 @@ result = stub.Predict(request)
 # assigned to the key logits. As the probabilities as in float, the list is
 # converted into a numpy array of floats with .float_val
 output = result.outputs["logits"].float_val
+
 # Print the proper LABEL with its index
 print(config.id2label[np.argmax(np.abs(output))])
 ```
 
 ## Conclusion
-Thanks to the last updates applied on the TensorFlow models in transformers, one can now easily deploy its models in production in an efficient way. One of the next steps we are thinking about is to directly integrate the preprocessing part inside the saved model to make things even easier.
+Thanks to the last updates applied on the TensorFlow models in transformers, one can now easily deploy its models in production using TensorFlow serving. One of the next steps we are thinking about is to directly integrate the preprocessing part inside the saved model to make things even easier.
