@@ -170,7 +170,7 @@ model.save_pretrained("my_model", saved_model=True)
 
 ### Step 2
 
-Create a Docker container containing the saved model and run it. First, pull the TensorFlow serving Docker image for CPU (for GPU replace serving by serving:latest-gpu):
+Create a Docker container with the saved model and run it. First, pull the TensorFlow Serving Docker image for CPU (for GPU replace serving by serving:latest-gpu):
 ``` 
 docker pull tensorflow/serving
 ```
