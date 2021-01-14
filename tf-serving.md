@@ -151,7 +151,9 @@ Method name is: tensorflow/serving/predict
 
 Let’s see step by step how to deploy and use a sentiment classification BERT model.
 
-Step 1: create a saved model. To create a saved model, the Transformers library is so awesome to let you load a PyTorch model called `nateraw/bert-base-uncased-imdb` trained on the IMBD dataset and convert it to a TensorFlow Keras model for you:
+### Step 1
+
+Create a saved model. To create a saved model, the Transformers library is so awesome to let you load a PyTorch model called `nateraw/bert-base-uncased-imdb` trained on the IMBD dataset and convert it to a TensorFlow Keras model for you:
 
 ```python
 from transformers import TFBertForSequenceClassification
@@ -161,32 +163,41 @@ model = TFBertForSequenceClassification.from_pretrained("nateraw/bert-base-uncas
 model.save_pretrained("my_model", saved_model=True)
 ```
 
-Step 2: create a Docker container containing the saved model and run it:
+### Step 2
 
-```
-# pull the TensorFlow serving Docker image for CPU
-# for GPU replace serving by serving:latest-gpu
+Create a Docker container containing the saved model and run it. First, pull the TensorFlow serving Docker image for CPU (for GPU replace serving by serving:latest-gpu):
+``` 
 docker pull tensorflow/serving
+```
 
-# run a serving image as a daemon named serving_base
+Next, run a serving image as a daemon named serving_base:
+```
 docker run -d --name serving_base tensorflow/serving
+```
 
-# copy the newly created saved model into the serving_base container's models folder
+Next, copy the newly created saved model into the serving_base container's models folder:
+```
 docker cp my_model/saved_model serving_base:/models/bert
+```
 
-# commit the container that serves the model by changing MODEL_NAME to match the model's name (here bert)
-# the name (bert) corresponds to the name we want to give to our saved model
+Next, commit the container that serves the model by changing MODEL_NAME to match the model's name (here `bert`), the name (`bert`) corresponds to the name we want to give to our saved model:
+```
 docker commit --change "ENV MODEL_NAME bert" serving_base my_bert_model
+```
 
-# kill the serving_base image ran as a daemon because we don't need it anymore
+Next, kill the serving_base image ran as a daemon because we don't need it anymore:
+```
 docker kill serving_base
+```
 
-# Run the image to serve our saved model as a daemon and we map the ports 8501 (REST API)
-# and 8500 (gRPC API) in the container to the host and we name the the container "bert".
+Finally, Run the image to serve our saved model as a daemon and we map the ports 8501 (REST API), and 8500 (gRPC API) in the container to the host and we name the the container `bert`.
+```
 docker run -d -p 8501:8501 -p 8500:8500 --name bert my_bert_model
 ```
 
-Step 3: Query the model through the REST API:
+### Step 3
+
+Query the model through the REST API:
 
 ```python
 from transformers import BertTokenizerFast, BertConfig
