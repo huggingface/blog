@@ -57,7 +57,7 @@ There are three ways to install and use TensorFlow Serving, one is through a Doc
 
 ### How to create a saved model?
 
-Saved model is the format expected by TensorFlow serving. Since Transformers` v4.2.0, creating a saved model has three additional features:
+Saved model is the format expected by TensorFlow serving. Since Transformers v4.2.0, creating a saved model has three additional features:
 
 1. The sequence length can be modified freely between runs.
 2. All model inputs are now available for inference.
