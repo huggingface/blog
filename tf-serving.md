@@ -26,16 +26,16 @@ The last few months, the Hugging Face team has been working hard on improving tr
 
 To demonstrate the computational performance improvements, we have done a thorough benchmark where we compare BERT's performance with TensorFlow Serving of v4.2.0 to the official implementation from [Google](https://github.com/tensorflow/models/tree/master/official/nlp/bert). The benchmark has been run on a GPU V100 using a sequence length of 128:
 
-| Batch size | Google implementation |      v4.2.0 implementation      | Relative difference Google/v4.2.0 implem |
-|:----------:|:---------------------:|:-------------------------------:|:----------------------------------------:|
-|      1     |          6.7          |              6.26               |                   6.79%                  |
-|      2     |          9.4          |              8.68               |                   7.96%                  |
-|      4     |          14.4         |              13.1               |                   9.45%                  |
-|      8     |           24          |              21.5               |                  10.99%                  |
-|     16     |          46.6         |              42.3               |                   9.67%                  |
-|     32     |          83.9         |              80.4               |                   4.26%                  |
-|     64     |         171.5         |              156                |                   9.47%                  |
-|     128    |         338.5         |              309                |                   9.11%                  |
+| Batch size | Google implementation | v4.2.0 implementation | Relative difference Google/v4.2.0 implem |
+|:----------:|:---------------------:|:---------------------:|:----------------------------------------:|
+|      1     |          6.7          |         6.26          |                   6.79%                  |
+|      2     |          9.4          |         8.68          |                   7.96%                  |
+|      4     |         14.4          |         13.1          |                   9.45%                  |
+|      8     |           24          |         21.5          |                  10.99%                  |
+|     16     |         46.6          |         42.3          |                   9.67%                  |
+|     32     |         83.9          |         80.4          |                   4.26%                  |
+|     64     |        171.5          |          156          |                   9.47%                  |
+|    128     |        338.5          |          309          |                   9.11%                  |
 
 The current implementation of Bert in v4.2.0 is faster than the Google implementation by up to ~10%. Apart from that it is also twice faster than the 4.1.1 release.
 
