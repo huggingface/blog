@@ -154,7 +154,7 @@ Method name is: tensorflow/serving/predict
 
 ## How to deploy and use a saved model?
 
-Let’s see step by step how to deploy and use a sentiment classification BERT model.
+Let’s see step by step how to deploy and use a BERT model for sentiment classification.
 
 ### Step 1
 
