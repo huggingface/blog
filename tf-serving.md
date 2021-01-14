@@ -24,7 +24,7 @@ The last few months, the Hugging Face team has been working hard on improving tr
 
 ## Computational Performance
 
-To demonstrate the better computational performance we have done a thorough benchmark where we compare the Bert’s performance with TensorFlow Serving of master to the official implementation from [Google](https://github.com/tensorflow/models/tree/master/official/nlp/bert). The benchmark has been run on a GPU V100 using a sequence length of 128:
+To demonstrate the computational performance improvements, we have done a thorough benchmark where we compare BERT's performance with TensorFlow Serving of v4.2.0 to the official implementation from [Google](https://github.com/tensorflow/models/tree/master/official/nlp/bert). The benchmark has been run on a GPU V100 using a sequence length of 128:
 
 | Batch size | Google implementation | Current master implementation   | Relative difference Google/master implem |
 |:----------:|:---------------------:|:-------------------------------:|:----------------------------------------:|
