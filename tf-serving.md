@@ -61,7 +61,7 @@ Saved model is the format expected by TensorFlow serving. Since Transformers` v4
 
 1. The sequence length can be modified freely between runs.
 2. All model inputs are now available for inference.
-3. When `output_attentions` or `output_hidden_states` is set to True, the attentions or the hidden states are grouped into a single output.
+3. If retrieving the Transformer hidden states or attention values using the `output_attentions` and `output_hidden_states` flags, these values are now grouped into a single output.
 
 Here a better idea of how looks like the inputs/outputs of a saved model for `TFBertForSequenceClassification`:
 
