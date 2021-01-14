@@ -3,10 +3,10 @@ title: "Fit More and Train Faster With ZeRO via DeepSpeed and FairScale"
 thumbnail: /blog/assets/09_zero_deepspeed_fairscale/thumbnail.png
 ---
 
-<h1 class="no-top-margin">Porting fairseq wmt19 translation system to transformers</h1>
+<h1 class="no-top-margin">Fit More and Train Faster With ZeRO via DeepSpeed and FairScale</h1>
 
 <div class="blog-metadata">
-    <small>Published November 3, 2020.</small>
+    <small>Published January 15, 20201.</small>
     <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/zero-deepspeed-fairscale.md">
         <img src="/front/assets/icon-github.svg">
         Update on GitHub
@@ -38,26 +38,27 @@ If you use the Hugging Face Trainer, as of `transformers` v4.2.0 you have the in
 
 This blog post will describe how you can benefit from ZeRO regardless of whether you own just a single GPU or a whole stack of them.
 
-# Huge Speedups with multi-GPU setups
+# Huge Speedups with Multi-GPU Setups
 
 Let's do a small finetuning with translation task experiment, using a `t5-large` model and the `finetune_trainer.py` script which you can find under [`examples/seq2seq`](https://github.com/huggingface/transformers/tree/master/examples/seq2seq) in the `transformers` GitHub repo.
 
 We have 2x 24GB (Titan RTX) GPUs to test with.
 
-This is just a proof of concept benchmarks so surely things can be improved further, so we will benchmark on a small sample of train=2000, eval=500 items to perform the comparisons.  Evaluation does by default beam search size=4, so it's slower than training with the same number of samples, that's why 4x less eval items were used in these tests.
+This is just a proof of concept benchmarks so surely things can be improved further, so we will benchmark on a small sample of 2000 items for training and 500 items for evalulation to perform the comparisons.  Evaluation does by default beam search of size 4, so it's slower than training with the same number of samples, that's why 4x less eval items were used in these tests.
 
-Here is our baseline:
+Here are the key command line arguments of our baseline:
 ```
-export BS=16; rm -r output_dir; PYTHONPATH=../../src USE_TF=0 python -m torch.distributed.launch \
---nproc_per_node=2 ./finetune_trainer.py --model_name_or_path t5-large --output_dir output_dir \
---adam_eps 1e-06 --data_dir wmt_en_ro --do_eval --do_train --evaluation_strategy=steps --freeze_embeds \
---label_smoothing 0.1 --learning_rate 3e-5 --logging_first_step --logging_steps 1000 --max_source_length 128 \
---max_target_length 128 --num_train_epochs 1 --overwrite_output_dir --per_device_eval_batch_size $BS \
---per_device_train_batch_size $BS --predict_with_generate --eval_steps 25000  --sortish_sampler \
---task translation_en_to_ro --test_max_target_length 128 --val_max_target_length 128 --warmup_steps 500 \
---n_train 2000 --n_val 500
+export BS=16
+python -m torch.distributed.launch --nproc_per_node=2 ./finetune_trainer.py \
+--model_name_or_path t5-large --n_train 2000 --n_val 500 \
+--per_device_eval_batch_size $BS --per_device_train_batch_size $BS \
+--task translation_en_to_ro [...]
 ```
-We are just using the DistributedDataParallel (DDP) and nothing else to boost the performance for the baseline. I was able to fit a BatchSize (BS) of 16 before hitting OOM.
+
+We are just using the DistributedDataParallel (DDP) and nothing else to boost the performance for the baseline. I was able to fit a batch size (BS) of 16 before hitting Out of Memory (OOM) error.
+
+Note, that for simplicity and to make it easier to understand, I have shown only the important for this demonstration command line arguments. You will find the complete command line at
+[post](https://github.com/huggingface/transformers/issues/8771#issuecomment-759248400).
 
 Next we are going to re-run the benchmark every time adding one of the following:
 
@@ -88,7 +89,7 @@ Following the 80:20 rule, I have only spent a few hours on these benchmarks and 
 
 If you would like to experiment with this benchmark yourself or want to know more details about the hardware and software used to run it, please, refer to this [post](https://github.com/huggingface/transformers/issues/8771#issuecomment-759248400).
 
-# Fitting A Huge Model Onto 1 GPU
+# Fitting A Huge Model Onto One GPU
 
 While Fairscale gives us a boost only with multiple GPUs, DeepSpeed has a gift even for those of us with a single GPU.
 
@@ -96,14 +97,11 @@ Let's try the impossible - let's train [t5-3b](https://huggingface.co/t5-3b) on 
 
 First let's try to finetune the huge `t5-3b` using the normal single GPU setup:
 ```
-export BS=1; rm -r output_dir; CUDA_VISIBLE_DEVICES=0 PYTHONPATH=../../src USE_TF=0 \
-./finetune_trainer.py --model_name_or_path t5-3b --output_dir output_dir --adam_eps 1e-06 \
---data_dir wmt_en_ro --do_eval --do_train --evaluation_strategy=steps --freeze_embeds \
---label_smoothing 0.1 --learning_rate 3e-5 --logging_first_step --logging_steps 1000 \
---max_source_length 128 --max_target_length 128 --num_train_epochs 1 --overwrite_output_dir \
---per_device_eval_batch_size $BS --per_device_train_batch_size $BS --predict_with_generate \
---eval_steps 25000  --sortish_sampler --task translation_en_to_ro  \
---val_max_target_length 128 --warmup_steps 5 --n_train 60 --n_val 10 --fp16
+export BS=1
+CUDA_VISIBLE_DEVICES=0 ./finetune_trainer.py \
+--model_name_or_path t5-3b --n_train 60 --n_val 10 \
+--per_device_eval_batch_size $BS --per_device_train_batch_size $BS \
+--task translation_en_to_ro --fp16 [...]
 ```
 No cookie, even with BS=1 we get:
 ```
@@ -111,30 +109,32 @@ RuntimeError: CUDA out of memory. Tried to allocate 64.00 MiB (GPU 0; 23.70 GiB 
 21.37 GiB already allocated; 45.69 MiB free; 22.05 GiB reserved in total by PyTorch)
 ```
 
+Note, as earlier I'm showing only the important parts and the full command line arguments can be found
+[here](https://github.com/huggingface/transformers/issues/8771#issuecomment-759176685).
+
 Now update your `transformers` to v4.2.0 or higher, then install DeepSpeed:
 ```
 pip install deepspeed
 ```
 
-and let's try again:
+and let's try again, this time adding DeepSpeed to the command line:
 ```
-export BS=20; rm -r output_dir; CUDA_VISIBLE_DEVICES=0 PYTHONPATH=../../src USE_TF=0 deepspeed \
---num_gpus=1 ./finetune_trainer.py --model_name_or_path t5-3b --output_dir output_dir \
---adam_eps 1e-06 --data_dir wmt_en_ro --do_eval --do_train --evaluation_strategy=steps \
---freeze_embeds --label_smoothing 0.1 --learning_rate 3e-5 --logging_first_step \
---logging_steps 1000 --max_source_length 128 --max_target_length 128 --num_train_epochs 1 \
---overwrite_output_dir --per_device_eval_batch_size $BS --per_device_train_batch_size $BS \
---predict_with_generate --eval_steps 25000  --sortish_sampler --task translation_en_to_ro \
---val_max_target_length 128 --warmup_steps 5 --n_train 60 --n_val 10 \
---deepspeed ds_config_1gpu.json --fp16
+export BS=20
+CUDA_VISIBLE_DEVICES=0 deepspeed --num_gpus=1 ./finetune_trainer.py \
+--model_name_or_path t5-3b --n_train 60 --n_val 10 \
+--per_device_eval_batch_size $BS --per_device_train_batch_size $BS \
+--task translation_en_to_ro --fp16 --deepspeed ds_config_1gpu.json [...]
 ```
-et voila! We get a BS=20 trained just fine. I can probably push BS even further. It OOMed at BS=30.
+et voila! We get a a batch size of 20 trained just fine. I could probably push it even further. The program failed with OOM at ``BS=30``.
+
+Here are the relevant results:
 ```
 2021-01-12 19:06:31 | INFO | __main__ |   train_n_objs = 60
 2021-01-12 19:06:31 | INFO | __main__ |   train_runtime = 8.8511
 2021-01-12 19:06:35 | INFO | __main__ |   val_n_objs = 10
 2021-01-12 19:06:35 | INFO | __main__ |   val_runtime = 3.5329
 ```
+We can't compare these to the baseline, since the baseline won't even start and immediately fail with OOM.
 
 Simply amazing!
 
