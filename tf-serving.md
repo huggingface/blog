@@ -53,7 +53,12 @@ A SavedModel contains a standalone TensorFlow model, including its weights and i
 
 ### How to install TensorFlow Serving?
 
-There are three ways to install and use TensorFlow Serving, one is through a Docker container, another one through an apt package and a last one with pip. To make things easier and compliant with all the existing OS, we will use Docker in this tutorial.
+There are three ways to install and use TensorFlow Serving:
+- through a Docker container, 
+- through an apt package,
+- or using [pip](https://pypi.org/project/pip/). 
+
+To make things easier and compliant with all the existing OS, we will use Docker in this tutorial.
 
 ### How to create a saved model?
 
