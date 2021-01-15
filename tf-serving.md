@@ -49,7 +49,15 @@ TensorFlow Serving belongs to the set of tools provided by [TensorFlow Extended 
 
 ### What is a SavedModel?
 
-A SavedModel contains a standalone TensorFlow model, including its weights and its architecture. It does not require the original source of the model to be run, which makes it useful for sharing or deploying with any backend that supports reading a SavedModel such as Java, Go, C++ or JavaScript among others.
+A SavedModel contains a standalone TensorFlow model, including its weights and its architecture. It does not require the original source of the model to be run, which makes it useful for sharing or deploying with any backend that supports reading a SavedModel such as Java, Go, C++ or JavaScript among others. The internal structure of a SavedModel is represented as such:
+```
+savedmodel
+    /assets
+        -> here the needed assets by the model (if any)
+    /variables
+        -> here the model checkpoints that contains the weights
+   saved_model.pb -> protobuf file representing the model graph
+```
 
 ### How to install TensorFlow Serving?
 
@@ -60,15 +68,15 @@ There are three ways to install and use TensorFlow Serving:
 
 To make things easier and compliant with all the existing OS, we will use Docker in this tutorial.
 
-### How to create a saved model?
+### How to create a SavedModel?
 
-SavedModel is the format expected by TensorFlow serving. Since Transformers v4.2.0, creating a saved model has three additional features:
+SavedModel is the format expected by TensorFlow serving. Since Transformers v4.2.0, creating a SavedModel has three additional features:
 
 1. The sequence length can be modified freely between runs.
 2. All model inputs are available for inference.
 3. `hidden states` or `attention` are now grouped into a single output when returning them with `output_hidden_states=True` or `output_attentions=True`.
 
-Below, you can find the inputs and outputs representations of a `TFBertForSequenceClassification` saved as a TensorFlow saved model:
+Below, you can find the inputs and outputs representations of a `TFBertForSequenceClassification` saved as a TensorFlow SavedModel:
 
 ```
 The given SavedModel SignatureDef contains the following input(s):
@@ -120,11 +128,11 @@ class MyOwnModel(TFBertForSequenceClassification):
 
 # Instantiate the model with the new serving method
 model = MyOwnModel.from_pretrained("bert-base-cased")
-# save it with saved_model=True in order to have a saved model version along with the h5 weights.
+# save it with saved_model=True in order to have a SavedModel version along with the h5 weights.
 model.save_pretrained("my_model", saved_model=True)
 ```
 
-The serving method has to be overridden by the new `input_signature`. See the [official documentation](https://www.tensorflow.org/api_docs/python/tf/function#args_1) to know more about the `input_signature` argument. The `serving` method is used to define how will behave a saved model when deployed with TensorFlow Serving. Now the saved model looks like as expected, see the new `inputs_embeds` input:
+The serving method has to be overridden by the new `input_signature`. See the [official documentation](https://www.tensorflow.org/api_docs/python/tf/function#args_1) to know more about the `input_signature` argument. The `serving` method is used to define how will behave a SavedModel when deployed with TensorFlow Serving. Now the SavedModel looks like as expected, see the new `inputs_embeds` input:
 
 ```
 The given SavedModel SignatureDef contains the following input(s):
@@ -152,25 +160,25 @@ The given SavedModel SignatureDef contains the following output(s):
 Method name is: tensorflow/serving/predict
 ```
 
-## How to deploy and use a saved model?
+## How to deploy and use a SavedModel?
 
 Let’s see step by step how to deploy and use a BERT model for sentiment classification.
 
 ### Step 1
 
-Create a saved model. To create a saved model, the Transformers library is lets you load a PyTorch model called `nateraw/bert-base-uncased-imdb` trained on the IMBD dataset and convert it to a TensorFlow Keras model for you:
+Create a SavedModel. To create a SavedModel, the Transformers library is lets you load a PyTorch model called `nateraw/bert-base-uncased-imdb` trained on the IMBD dataset and convert it to a TensorFlow Keras model for you:
 
 ```python
 from transformers import TFBertForSequenceClassification
 
 model = TFBertForSequenceClassification.from_pretrained("nateraw/bert-base-uncased-imdb", from_pt=True)
-# the saved_model parameter is a flag to create a saved model version of the model in same time than the h5 weights
+# the saved_model parameter is a flag to create a SavedModel version of the model in same time than the h5 weights
 model.save_pretrained("my_model", saved_model=True)
 ```
 
 ### Step 2
 
-Create a Docker container with the saved model and run it. First, pull the TensorFlow Serving Docker image for CPU (for GPU replace serving by serving:latest-gpu):
+Create a Docker container with the SavedModel and run it. First, pull the TensorFlow Serving Docker image for CPU (for GPU replace serving by serving:latest-gpu):
 ``` 
 docker pull tensorflow/serving
 ```
@@ -180,12 +188,12 @@ Next, run a serving image as a daemon named serving_base:
 docker run -d --name serving_base tensorflow/serving
 ```
 
-, copy the newly created saved model into the serving_base container's models folder:
+, copy the newly created SavedModel into the serving_base container's models folder:
 ```
 docker cp my_model/saved_model serving_base:/models/bert
 ```
 
-,commit the container that serves the model by changing MODEL_NAME to match the model's name (here `bert`), the name (`bert`) corresponds to the name we want to give to our saved model:
+,commit the container that serves the model by changing MODEL_NAME to match the model's name (here `bert`), the name (`bert`) corresponds to the name we want to give to our SavedModel:
 ```
 docker commit --change "ENV MODEL_NAME bert" serving_base my_bert_model
 ```
@@ -195,7 +203,7 @@ and kill the serving_base image ran as a daemon because we don't need it anymore
 docker kill serving_base
 ```
 
-Finally, Run the image to serve our saved model as a daemon and we map the ports 8501 (REST API), and 8500 (gRPC API) in the container to the host and we name the the container `bert`.
+Finally, Run the image to serve our SavedModel as a daemon and we map the ports 8501 (REST API), and 8500 (gRPC API) in the container to the host and we name the the container `bert`.
 ```
 docker run -d -p 8501:8501 -p 8500:8500 --name bert my_bert_model
 ```
@@ -212,10 +220,10 @@ import numpy as np
 
 sentence = "I love the new TensorFlow update in transformers."
 
-# Load the corresponding tokenizer of our saved model
+# Load the corresponding tokenizer of our SavedModel
 tokenizer = BertTokenizerFast.from_pretrained("nateraw/bert-base-uncased-imdb")
 
-# Load the model config of our saved model
+# Load the model config of our SavedModel
 config = BertConfig.from_pretrained("nateraw/bert-base-uncased-imdb")
 
 # Tokenize the sentence
@@ -307,4 +315,4 @@ print(config.id2label[np.argmax(np.abs(output))])
 ```
 
 ## Conclusion
-Thanks to the last updates applied on the TensorFlow models in transformers, one can now easily deploy its models in production using TensorFlow serving. One of the next steps we are thinking about is to directly integrate the preprocessing part inside the saved model to make things even easier.
+Thanks to the last updates applied on the TensorFlow models in transformers, one can now easily deploy its models in production using TensorFlow serving. One of the next steps we are thinking about is to directly integrate the preprocessing part inside the SavedModel to make things even easier.
