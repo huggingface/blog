@@ -70,7 +70,7 @@ To make things easier and compliant with all the existing OS, we will use Docker
 
 ### How to create a SavedModel?
 
-SavedModel is the format expected by TensorFlow serving. Since Transformers v4.2.0, creating a SavedModel has three additional features:
+SavedModel is the format expected by TensorFlow Serving. Since Transformers v4.2.0, creating a SavedModel has three additional features:
 
 1. The sequence length can be modified freely between runs.
 2. All model inputs are available for inference.
@@ -132,7 +132,7 @@ model = MyOwnModel.from_pretrained("bert-base-cased")
 model.save_pretrained("my_model", saved_model=True)
 ```
 
-The serving method has to be overridden by the new `input_signature`. See the [official documentation](https://www.tensorflow.org/api_docs/python/tf/function#args_1) to know more about the `input_signature` argument. The `serving` method is used to define how will behave a SavedModel when deployed with TensorFlow Serving. Now the SavedModel looks like as expected, see the new `inputs_embeds` input:
+The serving method has to be overridden by the new `input_signature` argument of the `tf.function` decorator. See the [official documentation](https://www.tensorflow.org/api_docs/python/tf/function#args_1) to know more about the `input_signature` argument. The `serving` method is used to define how will behave a SavedModel when deployed with TensorFlow Serving. Now the SavedModel looks like as expected, see the new `inputs_embeds` input:
 
 ```
 The given SavedModel SignatureDef contains the following input(s):
@@ -315,4 +315,4 @@ print(config.id2label[np.argmax(np.abs(output))])
 ```
 
 ## Conclusion
-Thanks to the last updates applied on the TensorFlow models in transformers, one can now easily deploy its models in production using TensorFlow serving. One of the next steps we are thinking about is to directly integrate the preprocessing part inside the SavedModel to make things even easier.
+Thanks to the last updates applied on the TensorFlow models in transformers, one can now easily deploy its models in production using TensorFlow Serving. One of the next steps we are thinking about is to directly integrate the preprocessing part inside the SavedModel to make things even easier.
