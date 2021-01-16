@@ -34,7 +34,7 @@ As recent Machine Learning models have been growing much faster than the amount 
 In the fall of 2019 Samyam Rajbhandari, Jeff Rasley, Olatunji Ruwase and Yuxiong He published a paper:
 [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/abs/1910.02054), which contains a plethora of ingenious new ideas on how one could make their hardware do much more than what it was thought possible before. A short time later [DeepSpeed](https://github.com/microsoft/deepspeed) has been released that gave to the world the open source implementation of most of the ideas in that paper (a few ideas are still in works) and in parallel a team from Facebook released [FairScale](https://github.com/facebookresearch/fairscale/) which also implemented some of the core ideas from the ZeRO paper.
 
-If you use the Hugging Face Trainer, as of `transformers` v4.2.0 you have the initial experimental support for DeepSpeed's and FairScale's ZeRO features. The new `--sharded_ddp` and `--deepspeed` command line `Trainer` arguments provide FairScale and DeepSpeed integration respectively. Here is [the full documentation](https://huggingface.co/transformers/master/main_classes/trainer.html#trainer-integrations).
+If you use the Hugging Face Trainer, as of `transformers` v4.2.0 you have the experimental support for DeepSpeed's and FairScale's ZeRO features. The new `--sharded_ddp` and `--deepspeed` command line `Trainer` arguments provide FairScale and DeepSpeed integration respectively. Here is [the full documentation](https://huggingface.co/transformers/master/main_classes/trainer.html#trainer-integrations).
 
 This blog post will describe how you can benefit from ZeRO regardless of whether you own just a single GPU or a whole stack of them.
 
