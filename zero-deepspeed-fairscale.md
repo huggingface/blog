@@ -55,9 +55,10 @@ python -m torch.distributed.launch --nproc_per_node=2 ./finetune_trainer.py \
 --task translation_en_to_ro [...]
 ```
 
-We are just using the DistributedDataParallel (DDP) and nothing else to boost the performance for the baseline. I was able to fit a batch size (BS) of 16 before hitting Out of Memory (OOM) error.
+We are just using the `DistributedDataParallel` (DDP) and nothing else to boost the performance for the baseline. I was able to fit a batch size (BS) of 16 before hitting Out of Memory (OOM) error.
 
-Note, that for simplicity and to make it easier to understand, I have shown only the important for this demonstration command line arguments. You will find the complete command line at
+Note, that for simplicity and to make it easier to understand, I have only shown
+the command line arguments important for this demonstration. You will find the complete command line at
 [post](https://github.com/huggingface/transformers/issues/8771#issuecomment-759248400).
 
 Next we are going to re-run the benchmark every time adding one of the following:
@@ -181,7 +182,11 @@ I trust we are going to see new gifts from the FairScale team as well.
 
 # Deployment
 
-If you found the results shared in this blog post enticing, please proceed [here](https://huggingface.co/transformers/master/main_classes/trainer.html#trainer-integrations) for details on how to use DeepSpeed and FairScale with the `transformers` Trainer. You can, of course, modify your own trainer to integrate DeepSpeed and FairScale, based on each project's instructions or you can "cheat" and see how we did it in the `transformers` Trainer. If you go for the latter, to find your way around `grep` the source code for `deepspeed` and/or `sharded_ddp`.
+If you found the results shared in this blog post enticing, please proceed [here](https://huggingface.co/transformers/master/main_classes/trainer.html#trainer-integrations) for details on how to use DeepSpeed and FairScale with the `transformers` Trainer.
+
+You can, of course, modify your own trainer to integrate DeepSpeed and FairScale, based on each project's instructions or you can "cheat" and see how we did it in the `transformers` Trainer. If you go for the latter, to find your way around `grep` the source code for `deepspeed` and/or `sharded_ddp`.
+
+The good news is that ZeRO requires no model modification. The only required modifications are in the training code.
 
 # Issues
 
