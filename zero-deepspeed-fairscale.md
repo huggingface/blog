@@ -146,17 +146,19 @@ If you would like to experiment with this benchmark yourself or want to know mor
 
 Since `transformers` only integrated these fabulous solutions and wasn't part of their invention I will share the resources where you can discover all the details for yourself. But here are a few quick insights that may help understand how ZeRO manages these amazing feats.
 
-The key feature is 3D parallelism, which combines data parallelism (DP), pipeline parallelism (PP), and tensor-slicing model parallelism (MP). Here is an illustration from this [blog post](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/) that attempts to visualize this very complex approach:
+The key feature of ZeRO is adding distributed data storage to the quite familiar concept of data parallel training.
 
-![3D parallelism](./assets/09_zero_deepspeed_fairscale/3d-parallelism.png]
+The computation on each GPU is exactly the same as data parallel training, but the parameter, gradients and optimizer states are stored in a distributed/partitioned fashion across all the GPUs and fetched only when needed.
 
-Let's briefly touch on each of the 3 types:
+The following diagram, coming from this [blog post](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/) illustrates how this works:
 
-1. **Data Parallelism** is what you get from `DataParallel` or `DistributedDataParallel` - we replicate the model to each GPU, then split the data and feed part of it to each GPU in mini-batches. But as we know this means we need to copy and allocate memory for all of model's parameters, gradients and optimizer states on each GPU, which doesn't help with memory usage.
-2. And so ZeRO's ingenious approach is to give each GPU only a small chunk of params, gradients and optimizer states of each layer of the model. It doesn't assign groups of layers to GPUs, sometimes referred to as vertical slicing type of MP, but instead partitions (shards) each layer horizontally. This leads to zero overlap between GPUs. At runtime each GPU builds up each layer's data on the fly by asking participating GPUs to send the information it's lacking. This idea could be difficult to grasp, and you will find my attempt at explanation [here](https://github.com/huggingface/transformers/issues/8771#issuecomment-758418429).
-3. Finally, **Pipeline Parallelism** is added. As I explained [here](https://github.com/huggingface/transformers/issues/8771#issuecomment-758250421) a naive model parallelism suffers from a serious under-utilization of GPU resources, due to GPU idling, while waiting for other GPUs to finish their work. And PP solves this problem, by splitting mini-batches into micro-batches and feeding the idling GPUs new data while it's waiting for the other GPUs to complete their `forward` and `backward` stages.
+![ZeRO Partitioning](./assets/09_zero_deepspeed_fairscale/zero-partitioning.png]
 
-As of this writing FairScale and DeepSpeed only perform Model Parallelism (Sharding) for the optimizer states and gradients. Model parameters sharding is supposedly coming soon in DeepSpeed.
+ZeRO's ingenious approach is to give each GPU only a small chunk of params, gradients and optimizer states of each layer of the model. It doesn't assign groups of layers to GPUs, sometimes referred to as vertical slicing type of MP, but instead partitions (shards) each layer horizontally. This leads to zero overlap in data storage between GPUs. At runtime each GPU builds up each layer's data on the fly by asking participating GPUs to send the information it's lacking.
+
+This idea could be difficult to grasp, and you will find my attempt at an explanation [here](https://github.com/huggingface/transformers/issues/8771#issuecomment-758418429).
+
+As of this writing FairScale and DeepSpeed only perform Partitioning (Sharding) for the optimizer states and gradients. Model parameters sharding is supposedly coming soon in DeepSpeed.
 
 The other powerful feature is ZeRO-Offload. This feature offloads some of the processing and memory needs to the host's CPU, thus allowing more to be fit onto the GPU. You saw its dramatic impact in the success at running `t5-3b` on a 24GB GPU.
 
@@ -216,6 +218,7 @@ from the FairScale team and:
 
 * Jeff Rasley [@jeffra](https://github.com/jeffra)
 * Olatunji Ruwase [@tjruwase](https://github.com/tjruwase)
+* Samyam Rajbhandari [@samyam](https://github.com/samyam)
 
 from the DeepSpeed team for your generous and caring support and prompt resolution of the issue we have encountered.
 
