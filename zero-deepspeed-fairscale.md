@@ -155,7 +155,8 @@ The following diagram, coming from this [blog post](https://www.microsoft.com/en
 
 ![ZeRO Partitioning](./assets/09_zero_deepspeed_fairscale/zero-partitioning.png]
 
-ZeRO's ingenious approach is to give each GPU only a small chunk of params, gradients and optimizer states of each layer of the model. It doesn't assign groups of layers to GPUs, sometimes referred to as vertical slicing type of model parallelism, but instead partitions (shards) each layer's data horizontally. This leads to zero overlap in data storage between GPUs. At runtime each GPU builds up each layer's data on the fly by asking participating GPUs to send the information it's lacking.
+
+ZeRO's ingenious approach is to partition the params, gradients and optimizer states equally across all GPUs and give each GPU just a single partition (also referred to as a shard). This leads to zero overlap in data storage between GPUs. At runtime each GPU builds up each layer's data on the fly by asking participating GPUs to send the information it's lacking.
 
 This idea could be difficult to grasp, and you will find my attempt at an explanation [here](https://github.com/huggingface/transformers/issues/8771#issuecomment-758418429).
 
