@@ -13,7 +13,7 @@ thumbnail: /blog/assets/10_tf-serving/thumbnail.png
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/master/notebooks/09_tf_serving.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/master/notebooks/10_tf_serving.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">
 </a>
 
