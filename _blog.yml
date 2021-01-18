@@ -61,3 +61,8 @@
   title: "Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models"
   thumbnail: ./assets/08_warm_starting_encoder_decoder/thumbnail.png
   date: November 09, 2020
+
+- local: zero-deepspeed-fairscale
+  title: "Fit More and Train Faster With ZeRO via DeepSpeed and FairScale"
+  thumbnail: /blog/assets/11_zero_deepspeed_fairscale/zero-partitioning.png
+  date: January, 2021
