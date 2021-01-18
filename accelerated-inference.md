@@ -1,6 +1,6 @@
 ---
 title: "How we sped up transformer inference 100x for 🤗 API customers"
-thumbnail: /blog/assets/09_accelerated-inference/thumbnail.png
+thumbnail: /blog/assets/09_accelerated_inference/thumbnail.png
 ---
 
 # **How we sped up transformer inference 100x for 🤗 API customers**
