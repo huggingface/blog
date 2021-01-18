@@ -64,5 +64,5 @@
 
 - local: tf-serving
   title: "Faster TensorFlow models in Hugging Face Transformers"
-  thumbnail: ./assets/09_tf-serving/tf-serving_thumbnail.png
+  thumbnail: /blog/assets/10_tf-serving/thumbnail.png
   date: X Y, Z

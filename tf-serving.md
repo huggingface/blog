@@ -1,6 +1,6 @@
 ---
 title: Faster TensorFlow models in Hugging Face Transformers
-thumbnail: https://huggingface.co/blog/assets/09_tf-serving/tf-serving_thumbnail.png
+thumbnail: /blog/assets/10_tf-serving/thumbnail.png
 ---
 
 <h1 class="no-top-margin">Faster TensorFlow models in Hugging Face Transformers</h1>
