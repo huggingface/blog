@@ -153,7 +153,7 @@ The computation on each GPU is exactly the same as data parallel training, but t
 
 The following diagram, coming from this [blog post](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/) illustrates how this works:
 
-![ZeRO Partitioning](./assets/09_zero_deepspeed_fairscale/zero-partitioning.png]
+![ZeRO Partitioning](./assets/11_zero_deepspeed_fairscale/zero-partitioning.png)
 
 
 ZeRO's ingenious approach is to partition the params, gradients and optimizer states equally across all GPUs and give each GPU just a single partition (also referred to as a shard). This leads to zero overlap in data storage between GPUs. At runtime each GPU builds up each layer's data on the fly by asking participating GPUs to send the information it's lacking.
