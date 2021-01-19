@@ -70,4 +70,4 @@
 - local: zero-deepspeed-fairscale
   title: "Fit More and Train Faster With ZeRO via DeepSpeed and FairScale"
   thumbnail: /blog/assets/11_zero_deepspeed_fairscale/zero-partitioning.png
-  date: January, 19 2021
+  date: January 19, 2021
