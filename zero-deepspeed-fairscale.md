@@ -6,7 +6,7 @@ thumbnail: /blog/assets/11_zero_deepspeed_fairscale/zero-partitioning.png
 <h1 class="no-top-margin">Fit More and Train Faster With ZeRO via DeepSpeed and FairScale</h1>
 
 <div class="blog-metadata">
-    <small>Published January 19, 20201.</small>
+    <small>Published January 19, 2021.</small>
     <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/zero-deepspeed-fairscale.md">
         <img src="/front/assets/icon-github.svg">
         Update on GitHub
