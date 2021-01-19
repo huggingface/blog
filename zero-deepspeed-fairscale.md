@@ -204,6 +204,7 @@ While you don't really need understand how any of these projects work and you ca
 
 * Paper: [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/abs/1910.02054). The paper is very interesting, but it's very terse.
 * Here is a good [video discussion](https://www.youtube.com/watch?v=tC01FRB0M7w) of the paper with visuals
+* Paper: [ZeRO-Offload: Democratizing Billion-Scale Model Training](https://arxiv.org/abs/2101.06840). Just published - this one goes into the details of ZeRO Offload feature.
 * DeepSpeed [configuration and tutorials](https://www.deepspeed.ai/getting-started/)
 * In addition to the paper, I highly recommend to read the following detailed blog posts with diagrams:
   - [DeepSpeed: Extreme-scale model training for everyone]( https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/)
