@@ -1037,7 +1037,7 @@ We will need datasets and transformers to be installed.
 
 ```python
 !pip install datasets==1.0.2
-!pip install transformers
+!pip install transformers==4.2.1
 ```
 Let's start by downloading the *CNN/Dailymail* dataset.
 
@@ -1121,7 +1121,7 @@ We can define the `.map()` function as follows.
 # map article and summary len to dict as well as if sample is longer than 512 tokens
 def map_to_length(x):
   x["article_len"] = len(tokenizer(x["article"]).input_ids)
-  x["article_longer_512"] = int(x["article_len"] > tokenizer.max_len)
+  x["article_longer_512"] = int(x["article_len"] > 512)
   x["summary_len"] = len(tokenizer(x["highlights"]).input_ids)
   x["summary_longer_64"] = int(x["summary_len"] > 64)
   x["summary_longer_128"] = int(x["summary_len"] > 128)
@@ -1795,18 +1795,13 @@ model.
 ### **Fine-Tuning Warm-Started Encoder-Decoder Models**
 
 In this section, we will show how one can make use of the
-`Seq2SeqTrainer` that can be found under
-[examples/seq2seq/seq2seq\_trainer.py](https://github.com/huggingface/transformers/blob/master/examples/seq2seq/seq2seq_trainer.py)
-to fine-tune a warm-started encoder-decoder model.
+`Seq2SeqTrainer` to fine-tune a warm-started encoder-decoder model.
 
-Let\'s first download the `Seq2SeqTrainer` and its training arguments
+Let\'s first import the `Seq2SeqTrainer` and its training arguments
 `Seq2SeqTrainingArguments`.
 
 ```python
-!rm seq2seq_trainer.py
-!rm seq2seq_training_args.py
-!wget https://raw.githubusercontent.com/huggingface/transformers/master/examples/seq2seq/seq2seq_trainer.py
-!wget https://raw.githubusercontent.com/huggingface/transformers/master/examples/seq2seq/seq2seq_training_args.py
+from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
 ```
 
 In addition, we need a couple of python packages to make the
@@ -1816,14 +1811,6 @@ In addition, we need a couple of python packages to make the
 !pip install git-python==1.0.3
 !pip install rouge_score
 !pip install sacrebleu
-```
-
-Alright, let\'s import the `Seq2SeqTrainer` and the
-`Seq2SeqTrainingArguments`.
-
-```python
-from seq2seq_trainer import Seq2SeqTrainer
-from seq2seq_training_args import Seq2SeqTrainingArguments
 ```
 
 The `Seq2SeqTrainer` extends 🤗Transformer\'s Trainer for encoder-decoder
@@ -1917,6 +1904,7 @@ takes *ca.* model takes *ca.* 8h on a single *TITAN RTX* GPU.
 # instantiate trainer
 trainer = Seq2SeqTrainer(
     model=bert2bert,
+    tokenizer=tokenizer,
     args=training_args,
     compute_metrics=compute_metrics,
     train_dataset=train_data,
