@@ -32,7 +32,7 @@ thumbnail: /blog/assets/11_zero_deepspeed_fairscale/zero-partitioning.png
 As recent Machine Learning models have been growing much faster than the amount of GPU memory added to newly released cards, many users are unable to train or even just load some of those huge models onto their hardware. While there is an ongoing effort to distill some of those huge models to be of a more manageable size -- that effort isn't producing models small enough soon enough.
 
 In the fall of 2019 Samyam Rajbhandari, Jeff Rasley, Olatunji Ruwase and Yuxiong He published a paper:
-[ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/abs/1910.02054), which contains a plethora of ingenious new ideas on how one could make their hardware do much more than what it was thought possible before. A short time later [DeepSpeed](https://github.com/microsoft/deepspeed) has been released that gave to the world the open source implementation of most of the ideas in that paper (a few ideas are still in works) and in parallel a team from Facebook released [FairScale](https://github.com/facebookresearch/fairscale/) which also implemented some of the core ideas from the ZeRO paper.
+[ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/abs/1910.02054), which contains a plethora of ingenious new ideas on how one could make their hardware do much more than what it was thought possible before. A short time later [DeepSpeed](https://github.com/microsoft/deepspeed) has been released and it gave to the world the open source implementation of most of the ideas in that paper (a few ideas are still in works) and in parallel a team from Facebook released [FairScale](https://github.com/facebookresearch/fairscale/) which also implemented some of the core ideas from the ZeRO paper.
 
 If you use the Hugging Face Trainer, as of `transformers` v4.2.0 you have the experimental support for DeepSpeed's and FairScale's ZeRO features. The new `--sharded_ddp` and `--deepspeed` command line `Trainer` arguments provide FairScale and DeepSpeed integration respectively. Here is [the full documentation](https://huggingface.co/transformers/master/main_classes/trainer.html#trainer-integrations).
 
@@ -44,7 +44,7 @@ Let's do a small finetuning with translation task experiment, using a `t5-large`
 
 We have 2x 24GB (Titan RTX) GPUs to test with.
 
-This is just a proof of concept benchmarks so surely things can be improved further, so we will benchmark on a small sample of 2000 items for training and 500 items for evalulation to perform the comparisons.  Evaluation does by default beam search of size 4, so it's slower than training with the same number of samples, that's why 4x less eval items were used in these tests.
+This is just a proof of concept benchmarks so surely things can be improved further, so we will benchmark on a small sample of 2000 items for training and 500 items for evalulation to perform the comparisons.  Evaluation does by default a beam search of size 4, so it's slower than training with the same number of samples, that's why 4x less eval items were used in these tests.
 
 Here are the key command line arguments of our baseline:
 ```
@@ -59,9 +59,9 @@ We are just using the `DistributedDataParallel` (DDP) and nothing else to boost 
 
 Note, that for simplicity and to make it easier to understand, I have only shown
 the command line arguments important for this demonstration. You will find the complete command line at
-[post](https://github.com/huggingface/transformers/issues/8771#issuecomment-759248400).
+[this post](https://github.com/huggingface/transformers/issues/8771#issuecomment-759248400).
 
-Next we are going to re-run the benchmark every time adding one of the following:
+Next, we are going to re-run the benchmark every time adding one of the following:
 
 1. `--fp16`
 2. `--sharded_ddp` (fairscale)
@@ -84,11 +84,11 @@ Let's look at the results of these six test runs:
 | deepspeed w/o cpu offload |     40 | **10.4007** |     34.9289 |
 | deepspeed w/ cpu offload  | **50** |     20.9706 | **32.1409** |
 
-It's easy to see that both FairScale and DeepSpeed provide great improvements over the baseline, in the total train and evaluation time but also in the batch size. DeepSpeed implements more magic as of this writing and seems to be the short term winner, but Fairscale is easier to deploy. For DeepSpeed you need to write a simple configuration file and change your command line's launcher, with Fairscale you only need to add the `--sharded_ddp` command line argument, so you may want to try it first as it's the most low-hanging fruit.
+It's easy to see that both FairScale and DeepSpeed provide great improvements over the baseline, in the total train and evaluation time, but also in the batch size. DeepSpeed implements more magic as of this writing and seems to be the short term winner, but Fairscale is easier to deploy. For DeepSpeed you need to write a simple configuration file and change your command line's launcher, with Fairscale you only need to add the `--sharded_ddp` command line argument, so you may want to try it first as it's the most low-hanging fruit.
 
-Following the 80:20 rule, I have only spent a few hours on these benchmarks and I haven't tried to squeeze every MB and second by refining the command line arguments and configuration, since it's pretty obvious from the simple table what you'd want to try next. When you will face a real project that will be running for hours and perhaps days, definitely spend more time to make sure you use the most optimal possible hyper-parameters to get your job done faster and at a minimal cost.
+Following the 80:20 rule, I have only spent a few hours on these benchmarks and I haven't tried to squeeze every MB and second by refining the command line arguments and configuration, since it's pretty obvious from the simple table what you'd want to try next. When you will face a real project that will be running for hours and perhaps days, definitely spend more time to make sure you use the most optimal hyper-parameters to get your job done faster and at a minimal cost.
 
-If you would like to experiment with this benchmark yourself or want to know more details about the hardware and software used to run it, please, refer to this [post](https://github.com/huggingface/transformers/issues/8771#issuecomment-759248400).
+If you would like to experiment with this benchmark yourself or want to know more details about the hardware and software used to run it, please, refer to [this post](https://github.com/huggingface/transformers/issues/8771#issuecomment-759248400).
 
 # Fitting A Huge Model Onto One GPU
 
@@ -126,7 +126,7 @@ CUDA_VISIBLE_DEVICES=0 deepspeed --num_gpus=1 ./finetune_trainer.py \
 --per_device_eval_batch_size $BS --per_device_train_batch_size $BS \
 --task translation_en_to_ro --fp16 --deepspeed ds_config_1gpu.json [...]
 ```
-et voila! We get a a batch size of 20 trained just fine. I could probably push it even further. The program failed with OOM at ``BS=30``.
+et voila! We get a batch size of 20 trained just fine. I could probably push it even further. The program failed with OOM at ``BS=30``.
 
 Here are the relevant results:
 ```
@@ -135,13 +135,13 @@ Here are the relevant results:
 2021-01-12 19:06:35 | INFO | __main__ |   val_n_objs = 10
 2021-01-12 19:06:35 | INFO | __main__ |   val_runtime = 3.5329
 ```
-We can't compare these to the baseline, since the baseline won't even start and immediately fail with OOM.
+We can't compare these to the baseline, since the baseline won't even start and immediately failed with OOM.
 
 Simply amazing!
 
-I did only a tiny sample since I was primarily interested in being able to train and evaluate with this huge model that normally won't fit onto a 24GB GPU.
+I used only a tiny sample since I was primarily interested in being able to train and evaluate with this huge model that normally won't fit onto a 24GB GPU.
 
-If you would like to experiment with this benchmark yourself or want to know more details about the hardware and software used to run it, please, refer to this [post](https://github.com/huggingface/transformers/issues/8771#issuecomment-759176685).
+If you would like to experiment with this benchmark yourself or want to know more details about the hardware and software used to run it, please, refer to [this post](https://github.com/huggingface/transformers/issues/8771#issuecomment-759176685).
 
 # The Magic Behind ZeRO
 
@@ -153,18 +153,18 @@ The computation on each GPU is exactly the same as data parallel training, but t
 
 The following diagram, coming from this [blog post](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/) illustrates how this works:
 
-![ZeRO Partitioning](./assets/11_zero_deepspeed_fairscale/zero-partitioning.png)
+![ZeRO Partitioning](./assets/09_zero_deepspeed_fairscale/zero-partitioning.png]
 
 
 ZeRO's ingenious approach is to partition the params, gradients and optimizer states equally across all GPUs and give each GPU just a single partition (also referred to as a shard). This leads to zero overlap in data storage between GPUs. At runtime each GPU builds up each layer's data on the fly by asking participating GPUs to send the information it's lacking.
 
 This idea could be difficult to grasp, and you will find my attempt at an explanation [here](https://github.com/huggingface/transformers/issues/8771#issuecomment-758418429).
 
-As of this writing FairScale and DeepSpeed only perform Partitioning (Sharding) for the optimizer states and gradients. Model parameters sharding is supposedly coming soon in DeepSpeed.
+As of this writing FairScale and DeepSpeed only perform Partitioning (Sharding) for the optimizer states and gradients. Model parameters sharding is supposedly coming soon in DeepSpeed and FairScale.
 
-The other powerful feature is ZeRO-Offload. This feature offloads some of the processing and memory needs to the host's CPU, thus allowing more to be fit onto the GPU. You saw its dramatic impact in the success at running `t5-3b` on a 24GB GPU.
+The other powerful feature is ZeRO-Offload ([paper](https://arxiv.org/abs/2101.06840)). This feature offloads some of the processing and memory needs to the host's CPU, thus allowing more to be fit onto the GPU. You saw its dramatic impact in the success at running `t5-3b` on a 24GB GPU.
 
-One other problem that a lot of people complain about on pytorch forums is GPU memory fragmentation. One often gets an OOM error that goes like:
+One other problem that a lot of people complain about on pytorch forums is GPU memory fragmentation. One often gets an OOM error that may look like this:
 ```
 RuntimeError: CUDA out of memory. Tried to allocate 1.48 GiB (GPU 0; 23.65 GiB total capacity;
 16.22 GiB already allocated; 111.12 MiB free; 22.52 GiB reserved in total by PyTorch)
@@ -179,7 +179,9 @@ As ZeRO stands for Zero Redundancy Optimizer, it's easy to see that it lives up 
 
 Besides the anticipated upcoming support for model params sharding in DeepSpeed, it already released new features that we haven't explored yet. These include DeepSpeed Sparse Attention and 1-bit Adam, which are supposed to decrease memory usage and dramatically reduce inter-GPU communication overhead, which should lead to an even faster training and support even bigger models.
 
-I trust we are going to see new gifts from the FairScale team as well.
+I trust we are going to see new gifts from the FairScale team as well. I think they are working on ZeRO stage 3 as well.
+
+Even more exciting, [ZeRO is being integrated into pytorch](https://github.com/pytorch/pytorch/pull/46750).
 
 # Deployment
 
@@ -197,7 +199,7 @@ But if you have problems with DeepSpeed and FairScale installation, configuratio
 
 # Resources
 
-While you don't really need understand how any of these projects work and you can just deploy them via the `transformers` Trainer, should you want to figure out the whys and hows please refer to the following resources.
+While you don't really need to understand how any of these projects work and you can just deploy them via the `transformers` Trainer, should you want to figure out the whys and hows please refer to the following resources.
 
 * [FairScale GitHub](https://github.com/facebookresearch/fairscale)
 * [DeepSpeed GitHub](https://github.com/microsoft/DeepSpeed)
@@ -227,8 +229,8 @@ from the FairScale team and:
 * Olatunji Ruwase [@tjruwase](https://github.com/tjruwase)
 * Samyam Rajbhandari [@samyam](https://github.com/samyam)
 
-from the DeepSpeed team for your generous and caring support and prompt resolution of the issue we have encountered.
+from the DeepSpeed team for your generous and caring support and prompt resolution of the issues we have encountered.
 
-HuggingFace for providing access to hardware the benchmarks were run on.
+And HuggingFace for providing access to hardware the benchmarks were run on.
 
 Sylvain Gugger [@sgugger](https://github.com/sgugger/) and Stas Bekman [@stas00](https://github.com/stas00) worked on the integration of these projects.
