@@ -3,12 +3,11 @@ title: "Transformer-based Encoder-Decoder Models"
 thumbnail: https://huggingface.co/blog/assets/05_encoder_decoder/thumbnail.png
 ---
 
-<h1 class="no-top-margin"> Transformers-based Encoder-Decoder Models</h1>
+<h1> Transformers-based Encoder-Decoder Models</h1>
 
 <div class="blog-metadata">
     <small>Published October 08, 2020.</small>
-    <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/encoder-decoder.md">
-        <img src="/front/assets/icon-github.svg">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/encoder-decoder.md">
         Update on GitHub
     </a>
 

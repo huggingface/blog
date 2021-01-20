@@ -3,12 +3,11 @@ title: "Fit More and Train Faster With ZeRO via DeepSpeed and FairScale"
 thumbnail: /blog/assets/11_zero_deepspeed_fairscale/zero-partitioning.png
 ---
 
-<h1 class="no-top-margin">Fit More and Train Faster With ZeRO via DeepSpeed and FairScale</h1>
+<h1>Fit More and Train Faster With ZeRO via DeepSpeed and FairScale</h1>
 
 <div class="blog-metadata">
     <small>Published January 19, 2021.</small>
-    <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/zero-deepspeed-fairscale.md">
-        <img src="/front/assets/icon-github.svg">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/zero-deepspeed-fairscale.md">
         Update on GitHub
     </a>
 </div>
@@ -27,7 +26,6 @@ thumbnail: /blog/assets/11_zero_deepspeed_fairscale/zero-partitioning.png
 ##### A guest blog post by Hugging Face fellow Stas Bekman
 
 
-# Fit More and Train Faster With ZeRO via DeepSpeed and FairScale
 
 As recent Machine Learning models have been growing much faster than the amount of GPU memory added to newly released cards, many users are unable to train or even just load some of those huge models onto their hardware. While there is an ongoing effort to distill some of those huge models to be of a more manageable size -- that effort isn't producing models small enough soon enough.
 

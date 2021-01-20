@@ -3,12 +3,11 @@ title: "The Reformer - Pushing the limits of language modeling"
 thumbnail: https://huggingface.co/blog/assets/03_reformer/thumbnail.png
 ---
 
-<h1 class="no-top-margin">The Reformer - Pushing the limits of language modeling</h1>
+<h1>The Reformer - Pushing the limits of language modeling</h1>
 
 <div class="blog-metadata">
     <small>Published July 3, 2020.</small>
-    <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/reformer.md">
-        <img src="/front/assets/icon-github.svg">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/reformer.md">
         Update on GitHub
     </a>
 </div>
