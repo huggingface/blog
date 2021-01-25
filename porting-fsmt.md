@@ -3,12 +3,11 @@ title: "Porting fairseq wmt19 translation system to transformers"
 thumbnail: /blog/assets/07_porting_fsmt/thumbnail.png
 ---
 
-<h1 class="no-top-margin">Porting fairseq wmt19 translation system to transformers</h1>
+<h1>Porting fairseq wmt19 translation system to transformers</h1>
 
 <div class="blog-metadata">
     <small>Published November 3, 2020.</small>
-    <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/porting-fsmt.md">
-        <img src="/front/assets/icon-github.svg">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/porting-fsmt.md">
         Update on GitHub
     </a>
 </div>
@@ -26,8 +25,6 @@ thumbnail: /blog/assets/07_porting_fsmt/thumbnail.png
 
 ##### A guest blog post by Stas Bekman
 
-
-# **Porting fairseq wmt19 translation system to transformers**
 
 This article is an attempt to document how [fairseq wmt19 translation system](https://github.com/pytorch/fairseq/tree/master/examples/wmt19) was ported to [`transformers`](https://github.com/huggingface/transformers/).
 
