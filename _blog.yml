@@ -69,7 +69,7 @@
 - local: tf-serving
   title: "Faster TensorFlow models in Hugging Face Transformers"
   thumbnail: /blog/assets/10_tf-serving/thumbnail.png
-  date: X Y, Z
+  date: January 26, 2021
 
 - local: zero-deepspeed-fairscale
   title: "Fit More and Train Faster With ZeRO via DeepSpeed and FairScale"
