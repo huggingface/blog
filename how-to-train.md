@@ -3,12 +3,11 @@ title: How to train a new language model from scratch using Transformers and Tok
 thumbnail: https://huggingface.co/blog/assets/01_how-to-train/how-to-train_blogpost.png
 ---
 
-<h1 class="no-top-margin">How to train a new language model from scratch using Transformers and Tokenizers</h1>
+<h1>How to train a new language model from scratch using Transformers and Tokenizers</h1>
 
 <div class="blog-metadata">
     <small>Published Feb 14, 2020. Last update May 15.</small>
-    <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/how-to-train.md">
-        <img src="/front/assets/icon-github.svg">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/how-to-train.md">
         Update on GitHub
     </a>
 </div>

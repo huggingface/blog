@@ -3,12 +3,11 @@ title: "Transformer-based Encoder-Decoder Models"
 thumbnail: https://huggingface.co/blog/assets/05_encoder_decoder/thumbnail.png
 ---
 
-<h1 class="no-top-margin"> Transformers-based Encoder-Decoder Models</h1>
+<h1> Transformers-based Encoder-Decoder Models</h1>
 
 <div class="blog-metadata">
     <small>Published October 08, 2020.</small>
-    <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/encoder-decoder.md">
-        <img src="/front/assets/icon-github.svg">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/encoder-decoder.md">
         Update on GitHub
     </a>
 
@@ -27,6 +26,11 @@ thumbnail: https://huggingface.co/blog/assets/05_encoder_decoder/thumbnail.png
 </a>
 
 # **Transformer-based Encoder-Decoder Models**
+
+```bash
+!pip install transformers==4.2.1
+!pip install sentencepiece==0.1.95
+```
 
 The *transformer-based* encoder-decoder model was introduced by Vaswani
 et al. in the famous [Attention is all you need
@@ -1099,20 +1103,19 @@ embeddings = model.get_input_embeddings()
 
 # get encoded input vectors
 input_ids = tokenizer("I want to buy a car", return_tensors="pt").input_ids
-encoded_output_vectors = model.base_model.encoder(input_ids, return_dict=True).last_hidden_state
 
 # create ids of encoded input vectors
 decoder_input_ids = tokenizer("<pad> Ich will ein", return_tensors="pt", add_special_tokens=False).input_ids
 
 # pass decoder input_ids and encoded input vectors to decoder
-decoder_output_vectors = model.base_model.decoder(decoder_input_ids, encoded_output_vectors, None, None, None, return_dict=True).last_hidden_state
+decoder_output_vectors = model.base_model.decoder(decoder_input_ids).last_hidden_state
 
 # derive embeddings by multiplying decoder outputs with embedding weights
 lm_logits = torch.nn.functional.linear(decoder_output_vectors, embeddings.weight, bias=model.final_logits_bias)
 
 # change the decoder input slightly
-decoder_input_ids_perturbed = tokenizer("</s> Ich will das", return_tensors="pt").input_ids
-decoder_output_vectors_perturbed = model.base_model.decoder(decoder_input_ids, encoded_output_vectors, None, None, None, return_dict=True).last_hidden_state
+decoder_input_ids_perturbed = tokenizer("<pad> Ich will das", return_tensors="pt", add_special_tokens=False).input_ids
+decoder_output_vectors_perturbed = model.base_model.decoder(decoder_input_ids_perturbed).last_hidden_state
 lm_logits_perturbed = torch.nn.functional.linear(decoder_output_vectors_perturbed, embeddings.weight, bias=model.final_logits_bias)
 
 # compare shape and encoding of first vector
