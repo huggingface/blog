@@ -12,11 +12,21 @@ thumbnail: /blog/assets/10_tf-serving/thumbnail.png
     </a>
 </div>
 
+<div class="author-card">
+    <a href="/jplu">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1584609257509-5df8987fda6d0311fd3d540d.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>jplu</code>
+            <span class="fullname">Julien Plu</span>
+        </div>
+    </a>
+</div>
+
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/master/notebooks/10_tf_serving.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">
 </a>
 
-In the last few months, the Hugging Face team has been working hard on improving Transformer’s TensorFlow models to make them more robust and faster. The recent improvements are mainly focused on two aspects:
+In the last few months, the Hugging Face team has been working hard on improving Transformers’ TensorFlow models to make them more robust and faster. The recent improvements are mainly focused on two aspects:
 
 1. Computational performance: BERT, RoBERTa, ELECTRA and MPNet have been improved in order to have a much faster computation time. This gain of computational performance is noticeable for all the computational aspects: graph/eager mode, TF Serving and for CPU/GPU/TPU devices.
 2. TensorFlow Serving: each of these TensorFlow model can be deployed with TensorFlow Serving to benefit of this gain of computational performance for inference.
@@ -165,7 +175,7 @@ Let’s see step by step how to deploy and use a BERT model for sentiment classi
 
 ### Step 1
 
-Create a SavedModel. To create a SavedModel, the Transformers library is lets you load a PyTorch model called `nateraw/bert-base-uncased-imdb` trained on the IMBD dataset and convert it to a TensorFlow Keras model for you:
+Create a SavedModel. To create a SavedModel, the Transformers library lets you load a PyTorch model called `nateraw/bert-base-uncased-imdb` trained on the IMBD dataset and convert it to a TensorFlow Keras model for you:
 
 ```python
 from transformers import TFBertForSequenceClassification
@@ -187,12 +197,12 @@ Next, run a serving image as a daemon named serving_base:
 docker run -d --name serving_base tensorflow/serving
 ```
 
-, copy the newly created SavedModel into the serving_base container's models folder:
+copy the newly created SavedModel into the serving_base container's models folder:
 ```
 docker cp my_model/saved_model serving_base:/models/bert
 ```
 
-,commit the container that serves the model by changing MODEL_NAME to match the model's name (here `bert`), the name (`bert`) corresponds to the name we want to give to our SavedModel:
+commit the container that serves the model by changing MODEL_NAME to match the model's name (here `bert`), the name (`bert`) corresponds to the name we want to give to our SavedModel:
 ```
 docker commit --change "ENV MODEL_NAME bert" serving_base my_bert_model
 ```
