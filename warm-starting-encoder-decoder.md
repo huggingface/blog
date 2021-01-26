@@ -1,6 +1,6 @@
 ---
 title: "Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models"
-thumbnail: https://huggingface.co/blog/assets/08_warm_starting_encoder_decoder/thumbnail.png
+thumbnail: /blog/assets/08_warm_starting_encoder_decoder/thumbnail.png
 ---
 
 <h1> Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models

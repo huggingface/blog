@@ -1,6 +1,6 @@
 ---
 title: "Transformer-based Encoder-Decoder Models"
-thumbnail: https://huggingface.co/blog/assets/05_encoder_decoder/thumbnail.png
+thumbnail: /blog/assets/05_encoder_decoder/thumbnail.png
 ---
 
 <h1> Transformers-based Encoder-Decoder Models</h1>

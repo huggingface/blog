@@ -1,6 +1,6 @@
 ---
 title: "How to generate text: using different decoding methods for language generation with Transformers"
-thumbnail: https://huggingface.co/blog/assets/02_how-to-generate/thumbnail.png
+thumbnail: /blog/assets/02_how-to-generate/thumbnail.png
 ---
 
 <h1>How to generate text: using different decoding methods for language generation with Transformers</h1>

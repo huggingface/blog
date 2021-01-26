@@ -1,6 +1,6 @@
 ---
 title: "The Reformer - Pushing the limits of language modeling"
-thumbnail: https://huggingface.co/blog/assets/03_reformer/thumbnail.png
+thumbnail: /blog/assets/03_reformer/thumbnail.png
 ---
 
 <h1>The Reformer - Pushing the limits of language modeling</h1>

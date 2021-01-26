@@ -1,6 +1,6 @@
 ---
 title: How to train a new language model from scratch using Transformers and Tokenizers
-thumbnail: https://huggingface.co/blog/assets/01_how-to-train/how-to-train_blogpost.png
+thumbnail: /blog/assets/01_how-to-train/how-to-train_blogpost.png
 ---
 
 <h1>How to train a new language model from scratch using Transformers and Tokenizers</h1>
