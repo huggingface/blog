@@ -61,17 +61,18 @@
   title: "Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models"
   thumbnail: ./assets/08_warm_starting_encoder_decoder/thumbnail.png
   date: November 09, 2020
+
 - local: accelerated-inference
   title: How we sped up transformer inference 100x for 🤗 API customers
   thumbnail: ./assets/09_accelerated_inference/thumbnail.png
   date: January 18, 2021
 
-- local: tf-serving
-  title: "Faster TensorFlow models in Hugging Face Transformers"
-  thumbnail: /blog/assets/10_tf-serving/thumbnail.png
-  date: January 26, 2021
-
 - local: zero-deepspeed-fairscale
   title: "Fit More and Train Faster With ZeRO via DeepSpeed and FairScale"
-  thumbnail: /blog/assets/11_zero_deepspeed_fairscale/zero-partitioning.png
+  thumbnail: ./assets/11_zero_deepspeed_fairscale/zero-partitioning.png
   date: January 19, 2021
+
+- local: tf-serving
+  title: "Faster TensorFlow models in Hugging Face Transformers"
+  thumbnail: ./assets/10_tf-serving/thumbnail.png
+  date: January 26, 2021
