@@ -3,12 +3,11 @@ title: Faster TensorFlow models in Hugging Face Transformers
 thumbnail: /blog/assets/10_tf-serving/thumbnail.png
 ---
 
-<h1 class="no-top-margin">Faster TensorFlow models in Hugging Face Transformers</h1>
+<h1>Faster TensorFlow models in Hugging Face Transformers</h1>
 
 <div class="blog-metadata">
-    <small>Published X Y, 2021.</small>
-    <a target="_blank" class="btn-readme" href="https://github.com/huggingface/blog/blob/master/tf-serving.md">
-        <img src="/front/assets/icon-github.svg">
+    <small>Published January 26, 2021.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/tf-serving.md">
         Update on GitHub
     </a>
 </div>
