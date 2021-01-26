@@ -69,5 +69,10 @@
 
 - local: zero-deepspeed-fairscale
   title: "Fit More and Train Faster With ZeRO via DeepSpeed and FairScale"
-  thumbnail: /blog/assets/11_zero_deepspeed_fairscale/zero-partitioning.png
+  thumbnail: ./assets/11_zero_deepspeed_fairscale/zero-partitioning.png
   date: January 19, 2021
+
+- local: tf-serving
+  title: "Faster TensorFlow models in Hugging Face Transformers"
+  thumbnail: ./assets/10_tf-serving/thumbnail.png
+  date: January 26, 2021
