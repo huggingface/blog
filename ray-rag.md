@@ -45,7 +45,7 @@ Overall, [RAG](https://ai.facebook.com/blog/retrieval-augmented-generation-strea
 
 1. A **query encoder** based on [Facebook’s Dense Passage Retrieval](https://arxiv.org/pdf/2004.04906.pdf) that encodes the input sequence.
 2. A **document** **retriever**  that takes in the encoded query representation and retrieves contextual documents from the indexed knowledge base.
-3. A **generator **based on [Facebook’s BART](https://arxiv.org/pdf/1910.13461.pdf) that takes in the original question and the contextual documents and outputs the result sequence.
+3. A **generator** based on [Facebook’s BART](https://arxiv.org/pdf/1910.13461.pdf) that takes in the original question and the contextual documents and outputs the result sequence.
 
 You can find more information on RAG in a [blog post written by the authors](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models) or by trying out RAG for yourself using a [demo provided by Huggingface](https://huggingface.co/rag/)!
 
