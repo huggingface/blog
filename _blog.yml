@@ -76,3 +76,10 @@
   title: "Faster TensorFlow models in Hugging Face Transformers"
   thumbnail: ./assets/10_tf-serving/thumbnail.png
   date: January 26, 2021
+
+- local: ray-rag
+  title: ""
+  thumbnail: ""
+  author: amogkam
+  guest: true
+  date: January 27, 2021
