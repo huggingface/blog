@@ -27,14 +27,14 @@ Let’s first go more in depth into the RAG architecture, and then see how Ray f
 ![alt_text](assets/12_ray_rag/rag_gif.gif "image_tooltip")
 
 
-An overview of Retrieval Augmented Generation Model. Video taken from [https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models).
+An overview of Retrieval Augmented Generation Model. Video taken from [this blog post](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models).
 
 [RAG](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) acts just like any other [seq2seq model](https://blog.keras.io/a-ten-minute-introduction-to-sequence-to-sequence-learning-in-keras.html), but the fundamental difference is that [RAG](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) has an intermediate step where it queries an external knowledge base to find contextual documents which are used in conjunction with the original sequence and passed into the [generator](https://huggingface.co/blog/how-to-generate).
 
 This information retrieval step allows [RAG](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) to make use of multiple sources of knowledge -- those that are baked into the model parameters and the information that is contained in the contextual passages, allowing RAG to outperform other state-of-the-art seq2seq models.
 
 
-![alt_text](assets/12_ray_rag/rag_architecture.png "image_tooltip")
+![alt text](assets/12_ray_rag/rag_architecture.png "Test")
 
 
 From https://arxiv.org/pdf/2005.11401.pdf 
