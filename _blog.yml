@@ -78,7 +78,7 @@
   date: January 26, 2021
 
 - local: ray-rag
-  title: ""
+  title: "Retrieval Augmented Generation with Huggingface Transformers and Ray"
   thumbnail: ""
   author: amogkam
   guest: true
