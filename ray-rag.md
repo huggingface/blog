@@ -22,7 +22,7 @@ The previous implementation of RAG fine-tuning leveraged the [torch.distributed]
 
 Instead, we needed a framework-agnostic and a more flexible implementation for ad-hoc concurrent RPC, and [Ray](https://ray.io/) fit the bill perfectly. [Ray](https://ray.io/) is a simple, yet powerful Python library for general-purpose distribtued and parallel programming. Using [Ray](https://ray.io/) for distributed document retrieval, we achieved **2x speedup per retrieval call compared to torch.distributed**, and overall better fine-tuning scalability.
 
-## Ray for Document Retrieval
+### Ray for Document Retrieval
 The main drawbacks of using [torch.distributed](https://pytorch.org/docs/stable/distributed.html) for document retrieval was its limited and infleixble API- it required latching on to the same process group used for training and also limiting the implementation such that only the rank 0 worker could load the index. 
 
 As a result, this implementation had some limitations:
