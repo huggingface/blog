@@ -2,53 +2,25 @@
 
 _[Huggingface Transformers](https://huggingface.co/) recently added the [Retrieval Augmented Generation (RAG)](https://twitter.com/huggingface/status/1310597560906780680) model, a new NLP model architecture that leverages external documents (like Wikipedia) to augment its knowledge and achieve state of the art results on knowledge intensive tasks. In this blog post we introduce the addition of [Ray](https://docs.ray.io/en/master/), a library for building scalable applications, for document retrieval, resulting in 2x speedup per retrieval call and allowing distributed [fine-tuning](https://github.com/huggingface/transformers/tree/master/examples/research_projects/rag) of RAG to scale._
 
+## What is RAG?
+![alt_text](assets/12_ray_rag/rag_gif.gif "image_tooltip")
 
-## Introduction
+_An overview of Retrieval Augmented Generation Model. Video taken from [this blog post](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models)._
 
 Recently, [Huggingface](https://huggingface.co/) partnered with [Facebook AI](https://ai.facebook.com/) to introduce [Retrieval Augmented Generation](https://twitter.com/huggingface/status/1310597560906780680) model as part of its library. [Retrieval Augmented Generation](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/), or RAG, was [published in NeurIPS 2020](https://arxiv.org/abs/2005.11401) and is a new architecture that retrieves contextual documents from a text corpus (like Wikipedia) to augment its knowledge. RAG has shown to be successful in a variety of knowledge-intensive tasks that require external sources, such as Q&A, fact verification, and Jeopardy style question generation.
 
-[Huggingface](https://huggingface.co/) makes it incredibly easy to use an already fine-tuned RAG model. However, oftentimes you need to use the pre-trained [RAG](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) components and [fine-tune](https://huggingface.co/transformers/training.html) it yourself on a custom task or dataset, leveraging multiple GPUs for distributed training.
-
-
-## Why Ray?
-
-Ok great, so we can already leverage Huggingface’s script to fine-tune RAG using multiple GPUs. Why do we need to add Ray to this?
-
-When doing distributed fine-tuning, the document retrieval aspect is particularly costly and can limit training scalability. The previous implementation of RAG fine-tining leveraged the [torch.distributed](https://pytorch.org/docs/stable/distributed.html) communication package for the external document retrieval portion. However, this implementation required the same workers used for training to also load the document index. This was problematic since it did not scale well, the index could not fit into GPU memory with the model, and it made the RAG implementation Pytorch specific.
-
-Instead, we needed a framework-agnostic and a more flexible implementation for ad-hoc concurrent RPC, and this is where [Ray](https://ray.io/) comes in. Using Ray for distributed document retrieval, we can achieve 2x speedup per retrieval call, and better fine-tuning scalability.
-
-Let’s first go more in depth into the RAG architecture, and then see how Ray fits in for the document retrieval.
-
-
-## The RAG Architecture
-
-
-![alt_text](assets/12_ray_rag/rag_gif.gif "image_tooltip")
-
-
-An overview of Retrieval Augmented Generation Model. Video taken from [this blog post](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models).
-
 [RAG](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) acts just like any other [seq2seq model](https://blog.keras.io/a-ten-minute-introduction-to-sequence-to-sequence-learning-in-keras.html), but the fundamental difference is that [RAG](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) has an intermediate step where it queries an external knowledge base to find contextual documents which are used in conjunction with the original sequence and passed into the [generator](https://huggingface.co/blog/how-to-generate).
 
-This information retrieval step allows [RAG](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) to make use of multiple sources of knowledge -- those that are baked into the model parameters and the information that is contained in the contextual passages, allowing RAG to outperform other state-of-the-art seq2seq models.
+This information retrieval step allows [RAG](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) to make use of multiple sources of knowledge -- those that are baked into the model parameters and the information that is contained in the contextual passages, allowing it to outperform other state-of-the-art seq2seq models. 
 
+You can even try RAG for yourself using this [demo provided by Huggingface](https://huggingface.co/rag/), or find out more information on RAG in this [blog post written by the authors](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models)!
 
-![alt text](assets/12_ray_rag/rag_architecture.png "Test")
+## Scaling up fine-tuning
+This document retrieval component is crucial for RAG's state-of-the-art results, but it adds new complexities when fine-tuning the model on a downstream task, specifically in a distributed setup. As we scale up the training, we also have to appropriately scale up the document index lookup so the retrieval is not a bottleneck.
 
+The previous implementation of RAG fine-tining leveraged the [torch.distributed](https://pytorch.org/docs/stable/distributed.html) communication package for the  document retrieval portion. However, using [torch.distributed](https://pytorch.org/docs/stable/distributed.html) proved to be inflexible and limited scalability.
 
-From https://arxiv.org/pdf/2005.11401.pdf 
-
-Overall, [RAG](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) has 3 main components:
-
-
-
-1. A **query encoder** based on [Facebook’s Dense Passage Retrieval](https://arxiv.org/pdf/2004.04906.pdf) that encodes the input sequence.
-2. A **document** **retriever**  that takes in the encoded query representation and retrieves contextual documents from the indexed knowledge base.
-3. A **generator** based on [Facebook’s BART](https://arxiv.org/pdf/1910.13461.pdf) that takes in the original question and the contextual documents and outputs the result sequence.
-
-You can find more information on RAG in a [blog post written by the authors](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models) or by trying out RAG for yourself using a [demo provided by Huggingface](https://huggingface.co/rag/)!
-
+Instead, we needed a framework-agnostic and a more flexible implementation for ad-hoc concurrent RPC, and [Ray](https://ray.io/) fit this perfectly. Ray is a simple, yet powerful Python library for general-purpose distribtued and parallel programming. Using Ray for distributed document retrieval, we achieved 2x speedup per retrieval call compared to torch.distributed, and overall better fine-tuning scalability.
 
 ## Ray for Document Retrieval
 
@@ -57,8 +29,6 @@ One of the principle components of the [RAG](https://ai.facebook.com/blog/retrie
 The previous implementation of [RAG](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) on [Huggingface](https://huggingface.co/) leveraged the [torch.distributed](https://pytorch.org/docs/stable/distributed.html) communication package for the distributed retrieval with _only the rank 0 worker_ loading the index into memory. 
 
 However this implementation had a few limitations:
-
-
 
 1. **Synchronization bottleneck**: The rank 0 worker had to receive the inputs from all workers, perform the index query, and then send the results back to the other workers. This limited performance with multiple training workers.
 2. **Can’t load index into GPU**: Since the index is loaded into the same process as the training worker, both the model and the index cannot fit on GPU.
