@@ -1,11 +1,11 @@
 ## Retrieval Augmented Generation with Huggingface Transformers and Ray
 
-_[Huggingface Transformers](https://huggingface.co/) recently added the [Retrieval Augmented Generation (RAG)](https://twitter.com/huggingface/status/1310597560906780680) model, a new NLP model architecture that leverages external documents (like Wikipedia) to augment its knowledge and achieve state of the art results on knowledge intensive tasks. In this blog post we introduce the addition of [Ray](https://docs.ray.io/en/master/), a library for building scalable applications, for document retrieval, resulting in 2x speedup per retrieval call and allowing distributed [fine-tuning](https://github.com/huggingface/transformers/tree/master/examples/research_projects/rag) of RAG to scale._
+_[Huggingface Transformers](https://huggingface.co/) recently added the [Retrieval Augmented Generation (RAG)](https://twitter.com/huggingface/status/1310597560906780680) model, a new NLP model architecture that leverages external documents (like Wikipedia) to augment its knowledge and achieve state of the art results on knowledge intensive tasks. In this blog post we introduce the addition of [Ray](https://docs.ray.io/en/master/), a library for building scalable applications, for RAG contextual document retrieval, resulting in 2x speedup per retrieval call and allowing distributed [fine-tuning](https://github.com/huggingface/transformers/tree/master/examples/research_projects/rag) of RAG to scale._
 
-## What is RAG?
+### What is RAG?
 ![alt_text](assets/12_ray_rag/rag_gif.gif "image_tooltip")
 
-_An overview of Retrieval Augmented Generation Model. Video taken from [this blog post](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models)._
+_An overview of Retrieval Augmented Generation Model. Note that a key component of the model is the retrieval of contextual documents from an external dataset. These contextual documents are using in conjunction with the original input to get the output sequence. Video taken from [this blog post](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models)._
 
 Recently, [Huggingface](https://huggingface.co/) partnered with [Facebook AI](https://ai.facebook.com/) to introduce [Retrieval Augmented Generation](https://twitter.com/huggingface/status/1310597560906780680) model as part of its library. [Retrieval Augmented Generation](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/), or RAG, was [published in NeurIPS 2020](https://arxiv.org/abs/2005.11401) and is a new architecture that retrieves contextual documents from a text corpus (like Wikipedia) to augment its knowledge. RAG has shown to be successful in a variety of knowledge-intensive tasks that require external sources, such as Q&A, fact verification, and Jeopardy style question generation.
 
@@ -15,28 +15,25 @@ This information retrieval step allows [RAG](https://ai.facebook.com/blog/retrie
 
 You can even try RAG for yourself using this [demo provided by Huggingface](https://huggingface.co/rag/), or find out more information on RAG in this [blog post written by the authors](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models)!
 
-## Scaling up fine-tuning
-This document retrieval component is crucial for RAG's state-of-the-art results, but it adds new complexities when fine-tuning the model on a downstream task, specifically in a distributed setup. As we scale up the training, we also have to appropriately scale up the document index lookup so the retrieval is not a bottleneck.
+### Scaling up fine-tuning
+This retrieval of contextual documents is crucial for RAG's state-of-the-art results, but this component adds new complexities when fine-tuning the model on a downstream task, specifically in a distributed setup. As we scale up the training, we also have to appropriately scale up the document index lookup so the retrieval is not a bottleneck. And in a data parallel multi-GPU setup where there are multiple training workers each acting on different inputs, it’s not feasible for each worker to load its own copy of the entire index due to its size.
 
-The previous implementation of RAG fine-tining leveraged the [torch.distributed](https://pytorch.org/docs/stable/distributed.html) communication package for the  document retrieval portion. However, using [torch.distributed](https://pytorch.org/docs/stable/distributed.html) proved to be inflexible and limited scalability.
+The previous implementation of RAG fine-tuning leveraged the [torch.distributed](https://pytorch.org/docs/stable/distributed.html) communication package for the  document retrieval portion. However, using [torch.distributed](https://pytorch.org/docs/stable/distributed.html) proved to be inflexible and limited scalability.
 
-Instead, we needed a framework-agnostic and a more flexible implementation for ad-hoc concurrent RPC, and [Ray](https://ray.io/) fit this perfectly. Ray is a simple, yet powerful Python library for general-purpose distribtued and parallel programming. Using Ray for distributed document retrieval, we achieved 2x speedup per retrieval call compared to torch.distributed, and overall better fine-tuning scalability.
+Instead, we needed a framework-agnostic and a more flexible implementation for ad-hoc concurrent RPC, and [Ray](https://ray.io/) fit the bill perfectly. [Ray](https://ray.io/) is a simple, yet powerful Python library for general-purpose distribtued and parallel programming. Using [Ray](https://ray.io/) for distributed document retrieval, we achieved **2x speedup per retrieval call compared to torch.distributed**, and overall better fine-tuning scalability.
 
 ## Ray for Document Retrieval
+The main drawbacks of using [torch.distributed](https://pytorch.org/docs/stable/distributed.html) for document retrieval was its limited and infleixble API- it required latching on to the same process group used for training and also limiting the implementation such that only the rank 0 worker could load the index. 
 
-One of the principle components of the [RAG](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) model is the retrieval of contextual documents from an indexed dataset. However this index query can be costly depending on the size of the dataset. And in a data parallel multi-GPU setup where there are multiple training workers each acting on different inputs, it’s not feasible for each worker to load its own copy of the index due to its size. In this distributed setting, the retrieval needs to happen concurrently for each input and should not be a bottleneck for fine-tuning.
-
-The previous implementation of [RAG](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) on [Huggingface](https://huggingface.co/) leveraged the [torch.distributed](https://pytorch.org/docs/stable/distributed.html) communication package for the distributed retrieval with _only the rank 0 worker_ loading the index into memory. 
-
-However this implementation had a few limitations:
+As a result, this implementation had some limitations:
 
 1. **Synchronization bottleneck**: The rank 0 worker had to receive the inputs from all workers, perform the index query, and then send the results back to the other workers. This limited performance with multiple training workers.
-2. **Can’t load index into GPU**: Since the index is loaded into the same process as the training worker, both the model and the index cannot fit on GPU.
-3. **Pytorch specific**: The document retrieval process group had to latch onto the existing process group used for training, meaning that Pytorch had to be used for training as well.
+2. **Pytorch specific**: The document retrieval process group had to latch onto the existing process group used for training, meaning that Pytorch had to be used for training as well.
+3. **Can’t load index into GPU**: Since the index is loaded into the same process as the training worker, both the model and the index cannot fit on GPU.
 
-To overcome these limitations, we introduced a [Ray](https://docs.ray.io/en/master/) based implementation of distributed retrieval. With [Ray’s stateful actor abstractions](https://docs.ray.io/en/master/actors.html), multiple processes that are separate from training are used to load the index and handle the retrieval queries. With multiple actors, there is no longer a single process retrieving the documents, and since this occurs in a separate process than training, there is enough memory to load the index into GPU.
+To overcome these limitations, we introduced a [Ray](https://docs.ray.io/en/master/) based implementation of distributed retrieval. With [Ray’s stateful actor abstractions](https://docs.ray.io/en/master/actors.html), multiple processes that are separate from the training processes are used to load the index and handle the retrieval queries. With multiple Ray actors, there is no longer a single process retrieving the documents, and since this occurs in a separate process than training, there is enough memory to load the index into GPU.
 
-And as you can see below, using the [Ray](https://docs.ray.io/en/master/) based implementation leads to better retrieval performance for multi-GPU fine-tuning. The following results show the seconds per retrieval call and we can see that as we increase the number of GPUs that we train on, using Ray has comparatively better performance than torch.distributed. Also, if we increase the number of Ray processes that perform retrieval, we also get better performance with more training workers since a single retrieval process is no longer a bottleneck.
+And as you can see below, using the [Ray](https://docs.ray.io/en/master/) based implementation leads to better retrieval performance for multi-GPU fine-tuning. The following results show the seconds per retrieval call and we can see that as we increase the number of GPUs that we train on, using Ray has comparatively better performance than `torch.distributed`. Also, if we increase the number of Ray processes that perform retrieval, we also get better performance with more training workers since a single retrieval process is no longer a bottleneck.
 
 
 <table>
@@ -83,7 +80,7 @@ And as you can see below, using the [Ray](https://docs.ray.io/en/master/) based 
 </table>
 
 
-A performance comparison of different retrieval implementations. For each document retrieval implementation, we run 500 training steps with a per-GPU batch size of 8, and measure the time it takes to retrieve the contextual documents for each batch on the rank 0 training worker. As the results show, using multiple retrieval processes improves performance, especially as we scale training to multiple GPUs.
+_A performance comparison of different retrieval implementations. For each document retrieval implementation, we run 500 training steps with a per-GPU batch size of 8, and measure the time it takes to retrieve the contextual documents for each batch on the rank 0 training worker. As the results show, using multiple retrieval processes improves performance, especially as we scale training to multiple GPUs._
 
 
 ### How do I use it?
@@ -149,8 +146,6 @@ python examples/rag/finetune_rag.py \
 # Stop the Ray cluster.
 ray stop
 ```
-
-
 
 ## What’s next?
 
