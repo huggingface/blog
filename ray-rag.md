@@ -1,6 +1,7 @@
 ## Retrieval Augmented Generation with Huggingface Transformers and Ray
 
-_[Huggingface Transformers](https://huggingface.co/) recently added the [Retrieval Augmented Generation (RAG)](https://twitter.com/huggingface/status/1310597560906780680) model, a new NLP model architecture that leverages external documents (like Wikipedia) to augment its knowledge and achieve state of the art results on knowledge intensive tasks. In this blog post we introduce the addition of [Ray](https://docs.ray.io/en/master/), a library for building scalable applications, for RAG contextual document retrieval, resulting in 2x speedup per retrieval call and allowing distributed [fine-tuning](https://github.com/huggingface/transformers/tree/master/examples/research_projects/rag) of RAG to scale._
+_[Huggingface Transformers](https://huggingface.co/) recently added the [Retrieval Augmented Generation (RAG)](https://twitter.com/huggingface/status/1310597560906780680) model, a new NLP model architecture that leverages external documents (like Wikipedia) to augment its knowledge and achieve state of the art results on knowledge intensive tasks. In this blog post, we introduce the integration of [Ray](https://docs.ray.io/en/master/), a library for building scalable applications, into the RAG contextual document retrieval mechanism. This speeds up retrieval calls by 2x and improves the scalability of RAG distributed [fine-tuning](https://github.com/huggingface/transformers/tree/master/examples/research_projects/rag)._
+
 
 ### What is Retrieval Augmented Generation (RAG)?
 ![alt_text](assets/12_ray_rag/rag_gif.gif "image_tooltip")
