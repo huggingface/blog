@@ -18,7 +18,7 @@ You can even try RAG for yourself using this [demo provided by Huggingface](http
 ### Scaling up fine-tuning
 This retrieval of contextual documents is crucial for RAG's state-of-the-art results, but this component adds new complexities when fine-tuning the model on a downstream task, specifically in a distributed setup. As we scale up the training, we also have to appropriately scale up the document index lookup so the retrieval is not a bottleneck. And in a data parallel multi-GPU setup where there are multiple training workers each acting on different inputs, it’s not feasible for each worker to load its own copy of the entire index due to its size.
 
-The previous implementation of RAG fine-tuning leveraged the [torch.distributed](https://pytorch.org/docs/stable/distributed.html) communication package for the  document retrieval portion. However, using [torch.distributed](https://pytorch.org/docs/stable/distributed.html) proved to be inflexible and limited scalability.
+The previous implementation of RAG fine-tuning leveraged the [torch.distributed](https://pytorch.org/docs/stable/distributed.html) communication package for the  document retrieval portion. However, this implementation proved to be inflexible and limited scalability.
 
 Instead, we needed a framework-agnostic and a more flexible implementation for ad-hoc concurrent RPC, and [Ray](https://ray.io/) fit the bill perfectly. [Ray](https://ray.io/) is a simple, yet powerful Python library for general-purpose distribtued and parallel programming. Using [Ray](https://ray.io/) for distributed document retrieval, we achieved **2x speedup per retrieval call compared to torch.distributed**, and overall better fine-tuning scalability.
 
@@ -27,7 +27,7 @@ Instead, we needed a framework-agnostic and a more flexible implementation for a
 _Document retrieval with the torch.distributed implementation_
 
 
-The main drawbacks of using [torch.distributed](https://pytorch.org/docs/stable/distributed.html) for document retrieval was its limited and infleixble API- it required latching on to the same process group used for training and also limiting the implementation such that only the rank 0 worker could load the index. 
+The main drawback of using [torch.distributed](https://pytorch.org/docs/stable/distributed.html) for document retrieval was its limited and inflexible API- it required latching on to the same process group and made it difficult to use multiple workers for index lookups/retrievals.
 
 As a result, this implementation had some limitations:
 
