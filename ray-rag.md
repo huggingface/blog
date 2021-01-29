@@ -35,7 +35,7 @@ As a result, this implementation had some limitations:
 2. **Pytorch specific**: The document retrieval process group had to latch onto the existing process group used for training, meaning that Pytorch had to be used for training as well.
 3. **Can’t load index into GPU**: Since the index is loaded into the same process as the training worker, both the model and the index cannot fit on GPU.
 
-![alt_text](assets/12_ray_rag/ray_doc_retrieval.png "image_tooltip")
+![alt_text](assets/12_ray_rag/ray_arch_updated.png "image_tooltip")
 _Document retrieval with the Ray implementation_
 
 To overcome these limitations, we introduced a [Ray](https://docs.ray.io/en/master/) based implementation of distributed retrieval. With [Ray’s stateful actor abstractions](https://docs.ray.io/en/master/actors.html), multiple processes that are separate from the training processes are used to load the index and handle the retrieval queries. With multiple Ray actors, there is no longer a single process retrieving the documents, and since this occurs in a separate process than training, there is enough memory to load the index into GPU.
