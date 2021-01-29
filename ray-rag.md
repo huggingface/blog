@@ -27,18 +27,17 @@ Instead, we needed a framework-agnostic and a more flexible implementation for a
 _Document retrieval with the torch.distributed implementation_
 
 
-The main drawback of using [torch.distributed](https://pytorch.org/docs/stable/distributed.html) for document retrieval was its limited and inflexible API- it required latching on to the same process group used for training and made it difficult to use multiple workers for index lookups/retrievals.
+The main drawback of the [torch.distributed](https://pytorch.org/docs/stable/distributed.html) implementation for document retrieval was that it latched on to the same process group used for training and only the rank 0 training worker loaded the index into memory.
 
 As a result, this implementation had some limitations:
 
 1. **Synchronization bottleneck**: The rank 0 worker had to receive the inputs from all workers, perform the index query, and then send the results back to the other workers. This limited performance with multiple training workers.
 2. **Pytorch specific**: The document retrieval process group had to latch onto the existing process group used for training, meaning that Pytorch had to be used for training as well.
-3. **Can’t load index into GPU**: Since the index is loaded into the same process as the training worker, both the model and the index cannot fit on GPU.
 
 ![alt_text](assets/12_ray_rag/ray_arch_updated.png "image_tooltip")
 _Document retrieval with the Ray implementation_
 
-To overcome these limitations, we introduced a [Ray](https://docs.ray.io/en/master/) based implementation of distributed retrieval. With [Ray’s stateful actor abstractions](https://docs.ray.io/en/master/actors.html), multiple processes that are separate from the training processes are used to load the index and handle the retrieval queries. With multiple Ray actors, there is no longer a single process retrieving the documents, and since this occurs in a separate process than training, there is enough memory to load the index into GPU.
+To overcome these limitations, we introduced a [Ray](https://docs.ray.io/en/master/) based implementation of distributed retrieval. With [Ray’s stateful actor abstractions](https://docs.ray.io/en/master/actors.html), multiple processes that are separate from the training processes are used to load the index and handle the retrieval queries. With multiple Ray actors, retrieval is no longer a bottleneck and Pytorch is no longer a requirement for RAG.
 
 And as you can see below, using the [Ray](https://docs.ray.io/en/master/) based implementation leads to better retrieval performance for multi-GPU fine-tuning. The following results show the seconds per retrieval call and we can see that as we increase the number of GPUs that we train on, using Ray has comparatively better performance than `torch.distributed`. Also, if we increase the number of Ray processes that perform retrieval, we also get better performance with more training workers since a single retrieval process is no longer a bottleneck.
 
