@@ -19,7 +19,7 @@ This information retrieval step allows [RAG](https://ai.facebook.com/blog/retrie
 You can even try RAG for yourself using this [demo provided by Huggingface](https://huggingface.co/rag/), or find out more information on RAG in this [blog post written by the authors](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models)!
 
 ### Scaling up fine-tuning
-This retrieval of contextual documents is crucial for RAG's state-of-the-art results, but this component adds new complexities when fine-tuning the model on a downstream task, specifically in a distributed setup. As we scale up the training, we also have to appropriately scale up the document index lookup so the retrieval is not a bottleneck. And in a data parallel multi-GPU setup where there are multiple training workers each acting on different inputs, it’s not feasible for each worker to load its own copy of the entire index due to its size.
+This retrieval of contextual documents is crucial for RAG's state-of-the-art results but introduces an extra layer of complexity. When scaling up the training process via a data-parallel training routine, a naive implementation of the document lookup can become a bottleneck for training. Further, the **document index** used in the retrieval component is often quite large, making it infeasible for each training worker to load its own replicated copy of the index.
 
 The previous implementation of RAG fine-tuning leveraged the [torch.distributed](https://pytorch.org/docs/stable/distributed.html) communication package for the  document retrieval portion. However, this implementation proved to be inflexible and limited scalability.
 
