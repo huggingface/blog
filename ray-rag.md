@@ -27,7 +27,7 @@ Instead, we needed a framework-agnostic and a more flexible implementation for a
 _Document retrieval with the torch.distributed implementation_
 
 
-The main drawback of using [torch.distributed](https://pytorch.org/docs/stable/distributed.html) for document retrieval was its limited and inflexible API- it required latching on to the same process group and made it difficult to use multiple workers for index lookups/retrievals.
+The main drawback of using [torch.distributed](https://pytorch.org/docs/stable/distributed.html) for document retrieval was its limited and inflexible API- it required latching on to the same process group used for training and made it difficult to use multiple workers for index lookups/retrievals.
 
 As a result, this implementation had some limitations:
 
