@@ -6,7 +6,8 @@ _[Huggingface Transformers](https://huggingface.co/) recently added the [Retriev
 ### What is Retrieval Augmented Generation (RAG)?
 ![alt_text](assets/12_ray_rag/rag_gif.gif "image_tooltip")
 
-_An overview of Retrieval Augmented Generation Model. Note that a key component of the model is the retrieval of contextual documents from an external dataset. These contextual documents are using in conjunction with the original input to get the output sequence. Video taken from [this blog post](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models)._
+_An overview of Retrieval Augmented Generation Model. The model retrieves contextual documents from an external dataset as part of its execution. These contextual documents are used in conjunction with the original input to produce an output. Video taken from [this blog post](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models)._
+
 
 Recently, [Huggingface](https://huggingface.co/) partnered with [Facebook AI](https://ai.facebook.com/) to introduce [Retrieval Augmented Generation](https://twitter.com/huggingface/status/1310597560906780680) model as part of its library. [Retrieval Augmented Generation](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/), or RAG, was [published in NeurIPS 2020](https://arxiv.org/abs/2005.11401) and is a new architecture that retrieves contextual documents from a text corpus (like Wikipedia) to augment its knowledge. RAG has shown to be successful in a variety of knowledge-intensive tasks that require external sources, such as Q&A, fact verification, and Jeopardy style question generation.
 
