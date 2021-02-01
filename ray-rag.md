@@ -7,7 +7,8 @@ _[Huggingface Transformers](https://huggingface.co/) recently added the [Retriev
 ### What is Retrieval Augmented Generation (RAG)?
 ![alt_text](assets/12_ray_rag/rag_gif.gif "image_tooltip")
 
-_An overview of Retrieval Augmented Generation Model. The model retrieves contextual documents from an external dataset as part of its execution. These contextual documents are used in conjunction with the original input to produce an output. Video taken from [this blog post](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models)._
+_An overview of RAG. The model retrieves contextual documents from an external dataset as part of its execution. These contextual documents are used in conjunction with the original input to produce an output. The  GIF is taken from [Facebook's original blog post](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models)._
+
 
 
 Recently, [Huggingface](https://huggingface.co/) partnered with [Facebook AI](https://ai.facebook.com/) to introduce the [Retrieval Augmented Generation](https://twitter.com/huggingface/status/1310597560906780680) model as part of its Transformers library. 
