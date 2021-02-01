@@ -11,7 +11,8 @@ _An overview of RAG. The model retrieves contextual documents from an external d
 
 
 
-Recently, [Huggingface](https://huggingface.co/) partnered with [Facebook AI](https://ai.facebook.com/) to introduce the [Retrieval Augmented Generation](https://twitter.com/huggingface/status/1310597560906780680) model as part of its Transformers library. 
+Recently, [Huggingface](https://huggingface.co/) partnered with [Facebook AI](https://ai.facebook.com/) to introduce the [RAG](https://twitter.com/huggingface/status/1310597560906780680) model as part of its Transformers library. 
+
 
 [RAG](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) acts just like any other [seq2seq model](https://blog.keras.io/a-ten-minute-introduction-to-sequence-to-sequence-learning-in-keras.html). However, [RAG](https://ai.facebook.com/blog/retrieval-augmented-generation-streamlining-the-creation-of-intelligent-natural-language-processing-models/) has an intermediate component that retrieves contextual documents from an external knowledge base (like a Wikipedia text corpus). These documents are then used in conjunction with the input sequence and passed into the underlying seq2seq [generator](https://huggingface.co/blog/how-to-generate).
 
