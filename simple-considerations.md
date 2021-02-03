@@ -45,8 +45,7 @@ In reality, **building and training neural networks can often be an extremely fr
 
 _A lot of these thoughts stem from my experience doing research in natural language processing but most of these principles can be applied to other fields of machine learning._
 
-**1\. 🙈 Start by putting machine learning aside**
---------------------------------------------------
+## 1. 🙈 Start by putting machine learning aside
 
 It might sound counter-intuitive but the very first step of building a neural network is to **put aside machine learning and simply focus on your data**. Look at the examples, their labels, the diversity of the vocabulary if you are working with text, their length distribution, etc. You should dive into the data to get a first sense of the raw product you are working with and focus on extracting general patterns that a model might be able to catch. Hopefully, by looking at a few hundred examples, you will be able to identify high-level patterns. A few standard questions you can ask yourself:
 
@@ -59,8 +58,7 @@ It might sound counter-intuitive but the very first step of building a neural ne
 
 It is important to get a **high-level feeling (qualitative) of your dataset along with a fine-grained analysis (quantitative)**. If you are working with a public dataset, someone else might have already dived into the data and reported their analysis (it is quite common in Kaggle competition for instance) so you should absolutely have a look at these!
 
-**2\.** 📚 Continue as if you just started machine learning
------------------------------------------------------------
+## 2. 📚 Continue as if you just started machine learning
 
 Once you have a deep and broad understanding of your data, I always recommend **to put yourself in the shoes of your old self when you just started machine learning** and were watching introduction classes from Andrew Ng on Coursera. **Start as simple as possible to get a sense of the difficulty of your task and how well standard baselines would perform.** For instance, if you work with text, standard baselines for binary text classification can include a logistic regression trained on top of word2vec or fastText embeddings. With the current tools, running these baselines is as easy (if not more) as running BERT which can arguably be considered one of the standard tools for many natural language processing problems. If other baselines are available, run (or implement) some of them. It will help you get even more familiar with the data.
 
@@ -73,8 +71,7 @@ As developers, it easy to feel good when building something fancy but it is some
 *   What is missing in “simple approaches” to reach a perfect score?
 *   Are there architectures in my neural network toolbox that would be good to model the inductive bias of the data?
 
-3\. 🦸‍♀️ Don’t be afraid to look under the hood of these 5-liners templates
-----------------------------------------------------------------------------
+## 3. 🦸‍♀️ Don’t be afraid to look under the hood of these 5-liners templates
 
 Next, you can start building your model based on the insights and understanding you acquired previously. As mentioned earlier, implementing neural networks can quickly become quite tricky: there are many moving parts that work together (the optimizer, the model, the input processing pipeline, etc.), and many small things can go wrong when implementing these parts and connecting them to each other. **The challenge lies in the fact that you can make these mistakes, train a model without it ever crashing, and still get a decent performance…**
 
@@ -99,8 +96,7 @@ Another useful tool is **deep-diving into the training dynamic** and plot (in Te
 
 As the loss decreases, you also want to look at the model’s predictions: either by evaluating on your development set or, my personal favorite, **print a couple of model outputs**. For instance, if you are training a machine translation model, it is quite satisfying to see the generations become more and more convincing through the training. You want to be more specifically careful about overfitting: your training loss continues to decreases while your evaluation loss is aiming at the stars.💫
 
-4\. 👀 Tune but don’t tune blindly
-----------------------------------
+## 4. 👀 Tune but don’t tune blindly
 
 Once you have everything up and running, you might want to tune your hyperparameters to find the best configuration for your setup. I generally stick with a random grid search as it turns out to be fairly effective in practice.
 
