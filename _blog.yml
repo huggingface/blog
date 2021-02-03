@@ -76,3 +76,10 @@
   title: "Faster TensorFlow models in Hugging Face Transformers"
   thumbnail: ./assets/10_tf-serving/thumbnail.png
   date: January 26, 2021
+
+- local: ray-rag
+  title: "Retrieval Augmented Generation with Huggingface Transformers and Ray"
+  thumbnail: ./assets/12_ray_rag/ray_arch_updated.png
+  author: amogkam
+  guest: true
+  date: February 1, 2021
