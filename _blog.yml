@@ -83,3 +83,9 @@
   author: amogkam
   guest: true
   date: February 1, 2021
+
+  - local: pytorch-xla
+  title: "Hugging Face on PyTorch / XLA TPUs"
+  thumbnail: ./assets/13_pytorch_xla/pytorch_xla_thumbnail.png
+  author: jysohn23, lysandre
+  date: February 9, 2021
