@@ -18,6 +18,8 @@ thumbnail: /blog/assets/13_pytorch_xla/pytorch_xla_thumbnail.png
         <div class="bfc">
             <code>jysohn23</code>
             <span class="fullname">Daniel JinYoung Sohn</span>
+            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+            <img class="w-4 h-4 rounded inline" style="margin: 0 !important; margin-right: 8px !important;" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1584056834195-5dd96eb166059660ed1ee413.png?w=200&amp;h=200&amp;f=face">
         </div>
     </a>
     <a href="/lysandre">
