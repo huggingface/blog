@@ -32,13 +32,16 @@ thumbnail: /blog/assets/13_pytorch_xla/pytorch_xla_thumbnail.png
 <a href="https://colab.research.google.com/github/huggingface/blog/blob/master/notebooks/13_pytorch_xla.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 ## Training Your Favorite Transformers on Cloud TPUs using PyTorch / XLA
+
 The PyTorch-TPU project originated as a collaborative effort between the Facebook PyTorch and Google TPU teams and officially launched at the 2019 PyTorch Developer Conference 2019. Since then, we’ve worked with the Hugging Face team to bring first-class support to training on Cloud TPUs using [PyTorch / XLA](https://github.com/pytorch/xla). This new integration enables PyTorch users to run and scale up their models on Cloud TPUs while maintaining the exact same Hugging Face trainers interface.
 
 This blog post provides an overview of changes made in the Hugging Face library, what the PyTorch / XLA library does, an example to get you started training your favorite transformers on Cloud TPUs, and some performance benchmarks. If you can’t wait to get started with TPUs, please skip ahead to the [“Train Your Transformer on Cloud TPUs”](#train-your-transformer-on-cloud-tpus) section - we handle all the PyTorch / XLA mechanics for you within the `Trainer` module!
 
 ### XLA:TPU Device Type
+
 PyTorch / XLA adds a new `xla` device type to PyTorch. This device type works just like other PyTorch device types. For example, here's how to create and print an XLA tensor:
-```
+
+```python
 import torch
 import torch_xla
 import torch_xla.core.xla_model as xm
@@ -51,7 +54,8 @@ print(t)
 This code should look familiar. PyTorch / XLA uses the same interface as regular PyTorch with a few additions. Importing `torch_xla` initializes PyTorch / XLA, and `xm.xla_device()` returns the current XLA device. This may be a CPU, GPU, or TPU depending on your environment, but for this blog post we’ll focus primarily on TPU.
 
 The `Trainer` module leverages a `TrainingArguments` dataclass in order to define the training specifics. It handles multiple arguments, from batch sizes, learning rate, gradient accumulation and others, to the devices used. Based on the above, in `TrainingArguments._setup_devices()` when using XLA:TPU devices, we simply return the TPU device to be used by the `Trainer`:
-```
+
+```python
 @dataclass
 class TrainingArguments:
     ...
@@ -68,8 +72,10 @@ class TrainingArguments:
 ```
 
 ### XLA Device Step Computation
+
 In a typical XLA:TPU training scenario we’re training on multiple TPU cores in parallel (a single Cloud TPU device includes 8 TPU cores). So we need to ensure that all the gradients are exchanged between the data parallel replicas by consolidating the gradients and taking an optimizer step. For this we provide the `xm.optimizer_step(optimizer)` which does the gradient consolidation and step-taking. In the Hugging Face trainer, we correspondingly update the train step to use the PyTorch / XLA APIs:
-```
+
+```python
 class Trainer:
 …
    def train(self, *args, **kwargs):
@@ -79,19 +85,22 @@ class Trainer:
 ```
 
 ### PyTorch / XLA Input Pipeline
+
 There are two main parts to running a PyTorch / XLA model: (1) tracing and executing your model’s graph lazily (refer to below [“PyTorch / XLA Library”](https://github.com/pytorch/xla) section for a more in-depth explanation) and (2) feeding your model. Without any optimization, the tracing/execution of your model and input feeding would be executed serially, leaving chunks of time during which your host CPU and your TPU accelerators would be idle, respectively. To avoid this, we provide an API, which pipelines the two and thus is able to overlap the tracing of step n+1 while step n is still executing.
 
-![alt text](https://raw.githubusercontent.com/huggingface/blog/master/blog/assets/13_pytorch_xla/training_pipeline.png)
+![alt text](/blog/assets/13_pytorch_xla/training_pipeline.png)
 
-```
+```python
 import torch_xla.distributed.parallel_loader as pl
 ...
   dataloader = pl.MpDeviceLoader(dataloader, device)
 ```
 
 ### Checkpoint Writing and Loading
+
 When a tensor is checkpointed from a XLA device and then loaded back from the checkpoint, it will be loaded back to the original device. Before checkpointing tensors in your model, you want to ensure that all of your tensors are on CPU devices instead of XLA devices. This way, when you load back the tensors, you’ll load them through CPU devices and then have the opportunity to place them on whatever XLA devices you desire. We provide the `xm.save()` API for this, which already takes care of only writing to storage location from only one process on each host (or one globally if using a shared file system across hosts).
-```
+
+```python
 class PreTrainedModel(nn.Module, ModuleUtilsMixin, GenerationMixin):
 …
     def save_pretrained(self, save_directory):
@@ -106,7 +115,7 @@ class PreTrainedModel(nn.Module, ModuleUtilsMixin, GenerationMixin):
             xm.save(state_dict, output_model_file)
 ```
 
-```
+```python
 class Trainer:
 …
    def train(self, *args, **kwargs):
@@ -121,9 +130,11 @@ class Trainer:
 
 
 ## PyTorch / XLA Library
+
 PyTorch / XLA is a Python package that uses the XLA linear algebra compiler to connect the PyTorch deep learning framework with XLA devices, which includes CPU, GPU, and Cloud TPUs. Part of the following content is also available in our [API_GUIDE.md](https://github.com/pytorch/xla/blob/master/API_GUIDE.md).
 
 ### PyTorch / XLA Tensors are Lazy
+
 Using XLA tensors and devices requires changing only a few lines of code. However, even though XLA tensors act a lot like CPU and CUDA tensors, their internals are different. CPU and CUDA tensors launch operations immediately or eagerly. XLA tensors, on the other hand, are lazy. They record operations in a graph until the results are needed. Deferring execution like this lets XLA optimize it. A graph of multiple separate operations might be fused into a single optimized operation.
 
 Lazy execution is generally invisible to the caller. PyTorch / XLA automatically constructs the graphs, sends them to XLA devices, and synchronizes when copying data between an XLA device and the CPU. Inserting a barrier when taking an optimizer step explicitly synchronizes the CPU and the XLA device.
@@ -131,11 +142,12 @@ Lazy execution is generally invisible to the caller. PyTorch / XLA automatically
 This means that when you call `model(input)` forward pass, calculate your loss `loss.backward()`, and take an optimization step `xm.optimizer_step(optimizer)`, the graph of all operations is being built in the background. Only when you either explicitly evaluate the tensor (ex. Printing the tensor or moving it to a CPU device) or mark a step (this will be done by the `MpDeviceLoader` everytime you iterate through it), does the full step get executed.
 
 ### Trace, Compile, Execute, and Repeat
+
 From a user’s point of view, a typical training regimen for a model running on PyTorch / XLA involves running a forward pass, backward pass, and optimizer step. From the PyTorch / XLA library point of view, things look a little different.
 
 While a user runs their forward and backward passes, an intermediate representation (IR) graph is traced on the fly. The IR graph leading to each root/output tensor can be inspected as following:
 
-```
+```python
 >>> import torch
 >>> import torch_xla
 >>> import torch_xla.core.xla_model as xm
@@ -157,7 +169,7 @@ This HLO graph then gets compiled into a TPU binary and subsequently executed on
 
 Since TPU compilations are typically much slower than the step execution time, this means that if the graph keeps changing in shape, we’ll have cache misses and compile too frequently. To minimize compilation costs, we recommend keeping tensor shapes static whenever possible. Hugging Face library’s shapes are already static for the most part with input tokens being padded appropriately, so throughout training the cache should be consistently hit. This can be checked using the debugging tools that PyTorch / XLA provides. In the example below, you can see that compilation only happened 5 times (`CompileTime`) whereas execution happened during each of 1220 steps (`ExecuteTime`):
 
-```
+```python
 >>> import torch_xla.debug.metrics as met
 >>> print(met.metrics_report())
 Metric: CompileTime
@@ -186,9 +198,10 @@ Counter: CreateCompileHandles
 ```
 
 ### Train Your Transformer on Cloud TPUs
+
 To configure your VM and Cloud TPUs, please follow [“Set up a Compute Engine instance”](https://cloud.google.com/tpu/docs/tutorials/transformer-pytorch#set_up_a_instance) and [“Launch a Cloud TPU resource”](https://cloud.google.com/tpu/docs/tutorials/transformer-pytorch#launch-tpu) (pytorch-1.7 version as of writing) sections. Once you have your VM and Cloud TPU created, using them is as simple as SSHing to your GCE VM and running the following commands to get `bert-large-uncased` training kicked off (batch size is for v3-8 device, may OOM on v2-8):
 
-```
+```bash
 conda activate torch-xla-1.7
 export TPU_IP_ADDRESS="ENTER_YOUR_TPU_IP_ADDRESS"  # ex. 10.0.0.2
 export XRT_TPU_CONFIG="tpu_worker;0;$TPU_IP_ADDRESS:8470"
@@ -220,6 +233,7 @@ python examples/xla_spawn.py \
 The above should complete training in roughly less than 200 minutes with an eval perplexity of ~3.25.
 
 ## Performance Benchmarking
+
 The following table shows the performance of training bert-large-uncased on a v3-8 Cloud TPU system (containing 4 TPU v3 chips) running PyTorch / XLA. The dataset used for all benchmarking measurements is the [WikiText103](https://blog.einstein.ai/the-wikitext-long-term-dependency-language-modeling-dataset/) dataset, and we use the [run_mlm.py](https://github.com/huggingface/transformers/blob/v4.2.2/examples/language-modeling/run_mlm.py) script provided in Hugging Face examples. To ensure that the workloads are not host-CPU-bound, we use the n1-standard-96 CPU configuration for these tests, but you may be able to use smaller configurations as well without impacting performance.
 
 | Name               | Dataset     | Hardware                  | Global Batch Size | Precision | Training Time (mins) |
