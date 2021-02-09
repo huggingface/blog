@@ -1,6 +1,29 @@
-## Retrieval Augmented Generation with Huggingface Transformers and Ray
+---
+title: "Retrieval Augmented Generation with Huggingface Transformers and Ray"
+thumbnail: /blog/assets/12_ray_rag/ray_arch_updated.png
+---
 
-_[Huggingface Transformers](https://huggingface.co/) recently added the [Retrieval Augmented Generation (RAG)](https://twitter.com/huggingface/status/1310597560906780680) model, a new NLP architecture that leverages external documents (like Wikipedia) to augment its knowledge and achieve state of the art results on knowledge-intensive tasks. In this blog post, we introduce the integration of [Ray](https://docs.ray.io/en/master/), a library for building scalable applications, into the RAG contextual document retrieval mechanism. This speeds up retrieval calls by 2x and improves the scalability of RAG distributed [fine-tuning](https://github.com/huggingface/transformers/tree/master/examples/research_projects/rag)._
+# Retrieval Augmented Generation with Huggingface Transformers and Ray
+
+<div class="blog-metadata">
+    <small>Published Feb 10, 2021.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/ray-rag.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/ray-project">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1603836776822-5f989a3b777efc07d7f1e290.png?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>ray-project</code>
+            <span class="fullname">Ray Project (Anyscale)</span>
+            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+        </div>
+    </a>
+</div>
+
+[Huggingface Transformers](https://huggingface.co/) recently added the [Retrieval Augmented Generation (RAG)](https://twitter.com/huggingface/status/1310597560906780680) model, a new NLP architecture that leverages external documents (like Wikipedia) to augment its knowledge and achieve state of the art results on knowledge-intensive tasks. In this blog post, we introduce the integration of [Ray](https://docs.ray.io/en/master/), a library for building scalable applications, into the RAG contextual document retrieval mechanism. This speeds up retrieval calls by 2x and improves the scalability of RAG distributed [fine-tuning](https://github.com/huggingface/transformers/tree/master/examples/research_projects/rag).
 
 
 
@@ -101,7 +124,7 @@ _A performance comparison of different retrieval implementations. For each docum
 To try it out, first install the necessary requirements
 
 
-```
+```bash
 pip install ray
 pip install transformers
 pip install -r transformers/examples/research_projects/rag/requirements.txt
@@ -111,7 +134,7 @@ pip install -r transformers/examples/research_projects/rag/requirements.txt
 Then, you can specify your data paths and other configurations and run [finetune-rag-ray.sh](https://github.com/huggingface/transformers/blob/master/examples/research_projects/rag/finetune_rag_ray.sh)!
 
 
-```
+```bash
 # Sample script to finetune RAG using Ray for distributed retrieval.
 
 # Add parent directory to python path to access lightning_base.py
