@@ -23,6 +23,8 @@ thumbnail: /blog/assets/12_ray_rag/ray_arch_updated.png
     </a>
 </div>
 
+##### A guest blog post by <a href="/amogkam">Amog Kamsetty</a> from the Anyscale team
+
 [Huggingface Transformers](https://huggingface.co/) recently added the [Retrieval Augmented Generation (RAG)](https://twitter.com/huggingface/status/1310597560906780680) model, a new NLP architecture that leverages external documents (like Wikipedia) to augment its knowledge and achieve state of the art results on knowledge-intensive tasks. In this blog post, we introduce the integration of [Ray](https://docs.ray.io/en/master/), a library for building scalable applications, into the RAG contextual document retrieval mechanism. This speeds up retrieval calls by 2x and improves the scalability of RAG distributed [fine-tuning](https://github.com/huggingface/transformers/tree/master/examples/research_projects/rag).
 
 
