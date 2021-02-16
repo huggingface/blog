@@ -5,7 +5,7 @@ This article will talk about my journey to deploy a Transformers pipeline (senti
 ## The Goal
 I wanted to create a system that automatically detects whether a customer review is positive or negative in order to treat it accordingly and improve the customer experience.
 
-## Using transformers
+## The Transformers library
 I have been a bit confused at the beginning when I downloaded the .h5 file, I basically thought it would be compatible with `tensorflow.models.load_model` but it wasn't the case. It was my first time using Transformers, after a few minutes of researched I figured out it was a checkpoint and not a model.
 Beside that fact using the pipeline was really easy, I can't think about an easier way.
 
