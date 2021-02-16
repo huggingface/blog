@@ -2,7 +2,7 @@
 
 This article will talk about my journey to deploy a Transformers pipeline (sentiment-analysis) to Google Cloud. We will start with a quick introduction then directly move to the technical part of the deployment. After that we'll cover the implementation and concludes on what has been achieved.
 
-## My aim
+## The Goal
 I wanted to create a system that automatically detects whether a customer review is positive or negative in order to treat it accordingly and improve the customer experience.
 
 ## Using transformers
