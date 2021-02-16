@@ -1,4 +1,4 @@
-# How to deploy a pipeline to Google Cloud?
+# My Journey to a serverless transformers pipeline on the Google Cloud
 
 This article will talk about my journey to deploy a Transformers pipeline (sentiment-analysis) to Google Cloud. We will start with a quick introduction then directly move to the technical part of the deployment. After that we'll cover the implementation and concludes on what has been achieved.
 
@@ -137,4 +137,3 @@ Nevertheless, it's important to stress out that you will pay the storage for eac
 
 By using Transformers' sentiment analysis pipeline, I won a non-negligible amount of time. Instead of training/fine-tuning a model, I could find one ready to production and start the deployment in my system. I might fine-tune it in the future, but as what it shows on my test, the accuracy was amazing!
 I would have liked a "pure TensorFlow" model, or at least a way to load it in TensorFlow without Transformers dependencies to use the AI platform. It would also be great to have a lite version.
-
