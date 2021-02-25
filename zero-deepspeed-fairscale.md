@@ -18,7 +18,7 @@ thumbnail: /blog/assets/11_zero_deepspeed_fairscale/zero-partitioning.png
         <div class="bfc">
             <code>stas</code>
             <span class="fullname">Stas Bekman</span>
-            <span class="mono-label" style="color: var(--text-main);">guest</span>
+            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>

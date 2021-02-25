@@ -77,7 +77,22 @@
   thumbnail: ./assets/10_tf-serving/thumbnail.png
   date: January 26, 2021
 
+- local: pytorch-xla
+  title: "Hugging Face on PyTorch / XLA TPUs"
+  thumbnail: ./assets/13_pytorch_xla/pytorch_xla_thumbnail.png
+  author: jysohn23
+  guest: true
+  date: February 9, 2021
+
+- local: ray-rag
+  title: "Retrieval Augmented Generation with Huggingface Transformers and Ray"
+  thumbnail: ./assets/12_ray_rag/ray_arch_updated.png
+  author: amogkam
+  guest: true
+  date: February 10, 2021
+
 - local: simple-considerations
   title: "Simple considerations for simple people building fancy neural networks"
   thumbnail: ./assets/13_simple-considerations/henry-co-3coKbdfnAFg-unsplash.jpg
   date: February 4, 2021
+
