@@ -90,3 +90,9 @@
   author: amogkam
   guest: true
   date: February 10, 2021
+
+- local: simple-considerations
+  title: "Simple considerations for simple people building fancy neural networks"
+  thumbnail: ./assets/13_simple-considerations/henry-co-3coKbdfnAFg-unsplash.jpg
+  date: February 25, 2021
+
