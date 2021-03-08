@@ -93,7 +93,7 @@ A compression factor $$c$$ (equal to 3 in the illustration) is chosen to decide 
 
 * Compressive Transformer requires a special optimization schedule in which the effective batch size is progressively increased to avoid significant performance degradation for lower learning rates. This effect is not well understood and calls into more analysis.
 * The Compressive Transformer has many more hyperparameters compared to a simple model like BERT or GPT2: the compression rate, the compression function and loss, the regular and compressed memory sizes, etc.  It is not clear whether those parameters generalize well across different tasks (other than language modeling) or similar to the learning rate, make the training also very brittle.
-* It would be interesting to probe the regular memory and compressed memory to analyze what kind of information is memorized through the long sequences. Shedding light on the most salient pieces of information can inform methods such as [Funnel Transformer](https://arxiv.org/pdf/2006.03236.pdf) which reduces the redundancy in maintaining a full-length token-level sequence.
+* It would be interesting to probe the regular memory and compressed memory to analyze what kind of information is memorized through the long sequences. Shedding light on the most salient pieces of information can inform methods such as [Funnel Transformer](https://arxiv.org/abs/2006.03236) which reduces the redundancy in maintaining a full-length token-level sequence.
 
 ### ### [Linformer: Self-Attention with Linear Complexity](https://arxiv.org/abs/2006.04768)
 
