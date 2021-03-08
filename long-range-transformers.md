@@ -65,7 +65,7 @@ Longformer uses different attention patterns for autoregressive language modelin
 
 * The authors proposed the dilated windowed self-attention (Figure c) and showed that it yields better results on language modeling compared to just windowed/sparse self-attention (Figure b). The window sizes are increased through the layers. This pattern further outperforms previous architectures (such as Transfo-XL, or adaptive span attention) on downstream benchmarks.
 * Global attention allows the information to flow through the whole sequence and applying the global attention to task-motivated tokens (such as the tokens of the question in QA, CLS token for sentence classification) leads to stronger performance on downstream tasks. Using this global pattern, Longformer can be successfully applied to document-level NLP tasks in the transfer learning setting.
-* Standard pretrained models can be adapted to long-range inputs by simply replacing the standard self-attention with the long-range self-attention proposed in this paper and then fine-tuning on the downstream task. This avoids costly pre-training specific to long-range inputs.
+* Standard pre-trained models can be adapted to long-range inputs by simply replacing the standard self-attention with the long-range self-attention proposed in this paper and then fine-tuning on the downstream task. This avoids costly pre-training specific to long-range inputs.
 
 #### Follow-up questions
 
