@@ -1,12 +1,12 @@
 ---
-title: "Hugging Face Reads - 02/2021 - Long-range Transformers"
+title: "Hugging Face Reads, Feb. 2021 - Long-range Transformers"
 thumbnail: /blog/assets/12_ray_rag/ray_arch_updated.png
 ---
 
 ![Builders](/blog/assets/14_long_range_transformers/EfficientTransformerTaxonomy.png)
 
 <h1>
-    Hugging Face Reads - 02/2021 - Long-range Transformers
+    Hugging Face Reads, Feb. 2021 - Long-range Transformers
 </h1>
 
 <div class="blog-metadata">
@@ -14,6 +14,7 @@ thumbnail: /blog/assets/12_ray_rag/ray_arch_updated.png
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/long-range-transformers.md">
         Update on GitHub
     </a>
+</div>
 
 <div class="author-card">
     <a href="/VictorSanh">
@@ -27,7 +28,7 @@ thumbnail: /blog/assets/12_ray_rag/ray_arch_updated.png
 
 Co-written by Teven Le Scao, Patrick Von Platen, Suraj Patil, Yacine Jernite and Victor Sanh.
 
-*Each month, we will choose a topic to focus on, reading a set of four papers recently published on the subject. We will then write a short blog post summarizing their findings and the common trends between them, questions we had for follow-up work after reading them. The first topic for January 2021 is [Sparsity and Pruning](https://discuss.huggingface.co/t/hugging-face-reads-01-2021-sparsity-and-pruning/3144), in February 2021 we addressed Long-Range Attention in Transformers.*
+> Each month, we will choose a topic to focus on, reading a set of four papers recently published on the subject. We will then write a short blog post summarizing their findings and the common trends between them, questions we had for follow-up work after reading them. The first topic for January 2021 is [Sparsity and Pruning](https://discuss.huggingface.co/t/hugging-face-reads-01-2021-sparsity-and-pruning/3144), in February 2021 we addressed Long-Range Attention in Transformers.
 
 ## Introduction
 
