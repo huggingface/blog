@@ -17,7 +17,7 @@ thumbnail: /blog/assets/12_ray_rag/ray_arch_updated.png
 
 <div class="author-card">
     <a href="/VictorSanh">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1590600248871-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <img class="avatar avatar-user" src="https://pbs.twimg.com/profile_images/1141847999917768704/Wn2vaOMO_400x400.jpg" title="Gravatar">
         <div class="bfc">
             <code>VictorSanh</code>
             <span class="fullname">Victor Sanh</span>
