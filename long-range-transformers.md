@@ -117,7 +117,7 @@ $$\text{LinAttention}(Q, K, V) = \text{softmax}(Q * K * W^K) * W^V * V$$
 
 * The self-attention matrix is low-rank which implies that most of its information can be recovered by its first few highest eigenvalues and can be approximated by a low-rank matrix.
 * Lot of works focus on reducing the dimensionality of the hidden states. This paper shows that reducing the sequence length with learned projections can be a strong alternative while shrinking the memory complexity of the self-attention from quadratic to linear.
-* Increasing the sequence length doesn’t affect the inference speed (time-clock) of Linformer, when Transformers have a linear increase. Moreover, the convergence speed (number of updates) is no t impacted by Linformer.
+* Increasing the sequence length doesn’t affect the inference speed (time-clock) of Linformer, when Transformers have a linear increase. Moreover, the convergence speed (number of updates) is not impacted by Linformer.
 
 ![Builders](/blog/assets/14_long_range_transformers/Linformer.png)
 
