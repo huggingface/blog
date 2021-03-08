@@ -57,9 +57,9 @@ The standard self-attention matrix (Figure a) scales quadratically with the inpu
 ![Builders](/blog/assets/14_long_range_transformers/Longformer.png)
 
 Longformer uses different attention patterns for autoregressive language modeling, encoder pretraining & fine-tuning, and sequence-to-sequence tasks.
-* For autoregressive language modeling, the strongest results are obtained by replacing causal self-attention (a la GPT2) with dilated windowed self-attention (Figure c). With $$n$$ being the sequence length and $$w$$ being the window length, this attention pattern reduces the memory consumption from $$n^2$$ to $$wn$$, which under the assumption that $$w << n$$, scales linearly with the sequence length.
-* For encoder pre-training, Longformer replaces the bi-directional self-attention (a la BERT) with a combination of local windowed and global bi-directional self-attention (Figure d). This reduces the memory consumption from $$n^2$$ to $$w n + g n$$ with $$g$$ being the number of tokens that are attended to globally, which again scales linearly with the sequence length.
-* For sequence-to-sequence models, only the encoder layers (a la BART) are replaced with a combination of local and global bi-directional self-attention (Figure d) because for most seq2seq tasks, only the encoder processes very large inputs (e.g. summarization). The memory consumption is thus reduced from $$n_s^2+ n_s n_t +n_t^2$$ to $$w n_s +gn_s +n_s n_t +n_t^2$$ with $$n_s$$ and $$n_t$$ being the source (encoder input) and target (decoder input) lengths respectively. For Longformer Encoder-Decoder to be efficient it is assumed that $n$ is much bigger than $$n_t$$.
+* For autoregressive language modeling, the strongest results are obtained by replacing causal self-attention (a la GPT2) with dilated windowed self-attention (Figure c). With \\(n\\) being the sequence length and \\(w\\) being the window length, this attention pattern reduces the memory consumption from \\(n^2\\) to \\(wn\\), which under the assumption that \\(w << n\\), scales linearly with the sequence length.
+* For encoder pre-training, Longformer replaces the bi-directional self-attention (a la BERT) with a combination of local windowed and global bi-directional self-attention (Figure d). This reduces the memory consumption from \\(n^2\\) to \\(w n + g n\\) with \\(g\\) being the number of tokens that are attended to globally, which again scales linearly with the sequence length.
+* For sequence-to-sequence models, only the encoder layers (a la BART) are replaced with a combination of local and global bi-directional self-attention (Figure d) because for most seq2seq tasks, only the encoder processes very large inputs (e.g. summarization). The memory consumption is thus reduced from \\(n_s^2+ n_s n_t +n_t^2\\) to \\(w n_s +gn_s +n_s n_t +n_t^2\\) with \\(n_s\\) and \\(n_t\\) being the source (encoder input) and target (decoder input) lengths respectively. For Longformer Encoder-Decoder to be efficient it is assumed that $n$ is much bigger than \\(n_t\\).
 
 #### Main findings
 
@@ -77,11 +77,11 @@ Longformer uses different attention patterns for autoregressive language modelin
 
 Jack W. Rae, Anna Potapenko, Siddhant M. Jayakumar, Timothy P. Lillicrap
 
-[Transformer-XL (2019)](https://arxiv.org/abs/1901.02860) showed that caching previously computed layer activations in a memory can boost performance on language modeling tasks (such as *enwik8*). Instead of just attending the current $$n$$ input tokens, the model can also attend to the past $$n_m$$ tokens, with $$n_m$$ being the memory size of the model. Transformer-XL has a memory complexity of $$O(n^2+ n n_m)$$, which shows that memory cost can increase significantly for very large nm. Hence, Transformer-XL has to eventually discard past activations from the memory when the number of cached activations gets larger than $$n_m$$. Compressive Transformer addresses this problem by adding an additional compressed memory to efficiently cache past activations that would have otherwise eventually been discarded. This way the model can learn better long-range sequence dependencies having access to significantly more past activations.
+[Transformer-XL (2019)](https://arxiv.org/abs/1901.02860) showed that caching previously computed layer activations in a memory can boost performance on language modeling tasks (such as *enwik8*). Instead of just attending the current \\(n\\) input tokens, the model can also attend to the past \\(n_m\\) tokens, with \\(n_m\\) being the memory size of the model. Transformer-XL has a memory complexity of \\(O(n^2+ n n_m)\\), which shows that memory cost can increase significantly for very large nm. Hence, Transformer-XL has to eventually discard past activations from the memory when the number of cached activations gets larger than \\(n_m\\). Compressive Transformer addresses this problem by adding an additional compressed memory to efficiently cache past activations that would have otherwise eventually been discarded. This way the model can learn better long-range sequence dependencies having access to significantly more past activations.
 
 ![Builders](/blog/assets/14_long_range_transformers/CompressiveTransformer.png)
 
-A compression factor $$c$$ (equal to 3 in the illustration) is chosen to decide the rate at which past activations are compressed. The authors experiment with different compression functions $$fc$$ among others max/mean pooling (parameter-free) and 1D convolution (trainable layer). The compression function is trained with backpropagation-through time or local auxiliary compression losses. In addition to the current input $$n$$, the model attends to $$n_m$$ cached activations in the regular memory and $$n_{cm}$$ compressed memory activations allowing a long temporal dependency of  $$l × (n_m + c n_{cm})$$, with $$l$$ being the number of attention layers. This increases Transformer-XL’s range by additional $$l c n_{cm}$$ tokens and the memory cost amounts to $$O(n^2+ n n_m+ n n_{cm})$$. Experiments are conducted on Reinforcement learning, audio generation, and natural language processing. The authors also introduce a new long-range language modeling benchmark called [PG19](https://huggingface.co/datasets/pg19).
+A compression factor \\(c\\) (equal to 3 in the illustration) is chosen to decide the rate at which past activations are compressed. The authors experiment with different compression functions \\(fc\\) among others max/mean pooling (parameter-free) and 1D convolution (trainable layer). The compression function is trained with backpropagation-through time or local auxiliary compression losses. In addition to the current input \\(n\\), the model attends to \\(n_m\\) cached activations in the regular memory and \\(n_{cm}\\) compressed memory activations allowing a long temporal dependency of  \\(l × (n_m + c n_{cm})\\), with \\(l\\) being the number of attention layers. This increases Transformer-XL’s range by additional \\(l c n_{cm}\\) tokens and the memory cost amounts to \\(O(n^2+ n n_m+ n n_{cm})\\). Experiments are conducted on Reinforcement learning, audio generation, and natural language processing. The authors also introduce a new long-range language modeling benchmark called [PG19](https://huggingface.co/datasets/pg19).
 
 #### Main findings
 
@@ -99,18 +99,22 @@ A compression factor $$c$$ (equal to 3 in the illustration) is chosen to decide 
 
 Sinong Wang, Belinda Z. Li, Madian Khabsa, Han Fang, Hao Ma
 
-The goal is to reduce the complexity of the self-attention with respect to the sequence length ($$n$$) from quadratic to linear. This paper makes the observation that the attention matrices are low rank (i.e. they don’t contain $$n x n$$ worth of information) and explores the possibility of using high-dimensional data compression techniques to build more memory efficient Transformers.
+The goal is to reduce the complexity of the self-attention with respect to the sequence length (\\(n\\)) from quadratic to linear. This paper makes the observation that the attention matrices are low rank (i.e. they don’t contain \\(n x n\\) worth of information) and explores the possibility of using high-dimensional data compression techniques to build more memory efficient Transformers.
 
-The theoretical foundations of the proposed approach are based on the Johnson-Lindenstrauss lemma. Let’s consider m points in a high-dimensional space. We want to project them to a low-dimensional space while preserving the structure of the dataset (i.e. the mutual distances between points) with a margin of error $$\varepsilon$$. The Johnson-Lindenstrauss lemma states we can choose a small dimension $$k \sim 8 \log(m) / \varepsilon^2$$ and find a suitable projection into Rk in polynomial time by simply trying random orthogonal projections.
+The theoretical foundations of the proposed approach are based on the Johnson-Lindenstrauss lemma. Let’s consider m points in a high-dimensional space. We want to project them to a low-dimensional space while preserving the structure of the dataset (i.e. the mutual distances between points) with a margin of error \\(\varepsilon\\). The Johnson-Lindenstrauss lemma states we can choose a small dimension \\(k \sim 8 \log(m) / \varepsilon^2\\) and find a suitable projection into Rk in polynomial time by simply trying random orthogonal projections.
 
-Linformer projects the sequence length into a smaller dimension by learning a low-rank decomposition of the attention context matrix. The matrix multiplication of the self-attention can be then cleverly re-written such that no matrix of size $$n x n$$ needs to be ever computed and stored.
+Linformer projects the sequence length into a smaller dimension by learning a low-rank decomposition of the attention context matrix. The matrix multiplication of the self-attention can be then cleverly re-written such that no matrix of size \\(n x n\\) needs to be ever computed and stored.
 
 Standard transformer:
+
 $$\text{Attention}(Q, K, V) = \text{softmax}(Q * K) * V$$
+
            (n * h)	            (n * n)          (n * h)
 
 Linformer:
+
 $$\text{LinAttention}(Q, K, V) = \text{softmax}(Q * K * W^K) * W^V * V$$
+
            (n * h)	          	             (n * d)            (d * n)  (n * h)
 
 #### Main findings
@@ -129,12 +133,14 @@ Even though the projections matrices are shared between layers, the approach pre
 
 Krzysztof Choromanski, Valerii Likhosherstov, David Dohan, Xingyou Song, Andreea Gane, Tamas Sarlos, Peter Hawkins, Jared Davis, Afroz Mohiuddin, Lukasz Kaiser, David Belanger, Lucy Colwell, Adrian Weller
 
-The goal is (again!) to reduce the complexity of the self-attention with respect to the sequence length ($$n$$) from quadratic to linear. in contrast to other papers, the authors note that the sparsity and low-rankness priors of the self-attention may not hold in other modalities (speech, protein sequence modeling). Thus the paper explores methods to reduce the memory burden of the self-attention without any priors on the attention matrix.
+The goal is (again!) to reduce the complexity of the self-attention with respect to the sequence length (\\(n\\)) from quadratic to linear. in contrast to other papers, the authors note that the sparsity and low-rankness priors of the self-attention may not hold in other modalities (speech, protein sequence modeling). Thus the paper explores methods to reduce the memory burden of the self-attention without any priors on the attention matrix.
 
-The authors observe that if we could perform the matrix multiplication $$K x V$$ through the softmax ($$\text{softmax}(Q * K) * V$$), we wouldn’t have to compute the $$Q x K$$ matrix of size $$n x n$$ which is the memory bottleneck. They use random feature maps (aka random projections) to approximate the softmax by:
+The authors observe that if we could perform the matrix multiplication \\(K x V\\) through the softmax (\\(\text{softmax}(Q * K) * V\\)), we wouldn’t have to compute the \\(Q x K\\) matrix of size \\(n x n\\) which is the memory bottleneck. They use random feature maps (aka random projections) to approximate the softmax by:
 
-$$\text{softmax}(Q * K) \sim Q’ * K’ = \phi(Q) * \phi(K)$$ where \$$phi$$ is a non-linear suitable function
-And then:
+$$\text{softmax}(Q * K) \sim Q’ * K’ = \phi(Q) * \phi(K)$$
+
+, where \\(phi\\) is a non-linear suitable function. And then:
+
 $$\text{Attention}(Q, K, V) \sim \phi(Q) * (\phi(K) * V)$$
 
 Taking inspiration from machine learning papers from the early 2000s, the authors introduce **FAVOR+** (**F**ast **A**ttention **V**ia **O**rthogonal **R**andom positive (**+**) **F**eatures) a procedure to find unbiased or nearly-unbiased estimations of the self-attention matrix, with uniform convergence and low estimation variance.
