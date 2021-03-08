@@ -25,7 +25,7 @@ thumbnail: /blog/assets/12_ray_rag/ray_arch_updated.png
     </a>
 </div>
 
-By Patrick Von Platen, Teven Le Scao, Yacine Jernite and Victor Sanh.
+Co-written by Teven Le Scao, Patrick Von Platen, Suraj Patil, Yacine Jernite and Victor Sanh.
 
 *Each month, we will choose a topic to focus on, reading a set of four papers recently published on the subject. We will then write a short blog post summarizing their findings and the common trends between them, questions we had for follow-up work after reading them. The first topic for January 2021 is [Sparsity and Pruning](https://discuss.huggingface.co/t/hugging-face-reads-01-2021-sparsity-and-pruning/3144), in February 2021 we addressed Long-Range Attention in Transformers.*
 
