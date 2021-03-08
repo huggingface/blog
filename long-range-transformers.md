@@ -152,7 +152,7 @@ Taking inspiration from machine learning papers from the early 2000s, the author
 
 ## Reading group discussion
 
-The developments in pre-trained Transformer-based language models for natural language understanding and generation are impressive. Making these systems efficient for production purposes have become a very active research area. This emphasizes that we still have much to learn and build both on the methodological and practical sides to enable efficient and general deep learning based systems, in particular for applications that require modeling long range inputs.
+The developments in pre-trained Transformer-based language models for natural language understanding and generation are impressive. Making these systems efficient for production purposes has become a very active research area. This emphasizes that we still have much to learn and build both on the methodological and practical sides to enable efficient and general deep learning based systems, in particular for applications that require modeling long-range inputs.
 
 The four papers above offer different ways to deal with the quadratic memory complexity of the self-attention mechanism, usually by reducing it to a linear complexity. Linformer and Longformer both rely on the observation that the self-attention matrix does not contain n x n worth of information (the attention matrix is low-rank and sparse). Performer gives a principled method to approximate the softmax-attention kernel (and any kernelizable attention mechanisms beyond softmax). Compressive Transformer offers an orthogonal procedure to model long range dependencies based on recurrence.
 
