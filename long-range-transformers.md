@@ -3,7 +3,10 @@ title: "Hugging Face Reads, Feb. 2021 - Long-range Transformers"
 thumbnail: /blog/assets/12_ray_rag/ray_arch_updated.png
 ---
 
-![Builders](/blog/assets/14_long_range_transformers/EfficientTransformerTaxonomy.png)
+<figure>
+  <img src="/blog/assets/14_long_range_transformers/EfficientTransformerTaxonomy.png" alt="Efficient Transformers taxonomy"/>
+  <figcaption>Efficient Transformers taxonomy from Efficient Transformers: a Survey by Tay et al.</figcaption>
+</figure>
 
 <h1>
     Hugging Face Reads, Feb. 2021 - Long-range Transformers
@@ -55,7 +58,10 @@ Longformer addresses the memory bottleneck of transformers by replacing conventi
 
 The standard self-attention matrix (Figure a) scales quadratically with the input length:
 
-![Builders](/blog/assets/14_long_range_transformers/Longformer.png)
+<figure>
+  <img src="/blog/assets/14_long_range_transformers/Longformer.png" alt="Longformer attention"/>
+  <figcaption>Figure taken from Longformer</figcaption>
+</figure>
 
 Longformer uses different attention patterns for autoregressive language modeling, encoder pre-training & fine-tuning, and sequence-to-sequence tasks.
 * For autoregressive language modeling, the strongest results are obtained by replacing causal self-attention (a la GPT2) with dilated windowed self-attention (Figure c). With \\(n\\) being the sequence length and \\(w\\) being the window length, this attention pattern reduces the memory consumption from \\(n^2\\) to \\(wn\\), which under the assumption that \\(w << n\\), scales linearly with the sequence length.
@@ -80,7 +86,11 @@ Jack W. Rae, Anna Potapenko, Siddhant M. Jayakumar, Timothy P. Lillicrap
 
 [Transformer-XL (2019)](https://arxiv.org/abs/1901.02860) showed that caching previously computed layer activations in a memory can boost performance on language modeling tasks (such as *enwik8*). Instead of just attending the current \\(n\\) input tokens, the model can also attend to the past \\(n_m\\) tokens, with \\(n_m\\) being the memory size of the model. Transformer-XL has a memory complexity of \\(O(n^2+ n n_m)\\), which shows that memory cost can increase significantly for very large \\(n_m\\). Hence, Transformer-XL has to eventually discard past activations from the memory when the number of cached activations gets larger than \\(n_m\\). Compressive Transformer addresses this problem by adding an additional compressed memory to efficiently cache past activations that would have otherwise eventually been discarded. This way the model can learn better long-range sequence dependencies having access to significantly more past activations.
 
-![Builders](/blog/assets/14_long_range_transformers/CompressiveTransformer.png)
+
+<figure>
+  <img src="/blog/assets/14_long_range_transformers/CompressiveTransformer.png" alt="Compressive Tranformer recurrence"/>
+  <figcaption>Figure taken from Compressive Transfomer</figcaption>
+</figure>
 
 A compression factor \\(c\\) (equal to 3 in the illustration) is chosen to decide the rate at which past activations are compressed. The authors experiment with different compression functions \\(f_c\\) such as max/mean pooling (parameter-free) and 1D convolution (trainable layer). The compression function is trained with backpropagation through time or local auxiliary compression losses. In addition to the current input of length \\(n\\), the model attends to \\(n_m\\) cached activations in the regular memory and \\(n_{cm}\\) compressed memory activations allowing a long temporal dependency of  \\(l × (n_m + c n_{cm})\\), with \\(l\\) being the number of attention layers. This increases Transformer-XL’s range by additional \\(l × c × n_{cm}\\) tokens and the memory cost amounts to \\(O(n^2+ n n_m+ n n_{cm})\\). Experiments are conducted on Reinforcement learning, audio generation, and natural language processing. The authors also introduce a new long-range language modeling benchmark called [PG19](https://huggingface.co/datasets/pg19).
 
@@ -124,7 +134,10 @@ $$\text{LinAttention}(Q, K, V) = \text{softmax}(Q * K * W^K) * W^V * V$$
 * Lot of works focus on reducing the dimensionality of the hidden states. This paper shows that reducing the sequence length with learned projections can be a strong alternative while shrinking the memory complexity of the self-attention from quadratic to linear.
 * Increasing the sequence length doesn’t affect the inference speed (time-clock) of Linformer, when transformers have a linear increase. Moreover, the convergence speed (number of updates) is not impacted by Linformer's self-attention.
 
-![Builders](/blog/assets/14_long_range_transformers/Linformer.png)
+<figure>
+  <img src="/blog/assets/14_long_range_transformers/Linformer.png" alt="Linformer performance"/>
+  <figcaption>Figure taken from Linformer</figcaption>
+</figure>
 
 #### Follow-up questions
 
