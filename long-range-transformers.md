@@ -1,6 +1,6 @@
 ---
 title: "Hugging Face Reads, Feb. 2021 - Long-range Transformers"
-thumbnail: /blog/assets/12_ray_rag/ray_arch_updated.png
+thumbnail: /blog/assets/14_long_range_transformers/EfficientTransformerTaxonomy.png
 ---
 
 <figure>
