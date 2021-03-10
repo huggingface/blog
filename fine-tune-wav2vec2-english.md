@@ -32,7 +32,7 @@ and an inventory of discretized speech units. by Baevski et al.</figcaption>
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/github/blog/blob/master/fine-tune-wav2vec2-english.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/blog/blob/master/notebooks/17_fine_tune_wav2vec2_for_english_asr.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
