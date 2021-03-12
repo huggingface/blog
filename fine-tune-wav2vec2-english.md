@@ -1,15 +1,7 @@
 ---
-title: "Fine-Tune Wav2Vec2 for English ASR in Hugging Face Transformers"
+title: "Fine-Tune Wav2Vec2 for English ASR in Hugging Face with 🤗 Transformers"
 thumbnail: /blog/assets/15_fine_tune_wav2vec2/wav2vec2.png
 ---
-
-<!--- 
-<figure>
-  <img src="/blog/assets/15_fine_tune_wav2vec2/wav2vec2.png" alt="Wav2Vec2 Pretraining"/>
-  <figcaption>Illustration of our framework which jointly learns contextualized speech representations
-and an inventory of discretized speech units. by Baevski et al.</figcaption>
-</figure>
---->
 
 <h1>
     Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers
@@ -32,7 +24,7 @@ and an inventory of discretized speech units. by Baevski et al.</figcaption>
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/github/blog/blob/master/notebooks/17_fine_tune_wav2vec2_for_english_asr.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Fine_tuning_Wav2Vec2_for_English_ASR.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -207,6 +199,7 @@ show_random_elements(timit["train"].remove_columns(["file"]))
 |	7  | Our entire economy will have a terrific uplift. | 
 |	8  | Don't ask me to carry an oily rag like that. | 
 |	9  | The gorgeous butterfly ate a lot of nectar. | 
+| 10 | Where're you takin' me? |
 
 Alright! The transcriptions look very clean and the language seems to
 correspond more to written text than dialogue. This makes sense taking

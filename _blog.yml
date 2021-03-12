@@ -102,6 +102,11 @@
   date: March 09, 2021
 
 - local: fine-tune-wav2vec2-english
-  title: "Fine-Tune Wav2Vec2 for English ASR in Hugging Face Transformers"
+  title: "Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers"
   thumbnail: ./assets/15_fine_tune_wav2vec2/wav2vec2.png
+  date: March 12, 2021
+
+- local: fine-tune-xlsr-wav2vec2
+  title: "Fine-Tune XLSR-Wav2Vec2 for low-resource ASR with 🤗 Transformers"
+  thumbnail: ./assets/16_fine_tune_xlsr_wav2vec2/xlsr_wav2vec2.png
   date: March 12, 2021
