@@ -73,7 +73,7 @@ Let's start by creating the tokenizer responsible for decoding the model's predi
 
 The pretrained XLSR-Wav2Vec2 checkpoint maps the speech signal to a sequence of context representations as illustrated in the figure above. A fine-tuned XLSR-Wav2Vec2 checkpoint needs to map this sequence of context representations to its corresponding transcription so that a linear layer has to be added on top of the transformer block (shown in yellow). This linear layer is used to classifies each context representation to a token class analogous how, *e.g.*, after pretraining a linear layer is added on top of BERT's embeddings for further classification - *cf.* with *"BERT"* section of this [blog post](https://huggingface.co/blog/warm-starting-encoder-decoder).
 
-The output size of this layer corresponds to the number of tokens in the vocabulary, which does **not** depend on XLSR-Wav2Vec2's pretraining task, but only on the labeled dataset used for fine-tuning. So in the first step, we will take a look at Timit and define a vocabulary based on the dataset's transcriptions.
+The output size of this layer corresponds to the number of tokens in the vocabulary, which does **not** depend on XLSR-Wav2Vec2's pretraining task, but only on the labeled dataset used for fine-tuning. So in the first step, we will take a look at Common Voice and define a vocabulary based on the dataset's transcriptions.
 
 First, let's go to [Common Voice](https://commonvoice.mozilla.org/en) and pick your favorite language you would like to fine-tune XLSR-Wav2Vec2 on. For this notebook, we will use Turkish. 
 
@@ -266,7 +266,7 @@ One should always keep in mind that the data-preprocessing is a very important s
 
 It is always advantageous to get help from a native speaker of the language you would like to transcribe to verify whether the assumptions you made are sensible, *e.g.* I should have made sure that keeping `'`, but removing other special characters is a sensible choice for Turkish.
 
-To make it clearer that `" "` has its own token class, we give it a more visible character `|`. In addition, we also add an "unknown" token so that the model can later deal with characters not encountered in Timit's training set. 
+To make it clearer that `" "` has its own token class, we give it a more visible character `|`. In addition, we also add an "unknown" token so that the model can later deal with characters not encountered in Common Voice's training set. 
 
 ```python
 vocab_dict["|"] = vocab_dict[" "]
@@ -651,7 +651,7 @@ In a final step, we define all parameters related to training.
 To give more explanation on some of the parameters:
 
 - 	`group_by_length` makes training more efficient by grouping training samples of similar input length into one batch. This can significantly speed up training time by heavily reducing the overall number of useless padding tokens that are passed through the model
-- 	`learning_rate` and `weight_decay` were heuristically tuned until fine-tuning has become stable. Note that those parameters strongly depend on the Timit dataset and might be suboptimal for other speech datasets.
+- 	`learning_rate` and `weight_decay` were heuristically tuned until fine-tuning has become stable. Note that those parameters strongly depend on the Common Voice dataset and might be suboptimal for other speech datasets.
 
 For more explanations on other parameters, one can take a look at the [docs](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer#trainingarguments).
 
@@ -689,8 +689,8 @@ trainer = Trainer(
     data_collator=data_collator,
     args=training_args,
     compute_metrics=compute_metrics,
-    train_dataset=timit_prepared["train"],
-    eval_dataset=timit_prepared["test"],
+    train_dataset=common_voice_train,
+    eval_dataset=common_voice_test,
     tokenizer=processor.feature_extractor,
 )
 ```
