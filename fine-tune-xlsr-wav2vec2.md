@@ -761,7 +761,7 @@ input_dict = processor(common_voice_test["input_values"][0], return_tensors="pt"
 
 logits = model(input_dict.input_values.to("cuda")).logits
 
-pred_ids = torch.argmax(logits, dim=-1)[0][0]
+pred_ids = torch.argmax(logits, dim=-1)[0]
 ```
 
 We adapted `common_voice_test` quite a bit so that the dataset instance does not contain the original sentence label anymore. Thus, we re-use the original dataset to get the label of the first example.
@@ -774,7 +774,7 @@ Finally, we can decode the example.
 
 ```python
 print("Prediction:")
-print(processor.decode(pred_ids[0]))
+print(processor.decode(pred_ids))
 
 print("\nReference:")
 print(common_voice_test_transcription["sentence"][0].lower())
