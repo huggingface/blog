@@ -28,23 +28,23 @@ thumbnail: /blog/assets/15_fine_tune_wav2vec2/wav2vec2.png
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-Wav2Vec2 is a pretrained model for Automatic Speech Recognition (ASR) and was released in [September 2020](https://ai.facebook.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) by Alexei Baevski, Michael Auli, and Alex Conneau.  Soon after the superior performance of Wav2Vec2 was demonstrated on the English ASR dataset LibriSpeech, *Facebook AI* presented XLSR-Wav2Vec2 (click [here](https://arxiv.org/abs/2006.13979)). XLSR stands for *cross-lingual  speech representations* and refers to XLSR-Wav2Vec2`s ability to learn speech representations that are useful across multiple languages.
+Wav2Vec2 is a pretrained model for Automatic Speech Recognition (ASR) and was released in [September 2020](https://ai.facebook.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) by Alexei Baevski, Michael Auli, and Alex Conneau.  Soon after the superior performance of Wav2Vec2 was demonstrated on the English ASR dataset LibriSpeech, *Facebook AI* presented XLSR-Wav2Vec2 (click [here](https://arxiv.org/abs/2006.13979)). XLSR stands for *cross-lingual  speech representations* and refers to XLSR-Wav2Vec2\'s ability to learn speech representations that are useful across multiple languages.
 
-Similar to Wav2Vec2, XLSR-Wav2Vec2 learns powerful speech representations from hundreds of thousands of hours of speech in more than 50 languages of unlabeled speech. Similar, to [BERT's masked language modeling](http://jalammar.github.io/illustrated-bert/), the model learns contextualized speech representations by randomly masking feature vectors before passing them to a transformer network.
+Similar to Wav2Vec2, XLSR-Wav2Vec2 learns powerful speech representations from hundreds of thousands of hours of speech in more than 50 languages of unlabeled speech. Similar, to [BERT\'s masked language modeling](http://jalammar.github.io/illustrated-bert/), the model learns contextualized speech representations by randomly masking feature vectors before passing them to a transformer network.
 
 ![wav2vec2\_structure](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/xlsr_wav2vec2.png)
 
 The authors show for the first time that massively pretraining an ASR model on cross-lingual unlabeled speech data, followed by language-specific fine-tuning on very little labeled data achieves state-of-the-art results. See Table 1-5 of the official [paper](https://arxiv.org/pdf/2006.13979.pdf).
 
-In this notebook, we will give an in-detail explanation of how XLSR-Wav2Vec2's pretrained checkpoint can be fine-tuned on a low-resource ASR dataset of any language. Note that in this notebook, we will fine-tune XLSR-Wav2Vec2 without making use of a language model. It is much simpler and more efficient to use XLSR-Wav2Vec2 without a language model, but better results can be achieved by including a language model. 
+In this notebook, we will give an in-detail explanation of how XLSR-Wav2Vec2\'s pretrained checkpoint can be fine-tuned on a low-resource ASR dataset of any language. Note that in this notebook, we will fine-tune XLSR-Wav2Vec2 without making use of a language model. It is much simpler and more efficient to use XLSR-Wav2Vec2 without a language model, but better results can be achieved by including a language model.
 
 For demonstration purposes, we fine-tune the [wav2vec2-large-xlsr-53](https://huggingface.co/facebook/wav2vec2-large-xlsr-53) on the low resource Turkish ASR dataset of [Common Voice](https://huggingface.co/datasets/common_voice) that contains just ~6h of validated training data.
 
-XLSR-Wav2Vec2 is fine-tuned using Connectionist Temporal Classification (CTC), which is an algorithm that is used to train neural networks for sequence-to-sequence problems and mainly in Automatic Speech Recognition and handwriting recognition. 
+XLSR-Wav2Vec2 is fine-tuned using Connectionist Temporal Classification (CTC), which is an algorithm that is used to train neural networks for sequence-to-sequence problems and mainly in Automatic Speech Recognition and handwriting recognition.
 
 I highly recommend reading the blog post [Sequence Modeling with CTC (2017)](https://distill.pub/2017/ctc/) very well-written blog post by Awni Hannun.
 
-Before we start, let's install both `datasets` and `transformers` from master. Also, we need the `torchaudio` and `librosa` package to load audio files and the `jiwer` to evaluate our fine-tuned model using the [word error rate (WER)](https://huggingface.co/metrics/wer) metric ${}^1$.
+Before we start, let\'s install both `datasets` and `transformers` from master. Also, we need the `torchaudio` and `librosa` package to load audio files and the `jiwer` to evaluate our fine-tuned model using the [word error rate (WER)](https://huggingface.co/metrics/wer) metric \\({}^1\\).
 
 ```bash
 !pip install git+https://github.com/huggingface/datasets.git
@@ -56,34 +56,34 @@ Before we start, let's install both `datasets` and `transformers` from master. A
 
 ------------------------------------------------------------------------
 
-\\({}^1\\) In the [paper](https://arxiv.org/pdf/2006.13979.pdf), the model was evaluated using the phoneme error rate (PER), 
-but by far the most common metric in ASR is the word error rate (WER). 
+\\({}^1\\) In the [paper](https://arxiv.org/pdf/2006.13979.pdf), the model was evaluated using the phoneme error rate (PER),
+but by far the most common metric in ASR is the word error rate (WER).
 To keep this notebook as general as possible we decided to evaluate the model using WER.
 
 Prepare Data, Tokenizer, Feature Extractor
 ------------------------------------------
 
-ASR models transcribe speech to text, which means that we both need a feature extractor that processes the speech signal to the model's input format, *e.g.* a feature vector, and a tokenizer that processes the model's output format to text. 
+ASR models transcribe speech to text, which means that we both need a feature extractor that processes the speech signal to the model\'s input format, *e.g.* a feature vector, and a tokenizer that processes the model\'s output format to text.
 
 In 🤗 Transformers, the XLSR-Wav2Vec2 model is thus accompanied by both a tokenizer, called [Wav2Vec2CTCTokenizer](https://huggingface.co/transformers/master/model_doc/wav2vec2.html#wav2vec2ctctokenizer), and a feature extractor, called [Wav2Vec2FeatureExtractor](https://huggingface.co/transformers/master/model_doc/wav2vec2.html#wav2vec2featureextractor).
 
-Let's start by creating the tokenizer responsible for decoding the model's predictions.
+Let\'s start by creating the tokenizer responsible for decoding the model\'s predictions.
 
 ### Create XLSR-Wav2Vec2CTCTokenizer
 
-The pretrained XLSR-Wav2Vec2 checkpoint maps the speech signal to a sequence of context representations as illustrated in the figure above. A fine-tuned XLSR-Wav2Vec2 checkpoint needs to map this sequence of context representations to its corresponding transcription so that a linear layer has to be added on top of the transformer block (shown in yellow). This linear layer is used to classifies each context representation to a token class analogous how, *e.g.*, after pretraining a linear layer is added on top of BERT's embeddings for further classification - *cf.* with *"BERT"* section of this [blog post](https://huggingface.co/blog/warm-starting-encoder-decoder).
+The pretrained XLSR-Wav2Vec2 checkpoint maps the speech signal to a sequence of context representations as illustrated in the figure above. A fine-tuned XLSR-Wav2Vec2 checkpoint needs to map this sequence of context representations to its corresponding transcription so that a linear layer has to be added on top of the transformer block (shown in yellow). This linear layer is used to classifies each context representation to a token class analogous how, *e.g.*, after pretraining a linear layer is added on top of BERT\'s embeddings for further classification - *cf.* with *"BERT"* section of this [blog post](https://huggingface.co/blog/warm-starting-encoder-decoder).
 
-The output size of this layer corresponds to the number of tokens in the vocabulary, which does **not** depend on XLSR-Wav2Vec2's pretraining task, but only on the labeled dataset used for fine-tuning. So in the first step, we will take a look at Timit and define a vocabulary based on the dataset's transcriptions.
+The output size of this layer corresponds to the number of tokens in the vocabulary, which does **not** depend on XLSR-Wav2Vec2\'s pretraining task, but only on the labeled dataset used for fine-tuning. So in the first step, we will take a look at Timit and define a vocabulary based on the dataset\'s transcriptions.
 
-First, let's go to [Common Voice](https://commonvoice.mozilla.org/en) and pick your favorite language you would like to fine-tune XLSR-Wav2Vec2 on. For this notebook, we will use Turkish. 
+First, let\'s go to [Common Voice](https://commonvoice.mozilla.org/en) and pick your favorite language you would like to fine-tune XLSR-Wav2Vec2 on. For this notebook, we will use Turkish.
 
-**Note**: Most likely, the common voice link has expired. In this case, just go to [Common Voice's dataset website](https://commonvoice.mozilla.org/en/datasets), select your language, *e.g.* `Turkish`, enter your email address to get the "*Download*" button, click right, and click `Copy link address` to fill it in the cell below.
+**Note**: Most likely, the common voice link has expired. In this case, just go to [Common Voice\'s dataset website](https://commonvoice.mozilla.org/en/datasets), select your language, *e.g.* `Turkish`, enter your email address to get the "*Download*" button, click right, and click `Copy link address` to fill it in the cell below.
 
 ```bash
 !wget "https://mozilla-common-voice-datasets.s3.dualstack.us-west-2.amazonaws.com/cv-corpus-6.1-2020-12-11/tr.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAQ3GQRTO3G23VQA5S%2F20210312%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210312T064856Z&X-Amz-Expires=43200&X-Amz-Security-Token=FwoGZXIvYXdzEIj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDKZIPKux%2BmNHRNIsviKSBNDlKP4z8BJGh7lr6j6zkLhvCmkVA8f7Ot4KR52ZpaRK1eP0KRvKdrAvWdk4F0%2FWiPb5lRkDxtfA5gQE6ntJytUzRQfriVpYDHqSCGM7YEaG1ng1XK47dzO0%2FfcwpmyCfpRnZxw1gfs9oH%2BiFub530LRxeuHjeSDrbYT0hLPSXHQX5QRVVhyNLpqd%2F%2Bgqee5JzpCF5AyVS7%2Fz8YTwnz75IWD%2BoPwr%2FFhW0wiZoj4LP%2F6dVi0GhDSyh9w6n%2FthS%2FkSod1xYDUPpN0FFU1ZFYsaJjNr9VYdBhM%2FRUv0y2mXgSuMCviJrE7cv23wu7t4wTT3ELkAKDvMlGC3IgBqd1okQUp2AQRlNKsor38lcqBNZCJfg%2FdF%2Fve7T5NBi3FG0e7TpcnNyaVhL7efFaI2BuuQhzu%2FX7HR3Dy4P7Q5MBz6FFQiVPWq%2B9eOJY8FSP%2Fc%2B7XNIiQPPjwYem0nhM%2FPAfRBkysc9vLSOJU%2FlWlzlPVc94EQMjlYwj3aBjswi5t6A42%2FNxAvNvJrFHOL0Hk1xlVUzRSVNo66NTD5%2BvHcM6UStOjiCYruFCLHk3%2FuyKmLEr7dieX%2BMblLNBQ%2F1JWz1E4hTAc7tXnCkhOknJQ0d%2BfsbPT%2FoWW562oUWLEdrC38I5T7BbuyC0v9X2vzhMA7jVh9pJdl4%2Bk82yXowTwT2AFBYlBv6CpuWrtrnFtYOrgSGboYCG%2FKPWLrIIGMirfCq6%2F%2BD0PuXf%2FQiEZXz8lgNBNuqTVH7enGlPXfW91sRoGH%2FV15J0XwYM%3D&X-Amz-Signature=40b9453607def83d314725a8f9986ee17f50db185999e14a36817bff03f5a6a1&X-Amz-SignedHeaders=host"
 ```
 
-Cool, let's copy the downloaded file name from the output of the cell above and unzip it.
+Cool, let\'s copy the downloaded file name from the output of the cell above and unzip it.
 
 ```bash
 !tar -xvzf "tr.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAQ3GQRTO3G23VQA5S%2F20210312%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210312T064856Z&X-Amz-Expires=43200&X-Amz-Security-Token=FwoGZXIvYXdzEIj%2F%2F%2F%2F%2F%2F%2F%2F%2F%"
@@ -92,7 +92,7 @@ from datasets import load_dataset, load_metric
 
 The data is now saved under ./cv-corpus-6.1-2020-12-11. We can leverage datasets now to preprocess the dataset.
 
-Let's start by loading the dataset and taking a look at its structure. [Common Voice](https://huggingface.co/datasets/common_voice) has many different splits including `invalidated`, which refers to data that was not rated as "clean enough" to be considered useful. Because the Turkish dataset is so small, we will merge both the validation and training data into a training dataset and simply use the test data for validation.
+Let\'s start by loading the dataset and taking a look at its structure. [Common Voice](https://huggingface.co/datasets/common_voice) has many different splits including `invalidated`, which refers to data that was not rated as "clean enough" to be considered useful. Because the Turkish dataset is so small, we will merge both the validation and training data into a training dataset and simply use the test data for validation.
 
 ```python
 from datasets import load_dataset, load_metric
@@ -108,7 +108,7 @@ common_voice_train = common_voice_train.remove_columns(["accent", "age", "client
 common_voice_test = common_voice_test.remove_columns(["accent", "age", "client_id", "down_votes", "gender", "locale", "segment", "up_votes"])
 ```
 
-Let's write a short function to display some random samples of the dataset and run it a couple of times to get a feeling for the transcriptions.
+Let\'s write a short function to display some random samples of the dataset and run it a couple of times to get a feeling for the transcriptions.
 
 ```python
 from datasets import ClassLabel
@@ -124,7 +124,7 @@ def show_random_elements(dataset, num_examples=10):
         while pick in picks:
             pick = random.randint(0, len(dataset)-1)
         picks.append(pick)
-    
+
     df = pd.DataFrame(dataset[picks])
     display(HTML(df.to_html()))
 
@@ -135,20 +135,20 @@ show_random_elements(common_voice_train.remove_columns(["path"]))
 
 | Idx |  Sentence |
 |----------|:-------------:|
-|	1  | Jonuz, kısa süreli görevi kabul eden tek adaydı. | 
-|	2  | Biz umudumuzu bu mücadeleden almaktayız. | 
-|	3  | Sergide beş Hırvat yeniliği sergilendi. | 
-|	4  | Herşey adıyla bilinmeli. | 
-|	5  | Kuruluş özelleştirmeye hazır. | 
-|	6  | Yerleşim yerlerinin manzarası harika. | 
-|	7  | Olayların failleri bulunamadı. | 
-|	8  | Fakat bu çabalar boşa çıktı. | 
-|	9  | Projenin değeri iki virgül yetmiş yedi milyon avro. | 
+|	1  | Jonuz, kısa süreli görevi kabul eden tek adaydı. |
+|	2  | Biz umudumuzu bu mücadeleden almaktayız. |
+|	3  | Sergide beş Hırvat yeniliği sergilendi. |
+|	4  | Herşey adıyla bilinmeli. |
+|	5  | Kuruluş özelleştirmeye hazır. |
+|	6  | Yerleşim yerlerinin manzarası harika. |
+|	7  | Olayların failleri bulunamadı. |
+|	8  | Fakat bu çabalar boşa çıktı. |
+|	9  | Projenin değeri iki virgül yetmiş yedi milyon avro. |
 | 10 | Büyük yeniden yapım projesi dört aşamaya bölündü. |
 
-Alright! The transcriptions look fairly clean. Having translated the transcribed sentences (I'm sadly not a native speaker in Turkish), it seems that the language corresponds more to written text than noisy dialogue. This makes sense taking into account that [Common Voice](https://huggingface.co/datasets/common_voice) is a crowd-sourced read speech corpus.
+Alright! The transcriptions look fairly clean. Having translated the transcribed sentences (I\'m sadly not a native speaker in Turkish), it seems that the language corresponds more to written text than noisy dialogue. This makes sense taking into account that [Common Voice](https://huggingface.co/datasets/common_voice) is a crowd-sourced read speech corpus.
 
-We can see that the transcriptions contain some special characters, such as `,.?!;:`. Without a language model, it is much harder to classify speech chunks to such special characters because they don't really correspond to a characteristic sound unit. *E.g.*, the letter `"s"` has a more or less clear sound, whereas the special character `"."` does not.
+We can see that the transcriptions contain some special characters, such as `,.?!;:`. Without a language model, it is much harder to classify speech chunks to such special characters because they don\'t really correspond to a characteristic sound unit. *E.g.*, the letter `"s"` has a more or less clear sound, whereas the special character `"."` does not.
 Also in order to understand the meaning of a speech signal, it is usually not necessary to include special characters in the transcription.
 
 In addition, we normalize the text to only have lower case letters and append a word separator token at the end.
@@ -165,7 +165,7 @@ common_voice_train = common_voice_train.map(remove_special_characters, remove_co
 common_voice_test = common_voice_test.map(remove_special_characters, remove_columns=["sentence"])
 ```
 
-Let's take a look at the preprocessed transcriptions.
+Let\'s take a look at the preprocessed transcriptions.
 
 ```python
 show_random_elements(common_voice_train.remove_columns(["path"]))
@@ -175,23 +175,23 @@ show_random_elements(common_voice_train.remove_columns(["path"]))
 
 | Idx |  Transcription     |
 |----------|:-------------:|
-| 1   | birisi beyazlar için dediler | 
-| 2   | maktouf'un cezası haziran ayında sona erdi | 
-| 3   | orijinalin aksine kıyafetler çıkarılmadı | 
-| 4   | bunların toplam değeri yüz milyon avroyu buluyor | 
-| 5   | masada en az iki seçenek bulunuyor | 
-| 6   | bu hiç de haksız bir heveslilik değil | 
-| 7   | bu durum bin dokuz yüz doksanlarda ülkenin bölünmesiyle değişti | 
-| 8   | söz konusu süre altı ay | 
-| 9   | ancak bedel çok daha yüksek olabilir | 
-| 10  | başkent fira bir tepenin üzerinde yer alıyor | 
+| 1   | birisi beyazlar için dediler |
+| 2   | maktouf'un cezası haziran ayında sona erdi |
+| 3   | orijinalin aksine kıyafetler çıkarılmadı |
+| 4   | bunların toplam değeri yüz milyon avroyu buluyor |
+| 5   | masada en az iki seçenek bulunuyor |
+| 6   | bu hiç de haksız bir heveslilik değil |
+| 7   | bu durum bin dokuz yüz doksanlarda ülkenin bölünmesiyle değişti |
+| 8   | söz konusu süre altı ay |
+| 9   | ancak bedel çok daha yüksek olabilir |
+| 10  | başkent fira bir tepenin üzerinde yer alıyor |
 
 Good! This looks better. We have removed most special characters from transcriptions and normalized them to lower-case only.
 
-In CTC, it is common to classify speech chunks into letters, so we will do the same here. 
-Let's extract all distinct letters of the training and test data and build our vocabulary from this set of letters.
+In CTC, it is common to classify speech chunks into letters, so we will do the same here.
+Let\'s extract all distinct letters of the training and test data and build our vocabulary from this set of letters.
 
-We write a mapping function that concatenates all transcriptions into one long transcription and then transforms the string into a set of chars. 
+We write a mapping function that concatenates all transcriptions into one long transcription and then transforms the string into a set of chars.
 It is important to pass the argument `batched=True` to the `map(...)` function so that the mapping function has access to all transcriptions at once.
 
 ```python
@@ -257,23 +257,23 @@ print(vocab_dict)
 }
 ```
 
-Cool, we see that all letters of the alphabet occur in the dataset (which is not really surprising) and we also extracted the special characters `" "` and `'`. Note that we did not exclude those special characters because: 
+Cool, we see that all letters of the alphabet occur in the dataset (which is not really surprising) and we also extracted the special characters `" "` and `'`. Note that we did not exclude those special characters because:
 
 - The model has to learn to predict when a word is finished or else the model prediction would always be a sequence of chars which would make it impossible to separate words from each other.
-- From the transcriptions above it seems that words that include an apostrophe, such as `maktouf'un` do exist in Turkish, so I decided to keep the apostrophe in the dataset. This might be a wrong assumption though.
+- From the transcriptions above it seems that words that include an apostrophe, such as `maktouf\'un` do exist in Turkish, so I decided to keep the apostrophe in the dataset. This might be a wrong assumption though.
 
-One should always keep in mind that the data-preprocessing is a very important step before training your model. E.g., we don't want our model to differentiate between `a` and `A` just because we forgot to normalize the data. The difference between `a` and `A` does not depend on the "sound" of the letter at all, but more on grammatical rules - *e.g.* use a capitalized letter at the beginning of the sentence. So it is sensible to remove the difference between capitalized and non-capitalized letters so that the model has an easier time learning to transcribe speech. 
+One should always keep in mind that the data-preprocessing is a very important step before training your model. E.g., we don\'t want our model to differentiate between `a` and `A` just because we forgot to normalize the data. The difference between `a` and `A` does not depend on the "sound" of the letter at all, but more on grammatical rules - *e.g.* use a capitalized letter at the beginning of the sentence. So it is sensible to remove the difference between capitalized and non-capitalized letters so that the model has an easier time learning to transcribe speech.
 
 It is always advantageous to get help from a native speaker of the language you would like to transcribe to verify whether the assumptions you made are sensible, *e.g.* I should have made sure that keeping `'`, but removing other special characters is a sensible choice for Turkish.
 
-To make it clearer that `" "` has its own token class, we give it a more visible character `|`. In addition, we also add an "unknown" token so that the model can later deal with characters not encountered in Timit's training set. 
+To make it clearer that `" "` has its own token class, we give it a more visible character `|`. In addition, we also add an "unknown" token so that the model can later deal with characters not encountered in Timit\'s training set.
 
 ```python
 vocab_dict["|"] = vocab_dict[" "]
 del vocab_dict[" "]
 ```
 
-Finally, we also add a padding token that corresponds to CTC's "*blank token*". The "blank token" is a core component of the CTC algorithm. For more information, please take a look at the "Alignment" section [here](https://distill.pub/2017/ctc/).
+Finally, we also add a padding token that corresponds to CTC\'s "*blank token*". The "blank token" is a core component of the CTC algorithm. For more information, please take a look at the "Alignment" section [here](https://distill.pub/2017/ctc/).
 
 ```python
 vocab_dict["[UNK]"] = len(vocab_dict)
@@ -311,15 +311,15 @@ Next, we will create the feature extractor.
 
 Speech is a continuous signal and to be treated by computers, it first has to be discretized, which is usually called **sampling**. The sampling rate hereby plays an important role in that it defines how many data points of the speech signal are measured per second. Therefore, sampling with a higher sampling rate results in a better approximation of the *real* speech signal but also necessitates more values per second.
 
-A pretrained checkpoint expects its input data to have been sampled more or less from the same distribution as the data it was trained on. The same speech signals sampled at two different rates have a very different distribution, *e.g.*, doubling the sampling rate results in data points being twice as long. Thus, 
+A pretrained checkpoint expects its input data to have been sampled more or less from the same distribution as the data it was trained on. The same speech signals sampled at two different rates have a very different distribution, *e.g.*, doubling the sampling rate results in data points being twice as long. Thus,
 before fine-tuning a pretrained checkpoint of an ASR model, it is crucial to verify that the sampling rate of the data that was used to pretrain the model matches the sampling rate of the dataset used to fine-tune the model.
 
-XLSR-Wav2Vec2 was pretrained on the audio data of [Babel](https://huggingface.co/datasets/librispeech_asr), 
+XLSR-Wav2Vec2 was pretrained on the audio data of [Babel](https://huggingface.co/datasets/librispeech_asr),
 [Multilingual LibriSpeech (MLS)](https://ai.facebook.com/blog/a-new-open-data-set-for-multilingual-speech-research/), and [Common Voice](https://huggingface.co/datasets/common_voice). Most of those datasets were sampled at 16kHz, so that Common Voice, sampled at 48kHz, has to be downsampled to 16kHz for training. Therefore, we will have to downsample our fine-tuning data to 16kHz in the following.
 
 A XLSR-Wav2Vec2 feature extractor object requires the following parameters to be instantiated:
 
-- `feature_size`: Speech models take a sequence of feature vectors as an input. While the length of this sequence obviously varies, the feature size should not. In the case of Wav2Vec2, the feature size is 1 because the model was trained on the raw speech signal ${}^2$.
+- `feature_size`: Speech models take a sequence of feature vectors as an input. While the length of this sequence obviously varies, the feature size should not. In the case of Wav2Vec2, the feature size is 1 because the model was trained on the raw speech signal \\({}^2\\).
 - `sampling_rate`: The sampling rate at which the model is trained on.
 - `padding_value`: For batched inference, shorter inputs need to be padded with a specific value
 - `do_normalize`: Whether the input should be *zero-mean-unit-variance* normalized or not. Usually, speech models perform better when normalizing the input
@@ -331,7 +331,7 @@ from transformers import Wav2Vec2FeatureExtractor
 feature_extractor = Wav2Vec2FeatureExtractor(feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=True)
 ```
 
-Great, XLSR-Wav2Vec2's feature extraction pipeline is thereby fully defined!
+Great, XLSR-Wav2Vec2\'s feature extraction pipeline is thereby fully defined!
 
 To make the usage of XLSR-Wav2Vec2 as user-friendly as possible, the feature extractor and tokenizer are *wrapped* into a single `Wav2Vec2Processor` class so that one only needs a `model` and `processor` object.
 
@@ -361,9 +361,9 @@ Next, we can prepare the dataset.
 
 ### Preprocess Data
 
-So far, we have not looked at the actual values of the speech signal but just kept the path to its file in the dataset. `XLSR-Wav2Vec2` expects the audio file in the format of a 1-dimensional array, so in the first step, let's load all audio files into the dataset object.
+So far, we have not looked at the actual values of the speech signal but just kept the path to its file in the dataset. `XLSR-Wav2Vec2` expects the audio file in the format of a 1-dimensional array, so in the first step, let\'s load all audio files into the dataset object.
 
-Let's first check the serialization format of the downloaded audio files by looking at the first training sample.
+Let\'s first check the serialization format of the downloaded audio files by looking at the first training sample.
 
 
 ```python
@@ -377,7 +377,7 @@ print(common_voice_train[0])
 		 'text': 'pirin sözleri hâlâ yankılanıyor '}
 ```
 
-Alright, the audio file is saved in the `.mp3` format. The `.mp3` format is usually not the easiest format to deal with. We found that the [`torchaudio`](https://pytorch.org/audio/stable/index.html) library works best for reading in `.mp3` data. 
+Alright, the audio file is saved in the `.mp3` format. The `.mp3` format is usually not the easiest format to deal with. We found that the [`torchaudio`](https://pytorch.org/audio/stable/index.html) library works best for reading in `.mp3` data.
 
 An audio file usually stores both its values and the sampling rate with which the speech signal was digitalized. We want to store both in the dataset and write a `map(...)` function accordingly.
 
@@ -395,9 +395,9 @@ common_voice_train = common_voice_train.map(speech_file_to_array_fn, remove_colu
 common_voice_test = common_voice_test.map(speech_file_to_array_fn, remove_columns=common_voice_test.column_names)
 ```
 
-Great, now we've successfully read in all the audio files, but since we know that Common Voice is sampled at 48kHz, we need to resample the audio files to 16kHz. 
+Great, now we\'ve successfully read in all the audio files, but since we know that Common Voice is sampled at 48kHz, we need to resample the audio files to 16kHz.
 
-Let's make use of the [`librosa`](https://github.com/librosa/librosa) library to downsample the data.
+Let\'s make use of the [`librosa`](https://github.com/librosa/librosa) library to downsample the data.
 
 ```python
 import librosa
@@ -412,7 +412,7 @@ common_voice_train = common_voice_train.map(resample, num_proc=4)
 common_voice_test = common_voice_test.map(resample, num_proc=4)
 ```
 
-This seemed to have worked! Let's listen to a couple of audio files to better understand the dataset and verify that the audio was correctly loaded. 
+This seemed to have worked! Let\'s listen to a couple of audio files to better understand the dataset and verify that the audio was correctly loaded.
 
 
 ```python
@@ -427,7 +427,7 @@ ipd.Audio(data=np.asarray(common_voice_train[rand_int]["speech"]), autoplay=True
 
 It can be heard, that the speakers change along with their speaking rate, accent, and background environment, etc. Overall, the recordings sound acceptably clear though, which is to be expected from a crowd-sourced read speech corpus.
 
-Let's do a final check that the data is correctly prepared, by printing the shape of the speech input, its transcription, and the corresponding sampling rate.
+Let\'s do a final check that the data is correctly prepared, by printing the shape of the speech input, its transcription, and the corresponding sampling rate.
 
 ```python
 rand_int = random.randint(0, len(common_voice_train))
@@ -440,7 +440,7 @@ print("Sampling rate:", common_voice_train[rand_int]["sampling_rate"])
 **Print Output:**
 
 ```bash
-	Target text: mali sorunlara rağmen bunu tekrar başardı 
+	Target text: mali sorunlara rağmen bunu tekrar başardı
 	Input array shape: (116352,)
 	Sampling rate: 16000
 ```
@@ -448,10 +448,10 @@ print("Sampling rate:", common_voice_train[rand_int]["sampling_rate"])
 Finally, we can process the dataset to the format expected by the model for training. We will again make use of the `map(...)` function.
 
 First, we check that the data samples have the same sampling rate of 16kHz.
-Second, we extract the `input_values` from the loaded audio file. In our case, this includes only normalization, but for other speech models, this step could correspond to extracting, *e.g.* [Log-Mel features](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum). 
+Second, we extract the `input_values` from the loaded audio file. In our case, this includes only normalization, but for other speech models, this step could correspond to extracting, *e.g.* [Log-Mel features](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum).
 Third, we encode the transcriptions to label ids.
 
-**Note**: This mapping function is a good example of how the `Wav2Vec2Processor` class should be used. In "normal" context, calling `processor(...)` is redirected to `Wav2Vec2FeatureExtractor`'s call method. When wrapping the processor into the `as_target_processor` context, however, the same method is redirected to `Wav2Vec2CTCTokenizer`'s call method.
+**Note**: This mapping function is a good example of how the `Wav2Vec2Processor` class should be used. In "normal" context, calling `processor(...)` is redirected to `Wav2Vec2FeatureExtractor`\'s call method. When wrapping the processor into the `as_target_processor` context, however, the same method is redirected to `Wav2Vec2CTCTokenizer`\'s call method.
 For more information please check the [docs](https://huggingface.co/transformers/master/model_doc/wav2vec2.html#transformers.Wav2Vec2Processor.__call__).
 
 
@@ -463,7 +463,7 @@ def prepare_dataset(batch):
     ), f"Make sure all inputs have the same sampling rate of {processor.feature_extractor.sampling_rate}."
 
     batch["input_values"] = processor(batch["speech"], sampling_rate=batch["sampling_rate"][0]).input_values
-    
+
     with processor.as_target_processor():
         batch["labels"] = processor(batch["target_text"]).input_ids
     return batch
@@ -475,7 +475,7 @@ common_voice_test = common_voice_test.map(prepare_dataset, remove_columns=common
 Training
 --------
 
-The data is processed so that we are ready to start setting up the training pipeline. We will make use of 🤗's [Trainer](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer) for which we essentially need to do the following:
+The data is processed so that we are ready to start setting up the training pipeline. We will make use of 🤗\'s [Trainer](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer) for which we essentially need to do the following:
 
 - Define a data collator. In contrast to most NLP models, XLSR-Wav2Vec2 has a much larger input length than output length. *E.g.*, a sample of input length 50000 has an output length of no more than 100. Given the large input sizes, it is much more efficient to pad the training batches dynamically meaning that all training samples should only be padded to the longest sample in their batch and not the overall longest sample. Therefore, fine-tuning XLSR-Wav2Vec2 requires a special padding data collator, which we will define below
 
@@ -490,9 +490,9 @@ After having fine-tuned the model, we will correctly evaluate it on the test dat
 
 ### Set-up Trainer
 
-Let's start by defining the data collator. The code for the data collator was copied from [this example](https://github.com/huggingface/transformers/blob/9a06b6b11bdfc42eea08fa91d0c737d1863c99e3/examples/research_projects/wav2vec2/run_asr.py#L81).
+Let\'s start by defining the data collator. The code for the data collator was copied from [this example](https://github.com/huggingface/transformers/blob/9a06b6b11bdfc42eea08fa91d0c737d1863c99e3/examples/research_projects/wav2vec2/run_asr.py#L81).
 
-Without going into too many details, in contrast to the common data collators, this data collator treats the `input_values` and `labels` differently and thus applies to separate padding functions on them (again making use of XLSR-Wav2Vec2's context manager). This is necessary because in speech input and output are of different modalities meaning that they should not be treated by the same padding function.
+Without going into too many details, in contrast to the common data collators, this data collator treats the `input_values` and `labels` differently and thus applies to separate padding functions on them (again making use of XLSR-Wav2Vec2\'s context manager). This is necessary because in speech input and output are of different modalities meaning that they should not be treated by the same padding function.
 Analogous to the common data collators, the padding tokens in the labels with `-100` so that those tokens are **not** taken into account when computing the loss.
 
 
@@ -565,7 +565,7 @@ class DataCollatorCTCWithPadding:
         return batch
 ```
 
-Let's initialize the data collator.
+Let\'s initialize the data collator.
 
 ```python
 data_collator = DataCollatorCTCWithPadding(processor=processor, padding=True)
@@ -581,7 +581,7 @@ wer_metric = load_metric("wer")
 
 The model will return a sequence of logit vectors:
 
-$$ \mathbf{y}_1, \ldots, \mathbf{y}_m $$, 
+$$ \mathbf{y}_1, \ldots, \mathbf{y}_m $$,
 
 with \\(\mathbf{y}_1 = f_{\theta}(x_1, \ldots, x_n)[0]\\) and \\(n >> m\\).
 
@@ -610,24 +610,24 @@ def compute_metrics(pred):
     return {"wer": wer}
 ```
 
-Now, we can load the pretrained `XLSR-Wav2Vec2` checkpoint. The tokenizer's `pad_token_id` must be to define the model's `pad_token_id` or in the case of `Wav2Vec2ForCTC` also CTC's *blank token* ${}^2$. To save GPU memory, we enable PyTorch's [gradient checkpointing](https://pytorch.org/docs/stable/checkpoint.html) and also set the loss reduction to "*mean*".
+Now, we can load the pretrained `XLSR-Wav2Vec2` checkpoint. The tokenizer\'s `pad_token_id` must be to define the model\'s `pad_token_id` or in the case of `Wav2Vec2ForCTC` also CTC\'s *blank token* \\({}^2\\). To save GPU memory, we enable PyTorch\'s [gradient checkpointing](https://pytorch.org/docs/stable/checkpoint.html) and also set the loss reduction to "*mean*".
 
-Because the dataset is quite small (~6h of training data) and because Common Voice is quite noisy, fine-tuning Facebook's [wav2vec2-large-xlsr-53 checkpoint](https://huggingface.co/facebook/wav2vec2-large-xlsr-53) seems to require some hyper-parameter tuning. Therefore, I had to play around a bit with different values for dropout, [SpecAugment](https://arxiv.org/abs/1904.08779)'s masking dropout rate, layer dropout, and the learning rate until training seemed to be stable enough. 
+Because the dataset is quite small (~6h of training data) and because Common Voice is quite noisy, fine-tuning Facebook\'s [wav2vec2-large-xlsr-53 checkpoint](https://huggingface.co/facebook/wav2vec2-large-xlsr-53) seems to require some hyper-parameter tuning. Therefore, I had to play around a bit with different values for dropout, [SpecAugment](https://arxiv.org/abs/1904.08779)\'s masking dropout rate, layer dropout, and the learning rate until training seemed to be stable enough.
 
 **Note**: When using this notebook to train XLSR-Wav2Vec2 on another language of Common Voice those hyper-parameter settings might not work very well. Feel free to adapt those depending on your use case.
 
+```python
 from transformers import Wav2Vec2ForCTC
 
-```python
 model = Wav2Vec2ForCTC.from_pretrained(
-    "facebook/wav2vec2-large-xlsr-53", 
+    "facebook/wav2vec2-large-xlsr-53",
     attention_dropout=0.1,
     hidden_dropout=0.1,
     feat_proj_dropout=0.0,
     mask_time_prob=0.05,
     layerdrop=0.1,
-    gradient_checkpointing=True, 
-    ctc_loss_reduction="mean", 
+    gradient_checkpointing=True,
+    ctc_loss_reduction="mean",
     pad_token_id=processor.tokenizer.pad_token_id,
     vocab_size=len(processor.tokenizer)
 )
@@ -636,18 +636,18 @@ model = Wav2Vec2ForCTC.from_pretrained(
 **Log Output:**
 
 ```bash
-    Some weights of Wav2Vec2ForCTC were not initialized from the model checkpoint at facebook/wav2vec2-large-xlsr-53 and are newly initialized: ['lm_head.weight', 'lm_head.bias']
+    Some weights of Wav2Vec2ForCTC were not initialized from the model checkpoint at facebook/wav2vec2-large-xlsr-53 and are newly initialized: [\'lm_head.weight\', \'lm_head.bias\']
     You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
 ```
 
-The first component of XLSR-Wav2Vec2 consists of a stack of CNN layers that are used to extract acoustically meaningful - but contextually independent - features from the raw speech signal. This part of the model has already been sufficiently trained during pretraining and as stated in the [paper](https://arxiv.org/pdf/2006.13979.pdf) does not need to be fine-tuned anymore. 
+The first component of XLSR-Wav2Vec2 consists of a stack of CNN layers that are used to extract acoustically meaningful - but contextually independent - features from the raw speech signal. This part of the model has already been sufficiently trained during pretraining and as stated in the [paper](https://arxiv.org/pdf/2006.13979.pdf) does not need to be fine-tuned anymore.
 Thus, we can set the `requires_grad` to `False` for all parameters of the *feature extraction* part.
 
 ```python
 model.freeze_feature_extractor()
 ```
 
-In a final step, we define all parameters related to training. 
+In a final step, we define all parameters related to training.
 To give more explanation on some of the parameters:
 
 - 	`group_by_length` makes training more efficient by grouping training samples of similar input length into one batch. This can significantly speed up training time by heavily reducing the overall number of useless padding tokens that are passed through the model
@@ -712,14 +712,14 @@ A CTC-conform prediction of `"hello"` of our model would be
 
 ### Training
 
-Training will take between 180 and 240 minutes depending on the GPU allocated to this notebook. While the trained model yields somewhat satisfying results on *Common Voice*'s test data of Turkish, it is by no means an optimally fine-tuned model. The purpose of this notebook is to demonstrate how XLSR-Wav2Vec2's [checkpoint](https://huggingface.co/facebook/wav2vec2-large-xlsr-53) can be fine-tuned on a low-resource ASR dataset.
+Training will take between 180 and 240 minutes depending on the GPU allocated to this notebook. While the trained model yields somewhat satisfying results on *Common Voice*\'s test data of Turkish, it is by no means an optimally fine-tuned model. The purpose of this notebook is to demonstrate how XLSR-Wav2Vec2\'s [checkpoint](https://huggingface.co/facebook/wav2vec2-large-xlsr-53) can be fine-tuned on a low-resource ASR dataset.
 
-In case you want to use this google colab to fine-tune your model, you should make sure that your training doesn't stop due to inactivity. A simple hack to prevent this is to paste the following code into the console of this tab (*right mouse click -> inspect -> Console tab and insert code*).
+In case you want to use this google colab to fine-tune your model, you should make sure that your training doesn\'t stop due to inactivity. A simple hack to prevent this is to paste the following code into the console of this tab (*right mouse click -> inspect -> Console tab and insert code*).
 
 ```javascript
 function ConnectButton(){
-    console.log("Connect pushed"); 
-    document.querySelector("#top-toolbar > colab-connect-button").shadowRoot.querySelector("#connect").click() 
+    console.log("Connect pushed");
+    document.querySelector("#top-toolbar > colab-connect-button").shadowRoot.querySelector("#connect").click()
 }
 setInterval(ConnectButton,60000);
 ```
@@ -744,9 +744,9 @@ The training loss goes down and we can see that the WER on the test set also imp
 
 The resulting model of this notebook has been saved to [`patrickvonplaten/wav2vec2-large-xlsr-turkish-demo`](https://huggingface.co/patrickvonplaten/wav2vec2-large-xlsr-turkish-demo)
 
-As a final check, let's load the model and verify that it indeed has learned to transcribe Turkish speech.
+As a final check, let\'s load the model and verify that it indeed has learned to transcribe Turkish speech.
 
-Let's first load the pretrained checkpoint.
+Let\'s first load the pretrained checkpoint.
 
 ```python
 model = Wav2Vec2ForCTC.from_pretrained("patrickvonplaten/wav2vec2-large-xlsr-turkish-demo").to("cuda")
@@ -786,6 +786,6 @@ print(common_voice_test_transcription["sentence"][0].lower())
 |----------|:-------------:|
 | hata küçük şeyler için birbüy bi şeyler kolaluyor ve yenekiçük şeyler için bir bimizi inciltiyoruz | hayatta küçük şeyleri kovalıyor ve yine küçük şeyler için birbirimizi incitiyoruz. |
 
-Alright! The transcription can definitely be recognized from our prediction, but it is far from being perfect. Training the model a bit longer, spending more time on the data preprocessing, and especially using a language model for decoding would certainly improve the model's overall performance.
+Alright! The transcription can definitely be recognized from our prediction, but it is far from being perfect. Training the model a bit longer, spending more time on the data preprocessing, and especially using a language model for decoding would certainly improve the model\'s overall performance.
 
 For a demonstration model on a low-resource language, the results are acceptable, however 🤗.
