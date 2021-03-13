@@ -9,7 +9,7 @@ thumbnail: /blog/assets/15_fine_tune_wav2vec2/wav2vec2.png
 
 <div class="blog-metadata">
     <small>Published March 12, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/fine-tune-wav2vec2-english">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/fine-tune-wav2vec2-english.md">
         Update on GitHub
     </a>
 </div>
