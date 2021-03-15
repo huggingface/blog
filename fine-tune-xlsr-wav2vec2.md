@@ -75,24 +75,31 @@ The pretrained XLSR-Wav2Vec2 checkpoint maps the speech signal to a sequence of 
 
 The output size of this layer corresponds to the number of tokens in the vocabulary, which does **not** depend on XLSR-Wav2Vec2\'s pretraining task, but only on the labeled dataset used for fine-tuning. So in the first step, we will take a look at Common Voice and define a vocabulary based on the dataset\'s transcriptions.
 
-First, let\'s go to [Common Voice](https://commonvoice.mozilla.org/en) and pick your favorite language you would like to fine-tune XLSR-Wav2Vec2 on. For this notebook, we will use Turkish.
+First, let\'s go to [Common Voice](https://commonvoice.mozilla.org/en) and pick your favorite language you would like to fine-tune XLSR-Wav2Vec2 on. For this notebook, we will use Turkish. Some languages have very little transcribed data, so it might be sensible to search for more transcribed data for this language and include it in the training data. We can use the following link:
 
-**Note**: Most likely, the common voice link has expired. In this case, just go to [Common Voice\'s dataset website](https://commonvoice.mozilla.org/en/datasets), select your language, *e.g.* `Turkish`, enter your email address to get the "*Download*" button, click right, and click `Copy link address` to fill it in the cell below.
+```
+https://voice-prod-bundler-ee1969a6ce8178826482b88e843c335139bd3fb4.s3.amazonaws.com/cv-corpus-6.1-2020-12-11/{lang}.tar.gz
+```
+
+as the downwload link for any language of the 6.1 version of Common Voice. You simply have to replace `{lang}` with the language code of your selected language on [Common Voice Dataset](https://commonvoice.mozilla.org/en/datasets). The language code can be found in the filed "*Version*" as the prefix before the underscore.
+For Turkish, the language code is `tr`.
 
 ```bash
-!wget "https://mozilla-common-voice-datasets.s3.dualstack.us-west-2.amazonaws.com/cv-corpus-6.1-2020-12-11/tr.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAQ3GQRTO3G23VQA5S%2F20210312%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210312T064856Z&X-Amz-Expires=43200&X-Amz-Security-Token=FwoGZXIvYXdzEIj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDKZIPKux%2BmNHRNIsviKSBNDlKP4z8BJGh7lr6j6zkLhvCmkVA8f7Ot4KR52ZpaRK1eP0KRvKdrAvWdk4F0%2FWiPb5lRkDxtfA5gQE6ntJytUzRQfriVpYDHqSCGM7YEaG1ng1XK47dzO0%2FfcwpmyCfpRnZxw1gfs9oH%2BiFub530LRxeuHjeSDrbYT0hLPSXHQX5QRVVhyNLpqd%2F%2Bgqee5JzpCF5AyVS7%2Fz8YTwnz75IWD%2BoPwr%2FFhW0wiZoj4LP%2F6dVi0GhDSyh9w6n%2FthS%2FkSod1xYDUPpN0FFU1ZFYsaJjNr9VYdBhM%2FRUv0y2mXgSuMCviJrE7cv23wu7t4wTT3ELkAKDvMlGC3IgBqd1okQUp2AQRlNKsor38lcqBNZCJfg%2FdF%2Fve7T5NBi3FG0e7TpcnNyaVhL7efFaI2BuuQhzu%2FX7HR3Dy4P7Q5MBz6FFQiVPWq%2B9eOJY8FSP%2Fc%2B7XNIiQPPjwYem0nhM%2FPAfRBkysc9vLSOJU%2FlWlzlPVc94EQMjlYwj3aBjswi5t6A42%2FNxAvNvJrFHOL0Hk1xlVUzRSVNo66NTD5%2BvHcM6UStOjiCYruFCLHk3%2FuyKmLEr7dieX%2BMblLNBQ%2F1JWz1E4hTAc7tXnCkhOknJQ0d%2BfsbPT%2FoWW562oUWLEdrC38I5T7BbuyC0v9X2vzhMA7jVh9pJdl4%2Bk82yXowTwT2AFBYlBv6CpuWrtrnFtYOrgSGboYCG%2FKPWLrIIGMirfCq6%2F%2BD0PuXf%2FQiEZXz8lgNBNuqTVH7enGlPXfW91sRoGH%2FV15J0XwYM%3D&X-Amz-Signature=40b9453607def83d314725a8f9986ee17f50db185999e14a36817bff03f5a6a1&X-Amz-SignedHeaders=host"
+!wget https://voice-prod-bundler-ee1969a6ce8178826482b88e843c335139bd3fb4.s3.amazonaws.com/cv-corpus-6.1-2020-12-11/tr.tar.gz
 ```
 
 Cool, let\'s copy the downloaded file name from the output of the cell above and unzip it.
 
 ```bash
-!tar -xvzf "tr.tar.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAQ3GQRTO3G23VQA5S%2F20210312%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20210312T064856Z&X-Amz-Expires=43200&X-Amz-Security-Token=FwoGZXIvYXdzEIj%2F%2F%2F%2F%2F%2F%2F%2F%2F%"
-from datasets import load_dataset, load_metric
+!tar -xvzf tr.tar.gz
 ```
 
-The data is now saved under ./cv-corpus-6.1-2020-12-11. We can leverage datasets now to preprocess the dataset.
+The data is now saved under `./cv-corpus-6.1-2020-12-11`. We can leverage datasets now to preprocess the dataset.
 
 Let\'s start by loading the dataset and taking a look at its structure. [Common Voice](https://huggingface.co/datasets/common_voice) has many different splits including `invalidated`, which refers to data that was not rated as "clean enough" to be considered useful. Because the Turkish dataset is so small, we will merge both the validation and training data into a training dataset and simply use the test data for validation.
+
+**Note**: the second argument of `load_dataset(...)` corresponds to the same language code used above to download the dataset. Simply 
+replace `"tr"` by the correct language code.
 
 ```python
 from datasets import load_dataset, load_metric
