@@ -4,7 +4,7 @@ This article will talk about my journey to provide a `transformers` pipeline, se
 
 ## The Goal
 ![img.png](assets/14_how_to_deploy_a_pipeline_to_google_clouds/Customer_review.png)
-I wanted to create a system that automatically detects whether a customer review left in Discord is positive or negative in order to treat it accordingly and improve the customer experience. For instance, if the review was negative, I could create a feature which would contact the customer, apologize for the poor quality of service then informing him that our support team will contact him as soon as possible to assist him and hopefully fix the problem.
+I wanted to create a micro-service that automatically detects whether a customer review left in Discord is positive or negative in order to treat it accordingly and improve the customer experience. For instance, if the review was negative, I could create a feature which would contact the customer, apologize for the poor quality of service then informing him that our support team will contact him as soon as possible to assist him and hopefully fix the problem. I didn't have any performance constraints especially regarding the time and the scaleability, as I don't plan more than 2,000 requests per month.
 
 ## The Transformers library
 I have been a bit confused at the beginning when I downloaded the .h5 file, I basically thought it would be compatible with `tensorflow.models.load_model` but it wasn't the case. It was my first time using `transformers`, after a few minutes of research I figured out it was a checkpoint and not a model.
@@ -147,7 +147,7 @@ We can improve the request handling performance by warming the model, it means l
 I simulated the cost based on the Cloud Run instance configuration with [Google pricing simulator](https://cloud.google.com/products/calculator#id=cd314cba-1d9a-4bc6-a7c0-740bbf6c8a78)
 ![Estimate of the monthly cost](./assets/14_how_to_deploy_a_pipeline_to_google_clouds/Estimate_of_the_monthly_cost.png)
 
-For my microservice, I would plan near 1,000 requests per months, if I'm really optimistic, 500 seems more correct for my usage. That's why I worked on 2,000 requests as a security level.
+For my micro-service, I would plan near 1,000 requests per months, if I'm really optimistic, 500 seems more correct for my usage. That's why I worked on 2,000 requests as a security level.
 Due to that low number of requests, I didn't bother so much regarding the scalability but might come back into it if my billing increase.
 
 Nevertheless, it's important to stress out that you will pay the storage for each Gigabyte of your build image. It's roughly €0.10 per Gb per months which is fine if you don't keep all your versions on the cloud as my version is slightly above 1 Gb, with Pytorch for 700 Mb & the model for 250 Mb.
