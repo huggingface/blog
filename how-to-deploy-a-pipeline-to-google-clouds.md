@@ -85,10 +85,12 @@ if __name__ == '__main__':
     app.run(debug=False, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
 ```
 
-Then the content of the `DockerFile`
+Then the `DockerFile` which will be used to create a docker image of the service. We specify that our service runs with python:3.7, plus that we need to install our requirements. Then we use `gunicorn` to handle our process on the port `5000`.
 ```dockerfile
 # Use Python37
 FROM python:3.7
+# Allow statements and log messages to immediately appear in the Knative logs
+ENV PYTHONUNBUFFERED True
 # Copy requirements.txt to the docker image and install packages
 COPY requirements.txt /
 RUN pip install -r requirements.txt
@@ -115,14 +117,16 @@ gunicorn>=20.0.0
 
 ## Deployment instructions
 
-In order to deploy, we just need to build the image and deploy it to cloud run by selecting the correct project (replace `PROJECT-ID`) and set the name of the instance such as `ai-customer-review`. You can find more information about the deployment on [Google's guide](https://cloud.google.com/run/docs/quickstarts/build-and-deploy#deploying_to).
+First, you will need to meet some requirements such as having a project on Google Cloud, enabling the billing and installing the `gcloud` cli. You can find more details about it in the [Google's guide - Before you begin](https://cloud.google.com/run/docs/quickstarts/build-and-deploy#before-you-begin), 
+
+Second, we need to build the docker image and deploy it to cloud run by selecting the correct project (replace `PROJECT-ID`) and set the name of the instance such as `ai-customer-review`. You can find more information about the deployment on [Google's guide - Deploying to](https://cloud.google.com/run/docs/quickstarts/build-and-deploy#deploying_to).
 
 ```shell
 gcloud builds submit --tag gcr.io/PROJECT-ID/ai-customer-review
 gcloud run deploy --image gcr.io/PROJECT-ID/ai-customer-review --platform managed
 ```
 
-After a few minutes, you will also need to upgrade the memory allocated from 256 MB to 4 Gb. To do so, head over to the [Cloud Run Console](https://console.cloud.google.com/run) of your project.
+After a few minutes, you will also need to upgrade the memory allocated to your Cloud Run instance from 256 MB to 4 Gb. To do so, head over to the [Cloud Run Console](https://console.cloud.google.com/run) of your project.
 
 There you should find your instance, click on it.
 
