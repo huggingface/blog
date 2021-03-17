@@ -4,7 +4,7 @@ This article will discuss my journey to deploy the `transformers` _sentiment-ana
 
 ## The Goal
 ![img.png](assets/14_how_to_deploy_a_pipeline_to_google_clouds/Customer_review.png)
-I wanted to create a micro-service that automatically detects whether a customer review left in Discord is positive or negative. This would allow me to treat the comment accordingly and improve the customer experience. For instance, if the review was negative, I could create a feature which would contact the customer, apologize for the poor quality of service, and inform him that our support team will contact him as soon as possible to assist him and hopefully fix the problem. Since I don't plan to get more than 2,000 requests per month, I didn't impose any performance constraints regarding the time and the scalability.
+I wanted to create a micro-service that automatically detects whether a customer review left in Discord is positive or negative. This would allow me to treat the comment accordingly and improve the customer experience. For instance, if the review was negative, I could create a feature which would contact the customer, apologize for the poor quality of service, and inform him/her that our support team will contact him/her as soon as possible to assist him and hopefully fix the problem. Since I don't plan to get more than 2,000 requests per month, I didn't impose any performance constraints regarding the time and the scalability.
 
 ## The Transformers library
 I was a bit confused at the beginning when I downloaded the .h5 file. I thought it would be compatible with `tensorflow.keras.models.load_model`, but this wasn't the case. After a few minutes of research I was able to figure out that the file was a weights checkpoint rather than a Keras model.
@@ -25,7 +25,7 @@ classifier('We are very happy to include pipeline into the transformers reposito
 ## Deploy transformers to Google Cloud
 > GCP is chosen as it is the cloud environment I am using in my personal organization.
 
-### Step 1 - Researche
+### Step 1 - Research
 I already knew that I could use an API-Service like `flask` to serve a `transformers` model. I searched in the Google Cloud AI documentation and found a service to host Tensorflow models named [AI-Platform Prediction](https://cloud.google.com/ai-platform/prediction/docs). I also found [App Engine](https://cloud.google.com/appengine) and [Cloud Run](https://cloud.google.com/run) there, but I was concerned about the memory usage for App Engine and was not very familiar with Docker.
 
 ### Step 2 - Test on AI-Platform Prediction
