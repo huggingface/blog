@@ -58,8 +58,6 @@ The final solution consists of four different components:
 
 The content on the `main.py` is really simple. The idea is to receive a `GET` request containing two fields. First the review that needs to be analysed, second the API key to "protect" the service. The second parameter is optional, I used it to avoid setting up the oAuth2 of Cloud Run. After these arguments are provided, we load the pipeline which is built based on the model `distilbert-base-uncased-finetuned-sst-2-english` (provided above). In the end, the best match is returned to the client.
 
-which could be optional for you. I am getting the review that I need to analyse and return the result with thanks to the classify method of the pipeline.
-
 ```python
 import os
 from flask import Flask, jsonify, request
