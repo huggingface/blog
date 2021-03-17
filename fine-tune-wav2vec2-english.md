@@ -76,8 +76,8 @@ the `jiwer` to evaluate our fine-tuned model using the [word error rate
 (WER)](https://huggingface.co/metrics/wer) metric \\({}^1\\).
 
 ```bash
-!pip install git+https://github.com/huggingface/datasets.git
-!pip install git+https://github.com/huggingface/transformers.git
+!pip install datasets==1.4.1
+!pip install transformers==4.4.0
 !pip install soundfile
 !pip install jiwer
 ```
