@@ -1,16 +1,16 @@
 # My Journey to a serverless transformers pipeline on the Google Cloud
 
-This article will talk about my journey to provide a `transformers` pipeline, sentiment-analysis, to [Google Cloud](https://cloud.google.com). We will start with a quick introduction to `transformers` and then move to the technical part of the implementation. In the end, we'll cover the implementation and concludes on what has been achieved.
+This article will discuss my journey to deploy the `transformers` _sentiment-analysis_ pipeline on [Google Cloud](https://cloud.google.com). We will start with a quick introduction to `transformers` and then move to the technical part of the implementation. Finally, we'll summarize this implementation and review what we have achieved.
 
 ## The Goal
 ![img.png](assets/14_how_to_deploy_a_pipeline_to_google_clouds/Customer_review.png)
-I wanted to create a micro-service that automatically detects whether a customer review left in Discord is positive or negative in order to treat it accordingly and improve the customer experience. For instance, if the review was negative, I could create a feature which would contact the customer, apologize for the poor quality of service then informing him that our support team will contact him as soon as possible to assist him and hopefully fix the problem. I didn't have any performance constraints especially regarding the time and the scaleability, as I don't plan more than 2,000 requests per month.
+I wanted to create a micro-service that automatically detects whether a customer review left in Discord is positive or negative. This would allow me to treat the comment accordingly and improve the customer experience. For instance, if the review was negative, I could create a feature which would contact the customer, apologize for the poor quality of service, and inform him that our support team will contact him as soon as possible to assist him and hopefully fix the problem. Since I don't plan to get more than 2,000 requests per month, I didn't impose any performance constraints regarding the time and the scalability.
 
 ## The Transformers library
-I have been a bit confused at the beginning when I downloaded the .h5 file, I basically thought it would be compatible with `tensorflow.models.load_model` but it wasn't the case. It was my first time using `transformers`, after a few minutes of research I figured out it was a checkpoint and not a model.
-After that, I tried out the API that Hugging Face offers and read a bit more about the pipeline feature they offer. As the results of the API & the pipeline were great, I decided that I could server the model through the pipeline on my own server.
+I was a bit confused at the beginning when I downloaded the .h5 file. I thought it would be compatible with `tensorflow.keras.models.load_model`, but this wasn't the case. After a few minutes of research I was able to figure out that the file was a weights checkpoint rather than a Keras model.
+After that, I tried out the API that Hugging Face offers and read a bit more about the pipeline feature they offer. Since the results of the API & the pipeline were great, I decided that I could serve the model through the pipeline on my own server.
 
-Below the [official example](https://github.com/huggingface/transformers#quick-tour) from Transformers' GitHub.
+Below is the [official example](https://github.com/huggingface/transformers#quick-tour) from the Transformers GitHub page.
 
 ```python
 from transformers import pipeline
@@ -25,19 +25,19 @@ classifier('We are very happy to include pipeline into the transformers reposito
 ## Deploy transformers to Google Cloud
 > GCP is chosen as it is the cloud environment I am using in my personal organization.
 
-### Step 1 - Researches
-I already knew using an API-Service like `flask` is a solution to serve a `transformers` model. I searched on Google Clouds AI section and found a service to host Tensorflow models named [AI-Platform Prediction](https://cloud.google.com/ai-platform/prediction/docs). I also found [App Engine](https://cloud.google.com/appengine) and [Cloud Run](https://cloud.google.com/run) there, but I was concerned regarding the memory usage for App Engine and not really familiar with Docker for the Cloud-Run.
+### Step 1 - Researche
+I already knew that I could use an API-Service like `flask` to serve a `transformers` model. I searched in the Google Cloud AI documentation and found a service to host Tensorflow models named [AI-Platform Prediction](https://cloud.google.com/ai-platform/prediction/docs). I also found [App Engine](https://cloud.google.com/appengine) and [Cloud Run](https://cloud.google.com/run) there, but I was concerned about the memory usage for App Engine and was not very familiar with Docker.
 
 ### Step 2 - Test on AI-Platform Prediction
 
-As the model is not a "pure TensorFlow" saved model but a checkpoint, and I couldn't turn it into a "pure TensorFlow model", I figured out [this page](https://cloud.google.com/ai-platform/prediction/docs/deploying-models) wouldn't work.
-From there I saw that I could do some custom code for it, allowing me to load the `pipeline` instead of having to handle the model, which seemed is easier. I also saw that I could do pre-prediction & post-prediction action, which could be useful in the future for pre- or post-processing the data for customers needs.
+As the model is not a "pure TensorFlow" saved model but a checkpoint, and I couldn't turn it into a "pure TensorFlow model", I figured out that the example on [this page](https://cloud.google.com/ai-platform/prediction/docs/deploying-models) wouldn't work.
+From there I saw that I could write some custom code, allowing me to load the `pipeline` instead of having to handle the model, which seemed is easier. I also learned that I could define a pre-prediction & post-prediction action, which could be useful in the future for pre- or post-processing the data for customers' needs.
 I followed Google's guide but encountered an issue as the service is still in beta and everything is not stable. This issue is detailed [here](https://github.com/huggingface/transformers/issues/9926).
 
 
 ### Step 3 - Test on App Engine
 
-I moved to [App Engine](https://cloud.google.com/appengine) as it's a service that I am familiar with but encounter an installation issue with TensorFlow as a system dependency file was missing. I then tried with PyTorch and it worked with an F4_1G instance, but it couldn't handle more than 2 requests on the same instance, which isn't really great performance-wise.
+I moved to Google's [App Engine](https://cloud.google.com/appengine) as it's a service that I am familiar with, but encountered an installation issue with TensorFlow due to a missing system dependency file. I then tried with PyTorch which worked with an F4_1G instance, but it couldn't handle more than 2 requests on the same instance, which isn't really great performance-wise.
 
 ### Step 4 - Test on Cloud Run
 
@@ -46,13 +46,13 @@ Lastly, I moved to [Cloud Run](https://cloud.google.com/run) with a docker image
 
 ## Implementation of the serverless pipeline
 
-the solution consists of four different components: 
+The final solution consists of four different components: 
 - `main.py` handling the request to the pipeline
 - `Dockerfile` used to create the image that will be deployed on Cloud Run.
 - Model folder having the `pytorch_model.bin`, `config.json` and `vocab.txt`.
     - Model : [DistilBERT base uncased finetuned SST-2
       ](https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english)
-    - To download the model folder, following the instructions in the button. ![img.png](assets/14_how_to_deploy_a_pipeline_to_google_clouds/Download_instructions_button.png)
+    - To download the model folder, follow the instructions in the button. ![img.png](assets/14_how_to_deploy_a_pipeline_to_google_clouds/Download_instructions_button.png)
     - You don't need to keep the `rust_model.ot` or the `tf_model.h5` as we will use [PyTorch](https://pytorch.org/).
 - `requirement.txt` for installing the dependencies
 
@@ -104,7 +104,7 @@ WORKDIR /app
 CMD exec gunicorn --bind :$PORT main:app --workers 1 --threads 1 --timeout 0
 ```
 
-This is important to stress these arguments `--workers 1 --threads 1` which means that I want to execute my app on only one worker (= 1 process) with a single thread. This is due to a billing reason for the process where I don't want to have 2 instances up at once because it might increase the billing. One of the downside is that it will take more time to process if the service receives two requests at once. After that I put the limit to one thread due to the memory usage needed for loading the model into the pipeline. If I were using 4 threads, I might have 4 Gb / 4 = 1 Gb only to perform the full process, which is not enough and would lead to a memory error.
+It is important to note the arguments `--workers 1 --threads 1` which means that I want to execute my app on only one worker (= 1 process) with a single thread. This is because I don't want to have 2 instances up at once because it might increase the billing. One of the downsides is that it will take more time to process if the service receives two requests at once. After that, I put the limit to one thread due to the memory usage needed for loading the model into the pipeline. If I were using 4 threads, I might have 4 Gb / 4 = 1 Gb only to perform the full process, which is not enough and would lead to a memory error.
 
 Finally, the `requirement.txt` file
 ```python
@@ -147,12 +147,12 @@ We can improve the request handling performance by warming the model, it means l
 I simulated the cost based on the Cloud Run instance configuration with [Google pricing simulator](https://cloud.google.com/products/calculator#id=cd314cba-1d9a-4bc6-a7c0-740bbf6c8a78)
 ![Estimate of the monthly cost](./assets/14_how_to_deploy_a_pipeline_to_google_clouds/Estimate_of_the_monthly_cost.png)
 
-For my micro-service, I would plan near 1,000 requests per months, if I'm really optimistic, 500 seems more correct for my usage. That's why I worked on 2,000 requests as a security level.
-Due to that low number of requests, I didn't bother so much regarding the scalability but might come back into it if my billing increase.
+For my micro-service, I am planning to near 1,000 requests per month, optimistically. 500 may more likely for my usage. That's why I considered 2,000 requests as an upper bound when designing my microservice.
+Due to that low number of requests, I didn't bother so much regarding the scalability but might come back into it if my billing increases.
 
-Nevertheless, it's important to stress out that you will pay the storage for each Gigabyte of your build image. It's roughly €0.10 per Gb per months which is fine if you don't keep all your versions on the cloud as my version is slightly above 1 Gb, with Pytorch for 700 Mb & the model for 250 Mb.
+Nevertheless, it's important to stress that you will pay the storage for each Gigabyte of your build image. It's roughly €0.10 per Gb per month, which is fine if you don't keep all your versions on the cloud since my version is slightly above 1 Gb (Pytorch for 700 Mb & the model for 250 Mb).
 
 ## Conclusion
 
-By using Transformers' sentiment analysis pipeline, I won a non-negligible amount of time. Instead of training/fine-tuning a model, I could find one ready to production and start the deployment in my system. I might fine-tune it in the future, but as what it shows on my test, the accuracy was amazing!
+By using Transformers' sentiment analysis pipeline, I won a non-negligible amount of time. Instead of training/fine-tuning a model, I could find one ready to be used in production and start the deployment in my system. I might fine-tune it in the future, but as it shows on my test, the accuracy is already amazing!
 I would have liked a "pure TensorFlow" model, or at least a way to load it in TensorFlow without Transformers dependencies to use the AI platform. It would also be great to have a lite version.
