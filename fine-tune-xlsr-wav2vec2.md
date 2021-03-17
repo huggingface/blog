@@ -47,8 +47,8 @@ I highly recommend reading the blog post [Sequence Modeling with CTC (2017)](htt
 Before we start, let\'s install both `datasets` and `transformers` from master. Also, we need the `torchaudio` and `librosa` package to load audio files and the `jiwer` to evaluate our fine-tuned model using the [word error rate (WER)](https://huggingface.co/metrics/wer) metric \\({}^1\\).
 
 ```bash
-!pip install git+https://github.com/huggingface/datasets.git
-!pip install git+https://github.com/huggingface/transformers.git
+!pip install datasets==1.4.1
+!pip install transformers==4.4.0
 !pip install torchaudio
 !pip install librosa
 !pip install jiwer
@@ -75,37 +75,21 @@ The pretrained XLSR-Wav2Vec2 checkpoint maps the speech signal to a sequence of 
 
 The output size of this layer corresponds to the number of tokens in the vocabulary, which does **not** depend on XLSR-Wav2Vec2\'s pretraining task, but only on the labeled dataset used for fine-tuning. So in the first step, we will take a look at Common Voice and define a vocabulary based on the dataset\'s transcriptions.
 
-First, let\'s go to [Common Voice](https://commonvoice.mozilla.org/en) and pick your favorite language you would like to fine-tune XLSR-Wav2Vec2 on. For this notebook, we will use Turkish. Some languages have very little transcribed data, so it might be sensible to search for more transcribed data for this language and include it in the training data. We can use the following link:
+First, let's go to [Common Voice](https://commonvoice.mozilla.org/en/datasets) and pick a language to fine-tune XLSR-Wav2Vec2 on. For this notebook, we will use Turkish. 
 
-```
-https://voice-prod-bundler-ee1969a6ce8178826482b88e843c335139bd3fb4.s3.amazonaws.com/cv-corpus-6.1-2020-12-11/{lang}.tar.gz
-```
+For each language-specific dataset, you can find a language code corresponding to your chosen language. On [Common Voice](https://commonvoice.mozilla.org/en/datasets), look for the field "Version". The language code then corresponds to the prefix before the underscore. For Turkish, *e.g.* the language code is `"tr"`.
 
-as the downwload link for any language of the 6.1 version of Common Voice. You simply have to replace `{lang}` with the language code of your selected language on [Common Voice Dataset](https://commonvoice.mozilla.org/en/datasets). The language code can be found in the filed "*Version*" as the prefix before the underscore.
-For Turkish, the language code is `tr`.
+Great, now we can use 🤗 Datasets' simple API to download the data. The dataset name will be `"common_voice"`, the config name corresponds to the language code - `"tr"` in our case.
 
-```bash
-!wget https://voice-prod-bundler-ee1969a6ce8178826482b88e843c335139bd3fb4.s3.amazonaws.com/cv-corpus-6.1-2020-12-11/tr.tar.gz
-```
+Common Voice has many different splits including `invalidated`, which refers to data that was not rated as "clean enough" to be considered useful. In this notebook, we will only make use of the splits `"train"`, `"validation"` and `"test"`. 
 
-Cool, let\'s copy the downloaded file name from the output of the cell above and unzip it.
-
-```bash
-!tar -xvzf tr.tar.gz
-```
-
-The data is now saved under `./cv-corpus-6.1-2020-12-11`. We can leverage datasets now to preprocess the dataset.
-
-Let\'s start by loading the dataset and taking a look at its structure. [Common Voice](https://huggingface.co/datasets/common_voice) has many different splits including `invalidated`, which refers to data that was not rated as "clean enough" to be considered useful. Because the Turkish dataset is so small, we will merge both the validation and training data into a training dataset and simply use the test data for validation.
-
-**Note**: the second argument of `load_dataset(...)` corresponds to the same language code used above to download the dataset. Simply 
-replace `"tr"` by the correct language code.
+Because the Turkish dataset is so small, we will merge both the validation and training data into a training dataset and simply use the test data for validation.
 
 ```python
 from datasets import load_dataset, load_metric
 
-common_voice_train = load_dataset("common_voice", "tr", data_dir="./cv-corpus-6.1-2020-12-11", split="train+validation")
-common_voice_test = load_dataset("common_voice", "tr", data_dir="./cv-corpus-6.1-2020-12-11", split="test")
+common_voice_train = load_dataset("common_voice", "tr", split="train+validation")
+common_voice_test = load_dataset("common_voice", "tr", split="test")
 ```
 
 Many ASR datasets only provide the target text, `'sentence'` for each audio file `'path'`. Common Voice actually provides much more information about each audio file, such as the `'accent'`, etc. However, we want to keep the notebook as general as possible, so that we will only consider the transcribed text for fine-tuning.
