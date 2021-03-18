@@ -1,4 +1,29 @@
-# My Journey to a serverless transformers pipeline on the Google Cloud
+---
+title: "My Journey to a serverless transformers pipeline on Google Cloud"
+thumbnail: /blog/assets/14_how_to_deploy_a_pipeline_to_google_clouds/thumbnail.png
+---
+
+# My Journey to a serverless transformers pipeline on <br>Google Cloud
+
+<div class="blog-metadata">
+    <small>Published March 18, 2021.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/how-to-deploy-a-pipeline-to-google-clouds.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/Maxence">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1613496680893-602bfe18c4f8038e9a1e0a66.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>Maxence</code>
+            <span class="fullname">Maxence Dominici</span>
+            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+        </div>
+    </a>
+</div>
+
+> ##### A guest blog post by community member <a href="/Maxence">Maxence Dominici</a>
 
 This article will discuss my journey to deploy the `transformers` _sentiment-analysis_ pipeline on [Google Cloud](https://cloud.google.com). We will start with a quick introduction to `transformers` and then move to the technical part of the implementation. Finally, we'll summarize this implementation and review what we have achieved.
 
@@ -152,5 +177,5 @@ Nevertheless, it's important to stress that you will pay the storage for each Gi
 
 ## Conclusion
 
-By using Transformers' sentiment analysis pipeline, I won a non-negligible amount of time. Instead of training/fine-tuning a model, I could find one ready to be used in production and start the deployment in my system. I might fine-tune it in the future, but as it shows on my test, the accuracy is already amazing!
+By using Transformers' sentiment analysis pipeline, I saved a non-negligible amount of time. Instead of training/fine-tuning a model, I could find one ready to be used in production and start the deployment in my system. I might fine-tune it in the future, but as shown on my test, the accuracy is already amazing!
 I would have liked a "pure TensorFlow" model, or at least a way to load it in TensorFlow without Transformers dependencies to use the AI platform. It would also be great to have a lite version.
