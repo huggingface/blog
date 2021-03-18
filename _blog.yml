@@ -91,6 +91,26 @@
   guest: true
   date: February 10, 2021
 
+- local: simple-considerations
+  title: "Simple considerations for simple people building fancy neural networks"
+  thumbnail: ./assets/13_simple-considerations/henry-co-3coKbdfnAFg-unsplash.jpg
+  date: February 25, 2021
+
+- local: long-range-transformers
+  title: "Hugging Face Reads, Feb. 2021 - Long-range Transformers"
+  thumbnail: ./assets/14_long_range_transformers/EfficientTransformerTaxonomy.png
+  date: March 09, 2021
+
+- local: fine-tune-wav2vec2-english
+  title: "Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers"
+  thumbnail: ./assets/15_fine_tune_wav2vec2/wav2vec2.png
+  date: March 12, 2021
+
+- local: fine-tune-xlsr-wav2vec2
+  title: "Fine-Tune XLSR-Wav2Vec2 for low-resource ASR with 🤗 Transformers"
+  thumbnail: ./assets/16_fine_tune_xlsr_wav2vec2/xlsr_wav2vec2.png
+  date: March 12, 2021
+
 - local: how-to-deploy-a-pipeline-to-google-clouds
   title: "My Journey to a serverless transformers pipeline on Google Cloud"
   author: Maxence
