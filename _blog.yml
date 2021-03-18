@@ -110,3 +110,9 @@
   title: "Fine-Tune XLSR-Wav2Vec2 for low-resource ASR with 🤗 Transformers"
   thumbnail: ./assets/16_fine_tune_xlsr_wav2vec2/xlsr_wav2vec2.png
   date: March 12, 2021
+
+- local: how-to-deploy-a-pipeline-to-google-clouds
+  title: "My Journey to a serverless transformers pipeline on Google Cloud"
+  author: Maxence
+  guest: true
+  date: March 18, 2021
