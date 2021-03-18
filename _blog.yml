@@ -90,3 +90,9 @@
   author: amogkam
   guest: true
   date: February 10, 2021
+
+- local: how-to-deploy-a-pipeline-to-google-clouds
+  title: "My Journey to a serverless transformers pipeline on Google Cloud"
+  author: Maxence
+  guest: true
+  date: March 18, 2021
