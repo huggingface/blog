@@ -550,13 +550,13 @@ _Q: Do you offer premium support or support SLAs for this solution?_
 
 A: AWS Technical Support tiers are available from AWS and cover development and production issues for AWS products and services - please refer to AWS Support for specifics and scope.
 
-If you have questions which the Hugging Face community can help answer and/or benefit from, please [post them in the Hugging Face forum](https://discuss.huggingface.co/).
+If you have questions which the Hugging Face community can help answer and/or benefit from, please [post them in the Hugging Face forum](https://discuss.huggingface.co/c/sagemaker/17).
 
 If you need premium support from the Hugging Face team to accelerate your NLP roadmap, our Expert Acceleration Program offers direct guidance from our open source, science and ML Engineering team - [contact us to learn more](mailto:api-enterprise@huggingface.co).
 
 _Q: What are you planning next through this partnership?_
 
-A: Our common goal is to democratize state of the art Machine Learning. We will continue to innovate to make it easier for researchers, data scientists and ML practitioners to manage, train and run state of the art models. If you have feature requests for integration in AWS with Hugging Face, please [let us know in the Hugging Face community forum](https://discuss.huggingface.co/).
+A: Our common goal is to democratize state of the art Machine Learning. We will continue to innovate to make it easier for researchers, data scientists and ML practitioners to manage, train and run state of the art models. If you have feature requests for integration in AWS with Hugging Face, please [let us know in the Hugging Face community forum](https://discuss.huggingface.co/c/sagemaker/17).
 
 _Q: I use Hugging Face with Azure Machine Learning or Google Cloud Platform, what does this partnership mean for me?_
 
