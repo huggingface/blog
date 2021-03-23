@@ -5,7 +5,7 @@ thumbnail: /blog/assets/17_the_partnership_amazon_sagemaker_and_hugging_face/thu
 
 > Look at these smiles!
 
-# **Strategic Partnership 🤝**
+# **The Partnership: Amazon SageMaker and Hugging Face**
 
 Today, we announce a strategic partnership between Hugging Face and [Amazon](https://huggingface.co/amazon) to make it easier for companies to leverage State of the Art Machine Learning models, and ship cutting-edge NLP features faster.
 
@@ -17,13 +17,13 @@ To learn how to access and use the new Hugging Face DLCs with the Amazon SageMak
 
 ---
 
-# **Hugging Face + SageMaker: Features & Benefits 🔥**
+## **Features & Benefits 🔥**
 
-## **One Command is All you Need**
+## One Command is All you Need
 
 With the new Hugging Face Deep Learning Containers available in Amazon SageMaker, training cutting-edge Transformers-based NLP models has never been simpler. There are variants specially optimized for TensorFlow and PyTorch, for single-GPU, single-node multi-GPU and multi-node clusters.
 
-## **Accelerating Machine Learning from Science to Production**
+## Accelerating Machine Learning from Science to Production
 
 In addition to Hugging Face DLCs, we created a first-class Hugging Face extension to the SageMaker Python-sdk to accelerate data science teams, reducing the time required to set up and run experiments from days to minutes.
 
@@ -31,7 +31,7 @@ You can use the Hugging Face DLCs with the Automatic Model Tuning capability of 
 
 Thanks to the SageMaker Studio web-based Integrated Development Environment (IDE), you can easily track and compare your experiments and your training artifacts.
 
-## **Built-in Performance**
+## Built-in Performance
 
 With the Hugging Face DLCs, SageMaker customers will benefit from built-in performance optimizations for PyTorch or TensorFlow, to train NLP models faster, and with the flexibility to choose the training infrastructure with the best price/performance ratio for your workload.
 
@@ -39,17 +39,17 @@ The Hugging Face DLCs are fully integrated with the [SageMaker distributed train
 
 ---
 
-# **Resources, Documentation & Samples 📄**
+## **Resources, Documentation & Samples 📄**
 
 Below you can find all the important resources to all published blog posts, videos, documentation, and sample Notebooks/scripts.
 
-## **Blog/Video**
+## Blog/Video
 
 - [AWS: Embracing natural language processing with Hugging Face](https://aws.amazon.com/de/blogs/opensource/embracing-natural-language-processing-with-hugging-face/)
 - [AWS and Hugging Face collaborate to simplify and accelerate adoption of natural language processing models](https://aws.amazon.com/blogs/machine-learning/aws-and-hugging-face-collaborate-to-simplify-and-accelerate-adoption-of-natural-language-processing-models/)
 - [Walkthrough: End-to-End Text Classification](https://youtu.be/ok3hetb42gU)
 
-## **Documentation**
+## Documentation
 
 - [🤗 Transformers Documentation: Amazon SageMaker](https://huggingface.co/transformers/sagemaker.html)
 - [Amazon SageMaker documentation for Hugging Face](https://docs.aws.amazon.com/sagemaker/latest/dg/hugging-face.html)
@@ -58,7 +58,7 @@ Below you can find all the important resources to all published blog posts, vide
 - [SageMaker's Distributed Data Parallel Library](https://docs.aws.amazon.com/sagemaker/latest/dg/data-parallel.html)
 - [SageMaker's Distributed Model Parallel Library](https://docs.aws.amazon.com/sagemaker/latest/dg/model-parallel.html)
 
-## **Sample Notebook**
+## Sample Notebook
 
 - [all Notebooks](https://github.com/huggingface/notebooks/tree/master/sagemaker)
 - [Getting Started Pytorch](https://github.com/huggingface/notebooks/blob/master/sagemaker/01_getting_started_pytorch/sagemaker-notebook.ipynb)
@@ -71,7 +71,7 @@ Below you can find all the important resources to all published blog posts, vide
 
 ---
 
-# **Getting started: End-to-End Text Classification 🧭**
+## **Getting started: End-to-End Text Classification 🧭**
 
 In this getting started guide, we will use the new Hugging Face DLCs and Amazon SageMaker extension to train a transformer model on binary text classification using the transformers and datasets libraries.
 
@@ -84,7 +84,7 @@ We will use an Amazon SageMaker Notebook Instance for the example. You can learn
 - preprocess our data and upload it to [Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
 - create a [HuggingFace Estimator](https://huggingface.co/transformers/sagemaker.html) and train our model
 
-## **Set up a development environment and install sagemaker**
+## Set up a development environment and install sagemaker
 
 As mentioned above we are going to use SageMaker Notebook Instances for this. To get started you need to jump into your Jupyer Notebook or JupyterLab and create a new Notebook with the conda_pytorch_p36 kernel.
 
@@ -117,7 +117,7 @@ print(f"sagemaker bucket: {sess.default_bucket()}")
 print(f"sagemaker session region: {sess.boto_region_name}")
 ```
 
-## **Create the training script `train.py`**
+## Create the training script `train.py`
 
 In a SageMaker `TrainingJob` we are executing a python script with named arguments. In this example, we use PyTorch together with transformers. The script will
 
@@ -224,7 +224,7 @@ if __name__ == "__main__":
     trainer.save_model(args.model_dir)
 ```
 
-## **Preprocess our data and upload it to s3**
+## Preprocess our data and upload it to s3
 
 We use the `datasets` library to download and preprocess our `imdb` dataset. After preprocessing, the dataset will be uploaded to the current session’s default s3 bucket `sess.default_bucket()` used within our training job. The `imdb` dataset consists of 25000 training and 25000 testing highly polar movie reviews.
 
@@ -279,7 +279,7 @@ test_input_path = f's3://{sess.default_bucket()}/{s3_prefix}/test'
 test_dataset.save_to_disk(test_input_path,fs=s3)
 ```
 
-## **Create a HuggingFace Estimator and train our model**
+## Create a HuggingFace Estimator and train our model
 
 In order to create a SageMaker `Trainingjob` we can use a HuggingFace Estimator. The Estimator handles the end-to-end Amazon SageMaker training. In an Estimator, we define which fine-tuning script should be used as `entry_point`, which `instance_type` should be used, which hyperparameters are passed in. In addition to this, a number of advanced controls are available, such as customizing the output and checkpointing locations, specifying the local storage size or network configuration.
 
@@ -323,11 +323,11 @@ huggingface_estimator.fit({'train': training_input_path, 'test': test_input_path
 
 ---
 
-# **Additional Features 🚀**
+## **Additional Features 🚀**
 
 In addition to the Deep Learning Container and the SageMaker SDK, we have implemented other additional features.
 
-## **Distributed Training: Data-Parallel**
+## Distributed Training: Data-Parallel
 
 You can use [SageMaker Data Parallelism Library](https://aws.amazon.com/blogs/aws/managed-data-parallelism-in-amazon-sagemaker-simplifies-training-on-large-datasets/) out of the box for distributed training. We added the functionality of Data Parallelism directly into the Trainer. If your train.py uses the Trainer API you only need to define the distribution parameter in the HuggingFace Estimator.
 
@@ -355,7 +355,7 @@ huggingface_estimator = HuggingFace(
 
 The "Getting started: End-to-End Text Classification 🧭" example can be used for distributed training without any changes.
 
-## **Distributed Training: Model Parallel**
+## Distributed Training: Model Parallel
 
 You can use [SageMaker Model Parallelism Library](https://aws.amazon.com/blogs/aws/amazon-sagemaker-simplifies-training-deep-learning-models-with-billions-of-parameters/) out of the box for distributed training. We extended the `Trainer` API to the [SageMakerTrainer](https://github.com/huggingface/transformers/blob/461e8cacf94d1f76367cc9ba2cfd5b9bd3641c81/src/transformers/sagemaker/trainer_sm.py#L72) to use the model parallelism library. Therefore you only have to change the imports in your `train.py`.
 
@@ -406,7 +406,7 @@ huggingface_estimator = HuggingFace(
 )
 ```
 
-## **Spot instances**
+## Spot instances
 
 With the creation of HuggingFace Framework extension for the SageMaker Python SDK we can also leverage the benefit of [fully-managed EC2 spot instances](https://docs.aws.amazon.com/sagemaker/latest/dg/model-managed-spot-training.html) and save up to 90% of our training cost.
 
@@ -446,7 +446,7 @@ huggingface_estimator = HuggingFace(
 # Managed Spot Training savings: 88.0%
 ```
 
-## **Git Repositories**
+## Git Repositories
 
 When you create an `HuggingFace` Estimator, you can specify a [training script that is stored in a GitHub](https://sagemaker.readthedocs.io/en/stable/overview.html#use-scripts-stored-in-a-git-repository) repository as the entry point for the estimator, so that you don’t have to download the scripts locally. If Git support is enabled, then `entry_point` and `source_dir` should be relative paths in the Git repo if provided.
 
@@ -475,7 +475,7 @@ huggingface_estimator = HuggingFace(
 )
 ```
 
-## **SageMaker Metrics**
+## SageMaker Metrics
 
 [SageMaker Metrics](https://docs.aws.amazon.com/sagemaker/latest/dg/training-metrics.html#define-train-metrics) can automatically parse the logs for metrics and send those metrics to CloudWatch. If you want SageMaker to parse logs you have to specify the metrics that you want SageMaker to send to CloudWatch when you configure the training job. You specify the name of the metrics that you want to send and the regular expressions that SageMaker uses to parse the logs that your algorithm emits to find those metrics.
 
@@ -508,7 +508,7 @@ huggingface_estimator = HuggingFace(
 
 ---
 
-# **FAQ 🎯**
+## **FAQ 🎯**
 
 _Q: What are Deep Learning Containers?_
 
