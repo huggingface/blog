@@ -3,6 +3,8 @@ title: 'The Partnership: Amazon SageMaker and Hugging Face'
 thumbnail: /blog/assets/17_the_partnership_amazon_sagemaker_and_hugging_face/thumbnail.png
 ---
 
+![hugging-face-and-aws-logo](assets/17_the_partnership_amazon_sagemaker_and_hugging_face/cover.png)
+
 > Look at these smiles!
 
 # **Strategic Partnership 🤝**
