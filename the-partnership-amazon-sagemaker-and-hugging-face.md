@@ -54,7 +54,7 @@ Below you can find all the important resources to all published blog posts, vide
 - [🤗 Transformers Documentation: Amazon SageMaker](https://huggingface.co/transformers/sagemaker.html)
 - [Amazon SageMaker documentation for Hugging Face](https://docs.aws.amazon.com/sagemaker/latest/dg/hugging-face.html)
 - Python SDK SageMaker documentation for Hugging Face
-- [Deep Learning Container](https://github.com/aws/deep-learning-containers/blob/master/available_images.md#prior-general-framework-container-versions)
+- [Deep Learning Container](https://github.com/aws/deep-learning-containers/blob/master/available_images.md#huggingface-training-containers)
 - [SageMaker's Distributed Data Parallel Library](https://docs.aws.amazon.com/sagemaker/latest/dg/data-parallel.html)
 - [SageMaker's Distributed Model Parallel Library](https://docs.aws.amazon.com/sagemaker/latest/dg/model-parallel.html)
 
