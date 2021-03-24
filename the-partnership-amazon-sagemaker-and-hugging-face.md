@@ -50,6 +50,7 @@ Below you can find all the important resources to all published blog posts, vide
 - [AWS: Embracing natural language processing with Hugging Face](https://aws.amazon.com/de/blogs/opensource/embracing-natural-language-processing-with-hugging-face/)
 - [AWS and Hugging Face collaborate to simplify and accelerate adoption of natural language processing models](https://aws.amazon.com/blogs/machine-learning/aws-and-hugging-face-collaborate-to-simplify-and-accelerate-adoption-of-natural-language-processing-models/)
 - [Walkthrough: End-to-End Text Classification](https://youtu.be/ok3hetb42gU)
+- [Working with Hugging Face models on Amazon SageMaker](https://youtu.be/leyrCgLAGjMn)
 
 ## Documentation
 
