@@ -124,6 +124,6 @@
   
 - local: big-bird
   title: "Understanding BigBird's Block Sparse Attention"
-  author: Vasudev
+  author: vasudevgupta
   guest: true
   date: March 31, 2021
