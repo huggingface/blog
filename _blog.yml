@@ -122,3 +122,8 @@
   thumbnail:  ./assets/17_the_partnership_amazon_sagemaker_and_hugging_face/thumbnail.png
   date: March 23, 2021
   
+- local: big-bird
+  title: "Understanding BigBird's Block Sparse Attention"
+  author: Vasudev
+  guest: true
+  date: March 31, 2021
