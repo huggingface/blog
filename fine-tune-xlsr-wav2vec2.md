@@ -149,7 +149,7 @@ import re
 chars_to_ignore_regex = '[\,\?\.\!\-\;\:\"\“\%\‘\”\�]'
 
 def remove_special_characters(batch):
-    batch["text"] = re.sub(chars_to_ignore_regex, '', batch["sentence"]).lower() + " "
+    batch["sentence"] = re.sub(chars_to_ignore_regex, '', batch["sentence"]).lower() + " "
     return batch
 
 common_voice_train = common_voice_train.map(remove_special_characters, remove_columns=["sentence"])
@@ -187,12 +187,12 @@ It is important to pass the argument `batched=True` to the `map(...)` function s
 
 ```python
 def extract_all_chars(batch):
-  all_text = " ".join(batch["text"])
+  all_text = " ".join(batch["sentence"])
   vocab = list(set(all_text))
   return {"vocab": [vocab], "all_text": [all_text]}
 
 vocab_train = common_voice_train.map(extract_all_chars, batched=True, batch_size=-1, keep_in_memory=True, remove_columns=common_voice_train.column_names)
-vocab_test = common_voice_train.map(extract_all_chars, batched=True, batch_size=-1, keep_in_memory=True, remove_columns=common_voice_test.column_names)
+vocab_test = common_voice_test.map(extract_all_chars, batched=True, batch_size=-1, keep_in_memory=True, remove_columns=common_voice_test.column_names)
 ```
 
 Now, we create the union of all distinct letters in the training dataset and test dataset and convert the resulting list into an enumerated dictionary.
@@ -379,7 +379,7 @@ def speech_file_to_array_fn(batch):
     speech_array, sampling_rate = torchaudio.load(batch["path"])
     batch["speech"] = speech_array[0].numpy()
     batch["sampling_rate"] = sampling_rate
-    batch["target_text"] = batch["text"]
+    batch["target_text"] = batch["sentence"]
     return batch
 
 common_voice_train = common_voice_train.map(speech_file_to_array_fn, remove_columns=common_voice_train.column_names)
