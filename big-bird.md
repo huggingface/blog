@@ -1,6 +1,6 @@
 ---
 title: "Understanding BigBird's Block Sparse Attention"
-thumbnail: /blog/assets/18_big_bird/18_big_bird/attn.png
+thumbnail: /blog/assets/18_big_bird/attn.png
 ---
 
 <h1>
