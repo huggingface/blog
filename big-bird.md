@@ -1,6 +1,6 @@
 ---
 title: "Understanding BigBird's Block Sparse Attention"
-thumbnail: /blog/assets/15_big_bird/wav2vec2.png
+thumbnail: /blog/assets/18_big_bird/18_big_bird/attn.png
 ---
 
 <h1>
@@ -26,7 +26,7 @@ thumbnail: /blog/assets/15_big_bird/wav2vec2.png
 
 ## Introduction
 
-Transformer-based models have shown to be very useful for many NLP tasks. However, a major limitation of transformers-based models is its $O(n^2)$ time & memory complexity (where $n$ is sequence length). Hence, it's computationally very expensive to apply transformer-based models on long sequences ($n > 512$). Several recent papers, *e.g.* `Longformer`, `Performer`, `Reformer`, `Clustered attention` try to remedy this problem by approximating the full attention matrix. You can checkout 🤗's recent blog [post](https://huggingface.co/blog/long-range-transformers) in case you are unfamiliar with these models.
+Transformer-based models have shown to be very useful for many NLP tasks. However, a major limitation of transformers-based models is its \\(O(n^2)\\) time & memory complexity (where \\(n\\) is sequence length). Hence, it's computationally very expensive to apply transformer-based models on long sequences \\(n > 512\\). Several recent papers, *e.g.* `Longformer`, `Performer`, `Reformer`, `Clustered attention` try to remedy this problem by approximating the full attention matrix. You can checkout 🤗's recent blog [post](https://huggingface.co/blog/long-range-transformers) in case you are unfamiliar with these models.
 
 `BigBird` (introduced in [paper](https://arxiv.org/abs/2007.14062)) is one of such recent models to address this issue. `BigBird` relies on **block sparse attention** instead of normal attention (*i.e.* BERT's attention) and can handle sequences up to a length of **4096** at a much lower computational cost compared to BERT. It has achieved SOTA on various tasks involving very long sequences such as long documents summarization, question-answering with long contexts.
 
@@ -50,8 +50,8 @@ In this blog post, we will try to answer those questions.
 ### What tokens should be attended to?
 
 We will give a practical example of how attention works by considering the sentence "BigBird is now available in HuggingFace for extractive question answering".
-In `BERT`-like attention, every word would simply attend to all other tokens. Put mathematically, this would mean that each queried token $`query_token` \in 
-\{'BigBird', 'is', 'now', 'available', 'in', 'HuggingFace', 'for', 'extractive', 'question', 'answering'\}$, would attend to the full list of $`key tokens` = \['BigBird', 'is', 'now', 'available', 'in', 'HuggingFace', 'for', 'extractive', 'question', 'answering']$. 
+In `BERT`-like attention, every word would simply attend to all other tokens. Put mathematically, this would mean that each queried token \\( \text{query-token} \in \{\text{BigBird},\text{is},\text{now},\text{available},\text{in},\text{HuggingFace},\text{for},\text{extractive},\text{question},\text{answering}\} \\), 
+would attend to the full list of \\( \text{key-tokens} = \left[\text{BigBird},\text{is},\text{now},\text{available},\text{in},\text{HuggingFace},\text{for},\text{extractive},\text{question},\text{answering} \right]\\). 
 
 Let's think about a sensible choice of key tokens that a queried token actually only should attend to by writing some pseudo-code.
 Will will assume that the token `available` is queried and build a sensible list of key tokens to attend to.
@@ -116,16 +116,16 @@ One of the major contributions of `BigBird` is the proposition of a `block spars
 
 First, let's get a better understanding of `global`, `sliding` & `random` attention using graphs and try to understand how the combination of these three attention mechanisms yields a very good approximation of standard `Bert-like` attention.
 
-<img src="assets/global.png" width=250 height=250> </img>
-<img src="assets/sliding.png" width=250 height=250> </img>
-<img src="assets/random.png" width=250 height=250> </img> <br>
+<img src="assets/18_big_bird/global.png" width=250 height=250> </img>
+<img src="assets/18_big_bird/sliding.png" width=250 height=250> </img>
+<img src="assets/18_big_bird/random.png" width=250 height=250> </img> <br>
 
 *The above figure shows `global` (left), `sliding` (middle) & `random` (right) connections respectively as a graph. Each node corresponds to a token and each line represents an attention score. If no connection is made between 2 tokens, then an attention score is assumed to 0.*
 
-![](assets/graph.gif)
-<img src="assets/full.png" width=230 height=230> </img>
+![](assets/18_big_bird/graph.gif)
+<img src="assets/18_big_bird/full.png" width=230 height=230> </img>
 
-***BigBird block sparse attention** is a combination of sliding, global & random connections (total 10 connections) as shown in `gif` in left. While a graph of **normal attention** (right) will have all 15 connections (note: total 6 nodes are present). You can simply think of normal attention as all the tokens attending globally.*
+**BigBird block sparse attention** is a combination of sliding, global & random connections (total 10 connections) as shown in `gif` in left. While a graph of **normal attention** (right) will have all 15 connections (note: total 6 nodes are present). You can simply think of normal attention as all the tokens attending globally \\( {}^1 \\).
 
 **Normal attention:** Model can transfer information from one token to another token directly in a single layer since each token is queried over every other token and is attended by every other token. Let's consider an example similar to what is shown in the above figures. If the model needs to associate *'going'* with *'now'*, it can simply do that in a single layer since there is a direct connection joining both the tokens.
 
@@ -134,7 +134,8 @@ First, let's get a better understanding of `global`, `sliding` & `random` attent
 
 In case, we have many global tokens, then we may not need random connections since there will be multiple short paths through which information can travel. This is the idea behind keeping `num_random_tokens = 0` when working with a variant of BigBird, called ETC (more on this in later sections).
 
-*Note: In these graphics, we are assuming that the attention matrix is symmetric **i.e.** \\(\mathbf{A}_{ij} = \mathbf{A}_{ji}\\) since in a graph if some token **A** attends **B**, then **B** will also attend **A**. You can see from the figure of the attention matrix shown in the next section that this assumption holds for most tokens in BigBird*
+
+\\( {}^1 \\) In these graphics, we are assuming that the attention matrix is symmetric **i.e.** \\(\mathbf{A}_{ij} = \mathbf{A}_{ji}\\) since in a graph if some token **A** attends **B**, then **B** will also attend **A**. You can see from the figure of the attention matrix shown in the next section that this assumption holds for most tokens in BigBird
 
 | Attention Type  | `global_tokens`   | `sliding_tokens` | `random_tokens`                    |
 |-----------------|-------------------|------------------|------------------------------------|
@@ -147,7 +148,7 @@ In case, we have many global tokens, then we may not need random connections sin
 
 BigBird block sparse attention is just an efficient implementation of what we discussed above. Each token is attending some **global tokens**, **sliding tokens**, & **random tokens** instead of attending to **all** other tokens. The authors hardcoded the attention matrix for multiple query components separately; and used a cool trick to speed up training/inference on GPU and TPU.
 
-![BigBird block sparse attention](assets/attn.png)
+![BigBird block sparse attention](assets/18_big_bird/attn.png)
 *Note: on the top, we have 2 extra sentences. As you can notice, every token is just switched by one place in both sentences. This is how sliding attention is implemented. When `q[i]` is multiplied with `k[i,0:3]`, we will get a sliding attention score for `q[i]` (where `i` is index of element in sequence).*
 
 You can find the actual implementation of `block_sparse` attention [here](https://github.com/vasudevgupta7/transformers/blob/5f2d6a0c93ca2017961199aa04a344b9b779d454/src/transformers/models/big_bird/modeling_big_bird.py#L513). This may look very scary 😨😨 now. But this article will surely ease your life in understanding the code.
@@ -207,52 +208,52 @@ Q[n-2] x [Q[r1], Q[r2], ......, Q[r]]
 
 ### Implementation
 
-**Recap:** In regular BERT attention, a sequence of tokens **i.e. $X = x_1, x_2, ...., x_n$** is projected through a dense layer into **$Q,K,V$** and the attention score (**$Z$**) is calculated as **$Z=Softmax(QK^T)$**. In the case of BigBird block sparse attention, the same algorithm is used but only with some selected query & key vectors.
+**Recap:** In regular BERT attention, a sequence of tokens i.e. \\( X = x_1, x_2, ...., x_n \\) is projected through a dense layer into \\( Q,K,V \\) and the attention score \\( Z \\) is calculated as \\( Z=Softmax(QK^T) \\). In the case of BigBird block sparse attention, the same algorithm is used but only with some selected query & key vectors.
 
-Let's have a look at how bigbird block sparse attention is implemented. To begin with, let's assume $b, r, s, g$ represent `block_size`, `num_random_blocks`, `num_sliding_blocks`, `num_global_blocks`, respectively. Visually, we can illustrate the components of big bird's block sparse attention with $b=4, r=1, g=2, s=3, d=5$ as follows:
+Let's have a look at how bigbird block sparse attention is implemented. To begin with, let's assume \\(b, r, s, g\\) represent `block_size`, `num_random_blocks`, `num_sliding_blocks`, `num_global_blocks`, respectively. Visually, we can illustrate the components of big bird's block sparse attention with \\(b=4, r=1, g=2, s=3, d=5\\) as follows:
 
-<img src="assets/intro.png" width=500 height=250> </img>
+<img src="assets/18_big_bird/intro.png" width=500 height=250> </img>
 
 Attention scores for \\({q}_{1}, {q}_{2}, {q}_{3:n-2}, {q}_{n-1}, {q}_{n}\\) are calculated seperately as described below:
 
 ---
 
-Attention score for \\(\mathbf{q}_{1}\\) represented by $a_1$ where $a_1=Softmax(q_1 * K^T)$, is nothing but attention score between all the tokens in 1st block with all the other tokens in the sequence.
+Attention score for \\(\mathbf{q}_{1}\\) represented by \\(a_1\\) where \\(a_1=Softmax(q_1 * K^T)\\), is nothing but attention score between all the tokens in 1st block with all the other tokens in the sequence.
 
-![BigBird block sparse attention](assets/q1.png)
-*$q_1$ represents 1st block, $g_i$ represents $i$ block. We are simply performing normal attention operation between $q_1$ & $g$ (i.e. all the keys).*
+![BigBird block sparse attention](assets/18_big_bird/q1.png)
+\\(q_1\\) represents 1st block, \\(g_i\\) represents \\(i\\) block. We are simply performing normal attention operation between \\(q_1\\) & \\(g\\) (i.e. all the keys).
 
 ---
 
-For calculating attention score for tokens in seconcd block, we are gathering the first three blocks, the last block, and the fifth block. Then we can compute $a_2 = Softmax(q_2 * concat(k_1, k_2, k_3, k_5, k_7))$.
+For calculating attention score for tokens in seconcd block, we are gathering the first three blocks, the last block, and the fifth block. Then we can compute \\(a_2 = Softmax(q_2 * concat(k_1, k_2, k_3, k_5, k_7)\\).
 
-![BigBird block sparse attention](assets/q2.png)
+![BigBird block sparse attention](assets/18_big_bird/q2.png)
 
-*I am representing tokens by $g, r, s$ just to represent their nature explicitly (i.e. showing global, random, sliding tokens), else they are $k$ only.*
+*I am representing tokens by \\(g, r, s\\) just to represent their nature explicitly (i.e. showing global, random, sliding tokens), else they are \\(k\\) only.*
 
 ---
 
 For calculating attention score for \\({q}_{3:n-2}\\), we will gather global, sliding, random keys & will compute the normal attention operation over \\({q}_{3:n-2}\\) and the gathered keys. Note that sliding keys are gathered using the special shifting trick as discussed earlier in the sliding attention section.
 
-![BigBird block sparse attention](assets/q_middle.png)
+![BigBird block sparse attention](assets/18_big_bird/q_middle.png)
 
 ---
 
-For calculating attention score for tokens in previous to last block (i.e. \\({q}_{n-1}\\)), we are gathering the first block, last three blocks, and the third block. Then we can apply the formula \\({a}_{n-1} = Softmax({q}_{n-1} * concat(k_1, k_3, k_5, k_6, k_7))\\). This is very similar to what we did for $q_2$.
+For calculating attention score for tokens in previous to last block (i.e. \\({q}_{n-1}\\)), we are gathering the first block, last three blocks, and the third block. Then we can apply the formula \\({a}_{n-1} = Softmax({q}_{n-1} * concat(k_1, k_3, k_5, k_6, k_7))\\). This is very similar to what we did for \\(q_2\\).
 
-![BigBird block sparse attention](assets/qlast_sec.png)
+![BigBird block sparse attention](assets/18_big_bird/qlast_sec.png)
 
 ---
 
-Attention score for \\(\mathbf{q}_{n}\\) is represented by $a_n$ where $a_n=Softmax(q_n * K^T)$, and is nothing but attention score between all the tokens in the last block with all the other tokens in sequence. This is very similar to what we did for $q_1$.
+Attention score for \\(\mathbf{q}_{n}\\) is represented by \\(a_n\\) where \\(a_n=Softmax(q_n * K^T)\\), and is nothing but attention score between all the tokens in the last block with all the other tokens in sequence. This is very similar to what we did for \\( q_1 \\) .
 
-![BigBird block sparse attention](assets/qlast.png)
+![BigBird block sparse attention](assets/18_big_bird/qlast.png)
 
 ---
 
 Let's combine the above matrices to get the final attention matrix. This attention matrix can be used to get a representation of all the tokens.
 
-![BigBird block sparse attention](assets/block-sparse-attn.gif)
+![BigBird block sparse attention](assets/18_big_bird/block-sparse-attn.gif)
 
 *`blue -> global blocks`, `red -> random blocks`, `orange -> sliding blocks` This attention matrix is just for illustration. During the forward pass, we aren't storing `white` blocks, but are computing a weighted value matrix (i.e. representation of each token) directly for each separated components as discussed above.*
 
