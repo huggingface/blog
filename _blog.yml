@@ -130,5 +130,4 @@
 
 - local: sagemaker-distributed-training-seq2seq
   title: "Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker"
-  thumbnail:  ./assets/19_sagemaker_distributed_training_seq2seq/thumbnail.png
   date: April XX, 2021

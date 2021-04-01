@@ -152,7 +152,8 @@ hyperparameters={
     'model_name_or_path':'facebook/bart-large-cnn',
     'dataset_name':'samsum',
     'do_train':True,
-    'do_eval':True,
+    'do_predict': True,
+    'predict_with_generate': True,
     'output_dir':'/opt/ml/model',
     'num_train_epochs': 3,
     'learning_rate': 5e-5,
@@ -191,15 +192,29 @@ huggingface_estimator = HuggingFace(
 )
 ```
 
-As `instance_type` we are using `ml.p3dn.24xlarge`, which contains 8x NVIDIA A100 with an `instance_count` of 2. This means we are going to run training on 16 GPUs and a `total_batch_size` of 16*4=64. We are going to train a 400 Millionen Parameter model with a `total_batch_size` of 64, which is just wow.
+As `instance_type` we are using `ml.p3dn.24xlarge`, which contains 8x NVIDIA A100 with an `instance_count` of 2. This means we are going to run training on 16 GPUs and a `total_batch_size` of 16*4=64. We are going to train a 400 Million Parameter model with a `total_batch_size` of 64, which is just wow.
 To start our training we call the `.fit()` method.
 
 ```python
 # starting the training job
 huggingface_estimator.fit()
 ```
+```bash
+2021-04-01 13:00:35 Starting - Starting the training job...
+2021-04-01 13:01:03 Starting - Launching requested ML instancesProfilerReport-1617282031: InProgress
+2021-04-01 13:02:23 Starting - Preparing the instances for training......
+2021-04-01 13:03:25 Downloading - Downloading input data...
+2021-04-01 13:04:04 Training - Downloading the training image...............
+2021-04-01 13:06:33 Training - Training image download completed. Training in progress
+....
+....
+2021-04-01 13:16:47 Uploading - Uploading generated training model
+2021-04-01 13:27:49 Completed - Training job completed
+Training seconds: 2882
+Billable seconds: 2882
+```
 
-![training-job-start](assets/19_sagemaker_distributed_training_seq2seq/trainingjob.png)
+The training seconds are 2882 because they are multiplied by the number of instances. If we calculate 2882/2=1441 is it the duration from "Downloading the training image" to "Training job completed".
 
 ---
 
@@ -221,7 +236,7 @@ os.makedirs(local_path, exist_ok = True)
 # download model from S3
 S3Downloader.download(
     s3_uri=huggingface_estimator.model_data, # s3 uri where the trained model is located
-    local_path=local_path, # local path where *.targ.gz is saved
+    local_path=local_path, # local path where *.tar.gz will be saved
     sagemaker_session=sess # sagemaker session used for training the model
 )
 
@@ -233,6 +248,27 @@ os.remove(f"{local_path}/model.tar.gz")
 ```
 
 Before we are going to upload our model to [huggingface.co](http://huggingface.co) we need to create a `model_card`. The `model_card` describes the model includes hyperparameters, results, and which dataset was used for training. To create a `model_card` we create a `README.md` in our `local_path` 
+
+```python
+# read eval and test results 
+with open(f"{local_path}/eval_results.json") as f:
+    eval_results_raw = json.load(f)
+    eval_results={}
+    eval_results["eval_rouge1"] = eval_results_raw["eval_rouge1"]
+    eval_results["eval_rouge2"] = eval_results_raw["eval_rouge2"]
+    eval_results["eval_rougeL"] = eval_results_raw["eval_rougeL"]
+    eval_results["eval_rougeLsum"] = eval_results_raw["eval_rougeLsum"]
+
+with open(f"{local_path}/test_results.json") as f:
+    test_results_raw = json.load(f)
+    test_results={}
+    test_results["test_rouge1"] = test_results_raw["test_rouge1"]
+    test_results["test_rouge2"] = test_results_raw["test_rouge2"]
+    test_results["test_rougeL"] = test_results_raw["test_rougeL"]
+    test_results["test_rougeLsum"] = test_results_raw["test_rougeLsum"]
+```
+
+After we extract all the metrics we want to include we are going to create our `README.md`. Additionally to the automated generation of the results table we add the metrics manually to the `metadata` of our model card under `model-index`
 
 ```python
 import json
@@ -247,6 +283,34 @@ tags:
 license: apache-2.0
 datasets:
 - samsum
+model-index:
+- name: {model_name}
+  results:
+  - task: 
+      name: Abstractive Text Summarization
+      type: abstractive-text-summarization
+    dataset:
+      name: "SAMSum Corpus: A Human-annotated Dialogue Dataset for Abstractive Summarization" 
+      type: samsum
+    metrics:
+       - name: Validation ROGUE-1
+         type: rogue-1
+         value: 42.621
+       - name: Validation ROGUE-2
+         type: rogue-2
+         value: 21.9825
+       - name: Validation ROGUE-L
+         type: rogue-l
+         value: 33.034
+       - name: Test ROGUE-1
+         type: rogue-1
+         value: 41.3174
+       - name: Test ROGUE-2
+         type: rogue-2
+         value: 20.8716
+       - name: Test ROGUE-L
+         type: rogue-l
+         value: 32.1337
 widget:
 - text: | 
     Jeff: Can I train a 🤗 Transformers model on Amazon SageMaker? 
@@ -273,18 +337,6 @@ For more information look at:
     {hyperparameters}
 
 
-## Train results
-
-| key | value |
-| --- | ----- |
-{train_table}
-
-### Eval res
-
-| key | value |
-| --- | ----- |
-{eval_table}
-
 ## Usage
     from transformers import pipeline
     summarizer = pipeline("summarization", model="philschmid/{model_name}")
@@ -297,27 +349,31 @@ For more information look at:
     Philipp: ok, ok you can find everything here. https://huggingface.co/blog/the-partnership-amazon-sagemaker-and-hugging-face                                           
     '''
     nlp(conversation)
-"""
-# read eval and train results
-with open(f"{local_path}/eval_results.json") as f:
-    eval_results = json.load(f)
 
-with open(f"{local_path}/train_results.json") as f:
-    train_results = json.load(f)    
+## Results
+
+| key | value |
+| --- | ----- |
+{eval_table}
+{test_table}
+
+
+
+"""
 
 # Generate model card (todo: add more data from Trainer)
 model_card = MODEL_CARD_TEMPLATE.format(
     model_name=f"{hyperparameters['model_name_or_path'].split('/')[1]}-{hyperparameters['dataset_name']}",
     hyperparameters=json.dumps(hyperparameters, indent=4, sort_keys=True),
     eval_table="\n".join(f"| {k} | {v} |" for k, v in eval_results.items()),
-    train_table="\n".join(f"| {k} | {v} |" for k, v in train_results.items())
-
+    test_table="\n".join(f"| {k} | {v} |" for k, v in test_results.items()),
 )
+
 with open(f"{local_path}/README.md", "w") as f:
     f.write(model_card)
 ```
 
-After we have our unzipped model and model card located in `my_bart_model` we can use the `huggingface_hub` SDK to create a repository and upload it to [huggingface.co](http://huggingface.co).
+After we have our unzipped model and model card located in `my_bart_model` we can use the either `huggingface_hub` SDK to create a repository and upload it to [huggingface.co](http://huggingface.co) or go to https://huggingface.co/new an create a new repository and upload it.
 
 ```python
 from getpass import getpass
