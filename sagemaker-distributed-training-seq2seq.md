@@ -126,7 +126,7 @@ print(f"S3 bucket used for storing artifacts: {sess.default_bucket()}")
 
 The [🤗 Transformers repository](https://github.com/huggingface/transformers/tree/master/examples) contains several `examples/`scripts for fine-tuning models on tasks from `language-modeling` to `token-classification`. In our case, we are using the `run_summarization.py` from the `seq2seq/` examples. 
 
-***Note**: you can use this tutorial identical to train your model on a different examples script.*
+***Note**: you can use this tutorial as-is to train your model on a different examples script.*
 
 Since the `HuggingFace` Estimator has git support built-in, we can specify a [training script stored in a GitHub repository](https://sagemaker.readthedocs.io/en/stable/overview.html#use-scripts-stored-in-a-git-repository) as `entry_point` and `source_dir`.
 
