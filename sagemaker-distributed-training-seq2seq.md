@@ -248,7 +248,7 @@ tar.close()
 os.remove(f"{local_path}/model.tar.gz")
 ```
 
-Before we are going to upload our model to [huggingface.co](http://huggingface.co) we need to create a `model_card`. The `model_card` describes the model includes hyperparameters, results, and which dataset was used for training. To create a `model_card` we create a `README.md` in our `local_path` 
+Before we are going to upload our model to [huggingface.co](http://huggingface.co) we need to create a `model_card`. The `model_card` describes the model and includes hyperparameters, results, and specifies which dataset was used for training. To create a `model_card` we create a `README.md` in our `local_path` 
 
 ```python
 # read eval and test results 
