@@ -128,7 +128,7 @@ The [🤗 Transformers repository](https://github.com/huggingface/transformers/t
 
 ***Note**: you can use this tutorial identical to train your model on a different examples script.*
 
-Since the `HuggingFace` Estimator has git support built-in, we can specify a [training script that is stored in a GitHub repository](https://sagemaker.readthedocs.io/en/stable/overview.html#use-scripts-stored-in-a-git-repository) as `entry_point` and `source_dir`.
+Since the `HuggingFace` Estimator has git support built-in, we can specify a [training script stored in a GitHub repository](https://sagemaker.readthedocs.io/en/stable/overview.html#use-scripts-stored-in-a-git-repository) as `entry_point` and `source_dir`.
 
 We are going to use the `transformers 4.4.2` DLC which means we need to configure the `v4.4.2` as the branch to pull the compatible example scripts.
 
