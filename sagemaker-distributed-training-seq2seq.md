@@ -37,7 +37,7 @@ With the new HuggingFace estimator in the [SageMaker Python SDK](https://sagemak
 
 ![thumbnail](assets/19_sagemaker_distributed_training_seq2seq/thumbnail.png)
 
-The [announcement blog post](https://huggingface.co/blog/the-partnership-amazon-sagemaker-and-hugging-face) provides all the information you need to know about the partnership. It includes a "Getting Started" example and all links for documentation, examples, and features.
+The [announcement blog post](https://huggingface.co/blog/the-partnership-amazon-sagemaker-and-hugging-face) provides all the information you need to know about the integration, including a "Getting Started" example and links to documentation, examples, and features.
 
 listed again here:
 
