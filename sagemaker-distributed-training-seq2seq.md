@@ -221,7 +221,7 @@ Converted to real money our training on 16 NVIDIA Tesla V100-GPU for a state-of-
 
 ## Upload the fine-tuned model to [huggingface.co](http://huggingface.co)
 
-Since our model achieved a pretty good score we are going to upload it to [huggingface.co](http://huggingface.co), create a `model_card` and test it with the inference-widget. If you don´t have an account yet sign up [here](https://huggingface.co/join).
+Since our model achieved a pretty good score we are going to upload it to [huggingface.co](http://huggingface.co), create a `model_card` and test it with the Hosted Inference widget. To upload a model you need to [create an account here](https://huggingface.co/join).
 
 We can download our model from Amazon S3 and unzip it using the following snippet.
 
