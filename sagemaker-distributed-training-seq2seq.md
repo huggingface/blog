@@ -215,7 +215,7 @@ Billable seconds: 2882
 ```
 
 The training seconds are 2882 because they are multiplied by the number of instances. If we calculate 2882/2=1441 is it the duration from "Downloading the training image" to "Training job completed". 
-Converted to real money our training on 16 NVIDIA Tesla V100-GPU for a state-of-the-Art summarization model equals ~28$.
+Converted to real money, our training on 16 NVIDIA Tesla V100-GPU for a State-of-the-Art summarization model comes down to ~28$.
 
 ---
 
