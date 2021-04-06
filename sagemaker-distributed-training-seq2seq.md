@@ -29,7 +29,7 @@ thumbnail: /blog/assets/19_sagemaker_distributed_training_seq2seq/thumbnail.png
 </a>
 
 
-In case you missed it. On the 25th of March [Hugging Face announced their partnership with Amazon](https://huggingface.co/blog/the-partnership-amazon-sagemaker-and-hugging-face) to make it easier for everyone to leverage State-of-the-Art Machine Learning models, and ship cutting-edge NLP features faster.  
+In case you missed it: on March 25th [we announced a collaboration with Amazon SageMaker](https://huggingface.co/blog/the-partnership-amazon-sagemaker-and-hugging-face) to make it easier to create State-of-the-Art Machine Learning models, and ship cutting-edge NLP features faster.  
 
 Together with the SageMaker team, we built 🤗  Transformers optimized [Deep Learning Containers](https://github.com/aws/deep-learning-containers/blob/master/available_images.md#huggingface-training-containers) to accelerate training of Transformers-based models. Thanks AWS friends!🤗 🚀 
 
