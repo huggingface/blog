@@ -128,11 +128,11 @@
   guest: true
   date: March 31, 2021
 
-- external: https://huggingface.co/how_many_data_points
+- external: https://huggingface.co/blog/how_many_data_points
   title: "How many data points is a prompt worth?"
   author: teven
   date: April 5, 2021
 
-- local: sagemaker-distributed-training-seq2seq
-  title: "Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker"
-  date: April 8, 2021
+# - local: sagemaker-distributed-training-seq2seq
+#   title: "Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker"
+#   date: April 8, 2021
