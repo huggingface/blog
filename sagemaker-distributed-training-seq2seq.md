@@ -374,7 +374,7 @@ with open(f"{local_path}/README.md", "w") as f:
     f.write(model_card)
 ```
 
-After we have our unzipped model and model card located in `my_bart_model` we can use the either `huggingface_hub` SDK to create a repository and upload it to [huggingface.co](http://huggingface.co) or go to https://huggingface.co/new an create a new repository and upload it.
+After we have our unzipped model and model card located in `my_bart_model` we can use the either `huggingface_hub` SDK to create a repository and upload it to [huggingface.co](https://huggingface.co) – or just to https://huggingface.co/new an create a new repository and upload it.
 
 ```python
 from getpass import getpass
