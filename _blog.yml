@@ -4,27 +4,27 @@
   date: February-May, 2020
 
 - local: how-to-generate
-  title: 'How to generate text: using different decoding methods for language generation with Transformers'
+  title: "How to generate text: using different decoding methods for language generation with Transformers"
   thumbnail: ./assets/02_how-to-generate/thumbnail.png
   date: March, 2020
 
 - external: https://huggingface.co/zero-shot
-  title: 'Zero Shot Topic Classification'
+  title: "Zero Shot Topic Classification"
   author: joeddav
   date: May 29, 2020
 
 - external: https://huggingface.co/calculator
-  title: 'How Big Should My Language Model Be?'
+  title: "How Big Should My Language Model Be?"
   author: teven
   date: June 8, 2020
 
 - external: https://yjernite.github.io/lfqa.html
-  title: 'Long Form Question Answering with ELI5'
+  title: "Long Form Question Answering with ELI5"
   author: yjernite
   date: June 17, 2020
 
 - local: reformer
-  title: 'The Reformer - Pushing the limits of language modeling'
+  title: "The Reformer - Pushing the limits of language modeling"
   thumbnail: ./assets/03_reformer/thumbnail.png
   date: July 3, 2020
 
@@ -34,31 +34,31 @@
   date: Sep 10, 2020
 
 - external: https://huggingface.co/rag
-  title: 'Retrieval Augmented Generation (RAG)'
+  title: "Retrieval Augmented Generation (RAG)"
   author: yjernite
   date: September 28, 2020
 
 - local: encoder-decoder
-  title: 'Transformer-based Encoder-Decoder Models'
+  title: "Transformer-based Encoder-Decoder Models"
   thumbnail: ./assets/05_encoder_decoder/thumbnail.png
   date: October 10, 2020
 
 - local: ray-tune
-  title: 'Hyperparameter Search with Transformers and Ray Tune'
+  title: "Hyperparameter Search with Transformers and Ray Tune"
   thumbnail: ./assets/06_ray_tune/ray-hf.jpg
   author: ray-project
   guest: true
   date: November 2, 2020
 
 - local: porting-fsmt
-  title: 'Porting fairseq wmt19 translation system to transformers'
+  title: "Porting fairseq wmt19 translation system to transformers"
   thumbnail: ./assets/07_porting_fsmt/thumbnail.png
   author: stas
   guest: true
   date: November 3, 2020
 
 - local: warm-starting-encoder-decoder
-  title: 'Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models'
+  title: "Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models"
   thumbnail: ./assets/08_warm_starting_encoder_decoder/thumbnail.png
   date: November 09, 2020
 
@@ -68,60 +68,60 @@
   date: January 18, 2021
 
 - local: zero-deepspeed-fairscale
-  title: 'Fit More and Train Faster With ZeRO via DeepSpeed and FairScale'
+  title: "Fit More and Train Faster With ZeRO via DeepSpeed and FairScale"
   thumbnail: ./assets/11_zero_deepspeed_fairscale/zero-partitioning.png
   date: January 19, 2021
 
 - local: tf-serving
-  title: 'Faster TensorFlow models in Hugging Face Transformers'
+  title: "Faster TensorFlow models in Hugging Face Transformers"
   thumbnail: ./assets/10_tf-serving/thumbnail.png
   date: January 26, 2021
 
 - local: pytorch-xla
-  title: 'Hugging Face on PyTorch / XLA TPUs'
+  title: "Hugging Face on PyTorch / XLA TPUs"
   thumbnail: ./assets/13_pytorch_xla/pytorch_xla_thumbnail.png
   author: jysohn23
   guest: true
   date: February 9, 2021
 
 - local: ray-rag
-  title: 'Retrieval Augmented Generation with Huggingface Transformers and Ray'
+  title: "Retrieval Augmented Generation with Huggingface Transformers and Ray"
   thumbnail: ./assets/12_ray_rag/ray_arch_updated.png
   author: amogkam
   guest: true
   date: February 10, 2021
 
 - local: simple-considerations
-  title: 'Simple considerations for simple people building fancy neural networks'
+  title: "Simple considerations for simple people building fancy neural networks"
   thumbnail: ./assets/13_simple-considerations/henry-co-3coKbdfnAFg-unsplash.jpg
   date: February 25, 2021
 
 - local: long-range-transformers
-  title: 'Hugging Face Reads, Feb. 2021 - Long-range Transformers'
+  title: "Hugging Face Reads, Feb. 2021 - Long-range Transformers"
   thumbnail: ./assets/14_long_range_transformers/EfficientTransformerTaxonomy.png
   date: March 09, 2021
 
 - local: fine-tune-wav2vec2-english
-  title: 'Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers'
+  title: "Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers"
   thumbnail: ./assets/15_fine_tune_wav2vec2/wav2vec2.png
   date: March 12, 2021
 
 - local: fine-tune-xlsr-wav2vec2
-  title: 'Fine-Tune XLSR-Wav2Vec2 for low-resource ASR with 🤗 Transformers'
+  title: "Fine-Tune XLSR-Wav2Vec2 for low-resource ASR with 🤗 Transformers"
   thumbnail: ./assets/16_fine_tune_xlsr_wav2vec2/xlsr_wav2vec2.png
   date: March 12, 2021
 
 - local: how-to-deploy-a-pipeline-to-google-clouds
-  title: 'My Journey to a serverless transformers pipeline on Google Cloud'
+  title: "My Journey to a serverless transformers pipeline on Google Cloud"
   author: Maxence
   guest: true
   date: March 18, 2021
 
 - local: the-partnership-amazon-sagemaker-and-hugging-face
-  title: 'The Partnership: Amazon SageMaker and Hugging Face'
-  thumbnail: ./assets/17_the_partnership_amazon_sagemaker_and_hugging_face/thumbnail.png
+  title: "The Partnership: Amazon SageMaker and Hugging Face"
+  thumbnail:  ./assets/17_the_partnership_amazon_sagemaker_and_hugging_face/thumbnail.png
   date: March 23, 2021
-
+  
 - local: big-bird
   title: "Understanding BigBird's Block Sparse Attention"
   author: vasudevgupta
@@ -129,10 +129,10 @@
   date: March 31, 2021
 
 - external: https://huggingface.co/how_many_data_points
-  title: 'How many data points is a prompt worth?'
+  title: "How many data points is a prompt worth?"
   author: teven
   date: April 5, 2021
 
 - local: sagemaker-distributed-training-seq2seq
-  title: 'Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker'
-  date: April 7, 2021
+  title: "Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker"
+  date: April 8, 2021
