@@ -24,10 +24,7 @@ thumbnail: /blog/assets/19_sagemaker_distributed_training_seq2seq/thumbnail.png
     </a>
 </div>
 
-<a target="_blank" href="https://github.com/huggingface/notebooks/blob/master/sagemaker/08_distributed_summarization_bart_t5/sagemaker-notebook.ipynb">
-    <img src="https://badgen.net/badge/Github/Open/black?icon=github" alt="Open on Github"/>
-</a>
-
+[Open Notebook on Github](https://github.com/huggingface/notebooks/blob/master/sagemaker/08_distributed_summarization_bart_t5/sagemaker-notebook.ipynb)
 
 In case you missed it: on March 25th [we announced a collaboration with Amazon SageMaker](https://huggingface.co/blog/the-partnership-amazon-sagemaker-and-hugging-face) to make it easier to create State-of-the-Art Machine Learning models, and ship cutting-edge NLP features faster.  
 
