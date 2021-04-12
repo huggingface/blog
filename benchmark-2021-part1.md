@@ -23,22 +23,22 @@
 
 ## Context and Motivations
 
-Back in October 2019, my colleague Lysandre Debut published an exhaustive _(at that time)_ [benchmarking
-blog (1)](https://medium.com/huggingface/benchmarking-transformers-pytorch-and-tensorflow-e2917fb891c2).
+Back in October 2019, my colleague Lysandre Debut published a comprehensive _(at the time)_ [inference performance 
+benchmarking blog (1)](https://medium.com/huggingface/benchmarking-transformers-pytorch-and-tensorflow-e2917fb891c2).
 
 Since then, [🤗 transformers (2)](https://github.com/huggingface/transformers) welcomed a tremendous number
 of new architectures and thousands of new models were added to the [🤗 hub (3)](https://huggingface.co/models)
-which now counts more than 7000 of them as of first quarter of 2021.
+which now counts more than 9,000 of them as of first quarter of 2021.
 
-In this context, it is very hard to cover them all, thus we decided to focus on the most
-known one around here, [BERT (Delvin & al. 2018) (4)](https://arxiv.org/abs/1810.04805v1).
-In essence, while we focus this blog post on BERT-like models to keep the article concise, all the elements
-presented can be applied to any architecture on the hub. Also, in this blogpost we will not go over the
-details of the Transformer architecture. Still, if you want some more details, I can't recommend more the 
+At this scale, it is very hard to cover them all, so we decided to focus on the most
+famous, [BERT (Delvin & al. 2018) (4)](https://arxiv.org/abs/1810.04805v1).
+While we focus this blog post on BERT-like models to keep the article concise, all the elements
+presented can be applied to any architecture on the Hugging Face model hub. Also, in this blog post we will not go over the
+details of the Transformer architecture. However if you want more background, I can't recommend enough the 
 [Illustrated Transformer blogpost from Jay Alammar (5)](https://jalammar.github.io/illustrated-transformer/).
 
-Today's goals are to give the reader an idea of where we are from an Open Source perspective when it comes to use BERT-like
-models for inference on PyTorch and TensorFlow but also what he can easily leverage in order to speedup inference.
+Today's goals are to give you an idea of where we are from an Open Source perspective using BERT-like
+models for inference on PyTorch and TensorFlow, and also what you can easily leverage to speedup inference.
 
 ## Benchmarking methodology
 
@@ -48,39 +48,39 @@ be tuned to make things faster. Also, in order to quantify what "faster" means, 
 - **Latency**: Time it takes for a single execution of the model (i.e. forward call) 
 - **Throughput**: Number of executions performed in a fixed amount of time
 
-These two metrics will help us understand the benefits and compromises along this blog post.
+These two metrics will help us understand the benefits and tradeoffs along this blog post.
 
 The benchmark was reimplemented from scratch in order to integrate the latest features provided by transformers
-along with being able to let the community run benchmarks and share them in an __hopefully easier__ way.
+and also to let the community run and share benchmarks in an __hopefully easier__ way.
 The whole framework is now based on Facebook AI & Research's Hydra configuration library allowing us to easily report
-all the items which were in place while running the benchmark, effectively increase the reproducibility of such
-benchmark. 
+all the items set up while running the benchmark, increasing the reproducibility of such benchmark. 
 
 On the 2021 version, we kept the ability to run inference workloads through PyTorch and Tensorflow as in the 
-previous blog [(5)](https://medium.com/huggingface/benchmarking-transformers-pytorch-and-tensorflow-e2917fb891c2) along with their traced counterpart
+previous blog [(1)](https://medium.com/huggingface/benchmarking-transformers-pytorch-and-tensorflow-e2917fb891c2) along with their traced counterpart
 [TorchScript (6)](https://pytorch.org/docs/stable/jit.html), [Google Accelerated Linear Algebra (XLA) (7)](https://www.tensorflow.org/xla).
 
-Also, we decided to include support for[ONNX Runtime (8)](https://www.onnxruntime.ai/) as it provides many optimizations 
-especially targeting transformers based model which de facto makes it a strong candidates to consider when speaking about 
-performances.
+Also, we decided to include support for [ONNX Runtime (8)](https://www.onnxruntime.ai/) as it provides many optimizations 
+specifically targeting transformers based models which makes it a strong candidate to consider when discussing 
+performance.
 
-Last but not least, this new unified, benchmarking environment will allow us to easily run inference for different scenarios
+Last but not least, this new unified benchmarking environment will allow us to easily run inference for different scenarii
 such as [Quantized Models (Hubara & al. 2016) (9)](https://arxiv.org/abs/1609.07061) 
-using less precise number representation (`float16`, `int8`, `int4`). This method known as **quantization** has seen an increased adoption amount all the the major hardware providers. 
-Also, in the near future, we would like integrate alternative methods we are actively working on at Hugging Face, namely Distilation, Pruning & Sparsificaton. 
+using less precise number representations (`float16`, `int8`, `int4`). This method known as **quantization** has seen an increased adoption among all major hardware providers. 
+Finally, in the near future, we would like to integrate additional methods we are actively working on at Hugging Face, namely Distillation, Pruning & Sparsificaton. 
 
 ## Baselines
 
 All the results below were run on [Amazon Web Services (AWS) c5.metal instance](https://aws.amazon.com/ec2/instance-types/c5) 
 leveraging an Intel Xeon Platinum 8275 CPU (48 cores/96 threads).
-The choice of this instance provides all the CPU features useful in order to speedup Deep Learning workloads such as: 
+The choice of this instance provides all the useful CPU features to speedup Deep Learning workloads such as: 
 
 - AVX512 instructions set (_which might not be leveraged out-of-the-box by the various frameworks_)
 - Intel Deep Learning Boost (also known as Vector Neural Network Instruction - VNNI) which provides specialized 
   CPU instructions for running quantized network (int8)
   
 The choice of using _metal_ instance is to avoid any virtualization issue which can arise when using cloud providers.
-This gives us full control of the hardware, especially while targeting the NUMA (Non-Unified Memory Architecture) controller we will cover later in this blog.
+This gives us full control of the hardware, especially while targeting the NUMA (Non-Unified Memory Architecture) controller, which 
+we will cover later in this post.
 
 _The operating system was Ubuntu 20.04 (LTS) and all the experiments were conducted using Hugging Face transformers version 4.5.0_
 
@@ -90,16 +90,16 @@ _The operating system was Ubuntu 20.04 (LTS) and all the experiments were conduc
 
 ![pytorch versus tensorflow out of the box bigger batch sizes](assets/19_benchmark_2021_part1/imgs/pytorch_vs_tf_oob_big_batch.svg)
 
-The above results correctly report the following assumptions:
+The above results correctly corroborate the following assumptions:
 
-- Sequence length has a quadratic impact on the performances 
-- Batch size has a linear impact on the performances
+- Sequence length has a quadratic impact on performance 
+- Batch size has a linear impact on performance
 
 Also, PyTorch shows better inference results over TensorFlow for all the configurations tested here.
-Along with PyTorch providing globally better out-of-the-box inference performances it seems the batch scalability is
+In addition to PyTorch providing generally better out-of-the-box inference performance, it seems batch scalability is
 better, with no real performance impact when the sequence length remains small.
 
-One possible way to explain such difference between the two framework might be the underlying technology to
+One possible way to explain such difference between the two frameworks might be the underlying technology to
 execute parallel sections within operators. PyTorch internally uses OpenMP along with Intel MKL (now oneDNN) for 
 efficient linear algebra computations whereas TensorFlow relies on Eigen and its own threading implementation.
 
@@ -108,28 +108,28 @@ efficient linear algebra computations whereas TensorFlow relies on Eigen and its
 ### Introduction
 
 There are multiple ways to improve the latency and throughput for tasks such as BERT inference.
-Improvements and tuning can be performed at various levels from enabling Operating System features, swapping dependant
-libraries with more performant ones, carefully tuning framework properties and last but not least
+Improvements and tuning can be performed at various levels from enabling Operating System features, swapping dependent
+libraries with more performant ones, carefully tuning framework properties and, last but not least,
 using parallelization logic leveraging all the cores on the CPU(s).
 
-For the remaining of this blog post we will focus on the latter, also known as **Multiple Inference Stream**.
+For the remainder of this blog post we will focus on the latter, also known as **Multiple Inference Stream**.
 
 The idea is simple: Allocate **multiple instances** of the same model and assign the execution of each instance to a
 **dedicated, non-overlapping subset of the CPU cores** in order to have truly parallel instances.
 
-### Core count scaling - Does using more cores actually improve performances?
+### Core count scaling - Does using more cores actually improve performance?
 
-At this stage, you may wonder what is the point of allocating only a subset of the cores to the task rather than throwing
-all the horses to achieve the minimum latency. 
+At this stage, you may wonder what is the point of allocating only a subset of the cores rather than throwing
+all the horses at the task to achieve minimum latency. 
 
 Rationally, throwing more resources to the task might give better results. 
 This statement really depends on the problem size.   
-Indeed, it's possible than for small problems putting more threads at work
-doesn't bring improvements over the latency measurements.
+Indeed, it's possible that for small problems putting more threads at work
+doesn't improve the latency measurements.
 
 In order to illustrate this, the figure below takes different problem sizes (`sequence length = {32, 128, 512}`)
 and reports the latencies with respect to the number of threads used for running
-computations for both PyTorch and TensorFlow.
+computations in either PyTorch or TensorFlow.
 
 Limiting the number of resources involved in computation is done by limiting the number of threads involved in 
 **intra** operations (_**intra** here means inside an operator doing computation, also known as "kernel"_). 
@@ -143,19 +143,19 @@ This is achieved through the following API:
 As you can see, depending on the problem size, the number of threads involved in the computations has a positive impact
 on the latency measurements. 
 
-Still, for small-sized problems, using only 8 or 16 threads already gives the best performances,
-the same applies for medium-sized problems where using a single CPU (24 threads) gives the best results. Finally, for
-large-sized problems, the overhead of the cross-socket communication is covered by the computations cost, thus benefiting from
+For small-sized problems, using only 8 or 16 threads gives the best performance.
+For medium-sized problems, the same applies where using a single CPU (24 threads) gives the best results. 
+For large-sized problems, the overhead of the cross-socket communication is covered by the computations cost, thus benefiting from
 using all the cores available on the system.
 
 
 ### Cores and Threads on Modern CPUs
 
 On our way towards optimizing CPU inference for better usage of the CPU cores you might have already seen -_at least for the
-past 20 years_- modern CPUs specifications reports "cores" and "threads" or "physical" and "logical" numbers. 
+past 20 years_- modern CPUs specifications report "cores" and "threads" or "physical" and "logical" numbers. 
 These notions refer to a mechanism called **Simultaneous Multi-Threading** (SMT).
 
-To put things simple, imagine two tasks **A** and **B**, executing in parallel, each on its own thread.  
+To illustrate this, imagine two tasks **A** and **B**, executing in parallel, each on its own thread.  
 At some point, there is a high probability these two tasks will have to wait for some resources to be fetched from main memory, SSD, HDD 
 or even the network.  
 During these periods the core executing the task is in an **Idle** state waiting for the resources to arrive, and effectively doing nothing...
@@ -171,16 +171,16 @@ its execution, then task **A**, etc. which increases overall core utilization.
 <img class="centered" alt="Intel Hyper Threading technology" src="assets/19_benchmark_2021_part1/imgs/hyper_threading_explained.png" />
 
 
-Back to our model inference workload... If you think about it, in a perfect world and very optimized setup, computations take the majority of time. 
+Back to our model inference workload... If you think about it, in a perfect world with a fully optimized setup, computations take the majority of time. 
 
-In this context, using the logical cores shouldn't bring us any performance benefits because our computation work
-(*task A in the example above*) is not letting the second one (*task B*) being schedule on the CPU core.
+In this context, using the logical cores shouldn't bring us any performance benefit because our computation work
+(*task A in the example above*) is not allowing the second one (*task B*) to be scheduled on the CPU core.
 
 ![Pytorch and TensorFlow Hyper-Threading impact on latency](assets/19_benchmark_2021_part1/imgs/pytorch_tf_intel_ht_impact.svg)
 
 ### Leveraging Multi-Sockets servers and CPU affinity
 
-Nowadays servers brings many cores, some of them even support multi-sockets setups (_i.e. multiple CPUs on the motherboard_).  
+Nowadays servers bring many cores, some of them even support multi-sockets setups (_i.e. multiple CPUs on the motherboard_).  
 On Linux, the command `lscpu` reports all the specifications and topology of the CPUs present on the system:
 
 ```shell
@@ -214,7 +214,7 @@ NUMA node1 CPU(s):               24-47,72-95
 ```
 
 In our case we have a machine with **2 sockets**, each socket providing **24 physical cores** with **2 threads per cores** (SMT).  
-One another interesting point is the notion of **NUMA** node (0, 1) which represents how cores and memory are being 
+Another interesting characteristic is the notion of **NUMA** node (0, 1) which represents how cores and memory are being 
 mapped on the system.
 
 Non-Uniform Memory Access (**NUMA**) is the opposite of Uniform Memory Access (**UMA**) where the whole memory pool 
@@ -227,7 +227,7 @@ reducing the congestion on the bus.
 <!-- ![Non-Uniform Memory Access and Uniform Memory Access architectures](assets/19_benchmark_2021_part1/imgs/UMA_NUMA.png) -->
 
 
-In order to fully exploit the potential of such beefy machine, we need to ensure our model instances are correctly 
+In order to fully utilize the potential of such a beefy machine, we need to ensure our model instances are correctly 
 dispatched across all the **physical** cores on all sockets along with enforcing memory allocation to be "NUMA-aware".
 
 On Linux, NUMA's process configuration can be tuned through `numactl` which provides an interface to bind a process to a 
@@ -236,7 +236,7 @@ Also, it allows tuning the memory allocation policy, making sure the memory allo
 is as close as possible to the cores memory pool (referred as **Explicit Memory Allocation Directives**).
 
 _Note: Setting both cores and memory affinities is important here. Having computations done on socket 0 and memory allocated
-on socket 1 would ask the system to go over the sockets shared bus to exchange memory, thus leading to an unwanted overhead._
+on socket 1 would ask the system to go over the sockets shared bus to exchange memory, thus leading to an undesired overhead._
 
 ### Tuning Process Affinity
 
@@ -282,8 +282,8 @@ which in this case is higher than the overall computations time._
 
 ## Multi-Stream Inference - End to end 
 
-If you keep on reading until here, you should now be in a good shape to setup optimized inference workload on CPU.  
-Now, we are going to highlight some possiblities offered by the beefy hardware we have and the tuning the knobs described before to scale 
+If you're still reading this, you should now be in good shape to set up optimized inference workloads on CPU.  
+Now, we are going to highlight some possiblities offered by the powerful hardware we have, and tuning the knobs described before, to scale 
 our inference as linearly as possible.
 
 
@@ -293,9 +293,9 @@ numactl -C 0-23 -m 0 python3 src/main.py model=bert-base-cased batch_size=1 sequ
 numactl -C 24-47 -m 1 python3 src/main.py model=bert-base-cased batch_size=1 sequence_length=128 backend.name=pytorch backend.num_threads=24
 ```
 
-Starting from here, both instances doesn't share any resources between them and everything is operating as its maximum efficiency from a 
+Starting from here, each instance does not share any resource with the other, and everything is operating at maximum efficiency from a 
 hardware perspective.  
-The latency measurements are identical to what a single instance would achieve but throughput is actually 2x higher
+The latency measurements are identical to what a single instance would achieve, but throughput is actually 2x higher
 as the two instances operate in a truly parallel way.
 
 We can further increase the number of instances, lowering the number of cores assigned for each instance.  
@@ -307,15 +307,15 @@ numactl -C 24-35 -m 1 python3 src/main.py model=bert-base-cased batch_size=1 seq
 numactl -C 36-47 -m 1 python3 src/main.py model=bert-base-cased batch_size=1 sequence_length=128 backend.name=pytorch backend.num_threads=12
 ```
 
-The outcomes remains the same, our 4 instances are effectively running in a truely parallel manner.  
-The latency will be roughtly the same on each instance, but the throughput 4x higher.
+The outcomes remains the same, our 4 instances are effectively running in a truly parallel manner.  
+The latency will be roughly the same on each instance, but the throughput will be 4x higher.
 
 
 Last but not least, it also brings the possibility to have multiple instances carefully tuned for various problem sizes.  
-With a smart dispatching approach, one can redirect incoming requests to the right configuration giving the best latency depending on request's workload.
+With a smart dispatching approach, one can redirect incoming requests to the right configuration giving the best latency depending on the requests workload.
 
 ```shell
-# Small-sized problems (sequence length <= 32) uses only 8 cores (on CPU 0 - 8/24 cores used)
+# Small-sized problems (sequence length <= 32) use only 8 cores (on CPU 0 - 8/24 cores used)
 numactl -C 0-7 -m 0 python3 src/main.py model=bert-base-cased batch_size=1 sequence_length=32 backend.name=pytorch backend.num_threads=8
 
 # Medium-sized problems (32 > sequence >= 384) use remaining 16 cores (on CPU 0 - (8+16)/24 cores used)
@@ -339,12 +339,9 @@ The second one reports the actually scaling efficiency by **summing** the throug
 
 ## Conclusion
 
-Through this blog post we covered the basic BERT inference results for both PyTorch and TensorFlow one can expect without from a simple PyPi install and without any further tuning.
-The second part described some knobs to better leverage the underlying CPU(s) in order to achieve better scalability on nowadays multi-cores servers.
+Through this blog post we started by covering out-of-box BERT inference performance results one can expect for PyTorch and TensorFlow, from a simple PyPi install and without further tuning. In the second part and this blog post, we described available knobs to better utilize the underlying CPU(s) to achieve better scalability on modern multi-cores servers.
 
-
-
-There are some other settings which can be tuned to further decrease the overall model latency. These settings will be detailed in a second part 
+In a follow-up blog post, we will detail other settings and tuning techniques to further decrease overall model latency. Stay tuned!
 
 ## Acknowledgments
 
