@@ -16,7 +16,7 @@ thumbnail: /blog/assets/20_accelerate_library/accelerate.png
 
 <div class="author-card">
     <a href="/sgugger">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1584435275418-5dfcb1aada6d0311fd3d5448.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1593126474392-5ef50182b71947201082a4e5.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>sgugger</code>
             <span class="fullname">Sylvain Gugger</span>
