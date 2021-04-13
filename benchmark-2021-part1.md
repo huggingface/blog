@@ -233,7 +233,7 @@ dispatched across all the **physical** cores on all sockets along with enforcing
 On Linux, NUMA's process configuration can be tuned through `numactl` which provides an interface to bind a process to a 
 set of CPU cores (referred as **Processor Affinity**).  
 Also, it allows tuning the memory allocation policy, making sure the memory allocated for the process 
-is as close as possible to the cores memory pool (referred as **Explicit Memory Allocation Directives**).
+is as close as possible to the cores' memory pool (referred as **Explicit Memory Allocation Directives**).
 
 _Note: Setting both cores and memory affinities is important here. Having computations done on socket 0 and memory allocated
 on socket 1 would ask the system to go over the sockets shared bus to exchange memory, thus leading to an undesired overhead._
@@ -307,7 +307,7 @@ numactl -C 24-35 -m 1 python3 src/main.py model=bert-base-cased batch_size=1 seq
 numactl -C 36-47 -m 1 python3 src/main.py model=bert-base-cased batch_size=1 sequence_length=128 backend.name=pytorch backend.num_threads=12
 ```
 
-The outcomes remains the same, our 4 instances are effectively running in a truly parallel manner.  
+The outcomes remain the same, our 4 instances are effectively running in a truly parallel manner.  
 The latency will be roughly the same on each instance, but the throughput will be 4x higher.
 
 
