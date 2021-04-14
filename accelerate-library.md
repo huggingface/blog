@@ -1,6 +1,6 @@
 ---
 title: "Introducing 🤗 Accelerate"
-thumbnail: /blog/assets/20_accelerate_library/accelerate.png
+thumbnail: /blog/assets/20_accelerate_library/accelerate_diff.png
 ---
 
 <h1>
