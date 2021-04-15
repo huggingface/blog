@@ -3,6 +3,16 @@
       display: block;
       margin: 0 auto;
   }
+
+  .row {
+    display: flex;
+  }
+
+  /* Side by Side two images */
+  .column {
+    flex: 50%;
+    padding: 5px;
+  }
 </style>
 
 <div class="blog-metadata">
@@ -19,7 +29,7 @@
     </a>
 </div>
 
-# Scaling up BERT-like model Inference on modern CPU
+# Scaling up BERT-like model Inference on modern CPU - Part 1
 
 ## Context and Motivations
 
@@ -29,6 +39,22 @@ benchmarking blog (1)](https://medium.com/huggingface/benchmarking-transformers-
 Since then, [🤗 transformers (2)](https://github.com/huggingface/transformers) welcomed a tremendous number
 of new architectures and thousands of new models were added to the [🤗 hub (3)](https://huggingface.co/models)
 which now counts more than 9,000 of them as of first quarter of 2021.
+
+In the meantime, current NLP landscape is slowly heading towards more and more BERT-like model used in production scenarios, 
+but it remains challenging to efficiently deploy and run these architectures at scale.  
+In this context, we recently introduced our [🤗 Inference API](https://api-inference.huggingface.co/docs/python/html/index.html) 
+to let you focus on the value you can bring to your users and clients rather than digging into all the 
+technical aspects of running such models.
+
+Today, we first would like update the initial results from the previous post, this will give us the necessary baselines
+in order to highlight some potential settings to help you understand how we can scale up inference on CPU. 
+
+Among the things that will be discussed through this blog post: 
+
+- Baseline - Out of the box results
+- Practical & technical considerations when leveraging modern CPUs for CPU bound task
+- Core count scaling (**Strong scaling**) - Does increasing the number of cores actually gives better performances?
+- Batch size scaling (**Weak scaling**) - Increasing throughput with multiple parallel & independent model instances
 
 At this scale, it is very hard to cover them all, so we decided to focus on the most
 famous, [BERT (Delvin & al. 2018) (4)](https://arxiv.org/abs/1810.04805v1).
@@ -117,38 +143,6 @@ For the remainder of this blog post we will focus on the latter, also known as *
 The idea is simple: Allocate **multiple instances** of the same model and assign the execution of each instance to a
 **dedicated, non-overlapping subset of the CPU cores** in order to have truly parallel instances.
 
-### Core count scaling - Does using more cores actually improve performance?
-
-At this stage, you may wonder what is the point of allocating only a subset of the cores rather than throwing
-all the horses at the task to achieve minimum latency. 
-
-Rationally, throwing more resources to the task might give better results. 
-This statement really depends on the problem size.   
-Indeed, it's possible that for small problems putting more threads at work
-doesn't improve the latency measurements.
-
-In order to illustrate this, the figure below takes different problem sizes (`sequence length = {32, 128, 512}`)
-and reports the latencies with respect to the number of threads used for running
-computations in either PyTorch or TensorFlow.
-
-Limiting the number of resources involved in computation is done by limiting the number of threads involved in 
-**intra** operations (_**intra** here means inside an operator doing computation, also known as "kernel"_). 
-
-This is achieved through the following API:
-- PyTorch: `torch.set_num_threads(x)`
-- TensorFlow: `tf.config.threading.set_intra_op_parallelism_threads(x)`
-
-![pytorch_tensorflow_intraops_scaling](assets/19_benchmark_2021_part1/imgs/core_count_scaling.svg)
-
-As you can see, depending on the problem size, the number of threads involved in the computations has a positive impact
-on the latency measurements. 
-
-For small-sized problems, using only 8 or 16 threads gives the best performance.
-For medium-sized problems, the same applies where using a single CPU (24 threads) gives the best results. 
-For large-sized problems, the overhead of the cross-socket communication is covered by the computations cost, thus benefiting from
-using all the cores available on the system.
-
-
 ### Cores and Threads on Modern CPUs
 
 On our way towards optimizing CPU inference for better usage of the CPU cores you might have already seen -_at least for the
@@ -177,6 +171,11 @@ In this context, using the logical cores shouldn't bring us any performance bene
 (*task A in the example above*) is not allowing the second one (*task B*) to be scheduled on the CPU core.
 
 ![Pytorch and TensorFlow Hyper-Threading impact on latency](assets/19_benchmark_2021_part1/imgs/pytorch_tf_intel_ht_impact.svg)
+
+The chart above reports the measured latencies when the model uses 24 physical cores (_phy on the chart_) against 12 physical + 12 logical cores (_phy + log on the chart_).  
+As you can see, the performances using "physical cores only" are prividing better latencies than "physical + logical cores"  in 80% of the cases, from a variety of problem size.    
+
+As a result, as proposed above, the tasks being a majority of general matrix multiplications (_gemms_), they are inherently CPU bounds and **does not benefits** from SMT. 
 
 ### Leveraging Multi-Sockets servers and CPU affinity
 
@@ -238,7 +237,7 @@ is as close as possible to the cores' memory pool (referred as **Explicit Memory
 _Note: Setting both cores and memory affinities is important here. Having computations done on socket 0 and memory allocated
 on socket 1 would ask the system to go over the sockets shared bus to exchange memory, thus leading to an undesired overhead._
 
-### Tuning Process Affinity
+### Tuning Process Affinity & Memory Allocation Policy
 
 Now that we have all the knobs required to control the resources' allocation of our model instances we go further and see how to
 effectively deploy those and see the impact on latency and throughput.  
@@ -255,8 +254,6 @@ Then we specify the core and memory affinity through `numactl` spawning all (_an
 numactl -C 0-47 -m 0,1 python3 src/main.py model=bert-base-cased backend.name=pytorch batch_size=1 sequence_length=128
 ```
 
-
-<!-- ![htop CPU usage without and with numactl process affinity set](assets/19_benchmark_2021_part1/imgs/numa_combined.svg) -->
 <img class="centered" alt="htop CPU usage without and with numactl process affinity set" src="assets/19_benchmark_2021_part1/imgs/numa_combined.svg" /> 
 
 As you can see, without any specific tuning, PyTorch and TensorFlow dispatch the work on a single core, using both physical **and** logical cores.  
@@ -280,12 +277,62 @@ _Please note **this setup is significantly slower than just launching without `n
 This slowness is expected as the computations span over the two CPUs it involves cross-socket communication overhead 
 which in this case is higher than the overall computations time._
 
-## Multi-Stream Inference - End to end 
 
-If you're still reading this, you should now be in good shape to set up optimized inference workloads on CPU.  
-Now, we are going to highlight some possiblities offered by the powerful hardware we have, and tuning the knobs described before, to scale 
-our inference as linearly as possible.
+## Core count scaling - Does using more cores actually improve performance?
 
+When thinking about possible ways to improve our model inference performances, the first rational solution might be to
+throw some more resources to do the same amount of work.  
+Through the rest of this blog series, we will refer to this setup as **Core Count Scaling** meaning, only the number
+of cores used on the system to achieve the task will vary. This is also often referred as Strong Scaling in the HPC world.
+
+At this stage, you may wonder what is the point of allocating only a subset of the cores rather than throwing
+all the horses at the task to achieve minimum latency.
+
+Indeed, throwing more resources to the task might give better results.
+This statement really depends on the problem size.   
+Indeed, it's possible that for small problems putting more threads at work
+doesn't improve the latency measurements.
+
+In order to illustrate this, the figure below takes different problem sizes (`sequence length = {32, 128, 512}`)
+and reports the latencies with respect to the number of threads used for running
+computations in either PyTorch or TensorFlow.
+
+Limiting the number of resources involved in computation is done by limiting the number of threads involved in
+**intra** operations (_**intra** here means inside an operator doing computation, also known as "kernel"_).
+
+This is achieved through the following API:
+- PyTorch: `torch.set_num_threads(x)`
+- TensorFlow: `tf.config.threading.set_intra_op_parallelism_threads(x)`
+
+![pytorch_tensorflow_intraops_scaling](assets/19_benchmark_2021_part1/imgs/core_count_scaling.svg)
+
+As you can see, depending on the problem size, the number of threads involved in the computations has a positive impact
+on the latency measurements.
+
+For small-sized problems, using only 8 or 16 threads gives the best performance.
+For medium-sized problems, the same applies where using a single CPU (24 threads) gives the best results.
+For large-sized problems, the overhead of the cross-socket communication is covered by the computations cost, thus benefiting from
+using all the cores available on the system.
+
+
+## Batch size scaling (**Weak scaling**) - Increasing throughput with multiple parallel & independent model instances
+
+If you're still reading this, you should now be in good shape to set up parallel inference workloads on CPU.  
+Now, we are going to highlight some possibilities offered by the powerful hardware we have, and tuning the knobs described before, 
+to scale our inference as linearly as possible.
+
+In the following we are going to explore another possible scaling solution **Batch Size Scaling** (also referred as _weak scaling_ in HPC world).  
+This method actually changes both the size of the problem (_batch size_), and the resources involved in the computation (_cores_).
+
+Instead of throwing more cores to the task as you would do in the core count scaling setup, now we will be using more model instances.
+Each instance will run independently on its own subset of the hardware resources in a truly parallel fashion. 
+
+Imagine you have a server with `C` CPU cores, and you want to run a workload containing B samples with S tokens. 
+You can represent this workload as a tensor of shape `[B, S]`, B being the size of the batch and S being the maximum sequence length within the B samples.  
+
+For all the instances (`N`), each of them executes on `C / N` cores and would receive a subset of the task `[B / N, S]`.  
+
+### How-to allocate multiple independent instances
 
 Let's start simple, if we want to spawn 2 instances, one on each socket with 24 cores assigned:
 ```shell
@@ -310,6 +357,7 @@ numactl -C 36-47 -m 1 python3 src/main.py model=bert-base-cased batch_size=1 seq
 The outcomes remain the same, our 4 instances are effectively running in a truly parallel manner.  
 The latency will be roughly the same on each instance, but the throughput will be 4x higher.
 
+### Smart dispatching - Allocating different model instances for different problem sizes 
 
 Last but not least, it also brings the possibility to have multiple instances carefully tuned for various problem sizes.  
 With a smart dispatching approach, one can redirect incoming requests to the right configuration giving the best latency depending on the requests workload.
@@ -327,27 +375,48 @@ numactl -C 24-37 -m 1 python3 src/main.py model=bert-base-cased batch_size=1 seq
 
 The following section summarizes the performances of Multi-Stream Inference, leveraging all the knobs explained above.
 
-### Batch size scaling results
+### Results
 
 The first chart below reports the best latency setup depending on the problem size (_w.r.t the sequence length_).
-This corresponds to taking the **maximum** inference time for all the instance for a same problem size.
+This corresponds to taking the **maximum** latency (_inference time_) for all the instances for a same problem size.
 The second one reports the actually scaling efficiency by **summing** the throughput for all instances for a same problem size.
 
-![Batch scaling experiment for PyTorch and Tensorflow](assets/19_benchmark_2021_part1/imgs/batch_scaling_exp.svg)
+<img alt="Batch scaling experiment for PyTorch and Tensorflow" src="assets/19_benchmark_2021_part1/imgs/batch_scaling_exp.svg" style="width:100%"/>
+<img alt="Batch scaling experiment for PyTorch and Tensorflow" src="assets/19_benchmark_2021_part1/imgs/batch_scaling_exp_throughput.svg" style="width:100%"/>
 
-![Batch scaling experiment for PyTorch and Tensorflow](assets/19_benchmark_2021_part1/imgs/batch_scaling_exp_throughput.svg)
+
+As you can see, the latency measurements are pretty similar to [what we highlighted previously](#out-of-the-box-results) with respect to the batch size and number of cores involved.  
+These results means all our instances are effectively operating in a truly parallel fashion, without negligeable overhead.
+
+Then, the second chart reports the sum of each instance throughput (_batch elements per second_).  
+It allows us to visualize the scalability of the system when adding more and more instances each of them with fewer resources but also proportional workload.
+Here, the results show strong linear scalability and thus an optimal hardware usage.
 
 ## Conclusion
 
-Through this blog post we started by covering out-of-box BERT inference performance results one can expect for PyTorch and TensorFlow, from a simple PyPi install and without further tuning. In the second part and this blog post, we described available knobs to better utilize the underlying CPU(s) to achieve better scalability on modern multi-cores servers.
+Through this blog post we started by covering out-of-box BERT inference performance results one can expect for PyTorch and TensorFlow, 
+from a simple PyPi install and without further tuning.   
 
-In a follow-up blog post, we will detail other settings and tuning techniques to further decrease overall model latency. Stay tuned!
+We covered and discussed the impact and the importance of setting the processors affinity along with the trade-off betweeen the targetted problem size and the number of cores required for achieving the task.
+On a more general note, small problem sizes (_short sequences and/or small batchs_) might require much less cores to achieve the best possible latency than big problems (_very long sequences and/or big batchs_).
+
+It is interesting to cover all these aspects when thinking about the final deploiment platform as it might cut the cost of the infrastructure drastically.  
+For instance, our 48 cores machine charges **4.848\$/h** whereas a smaller instances with only 8 cores lowers the cost to **0.808\$/h**, leading to a **6x cost reduction**.    
+
+In a follow-up blog post, we will detail further settings and tuning techniques to decrease the model latency with more advanced mechanisms such as: 
+- Tuning the memory allocation library
+- Using Linux's Transparent Huge Pages mechanisms
+- Using vendor-specific Math/Parallel libraries
+- etc.
+
+ Stay tuned! 🤗
 
 ## Acknowledgments
 
 - [Omry Yadan](https://github.com/omry) (Facebook FAIR) - Author of [OmegaConf](https://github.com/omry/omegaconf) & [Hydra](https://github.com/facebookresearch/hydra) for all the tips setting up Hydra correctly.
 - Sangeeta Bhattacharya (Intel) - For all the help all the way long setting up the experiments and relevant pieces.
 - Hugging Face colleagues - For all the comments and improvements in the reviewing process.
+
 ## References
 
 1. [Benchmarking Transformers: PyTorch and TensorFlow](https://medium.com/huggingface/benchmarking-transformers-pytorch-and-tensorflow-e2917fb891c2)
