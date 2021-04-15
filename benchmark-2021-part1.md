@@ -102,7 +102,7 @@ The choice of this instance provides all the useful CPU features to speedup Deep
 
 - AVX512 instructions set (_which might not be leveraged out-of-the-box by the various frameworks_)
 - Intel Deep Learning Boost (also known as Vector Neural Network Instruction - VNNI) which provides specialized 
-  CPU instructions for running quantized network (int8)
+  CPU instructions for running quantized networks (_using int8 data type_)
   
 The choice of using _metal_ instance is to avoid any virtualization issue which can arise when using cloud providers.
 This gives us full control of the hardware, especially while targeting the NUMA (Non-Unified Memory Architecture) controller, which 
@@ -147,7 +147,7 @@ The idea is simple: Allocate **multiple instances** of the same model and assign
 
 On our way towards optimizing CPU inference for better usage of the CPU cores you might have already seen -_at least for the
 past 20 years_- modern CPUs specifications report "cores" and "threads" or "physical" and "logical" numbers. 
-These notions refer to a mechanism called **Simultaneous Multi-Threading** (SMT).
+These notions refer to a mechanism called **Simultaneous Multi-Threading** (SMT) or **Hyper-Threading** on Intel's platforms.
 
 To illustrate this, imagine two tasks **A** and **B**, executing in parallel, each on its own thread.  
 At some point, there is a high probability these two tasks will have to wait for some resources to be fetched from main memory, SSD, HDD 
@@ -394,7 +394,7 @@ Here, the results show strong linear scalability and thus an optimal hardware us
 
 ## Conclusion
 
-Through this blog post we started by covering out-of-box BERT inference performance results one can expect for PyTorch and TensorFlow, 
+Through this blog post, we covered out-of-box BERT inference performance results one can expect for PyTorch and TensorFlow, 
 from a simple PyPi install and without further tuning.   
 
 We covered and discussed the impact and the importance of setting the processors affinity along with the trade-off betweeen the targetted problem size and the number of cores required for achieving the task.
