@@ -256,7 +256,7 @@ numactl -C 0-47 -m 0,1 python3 src/main.py model=bert-base-cased backend.name=py
 
 <img class="centered" alt="htop CPU usage without and with numactl process affinity set" src="assets/19_benchmark_2021_part1/imgs/numa_combined.svg" /> 
 
-As you can see, without any specific tuning, PyTorch and TensorFlow dispatch the work on a single core, using both physical **and** logical cores.  
+As you can see, without any specific tuning, PyTorch and TensorFlow dispatch the work on a single CPU, using both physical **and** logical cores.  
 Also, as we highligted earlier, we do not want to leverage the **SMT** feature in our case, so we set the process' cores affinity to target only physical cores. 
 
 Let's take sometime from here to highlight what we did with `numactl`:
