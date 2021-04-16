@@ -40,27 +40,25 @@ Since then, [🤗 transformers (2)](https://github.com/huggingface/transformers)
 of new architectures and thousands of new models were added to the [🤗 hub (3)](https://huggingface.co/models)
 which now counts more than 9,000 of them as of first quarter of 2021.
 
-In the meantime, current NLP landscape is slowly heading towards more and more BERT-like model used in production scenarios, 
-but it remains challenging to efficiently deploy and run these architectures at scale.  
-In this context, we recently introduced our [🤗 Inference API](https://api-inference.huggingface.co/docs/python/html/index.html) 
-to let you focus on the value you can bring to your users and clients rather than digging into all the 
+As the NLP landscape keeps trending towards more and more BERT-like models being used in production, it 
+remains challenging to efficiently deploy and run these architectures at scale.  
+This is why we recently introduced our [🤗 Inference API](https://api-inference.huggingface.co/docs/python/html/index.html): 
+to let you focus on building value for your users and customers, rather than digging into all the highly
 technical aspects of running such models.
 
-Today, we first would like update the initial results from the previous post, this will give us the necessary baselines
-in order to highlight some potential settings to help you understand how we can scale up inference on CPU. 
-
-Among the things that will be discussed through this blog post: 
-
+In this post, we will update the benchmarking results from our initial post, which will give us baselines to 
+then highlight settings that can help you scale up inference on CPU. We will cover:
 - Baseline - Out of the box results
-- Practical & technical considerations when leveraging modern CPUs for CPU bound task
-- Core count scaling (**Strong scaling**) - Does increasing the number of cores actually gives better performances?
+- Practical & technical considerations when leveraging modern CPUs for CPU-bound tasks
+- Core count scaling (**Strong scaling**) - Does increasing the number of cores actually give better performance?
 - Batch size scaling (**Weak scaling**) - Increasing throughput with multiple parallel & independent model instances
 
-At this scale, it is very hard to cover them all, so we decided to focus on the most
-famous, [BERT (Delvin & al. 2018) (4)](https://arxiv.org/abs/1810.04805v1).
-While we focus this blog post on BERT-like models to keep the article concise, all the elements
-presented can be applied to any architecture on the Hugging Face model hub. Also, in this blog post we will not go over the
-details of the Transformer architecture. However if you want more background, I can't recommend enough the 
+We decided to focus on the most famous Transformer model architecture, 
+[BERT (Delvin & al. 2018) (4)](https://arxiv.org/abs/1810.04805v1). While we focus this blog post on BERT-like 
+models to keep the article concise, all the described techniques
+can be applied to any architecture on the Hugging Face model hub. 
+In this blog post we will not describe in detail the Transformer architecture - to learn about that I can't 
+recommend enough the 
 [Illustrated Transformer blogpost from Jay Alammar (5)](https://jalammar.github.io/illustrated-transformer/).
 
 Today's goals are to give you an idea of where we are from an Open Source perspective using BERT-like
@@ -397,17 +395,18 @@ Here, the results show strong linear scalability and thus an optimal hardware us
 Through this blog post, we covered out-of-box BERT inference performance results one can expect for PyTorch and TensorFlow, 
 from a simple PyPi install and without further tuning.   
 
-We covered and discussed the impact and the importance of setting the processors affinity along with the trade-off betweeen the targetted problem size and the number of cores required for achieving the task.
-On a more general note, small problem sizes (_short sequences and/or small batchs_) might require much less cores to achieve the best possible latency than big problems (_very long sequences and/or big batchs_).
+We covered and discussed the impact and the importance of setting the processors affinity along with the trade-off betweeen 
+the targeted problem size and the number of cores required for achieving the task.
+On a more general note, small problem sizes (_short sequences and/or small batches_) may require much less cores to achieve 
+the best possible latency than big problems (_very long sequences and/or big batches_).
 
-It is interesting to cover all these aspects when thinking about the final deploiment platform as it might cut the cost of the infrastructure drastically.  
-For instance, our 48 cores machine charges **4.848\$/h** whereas a smaller instances with only 8 cores lowers the cost to **0.808\$/h**, leading to a **6x cost reduction**.    
+It is worth considering all these aspects when thinking about the final deployment platform as it may cut the cost of the infrastructure drastically.  
+To illustrate this, our 48 cores machine costs **4.848\$/h** whereas a smaller instance with only 8 cores lowers this cost to **0.808\$/h**: a **6x cost reduction**.    
 
-In a follow-up blog post, we will detail further settings and tuning techniques to decrease the model latency with more advanced mechanisms such as: 
+In a follow-up blog post, we will detail more advanced settings and tuning techniques to decrease model latency even further, such as: 
 - Tuning the memory allocation library
 - Using Linux's Transparent Huge Pages mechanisms
 - Using vendor-specific Math/Parallel libraries
-- etc.
 
  Stay tuned! 🤗
 
