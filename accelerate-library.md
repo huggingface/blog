@@ -148,7 +148,7 @@ In contrast, here are the changes needed to have this code run with distributed 
           optimizer.step()
 ```
 
-These changes will make your training script work for multiple GPUs, but your script will then stop working on CPU or one GPU (unless you added ). Even more annoying, if you wanted to test your script on TPUs you would need to change different lines of codes. Same for mixed precision training. The promise of 🤗 Accelerate is:
+These changes will make your training script work for multiple GPUs, but your script will then stop working on CPU or one GPU (unless you start adding if statements everywhere). Even more annoying, if you wanted to test your script on TPUs you would need to change different lines of codes. Same for mixed precision training. The promise of 🤗 Accelerate is:
 - to keep the changes to your training loop to the bare minimum so you have to learn as little as possible.
 - to have the same functions work for any distributed setup, so only have to learn one API.
 
@@ -244,6 +244,6 @@ To make this launcher even more awesome, we are actively developing a way to spa
 
 To get started, just `pip install accelerate` or see the [documentation](https://huggingface.co/docs/accelerate/installation.html) for more install options.
 
-Accelerate is a fully open-sourced project, you can find it on [GitHub](https://github.com/huggingface/accelerate), have a look at its [documentation](https://huggingface.co/docs/accelerate/) or skim through our [basic examples](https://github.com/huggingface/accelerate/tree/main/examples). Please let us know if you have any issue or feature you would like the library to support. For all questions, the [forums](link to fill) is the place to check!
+Accelerate is a fully open-sourced project, you can find it on [GitHub](https://github.com/huggingface/accelerate), have a look at its [documentation](https://huggingface.co/docs/accelerate/) or skim through our [basic examples](https://github.com/huggingface/accelerate/tree/main/examples). Please let us know if you have any issue or feature you would like the library to support. For all questions, the [forums](https://discuss.huggingface.co/c/accelerate) is the place to check!
 
-For more complex examples in situation, you cna look at the official [Transformers examples](). Each folder contains a `run_task_no_trainer.py` that leverages the Accelerate library!
+For more complex examples in situation, you can look at the official [Transformers examples](https://github.com/huggingface/transformers/tree/master/examples). Each folder contains a `run_task_no_trainer.py` that leverages the Accelerate library!
