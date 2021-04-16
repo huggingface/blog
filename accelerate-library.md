@@ -8,7 +8,7 @@ thumbnail: /blog/assets/20_accelerate_library/accelerate_diff.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published April 21, 2021.</small>
+    <small>Published April 16, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/accelerate-library.md">
         Update on GitHub
     </a>
@@ -238,7 +238,7 @@ accelerate launch path_to_script.py --args_to_the_script
 
 will launch your training script using those default. The only thing you have to do is provide all the arguments needed by your training script.
 
-To make this launcher even more awesome, we are actively developing a way to spawn an AWS instance using SageMaker when you use it to launch your script.
+To make this launcher even more awesome, you can use it to spawn an AWS instance using SageMaker. Look at [this guide](https://huggingface.co/docs/accelerate/sagemaker.html) to discover how!
 
 ### How to get involved?
 
