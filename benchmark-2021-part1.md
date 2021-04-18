@@ -31,7 +31,7 @@
 
 # Scaling up BERT-like model Inference on modern CPU - Part 1
 
-## Context and Motivations
+## 1. Context and Motivations
 
 Back in October 2019, my colleague Lysandre Debut published a comprehensive _(at the time)_ [inference performance 
 benchmarking blog (1)](https://medium.com/huggingface/benchmarking-transformers-pytorch-and-tensorflow-e2917fb891c2).
@@ -64,7 +64,7 @@ recommend enough the
 Today's goals are to give you an idea of where we are from an Open Source perspective using BERT-like
 models for inference on PyTorch and TensorFlow, and also what you can easily leverage to speedup inference.
 
-## Benchmarking methodology
+## 2. Benchmarking methodology
 
 When it comes to leveraging BERT-like models from Hugging Face's model hub there are many knobs which can
 be tuned to make things faster. Also, in order to quantify what "faster" means, we will rely on widely adopted metrics:
@@ -93,7 +93,7 @@ such as [Quantized Models (Zafrir & al.) (9)](https://arxiv.org/abs/1910.06188)
 using less precise number representations (`float16`, `int8`, `int4`). This method known as **quantization** has seen an increased adoption among all major hardware providers. 
 Finally, in the near future, we would like to integrate additional methods we are actively working on at Hugging Face, namely Distillation, Pruning & Sparsificaton. 
 
-## Baselines
+## 3. Baselines
 
 All the results below were run on [Amazon Web Services (AWS) c5.metal instance](https://aws.amazon.com/ec2/instance-types/c5) 
 leveraging an Intel Xeon Platinum 8275 CPU (48 cores/96 threads).
@@ -109,7 +109,7 @@ we will cover later in this post.
 
 _The operating system was Ubuntu 20.04 (LTS) and all the experiments were conducted using Hugging Face transformers version 4.5.0_
 
-## Out of the box results
+## 4. Out of the box results
 
 ![pytorch versus tensorflow out of the box](assets/19_benchmark_2021_part1/imgs/pytorch_vs_tf_oob.svg)
 
@@ -128,9 +128,9 @@ One possible way to explain such difference between the two frameworks might be 
 execute parallel sections within operators. PyTorch internally uses OpenMP along with Intel MKL (now oneDNN) for 
 efficient linear algebra computations whereas TensorFlow relies on Eigen and its own threading implementation.
 
-## Scaling BERT Inference to increase overall throughput on modern CPU
+## 5. Scaling BERT Inference to increase overall throughput on modern CPU
 
-### Introduction
+### 5.1. Introduction
 
 There are multiple ways to improve the latency and throughput for tasks such as BERT inference.
 Improvements and tuning can be performed at various levels from enabling Operating System features, swapping dependent
@@ -142,7 +142,7 @@ For the remainder of this blog post we will focus on the latter, also known as *
 The idea is simple: Allocate **multiple instances** of the same model and assign the execution of each instance to a
 **dedicated, non-overlapping subset of the CPU cores** in order to have truly parallel instances.
 
-### Cores and Threads on Modern CPUs
+### 5.2. Cores and Threads on Modern CPUs
 
 On our way towards optimizing CPU inference for better usage of the CPU cores you might have already seen -_at least for the
 past 20 years_- modern CPUs specifications report "cores" and "hardware threads" or "physical" and "logical" numbers. 
@@ -180,7 +180,7 @@ As you can see, the performances using "physical cores only" are prividing bette
 
 As a result, as proposed above, the tasks being a majority of general matrix multiplications (_gemms_), they are inherently CPU bounds and **does not benefits** from SMT. 
 
-### Leveraging Multi-Sockets servers and CPU affinity
+### 5.3. Leveraging Multi-Sockets servers and CPU affinity
 
 Nowadays servers bring many cores, some of them even support multi-sockets setups (_i.e. multiple CPUs on the motherboard_).  
 On Linux, the command `lscpu` reports all the specifications and topology of the CPUs present on the system:
@@ -240,7 +240,7 @@ is as close as possible to the cores' memory pool (referred as **Explicit Memory
 _Note: Setting both cores and memory affinities is important here. Having computations done on socket 0 and memory allocated
 on socket 1 would ask the system to go over the sockets shared bus to exchange memory, thus leading to an undesired overhead._
 
-### Tuning Process Affinity & Memory Allocation Policy
+### 5.4. Tuning Process Affinity & Memory Allocation Policy
 
 Now that we have all the knobs required to control the resources' allocation of our model instances we go further and see how to
 effectively deploy those and see the impact on latency and throughput.  
@@ -281,7 +281,7 @@ _Please note that using both sockets may not always give the best results, parti
 The benefit of using compute resources across both sockets might be reduced or even negated by cross-socket communication overhead._
 
 
-## Core count scaling - Does using more cores actually improve performance?
+## 6. Core count scaling - Does using more cores actually improve performance?
 
 When thinking about possible ways to improve our model inference performances, the first rational solution might be to
 throw some more resources to do the same amount of work.  
@@ -318,7 +318,7 @@ For large-sized problems, the overhead of the cross-socket communication is cove
 using all the cores available on the system.
 
 
-## Batch size scaling (**Weak scaling**) - Increasing throughput with multiple parallel & independent model instances
+## 7. Batch size scaling (**Weak scaling**) - Increasing throughput with multiple parallel & independent model instances
 
 If you're still reading this, you should now be in good shape to set up parallel inference workloads on CPU.  
 Now, we are going to highlight some possibilities offered by the powerful hardware we have, and tuning the knobs described before, 
@@ -335,7 +335,7 @@ You can represent this workload as a tensor of shape `[B, S]`, B being the size 
 
 For all the instances (`N`), each of them executes on `C / N` cores and would receive a subset of the task `[B / N, S]`.  
 
-### How-to allocate multiple independent instances
+### 7.1. How-to allocate multiple independent instances
 
 Let's start simple, if we want to spawn 2 instances, one on each socket with 24 cores assigned:
 ```shell
@@ -360,7 +360,7 @@ numactl -C 36-47 -m 1 python3 src/main.py model=bert-base-cased batch_size=1 seq
 The outcomes remain the same, our 4 instances are effectively running in a truly parallel manner.  
 The latency will be roughly the same on each instance, but the throughput will be 4x higher.
 
-### Smart dispatching - Allocating different model instances for different problem sizes 
+### 7.2. Smart dispatching - Allocating different model instances for different problem sizes 
 
 Last but not least, it also brings the possibility to have multiple instances carefully tuned for various problem sizes.  
 With a smart dispatching approach, one can redirect incoming requests to the right configuration giving the best latency depending on the requests workload.
@@ -378,7 +378,7 @@ numactl -C 24-37 -m 1 python3 src/main.py model=bert-base-cased batch_size=1 seq
 
 The following section summarizes the performances of Multi-Stream Inference, leveraging all the knobs explained above.
 
-### Results
+### 7.3. Results
 
 The first chart below reports the best latency setup depending on the problem size (_w.r.t the sequence length_).
 This corresponds to taking the **maximum** latency (_inference time_) for all the instances for a same problem size.
@@ -395,7 +395,7 @@ Then, the second chart reports the sum of each instance throughput (_batch eleme
 It allows us to visualize the scalability of the system when adding more and more instances each of them with fewer resources but also proportional workload.
 Here, the results show strong linear scalability and thus an optimal hardware usage.
 
-## Conclusion
+## 8. Conclusion
 
 Through this blog post, we covered out-of-box BERT inference performance results one can expect for PyTorch and TensorFlow, 
 from a simple PyPi install and without further tuning.   
