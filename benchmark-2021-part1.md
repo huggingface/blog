@@ -78,6 +78,7 @@ The benchmark was reimplemented from scratch in order to integrate the latest fe
 and also to let the community run and share benchmarks in an __hopefully easier__ way.
 The whole framework is now based on Facebook AI & Research's Hydra configuration library allowing us to easily report
 all the items set up while running the benchmark, increasing the reproducibility of such benchmark. 
+You can find the whole structure of the project [here](https://github.com/huggingface/hftuner)
 
 On the 2021 version, we kept the ability to run inference workloads through PyTorch and Tensorflow as in the 
 previous blog [(1)](https://medium.com/huggingface/benchmarking-transformers-pytorch-and-tensorflow-e2917fb891c2) along with their traced counterpart
@@ -88,7 +89,7 @@ specifically targeting transformers based models which makes it a strong candida
 performance.
 
 Last but not least, this new unified benchmarking environment will allow us to easily run inference for different scenarii
-such as [Quantized Models (Hubara & al. 2016) (9)](https://arxiv.org/abs/1609.07061) 
+such as [Quantized Models (Zafrir & al.) (9)](https://arxiv.org/abs/1910.06188) 
 using less precise number representations (`float16`, `int8`, `int4`). This method known as **quantization** has seen an increased adoption among all major hardware providers. 
 Finally, in the near future, we would like to integrate additional methods we are actively working on at Hugging Face, namely Distillation, Pruning & Sparsificaton. 
 
@@ -426,5 +427,5 @@ In a follow-up blog post, we will detail more advanced settings and tuning techn
 6. [PyTorch - TorchScript](https://pytorch.org/docs/stable/jit.html)
 7. [Google Accelerated Linear Algebra (XLA)](https://www.tensorflow.org/xla)
 8. [ONNX Runtime - Optimize and Accelerate Machine Learning Inferencing and Training](https://www.onnxruntime.ai/)
-9. [Quantized Neural Networks: Training Neural Networks with Low Precision Weights and Activations (Hubara & al. 2016)](https://arxiv.org/abs/1609.07061)
+9. [Q8BERT - Quantized 8Bit BERT (Zafrir & al. 2019)](https://arxiv.org/abs/1910.06188)
 10. [Optimizing Applications for NUMA](https://software.intel.com/content/www/us/en/develop/articles/optimizing-applications-for-numa.html)
