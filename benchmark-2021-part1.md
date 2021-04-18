@@ -267,18 +267,18 @@ Let's take sometime from here to highlight what we did with `numactl`:
 - `-m 0,1` indicates to `numactl` to allocate memory on both CPU sockets
 
 If you wonder why we are binding the process to cores [0...47], you need to go back to look at the output of `lscpu`.  
-From there you will find the section `NUMA node0` and `NUMA node1` which has the form `NUMA node<X> <physical ids>/<logicial ids>`
+From there you will find the section `NUMA node0` and `NUMA node1` which has the form `NUMA node<X> <logicial ids>`
 
-In our case, physical cores range from 0 to 23 on the first CPU and from 24 to 47 on the second one.  
-Cores 48 to 71 and 72 to 95 correspond to the logical cores (SMT) respectively on the first and second CPU.
+In our case, each socket is one NUMA node and there are 2 NUMA nodes. 
+Each socket or each NUMA node has 24 physical cores and 2 hardware threads per core, so 48 logical cores. 
+For NUMA node 0, 0-23 are hardware thread 0 and 24-47 are hardware thread 1 on the 24 physical cores in socket 0. 
+Likewise, for NUMA node 1, 48-71 are hardware thread 0 and 72-95 are hardware thread 1 on the 24 physical cores in socket 1.
 
-As we are targeting physical cores only to avoid Intel Hyper-Threading here, the above explains why we restrict processor affinity
-to the range `[0...47]`.  
-Moreover, the range `[0...47]` spawn cores across both sockets, so we need to bind the memory allocations accordingly (`0,1`).
+As we are targeting just 1 thread per physical core, as explained earlier, we pick only thread 0 on each core and hence logical processors 0-47. 
+Since we are using both sockets, we need to also bind the memory allocations accordingly (0,1).
 
-_Please note **this setup is significantly slower than just launching without `numactl`** for small-sized problem.  
-This slowness is expected as the computations span over the two CPUs it involves cross-socket communication overhead 
-which in this case is higher than the overall computations time._
+_Please note that using both sockets may not always give the best results, particularly for small problem sizes. 
+The benefit of using compute resources across both sockets might be reduced or even negated by cross-socket communication overhead._
 
 
 ## Core count scaling - Does using more cores actually improve performance?
