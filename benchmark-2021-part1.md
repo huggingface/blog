@@ -145,18 +145,23 @@ The idea is simple: Allocate **multiple instances** of the same model and assign
 ### Cores and Threads on Modern CPUs
 
 On our way towards optimizing CPU inference for better usage of the CPU cores you might have already seen -_at least for the
-past 20 years_- modern CPUs specifications report "cores" and "threads" or "physical" and "logical" numbers. 
+past 20 years_- modern CPUs specifications report "cores" and "hardware threads" or "physical" and "logical" numbers. 
 These notions refer to a mechanism called **Simultaneous Multi-Threading** (SMT) or **Hyper-Threading** on Intel's platforms.
 
-To illustrate this, imagine two tasks **A** and **B**, executing in parallel, each on its own thread.  
+To illustrate this, imagine two tasks **A** and **B**, executing in parallel, each on its own software thread.  
 At some point, there is a high probability these two tasks will have to wait for some resources to be fetched from main memory, SSD, HDD 
 or even the network.  
-During these periods the core executing the task is in an **Idle** state waiting for the resources to arrive, and effectively doing nothing...
+If the threads are scheduled on different physical cores, with no hyper-threading, 
+during these periods the core executing the task is in an **Idle** state waiting for the resources to arrive, and effectively doing nothing... and hence not getting fully utilized
 
-Now, with **SMT**, the **two threads for task A and B** will be scheduled on the same **physical core**, 
-but their execution will be interleaved:  
-When task **A** receives a system interrupt, task **B** will resume 
-its execution, then task **A**, etc. which increases overall core utilization.
+Now, with **SMT**, the **two software threads for task A and B** can be scheduled on the same **physical core**, 
+such that their execution is interleaved on that physical core:  
+
+[comment]: <> (When task **A** receives a system interrupt, task **B** will resume )
+
+[comment]: <> (its execution, then task **A**, etc. which increases overall core utilization.)
+Task A and Task B will execute simultaneously on the physical core and when one task is halted, the other task can still continue execution 
+on the core thereby increasing the utilization of that core.
 
 <!-- The figure below explains the above visually ( [source](https://appuals.com/how-does-hyper-threading-work-in-intel-core-i7-processors/) ) -->
 
@@ -166,8 +171,7 @@ its execution, then task **A**, etc. which increases overall core utilization.
 
 Back to our model inference workload... If you think about it, in a perfect world with a fully optimized setup, computations take the majority of time. 
 
-In this context, using the logical cores shouldn't bring us any performance benefit because our computation work
-(*task A in the example above*) is not allowing the second one (*task B*) to be scheduled on the CPU core.
+In this context, using the logical cores shouldn't bring us any performance benefit because both logical cores (hardware threads) compete for the core’s execution resources.
 
 ![Pytorch and TensorFlow Hyper-Threading impact on latency](assets/19_benchmark_2021_part1/imgs/pytorch_tf_intel_ht_impact.svg)
 
