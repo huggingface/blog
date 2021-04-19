@@ -47,8 +47,8 @@ In this post, we will update the benchmarking results from our initial post, whi
 then highlight settings that can help you scale up inference on CPU. We will cover:
 - Baseline - Out of the box results
 - Practical & technical considerations when leveraging modern CPUs for CPU-bound tasks
-- Core count scaling (**Strong scaling**) - Does increasing the number of cores actually give better performance?
-- Batch size scaling (**Weak scaling**) - Increasing throughput with multiple parallel & independent model instances
+- Core count scaling - Does increasing the number of cores actually give better performance?
+- Batch size scaling - Increasing throughput with multiple parallel & independent model instances
 
 We decided to focus on the most famous Transformer model architecture, 
 [BERT (Delvin & al. 2018) (4)](https://arxiv.org/abs/1810.04805v1). While we focus this blog post on BERT-like 
@@ -312,7 +312,7 @@ all the horses at the task to achieve minimum latency.
 Indeed, depending on the problem-size, throwing more resources to the task might give better results.
 It is also possible that for small problems putting more CPU cores at work doesn't improve the final latency.
 
-In order to illustrate this, the figure 6. below takes different problem sizes (`sequence length = {32, 128, 512}`)
+In order to illustrate this, the figure 6. below takes different problem sizes (`batch_size = 1, sequence length = {32, 128, 512}`)
 and reports the latencies with respect to the number of CPU cores used for running
 computations for both PyTorch and TensorFlow.
 
