@@ -141,3 +141,8 @@
   title: Introducing 🤗 Accelerate
   author: sgugger
   date: April 16, 2021
+
+#- local: benchmark-2021-part1
+#  title: "Hugging Face Benchmark on BERT models"
+#  author: mfuntowicz
+#  date: April 9, 2021
