@@ -175,21 +175,9 @@ refer to these two articles with very deep technical explanations of the behavio
 - [Intel® Hyper-Threading Technology - Technical User Guide (10)](http://www.cslab.ece.ntua.gr/courses/advcomparch/2007/material/readings/Intel%20Hyper-Threading%20Technology.pdf)
 - [Introduction to Hyper-Threading Technology (11)](https://software.intel.com/content/www/us/en/develop/articles/introduction-to-hyper-threading-technology.html)
 
-Back to our model inference workload... If you think about it, in a perfect world with a fully optimized setup, computations take the majority of time. 
-
-In this context, using the logical cores shouldn't bring us any performance benefit because both logical cores (hardware threads) compete for the core’s execution resources.
-
-<br>
-<figure class="image">
-  <img alt="Pytorch and TensorFlow Hyper-Threading impact on latency" src="assets/19_benchmark_2021_part1/imgs/pytorch_tf_intel_ht_impact.svg" />
-  <figcaption>Figure 4. Impact of Intel Hyper-Threading (SMT) on PyTorch and TensorFlow</figcaption>
-</figure>
-<br>
-
-The chart above reports the measured latencies when the model uses 24 cores (_phy on the chart_) against 12 physical + 12 logical cores (_phy + log on the chart_).  
-As you can see, the performances using "physical cores only" are providing better latencies than "physical + logical cores"  in 80% of the cases, from a variety of problem size.    
-
-As a result, as proposed above, the tasks being a majority of general matrix multiplications (_gemms_), they are inherently CPU bounds and **does not benefits** from SMT. 
+Back to our model inference workload... If you think about it, in a perfect world with a fully optimized setup, computations take the majority of time.  
+In this context, using the logical cores shouldn't bring us any performance benefit because both logical cores (hardware threads) compete for the core’s execution resources.  
+As a result, as proposed above, the tasks being a majority of general matrix multiplications (_[gemms (12)](https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_3)_), they are inherently CPU bounds and **does not benefits** from SMT.
 
 ### 5.3. Leveraging Multi-Socket servers and CPU affinity
 
@@ -238,7 +226,7 @@ reducing the congestion on the bus.
 <br>
 <figure class="image">
   <img class="centered" alt="Non-Uniform Memory Access and Uniform Memory Access architectures" src="assets/19_benchmark_2021_part1/imgs/UMA_NUMA.png" />
-  <figcaption>Figure 5. Difference illustration of UMA and NUMA architectures <a href="https://software.intel.com/content/www/us/en/develop/articles/optimizing-applications-for-numa.html">(source (12))</a></figcaption>
+  <figcaption>Figure 5. Difference illustration of UMA and NUMA architectures <a href="https://software.intel.com/content/www/us/en/develop/articles/optimizing-applications-for-numa.html">(source (13))</a></figcaption>
 </figure>
 <br>
 
@@ -501,4 +489,5 @@ In the follow-up blog post, we will detail more advanced settings and tuning tec
 9. [Q8BERT - Quantized 8Bit BERT (Zafrir & al. 2019)](https://arxiv.org/abs/1910.06188)
 10. [Intel® Hyper-Threading Technology - Technical User Guide](http://www.cslab.ece.ntua.gr/courses/advcomparch/2007/material/readings/Intel%20Hyper-Threading%20Technology.pdf)
 11. [Introduction to Hyper-Threading Technology](https://software.intel.com/content/www/us/en/develop/articles/introduction-to-hyper-threading-technology.html)
-12. [Optimizing Applications for NUMA](https://software.intel.com/content/www/us/en/develop/articles/optimizing-applications-for-numa.html)
+12. [BLAS (Basic Linear Algebra Subprogram) - Wikipedia](https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_3)
+13. [Optimizing Applications for NUMA](https://software.intel.com/content/www/us/en/develop/articles/optimizing-applications-for-numa.html)
