@@ -110,7 +110,7 @@ _The operating system was Ubuntu 20.04 (LTS) and all the experiments were conduc
 
 <br>
 <figure class="image">
-  <img alt="pytorch versus tensorflow out of the box" src="assets/19_benchmark_2021_part1/imgs/pytorch_vs_tf_oob.svg" />
+  <img alt="pytorch versus tensorflow out of the box" src="assets/21_bert_cpu_scaling_part_1/imgs/pytorch_vs_tf_oob.svg" />
   <figcaption>Figure 1. PyTorch (1.8.1) vs Google TensorFlow (2.4.1) out of the box</figcaption>
 </figure>
 <br>
@@ -118,7 +118,7 @@ _The operating system was Ubuntu 20.04 (LTS) and all the experiments were conduc
 
 <br>
 <figure class="image">
-  <img alt="pytorch versus tensorflow out of the box bigger batch sizes" src="assets/19_benchmark_2021_part1/imgs/pytorch_vs_tf_oob_big_batch.svg" />
+  <img alt="pytorch versus tensorflow out of the box bigger batch sizes" src="assets/21_bert_cpu_scaling_part_1/imgs/pytorch_vs_tf_oob_big_batch.svg" />
   <figcaption>Figure 2. PyTorch (1.8.1) vs Google TensorFlow (2.4.1) out of the box - (Bigger Batch Size)</figcaption>
 </figure>
 <br>
@@ -164,7 +164,7 @@ on the core thereby increasing the utilization of that core.
 
 <br>
 <figure class="image">
-  <img class="centered" alt="Intel Hyper Threading technology" src="assets/19_benchmark_2021_part1/imgs/hyper_threading_explained.png" />
+  <img class="centered" alt="Intel Hyper Threading technology" src="assets/21_bert_cpu_scaling_part_1/imgs/hyper_threading_explained.png" />
   <figcaption>Figure 3. Illustration of Intel Hyper Threading technology (SMT)</figcaption>
 </figure>
 <br>
@@ -225,7 +225,7 @@ reducing the congestion on the bus.
 
 <br>
 <figure class="image">
-  <img class="centered" alt="Non-Uniform Memory Access and Uniform Memory Access architectures" src="assets/19_benchmark_2021_part1/imgs/UMA_NUMA.png" />
+  <img class="centered" alt="Non-Uniform Memory Access and Uniform Memory Access architectures" src="assets/21_bert_cpu_scaling_part_1/imgs/UMA_NUMA.png" />
   <figcaption>Figure 5. Difference illustration of UMA and NUMA architectures <a href="https://software.intel.com/content/www/us/en/develop/articles/optimizing-applications-for-numa.html">(source (13))</a></figcaption>
 </figure>
 <br>
@@ -260,7 +260,7 @@ numactl -C 0-47 -m 0,1 python3 src/main.py model=bert-base-cased backend.name=py
 
 <br>
 <figure class="image">
-  <img class="centered" alt="htop CPU usage without and with numactl thread affinity set" src="assets/19_benchmark_2021_part1/imgs/numa_combined.svg" /> 
+  <img class="centered" alt="htop CPU usage without and with numactl thread affinity set" src="assets/21_bert_cpu_scaling_part_1/imgs/numa_combined.svg" /> 
   <figcaption>Figure 6. Linux htop command side-by-side results without & with Thread Affinity set</figcaption>
 </figure>
 <br>
@@ -315,7 +315,7 @@ This is achieved through the following APIs:
 
 <br>
 <figure class="image">
-  <img alt="" src="assets/19_benchmark_2021_part1/imgs/core_count_scaling.svg" />
+  <img alt="" src="assets/21_bert_cpu_scaling_part_1/imgs/core_count_scaling.svg" />
   <figcaption>Figure 7. Latency measurements</figcaption>
 </figure>
 <br>
@@ -417,14 +417,14 @@ _**Spoiler**: There are numerous other optimizations we will discuss in a follow
 
 <br>
 <figure class="image">
-  <img alt="Batch scaling experiment for PyTorch and Tensorflow" src="assets/19_benchmark_2021_part1/imgs/batch_scaling_exp.svg" style="width:100%"/>
+  <img alt="Batch scaling experiment for PyTorch and Tensorflow" src="assets/21_bert_cpu_scaling_part_1/imgs/batch_scaling_exp.svg" style="width:100%"/>
 <figcaption>Figure 8. Max latency evolution with respect to number of instances for a total batch size of 8</figcaption>
 </figure>
 <br>
 
 <br>
 <figure class="image">
-  <img alt="Optimal number of instance minimizing overall latency for a total batch size of 8" src="assets/19_benchmark_2021_part1/imgs/batch_size_scaling_latency_optimal_nb_instances.svg" style="width:100%"/>
+  <img alt="Optimal number of instance minimizing overall latency for a total batch size of 8" src="assets/21_bert_cpu_scaling_part_1/imgs/batch_size_scaling_latency_optimal_nb_instances.svg" style="width:100%"/>
 <figcaption>Figure 9. Optimal number of instance minimizing overall latency for a total batch size of 8</figcaption>
 </figure>
 <br>
@@ -434,7 +434,7 @@ It allows us to visualize the scalability of the system when adding more and mor
 Here, the results show almost linear scalability and thus an optimal hardware usage.
 
 <figure class="image">
-  <img alt="Batch scaling experiment for PyTorch and Tensorflow" src="assets/19_benchmark_2021_part1/imgs/batch_scaling_exp_throughput.svg" style="width:100%"/>
+  <img alt="Batch scaling experiment for PyTorch and Tensorflow" src="assets/21_bert_cpu_scaling_part_1/imgs/batch_scaling_exp_throughput.svg" style="width:100%"/>
 <figcaption>Figure 10. Sum throughput with respect to number of instances for a total batch size of 8</figcaption>
 </figure>
 <br>
