@@ -63,7 +63,7 @@ models for inference on PyTorch and TensorFlow, and also what you can easily lev
 
 ## 2. Benchmarking methodology
 
-When it comes to leveraging BERT-like models from Hugging Face's model hub there are many knobs which can
+When it comes to leveraging BERT-like models from Hugging Face's model hub, there are many knobs which can
 be tuned to make things faster. Also, in order to quantify what "faster" means, we will rely on widely adopted metrics:
 
 - **Latency**: Time it takes for a single execution of the model (i.e. forward call) 
@@ -75,7 +75,7 @@ The benchmark was reimplemented from scratch in order to integrate the latest fe
 and also to let the community run and share benchmarks in an __hopefully easier__ way.
 The whole framework is now based on Facebook AI & Research's Hydra configuration library allowing us to easily report
 all the items set up while running the benchmark, increasing the reproducibility of such benchmark. 
-You can find the whole structure of the project [here](https://github.com/huggingface/hftuner)
+You can find the whole structure of the project [here](https://github.com/huggingface/tune)
 
 On the 2021 version, we kept the ability to run inference workloads through PyTorch and Tensorflow as in the 
 previous blog [(1)](https://medium.com/huggingface/benchmarking-transformers-pytorch-and-tensorflow-e2917fb891c2) along with their traced counterpart
@@ -182,16 +182,16 @@ In this context, using the logical cores shouldn't bring us any performance bene
 <br>
 <figure class="image">
   <img alt="Pytorch and TensorFlow Hyper-Threading impact on latency" src="assets/19_benchmark_2021_part1/imgs/pytorch_tf_intel_ht_impact.svg" />
-  <figcaption>Impact of Intel Hyper-Threading (SMT) on PyTorch and TensorFlow</figcaption>
+  <figcaption>Figure 4. Impact of Intel Hyper-Threading (SMT) on PyTorch and TensorFlow</figcaption>
 </figure>
 <br>
 
-The chart above reports the measured latencies when the model uses 24 physical cores (_phy on the chart_) against 12 physical + 12 logical cores (_phy + log on the chart_).  
-As you can see, the performances using "physical cores only" are prividing better latencies than "physical + logical cores"  in 80% of the cases, from a variety of problem size.    
+The chart above reports the measured latencies when the model uses 24 cores (_phy on the chart_) against 12 physical + 12 logical cores (_phy + log on the chart_).  
+As you can see, the performances using "physical cores only" are providing better latencies than "physical + logical cores"  in 80% of the cases, from a variety of problem size.    
 
 As a result, as proposed above, the tasks being a majority of general matrix multiplications (_gemms_), they are inherently CPU bounds and **does not benefits** from SMT. 
 
-### 5.3. Leveraging Multi-Sockets servers and CPU affinity
+### 5.3. Leveraging Multi-Socket servers and CPU affinity
 
 Nowadays servers bring many cores, some of them even support multi-sockets setups (_i.e. multiple CPUs on the motherboard_).  
 On Linux, the command `lscpu` reports all the specifications and topology of the CPUs present on the system:
@@ -238,7 +238,7 @@ reducing the congestion on the bus.
 <br>
 <figure class="image">
   <img class="centered" alt="Non-Uniform Memory Access and Uniform Memory Access architectures" src="assets/19_benchmark_2021_part1/imgs/UMA_NUMA.png" />
-  <figcaption>Figure 4. Difference illustration of UMA and NUMA architectures <a href="https://software.intel.com/content/www/us/en/develop/articles/optimizing-applications-for-numa.html">(source (12))</a></figcaption>
+  <figcaption>Figure 5. Difference illustration of UMA and NUMA architectures <a href="https://software.intel.com/content/www/us/en/develop/articles/optimizing-applications-for-numa.html">(source (12))</a></figcaption>
 </figure>
 <br>
 
@@ -246,14 +246,14 @@ In order to fully utilize the potential of such a beefy machine, we need to ensu
 dispatched across all the **physical** cores on all sockets along with enforcing memory allocation to be "NUMA-aware".
 
 On Linux, NUMA's process configuration can be tuned through `numactl` which provides an interface to bind a process to a 
-set of CPU cores (referred as **Processor Affinity**).  
+set of CPU cores (referred as **Thread Affinity**).  
 Also, it allows tuning the memory allocation policy, making sure the memory allocated for the process 
 is as close as possible to the cores' memory pool (referred as **Explicit Memory Allocation Directives**).
 
 _Note: Setting both cores and memory affinities is important here. Having computations done on socket 0 and memory allocated
 on socket 1 would ask the system to go over the sockets shared bus to exchange memory, thus leading to an undesired overhead._
 
-### 5.4. Tuning Process Affinity & Memory Allocation Policy
+### 5.4. Tuning Thread Affinity & Memory Allocation Policy
 
 Now that we have all the knobs required to control the resources' allocation of our model instances we go further and see how to
 effectively deploy those and see the impact on latency and throughput.  
@@ -265,23 +265,25 @@ First, we start by launching our inference model without any tuning, and we obse
 python3 src/main.py model=bert-base-cased backend.name=pytorch batch_size=1 sequence_length=128
 ```
 
-Then we specify the core and memory affinity through `numactl` spawning all (_and only_) the **physical** cores (_Right_):
+Then we specify the core and memory affinity through `numactl` using all the **physical** cores and only a single thread (thread 0) per core (_Right_):
 ```shell
 numactl -C 0-47 -m 0,1 python3 src/main.py model=bert-base-cased backend.name=pytorch batch_size=1 sequence_length=128
 ```
 
 <br>
 <figure class="image">
-  <img class="centered" alt="htop CPU usage without and with numactl process affinity set" src="assets/19_benchmark_2021_part1/imgs/numa_combined.svg" /> 
-  <figcaption>Figure 5. Linux htop command side-by-side results without & with Processor Affinity set</figcaption>
+  <img class="centered" alt="htop CPU usage without and with numactl thread affinity set" src="assets/19_benchmark_2021_part1/imgs/numa_combined.svg" /> 
+  <figcaption>Figure 6. Linux htop command side-by-side results without & with Thread Affinity set</figcaption>
 </figure>
 <br>
 
-As you can see, without any specific tuning, PyTorch and TensorFlow dispatch the work on a single CPU, using both physical **and** logical cores.  
-Also, as we highlighted earlier, we do not want to leverage the **SMT** feature in our case, so we set the process' cores affinity to target only physical cores. 
+As you can see, without any specific tuning, PyTorch and TensorFlow dispatch the work on a single socket, using all the logical cores in that socket (both threads on 24 cores).  
+Also, as we highlighted earlier, we do not want to leverage the **SMT** feature in our case, so we set the process' thread affinity to target only 1 hardware thread.
+
+_Note, this is specific to this run and can vary depending on individual setups. Hence, it is recommended to check thread affinity settings for each specific use-case._
 
 Let's take sometime from here to highlight what we did with `numactl`:
-- `-C 0-47` indicates to `numactl` what is the processor affinity (cores 0 to 47).
+- `-C 0-47` indicates to `numactl` what is the thread affinity (cores 0 to 47).
 - `-m 0,1` indicates to `numactl` to allocate memory on both CPU sockets
 
 If you wonder why we are binding the process to cores [0...47], you need to go back to look at the output of `lscpu`.  
@@ -326,14 +328,14 @@ This is achieved through the following APIs:
 <br>
 <figure class="image">
   <img alt="" src="assets/19_benchmark_2021_part1/imgs/core_count_scaling.svg" />
-  <figcaption>Figure 6. Latency measurements</figcaption>
+  <figcaption>Figure 7. Latency measurements</figcaption>
 </figure>
 <br>
 
 As you can see, depending on the problem size, the number of threads involved in the computations has a positive impact
 on the latency measurements.
 
-For small-sized problems & medium-sized problems using only one socket would gives the best performance.
+For small-sized problems & medium-sized problems using only one socket would give the best performance.
 For large-sized problems, the overhead of the cross-socket communication is covered by the computations cost, thus benefiting from
 using all the cores available on the both sockets.
 
@@ -345,7 +347,7 @@ Now, we are going to highlight some possibilities offered by the powerful hardwa
 to scale our inference as linearly as possible.
 
 In the following section we will explore another possible scaling solution **Batch Size Scaling**, but before diving into this, let's 
-take a look at how we can leverage Linux tools in order to assign Processor Affinity allowing effective model instance parallelism.
+take a look at how we can leverage Linux tools in order to assign Thread Affinity allowing effective model instance parallelism.
 
 Instead of throwing more cores to the task as you would do in the core count scaling setup, now we will be using more model instances.
 Each instance will run independently on its own subset of the hardware resources in a truly parallel fashion on a subset of the CPU cores. 
@@ -381,18 +383,18 @@ One another possibility offered by this setup is to have multiple instances care
 With a smart dispatching approach, one can redirect incoming requests to the right configuration giving the best latency depending on the request workload.
 
 ```shell
-# Small-sized problems (sequence length <= 32) use only 8 cores (on Socket 0 - 8/24 cores used)
+# Small-sized problems (sequence length <= 32) use only 8 cores (on socket 0 - 8/24 cores used)
 numactl -C 0-7 -m 0 python3 src/main.py model=bert-base-cased batch_size=1 sequence_length=32 backend.name=pytorch backend.num_threads=8
 
-# Medium-sized problems (32 > sequence <= 384) use remaining 16 cores (on Socket 0 - (8+16)/24 cores used)
+# Medium-sized problems (32 > sequence <= 384) use remaining 16 cores (on socket 0 - (8+16)/24 cores used)
 numactl -C 8-23 -m 0 python3 src/main.py model=bert-base-cased batch_size=1 sequence_length=128 backend.name=pytorch backend.num_threads=16
 
-# Large sized problems (sequence >= 384) use the entire CPU on the second socket (on Socket 1 - 24/24 cores used)
+# Large sized problems (sequence >= 384) use the entire CPU (on socket 1 - 24/24 cores used)
 numactl -C 24-37 -m 1 python3 src/main.py model=bert-base-cased batch_size=1 sequence_length=384 backend.name=pytorch backend.num_threads=24
 ```
 
 
-## 8. Batch size scaling - Increasing throughput with multiple parallel & independent model instances
+## 8. Batch size scaling - Improving throughput and latency with multiple parallel & independent model instances
 
 One another very interesting direction for scaling up inference is to actually put some more model instances into the pool 
 along with reducing the actual workload each instance receives proportionally.
@@ -404,7 +406,7 @@ You can represent this workload as a tensor of shape `[B, S]`, B being the size 
 
 For all the instances (`N`), each of them executes on `C / N` cores and would receive a subset of the task `[B / N, S]`.  
 
-Each instance doesn't receive the global batch but instead, they all receive a subset of it `[B / N, S]` thus the name **Batch Size Scaling**.
+Each instance doesn't receive the global batch but instead, they all receive a subset of it `[B / N, S]` thus the name **Batch Size Scaling**.  
 In order to highlight the benefits of such scaling method, the charts below reports both the latencies when scaling up model instances along with the effects on the throughput.
 
 When looking at the results, let's focus on the latency and the throughput aspects:  
@@ -413,26 +415,29 @@ On one hand, we are taking the maximum latency over the pool of instances to ref
 Putting it differently, as instances operate in a truly parallel fashion, the time it takes to gather all the batch chunks from all the instances
 is driven by the longest time it takes for individual instance in the pool to get their chunk done.
 
-As you can see below on Figure 7., the actual latency gain when increasing the number of instances is really dependant of the problem size. 
-In all cases, we can find an optimal resources allocation (batch size & number of instances) to minimize our latency but, there is no specific pattern on the number of cores to involve in the computation.
+As you can see below on Figure 7., the actual latency gain when increasing the number of instances is really dependant of the problem size.
+In all cases, we can find an optimal resource allocation (batch size & number of instances) to minimize our latency but, there is no specific pattern on the number of cores to involve in the computation.
 
 Also, it is important to notice the results might look totally different on another system _(i.e. Operating System, Kernel Version, Framework version, etc.)_
 
 Figure 8. sums up the best multi-instance configuration when targeting minimum latency by taking the minimum over the number of instances involved.
+For instance, for `{batch = 8, sequence length = 128}` using 4 instances (each with `{batch = 2}` and 12 cores) gives the best latency measurements.
+
+The Figure 9. reports all the setups minimizing latency for both PyTorch and TensorFlow for various problem-sizes. 
 
 _**Spoiler**: There are numerous other optimizations we will discuss in a follow-up blog post which will substantially impact this chart._
 
 <br>
 <figure class="image">
   <img alt="Batch scaling experiment for PyTorch and Tensorflow" src="assets/19_benchmark_2021_part1/imgs/batch_scaling_exp.svg" style="width:100%"/>
-<figcaption>Figure 7. Max latency evolution with respect to number of instances for a total batch size of 8</figcaption>
+<figcaption>Figure 8. Max latency evolution with respect to number of instances for a total batch size of 8</figcaption>
 </figure>
 <br>
 
 <br>
 <figure class="image">
   <img alt="Optimal number of instance minimizing overall latency for a total batch size of 8" src="assets/19_benchmark_2021_part1/imgs/batch_size_scaling_latency_optimal_nb_instances.svg" style="width:100%"/>
-<figcaption>Figure 8. Optimal number of instance minimizing overall latency for a total batch size of 8</figcaption>
+<figcaption>Figure 9. Optimal number of instance minimizing overall latency for a total batch size of 8</figcaption>
 </figure>
 <br>
 
@@ -442,23 +447,33 @@ Here, the results show almost linear scalability and thus an optimal hardware us
 
 <figure class="image">
   <img alt="Batch scaling experiment for PyTorch and Tensorflow" src="assets/19_benchmark_2021_part1/imgs/batch_scaling_exp_throughput.svg" style="width:100%"/>
-<figcaption>Figure 9. Sum throughput with respect to number of instances for a total batch size of 8</figcaption>
+<figcaption>Figure 10. Sum throughput with respect to number of instances for a total batch size of 8</figcaption>
 </figure>
 <br>
 
 ## 9. Conclusion
 
-Through this blog post, we covered out-of-box BERT inference performance results one can expect for PyTorch and TensorFlow, 
+Through this blog post, we covered out-of-box BERT inference performance one can expect for PyTorch and TensorFlow, 
 from a simple PyPi install and without further tuning.  
+It is important to highlight results provided here reflects out-of-the-box framework setup hence, they might not provide the absolute best performances.  
+We decided to not include optimizations as part of this blog post to focus on hardware and efficiency. 
+Optimizations will be discussed in the second part! 🚀
 
-We covered and discussed the impact, and the importance of setting the processor affinity along with the trade-off betweeen the targetted problem size, and the number of cores required for achieving the task. Also, it is important to define the criteria to be used when optimizing your deployment _(i.e. latency vs throughput)_ as the setups might be totally different.
+Then, we covered and detailed the impact, and the importance of setting the thread affinity along with the trade-off between the target problem size, and the number of cores required for achieving the task.  
+Also, it is important to define **which criteria**  _(i.e. latency vs throughput)_ to use when optimizing your deployment as the resulting setups might be totally different.
 
-On a more general note, small problem sizes (_short sequences and/or small batchs_) might require much less cores to achieve the best possible latency than big problems (_very long sequences and/or big batchs_).
+On a more general note, small problem sizes (_short sequences and/or small batchs_) might require much fewer cores to achieve the best possible latency than big problems (_very long sequences and/or big batchs_).
 
 It is interesting to cover all these aspects when thinking about the final deployment platform as it might cut the cost of the infrastructure drastically.  
 For instance, our 48 cores machine charges **4.848\$/h** whereas a smaller instances with only 8 cores lowers the cost to **0.808\$/h**, leading to a **6x cost reduction**.    
 
-In a follow-up blog post, we will detail more advanced settings and tuning techniques to decrease model latency even further, such as: 
+Last but not least, many of the knobs discussed along this blog post can be automatically tuned through a [launcher script](https://github.com/huggingface/tune/blob/main/launcher.py) 
+highly inspired from the original script made by Intel and available [here](https://github.com/intel/intel-extension-for-pytorch/blob/master/intel_pytorch_extension_py/launch.py).  
+The launcher script is able to automatically starts your python process(es) with the correct thread affinity, effectively
+splitting resources across instances along with many other performances tips! We will detail many of this tips in the second part 🧐.
+
+In the follow-up blog post, we will detail more advanced settings and tuning techniques to decrease model latency even further, such as: 
+- Launcher script walk-through
 - Tuning the memory allocation library
 - Using Linux's Transparent Huge Pages mechanisms
 - Using vendor-specific Math/Parallel libraries
@@ -470,7 +485,7 @@ In a follow-up blog post, we will detail more advanced settings and tuning techn
 - [Omry Yadan](https://github.com/omry) (Facebook FAIR) - Author of [OmegaConf](https://github.com/omry/omegaconf) & [Hydra](https://github.com/facebookresearch/hydra) for all the tips setting up Hydra correctly.
 - Sangeeta Bhattacharya (Intel) - For all the help all the way long setting up the experiments and relevant pieces.
 - Wei Wang & Ashok Emani (Intel) - For all the feedbacks and helps on the respective TensorFlow and PyTorch frameworks optimizations.
-- All Intel Labs' NLP colleagues - For the ongoing research and optimizations they are putting into transformers.
+- All Intel Labs' NLP colleagues - For the ongoing research and optimizations efforts they are putting into transformers and more generally in the NLP field.
 - Hugging Face colleagues - For all the comments and improvements in the reviewing process.
 
 ## References
