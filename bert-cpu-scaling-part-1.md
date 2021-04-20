@@ -43,9 +43,11 @@ This is why we recently introduced our [🤗 Inference API](https://api-inferenc
 to let you focus on building value for your users and customers, rather than digging into all the highly
 technical aspects of running such models.
 
-In this post, we will update the benchmarking results from our initial post, which will give us baselines to 
-then highlight settings that can help you scale up inference on CPU. We will cover:
-- Baseline - Out of the box results
+This blog post is the first part of a series which will cover most of the hardware and software optimizations to better
+leverage CPUs for BERT model inference.
+
+For this initial blog post, we will cover the hardware part:
+- Setting up a baseline - Out of the box results
 - Practical & technical considerations when leveraging modern CPUs for CPU-bound tasks
 - Core count scaling - Does increasing the number of cores actually give better performance?
 - Batch size scaling - Increasing throughput with multiple parallel & independent model instances
@@ -53,7 +55,7 @@ then highlight settings that can help you scale up inference on CPU. We will cov
 We decided to focus on the most famous Transformer model architecture, 
 [BERT (Delvin & al. 2018) (4)](https://arxiv.org/abs/1810.04805v1). While we focus this blog post on BERT-like 
 models to keep the article concise, all the described techniques
-can be applied to any architecture on the Hugging Face model hub. 
+can be applied to any architecture on the Hugging Face model hub.  
 In this blog post we will not describe in detail the Transformer architecture - to learn about that I can't 
 recommend enough the 
 [Illustrated Transformer blogpost from Jay Alammar (5)](https://jalammar.github.io/illustrated-transformer/).
@@ -64,31 +66,32 @@ models for inference on PyTorch and TensorFlow, and also what you can easily lev
 ## 2. Benchmarking methodology
 
 When it comes to leveraging BERT-like models from Hugging Face's model hub, there are many knobs which can
-be tuned to make things faster. Also, in order to quantify what "faster" means, we will rely on widely adopted metrics:
+be tuned to make things faster.  
+Also, in order to quantify what "faster" means, we will rely on widely adopted metrics:
 
 - **Latency**: Time it takes for a single execution of the model (i.e. forward call) 
 - **Throughput**: Number of executions performed in a fixed amount of time
 
 These two metrics will help us understand the benefits and tradeoffs along this blog post.
 
-The benchmark was reimplemented from scratch in order to integrate the latest features provided by transformers
-and also to let the community run and share benchmarks in an __hopefully easier__ way.
-The whole framework is now based on Facebook AI & Research's Hydra configuration library allowing us to easily report
-all the items set up while running the benchmark, increasing the reproducibility of such benchmark. 
+The benchmarking methodology was reimplemented from scratch in order to integrate the latest features provided by transformers
+and also to let the community run and share benchmarks in an __hopefully easier__ way.  
+The whole framework is now based on [Facebook AI & Research's Hydra configuration library](https://hydra.cc/) allowing us to easily report
+and track all the items involved while running the benchmark, hence increasing the overall reproducibility.  
 You can find the whole structure of the project [here](https://github.com/huggingface/tune)
 
 On the 2021 version, we kept the ability to run inference workloads through PyTorch and Tensorflow as in the 
 previous blog [(1)](https://medium.com/huggingface/benchmarking-transformers-pytorch-and-tensorflow-e2917fb891c2) along with their traced counterpart
-[TorchScript (6)](https://pytorch.org/docs/stable/jit.html), [Google Accelerated Linear Algebra (XLA) (7)](https://www.tensorflow.org/xla).
-
+[TorchScript (6)](https://pytorch.org/docs/stable/jit.html), [Google Accelerated Linear Algebra (XLA) (7)](https://www.tensorflow.org/xla).  
 Also, we decided to include support for [ONNX Runtime (8)](https://www.onnxruntime.ai/) as it provides many optimizations 
 specifically targeting transformers based models which makes it a strong candidate to consider when discussing 
 performance.
 
 Last but not least, this new unified benchmarking environment will allow us to easily run inference for different scenarii
 such as [Quantized Models (Zafrir & al.) (9)](https://arxiv.org/abs/1910.06188) 
-using less precise number representations (`float16`, `int8`, `int4`). This method known as **quantization** has seen an increased adoption among all major hardware providers. 
-Finally, in the near future, we would like to integrate additional methods we are actively working on at Hugging Face, namely Distillation, Pruning & Sparsificaton. 
+using less precise number representations (`float16`, `int8`, `int4`).  
+This method known as **quantization** has seen an increased adoption among all major hardware providers. 
+In the near future, we would like to integrate additional methods we are actively working on at Hugging Face, namely Distillation, Pruning & Sparsificaton. 
 
 ## 3. Baselines
 
@@ -104,7 +107,7 @@ The choice of using _metal_ instance is to avoid any virtualization issue which 
 This gives us full control of the hardware, especially while targeting the NUMA (Non-Unified Memory Architecture) controller, which 
 we will cover later in this post.
 
-_The operating system was Ubuntu 20.04 (LTS) and all the experiments were conducted using Hugging Face transformers version 4.5.0, PyTorch 1.8.1 & Google TensorFlow 2.4.1_
+_The operating system was Ubuntu 20.04 (LTS) and all the experiments were conducted using Hugging Face transformers version 4.5.0, PyTorch 1.8.1 & Google TensorFlow 2.4.0_
 
 ## 4. Out of the box results
 
@@ -123,12 +126,12 @@ _The operating system was Ubuntu 20.04 (LTS) and all the experiments were conduc
 </figure>
 <br>
 
-Also, PyTorch shows better inference results over TensorFlow for all the configurations tested here.  
+Straigh to the point, out-of-the-box, PyTorch shows better inference results over TensorFlow for all the configurations tested here.  
 It is important to note the results out-of-the-box might not reflect the "optimal" setup for both PyTorch and TensorFlow and thus it can look deceiving here.
 
 One possible way to explain such difference between the two frameworks might be the underlying technology to
-execute parallel sections within operators. PyTorch internally uses OpenMP along with Intel MKL (now oneDNN) for 
-efficient linear algebra computations whereas TensorFlow relies on Eigen and its own threading implementation.
+execute parallel sections within operators.  
+PyTorch internally uses [OpenMP (10)](https://www.openmp.org/) along with [Intel MKL (now oneDNN) (11)](https://software.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top/api-based-programming/intel-oneapi-deep-neural-network-library-onednn.html) for efficient linear algebra computations whereas TensorFlow relies on Eigen and its own threading implementation.
 
 ## 5. Scaling BERT Inference to increase overall throughput on modern CPU
 
@@ -172,16 +175,16 @@ on the core thereby increasing the utilization of that core.
 The figure 3. above simplifies the situation by assuming single core setup. If you want some more details on how SMT works on multi-cores CPUs, please 
 refer to these two articles with very deep technical explanations of the behavior:
 
-- [Intel® Hyper-Threading Technology - Technical User Guide (10)](http://www.cslab.ece.ntua.gr/courses/advcomparch/2007/material/readings/Intel%20Hyper-Threading%20Technology.pdf)
-- [Introduction to Hyper-Threading Technology (11)](https://software.intel.com/content/www/us/en/develop/articles/introduction-to-hyper-threading-technology.html)
+- [Intel® Hyper-Threading Technology - Technical User Guide (12)](http://www.cslab.ece.ntua.gr/courses/advcomparch/2007/material/readings/Intel%20Hyper-Threading%20Technology.pdf)
+- [Introduction to Hyper-Threading Technology (13)](https://software.intel.com/content/www/us/en/develop/articles/introduction-to-hyper-threading-technology.html)
 
 Back to our model inference workload... If you think about it, in a perfect world with a fully optimized setup, computations take the majority of time.  
 In this context, using the logical cores shouldn't bring us any performance benefit because both logical cores (hardware threads) compete for the core’s execution resources.  
-As a result, as proposed above, the tasks being a majority of general matrix multiplications (_[gemms (12)](https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_3)_), they are inherently CPU bounds and **does not benefits** from SMT.
+As a result, the tasks being a majority of general matrix multiplications (_[gemms (14)](https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_3)_), they are inherently CPU bounds and **does not benefits** from SMT.
 
 ### 5.3. Leveraging Multi-Socket servers and CPU affinity
 
-Nowadays servers bring many cores, some of them even support multi-sockets setups (_i.e. multiple CPUs on the motherboard_).  
+Nowadays servers bring many cores, some of them even support multi-socket setups (_i.e. multiple CPUs on the motherboard_).  
 On Linux, the command `lscpu` reports all the specifications and topology of the CPUs present on the system:
 
 ```shell
@@ -226,14 +229,14 @@ reducing the congestion on the bus.
 <br>
 <figure class="image">
   <img class="centered" alt="Non-Uniform Memory Access and Uniform Memory Access architectures" src="assets/21_bert_cpu_scaling_part_1/imgs/UMA_NUMA.png" />
-  <figcaption>Figure 5. Difference illustration of UMA and NUMA architectures <a href="https://software.intel.com/content/www/us/en/develop/articles/optimizing-applications-for-numa.html">(source (13))</a></figcaption>
+  <figcaption>Figure 5. Difference illustration of UMA and NUMA architectures <a href="https://software.intel.com/content/www/us/en/develop/articles/optimizing-applications-for-numa.html">(source (15))</a></figcaption>
 </figure>
 <br>
 
 In order to fully utilize the potential of such a beefy machine, we need to ensure our model instances are correctly 
 dispatched across all the **physical** cores on all sockets along with enforcing memory allocation to be "NUMA-aware".
 
-On Linux, NUMA's process configuration can be tuned through `numactl` which provides an interface to bind a process to a 
+On Linux, NUMA's process configuration can be tuned through [`numactl`](https://linux.die.net/man/8/numactl) which provides an interface to bind a process to a 
 set of CPU cores (referred as **Thread Affinity**).  
 Also, it allows tuning the memory allocation policy, making sure the memory allocated for the process 
 is as close as possible to the cores' memory pool (referred as **Explicit Memory Allocation Directives**).
@@ -389,7 +392,7 @@ along with reducing the actual workload each instance receives proportionally.
 
 This method actually changes both the size of the problem (_batch size_), and the resources involved in the computation (_cores_).
 
-To illustrate, imagine you have a server with `C` CPU cores, and you want to run a workload containing B samples with S tokens. 
+To illustrate, imagine you have a server with `C` CPU cores, and you want to run a workload containing B samples with S tokens.  
 You can represent this workload as a tensor of shape `[B, S]`, B being the size of the batch and S being the maximum sequence length within the B samples.  
 
 For all the instances (`N`), each of them executes on `C / N` cores and would receive a subset of the task `[B / N, S]`.  
@@ -408,7 +411,7 @@ In all cases, we can find an optimal resource allocation (batch size & number of
 
 Also, it is important to notice the results might look totally different on another system _(i.e. Operating System, Kernel Version, Framework version, etc.)_
 
-Figure 8. sums up the best multi-instance configuration when targeting minimum latency by taking the minimum over the number of instances involved.
+Figure 8. sums up the best multi-instance configuration when targeting minimum latency by taking the minimum over the number of instances involved.  
 For instance, for `{batch = 8, sequence length = 128}` using 4 instances (each with `{batch = 2}` and 12 cores) gives the best latency measurements.
 
 The Figure 9. reports all the setups minimizing latency for both PyTorch and TensorFlow for various problem-sizes. 
@@ -460,7 +463,7 @@ highly inspired from the original script made by Intel and available [here](http
 The launcher script is able to automatically starts your python process(es) with the correct thread affinity, effectively
 splitting resources across instances along with many other performances tips! We will detail many of this tips in the second part 🧐.
 
-In the follow-up blog post, we will detail more advanced settings and tuning techniques to decrease model latency even further, such as: 
+In the follow-up blog post, more advanced settings and tuning techniques to decrease model latency even further will be involved, such as: 
 - Launcher script walk-through
 - Tuning the memory allocation library
 - Using Linux's Transparent Huge Pages mechanisms
@@ -471,9 +474,7 @@ In the follow-up blog post, we will detail more advanced settings and tuning tec
 ## Acknowledgments
 
 - [Omry Yadan](https://github.com/omry) (Facebook FAIR) - Author of [OmegaConf](https://github.com/omry/omegaconf) & [Hydra](https://github.com/facebookresearch/hydra) for all the tips setting up Hydra correctly.
-- Sangeeta Bhattacharya (Intel) - For all the help all the way long setting up the experiments and relevant pieces.
-- Wei Wang & Ashok Emani (Intel) - For all the feedbacks and helps on the respective TensorFlow and PyTorch frameworks optimizations.
-- All Intel Labs' NLP colleagues - For the ongoing research and optimizations efforts they are putting into transformers and more generally in the NLP field.
+- All Intel & Intel Labs' NLP colleagues - For the ongoing optimizations and research efforts they are putting into transformers and more generally in the NLP field.
 - Hugging Face colleagues - For all the comments and improvements in the reviewing process.
 
 ## References
@@ -487,7 +488,9 @@ In the follow-up blog post, we will detail more advanced settings and tuning tec
 7. [Google Accelerated Linear Algebra (XLA)](https://www.tensorflow.org/xla)
 8. [ONNX Runtime - Optimize and Accelerate Machine Learning Inferencing and Training](https://www.onnxruntime.ai/)
 9. [Q8BERT - Quantized 8Bit BERT (Zafrir & al. 2019)](https://arxiv.org/abs/1910.06188)
-10. [Intel® Hyper-Threading Technology - Technical User Guide](http://www.cslab.ece.ntua.gr/courses/advcomparch/2007/material/readings/Intel%20Hyper-Threading%20Technology.pdf)
-11. [Introduction to Hyper-Threading Technology](https://software.intel.com/content/www/us/en/develop/articles/introduction-to-hyper-threading-technology.html)
-12. [BLAS (Basic Linear Algebra Subprogram) - Wikipedia](https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_3)
-13. [Optimizing Applications for NUMA](https://software.intel.com/content/www/us/en/develop/articles/optimizing-applications-for-numa.html)
+10. [OpenMP](https://www.openmp.org/)
+11. [Intel oneDNN](https://software.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top/api-based-programming/intel-oneapi-deep-neural-network-library-onednn.html)
+12. [Intel® Hyper-Threading Technology - Technical User Guide](http://www.cslab.ece.ntua.gr/courses/advcomparch/2007/material/readings/Intel%20Hyper-Threading%20Technology.pdf)
+13. [Introduction to Hyper-Threading Technology](https://software.intel.com/content/www/us/en/develop/articles/introduction-to-hyper-threading-technology.html)
+14. [BLAS (Basic Linear Algebra Subprogram) - Wikipedia](https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms#Level_3)
+15. [Optimizing Applications for NUMA](https://software.intel.com/content/www/us/en/develop/articles/optimizing-applications-for-numa.html)
