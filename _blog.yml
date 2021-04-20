@@ -142,7 +142,7 @@
   author: sgugger
   date: April 16, 2021
 
-#- local: benchmark-2021-part1
-#  title: "Hugging Face Benchmark on BERT models"
-#  author: mfuntowicz
-#  date: April 9, 2021
+- local: bert-cpu-scaling-part-1
+  title: "Scaling-up BERT Inference on CPU (Part 1)"
+  author: mfuntowicz
+  date: April 20, 2021
