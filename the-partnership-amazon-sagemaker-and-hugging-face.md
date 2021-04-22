@@ -96,7 +96,7 @@ _**Note:** The use of Jupyter is optional: We could also launch SageMaker Traini
 After that we can install the required dependencies
 
 ```bash
-pip install transformers "datasets[s3]" sagemaker --upgrade
+pip install "sagemaker>=2.31.0" "transformers==4.4.2" "datasets[s3]==1.5.0" --upgrade
 ```
 
 To run training on SageMaker we need to create a sagemaker Session and provide an IAM role with the right permission. This IAM role will be later attached to the TrainingJob enabling it to download data, e.g. from Amazon S3.
