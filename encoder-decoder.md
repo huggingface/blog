@@ -49,7 +49,7 @@ The goal of the blog post is to give an **in-detail** explanation of
 defined by the architecture and how the model can be used in inference.
 Along the way, we will give some background on sequence-to-sequence
 models in NLP and break down the *transformer-based* encoder-decoder
-architecture into its **encoder** and **decoder** part. We provide many
+architecture into its **encoder** and **decoder** parts. We provide many
 illustrations and establish the link between the theory of
 *transformer-based* encoder-decoder models and their practical usage in
 🤗Transformers for inference. Note that this blog post does *not* explain
@@ -75,7 +75,7 @@ summaries](https://huggingface.co/transformers/model_summary.html#sequence-to-se
 The notebook is divided into four parts:
 
 -   **Background** - *A short history of neural encoder-decoder models
-    is given with a focus on on RNN-based models.*
+    is given with a focus on RNN-based models.*
 -   **Encoder-Decoder** - *The transformer-based encoder-decoder model
     is presented and it is explained how the model is used for
     inference.*
@@ -117,7 +117,7 @@ therefore mean that the number of target vectors \\(m\\) has to be known
 *apriori* and would have to be independent of the input
 \\(\mathbf{X}_{1:n}\\). This is suboptimal because, for tasks in NLG, the
 number of target words usually depends on the input \\(\mathbf{X}_{1:n}\\)
-and not just on the input length \\(n\\). *E.g.* An article of 1000 words
+and not just on the input length \\(n\\). *E.g.*, an article of 1000 words
 can be summarized to both 200 words and 100 words depending on its
 content.
 
@@ -199,7 +199,7 @@ Given such a decoding method, during inference, the next input vector
 and is consequently appended to the input sequence so that the decoder
 RNN then models
 \\(p_{\theta_{\text{dec}}}(\mathbf{y}_{i+1} | \mathbf{Y}_{0: i}, \mathbf{c})\\)
-to sample the next input vector \\(\mathbf{y}_{i+1}\\) and so on in
+to sample the next input vector \\(\mathbf{y}_{i+1}\\) and so on in an 
 *auto-regressive* fashion.
 
 An important feature of RNN-based encoder-decoder models is the
@@ -877,7 +877,7 @@ requirements each decoder block consists of a **uni-directional**
 self-attention layer, followed by a **cross-attention** layer and two
 feed-forward layers \\({}^2\\). The uni-directional self-attention layer
 puts each of its input vectors \\(\mathbf{y'}_j\\) only into relation with
-all previous input vectors \\(\mathbf{y'}_i, \text{ with } i \le q\\) for
+all previous input vectors \\(\mathbf{y'}_i, \text{ with } i \le j\\) for
 all \\(j \in \{1, \ldots, n\}\\) to model the probability distribution of
 the next target vectors. The cross-attention layer puts each of its
 input vectors \\(\mathbf{y''}_j\\) into relation with all contextualized
@@ -926,13 +926,13 @@ purple below), key vectors \\(\mathbf{k}_0, \ldots, \mathbf{k}_{m-1}\\)
 (shown in orange below), and value vectors
 \\(\mathbf{v}_0, \ldots, \mathbf{v}_{m-1}\\) (shown in blue below) are
 projected from their respective input vectors
-\\(\mathbf{y'}_0, \ldots, \mathbf{y}_{m-1}\\) (shown in light red below).
+\\(\mathbf{y'}_0, \ldots, \mathbf{y'}_{m-1}\\) (shown in light red below).
 However, in uni-directional self-attention, each query vector
 \\(\mathbf{q}_i\\) is compared *only* to its respective key vector and all
 previous ones, namely \\(\mathbf{k}_0, \ldots, \mathbf{k}_i\\) to yield the
 respective *attention weights*. This prevents an output vector
 \\(\mathbf{y''}_j\\) (shown in dark red below) to include any information
-about the following input vector \\(\mathbf{y}_i, \text{ with } i > 1\\) for
+about the following input vector \\(\mathbf{y}_i, \text{ with } i > j\\) for
 all \\(j \in \{0, \ldots, m - 1 \}\\). As is the case in bi-directional
 self-attention, the attention weights are then multiplied by their
 respective value vectors and summed together.
@@ -1018,9 +1018,9 @@ vector \\(\mathbf{y''}_1\\) for our example above.
 ![](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/encoder_decoder/cross_attention.png)
 
 We can see that the query vector \\(\mathbf{q}_1\\) (shown in purple) is
-derived from \\(\mathbf{y''}_1\\) and therefore relies on a vector
+derived from \\(\mathbf{y''}_1\\)(shown in red) and therefore relies on a vector
 representation of the word \"Ich\". The query vector \\(\mathbf{q}_1\\)
-(shown in red) is then compared to the key vectors
+ is then compared to the key vectors
 \\(\mathbf{k}_1, \ldots, \mathbf{k}_7\\) (shown in yellow) corresponding to
 the contextual encoding representation of all encoder input vectors
 \\(\mathbf{X}_{1:n}\\) = \"I want to buy a car EOS\". This puts the vector
@@ -1031,9 +1031,9 @@ yield in addition to the input vector \\(\mathbf{y''}_1\\) the output vector
 \\(\mathbf{y'''}_1\\) (shown in dark red).
 
 So intuitively, what happens here exactly? Each output vector
-\\(\mathbf{y'}_i\\) is a weighted sum of all value projections of the
+\\(\mathbf{y'''}_i\\) is a weighted sum of all value projections of the
 encoder inputs \\(\mathbf{v}_{1}, \ldots, \mathbf{v}_7\\) plus the input
-vector itself \\(\mathbf{y}_i\\) (*c.f.* illustrated formula above). The key
+vector itself \\(\mathbf{y''}_i\\) (*c.f.* illustrated formula above). The key
 mechanism to understand is the following: Depending on how similar a
 query projection of the *input decoder vector* \\(\mathbf{q}_i\\) is to a
 key projection of the *encoder input vector* \\(\mathbf{k}_j\\), the more
