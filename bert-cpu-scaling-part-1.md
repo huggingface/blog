@@ -87,7 +87,7 @@ Also, we decided to include support for [ONNX Runtime (8)](https://www.onnxrunti
 specifically targeting transformers based models which makes it a strong candidate to consider when discussing 
 performance.
 
-Last but not least, this new unified benchmarking environment will allow us to easily run inference for different scenarii
+Last but not least, this new unified benchmarking environment will allow us to easily run inference for different scenarios
 such as [Quantized Models (Zafrir & al.) (9)](https://arxiv.org/abs/1910.06188) 
 using less precise number representations (`float16`, `int8`, `int4`).  
 This method known as **quantization** has seen an increased adoption among all major hardware providers. 
@@ -278,7 +278,7 @@ Let's take sometime from here to highlight what we did with `numactl`:
 - `-m 0,1` indicates to `numactl` to allocate memory on both CPU sockets
 
 If you wonder why we are binding the process to cores [0...47], you need to go back to look at the output of `lscpu`.  
-From there you will find the section `NUMA node0` and `NUMA node1` which has the form `NUMA node<X> <logicial ids>`
+From there you will find the section `NUMA node0` and `NUMA node1` which has the form `NUMA node<X> <logical ids>`
 
 In our case, each socket is one NUMA node and there are 2 NUMA nodes. 
 Each socket or each NUMA node has 24 physical cores and 2 hardware threads per core, so 48 logical cores. 
@@ -406,7 +406,7 @@ On one hand, we are taking the maximum latency over the pool of instances to ref
 Putting it differently, as instances operate in a truly parallel fashion, the time it takes to gather all the batch chunks from all the instances
 is driven by the longest time it takes for individual instance in the pool to get their chunk done.
 
-As you can see below on Figure 7., the actual latency gain when increasing the number of instances is really dependant of the problem size.
+As you can see below on Figure 7., the actual latency gain when increasing the number of instances is really dependent of the problem size.
 In all cases, we can find an optimal resource allocation (batch size & number of instances) to minimize our latency but, there is no specific pattern on the number of cores to involve in the computation.
 
 Also, it is important to notice the results might look totally different on another system _(i.e. Operating System, Kernel Version, Framework version, etc.)_
@@ -453,7 +453,7 @@ Optimizations will be discussed in the second part! 🚀
 Then, we covered and detailed the impact, and the importance of setting the thread affinity along with the trade-off between the target problem size, and the number of cores required for achieving the task.  
 Also, it is important to define **which criteria**  _(i.e. latency vs throughput)_ to use when optimizing your deployment as the resulting setups might be totally different.
 
-On a more general note, small problem sizes (_short sequences and/or small batchs_) might require much fewer cores to achieve the best possible latency than big problems (_very long sequences and/or big batchs_).
+On a more general note, small problem sizes (_short sequences and/or small batches_) might require much fewer cores to achieve the best possible latency than big problems (_very long sequences and/or big batches_).
 
 It is interesting to cover all these aspects when thinking about the final deployment platform as it might cut the cost of the infrastructure drastically.  
 For instance, our 48 cores machine charges **4.848\$/h** whereas a smaller instances with only 8 cores lowers the cost to **0.808\$/h**, leading to a **6x cost reduction**.    
