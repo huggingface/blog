@@ -1,10 +1,10 @@
 ---
-title: 'Few-shot learning in practice: GPT-NEO and the 🤗 Accelerated Inference API'
+title: 'Few-shot learning in practice: GPT-NEO and the Accelerated Inference API'
 # thumbnail: /blog/assets/22_few_shot_learning_gpt_neo_and_inference_api/thumbnail.png
 ---
 
 <h1>
-    Few-shot learning in practice: GPT-NEO and the 🤗 Accelerated Inference API
+    Few-shot learning in practice: GPT-NEO and the Accelerated Inference API
 </h1>
 
 <div class="blog-metadata">
