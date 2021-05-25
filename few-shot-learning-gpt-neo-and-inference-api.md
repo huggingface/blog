@@ -45,7 +45,7 @@ Few-Shot NLP examples consist of three main components:
 ![few-shot-prompt](assets/22_few_shot_learning_gpt_neo_and_inference_api/few-shot-prompt.png)  
 <small>Image from <a href="https://arxiv.org/abs/2005.14165" target="_blank">Language Models are Few-Shot Learners</a></small>
 
-Creating these few-shot examples can be tough since you need to elaborate the “task” you want to perform to the model. A common problem is that models, especially smaller ones seem to be very sensitive to the way the example is written.
+Creating these few-shot examples can be tricky, since you need to articulate the “task” you want the model to perform through them. A common issue is that models, especially smaller ones, are very sensitive to the way the examples are written.
 
 OpenAI contributed in their [GPT-3 Paper](https://arxiv.org/abs/2005.14165) an observation that the few-shot prompting ability grows as the number of language model parameters grows.
 
