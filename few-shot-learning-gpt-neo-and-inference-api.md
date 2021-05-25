@@ -45,7 +45,7 @@ Few-Shot NLP examples consist of three main components:
 ![few-shot-prompt](assets/22_few_shot_learning_gpt_neo_and_inference_api/few-shot-prompt.png)  
 <small>Image from <a href="https://arxiv.org/abs/2005.14165" target="_blank">Language Models are Few-Shot Learners</a></small>
 
-If you're wondering how many training examples is a prompt worth, well, so did we, and Hugging Face researchers [Teven Le Scao](https://huggingface.co/teven) and [Sasha Rush](https://huggingface.co/srush) ran the numbers in their ["How Many Data Points is a Promp Work?"](https://arxiv.org/abs/2103.08493) paper.
+If you're wondering how many training examples is a prompt worth, well, so did we, and Hugging Face researchers [Teven Le Scao](https://twitter.com/Fluke_Ellington) and [Sasha Rush](https://twitter.com/srush_nlp) ran the numbers in their ["How Many Data Points is a Promp Work?"](https://arxiv.org/abs/2103.08493) paper.
 
 Creating these few-shot examples can be tricky, since you need to articulate the “task” you want the model to perform through them. A common issue is that models, especially smaller ones, are very sensitive to the way the examples are written.
 
