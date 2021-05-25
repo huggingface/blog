@@ -53,4 +53,3 @@ Or put your models in _series_. This makes it easy to build complex applications
 ![GIF of Gradio 2.0](./assets/22_gradio/recording-24.gif)
 
 You can even mix multiple models in _series_ compared to each other in _parallel_ (we’ll let you try that yourself!). To try any of this out, just install Gradio (`pip install gradio`) and pick a Hugging Face model you want to try. Start building with Gradio and Hugging Face 🧱⛏️
-
