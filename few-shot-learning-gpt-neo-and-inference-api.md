@@ -1,5 +1,5 @@
 ---
-title: 'Few-shot learning in practice: GPT-NEO and the Accelerated Inference API'
+title: 'Few-shot learning in practice: GPT-Neo and the 🤗 Accelerated Inference API'
 # thumbnail: /blog/assets/22_few_shot_learning_gpt_neo_and_inference_api/thumbnail.png
 ---
 
