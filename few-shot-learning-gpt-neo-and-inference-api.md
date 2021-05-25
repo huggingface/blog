@@ -68,7 +68,7 @@ All of the currently available GPT-Neo checkpoints are trained with the Pile dat
 
 The inference API is our fully managed and hosted model serving product. The Inference API is capable of serving all of the 10,000+ public models from our hub or your own private models without any adjustments. The API includes acceleration on CPU and GPU with performance up 100x compared to basic transformer implementations.
 
-If you want to use `GPT-Neo` for a few-shot prediction programmatically in your app you can use the following snippet. You can your API Token [here](https://huggingface.co/settings/token) and If you don't have an account you can get started [here](https://huggingface.co/pricing).
+To integrate Few-Shot Learning predictions with `GPT-Neo` in your own apps, you can use the 🤗 Accelerated Inference API with the code snippet below. You can find your API Token [here](https://huggingface.co/settings/token), if you don't have an account you can get started [here](https://huggingface.co/pricing).
 
 ```python
 import json
