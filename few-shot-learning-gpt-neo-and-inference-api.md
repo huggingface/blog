@@ -4,7 +4,7 @@ title: 'Few-shot learning in practice: GPT-Neo and the 🤗 Accelerated Inferenc
 ---
 
 <h1>
-    Few-shot learning in practice: GPT-NEO and the Accelerated Inference API
+    Few-shot learning in practice: GPT-Neo and the 🤗 Accelerated Inference API
 </h1>
 
 <div class="blog-metadata">
