@@ -146,7 +146,13 @@
   title: "Scaling-up BERT Inference on CPU (Part 1)"
   author: mfuntowicz
   date: April 20, 2021
+  
+- local: gradio
+  title: "Using & Mixing Hugging Face Models with Gradio 2.0"
+  author: abidlabs
+  guest: true
+  date: May 25, 2021
 
 - local: few-shot-learning-gpt-neo-and-inference-api
   title: "Few-shot learning in practice: GPT-NEO and the 🤗 Accelerated Inference API"
-  date: May XX, 2021
+  date: June 02, 2021
