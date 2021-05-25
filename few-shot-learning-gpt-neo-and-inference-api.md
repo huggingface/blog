@@ -38,9 +38,9 @@ In NLP, Few-Shot Learning can be used with Large Language Models, which have lea
 
 Few-Shot NLP examples consist of three main components: 
 
-- **Task Description:** A short description of what the model should do, e.g. translate English to France
-- **Examples:** A few shot examples demonstrating/showing the model what it should do, e.g. sea otter => loutre de mer
-- **Prompt:** The beginning of example where the model should generate the missing text for completion, e.g. cheese =>
+- **Task Description**: A short description of what the model should do, e.g. "Translate English to French"
+- **Examples**: A few examples showing the model what it is expected to predict, e.g. "sea otter => loutre de mer"
+- **Prompt**: The beginning of a new example, which the model should complete by generating the missing text, e.g. "cheese => "
 
 ![few-shot-prompt](assets/22_few_shot_learning_gpt_neo_and_inference_api/few-shot-prompt.png)  
 <small>Image from <a href="https://arxiv.org/abs/2005.14165" target="_blank">Language Models are Few-Shot Learners</a></small>
