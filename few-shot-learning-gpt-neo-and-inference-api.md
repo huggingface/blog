@@ -34,7 +34,7 @@ Few-Shot Learning refers to the practice of feeding a machine learning model wit
 
 This technique has been mostly used in computer vision, but with some of the latest Language Models, like [EleutherAI GPT-Neo](https://www.eleuther.ai/projects/gpt-neo/) and [OpenAI GPT-3](https://openai.com/blog/gpt-3-apps/), we can now use it in Natural Language Processing (NLP). 
 
-In NLP few-shot learning is used together with a large Language Model. These Language Models learned to perform a large number of tasks implicitly in order to reduce perplexity during their pre-training on large text datasets. This enables the Language model to generalize/understand unseen (but related) tasks with just a few examples.
+In NLP, Few-Shot Learning can be used with Large Language Models, which have learned to perform a wide number of tasks implicitly during their pre-training on large text datasets. This enables the model to generalize, that is to understand related but previously unseen tasks, with just a few examples.
 
 Few-Shot NLP examples consist of three main components: 
 
