@@ -1,6 +1,28 @@
+---
+title: "Using & Mixing Hugging Face Models with Gradio 2.0"
+thumbnail: /blog/assets/22_gradio/gradio.png
+---
+
 # Using & Mixing Hugging Face Models with Gradio 2.0
 
-By the Gradio and Hugging Face teams
+> ##### Cross-posted from the&nbsp;[Gradio blog](https://gradio.app/blog/using-huggingface-models).
+
+<div class="blog-metadata">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/gradio.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/abidlabs">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1621947938344-noauth.png?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>abidlabs</code>
+            <span class="fullname">Abubakar Abid</span>
+        </div>
+    </a>
+</div>
+
 
 The **[Hugging Face Model Hub](https://huggingface.co/models)** has more than 10,000 machine learning models submitted by users. You’ll find all kinds of natural language processing models that, for example, translate between Finnish and English or recognize Chinese speech. More recently, the Hub has expanded to even include models for image classification and audio processing. 
 
@@ -8,14 +30,14 @@ Hugging Face has always worked to make models accessible and easy to use. The `t
 
 The **[Gradio library](https://gradio.app/)** lets machine learning developers create demos and GUIs from machine learning models very easily, and share them for free with your collaborators as easily as sharing a Google docs link. Now, we’re excited to share that the Gradio 2.0 library lets you **_load and use almost any Hugging Face model_ _with a GUI_** **_in just 1 line of code_**. Here’s an example:
 
-![GIF of Gradio 2.0](https://i.ibb.co/x5y4tmW/recording-20.gif)
+![GIF of Gradio 2.0](./assets/22_gradio/recording-20.gif)
 
 By default, this uses HuggingFace’s hosted Inference API (you can supply your own API key or use the public access without an API key), or you can also run `pip install transformers` and run the model computations locally if you’d like.
 
 Do you want to customize the demo? You can override any of the default parameters of the [Interface class](https://gradio.app/docs) by passing in your own parameters:
 
 
-![GIF of Gradio 2.0](https://i.ibb.co/6XVH7v2/recording-21.gif)
+![GIF of Gradio 2.0](./assets/22_gradio/recording-21.gif)
 
 
 
@@ -24,11 +46,11 @@ Do you want to customize the demo? You can override any of the default parameter
 
 For example, Gradio lets you load multiple models in _parallel_ (imagine you want to compare 4 different text generation models from Hugging Face to see which one is the best for your use case):
 
-![GIF of Gradio 2.0](https://i.ibb.co/6yMnnRr/recording-22.gif)
+![GIF of Gradio 2.0](./assets/22_gradio/recording-22.gif)
 
 Or put your models in _series_. This makes it easy to build complex applications built from multiple machine learning models. For example, here we can build an application to translate and summarize Finnish news articles in 3 lines of code:
 
-![GIF of Gradio 2.0](https://i.ibb.co/yq1dFNh/recording-24.gif)
+![GIF of Gradio 2.0](./assets/22_gradio/recording-24.gif)
 
 You can even mix multiple models in _series_ compared to each other in _parallel_ (we’ll let you try that yourself!). To try any of this out, just install Gradio (`pip install gradio`) and pick a Hugging Face model you want to try. Start building with Gradio and Hugging Face 🧱⛏️
 

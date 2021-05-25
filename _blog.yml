@@ -146,3 +146,9 @@
   title: "Scaling-up BERT Inference on CPU (Part 1)"
   author: mfuntowicz
   date: April 20, 2021
+
+- local: gradio
+  title: "Using & Mixing Hugging Face Models with Gradio 2.0"
+  author: abidlabs
+  guest: true
+  date: May 25, 2021
