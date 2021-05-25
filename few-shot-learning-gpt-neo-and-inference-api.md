@@ -32,7 +32,7 @@ title: 'Few-shot learning in practice: GPT-Neo and the 🤗 Accelerated Inferenc
 
 Few-Shot learning refers to the practice of feeding a learning model (language model) with a very small amount of data, contrary to the normal practice of fine-tuning using a large amount of data.
 
-This technique was in the past mostly used in computer vision, but with the latest and greatest Language models, like [OpenAIs GPT-3](https://openai.com/blog/gpt-3-apps/) and [EleutherAI GPT-Neo](https://www.eleuther.ai/projects/gpt-neo/), it is now also used in Natural Language Processing (NLP). 
+This technique has been mostly used in computer vision, but with some of the latest Language Models, like [EleutherAI GPT-Neo](https://www.eleuther.ai/projects/gpt-neo/) and [OpenAI GPT-3](https://openai.com/blog/gpt-3-apps/), we can now use it in Natural Language Processing (NLP). 
 
 In NLP few-shot learning is used together with a large Language Model. These Language Models learned to perform a large number of tasks implicitly in order to reduce perplexity during their pre-training on large text datasets. This enables the Language model to generalize/understand unseen (but related) tasks with just a few examples.
 
