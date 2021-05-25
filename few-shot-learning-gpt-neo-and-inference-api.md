@@ -58,7 +58,7 @@ An approach to optimize Few-Shot Learning in production is to learn a common rep
 
 ## What is GPT-Neo?
 
-GPT⁠-⁠Neo is a family of transformer-based language models from [EleutherAI](https://www.eleuther.ai/projects/gpt-neo/) based on GPT architecture. [EleutherAI](https://www.eleuther.ai) primary goal is to train an equivalent model to the full-sized GPT⁠-⁠3 and make it available to the public under an open license.
+GPT⁠-⁠Neo is a family of transformer-based language models from [EleutherAI](https://www.eleuther.ai/projects/gpt-neo/) based on the GPT architecture. [EleutherAI](https://www.eleuther.ai)'s primary goal is to train a model that is equivalent in size to GPT⁠-⁠3 and make it available to the public under an open license.
 
 All of the currently available GPT-Neo checkpoints are trained with the Pile dataset, a large text corpus that is extensively documented in ([Gao et al., 2021](https://arxiv.org/abs/2101.00027)). As such, it is expected to function better on the text that matches the distribution of its training text; we recommend keeping this in mind when designing systems that rely on its output and in considering how the system might impact different groups of users. For further discussion on these questions, we refer you to e.g. ([Bender et al., 2021](https://dl.acm.org/doi/10.1145/3442188.3445922))
 
