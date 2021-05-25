@@ -45,6 +45,9 @@ Few-Shot NLP examples consist of three main components:
 ![few-shot-prompt](assets/22_few_shot_learning_gpt_neo_and_inference_api/few-shot-prompt.png)  
 <small>Image from <a href="https://arxiv.org/abs/2005.14165" target="_blank">Language Models are Few-Shot Learners</a></small>
 
+If you're wondering how many training examples is a prompt worth, well, so did we, and Hugging Face researchers [Teven Le Scao](link missing) and [Sasha Rush](link missing) ran the numbers in their ["How Many Data Points is a Promp Work?"](How Many Data Points is a Prompt Worth?
+) paper.
+
 Creating these few-shot examples can be tricky, since you need to articulate the “task” you want the model to perform through them. A common issue is that models, especially smaller ones, are very sensitive to the way the examples are written.
 
 OpenAI showed in the [GPT-3 Paper](https://arxiv.org/abs/2005.14165) that the few-shot prompting ability improves with the number of language model parameters.
@@ -100,19 +103,21 @@ data = query(prompt,parameters,options)
 ```
 
 ---
+## Practical insights
 
-## Unfair advantage
+Here are some practical insights, which help you get started using `GPT-Neo` and the 🤗 Accelerated Inference API.
 
-Our partnerships and open-source collaborations with hardware and cloud vendors like Intel, NVIDIA, Qualcomm, Amazon, and Microsoft enable us to tune our API infrastructure with the latest hardware optimization techniques.
+Since `GPT-Neo` (2.7B) is about 60x smaller than `GPT-3` (175B), it does not generalize so well to zero-shot problems and needs 3-4 examples to achieve good results. When you provide more examples `GPT-Neo` understands the task and takes the `end_sequence` into account, which allows us to control the generated text pretty well. 
 
-As Machine Learning Engineers at Hugging Face we certainly have an unfair advantage sitting in the same (virtual) offices as the 🤗 Transformers and 🤗 Tokenizers maintainers.
+![insights-benefit-of-examples](assets/22_few_shot_learning_gpt_neo_and_inference_api/insights-benefit-of-examples.png)
 
-### When You/your company should use the Accelerated Inference API:
+The hyperparameters `End Sequence`, `Token Length` & `Temperature` can be used to control the `text-generation` of the model and you can use this to your advantage to solve the task you need. 
 
-- When your idea/product wants to benefit from rapid development through the easy integration of all ~11 000 models of the [Hugging Face Hub](https://huggingface.co/models).
-- When you want to get up to [100x performance optimizations](https://huggingface.co/blog/accelerated-inference) out of the box.
-- When you don't have in-house expertise on how to host billion parameter large NLP models
-- When you want transparency which model is used for inference compared to, e.g. [Amazon Comprehend](https://aws.amazon.com/de/comprehend/) or [Google Cloud NLP](https://cloud.google.com/natural-language)
+![insights-benefit-of-hyperparameter](assets/22_few_shot_learning_gpt_neo_and_inference_api/insights-benefit-of-hyperparameter.png)
+
+In the example, you can see how important it is to define your hyperparameters. These can make the difference between solving your task or failing miserably.
+
+
 
 ---
 
