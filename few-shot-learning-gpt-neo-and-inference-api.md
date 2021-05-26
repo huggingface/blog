@@ -102,7 +102,7 @@ data = query(prompt,parameters,options)
 ```
 
 ---
-## Practical insights
+## Practical Insights
 
 Here are some practical insights, which help you get started using `GPT-Neo` and the 🤗 Accelerated Inference API.
 
