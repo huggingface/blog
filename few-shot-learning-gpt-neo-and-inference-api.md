@@ -14,6 +14,8 @@ title: 'Few-shot learning in practice: GPT-Neo and the 🤗 Accelerated Inferenc
     </a>
 </div>
 
+In many Machine Learning applications, the amount of available labeled data is a barrier to producing a high-performing model. The latest developments in NLP shown that you can overcome this limitation by providing a few examples at inference time with a large language model - a technique known as Few-Shot Learning. In this blog post, we'll explain what Few-Shot Learning is and explore how a large language model called GPT-Neo and the 🤗 Accelerated Inference API can be used to generate your own predictions.
+
 <div class="author-card">
     <a href="/philschmid">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1613142338662-5ff5d596f244529b3ec0fb89.png?w=200&h=200&f=face" title="Gravatar">
@@ -45,16 +47,16 @@ Few-Shot NLP examples consist of three main components:
 ![few-shot-prompt](assets/22_few_shot_learning_gpt_neo_and_inference_api/few-shot-prompt.png)  
 <small>Image from <a href="https://arxiv.org/abs/2005.14165" target="_blank">Language Models are Few-Shot Learners</a></small>
 
-If you're wondering how many training examples is a prompt worth, well, so did we, and Hugging Face researchers [Teven Le Scao](https://twitter.com/Fluke_Ellington) and [Sasha Rush](https://twitter.com/srush_nlp) ran the numbers in their ["How Many Data Points is a Promp Work?"](https://arxiv.org/abs/2103.08493) paper.
-
 Creating these few-shot examples can be tricky, since you need to articulate the “task” you want the model to perform through them. A common issue is that models, especially smaller ones, are very sensitive to the way the examples are written.
+
+An approach to optimize Few-Shot Learning in production is to learn a common representation for a task and then train task-specific classifiers on top of this representation.
 
 OpenAI showed in the [GPT-3 Paper](https://arxiv.org/abs/2005.14165) that the few-shot prompting ability improves with the number of language model parameters.
 
 ![few-shot-performance](assets/22_few_shot_learning_gpt_neo_and_inference_api/few-shot-performance.png)  
 <small>Image from <a href="https://arxiv.org/abs/2005.14165" target="_blank">Language Models are Few-Shot Learners</a></small>
 
-An approach to optimize Few-Shot Learning in production is to learn a common representation for a task and then train task-specific classifiers on top of this representation.
+Let's now take a look at how at how GPT-Neo and the 🤗 Accelerated Inference API can be used to generate your own Few-Shot Learning predictions!
 
 ---
 
@@ -62,7 +64,7 @@ An approach to optimize Few-Shot Learning in production is to learn a common rep
 
 GPT⁠-⁠Neo is a family of transformer-based language models from [EleutherAI](https://www.eleuther.ai/projects/gpt-neo/) based on the GPT architecture. [EleutherAI](https://www.eleuther.ai)'s primary goal is to train a model that is equivalent in size to GPT⁠-⁠3 and make it available to the public under an open license.
 
-All of the currently available GPT-Neo checkpoints are trained with the Pile dataset, a large text corpus that is extensively documented in ([Gao et al., 2021](https://arxiv.org/abs/2101.00027)). As such, it is expected to function better on the text that matches the distribution of its training text; we recommend keeping this in mind when designing systems that rely on its output and in considering how the system might impact different groups of users. For further discussion on these questions, we refer you to e.g. ([Bender et al., 2021](https://dl.acm.org/doi/10.1145/3442188.3445922))
+All of the currently available GPT-Neo checkpoints are trained with the Pile dataset, a large text corpus that is extensively documented in ([Gao et al., 2021](https://arxiv.org/abs/2101.00027)). As such, it is expected to function better on the text that matches the distribution of its training text; we recommend keeping this in mind when designing your examples.
 
 ---
 
@@ -110,11 +112,11 @@ Since `GPT-Neo` (2.7B) is about 60x smaller than `GPT-3` (175B), it does not gen
 
 ![insights-benefit-of-examples](assets/22_few_shot_learning_gpt_neo_and_inference_api/insights-benefit-of-examples.png)
 
-The hyperparameters `End Sequence`, `Token Length` & `Temperature` can be used to control the `text-generation` of the model and you can use this to your advantage to solve the task you need. 
+The hyperparameter `End Sequence`, `Token Length` & `Temperature` can be used to control the `text-generation` of the model and you can use this to your advantage to solve the task you need. The `Temperature` controlls the randomness of your generations, lower temperature results in less random generations and higher temperature results in more random generations.
 
 ![insights-benefit-of-hyperparameter](assets/22_few_shot_learning_gpt_neo_and_inference_api/insights-benefit-of-hyperparameter.png)
 
-In the example, you can see how important it is to define your hyperparameters. These can make the difference between solving your task or failing miserably.
+In the example, you can see how important it is to define your hyperparameter. These can make the difference between solving your task or failing miserably.
 
 
 
