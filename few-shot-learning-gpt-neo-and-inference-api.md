@@ -30,7 +30,7 @@ In many Machine Learning applications, the amount of available labeled data is a
 <few-shot-inference-widget ></few-shot-inference-widget>
 
 
-## What is few-shot learning?
+## What is Few-Shot Learning?
 
 Few-Shot Learning refers to the practice of feeding a machine learning model with a very small amount of training data to guide its predictions, like a few examples at inference time, as opposed to standard fine-tuning techniques which require a relatively large amount of training data for the pre-trained model to adapt to the desired task with accuracy.
 
@@ -104,7 +104,7 @@ data = query(prompt,parameters,options)
 ```
 
 ---
-## Practical insights
+## Practical Insights
 
 Here are some practical insights, which help you get started using `GPT-Neo` and the 🤗 Accelerated Inference API.
 
