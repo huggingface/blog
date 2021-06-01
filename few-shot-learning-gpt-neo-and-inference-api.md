@@ -8,7 +8,7 @@ title: 'Few-shot learning in practice: GPT-Neo and the 🤗 Accelerated Inferenc
 </h1>
 
 <div class="blog-metadata">
-    <small>Published May 30, 2021.</small>
+    <small>Published June 2, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/sagemaker-distributed-training-seq2seq.md">
         Update on GitHub
     </a>
