@@ -21,7 +21,7 @@ title: 'Few-shot learning in practice: GPT-Neo and the 🤗 Accelerated Inferenc
     </a>
 </div>
 
-In many Machine Learning applications, the amount of available labeled data is a barrier to producing a high-performing model. The latest developments in NLP shown that you can overcome this limitation by providing a few examples at inference time with a large language model - a technique known as Few-Shot Learning. In this blog post, we'll explain what Few-Shot Learning is and explore how a large language model called GPT-Neo and the 🤗 Accelerated Inference API can be used to generate your own predictions.
+In many Machine Learning applications, the amount of available labeled data is a barrier to producing a high-performing model. The latest developments in NLP show that you can overcome this limitation by providing a few examples at inference time with a large language model - a technique known as Few-Shot Learning. In this blog post, we'll explain what Few-Shot Learning is, and explore how a large language model called GPT-Neo, and the 🤗 Accelerated Inference API, can be used to generate your own predictions.
 
 <script defer src="https://gpt-neo-accelerated-inference-api.s3-eu-west-1.amazonaws.com/fewShotInference.js"></script>
 <few-shot-inference-widget ></few-shot-inference-widget>
