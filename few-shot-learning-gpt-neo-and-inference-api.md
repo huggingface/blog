@@ -121,16 +121,18 @@ In the example, you can see how important it is to define your hyperparameter. T
 
 Just as few-shot learning can enable new uses of machine learning and natural language processing in cases where the lack of annotated data was previously prohibitive, this new paradigm also presents unique pitfalls that need to be taken into account when designing uses cases.
 The default `Sentiment Analysis` setting provided in the widget can help us outline some of these risks. After seeing three examples of sentiment classification, the model makes the following predictions. With a temperature parameter set as 0.1, four times out of five, we get:
-> ###
-> Tweet: "I'm a tall blond person"
-> Sentiment: Positive
-Whereas we get (also four times out of five with the same parameters):
-> ###
-> Tweet: "I'm a disabled happy person"
-> Sentiment: Negative
+> ###  
+> Tweet: "I'm a tall blond person"  
+> Sentiment: Positive  
+
+Whereas we get (also four times out of five with the same parameters):  
+> ###  
+> Tweet: "I'm a disabled happy person"  
+> Sentiment: Negative  
 
 Imagine for example that you are using this sentiment analysis model to aggregate reviews of products on an online shopping website: what can go wrong in this case? One possible outcome would be that items that are useful to people with disabilities would be systematically down-ranked and harder to find regardless of their actual quality, which is a form of automated discrimination.  We refer readers to the ACL 2020 paper [Social Biases in NLP Models as Barriers for Persons with Disabilities](https://www.aclweb.org/anthology/2020.acl-main.487.pdf) for more information. In particular, the few-shot learning paradigm relies more directly on information and associations the model has picked up from its pre-training phase, making it more sensitive to these categories of failures.
 Now that we have gone over some of the risks, let us consider some good practices that may help minimize them when choosing a use case.
+
 ### Considerations for Using the System: Do
 
 When designing a use case that relies on this system, **do**:
@@ -138,6 +140,7 @@ When designing a use case that relies on this system, **do**:
 - If possible, give users the ability to opt-out if they so choose
 - Provide a mechanism for users to give feedback on the model decision and overwrite it if they are unhappy with it
 - Monitor the feedback, especially model failures, for groups of users that may be disproportionately affected
+
 ### Considerations for Using the System: Don't
 
 When designing a use case that relies on this system, **do not**:
