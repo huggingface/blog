@@ -8,7 +8,7 @@ title: 'Few-shot learning in practice: GPT-Neo and the 🤗 Accelerated Inferenc
 </h1>
 
 <div class="blog-metadata">
-    <small>Published June 2, 2021.</small>
+    <small>Published June 3, 2021.</small>
 </div>
 
 <div class="author-card">
