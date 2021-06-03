@@ -121,9 +121,10 @@ In the example, you can see how important it is to define your hyperparameter. T
 
 Few-Shot Learning is a powerful technique but also presents unique pitfalls that need to be taken into account when designing uses cases.
 To illustrate this, let's consider the default `Sentiment Analysis` setting provided in the widget. After seeing three examples of sentiment classification, the model makes the following predictions 4 times out of 5, with `temperature` set to 0.1:
-> ###
-> Tweet: "I'm a disabled happy person"
-> Sentiment: Negative
+
+> ###  
+> Tweet: "I'm a disabled happy person"  
+> Sentiment: Negative  
 
 What could go wrong? Imagine that you are using sentiment analysis to aggregate reviews of products on an online shopping website: a possible outcome could be that items useful to people with disabilities would be automatically down-ranked - a form of automated discrimination.  For more on this specific issue, we recommend the ACL 2020 paper [Social Biases in NLP Models as Barriers for Persons with Disabilities](https://www.aclweb.org/anthology/2020.acl-main.487.pdf). Because Few-Shot Learning relies more directly on information and associations picked up from pre-training, it makes it more sensitive to this type of failures.
 
@@ -131,10 +132,10 @@ How to minimize the risk of harm? Here are some practical recommendations.
 
 ### Best practices for responsible use
 
-- Make sure people know which parts of their user experience depend on the outputs of the ML system
-- If possible, give users the ability to opt-out
-- Provide a mechanism for users to give feedback on the model decision, and to override it
-- Monitor feedback, especially model failures, for groups of users that may be disproportionately affected
+- Make sure people know which parts of their user experience depend on the outputs of the ML system  
+- If possible, give users the ability to opt-out  
+- Provide a mechanism for users to give feedback on the model decision, and to override it  
+- Monitor feedback, especially model failures, for groups of users that may be disproportionately affected  
 
 What needs most to be avoided is to use the model to automatically make decisions for, or about, a user, without opportunity for a human to provide input or correct the output. Several regulations, such as [GDPR](https://gdpr-info.eu/) in Europe, require that users be provided an explanation for automatic decisions made about them.
 
