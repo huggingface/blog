@@ -119,4 +119,5 @@ In the example, you can see how important it is to define your hyperparameter. T
 
 ---
 
-If you want to feel the speed on our infrastructure, start a [free trial](https://huggingface.co/pricing) and we’ll get in touch. If you want to benefit from our experience optimizing inference on your own infrastructure participate in our [🤗 Expert Acceleration Program](https://huggingface.co/support).
+To use GPT-Neo or any Hugging Face model in your own application, you can [start a free trial](https://huggingface.co/pricing) of the 🤗 Accelerated Inference API.
+If you need help mitigating bias in models and AI systems, or leveraging Few-Shot Learning, the 🤗 Expert Acceleration Program can [offer your team direct premium support from the Hugging Face team](https://huggingface.co/support).
