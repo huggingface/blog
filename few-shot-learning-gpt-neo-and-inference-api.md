@@ -115,37 +115,29 @@ The hyperparameter `End Sequence`, `Token Length` & `Temperature` can be used to
 
 In the example, you can see how important it is to define your hyperparameter. These can make the difference between solving your task or failing miserably.
 
-
 ---
-## Considerations for Using the System
 
-Just as few-shot learning can enable new uses of machine learning and natural language processing in cases where the lack of annotated data was previously prohibitive, this new paradigm also presents unique pitfalls that need to be taken into account when designing uses cases.
-The default `Sentiment Analysis` setting provided in the widget can help us outline some of these risks. After seeing three examples of sentiment classification, the model makes the following predictions. With a temperature parameter set as 0.1, four times out of five, we get:
-> ###  
-> Tweet: "I'm a tall blond person"  
-> Sentiment: Positive  
+## Responsible Use
 
-Whereas we get (also four times out of five with the same parameters):  
+Few-Shot Learning is a powerful technique but also presents unique pitfalls that need to be taken into account when designing uses cases.
+To illustrate this, let's consider the default `Sentiment Analysis` setting provided in the widget. After seeing three examples of sentiment classification, the model makes the following predictions 4 times out of 5, with `temperature` set to 0.1:
+
 > ###  
 > Tweet: "I'm a disabled happy person"  
 > Sentiment: Negative  
 
-Imagine for example that you are using this sentiment analysis model to aggregate reviews of products on an online shopping website: what can go wrong in this case? One possible outcome would be that items that are useful to people with disabilities would be systematically down-ranked and harder to find regardless of their actual quality, which is a form of automated discrimination.  We refer readers to the ACL 2020 paper [Social Biases in NLP Models as Barriers for Persons with Disabilities](https://www.aclweb.org/anthology/2020.acl-main.487.pdf) for more information. In particular, the few-shot learning paradigm relies more directly on information and associations the model has picked up from its pre-training phase, making it more sensitive to these categories of failures.
-Now that we have gone over some of the risks, let us consider some good practices that may help minimize them when choosing a use case.
+What could go wrong? Imagine that you are using sentiment analysis to aggregate reviews of products on an online shopping website: a possible outcome could be that items useful to people with disabilities would be automatically down-ranked - a form of automated discrimination.  For more on this specific issue, we recommend the ACL 2020 paper [Social Biases in NLP Models as Barriers for Persons with Disabilities](https://www.aclweb.org/anthology/2020.acl-main.487.pdf). Because Few-Shot Learning relies more directly on information and associations picked up from pre-training, it makes it more sensitive to this type of failures.
 
-### Considerations for Using the System: Do
+How to minimize the risk of harm? Here are some practical recommendations.
 
-When designing a use case that relies on this system, **do**:
-- Make sure that people know which parts of their user experience depend on the outputs of the system
-- If possible, give users the ability to opt-out if they so choose
-- Provide a mechanism for users to give feedback on the model decision and overwrite it if they are unhappy with it
-- Monitor the feedback, especially model failures, for groups of users that may be disproportionately affected
+### Best practices for responsible use
 
-### Considerations for Using the System: Don't
+- Make sure people know which parts of their user experience depend on the outputs of the ML system  
+- If possible, give users the ability to opt-out  
+- Provide a mechanism for users to give feedback on the model decision, and to override it  
+- Monitor feedback, especially model failures, for groups of users that may be disproportionately affected  
 
-When designing a use case that relies on this system, **do not**:
-- Use the model to automatically make decisions for or about a user without an opportunity for human input or redress
-In particular, note that the right of users to at least be provided an explanation for automatic decisions made about them is enshrined in several regulations, such as the European [GDPR](https://gdpr-info.eu/). 
+What needs most to be avoided is to use the model to automatically make decisions for, or about, a user, without opportunity for a human to provide input or correct the output. Several regulations, such as [GDPR](https://gdpr-info.eu/) in Europe, require that users be provided an explanation for automatic decisions made about them.
 
 ---
 
