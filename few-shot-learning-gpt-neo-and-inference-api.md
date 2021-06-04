@@ -9,6 +9,9 @@ title: 'Few-shot learning in practice: GPT-Neo and the 🤗 Accelerated Inferenc
 
 <div class="blog-metadata">
     <small>Published June 3, 2021.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://huggingface.co/blog/few-shot-learning-gpt-neo-and-inference-api">
+        Update on GitHub
+    </a>
 </div>
 
 <div class="author-card">
