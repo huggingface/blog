@@ -9,7 +9,7 @@ title: 'Few-shot learning in practice: GPT-Neo and the 🤗 Accelerated Inferenc
 
 <div class="blog-metadata">
     <small>Published June 3, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://huggingface.co/blog/few-shot-learning-gpt-neo-and-inference-api">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/few-shot-learning-gpt-neo-and-inference-api.md">
         Update on GitHub
     </a>
 </div>
@@ -108,7 +108,7 @@ data = query(prompt,parameters,options)
 
 Here are some practical insights, which help you get started using `GPT-Neo` and the 🤗 Accelerated Inference API.
 
-Since `GPT-Neo` (2.7B) is about 60x smaller than `GPT-3` (175B), it does not generalize so well to zero-shot problems and needs 3-4 examples to achieve good results. When you provide more examples `GPT-Neo` understands the task and takes the `end_sequence` into account, which allows us to control the generated text pretty well. 
+Since `GPT-Neo` (2.7B) is about 60x smaller than `GPT-3` (175B), it does not generalize as well to zero-shot problems and needs 3-4 examples to achieve good results. When you provide more examples `GPT-Neo` understands the task and takes the `end_sequence` into account, which allows us to control the generated text pretty well. 
 
 ![insights-benefit-of-examples](assets/22_few_shot_learning_gpt_neo_and_inference_api/insights-benefit-of-examples.png)
 
