@@ -73,6 +73,7 @@ Below you can find all the important resources to all published blog posts, vide
 - [SageMaker Metrics](https://github.com/huggingface/notebooks/blob/master/sagemaker/06_sagemaker_metrics/sagemaker-notebook.ipynb)
 - [Distributed Training Data Parallelism Tensorflow](https://github.com/huggingface/notebooks/blob/master/sagemaker/07_tensorflow_distributed_training_data_parallelism/sagemaker-notebook.ipynb)
 - [Distributed Training Summarization](https://github.com/huggingface/notebooks/blob/master/sagemaker/08_distributed_summarization_bart_t5/sagemaker-notebook.ipynb)
+- [Image Classification with Vision Transformer](https://github.com/huggingface/notebooks/blob/master/sagemaker/09_image_classification_vision_transformer/sagemaker-notebook.ipynb)
 
 ---
 
@@ -98,7 +99,7 @@ _**Note:** The use of Jupyter is optional: We could also launch SageMaker Traini
 After that we can install the required dependencies
 
 ```bash
-pip install "sagemaker>=2.31.0" "transformers==4.4.2" "datasets[s3]==1.5.0" --upgrade
+pip install "sagemaker>=2.31.0" "transformers==4.6.1" "datasets[s3]==1.6.2" --upgrade
 ```
 
 To run training on SageMaker we need to create a sagemaker Session and provide an IAM role with the right permission. This IAM role will be later attached to the TrainingJob enabling it to download data, e.g. from Amazon S3.
@@ -270,9 +271,9 @@ train_dataset = train_dataset.map(tokenize, batched=True, batch_size=len(train_d
 test_dataset = test_dataset.map(tokenize, batched=True, batch_size=len(test_dataset))
 
 # set format for pytorch
-train_dataset.rename_column_("label", "labels")
+train_dataset = train_dataset.rename_column("label", "labels")
 train_dataset.set_format('torch', columns=['input_ids', 'attention_mask', 'labels'])
-test_dataset.rename_column_("label", "labels")
+test_dataset = test_dataset.rename_column("label", "labels")
 test_dataset.set_format('torch', columns=['input_ids', 'attention_mask', 'labels'])
 
 # save train_dataset to s3
@@ -307,13 +308,13 @@ hyperparameters={'epochs': 1,
 
 # create the Estimator
 huggingface_estimator = HuggingFace(
-			entry_point='train.py',
+      entry_point='train.py',
       source_dir='./scripts',
       instance_type='ml.p3.2xlarge',
       instance_count=1,
       role=role,
-			transformers_version='4.4',
-      pytorch_version='1.6',
+      transformers_version='4.6',
+      pytorch_version='1.7',
       py_version='py36',
       hyperparameters = hyperparameters
 )
@@ -362,27 +363,25 @@ The "Getting started: End-to-End Text Classification 🧭" example can be used f
 
 ## Distributed Training: Model Parallel
 
-You can use [SageMaker Model Parallelism Library](https://aws.amazon.com/blogs/aws/amazon-sagemaker-simplifies-training-deep-learning-models-with-billions-of-parameters/) out of the box for distributed training. We extended the `Trainer` API to the [SageMakerTrainer](https://github.com/huggingface/transformers/blob/461e8cacf94d1f76367cc9ba2cfd5b9bd3641c81/src/transformers/sagemaker/trainer_sm.py#L72) to use the model parallelism library. Therefore you only have to change the imports in your `train.py`.
+
+You can use [SageMaker Model Parallelism Library](https://aws.amazon.com/blogs/aws/amazon-sagemaker-simplifies-training-deep-learning-models-with-billions-of-parameters/) out of the box for distributed training. We added the functionality of Model Parallelism directly into the [Trainer](https://huggingface.co/transformers/main_classes/trainer.html). If your `train.py` uses the [Trainer](https://huggingface.co/transformers/main_classes/trainer.html) API you only need to define the distribution parameter in the HuggingFace Estimator.  
+For detailed information about the adjustments take a look [here](https://sagemaker.readthedocs.io/en/stable/api/training/smd_model_parallel_general.html?highlight=modelparallel#required-sagemaker-python-sdk-parameters).
+
 
 - [Example Notebook](https://github.com/huggingface/notebooks/blob/master/sagemaker/04_distributed_training_model_parallelism/sagemaker-notebook.ipynb)
 
-```python
-from transformers.sagemaker import SageMakerTrainingArguments as TrainingArguments
-from transformers.sagemaker import SageMakerTrainer as Trainer
-```
-
-After the adjustments in the `train.py` you need to extend the distribution configuration in the HuggingFace Estimator. For detailed information about the adjustments take a look [here](https://sagemaker.readthedocs.io/en/stable/api/training/smd_model_parallel_general.html?highlight=modelparallel#required-sagemaker-python-sdk-parameters).
 
 ```python
 # configuration for running training on smdistributed Model Parallel
 mpi_options = {
     "enabled" : True,
-    "processes_per_host" : 8,
+    "processes_per_host" : 8
 }
+
 smp_options = {
     "enabled":True,
     "parameters": {
-        "microbatches": 2,
+        "microbatches": 4,
         "placement_strategy": "spread",
         "pipeline": "interleaved",
         "optimize": "speed",
@@ -396,7 +395,7 @@ distribution={
     "mpi": mpi_options
 }
 
-# create the Estimator
+ # create the Estimator
 huggingface_estimator = HuggingFace(
         entry_point='train.py',
         source_dir='./scripts',
@@ -406,7 +405,7 @@ huggingface_estimator = HuggingFace(
         transformers_version='4.4.2',
         pytorch_version='1.6.0',
         py_version='py36',
-        hyperparameters = hyperparameters
+        hyperparameters = hyperparameters,
         distribution = distribution
 )
 ```
