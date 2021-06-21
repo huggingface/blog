@@ -31,7 +31,7 @@ title: 'Sentence Transformers in the Hugging Face Hub'
     </a>
 </div>
 
-Over the past few weeks, we've built collaborations with many Open Source frameworks in the machine mearning ecosystem. One that gets us particularly excited is Sentence Transformers.
+Over the past few weeks, we've built collaborations with many Open Source frameworks in the machine learning ecosystem. One that gets us particularly excited is Sentence Transformers.
 
 [Sentence Transformers](https://github.com/UKPLab/sentence-transformers) is a framework for sentence, paragraph and image embeddings. This allows to derive semantically meaningful embeddings (1) which is useful for applications such as semantic search or multi-lingual zero shot classification. As part of Sentence Transformers [v2 release](TODO add link), there are a lot of cool new features:
 
