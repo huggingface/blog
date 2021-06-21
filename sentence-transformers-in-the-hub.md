@@ -1,10 +1,10 @@
 ---
-title: 'Sentence Transformers in the 🤗 Hub'
+title: 'Sentence Transformers in the Hugging Face Hub'
 # thumbnail: /blog/assets/22_few_shot_learning_gpt_neo_and_inference_api/thumbnail.png
 ---
 
 <h1>
-    Sentence Transformers in the 🤗 Hub
+    Sentence Transformers in the Hugging Face Hub
 </h1>
 
 <div class="blog-metadata">
@@ -33,14 +33,13 @@ title: 'Sentence Transformers in the 🤗 Hub'
 
 Over the past few weeks, we've built collaborations with many Open Source frameworks in the machine mearning ecosystem. One that gets us particularly excited is Sentence Transformers.
 
-[Sentence Transformers](https://github.com/UKPLab/sentence-transformers) is a framework for sentence, paragraph and image embeddings. This allows to derive semantically meaningful embeddings (1) which is useful for very interesting applications, such as semantic search or mutli-lingual zero shot classification. As part of Sentence Transformers [v2 release](TODO add link), there are a lot of cool new features:
+[Sentence Transformers](https://github.com/UKPLab/sentence-transformers) is a framework for sentence, paragraph and image embeddings. This allows to derive semantically meaningful embeddings (1) which is useful for applications such as semantic search or multi-lingual zero shot classification. As part of Sentence Transformers [v2 release](TODO add link), there are a lot of cool new features:
 
-- Sharing your models in the 🤗 Hub easily.
+- Sharing your models in the Hub easily.
 - Widgets and Inference API for sentence embeddings and sentence similarity.
-- Better sentence-embeddings models available ([benchmark](https://www.sbert.net/docs/pretrained_models.html#sentence-embedding-models) and [models](https://huggingface.co/sentence-transformers) in the 🤗 Hub).
-- Learning to rank (LTR) functions for cross-encoder training.
+- Better sentence-embeddings models available ([benchmark](https://www.sbert.net/docs/pretrained_models.html#sentence-embedding-models) and [models](https://huggingface.co/sentence-transformers) in the Hub).
 
-With over 90 pretrained Sentence Transformers models for more than 100 languages in the 🤗 Hub, anyone can benefit from them and easily use them. Pre-trained models can be loaded and used directly with few lines of code:
+With over 90 pretrained Sentence Transformers models for more than 100 languages in the Hub, anyone can benefit from them and easily use them. Pre-trained models can be loaded and used directly with few lines of code:
 
 ```python
 from sentence_transformers import SentenceTransformer
@@ -52,7 +51,7 @@ embeddings = model.encode(sentences)
 print(embeddings)
 ```
 
-But not only this. People will probably want to either demo their models or play with other models easily, so we're happy to announce the release of two new widgets in the 🤗 Hub! The first one is the `feature-extraction` widget which shows the sentence embedding.
+But not only this. People will probably want to either demo their models or play with other models easily, so we're happy to announce the release of two new widgets in the Hub! The first one is the `feature-extraction` widget which shows the sentence embedding.
 
 <!-- Hackiest hack ever for the draft -->
 <div><a class="text-xs block mb-3 text-gray-300" href="/osanseviero/full-sentence-distillroberta3"><code>osanseviero/full-sentence-distillroberta3</code></a>
@@ -115,7 +114,7 @@ from sentence_transformers import SentenceTransformer
 model.push_to_hub("my_new_model")
 ```
 
-Now you will have a [repository](https://huggingface.co/osanseviero/my_new_model) in the 🤗 Hub which hosts your model. A model card was automatically created. It describes the architecture by listing the layers and shows how to use the model with both `Sentence Transformers` and `🤗 Transformers`. You can also try out the widget and use the Inference API straight away!
+Now you will have a [repository](https://huggingface.co/osanseviero/my_new_model) in the Hub which hosts your model. A model card was automatically created. It describes the architecture by listing the layers and shows how to use the model with both `Sentence Transformers` and `🤗 Transformers`. You can also try out the widget and use the Inference API straight away!
 
 If this was not exciting enough, your models will also be easily discoverable by [filtering for all](https://huggingface.co/models?filter=sentence-transformers) `Sentence Transformers` models.
 
@@ -123,7 +122,7 @@ If this was not exciting enough, your models will also be easily discoverable by
 
 Moving forward, we want to make this integration even more useful. In our roadmap, we expect training and evaluation data to be included in the automatically created model card.
 
-And what's next for you? We're very excited to see your contributions! If you already have a `Sentence Transformer` repo in the 🤗 Hub, you can now enable the widget and Inference API by changing the model card metadata. We'll 
+And what's next for you? We're very excited to see your contributions! If you already have a `Sentence Transformer` repo in the Hub, you can now enable the widget and Inference API by changing the model card metadata. We'll 
 
 ```yaml
 ---
@@ -133,11 +132,11 @@ tags:
 ---
 ```
 
-If you don't have any model in the 🤗 Hub and want to learn more about Sentence Transformers, head to [www.SBERT.net](https://www.sbert.net)!
+If you don't have any model in the Hub and want to learn more about Sentence Transformers, head to [www.SBERT.net](https://www.sbert.net)!
 
 ## Would you like to integrate your library to the Hub?
 
-This integration is possible thanks to the [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) library which has all our widgets and the API for all our partner libraries. If you would like to integrate your library to the Hub, we have a [guide](TODO: Link to new guide for integrating a library) for you!
+This integration is possible thanks to the [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) library which has all our widgets and the API for all our supported libraries. If you would like to integrate your library to the Hub, we have a [guide](https://huggingface.co/docs/adding-a-library) for you!
 
 ## References
 
