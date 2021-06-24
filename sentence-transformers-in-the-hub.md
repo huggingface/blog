@@ -109,7 +109,7 @@ from sentence_transformers import SentenceTransformer
 
 # Load or train a model
 
-model.push_to_hub("my_new_model")
+model.save_to_hub("my_new_model")
 ```
 
 Now you will have a [repository](https://huggingface.co/osanseviero/my_new_model) in the Hub which hosts your model. A model card was automatically created. It describes the architecture by listing the layers and shows how to use the model with both `Sentence Transformers` and `🤗 Transformers`. You can also try out the widget and use the Inference API straight away!
