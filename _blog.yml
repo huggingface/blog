@@ -119,9 +119,9 @@
 
 - local: the-partnership-amazon-sagemaker-and-hugging-face
   title: "The Partnership: Amazon SageMaker and Hugging Face"
-  thumbnail:  ./assets/17_the_partnership_amazon_sagemaker_and_hugging_face/thumbnail.png
+  thumbnail: ./assets/17_the_partnership_amazon_sagemaker_and_hugging_face/thumbnail.png
   date: March 23, 2021
-  
+
 - local: big-bird
   title: "Understanding BigBird's Block Sparse Attention"
   author: vasudevgupta
@@ -146,7 +146,7 @@
   title: "Scaling-up BERT Inference on CPU (Part 1)"
   author: mfuntowicz
   date: April 20, 2021
-  
+
 - local: gradio
   title: "Using & Mixing Hugging Face Models with Gradio 2.0"
   author: abidlabs
@@ -159,4 +159,4 @@
 
 - local: sentence-transformers-in-the-hub
   title: "Sentence Transformers in the 🤗 Hub"
-  date: June 17, 2021
+  date: June 28, 2021
