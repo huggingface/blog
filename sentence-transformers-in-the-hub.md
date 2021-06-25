@@ -117,7 +117,7 @@ If this was not exciting enough, your models will also be easily discoverable by
 
 ## What's next?
 
-Moving forward, we want to make this integration even more useful. In our roadmap, we expect training and evaluation data to be included in the automatically created model card.
+Moving forward, we want to make this integration even more useful. In our roadmap, we expect training and evaluation data to be included in the automatically created model card, like is the case in `transformers` from version `v4.8`.
 
 And what's next for you? We're very excited to see your contributions! If you already have a `Sentence Transformer` repo in the Hub, you can now enable the widget and Inference API by changing the model card metadata.
 
