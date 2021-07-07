@@ -60,6 +60,7 @@ Below you can find all the important resources to all published blog posts, vide
 
 ## Documentation
 
+- [Hugging Face documentation for Amazon SageMaker](https://huggingface.co/docs/sagemaker/main)
 - [Run training on Amazon SageMaker](https://huggingface.co/docs/sagemaker/train)
 - [Deploy models to Amazon SageMaker](https://huggingface.co/docs/sagemaker/inference)
 - [Frequently Asked Questions](https://huggingface.co/docs/sagemaker/faq)

@@ -160,3 +160,7 @@
 - local: sentence-transformers-in-the-hub
   title: "Sentence Transformers in the 🤗 Hub"
   date: June 28, 2021
+
+# - local: deploy-hugging-face-models-easily-with-amazon-sagemaker
+#   title: "Deploy Hugging Face models easily with Amazon SageMaker"
+#   date: July 8, 2021
