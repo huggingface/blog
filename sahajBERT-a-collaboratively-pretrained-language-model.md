@@ -182,8 +182,8 @@ For security purposes, we set up an authorization system, so that only members o
 
 In the following figure, you can see the activity of each volunteer. Over the experiment, the volunteers logged in 600 different sessions. Participants regularly launched multiple runs in parallel, and many of them spread out the runs they launched over time. The runs of individual participants lasted 4 hours in average, and the maximum length was 21 hour. You can read more about the participation statistics in the paper.
 
-<iframe width="100%" height="1200" frameborder="0"
-  src="https://observablehq.com/embed/2bb588aa383b618d?cells=c_noaws%2Ct_noaws"></iframe>
+<iframe width="100%" height="670" frameborder="0"
+  src="https://observablehq.com/embed/5acfc9a072a7c4c7?cells=c_noaws%2Ct_noaws%2Cviewof+currentDate"></iframe>
 <div style="line-height:105%;font-size:80%">
 <p align="center">
 Chart showing participants of the <a href="https://huggingface.co/neuropark/sahajBERT"> sahajBERT</a> experiment. Circle radius is relative to the total number of processed batches, the circle is greyed if the participant is not active. Every purple square represents an active device, darker color corresponds to higher performance
