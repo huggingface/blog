@@ -1,6 +1,33 @@
+---
+title: "sahajBERT: A Collaboratively Trained Language Model"
+thumbnail: /blog/assets/23_sahajBERT/thumbnail.png
+---
+
 # sahajBERT: A Collaboratively Trained Language Model
 
-[blog post authors]
+<div class="blog-metadata">
+    <small>Published to do.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/sahajBERT-a-collaboratively-pretrained-language-model.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/osanseviero">
+        <img class="avatar avatar-user" src="https://huggingface.co/avatars/9c0a3d386ae42f7e9b972fdf85b82977.svg" title="Gravatar">
+        <div class="bfc">
+            <code>mryab</code>
+            <span class="fullname">Max Ryabinin</span>
+        </div>
+    </a>
+    <a href="/nreimers">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1618938489629-60741a2e69a66931a0273f0c.png?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>SaulLu</code>
+            <span class="fullname">Lucile Saulnier</span>
+        </div>
+    </a>
+</div>
 
 Modern language models often require a significant amount of compute for pretraining, which makes it impossible to obtain them without access to tens and hundreds of GPUs. Though in theory it might be possible to combine the resources of multiple individuals, in practice such distributed training methods have previously seen limited success, because connection speeds over the Internet are way slower than in high-performance GPU supercomputers.
 
@@ -14,9 +41,9 @@ allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
 allowfullscreen></iframe>
 </p>
 
-# Distributed Deep Learning in Open Collaborations
+## Distributed Deep Learning in Open Collaborations
 
-## Motivation
+### Motivation
 
 These days, many highest-quality NLP systems are based on large pretrained Transformers. In general, their quality improves with size: you can achieve unparalleled results in natural language understanding and generation by scaling up the parameter count and leveraging the abundance of unlabeled text data.
 
@@ -28,7 +55,7 @@ To a skeptical mind, it might seem that we're missing a key factor here: data tr
 
 As a solution to this problem, we propose a new training algorithm, called Distributed Deep Learning in Open Collaborations (or **DeDLOC**), which is described in detail in our recently released [preprint](https://arxiv.org/abs/2106.10207). Now, let’s find out what are the core ideas behind this algorithm!
 
-## Training with volunteers
+### Training with volunteers
 
 In its most frequently used version, distributed training with multiple GPUs is pretty straightforward. Recall that when doing deep learning, you usually compute gradients of your loss function averaged across many examples in a batch of training data. In case of _data-parallel_ distributed DL, you simply split the data across multiple workers, compute gradients separately, and then average them once the local batches are processed. When the average gradient is computed on all workers, we make a step of optimizer and continue training our model. You can see an illustration of different tasks that are executed below.
 
@@ -44,7 +71,7 @@ Let's consider a couple of potential failure cases that we might encounter throu
 <iframe width="864" height="486" src="https://www.youtube-nocookie.com/embed/zdVsg5zsGdc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </p>
 
-## Adaptive averaging
+### Adaptive averaging
 
 Now that we have discussed the overall training procedure, there remains one more question: how do we actually aggregate the gradients of participants? Most home computers cannot easily accept incoming connections, and the download speed might also become a constraint.
 
@@ -65,13 +92,13 @@ Examples of different averaging strategies with the adaptive algorithm.
 </div><br>
 
 
-# sahajBERT
+## sahajBERT
 
 As always, having a well-designed algorithmic framework doesn't mean that it will work as intended in practice, because some assumptions may not hold true in actual training runs. To verify the competitive performance of this technology and to showcase its potential, we organized a special collaborative event to pretrain a masked language model for the Bengali language. Even though it is the fifth most-spoken native language in the world, it has [very few](https://huggingface.co/models?filter=bn&pipeline_tag=fill-mask) masked language models openly available, which emphasizes the importance of tools that can empower the community, unlocking a plethora of opportunities in the field.
 
 We conducted this experiment with real volunteers from the Neuropark community and used openly available datasets (OSCAR and Wikipedia), because we wanted to have a fully reproducible example that might serve as an inspiration for other groups. Below, we describe the detailed setup of our training run and demonstrate its results.
 
-## Architecture
+### Architecture
 
 For our experiment, we chose ALBERT (_A Lite BERT)_ — a model for language representations that is pretrained with Masked Language Modeling (MLM) and Sentence Order Prediction (SOP) as objectives. We use this architecture because weight sharing makes it very parameter-efficient: for example, ALBERT-large has ~18M trainable parameters and performs comparably to BERT-base with ~108M weights on the GLUE benchmark. It means that there is less data to exchange between the peers, which is crucial in our setup, as it significantly speeds up each training iteration.
 
@@ -86,7 +113,7 @@ For our experiment, we chose ALBERT (_A Lite BERT)_ — a model for language rep
 </div>
 
 
-## Tokenizer
+### Tokenizer
 
 The first brick of our model is called a _tokenizer_ and takes care of transforming raw text into vocabulary indices. Because we are training a model for Bengali, which is not very similar to English, we need to implement language-specific preprocessing as a part of our tokenizer. We can view it as a sequence of operations:
 
@@ -109,7 +136,7 @@ from transformes import AutoTokenizer
 tokenizer = AutoTokenizer.from_pretrained("neuropark/sahajBERT")
 ```
 
-## Dataset
+### Dataset
 
 The last thing we need to cover is the training dataset. As you probably know, the great strength of pretrained models like BERT or ALBERT is that you don't need an annotated dataset, but just a lot of texts. To train sahajBERT, we used the Bengali Wikipedia dump from 03/20/2021 and the Bengali subset of OSCAR (600MB + 6GB of text). These two datasets can easily be downloaded from the HF Hub.
 
@@ -135,7 +162,7 @@ oscar_dataset = load_dataset("oscar", name="unshuffled_deduplicated_bn", streami
 </p>
 </div>
 
-## Collaborative event
+### Collaborative event
 
 The sahajBERT collaborative training event took place from May 12 to May 21. The event brought together 40 participants, 30 of whom were Bengali-speaking volunteers and 10 were volunteers from one of the authors' organizations. These 40 volunteers joined the [Neuropark](https://neuropark.co/) Discord channel to receive all information regarding the event and to participate in discussions. To join the experiment, volunteers were asked to:
 
@@ -166,7 +193,7 @@ The final model was uploaded to the Model Hub, so you can download and play with
 
 [https://hf.co/neuropark/sahajBERT](https://huggingface.co/neuropark/sahajBERT)
 
-## Evaluation
+### Evaluation
 
 To evaluate the performance of sahajBERT, we finetuned it on two downstream tasks in Bengali:
 
@@ -226,13 +253,13 @@ These models are available on the Hub as well. You can test them directly by:
     output = pipeline(raw_text)
     ```
 
-# Conclusion
+## Conclusion
 
 In this blog post, we have discussed the method that can enable collaborative pretraining of neural networks with sahajBERT as the first truly succesful example of applying it to a real-world problem.
 
 What does this all mean for the broader ML community? First, it is now possible to run large-scale distributed pretraining with your friends, and we hope to see a lot of cool new models that were previously less feasible to obtain. Also, our result might be important for multilingual NLP, since now the community for any language can train their own models without the need for significant computational resources concentrated in one place.
 
-# Acknowledgements
+## Acknowledgements
 
 The DeDLOC paper and sahajBERT training experiment were created by Michael Diskin, Alexey Bukhtiyarov, Max Ryabinin, Lucile Saulnier, Quentin Lhoest, Anton Sinitsin, Dmitry Popov, Dmitry Pyrkin, Maxim Kashirin, Alexander Borzunov, Albert Villanova del Moral, Denis Mazur, Ilia Kobelev, Yacine Jernite, Thomas Wolf, and Gennady Pekhimenko.
 
@@ -243,7 +270,7 @@ Below, you can see all participants of the collaborative experiment:
 <iframe width="100%" height="350" frameborder="0"
   src="https://observablehq.com/embed/@huggingface/sahajbert-participants?cells=humanParticipants"></iframe>
 
-# References
+## References
 
 "Distributed Deep Learning in Open Collaborations", [ArXiv](https://arxiv.org/abs/2106.10207)
 
