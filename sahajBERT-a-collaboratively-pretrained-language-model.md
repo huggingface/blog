@@ -60,8 +60,11 @@ As a solution to this problem, we propose a new training algorithm, called Distr
 In its most frequently used version, distributed training with multiple GPUs is pretty straightforward. Recall that when doing deep learning, you usually compute gradients of your loss function averaged across many examples in a batch of training data. In case of _data-parallel_ distributed DL, you simply split the data across multiple workers, compute gradients separately, and then average them once the local batches are processed. When the average gradient is computed on all workers, we make a step of optimizer and continue training our model. You can see an illustration of different tasks that are executed below.
 
 ![assets/23_sahajBERT/roles_tasks.png](assets/23_sahajBERT/roles_tasks.png)
-
+<div style="line-height:105%;font-size:80%">
+<p align="center">
 Typical machine learning tasks executed by peers in distributed training, possibly with a separation of roles
+</div>
+</p>
 
 Often, to reduce the amount of synchronization and to stabilize the learning process, we can accumulate the gradients for N batches before averaging, which is equivalent to increasing the actual batch size N times. This approach, combined with the observation that most state-of-the-art language models use large batches, led us to a simple idea: let's accumulate one _very_ large batch across all volunteer devices before each SGD step! Along with complete equivalence to regular distributed training and easy scalability, this method also has a benefit of built-in fault tolerance, which we illustrate below.
 
@@ -82,8 +85,11 @@ Because All-Reduce is decentralized, it seems like a good choice; however, we st
 Turns out we can actually come up with an optimal data transfer strategy on the fly by leveraging this information about performance! On a high level, we split the entire gradient vector into parts depending on the Internet speed of each peer: those with the fastest connection aggregate the largest parts. Also, if some nodes do not accept incoming connections, they simply send their data for aggregation, but do not compute the average themselves. Depending on the conditions, this adaptive algorithm can recover well-known distributed DL algorithms and improve on them with a hybrid strategy, as demonstrated below.
 
 ![Adaptative strategy](assets/23_sahajBERT/adaptive.png)
-
+<div style="line-height:105%;font-size:80%">
+<p align="center">
 Examples of different averaging strategies with the adaptive algorithm.
+</p>
+</div>
 
 <div style="line-height:105%;border:1px solid #F5F5F5;background-color:#F5F5F5">
 <p align="center">
@@ -143,7 +149,7 @@ The last thing we need to cover is the training dataset. As you probably know, t
 However, loading an entire dataset requires time and storage — two things that our peers do not necessarily have. To make the most of the resources provided by the participants, we have implemented **dataset streaming**, which allows them to train the model nearly as soon as they join the network. Specifically, the examples in the dataset are downloaded and transformed in parallel to the training. We can also shuffle the dataset so that our peers have little chance to process the same examples at the same time. As the dataset is not downloaded and preprocessed in advance, the transformations needed to go from plain text to a training example (shown in the figure below) are done on the fly.
 
 ![Create dataset](assets/23_sahajBERT/create_dataset.png)
-<div style="line-height:105%">
+<div style="line-height:105%;font-size:80%">
 <p align="center">
 From a raw sample to a training sample
 </p>
@@ -178,7 +184,7 @@ In the following figure, you can see the activity of each volunteer. Over the ex
 
 <iframe width="100%" height="1200" frameborder="0"
   src="https://observablehq.com/embed/2bb588aa383b618d?cells=c_noaws%2Ct_noaws"></iframe>
-<div style="line-height:105%">
+<div style="line-height:105%;font-size:80%">
 <p align="center">
 Chart showing participants of the <a href="https://huggingface.co/neuropark/sahajBERT"> sahajBERT</a> experiment. Circle radius is relative to the total number of processed batches, the circle is greyed if the participant is not active. Every purple square represents an active device, darker color corresponds to higher performance
 </p>
@@ -190,9 +196,7 @@ Along with the resources provided by participants, we also used 16 preemptible (
   src="https://observablehq.com/embed/4540081dea4600b8?cells=viewof+participant%2Csessions%2ClossByParticipant"></iframe>
 </p>
 
-The final model was uploaded to the Model Hub, so you can download and play with it if you want to:
-
-[https://hf.co/neuropark/sahajBERT](https://huggingface.co/neuropark/sahajBERT)
+The final model was uploaded to the Model Hub, so you can download and play with it if you want to: [https://hf.co/neuropark/sahajBERT](https://huggingface.co/neuropark/sahajBERT)
 
 ### Evaluation
 
@@ -205,54 +209,66 @@ We evaluated it during training on the NER task to check that everything was goi
 
 <iframe width="100%" height="476" frameborder="0"
   src="https://observablehq.com/embed/@huggingface/bengali-exp-eval?cells=evalPlot"></iframe>
+<div style="line-height:105%;font-size:80%">
+<p align="center">
+Evaluation metrics of fine-tuned models on the NER task from different checkpoints of pre-trained models.
+</div>
+</p>
 
-At the end of training, we compared sahajBERT with three other pretrained language models: XLM-R Large, IndicBert, and bnRoBERTa. In the table below, you can see that our model has results comparable to the best Bengali language models available on HF Hub, even though our model has only ~18M trained parameters, while, for instance, XLM-R (a strong multilingual baseline), has ~559M parameters and was trained on several hundred V100 GPUs.
+At the end of training, we compared sahajBERT with three other pretrained language models: [XLM-R Large](https://arxiv.org/abs/1911.02116), [IndicBert](https://aclanthology.org/2020.findings-emnlp.445/), and [bnRoBERTa](https://huggingface.co/neuralspace-reverie/indic-transformers-bn-roberta). In the table below, you can see that our model has results comparable to the best Bengali language models available on HF Hub, even though our model has only ~18M trained parameters, while, for instance, XLM-R (a strong multilingual baseline), has ~559M parameters and was trained on several hundred V100 GPUs.
 
-|Model           |Wikiann F1  |NCC Accuracy|
-|----------------|------------|------------|
-|sahajBERT (ours)|95.45 ± 0.53|91.97 ± 0.47|
-|XLM-R Large     |96.48 ± 0.22|90.05 ± 0.38|
-|IndicBERT       |92.52 ± 0.45|74.46 ± 1.91|
-|bnRoBERTa       |82.32 ± 0.67|80.94 ± 0.45|
+| Base pre-trained Model       | NER - F1 (mean ± std) | NCC - Accuracy (mean ± std)           |
+|:-------------:|:-------------:|:-------------:|
+|[sahajBERT](https://huggingface.co/neuropark/sahajBERT) |  95.45 ± 0.53|  91.97 ± 0.47|
+|[XLM-R-large](https://huggingface.co/xlm-roberta-large) |  96.48 ± 0.22| 90.05 ± 0.38|
+|[IndicBert](https://huggingface.co/ai4bharat/indic-bert) |  92.52 ± 0.45| 74.46 ± 1.91|
+|[bnRoBERTa](https://huggingface.co/neuralspace-reverie/indic-transformers-bn-roberta)       |82.32 ± 0.67|80.94 ± 0.45|
 
-These models are available on the Hub as well. You can test them directly by:
+These models are available on the Hub as well. You can test them directly by playing with the Hosted Inference API widget on their Model Cards or by loading them directly in your Python code.
 
--   playing with the Hosted Inference API widget on their Model Cards:
-    -   [https://hf.co/neuropark/sahajBERT-NER](https://hf.co/neuropark/sahajBERT-NER)
-    -   [https://hf.co/neuropark/sahajBERT-NCC](https://hf.co/neuropark/sahajBERT-NCC)
--   or by loading them directly in your Python code:
+#### sahajBERT-NER
+Model card: [https://hf.co/neuropark/sahajBERT-NER](https://hf.co/neuropark/sahajBERT-NER)
+```python
+from transformers import (
+    AlbertForTokenClassification,
+    TokenClassificationPipeline,
+    PreTrainedTokenizerFast,
+)
 
-    ```python
-    from transformers import AlbertForTokenClassification, TokenClassificationPipeline, PreTrainedTokenizerFast
+# Initialize tokenizer
+tokenizer = PreTrainedTokenizerFast.from_pretrained("neuropark/sahajBERT-NER")
 
-    # Initialize tokenizer
-    tokenizer = PreTrainedTokenizerFast.from_pretrained("neuropark/sahajBERT-NER")
+# Initialize model
+model = AlbertForTokenClassification.from_pretrained("neuropark/sahajBERT-NER")
 
-    # Initialize model
-    model = AlbertForTokenClassification.from_pretrained("neuropark/sahajBERT-NER")
+# Initialize pipeline
+pipeline = TokenClassificationPipeline(tokenizer=tokenizer, model=model)
 
-    # Initialize pipeline
-    pipeline = TokenClassificationPipeline(tokenizer=tokenizer, model=model)
+raw_text = "এই ইউনিয়নে ৩ টি মৌজা ও ১০ টি গ্রাম আছে ।" # Change me
+output = pipeline(raw_text)
+```
 
-    raw_text = "এই ইউনিয়নে ৩ টি মৌজা ও ১০ টি গ্রাম আছে ।" # Change me
-    output = pipeline(raw_text)
-    ```
+#### sahajBERT-NCC
+Model card: [https://hf.co/neuropark/sahajBERT-NER](https://hf.co/neuropark/sahajBERT-NCC)
+```python
+from transformers import (
+    AlbertForSequenceClassification,
+    TextClassificationPipeline,
+    PreTrainedTokenizerFast,
+)
 
-    ```python
-    from transformers import AlbertForSequenceClassification, TextClassificationPipeline, PreTrainedTokenizerFast
+# Initialize tokenizer
+tokenizer = PreTrainedTokenizerFast.from_pretrained("neuropark/sahajBERT-NCC")
 
-    # Initialize tokenizer
-    tokenizer = PreTrainedTokenizerFast.from_pretrained("neuropark/sahajBERT-NCC")
+# Initialize model
+model = AlbertForSequenceClassification.from_pretrained("neuropark/sahajBERT-NCC")
 
-    # Initialize model
-    model = AlbertForSequenceClassification.from_pretrained("neuropark/sahajBERT-NCC")
+# Initialize pipeline
+pipeline = TextClassificationPipeline(tokenizer=tokenizer, model=model)
 
-    # Initialize pipeline
-    pipeline = TextClassificationPipeline(tokenizer=tokenizer, model=model)
-
-    raw_text = "এই ইউনিয়নে ৩ টি মৌজা ও ১০ টি গ্রাম আছে ।" # Change me
-    output = pipeline(raw_text)
-    ```
+raw_text = "এই ইউনিয়নে ৩ টি মৌজা ও ১০ টি গ্রাম আছে ।" # Change me
+output = pipeline(raw_text)
+```
 
 ## Conclusion
 
