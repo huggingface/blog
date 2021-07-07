@@ -160,3 +160,7 @@
 - local: sentence-transformers-in-the-hub
   title: "Sentence Transformers in the 🤗 Hub"
   date: June 28, 2021
+
+- local: sahajBERT-a-collaboratively-pretrained-language-model
+  title: "sahajBERT: A Collaboratively Trained Language Model"
+  date: todo
