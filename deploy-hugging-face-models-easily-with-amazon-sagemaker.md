@@ -175,7 +175,7 @@ After we run our request we can delete the endpoint again with.
 predictor.delete_endpoint()
 ```
 
-### **Deploy the model from pre-trained artifacts using the <code>HuggingFaceModel</code> class**
+### **Deploy the model from pre-trained checkpoints using the <code>HuggingFaceModel</code> class**
 
 If you've already trained your model and want to deploy it at some later time, you can use the `model_data` argument to specify the location of your tokenizer and model weights.
 
