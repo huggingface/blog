@@ -142,7 +142,7 @@ The last thing we need to cover is the training dataset. As you probably know, t
 
 However, loading an entire dataset requires time and storage — two things that our peers do not necessarily have. To make the most of the resources provided by the participants, we have implemented **dataset streaming**, which allows them to train the model nearly as soon as they join the network. Specifically, the examples in the dataset are downloaded and transformed in parallel to the training. We can also shuffle the dataset so that our peers have little chance to process the same examples at the same time. As the dataset is not downloaded and preprocessed in advance, the transformations needed to go from plain text to a training example (shown in Figure 1) are done on the fly.
 
-![Create dataset](assets/23_sahajBERT/create_dataset.jpg)
+![Create dataset](assets/23_sahajBERT/create_dataset.png)
 <div style="line-height:105%">
 <p align="center">
 Figure 1: From a raw sample to a training sample
