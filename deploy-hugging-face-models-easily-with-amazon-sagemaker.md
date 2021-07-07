@@ -275,7 +275,7 @@ _Q: Which models can I deploy for Inference?_
 
 A: You can deploy:
 * any 🤗 Transformers model trained in Amazon SageMaker, or other compatible platforms and that can accomodate the SageMaker Hosting design
-* any of the 10 000+ publicly available Transformer models from the Hugging Face[ Model Hub](https://huggingface.co/models), or
+* any of the 10,000+ publicly available Transformer models from the Hugging Face[ Model Hub](https://huggingface.co/models), or
 * your private models hosted in your Hugging Face premium account!
 
 _Q: Which pipelines, tasks are supported by the Inference Toolkit?_
