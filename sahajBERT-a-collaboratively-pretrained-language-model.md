@@ -148,7 +148,8 @@ However, loading an entire dataset requires time and storage — two things that
 Figure 1: From a raw sample to a training sample
 </p>
 </div>
-The code for dataset streaming is already in the master branch of [datasets](https://github.com/huggingface/datasets), so you can use it right now as follows:
+
+The dataset streaming mode is available from version v1.9 of the 🤗 datasets library, so you can use it right now as follows:
 
 ```python
 from datasets import load_dataset
