@@ -140,12 +140,12 @@ tokenizer = AutoTokenizer.from_pretrained("neuropark/sahajBERT")
 
 The last thing we need to cover is the training dataset. As you probably know, the great strength of pretrained models like BERT or ALBERT is that you don't need an annotated dataset, but just a lot of texts. To train sahajBERT, we used the Bengali Wikipedia dump from 03/20/2021 and the Bengali subset of OSCAR (600MB + 6GB of text). These two datasets can easily be downloaded from the HF Hub.
 
-However, loading an entire dataset requires time and storage — two things that our peers do not necessarily have. To make the most of the resources provided by the participants, we have implemented **dataset streaming**, which allows them to train the model nearly as soon as they join the network. Specifically, the examples in the dataset are downloaded and transformed in parallel to the training. We can also shuffle the dataset so that our peers have little chance to process the same examples at the same time. As the dataset is not downloaded and preprocessed in advance, the transformations needed to go from plain text to a training example (shown in Figure 1) are done on the fly.
+However, loading an entire dataset requires time and storage — two things that our peers do not necessarily have. To make the most of the resources provided by the participants, we have implemented **dataset streaming**, which allows them to train the model nearly as soon as they join the network. Specifically, the examples in the dataset are downloaded and transformed in parallel to the training. We can also shuffle the dataset so that our peers have little chance to process the same examples at the same time. As the dataset is not downloaded and preprocessed in advance, the transformations needed to go from plain text to a training example (shown in the figure below) are done on the fly.
 
 ![Create dataset](assets/23_sahajBERT/create_dataset.png)
 <div style="line-height:105%">
 <p align="center">
-Figure 1: From a raw sample to a training sample
+From a raw sample to a training sample
 </p>
 </div>
 
@@ -174,17 +174,17 @@ The sahajBERT collaborative training event took place from May 12 to May 21. The
 
 For security purposes, we set up an authorization system, so that only members of the Neuropark community could train the model. Sparing you the technical details, our authorization protocol allows us to guarantee that every participant is in the allowlist and to acknowledge the individual contribution of each peer.
 
-In Figure 2, you can see the activity of each volunteer. Over the experiment, the volunteers logged in 600 different sessions. Participants regularly launched multiple runs in parallel, and many of them spread out the runs they launched over time. The runs of individual participants lasted 4 hours in average, and the maximum length was 21 hour. You can read more about the participation statistics in the paper.
+In the following figure, you can see the activity of each volunteer. Over the experiment, the volunteers logged in 600 different sessions. Participants regularly launched multiple runs in parallel, and many of them spread out the runs they launched over time. The runs of individual participants lasted 4 hours in average, and the maximum length was 21 hour. You can read more about the participation statistics in the paper.
 
 <iframe width="100%" height="1200" frameborder="0"
   src="https://observablehq.com/embed/2bb588aa383b618d?cells=c_noaws%2Ct_noaws"></iframe>
 <div style="line-height:105%">
 <p align="center">
-Figure 2: Chart showing participants of the <a href="https://huggingface.co/neuropark/sahajBERT"> sahajBERT</a> experiment. Circle radius is relative to the total number of processed batches, the circle is greyed if the participant is not active. Every purple square represents an active device, darker color corresponds to higher performance
+Chart showing participants of the <a href="https://huggingface.co/neuropark/sahajBERT"> sahajBERT</a> experiment. Circle radius is relative to the total number of processed batches, the circle is greyed if the participant is not active. Every purple square represents an active device, darker color corresponds to higher performance
 </p>
 </div>
 
-Along with the resources provided by participants, we also used 16 preemptible (cheap but frequently interrupted) single-GPU T4 cloud instances to ensure the stability of the run. The cumulative runtime for the experiment was 234 days, and in Figure 4 you can see parts of the loss curve that each peer contributed to!
+Along with the resources provided by participants, we also used 16 preemptible (cheap but frequently interrupted) single-GPU T4 cloud instances to ensure the stability of the run. The cumulative runtime for the experiment was 234 days, and in the figure below you can see parts of the loss curve that each peer contributed to!
 <p align="center">
 <iframe width="80%" height="950" frameborder="0"
   src="https://observablehq.com/embed/4540081dea4600b8?cells=viewof+participant%2Csessions%2ClossByParticipant"></iframe>
