@@ -219,7 +219,7 @@ predictor.delete_endpoint()
 
 To deploy a model directly from the Hugging Face Model Hub to Amazon SageMaker, we need to define two environment variables when creating the `HuggingFaceModel`. We need to define:
 
-* HF_MODEL_ID: defines the model id, which will be automatically loaded from[ huggingface.co/models](http://huggingface.co/models) when creating or SageMaker Endpoint. The 🤗 Hub provides +10 000 models all available through this environment variable.
+* HF_MODEL_ID: defines the model id, which will be automatically loaded from[ huggingface.co/models](http://huggingface.co/models) when creating or SageMaker Endpoint. The 🤗 Hub provides 10,000+ models all available through this environment variable.
 * HF_TASK: defines the task for the used 🤗 Transformers pipeline. A full list of tasks can be found[ here](https://huggingface.co/transformers/main_classes/pipelines.html).
 
 ```python
