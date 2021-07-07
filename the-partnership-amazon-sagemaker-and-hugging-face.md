@@ -17,7 +17,7 @@ As a first step to enable our common customers, Hugging Face and Amazon are intr
 
 To learn how to access and use the new Hugging Face DLCs with the Amazon SageMaker Python SDK, check out the guides and resources below.
 
-> _At the 8th of July we extended the Amazon SageMaker experience to inference. If you want to learn how you can [deploy Hugging Face models easily with Amazon SageMaker](https://huggingface.co/blog/deploy-hugging-face-models-easily-with-amazon-sagemaker) take a look at the [new blog post](https://huggingface.co/blog/deploy-hugging-face-models-easily-with-amazon-sagemaker) or at the [documentation](https://huggingface.co/docs/sagemaker/inference)._
+> _On July 8th, 2021 we extended the Amazon SageMaker integration to add easy deployment and inference of Transformers models. If you want to learn how you can [deploy Hugging Face models easily with Amazon SageMaker](https://huggingface.co/blog/deploy-hugging-face-models-easily-with-amazon-sagemaker) take a look at the [new blog post](https://huggingface.co/blog/deploy-hugging-face-models-easily-with-amazon-sagemaker) and the [documentation](https://huggingface.co/docs/sagemaker/inference)._
 
 ---
 
