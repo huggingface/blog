@@ -116,7 +116,7 @@ After that we can install the required dependencies.
 
 
 ```bash
-pip install "sagemaker>=2.50.0" --upgrade
+pip install "sagemaker>=2.48.0" --upgrade
 ```
 
 
