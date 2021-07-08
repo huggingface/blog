@@ -217,7 +217,7 @@ Evaluation metrics of fine-tuned models on the NER task from different checkpoin
 
 At the end of training, we compared sahajBERT with three other pretrained language models: [XLM-R Large](https://arxiv.org/abs/1911.02116), [IndicBert](https://aclanthology.org/2020.findings-emnlp.445/), and [bnRoBERTa](https://huggingface.co/neuralspace-reverie/indic-transformers-bn-roberta). In the table below, you can see that our model has results comparable to the best Bengali language models available on HF Hub, even though our model has only ~18M trained parameters, while, for instance, XLM-R (a strong multilingual baseline), has ~559M parameters and was trained on several hundred V100 GPUs.
 
-| Base pre-trained Model       | NER - F1 (mean ± std) | NCC - Accuracy (mean ± std)           |
+| Model       | NER F1 (mean ± std) | NCC Accuracy (mean ± std)           |
 |:-------------:|:-------------:|:-------------:|
 |[sahajBERT](https://huggingface.co/neuropark/sahajBERT) |  95.45 ± 0.53|  91.97 ± 0.47|
 |[XLM-R-large](https://huggingface.co/xlm-roberta-large) |  96.48 ± 0.22| 90.05 ± 0.38|
