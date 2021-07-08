@@ -20,7 +20,7 @@ thumbnail: /blog/assets/23_sahajBERT/thumbnail.png
             <span class="fullname">Max Ryabinin</span>
         </div>
     </a>
-    <a href="/nreimers">
+    <a href="/SaulLu">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1618938489629-60741a2e69a66931a0273f0c.png?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>SaulLu</code>
