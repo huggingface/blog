@@ -13,7 +13,7 @@ thumbnail: /blog/assets/23_sahajBERT/thumbnail.png
 </div>
 
 <div class="author-card">
-    <a href="/osanseviero">
+    <a href="/mryab">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1625736058289-607d59fb921db717010c7ccc.png?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>mryab</code>
