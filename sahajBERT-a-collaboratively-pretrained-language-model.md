@@ -94,7 +94,7 @@ Examples of different averaging strategies with the adaptive algorithm.
 <div style="line-height:105%;border:1px solid #F5F5F5;background-color:#F5F5F5">
 <p align="center">
 💡 The core techniques for decentralized training are available in <a href="https://github.com/learning-at-home/hivemind">Hivemind</a>.<br>
-Check out the repo and learn how to use this library in own projects!
+Check out the repo and learn how to use this library in your own projects!
 </p>
 </div><br>
 
