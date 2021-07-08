@@ -28,6 +28,9 @@ thumbnail: /blog/assets/23_sahajBERT/thumbnail.png
         </div>
     </a>
 </div>
+<small>
+With the additional help of Quentin Lhoest and Sylvain Lesage.
+</small>
 
 Modern language models often require a significant amount of compute for pretraining, which makes it impossible to obtain them without access to tens and hundreds of GPUs. Though in theory it might be possible to combine the resources of multiple individuals, in practice such distributed training methods have previously seen limited success, because connection speeds over the Internet are way slower than in high-performance GPU supercomputers.
 
@@ -278,8 +281,6 @@ In this blog post, we have discussed the method that can enable collaborative pr
 What does this all mean for the broader ML community? First, it is now possible to run large-scale distributed pretraining with your friends, and we hope to see a lot of cool new models that were previously less feasible to obtain. Also, our result might be important for multilingual NLP, since now the community for any language can train their own models without the need for significant computational resources concentrated in one place.
 
 ## Acknowledgements
-
-We would like to warmly thank Sylvain Lesage who made some of the blog post illustrations.
 
 The DeDLOC paper and sahajBERT training experiment were created by Michael Diskin, Alexey Bukhtiyarov, Max Ryabinin, Lucile Saulnier, Quentin Lhoest, Anton Sinitsin, Dmitry Popov, Dmitry Pyrkin, Maxim Kashirin, Alexander Borzunov, Albert Villanova del Moral, Denis Mazur, Ilia Kobelev, Yacine Jernite, Thomas Wolf, and Gennady Pekhimenko.
 
