@@ -142,7 +142,7 @@ The first brick of our model is called a _tokenizer_ and takes care of transform
 You can reuse our tokenizer by running the following code:
 
 ```python
-from transformes import AutoTokenizer
+from transformers import AutoTokenizer
 tokenizer = AutoTokenizer.from_pretrained("neuropark/sahajBERT")
 ```
 
