@@ -165,6 +165,6 @@
   title: "Deploy Hugging Face models easily with Amazon SageMaker"
   date: July 8, 2021
 
-- local: sahajBERT-a-collaboratively-pretrained-language-model
+- local: collaborative-training
   title: "sahajBERT: A Collaboratively Trained Language Model"
   date: todo
