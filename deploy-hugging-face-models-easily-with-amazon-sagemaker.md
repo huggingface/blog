@@ -290,7 +290,7 @@ A: The Inference Toolkit and DLC support any of the `transformers` `pipelines`. 
 
 _Q: Do I have to use the `transformers pipelines` when hosting SageMaker endpoints?_
 
-A: No, you can also write your custom inference code to serve your own models and logic, documented [here](add-link-here). 
+A: No, you can also write your custom inference code to serve your own models and logic, documented [here](https://huggingface.co/docs/sagemaker/inference#user-defined-codemodules). 
 
 _Q: Do I have to use the SageMaker Python SDK to use the Hugging Face Deep Learning Containers (DLCs)?_
 
