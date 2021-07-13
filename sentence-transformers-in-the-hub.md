@@ -1,6 +1,5 @@
 ---
 title: "Sentence Transformers in the Hugging Face Hub"
-# thumbnail: /blog/assets/22_few_shot_learning_gpt_neo_and_inference_api/thumbnail.png
 ---
 
 <h1>

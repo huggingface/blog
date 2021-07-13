@@ -164,3 +164,7 @@
 - local: deploy-hugging-face-models-easily-with-amazon-sagemaker
   title: "Deploy Hugging Face models easily with Amazon SageMaker"
   date: July 8, 2021
+
+- local: spacy-in-the-hub
+  title: "Welcome spaCy to the 🤗 Hub"
+  date: July 13, 2021
