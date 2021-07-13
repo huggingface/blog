@@ -276,7 +276,7 @@ output = pipeline(raw_text)
 
 ## Conclusion
 
-In this blog post, we have discussed the method that can enable collaborative pretraining of neural networks with sahajBERT as the first truly succesful example of applying it to a real-world problem.
+In this blog post, we have discussed the method that can enable collaborative pretraining of neural networks with sahajBERT as the first truly successful example of applying it to a real-world problem.
 
 What does this all mean for the broader ML community? First, it is now possible to run large-scale distributed pretraining with your friends, and we hope to see a lot of cool new models that were previously less feasible to obtain. Also, our result might be important for multilingual NLP, since now the community for any language can train their own models without the need for significant computational resources concentrated in one place.
 
