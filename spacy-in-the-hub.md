@@ -30,7 +30,7 @@ title: "Welcome spaCy to the Hugging Face Hub"
     </a>
 </div>
 
-[spaCy](https://github.com/explosion/spaCy) is a cool library in the Natural Language Processing ecosystem used by dozens of thousands of persons. spaCy allows to easily use models for tasks such as Part of Speech and Named Entities Recognition.
+[spaCy](https://github.com/explosion/spaCy) is a popular library for advanced Natural Language Processing used widely across industry. spaCy makes it easy to use and train pipelines for tasks like named entity recognition, text classification, part of speech tagging and more, and lets you build powerful applications to process and analyze large volumes of text.
 
 Hugging Face makes it really easy to share your spaCy pipelines with the community! With a single command, you can upload any pipeline package, with a pretty model card and all required metadata auto-generated for you. The inference API currently supports NER out-of-the-box, and you can try out your pipeline interactively in your browser. You'll also get a live URL for your package that you can `pip install` from anywhere for a smooth path from prototype all the way to production!
 
