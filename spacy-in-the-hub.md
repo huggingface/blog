@@ -1,5 +1,7 @@
 ---
 title: "Welcome spaCy to the Hugging Face Hub"
+thumbnail: /blog/assets/23_spacy/thumbnail.png
+
 ---
 
 <h1>
