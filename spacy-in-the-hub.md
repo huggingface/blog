@@ -75,7 +75,7 @@ You can even make HTTP requests to call the models from the Inference API, which
 
 ### Sharing your models
 
-But probably the coolest feature is that now you can very easily share your models with the `spacy-huggingface-hub` [library](https://github.com/explosion/spacy-huggingface-hub), which extends the `spaCy` CLI with a new command, `push`. 
+But probably the coolest feature is that now you can very easily share your models with the `spacy-huggingface-hub` [library](https://github.com/explosion/spacy-huggingface-hub), which extends the `spaCy` CLI with a new command, `huggingface-hub push`. 
 
 ```bash
 huggingface-cli login
