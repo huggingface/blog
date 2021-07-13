@@ -148,7 +148,7 @@ tokenizer = AutoTokenizer.from_pretrained("neuropark/sahajBERT")
 
 ### Dataset
 
-The last thing we need to cover is the training dataset. As you probably know, the great strength of pretrained models like BERT or ALBERT is that you don't need an annotated dataset, but just a lot of texts. To train sahajBERT, we used the Bengali Wikipedia dump from 03/20/2021 and the Bengali subset of OSCAR (600MB + 6GB of text). These two datasets can easily be downloaded from the HF Hub.
+The last thing we need to cover is the training dataset. As you probably know, the great strength of pretrained models like BERT or ALBERT is that you don't need an annotated dataset, but just a lot of texts. To train sahajBERT, we used the [Bengali Wikipedia dump from 03/20/2021](https://huggingface.co/datasets/lhoestq/wikipedia_bn) and the Bengali subset of [OSCAR](https://huggingface.co/datasets/oscar) (600MB + 6GB of text). These two datasets can easily be downloaded from the HF Hub.
 
 However, loading an entire dataset requires time and storage — two things that our peers do not necessarily have. To make the most of the resources provided by the participants, we have implemented **dataset streaming**, which allows them to train the model nearly as soon as they join the network. Specifically, the examples in the dataset are downloaded and transformed in parallel to the training. We can also shuffle the dataset so that our peers have little chance to process the same examples at the same time. As the dataset is not downloaded and preprocessed in advance, the transformations needed to go from plain text to a training example (shown in the figure below) are done on the fly.
 
