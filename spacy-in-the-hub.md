@@ -3,7 +3,7 @@ title: "Welcome spaCy to the Hugging Face Hub"
 ---
 
 <h1>
-    spaCy in the Hugging Face Hub
+    Welcome spaCy to the Hugging Face Hub
 </h1>
 
 <div class="blog-metadata">
@@ -50,12 +50,19 @@ This integration includes support for NER widgets, so all models with a NER comp
 
 All models from the Hub can be directly installed using `pip install`. 
 
-```
-!pip install https://huggingface.co/spacy/ca_core_news_sm/resolve/main/ca_core_news_sm-any-py3-none-any.whl
 
+```bash
+pip install https://huggingface.co/spacy/ca_core_news_sm/resolve/main/ca_core_news_sm-any-py3-none-any.whl
+```
+
+```python
 # Using spacy.load().
 import spacy
 nlp = spacy.load("ca_core_news_sm")
+
+# Importing as module.
+import ca_core_news_sm
+nlp = ca_core_news_sm.load()
 ```
 
 When you open a repository, you can click `Use in spaCy` and you will be given a working snippet that you can use to install and load the model!
