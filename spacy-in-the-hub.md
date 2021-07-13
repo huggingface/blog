@@ -52,17 +52,17 @@ All models from the Hub can be directly installed using `pip install`.
 
 
 ```bash
-pip install https://huggingface.co/spacy/ca_core_news_sm/resolve/main/ca_core_news_sm-any-py3-none-any.whl
+pip install https://huggingface.co/spacy/en_core_web_sm/resolve/main/en_core_web_sm-any-py3-none-any.whl
 ```
 
 ```python
 # Using spacy.load().
 import spacy
-nlp = spacy.load("ca_core_news_sm")
+nlp = spacy.load("en_core_web_sm")
 
 # Importing as module.
-import ca_core_news_sm
-nlp = ca_core_news_sm.load()
+import en_core_web_sm
+nlp = en_core_web_sm.load()
 ```
 
 When you open a repository, you can click `Use in spaCy` and you will be given a working snippet that you can use to install and load the model!
