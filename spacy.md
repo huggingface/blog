@@ -10,7 +10,7 @@ thumbnail: /blog/assets/23_spacy/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published July 13, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/spacy-in-the-hub.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/spacy.md">
         Update on GitHub
     </a>
 </div>
