@@ -178,7 +178,7 @@ oscar_dataset = load_dataset("oscar", name="unshuffled_deduplicated_bn", streami
 The sahajBERT collaborative training event took place from May 12 to May 21. The event brought together 40 participants, 30 of whom were Bengali-speaking volunteers, and 10 were volunteers from one of the authors' organizations. These 40 volunteers joined the [Neuropark](https://neuropark.co/) Discord channel to receive all information regarding the event and participate in discussions. To join the experiment, volunteers were asked to:
 
 1. Send their username to the moderators to be allowlisted;
-2. Open the provided notebook locally, on Google Colaboratory or on Kaggle;
+2. Open the provided notebook locally, on Google Colaboratory, or on Kaggle;
 3. Run one code cell and fill in their Hugging Face credentials when requested;
 4. Watch the training loss decrease on the shared dashboards!
 
