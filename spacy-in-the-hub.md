@@ -70,7 +70,14 @@ When you open a repository, you can click `Use in spaCy` and you will be given a
 ![snippet](assets/23_spacy/snippet.png)
 ![snippet](assets/23_spacy/snippet2.png)
 
-You can even make HTTP requests to call the models from the Inference API, which is useful in production settings.
+You can even make HTTP requests to call the models from the Inference API, which is useful in production settings. Here is an example of a simple request:
+
+```bash
+curl -X POST  --data '{"inputs": "Hello, this is Omar"}' https://api-inference.huggingface.co/models/spacy/en_core_web_sm
+>>> [{"entity_group":"PERSON","word":"Omar","start":15,"end":19,"score":1.0}]
+```
+
+And for larger-scale use cases, you can click "Deploy > Accelerated Inference" and see how to do this with Python.
 
 
 ### Sharing your models
