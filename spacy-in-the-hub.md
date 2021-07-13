@@ -7,7 +7,7 @@ title: "Welcome spaCy to the Hugging Face Hub"
 </h1>
 
 <div class="blog-metadata">
-    <small>Published July 28, 13.</small>
+    <small>Published July 28, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/spacy-in-the-hub.md">
         Update on GitHub
     </a>
