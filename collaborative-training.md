@@ -110,7 +110,7 @@ We conducted this experiment with real volunteers from the Neuropark community a
 
 ### Architecture
 
-For our experiment, we chose ALBERT (_A Lite BERT)_ — a model for language representations that is pretrained with Masked Language Modeling (MLM) and Sentence Order Prediction (SOP) as objectives. We use this architecture because weight sharing makes it very parameter-efficient: for example, ALBERT-large has ~18M trainable parameters and performs comparably to BERT-base with ~108M weights on the GLUE benchmark. It means that there is less data to exchange between the peers, which is crucial in our setup, as it significantly speeds up each training iteration.
+For our experiment, we chose ALBERT _(A Lite BERT)_ — a model for language representations that is pretrained with Masked Language Modeling (MLM) and Sentence Order Prediction (SOP) as objectives. We use this architecture because weight sharing makes it very parameter-efficient: for example, ALBERT-large has ~18M trainable parameters and performs comparably to BERT-base with ~108M weights on the GLUE benchmark. It means that there is less data to exchange between the peers, which is crucial in our setup, as it significantly speeds up each training iteration.
 
 <div style="line-height:105%;border:1px solid #F5F5F5;background-color:#F5F5F5">
 <p align="center">
