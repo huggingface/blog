@@ -46,7 +46,7 @@ allowfullscreen></iframe>
 
 ## Distributed Deep Learning in Open Collaborations
 
-### Motivation
+### Why should we do it?
 
 These days, many highest-quality NLP systems are based on large pretrained Transformers. In general, their quality improves with size: you can achieve unparalleled results in natural language understanding and generation by scaling up the parameter count and leveraging the abundance of unlabeled text data.
 
