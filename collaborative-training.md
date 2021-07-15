@@ -3,7 +3,7 @@ title: "sahajBERT: A Collaboratively Trained Language Model"
 thumbnail: /blog/assets/23_sahajBERT/thumbnail.png
 ---
 
-# sahajBERT: A Collaboratively Trained Language Model
+# Deep Learning over the Internet: Training Language Models Collaboratively
 
 <div class="blog-metadata">
     <small>Published to do.</small>
