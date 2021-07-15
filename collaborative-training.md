@@ -1,5 +1,5 @@
 ---
-title: "sahajBERT: A Collaboratively Trained Language Model"
+title: "Deep Learning over the Internet: Training Language Models Collaboratively"
 thumbnail: /blog/assets/23_sahajBERT/thumbnail.png
 ---
 
