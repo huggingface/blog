@@ -1,6 +1,6 @@
 ---
 title: "Deep Learning over the Internet: Training Language Models Collaboratively"
-thumbnail: /blog/assets/23_sahajBERT/thumbnail.png
+thumbnail: /blog/assets/24_sahajBERT/thumbnail.png
 ---
 
 # Deep Learning over the Internet: Training Language Models Collaboratively
@@ -62,7 +62,7 @@ As a solution to this problem, we propose a new training algorithm, called Distr
 
 In its most frequently used version, distributed training with multiple GPUs is pretty straightforward. Recall that when doing deep learning, you usually compute gradients of your loss function averaged across many examples in a batch of training data. In case of _data-parallel_ distributed DL, you simply split the data across multiple workers, compute gradients separately, and then average them once the local batches are processed. When the average gradient is computed on all workers, we adjust the model weights with the optimizer and continue training our model. You can see an illustration of different tasks that are executed below.
 
-![assets/23_sahajBERT/roles_tasks.png](assets/23_sahajBERT/roles_tasks.png)
+![assets/24_sahajBERT/roles_tasks.png](assets/24_sahajBERT/roles_tasks.png)
 <div style="line-height:105%;font-size:80%">
 <p align="center">
 Typical machine learning tasks executed by peers in distributed training, possibly with a separation of roles
@@ -87,7 +87,7 @@ Because All-Reduce is decentralized, it seems like a good choice; however, we st
 
 It turns out we can actually come up with an optimal data transfer strategy on the fly by leveraging this information about performance! On a high level, we split the entire gradient vector into parts depending on the Internet speed of each peer: those with the fastest connection aggregate the largest parts. Also, if some nodes do not accept incoming connections, they simply send their data for aggregation but do not compute the average themselves. Depending on the conditions, this adaptive algorithm can recover well-known distributed DL algorithms and improve on them with a hybrid strategy, as demonstrated below.
 
-![Adaptative strategy](assets/23_sahajBERT/adaptive.png)
+![Adaptative strategy](assets/24_sahajBERT/adaptive.png)
 <div style="line-height:105%;font-size:80%">
 <p align="center">
 Examples of different averaging strategies with the adaptive algorithm.
@@ -152,7 +152,7 @@ The last thing we need to cover is the training dataset. As you probably know, t
 
 However, loading an entire dataset requires time and storage — two things that our peers do not necessarily have. To make the most of the resources provided by the participants, we have implemented **dataset streaming**, which allows them to train the model nearly as soon as they join the network. Specifically, the examples in the dataset are downloaded and transformed in parallel to the training. We can also shuffle the dataset so that our peers have little chance to process the same examples at the same time. As the dataset is not downloaded and preprocessed in advance, the transformations needed to go from plain text to a training example (shown in the figure below) are done on the fly.
 
-![Create dataset](assets/23_sahajBERT/create_dataset.png)
+![Create dataset](assets/24_sahajBERT/create_dataset.png)
 <div style="line-height:105%;font-size:80%">
 <p align="center">
 From a raw sample to a training sample
