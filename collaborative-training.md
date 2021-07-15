@@ -189,7 +189,7 @@ For security purposes, we set up an authorization system so that only members of
 In the following figure, you can see the activity of each volunteer. Over the experiment, the volunteers logged in 600 different sessions. Participants regularly launched multiple runs in parallel, and many of them spread out the runs they launched over time. The runs of individual participants lasted 4 hours on average, and the maximum length was 21 hours. You can read more about the participation statistics in the paper.
 
 <iframe width="100%" height="670" frameborder="0"
-  src="https://observablehq.com/embed/5acfc9a072a7c4c7?cells=c_noaws%2Ct_noaws%2Cviewof+currentDate"></iframe>
+  src="https://observablehq.com/embed/@huggingface/sahajbert-bubbles-chart-optimized?cells=c_noaws%2Ct_noaws%2Cviewof+currentDate"></iframe>
 <div style="line-height:105%;font-size:80%">
 <p align="center">
 Chart showing participants of the <a href="https://huggingface.co/neuropark/sahajBERT"> sahajBERT</a> experiment. Circle radius is relative to the total number of processed batches, the circle is greyed if the participant is not active. Every purple square represents an active device, darker color corresponds to higher performance
@@ -199,7 +199,7 @@ Chart showing participants of the <a href="https://huggingface.co/neuropark/saha
 Along with the resources provided by participants, we also used 16 preemptible (cheap but frequently interrupted) single-GPU T4 cloud instances to ensure the stability of the run. The cumulative runtime for the experiment was 234 days, and in the figure below you can see parts of the loss curve that each peer contributed to!
 <p align="center">
 <iframe width="80%" height="950" frameborder="0"
-  src="https://observablehq.com/embed/4540081dea4600b8?cells=viewof+participant%2Csessions%2ClossByParticipant"></iframe>
+  src="https://observablehq.com/embed/@huggingface/explore-collaborative-training-data-optimized?cells=sessions%2Cviewof+participant%2ClossByParticipant"></iframe>
 </p>
 
 The final model was uploaded to the Model Hub, so you can download and play with it if you want to: [https://hf.co/neuropark/sahajBERT](https://huggingface.co/neuropark/sahajBERT)
