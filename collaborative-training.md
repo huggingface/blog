@@ -288,8 +288,8 @@ In addition, we would like to thank Stas Bekman, Dmitry Abulkhanov, Roman Zhytar
 
 Below, you can see all participants of the collaborative experiment:
 
-<iframe width="100%" height="350" frameborder="0"
-  src="https://observablehq.com/embed/@huggingface/sahajbert-participants?cells=humanParticipants"></iframe>
+<iframe width="100%" height="380" frameborder="0"
+  src="https://observablehq.com/embed/89470ece1dda817b?cells=humanParticipants"></iframe>
 
 ## References
 
