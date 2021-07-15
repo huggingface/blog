@@ -18,6 +18,8 @@ thumbnail: /blog/assets/24_sahajBERT/thumbnail.png
         <div class="bfc">
             <code>mryab</code>
             <span class="fullname">Max Ryabinin</span>
+            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+            <img class="rounded inline" style="margin: 0 !important; ; width: 22px; height: 22px;" src="/blog/assets/24_sahajBERT/yandex_logo.png">
         </div>
     </a>
     <a href="/SaulLu">
@@ -282,7 +284,8 @@ What does this all mean for the broader ML community? First, it is now possible 
 
 ## Acknowledgements
 
-The DeDLOC paper and sahajBERT training experiment were created by Michael Diskin, Alexey Bukhtiyarov, Max Ryabinin, Lucile Saulnier, Quentin Lhoest, Anton Sinitsin, Dmitry Popov, Dmitry Pyrkin, Maxim Kashirin, Alexander Borzunov, Albert Villanova del Moral, Denis Mazur, Ilia Kobelev, Yacine Jernite, Thomas Wolf, and Gennady Pekhimenko.
+The DeDLOC paper and sahajBERT training experiment were created by Michael Diskin, Alexey Bukhtiyarov, Max Ryabinin, Lucile Saulnier, Quentin Lhoest, Anton Sinitsin, Dmitry Popov, Dmitry Pyrkin, Maxim Kashirin, Alexander Borzunov, Albert Villanova del Moral, Denis Mazur, Ilia Kobelev, Yacine Jernite, Thomas Wolf, and Gennady Pekhimenko. This project is the result of a collaboration between
+[Hugging Face](https://huggingface.co/), [Yandex Research](https://research.yandex.com/), [HSE University](https://www.hse.ru/en/), [MIPT](https://mipt.ru/english/), [University of Toronto](https://www.utoronto.ca/) and [Vector Institute](https://vectorinstitute.ai/).
 
 In addition, we would like to thank Stas Bekman, Dmitry Abulkhanov, Roman Zhytar, Alexander Ploshkin, Vsevolod Plokhotnyuk and Roman Kail for their invaluable help with building the training infrastructure. Also, we thank Abhishek Thakur for helping with downstream evaluation and Tanmoy Sarkar with Omar Sanseviero, who helped us organize the collaborative experiment and gave regular status updates to the participants over the course of the training run.
 
