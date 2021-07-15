@@ -81,7 +81,7 @@ Let's consider a couple of potential failure cases that we might encounter throu
 
 Now that we have discussed the overall training procedure, there remains one more question: how do we actually aggregate the gradients of participants? Most home computers cannot easily accept incoming connections, and the download speed might also become a constraint.
 
-Since we rely on volunteer hardware for experiments, a central server is not really a viable option, as it will quickly face overload when scaling to tens of clients and hundreds of millions of parameters. Most data-parallel training runs today don't use this strategy anyway; instead, they rely on All-Reduce — an efficient all-to-all communication primitive. Thanks to clever algorithmic optimizations, it allows each node to compute the global average without sending the entire local gradient to every peer.
+Since we rely on volunteer hardware for experiments, a central server is not really a viable option, as it will quickly face overload when scaling to tens of clients and hundreds of millions of parameters. Most data-parallel training runs today don't use this strategy anyway; instead, they rely on All-Reduce — an efficient all-to-all communication primitive. Thanks to clever algorithmic optimizations, each node can compute the global average without sending the entire local gradient to every peer.
 
 Because All-Reduce is decentralized, it seems like a good choice; however, we still need to take the diversity of hardware and network setups into account. For example, some volunteers might join from computers that have slow network but powerful GPUs, some might have better connectivity only to a subset of other peers, and some may be firewalled from incoming connections.
 
