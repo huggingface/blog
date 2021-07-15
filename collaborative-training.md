@@ -60,7 +60,7 @@ As a solution to this problem, we propose a new training algorithm, called Distr
 
 ### Training with volunteers
 
-In its most frequently used version, distributed training with multiple GPUs is pretty straightforward. Recall that when doing deep learning, you usually compute gradients of your loss function averaged across many examples in a batch of training data. In case of _data-parallel_ distributed DL, you simply split the data across multiple workers, compute gradients separately, and then average them once the local batches are processed. When the average gradient is computed on all workers, we make a step of optimizer and continue training our model. You can see an illustration of different tasks that are executed below.
+In its most frequently used version, distributed training with multiple GPUs is pretty straightforward. Recall that when doing deep learning, you usually compute gradients of your loss function averaged across many examples in a batch of training data. In case of _data-parallel_ distributed DL, you simply split the data across multiple workers, compute gradients separately, and then average them once the local batches are processed. When the average gradient is computed on all workers, we adjust the model weights with the optimizer and continue training our model. You can see an illustration of different tasks that are executed below.
 
 ![assets/23_sahajBERT/roles_tasks.png](assets/23_sahajBERT/roles_tasks.png)
 <div style="line-height:105%;font-size:80%">
