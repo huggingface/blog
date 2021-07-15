@@ -182,7 +182,7 @@ The sahajBERT collaborative training event took place from May 12 to May 21. The
 3. Run one code cell and fill in their Hugging Face credentials when requested;
 4. Watch the training loss decrease on the shared dashboards!
 
-For security purposes, we set up an authorization system, so that only members of the Neuropark community could train the model. Sparing you the technical details, our authorization protocol allows us to guarantee that every participant is in the allowlist and to acknowledge the individual contribution of each peer.
+For security purposes, we set up an authorization system so that only members of the Neuropark community could train the model. Sparing you the technical details, our authorization protocol allows us to guarantee that every participant is in the allowlist and to acknowledge the individual contribution of each peer.
 
 In the following figure, you can see the activity of each volunteer. Over the experiment, the volunteers logged in 600 different sessions. Participants regularly launched multiple runs in parallel, and many of them spread out the runs they launched over time. The runs of individual participants lasted 4 hours on average, and the maximum length was 21 hours. You can read more about the participation statistics in the paper.
 
