@@ -96,7 +96,7 @@ Examples of different averaging strategies with the adaptive algorithm.
 </p>
 </div>
 
-<div style="line-height:105%;border:1px solid #F5F5F5;background-color:#F5F5F5">
+<div style="line-height:105%;border:1px solid #F5F5F5;background-color:#F5F5F5;color: black">
 <p align="center">
 💡 The core techniques for decentralized training are available in <a href="https://github.com/learning-at-home/hivemind">Hivemind</a>.<br>
 Check out the repo and learn how to use this library in your own projects!
@@ -114,7 +114,7 @@ We conducted this experiment with real volunteers from the Neuropark community a
 
 For our experiment, we chose ALBERT _(A Lite BERT)_ — a model for language representations that is pretrained with Masked Language Modeling (MLM) and Sentence Order Prediction (SOP) as objectives. We use this architecture because weight sharing makes it very parameter-efficient: for example, ALBERT-large has ~18M trainable parameters and performs comparably to BERT-base with ~108M weights on the GLUE benchmark. It means that there is less data to exchange between the peers, which is crucial in our setup, as it significantly speeds up each training iteration.
 
-<div style="line-height:105%;border:1px solid #F5F5F5;background-color:#F5F5F5">
+<div style="line-height:105%;border:1px solid #F5F5F5;background-color:#F5F5F5;color: black">
 <p align="center">
 💡 Want to know more about ALBERT?<br>
 <a href="https://arxiv.org/abs/1909.11942">Paper</a><br>
@@ -134,7 +134,7 @@ The first brick of our model is called a _tokenizer_ and takes care of transform
 3. **Tokenizer modeling:** It is at this level that the text is mapped into a sequence of elements of a vocabulary. There are several algorithms for this, such as Byte-Pair Encoding (BPE) or Unigram, and most of them need to build the vocabulary from a text corpus. Following the setup of ALBERT, we used the **Unigram Language Model** approach, training a vocabulary of 32k tokens on the deduplicated Bengali part of the OSCAR dataset.
 4. **Post-processing:** After tokenization, we might want to add several special tokens required by the architecture, such as starting the sequence with a special token `[CLS]` or separating two segments with a special token `[SEP]`. Since our main architecture is the same as the original ALBERT, we keep the same post-processing: specifically, we add a `[CLS]` token at the beginning of each example and a `[SEP]` token both between two segments and at the end.
 
-<div style="line-height:105%;border:1px solid #F5F5F5;background-color:#F5F5F5">
+<div style="line-height:105%;border:1px solid #F5F5F5;background-color:#F5F5F5;color: black">
 <p align="center">
 💡 Read more information about each component in
 <a href="https://huggingface.co/docs/tokenizers/python/latest/components.html#components">Tokenizers doc</a>
@@ -168,7 +168,7 @@ from datasets import load_dataset
 
 oscar_dataset = load_dataset("oscar", name="unshuffled_deduplicated_bn", streaming=True)
 ```
-<div style="line-height:105%;border:1px solid #F5F5F5;background-color:#F5F5F5">
+<div style="line-height:105%;border:1px solid #F5F5F5;background-color:#F5F5F5;color: black">
 <p align="center">
 💡 Learn more about loading datasets in streaming mode in the 
 <a href="https://huggingface.co/docs/datasets/dataset_streaming.html">documentation</a>
