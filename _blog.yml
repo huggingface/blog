@@ -168,3 +168,7 @@
 - local: spacy
   title: "Welcome spaCy to the 🤗 Hub"
   date: July 13, 2021
+
+- local: collaborative-training
+  title: "sahajBERT: A Collaboratively Trained Language Model"
+  date: July 15, 2021
