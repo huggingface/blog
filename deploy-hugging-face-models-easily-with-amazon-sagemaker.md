@@ -5,6 +5,12 @@ thumbnail: /blog/assets/17_the_partnership_amazon_sagemaker_and_hugging_face/thu
 
 <img src="/blog/assets/17_the_partnership_amazon_sagemaker_and_hugging_face/cover.png" alt="hugging-face-and-aws-logo" class="w-full">
 
+<div class="blog-metadata">
+    <small>Published July 8, 2021.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/deploy-hugging-face-models-easily-with-amazon-sagemaker.md">
+        Update on GitHub
+    </a>
+</div>
 
 # **Deploy Hugging Face models easily with Amazon SageMaker 🏎**
 
@@ -284,7 +290,7 @@ A: The Inference Toolkit and DLC support any of the `transformers` `pipelines`. 
 
 _Q: Do I have to use the `transformers pipelines` when hosting SageMaker endpoints?_
 
-A: No, you can also write your custom inference code to serve your own models and logic, documented [here](add-link-here). 
+A: No, you can also write your custom inference code to serve your own models and logic, documented [here](https://huggingface.co/docs/sagemaker/inference#user-defined-codemodules). 
 
 _Q: Do I have to use the SageMaker Python SDK to use the Hugging Face Deep Learning Containers (DLCs)?_
 
