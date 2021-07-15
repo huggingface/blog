@@ -7,7 +7,7 @@ thumbnail: /blog/assets/23_sahajBERT/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published July 15, 2021</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/sahajBERT-a-collaboratively-pretrained-language-model.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/collaborative-training.md">
         Update on GitHub
     </a>
 </div>
