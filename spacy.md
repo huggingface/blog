@@ -43,8 +43,6 @@ Over 60 canonical models can be found in the [spaCy](https://hf.co/spacy) org. T
 
 ### Widgets
 
-
-
 This integration includes support for NER widgets, so all models with a NER component will have this out of the box! Coming soon there will be support for text classification and POS.
 
 <div><a class="text-xs block mb-3 text-gray-300" href="/spacy/en_core_web_sm"><code>spacy/en_core_web_sm</code></a>
