@@ -38,13 +38,13 @@ Modern language models often require a significant amount of compute for pretrai
 
 In this blog post, we describe [DeDLOC](https://arxiv.org/abs/2106.10207) — a new method for collaborative distributed training that can adapt itself to the network and hardware constraints of participants. We show that it can be successfully applied in real-world scenarios by pretraining [sahajBERT](https://huggingface.co/neuropark/sahajBERT), a model for the Bengali language, with 40 volunteers. On downstream tasks in Bengali, this model achieves nearly state-of-the-art quality with results comparable to much larger models that used hundreds of high-tier accelerators.
 
-<p align="center">
-<iframe width="864" height="486"
-src="https://www.youtube-nocookie.com/embed/v8ShbLasRF8" 
+<div class="aspect-w-16 aspect-h-9">
+<iframe 
+src="https://www.youtube.com/embed/v8ShbLasRF8" 
 frameborder="0" 
 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
 allowfullscreen></iframe>
-</p>
+</div>
 
 ## Distributed Deep Learning in Open Collaborations
 
@@ -75,9 +75,9 @@ Often, to reduce the amount of synchronization and to stabilize the learning pro
 
 Let's consider a couple of potential failure cases that we might encounter throughout a collaborative experiment. By far, the most frequent scenario is that one or several peers disconnect from the training procedure: they might have an unstable connection or simply want to use their GPUs for something else. In this case, we only suffer a minor setback of training: the contribution of these peers gets deducted from the currently accumulated batch size, but other participants will compensate for that with their gradients. Also, if more peers join, the target batch size will simply be reached faster, and our training procedure will naturally speed up. You can see a demonstration of this in the video:
 
-<p align="center">
-<iframe width="864" height="486" src="https://www.youtube-nocookie.com/embed/zdVsg5zsGdc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</p>
+<div class="aspect-w-16 aspect-h-9">
+<iframe width="864" height="486" src="https://www.youtube.com/embed/zdVsg5zsGdc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ### Adaptive averaging
 
