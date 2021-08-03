@@ -76,7 +76,7 @@ Often, to reduce the amount of synchronization and to stabilize the learning pro
 Let's consider a couple of potential failure cases that we might encounter throughout a collaborative experiment. By far, the most frequent scenario is that one or several peers disconnect from the training procedure: they might have an unstable connection or simply want to use their GPUs for something else. In this case, we only suffer a minor setback of training: the contribution of these peers gets deducted from the currently accumulated batch size, but other participants will compensate for that with their gradients. Also, if more peers join, the target batch size will simply be reached faster, and our training procedure will naturally speed up. You can see a demonstration of this in the video:
 
 <div class="aspect-w-16 aspect-h-9">
-<iframe width="864" height="486" src="https://www.youtube.com/embed/zdVsg5zsGdc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/zdVsg5zsGdc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
 ### Adaptive averaging
