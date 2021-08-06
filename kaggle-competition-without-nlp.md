@@ -97,8 +97,9 @@ The original dataset provided by Kaggle will be split into 2 datasets using a ru
 The columns of both datasets need to be mapped. The text column is the input object and the target column is the desired output value. Here the input object is a tweet content, and the output value is 1 if the tweet is about a disaster, otherwise it’s 0.
 
 Then the web interface starts the training and does its magic.
-
-![assets/25_kaggle_competition/models_training.gif](assets/25_kaggle_competition/models_training.gif)
+<p>
+  <img src="/blog/assets/25_kaggle_competition/models_training.gif" alt="training models with AutoNLP" style="margin-left:auto;margin-right:auto;">
+</p>
 
 After a few minutes, models are trained, evaluated and uploaded on the [Hugging Face Hub](https://huggingface.co/models) (with private visibility). They are ready to serve, still without any Machine Learning instructions!
 
