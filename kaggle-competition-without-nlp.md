@@ -87,7 +87,9 @@ Later the most performant model will be selected to make predictions for the Kag
 
 The competition asks to label each tweet as related to a disaster or not. Binary [text classification](https://monkeylearn.com/text-classification/) is one of the tasks that you can achieve with the 🤗 AutoNLP web interface.
 
-![assets/25_kaggle_competition/new_autoNLP_project.png](assets/25_kaggle_competition/new_autoNLP_project.png)
+<p>
+  <img src="/blog/assets/25_kaggle_competition/new_autoNLP_project.png" alt="launching a new AutoNLP project" style="margin-left:auto;margin-right:auto;">
+</p>
 
 In this competition, Kaggle provides only one training dataset but you need one dataset to train the models (the training dataset) and another one (the validation dataset) to evaluate their performances.<br />
 The original dataset provided by Kaggle will be split into 2 datasets using a rule of thumb ratio of 80%-20%.
