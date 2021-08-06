@@ -172,3 +172,7 @@
 - local: collaborative-training
   title: "Deep Learning over the Internet: Training Language Models Collaboratively"
   date: July 15, 2021
+
+- local: kaggle-competition-without-nlp
+  title: "How to beat the best in an NLP competition without any Machine Learning"
+  date: August 6, 2021
