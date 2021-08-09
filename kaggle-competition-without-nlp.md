@@ -109,7 +109,7 @@ For this competition, Kaggle will evaluate performance of the predictions with t
 
 ![assets/25_kaggle_competition/model_metrics.png](assets/25_kaggle_competition/model_metrics.png)
 
-Kaggle sometimes evaluates your results with more sophisticated metrics. Conveniently 🤗 AutoNLP web interface automatically uploads each trained models files on the Hugging Face Hub and [their associated card](https://huggingface.co/ferdinand/autonlp-kaggle-competition-6381329) which includes the model metrics (that you may combine according to you need) and code snippets to use the model. And there is even a widget to quickly experiment with the model.
+Kaggle sometimes evaluates your results with more sophisticated metrics. Conveniently 🤗 AutoNLP web interface automatically uploads each trained models files on the Hugging Face Hub and [their associated card](https://huggingface.co/ferdinand/autonlp-kaggle-competition-6381329) which includes the model metrics (that you may combine according to your need) and code snippets to use the model. And there is even a widget to quickly experiment with the model.
 
 ![assets/25_kaggle_competition/model_card.png](assets/25_kaggle_competition/model_card.png)
 
