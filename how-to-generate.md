@@ -164,7 +164,7 @@ highest probability. Let's illustrate with `num_beams=2`:
 
 <img src="/blog/assets/02_how-to-generate/beam_search.png" alt="beam search" style="margin: auto; display: block;">
 
-At time step 1, besides the most likely hypothesis \\((\text{"The"}, \text{"woman"},)\\),
+At time step 1, besides the most likely hypothesis \\((\text{"The"}, \text{"nice"})\\),
 beam search also keeps track of the second
 most likely one \\((\text{"The"}, \text{"dog"})\\). 
 At time step 2, beam search finds that the word sequence \\((\text{"The"}, \text{"dog"}, \text{"has"})\\), 
