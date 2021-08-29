@@ -3,7 +3,7 @@ title: "BERTIN - Perplexity Sampling for efficient pre-training Language Models 
 thumbnail: /blog/assets/25_bertin/bertin.png
 ---
 
-<h1>BERTIN - Perplexity Sampling for efficient pre-training of Spanish Language Models</h1>
+<h1>BERTIN - Trainign a state of the art Spanish Language Model efficiently using perplexity sampling</h1>
 
 <div class="blog-metadata">
     <small>Published August 15, 2021.</small>
@@ -72,8 +72,5 @@ thumbnail: /blog/assets/25_bertin/bertin.png
     </a>
 </div>
 
-## How to train state-of-the-art language models on a single TPU in a week
-
-BERTIN is a project aimed at pre-training Spanish RoBERTa-based models from scratch efficiently, under limited compute resources.  
-To achieve this goal, we explored different perplexity-based data sampling techniques to extract sub-samples of a large corpus targeting an increased prevalence of high-quality documents.  
-The BERTIN project was part of the [Flax/JAX Community Event](https://discuss.huggingface.co/t/open-to-the-community-community-week-using-jax-flax-for-nlp-cv/7104), organized by [HuggigFace](https://huggingface.co) in which Google Cloud provided free TPUv3-8 for a week. During this time, we managed to pre-train several RoBERTa models in Spanish, achieving results comparable to models trained on massive private datasets using supercomputers.  
+## BERTIN
+Bertin is a Spanish RoBERTa model trained during the [Flax/JAX Community Event](https://discuss.huggingface.co/t/open-to-the-community-community-week-using-jax-flax-for-nlp-cv/7104), organized by [HuggigFace](https://huggingface.co) and sponsored by [Google Cloud](https://cloud.google.com/). BERTIN was trained in a week on a Google Cloud TPUv3-8 on a public corpus. We achieved state-of-the-art performance in multiple downstream tasks, comparable to models trained on supercomputers using large private datasets. We explored several perplexity-based sampling strategies that allowed us to train the model efficiently under limited compute and time resources. We are very excited to introduce our methods and learnings to hopefully empower small teams to train competitive language models on a budget.
