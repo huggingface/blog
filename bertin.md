@@ -460,4 +460,44 @@ Geographical bias
   bring — buy — have — load — (Spain's word for) drive
 
 - In order to get home, I have to **bring** my (Argentina's and other parts of Latin America's word for) car.  
-  bring — have — (Spain's word for) drive — take — load
+  bring — have — (Spain's word for) drive — take — load  
+
+## Analysis
+
+The performance of our BERTIN models has been, in general, very good. Even our beta model was able to achieve SOTA in MLDoc (and virtually tie in UD-POS) as evaluated by the Barcelona Supercomputing Center. In the main masked-language task our models reach values between 0.65 and 0.69, which foretells good results for downstream tasks.
+
+It should be noted, that it is certainly possible that any of the models —ours or otherwise— could be carefully tuned to achieve better results at a given task, and it is a possibility that the best tuning might result in a new "winner" for that category. What we can claim is that, under standard training conditions, our models are remarkably performant. In particular, `Gaussian` perplexity sampling seems to produce consistently solid models, taking the lead in four of the seven tasks analysed.
+
+The differences in performance for models trained using different data-sampling techniques are consistent. `Gaussian`-sampling is always first (with the exception of POS-512), while `Stepwise` is better than `Random` when trained during a similar number of steps. This proves that the sampling technique is, indeed, relevant and a more thorough statistical analysis could help optimize these sampling strategies.
+
+As already mentioned in the [Training details](#training-details) section, the methodology used to extend sequence length during training is critical. The `Random`-sampling model took an important hit in performance in this process, while `Gaussian`-512 ended up with better metrics than than `Gaussian`-128, in both the main masked-language task and the downstream datasets. The key difference was that `Random` kept the optimizer learning rate scheduler intact while `Gaussian` re-started the schedule. This difference is likely related to the fact that the learning rate was very low close to the end of training, and the adjustments needed after a change in sequence length require a larger learning rate. We believe this is an important topic of research, but our preliminary data suggests that restarting the learning rate sheduler is a safe alternative when in doubt or if computational resources are scarce.
+
+# Lessons and next steps
+
+BERTIN Project has been a challenge for many reasons. Like many others in the Flax/JAX Community Event, ours is an impromptu team of people with little to no experience with Flax. Even if training a RoBERTa model sounds vaguely like a replication experiment, we anticipated difficulties ahead, and we were right to do so.
+
+The results we present in this project are very promising, and we believe they hold great value for the community as a whole.
+
+The most obvious next step would be replicating training on a "large" version of the model. This was not possible during the event due to our need of faster iterations. We should also explore in greater detail the impact of our proposed sampling methods. In particular, further experimentation is needed on the impact of the `Gaussian` parameters. In addution, if perplexity-based sampling were to become a common practice, it would be important to take a closer look into possible biases it might be introducing. Our preliminary data suggests that this is not the case, but further investigation would be beneficial. Another intriguing possibility would consist on combining perplexity sampling with other large-scale dataset cleaning methods such as deduplication (Lee et al., 2021), as they seem to share a complementary philosophy.
+
+# Conclusions
+
+With roughly 10 days worth of access to 3 TPUv3-8, we have achieved remarkable results surpassing previous state of the art in multiple tasks, and even improving document classification on models trained in massive supercomputers with very large, highly-curated, and in some cases private, datasets.
+
+The large size of the dataset soon proved to be an important challenge given the time constraints. This led to a team discussion which ended up reshaping our project focus to tackle the problem of efficient language model training and how to facilitate this task for small teams like ours in the future. The subsampling techniques analysed in this report have shown great promise in this regard, and we hope to see other groups using and improve them in the future.
+
+Given our results, on par with those of large corporations and research groups, we hope this work will inspire other small teams to experiment with training language models to build exciting applications in the future.
+
+## References
+
+- Heafield, K. (2011). KenLM: faster and smaller language model queries. Proceedings of the EMNLP2011 Sixth Workshop on Statistical Machine Translation.
+
+- Lee, K., Ippolito, D., Nystrom, A., Zhang, C., Eck, D., Callison-Burch, C., & Carlini, N. (2021). Deduplicating Training Data Makes Language Models Better. arXiv preprint arXiv:2107.06499.
+
+- Liu, Y., Ott, M., Goyal, N., Du, J., Joshi, M., Chen, D., ... & Stoyanov, V. (2019). Roberta: A robustly optimized bert pretraining approach. arXiv preprint arXiv:1907.11692.
+
+- Ney, H., Essen, U., & Kneser, R. (1994). On structuring probabilistic dependences in stochastic language modelling. Computer Speech & Language, 8(1), 1-38.
+
+- Wenzek, G., Lachaux, M. A., Conneau, A., Chaudhary, V., Guzmán, F., Joulin, A., & Grave, E. (2019). Ccnet: Extracting high quality monolingual datasets from web crawl data. arXiv preprint arXiv:1911.00359.
+
+- Bommasani, R., Hudson, D. A., Adeli, E., Altman, R., Arora, S., von Arx, S., ... & Wang, W. (2021). On the Opportunities and Risks of Foundation Models. arXiv preprint arXiv:2108.07258.
