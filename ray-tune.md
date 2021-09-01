@@ -99,7 +99,7 @@ To demonstrate this new [Hugging Face](https://github.com/huggingface/transforme
 
 To run this example, please first run:
 
-**`pip install "ray[tune]" transformers datasets`**
+**`pip install "ray[tune]" transformers datasets scipy sklearn`**
 
 Simply plug in one of Ray’s standard tuning algorithms by just adding a few lines of code.
 
@@ -133,7 +133,7 @@ def compute_metrics(eval_pred):
 # than the default to be able to prune bad trials early.
 # Disabling tqdm is a matter of preference.
 training_args = TrainingArguments(
-    "test", evaluate_during_training=True, eval_steps=500, disable_tqdm=True)
+    "test", evaluation_strategy="steps", eval_steps=500, disable_tqdm=True)
 trainer = Trainer(
     args=training_args,
     tokenizer=tokenizer,
@@ -143,21 +143,27 @@ trainer = Trainer(
     compute_metrics=compute_metrics,
 )
 
-# Defaut objective is the sum of all metrics
+# Default objective is the sum of all metrics
 # when metrics are provided, so we have to maximize it.
 trainer.hyperparameter_search(
     direction="maximize", 
     backend="ray", 
-    n_samples=10, # number of trials
-    # n_jobs=2  # number of parallel jobs, if multiple GPUs
+    n_trials=10 # number of trials
 )
 ```
 
+By default, each trial will utilize 1 CPU, and optionally 1 GPU if available.
+You can leverage multiple [GPUs for a parallel hyperparameter search](https://docs.ray.io/en/latest/tune/user-guide.html#resources-parallelism-gpus-distributed)
+by passing in a `resources_per_trial` argument.
 
 You can also easily swap different parameter tuning algorithms such as [HyperBand](https://docs.ray.io/en/latest/tune/api_docs/schedulers.html#asha-tune-schedulers-ashascheduler), [Bayesian Optimization](https://docs.ray.io/en/latest/tune/api_docs/suggestion.html), [Population-Based Training](https://docs.ray.io/en/latest/tune/api_docs/schedulers.html#population-based-training-tune-schedulers-populationbasedtraining):
 
+To run this example, first run: **`pip install hyperopt`**
 
 ```python
+from ray.tune.suggest.hyperopt import HyperOptSearch
+from ray.tune.schedulers import ASHAScheduler
+
 trainer = Trainer(
     args=training_args,
     tokenizer=tokenizer,
@@ -172,34 +178,10 @@ best_trial = trainer.hyperparameter_search(
     backend="ray",
     # Choose among many libraries:
     # https://docs.ray.io/en/latest/tune/api_docs/suggestion.html
-    search_alg=HyperOptSearch(),
+    search_alg=HyperOptSearch(metric="objective", mode="max"),
     # Choose among schedulers:
     # https://docs.ray.io/en/latest/tune/api_docs/schedulers.html
-    scheduler=AsyncHyperBand())
-```
-
-
-Leveraging multiple [GPUs for a parallel hyperparameter search](https://docs.ray.io/en/releases-1.0.0/tune/user-guide.html#parallelism-gpus) is as easy as setting a setting a single argument too:
-
-
-```python
-trainer = Trainer(
-    args=training_args,
-    tokenizer=tokenizer,
-    train_dataset=encoded_dataset["train"],
-    eval_dataset=encoded_dataset["validation"],
-    model_init=model_init,
-    compute_metrics=compute_metrics,
-)
-# You can also do distributed hyperparameter tuning
-# by
-best_trial = trainer.hyperparameter_search(
-    direction="maximize",
-    backend="ray",
-    n_jobs=4,  # number of parallel jobs, if multiple GPUs
-    n_trials=4,  # number of hyperparameter samples
-    # Aggressive termination of trials
-    scheduler=AsyncHyperBand())
+    scheduler=ASHAScheduler(metric="objective", mode="max"))
 ```
 
 
@@ -218,6 +200,6 @@ It also works with [Weights and Biases](https://wandb.ai/) out of the box!
 
 If you liked this blog post, be sure to check out:
 
-*   [Transformers + GLUE + Ray Tune example](https://docs.ray.io/en/master/tune/examples/index.html#hugging-face-huggingface-transformers-example)
+*   [Transformers + GLUE + Ray Tune example](https://docs.ray.io/en/latest/tune/examples/index.html#hugging-face-huggingface-transformers)
 *   Our [Weights and Biases report](https://wandb.ai/amogkam/transformers/reports/Hyperparameter-Optimization-for-Huggingface-Transformers--VmlldzoyMTc2ODI) on Hyperparameter Optimization for Transformers
 *   The [simplest way to serve your NLP model](https://medium.com/distributed-computing-with-ray/the-simplest-way-to-serve-your-nlp-model-in-production-with-pure-python-d42b6a97ad55) from scratch
