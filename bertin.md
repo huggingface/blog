@@ -115,7 +115,7 @@ In order to test our hypothesis, we first calculated the perplexity of each docu
 <caption>Figure 2. Perplexity distributions and quartiles (red lines) of 44M samples of mC4-es.</caption>
 </figure>
 
-With the extracted perplexity percentiles, we created two functions to oversample the central quartiles with the idea of biasing against samples with perplexity either too low, which could indicate the sentences are short, repetitive pieces of text, or too high, which could potentially indicate poor quality text constaining incorrect language.
+With the extracted perplexity percentiles, we created two functions to oversample the central quartiles with the idea of biasing against samples with perplexity either too low, which could indicate the sentences are short, repetitive pieces of text; or too high, which could potentially indicate poor quality text containing incorrect language forms.
 
 The first function is a `Stepwise` that simply oversamples the central quartiles using quartile boundaries and a `factor` for the desired sampling frequency for each quartile, obviously giving larger frequencies for middle quartiles, oversampling Q2 and Q3 and subsampling Q1 and Q4 (see Figure 3).
 The second function weighted the perplexity distribution by a Gaussian-like function, to smooth out the sharp boundaries of the `Stepwise` function and give a better approximation to the desired underlying distribution (see Figure 4).
