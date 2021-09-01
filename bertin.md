@@ -77,7 +77,7 @@ BERTIN is a series of Spanish RoBERTa models trained during the [Flax/JAX Commun
 
 # Motivation
 
-According to [Wikipedia](https://en.wikipedia.org/wiki/List_of_languages_by_total_number_of_speakers), Spanish is the second most-spoken language in the world by native speakers (>470 million speakers), only after Chinese, and the fourth including those who speak it as a second language. However, most NLP research is still mainly available in English. Relevant contributions like BERT, XLNet or GPT2 sometimes take years to be available in Spanish and, when they do, it is often via multilingual versions which are not as performant as the English alternative.
+According to [Wikipedia](https://en.wikipedia.org/wiki/List_of_languages_by_total_number_of_speakers), Spanish is the second most-spoken language in the world by native speakers (>470 million speakers), only after Chinese, and the fourth including those who speak it as a second language. However, most NLP research is mainly focused in English. Relevant contributions like BERT, XLNet or GPT-2 sometimes take years to be available in Spanish and, when they do, it is often via multilingual versions which are not as performant as the English alternative.
 
 Models in monolingual Spanish are hard to come by and, when they do, they are often trained on proprietary datasets and using massive compute resources. In practice, this means that training competitive language models remain exclusive to a handful of large technology companies and organizations. In addition to the prohibitive financial cost, training large language models has a significant [environmental cost](https://arxiv.org/pdf/1906.02243.pdf). This motivated the second goal of our project: Bringing the training of large models like RoBERTa one step closer to smaller groups. To this end, we explored techniques that make training these architectures more data-efficient, easier and faster, thus contributing to the democratization of large language models.
 
@@ -88,8 +88,6 @@ At the time of the event there were no RoBERTa models available in Spanish. Ther
 In order to train BERTIN, we used the Spanish subset of the open-sourced mC4 dataset. mC4 is a multilingual variant of the C4, the Colossal, Cleaned version of Common Crawl's web crawl corpus. While C4 was used to train the T5 text-to-text Transformer models, mC4 comprises natural text in 101 languages drawn from the public Common Crawl web-scrape and was used to train mT5, the multilingual version of T5.
 
 The Spanish portion of mC4 (mC4-es) contains about 416 million samples and 235 billion words in approximately 1TB of uncompressed data.
-
-Unfortunately, we did not have access to the private dataset from the Spanish National Library, which is, to the best of our knowledge, the largest language dataset of its kind and has been used to train other Spanish language models.
 
 ## Being efficient: Introducing perplexity sampling
 
@@ -117,7 +115,7 @@ In order to test our hypothesis, we first calculated the perplexity of each docu
 <caption>Figure 2. Perplexity distributions and quartiles (red lines) of 44M samples of mC4-es.</caption>
 </figure>
 
-With the extracted perplexity percentiles, we created two functions to oversample the central quartiles with the idea of biasing against samples which perplexity is either too low, which could indicate the sentences are to short, repetitive pieces of text, or too high, which could potentially indicate poor quality bogus text or incorrect language.
+With the extracted perplexity percentiles, we created two functions to oversample the central quartiles with the idea of biasing against samples with perplexity either too low, which could indicate the sentences are short, repetitive pieces of text, or too high, which could potentially indicate poor quality text constaining incorrect language.
 
 The first function is a `Stepwise` that simply oversamples the central quartiles using quartile boundaries and a `factor` for the desired sampling frequency for each quartile, obviously giving larger frequencies for middle quartiles, oversampling Q2 and Q3 and subsampling Q1 and Q4 (see Figure 3).
 The second function weighted the perplexity distribution by a Gaussian-like function, to smooth out the sharp boundaries of the `Stepwise` function and give a better approximation to the desired underlying distribution (see Figure 4).
@@ -176,7 +174,7 @@ In order to rule out the possibility of perplexity sampling filtering out releva
 
 ### Training details
 
-We used the same setup and hyperparameters as [Liu et al. (2019)](https://arxiv.org/abs/1907.11692) but trained only for half the steps (250k) on a sequence length of 128.More specifically, the models trained using `Gaussian` and `Stepwise` perplexity sampling trained for the 250k steps, while `Random` was stopped at 230k steps. The `Stepwise` perplexity sampling model needed to be initially stopped at 180k to allow downstream tests (sequence length 128), but was later resumed and finished the 250k steps. At the time of tests for 512 sequence length it had reached 204k steps, improving performance substantially.
+We used the same setup and hyperparameters as [Liu et al. (2019)](https://arxiv.org/abs/1907.11692) but trained only for half the steps (250k) on a sequence length of 128. More specifically, the models trained using `Gaussian` and `Stepwise` perplexity sampling trained for the 250k steps, while `Random` was stopped at 230k steps. The `Stepwise` perplexity sampling model needed to be initially stopped at 180k to allow downstream tests (sequence length 128), but was later resumed and finished the 250k steps. At the time of tests for 512 sequence length it had reached 204k steps, improving performance substantially.
 
 We then continued training the most promising models for a few more steps (~50k) on sequence length 512 from the previous checkpoints on 128 sequence length at 230k steps. Since there there is no standard in the literature on how to do this, we tried two different strategies. It turns out this decision had a big impact in the final performance.
 
@@ -292,7 +290,7 @@ Table 4. Metrics for different downstream tasks, comparing our different models 
 
 </figure>
 
-In addition to the tasks above, we also trained the [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta) model on the SQUAD dataset, achieving exact match 50.96 and F1 68.74 (sequence length 128). A full evaluation of this task is still pending.
+In addition to the tasks above, we also trained the [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta) model on the SQUAD dataset, achieving exact match 50.96 and F1 68.74 (sequence length 128).
 
 Results for PAWS-X seem surprising given the large differences in performance across models, unlike other tasks. We retrained all models several times and results were consistent. A similar problem was found for XNLI-512, where many models achieved a very poor accuracy of 0.3333 on a first run (and even a second, in the case of BSC-BNE). This suggests fine-tuning an be unstable for some datasets under the batch size limitations of the hardware used for fine-tuning. Increasing the batch size would likely help solving the training instability, however, this was not feasible within the project schedule. For example, runtime for XNLI-512 was ~19h per model and increasing the batch size without reducing sequence length was not possible on a single K80 GPU.
 
@@ -474,9 +472,7 @@ As already mentioned in the [Training details](#training-details) section, the m
 
 # Lessons and next steps
 
-BERTIN Project has been a challenge for many reasons. Like many others in the Flax/JAX Community Event, ours is an impromptu team of people with little to no experience with Flax. Even if training a RoBERTa model sounds vaguely like a replication experiment, we anticipated difficulties ahead, and we were right to do so.
-
-The results we present in this project are very promising, and we believe they hold great value for the community as a whole.
+BERTIN Project has been a challenge for many reasons. Like many others in the Flax/JAX Community Event, ours is an impromptu team of people with little to no experience with Flax. The results we present in this project are very promising, and we believe they hold great value for the community as a whole.
 
 The most obvious next step would be replicating training on a "large" version of the model. This was not possible during the event due to our need for faster iterations. We should also explore in greater detail the impact of our proposed sampling methods. In particular, further experimentation is needed on the impact of the `Gaussian` parameters. In addition, if perplexity-based sampling were to become a common practice, it would be important to take a closer look into possible biases it might be introducing. Our preliminary data suggests that this is not the case, but further investigation would be beneficial. Another intriguing possibility would consist on combining perplexity sampling with other large-scale dataset cleaning methods such as deduplication (Lee et al., 2021), as they seem to share a complementary philosophy.
 
@@ -499,5 +495,7 @@ Given our results, on par with those of large corporations and research groups, 
 - Ney, H., Essen, U., & Kneser, R. (1994). On structuring probabilistic dependences in stochastic language modelling. Computer Speech & Language, 8(1), 1-38.
 
 - Wenzek, G., Lachaux, M. A., Conneau, A., Chaudhary, V., Guzmán, F., Joulin, A., & Grave, E. (2019). Ccnet: Extracting high quality monolingual datasets from web crawl data. arXiv preprint arXiv:1911.00359.
+
+- Strubell, E., Ganesh, A., & McCallum, A. (2019). Energy and policy considerations for deep learning in NLP. arXiv preprint arXiv:1906.02243.
 
 - Bommasani, R., Hudson, D. A., Adeli, E., Altman, R., Arora, S., von Arx, S., ... & Wang, W. (2021). On the Opportunities and Risks of Foundation Models. arXiv preprint arXiv:2108.07258.
