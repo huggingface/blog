@@ -251,7 +251,7 @@ For simplicity, we will abbreviate the different models as follows:
 
 <figure>
 
-All models were fin-tuned on a single Tesla K80 GPU.
+All models were fine-tuned on a single Tesla K80 GPU.
 
 <caption>
 Table 3. Metrics for different downstream tasks, comparing our different models as well as other relevant BERT models from the literature. Dataset for POS and NER is CoNLL 2002. POS and NER used max length 128 and batch size 16. Batch size for XNLI is 32 (max length 256). All models were fine-tuned for 5 epochs, with the exception of XNLI-256, for whih we fine-tuned for 2 epochs. For stepwise used an older checkpoint trained for 180,000 steps.
