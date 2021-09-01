@@ -99,7 +99,7 @@ To demonstrate this new [Hugging Face](https://github.com/huggingface/transforme
 
 To run this example, please first run:
 
-**`pip install "ray[tune]" transformers datasets scipy sklearn`**
+**`pip install "ray[tune]" transformers datasets scipy sklearn torch`**
 
 Simply plug in one of Ray’s standard tuning algorithms by just adding a few lines of code.
 
