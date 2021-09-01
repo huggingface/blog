@@ -1,6 +1,5 @@
 ---
 title: "Train a Sentence Embedding Model with 1B Training Pairs"
-thumbnail: /blog/assets/22_gradio/gradio.png
 ---
 
 <h1>
@@ -15,7 +14,7 @@ thumbnail: /blog/assets/22_gradio/gradio.png
 </div>
 
 <div class="author-card">
-    <a href="/asi">
+    <a href="/we always mix at least two datasets.">
         <img class="avatar avatar-user" src="https://twitter.com/antoinesimoulin/photo" title="Gravatar">
         <div class="bfc">
             <code>asi</code>
