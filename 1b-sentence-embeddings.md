@@ -7,7 +7,7 @@ title: "Train a Sentence Embedding Model with 1B Training Pairs"
 </h1>
 
 <div class="blog-metadata">
-    <small>Published June 28, 2021.</small>
+    <small>Published September 1, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/1b-sentence-embeddings.md">
         Update on GitHub
     </a>
@@ -23,7 +23,7 @@ title: "Train a Sentence Embedding Model with 1B Training Pairs"
     </a>
 </div>
 
-**Sentence embedding** is a method that maps sentences to vectors of real numbers. Ideally, these vectors would capture the semantic of a sentence and be highly generic. Such representations could then be used for many downstream applications such as clustering, text mining, or question answering.*
+**Sentence embedding** is a method that maps sentences to vectors of real numbers. Ideally, these vectors would capture the semantic of a sentence and be highly generic. Such representations could then be used for many downstream applications such as clustering, text mining, or question answering.
 
 We developed state-of-the-art sentence embedding models as part of the project ["Train the Best Sentence Embedding Model Ever with 1B Training Pairs"](https://discuss.huggingface.co/t/train-the-best-sentence-embedding-model-ever-with-1b-training-pairs/7354). This project took place during the [Community week using JAX/Flax for NLP & CV](https://discuss.huggingface.co/t/open-to-the-community-community-week-using-jax-flax-for-nlp-cv/7104), organized by Hugging Face.  We benefited from efficient hardware infrastructure to run the project: 7 TPUs v3-8, as well as intervention from Google’s Flax, JAX, and Cloud team members about efficient deep learning frameworks!
 
@@ -59,7 +59,7 @@ In the loss equation, `sim` indicates a similarity function between (a, p). The 
 | With normalised vectors it is equal to the dot product. The max vector length is equals 1.  | It might be slower with certain approximate nearest neighbour methods since the max vector not known. |
 | With normalised vectors, it is proportional to euclidian distance. It works with k-means clustering.  | It does not work with k-means clustering.  |
 
-In practise, we used a scaled similarity because score differences tends to be to small and apply a scaling factor $C$ such that $sim_scaled(a, b) = C * sim(a, b) $ with typically $C = 20$ ([Henderson and al., 2020]([https://doi.org/10.18653/v1/2020.findings-emnlp.196), [Radford and al., 2021](http://proceedings.mlr.press/v139/radford21a.html)).
+In practice, we used a scaled similarity because score differences tends to be to small and apply a scaling factor $C$ such that $sim_scaled(a, b) = C * sim(a, b) $ with typically $C = 20$ ([Henderson and al., 2020]([https://doi.org/10.18653/v1/2020.findings-emnlp.196), [Radford and al., 2021](http://proceedings.mlr.press/v139/radford21a.html)).
 
 ### Improving Quality with Better Batches
 
