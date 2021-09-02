@@ -115,7 +115,7 @@ In order to test our hypothesis, we first calculated the perplexity of each docu
 <caption>Figure 2. Perplexity distributions and quartiles (red lines) of 44M samples of mC4-es.</caption>
 </figure>
 
-With the extracted perplexity percentiles, we created two functions to oversample the central quartiles with the idea of biasing against samples with perplexity either too low, which could indicate the sentences are short, repetitive pieces of text, or too high, which could potentially indicate poor quality text constaining incorrect language.
+With the extracted perplexity percentiles, we created two functions to oversample the central quartiles with the idea of biasing against samples with perplexity either too low, which could indicate the sentences are short, repetitive pieces of text; or too high, which could potentially indicate poor quality text containing incorrect language forms.
 
 The first function is a `Stepwise` that simply oversamples the central quartiles using quartile boundaries and a `factor` for the desired sampling frequency for each quartile, obviously giving larger frequencies for middle quartiles, oversampling Q2 and Q3 and subsampling Q1 and Q4 (see Figure 3).
 The second function weighted the perplexity distribution by a Gaussian-like function, to smooth out the sharp boundaries of the `Stepwise` function and give a better approximation to the desired underlying distribution (see Figure 4).
@@ -251,7 +251,7 @@ For simplicity, we will abbreviate the different models as follows:
 
 <figure>
 
-All models were fin-tuned on a single Tesla K80 GPU.
+All models were fine-tuned on a single Tesla K80 GPU.
 
 <caption>
 Table 3. Metrics for different downstream tasks, comparing our different models as well as other relevant BERT models from the literature. Dataset for POS and NER is CoNLL 2002. POS and NER used max length 128 and batch size 16. Batch size for XNLI is 32 (max length 256). All models were fine-tuned for 5 epochs, with the exception of XNLI-256, for whih we fine-tuned for 2 epochs. For stepwise used an older checkpoint trained for 180,000 steps.
@@ -313,7 +313,7 @@ As already mentioned in the [Training details](#training-details) section, the m
 
 # Lessons and next steps
 
-BERTIN Project has been a challenge for many reasons. Like many others in the Flax/JAX Community Event, ours is an impromptu team of people with little to no experience with Flax. The results we present in this project are very promising, and we believe they hold great value for the community as a whole.
+BERTIN Project has been a challenge for many reasons. Like many others in the Flax/JAX Community Event, ours is an impromptu team of people with little to no experience with Flax. Moreover, other than main goal of producing a RoBERTa model, nothing was decided upon the start of the project, so we had to spend some time organizing how we would work and communicate, and debating and agreeing on the approaches we would like to take given the limitations in time and resources, since most of us also had full-time jobs to attend to. Notwithstanding, the results we present in this project are very promising, and we believe they hold great value for the community as a whole.
 
 The most obvious next step would be replicating training on a "large" version of the model. This was not possible during the event due to our need for faster iterations. We should also explore in greater detail the impact of our proposed sampling methods. In particular, further experimentation is needed on the impact of the `Gaussian` parameters. In addition, if perplexity-based sampling were to become a common practice, it would be important to take a closer look into possible biases it might be introducing. Our preliminary data suggests that this is not the case, but further investigation would be beneficial. Another intriguing possibility would consist on combining perplexity sampling with other large-scale dataset cleaning methods such as deduplication (Lee et al., 2021), as they seem to share a complementary philosophy.
 
