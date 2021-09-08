@@ -3,7 +3,7 @@ title: "BERTIN - Perplexity Sampling for efficient pre-training Language Models 
 thumbnail: /blog/assets/25_bertin/bertin.png
 ---
 
-<h1>BERTIN - Training a state of the art Spanish Language Model efficiently using perplexity sampling</h1>
+<h1>BERTIN - Efficiently training a state of the art Spanish Language-Model using perplexity sampling</h1>
 
 <div class="blog-metadata">
     <small>Published August 15, 2021.</small>
@@ -93,16 +93,21 @@ The Spanish portion of mC4 (mC4-es) contains about 416 million samples and 235 b
 
 The large amount of text in mC4-es makes training a language model within the time constraints of the Flax/JAX Community Event problematic. This motivated the exploration of sampling methods, with the goal of creating a subset of the dataset that would allow for the training of well-performing models with roughly one eighth of the data (~50M samples) and at approximately half the training steps.
 
-In order to efficiently build this subset of data, we decided to leverage a technique we call *perplexity sampling*, and whose origin can be traced to the construction of CCNet (Wenzek et al., 2020) and their high quality monolingual datasets from web-crawl data. In their work, they suggest the possibility of applying fast language models trained on high-quality data such as Wikipedia to filter out texts that deviate too much from correct expressions of a language (see Figure 1). They also released Kneser-Ney models (Ney et al., 1994) for 100 languages (Spanish included) as implemented in the KenLM library (Heafield, 2011) and trained on their respective Wikipedias.
+In order to efficiently build this subset of data, we decided to leverage a technique we call *perplexity sampling*, and whose origin can be traced to the construction of CCNet (Wenzek et al., 2020) and their high-quality monolingual datasets from web-crawl data. In their work, they suggest the possibility of applying fast language models trained on high-quality data such as Wikipedia to filter out texts that deviate too much from correct expressions of a language (see Figure 1). They also released Kneser-Ney models (Ney et al., 1994) for 100 languages (Spanish included) as implemented in the KenLM library (Heafield, 2011) and trained on their respective Wikipedias.
 
 <figure>
 
 ![Perplexity distributions by percentage CCNet corpus](./assets/25_bertin/ccnet.png)
 
-<caption>Figure 1. Perplexity distributions by percentage CCNet corpus.</caption>
+<caption>Figure 1. Perplexity distributions by percentage CCNet corpus. The blue 
+line (en), with a narrower peak, corresponds to English language, while the red 
+one (gu) corresponds to Gujarati.</caption>
 </figure>
 
-In this work, we hypothesized that sampling a dataset based on document perplexity with the aim to increase the prevalence of high quality documents could improve the data efficiency - this is, we would be able to train competitive models by using less data, but of higher quality, and thus reducing compute time.
+With this information in mind, we decided to use perplexity values to filter high-quality
+documents while sampling a very large dataset. The goal is to be able to train 
+competitive models using less—but higher quality—data, with reduced computational
+ times.
 
 ## Methodology
 
