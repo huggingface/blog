@@ -88,7 +88,17 @@ LPOT supports post-training quantization, quantization-aware training and dynami
 In order to specify the quantization approach, objective and performance criteria, the user must provide a configuration yaml file specifying the tuning parameters. 
 The configuration file can either be hosted on the Hugging Face's Model Hub or can be given through a local directory path.
 
+### 🔥 How to easily quantize Transformers for Intel Xeon CPUs with Optimum
 
+![Automatic quantization code snippet](assets/25_hardware_partners_program/carbon_quantize_managed.svg)
+
+
+|Model transform                    | Accuracy    | delta with float32 |
+|:---------------------------------:|:-----------:|:------------------:|
+| Full precision                    | **92.43**   | NA                 |
+| Dynamic Quantization              | 91.17       | -126               |
+| Quantization Aware Training       | 90.60       | -1.83              |
+| Post-Training Quantization        | 91.28       | -1.15              |
 
 ## Follow 🤗 Optimum: a journey to democratize ML production performance
 ### ⚡️State of the Art Hardware
