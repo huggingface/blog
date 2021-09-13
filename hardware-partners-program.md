@@ -73,7 +73,7 @@ which ops have an available quantized kernel counterpart and which ops don't, an
    - Which quantization scheme should I use?
    - Does my target device support int8 or should I stay in uint8?
 
-3. How to balance the tradeoff between quantization and an acceptable accuracy loss?
+3. How to balance the trade-off between quantization and an acceptable accuracy loss?
 4. How to export the quantized model for the target device?
 
 Although PyTorch and TensorFlow made great progress in making things easy for quantization, 
