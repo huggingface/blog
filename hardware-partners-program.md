@@ -40,7 +40,7 @@ This post is the first step of a journey for Hugging Face to democratize
 state-of-the-art **Machine Learning production performance**. 
 To get there, we will work hand in hand with our 
 Hardware Partners, as we have with Intel below.
-Join us in this journey, and follow Optimum, our new open source library!
+Join us in this journey, and follow [Optimum](https://github.com/huggingface/optimum), our new open source library!
 
 
 ## Why 🤗 Optimum?
@@ -74,13 +74,13 @@ and specific to the neural network graph derived from the model architecture.
 Diving into this 3-dimensional compatibility matrix and how to use model acceleration libraries is daunting work, 
 which few Machine Learning Engineers have experience on.
 
-[Optimum](https://github.com/huggingface/optimus) aims to make this work easy, providing performance optimization tools targeting efficient AI hardware, 
+[Optimum](https://github.com/huggingface/optimum) aims to make this work easy, providing performance optimization tools targeting efficient AI hardware, 
 built in collaboration with our Hardware Partners, and turn Machine Learning Engineers into ML Optimization wizards.
 
 With the [Transformers](https://github.com/huggingface/transformers) library, we made it easy for researchers and engineers to use state-of-the-art models, 
 abstracting away the complexity of frameworks, architectures and pipelines.
 
-With the [Optimum](https://github.com/huggingface/optimus) library, we are making it easy for engineers to leverage all the available hardware features at their disposal, 
+With the [Optimum](https://github.com/huggingface/optimum) library, we are making it easy for engineers to leverage all the available hardware features at their disposal, 
 abstracting away the complexity of model acceleration on hardware platforms.
 
 ## 🤗 Optimum in practice: how to quantize a model for Intel Xeon CPU
@@ -154,7 +154,7 @@ And most of all, we hope that Optimum will accelerate the adoption of Transforme
 ### 🌟 A journey of collaboration: join us, follow our progress
 
 Every journey starts with a first step, and ours was the public release of Optimum. 
-Join us and make your first step by [giving the library a Star](https://github.com/huggingface/optimus),
+Join us and make your first step by [giving the library a Star](https://github.com/huggingface/optimum),
 so you can follow along as we introduce new supported hardware, acceleration techniques and optimized models.
 
 If you would like to see new hardware and features be supported in Optimum, 
