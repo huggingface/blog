@@ -55,7 +55,7 @@ Pre-trained language models such as BERT have achieved state-of-the-art results 
 other Transformer based models such as ViT and Speech2Text have achieved state-of-the-art results on computer vision and speech tasks respectively:
 transformers are everywhere in the machine learning world and are here to stay.
 
-But putting transformer-based models to production can be tricky and expensive as they need a lot of compute power to work. 
+However, putting transformer-based models into production can be tricky and expensive as they need a lot of compute power to work. 
 To solve this many techniques exist, the most popular being quantization. 
 Unfortunately, in most cases quantizing a model requires a lot of work, for many reasons:
 
