@@ -1,14 +1,14 @@
-# Hugging Face Hardware Partners Program - Optimus release blog post
+# Introducing 🤗 Optimum: The Optimization Toolkit for Transformers at Scale
 
 
 This post is the first step of a journey for Hugging Face to democratize 
 state-of-the-art **Machine Learning production performance**. 
-To get there, we won’t be walking alone, we will work hand in hand with our 
+To get there, we will work hand in hand with our 
 Hardware Partners, as we have with Intel below.
 Join us in this journey, and follow Optimum, our new open source library!
 
 
-## Introducing 🤗 Optimum: The Optimization toolkit for Transformers at scale
+## Why 🤗 Optimum?
 ### 🤯 Scaling Transformers is hard
 
 What do Tesla, Google, Microsoft and Facebook all have in common? 
@@ -25,7 +25,7 @@ and [Vision](https://huggingface.co/models?pipeline_tag=image-classification&sor
 But taking these massive models into production, and making them run fast at scale is a huge challenge 
 for any Machine Learning Engineering team.
 
-What if you don’t have thousands of highly skilled Machine Learning Engineers on payroll like the above companies?
+What if you don’t have hundreds of highly skilled Machine Learning Engineers on payroll like the above companies?
 Through Optimum, our new open source library, we aim to build the definitive toolkit for Transformers production performance, 
 and enable maximum efficiency to train and run models on specific hardware.
 
@@ -40,7 +40,7 @@ Diving into this 3-dimensional compatibility matrix and how to use model acceler
 which few Machine Learning Engineers have experience on.
 
 [Optimum](https://github.com/huggingface/optimus) aims to make this work easy, providing performance optimization tools targeting efficient AI hardware, 
-built in collaboration with our Hardware Partners, and turn Machine Learning Engineers into ML Ops wizards.
+built in collaboration with our Hardware Partners, and turn Machine Learning Engineers into ML Optimization wizards.
 
 With the [Transformers](https://github.com/huggingface/transformers) library, we made it easy for researchers and engineers to use state-of-the-art models, 
 abstracting away the complexity of frameworks, architectures and pipelines.
@@ -53,7 +53,7 @@ abstracting away the complexity of model acceleration on hardware platforms.
 
 Pre-trained language models such as BERT have achieved state-of-the-art results on a wide range of natural language processing tasks, 
 other Transformer based models such as ViT and Speech2Text have achieved state-of-the-art results on computer vision and speech tasks respectively:
-transformers are everywhere in the machine learning world and are here to stay.
+transformers are everywhere in the Machine Learning world and are here to stay.
 
 However, putting transformer-based models into production can be tricky and expensive as they need a lot of compute power to work. 
 To solve this many techniques exist, the most popular being quantization. 
@@ -77,7 +77,7 @@ which ops have an available quantized kernel counterpart and which ops don't, an
 4. How to export the quantized model for the target device?
 
 Although PyTorch and TensorFlow made great progress in making things easy for quantization, 
-the complexities of transformer based models makes it hard to use the provided tools out of the box and get something working without putting up the effort.
+the complexities of transformer based models makes it hard to use the provided tools out of the box and get something working without putting up a ton of effort.
 
 ### 💡 How Intel is solving quantization and more with LPOT
 
@@ -123,5 +123,5 @@ Join us and make your first step by [giving the library a Star](https://github.c
 so you can follow along as we introduce new supported hardware, acceleration techniques and optimized models.
 
 If you would like to see new hardware and features be supported in Optimum, 
-or you’re interested joining us to work at the intersection of software and hardware please reach out to us at hardware@huggingface.co
+or you are interested in joining us to work at the intersection of software and hardware, please reach out to us at hardware@huggingface.co
 
