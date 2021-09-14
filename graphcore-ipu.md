@@ -1,5 +1,5 @@
 ---
-title: "Using & Mixing Hugging Face Models with Gradio 2.0"
+title: "Hugging Face and Graphcore partner for IPU-optimized Transformers"
 ---
 
 # Hugging Face and Graphcore partner for IPU-optimized Transformers
