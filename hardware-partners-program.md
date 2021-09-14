@@ -127,16 +127,6 @@ The configuration file can either be hosted on the Hugging Face's Model Hub or c
 
 ![Automatic quantization code snippet](assets/25_hardware_partners_program/carbon_quantize_managed.svg)
 
-The accuracies obtained for different quantization approaches applied on a bert base model fine-tuned on SST-2 are displayed in the following Table.
-For all approaches, the quantization schemes are per-channel and per-tensor for the linear layer weights and activations respectively.
-
-|Model transform                    | Accuracy    | delta with float32 |
-|:---------------------------------:|:-----------:|:------------------:|
-| Full precision                    | **92.43**   | NA                 |
-| Post-Training Quantization        | 90.60       | -1.83              |
-| Dynamic Quantization              | 91.17       | -1.26              |
-| Quantization Aware Training       | 91.28       | -1.15              |
-
 ## Follow 🤗 Optimum: a journey to democratize ML production performance
 ### ⚡️State of the Art Hardware
 Optimum will focus on achieving optimal production performance on dedicated hardware, where software and hardware acceleration techniques can be applied for maximum efficiency. 
