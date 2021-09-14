@@ -132,7 +132,7 @@ The configuration file can either be hosted on the Hugging Face's Model Hub or c
 
 ### 🔥 How to easily quantize Transformers for Intel Xeon CPUs with Optimum
 
-![Automatic quantization code snippet](assets/25_hardware_partners_program/carbon_quantize_managed.svg)
+![Automatic quantization code snippet](assets/25_hardware_partners_program/carbon_lpot_quantizer.svg)
 
 ## Follow 🤗 Optimum: a journey to democratize ML production performance
 ### ⚡️State of the Art Hardware
