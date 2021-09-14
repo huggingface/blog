@@ -73,7 +73,7 @@ thumbnail: /blog/assets/25_bertin/bertin.png
 </div>
 
 ## BERTIN
-BERTIN is a series of Spanish RoBERTa models trained during the [Flax/JAX Community Event](https://discuss.huggingface.co/t/open-to-the-community-community-week-using-jax-flax-for-nlp-cv/7104), organized by [HuggigFace](https://huggingface.co) and sponsored by [Google Cloud](https://cloud.google.com/). Each BERTIN model was trained in under a week on a Google Cloud TPUv3-8. Our results show state-of-the-art performance in multiple downstream tasks, and overall results are comparable to models trained on supercomputers using large private datasets. During the course of the event, we explored several perplexity-based sampling strategies that allowed us to train models efficiently under limited compute and time resources. We are very excited to introduce our methodology and learnings with the hope to empower small teams to train competitive language models on a budget.
+BERTIN is a series of Spanish RoBERTa models trained during the [Flax/JAX Community Event](https://discuss.huggingface.co/t/open-to-the-community-community-week-using-jax-flax-for-nlp-cv/7104), organized by [HuggingFace](https://huggingface.co) and sponsored by [Google Cloud](https://cloud.google.com/). Each BERTIN model was trained in under a week on a Google Cloud TPUv3-8 using publicly available data. Our results show state-of-the-art performance in multiple downstream tasks, and overall figures are comparable to models trained on supercomputers using large private datasets. During the course of the event, we explored several perplexity-based sampling strategies that allowed us to train models efficiently under limited compute and time resources. We are very excited to introduce our methodology and learnings with the hope to empower small teams to train competitive language models on a budget.
 
 # Motivation
 
@@ -85,13 +85,13 @@ At the time of the event there were no RoBERTa models available in Spanish. Ther
 
 ## The dataset: Spanish mC4
 
-In order to train BERTIN, we used the Spanish subset of the open-sourced mC4 dataset. mC4 is a multilingual variant of the C4, the Colossal, Cleaned version of Common Crawl's web crawl corpus. While C4 was used to train the T5 text-to-text Transformer models, mC4 comprises natural text in 101 languages drawn from the public Common Crawl web-scrape and was used to train mT5, the multilingual version of T5.
+In order to train BERTIN, we used the Spanish subset of the open-sourced [mC4 dataset](https://aclanthology.org/2021.naacl-main.41/). mC4 is a multilingual variant of [C4 aka Colossal Clean Crawled Corpus](https://arxiv.org/abs/1910.10683), a cleaned version of Common Crawl's web crawl corpus. While C4 was used to train the T5 text-to-text Transformer models, mC4 comprises natural text in 101 languages drawn from the public Common Crawl web-scrape and was used to train mT5, the multilingual version of T5.
 
 The Spanish portion of mC4 (mC4-es) contains about 416 million samples and 235 billion words in approximately 1TB of uncompressed data.
 
 ## Being efficient: Introducing perplexity sampling
 
-The large amount of text in mC4-es makes training a language model within the time constraints of the Flax/JAX Community Event problematic. This motivated the exploration of sampling methods, with the goal of creating a subset of the dataset that would allow for the training of well-performing models with roughly one eighth of the data (~50M samples) and at approximately half the training steps.
+The large amount of text in mC4-es makes training a language model within the time and resource constraints of the Flax/JAX Community Event problematic. This motivated the exploration of sampling methods, with the goal of creating a subset of the dataset that would allow for the training of well-performing models with roughly one eighth of the data (~50M samples) and at approximately half the training steps.
 
 In order to efficiently build this subset of data, we decided to leverage a technique we call *perplexity sampling*, and whose origin can be traced to the construction of CCNet (Wenzek et al., 2020) and their high-quality monolingual datasets from web-crawl data. In their work, they suggest the possibility of applying fast language models trained on high-quality data such as Wikipedia to filter out texts that deviate too much from correct expressions of a language (see Figure 1). They also released Kneser-Ney models (Ney et al., 1994) for 100 languages (Spanish included) as implemented in the KenLM library (Heafield, 2011) and trained on their respective Wikipedias.
 
@@ -101,7 +101,7 @@ In order to efficiently build this subset of data, we decided to leverage a tech
 
 <caption>Figure 1. Perplexity distributions by percentage CCNet corpus. The blue 
 line (en), with a narrower peak, corresponds to English language, while the red 
-one (gu) corresponds to Gujarati.</caption>
+one (gu) corresponds to Gujarati. From (Wenzek et al., 2020)</caption>
 </figure>
 
 With this information in mind, we decided to use perplexity values to filter high-quality
@@ -120,16 +120,16 @@ In order to test our hypothesis, we first calculated the perplexity of each docu
 <caption>Figure 2. Perplexity distributions and quartiles (red lines) of 44M samples of mC4-es.</caption>
 </figure>
 
-With the extracted perplexity percentiles, we created two functions to oversample the central quartiles with the idea of biasing against samples with perplexity either too low, which could indicate the sentences are short, repetitive pieces of text; or too high, which could potentially indicate poor quality text containing incorrect language forms.
+With the extracted perplexity percentiles, we created two functions to oversample the central quartiles with the idea of biasing against samples with perplexity either too low, which could indicate the sentences are short, repetitive pieces of very common text; or too high, which could potentially indicate poor quality text containing incorrect language forms.
 
 The first function is a `Stepwise` that simply oversamples the central quartiles using quartile boundaries and a `factor` for the desired sampling frequency for each quartile, obviously giving larger frequencies for middle quartiles, oversampling Q2 and Q3 and subsampling Q1 and Q4 (see Figure 3).
 The second function weighted the perplexity distribution by a Gaussian-like function, to smooth out the sharp boundaries of the `Stepwise` function and give a better approximation to the desired underlying distribution (see Figure 4).
 
-We adjusted the `factor` parameter of the `Stepwise` function, and the `factor` and `width` parameters of the `Gaussian` function to roughly be able to sample 50M samples from the 416M in mC4-es (see Figure 4). For comparison, we randomly sampled mC4-es up to 50M samples as well. In terms of sizes, we went down from 1TB of data to ~200GB. We released the code to sample from mC4 on the fly when streaming for any language as part of the dataset [`bertin-project/mc4-sampling`](https://huggingface.co/datasets/bertin-project/mc4-sampling).
+We adjusted the `factor` parameter of the `Stepwise` function, and the `factor` and `width` parameters of the `Gaussian` function to roughly be able to sample 50M samples from the 416M in mC4-es (see Figure 4). For comparison, we randomly sampled mC4-es up to 50M samples as well. In terms of sizes, we went down from 1TB of data to ~200GB. We released the code to sample from mC4 on the fly when streaming for any language as part of the dataset [`bertin-project/mc4-sampling`](https://huggingface.co/datasets/bertin-project/mc4-sampling) (obviously the parameters for the sampling functions will need to be adapted to the statistics of the language used).
 
 <figure>
 
-![Expected perplexity distributions of the sample mC4-es after applying the Stepwise function](./assets/25_bertin/perp-resample-stepwise.png)
+<img src="./assets/25_bertin/perp-resample-stepwise.png" width="600" alt="Expected perplexity distributions of the sample mC4-es after applying the Stepwise function">
 
 <caption>Figure 3. Expected perplexity distributions of the sample mC4-es after applying the Stepwise function.</caption>
 
@@ -137,10 +137,11 @@ We adjusted the `factor` parameter of the `Stepwise` function, and the `factor` 
 
 <figure>
 
-![Expected perplexity distributions of the sample mC4-es after applying Gaussian function](./assets/25_bertin/perp-resample-gaussian.png)
+<img alt="Expected perplexity distributions of the sample mC4-es after applying Gaussian function" src="./assets/25_bertin/perp-resample-gaussian.png" width="600">
 
 <caption>Figure 4. Expected perplexity distributions of the sample mC4-es after applying Gaussian function.</caption>
 </figure>
+
 
 Figure 5 shows the actual perplexity distributions of the generated 50M subsets for each of the executed subsampling procedures. All subsets can be easily accessed for reproducibility purposes using the [`bertin-project/mc4-es-sampled`](https://huggingface.co/datasets/bertin-project/mc4-es-sampled) dataset. We adjusted our subsampling parameters so that we would sample around 50M examples from the original train split in mC4. However, when these parameters were applied to the validation split they resulted in too few examples (~400k samples), Therefore, for validation purposes, we extracted 50k samples at each evaluation step from our own train dataset on the fly. Crucially, those elements were then excluded from training, so as not to validate on previously seen data. In the [`mc4-es-sampled`](https://huggingface.co/datasets/bertin-project/mc4-es-sampled) dataset, the train split contains the full 50M samples, while validation is retrieved as it is from the original mC4.
 
@@ -198,9 +199,9 @@ We used a batch size of 2048 (8 TPU cores x 256 batch size) for training with 12
 
 ## Results
 
-Please refer to the [here](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/main/evaluation) for training scripts for downstream tasks.
+Please refer to the [repository](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/main/evaluation) for training scripts for downstream tasks.
 
-Our first test, tagged [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta), refers to an initial experiment using `Stepwise` on 128 sequence length and trained for 210k steps with a small `factor` set to 10. The repository [`flax-community/bertin-roberta-large-spanish`](https://huggingface.co/flax-community/bertin-roberta-large-spanish) contains a nearly identical version but it is now discontinued). During the community event, the Barcelona Supercomputing Center (BSC) in association with the National Library of Spain released RoBERTa base and large models trained on 200M documents (570GB) of high quality private data using 100 nodes with 48 CPU cores of MareNostrum 4 during 96h. At the end of the process they were left with 2TB of clean data at the document level that were further cleaned up to the final 570GB. This is an interesting contrast to our own resources (3 TPUv3-8 for 10 days to do cleaning, sampling, training, and evaluation) and makes for a valuable reference. The BSC team evaluated our early release of the model [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta) and the results can be seen in Table 1.
+Our first test, tagged [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta), refers to an initial experiment using `Stepwise` on 128 sequence length and trained for 210k steps with a small `factor` set to 10 (the repository [`flax-community/bertin-roberta-large-spanish`](https://huggingface.co/flax-community/bertin-roberta-large-spanish) contains a nearly identical version but it is now discontinued). During the community event, the Barcelona Supercomputing Center (BSC) in association with the National Library of Spain released RoBERTa base and large models trained on 200M documents (570GB) of high quality private data using 100 nodes with 48 CPU cores of the MareNostrum 4 supercomputer during 96h. At the end of the process they were left with 2TB of clean data at the document level that were further cleaned up to the final 570GB. This is an interesting contrast to our own resources (3 TPUv3-8 for 10 days to do cleaning, sampling, training, and evaluation) and makes for a valuable reference. The BSC team evaluated our early release of the model [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta) and the results can be seen in Table 1.
 
 Our final models were trained on a different number of steps and sequence lengths and achieved different—higher—masked-word prediction accuracies. Despite these limitations it is interesting to see the results they obtained using the early version of our model. Note that some of the datasets used for evaluation by BSC are not freely available, therefore it was not possible for us to replicate the figures.
 
@@ -259,7 +260,7 @@ For simplicity, we will abbreviate the different models as follows:
 All models were fine-tuned on a single Tesla K80 GPU.
 
 <caption>
-Table 3. Metrics for different downstream tasks, comparing our different models as well as other relevant BERT models from the literature. Dataset for POS and NER is CoNLL 2002. POS and NER used max length 128 and batch size 16. Batch size for XNLI is 32 (max length 256). All models were fine-tuned for 5 epochs, with the exception of XNLI-256, for whih we fine-tuned for 2 epochs. For stepwise used an older checkpoint trained for 180,000 steps.
+Table 3. Metrics for different downstream tasks, comparing our different models as well as other relevant BERT models from the literature. Dataset for POS and NER is CoNLL 2002. POS and NER used max length 128 and batch size 16. Batch size for XNLI is 32 (max length 256). All models were fine-tuned for 5 epochs, with the exception of XNLI-256, for whih we fine-tuned for 2 epochs. For stepwise we used an older checkpoint trained for 180,000 steps.
 </caption>
 
 |     Model    | POS (F1/Acc)         |     NER (F1/Acc)    | XNLI-256 (Acc) |
@@ -297,9 +298,9 @@ Table 4. Metrics for different downstream tasks, comparing our different models 
 
 In addition to the tasks above, we also trained the [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta) model on the SQUAD dataset, achieving exact match 50.96 and F1 68.74 (sequence length 128).
 
-Results for PAWS-X seem surprising given the large differences in performance across models, unlike other tasks. We retrained all models several times and results were consistent. A similar problem was found for XNLI-512, where many models achieved a very poor accuracy of 0.3333 on a first run (and even a second, in the case of BSC-BNE). This suggests fine-tuning an be unstable for some datasets under the batch size limitations of the hardware used for fine-tuning. Increasing the batch size would likely help solving the training instability, however, this was not feasible within the project schedule. For example, runtime for XNLI-512 was ~19h per model and increasing the batch size without reducing sequence length was not possible on a single K80 GPU.
+Results for PAWS-X seem surprising given the large differences in performance across models, unlike other tasks. We retrained all models several times and results were consistent. A similar problem was found for XNLI-512, where many models achieved a very poor accuracy of 0.3333 on a first run (and even a second, in the case of BSC-BNE). This suggests fine-tuning can be unstable for some datasets under the batch size limitations of the hardware used for fine-tuning. Increasing the batch size would likely help to solve the training instability, however, this was not feasible within the project schedule. For example, runtime for XNLI-512 was ~19h per model and increasing the batch size without reducing sequence length was not possible on a single K80 GPU.
 
-We are also releasing the fine-tuned models for `Gaussian`-512 and making it our version [v1](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/v1) default to 128 sequence length since it experimentally shows better performance on fill-mask task, while also releasing the 512 sequence length version ([v1-512](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/v1-512)) for fine-tuning.
+We are also releasing the fine-tuned models for `Gaussian`-512 and making it our version [v1](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/v1) default to 128 sequence length since it experimentally shows better performance on the fill-mask task, while also releasing the 512 sequence length version ([v1-512](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/v1-512)) for fine-tuning.
 
 - POS: [`bertin-project/bertin-base-pos-conll2002-es`](https://huggingface.co/bertin-project/bertin-base-pos-conll2002-es/)
 - NER: [`bertin-project/bertin-base-ner-conll2002-es`](https://huggingface.co/bertin-project/bertin-base-ner-conll2002-es/)
@@ -310,9 +311,9 @@ We are also releasing the fine-tuned models for `Gaussian`-512 and making it our
 
 The performance of our BERTIN models has been, in general, very good. Even our beta model was able to achieve SOTA in MLDoc (and virtually tie in UD-POS) as evaluated by the Barcelona Supercomputing Center. In the main masked-language task our models reach values between 0.65 and 0.69, which foretells good results for downstream tasks.
 
-It should be noted, that it is certainly possible that any of the models —ours or otherwise— could be carefully tuned to achieve better results at a given task, and it is a possibility that the best tuning might result in a new "winner" for that category. What we can claim is that, under standard training conditions, our models are remarkably performant. In particular, `Gaussian` perplexity sampling seems to produce consistently solid models, taking the lead in four of the seven tasks analysed.
+It should be noted that it is certainly possible that any of the models —ours or otherwise— could be carefully tuned to achieve better results at a given task, and it is a possibility that the best tuning might result in a new "winner" for that category. What we can claim is that, under standard training conditions, our models are remarkably performant. In particular, `Gaussian` perplexity sampling seems to produce consistently solid models, taking the lead in four of the seven tasks analysed.
 
-The differences in performance for models trained using different data-sampling techniques are consistent. `Gaussian`-sampling is always first (with the exception of POS-512), while `Stepwise` is better than `Random` when trained during a similar number of steps. This proves that the sampling technique is, indeed, relevant and a more thorough statistical analysis could help optimize these sampling strategies.
+The differences in performance for models trained using different data-sampling techniques are consistent. `Gaussian`-sampling is always first (with the exception of POS-512), while `Stepwise` is better than `Random` when trained for a similar number of steps. This proves that the sampling technique is, indeed, relevant and a more thorough statistical analysis could help optimize these sampling strategies.
 
 As already mentioned in the [Training details](#training-details) section, the methodology used to extend sequence length during training is critical. The `Random`-sampling model took an important hit in performance in this process, while `Gaussian`-512 ended up with better metrics than `Gaussian`-128, in both the main masked-language task and the downstream datasets. The key difference was that `Random` kept the optimizer learning rate scheduler intact while `Gaussian` re-started the schedule. This difference is likely related to the fact that the learning rate was very low close to the end of training, and the adjustments needed after a change in sequence length require a larger learning rate. We believe this is an important topic of research, but our preliminary data suggests that restarting the learning rate scheduler is a safe alternative when in doubt or if computational resources are scarce.
 
