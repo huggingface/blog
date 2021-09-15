@@ -172,3 +172,11 @@
 - local: collaborative-training
   title: "Deep Learning over the Internet: Training Language Models Collaboratively"
   date: July 15, 2021
+
+- local: hardware-partners-program
+  title: "Introducing Optimum: The Optimization Toolkit for Transformers at Scale"
+  date: September 14, 2021
+
+- local: graphcore
+  title: "Hugging Face and Graphcore partner for IPU-optimized Transformers"
+  date: September 14, 2021

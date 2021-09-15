@@ -113,7 +113,7 @@ which ops have an available quantized kernel counterpart and which ops don't, an
 2. Once the model has been edited, there are many parameters to play with to find the best quantization settings:
    - Which kind of observers should I use for range calibration?
    - Which quantization scheme should I use?
-   - Which quantization related data types (int8, uint8, int16) does my target device support?
+   - Does my target device support int8 or should I stay in uint8?
 
 3. Balance the trade-off between quantization and an acceptable accuracy loss.
 4. Export the quantized model for the target device.
@@ -132,7 +132,7 @@ The configuration file can either be hosted on the Hugging Face's Model Hub or c
 
 ### 🔥 How to easily quantize Transformers for Intel Xeon CPUs with Optimum
 
-![Automatic quantization code snippet](assets/25_hardware_partners_program/carbon_quantize_managed.svg)
+![Automatic quantization code snippet](assets/25_hardware_partners_program/carbon_lpot_quantizer.png)
 
 ## Follow 🤗 Optimum: a journey to democratize ML production performance
 ### ⚡️State of the Art Hardware
