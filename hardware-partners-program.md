@@ -113,7 +113,7 @@ which ops have an available quantized kernel counterpart and which ops don't, an
 2. Once the model has been edited, there are many parameters to play with to find the best quantization settings:
    - Which kind of observers should I use for range calibration?
    - Which quantization scheme should I use?
-   - Does my target device support int8 or should I stay in uint8?
+   - Which quantization related data types (int8, uint8, int16) are supported on my target device?
 
 3. Balance the trade-off between quantization and an acceptable accuracy loss.
 4. Export the quantized model for the target device.
