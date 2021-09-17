@@ -121,12 +121,12 @@ which ops have an available quantized kernel counterpart and which ops don't, an
 Although PyTorch and TensorFlow made great progress in making things easy for quantization,
 the complexities of transformer based models makes it hard to use the provided tools out of the box and get something working without putting up a ton of effort.
 
-### 💡 How Intel is solving quantization and more with LPOT
+### 💡 How Intel is solving quantization and more with Neural Compressor
 
-Intel® [Low Precision Optimization Tool](https://github.com/intel/lpot) (LPOT) is an open-source python library designed to help users deploy low-precision inference solutions.
+Intel® [Neural Compressor](https://github.com/intel/neural-compressor) (formerly referred to as Low Precision Optimization Tool or LPOT) is an open-source python library designed to help users deploy low-precision inference solutions.
 The latter applies low-precision recipes for deep-learning models to achieve optimal product objectives,
 such as inference performance and memory usage, with expected performance criteria.
-LPOT supports post-training quantization, quantization-aware training and dynamic quantization.
+Neural Compressor supports post-training quantization, quantization-aware training and dynamic quantization.
 In order to specify the quantization approach, objective and performance criteria, the user must provide a configuration yaml file specifying the tuning parameters.
 The configuration file can either be hosted on the Hugging Face's Model Hub or can be given through a local directory path.
 
@@ -137,7 +137,7 @@ The configuration file can either be hosted on the Hugging Face's Model Hub or c
 ## Follow 🤗 Optimum: a journey to democratize ML production performance
 ### ⚡️State of the Art Hardware
 Optimum will focus on achieving optimal production performance on dedicated hardware, where software and hardware acceleration techniques can be applied for maximum efficiency.
-We will work hand in hand with our Hardware Partners to enable, test and maintain acceleration, and deliver it in an easy and accessible way through Optimum, as we did with Intel and LPOT.
+We will work hand in hand with our Hardware Partners to enable, test and maintain acceleration, and deliver it in an easy and accessible way through Optimum, as we did with Intel and Neural Compressor.
 We will soon announce new Hardware Partners who have joined us on our journey toward Machine Learning efficiency.
 
 ### 🔮 State-of-the-Art Models
