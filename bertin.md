@@ -1,6 +1,6 @@
 ---
 title: "BERTIN - Perplexity Sampling for efficient pre-training Language Models in Spanish"
-thumbnail: /blog/assets/25_bertin/bertin.png
+thumbnail: /blog/assets/27_bertin/bertin.png
 ---
 
 <h1>BERTIN - Efficiently training a state of the art Spanish Language-Model using perplexity sampling</h1>
@@ -97,7 +97,7 @@ In order to efficiently build this subset of data, we decided to leverage a tech
 
 <figure>
 
-![Perplexity distributions by percentage CCNet corpus](./assets/25_bertin/ccnet.png)
+![Perplexity distributions by percentage CCNet corpus](./assets/27_bertin/ccnet.png)
 
 <caption>Figure 1. Perplexity distributions by percentage CCNet corpus. The blue 
 line (en), with a narrower peak, corresponds to English language, while the red 
@@ -115,7 +115,7 @@ In order to test our hypothesis, we first calculated the perplexity of each docu
 
 <figure>
 
-![Perplexity distributions and quartiles (red lines) of 44M samples of mC4-es](./assets/25_bertin/perp-p95.png)
+![Perplexity distributions and quartiles (red lines) of 44M samples of mC4-es](./assets/27_bertin/perp-p95.png)
 
 <caption>Figure 2. Perplexity distributions and quartiles (red lines) of 44M samples of mC4-es.</caption>
 </figure>
@@ -129,7 +129,7 @@ We adjusted the `factor` parameter of the `Stepwise` function, and the `factor` 
 
 <figure>
 
-<img src="./assets/25_bertin/perp-resample-stepwise.png" width="600" alt="Expected perplexity distributions of the sample mC4-es after applying the Stepwise function">
+<img src="./assets/27_bertin/perp-resample-stepwise.png" width="600" alt="Expected perplexity distributions of the sample mC4-es after applying the Stepwise function">
 
 <caption>Figure 3. Expected perplexity distributions of the sample mC4-es after applying the Stepwise function.</caption>
 
@@ -137,7 +137,7 @@ We adjusted the `factor` parameter of the `Stepwise` function, and the `factor` 
 
 <figure>
 
-<img alt="Expected perplexity distributions of the sample mC4-es after applying Gaussian function" src="./assets/25_bertin/perp-resample-gaussian.png" width="600">
+<img alt="Expected perplexity distributions of the sample mC4-es after applying Gaussian function" src="./assets/27_bertin/perp-resample-gaussian.png" width="600">
 
 <caption>Figure 4. Expected perplexity distributions of the sample mC4-es after applying the Gaussian function.</caption>
 </figure>
@@ -162,7 +162,7 @@ for config in ("random", "stepwise", "gaussian"):
 
 <figure>
 
-![Experimental perplexity distributions of the sampled mc4-es after applying Gaussian and Stepwise functions, and the Random control sample](./assets/25_bertin/datasets-perp.png)
+![Experimental perplexity distributions of the sampled mc4-es after applying Gaussian and Stepwise functions, and the Random control sample](./assets/27_bertin/datasets-perp.png)
 
 <caption>Figure 5. Experimental perplexity distributions of the sampled mc4-es after applying Gaussian and Stepwise functions, and the Random control sample.</caption>
 </figure>
@@ -171,7 +171,7 @@ for config in ("random", "stepwise", "gaussian"):
 
 <figure>
 
-![Experimental perplexity distribution of the sampled mc4-es after applying Random sampling](./assets/25_bertin/datasets-random-comparison.png)
+![Experimental perplexity distribution of the sampled mc4-es after applying Random sampling](./assets/27_bertin/datasets-random-comparison.png)
 
 <caption>Figure 6. Experimental perplexity distribution of the sampled mc4-es after applying Random sampling.</caption>
 </figure>
@@ -188,7 +188,7 @@ For the `Random` sampling model, we tried trained with sequence length 512 durin
 
 <figure>
 
-![Training profile for Random sampling. Note the drop in performance after the change from 128 to 512 sequence length](./assets/25_bertin/random_512.jpeg)
+![Training profile for Random sampling. Note the drop in performance after the change from 128 to 512 sequence length](./assets/27_bertin/random_512.jpeg)
 
 <caption>Figure 7. Training profile for Random sampling model. Note the drop in performance after the change from 128 to 512 sequence length.</caption>
 </figure>
