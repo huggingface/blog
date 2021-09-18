@@ -201,13 +201,13 @@ We used a batch size of 2048 (8 TPU cores x 256 batch size per core) for trainin
 
 Please refer to the [repository](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/main/evaluation) for training scripts for downstream tasks.
 
-Our first test, tagged [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta), refers to an initial experiment using `Stepwise` on 128 sequence length and trained for 210k steps with a small `factor` set to 10 (the repository [`flax-community/bertin-roberta-large-spanish`](https://huggingface.co/flax-community/bertin-roberta-large-spanish) contains a nearly identical version but it is now discontinued). During the community event, the Barcelona Supercomputing Center (BSC) in association with the National Library of Spain released RoBERTa base and large models trained on 200M documents (570GB) of high quality private data using 100 nodes with 48 CPU cores of the MareNostrum 4 supercomputer during 96h. At the end of the process they were left with 2TB of clean data at the document level that were further cleaned up to the final 570GB. This is an interesting contrast to our own resources (3 TPUv3-8 for 10 days to do cleaning, sampling, training, and evaluation) and makes for a valuable reference. The BSC team evaluated our early release of the model [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta) and the results can be seen in Table 1.
+Our first model, tagged [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta), refers to an initial experimental model using `Stepwise` perplexity sampling on 128 sequence length and trained for 210k steps with a small `factor` set to 10 (the repository [`flax-community/bertin-roberta-large-spanish`](https://huggingface.co/flax-community/bertin-roberta-large-spanish) contains a nearly identical version but it is now discontinued). During the time frame of the community event, the Barcelona Supercomputing Center (BSC) in association with the National Library of Spain released RoBERTa base and large models trained on 200M documents (570GB) of high quality private data using 100 nodes with 48 CPU cores of the MareNostrum 4 supercomputer during 96 hours. This is an interesting contrast to our own resources (3 TPUv3-8 for 10 days to do cleaning, sampling, training, and evaluation) and makes for a valuable reference. The BSC team evaluated our early release of the model [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta) and the results can be seen in Table 1.
 
 Our final models were trained on a different number of steps and sequence lengths and achieved different—higher—masked-word prediction accuracies. Despite these limitations it is interesting to see the results they obtained using the early version of our model. Note that some of the datasets used for evaluation by BSC are not freely available, therefore it was not possible for us to replicate the figures.
 
 <figure>
 
-<caption>Table 1. Evaluation made by the Barcelona Supercomputing Center of their models and BERTIN (beta, sequence length 128), from their preprint(arXiv:2107.07253).</caption>
+<caption>Table 1. Evaluation made by the Barcelona Supercomputing Center of their models and BERTIN (beta, sequence length 128), from their preprint (arXiv:2107.07253).</caption>
 
 | Dataset     | Metric   | RoBERTa-b | RoBERTa-l | BETO   | mBERT  | BERTIN (beta) |
 |-------------|----------|-----------|-----------|--------|--------|--------|
@@ -240,9 +240,8 @@ All of our models attained good accuracy values during training in the masked-la
 
 </figure>
 
-### Downstream Tasks
 
-For simplicity, we will abbreviate the different models as follows:
+Our own results on downstream tasks are described below. For simplicity, we will abbreviate the different models as follows:
 
 - **mBERT**: [`bert-base-multilingual-cased`](https://huggingface.co/bert-base-multilingual-cased)
 - **BETO**: [`dccuchile/bert-base-spanish-wwm-cased`](https://huggingface.co/dccuchile/bert-base-spanish-wwm-cased)
@@ -255,30 +254,14 @@ For simplicity, we will abbreviate the different models as follows:
 - **Stepwise-512**: [`bertin-project/bertin-base-stepwise-exp-512seqlen`](https://huggingface.co/bertin-project/bertin-base-stepwise-exp-512seqlen)
 - **Gaussian-512**: [`bertin-project/bertin-base-gaussian-exp-512seqlen`](https://huggingface.co/bertin-project/bertin-base-gaussian-exp-512seqlen)
 
-<figure>
 
 All models were fine-tuned on a single Tesla K80 GPU.
 
+<figure>
+
 <caption>
-Table 3. Metrics for different downstream tasks, comparing our different models as well as other relevant BERT models from the literature. Dataset for POS and NER is CoNLL 2002. POS and NER used max length 128 and batch size 16. Batch size for XNLI is 32 (max length 256). All models were fine-tuned for 5 epochs, with the exception of XNLI-256, for whih we fine-tuned for 2 epochs. For stepwise we used an older checkpoint trained for 180,000 steps.
-</caption>
 
-|     Model    | POS (F1/Acc)         |     NER (F1/Acc)    | XNLI-256 (Acc) |
-|--------------|----------------------|---------------------|----------------|
-|   mBERT      |  0.9629 / 0.9687     | 0.8539 / 0.9779     |  0.7852        |
-|   BETO       |  0.9642 / 0.9700     | 0.8579 / 0.9783     |  **0.8186**    |
-|   BSC-BNE    |  0.9659 / 0.9707     | 0.8700 / 0.9807     |  0.8178        |
-|   Beta       |  0.9638 / 0.9690     | 0.8725 / 0.9812     |  0.7791        |
-|  Random      |  0.9656 / 0.9704     | 0.8704 / 0.9807     |  0.7745        |
-|  Stepwise    |  0.9656 / 0.9707     | 0.8705 / 0.9809     |  0.7820        |
-|  Gaussian    |  0.9662 / 0.9709     | **0.8792 / 0.9816** |  0.7942        |
-| Random-512   |  0.9660 /  0.9707    | 0.8616 / 0.9803     |  0.7723        |
-| Stepwise-512 |        WIP           |        WIP          |  WIP           |
-| Gaussian-512 |  **0.9662 / 0.9714** | **0.8764 / 0.9819** |  0.7878        |
-
-</figure>
-
-Table 4. Metrics for different downstream tasks, comparing our different models as well as other relevant BERT variations from the literature. Dataset for POS and NER is CoNLL 2002. POS, NER and PAWS-X used max length 512 and batch size 16. Batch size for XNLI is 16 too (max length 512). All models were fine-tuned for 5 epochs. Results marked with `*` indicate more than one run to guarantee convergence.
+Table 3. Metrics for different downstream tasks, comparing our different models as well as other relevant BERT variations from the literature. Dataset for POS and NER is CoNLL 2002. All models were fine-tuned with max length 512, batch size 16 for 5 epochs. Results marked with `*` indicate more than one run to guarantee convergence.
 </caption>
 
 |     Model    | POS (F1/Acc)         |     NER (F1/Acc)    | PAWS-X (Acc) | XNLI (Acc) |
@@ -296,18 +279,18 @@ Table 4. Metrics for different downstream tasks, comparing our different models 
 
 </figure>
 
-In addition to the tasks above, we also trained the [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta) model on the SQUAD dataset, achieving exact match 50.96 and F1 68.74 (sequence length 128).
+In addition to the tasks above, we also fine-tuned the [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta) model on the SQUAD dataset, achieving exact match 50.96 and F1 68.74 (sequence length 128).
 
 Results for PAWS-X seem surprising given the large differences in performance across models, unlike other tasks. We retrained all models several times and results were consistent. A similar problem was found for XNLI-512, where many models achieved a very poor accuracy of 0.3333 on a first run (and even a second, in the case of BSC-BNE). This suggests fine-tuning can be unstable for some datasets under the batch size limitations of the hardware used for fine-tuning. Increasing the batch size would likely help to solve the training instability, however, this was not feasible within the project schedule. For example, runtime for XNLI-512 was ~19h per model and increasing the batch size without reducing sequence length was not possible on a single K80 GPU.
 
-We are also releasing the fine-tuned models for `Gaussian`-512 and making it our version [v1](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/v1) default to 128 sequence length since it experimentally shows better performance on the fill-mask task, while also releasing the 512 sequence length version ([v1-512](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/v1-512)) for fine-tuning.
+We are also releasing the fine-tuned models for `Gaussian`-512 and making our version [v1](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/v1) default to 128 sequence length since it experimentally showed better performance on the fill-mask task, while also releasing the 512 sequence length version ([v1-512](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/v1-512)) for fine-tuning.
 
 - POS: [`bertin-project/bertin-base-pos-conll2002-es`](https://huggingface.co/bertin-project/bertin-base-pos-conll2002-es/)
 - NER: [`bertin-project/bertin-base-ner-conll2002-es`](https://huggingface.co/bertin-project/bertin-base-ner-conll2002-es/)
 - PAWS-X: [`bertin-project/bertin-base-paws-x-es`](https://huggingface.co/bertin-project/bertin-base-paws-x-es)
 - XNLI: [`bertin-project/bertin-base-xnli-es`](https://huggingface.co/bertin-project/bertin-base-xnli-es)
 
-## Analysis
+## Discusion
 
 The performance of our BERTIN models has been, in general, very good. Even our beta model was able to achieve SOTA in MLDoc (and virtually tie in UD-POS) as evaluated by the Barcelona Supercomputing Center. In the main masked-language task our models reach values between 0.65 and 0.69, which foretells good results for downstream tasks.
 
@@ -315,7 +298,7 @@ It should be noted that it is certainly possible that any of the models —ours 
 
 The differences in performance for models trained using different data-sampling techniques are consistent. `Gaussian`-sampling is always first (with the exception of POS-512), while `Stepwise` is better than `Random` when trained for a similar number of steps. This proves that the sampling technique is, indeed, relevant and a more thorough statistical analysis could help optimize these sampling strategies.
 
-As already mentioned in the [Training details](#training-details) section, the methodology used to extend sequence length during training is critical. The `Random`-sampling model took an important hit in performance in this process, while `Gaussian`-512 ended up with better metrics than `Gaussian`-128, in both the main masked-language task and the downstream datasets. The key difference was that `Random` kept the optimizer learning rate scheduler intact while `Gaussian` re-started the schedule. This difference is likely related to the fact that the learning rate was very low close to the end of training, and the adjustments needed after a change in sequence length require a larger learning rate. We believe this is an important topic of research, but our preliminary data suggests that restarting the learning rate scheduler is a safe alternative when in doubt or if computational resources are scarce.
+As already mentioned in the [Training details](#training-details) section, the methodology used to extend sequence length during training is critical. The `Random`-sampling model took an important hit in performance in this process, while `Gaussian`-512 ended up with better metrics than `Gaussian`-128, in both the main masked-language task and the downstream datasets. The key difference was that `Random` kept the optimizer learning rate scheduler intact while `Gaussian` re-started the schedule. This difference is likely related to the fact that the learning rate was very low close to the end of training, and the adjustments needed after a change in sequence length require a larger learning rate. We believe this is an important topic of research, but our preliminary data suggests that restarting the learning rate scheduler is a good strategy.
 
 # Lessons and next steps
 
