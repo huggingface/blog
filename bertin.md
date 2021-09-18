@@ -180,22 +180,22 @@ In order to rule out the possibility of perplexity sampling filtering out releva
 
 ### Training details
 
-We used the same setup and hyperparameters as [Liu et al. (2019)](https://arxiv.org/abs/1907.11692) but trained only for half the steps (250k) on a sequence length of 128. More specifically, the models trained using `Gaussian` and `Stepwise` perplexity sampling trained for the 250k steps, while `Random` was stopped at 230k steps. The `Stepwise` perplexity sampling model needed to be initially stopped at 180k to allow downstream tests (sequence length 128), but was later resumed and finished the 250k steps. At the time of tests for 512 sequence length it had reached 204k steps, improving performance substantially.
+We used the same setup and hyperparameters as [Liu et al. (2019)](https://arxiv.org/abs/1907.11692) but trained only for half the steps (250k) with a sequence length of 128.
 
-We then continued training the most promising models for a few more steps (~50k) on sequence length 512 from the previous checkpoints on 128 sequence length at 230k steps. Since there there is no standard in the literature on how to do this, we tried two different strategies. It turns out this decision had a big impact in the final performance.
+We then continued training the most promising models for 50k more steps changing the sequence length from 128 to 512. Since there there is no standard in the literature on how to do this, we tried two different strategies. It turns out this decision had a big impact in the final performance.
 
-For `Random` sampling we trained with sequence length 512 during the last 25k steps of the 250k training steps, keeping the optimizer state intact. Results for this approach were underwhelming, as seen in Figure 7.
+For the `Random` sampling model, we tried trained with sequence length 512 during the last 25k steps of the 250k training steps, keeping the optimizer state intact. Results for this approach were underwhelming, as seen in Figure 7.
 
 <figure>
 
 ![Training profile for Random sampling. Note the drop in performance after the change from 128 to 512 sequence length](./assets/25_bertin/random_512.jpeg)
 
-<caption>Figure 7. Training profile for Random sampling. Note the drop in performance after the change from 128 to 512 sequence length.</caption>
+<caption>Figure 7. Training profile for Random sampling model. Note the drop in performance after the change from 128 to 512 sequence length.</caption>
 </figure>
 
-For the `Gaussian` perplexity sampling model we started a new optimizer after 230k steps with 128 sequence length, using a short warmup interval. Results are much better using this procedure. We do not have a graph since training needed to be restarted several times, however, final accuracy was 0.6873 compared to 0.5907 for `Random` perplexity sampling model (with 512 sequence length), a difference much larger than that of their respective -128 models (0.6520 for `Random`, 0.6608 for `Gaussian`). Following the same procedure, the `Stepwise` perplexity sampling model continued training on sequence length 512 with a MLM accuracy of 0.6744 at 31k steps after the sequence length extension.
+For the `Gaussian` perplexity sampling model we started a new optimizer after training with 128 sequence length, using a short warmup interval of 500 steps. Results were much better using this procedure, achieving a final MLM accuracy of 0.6873 compared to 0.5907 for the `Random` perplexity sampling model (with 512 sequence length), a difference much larger than that of their respective 128 sequence length models (0.6520 for `Random`, 0.6608 for `Gaussian`). Following the same procedure, the `Stepwise` perplexity sampling model continued training on sequence length 512, achieving a MLM accuracy of 0.6744.
 
-We used a batch size of 2048 (8 TPU cores x 256 batch size) for training with 128 sequence length, and 384 (8 TPU cores x 48 batch size) for 512 sequence length, with no change in learning rate. Warmup steps for 512 was 500.
+We used a batch size of 2048 (8 TPU cores x 256 batch size per core) for training with 128 sequence length, and 384 (8 TPU cores x 48 batch size per core) for 512 sequence length, with no change in learning rate.
 
 ## Results
 
