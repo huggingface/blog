@@ -139,11 +139,11 @@ We adjusted the `factor` parameter of the `Stepwise` function, and the `factor` 
 
 <img alt="Expected perplexity distributions of the sample mC4-es after applying Gaussian function" src="./assets/25_bertin/perp-resample-gaussian.png" width="600">
 
-<caption>Figure 4. Expected perplexity distributions of the sample mC4-es after applying Gaussian function.</caption>
+<caption>Figure 4. Expected perplexity distributions of the sample mC4-es after applying the Gaussian function.</caption>
 </figure>
 
 
-Figure 5 shows the actual perplexity distributions of the generated 50M subsets for each of the executed subsampling procedures. All subsets can be easily accessed for reproducibility purposes using the [`bertin-project/mc4-es-sampled`](https://huggingface.co/datasets/bertin-project/mc4-es-sampled) dataset. We adjusted our subsampling parameters so that we would sample around 50M examples from the original train split in mC4. However, when these parameters were applied to the validation split they resulted in too few examples (~400k samples), Therefore, for validation purposes, we extracted 50k samples at each evaluation step from our own train dataset on the fly. Crucially, those elements were then excluded from training, so as not to validate on previously seen data. In the [`mc4-es-sampled`](https://huggingface.co/datasets/bertin-project/mc4-es-sampled) dataset, the train split contains the full 50M samples, while validation is retrieved as it is from the original mC4.
+Figure 5 shows the actual perplexity distributions of the generated 50M subsets for each of the executed subsampling procedures. All subsets can be easily accessed for reproducibility purposes using the [`bertin-project/mc4-es-sampled`](https://huggingface.co/datasets/bertin-project/mc4-es-sampled) dataset. The train split contains the full 50M samples, while validation is retrieved as it is from the original mC4.
 
 ```python
 from datasets import load_dataset
@@ -176,7 +176,7 @@ for config in ("random", "stepwise", "gaussian"):
 <caption>Figure 6. Experimental perplexity distribution of the sampled mc4-es after applying Random sampling.</caption>
 </figure>
 
-In order to rule out the possibility of perplexity sampling filtering out relevant subsets of the dataset, such as documents relating to certain topics or concepts, we visually explored potential correlations between semantics and perplexity. The interactive visualization was generated using [a distilled version of multilingual USE](https://huggingface.co/sentence-transformers/distiluse-base-multilingual-cased-v1) to embed a random subset of 20,000 mC4-es examples and t-SNE was used for dimensionality reduction to a 2D space. The visualization seems to show a uniform distribution of perplexity across the different semantic clusters (each example is colored based on its perplexity). This is important since, in principle, perplexity sampling could introduce undesired biases if perplexity happens to be correlated to some other quality of our data. The visualization code is available at [`tsne_plot.py`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/blob/main/tsne_plot.py) and you can play with it [here](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/raw/main/images/perplexity_colored_embeddings.html).
+In order to rule out the possibility of perplexity sampling filtering out relevant subsets of the dataset, such as documents relating to certain topics, we visually explored potential correlations between semantics and perplexity. The interactive visualization was generated using [a distilled version of multilingual USE](https://huggingface.co/sentence-transformers/distiluse-base-multilingual-cased-v1) to embed a random subset of 20,000 mC4-es examples, then t-SNE was used for dimensionality reduction to a 2D space. The visualization showed a seemingly uniform distribution of perplexity across the different semantic clusters (each example is colored based on its perplexity). This is important since, in principle, perplexity sampling could introduce undesired biases if perplexity happens to be correlated to some other quality of our data. The visualization can be found [here](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/raw/main/images/perplexity_colored_embeddings.html).
 
 ### Training details
 
