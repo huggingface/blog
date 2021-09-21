@@ -38,12 +38,14 @@ You can demonstrate your models in Hub easily. You only need to define the [Inte
 
 ```
 import gradio as gr
+
 description = "Story generation with GPT-2"
 title = "Generate your own story 
+
 interface = gr.Interface.load("huggingface/pranavpsv/gpt2-genre-story-generator",
-description=description,
-examples=[["Adventurer is approached by a mysterious stranger in the tavern for a new quest."]]
-)
+    description=description,
+    examples=[["Adventurer is approached by a mysterious stranger in the tavern for a new quest."]])
+
 interface.launch()
 ```
 
@@ -66,24 +68,17 @@ Using Gradio Series, you can mix-and-match different models! Here, we've put Fre
 
 ```
 import gradio as gr
-
 from gradio.mix import Series
 
 description = "Generate your own D&D story!"
-
 title = "French Story Generator using Opus MT and GPT-2"
 
 translator_fr = gr.Interface.load("huggingface/Helsinki-NLP/opus-mt-fr-en")
-
 story_gen = gr.Interface.load("huggingface/pranavpsv/gpt2-genre-story-generator")
-
 translator_en = gr.Interface.load("huggingface/Helsinki-NLP/opus-mt-en-fr")
 
 Series(translator_fr, story_gen, translator_en, description = description,
-
-title = title,
-
-examples=[["L'aventurier est approché par un mystérieux étranger, pour une nouvelle quête."]], inputs = gr.inputs.Textbox(lines = 10)).launch()
+    title = title, examples=[["L'aventurier est approché par un mystérieux étranger, pour une nouvelle quête."]], inputs = gr.inputs.Textbox(lines = 10)).launch()
 
 ```
 
