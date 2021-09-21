@@ -180,3 +180,7 @@
 - local: graphcore
   title: "Hugging Face and Graphcore partner for IPU-optimized Transformers"
   date: September 14, 2021
+
+- local: summer-at-huggingface
+  title: "Summer at Hugging Face ☀️"
+  date: September 22, 2021
