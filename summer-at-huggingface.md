@@ -121,7 +121,7 @@ We're really excited to share the work of the 3 winning teams!
 
     ![Generated 3D object with NeRF](assets/27_summer_at_huggingface/diet_nerf.png)
 
-3. [CLIP RSIC](https://huggingface.co/spaces/sujitpal/clip-rsicd-demo). CLIP RSIC is a CLIP model fine-tuned on remote sensing image data to enable zero-shot satellite image classification and captioning. This project demonstrates how effective fine-tuned CLIP models can be for specialized domains
+3. [CLIP RSIC](https://huggingface.co/spaces/sujitpal/clip-rsicd-demo). CLIP RSIC is a CLIP model fine-tuned on remote sensing image data to enable zero-shot satellite image classification and captioning. This project demonstrates how effective fine-tuned CLIP models can be for specialized domains.
 
     ![CLIP search](assets/27_summer_at_huggingface/clip.png)
 
