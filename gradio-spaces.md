@@ -6,7 +6,7 @@ It's so easy to demonstrate a machine learning project thanks to [Gradio](https:
 
 
 
-## 🤗 Hub Integration in Gradio
+## Hugging Face Hub Integration in Gradio
 
 You can demonstrate your models in Hub easily. You only need to define the [Interface](https://gradio.app/docs#interface) that will include the model name you want to infer with, define additional descriptions and titles, maybe an example input to guide your audience. After defining your Interface, just call `.launch()` and serve your model. You can directly put this in Spaces as well!
 
