@@ -180,3 +180,7 @@
 - local: graphcore
   title: "Hugging Face and Graphcore partner for IPU-optimized Transformers"
   date: September 14, 2021
+
+- local: gradio-spaces
+  title: "Showcase Your Projects in Spaces using Gradio"
+  date: September 21, 2021
