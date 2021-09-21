@@ -28,7 +28,7 @@ Summer is almost over but the last few months have been busy at Hugging Face. Fr
 In this blog post you'll read about everything that has happened at Hugging Face in June, July and August!
 
 
-![Summet At Hugging Face](assets/27_summer_at_huggingface/summer_intro.gif)
+![Summer At Hugging Face](assets/27_summer_at_huggingface/summer_intro.gif)
 
 This post covers a lot of different areas in which our team has been working on, so we encourage you to jump to the specific sections of your interest 🤗
 
@@ -70,13 +70,13 @@ In late June, we launched a TensorBoard integration for all our models. If there
 
 ### Metrics
 
-In July, we added the ability to list evaluation metrics in model repos by adding them to their model card📈. If you add an evaluation metric under the `model_index` section of your model card, it will be displayed proudly in your model repo.
+In July, we added the ability to list evaluation metrics in model repos by adding them to their model card📈. If you add an evaluation metric under the `model-index` section of your model card, it will be displayed proudly in your model repo.
 
 ![Evaluation Metrics](assets/27_summer_at_huggingface/metrics.png)
 
 If that wasn't enough, these metrics will be automatically linked to the corresponding [Papers With Code](https://paperswithcode.com/) leaderboard. That means as soon as you share your model on the Hub, you can compare your results side-by-side with others in the community. 💪
 
-Check out [this repo](https://huggingface.co/nateraw/vit-base-beans-demo) as an example, paying close attention to `model_index` section of its [model card](https://huggingface.co/nateraw/vit-base-beans-demo/blob/main/README.md#L12-L25) to see how you can do this yourself and find the metrics in Papers with Code [automatically](https://paperswithcode.com/sota/image-classification-on-beans).
+Check out [this repo](https://huggingface.co/nateraw/vit-base-beans-demo) as an example, paying close attention to `model-index` section of its [model card](https://huggingface.co/nateraw/vit-base-beans-demo/blob/main/README.md#L12-L25) to see how you can do this yourself and find the metrics in Papers with Code [automatically](https://paperswithcode.com/sota/image-classification-on-beans).
 
 ### New Widgets
 
