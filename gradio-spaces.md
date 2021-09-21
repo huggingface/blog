@@ -21,7 +21,7 @@ You can demonstrate your models in Hub easily. You only need to define the [Inte
     interface.launch()
 ![story-gen](assets/27_gradio-spaces/story-gen.png)
 
-This integration supports different types of models, image-to-text, speech-to-text, text-to-speech and more.
+This integration supports different types of models, `image-to-text`, `speech-to-text`, `text-to-speech` and more.
 
 ![big-gan](assets/27_gradio-spaces/big-gan.png)
 
