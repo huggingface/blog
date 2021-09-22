@@ -129,12 +129,12 @@ Apart from these very cool projects, we're excited about how these community eve
 
 ## Bonus
 
-Apart from all we just shared, our team has been doing lots of other things. Here are just some of them:
+On top of everything we just shared, our team has been doing lots of other things. Here are just some of them:
 
 - 📖 This 3-part [video series](https://www.youtube.com/watch?time_continue=6&v=qmN1fJ7Fdmo&feature=emb_title&ab_channel=NilsR) shows the theory on how to train state-of-the-art sentence embedding models. 
 - We presented at PyTorch Community Voices and participated in a QA ([video](https://www.youtube.com/watch?v=wE3bk7JaH4E&ab_channel=PyTorch)).
 - Hugging Face has collaborated with [NLP in Spanish](https://twitter.com/NLP_en_ES) and [SpainAI](https://twitter.com/Spain_AI_) in a Spanish [course](https://www.youtube.com/playlist?list=PLBILcz47fTtPspj9QDm2E0oHLe1p67tMz) that teaches concepts and state-of-the art architectures as well as their applications through use cases.
-
+- We presented at [MLOps World Demo Days](https://www.youtube.com/watch?v=lWahHp5vpVg).
 
 ## Open Source
 
@@ -144,7 +144,7 @@ Summer has been an exciting time for 🤗 Transformers! The library reached 50,0
 
 So what's new? JAX/Flax is now the 3rd supported framework with over [5000](https://huggingface.co/models?library=jax&sort=downloads) models in the Hub! You can find actively maintained [examples](https://github.com/huggingface/transformers/tree/master/examples/flax) for different tasks such as text classification. We're also working hard on improving our TensorFlow support: all our [examples](https://github.com/huggingface/transformers/tree/master/examples/tensorflow) have been reworked to be more robust, TensorFlow idiomatic, and clearer. This includes examples such as summarization, translation, and named entity recognition.
 
-You can now easily publish your model to the Hub, including automatically authored model cards, evaluation metrics, and TensorBoard instances. There is also increased support for exporting models to ONNX with the new `transformers.onnx` library.
+You can now easily publish your model to the Hub, including automatically authored model cards, evaluation metrics, and TensorBoard instances. There is also increased support for exporting models to ONNX with the new `transformers.onnx` module.
 
 ```bash
 python -m transformers.onnx --model=bert-base-cased onnx/bert-base-cased/
