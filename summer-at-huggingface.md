@@ -86,7 +86,7 @@ With our latest integrations to Sentence Transformers, we also introduced two ne
 
 The latest **audio classification** widget enables many cool use cases: language identification,  [street sound detection](https://huggingface.co/speechbrain/urbansound8k_ecapa) 🚨, [command recognition](https://huggingface.co/speechbrain/google_speech_command_xvector), [speaker identification](https://huggingface.co/speechbrain/spkrec-xvect-voxceleb), and more! You can try this out with `transformers` and `speechbrain` models today! 🔊 (Beware, when you try some of the models, you might need to bark out loud)
 
-You can try our early demo of [structured data classification](https://huggingface.co/julien-c/wine-quality) with Scikit-learn. And finally, we also introduced new widgets for image-related models: **text to image**, **image classification**, and **object detection**. Try object detection [here](https://huggingface.co/facebook/detr-resnet-50)!
+You can try our early demo of [structured data classification](https://huggingface.co/julien-c/wine-quality) with Scikit-learn. And finally, we also introduced new widgets for image-related models: **text to image**, **image classification**, and **object detection**. Try image classification with Google's ViT model [here] (https://huggingface.co/google/vit-base-patch16-224) and object detection with Facebook AI's DETR model [here](https://huggingface.co/facebook/detr-resnet-50)!
 
 ![Object Detection Widget](assets/27_summer_at_huggingface/object-detection.png)
 
@@ -107,7 +107,7 @@ In June, we launched the first part of our [free online course](https://huggingf
 
 ### JAX/FLAX Sprint
 
-In July we hosted our biggest [community event](https://discuss.huggingface.co/t/open-to-the-community-community-week-using-jax-flax-for-nlp-cv/7104) ever with almost 800 participants! In this event co-organized with the JAX/Flax and Google Cloud teams, compute-intensive NLP, Computer Vision, and Speech projects were made accessible to a wider audience of engineers and researchers. The participants created over 170 models, 22 datasets, and 38 Spaces demos 🤯. You can explore all the amazing demos and projects [here](https://huggingface.co/flax-community).
+In July we hosted our biggest [community event](https://discuss.huggingface.co/t/open-to-the-community-community-week-using-jax-flax-for-nlp-cv/7104) ever with almost 800 participants! In this event co-organized with the JAX/Flax and Google Cloud teams, compute-intensive NLP, Computer Vision, and Speech projects were made accessible to a wider audience of engineers and researchers by providing free TPUv3s. The participants created over 170 models, 22 datasets, and 38 Spaces demos 🤯. You can explore all the amazing demos and projects [here](https://huggingface.co/flax-community).
 
 There were talks around JAX/Flax, Transformers, large-scale language modeling, and more! You can find all recordings [here](https://github.com/huggingface/transformers/tree/master/examples/research_projects/jax-projects#talks). 
 
@@ -152,24 +152,24 @@ python -m transformers.onnx --model=bert-base-cased onnx/bert-base-cased/
 
 The last 4 releases introduced many new cool models!
 
-- DETR ([paper](https://arxiv.org/abs/2005.12872)) can do fast end-to-end object detection and image segmentation. Check out some of our community [tutorials](https://github.com/NielsRogge/Transformers-Tutorials/tree/master/DETR)!
+- [DETR](https://huggingface.co/transformers/model_doc/detr.html) can do fast end-to-end object detection and image segmentation. Check out some of our community [tutorials](https://github.com/NielsRogge/Transformers-Tutorials/tree/master/DETR)!
 
 ![DETR image](assets/27_summer_at_huggingface/detr.png)
 
-- ByT5 ([paper](https://arxiv.org/abs/2105.13626)) is the first tokenizer-free model in the Hub! You can find all available checkpoints [here](https://huggingface.co/models?search=byt5).
-- CANINE ([paper](https://arxiv.org/abs/2103.06874)) is another tokenizer-free encoder-only model by Google AI, operating directly at the character level. You can find all (multilingual) checkpoints [here](https://huggingface.co/models?search=canine).
-- HuBERT ([paper](https://arxiv.org/abs/2106.07447)) shows exciting results for downstream audio tasks such as [command classification](https://huggingface.co/superb/hubert-base-superb-ks) and [emotion recognition](https://huggingface.co/superb/hubert-base-superb-er). Check the models [here](https://huggingface.co/models?filter=hubert).
-- LayoutLMv2 ([paper](https://arxiv.org/abs/2012.14740)) and LayoutXLM ([paper](https://arxiv.org/abs/2104.08836)) are two incredible models capable of parsing document images (like PDFs) by incorporating text, layout, and visual information. We built a [Space demo](https://huggingface.co/spaces/nielsr/LayoutLMv2-FUNSD) so you can directly try it out! Demo notebooks can be found [here](https://github.com/NielsRogge/Transformers-Tutorials/tree/master/LayoutLMv2).
+- [ByT5](https://huggingface.co/transformers/model_doc/byt5.html) is the first tokenizer-free model in the Hub! You can find all available checkpoints [here](https://huggingface.co/models?search=byt5).
+- [CANINE](https://huggingface.co/transformers/model_doc/canine.html) is another tokenizer-free encoder-only model by Google AI, operating directly at the character level. You can find all (multilingual) checkpoints [here](https://huggingface.co/models?search=canine).
+- [HuBERT](https://huggingface.co/transformers/model_doc/hubert.html?highlight=hubert) shows exciting results for downstream audio tasks such as [command classification](https://huggingface.co/superb/hubert-base-superb-ks) and [emotion recognition](https://huggingface.co/superb/hubert-base-superb-er). Check the models [here](https://huggingface.co/models?filter=hubert).
+- [LayoutLMv2](https://huggingface.co/transformers/model_doc/layoutlmv2.html) and [LayoutXLM](https://huggingface.co/transformers/model_doc/layoutxlm.html?highlight=layoutxlm) are two incredible models capable of parsing document images (like PDFs) by incorporating text, layout, and visual information. We built a [Space demo](https://huggingface.co/spaces/nielsr/LayoutLMv2-FUNSD) so you can directly try it out! Demo notebooks can be found [here](https://github.com/NielsRogge/Transformers-Tutorials/tree/master/LayoutLMv2).
 
 ![LayoutLM object detection](assets/27_summer_at_huggingface/layout.png)
 
-- BEiT ([paper](https://arxiv.org/abs/2106.08254)) by Microsoft Research makes self-supervised Vision Transformers outperform supervised ones, using a clever pre-training objective inspired by BERT.
-- RemBERT ([paper](https://arxiv.org/abs/2010.12821)), a large multilingual Transformer that outperforms XLM-R (and mT5 with a similar number of parameters) in zero-shot transfer.
-- Splinter ([paper](https://arxiv.org/abs/2101.00438)) which can be used for few-shot question answering. Given only 128 examples, Splinter is able to reach ~73% F1 on SQuAD, outperforming MLM-based models by 24 points!
+- [BEiT](https://huggingface.co/transformers/model_doc/beit.html) by Microsoft Research makes self-supervised Vision Transformers outperform supervised ones, using a clever pre-training objective inspired by BERT.
+- [RemBERT](https://huggingface.co/transformers/model_doc/rembert.html?), a large multilingual Transformer that outperforms XLM-R (and mT5 with a similar number of parameters) in zero-shot transfer.
+- [Splinter](https://huggingface.co/transformers/model_doc/splinter.html) which can be used for few-shot question answering. Given only 128 examples, Splinter is able to reach ~73% F1 on SQuAD, outperforming MLM-based models by 24 points!
 
 The Hub is now integrated into `transformers`, with the ability to push to the Hub configuration, model, and tokenizer files without leaving the Python runtime! The `Trainer` can now push directly to the Hub every time a checkpoint is saved: 
 
-![Untitled](assets/27_summer_at_huggingface/save_checkpoint.png)
+![Saving a checkpoint](assets/27_summer_at_huggingface/save_checkpoint.png)
 
 ### New in Datasets
 
