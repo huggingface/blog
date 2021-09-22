@@ -185,7 +185,7 @@ What are the new datasets highlights? Microsoft CodeXGlue [datasets](https://hug
 
 ### Welcoming new Libraries to the Hub
 
-Apart from having deep integration with `transformers`-based models, the Hub is also building great partnerships with open source ML libraries to provide free model hosting and versioning. We've been achieving this with our [huggingface_hub](https://github.com/huggingface/huggingface_hub) Open-Source library as well as new Hub [documentation](https://huggingface.co/docs/hub/main). 
+Apart from having deep integration with `transformers`-based models, the Hub is also building great partnerships with Open Source ML libraries to provide free model hosting and versioning. We've been achieving this with our [huggingface_hub](https://github.com/huggingface/huggingface_hub) Open-Source library as well as new Hub [documentation](https://huggingface.co/docs/hub/main). 
 
 All spaCy canonical pipelines can now be found in the official spaCy [organization](https://huggingface.co/spacy), and any user can share their pipelines with a single command `python -m spacy huggingface-hub`. To read more about it, head to [https://huggingface.co/blog/spacy](https://huggingface.co/blog/spacy). You can try all canonical spaCy models directly in the Hub in the demo [Space](https://huggingface.co/spaces/spacy/pipeline-visualizer)!
 
@@ -214,7 +214,7 @@ We have been working on a really sleek solution to achieve unmatched efficiency 
 
 ### **NEW: Hardware Acceleration**
 
-Hugging Face is [partnering with leading AI hardware accelerators](http://hf.co/hardware) such as Intel, Qualcomm and GraphCore to make state-of-the-art production performance accessible and extend training capabilities on SOTA hardware. As the first step in this journey, we [introduced a new open source library](https://huggingface.co/blog/hardware-partners-program): 🤗 Optimum - the ML optimization toolkit for production performance 🏎. Learn more in this [blog post](https://huggingface.co/blog/graphcore). 
+Hugging Face is [partnering with leading AI hardware accelerators](http://hf.co/hardware) such as Intel, Qualcomm and GraphCore to make state-of-the-art production performance accessible and extend training capabilities on SOTA hardware. As the first step in this journey, we [introduced a new Open Source library](https://huggingface.co/blog/hardware-partners-program): 🤗 Optimum - the ML optimization toolkit for production performance 🏎. Learn more in this [blog post](https://huggingface.co/blog/graphcore). 
 
 ### **NEW: Inference on SageMaker**
 
