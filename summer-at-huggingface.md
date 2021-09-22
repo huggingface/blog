@@ -4,10 +4,10 @@ thumbnail: /blog/assets/27_summer_at_huggingface/thumbnail.png
 
 ---
 
-# Summer At Hugging Face
+# Summer At Hugging Face 😎
 
 <div class="blog-metadata">
-    <small>Published July 13, 2021.</small>
+    <small>Published September 22, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/summer-at-huggingface.md">
         Update on GitHub
     </a>
@@ -23,14 +23,14 @@ thumbnail: /blog/assets/27_summer_at_huggingface/thumbnail.png
     </a>
 </div>
 
-Summer is almost over but the last few months have been busy at Hugging Face. From new features in the Hub to research and Open Source development, our team has been working hard to empower the community through open and collaborative technology. 
+Summer is now officially over and these last few months have been quite busy at Hugging Face. From new features in the Hub to research and Open Source development, our team has been working hard to empower the community through open and collaborative technology. 
 
-In this blog post you'll read about everything that has happened at Hugging Face in June, July and August!
+In this blog post you'll catch up on everything that happened at Hugging Face in June, July and August!
 
 
 ![Summer At Hugging Face](assets/27_summer_at_huggingface/summer_intro.gif)
 
-This post covers a lot of different areas in which our team has been working on, so we encourage you to jump to the specific sections of your interest 🤗
+This post covers a wide range of areas our team has been working on, don't hesitate to skip to the parts that interest you most 🤗
 
 1. [New Features](#new-features)
 2. [Community](#community)
@@ -40,23 +40,23 @@ This post covers a lot of different areas in which our team has been working on,
 
 ## New Features
 
-In the last few months, the Hub went from 10,000 public model repositories to over 16,000 models! But we have not only increased in size, we have a lot of new cool features to share with you!
+In the last few months, the Hub went from 10,000 public model repositories to over 16,000 models! Kudos to our community for sharing so many amazing models with the world. And beyond the numbers, we have a ton of cool new features to share with you!
 
 ### Spaces Beta ([hf.co/spaces](/spaces)) 
 
-Spaces are a simple, free solution to host Machine Learning demo apps directly on your user profile or your organization’s [hf.co](http://hf.co/) profile. We support two awesome SDKs that let you build cool apps in Python: [Gradio](https://gradio.app/) and [Streamlit](https://streamlit.io/). In a matter of minutes you can deploy an app and share it with the community! 🚀
+Spaces is a simple, free solution to host Machine Learning demo applications directly on your user profile or your organization [hf.co](http://hf.co/) profile. We support two awesome SDKs that let you build cool apps easily in Python: [Gradio](https://gradio.app/) and [Streamlit](https://streamlit.io/). In a matter of minutes you can deploy an app and share it with the community! 🚀
 
 Spaces lets you [set up secrets](/docs/hub/spaces#secret-management), permits [custom requirements](/docs/hub/spaces#how-can-i-install-other-dependencies), and can even be managed [directly from GitHub repos](/docs/hub/spaces#how-can-i-manage-my-app-through-github). You can sign up for the beta at [hf.co/spaces](/spaces). Here are some of our favorites!
 
 - Create recipes with the help of [Chef Transformer](/spaces/flax-community/chef-transformer)
-- Perform audio to text with [HuBERT](https://huggingface.co/spaces/osanseviero/HUBERT)
+- Transcribe speech to text with [HuBERT](https://huggingface.co/spaces/osanseviero/HUBERT)
 - Do segmentation in a video with the [DINO model](/spaces/nateraw/dino-clips)
 - Use [Paint Transformer](/spaces/akhaliq/PaintTransformer) to make paintings from a given picture
 - Or you can just explore any of the over [100 existing Spaces](/spaces)!
 
 ![Landing page of Spaces](assets/27_summer_at_huggingface/spaces_landing.png)
 
-### Sharing some love
+### Share some love
 
 You can now like any model, dataset, or Space on [http://huggingface.co](http://huggingface.co/), meaning you can share some love with the community ❤️. You can also keep an eye on who's liking what by clicking on the likes box 👀. Go ahead and like your own repos, we're not judging 😉.
 
@@ -86,12 +86,12 @@ With our latest integrations to Sentence Transformers, we also introduced two ne
 
 The latest **audio classification** widget enables many cool use cases: language identification,  [street sound detection](https://huggingface.co/speechbrain/urbansound8k_ecapa) 🚨, [command recognition](https://huggingface.co/speechbrain/google_speech_command_xvector), [speaker identification](https://huggingface.co/speechbrain/spkrec-xvect-voxceleb), and more! You can try this out with `transformers` and `speechbrain` models today! 🔊 (Beware, when you try some of the models, you might need to bark out loud)
 
-You can try our early demo of [structured data classification](https://huggingface.co/julien-c/wine-quality) with Scikit Learn. And finally, we also introduced new widgets for image-related models: **text to image**, **image classification**, and **object detection**. Try object detection right now [here](https://huggingface.co/facebook/detr-resnet-50).
+You can try our early demo of [structured data classification](https://huggingface.co/julien-c/wine-quality) with Scikit Learn. And finally, we also introduced new widgets for image-related models: **text to image**, **image classification**, and **object detection**. Try object detection [here](https://huggingface.co/facebook/detr-resnet-50)!
 
 ![Object Detection Widget](assets/27_summer_at_huggingface/object-detection.png)
 
 
-### Misc Features
+### More Features
 
 That's not everything that has happened in the Hub. We've introduced new and improved [documentation](https://huggingface.co/docs/hub/main) of the Hub. We also introduced two widely requested features: users can now transfer/rename repositories and upload directly new files to the Hub.
 
@@ -101,7 +101,7 @@ That's not everything that has happened in the Hub. We've introduced new and imp
 
 ### Hugging Face Course
 
-In June, we launched the first part of our [course](https://huggingface.co/course/chapter1)! The course teaches you everything about the 🤗 Ecosystem: Transformers, Tokenizers, Datasets, Accelerate, and the Hub. You can also find links to the course lessons in the official documentation of our libraries. The live sessions for all chapters can be found on our [YouTube channel](https://www.youtube.com/playlist?list=PLo2EIpI_JMQuQ8StH9RwKXwJVqLTDxwwy). Stay tuned for the next part of the course which we'll be launching later this year!
+In June, we launched the first part of our [free online course](https://huggingface.co/course/chapter1)! The course teaches you everything about the 🤗 Ecosystem: Transformers, Tokenizers, Datasets, Accelerate, and the Hub. You can also find links to the course lessons in the official documentation of our libraries. The live sessions for all chapters can be found on our [YouTube channel](https://www.youtube.com/playlist?list=PLo2EIpI_JMQuQ8StH9RwKXwJVqLTDxwwy). Stay tuned for the next part of the course which we'll be launching later this year!
 
 ![Course topics](assets/27_summer_at_huggingface/course.png)
 
@@ -170,7 +170,7 @@ The Hub is now integrated into `transformers`, with the ability to push to the H
 
 ### New in Datasets
 
-You can find 1400 datasets in [https://huggingface.co/datasets](https://huggingface.co/datasets) thanks to the awesome contributions from all our community. 💯
+You can find 1400 public datasets in [https://huggingface.co/datasets](https://huggingface.co/datasets) thanks to the awesome contributions from all our community. 💯
 
 The support for `datasets` keeps growing: it can be used in JAX, process parquet files, use remote files, and has wider support for other domains such as Automatic Speech Recognition and Image Classification.
 
@@ -180,7 +180,7 @@ Users can also directly host and share their datasets to the community simply by
 
 What are the new datasets highlights? Microsoft CodeXGlue [datasets](https://huggingface.co/datasets?search=code_x_glue) for multiple coding tasks (code completion, generation, search, etc), huge datasets such as [C4](https://huggingface.co/datasets/c4) and [MC4](https://huggingface.co/datasets/mc4), and many more such as  [RussianSuperGLUE](https://huggingface.co/datasets/russian_super_glue) and [DISFL-QA](https://huggingface.co/datasets/disfl_qa).
 
-### Third Party Integrations to the Hub
+### Welcoming new Libraries to the Hub
 
 Apart from having deep integration with `transformers`-based models, the Hub is also building great partnerships with open source ML libraries to provide free model hosting and versioning. We've been achieving this with our [huggingface_hub](https://github.com/huggingface/huggingface_hub) Open-Source library as well as new Hub [documentation](https://huggingface.co/docs/hub/main). 
 
@@ -190,16 +190,40 @@ All spaCy canonical pipelines can now be found in the official spaCy [organizati
 
 Another exciting integration is Sentence Transformers. You can read more about it in the [blog announcement](https://huggingface.co/blog/sentence-transformers-in-the-hub): you can find over 200 [models](https://huggingface.co/models?library=sentence-transformers) in the Hub, easily share your models with the rest of the community and reuse models from the community.
 
-But that's not all! You can now find over 100 Adapter Transformers in the Hub and try out Speechbrain models with widgets directly in the browser for different tasks such as audio classification. If you're interested in our 3rd party collaborations, you can read more about them [here](https://huggingface.co/docs/hub/libraries).
+But that's not all! You can now find over 100 Adapter Transformers in the Hub and try out Speechbrain models with widgets directly in the browser for different tasks such as audio classification. If you're interested in our collaborations to integrate new ML libraries to the Hub, you can read more about them [here](https://huggingface.co/docs/hub/libraries).
 
 ![Filter of all libraries](assets/27_summer_at_huggingface/filters.png)
 
 
 ## Solutions
 
-### AutoNLP
+### **Coming soon: Infinity**
 
-We released a new AutoNLP experience: a web interface to train models straight from your browser! Now all it takes is a few clicks to train, evaluate and deploy **🤗** Transformers models on your own data. [Try it out](https://ui.autonlp.huggingface.co/) - NO CODE needed!
+Transformers latency down to 1ms? 🤯🤯🤯
+
+We have been working on a really sleek solution to achieve unmatched efficiency for state-of-the-art Transformer models, for companies to deploy in their own infrastructure.
+
+- Infinity comes as a single-container and can be deployed in any production environment.
+- It can achieve 1ms latency for BERT-like models on GPU and 4-10ms on CPU 🤯🤯🤯
+- Infinity meets the highest security requirements and can be integrated into your system without the need for internet access. You have control over all incoming and outgoing traffic.
+
+⚠️  Join us for a [live announcement and demo on Sep 28](https://app.livestorm.co/hugging-face/hugging-face-infinity-launch?type=detailed), where we will be showcasing Infinity for the first time in public!
+
+### **NEW: Hardware Acceleration**
+
+Hugging Face is [partnering with leading AI hardware accelerators](http://hf.co/hardware) such as Intel, Qualcomm and GraphCore to make state-of-the-art production performance accessible and extend training capabilities on SOTA hardware. As the first step in this journey, we [introduced a new open source library](https://huggingface.co/blog/hardware-partners-program): 🤗 Optimum - the ML optimization toolkit for production performance 🏎. Learn more in this [blog post](https://huggingface.co/blog/graphcore). 
+
+### **NEW: Inference on SageMaker**
+
+We launched a [new integration with AWS](https://huggingface.co/blog/deploy-hugging-face-models-easily-with-amazon-sagemaker) to make it easier than ever to deploy 🤗 Transformers in SageMaker 🔥. Pick up the code snippet right from the 🤗 Hub model page! Learn more about how to leverage transformers in SageMaker in our [docs](https://huggingface.co/docs/sagemaker/inference) or check out these [video tutorials](https://youtube.com/playlist?list=PLo2EIpI_JMQtPhGR5Eo2Ab0_Vb89XfhDJ).
+
+For questions reach out to us on the forum: [https://discuss.huggingface.co/c/sagemaker/17](https://discuss.huggingface.co/c/sagemaker/17)
+
+![Sagemaker](assets/27_summer_at_huggingface/sagemaker.png)
+
+### **NEW: AutoNLP in your browser**
+
+We released a new [AutoNLP](https://huggingface.co/autonlp) experience: a web interface to train models straight from your browser! Now all it takes is a few clicks to train, evaluate and deploy **🤗** Transformers models on your own data. [Try it out](https://ui.autonlp.huggingface.co/) - NO CODE needed!
 
 ![AutoNLP on the web.gif](assets/27_summer_at_huggingface/autonlp.gif)
 
@@ -231,31 +255,7 @@ We wrote a [blog post](https://huggingface.co/blog/few-shot-learning-gpt-neo-and
 
 ### **Expert Acceleration Program**
 
-Check out out the brand [new page for the Expert Acceleration Program](https://huggingface.co/landing/premium-support); you can now get direct, premium support from our award-winning Machine Learning experts and build better ML solutions, faster.
-
-### **NEW: SageMaker Integration**
-
-We have launched a [new integration with AWS](https://huggingface.co/blog/deploy-hugging-face-models-easily-with-amazon-sagemaker) to make it easier than ever to deploy 🤗 Transformers in SageMaker 🔥. Pick up the code snippet right from the 🤗 Hub model page! Learn more about how to leverage transformers in SageMaker in our [docs](https://huggingface.co/docs/sagemaker/inference) or check out these [video tutorials](https://youtube.com/playlist?list=PLo2EIpI_JMQtPhGR5Eo2Ab0_Vb89XfhDJ).
-
-For questions reach out to us on the forum: [https://discuss.huggingface.co/c/sagemaker/17](https://discuss.huggingface.co/c/sagemaker/17)
-
-![Sagemaker](assets/27_summer_at_huggingface/sagemaker.png)
-
-### **NEW: Hardware Acceleration**
-
-Hugging Face is [partnering with leading AI hardware accelerators](http://hf.co/hardware) such as Intel, Qualcomm and GraphCore to make state-of-the-art production performance accessible and extend training capabilities on SOTA hardware. As the first step of these partnerships, we are introducing 🤗 Optimum: the ML optimization toolkit for production performance 🏎. Learn more about these announcements in this [blog post](https://huggingface.co/blog/graphcore). 
-
-### **Upcoming: Infinity**
-
-Transformers latency down to 1ms? 🤯🤯🤯
-
-Hugging Face is working on a really special solution to achieve unmatched performance of state-of-the-art Transformer models for companies to deploy in their own infrastructure.
-
-- Infinity comes as a single-container and can be deployed in any production environment.
-- It can achieve 1ms latency for BERT-like models on GPU and 4-10ms on CPU 🤯🤯🤯
-- Infinity meets the highest security requirements and can be integrated into your system without the need for internet access. You have control over all incoming and outgoing traffic.
-
-⚠️  Join us for a [live announcement and demo on Sep 28](https://app.livestorm.co/hugging-face/hugging-face-infinity-launch?type=detailed), where we will be showcasing Infinity for the first time in public!
+Check out out the brand [new home for the Expert Acceleration Program](https://huggingface.co/landing/premium-support); you can now get direct, premium support from our Machine Learning experts and build better ML solutions, faster.
 
 ## Research
 
@@ -276,4 +276,4 @@ We're looking forward to EMNLP this year where we have four accepted papers!
 
 ## Last words
 
-😎 🔥 Summer was fun! So many things have happened! We hope you enjoyed reading this blog post and looking forward to share the new projects we're working on. See you in winter! ❄️
+😎 🔥 Summer was fun! So many things have happened! We hope you enjoyed reading this blog post and looking forward to share the new projects we're working on. See you in the winter! ❄️
