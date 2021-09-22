@@ -30,7 +30,7 @@ In this blog post you'll catch up on everything that happened at Hugging Face in
 
 ![Summer At Hugging Face](assets/27_summer_at_huggingface/summer_intro.gif)
 
-This post covers a wide range of areas our team has been working on, so don't hesitate to skip to the parts that interest you most 🤗
+This post covers a wide range of areas our team has been working on, so don't hesitate to skip to the parts that interest you the most 🤗
 
 1. [New Features](#new-features)
 2. [Community](#community)
