@@ -93,7 +93,7 @@ You can try our early demo of [structured data classification](https://huggingfa
 
 ### More Features
 
-That's not everything that has happened in the Hub. We've introduced new and improved [documentation](https://huggingface.co/docs/hub/main) of the Hub. We also introduced two widely requested features: users can now transfer/rename repositories and upload directly new files to the Hub.
+That's not everything that has happened in the Hub. We've introduced new and improved [documentation](https://huggingface.co/docs/hub/main) of the Hub. We also introduced two widely requested features: users can now transfer/rename repositories and directly upload new files to the Hub.
 
 ![Button to upload a file](assets/27_summer_at_huggingface/upload_file.png)
 
@@ -144,7 +144,7 @@ Summer has been an exciting time for 🤗 Transformers! The library reached 50,0
 
 So what's new? JAX/Flax is now the 3rd supported framework with over [5000](https://huggingface.co/models?library=jax&sort=downloads) models in the Hub! You can find actively maintained [examples](https://github.com/huggingface/transformers/tree/master/examples/flax) for different tasks such as text classification. We're also working hard on improving our TensorFlow support: all our [examples](https://github.com/huggingface/transformers/tree/master/examples/tensorflow) have been reworked to be more robust, TensorFlow idiomatic, and clearer. This includes examples such as summarization, translation, and named entity recognition.
 
-You can now easily publish your model to the Hub, including automatically authored model cards, evaluation metrics, and TensorBoard instances. There is also increased support for exporting models to ONNX with the new `transformers.onnx` module.
+You can now easily publish your model to the Hub, including automatically authored model cards, evaluation metrics, and TensorBoard instances. There is also increased support for exporting models to ONNX with the new [`transformers.onnx` module](https://huggingface.co/transformers/serialization.html?highlight=onnx). 
 
 ```bash
 python -m transformers.onnx --model=bert-base-cased onnx/bert-base-cased/
@@ -156,13 +156,16 @@ The last 4 releases introduced many new cool models!
 
 ![DETR image](assets/27_summer_at_huggingface/detr.png)
 
-- ByT5 ([paper](https://arxiv.org/abs/2105.13626)) is the first tokenizer-free model in the Hub! You can find all available checkpoints [here](https://huggingface.co/models?filter=arxiv:1907.06292).
+- ByT5 ([paper](https://arxiv.org/abs/2105.13626)) is the first tokenizer-free model in the Hub! You can find all available checkpoints [here](https://huggingface.co/models?search=byt5).
+- CANINE ([paper](https://arxiv.org/abs/2103.06874)) is another tokenizer-free encoder-only model by Google AI, operating directly at the character level. You can find all (multilingual) checkpoints [here](https://huggingface.co/models?search=canine).
 - HuBERT ([paper](https://arxiv.org/abs/2106.07447)) shows exciting results for downstream audio tasks such as [command classification](https://huggingface.co/superb/hubert-base-superb-ks) and [emotion recognition](https://huggingface.co/superb/hubert-base-superb-er). Check the models [here](https://huggingface.co/models?filter=hubert).
-- LayoutLM-v2 ([paper](https://arxiv.org/abs/2012.14740)) and LayoutXLM are two incredible models capable of parsing document images (like PDFs) by incorporating text, layout, and visual information. We built a [Space demo](https://huggingface.co/spaces/nielsr/LayoutLMv2-FUNSD) so you can directly try it out!
+- LayoutLMv2 ([paper](https://arxiv.org/abs/2012.14740)) and LayoutXLM ([paper](https://arxiv.org/abs/2104.08836)) are two incredible models capable of parsing document images (like PDFs) by incorporating text, layout, and visual information. We built a [Space demo](https://huggingface.co/spaces/nielsr/LayoutLMv2-FUNSD) so you can directly try it out! Demo notebooks can be found [here](https://github.com/NielsRogge/Transformers-Tutorials/tree/master/LayoutLMv2).
 
-![LayotLM object detection](assets/27_summer_at_huggingface/layout.png)
+![LayoutLM object detection](assets/27_summer_at_huggingface/layout.png)
 
-- BEiT ([paper](https://arxiv.org/abs/2106.08254)) makes self-supervised pretraining of Vision Transformers outperform supervised pre-training.
+- BEiT ([paper](https://arxiv.org/abs/2106.08254)) by Microsoft Research makes self-supervised Vision Transformers outperform supervised ones, using a clever pre-training objective inspired by BERT.
+- RemBERT ([paper](https://arxiv.org/abs/2010.12821)), a large multilingual Transformer that outperforms XLM-R (and mT5 with a similar number of parameters) in zero-shot transfer.
+- Splinter ([paper](https://arxiv.org/abs/2101.00438)) which can be used for few-shot question answering. Given only 128 examples, Splinter is able to reach ~73% F1 on SQuAD, outperforming MLM-based models by 24 points!
 
 The Hub is now integrated into `transformers`, with the ability to push to the Hub configuration, model, and tokenizer files without leaving the Python runtime! The `Trainer` can now push directly to the Hub every time a checkpoint is saved: 
 
