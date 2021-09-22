@@ -30,7 +30,7 @@ In this blog post you'll catch up on everything that happened at Hugging Face in
 
 ![Summer At Hugging Face](assets/27_summer_at_huggingface/summer_intro.gif)
 
-This post covers a wide range of areas our team has been working on, don't hesitate to skip to the parts that interest you most 🤗
+This post covers a wide range of areas our team has been working on, so don't hesitate to skip to the parts that interest you most 🤗
 
 1. [New Features](#new-features)
 2. [Community](#community)
@@ -44,7 +44,7 @@ In the last few months, the Hub went from 10,000 public model repositories to ov
 
 ### Spaces Beta ([hf.co/spaces](/spaces)) 
 
-Spaces is a simple, free solution to host Machine Learning demo applications directly on your user profile or your organization [hf.co](http://hf.co/) profile. We support two awesome SDKs that let you build cool apps easily in Python: [Gradio](https://gradio.app/) and [Streamlit](https://streamlit.io/). In a matter of minutes you can deploy an app and share it with the community! 🚀
+Spaces is a simple and free solution to host Machine Learning demo applications directly on your user profile or your organization [hf.co](http://hf.co/) profile. We support two awesome SDKs that let you build cool apps easily in Python: [Gradio](https://gradio.app/) and [Streamlit](https://streamlit.io/). In a matter of minutes you can deploy an app and share it with the community! 🚀
 
 Spaces lets you [set up secrets](/docs/hub/spaces#secret-management), permits [custom requirements](/docs/hub/spaces#how-can-i-install-other-dependencies), and can even be managed [directly from GitHub repos](/docs/hub/spaces#how-can-i-manage-my-app-through-github). You can sign up for the beta at [hf.co/spaces](/spaces). Here are some of our favorites!
 
@@ -56,7 +56,7 @@ Spaces lets you [set up secrets](/docs/hub/spaces#secret-management), permits [c
 
 ![Landing page of Spaces](assets/27_summer_at_huggingface/spaces_landing.png)
 
-### Share some love
+### Share Some Love
 
 You can now like any model, dataset, or Space on [http://huggingface.co](http://huggingface.co/), meaning you can share some love with the community ❤️. You can also keep an eye on who's liking what by clicking on the likes box 👀. Go ahead and like your own repos, we're not judging 😉.
 
@@ -86,7 +86,7 @@ With our latest integrations to Sentence Transformers, we also introduced two ne
 
 The latest **audio classification** widget enables many cool use cases: language identification,  [street sound detection](https://huggingface.co/speechbrain/urbansound8k_ecapa) 🚨, [command recognition](https://huggingface.co/speechbrain/google_speech_command_xvector), [speaker identification](https://huggingface.co/speechbrain/spkrec-xvect-voxceleb), and more! You can try this out with `transformers` and `speechbrain` models today! 🔊 (Beware, when you try some of the models, you might need to bark out loud)
 
-You can try our early demo of [structured data classification](https://huggingface.co/julien-c/wine-quality) with Scikit Learn. And finally, we also introduced new widgets for image-related models: **text to image**, **image classification**, and **object detection**. Try object detection [here](https://huggingface.co/facebook/detr-resnet-50)!
+You can try our early demo of [structured data classification](https://huggingface.co/julien-c/wine-quality) with Scikit-learn. And finally, we also introduced new widgets for image-related models: **text to image**, **image classification**, and **object detection**. Try object detection [here](https://huggingface.co/facebook/detr-resnet-50)!
 
 ![Object Detection Widget](assets/27_summer_at_huggingface/object-detection.png)
 
@@ -107,7 +107,7 @@ In June, we launched the first part of our [free online course](https://huggingf
 
 ### JAX/FLAX Sprint
 
-In July we hosted our biggest [community event](https://discuss.huggingface.co/t/open-to-the-community-community-week-using-jax-flax-for-nlp-cv/7104) ever with almost 800 participants! In this event co-organized with the JAX/Flax and Google Cloud teams, compute-intensive NLP, Computer Vision, and Speech projects were made practicable for a wider audience of engineers and researchers. The participants created over 170 models, 22 datasets, and 38 Spaces demos 🤯. You can explore all the amazing demos and projects [here](https://huggingface.co/flax-community).
+In July we hosted our biggest [community event](https://discuss.huggingface.co/t/open-to-the-community-community-week-using-jax-flax-for-nlp-cv/7104) ever with almost 800 participants! In this event co-organized with the JAX/Flax and Google Cloud teams, compute-intensive NLP, Computer Vision, and Speech projects were made accessible to a wider audience of engineers and researchers. The participants created over 170 models, 22 datasets, and 38 Spaces demos 🤯. You can explore all the amazing demos and projects [here](https://huggingface.co/flax-community).
 
 There were talks around JAX/Flax, Transformers, large-scale language modeling, and more! You can find all recordings [here](https://github.com/huggingface/transformers/tree/master/examples/research_projects/jax-projects#talks). 
 
@@ -125,7 +125,7 @@ We're really excited to share the work of the 3 winning teams!
 
     ![CLIP search](assets/27_summer_at_huggingface/clip.png)
 
-Apart from this very cool projects, we're excited about how these community events enable training large and multi-modal models for multiple languages. For example, we saw the first ever Open Source big LMs for some languages like Swahili, Polish and Marathi.
+Apart from these very cool projects, we're excited about how these community events enable training large and multi-modal models for multiple languages. For example, we saw the first ever Open Source big LMs for some low-resource languages like Swahili, Polish and Marathi.
 
 ## Bonus
 
@@ -221,7 +221,7 @@ For questions reach out to us on the forum: [https://discuss.huggingface.co/c/sa
 
 ![Sagemaker](assets/27_summer_at_huggingface/sagemaker.png)
 
-### **NEW: AutoNLP in your browser**
+### **NEW: AutoNLP In Your Browser**
 
 We released a new [AutoNLP](https://huggingface.co/autonlp) experience: a web interface to train models straight from your browser! Now all it takes is a few clicks to train, evaluate and deploy **🤗** Transformers models on your own data. [Try it out](https://ui.autonlp.huggingface.co/) - NO CODE needed!
 
