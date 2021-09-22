@@ -125,7 +125,7 @@ We're really excited to share the work of the 3 winning teams!
 
     ![CLIP search](assets/27_summer_at_huggingface/clip.png)
 
-Apart from these very cool projects, we're excited about how these community events enable training large and multi-modal models for multiple languages. For example, we saw the first ever Open Source big LMs for some low-resource languages like Swahili, Polish and Marathi.
+Apart from these very cool projects, we're excited about how these community events enable training large and multi-modal models for multiple languages. For example, we saw the first ever Open Source big LMs for some low-resource languages like [Swahili](https://huggingface.co/models?language=sw), [Polish](https://huggingface.co/flax-community/papuGaPT2) and [Marathi](https://huggingface.co/spaces/flax-community/roberta-base-mr).
 
 ## Bonus
 
