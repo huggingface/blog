@@ -1,6 +1,6 @@
 ---
 title: "Summer at Hugging Face"
-thumbnail: /blog/assets/27_summer_at_huggingface/thumbnail.png
+thumbnail: /blog/assets/27_summer_at_huggingface/summer_intro.gif
 
 ---
 
