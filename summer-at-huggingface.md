@@ -7,7 +7,7 @@ thumbnail: /blog/assets/27_summer_at_huggingface/summer_intro.gif
 # Summer At Hugging Face 😎
 
 <div class="blog-metadata">
-    <small>Published September 22, 2021.</small>
+    <small>Published September 24, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/summer-at-huggingface.md">
         Update on GitHub
     </a>
@@ -236,20 +236,40 @@ We released a new [AutoNLP](https://huggingface.co/autonlp) experience: a web in
 
 We hosted a [live webinar](https://youtu.be/p055U0dnEos) to show how to add Machine Learning capabilities with just a few lines of code. We also built a VSCode extension that leverages the Hugging Face Inference API to generate comments describing Python code.
 
-<iframe width="700" height="394" src="https://www.youtube.com/embed/p055U0dnEos" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="aspect-w-16 aspect-h-9">
+<iframe 
+src="https://www.youtube.com/embed/p055U0dnEos" 
+frameborder="0" 
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
+</div>
 
 
 **Hugging Face** + **Zapier Demo**
 
 20,000+ Machine Learning models connected to 3,000+ apps? 🤯  By leveraging the [Inference API](https://huggingface.co/landing/inference-api/startups), you can now easily connect models right into apps like Gmail, Slack, Twitter, and more. In this demo video, we created a zap that uses this [code snippet](https://gist.github.com/feconroses/3476a91dc524fdb930a726b3894a1d08) to analyze your Twitter mentions and alerts you on Slack about the negative ones.
 
-<iframe width="700" height="394" src="https://www.youtube.com/embed/sjfpOJ4KA78" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="aspect-w-16 aspect-h-9">
+<iframe 
+src="https://www.youtube.com/embed/sjfpOJ4KA78" 
+frameborder="0" 
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
+</div>
+
 
 **Hugging Face + Google Sheets Demo**
 
 With the [Inference API](https://huggingface.co/landing/inference-api/startups), you can easily use zero-shot classification right into your spreadsheets in Google Sheets. Just [add this script](https://gist.github.com/feconroses/302474ddd3f3c466dc069ecf16bb09d7) in Tools -> Script Editor:
 
-<iframe width="700" height="394" src="https://www.youtube.com/embed/-A-X3aUYkDs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="aspect-w-16 aspect-h-9">
+<iframe 
+src="https://www.youtube.com/embed/-A-X3aUYkDs" 
+frameborder="0" 
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
+</div>
+
 
 
 **Few-shot learning in practice**
@@ -265,6 +285,7 @@ Check out out the brand [new home for the Expert Acceleration Program](https://h
 At BigScience we held our first live event (since the kick off) in July BigScience Episode #1. Our second event BigScience Episode #2 was held on September 20th, 2021 with technical talks and updates by the BigScience working groups and invited talks by Jade Abbott (Masakhane), Percy Liang (Stanford CRFM), Stella Biderman (EleutherAI) and more. We have completed the first large-scale training on Jean Zay, a 13B English only decoder model (you can find the details [here](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr1-13B-base/chronicles.md)), and we're currently deciding on the architecture of the second model. The organization working group has filed the application for the second half of the compute budget: Jean Zay V100 : 2,500,000 GPU hours. 🚀 
 
 In June, we shared the result of our collaboration with the Yandex research team: [DeDLOC](https://arxiv.org/abs/2106.10207), a method to collaboratively train your large neural networks, i.e. without using an HPC cluster, but with various accessible resources such as Google Colaboratory or Kaggle notebooks, personal computers or preemptible VMs. Thanks to this method, we were able to train [sahajBERT](https://huggingface.co/neuropark/sahajBERT), a Bengali language model, with 40 volunteers! And our model competes with the state of the art, and even is [the best for the downstream task of classification](https://huggingface.co/neuropark/sahajBERT-NCC) on Soham News Article Classification dataset. You can read more about it in this [blog](https://huggingface.co/blog/collaborative-training) post. This is a fascinating line of research because it would make model pre-training much more accessible (financially speaking)!
+
 <div class="aspect-w-16 aspect-h-9">
 <iframe 
 src="https://www.youtube.com/embed/v8ShbLasRF8" 
