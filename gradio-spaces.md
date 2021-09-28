@@ -1,6 +1,6 @@
 ﻿---
 title: "Showcase Your Projects in Spaces using Gradio"
-thumbnail: /blog/assets/27_gradio-spaces/thumbnail.png
+thumbnail: /blog/assets/28_gradio-spaces/thumbnail.png
 
 ---
 
@@ -9,7 +9,7 @@ thumbnail: /blog/assets/27_gradio-spaces/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published September 21, 2021.</small>
+    <small>Published September 28, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/gradio-spaces.md">
         Update on GitHub
     </a>
@@ -50,17 +50,17 @@ interface.launch()
 ```
 
 
-![story-gen](assets/27_gradio-spaces/story-gen.png)
+![story-gen](assets/28_gradio-spaces/story-gen.png)
 
 This integration supports different types of models, `image-to-text`, `speech-to-text`, `text-to-speech` and more.
 
-![big-gan](assets/27_gradio-spaces/big-gan.png)
+![big-gan](assets/28_gradio-spaces/big-gan.png)
 
 You can run your demos anywhere, you can put this in Spaces as well by simply committing your `app.py` file. This integration is built on top of Hugging Face pipelines, so please make sure your model supports [pipelines](https://huggingface.co/transformers/main_classes/pipelines.html). But don't worry, we'll cover different ways of demonstrating models.
 
 ## Serving Custom Model Checkpoints with Gradio in Hugging Face Spaces
 You can serve your models in Spaces even if your model does not have a defined pipeline or is not hosted in the Hub. Just wrap your application in Gradio Interface as described above and put it in Spaces. 
-![imagenet-demo](assets/27_gradio-spaces/imagenet-demo.gif)
+![imagenet-demo](assets/28_gradio-spaces/imagenet-demo.gif)
 
 ## Mix and Match Models!
 
@@ -82,12 +82,12 @@ Series(translator_fr, story_gen, translator_en, description = description,
 
 ```
 
-![story-gen-fr](assets/27_gradio-spaces/story-gen-fr.png)
+![story-gen-fr](assets/28_gradio-spaces/story-gen-fr.png)
 
 ## Uploading your Models to the Spaces
 
 You can serve your demos in Hugging Face thanks to Spaces! To do this, simply create a new Space, and then drag and drop your demos or use Git. 
 
-![spaces-demo](assets/27_gradio-spaces/spaces-demo-finalized.gif)
+![spaces-demo](assets/28_gradio-spaces/spaces-demo-finalized.gif)
 
 Easily build your first demo with Spaces [here](https://huggingface.co/spaces)!
