@@ -26,18 +26,18 @@ thumbnail: /blog/assets/29_streamlit-spaces/thumbnail.png
 </div>
 
 
-## Demonstrating your Datasets and Models using Streamlit on Hugging Face Spaces
+## Showcase your Datasets and Models using Streamlit on Hugging Face Spaces
 
-Streamlit allows you to demonstrate datasets, the visualizations and machine learning models in a very fast way. In this blog post we will walk you through hosting models and datasets from Hugging Face and serving your Streamlit applications in Hugging Face Spaces. 
+Streamlit allows you to demonstrate datasets, visualizations and Machine Learning models in a neat way. In this blog post we will walk you through hosting models and datasets from Hugging Face and serving your Streamlit applications in Hugging Face Spaces. 
 
  ## Demonstrating your models using Streamlit
- You can load any Hugging Face model and build cool UIs using Streamlit. In this particular example we will recreate ["Write with Transformer"](https://transformer.huggingface.co/doc/gpt2-large) together, it's an application that lets you write anything using various transformers. 
+ You can load any Hugging Face model and build cool UIs using Streamlit. In this particular example we will recreate ["Write with Transformer"](https://transformer.huggingface.co/doc/gpt2-large) together, it's an application that lets you write anything using transformers like GPT-2 and XLNet. 
  
 ![write-with-transformers](assets/29_streamlit-spaces/write-tr.png)
 
-We will not dive deep into how the inference part takes place, you only need to know that you need to give couple of hyperparameter values to this particular application. Streamlit provides many [components](https://docs.streamlit.io/en/stable/api.html) for you to easily implement custom applications. Here, we will define couple of them, to receive necessary hyperparameters inside the inference code.
+We will not dive deep into how the inference takes place, you only need to know that you need to give couple of hyperparameter values to the model for this particular application. Streamlit provides many [components](https://docs.streamlit.io/en/stable/api.html) for you to easily implement custom applications. Here, we will use couple of them, to receive necessary hyperparameters inside the inference code.
 We will take the sentences to be completed in a textbox, the ```.text_area``` component gives a nice area to input text. 
-The streamlit ```.sidebar``` method helps you take your variables in a sidebar, this is up to you. The ```slider``` is used to take continuous values, don't forget to give a step otherwise it will treat them as integers. You can take your integers with ```number_input``` .
+The streamlit ```.sidebar``` method enables you to take your variables in a sidebar. The ```slider``` is used to take continuous values, don't forget to give a step, otherwise the ```slider``` will treat them as integers. You can let the end-user input integer vaues with ```number_input``` .
 ```
 sent = st.text_area("Text", default_value, height = 275)
 max_length = st.sidebar.slider("Max Length", min_value = 10, max_value=30)
@@ -53,7 +53,7 @@ Here's what our replicated version looks like.
 
 You can checkout the full code [here](https://huggingface.co/spaces/merve/write-with-transformer).
 
-## Demonstrating your Datasets and Data Visualizations
+## Showcase your Datasets and Data Visualizations
 Streamlit provides many components to help you host your datasets and visualize them, it works seamlessly with hugging face [datasets](https://huggingface.co/docs/datasets/), [pandas](https://pandas.pydata.org/docs/index.html), and  visualization libraries, like [matplotlib](https://matplotlib.org/stable/index.html), [seaborn](https://seaborn.pydata.org/) and [bokeh](https://bokeh.org/). 
 Let's start by loading the dataset. A new feature in datasets, called [streaming](https://huggingface.co/docs/datasets/dataset_streaming.html), helps you work with datasets without completely downloading them. 
  ```
@@ -73,7 +73,7 @@ sns.catplot(x="author", data=df, kind="count", aspect = 4)
 plt.xticks(rotation=90)
 st.pyplot()
  ```
-You can see the interactive bar chart, dataframe component and hosted matplotlib and seaborn visualizations below.
+You can see the interactive bar chart, dataframe component and hosted matplotlib and seaborn visualizations below. You  can check out the code [here](https://huggingface.co/spaces/merve/streamlit-dataset-demo).
 
 ![spaces-streamlit-dataset-demo](assets/29_streamlit-spaces/streamlit-dataset-vid.gif)
 
