@@ -60,7 +60,7 @@ You can play with Story Generation model [here](https://huggingface.co/spaces/me
 
 ![story-gen](assets/28_gradio-spaces/story-gen.png)
 
-This integration supports different types of models, `image-to-text`, `speech-to-text`, `text-to-speech` and more. You can check out this example BigGAN ImageNet text-to-image model [here](https://huggingface.co/spaces/merve/BigGAN-ImageNET)
+This integration supports different types of models, `image-to-text`, `speech-to-text`, `text-to-speech` and more. You can check out this example BigGAN ImageNet `text-to-image` model [here](https://huggingface.co/spaces/merve/BigGAN-ImageNET)
 
 ![big-gan](assets/28_gradio-spaces/big-gan.png)
 
