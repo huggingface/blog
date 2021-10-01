@@ -29,6 +29,7 @@ thumbnail: /blog/assets/28_gradio-spaces/thumbnail.png
 
 
 It's so easy to demonstrate a Machine Learning project thanks to [Gradio](https://gradio.app/). 
+
 In this blog post, we'll walk you through:
 - the recent Gradio integration that helps you demo models from the Hub seamlessly with few lines of code leveraging the [Inference API](https://huggingface.co/inference-api).
 - how to use Hugging Face Spaces to host demos of your own models.
@@ -38,9 +39,11 @@ In this blog post, we'll walk you through:
 ## Hugging Face Hub Integration in Gradio
 
 You can demonstrate your models in the Hub easily. You only need to define the [Interface](https://gradio.app/docs#interface) that includes:
+
 - The repository ID of the model you want to infer with
 - A description and title
 - Example inputs to guide your audience
+
 After defining your Interface, just call `.launch()` and your demo will start running. You can do this in Colab, but if you want to share it with the community a great option is to use Spaces!
 
 Spaces are a simple, free way to host your ML demo apps in Python. To do so, you can create a repository at https://huggingface.co/new-space and select Gradio as the SDK.  Once done, you can create a file called `app.py`, copy the code below, and in few seconds your app will be up and running!
@@ -55,12 +58,13 @@ examples=[["Adventurer is approached by a mysterious stranger in the tavern for 
 )
 interface.launch()
 ```
+
 You can play with Story Generation model [here](https://huggingface.co/spaces/merve/GPT-2-story-gen)
 
 
 ![story-gen](assets/28_gradio-spaces/story-gen.png)
 
-This integration supports different types of models, `image-to-text`, `speech-to-text`, `text-to-speech` and more. You can check out this example BigGAN ImageNet `text-to-image` model [here](https://huggingface.co/spaces/merve/BigGAN-ImageNET)
+Under the hood, Gradio calls the Inference API which supports transformers as well as other popular ML frameworks such as spaCy, speechbrain and asteroid. This integration supports different types of models, `image-to-text`, `speech-to-text`, `text-to-speech` and more. You can check out this example BigGAN ImageNet `text-to-image` model [here](https://huggingface.co/spaces/merve/BigGAN-ImageNET) 
 
 ![big-gan](assets/28_gradio-spaces/big-gan.png)
 
@@ -89,6 +93,7 @@ title = title,
 examples=[["L'aventurier est approché par un mystérieux étranger, pour une nouvelle quête."]], inputs = gr.inputs.Textbox(lines = 10)).launch()
 
 ```
+
 You can check out the French Story Generator [here](https://huggingface.co/spaces/merve/french-story-gen)
 ![story-gen-fr](assets/28_gradio-spaces/story-gen-fr.png)
 
