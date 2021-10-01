@@ -41,7 +41,9 @@ You can demonstrate your models in the Hub easily. You only need to define the [
 - The repository ID of the model you want to infer with
 - define a description and title
 - maybe even an example input to guide your audience.
-After defining your Interface, just call `.launch()` and serve your model. You can directly put this in Spaces as well!
+After defining your Interface, just call `.launch()` and your demo will start running. You can do this in Colab, but if you want to share it with the community a great option is to use Spaces!
+
+Spaces are a simple, free way to host your ML demo apps in Python. To do so, you can create a repository at https://huggingface.co/new-space and select Gradio as the SDK.  Once done, you can create a file called `app.py`, copy the code below, and in few seconds your app will be up and running!
 
 ```
 import gradio as gr
