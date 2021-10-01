@@ -29,7 +29,7 @@ thumbnail: /blog/assets/28_gradio-spaces/thumbnail.png
 
 
 It's so easy to demonstrate a Machine Learning project thanks to the [Gradio](https://gradio.app/). 
-In this blog post, we'll walk you through,
+In this blog post, we'll walk you through:
 - the recent Gradio integration that helps you wrap your Hugging Face model with Gradio seamlessly with few lines of code, 
 - how to host your model checkpoints that are not in the Hugging Face hub, in the Hugging Face Spaces.
 
