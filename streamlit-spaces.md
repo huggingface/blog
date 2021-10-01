@@ -28,7 +28,7 @@ thumbnail: /blog/assets/29_streamlit-spaces/thumbnail.png
 
 ## Showcase your Datasets and Models using Streamlit on Hugging Face Spaces
 
-Streamlit allows you to demonstrate datasets, visualizations and Machine Learning models in a neat way. In this blog post we will walk you through hosting models and datasets from Hugging Face and serving your Streamlit applications in Hugging Face Spaces. 
+[Streamlit](https://streamlit.io/) allows you to visualize datasets and build demos of Machine Learning models in a neat way. In this blog post we will walk you through hosting models and datasets and serving your Streamlit applications in Hugging Face Spaces. 
 
  ## Building demos for your models
 
