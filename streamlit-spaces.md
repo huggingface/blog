@@ -31,7 +31,8 @@ thumbnail: /blog/assets/29_streamlit-spaces/thumbnail.png
 Streamlit allows you to demonstrate datasets, visualizations and Machine Learning models in a neat way. In this blog post we will walk you through hosting models and datasets from Hugging Face and serving your Streamlit applications in Hugging Face Spaces. 
 
  ## Building demos for your models
- You can load any Hugging Face model and build cool UIs using Streamlit. In this particular example we will recreate ["Write with Transformer"](https://transformer.huggingface.co/doc/gpt2-large) together, it's an application that lets you write anything using transformers like GPT-2 and XLNet. 
+
+You can load any Hugging Face model and build cool UIs using Streamlit. In this particular example we will recreate ["Write with Transformer"](https://transformer.huggingface.co/doc/gpt2-large) together. It's an application that lets you write anything using transformers like GPT-2 and XLNet. 
  
 ![write-with-transformers](assets/29_streamlit-spaces/write-tr.png)
 
