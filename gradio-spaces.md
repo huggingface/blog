@@ -39,7 +39,7 @@ In this blog post, we'll walk you through:
 
 You can demonstrate your models in the Hub easily. You only need to define the [Interface](https://gradio.app/docs#interface) that includes:
 - The repository ID of the model you want to infer with
-- define a description and title
+- A description and title
 - maybe even an example input to guide your audience.
 After defining your Interface, just call `.launch()` and your demo will start running. You can do this in Colab, but if you want to share it with the community a great option is to use Spaces!
 
