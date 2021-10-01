@@ -54,6 +54,7 @@ Here's what our replicated version looks like.
 You can checkout the full code [here](https://huggingface.co/spaces/merve/write-with-transformer).
 
 ## Showcase your Datasets and Data Visualizations
+
 Streamlit provides many components to help you visualize datasets. It works seamlessly with 🤗 [datasets](https://huggingface.co/docs/datasets/), [pandas](https://pandas.pydata.org/docs/index.html), and visualization libraries such as [matplotlib](https://matplotlib.org/stable/index.html), [seaborn](https://seaborn.pydata.org/) and [bokeh](https://bokeh.org/). 
 Let's start by loading a dataset. A new feature in `datasets`, called [streaming](https://huggingface.co/docs/datasets/dataset_streaming.html), helps you work with datasets without downloading all of them and loading into memory. This is extremely useful to work with very large datasets.
  ```
