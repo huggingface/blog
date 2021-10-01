@@ -64,7 +64,8 @@ This integration supports different types of models, `image-to-text`, `speech-to
 
 
 ## Serving Custom Model Checkpoints with Gradio in Hugging Face Spaces
-You can serve your models in Spaces even if your model is not hosted in the Hub. Just wrap your application in Gradio Interface as described below and put it in Spaces. 
+
+You can serve your models in Spaces even if your model is not supported by the Inference API. Just wrap your model inference in a Gradio `Interface` as described below and put it in Spaces. 
 ![imagenet-demo](assets/28_gradio-spaces/imagenet-demo.gif)
 
 ## Mix and Match Models!
