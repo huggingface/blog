@@ -35,7 +35,8 @@ Streamlit allows you to demonstrate datasets, visualizations and Machine Learnin
  
 ![write-with-transformers](assets/29_streamlit-spaces/write-tr.png)
 
-We will not dive deep into how the inference takes place, you only need to know that you need to give couple of hyperparameter values to the model for this particular application. Streamlit provides many [components](https://docs.streamlit.io/en/stable/api.html) for you to easily implement custom applications. Here, we will use couple of them, to receive necessary hyperparameters inside the inference code.
+We will not dive deep into how the inference works. You only need to know that you need to specify some hyperparameter values for this particular application. Streamlit provides many [components](https://docs.streamlit.io/en/stable/api.html) for you to easily implement custom applications. We will use some of them to receive necessary hyperparameters inside the inference code.
+
 We will take the sentences to be completed in a textbox, the ```.text_area``` component gives a nice area to input text. 
 The streamlit ```.sidebar``` method enables you to take your variables in a sidebar. The ```slider``` is used to take continuous values, don't forget to give a step, otherwise the ```slider``` will treat them as integers. You can let the end-user input integer vaues with ```number_input``` .
 ```
