@@ -48,7 +48,7 @@ Spaces are a simple, free way to host your ML demo apps in Python. To do so, you
 ```
 import gradio as gr
 description = "Story generation with GPT-2"
-title = "Generate your own story 
+title = "Generate your own story"
 interface = gr.Interface.load("huggingface/pranavpsv/gpt2-genre-story-generator",
 description=description,
 examples=[["Adventurer is approached by a mysterious stranger in the tavern for a new quest."]]
