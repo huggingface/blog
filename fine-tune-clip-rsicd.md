@@ -16,36 +16,42 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
 
 <div class="author-card">
   <a href="/arampacha">
+    <img class="avatar avatar-user" src="https://huggingface.co/avatars/7c30eda560517e96b32bf5350dc57453.svg" title="Arto">
     <div class="bfc">
       <code>arampacha</code>
       <span class=fullname">Artashes Arutiunian</span>
     </div>
   </a>
-  <a href="/devvidhani">
+  <a href="/devv">
+    <img class="avatar avatar-user" src="https://huggingface.co/avatars/c8d7c94ac637803b8c9e534515d2f1e5.svg" title="Dev Vidhani">
     <div class="bfc">
-      <code>devvidhani</code>
+      <code>devv</code>
       <span class=fullname">Dev Vidhani</span>
     </div>
   </a>
   <a href="/goutham794">
+    <img class="avatar avatar-user" src="https://huggingface.co/avatars/d9965f83d58057188354f59d4d4bc276.svg" title="Goutham Venkatesh">
     <div class="bfc">
       <code>goutham794</code>
       <span class=fullname">Goutham Venkatesh</span>
     </div>
   </a>
   <a href="/cataluna84">
+    <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1624676266012-60aef0fbee40717d1a8fa6a5.png?w=100&h=100&f=face" title="Mayank Bhaskar">
     <div class="bfc">
       <code>cataluna84</code>
       <span class=fullname">Mayank Bhaskar</span>
     </div>
   </a>
   <a href="/ghosh-r">
+    <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1607336845964-noauth.png?w=100&h=100&f=face" title="Ritobrata Ghosh">
     <div class="bfc">
-      <code>@ghosh-r</code>
+      <code>ghosh-r</code>
       <span class=fullname">Ritobrata Ghosh</span>
     </div>
   </a>
   <a href="/sujitpal">
+    <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633126314446-60961e8547dc3dbf8a9765f5.jpeg?w=100&h=100&f=face" title="Sujit Pal">
     <div class="bfc">
       <code>sujitpal</code>
       <span class=fullname">Sujit Pal</span>
@@ -62,7 +68,7 @@ In July this year, [Hugging Face](https://huggingface.co/) organized a [Flax/JAX
 
 Participants used Tensor Processing Units (TPUs) with [Flax](https://github.com/google/flax) and [JAX](https://github.com/google/jax). JAX is a linear algebra library (like `numpy`) that can do automatic differentiation ([Autograd](https://github.com/hips/autograd)) and compile down to [XLA](https://www.tensorflow.org/xla), and Flax is a neural network library and ecosystem for JAX. TPU compute time was provided free by [Google Cloud](https://cloud.google.com/), who co-sponsored the event.
 
-Over the next two weeks, teams participated in lectures from Hugging Face and Google, trained one or more models using JAX/Flax, shared them with the community, and provided a a demo with [Hugging Face spaces](https://huggingface.co/spaces) showcasing the capabilities of their model.  Approximately 100 teams participated in the event, and it resulted in 170 models and 36 demos.
+Over the next two weeks, teams participated in lectures from Hugging Face and Google, trained one or more models using JAX/Flax, shared them with the community, and provided a  [Hugging Face Spaces](https://huggingface.co/spaces) demo showcasing the capabilities of their model. Approximately 100 teams participated in the event, and it resulted in 170 models and 36 demos.
 
 Our team, like probably many others, is a distributed one, spanning 12 time zones. Our common thread is that we all belong to the [TWIML Slack Channel](https://twimlai.slack.com/), where we came together based on a shared interest in Artificial Intelligence (AI) and Machine Learning (ML) topics. 
 
@@ -70,7 +76,7 @@ We fine-tuned the [CLIP Network from OpenAI](https://openai.comclip/) with satel
 
 The goal of our project was to provide a useful service and demonstrate how to use CLIP for practical use cases. Our model can be used by applications to search through large collections of satellite images using textual queries. Such queries could describe the image in totality (for example, beach, mountain, airport, baseball field, etc) or search or mention specific geographic or man-made features within these images. CLIP can similarly be fine-tuned for other domains as well, as shown by the [medclip-demo team](https://huggingface.co/spaces/flax-community/medclip-demo) for medical images.
 
-The ability to search through large collections of images using text queries is an immensely powerful feature, and can be used as much for social good as for malign purposes. Possible applications include national defense and anti-terrorism activities, and the ability to spot and address effects of climate change before they become unmanageable, etc. Unfortunately, this power can also be misused, such as for military and police surveillance by authoritarian nation-states, so it does raise some ethical questions as well.
+The ability to search through large collections of images using text queries is an immensely powerful feature, and can be used as much for social good as for malign purposes. Possible applications include national defense and anti-terrorism activities, the ability to spot and address effects of climate change before they become unmanageable, etc. Unfortunately, this power can also be misused, such as for military and police surveillance by authoritarian nation-states, so it does raise some ethical questions as well.
 
 You can read about our project on our [project page](https://github.com/arampacha/CLIP-rsicd), download our [trained model](https://huggingface.co/flax-community/clip-rsicd-v2) to use for inference on your own data, or see it in action on our [demo](https://huggingface.co/spaces/sujitpal/clip-rsicd-demo).
 
