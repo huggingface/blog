@@ -38,7 +38,7 @@ In this blog post, we'll walk you through:
 ## Hugging Face Hub Integration in Gradio
 
 You can demonstrate your models in the Hub easily. You only need to define the [Interface](https://gradio.app/docs#interface) that includes:
-- the repository ID of the model you want to infer with
+- The repository ID of the model you want to infer with
 - define a description and title
 - maybe even an example input to guide your audience.
 After defining your Interface, just call `.launch()` and serve your model. You can directly put this in Spaces as well!
