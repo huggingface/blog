@@ -76,7 +76,7 @@ You can serve your models in Spaces even if the Inference API does not support y
 
 ## Mix and Match Models!
 
-Using Gradio Series, you can mix-and-match different models! Here, we've put French to English translation model on top of the story generator and English to French translation model at the end of the generator model to simply make a French story generator.
+Using Gradio Series, you can mix-and-match different models! Here, we've put a French to English translation model on top of the story generator and a English to French translation model at the end of the generator model to simply make a French story generator.
 
 ```
 import gradio as gr
