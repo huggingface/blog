@@ -71,7 +71,7 @@ You can checkout the full code [here](https://huggingface.co/spaces/merve/write-
 
 Streamlit provides many components to help you visualize datasets. It works seamlessly with 🤗 [Datasets](https://huggingface.co/docs/datasets/), [pandas](https://pandas.pydata.org/docs/index.html), and visualization libraries such as [matplotlib](https://matplotlib.org/stable/index.html), [seaborn](https://seaborn.pydata.org/) and [bokeh](https://bokeh.org/). 
 
-Let's start by loading a dataset. A new feature in `datasets`, called [streaming](https://huggingface.co/docs/datasets/dataset_streaming.html), helps you work with datasets without downloading all of them and loading into memory. This is extremely useful to work with very large datasets.
+Let's start by loading a dataset. A new feature in `Datasets`, called [streaming](https://huggingface.co/docs/datasets/dataset_streaming.html), allows you to work immediately with very large datasets, eliminating the need to download all of the examples and load them into memory.
 
 ```
 from datasets import load_dataset
