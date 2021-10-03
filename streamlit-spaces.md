@@ -81,7 +81,7 @@ dataset = load_dataset("merve/poetry", streaming=True)
 df = pd.DataFrame.from_dict(dataset["train"])
 ```
 
- If you have a structured data like mine you can simply use  ```st.dataframe(df) ``` to show your dataset. There are many streamlit components to plot data interactively, one is ```st.barchart() ```, which I used to visualize the most used words in the poem contents. 
+ If you have structured data like mine, you can simply use  ```st.dataframe(df) ``` to show your dataset. There are many Streamlit components to plot data interactively. One such component is ```st.barchart() ```, which I used to visualize the most used words in the poem contents. 
 
 ```
 st.write("Most appearing words including stopwords")
