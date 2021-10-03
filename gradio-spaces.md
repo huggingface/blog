@@ -59,7 +59,7 @@ examples=[["Adventurer is approached by a mysterious stranger in the tavern for 
 interface.launch()
 ```
 
-You can play with Story Generation model [here](https://huggingface.co/spaces/merve/GPT-2-story-gen)
+You can play with the Story Generation model [here](https://huggingface.co/spaces/merve/GPT-2-story-gen)
 
 
 ![story-gen](assets/28_gradio-spaces/story-gen.png)
