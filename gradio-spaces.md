@@ -48,7 +48,7 @@ After defining your Interface, just call `.launch()` and your demo will start ru
 
 Spaces are a simple, free way to host your ML demo apps in Python. To do so, you can create a repository at https://huggingface.co/new-space and select Gradio as the SDK.  Once done, you can create a file called `app.py`, copy the code below, and your app will be up and running in a few seconds!
 
-```
+```python
 import gradio as gr
 description = "Story generation with GPT-2"
 title = "Generate your own story"
