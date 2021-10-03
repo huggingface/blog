@@ -103,7 +103,7 @@ You can see the interactive bar chart, dataframe component and hosted matplotlib
 
 ## Hosting your Projects in Hugging Face Spaces
 
-You can simply drag and drop your files as shown below. Note that you need to include your additional dependencies in the requirements.txt. Also note that the version of the streamlit you have on your local is the same, for seamless usage, refer to [Spaces API reference](https://huggingface.co/docs/hub/spaces#reference). 
+You can simply drag and drop your files as shown below. Note that you need to include your additional dependencies in the requirements.txt. Also note that the version of Streamlit you have on your local is the same. For seamless usage, refer to [Spaces API reference](https://huggingface.co/docs/hub/spaces#reference). 
 
 ![spaces-streamlit](assets/29_streamlit-spaces/streamlit.gif)
 
