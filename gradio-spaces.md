@@ -50,12 +50,16 @@ Spaces are a simple, free way to host your ML demo apps in Python. To do so, you
 
 ```python
 import gradio as gr
+
 description = "Story generation with GPT-2"
 title = "Generate your own story"
+examples = [["Adventurer is approached by a mysterious stranger in the tavern for a new quest."]]
+
 interface = gr.Interface.load("huggingface/pranavpsv/gpt2-genre-story-generator",
-description=description,
-examples=[["Adventurer is approached by a mysterious stranger in the tavern for a new quest."]]
+            description=description,
+            examples=examples
 )
+
 interface.launch()
 ```
 
@@ -64,7 +68,19 @@ You can play with the Story Generation model [here](https://huggingface.co/space
 
 ![story-gen](assets/28_gradio-spaces/story-gen.png)
 
-Under the hood, Gradio calls the Inference API which supports Transformers as well as other popular ML frameworks such as spaCy, SpeechBrain and Asteroid. This integration supports different types of models, `image-to-text`, `speech-to-text`, `text-to-speech` and more. You can check out this example BigGAN ImageNet `text-to-image` model [here](https://huggingface.co/spaces/merve/BigGAN-ImageNET) 
+Under the hood, Gradio calls the Inference API which supports Transformers as well as other popular ML frameworks such as spaCy, SpeechBrain and Asteroid. This integration supports different types of models, `image-to-text`, `speech-to-text`, `text-to-speech` and more. You can check out this example BigGAN ImageNet `text-to-image` model [here](https://huggingface.co/spaces/merve/BigGAN-ImageNET). Implementation is below.
+
+```python
+import gradio as gr
+description = "BigGAN text-to-image demo."
+title = "BigGAN ImageNet"
+interface = gr.Interface.load("huggingface/osanseviero/BigGAN-deep-128", 
+            description=description,
+            title = title,
+            examples=[["american robin"]]
+)
+interface.launch()
+```
 
 ![big-gan](assets/28_gradio-spaces/big-gan.png)
 
@@ -78,7 +94,7 @@ You can serve your models in Spaces even if the Inference API does not support y
 
 Using Gradio Series, you can mix-and-match different models! Here, we've put a French to English translation model on top of the story generator and a English to French translation model at the end of the generator model to simply make a French story generator.
 
-```
+```python
 import gradio as gr
 from gradio.mix import Series
 
@@ -87,10 +103,11 @@ title = "French Story Generator using Opus MT and GPT-2"
 translator_fr = gr.Interface.load("huggingface/Helsinki-NLP/opus-mt-fr-en")
 story_gen = gr.Interface.load("huggingface/pranavpsv/gpt2-genre-story-generator")
 translator_en = gr.Interface.load("huggingface/Helsinki-NLP/opus-mt-en-fr")
+examples = [["L'aventurier est approché par un mystérieux étranger, pour une nouvelle quête."]]
 
 Series(translator_fr, story_gen, translator_en, description = description,
-title = title,
-examples=[["L'aventurier est approché par un mystérieux étranger, pour une nouvelle quête."]], inputs = gr.inputs.Textbox(lines = 10)).launch()
+        title = title,
+        examples=examples, inputs = gr.inputs.Textbox(lines = 10)).launch()
 
 ```
 

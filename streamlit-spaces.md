@@ -45,11 +45,11 @@ We will not dive deep into how the inference works. You only need to know that y
 - You can let the end-user input integer vaues with ```number_input``` .
 
 
-```
+``` python
 import streamlit as st
 
 # adding the text that will show in the text box as default
-default_value = "See how a modern neural network auto-completes your text 🤗 This site, built by the Hugging Face team, lets you write a whole document directly from your browser, and you can trigger the Transformer anywhere using the Tab key. Its like having a smart machine that completes your thoughts 😀 Get started by typing a custom snippet, check out the repository, or try one of the examples. Have fun!"
+default_value = "See how a modern neural network auto-completes your text 🤗 This site, built by the    Hugging Face team, lets you write a whole document directly from your browser, and you can trigger the Transformer anywhere using the Tab key. Its like having a smart machine that completes your thoughts 😀 Get started by typing a custom snippet, check out the repository, or try one of the examples. Have fun!"
 
 sent = st.text_area("Text", default_value, height = 275)
 max_length = st.sidebar.slider("Max Length", min_value = 10, max_value=30)
@@ -73,7 +73,7 @@ Streamlit provides many components to help you visualize datasets. It works seam
 
 Let's start by loading a dataset. A new feature in `Datasets`, called [streaming](https://huggingface.co/docs/datasets/dataset_streaming.html), allows you to work immediately with very large datasets, eliminating the need to download all of the examples and load them into memory.
 
-```
+``` python
 from datasets import load_dataset
 import streamlit as st
 
@@ -83,14 +83,14 @@ df = pd.DataFrame.from_dict(dataset["train"])
 
  If you have structured data like mine, you can simply use  ```st.dataframe(df) ``` to show your dataset. There are many Streamlit components to plot data interactively. One such component is ```st.barchart() ```, which I used to visualize the most used words in the poem contents. 
 
-```
+``` python
 st.write("Most appearing words including stopwords")
 st.bar_chart(words[0:50])
 ```
 
  If you'd like to use libraries like matplotlib, seaborn or bokeh, all you have to do is to put  ```st.pyplot() ``` at the end of your plotting script.
  
-```
+``` python
 st.write("Number of poems for each author")
 sns.catplot(x="author", data=df, kind="count", aspect = 4)
 plt.xticks(rotation=90)
