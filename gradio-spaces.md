@@ -64,7 +64,7 @@ You can play with the Story Generation model [here](https://huggingface.co/space
 
 ![story-gen](assets/28_gradio-spaces/story-gen.png)
 
-Under the hood, Gradio calls the Inference API which supports transformers as well as other popular ML frameworks such as spaCy, speechbrain and asteroid. This integration supports different types of models, `image-to-text`, `speech-to-text`, `text-to-speech` and more. You can check out this example BigGAN ImageNet `text-to-image` model [here](https://huggingface.co/spaces/merve/BigGAN-ImageNET) 
+Under the hood, Gradio calls the Inference API which supports Transformers as well as other popular ML frameworks such as spaCy, SpeechBrain and Asteroid. This integration supports different types of models, `image-to-text`, `speech-to-text`, `text-to-speech` and more. You can check out this example BigGAN ImageNet `text-to-image` model [here](https://huggingface.co/spaces/merve/BigGAN-ImageNET) 
 
 ![big-gan](assets/28_gradio-spaces/big-gan.png)
 
