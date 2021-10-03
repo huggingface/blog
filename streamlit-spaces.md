@@ -41,7 +41,7 @@ We will not dive deep into how the inference works. You only need to know that y
 
 - The ```.text_area``` component creates a nice area to input sentences to be completed.
 - The Streamlit ```.sidebar``` method enables you to accept variables in a sidebar. 
-- The ```slider``` is used to take continuous values, don't forget to give a step, otherwise the ```slider``` will treat them as integers. 
+- The ```slider``` is used to take continuous values. Don't forget to give ```slider`` a step, otherwise it will treat the values as integers. 
 - You can let the end-user input integer vaues with ```number_input``` .
 
 
