@@ -183,8 +183,8 @@
 
 - local: gradio-spaces
   title: "Showcase Your Projects in Spaces using Gradio"
-  date: September 28, 2021
+  date: October 5, 2021
 
 - local: streamlit-spaces
   title: "Hosting your Models and Datasets on Hugging Face Spaces using Streamlit"
-  date: September 28, 2021
+  date: October 5, 2021
