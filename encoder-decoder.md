@@ -10,6 +10,7 @@ thumbnail: /blog/assets/05_encoder_decoder/thumbnail.png
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/encoder-decoder.md">
         Update on GitHub
     </a>
+</div>
 
 <div class="author-card">
     <a href="/patrickvonplaten">
@@ -1137,8 +1138,8 @@ We compare the output shape of the decoder input word embeddings, *i.e.*
 here `<pad>` corresponds to BOS and \"Ich will das\" is tokenized to 4
 tokens) with the dimensionality of the `lm_logits`(corresponds to
 \\(\mathbf{L}_{1:5}\\)). Also, we have passed the word sequence
-\"`<pad>`{=html} Ich will das\" and a slightly perturbated version
-\"`<pad>`{=html} Ich will das\" together with the
+\"`<pad>` Ich will das\" and a slightly perturbated version
+\"`<pad>` Ich will das\" together with the
 `encoder_output_vectors` through the encoder to check if the second
 `lm_logit`, corresponding to \"Ich\", differs when only the last word is
 changed in the input sequence (\"ein\" -\> \"das\").
