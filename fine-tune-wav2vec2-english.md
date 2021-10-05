@@ -412,7 +412,7 @@ be instantiated:
 -   `feature_size`: Speech models take a sequence of feature vectors as
     an input. While the length of this sequence obviously varies, the
     feature size should not. In the case of Wav2Vec2, the feature size
-    is 1 because the model was trained on the raw speech signal ${}^2$.
+    is 1 because the model was trained on the raw speech signal \\({}^2\\) .
 -   `sampling_rate`: The sampling rate at which the model is trained on.
 -   `padding_value`: For batched inference, shorter inputs need to be
     padded with a specific value
