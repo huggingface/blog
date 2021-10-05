@@ -181,6 +181,10 @@
   title: "Hugging Face and Graphcore partner for IPU-optimized Transformers"
   date: September 14, 2021
 
+- local: summer-at-huggingface
+  title: "Summer at Hugging Face ☀️"
+  date: September 24, 2021
+
 - local: gradio-spaces
   title: "Showcase Your Projects in Spaces using Gradio"
   date: October 5, 2021
