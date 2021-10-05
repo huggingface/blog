@@ -184,3 +184,11 @@
 - local: summer-at-huggingface
   title: "Summer at Hugging Face ☀️"
   date: September 24, 2021
+
+- local: gradio-spaces
+  title: "Showcase Your Projects in Spaces using Gradio"
+  date: October 5, 2021
+
+- local: streamlit-spaces
+  title: "Hosting your Models and Datasets on Hugging Face Spaces using Streamlit"
+  date: October 5, 2021
