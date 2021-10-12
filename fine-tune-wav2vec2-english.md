@@ -76,7 +76,7 @@ the `jiwer` to evaluate our fine-tuned model using the [word error rate
 (WER)](https://huggingface.co/metrics/wer) metric \\({}^1\\).
 
 ```bash
-!pip install datasets==1.4.1
+!pip install datasets>=1.5.0
 !pip install transformers==4.4.0
 !pip install soundfile
 !pip install jiwer
@@ -412,7 +412,7 @@ be instantiated:
 -   `feature_size`: Speech models take a sequence of feature vectors as
     an input. While the length of this sequence obviously varies, the
     feature size should not. In the case of Wav2Vec2, the feature size
-    is 1 because the model was trained on the raw speech signal ${}^2$.
+    is 1 because the model was trained on the raw speech signal \\({}^2\\) .
 -   `sampling_rate`: The sampling rate at which the model is trained on.
 -   `padding_value`: For batched inference, shorter inputs need to be
     padded with a specific value
