@@ -1,6 +1,6 @@
 ---
 title: Fine tuning CLIP with Remote Sensing (Satellite) images and captions
-thumbnail: /blog/assets/25_clip-rsicd/clip_schematic.png
+thumbnail: /blog/assets/30_clip_rsicd/clip_schematic.png
 ---
 
 <h1>
@@ -8,7 +8,7 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
 </h1>
 
 <div class="blog-metadata">
-  <small>Published MMM dd, yyyy.(TODO)</small>
+  <small>Published October 13, 2021</small>
   <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/sujitpal/blog-1/blob/master/fine-tune-clip-rsicd.md">
         Update on GitHub
   </a>
@@ -97,7 +97,7 @@ In addition, we used the [UCM Dataset](https://mega.nz/folder/wCpSzSoS#RXzIlrv--
 
 Our model is just the fine-tuned version of the original CLIP model shown below. Inputs to the model are a batch of captions and a batch of images passed through the CLIP text encoder and image encoder respectively. The training process uses [contrastive learning](https://towardsdatascience.com/understanding-contrastive-learning-d5b19fd96607) to learn a joint embedding representation of image and captions. In this embedding space, images and their respective captions are pushed close together, as are similar images and similar captions. Conversely, images and captions for different images, or dissimilar images and captions, are likely to be pushed further apart.
 
-<img src="/blog/assets/25_clip_rsicd/clip_schematic.png"/>
+<img src="/blog/assets/30_clip_rsicd/clip_schematic.png"/>
 <center><i>CLIP Training and Inference (Image Credit: CLIP: Connecting Text and Images (https://openai.comclip/))</i></center>
 
 
@@ -111,8 +111,8 @@ We augmented the text with backtranslation to generate captions for images with 
 
 As shown in these loss plots below, image augmentation reduced overfitting significantly, and text and image augmentation reduced overfitting even further.
 
-<img src="/blog/assets/25_clip_rsicd/image-augment-loss.png"/>
-<img src="/blog/assets/25_clip_rsicd/image-text-aug-loss.png"/>
+<img src="/blog/assets/30_clip_rsicd/image-augment-loss.png"/>
+<img src="/blog/assets/30_clip_rsicd/image-text-aug-loss.png"/>
 <center><i>Evaluation and Training loss plots comparing (top) no augmentation vs image augmentation, and (bottom) image augmentation vs text+image augmentation</i></center>
 
 

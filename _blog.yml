@@ -172,3 +172,9 @@
 - local: collaborative-training
   title: "Deep Learning over the Internet: Training Language Models Collaboratively"
   date: July 15, 2021
+
+- local: fine-tune-clip-rsicd
+  title: "Fine tuning CLIP with Remote Sensing (Satellite) images and captions"
+  thumbnail: ./assets/30_clip_rsicd/clip_schematic.png
+  date: October 13, 2021
+
