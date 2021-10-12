@@ -78,14 +78,14 @@ The goal of our project was to provide a useful service and demonstrate how to u
 
 The ability to search through large collections of images using text queries is an immensely powerful feature, and can be used as much for social good as for malign purposes. Possible applications include national defense and anti-terrorism activities, the ability to spot and address effects of climate change before they become unmanageable, etc. Unfortunately, this power can also be misused, such as for military and police surveillance by authoritarian nation-states, so it does raise some ethical questions as well.
 
-You can read about our project on our [project page](https://github.com/arampacha/CLIP-rsicd), download our [trained model](https://huggingface.co/flax-community/clip-rsicd-v2) to use for inference on your own data, or see it in action on our [demo](https://huggingface.co/spaces/sujitpal/clip-rsicd-demo).
+You can read about the project on our [project page](https://github.com/arampacha/CLIP-rsicd), download our [trained model](https://huggingface.co/flax-community/clip-rsicd-v2) to use for inference on your own data, or see it in action on our [demo](https://huggingface.co/spaces/sujitpal/clip-rsicd-demo).
 
 
 ### Training
 
 #### Dataset
 
-We fine-tuned our model primarily with the [RSICD dataset](https://github.com/201528014227051/RSICD_optimal). This dataset consists of about 10,000 images collected from Google Earth, Baidu Map, MapABC, and Tianditu. It is provided freely to the research community to advance remote sensing captioning via [Exploring Models and Data for Remote Sensing Image Caption Generation](https://arxiv.org/abs/1712.0783) (Lu et al, 2017). The images are (224, 224) RGB images at various resolutions, and each image has up to 5 captions associated with it.
+We fine-tuned the CLIP model primarily with the [RSICD dataset](https://github.com/201528014227051/RSICD_optimal). This dataset consists of about 10,000 images collected from Google Earth, Baidu Map, MapABC, and Tianditu. It is provided freely to the research community to advance remote sensing captioning via [Exploring Models and Data for Remote Sensing Image Caption Generation](https://arxiv.org/abs/1712.0783) (Lu et al, 2017). The images are (224, 224) RGB images at various resolutions, and each image has up to 5 captions associated with it.
 
 <img src="/blog/assets/26_clip_rsicd/rsicd-images-sampling.png"/>
 <center><i>Some examples of images from the RSICD dataset</i></center>
@@ -124,7 +124,7 @@ A subset of the RSICD test set was used for evaluation. We found 30 categories o
 
 The `baseline` model represents the pre-trained `openai/clip-vit-base-path32` CLIP model. This model was fine-tuned with captions and images from the RSICD dataset, which resulted in a significant performance boost, as shown below.
 
-Our best model was trained with image and text augmentation, with batch size 1024 (128 spread across 8 TPU devices), and the Adam optimizer with learning rate 5e-6. We trained our second base model with the same hyperparameters, except that we used the Adafactor optimizer with learning rate 1e-4. You can download either model from their model cards linked to in the table below.
+Our best model was trained with image and text augmentation, with batch size 1024 (128 on each of the 8 TPU cores), and the Adam optimizer with learning rate 5e-6. We trained our second base model with the same hyperparameters, except that we used the Adafactor optimizer with learning rate 1e-4. You can download either model from their model repos linked to in the table below.
 
 | Model-name                               | k=1   | k=3   | k=5   | k=10  |
 | ---------------------------------------- | ----- | ----- | ----- | ----- |
@@ -145,13 +145,13 @@ _1 - our best model, 2 - our second best model_
 
 #### Demo
 
-You can access our [CLIP-RSICD Demo](https://huggingface.co/spaces/sujitpal/clip-rsicd-demo) here. It uses our fine-tuned CLIP model to provide the following functionality:
+You can access the [CLIP-RSICD Demo](https://huggingface.co/spaces/sujitpal/clip-rsicd-demo) here. It uses our fine-tuned CLIP model to provide the following functionality:
 
 * Text to Image search
 * Image to Image search
 * Find text feature in image
 
-The first two functionalities uses the RSICD test set as it's image corpus. They are encoded using our best fine-tuned CLIP model and stored in a [NMSLib](https://github.com/nmslib/nmslib) index which allows Approximate Nearest Neighbor based retrieval. For text-to-image and image-to-image search respectively, the query text or image are encoded with our model and matched against the image vectors in the corpus. For the third functionality, we partition the incoming image into patches and encode them, encode the queried text feature, match the text vector with each image patch vector, and return the probability of finding the feature in each patch.
+The first two functionalities use the RSICD test set as its image corpus. They are encoded using our best fine-tuned CLIP model and stored in a [NMSLib](https://github.com/nmslib/nmslib) index which allows Approximate Nearest Neighbor based retrieval. For text-to-image and image-to-image search respectively, the query text or image are encoded with our model and matched against the image vectors in the corpus. For the third functionality, we divide the incoming image into patches and encode them, encode the queried text feature, match the text vector with each image patch vector, and return the probability of finding the feature in each patch.
 
 ### Future Work
 
