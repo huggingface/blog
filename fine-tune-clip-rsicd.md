@@ -20,6 +20,7 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
     <div class="bfc">
       <code>arampacha</code>
       <span class=fullname">Artashes Arutiunian</span>
+      <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
     </div>
   </a>
   <a href="/devv">
@@ -27,6 +28,7 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
     <div class="bfc">
       <code>devv</code>
       <span class=fullname">Dev Vidhani</span>
+      <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
     </div>
   </a>
   <a href="/goutham794">
@@ -34,6 +36,7 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
     <div class="bfc">
       <code>goutham794</code>
       <span class=fullname">Goutham Venkatesh</span>
+      <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
     </div>
   </a>
   <a href="/cataluna84">
@@ -41,6 +44,7 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
     <div class="bfc">
       <code>cataluna84</code>
       <span class=fullname">Mayank Bhaskar</span>
+      <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
     </div>
   </a>
   <a href="/ghosh-r">
@@ -48,6 +52,7 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
     <div class="bfc">
       <code>ghosh-r</code>
       <span class=fullname">Ritobrata Ghosh</span>
+      <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
     </div>
   </a>
   <a href="/sujitpal">
@@ -55,6 +60,7 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
     <div class="bfc">
       <code>sujitpal</code>
       <span class=fullname">Sujit Pal</span>
+      <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
     </div>
   </a>
 </div>
@@ -62,7 +68,7 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
 
 ## Fine tuning CLIP with Remote Sensing (Satellite) images and captions
 
-<img src="/blog/assets/clip-rsicd-header-image.png"/>
+<img src="/blog/assets/30_clip_rsicd/clip-rsicd-header-image.png"/>
 
 In July this year, [Hugging Face](https://huggingface.co/) organized a [Flax/JAX Community Week](https://github.com/huggingface/transformers/blob/master/examples/research_projects/jax-projects/README.md), and invited the community to submit projects to train Hugging Face [transformers](https://github.com/huggingface/transformers) models in the areas of Natural Language Processing (NLP) and Computer Vision (CV).
 
@@ -87,7 +93,7 @@ You can read about the project on our [project page](https://github.com/arampach
 
 We fine-tuned the CLIP model primarily with the [RSICD dataset](https://github.com/201528014227051/RSICD_optimal). This dataset consists of about 10,000 images collected from Google Earth, Baidu Map, MapABC, and Tianditu. It is provided freely to the research community to advance remote sensing captioning via [Exploring Models and Data for Remote Sensing Image Caption Generation](https://arxiv.org/abs/1712.0783) (Lu et al, 2017). The images are (224, 224) RGB images at various resolutions, and each image has up to 5 captions associated with it.
 
-<img src="/blog/assets/26_clip_rsicd/rsicd-images-sampling.png"/>
+<img src="/blog/assets/30_clip_rsicd/rsicd-images-sampling.png"/>
 <center><i>Some examples of images from the RSICD dataset</i></center>
 
 In addition, we used the [UCM Dataset](https://mega.nz/folder/wCpSzSoS#RXzIlrv--TDt3ENZdKN8JA) and the [Sydney dataset](https://mega.nz/folder/pG4yTYYA#4c4buNFLibryZnlujsrwEQ) for training, The UCM dataset is based on the UC Merced Land Use dataset. It consists of 2100 images belonging to 21 classes (100 images per class), and each image has 5 captions. The Sydney dataset contains images of Sydney, Australia from Google Earth. It contains 613 images belonging to 7 classes. Images are (500, 500) RGB and provides 5 captions for each image. We used these additional datasets because we were not sure if the RSICD dataset would be large enough to fine-tune CLIP.
