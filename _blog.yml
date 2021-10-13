@@ -192,3 +192,7 @@
 - local: streamlit-spaces
   title: "Hosting your Models and Datasets on Hugging Face Spaces using Streamlit"
   date: October 5, 2021
+  
+- local: fine-tune-clip-rsicd
+  title: "Fine tuning CLIP with Remote Sensing (Satellite) images and captions"
+  date: October 13, 2021
