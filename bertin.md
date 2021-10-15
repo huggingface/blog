@@ -85,11 +85,11 @@ Training a competitive large language model within the time frame of the event p
 
 ## Motivation
 
-According to [Wikipedia](https://en.wikipedia.org/wiki/List_of_languages_by_total_number_of_speakers), Spanish is the second most-spoken language in the world by native speakers, with over 470 million speakers. However, most NLP research is mainly focused in English. However, relevant contributions like BERT, XLNet or GPT-2 sometimes take years to be available in Spanish and, when they do, it is often via multilingual versions which are not as performant as the English alternative.
+According to [Wikipedia](https://en.wikipedia.org/wiki/List_of_languages_by_total_number_of_speakers), Spanish is the second most-spoken language in the world by native speakers, with over 470 million speakers. However, most NLP research is mainly focused in English. Due to this, relevant contributions like BERT, XLNet or GPT-2 sometimes take years to be available in Spanish and, when they do, it is often via multilingual versions which are not as performant as the English alternative.
 
 Monolingual Spanish models are hard to come by and often trained on proprietary datasets and using massive compute resources. In practice, this means that training competitive language models remain exclusive to a handful of large technology companies and organizations. In addition to the prohibitive financial cost, training large language models has a significant [environmental cost](https://arxiv.org/pdf/1906.02243.pdf) (Strubell et al., 2019). One of our motivations consisted on bringing the training process of large models like RoBERTa one step closer to smaller groups. To this end, we explored techniques that make training these architectures more data-efficient, easier and faster, thus contributing to the democratization of large language models.
 
-At the time of the event, there were no monolingual RoBERTa models available in Spanish. Therefore, releasing one such model was the primary goal of our project. During the JAX/Flax Community Event we released a beta version of our model, which was the first such monolingual model in Spanish. Shortly after, the Barcelona Supercomputing Center released their own [RoBERTa](https://arxiv.org/pdf/2107.07253.pdf) model. The precise timing suggests our work precipitated its publication, and such an increase in competition is a valuable outcome of our project. We are grateful for the Barcelona Supercomputing Center efforts to include BERTIN in their paper.
+At the time of the event, there were no monolingual RoBERTa models available in Spanish. Therefore, releasing one such model was the primary goal of our project. During the JAX/Flax Community Event we released a beta version of our model, which was the first such monolingual model in Spanish. Shortly after, the Barcelona Supercomputing Center released their own [RoBERTa](https://arxiv.org/pdf/2107.07253.pdf) model. The precise timing suggests our work precipitated its publication, and such an increase in competition is a valuable outcome of our project. We are grateful for the Barcelona Supercomputing Center efforts to include BERTIN results in their paper.
 
 ## The dataset: Spanish mC4
 
@@ -209,9 +209,9 @@ We used a batch size of 2048 (8 TPU cores x 256 batch size per core) for trainin
 
 Please refer to the [repository](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/main/evaluation) for training scripts for downstream tasks.
 
-Our first model, tagged [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta), refers to an initial experimental model using `Stepwise` perplexity sampling on 128 sequence length and trained for 210k steps with a small `factor` set to 10. During the time frame of the community event, the Barcelona Supercomputing Center (BSC) in association with the National Library of Spain released RoBERTa base and large models trained on 200M documents (570GB) of high quality private data using 100 nodes with 48 CPU cores of the MareNostrum 4 supercomputer during 96 hours. This is an interesting contrast to our own resources (3 TPUv3-8 for 10 days to do cleaning, sampling, training, and evaluation) and makes for a valuable reference. The BSC team evaluated our early release of the model [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta) and the results can be seen in Table 1.
+Our first model, tagged [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta), refers to an initial experimental model using `Stepwise` perplexity sampling on 128 sequence length and trained for 210k steps with a small `factor` set to 10. During the time frame of the community event, the Barcelona Supercomputing Center (BSC) in association with the National Library of Spain released RoBERTa base and large models trained on 200M documents (570GB) of high quality private data cleaned using 100 nodes with 48 CPU cores of the MareNostrum 4 supercomputer during 96 hours. This is an interesting contrast to our own resources (3 TPUv3-8 + CPU for 10 days to do cleaning, sampling, training, and evaluation) and makes for a valuable reference. The BSC team evaluated our early release of the model [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta) and the results can be seen in Table 1.
 
-Our final models were trained further and achieved better masked-token prediction accuracies. Some of the datasets used for evaluation by BSC are not freely available, therefore it was not possible for us to replicate the figures.
+Our final models were trained further and achieved better masked-token prediction accuracies. Some of the datasets used for evaluation by BSC are not freely available, therefore it was not possible for us to replicate their figures.
 
 <figure>
 
@@ -301,7 +301,7 @@ We are releasing the fine-tuned models for `Gaussian`-512 and making our version
 
 ## Discusion
 
-The performance of our BERTIN models is, in general, very good. Even our beta model is able to achieve SOTA in MLDoc (and virtually tie in UD-POS) as evaluated by the Barcelona Supercomputing Center. In the pre-training masked-token prediction task our models achieves accuracies between 0.65 and 0.69, which foretells good results for downstream tasks.
+The performance of our BERTIN models is, in general, very good. Even our beta model is able to achieve SOTA in MLDoc (and virtually tie in UD-POS) as evaluated by the Barcelona Supercomputing Center. In the pre-training masked-token prediction task our models achieve accuracies between 0.65 and 0.69, which foretells good results for downstream tasks.
 
 Under standard training conditions and without hyperparameter tuning, our language models are remarkably performant in downstream tasks. In particular, `Gaussian` perplexity sampling seems to produce consistently solid models, taking the lead in four of the seven tasks analysed.
 
@@ -311,7 +311,7 @@ As already mentioned in the [Training details](#training-details) section, the m
 
 # Lessons and next steps
 
-The BERTIN Project has been a challenge for many reasons. Like many others in the JAX/Flax Community Event, ours is an impromptu team of people with little to no experience with JAX or Flax. Moreover, other than main goal of producing a RoBERTa model, nothing was decided upon the start of the project, so we had to spend some time organizing how we would work and communicate, and debating and agreeing on the approaches we would like to take given the limitations in time and resources. Notwithstanding, the results we present in this project are very promising, and we believe they hold great value for the community as a whole.
+The BERTIN Project has been a challenge for many reasons. Like many others in the JAX/Flax Community Event, ours is an impromptu team of people with little to no experience with JAX or Flax. Moreover, other than the main goal of producing a RoBERTa model, nothing was decided upon the start of the project, so we had to spend some time organizing how we would work and communicate, and debating and agreeing on the approaches we would like to take given the limitations in time and resources. Notwithstanding, the results we present in this project are very promising, and we believe they hold great value for the community as a whole.
 
 The most obvious next step would be replicating training on a "large" version of the model. We decided against a RoBERTa large model at the beginning of the event due to our need for faster iterations.
 We would also like to explore in greater detail the impact of different perplexity sampling methods and invite other teams to do so as well.
