@@ -1,5 +1,5 @@
 ---
-title: "Introducing 🤗 Accelerate"
+title: "Course Launch Community Event"
 thumbnail: /blog/assets/31_course_launch/speakers_day1.png
 ---
 
@@ -17,7 +17,7 @@ thumbnail: /blog/assets/31_course_launch/speakers_day1.png
     </a>
 </div>
 
-We are excited to share that after a lot of work from the Hugging Face team, part 2 of the [Hugging Face Course](https://hf.co/course) will be released on November 15th. Part 1 focused on teaching you how to use a pretrained model, fine-tune it on a text classification task then upload the result to the [Model Hub](https://hf.co/models). Part 2 will focus on all the other common NLP tasks: token classification, language modeling (causal and masked), translation, summarization and question answering. It will also take a deeper dive in the whole Hugging Face ecosystem, in particular [🤗 Datasets](https://github.com/huggingface/datasets) and [🤗 Tokenizers](https://github.com/huggingface/tokenizers)
+We are excited to share that after a lot of work from the Hugging Face team, part 2 of the [Hugging Face Course](https://hf.co/course) will be released on November 15th. Part 1 focused on teaching you how to use a pretrained model, fine-tune it on a text classification task then upload the result to the [Model Hub](https://hf.co/models). Part 2 will focus on all the other common NLP tasks: token classification, language modeling (causal and masked), translation, summarization and question answering. It will also take a deeper dive in the whole Hugging Face ecosystem, in particular [🤗 Datasets](https://github.com/huggingface/datasets) and [🤗 Tokenizers](https://github.com/huggingface/tokenizers).
 
 To go with this release, we are organizing a large community event to which you are invited! The program includes two days of talks, then team projects focused on fine-tuning a model on any NLP task ending with live demos like [this one](https://huggingface.co/spaces/flax-community/chef-transformer). Those demos will go nicely in your portfolio if you are looking for a new job in Machine Learning, and we will also deliver a certificate of completion to all the participants that achieve building one of them.
 
@@ -25,15 +25,15 @@ We are also waiting to hear from our cloud compute partners but we hope to be ab
 
 To register, please fill out [this form](https://www.notion.so/huggingface2/Issue-12-October-2021-b724fc92c1a843c897b4c0ca0731ffee#caa187a4afa84e059cd78609d288d5c5). You will find below more details on the two days of talks.
 
-## Day 1 (November 15th) A high-level view of Transformers and how to train them
+## Day 1 (November 15th): A high-level view of Transformers and how to train them
 
-The first day of talks will focus on a high-level presentation fo Transformer model and the tools we can use to train or fine-tune them.
+The first day of talks will focus on a high-level presentation of Transformers models and the tools we can use to train or fine-tune them.
 
 <img src="/blog/assets/31_course_launch/thom_wolf.png" width=25%> 
 
 **Thomas Wolf: _Transfer Learning and the birth of the Transformers library_**
 
-Thomas Wolf is co-founder and Chief Science Officer of HuggingFace. The tools created by Thomas Wolf and the Hugging Face team are used across more than 5,000 research organisations including Facebook Artificial Intelligence Research, Google Research, DeepMind, Amazon Research, Apple, the Allen Institute for Artificial Intelligence as well as most university departments. Thomas Wolf is the initiator and senior chair of the largest research collaboration that has ever existed in Artificial Intelligence: [“BigScience”](https://bigscience.huggingface.co) are well as a set of widely used [libraries and tools](https://github.com/huggingface/). Thomas Wolf is also a prolific educator and a thought leader in the field of Artificial Intelligence and Natural Language Processing, a regular invited speaker to conferences all around the world (https://thomwolf.io).
+Thomas Wolf is co-founder and Chief Science Officer of HuggingFace. The tools created by Thomas Wolf and the Hugging Face team are used across more than 5,000 research organisations including Facebook Artificial Intelligence Research, Google Research, DeepMind, Amazon Research, Apple, the Allen Institute for Artificial Intelligence as well as most university departments. Thomas Wolf is the initiator and senior chair of the largest research collaboration that has ever existed in Artificial Intelligence: [“BigScience”](https://bigscience.huggingface.co), as well as a set of widely used [libraries and tools](https://github.com/huggingface/). Thomas Wolf is also a prolific educator and a thought leader in the field of Artificial Intelligence and Natural Language Processing, a regular invited speaker to conferences all around the world (https://thomwolf.io).
 
 <img src="/blog/assets/31_course_launch/jay_alammar.png" width=25%> 
 
@@ -69,7 +69,7 @@ Matthew Watson is a machine learning engineer on the Keras team, with a focus on
 
 Chen Qian is a software engineer from Keras team, with a focus on high-level modeling APIs. Chen got a Master degree of Electrical Engineering from Stanford University, and he is especially interested in simplifying code implementations of ML tasks and large-scale ML.
 
-## Day 2 (November 16th) The tools you will use
+## Day 2 (November 16th): The tools you will use
 
 Day 2 will be focused on talks by the Hugging Face team as well as the [Gradio team](https://www.gradio.app/) and the [Streamlit team](https://streamlit.io/) showing you the tools you will use.
 
