@@ -754,7 +754,6 @@ The resulting model of this notebook has been saved to [`patrickvonplaten/wav2ve
 ### Evaluation
 
 In the final part, we run our model on some of the validation data to get a feeling for how well it works.
-play around with it a bit.
 
 ```python
 model = Wav2Vec2ForCTC.from_pretrained("patrickvonplaten/wav2vec2-large-xlsr-turkish-demo").to("cuda")
