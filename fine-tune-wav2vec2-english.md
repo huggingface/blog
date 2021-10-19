@@ -82,6 +82,32 @@ the `jiwer` to evaluate our fine-tuned model using the [word error rate
 !pip install jiwer
 ```
 
+Next we strongly suggest to upload your training checkpoints directly to the [🤗 Hub](https://huggingface.co/) while training. The [🤗 Hub](https://huggingface.co/) has integrated version control so you can be sure that no model checkpoint is getting lost during training. 
+
+To do so you have to store your authentication token from the Hugging Face website (sign up [here](https://huggingface.co/join) if you haven't already!)
+
+```python
+from huggingface_hub import notebook_login
+
+notebook_login()
+```
+
+**Print Output:**
+```bash
+Login successful
+Your token has been saved to /root/.huggingface/token
+Authenticated through git-crendential store but this isn't the helper defined on your machine.
+You will have to re-authenticate when pushing to the Hugging Face Hub. Run the following command in your terminal to set it as the default
+
+git config --global credential.helper store
+```
+
+Then you need to install Git-LFS to upload your model checkpoints:
+
+```python
+!apt install git-lfs
+```
+
 ------------------------------------------------------------------------
 
 \\({}^1\\) Timit is usually evaluated using the phoneme error rate (PER),
@@ -373,7 +399,21 @@ from transformers import Wav2Vec2CTCTokenizer
 
 tokenizer = Wav2Vec2CTCTokenizer("./vocab.json", unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
 ```
-Next, we will create the feature extractor.
+
+If one wants to re-use the just created tokenizer with the fine-tuned model of this notebook, it is strongly advised to upload the `tokenizer` to the [🤗 Hub](https://huggingface.co/). Let's call the repo to which we will upload the files
+`"wav2vec2-large-xlsr-turkish-demo-colab"`:
+
+```python
+repo_name = "wav2vec2-base-timit-demo-colab"
+```
+
+and upload the tokenizer to the [🤗 Hub](https://huggingface.co/).
+
+```python
+tokenizer.push_to_hub(repo_name)
+```
+
+Great, you can see the just created repository under `https://huggingface.co/<your-username>/wav2vec2-base-timit-demo-colab`
 
 ### Create Wav2Vec2 Feature Extractor
 
@@ -445,24 +485,6 @@ from transformers import Wav2Vec2Processor
 
 processor = Wav2Vec2Processor(feature_extractor=feature_extractor, tokenizer=tokenizer)
 ```
-
-If one wants to re-use the just created processor and the fine-tuned
-model of this notebook, one can mount his/her google drive to the
-notebook and save all relevant files there. To do so, please uncomment
-the following lines.
-
-We will give the fine-tuned model the name `"wav2vec2-base-timit-demo"`.
-
-```python
-# from google.colab import drive
-# drive.mount('/content/gdrive/')
-```
-
-```python
-# processor.save_pretrained("/content/gdrive/MyDrive/wav2vec2-base-timit-demo")
-```
-
-Next, we can prepare the dataset.
 
 ### Preprocess Data
 
@@ -772,15 +794,15 @@ more explanation on some of the parameters:
 For more explanations on other parameters, one can take a look at the
 [docs](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer#trainingarguments).
 
-**Note**: If one wants to save the trained models in his/her google
-drive the commented-out `output_dir` can be used instead.
+During training, a checkpoint will be uploaded asynchronously to the hub every 400 training steps. It allows you to also play around with the demo widget even while your model is still training.
+
+**Note**: If one does not want to upload the model checkpoints to the hub, simply set `push_to_hub=False`.
 
 ```python
 from transformers import TrainingArguments
 
 training_args = TrainingArguments(
-  # output_dir="/content/gdrive/MyDrive/wav2vec2-base-timit-demo",
-  output_dir="./wav2vec2-base-timit-demo",
+  output_dir=repo_name,
   group_by_length=True,
   per_device_train_batch_size=32,
   evaluation_strategy="steps",
@@ -878,8 +900,20 @@ state-of-the-art phoneme error rates (PER) are just below 0.1 (see
 [leaderboard](https://paperswithcode.com/sota/speech-recognition-on-timit))
 and that WER is usually worse than PER.
 
-The resulting model of this notebook has been saved to
-[patrickvonplaten/wav2vec2-base-timit-demo](https://huggingface.co/patrickvonplaten/wav2vec2-base-timit-demo).
+You can now upload the result of the training to the Hub, just execute this instruction:
+
+```python
+trainer.push_to_hub()
+```
+
+You can now share this model with all your friends, family, favorite pets: they can all load it with the identifier "your-username/the-name-you-picked" so for instance:
+
+```python
+from transformers import AutoModelForCTC, Wav2Vec2Processor
+
+model = AutoModelForCTC.from_pretrained("patrickvonplaten/wav2vec2-base-timit-demo-colab")
+processor = Wav2Vec2Processor.from_pretrained("patrickvonplaten/wav2vec2-base-timit-demo-colab")
+```
 
 ### Evaluation
 
@@ -888,8 +922,8 @@ play around with it a bit.
 
 Let\'s load the `processor` and `model`.
 ```python
-processor = Wav2Vec2Processor.from_pretrained("patrickvonplaten/wav2vec2-base-timit-demo")
-model = Wav2Vec2ForCTC.from_pretrained("patrickvonplaten/wav2vec2-base-timit-demo")
+processor = Wav2Vec2Processor.from_pretrained(repo_name)
+model = Wav2Vec2ForCTC.from_pretrained(repo_name)
 ```
 
 Now, we will make use of the `map(...)` function to predict the
