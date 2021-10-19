@@ -492,7 +492,7 @@ common_voice_test = common_voice_test.map(prepare_dataset, remove_columns=common
 
 **Note:** Currently datasets make use of [`torchaudio`](https://pytorch.org/audio/stable/index.html) and [`librosa`](https://librosa.org/doc/latest/index.html) for audio loading and resampling. If you wish to implement your own costumized data loading/sampling, feel free to just make use of the `"path"` column instead and disregard the `"audio"` column.
 
-Long input sequences require a lot of memory. Since `XLSR-Wav2Vec2` is based on `self-attention` the memory requirement scales quadratically with the input length for long input sequences (*cf.* with [this](https://www.reddit.com/r/MachineLearning/comments/genjvb/d_why_is_the_maximum_input_sequence_length_of/) reddit post). For this demo, let's filter all sequences that are longer than 5
+Long input sequences require a lot of memory. Since `XLSR-Wav2Vec2` is based on `self-attention`, the memory requirement scales quadratically with the input length for long input sequences (*cf.* with [this](https://www.reddit.com/r/MachineLearning/comments/genjvb/d_why_is_the_maximum_input_sequence_length_of/) reddit post). For this demo, let's filter all sequences that are longer than 5
  seconds out of the training dataset.
 
 ```python
@@ -683,9 +683,9 @@ To give more explanation on some of the parameters:
 
 For more explanations on other parameters, one can take a look at the [docs](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer#trainingarguments).
 
-During training, a checkpoint will be uploaded asynchronously to the hub every 400 training steps. It allows you to also play around with the demo widget even while your model is still training.
+During training, a checkpoint will be uploaded asynchronously to the Hub every 400 training steps. It allows you to also play around with the demo widget even while your model is still training.
 
-**Note**: If one does not want to upload the model checkpoints to the hub, simply set `push_to_hub=False`.
+**Note**: If one does not want to upload the model checkpoints to the Hub, simply set `push_to_hub=False`.
 
 ```python
 from transformers import TrainingArguments
