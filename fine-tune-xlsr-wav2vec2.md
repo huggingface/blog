@@ -44,7 +44,7 @@ XLSR-Wav2Vec2 is fine-tuned using Connectionist Temporal Classification (CTC), w
 
 I highly recommend reading the blog post [Sequence Modeling with CTC (2017)](https://distill.pub/2017/ctc/) very well-written blog post by Awni Hannun.
 
-Before we start, let\'s install both `datasets` and `transformers` from master. Also, we need the `torchaudio` and `librosa` package to load audio files and the `jiwer` to evaluate our fine-tuned model using the [word error rate (WER)](https://huggingface.co/metrics/wer) metric \\({}^1\\).
+Before we start, let\'s install both `datasets` and `transformers`. Also, we need the `torchaudio` and `librosa` package to load audio files and the `jiwer` to evaluate our fine-tuned model using the [word error rate (WER)](https://huggingface.co/metrics/wer) metric \\({}^1\\).
 
 ```bash
 !pip install datasets==1.13.3
@@ -694,8 +694,8 @@ training_args = TrainingArguments(
   output_dir=repo_name,
   group_by_length=True,
   per_device_train_batch_size=16,
-	gradient_accumulation_steps=2,
-	gradient_checkpointing=True,
+  gradient_accumulation_steps=2,
+  gradient_checkpointing=True,
   evaluation_strategy="steps",
   num_train_epochs=30,
   fp16=True,
@@ -705,7 +705,7 @@ training_args = TrainingArguments(
   learning_rate=3e-4,
   warmup_steps=500,
   save_total_limit=2,
-	push_to_hub=True,
+  push_to_hub=True,
 )
 ```
 
