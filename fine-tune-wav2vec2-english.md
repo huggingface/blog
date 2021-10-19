@@ -937,41 +937,33 @@ inputs, a better WER can be achieved by not padding the input at all.
 
 ```python
 def map_to_result(batch):
-  model.to("cuda")
-  input_values = processor(
-      batch["speech"], 
-      sampling_rate=batch["sampling_rate"], 
-      return_tensors="pt"
-  ).input_values.to("cuda")
-
   with torch.no_grad():
+    input_values = torch.tensor(batch["input_values"], device="cuda").unsqueeze(0)
     logits = model(input_values).logits
 
   pred_ids = torch.argmax(logits, dim=-1)
   batch["pred_str"] = processor.batch_decode(pred_ids)[0]
+  batch["text"] = processor.decode(batch["labels"], group_tokens=False)
   
   return batch
 
-results = timit["test"].map(map_to_result)
+results = timit["test"].map(map_to_result, remove_columns=timit["test"].column_names)
 ```
 
 Let\'s compute the overall WER now.
 
 ```python
-print("Test WER: {:.3f}".format(wer_metric.compute(predictions=results["pred_str"], references=results["target_text"])))
+print("Test WER: {:.3f}".format(wer_metric.compute(predictions=results["pred_str"], references=results["text"])))
 ```
 
 **Print Output:**
 ```bash
-    Test WER: 0.186
+    Test WER: 0.221
 ```
 
-18.6% WER - not bad! Our model would have surely made the top 20 on the
-official
-[leaderboard](https://paperswithcode.com/sota/speech-recognition-on-timit).
+22.1% WER - not bad! Our demo model would have probably made it on the official [leaderboard](https://paperswithcode.com/sota/speech-recognition-on-timit).
 
-Let\'s take a look at some predictions to see what errors are made by
-the model.
+Let's take a look at some predictions to see what errors are made by the model.
 
 **Print Output:**
 
@@ -1004,15 +996,14 @@ corresponding tokens.
 
 ```python
 model.to("cuda")
-input_values = processor(timit["test"][0]["speech"], sampling_rate=timit["test"][0]["sampling_rate"], return_tensors="pt").input_values.to("cuda")
 
 with torch.no_grad():
-  logits = model(input_values).logits
+  logits = model(torch.tensor(timit["test"][:1]["input_values"], device="cuda")).logits
 
 pred_ids = torch.argmax(logits, dim=-1)
 
 # convert ids to tokens
-print(" ".join(processor.tokenizer.convert_ids_to_tokens(pred_ids[0].tolist())))
+" ".join(processor.tokenizer.convert_ids_to_tokens(pred_ids[0].tolist()))
 ```
 
 **Print Output:**

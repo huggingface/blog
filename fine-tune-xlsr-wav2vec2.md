@@ -24,7 +24,7 @@ thumbnail: /blog/assets/15_fine_tune_wav2vec2/wav2vec2.png
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Fine_Tune_XLSR_Wav2Vec2_on_Turkish_ASR_with_🤗_Transformers.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Fine_Tune_XLSR_Wav2Vec2_on_Common_Voice.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -803,7 +803,7 @@ Now, we will just take the first example of the test set, run it through the mod
 
 
 ```python
-input_dict = processor(common_voice_test["input_values"][0], return_tensors="pt", padding=True)
+input_dict = processor(common_voice_test["input_values"][0], sampling_rate=16_000, return_tensors="pt", padding=True)
 
 logits = model(input_dict.input_values.to("cuda")).logits
 
