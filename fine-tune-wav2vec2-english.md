@@ -82,7 +82,7 @@ the `jiwer` to evaluate our fine-tuned model using the [word error rate
 !pip install jiwer
 ```
 
-Next we strongly suggest to upload your training checkpoints directly to the [🤗 Hub](https://huggingface.co/) while training. The [🤗 Hub](https://huggingface.co/) has integrated version control so you can be sure that no model checkpoint is getting lost during training. 
+Next we strongly suggest to upload your training checkpoints directly to the [Hugging Face Hub](https://huggingface.co/) while training. The Hub has integrated version control so you can be sure that no model checkpoint is getting lost during training. 
 
 To do so you have to store your authentication token from the Hugging Face website (sign up [here](https://huggingface.co/join) if you haven't already!)
 
@@ -488,7 +488,7 @@ processor = Wav2Vec2Processor(feature_extractor=feature_extractor, tokenizer=tok
 
 ### Preprocess Data
 
-So far, we have not looked at the actual values of the speech signal but just the transcriptio. In addition to sentence, our datasets include two more column names path and audio. path states the absolute path of the audio file. Let's take a look.
+So far, we have not looked at the actual values of the speech signal but just the transcription. In addition to sentence, our datasets include two more column names path and audio. path states the absolute path of the audio file. Let's take a look.
 
 ```python
 print(timit[0]["path"])
