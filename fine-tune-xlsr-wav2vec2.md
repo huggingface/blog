@@ -754,8 +754,6 @@ The resulting model of this notebook has been saved to [`patrickvonplaten/wav2ve
 ### Evaluation
 
 In the final part, we evaluate our fine-tuned model on the test set and
-
-Let\'s first load the pretrained checkpoint.
 play around with it a bit.
 
 ```python
