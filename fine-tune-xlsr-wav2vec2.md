@@ -792,10 +792,7 @@ processor = Wav2Vec2Processor.from_pretrained("patrickvonplaten/wav2vec2-large-x
 
 ### Evaluation
 
-In the final part, we evaluate our fine-tuned model on the test set and
-
-Let\'s first load the pretrained checkpoint.
-play around with it a bit.
+In the final part, we run our model on some of the validation data to get a feeling for how well it works.
 
 ```python
 model = Wav2Vec2ForCTC.from_pretrained(repo_name).to("cuda")
