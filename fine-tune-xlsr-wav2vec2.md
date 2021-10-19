@@ -47,8 +47,8 @@ I highly recommend reading the blog post [Sequence Modeling with CTC (2017)](htt
 Before we start, let\'s install both `datasets` and `transformers` from master. Also, we need the `torchaudio` and `librosa` package to load audio files and the `jiwer` to evaluate our fine-tuned model using the [word error rate (WER)](https://huggingface.co/metrics/wer) metric \\({}^1\\).
 
 ```bash
-!pip install datasets==1.4.1
-!pip install transformers==4.4.0
+!pip install datasets==1.13.3
+!pip install transformers==4.11.3
 !pip install torchaudio
 !pip install librosa
 !pip install jiwer
@@ -119,7 +119,7 @@ def show_random_elements(dataset, num_examples=10):
     df = pd.DataFrame(dataset[picks])
     display(HTML(df.to_html()))
 
-show_random_elements(common_voice_train.remove_columns(["path"]))
+show_random_elements(common_voice_train.remove_columns(["path", "audio"]))
 ```
 
 **Print Output:**
@@ -159,7 +159,7 @@ common_voice_test = common_voice_test.map(remove_special_characters, remove_colu
 Let\'s take a look at the preprocessed transcriptions.
 
 ```python
-show_random_elements(common_voice_train.remove_columns(["path"]))
+show_random_elements(common_voice_train.remove_columns(["path", "audio"]))
 ```
 
 **Print Output:**
@@ -205,7 +205,6 @@ print(vocab_dict)
 ```
 
 **Print Output:**
-
 ```bash
 {
  ' ': 33,
@@ -273,7 +272,6 @@ print(len(vocab_dict))
 ```
 
 **Print Output:**
-
 ```bash
     39
 ```
@@ -352,55 +350,55 @@ Next, we can prepare the dataset.
 
 ### Preprocess Data
 
-So far, we have not looked at the actual values of the speech signal but just kept the path to its file in the dataset. `XLSR-Wav2Vec2` expects the audio file in the format of a 1-dimensional array, so in the first step, let\'s load all audio files into the dataset object.
-
-Let\'s first check the serialization format of the downloaded audio files by looking at the first training sample.
-
+So far, we have not looked at the actual values of the speech signal but just the transcriptio. In addition to sentence, our datasets include two more column names path and audio. path states the absolute path of the audio file. Let's take a look.
 
 ```python
-print(common_voice_train[0])
+print(common_voice_train[0]["path"])
 ```
 
 **Print Output:**
-
 ```bash
-		{'path': '/content/cv-corpus-6.1-2020-12-11/tr/clips/common_voice_tr_21921195.mp3',
-		 'text': 'pirin sözleri hâlâ yankılanıyor '}
+'/content/cv-corpus-6.1-2020-12-11/tr/clips/common_voice_tr_21921195.mp3'
 ```
 
-Alright, the audio file is saved in the `.mp3` format. The `.mp3` format is usually not the easiest format to deal with. We found that the [`torchaudio`](https://pytorch.org/audio/stable/index.html) library works best for reading in `.mp3` data.
+**`XLSR-Wav2Vec2`** expects the input in the format of a 1-dimensional array of 16 kHz. This means that the audio file has to be loaded and resampled.
 
-An audio file usually stores both its values and the sampling rate with which the speech signal was digitalized. We want to store both in the dataset and write a `map(...)` function accordingly.
+Thankfully, datasets does this automatically by calling the other column audio. Let try it out.
 
 ```python
-import torchaudio
-
-def speech_file_to_array_fn(batch):
-    speech_array, sampling_rate = torchaudio.load(batch["path"])
-    batch["speech"] = speech_array[0].numpy()
-    batch["sampling_rate"] = sampling_rate
-    batch["target_text"] = batch["sentence"]
-    return batch
-
-common_voice_train = common_voice_train.map(speech_file_to_array_fn, remove_columns=common_voice_train.column_names)
-common_voice_test = common_voice_test.map(speech_file_to_array_fn, remove_columns=common_voice_test.column_names)
+common_voice_train[0]["audio"]
 ```
 
-Great, now we\'ve successfully read in all the audio files, but since we know that Common Voice is sampled at 48kHz, we need to resample the audio files to 16kHz.
+**Print Output:**
+```bash
+{'array': array([ 0.0000000e+00,  0.0000000e+00,  0.0000000e+00, ...,
+        -8.8930130e-05, -3.8027763e-05, -2.9146671e-05], dtype=float32),
+ 'path': '/root/.cache/huggingface/datasets/downloads/extracted/05be0c29807a73c9b099873d2f5975dae6d05e9f7d577458a2466ecb9a2b0c6b/cv-corpus-6.1-2020-12-11/tr/clips/common_voice_tr_21921195.mp3',
+ 'sampling_rate': 48000}
+```
 
-Let\'s make use of the [`librosa`](https://github.com/librosa/librosa) library to downsample the data.
+Great, we can see that the audio file has automatically been loaded. This is thanks to the new [`"Audio" feature`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=audio#datasets.Audio) introduced in datasets == 4.13.3, which loads and resamples audio files on-the-fly upon calling.
+
+In the example above we can see that the audio data is loaded with a sampling rate of 48kHz whereas 16kHz are expected by the model. We can set the audio feature to the correct sampling rate by making use of 
+[`cast_column`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=cast_column#datasets.DatasetDict.cast_column):
 
 ```python
-import librosa
-import numpy as np
+common_voice_train = common_voice_train.cast_column("audio", Audio(sampling_rate=16_000))
+common_voice_test = common_voice_test.cast_column("audio", Audio(sampling_rate=16_000))
+```
 
-def resample(batch):
-    batch["speech"] = librosa.resample(np.asarray(batch["speech"]), 48_000, 16_000)
-    batch["sampling_rate"] = 16_000
-    return batch
+Let's take a look at "audio" again.
 
-common_voice_train = common_voice_train.map(resample, num_proc=4)
-common_voice_test = common_voice_test.map(resample, num_proc=4)
+```python
+common_voice_train[0]["audio"]
+```
+
+**Print Output:**
+```bash
+{'array': array([ 0.0000000e+00,  0.0000000e+00,  0.0000000e+00, ...,
+        -7.4556941e-05, -1.4621433e-05, -5.7861507e-05], dtype=float32),
+ 'path': '/root/.cache/huggingface/datasets/downloads/extracted/05be0c29807a73c9b099873d2f5975dae6d05e9f7d577458a2466ecb9a2b0c6b/cv-corpus-6.1-2020-12-11/tr/clips/common_voice_tr_21921195.mp3',
+ 'sampling_rate': 16000}
 ```
 
 This seemed to have worked! Let\'s listen to a couple of audio files to better understand the dataset and verify that the audio was correctly loaded.
@@ -413,55 +411,72 @@ import random
 
 rand_int = random.randint(0, len(common_voice_train))
 
-ipd.Audio(data=np.asarray(common_voice_train[rand_int]["speech"]), autoplay=True, rate=16000)
+ipd.Audio(data=np.asarray(common_voice_train[rand_int]["audio"]["array"]), autoplay=True, rate=16000)
 ```
+
+
+Great, it seems like the data is now correctly loaded and resampled.
 
 It can be heard, that the speakers change along with their speaking rate, accent, and background environment, etc. Overall, the recordings sound acceptably clear though, which is to be expected from a crowd-sourced read speech corpus.
 
-Let\'s do a final check that the data is correctly prepared, by printing the shape of the speech input, its transcription, and the corresponding sampling rate.
+Let's do a final check that the data is correctly prepared, by printing the shape of the speech input, its transcription, and the corresponding sampling rate.
 
 ```python
-rand_int = random.randint(0, len(common_voice_train))
+rand_int = random.randint(0, len(common_voice_train)-1)
 
-print("Target text:", common_voice_train[rand_int]["target_text"])
-print("Input array shape:", np.asarray(common_voice_train[rand_int]["speech"]).shape)
-print("Sampling rate:", common_voice_train[rand_int]["sampling_rate"])
+print("Target text:", common_voice_train[rand_int]["sentence"])
+print("Input array shape:", common_voice_train[rand_int]["audio"]["array"].shape)
+print("Sampling rate:", common_voice_train[rand_int]["audio"]["sampling_rate"])
 ```
 
 **Print Output:**
-
 ```bash
-	Target text: mali sorunlara rağmen bunu tekrar başardı
-	Input array shape: (116352,)
+	Target text: rusya ülkeye dünya örgütünde destek vermişti 
+	Input array shape: (79872,)
 	Sampling rate: 16000
 ```
 
-Finally, we can process the dataset to the format expected by the model for training. We will again make use of the `map(...)` function.
+Good! Everything looks fine - the data is a 1-dimensional array, the sampling rate always corresponds to 16kHz, and the target text is normalized.
 
-First, we check that the data samples have the same sampling rate of 16kHz.
-Second, we extract the `input_values` from the loaded audio file. In our case, this includes only normalization, but for other speech models, this step could correspond to extracting, *e.g.* [Log-Mel features](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum).
+Finally, we can process the dataset to the format expected by the model for training. We will make use of the `map(...)` function.
+
+First, we load and resample the audio data, simply by calling `batch["audio"]`.
+Second, we extract the `input_values` from the loaded audio file. In our case, the `Wav2Vec2Processor` only normalizes the data. For other speech models, however, this step can include more complex feature extraction, such as [Log-Mel feature extraction](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum). 
 Third, we encode the transcriptions to label ids.
 
-**Note**: This mapping function is a good example of how the `Wav2Vec2Processor` class should be used. In "normal" context, calling `processor(...)` is redirected to `Wav2Vec2FeatureExtractor`\'s call method. When wrapping the processor into the `as_target_processor` context, however, the same method is redirected to `Wav2Vec2CTCTokenizer`\'s call method.
+**Note**: This mapping function is a good example of how the `Wav2Vec2Processor` class should be used. In "normal" context, calling `processor(...)` is redirected to `Wav2Vec2FeatureExtractor`'s call method. When wrapping the processor into the `as_target_processor` context, however, the same method is redirected to `Wav2Vec2CTCTokenizer`'s call method.
 For more information please check the [docs](https://huggingface.co/transformers/master/model_doc/wav2vec2.html#transformers.Wav2Vec2Processor.__call__).
-
 
 ```python
 def prepare_dataset(batch):
-    # check that all files have the correct sampling rate
-    assert (
-        len(set(batch["sampling_rate"])) == 1
-    ), f"Make sure all inputs have the same sampling rate of {processor.feature_extractor.sampling_rate}."
+    audio = batch["audio"]
 
-    batch["input_values"] = processor(batch["speech"], sampling_rate=batch["sampling_rate"][0]).input_values
-
+    # batched output is "un-batched"
+    batch["input_values"] = processor(audio["array"], sampling_rate=audio["sampling_rate"]).input_values[0]
+    
     with processor.as_target_processor():
-        batch["labels"] = processor(batch["target_text"]).input_ids
+        batch["labels"] = processor(batch["sentence"]).input_ids
     return batch
-
-common_voice_train = common_voice_train.map(prepare_dataset, remove_columns=common_voice_train.column_names, batch_size=8, num_proc=4, batched=True)
-common_voice_test = common_voice_test.map(prepare_dataset, remove_columns=common_voice_test.column_names, batch_size=8, num_proc=4, batched=True)
 ```
+
+Let's apply the data preparation function to all examples.
+
+```python
+common_voice_train = common_voice_train.map(prepare_dataset, remove_columns=common_voice_train.column_names, num_proc=4)
+common_voice_test = common_voice_test.map(prepare_dataset, remove_columns=common_voice_test.column_names, num_proc=4)
+```
+
+**Note:** Currently datasets make use of [`torchaudio`](https://pytorch.org/audio/stable/index.html) and [`librosa`](https://librosa.org/doc/latest/index.html) for audio loading and resampling. If you wish to implement your own costumized data loading/sampling, feel free to just make use of the `"path"` column instead and disregard the `"audio"` column.
+
+Long input sequences require a lot of memory. Since `XLSR-Wav2Vec2` is based on `self-attention` the memory requirement scales quadratically with the input length for long input sequences (*cf.* with [this](https://www.reddit.com/r/MachineLearning/comments/genjvb/d_why_is_the_maximum_input_sequence_length_of/) reddit post). For this demo, let's filter all sequences that are longer than 5
+ seconds out of the training dataset.
+
+```python
+max_input_length_in_sec = 5.0
+common_voice_train = common_voice_train.filter(lambda x: x < max_input_length_in_sec * processor.feature_extractor.sampling_rate, input_columns=["input_length"])
+```
+
+Awesome, now we are ready to start training!
 
 Training
 --------
@@ -617,15 +632,13 @@ model = Wav2Vec2ForCTC.from_pretrained(
     feat_proj_dropout=0.0,
     mask_time_prob=0.05,
     layerdrop=0.1,
-    gradient_checkpointing=True,
     ctc_loss_reduction="mean",
     pad_token_id=processor.tokenizer.pad_token_id,
     vocab_size=len(processor.tokenizer)
 )
 ```
 
-**Log Output:**
-
+**Print Output:**
 ```bash
     Some weights of Wav2Vec2ForCTC were not initialized from the model checkpoint at facebook/wav2vec2-large-xlsr-53 and are newly initialized: [\'lm_head.weight\', \'lm_head.bias\']
     You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
@@ -656,7 +669,8 @@ training_args = TrainingArguments(
   # output_dir="./wav2vec2-large-xlsr-turkish-demo",
   group_by_length=True,
   per_device_train_batch_size=16,
-  gradient_accumulation_steps=2,
+	gradient_accumulation_steps=2,
+	gradient_checkpointing=True,
   evaluation_strategy="steps",
   num_train_epochs=30,
   fp16=True,
@@ -703,7 +717,7 @@ A CTC-conform prediction of `"hello"` of our model would be
 
 ### Training
 
-Training will take between 180 and 240 minutes depending on the GPU allocated to this notebook. While the trained model yields somewhat satisfying results on *Common Voice*\'s test data of Turkish, it is by no means an optimally fine-tuned model. The purpose of this notebook is to demonstrate how XLSR-Wav2Vec2\'s [checkpoint](https://huggingface.co/facebook/wav2vec2-large-xlsr-53) can be fine-tuned on a low-resource ASR dataset.
+Training will take a couple of hours depending on the GPU allocated to this notebook. While the trained model yields somewhat satisfying results on *Common Voice*\'s test data of Turkish, it is by no means an optimally fine-tuned model. The purpose of this notebook is to demonstrate how XLSR-Wav2Vec2\'s [checkpoint](https://huggingface.co/facebook/wav2vec2-large-xlsr-53) can be fine-tuned on a low-resource ASR dataset.
 
 In case you want to use this google colab to fine-tune your model, you should make sure that your training doesn\'t stop due to inactivity. A simple hack to prevent this is to paste the following code into the console of this tab (*right mouse click -> inspect -> Console tab and insert code*).
 
@@ -718,6 +732,8 @@ setInterval(ConnectButton,60000);
 ```python
 trainer.train()
 ```
+
+Depending on what GPU was allocated to your google colab it might be possible that you are seeing an `"out-of-memory"` error here. In this case, it's probably best to reduce `per_device_train_batch_size` to 8 or even less and increase [`gradient_accumulation`](https://huggingface.co/transformers/master/main_classes/trainer.html#trainingarguments).
 
 **Print Output:**
 
@@ -735,9 +751,12 @@ The training loss goes down and we can see that the WER on the test set also imp
 
 The resulting model of this notebook has been saved to [`patrickvonplaten/wav2vec2-large-xlsr-turkish-demo`](https://huggingface.co/patrickvonplaten/wav2vec2-large-xlsr-turkish-demo)
 
-As a final check, let\'s load the model and verify that it indeed has learned to transcribe Turkish speech.
+### Evaluation
+
+In the final part, we evaluate our fine-tuned model on the test set and
 
 Let\'s first load the pretrained checkpoint.
+play around with it a bit.
 
 ```python
 model = Wav2Vec2ForCTC.from_pretrained("patrickvonplaten/wav2vec2-large-xlsr-turkish-demo").to("cuda")
