@@ -7,7 +7,7 @@ thumbnail: /blog/assets/31_age_of_ml_as_code/05_vision_transformer.png
 The Age of Machine Learning As Code Has Arrived
 </h1>
 
-  
+
   <div class="blog-metadata">
     <small>Published October 20, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/the_age_of_ml_as_code_has_arrived.md">
@@ -20,12 +20,12 @@ The Age of Machine Learning As Code Has Arrived
     <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
     <div class="bfc">
       <span class=fullname">Julien Simon</span>
-
+                           </a>
     </div>
-  </a>
-    </a>
-</div>
 
+
+                           
+                           
 
 The 2021 edition of the [State of AI Report](https://www.stateof.ai/2021-report-launch.html) came out last week. So did the Kaggle [State of Machine Learning and Data Science Survey](https://www.kaggle.com/c/kaggle-survey-2021). There's much to be learned and discussed in these reports, and a couple of takeaways caught my attention.
 
