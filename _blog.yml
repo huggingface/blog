@@ -196,3 +196,7 @@
 - local: fine-tune-clip-rsicd
   title: "Fine tuning CLIP with Remote Sensing (Satellite) images and captions"
   date: October 13, 2021
+
+- local: the_age_of_ml_as_code_has_arrived
+  title: "The Age of Machine Learning As Code Has Arrived"
+  date: October 20, 2021
