@@ -8,24 +8,24 @@ The Age of Machine Learning As Code Has Arrived
 </h1>
 
 
-  <div class="blog-metadata">
+<div class="blog-metadata">
     <small>Published October 20, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/the_age_of_ml_as_code_has_arrived.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/the-age-of-ml-as-code.md">
         Update on GitHub
     </a>
 </div>
 
 <div class="author-card">
-  <a href="https://twitter.com/julsimon">
-    <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
-    <div class="bfc">
-      <span class=fullname">Julien Simon</span>
-                           </a>
-    </div>
+    <a href="https://twitter.com/julsimon">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
+        <div class="bfc">
+            <code>juliensimon</code>
+            <span class=fullname">Julien Simon</span>
+        </div>
+    </a>
+</div>
 
 
-                           
-                           
 
 The 2021 edition of the [State of AI Report](https://www.stateof.ai/2021-report-launch.html) came out last week. So did the Kaggle [State of Machine Learning and Data Science Survey](https://www.kaggle.com/c/kaggle-survey-2021). There's much to be learned and discussed in these reports, and a couple of takeaways caught my attention.
 
@@ -70,7 +70,7 @@ With MLOps, software-defined infrastructure and platforms, it's never been easie
 
 Now, let's talk about Transformers.
 
---
+---
 
 ### Transformers! Transformers! Transformers! ([Ballmer style](https://www.youtube.com/watch?v=Vhh_GeBPOhs))
 
@@ -130,6 +130,6 @@ A lot of you seem to agree. We have over 52,000 stars on [Github](https://github
 
 **Thank you all**. And yeah, we're just getting started.
 
---
+---
 
 *Interested in how Hugging Face can help your organization build and deploy production-grade Machine Learning solutions? Get in touch at [julsimon@huggingface.co](mailto:julsimon@huggingface.co) (no recruiters, no sales pitches, please).*
