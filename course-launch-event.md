@@ -21,7 +21,12 @@ We are excited to share that after a lot of work from the Hugging Face team, par
 
 To go with this release, we are organizing a large community event to which you are invited! The program includes two days of talks, then team projects focused on fine-tuning a model on any NLP task ending with live demos like [this one](https://huggingface.co/spaces/flax-community/chef-transformer). Those demos will go nicely in your portfolio if you are looking for a new job in Machine Learning, and we will also deliver a certificate of completion to all the participants that achieve building one of them.
 
-We are also waiting to hear from our cloud compute partners but we hope to be able to offer free compute for all the participants, stay tuned on this part!
+AWS is sponsoring this event by offering free compute to participants via [Amazon SageMaker](https://aws.amazon.com/sagemaker/). 
+
+<div class="flex justify-center">
+<img src="/blog/assets/31_course_launch/amazon_logo_dark.png" width=30% class="hidden dark:block"> 
+<img src="/blog/assets/31_course_launch/amazon_logo_white.png" width=30% class="dark:hidden">
+</div>
 
 To register, please fill out [this form](https://www.notion.so/huggingface2/Issue-12-October-2021-b724fc92c1a843c897b4c0ca0731ffee#caa187a4afa84e059cd78609d288d5c5). You will find below more details on the two days of talks.
 
@@ -55,11 +60,6 @@ The first day of talks will focus on a high-level presentation of Transformers m
         <p>Jay Alammar, Cohere. Through his popular ML blog, Jay has helped millions of researchers and engineers visually understand machine learning tools and concepts from the basic (ending up in numPy, pandas docs) to the cutting-edge (Transformers, BERT, GPT-3).</p>
     </div>
     <div class="text-center flex flex-col items-center">
-        <img src="/blog/assets/31_course_launch/mark_saroufim.png" width=50%>
-        <p><strong>Mark Saroufim: <em>How to Train a Model with Pytorch</em></strong></p>
-        <p>Mark Saroufim is a Partner Engineer at Pytorch working on OSS production tools including TorchServe and Pytorch Enterprise. In his past lives, Mark was an Applied Scientist and Product Manager at Graphcore, <a href="http://yuri.ai/">yuri.ai</a>, Microsoft and NASA&#39;s JPL. His primary passion is to make programming more fun.</p>
-    </div>
-    <div class="text-center flex flex-col items-center">
         <img src="/blog/assets/31_course_launch/matthew_watson.png" width=50%>
         <p><strong>Matthew Watson: <em>NLP workflows with Keras</em></strong></p>
         <p>Matthew Watson is a machine learning engineer on the Keras team, with a focus on high-level modeling APIs. He studied Computer Graphics during undergrad and a Masters at Stanford University. An almost English major who turned towards computer science, he is passionate about working across disciplines and making NLP accessible to a wider audience.</p>
@@ -68,6 +68,11 @@ The first day of talks will focus on a high-level presentation of Transformers m
         <img src="/blog/assets/31_course_launch/chen_qian.png" width=50%>
         <p><strong>Chen Qian: <em>NLP workflows with Keras</em></strong></p>
         <p>Chen Qian is a software engineer from Keras team, with a focus on high-level modeling APIs. Chen got a Master degree of Electrical Engineering from Stanford University, and he is especially interested in simplifying code implementations of ML tasks and large-scale ML.</p>
+    </div>
+    <div class="text-center flex flex-col items-center">
+        <img src="/blog/assets/31_course_launch/mark_saroufim.png" width=50%>
+        <p><strong>Mark Saroufim: <em>How to Train a Model with Pytorch</em></strong></p>
+        <p>Mark Saroufim is a Partner Engineer at Pytorch working on OSS production tools including TorchServe and Pytorch Enterprise. In his past lives, Mark was an Applied Scientist and Product Manager at Graphcore, <a href="http://yuri.ai/">yuri.ai</a>, Microsoft and NASA&#39;s JPL. His primary passion is to make programming more fun.</p>
     </div>
 </div>
 
@@ -79,13 +84,48 @@ Day 2 will be focused on talks by the Hugging Face team as well as the [Gradio t
     class="container md:grid md:grid-cols-2 gap-2 max-w-7xl"
 >
     <div class="text-center flex flex-col items-center">
+        <img src="/blog/assets/31_course_launch/lewis_tunstall.png" width=50%>
+        <p><strong>Lewis Tunstall: <em>Simple Training with the 🤗 Transformers Trainer</em></strong></p>
+        <p>Lewis is a machine learning engineer at Hugging Face, focused on developing open-source tools and making them accessible to the wider community. He is also a co-author of an upcoming O’Reilly book on Transformers and you can follow him on Twitter (@_lewtun) for NLP tips and tricks!</p>
+    </div>
+    <div class="text-center flex flex-col items-center">
+        <img src="/blog/assets/31_course_launch/matthew_carrigan.png" width=50%>
+        <p><strong>Matthew Carrigan: <em>New TensorFlow Features for 🤗 Transformers and 🤗 Datasets</em></strong></p>
+        <p>Matt is responsible for TensorFlow maintenance at Transformers, and will eventually lead a coup against the incumbent PyTorch faction which will likely be co-ordinated via his Twitter account @carrigmat.</p>
+    </div>
+    <div class="text-center flex flex-col items-center">
+        <img src="/blog/assets/31_course_launch/lysandre_debug.png" width=50%>
+        <p><strong>Lysandre Debut: <em>The Hugging Face Hub</em></strong></p>
+        <p>Lysandre is an okay guy.</p>
+    </div>
+    <div class="text-center flex flex-col items-center">
+        <img src="/blog/assets/31_course_launch/sylvain_gugger.png" width=50%>
+        <p><strong>Sylvain Gugger: <em>Supercharge your PyTorch training loop with 🤗 Accelerate</em></strong></p>
+        <p>Sylvain is a Research Engineer at Hugging Face and one of the core maintainers of 🤗 Transformers and the developer behind 🤗 Accelerate. He likes making model training more accessible.</p>
+    </div>
+    <div class="text-center flex flex-col items-center">
+        <img src="/blog/assets/31_course_launch/lucile_saulnier.png" width=50%>
+        <p><strong>Lucile Saulnier: <em>Get your own tokenizer with 🤗 Transformers & 🤗 Tokenizers</em></strong></p>
+        <p>Lucile is a machine learning engineer at Hugging Face, developing and supporting the use of open source tools. She is also actively involved in many research projects in the field of Natural Language Processing such as collaborative training and BigScience.</p>
+    </div>
+    <div class="text-center flex flex-col items-center">
+        <img src="/blog/assets/31_course_launch/merve_noyan.png" width=50%>
+        <p><strong>Merve Noyan: <em>Showcase your model demos with 🤗 Spaces</em></strong></p>
+        <p>Merve is a developer advocate at Hugging Face, working on developing tools and building content around them to democratize machine learning for everyone.</p>
+    </div>
+    <div class="text-center flex flex-col items-center">
         <img src="/blog/assets/31_course_launch/abubakar_abid.png" width=50%>
         <p><strong>Abubakar Abid: <em>Building Machine Learning Applications Fast</em></strong></p>
         <p>Abubakar Abid is the CEO of <a href="www.gradio.app">Gradio</a>. He received his Bachelor&#39;s of Science in Electrical Engineering and Computer Science from MIT in 2015, and his PhD in Applied Machine Learning from Stanford in 2021. In his role as the CEO of Gradio, Abubakar works on making machine learning models easier to demo, debug, and deploy.</p>
     </div>
     <div class="text-center flex flex-col items-center">
-        <img src="/blog/assets/31_course_launch/charly_wargnier.png" width=50%>
-        <p><strong>Charly Wargnier: <em>How to create a simple Transformer app in Streamlit</em></strong></p>
-        <p>Charly’s been a Streamlit aficionado since day one and was part of the first round of <a href="https://streamlit.io/creators">Streamlit Creators</a> in October 2020. He joined Streamlit full time in July 2021 as a Developer Advocate. Before joining Streamlit, Charly helped numerous Fortune 500 companies with their SEO, and developed countless Search and NLP apps (many of which are powered by Streamlit and Huggingface!). Check out some of them in <a href="https://www.charlywargnier.com/my-public-web-apps">his portfolio</a>! You can also follow Charly on Twitter (@Datachaz) for the latest Streamlit news and Python tricks!</p>
+        <img src="/blog/assets/31_course_launch/matthieu_desve.png" width=50%>
+        <p><strong>Mathieu Desvé: <em>AWS ML Vision: Making Machine Learning Accessible to all Customers</em></strong></p>
+        <p>Technology enthusiast, maker on my free time. I like challenges and solving problem of clients and users, and work with talented people to learn every day. Since 2004, I work in multiple positions switching from frontend, backend, infrastructure, operations and managements. Try to solve commons technical and managerial issues in agile manner.</p>
+    </div>
+    <div class="text-center flex flex-col items-center">
+        <img src="/blog/assets/31_course_launch/philipp_schmid.png" width=50%>
+        <p><strong>Philipp Schmid: <em>Fine-tuning a model on AWS SageMaker</em></strong></p>
+        <p>Philipp is awesome!</p>
     </div>
 </div>
