@@ -65,17 +65,17 @@ In practice, we used a scaled similarity because score differences tends to be t
 
 In our method, we build batches of sample pairs $(a_i , p_i)$. We consider all other samples from the batch, $(a_i , p_j), i \neq j$, as negatives sample pairs. The batch composition is therefore a key training aspect. Given the literature in the domain, we mainly focused on three main aspects of the batch.
 
-#### Size matters
+#### 1. Size matters
 
 In contrastive learning, a larger batch size is synonymous with better performance. As shown in the Figure extracted from Qu and al., ([2021](https://doi.org/10.18653/v1/2021.naacl-main.466)), a larger batch size increases the results.
 
 ![snippet](assets/25_1b_sentence_embeddings/batch-size.png)
 
-#### Hard Negatives
+#### 2. Hard Negatives
 
 In the same figure, we observe that including hard negatives also improves performance. Hard negatives are sample $p_j$ which are hard to distinguish from $p_i$. In our example, it could be the pairs « What is the capital of France? » and « What is the capital of the US? » which have a close semantic content and requires precisely understanding the full sentence to be answered correctly. On the contrary, the samples  « What is the capital of France? » and «How many Star Wars movies is there?» are less difficult to distinguish since they do not refer to the same topic.
 
-#### Cross dataset batches
+#### 3. Cross dataset batches
 
 We concatenated multiple datasets to train our models. We built a large batch and gathered samples from the same batch dataset to limit the topic distribution and favor hard negatives. However, we also mix at least two datasets in the batch to learn a global structure between topics and not only a local structure within a topic.
 
