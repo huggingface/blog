@@ -94,7 +94,7 @@ Day 2 will be focused on talks by the Hugging Face, [Gradio](https://www.gradio.
         <p>Matt is responsible for TensorFlow maintenance at Transformers, and will eventually lead a coup against the incumbent PyTorch faction which will likely be co-ordinated via his Twitter account @carrigmat.</p>
     </div>
     <div class="text-center flex flex-col items-center">
-        <img src="/blog/assets/32_course_launch/lysandre_debug.png" width=50%>
+        <img src="/blog/assets/32_course_launch/lysandre_debut.png" width=50%>
         <p><strong>Lysandre Debut: <em>The Hugging Face Hub as a means to collaborate on and share Machine Learning projects</em></strong></p>
         <p>Lysandre is a Machine Learning Engineer at Hugging Face where he is involved in many open source projects. His aim is to make Machine Learning accessible to everyone by developing powerful tools with a very simple API.</p>
     </div>
@@ -119,7 +119,7 @@ Day 2 will be focused on talks by the Hugging Face, [Gradio](https://www.gradio.
         <p>Abubakar Abid is the CEO of <a href="www.gradio.app">Gradio</a>. He received his Bachelor&#39;s of Science in Electrical Engineering and Computer Science from MIT in 2015, and his PhD in Applied Machine Learning from Stanford in 2021. In his role as the CEO of Gradio, Abubakar works on making machine learning models easier to demo, debug, and deploy.</p>
     </div>
     <div class="text-center flex flex-col items-center">
-        <img src="/blog/assets/32_course_launch/matthieu_desve.png" width=50%>
+        <img src="/blog/assets/32_course_launch/mathieu_desve.png" width=50%>
         <p><strong>Mathieu Desvé: <em>AWS ML Vision: Making Machine Learning Accessible to all Customers</em></strong></p>
         <p>Technology enthusiast, maker on my free time. I like challenges and solving problem of clients and users, and work with talented people to learn every day. Since 2004, I work in multiple positions switching from frontend, backend, infrastructure, operations and managements. Try to solve commons technical and managerial issues in agile manner.</p>
     </div>
