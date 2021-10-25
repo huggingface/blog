@@ -35,19 +35,19 @@ This is an impressive show of Machine Learning engineering, no doubt about it. Y
 
 ### This Is Your Brain On Deep Learning
 
-Researchers estimate that the human brain contains an average of [86 billion neurons](https://pubmed.ncbi.nlm.nih.gov/19226510/). It's safe to assume that not all of them are dedicated to language too. As crude as this analogy is, shouldn't we wonder whether building language models that are significantly larger than a human brain is the best long-term approach?
+Researchers estimate that the human brain contains an average of [86 billion neurons](https://pubmed.ncbi.nlm.nih.gov/19226510/). It's safe to assume that not all of them are dedicated to language either. As crude as this analogy is, shouldn't we wonder whether building language models that are significantly larger than a human brain is the best long-term approach?
 
 Of course, the human brain is a marvelous device, produced by millions of years of evolution, while Deep Learning models are only a few decades old. Still, our intuition should tell us that something doesn't compute (pun intended).
 
 ### Deep Learning, Deep Pockets?
 
-As you would expect, training a 530-billion parameter model on humongus text datasets requires a fair bit of infrastructure. In fact, Microsoft and NVIDIA used hundreds of DGX A100 multi-GPU servers. At $199,000 a piece, and factoring in networking equipment, hosting costs, etc., anyone looking to replicate this experiment would have to spend close to $100 million dollars. Want fries with that?
+As you would expect, training a 530-billion parameter model on humongous text datasets requires a fair bit of infrastructure. In fact, Microsoft and NVIDIA used hundreds of DGX A100 multi-GPU servers. At $199,000 a piece, and factoring in networking equipment, hosting costs, etc., anyone looking to replicate this experiment would have to spend close to $100 million dollars. Want fries with that?
 
-Seriously, which organizations have business use cases that would justify spend $100 million on Deep Learning infrastructure? Or even $10 million? Very, very few. So who are these models for, really?
+Seriously, which organizations have business use cases that would justify spending $100 million on Deep Learning infrastructure? Or even $10 million? Vvery few. So who are these models for, really?
 
 ### That Warm Feeling Is Your GPU Cluster
 
-For all its engineering brilliance, training Deep Learning models on GPUs is a brute force technique. According to the spec sheet, each DGX server can consume up to 6.5 kilowatts. Or couse, you'll at least as much cooling power in your datacenter (or your server closet). Unless you're the Starks and need to keep Winterfell warm in winter, that's another problem you'll have to deal with. 
+For all its engineering brilliance, training Deep Learning models on GPUs is a brute force technique. According to the spec sheet, each DGX server can consume up to 6.5 kilowatts. Of course, you'll need at least as much cooling power in your datacenter (or your server closet). Unless you're the Starks and need to keep Winterfell warm in winter, that's another problem you'll have to deal with. 
 
 In addition, as public awareness grows on climate and social responsibility issues, organizations need to account for their carbon footprint. According to this 2019 [study](https://arxiv.org/pdf/1906.02243.pdf) from the University of Massachusetts, "*training BERT on GPU is roughly equivalent to a trans-American flight*".
 
@@ -57,7 +57,7 @@ BERT-Large has 340 million parameters. One can only extrapolate what the footpri
 
 Am I excited by Megatron-Turing NLG 530B and whatever beast is coming next? No. Do I think that the (relatively small) benchmark improvement is worth the added cost, complexity and carbon footprint? No. Do I think that building and promoting these huge models is helping organizations understand and adopt Machine Learning ? No.
 
-I'm left wondering what's the point of it all. Science for the sake of science? Good old marketing? Technological supremacy? Probably a bit of all that. I'll leave them to it, then.
+I'm left wondering what's the point of it all. Science for the sake of science? Good old marketing? Technological supremacy? Probably a bit of each. I'll leave them to it, then.
 
 Instead, let me focus on pragmatic and actionable techniques that you can all use to build high quality Machine Learning solutions.
 
@@ -73,7 +73,7 @@ Then, you should quickly try out a few models to predict your own data. If metri
 
 When evaluating models, you should pick the smallest one that can deliver the accuracy you need. It will predict faster and require fewer hardware resources for training and inference. Frugality goes a long way.
 
-It's nothing new either. Computer Vision practioners will remember when [SqueezeNet](https://arxiv.org/abs/1602.07360) came out in 2017, achieving a 50x reduction in model size compared to [AlexNet](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html), while meeting or exceeding its accuracy. How clever that was!
+It's nothing new either. Computer Vision practitioners will remember when [SqueezeNet](https://arxiv.org/abs/1602.07360) came out in 2017, achieving a 50x reduction in model size compared to [AlexNet](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html), while meeting or exceeding its accuracy. How clever that was!
 
 Downsizing efforts are also under way in the Natural Language Processing community, using transfer learning techniques such as [knowledge distillation](https://en.wikipedia.org/wiki/Knowledge_distillation). [DistilBERT](https://arxiv.org/abs/1910.01108) is perhaps its most widely known achievement. Compared to the original BERT model, it retains 97% of language understanding while being 40% smaller and 60% faster. You can try it [here](https://huggingface.co/distilbert-base-uncased). The same approach has been applied to other models, such as Facebook's [BART](https://arxiv.org/abs/1910.13461), and you can try DistilBART [here](https://huggingface.co/models?search=distilbart).
 
@@ -108,7 +108,7 @@ However, the Machine Learning community is still struggling with this topic, and
 * Fusion: merge model layers (say, convolution and activation).
 * Quantization: storing model parameters in smaller values (say, 8 bits instead of 32 bits)
 
-Fortunately, automated tools are starting to appear, such as the [Optimum](https://huggingface.co/hardware) open source library, and [Infinity](https://huggingface.co/infinity), a containerized solution that delivers Transformers accuracy at 1ms latency.
+Fortunately, automated tools are starting to appear, such as the [Optimum](https://huggingface.co/hardware) open source library, and [Infinity](https://huggingface.co/infinity), a containerized solution that delivers Transformers accuracy at 1-millisecond latency.
 
 ### Conclusion 
 
