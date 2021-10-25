@@ -19,6 +19,7 @@ title: "Train a Sentence Embedding Model with 1B Training Pairs"
         <div class="bfc">
             <code>asi</code>
             <span class="fullname">Antoine Simoulin</span>
+            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>
@@ -33,13 +34,13 @@ We developed state-of-the-art sentence embedding models as part of the project [
 
 Unlike words, we can not define a finite set of sentences. Sentence embedding methods, therefore, compose inner words to compute the final representation. For example, SentenceBert model ([Reimers and Gurevych, 2019](https://aclanthology.org/D19-1410.pdf)) uses Transformer, the cornerstone of many NLP applications, followed by a pooling operation over the contextualized word vectors. (c.f. Figure below.)
 
-![snippet](assets/25_1b_sentence_embeddings/model.png)
+![snippet](assets/32_1b_sentence_embeddings/model.png)
 
 ### Multiple Negative Ranking Loss
 
-The parameters from the composition module are usually learned using a self-supervised objective. For the project, we used a contrastive training method illustrated in the Figure below. We constitute a dataset with sentence pairs $(a_i, p_i)$ such that sentences from the pair have a close meaning. For example, we consider pairs such as (query, answer-passage), (question, duplicate_question),(paper title, cited paper title). Our model is then trained to map pairs $(a_i , p_i)$ to close vectors while assigning unmatched pairs $(a_i , p_j), i \neq j$ to distant vectors in the embedding space. This training method is also called training with in-batch negatives, InfoNCE or NTXentLoss.
+The parameters from the composition module are usually learned using a self-supervised objective. For the project, we used a contrastive training method illustrated in the figure below. We constitute a dataset with sentence pairs $(a_i, p_i)$ such that sentences from the pair have a close meaning. For example, we consider pairs such as (query, answer-passage), (question, duplicate_question),(paper title, cited paper title). Our model is then trained to map pairs $(a_i , p_i)$ to close vectors while assigning unmatched pairs $(a_i , p_j), i \neq j$ to distant vectors in the embedding space. This training method is also called training with in-batch negatives, InfoNCE or NTXentLoss.
 
-![snippet](assets/25_1b_sentence_embeddings/contrastive_1.png)
+![snippet](assets/32_1b_sentence_embeddings/contrastive_1.png)
 
 Formally, given a batch of training samples, the model optimises the following [loss function](https://github.com/UKPLab/sentence-transformers/blob/master/sentence_transformers/losses/MultipleNegativesRankingLoss.py):
 
@@ -49,7 +50,7 @@ An illustrative example can be seen below. The model first embeds each sentence 
 
 Intuitively, the model should assign high similarity to the sentences « How many people live in Berlin? » and « Around 3.5 million people live in Berlin » and low similarity to other negative answers such as « The capital of France is Paris » as detailed in the Figure below.
 
-![snippet](assets/25_1b_sentence_embeddings/contrastive_2.png)
+![snippet](assets/32_1b_sentence_embeddings/contrastive_2.png)
 
 In the loss equation, `sim` indicates a similarity function between (a, p). The similarity function could be either the Cosine-Similarity or the Dot-Product operator. Both methods have their pros and cons summarized below ([Thakur et al., 2021](https://arxiv.org/abs/2104.08663), [Bachrach et al., 2014](https://dl.acm.org/doi/10.1145/2645710.2645741)):
 
@@ -69,7 +70,7 @@ In our method, we build batches of sample pairs $(a_i , p_i)$. We consider all o
 
 In contrastive learning, a larger batch size is synonymous with better performance. As shown in the Figure extracted from Qu and al., ([2021](https://doi.org/10.18653/v1/2021.naacl-main.466)), a larger batch size increases the results.
 
-![snippet](assets/25_1b_sentence_embeddings/batch-size.png)
+![snippet](assets/32_1b_sentence_embeddings/batch-size.png)
 
 #### 2. Hard Negatives
 
@@ -89,10 +90,10 @@ Additionally, we trained models on a large corpus as we concatenated multiple da
 
 You can find all models and datasets we created during the challenge in our [HuggingFace repository](https://huggingface.co/flax-sentence-embeddings). We trained 20 general-purpose Sentence Transformers models such as Mini-LM ([Wang and al., 2020](https://proceedings.neurips.cc/paper/2020/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)), RoBERTa ([liu and al., 2019](https://arxiv.org/abs/1907.11692 )), DistilBERT ([Sanh and al., 2020](http://arxiv.org/abs/1910.01108)) and MPNet ([Song and al., 2020](https://proceedings.neurips.cc/paper/2020/hash/c3a690be93aa602ee2dc0ccab5b7b67e-Abstract.html)). Our models achieve SOTA on multiple general-purpose Sentence Similarity evaluation tasks. We also shared [8 datasets](https://huggingface.co/flax-sentence-embeddings) specialized for Question Answering, Sentence-Similarity, and Gender Evaluation. 
 
-General sentence embeddings might be used for many applications. built a [Spaces demo](https://huggingface.co/spaces/flax-sentence-embeddings/sentence-embeddings) for several applications:
+General sentence embeddings might be used for many applications. We built a [Spaces demo](https://huggingface.co/spaces/flax-sentence-embeddings/sentence-embeddings) to showcase several applications:
 * The **sentence similarity** module compares the similarity of the main text with other texts of your choice. In the background, the demo extracts the embedding for each text and computes the similarity between the source sentence and the other using cosine similarity.
-* **Asymmetric QA compares the answer likeliness of a given query with answer candidates of your choice.
-* **Search / Cluster returns nearby answers from a query. For example, if you input « python », it will retrieve closest sentences using dot-product distance.
+* **Asymmetric QA** compares the answer likeliness of a given query with answer candidates of your choice.
+* **Search / Cluster** returns nearby answers from a query. For example, if you input « python », it will retrieve closest sentences using dot-product distance.
 * **Gender Bias Evaluation** report *inherent gender bias* in training set via random sampling of the sentences. Given an anchor text without mentioning gender for target occupation and 2 propositions with gendered pronouns, we compare if models assign a higher similarity to a given proposition and therefore evaluate their proportion to favor a specific gender.
 
 The [Community week using JAX/Flax for NLP & CV](https://discuss.huggingface.co/t/open-to-the-community-community-week-using-jax-flax-for-nlp-cv/7104) has been an intense and highly rewarding experience! The quality of Google’s Flax, JAX, and Cloud and Hugging Face team members' guidance and their presence helped us all learn a lot. We hope all projects had as much fun as we did in ours. Whenever you have questions or suggestions, don’t hesitate to contact us!
