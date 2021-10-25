@@ -28,7 +28,7 @@ AWS is sponsoring this event by offering free compute to participants via [Amazo
 <img src="/blog/assets/31_course_launch/amazon_logo_white.png" width=30% class="dark:hidden">
 </div>
 
-To register, please fill out [this form](https://www.notion.so/huggingface2/Issue-12-October-2021-b724fc92c1a843c897b4c0ca0731ffee#caa187a4afa84e059cd78609d288d5c5). You will find below more details on the two days of talks.
+To register, please fill out [this form](https://docs.google.com/forms/d/e/1FAIpQLSd17_u-wMCdO4fcOPOSMLKcJhuIcevJaOT8Y83Gs-H6KFF5ew/viewform). You will find below more details on the two days of talks.
 
 ## Day 1 (November 15th): A high-level view of Transformers and how to train them
 
