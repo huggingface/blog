@@ -17,9 +17,9 @@ thumbnail: /blog/assets/31_course_launch/speakers_day1.png
     </a>
 </div>
 
-We are excited to share that after a lot of work from the Hugging Face team, part 2 of the [Hugging Face Course](https://hf.co/course) will be released on November 15th. Part 1 focused on teaching you how to use a pretrained model, fine-tune it on a text classification task then upload the result to the [Model Hub](https://hf.co/models). Part 2 will focus on all the other common NLP tasks: token classification, language modeling (causal and masked), translation, summarization and question answering. It will also take a deeper dive in the whole Hugging Face ecosystem, in particular [🤗 Datasets](https://github.com/huggingface/datasets) and [🤗 Tokenizers](https://github.com/huggingface/tokenizers).
+We are excited to share that after a lot of work from the Hugging Face team, part 2 of the [Hugging Face Course](https://hf.co/course) will be released on November 15th! Part 1 focused on teaching you how to use a pretrained model, fine-tune it on a text classification task then upload the result to the [Model Hub](https://hf.co/models). Part 2 will focus on all the other common NLP tasks: token classification, language modeling (causal and masked), translation, summarization and question answering. It will also take a deeper dive in the whole Hugging Face ecosystem, in particular [🤗 Datasets](https://github.com/huggingface/datasets) and [🤗 Tokenizers](https://github.com/huggingface/tokenizers).
 
-To go with this release, we are organizing a large community event to which you are invited! The program includes two days of talks, then team projects focused on fine-tuning a model on any NLP task ending with live demos like [this one](https://huggingface.co/spaces/flax-community/chef-transformer). Those demos will go nicely in your portfolio if you are looking for a new job in Machine Learning, and we will also deliver a certificate of completion to all the participants that achieve building one of them.
+To go with this release, we are organizing a large community event to which you are invited! The program includes two days of talks, then team projects focused on fine-tuning a model on any NLP task ending with live demos like [this one](https://huggingface.co/spaces/flax-community/chef-transformer). Those demos will go nicely in your portfolio if you are looking for a new job in Machine Learning. We will also deliver a certificate of completion to all the participants that achieve building one of them.
 
 AWS is sponsoring this event by offering free compute to participants via [Amazon SageMaker](https://aws.amazon.com/sagemaker/). 
 
@@ -78,7 +78,7 @@ The first day of talks will focus on a high-level presentation of Transformers m
 
 ## Day 2 (November 16th): The tools you will use
 
-Day 2 will be focused on talks by the Hugging Face team as well as the [Gradio team](https://www.gradio.app/) and the [Streamlit team](https://streamlit.io/) showing you the tools you will use.
+Day 2 will be focused on talks by the Hugging Face, [Gradio](https://www.gradio.app/), and [AWS](https://aws.amazon.com/) teams, showing you the tools you will use.
 
 <div
     class="container md:grid md:grid-cols-2 gap-2 max-w-7xl"
