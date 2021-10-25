@@ -200,3 +200,7 @@
 - local: the-age-of-ml-as-code
   title: "The Age of Machine Learning As Code Has Arrived"
   date: October 20, 2021
+  
+- local: 1b-sentence-embeddings
+  title: "Train a Sentence Embedding Model with 1B Training Pairs"
+  date: October 25, 2021
