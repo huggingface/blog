@@ -125,7 +125,7 @@ Day 2 will be focused on talks by the Hugging Face, [Gradio](https://www.gradio.
     </div>
     <div class="text-center flex flex-col items-center">
         <img src="/blog/assets/31_course_launch/philipp_schmid.png" width=50%>
-        <p><strong>Philipp Schmid: <em>Fine-tuning a model on AWS SageMaker</em></strong></p>
-        <p>Philipp is awesome!</p>
+        <p><strong>Philipp Schmid: <em>Managed Training with Amazon SageMaker and 🤗 Transformers</em></strong></p>
+        <p>Philipp Schmid is a Machine Learning Engineer and Tech Lead at Hugging Face, where he leads the collaboration with the Amazon SageMaker team. He is passionate about democratizing and productionizing cutting-edge NLP models and improving the ease of use for Deep Learning.</p>
     </div>
 </div>
