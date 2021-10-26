@@ -1,6 +1,6 @@
 ---
-title: Large Language Models: A New Moore's Law?
-thumbnail: /blog/assets/33_large_language_models/01_model_size.png
+title: "Large Language Models: A New Moore's Law?"
+thumbnail: /blog/assets/33_large_language_models/01_model_size.jpg
 ---
 
 <h1>
