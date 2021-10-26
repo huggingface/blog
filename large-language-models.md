@@ -1,6 +1,6 @@
 ---
 title: Large Language Models: A New Moore's Law?
-thumbnail: /blog/assets/32_large_language_models/01_model_size.png
+thumbnail: /blog/assets/33_large_language_models/01_model_size.png
 ---
 
 <h1>
@@ -9,7 +9,7 @@ Large Language Models: A New Moore's Law?
 
 
 <div class="blog-metadata">
-    <small>Published October 25, 2021.</small>
+    <small>Published October 26, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/juliensimon/blog/blob/master/large-language-models.md">
         Update on GitHub
     </a>
@@ -21,6 +21,7 @@ Large Language Models: A New Moore's Law?
         <div class="bfc">
             <code>juliensimon</code>
             <span class=fullname">Julien Simon</span>
+            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">Opinion piece</span>
         </div>
     </a>
 </div>
@@ -30,7 +31,7 @@ A few days ago, Microsoft and NVIDIA [introduced](https://www.microsoft.com/en-u
 This is an impressive show of Machine Learning engineering, no doubt about it. Yet, should we be excited about this mega-model trend?  I, for one, am not. Here's why.
 
 <kbd>
-  <img src="assets/32_large_language_models/01_model_size.jpg">
+  <img src="assets/33_large_language_models/01_model_size.jpg">
 </kbd>
 
 ### This is your Brain on Deep Learning
@@ -77,7 +78,13 @@ It's nothing new either. Computer Vision practitioners will remember when [Squee
 
 Downsizing efforts are also under way in the Natural Language Processing community, using transfer learning techniques such as [knowledge distillation](https://en.wikipedia.org/wiki/Knowledge_distillation). [DistilBERT](https://arxiv.org/abs/1910.01108) is perhaps its most widely known achievement. Compared to the original BERT model, it retains 97% of language understanding while being 40% smaller and 60% faster. You can try it [here](https://huggingface.co/distilbert-base-uncased). The same approach has been applied to other models, such as Facebook's [BART](https://arxiv.org/abs/1910.13461), and you can try DistilBART [here](https://huggingface.co/models?search=distilbart).
 
-Recent models from the [Big Science](https://bigscience.huggingface.co/) project are also very impressive. For example, their T0pp model outperforms GPT-3 on many tasks while being 16x smaller (you can try it [here](https://huggingface.co/bigscience/T0pp)). This is the kind of research we need more of!
+Recent models from the [Big Science](https://bigscience.huggingface.co/) project are also very impressive. As visible in this graph included in the [research paper](https://arxiv.org/abs/2110.08207), their T0 model outperforms GPT-3 on many tasks while being 16x smaller.
+
+<kbd>
+  <img src="assets/33_large_language_models/02_t0.png">
+</kbd>
+
+You can try T0 [here](https://huggingface.co/bigscience/T0pp). This is the kind of research we need more of!
 
 ### Fine-Tune Models
 
@@ -89,7 +96,9 @@ You guessed it, that's another way to do transfer learning, and it'll help you s
 * Faster experiments and iterations,
 * Fewer resources required in production.
 
-In other words: save time, save money, save hardware resources, save the world!
+In other words: save time, save money, save hardware resources, save the world! 
+
+If you need a tutorial, the Hugging Face [course](https://huggingface.co/course) will get you started in no time!
 
 ### Use Cloud-Based Infrastructure
 
