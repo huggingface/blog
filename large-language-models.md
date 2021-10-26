@@ -36,9 +36,9 @@ This is an impressive show of Machine Learning engineering, no doubt about it. Y
 
 ### This is your Brain on Deep Learning
 
-Researchers estimate that the human brain contains an average of [86 billion neurons](https://pubmed.ncbi.nlm.nih.gov/19226510/). It's safe to assume that not all of them are dedicated to language either. As crude as this analogy is, shouldn't we wonder whether building language models that are significantly larger than a human brain is the best long-term approach?
+Researchers estimate that the human brain contains an average of [86 billion neurons](https://pubmed.ncbi.nlm.nih.gov/19226510/) and 100 trillion synapses. It's safe to assume that not all of them are dedicated to language either. Interestingly, GPT-4 is [expected](https://www.wired.com/story/cerebras-chip-cluster-neural-networks-ai/) to have about 100 trillion parameters... As crude as this analogy is, shouldn't we wonder whether building language models that are about the size of the human brain is the best long-term approach?
 
-Of course, the human brain is a marvelous device, produced by millions of years of evolution, while Deep Learning models are only a few decades old. Still, our intuition should tell us that something doesn't compute (pun intended).
+Of course, our brain is a marvelous device, produced by millions of years of evolution, while Deep Learning models are only a few decades old. Still, our intuition should tell us that something doesn't compute (pun intended).
 
 ### Deep Learning, Deep Pockets?
 
@@ -98,7 +98,7 @@ You guessed it, that's another way to do transfer learning, and it'll help you s
 
 In other words: save time, save money, save hardware resources, save the world! 
 
-If you need a tutorial, the Hugging Face [course](https://huggingface.co/course) will get you started in no time!
+If you need a tutorial, the Hugging Face [course](https://huggingface.co/course) will get you started in no time.
 
 ### Use Cloud-Based Infrastructure
 
