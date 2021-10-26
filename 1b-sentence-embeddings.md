@@ -15,7 +15,7 @@ title: "Train a Sentence Embedding Model with 1B Training Pairs"
 
 <div class="author-card">
     <a href="/asi">
-        <img class="avatar avatar-user" src="https://twitter.com/antoinesimoulin/photo" title="Gravatar">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1635232952881-6087d7c0df398c3b285ce94c.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>asi</code>
             <span class="fullname">Antoine Simoulin</span>
@@ -38,7 +38,7 @@ Unlike words, we can not define a finite set of sentences. Sentence embedding me
 
 ### Multiple Negative Ranking Loss
 
-The parameters from the composition module are usually learned using a self-supervised objective. For the project, we used a contrastive training method illustrated in the figure below. We constitute a dataset with sentence pairs $(a_i, p_i)$ such that sentences from the pair have a close meaning. For example, we consider pairs such as (query, answer-passage), (question, duplicate_question),(paper title, cited paper title). Our model is then trained to map pairs $(a_i , p_i)$ to close vectors while assigning unmatched pairs $(a_i , p_j), i \neq j$ to distant vectors in the embedding space. This training method is also called training with in-batch negatives, InfoNCE or NTXentLoss.
+The parameters from the composition module are usually learned using a self-supervised objective. For the project, we used a contrastive training method illustrated in the figure below. We constitute a dataset with sentence pairs \( (a_i, p_i) \) such that sentences from the pair have a close meaning. For example, we consider pairs such as (query, answer-passage), (question, duplicate_question),(paper title, cited paper title). Our model is then trained to map pairs \( (a_i , p_i) \) to close vectors while assigning unmatched pairs \( (a_i , p_j), i \neq j \) to distant vectors in the embedding space. This training method is also called training with in-batch negatives, InfoNCE or NTXentLoss.
 
 ![snippet](assets/32_1b_sentence_embeddings/contrastive_1.png)
 
@@ -46,25 +46,25 @@ Formally, given a batch of training samples, the model optimises the following [
 
 $$-\frac{1}{n}\sum_{i=1}^n\frac{exp(sim(a_i, p_i))}{\sum_j exp(sim(a_i, p_j))}$$
 
-An illustrative example can be seen below. The model first embeds each sentence from every pair in the batch. Then, we compute a similarity matrix between every possible pair $(a_i, p_j)$. We then compare the similarity matrix with the ground truth, which indicates the original pairs. Finally, we perform the comparison using the cross entropy loss.
+An illustrative example can be seen below. The model first embeds each sentence from every pair in the batch. Then, we compute a similarity matrix between every possible pair \( (a_i, p_j) \). We then compare the similarity matrix with the ground truth, which indicates the original pairs. Finally, we perform the comparison using the cross entropy loss.
 
 Intuitively, the model should assign high similarity to the sentences « How many people live in Berlin? » and « Around 3.5 million people live in Berlin » and low similarity to other negative answers such as « The capital of France is Paris » as detailed in the Figure below.
 
 ![snippet](assets/32_1b_sentence_embeddings/contrastive_2.png)
 
-In the loss equation, `sim` indicates a similarity function between (a, p). The similarity function could be either the Cosine-Similarity or the Dot-Product operator. Both methods have their pros and cons summarized below ([Thakur et al., 2021](https://arxiv.org/abs/2104.08663), [Bachrach et al., 2014](https://dl.acm.org/doi/10.1145/2645710.2645741)):
+In the loss equation, `sim` indicates a similarity function between \( (a, p) \). The similarity function could be either the Cosine-Similarity or the Dot-Product operator. Both methods have their pros and cons summarized below ([Thakur et al., 2021](https://arxiv.org/abs/2104.08663), [Bachrach et al., 2014](https://dl.acm.org/doi/10.1145/2645710.2645741)):
 
 | Cosine-similarity   | Dot-product |
 |---------------------|-------------|
-| Vector has highest similarity to itself since $cos(a, a)=1$.  |  Other vectors can have higher dot-products $dot(a, a) < dot (a, b)$. |
+| Vector has highest similarity to itself since \( cos(a, a)=1 \).  |  Other vectors can have higher dot-products \( dot(a, a) < dot (a, b) \). |
 | With normalised vectors it is equal to the dot product. The max vector length is equals 1.  | It might be slower with certain approximate nearest neighbour methods since the max vector not known. |
 | With normalised vectors, it is proportional to euclidian distance. It works with k-means clustering.  | It does not work with k-means clustering.  |
 
-In practice, we used a scaled similarity because score differences tends to be too small and apply a scaling factor $C$ such that $sim_scaled(a, b) = C * sim(a, b) $ with typically $C = 20$ ([Henderson and al., 2020]([https://doi.org/10.18653/v1/2020.findings-emnlp.196), [Radford and al., 2021](http://proceedings.mlr.press/v139/radford21a.html)).
+In practice, we used a scaled similarity because score differences tends to be too small and apply a scaling factor \( C \) such that \( sim_scaled(a, b) = C * sim(a, b) \) with typically \( C = 20 \) ([Henderson and al., 2020]([https://doi.org/10.18653/v1/2020.findings-emnlp.196), [Radford and al., 2021](http://proceedings.mlr.press/v139/radford21a.html)).
 
 ### Improving Quality with Better Batches
 
-In our method, we build batches of sample pairs $(a_i , p_i)$. We consider all other samples from the batch, $(a_i , p_j), i \neq j$, as negatives sample pairs. The batch composition is therefore a key training aspect. Given the literature in the domain, we mainly focused on three main aspects of the batch.
+In our method, we build batches of sample pairs \( (a_i , p_i) \). We consider all other samples from the batch, \( (a_i , p_j), i \neq j \), as negatives sample pairs. The batch composition is therefore a key training aspect. Given the literature in the domain, we mainly focused on three main aspects of the batch.
 
 #### 1. Size matters
 
@@ -74,7 +74,7 @@ In contrastive learning, a larger batch size is synonymous with better performan
 
 #### 2. Hard Negatives
 
-In the same figure, we observe that including hard negatives also improves performance. Hard negatives are sample $p_j$ which are hard to distinguish from $p_i$. In our example, it could be the pairs « What is the capital of France? » and « What is the capital of the US? » which have a close semantic content and requires precisely understanding the full sentence to be answered correctly. On the contrary, the samples  « What is the capital of France? » and «How many Star Wars movies is there?» are less difficult to distinguish since they do not refer to the same topic.
+In the same figure, we observe that including hard negatives also improves performance. Hard negatives are sample \( p_j \) which are hard to distinguish from \( p_i \). In our example, it could be the pairs « What is the capital of France? » and « What is the capital of the US? » which have a close semantic content and requires precisely understanding the full sentence to be answered correctly. On the contrary, the samples  « What is the capital of France? » and «How many Star Wars movies is there?» are less difficult to distinguish since they do not refer to the same topic.
 
 #### 3. Cross dataset batches
 
