@@ -45,7 +45,7 @@ As you would expect, training a 530-billion parameter model on humongous text da
 
 Seriously, which organizations have business use cases that would justify spending $100 million on Deep Learning infrastructure? Or even $10 million? Very few. So who are these models for, really?
 
-### That Warm Feeling Is Your GPU Cluster
+### That Warm Feeling is your GPU Cluster
 
 For all its engineering brilliance, training Deep Learning models on GPUs is a brute force technique. According to the spec sheet, each DGX server can consume up to 6.5 kilowatts. Of course, you'll need at least as much cooling power in your datacenter (or your server closet). Unless you're the Starks and need to keep Winterfell warm in winter, that's another problem you'll have to deal with. 
 
