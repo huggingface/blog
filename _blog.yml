@@ -204,3 +204,7 @@
 - local: 1b-sentence-embeddings
   title: "Train a Sentence Embedding Model with 1B Training Pairs"
   date: October 25, 2021
+
+- local: large-language-models
+  title: "Large Language Models: A New Moore's Law?"
+  date: October 26, 2021
