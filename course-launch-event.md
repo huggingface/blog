@@ -1,6 +1,6 @@
 ---
 title: "Course Launch Community Event"
-thumbnail: /blog/assets/34_course_launch/speakers_day1.png
+thumbnail: /blog/assets/34_course_launch/speakers_day1_thumb.png
 ---
 
 <h1>
