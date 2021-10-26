@@ -33,7 +33,7 @@ This is an impressive show of Machine Learning engineering, no doubt about it. Y
   <img src="assets/32_large_language_models/01_model_size.jpg">
 </kbd>
 
-### This Is Your Brain On Deep Learning
+### This is your Brain on Deep Learning
 
 Researchers estimate that the human brain contains an average of [86 billion neurons](https://pubmed.ncbi.nlm.nih.gov/19226510/). It's safe to assume that not all of them are dedicated to language either. As crude as this analogy is, shouldn't we wonder whether building language models that are significantly larger than a human brain is the best long-term approach?
 
