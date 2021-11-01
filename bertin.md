@@ -310,7 +310,7 @@ We are releasing the fine-tuned models for `Gaussian`-512 and making our version
 
 ## Discusion
 
-The performance of our BERTIN models is, in general, very good. Even our beta model is able to achieve SOTA in MLDoc (and virtually tie in UD-POS) as evaluated by the Barcelona Supercomputing Center. In the pre-training masked-token prediction task our models achieve accuracies between 0.65 and 0.69, which foretells good results for downstream tasks.
+The performance of our BERTIN models is, in general, very good. Even our beta model is able to achieve SOTA in MLDoc (and virtually tie in UD-POS) as evaluated by the Barcelona Supercomputing Center. In the pre-training masked-token prediction task our models achieve accuracies between 0.65 and 0.69, which suggests good results for downstream tasks.
 
 Under standard training conditions and without hyperparameter tuning, our language models are remarkably performant in downstream tasks. In particular, `Gaussian` perplexity sampling seems to produce consistently solid models, taking the lead in four of the seven tasks analysed.
 
