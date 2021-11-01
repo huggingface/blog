@@ -138,6 +138,7 @@ repetitive pieces of very common text.
 * very high perplexity, which could indicate poor quality text containing incorrect language forms.
 
 The first function is a `Stepwise` that simply oversamples the central quartiles using quartile boundaries and a `factor` for the desired sampling frequency for each quartile, obviously giving larger frequencies for middle quartiles, oversampling Q2 and Q3 and subsampling Q1 and Q4 (see Figure 3).
+
 The second function weighted the perplexity distribution by a Gaussian-like function, to smooth out the sharp boundaries of the `Stepwise` function and give a better approximation to the desired underlying distribution (see Figure 4).
 
 We adjusted the `factor` parameter of the `Stepwise` function, and the `factor` and `width` parameters of the `Gaussian` function to be able to roughly sample 50M samples from the 416M in mC4-es (see Figure 4). For comparison, we randomly sampled mC4-es up to 50M samples as well. In terms of sizes, we went down from 1TB of data to ~200GB. We released the code to sample from mC4 on the fly when streaming for any language as part of the dataset [`bertin-project/mc4-sampling`](https://huggingface.co/datasets/bertin-project/mc4-sampling) (obviously the parameters for the sampling functions will need to be adapted to the statistics of the language used).
