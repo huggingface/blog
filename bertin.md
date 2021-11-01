@@ -198,7 +198,7 @@ In order to rule out the possibility of perplexity sampling filtering out releva
 
 We used the same setup and hyperparameters as [Liu et al. (2019)](https://arxiv.org/abs/1907.11692) but trained only for half the steps (250k) with a sequence length of 128.
 
-We then continued training the most promising models for 50k more steps changing the sequence length from 128 to 512. Since there there is no standard in the literature on how to do this, we tried two different strategies. It turns out this decision had a big impact in the final performance.
+We then continued training the most promising models for 50k more steps changing the sequence length from 128 to 512. Since there is no standard in the literature on how to do this, we tried two different strategies. It turns out this decision had a big impact on the final performance.
 
 For the `Random` sampling model, we tried training with sequence length 512 during the last 25k steps of the 250k training steps, keeping the optimizer state intact. Results for this approach were underwhelming, as seen in Figure 7.
 
