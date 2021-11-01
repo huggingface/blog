@@ -325,7 +325,7 @@ The BERTIN Project has been a challenge for many reasons. Like many others in th
 The most obvious next step would be replicating training on a "large" version of the model. We decided against a RoBERTa large model at the beginning of the event due to our need for faster iterations.
 We would also like to explore in greater detail the impact of different perplexity sampling methods and invite other teams to do so as well.
 It would also be important to take a closer look into possible biases that perplexity sampling might be introducing. Our preliminary investigation suggests that documents are not filtered out based on semantics, but further investigation would be beneficial.  
-Another intriguing possibility would consist on combining perplexity sampling with other large-scale dataset cleaning methods such as [deduplication](https://arxiv.org/pdf/2107.06499.pdf) (Lee et al., 2021), as they seem to share a complementary philosophy.
+Another intriguing possibility would consist of combining perplexity sampling with other large-scale dataset cleaning methods such as [deduplication](https://arxiv.org/pdf/2107.06499.pdf) (Lee et al., 2021), as they seem to share a complementary philosophy.
 
 # Conclusions
 
