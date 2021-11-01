@@ -77,7 +77,8 @@ BERTIN is a series of Spanish RoBERTa models trained during the [JAX/Flax Commun
 
 The BERTIN project was born from a group of strangers with a shared interest in Spanish NLP, who decided to organize and participate in the JAX/Flax Community Event with the main goal of training a competitive monolingual RoBERTa language model in Spanish.
 
-The majority of our team members were part of the [NL en ES](https://nlp-en-es.org) community and our team members are based in Spain, Germany and the United States.
+Our team members were based in Spain, Germany and the United States, and the majority of us were part of the [NLP en ES](https://nlp-en-es.org) community. NLP en ES stems from the initiative "Languages at Hugging Face" and consists of an international network of professionals, researchers and students with the common goal of accelerating the development of NLP in Spanish.
+
 Through the initial phase of the project, through team discussions around the project strategy, it became clear that training a large language model within the time frame of the even was hardly feasible, which lead to the exploration of different ideas around data sampling to improve training efficiency.
 
 Each BERTIN model was trained in under a week on a Google Cloud TPUv3-8 using publicly available data. Our results show state-of-the-art performance in multiple downstream tasks, and overall figures are comparable to models trained on supercomputers using large private datasets.
