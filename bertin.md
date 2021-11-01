@@ -96,7 +96,7 @@ At the time of the event, there were no monolingual RoBERTa models available in 
 
 ## The dataset: Spanish mC4
 
-In order to train BERTIN, we used the Spanish subset of the open-sourced [mC4 dataset](https://aclanthology.org/2021.naacl-main.41/). mC4 is a multilingual variant of [C4 aka Colossal Clean Crawled Corpus](https://arxiv.org/abs/1910.10683), a cleaned version of Common Crawl's web crawl corpus. While C4 was used to train the T5 text-to-text Transformer models, mC4 comprises natural text in 101 languages drawn from the public Common Crawl web-scrape and was used to train mT5, the multilingual version of T5.
+In order to train BERTIN, we used the Spanish subset of the open-sourced [mC4 dataset](https://aclanthology.org/2021.naacl-main.41/), which is available in the [hub](https://huggingface.co/datasets/mc4). mC4 is a multilingual variant of [C4 aka Colossal Clean Crawled Corpus](https://arxiv.org/abs/1910.10683), a cleaned version of Common Crawl's web crawl corpus. While C4 was used to train the T5 text-to-text Transformer models, mC4 comprises natural text in 101 languages drawn from the public Common Crawl web-scrape and was used to train mT5, the multilingual version of T5.
 
 The Spanish portion of mC4 (mC4-es) contains about 416 million samples and 235 billion words in approximately 1TB of uncompressed data.
 
