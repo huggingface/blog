@@ -84,7 +84,7 @@ Through the initial phase of the project, through team discussions around the pr
 
 Each BERTIN model was trained in under a week on a Google Cloud TPUv3-8 using publicly available data. Our results show state-of-the-art performance in multiple downstream tasks, and overall figures are comparable to models trained on supercomputers using large private datasets.
 
-Training a competitive large language model within the time frame of the event proved to be a challenging task since the early stage of the project. For this reason, we explored several perplexity-based sampling strategies that allowed us to train models efficiently under limited compute and time resources. We are very excited to introduce our methodology and learnings with the hope to empower small teams to train competitive language models on a budget.
+We explored several perplexity-based sampling strategies that allowed us to train models efficiently under limited compute and time resources. We are very excited to introduce our methodology and learnings with the hope to empower small teams to train competitive language models on a budget.
 
 ## Motivation
 
