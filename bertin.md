@@ -314,7 +314,7 @@ The performance of our BERTIN models is, in general, very good. Even our beta mo
 
 Under standard training conditions and without hyperparameter tuning, our language models are remarkably performant in downstream tasks. In particular, `Gaussian` perplexity sampling seems to produce consistently solid models, taking the lead in four of the seven tasks analysed.
 
-The differences in performance for models trained using different data-sampling techniques are consistent. `Gaussian`-sampling is always first (with the exception of POS-512), while `Stepwise` is better than `Random` when trained for a similar number of steps. This proves that the sampling technique is, indeed, relevant.
+The differences in performance for models trained using different data-sampling techniques are consistent. `Gaussian`-sampling is always first (with the exception of POS-512), while `Stepwise` is better than `Random` when trained for a similar number of steps. This proves that the sampling technique is indeed relevant.
 
 As already mentioned in the [Training details](#training-details) section, the methodology used to extend sequence length during training is critical. Re-starting the learning rate scheduler before increasing the sequence length proved to be a much better strategy than keeping the same learning rate scheduler, suggesting that increasing the learning rate is beneficial before modifying the sequence length, especially when close to the end of the training cycle, when the learning rate is very low.
 
