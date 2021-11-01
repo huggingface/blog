@@ -298,6 +298,7 @@ Table 3. Metrics for different downstream tasks, comparing our different models 
 In addition to the tasks above, we also fine-tuned the [`beta`](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/beta) model on the SQUAD dataset, achieving exact match 50.96 and F1 68.74 (sequence length 128).
 
 During fine-tuning we observed poor performance on certain tasks for some models, so we re-trained these several times (marked with * on the table) to account for variability across runs.
+
 This suggests fine-tuning can be unstable for some datasets under the batch size limitations of the hardware used for fine-tuning. Increasing the batch size would likely help to solve the training instability, however, this was not feasible within the project schedule. For example, runtime for XNLI-512 was ~19h per model and increasing the batch size without reducing sequence length was not possible on a single K80 GPU.
 
 We are releasing the fine-tuned models for `Gaussian`-512 and making our version [v1](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/v1) default to 128 sequence length since it experimentally showed better performance on the fill-mask task, while also releasing the 512 sequence length version ([v1-512](https://huggingface.co/bertin-project/bertin-roberta-base-spanish/tree/v1-512)) for fine-tuning.
