@@ -316,7 +316,7 @@ Under standard training conditions and without hyperparameter tuning, our langua
 
 The differences in performance for models trained using different data-sampling techniques are consistent. `Gaussian`-sampling is always first (with the exception of POS-512), while `Stepwise` is better than `Random` when trained for a similar number of steps. This proves that the sampling technique is indeed relevant.
 
-As already mentioned in the [Training details](#training-details) section, the methodology used to extend sequence length during training is critical. Re-starting the learning rate scheduler before increasing the sequence length proved to be a much better strategy than keeping the same learning rate scheduler, suggesting that increasing the learning rate is beneficial before modifying the sequence length, especially when close to the end of the training cycle, when the learning rate is very low.
+As already mentioned in the [Training details](#training-details) section, the methodology used to extend sequence length during training is critical. Re-starting the learning rate scheduler before increasing the sequence length proved to be a much better strategy than keeping the same learning rate scheduler. This suggests that increasing the learning rate is beneficial before modifying the sequence length, especially when close to the end of the training cycle, when the learning rate is very low.
 
 # Lessons and next steps
 
