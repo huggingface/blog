@@ -331,7 +331,7 @@ Another intriguing possibility would consist of combining perplexity sampling wi
 
 With roughly 10 days worth of access to 3 TPUv3-8, we achieved remarkable results surpassing previous state of the art in multiple tasks, including models trained on massive supercomputers with very large, highly-curated, and in some cases private, datasets.
 
-The challenge of training a competitive large language model under tight constraints lead us to explore the idea of efficient language model training and how to facilitate this task for small teams like ours in the future. The sampling techniques analysed in this report have shown great promise in this regard, and we hope to see other groups using and improving them in the future.
+The challenge of training a competitive large language model under tight constraints led us to explore the idea of efficient language model training and how to facilitate this task for small teams like ours in the future. The sampling techniques analysed in this report have shown great promise in this regard, and we hope to see other groups using and improving them in the future.
 
 We would like to thank the HuggingFace and Google JAX teams, who played a critical role in the success of this project through constant support and communication, as well as resolving some critical infrastructure and software issues, through this journey to build one of the best Spanish language models out there.
 
