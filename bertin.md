@@ -73,7 +73,7 @@ thumbnail: /blog/assets/31_bertin/bertin.png
 </div>
 
 ## BERTIN
-BERTIN is a series of Spanish RoBERTa models trained during the [JAX/Flax Community Event](https://discuss.huggingface.co/t/open-to-the-community-community-week-using-jax-flax-for-nlp-cv/7104), organized by [HuggingFace](https://huggingface.co) and sponsored by [Google Cloud](https://cloud.google.com/).
+BERTIN is a series of Spanish RoBERTa models trained during the [JAX/Flax Community Event](https://discuss.huggingface.co/t/open-to-the-community-community-week-using-jax-flax-for-nlp-cv/7104), organized by [HuggingFace](https://huggingface.co). [Google Cloud](https://cloud.google.com/) provided free Tensor Processing Units (TPUs) during the event, enabling participants to tackle interesting challenges in the areas of Natural Language Processing and Computer Vision.
 
 The BERTIN project was born from a group of strangers with a shared interest in Spanish NLP, who decided to organize and participate in the JAX/Flax Community Event with the main goal of training a competitive monolingual RoBERTa language model in Spanish.
 The majority of our team members were part of the [NL en ES](https://nlp-en-es.org) community and our team members are based in Spain, Germany and the United States.
