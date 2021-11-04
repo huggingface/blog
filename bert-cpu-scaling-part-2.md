@@ -309,7 +309,6 @@ To be fully transparent, for the scope of the results below we used tcmalloc as 
 
 #### Memory allocator benchmarks
 
-
 Again, we first compare performance against frameworks executing in an eager fashion. 
 This is potentially the use case where the allocator can play the biggest role: As the graph is unknown before its execution, each framework must manage the memory required for each operation when it meets the actual execution of the above node, no planning ahead possible. 
 In this context, the allocator is a major component due to all the system calls to allocate and reclaim memory.
@@ -328,13 +327,13 @@ In this context, the allocator is a major component due to all the system calls 
 <br>
 <br>
 <figure class="image">
-  <img class="centered" alt="Google's TensorFlow with oneDNN enabled memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/" />
+  <img class="centered" alt="Google's TensorFlow with oneDNN enabled memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_tensorflow_onednn_latency.svg" />
   <figcaption>Figure 15. Google's TensorFlow with oneDNN enabled memory allocator and cores scaling latencies</figcaption>
 </figure>
 <br>
 <br>
 <figure class="image">
-  <img class="centered" alt="Intel TensorFlow memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/" />
+  <img class="centered" alt="Intel TensorFlow memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_intel_tensorflow_latency.svg" />
   <figcaption>Figure 16. Intel TensorFlow memory allocator and cores scaling latencies</figcaption>
 </figure>
 <br>
@@ -364,7 +363,7 @@ Now, back to the graph mode where we benchmark framework having an omniscient re
 <br>
 <br>
 <figure class="image">
-  <img class="centered" alt="Google's TensorFlow with oneDNN enabled memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/" />
+  <img class="centered" alt="Google's TensorFlow with oneDNN enabled memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_tensorflow_onednn_graph_latency.svg" />
   <figcaption>Figure 19. Google's TensorFlow with oneDNN enabled memory allocator and cores scaling latencies</figcaption>
 </figure>
 <br>
@@ -437,12 +436,12 @@ For instance, in our experiments, the following knobs were tuned:
 - KMP block time parameter: sets the time, in milliseconds, that a thread should wait, after completing the execution of a parallel region, before sleeping.
 
 Of course, the brute force approach, consisting of trying out all the possibilities will provide the best knob values to use to get optimal performance but, 
-the size of the search space being N x 3 x 2 x 2 x 2 = 24N, it can take a lot of time: on a machine with 80 physical cores, this means trying out at most 24 x 80 = 1920 different setups! 😱
+the size of the search space being `N x 3 x 2 x 2 x 2 = 24N`, it can take a lot of time: on a machine with 80 physical cores, this means trying out at most `24 x 80 = 1920` different setups! 😱
 
 Fortunately, Intel's SigOpt, through Bayesian optimization, allows us to make these tuning experiments both faster and more convenient to analyse, while providing similar performance than the brute force approach.
 
 When we analyse the relative difference between the absolute best latency and what SigOpt provides, we observe that although it is often not as good as brute force (except for sequence length = 512 in that specific case),
-it gives very close performance, with 8.6% being the biggest gap on this figure.
+it gives very close performance, with **8.6%** being the biggest gap on this figure.
 
 
 <table class="centered">
