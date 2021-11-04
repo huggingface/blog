@@ -37,28 +37,33 @@
 
 ## Introduction: Using Intel Software to Optimize AI Efficiency on CPU
 
-As we detailed in our previous blog post, Intel Xeon CPUs provide a set of features especially designed for AI workloads such as AVX512 or VNNI (Vector Neural Network Instructions) 
+As we detailed in our [previous blog post](https://huggingface.co/blog/bert-cpu-scaling-part-1), Intel Xeon CPUs provide a set of features especially designed for AI workloads such as AVX512 or VNNI (Vector Neural Network Instructions) 
 for efficient inference using integer quantized neural network for inference along with additional system tools to ensure the work is being done in the most efficient way. 
 Through this blog post, we would like to give you a sense of the performances of the new Ice Lake generation of CPUs from Intel along with a full picture of what’s available on the software side to make the most out of your Intel hardware. 
 As in the previous blog post, we show the performance with benchmark results and charts, along with new tools to make all these knobs and features easy to use.
 
-Back in April, Intel launched its latest generation of Intel Xeon processors, codename Ice Lake, targeting more efficient and performant AI workloads. 
+Back in April, Intel launched its [latest generation of Intel Xeon processors](https://www.intel.com/content/www/us/en/products/details/processors/xeon/scalable.html), codename Ice Lake, targeting more efficient and performant AI workloads. 
 More precisely, Ice Lake Xeon CPUs can achieve up to 75% faster inference on a variety of NLP tasks when comparing against the previous generation of Cascade Lake Xeon processors. 
-This is achieved by a combination of both hardware and software improvements, such as new instructions and PCIe 4.0 featured on the new Sunny Cove architecture to supports Machine Learning and Deep Learning workloads. 
-Last but not least, Intel worked on dedicated optimizations for various frameworks which now comes with Intel’s flavors like Intel’s Extension for Scikit Learn, Intel TensorFlow and Intel PyTorch Extension.
+This is achieved by a combination of both hardware and software improvements, [such as new instructions](https://en.wikichip.org/wiki/x86/avx512_vnni) and PCIe 4.0 featured on the new Sunny Cove architecture to supports Machine Learning and Deep Learning workloads. 
+Last but not least, Intel worked on dedicated optimizations for various frameworks which now comes with Intel’s flavors like 
+[Intel’s Extension for Scikit Learn](https://intel.github.io/scikit-learn-intelex/), 
+[Intel TensorFlow](https://www.intel.com/content/www/us/en/developer/articles/guide/optimization-for-tensorflow-installation-guide.html) and 
+[Intel PyTorch Extension](https://www.intel.com/content/www/us/en/developer/articles/containers/pytorch-extension.html).
 
 All these features are very low-level in the stack of what Data Scientists and Machine Learning Engineers use in their day-to-day toolset. 
 In a vast majority of situations, it is more common to rely on higher level frameworks and libraries to handle multi-dimensional arrays manipulation such as 
-PyTorch and TensorFlow and make use of highly tuned mathematical operators such as BLAS (Basic Linear Algebra Subroutines)for the computational part.
+[PyTorch](https://pytorch.org) and [TensorFlow](https://www.tensorflow.org/) and make use of highly tuned mathematical operators such as [BLAS (Basic Linear Algebra Subroutines)](http://www.netlib.org/blas/) for the computational part.
 
-In this area, Intel plays an essential role by providing software components under the oneAPI umbrella which makes it very easy to use highly efficient linear algebra routines through Intel MKL (Math Kernel Library), 
-higher-level parallelization framework with Intel OpenMP or the Threading Building Blocks (TBB).
-Also, oneAPI provides some domain-specific libraries such as Intel oneDNN for deep neural network primitives (ReLU, fully-connected, etc.) or 
-oneCCL for collective communication especially useful when using distributed setups to access efficient all-reduce operations over multiple hosts.
+In this area, Intel plays an essential role by providing software components under the oneAPI umbrella which makes it very easy to use highly efficient linear algebra routines through 
+Intel [oneMKL (Math Kernel Library)](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top/api-based-programming/intel-oneapi-math-kernel-library-onemkl.html), 
+higher-level parallelization framework with Intel OpenMP or the [Threading Building Blocks (oneTBB)](https://www.intel.com/content/www/us/en/developer/tools/oneapi/onetbb.html).
+Also, oneAPI provides some domain-specific libraries such as Intel [oneDNN](https://www.intel.com/content/www/us/en/developer/tools/oneapi/onednn.html) for deep neural network primitives (ReLU, fully-connected, etc.) or 
+[oneCCL](https://www.intel.com/content/www/us/en/developer/tools/oneapi/oneccl.html) for collective communication especially useful when using distributed setups to access efficient all-reduce operations over multiple hosts.
 
-Some of these libraries, especially MKL or oneDNN, are natively included in frameworks such as PyTorch and TensorFlow (since 2.5.0) to bring all the performance improvements to the end user out of the box. 
+Some of these libraries, especially MKL or oneDNN, are natively included in frameworks such as PyTorch and TensorFlow ([since 2.5.0](https://medium.com/intel-analytics-software/leverage-intel-deep-learning-optimizations-in-tensorflow-129faa80ee07)) to bring all the performance improvements to the end user out of the box. 
 When one would like to target very specific hardware features, Intel provides custom versions of the most common software especially optimized for the Intel platform. 
-This is for instance the case with TensorFlow, for which Intel provides custom, highly tuned and optimized versions of the framework or with the Intel PyTorch Extension (IPEX) framework which can be seen as a feature laboratory before upstreaming to PyTorch.
+This is for instance the case with TensorFlow, [for which Intel provides custom, highly tuned and optimized versions of the framework](https://www.intel.com/content/www/us/en/developer/articles/guide/optimization-for-tensorflow-installation-guide.html)
+or with the Intel PyTorch Extension (IPEX) framework which can be seen as a feature laboratory before upstreaming to PyTorch.
 
 ## Deep Dive: Leveraging advanced Intel features to improve AI performances
 
@@ -82,15 +87,16 @@ This falls out of the scope of this blog post, and it leverages the same compone
 ### 1. Memory allocation and management libraries
 
 This blog post will deliberately skip the first point about the data representation as it is something rather framework specific. 
-For reference, PyTorch uses its very own implementation, called Aten, while TensorFlow relies on the open source library Eigen for this purpose.
+For reference, PyTorch uses its very own implementation, called [ATen](https://github.com/pytorch/pytorch/tree/master/aten/src), 
+while TensorFlow relies on the open source library [Eigen](https://eigen.tuxfamily.org/index.php?title=Main_Page) for this purpose.
 
 While it’s very complex to apply generic optimizations to different object structures and layouts, there is one area where we can have an impact: Memory Allocation. 
 As a short reminder, memory allocation here refers to the process of programmatically asking the operating system a dynamic (unknown beforehand) area on the system where we will be able to store items into, such as the malloc and derived in C or the new operator in C++. 
 Memory efficiency, both in terms of speed but also in terms of fragmentation, is a vast scientific and engineering subject with multiple solutions depending on the task and underlying hardware. 
 Over the past years we saw more and more work in this area, with notably:
-- jemalloc (Facebook - 2005)
-- mimalloc (Microsoft - 2019)
-- tcmalloc (Google - 2020) 
+- [jemalloc](http://jemalloc.net/) (Facebook - 2005)
+- [mimalloc](https://microsoft.github.io/mimalloc/) (Microsoft - 2019)
+- [tcmalloc](https://abseil.io/blog/20200212-tcmalloc) (Google - 2020) 
 
 All tends to push forward different approaches to improve aspects of the memory allocation and management on various software.
 
@@ -99,17 +105,16 @@ All tends to push forward different approaches to improve aspects of the memory 
 Now that we have an efficient way to represent our data, we need a way to take the most out of the computational hardware at our disposal. 
 Interestingly, when it comes to inference, CPUs have a potential advantage over GPUs in the sense they are everywhere, and they do not require specific application components and administration staff to operate them.
 
-
 Modern CPUs come with many cores and complex mechanisms to increase the general performances of software. 
-Yet, as we highlighted on the first blog post, they also have features which can be tweaked depending on the kind of workload (CPU or I/O bound) you target, to further improve performances for your application. 
+Yet, as we highlighted on [the first blog post](https://hf.co/blog/bert-cpu-scaling-part-1), they also have features which can be tweaked depending on the kind of workload (CPU or I/O bound) you target, to further improve performances for your application. 
 
 Still, implementing parallel algorithms might not be as simple as throwing more cores to do the work. 
 Many factors, such as data structures used, concurrent data access, CPU caches invalidation - all of which might prevent your algorithm from being effectively faster. 
-As a reference talk, I would recommend the talk from Scott Meyers: CPU Caches and Why You Care if you are interested in diving more into the subject.
+As a reference talk, I would recommend the talk from [**Scott Meyers: CPU Caches and Why You Care**](https://www.youtube.com/watch?v=WDIkqP4JbkE) if you are interested in diving more into the subject.
 
 Thankfully, there are libraries which make the development process of such parallel algorithms easier and less error-prone. 
 Among the most common parallel libraries we can mention OpenMP and TBB (Threading Building Blocks), which work at various levels, from programming API in C/C++ to environment variable tuning and dynamic scheduling. 
-On Intel hardware, it is advised to use the Intel implementation of the OpenMP specification often referred as "IOMP" available as part of the Intel oneAPI toolkit.
+On Intel hardware, it is advised to use the Intel implementation of the OpenMP specification often referred as "IOMP" available as part of the [Intel oneAPI toolkit](https://www.intel.com/content/www/us/en/developer/tools/oneapi/overview.html).
 
 <br>
 <figure class="image">
@@ -139,7 +144,7 @@ On the TensorFlow side, oneDNN can be enabled by setting the environment variabl
 
 ## More Efficient AI Processing(s) on latest Intel Ice Lake CPUs
 
-In order to report the performances of the Ice Lake product lineup we will closely follow the methodology we used for the first blog post of this series. As a reminder, we will adopt the exact same schema to benchmark the various setups we will highlight through this second blog post. More precisely, the results presented in the following sections are based on:
+In order to report the performances of the Ice Lake product lineup we will closely follow [the methodology we used for the first blog](https://hf.co/blog/bert-cpu-scaling-part-1#2-benchmarking-methodology) post of this series. As a reminder, we will adopt the exact same schema to benchmark the various setups we will highlight through this second blog post. More precisely, the results presented in the following sections are based on:
 - PyTorch: 1.9.0
 - TensorFlow: 2.5.0
 - Batch Sizes: 1, 4, 8, 16, 32, 128
@@ -150,7 +155,7 @@ We will present the results through metrics accepted by the field to establish t
 - Throughput: Number of inference requests (i.e., “forward calls”) the system can sustain within a defined period, expressed in call/sec.
 
 We will also provide an initial baseline showing out-of-the-box results and a second baseline applying all the different optimizations we highlighted in the first blogpost. 
-Everything was run on an Intel provided cloud instance featuring the Ice Lake Xeon Platinum 8380 CPU operating on Ubuntu 20.04.2 LTS.
+Everything was run on an Intel provided cloud instance featuring the [Ice Lake Xeon Platinum 8380](https://ark.intel.com/content/www/fr/fr/ark/products/205684/intel-xeon-platinum-8380hl-processor-38-5m-cache-2-90-ghz.html) CPU operating on Ubuntu 20.04.2 LTS.
 
 You can find the same processors on the various cloud providers: 
 - [AWS m6i / c6i instances](https://aws.amazon.com/fr/blogs/aws/new-amazon-ec2-c6i-instances-powered-by-the-latest-generation-intel-xeon-scalable-processors/)
@@ -168,7 +173,7 @@ You can find the same processors on the various cloud providers:
 
 As mentioned previously, the baselines will be composed of two different setups: 
 -	Out-of-the-box: We are running the workloads as-is, without any tuning
--	Optimized: We apply the various knobs present in Blog #1
+-	Optimized: We apply the various knobs present in [Blog #1](https://hf.co/blog/bert-cpu-scaling-part-1#2-benchmarking-methodology)
 
 Also, from the comments we had about the previous blog post, we wanted to change the way we present the framework within the resulting benchmarks. 
 As such, through the rest of this second blog post, we will split framework benchmarking results according to the following:
@@ -340,12 +345,12 @@ In this context, the allocator is a major component due to all the system calls 
 
 As per the graph above, you can notice that the standard library allocator (glibc) is often behind performance-wise but provides reasonable performance. 
 Jemalloc allocator is sometimes the fastest around but in very specific situations, where the concurrency is not that high, this can be explained by the underlying structure jemalloc uses 
-internally which is out of the scope of this blog, but you can read the Facebook Engineering blog if you are interested in knowing more about.
+internally which is out of the scope of this blog, but you can read the [Facebook Engineering blog](https://engineering.fb.com/2011/01/03/core-data/scalable-memory-allocation-using-jemalloc/) if you are interested in knowing more about.
 
 Finally, tcmalloc seems to be the one providing regular best performances across all the workloads benchmarked here. 
 Again, tcmalloc has a different approach than Jemalloc in the way it allocates resources, especially tcmalloc maintains a pool of memory segments locally for each thread, which reduces the necessity to have global, exclusive, critical paths. 
 
-Again, for more details, I invite you to read the full blog by Google Abseil team.
+Again, for more details, I invite you to read the full [blog by Google Abseil team](https://abseil.io/blog/20200212-tcmalloc).
 
 Now, back to the graph mode where we benchmark framework having an omniscient representation of the overall computation graph.
 
@@ -396,10 +401,10 @@ Among the most common, one can look at OpenMP, Thread Building Blocks and direct
 In the following part of this blog post, we will restrict ourselves to OpenMP and especially comparing the GNU, open source and community-based implementation, to the Intel OpenMP one. 
 The latter especially targets Intel CPUs and is optimized to provide best of class performances when used as a drop-in replacement against the GNU OpenMP one.
 
-OpenMP exposes many environment variables to automatically configure the underlying resources which will be involved in the computations, 
+OpenMP exposes [many environment variables](https://www.openmp.org/spec-html/5.0/openmpch6.html) to automatically configure the underlying resources which will be involved in the computations, 
 such as the number of threads to use to dispatch computation to (intra-op threads), the way the system scheduler should bind each of this thread with respect to the CPU resources (threads, cores, sockets) 
 and some other variables which brings further control to the user. 
-Intel OpenMP exposes more of these environment variables to provide the user even more flexibility to adjust the performance of its software.
+Intel OpenMP exposes [more of these environment variables](https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compilation/supported-environment-variables.html) to provide the user even more flexibility to adjust the performance of its software.
 
 <br>
 <figure class="image">
@@ -438,7 +443,7 @@ For instance, in our experiments, the following knobs were tuned:
 Of course, the brute force approach, consisting of trying out all the possibilities will provide the best knob values to use to get optimal performance but, 
 the size of the search space being `N x 3 x 2 x 2 x 2 = 24N`, it can take a lot of time: on a machine with 80 physical cores, this means trying out at most `24 x 80 = 1920` different setups! 😱
 
-Fortunately, Intel's SigOpt, through Bayesian optimization, allows us to make these tuning experiments both faster and more convenient to analyse, while providing similar performance than the brute force approach.
+Fortunately, Intel's [SigOpt](https://sigopt.com/), through Bayesian optimization, allows us to make these tuning experiments both faster and more convenient to analyse, while providing similar performance than the brute force approach.
 
 When we analyse the relative difference between the absolute best latency and what SigOpt provides, we observe that although it is often not as good as brute force (except for sequence length = 512 in that specific case),
 it gives very close performance, with **8.6%** being the biggest gap on this figure.
