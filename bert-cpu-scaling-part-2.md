@@ -101,7 +101,7 @@ This falls out of the scope of this blog post, and it leverages the same compone
 
 <br>
 <figure class="image">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Intel libraries overview under the oneAPI umbrella" src="assets/35_bert_cpu_scaling_part_2/oneapi.jpg" /></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Intel libraries overview under the oneAPI umbrella" src="assets/35_bert_cpu_scaling_part_2/oneapi.jpg"></medium-zoom>
   <figcaption>Figure 1. Intel libraries overview under the oneAPI umbrella</figcaption>
 </figure>
 <br>
