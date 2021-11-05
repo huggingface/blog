@@ -547,9 +547,10 @@ And many more figures, often interactive, are available on SigOpt such as:
 
 ## Conclusion - Accelerating Transformers for Production
 
-In this post, we...
+In this post, we showed how the new Intel Ice Lake Xeon CPUs are suitable for running AI workloads at scale along with the software elements you can swap and tune in order to exploit the full potential of the hardware.
+All these items are to be considered after setting-up the various lower-level knobs detailed in [the previous blog](https://huggingface.co/blog/bert-cpu-scaling-part-1) to maximize the usage of all the cores and resources.
 
-At Hugging Face, we are on a mission to democratize state of the art Machine Learning, and a critical part of our work is to make these state of the art models as efficient as possible, to use less energy and memory at scale, and to be more affortable to run by companies of all sizes. 
+At Hugging Face, we are on a mission to democratize state-of-the-art Machine Learning, and a critical part of our work is to make these state-of-the-art models as efficient as possible, to use less energy and memory at scale, and to be more affordable to run by companies of all sizes. 
 
 Our collaboration with Intel through the 🤗 [Hardware Partner Program](https://huggingface.co/hardware) enables us to make advanced efficiency and optimization techniques easily available to the community, through our new 🤗 [Optimum open source library](https://github.com/huggingface/optimum) dedicated to production performance.
 
