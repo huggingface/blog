@@ -33,19 +33,19 @@
     </a>
 </div>
 
-# Scaling up BERT-like model Inference on modern CPU (Part 2) - Software Optimizations
+# Scaling up BERT-like model Inference on modern CPU  - Part 2
 
 ## Introduction: Using Intel Software to Optimize AI Efficiency on CPU
 
 As we detailed in our [previous blog post](https://huggingface.co/blog/bert-cpu-scaling-part-1), Intel Xeon CPUs provide a set of features especially designed for AI workloads such as AVX512 or VNNI (Vector Neural Network Instructions) 
 for efficient inference using integer quantized neural network for inference along with additional system tools to ensure the work is being done in the most efficient way. 
-Through this blog post, we would like to give you a sense of the performances of the new Ice Lake generation of CPUs from Intel along with a full picture of what’s available on the software side to make the most out of your Intel hardware. 
+In this blog post, we will focus on software optimizations and give you a sense of the performances of the new Ice Lake generation of Xeon CPUs from Intel. Our goal is to give you a full picture of what’s available on the software side to make the most out of your Intel hardware. 
 As in the previous blog post, we show the performance with benchmark results and charts, along with new tools to make all these knobs and features easy to use.
 
 Back in April, Intel launched its [latest generation of Intel Xeon processors](https://www.intel.com/content/www/us/en/products/details/processors/xeon/scalable.html), codename Ice Lake, targeting more efficient and performant AI workloads. 
 More precisely, Ice Lake Xeon CPUs can achieve up to 75% faster inference on a variety of NLP tasks when comparing against the previous generation of Cascade Lake Xeon processors. 
 This is achieved by a combination of both hardware and software improvements, [such as new instructions](https://en.wikichip.org/wiki/x86/avx512_vnni) and PCIe 4.0 featured on the new Sunny Cove architecture to supports Machine Learning and Deep Learning workloads. 
-Last but not least, Intel worked on dedicated optimizations for various frameworks which now comes with Intel’s flavors like 
+Last but not least, Intel worked on dedicated optimizations for various frameworks which now come with Intel’s flavors like 
 [Intel’s Extension for Scikit Learn](https://intel.github.io/scikit-learn-intelex/), 
 [Intel TensorFlow](https://www.intel.com/content/www/us/en/developer/articles/guide/optimization-for-tensorflow-installation-guide.html) and 
 [Intel PyTorch Extension](https://www.intel.com/content/www/us/en/developer/articles/containers/pytorch-extension.html).
@@ -61,9 +61,9 @@ Also, oneAPI provides some domain-specific libraries such as Intel [oneDNN](http
 [oneCCL](https://www.intel.com/content/www/us/en/developer/tools/oneapi/oneccl.html) for collective communication especially useful when using distributed setups to access efficient all-reduce operations over multiple hosts.
 
 Some of these libraries, especially MKL or oneDNN, are natively included in frameworks such as PyTorch and TensorFlow ([since 2.5.0](https://medium.com/intel-analytics-software/leverage-intel-deep-learning-optimizations-in-tensorflow-129faa80ee07)) to bring all the performance improvements to the end user out of the box. 
-When one would like to target very specific hardware features, Intel provides custom versions of the most common software especially optimized for the Intel platform. 
-This is for instance the case with TensorFlow, [for which Intel provides custom, highly tuned and optimized versions of the framework](https://www.intel.com/content/www/us/en/developer/articles/guide/optimization-for-tensorflow-installation-guide.html)
-or with the Intel PyTorch Extension (IPEX) framework which can be seen as a feature laboratory before upstreaming to PyTorch.
+When one would like to target very specific hardware features, Intel provides custom versions of the most common software, especially optimized for the Intel platform. 
+This is for instance the case with TensorFlow, [for which Intel provides custom, highly tuned and optimized versions of the framework](https://www.intel.com/content/www/us/en/developer/articles/guide/optimization-for-tensorflow-installation-guide.html),
+or with the Intel PyTorch Extension (IPEX) framework which can be considered as a feature laboratory before upstreaming to PyTorch.
 
 ## Deep Dive: Leveraging advanced Intel features to improve AI performances
 
@@ -75,7 +75,7 @@ As highlighted above, we are going to cover a new set of tunable items to improv
 3. Efficient parallelization of the computations on the target hardware
 
 _In addition to the points listed above, deep learning frameworks provide ways to represent data flow and dependencies to compute gradients. 
-This falls out of the scope of this blog post, and it leverages the same components as the ones listed above._!
+This falls out of the scope of this blog post, and it leverages the same components as the ones listed above!_
 
 <br>
 <figure class="image">
@@ -98,7 +98,7 @@ Over the past years we saw more and more work in this area, with notably:
 - [mimalloc](https://microsoft.github.io/mimalloc/) (Microsoft - 2019)
 - [tcmalloc](https://abseil.io/blog/20200212-tcmalloc) (Google - 2020) 
 
-All tends to push forward different approaches to improve aspects of the memory allocation and management on various software.
+Each pushes forward different approaches to improve aspects of the memory allocation and management on various software.
 
 ### 2. Efficient parallelization of computations
 
@@ -110,7 +110,7 @@ Yet, as we highlighted on [the first blog post](https://hf.co/blog/bert-cpu-scal
 
 Still, implementing parallel algorithms might not be as simple as throwing more cores to do the work. 
 Many factors, such as data structures used, concurrent data access, CPU caches invalidation - all of which might prevent your algorithm from being effectively faster. 
-As a reference talk, I would recommend the talk from [**Scott Meyers: CPU Caches and Why You Care**](https://www.youtube.com/watch?v=WDIkqP4JbkE) if you are interested in diving more into the subject.
+As a reference talk, we recommend the talk from [**Scott Meyers: CPU Caches and Why You Care**](https://www.youtube.com/watch?v=WDIkqP4JbkE) if you are interested in diving more into the subject.
 
 Thankfully, there are libraries which make the development process of such parallel algorithms easier and less error-prone. 
 Among the most common parallel libraries we can mention OpenMP and TBB (Threading Building Blocks), which work at various levels, from programming API in C/C++ to environment variable tuning and dynamic scheduling. 
@@ -125,7 +125,7 @@ On Intel hardware, it is advised to use the Intel implementation of the OpenMP s
 
 ### 3. Optimized mathematical operators
 
-Now that we are well versed at the necessary building blocks for designing efficient data structures and parallel algorithms, the last remaining piece is the one running the computation, 
+Now that we covered the necessary building blocks for designing efficient data structures and parallel algorithms, the last remaining piece is the one running the computation, 
 the one implementing the variety of mathematical operators and neural network layers to do what we love most, designing neural networks! 😊
 
 In every programmer toolkit, there are multiple levels which can bring mathematical operations support, which can then be optimized differently depending on various factors such as the data storage layout 
@@ -142,7 +142,7 @@ Finally, on top of this, one can find some domain specific libraries such as Int
 Intel MKL and oneDNN are natively integrated within the PyTorch framework, where it can enable some performance speedup for certain operations such as Linear + ReLU or Convolution. 
 On the TensorFlow side, oneDNN can be enabled by setting the environment variable `TF_ENABLE_ONEDNN_OPTS=1` (_TensorFlow >= 2.5.0_) to achieve similar machinery under the hood.
 
-## More Efficient AI Processing(s) on latest Intel Ice Lake CPUs
+## More Efficient AI Processing on latest Intel Ice Lake CPUs
 
 In order to report the performances of the Ice Lake product lineup we will closely follow [the methodology we used for the first blog](https://hf.co/blog/bert-cpu-scaling-part-1#2-benchmarking-methodology) post of this series. As a reminder, we will adopt the exact same schema to benchmark the various setups we will highlight through this second blog post. More precisely, the results presented in the following sections are based on:
 - PyTorch: 1.9.0
@@ -221,16 +221,16 @@ something possible within eager frameworks.
 <br>
 
 The global trend highlights the positive impact of the number of cores on the observed latencies. 
-In most of the case, increasing the number of cores reduces the computation time across the different workload sizes. 
+In most of the cases, increasing the number of cores reduces the computation time across the different workload sizes. 
 Still, putting more cores to the task doesn't result in monotonic latency reductions, there is always a trade-off between the workload’s size and the number of resources you allocate to execute the job.
 
 
 As you can see on the charts above, one very common pattern tends to arise from using all the cores available on systems with more than one CPU (more than one socket). 
 The inter-socket communication introduces a significant latency overhead and results in very little improvement to increased latency overall. 
 
-Also, this inter-socket communication overhead tends to be less and less perceptive when the workload becomes bigger and bigger, 
+Also, this inter-socket communication overhead tends to be less and less perceptive as the workload becomes larger, 
 meaning the usage of all computational resources benefits from using all the available cores. 
-In this domain, it seems PyTorch (Figure 1.) and Intel TensorFlow (Figure 4.) seems to have slightly better parallelism support, 
+In this domain, it seems PyTorch (Figure 1.) and Intel TensorFlow (Figure 4.) seem to have slightly better parallelism support, 
 as showed on the sequence length 384 and 512 for which using all the cores still reduces the observed latency.
 
 
@@ -267,10 +267,10 @@ and all the allocations and optimizations such as graph pruning and operators fu
 
 
 This is often referred to as “tracing” the graph and, as you can see here, the results are not that different from TorchScript (Graph execution mode from PyTorch) vs TensorFlow(s). 
-All TensorFlow implementations seems to perform better than TorchScript when the parallelization is limited (low number of cores involved in the intra operation computations) but this seems to not scale efficiently 
-as we raise the computation resources, whereas TorchScript seems to be able to better leverage the power of modern CPUs. 
+All TensorFlow implementations seem to perform better than TorchScript when the parallelization is limited (low number of cores involved in the intra operation computations) but this seems not to scale efficiently 
+as we increase the computation resources, whereas TorchScript seems to be able to better leverage the power of modern CPUs. 
 
-Still, the margin between all these frameworks is sometimes very limited.
+Still, the margin between all these frameworks in most cases very limited.
 
 
 ### Tuning the Memory Allocator: Can this impact the latencies observed?
@@ -304,7 +304,7 @@ Among these libraries, we can cite a few of them such as [tcmalloc](), [jemalloc
 <br>
 <figure class="image">
   <img class="centered" alt="Various allocator benchmarked on different tasks" src="assets/35_bert_cpu_scaling_part_2/allocator_benchmark.png" />
-  <figcaption>Figure 12. Various allocator benchmarked on different tasks</figcaption>
+  <figcaption>Figure 12. Various memory allocators benchmarked on different tasks</figcaption>
 </figure>
 <br>
 
@@ -345,9 +345,9 @@ In this context, the allocator is a major component due to all the system calls 
 
 As per the graph above, you can notice that the standard library allocator (glibc) is often behind performance-wise but provides reasonable performance. 
 Jemalloc allocator is sometimes the fastest around but in very specific situations, where the concurrency is not that high, this can be explained by the underlying structure jemalloc uses 
-internally which is out of the scope of this blog, but you can read the [Facebook Engineering blog](https://engineering.fb.com/2011/01/03/core-data/scalable-memory-allocation-using-jemalloc/) if you are interested in knowing more about.
+internally which is out of the scope of this blog, but you can read the [Facebook Engineering blog](https://engineering.fb.com/2011/01/03/core-data/scalable-memory-allocation-using-jemalloc/) if you want to know more about it.
 
-Finally, tcmalloc seems to be the one providing regular best performances across all the workloads benchmarked here. 
+Finally, tcmalloc seems to be the one providing generally best performances across all the workloads benchmarked here. 
 Again, tcmalloc has a different approach than Jemalloc in the way it allocates resources, especially tcmalloc maintains a pool of memory segments locally for each thread, which reduces the necessity to have global, exclusive, critical paths. 
 
 Again, for more details, I invite you to read the full [blog by Google Abseil team](https://abseil.io/blog/20200212-tcmalloc).
@@ -402,8 +402,8 @@ In the following part of this blog post, we will restrict ourselves to OpenMP an
 The latter especially targets Intel CPUs and is optimized to provide best of class performances when used as a drop-in replacement against the GNU OpenMP one.
 
 OpenMP exposes [many environment variables](https://www.openmp.org/spec-html/5.0/openmpch6.html) to automatically configure the underlying resources which will be involved in the computations, 
-such as the number of threads to use to dispatch computation to (intra-op threads), the way the system scheduler should bind each of this thread with respect to the CPU resources (threads, cores, sockets) 
-and some other variables which brings further control to the user. 
+such as the number of threads to use to dispatch computation to (intra-op threads), the way the system scheduler should bind each of these threads with respect to the CPU resources (threads, cores, sockets) 
+and some other variables which bring further control to the user. 
 Intel OpenMP exposes [more of these environment variables](https://www.intel.com/content/www/us/en/develop/documentation/cpp-compiler-developer-guide-and-reference/top/compilation/supported-environment-variables.html) to provide the user even more flexibility to adjust the performance of its software.
 
 <br>
@@ -419,15 +419,14 @@ Intel OpenMP exposes [more of these environment variables](https://www.intel.com
 </figure>
 <br>
 
-As stated above, tuning OpenMP is something you can start to tweak when you tried all the others, system related, tuning knobs. 
+As stated above, tuning OpenMP is something you can start to tweak when you tried all the other, system related, tuning knobs. 
 It can bring a final speed up to you model with just a single environment variable to set. 
 
-Also, it is important to not that tuning OpenMP library will only work within software that use the OpenMP API internally. 
-More specially, now only PyTorch and TorchScript really make usage of OpenMP and thus benefits from OpenMP backend tuning. 
+Also, it is important to note that tuning OpenMP library will only work within software that uses the OpenMP API internally. 
+More specially, now only PyTorch and TorchScript really make usage of OpenMP and thus benefit from OpenMP backend tuning. 
 
 This also explains why we reported latencies only for these two frameworks.
 
-### Conclusion
 
 ## Automatic Performances Tuning: Bayesian Optimization with Intel SigOpt
 
