@@ -1,18 +1,3 @@
-<style>
-  .centered {
-      display: block;
-      margin: 0 auto;
-  }
-
-  figure {
-      text-align: center;
-      display: table;
-      max-width: 100%; /* demo; set some amount (px or %) if you can */
-      margin: 0px auto; /* not needed unless you want centered */
-  }
-</style>
-<script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
-
 ---
 title: "Scaling up BERT-like model Inference on modern CPU  - Part 2"
 ---
@@ -56,6 +41,21 @@ title: "Scaling up BERT-like model Inference on modern CPU  - Part 2"
         </div>
     </a>
 </div>
+
+<style>
+  .centered {
+      display: block;
+      margin: 0 auto;
+  }
+
+  figure {
+      text-align: center;
+      display: table;
+      max-width: 100%; /* demo; set some amount (px or %) if you can */
+      margin: 0px auto; /* not needed unless you want centered */
+  }
+</style>
+<script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
 ## Introduction: Using Intel Software to Optimize AI Efficiency on CPU
 
