@@ -31,6 +31,20 @@
             <span class="fullname">Michael Benayoun</span>
         </div>
     </a>
+    <a href="/jeffboudier">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1605114051380-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>jeffboudier</code>
+            <span class="fullname">Jeff Boudier</span>
+        </div>
+    </a>
+    <a href="/echarlaix">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1615915889033-6050eb5aeb94f56898c08e57.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>echarlaix</code>
+            <span class="fullname">Ella Charlaix</span>
+        </div>
+    </a>
 </div>
 
 # Scaling up BERT-like model Inference on modern CPU  - Part 2
