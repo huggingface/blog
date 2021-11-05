@@ -521,4 +521,16 @@ And many more figures, often interactive, are available on SigOpt such as:
 - 3D experiment history, allowing to do the same thing as the 2D experiment history with one more knob / objective.
 
 
-## Conclusion and Future Work
+## Conclusion - Accelerating Transformers for Production
+
+In this post, we...
+
+At Hugging Face, we are on a mission to democratize state of the art Machine Learning, and a critical part of our work is to make these state of the art models as efficient as possible, to use less energy and memory at scale, and to be more affortable to run by companies of all sizes. 
+
+Our collaboration with Intel through the 🤗 [Hardware Partner Program](https://huggingface.co/hardware) enables us to make advanced efficiency and optimization techniques easily available to the community, through our new 🤗 [Optimum open source library](https://github.com/huggingface/optimum) dedicated to production performance.
+
+For companies looking to accelerate their Transformer models inference, our new 🤗 [Infinity product offers a plug-and-play containerized solution](https://huggingface.co/infinity), achieving down to 1ms latency on GPU and 2ms on Intel Xeon Ice Lake CPUs.
+
+If you found this post interesting or useful to your work, please consider giving Optimum a star. And if this post was music to your ears, consider [joining our Machine Learning Optimization team](https://apply.workable.com/huggingface/)!
+
+
