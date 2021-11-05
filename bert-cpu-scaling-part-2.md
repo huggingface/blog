@@ -95,7 +95,7 @@ This falls out of the scope of this blog post, and it leverages the same compone
 
 <br>
 <figure class="image">
-  <medium-zoom alt="Intel libraries overview under the oneAPI umbrella" src="assets/35_bert_cpu_scaling_part_2/oneapi.jpg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Intel libraries overview under the oneAPI umbrella" src="assets/35_bert_cpu_scaling_part_2/oneapi.jpg" />
   <figcaption>Figure 1. Intel libraries overview under the oneAPI umbrella</figcaption>
 </figure>
 <br>
@@ -135,7 +135,7 @@ On Intel hardware, it is advised to use the Intel implementation of the OpenMP s
 <br>
 
 <figure class="image">
-    <medium-zoom alt="Code snippet showing parallel computation done through OpenMP" src="assets/35_bert_cpu_scaling_part_2/openmp.png"></medium-zoom>
+    <medium-zoom background="rgba(0,0,0,.7)" alt="Code snippet showing parallel computation done through OpenMP" src="assets/35_bert_cpu_scaling_part_2/openmp.png"></medium-zoom>
     <figcaption>Figure 2. Code snippet showing parallel computation done through OpenMP</figcaption>
 </figure>
 
@@ -181,7 +181,7 @@ You can find the same processors on the various cloud providers:
 
 <br>
 <figure class="image">
-  <medium-zoom alt="Intel Ice Lake Xeon 8380 Specifications" src="assets/35_bert_cpu_scaling_part_2/intel_xeon_8380_specs.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Intel Ice Lake Xeon 8380 Specifications" src="assets/35_bert_cpu_scaling_part_2/intel_xeon_8380_specs.svg" />
   <figcaption>Figure 3. Intel Ice Lake Xeon 8380 Specifications</figcaption>
 </figure>
 <br>
@@ -215,25 +215,25 @@ something possible within eager frameworks.
 
 <br>
 <figure class="image">
-  <medium-zoom alt="PyTorch latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/eager_mode_pytorch_baseline.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="PyTorch latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/eager_mode_pytorch_baseline.svg" />
   <figcaption>Figure 4. PyTorch latencies with respect to the number of cores involved</figcaption>
 </figure>
 <br>
 <br>
 <figure class="image">
-  <medium-zoom alt="Google's TensorFlow latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/eager_mode_tensorflow_baseline.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Google's TensorFlow latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/eager_mode_tensorflow_baseline.svg" />
   <figcaption> Figure 5. Google's TensorFlow latencies with respect to the number of cores involved</figcaption>
 </figure>
 <br>
 <br>
 <figure class="image">
-  <medium-zoom alt="Google's TensorFlow with oneDNN enabled latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/eager_mode_tensorflow_onednn_baseline.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Google's TensorFlow with oneDNN enabled latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/eager_mode_tensorflow_onednn_baseline.svg" />
   <figcaption>Figure 6. Google's TensorFlow with oneDNN enabled latencies with respect to the number of cores involved</figcaption>
 </figure>
 <br>
 <br>
 <figure class="image">
-  <medium-zoom alt="Intel TensorFlow latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/eager_mode_intel_tensorflow_baseline.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Intel TensorFlow latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/eager_mode_intel_tensorflow_baseline.svg" />
   <figcaption>Figure 7. Intel TensorFlow latencies with respect to the number of cores involved</figcaption>
 </figure>
 <br>
@@ -260,25 +260,25 @@ and all the allocations and optimizations such as graph pruning and operators fu
 
 <br>
 <figure class="image">
-  <medium-zoom alt="TorchScript latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/graph_mode_torchscript_baseline.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="TorchScript latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/graph_mode_torchscript_baseline.svg" />
   <figcaption>Figure 8. TorchScript latencies with respect to the number of cores involved</figcaption>
 </figure>
 <br>
 <br>
 <figure class="image">
-  <medium-zoom alt="Google's TensorFlow latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/graph_mode_tensorflow_baseline.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Google's TensorFlow latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/graph_mode_tensorflow_baseline.svg" />
   <figcaption>Figure 9. Google's TensorFlow latencies with respect to the number of cores involved</figcaption>
 </figure>
 <br>
 <br>
 <figure class="image">
-  <medium-zoom alt="Google's TensorFlow with oneDNN enabled latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/graph_mode_tensorflow_onednn_baseline.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Google's TensorFlow with oneDNN enabled latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/graph_mode_tensorflow_onednn_baseline.svg" />
   <figcaption>Figure 10. Google's TensorFlow with oneDNN enabled latencies with respect to the number of cores involved</figcaption>
 </figure>
 <br>
 <br>
 <figure class="image">
-  <medium-zoom alt="Intel TensorFlow latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/graph_mode_intel_tensorflow_baseline.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Intel TensorFlow latencies with respect to the number of cores involved" src="assets/35_bert_cpu_scaling_part_2/baselines/graph_mode_intel_tensorflow_baseline.svg" />
   <figcaption>Figure 11. Intel TensorFlow latencies with respect to the number of cores involved</figcaption>
 </figure>
 <br>
@@ -316,12 +316,12 @@ Among these libraries, we can cite a few of them such as [tcmalloc](), [jemalloc
 
 <br>
 <figure class="image">
-  <medium-zoom alt="Legend - Various allocator benchmarked on different tasks" src="assets/35_bert_cpu_scaling_part_2/allocator_benchmark_legend.png" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Legend - Various allocator benchmarked on different tasks" src="assets/35_bert_cpu_scaling_part_2/allocator_benchmark_legend.png" />
 </figure>
 <br>
 <br>
 <figure class="image">
-  <medium-zoom alt="Various allocator benchmarked on different tasks" src="assets/35_bert_cpu_scaling_part_2/allocator_benchmark.png" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Various allocator benchmarked on different tasks" src="assets/35_bert_cpu_scaling_part_2/allocator_benchmark.png" />
   <figcaption>Figure 12. Various memory allocators benchmarked on different tasks</figcaption>
 </figure>
 <br>
@@ -338,25 +338,25 @@ In this context, the allocator is a major component due to all the system calls 
 
 <br>
 <figure class="image">
-  <medium-zoom alt="PyTorch memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_pytorch_latency.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="PyTorch memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_pytorch_latency.svg" />
   <figcaption>Figure 13. PyTorch memory allocator and cores scaling latencies</figcaption>
 </figure>
 <br>
 <br>
 <figure class="image">
-  <medium-zoom alt="Google's TensorFlow memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_tensorflow_latency.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Google's TensorFlow memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_tensorflow_latency.svg" />
   <figcaption>Figure 14. Google's TensorFlow memory allocator and cores scaling latencies</figcaption>
 </figure>
 <br>
 <br>
 <figure class="image">
-  <medium-zoom alt="Google's TensorFlow with oneDNN enabled memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_tensorflow_onednn_latency.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Google's TensorFlow with oneDNN enabled memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_tensorflow_onednn_latency.svg" />
   <figcaption>Figure 15. Google's TensorFlow with oneDNN enabled memory allocator and cores scaling latencies</figcaption>
 </figure>
 <br>
 <br>
 <figure class="image">
-  <medium-zoom alt="Intel TensorFlow memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_intel_tensorflow_latency.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Intel TensorFlow memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_intel_tensorflow_latency.svg" />
   <figcaption>Figure 16. Intel TensorFlow memory allocator and cores scaling latencies</figcaption>
 </figure>
 <br>
@@ -374,25 +374,25 @@ Now, back to the graph mode where we benchmark framework having an omniscient re
 
 <br>
 <figure class="image">
-  <medium-zoom alt="TorchScript memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_torchscript_latency.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="TorchScript memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_torchscript_latency.svg" />
   <figcaption>Figure 17. TorchScript memory allocator and cores scaling latencies</figcaption>
 </figure>
 <br>
 <br>
 <figure class="image">
-  <medium-zoom alt="Google's TensorFlow memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_tensorflow_graph_latency.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Google's TensorFlow memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_tensorflow_graph_latency.svg" />
   <figcaption>Figure 18. Google's TensorFlow memory allocator and cores scaling latencies</figcaption>
 </figure>
 <br>
 <br>
 <figure class="image">
-  <medium-zoom alt="Google's TensorFlow with oneDNN enabled memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_tensorflow_onednn_graph_latency.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Google's TensorFlow with oneDNN enabled memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_tensorflow_onednn_graph_latency.svg" />
   <figcaption>Figure 19. Google's TensorFlow with oneDNN enabled memory allocator and cores scaling latencies</figcaption>
 </figure>
 <br>
 <br>
 <figure class="image">
-  <medium-zoom alt="Intel TensorFlow memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_intel_tensorflow_graph_latency.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Intel TensorFlow memory allocator and cores scaling latencies" src="assets/35_bert_cpu_scaling_part_2/allocators/allocator_and_cores_intel_tensorflow_graph_latency.svg" />
   <figcaption>Figure 20. Intel TensorFlow memory allocator and cores scaling latencies</figcaption>
 </figure>
 <br>
@@ -426,13 +426,13 @@ Intel OpenMP exposes [more of these environment variables](https://www.intel.com
 
 <br>
 <figure class="image">
-  <medium-zoom alt="OpenMP vs Intel OpenMP latencies running PyTorch" src="assets/35_bert_cpu_scaling_part_2/openmp/openmp_pytorch_latencies.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="OpenMP vs Intel OpenMP latencies running PyTorch" src="assets/35_bert_cpu_scaling_part_2/openmp/openmp_pytorch_latencies.svg" />
   <figcaption>Figure 21. OpenMP vs Intel OpenMP latencies running PyTorch</figcaption>
 </figure>
 <br>
 <br>
 <figure class="image">
-  <medium-zoom alt="OpenMP vs Intel OpenMP latencies running PyTorch" src="assets/35_bert_cpu_scaling_part_2/openmp/openmp_torchscript_latency.svg" />
+  <medium-zoom background="rgba(0,0,0,.7)" alt="OpenMP vs Intel OpenMP latencies running PyTorch" src="assets/35_bert_cpu_scaling_part_2/openmp/openmp_torchscript_latency.svg" />
   <figcaption>Figure 22. OpenMP vs Intel OpenMP latencies running PyTorch</figcaption>
 </figure>
 <br>
@@ -470,13 +470,13 @@ it gives very close performance, with **8.6%** being the biggest gap on this fig
   <tr>
     <td>
         <figure class="image">
-            <medium-zoom alt="Absolute best latency found by SigOpt automatic tuning vs brute force" src="assets/35_bert_cpu_scaling_part_2/sigopt/Intel%20Ice%20lake%20Xeon%208380%20-%20TorchScript%20-%20Batch%20Size%201%20-%20Absolute%20Best%20Latency%20vs%20SigOpt%20Best%20Latency.svg" />
+            <medium-zoom background="rgba(0,0,0,.7)" alt="Absolute best latency found by SigOpt automatic tuning vs brute force" src="assets/35_bert_cpu_scaling_part_2/sigopt/Intel%20Ice%20lake%20Xeon%208380%20-%20TorchScript%20-%20Batch%20Size%201%20-%20Absolute%20Best%20Latency%20vs%20SigOpt%20Best%20Latency.svg" />
             <figcaption>Figure 23. Absolute best latency found by SigOpt automatic tuning vs brute force</figcaption>
         </figure>
     </td>
     <td>
         <figure class="image">
-            <medium-zoom alt="Relative best latency found by SigOpt automatic tuning vs brute force" src="assets/35_bert_cpu_scaling_part_2/sigopt/Intel%20Ice%20lake%20Xeon%208380%20-%20TorchScript%20-%20Batch%20Size%201%20-%20Relative%20Difference%20Absolute%20Best%20Latency%20vs%20SigOpt%20Best%20Latency.svg" />
+            <medium-zoom background="rgba(0,0,0,.7)" alt="Relative best latency found by SigOpt automatic tuning vs brute force" src="assets/35_bert_cpu_scaling_part_2/sigopt/Intel%20Ice%20lake%20Xeon%208380%20-%20TorchScript%20-%20Batch%20Size%201%20-%20Relative%20Difference%20Absolute%20Best%20Latency%20vs%20SigOpt%20Best%20Latency.svg" />
             <figcaption>Figure 24. Relative best latency found by SigOpt automatic tuning vs brute force</figcaption>
         </figure>
     </td>
@@ -492,13 +492,13 @@ First, it gives the best value it was able to find, the corresponding knobs, and
   <tr>
     <td>
         <figure class="image">
-            <medium-zoom alt="SigOpt best value display" src="assets/35_bert_cpu_scaling_part_2/sigopt/sigopt_best_value.png" />
+            <medium-zoom background="rgba(0,0,0,.7)" alt="SigOpt best value display" src="assets/35_bert_cpu_scaling_part_2/sigopt/sigopt_best_value.png" />
             <figcaption>Figure 25. SigOpt best value reporting</figcaption>
         </figure>
     </td>
     <td>
         <figure class="image">
-            <medium-zoom alt="SigOpt best value display" src="assets/35_bert_cpu_scaling_part_2/sigopt/sigopt_improvements_over_time.png" />
+            <medium-zoom background="rgba(0,0,0,.7)" alt="SigOpt best value display" src="assets/35_bert_cpu_scaling_part_2/sigopt/sigopt_improvements_over_time.png" />
             <figcaption>Figure 26. SigOpt best value reporting</figcaption>
         </figure>
     </td>
@@ -519,13 +519,13 @@ For instance, for the sequence length = 512 experiment, this was the Parameter I
   <tr>
     <td>
         <figure class="image">
-            <medium-zoom alt="SigOpt best value for Batch Size = 1, Sequence Length = 20" src="assets/35_bert_cpu_scaling_part_2/sigopt/sigopt_parameters_importance_seq_20.png" />
+            <medium-zoom background="rgba(0,0,0,.7)" alt="SigOpt best value for Batch Size = 1, Sequence Length = 20" src="assets/35_bert_cpu_scaling_part_2/sigopt/sigopt_parameters_importance_seq_20.png" />
             <figcaption>Figure 27. SigOpt best value for Batch Size = 1, Sequence Length = 20</figcaption>
         </figure>
     </td>
     <td>
         <figure class="image">
-            <medium-zoom alt="SigOpt best value for Batch Size = 1, Sequence Length = 512" src="assets/35_bert_cpu_scaling_part_2/sigopt/sigopt_parameters_importance_seq_512.png" />
+            <medium-zoom background="rgba(0,0,0,.7)" alt="SigOpt best value for Batch Size = 1, Sequence Length = 512" src="assets/35_bert_cpu_scaling_part_2/sigopt/sigopt_parameters_importance_seq_512.png" />
             <figcaption>Figure 28. SigOpt best value for Batch Size = 1, Sequence Length = 512</figcaption>
         </figure>
     </td>
