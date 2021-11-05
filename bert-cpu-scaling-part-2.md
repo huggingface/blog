@@ -11,11 +11,19 @@
       margin: 0px auto; /* not needed unless you want centered */
   }
 </style>
-
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
+---
+title: "Scaling up BERT-like model Inference on modern CPU  - Part 2"
+---
+
+# Scaling up BERT-like model Inference on modern CPU  - Part 2
+
 <div class="blog-metadata">
-    <small>Published April 19, 2021.</small>
+    <small>Published November 4th, 2021</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/bert-cpu-scaling-part-2.md">
+        Update on GitHub
+    </a>
 </div>
 
 <div class="author-card">
@@ -48,8 +56,6 @@
         </div>
     </a>
 </div>
-
-# Scaling up BERT-like model Inference on modern CPU  - Part 2
 
 ## Introduction: Using Intel Software to Optimize AI Efficiency on CPU
 
