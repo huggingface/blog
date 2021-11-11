@@ -212,3 +212,7 @@
 - local: course-launch-event
   title: "Course Launch Community Event"
   date: October 26, 2021
+
+- local: bert-cpu-scaling-part-2
+  title: "Scaling up BERT-like model Inference on modern CPU - Part 2"
+  date: November 4th, 2021
