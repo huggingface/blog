@@ -106,11 +106,6 @@
   thumbnail: ./assets/15_fine_tune_wav2vec2/wav2vec2.png
   date: March 12, 2021
 
-- local: fine-tune-xlsr-wav2vec2
-  title: "Fine-Tune XLSR-Wav2Vec2 for low-resource ASR with 🤗 Transformers"
-  thumbnail: ./assets/16_fine_tune_xlsr_wav2vec2/xlsr_wav2vec2.png
-  date: March 12, 2021
-
 - local: how-to-deploy-a-pipeline-to-google-clouds
   title: "My Journey to a serverless transformers pipeline on Google Cloud"
   author: Maxence
@@ -216,3 +211,8 @@
 - local: bert-cpu-scaling-part-2
   title: "Scaling up BERT-like model Inference on modern CPU - Part 2"
   date: November 4th, 2021
+
+- local: fine-tune-xlsr-wav2vec2
+  title: "Fine-tuning XLS-R for Multi-Lingual ASR with 🤗 Transformers"
+  thumbnail: ./assets/16_fine_tune_xlsr_wav2vec2/xlsr_wav2vec2.png
+  date: November 15, 2021
