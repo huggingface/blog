@@ -50,9 +50,7 @@ The first day of talks will focus on a high-level presentation of Transformers m
     <div class="text-center flex flex-col items-center">
         <img src="/blog/assets/34_course_launch/jakob_uszkoreit.png" width=50% style="border-radius: 50%;">
         <p><strong>Jakob Uszkoreit: <em>It Ain&#39;t Broke So <del>Don&#39;t Fix</del> Let&#39;s Break It</em></strong></p>
-        <p>
-            <!-- Feel free to add more description -->
-        </p>
+        <p>Jakob Uszkoreit is the co-founder of Inceptive. Inceptive designs RNA molecules for vaccines and therapeutics using large-scale deep learning in a tight loop with high throughput experiments with the goal of making RNA-based medicines more accessible, more effective and more broadly applicable. Previously, Jakob worked at Google for more than a decade, leading research and development teams in Google Brain, Research and Search working on deep learning fundamentals, computer vision, language understanding and machine translation.</p>
     </div>
     <div class="text-center flex flex-col items-center">
         <img src="/blog/assets/34_course_launch/jay_alammar.png" width=50% style="border-radius: 50%;">
