@@ -31,7 +31,7 @@ Graphical Processing Units (GPUs) have long been the _de facto_ choice to train 
 
 ### What this post is about
 
-In this post, you will learn how to accelerate [PyTorch](https://pytorch.org) training jobs by distributing them on a cluster of Intel Xeon Scalable CPU servers, powered by the Ice Lake architecture and running performance-optimized software libraries. We will build the cluster from scratch using virtual machines, and you should able to easily replicate the demo on your own infrastructure, either in the cloud or on premise.
+In this post, you will learn how to accelerate [PyTorch](https://pytorch.org) training jobs by distributing them on a cluster of Intel Xeon Scalable CPU servers, powered by the Ice Lake architecture and running performance-optimized software libraries. We will build the cluster from scratch using virtual machines, and you should be able to easily replicate the demo on your own infrastructure, either in the cloud or on premise.
 
 Running a text classification job, we will fine-tune a [BERT](https://huggingface.co/bert-base-cased) model on the [MRPC](https://www.microsoft.com/en-us/download/details.aspx?id=52398) dataset (one of the tasks included in the [GLUE](https://gluebenchmark.com/) benchmark). The MRPC dataset contains 5,800 sentence pairs extracted from news sources, with a label telling us whether the two sentences in each pair are semantically equivalent. We picked this dataset for its reasonable training time, and trying other GLUE tasks is just a parameter away.
 
@@ -66,7 +66,7 @@ To leverage AVX-512 and VNNI in PyTorch, Intel has designed the [Intel extension
 
 When it comes to distributed training, the main performance bottleneck is often networking. Indeed, the different nodes in the cluster need to periodically exchange model state information to stay in sync. As transformers are large models with billions of parameters (sometimes much more), the volume of information is significant, and things only get worse as the number of nodes increase. Thus, it's important to use a communication library optimized for deep learning.
 
-In fact, PyTorch includes the [```torch.distributed```](https://pytorch.org/tutorials/intermediate/dist_tuto.html) package, which supports different communication backends. Here, we'll use the Intel oneAPI Collective Communications Library [(oneCCL)](https://github.com/oneapi-src/oneCCL), an efficient implementation of communication patterns used in deep learning ([all-reduce](https://en.wikipedia.org/wiki/Collective_operation), etc.). You can learn about the performance of oneCCL versus other backends in this PyTorch [blog post](https://pytorch.medium.com/optimizing-dlrm-by-using-pytorch-with-oneccl-backend-9f85b8ef6929)
+In fact, PyTorch includes the [```torch.distributed```](https://pytorch.org/tutorials/intermediate/dist_tuto.html) package, which supports different communication backends. Here, we'll use the Intel oneAPI Collective Communications Library [(oneCCL)](https://github.com/oneapi-src/oneCCL), an efficient implementation of communication patterns used in deep learning ([all-reduce](https://en.wikipedia.org/wiki/Collective_operation), etc.). You can learn about the performance of oneCCL versus other backends in this PyTorch [blog post](https://pytorch.medium.com/optimizing-dlrm-by-using-pytorch-with-oneccl-backend-9f85b8ef6929).
 
 Now that we're clear on building blocks, let's talk about the overall setup of our training cluster.
 
