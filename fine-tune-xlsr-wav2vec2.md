@@ -1,6 +1,6 @@
 ---
 title: "Fine-Tune XLSR-Wav2Vec2 for low-resource ASR with 🤗 Transformers"
-thumbnail: /blog/assets/15_fine_tune_wav2vec2/wav2vec2.png
+thumbnail: /blog/assets/xlsr_wav2vec2.png
 ---
 
 <h1>
