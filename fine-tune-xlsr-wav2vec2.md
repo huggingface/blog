@@ -24,8 +24,7 @@ thumbnail: /blog/assets/15_fine_tune_wav2vec2/wav2vec2.png
     </a>
 </div>
 
-TODO(PVP): Update colab link here
-<a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Fine_Tune_XLSR_Wav2Vec2_on_Turkish_ASR_with_🤗_Transformers.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github.com/patrickvonplaten/notebooks/blob/master/Fine_Tune_XLS_R_on_Common_Voice.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -78,10 +77,10 @@ speaker/language identification, *cf.* with Table 3-6, Table 7-10, and
 Table 11-12 respectively of the official [paper](Fill%20me...).
 TODO(PVP): add link here
 
-Notebook Setup
+Setup
 --------------
 
-In this notebook, we will give an in-detail explanation of how XLS-R -
+In this blog, we will give an in-detail explanation of how XLS-R -
 more specifically the pre-trained checkpoint
 [**Wav2Vec2-XLS-R-300M**](https://huggingface.co/facebook/wav2vec2-xls-r-300m) - can be fine-tuned for ASR.
 
@@ -1063,10 +1062,8 @@ model = AutoModelForCTC.from_pretrained("patrickvonplaten/wav2vec2-large-xls-r-3
 processor = Wav2Vec2Processor.from_pretrained("patrickvonplaten/wav2vec2-large-xls-r-300m-tr-colab")
 ```
 
-For more examples of how XLS-R can be fine-tuned, please take a look at
-\[FILL ME\].
-
-TODO(PVP)
+For more examples of how XLS-R can be fine-tuned, please take a look at the official 
+[🤗 Transformers examples](https://github.com/huggingface/transformers/tree/master/examples/pytorch/speech-recognition#examples).
 
 ### Evaluation
 
