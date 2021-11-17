@@ -8,7 +8,7 @@ thumbnail: /blog/assets/15_fine_tune_wav2vec2/wav2vec2.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published November 15, 2021.</small>
+    <small>Updated November 15, 2021. Originally published March 12, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/fine-tune-xlsr-wav2vec2.md">
         Update on GitHub
     </a>
@@ -113,7 +113,7 @@ fine-tuned model using the [word error rate
 ```
 
 We strongly suggest to upload your training checkpoints directly to the
-[🤗 Hub](https://huggingface.co/) while training. The [🤗
+[Hugging Face Hub](https://huggingface.co/) while training. The [Hugging Face
 Hub](https://huggingface.co/) has integrated version control so you can
 be sure that no model checkpoint is getting lost during training.
 
@@ -170,8 +170,11 @@ context representations as illustrated in the figure above. However, for
 speech recognition the model has to to map this sequence of context
 representations to its corresponding transcription which means that a
 linear layer has to be added on top of the transformer block (shown in
-yellow in the diagram above). This linear layer is used to classifies
-each context representation to a token class analogous how, *e.g.*,
+yellow in the diagram above). This linear layer is used to classify
+each context representation to a token class analogous to how
+a linear layer is added on top of BERT\'s embeddings
+for further classification after pre-training (*cf.* with *\'BERT\'* section of the following [blog
+post](https://huggingface.co/blog/warm-starting-encoder-decoder)).
 after pretraining a linear layer is added on top of BERT\'s embeddings
 for further classification - *cf.* with *\'BERT\'* section of this [blog
 post](https://huggingface.co/blog/warm-starting-encoder-decoder).
@@ -330,7 +333,7 @@ This means that we should replace a sentence like
 `"yargı sistemi hâlâ sağlıksız"` to `"yargı sistemi hala sağlıksız"`.
 
 Let\'s write another short mapping function to further simplify the text
-labels. Remember - the simler the text labels, the easier it is for the
+labels. Remember, the simpler the text labels, the easier it is for the
 model to learn to predict those labels.
 
 ```python
@@ -488,7 +491,7 @@ tokenizer = Wav2Vec2CTCTokenizer.from_pretrained("./", unk_token="[UNK]", pad_to
 
 If one wants to re-use the just created tokenizer with the fine-tuned
 model of this notebook, it is strongly advised to upload the `tokenizer`
-to the [🤗 Hub](https://huggingface.co/). Let\'s call the repo to which
+to the [Hugging Face Hub](https://huggingface.co/). Let\'s call the repo to which
 we will upload the files `"wav2vec2-large-xlsr-turkish-demo-colab"`:
 
 ```python
@@ -506,9 +509,9 @@ Great, you can see the just created repository under
 
 ### Create `Wav2Vec2FeatureExtractor`
 
-Speech is a continuous signal and to be treated by computers, it first
+Speech is a continuous signal, and, to be treated by computers, it first
 has to be discretized, which is usually called **sampling**. The
-sampling rate hereby plays an important role in that it defines how many
+sampling rate hereby plays an important role since it defines how many
 data points of the speech signal are measured per second. Therefore,
 sampling with a higher sampling rate results in a better approximation
 of the *real* speech signal but also necessitates more values per
@@ -517,7 +520,7 @@ second.
 A pretrained checkpoint expects its input data to have been sampled more
 or less from the same distribution as the data it was trained on. The
 same speech signals sampled at two different rates have a very different
-distribution, *e.g.*, doubling the sampling rate results in data points
+distribution. For example, doubling the sampling rate results in data points
 being twice as long. Thus, before fine-tuning a pretrained checkpoint of
 an ASR model, it is crucial to verify that the sampling rate of the data
 that was used to pretrain the model matches the sampling rate of the
@@ -730,7 +733,7 @@ loading/sampling, feel free to just make use of the `"path"` column
 instead and disregard the `"audio"` column.
 
 Long input sequences require a lot of memory. XLS-R is based on
-`self-attention` the memory requirement scales quadratically with the
+`self-attention`. The memory requirement scales quadratically with the
 input length for long input sequences (*cf.* with
 [this](https://www.reddit.com/r/MachineLearning/comments/genjvb/d_why_is_the_maximum_input_sequence_length_of/)
 reddit post). In case this demo crashes with an \"Out-of-memory\" error
@@ -951,12 +954,12 @@ more explanation on some of the parameters:
 For more explanations on other parameters, one can take a look at the
 [docs](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer#trainingarguments).
 
-During training, a checkpoint will be uploaded asynchronously to the hub
+During training, a checkpoint will be uploaded asynchronously to the Hub
 every 400 training steps. It allows you to also play around with the
 demo widget even while your model is still training.
 
 **Note**: If one does not want to upload the model checkpoints to the
-hub, simply set `push_to_hub=False`.
+Hub, simply set `push_to_hub=False`.
 
 ```python
 from transformers import TrainingArguments
@@ -1045,7 +1048,7 @@ trainer.train()
 
 The training loss and validation WER go down nicely.
 
-You can now upload the result of the training to the 🤗 Hub, just execute
+You can now upload the result of the training to the Hub, just execute
 this instruction:
 
 ```python
