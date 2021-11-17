@@ -24,7 +24,7 @@ thumbnail: /blog/assets/15_fine_tune_wav2vec2/wav2vec2.png
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/github.com/patrickvonplaten/notebooks/blob/master/Fine_Tune_XLS_R_on_Common_Voice.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Fine_Tune_XLS_R_on_Common_Voice.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -46,14 +46,13 @@ representations that are useful across multiple languages.
 
 XLSR\'s successor, simply called **XLS-R** (refering to the
 [*\'\'XLM-R*](https://ai.facebook.com/blog/-xlm-r-state-of-the-art-cross-lingual-understanding-through-self-supervision/)
-*for Speech\'\'*), was released in [November 2021](FILL%20ME) by *Arun
+*for Speech\'\'*), was released in [November 2021](https://ai.facebook.com/blog/xls-r-self-supervised-speech-processing-for-128-languages) by *Arun
 Babu, Changhan Wang, Andros Tjandra, et al.* XLS-R used almost **half a
 million** hours of audio data in 128 languages for self-supervised
-pre-training and comes in sizes ranging from 100 milion up to **two
+pre-training and comes in sizes ranging from 300 milion up to **two
 billion** parameters. You can find the pretrained checkpoints on the 🤗
 Hub:
 
--   [**Wav2Vec2-XLS-R-100M**](https://huggingface.co/facebook/wav2vec2-xls-r-100m)
 -   [**Wav2Vec2-XLS-R-300M**](https://huggingface.co/facebook/wav2vec2-xls-r-300m)
 -   [**Wav2Vec2-XLS-R-1B**](https://huggingface.co/facebook/wav2vec2-xls-r-1b)
 -   [**Wav2Vec2-XLS-R-2B**](https://huggingface.co/facebook/wav2vec2-xls-r-2b)
@@ -74,8 +73,7 @@ audio classification (*i.e.* diagram on the right below).
 XLS-R shows impressive improvements over previous state-of-the-art
 results on both speech recognition, speech translation and
 speaker/language identification, *cf.* with Table 3-6, Table 7-10, and
-Table 11-12 respectively of the official [paper](Fill%20me...).
-TODO(PVP): add link here
+Table 11-12 respectively of the official [paper](https://ai.facebook.com/blog/xls-r-self-supervised-speech-processing-for-128-languages).
 
 Setup
 --------------
@@ -920,11 +918,8 @@ model = Wav2Vec2ForCTC.from_pretrained(
     ctc_loss_reduction="mean", 
     pad_token_id=processor.tokenizer.pad_token_id,
     vocab_size=len(processor.tokenizer),
-    use_auth_token="api_HdAzURmHQnGnIgiNdFdRtqmDvYgnaOetCx"
 )
 ```
-
-TODO(PVP): remove use_auth_token
 
 The first component of XLS-R consists of a stack of CNN layers that are
 used to extract acoustically meaningful - but contextually independent -
