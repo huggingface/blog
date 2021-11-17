@@ -9,7 +9,7 @@ Accelerating PyTorch distributed fine-tuning with Intel technologies
 
 
 <div class="blog-metadata">
-    <small>Published November 16, 2021.</small>
+    <small>Published November 17, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/juliensimon/blog/blob/master/large-language-models.md">
         Update on GitHub
     </a>
@@ -83,7 +83,7 @@ From a networking perspective, we will need the following setup:
 * Open all TCP ports on all instances for oneCCL communication inside the cluster. __Please make sure NOT to open these ports to the external world__. AWS provides a convenient way to do this by only allowing connections from instances running a particular [security group](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html). Here's how my setup looks.
 
 <kbd>
-<img src="assets/36_intel_dist_training/01_security_group.png">
+<img src="assets/36_accelerating_pytorch_distributed_fine_tuning/01_security_group.png">
 </kbd>
  
 Now, let's provision the first instance manually. I first create the instance itself, attach the security group above, and add 128GB of storage. To optimize costs, I have launched it as a [spot instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html). 
@@ -198,7 +198,7 @@ python run_glue.py \
 ```
 
 <kbd>
-<img src="assets/36_intel_dist_training/02_single_node.png">
+<img src="assets/36_accelerating_pytorch_distributed_fine_tuning/02_single_node.png">
 </kbd>
 
 This job takes __7 minutes and 46 seconds__. Now, let's set up distributed jobs with oneCCL and speed things up!
@@ -243,7 +243,7 @@ export LD_LIBRARY_PATH=/home/ec2-user/anaconda3/envs/transformer/lib/python3.7/s
 export LD_PRELOAD="${CONDA_PREFIX}/lib/libtcmalloc.so:${CONDA_PREFIX}/lib/libiomp5.so"
 
 export CCL_WORKER_COUNT=4
-export CCL_WORKER_AFFINITY="0,1,2,3,32,33,34,34,35"
+export CCL_WORKER_AFFINITY="0,1,2,3,32,33,34,35"
 export CCL_ATL_TRANSPORT=ofi
 export ATL_PROGRESS_MODE=0
 ```
@@ -307,13 +307,13 @@ mpirun -f hostfile -np 2 -ppn 1 -genv I_MPI_PIN_DOMAIN=[0xfffffff0] \
 Within seconds, a job starts on the first two nodes. The job completes in __4 minutes and 39 seconds__, a __1.7x__ speedup.
 
 <kbd>
-<img src="assets/36_intel_dist_training/03_two_nodes.png">
+<img src="assets/36_accelerating_pytorch_distributed_fine_tuning/03_two_nodes.png">
 </kbd>
 
 Setting ```-np``` to 4 and launching a new job, I now see one process running on each node of the cluster.
 
 <kbd>
-<img src="assets/36_intel_dist_training/04_four_nodes.png">
+<img src="assets/36_accelerating_pytorch_distributed_fine_tuning/04_four_nodes.png">
 </kbd>
 
 Training completes in __2 minutes and 36 seconds__, a __3x__ speedup.
@@ -321,10 +321,10 @@ Training completes in __2 minutes and 36 seconds__, a __3x__ speedup.
 One last thing. Changing ```--task_name``` to ```qqp```, I also ran the Quora Question Pairs GLUE task, which is based on a much larger [dataset](https://quoradata.quora.com/First-Quora-Dataset-Release-Question-Pairs) (over 400,000 training samples). The fine-tuning times were:
 
 * Single-node: 11 hours 22 minutes,
-* 2 nodes: 7 hours and 52 minutes (1.45x),
+* 2 nodes: 6 hours and 38 minutes (1.71x),
 * 4 nodes: 3 hours and 51 minutes (2.95x).
 
-It looks like speed up is pretty consistent. Feel free to keep experimenting with different learning rates, batch sizes and oneCCL settings. I'm sure you can go even faster!
+It looks like the speedup is pretty consistent. Feel free to keep experimenting with different learning rates, batch sizes and oneCCL settings. I'm sure you can go even faster!
 
 ### Conclusion
 
