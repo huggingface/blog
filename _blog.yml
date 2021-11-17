@@ -217,6 +217,6 @@
   title: "Scaling up BERT-like model Inference on modern CPU - Part 2"
   date: November 4th, 2021
 
-- local: accelerating-pytorch-distributed-fine-tuning
+- local: accelerating-pytorch
   title: "Accelerating PyTorch distributed fine-tuning with Intel technologies"
   date: November 17th, 2021

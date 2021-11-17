@@ -83,7 +83,7 @@ From a networking perspective, we will need the following setup:
 * Open all TCP ports on all instances for oneCCL communication inside the cluster. __Please make sure NOT to open these ports to the external world__. AWS provides a convenient way to do this by only allowing connections from instances running a particular [security group](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html). Here's how my setup looks.
 
 <kbd>
-<img src="assets/36_accelerating_pytorch_distributed_fine_tuning/01_security_group.png">
+<img src="assets/36_accelerating_pytorch/01_security_group.png">
 </kbd>
  
 Now, let's provision the first instance manually. I first create the instance itself, attach the security group above, and add 128GB of storage. To optimize costs, I have launched it as a [spot instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html). 
@@ -198,7 +198,7 @@ python run_glue.py \
 ```
 
 <kbd>
-<img src="assets/36_accelerating_pytorch_distributed_fine_tuning/02_single_node.png">
+<img src="assets/36_accelerating_pytorch/02_single_node.png">
 </kbd>
 
 This job takes __7 minutes and 46 seconds__. Now, let's set up distributed jobs with oneCCL and speed things up!
@@ -307,13 +307,13 @@ mpirun -f hostfile -np 2 -ppn 1 -genv I_MPI_PIN_DOMAIN=[0xfffffff0] \
 Within seconds, a job starts on the first two nodes. The job completes in __4 minutes and 39 seconds__, a __1.7x__ speedup.
 
 <kbd>
-<img src="assets/36_accelerating_pytorch_distributed_fine_tuning/03_two_nodes.png">
+<img src="assets/36_accelerating_pytorch/03_two_nodes.png">
 </kbd>
 
 Setting ```-np``` to 4 and launching a new job, I now see one process running on each node of the cluster.
 
 <kbd>
-<img src="assets/36_accelerating_pytorch_distributed_fine_tuning/04_four_nodes.png">
+<img src="assets/36_accelerating_pytorch/04_four_nodes.png">
 </kbd>
 
 Training completes in __2 minutes and 36 seconds__, a __3x__ speedup.
