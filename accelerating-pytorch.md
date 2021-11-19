@@ -1,6 +1,6 @@
 ---
 title: "Accelerating PyTorch distributed fine-tuning with Intel technologies"
-thumbnail: /blog/assets/36_intel_dist_training/04_four_nodes.png
+thumbnail: /blog/assets/36_accelerating_pytorch/04_four_nodes.png
 ---
 
 <h1>
