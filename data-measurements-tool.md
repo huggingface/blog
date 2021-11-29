@@ -28,7 +28,7 @@ thumbnail: /blog/assets/37_data-measurements-tool/datametrics.png
     <a href="/meg">
         <img class="avatar avatar-user" src="http://www.m-mitchell.com/images/meg_cropped_sidebar2.jpg?w=200&h=200" title="Gravatar">
         <div class="bfc">
-            <code>meg-huggingface</code>
+            <code>meg</code>
             <span class="fullname">Meg Mitchell</span>
         </div>
     </a>
