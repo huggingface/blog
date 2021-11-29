@@ -3,6 +3,8 @@ title: "Introducing the Data Measurements Tool: an Interactive Tool for Looking 
 thumbnail: /blog/assets/37_data-measurements-tool/datametrics.png
 ---
 
+# Introducing the 🤗 Data Measurements Tool: an Interactive Tool for Looking at Datasets
+
 <div class="blog-metadata">
     <small>Published November 29, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/data-measurements-tool.md">
@@ -35,8 +37,6 @@ thumbnail: /blog/assets/37_data-measurements-tool/datametrics.png
 </div>
 
 
-
-# Introducing the 🤗 Data Measurements Tool: an Interactive Tool for Looking at Datasets
 
 ***tl;dr:*** We made a tool you can use online to build, measure, and compare datasets.
 
