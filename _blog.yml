@@ -219,8 +219,8 @@
 
 - local: accelerating-pytorch
   title: "Accelerating PyTorch distributed fine-tuning with Intel technologies"
-  date: November 19th, 2021
+  date: November 19, 2021
 
 - local: data-measurements-tool
   title: "Introducing the Data Measurements Tool: an Interactive Tool for Looking at Datasets"
-  date: November 29th, 2021
+  date: November 29, 2021
