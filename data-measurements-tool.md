@@ -25,7 +25,7 @@ thumbnail: /blog/assets/37_data-measurements-tool/datametrics.png
             <span class="fullname">Yacine Jernite</span>
         </div>
     </a>
-    <a href="/meg-huggingface">
+    <a href="/meg">
         <img class="avatar avatar-user" src="http://www.m-mitchell.com/images/meg_cropped_sidebar2.jpg?w=200&h=200" title="Gravatar">
         <div class="bfc">
             <code>meg-huggingface</code>
