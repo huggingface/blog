@@ -84,7 +84,7 @@ The 🤗 Data Measurements Tool can be used iteratively for exploring one or mor
 
 - The number of duplicates in the dataset and how many times they are repeated.
 
-![](images/basics.mov)
+![](assets/37_data-measurements-tool/basics_scroll.gif)
 
 You can use these widgets to check whether what is most and least represented in the dataset make sense for the goals of the dataset.  These measurements are intended to inform whether the dataset can be useful in capturing a variety of contexts or if what it captures is more limited, and to measure how ''balanced'' the labels and instance lengths are.  You can also use these widgets to identify outliers and duplicates you may want to remove.
 
