@@ -1,3 +1,8 @@
+---
+title: "Introducing the Data Measurements Tool: an Interactive Tool for Looking at Datasets"
+thumbnail: /blog/assets/datametrics.png
+---
+
 <div class="blog-metadata">
     <small>Published November 29, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/data-measurements-tool.md">
@@ -13,7 +18,7 @@
             <span class="fullname">Sasha Luccioni</span>
         </div>
     </a>
-    <a href="/yjernite"
+    <a href="/yjernite">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1594144055859-5ee3a7cd2a3eae3cbdad1305.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>yjernite</code>
@@ -28,6 +33,8 @@
         </div>
     </a>
 </div>
+
+
 
 # Introducing the 🤗 Data Measurements Tool: an Interactive Tool for Looking at Datasets
 
