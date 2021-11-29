@@ -216,7 +216,11 @@
   title: "Fine-tuning XLS-R for Multi-Lingual ASR with 🤗 Transformers"
   thumbnail: ./assets/16_fine_tune_xlsr_wav2vec2/xlsr_wav2vec2.png
   date: November 15, 2021
-  
+
 - local: accelerating-pytorch
   title: "Accelerating PyTorch distributed fine-tuning with Intel technologies"
-  date: November 19th, 2021
+  date: November 19, 2021
+
+- local: data-measurements-tool
+  title: "Introducing the Data Measurements Tool: an Interactive Tool for Looking at Datasets"
+  date: November 29, 2021
