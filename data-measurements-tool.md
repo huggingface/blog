@@ -79,12 +79,10 @@ The 🤗 Data Measurements Tool can be used iteratively for exploring one or mor
 - The dataset vocabulary size and word distribution, for both [open- and closed-class words](https://dictionary.apa.org/open-class-words).
 
 - The dataset label distribution and information about class (im)balance.
-
+![image](https://user-images.githubusercontent.com/14205986/143916978-22bdcf0b-e896-41e2-aade-defbbe12f43a.png)
 - The mean, median, range, and distribution of instance lengths.
 
 - The number of duplicates in the dataset and how many times they are repeated.
-
-![](assets/37_data-measurements-tool/basics_scroll.gif)
 
 You can use these widgets to check whether what is most and least represented in the dataset make sense for the goals of the dataset.  These measurements are intended to inform whether the dataset can be useful in capturing a variety of contexts or if what it captures is more limited, and to measure how ''balanced'' the labels and instance lengths are.  You can also use these widgets to identify outliers and duplicates you may want to remove.
 
@@ -94,6 +92,8 @@ You can use these widgets to check whether what is most and least represented in
 *This begins to answer questions like “How does the language behave in this dataset?”*
 
 - Adherence to [Zipf’s law](https://en.wikipedia.org/wiki/Zipf%27s_law), which provides measurements of how closely the distribution over words in the dataset fits to the expected distribution of words in natural language.
+
+![image](https://user-images.githubusercontent.com/14205986/143917023-28986709-a3b4-42b6-a796-9c8743a73bbd.png)
 
   You can use this to figure out whether your dataset represents language as it tends to behave in the natural world or if there are things that are more unnatural about it.  If you’re someone who enjoys optimization, then you can view the alpha value this widget calculates as a value to get as close as possible to 1 during dataset development.  Further details on alpha values following Zipf’s law in different languages is available here.
   
@@ -107,6 +107,9 @@ You can use these widgets to check whether what is most and least represented in
 
 - The [normalized pointwise mutual information (nPMI)](https://en.wikipedia.org/wiki/Pointwise_mutual_information#Normalized_pointwise_mutual_information_(npmi)) between word pairs in the dataset, which may be used to identify problematic stereotypes. 
   You can use this as a tool in dealing with dataset “bias”, where here the term “bias” refers to stereotypes and prejudices for identity groups along the axes of gender and sexual orientation.  We will add further terms in the near future.
+  
+![image](https://user-images.githubusercontent.com/14205986/143929481-0577cf78-38b0-4418-9a22-9466302270ff.png)
+
 
 
 ## What is the status of 🤗 Data Measurements Tool development? 
