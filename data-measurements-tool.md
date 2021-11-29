@@ -1,6 +1,6 @@
 ---
 title: "Introducing the Data Measurements Tool: an Interactive Tool for Looking at Datasets"
-thumbnail: /blog/assets/datametrics.png
+thumbnail: /blog/assets/37_data-measurements-tool/datametrics.png
 ---
 
 <div class="blog-metadata">
