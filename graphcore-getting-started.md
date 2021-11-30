@@ -72,7 +72,7 @@ Now that your environment has all the Graphcore Poplar and PopTorch libraries av
 Please make sure that the PopTorch virtual environment you created in the previous step is activated. Your terminal should have a prefix showing the name of the poptorch environment like below:
 
 ```
-(poptorch_env) user@host:~/workspace/poptorch_env$ pip install optimum[graphcore]
+(poptorch_env) user@host:~/workspace/poptorch_env$ pip3 install optimum[graphcore]
 ```
 
 #### Clone Optimum Graphcore Repository
