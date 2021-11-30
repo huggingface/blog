@@ -174,7 +174,7 @@ You can see the rest of the IPU BERT implementation in the [Optimum-Graphcore: S
 
 * [Optimum-Graphcore: SQuAD Examples](https://github.com/huggingface/optimum-graphcore/tree/main/examples/question-answering)
 * [Graphcore Hugging Face Models & Datasets](https://github.com/graphcore/tutorials/tree/master/tutorials/pytorch/tut_finetuning_bert#tutorial-on-bert-fine-tuning-on-ipu)
-* [GitHub Tutorial](https://github.com/graphcore): BERT Fine-tuning on IPU using Hugging Face transformers 
+* GitHub Tutorial: [BERT Fine-tuning on IPU using Hugging Face transformers](https://github.com/graphcore/tutorials/tree/master/tutorials/pytorch/tut_finetuning_bert#tutorial-on-bert-fine-tuning-on-ipu) 
 * [Graphcore Developer Portal](https://github.com/graphcore/tutorials/tree/master/tutorials/pytorch/tut_finetuning_bert#tutorial-on-bert-fine-tuning-on-ipu)
 * [Graphcore GitHub](https://github.com/graphcore)
 * [Graphcore SDK Containers on Docker Hub](https://hub.docker.com/u/graphcore)
