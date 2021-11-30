@@ -224,3 +224,7 @@
 - local: data-measurements-tool
   title: "Introducing the Data Measurements Tool: an Interactive Tool for Looking at Datasets"
   date: November 29, 2021
+
+- local: graphcore-getting-started
+  title: "Getting Started with Hugging Face Transformers for IPUs with Optimum"
+  date: November 30, 2021
