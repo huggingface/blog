@@ -91,7 +91,7 @@ Now, we will use ```run_qa.py``` to fine-tune the IPU implementation of [BERT](h
 The ```run_qa.py``` script only works with models that have a fast tokenizer (backed by the 🤗 Tokenizers library), as it uses special features of those tokenizers. This is the case for out [BERT](https://huggingface.co/bert-large-uncased) model, and you should pass its name as the input argument to ```--model_name_or_path```. In order to use the IPU, Optimum will look for the ```ipu_config.json``` file from the path passed to the argument ```--ipu_config_name```. 
 
 ```
-$ python run_qa.py \
+$ python3 run_qa.py \
 	--ipu_config_name=./ \
 	--model_name_or_path bert-base-uncased \
 	--dataset_name squad \
