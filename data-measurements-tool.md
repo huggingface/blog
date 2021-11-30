@@ -13,10 +13,10 @@ thumbnail: /blog/assets/37_data-measurements-tool/datametrics.png
 </div>
 
 <div class="author-card">
-    <a href="/sashavor">
+    <a href="/sasha">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626198087984-60edd0133e2c73a9a21455f5.png?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
-            <code>sashavor</code>
+            <code>sasha</code>
             <span class="fullname">Sasha Luccioni</span>
         </div>
     </a>
