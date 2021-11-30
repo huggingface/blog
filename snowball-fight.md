@@ -41,13 +41,9 @@ In this post, we'll cover **the ecosystem we are working on for Deep Reinforceme
 
 With this first step, our goal is to build an ecosystem on Hugging Face for Deep Reinforcement Learning researchers and enthusiasts that uses ML-Agents, with three features.
 
-First, **building and sharing custom environments.** We develop and share exciting environments to experiment with new problems: snowball fights, racing, puzzles... All of them will be open source and hosted on the Hugging Face's Hub.
-
-Second, **by allows you to easily host your environments and save models** on Hugging Face Hub.
-
-We have already published the Snowball Fight training environment [here](https://huggingface.co/ThomasSimonini/ML-Agents-SnowballFight-1vs1).
-
-And finally, **you can now easily host your demos on Spaces** and showcase your results quickly.
+1. **Building and sharing custom environments.** We are developing and sharing exciting environments to experiment with new problems: snowball fights, racing, puzzles... All of them will be open source and hosted on the Hugging Face's Hub.
+2. **Allowing you to easily host your environments, save models and share them** on the Hugging Face Hub. We have already published the Snowball Fight training environment [here](https://huggingface.co/ThomasSimonini/ML-Agents-SnowballFight-1vs1), but there will be more to come!
+3 **You can now easily host your demos on Spaces** and showcase your results quickly with the rest of the ecosystem
 
 ## Be part of the conversation: join our discord server!
 
