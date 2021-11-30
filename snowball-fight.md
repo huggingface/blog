@@ -15,7 +15,7 @@ thumbnail: /blog/assets/38_introducing_snowball_fight/thumbnail.png
 </div>
 
 <div class="author-card">
-    <a href="/simoninithomas"> 
+    <a href="/ThomasSimonini"> 
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1632748593235-60cae820b1c79a3e4b436664.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>simoninithomas</code>
@@ -26,7 +26,7 @@ thumbnail: /blog/assets/38_introducing_snowball_fight/thumbnail.png
 
 
 
-We're excited to share our **first custom Deep Reinforcement Learning environment**: Snowball Fight 1vs1.
+We're excited to share our **first custom Deep Reinforcement Learning environment**: Snowball Fight 1vs1 🎉.
 ![gif](assets/38_introducing_snowball_fight/snowballfight.gif)
 
 Snowball Fight is a game made with Unity ML-Agents, where you shoot snowballs against a Deep Reinforcement Learning agent.
