@@ -52,7 +52,7 @@ If you're using ML-Agents or interested in Deep Reinforcement Learning and want 
 - Deep Reinforcement Learning
 - ML-Agents
 
-[Our discord](https://discord.gg/YRAq8fMnUG) is the place where you can exchange about Hugging Face, NLP and Deep RL, plus it's in this discord that we'll announce all our new environments and features.
+[Our discord](https://discord.gg/YRAq8fMnUG) is the place where you can exchange about Hugging Face, NLP, Deep RL, and more! It's also in this discord that we'll announce all our new environments and features in the future.
 
 
 ## What's next?
