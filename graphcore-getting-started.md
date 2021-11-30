@@ -60,7 +60,7 @@ PopTorch is part of the Poplar SDK. It provides functions that allow PyTorch mod
 
 ```
 $ virtualenv -p python3 ~/workspace/poptorch_env
-$ source poptorch_env/bin/activate
+$ source ~/workspace/poptorch_env/bin/activate
 $ pip3 install -U pip
 $ pip3 install <sdk-path>/poptorch-<sdk-version>.whl
 ```
