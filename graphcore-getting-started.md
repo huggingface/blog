@@ -8,26 +8,20 @@ Getting Started with Hugging Face Transformers for IPUs with Optimum
 </h1>
 
 
-<div class="blog-metadata">
-    <small>Published November 30, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/juliensimon/blog/blob/master/getting-started-graphcore.md">
-        Update on GitHub
-    </a>
-</div>
-
 <div class="author-card">
-    <a href="https://twitter.com/internetoftim">
+    <a href="/internetoftim">
+        <img class="avatar avatar-user" src="https://pbs.twimg.com/profile_images/1450180712158666757/ofoCEInk_400x400.jpg" title="Tim Santos">
         <div class="bfc">
             <code> internetoftim </code>
-            <span class=fullname">Tim Santos, Director of Developer Relations, Graphcore</span>
+            <span class=fullname">Tim Santos, Director at Graphcore</span>
+            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">Guest</span>
         </div>
     </a>
-</div>
-<div class="author-card">
-    <a href="https://twitter.com/julsimon">
+    <a href="/juliensimon">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
         <div class="bfc">
             <code> julsimon </code>
-            <span class=fullname">Julien Simon, Chief Evangelist, Hugging Face</span>
+            <span class=fullname">Julien Simon</span>
         </div>
     </a>
 </div>
@@ -108,8 +102,17 @@ $ python3 run_qa.py \
 	--output_dir output \
 	--overwrite_output_dir \
 	--per_device_train_batch_size 2 \
-	--per_device_eval_batch_size 16 \
-	--num_train_epochs 2
+	--per_device_eval_batch_size 2 \
+--learning_rate 6e-5 \
+--num_train_epochs 3 \
+--max_seq_length 384 \
+--doc_stride 128 \
+--seed 1984 \
+--lr_scheduler_type linear \
+--loss_scaling 64 \
+--weight_decay 0.01 \
+--warmup_ratio 0.1 \
+--output_dir /tmp/debug_squad/
 ```
 
 ### A closer look at Optimum-Graphcore
@@ -150,20 +153,19 @@ You can now use the ```IPUTrainer``` class available in Optimum to leverage the 
 In order to train and validate the BERT model, you can pass the arguments ```--do_train``` and ```--do_eval``` to the ```run_qa.py``` script. After executing the script with the hyper-parameters above, you should see the following training and validation results:
 
 ```
-***** train metrics *****
-  epoch                	= 2.0
-  train_loss           	= 1.0501
-  train_runtime        	= 0:04:51.37
-  train_samples        	= 88524
-  train_samples_per_second = 607.626
-  train_steps_per_second   = 1.181
-  
+"epoch": 3.0,
+"train_loss": 0.9465060763888888,
+"train_runtime": 368.4015,
+"train_samples": 88524,
+"train_samples_per_second": 720.877,
+"train_steps_per_second": 2.809
+
 The validation step yields the following results:
 ***** eval metrics *****
-  epoch        	= 2.0
-  eval_exact_match = 79.5648
-  eval_f1      	= 86.9295
-  eval_samples 	= 10784
+  epoch            =     3.0
+  eval_exact_match = 80.6623
+  eval_f1          = 88.2757
+  eval_samples     =   10784
 ```
   
 You can see the rest of the IPU BERT implementation in the [Optimum-Graphcore: SQuAD Examples](https://github.com/huggingface/optimum-graphcore/tree/main/examples/question-answering).
