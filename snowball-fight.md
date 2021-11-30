@@ -47,7 +47,7 @@ With this first step, our goal is to build an ecosystem on Hugging Face for Deep
 
 ## Be part of the conversation: join our discord server!
 
-If you're using ML-Agents or interested in Deep Reinforcement Learning and want to be part of the conversion, **[you can join our discord server](https://discord.gg/YRAq8fMnUG)**. We just added two channels (and we'll add more in the future):
+If you're using ML-Agents or interested in Deep Reinforcement Learning and want to be part of the conversation, **[you can join our discord server](https://discord.gg/YRAq8fMnUG)**. We just added two channels (and we'll add more in the future):
 
 - Deep Reinforcement Learning
 - ML-Agents
