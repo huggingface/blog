@@ -29,7 +29,7 @@ thumbnail: /blog/assets/38_introducing_snowball_fight/thumbnail.png
 We're excited to share our **first custom Deep Reinforcement Learning environment**: Snowball Fight 1vs1 🎉.
 ![gif](assets/38_introducing_snowball_fight/snowballfight.gif)
 
-Snowball Fight is a game made with Unity ML-Agents, where you shoot snowballs against a Deep Reinforcement Learning agent.
+Snowball Fight is a game made with Unity ML-Agents, where you shoot snowballs against a Deep Reinforcement Learning agent. The game is [**hosted on Hugging Face Spaces**](https://hf.co/spaces/launch). 
 
 The game is **hosted on Hugging Face Spaces**. 
 
