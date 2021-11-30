@@ -35,7 +35,7 @@ The game is **hosted on Hugging Face Spaces**.
 
 👉 [You can play it online here](https://huggingface.co/spaces/ThomasSimonini/SnowballFight)
 
-And in this post, we'll cover **the ecosystem we work on for Deep Reinforcement Learning researchers and enthusiasts that uses Unity ML-Agents**.
+In this post, we'll cover **the ecosystem we are working on for Deep Reinforcement Learning researchers and enthusiasts that use Unity ML-Agents**.
 
 ## Unity ML-Agents and Hugging Face
 
