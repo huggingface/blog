@@ -39,11 +39,15 @@ In this post, we'll cover **the ecosystem we are working on for Deep Reinforceme
 
 ## Unity ML-Agents at Hugging Face
 
+The [Unity Machine Learning Agents Toolkit](https://github.com/Unity-Technologies/ml-agents) is an open source library that allows you to build games and simulations with Unity game engine to **serve as environments for training intelligent agents**.
+
 With this first step, our goal is to build an ecosystem on Hugging Face for Deep Reinforcement Learning researchers and enthusiasts that uses ML-Agents, with three features.
 
 1. **Building and sharing custom environments.** We are developing and sharing exciting environments to experiment with new problems: snowball fights, racing, puzzles... All of them will be open source and hosted on the Hugging Face's Hub.
 2. **Allowing you to easily host your environments, save models and share them** on the Hugging Face Hub. We have already published the Snowball Fight training environment [here](https://huggingface.co/ThomasSimonini/ML-Agents-SnowballFight-1vs1), but there will be more to come!
-3 **You can now easily host your demos on Spaces** and showcase your results quickly with the rest of the ecosystem
+3 **You can now easily host your demos on Spaces** and showcase your results quickly with the rest of the ecosystem.
+
+
 
 ## Be part of the conversation: join our discord server!
 
