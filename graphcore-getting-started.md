@@ -23,6 +23,14 @@ Getting Started with Hugging Face Transformers for IPUs with Optimum
         </div>
     </a>
 </div>
+<div class="author-card">
+    <a href="https://twitter.com/julsimon">
+        <div class="bfc">
+            <code> julsimon </code>
+            <span class=fullname">Julien Simon, Chief Evangelist, Hugging Face</span>
+        </div>
+    </a>
+</div>
 
 Transformer models have proven to be extremely efficient on a wide range of machine learning tasks, such as natural language processing, audio processing, and computer vision. However, the prediction speed of these large models can make them impractical for latency-sensitive use cases like conversational applications or search. Furthermore, optimizing their performance in the real world requires considerable time, effort and skills that are beyond the reach of many companies and organizations. 
 
@@ -88,7 +96,7 @@ Now, we will use ```run_qa.py``` to fine-tune the IPU implementation of [BERT](h
 
 #### Run a sample to fine-tune BERT on SQuAD1.1 
 
-The ```run_qa.py``` script only works with models that have a fast tokenizer (backed by the 🤗 Tokenizers library), as it uses special features of those tokenizers. This is the case for out [BERT](https://huggingface.co/bert-large-uncased) model, and you should pass its name as the input argument to ```--model_name_or_path```. In order to use the IPU, Optimum will look for the ```ipu_config.json``` file from the path passed to the argument ```--ipu_config_name```. 
+The ```run_qa.py``` script only works with models that have a fast tokenizer (backed by the 🤗 Tokenizers library), as it uses special features of those tokenizers. This is the case for our [BERT](https://huggingface.co/bert-large-uncased) model, and you should pass its name as the input argument to ```--model_name_or_path```. In order to use the IPU, Optimum will look for the ```ipu_config.json``` file from the path passed to the argument ```--ipu_config_name```. 
 
 ```
 $ python3 run_qa.py \
@@ -125,7 +133,7 @@ To turn words into tokens, this script will require a fast tokenizer. It will sh
     	          	)
 ```
 
-The argument ```--model_name_or_pat==bert-base-uncased`` loads the [bert-base-uncased](https://huggingface.co/bert-base-uncased) model implementation available in the Hugging Face Hub.
+The argument ```--model_name_or_path==bert-base-uncased`` loads the [bert-base-uncased](https://huggingface.co/bert-base-uncased) model implementation available in the Hugging Face Hub.
 
 From the Hugging Face Hub description:
 
@@ -164,7 +172,8 @@ You can see the rest of the IPU BERT implementation in the [Optimum-Graphcore: S
 
 * [Optimum-Graphcore: SQuAD Examples](https://github.com/huggingface/optimum-graphcore/tree/main/examples/question-answering)
 * [Graphcore Hugging Face Models & Datasets](https://github.com/graphcore/tutorials/tree/master/tutorials/pytorch/tut_finetuning_bert#tutorial-on-bert-fine-tuning-on-ipu)
-* [GitHub Tutorial: BERT Fine-tuning on IPU using Hugging Face transformers Graphcore Developer Portal](https://github.com/graphcore/tutorials/tree/master/tutorials/pytorch/tut_finetuning_bert#tutorial-on-bert-fine-tuning-on-ipu)
+* [GitHub Tutorial](https://github.com/graphcore): BERT Fine-tuning on IPU using Hugging Face transformers 
+* [Graphcore Developer Portal](https://github.com/graphcore/tutorials/tree/master/tutorials/pytorch/tut_finetuning_bert#tutorial-on-bert-fine-tuning-on-ipu)
 * [Graphcore GitHub](https://github.com/graphcore)
 * [Graphcore SDK Containers on Docker Hub](https://hub.docker.com/u/graphcore)
 
