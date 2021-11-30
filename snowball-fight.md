@@ -37,7 +37,7 @@ The game is **hosted on Hugging Face Spaces**.
 
 In this post, we'll cover **the ecosystem we are working on for Deep Reinforcement Learning researchers and enthusiasts that use Unity ML-Agents**.
 
-## Unity ML-Agents and Hugging Face
+## Unity ML-Agents at Hugging Face
 
 With this first step, our goal is to build an ecosystem on Hugging Face for Deep Reinforcement Learning researchers and enthusiasts that uses ML-Agents, with three features.
 
