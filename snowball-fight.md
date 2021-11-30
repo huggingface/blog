@@ -60,7 +60,7 @@ If you're using ML-Agents or interested in Deep Reinforcement Learning and want 
 In the coming weeks and months, we will be extending the ecosystem by:
 
 - Writing some **technical tutorials on ML-Agents**.
-- Working on a **Snowball Fight 2vs2 version**, where the agents will collaborate in teams using MA-POCA, a new Deep Reinforcement Learning algorithm that trains cooperative behaviors in a team.  [Link MA-POCA]
+- Working on a **Snowball Fight 2vs2 version**, where the agents will collaborate in teams using [MA-POCA, a new Deep Reinforcement Learning algorithm](https://blog.unity.com/technology/ml-agents-plays-dodgeball) that trains cooperative behaviors in a team. 
 
 ![screenshot2vs2](assets/38_introducing_snowball_fight/screenshot2vs2.png)
 
