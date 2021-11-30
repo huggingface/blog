@@ -9,7 +9,7 @@ thumbnail: /blog/assets/38_introducing_snowball_fight/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published November 30, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/announcing-snowballfight.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/snowball-fight.md">
         Update on GitHub
     </a>
 </div>
@@ -51,12 +51,12 @@ And finally, **you can now easily host your demos on Spaces** and showcase you
 
 ## Be part of the conversation: join our discord server!
 
-If you're using ML-Agents or interested in Deep Reinforcement Learning and want to be part of the conversion, **[you can join our discord server](hf.co/join/discord)**. We just added two channels (and we'll add more in the future):
+If you're using ML-Agents or interested in Deep Reinforcement Learning and want to be part of the conversion, **[you can join our discord server](https://discord.gg/YRAq8fMnUG)**. We just added two channels (and we'll add more in the future):
 
 - Deep Reinforcement Learning
 - ML-Agents
 
-[Our discord](hf.co/join/discord) is the place where you can exchange about Hugging Face, NLP and Deep RL, plus it's in this discord that we'll announce all our new environments and features.
+[Our discord](https://discord.gg/YRAq8fMnUG) is the place where you can exchange about Hugging Face, NLP and Deep RL, plus it's in this discord that we'll announce all our new environments and features.
 
 
 ## What's next?
@@ -74,4 +74,4 @@ In the coming weeks and months, we will be extending the ecosystem by:
 
 We're excited to see what you're working on with ML-Agents and how we can build features and tools **that help you to empower your work**.
 
-Don't forget to [join our discord server](hf.co/join/discord) to be alerted of the new features.
+Don't forget to [join our discord server](https://discord.gg/YRAq8fMnUG) to be alerted of the new features.
