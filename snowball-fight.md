@@ -8,7 +8,7 @@ thumbnail: /blog/assets/38_introducing_snowball_fight/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published November 30, 2021.</small>
+    <small>Published December 1, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/snowball-fight.md">
         Update on GitHub
     </a>
