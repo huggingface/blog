@@ -45,7 +45,7 @@ With this first step, our goal is to build an ecosystem on Hugging Face for Deep
 
 1. **Building and sharing custom environments.** We are developing and sharing exciting environments to experiment with new problems: snowball fights, racing, puzzles... All of them will be open source and hosted on the Hugging Face's Hub.
 2. **Allowing you to easily host your environments, save models and share them** on the Hugging Face Hub. We have already published the Snowball Fight training environment [here](https://huggingface.co/ThomasSimonini/ML-Agents-SnowballFight-1vs1), but there will be more to come!
-3 **You can now easily host your demos on Spaces** and showcase your results quickly with the rest of the ecosystem.
+3. **You can now easily host your demos on Spaces** and showcase your results quickly with the rest of the ecosystem.
 
 
 
