@@ -1,6 +1,6 @@
 ---
 title: 'Introducing Snowball Fight ☃️, our first ML-Agents environment'
-thumbnail: /blog/assets/38_introducing_snowball_fight/thumbnail.png
+thumbnail: /blog/assets/39_introducing_snowball_fight/thumbnail.png
 ---
 
 <h1>
@@ -27,7 +27,7 @@ thumbnail: /blog/assets/38_introducing_snowball_fight/thumbnail.png
 
 
 We're excited to share our **first custom Deep Reinforcement Learning environment**: Snowball Fight 1vs1 🎉.
-![gif](assets/38_introducing_snowball_fight/snowballfight.gif)
+![gif](assets/39_introducing_snowball_fight/snowballfight.gif)
 
 Snowball Fight is a game made with Unity ML-Agents, where you shoot snowballs against a Deep Reinforcement Learning agent. The game is [**hosted on Hugging Face Spaces**](https://hf.co/spaces/launch). 
 
@@ -64,7 +64,7 @@ In the coming weeks and months, we will be extending the ecosystem by:
 - Writing some **technical tutorials on ML-Agents**.
 - Working on a **Snowball Fight 2vs2 version**, where the agents will collaborate in teams using [MA-POCA, a new Deep Reinforcement Learning algorithm](https://blog.unity.com/technology/ml-agents-plays-dodgeball) that trains cooperative behaviors in a team. 
 
-![screenshot2vs2](assets/38_introducing_snowball_fight/screenshot2vs2.png)
+![screenshot2vs2](assets/39_introducing_snowball_fight/screenshot2vs2.png)
 
 - And we're building **new custom environments that will be hosted in Hugging Face**.
 
