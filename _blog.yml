@@ -228,3 +228,7 @@
 - local: graphcore-getting-started
   title: "Getting Started with Hugging Face Transformers for IPUs with Optimum"
   date: November 30, 2021
+
+- local: snowball-fight
+  title: "Introducing Snowball Fight ☃️, our First ML-Agents Environment"
+  date: December 2, 2021
