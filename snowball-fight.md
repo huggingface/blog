@@ -31,8 +31,6 @@ We're excited to share our **first custom Deep Reinforcement Learning environmen
 
 Snowball Fight is a game made with Unity ML-Agents, where you shoot snowballs against a Deep Reinforcement Learning agent. The game is [**hosted on Hugging Face Spaces**](https://hf.co/spaces/launch). 
 
-The game is **hosted on Hugging Face Spaces**. 
-
 👉 [You can play it online here](https://huggingface.co/spaces/ThomasSimonini/SnowballFight)
 
 In this post, we'll cover **the ecosystem we are working on for Deep Reinforcement Learning researchers and enthusiasts that use Unity ML-Agents**.
