@@ -13,10 +13,10 @@ thumbnail: /blog/assets/37_data-measurements-tool/datametrics.png
 </div>
 
 <div class="author-card">
-    <a href="/sashavor">
+    <a href="/sasha">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626198087984-60edd0133e2c73a9a21455f5.png?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
-            <code>sashavor</code>
+            <code>sasha</code>
             <span class="fullname">Sasha Luccioni</span>
         </div>
     </a>
@@ -79,7 +79,7 @@ The 🤗 Data Measurements Tool can be used iteratively for exploring one or mor
 - The dataset vocabulary size and word distribution, for both [open- and closed-class words](https://dictionary.apa.org/open-class-words).
 
 - The dataset label distribution and information about class (im)balance.
-![image](https://user-images.githubusercontent.com/14205986/143916978-22bdcf0b-e896-41e2-aade-defbbe12f43a.png)
+![image](https://user-images.githubusercontent.com/14205986/144267166-1c9a2fd9-d998-4cdb-aaa1-8b5fea7ae23e.png)
 - The mean, median, range, and distribution of instance lengths.
 
 - The number of duplicates in the dataset and how many times they are repeated.
@@ -93,7 +93,7 @@ You can use these widgets to check whether what is most and least represented in
 
 - Adherence to [Zipf’s law](https://en.wikipedia.org/wiki/Zipf%27s_law), which provides measurements of how closely the distribution over words in the dataset fits to the expected distribution of words in natural language.
 
-![image](https://user-images.githubusercontent.com/14205986/143917023-28986709-a3b4-42b6-a796-9c8743a73bbd.png)
+![image](https://user-images.githubusercontent.com/14205986/144266979-9a5bfea2-c7b8-46fb-9749-e90ee0e5e20e.png)
 
   You can use this to figure out whether your dataset represents language as it tends to behave in the natural world or if there are things that are more unnatural about it.  If you’re someone who enjoys optimization, then you can view the alpha value this widget calculates as a value to get as close as possible to 1 during dataset development.  Further details on alpha values following Zipf’s law in different languages is available here.
   
