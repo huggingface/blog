@@ -225,7 +225,7 @@ The preprocessor (with the settings defined above) will first concatenate the fr
 
 The authors use 2048 latents for the optical flow model (yes, 2048!), with a dimensionality of 512 for each latent. Hence, the latents have shape (batch_size, 2048, 512). After the cross-attention, one again has a tensor of the same shape (as the latents act as queries). Next, a single block of 24 self-attention layers (each of which has 16 attention heads) are applied to update the embeddings of the latents. 
 
-To decode the final hidden states of the latents to an actual predicted flow, `PerceiverOpticalFlowDecoder` simply uses the preprocessed inputs of shape (batch_size, 182528, 322) as queries for the cross-attention operation. Next, these are projected to a tensor of shape (batch_size, 182528, 2). Finally, one rescales and reshapes this to a predicted flow of shape (batch_size, 368, 496, 2). The authors claim state-of-the-art results on important benchmarks including Sintel and KTTI when training on [AutoFlow](https://arxiv.org/abs/2104.14544), a large synthetic dataset of 400,000 annotated image pairs.
+To decode the final hidden states of the latents to an actual predicted flow, `PerceiverOpticalFlowDecoder` simply uses the preprocessed inputs of shape (batch_size, 182528, 322) as queries for the cross-attention operation. Next, these are projected to a tensor of shape (batch_size, 182528, 2). Finally, one rescales and reshapes this to a predicted flow of shape (batch_size, 368, 496, 2). The authors claim state-of-the-art results on important benchmarks including [Sintel](https://link.springer.com/chapter/10.1007/978-3-642-33783-3_44) and [KITTI](http://www.cvlibs.net/publications/Menze2015CVPR.pdf) when training on [AutoFlow](https://arxiv.org/abs/2104.14544), a large synthetic dataset of 400,000 annotated image pairs.
 
 The video below shows the predicted flow on a sequences of frames. The colour of each pixel shows the direction and speed of motion estimated by the model, as indicated in the legend below it.
 
@@ -256,7 +256,7 @@ Similarly to the preprocessor, `PerceiverMultimodalDecoder` pads the different m
 
 Finally, there is `PerceiverMultimodalPostprocessor`. This class postprocesses the output of the decoder to produce an actual reconstruction of each modality. It first splits up the time dimension of the decoder output according to the different modalities: (batch_size, 6272, 512) for image, (batch_size, 15, 512) for audio and (batch_size, 1, 512) for the class label. Next, the respective postprocessors for each modality are applied:
 
-- The image post processor (which is called `PerceiverProjectionPostprocessor` in Transformers) simply turns the (batch_size, 6272, 512) tensor into a tensor of shape (batch_size, 6272, 3) - i.e. projects the final dimension to RGB values.
+- The image post processor (which is called `PerceiverProjectionPostprocessor` in Transformers) simply turns the (batch_size, 6272, 512) tensor into a tensor of shape (batch_size, 6272, 3) - i.e. it projects the final dimension to RGB values.
 - `PerceiverAudioPostprocessor` turns the (batch_size, 15, 512) tensor into a tensor of shape (batch_size, 240).
 - `PerceiverClassificationPostprocessor` simply takes the first (and only index), to get a tensor of shape (batch_size, 700). 
 
