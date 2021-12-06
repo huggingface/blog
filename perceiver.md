@@ -256,3 +256,13 @@ Finally, there is `PerceiverMultimodalPostprocessor`. This class postprocessors 
 So now one ends up with tensors containing the reconstruction of the image, audio and class label modalities respectively. As one auto-encodes an entire video in chunks, one needs to concatenate the reconstruction of each chunk to have a final reconstruction of an entire video.
 
 With this approach, the model learns a joint distribution across 3 modalities. The authors do note that because the latent variables are shared across modalities and not explicitly allocated between them, the quality of reconstructions for each modality is sensitive to the weight of its loss term and other training hyperparameters. By putting stronger emphasis on classification accuracy, they are able to reach 45% top-1 accuracy while maintaining 20.7 PSNR (peak signal-to-noise ratio) for video.
+
+## Perceiver on other modalities
+
+Note that there are no limits on the modalities that the Perceiver can handle! The authors even used the Perceiver to replace the original Transformer in [AlphaStar](https://deepmind.com/blog/article/alphastar-mastering-real-time-strategy-game-starcraft-ii), the state-of-the-art system for the complex game of [StarCraft II](https://starcraft2.com/en-us/). Without tuning any additional parameters, the authors observed that the resulting reinforcement learning agent reached the same level of performance as the original AlphaStar agent, reaching an 87% win-rate versus the Elite bot after [behavioral cloning](https://proceedings.neurips.cc/paper/1988/file/812b4ba287f5ee0bc9d43bbf5bbe87fb-Paper.pdf) on human data.
+
+## Conclusion
+
+In this blog post, we went over the architecture of Perceiver IO, an extension of the Perceiver by Google Deepmind, and showed its generality of handling data of all kinds of modalities. The big advantage of the Perceiver is that the compute and memory requirements of the self-attention mechanism doesn't depend on the size of the inputs and outputs, by employing a set of latent variables instead. Despite its task-agnostic architecture, it was shown to get great results on modalities such as language, vision, multimodal data, and games. In the future, it might be interesting to train a single (shared) Perceiver encoder on several modalities at the same time, and using modality-specific preprocessors and postprocessors.
+
+The model is available in HuggingFace Transformers, and it will be exciting to see what people do with it, as its applications seem endless!
