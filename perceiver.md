@@ -269,13 +269,14 @@ So now one ends up with tensors containing the reconstruction of the image, audi
 <p float="left">
   <img src="assets/40_perceiver/original_video.gif" width="200">
   <img src="assets/40_perceiver/reconstructed_video.gif" width="200">
+  <img src="assets/40_perceiver/perceiver_audio_autoencoding.png" width="410">
 </p>
 
-<small>Original video on the left, reconstruction of the first 16 frames on the right. Video taken from the [UCF101 dataset](https://www.crcv.ucf.edu/data/UCF101.php).</small>
+<small>Original video (left), reconstruction of the first 16 frames (middle). Video taken from the [UCF101 dataset](https://www.crcv.ucf.edu/data/UCF101.php). Right: reconstructed audio (taken from the paper). </small>
 
 <img src="assets/40_perceiver/predicted_labels.png" width="500">
 
-<small>Top 5 predicted labels for the video above.</small>
+<small>Top 5 predicted labels for the video above. By masking the class label, the Perceiver becomes a video classifier. </small>
 
 With this approach, the model learns a joint distribution across 3 modalities. The authors do note that because the latent variables are shared across modalities and not explicitly allocated between them, the quality of reconstructions for each modality is sensitive to the weight of its loss term and other training hyperparameters. By putting stronger emphasis on classification accuracy, they are able to reach 45% top-1 accuracy while maintaining 20.7 PSNR (peak signal-to-noise ratio) for video.
 
