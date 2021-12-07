@@ -6,7 +6,7 @@ thumbnail: /todo
 <h1>Perceiver IO: a scalable, fully-attentional model that works on any modality</h1>
 
 <div class="blog-metadata">
-    <small>Published December 5, 2021.</small>
+    <small>Published December 7, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/perceiver.md">
         Update on GitHub
     </a>
@@ -30,9 +30,9 @@ state-of-the-art (SOTA) results in machine translation. In 2018, [BERT](https://
 was released, a Transformer encoder-only model that crushed the benchmarks of natural language
 processing (NLP), most famously the [GLUE benchmark](https://gluebenchmark.com/). 
 
-Not long after that, AI researchers started to apply the idea of BERT to other domains. To name a few examples, [Wav2Vec2](https://arxiv.org/abs/2006.11477) by Facebook AI illustrated that the architecture could be extended to audio, the [Vision Transformer (ViT)](https://arxiv.org/abs/2010.11929) by Google AI showed that the architecture also works really well for computer vision, and most recently the [Video Vision transformer (ViViT)](https://arxiv.org/abs/2103.15691), also by Google AI, applied the architecture to video. In all of these domains, state-of-the-art results were improved dramatically, thanks to the combination of this powerful architecture with large-scale pre-training.
+Not long after that, AI researchers started to apply the idea of BERT to other domains. To name a few examples, [Wav2Vec2](https://arxiv.org/abs/2006.11477) by Facebook AI illustrated that the architecture could be extended to audio, the [Vision Transformer (ViT)](https://arxiv.org/abs/2010.11929) by Google AI showed that the architecture works really well for vision, and most recently the [Video Vision transformer (ViViT)](https://arxiv.org/abs/2103.15691), also by Google AI, applied the architecture to video. In all of these domains, state-of-the-art results were improved dramatically, thanks to the combination of this powerful architecture with large-scale pre-training.
 
-However, there's an important limitation to the architecture of the Transformer: it scales very poorly in both compute and memory. This is because the self-attention mechanism has a complexity of O(n^2). The compute and memory requirements scale quadratically in the number of tokens (n) that one provides as input to the model. In every layer, all inputs are used to produce queries and keys, for which a pairwise dot product is computed. Hence, it is not possible to apply self-attention on high-dimensional data, without some form of preprocessing. Wav2Vec2 for example solves this by employing a feature encoder, to turn a raw waveform into a sequence of time-based features. The Vision Transformer (ViT) divides an image into a sequence of non-overlapping patches, which serve as "tokens". The Video Vision Transformer (ViViT) extracts non-overlapping, spatio-temporal
+However, there's an important limitation to the architecture of the Transformer: it scales very poorly in both compute and memory. This is because the self-attention mechanism has a complexity of O(n^2): the compute and memory requirements scale quadratically in the number of tokens (n) that one provides as input to the model. In every layer, all inputs are used to produce queries and keys, for which a pairwise dot product is computed. Hence, it is not possible to apply self-attention on high-dimensional data, without some form of preprocessing. Wav2Vec2 for example solves this by employing a feature encoder, to turn a raw waveform into a sequence of time-based features. The Vision Transformer (ViT) divides an image into a sequence of non-overlapping patches, which serve as "tokens". The Video Vision Transformer (ViViT) extracts non-overlapping, spatio-temporal
 “tubes” from a video, which serve as "tokens". To make the Transformer work on a particular modality, one typically discretizes it to a sequence of tokens to make it work.
 
 ## The Perceiver
@@ -41,14 +41,15 @@ The [Perceiver](https://arxiv.org/abs/2103.03206) aims to solve this limitation 
 
 In the following section, we look in a bit more detail at how Perceiver IO actually works by going over its implementation in [HuggingFace Transformers](https://github.com/huggingface/transformers), a popular library that initially implemented Transformer-based models for NLP, but is now starting to implement them for other domains as well. In the sections below, we explain in detail  - in terms of shapes of tensors - how the Perceiver actually pre and post processes modalities of any kind.
 
-All Perceiver variants in HuggingFace Transformers are based on `PerceiverModel`. To initialize a `PerceiverModel`, one can provide 3 additional instances to the model:
+All Perceiver variants in HuggingFace Transformers are based on the `PerceiverModel` class. To initialize a `PerceiverModel`, one can provide 3 additional instances to the model:
 - a preprocessor
 - a decoder
 - a postprocessor.
 
-Note that each of these are optional. A `preprocessor` is only required in case one hasn't already embedded the `inputs` (such as text, image, audio, video) him/herself. A `decoder` is only required in case one wants to decode the output of the Perceiver encoder (i.e. the last hidden states of the latents) into something more useful such as classification logits or optical flow. A `postprocessor` is only required in case one wants to turn the output of the decoder into a specific feature (this is only required when doing auto-encoding, as we will see further). An overview of the architecture is depicted below. 
+Note that each of these are optional. A `preprocessor` is only required in case one hasn't already embedded the `inputs` (such as text, image, audio, video) him/herself. A `decoder` is only required in case one wants to decode the output of the Perceiver encoder (i.e. the last hidden states of the latents) into something more useful, such as classification logits or optical flow. A `postprocessor` is only required in case one wants to turn the output of the decoder into a specific feature (this is only required when doing auto-encoding, as we will see further). An overview of the architecture is depicted below. 
 
-![snippet](assets/40_perceiver/PerceiverArchitecture.png)
+<img src="assets/40_perceiver/perceiver_architecture.png" width="800">
+
 <small>The Perceiver architecture.</small>
 
 In other words, the `inputs` (which could be any modality, or a combination thereof) are first optionally preprocessed using a `preprocessor`. Next, the preprocessed inputs perform a cross-attention operation with the latent variables of the Perceiver encoder. In this operation, the latent variables produce queries (Q), while the preprocessed inputs produce keys and values (KV). After this operation, the Perceiver encoder employs a (repeatable) block of self-attention layers to update the embeddings of the latents. The encoder will finally produce a tensor of shape (batch_size, num_latents, d_latents), containing the last hidden states of the latents. Next, there's an optional `decoder`, which can be used to decode the final hidden states of the latents into something more useful, such as classification logits. This is done by performing a cross-attention operation, in which trainable embeddings are used to produce queries (Q), while the latents are used to produce keys and values (KV). Finally, there's an optional `postprocessor`, which can be used to postprocess the decoder outputs to specific features.
@@ -57,7 +58,7 @@ Let's start of by showing how the Perceiver is implemented to work on text.
 
 ## Perceiver for text
 
-Suppose that one wants to apply the Perceiver to perform text classification. As the memory and time requirements of the Perceiver's self-attention mechanism don't depend on the size of the inputs, one can directly provide raw UTF-8 bytes to the model. This is beneficial, as familar Transformer-based models (like [BERT](https://arxiv.org/abs/1810.04805) and [RoBERTa](https://arxiv.org/abs/1907.11692)) all employ some form of explicit tokenization, such as [WordPiece](https://research.google/pubs/pub37842/), [BPE](https://arxiv.org/abs/1508.07909) or [SentencePiece](https://arxiv.org/abs/1808.06226), which may be harmful as shown by [Bostrom et al., 2020](https://arxiv.org/abs/2004.03720). For a fair comparison to BERT (which uses a sequence length of 512 subword tokens), the authors used input sequences of 2048 bytes. Let's say one also adds a batch dimension, then the `inputs` to the model are of shape (batch_size, 2048). The `inputs` contain the byte IDs (similar to the `input_ids` of BERT) for a single piece of text. One can use `PerceiverTokenizer` to turn a text into a sequence of byte IDs, padded up to a length of 2048:
+Suppose that one wants to apply the Perceiver to perform text classification. As the memory and time requirements of the Perceiver's self-attention mechanism don't depend on the size of the inputs, one can directly provide raw UTF-8 bytes to the model. This is beneficial, as familar Transformer-based models (like [BERT](https://arxiv.org/abs/1810.04805) and [RoBERTa](https://arxiv.org/abs/1907.11692)) all employ some form of explicit tokenization, such as [WordPiece](https://research.google/pubs/pub37842/), [BPE](https://arxiv.org/abs/1508.07909) or [SentencePiece](https://arxiv.org/abs/1808.06226), which [may be harmful](https://arxiv.org/abs/2004.03720). For a fair comparison to BERT (which uses a sequence length of 512 subword tokens), the authors used input sequences of 2048 bytes. Let's say one also adds a batch dimension, then the `inputs` to the model are of shape (batch_size, 2048). The `inputs` contain the byte IDs (similar to the `input_ids` of BERT) for a single piece of text. One can use `PerceiverTokenizer` to turn a text into a sequence of byte IDs, padded up to a length of 2048:
 
 ``` python
 from transformers import PerceiverTokenizer
@@ -103,7 +104,7 @@ In the Perceiver IO paper, one uses 256 latents, and sets the dimensionality of 
 
 After this, Perceiver IO applies cross-attention between the latents (which produce queries) of shape (batch_size, 256, 1280) and the preprocessed inputs (which produce keys and values) of shape (batch_size, 2048, 768). The output of this initial cross-attention operation is a tensor that has the same shape as the queries (which are the latents, in this case). In other words, the output of the cross-attention operation is of shape (batch_size, 256, 1280). 
 
-Next, a (repeatable) block of self-attention layers is applied to update the representations of the latents. Note that these don't depend on the length of the inputs (i.e. the bytes) one provided, as these were only used during the cross-attention operation. In the Perceiver IO paper, a single block of 26 self-attention layers were used to update the representations of the latents of the text model. Note that the output after these 26 self-attention layers still has the same shape as what one initially provided as input to the encoder: (batch_size, 256, 1280). These are also called the "last hidden states" of the latents. This is very similar to the "last hidden states" of the tokens one provides to BERT. 
+Next, a (repeatable) block of self-attention layers is applied to update the representations of the latents. Note that these don't depend on the length of the inputs (i.e. the bytes) one provided, as these were only used during the cross-attention operation. In the Perceiver IO paper, a single block of 26 self-attention layers (each of which has 8 attention heads) were used to update the representations of the latents of the text model. Note that the output after these 26 self-attention layers still has the same shape as what one initially provided as input to the encoder: (batch_size, 256, 1280). These are also called the "last hidden states" of the latents. This is very similar to the "last hidden states" of the tokens one provides to BERT. 
 
 Ok, so now one has final hidden states of shape (batch_size, 256, 1280). Great, but one actually wants to turn these into classification logits of shape (batch_size, num_labels). How can we make the Perceiver output these? 
 
@@ -219,20 +220,23 @@ class PerceiverForOpticalFlow(nn.Module):
             ),
         )
 ```
-As one can see, `PerceiverImagePreprocessor` is used as preprocessor (i.e. to embed the 2 images for the cross-attention operation with the latents) and `PerceiverOpticalFlowDecoder` is used as decoder (i.e. to decode the final hidden states of the latents to an actual predicted flow). For each of the 2 frames, the authors extract a 3 x 3 patch around each pixel, leading to 3 x 3 x 3 = 27 values for each pixel (as each pixel also has 3 color channels). The authors use a training resolution of (368, 496). If one stacks 2 frames of size (368, 496) of each training example on top of each other, the `inputs` to the model are of shape (batch_size, 2, 27, 368, 496). 
+As one can see, `PerceiverImagePreprocessor` is used as preprocessor (i.e. to prepare the 2 images for the cross-attention operation with the latents) and `PerceiverOpticalFlowDecoder` is used as decoder (i.e. to decode the final hidden states of the latents to an actual predicted flow). For each of the 2 frames, the authors extract a 3 x 3 patch around each pixel, leading to 3 x 3 x 3 = 27 values for each pixel (as each pixel also has 3 color channels). The authors use a training resolution of (368, 496). If one stacks 2 frames of size (368, 496) of each training example on top of each other, the `inputs` to the model are of shape (batch_size, 2, 27, 368, 496). 
 
-The preprocessor (with the settings defined above) will first concatenate the frames along the channel dimension, leading to a tensor of shape (batch_size, 368, 496, 54) - assuming one also moves the channel dimension to be last. The authors explain in their paper (page 8) why concatenation along the channel dimension makes sense. Next, the spatial dimensions are flattened, leading to a tensor of shape (batch_size, 368*496, 54) = (batch_size, 182528, 54). Then, position embeddings (each of which have dimensionalityy 258) are concatenated, leading to a final preprocessed input of shape (batch_size, 182528, 322). These will be used to perform cross-attention with the latents.
+The preprocessor (with the settings defined above) will first concatenate the frames along the channel dimension, leading to a tensor of shape (batch_size, 368, 496, 54) - assuming one also moves the channel dimension to be last. The authors explain in their paper (page 8) why concatenation along the channel dimension makes sense. Next, the spatial dimensions are flattened, leading to a tensor of shape (batch_size, 368*496, 54) = (batch_size, 182528, 54). Then, position embeddings (each of which have dimensionality 258) are concatenated, leading to a final preprocessed input of shape (batch_size, 182528, 322). These will be used to perform cross-attention with the latents.
 
 The authors use 2048 latents for the optical flow model (yes, 2048!), with a dimensionality of 512 for each latent. Hence, the latents have shape (batch_size, 2048, 512). After the cross-attention, one again has a tensor of the same shape (as the latents act as queries). Next, a single block of 24 self-attention layers (each of which has 16 attention heads) are applied to update the embeddings of the latents. 
 
-To decode the final hidden states of the latents to an actual predicted flow, `PerceiverOpticalFlowDecoder` simply uses the preprocessed inputs of shape (batch_size, 182528, 322) as queries for the cross-attention operation. Next, these are projected to a tensor of shape (batch_size, 182528, 2). Finally, one rescales and reshapes this to a predicted flow of shape (batch_size, 368, 496, 2). The authors claim state-of-the-art results on important benchmarks including [Sintel](https://link.springer.com/chapter/10.1007/978-3-642-33783-3_44) and [KITTI](http://www.cvlibs.net/publications/Menze2015CVPR.pdf) when training on [AutoFlow](https://arxiv.org/abs/2104.14544), a large synthetic dataset of 400,000 annotated image pairs.
+To decode the final hidden states of the latents to an actual predicted flow, `PerceiverOpticalFlowDecoder` simply uses the preprocessed inputs of shape (batch_size, 182528, 322) as queries for the cross-attention operation. Next, these are projected to a tensor of shape (batch_size, 182528, 2). Finally, one rescales and reshapes this back to the original image size to get a predicted flow of shape (batch_size, 368, 496, 2). The authors claim state-of-the-art results on important benchmarks including [Sintel](https://link.springer.com/chapter/10.1007/978-3-642-33783-3_44) and [KITTI](http://www.cvlibs.net/publications/Menze2015CVPR.pdf) when training on [AutoFlow](https://arxiv.org/abs/2104.14544), a large synthetic dataset of 400,000 annotated image pairs.
 
-The video below shows the predicted flow on a sequences of frames. The colour of each pixel shows the direction and speed of motion estimated by the model, as indicated in the legend below it.
+The video below shows the predicted flow on 2 examples. 
 
-![Perceiver optical flow](https://lh3.googleusercontent.com/Rkhzc3Ckl4oWrOjxviohVmK4ZYGvGGrxaXCaOgBl3YGdBuHeFcQG_0-QjenoHKlTsHR6_6LpmCYu2bghEEzWdpYYp6QksFi0nkI3RNkdJEP-6c13bg=w2048-rw-v1)
+<p float="left">
+  <img src="https://lh3.googleusercontent.com/Rkhzc3Ckl4oWrOjxviohVmK4ZYGvGGrxaXCaOgBl3YGdBuHeFcQG_0-QjenoHKlTsHR6_6LpmCYu2bghEEzWdpYYp6QksFi0nkI3RNkdJEP-6c13bg=w2048-rw-v1" width="300" />
+  <img src="https://lh3.googleusercontent.com/p51q5x-JYJKltxxUtp60lUViVguTnxBpw7dQFfs47FTWpaj3iTmz2RJCGuiIEEpIoJKhZBU19W_k85lJ-8AtywD9YiVXc5KbiubvZakz2qFrNMj-cA=w2048-rw-v1" width="300" />
+  <img src="assets/40_perceiver/flow_legend.jpeg" width="300" />
+</p>
 
-![snippet](assets/40_perceiver/flow_legend.jpeg)
-<small>Optical flow legend.</small>
+<small> Optical flow estimation by Perceiver IO. The colour of each pixel shows the direction and speed of motion estimated by the model, as indicated by the legend on the right.</small>
 
 ## Perceiver for multimodal autoencoding
 
@@ -260,13 +264,18 @@ Finally, there is `PerceiverMultimodalPostprocessor`. This class postprocesses t
 - `PerceiverAudioPostprocessor` turns the (batch_size, 15, 512) tensor into a tensor of shape (batch_size, 240).
 - `PerceiverClassificationPostprocessor` simply takes the first (and only index), to get a tensor of shape (batch_size, 700). 
 
-So now one ends up with tensors containing the reconstruction of the image, audio and class label modalities respectively. As one auto-encodes an entire video in chunks, one needs to concatenate the reconstruction of each chunk to have a final reconstruction of an entire video. The figure below illustrates a few reconstructions:
+So now one ends up with tensors containing the reconstruction of the image, audio and class label modalities respectively. As one auto-encodes an entire video in chunks, one needs to concatenate the reconstruction of each chunk to have a final reconstruction of an entire video. The figure below shows an example:
 
-![snippet](assets/40_perceiver/perceiver_autoencoding_2.png)
-<small>Reconstruction of video.</small>
+<p float="left">
+  <img src="assets/40_perceiver/original_video.gif" width="200">
+  <img src="assets/40_perceiver/reconstructed_video.gif" width="200">
+</p>
 
-![snippet](assets/40_perceiver/perceiver_audio_autoencoding.png)
-<small>Reconstruction of audio.</small>
+<small>Original video on the left, reconstruction of the first 16 frames on the right. Video taken from the [UCF101 dataset](https://www.crcv.ucf.edu/data/UCF101.php).</small>
+
+<img src="assets/40_perceiver/predicted_labels.png" width="500">
+
+<small>Top 5 predicted labels for the video above.</small>
 
 With this approach, the model learns a joint distribution across 3 modalities. The authors do note that because the latent variables are shared across modalities and not explicitly allocated between them, the quality of reconstructions for each modality is sensitive to the weight of its loss term and other training hyperparameters. By putting stronger emphasis on classification accuracy, they are able to reach 45% top-1 accuracy while maintaining 20.7 PSNR (peak signal-to-noise ratio) for video.
 
