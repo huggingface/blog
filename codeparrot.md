@@ -23,11 +23,11 @@ thumbnail: /blog/assets/40_codeparrot/thumbnail.png
 </div>
 
 
-Let's create all the code for training GitHub Copilot in this blog post. Learn how to train CodeParrot 🦜, a large GPT-2 model for code, from scratch in this step by step guide. Let's get to it!
+In this blog post we'll take a look at what it takes to build the technology behind [GitHub Copilot](https://copilot.github.com/), an application that provides suggestions to programmers as they code. In this step by step guide, we'll learn how to train a large GPT-2 model called CodeParrot 🦜, entirely from scratch. Let's get to it!
 
 ![codeparrot](assets/40_codeparrot/codeparrot.png)
 
-## Dataset
+## Creating a Large Dataset of Source Code
 The first thing we need is a large training dataset. With the goal to train a Python code generation model, we accessed the GitHub dump available on Google's BigQuery and filtered for all Python files. The result is a 180 GB dataset with 20 million files (available [here](http://hf.co/datasets/transformersbook/codeparrot)). After initial training experiments, we found that the duplicates in the dataset severely impacted the model performance. Further investigating the dataset we found that:
 
 - 0.1% of the unique files make up 15% of all files
@@ -36,9 +36,9 @@ The first thing we need is a large training dataset. With the goal to train a Py
 
 We removed the duplicates and applied the same cleaning heuristics found in the [Codex paper](https://arxiv.org/abs/2107.03374). The cleaned dataset is still 50GB big and available on the Hugging Face Hub: [codeparrot-clean](http://hf.co/datasets/lvwerra/codeparrot-clean). With that we can setup a new tokenizer and train a model model.
 
-## Initializing Tokenizer and Model
+## Initializing the Tokenizer and Model
 
-First we need a tokenizer. Let's train one specifically on code so it splits code tokens well. We can take an existing tokenizer (e.g. GPT-2) and directly train it on our own dataset with `train_new_from_iterator`. We then push it to the Hub.
+First we need a tokenizer. Let's train one specifically on code so it splits code tokens well. We can take an existing tokenizer (e.g. GPT-2) and directly train it on our own dataset with the `train_new_from_iterator()` method. We then push it to the Hub.
 
 ```Python
 # Iterator for Training
@@ -80,7 +80,7 @@ model.save_pretrained(args.model_name, push_to_hub=args.push_to_hub)
 
 Now that we have an efficient tokenizer and a freshly initialized model we can start with the actual training loop.
 
-## Training Loop
+## Implementing the Training Loop
 We train with the [🤗 Accelerate](https://github.com/huggingface/accelerate) library which allows us to scale the training from our laptop to a multi-GPU machine without changing a single line of code. We just create an accelerator and do some argument housekeeping:
 
 ```Python
@@ -260,7 +260,7 @@ for step, batch in enumerate(train_dataloader, start=1):
         break
 ```
 
-When we call `wait_for_everyone` and `unwrap` we make sure that all workers are ready and any model layers that have been added by `prepare` earlier are removed. We also use gradient accumulation and gradient clipping that are easily implemented. Lastly, after training is complete we run a last evaluation and save the final model and push it to the hub. 
+When we call `wait_for_everyone()` and `unwrap_model()` we make sure that all workers are ready and any model layers that have been added by `prepare()` earlier are removed. We also use gradient accumulation and gradient clipping that are easily implemented. Lastly, after training is complete we run a last evaluation and save the final model and push it to the hub. 
 
 
 ```Python
@@ -276,7 +276,7 @@ if accelerator.is_main_process:
 ```
 Done! That's all the code to train a full GPT-2 model from scratch with as little as 150 lines. We did not show the imports and logs of the scripts to make the code a little bit more compact. But you'll find the full code including preprocessing and downstream task evaluation [here](https://github.com/huggingface/transformers/tree/master/examples/research_projects/codeparrot). Now let's actually train it!
 
-With this code we trained models for the upcoming [transformers book](https://learning.oreilly.com/library/view/natural-language-processing/9781098103231/): a [110M](https://hf.co/lvwerra/codeparrot-small) and [1.5B](https://hf.co/lvwerra/codeparrot) parameter GPT-2 model. We used a 16 x A100 GPU machine to train these models for 1 day and 1 week, respectively. Enough time to get a coffee and read a book or two!
+With this code we trained models for our upcoming [book on Transformers and NLP](https://learning.oreilly.com/library/view/natural-language-processing/9781098103231/): a [110M](https://hf.co/lvwerra/codeparrot-small) and [1.5B](https://hf.co/lvwerra/codeparrot) parameter GPT-2 model. We used a 16 x A100 GPU machine to train these models for 1 day and 1 week, respectively. Enough time to get a coffee and read a book or two!
 
 
 ## Evaluation
