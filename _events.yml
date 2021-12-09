@@ -1,57 +1,27 @@
-- name: Intro to Transfer Learning, end-to-end deployment with TFX, and demo with Streamlit
-  link: https://www.facebook.com/groups/tfcasablanca/permalink/3185146355145054
-  date: Jan 7 & 8, 2022
-
-- name: ML for Audio Study Group - Text to Speech Deep Dive
-  link: https://www.youtube.com/watch?v=aLBedWj-5CQ&ab_channel=HuggingFace
-  date: Jan 4, 2022
-
-- name: GDG Cloud San Francisco DevFest - BigScience
-  link: https://www.youtube.com/watch?v=-euoEOpfUIk&t=1607s&ab_channel=GoogleDevelopersNorthAmerica
-  date: Dec 18, 2021
-
-- name: Pretraining Language Models & CodeParrot
-  link: https://www.youtube.com/watch?v=ExUR7w6xe94&ab_channel=HuggingFace
-  date: Dec 17, 2021
-
-- name: Pretraining Language Models & CodeParrot
-  link: https://www.youtube.com/watch?v=ExUR7w6xe94&ab_channel=HuggingFace
-  date: Dec 17, 2021
-
-- name: ML for Audio Study Group - Kick Off
-  link: https://www.youtube.com/watch?v=cAviRhkqdnc&ab_channel=HuggingFace
-  date: Dec 14, 2021
-
-- name: Question Answering workshop
-  link: https://www.youtube.com/watch?v=Ihgk8kGLpIE&ab_channel=HuggingFace
+- name: Question Answering special workshop
+  link: https://discord.gg/aKQTbg8d?event=917368738616057896
   date: Dec 10, 2021
   description: Course special session where Lewis and Merve will go through notebooks, course material and answer your questions.
-
 - name: On Sentiments and Biases
   link: https://www.youtube.com/watch?v=0K5ybetv-dA&ab_channel=HuggingFace
   date: Dec 8, 2021
   description: Join Merve & Vincent in this talk on Sentiments and Biases in Hugging Face models! 
-
 - name: Implementing DietNeRF with JAX and Flax.
   link: https://www.youtube.com/watch?v=A9iefUXkvQU&t=1s&ab_channel=HuggingFace
   date: Nov 30, 2021
   description: Learn about NeRF, JAX+Flax, 3D reconstruction, HF Spaces, and more!
-
 - name: Course launch event!
   link: https://www.youtube.com/playlist?list=PLo2EIpI_JMQvcXKx5RFReyg6Qd2UICAif
   date: Nov 15, 2021
-  description: Talks from Thom Wolf, Margaret Mitchell, Jay Alammar, and many more!
-
+  description: Learn about NeRF, JAX+Flax, 3D reconstruction, HF Spaces, and more!
 - name: Open Source Office Hours
-  link: https://www.youtube.com/watch?v=VWOHu_Hg0Pc
+  link: www.youtube.com/watch?v=VWOHu_Hg0Pc
   date: Nov 8, 2021
   description: In this 30 minutes session the team will share the latest updates from our open source tools and answer questions from the community.
-
 - name: T0 Discussion with Victor Sanh
   link: https://www.youtube.com/watch?v=Oy49SCW_Xpw&ab_channel=HuggingFace
   date: Nov 5, 2021
-  description: Learn about the T0, a model for zero-show task generalization
-
+  description: Join Merve & Victor in this talk on T0 
 - name: NLP with Transformers and the Hugging Face Ecosystem 🤗
   link: https://www.mlt.ai/hands-on-transformers-workshop
   date: Oct 22, 2021
