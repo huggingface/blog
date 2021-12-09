@@ -13,7 +13,7 @@
 - name: Course launch event!
   link: https://www.youtube.com/playlist?list=PLo2EIpI_JMQvcXKx5RFReyg6Qd2UICAif
   date: Nov 15, 2021
-  description: Learn about NeRF, JAX+Flax, 3D reconstruction, HF Spaces, and more!
+  description: Talks from Thom Wolf, Margaret Mitchell, Jay Alammar, and many more!
 - name: Open Source Office Hours
   link: www.youtube.com/watch?v=VWOHu_Hg0Pc
   date: Nov 8, 2021
@@ -21,7 +21,7 @@
 - name: T0 Discussion with Victor Sanh
   link: https://www.youtube.com/watch?v=Oy49SCW_Xpw&ab_channel=HuggingFace
   date: Nov 5, 2021
-  description: Join Merve & Victor in this talk on T0 
+  description: Learn about the T0, a model for zero-show task generalization
 - name: NLP with Transformers and the Hugging Face Ecosystem 🤗
   link: https://www.mlt.ai/hands-on-transformers-workshop
   date: Oct 22, 2021
