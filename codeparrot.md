@@ -23,22 +23,22 @@ thumbnail: /blog/assets/40_codeparrot/thumbnail.png
 </div>
 
 
-Let's create all the code for training GitHub CoPilot in this blog post. Learn how to train CodeParrot 🦜, a large GPT-2 model for code, from scratch in this step by step guide. Let's get to it!
+Let's create all the code for training GitHub Copilot in this blog post. Learn how to train CodeParrot 🦜, a large GPT-2 model for code, from scratch in this step by step guide. Let's get to it!
 
 ![codeparrot](assets/40_codeparrot/codeparrot.png)
 
 ## Dataset
-The first thing we need is a large training dataset. With the goal to train a Python code generation model we accessed the GitHub dump available on Google's BigQuery and filtered for all Python files. The result is a 180 GB dataset with 20 million files (available [here](http://hf.co/datasets/transformersbook/codeparrot)). After initial training experiments we found that the duplicates in the dataset severly impacted the model performance. Further investigating the dataset we found that:
+The first thing we need is a large training dataset. With the goal to train a Python code generation model, we accessed the GitHub dump available on Google's BigQuery and filtered for all Python files. The result is a 180 GB dataset with 20 million files (available [here](http://hf.co/datasets/transformersbook/codeparrot)). After initial training experiments, we found that the duplicates in the dataset severely impacted the model performance. Further investigating the dataset we found that:
 
 - 0.1% of the unique files make up 15% of all files
 - 1% of the unique files make up 35% of all files
 - 10% of the unique files make up 66% of all files
 
-We removed the duplicates and applied the same cleaning heuristics found in the [Codex paper](https://arxiv.org/abs/2107.03374). The cleaned dataset is still 50GB big and available on the 🤗 Hub: [codeparrot-clean](http://hf.co/datasets/lvwerra/codeparrot-clean). With that we can setup a new tokenizer and train a model model.
+We removed the duplicates and applied the same cleaning heuristics found in the [Codex paper](https://arxiv.org/abs/2107.03374). The cleaned dataset is still 50GB big and available on the Hugging Face Hub: [codeparrot-clean](http://hf.co/datasets/lvwerra/codeparrot-clean). With that we can setup a new tokenizer and train a model model.
 
 ## Initializing Tokenizer and Model
 
-First we need a tokenizer. Let's train one specifically on code so it splits code tokens well. We can take an existing tokenizer (e.g. GPT-2) and directly train it on our own dataset with `train_new_from_iterator`. We then push it to the hub.
+First we need a tokenizer. Let's train one specifically on code so it splits code tokens well. We can take an existing tokenizer (e.g. GPT-2) and directly train it on our own dataset with `train_new_from_iterator`. We then push it to the Hub.
 
 ```Python
 # Iterator for Training
@@ -81,7 +81,7 @@ model.save_pretrained(args.model_name, push_to_hub=args.push_to_hub)
 Now that we have an efficient tokenizer and a freshly initialized model we can start with the actual training loop.
 
 ## Training Loop
-We train with the 🤗 Accelerate library which allows us to scale the training from our laptop to a multi-GPU machine without changing a single line of code. We just create an accelerator and do some argument housekeeping:
+We train with the [🤗 Accelerate](https://github.com/huggingface/accelerate) library which allows us to scale the training from our laptop to a multi-GPU machine without changing a single line of code. We just create an accelerator and do some argument housekeeping:
 
 ```Python
 accelerator = Accelerator()
@@ -94,7 +94,7 @@ samples_per_step = accelerator.state.num_processes * args.train_batch_size
 set_seed(args.seed)
 ```
 
-We are now ready to train. Let's use the hub library to clone the repository with the new tokenizer and model and we checkout a new branch for this experiment. With that setup we can run many experiments in parallel and in the end we just merge the best one into the main branch.
+We are now ready to train! Let's use the `huggingface_hub` client library to clone the repository with the new tokenizer and model. We will checkout to a new branch for this experiment. With that setup, we can run many experiments in parallel and in the end we just merge the best one into the main branch.
 
 ```Python
 # Clone model repository
@@ -164,7 +164,7 @@ class ConstantLengthDataset(IterableDataset):
                     yield torch.tensor(input_ids)
 ```
 
-Here texts in the buffer are tokenized in parallel and then concatenated. Chunked samples are then yielded until the buffer is empty and the process starts again. If we set infinite=True the dataset iterator restarts at its end.
+Texts in the buffer are tokenized in parallel and then concatenated. Chunked samples are then yielded until the buffer is empty and the process starts again. If we set infinite=True the dataset iterator restarts at its end.
 
 ```Python
 def create_dataloaders(args):
@@ -289,7 +289,7 @@ Note that we trained CodeParrot on roughly 25-30B tokens whereas GPT-neo was tra
 ## Demos
 
 
-You can play with the models in two demos we added to 🤗 Spaces. With the first you can quickly generate code with the model and with the second you can highlight your code with the model to spot bugs!
+You can play with the models in two demos we added to [Hugging Face Spaces](https://huggingface.co/spaces/launch). With the first you can quickly generate code with the model and with the second you can highlight your code with the model to spot bugs!
 
 - [Code Generation](https://hf.co/spaces/lvwerra/codeparrot-generation)
 - [Code Highlighting](https://hf.co/spaces/lvwerra/codeparrot-highlighting)
