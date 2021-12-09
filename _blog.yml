@@ -140,6 +140,7 @@
 
 - local: big-bird
   title: "Understanding BigBird's Block Sparse Attention"
+  thumbnail: ./assets/18_big_bird/block-sparse-attn.gif
   author: vasudevgupta
   guest: true
   date: March 31, 2021
@@ -153,17 +154,20 @@
 
 - local: sagemaker-distributed-training-seq2seq
   title: "Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker"
+  thumbnail: ./assets/19_sagemaker_distributed_training_seq2seq/thumbnail.png
   date: April 8, 2021
   tag: guide
 
 - local: accelerate-library
   title: Introducing 🤗 Accelerate
+  thumbnail: ./assets/20_accelerate_library/accelerate_diff.png
   author: sgugger
   date: April 16, 2021
   tag: engineering
 
 - local: bert-cpu-scaling-part-1
   title: "Scaling-up BERT Inference on CPU (Part 1)"
+  thumbnail: ./assets/21_bert_cpu_scaling_part_1/imgs/numa_set.png
   author: mfuntowicz
   date: April 20, 2021
   tag: engineering
@@ -171,12 +175,14 @@
 - local: gradio
   title: "Using & Mixing Hugging Face Models with Gradio 2.0"
   author: abidlabs
+  thumbnail: ./assets/22_gradio/gradio.png
   guest: true
   date: May 25, 2021
   tag: open-source-collab
 
 - local: few-shot-learning-gpt-neo-and-inference-api
   title: "Few-shot learning in practice: GPT-NEO and the 🤗 Accelerated Inference API"
+  thumbnail: ./assets/22_few_shot_learning_gpt_neo_and_inference_api/few-shot-prompt.png
   date: June 3, 2021
   tag: guide
 
@@ -192,66 +198,79 @@
 
 - local: spacy
   title: "Welcome spaCy to the 🤗 Hub"
+  thumbnail: ./assets/23_spacy/thumbnail.png
   date: July 13, 2021
   tag: open-source-collab
 
 - local: collaborative-training
   title: "Deep Learning over the Internet: Training Language Models Collaboratively"
+  thumbnail: ./assets/24_sahajBERT/thumbnail.png
   date: July 15, 2021
   tag: research
 
 - local: hardware-partners-program
   title: "Introducing Optimum: The Optimization Toolkit for Transformers at Scale"
+  thumbnail: ./assets/25_hardware_partners_program/carbon_lpot_quantizer.png
   date: September 14, 2021
   tag: engineering
 
 - local: graphcore
   title: "Hugging Face and Graphcore partner for IPU-optimized Transformers"
+  thumbnail: ./assets/26_graphcore-ipu/thumbnail.png
   date: September 14, 2021
   tag: partnerships
 
 - local: summer-at-huggingface
   title: "Summer at Hugging Face ☀️"
+  thumbnail: ./assets/27_summer_at_huggingface/thumbnail.png
   date: September 24, 2021
   tag: community
 
 - local: gradio-spaces
   title: "Showcase Your Projects in Spaces using Gradio"
+  thumbnail: ./assets/28_gradio-spaces/thumbnail.png
   date: October 5, 2021
   tag: guide
 
 - local: streamlit-spaces
   title: "Hosting your Models and Datasets on Hugging Face Spaces using Streamlit"
+  thumbnail: ./assets/29_streamlit-spaces/thumbnail.png
   date: October 5, 2021
   tag: guide
   
 - local: fine-tune-clip-rsicd
   title: "Fine tuning CLIP with Remote Sensing (Satellite) images and captions"
+  thumbnail: ./assets/30_clip_rsicd/clip-rsicd-header-image.png
   date: October 13, 2021
   tag: community
 
 - local: the-age-of-ml-as-code
   title: "The Age of Machine Learning As Code Has Arrived"
+  thumbnail: ./assets/31_age_of_ml_as_code/01_entreprise_ml.png
   date: October 20, 2021
   tag: analysis
   
 - local: 1b-sentence-embeddings
   title: "Train a Sentence Embedding Model with 1B Training Pairs"
+  thumbnail: ./assets/32_1b_sentence_embeddings/model.png
   date: October 25, 2021
   tag: community
 
 - local: large-language-models
   title: "Large Language Models: A New Moore's Law?"
+  thumbnail: ./assets/33_large_language_models/01_model_size.jpg
   date: October 26, 2021
   tag: analysis
 
 - local: course-launch-event
   title: "Course Launch Community Event"
+  thumbnail: ./assets/34_course_launch/speakers_day1.png
   date: October 26, 2021
   tag: community
 
 - local: bert-cpu-scaling-part-2
   title: "Scaling up BERT-like model Inference on modern CPU - Part 2"
+  thumbnail: ./assets/35_bert_cpu_scaling_part_2/openmp.png
   date: November 4th, 2021
   tag: engineering
 
@@ -263,20 +282,24 @@
 
 - local: accelerating-pytorch
   title: "Accelerating PyTorch distributed fine-tuning with Intel technologies"
+  thumbnail: ./assets/36_accelerating_pytorch/03_two_nodes.png
   date: November 19, 2021
   tag: guide
 
 - local: data-measurements-tool
   title: "Introducing the Data Measurements Tool: an Interactive Tool for Looking at Datasets"
+  thumbnail: ./assets/37_data-measurements-tool/basics_scroll.gif
   date: November 29, 2021
   tag: research
 
 - local: graphcore-getting-started
   title: "Getting Started with Hugging Face Transformers for IPUs with Optimum"
+  thumbnail: ./assets/38_getting_started_graphcore/graphcore_1.png
   date: November 30, 2021
   tag: guide
 
 - local: snowball-fight
   title: "Introducing Snowball Fight ☃️, our First ML-Agents Environment"
+  thumbnail: ./assets/39_introducing_snowball_fight/snowballfight.gif
   date: December 2, 2021
   tag: research
