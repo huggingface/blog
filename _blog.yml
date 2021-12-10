@@ -235,4 +235,6 @@
 
 - local: codeparrot
   title: "Training CodeParrot 🦜 from Scratch"
+  author: lvwerra
+  thumbnail: ./assets/40_codeparrot/thumbnail.png
   date: December 8, 2021
