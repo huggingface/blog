@@ -171,7 +171,7 @@ class ConstantLengthDataset(IterableDataset):
                     yield torch.tensor(input_ids)
 ```
 
-Texts in the buffer are tokenized in parallel and then concatenated. Chunked samples are then yielded until the buffer is empty and the process starts again. If we set infinite=True the dataset iterator restarts at its end.
+Texts in the buffer are tokenized in parallel and then concatenated. Chunked samples are then yielded until the buffer is empty and the process starts again. If we set `infinite=True` the dataset iterator restarts at its end.
 
 ```Python
 def create_dataloaders(args):
@@ -293,7 +293,7 @@ This is still relatively short training time for pretraining but we can already 
 
 Note that we trained CodeParrot on roughly 25-30B tokens whereas GPT-neo was trained on 300B tokens and Codex on 300B (GPT-3 checkpoint) + 100B (code) tokens. So you definitely get a good bang for your buck here.
 
-But what is this _pass@k_ metric exactly? Simply put it measures the probability of at least one program passing the unittest of a prgramming problem given _k_ candidate generations from the model. Naturally, the metric increases with k as more candidates can potentially solve the coding challenge. You can use the metric with `datasets`:
+But what is this _pass@k_ metric exactly? Simply put it measures the probability of at least one program passing the unittest of a programming problem given _k_ candidate generations from the model. Naturally, the metric increases with k as more candidates can potentially solve the coding challenge. You can use the metric with `datasets`:
 
 ```Python
 from datasets import load_metric
@@ -310,7 +310,7 @@ print(pass_at_k)
 
 
 
-You can also load OpenAI's HumanEval dataset with datasets:
+You can also load OpenAI's HumanEval dataset with `datasets`:
 
 ```Python
 from datasets import load_dataset
@@ -318,11 +318,11 @@ from datasets import load_dataset
 dataset = load_dataset("openai_humaneval")
 ```
 
-Now let's have a look at what we get after waiting anxiously for so long!
+Now let's have a look at what we get after anxiously waiting for so long!
 
 ## Results
 
-Let's start slow and check if we can prompt the model to write a function to return the size of a file given it's path:
+Let's start slow and check if we can prompt the model to write a function to return the size of a file given its path:
 
 **Prompt:**
 ```Python
@@ -342,7 +342,7 @@ def get_files_size(filename):
     return os.path.getsize(filepath)
 ```
 
-So far so good, but let's take this a step further and try something a bit more interesting. One of the less exiting aspects of building production ready code is writing unittest. Let's see if we can use CodeParrot to do this for us!
+So far so good, but let's take this a step further and try something a bit more interesting. One of the less exciting aspects of building production ready code is writing unittest. Let's see if we can use CodeParrot to do this for us!
 
 **Prompt:**
 ```Python
