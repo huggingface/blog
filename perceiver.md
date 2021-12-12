@@ -290,10 +290,12 @@ It is important to note that the models currently implemented (such as `Perceive
 
 In this blog post, we went over the architecture of Perceiver IO, an extension of the Perceiver by Google Deepmind, and showed its generality of handling all kinds of modalities. The big advantage of the Perceiver is that the compute and memory requirements of the self-attention mechanism don't depend on the size of the inputs and outputs, as the bulk of compute happens in a latent space (a not-too large set of vectors). Despite its task-agnostic architecture, the model is capabable of achieving great results on modalities such as language, vision, multimodal data, and games. In the future, it might be interesting to train a single (shared) Perceiver encoder on several modalities at the same time, and use modality-specific preprocessors and postprocessors. As [Karpathy puts it](https://twitter.com/karpathy/status/1424469507658031109), it may well be that this architecture can unify all modalities into a shared space, with a library of encoders/decoders. 
 
-The model is available in [HuggingFace Transformers](https://github.com/huggingface/transformers) as of today, and it will be exciting to see what people build with it, as its applications seem endless! 
+Speaking of a library, the model is available in [HuggingFace Transformers](https://github.com/huggingface/transformers) as of today. It will be exciting to see what people build with it, as its applications seem endless!
 
 ### Appendix
 
 The implementation in HuggingFace Transformers is based on the original JAX/Haiku implementation which can be found [here](https://github.com/deepmind/deepmind-research/tree/master/perceiver).
 
 The documentation of the Perceiver IO model in HuggingFace Transformers is available [here](https://huggingface.co/docs/transformers/model_doc/perceiver).
+
+Tutorial notebooks regarding the Perceiver on several modalities can be found [here](https://github.com/NielsRogge/Transformers-Tutorials/tree/master/Perceiver).
