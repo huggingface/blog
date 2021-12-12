@@ -16,7 +16,7 @@ thumbnail: /todo
     <a href="/nielsrogge">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/48327001?v=4" title="Gravatar">
         <div class="bfc">
-            <code>nielsrogge</code>
+            <code>nielsr</code>
             <span class="fullname">Niels Rogge</span>
         </div>
     </a>
@@ -32,7 +32,7 @@ processing (NLP), most famously the [GLUE benchmark](https://gluebenchmark.com/)
 
 Not long after that, AI researchers started to apply the idea of BERT to other domains. To name a few examples, [Wav2Vec2](https://arxiv.org/abs/2006.11477) by Facebook AI illustrated that the architecture could be extended to audio, the [Vision Transformer (ViT)](https://arxiv.org/abs/2010.11929) by Google AI showed that the architecture works really well for vision, and most recently the [Video Vision transformer (ViViT)](https://arxiv.org/abs/2103.15691), also by Google AI, applied the architecture to video. In all of these domains, state-of-the-art results were improved dramatically, thanks to the combination of this powerful architecture with large-scale pre-training.
 
-However, there's an important limitation to the architecture of the Transformer: it scales very poorly in both compute and memory. This is because the self-attention mechanism has a complexity of O(n^2): the compute and memory requirements scale quadratically in the number of tokens (n) that one provides as input to the model. In every layer, all inputs are used to produce queries and keys, for which a pairwise dot product is computed. Hence, it is not possible to apply self-attention on high-dimensional data, without some form of preprocessing. Wav2Vec2 for example solves this by employing a feature encoder, to turn a raw waveform into a sequence of time-based features. The Vision Transformer (ViT) divides an image into a sequence of non-overlapping patches, which serve as "tokens". The Video Vision Transformer (ViViT) extracts non-overlapping, spatio-temporal
+However, there's an important limitation to the architecture of the Transformer: it scales very poorly in both compute and memory. This is because the self-attention mechanism has a complexity of O(n^2): the compute and memory requirements scale quadratically in the number of tokens (n) that one provides as input to the model. In every layer, all inputs are used to produce queries and keys, for which a pairwise dot product is computed. Hence, it is not possible to apply self-attention on high-dimensional data without some form of preprocessing. Wav2Vec2, for example, solves this by employing a feature encoder to turn a raw waveform into a sequence of time-based features. The Vision Transformer (ViT) divides an image into a sequence of non-overlapping patches, which serve as "tokens". The Video Vision Transformer (ViViT) extracts non-overlapping, spatio-temporal
 “tubes” from a video, which serve as "tokens". To make the Transformer work on a particular modality, one typically discretizes it to a sequence of tokens to make it work.
 
 ## The Perceiver
@@ -46,7 +46,7 @@ All Perceiver variants in HuggingFace Transformers are based on the `PerceiverMo
 - a decoder
 - a postprocessor.
 
-Note that each of these are optional. A `preprocessor` is only required in case one hasn't already embedded the `inputs` (such as text, image, audio, video) him/herself. A `decoder` is only required in case one wants to decode the output of the Perceiver encoder (i.e. the last hidden states of the latents) into something more useful, such as classification logits or optical flow. A `postprocessor` is only required in case one wants to turn the output of the decoder into a specific feature (this is only required when doing auto-encoding, as we will see further). An overview of the architecture is depicted below. 
+Note that each of these are optional. A `preprocessor` is only required in case one hasn't already embedded the `inputs` (such as text, image, audio, video) themselves. A `decoder` is only required in case one wants to decode the output of the Perceiver encoder (i.e. the last hidden states of the latents) into something more useful, such as classification logits or optical flow. A `postprocessor` is only required in case one wants to turn the output of the decoder into a specific feature (this is only required when doing auto-encoding, as we will see further). An overview of the architecture is depicted below. 
 
 <img src="assets/40_perceiver/perceiver_architecture.png" width="800">
 
