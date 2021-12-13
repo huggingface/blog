@@ -14,7 +14,7 @@ thumbnail: /todo
 
 <div class="author-card">
     <a href="/nielsrogge">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/48327001?v=4" title="Gravatar">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/48327001?v=4" width="100" title="Gravatar">
         <div class="bfc">
             <code>nielsr</code>
             <span class="fullname">Niels Rogge</span>
