@@ -1,17 +1,14 @@
 - value: analysis
   label: analysis
-
 - value: community
   label: community
-
+- value: engineering
+  label: engineering
 - value: guide
   label: guide
-
 - value: open-source-collab
   label: open source collab
-
 - value: partnerships
   label: partnerships
-
 - value: research
   label: research
