@@ -13,7 +13,7 @@ thumbnail: /blog/assets/41_perceiver/thumbnail.png
 </div>
 
 <div class="author-card">
-    <a href="/nielsrogge">
+    <a href="/nielsr">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/48327001?v=4" width="100" title="Gravatar">
         <div class="bfc">
             <code>nielsr</code>
@@ -275,12 +275,12 @@ Finally, there is `PerceiverMultimodalPostprocessor`. This class postprocesses t
 So now one ends up with tensors containing the reconstruction of the image, audio and class label modalities respectively. As one auto-encodes an entire video in chunks, one needs to concatenate the reconstruction of each chunk to have a final reconstruction of an entire video. The figure below shows an example:
 
 <p float="left">
-  <img src="assets/41_perceiver/original_video.gif" width="200">
-  <img src="assets/41_perceiver/reconstructed_video.gif" width="200">
+  <img src="assets/41_perceiver/original_video.gif" width="200" style="display:inline">>
+  <img src="assets/41_perceiver/reconstructed_video.gif" width="200" style="display:inline">>
   <img src="assets/41_perceiver/perceiver_audio_autoencoding.png" width="400">
 </p>
 
-<small>Original video (left), reconstruction of the first 16 frames (middle). Video taken from the [UCF101 dataset](https://www.crcv.ucf.edu/data/UCF101.php). Right: reconstructed audio (taken from the paper). </small>
+<small>Original video (left), reconstruction of the first 16 frames (middle). Video taken from the [UCF101 dataset](https://www.crcv.ucf.edu/data/UCF101.php). Below: reconstructed audio (taken from the paper). </small>
 
 <img src="assets/41_perceiver/predicted_labels.png" width="500">
 
