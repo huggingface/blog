@@ -30,7 +30,13 @@ state-of-the-art (SOTA) results in machine translation. In 2018, [BERT](https://
 was released, a Transformer encoder-only model that crushed the benchmarks of natural language
 processing (NLP), most famously the [GLUE benchmark](https://gluebenchmark.com/). 
 
-Not long after that, AI researchers started to apply the idea of BERT to other domains. To name a few examples, [Wav2Vec2](https://arxiv.org/abs/2006.11477) by Facebook AI illustrated that the architecture could be extended to audio, the [Vision Transformer (ViT)](https://arxiv.org/abs/2010.11929) by Google AI showed that the architecture works really well for vision, and most recently the [Video Vision transformer (ViViT)](https://arxiv.org/abs/2103.15691), also by Google AI, applied the architecture to video. In all of these domains, state-of-the-art results were improved dramatically, thanks to the combination of this powerful architecture with large-scale pre-training.
+Not long after that, AI researchers started to apply the idea of BERT to other domains. To name a few examples:
+
+* [Wav2Vec2](https://huggingface.co/docs/transformers/model_doc/wav2vec2) by Facebook AI illustrated that the architecture could be extended to audio
+* the [Vision Transformer (ViT)](https://huggingface.co/docs/transformers/model_doc/vit) by Google AI showed that the architecture works really well for vision
+* most recently the [Video Vision transformer (ViViT)](https://arxiv.org/abs/2103.15691), also by Google AI, applied the architecture to video. 
+
+In all of these domains, state-of-the-art results were improved dramatically, thanks to the combination of this powerful architecture with large-scale pre-training.
 
 However, there's an important limitation to the architecture of the Transformer: it scales [very poorly](https://arxiv.org/abs/2009.06732v2) in both compute and memory. In every layer, all inputs are used to produce queries and keys, for which a pairwise dot product is computed. Hence, it is not possible to apply self-attention on high-dimensional data without some form of preprocessing. Wav2Vec2, for example, solves this by employing a feature encoder to turn a raw waveform into a sequence of time-based features. The Vision Transformer (ViT) divides an image into a sequence of non-overlapping patches, which serve as "tokens". The Video Vision Transformer (ViViT) extracts non-overlapping, spatio-temporal
 “tubes” from a video, which serve as "tokens". To make the Transformer work on a particular modality, one typically discretizes it to a sequence of tokens to make it work.
