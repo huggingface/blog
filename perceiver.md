@@ -239,8 +239,8 @@ To decode the final hidden states of the latents to an actual predicted flow, `P
 The video below shows the predicted flow on 2 examples. 
 
 <p float="left">
-  <img src="https://lh3.googleusercontent.com/Rkhzc3Ckl4oWrOjxviohVmK4ZYGvGGrxaXCaOgBl3YGdBuHeFcQG_0-QjenoHKlTsHR6_6LpmCYu2bghEEzWdpYYp6QksFi0nkI3RNkdJEP-6c13bg=w2048-rw-v1" width="300" />
-  <img src="https://lh3.googleusercontent.com/p51q5x-JYJKltxxUtp60lUViVguTnxBpw7dQFfs47FTWpaj3iTmz2RJCGuiIEEpIoJKhZBU19W_k85lJ-8AtywD9YiVXc5KbiubvZakz2qFrNMj-cA=w2048-rw-v1" width="300" />
+  <img src="https://lh3.googleusercontent.com/Rkhzc3Ckl4oWrOjxviohVmK4ZYGvGGrxaXCaOgBl3YGdBuHeFcQG_0-QjenoHKlTsHR6_6LpmCYu2bghEEzWdpYYp6QksFi0nkI3RNkdJEP-6c13bg=w2048-rw-v1" width="300" style="display:inline" />
+  <img src="https://lh3.googleusercontent.com/p51q5x-JYJKltxxUtp60lUViVguTnxBpw7dQFfs47FTWpaj3iTmz2RJCGuiIEEpIoJKhZBU19W_k85lJ-8AtywD9YiVXc5KbiubvZakz2qFrNMj-cA=w2048-rw-v1" width="300" style="display:inline" />
   <img src="assets/41_perceiver/flow_legend.jpeg" width="300" />
 </p>
 
@@ -275,8 +275,8 @@ Finally, there is `PerceiverMultimodalPostprocessor`. This class postprocesses t
 So now one ends up with tensors containing the reconstruction of the image, audio and class label modalities respectively. As one auto-encodes an entire video in chunks, one needs to concatenate the reconstruction of each chunk to have a final reconstruction of an entire video. The figure below shows an example:
 
 <p float="left">
-  <img src="assets/41_perceiver/original_video.gif" width="200" style="display:inline">>
-  <img src="assets/41_perceiver/reconstructed_video.gif" width="200" style="display:inline">>
+  <img src="assets/41_perceiver/original_video.gif" width="200" style="display:inline">
+  <img src="assets/41_perceiver/reconstructed_video.gif" width="200" style="display:inline">
   <img src="assets/41_perceiver/perceiver_audio_autoencoding.png" width="400">
 </p>
 
