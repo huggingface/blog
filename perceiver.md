@@ -22,6 +22,14 @@ thumbnail: /blog/assets/41_perceiver/thumbnail.png
     </a>
 </div>
 
+### TLDR
+
+We've added [Perceiver IO](https://arxiv.org/abs/2107.14795) to Transformers, the first Transformer-based neural network that works on all kinds of modalities (text, images, audio, video, point clouds,...) and combinations thereof. Take a look at the following Spaces to view some examples:
+- predicting [optical flow](https://huggingface.co/spaces/nielsr/perceiver-optical-flow) between images
+- [classifying images](https://huggingface.co/spaces/nielsr/perceiver-image-classification).
+
+Below, you can find a technical explanation  of the model.
+
 ### Introduction
 
 The [Transformer](https://arxiv.org/abs/1706.03762), originally introduced by 
@@ -280,7 +288,7 @@ So now one ends up with tensors containing the reconstruction of the image, audi
   <img src="assets/41_perceiver/perceiver_audio_autoencoding.png" width="400">
 </p>
 
-<small>Original video (left), reconstruction of the first 16 frames (middle). Video taken from the [UCF101 dataset](https://www.crcv.ucf.edu/data/UCF101.php). Below: reconstructed audio (taken from the paper). </small>
+<small>Above: original video (left), reconstruction of the first 16 frames (right). Video taken from the [UCF101 dataset](https://www.crcv.ucf.edu/data/UCF101.php). Below: reconstructed audio (taken from the paper). </small>
 
 <img src="assets/41_perceiver/predicted_labels.png" width="500">
 
