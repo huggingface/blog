@@ -6,7 +6,7 @@ thumbnail: /blog/assets/41_perceiver/thumbnail.png
 <h1>Perceiver IO: a scalable, fully-attentional model that works on any modality</h1>
 
 <div class="blog-metadata">
-    <small>Published December 7, 2021.</small>
+    <small>Published December 15, 2021.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/perceiver.md">
         Update on GitHub
     </a>
