@@ -240,6 +240,6 @@
   date: December 8, 2021
 
 - local: perceiver
-  title: Perceiver IO: a scalable, fully-attentional model that works on any modality
+  title: "Perceiver IO: a scalable, fully-attentional model that works on any modality"
   thumbnail: ./assets/41_perceiver/thumbnail.png
   date: December 15, 2021
