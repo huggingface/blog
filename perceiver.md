@@ -24,9 +24,11 @@ thumbnail: /blog/assets/41_perceiver/thumbnail.png
 
 ### TLDR
 
-We've added [Perceiver IO](https://arxiv.org/abs/2107.14795) to Transformers, the first Transformer-based neural network that works on all kinds of modalities (text, images, audio, video, point clouds,...) and combinations thereof. Take a look at the following Spaces to view some examples:
+We've added [Perceiver IO](https://huggingface.co/docs/transformers/model_doc/perceiver) to Transformers, the first Transformer-based neural network that works on all kinds of modalities (text, images, audio, video, point clouds,...) and combinations thereof. Take a look at the following Spaces to view some examples:
 - predicting [optical flow](https://huggingface.co/spaces/nielsr/perceiver-optical-flow) between images
 - [classifying images](https://huggingface.co/spaces/nielsr/perceiver-image-classification).
+
+We also provide [several notebooks](https://github.com/NielsRogge/Transformers-Tutorials/tree/master/Perceiver).
 
 Below, you can find a technical explanation  of the model.
 
@@ -46,7 +48,7 @@ Not long after that, AI researchers started to apply the idea of BERT to other d
 
 In all of these domains, state-of-the-art results were improved dramatically, thanks to the combination of this powerful architecture with large-scale pre-training.
 
-However, there's an important limitation to the architecture of the Transformer: it scales [very poorly](https://arxiv.org/abs/2009.06732v2) in both compute and memory. In every layer, all inputs are used to produce queries and keys, for which a pairwise dot product is computed. Hence, it is not possible to apply self-attention on high-dimensional data without some form of preprocessing. Wav2Vec2, for example, solves this by employing a feature encoder to turn a raw waveform into a sequence of time-based features. The Vision Transformer (ViT) divides an image into a sequence of non-overlapping patches, which serve as "tokens". The Video Vision Transformer (ViViT) extracts non-overlapping, spatio-temporal
+However, there's an important limitation to the architecture of the Transformer: due to its [self-attention mechanism](https://jalammar.github.io/illustrated-transformer/), it scales [very poorly](https://arxiv.org/abs/2009.06732v2) in both compute and memory. In every layer, all inputs are used to produce queries and keys, for which a pairwise dot product is computed. Hence, it is not possible to apply self-attention on high-dimensional data without some form of preprocessing. Wav2Vec2, for example, solves this by employing a feature encoder to turn a raw waveform into a sequence of time-based features. The Vision Transformer (ViT) divides an image into a sequence of non-overlapping patches, which serve as "tokens". The Video Vision Transformer (ViViT) extracts non-overlapping, spatio-temporal
 “tubes” from a video, which serve as "tokens". To make the Transformer work on a particular modality, one typically discretizes it to a sequence of tokens to make it work.
 
 ## The Perceiver
