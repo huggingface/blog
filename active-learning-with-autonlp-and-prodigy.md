@@ -137,7 +137,11 @@ Thus, we continued. We labelled a few more samples.
 
 Please note that, in each iteration, our dataset is getting bigger. All we are doing is uploading the new dataset to AutoNLP and let it do the rest.
 
-After labelling around ~150 samples, we started getting some good results. The accuracy went up to 95.7%, precision was 0.64 and recall around 0.76. Let's take a look at how this model performs on the same unseen sample.
+After labelling around ~150 samples, we started getting some good results. The accuracy went up to 95.7%, precision was 0.64 and recall around 0.76. 
+
+<img src="assets/42_autonlp_prodigy/a3.png">
+
+Let's take a look at how this model performs on the same unseen sample.
 
 <img src="assets/42_autonlp_prodigy/a2.png">
 
