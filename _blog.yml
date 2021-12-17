@@ -243,3 +243,8 @@
   title: "Perceiver IO: a scalable, fully-attentional model that works on any modality"
   thumbnail: ./assets/41_perceiver/thumbnail.png
   date: December 15, 2021
+
+- local: active-learning-with-autonlp-and-prodigy
+  title: "Active Learning with AutoNLP and Prodigy"
+  thumbnail: ./assets/42_autonlp_prodigy/thumbnail.png
+  date: December 17, 2021
