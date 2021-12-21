@@ -26,7 +26,7 @@ Active learning in the context of Machine Learning is a process in which you ite
 
 ## AutoNLP
 
-[AutoNLP](https://huggingface.co/autonlp) is a framework created by Hugging Face that helps you to build your own state-of-the-art deep learning models on your own dataset with almost no coding at all. AutoNLP is built on the giant shoulders of Hugging Face's [transformers](https://github.com/huggingface/transformers), [datasets](https://github.com/huggingface/datasets), [inference-api](https://huggingface.co/inference-api) and many other tools built by Hugging Face for internal and external purposes.
+[AutoNLP](https://huggingface.co/autonlp) is a framework created by Hugging Face that helps you to build your own state-of-the-art deep learning models on your own dataset with almost no coding at all. AutoNLP is built on the giant shoulders of Hugging Face's [transformers](https://github.com/huggingface/transformers), [datasets](https://github.com/huggingface/datasets), [inference-api](https://huggingface.co/inference-api) and many other tools.
 
 With AutoNLP, you can train SOTA transformer models on your own custom dataset, fine-tune them (automatically) and serve them to the end-user. All models trained with AutoNLP are state-of-the-art and production-ready.
 
