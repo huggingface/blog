@@ -7,14 +7,14 @@ thumbnail: /blog/assets/42_autonlp_prodigy/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published Dec 17, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/active-learning-with-autonlp-and-prodigy.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/autonlp-prodigy.md">
         Update on GitHub
     </a>
 </div>
 
 <div class="author-card">
     <a href="/abhishek">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/img_url?w=200&h=200&f=face" title="Gravatar">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/1183441?v=4" title="Gravatar">
         <div class="bfc">
             <code>abhishek</code>
             <span class="fullname">Abhishek Thakur</span>
@@ -36,7 +36,7 @@ At the time of writing this article, AutoNLP supports tasks like binary classifi
 
 [Prodigy](https://prodi.gy/) is an annotation tool developed by Explosion (the makers of [spaCy](https://spacy.io/)). It is a web-based tool that allows you to annotate your data in real time and not just for Natural Language Processing tasks! Prodigy supports NLP tasks such as named entity recognition (NER) and text classification, but it's not limited to NLP! It  supports Computer Vision tasks and even creating your own tasks! You can try the Prodigy demo: [here](https://prodi.gy/demo).
 
-Please note that Prodigy is not free or open-source. It is a paid tool. You can find out more about it [here](https://prodi.gy/buy).
+Note that Prodigy is a commercial tool. You can find out more about it [here](https://prodi.gy/buy).
 
 We chose Prodigy as it is one of the most popular tools for labeling data and is inifitely customizable. It is also very easy to setup and use.
 
@@ -88,11 +88,13 @@ Let's look at the different values:
 * `BBC_News_Train.csv` is the dataset that will be used for labeling. 
 * `PERSON,ORG,PRODUCT,LOCATION` is the list of labels that will be used for labeling.
 
-Once you run the above command, you can got to the prodigy web interface (usually at localhost:12000) and start labelling the dataset. Prodigy interface is very simple, intuitive and easy to use. The interface looks like the following:
+Once you run the above command, you can go to the prodigy web interface (usually at localhost:8080) and start labelling the dataset. Prodigy interface is very simple, intuitive and easy to use. The interface looks like the following:
 
 <img src="assets/42_autonlp_prodigy/prodigy_ner.png">
 
 All you have to do is select which entity you want to label (PERSON, ORG, PRODUCT, LOCATION) and then select the text that belongs to the entity. Once you are done with one document, you can click on the green button and Prodigy will automatically provide you with next unlabelled document.
+
+![prodigy_ner_demo](assets/42_autonlp_prodigy/prodigy.png)
 
 Using Prodigy, we started labelling the dataset. When we had around 20 samples, we trained a model using AutoNLP. Prodigy doesn't export the data in AutoNLP format, so we wrote a quick and dirty script to convert the data into AutoNLP format:
 
@@ -149,13 +151,14 @@ Let's take a look at how this model performs on the same unseen sample.
 
 <img src="assets/42_autonlp_prodigy/a2.png">
 
-WOW! This is amazing! As you can see, the model is now performing extremely well! Its able to detect many entities in the same text. At this point, we decided to stop labelling and end the experimentation process. The following graph shows how the accuracy of best model improved as we added more samples to the dataset:
+WOW! This is amazing! As you can see, the model is now performing extremely well! Its able to detect many entities in the same text. The precision and recall was still a bit low and thus we continued labeling even more data. After labeling around ~250 samples, we had the best results in terms of precision and recall. The accuracy went up to ~95.9% and precision and recall were 0.73 and 0.79 respectively. At this point, we decided to stop labelling and end the experimentation process. The following graph shows how the accuracy of best model improved as we added more samples to the dataset:
 
+<img src="assets/42_autonlp_prodigy/chart.png">
 
 Well, its a well known fact that more relevant data will lead to better models and thus better results. With this experimentation, we successfully created a model that can not only classify the entities in the news articles but also categorize them. Using tools like Prodigy and AutoNLP, we invested our time and effort only to label the dataset (even that was made simpler by the interface prodigy offers). AutoNLP saved us a lot of time and effort: we didn't have to figure out which models to use, how to train them, how to evaluate them, how to tune the parameters, which optimizer and scheduler to use, pre-processing, post-processing etc. We just needed to label the dataset and let AutoNLP do everything else.
 
 We believe with tools like AutoNLP and Prodigy it's very easy to create data and state-of-the-art models. And since the whole process requires almost no coding at all, even someone without a coding background can create datasets which are generally not available to the public, train their own models using AutoNLP and share the model with everyone else in the community (or just use them for their own research / business).
 
-We have open-sourced the best model created using this process. You can try it [here](https://huggingface.co/abhishek/autonlp-prodigy-8-3342521).
+We have open-sourced the best model created using this process. You can try it [here](https://huggingface.co/abhishek/autonlp-prodigy-10-3362554). The labelled dataset can also be downloaded [here](https://huggingface.co/datasets/abhishek/autonlp-data-prodigy-10).
 
 Models are only state-of-the-art because of the data they are trained on.

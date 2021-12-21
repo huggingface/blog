@@ -244,7 +244,7 @@
   thumbnail: ./assets/41_perceiver/thumbnail.png
   date: December 15, 2021
 
-- local: active-learning-with-autonlp-and-prodigy
+- local: autonlp-prodigy
   title: "Active Learning with AutoNLP and Prodigy"
   thumbnail: ./assets/42_autonlp_prodigy/thumbnail.png
-  date: December 17, 2021
+  date: December 21, 2021
