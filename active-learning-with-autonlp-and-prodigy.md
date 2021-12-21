@@ -30,7 +30,7 @@ Active learning in the context of Machine Learning is a process in which you ite
 
 With AutoNLP, you can train SOTA transformer models on your own custom dataset, fine-tune them (automatically) and serve them to the end-user. All models trained with AutoNLP are state-of-the-art and production-ready.
 
-At the time of writing this article, AutoNLP supports tasks like binary classification, regression, multi class classification, token classification (or NER task), question answering, summarization and more. You can find a list of all the supported tasks [here](https://huggingface.co/autonlp/). AutoNLP supports languages like English, French, German, Spanish, Hindi, Dutch, Swedish and many more. There is also support for custom models with custom tokenizers (in case your language is not supported by AutoNLP).
+At the time of writing this article, AutoNLP supports tasks like binary classification, regression, multi class classification, token classification (such as named entity recognition or part of speech), question answering, summarization and more. You can find a list of all the supported tasks [here](https://huggingface.co/autonlp/). AutoNLP supports languages like English, French, German, Spanish, Hindi, Dutch, Swedish and many more. There is also support for custom models with custom tokenizers (in case your language is not supported by AutoNLP).
 
 ## Prodigy
 
