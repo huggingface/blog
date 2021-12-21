@@ -68,7 +68,7 @@ Step 4: Accept the pricing and train your models.
 
 Please note that in the above example, we are training 15 different multi-class classification models. AutoNLP pricing can be as low as $10 per model. AutoNLP will select the best models and do hyperparameter tuning for you on its own. So, now, all we need to do is sit back, relax and wait for the results.
 
-After around 15mins, all models finished training and the results were ready. It seems like the best model scored 98.67% accuracy! 
+After around 15 minutes, all models finished training and the results are ready. It seems like the best model scored 98.67% accuracy! 
 
 <img src="assets/42_autonlp_prodigy/autonlp_multi_class_results.png">
 
