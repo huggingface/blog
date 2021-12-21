@@ -78,7 +78,7 @@ So, we are now able to classify the articles in the dataset with an accuracy of 
 
 The dataset we used did have categories but it didn't have labels for entity recognition. So, we decided to use Prodigy to label the dataset for another task: named entity recognition.
 
-Once you have prodigy installed, you can simply run:
+Once you have Prodigy installed, you can simply run:
 
     $ prodigy ner.manual bbc blank:en BBC_News_Train.csv --label PERSON,ORG,PRODUCT,LOCATION
 
