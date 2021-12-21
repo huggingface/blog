@@ -82,7 +82,11 @@ Once you have prodigy installed, you can simply run:
 
     $ prodigy ner.manual bbc blank:en BBC_News_Train.csv --label PERSON,ORG,PRODUCT,LOCATION
 
-Here `bbc` is the dataset that will be created by Prodigy. `blank:en` is the spacy tokenizer being used. `BBC_News_Train.csv` is the dataset that will be used for labelling. `PERSON,ORG,PRODUCT,LOCATION` is the list of labels that will be used for labelling.
+Let's look at the different values:
+* `bbc` is the dataset that will be created by Prodigy. 
+* `blank:en` is the `spaCy` tokenizer being used. 
+* `BBC_News_Train.csv` is the dataset that will be used for labeling. 
+* `PERSON,ORG,PRODUCT,LOCATION` is the list of labels that will be used for labeling.
 
 Once you run the above command, you can got to the prodigy web interface (usually at localhost:12000) and start labelling the dataset. Prodigy interface is very simple, intuitive and easy to use. The interface looks like the following:
 
