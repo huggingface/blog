@@ -72,7 +72,7 @@ After around 15 minutes, all models finished training and the results are ready.
 
 <img src="assets/42_autonlp_prodigy/autonlp_multi_class_results.png">
 
-So, we are now able to classify the articles in the dataset with an accuracy of 98.67%! But wait, we were talking about active learning and prodigy. What happened to those? We did use prodigy as we will see soon. We used prodigy to label this dataset for named entity recognition task. Before starting the labelling part, we thought it would be cool to have a project in which we are not only able to detect the entities in news articles but also categorize them. That's why we built this classification model on existing labels.
+So, we are now able to classify the articles in the dataset with an accuracy of 98.67%! But wait, we were talking about active learning and Prodigy. What happened to those? 🤔 We did use Prodigy as we will see soon. We used it to label this dataset for the named entity recognition task. Before starting the labeling part, we thought it would be cool to have a project in which we are not only able to detect the entities in news articles but also categorize them. That's why we built this classification model on existing labels.
 
 ## Active Learning
 
