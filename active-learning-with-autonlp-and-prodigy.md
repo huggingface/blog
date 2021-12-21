@@ -131,7 +131,7 @@ After labelling around 70 samples, we started getting some results. The accuracy
 
 <img src="assets/42_autonlp_prodigy/a1.png">
 
-As you can see, the model is struggling. But it's much better than before. Previously, the model was not even able to predict anything in the same text. Atleast now, it's able to figure out that `Bruce` and `David` are names.
+As you can see, the model is struggling. But it's much better than before! Previously, the model was not even able to predict anything in the same text. At least now, it's able to figure out that `Bruce` and `David` are names.
 
 Thus, we continued. We labelled a few more samples. 
 
