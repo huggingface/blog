@@ -3,7 +3,7 @@ title: "Gradio is joining Hugging Face!"
 thumbnail: /blog/assets/42_gradio_joins_hf/thumbnail.png
 ---
 
-<h2>Gradio is joining Hugging Face!</h2>
+<h1>Gradio is joining Hugging Face!</h1>
 <p>Abubakar Abid, previously CEO of Gradio</p>
 
 <div class="blog-metadata">
