@@ -28,7 +28,7 @@ thumbnail: /blog/assets/42_gradio_joins_hf/thumbnail.png
 _Gradio is joining Hugging Face! By acquiring Gradio, a machine learning startup, Hugging Face will be able to offer users, developers, and data scientists the tools needed to get to high level results and create better models and tools..._
 
 Hmm, paragraphs about acquisitions like the one above are so common that an algorithm could write them. In
-fact, one did!! This first paragraph was written with the <a href="https://huggingface.co/spaces/abidlabs/The-Acquisition-Post-Generator">Acquisition Post Generator</a>, a machine learning demo on **Hugging Face Spaces**. You can run it yourself in your browser: provide the names of any two companies and you'll get a reasonable-sounding start to an article announcing their acquisition!
+fact, one did!! This first paragraph was written with the [Acquisition Post Generator](https://huggingface.co/spaces/abidlabs/The-Acquisition-Post-Generator), a machine learning demo on **Hugging Face Spaces**. You can run it yourself in your browser: provide the names of any two companies and you'll get a reasonable-sounding start to an article announcing their acquisition!
 
 The Acquisition Post Generator was built using our open-source Gradio library -- it is just one of our recent collaborations with Hugging Face. And I'm excited to announce that these collaborations are culminating in... 🥁 **Hugging Face's acquisition of Gradio** (so yes, that first paragraph might have been written by
   an algorithm but it's true!)
