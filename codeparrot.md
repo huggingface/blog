@@ -404,3 +404,5 @@ pipe('def hello_world():')
 ## Summary
 
 In this short blog post we walked through all the steps involved for training a large GPT-2 model called CodeParrot 🦜 for code generation. Using 🤗 Accelerate we built a training script with less than 200 lines of code that we can effortlessly scale across many GPUs. With that you can now train your own GPT-2 model!
+
+This post gives a brief overview of CodeParrot :parrot:, but if you are interested in diving deeper into how we pretrained this model we recommend reading its dedicated chapter in the upcoming [book on Transformers and NLP](https://learning.oreilly.com/library/view/natural-language-processing/9781098103231/).  This chapter provides many more details around building custom datasets, design considerations when training a new tokenizer, and architecture choice.
