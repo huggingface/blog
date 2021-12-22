@@ -43,4 +43,4 @@ Demos and GUIs built with Gradio give the power of machine learning to more and 
 
 In addition to the shared mission of Gradio and Hugging Face, what delights me is the team that we are joining. Hugging Face's remarkable culture of openness and innovation is well-known. Over the past few months, I've gotten to know the founders as well: they are wonderful people who genuinely care about every single person at Hugging Face and are willing to go to bat for them. On behalf of the entire Gradio team, we couldn't be more thrilled to be working with them to build the future of machine learning 🤗
 
-Also: <a class="link" href="https://apply.workable.com/huggingface/">we are hiring!!</a> ❤️
+Also: [we are hiring!!](https://apply.workable.com/huggingface/) ❤️
