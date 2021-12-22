@@ -4,7 +4,6 @@ thumbnail: /blog/assets/42_gradio_joins_hf/thumbnail.png
 ---
 
 <h1>Gradio is joining Hugging Face!</h1>
-<p>Abubakar Abid, previously CEO of Gradio</p>
 
 <div class="blog-metadata">
     <small>Published December 21, 2021.</small>
@@ -18,7 +17,7 @@ thumbnail: /blog/assets/42_gradio_joins_hf/thumbnail.png
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/1778297?v=4" width="100" title="Gravatar">
         <div class="bfc">
             <code>abidlabs</code>
-            <span class="fullname">Abubakar Abid</span>
+            <span class="fullname">Abubakar Abid, previously CEO of Gradio</span>
         </div>
     </a>
 </div>
