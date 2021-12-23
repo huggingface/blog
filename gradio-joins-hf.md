@@ -17,7 +17,7 @@ thumbnail: /blog/assets/42_gradio_joins_hf/thumbnail.png
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/1778297?v=4" width="100" title="Gravatar">
         <div class="bfc">
             <code>abidlabs</code>
-            <span class="fullname">Abubakar Abid, previously CEO of Gradio</span>
+            <span class="fullname">Abubakar Abid, Gradio team lead</span>
         </div>
     </a>
 </div>

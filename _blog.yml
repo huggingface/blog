@@ -247,7 +247,7 @@
 - local: gradio-joins-hf
   title: "Gradio joins Hugging Face!"
   thumbnail: ./assets/42_gradio_joins_hf/thumbnail.png
-  date: December 22, 2021  
+  date: December 21, 2021
 
 - local: autonlp-prodigy
   title: "Active Learning with AutoNLP and Prodigy"
