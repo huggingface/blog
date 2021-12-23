@@ -94,7 +94,7 @@ Once you run the above command, you can go to the prodigy web interface (usually
 
 All you have to do is select which entity you want to label (PERSON, ORG, PRODUCT, LOCATION) and then select the text that belongs to the entity. Once you are done with one document, you can click on the green button and Prodigy will automatically provide you with next unlabelled document.
 
-![prodigy_ner_demo](assets/43_autonlp_prodigy/prodigy.png)
+![prodigy_ner_demo](assets/43_autonlp_prodigy/prodigy.gif)
 
 Using Prodigy, we started labelling the dataset. When we had around 20 samples, we trained a model using AutoNLP. Prodigy doesn't export the data in AutoNLP format, so we wrote a quick and dirty script to convert the data into AutoNLP format:
 
