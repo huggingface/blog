@@ -1,6 +1,6 @@
 ---
 title: "Active Learning with AutoNLP and Prodigy"
-thumbnail: /blog/assets/42_autonlp_prodigy/thumbnail.png
+thumbnail: /blog/assets/43_autonlp_prodigy/thumbnail.png
 ---
 
 <h1>Active Learning with AutoNLP and Prodigy</h1>
@@ -46,7 +46,7 @@ Now begins the most interesting part of this article. After looking at a lot of 
 
 Let's take a look at this dataset:
 
-<img src="assets/42_autonlp_prodigy/data_view.png" width=500 height=250>
+<img src="assets/43_autonlp_prodigy/data_view.png" width=500 height=250>
 
 As we can see this is a classification dataset. There is a `Text` column which is the text of the news article and a `Category` column which is the class of the article. Overall, there are 5 different classes: `business`, `entertainment`, `politics`, `sport` & `tech`. 
 
@@ -56,21 +56,21 @@ Step 1: Download the dataset.
 
 Step 2: Open [AutoNLP](https://ui.autonlp.huggingface.co/) and create a new project.
 
-<img src="assets/42_autonlp_prodigy/autonlp_create_project.png">
+<img src="assets/43_autonlp_prodigy/autonlp_create_project.png">
 
 Step 3: Upload the training dataset and choose auto-splitting.
 
-<img src="assets/42_autonlp_prodigy/autonlp_data_multi_class.png">
+<img src="assets/43_autonlp_prodigy/autonlp_data_multi_class.png">
 
 Step 4: Accept the pricing and train your models.
 
-<img src="assets/42_autonlp_prodigy/autonlp_estimate.png">
+<img src="assets/43_autonlp_prodigy/autonlp_estimate.png">
 
 Please note that in the above example, we are training 15 different multi-class classification models. AutoNLP pricing can be as low as $10 per model. AutoNLP will select the best models and do hyperparameter tuning for you on its own. So, now, all we need to do is sit back, relax and wait for the results.
 
 After around 15 minutes, all models finished training and the results are ready. It seems like the best model scored 98.67% accuracy! 
 
-<img src="assets/42_autonlp_prodigy/autonlp_multi_class_results.png">
+<img src="assets/43_autonlp_prodigy/autonlp_multi_class_results.png">
 
 So, we are now able to classify the articles in the dataset with an accuracy of 98.67%! But wait, we were talking about active learning and Prodigy. What happened to those? 🤔 We did use Prodigy as we will see soon. We used it to label this dataset for the named entity recognition task. Before starting the labeling part, we thought it would be cool to have a project in which we are not only able to detect the entities in news articles but also categorize them. That's why we built this classification model on existing labels.
 
@@ -90,11 +90,11 @@ Let's look at the different values:
 
 Once you run the above command, you can go to the prodigy web interface (usually at localhost:8080) and start labelling the dataset. Prodigy interface is very simple, intuitive and easy to use. The interface looks like the following:
 
-<img src="assets/42_autonlp_prodigy/prodigy_ner.png">
+<img src="assets/43_autonlp_prodigy/prodigy_ner.png">
 
 All you have to do is select which entity you want to label (PERSON, ORG, PRODUCT, LOCATION) and then select the text that belongs to the entity. Once you are done with one document, you can click on the green button and Prodigy will automatically provide you with next unlabelled document.
 
-![prodigy_ner_demo](assets/42_autonlp_prodigy/prodigy.png)
+![prodigy_ner_demo](assets/43_autonlp_prodigy/prodigy.png)
 
 Using Prodigy, we started labelling the dataset. When we had around 20 samples, we trained a model using AutoNLP. Prodigy doesn't export the data in AutoNLP format, so we wrote a quick and dirty script to convert the data into AutoNLP format:
 
@@ -135,7 +135,7 @@ This will provide us with a `JSONL` file which can be used for training a model 
 
 After labelling around 70 samples, we started getting some results. The accuracy went up to 92%, precision was 0.52 and recall around 0.42. We were getting some results, but still not satisfactory. In the following image, we can see how this model performs on an unseen sample.
 
-<img src="assets/42_autonlp_prodigy/a1.png">
+<img src="assets/43_autonlp_prodigy/a1.png">
 
 As you can see, the model is struggling. But it's much better than before! Previously, the model was not even able to predict anything in the same text. At least now, it's able to figure out that `Bruce` and `David` are names.
 
@@ -145,15 +145,15 @@ Please note that, in each iteration, our dataset is getting bigger. All we are d
 
 After labelling around ~150 samples, we started getting some good results. The accuracy went up to 95.7%, precision was 0.64 and recall around 0.76. 
 
-<img src="assets/42_autonlp_prodigy/a3.png">
+<img src="assets/43_autonlp_prodigy/a3.png">
 
 Let's take a look at how this model performs on the same unseen sample.
 
-<img src="assets/42_autonlp_prodigy/a2.png">
+<img src="assets/43_autonlp_prodigy/a2.png">
 
 WOW! This is amazing! As you can see, the model is now performing extremely well! Its able to detect many entities in the same text. The precision and recall were still a bit low and thus we continued labeling even more data. After labeling around ~250 samples, we had the best results in terms of precision and recall. The accuracy went up to ~95.9% and precision and recall were 0.73 and 0.79 respectively. At this point, we decided to stop labelling and end the experimentation process. The following graph shows how the accuracy of best model improved as we added more samples to the dataset:
 
-<img src="assets/42_autonlp_prodigy/chart.png">
+<img src="assets/43_autonlp_prodigy/chart.png">
 
 Well, it's a well known fact that more relevant data will lead to better models and thus better results. With this experimentation, we successfully created a model that can not only classify the entities in the news articles but also categorize them. Using tools like Prodigy and AutoNLP, we invested our time and effort only to label the dataset (even that was made simpler by the interface prodigy offers). AutoNLP saved us a lot of time and effort: we didn't have to figure out which models to use, how to train them, how to evaluate them, how to tune the parameters, which optimizer and scheduler to use, pre-processing, post-processing etc. We just needed to label the dataset and let AutoNLP do everything else.
 
