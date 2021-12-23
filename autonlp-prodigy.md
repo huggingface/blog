@@ -38,7 +38,7 @@ At the time of writing this article, AutoNLP supports tasks like binary classifi
 
 Note that Prodigy is a commercial tool. You can find out more about it [here](https://prodi.gy/buy).
 
-We chose Prodigy as it is one of the most popular tools for labeling data and is inifitely customizable. It is also very easy to setup and use.
+We chose Prodigy as it is one of the most popular tools for labeling data and is infinitely customizable. It is also very easy to setup and use.
 
 ## Dataset
 
