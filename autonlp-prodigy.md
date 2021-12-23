@@ -34,7 +34,7 @@ At the time of writing this article, AutoNLP supports tasks like binary classifi
 
 ## Prodigy
 
-[Prodigy](https://prodi.gy/) is an annotation tool developed by Explosion (the makers of [spaCy](https://spacy.io/)). It is a web-based tool that allows you to annotate your data in real time and not just for Natural Language Processing tasks! Prodigy supports NLP tasks such as named entity recognition (NER) and text classification, but it's not limited to NLP! It  supports Computer Vision tasks and even creating your own tasks! You can try the Prodigy demo: [here](https://prodi.gy/demo).
+[Prodigy](https://prodi.gy/) is an annotation tool developed by Explosion (the makers of [spaCy](https://spacy.io/)). It is a web-based tool that allows you to annotate your data in real time. Prodigy supports NLP tasks such as named entity recognition (NER) and text classification, but it's not limited to NLP! It supports Computer Vision tasks and even creating your own tasks! You can try the Prodigy demo: [here](https://prodi.gy/demo).
 
 Note that Prodigy is a commercial tool. You can find out more about it [here](https://prodi.gy/buy).
 
