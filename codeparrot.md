@@ -36,7 +36,7 @@ The first thing we need is a large training dataset. With the goal to train a Py
 
 You can learn more about our findings in [this Twitter thread](https://twitter.com/lvwerra/status/1458470994146996225). We removed the duplicates and applied the same cleaning heuristics found in the [Codex paper](https://arxiv.org/abs/2107.03374). Codex is the model behind CoPilot and is a GPT-3 model fine-tuned on GitHub code. 
 
-The cleaned dataset is still 50GB big and available on the Hugging Face Hub: [codeparrot-clean](http://hf.co/datasets/lvwerra/codeparrot-clean). With that we can setup a new tokenizer and train a model model.
+The cleaned dataset is still 50GB big and available on the Hugging Face Hub: [codeparrot-clean](http://hf.co/datasets/lvwerra/codeparrot-clean). With that we can setup a new tokenizer and train a model.
 
 ## Initializing the Tokenizer and Model
 
