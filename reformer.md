@@ -322,7 +322,7 @@ Let's illustrate the feed forward layers for \\( \mathbf{\overline{z}}_1, \ldots
 
 As can be depicted from the illustration, all input vectors \\( \mathbf{\overline{z}}_{i} \\) are processed by the same feed forward layer in parallel.
 
-It becomes interesting when one takes a look at the output dimensions of the feed forward layers. In Reformer, the output dimension of \\( \text{Linear}_{\text{int}} \\) is defined as `config.feed_forward_size`, *e.g.* \\( d_{f} \\), and the output dimension of \\( \text{Linear}_{\text{int}} \\) is defined as `config.hidden_size`, *i.e.* \\( d_{h} \\). 
+It becomes interesting when one takes a look at the output dimensions of the feed forward layers. In Reformer, the output dimension of \\( \text{Linear}_{\text{int}} \\) is defined as `config.feed_forward_size`, *e.g.* \\( d_{f} \\), and the output dimension of \\( \text{Linear}_{\text{out}} \\) is defined as `config.hidden_size`, *i.e.* \\( d_{h} \\). 
 
 The Reformer authors observed that in a transformer model the intermediate dimension \\( d_{f} \\) usually tends to be much larger than the output dimension \\(^{2}\\) \\( d_{h} \\). This means that the tensor \\( \mathbf{\mathbf{Y}}_\text{int} \\) of dimension \\( d_{f} \times n \\) allocates a significant amount of the total memory and can even become the memory bottleneck.
 
