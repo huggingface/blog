@@ -1,12 +1,14 @@
 - local: how-to-train
   title: How to train a new language model from scratch using Transformers and Tokenizers
   thumbnail: ./assets/01_how-to-train/how-to-train_blogpost.png
+  author: julien-c
   date: February-May, 2020
   tags:
   - guide
 
 - local: how-to-generate
   title: "How to generate text: using different decoding methods for language generation with Transformers"
+  author: patrickvonplaten
   thumbnail: ./assets/02_how-to-generate/thumbnail.png
   date: March, 2020
   tags:
@@ -35,6 +37,7 @@
 
 - local: reformer
   title: "The Reformer - Pushing the limits of language modeling"
+  author: patrickvonplaten
   thumbnail: ./assets/03_reformer/thumbnail.png
   date: July 3, 2020
   tags:
@@ -42,6 +45,7 @@
 
 - local: pytorch_block_sparse
   title: Block Sparse Matrices for Smaller and Faster Language Models
+  author: madlag
   thumbnail: ./assets/04_pytorch_block_sparse/thumbnail.png
   date: Sep 10, 2020
   tags:
@@ -56,6 +60,7 @@
 
 - local: encoder-decoder
   title: "Transformer-based Encoder-Decoder Models"
+  author: patrickvonplaten
   thumbnail: ./assets/05_encoder_decoder/thumbnail.png
   date: October 10, 2020
   tags:
@@ -80,6 +85,7 @@
 
 - local: warm-starting-encoder-decoder
   title: "Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models"
+  author: patrickvonplaten
   thumbnail: ./assets/08_warm_starting_encoder_decoder/thumbnail.png
   date: November 09, 2020
   tags:
@@ -87,6 +93,7 @@
 
 - local: accelerated-inference
   title: How we sped up transformer inference 100x for 🤗 API customers
+  author: Narsil
   thumbnail: ./assets/09_accelerated_inference/thumbnail.png
   date: January 18, 2021
   tags:
@@ -94,6 +101,7 @@
 
 - local: zero-deepspeed-fairscale
   title: "Fit More and Train Faster With ZeRO via DeepSpeed and FairScale"
+  author: stas
   thumbnail: ./assets/11_zero_deepspeed_fairscale/zero-partitioning.png
   date: January 19, 2021
   tags:
@@ -101,6 +109,7 @@
 
 - local: tf-serving
   title: "Faster TensorFlow models in Hugging Face Transformers"
+  author: jplu
   thumbnail: ./assets/10_tf-serving/thumbnail.png
   date: January 26, 2021
   tags:
@@ -126,6 +135,7 @@
 
 - local: simple-considerations
   title: "Simple considerations for simple people building fancy neural networks"
+  author: VictorSanh
   thumbnail: ./assets/13_simple-considerations/henry-co-3coKbdfnAFg-unsplash.jpg
   date: February 25, 2021
   tags:
@@ -133,6 +143,7 @@
 
 - local: long-range-transformers
   title: "Hugging Face Reads, Feb. 2021 - Long-range Transformers"
+  author: VictorSanh
   thumbnail: ./assets/14_long_range_transformers/EfficientTransformerTaxonomy.png
   date: March 09, 2021
   tags:
@@ -140,6 +151,7 @@
 
 - local: fine-tune-wav2vec2-english
   title: "Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers"
+  author: patrickvonplaten
   thumbnail: ./assets/15_fine_tune_wav2vec2/wav2vec2.png
   date: March 12, 2021
   tags:
@@ -155,6 +167,7 @@
 
 - local: the-partnership-amazon-sagemaker-and-hugging-face
   title: "The Partnership: Amazon SageMaker and Hugging Face"
+  author: philschmid
   thumbnail: ./assets/17_the_partnership_amazon_sagemaker_and_hugging_face/thumbnail.png
   date: March 23, 2021
   tags:
@@ -178,6 +191,7 @@
 
 - local: sagemaker-distributed-training-seq2seq
   title: "Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker"
+  author: philschmid
   thumbnail: ./assets/19_sagemaker_distributed_training_seq2seq/thumbnail.png
   date: April 8, 2021
   tags:
@@ -210,6 +224,7 @@
 
 - local: few-shot-learning-gpt-neo-and-inference-api
   title: "Few-shot learning in practice: GPT-NEO and the 🤗 Accelerated Inference API"
+  author: philschmid
   thumbnail: ./assets/22_few_shot_learning_gpt_neo_and_inference_api/few-shot-prompt.png
   date: June 3, 2021
   tags:
@@ -217,18 +232,22 @@
 
 - local: sentence-transformers-in-the-hub
   title: "Sentence Transformers in the 🤗 Hub"
+  author: nreimers
   date: June 28, 2021
   tags:
   - open-source-collab
 
 - local: deploy-hugging-face-models-easily-with-amazon-sagemaker
   title: "Deploy Hugging Face models easily with Amazon SageMaker"
+  author: philschmid
   date: July 8, 2021
   tags:
   - guide
 
 - local: spacy
   title: "Welcome spaCy to the 🤗 Hub"
+  author: ines
+  guest: true
   thumbnail: ./assets/23_spacy/thumbnail.png
   date: July 13, 2021
   tags:
@@ -236,6 +255,8 @@
 
 - local: collaborative-training
   title: "Deep Learning over the Internet: Training Language Models Collaboratively"
+  author: mryab
+  guest: true
   thumbnail: ./assets/24_sahajBERT/thumbnail.png
   date: July 15, 2021
   tags:
@@ -243,6 +264,7 @@
 
 - local: hardware-partners-program
   title: "Introducing Optimum: The Optimization Toolkit for Transformers at Scale"
+  author: mfuntowicz
   thumbnail: ./assets/25_hardware_partners_program/carbon_lpot_quantizer.png
   date: September 14, 2021
   tags:
@@ -250,6 +272,8 @@
 
 - local: graphcore
   title: "Hugging Face and Graphcore partner for IPU-optimized Transformers"
+  author: sallydoherty
+  guest: true
   thumbnail: ./assets/26_graphcore-ipu/thumbnail.png
   date: September 14, 2021
   tags:
@@ -257,6 +281,7 @@
 
 - local: summer-at-huggingface
   title: "Summer at Hugging Face ☀️"
+  author: huggingface
   thumbnail: ./assets/27_summer_at_huggingface/thumbnail.png
   date: September 24, 2021
   tags:
@@ -264,6 +289,7 @@
 
 - local: gradio-spaces
   title: "Showcase Your Projects in Spaces using Gradio"
+  author: merve
   thumbnail: ./assets/28_gradio-spaces/thumbnail.png
   date: October 5, 2021
   tags:
@@ -271,6 +297,7 @@
 
 - local: streamlit-spaces
   title: "Hosting your Models and Datasets on Hugging Face Spaces using Streamlit"
+  author: merve
   thumbnail: ./assets/29_streamlit-spaces/thumbnail.png
   date: October 5, 2021
   tags:
@@ -278,6 +305,8 @@
   
 - local: fine-tune-clip-rsicd
   title: "Fine tuning CLIP with Remote Sensing (Satellite) images and captions"
+  author: arampacha
+  guest: true
   thumbnail: ./assets/30_clip_rsicd/clip-rsicd-header-image.png
   date: October 13, 2021
   tags:
@@ -285,6 +314,7 @@
 
 - local: the-age-of-ml-as-code
   title: "The Age of Machine Learning As Code Has Arrived"
+  author: juliensimon
   thumbnail: ./assets/31_age_of_ml_as_code/01_entreprise_ml.png
   date: October 20, 2021
   tags:
@@ -292,6 +322,8 @@
   
 - local: 1b-sentence-embeddings
   title: "Train a Sentence Embedding Model with 1B Training Pairs"
+  author: asi
+  guest: true
   thumbnail: ./assets/32_1b_sentence_embeddings/model.png
   date: October 25, 2021
   tags:
@@ -299,6 +331,7 @@
 
 - local: large-language-models
   title: "Large Language Models: A New Moore's Law?"
+  author: juliensimon
   thumbnail: ./assets/33_large_language_models/01_model_size.jpg
   date: October 26, 2021
   tags:
@@ -306,6 +339,7 @@
 
 - local: course-launch-event
   title: "Course Launch Community Event"
+  author: sgugger
   thumbnail: ./assets/34_course_launch/speakers_day1.png
   date: October 26, 2021
   tags:
@@ -313,6 +347,7 @@
 
 - local: bert-cpu-scaling-part-2
   title: "Scaling up BERT-like model Inference on modern CPU - Part 2"
+  author: mfuntowicz
   thumbnail: ./assets/35_bert_cpu_scaling_part_2/openmp.png
   date: November 4th, 2021
   tags:
@@ -320,6 +355,7 @@
 
 - local: fine-tune-xlsr-wav2vec2
   title: "Fine-tuning XLS-R for Multi-Lingual ASR with 🤗 Transformers"
+  author: patrickvonplaten
   thumbnail: ./assets/16_fine_tune_xlsr_wav2vec2/xlsr_wav2vec2.png
   date: November 15, 2021
   tags:
@@ -327,6 +363,7 @@
 
 - local: accelerating-pytorch
   title: "Accelerating PyTorch distributed fine-tuning with Intel technologies"
+  author: juliensimon
   thumbnail: ./assets/36_accelerating_pytorch/03_two_nodes.png
   date: November 19, 2021
   tags:
@@ -334,6 +371,7 @@
 
 - local: data-measurements-tool
   title: "Introducing the Data Measurements Tool: an Interactive Tool for Looking at Datasets"
+  author: sasha
   thumbnail: ./assets/37_data-measurements-tool/basics_scroll.gif
   date: November 29, 2021
   tags:
@@ -341,6 +379,8 @@
 
 - local: graphcore-getting-started
   title: "Getting Started with Hugging Face Transformers for IPUs with Optimum"
+  author: internetoftim
+  guest: true
   thumbnail: ./assets/38_getting_started_graphcore/graphcore_1.png
   date: November 30, 2021
   tags:
@@ -348,6 +388,7 @@
 
 - local: snowball-fight
   title: "Introducing Snowball Fight ☃️, our First ML-Agents Environment"
+  author: ThomasSimonini
   thumbnail: ./assets/39_introducing_snowball_fight/snowballfight.gif
   date: December 2, 2021
   tags:
@@ -363,6 +404,7 @@
 
 - local: perceiver
   title: "Perceiver IO: a scalable, fully-attentional model that works on any modality"
+  author: nielsr
   thumbnail: ./assets/41_perceiver/thumbnail.png
   date: December 15, 2021
   tags:
@@ -370,6 +412,7 @@
   
 - local: gradio-joins-hf
   title: "Gradio joins Hugging Face!"
+  author: abidlabs
   thumbnail: ./assets/42_gradio_joins_hf/thumbnail.png
   date: December 21, 2021
   tags:
@@ -377,6 +420,7 @@
 
 - local: autonlp-prodigy
   title: "Active Learning with AutoNLP and Prodigy"
+  author: abhishek
   thumbnail: ./assets/43_autonlp_prodigy/thumbnail.png
   date: December 23, 2021
   tags:
