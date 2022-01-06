@@ -352,3 +352,32 @@
   date: December 2, 2021
   tags:
   - research
+
+- local: codeparrot
+  title: "Training CodeParrot 🦜 from Scratch"
+  author: lvwerra
+  thumbnail: ./assets/40_codeparrot/thumbnail.png
+  date: December 8, 2021
+  tags:
+  - research
+
+- local: perceiver
+  title: "Perceiver IO: a scalable, fully-attentional model that works on any modality"
+  thumbnail: ./assets/41_perceiver/thumbnail.png
+  date: December 15, 2021
+  tags:
+  - research
+  
+- local: gradio-joins-hf
+  title: "Gradio joins Hugging Face!"
+  thumbnail: ./assets/42_gradio_joins_hf/thumbnail.png
+  date: December 21, 2021
+  tags:
+  - research
+
+- local: autonlp-prodigy
+  title: "Active Learning with AutoNLP and Prodigy"
+  thumbnail: ./assets/43_autonlp_prodigy/thumbnail.png
+  date: December 23, 2021
+  tags:
+  - research
