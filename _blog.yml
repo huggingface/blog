@@ -359,7 +359,7 @@
   thumbnail: ./assets/40_codeparrot/thumbnail.png
   date: December 8, 2021
   tags:
-  - research
+  - guide
 
 - local: perceiver
   title: "Perceiver IO: a scalable, fully-attentional model that works on any modality"
