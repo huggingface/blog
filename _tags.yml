@@ -2,8 +2,6 @@
   label: analysis
 - value: community
   label: community
-- value: engineering
-  label: engineering
 - value: guide
   label: guide
 - value: open-source-collab
