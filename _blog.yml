@@ -98,7 +98,7 @@
   thumbnail: ./assets/09_accelerated_inference/thumbnail.png
   date: January 18, 2021
   tags:
-  - engineering
+  - guide
 
 - local: zero-deepspeed-fairscale
   title: "Fit More and Train Faster With ZeRO via DeepSpeed and FairScale"
@@ -106,7 +106,7 @@
   thumbnail: ./assets/11_zero_deepspeed_fairscale/zero-partitioning.png
   date: January 19, 2021
   tags:
-  - engineering
+  - guide
 
 - local: tf-serving
   title: "Faster TensorFlow models in Hugging Face Transformers"
@@ -114,7 +114,7 @@
   thumbnail: ./assets/10_tf-serving/thumbnail.png
   date: January 26, 2021
   tags:
-  - engineering
+  - guide
 
 - local: pytorch-xla
   title: "Hugging Face on PyTorch / XLA TPUs"
@@ -164,7 +164,7 @@
   guest: true
   date: March 18, 2021
   tags:
-  - partnerships
+  - guide
 
 - local: the-partnership-amazon-sagemaker-and-hugging-face
   title: "The Partnership: Amazon SageMaker and Hugging Face"
@@ -197,6 +197,7 @@
   date: April 8, 2021
   tags:
   - guide
+  - partnerships
 
 - local: accelerate-library
   title: Introducing 🤗 Accelerate
@@ -204,7 +205,7 @@
   author: sgugger
   date: April 16, 2021
   tags:
-  - engineering
+  - guide
 
 - local: bert-cpu-scaling-part-1
   title: "Scaling-up BERT Inference on CPU (Part 1)"
@@ -212,7 +213,7 @@
   author: mfuntowicz
   date: April 20, 2021
   tags:
-  - engineering
+  - guide
 
 - local: gradio
   title: "Using & Mixing Hugging Face Models with Gradio 2.0"
@@ -222,6 +223,7 @@
   date: May 25, 2021
   tags:
   - open-source-collab
+  - guide
 
 - local: few-shot-learning-gpt-neo-and-inference-api
   title: "Few-shot learning in practice: GPT-NEO and the 🤗 Accelerated Inference API"
@@ -244,6 +246,7 @@
   date: July 8, 2021
   tags:
   - guide
+  - partnerships
 
 - local: spacy
   title: "Welcome spaCy to the 🤗 Hub"
@@ -269,7 +272,7 @@
   thumbnail: ./assets/25_hardware_partners_program/carbon_lpot_quantizer.png
   date: September 14, 2021
   tags:
-  - engineering
+  - guide
 
 - local: graphcore
   title: "Hugging Face and Graphcore partner for IPU-optimized Transformers"
@@ -336,7 +339,7 @@
   thumbnail: ./assets/33_large_language_models/01_model_size.jpg
   date: October 26, 2021
   tags:
-  - analysis
+  - community
 
 - local: course-launch-event
   title: "Course Launch Community Event"
@@ -352,7 +355,7 @@
   thumbnail: ./assets/35_bert_cpu_scaling_part_2/openmp.png
   date: November 4th, 2021
   tags:
-  - engineering
+  - guide
 
 - local: fine-tune-xlsr-wav2vec2
   title: "Fine-tuning XLS-R for Multi-Lingual ASR with 🤗 Transformers"
