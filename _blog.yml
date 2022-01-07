@@ -249,8 +249,7 @@
 
 - local: spacy
   title: "Welcome spaCy to the 🤗 Hub"
-  author: ines
-  guest: true
+  author: osanseviero
   thumbnail: ./assets/23_spacy/thumbnail.png
   date: July 13, 2021
   tags:
@@ -338,7 +337,7 @@
   thumbnail: ./assets/33_large_language_models/01_model_size.jpg
   date: October 26, 2021
   tags:
-  - community
+  - analysis
 
 - local: course-launch-event
   title: "Course Launch Community Event"
