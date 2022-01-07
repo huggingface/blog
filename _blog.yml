@@ -42,7 +42,7 @@
   thumbnail: ./assets/03_reformer/thumbnail.png
   date: July 3, 2020
   tags:
-  - guide
+  - research
 
 - local: pytorch_block_sparse
   title: Block Sparse Matrices for Smaller and Faster Language Models
@@ -65,7 +65,7 @@
   thumbnail: ./assets/05_encoder_decoder/thumbnail.png
   date: October 10, 2020
   tags:
-  - guide
+  - research
 
 - local: ray-tune
   title: "Hyperparameter Search with Transformers and Ray Tune"
@@ -98,7 +98,7 @@
   thumbnail: ./assets/09_accelerated_inference/thumbnail.png
   date: January 18, 2021
   tags:
-  - guide
+  - analysis
 
 - local: zero-deepspeed-fairscale
   title: "Fit More and Train Faster With ZeRO via DeepSpeed and FairScale"
@@ -181,7 +181,8 @@
   guest: true
   date: March 31, 2021
   tags:
-  - guide
+  - community
+  - research
 
 - external: https://huggingface.co/blog/how_many_data_points
   title: "How many data points is a prompt worth?"
@@ -404,6 +405,7 @@
   date: December 8, 2021
   tags:
   - guide
+  - research
 
 - local: perceiver
   title: "Perceiver IO: a scalable, fully-attentional model that works on any modality"
@@ -412,6 +414,7 @@
   date: December 15, 2021
   tags:
   - research
+  - guide
   
 - local: gradio-joins-hf
   title: "Gradio joins Hugging Face!"
@@ -419,7 +422,8 @@
   thumbnail: ./assets/42_gradio_joins_hf/thumbnail.png
   date: December 21, 2021
   tags:
-  - research
+  - community
+  - open-source-collab
 
 - local: autonlp-prodigy
   title: "Active Learning with AutoNLP and Prodigy"
@@ -428,3 +432,4 @@
   date: December 23, 2021
   tags:
   - research
+  - partnerships
