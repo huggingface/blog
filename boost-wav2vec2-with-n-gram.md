@@ -1,13 +1,35 @@
 ---
-
-
+title: "Fine-Tune XLSR-Wav2Vec2 for low-resource ASR with 🤗 Transformers"
+thumbnail: /blog/assets/wav2vec2_ngram.png
 ---
 
-# **Boosting Wav2Vec2 with n-grams in 🤗 Transformers**
+<h1>
+    Boosting Wav2Vec2 with n-grams in 🤗 Transformers
+</h1>
+
+<div class="blog-metadata">
+    <small>Published January 12, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/boost-wav2vec2-with-n-gram.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/patrickvonplaten">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1584435275418-5dfcb1aada6d0311fd3d5448.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>patrickvonplaten</code>
+            <span class="fullname">Patrick von Platen</span>
+        </div>
+    </a>
+</div>
+
+<a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Boosting_Wav2Vec2_with_n_grams_in_Transformers.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 
 **Wav2Vec2** is a popular pre-trained model for speech recognition.
-Released in [September
-2020](https://ai.facebook.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/)
+Released in [September 2020](https://ai.facebook.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/)
 by Meta AI Research, the novel architecture catalyzed progress in
 self-supervised pretraining for speech recognition, *e.g.* [*G. Ng et
 al.*, 2021](https://arxiv.org/pdf/2104.03416.pdf), [*Chen et al*,
