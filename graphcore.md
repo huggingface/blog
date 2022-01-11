@@ -1,6 +1,6 @@
 ---
 title: "Hugging Face and Graphcore partner for IPU-optimized Transformers"
-thumbnail: blog/assets/26_graphcore-ipu/thumbnail.png
+thumbnail: /blog/assets/26_graphcore-ipu/thumbnail.png
 ---
 
 # Hugging Face and Graphcore partner for IPU-optimized Transformers
