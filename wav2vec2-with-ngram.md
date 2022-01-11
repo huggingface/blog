@@ -71,7 +71,7 @@ yield acceptable audio transcriptions.
 
 As can be seen in Appendix C of the [official
 paper](https://arxiv.org/abs/2006.11477), Wav2Vec2 gives impressive
-downstream performances on LibriSpeech without using a language model at
+downstream performances on [LibriSpeech](https://huggingface.co/datasets/librispeech_asr) without using a language model at
 all. However, from the appendix, it also becomes clear that using Wav2Vec2
 in combination with a language model can yield a significant
 improvement, especially when the model was trained on only 10 minutes of
@@ -163,7 +163,7 @@ model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base-100h")
 Next, we process the data
 
 ```python
-inputs = processor(audio_sample["audio"]["array"], sampling_rate=16_000, return_tensors="pt")
+inputs = processor(audio_sample["audio"]["array"], sampling_rate=audio_sample["audio"]["sampling_rate"], return_tensors="pt")
 ```
 
 forward it to the model
@@ -274,9 +274,8 @@ Cool! Recalling the words `facebook/wav2vec2-base-100h` without a
 language model transcribed incorrectly previously, *e.g.*,
 
 > -   *christmaus* vs. *christmas*
-
--   *rose* vs. *roast*
--   *simalyis* vs. *similes*
+> -   *rose* vs. *roast*
+> -   *simalyis* vs. *similes*
 
 we can take another look at the transcription of
 `facebook/wav2vec2-base-100h` **with** a 4-gram language model. 2 out of
@@ -290,7 +289,7 @@ model is much more prone to yield spelling mistakes, such as
 language as far as I know). This is because the speech recognition
 system almost solely bases its prediction on the acoustic input it was
 given and not really on the language modeling context of previous and
-successive predicted letters ${}^1$. If on the other hand, we add a
+successive predicted letters \\( {}^1 \\). If on the other hand, we add a
 language model, we can be fairly sure that the speech recognition
 system will heavily reduce spelling errors since a well-trained *n-gram*
 model will surely not predict a word that has spelling errors. But the
@@ -311,7 +310,7 @@ official documentation
 
 ------------------------------------------------------------------------
 
-${}^1$ Some research shows that a model such as
+\\({}^1 \\) Some research shows that a model such as
 `facebook/wav2vec2-base-100h` - when sufficiently large and trained on
 enough data - can learn language modeling dependencies between
 intermediate audio representations similar to a language model.
@@ -519,6 +518,8 @@ with open("text.txt", "w") as file:
 Now, we just have to run KenLM's `lmplz` command to build our *n-gram*,
 called `"5gram.arpa"`. As it's relatively common in speech recognition,
 we build a *5-gram* by passing the `-o 5` parameter.
+For more information on the different *n-gram* LM that can be built 
+with KenLM, one can take a look at the [official website of KenLM](https://kheafield.com/code/kenlm/).
 
 Executing the command below might take a minute or so.
 

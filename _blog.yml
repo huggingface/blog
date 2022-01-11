@@ -434,7 +434,7 @@
   - research
   - partnerships
 
-- local: boost-wav2vec2-with-n-gram
+- local: wav2vec2-with-ngram
   title: "Boost Wav2Vec2 with n-gram LM in 🤗 Transformers"
   author: patrickvonplaten
   thumbnail: ./assets/44_boost_wav2vec2_ngram/wav2vec2_ngram.png
