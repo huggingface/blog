@@ -442,3 +442,12 @@
   tags:
   - research
   - guide
+
+- local: gptj-sagemaker
+  title: "Deploy GPT-J 6B for inference using  Hugging Face Transformers and Amazon SageMaker"
+  author: philschmid
+  thumbnail: /blog/assets/45_gptj_sagemaker/thumbnail.png
+  date: January 11, 2022
+  tags:
+  - partnerships
+  - guide
