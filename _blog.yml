@@ -433,3 +433,12 @@
   tags:
   - research
   - partnerships
+
+- local: boost-wav2vec2-with-n-gram
+  title: "Boost Wav2Vec2 with n-gram LM in 🤗 Transformers"
+  author: patrickvonplaten
+  thumbnail: ./assets/44_boost_wav2vec2_with_ngram/ngram_wav2vec2.png
+  date: January 11, 2022
+  tags:
+  - research
+  - guide

@@ -1,4 +1,9 @@
-# **Boosting Wav2Vec2 with n-grams in 🤗 Transformers** {#boosting-wav2vec2-with-n-grams-in--transformers}
+---
+
+
+---
+
+# **Boosting Wav2Vec2 with n-grams in 🤗 Transformers**
 
 **Wav2Vec2** is a popular pre-trained model for speech recognition.
 Released in [September
@@ -78,7 +83,7 @@ material:
 -   [An Illustrated Tour of Wav2vec
     2.0](https://jonathanbgn.com/2021/09/30/illustrated-wav2vec-2.html)
 
-## **1. Decoding audio data with Wav2Vec2 and a language model** {#1-decoding-audio-data-with-wav2vec2-and-a-language-model}
+## **1. Decoding audio data with Wav2Vec2 and a language model**
 
 As shown in 🤗 Transformers [exemple docs of
 Wav2Vec2](https://huggingface.co/docs/transformers/master/en/model_doc/wav2vec2#transformers.Wav2Vec2ForCTC),
@@ -159,6 +164,7 @@ transcription[0].lower()
 
 **Output:**
 ```bash
+'he tells us that at this festive season of the year with christmaus and rose beef looming before us simalyis drawn from eating and its results occur most readily to the mind'
 ```
 
 Comparing the transcription to the target transcription above, we can
@@ -220,6 +226,7 @@ model:
 
 **Output:**
 ```bash
+"' </s> <pad> <s> <unk> A B C D E F G H I J K L M N O P Q R S T U V W X Y Z |"
 ```
 
 Intuitively, one can understand the decoding process of
@@ -238,6 +245,7 @@ transcription[0].lower()
 
 **Output:**
 ```bash
+'he tells us that at this festive season of the year with christmas and rose beef looming before us similes drawn from eating and its results occur most readily to the mind'
 ```
 
 Cool! Recalling the words `facebook/wav2vec2-base-100h` without a
@@ -290,7 +298,7 @@ Great, now that you have seen the advantages adding an *n-gram* language
 model can bring, let's dive into how to create an *n-gram* and
 `Wav2Vec2ProcessorWithLM` from scratch.
 
-## **2. Getting data for your language model** {#2-getting-data-for-your-language-model}
+## **2. Getting data for your language model**
 
 A language model that is useful for a speech recognition system should
 support the acoustic model, *e.g.* Wav2Vec2, in predicting the next word
@@ -355,7 +363,6 @@ Let's download the data.
 from datasets import load_dataset
 
 dataset = load_dataset("europarl_bilingual", lang1="en", lang2=target_lang, split="train")
-dataset
 ```
 
 We see that the data is quite large - it has over a million
@@ -417,17 +424,10 @@ notebook_login()
 Next, we call 🤗 Hugging Face's
 [`push_to_hub`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=push#datasets.Dataset.push_to_hub)
 method to upload the dataset to the repo
-`"swedish_corpora_parliament_processed"`.
+`"sv_corpora_parliament_processed"`.
 
 ```python
 dataset.push_to_hub(f"{target_lang}_corpora_parliament_processed", split="train")
-```
-
-**Output:**
-```bash
-    The repository already exists: the `private` keyword argument will be ignored.
-
-{"model_id":"8bffcb75f5504c11982df20cc1436d30","version_major":2,"version_minor":0}
 ```
 
 That was easy! The dataset viewer is automatically enabled when
@@ -441,6 +441,17 @@ is well processed and seems clean.
 
 Next, let's use the data to build a language model.
 
+## **3. Build an *n-gram* with KenLM**
+
+While large language models (LMs) based on the [Transformer architecture](https://jalammar.github.io/illustrated-transformer/) have become the standard in NLP, it is still very common to use an ***n-gram*** LM to boost speech recognition systems - as shown in Section 1.
+
+Looking again at Table 9 of Appendix C of the [official Wav2Vec2 paper](https://arxiv.org/abs/2006.11477), it can be noticed that using a *Transformer*-based LM for decoding clearly yields better results than using an *n-gram* model, but the difference between *n-gram* and *Transformer*-based LM is much less significant than the difference between *n-gram* and no LM. 
+
+*E.g.*, for the large Wav2Vec2 checkpoint that was fine-tuned on 10min only, an *n-gram* reduces the word error rate (WER) compared to no LM by *ca.* 80% while a *Transformer*-based LM *only* reduces the WER by another 23% compared to the *n-gram*. This relative WER reduction becomes less, the more data the acoustic model has been trained on. *E.g.*, for the large checkpoint a *Transformer*-based LM reduces the WER by merely 8% compared to an *n-gram* LM whereas the *n-gram* still yields a 21% WER reduction compared to no language model.
+
+The reason why an *n-gram* is preferred over a *Transformer*-based LM is that *n-grams* come at a significantly smaller computational cost. For an *n-gram*, retrieving the probability of a word given previous words is almost only as computationally expensive as querying a look-up table or tree-like data storage - *i.e.* it's very fast compared to modern *Transformer*-based language models that would require a full forward pass to retrieve the next word probabilities.
+
+For more information on how *n-grams* function and why they are (still) so useful for speech recognition, the reader is advised to take a look at [this excellent summary](https://web.stanford.edu/~jurafsky/slp3/3.pdf) from Stanford.
 
 Great, let's see step-by-step how to build an *n-gram*. We will use the
 popular [KenLM library](https://github.com/kpu/kenlm) to do so. Let's
@@ -626,7 +637,7 @@ to do is to correctly integrate the `"ngram"` with
 [`pyctcdecode`](https://github.com/kensho-technologies/pyctcdecode) and
 🤗 Transformers.
 
-## **4. Combine an *n-gram* with Wav2Vec2** {#4-combine-an-n-gram-with-wav2vec2}
+## **4. Combine an *n-gram* with Wav2Vec2**
 
 In a final step, we want to wrap the *5-gram* into a
 `Wav2Vec2ProcessorWithLM` object to make the *5-gram* boosted decoding
