@@ -57,7 +57,7 @@ sequence of letters. It does so by:
     output letters.
 
 Previously audio classification models required an additional language
-model and a dictionary to transform the sequence of classified audio
+model (LM) and a dictionary to transform the sequence of classified audio
 frames to a coherent transcription. Wav2Vec2's architecture is based on
 transformer layers, thus giving each processed audio representation
 context from all other audio representations. In addition, Wav2Vec2
@@ -72,7 +72,7 @@ yield acceptable audio transcriptions.
 As can be seen in Appendix C of the [official
 paper](https://arxiv.org/abs/2006.11477), Wav2Vec2 gives impressive
 downstream performances on LibriSpeech without using a language model at
-all. However, from this table, it also becomes clear that using Wav2Vec2
+all. However, from the appendix, it also becomes clear that using Wav2Vec2
 in combination with a language model can yield a significant
 improvement, especially when the model was trained on only 10 minutes of
 transcribed audio.
@@ -90,9 +90,9 @@ We start by:
 
 1.  How does decoding audio with an LM differ from decoding audio
     without an LM?
-2.  How to get suitable data for a language model
-3.  How to build an *n-gram* with KenLM
-4.  How to combine the *n-gram* with a fine-tuned Wav2Vec2 checkpoint.
+2.  How to get suitable data for a language model?
+3.  How to build an *n-gram* with KenLM?
+4.  How to combine the *n-gram* with a fine-tuned Wav2Vec2 checkpoint?
 
 For a deep dive into how Wav2Vec2 functions - which is not necessary for
 this blog post - the reader is advised to consult the following
@@ -291,7 +291,7 @@ language as far as I know). This is because the speech recognition
 system almost solely bases its prediction on the acoustic input it was
 given and not really on the language modeling context of previous and
 successive predicted letters ${}^1$. If on the other hand, we add a
-language modeling, we can be fairly sure that the speech recognition
+language model, we can be fairly sure that the speech recognition
 system will heavily reduce spelling errors since a well-trained *n-gram*
 model will surely not predict a word that has spelling errors. But the
 word *rose* is a valid English word and therefore the 4-gram will
@@ -357,12 +357,12 @@ Browsing a bit through the datasets, we are looking for a dataset that
 is similar to Common Voice's read-out audio data. The obvious choices
 of [oscar](https://huggingface.co/datasets/oscar) and
 [mc4](https://huggingface.co/datasets/mc4) might not be the most
-suitable here because:
+suitable here because they:
 
--   They are generated from crawling the web, which might not be very
+-   are generated from crawling the web, which might not be very
     clean and correspond well to spoken language
--   They require a lot of pre-processing
--   They are very large which is not ideal for demonstration purposes
+-   require a lot of pre-processing
+-   are very large which is not ideal for demonstration purposes
     here 😉
 
 A dataset that seems sensible here and which is relatively clean and
@@ -370,9 +370,9 @@ easy to pre-process is
 [europarl_bilingual](https://huggingface.co/datasets/europarl_bilingual)
 as it's a dataset that is based on discussions and talks of the
 European parliament. It should therefore be relatively clean and
-correspond well to read-out audio data. The dataset is originally design
+correspond well to read-out audio data. The dataset is originally designed
 for machine translation and can therefore only be accessed in
-translation pairs. We will simply extract only the text of the target
+translation pairs. We will only extract the text of the target
 language, Swedish (`sv`), from the *English-to-Swedish* translations.
 
 ```python
@@ -402,7 +402,7 @@ chars_to_ignore_regex = '[,?.!\-\;\:"“%‘”�—’…–]'  # change to th
 ```
 
 Let's do the same here so that the alphabet of our language model
-matches one of the fine-tuned acoustic checkpoints.
+matches the one of the fine-tuned acoustic checkpoints.
 
 We can write a single map function to extract the Swedish text and
 process it right away.
@@ -422,7 +422,7 @@ Let's apply the `.map()` function. This should take roughly 5 minutes.
 dataset = dataset.map(extract_text, remove_columns=dataset.column_names)
 ```
 
-Great. Let's upload it to the hub so
+Great. Let's upload it to the Hub so
 that we can inspect and reuse it better.
 
 You can log in by executing the following cell.
@@ -465,7 +465,7 @@ Next, let's use the data to build a language model.
 
 ## **3. Build an *n-gram* with KenLM**
 
-While large language models (LMs) based on the [Transformer architecture](https://jalammar.github.io/illustrated-transformer/) have become the standard in NLP, it is still very common to use an ***n-gram*** LM to boost speech recognition systems - as shown in Section 1.
+While large language models based on the [Transformer architecture](https://jalammar.github.io/illustrated-transformer/) have become the standard in NLP, it is still very common to use an ***n-gram*** LM to boost speech recognition systems - as shown in Section 1.
 
 Looking again at Table 9 of Appendix C of the [official Wav2Vec2 paper](https://arxiv.org/abs/2006.11477), it can be noticed that using a *Transformer*-based LM for decoding clearly yields better results than using an *n-gram* model, but the difference between *n-gram* and *Transformer*-based LM is much less significant than the difference between *n-gram* and no LM. 
 
@@ -497,7 +497,7 @@ mkdir kenlm/build && cd kenlm/build && cmake .. && make -j2
 ls kenlm/build/bin
 ```
 
-Great, as we can see that the executable functions have successfully
+Great, as we can see, the executable functions have successfully
 been built under `kenlm/build/bin/`.
 
 KenLM by default computes an *n-gram* with [Kneser-Ney
