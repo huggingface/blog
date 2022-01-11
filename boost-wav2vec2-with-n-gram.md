@@ -326,8 +326,8 @@ A language model that is useful for a speech recognition system should
 support the acoustic model, *e.g.* Wav2Vec2, in predicting the next word
 (or token, letter) and therefore model the following distribution:
 
-$\mathbf{P}(w_n | \mathbf{w}_0^{t-1})$ with $w_n$ being the next word
-and $\mathbf{w}_0^{t-1}$ being the sequence of all previous words since
+\\( \mathbf{P}(w_n | \mathbf{w}_0^{t-1}) \\) with \\( w_n \\) being the next word
+and \\( \mathbf{w}_0^{t-1} \\) being the sequence of all previous words since
 the beginning of the utterance. Simply said, the language model should
 be good at predicting the next word given all previously transcribed
 words regardless of the audio input given to the speech recognition
@@ -908,5 +908,5 @@ decoding as shown in Section 1.
 
 As can be seen on [`xls-r-300m-sv`'s model
 card](https://huggingface.co/hf-test/xls-r-300m-sv#inference-with-lm)
-our *5gram* LM-boosted decoder yields a WER of XX% on Common Voice's 7
-test set which is a relative performance of XX% 🔥.
+our *5gram* LM-boosted decoder yields a WER of 18.85% on Common Voice's 7
+test set which is a relative performance of *ca.* 30% 🔥.
