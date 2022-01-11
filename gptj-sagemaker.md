@@ -69,8 +69,6 @@ This means that when we save a model with `transformers==4.13.2` it could be pot
 
 Applying this to `GPT-J` means that we can reduce the loading time from `1 minute and 23 seconds` down to `7.7 seconds`, which is ~10.5x faster.
 
-![Untitled](Deploy%20GPT-J%206B%20for%20inference%20using%20Hugging%20Face%20T%201781d7d041bc421c8dbda6d1e81dfbc9/Untitled.png)
-
 <br>
 <figure class="image table text-center m-0 w-full">
   <medium-zoom background="rgba(0,0,0,.7)" alt="Model Load time of BERT and GPTJ" src="assets/45_gptj_sagemaker/model_load_time.png"></medium-zoom>
