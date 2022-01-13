@@ -52,7 +52,7 @@ Inference performance benchmarks often only measure the execution of the model. 
 
 <br>
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Product overview" src="assets/46_infinity_cpu_performance/pipeline.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Pipeline" src="assets/46_infinity_cpu_performance/pipeline.png"></medium-zoom>
   <figcaption>Figure 2. Infinity End-to-End Pipeline</figcaption>
 </figure>
 <br>
@@ -108,7 +108,7 @@ Below you can find the throughput comparison for running infinity on 2 physical 
 
 <br>
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Product overview" src="assets/46_infinity_cpu_performance/throughput.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Throughput" src="assets/46_infinity_cpu_performance/throughput.png"></medium-zoom>
   <figcaption>Figure 3. Throughput: Infinity vs Transformers</figcaption>
 </figure>
 <br>
@@ -132,7 +132,7 @@ Below, you can find the latency results for an experiment running Hugging Face I
 
 <br>
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Product overview" src="assets/46_infinity_cpu_performance/latency.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Latency" src="assets/46_infinity_cpu_performance/latency.png"></medium-zoom>
   <figcaption>Figure 4. Latency (Batch=1, Physical Cores=2)</figcaption>
 </figure>
 <br>
