@@ -434,6 +434,15 @@
   - research
   - partnerships
 
+- local: gptj-sagemaker
+  title: "Deploy GPT-J 6B for inference using  Hugging Face Transformers and Amazon SageMaker"
+  author: philschmid
+  thumbnail: /blog/assets/45_gptj_sagemaker/thumbnail.png
+  date: January 11, 2022
+  tags:
+  - partnerships
+  - guide
+
 - local: wav2vec2-with-ngram
   title: "Boost Wav2Vec2 with n-gram LM in 🤗 Transformers"
   author: patrickvonplaten
@@ -443,11 +452,10 @@
   - research
   - guide
 
-- local: gptj-sagemaker
-  title: "Deploy GPT-J 6B for inference using  Hugging Face Transformers and Amazon SageMaker"
+- local: infinity-cpu-performance
+  title: "Case Study: Millisecond Latency using Hugging Face Infinity and modern CPUs"
   author: philschmid
-  thumbnail: /blog/assets/45_gptj_sagemaker/thumbnail.png
-  date: January 11, 2022
+  thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
+  date: January 13, 2022
   tags:
-  - partnerships
-  - guide
+  - analysis
