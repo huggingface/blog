@@ -1,5 +1,5 @@
 ---
-title: "Fine-Tune XLSR-Wav2Vec2 for low-resource ASR with 🤗 Transformers"
+title: "Boosting Wav2Vec2 with n-grams in 🤗 Transformers"
 thumbnail: /blog/assets/44_boost_wav2vec2_ngram/wav2vec2_ngram.png
 ---
 
@@ -617,7 +617,7 @@ with open("5gram.arpa", "r") as read_file, open("5gram_correct.arpa", "w") as wr
     if not has_added_eos and "ngram 1=" in line:
       count=line.strip().split("=")[-1]
       write_file.write(line.replace(f"{count}", f"{int(count)+1}"))
-    elif not has_added_eos and "0	<s>	" in line:
+    elif not has_added_eos and "<s>" in line:
       write_file.write(line)
       write_file.write(line.replace("<s>", "</s>"))
       has_added_eos = True
