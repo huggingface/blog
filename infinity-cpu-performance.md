@@ -93,7 +93,7 @@ You can find the full data of the benchmark in this google spreadsheet: [🤗 In
 
 In this blog post, we will highlight a few results of the benchmark including the best latency and throughput configurations.
 
-In addition to this we have deploy the [DistilBERT](https://huggingface.co/bhadresh-savani/distilbert-base-uncased-emotion) we used as an API endpoint you can test and get a feeling for the speed of Infinity. Below you will find a `curl` command on how to send a request to the hosted endpoint. The API returns a `x-compute-time` HTTP Header, which contains the duration of the end-to-end pipeline.
+In addition to this we have deployed the [DistilBERT](https://huggingface.co/bhadresh-savani/distilbert-base-uncased-emotion) model we used for the benchmark as an API endpoint on 2 physical cores. You can test it and get a feeling for the performance of Infinity. Below you will find a `curl` command on how to send a request to the hosted endpoint. The API returns a `x-compute-time` HTTP Header, which contains the duration of the end-to-end pipeline.
 
 ```bash
 curl --request POST `-i` \
