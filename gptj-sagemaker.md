@@ -76,14 +76,14 @@ Applying this to `GPT-J` means that we can reduce the loading time from `1 minut
 </figure>
 <br>
 
-# Tutorial
+## Tutorial
 
 With this method of saving and loading models, we achieved model loading performance for `GPT-J` compatible with production scenarios. But we need to keep in mind that we need to align: 
 
 > Align PyTorch and Transformers version when saving the model with `torch.save(model,PATH)` and loading the model with `torch.load(PATH)` to avoid incompatibility.
 >
 
-## Save `GPT-J` using `torch.save`
+### Save `GPT-J` using `torch.save`
 
 To create our `torch.load()` compatible model file we load `GPT-J` using Transformers and the `from_pretrained` method, and then save it with `torch.save()`.
 
@@ -118,7 +118,7 @@ gen("My Name is philipp")
 
 ---
 
-## Create `model.tar.gz` for the Amazon SageMaker real-time endpoint
+### Create `model.tar.gz` for the Amazon SageMaker real-time endpoint
 
 Since we can load our model quickly and run inference on it let’s deploy it to Amazon SageMaker. 
 
@@ -146,7 +146,7 @@ python3 convert_gptj.py --bucket_name {model_storage}
 
 The `convert_gpt.py` should print out an S3 URI similar to this. `s3://hf-sagemaker-inference/gpt-j/model.tar.gz`.
 
-## Deploy `GPT-J` as Amazon SageMaker Endpoint
+### Deploy `GPT-J` as Amazon SageMaker Endpoint
 
 To deploy our Amazon SageMaker Endpoint we are going to use the [Amazon SageMaker Python SDK](https://sagemaker.readthedocs.io/en/stable/) and the `HuggingFaceModel` class. 
 
@@ -184,7 +184,7 @@ If you want to use your own `model.tar.gz` just replace the `model_uri` with you
 
 The deployment should take around 3-5 minutes.
 
-## Run predictions
+### Run predictions
 
 We can run predictions using the `predictor` instances created by our `.deploy` method. To send a request to our endpoint we use the `predictor.predict` with our `inputs`.
 
@@ -196,11 +196,11 @@ predictor.predict({
 
 If you want to customize your predictions using additional `kwargs` like `min_length`, check out  “Usage best practices” below. 
 
-# Usage best practices
+## Usage best practices
 
 When using generative models, most of the time you want to configure or customize your prediction to fit your needs, for example by using beam search, configuring the max or min length of the generated sequence, or adjust the temperature to reduce repetition. The Transformers library provides different strategies and `kwargs` to do this, the Hugging Face Inference toolkit offers the same functionality using the `parameters` attribute of your request payload. Below you can find examples on how to generate text without parameters, with beam search, and using custom configurations. If you want to learn about different decoding strategies check out this [blog post](https://huggingface.co/blog/how-to-generate).
 
-## Default request
+### Default request
 
 This is an example of a default request using `greedy` search.
 
@@ -212,7 +212,7 @@ predictor.predict({
 })
 ```
 
-## Beam search request
+### Beam search request
 
 This is an example of a request using `beam` search with 5 beams.
 
@@ -227,7 +227,7 @@ predictor.predict({
 })
 ```
 
-## Parameterized request
+### Parameterized request
 
 This is an example of a request using a custom parameter, e.g. `min_length` for generating at least 512 tokens.
 
@@ -243,7 +243,7 @@ predictor.predict({
 })
 ```
 
-## Few-Shot example (advanced)
+### Few-Shot example (advanced)
 
 This is an example of how you could `eos_token_id` to stop the generation on a certain token, e.g. `\n` ,`.` or `###` for few-shot predictions. Below is a few-shot example for generating tweets for keywords.
 
@@ -287,7 +287,7 @@ To delete your endpoint you can run.
 predictor.delete_endpoint()
 ```
 
-# Conclusion
+## Conclusion
 
 We successfully managed to deploy `GPT-J`, a 6 billion parameter language model created by [EleutherAI](https://www.eleuther.ai/), using Amazon SageMaker. We reduced the model load time from 3.5 minutes down to 8 seconds to be able to run scalable, reliable inference. 
 

@@ -14,7 +14,7 @@ thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
-# Introduction 
+## Introduction 
 
 Transfer learning has changed Machine Learning by reaching new levels of accuracy from Natural Language Processing (NLP) to Audio and Computer Vision tasks. At Hugging Face, we work hard to make these new complex models and large checkpoints as easily accessible and usable as possible. But while researchers and data scientists have converted to the new world of Transformers, few companies have been able to deploy these large, complex models in production at scale.
 
@@ -23,7 +23,7 @@ The main bottleneck is the latency of predictions which can make large deploymen
 With [Hugging Face Infinity](https://huggingface.co/infinity), we offer a containerized solution that makes it easy to deploy low-latency, high-throughput, hardware-accelerated inference pipelines for the most popular Transformer models. Companies can get both the accuracy of Transformers and the efficiency necessary for large volume deployments, all in a simple to use package. In this blog post, we want to share detailed performance results for Infinity running on the latest generation of Intel Xeon CPU, to achieve optimal cost, efficiency, and latency for your Transformer deployments.
 
 
-# What is Hugging Face Infinity
+## What is Hugging Face Infinity
 
 Hugging Face Infinity is a containerized solution for customers to deploy end-to-end optimized inference pipelines for State-of-the-Art Transformer models, on any infrastructure.
 
@@ -46,7 +46,7 @@ You can find more information about Hugging Face Infinity at [hf.co/infinity](ht
 
 ---
 
-# Benchmark 
+## Benchmark 
 
 Inference performance benchmarks often only measure the execution of the model. In this blog post, and when discussing the performance of Infinity, we always measure the end-to-end pipeline including pre-processing, prediction, post-processing. Please keep this in mind when comparing these results with other latency measurements. 
 
@@ -57,14 +57,14 @@ Inference performance benchmarks often only measure the execution of the model. 
 </figure>
 <br>
 
-## Environment
+### Environment
 
 As a benchmark environment, we are going to use the [Amazon EC2 C6i instances](https://aws.amazon.com/ec2/instance-types/c6i), which are compute-optimized instances powered by the 3rd generation of Intel Xeon Scalable processors. These new Intel-based instances are using the ice-lake Process Technology and support Intel AVX-512, Intel Turbo Boost, and Intel Deep Learning Boost.
 
 In addition to superior performance for machine learning workloads, the Intel Ice Lake C6i instances offer great cost-performance and are our recommendation to deploy Infinity on Amazon Web Services.  To learn more, visit the [EC2 C6i instance](https://aws.amazon.com/ec2/instance-types/c6i) page. 
 
 
-## Methodologies
+### Methodologies
 
 When it comes to benchmarking BERT-like models, two metrics are most adopted:
 * **Latency**: Time it takes for a single prediction of the model (pre-process, prediction, post-process)
@@ -74,7 +74,7 @@ These two metrics will be used to benchmark Hugging Face Infinity across differe
 
 ---
 
-# Results
+## Results
 
 To run the benchmark, we created an infinity container for the [EC2 C6i instance](https://aws.amazon.com/ec2/instance-types/c6i) (Ice-lake) and optimized a [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) model for sequence classification using Infinity Multiverse. 
 
@@ -139,7 +139,7 @@ Below, you can find the latency results for an experiment running Hugging Face I
 
 ---
 
-# Conclusion
+## Conclusion
 
 In this post, we showed how Hugging Face Infinity performs on the new Intel Ice Lake Xeon CPU. We created a detailed benchmark with over 190 different configurations sharing the results you can expect when using Hugging Face Infinity on CPU, what would be the best configuration to optimize your Infinity Container for latency, and what would be the best configuration to maximize throughput.
 
@@ -150,7 +150,7 @@ The flexibility to optimize transformer models for throughput, latency, or both 
 If you are interested in trying out Hugging Face Infinity sign up for your trial at [hf.co/infinity-trial](https://hf.co/infinity-trial) 
 
 
-# Resources
+## Resources
 
 * [Hugging Face Infinity](https://huggingface.co/infinity)
 * [Hugging Face Infinity Trial](https://huggingface.co/infinity-trial)
