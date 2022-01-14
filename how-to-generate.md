@@ -692,7 +692,7 @@ that were not mentioned above. We will explain them here briefly!
 
   - `repetition_penalty` can be used to penalize words that were already
     generated or belong to the context. It was first introduced by
-    [Kesker et al. (2019)](https://arxiv.org/abs/1909.05858) and is also
+    [Keskar et al. (2019)](https://arxiv.org/abs/1909.05858) and is also
     used in the training objective in [Welleck et al.
     (2019)](https://arxiv.org/pdf/1908.04319.pdf). It can be quite
     effective at preventing repetitions, but seems to be very sensitive
