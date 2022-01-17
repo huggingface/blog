@@ -269,7 +269,7 @@
 - local: hardware-partners-program
   title: "Introducing Optimum: The Optimization Toolkit for Transformers at Scale"
   author: mfuntowicz
-  thumbnail: /blog/assets/25_hardware_partners_program/carbon_lpot_quantizer.png
+  thumbnail: /blog/assets/25_hardware_partners_program/carbon_inc_quantizer.png
   date: September 14, 2021
   tags:
   - guide
