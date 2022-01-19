@@ -3,7 +3,7 @@
   date: Jan 24th to Feb 7th, 2022
   description: Community event in which robust speech recognition systems in many languages are created.
   
-- name: XLS-R: Large-Scale Cross-lingual Speech Representation Learning on 128 Languages
+- name: XLS-R, Large-Scale Cross-lingual Speech Representation Learning on 128 Languages
   link: https://www.youtube.com/watch?v=ic_J7ZCROBM&ab_channel=HuggingFace
   date: Jan 21st, 2022
   description: Changan Wang, from Meta AI Research, is one of the authors of the XLS-R, a large-scale model for cross-lingual speech representation learning based on wav2vec.
