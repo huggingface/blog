@@ -1,3 +1,23 @@
+- name: Robust Speech Recognition Challenge
+  link: https://discuss.huggingface.co/t/open-to-the-community-robust-speech-recognition-challenge/13614
+  date: Jan 24th to Feb 7th, 2022
+  description: Community event in which robust speech recognition systems in many languages are created.
+  
+- name: XLS-R: Large-Scale Cross-lingual Speech Representation Learning on 128 Languages
+  link: https://www.youtube.com/watch?v=ic_J7ZCROBM&ab_channel=HuggingFace
+  date: Jan 21st, 2022
+  description: Changan Wang, from Meta AI Research, is one of the authors of the XLS-R, a large-scale model for cross-lingual speech representation learning based on wav2vec.
+
+- name: The Common Voice Dataset
+  link: https://www.youtube.com/watch?v=Vvn984QmAVg&ab_channel=HuggingFace
+  date: Jan 21st, 2022
+  description: Gabriel Habayeb, from Mozilla Common Voice, will join us to speak about the Common Voice Dataset.
+
+- name: ML for Audio Study Group - ML4Audio - pyctcdecode: A simple and fast speech-to-text prediction decoding algorithm
+  link: https://www.youtube.com/watch?v=CDuvVL0z_xk&ab_channel=HuggingFace
+  date: Jan 19, 2022
+  description: Watch a presentation about pyctcdecode, a fast and feature-rich CTC beam search decoder for speech recognition.
+
 - name: Intro to Transfer Learning, end-to-end deployment with TFX, and demo with Streamlit
   link: https://www.youtube.com/watch?v=y9qy7lxXl-c&ab_channel=TensorFlowUserGroupCasablanca
   date: Jan 7 & 8, 2022
