@@ -1,4 +1,33 @@
-# **Supercharged Searching on the 🤗 Hub**
+---
+title: "Supercharged Searching on the 🤗 Hub"
+thumbnail: /blog/assets/44_boost_wav2vec2_ngram/wav2vec2_ngram.png
+---
+
+<h1>
+    Supercharged Searching on the 🤗 Hub
+</h1>
+
+<div class="blog-metadata">
+    <small>Published January 19, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/searching-the-hub.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/muellerzr">
+        <img class="avatar avatar-user" src="https://walkwithfastai.com/assets/images/portrait.png" title="Gravatar" width="200">
+        <div class="bfc">
+            <code>muellerzr</code>
+            <span class="fullname">Zachary Mueller</span>
+        </div>
+    </a>
+</div>
+
+<a target="_blank" href="https://colab.research.google.com/github/muellerzr/hf-blog-notebooks/blob/main/Searching-the-Hub.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
 
 The `huggingface_hub` library is a light-weight interface that provides a progamatic approach to exploring the hosting endpoints Hugging Face provides. Specifically: models, datasets, and spaces.
 
