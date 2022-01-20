@@ -1,33 +1,4 @@
----
-title: "Supercharged Searching on the 🤗 Hub"
-thumbnail: /blog/assets/44_boost_wav2vec2_ngram/wav2vec2_ngram.png
----
-
-<h1>
-    Supercharged Searching on the 🤗 Hub
-</h1>
-
-<div class="blog-metadata">
-    <small>Published January 19, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/searching-the-hub.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/muellerzr">
-        <img class="avatar avatar-user" src="https://walkwithfastai.com/assets/images/portrait.png" title="Gravatar" width="200">
-        <div class="bfc">
-            <code>muellerzr</code>
-            <span class="fullname">Zachary Mueller</span>
-        </div>
-    </a>
-</div>
-
-<a target="_blank" href="https://colab.research.google.com/github/muellerzr/hf-blog-notebooks/blob/main/Searching-the-Hub.ipynb">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>
-
+# **Supercharged Searching on the 🤗 Hub**
 
 The `huggingface_hub` library is a light-weight interface that provides a progamatic approach to exploring the hosting endpoints Hugging Face provides. Specifically: models, datasets, and spaces.
 
@@ -38,179 +9,43 @@ In this article, we will be looking at a few exciting new features added to the 
 > Before we begin, if you do not have the latest version of the `huggingface_hub` library on your system please run the following cell:
 
 
-```
+```python
 !pip install huggingface_hub -U
 ```
 
-## The `AttributeDictionary`
+## Situtating the Problem:
 
-A key foundation in how most of these new helpers work is understanding the new `AttributeDictionary` class that was introduced. It is heavily inspired and based on the [fastcore](https://fastcore.fast.ai/basics.html#AttrDict) `AttrDict` class, with some important distinctions we'll talk about later. 
+First, let's imagine the scenario you are in. You'd like to find all models that the are hosted on the Hugging Face Hub that are for Text Classification, were trained on the GLUE dataset, and are compatible with PyTorch.
 
-The general idea of this class is we take a normal dictionary and supercharge it for *exploratory programming*, by providing tab-completion for every key in a dictionary. It also works with nested dictionaries as well!
+You may simply just open https://huggingface.co/models and use the widgets on there, but this requires you leaving your IDE, scanning those results, and a few button clicks to get you the information you need.
 
-> This class mimics how the `object` class in JavaScript works
+What if there were a solution to this without having to leave your IDE?
 
-Let's look at an example:
+This is where the `huggingface_hub` comes in.
 
+For those familiar with the library, you may already know that we can search for these type of models. However, getting the query right is a painful process of trial and error.
 
-```
-from huggingface_hub.utils.endpoint_helpers import AttributeDictionary
-```
+Could we simplify that? Let's find out. 
 
+## Finding what we need
 
-```
-# Write a small dictionary
-d = {"a":2, "b":"This is b", "3_a":"A number"}
-# Convert it to an `AttributeDictionary`
-ad = AttributeDictionary(d)
-```
-
-With this we can now call the `keys` from our dictionary as both properties *or* as a key-lookup (with tab-completion):
+First we'll import the `HfApi`, which is a class that helps us interact with the back-end hosting for Hugging Face. We can interact with the models, datasets, and more through it. Along with this, we'll import in a few helper classes: the `ModelFilter` and `ModelSearchArguments`
 
 
-```
-# As a normal dictionary
-ad["a"]
+```python
+from huggingface_hub import HfApi, ModelFilter, ModelSearchArguments
+
+api = HfApi()
 ```
 
+These two classes can help us frame a solution to our above problem. The `ModelSearchArguments` class is a namespace-like one, that contains every single valid parameter we can searech for! 
+
+Let's take a peek:
 
 
-
-    2
-
-
-
-
-```
-# As a property with tab-completion
-ad.a
-```
-
-
-
-
-    2
-
-
-
-This tab-completion aspect gets even stronger when we deal with nested `AttributeDictionary` objects:
-
-
-```
-d = {
-    "a": 
-     AttributeDictionary(
-         {"first": 1, "second": 2}
-         ), 
-     "b": 
-     AttributeDictionary(
-         {"third": 3, "fourth": 4}
-         )
-     }
-ad = AttributeDictionary(d)
-```
-
-
-```
-# Go to `ad["a"]["first"]`
-print(ad.a.first)
-```
-
-    1
-
-
-As mentioned before, we expand on the ideas of `fastcore`'s `AttrDict` in a few ways:
-- We can delete keys with either `del ad[key]` or `del ad.key`
-- A cleaner `__repr__` is available, showing what keys support tab-completion
-
-Let's look at that second point a little more.
-
-In Python, properties cannot have any numbers or special characters. As a result, if an `AttributeDictionary`'s key has one, it will only be able to be indexed as a **dictionary** and *not* as an object, such as below:
-
-
-```
-d = {"a":2, "b":3, "3_c":4}
-ad = AttributeDictionary(d)
-```
-
-
-```
-# View the __repr__
-ad
-```
-
-
-
-
-    Available Attributes or Keys:
-     * 3_c (Key only)
-     * a
-     * b
-
-
-
-
-We can see that `3_c` can only be accessed as a key, since it has a number in it (shown visually below):
-
-
-```
-# As an attribute (fails)
-ad.3_c
-```
-
-
-      File "<ipython-input-25-b138ac5be6e2>", line 2
-        ad.3_c
-            ^
-    SyntaxError: invalid token
-
-
-
-
-```
-# As a dictionary key
-ad["3_c"]
-```
-
-
-
-
-    4
-
-
-
-## Knowing what we can search for: `SearchArguments`
-
-Now that we understand the `AttributeDictionary`, let's talk about one of the most important parts of this update: the `ModelSearchArguments` and `DatasetSearchArguments`!
-
-By using the power of the `AttributeDictionary`, these two classes search through all public models hosted on the Hub, and populate a nested dictionary for us to explore. 
-
-Each of these nested dictionaries follow the same guiding principal:
-
-- Overall Dictionary
-  - Parameter Category
-    - Specific parameter item
-
-
-Let's see an example:
-
-
-```
-from huggingface_hub import ModelSearchArguments, DatasetSearchArguments
-```
-
-
-```
+```python
 model_args = ModelSearchArguments()
-dataset_args = DatasetSearchArguments()
-```
 
-> Note: These may take a moment to run, as they have to search through all the models and datasets hosted
-
-First we will explore the `ModelSearchArguments`:
-
-
-```
 model_args
 ```
 
@@ -229,344 +64,202 @@ model_args
 
 
 
-In it we find different **categories** for search parameters we may want. These correspond to how we will later pass them in for searching. 
+We can see a varity of attributes available to us (more on how this magic is done later). If we were to categorize what we wanted, we could likely seperate them out as:
 
-Let's explore deeper in the `pipeline_tag`:
+- `pipeline_tag` (or task): Text Classification
+- `dataset`: GLUE
+- `library`: PyTorch
 
-
-```
-model_args.pipeline_tag
-```
-
+Given this seperation, it would make sense that we would find them within our `model_args` we've declared:
 
 
-
-    Available Attributes or Keys:
-     * AudioClassification
-     * Audio_to_Audio
-     * AutomaticSpeechRecognition
-     * Conversational
-     * FeatureExtraction
-     * Fill_Mask
-     * ImageClassification
-     * ImageSegmentation
-     * Image_to_Text
-     * ObjectDetection
-     * QuestionAnswering
-     * SentenceSimilarity
-     * StructuredDataClassification
-     * Summarization
-     * TableQuestionAnswering
-     * Text2TextGeneration (Key only)
-     * TextClassification
-     * TextGeneration
-     * Text_to_Image
-     * Text_to_Speech
-     * TokenClassification
-     * Translation
-     * VoiceActivityDetection
-     * Zero_ShotClassification
-
-
-
-
-Here we find every single `pipeline_tag` in existance that we can use. Finally, to see what the API would use as a query:
-
-
-```
-model_args.pipeline_tag.Text_to_Image
+```python
+model_args.pipeline_tag.TextClassification
 ```
 
 
 
 
-    'text-to-image'
+    'text-classification'
 
 
 
-With this exploratory fashion, you can now go and fine-tune what you would like to search for in an organized fashion for both Datasets and Models
 
-Below is a quick example of doing the same with `DatasetSearchArguments`:
-
-
-```
-dataset_args
+```python
+model_args.dataset.glue
 ```
 
 
 
 
-    Available Attributes or Keys:
-     * author
-     * benchmark
-     * dataset_name
-     * language_creators
-     * languages
-     * licenses
-     * multilinguality
-     * size_categories
-     * task_categories
-     * task_ids
+    'dataset:glue'
 
 
 
 
-
-```
-# Searching available benchmarks
-dataset_args.benchmark
+```python
+model_args.library.PyTorch
 ```
 
 
 
 
-    Available Attributes or Keys:
-     * gem
-     * raft
-     * superb
-     * test
+    'pytorch'
 
 
 
+What we begin to notice though is some of the convience wrapping we perform here. `ModelSearchArguments` (and the complimentary `DatasetSearchArguments`) have a human-readable interface for you to read, with formatted outputs the API wants, such as how the glue dataset should be searched with `dataset:glue`. 
+
+This is key because without this "cheat sheet" of knowing how certain parameters should be written, you can very easily sit in frustration as you're trying to search for models with the API!
+
+Now that we know what the right parameters are, we can search the API easily:
 
 
-```
-# Grabbing the gem benchmark
-dataset_args.benchmark.gem
-```
-
-
-
-
-    'benchmark:gem'
-
-
-
-## Filters and Searching the Hub
-
-Now that we understand the search parameters we can use, *how* do we use them? 
-
-We've added two classes to help us with that: `ModelFilter` and `DatasetFilter`. These are two namespace classes that simply hold our arguments, but what makes them special is that the `list_models` and `list_datasets` functions (which we will see later) know how to unpack these and query the API for us while our code stays clean and readable!
-
-Let's take a look.
-
-
-```
-from huggingface_hub import ModelFilter, DatasetFilter
-```
-
-For a clear understanding, we'll read its docstring below:
-
-
-```
-print(ModelFilter.__doc__)
-```
-
-    A class that converts human-readable model search parameters into ones compatible with
-        the REST API. For all parameters capitalization does not matter.
-    
-        Args:
-            author (:obj:`str`, `optional`):
-                A string that can be used to identify models on the Hub
-                by the original uploader (author or organization), such as `facebook` or `huggingface`
-                Example usage:
-    
-                    >>> from huggingface_hub import Filter
-                    >>> new_filter = ModelFilter(author_or_organization="facebook")
-    
-             library (:obj:`str` or :class:`List`, `optional`):
-                A string or list of strings of foundational libraries models were originally trained from,
-                such as pytorch, tensorflow, or allennlp
-                Example usage:
-    
-                    >>> new_filter = ModelFilter(library="pytorch")
-    
-             language (:obj:`str` or :class:`List`, `optional`):
-                A string or list of strings of languages, both by name
-                and country code, such as "en" or "English"
-                Example usage:
-    
-                    >>> new_filter = ModelFilter(language="french")
-    
-             model_name (:obj:`str`, `optional`):
-                A string that contain complete or partial names for models on the Hub,
-                such as "bert" or "bert-base-cased"
-                Example usage:
-    
-                    >>> new_filter = ModelFilter(model_name="bert")
-    
-    
-             task (:obj:`str` or :class:`List`, `optional`):
-                A string or list of strings of tasks models were designed for,
-                such as: "fill-mask" or "automatic-speech-recognition"
-                Example usage:
-    
-                    >>> new_filter = ModelFilter(task="text-classification")
-    
-             tags (:obj:`str` or :class:`List`, `optional`):
-                A string tag or a list of tags to filter models on the Hub by,
-                such as `text-generation` or `spacy`. For a full list of tags do:
-                    >>> from huggingface_hub import HfApi
-                    >>> api = HfApi()
-                    # To list model tags
-                    >>> api.get_model_tags()
-                    # To list dataset tags
-                    >>> api.get_dataset_tags()
-    
-                Example usage:
-                    >>> new_filter = ModelFilter(tags="benchmark:raft")
-    
-            trained_dataset (:obj:`str` or :class:`List`, `optional`):
-                A string tag or a list of string tags of the trained dataset for a model on the Hub.
-                Example usage:
-                    >>> new_filter = ModelFilter(trained_dataset="common_voice")
-    
-        
-
-
-As you can imagine, it is quite easy to take our `ModelSearchArguments` (or `DatasetSearchArguments`) and then utilize them inside of our `ModelFilter` (or `DatasetFilter`)!
-
-> Remember: Since they are just strings, you can always just pass the string in directly if you know it!
-
-Let's use the same example provided in the official [documentation](https://huggingface.co/docs/hub/searching-the-hub#searching-for-a-model) to search the Hub for a particular model.
-
-We'll set our query as:
-- I want all models for "Text Classification"
-- They should be trained on the "GLUE" dataset
-- They should be compatible with PyTorch
-
-Let's format our `ModelFilter` accordingly:
-
-
-```
-filt = ModelFilter(
-    task = model_args.pipeline_tag.TextClassification,
-    trained_dataset = model_args.dataset.glue,
-    library = model_args.library.PyTorch
-)
-```
-
-Another way of writing this without the `model_args` would be like so:
-
-
-```
-filt = ModelFilter(
-    task = "text-classification",
-    trained_dataset = "glue", # or dataset:glue
-    library = "pytorch"
-)
-```
-
-Finally, let's build a `HfApi` and search the Hub!
-
-
-```
-from huggingface_hub import HfApi
-```
-
-
-```
-api = HfApi()
-```
-
-
-```
-api.list_models(filter=filt)[-1]
+```python
+api.list_models(filter = (
+    model_args.pipeline_tag.TextClassification, 
+    model_args.dataset.glue, 
+    model_args.library.PyTorch)
+)[0]
 ```
 
 
 
 
     ModelInfo: {
-    	modelId: harithapliyal/distilbert-base-uncased-finetuned-cola
-    	sha: 8d5a07a64338385fe0a732a62ec820495aa6b34e
-    	lastModified: 2022-01-18T18:44:28.000Z
-    	tags: ['pytorch', 'tensorboard', 'distilbert', 'text-classification', 'dataset:glue', 'transformers', 'license:apache-2.0', 'generated_from_trainer', 'model-index', 'infinity_compatible']
-    	pipeline_tag: text-classification
-    	siblings: [ModelFile(rfilename='.gitattributes'), ModelFile(rfilename='.gitignore'), ModelFile(rfilename='README.md'), ModelFile(rfilename='config.json'), ModelFile(rfilename='pytorch_model.bin'), ModelFile(rfilename='special_tokens_map.json'), ModelFile(rfilename='tokenizer.json'), ModelFile(rfilename='tokenizer_config.json'), ModelFile(rfilename='training_args.bin'), ModelFile(rfilename='vocab.txt'), ModelFile(rfilename='runs/Jan18_14-16-18_f5e821c8415e/events.out.tfevents.1642515510.f5e821c8415e.60.0'), ModelFile(rfilename='runs/Jan18_14-16-18_f5e821c8415e/events.out.tfevents.1642521209.f5e821c8415e.60.2'), ModelFile(rfilename='runs/Jan18_14-16-18_f5e821c8415e/1642515510.2724547/events.out.tfevents.1642515510.f5e821c8415e.60.1'), ModelFile(rfilename='runs/Jan18_17-09-35_add2990e9a92/events.out.tfevents.1642525942.add2990e9a92.61.0'), ModelFile(rfilename='runs/Jan18_17-09-35_add2990e9a92/events.out.tfevents.1642531259.add2990e9a92.61.2'), ModelFile(rfilename='runs/Jan18_17-09-35_add2990e9a92/1642525942.325853/events.out.tfevents.1642525942.add2990e9a92.61.1')]
+    	modelId: Jiva/xlm-roberta-large-it-mnli
+    	sha: c6e64469ec4aa17fedbd1b2522256f90a90b5b86
+    	lastModified: 2021-12-10T14:56:38.000Z
+    	tags: ['pytorch', 'xlm-roberta', 'text-classification', 'it', 'dataset:multi_nli', 'dataset:glue', 'arxiv:1911.02116', 'transformers', 'tensorflow', 'license:mit', 'zero-shot-classification']
+    	pipeline_tag: zero-shot-classification
+    	siblings: [ModelFile(rfilename='.gitattributes'), ModelFile(rfilename='README.md'), ModelFile(rfilename='config.json'), ModelFile(rfilename='pytorch_model.bin'), ModelFile(rfilename='sentencepiece.bpe.model'), ModelFile(rfilename='special_tokens_map.json'), ModelFile(rfilename='tokenizer.json'), ModelFile(rfilename='tokenizer_config.json')]
     	config: None
     	private: False
-    	downloads: 0
+    	downloads: 680
     	library_name: transformers
-    	likes: 0
+    	likes: 1
     }
 
 
 
-If we look at `distilbert-base-uncased-finetuned-cola` as our example, it matches all of our queries for what we wanted!
+It's a bit more readable, and there's no guessing involved with "Did I get this parameter right?"
 
-Where this API really comes in handy is handling very complex queries, such as:
-- All models for Text Classification
-- That are both for PyTorch and TensorFlow
-- Were trained on the "SST-2" dataset
+## Taking it up a Notch
+
+We saw how we could use the `ModelSearchArguments` and `DatasetSearchArguments` to remove the guesswork from when we want to search the Hub, but what about if we have a very complex, messy query?
+
+Such as:
+I want to search for all models trained for both `text-classification` and `zero-shot` classification, were trained on the Multi NLI and GLUE datasets, and are compatible with both PyTorch and TensorFlow (a more exact query to get the above model). 
+
+To setup this query, we'll make use of the `ModelFilter` class. It's designed to handle these types of situations, so we don't need to scratch our heads:
 
 
+```python
+model_args.pipeline_tag.Zero_ShotClassification
 ```
+
+
+```python
 filt = ModelFilter(
-    task = model_args.pipeline_tag.TextClassification,
-    library = [model_args.library.PyTorch, model_args.library.TensorFlow],
-    trained_dataset = model_args.dataset.sst_2
+    task = ["text-classification", "zero-shot-classification"],
+    trained_dataset = [model_args.dataset.multi_nli, model_args.dataset.glue],
+    library = ['pytorch', 'tensorflow']
 )
 ```
 
 
-```
-api.list_models(filter=filt)[0]
-```
-
-
-
-
-    ModelInfo: {
-    	modelId: distilbert-base-uncased-finetuned-sst-2-english
-    	sha: 03b4d196c19d0a73c7e0322684e97db1ec397613
-    	lastModified: 2021-02-09T07:59:22.000Z
-    	tags: ['pytorch', 'tf', 'rust', 'distilbert', 'text-classification', 'en', 'dataset:sst-2', 'transformers', 'license:apache-2.0', 'infinity_compatible']
-    	pipeline_tag: text-classification
-    	siblings: [ModelFile(rfilename='.gitattributes'), ModelFile(rfilename='README.md'), ModelFile(rfilename='config.json'), ModelFile(rfilename='pytorch_model.bin'), ModelFile(rfilename='rust_model.ot'), ModelFile(rfilename='tf_model.h5'), ModelFile(rfilename='tokenizer_config.json'), ModelFile(rfilename='vocab.txt')]
-    	config: None
-    	private: False
-    	downloads: 2858092
-    	library_name: transformers
-    	likes: 29
-    }
-
-
-
-And it finds the exact model we want, without having to get *too* complex with our setup!
-
-This is done exactly in the same fashion for datasets as well. Below is a quick example of finding all English datasets for text classification:
-
-
-```
-filt = DatasetFilter(
-    task_categories = "text-classification",
-    languages = "en"
-)
-```
-
-
-```
-api.list_datasets(filt)[0]
+```python
+api.list_models(filt)
 ```
 
 
 
 
-    DatasetInfo: {
-    	id: Abirate/english_quotes
-    	lastModified: None
-    	tags: ['annotations_creators:expert-generated', 'language_creators:expert-generated', 'language_creators:crowdsourced', 'languages:en', 'multilinguality:monolingual', 'source_datasets:original', 'task_categories:text-classification', 'task_ids:multi-label-classification']
-    	private: False
-    	author: Abirate
-    	description: None
-    	citation: None
-    	cardData: None
-    	siblings: None
-    	gated: False
-    	downloads: 5
-    }
+    [ModelInfo: {
+     	modelId: Jiva/xlm-roberta-large-it-mnli
+     	sha: c6e64469ec4aa17fedbd1b2522256f90a90b5b86
+     	lastModified: 2021-12-10T14:56:38.000Z
+     	tags: ['pytorch', 'xlm-roberta', 'text-classification', 'it', 'dataset:multi_nli', 'dataset:glue', 'arxiv:1911.02116', 'transformers', 'tensorflow', 'license:mit', 'zero-shot-classification']
+     	pipeline_tag: zero-shot-classification
+     	siblings: [ModelFile(rfilename='.gitattributes'), ModelFile(rfilename='README.md'), ModelFile(rfilename='config.json'), ModelFile(rfilename='pytorch_model.bin'), ModelFile(rfilename='sentencepiece.bpe.model'), ModelFile(rfilename='special_tokens_map.json'), ModelFile(rfilename='tokenizer.json'), ModelFile(rfilename='tokenizer_config.json')]
+     	config: None
+     	private: False
+     	downloads: 680
+     	library_name: transformers
+     	likes: 1
+     }]
 
 
 
-With these new supercharged searching capabilities, you now don't have to even leave your coding interface to go find the right model or dataset for your task!
+Very quickly we see that it's a much more coordinated approach for searching through the API, with no added headache for you!
+
+## What is the magic?
+
+Very briefly we'll talk about the underlying magic at play that gives us this enum-dictionary-like datatype, the `AttributeDictionary`.
+
+Heavily inspired by the `AttrDict` class from the [fastcore](https://fastcore.fast.ai/basics.html#AttrDict) library, the general idea is we take a normal dictionary and supercharge it for *exploratory programming* by providing tab-completion for every key in the dictionary. 
+
+As we saw earlier, this gets even stronger when we have nested dictionaries we can explore through, such as `model_args.dataset.glue`!
+
+> For those familiar with JavaScript, we mimic how the `object` class is working.
+
+This simple utility class can provide a much more user-focused experience when exploring nested datatypes and trying to understand what is there, such as the return of an API request!
+
+As mentioned before, we expand on the `AttrDict` in a few key ways:
+- You can delete keys with `del model_args[key]` *or* with `del model_args.key`
+- That clean `__repr__` we saw earlier 
+
+One very key concept to note though, is that if a key contains a number or special character it **must** be indexed as a dictionary, and *not* as an object.
+
+
+
+
+```python
+from huggingface_hub.utils.endpoint_helpers import AttributeDictionary
+```
+
+A very brief example of this is if we have an `AttributeDictionary` with a key of `3_c`:
+
+
+```python
+|d = {"a":2, "b":3, "3_c":4}
+ad = AttributeDictionary(d)
+```
+
+
+```python
+# As an attribute
+ad.3_c
+```
+
+
+      File "<ipython-input-6-c0fe109cf75d>", line 2
+        ad.3_c
+            ^
+    SyntaxError: invalid token
+
+
+
+
+```python
+# As a dictionary key
+ad["3_c"]
+```
+
+
+
+
+    4
+
+
+
+## Concluding thoughts
+
+Hopefully by now you have a brief understanding of how this new searching API can directly impact your workflow and exploration of the Hub! Along with this, perhaps you know of a place in your code where the `AttributeDictionary` might be useful for you to use.
+
+From here, make sure to check out the official documentation on [Searching the Hub Efficiently](https://huggingface.co/docs/hub/searching-the-hub)!
+
+
+```python
+
+```
