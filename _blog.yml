@@ -459,3 +459,10 @@
   date: January 13, 2022
   tags:
   - analysis
+
+- local: searching-the-hub
+  title: "Supercharged Searching on the 🤗 Hub"
+  author: muellerzr
+  date: January 20, 2022
+  tags:
+  - guide
