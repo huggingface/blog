@@ -141,7 +141,7 @@ Try it out and share your models with the community!
 In the coming weeks and months, we will be extending the ecosystem by:
 
 - Integrating [RL-baselines3-zoo](https://github.com/DLR-RM/rl-baselines3-zoo)
-- Uploading [RL-trained-agents models](https://github.com/DLR-RM/rl-trained-agents/tree/10a9c31e806820d59b20d8b85ca67090338ea912) into the 🤗 Hub: a big collection of pre-trained reinforcement learning agents using stable-baselines3.
+- Uploading [RL-trained-agents models](https://github.com/DLR-RM/rl-trained-agents/tree/master) into the Hub: a big collection of pre-trained Reinforcement Learning agents using stable-baselines3
 - Integrating other Deep Reinforcement Learning libraries
 - Implementing Decision Transformers 🔥
 - And more to come 🥳
