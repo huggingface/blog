@@ -122,24 +122,21 @@ api.list_models(filter = (
     model_args.library.PyTorch)
 )[0]
 ```
-
-
-
-
-    ModelInfo: {
-    	modelId: Jiva/xlm-roberta-large-it-mnli
-    	sha: c6e64469ec4aa17fedbd1b2522256f90a90b5b86
-    	lastModified: 2021-12-10T14:56:38.000Z
-    	tags: ['pytorch', 'xlm-roberta', 'text-classification', 'it', 'dataset:multi_nli', 'dataset:glue', 'arxiv:1911.02116', 'transformers', 'tensorflow', 'license:mit', 'zero-shot-classification']
-    	pipeline_tag: zero-shot-classification
-    	siblings: [ModelFile(rfilename='.gitattributes'), ModelFile(rfilename='README.md'), ModelFile(rfilename='config.json'), ModelFile(rfilename='pytorch_model.bin'), ModelFile(rfilename='sentencepiece.bpe.model'), ModelFile(rfilename='special_tokens_map.json'), ModelFile(rfilename='tokenizer.json'), ModelFile(rfilename='tokenizer_config.json')]
-    	config: None
-    	private: False
-    	downloads: 680
-    	library_name: transformers
-    	likes: 1
-    }
-
+```python
+ModelInfo: {
+    modelId: Jiva/xlm-roberta-large-it-mnli
+    sha: c6e64469ec4aa17fedbd1b2522256f90a90b5b86
+    lastModified: 2021-12-10T14:56:38.000Z
+    tags: ['pytorch', 'xlm-roberta', 'text-classification', 'it', 'dataset:multi_nli', 'dataset:glue', 'arxiv:1911.02116', 'transformers', 'tensorflow', 'license:mit', 'zero-shot-classification']
+    pipeline_tag: zero-shot-classification
+    siblings: [ModelFile(rfilename='.gitattributes'), ModelFile(rfilename='README.md'), ModelFile(rfilename='config.json'), ModelFile(rfilename='pytorch_model.bin'), ModelFile(rfilename='sentencepiece.bpe.model'), ModelFile(rfilename='special_tokens_map.json'), ModelFile(rfilename='tokenizer.json'), ModelFile(rfilename='tokenizer_config.json')]
+    config: None
+    private: False
+    downloads: 680
+    library_name: transformers
+    likes: 1
+}
+```
 
 
 It's a bit more readable, and there's no guessing involved with "Did I get this parameter right?"
@@ -153,12 +150,6 @@ I want to search for all models trained for both `text-classification` and `zero
 
 To setup this query, we'll make use of the `ModelFilter` class. It's designed to handle these types of situations, so we don't need to scratch our heads:
 
-
-```python
-model_args.pipeline_tag.Zero_ShotClassification
-```
-
-
 ```python
 filt = ModelFilter(
     task = ["text-classification", "zero-shot-classification"],
@@ -167,8 +158,7 @@ filt = ModelFilter(
 )
 api.list_models(filt)
 
-
-
+---------- PRINTED ----------
 
     [ModelInfo: {
      	modelId: Jiva/xlm-roberta-large-it-mnli
@@ -253,8 +243,3 @@ ad["3_c"]
 Hopefully by now you have a brief understanding of how this new searching API can directly impact your workflow and exploration of the Hub! Along with this, perhaps you know of a place in your code where the `AttributeDictionary` might be useful for you to use.
 
 From here, make sure to check out the official documentation on [Searching the Hub Efficiently](https://huggingface.co/docs/hub/searching-the-hub)!
-
-
-```python
-
-```
