@@ -165,12 +165,7 @@ filt = ModelFilter(
     trained_dataset = [model_args.dataset.multi_nli, model_args.dataset.glue],
     library = ['pytorch', 'tensorflow']
 )
-```
-
-
-```python
 api.list_models(filt)
-```
 
 
 
