@@ -29,7 +29,7 @@ At Hugging Face, we work on building an ecosystem for Deep Reinforcement Learnin
 [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3) is one of the most popular PyTorch Deep Reinforcement Learning library that makes it easy to train and test your agents in a variety of environments (Gym, Atari, MuJoco, Procgen...).
 With this integration, you can now host your saved models 💾 and load powerful models from the community.
 
-And, in this article, we’re going to show you how you can do it. But, if you want to dive deeper, we wrote a tutorial where you’ll learn:
+In this article, we’re going to show how you can do it. But, if you want to dive deeper, we wrote a tutorial where you’ll learn:
 - How to train a Deep Reinforcement Learning lander agent to land correctly on the Moon 🌕 and upload it to the 🤗 Hub.
 
 ![gif](assets/47_sb3/lunarlander.gif)
