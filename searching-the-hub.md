@@ -118,11 +118,20 @@ Now that we know what the right parameters are, we can search the API easily:
 
 
 ```python
->>> api.list_models(filter = (
+>>> models = api.list_models(filter = (
 >>>     model_args.pipeline_tag.TextClassification, 
 >>>     model_args.dataset.glue, 
 >>>     model_args.library.PyTorch)
 >>> )
+>>> print(len(models))
+```
+```
+    140
+```
+
+We find that there were **140** matching models that fit our criteria! (at the time of writing this). And if we take a closer look at one, we can see that it does indeed look right:
+```python
+>>> models[0]
 ```
 ```
     ModelInfo: {
@@ -142,6 +151,11 @@ Now that we know what the right parameters are, we can search the API easily:
 
 
 It's a bit more readable, and there's no guessing involved with "Did I get this parameter right?"
+
+> Did you know you can also get the information of this model programmatically with its model ID? Here's how you would do it:
+> ```python
+> api.model_info('Jiva/xlm-roberta-large-it-mnli')
+> ```
 
 ## Taking it up a Notch
 
@@ -196,9 +210,6 @@ As mentioned before, we expand on the `AttrDict` in a few key ways:
 - That clean `__repr__` we saw earlier 
 
 One very key concept to note though, is that if a key contains a number or special character it **must** be indexed as a dictionary, and *not* as an object.
-
-
-
 
 ```python
 >>> from huggingface_hub.utils.endpoint_helpers import AttributeDictionary
