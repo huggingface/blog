@@ -55,7 +55,7 @@ We’re currently uploading saved models of agents playing Space Invaders, Break
 
 When you found the model you need, you just have to copy the repo_id:
 
-![jpg](assets/47_sb3/repo_id.jpg)
+![Image showing how to copy a repository id](assets/47_sb3/repo_id.jpg)
 
 ### Download a model from the Hub
 
