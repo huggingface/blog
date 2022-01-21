@@ -30,7 +30,8 @@ At Hugging Face, we work on building an ecosystem for Deep Reinforcement Learnin
 With this integration, you can now host your saved models 💾 and load powerful models from the community.
 
 In this article, we’re going to show how you can do it. But, if you want to dive deeper, we wrote a tutorial where you’ll learn:
-- How to train a Deep Reinforcement Learning lander agent to land correctly on the Moon 🌕 and upload it to the 🤗 Hub.
+- How to train a Deep Reinforcement Learning lander agent to land correctly on the Moon 🌕 
+- How to upload it to the Hub 🚀
 
 ![gif](assets/47_sb3/lunarlander.gif)
 
