@@ -25,7 +25,7 @@ This is where the `huggingface_hub` comes in.
 
 For those familiar with the library, you may already know that we can search for these type of models. However, getting the query right is a painful process of trial and error.
 
-Could we simplify that? Let's find out. 
+Could we simplify that? Let's find out!
 
 ## Finding what we need
 
