@@ -459,3 +459,11 @@
   date: January 13, 2022
   tags:
   - analysis
+
+- local: sb3
+  title: "Welcome Stable-baselines3 to the Hugging Face Hub 🤗"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/47_sb3/thumbnail.png
+  date: January 21, 2022
+  tags:
+  -  open-source-collab
