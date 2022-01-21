@@ -36,7 +36,6 @@ In this article, we’re going to show how you can do it.
 To use stable-baselines3 with Hugging Face Hub, you just need to install these 2 libraries:
 
 ```bash
-# Using spacy.load().
 pip install huggingface_hub
 pip install huggingface_sb3
 ```
