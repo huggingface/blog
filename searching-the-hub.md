@@ -146,16 +146,13 @@ Now that we know what the right parameters are, we can search the API easily:
 
 
 ```python
-results = api.list_models(filter = (
+api.list_models(filter = (
     model_args.pipeline_tag.TextClassification, 
     model_args.dataset.glue, 
     model_args.library.PyTorch)
 )
-
-print(results[0])
-
----------- PRINTED ----------
-
+```
+```
     ModelInfo: {
         modelId: Jiva/xlm-roberta-large-it-mnli
         sha: c6e64469ec4aa17fedbd1b2522256f90a90b5b86
@@ -189,10 +186,9 @@ filt = ModelFilter(
     trained_dataset = [model_args.dataset.multi_nli, model_args.dataset.glue],
     library = ['pytorch', 'tensorflow']
 )
-print(api.list_models(filt))
-
----------- PRINTED ----------
-
+api.list_models(filt)
+```
+```
     [ModelInfo: {
      	modelId: Jiva/xlm-roberta-large-it-mnli
      	sha: c6e64469ec4aa17fedbd1b2522256f90a90b5b86
