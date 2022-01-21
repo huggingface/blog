@@ -33,7 +33,8 @@ In this article, we’re going to show how you can do it. But, if you want to di
 - How to train a Deep Reinforcement Learning lander agent to land correctly on the Moon 🌕 and upload it to the 🤗 Hub.
 
 ![gif](assets/47_sb3/lunarlander.gif)
-- How to download a saved model from the hub that plays Space Invaders 👾.
+
+- How to download and use a saved model from the Hub that plays Space Invaders 👾.
 
 ![gif](assets/47_sb3/spaceinvaders.gif)
 
