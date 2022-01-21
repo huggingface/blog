@@ -29,17 +29,7 @@ At Hugging Face, we are contributing to the ecosystem for Deep Reinforcement Lea
 [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3) is one of the most popular PyTorch Deep Reinforcement Learning library that makes it easy to train and test your agents in a variety of environments (Gym, Atari, MuJoco, Procgen...).
 With this integration, you can now host your saved models 💾 and load powerful models from the community.
 
-In this article, we’re going to show how you can do it. But, if you want to dive deeper, we wrote a tutorial where you’ll learn:
-- How to train a Deep Reinforcement Learning lander agent to land correctly on the Moon 🌕 
-- How to upload it to the Hub 🚀
-
-![gif](assets/47_sb3/lunarlander.gif)
-
-- How to download and use a saved model from the Hub that plays Space Invaders 👾.
-
-![gif](assets/47_sb3/spaceinvaders.gif)
-
-👉 [The tutorial](https://github.com/huggingface/huggingface_sb3/blob/main/Stable_Baselines_3_and_Hugging_Face_%F0%9F%A4%97_tutorial.ipynb)
+In this article, we’re going to show how you can do it. 
 
 ### Installation
 
@@ -134,8 +124,6 @@ push_to_hub(
 ``````
 Try it out and share your models with the community!
 
-
-
 ### What's next?
 
 In the coming weeks and months, we will be extending the ecosystem by:
@@ -148,6 +136,17 @@ In the coming weeks and months, we will be extending the ecosystem by:
 
 The best way to keep in touch is to [join our discord server](https://discord.gg/YRAq8fMnUG) to exchange with us and with the community.
 
+And if you want to dive deeper, we wrote a tutorial where you’ll learn:
+- How to train a Deep Reinforcement Learning lander agent to land correctly on the Moon 🌕 
+- How to upload it to the Hub 🚀
+
+![gif](assets/47_sb3/lunarlander.gif)
+
+- How to download and use a saved model from the Hub that plays Space Invaders 👾.
+
+![gif](assets/47_sb3/spaceinvaders.gif)
+
+👉 [The tutorial](https://github.com/huggingface/huggingface_sb3/blob/main/Stable_Baselines_3_and_Hugging_Face_%F0%9F%A4%97_tutorial.ipynb)
 
 
 ### Conclusion
