@@ -222,7 +222,7 @@ A very brief example of this is if we have an `AttributeDictionary` with a key o
 
 
 ```python
-|d = {"a":2, "b":3, "3_c":4}
+d = {"a":2, "b":3, "3_c":4}
 ad = AttributeDictionary(d)
 ```
 
