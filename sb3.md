@@ -24,7 +24,7 @@ thumbnail: /blog/assets/47_sb3/thumbnail.png
     </a>
 </div>
 
-At Hugging Face, we work on building an ecosystem for Deep Reinforcement Learning researchers and enthusiasts. That’s why we’re happy to announce that we integrated [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3) to the 🤗 Hub.
+At Hugging Face, we work on building an ecosystem for Deep Reinforcement Learning researchers and enthusiasts. That’s why we’re happy to announce that we integrated [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3) to the Hugging Face Hub.
 
 [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3) is one of the most popular PyTorch Deep Reinforcement Learning library that makes it easy to train and test your agents in a variety of environments (Gym, Atari, MuJoco, Procgen...).
 With this integration, you can now host your saved models 💾 and load powerful models from the community.
