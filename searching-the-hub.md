@@ -74,9 +74,9 @@ Let's take a peek:
 
 
 ```python
-model_args = ModelSearchArguments()
+>>> model_args = ModelSearchArguments()
 
-model_args
+>>> model_args
 ```
 
 
@@ -104,7 +104,7 @@ Given this seperation, it would make sense that we would find them within our `m
 
 
 ```python
-model_args.pipeline_tag.TextClassification
+>>> model_args.pipeline_tag.TextClassification
 ```
 
 
@@ -116,7 +116,7 @@ model_args.pipeline_tag.TextClassification
 
 
 ```python
-model_args.dataset.glue
+>>> model_args.dataset.glue
 ```
 
 
@@ -128,7 +128,7 @@ model_args.dataset.glue
 
 
 ```python
-model_args.library.PyTorch
+>>> model_args.library.PyTorch
 ```
 
 
@@ -146,11 +146,11 @@ Now that we know what the right parameters are, we can search the API easily:
 
 
 ```python
-api.list_models(filter = (
-    model_args.pipeline_tag.TextClassification, 
-    model_args.dataset.glue, 
-    model_args.library.PyTorch)
-)
+>>> api.list_models(filter = (
+>>>     model_args.pipeline_tag.TextClassification, 
+>>>     model_args.dataset.glue, 
+>>>     model_args.library.PyTorch)
+>>> )
 ```
 ```
     ModelInfo: {
@@ -181,12 +181,12 @@ I want to search for all models trained for both `text-classification` and `zero
 To setup this query, we'll make use of the `ModelFilter` class. It's designed to handle these types of situations, so we don't need to scratch our heads:
 
 ```python
-filt = ModelFilter(
-    task = ["text-classification", "zero-shot-classification"],
-    trained_dataset = [model_args.dataset.multi_nli, model_args.dataset.glue],
-    library = ['pytorch', 'tensorflow']
-)
-api.list_models(filt)
+>>> filt = ModelFilter(
+>>>     task = ["text-classification", "zero-shot-classification"],
+>>>     trained_dataset = [model_args.dataset.multi_nli, model_args.dataset.glue],
+>>>     library = ['pytorch', 'tensorflow']
+>>> )
+>>> api.list_models(filt)
 ```
 ```
     [ModelInfo: {
@@ -202,7 +202,7 @@ api.list_models(filt)
      	library_name: transformers
      	likes: 1
      }]
-
+```
 
 
 Very quickly we see that it's a much more coordinated approach for searching through the API, with no added headache for you!
@@ -229,21 +229,21 @@ One very key concept to note though, is that if a key contains a number or speci
 
 
 ```python
-from huggingface_hub.utils.endpoint_helpers import AttributeDictionary
+>>> from huggingface_hub.utils.endpoint_helpers import AttributeDictionary
 ```
 
 A very brief example of this is if we have an `AttributeDictionary` with a key of `3_c`:
 
 
 ```python
-d = {"a":2, "b":3, "3_c":4}
-ad = AttributeDictionary(d)
+>>> d = {"a":2, "b":3, "3_c":4}
+>>> ad = AttributeDictionary(d)
 ```
 
 
 ```python
-# As an attribute
-ad.3_c
+>>> # As an attribute
+>>> ad.3_c
 ```
 
 
@@ -256,8 +256,8 @@ ad.3_c
 
 
 ```python
-# As a dictionary key
-ad["3_c"]
+>>> # As a dictionary key
+>>> ad["3_c"]
 ```
 
 
