@@ -1,3 +1,33 @@
+---
+title: "Supercharged Searching on the 🤗 Hub"
+thumbnail: /blog/assets/44_boost_wav2vec2_ngram/wav2vec2_ngram.png
+---
+
+<h1>
+    Supercharged Searching on the Hugging Face Hub
+</h1>
+
+<div class="blog-metadata">
+    <small>Published January 19, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/searching-the-hub.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/muellerzr">
+        <img class="avatar avatar-user" src="https://walkwithfastai.com/assets/images/portrait.png" title="Gravatar" width="200">
+        <div class="bfc">
+            <code>muellerzr</code>
+            <span class="fullname">Zachary Mueller</span>
+        </div>
+    </a>
+</div>
+
+<a target="_blank" href="https://colab.research.google.com/github/muellerzr/hf-blog-notebooks/blob/main/Searching-the-Hub.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
 # **Supercharged Searching on the Hugging Face Hub**
 
 The `huggingface_hub` library is a light-weight interface that provides a progamatic approach to exploring the hosting endpoints Hugging Face provides. Specifically: models, datasets, and Spaces.
@@ -245,4 +275,4 @@ ad["3_c"]
 
 Hopefully by now you have a brief understanding of how this new searching API can directly impact your workflow and exploration of the Hub! Along with this, perhaps you know of a place in your code where the `AttributeDictionary` might be useful for you to use.
 
-From here, make sure to check out the official documentation on [Searching the Hub Efficiently](https://huggingface.co/docs/hub/searching-the-hub)!
+From here, make sure to check out the official documentation on [Searching the Hub Efficiently](https://huggingface.co/docs/hub/searching-the-hub) and don't forget to give us a [star](https://github.com/huggingface/huggingface_hub)!
