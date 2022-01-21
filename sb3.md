@@ -154,7 +154,7 @@ The best way to keep in touch is to [join our discord server](https://discord.gg
 
 We're excited to see what you're working on with Stable-baselines3 and try your models in the Hub 😍.
 
-And we would love to hear your feedback 💖. 📧 Feel free to [reach us](mailto:thomas.simonini@huggingface.co)  
+And we would love to hear your feedback 💖. 📧 Feel free to [reach us](mailto:thomas.simonini@huggingface.co).
 
 Finally, we would like to thank the SB3 team and in particular [Antonin Raffin](https://araffin.github.io/) for their precious help for the integration of the library 🤗.
 
