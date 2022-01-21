@@ -4,7 +4,7 @@ The `huggingface_hub` library is a light-weight interface that provides a progam
 
 Up until now, searching on the Hub through this interface was tricky to pull of, and there were many aspects of it a user had to "just know" and get accustomed to it. 
 
-In this article, we will be looking at a few exciting new features added to the `huggingface_hub` to help lower that bar and provide users with a friendly API to search for the models and datasets they want to use without leaving their Jupyter or Python interfaces.
+In this article, we will be looking at a few exciting new features added to `huggingface_hub` to help lower that bar and provide users with a friendly API to search for the models and datasets they want to use without leaving their Jupyter or Python interfaces.
 
 > Before we begin, if you do not have the latest version of the `huggingface_hub` library on your system please run the following cell:
 
