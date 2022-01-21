@@ -1,4 +1,4 @@
-# **Supercharged Searching on the 🤗 Hub**
+# **Supercharged Searching on the Hugging Face Hub**
 
 The `huggingface_hub` library is a light-weight interface that provides a progamatic approach to exploring the hosting endpoints Hugging Face provides. Specifically: models, datasets, and spaces.
 
