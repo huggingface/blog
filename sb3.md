@@ -53,7 +53,7 @@ pip install huggingface_sb3
 
 We’re currently uploading saved models of agents playing Space Invaders, Breakout, LunarLander and more. On top of this, you can find [all stable-baselines-3 models from the community here](https://huggingface.co/models?other=stable-baselines3)
 
-When you found the model you need, you just have to copy the repo_id:
+When you found the model you need, you just have to copy the repository id:
 
 ![Image showing how to copy a repository id](assets/47_sb3/repo_id.jpg)
 
