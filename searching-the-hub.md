@@ -116,26 +116,29 @@ Now that we know what the right parameters are, we can search the API easily:
 
 
 ```python
-api.list_models(filter = (
+results = api.list_models(filter = (
     model_args.pipeline_tag.TextClassification, 
     model_args.dataset.glue, 
     model_args.library.PyTorch)
-)[0]
-```
-```python
-ModelInfo: {
-    modelId: Jiva/xlm-roberta-large-it-mnli
-    sha: c6e64469ec4aa17fedbd1b2522256f90a90b5b86
-    lastModified: 2021-12-10T14:56:38.000Z
-    tags: ['pytorch', 'xlm-roberta', 'text-classification', 'it', 'dataset:multi_nli', 'dataset:glue', 'arxiv:1911.02116', 'transformers', 'tensorflow', 'license:mit', 'zero-shot-classification']
-    pipeline_tag: zero-shot-classification
-    siblings: [ModelFile(rfilename='.gitattributes'), ModelFile(rfilename='README.md'), ModelFile(rfilename='config.json'), ModelFile(rfilename='pytorch_model.bin'), ModelFile(rfilename='sentencepiece.bpe.model'), ModelFile(rfilename='special_tokens_map.json'), ModelFile(rfilename='tokenizer.json'), ModelFile(rfilename='tokenizer_config.json')]
-    config: None
-    private: False
-    downloads: 680
-    library_name: transformers
-    likes: 1
-}
+)
+
+print(results[0])
+
+---------- PRINTED ----------
+
+    ModelInfo: {
+        modelId: Jiva/xlm-roberta-large-it-mnli
+        sha: c6e64469ec4aa17fedbd1b2522256f90a90b5b86
+        lastModified: 2021-12-10T14:56:38.000Z
+        tags: ['pytorch', 'xlm-roberta', 'text-classification', 'it', 'dataset:multi_nli', 'dataset:glue', 'arxiv:1911.02116', 'transformers', 'tensorflow', 'license:mit', 'zero-shot-classification']
+        pipeline_tag: zero-shot-classification
+        siblings: [ModelFile(rfilename='.gitattributes'), ModelFile(rfilename='README.md'), ModelFile(rfilename='config.json'), ModelFile(rfilename='pytorch_model.bin'), ModelFile(rfilename='sentencepiece.bpe.model'), ModelFile(rfilename='special_tokens_map.json'), ModelFile(rfilename='tokenizer.json'), ModelFile(rfilename='tokenizer_config.json')]
+        config: None
+        private: False
+        downloads: 680
+        library_name: transformers
+        likes: 1
+    }
 ```
 
 
@@ -156,7 +159,7 @@ filt = ModelFilter(
     trained_dataset = [model_args.dataset.multi_nli, model_args.dataset.glue],
     library = ['pytorch', 'tensorflow']
 )
-api.list_models(filt)
+print(api.list_models(filt))
 
 ---------- PRINTED ----------
 
