@@ -32,7 +32,7 @@ thumbnail: /blog/assets/44_boost_wav2vec2_ngram/wav2vec2_ngram.png
 
 The `huggingface_hub` library is a light-weight interface that provides a progamatic approach to exploring the hosting endpoints Hugging Face provides. Specifically: models, datasets, and Spaces.
 
-Up until now, searching on the Hub through this interface was tricky to pull of, and there were many aspects of it a user had to "just know" and get accustomed to it. 
+Up until now, searching on the Hub through this interface was tricky to pull off, and there were many aspects of it a user had to "just know" and get accustomed to it. 
 
 In this article, we will be looking at a few exciting new features added to `huggingface_hub` to help lower that bar and provide users with a friendly API to search for the models and datasets they want to use without leaving their Jupyter or Python interfaces.
 
@@ -138,7 +138,7 @@ Given this seperation, it would make sense that we would find them within our `m
 
 
 
-What we begin to notice though is some of the convience wrapping we perform here. `ModelSearchArguments` (and the complimentary `DatasetSearchArguments`) have a human-readable interface for you to read, with formatted outputs the API wants, such as how the glue dataset should be searched with `dataset:glue`. 
+What we begin to notice though is some of the convenient wrapping we perform here. `ModelSearchArguments` (and the complimentary `DatasetSearchArguments`) have a human-readable interface for you to read, with formatted outputs the API wants, such as how the glue dataset should be searched with `dataset:glue`. 
 
 This is key because without this "cheat sheet" of knowing how certain parameters should be written, you can very easily sit in frustration as you're trying to search for models with the API!
 
