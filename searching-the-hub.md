@@ -88,7 +88,7 @@ Let's take a peek:
      * model_name
      * pipeline_tag
 
-We can see a varity of attributes available to us (more on how this magic is done later). If we were to categorize what we wanted, we could likely seperate them out as:
+We can see a variety of attributes available to us (more on how this magic is done later). If we were to categorize what we wanted, we could likely separate them out as:
 
 - `pipeline_tag` (or task): Text Classification
 - `dataset`: GLUE
