@@ -94,7 +94,7 @@ We can see a variety of attributes available to us (more on how this magic is do
 - `dataset`: GLUE
 - `library`: PyTorch
 
-Given this seperation, it would make sense that we would find them within our `model_args` we've declared:
+Given this separation, it would make sense that we would find them within our `model_args` we've declared:
 
 
 ```python
