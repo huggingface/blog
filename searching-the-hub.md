@@ -209,7 +209,7 @@ As mentioned before, we expand on the `AttrDict` in a few key ways:
 - You can delete keys with `del model_args[key]` *or* with `del model_args.key`
 - That clean `__repr__` we saw earlier 
 
-One very key concept to note though, is that if a key contains a number or special character it **must** be indexed as a dictionary, and *not* as an object.
+One very important concept to note though, is that if a key contains a number or special character it **must** be indexed as a dictionary, and *not* as an object.
 
 ```python
 >>> from huggingface_hub.utils.endpoint_helpers import AttributeDictionary
