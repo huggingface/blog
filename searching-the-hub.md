@@ -68,7 +68,7 @@ from huggingface_hub import HfApi, ModelFilter, ModelSearchArguments
 api = HfApi()
 ```
 
-These two classes can help us frame a solution to our above problem. The `ModelSearchArguments` class is a namespace-like one, that contains every single valid parameter we can searech for! 
+These two classes can help us frame a solution to our above problem. The `ModelSearchArguments` class is a namespace-like one that contains every single valid parameter we can search for! 
 
 Let's take a peek:
 
