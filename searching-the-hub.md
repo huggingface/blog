@@ -59,7 +59,7 @@ Could we simplify that? Let's find out!
 
 ## Finding what we need
 
-First we'll import the `HfApi`, which is a class that helps us interact with the back-end hosting for Hugging Face. We can interact with the models, datasets, and more through it. Along with this, we'll import in a few helper classes: the `ModelFilter` and `ModelSearchArguments`
+First we'll import the `HfApi`, which is a class that helps us interact with the backend hosting for Hugging Face. We can interact with the models, datasets, and more through it. Along with this, we'll import a few helper classes: the `ModelFilter` and `ModelSearchArguments`
 
 
 ```python
