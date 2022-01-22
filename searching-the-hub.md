@@ -110,7 +110,7 @@ Given this separation, it would make sense that we would find them within our `m
 ```
     'pytorch'
 
-What we begin to notice though is some of the convience wrapping we perform here. `ModelSearchArguments` (and the complimentary `DatasetSearchArguments`) have a human-readable interface for you to read, with formatted outputs the API wants, such as how the glue dataset should be searched with `dataset:glue`. 
+What we begin to notice though is some of the convience wrapping we perform here. `ModelSearchArguments` (and the complimentary `DatasetSearchArguments`) have a human-readable interface for you to read, with formatted outputs the API wants, such as how the GLUE dataset should be searched with `dataset:glue`. 
 
 This is key because without this "cheat sheet" of knowing how certain parameters should be written, you can very easily sit in frustration as you're trying to search for models with the API!
 
