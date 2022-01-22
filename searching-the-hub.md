@@ -32,7 +32,7 @@ thumbnail: /blog/assets/44_boost_wav2vec2_ngram/wav2vec2_ngram.png
 
 The `huggingface_hub` library is a lightweight interface that provides a programmatic approach to exploring the hosting endpoints Hugging Face provides: models, datasets, and Spaces.
 
-Up until now, searching on the Hub through this interface was tricky to pull of, and there were many aspects of it a user had to "just know" and get accustomed to it. 
+Up until now, searching on the Hub through this interface was tricky to pull off, and there were many aspects of it a user had to "just know" and get accustomed to. 
 
 In this article, we will be looking at a few exciting new features added to `huggingface_hub` to help lower that bar and provide users with a friendly API to search for the models and datasets they want to use without leaving their Jupyter or Python interfaces.
 
