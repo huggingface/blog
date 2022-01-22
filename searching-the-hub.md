@@ -47,7 +47,7 @@ In this article, we will be looking at a few exciting new features added to `hug
 
 First, let's imagine the scenario you are in. You'd like to find all models hosted on the Hugging Face Hub for Text Classification, were trained on the GLUE dataset, and are compatible with PyTorch.
 
-You may simply just open https://huggingface.co/models and use the widgets on there, but this requires you leaving your IDE, scanning those results, and a few button clicks to get you the information you need. With this programmatic interface, it also could be easy to see this being integrated into workflows for exploring the Hub.
+You may simply just open https://huggingface.co/models and use the widgets on there. But this requires leaving your IDE and scanning those results, all of which requires a few button clicks to get you the information you need. With this programmatic interface, it also could be easy to see this being integrated into workflows for exploring the Hub.
 
 What if there were a solution to this without having to leave your IDE?
 
