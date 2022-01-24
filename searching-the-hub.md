@@ -47,11 +47,11 @@ In this article, we will be looking at a few exciting new features added to `hug
 
 First, let's imagine the scenario you are in. You'd like to find all models hosted on the Hugging Face Hub for Text Classification, were trained on the GLUE dataset, and are compatible with PyTorch.
 
-You may simply just open https://huggingface.co/models and use the widgets on there. But this requires leaving your IDE and scanning those results, all of which requires a few button clicks to get you the information you need. With this programmatic interface, it also could be easy to see this being integrated into workflows for exploring the Hub.
+You may simply just open https://huggingface.co/models and use the widgets on there. But this requires leaving your IDE and scanning those results, all of which requires a few button clicks to get you the information you need. 
 
-What if there were a solution to this without having to leave your IDE?
+What if there were a solution to this without having to leave your IDE? With a programmatic interface, it also could be easy to see this being integrated into workflows for exploring the Hub.
 
-This is where the `huggingface_hub` comes in.
+This is where the `huggingface_hub` comes in. 
 
 For those familiar with the library, you may already know that we can search for these type of models. However, getting the query right is a painful process of trial and error.
 
@@ -110,7 +110,7 @@ Given this separation, it would make sense that we would find them within our `m
 ```
     'pytorch'
 
-What we begin to notice though is some of the convience wrapping we perform here. `ModelSearchArguments` (and the complimentary `DatasetSearchArguments`) have a human-readable interface for you to read, with formatted outputs the API wants, such as how the GLUE dataset should be searched with `dataset:glue`. 
+What we begin to notice though is some of the convience wrapping we perform here. `ModelSearchArguments` (and the complimentary `DatasetSearchArguments`) have a human-readable interface with formatted outputs the API wants, such as how the GLUE dataset should be searched with `dataset:glue`. 
 
 This is key because without this "cheat sheet" of knowing how certain parameters should be written, you can very easily sit in frustration as you're trying to search for models with the API!
 
