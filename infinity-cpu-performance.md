@@ -12,6 +12,33 @@ thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
     </a>
 </div>
 
+
+
+<div class="author-card">
+    <a href="/philschmid">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1624629516652-5ff5d596f244529b3ec0fb89.png?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>philschmid</code>
+            <span class="fullname">Philipp Schmid</span>
+        </div>
+    </a>
+    <a href="/jeffboudier">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1605114051380-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>jeffboudier</code>
+            <span class="fullname">Jeff Boudier</span>
+        </div>
+    </a>
+    <a href="/mfuntowicz">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1583858935715-5e67c47c100906368940747e.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>mfuntowicz</code>
+            <span class="fullname">Morgan Funtowicz</span>
+        </div>
+    </a>
+</div>
+
+
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
 ## Introduction 
