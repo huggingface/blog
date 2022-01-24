@@ -43,7 +43,7 @@ In this article, we will be looking at a few exciting new features added to `hug
 !pip install huggingface_hub -U
 ```
 
-## Situtating the Problem:
+## Situating the Problem:
 
 First, let's imagine the scenario you are in. You'd like to find all models hosted on the Hugging Face Hub for Text Classification, were trained on the GLUE dataset, and are compatible with PyTorch.
 
