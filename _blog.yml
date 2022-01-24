@@ -467,3 +467,10 @@
   date: January 21, 2022
   tags:
   -  open-source-collab
+
+- local: searching-the-hub
+  title: "Supercharged Searching on the Hugging Face Hub"
+  author: muellerzr
+  date: January 25, 2022
+  tags:
+  - guide
