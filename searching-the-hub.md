@@ -1,6 +1,6 @@
 ---
 title: "Supercharged Searching on the 🤗 Hub"
-thumbnail: /blog/assets/44_boost_wav2vec2_ngram/wav2vec2_ngram.png
+thumbnail: /blog/assets/48_hubsearch/thumbnail.png
 ---
 
 <h1>
