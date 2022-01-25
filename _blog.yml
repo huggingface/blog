@@ -471,6 +471,7 @@
 - local: searching-the-hub
   title: "Supercharged Searching on the Hugging Face Hub"
   author: muellerzr
+  thumbnail: /blog/assets/48_hubsearch/thumbnail.png
   date: January 25, 2022
   tags:
   - guide
