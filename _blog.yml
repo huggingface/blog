@@ -475,3 +475,11 @@
   date: January 25, 2022
   tags:
   - guide
+- local: asr-chunking
+  title: "Making automatic speech recognition work on large files with Wav2Vec2 in 🤗 Transformers"
+  author: Narsil
+  thumbnail: /blog/assets/48_hubsearch/thumbnail.png
+  date: January 25, 2022
+  tags:
+  - guide
+  - research
