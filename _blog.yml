@@ -3,7 +3,7 @@
   title: How to train a new language model from scratch using Transformers and Tokenizers
   thumbnail: /blog/assets/01_how-to-train/how-to-train_blogpost.png
   author: julien-c
-  date: February-May, 2020
+  date: February 14, 2020
   tags:
   - guide
 
@@ -353,7 +353,7 @@
   title: "Scaling up BERT-like model Inference on modern CPU - Part 2"
   author: mfuntowicz
   thumbnail: /blog/assets/35_bert_cpu_scaling_part_2/openmp.png
-  date: November 4th, 2021
+  date: November 4, 2021
   tags:
   - guide
 
