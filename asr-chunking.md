@@ -64,6 +64,10 @@ from transformers import pipeline
 # https://huggingface.co/models?pipeline_tag=automatic-speech-recognition&sort=downloads
 pipe = pipeline(model="facebook/wav2vec2-base-960h")
 
+
+# Librivox file, free domain if you want to test
+#!wget https://ia902600.us.archive.org/8/items/thecantervilleghostversion_2_1501_librivox/thecantervilleghostversion2_01_wilde_128kb.mp3 -o very_long_file.mp3
+
 pipe("very_long_file.mp3")
 # Crash out of memory !
 
@@ -133,6 +137,9 @@ Let's note that you can choose every argument of this technique:
 from transformers import pipeline
 
 pipe = pipeline(model="facebook/wav2vec2-base-960h")
+# stride_length_s is a tuple of the left and right stride length.
+# With only 1 number, both sides get the same stride, by default
+# the stride_length on one side is 1/6th of the chunk_length_s
 output = pipe("very_long_file.mp3", chunk_length_s=10, stride_length_s=(4, 2))
 ```
 
