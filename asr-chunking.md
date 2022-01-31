@@ -168,6 +168,6 @@ The principle is exactly the same as regular striding, but this time we can
 feed the pipeline data **as it is coming in** and simply using striding on
 full chunks of length 10s for instance with 1s striding to get proper context.
 
-That make many more inferences that a simple file chunking, but it can make the 
+That requires running much more inference steps than simple file chunking, but it can make the 
 live experience much better because the model can print things as you are 
 speaking, without having to wait for X seconds before seeing something displayed.
