@@ -160,7 +160,7 @@ So chunking large files on these LM boosted models still works out of the box.
 Live inference
 --------------
 
-A very nice perks of using a CTC model like Wav2vec2, is that it is a single
+A very nice perk of using a CTC model like Wav2vec2, is that it is a single
 pass model, so it is **very** fast. Especially on GPU. We can exploit that in order
 to do live inference.
 
