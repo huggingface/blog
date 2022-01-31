@@ -165,7 +165,7 @@ pass model, so it is **very** fast. Especially on GPU. We can exploit that in or
 to do live inference.
 
 The principle is exactly the same as regular striding, but this time we can
-feed the pipeline data **as it is coming in** and simply using striding on
+feed the pipeline data **as it is coming in** and simply use striding on
 full chunks of length 10s for instance with 1s striding to get proper context.
 
 That requires running much more inference steps than simple file chunking, but it can make the 
