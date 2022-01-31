@@ -65,7 +65,7 @@ from transformers import pipeline
 pipe = pipeline(model="facebook/wav2vec2-base-960h")
 
 
-# Librivox file, free domain if you want to test
+# The Public Domain LibriVox file used for the test
 #!wget https://ia902600.us.archive.org/8/items/thecantervilleghostversion_2_1501_librivox/thecantervilleghostversion2_01_wilde_128kb.mp3 -o very_long_file.mp3
 
 pipe("very_long_file.mp3")
