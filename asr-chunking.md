@@ -27,7 +27,7 @@ thumbnail: /blog/assets/44_boost_wav2vec2_ngram/wav2vec2_ngram.png
 ```
 Tl;dr: This post explains how to use the specificities of the Connectionist
 Temporal Classification (CTC) architecture in order to achieve very good
-quality automatic speech recognition even on abritrarily long files or 
+quality automatic speech recognition even on arbitrarily long files or 
 during live inference.
 ```
 
