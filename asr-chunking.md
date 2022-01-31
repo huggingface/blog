@@ -91,7 +91,7 @@ Look at the following diagram:
 
 ![Simple chunking](./assets/49_asr_chunking/chunk.png)
 
-There are ways to try and workaround the problem in a general fashion, but
+There are ways to try and work around the problem in a general fashion, but
 they are never entirely robust. You can try to chunk only when you encounter
 silence but you may have a non silent audio for a long time (a song, or noisy
 café audio ?). You can also try to cut only when there's no voice but it requires
