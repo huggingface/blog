@@ -115,10 +115,12 @@ to a single letter prediction (logit).
 That's the main feature we're going to use in order to add a `stride`.
 This [link](https://www.quora.com/What-does-stride-mean-in-the-context-of-convolutional-neural-networks) explains it 
 in the image context, but it's the same concept for audio.
-Because of this property, we can start doing inference on **overlapping** chunks
-so that the model actually has proper context in the center, and simply **drop**
-the inferenced logits on the side. We can then just chain the **logits** without
-their dropped sides to recover something extremely close to what the model would have
+Because of this property, we can:
+
+- Start doing inference on **overlapping** chunks
+	so that the model actually has proper context in the center
+- **Drop** the inferenced logits on the side. 
+- Chain the **logits** without their dropped sides to recover something extremely close to what the model would have
 predicted on the full length audio.
 
 ![Striding](./assets/49_asr_chunking/Striding.png)
