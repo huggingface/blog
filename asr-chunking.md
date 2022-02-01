@@ -98,7 +98,7 @@ café audio ?). You can also try to cut only when there's no voice but it requir
 another model and this is not an entirely solved problem. You could also have
 a continous voice for a very long time.
 
-As it turns out, CTC structure, which is used by Wav2Vec2,  can be exploited
+As it turns out, CTC structure, which is used by Wav2Vec2, can be exploited
 in order to achieve very robust speech recognition even on very long files
 without falling into those pitfalls.
 
