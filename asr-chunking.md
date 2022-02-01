@@ -94,7 +94,7 @@ Look at the following diagram:
 There are ways to try and work around the problem in a general fashion, but
 they are never entirely robust. You can try to chunk only when you encounter
 silence but you may have a non silent audio for a long time (a song, or noisy
-café audio ?). You can also try to cut only when there's no voice but it requires
+café audio). You can also try to cut only when there's no voice but it requires
 another model and this is not an entirely solved problem. You could also have
 a continous voice for a very long time.
 
