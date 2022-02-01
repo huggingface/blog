@@ -95,7 +95,7 @@ There are ways to try and work around the problem in a general fashion, but
 they are never entirely robust. You can try to chunk only when you encounter
 silence but you may have a non silent audio for a long time (a song, or noisy
 café audio ?). You can also try to cut only when there's no voice but it requires
-another model and this is not an entirely solved problem. And you could have
+another model and this is not an entirely solved problem. You could also have
 a continous voice for a very long time.
 
 As it turns out, CTC structure, which is used by Wav2Vec2,  can be exploited
