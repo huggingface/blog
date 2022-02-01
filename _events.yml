@@ -7,6 +7,11 @@
   date_formatted: Jan 24 to Feb 7, 2022
   description: Community event in which robust speech recognition systems in many languages are created.
   
+- name: Hub Featureton
+  link: https://www.youtube.com/watch?v=gAEeiFR7O0Q&ab_channel=HuggingFace
+  date: Feb 3, 2022
+  description: Would you like to know all the things you can do with the Hub? This event is for you! During the webinar, we'll go through some amazing features the Hugging Face team has been working on.
+  
 - name: XLS-R, Large-Scale Cross-lingual Speech Representation Learning on 128 Languages
   link: https://www.youtube.com/watch?v=ic_J7ZCROBM&ab_channel=HuggingFace
   date: Jan 21, 2022
