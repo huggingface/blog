@@ -27,7 +27,7 @@ thumbnail: /blog/assets/49_asr_chunking/thumbnail.png
 ```
 Tl;dr: This post explains how to use the specificities of the Connectionist
 Temporal Classification (CTC) architecture in order to achieve very good
-quality automatic speech recognition even on arbitrarily long files or 
+quality automatic speech recognition (ASR) even on arbitrarily long files or 
 during live inference.
 ```
 
