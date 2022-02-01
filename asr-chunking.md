@@ -106,7 +106,7 @@ without falling into those pitfalls.
 Chunking with stride
 --------------------
 
-So Wav2Vec2 uses [CTC algorithm](https://distill.pub/2017/ctc/), which means that every frame of audio is mapped
+Wav2Vec2 uses the [CTC algorithm](https://distill.pub/2017/ctc/), which means that every frame of audio is mapped
 to a single letter prediction (logit).
 
 ![CTC](./assets/49_asr_chunking/CTC.png)
