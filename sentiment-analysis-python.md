@@ -59,9 +59,9 @@ Sentiment analysis is used in a wide variety of applications, for example:
 
 Now that we have covered what sentiment analysis is, we are ready to play with some sentiment analysis models! 🎉
 
-On the [Hugging Face Hub](https://huggingface.co/models), we are building the largest collection of models and datasets publicly available in order to democratize machine learning 🚀. In the Hub, you can find more than 25,000 models shared by the AI community with state-of-the-art performances on tasks such as sentiment analysis, computer vision, text generation, speech recognition and more. The Hub is free to use and most models have a widget that allows to test them directly on your browser!
+On the [Hugging Face Hub](https://huggingface.co/models), we are building the largest collection of models and datasets publicly available in order to democratize machine learning 🚀. In the Hub, you can find more than 27,000 models shared by the AI community with state-of-the-art performances on tasks such as sentiment analysis, object detection, text generation, speech recognition and more. The Hub is free to use and most models have a widget that allows to test them directly on your browser!
 
-There are more than [180 sentiment analysis models](https://huggingface.co/models?pipeline_tag=text-classification&sort=downloads&search=sentiment) publicly available on the Hub and integrating them with Python just takes 5 lines of code:
+There are more than [215 sentiment analysis models](https://huggingface.co/models?pipeline_tag=text-classification&sort=downloads&search=sentiment) publicly available on the Hub and integrating them with Python just takes 5 lines of code:
 
 
 ```python
@@ -72,14 +72,14 @@ data = ["I love you", "I hate you"]
 sentiment_pipeline(data)
 ```
 
-This code snippet uses the [pipeline class](https://huggingface.co/docs/transformers/main_classes/pipelines) to make predictions from models available in the Hub. It uses the [default model for sentiment analysis](https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english?text=I+like+you.+I+love+you) to analyze a list of texts `data` and it outputs the following results:
+This code snippet uses the [pipeline class](https://huggingface.co/docs/transformers/main_classes/pipelines) to make predictions from models available in the Hub. It uses the [default model for sentiment analysis](https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english?text=I+like+you.+I+love+you) to analyze the list of texts `data` and it outputs the following results:
 
 ```python
-[{'label': 'POSITIVE', 'score': 0.9998656511306763},
- {'label': 'NEGATIVE', 'score': 0.9991129040718079}]
+[{'label': 'POSITIVE', 'score': 0.9998},
+ {'label': 'NEGATIVE', 'score': 0.9991}]
 ```
 
-You can use a specific sentiment analysis model that is better suited to your language and use case by providing the name of the model:
+You can use a specific sentiment analysis model that is better suited to your language or use case by providing the name of the model. For example, if you want a sentiment analysis model for tweets, you can specify the [model id](https://huggingface.co/finiteautomata/bertweet-base-sentiment-analysis):
 
 ```python
 specific_model = pipeline(model="finiteautomata/bertweet-base-sentiment-analysis")
@@ -88,44 +88,44 @@ specific_model(data)
 
 You can test these models with your own data using this [Colab notebook](https://colab.research.google.com/drive/1G4nvWf6NtytiEyiIkYxs03nno5ZupIJn?usp=sharing). The following are some popular models for sentiment analysis models available on the Hub that we recommend checking out:
 
-- [Twitter-roberta-base-sentiment](https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment) is a model trained on ~58M tweets and fine-tuned for sentiment analysis.
+- [Twitter-roberta-base-sentiment](https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment) is a roBERTa model trained on ~58M tweets and fine-tuned for sentiment analysis. Fine-tuning takes a pre-trained large language model (e.g. roBERTa) and then tweaks it with additional training data to make it perform a second similar task (e.g. sentiment analysis).
 - [Bert-base-multilingual-uncased-sentiment](https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment) is a model fine-tuned for sentiment analysis on product reviews in six languages: English, Dutch, German, French, Spanish and Italian.
 - [Distilbert-base-uncased-emotion](https://huggingface.co/bhadresh-savani/distilbert-base-uncased-emotion?text=I+feel+a+bit+let+down) is a model fine-tuned for detecting emotions in texts, including sadness, joy, love, anger, fear and surprise.
 
-Are you interested in doing sentiment analysis in languages such as Spanish, French, Italian or German? On the Hub, you will find many models fine-tuned for different use cases and languages. You can check out the complete list of sentiment analysis models [here](https://huggingface.co/models?pipeline_tag=text-classification&sort=downloads&search=sentiment).
+Are you interested in doing sentiment analysis in languages such as Spanish, French, Italian or German? On the Hub, you will find many models fine-tuned for different use cases and languages. You can check out the complete list of sentiment analysis models [here](https://huggingface.co/models?pipeline_tag=text-classification&sort=downloads&search=sentiment) and filter at the left according to the language of your interest.
 
 <h2 id="building-custom-sentiment-model">3. Building Your Own Sentiment Analysis Model</h2>
 
 Using pre-trained models publicly available on the Hub is a great way to get started right away with sentiment analysis. These models use deep learning architectures such as transformers that achieve state-of-the-art performance on sentiment analysis and other machine learning tasks. However, you can fine-tune a model with your own data to further improve the sentiment analysis results and get an extra boost of accuracy in your particular use case.
 
-In this section, we'll go over two tutorials on how to fine-tune a model for sentiment analysis with your own data and criteria. The first tutorial uses the Trainer API from the [🤗Transformers](https://github.com/huggingface/transformers) library and requires a bit more coding and experience. The second tutorial is a bit easier and more straightforward, it uses [AutoNLP](https://huggingface.co/autonlp), a tool to automatically train, evaluate and deploy state-of-the-art NLP models without code or ML experience.
+In this section, we'll go over two approaches on how to fine-tune a model for sentiment analysis with your own data and criteria. The first approach uses the Trainer API from the [🤗Transformers](https://github.com/huggingface/transformers), an open source library with 50K stars and 1K+ contributors and requires a bit more coding and experience. The second approach is a bit easier and more straightforward, it uses [AutoNLP](https://huggingface.co/autonlp), a tool to automatically train, evaluate and deploy state-of-the-art NLP models without code or ML experience.
 
 Let's dive in!
 
 ### a. Fine-tuning model with Python
 
-In this tutorial, we'll use the IMBD dataset to fine-tune a DistilBERT model for sentiment analysis. 
+In this tutorial, you'll use the IMBD dataset to fine-tune a DistilBERT model for sentiment analysis. 
 
-The [IMDB dataset](https://huggingface.co/datasets/imdb) contains 25,000 movie reviews labeled by sentiment for training a model and 25,000 movie reviews for testing it. [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) is a smaller, faster and cheaper version of [BERT](https://huggingface.co/docs/transformers/model_doc/bert). It has 40% fewer parameters than BERT and runs 60% faster while preserving over 95% of BERT’s performance. We'll use the IMBD dataset to fine-tune a DistilBERT model that is able to classify whether a movie review is positive or negative. Once we train the model, we will use it to analyze new data! ⚡️
+The [IMDB dataset](https://huggingface.co/datasets/imdb) contains 25,000 movie reviews labeled by sentiment for training a model and 25,000 movie reviews for testing it. [DistilBERT](https://huggingface.co/docs/transformers/model_doc/distilbert) is a smaller, faster and cheaper version of [BERT](https://huggingface.co/docs/transformers/model_doc/bert). It has 40% smaller than BERT and runs 60% faster while preserving over 95% of BERT’s performance. You'll use the IMBD dataset to fine-tune a DistilBERT model that is able to classify whether a movie review is positive or negative. Once you train the model, you will use it to analyze new data! ⚡️
 
 We have [created this notebook](https://colab.research.google.com/drive/1t-NJadXsPTDT6EWIR0PRzpn5o8oMHzp3?usp=sharing) so you can use it through this tutorial in Google Colab.
 
 #### 1. Activate GPU and Install Dependencies
 
-As a first step, let's set up Google Colab to use a GPU (instead of CPU) to train the model much faster. We can do this by going to the menu, clicking on 'Runtime' > 'Change runtime type', and selecting 'GPU' as the Hardware accelerator. Once we do this, we should check if GPU is available on our notebook by running the following code: 
+As a first step, let's set up Google Colab to use a GPU (instead of CPU) to train the model much faster. You can do this by going to the menu, clicking on 'Runtime' > 'Change runtime type', and selecting 'GPU' as the Hardware accelerator. Once you do this, you should check if GPU is available on our notebook by running the following code: 
 
 ```python
 import torch
 torch.cuda.is_available()
 ```
 
-Then, let's install the libraries we will be using in this tutorial:
+Then, install the libraries you will be using in this tutorial:
 
 ```python
 !pip install datasets transformers huggingface_hub
 ```
 
-We should also install `git-lfs` to use git in our model repository:
+You should also install `git-lfs` to use git in our model repository:
 
 ```python
 !apt-get install git-lfs
@@ -133,7 +133,7 @@ We should also install `git-lfs` to use git in our model repository:
 
 #### 2. Preprocess data
 
-We need data to fine-tune DistilBERT for sentiment analysis. So, let's use [🤗Datasets](https://github.com/huggingface/datasets/) library to download and preprocess the IMDB dataset so we can then use this data for training our model:
+You need data to fine-tune DistilBERT for sentiment analysis. So, let's use [🤗Datasets](https://github.com/huggingface/datasets/) library to download and preprocess the IMDB dataset so you can then use this data for training your model:
 
 ```python
 from datasets import load_dataset
@@ -147,14 +147,14 @@ small_train_dataset = imdb["train"].shuffle(seed=42).select([i for i in list(ran
 small_test_dataset = imdb["test"].shuffle(seed=42).select([i for i in list(range(300))])
 ```
 
-To preprocess our data, we will use [DistilBERT tokenizer](https://huggingface.co/docs/transformers/v4.15.0/en/model_doc/distilbert#transformers.DistilBertTokenizer):
+To preprocess our data, you will use [DistilBERT tokenizer](https://huggingface.co/docs/transformers/v4.15.0/en/model_doc/distilbert#transformers.DistilBertTokenizer):
 
 ```python
 from transformers import AutoTokenizer
 tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
 ```
 
-Next, we will prepare the text inputs for the model for both splits of our dataset (training and test) by using the [map method](https://huggingface.co/docs/datasets/about_map_batch.html):
+Next, you will prepare the text inputs for the model for both splits of our dataset (training and test) by using the [map method](https://huggingface.co/docs/datasets/about_map_batch.html):
 
 ```python
 def preprocess_function(examples):
@@ -164,7 +164,7 @@ tokenized_train = small_train_dataset.map(preprocess_function, batched=True)
 tokenized_test = small_test_dataset.map(preprocess_function, batched=True)
 ``` 
 
-To speed up training, let's use a data_collator to convert our training samples to PyTorch tensors and concatenate them with the correct amount of [padding](https://huggingface.co/docs/transformers/preprocessing#everything-you-always-wanted-to-know-about-padding-and-truncation):
+To speed up training, let's use a data_collator to convert your training samples to PyTorch tensors and concatenate them with the correct amount of [padding](https://huggingface.co/docs/transformers/preprocessing#everything-you-always-wanted-to-know-about-padding-and-truncation):
 
 ```python
 from transformers import DataCollatorWithPadding
@@ -173,20 +173,20 @@ data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
 #### 3. Training the model
 
-Now that the preprocessing is done, we can go ahead and train our model 🚀
+Now that the preprocessing is done, you can go ahead and train your model 🚀
 
-We will be throwing away the pretraining head of the DistilBERT model and replacing it with a classification head fine-tuned for sentiment analysis. This enables us to transfer the knowledge from DistilBERT to our custom model 🔥
+You will be throwing away the pretraining head of the DistilBERT model and replacing it with a classification head fine-tuned for sentiment analysis. This enables you to transfer the knowledge from DistilBERT to your custom model 🔥
 
-For training, we will be using [Trainer API](https://huggingface.co/docs/transformers/v4.15.0/en/main_classes/trainer#transformers.Trainer) that is optimized for fine-tuning [Transformers](https://github.com/huggingface/transformers)🤗 models such as DistilBERT, BERT and RoBERTa.
+For training, you will be using [Trainer API](https://huggingface.co/docs/transformers/v4.15.0/en/main_classes/trainer#transformers.Trainer) that is optimized for fine-tuning [Transformers](https://github.com/huggingface/transformers)🤗 models such as DistilBERT, BERT and RoBERTa.
 
-First, let's define DistilBERT as our base model:
+First, let's define DistilBERT as your base model:
 
 ```python
 from transformers import AutoModelForSequenceClassification
 model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=2)
 ```
 
-Then, let's define the metrics we will be using to evaluate how good is our fine-tuned model ([accuracy and f1 score](https://huggingface.co/metrics)):
+Then, let's define the metrics you will be using to evaluate how good is your fine-tuned model ([accuracy and f1 score](https://huggingface.co/metrics)):
 
 ```python
 import numpy as np
@@ -210,7 +210,7 @@ from huggingface_hub import notebook_login
 notebook_login()
 ```
 
-We are almost there! Before training our model, we need to define our training arguments and define a Trainer with all the objects we constructed up to this point:
+You are almost there! Before training our model, you need to define our training arguments and define a Trainer with all the objects you constructed up to this point:
 
 ```python
 from transformers import TrainingArguments, Trainer
@@ -239,17 +239,17 @@ trainer = Trainer(
 )
 ```
 
-Now, it's time to fine-tune the model on our sentiment analysis dataset! 🙌 We just have to call the `train()` method of our Trainer: 
+Now, it's time to fine-tune the model on our sentiment analysis dataset! 🙌 You just have to call the `train()` method of your Trainer: 
 
 ```python
 trainer.train()
 ```
 
-And voila! We fine-tuned a DistilBERT model for sentiment analysis! 🎉
+And voila! You fine-tuned a DistilBERT model for sentiment analysis! 🎉
 
-Training time depends on the hardware we use and the number of samples in the dataset. In our case, it took almost 10 minutes using a GPU and fine-tuning the model 3,000 samples. The more samples you use for training your model, the more accurate it will be but training could be significantly slower.
+Training time depends on the hardware you use and the number of samples in the dataset. In our case, it took almost 10 minutes using a GPU and fine-tuning the model 3,000 samples. The more samples you use for training your model, the more accurate it will be but training could be significantly slower.
 
-Next, let's compute the evaluation metrics to see how good our model is: 
+Next, let's compute the evaluation metrics to see how good your model is: 
 ```python
 trainer.evaluate()
 ```
@@ -258,7 +258,7 @@ In our case, we got 88% accuracy and 89% f1 score. Quite good for a sentiment an
 
 #### 4. Analyzing new data with the model
 
-Now that we have trained a model for sentiment analysis, let's use it to analyze new data and get predictions! 🤖
+Now that you have trained a model for sentiment analysis, let's use it to analyze new data and get predictions! 🤖
 
 First, let's upload the model to the Hub:
 
@@ -266,7 +266,7 @@ First, let's upload the model to the Hub:
 trainer.push_to_hub()
 ```
 
-Now, let's use [pipeline class](https://huggingface.co/docs/transformers/main_classes/pipelines) to analyze two new movie reviews and see how our model predicts its sentiment:
+Now, let's use [pipeline class](https://huggingface.co/docs/transformers/main_classes/pipelines) to analyze two new movie reviews and see how your model predicts its sentiment:
 
 ```python
 from transformers import pipeline
@@ -278,8 +278,8 @@ sentiment_model(["I love this move", "This movie sucks!"])
 These are the predictions from our model:
 
 ```python
-[{'label': 'LABEL_1', 'score': 0.9558863043785095},
- {'label': 'LABEL_0', 'score': 0.9413502216339111}]
+[{'label': 'LABEL_1', 'score': 0.9558},
+ {'label': 'LABEL_0', 'score': 0.9413}]
 ```
 
 In the IMDB dataset, `Label 1` means positive and `Label 0` is negative. Quite good! 🔥
@@ -291,7 +291,7 @@ In the IMDB dataset, `Label 1` means positive and `Label 0` is negative. Quite g
 
 Training a sentiment analysis model using AutoNLP is super easy and it just takes a few clicks 🤯. Let's give it a try!
 
-As a first step, let's get some data! For this tutorial, we'll use [Sentiment140](https://huggingface.co/datasets/sentiment140), a popular sentiment analysis dataset that consists of Twitter messages labeled with 3 sentiments: 0 (negative), 2 (neutral), and 4 (positive). The dataset is quite big; it contains 1,600,000 tweets. As we don't need this amount of data for this tutorial, we have prepared a smaller version of the Sentiment140 dataset with 3,000 samples that you can download from [here](https://cdn-media.huggingface.co/marketing/content/sentiment%20analysis/sentiment-analysis-python/sentiment140-3000samples.csv). This is how the dataset looks like:
+As a first step, let's get some data! You'll use [Sentiment140](https://huggingface.co/datasets/sentiment140), a popular sentiment analysis dataset that consists of Twitter messages labeled with 3 sentiments: 0 (negative), 2 (neutral), and 4 (positive). The dataset is quite big; it contains 1,600,000 tweets. As you don't need this amount of data to get your feet wet with AutoNLP and train your first models, we have prepared a smaller version of the Sentiment140 dataset with 3,000 samples that you can download from [here](https://cdn-media.huggingface.co/marketing/content/sentiment%20analysis/sentiment-analysis-python/sentiment140-3000samples.csv). This is how the dataset looks like:
 
 <figure class="image table text-center m-0 w-full">
   <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment 140 dataset" src="assets/50_sentiment_python/sentiment140-dataset.png"></medium-zoom>
@@ -332,9 +332,9 @@ All these models are automatically uploaded to the Hub and deployed for producti
 
 <h2 id="analyzing-tweets-with-sentiment-analysis">4. Analyzing Tweets with Sentiment Analysis and Python</h2>
 
-In this last section, we'll take what we have learned so far in this post and put it into practice with a fun little project: analyzing tweets about NFTs with sentiment analysis! 
+In this last section, you'll take what you have learned so far in this post and put it into practice with a fun little project: analyzing tweets about NFTs with sentiment analysis! 
 
-First, we'll use [Tweepy](https://www.tweepy.org/), an easy-to-use Python library for getting tweets mentioning #NFTs using the [Twitter API](https://developer.twitter.com/en/docs/twitter-api). Then, we use a sentiment analysis model from the 🤗Hub to analyze these tweets. Finally, we create some visualizations to explore the results and find some interesting insights. 
+First, you'll use [Tweepy](https://www.tweepy.org/), an easy-to-use Python library for getting tweets mentioning #NFTs using the [Twitter API](https://developer.twitter.com/en/docs/twitter-api). Then, you will use a sentiment analysis model from the 🤗Hub to analyze these tweets. Finally, you will create some visualizations to explore the results and find some interesting insights. 
 
 You can use [this notebook](https://colab.research.google.com/drive/182UbzmSeAFgOiow7WNMxvnz-yO-SJQ0W?usp=sharing) to follow this tutorial. Let’s jump into it!
 
@@ -347,7 +347,7 @@ First, let's install all the libraries will be using in this tutorial:
 ```
 
 ### 2. Set up Twitter API credentials
-Next, we will set up the credentials for interacting with the Twitter API. First, you'll need to sign up for a [developer account on Twitter](https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api). Then, you have to create a new project and connect an app to get an API key and token. You can follow this [step-by-step guide](https://developer.twitter.com/en/docs/tutorials/step-by-step-guide-to-making-your-first-request-to-the-twitter-api-v2) to get your credentials.
+Next, you will set up the credentials for interacting with the Twitter API. First, you'll need to sign up for a [developer account on Twitter](https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api). Then, you have to create a new project and connect an app to get an API key and token. You can follow this [step-by-step guide](https://developer.twitter.com/en/docs/tutorials/step-by-step-guide-to-making-your-first-request-to-the-twitter-api-v2) to get your credentials.
 
 Once you have the API key and token, let's create a wrapper with Tweepy for interacting with the Twitter API:
 
@@ -366,7 +366,7 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 ```
 
 ### 3. Search for tweets using Tweepy
-At this point, we are ready to start using the Twitter API to collect tweets 🎉. We'll use [Tweepy Cursor](https://docs.tweepy.org/en/v3.5.0/cursor_tutorial.html) to extract 1,000 tweets mentioning #NFTs: 
+At this point, you are ready to start using the Twitter API to collect tweets 🎉. You will use [Tweepy Cursor](https://docs.tweepy.org/en/v3.5.0/cursor_tutorial.html) to extract 1,000 tweets mentioning #NFTs: 
 
 ```python
 # Helper function for handling pagination in our search and handle rate limits
@@ -380,7 +380,7 @@ def limit_handled(cursor):
        except StopIteration:
            break
  
-# Define the term we will be using for searching tweets
+# Define the term you will be using for searching tweets
 query = '#NFTs'
 query = query + ' -filter:retweets'
  
@@ -397,9 +397,9 @@ search = limit_handled(tweepy.Cursor(api.search,
 
 
 ### 4. Run sentiment analysis on the tweets
-Now we can put our new skills to work and run sentiment analysis on our data! 🎉
+Now you can put our new skills to work and run sentiment analysis on your data! 🎉
 
-We will use one of the models available on the Hub fine-tuned for [sentiment analysis of tweets](https://huggingface.co/finiteautomata/bertweet-base-sentiment-analysis). Like we did in other sections of this post, we will use the [pipeline class](https://huggingface.co/docs/transformers/main_classes/pipelines) to make the predictions with this model:
+You will use one of the models available on the Hub fine-tuned for [sentiment analysis of tweets](https://huggingface.co/finiteautomata/bertweet-base-sentiment-analysis). Like in other sections of this post, you will use the [pipeline class](https://huggingface.co/docs/transformers/main_classes/pipelines) to make the predictions with this model:
 
 ```python
 from transformers import pipeline
@@ -447,7 +447,7 @@ Tweet: How much our followers made on #Crypto in December:\n#DAPPRadar airdrop �
 Tweet: Stupid guy #2\nhttps://t.co/8yKzYjCYIl\n\n#NFT #NFTs #nftcollector #rarible https://t.co/O4V19gMmVk		Sentiment: NEG
 ```
 
-Then, let's see how many tweets we got for each sentiment and visualize these results:
+Then, let's see how many tweets you got for each sentiment and visualize these results:
 
 ```python
 # Let's count the number of tweets by sentiments
@@ -509,7 +509,7 @@ In contrast, words associated with negative tweets include: cookies chaos, Solan
   <figcaption>Word cloud for negative tweets</figcaption>
 </figure>
 
-And that is it! With just a few lines of python code, we were able to collect tweets, analyze them with sentiment analysis and create some cool visualizations to analyze the results! Pretty cool, huh?
+And that is it! With just a few lines of python code, you were able to collect tweets, analyze them with sentiment analysis and create some cool visualizations to analyze the results! Pretty cool, huh?
 
 ## 5. Wrapping up
 Sentiment analysis with Python has never been easier! Tools such as [🤗Transformers](https://github.com/huggingface/transformers) and [🤗Hub](https://huggingface.co/models) makes sentiment analysis accessible to all developers. You can use open source, pre-trained models for sentiment analysis in just a few lines of code 🔥
