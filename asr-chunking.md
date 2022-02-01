@@ -127,7 +127,7 @@ This is not **technically** 100% the same thing as running the model on the whol
 file so it is not enabled by default, but as you saw in the earlier example you
 need only to add `chunk_length_s` to your `pipeline` for it to work.
 
-In practice we observed that most of the bad inference is kept within
+In practice, we observed that most of the bad inference is kept within
 the strides, which get dropped before inference, leading to a proper
 inference of the full text.
 
