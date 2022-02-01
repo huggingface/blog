@@ -61,7 +61,7 @@ pip install transformers
 from transformers import pipeline
 
 # This will work on any of the thousands of models at
-# https://huggingface.co/models?pipeline_tag=automatic-speech-recognition&sort=downloads
+# https://huggingface.co/models?pipeline_tag=automatic-speech-recognition
 pipe = pipeline(model="facebook/wav2vec2-base-960h")
 
 
