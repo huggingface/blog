@@ -81,7 +81,7 @@ Simple Chunking
 ---------------
 
 The simplest way to achieve inference on very long files would be to simply chunk
-the initial audio into let's say 10s samples, run inference on those, and end up
+the initial audio into shorter samples, let's say 10 seconds each, run inference on those, and end up
 with a final reconstruction. This is efficient computationally but usually leads
 to subpar results, the reason being that in order to do good inference, the model
 needs some context, so around the chunking border, inference tends to be of poor
