@@ -483,3 +483,11 @@
   tags:
   - guide
   - research
+
+- local: sentiment-analysis-python
+  title: "Getting Started with Sentiment Analysis using Python"
+  author: FedericoPascual
+  thumbnail: /blog/assets/50_sentiment_python/thumbnail.png
+  date: February 2, 2022
+  tags:
+  - guide
