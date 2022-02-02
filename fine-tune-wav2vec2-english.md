@@ -76,7 +76,7 @@ the `jiwer` to evaluate our fine-tuned model using the [word error rate
 (WER)](https://huggingface.co/metrics/wer) metric \\({}^1\\).
 
 ```bash
-!pip install datasets>=1.13.3
+!pip install datasets>=1.18.3
 !pip install transformers==4.11.3
 !pip install librosa
 !pip install jiwer
