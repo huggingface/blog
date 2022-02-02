@@ -7,7 +7,7 @@ thumbnail: /blog/assets/50_sentiment_python/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published Feb 2, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/infinity-cpu-performance.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/sentiment-analysis-python.md">
         Update on GitHub
     </a>
 </div>
@@ -30,14 +30,14 @@ In the past, sentiment analysis used to be limited to researchers, machine learn
 
 In this guide, you'll learn everything to get started with sentiment analysis using Python, including:
 
-1. [What is sentiment analysis?](#what-is-sentiment-analysis)
-2. [How to use pre-trained sentiment analysis models with Python](#pre-trained-sentiment-models)
-3. [How to build your own sentiment analysis model](#building-custom-sentiment-model)
-4. [How to analyze tweets with sentiment analysis](#analyzing-tweets-with-sentiment-analysis)
+1. [What is sentiment analysis?](#1-what-is-sentiment-analysis)
+2. [How to use pre-trained sentiment analysis models with Python](#2-how-to-use-pre-trained-sentiment-analysis-models-with-python)
+3. [How to build your own sentiment analysis model](#3-building-your-own-sentiment-analysis-model)
+4. [How to analyze tweets with sentiment analysis](#4-analyzing-tweets-with-sentiment-analysis-and-python)
 
 Let's get started! 🚀
 
-<h2 id="what-is-sentiment-analysis">1. What is Sentiment Analysis?</h2>
+## 1. What is Sentiment Analysis?
 
 Sentiment analysis is a [natural language processing](https://en.wikipedia.org/wiki/Natural_language_processing) technique that identifies the polarity of a given text. There are different flavors of sentiment analysis, but one of the most widely used techniques labels data into positive, negative and neutral. For example, let's take a look at these tweets mentioning [@VerizonSupport](https://twitter.com/VerizonSupport):
 
@@ -55,7 +55,7 @@ Sentiment analysis is used in a wide variety of applications, for example:
 - Analyze feedback from surveys and product reviews to quickly get insights into what your customers like and dislike about your product.
 - Analyze incoming support tickets in real-time to detect angry customers and act accordingly to prevent churn.
 
-<h2 id="pre-trained-sentiment-models">2. How to Use Pre-trained Sentiment Analysis Models with Python</h2>
+## 2. How to Use Pre-trained Sentiment Analysis Models with Python
 
 Now that we have covered what sentiment analysis is, we are ready to play with some sentiment analysis models! 🎉
 
@@ -88,13 +88,13 @@ specific_model(data)
 
 You can test these models with your own data using this [Colab notebook](https://colab.research.google.com/drive/1G4nvWf6NtytiEyiIkYxs03nno5ZupIJn?usp=sharing). The following are some popular models for sentiment analysis models available on the Hub that we recommend checking out:
 
-- [Twitter-roberta-base-sentiment](https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment) is a roBERTa model trained on ~58M tweets and fine-tuned for sentiment analysis. Fine-tuning takes a pre-trained large language model (e.g. roBERTa) and then tweaks it with additional training data to make it perform a second similar task (e.g. sentiment analysis).
+- [Twitter-roberta-base-sentiment](https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment) is a roBERTa model trained on ~58M tweets and fine-tuned for sentiment analysis. Fine-tuning is the process of taking a pre-trained large language model (e.g. roBERTa in this case) and then tweaking it with additional training data to make it perform a second similar task (e.g. sentiment analysis).
 - [Bert-base-multilingual-uncased-sentiment](https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment) is a model fine-tuned for sentiment analysis on product reviews in six languages: English, Dutch, German, French, Spanish and Italian.
 - [Distilbert-base-uncased-emotion](https://huggingface.co/bhadresh-savani/distilbert-base-uncased-emotion?text=I+feel+a+bit+let+down) is a model fine-tuned for detecting emotions in texts, including sadness, joy, love, anger, fear and surprise.
 
 Are you interested in doing sentiment analysis in languages such as Spanish, French, Italian or German? On the Hub, you will find many models fine-tuned for different use cases and languages. You can check out the complete list of sentiment analysis models [here](https://huggingface.co/models?pipeline_tag=text-classification&sort=downloads&search=sentiment) and filter at the left according to the language of your interest.
 
-<h2 id="building-custom-sentiment-model">3. Building Your Own Sentiment Analysis Model</h2>
+## 3. Building Your Own Sentiment Analysis Model
 
 Using pre-trained models publicly available on the Hub is a great way to get started right away with sentiment analysis. These models use deep learning architectures such as transformers that achieve state-of-the-art performance on sentiment analysis and other machine learning tasks. However, you can fine-tune a model with your own data to further improve the sentiment analysis results and get an extra boost of accuracy in your particular use case.
 
@@ -177,7 +177,7 @@ Now that the preprocessing is done, you can go ahead and train your model 🚀
 
 You will be throwing away the pretraining head of the DistilBERT model and replacing it with a classification head fine-tuned for sentiment analysis. This enables you to transfer the knowledge from DistilBERT to your custom model 🔥
 
-For training, you will be using [Trainer API](https://huggingface.co/docs/transformers/v4.15.0/en/main_classes/trainer#transformers.Trainer) that is optimized for fine-tuning [Transformers](https://github.com/huggingface/transformers)🤗 models such as DistilBERT, BERT and RoBERTa.
+For training, you will be using the [Trainer API](https://huggingface.co/docs/transformers/v4.15.0/en/main_classes/trainer#transformers.Trainer), which is optimized for fine-tuning [Transformers](https://github.com/huggingface/transformers)🤗 models such as DistilBERT, BERT and RoBERTa.
 
 First, let's define DistilBERT as your base model:
 
@@ -193,13 +193,13 @@ import numpy as np
 from datasets import load_metric
  
 def compute_metrics(eval_pred):
-   metric1 = load_metric("accuracy")
-   metric2 = load_metric("f1")
+   load_accuracy = load_metric("accuracy")
+   load_f1 = load_metric("f1")
   
    logits, labels = eval_pred
    predictions = np.argmax(logits, axis=-1)
-   accuracy = metric1.compute(predictions=predictions, references=labels)["accuracy"]
-   f1 = metric2.compute(predictions=predictions, references=labels)["f1"]
+   accuracy = load_accuracy.compute(predictions=predictions, references=labels)["accuracy"]
+   f1 = load_f1.compute(predictions=predictions, references=labels)["f1"]
    return {"accuracy": accuracy, "f1": f1}
 ```
 
@@ -210,7 +210,7 @@ from huggingface_hub import notebook_login
 notebook_login()
 ```
 
-You are almost there! Before training our model, you need to define our training arguments and define a Trainer with all the objects you constructed up to this point:
+You are almost there! Before training our model, you need to define the training arguments and define a Trainer with all the objects you constructed up to this point:
 
 ```python
 from transformers import TrainingArguments, Trainer
@@ -239,7 +239,7 @@ trainer = Trainer(
 )
 ```
 
-Now, it's time to fine-tune the model on our sentiment analysis dataset! 🙌 You just have to call the `train()` method of your Trainer: 
+Now, it's time to fine-tune the model on the sentiment analysis dataset! 🙌 You just have to call the `train()` method of your Trainer: 
 
 ```python
 trainer.train()
@@ -247,7 +247,7 @@ trainer.train()
 
 And voila! You fine-tuned a DistilBERT model for sentiment analysis! 🎉
 
-Training time depends on the hardware you use and the number of samples in the dataset. In our case, it took almost 10 minutes using a GPU and fine-tuning the model 3,000 samples. The more samples you use for training your model, the more accurate it will be but training could be significantly slower.
+Training time depends on the hardware you use and the number of samples in the dataset. In our case, it took almost 10 minutes using a GPU and fine-tuning the model with 3,000 samples. The more samples you use for training your model, the more accurate it will be but training could be significantly slower.
 
 Next, let's compute the evaluation metrics to see how good your model is: 
 ```python
@@ -258,7 +258,7 @@ In our case, we got 88% accuracy and 89% f1 score. Quite good for a sentiment an
 
 #### 4. Analyzing new data with the model
 
-Now that you have trained a model for sentiment analysis, let's use it to analyze new data and get predictions! 🤖
+Now that you have trained a model for sentiment analysis, let's use it to analyze new data and get 🤖 predictions! This unlocks the power of machine learning; using a model to automatically analyze data at scale, in real-time ⚡️
 
 First, let's upload the model to the Hub:
 
@@ -266,7 +266,7 @@ First, let's upload the model to the Hub:
 trainer.push_to_hub()
 ```
 
-Now, let's use [pipeline class](https://huggingface.co/docs/transformers/main_classes/pipelines) to analyze two new movie reviews and see how your model predicts its sentiment:
+Now that you have pushed the model to the Hub, you can use it [pipeline class](https://huggingface.co/docs/transformers/main_classes/pipelines) to analyze two new movie reviews and see how your model predicts its sentiment with just two lines of code 🤯:
 
 ```python
 from transformers import pipeline
@@ -330,7 +330,7 @@ The best model has 77.87% accuracy 🔥 Pretty good for a sentiment analysis mod
 
 All these models are automatically uploaded to the Hub and deployed for production. You can use any of these models to start analyzing new data right away by using the [pipeline class](https://huggingface.co/docs/transformers/main_classes/pipelines) as shown in previous sections of this post.
 
-<h2 id="analyzing-tweets-with-sentiment-analysis">4. Analyzing Tweets with Sentiment Analysis and Python</h2>
+## 4. Analyzing Tweets with Sentiment Analysis and Python
 
 In this last section, you'll take what you have learned so far in this post and put it into practice with a fun little project: analyzing tweets about NFTs with sentiment analysis! 
 
@@ -340,7 +340,7 @@ You can use [this notebook](https://colab.research.google.com/drive/182UbzmSeAFg
 
 ### 1. Install dependencies
 
-First, let's install all the libraries will be using in this tutorial:
+First, let's install all the libraries you will use in this tutorial:
 
 ```
 !pip install -q transformers tweepy wordcloud matplotlib
@@ -512,8 +512,8 @@ In contrast, words associated with negative tweets include: cookies chaos, Solan
 And that is it! With just a few lines of python code, you were able to collect tweets, analyze them with sentiment analysis and create some cool visualizations to analyze the results! Pretty cool, huh?
 
 ## 5. Wrapping up
-Sentiment analysis with Python has never been easier! Tools such as [🤗Transformers](https://github.com/huggingface/transformers) and [🤗Hub](https://huggingface.co/models) makes sentiment analysis accessible to all developers. You can use open source, pre-trained models for sentiment analysis in just a few lines of code 🔥
+Sentiment analysis with Python has never been easier! Tools such as [🤗Transformers](https://github.com/huggingface/transformers) and the [🤗Hub](https://huggingface.co/models) makes sentiment analysis accessible to all developers. You can use open source, pre-trained models for sentiment analysis in just a few lines of code 🔥
 
 Do you want to train a custom model for sentiment analysis with your own data? Easy peasy! You can fine-tune a model using [Trainer API](https://huggingface.co/docs/transformers/v4.15.0/en/main_classes/trainer#transformers.Trainer) to build on top of large language models and get state-of-the-art results. If you want something even easier, you can use [AutoNLP](https://huggingface.co/autonlp) to train custom machine learning models by simply uploading data.
 
-If you have questions, the Hugging Face community can help answer and/or benefit from, please ask them in the [Hugging Face forum](https://discuss.huggingface.co/).
+If you have questions, the Hugging Face community can help answer and/or benefit from, please ask them in the [Hugging Face forum](https://discuss.huggingface.co/). Also, join our [discord server](https://discord.gg/YRAq8fMnUG) to talk with us and with the Hugging Face community 
