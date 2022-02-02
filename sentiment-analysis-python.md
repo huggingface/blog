@@ -92,7 +92,7 @@ You can test these models with your own data using this [Colab notebook](https:/
 - [Bert-base-multilingual-uncased-sentiment](https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment) is a model fine-tuned for sentiment analysis on product reviews in six languages: English, Dutch, German, French, Spanish and Italian.
 - [Distilbert-base-uncased-emotion](https://huggingface.co/bhadresh-savani/distilbert-base-uncased-emotion?text=I+feel+a+bit+let+down) is a model fine-tuned for detecting emotions in texts, including sadness, joy, love, anger, fear and surprise.
 
-Are you interested in doing sentiment analysis in languages such as Spanish, French, Italian or German? On the Hub, you will find many models fine-tuned for different use cases and languages. You can check out the complete list of sentiment analysis models [here](https://huggingface.co/models?pipeline_tag=text-classification&sort=downloads&search=sentiment) and filter at the left according to the language of your interest.
+Are you interested in doing sentiment analysis in languages such as Spanish, French, Italian or German? On the Hub, you will find many models fine-tuned for different use cases and ~28 languages. You can check out the complete list of sentiment analysis models [here](https://huggingface.co/models?pipeline_tag=text-classification&sort=downloads&search=sentiment) and filter at the left according to the language of your interest.
 
 ## 3. Building Your Own Sentiment Analysis Model
 
