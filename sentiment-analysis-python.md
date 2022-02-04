@@ -86,7 +86,13 @@ specific_model = pipeline(model="finiteautomata/bertweet-base-sentiment-analysis
 specific_model(data)
 ```
 
-You can test these models with your own data using this [Colab notebook](https://colab.research.google.com/drive/1G4nvWf6NtytiEyiIkYxs03nno5ZupIJn?usp=sharing). The following are some popular models for sentiment analysis models available on the Hub that we recommend checking out:
+You can test these models with your own data using this [Colab notebook](https://colab.research.google.com/drive/1G4nvWf6NtytiEyiIkYxs03nno5ZupIJn?usp=sharing):
+
+<!-- <div class="flex text-center items-center"> -->
+<figure class="flex justify-center w-full">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/eN-mbWOKJ7Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</figure>
+The following are some popular models for sentiment analysis models available on the Hub that we recommend checking out:
 
 - [Twitter-roberta-base-sentiment](https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment) is a roBERTa model trained on ~58M tweets and fine-tuned for sentiment analysis. Fine-tuning is the process of taking a pre-trained large language model (e.g. roBERTa in this case) and then tweaking it with additional training data to make it perform a second similar task (e.g. sentiment analysis).
 - [Bert-base-multilingual-uncased-sentiment](https://huggingface.co/nlptown/bert-base-multilingual-uncased-sentiment) is a model fine-tuned for sentiment analysis on product reviews in six languages: English, Dutch, German, French, Spanish and Italian.
@@ -516,4 +522,4 @@ Sentiment analysis with Python has never been easier! Tools such as [🤗Transfo
 
 Do you want to train a custom model for sentiment analysis with your own data? Easy peasy! You can fine-tune a model using [Trainer API](https://huggingface.co/docs/transformers/v4.15.0/en/main_classes/trainer#transformers.Trainer) to build on top of large language models and get state-of-the-art results. If you want something even easier, you can use [AutoNLP](https://huggingface.co/autonlp) to train custom machine learning models by simply uploading data.
 
-If you have questions, the Hugging Face community can help answer and/or benefit from, please ask them in the [Hugging Face forum](https://discuss.huggingface.co/). Also, join our [discord server](https://discord.gg/YRAq8fMnUG) to talk with us and with the Hugging Face community 
+If you have questions, the Hugging Face community can help answer and/or benefit from, please ask them in the [Hugging Face forum](https://discuss.huggingface.co/). Also, join our [discord server](https://discord.gg/YRAq8fMnUG) to talk with us and with the Hugging Face community.
