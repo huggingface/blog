@@ -15,3 +15,15 @@
 
 - value: research
   label: research
+
+- value: nlp
+  label: NLP
+
+- value: speech
+  label: speech
+
+- value: vision
+  label: vision
+
+- value: rl
+  label: RL
