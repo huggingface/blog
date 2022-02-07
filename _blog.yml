@@ -394,7 +394,7 @@
   date: November 15, 2021
   tags:
   - guide
-  - nlp
+  - speech
 
 - local: accelerating-pytorch
   title: "Accelerating PyTorch distributed fine-tuning with Intel technologies"
