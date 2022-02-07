@@ -523,6 +523,7 @@
   tags:
   - guide
   - research
+  - speech
 
 - local: sentiment-analysis-python
   title: "Getting Started with Sentiment Analysis using Python"
