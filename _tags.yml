@@ -19,11 +19,11 @@
 - value: nlp
   label: NLP
 
-- value: speech
-  label: speech
+- value: audio
+  label: Audio
 
-- value: vision
-  label: vision
+- value: cv
+  label: CV
 
 - value: rl
   label: RL

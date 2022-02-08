@@ -173,7 +173,7 @@
   date: March 12, 2021
   tags:
   - guide
-  - speech
+  - audio
 
 - local: how-to-deploy-a-pipeline-to-google-clouds
   title: "My Journey to a serverless transformers pipeline on Google Cloud"
@@ -339,7 +339,7 @@
   date: October 13, 2021
   tags:
   - community
-  - vision
+  - cv
   - nlp
 
 - local: the-age-of-ml-as-code
@@ -394,7 +394,7 @@
   date: November 15, 2021
   tags:
   - guide
-  - speech
+  - audio
 
 - local: accelerating-pytorch
   title: "Accelerating PyTorch distributed fine-tuning with Intel technologies"
@@ -449,8 +449,8 @@
   - research
   - guide
   - nlp
-  - speech
-  - vision
+  - audio
+  - cv
   
 - local: gradio-joins-hf
   title: "Gradio joins Hugging Face!"
@@ -489,7 +489,7 @@
   tags:
   - research
   - guide
-  - speech
+  - audio
 
 - local: infinity-cpu-performance
   title: "Case Study: Millisecond Latency using Hugging Face Infinity and modern CPUs"
@@ -524,7 +524,7 @@
   tags:
   - guide
   - research
-  - speech
+  - audio
 
 - local: sentiment-analysis-python
   title: "Getting Started with Sentiment Analysis using Python"
