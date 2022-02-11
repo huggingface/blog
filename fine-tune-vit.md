@@ -32,7 +32,7 @@ thumbnail: /blog/assets/51_fine_tune_vit/vit-thumbnail.jpg
 
 Just as transformers-based models have revolutionized NLP, we're now seeing an explosion of papers applying them to all sorts of other domains. One of the most revolutionary of these was the Vision Transformer (ViT), which was introduced in [June 2021](https://arxiv.org/abs/2010.11929) by a team of researchers at Google Brain.
 
-This paper explored how you can tokenize images, just as you would tokenize sentences, so that they can be passed to transformer models for training. Its quite a simple concept, really...
+This paper explored how you can tokenize images, just as you would tokenize sentences, so that they can be passed to transformer models for training. It's quite a simple concept, really...
 
 1. Split an image into a grid of sub-image patches
 1. Embed each patch with a linear projection
@@ -43,13 +43,13 @@ This paper explored how you can tokenize images, just as you would tokenize sent
 </figure>
 
 
-It turns out that once you've done the above, you can pre-train and finetune transformers just as you're used to with NLP tasks. Pretty sweet 😎.
+It turns out that once you've done the above, you can pre-train and fine-tune transformers just as you're used to with NLP tasks. Pretty sweet 😎.
 
 ---
 
-In this notebook, we'll walk through how to leverage 🤗 `datasets` to download and process image classification datasets, and then use them to fine-tune a pre-trained ViT with 🤗 `transformers`. 
+In this blog post, we'll walk through how to leverage 🤗 `datasets` to download and process image classification datasets, and then use them to fine-tune a pre-trained ViT with 🤗 `transformers`. 
 
-To get started, lets first install both those packages.
+To get started, let's first install both those packages.
 
 
 ```bash
@@ -74,7 +74,7 @@ Let's take a look at the 400th example from the `'train'` split from the beans d
 
 1. `image`: A PIL Image
 1. `image_file_path`: The `str` path to the image file that was loaded as `image`
-1. `labels`: A [`datasets.ClassLabel`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=classlabel#datasets.ClassLabel) feature, which we'll see as an integer representation of the label for a given example. (Later we'll see how to get the string class names, don't worry)
+1. `labels`: A [`datasets.ClassLabel`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=classlabel#datasets.ClassLabel) feature, which is an integer representation of the label. (Later you'll see how to get the string class names, don't worry!)
 
 
 ```python
@@ -103,11 +103,11 @@ image
   <medium-zoom background="rgba(0,0,0,.7)" alt="A leaf!" src="assets/51_fine_tune_vit/example-leaf.jpg"></medium-zoom>
 </figure>
 
-Thats definitely a leaf! But what kind? 😅
+That's definitely a leaf! But what kind? 😅
 
-Since the `'labels'` feature of this dataset is a `datasets.features.ClassLabel`, we can use it to lookup the corresponding name for this example's label ID.
+Since the `'labels'` feature of this dataset is a `datasets.features.ClassLabel`, we can use it to look up the corresponding name for this example's label ID.
 
-First, lets access the feature definition for the `'labels'`.
+First, let's access the feature definition for the `'labels'`.
 
 
 ```python
@@ -122,7 +122,7 @@ labels
 
 
 
-Now, lets print out the class label for our example. We'll do that by using the [`int2str`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=classlabel#datasets.ClassLabel.int2str) function of `ClassLabel`, which, as the name implies, lets us pass the int representation of the class to look up the string label.
+Now, let's print out the class label for our example. You can do that by using the [`int2str`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=classlabel#datasets.ClassLabel.int2str) function of `ClassLabel`, which, as the name implies, allows to pass the integer representation of the class to look up the string label.
 
 
 ```python
@@ -138,11 +138,10 @@ labels.int2str(ex['labels'])
 
 Turns out the leaf shown above is infected with Bean Rust, a serious disease in bean plants. 😢
 
-Let's write a function that'll display a grid of examples from each class so we can get a better idea of what we're working with.
+Let's write a function that'll display a grid of examples from each class to get a better idea of what you're working with.
 
 
 ```python
-from transformers.utils.dummy_vision_objects import ImageGPTFeatureExtractor
 import random
 from PIL import ImageDraw, ImageFont, Image
 
@@ -188,11 +187,11 @@ From what I'm seeing,
 
 ## Loading ViT Feature Extractor
 
-Now that we know what our images look like and have a better understanding of the problem we're trying to solve, let's see how we can prepare these images for our model. 
+Now we know what our images look like and better understand the problem we're trying to solve. Let's see how we can prepare these images for our model!
 
-When ViT models are trained, specific transformations are applied to images being fed into them. Use the wrong transformations on your image and the model won't be able to understand what it's seeing! 🖼 ➡️ 🔢
+When ViT models are trained, specific transformations are applied to images fed into them. Use the wrong transformations on your image, and the model won't understand what it's seeing! 🖼 ➡️ 🔢
 
-To make sure we apply the correct transformations, we will use a [`ViTFeatureExtractor`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=classlabel#datasets.ClassLabel.int2str) initialized with a configuration that was saved along with the pretrained model we plan to use. In our case, we'll be using the [google/vit-base-patch16-224-in21k](https://huggingface.co/google/vit-base-patch16-224-in21k) model, so lets load its feature extractor from the 🤗 Hub.
+To make sure we apply the correct transformations, we will use a [`ViTFeatureExtractor`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=classlabel#datasets.ClassLabel.int2str) initialized with a configuration that was saved along with the pretrained model we plan to use. In our case, we'll be using the [google/vit-base-patch16-224-in21k](https://huggingface.co/google/vit-base-patch16-224-in21k) model, so let's load its feature extractor from the Hugging Face Hub.
 
 
 ```python
@@ -202,7 +201,7 @@ model_name_or_path = 'google/vit-base-patch16-224-in21k'
 feature_extractor = ViTFeatureExtractor.from_pretrained(model_name_or_path)
 ```
 
-If we print a feature extractor, we can see its configuration.
+You can see the feature extractor configuration by printing it.
 
 
     ViTFeatureExtractor {
@@ -225,9 +224,9 @@ If we print a feature extractor, we can see its configuration.
 
 
 
-To process an image, simply pass it to the feature extractor's call function. This will return a dict containing `pixel values`, which is the numeric representation of your image that we'll pass to the model.
+To process an image, simply pass it to the feature extractor's call function. This will return a dict containing `pixel values`, which is the numeric representation to be passed to the model.
 
-We get a numpy array by default, but if we add the `return_tensors='pt'` argument, we'll get back `torch` tensors instead.
+You get a NumPy array by default, but if you add the `return_tensors='pt'` argument, you'll get back `torch` tensors instead.
 
 
 
@@ -245,7 +244,7 @@ Should give you something like...
 
 ## Processing the Dataset
 
-Now that we know how to read in images and transform them into inputs, let's write a function that will put those two things together to process a single example from the dataset.
+Now that you know how to read images and transform them into inputs, let's write a function that will put those two things together to process a single example from the dataset.
 
 
 ```python
@@ -268,9 +267,9 @@ process_example(ds['train'][0])
 
 
 
-While we could call `ds.map` and apply this to every example at once, this can be very slow, especially if you use a larger dataset. Instead, we'll apply a ***transform*** to the dataset. Transforms are only applied to examples as you index them.
+While you could call `ds.map` and apply this to every example at once, this can be very slow, especially if you use a larger dataset. Instead, you can apply a ***transform*** to the dataset. Transforms are only applied to examples as you index them.
 
-First, though, we'll need to update our last function to accept a batch of data, as that's what `ds.with_transform` expects.
+First, though, you'll need to update the last function to accept a batch of data, as that's what `ds.with_transform` expects.
 
 
 ```python
@@ -285,14 +284,14 @@ def transform(example_batch):
     return inputs
 ```
 
-We can directly apply this to our dataset using `ds.with_transform(transform)`.
+You can directly apply this to the dataset using `ds.with_transform(transform)`.
 
 
 ```python
 prepared_ds = ds.with_transform(transform)
 ```
 
-Now, whenever we get an example from the dataset, our transform will be 
+Now, whenever you get an example from the dataset, the transform will be 
 applied in real time (on both samples and slices, as shown below)
 
 
@@ -312,23 +311,23 @@ This time, the resulting `pixel_values` tensor will have shape `(2, 3, 224, 224)
 
 # Training and Evaluation
 
-The data is processed and we are ready to start setting up the training pipeline. We will make use of 🤗's Trainer, but that'll require us to do a few things first:
+The data is processed and you are ready to start setting up the training pipeline. This blog post uses 🤗's Trainer, but that'll require us to do a few things first:
 
 - Define a collate function.
 
-- Define an evaluation metric. During training, the model should be evaluated on its prediction accuracy. We should define a compute_metrics function accordingly.
+- Define an evaluation metric. During training, the model should be evaluated on its prediction accuracy. You should define a `compute_metrics` function accordingly.
 
-- Load a pretrained checkpoint. We need to load a pretrained checkpoint and configure it correctly for training.
+- Load a pretrained checkpoint. You need to load a pretrained checkpoint and configure it correctly for training.
 
 - Define the training configuration.
 
-After having fine-tuned the model, we will correctly evaluate it on the evaluation data and verify that it has indeed learned to correctly classify our images.
+After fine-tuning the model, you will correctly evaluate it on the evaluation data and verify that it has indeed learned to correctly classify the images.
 
 ### Define our data collator
 
-Batches are coming in as lists of dicts, so we just unpack + stack those into batch tensors.
+Batches are coming in as lists of dicts, so you can just unpack + stack those into batch tensors.
 
-We return a batch `dict` from our `collate_fn` so we can simply `**unpack` the inputs to our model later. ✨
+Since the `collate_fn` will return a batch dict, you can `**unpack` the inputs to the model later. ✨
 
 
 ```python
@@ -343,7 +342,7 @@ def collate_fn(batch):
 
 ### Define an evaluation metric
 
-Here, we load the [accuracy](https://huggingface.co/metrics/accuracy) metric from `datasets`, and then write a function that takes in a model prediction + computes the accuracy.
+The [accuracy](https://huggingface.co/metrics/accuracy) metric from `datasets` can easily be used to compare the predictions with the labels. Below, you can see how to use it within a `compute_metrics` function that will be used by the `Trainer`.
 
 
 ```python
@@ -356,7 +355,7 @@ def compute_metrics(p):
 ```
 
 
-Now we can load our pretrained model. We'll add `num_labels` on init to make sure the model creates a classification head with the right number of units. We'll also include the `id2label` and `label2id` mappings so we have human readable labels in the 🤗 hub widget if we choose to `push_to_hub`.
+Let's load the pretrained model. We'll add `num_labels` on init so the model creates a classification head with the right number of units. We'll also include the `id2label` and `label2id` mappings to have human-readable labels in the Hub widget (if you choose to `push_to_hub`).
 
 
 ```python
@@ -373,9 +372,9 @@ model = ViTForImageClassification.from_pretrained(
 ```
 
 
-We're almost ready to train! The last thing we'll do before that is set up the training configuration by defining [`TrainingArguments`](https://huggingface.co/docs/transformers/v4.16.2/en/main_classes/trainer#transformers.TrainingArguments).
+Almost ready to train! The last thing needed before that is to set up the training configuration by defining [`TrainingArguments`](https://huggingface.co/docs/transformers/v4.16.2/en/main_classes/trainer#transformers.TrainingArguments).
 
-Most of these are pretty self-explanatory, but one that is quite important here is `remove_unused_columns=False`. This one will drop any features not used by the model's call function. By default it's `True` because usually its ideal to drop unused feature columns, as it makes it easier to unpack inputs into the model's call function. But, in our case, we need the unused features ('image' in particular) in order to create 'pixel_values'.
+Most of these are pretty self-explanatory, but one that is quite important here is `remove_unused_columns=False`. This one will drop any features not used by the model's call function. By default it's `True` because usually it's ideal to drop unused feature columns, making it easier to unpack inputs into the model's call function. But, in our case, we need the unused features ('image' in particular) in order to create 'pixel_values'.
 
 What I'm trying to say is that you'll have a bad time if you forget to set `remove_unused_columns=False`.
 
@@ -450,7 +449,7 @@ Here were my evaluation results - Cool beans! Sorry, had to say it.
       eval_steps_per_second   =       7.97
 
 
-Finally, if you want, you can push your model up to the hub. Here, we'll push it up if you specified `push_to_hub=True` in the training configuration.
+Finally, if you want, you can push your model up to the hub. Here, we'll push it up if you specified `push_to_hub=True` in the training configuration. Note that in order to push to hub, you'll have to have git-lfs installed and be logged into your Hugging Face account (which can be done via `huggingface-cli login`).
 
 ```python
 kwargs = {
