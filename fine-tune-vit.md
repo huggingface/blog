@@ -1,6 +1,6 @@
 ---
 title: "Fine-Tune ViT for Image Classification with 🤗 Transformers"
-thumbnail: /blog/assets/51_fine_tune_vit/vit-thumbnail.png
+thumbnail: /blog/assets/51_fine_tune_vit/vit-thumbnail.jpg
 ---
 
 <h1>
@@ -8,7 +8,7 @@ thumbnail: /blog/assets/51_fine_tune_vit/vit-thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published February 10, 2022.</small>
+    <small>Published February 11, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/fine-tune-vit.md">
         Update on GitHub
     </a>
@@ -38,7 +38,9 @@ This paper explored how you can tokenize images, just as you would tokenize sent
 1. Embed each patch with a linear projection
 1. Each embedded patch becomes a token, and the resulting sequence of embedded patches is the sequence you pass to the model.
 
-![vit_figure.png](https://raw.githubusercontent.com/google-research/vision_transformer/main/vit_figure.png)
+<figure class="image table text-center m-0 w-full">
+  <medium-zoom background="rgba(0,0,0,.7)" alt="A leaf!" src="assets/51_fine_tune_vit/vit-figure.jpg"></medium-zoom>
+</figure>
 
 
 It turns out that once you've done the above, you can pre-train and finetune transformers just as you're used to with NLP tasks. Pretty sweet 😎.
@@ -98,7 +100,7 @@ image
 ```
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="A leaf!" src="assets/51_fine_tune_vit/example-leaf.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="A leaf!" src="assets/51_fine_tune_vit/example-leaf.jpg"></medium-zoom>
 </figure>
 
 Thats definitely a leaf! But what kind? 😅
@@ -173,7 +175,7 @@ show_examples(ds, seed=random.randint(0, 1337), examples_per_class=3)
 
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="A leaf!" src="assets/51_fine_tune_vit/leaf-grid.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="A leaf!" src="assets/51_fine_tune_vit/leaf-grid.jpg"></medium-zoom>
   <figcaption>A grid of a few examples from each class in the dataset</figcaption>
 </figure>
 

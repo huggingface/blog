@@ -495,7 +495,7 @@
 - local: fine-tune-vit
   title: "Fine-Tune ViT for Image Classification with 🤗 Transformers"
   author: nateraw
-  thumbnail: /blog/assets/51_fine_tune_vit/vit-thumbnail.png
-  date: February 10, 2022
+  thumbnail: /blog/assets/51_fine_tune_vit/vit-thumbnail.jpg
+  date: February 11, 2022
   tags:
   - guide
