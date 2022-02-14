@@ -1,6 +1,34 @@
-```python
-!pip install --upgrade transformers
-```
+---
+title: "Vision Encoder-Decoder Architecture with 🤗 Transformers"
+thumbnail: /blog/assets/to_be_added.jpg
+---
+
+<h1>
+    Vision Encoder-Decoder Architecture with 🤗 Transformers
+</h1>
+
+<div class="blog-metadata">
+    <small>Published February 14, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/ca281c9cc97486a839119d76f2bcc888c3890ce3/vision_encoder_decoder_blog.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="https://github.com/ydshieh">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/2521628?s=400&u=eccf2f21c851f85a6ce762102a024bdfb092b082&v=4" title="Gravatar">
+        <div class="bfc">
+            <code>ydshieh</code>
+            <span class="fullname">Yih-Dar SHIEH</span>
+        </div>
+    </a>
+</div>
+
+<script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
+
+<a target="_blank" href="https://colab.research.google.com/github/ydshieh/notebooks/blob/master/vision_encoder_decoder_blog.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 
 # **Encoder-Decoder Architecture**
 
@@ -87,6 +115,10 @@ Here is an example of creating an encoder-decoder model with BERT as encoder and
 
 <span id="fn1"> <sup>1</sup> It can be used for text classification and generation too, by using only its encoder and decoder respectively.</span>
 
+
+```python
+!pip install --upgrade transformers
+```
 
 ```python
 from transformers import AutoTokenizer, EncoderDecoderModel
@@ -969,7 +1001,7 @@ superimposed_img
 
 
 
-The above images tells us that, when the model generates the (first) `cat` in `a cat laying on top of a couch next to another cat`, it pays attention to the 2 cute cats!
+The above images tell us that, when the model generates the (first) `cat` in `a cat laying on top of a couch next to another cat`, it pays attention to the 2 cute cats!
 
 Let's check for the second occurrence of `cat` in the generation:
 
