@@ -5,6 +5,10 @@ thumbnail: /blog/assets/spaces_image_search.jpg
 
 <h1> Image search with 🤗 datasets </h1> 
 
+<a target="_blank" href="https://colab.research.google.com/gist/davanstrien/551b450c5f8664e5bd0cb0e3cb50aeac/hf_blog_image_search.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
 🤗 [`datasets`](https://huggingface.co/docs/datasets/) is a library that makes it easy to access and share datasets. It also makes it easy to process data efficiently -- including working with data which doesn't fit into memory.
 
 When `datasets` was first launched it was more usually associated with text data. However, recently, `datasets` has added increased support for images. In particular there is now a `datasets` [feature type for images](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=image#datasets.Image). A previous [blog post](https://huggingface.co/blog/fine-tune-vit) showed how `datasets` can be used with 🤗 `transformers` to train an image classification model. In this blog post we'll see how we can combine `datasets` and a few other libraries to create an image search application.
