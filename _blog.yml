@@ -499,3 +499,11 @@
   date: February 11, 2022
   tags:
   - guide
+
+- local: image-search-datasets
+  title: "Image search with 🤗 datasets"
+  author: davanstrien
+  thumbnail: /blog/assets/52_image_search_datasets/spaces_image_search.jpg
+  date: February 23, 2022
+  tags:
+  - guide
