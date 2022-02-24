@@ -5,6 +5,23 @@ thumbnail: /blog/assets/spaces_image_search.jpg
 
 <h1> Image search with 🤗 datasets </h1> 
 
+<div class="blog-metadata">
+    <small>Published February 24, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/image-search-datasets.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/davanstrien">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8995957?v=4" title="Gravatar">
+        <div class="bfc">
+            <code>davanstrien</code>
+            <span class="fullname">Daniel van Strien</span>
+        </div>
+    </a>
+</div>
+
 <a target="_blank" href="https://colab.research.google.com/gist/davanstrien/551b450c5f8664e5bd0cb0e3cb50aeac/hf_blog_image_search.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
