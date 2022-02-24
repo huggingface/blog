@@ -93,137 +93,90 @@ Some attempts to help overcome this have included uploading the images to [flick
 
 There have also been projects to tag the dataset [using machine learning](https://blogs.bl.uk/digital-scholarship/2016/11/sherlocknet-update-millions-of-tags-and-thousands-of-captions-added-to-the-bl-flickr-images.html). This work already makes it possible to search by tags but we might want a 'richer' ability to search. For this particular experiment we'll work with a subset of the collections which contain "embellishments". This dataset is a bit smaller so will be better for experimenting with. We can get the full data from the British Library's data repository: [https://doi.org/10.21250/db17](). Since the full dataset is still fairly large you'll probably want to start with a smaller sample.
 
-``` bash
-# uncomment the line below if you want to work with the full dataset
-#wget -O dig19cbooks-embellishments.zip "https://bl.iro.bl.uk/downloads/ba1d1d12-b1bd-4a43-9696-7b29b56cdd20?locale=en"
-wget -O dig19cbooks-embellishments.zip "https://zenodo.org/record/6224034/files/embellishments_sample.zip?download=1"
+## Creating our dataset 
+
+Our dataset consists of a folder containing subdirectories inside which are images. This is a fairly standard format for sharing image datasets. Thanks to a recently merged [pull request](https://github.com/huggingface/datasets/pull/2830) we can directly load this dataset using `datasets` `ImageFolder` loader 🤯
+
+```python
+from datasets import load_dataset
+dataset = load_dataset("imagefolder", data_files="https://zenodo.org/record/6224034/files/embellishments_sample.zip?download=1")
 ```
 
-``` bash
-unzip -q dig19cbooks-embellishments.zip
+Let's see what we get back.
+
+```python
+dataset
 ```
 
-Now we have the data downloaded we'll try and load it into datasets. There are various ways of doing this. To start with we can grab all of
-the image files we need.
-
-``` python
-from pathlib import Path
+```
+DatasetDict({
+    train: Dataset({
+        features: ['image', 'label'],
+        num_rows: 10000
+    })
+})
 ```
 
-``` python
-files = list(Path('embellishments_sample/').rglob("*.jpg"))
+We can get back a `DatasetsDict` and we have a `Dataset` with `image` and `label` features. 
+
+Since we don't have any train/validation splits here let's just grab the `train` part of our dataset. 
+
+Let's also take a look at one example from our dataset to see what this looks like.
+
+```python
+dataset[0]
+```
+```python
+{'image': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=358x461 at 0x7F9488DBB090>,
+ 'label': 208}
+```
+Let's start with the label column. This contains the parent folder for our images in this case this represents the year of publication for the books from which the images are taken. We can see the mappings for this using  `dataset.features`
+
+```python
+dataset.features['label']
 ```
 
-Since the file path encodes the year of publication for the book the image came from let's create a function to grab that.
+In this particular dataset the image filenames also contains some metadata, in particular about the book from which the image was taken. There are a few ways we can get this information. 
 
-``` python
-def get_parts(f:Path):
-    _,year,fname =  f.parts
-    return year, fname
+When we look at one example from our dataset that the `image` feature was a `PIL.JpegImagePlugin.JpegImageFile`. Since `PIL.Images` have a filename attribute, one way in which we can grab our filenames is by accessing this. 
+
+```python
+dataset[0]['image'].filename
+```
+```python
+/root/.cache/huggingface/datasets/downloads/extracted/f324a87ed7bf3a6b83b8a353096fbd9500d6e7956e55c3d96d2b23cc03146582/embellishments_sample/1920/000499442_0_000579_1_[The Ring and the Book  etc ]_1920.jpg
 ```
 
-## 📸 Loading the images 
+Since we might want easy access to this information later let's create a new column where we extract the filename. For this we'll use the `map` method.
 
-The usual way we would load an image in python would be something like:
-
-``` python
-from PIL import Image
+```python
+dataset = dataset.map(lambda example: {"fname": example['image'].filename.split("/")[-1]})
 ```
 
-``` python
-def load_image(path):
-    return Image.open(path)
-```
+We can look at one example to see what this looks like now.
 
-However, we can leverage `datasets` to do this for us.
-
-### Preparing images for datasets
-
-We'll now load our images. What we'll do is loop through all our images and then load the information for each image into a dictionary. Since we want our keys to represent the columns in our dataset, and the values of those keys to be lists of the relevant data we can use a [`defaultdict`](https://docs.python.org/3/library/collections.html#collections.defaultdict) for this.
-
-``` python
-from collections import defaultdict
-```
-
-``` python
-data = defaultdict(list)
-```
-
-``` python
-for file in files:
-    year, fname = get_parts(file)
-    data['fname'].append(fname)
-    data['year'].append(year)
-    data['path'].append(str(file)) 
-```
-
-We can now use the load `from_dict` method to create a new dataset.
-
-``` python
-from datasets import Dataset
-```
-
-``` python
-dataset = Dataset.from_dict(data)
-```
-
-We can look at one example to see what this looks like.
-
-``` python
+```python
 dataset[0]
 ```
 
-```
-{'fname': '003557206_04_000013_1_The Works of the Reverend Dr  Jonathan Swift  Dean of St  Patrick s  Dublin  in twenty volumes  Containing_1772.jpg',
-'path': 'embellishments_sample/1772/003557206_04_000013_1_The Works of the Reverend Dr  Jonathan Swift  Dean of St  Patrick s  Dublin  in twenty volumes  Containing_1772.jpg',
-'year': '1772'}
+```python
+{'fname': '000499442_0_000579_1_[The Ring and the Book  etc ]_1920.jpg',
+ 'image': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=358x461 at 0x7F94862A9650>,
+ 'label': 208}
+
 ```
 
-### Loading our images
-
-At the moment our dataset has the filename and full path for each image. However, we want to have an actual image loaded into our dataset. We can use the `cast_column` method to change the type of a column. Since we might want to keep our original `path` column, let's first make a copy of that column and store it in a new `img` column. We can do this by using `map` and returning a dictionary with the key `img` and the value from our `path` column.
-
-``` python
-dataset = dataset.map(lambda example: {"img": example['path']})
-```
+We've got our metadata now. Let's see some pictures already! If we access an example and index into the `image` column we'll see our image 😃
 
 ``` python
-dataset = dataset.cast_column('img', features.Image())
+dataset[10]['image']
 ```
 
-Let's see what this looks like
-
-``` python
-dataset
-```
-```
-Dataset({
-    features: ['fname', 'year', 'path', 'img'],
-    num_rows: 10000
-    })
-```
-
-
-We have an image column but let's check the type of all our features:
-
-``` python
-dataset.features
-```
-```
-{'fname': Value(dtype='string', id=None),
-'img': Image(decode=True, id=None),
-'path': Value(dtype='string', id=None),
-'year': Value(dtype='string', id=None)}
-```
-
-If we access an example and index into the `img` column we'll see our image 😃
-
-``` python
-dataset[10]['img']
-```
 
 <img src="assets/52_image_search_datasets/dataset_image.jpg" alt="An example image from our dataset">
 
+
+> **Note** in an [earlier version](https://danielvanstrien.xyz/metadata/deployment/huggingface/ethics/huggingface-datasets/faiss/2022/01/13/image_search.html) of this blog post the steps to download and load the images was much more convoluted. The new `ImageFolder` loader makes this process much easier 😀 
 
 ## Push all the things to the hub!
 
@@ -277,7 +230,7 @@ This model will take as input either an image or some text and return an embeddi
 
 ``` python
 ds_with_embeddings = dataset.map(
-    lambda example: {'embeddings':model.encode(example['img'], device='cuda')}, batch_size=32)
+    lambda example: {'embeddings':model.encode(example['image'], device='cuda')}, batch_size=32)
 ```
 
 We can 'save' our work by pushing back to the 🤗 hub using
@@ -303,7 +256,7 @@ ds_with_embeddings['train'].add_faiss_index(column='embeddings')
 
 ``` 
 Dataset({
-        features: ['fname', 'year', 'path', 'img', 'embeddings'],
+        features: ['fname', 'year', 'path', 'image', 'embeddings'],
         num_rows: 10000
     })
 ```
@@ -327,7 +280,7 @@ scores, retrieved_examples = ds_with_embeddings['train'].get_nearest_examples('e
 We can index into the first example this retrieves:
 
 ``` python
-retrieved_examples['img'][0]
+retrieved_examples['image'][0]
 ```
 
 <img src="assets/52_image_search_datasets/search_result.jpg" alt="An image of a factory">
@@ -342,7 +295,7 @@ import matplotlib.pyplot as plt
 plt.figure(figsize=(20, 20))
 columns = 3
 for i in range(9):
-    image = retrieved_examples['img'][i]
+    image = retrieved_examples['image'][i]
     plt.subplot(9 / columns + 1, columns, i + 1)
     plt.imshow(image)
 ```
@@ -359,7 +312,7 @@ def get_image_from_text(text_prompt, number_to_retrieve=9):
     plt.figure(figsize=(20, 20))
     columns = 3
     for i in range(9):
-        image = retrieved_examples['img'][i]
+        image = retrieved_examples['image'][i]
         plt.title(text_prompt)
         plt.subplot(9 / columns + 1, columns, i + 1)
         plt.imshow(image)
