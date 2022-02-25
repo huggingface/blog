@@ -1,6 +1,6 @@
 ---
 title: "Announcing the 🤗 AI Research Residency Program"
-thumbnail: /blog/assets/52_residency_blog/TBD-thumbnail.png
+thumbnail: /blog/assets/52_residency_blog/residency-thumbnail.jpg
 ---
 
 <h1>
