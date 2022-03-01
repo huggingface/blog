@@ -6,7 +6,7 @@ thumbnail: /blog/assets/52_bert_101/thumbnail.jpg
 <h1>BERT 101 🤗 State Of The Art NLP Model Explained</h1>
 
 <div class="blog-metadata">
-    <small>Published February 28, 2022.</small>
+    <small>Published March 3, 2022.</small>
 </div>
 
 <div class="author-card">
