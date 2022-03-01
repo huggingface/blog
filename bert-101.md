@@ -94,7 +94,7 @@ BERT works by leveraging the following:
 
 A massive dataset of 3.3 Billion words has contributed to BERT’s continued success. 
 
-BERT was specifically trained on Wikipedia (~2.5B words) and Google’s BooksCorpus (~800M words). These large informational datasets contributed to BERT’s deep knowledge not only of the English language but also of our world! 🚀
+BERT was specifically trained on Wikipedia (\~2.5B words) and Google’s BooksCorpus (\~800M words). These large informational datasets contributed to BERT’s deep knowledge not only of the English language but also of our world! 🚀
 
 Training on a dataset this large takes a long time. BERT’s training was made possible thanks to the novel Transformer architecture and sped up by using TPUs (Tensor Processing Units - Google’s custom circuit built specifically for large ML models). —64 TPUs trained BERT over the course of 4 days.
 
