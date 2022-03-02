@@ -499,3 +499,11 @@
   date: February 11, 2022
   tags:
   - guide
+
+- local: bert-101
+  title: "BERT 101 🤗 State Of The Art NLP Model Explained"
+  author: britneymuller
+  thumbnail: /blog/assets/52_bert_101/thumbnail.jpg
+  date: March 3, 2022
+  tags:
+  - guide
