@@ -75,7 +75,7 @@ BERT helps Google better surface (English) results for nearly all searches since
 Here’s an example of how BERT helps Google better understand specific searches like:
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="BERT Google Search Example" src="assets/52_bert_101/BERT-google-search-example.jpg"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="BERT Google Search Example" src="assets/52_bert_101/BERT-example.png"></medium-zoom>
   <figcaption><a href="https://blog.google/products/search/search-language-understanding-bert/">Source</a></figcaption>
 </figure>
 
