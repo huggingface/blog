@@ -22,7 +22,7 @@ thumbnail: /blog/assets/spaces_image_search.jpg
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/gist/davanstrien/2fbf6ca50074713dc16a8da8aa7ce761/hf_blog_image_search.ipynb">
+<a target="_blank" href="https://colab.research.google.com/gist/davanstrien/e2c29fbbed20dc767e5a74e210f4237b/hf_blog_image_search.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
