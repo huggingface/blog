@@ -173,7 +173,7 @@ dataset[10]['image']
 ```
 
 
-<img src="assets/52_image_search_datasets/dataset_image.jpg" alt="An example image from our dataset">
+<img src="assets/53_image_search_datasets/dataset_image.jpg" alt="An example image from our dataset">
 
 
 > **Note** in an [earlier version](https://danielvanstrien.xyz/metadata/deployment/huggingface/ethics/huggingface-datasets/faiss/2022/01/13/image_search.html) of this blog post the steps to download and load the images was much more convoluted. The new `ImageFolder` loader makes this process much easier 😀 In particular we didn't actually need to worry about how to load our images since `datasets` took care of this for us. 
@@ -283,7 +283,7 @@ We can index into the first example this retrieves:
 retrieved_examples['image'][0]
 ```
 
-<img src="assets/52_image_search_datasets/search_result.jpg" alt="An image of a factory">
+<img src="assets/53_image_search_datasets/search_result.jpg" alt="An image of a factory">
 
 This isn't quite a steam engine but it's also not a completely weird result. We can plot the other results to see what was returned.
 
@@ -300,7 +300,7 @@ for i in range(9):
     plt.imshow(image)
 ```
 
-<img src="assets/52_image_search_datasets/steam_engine_search_results.jpg">
+<img src="assets/53_image_search_datasets/steam_engine_search_results.jpg">
 
 Some of these results look fairly close to our input prompt. We can wrap
 this in a function so can more easily play around with different prompts
@@ -321,7 +321,7 @@ def get_image_from_text(text_prompt, number_to_retrieve=9):
 ``` python
 get_image_from_text("An illustration of the sun behind a mountain")
 ```
-<img src="assets/52_image_search_datasets/sun_behind_mountain.jpg">
+<img src="assets/53_image_search_datasets/sun_behind_mountain.jpg">
 
 
 ### Trying a bunch of prompts ✨
@@ -344,17 +344,17 @@ for prompt in prompts:
     get_image_from_text(prompt)
 ```
 
-<img src="assets/52_image_search_datasets/musical_instrument.jpg">
+<img src="assets/53_image_search_datasets/musical_instrument.jpg">
 
-<img src="assets/52_image_search_datasets/guitar.jpg">
-
-
-<img src="assets/52_image_search_datasets/an_animal.jpg">
-
-<img src="assets/52_image_search_datasets/cat_or_dog.jpg">
+<img src="assets/53_image_search_datasets/guitar.jpg">
 
 
-<img src="assets/52_image_search_datasets/an_empty_abyss.jpg">
+<img src="assets/53_image_search_datasets/an_animal.jpg">
+
+<img src="assets/53_image_search_datasets/cat_or_dog.jpg">
+
+
+<img src="assets/53_image_search_datasets/an_empty_abyss.jpg">
 
 
 We can see these results aren't always right but they are usually some reasonable results in there. It already seems like this could be useful for searching for a the semantic content of an image in this dataset. However we might hold off on sharing this as is...
@@ -365,7 +365,7 @@ One obvious next step for this kind of project is to create a hugginface [spaces
 
 It was a fairly simple process to get a [Gradio app setup](https://gradio.app/) from the point we got to here. Here is a screenshot of this app:
 
-<img src="assets/52_image_search_datasets/spaces_image_search.jpg" alt="Screnshot of Gradio search app">
+<img src="assets/53_image_search_datasets/spaces_image_search.jpg" alt="Screnshot of Gradio search app">
 
 However, I'm a little bit vary about making this public straightaway. Looking at the model card for the CLIP model we can look at the primary intended uses:
 
