@@ -511,6 +511,7 @@
 - local: constrained-beam-search
   title: "Guiding Text Generation with Constrained Beam Search in 🤗 Transformers"
   author: cwkeam
+  guest: true
   thumbnail: /blog/assets/54_constrained_beam_search/thumbnail.jpg
   date: March 7, 2022
   tags:
