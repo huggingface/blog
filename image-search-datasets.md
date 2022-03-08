@@ -227,7 +227,7 @@ This model will take as input either an image or some text and return an embeddi
 
 ``` python
 ds_with_embeddings = dataset.map(
-    lambda example: {'embeddings':model.encode(example['image'], device='cuda')}, batch_size=32)
+    lambda example: {'embeddings':model.encode(example['image'], device='cuda')}, batched=True, batch_size=32)
 ```
 
 We can 'save' our work by pushing back to the Hub using
