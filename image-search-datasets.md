@@ -218,7 +218,7 @@ We now have a dataset with a bunch of images in it. To begin creating our image 
 We can download the model using the `SentenceTransformer` class.
 
 ``` python
-from sentence_transformers import SentenceTransformer, util
+from sentence_transformers import SentenceTransformer
 
 model = SentenceTransformer('clip-ViT-B-32')
 ```
