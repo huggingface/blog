@@ -360,7 +360,7 @@ We can see these results aren't always right but they are usually some reasonabl
 
 ## Creating a Hugging Face Space? 🤷🏼 
 
-One obvious next step for this kind of project is to create a Hugging Face [Spaces](https://huggingface.co/spaces/launch) demo. This is what I've done for other [models](https://huggingface.co/spaces/BritishLibraryLabs/British-Library-books-genre-classifier-v2)
+One obvious next step for this kind of project is to create a Hugging Face [Space](https://huggingface.co/spaces/launch) demo. This is what I've done for other [models](https://huggingface.co/spaces/BritishLibraryLabs/British-Library-books-genre-classifier-v2).
 
 It was a fairly simple process to get a [Gradio app setup](https://gradio.app/) from the point we got to here. Here is a screenshot of this app:
 
