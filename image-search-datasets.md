@@ -127,7 +127,7 @@ dataset[0]
 {'image': <PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=358x461 at 0x7F9488DBB090>,
  'label': 208}
 ```
-Let's start with the label column. It contains the parent folder for our images. In this case, the label column represents the year of publication for the books from which the images are taken. We can see the mappings for this using   `dataset.features`
+Let's start with the label column. It contains the parent folder for our images. In this case, the label column represents the year of publication for the books from which the images are taken. We can see the mappings for this using `dataset.features`:
 
 ```python
 dataset.features['label']
