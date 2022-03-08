@@ -237,7 +237,7 @@ We can 'save' our work by pushing back to the 🤗 hub using
 ds_with_embeddings.push_to_hub('davanstrien/embellishments-sample', private=True)
 ```
 
-If we were to move to a different machine we could grab our work again by loading it from the hub 😃
+If we were to move to a different machine, we could grab our work again by loading it from the Hub 😃
 
 ``` python
 from datasets import load_dataset
