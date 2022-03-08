@@ -181,7 +181,7 @@ dataset[10]['image']
 
 One of the super awesome things about the 🤗 ecosystem is the Hugging Face Hub. We can use the Hub to access models and datasets. It is often used for sharing work with others, but it can also be a useful tool for work in progress. `datasets` recently added a `push_to_hub` method that allows you to push a dataset to the Hub with minimal fuss. This can be really helpful by allowing you to pass around a dataset with all the transforms etc. already done.
 
-For now we'll push the dataset to the hub and keep it private initially.
+For now, we'll push the dataset to the Hub and keep it private initially.
 
 Depending on where you are running the code you may need to login using the `huggingface-cli login` command.
 
