@@ -302,7 +302,7 @@ for i in range(9):
 <img src="assets/53_image_search_datasets/steam_engine_search_results.jpg">
 
 Some of these results look fairly close to our input prompt. We can wrap
-this in a function so can more easily play around with different prompts
+this in a function so we can more easily play around with different prompts
 
 ``` python
 def get_image_from_text(text_prompt, number_to_retrieve=9):
