@@ -133,7 +133,7 @@ Let's start with the label column. It contains the parent folder for our images.
 dataset.features['label']
 ```
 
-In this particular dataset the image filenames also contains some metadata, in particular about the book from which the image was taken. There are a few ways we can get this information. 
+In this particular dataset, the image filenames also contain some metadata about the book from which the image was taken. There are a few ways we can get this information.
 
 When we look at one example from our dataset that the `image` feature was a `PIL.JpegImagePlugin.JpegImageFile`. Since `PIL.Images` have a filename attribute, one way in which we can grab our filenames is by accessing this. 
 
