@@ -205,7 +205,7 @@ In this particular example, having access to a GPU is important. Using the Hub a
 and pick up the work on Google Colab.
 
 
-If we've moved to a new machine you may need to login again. Once we've done this we can load our dataset
+If we move to a new machine, we may need to login again. Once we've done this we can load our dataset
 
 ``` python
 from datasets import load_dataset
