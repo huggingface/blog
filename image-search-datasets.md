@@ -273,7 +273,7 @@ prompt = model.encode("A steam engine")
 We can use another method from the datasets library `get_nearest_examples` to get images which have an embedding close to our input prompt embedding. We can pass in a number of results we want to get back.
 
 ``` python
-scores, retrieved_examples = ds_with_embeddings['train'].get_nearest_examples('embeddings', prompt,k=9)
+scores, retrieved_examples = ds_with_embeddings['train'].get_nearest_examples('embeddings', prompt, k=9)
 ```
 
 We can index into the first example this retrieves:
