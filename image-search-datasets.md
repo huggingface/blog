@@ -325,7 +325,7 @@ get_image_from_text("An illustration of the sun behind a mountain")
 
 ### Trying a bunch of prompts ✨
 
-Now we have a function for getting a few results we can try a bunch of
+Now we have a function for getting a few results, we can try a bunch of
 different prompts:
 
 - For some of these I'll choose prompts which are a broad 'category' i.e. 'a musical instrument' or 'an animal', others are specific i.e. 'a guitar'.
