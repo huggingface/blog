@@ -245,7 +245,7 @@ from datasets import load_dataset
 ds_with_embeddings = load_dataset("davanstrien/embellishments-sample", use_auth_token=True)
 ```
 
-We now have a new column which contains the embeddings for our images. We could manually search through these and compare it to some input embedding but datasets has an `add_faiss_index` method. This uses the [faiss](https://github.com/facebookresearch/faiss) library to create an efficient index for searching embeddings. For more background on this library you can watch this [YouTube video](https://www.youtube.com/embed/sKyvsdEv6rk)
+We now have a new column which contains the embeddings for our images. We could manually search through these and compare them to some input embedding but datasets has an `add_faiss_index` method. This uses the [faiss](https://github.com/facebookresearch/faiss) library to create an efficient index for searching embeddings. For more background on this library, you can watch this [YouTube video](https://www.youtube.com/embed/sKyvsdEv6rk)
 
 ``` python
 ds_with_embeddings['train'].add_faiss_index(column='embeddings')
