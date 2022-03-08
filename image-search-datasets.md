@@ -144,7 +144,7 @@ dataset[0]['image'].filename
 /root/.cache/huggingface/datasets/downloads/extracted/f324a87ed7bf3a6b83b8a353096fbd9500d6e7956e55c3d96d2b23cc03146582/embellishments_sample/1920/000499442_0_000579_1_[The Ring and the Book  etc ]_1920.jpg
 ```
 
-Since we might want easy access to this information later let's create a new column where we extract the filename. For this we'll use the `map` method.
+Since we might want easy access to this information later, let's create a new column to extract the filename. For this, we'll use the `map` method.
 
 ```python
 dataset = dataset.map(lambda example: {"fname": example['image'].filename.split("/")[-1]})
