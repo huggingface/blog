@@ -183,10 +183,12 @@ One of the super awesome things about the 🤗 ecosystem is the Hugging Face Hub
 
 For now, we'll push the dataset to the Hub and keep it private initially.
 
-Depending on where you are running the code, you may need to login using the `huggingface-cli login` command.
+Depending on where you are running the code, you may need to authenticate. You can either do this using the `huggingface-cli login` command or, if you are running in a notebook, using `notebook_login`
 
 ``` python
-huggingface-cli login
+from huggingface_hub import notebook_login
+
+notebook_login()
 ```
 
 
