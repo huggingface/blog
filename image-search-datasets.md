@@ -391,4 +391,4 @@ Although we don't have a nice demo to show for it, we've seen how we can use `da
 
 - load images into the new `Image` feature type
 - 'save' our work using `push_to_hub` and use this to move data between machines/sessions
-- create a `faiss` index for images that we can use to retrieve images from a text (or image) input
+- create a `faiss` index for images that we can use to retrieve images from a text (or image) input.
