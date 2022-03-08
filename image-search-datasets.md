@@ -6,7 +6,7 @@ thumbnail: /blog/assets/spaces_image_search.jpg
 <h1> Image search with 🤗 datasets </h1> 
 
 <div class="blog-metadata">
-    <small>Published February 24, 2022.</small>
+    <small>Published March 8, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/image-search-datasets.md">
         Update on GitHub
     </a>
