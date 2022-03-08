@@ -183,7 +183,7 @@ One of the super awesome things about the 🤗 ecosystem is the Hugging Face Hub
 
 For now, we'll push the dataset to the Hub and keep it private initially.
 
-Depending on where you are running the code you may need to login using the `huggingface-cli login` command.
+Depending on where you are running the code, you may need to login using the `huggingface-cli login` command.
 
 ``` python
 huggingface-cli login
