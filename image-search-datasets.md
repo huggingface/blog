@@ -179,7 +179,7 @@ dataset[10]['image']
 
 <img src="https://i.imgflip.com/613c0r.jpg" alt="Push all the things to the hub">
 
-One of the super awesome things about the 🤗 ecosystem is the huggingface hub. We can use the hub to access models and datasets. Often this is used for sharing work with others but it can also be a useful tool for work in progress. `datasets` recently added a `push_to_hub` method that allows you to push a dataset to the 🤗 hub with minimal fuss. This can be really helpful by allowing you to pass around a dataset with all the transforms etc. already done.
+One of the super awesome things about the 🤗 ecosystem is the Hugging Face Hub. We can use the Hub to access models and datasets. It is often used for sharing work with others, but it can also be a useful tool for work in progress. `datasets` recently added a `push_to_hub` method that allows you to push a dataset to the Hub with minimal fuss. This can be really helpful by allowing you to pass around a dataset with all the transforms etc. already done.
 
 For now we'll push the dataset to the hub and keep it private initially.
 
