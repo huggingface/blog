@@ -1,7 +1,33 @@
-<a href="https://colab.research.google.com/github/cwkeam/blog/blob/cwkeam%2Fconstrained-beam-search/notebooks/54_constrained_beam_search.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+---
+title: Hyperparameter Search with Transformers and Ray Tune
+thumbnail: /blog/assets/06_ray_tune/ray-hf.jpg
+---
 
+<h1>
+	Guiding Text Generation with Constrained Beam Search in 🤗 Transformers
+</h1>
 
-# Guiding Text Generation with Constrained Beam Search in 🤗 Transformers
+<div class="blog-metadata">
+    <small>Published March 10, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/constrained-beam-search.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/cwkeam">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8522953?v=4" title="Gravatar">
+        <div class="bfc">
+            <code>cwkeam</code>
+            <span class="fullname">Chan Woo Kim</span>
+        </div>
+    </a>
+</div>
+
+<a target="_blank" href="https://colab.research.google.com/github/cwkeam/blog/blob/cwkeam%2Fconstrained-beam-search/notebooks/54_constrained_beam_search.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
 
 ## **Introduction**
 
@@ -13,16 +39,16 @@ Unlike ordinary beam search, **constrained** beam search allows us to exert cont
 
 However, this is actually a very non-trivial problem. This is because the task requires us to force the generation of certain subsequences *somewhere* in the final output, at *some point* during the generation. 
 
-Let's say that we're want to generate a sentence `S` that has to include the phrase $p_1=\{ t_1, t_2 \}$ with tokens $t_1, t_2$ in order. Let's define the expected sentence $S$ as:
+Let's say that we're want to generate a sentence `S` that has to include the phrase \\( p_1=\{ t_1, t_2 \} \\) with tokens \\( t_1, t_2 \\) in order. Let's define the expected sentence \\( S \\) as:
 
-$S_{expected} = \{ s_1, s_2, ..., s_k, t_1, t_2, s_{k+1}, ..., s_n \}$ 
+$$ S_{expected} = \{ s_1, s_2, ..., s_k, t_1, t_2, s_{k+1}, ..., s_n \} $$
 
-The problem is that beam search generates the sequence *token-by-token*. Though not entirely accurate, one can think of beam search as the function $B(\mathbf{s}_{0:i}) = s_{i+1}$, where it looks as the currently generated sequence of tokens from $0$ to $i$ then predicts the next token at $i+1$. But how can this function know, at an arbitrary step $i < k$, that the tokens must be generated at some future step $k$? Or when it's at the step $i=k$, how can it know for sure that this is the best spot to force the tokens, instead of some future step $i>k$?
+The problem is that beam search generates the sequence *token-by-token*. Though not entirely accurate, one can think of beam search as the function \\( B(\mathbf{s}_{0:i}) = s_{i+1} \\), where it looks as the currently generated sequence of tokens from \\( 0 \\) to \\( i \\) then predicts the next token at \\( i+1 \\) . But how can this function know, at an arbitrary step \\( i < k \\) , that the tokens must be generated at some future step \\( k \\) ? Or when it's at the step \\( i=k \\) , how can it know for sure that this is the best spot to force the tokens, instead of some future step \\( i>k \\) ?
 
 ![Why constraints are hard](https://raw.githubusercontent.com/cwkeam/scientific-images/main/why_constraints_are_hard.png)
 
 
-And what if you have multiple constraints with varying requirements? What if you want to force the phrase $p_1=\{t_1, t_2\}$ *and* also the phrase $p_2=\{ t_3, t_4, t_5, t_6\}$? What if you want the model to **choose between** the two phrases? What if we want to force the phrase $p_1$ and force just one phrase among the list of phrases $\{p_{21}, p_{22}, p_{23}\}$? 
+And what if you have multiple constraints with varying requirements? What if you want to force the phrase \\( p_1=\{t_1, t_2\} \\) *and* also the phrase \\( p_2=\{ t_3, t_4, t_5, t_6\} \\) ? What if you want the model to **choose between** the two phrases? What if we want to force the phrase \\( p_1 \\) and force just one phrase among the list of phrases \\( \{p_{21}, p_{22}, p_{23}\} \\) ? 
 
 The above are actually very reasonable use-cases, as it will be shown below, and the new constrained beam search feature allows for all of them!
 
@@ -48,7 +74,7 @@ Here's how we would do text translation in the ***traditional beam search settin
 ```
 
 
-```
+```python
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 tokenizer = AutoTokenizer.from_pretrained("t5-base")
@@ -83,7 +109,7 @@ But what if we knew that we wanted a formal output instead of the informal one? 
 The following is what is possible now with the `force_words_ids` keyword argument to `model.generate()`:
 
 
-```
+```python
 tokenizer = AutoTokenizer.from_pretrained("t5-base")
 model = AutoModelForSeq2SeqLM.from_pretrained("t5-base")
 
@@ -126,7 +152,7 @@ Constraints that allow for this behavior are ***Disjunctive Constraints***, whic
 Here's an example that uses a mix of the above two types of constraints: 
 
 
-```
+```python
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
 model = GPT2LMHeadModel.from_pretrained("gpt2")
@@ -190,7 +216,7 @@ In the next step, we consider the next possible tokens for each of the three bra
 
 ![Beam search step 2](https://raw.githubusercontent.com/cwkeam/scientific-images/main/beam_2.jpg)
 
-Though we end up *considering* significantly more than `num_beams` outputs, we reduce them down to `num_beams` at the end of the step. We can't just keep branching out, then the number of `beams` we'd have to keep track of would be $beams^{n}$ for $n$ steps, which becomes very large very quickly ($10$ beams after $10$ steps is $10,000,000,000$ beams!). 
+Though we end up *considering* significantly more than `num_beams` outputs, we reduce them down to `num_beams` at the end of the step. We can't just keep branching out, then the number of `beams` we'd have to keep track of would be \\( \text{beams}^{n} \\) for \\( n \\) steps, which becomes very large very quickly ( \\( 10 \\) beams after \\( 10 \\) steps is \\( 10,000,000,000 \\) beams!). 
 
 For the rest of the generation, we repeat the above step until an ending criteria has been met, like generating the `<eos>` token or reaching `max_length`, for example. Branch out, rank, reduce, and repeat.
 
@@ -226,7 +252,7 @@ The problem with naively just forcing the desired phrase `"is fast"` in the outp
 
 Banks solve this problem by creating a *balance* between fulfilling the constraints and creating sensible output. 
 
-Bank $n$ refers to the ***list of beams that have made $n$ steps progress in fulfilling the constraints***. After sorting all the possible beams into their respective banks, we do a round-robin selection. With the above example, we'd select the most probable output from Bank 2, then most probable from Bank 1, one from Bank 0, the second most probable from Bank 2, the second most probable from Bank 1, and so forth. Since we're using `num_beams=3`, we just do the above process three times to end up with `["The is fast", "The dog is", "The dog and"]`.
+Bank \\( n \\) refers to the ***list of beams that have made \\( n \\) steps progress in fulfilling the constraints***. After sorting all the possible beams into their respective banks, we do a round-robin selection. With the above example, we'd select the most probable output from Bank 2, then most probable from Bank 1, one from Bank 0, the second most probable from Bank 2, the second most probable from Bank 1, and so forth. Since we're using `num_beams=3`, we just do the above process three times to end up with `["The is fast", "The dog is", "The dog and"]`.
 
 This way, even though we're *forcing* the model to consider the branch where we've manually appended the desired token, we still keep track of other high-probable sequences that probably make more sense. Even though `"The is fast"` fulfills our constraint completely, it's not a very sensible phrase. Luckily, we have `"The dog is"` and `"The dog and"` to work with in future steps, which hopefully will lead to more sensible outputs later on.
 
@@ -249,7 +275,7 @@ So a principled way to design this implementation was to represent each constrai
 
 
 
-```
+```python
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, PhrasalConstraint
 
 tokenizer = AutoTokenizer.from_pretrained("t5-base")
