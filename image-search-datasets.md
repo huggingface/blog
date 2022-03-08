@@ -370,7 +370,7 @@ However, I'm a little bit vary about making this public straightaway. Looking at
 
 > ### Primary intended uses
 >
-> We primarily imagine the model will be used by researchers to better understand robustness, generalization, and other capabilities, biases,  and constraints of computer vision models.
+> We primarily imagine the model will be used by researchers to better understand robustness, generalization, and other capabilities, biases, and constraints of computer vision models.
 > [source](https://huggingface.co/openai/clip-vit-base-patch32)
 
 This is fairly close to what we are interested in here. Particularly we might be interested in how well the model deals with the kinds of images in our dataset (illustrations from mostly 19th century books). The images in our dataset are (probably) fairly different from the training data. The fact that some of the images also contain text might help CLIP since it displays some [OCR ability](https://openai.com/blog/clip/).
