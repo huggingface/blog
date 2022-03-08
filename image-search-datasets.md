@@ -37,7 +37,7 @@ First, we'll install `datasets`. Since we're going to be working with images, we
 !pip install datasets pillow rich faiss-gpu sentence_transformers 
 ```
 
-To start lets take a look at the image feature. We can use the wonderful [rich](https://rich.readthedocs.io/) library to poke around python
+To start, let's take a look at the image feature. We can use the wonderful [rich](https://rich.readthedocs.io/) library to poke around python
 objects (functions, classes etc.)
 
 ``` python
