@@ -307,7 +307,7 @@ this in a function so we can more easily play around with different prompts
 ``` python
 def get_image_from_text(text_prompt, number_to_retrieve=9):
     prompt = model.encode(text_prompt)
-    scores, retrieved_examples = ds_with_embeddings['train'].get_nearest_examples('embeddings', prompt,k=number_to_retrieve)
+    scores, retrieved_examples = ds_with_embeddings['train'].get_nearest_examples('embeddings', prompt, k=number_to_retrieve)
     plt.figure(figsize=(20, 20))
     columns = 3
     for i in range(9):
