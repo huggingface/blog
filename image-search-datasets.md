@@ -230,7 +230,7 @@ ds_with_embeddings = dataset.map(
     lambda example: {'embeddings':model.encode(example['image'], device='cuda')}, batch_size=32)
 ```
 
-We can 'save' our work by pushing back to the 🤗 hub using
+We can 'save' our work by pushing back to the Hub using
 `push_to_hub`.
 
 ``` python
