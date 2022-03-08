@@ -201,7 +201,7 @@ dataset.push_to_hub('davanstrien/embellishments-sample', private=True)
 
 At this point, we've created a dataset and moved it to the Hub. This means it is possible to pick up the work/dataset elsewhere.
 
-In this particular example, having access to a GPU is important. Using the 🤗 hub as a way to pass around our data we could start on a laptop
+In this particular example, having access to a GPU is important. Using the Hub as a way to pass around our data we could start on a laptop
 and pick up the work on Google Colab.
 
 
