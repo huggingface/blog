@@ -356,7 +356,7 @@ for prompt in prompts:
 
 We can see these results aren't always right but they are usually some reasonable results in there. It already seems like this could be useful for searching for a the semantic content of an image in this dataset. However we might hold off on sharing this as is...
 
-## Creating a huggingface space? 🤷🏼 
+## Creating a Hugging Face Space? 🤷🏼 
 
 One obvious next step for this kind of project is to create a hugginface [spaces](https://huggingface.co/spaces) demo. This is what I've done for other [models](https://huggingface.co/spaces/BritishLibraryLabs/British-Library-books-genre-classifier-v2)
 
