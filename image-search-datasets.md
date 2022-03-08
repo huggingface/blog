@@ -213,7 +213,7 @@ from datasets import load_dataset
 dataset = load_dataset("davanstrien/embellishments-sample", use_auth_token=True)
 ```
 ## Creating embeddings 🕸 
-We now have a dataset with a bunch of images in it. To begin creating our image search app, we need to embed these images. There are various ways to try and do this, but one possible way is to use the clip models via the `sentence_transformers` library. The [clip model](https://openai.com/blog/clip/) from OpenAI learns a joint representation for both images and text, which is very useful for what we want to do since we want to input text and get back an image.
+We now have a dataset with a bunch of images in it. To begin creating our image search app, we need to embed these images. There are various ways to try and do this, but one possible way is to use the CLIP models via the `sentence_transformers` library. The [CLIP model](https://openai.com/blog/clip/) from OpenAI learns a joint representation for both images and text, which is very useful for what we want to do since we want to input text and get back an image.
 
 We can download the model using the `SentenceTransformer` class.
 
