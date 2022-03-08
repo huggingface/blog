@@ -364,7 +364,7 @@ One obvious next step for this kind of project is to create a Hugging Face [Spac
 
 It was a fairly simple process to get a [Gradio app setup](https://gradio.app/) from the point we got to here. Here is a screenshot of this app:
 
-<img src="assets/53_image_search_datasets/spaces_image_search.jpg" alt="Screnshot of Gradio search app">
+<img src="assets/53_image_search_datasets/spaces_image_search.jpg" alt="Screenshot of Gradio search app">
 
 However, I'm a little bit vary about making this public straightaway. Looking at the model card for the CLIP model we can look at the primary intended uses:
 
