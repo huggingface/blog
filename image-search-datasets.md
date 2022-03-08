@@ -223,7 +223,7 @@ from sentence_transformers import SentenceTransformer
 model = SentenceTransformer('clip-ViT-B-32')
 ```
 
-This model will take as input either an image or some text and return an embedding. We can use the `datasets` `map` method to encode all our images using this model. When we call map, we return a dictionary with the key `embeddings` containing the embeddings returned by the embedding model. We also pass `device='cuda'` when we call model; this ensures that we're doing the encoding on the GPU.
+This model will take as input either an image or some text and return an embedding. We can use the `datasets` `map` method to encode all our images using this model. When we call map, we return a dictionary with the key `embeddings` containing the embeddings returned by the model. We also pass `device='cuda'` when we call the model; this ensures that we're doing the encoding on the GPU.
 
 ``` python
 ds_with_embeddings = dataset.map(
