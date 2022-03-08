@@ -173,7 +173,7 @@ dataset[10]['image']
 <img src="assets/53_image_search_datasets/dataset_image.jpg" alt="An example image from our dataset">
 
 
-> **Note** in an [earlier version](https://danielvanstrien.xyz/metadata/deployment/huggingface/ethics/huggingface-datasets/faiss/2022/01/13/image_search.html) of this blog post the steps to download and load the images was much more convoluted. The new `ImageFolder` loader makes this process much easier 😀 In particular we didn't actually need to worry about how to load our images since `datasets` took care of this for us. 
+> **Note** in an [earlier version](https://danielvanstrien.xyz/metadata/deployment/huggingface/ethics/huggingface-datasets/faiss/2022/01/13/image_search.html) of this blog post the steps to download and load the images was much more convoluted. The new ImageFolder loader makes this process much easier 😀 In particular, we don't need to worry about how to load our images since datasets took care of this for us.
 
 ## Push all the things to the hub!
 
