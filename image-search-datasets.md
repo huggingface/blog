@@ -84,7 +84,7 @@ A really nice feature of the `datasets` library (beyond the functionality for pr
 some nice things 'for free'. One of these is the ability to add a [`faiss`](https://github.com/facebookresearch/faiss) index to a dataset. [`faiss`](https://github.com/facebookresearch/faiss) is a ["library for efficient similarity search and clustering of dense
 vectors"](https://github.com/facebookresearch/faiss).
 
-The `datasets` [docs](https://huggingface.co/docs/datasets) show an [example](https://huggingface.co/docs/datasets/faiss_es.html#id1) of using a `faiss` index for text retrieval. In this post we'll see if we can do the same for images.
+The `datasets` [docs](https://huggingface.co/docs/datasets) shows an [example](https://huggingface.co/docs/datasets/faiss_es.html#id1) of using a `faiss` index for text retrieval. In this post we'll see if we can do the same for images.
 
 ## The dataset: "Digitised Books - Images identified as Embellishments. c. 1510 - c. 1900"
 
