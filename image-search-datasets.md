@@ -199,7 +199,7 @@ dataset.push_to_hub('davanstrien/embellishments-sample', private=True)
 
 ### Switching machines
 
-At this point I've created a dataset and moved it to the huggingface hub. This means it is possible to pickup the work/dataset elsewhere.
+At this point, we've created a dataset and moved it to the Hub. This means it is possible to pick up the work/dataset elsewhere.
 
 In this particular example, having access to a GPU is important. Using the 🤗 hub as a way to pass around our data we could start on a laptop
 and pick up the work on Google Colab.
