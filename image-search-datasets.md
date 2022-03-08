@@ -282,7 +282,7 @@ retrieved_examples['image'][0]
 
 <img src="assets/53_image_search_datasets/search_result.jpg" alt="An image of a factory">
 
-This isn't quite a steam engine but it's also not a completely weird result. We can plot the other results to see what was returned.
+This isn't quite a steam engine, but it's also not a completely weird result. We can plot the other results to see what was returned.
 
 ``` python
 import matplotlib.pyplot as plt
