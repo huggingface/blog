@@ -88,7 +88,7 @@ The `datasets` [docs](https://huggingface.co/docs/datasets) show an [example](ht
 
 ## The dataset: "Digitised Books - Images identified as Embellishments. c. 1510 - c. 1900"
 
-This is a dataset of images which have been pulled from a collection of digitised books from the British Library. These images come from books across a wide time period and from a broad range of domains. The images were extracted using information contained in the OCR output for each book. As a result it's known which book the images came from but not necessarily anything else about that image i.e. what it is of.
+This is a dataset of images which have been pulled from a collection of digitised books from the British Library. These images come from books across a wide time period and from a broad range of domains. The images were extracted using information contained in the OCR output for each book. As a result, it's known which book the images came from but not necessarily anything else about that image i.e. what it is of.
 
 Some attempts to help overcome this have included uploading the images to [flickr](https://www.flickr.com/photos/britishlibrary/albums). This allows people to tag the images or put them into various different categories.
 
