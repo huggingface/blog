@@ -118,7 +118,7 @@ DatasetDict({
 })
 ```
 
-We can get back a DatasetsDict, and we have a Dataset with image and label features. Since we don't have any train/validation splits here, let's grab the train part of our dataset. Let's also take a look at one example from our dataset to see what this looks like.
+We can get back a `DatasetDict`, and we have a Dataset with image and label features. Since we don't have any train/validation splits here, let's grab the train part of our dataset. Let's also take a look at one example from our dataset to see what this looks like.
 
 ```python
 dataset[0]
