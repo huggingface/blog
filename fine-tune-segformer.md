@@ -196,7 +196,7 @@ num_labels = len(id2label)
 
 ## Feature extractor & data augmentation
 
-A SegFormer model expects the input to be of a certain shape. To transform our training data to match the expected shape, we can use the `SegFormerFeatureExtractor`. We could use the `ds.map` function to apply the feature extractor to the whole training dataset in advance, but this can be very slow. Instead, we'll use a *transform*, which will prepare a batch of data for our model, but only when at the moment when that data is actually used (on-the-fly).
+A SegFormer model expects the input to be of a certain shape. To transform our training data to match the expected shape, we can use `SegFormerFeatureExtractor`. We could use the `ds.map` function to apply the feature extractor to the whole training dataset in advance, but this can take up a lot of disk space. Instead, we'll use a *transform*, which will only prepare a batch of data when that data is actually used (on-the-fly). This way, we can start training without waiting for further data preprocessing.
 
 In our transform, we'll also define some data augmentations to make our model more resilient to different lighting conditions. We'll use the `ColorJitter` function from `torchvision` to randomly change the brightness, contrast, saturation, and hue of the images in the batch.
 
