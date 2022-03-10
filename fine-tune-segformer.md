@@ -4,7 +4,7 @@ thumbnail: /blog/assets/54_fine_tune_segformer/thumb.png
 ---
 
 <h1>
-	Fine-Tune an Image Segmentation Model with a Custom Dataset
+	Fine-Tune a Semantic Segmentation Model with a Custom Dataset
 </h1>
 
 <div class="blog-metadata">
