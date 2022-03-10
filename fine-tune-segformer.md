@@ -262,15 +262,11 @@ First, we'll set up the [`TrainingArguments`](https://huggingface.co/docs/transf
 
 
 ```python
-from transformers import TrainingArguments, get_constant_schedule
-from torch.optim import AdamW
+from transformers import TrainingArguments
 
-epochs = 5
+epochs = 50
 lr = 0.00006
 batch_size = 2
-
-optimizer = AdamW(model.parameters(), lr=lr)
-scheduler = get_constant_schedule(optimizer)
 
 hub_model_id = "segformer-b0-finetuned-segments-sidewalk-2"
 
@@ -340,7 +336,6 @@ trainer = Trainer(
     args=training_args,
     train_dataset=train_ds,
     eval_dataset=test_ds,
-    optimizers=(optimizer, scheduler),
     compute_metrics=compute_metrics,
 )
 ```
