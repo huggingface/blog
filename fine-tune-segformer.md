@@ -42,7 +42,7 @@ Semantic segmentation is the task of classifying each pixel in an image. You can
 
 Because semantic segmentation is a type of classification, the network architectures that are used for image classification and semantic segmentation are very similar. In 2014, [a seminal paper](https://arxiv.org/abs/1411.4038) by Long et al. used convolutional neural networks for semantic segmentation. More recently, Transformers have been used for image classification (e.g. [ViT](https://huggingface.co/blog/fine-tune-vit)), and now they're also being used for semantic segmentation, pushing the state-of-the-art further.
 
-[SegFormer](https://arxiv.org/abs/2105.15203) is a model for semantic segmentation introduced by Xie et al in 2021. It has a hierarchical Transformer encoder that doesn't use positional encodings (in contrast to ViT) and a simple multi-layer perceptron decoder. SegFormer achieves state-of-the-art performance on multiple common datasets. Let's see how it performs for sidewalk images in our pizza delivery robot.
+[SegFormer](https://huggingface.co/docs/transformers/model_doc/segformer) is a model for semantic segmentation introduced by Xie et al in 2021. It has a hierarchical Transformer encoder that doesn't use positional encodings (in contrast to ViT) and a simple multi-layer perceptron decoder. SegFormer achieves state-of-the-art performance on multiple common datasets. Let's see how it performs for sidewalk images in our pizza delivery robot.
 
 <figure class="image table text-center m-0 w-full">
   <medium-zoom background="rgba(0,0,0,.7)" alt="Pizza delivery robot segmenting a scene" src="assets/54_fine_tune_segformer/pizza-scene.png"></medium-zoom>
@@ -57,7 +57,6 @@ For our pizza delivery robot, we could use an existing autonomous driving datase
 We don't want our delivery robot to get confused, so we'll create our own semantic segmentation dataset using images captured on sidewalks. In the next steps, we'll show how you can label the images we captured. If you just want to use our finished labeled dataset, you can skip the "Create your own dataset" section and continue from "Use a dataset from the Hub".
 
 ## Create your own dataset
-
 
 To create your own semantic segmentation dataset, you'll need two things: 1) images covering the situations your model will encounter in the real world, 2) segmentation labels, i.e. images where each pixel represents a class/category.
 
@@ -148,7 +147,7 @@ semantic_dataset.push_to_hub(hf_dataset_identifier)
 
 If you don't want to create your own dataset, but found a suitable dataset for your use case on the Hugging Face Hub, you can define the identifier here. 
 
-For example, you can use the full labeled sidewalk dataset.
+For example, you can use the full labeled sidewalk dataset. Note that you can check out the examples [directly in your browser](https://huggingface.co/datasets/segments/sidewalk-semantic).
 
 
 ```python
@@ -201,9 +200,7 @@ In our transform, we'll also define some data augmentations to make our model mo
 
 ```python
 from torchvision.transforms import ColorJitter
-from transformers import (
-    SegformerFeatureExtractor,
-)
+from transformers import SegformerFeatureExtractor
 
 feature_extractor = SegformerFeatureExtractor()
 jitter = ColorJitter(brightness=0.25, contrast=0.25, saturation=0.25, hue=0.1) 
@@ -231,14 +228,14 @@ test_ds.set_transform(val_transforms)
 
 ## Load the model to fine-tune
 
-The SegFormer authors define 5 models with increasing sizes: B0 to B5. The following chart from the SegFormer shows the performance of these different models on the ADE20K dataset, compared to other models.
+The SegFormer authors define 5 models with increasing sizes: B0 to B5. The following chart (taken from the original paper) shows the performance of these different models on the ADE20K dataset, compared to other models.
 
 <figure class="image table text-center m-0 w-full">
   <medium-zoom background="rgba(0,0,0,.7)" alt="SegFormer model variants compared with other segmentation models" src="assets/54_fine_tune_segformer/segformer.png"></medium-zoom>
   <figcaption><a href="https://arxiv.org/abs/2105.15203">Source</a></figcaption>
 </figure>
 
-Here, we'll load the smallest SegFormer model (B0), pre-trained on ImageNet-1k.
+Here, we'll load the smallest SegFormer model (B0), pre-trained on ImageNet-1k. It's only about 14MB in size!
 Using a small model will make sure that our model can run smoothly on our pizza delivery robot.
 
 
@@ -329,7 +326,7 @@ def compute_metrics(eval_pred):
     return metrics
 ```
 
-Finally, we can instantiate a trainer object.
+Finally, we can instantiate a `Trainer` object.
 
 
 ```python
@@ -345,7 +342,7 @@ trainer = Trainer(
 )
 ```
 
-Now that our trainer set up, training is as simple as calling the `train` function. We don't need to worry about managing our GPU(s), the trainer will take care of that.
+Now that our trainer is set up, training is as simple as calling the `train` function. We don't need to worry about managing our GPU(s), the trainer will take care of that.
 
 
 ```python
@@ -364,8 +361,8 @@ kwargs = {
     "dataset": hf_dataset_identifier,
 }
 
-trainer.push_to_hub(**kwargs)
 feature_extractor.push_to_hub(hub_model_id)
+trainer.push_to_hub(**kwargs)
 ```
 
 # 4. Inference
@@ -377,9 +374,6 @@ However, you can also try out your model directly on the Hugging Face Hub, thank
 ## Use the model from the hub
 
 We'll first load the model from the hub using `SegformerForSemanticSegmentation.from_pretrained()`.
-
-
-
 
 ```python
 from transformers import SegformerFeatureExtractor, SegformerForSemanticSegmentation
