@@ -1,5 +1,5 @@
 ---
-title: Fine-Tune an Image Segmentation Model with a Custom Dataset
+title: Fine-Tune a Semantic Segmentation Model with a Custom Dataset
 thumbnail: /blog/assets/54_fine_tune_segformer/thumb.png
 ---
 
@@ -47,6 +47,15 @@ Because semantic segmentation is a type of classification, the network architect
 <figure class="image table text-center m-0 w-full">
   <medium-zoom background="rgba(0,0,0,.7)" alt="Pizza delivery robot segmenting a scene" src="assets/54_fine_tune_segformer/pizza-scene.png"></medium-zoom>
 </figure>
+
+Let's get started by installing the necessary dependencies. Because we're going to push our dataset and model to the Hugging Face hub, we need to install [Git LFS](https://git-lfs.github.com/) and log in to Hugging Face. The installation of `git-lfs` might be different on your system. 
+
+```bash
+pip install -q transformers datasets segments-ai
+apt-get install git-lfs
+git lfs install
+huggingface-cli login
+```
 
 # 1. Create/choose a dataset
 
