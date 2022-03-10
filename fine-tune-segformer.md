@@ -103,7 +103,7 @@ hf_dataset = release2dataset(release)
 
 If we inspect the features of the new dataset, we can see the image column and the corresponding label. The label consists of two parts: a list of annotations and a segmentation bitmap. The annotation corresponds to the different objects in the image. For each object, the annotation contains an `id` and a `category_id`. The segmentation bitmap is an image where each pixel contains the `id` of the object at that pixel. More information can be found in the [relevant docs](https://docs.segments.ai/reference/sample-and-label-types/label-types#segmentation-labels).
 
-For semantic segmentation, we need a semantic bitmap with a `category_id` for each pixel. We'll use the `get_semantic_bitmap` function from the Segments.ai SDK to convert the bitmaps to semantic bitmaps. In order to apply this function to all the rows in our dataset, we'll use `dataset.map`.
+For semantic segmentation, we need a semantic bitmap with a `category_id` for each pixel. We'll use the `get_semantic_bitmap` function from the Segments.ai SDK to convert the bitmaps to semantic bitmaps. In order to apply this function to all the rows in our dataset, we'll use [`dataset.map`](https://huggingface.co/docs/datasets/package_reference/main_classes#datasets.Dataset.map). 
 
 
 ```python
@@ -124,6 +124,9 @@ semantic_dataset = hf_dataset.map(
     convert_segmentation_bitmap,
 )
 ```
+
+You can also rewrite the `convert_segmentation_bitmap` function to use batches and pass `batched=True` to `dataset.map`. This will speed up the mapping significantly, but you might need to tweak the `batch_size` to make sure the process doesn't run out of memory.
+
 
 The SegFormer model we're going to fine-tune later expects certain names for the features. For convenience, we'll already match this format now. Thus, we'll rename the `image` feature to `pixel_values`, the `label.segmentation_bitmap` to `label` and discard the other features.
 
