@@ -54,7 +54,7 @@ The first step in any ML project is assembling a good dataset. In order to train
 
 For our pizza delivery robot, we could use an existing autonomous driving dataset such as [CityScapes](https://www.cityscapes-dataset.com/) or [BDD100K](https://bdd100k.com/). However, these datasets were captured by cars driving on the road. Since our delivery robot will be driving on the sidewalk, there will be a mismatch between the images in these datasets and the data our robot will see in the real world. 
 
-We don't want our delivery robot to get confused, so we'll create our own semantic segmentation dataset using images captured on sidewalks. In the next steps, we'll show how you can label the images we captured. If you just want to use our finished labeled dataset, you can skip the "Create your own dataset" section and only run the cell under "Use a dataset from the Hub".
+We don't want our delivery robot to get confused, so we'll create our own semantic segmentation dataset using images captured on sidewalks. In the next steps, we'll show how you can label the images we captured. If you just want to use our finished labeled dataset, you can skip the "Create your own dataset" section and continue from "Use a dataset from the Hub".
 
 ## Create your own dataset
 
