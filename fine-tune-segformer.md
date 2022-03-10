@@ -445,4 +445,4 @@ We introduced you to some useful tools along the way, such as:
 *   [🤗 hub](https://huggingface.co/docs/hub/main) for sharing our dataset and model, and for creating an inference widget for our model
 
 
-We hope you enjoyed this post and learned something. Feel free to share your own model with us on Twitter ( [@TobiasCornille](https://twitter.com/tobiascornille),[@NielsRogge](https://twitter.com/nielsrogge), and [@huggingface](https://twitter.com/huggingface)).
+We hope you enjoyed this post and learned something. Feel free to share your own model with us on Twitter ([@TobiasCornille](https://twitter.com/tobiascornille), [@NielsRogge](https://twitter.com/nielsrogge), and [@huggingface](https://twitter.com/huggingface)).
