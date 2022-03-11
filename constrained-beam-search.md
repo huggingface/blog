@@ -233,7 +233,7 @@ Constrained beam search attempts to fulfill the constraints by *injecting* the d
 
 Let's say that we're trying to force the phrase `"is fast"` in the generation output. 
 
-In the traditional beam search setting, we find the top `k` most probable next tokens at each branch and append them for consideration. In the constrained setting we actually do the same, but also append the tokens that will take us *closer to fulfilling our constraints*. Here's a demonstration:
+In the traditional beam search setting, we find the top `k` most probable next tokens at each branch and append them for consideration. In the constrained setting, we do the same but also append the tokens that will take us *closer to fulfilling our constraints*. Here's a demonstration:
 
 
 ![Constrained Beam Search Step 1](https://raw.githubusercontent.com/cwkeam/scientific-images/main/cbeam_1.jpg)
