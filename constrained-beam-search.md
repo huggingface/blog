@@ -104,7 +104,7 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 
 ### **With Constrained Beam Search**
 
-But what if we knew that we wanted a formal output instead of the informal one? What if we were able to know from prior knowledge what the generation must include and we were able to *inject it* into the generation?
+But what if we knew that we wanted a formal output instead of the informal one? What if we knew from prior knowledge what the generation must include, and we could *inject it* into the generation?
 
 The following is what is possible now with the `force_words_ids` keyword argument to `model.generate()`:
 
