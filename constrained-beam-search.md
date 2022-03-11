@@ -260,7 +260,7 @@ This behavior is demonstrated in the third step of the above example:
 
 ![Constrained Beam Search Step 3](https://raw.githubusercontent.com/cwkeam/scientific-images/main/cbeam_3.jpg)
 
-Notice how `"The is fast"` doesn't require any manual appending of constraint tokens since it's already fulfilled (i.e. already contains the phrase `"is fast"`). Also notice how beams like `"The dog is slow"` or `"The dog is mad"` is actually in Bank 0, since, although it includes the token `"is"`, it must restart from the beginning in order to generate `"is fast"`. By appending something like `"slow"` after `"is"`, it has effectively *reset its progress*. 
+Notice how `"The is fast"` doesn't require any manual appending of constraint tokens since it's already fulfilled (i.e., already contains the phrase `"is fast"`). Also, notice how beams like `"The dog is slow"` or `"The dog is mad"` is actually in Bank 0, since, although it includes the token `"is"`, it must restart from the beginning to generate `"is fast"`. By appending something like `"slow"` after `"is"`, it has effectively *reset its progress*. 
 
 And finally notice how we ended up at a sensible output that contains our constraint phrase: `"The dog is fast"`! 
 
