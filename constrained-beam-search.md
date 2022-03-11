@@ -345,7 +345,7 @@ or if the user does not care about the number of tokens that can go in between t
 
 ## **Conclusion**
 
-Constrained beam search gives us a flexible means to inject external knowledge and requirements into text generation. Previously, there was no easy way to tell the model to 1. include a list of sequences where 2. some of which are optional and some are not, such that 3. they're generated *somewhere* in the sequence at reasonable respective positions. Now, with a mix of different subclasses of `Constraint` objects, we can have full control over our generation! 
+Constrained beam search gives us a flexible means to inject external knowledge and requirements into text generation. Previously, there was no easy way to tell the model to 1. include a list of sequences where 2. some of which are optional and some are not, such that 3. they're generated *somewhere* in the sequence at respective reasonable positions. Now, we can have full control over our generation with a mix of different subclasses of `Constraint` objects! 
 
 This new feature is based mainly on the following papers:
 
