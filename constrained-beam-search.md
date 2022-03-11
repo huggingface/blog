@@ -52,7 +52,7 @@ And what if you have multiple constraints with varying requirements? What if you
 
 The above are actually very reasonable use-cases, as it will be shown below, and the new constrained beam search feature allows for all of them!
 
-This post will quickly go over what the new ***constrained beam search*** feature can do for you, and then go into deeper details about how it works under the hood.
+This post will quickly go over what the new ***constrained beam search*** feature can do for you and then go into deeper details about how it works under the hood.
 
 ## **Example 1: Forcing a Word**
 
