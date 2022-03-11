@@ -311,7 +311,7 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
     Wie alt sind Sie?
 
 
-In order to design your own unique constraints, you can define one yourself and input it into the `constraints` keyword argument. You just have to create a sub-class of the `Constraint` abstract interface class and follow its requirements. More information about this can be found in the definition of `Constraint` found [here](https://github.com/huggingface/transformers/blob/master/src/transformers/generation_beam_constraints.py).
+You can define one yourself and input it into the `constraints` keyword argument to design your unique constraints. You just have to create a sub-class of the `Constraint` abstract interface class and follow its requirements. You can find more information in the definition of `Constraint` found [here](https://github.com/huggingface/transformers/blob/master/src/transformers/generation_beam_constraints.py).
 
 Some unique ideas (not yet implemented; maybe you can give it a try!) include constraints like `OrderedConstraints`, `TemplateConstraints` that may be added further down the line. Currently, the generation is fulfilled by including the sequences, wherever in the output. For example, a previous example had one sequence with scared -> screaming and the other with screamed -> scared. `OrderedConstraints` could allow the user to specify the order in which these constraints are fulfilled. 
 
