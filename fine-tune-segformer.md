@@ -69,10 +69,11 @@ We don't want our delivery robot to get confused, so we'll create our own semant
 
 To create your own semantic segmentation dataset, you'll need two things: 1) images covering the situations your model will encounter in the real world, 2) segmentation labels, i.e. images where each pixel represents a class/category.
 
-We went ahead and captured images on sidewalks at some locations in Belgium. Here are some examples of the raw images.
+We went ahead and captured a thousand images of sidewalks in Belgium. Collecting and labeling such a dataset can take a long time, so you can also start with a smaller dataset, and expand it if the model does not perform well enough.
 
 <figure class="image table text-center m-0 w-full">
   <medium-zoom background="rgba(0,0,0,.7)" alt="Example images from the sidewalk dataset" src="assets/54_fine_tune_segformer/sidewalk-examples.png"></medium-zoom>
+    <figcaption>Some examples of the raw images in the sidewalk dataset.</figcaption>
 </figure>
 
 To obtain segmentation labels, we need to indicate the classes of all the regions/objects in these images. This can be a time-consuming endeavour, but using the right tools can speed up the task significantly. For labeling, we'll use [Segments.ai](https://segments.ai?utm_source=hf&utm_medium=colab&utm_campaign=sem_seg), since it has smart labeling tools for image segmentation, and an easy-to-use Python SDK.
