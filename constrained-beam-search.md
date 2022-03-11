@@ -32,9 +32,9 @@ thumbnail: /blog/assets/53_constrained_beam_search/thumbnail.png
 
 ## **Introduction**
 
-This blog post assumes that the reader is familiar with text generation methods using the different variants of beam search, as explained in in the blog post: ["How to generate text: using different decoding methods for language generation with Transformers"](https://huggingface.co/blog/how-to-generate)
+This blog post assumes that the reader is familiar with text generation methods using the different variants of beam search, as explained in the blog post: ["How to generate text: using different decoding methods for language generation with Transformers"](https://huggingface.co/blog/how-to-generate)
 
-Unlike ordinary beam search, **constrained** beam search allows us to exert control over the output of text generation. This is useful because, sometimes, we know exactly what we want inside the output. For example, in a Neural Machine Translation task, we might know which words must be included in the final translation with a dictionary lookup. Sometimes, generation outputs that are almost equally possible to a language model might not be equally deseriable for the end-user due to the particular context. Both of these situations could be solved by allowing the users to tell the model which words must be included in the end output. 
+Unlike ordinary beam search, **constrained** beam search allows us to exert control over the output of text generation. This is useful because we sometimes know exactly what we want inside the output. For example, in a Neural Machine Translation task, we might know which words must be included in the final translation with a dictionary lookup. Sometimes, generation outputs that are almost equally possible to a language model might not be equally desirable for the end-user due to the particular context. Both of these situations could be solved by allowing the users to tell the model which words must be included in the end output. 
 
 ### **Why It's Difficult**
 
@@ -53,7 +53,7 @@ And what if you have multiple constraints with varying requirements? What if you
 
 The above are actually very reasonable use-cases, as it will be shown below, and the new constrained beam search feature allows for all of them!
 
-This post will quickly go over what the new ***constrained beam search*** feature can do for you, and then go into deeper details about how it works under the hood.
+This post will quickly go over what the new ***constrained beam search*** feature can do for you and then go into deeper details about how it works under the hood.
 
 ## **Example 1: Forcing a Word**
 
@@ -105,7 +105,7 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
 
 ### **With Constrained Beam Search**
 
-But what if we knew that we wanted a formal output instead of the informal one? What if we were able to know from prior knowledge what the generation must include and we were able to *inject it* into the generation?
+But what if we knew that we wanted a formal output instead of the informal one? What if we knew from prior knowledge what the generation must include, and we could *inject it* into the generation?
 
 The following is what is possible now with the `force_words_ids` keyword argument to `model.generate()`:
 
@@ -144,7 +144,7 @@ As you can see, we were able to guide the generation with prior knowledge about 
 
 ## **Example 2: Disjunctive Constraints**
 
-We mentioned above about a use-case where we know which words we want included in the final output. An example of this might be using a dictionary lookup during neural machine translation.
+We mentioned above a use-case where we know which words we want to be included in the final output. An example of this might be using a dictionary lookup during neural machine translation.
 
 But what if we don't know which *word forms* to use, where we'd want outputs like `["raining", "rained", "rains", ...]` to be equally possible? In a more general sense, there are always cases when we don't want the *exact word verbatim*, letter by letter, and might be open to other related possibilities too.
 
@@ -234,7 +234,7 @@ Constrained beam search attempts to fulfill the constraints by *injecting* the d
 
 Let's say that we're trying to force the phrase `"is fast"` in the generation output. 
 
-In the traditional beam search setting, we find the top `k` most probable next tokens at each branch and append them for consideration. In the constrained setting we actually do the same, but also append the tokens that will take us *closer to fulfilling our constraints*. Here's a demonstration:
+In the traditional beam search setting, we find the top `k` most probable next tokens at each branch and append them for consideration. In the constrained setting, we do the same but also append the tokens that will take us *closer to fulfilling our constraints*. Here's a demonstration:
 
 
 ![Constrained Beam Search Step 1](https://raw.githubusercontent.com/huggingface/blog/master/53_constrained_beam_search/cbeam_1.jpg)
@@ -261,11 +261,11 @@ This behavior is demonstrated in the third step of the above example:
 
 ![Constrained Beam Search Step 3](https://raw.githubusercontent.com/huggingface/blog/master/53_constrained_beam_search/cbeam_3.jpg)
 
-Notice how `"The is fast"` doesn't require any manual appending of constraint tokens since it's already fulfilled (i.e. already contains the phrase `"is fast"`). Also notice how beams like `"The dog is slow"` or `"The dog is mad"` is actually in Bank 0, since, although it includes the token `"is"`, it must restart from the beginning in order to generate `"is fast"`. By appending something like `"slow"` after `"is"`, it has effectively *reset its progress*. 
+Notice how `"The is fast"` doesn't require any manual appending of constraint tokens since it's already fulfilled (i.e., already contains the phrase `"is fast"`). Also, notice how beams like `"The dog is slow"` or `"The dog is mad"` is actually in Bank 0, since, although it includes the token `"is"`, it must restart from the beginning to generate `"is fast"`. By appending something like `"slow"` after `"is"`, it has effectively *reset its progress*. 
 
 And finally notice how we ended up at a sensible output that contains our constraint phrase: `"The dog is fast"`! 
 
-We were worried in the beginning because just blindly appending the desired tokens led to nonsensicle phrases like `"The is fast"`. However, with the use of round-robin selection from banks, we implicitly ended up getting rid of nonsensical outputs in preference for the more sensible outputs.  
+We were worried initially because blindly appending the desired tokens led to nonsensical phrases like `"The is fast"`. However, using round-robin selection from banks, we implicitly ended up getting rid of nonsensical outputs in preference for the more sensible outputs. 
 
 ## **More About `Constraint` Classes and Custom Constraints**
 
@@ -312,7 +312,7 @@ print(tokenizer.decode(outputs[0], skip_special_tokens=True))
     Wie alt sind Sie?
 
 
-In order to design your own unique constraints, you can define one yourself and input it into the `constraints` keyword argument. You just have to create a sub-class of the `Constraint` abstract interface class and follow its requirements. More information about this can be found in the definition of `Constraint` found [here](https://github.com/huggingface/transformers/blob/master/src/transformers/generation_beam_constraints.py).
+You can define one yourself and input it into the `constraints` keyword argument to design your unique constraints. You just have to create a sub-class of the `Constraint` abstract interface class and follow its requirements. You can find more information in the definition of `Constraint` found [here](https://github.com/huggingface/transformers/blob/master/src/transformers/generation_beam_constraints.py).
 
 Some unique ideas (not yet implemented; maybe you can give it a try!) include constraints like `OrderedConstraints`, `TemplateConstraints` that may be added further down the line. Currently, the generation is fulfilled by including the sequences, wherever in the output. For example, a previous example had one sequence with scared -> screaming and the other with screamed -> scared. `OrderedConstraints` could allow the user to specify the order in which these constraints are fulfilled. 
 
@@ -346,7 +346,7 @@ or if the user does not care about the number of tokens that can go in between t
 
 ## **Conclusion**
 
-Constrained beam search gives us a flexible means to inject external knowledge and requirements into text generation. Previously, there was no easy way to tell the model to 1. include a list of sequences where 2. some of which are optional and some are not, such that 3. they're generated *somewhere* in the sequence at reasonable respective positions. Now, with a mix of different subclasses of `Constraint` objects, we can have full control over our generation! 
+Constrained beam search gives us a flexible means to inject external knowledge and requirements into text generation. Previously, there was no easy way to tell the model to 1. include a list of sequences where 2. some of which are optional and some are not, such that 3. they're generated *somewhere* in the sequence at respective reasonable positions. Now, we can have full control over our generation with a mix of different subclasses of `Constraint` objects! 
 
 This new feature is based mainly on the following papers:
 
@@ -354,7 +354,7 @@ This new feature is based mainly on the following papers:
  - [Improved Lexically Constrained Decoding for Translation and Monolingual Rewriting](https://aclanthology.org/N19-1090/)
  - [Guided Generation of Cause and Effect](https://arxiv.org/pdf/2107.09846.pdf)
 
-Many new research papers recently, like the ones above, are exploring ways of using external knowledge (e.g. KGs, KBs) to guide the outputs of large deep learning models. Hopefully this constrained beam search feature becomes another effective way to achieve this purpose.
+Like the ones above, many new research papers are exploring ways of using external knowledge (e.g., KGs, KBs) to guide the outputs of large deep learning models. Hopefully, this constrained beam search feature becomes another effective way to achieve this purpose.
 
 Thanks to everybody that gave guidance for this feature contribution: Patrick von Platen for being involved from the [initial issue](https://github.com/huggingface/transformers/issues/14081) to the [final PR](https://github.com/huggingface/transformers/pull/15761), and Narsil Patry, for providing detailed feedback on the code.
 
