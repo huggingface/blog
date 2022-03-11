@@ -33,7 +33,7 @@ thumbnail: /blog/assets/06_ray_tune/ray-hf.jpg
 
 This blog post assumes that the reader is familiar with text generation methods using the different variants of beam search, as explained in the blog post: ["How to generate text: using different decoding methods for language generation with Transformers"](https://huggingface.co/blog/how-to-generate)
 
-Unlike ordinary beam search, **constrained** beam search allows us to exert control over the output of text generation. This is useful because, sometimes, we know exactly what we want inside the output. For example, in a Neural Machine Translation task, we might know which words must be included in the final translation with a dictionary lookup. Sometimes, generation outputs that are almost equally possible to a language model might not be equally deseriable for the end-user due to the particular context. Both of these situations could be solved by allowing the users to tell the model which words must be included in the end output. 
+Unlike ordinary beam search, **constrained** beam search allows us to exert control over the output of text generation. This is useful because we sometimes know exactly what we want inside the output. For example, in a Neural Machine Translation task, we might know which words must be included in the final translation with a dictionary lookup. Sometimes, generation outputs that are almost equally possible to a language model might not be equally desirable for the end-user due to the particular context. Both of these situations could be solved by allowing the users to tell the model which words must be included in the end output. 
 
 ### **Why It's Difficult**
 
