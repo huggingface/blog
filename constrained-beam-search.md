@@ -353,7 +353,7 @@ This new feature is based mainly on the following papers:
  - [Improved Lexically Constrained Decoding for Translation and Monolingual Rewriting](https://aclanthology.org/N19-1090/)
  - [Guided Generation of Cause and Effect](https://arxiv.org/pdf/2107.09846.pdf)
 
-Many new research papers recently, like the ones above, are exploring ways of using external knowledge (e.g. KGs, KBs) to guide the outputs of large deep learning models. Hopefully this constrained beam search feature becomes another effective way to achieve this purpose.
+Like the ones above, many new research papers are exploring ways of using external knowledge (e.g., KGs, KBs) to guide the outputs of large deep learning models. Hopefully, this constrained beam search feature becomes another effective way to achieve this purpose.
 
 Thanks to everybody that gave guidance for this feature contribution: Patrick von Platen for being involved from the [initial issue](https://github.com/huggingface/transformers/issues/14081) to the [final PR](https://github.com/huggingface/transformers/pull/15761), and Narsil Patry, for providing detailed feedback on the code.
 
