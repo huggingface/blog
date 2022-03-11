@@ -143,7 +143,7 @@ As you can see, we were able to guide the generation with prior knowledge about 
 
 ## **Example 2: Disjunctive Constraints**
 
-We mentioned above about a use-case where we know which words we want included in the final output. An example of this might be using a dictionary lookup during neural machine translation.
+We mentioned above a use-case where we know which words we want to be included in the final output. An example of this might be using a dictionary lookup during neural machine translation.
 
 But what if we don't know which *word forms* to use, where we'd want outputs like `["raining", "rained", "rains", ...]` to be equally possible? In a more general sense, there are always cases when we don't want the *exact word verbatim*, letter by letter, and might be open to other related possibilities too.
 
