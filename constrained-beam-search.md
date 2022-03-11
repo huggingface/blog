@@ -264,7 +264,7 @@ Notice how `"The is fast"` doesn't require any manual appending of constraint to
 
 And finally notice how we ended up at a sensible output that contains our constraint phrase: `"The dog is fast"`! 
 
-We were worried in the beginning because just blindly appending the desired tokens led to nonsensicle phrases like `"The is fast"`. However, with the use of round-robin selection from banks, we implicitly ended up getting rid of nonsensical outputs in preference for the more sensible outputs.  
+We were worried initially because blindly appending the desired tokens led to nonsensical phrases like `"The is fast"`. However, using round-robin selection from banks, we implicitly ended up getting rid of nonsensical outputs in preference for the more sensible outputs. 
 
 ## **More About `Constraint` Classes and Custom Constraints**
 
