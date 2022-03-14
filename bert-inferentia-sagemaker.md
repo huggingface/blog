@@ -49,7 +49,7 @@ You will learn how to:
 - [4. Deploy a Real-time Inference Endpoint on Amazon SageMaker](#4-deploy-a-real-time-inference-endpoint-on-amazon-sagemaker)
 - [5. Run and evaluate Inference performance of BERT on Inferentia](#5-run-and-evaluate-inference-performance-of-bert-on-inferentia)
 
-Let's get started! 🚀****
+Let's get started! 🚀
 
 ---
 
