@@ -43,11 +43,12 @@ You can find the notebook here: [sagemaker/18_inferentia_inference](https://gith
 
 You will learn how to: 
 
-1. Convert your Hugging Face Transformer to AWS Neuron (Inferentia)
-2. Create a custom `inference.py` script for `text-classification`
-3. Create and upload the neuron model and inference script to Amazon S3
-4. Deploy a Real-time Inference Endpoint on Amazon SageMaker
-5. Run and evaluate Inference performance of BERT on Inferentia
+- [Tutorial](#tutorial)
+- [1. Convert your Hugging Face Transformer to AWS Neuron](#1-convert-your-hugging-face-transformer-to-aws-neuron)
+- [2. Create a custom `inference.py` script for `text-classification`](#2-create-a-custom-inferencepy-script-for-text-classification)
+- [3. Create and upload the neuron model and inference script to Amazon S3](#3-create-and-upload-the-neuron-model-and-inference-script-to-amazon-s3)
+- [4. Deploy a Real-time Inference Endpoint on Amazon SageMaker](#4-deploy-a-real-time-inference-endpoint-on-amazon-sagemaker)
+- [5. Run and evaluate Inference performance of BERT on Inferentia](#5-run-and-evaluate-inference-performance-of-bert-on-inferentia)
 
 Let's get started! 🚀****
 
@@ -298,7 +299,7 @@ The average latency for our BERT model is `5-6ms` for a sequence length of 128.
 </figure>
 <br>
 
-### elete model and endpoint
+### Delete model and endpoint
 
 To clean up, we can delete the model and endpoint.
 
