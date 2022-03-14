@@ -43,7 +43,6 @@ You can find the notebook here: [sagemaker/18_inferentia_inference](https://gith
 
 You will learn how to: 
 
-- [Tutorial](#tutorial)
 - [1. Convert your Hugging Face Transformer to AWS Neuron](#1-convert-your-hugging-face-transformer-to-aws-neuron)
 - [2. Create a custom `inference.py` script for `text-classification`](#2-create-a-custom-inferencepy-script-for-text-classification)
 - [3. Create and upload the neuron model and inference script to Amazon S3](#3-create-and-upload-the-neuron-model-and-inference-script-to-amazon-s3)
