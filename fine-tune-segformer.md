@@ -391,7 +391,13 @@ Now comes the exciting part, using our fine-tuned model! In this section, we'll 
 However, you can also try out your model directly on the Hugging Face Hub, thanks to the cool widgets powered by the [hosted inference API](https://api-inference.huggingface.co/docs/python/html/index.html). If you pushed your model to the Hub in the previous step, you should see an inference widget on your model page. You can add default examples to the widget by defining example image URLs in your model card. See [this model card](https://huggingface.co/segments-tobias/segformer-b0-finetuned-segments-sidewalk/blob/main/README.md) as an example.
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Inference widget" src="assets/54_fine_tune_segformer/widget.png"></medium-zoom>
+    <video 
+        alt="The interactive widget of the model"
+        style="max-width: 70%; margin: auto;"
+        autoplay loop autobuffer muted playsinline
+    >
+      <source src="assets/54_fine_tune_segformer/widget.mp4" poster="assets/54_fine_tune_segformer/widget-poster.png" type="video/mp4">
+  </video>
 </figure>
 
 ## Use the model from the Hub
