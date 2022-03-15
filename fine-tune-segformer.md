@@ -38,19 +38,19 @@ thumbnail: /blog/assets/54_fine_tune_segformer/thumb.png
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-**This guide shows how you can fine-tune Segformer, a state-of-the-art semantic segmentation model. Our goal is to build a model for a pizza delivery robot, so it can see where to drive and recognize obstacles 🍕🤖. We'll first label a set of sidewalk images on [Segments.ai](https://segments.ai?utm_source=hf&utm_medium=colab&utm_campaign=sem_seg). Then we'll fine-tune a pre-trained SegFormer model by using [`🤗 transformers`](https://huggingface.co/transformers), an open-source library that offers easy-to-use implementations of state-of-the-art models. Along the way, you'll learn how to work with the Hugging Face hub, the largest open-source catalog of models and datasets.**
+**This guide shows how you can fine-tune Segformer, a state-of-the-art semantic segmentation model. Our goal is to build a model for a pizza delivery robot, so it can see where to drive and recognize obstacles 🍕🤖. We'll first label a set of sidewalk images on [Segments.ai](https://segments.ai?utm_source=hf&utm_medium=colab&utm_campaign=sem_seg). Then we'll fine-tune a pre-trained SegFormer model by using [`🤗 transformers`](https://huggingface.co/transformers), an open-source library that offers easy-to-use implementations of state-of-the-art models. Along the way, you'll learn how to work with the Hugging Face Hub, the largest open-source catalog of models and datasets.**
 
 Semantic segmentation is the task of classifying each pixel in an image. You can see it as a more precise way of classifying an image. It has a wide range of use cases in fields such as medical imaging and autonomous driving. For example, for our pizza delivery robot, it is important to know exactly where the sidewalk is in an image, not just whether there is a sidewalk or not.
 
-Because semantic segmentation is a type of classification, the network architectures that are used for image classification and semantic segmentation are very similar. In 2014, [a seminal paper](https://arxiv.org/abs/1411.4038) by Long et al. used convolutional neural networks for semantic segmentation. More recently, Transformers have been used for image classification (e.g. [ViT](https://huggingface.co/blog/fine-tune-vit)), and now they're also being used for semantic segmentation, pushing the state-of-the-art further.
+Because semantic segmentation is a type of classification, the network architectures used for image classification and semantic segmentation are very similar. In 2014, [a seminal paper](https://arxiv.org/abs/1411.4038) by Long et al. used convolutional neural networks for semantic segmentation. More recently, Transformers have been used for image classification (e.g. [ViT](https://huggingface.co/blog/fine-tune-vit)), and now they're also being used for semantic segmentation, pushing the state-of-the-art further.
 
-[SegFormer](https://huggingface.co/docs/transformers/model_doc/segformer) is a model for semantic segmentation introduced by Xie et al in 2021. It has a hierarchical Transformer encoder that doesn't use positional encodings (in contrast to ViT) and a simple multi-layer perceptron decoder. SegFormer achieves state-of-the-art performance on multiple common datasets. Let's see how it performs for sidewalk images in our pizza delivery robot.
+[SegFormer](https://huggingface.co/docs/transformers/model_doc/segformer) is a model for semantic segmentation introduced by Xie et al. in 2021. It has a hierarchical Transformer encoder that doesn't use positional encodings (in contrast to ViT) and a simple multi-layer perceptron decoder. SegFormer achieves state-of-the-art performance on multiple common datasets. Let's see how our pizza delivery robot performs for sidewalk images.
 
 <figure class="image table text-center m-0 w-full">
   <medium-zoom background="rgba(0,0,0,.7)" alt="Pizza delivery robot segmenting a scene" src="assets/54_fine_tune_segformer/pizza-scene.png"></medium-zoom>
 </figure>
 
-Let's get started by installing the necessary dependencies. Because we're going to push our dataset and model to the Hugging Face hub, we need to install [Git LFS](https://git-lfs.github.com/) and log in to Hugging Face. The installation of `git-lfs` might be different on your system. 
+Let's get started by installing the necessary dependencies. Because we're going to push our dataset and model to the Hugging Face Hub, we need to install [Git LFS](https://git-lfs.github.com/) and log in to Hugging Face. The installation of `git-lfs` might be different on your system. 
 
 ```bash
 pip install -q transformers datasets segments-ai
@@ -65,25 +65,28 @@ The first step in any ML project is assembling a good dataset. In order to train
 
 For our pizza delivery robot, we could use an existing autonomous driving dataset such as [CityScapes](https://www.cityscapes-dataset.com/) or [BDD100K](https://bdd100k.com/). However, these datasets were captured by cars driving on the road. Since our delivery robot will be driving on the sidewalk, there will be a mismatch between the images in these datasets and the data our robot will see in the real world. 
 
-We don't want our delivery robot to get confused, so we'll create our own semantic segmentation dataset using images captured on sidewalks. In the next steps, we'll show how you can label the images we captured. If you just want to use our finished labeled dataset, you can skip the ["Create your own dataset"](#create-your-own-dataset) section and continue from ["Use a dataset from the Hub"](#use-a-dataset-from-the-hub).
+We don't want our delivery robot to get confused, so we'll create our own semantic segmentation dataset using images captured on sidewalks. We'll show how you can label the images we captured in the next steps. If you just want to use our finished, labeled dataset, you can skip the ["Create your own dataset"](#create-your-own-dataset) section and continue from ["Use a dataset from the Hub"](#use-a-dataset-from-the-hub).
 
 ## Create your own dataset
 
-To create your own semantic segmentation dataset, you'll need two things: 1) images covering the situations your model will encounter in the real world, 2) segmentation labels, i.e. images where each pixel represents a class/category.
+To create your semantic segmentation dataset, you'll need two things: 
 
-We went ahead and captured a thousand images of sidewalks in Belgium. Collecting and labeling such a dataset can take a long time, so you can also start with a smaller dataset, and expand it if the model does not perform well enough.
+1. images covering the situations your model will encounter in the real world
+2. segmentation labels, i.e. images where each pixel represents a class/category.
+
+We went ahead and captured a thousand images of sidewalks in Belgium. Collecting and labeling such a dataset can take a long time, so you can start with a smaller dataset and expand it if the model does not perform well enough.
 
 <figure class="image table text-center m-0 w-full">
     <medium-zoom background="rgba(0,0,0,.7)" alt="Example images from the sidewalk dataset" src="assets/54_fine_tune_segformer/sidewalk-examples.png"></medium-zoom>
     <figcaption>Some examples of the raw images in the sidewalk dataset.</figcaption>
 </figure>
 
-To obtain segmentation labels, we need to indicate the classes of all the regions/objects in these images. This can be a time-consuming endeavour, but using the right tools can speed up the task significantly. For labeling, we'll use [Segments.ai](https://segments.ai?utm_source=hf&utm_medium=colab&utm_campaign=sem_seg), since it has smart labeling tools for image segmentation, and an easy-to-use Python SDK.
+To obtain segmentation labels, we need to indicate the classes of all the regions/objects in these images. This can be a time-consuming endeavour, but using the right tools can speed up the task significantly. For labeling, we'll use [Segments.ai](https://segments.ai?utm_source=hf&utm_medium=colab&utm_campaign=sem_seg), since it has smart labeling tools for image segmentation and an easy-to-use Python SDK.
 
 ### Set up the labeling task on Segments.ai
 
 First, create an account at [https://segments.ai/join](https://segments.ai/join?utm_source=hf&utm_medium=colab&utm_campaign=sem_seg). 
-Next, create a new dataset and upload your images. You can either do this from the web interface, or via the Python SDK (see the [notebook](https://colab.research.google.com/drive/1BImTyBjW3KtvHGVcjGpYYFZdRGXzM3-j?usp=sharing)).
+Next, create a new dataset and upload your images. You can either do this from the web interface or via the Python SDK (see the [notebook](https://colab.research.google.com/drive/1BImTyBjW3KtvHGVcjGpYYFZdRGXzM3-j?usp=sharing)).
 
 
 ### Label the images
@@ -143,10 +146,10 @@ semantic_dataset = hf_dataset.map(
 )
 ```
 
-You can also rewrite the `convert_segmentation_bitmap` function to use batches and pass `batched=True` to `dataset.map`. This will speed up the mapping significantly, but you might need to tweak the `batch_size` to make sure the process doesn't run out of memory.
+You can also rewrite the `convert_segmentation_bitmap` function to use batches and pass `batched=True` to `dataset.map`. This will significantly speed up the mapping, but you might need to tweak the `batch_size` to ensure the process doesn't run out of memory.
 
 
-The SegFormer model we're going to fine-tune later expects certain names for the features. For convenience, we'll already match this format now. Thus, we'll rename the `image` feature to `pixel_values`, the `label.segmentation_bitmap` to `label` and discard the other features.
+The SegFormer model we're going to fine-tune later expects specific names for the features. For convenience, we'll match this format now. Thus, we'll rename the `image` feature to `pixel_values` and the `label.segmentation_bitmap` to `label` and discard the other features.
 
 
 ```python
@@ -155,7 +158,7 @@ semantic_dataset = semantic_dataset.rename_column('label.segmentation_bitmap', '
 semantic_dataset = semantic_dataset.remove_columns(['name', 'uuid', 'status', 'label.annotations'])
 ```
 
-We can now push the transformed dataset to the Hugging Face Hub. That way, your team and the Hugging Face community can make use of it. In the next section, we'll see how you can load the dataset from the hub.
+We can now push the transformed dataset to the Hugging Face Hub. That way, your team and the Hugging Face community can make use of it. In the next section, we'll see how you can load the dataset from the Hub.
 
 
 ```python
@@ -274,7 +277,7 @@ model = SegformerForSemanticSegmentation.from_pretrained(
 
 ## Set up the Trainer
 
-To fine-tune the model on our data, we'll use Hugging Face's [Trainer API](https://huggingface.co/docs/transformers/main_classes/trainer). In order to use a Trainer, we need to set up the training configuration, and an evalutation metric.
+To fine-tune the model on our data, we'll use Hugging Face's [Trainer API](https://huggingface.co/docs/transformers/main_classes/trainer). We need to set up the training configuration and an evalutation metric to use a Trainer.
 
 First, we'll set up the [`TrainingArguments`](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments). This defines all training hyperparameters, such as learning rate and the number of epochs, frequency to save the model and so on. We also specify to push the model to the hub after training (`push_to_hub=True`) and specify a model name (`hub_model_id`).
 
@@ -365,7 +368,7 @@ Now that our trainer is set up, training is as simple as calling the `train` fun
 trainer.train()
 ```
 
-When we're done with training, we can push our fine-tuned model and the feature extractor to the Hugging Face hub.
+When we're done with training, we can push our fine-tuned model and the feature extractor to the Hub.
 
 This will also automatically create a model card with our results. We'll supply some extra information in `kwargs` to make the model card more complete.
 
@@ -385,15 +388,15 @@ trainer.push_to_hub(**kwargs)
 
 Now comes the exciting part, using our fine-tuned model! In this section, we'll show how you can load your model from the hub and use it for inference. 
 
-However, you can also try out your model directly on the Hugging Face Hub, thanks to the cool widgets powered by the [hosted inference API](https://api-inference.huggingface.co/docs/python/html/index.html). If you pushed your model to the hub in the previous step, you should see an inference widget on your model page. You can add default examples to the widget by defining example image URLs in your model card. See [this model card](https://huggingface.co/segments-tobias/segformer-b0-finetuned-segments-sidewalk/blob/main/README.md) as an example.
+However, you can also try out your model directly on the Hugging Face Hub, thanks to the cool widgets powered by the [hosted inference API](https://api-inference.huggingface.co/docs/python/html/index.html). If you pushed your model to the Hub in the previous step, you should see an inference widget on your model page. You can add default examples to the widget by defining example image URLs in your model card. See [this model card](https://huggingface.co/segments-tobias/segformer-b0-finetuned-segments-sidewalk/blob/main/README.md) as an example.
 
 <figure class="image table text-center m-0 w-full">
   <medium-zoom background="rgba(0,0,0,.7)" alt="Inference widget" src="assets/54_fine_tune_segformer/widget.png"></medium-zoom>
 </figure>
 
-## Use the model from the hub
+## Use the model from the Hub
 
-We'll first load the model from the hub using `SegformerForSemanticSegmentation.from_pretrained()`.
+We'll first load the model from the Hub using `SegformerForSemanticSegmentation.from_pretrained()`.
 
 ```python
 from transformers import SegformerFeatureExtractor, SegformerForSemanticSegmentation
@@ -455,7 +458,7 @@ We introduced you to some useful tools along the way, such as:
 *   [Segments.ai](https://segments.ai) for labeling your data
 *   [🤗 datasets](https://huggingface.co/docs/datasets/) for creating and sharing a dataset
 *   [🤗 transformers](https://huggingface.co/transformers) for easily fine-tuning a state-of-the-art segmentation model
-*   [🤗 hub](https://huggingface.co/docs/hub/main) for sharing our dataset and model, and for creating an inference widget for our model
+*   [Hugging Face Hub](https://huggingface.co/docs/hub/main) for sharing our dataset and model, and for creating an inference widget for our model
 
 
 We hope you enjoyed this post and learned something. Feel free to share your own model with us on Twitter ([@TobiasCornille](https://twitter.com/tobiascornille), [@NielsRogge](https://twitter.com/nielsrogge), and [@huggingface](https://twitter.com/huggingface)).
