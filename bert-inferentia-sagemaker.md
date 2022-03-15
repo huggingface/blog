@@ -68,7 +68,7 @@ As a first step, we need to install the [Neuron SDK](https://awsdocs-neuron.read
 !pip config set global.extra-index-url https://pip.repos.neuron.amazonaws.com
 
 # Install Neuron PyTorch
-!pip install torch-neuron==1.9.1.* neuron-cc[tensorflow] sagemaker>=2.78.0 transformers==4.12.3 --upgrade
+!pip install torch-neuron==1.9.1.* neuron-cc[tensorflow] sagemaker>=2.79.0 transformers==4.12.3 --upgrade
 ```
 
 After we have installed the Neuron SDK we can convert load and convert our model. Neuron models are converted using `torch_neuron` with its `trace` method similar to `torchscript`. You can find more information in our [documentation](https://huggingface.co/docs/transformers/serialization#torchscript).
