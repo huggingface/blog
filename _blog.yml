@@ -508,10 +508,17 @@
   tags:
   - guide
 
+- local: constrained-beam-search
+  title: "Guiding Text Generation with Constrained Beam Search in 🤗 Transformers"
+  author: cwkeam
+  guest: true
+  thumbnail: /blog/assets/53_constrained_beam_search/thumbnail.png
+  date: March 11, 2022
+  tags:
+  - guide
+  
 - local: image-search-datasets
   title: "Image search with 🤗 datasets"
   author: davanstrien
-  thumbnail: /blog/assets/53_image_search_datasets/spaces_image_search.jpg
-  date: February 23, 2022
-  tags:
-  - guide
+  thumbnail: /blog/assets/54_image_search_datasets/spaces_image_search.jpg
+  date: March 15, 2022

@@ -49,7 +49,7 @@ of **transformers** is that it usually has a finite amount of sequence
 length it can handle. Either because it uses **position encodings** (not
 the case here) or simply because the cost of attention in transformers
 is actually O(n²) in sequence_length, meaning that using very large
-sequence_length explodes in complexity/memory. So you cannot with finite hardware
+sequence_length explodes in complexity/memory. So you cannot run with finite hardware
 (even a very large GPU like A100), simply run Wav2Vec2 on an hour long
 file. Your program will crash. Let's try it !
 
