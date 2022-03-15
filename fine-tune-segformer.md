@@ -8,7 +8,7 @@ thumbnail: /blog/assets/54_fine_tune_segformer/thumb.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published March 14, 2022.</small>
+    <small>Published March 17, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/fine-tune-segformer.md">
         Update on GitHub
     </a>
@@ -31,6 +31,8 @@ thumbnail: /blog/assets/54_fine_tune_segformer/thumb.png
         </div>
     </a>
 </div>
+
+<script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
 <a target="_blank" href="https://colab.research.google.com/drive/1BImTyBjW3KtvHGVcjGpYYFZdRGXzM3-j?usp=sharing">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
@@ -63,7 +65,7 @@ The first step in any ML project is assembling a good dataset. In order to train
 
 For our pizza delivery robot, we could use an existing autonomous driving dataset such as [CityScapes](https://www.cityscapes-dataset.com/) or [BDD100K](https://bdd100k.com/). However, these datasets were captured by cars driving on the road. Since our delivery robot will be driving on the sidewalk, there will be a mismatch between the images in these datasets and the data our robot will see in the real world. 
 
-We don't want our delivery robot to get confused, so we'll create our own semantic segmentation dataset using images captured on sidewalks. In the next steps, we'll show how you can label the images we captured. If you just want to use our finished labeled dataset, you can skip the "Create your own dataset" section and continue from "Use a dataset from the Hub".
+We don't want our delivery robot to get confused, so we'll create our own semantic segmentation dataset using images captured on sidewalks. In the next steps, we'll show how you can label the images we captured. If you just want to use our finished labeled dataset, you can skip the ["Create your own dataset"](#create-your-own-dataset) section and continue from ["Use a dataset from the Hub"](#use-a-dataset-from-the-hub).
 
 ## Create your own dataset
 
@@ -72,7 +74,7 @@ To create your own semantic segmentation dataset, you'll need two things: 1) ima
 We went ahead and captured a thousand images of sidewalks in Belgium. Collecting and labeling such a dataset can take a long time, so you can also start with a smaller dataset, and expand it if the model does not perform well enough.
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Example images from the sidewalk dataset" src="assets/54_fine_tune_segformer/sidewalk-examples.png"></medium-zoom>
+    <medium-zoom background="rgba(0,0,0,.7)" alt="Example images from the sidewalk dataset" src="assets/54_fine_tune_segformer/sidewalk-examples.png"></medium-zoom>
     <figcaption>Some examples of the raw images in the sidewalk dataset.</figcaption>
 </figure>
 
@@ -88,8 +90,14 @@ Next, create a new dataset and upload your images. You can either do this from t
 
 Now that the raw data is loaded, go to [segments.ai/home](https://segments.ai/home) and open the newly created dataset. Click "Start labeling" and create segmentation masks. You can use the ML-powered superpixel and autosegment tools to label faster.
 
-<figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Labeling a sidewalk image on Segments.ai" src="assets/54_fine_tune_segformer/sidewalk-labeling-crop.gif"></medium-zoom>
+<figure class="image table text-center m-0">
+    <video 
+        alt="Labeling a sidewalk image on Segments.ai"
+        style="max-width: 70%; margin: auto;"
+        autoplay loop autobuffer muted playsinline
+    >
+      <source src="assets/54_fine_tune_segformer/sidewalk-labeling-crop.mp4" poster="assets/54_fine_tune_segformer/sidewalk-labeling-crop-poster.png" type="video/mp4">
+  </video>
   <figcaption>Tip: when using the superpixel tool, scroll to change the superpixel size, and click and drag to select segments.</figcaption>
 </figure>
 
@@ -113,7 +121,7 @@ hf_dataset = release2dataset(release)
 
 If we inspect the features of the new dataset, we can see the image column and the corresponding label. The label consists of two parts: a list of annotations and a segmentation bitmap. The annotation corresponds to the different objects in the image. For each object, the annotation contains an `id` and a `category_id`. The segmentation bitmap is an image where each pixel contains the `id` of the object at that pixel. More information can be found in the [relevant docs](https://docs.segments.ai/reference/sample-and-label-types/label-types#segmentation-labels).
 
-For semantic segmentation, we need a semantic bitmap with a `category_id` for each pixel. We'll use the `get_semantic_bitmap` function from the Segments.ai SDK to convert the bitmaps to semantic bitmaps. In order to apply this function to all the rows in our dataset, we'll use [`dataset.map`](https://huggingface.co/docs/datasets/package_reference/main_classes#datasets.Dataset.map). 
+For semantic segmentation, we need a semantic bitmap that contains a `category_id` for each pixel. We'll use the `get_semantic_bitmap` function from the Segments.ai SDK to convert the bitmaps to semantic bitmaps. To apply this function to all the rows in our dataset, we'll use [`dataset.map`](https://huggingface.co/docs/datasets/package_reference/main_classes#datasets.Dataset.map). 
 
 
 ```python
