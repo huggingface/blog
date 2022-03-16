@@ -1,6 +1,6 @@
 ---
 title: "Accelerate BERT inference with Hugging Face Transformers and AWS inferentia"
-thumbnail: /blog//assets/54_bert_inferentia_sagemaker/thumbnail.png
+thumbnail: /blog//assets/55_bert_inferentia_sagemaker/thumbnail.png
 ---
 
 <h1>Accelerate BERT inference with Hugging Face Transformers and AWS inferentia</h1>
