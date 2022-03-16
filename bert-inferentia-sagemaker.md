@@ -6,7 +6,7 @@ thumbnail: /blog//assets/54_bert_inferentia_sagemaker/thumbnail.png
 <h1>Accelerate BERT inference with Hugging Face Transformers and AWS inferentia</h1>
 
 <div class="blog-metadata">
-    <small>Published Jan 11, 2022.</small>
+    <small>Published March 16, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/bert-inferentia-sagemaker.md">
         Update on GitHub
     </a>
@@ -43,11 +43,14 @@ You can find the notebook here: [sagemaker/18_inferentia_inference](https://gith
 
 You will learn how to: 
 
+- [Tutorial](#tutorial)
 - [1. Convert your Hugging Face Transformer to AWS Neuron](#1-convert-your-hugging-face-transformer-to-aws-neuron)
 - [2. Create a custom `inference.py` script for `text-classification`](#2-create-a-custom-inferencepy-script-for-text-classification)
 - [3. Create and upload the neuron model and inference script to Amazon S3](#3-create-and-upload-the-neuron-model-and-inference-script-to-amazon-s3)
 - [4. Deploy a Real-time Inference Endpoint on Amazon SageMaker](#4-deploy-a-real-time-inference-endpoint-on-amazon-sagemaker)
 - [5. Run and evaluate Inference performance of BERT on Inferentia](#5-run-and-evaluate-inference-performance-of-bert-on-inferentia)
+  - [Delete model and endpoint](#delete-model-and-endpoint)
+- [Conclusion](#conclusion)
 
 Let's get started! 🚀
 
