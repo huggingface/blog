@@ -1,9 +1,9 @@
 ---
-title: "Accelerate BERT inference with Hugging Face Transformers and AWS inferentia"
+title: "Accelerate BERT inference with Hugging Face Transformers and AWS Inferentia"
 thumbnail: /blog//assets/55_bert_inferentia_sagemaker/thumbnail.png
 ---
 
-<h1>Accelerate BERT inference with Hugging Face Transformers and AWS inferentia</h1>
+<h1>Accelerate BERT inference with Hugging Face Transformers and AWS Inferentia</h1>
 
 <div class="blog-metadata">
     <small>Published March 16, 2022.</small>
@@ -27,7 +27,7 @@ thumbnail: /blog//assets/55_bert_inferentia_sagemaker/thumbnail.png
 
 notebook: [sagemaker/18_inferentia_inference](https://github.com/huggingface/notebooks/blob/master/sagemaker/18_inferentia_inference/sagemaker-notebook.ipynb)
 
-The adoption of [BERT](https://huggingface.co/blog/bert-101) and [Transformers](https://huggingface.co/docs/transformers/index) continues to grow. Transformer-based models are now not only achieving state-of-the-art performance in Natural Language Processing also for [Computer Vision](https://arxiv.org/abs/2010.11929), [Speech](https://arxiv.org/abs/2006.11477), and [Time-Series](https://arxiv.org/abs/2002.06103). 💬 🖼 🎤 ⏳
+The adoption of [BERT](https://huggingface.co/blog/bert-101) and [Transformers](https://huggingface.co/docs/transformers/index) continues to grow. Transformer-based models are now not only achieving state-of-the-art performance in Natural Language Processing but also for [Computer Vision](https://arxiv.org/abs/2010.11929), [Speech](https://arxiv.org/abs/2006.11477), and [Time-Series](https://arxiv.org/abs/2002.06103). 💬 🖼 🎤 ⏳
 
 Companies are now slowly moving from the experimentation and research phase to the production phase in order to use transformer models for large-scale workloads. But by default BERT and its friends are relatively slow, big, and complex models compared to the traditional Machine Learning algorithms. Accelerating Transformers and BERT is and will become an interesting challenge to solve in the future.
 
@@ -53,7 +53,7 @@ Let's get started! 🚀
 
 ---
 
-*If you are going to use Sagemaker in a local environment (not SageMaker Studio or Notebook Instances). You need access to an IAM Role with the required permissions for Sagemaker. You can find [here](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html) more about it.*
+*If you are going to use Sagemaker in a local environment (not SageMaker Studio or Notebook Instances), you need access to an IAM Role with the required permissions for Sagemaker. You can find [here](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html) more about it.*
 
 ## 1. Convert your Hugging Face Transformer to AWS Neuron
 
@@ -64,14 +64,14 @@ As a first step, we need to install the [Neuron SDK](https://awsdocs-neuron.read
 *Tip: If you are using Amazon SageMaker Notebook Instances or Studio you can go with the `conda_python3` conda kernel.*
 
 ```python
-# Set Pip repository  to point to the Neuron repository
+# Set Pip repository to point to the Neuron repository
 !pip config set global.extra-index-url https://pip.repos.neuron.amazonaws.com
 
 # Install Neuron PyTorch
 !pip install torch-neuron==1.9.1.* neuron-cc[tensorflow] sagemaker>=2.79.0 transformers==4.12.3 --upgrade
 ```
 
-After we have installed the Neuron SDK we can convert load and convert our model. Neuron models are converted using `torch_neuron` with its `trace` method similar to `torchscript`. You can find more information in our [documentation](https://huggingface.co/docs/transformers/serialization#torchscript).
+After we have installed the Neuron SDK we can load and convert our model. Neuron models are converted using `torch_neuron` with its `trace` method similar to `torchscript`. You can find more information in our [documentation](https://huggingface.co/docs/transformers/serialization#torchscript).
 
 To be able to convert our model we first need to select the model we want to use for our text classification pipeline from [hf.co/models](http://hf.co/models). For this example, let's go with [distilbert-base-uncased-finetuned-sst-2-english](https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english) but this can be easily adjusted with other BERT-like models. 
 
@@ -81,9 +81,9 @@ model_id = "distilbert-base-uncased-finetuned-sst-2-english"
 
 At the time of writing, the [AWS Neuron SDK does not support dynamic shapes](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/neuron-guide/models/models-inferentia.html#dynamic-shapes), which means that the input size needs to be static for compiling and inference. 
 
-In simpler terms, this means when the model is compiled with an input of batch size 1 and sequence length of 16. The model can only run inference on inputs with the same shape. 
+In simpler terms, this means that when the model is compiled with e.g. an input of batch size 1 and sequence length of 16, the model can only run inference on inputs with that same shape. 
 
-*When using a `t2.medium` instance the compiling takes around 3 minutes*
+*When using a `t2.medium` instance the compilation takes around 3 minutes*
 
 ```python
 import os
@@ -118,15 +118,15 @@ model.config.save_pretrained(save_dir)
 
 The [Hugging Face Inference Toolkit](https://github.com/aws/sagemaker-huggingface-inference-toolkit) supports zero-code deployments on top of the [pipeline feature](https://huggingface.co/transformers/main_classes/pipelines.html) from 🤗 Transformers. This allows users to deploy Hugging Face transformers without an inference script [[Example](https://github.com/huggingface/notebooks/blob/master/sagemaker/11_deploy_model_from_hf_hub/deploy_transformer_model_from_hf_hub.ipynb)]. 
 
-Currently is this feature not supported with AWS Inferentia, which means we need to provide an `inference.py` for running inference. 
+Currently, this feature is not supported with AWS Inferentia, which means we need to provide an `inference.py` script for running inference. 
 
-*If you would be interested in support for zero-code deployments for inferentia let us know on the [forum](https://discuss.huggingface.co/c/sagemaker/17).*
+*If you would be interested in support for zero-code deployments for Inferentia let us know on the [forum](https://discuss.huggingface.co/c/sagemaker/17).*
 
 ---
 
 To use the inference script, we need to create an `inference.py` script. In our example, we are going to overwrite the `model_fn` to load our neuron model and the `predict_fn` to create a text-classification pipeline. 
 
-If you want to know more about the `inference.py` script check out this [example](https://github.com/huggingface/notebooks/blob/master/sagemaker/17_custom_inference_script/sagemaker-notebook.ipynb). It explains amongst other things what the `model_fn` and `predict_fn` are.
+If you want to know more about the `inference.py` script check out this [example](https://github.com/huggingface/notebooks/blob/master/sagemaker/17_custom_inference_script/sagemaker-notebook.ipynb). It explains amongst other things what  `model_fn` and `predict_fn` are.
 
 ```python
 !mkdir code
@@ -211,7 +211,7 @@ print(f"sagemaker bucket: {sess.default_bucket()}")
 print(f"sagemaker session region: {sess.boto_region_name}")
 ```
 
-Next, we create our `model.tar.gz`.The `inference.py` script will be placed into a `code/` folder.
+Next, we create our `model.tar.gz`. The `inference.py` script will be placed into a `code/` folder.
 
 ```python
 # copy inference.py into the code/ directory of the model directory.
@@ -274,7 +274,7 @@ res = predictor.predict(data=data)
 res
 ```
 
-We managed to deploy our neuron compiled BERT to AWS Inferentia on Amazon SageMaker. Now, let's test its performance of it. As a dummy load test will we loop and send 10000 synchronous requests to our endpoint. 
+We managed to deploy our neuron compiled BERT to AWS Inferentia on Amazon SageMaker. Now, let's test its performance. As a dummy load test, we will loop and send 10,000 synchronous requests to our endpoint. 
 
 ```python
 # send 10000 requests
@@ -309,13 +309,13 @@ predictor.delete_endpoint()
 
 ## Conclusion
 
-We successfully managed to compile a vanilla Hugging Face Transformers model to an AWS inferentia compatible Neuron Model. After that we deployed our Neuron model to Amazon SageMaker using the new Hugging Face Inference DLC. We managed to achieve `5-6ms` latency per neuron core, which is fast than CPU in terms of latency and provides a higher throughput than GPUs since we ran 4 models in parallel. 
+We successfully managed to compile a vanilla Hugging Face Transformers model to an AWS Inferentia compatible Neuron Model. After that we deployed our Neuron model to Amazon SageMaker using the new Hugging Face Inference DLC. We managed to achieve `5-6ms` latency per neuron core, which is faster than CPU in terms of latency, and achieves a higher throughput than GPUs since we ran 4 models in parallel. 
 
-If you or you company are currently using a BERT-like Transformer for encoder tasks (text-classification, token-classification, question-answering etc.) and the latency meets your requirements you should switch to AWS Inferentia. This will not only save costs it can also increase efficiency and performance for you models. 
+If you or you company are currently using a BERT-like Transformer for encoder tasks (text-classification, token-classification, question-answering etc.), and the latency meets your requirements you should switch to AWS Inferentia. This will not only save costs, but can also increase efficiency and performance for your models. 
 
 We are planning to do a more detailed case study on cost-performance of transformers in the future, so stay tuned! 
 
-Also if you want to learn more about accelerating transformers you should also check out out Hugging Face [optimum](https://github.com/huggingface/optimum). 
+Also if you want to learn more about accelerating transformers you should also check out Hugging Face [optimum](https://github.com/huggingface/optimum). 
 
 ---
 
