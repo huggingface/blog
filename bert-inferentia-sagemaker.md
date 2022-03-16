@@ -1,6 +1,6 @@
 ---
 title: "Accelerate BERT inference with Hugging Face Transformers and AWS inferentia"
-thumbnail: /blog//assets/55_bert_inferentia_sagemaker/thumbnail.png
+thumbnail: /blog//assets/54_bert_inferentia_sagemaker/thumbnail.png
 ---
 
 <h1>Accelerate BERT inference with Hugging Face Transformers and AWS inferentia</h1>
@@ -43,14 +43,11 @@ You can find the notebook here: [sagemaker/18_inferentia_inference](https://gith
 
 You will learn how to: 
 
-- [Tutorial](#tutorial)
-- [1. Convert your Hugging Face Transformer to AWS Neuron](#1-convert-your-hugging-face-transformer-to-aws-neuron)
-- [2. Create a custom `inference.py` script for `text-classification`](#2-create-a-custom-inferencepy-script-for-text-classification)
-- [3. Create and upload the neuron model and inference script to Amazon S3](#3-create-and-upload-the-neuron-model-and-inference-script-to-amazon-s3)
-- [4. Deploy a Real-time Inference Endpoint on Amazon SageMaker](#4-deploy-a-real-time-inference-endpoint-on-amazon-sagemaker)
-- [5. Run and evaluate Inference performance of BERT on Inferentia](#5-run-and-evaluate-inference-performance-of-bert-on-inferentia)
-  - [Delete model and endpoint](#delete-model-and-endpoint)
-- [Conclusion](#conclusion)
+  - [1. Convert your Hugging Face Transformer to AWS Neuron](#1-convert-your-hugging-face-transformer-to-aws-neuron)
+  - [2. Create a custom `inference.py` script for `text-classification`](#2-create-a-custom-inferencepy-script-for-text-classification)
+  - [3. Create and upload the neuron model and inference script to Amazon S3](#3-create-and-upload-the-neuron-model-and-inference-script-to-amazon-s3)
+  - [4. Deploy a Real-time Inference Endpoint on Amazon SageMaker](#4-deploy-a-real-time-inference-endpoint-on-amazon-sagemaker)
+  - [5. Run and evaluate Inference performance of BERT on Inferentia](#5-run-and-evaluate-inference-performance-of-bert-on-inferentia)
 
 Let's get started! 🚀
 
@@ -119,7 +116,7 @@ model.config.save_pretrained(save_dir)
 
 ## 2. Create a custom `inference.py` script for `text-classification`
 
-The [Hugging Face Inference Toolkit](https://github.com/aws/sagemaker-huggingface-inference-toolkit) supports zero-code deployments on top of the `[pipeline` feature](https://huggingface.co/transformers/main_classes/pipelines.html) from 🤗 Transformers. This allows users to deploy Hugging Face transformers without an inference script [[Example](https://github.com/huggingface/notebooks/blob/master/sagemaker/11_deploy_model_from_hf_hub/deploy_transformer_model_from_hf_hub.ipynb)]. 
+The [Hugging Face Inference Toolkit](https://github.com/aws/sagemaker-huggingface-inference-toolkit) supports zero-code deployments on top of the [pipeline feature](https://huggingface.co/transformers/main_classes/pipelines.html) from 🤗 Transformers. This allows users to deploy Hugging Face transformers without an inference script [[Example](https://github.com/huggingface/notebooks/blob/master/sagemaker/11_deploy_model_from_hf_hub/deploy_transformer_model_from_hf_hub.ipynb)]. 
 
 Currently is this feature not supported with AWS Inferentia, which means we need to provide an `inference.py` for running inference. 
 
