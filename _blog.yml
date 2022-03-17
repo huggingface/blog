@@ -532,3 +532,12 @@
   - partnerships
   - guide
 
+- local: fine-tune-segformer
+  title: "Fine-Tune a Semantic Segmentation Model with a Custom Dataset"
+  author: segments-tobias
+  thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
+  date: March 17, 2022
+  tags:
+  - guide
+  - partnerships
+
