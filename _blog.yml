@@ -512,16 +512,32 @@
   title: "Guiding Text Generation with Constrained Beam Search in 🤗 Transformers"
   author: cwkeam
   guest: true
-  thumbnail: /blog/assets/53_constrained_beam_search/thumbnail.jpg
+  thumbnail: /blog/assets/53_constrained_beam_search/thumbnail.png
   date: March 11, 2022
   tags:
   - guide
+  
+- local: image-search-datasets
+  title: "Image search with 🤗 datasets"
+  author: davanstrien
+  thumbnail: /blog/assets/54_image_search_datasets/spaces_image_search.jpg
+  date: March 16, 2022
 
-- local: fine-tune-segformer
+- local: bert-inferentia-sagemaker
+  title: "Accelerate BERT inference with Hugging Face Transformers and AWS inferentia"
+  author: philschmid
+  thumbnail: /blog/assets/55_bert_inferentia_sagemaker/thumbnail.png
+  date: March 16, 2022
+  tags:
+  - partnerships
+  - guide
+
+  - local: fine-tune-segformer
   title: "Fine-Tune a Semantic Segmentation Model with a Custom Dataset"
   author: segments-tobias
-  thumbnail: /blog/assets/54_fine_tune_segformer/thumb.png
+  thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
   date: March 17, 2022
   tags:
   - guide
   - partnerships
+

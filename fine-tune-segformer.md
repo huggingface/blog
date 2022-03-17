@@ -1,6 +1,6 @@
 ---
 title: Fine-Tune a Semantic Segmentation Model with a Custom Dataset
-thumbnail: /blog/assets/54_fine_tune_segformer/thumb.png
+thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
 ---
 
 <h1>
@@ -47,7 +47,7 @@ Because semantic segmentation is a type of classification, the network architect
 [SegFormer](https://huggingface.co/docs/transformers/model_doc/segformer) is a model for semantic segmentation introduced by Xie et al. in 2021. It has a hierarchical Transformer encoder that doesn't use positional encodings (in contrast to ViT) and a simple multi-layer perceptron decoder. SegFormer achieves state-of-the-art performance on multiple common datasets. Let's see how our pizza delivery robot performs for sidewalk images.
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Pizza delivery robot segmenting a scene" src="assets/54_fine_tune_segformer/pizza-scene.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Pizza delivery robot segmenting a scene" src="assets/56_fine_tune_segformer/pizza-scene.png"></medium-zoom>
 </figure>
 
 Let's get started by installing the necessary dependencies. Because we're going to push our dataset and model to the Hugging Face Hub, we need to install [Git LFS](https://git-lfs.github.com/) and log in to Hugging Face. The installation of `git-lfs` might be different on your system. 
@@ -77,7 +77,7 @@ To create your semantic segmentation dataset, you'll need two things:
 We went ahead and captured a thousand images of sidewalks in Belgium. Collecting and labeling such a dataset can take a long time, so you can start with a smaller dataset and expand it if the model does not perform well enough.
 
 <figure class="image table text-center m-0 w-full">
-    <medium-zoom background="rgba(0,0,0,.7)" alt="Example images from the sidewalk dataset" src="assets/54_fine_tune_segformer/sidewalk-examples.png"></medium-zoom>
+    <medium-zoom background="rgba(0,0,0,.7)" alt="Example images from the sidewalk dataset" src="assets/56_fine_tune_segformer/sidewalk-examples.png"></medium-zoom>
     <figcaption>Some examples of the raw images in the sidewalk dataset.</figcaption>
 </figure>
 
@@ -99,7 +99,7 @@ Now that the raw data is loaded, go to [segments.ai/home](https://segments.ai/ho
         style="max-width: 70%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
-      <source src="assets/54_fine_tune_segformer/sidewalk-labeling-crop.mp4" poster="assets/54_fine_tune_segformer/sidewalk-labeling-crop-poster.png" type="video/mp4">
+      <source src="assets/56_fine_tune_segformer/sidewalk-labeling-crop.mp4" poster="assets/56_fine_tune_segformer/sidewalk-labeling-crop-poster.png" type="video/mp4">
   </video>
   <figcaption>Tip: when using the superpixel tool, scroll to change the superpixel size, and click and drag to select segments.</figcaption>
 </figure>
@@ -255,7 +255,7 @@ test_ds.set_transform(val_transforms)
 The SegFormer authors define 5 models with increasing sizes: B0 to B5. The following chart (taken from the original paper) shows the performance of these different models on the ADE20K dataset, compared to other models.
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="SegFormer model variants compared with other segmentation models" src="assets/54_fine_tune_segformer/segformer.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="SegFormer model variants compared with other segmentation models" src="assets/56_fine_tune_segformer/segformer.png"></medium-zoom>
   <figcaption><a href="https://arxiv.org/abs/2105.15203">Source</a></figcaption>
 </figure>
 
@@ -396,7 +396,7 @@ However, you can also try out your model directly on the Hugging Face Hub, thank
         style="max-width: 70%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
-      <source src="assets/54_fine_tune_segformer/widget.mp4" poster="assets/54_fine_tune_segformer/widget-poster.png" type="video/mp4">
+      <source src="assets/56_fine_tune_segformer/widget.mp4" poster="assets/56_fine_tune_segformer/widget-poster.png" type="video/mp4">
   </video>
 </figure>
 
@@ -447,7 +447,7 @@ pred_seg = upsampled_logits.argmax(dim=1)[0]
 Now it's time to display the result. We'll display the result next to the ground-truth mask.
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(1,1,1,1)" alt="SegFormer prediction vs the ground truth" src="assets/54_fine_tune_segformer/output.png"></medium-zoom>
+  <medium-zoom background="rgba(1,1,1,1)" alt="SegFormer prediction vs the ground truth" src="assets/56_fine_tune_segformer/output.png"></medium-zoom>
 </figure>
 
 What do you think? Would you send our pizza delivery robot on the road with this segmentation information?
