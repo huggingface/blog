@@ -1,6 +1,6 @@
 ---
 title: "Image search with 🤗 datasets"
-thumbnail: /blog/assets/spaces_image_search.jpg 
+thumbnail: /blog/assets/54_image_search_datasets/spaces_image_search.jpg 
 ---
 
 <h1> Image search with 🤗 datasets </h1> 
