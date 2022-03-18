@@ -44,14 +44,14 @@ Let's say that we're want to generate a sentence `S` that has to include the phr
 
 $$ S_{expected} = \{ s_1, s_2, ..., s_k, t_1, t_2, s_{k+1}, ..., s_n \} $$
 
-The problem is that beam search generates the sequence *token-by-token*. Though not entirely accurate, one can think of beam search as the function \\( B(\mathbf{s}_{0:i}) = s_{i+1} \\), where it looks as the currently generated sequence of tokens from \\( 0 \\) to \\( i \\) then predicts the next token at \\( i+1 \\) . But how can this function know, at an arbitrary step \\( i < k \\) , that the tokens must be generated at some future step \\( k \\) ? Or when it's at the step \\( i=k \\) , how can it know for sure that this is the best spot to force the tokens, instead of some future step \\( i>k \\) ?
+The problem is that beam search generates the sequence *token-by-token*. Though not entirely accurate, one can think of beam search as the function \\( B(\mathbf{s}_{0:i}) = s_{i+1} \\), where it looks at the currently generated sequence of tokens from \\( 0 \\) to \\( i \\) then predicts the next token at \\( i+1 \\) . But how can this function know, at an arbitrary step \\( i < k \\) , that the tokens must be generated at some future step \\( k \\) ? Or when it's at the step \\( i=k \\) , how can it know for sure that this is the best spot to force the tokens, instead of some future step \\( i>k \\) ?
 
 ![Why constraints are hard](https://raw.githubusercontent.com/huggingface/blog/master/assets/53_constrained_beam_search/why_constraints_are_hard.png)
 
 
 And what if you have multiple constraints with varying requirements? What if you want to force the phrase \\( p_1=\{t_1, t_2\} \\) *and* also the phrase \\( p_2=\{ t_3, t_4, t_5, t_6\} \\) ? What if you want the model to **choose between** the two phrases? What if we want to force the phrase \\( p_1 \\) and force just one phrase among the list of phrases \\( \{p_{21}, p_{22}, p_{23}\} \\) ? 
 
-The above are actually very reasonable use-cases, as it will be shown below, and the new constrained beam search feature allows for all of them!
+The above examples are actually very reasonable use-cases, as it will be shown below, and the new constrained beam search feature allows for all of them!
 
 This post will quickly go over what the new ***constrained beam search*** feature can do for you and then go into deeper details about how it works under the hood.
 
@@ -219,7 +219,7 @@ In the next step, we consider the next possible tokens for each of the three bra
 
 Though we end up *considering* significantly more than `num_beams` outputs, we reduce them down to `num_beams` at the end of the step. We can't just keep branching out, then the number of `beams` we'd have to keep track of would be \\( \text{beams}^{n} \\) for \\( n \\) steps, which becomes very large very quickly ( \\( 10 \\) beams after \\( 10 \\) steps is \\( 10,000,000,000 \\) beams!). 
 
-For the rest of the generation, we repeat the above step until an ending criteria has been met, like generating the `<eos>` token or reaching `max_length`, for example. Branch out, rank, reduce, and repeat.
+For the rest of the generation, we repeat the above step until the ending criteria has been met, like generating the `<eos>` token or reaching `max_length`, for example. Branch out, rank, reduce, and repeat.
 
 
 
@@ -232,7 +232,7 @@ For the rest of the generation, we repeat the above step until an ending criteri
 
 Constrained beam search attempts to fulfill the constraints by *injecting* the desired tokens at every step of the generation. 
 
-Let's say that we're trying to force the phrase `"is fast"` in the generation output. 
+Let's say that we're trying to force the phrase `"is fast"` in the generated output. 
 
 In the traditional beam search setting, we find the top `k` most probable next tokens at each branch and append them for consideration. In the constrained setting, we do the same but also append the tokens that will take us *closer to fulfilling our constraints*. Here's a demonstration:
 
@@ -261,7 +261,7 @@ This behavior is demonstrated in the third step of the above example:
 
 ![Constrained Beam Search Step 3](https://raw.githubusercontent.com/huggingface/blog/master/assets/53_constrained_beam_search/cbeam_3.jpg)
 
-Notice how `"The is fast"` doesn't require any manual appending of constraint tokens since it's already fulfilled (i.e., already contains the phrase `"is fast"`). Also, notice how beams like `"The dog is slow"` or `"The dog is mad"` is actually in Bank 0, since, although it includes the token `"is"`, it must restart from the beginning to generate `"is fast"`. By appending something like `"slow"` after `"is"`, it has effectively *reset its progress*. 
+Notice how `"The is fast"` doesn't require any manual appending of constraint tokens since it's already fulfilled (i.e., already contains the phrase `"is fast"`). Also, notice how beams like `"The dog is slow"` or `"The dog is mad"` are actually in Bank 0, since, although it includes the token `"is"`, it must restart from the beginning to generate `"is fast"`. By appending something like `"slow"` after `"is"`, it has effectively *reset its progress*. 
 
 And finally notice how we ended up at a sensible output that contains our constraint phrase: `"The dog is fast"`! 
 
@@ -324,7 +324,7 @@ template = ["the", "", "School of", "", "in"]
 
 possible_outputs == [
    "The woman attended the Ross School of Business in Michigan.",
-   "The woman was the administrator for the Harvard school of Business in MA."
+   "The woman was the administrator for the Harvard School of Business in MA."
 ]
 ```
 
@@ -350,6 +350,7 @@ Constrained beam search gives us a flexible means to inject external knowledge a
 
 This new feature is based mainly on the following papers:
 
+ - [Guided Open Vocabulary Image Captioning with Constrained Beam Search](https://arxiv.org/pdf/1612.00576.pdf)
  - [Fast Lexically Constrained Decoding with Dynamic Beam Allocation for Neural Machine Translation](https://arxiv.org/abs/1804.06609)
  - [Improved Lexically Constrained Decoding for Translation and Monolingual Rewriting](https://aclanthology.org/N19-1090/)
  - [Guided Generation of Cause and Effect](https://arxiv.org/pdf/2107.09846.pdf)
