@@ -1,6 +1,6 @@
 ---
 title: "Announcing the 🤗 AI Research Residency Program"
-thumbnail: /blog/assets/52_residency_blog/residency-thumbnail.jpg
+thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
 ---
 
 <h1>
@@ -8,8 +8,8 @@ thumbnail: /blog/assets/52_residency_blog/residency-thumbnail.jpg
 </h1>
 
 <div class="blog-metadata">
-    <small>Published March 21, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/residency-blog.md">
+    <small>Published March 22, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/ai-residency.md">
         Update on GitHub
     </a>
 </div>

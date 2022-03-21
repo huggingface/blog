@@ -541,11 +541,11 @@
   - guide
   - partnerships
 
-- local: residency-blog
+- local: ai-residency
   title: "Announcing the 🤗 AI Research Residency Program"
   author: douwekiela
-  thumbnail: /blog/assets/52_residency_blog/residency-thumbnail.jpg
-  date: March 21, 2022
+  thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
+  date: March 22, 2022
   tags:
     - community
     - research
