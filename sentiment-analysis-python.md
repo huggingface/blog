@@ -7,7 +7,7 @@ thumbnail: /blog/assets/50_sentiment_python/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published Feb 2, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/sentiment-analysis-python.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/sentiment-analysis-python.md">
         Update on GitHub
     </a>
 </div>

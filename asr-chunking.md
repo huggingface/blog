@@ -9,7 +9,7 @@ thumbnail: /blog/assets/49_asr_chunking/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published February 1, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/asr-chunking.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/asr-chunking.md">
         Update on GitHub
     </a>
 </div>
