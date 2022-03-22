@@ -19,7 +19,7 @@ thumbnail: /blog/assets/57_meg_mitchell_interview/thumbnail.png
     </a>
 </div>
 
-Hey friends! Welcome to Machine Learning Experts. I'm your host, Britney Muller and today’s guest is none other than Margaret Mitchell (Meg for short). Meg Founded & Co-Lead Google’s Ethical AI Group, is a pioneer in the field of Machine Learning, has published over 50 papers, and is a leading researcher in Ethical AI.
+Hey friends! Welcome to Machine Learning Experts. I'm your host, Britney Muller and today’s guest is none other than Margaret Mitchell (Meg for short). Meg founded & co-lead Google’s Ethical AI Group, is a pioneer in the field of Machine Learning, has published over 50 papers, and is a leading researcher in Ethical AI.
 
 You’ll hear Meg talk about the moment she realized the importance of ethical AI (an incredible story!), how ML teams can be more aware of harmful data bias, and the power (and performance) benefits of inclusion and diversity in ML.
 
@@ -29,7 +29,7 @@ Very excited to introduce this powerful episode to you! Here’s my conversation
 
 <iframe width="853" height="480" src="https://www.youtube.com/embed/FpIxYGyJBbs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-Transcription:
+## Transcription:
 
 *Note: Transcription has been slightly modified/reformatted to deliver the highest-quality reading experience.*
 
