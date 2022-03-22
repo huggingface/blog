@@ -9,7 +9,7 @@ thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
 
 <div class="blog-metadata">
     <small>Published March 22, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/ai-residency.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ai-residency.md">
         Update on GitHub
     </a>
 </div>
