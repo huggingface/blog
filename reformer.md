@@ -7,7 +7,7 @@ thumbnail: /blog/assets/03_reformer/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published July 3, 2020.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/reformer.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/reformer.md">
         Update on GitHub
     </a>
 </div>
@@ -22,7 +22,7 @@ thumbnail: /blog/assets/03_reformer/thumbnail.png
     </a>
 </div>
 
-<a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/master/notebooks/03_reformer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/main/notebooks/03_reformer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 
 ## How the Reformer uses less than 8GB of RAM to train on sequences of half a million tokens

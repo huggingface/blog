@@ -7,7 +7,7 @@ thumbnail: /blog/assets/10_tf-serving/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published January 26, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/tf-serving.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/tf-serving.md">
         Update on GitHub
     </a>
 </div>
@@ -22,7 +22,7 @@ thumbnail: /blog/assets/10_tf-serving/thumbnail.png
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/master/notebooks/10_tf_serving.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/10_tf_serving.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">
 </a>
 

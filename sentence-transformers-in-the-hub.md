@@ -8,7 +8,7 @@ title: "Sentence Transformers in the Hugging Face Hub"
 
 <div class="blog-metadata">
     <small>Published June 28, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/sentence-transformers-in-the-hub.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/sentence-transformers-in-the-hub.md">
         Update on GitHub
     </a>
 </div>

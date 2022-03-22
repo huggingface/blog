@@ -7,7 +7,7 @@ thumbnail: /blog/assets/09_accelerated_inference/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published Jan 18, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/accelerated-inference.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/accelerated-inference.md">
         Update on GitHub
     </a>
 </div>
