@@ -549,3 +549,12 @@
   tags:
     - community
     - research
+
+- local: meg-mitchell-interview
+  title: "Machine Learning Experts - Meg Mitchell Interview"
+  author: britneymuller
+  thumbnail: /blog/assets/57_meg_mitchell_interview/thumbnail.png
+  date: March 23, 2022
+  tags:
+  - guide
+  - research
