@@ -23,7 +23,7 @@ Hey friends! Welcome to Machine Learning Experts. I'm your host, Britney Muller 
 
 You’ll hear Meg talk about the moment she realized the importance of ethical AI (an incredible story!), how ML teams can be more aware of harmful data bias, and the power (and performance) benefits of inclusion and diversity in ML.
 
-<a href="https://huggingface.co/support?utm_source=MLExperts&utm_content=Meg-Interview-Blog-Post"><img src="/blog/assets/57_meg_mitchell_interview/Meg-cta.png"></a>
+<a href="https://huggingface.co/support?utm_source=blog&utm_medium=blog&utm_campaign=ml_experts&utm_content=meg_interview_article"><img src="/blog/assets/57_meg_mitchell_interview/Meg-cta.png"></a>
 
 Very excited to introduce this powerful episode to you! Here’s my conversation with Meg Mitchell:
 
@@ -219,7 +219,7 @@ I’ll leave you with a recent quote from Meg in a [Science News article on Ethi
 
 Thank you for listening to Machine Learning Experts!
 
-<a href="https://huggingface.co/support?utm_source=MLExperts&utm_content=Meg-Interview-Blog-Post"><img src="/blog/assets/57_meg_mitchell_interview/Meg-cta.png"></a>
+<a href="https://huggingface.co/support?utm_source=blog&utm_medium=blog&utm_campaign=ml_experts&utm_content=meg_interview_article"><img src="/blog/assets/57_meg_mitchell_interview/Meg-cta.png"></a>
 
 **Honorable mentions + links:**
 - [Emily Bender](https://twitter.com/emilymbender?lang=en)
