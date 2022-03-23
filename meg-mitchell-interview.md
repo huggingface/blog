@@ -19,11 +19,11 @@ thumbnail: /blog/assets/57_meg_mitchell_interview/thumbnail.png
     </a>
 </div>
 
-Hey friends! Welcome to Machine Learning Experts. I'm your host, Britney Muller and today’s guest is none other than Margaret Mitchell (Meg for short). Meg founded & co-lead Google’s Ethical AI Group, is a pioneer in the field of Machine Learning, has published over 50 papers, and is a leading researcher in Ethical AI.
+Hey friends! Welcome to Machine Learning Experts. I'm your host, Britney Muller and today’s guest is none other than [Margaret Mitchell](https://twitter.com/mmitchell_ai) (Meg for short). Meg founded & co-lead Google’s Ethical AI Group, is a pioneer in the field of Machine Learning, has published over 50 papers, and is a leading researcher in Ethical AI.
 
 You’ll hear Meg talk about the moment she realized the importance of ethical AI (an incredible story!), how ML teams can be more aware of harmful data bias, and the power (and performance) benefits of inclusion and diversity in ML.
 
-<a href="https://huggingface.co/support"><img src="/blog/assets/57_meg_mitchell_interview/Meg-cta.png"></a>
+<a href="https://huggingface.co/support?utm_source=MLExperts&utm_content=Meg-Interview-Blog-Post"><img src="/blog/assets/57_meg_mitchell_interview/Meg-cta.png"></a>
 
 Very excited to introduce this powerful episode to you! Here’s my conversation with Meg Mitchell:
 
@@ -104,7 +104,7 @@ We all have biases but there are tactics to break some of those patterns. When w
 
 ### Diversity in AI - Isn’t there proof that having a more diverse set of people on an ML project results in better outcomes?
 
-Meg: Yes, since you have different perspectives you have a different distribution over options and thus, more options. One of the fundamental aspects of machine learning is that when you start training you can use a randomized starting point and what kind of distribution you want to sample from.
+**Meg:** Yes, since you have different perspectives you have a different distribution over options and thus, more options. One of the fundamental aspects of machine learning is that when you start training you can use a randomized starting point and what kind of distribution you want to sample from.
 
 Most engineers can agree that you don’t want to sample from one little piece of the distribution to have the best chance of finding a local optimum.
 
@@ -175,7 +175,7 @@ Meg’s pioneering research, systems, and work have played a pivotal role in the
 
 If it’s someone with more majority characteristics I’d say, 'Forget about the pipeline problem, pay attention to the people around you and make sure that you hold them up so that the pipeline you’re in now becomes less of a problem.'
 
-Also, 'Evaluate your systems,'.
+Also, 'Evaluate your systems'.
 
 ### What industries are you most excited to see ML applied (or ML Ethics be applied)
 
@@ -213,14 +213,15 @@ We will be able to make better technology when we remove the barriers that requi
 
 ### Outro
 
-**Britney:** Meg had a hard stop on the hour but I was able to ask her my last question offline: What’s something you’ve been interested in lately? Meg’s response: "How to propagate and grow plants in synthetic/controlled settings." Just when I thought she couldn’t get any cooler.🤯
+**Britney:** Meg had a hard stop on the hour but I was able to ask her my last question offline: What’s something you’ve been interested in lately? Meg’s response: "How to propagate and grow plants in synthetic/controlled settings." Just when I thought she couldn’t get any cooler. 🤯
 
 I’ll leave you with a recent quote from Meg in a [Science News article on Ethical AI](https://www.sciencenews.org/article/computer-science-history-ethics-future-robots-ai):
-## “The most pressing problem is the diversity and inclusion of who’s at the table from the start. All the other issues fall out from there.” -Meg Mitchell.
+
+*“The most pressing problem is the diversity and inclusion of who’s at the table from the start. All the other issues fall out from there.” -Meg Mitchell.*
 
 Thank you for listening to Machine Learning Experts!
 
-<a href="https://huggingface.co/support"><img src="/blog/assets/57_meg_mitchell_interview/Meg-cta.png"></a>
+<a href="https://huggingface.co/support?utm_source=MLExperts&utm_content=Meg-Interview-Blog-Post"><img src="/blog/assets/57_meg_mitchell_interview/Meg-cta.png"></a>
 
 **Honorable mentions + links:**
 - [Emily Bender](https://twitter.com/emilymbender?lang=en)
@@ -230,8 +231,6 @@ Thank you for listening to Machine Learning Experts!
 - [Data Sheets for Datasets](https://arxiv.org/abs/1803.09010)
 - [Model Cards](https://modelcards.withgoogle.com/about)
 - [Model Cards Paper](https://arxiv.org/abs/1810.03993)
-
-**Favorite Papers:**
 - [Abeba Birhane](https://arxiv.org/search/cs?searchtype=author&query=Birhane%2C+A)
 - [The Values Encoded in Machine Learning Research](https://arxiv.org/abs/2106.15590)
 - [Data and its (dis)contents:](https://arxiv.org/abs/2012.05345)
