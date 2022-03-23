@@ -19,7 +19,7 @@ thumbnail: /blog/assets/57_meg_mitchell_interview/thumbnail.png
     </a>
 </div>
 
-Hey friends! Welcome to Machine Learning Experts. I'm your host, Britney Muller and today’s guest is none other than [Margaret Mitchell](https://twitter.com/mmitchell_ai) (Meg for short). Meg founded & co-lead Google’s Ethical AI Group, is a pioneer in the field of Machine Learning, has published over 50 papers, and is a leading researcher in Ethical AI.
+Hey friends! Welcome to Machine Learning Experts. I'm your host, Britney Muller and today’s guest is none other than [Margaret Mitchell](https://twitter.com/mmitchell_ai) (Meg for short). Meg founded & co-led Google’s Ethical AI Group, is a pioneer in the field of Machine Learning, has published over 50 papers, and is a leading researcher in Ethical AI.
 
 You’ll hear Meg talk about the moment she realized the importance of ethical AI (an incredible story!), how ML teams can be more aware of harmful data bias, and the power (and performance) benefits of inclusion and diversity in ML.
 
@@ -44,16 +44,16 @@ Very excited to introduce this powerful episode to you! Here’s my conversation
 
 **Meg:** I did heavy statistical work as a postdoc at Johns Hopkins and then went to Microsoft Research where I continued doing vision to language generation that led to working on an app for people who are blind to navigate the world a bit easier called [Seeing AI](https://www.microsoft.com/en-us/ai/seeing-ai).
 
-After a few years at Microsoft, I left to work at Google to focus on big data problems inherent in deep learning. That’s where I started focusing on things like fairness, rigorous evaluation for different kinds of issues, and bias. While at Google, I Founded and Co-Led the Ethical AI Team which focuses on inclusion and transparency.
+After a few years at Microsoft, I left to work at Google to focus on big data problems inherent in deep learning. That’s where I started focusing on things like fairness, rigorous evaluation for different kinds of issues, and bias. While at Google, I founded and co-led the Ethical AI Team which focuses on inclusion and transparency.
 
 After four years at Google, I came over to Hugging Face where I was able to jump in and focus on coding.
-I’m helping to create protocols for ethical ai research, inclusive hiring, systems, and setting up a good culture here at Hugging Face.
+I’m helping to create protocols for ethical AI research, inclusive hiring, systems, and setting up a good culture here at Hugging Face.
 
 ### When did you recognize the importance of Ethical AI?
 
 **Meg:** This occurred when I was working at Microsoft while I was working on the assistance technology, Seeing AI. In general, I was working on generating language from images and I started to see was how lopsided data was. Data represents a subset of the world and it influences what a model will say.
 
-So I began to run into issues where white people would be described as ‘people’ and black people would be described as ‘black people’ as if white was a default and black was a marked characteristic. That was concerning to me
+So I began to run into issues where white people would be described as ‘people’ and black people would be described as ‘black people’ as if white was a default and black was a marked characteristic. That was concerning to me.
 
 There was also an ah-ha moment when I was feeding my system a sequence of images, getting it to talk more about a story of what is happening. And I fed it some images of this massive blast where a lot of people worked, called the ‘Hebstad blast’. You could see that the person taking the picture was on the second or third story looking out on the blast. The blast was very close to this person. It was a very dire and intense moment and when I fed this to the system the system’s output was that “ this is awesome, this is a great view, this is beautiful’. And I thought.. this is a great view of this horrible scene but the important part here is that people may be dying. This is a massive destructive explosion. 
 
@@ -165,9 +165,7 @@ Meg is featured in the book [Genius Makers ‘The Mavericks who brought AI to Go
 
 Meg’s pioneering research, systems, and work have played a pivotal role in the history of AI. (we are so lucky to have her at Hugging Face!)
 
-### Rapid Fire Questions
-
----
+### Rapid Fire Questions:
 
 ### Best piece of advice for someone looking to get into AI?
 
