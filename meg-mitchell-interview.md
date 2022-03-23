@@ -27,7 +27,7 @@ You’ll hear Meg talk about the moment she realized the importance of ethical A
 
 Very excited to introduce this powerful episode to you! Here’s my conversation with Meg Mitchell:
 
-<iframe width="853" height="480" src="https://www.youtube.com/embed/FpIxYGyJBbs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" style="aspect-ratio: 16 / 9;"src="https://www.youtube.com/embed/FpIxYGyJBbs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Transcription:
 
