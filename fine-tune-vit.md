@@ -9,7 +9,7 @@ thumbnail: /blog/assets/51_fine_tune_vit/vit-thumbnail.jpg
 
 <div class="blog-metadata">
     <small>Published February 11, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/fine-tune-vit.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fine-tune-vit.md">
         Update on GitHub
     </a>
 </div>

@@ -7,7 +7,7 @@ thumbnail: /blog/assets/54_image_search_datasets/spaces_image_search.jpg
 
 <div class="blog-metadata">
     <small>Published March 16, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/image-search-datasets.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/image-search-datasets.md">
         Update on GitHub
     </a>
 </div>

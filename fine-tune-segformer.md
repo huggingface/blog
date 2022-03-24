@@ -9,7 +9,7 @@ thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
 
 <div class="blog-metadata">
     <small>Published March 17, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/fine-tune-segformer.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fine-tune-segformer.md">
         Update on GitHub
     </a>
 </div>

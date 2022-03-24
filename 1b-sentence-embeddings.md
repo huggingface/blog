@@ -8,7 +8,7 @@ title: "Train a Sentence Embedding Model with 1B Training Pairs"
 
 <div class="blog-metadata">
     <small>Published September 1, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/1b-sentence-embeddings.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/1b-sentence-embeddings.md">
         Update on GitHub
     </a>
 </div>

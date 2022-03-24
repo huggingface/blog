@@ -8,7 +8,7 @@ thumbnail: /blog/assets/22_gradio/gradio.png
 > ##### Cross-posted from the&nbsp;[Gradio blog](https://gradio.app/blog/using-huggingface-models).
 
 <div class="blog-metadata">
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/gradio.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/gradio.md">
         Update on GitHub
     </a>
 </div>

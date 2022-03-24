@@ -10,7 +10,7 @@ Accelerating PyTorch distributed fine-tuning with Intel technologies
 
 <div class="blog-metadata">
     <small>Published November 19, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/juliensimon/blog/blob/master/large-language-models.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/juliensimon/blog/blob/main/large-language-models.md">
         Update on GitHub
     </a>
 </div>

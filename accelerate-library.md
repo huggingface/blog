@@ -9,7 +9,7 @@ thumbnail: /blog/assets/20_accelerate_library/accelerate_diff.png
 
 <div class="blog-metadata">
     <small>Published April 16, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/accelerate-library.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/accelerate-library.md">
         Update on GitHub
     </a>
 </div>

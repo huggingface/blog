@@ -7,7 +7,7 @@ thumbnail: /blog//assets/55_bert_inferentia_sagemaker/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published March 16, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/bert-inferentia-sagemaker.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/bert-inferentia-sagemaker.md">
         Update on GitHub
     </a>
 </div>

@@ -7,7 +7,7 @@ thumbnail: /blog/assets/40_codeparrot/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published Dec 8, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/codeparrot.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/codeparrot.md">
         Update on GitHub
     </a>
 </div>
