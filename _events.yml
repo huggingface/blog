@@ -1,6 +1,11 @@
 # "date" attribute should be end date of an event in `Mon DD, YYYY` format (e.g. Feb 3, 2014)
 # "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
+- name: Accelerate BERT Inference with Knowledge Distillation & AWS Inferentia
+  link: https://app.livestorm.co/hugging-face/accelerate-bert-inference-with-knowledge-distillation-and-aws-inferentia?type=detailed
+  date: Apr 13, 2022
+  description: Accelerate BERT Inference with knowledge distillation & compiling using  Hugging Face Transformers, Amazon SageMaker & AWS Inferentia.
+
 - name: NLP in Spanish Hackathon
   link: https://www.eventbrite.com/e/registro-hackathon-de-pln-en-espanol-273014111557
   date: Mar 31, 2022
