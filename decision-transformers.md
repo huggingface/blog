@@ -106,7 +106,6 @@ from transformers import DecisionTransformerModel
 
 model_name = "edbeeching/decision-transformer-gym-hopper-expert"
 model = DecisionTransformerModel.from_pretrained(model_name)
-model.eval()
 ``````
 ### Creating the environment
 
