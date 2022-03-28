@@ -42,7 +42,7 @@ The agent’s goal is to maximize **its cumulative reward, called return.** Beca
 
 Deep Reinforcement Learning agents **learn with batches of experience.** The question is, how do they collect it?:
 
-[Offline vs Online RL](assets/58_decision-transformers/offlinevsonlinerl.gif)
+![Offline vs Online RL](assets/58_decision-transformers/offlinevsonlinerl.gif)
 *A comparison between Reinforcement Learning in an Online and Offline setting, figure taken from [2].*
 
 In online reinforcement learning, **the agent gathers data directly**: it collects a batch of experience by interacting with the environment. Then, it uses this experience immediately (or via some replay buffer) to learn from it (update its policy).
@@ -77,14 +77,14 @@ The process goes this way:
 2. The tokens are embedded either with a linear layer if the state is a vector or CNN encoder if it’s frames.
 3. The inputs are processed by a GPT-2 model which predicts future actions via autoregressive modeling.
 
-[Decision Transformers architecture](assets/58_decision-transformers/dt-architecture.gif)
+![Decision Transformers architecture](assets/58_decision-transformers/dt-architecture.gif)
 *Decision Transformer architecture. States, actions, and returns are fed into modalityspecific linear embeddings and a positional episodic timestep encoding is added. Tokens are fed into a GPT architecture which predicts actions autoregressively using a causal self-attention mask. Figure from [1].*
 
 ## Using the Decision Transformer in 🤗 Transformers
 
 The Decision Transformer model is now available as part of the 🤗 transformers library. In addition, we share nine pre-trained model checkpoints for continuous control tasks in the Gym environment.
 
-[walker2d-expert.mp4](assets/58_decision-transformers/walker2d-expert.mp4)
+![walker2d-expert.mp4](assets/58_decision-transformers/walker2d-expert.mp4)
 *An “expert” Decision Transformers model, learned using offline RL in the Gym Walker2d environment.*
 
 ### Loading the model
@@ -157,7 +157,7 @@ In order to evaluate the model, we need some additional information; the mean an
 
 We also need a target return for the model, this is the power of Offline Reinforcement Learning, we can use the target return to control the performance of the policy. This could be really powerful in a multiplayer setting, where we would like to adjust the performance of an opponent bot to be at a suitable difficulty for the player. The authors show a great plot of this in their paper!
 
-[Results Decision Transformers](assets/58_decision-transformers/results-dt.png)
+![Results Decision Transformers](assets/58_decision-transformers/results-dt.png)
 *Sampled (evaluation) returns accumulated by Decision Transformer when conditioned on
 the specified target (desired) returns. Top: Atari. Bottom: D4RL medium-replay datasets. Figure from [1].*
 
