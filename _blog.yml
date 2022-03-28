@@ -559,3 +559,12 @@
   tags:
   - guide
   - research
+
+- local: decision-transformers
+  title: "Introducing Decision Transformers on Hugging Face 🤗"
+  author: edbeeching
+  thumbnail: /blog/assets/58_decision-transformers/thumbnail.jpg
+  date: March 28, 2022
+  tags:
+  - open-source-collab
+  - guide
