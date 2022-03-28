@@ -1,6 +1,6 @@
 ---
 title: "Introducing Decision Transformers on Hugging Face 🤗"
-thumbnail: /blog/assets/58_decision-transformers/thumbnail.png
+thumbnail: /blog/assets/58_decision-transformers/thumbnail.jpg
 ---
 
 # Introducing Decision Transformers on Hugging Face 🤗
