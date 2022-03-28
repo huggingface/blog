@@ -118,7 +118,7 @@ in the image context, but it's the same concept for audio.
 Because of this property, we can:
 
 - Start doing inference on **overlapping** chunks
-	so that the model actually has proper context in the center
+	so that the model actually has proper context in the center.
 - **Drop** the inferenced logits on the side. 
 - Chain the **logits** without their dropped sides to recover something extremely close to what the model would have
 predicted on the full length audio.
