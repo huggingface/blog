@@ -85,7 +85,7 @@ The process goes this way:
 3. The inputs are processed by a GPT-2 model which predicts future actions via autoregressive modeling.
 
 ![Decision Transformers architecture](assets/58_decision-transformers/dt-architecture.gif)
-*Decision Transformer architecture. States, actions, and returns are fed into modalityspecific linear embeddings and a positional episodic timestep encoding is added. Tokens are fed into a GPT architecture which predicts actions autoregressively using a causal self-attention mask. Figure from [1].*
+*Decision Transformer architecture. States, actions, and returns are fed into modality specific linear embeddings and a positional episodic timestep encoding is added. Tokens are fed into a GPT architecture which predicts actions autoregressively using a causal self-attention mask. Figure from [1].*
 
 ## Using the Decision Transformer in 🤗 Transformers
 
