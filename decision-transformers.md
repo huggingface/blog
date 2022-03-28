@@ -35,7 +35,9 @@ And today we are happy to announce that we integrated the [Decision Transformer]
 
 1. [What is Offline Reinforcement Learning?](#what-is-offline-reinforcement-learning?)
 2. [Introducing Decision Transformers](#introducing-decision-transformers)
-3. [Using the Decision Transformer in 🤗 Transformers](#using-the-decision-transformer-in-transformers)
+3. [Using the Decision Transformer in 🤗 Transformers](#using-the-decision-transformer-in--transformers)
+4. [Conclusion](#conclusion)
+5. [What's next?](#whats-next?)
 
 ## What is Offline Reinforcement Learning?
 
