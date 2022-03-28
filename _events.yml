@@ -4,7 +4,7 @@
 - name: Accelerate BERT Inference with Knowledge Distillation & AWS Inferentia
   link: https://app.livestorm.co/hugging-face/accelerate-bert-inference-with-knowledge-distillation-and-aws-inferentia?type=detailed
   date: Apr 13, 2022
-  description: Accelerate BERT Inference with knowledge distillation & compiling using  Hugging Face Transformers, Amazon SageMaker & AWS Inferentia.
+  description: Accelerate BERT Inference with knowledge distillation & compiling using Hugging Face Transformers, Amazon SageMaker & AWS Inferentia.
 
 - name: NLP in Spanish Hackathon
   link: https://www.eventbrite.com/e/registro-hackathon-de-pln-en-espanol-273014111557
