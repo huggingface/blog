@@ -44,7 +44,7 @@ Deep Reinforcement Learning agents **learn with batches of experience.** The que
 
 ![Offline vs Online RL](assets/58_decision-transformers/offlinevsonlinerl.gif)
 
-*A comparison between Reinforcement Learning in an Online and Offline setting, figure taken from [2].*
+*A comparison between Reinforcement Learning in an Online and Offline setting, figure taken from [this post](https://offline-rl.github.io/)*
 
 In online reinforcement learning, **the agent gathers data directly**: it collects a batch of experience by interacting with the environment. Then, it uses this experience immediately (or via some replay buffer) to learn from it (update its policy).
 
