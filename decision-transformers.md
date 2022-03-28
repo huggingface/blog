@@ -231,7 +231,7 @@ You will find a more detailed example, with the creation of videos of the agent 
 
 ## Conclusion
 
-The integration of the Decision Transformer model is just one of the tools we're building. But, we want to support more use cases and tools from the Deep Reinforcement Learning community.  It would be great to hear your feedback on the Decision Transformer model, and more generally anything we can build with you that would be useful for RL. Feel free to **[reach out to us](mailto:thomas.simonini@huggingface.co)**. 
+In addition to Decision Transformers, we want to support more use cases and tools from the Deep Reinforcement Learning community. Therefore, it would be great to hear your feedback on the Decision Transformer model, and more generally anything we can build with you that would be useful for RL. Feel free to **[reach out to us](mailto:thomas.simonini@huggingface.co)**. 
 
 ## What’s next?
 
