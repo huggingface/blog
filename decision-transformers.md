@@ -100,7 +100,13 @@ The Decision Transformer model is now available as part of the 🤗 transformers
       <source src="assets/58_decision-transformers/walker2d-expert.mp4" type="video/mp4">
   </video>
 </figure>
+
 *An “expert” Decision Transformers model, learned using offline RL in the Gym Walker2d environment.*
+
+### Install the package
+`````python
+pip install git+https://github.com/huggingface/transformers
+`````
 
 ### Loading the model
 
