@@ -97,7 +97,7 @@ title = "French Story Generator using Opus MT and GPT-2"
 translator_fr = gr.Interface.load("huggingface/Helsinki-NLP/opus-mt-fr-en")
 story_gen = gr.Interface.load("huggingface/pranavpsv/gpt2-genre-story-generator")
 translator_en = gr.Interface.load("huggingface/Helsinki-NLP/opus-mt-en-fr")
-examples = [["L'aventurier est approchÃ© par un mystÃ©rieux Ã©tranger, pour une nouvelle quÃªte."]]
+examples = [["L'aventurier est approché par un mystérieux étranger, pour une nouvelle quête."]]
 
 Series(translator_fr, story_gen, translator_en, description = description,
         title = title,
