@@ -231,7 +231,7 @@ The integration of the Decision Transformer model is just the start of our expan
 
 ## What’s next?
 
-In the coming weeks and months, we will be extending the ecosystem by:
+In the coming weeks and months, we plan on supporting other tools from the ecosystem:
 
 - Integrating **[RL-baselines3-zoo](https://github.com/DLR-RM/rl-baselines3-zoo)**
 - Uploading **[RL-trained-agents models](https://github.com/DLR-RM/rl-trained-agents/tree/master)** into the Hub: a big collection of pre-trained Reinforcement Learning agents using stable-baselines3
