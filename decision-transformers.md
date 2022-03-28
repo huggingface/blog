@@ -83,7 +83,7 @@ The process goes this way:
 
 ## Using the Decision Transformer in 🤗 Transformers
 
-The Decision Transformer model is now available as part of the 🤗 transformers library. In addition, we share nine pre-trained model checkpoints for continuous control tasks in the Gym environment.
+The Decision Transformer model is now available as part of the 🤗 transformers library. In addition, we share [nine pre-trained model checkpoints for continuous control tasks in the Gym environment](https://huggingface.co/models?other=gym-continous-control).
 
 <figure class="image table text-center m-0 w-full">
     <video 
