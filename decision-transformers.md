@@ -198,14 +198,12 @@ for t in range(max_ep_len):
     rewards = torch.cat([rewards, torch.zeros(1)])
 
 		# prediction the action to take
-    action = get_action(
-        model,
-        (states - state_mean) / state_std,
-        actions,
-        rewards,
-        target_return,
-        timesteps,
-    )
+    action = get_action(model,
+                        (states - state_mean) / state_std,
+                        actions,
+                        rewards,
+                        target_return,
+                        timesteps)
     actions[-1] = action
     action = action.detach().numpy()
 
