@@ -43,6 +43,7 @@ The agent’s goal is to maximize **its cumulative reward, called return.** Beca
 Deep Reinforcement Learning agents **learn with batches of experience.** The question is, how do they collect it?:
 
 ![Offline vs Online RL](assets/58_decision-transformers/offlinevsonlinerl.gif)
+
 *A comparison between Reinforcement Learning in an Online and Offline setting, figure taken from [2].*
 
 In online reinforcement learning, **the agent gathers data directly**: it collects a batch of experience by interacting with the environment. Then, it uses this experience immediately (or via some replay buffer) to learn from it (update its policy).
@@ -84,7 +85,15 @@ The process goes this way:
 
 The Decision Transformer model is now available as part of the 🤗 transformers library. In addition, we share nine pre-trained model checkpoints for continuous control tasks in the Gym environment.
 
-![walker2d-expert.mp4](assets/58_decision-transformers/walker2d-expert.mp4)
+<figure class="image table text-center m-0 w-full">
+    <video 
+        alt="WalkerEd-expert"
+        style="max-width: 70%; margin: auto;"
+        autoplay loop autobuffer muted playsinline
+    >
+      <source src="assets/58_decision-transformers/walker2d-expert.mp4" type="video/mp4">
+  </video>
+</figure>
 *An “expert” Decision Transformers model, learned using offline RL in the Gym Walker2d environment.*
 
 ### Loading the model
