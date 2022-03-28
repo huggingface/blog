@@ -33,6 +33,11 @@ At Hugging Face, we are contributing to the ecosystem for Deep Reinforcement Lea
 
 And today we are happy to announce that we integrated the [Decision Transformer](https://arxiv.org/abs/2106.01345), an Offline Reinforcement Learning method, into the 🤗 transformers library and the Hugging Face Hub. We have some exciting plans for improving accessibility in the field of Deep RL and we are looking forward to sharing them with you over the coming weeks and months.
 
+1. [What is Offline Reinforcement Learning?](#what-is-offline-reinforcement-learning?)
+2. [Introducing Decision Transformers](#introducing-decision-transformers)
+3. [Using the Decision Transformer in 🤗 Transformers](#using-the-decision-transformer-in-🤗-transformers)
+4. [Solutions](#solutions)
+5. [Research](#research)
 
 ## What is Offline Reinforcement Learning?
 
