@@ -1,12 +1,9 @@
-﻿---
+---
 title: "Showcase Your Projects in Spaces using Gradio"
 thumbnail: /blog/assets/28_gradio-spaces/thumbnail.png
-
 ---
 
-<h1>
-    Showcase Your Projects in Spaces using Gradio
-</h1>
+# Showcase Your Projects in Spaces using Gradio
 
 <div class="blog-metadata">
     <small>Published October 5, 2021.</small>
@@ -24,9 +21,6 @@ thumbnail: /blog/assets/28_gradio-spaces/thumbnail.png
         </div>
     </a>
 </div>
-
-
-
 
 It's so easy to demonstrate a Machine Learning project thanks to [Gradio](https://gradio.app/). 
 
@@ -103,7 +97,7 @@ title = "French Story Generator using Opus MT and GPT-2"
 translator_fr = gr.Interface.load("huggingface/Helsinki-NLP/opus-mt-fr-en")
 story_gen = gr.Interface.load("huggingface/pranavpsv/gpt2-genre-story-generator")
 translator_en = gr.Interface.load("huggingface/Helsinki-NLP/opus-mt-en-fr")
-examples = [["L'aventurier est approché par un mystérieux étranger, pour une nouvelle quête."]]
+examples = [["L'aventurier est approchÃ© par un mystÃ©rieux Ã©tranger, pour une nouvelle quÃªte."]]
 
 Series(translator_fr, story_gen, translator_en, description = description,
         title = title,
