@@ -6,6 +6,11 @@
   date: Apr 13, 2022
   description: Accelerate BERT Inference with knowledge distillation & compiling using Hugging Face Transformers, Amazon SageMaker & AWS Inferentia.
 
+- name: Computer Vision Study Group Paper Reading Session on "How Do Vision Transformers Work?"
+  link: https://discord.gg/EmEpESpn?event=957940949261115402
+  date: Apr 5, 2022
+  description: Discussion on paper "How Do Vision Transformers Work?".
+
 - name: NLP in Spanish Hackathon
   link: https://www.eventbrite.com/e/registro-hackathon-de-pln-en-espanol-273014111557
   date: Mar 31, 2022
