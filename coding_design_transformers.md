@@ -1,4 +1,4 @@
-# Don't repeat yourself${}^{\textbf{*}}$.
+# Do<del>n't</del> repeat yourself${}^{\textbf{*}}$.
 
 "Don't repeat yourself", or in short DRY, is a well-known principle of software development. The principle originates from "The pragmatic programmer", one of the most read books on code design.
 The principle's simple message makes obvious sense: Don't rewrite a logic that already exists somewhere else. Ensuring that every logical pattern only exist once ensures that the code stays in sync making the code easier to maintain and more robust. Every change to that logical pattern uniformly effects all of its dependencies.
