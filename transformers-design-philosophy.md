@@ -96,4 +96,4 @@ available.
 All in all, at 🤗 Hugging Face we are convinced that the *single file policy* is the right coding philosophy for Transformers.
 
 What do you think? If you read until here, we would be more than interested in hearing your opinion!
-If you would like to leave a comment, please visit the corresponding forum post [here]( ).
+If you would like to leave a comment, please visit the corresponding forum post [here](https://discuss.huggingface.co/t/repeat-yourself-transformers-design-philosophy/16483).
