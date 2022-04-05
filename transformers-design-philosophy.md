@@ -36,7 +36,7 @@ No, we are not lazy - it's a very conscious decision to not apply the DRY design
 We usually reject any attempt to abstract identical sub-components of different models into a new centralized place. We don't want to have a `attention_layer.py` that includes all possible attention mechanisms. Again why do we do this?
 
 In short the reasons are:
-- **1. Transformers is built for and by the open-source community.**
+- **1. Transformers is built by and for the open-source community.**
 - **2. Our product are models and our customers are users reading or tweaking model code.**
 - **3. The field of machine learning evolves extremely fast.**
 - **4. Machine Learning models are static.**
