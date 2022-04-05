@@ -572,7 +572,7 @@
 - local: transformers-design-philosophy
   title: "Don't repeat yourself - 🤗 Transformers Design Philosophy"
   author: patrickvonplaten
-  thumbnail: /blog/assets/59_transformers_philosophy
+  thumbnail: /blog/assets/59_transformers_philosophy/transformers.png
   date: April 5, 2022
   tags:
   - community
