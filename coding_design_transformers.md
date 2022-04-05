@@ -21,7 +21,7 @@ Because model code is independent from all other models, it's fairly easy for so
 
 ## Modeling code is our product
 We assume that a significant amount of users of the Transformers library not only read the documentation, but also look into the actual modeling code and potentially modify it. This hypothesis is backed by the Transformers library being forked over 10,000 times and the Transformers paper being cited over a thousand times.
-Therefore it is of utmost importance that someone reading Transformers modeling code for the first time can easily understand and potentially adapt it. Providing all the necessary logical components in order in a single modeling file should help a great deal to achieve this goal. Additionally, we care a great deal about sensible variable/method naming and prefer expressive/readable code over character-efficient code. 
+Therefore it is of utmost importance that someone reading Transformers modeling code for the first time can easily understand and potentially adapt it. Providing all the necessary logical components in order in a single modeling file help a lot to achieve improved readability and adaptability. Additionally, we care a great deal about sensible variable/method naming and prefer expressive/readable code over character-efficient code. 
 
 ## Machine Learning is evolving at a neck breaking speed
 Research in the field of machine learning, and especially neural networks, evolves extremely fast. A model that was state-of-the-art a year ago might be outdated today. We don't know which attention mechanism, which position embedding, or which architecture will be the best in a year and therefore we cannot really define standard logical patterns that apply for all models. 
