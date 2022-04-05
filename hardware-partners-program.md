@@ -7,7 +7,7 @@ title: "Introducing Optimum: The Optimization Toolkit for Transformers at Scale"
 
 <div class="blog-metadata">
     <small>Published September 14, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/hardware-partners-program.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/hardware-partners-program.md">
         Update on GitHub
     </a>
 </div>
@@ -132,7 +132,7 @@ The configuration file can either be hosted on the Hugging Face's Model Hub or c
 
 ### 🔥 How to easily quantize Transformers for Intel Xeon CPUs with Optimum
 
-![Automatic quantization code snippet](assets/25_hardware_partners_program/carbon_lpot_quantizer.png)
+![Automatic quantization code snippet](assets/25_hardware_partners_program/carbon_inc_quantizer.png)
 
 ## Follow 🤗 Optimum: a journey to democratize ML production performance
 ### ⚡️State of the Art Hardware

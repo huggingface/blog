@@ -9,7 +9,7 @@ thumbnail: /blog/assets/19_sagemaker_distributed_training_seq2seq/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published April 8, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/sagemaker-distributed-training-seq2seq.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/sagemaker-distributed-training-seq2seq.md">
         Update on GitHub
     </a>
 </div>

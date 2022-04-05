@@ -1,16 +1,13 @@
-﻿---
+---
 title: "Showcase Your Projects in Spaces using Gradio"
 thumbnail: /blog/assets/28_gradio-spaces/thumbnail.png
-
 ---
 
-<h1>
-    Showcase Your Projects in Spaces using Gradio
-</h1>
+# Showcase Your Projects in Spaces using Gradio
 
 <div class="blog-metadata">
     <small>Published October 5, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/gradio-spaces.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/gradio-spaces.md">
         Update on GitHub
     </a>
 </div>
@@ -24,9 +21,6 @@ thumbnail: /blog/assets/28_gradio-spaces/thumbnail.png
         </div>
     </a>
 </div>
-
-
-
 
 It's so easy to demonstrate a Machine Learning project thanks to [Gradio](https://gradio.app/). 
 

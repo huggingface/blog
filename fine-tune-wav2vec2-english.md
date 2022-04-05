@@ -9,7 +9,7 @@ thumbnail: /blog/assets/15_fine_tune_wav2vec2/wav2vec2.png
 
 <div class="blog-metadata">
     <small>Published March 12, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/fine-tune-wav2vec2-english.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fine-tune-wav2vec2-english.md">
         Update on GitHub
     </a>
 </div>
@@ -76,7 +76,7 @@ the `jiwer` to evaluate our fine-tuned model using the [word error rate
 (WER)](https://huggingface.co/metrics/wer) metric \\({}^1\\).
 
 ```bash
-!pip install datasets>=1.13.3
+!pip install datasets>=1.18.3
 !pip install transformers==4.11.3
 !pip install librosa
 !pip install jiwer
@@ -618,7 +618,8 @@ speech.
 
 Let\'s start by defining the data collator. The code for the data
 collator was copied from [this
-example](https://github.com/huggingface/transformers/blob/9a06b6b11bdfc42eea08fa91d0c737d1863c99e3/examples/research_projects/wav2vec2/run_asr.py#L81).
+example](https://github.com/huggingface/transformers/blob/7e61d56a45c19284cfda0cee8995fb552f6b1f4e/examples/pytorch/speech-recognition/run_speech_recognition_ctc.py#L219).
+
 
 Without going into too many details, in contrast to the common data
 collators, this data collator treats the `input_values` and `labels`

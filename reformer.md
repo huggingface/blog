@@ -7,7 +7,7 @@ thumbnail: /blog/assets/03_reformer/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published July 3, 2020.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/reformer.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/reformer.md">
         Update on GitHub
     </a>
 </div>
@@ -22,7 +22,7 @@ thumbnail: /blog/assets/03_reformer/thumbnail.png
     </a>
 </div>
 
-<a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/master/notebooks/03_reformer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/main/notebooks/03_reformer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 
 ## How the Reformer uses less than 8GB of RAM to train on sequences of half a million tokens
@@ -322,7 +322,7 @@ Let's illustrate the feed forward layers for \\( \mathbf{\overline{z}}_1, \ldots
 
 As can be depicted from the illustration, all input vectors \\( \mathbf{\overline{z}}_{i} \\) are processed by the same feed forward layer in parallel.
 
-It becomes interesting when one takes a look at the output dimensions of the feed forward layers. In Reformer, the output dimension of \\( \text{Linear}_{\text{int}} \\) is defined as `config.feed_forward_size`, *e.g.* \\( d_{f} \\), and the output dimension of \\( \text{Linear}_{\text{int}} \\) is defined as `config.hidden_size`, *i.e.* \\( d_{h} \\). 
+It becomes interesting when one takes a look at the output dimensions of the feed forward layers. In Reformer, the output dimension of \\( \text{Linear}_{\text{int}} \\) is defined as `config.feed_forward_size`, *e.g.* \\( d_{f} \\), and the output dimension of \\( \text{Linear}_{\text{out}} \\) is defined as `config.hidden_size`, *i.e.* \\( d_{h} \\). 
 
 The Reformer authors observed that in a transformer model the intermediate dimension \\( d_{f} \\) usually tends to be much larger than the output dimension \\(^{2}\\) \\( d_{h} \\). This means that the tensor \\( \mathbf{\mathbf{Y}}_\text{int} \\) of dimension \\( d_{f} \times n \\) allocates a significant amount of the total memory and can even become the memory bottleneck.
 

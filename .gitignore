@@ -9,3 +9,6 @@ venv.bak/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+
+# Misc
+**/.DS_Store
