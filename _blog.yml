@@ -543,6 +543,7 @@
   date: February 11, 2022
   tags:
   - guide
+  - cv
 
 - local: bert-101
   title: "BERT 101 🤗 State Of The Art NLP Model Explained"
@@ -551,6 +552,7 @@
   date: March 2, 2022
   tags:
   - guide
+  - nlp
 
 - local: constrained-beam-search
   title: "Guiding Text Generation with Constrained Beam Search in 🤗 Transformers"
@@ -560,12 +562,15 @@
   date: March 11, 2022
   tags:
   - guide
+  - nlp
   
 - local: image-search-datasets
   title: "Image search with 🤗 datasets"
   author: davanstrien
   thumbnail: /blog/assets/54_image_search_datasets/spaces_image_search.jpg
   date: March 16, 2022
+  tags:
+  - cv
 
 - local: bert-inferentia-sagemaker
   title: "Accelerate BERT inference with Hugging Face Transformers and AWS inferentia"
@@ -575,6 +580,7 @@
   tags:
   - partnerships
   - guide
+  - nlp
 
 - local: fine-tune-segformer
   title: "Fine-Tune a Semantic Segmentation Model with a Custom Dataset"
@@ -584,6 +590,7 @@
   tags:
   - guide
   - partnerships
+  - cv
 
 - local: ai-residency
   title: "Announcing the 🤗 AI Research Residency Program"
@@ -611,6 +618,7 @@
   tags:
   - open-source-collab
   - guide
+  - rl
 
 - local: transformers-design-philosophy
   title: "Don't repeat yourself - 🤗 Transformers Design Philosophy"
