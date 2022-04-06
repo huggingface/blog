@@ -7,7 +7,7 @@ thumbnail: /blog/assets/07_porting_fsmt/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published November 3, 2020.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/porting-fsmt.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/porting-fsmt.md">
         Update on GitHub
     </a>
 </div>

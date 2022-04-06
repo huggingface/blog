@@ -7,7 +7,7 @@ thumbnail: /blog/assets/37_data-measurements-tool/datametrics.png
 
 <div class="blog-metadata">
     <small>Published November 29, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/data-measurements-tool.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/data-measurements-tool.md">
         Update on GitHub
     </a>
 </div>

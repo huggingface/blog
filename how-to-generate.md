@@ -7,7 +7,7 @@ thumbnail: /blog/assets/02_how-to-generate/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published March 18, 2020.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/how-to-generate.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/how-to-generate.md">
         Update on GitHub
     </a>
 </div>
@@ -22,7 +22,7 @@ thumbnail: /blog/assets/02_how-to-generate/thumbnail.png
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/master/notebooks/02_how_to_generate.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/02_how_to_generate.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 

@@ -11,7 +11,7 @@ thumbnail: /blog/assets/13_simple-considerations/henry-co-3coKbdfnAFg-unsplash.j
 
 <div class="blog-metadata">
     <small>Published February 25, 2021 – <span class="">Initially published on Medium, Sept 2020.</span></small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/simple-considerations.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/simple-considerations.md">
         Update on GitHub
     </a>
 </div>

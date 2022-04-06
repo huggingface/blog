@@ -9,7 +9,7 @@ thumbnail: /blog/assets/49_asr_chunking/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published February 1, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/asr-chunking.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/asr-chunking.md">
         Update on GitHub
     </a>
 </div>
@@ -49,7 +49,7 @@ of **transformers** is that it usually has a finite amount of sequence
 length it can handle. Either because it uses **position encodings** (not
 the case here) or simply because the cost of attention in transformers
 is actually O(n²) in sequence_length, meaning that using very large
-sequence_length explodes in complexity/memory. So you cannot with finite hardware
+sequence_length explodes in complexity/memory. So you cannot run with finite hardware
 (even a very large GPU like A100), simply run Wav2Vec2 on an hour long
 file. Your program will crash. Let's try it !
 
@@ -118,7 +118,7 @@ in the image context, but it's the same concept for audio.
 Because of this property, we can:
 
 - Start doing inference on **overlapping** chunks
-	so that the model actually has proper context in the center
+	so that the model actually has proper context in the center.
 - **Drop** the inferenced logits on the side. 
 - Chain the **logits** without their dropped sides to recover something extremely close to what the model would have
 predicted on the full length audio.

@@ -10,7 +10,7 @@ thumbnail: /blog/assets/29_streamlit-spaces/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published October 5, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/streamlit-spaces.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/streamlit-spaces.md">
         Update on GitHub
     </a>
 </div>
