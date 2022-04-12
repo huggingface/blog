@@ -49,7 +49,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 ## 🤗 **EDU Events & News**
 
 <aside>
-🗓️ **04/18**: ML demo.cratization tour in Greece. [Join](https://uoa.webex.com/uoa/j.php?MTID=m624dbb353f765667355ac73ec79c7bf8)
+**04/18**: ML demo.cratization tour in Greece. [Join](https://uoa.webex.com/uoa/j.php?MTID=m624dbb353f765667355ac73ec79c7bf8)
 
 **04/21**: ML demo.cratization tour in Florida. [Join](https://ufl.zoom.us/meeting/register/tJ0rduCqqD0oHNzysuD6Mfp_Tku5Q1SlFJ2g)
 
