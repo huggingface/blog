@@ -1,6 +1,6 @@
 ---
 title: "Habana Labs and Hugging Face Partner to Accelerate Transformer Model Training"
-thumbnail: /blog/assets/60_habana/habana.jpg
+thumbnail: /blog/assets/60_habana/habana.png
 ---
 
 <h1>
@@ -15,11 +15,12 @@ thumbnail: /blog/assets/60_habana/habana.jpg
 </div>
 
 <div class="author-card">
-    <a href="/jeffboudier">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1605114051380-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
+    <a href="/susanlansing">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1649707267873-62546cf4fafb0a895443e8b1.png?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
-            <code>jeffboudier</code>
-            <span class="fullname">Jeff Boudier</span>
+            <code>susanlansing</code>
+            <span class="fullname">Susan Lansing</span>
+            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>
