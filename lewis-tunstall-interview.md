@@ -79,7 +79,7 @@ In this particular example, what we're talking about is something called the ONN
 
 And if you actually look at what's needed to make this conversion happen in the transformers library, it's fairly gnarly. But we make it so that you only really have to run one line of code and the library will take care of you. 
 
-So the idea is that this particular feature lets machine learning engineers or even data scientists take their model, converted to this format, and then optimize it to get faster latency and higher throughput. 
+So the idea is that this particular feature lets machine learning engineers or even data scientists take their model, convert it to this format, and then optimize it to get faster latency and higher throughput. 
 
 ### Britney: That's very cool. Have there been, any standout applications of transformers?
 
@@ -91,7 +91,7 @@ And the model wrote a compelling essay on why recycling was bad. Leandro and I w
 
 I think there's something sort of strangely human, right? Where if we see generated text we get more surprised when it looks like something I (or another human) might have written versus other applications that have been happening like classifying text or more conventional tasks.
 
-### Britney: That's incredible. I remember when they released those examples for GTP-2, and one of my favorites (that almost gave me this sense of, whew, we're not quite there yet) were some of the more inaccurate mentions like “underwater fires”.
+### Britney: That's incredible. I remember when they released those examples for GPT-2, and one of my favorites (that almost gave me this sense of, whew, we're not quite there yet) were some of the more inaccurate mentions like “underwater fires”.
 
 **Lewis:** Exactly!
 
@@ -99,7 +99,7 @@ I think there's something sort of strangely human, right? Where if we see genera
 
 ### You and other experts at Hugging Face have been working hard on the Hugging Face Course. How did that come about & where is it headced? 
 
-**Lewis:** When I joined Hugging Face, [Sylvian](https://twitter.com/GuggerSylvain) and [Lysandre](https://twitter.com/LysandreJik), two of the core maintainers of the transformers library, were developing a course to basically bridge the gap between people who are more like software engineers who are curious about natural language processing but specifically curious about the transformers revolution that's been happening. So I worked with them and others in the open-source team to create a free course called the [Hugging Face Course](https://huggingface.co/course/chapter1/1). And this course is designed to really help people go from knowing kind of not so much about NLP all the way through to having the ability to train models on many different tasks.
+**Lewis:** When I joined Hugging Face, [Sylvian](https://twitter.com/GuggerSylvain) and [Lysandre](https://twitter.com/LysandreJik), two of the core maintainers of the transformers library, were developing a course to basically bridge the gap between people who are more like software engineers who are curious about natural language processing but specifically curious about the transformers revolution that's been happening. So I worked with them and others in the open-source team to create a free course called the [Hugging Face Course](https://huggingface.co/course/chapter1/1). And this course is designed to really help people go from knowing kind of not so much about ML all the way through to having the ability to train models on many different tasks.
 
 And, we've released two parts of this course and planning to release the third part this year. I'm really excited about the next part that we're developing right now where we're going to explore different modalities where transformers are really powerful. Most of the time we think of transformers for NLP, but likely there's been this explosion where transformers are being used in things like audio or in computer vision and we're going to be looking at these in detail. 
 
@@ -133,7 +133,7 @@ So one thing that we've been working on is to develop a way that you can evaluat
 
 And there's another side to this which is that a large part of the measuring progress in machine learning is through the use of benchmarks. These benchmarks are traditionally a set of datasets with some tasks but what's been maybe missing is that a lot of researchers speak to us and say, “Hey, I've got this cool idea for a benchmark, but I don't really want to implement all of the nitty-gritty infrastructure for the submissions, and the maintenance, and all those things.”
 
-And so we've been working with some really cool partners on hosting benchmarks on the hub directly. So that then people in the research community can use the tooling that we have and then simplify the evaluation of these models. 
+And so we've been working with some really cool partners on hosting benchmarks on the Hub directly. So that then people in the research community can use the tooling that we have and then simplify the evaluation of these models. 
 
 ### Britney: That is super interesting and powerful.
 
@@ -225,7 +225,7 @@ It gives you a very interesting insight into the Deep Mind researchers and their
 
 **Lewis:** Depends on how we measure this, but there's [one paper that stands out to me, which is quite an old paper](https://www.stat.berkeley.edu/~breiman/randomforest2001.pdf). It’s by the creator of random forests, Leo Breiman. Random forests is a very famous classic machine learning technique that's useful for tabular data that you see in industry and I had to teach random forests at university a year ago.
 
-And I was like, okay, I'll read this paper from the 200s and see if I understand it. And it's a model of clarity. It's very short, and very clearly explains how the algorithm is implemented. You can basically just take this paper and implement the code very very easily. And that to me was a really nice example of how papers were written in medieval times. 
+And I was like, okay, I'll read this paper from the 2000s and see if I understand it. And it's a model of clarity. It's very short, and very clearly explains how the algorithm is implemented. You can basically just take this paper and implement the code very very easily. And that to me was a really nice example of how papers were written in medieval times. 
 
 Whereas nowadays, most papers, have this formulaic approach of, okay, here's an introduction, here's a table with some numbers that get better, and here's like some random related work section. So, I think that's one that like stands out to me a lot.
 
@@ -255,7 +255,7 @@ But I think when you find a way to derive your own meaning and discover what you
 
 **Lewis:** So when O’Reilly is telling you “We're going to get our illustrator now to design the cover,” it's a secret, right?
 
-They don't tell you what the logic is or you have no say in the matter. So, basically, the illustrator comes up with an idea and in one of the last chapters of the book we have a section where we basically train a GPT-2 like model on Python code, this was Tom's idea, and he decided to call it code parrot.
+They don't tell you what the logic is or you have no say in the matter. So, basically, the illustrator comes up with an idea and in one of the last chapters of the book we have a section where we basically train a GPT-2 like model on Python code, this was Thom's idea, and he decided to call it code parrot.
 
 I think the idea or the joke he had was that there's a lot of discussion in the community about this paper that Meg Mitchell and others worked on called, ‘Stochastic Parrots’. And the idea was that you have these very powerful language models which seem to exhibit human-like traits in their writing as we discussed earlier but deep down maybe they're just doing some sort of like parrot parenting thing.
 
