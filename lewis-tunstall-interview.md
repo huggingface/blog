@@ -22,7 +22,7 @@ thumbnail: /blog/assets/60_lewis_tunstall_interview/thumbnail.png
 
 ## 🤗 Welcome to Machine Learning Experts - Lewis Tunstall
 
-Hey friends! Welcome to Machine Learning Experts. I'm your host, Britney Muller and today’s guest is Lewis Tunstall. Lewis is a Machine Learning Engineer at Hugging Face where he works on applying Transformers to automate business processes and solve MLOps challenges.
+Hey friends! Welcome to Machine Learning Experts. I'm your host, Britney Muller and today’s guest is [Lewis Tunstall](https://twitter.com/_lewtun). Lewis is a Machine Learning Engineer at Hugging Face where he works on applying Transformers to automate business processes and solve MLOps challenges.
 
 Lewis has built ML applications for startups and enterprises in the domains of NLP, topological data analysis, and time series. 
 
