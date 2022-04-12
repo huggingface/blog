@@ -15,10 +15,10 @@ thumbnail: /blog/assets/20_accelerate_library/accelerate_diff.png
 </div>
 
 <div class="author-card">
-    <a href="/sgugger">
-        <img class="avatar avatar-user" src="" title="Gravatar">
+    <a href="/alperiox">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/34214152" title="Gravatar">
         <div class="bfc">
-            <code>sgugger</code>
+            <code>alperiox</code>
             <span class="fullname">Alper Balbay</span>
         </div>
     </a>
@@ -28,23 +28,15 @@ thumbnail: /blog/assets/20_accelerate_library/accelerate_diff.png
 
 Understanding your users’ needs is crucial in any user-related business. But it also requires a lot of hard work and analysis, which is quite expensive. Why not leverage machine learning then? With much less coding by using Auto ML.
 
-In this article, we will leverage [HuggingFace](https://huggingface.co/) and [Kili](https://kili.com/) to build an active learning pipeline for text classification. Active learning is a process in which you add labeled data to the data set and then retrain a model iteratively. Therefore, it is endless and requires humans to label the data. 
+In this article, we will leverage [HuggingFace AutoTrain](https://huggingface.co/autotrain) and [Kili](https://kili.com/) to build an active learning pipeline for text classification. Kili is an easy-to-use data annotation platform for machine learning. Active learning is a process in which you add labeled data to the data set and then retrain a model iteratively. Therefore, it is endless and requires humans to label the data. 
 
-We will build our pipeline by using user reviews of Medium from the Google Play Store. After that, we are going to categorize the reviews with the pipeline we built. Finally, we will apply sentiment analysis to the classified reviews. Then we will analyze the results, understanding the users’ needs and satisfaction will be much easier.
-
-## Why Analyze User Reviews?
-
-Especially when you try to add new features or make changes to a product, it is important to know your customer base. People like to interact with the brand. And this interaction is a very valuable source of insight into the approach you take to develop your product.
-
-When you try to find out if your feature or change works, you’ll want to analyze this interaction. This is already done when users rate your application or when you hand out polls. But most of the time, this is not a clear indicator of what you’re lacking or fine.
-
-Analyzing the feedback of your users or customers is vital, but it is almost impossible to analyze thousands of tweets or reviews by hand. This is why we use machine learning, to ease our burden.
+As a concrete example use case for this article, we will build our pipeline by using user reviews of Medium from the Google Play Store. After that, we are going to categorize the reviews with the pipeline we built. Finally, we will apply sentiment analysis to the classified reviews. Then we will analyze the results, understanding the users’ needs and satisfaction will be much easier.
 
 ## AutoTrain with HuggingFace
 
 Automated machine learning is a term for automating a machine learning pipeline. It also includes data cleaning, model selection, and hyper-parameter optimization too. We can use HuggingFace’s [transformers](https://huggingface.co/docs/transformers/model_doc/auto) for automated hyper-parameter searching. Hyper-parameter optimization is a really difficult and time-consuming process.
-
-We can build our pipeline by using transformers and other powerful APIs, it is also possible to fully automate our pipeline with [AutoTrain](https://huggingface.co/autonlp). AutoTrain is a framework created by Hugging Face that is built on many powerful APIs like transformers, [datasets](https://github.com/huggingface/datasets) and [inference-api](https://huggingface.co/docs/transformers/main_classes/trainer).
+    
+While we can build our pipeline ourselves by using transformers and other powerful APIs, it is also possible to fully automate this with [AutoTrain](https://huggingface.co/autotrain). AutoTrain is built on many powerful APIs like transformers, [datasets](https://github.com/huggingface/datasets) and [inference-api](https://huggingface.co/docs/transformers/main_classes/trainer).
 
 Cleaning the data, model selection, and hyper-parameter optimization steps are all fully automated in AutoTrain. One can fully utilize this framework to build production-ready SOTA transformer models for a specific task. Currently, AutoTrain supports binary and multi-label text classification, token classification, extractive question answering, text summarization, and text scoring. It also supports many languages like English, German, French, Spanish, Finnish, Swedish, Hindi, Dutch, and [more](https://huggingface.co/docs/autonlp/supported_languages.html). If your language is not supported by AutoTrain, it is also possible to use custom models with custom tokenizers.
 
@@ -251,7 +243,7 @@ import_dataframe(project_id, df, 'content', 'index')
 
 It wasn’t difficult to use the Python API, the helper methods we used covered many difficulties. I also used another script to check the new samples when I updated the dataset. Sometimes the model performance drop down after the dataset update. This is due to simple mistakes like mislabeling and introducing bias to the dataset. The script simply authenticates and then moves distinct samples of two given dataset versions to `To Review`. We can change the property of a sample through `update_properties_in_assets` method:
 
-([scripts\move_diff_to_review.py](https://github.com/alperiox/review-classification-kili-hf-automl/blob/master/scripts/move_diff_to_review.py))
+([scripts/move_diff_to_review.py](https://github.com/alperiox/review-classification-kili-hf-automl/blob/master/scripts/move_diff_to_review.py))
 
 ```python
 # Set up the Kili client and arguments
@@ -300,7 +292,7 @@ print('SET %d ENTRIES TO BE REVIEWED!' % len(diff_df))
 
 ## Labeling
 
-When it comes to labeling, the platform has a built-in labeling interface which is pretty easy to use. Available keyboard shortcuts helped while I was annotating the data. I used the interface without breaking a sweat, there are automatically defined shortcuts and it simplifies the labeling. We can see the shortcuts by clicking the keyboard icon at the right-upper part of the interface, they are also shown by underlined characters in the labeling interface at the right.
+Now that we have the source data uploaded, the platform has a built-in labeling interface which is pretty easy to use. Available keyboard shortcuts helped while I was annotating the data. I used the interface without breaking a sweat, there are automatically defined shortcuts and it simplifies the labeling. We can see the shortcuts by clicking the keyboard icon at the right-upper part of the interface, they are also shown by underlined characters in the labeling interface at the right. 
 
 ![](assets/59_opinion-classification-with-kili-and-huggingface-autotrain/4.png)
 
@@ -312,7 +304,7 @@ While labeling, I skipped some samples since I couldn't decide and some samples 
 
 The labeled data is exported with ease by using Python API. The script below exports the labeled and reviewed samples into a dataframe, then saves it with a given name as a CSV file.
 
-([scripts\prepare_dataset.py](https://github.com/alperiox/review-classification-kili-hf-automl/blob/master/scripts/prepare_dataset.py))
+([scripts/prepare_dataset.py](https://github.com/alperiox/review-classification-kili-hf-automl/blob/master/scripts/prepare_dataset.py))
 
 ```python
 import argparse
@@ -333,8 +325,8 @@ parser.add_argument('--remove', required=False, type=str)
 args = vars(parser.parse_args())
 
 API_KEY = os.getenv('KILI_API_KEY')
-dataset_path = '..\data\processed\lowercase_cleaned_dataset.csv'
-output_path = os.path.join('..\data\processed', args['output_name'])
+dataset_path = '../data/processed/lowercase_cleaned_dataset.csv'
+output_path = os.path.join('../data/processed', args['output_name'])
 
 
 def extract_labels(labels_dict):
@@ -399,13 +391,34 @@ df_ns.to_csv(output_path, index=False)
 print('DONE!')
 ```
 
+Nice! We now have the labeled data as a csv file. Let's create a dataset repository in HuggingFace and upload the data there!
+
+It's really simple, just click your profile picture and select `New Dataset` option. 
+
+
+![](assets/59_opinion-classification-with-kili-and-huggingface-autotrain/19.png)
+
+Then enter the repository name, pick a license if you want and it's done!
+
+![](assets/59_opinion-classification-with-kili-and-huggingface-autotrain/20.png)
+
+Now we can upload the dataset from `Add file` in the `Files and versions` tab.  
+
+![](assets/59_opinion-classification-with-kili-and-huggingface-autotrain/22.png)
+
+Dataset viewer is automatically available after you upload the data, we can easily check the samples!
+
+![](assets/59_opinion-classification-with-kili-and-huggingface-autotrain/24.png)
+
+It is also possible to [upload the dataset to Hugging Face's dataset hub](https://huggingface.co/docs/datasets/upload_dataset#upload-from-python) by using `datasets` package. 
+
 ## Modeling
 
 I took an active learning based approach. I labeled the dataset while also actively fine-tuning a model, I tried to label around 50 samples per dataset version (it was much lower for the first versions). The number of samples is shown below:
 
 ![](assets/59_opinion-classification-with-kili-and-huggingface-autotrain/6.png)
 
-Let’s try out the AutoTrain first:
+Let’s try out AutoTrain first:
 
 First, open the [AutoTrain](https://ui.autonlp.huggingface.co/)
 
@@ -413,9 +426,10 @@ First, open the [AutoTrain](https://ui.autonlp.huggingface.co/)
 
 ![](assets/59_opinion-classification-with-kili-and-huggingface-autotrain/7.png)
 
-2. Upload the dataset and choose the split type, I’ll leave it as Auto.
+2. We can select the dataset repository we created before or upload the dataset again. Then we need to choose the split type, I’ll leave it as Auto. 
 
 ![](assets/59_opinion-classification-with-kili-and-huggingface-autotrain/8.png)
+
 
 3. Train the models
 
@@ -641,12 +655,12 @@ trainer = Trainer(
     )
 
 best_run = trainer.hyperparameter_search(
-                direction="maximize", 
-                n_trials=n_trials,
-                backend="ray",
-                search_alg=search_algorithm,
-                scheduler=scheduler
-                )
+    direction="maximize", 
+    n_trials=n_trials,
+    backend="ray",
+    search_alg=search_algorithm,
+    scheduler=scheduler
+    )
 ```
 
 I performed the search with 20 and 40 trials respectively, the results are shown below. The weighted average of F1, Recall, and Precision scores for 20 runs.
@@ -697,7 +711,7 @@ Important note about the plot: we haven't filtered the reviews by application ve
 
 ## Conclusion
 
-Now we can use the pre-trained model to try to understand the potential shortcomings of the application. Then it would be easier to analyze a specific feature. 
+Now we can use the pre-trained model to try to understand the potential shortcomings of the mobile application. Then it would be easier to analyze a specific feature. 
 
 We used HuggingFace’s powerful APIs and AutoTrain along with Kili’s easy-to-use interface in this example. The modeling with AutoTrain just took 30 minutes, it chose the models and trained them for our use. AutoTrain is definitely much more efficient since I spent more time as I develop the model by myself.
 
