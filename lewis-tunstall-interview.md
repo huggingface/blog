@@ -62,7 +62,7 @@ It's quite an exciting feeling and so different to actually hold it (compared to
 
 Want to briefly read one endorsement that I love about this book;
 
-“Complexity made simple. This is a rare and precious book about NLP, transformers, and the growing ecosystem around them, Hugging Face. Whether these are still buzzwords to you or you already have a solid grasp of it all, the authors will navigate you with humor, scientific rigor, and plenty of code examples into the deepest secrets of the coolest technology around. From “off-the-shelf pre-trained” to “from-scratch custom” models, and from performance to missing labels issues, the authors address practically every real-life struggle of an ML engineer and provide state-of-the-art solutions, making this book destined to dictate the standards in the field for years to come.” 
+“_Complexity made simple. This is a rare and precious book about NLP, transformers, and the growing ecosystem around them, Hugging Face. Whether these are still buzzwords to you or you already have a solid grasp of it all, the authors will navigate you with humor, scientific rigor, and plenty of code examples into the deepest secrets of the coolest technology around. From “off-the-shelf pre-trained” to “from-scratch custom” models, and from performance to missing labels issues, the authors address practically every real-life struggle of an ML engineer and provide state-of-the-art solutions, making this book destined to dictate the standards in the field for years to come._” 
 —Luca Perrozi Ph.D., Data Science and Machine Learning Associate Manager at Accenture.
 
 ### Britney: Can you talk about the work you've done with the transformers library?
