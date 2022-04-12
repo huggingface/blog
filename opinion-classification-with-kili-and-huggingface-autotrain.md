@@ -20,6 +20,7 @@ thumbnail: /blog/assets/20_accelerate_library/accelerate_diff.png
         <div class="bfc">
             <code>alperiox</code>
             <span class="fullname">Alper Balbay</span>
+            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>
