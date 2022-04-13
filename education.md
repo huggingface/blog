@@ -21,7 +21,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 ## 🤗 **EDU for Trainees**
 
 <aside>
-🗣️ We want to allow software engineers to turn into machine learning engineers quickly with MOOCs, online learning, and more innovative techniques.
+🗣️ We want to allow software engineers to turn into machine learning engineers quickly with online learning, hands-on workshops, and other innovative techniques.
 
 </aside>
 
