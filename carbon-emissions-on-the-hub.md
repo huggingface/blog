@@ -13,6 +13,13 @@ thumbnail: /blog/assets/60_carbon_emissions_on_the_hub/thumbnail.jpg
 </div>
 
 <div class="author-card">
+    <a href="/sasha">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626198087984-60edd0133e2c73a9a21455f5.png?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>sasha</code>
+            <span class="fullname">Sasha Luccioni</span>
+        </div>
+    </a>
     <a href="/muellerzr">
         <img class="avatar avatar-user" src="https://walkwithfastai.com/assets/images/portrait.png" title="Gravatar" width="200">
         <div class="bfc">
@@ -25,13 +32,6 @@ thumbnail: /blog/assets/60_carbon_emissions_on_the_hub/thumbnail.jpg
         <div class="bfc">
             <code>nateraw</code>
             <span class="fullname">Nate Raw</span>
-        </div>
-    </a>
-    <a href="/sasha">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626198087984-60edd0133e2c73a9a21455f5.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sasha</code>
-            <span class="fullname">Sasha Luccioni</span>
         </div>
     </a>
 </div>
