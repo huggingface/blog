@@ -630,7 +630,7 @@
 
 - local: carbon-emissions-on-the-hub
   title: "CO2 Emissions and the 🤗 Hub: Leading the Charge"
-  author: huggingface
+  author: sashavor
   thumbnail: /blog/assets/60_carbon_emissions_on_the_hub/thumbnail.jpg
   date: April 12, 2022
   tags:
