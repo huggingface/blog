@@ -31,7 +31,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 ## 🤗 **EDU for Educators**
 
 <aside>
-🗣️ We want to empower educators with tools and offer collaborative spaces where students can build ML using open-source technologies and SOTA ML models.
+🗣️ We want to empower educators with tools and offer collaborative spaces where students can build ML using open-source technologies and state-of-the-art ML models.
 
 </aside>
 
