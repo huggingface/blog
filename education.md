@@ -8,9 +8,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 
 ## 🤗 **Education for All**
 
-<aside> 🗣️ Our goal is to make the potential and limitations of machine learning understandable to the greatest number of people. We believe that doing so will help evolve the field in a direction where the application of these technologies will lead to net benefits for society as a whole.
-
-</aside>
+🗣️ Our goal is to make the potential and limitations of machine learning understandable to the greatest number of people. We believe that doing so will help evolve the field in a direction where the application of these technologies will lead to net benefits for society as a whole.
 
 - We describe in a very accessible way all [the uses of ML models](https://huggingface.co/tasks) (summarization, text generation, object detection…),
 - We allow everyone to try all the ML models online without technical skills ([example](https://huggingface.co/cmarkea/distilcamembert-base-sentiment)),
@@ -26,9 +24,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 
 ## 🤗 **Education for Educators**
 
-<aside> 🗣️ We want to empower educators with tools and offer collaborative spaces where students can build ML using open-source technologies and state-of-the-art ML models.
-
-</aside>
+🗣️ We want to empower educators with tools and offer collaborative spaces where students can build ML using open-source technologies and state-of-the-art ML models.
 
 - We’ve assembled [a toolkit](https://github.com/huggingface/education-toolkit) that instructors of Machine Learning or Data science can use to easily prepare labs, homework, or classes. The content is self-contained so that it can be easily incorporated into an existing curriculum. This content is free and uses well-known Open Source technologies (transformers, gradio, etc). Feel free to pick a tutorial and teach it!
     
@@ -43,16 +39,11 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 
 ## 🤗 **Education Events & News**
 
-<aside>
 **04/18**: ML demo.cratization tour in Greece. [Join](https://uoa.webex.com/uoa/j.php?MTID=m624dbb353f765667355ac73ec79c7bf8)
 
 **04/21**: ML demo.cratization tour in Florida. [Join](https://ufl.zoom.us/meeting/register/tJ0rduCqqD0oHNzysuD6Mfp_Tku5Q1SlFJ2g)
 
 **06/06**: How to Teach Open-Source Machine Learning Tools. [Register](https://www.eventbrite.com/e/how-to-teach-open-source-machine-learning-tools-tickets-310980931337)
 
-</aside>
-
-<aside>
 🔥 We are currently working on ambassadors programs, a new EDU offering, and a 101 ML course…! Stay tuned!
 
-</aside>
