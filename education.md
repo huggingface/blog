@@ -6,7 +6,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 
 *This blog post describes what is behind Hugging Face for Education.*
 
-## 🤗 **EDU for All**
+## 🤗 **Education for All**
 
 <aside>
 🗣️ Our goal is to make the potential and limitations of machine learning understandable to the greatest number of people. We believe that doing so will help evolve the field in a direction where the application of these technologies will lead to net benefits for society as a whole.
@@ -18,7 +18,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 - We warn against the harmful biases identified in some systems (like [GPT-2](https://huggingface.co/gpt2#limitations-and-bias)).
 - We display open-source [ML apps](https://huggingface.co/spaces) and allow everyone to understand the potential of ML in one click.
 
-## 🤗 **EDU for Trainees**
+## 🤗 **Education for Trainees**
 
 <aside>
 🗣️ We want to allow software engineers to turn into machine learning engineers quickly with online learning, hands-on workshops, and other innovative techniques.
@@ -28,7 +28,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 - We provide [training courses](https://huggingface.co/course/chapter1/1) about natural language processing (NLP) and more domains (soon) using libraries from the Hugging Face ecosystem as well as the Hugging Face Hub. It’s completely free and without ads. The ultimate goal of this course is to learn how to apply Transformers to (almost) any machine learning problem!
 - We provide a [book](https://transformersbook.com/), written by experts at Hugging Face, on Transformers and their applications to a wide range of NLP tasks.
 
-## 🤗 **EDU for Educators**
+## 🤗 **Education for Educators**
 
 <aside>
 🗣️ We want to empower educators with tools and offer collaborative spaces where students can build ML using open-source technologies and state-of-the-art ML models.
@@ -46,7 +46,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 - We're organizing a dedicated, free workshop (June 6) on how to teach our educational resources in your ML and data science classes. Do not hesitate to [register](https://www.eventbrite.com/e/how-to-teach-open-source-machine-learning-tools-tickets-310980931337).
 - We are currently doing a worldwide tour in collaboration with university instructors to teach more than 10000 students one of our core topics: How to build ML collaboratively? You can request someone on the Hugging Face team to run the session for your class via the [ML demo.cratization tour initiative](https://www.notion.so/ML-Demo-cratization-tour-with-66847a294abd4e9785e85663f5239652)**.**
 
-## 🤗 **EDU Events & News**
+## 🤗 **Education Events & News**
 
 <aside>
 **04/18**: ML demo.cratization tour in Greece. [Join](https://uoa.webex.com/uoa/j.php?MTID=m624dbb353f765667355ac73ec79c7bf8)
