@@ -9,7 +9,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 ## 🤗 **EDU for All**
 
 <aside>
-🗣️ We want to make technologies’ potential and limitations understandable to everyone and ensure that they evolve in a direction that benefits the greatest number of people.
+🗣️ Our goal is to make the potential and limitations of machine learning understandable to the greatest number of people. We believe that doing so will help evolve the field in a direction where the application of these technologies will lead to net benefits for society as a whole.
 
 </aside>
 
