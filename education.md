@@ -8,8 +8,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 
 ## 🤗 **Education for All**
 
-<aside>
-🗣️Our goal is to make the potential and limitations of machine learning understandable to the greatest number of people. We believe that doing so will help evolve the field in a direction where the application of these technologies will lead to net benefits for society as a whole.
+<aside> 🗣️ Our goal is to make the potential and limitations of machine learning understandable to the greatest number of people. We believe that doing so will help evolve the field in a direction where the application of these technologies will lead to net benefits for society as a whole.
 
 </aside>
 
@@ -20,8 +19,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 
 ## 🤗 **Education for Trainees**
 
-<aside>
-🗣️We want to allow software engineers to turn into machine learning engineers quickly with online learning, hands-on workshops, and other innovative techniques.
+<aside> 🗣️ We want to allow software engineers to turn into machine learning engineers quickly with online learning, hands-on workshops, and other innovative techniques.
 
 </aside>
 
@@ -30,8 +28,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 
 ## 🤗 **Education for Educators**
 
-<aside>
-🗣️We want to empower educators with tools and offer collaborative spaces where students can build ML using open-source technologies and state-of-the-art ML models.
+<aside> 🗣️ We want to empower educators with tools and offer collaborative spaces where students can build ML using open-source technologies and state-of-the-art ML models.
 
 </aside>
 
