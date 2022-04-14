@@ -4,7 +4,7 @@ thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
 ---
 
 <h1>
-    Announcing the 🤗 Fellowship Program 🥳
+    Announcing the Hugging Face 🤗 Fellowship Program
 </h1>
 
 <div class="blog-metadata">
