@@ -644,3 +644,12 @@
   tags:
   - community
   - research
+
+- local: fellowship
+  title: "Announcing the Hugging Face 🤗 Fellowship Program"
+  author: espejelomar
+  thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
+  date: April 18, 2022
+  tags:
+    - community
+    - open-source-collab
