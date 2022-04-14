@@ -36,7 +36,7 @@ The 🤗 Fellowship is a network of exceptional people from different background
 
 ## How the Fellowship works 🙌🏻
 
-There are no strings attached with the 🤗 Fellowship. This is Hugging Face supporting the amazing work of contributors! Being a Fellow works differently for everyone. The key question here is:
+This is Hugging Face supporting the amazing work of contributors! Being a Fellow works differently for everyone. The key question here is:
 
 ❓ **What would you need to be more impactful? How can we support you so you can do that project you have always wanted to do?**
 
@@ -56,19 +56,17 @@ The benefits will be based on the interests of each individual. Some examples of
 
 🎁 Exclusive merchandise and assets.
 
-✨ By being officially recognized as a Fellow, your career could be boosted.
+✨ Official recognition from Hugging Face.
 
 ## Do you want to be a Fellow?
 
-Fellows are currently nominated by members of the Hugging Face team or by another Fellow. How can you get noticed? This is the main criteria:
+Fellows are currently nominated by members of the Hugging Face team or by another Fellow. Applications will soon be open. How can you get noticed? The main criterion is that you have contributed to the democratization of open-source machine learning.
 
-- You have advanced the goal of democratizing good, open source machine learning.
+How? In the ways that you prefer. Here are some examples of our first Fellows:
 
-How? In the way you prefer. These are some examples of the first Fellows:
-
-- **María Grandury** - She created the [largest NLP community](https://somosnlp.org/) in Spanish. Then she organized a Hackathon that achieved more than 20 models that advanced the SOTA for Spanish. 👩🏼‍🎤
+- **María Grandury** - She created the [largest Spanish-speaking NLP community](https://somosnlp.org/) and organized a Hackathon that achieved more than 20 models that advanced the SOTA for Spanish. 👩🏼‍🎤
 - **Manuel Romero** - He contributed [over 300 models](https://huggingface.co/mrm8488) to the Hugging Face Hub. He has trained multiple SOTA models in Spanish and has contributed to many different efforts. 🤴🏻
-- **Aritra Roy Gosthipathy**: Contributed new architectures for TensorFlow in the transformers library and helped create the Keras working group. 🦹🏻
+- **Aritra Roy Gosthipathy**: Contributed new architectures for TensorFlow in the transformers library, improved Keras tooling, and helped in the creation of the Keras working group. 🦹🏻
 - **Vaibhav Srivastav** - Advocacy in the field of speech. He has led the ML4Audio working group, paper discussion sessions, and contributed to setting up Discord. 🦹🏻
 - **Bram Vanroy** - Helped many contributors and the Hugging Face team early on both GitHub and the forum 🦸🏼
 - **Christopher Akiki** - Helped the Hugging Face team on many fronts, contributed to sprints, organized workshops! 🦹🏻‍♀️
@@ -82,9 +80,9 @@ We are actively working to build a culture that values ​​diversity, equity, 
 
 * **I'm starting to contribute. Can I be a fellow?**<br>Preferably people with more contributions are accepted as Fellows. That said, the program is flexible and we might consider it especially if you have the potential to contribute on strategic fronts.
 
-* **Will I be an employee of Hugging Face?**<br>No, the Fellowship does not mean you are an employee of Hugging Face. However, feel free to mention in any forum, including LinkedIn, that you are a Hugging Face Fellow. Also, Hugging Face is constantly hiring and this *could* be a good door for a bigger relationship in the future 😎.
+* **Will I be an employee of Hugging Face?**<br>No, the Fellowship does not mean you are an employee of Hugging Face. However, feel free to mention in any forum, including LinkedIn, that you are a Hugging Face Fellow. Hugging Face is growing and this *could* be a good path for a bigger relationship in the future 😎.
 
-* **Will I receive benefits during the Residency?**<br>Yes, the benefits will depend on the particular needs and projects that each Fellow wants to undertake.
+* **Will I receive benefits during the Fellowship?**<br>Yes, the benefits will depend on the particular needs and projects that each Fellow wants to undertake.
 
 * **How ​​can I contribute?**<br>In whatever way you think will have the greatest impact on the mission of democratizing good machine learning. In addition, we will constantly add strategic areas of contribution in the [Fellowship's one-pager](https://huggingface2.notion.site/Hugging-Fellows-One-Pager-fa1c8878a7a14945b7e0dda2d1e34f36).
 
