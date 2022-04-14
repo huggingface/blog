@@ -1,6 +1,6 @@
 ---
 title: "Announcing the Hugging Face 🤗 Fellowship Program"
-thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
+thumbnail: /blog/assets/62_fellowship/fellowship-thumbnail.png
 ---
 
 <h1>
