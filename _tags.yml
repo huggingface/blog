@@ -15,3 +15,15 @@
 
 - value: research
   label: research
+
+- value: nlp
+  label: NLP
+
+- value: audio
+  label: Audio
+
+- value: cv
+  label: CV
+
+- value: rl
+  label: RL

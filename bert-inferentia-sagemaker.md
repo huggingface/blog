@@ -132,7 +132,7 @@ If you want to know more about the `inference.py` script check out this [exampl
 !mkdir code
 ```
 
-We are using the `NEURONCORE_GROUP_SIZES=1` to make sure that each HTTP worker uses 1 Neuron core to maximize throughput. 
+We are using the `NEURON_RT_NUM_CORES=1` to make sure that each HTTP worker uses 1 Neuron core to maximize throughput. 
 
 ```python
 %%writefile code/inference.py
@@ -143,7 +143,7 @@ import torch
 import torch.neuron
 
 # To use one neuron core per worker
-os.environ["NEURONCORE_GROUP_SIZES"] = "1"
+os.environ["NEURON_RT_NUM_CORES"] = "1"
 
 # saved weights name
 AWS_NEURON_TRACED_WEIGHTS_NAME = "neuron_model.pt"

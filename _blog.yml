@@ -7,6 +7,7 @@
   date: February 14, 2020
   tags:
   - guide
+  - nlp
 
 - local: how-to-generate
   title: "How to generate text: using different decoding methods for language generation with Transformers"
@@ -15,6 +16,7 @@
   date: March, 2020
   tags:
   - guide
+  - nlp
 
 - external: https://huggingface.co/zero-shot
   title: "Zero Shot Topic Classification"
@@ -22,6 +24,7 @@
   date: May 29, 2020
   tags:
   - research
+  - nlp
 
 - external: https://huggingface.co/calculator
   title: "How Big Should My Language Model Be?"
@@ -29,6 +32,7 @@
   date: June 8, 2020
   tags:
   - research
+  - nlp
 
 - external: https://yjernite.github.io/lfqa.html
   title: "Long Form Question Answering with ELI5"
@@ -36,6 +40,7 @@
   date: June 17, 2020
   tags:
   - guide
+  - nlp
 
 - local: reformer
   title: "The Reformer - Pushing the limits of language modeling"
@@ -44,6 +49,7 @@
   date: July 3, 2020
   tags:
   - research
+  - nlp
 
 - local: pytorch_block_sparse
   title: Block Sparse Matrices for Smaller and Faster Language Models
@@ -52,6 +58,7 @@
   date: Sep 10, 2020
   tags:
   - research
+  - nlp
 
 - external: https://huggingface.co/rag
   title: "Retrieval Augmented Generation (RAG)"
@@ -59,6 +66,7 @@
   date: September 28, 2020
   tags:
   - guide
+  - nlp
 
 - local: encoder-decoder
   title: "Transformer-based Encoder-Decoder Models"
@@ -67,6 +75,7 @@
   date: October 10, 2020
   tags:
   - research
+  - nlp
 
 - local: ray-tune
   title: "Hyperparameter Search with Transformers and Ray Tune"
@@ -76,6 +85,7 @@
   date: November 2, 2020
   tags:
   - open-source-collab
+  - nlp
 
 - local: porting-fsmt
   title: "Porting fairseq wmt19 translation system to transformers"
@@ -84,6 +94,7 @@
   date: November 3, 2020
   tags:
   - open-source-collab
+  - nlp
 
 - local: warm-starting-encoder-decoder
   title: "Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models"
@@ -92,6 +103,7 @@
   date: November 09, 2020
   tags:
   - guide
+  - nlp
 
 - local: accelerated-inference
   title: How we sped up transformer inference 100x for 🤗 API customers
@@ -100,6 +112,7 @@
   date: January 18, 2021
   tags:
   - analysis
+  - nlp
 
 - local: zero-deepspeed-fairscale
   title: "Fit More and Train Faster With ZeRO via DeepSpeed and FairScale"
@@ -116,6 +129,7 @@
   date: January 26, 2021
   tags:
   - guide
+  - nlp
 
 - local: pytorch-xla
   title: "Hugging Face on PyTorch / XLA TPUs"
@@ -134,6 +148,7 @@
   date: February 10, 2021
   tags:
   - open-source-collab
+  - nlp
 
 - local: simple-considerations
   title: "Simple considerations for simple people building fancy neural networks"
@@ -150,6 +165,7 @@
   date: March 09, 2021
   tags:
   - research
+  - nlp
 
 - local: fine-tune-wav2vec2-english
   title: "Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers"
@@ -158,6 +174,7 @@
   date: March 12, 2021
   tags:
   - guide
+  - audio
 
 - local: how-to-deploy-a-pipeline-to-google-clouds
   title: "My Journey to a serverless transformers pipeline on Google Cloud"
@@ -184,6 +201,7 @@
   tags:
   - community
   - research
+  - nlp
 
 - external: https://huggingface.co/blog/how_many_data_points
   title: "How many data points is a prompt worth?"
@@ -191,6 +209,7 @@
   date: April 5, 2021
   tags:
   - research
+  - nlp
 
 - local: sagemaker-distributed-training-seq2seq
   title: "Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker"
@@ -200,6 +219,7 @@
   tags:
   - guide
   - partnerships
+  - nlp
 
 - local: accelerate-library
   title: Introducing 🤗 Accelerate
@@ -216,6 +236,7 @@
   date: April 20, 2021
   tags:
   - guide
+  - nlp
 
 - local: gradio
   title: "Using & Mixing Hugging Face Models with Gradio 2.0"
@@ -234,6 +255,7 @@
   date: June 3, 2021
   tags:
   - guide
+  - nlp
 
 - local: sentence-transformers-in-the-hub
   title: "Sentence Transformers in the 🤗 Hub"
@@ -241,6 +263,7 @@
   date: June 28, 2021
   tags:
   - open-source-collab
+  - nlp
 
 - local: deploy-hugging-face-models-easily-with-amazon-sagemaker
   title: "Deploy Hugging Face models easily with Amazon SageMaker"
@@ -257,6 +280,7 @@
   date: July 13, 2021
   tags:
   - open-source-collab
+  - nlp
 
 - local: collaborative-training
   title: "Deep Learning over the Internet: Training Language Models Collaboratively"
@@ -316,6 +340,8 @@
   date: October 13, 2021
   tags:
   - community
+  - cv
+  - nlp
 
 - local: the-age-of-ml-as-code
   title: "The Age of Machine Learning As Code Has Arrived"
@@ -333,6 +359,7 @@
   date: October 25, 2021
   tags:
   - community
+  - nlp
 
 - local: large-language-models
   title: "Large Language Models: A New Moore's Law?"
@@ -341,6 +368,7 @@
   date: October 26, 2021
   tags:
   - analysis
+  - nlp
 
 - local: course-launch-event
   title: "Course Launch Community Event"
@@ -349,6 +377,7 @@
   date: October 26, 2021
   tags:
   - community
+  - nlp
 
 - local: bert-cpu-scaling-part-2
   title: "Scaling up BERT-like model Inference on modern CPU - Part 2"
@@ -357,6 +386,7 @@
   date: November 4, 2021
   tags:
   - guide
+  - nlp
 
 - local: fine-tune-xlsr-wav2vec2
   title: "Fine-tuning XLS-R for Multi-Lingual ASR with 🤗 Transformers"
@@ -365,6 +395,7 @@
   date: November 15, 2021
   tags:
   - guide
+  - audio
 
 - local: accelerating-pytorch
   title: "Accelerating PyTorch distributed fine-tuning with Intel technologies"
@@ -398,6 +429,7 @@
   date: December 2, 2021
   tags:
   - research
+  - rl
 
 - local: codeparrot
   title: "Training CodeParrot 🦜 from Scratch"
@@ -407,6 +439,7 @@
   tags:
   - guide
   - research
+  - nlp
 
 - local: perceiver
   title: "Perceiver IO: a scalable, fully-attentional model that works on any modality"
@@ -416,6 +449,9 @@
   tags:
   - research
   - guide
+  - nlp
+  - audio
+  - cv
   
 - local: gradio-joins-hf
   title: "Gradio joins Hugging Face!"
@@ -434,6 +470,7 @@
   tags:
   - research
   - partnerships
+  - nlp
 
 - local: gptj-sagemaker
   title: "Deploy GPT-J 6B for inference using  Hugging Face Transformers and Amazon SageMaker"
@@ -443,6 +480,7 @@
   tags:
   - partnerships
   - guide
+  - nlp
 
 - local: wav2vec2-with-ngram
   title: "Boost Wav2Vec2 with n-gram LM in 🤗 Transformers"
@@ -452,6 +490,7 @@
   tags:
   - research
   - guide
+  - audio
 
 - local: infinity-cpu-performance
   title: "Case Study: Millisecond Latency using Hugging Face Infinity and modern CPUs"
@@ -468,6 +507,7 @@
   date: January 21, 2022
   tags:
   -  open-source-collab
+  -  rl
 
 - local: searching-the-hub
   title: "Supercharged Searching on the Hugging Face Hub"
@@ -476,6 +516,7 @@
   date: January 25, 2022
   tags:
   - guide
+
 - local: asr-chunking
   title: "Making automatic speech recognition work on large files with Wav2Vec2 in 🤗 Transformers"
   author: Narsil
@@ -484,6 +525,7 @@
   tags:
   - guide
   - research
+  - audio
 
 - local: sentiment-analysis-python
   title: "Getting Started with Sentiment Analysis using Python"
@@ -492,6 +534,7 @@
   date: February 2, 2022
   tags:
   - guide
+  - nlp
 
 - local: fine-tune-vit
   title: "Fine-Tune ViT for Image Classification with 🤗 Transformers"
@@ -500,6 +543,7 @@
   date: February 11, 2022
   tags:
   - guide
+  - cv
 
 - local: bert-101
   title: "BERT 101 🤗 State Of The Art NLP Model Explained"
@@ -508,6 +552,7 @@
   date: March 2, 2022
   tags:
   - guide
+  - nlp
 
 - local: constrained-beam-search
   title: "Guiding Text Generation with Constrained Beam Search in 🤗 Transformers"
@@ -517,12 +562,15 @@
   date: March 11, 2022
   tags:
   - guide
+  - nlp
   
 - local: image-search-datasets
   title: "Image search with 🤗 datasets"
   author: davanstrien
   thumbnail: /blog/assets/54_image_search_datasets/spaces_image_search.jpg
   date: March 16, 2022
+  tags:
+  - cv
 
 - local: bert-inferentia-sagemaker
   title: "Accelerate BERT inference with Hugging Face Transformers and AWS inferentia"
@@ -532,6 +580,7 @@
   tags:
   - partnerships
   - guide
+  - nlp
 
 - local: fine-tune-segformer
   title: "Fine-Tune a Semantic Segmentation Model with a Custom Dataset"
@@ -541,6 +590,7 @@
   tags:
   - guide
   - partnerships
+  - cv
 
 - local: ai-residency
   title: "Announcing the 🤗 AI Research Residency Program"
@@ -557,7 +607,7 @@
   thumbnail: /blog/assets/57_meg_mitchell_interview/thumbnail.png
   date: March 23, 2022
   tags:
-  - guide
+  - community
   - research
 
 - local: decision-transformers
@@ -568,3 +618,29 @@
   tags:
   - open-source-collab
   - guide
+  - rl
+
+- local: transformers-design-philosophy
+  title: "Don't repeat yourself - 🤗 Transformers Design Philosophy"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/59_transformers_philosophy/transformers.png
+  date: April 5, 2022
+  tags:
+  - community
+
+- local: habana
+  title: "Habana Labs and Hugging Face Partner to Accelerate Transformer Model Training"
+  author: susanlansing
+  thumbnail: /blog/assets/60_habana/habana.png
+  date: April 12, 2022
+  tags:
+  - partnerships
+  
+- local: lewis-tunstall-interview
+  title: "Machine Learning Experts - Lewis Tunstall Interview"
+  author: britneymuller
+  thumbnail: /blog/assets/60_lewis_tunstall_interview/thumbnail.png
+  date: April 13, 2022
+  tags:
+  - community
+  - research
