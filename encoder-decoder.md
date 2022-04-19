@@ -166,7 +166,7 @@ So how does the RNN-based decoder architecture model
 
 In computational terms, the model sequentially maps the previous inner
 hidden state \\(\mathbf{c}_{i-1}\\) and the previous target vector
-\\(\mathbf{y}_i\\) to the current inner hidden state \\(\mathbf{c}_i\\) and a
+\\(\mathbf{y}_{i-1}\\) to the current inner hidden state \\(\mathbf{c}_i\\) and a
 *logit vector* \\(\mathbf{l}_i\\) (shown in dark red below):
 
 $$ f_{\theta_{\text{dec}}}(\mathbf{y}_{i-1}, \mathbf{c}_{i-1}) \to \mathbf{l}_i, \mathbf{c}_i.$$
