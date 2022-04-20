@@ -42,7 +42,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 
 🗣️ We want to allow software engineers to turn into Machine Learning engineers quickly with online learning, hands-on workshops, and other innovative techniques.
 
-- We provide [training courses](https://huggingface.co/course/chapter1/1) about natural language processing (NLP) and more domains (soon) using libraries from the Hugging Face ecosystem as well as the Hugging Face Hub. It’s completely free and without ads. The ultimate goal of this course is to learn how to apply Transformers to (almost) any Machine Learning problem!
+- We provide free [training courses](https://huggingface.co/course/chapter1/1) about natural language processing (NLP) and more domains (soon) using free tools and libraries from the Hugging Face ecosystem as well as the Hugging Face Hub. It’s completely free and without ads. The ultimate goal of this course is to learn how to apply Transformers to (almost) any Machine Learning problem!
 - We provide a [book](https://transformersbook.com/), written by experts at Hugging Face, on Transformers and their applications to a wide range of NLP tasks.
 
 ## 🤗 **Education for Instructors**
