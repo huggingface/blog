@@ -26,7 +26,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 
 🗣️ We want to empower educators with tools and offer collaborative spaces where students can build ML using open-source technologies and state-of-the-art ML models.
 
-- We’ve assembled [a toolkit](https://github.com/huggingface/education-toolkit) that instructors of Machine Learning or Data science can use to easily prepare labs, homework, or classes. The content is self-contained so that it can be easily incorporated into an existing curriculum. This content is free and uses well-known Open Source technologies (transformers, gradio, etc). Feel free to pick a tutorial and teach it!
+- We’ve assembled [a toolkit](https://github.com/huggingface/education-toolkit) that instructors of Machine Learning or Data Science can use to easily prepare labs, homework, or classes. The content is self-contained so that it can be easily incorporated into an existing curriculum. This content is free and uses well-known Open Source technologies (transformers, gradio, etc). Feel free to pick a tutorial and teach it!
     
     1️⃣ [A Tour through the Hugging Face Hub](https://github.com/huggingface/education-toolkit/blob/main/01_huggingface-hub-tour.md)
     
