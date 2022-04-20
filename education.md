@@ -31,7 +31,7 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 
 ## 🤗 **Education for All**
 
-🗣️ Our goal is to make the potential and limitations of machine learning understandable to everyone. We believe that doing so will help evolve the field in a direction where the application of these technologies will lead to net benefits for society as a whole.
+🗣️ Our goal is to make the potential and limitations of Machine Learning understandable to everyone. We believe that doing so will help evolve the field in a direction where the application of these technologies will lead to net benefits for society as a whole.
 
 - We describe in a very accessible way all [the uses of ML models](https://huggingface.co/tasks) (summarization, text generation, object detection…),
 - We allow everyone to try all the ML models online without technical skills ([example](https://huggingface.co/cmarkea/distilcamembert-base-sentiment)),
@@ -40,9 +40,9 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 
 ## 🤗 **Education for Trainees**
 
-🗣️ We want to allow software engineers to turn into machine learning engineers quickly with online learning, hands-on workshops, and other innovative techniques.
+🗣️ We want to allow software engineers to turn into Machine Learning engineers quickly with online learning, hands-on workshops, and other innovative techniques.
 
-- We provide [training courses](https://huggingface.co/course/chapter1/1) about natural language processing (NLP) and more domains (soon) using libraries from the Hugging Face ecosystem as well as the Hugging Face Hub. It’s completely free and without ads. The ultimate goal of this course is to learn how to apply Transformers to (almost) any machine learning problem!
+- We provide [training courses](https://huggingface.co/course/chapter1/1) about natural language processing (NLP) and more domains (soon) using libraries from the Hugging Face ecosystem as well as the Hugging Face Hub. It’s completely free and without ads. The ultimate goal of this course is to learn how to apply Transformers to (almost) any Machine Learning problem!
 - We provide a [book](https://transformersbook.com/), written by experts at Hugging Face, on Transformers and their applications to a wide range of NLP tasks.
 
 ## 🤗 **Education for Instructors**
