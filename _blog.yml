@@ -648,7 +648,7 @@
 - local: education
   title: "Introducing 🤗 Hugging Face for Education"
   author: violettelepercq
-  thumbnail: /blog/assets/60_lewis_tunstall_interview/thumbnail.png
+  thumbnail: 
   date: April 22, 2022
   tags:
   - community
