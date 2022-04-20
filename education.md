@@ -2,7 +2,7 @@
 
 As an Open Source company democratizing Machine Learning, [Hugging Face](https://huggingface.co/) believes it is essential to educate people from all backgrounds worldwide.
 
-Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Demo-cratization-tour-with-66847a294abd4e9785e85663f5239652), experts from Hugging Face have taught hands-on classes on *How to Build Machine Learning Collaboratively* to more than 1000 students from 16 countries. As a second big step, we aim to teach machine learning to 1 million people by the end of 2023.
+Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Demo-cratization-tour-with-66847a294abd4e9785e85663f5239652), experts from Hugging Face have taught hands-on classes on *How to Build Machine Learning Collaboratively* to more than 1000 students from 16 countries. Our new goal: we aim to teach Machine Learning to 1 million people by the end of 2023.
 
 *This blog post describes what is behind Hugging Face for Education.*
 
