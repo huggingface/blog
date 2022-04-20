@@ -53,6 +53,8 @@ Since March 2022 and the [ML demo.cratization tour](https://www.notion.so/ML-Dem
 - We're organizing a dedicated, free workshop (June 6) on how to teach our educational resources in your ML and data science classes. Do not hesitate to [register](https://www.eventbrite.com/e/how-to-teach-open-source-machine-learning-tools-tickets-310980931337).
 - We are currently doing a worldwide tour in collaboration with university instructors to teach more than 10000 students one of our core topics: How to build ML collaboratively? You can request someone on the Hugging Face team to run the session for your class via the [ML demo.cratization tour initiative](https://www.notion.so/ML-Demo-cratization-tour-with-66847a294abd4e9785e85663f5239652)**.**
 
+ <img width="535" alt="image" src="https://user-images.githubusercontent.com/95622912/164271167-58ec0115-dda1-4217-a308-9d4b2fbf86f5.png">
+
 ## 🤗 **Education Events & News**
 
 **04/21**: ML demo.cratization tour in Florida. [Join](https://ufl.zoom.us/meeting/register/tJ0rduCqqD0oHNzysuD6Mfp_Tku5Q1SlFJ2g)
