@@ -6,13 +6,14 @@
 </div>
 <div class="author-card">
     <a href="/VioletteLepercq">
-        <img class="/VioletteLepercq">
-        <div class="bfc">
+        <img class="" src="">
+        <div class="">
             <code>/VioletteLepercq</code>
             <span class="fullname">Violette Lepercq</span>
         </div>
     </a>
 </div>
+
 
 # **About Hugging Face for Education**
 
