@@ -1,3 +1,26 @@
+
+
+<h1>
+    Introducing 🤗 Hugging Face for Education
+</h1>
+
+<div class="blog-metadata">
+    <small>Published April 22, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/accelerate-library.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/VioletteLepercq">
+        <img class="/VioletteLepercq">
+        <div class="bfc">
+            <code>/VioletteLepercq</code>
+            <span class="fullname">Violette Lepercq</span>
+        </div>
+    </a>
+</div>
+
 # **About Hugging Face for Education**
 
 As an Open Source company democratizing Machine Learning, [Hugging Face](https://huggingface.co/) believes it is essential to educate people from all backgrounds worldwide.
