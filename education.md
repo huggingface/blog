@@ -2,7 +2,7 @@
     Introducing 🤗 Hugging Face for Education
 </h1>
 <div class="blog-metadata">
-    <small>Published April 22, 2022.</small>
+    <small>Published April 25, 2022.</small>
 </div>
 
 # **About Hugging Face for Education**
