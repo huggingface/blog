@@ -4,15 +4,6 @@
 <div class="blog-metadata">
     <small>Published April 22, 2022.</small>
 </div>
-<div class="author-card">
-    <a href="/VioletteLepercq">
-        <div class="">
-            <code>/VioletteLepercq</code>
-            <span class="fullname">Violette Lepercq</span>
-        </div>
-    </a>
-</div>
-
 
 # **About Hugging Face for Education**
 
