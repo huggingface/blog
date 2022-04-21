@@ -25,7 +25,7 @@ We launched the [ML demo.cratization tour](https://www.notion.so/ML-Demo-cratiza
 
 ## 🤗 **Education for All**
 
-🗣️ Our goal is to make the potential and limitations of Machine Learning understandable to everyone. We believe that doing so will help evolve the field in a direction where the application of these technologies will lead to net benefits for society as a whole.
+🗣️ Our goal is to make the potential and limitations of machine learning understandable to everyone. We believe that doing so will help evolve the field in a direction where the application of these technologies will lead to net benefits for society as a whole.
 
 - We describe in a very accessible way all [the uses of ML models](https://huggingface.co/tasks) (summarization, text generation, object detection…),
 - We allow everyone to try all the ML models online without technical skills ([example](https://huggingface.co/cmarkea/distilcamembert-base-sentiment)),
