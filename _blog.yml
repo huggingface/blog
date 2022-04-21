@@ -636,3 +636,12 @@
   tags:
   - community
   - research
+
+- local: ml-director-insights
+  title: "Director of Machine Learning Insights [Series]"
+  author: britneymuller
+  thumbnail: /blog/assets/61_ml_director_insights/thumbnail.png
+  date: April 22, 2022
+  tags:
+  - community
+  - research
