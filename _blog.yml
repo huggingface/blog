@@ -628,20 +628,37 @@
   tags:
   - community
 
+- local: habana
+  title: "Habana Labs and Hugging Face Partner to Accelerate Transformer Model Training"
+  author: susanlansing
+  thumbnail: /blog/assets/60_habana/habana.png
+  date: April 12, 2022
+  tags:
+  - partnerships
+  
 - local: lewis-tunstall-interview
   title: "Machine Learning Experts - Lewis Tunstall Interview"
   author: britneymuller
   thumbnail: /blog/assets/60_lewis_tunstall_interview/thumbnail.png
-  date: April 11, 2022
+  date: April 13, 2022
   tags:
   - community
   - research
+
+- local: education
+  title: "Introducing 🤗 Hugging Face for Education"
+  author: violettelepercq
+  thumbnail: 
+  date: April 22, 2022
+  tags:
+  - community
+  - education
 
 - local: ml-director-insights
   title: "Director of Machine Learning Insights [Series]"
   author: britneymuller
   thumbnail: /blog/assets/61_ml_director_insights/thumbnail.png
-  date: April 22, 2022
+  date: April 25, 2022
   tags:
   - community
   - research
