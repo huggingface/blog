@@ -32,7 +32,7 @@ We launched the [ML demo.cratization tour](https://www.notion.so/ML-Demo-cratiza
 - We warn against the harmful biases identified in some systems (like [GPT-2](https://huggingface.co/gpt2#limitations-and-bias)).
 - We display open-source [ML apps](https://huggingface.co/spaces) and allow everyone to understand the potential of ML in one click.
 
-## 🤗 **Education for Trainees**
+## 🤗 **Education for Beginners to Machine Learning**
 
 🗣️ We want to allow software engineers to turn into Machine Learning engineers quickly with online learning, hands-on workshops, and other innovative techniques.
 
