@@ -6,7 +6,7 @@
 </div>
 <div class="author-card">
     <a href="/VioletteLepercq">
-        <img class="" src="">
+        <img>
         <div class="">
             <code>/VioletteLepercq</code>
             <span class="fullname">Violette Lepercq</span>
@@ -41,7 +41,7 @@ We launched the [ML demo.cratization tour](https://www.notion.so/ML-Demo-cratiza
 
 ## 🤗 **Education for Instructors**
 
-🗣️ We want to empower educators with tools and offer collaborative spaces where students can build ML using open-source technologies and state-of-the-art ML models.
+🗣️ We want to empower educators with tools and offer collaborative spaces where students can build machine learning using open-source technologies and state-of-the-art machine learning models.
 
 - We’ve assembled [a toolkit](https://github.com/huggingface/education-toolkit) that instructors of machine learning or Data Science can use to easily prepare labs, homework, or classes. The content is self-contained so that it can be easily incorporated into an existing curriculum. This content is free and uses well-known Open Source technologies (transformers, gradio, etc). Feel free to pick a tutorial and teach it!
     
@@ -51,8 +51,8 @@ We launched the [ML demo.cratization tour](https://www.notion.so/ML-Demo-cratiza
     
     3️⃣ [Getting Started with Transformers](https://colab.research.google.com/github/huggingface/education-toolkit/blob/main/03_getting-started-with-transformers.ipynb)
     
-- We're organizing a dedicated, free workshop (June 6) on how to teach our educational resources in your ML and data science classes. Do not hesitate to [register](https://www.eventbrite.com/e/how-to-teach-open-source-machine-learning-tools-tickets-310980931337).
-- We are currently doing a worldwide tour in collaboration with university instructors to teach more than 10000 students one of our core topics: How to build ML collaboratively? You can request someone on the Hugging Face team to run the session for your class via the [ML demo.cratization tour initiative](https://www.notion.so/ML-Demo-cratization-tour-with-66847a294abd4e9785e85663f5239652)**.**
+- We're organizing a dedicated, free workshop (June 6) on how to teach our educational resources in your machine learning and data science classes. Do not hesitate to [register](https://www.eventbrite.com/e/how-to-teach-open-source-machine-learning-tools-tickets-310980931337).
+- We are currently doing a worldwide tour in collaboration with university instructors to teach more than 10000 students one of our core topics: How to build machine learning collaboratively? You can request someone on the Hugging Face team to run the session for your class via the [ML demo.cratization tour initiative](https://www.notion.so/ML-Demo-cratization-tour-with-66847a294abd4e9785e85663f5239652)**.**
 
  <img width="535" alt="image" src="https://user-images.githubusercontent.com/95622912/164271167-58ec0115-dda1-4217-a308-9d4b2fbf86f5.png">
 
