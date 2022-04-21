@@ -32,18 +32,18 @@ We launched the [ML demo.cratization tour](https://www.notion.so/ML-Demo-cratiza
 - We warn against the harmful biases identified in some systems (like [GPT-2](https://huggingface.co/gpt2#limitations-and-bias)).
 - We display open-source [ML apps](https://huggingface.co/spaces) and allow everyone to understand the potential of ML in one click.
 
-## 🤗 **Education for Beginners to Machine Learning**
+## 🤗 **Education for Beginners**
 
 🗣️ We want to lower the barrier to becoming a machine learning engineer by providing online courses, hands-on workshops, and other innovative techniques.
 
-- We provide free [training courses](https://huggingface.co/course/chapter1/1) about natural language processing (NLP) and more domains (soon) using free tools and libraries from the Hugging Face ecosystem as well as the Hugging Face Hub. It’s completely free and without ads. The ultimate goal of this course is to learn how to apply Transformers to (almost) any Machine Learning problem!
+- We provide free [training courses](https://huggingface.co/course/chapter1/1) about natural language processing (NLP) and more domains (soon) using free tools and libraries from the Hugging Face ecosystem as well as the Hugging Face Hub. It’s completely free and without ads. The ultimate goal of this course is to learn how to apply Transformers to (almost) any machine learning problem!
 - We provide a [book](https://transformersbook.com/), written by experts at Hugging Face, on Transformers and their applications to a wide range of NLP tasks.
 
 ## 🤗 **Education for Instructors**
 
 🗣️ We want to empower educators with tools and offer collaborative spaces where students can build ML using open-source technologies and state-of-the-art ML models.
 
-- We’ve assembled [a toolkit](https://github.com/huggingface/education-toolkit) that instructors of Machine Learning or Data Science can use to easily prepare labs, homework, or classes. The content is self-contained so that it can be easily incorporated into an existing curriculum. This content is free and uses well-known Open Source technologies (transformers, gradio, etc). Feel free to pick a tutorial and teach it!
+- We’ve assembled [a toolkit](https://github.com/huggingface/education-toolkit) that instructors of machine learning or Data Science can use to easily prepare labs, homework, or classes. The content is self-contained so that it can be easily incorporated into an existing curriculum. This content is free and uses well-known Open Source technologies (transformers, gradio, etc). Feel free to pick a tutorial and teach it!
     
     1️⃣ [A Tour through the Hugging Face Hub](https://github.com/huggingface/education-toolkit/blob/main/01_huggingface-hub-tour.md)
     
