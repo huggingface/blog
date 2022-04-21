@@ -48,8 +48,6 @@ We launched the [ML demo.cratization tour](https://www.notion.so/ML-Demo-cratiza
 
 ## 🤗 **Education Events & News**
 
-**04/21**: ML demo.cratization tour in Florida. [Join](https://ufl.zoom.us/meeting/register/tJ0rduCqqD0oHNzysuD6Mfp_Tku5Q1SlFJ2g)
-
 **06/06**: How to Teach Open-Source Machine Learning Tools. [Register](https://www.eventbrite.com/e/how-to-teach-open-source-machine-learning-tools-tickets-310980931337)
 
 🔥 We are currently working on ambassadors programs, a new EDU offering, and a 101 ML course…! Stay tuned!
