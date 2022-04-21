@@ -54,7 +54,7 @@ Before we begin, if you do not have the latest version of the `huggingface_hub` 
 pip install huggingface_hub -U
 ```
 
-## How to find low-emission models using the 🤗 Hub
+## How to find low-emission models using the Hugging Face Hub
 
 With the model now uploaded to the Hub, how can you search for models on the Hub while trying to be eco-friendly? Well, the `huggingface_hub` library has a new special parameter to perform this search: `emissions_threshold`. All you need to do is specify a minimum or maximum number of grams, and all models that fall within that range. 
 
@@ -82,7 +82,7 @@ print(f'Model Name: {model.modelId}\nCO2 Emitted during training: {model.cardDat
     CO2 Emitted during training: 3.516233232503715
 ```
 
-Similarly we can search for a minimum value to find very large models that emitted a lot of CO2 during training:
+Similarly, we can search for a minimum value to find very large models that emitted a lot of CO2 during training:
 
 
 ```python
