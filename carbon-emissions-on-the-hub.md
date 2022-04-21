@@ -40,7 +40,11 @@ thumbnail: /blog/assets/60_carbon_emissions_on_the_hub/thumbnail.jpg
 
 Climate change is one of the greatest challenges that we are facing and reducing emissions of greenhouse gases such as carbon dioxide (CO2) is an important part of tackling this problem. 
 
-Training and deploying machine learning models will emit CO2 due to the energy usage of the computing infrastructures that are used: from GPUs to storage, it all needs energy to function and emits CO2 in the process. 
+Training and deploying machine learning models will emit CO2 due to the energy usage of the computing infrastructures that are used: from GPUs to storage, it all needs energy to function and emits CO2 in the process.
+
+![Image of recent Transformer models and their carbon footprints](assets/60_carbon_emissions_on_the_hub/transformer_carbon_footprints.png)
+> Pictured: Recent Transformer models and their carbon footprints
+
 The amount of CO2 emitted depends on different factors such as runtime, hardware used, and carbon intensity of the energy source. 
 
 Using the tools described below will help you both track and report your own emissions (which is important to improve the transparency of our field as a whole!) and choose models based on their carbon footprint. 
