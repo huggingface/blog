@@ -6,7 +6,6 @@
 </div>
 <div class="author-card">
     <a href="/VioletteLepercq">
-        <img>
         <div class="">
             <code>/VioletteLepercq</code>
             <span class="fullname">Violette Lepercq</span>
