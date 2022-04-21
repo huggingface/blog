@@ -645,15 +645,6 @@
   - community
   - research
 
-- local: education
-  title: "Introducing 🤗 Hugging Face for Education"
-  author: violettelepercq
-  thumbnail: 
-  date: April 22, 2022
-  tags:
-  - community
-  - education
-
 - local: carbon-emissions-on-the-hub
   title: "CO2 Emissions and the 🤗 Hub: Leading the Charge"
   author: sashavor
