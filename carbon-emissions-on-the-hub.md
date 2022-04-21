@@ -150,6 +150,8 @@ trainer.train()
 
 ...you'll be left with a file within the `codecarbon-text-classification` directory called `emissions.csv`. This file will keep track of the carbon emissions across different training runs. Then, when you're ready, you can take the emissions from the run you used to train your final model and include that in its model card. 📝
 
+For reference the metadata format for `co2_eq_emissions ` can be found in [the hub docs](https://huggingface.co/docs/hub/model-repos#carbon-footprint-metadata)
+
 ### Further readings
 
 - Rolnick et al. (2019) - [Tackling Climate Change with Machine Learning](https://arxiv.org/pdf/1906.05433.pdf) 
