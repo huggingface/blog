@@ -653,3 +653,12 @@
   tags:
   - community
   - guide
+
+- local: supercharge-customer-service-with-nlp
+  title: "NLP Supercharged Customer Service"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/61_supercharged_customer_service_with_nlp/thumbnail.png
+  date: April 25, 2022
+  tags:
+  - guide
+  - nlp
