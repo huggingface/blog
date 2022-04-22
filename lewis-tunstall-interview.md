@@ -97,7 +97,7 @@ I think there's something sort of strangely human, right? Where if we see genera
 
 **Britney:** But, then something had happened with an oil spill that next year, where there were actually fires underwater! And I immediately thought about that text and thought, maybe AI is onto something already that we're not quite aware of?
 
-### You and other experts at Hugging Face have been working hard on the Hugging Face Course. How did that come about & where is it headced? 
+### You and other experts at Hugging Face have been working hard on the Hugging Face Course. How did that come about & where is it headed? 
 
 **Lewis:** When I joined Hugging Face, [Sylvian](https://twitter.com/GuggerSylvain) and [Lysandre](https://twitter.com/LysandreJik), two of the core maintainers of the transformers library, were developing a course to basically bridge the gap between people who are more like software engineers who are curious about natural language processing but specifically curious about the transformers revolution that's been happening. So I worked with them and others in the open-source team to create a free course called the [Hugging Face Course](https://huggingface.co/course/chapter1/1). And this course is designed to really help people go from knowing kind of not so much about NLP all the way through to having the ability to train models on many different tasks.
 
@@ -288,5 +288,3 @@ I had to control my humor in various places but maybe there'll be a second editi
 Thank you for listening to Machine Learning Experts!
 
 <a href="https://huggingface.co/support?utm_source=blog&utm_medium=blog&utm_campaign=ml_experts&utm_content=lewis_interview_article"><img src="/blog/assets/60_lewis_tunstall_interview/lewis-cta.png"></a>
-
-

@@ -29,13 +29,14 @@ img {
 </head>
 <body>
 
-## Few seats at the Machine Learning table span both technical skills and business acumen like Directors of Machine Learning
+Few seats at the Machine Learning table span both technical skills and business acumen like Directors of Machine Learning
 
 Directors of Machine Learning and/or Data Science are often expected to design ML systems, have deep knowledge of mathematics, familiarity with ML frameworks, rich data architecture understanding, experience applying ML to real-world applications, solid communication skills, and often expected to keep on top of industry developments. A tall order!
-<a href="https://huggingface.co/platform?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_1"><img width="100%" align=
-"right" src="/blog/assets/61_ml_director_insights/private-model-hub.png"></a>
 
-For these reasons, we’ve tapped into this unique group of ML experts for a series of articles highlighting their thoughts on current ML insights and industry trends ranging from Healthcare to Finance, eCommerce, SaaS, Research, Media, and more. For example, one ML Director will note how ML can be used to reduce empty deadheading truck driving (which occurs ~20% of the time) down to just 19% would cut carbon emissions by ~100,000 Americans. Note: This is back of napkin math, done by an ex-rocket Scientist though, so we’ll take it. 
+<a href="https://huggingface.co/platform?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_1"><img width="100%" style=
+"margin:auto" src="/blog/assets/61_ml_director_insights/private-model-hub.png"></a>
+
+For these reasons, we’ve tapped into this unique group of ML Directors for a series of articles highlighting their thoughts on current ML insights and industry trends ranging from Healthcare to Finance, eCommerce, SaaS, Research, Media, and more. For example, one Director will note how ML can be used to reduce empty deadheading truck driving (which occurs ~20% of the time) down to just 19% would cut carbon emissions by ~100,000 Americans. Note: This is back of napkin math, done by an ex-rocket Scientist however, so we’ll take it. 
 
 In this first installment, you’ll hear from a Researcher (who’s using ground penetrating radar to detect buried landmines), an ex-Rocket Scientist, a Dzongkha fluent amateur gamer (Kuzu = Hello!), an ex-van living Scientist, a high-performance Data Science team coach who’s still very hands-on, and a data practitioner who values relationships, family, dogs, and pizza. —All of whom are currently Directors of Machine Learning with rich field insights.
 
