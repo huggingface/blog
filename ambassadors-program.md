@@ -24,9 +24,9 @@ thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
     </a>
 </div>
 
-*As an Open Source company democratizing Machine Learning, Hugging Face believes it is essential to* [educate](https://www.notion.so/About-Hugging-Face-for-Education-afca12e2bc7c4e1ea9346ef2306a0a69) *people from all kinds of backgrounds worldwide. Our motivation is to teach machine learning to 5 million people by 2023.*
+As an Open Source company democratizing machine learning, Hugging Face believes it is essential to **[educate](https://www.notion.so/About-Hugging-Face-for-Education-afca12e2bc7c4e1ea9346ef2306a0a69)** people from all kinds of backgrounds worldwide. Our motivation is to teach machine learning to 5 million people by 2023.
 
-Do you use Hugging Face's Hub and its open-source libraries? Wanna be part of Hugging Face’s Machine Learning democratization journey and teach & gather your campus communities around collaborative ML?
+Do you use Hugging Face's Hub and its open-source libraries? Wanna be part of Hugging Face’s machine learning democratization journey and teach & gather your campus communities around collaborative ML?
 
 - If yes, we are opening our first Student Ambassador Program 🤗
 - If you are willing to help your peers build machine learning, using open-source technologies and the Hugging Face community & tools, you have until June 20 to [apply](https://docs.google.com/forms/d/e/1FAIpQLScY9kTi-TjZipRFRviluRCwSjFf3CCsMbKedzO1tq2S0wtbNQ/viewform?usp=sf_link)!
@@ -50,7 +50,7 @@ Selected ambassadors will benefit from many resources and support:
 
 - Be at least 18 years of age.
 - Validate your student status.
-- Have taken at least one Machine Learning/Data Science course (online course are considered as well)
+- Have taken at least one machine learning/data science course (online course are considered as well)
 - Be enrolled in an accredited college or university
 - Be a user of the Hugging Face Hub and/or the Hugging Face’s libraries for at least six months.
 - Acknowledge the [Code of Conduct](https://www.notion.so/Hugging-Face-Code-of-Conduct-45eeeafa9ef44c5e888a2952619fdfa8)**.** Community is at the center of the Hugging Face ecosystem. Because of that, we strictly adhere to our [Code of conduct](https://docs.google.com/document/d/1D-HtACsgPjh3qfeueqkgUr2jMipaP_JsLTYydbEuG2c/edit#). If any ambassador infringes it or behaves inadequately, they will be excluded from the Program.
