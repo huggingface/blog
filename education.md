@@ -1,17 +1,36 @@
+---
+title: "Introducing Hugging Face for Education 🤗"
+thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
+---
+
 <h1>
-    Introducing 🤗 Hugging Face for Education
+    Introducing Hugging Face for Education 🤗
 </h1>
+
 <div class="blog-metadata">
     <small>Published April 25, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ambassadors-program.md">
+        Update on GitHub
+    </a>
 </div>
 
-# **About Hugging Face for Education**
+<div class="author-card">
+    <a href="/Violette">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1638698875017-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>Violette</code>
+            <span class="fullname">Violette Lepercq</span>
+        </div>
+    </a>
+</div>
+
+# About Hugging Face for Education
 
 As an open-source company democratizing machine learning, [Hugging Face](https://huggingface.co/) believes it is essential to educate people from all backgrounds worldwide.
 
-We launched the [ML demo.cratization tour](https://www.notion.so/ML-Demo-cratization-tour-with-66847a294abd4e9785e85663f5239652) in March 2022, where experts from Hugging Face taught hands-on classes on *How to Build Machine Learning Collaboratively* to more than 1000 students from 16 countries. Our new goal: to teach machine learning **to 1 million people by the end of 2023**.
+We launched the [ML demo.cratization tour](https://www.notion.so/ML-Demo-cratization-tour-with-66847a294abd4e9785e85663f5239652) in March 2022, where experts from Hugging Face taught hands-on classes on Building Machine Learning Collaboratively to more than 1000 students from 16 countries. Our new goal: **to teach machine learningto 5 million people by the end of 2023**.
 
-*This blog post describes how we will reach our goals around education.*
+*This blog post provides a high-level description of how we will reach our goals around education.*
 
 ## 🤗 **Education for All**
 
