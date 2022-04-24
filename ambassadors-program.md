@@ -1,4 +1,28 @@
-# 🤗 **Student Ambassador Program’s call for applications is open!**
+---
+title: "Student Ambassador Program’s call for applications is open!"
+thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
+---
+
+<h1>
+    Student Ambassador Program’s call for applications is open!
+</h1>
+
+<div class="blog-metadata">
+    <small>Published April 25, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ambassadors-program.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/Violette">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1638698875017-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>Violette</code>
+            <span class="fullname">Violette Lepercq</span>
+        </div>
+    </a>
+</div>
 
 *As an Open Source company democratizing Machine Learning, Hugging Face believes it is essential to* [educate](https://www.notion.so/About-Hugging-Face-for-Education-afca12e2bc7c4e1ea9346ef2306a0a69) *people from all kinds of backgrounds worldwide. Our motivation is to teach machine learning to 5 million people by 2023.*
 
