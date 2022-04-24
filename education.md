@@ -1,6 +1,6 @@
 ---
 title: "Introducing Hugging Face for Education 🤗"
-thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
+thumbnail: /blog/assets/61_education/thumbnail.png
 ---
 
 <h1>
