@@ -29,16 +29,14 @@ A couple of weeks ago, we've had the pleasure to [announce](https://huggingface.
 
 In this hands-on post, I'll show you how to quickly set up a Habana Gaudi instance on Amazon Web Services, and then fine-tune a BERT model for text classification. As usual, all code is provided so that you may reuse it in your projects.
 
-Let's get to work!
+Let's get started!
 
 
 ## Setting up an Habana Gaudi instance on AWS
 
-The simplest way to work with Habana Gaudi accelerators is to launch an Amazon EC2 [DL1](https://aws.amazon.com/ec2/instance-types/dl1/) instance. These instances are available in a single size (**dl1.24xlarge**) equipped with 8 Habana Gaudi processors, and a pre-installed software stack thanks to the [Habana Deep Learning Amazon Machine Image](https://aws.amazon.com/marketplace/server/procurement?productId=9a75c51a-a4d1-4470-884f-6be27933fcc8) (AMI). 
+The simplest way to work with Habana Gaudi accelerators is to launch an Amazon EC2 [DL1](https://aws.amazon.com/ec2/instance-types/dl1/) instance. These instances are equipped with 8 Habana Gaudi processors that can easily be put to work thanks to the [Habana Deep Learning Amazon Machine Image](https://aws.amazon.com/marketplace/server/procurement?productId=9a75c51a-a4d1-4470-884f-6be27933fcc8) (AMI).  This AMI comes preinstalled with the [Habana SynapseAI® SDK](https://developer.habana.ai/), and the tools required to run Gaudi accelerated Docker containers. If you'd like to use other AMIs or containers, instructions are available in the [Habana documentation](https://docs.habana.ai/en/latest/AWS_Quick_Starts/index.html).
 
-This AMI comes preinstalled with the [Habana SynapseAI® SDK](https://developer.habana.ai/), and the tools required to run Gaudi accelerated Docker containers. If you'd like to use other AMIs or containers, instructions are available in the [Habana documentation](https://docs.habana.ai/en/latest/AWS_Quick_Starts/index.html).
-
-Starting from the [EC2 console](https://console.aws.amazon.com/ec2sp/v2/) in the us-east-1 region, I first click on **Launch an instance** and define a name for the instance ("habana-demo-jusimon").
+Starting from the [EC2 console](https://console.aws.amazon.com/ec2sp/v2/) in the us-east-1 region, I first click on **Launch an instance** and define a name for the instance ("habana-demo-julsimon").
 
 Then, I search the Amazon Marketplace for Habana AMIs.
 
@@ -46,19 +44,19 @@ Then, I search the Amazon Marketplace for Habana AMIs.
   <img src="assets/61_getting_started_habana/habana01.png">
 </kbd>
 
-I pick the Habana Base AMI (Ubuntu 20.04). 
+I pick the Habana Deep Learning Base AMI (Ubuntu 20.04). 
 
 <kbd>
   <img src="assets/61_getting_started_habana/habana02.png">
 </kbd>
 
-Next, I pick the **dl1.24xlarge** instance size.
+Next, I pick the *dl1.24xlarge* instance size (the only size available).
 
 <kbd>
   <img src="assets/61_getting_started_habana/habana03.png">
 </kbd>
 
-Next, I select the keypair that I'll use to connect to the instance with ```ssh```. If you don't have a keypair, you can create one instead.
+Next, I select the keypair that I'll use to connect to the instance with ```ssh```. If you don't have a keypair, you can create one in place.
 
 <kbd>
   <img src="assets/61_getting_started_habana/habana04.png">
@@ -78,11 +76,11 @@ Then, I ask EC2 to provision my instance as a [Spot Instance](https://docs.aws.a
   <img src="assets/61_getting_started_habana/habana06.png">
 </kbd>
 
-Finally, I launch the instance. A couple of minutes later, the instance is ready and I can connect to it with ```ssh``. You can do the same with 'PuTTy' if you're a Windows user by following the [documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html).
+Finally, I launch the instance. A couple of minutes later, the instance is ready and I can connect to it with ```ssh```. Windows users can do the same with *PuTTY* by following the [documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html).
 
 ```ssh -i ~/.ssh/julsimon-keypair.pem ubuntu@ec2-18-207-189-109.compute-1.amazonaws.com```
 
-On this instance, the last setup step is pulling the Habana container for PyTorch, which is the framework I'll use to fine-tune my model. You can find information on other prebuilt containers and on how to build your own in the Habana [documentation](https://docs.habana.ai/en/latest/Installation_Guide/index.html).
+On this instance, the last setup step is to pull the Habana container for PyTorch, which is the framework I'll use to fine-tune my model. You can find information on other prebuilt containers and on how to build your own in the Habana [documentation](https://docs.habana.ai/en/latest/Installation_Guide/index.html).
 
 ```
 docker pull \
@@ -93,7 +91,8 @@ Once the image has been pulled to the instance, I run it in interactive mode.
 
 ```
 docker run -it \
---runtime=habana -e HABANA_VISIBLE_DEVICES=all \
+--runtime=habana \
+-e HABANA_VISIBLE_DEVICES=all \
 -e OMPI_MCA_btl_vader_single_copy_mechanism=none \
 --cap-add=sys_nice \
 --net=host \
@@ -122,7 +121,9 @@ cd examples/text-classification
 pip install -r requirements.txt
 ```
 
-I can now launch the training job, where I download the [bert-large-uncased-whole-word-masking](https://huggingface.co/bert-large-uncased-whole-word-masking) model from the Hugging Face hub, and fine-tune it on the [MRPC](https://www.microsoft.com/en-us/download/details.aspx?id=52398) task of the [GLUE](https://gluebenchmark.com/) benchmark. 
+I can now launch the training job, which downloads the [bert-large-uncased-whole-word-masking](https://huggingface.co/bert-large-uncased-whole-word-masking) model from the Hugging Face hub, and fine-tunes it on the [MRPC](https://www.microsoft.com/en-us/download/details.aspx?id=52398) task of the [GLUE](https://gluebenchmark.com/) benchmark. 
+
+Please note that I'm fetching the Habana Gaudi configuration for BERT from the Hugging Face hub, and you could also use your own. In addition, other popular models are supported, and you can find their configuration file in the [Habana organization](https://huggingface.co/Habana).
 
 ```
 python run_glue.py \
@@ -139,7 +140,6 @@ python run_glue.py \
 --use_lazy_mode \
 --output_dir ./output/mrpc/
 ```
-Other popular models are also supported, and you can find the appropriate configuration files in the [Habana organization](https://huggingface.co/Habana).
 
 After 3 epochs, the job is complete and has achieved an excellent F1 score of 0.9181, which could certainly improve with more epochs.
 
@@ -156,11 +156,13 @@ After 3 epochs, the job is complete and has achieved an excellent F1 score of 0.
   eval_steps_per_second   =      4.862
 ```
 
-Of course, the final step is to terminate the EC2 instance to avoid unnecessary charges. Looking at the [Savings Summary](https://console.aws.amazon.com/ec2sp/v2/home/spot) in the EC2 console, I see that I saved 70% thanks to Spot Instances, paying only $3.93 per hour instead of $13.11.
+Last but not least, I terminate the EC2 instance to avoid unnecessary charges. Looking at the [Savings Summary](https://console.aws.amazon.com/ec2sp/v2/home/spot) in the EC2 console, I see that I saved 70% thanks to Spot Instances, paying only $3.93 per hour instead of $13.11.
 
 <kbd>
   <img src="assets/61_getting_started_habana/habana07.png">
 </kbd>
+
+As you can see, the combination of Transformers, Habana Gaudi, and AWS instances is powerful, simple, and cost-effective. Give it a try and let us know what you think. We definitely welcome your questions and feedback on the [Hugging Face Forum](https://discuss.huggingface.co/).
 
 ---
 
