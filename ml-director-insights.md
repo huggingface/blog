@@ -29,11 +29,7 @@ img {
 </head>
 <body>
 
-<<<<<<< HEAD
-Few seats at the Machine Learning table span both technical skills and business acumen like Directors of Machine Learning
-=======
-Few seats at the Machine Learning table span both technical skills and business acumen like Directors of Machine Learning.
->>>>>>> 56d588b3740597e36ba238306c064a050df7b540
+Few seats at the Machine Learning table span both technical skills, problem solving and business acumen like Directors of Machine Learning
 
 Directors of Machine Learning and/or Data Science are often expected to design ML systems, have deep knowledge of mathematics, familiarity with ML frameworks, rich data architecture understanding, experience applying ML to real-world applications, solid communication skills, and often expected to keep on top of industry developments. A tall order!
 
@@ -42,7 +38,7 @@ Directors of Machine Learning and/or Data Science are often expected to design M
 
 For these reasons, we’ve tapped into this unique group of ML Directors for a series of articles highlighting their thoughts on current ML insights and industry trends ranging from Healthcare to Finance, eCommerce, SaaS, Research, Media, and more. For example, one Director will note how ML can be used to reduce empty deadheading truck driving (which occurs ~20% of the time) down to just 19% would cut carbon emissions by ~100,000 Americans. Note: This is back of napkin math, done by an ex-rocket Scientist however, so we’ll take it. 
 
-In this first installment, you’ll hear from a Researcher (who’s using ground penetrating radar to detect buried landmines), an ex-Rocket Scientist, a Dzongkha fluent amateur gamer (Kuzu = Hello!), an ex-van living Scientist, a high-performance Data Science team coach who’s still very hands-on, and a data practitioner who values relationships, family, dogs, and pizza. —All of whom are currently Directors of Machine Learning with rich field insights.
+In this first installment, you’ll hear from a researcher (who’s using ground penetrating radar to detect buried landmines), an ex-Rocket Scientist, a Dzongkha fluent amateur gamer (Kuzu = Hello!), an ex-van living Scientist, a high-performance Data Science team coach who’s still very hands-on, a data practitioner who values relationships, family, dogs, and pizza. —All of whom are currently Directors of Machine Learning with rich field insights.
 
 🚀  Let’s meet some top Machine Learning Directors and hear what they have to say about Machine Learning’s impact on their prospective industries:
 
@@ -54,7 +50,7 @@ In this first installment, you’ll hear from a Researcher (who’s using ground
 
 **Background:** Bringing balance to the promise of ML for business. People over Process. Strategy over Hope. AI Ethics over AI Profits. Brown New Yorker.
 
-**Fun Fact:** I can speak Dzongkha (google it!) and am a supporter of [Youth for Seva](https://www.youthforseva.org/Donation).
+**Fun Fact:** I can speak [Dzongkha](https://en.wikipedia.org/wiki/Dzongkha) (google it!) and am a supporter of [Youth for Seva](https://www.youthforseva.org/Donation).
 
 **Buzzfeed:** An American Internet media, news and entertainment company with a focus on digital media.
  
