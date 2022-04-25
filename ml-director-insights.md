@@ -14,7 +14,7 @@ img {
 <h1>Director of Machine Learning Insights [Series]</h1>
 
 <div class="blog-metadata">
-    <small>Published April 22, 2022.</small>
+    <small>Published April 27, 2022.</small>
 </div>
 
 <div class="author-card">
@@ -135,7 +135,7 @@ An example may be understanding how likely two species are to co-occur in an are
 
 ### [Nathan Cahill](https://www.linkedin.com/in/nathan-m-cahill/) Ph.D. - Director of Machine Learning at [Xpress Technologies](https://xpresstechfreight.com/)
 
-**Background:** Nathan is a high-energy team player. He is passionate about creating innovative solutions that drive the bottom line and create meaningful IP at the same time.
+**Background:** Nathan is a passionate machine learning leader with 7 years of experience in research and development, and three years experience creating business value by shipping ML models to prod. He specializes in finding and strategically prioritizing the business' biggest pain points: unlocking the power of data earlier on in the growth curve.
 
 **Fun Fact:**  Before getting into transportation and logistics I was engineering rockets at Northrop Grumman. #RocketScience
 
@@ -167,7 +167,7 @@ As ML begins to be ubiquitous in business, it will be able to help speed up deci
 
 
 
-<img style="float: left;" padding="5px" width="200" src="/blog/assets/61_ml_director_insights/Nicolas-Bertagnolli.jpeg"></a>  
+<img style="float: left;" padding="5px" width="200" src="/blog/assets/61_ml_director_insights/Nicolas-Bertagnolli.png"></a>  
 
 ### [Nicolas Bertagnolli](https://www.linkedin.com/in/nicolas-bertagnolli-058aba81/) - Director of Machine Learning at [BEN](https://ben.productplacement.com/)
 
@@ -216,7 +216,7 @@ Much like in the beginning of the internet, software developers were few and far
 
 **Fun Fact:** Eric adores nachos!
 
-**E Source:** Provides independant market intelligence, consulting, and predictive data science to utilities, major energy users, and other key players in the reatail energy marketplace.
+**E Source:** Provides independant market intelligence, consulting, and predictive data science to utilities, major energy users, and other key players in the retail energy marketplace.
 
 #### **1. How has ML made a positive impact on the Energy/Utility industry?**
 Access to business insight. Provided a pre-requisite is great data. Utilities have many data relationships within their data portfolio from customers to devices, more specifically, this speaks to monthly billing amounts and enrollment in energy savings programs. Data like that could be stored in a relational database, whereas device or asset data we can think of as the pieces of machinery that make our grid. Bridging those types of data is non-trivial. 

@@ -628,20 +628,54 @@
   tags:
   - community
 
+- local: habana
+  title: "Habana Labs and Hugging Face Partner to Accelerate Transformer Model Training"
+  author: susanlansing
+  thumbnail: /blog/assets/60_habana/habana.png
+  date: April 12, 2022
+  tags:
+  - partnerships
+
 - local: lewis-tunstall-interview
   title: "Machine Learning Experts - Lewis Tunstall Interview"
   author: britneymuller
   thumbnail: /blog/assets/60_lewis_tunstall_interview/thumbnail.png
-  date: April 11, 2022
+  date: April 13, 2022
   tags:
   - community
   - research
+
+- local: carbon-emissions-on-the-hub
+  title: "CO2 Emissions and the 🤗 Hub: Leading the Charge"
+  author: sasha
+  thumbnail: /blog/assets/60_carbon_emissions_on_the_hub/thumbnail.jpg
+  date: April 22, 2022
+  tags:
+  - community
+  - guide
+
+- local: supercharge-customer-service-with-nlp
+  title: "NLP Supercharged Customer Service"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/61_supercharged_customer_service_with_nlp/thumbnail.png
+  date: April 25, 2022
+  tags:
+  - guide
+  - nlp
+  
+- local: education
+  title: "Introducing Hugging Face for Education"
+  author: Violette
+  thumbnail: /blog/assets/61_education/thumbnail.png
+  date: April 25, 2022
+  tags:
+    - community
 
 - local: ml-director-insights
   title: "Director of Machine Learning Insights [Series]"
   author: britneymuller
   thumbnail: /blog/assets/61_ml_director_insights/thumbnail.png
-  date: April 22, 2022
+  date: April 27, 2022
   tags:
   - community
   - research
