@@ -147,9 +147,15 @@ python run_glue.py \
 --output_dir ./output/mrpc/
 ```
 
-After 3 epochs, the job is complete and has achieved an excellent F1 score of 0.9181, which could certainly improve with more epochs.
+After 2 minutes and 39 seconds, the job is complete and has achieved an excellent F1 score of 0.9181, which could certainly improve with more epochs.
 
 ```
+{'train_runtime': 159.0603, 
+ 'train_samples_per_second': 69.181, 
+ 'train_steps_per_second': 2.169, 
+ 'train_loss': 0.3333333333333333, 
+ 'epoch': 3.0}
+
 ***** eval metrics *****
   epoch                   =        3.0
   eval_accuracy           =     0.8824
