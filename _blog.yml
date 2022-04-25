@@ -635,7 +635,7 @@
   date: April 12, 2022
   tags:
   - partnerships
-  
+
 - local: lewis-tunstall-interview
   title: "Machine Learning Experts - Lewis Tunstall Interview"
   author: britneymuller
@@ -662,3 +662,20 @@
   tags:
   - partnerships
   - guide
+
+- local: supercharge-customer-service-with-nlp
+  title: "NLP Supercharged Customer Service"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/61_supercharged_customer_service_with_nlp/thumbnail.png
+  date: April 25, 2022
+  tags:
+  - guide
+  - nlp
+  
+- local: education
+  title: "Introducing Hugging Face for Education"
+  author: Violette
+  thumbnail: /blog/assets/61_education/thumbnail.png
+  date: April 25, 2022
+  tags:
+    - community
