@@ -24,7 +24,7 @@ thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
     </a>
 </div>
 
-As an Open Source company democratizing machine learning, Hugging Face believes it is essential to **[educate](https://www.notion.so/About-Hugging-Face-for-Education-afca12e2bc7c4e1ea9346ef2306a0a69)** people from all kinds of backgrounds worldwide. **We aim to teach machine learning to 5 million people by 2023**.
+As an open-source company democratizing machine learning, Hugging Face believes it is essential to **[educate](https://www.notion.so/About-Hugging-Face-for-Education-afca12e2bc7c4e1ea9346ef2306a0a69)** people from all kinds of backgrounds worldwide. **We aim to teach machine learning to 5 million people by 2023**.
 
 Wanna be part of Hugging Face’s machine learning democratization journey and teach & gather your campus communities around collaborative ML? Do you use Hugging Face and its open-source libraries? 
 
