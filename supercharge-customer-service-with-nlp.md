@@ -36,36 +36,36 @@ We strongly recommend using this notebook as a template/example to
 solve **your** real-world use case.
 
 
-# **Defining Task, Dataset & Model**
+# Defining Task, Dataset & Model
 
 Before jumping into the actual coding part, it's important to have a clear definition of the use case that you would like to automate or partly automate.
-A clear definition of the use case helps in identifying the most suitable task, dataset to use, and model to apply for your use case.
+A clear definition of the use case helps identify the most suitable task, dataset to use, and model to apply for your use case.
 
 
-## **Define your NLP task**
+## **Defining your NLP task**
 
-Alright, let's dive into a hypothetical problem we wish to save using models of natural language processing. Let's assume, we are selling a product and our customer support team receives thousands of messages including feedback, complaints, and questions which ideally should all be answered.
+Alright, let's dive into a hypothetical problem we wish to save using models of natural language processing. Let's assume we are selling a product and our customer support team receives thousands of messages including feedback, complaints, and questions which ideally should all be answered.
 
-Quickly, it becomes obvious though that customer support is by no means able to reply to every message. Thus, we decide to only reply
-to the most unsatisfied custmoers and set the goal of replying to 100% of very unsatisfied messages.
+Quickly, it becomes obvious that customer support is by no means able to reply to every message. Thus, we decide to only respond
+to the most unsatisfied customers and set the goal of answering to 100% of very unsatisfied messages.
 
 Assuming that a) messages of very unsatisfied customers represent only a fraction of all messages and b) that we can filter out unsatisfied messages in an automated way, customer support should be able to reach this goal.
 
 To filter out unsatisfied messages in an automated way, we plan on applying natural language processing technologies.
 
-The first step is now to map our use case - *filtering out unsatisfied messages* - to a natural language processing task.
+The first step is to map our use case - *filtering out unsatisfied messages* - to a natural language processing task.
 
-To do so, it is recommended to go over all available tasks on the Hugging Face Hub [here](https://huggingface.co/tasks). If you are not sure which task applies to your use case, you should click on all of the different tasks to better understand them, *e.g.*
+To do so, it is recommended to go over all available tasks on the Hugging Face Hub [here](https://huggingface.co/tasks). If you are not sure which task applies to your use case, you should click on all of the different tasks to better understand them.
 
-Automatically replying The task of finding messages of the most unsatisfied customers can be labeled as a text classification task: Classify a message into one of *very unsatisfied*, *unsatisfied*, *neutral*, *satisfied*, or *very satisfied*.
+The task of finding messages of the most unsatisfied customers can be modeled as a text classification task: Classify a message into *very unsatisfied*, *unsatisfied*, *neutral*, *satisfied*, **or** *very satisfied*.
 
 
-## **Find suitable datasets**
+## **Finding suitable datasets**
 
-Having decided on the task, next we should find the data the model will be trained on. This is usually more important for the downstream performance of your use case than picking the right model architecture.
+Having decided on the task, next, we should find the data the model will be trained on. This is usually more important for the performance of your use case than picking the right model architecture.
 Keep in mind that a model is **only as good as the data it has been trained on**. Thus, we should be very careful when curating and/or selecting the dataset.
 
-Since we consider the hypothetical use case of *filtering out unsatisfied messages*, let's look into what datasets are available to us.
+Since we consider the hypothetical use case of *filtering out unsatisfied messages*, let's look into what datasets are available.
 
 For your real-world use case, it is **very likely** that you have internal data that best represents the actual data your NLP system is supposed to handle. Therefore, you should use such internal data to train your NLP system.
 It can nevertheless be helpful to also include publicly available to improve the generalizability of your model.
@@ -73,9 +73,9 @@ It can nevertheless be helpful to also include publicly available to improve the
 Let's take a look at all available Datasets on the [Hugging Face Hub](https://huggingface.co/datasets). On the left side, you can filter the datasets according to *Task Categories* as well as *Tasks* which are more specific. Our use case corresponds to *Text Classification* -> *Sentiment Analysis* so let's select [these filters](https://huggingface.co/datasets?task_categories=task_categories:text-classification&task_ids=task_ids:sentiment-classification&sort=downloads). We are left with *ca.* 80 datasets at the time of writing this notebook. Two aspects should be evaluated when picking a dataset:
 
 -   **Quality**: Is the dataset of high quality? More specifically: Does the data correspond to the data you expect to deal with in your use case? Is the data diverse, unbiased, ...?
--   **Size**: How big is the dataset? Usually one can safely say the bigger the dataset, the better.
+-   **Size**: How big is the dataset? Usually, one can safely say the bigger the dataset, the better.
 
-It's quite difficult to efficiently evaluate whether a dataset is of high quality and it's even more difficult to know whether and how the dataset is biased.
+It's quite tricky to evaluate whether a dataset is of high quality efficiently, and it's even more challenging to know whether and how the dataset is biased.
 An efficient and reasonable heuristic for high quality is to look at the download statistics. The more downloads, the more usage, the higher chance that the dataset is of high quality. The size is easy to evaluate as it can usually be quickly read upon. Let's take a look at the most downloaded datasets:
 
 -   [Glue](https://huggingface.co/datasets/glue)
@@ -84,16 +84,15 @@ An efficient and reasonable heuristic for high quality is to look at the downloa
 -   [Yelp review full](https://huggingface.co/datasets/yelp_review_full)
 -   [Amazon reviews multi](https://huggingface.co/datasets/amazon_reviews_multi)
 
-Now we can inspect those datasets in more detail by reading through the dataset card which ideally should give all relevant and important information. In addition, the [dataset viewer](https://huggingface.co/datasets/glue/viewer/cola/test) is an incredibly powerful tool to inspect whether the data suits your use case.
+Now we can inspect those datasets in more detail by reading through the dataset card, which ideally should give all relevant and important information. In addition, the [dataset viewer](https://huggingface.co/datasets/glue/viewer/cola/test) is an incredibly powerful tool to inspect whether the data suits your use case.
 
 Let's quickly go over the dataset cards of the models above:
 
--   *GLUE* is a collection of small datasets that mostly serves as a means to compare new model architectures for researchers. The datasets are too small and don't correspond enough to our use case.
--   *Amazon polarity* is huge and a well-suited dataset for customer feedback since the data deals with customer reviews. However, it only has binary labels (positive/negative) whereas we are looking for more granularity in the sentiment classification.
--   *Tweet eval* uses different emojis as labels which cannot that easily be mapped to a scale going from unsatisfied to satisfied.
--   *Amazon reviews multi* seems to be the most suited dataset here. We have sentiment labels ranging from 1-5 corresponding to 1-5 stars on Amazon. These labels can very well be mapped to *very unsatisfied, unsatisfied, neutral, satisfied, very satisfied*. Having inspected some examples on [the dataset viewer](https://huggingface.co/datasets/amazon_reviews_multi/viewer/en/train) we can see that the reviews look very similar to how customer feedback reviews would look, so this seems like a very good dataset. In addition, each review has a `product_category` label so we could even go as far as to only use reviews of a product category that corresponds to the one we are working in. The dataset is multi-lingual, but we are just interested in the English version for now.
--   *Yelp review full* looks like a very suitable dataset. It's large and contains product reviews and sentiment labels from 1 to 5. Sadly, the dataset viewer is not working here at the moment and the dataset card is also relatively sparse requiring some more time to inspect the dataset. At this point, we should read the paper, but given the time-constraint of this blog post, we'll choose to go for *Amazon reviews multi*.
-
+-   *GLUE* is a collection of small datasets that primarily serve to compare new model architectures for researchers. The datasets are too small and don't correspond enough to our use case.
+-   *Amazon polarity* is a huge and well-suited dataset for customer feedback since the data deals with customer reviews. However, it only has binary labels (positive/negative), whereas we are looking for more granularity in the sentiment classification.
+-   *Tweet eval* uses different emojis as labels that cannot easily be mapped to a scale going from unsatisfied to satisfied.
+-   *Amazon reviews multi* seems to be the most suitable dataset here. We have sentiment labels ranging from 1-5 corresponding to 1-5 stars on Amazon. These labels can be mapped to *very unsatisfied, neutral, satisfied, very satisfied*. We have inspected some examples on [the dataset viewer](https://huggingface.co/datasets/amazon_reviews_multi/viewer/en/train) that the reviews look very similar to how customer feedback reviews would look, so this seems like a very good dataset. In addition, each review has a `product_category` label, so we could even go as far as to only use reviews of a product category corresponding to the one we are working in. The dataset is multi-lingual, but we are just interested in the English version for now.
+-   *Yelp review full* looks like a very suitable dataset. It's large and contains product reviews and sentiment labels from 1 to 5. Sadly, the dataset viewer is not working here, and the dataset card is also relatively sparse, requiring some more time to inspect the dataset. At this point, we should read the paper, but given the time constraint of this blog post, we'll choose to go for *Amazon reviews multi*.
 As a conclusion, let's focus on the [*Amazon reviews multi*](https://huggingface.co/datasets/amazon_reviews_multi) dataset considering all training examples.
 
 As a final note, we recommend making use of Hub's dataset functionality even when working with private datasets. The Hugging Face Hub, Transformers, and Datasets are flawlessly integrated, which makes it trivial to use them in combination when training models.
@@ -107,30 +106,30 @@ In addition, the Hugging Face Hub offers:
 -   [Highest security mechanisms](https://huggingface.co/docs/hub/security)
 
 
-## **Find a suitable model**
+## **Finding a suitable model**
 
 Having decided on the task and the dataset that best describes our use case, we can now look into choosing a model to be used.
 
 Most likely, you will have to fine-tune a pretrained model for your use case, but it is worth checking whether they are already fine-tuned models on the Hub that perform well. In this case, you might reach a higher performance by just continuing to fine-tune such a model on your dataset.
 
-Let's take a look at all models that have been fine-tuned on Amazon Reviews Multi, you can find the list of models on the bottom right corner - clicking on *Browse models trained on this dataset* you can see [a list of all models fine-tuned on the dataset that are publicly available](https://huggingface.co/models?dataset=dataset:amazon_reviews_multi). Note that we are only interested in the English version of the dataset because our customer feedback will only be in English. It looks like most of the most downloaded models are trained on the multi-lingual version of the dataset and those that don't seem to be multi-lingual have very little information or poor performance. At this point,
+Let's take a look at all models that have been fine-tuned on Amazon Reviews Multi. You can find the list of models on the bottom right corner - clicking on *Browse models trained on this dataset* you can see [a list of all models fine-tuned on the dataset that are publicly available](https://huggingface.co/models?dataset=dataset:amazon_reviews_multi). Note that we are only interested in the English version of the dataset because our customer feedback will only be in English. Most of the most downloaded models are trained on the multi-lingual version of the dataset and those that don't seem to be multi-lingual have very little information or poor performance. At this point,
 it might be more sensible to fine-tune a purely pretrained model instead of using one of the already fine-tuned ones shown in the link above.
 
-Alright, the next step now is to find a suitable pretrained model to be used for fine-tuning. This is actually more difficult than it seems given the large amount of pretrained and fine-tuned models that are the [Hugging Face Hub](https://huggingface.co/models) . The best option is usually to simply try out a variety of different models to see which one performs best.
+Alright, the next step now is to find a suitable pretrained model to be used for fine-tuning. This is actually more difficult than it seems given the large amount of pretrained and fine-tuned models that are on the [Hugging Face Hub](https://huggingface.co/models). The best option is usually to simply try out a variety of different models to see which one performs best.
 We still haven't found the perfect way of comparing different model checkpoints to each other at Hugging Face, but we provide some resources that are worth looking into:
 
 -   The [model summary](https://huggingface.co/docs/transformers/model_summary) gives a short overview of different model architectures.
 -   A task-specific search on the Hugging Face Hub, *e.g.* [a search on text-classification models](https://huggingface.co/models), shows you the most downloaded checkpoints which is also an indication of how well those checkpoints perform.
 
-Both of the above resources are currently however a bit suboptimal. The model summary is not always kept up to date. The speed at which new model architectures are released and old model architectures become outdated makes it extremely difficult to have an up-to-date summary of all model architectures.
+However, both of the above resources are currently suboptimal. The model summary is not always kept up to date by the authors. The speed at which new model architectures are released and old model architectures become outdated makes it extremely difficult to have an up-to-date summary of all model architectures.
 Similarly, it doesn't necessarily mean that the most downloaded model checkpoint is the best one. E.g. [`bert-base-cased`](https://huggingface.co/bert-base-uncased) is amongst the most downloaded model checkpoints but is not the best performing checkpoint anymore.
 
-The best is often to try out a variety of different model architectures, stay up to date with new model architectures by following experts in the field and checking well-known leaderboards.
+The best is often to try out various model architectures, stay up to date with new model architectures by following experts in the field, and check well-known leaderboards.
 
 For text-classification, the important benchmarks to look at are [GLUE](https://gluebenchmark.com/leaderboard) and [SuperGLUE](https://super.gluebenchmark.com/leaderboard). Both benchmarks evaluate pretrained models on a variety of text-classification tasks, such as grammatical correctness, natural language inference, Yes/No question answering, etc..., which are quite similar to our target task of sentiment analysis. Thus, it is reasonable to choose one of the leading models of these benchmarks for our task.
 
-At the time of writing this notebook, the best performing models are very large models containing more than 10 billion parameters most of which are not open-sourced, *e.g.* *ST-MoE-32B*, *Turing NLR v5*, or
-*ERNIE 3.0*. One of the top-ranking models that is easily accessible is [DeBERTa](https://huggingface.co/docs/transformers/model_doc/deberta). Because Let's try out DeBERTa's newest base version - *i.e.* [`microsoft/deberta-v3-base`](https://huggingface.co/microsoft/deberta-v3-base).
+At the time of writing this blog post, the best performing models are very large models containing more than 10 billion parameters most of which are not open-sourced, *e.g.* *ST-MoE-32B*, *Turing NLR v5*, or
+*ERNIE 3.0*. One of the top-ranking models that is easily accessible is [DeBERTa](https://huggingface.co/docs/transformers/model_doc/deberta). Therefore, let's try out DeBERTa's newest base version - *i.e.* [`microsoft/deberta-v3-base`](https://huggingface.co/microsoft/deberta-v3-base).
 
 
 # **Training / Fine-tuning a model with 🤗 Transformers and 🤗 Datasets**
@@ -138,7 +137,7 @@ At the time of writing this notebook, the best performing models are very large 
 In this section, we will jump into the technical details of how to
 fine-tune a model end-to-end to be able to automatically filter out very unsatisfied customer feedback messages.
 
-Cool, let's start by installing all necessary pip packages and by setting up our code environment, then look into preprocessing the dataset and finally start training the model.
+Cool! Let's start by installing all necessary pip packages and setting up our code environment, then look into preprocessing the dataset, and finally start training the model.
 
 The following notebook can be run online in a google colab pro with the GPU runtime environment enabled.
 
@@ -152,7 +151,7 @@ To begin with, let's install [`git-lfs`](https://git-lfs.github.com/) so that we
 apt install git-lfs
 ```
 
-Also, we install the 🤗 Transformers and 🤗 Datasets libraries to run this notebook. Since we will be using [DeBERTa](https://huggingface.co/docs/transformers/model_doc/deberta-v2#debertav2) in this notebook, we also need to install the [`sentencepiece`](https://github.com/google/sentencepiece) library for its tokenizer.
+Also, we install the 🤗 Transformers and 🤗 Datasets libraries to run this notebook. Since we will be using [DeBERTa](https://huggingface.co/docs/transformers/model_doc/deberta-v2#debertav2) in this blog post, we also need to install the [`sentencepiece`](https://github.com/google/sentencepiece) library for its tokenizer.
 
 
 ```bash
@@ -275,7 +274,6 @@ tokenizer = AutoTokenizer.from_pretrained(model_repository)
 ```
 
 
-Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
 
 
 As mentioned before, we will use the `"review_body"` as the model's input and `"stars"` as the model's target. Next, we make use of the tokenizer to transform the input into a sequence of token ids that can be understood by the model. The tokenizer does exactly this and can also help you to limit your input data to a certain length to not run into a memory issue. Here, we limit
@@ -297,7 +295,7 @@ def preprocess_function(example):
 ```
 
 
-To apply this function to all data samples in our dataset, we just use the [`map`](https://huggingface.co/docs/datasets/master/en/package_reference/main_classes#datasets.Dataset.map) method of the `amazon_review` object we created earlier. This will apply the function on all the elements of all the splits in `amazon_review`, so our training, validation, and testing data will be preprocessed in one single command. We run the mapping function in `batched=True` mode to speed up the process and also remove all columns since we don't need them anymore for training.
+To apply this function to all data samples in our dataset, we use the [`map`](https://huggingface.co/docs/datasets/master/en/package_reference/main_classes#datasets.Dataset.map) method of the `amazon_review` object we created earlier. This will apply the function on all the elements of all the splits in `amazon_review`, so our training, validation, and testing data will be preprocessed in one single command. We run the mapping function in `batched=True` mode to speed up the process and also remove all columns since we don't need them anymore for training.
 
 
 ```python
@@ -354,7 +352,7 @@ Alright, the input text is transformed into a sequence of integers which can be 
 
 ## **Fine-tune the model**
 
-Having preprocessed the dataset, next we can fine-tune the model. We will make use of the popular [Hugging Face Trainer](https://huggingface.co/docs/transformers/main/en/main_classes/trainer) which allows us to start training in just a couple of lines of code. The Trainer can be used for more or less all tasks in PyTorch and is extremely convenient by taking care of a lot of boilerplate code needed for training.
+Having preprocessed the dataset, next we can fine-tune the model. We will make use of the popular [Hugging Face Trainer](https://huggingface.co/docs/transformers/main/en/main_classes/trainer) which allows us to start training in just a couple of lines of code. The `Trainer` can be used for more or less all tasks in PyTorch and is extremely convenient by taking care of a lot of boilerplate code needed for training.
 
 Let's start by loading the model checkpoint using the convenient [`AutoModelForSequenceClassification`](https://huggingface.co/docs/transformers/main/en/model_doc/auto#transformers.AutoModelForSequenceClassification). Since the checkpoint of the model repository is just a pretrained checkpoint we should define the size of the classification head by passing `num_lables=5` (since we have 5 sentiment classes).
 
@@ -570,7 +568,6 @@ trainer.save_metrics("train", train_metrics)
   </tbody>
 </table><p>
 </div>
-```
 
 
 **Output:**
@@ -619,7 +616,7 @@ The better approach is to find a metric that best describes the actual use case 
 Let's dive into evaluating the model 🤿.
 
 
-The model has been uploaded to the Hub under [`deberta_v3_amazon_reviews`](https://huggingface.co/patrickvonplaten/deberta_v3_amazon_reviews) after training, so in a first step, let's download it from there again. If this notebook is run all at once the following cell will simply load the model from the cache.
+The model has been uploaded to the Hub under [`deberta_v3_amazon_reviews`](https://huggingface.co/patrickvonplaten/deberta_v3_amazon_reviews) after training, so in a first step, let's download it from there again.
 
 
 ```python
@@ -672,7 +669,7 @@ The results are very similar to performance on the validation dataset, which is 
 
 However, 60% accuracy is far from being perfect on a 5-class classification problem, but do we need very high accuracy for all classes?
 
-Since we are mostly concerned with very negative customer feedback, let's maybe just focus on how well the model performs on classifying reviews of the most unsatisfied customers. Also, we decide to help the model a bit - all feedback classified as either **very unsatisfied** or **unsatisfied** will be handled by us - to catch close to 99% of the **very unsatisfied** messages. At the same time, we also measure how many **unsatisfied** messages we can answer this way and how much unnecessary work we do by answering messages of neutral, satisfied, and very satisfied customers.
+Since we are mostly concerned with very negative customer feedback, let's just focus on how well the model performs on classifying reviews of the most unsatisfied customers. We also decide to help the model a bit - all feedback classified as either **very unsatisfied** or **unsatisfied** will be handled by us - to catch close to 99% of the **very unsatisfied** messages. At the same time, we also measure how many **unsatisfied** messages we can answer this way and how much unnecessary work we do by answering messages of neutral, satisfied, and very satisfied customers.
 
 Great, let's write a new `compute_metrics` function.
 
@@ -689,7 +686,7 @@ def compute_metrics(pred):
     very_unsatisfied_label_idx = (labels == 0)
     very_unsatisfied_pred = pred_classes[very_unsatisfied_label_idx]
 
-    # now both 0 and 1 labels are 0 labels the rest is > 0
+    # Now both 0 and 1 labels are 0 labels the rest is > 0
     very_unsatisfied_pred = very_unsatisfied_pred * (very_unsatisfied_pred - 1)
     
     # Let's count how many labels are 0 -> that's the "very unsatisfied"-accuracy
@@ -706,7 +703,7 @@ def compute_metrics(pred):
 ```
 
 
-We again instantiate the Trainer to easily run the evaluation.
+We again instantiate the `Trainer` to easily run the evaluation.
 
 
 ```python
