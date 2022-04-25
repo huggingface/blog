@@ -68,7 +68,13 @@ Next, I make sure that the instance allows incoming ```ssh``` traffic. I do not 
   <img src="assets/61_getting_started_habana/habana05.png">
 </kbd>
 
-Next, I assign an Amazon IAM role to the instance (again, you could create one in place if needed). This role should have the minimum set of permissions required to run your training job, such as the ability to read data from one of your Amazon S3 buckets. If you're not familiar with IAM, I highly recommend reading the [Getting Started](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started.html) documentation.
+By default, this AMI will start an instance with 8GB of Amazon EBS storage, which won't be enough here. I bump storage to 50GB.
+
+<kbd>
+  <img src="assets/61_getting_started_habana/habana08.png">
+</kbd>
+
+Next, I assign an Amazon IAM role to the instance. In real life, this role should have the minimum set of permissions required to run your training job, such as the ability to read data from one of your Amazon S3 buckets. This role is not needed here as the dataset will be downloaded from the Hugging Face hub. If you're not familiar with IAM, I highly recommend reading the [Getting Started](https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started.html) documentation.
 
 Then, I ask EC2 to provision my instance as a [Spot Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html), a great way to reduce the $13.11 per hour cost.
 
