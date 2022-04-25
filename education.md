@@ -24,6 +24,8 @@ thumbnail: /blog/assets/61_education/thumbnail.png
     </a>
 </div>
 
+Given that machine learning will make up the overwhelming majority of software development and that non-technical people will be exposed to AI systems more and more, one of the main challenges of AI is adapting and enhancing employee skills. It is also becoming necessary to support teaching staff in proactively taking AI's ethical and critical issues into account. 
+
 As an open-source company democratizing machine learning, [Hugging Face](https://huggingface.co/) believes it is essential to educate people from all backgrounds worldwide.
 
 We launched the [ML demo.cratization tour](https://www.notion.so/ML-Demo-cratization-tour-with-66847a294abd4e9785e85663f5239652) in March 2022, where experts from Hugging Face taught hands-on classes on Building Machine Learning Collaboratively to more than 1000 students from 16 countries. Our new goal: **to teach machine learning to 5 million people by the end of 2023**.
