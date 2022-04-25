@@ -9,7 +9,7 @@ Getting Started with Transformers on Habana Gaudi
 
 
 <div class="blog-metadata">
-    <small>Published April 25, 2022.</small>
+    <small>Published April 26, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/getting-started-habana.md">
         Update on GitHub
     </a>
@@ -26,6 +26,8 @@ Getting Started with Transformers on Habana Gaudi
 </div>
 
 A couple of weeks ago, we've had the pleasure to [announce](https://huggingface.co/blog/habana) that [Habana Labs](https://habana.ai) and [Hugging Face](https://huggingface.co/) would partner to accelerate Transformer model training.
+
+Habana Gaudi accelerators deliver up to 40% better price performance for training machine learning models compared to the latest GPU-based Amazon EC2 instances. We are super excited to bring this price performance advantages to Transformers 🚀
 
 In this hands-on post, I'll show you how to quickly set up a Habana Gaudi instance on Amazon Web Services, and then fine-tune a BERT model for text classification. As usual, all code is provided so that you may reuse it in your projects.
 
@@ -56,13 +58,13 @@ Next, I pick the *dl1.24xlarge* instance size (the only size available).
   <img src="assets/61_getting_started_habana/habana03.png">
 </kbd>
 
-Next, I select the keypair that I'll use to connect to the instance with ```ssh```. If you don't have a keypair, you can create one in place.
+Then, I select the keypair that I'll use to connect to the instance with ```ssh```. If you don't have a keypair, you can create one in place.
 
 <kbd>
   <img src="assets/61_getting_started_habana/habana04.png">
 </kbd>
 
-Next, I make sure that the instance allows incoming ```ssh``` traffic. I do not restrict the source address for simplicity, but you should definitely do it in your account.
+As a next step, I make sure that the instance allows incoming ```ssh``` traffic. I do not restrict the source address for simplicity, but you should definitely do it in your account.
 
 <kbd>
   <img src="assets/61_getting_started_habana/habana05.png">
@@ -84,7 +86,9 @@ Then, I ask EC2 to provision my instance as a [Spot Instance](https://docs.aws.a
 
 Finally, I launch the instance. A couple of minutes later, the instance is ready and I can connect to it with ```ssh```. Windows users can do the same with *PuTTY* by following the [documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html).
 
-```ssh -i ~/.ssh/julsimon-keypair.pem ubuntu@ec2-18-207-189-109.compute-1.amazonaws.com```
+```
+ssh -i ~/.ssh/julsimon-keypair.pem ubuntu@ec2-18-207-189-109.compute-1.amazonaws.com
+```
 
 On this instance, the last setup step is to pull the Habana container for PyTorch, which is the framework I'll use to fine-tune my model. You can find information on other prebuilt containers and on how to build your own in the Habana [documentation](https://docs.habana.ai/en/latest/Installation_Guide/index.html).
 
@@ -111,7 +115,9 @@ I'm now ready to fine-tune my model.
 
 I first clone the [Optimum Habana](https://github.com/huggingface/optimum-habana) repository inside the container I've just started.
 
-```git clone https://github.com/huggingface/optimum-habana.git```
+```
+git clone https://github.com/huggingface/optimum-habana.git
+```
 
 Then, I install the Optimum Habana package from source.
 
@@ -178,7 +184,7 @@ As you can see, the combination of Transformers, Habana Gaudi, and AWS instances
 
 ---
 
-*Interested in how Hugging Face can help your organization build and deploy production-grade Machine Learning solutions? Get in touch at [julsimon@huggingface.co](mailto:julsimon@huggingface.co) (no recruiters, no sales pitches, please).*
+*Please [reach out to Habana](https://developer.habana.ai/accelerate-transformer-training-on-habana-gaudi-processors-with-hugging-face/) to learn more about training Hugging Face models on Gaudi processors.*
 
 
 
