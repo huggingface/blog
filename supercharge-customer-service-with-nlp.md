@@ -36,13 +36,13 @@ We strongly recommend using this notebook as a template/example to
 solve **your** real-world use case.
 
 
-# Defining Task, Dataset & Model
+## Defining Task, Dataset & Model
 
 Before jumping into the actual coding part, it's important to have a clear definition of the use case that you would like to automate or partly automate.
 A clear definition of the use case helps identify the most suitable task, dataset to use, and model to apply for your use case.
 
 
-## **Defining your NLP task**
+### Defining your NLP task
 
 Alright, let's dive into a hypothetical problem we wish to save using models of natural language processing. Let's assume we are selling a product and our customer support team receives thousands of messages including feedback, complaints, and questions which ideally should all be answered.
 
@@ -60,7 +60,7 @@ To do so, it is recommended to go over all available tasks on the Hugging Face H
 The task of finding messages of the most unsatisfied customers can be modeled as a text classification task: Classify a message into *very unsatisfied*, *unsatisfied*, *neutral*, *satisfied*, **or** *very satisfied*.
 
 
-## **Finding suitable datasets**
+### Finding suitable datasets
 
 Having decided on the task, next, we should find the data the model will be trained on. This is usually more important for the performance of your use case than picking the right model architecture.
 Keep in mind that a model is **only as good as the data it has been trained on**. Thus, we should be very careful when curating and/or selecting the dataset.
@@ -106,7 +106,7 @@ In addition, the Hugging Face Hub offers:
 -   [Highest security mechanisms](https://huggingface.co/docs/hub/security)
 
 
-## **Finding a suitable model**
+### Finding a suitable model
 
 Having decided on the task and the dataset that best describes our use case, we can now look into choosing a model to be used.
 
@@ -132,7 +132,7 @@ At the time of writing this blog post, the best performing models are very large
 *ERNIE 3.0*. One of the top-ranking models that is easily accessible is [DeBERTa](https://huggingface.co/docs/transformers/model_doc/deberta). Therefore, let's try out DeBERTa's newest base version - *i.e.* [`microsoft/deberta-v3-base`](https://huggingface.co/microsoft/deberta-v3-base).
 
 
-# **Training / Fine-tuning a model with 🤗 Transformers and 🤗 Datasets**
+## Training / Fine-tuning a model with 🤗 Transformers and 🤗 Datasets
 
 In this section, we will jump into the technical details of how to
 fine-tune a model end-to-end to be able to automatically filter out very unsatisfied customer feedback messages.
@@ -142,7 +142,7 @@ Cool! Let's start by installing all necessary pip packages and setting up our co
 The following notebook can be run online in a google colab pro with the GPU runtime environment enabled.
 
 
-## **Install all necessary packages**
+### Install all necessary packages
 
 To begin with, let's install [`git-lfs`](https://git-lfs.github.com/) so that we can automatically upload our trained checkpoints to the Hub during training.
 
@@ -180,7 +180,7 @@ notebook_login()
 
 
 
-## **Preprocess the dataset**
+### Preprocess the dataset
 
 Before we can start training the model, we should bring the dataset in a format
 that is understandable by the model.
@@ -350,7 +350,7 @@ print("Labels:", tokenized_datasets["train"][random_id]["labels"])
 Alright, the input text is transformed into a sequence of integers which can be transformed to word embeddings by the model, and the label index is simply shifted by -1.
 
 
-## **Fine-tune the model**
+### Fine-tune the model
 
 Having preprocessed the dataset, next we can fine-tune the model. We will make use of the popular [Hugging Face Trainer](https://huggingface.co/docs/transformers/main/en/main_classes/trainer) which allows us to start training in just a couple of lines of code. The `Trainer` can be used for more or less all tasks in PyTorch and is extremely convenient by taking care of a lot of boilerplate code needed for training.
 
@@ -472,7 +472,7 @@ trainer = Trainer(
 ```
 
 
-The Trainer is ready to go 🚀 You can start training by calling `trainer.train()`.
+The trainer is ready to go 🚀 You can start training by calling `trainer.train()`.
 
 
 ```python
@@ -492,19 +492,16 @@ trainer.save_metrics("train", train_metrics)
 ```
 
 
-
-
 **Output:**
 <div>
- <tr style="text-align: left;">
-      <th>Step</th>
-      <th>Training Loss</th>
-      <th>Validation Loss</th>
-      <th>Accuracy</th>
- </tr>
- </thead>
 <table><p>
   <tbody>
+ <tr style="text-align: left;">
+  <td>Step</td>
+  <td>Training Loss</td>
+  <td>Validation Loss</td>
+  <td>Accuracy</td>
+ </tr>
   <tr>
     <td>5000</td>
     <td>0.931200</td>
@@ -608,10 +605,12 @@ trainer.push_to_hub()
     The progress bars may be unreliable.
 ```
 
-## **Evaluate / Analyse the model**
+### Evaluate / Analyse the model
 
-Now that we have fine-tuned the model we need to be very careful about analyzing its performance. It's usually not enough to just look at basic metrics defining the quality of a model purely on a metric, such as *accuracy*.
-The better approach is to find a metric that best describes the actual use case of the model.
+Now that we have fine-tuned the model we need to be very careful about analyzing its performance. 
+Note that canonical metrics, such as *accuracy*, are useful to get a general picture
+about your model's performance, but it might not be enough to evaluate how well the model performs on your actual use case.
+The better approach is to find a metric that best describes the actual use case of the model and measure exactly this metric during and after training.
 
 Let's dive into evaluating the model 🤿.
 
@@ -638,7 +637,7 @@ trainer = Trainer(
 )
 ```
 
-We use the Trainer's [`predict`]() function to evaluate the model on the test dataset on the same metric.
+We use the Trainer's [`predict`](https://huggingface.co/docs/transformers/main/en/main_classes/trainer#transformers.Trainer.predict) function to evaluate the model on the test dataset on the same metric.
 
 
 ```python
@@ -810,4 +809,3 @@ At Hugging Face, we have been working a lot to facilitate the optimization of mo
 If you're looking for **highly optimized** solutions which don't require any technical knowledge, you might be interested in one of Hugging Face's paid inference services:
 
 -   [Inference API](https://huggingface.co/inference-api)
--   [Infinity](https://huggingface.co/infinity)
