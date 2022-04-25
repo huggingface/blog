@@ -29,7 +29,11 @@ img {
 </head>
 <body>
 
+<<<<<<< HEAD
 Few seats at the Machine Learning table span both technical skills and business acumen like Directors of Machine Learning
+=======
+Few seats at the Machine Learning table span both technical skills and business acumen like Directors of Machine Learning.
+>>>>>>> 56d588b3740597e36ba238306c064a050df7b540
 
 Directors of Machine Learning and/or Data Science are often expected to design ML systems, have deep knowledge of mathematics, familiarity with ML frameworks, rich data architecture understanding, experience applying ML to real-world applications, solid communication skills, and often expected to keep on top of industry developments. A tall order!
 
