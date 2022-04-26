@@ -664,7 +664,7 @@ best_run = trainer.hyperparameter_search(
     )
 ```
 
-I performed the search with 20 and 40 trials respectively, the results are shown below. The weighted average of F1, Recall, and Precision scores for 20 runs.
+We performed the search with 20 and 40 trials respectively, the results are shown below. The weighted average of F1, Recall, and Precision scores for 20 runs.
 
 ![](assets/59_opinion-classification-with-kili/12.png)
 
