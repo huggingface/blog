@@ -35,7 +35,7 @@ As a concrete example use case for this article, we will build our pipeline by u
 
 ## AutoTrain with HuggingFace
 
-Automated machine learning is a term for automating a machine learning pipeline. It also includes data cleaning, model selection, and hyper-parameter optimization too. We can use HuggingFace’s [transformers](https://huggingface.co/docs/transformers/model_doc/auto) for automated hyper-parameter searching. Hyper-parameter optimization is a really difficult and time-consuming process.
+Automated Machine Learning is a term for automating a Machine Learning pipeline. It also includes data cleaning, model selection, and hyper-parameter optimization too. We can use 🤗 transformers for automated hyper-parameter searching. Hyper-parameter optimization is a difficult and time-consuming process.
     
 While we can build our pipeline ourselves by using transformers and other powerful APIs, it is also possible to fully automate this with [AutoTrain](https://huggingface.co/autotrain). AutoTrain is built on many powerful APIs like transformers, [datasets](https://github.com/huggingface/datasets) and [inference-api](https://huggingface.co/docs/transformers/main_classes/trainer).
 
