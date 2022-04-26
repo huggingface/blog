@@ -45,7 +45,7 @@ Cleaning the data, model selection, and hyper-parameter optimization steps are a
 
 [Kili](https://kili-technology.com/) is an end-to-end AI training platform for data-centric businesses. Kili provides optimized labeling features and quality management tools to manage your data. You can quickly annotate the image, video, text, pdf, and voice data while controlling the quality of the dataset. It also has powerful APIs for GraphQL and Python which eases data management a lot. 
 
-It is available either online or on-premise and it enables modern machine learning technics either on computer vision or on NLP and OCR. It supports text classification, named entity recognition (NER), relation extraction, and more NLP/OCR tasks. It also supports computer vision tasks like object detection, image transcription, video classification, semantic segmentation, and many more! 
+It is available either online or on-premise and it enables modern Machine Learning technics either on computer vision or on NLP and OCR. It supports text classification, named entity recognition (NER), relation extraction, and more NLP/OCR tasks. It also supports computer vision tasks like object detection, image transcription, video classification, semantic segmentation, and many more! 
 
 Kili is a commercial tool but you can also create a free developer account to try Kili’s tools. You can learn more from the [pricing](https://kili-technology.com/pricing/) page.
 
