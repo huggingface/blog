@@ -78,7 +78,7 @@ Hopefully, small data-driven general-purpose multi-modal multi-task real-time ML
 
 **Background:** Li is an AI/ML veteran with 15+ years of experience leading high-profile Data Science teams within industry leaders like Johnson & Johnson, Microsoft, and Amazon. Li continues to be curious, is always learning and enjoys hands-on programming. 
 
-**Fun Fact:** Li wanted to change his name to Tarzan as a kid after reading the book.
+**Fun Fact:** Li continues to be curious, is always learning, and enjoys hands-on programming.
 
 **Johnson & Johnson:** A Multinational corporation that develops medical devices, pharmaceuticals, and consumer packaged goods.
 
