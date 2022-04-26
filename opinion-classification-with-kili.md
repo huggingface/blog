@@ -53,7 +53,7 @@ Kili is a commercial tool but you can also create a free developer account to tr
 
 We will work on an example of review classification, along with sentiment analysis, to get insights about a mobile application.
 
-I have extracted around 40 thousand reviews of Medium from the Google Play Store. We will [annotate the review texts](https://kili-technology.com/blog/text-annotation-in-machine-learning-an-overview/) in this dataset step by step. And then we’re going to build a pipeline for review classification. In the modeling, the first model will be prepared with AutoTrain. Then we will also build a model without using AutoTrain. 
+We have extracted around 40 thousand reviews of Medium from the Google Play Store. We will [annotate the review texts](https://kili-technology.com/blog/text-annotation-in-machine-learning-an-overview/) in this dataset step by step. And then we’re going to build a pipeline for review classification. In the modeling, the first model will be prepared with AutoTrain. Then we will also build a model without using AutoTrain. 
 
 All the code and the dataset can be found on the [GitHub repository](https://github.com/alperiox/review-classification-kili-hf-automl) of the project.
 
