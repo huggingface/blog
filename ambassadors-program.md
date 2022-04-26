@@ -69,4 +69,4 @@ Selected ambassadors will benefit from many resources and support:
 **Timeline:**
 
 - Deadline for the end of the [application](https://docs.google.com/forms/d/e/1FAIpQLScY9kTi-TjZipRFRviluRCwSjFf3CCsMbKedzO1tq2S0wtbNQ/viewform?usp=sf_link) is June 13.
-- Results will be announced on June 27, 2022.
+- Results will be announced on June 30, 2022.
