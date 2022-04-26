@@ -670,3 +670,12 @@
   date: April 25, 2022
   tags:
     - community
+
+- local: getting-started-habana
+  title: "Getting Started with Transformers on Habana Gaudi"
+  author: juliensimon
+  thumbnail: /blog/assets/61_getting_started_habana/thumbnail.png
+  date: April 26, 2022
+  tags:
+  - partnerships
+  - guide
