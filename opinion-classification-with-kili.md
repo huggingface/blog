@@ -65,7 +65,7 @@ Let’s start by taking a look at the raw dataset,
 
 There are 10 columns and 40130 samples in this dataset. The only column we need is `content` which is the review of the user. Before starting, we need to define some categories.
 
-I have defined 4 categories, 
+We have defined 4 categories, 
 
 - Subscription: Since medium has a subscription option, anything related to users' opinions about subscription features should belong here.
 - Content: Medium is a sharing platform, there are lots of writings from poetry to advanced artificial intelligence research. Users’ opinions about a variety of topics, the quality of the content should belong here.
