@@ -184,26 +184,4 @@ As you can see, the combination of Transformers, Habana Gaudi, and AWS instances
 
 ---
 
-*Please [reach out to Habana](https://habana.ai/contact-us/) to learn more about training Hugging Face models on Gaudi processors.*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
+*Please [reach out to Habana](https://developer.habana.ai/accelerate-transformer-training-on-habana-gaudi-processors-with-hugging-face/) to learn more about training Hugging Face models on Gaudi processors.*
