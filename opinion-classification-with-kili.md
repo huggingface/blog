@@ -27,7 +27,7 @@ thumbnail: /blog/assets/59_opinion-classification-with-kili/thumbnail.png
 
 ## Introduction
 
-Understanding your users’ needs is crucial in any user-related business. But it also requires a lot of hard work and analysis, which is quite expensive. Why not leverage machine learning then? With much less coding by using Auto ML.
+Understanding your users’ needs is crucial in any user-related business. But it also requires a lot of hard work and analysis, which is quite expensive. Why not leverage Machine Learning then? With much less coding by using Auto ML.
 
 In this article, we will leverage [HuggingFace AutoTrain](https://huggingface.co/autotrain) and [Kili](https://kili-technology.com/) to build an active learning pipeline for text classification. [Kili](https://kili-technology.com/) is a platform that empowers a data-centric approach to Machine Learning through quality training data creation. It provides collaborative data annotation tools and APIs that enable quick iterations between reliable dataset building and model training. Active learning is a process in which you add labeled data to the data set and then retrain a model iteratively. Therefore, it is endless and requires humans to label the data. 
 
