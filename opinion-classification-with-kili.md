@@ -692,7 +692,7 @@ This also matches with the sentiment analysis, most of the reviews are positive 
 
 As we can see from above, the model's performance is kind of understandable. Positive scores are dominantly higher than the others, just like the sentimental analysis graph shows. 
 
-As it comes to the categories I've defined before, it seems that the model predicts most of the reviews are about users' experiences (excluding experiences related to other categories):
+As it comes to the categories defined before, it seems that the model predicts most of the reviews are about users' experiences (excluding experiences related to other categories):
 
 ![](assets/59_opinion-classification-with-kili/16.png)
 
