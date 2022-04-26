@@ -8,7 +8,7 @@ thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
 </h1>
 
 <div class="blog-metadata">
-    <small>Published April 25, 2022.</small>
+    <small>Published May 9, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ambassadors-program.md">
         Update on GitHub
     </a>
