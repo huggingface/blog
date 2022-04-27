@@ -76,7 +76,7 @@ For the labeling part, we need to create a project in Kili’s platform at first
 
 From the web interface:
 
-From the project list page, I created a multi-class text classification project.
+From the project list page, we create a multi-class text classification project.
 
 ![](assets/59_opinion-classification-with-kili/2.png)
 
