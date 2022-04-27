@@ -182,7 +182,7 @@ project_id = kili.create_project(json_interface=interface,
                             description=project_description)['id']
 ```
 
-We are ready to upload our data to the project. I will use the `append_many_to_dataset` method to import the data into the platform. By using the Python API, we can import the data by batch of 100 maximum. I have prepared a simple function to upload the data:
+We are ready to upload our data to the project. The `append_many_to_dataset` method can be used to import the data into the platform. By using the Python API, we can import the data by batch of 100 maximum. Here is a simple function to upload the data:
 
 ```python
 def import_dataframe(project_id:str, dataset:pd.DataFrame, text_data_column:str, external_id_column:str, subset_size:int=100) -> bool:
