@@ -165,7 +165,6 @@ I think the thing that excites me most about ML is the opportunity to make peopl
 As ML begins to be ubiquitous in business, it will be able to help speed up decisions and automate redundant work. This will accelerate the pace of innovation and create immense economic value. I can’t wait to see what problems we solve in the next 10 years aided by data science and ML!
 
 
-
 <img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/61_ml_director_insights/Nicolas-Bertagnolli.png"></a>  
 
 ### [Nicolas Bertagnolli](https://www.linkedin.com/in/nicolas-bertagnolli-058aba81/) - Director of Machine Learning at [BEN](https://ben.productplacement.com/)
@@ -204,6 +203,7 @@ One of the really nice things about BEN is we invested heavily in our data infra
 There is so much exciting stuff going on. I think the pace and democratization of the field is perhaps what I find most exciting. I remember almost 10 years ago writing my first seq2seq model for language translation. It was hundreds of lines of code, took forever to train and was pretty challenging. Now you can basically build a system to translate any language to any other language in under 100 lines of python code. It’s insane! This trend is most likely to continue and as the ML infrastructure gets better and better it will be easier and easier for people without deep domain expertise to deploy and serve models to other people. 
  
 Much like in the beginning of the internet, software developers were few and far between and you needed a skilled team to set up a website. Then things like Django, Rails, etc. came out making website building easy but serving it was hard. We’re kind of at this place where building the models is easy but serving them reliably, monitoring them reliably, etc. is still challenging. I think in the next few years the barrier to entry is going to come WAY down here and basically, any high schooler could deploy a deep transformer to some cloud infrastructure and start serving useful results to the general population. This is really exciting because it means we’ll start to see more and more tangible innovation, much like the explosion of online services. So many cool things!
+
 
 
 
