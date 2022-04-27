@@ -297,7 +297,7 @@ Now that we have the source data uploaded, the platform has a built-in labeling 
 
 ![](assets/59_opinion-classification-with-kili/4.png)
 
-While labeling, I skipped some samples since I couldn't decide and some samples were very weird. In general, the process was way easier thanks to Kili’s built-in platform.
+Some samples were very weird, so we decided to skip them while labeling. In general, the process was way easier thanks to Kili’s built-in platform.
 
 ![](assets/59_opinion-classification-with-kili/5.gif)
 
