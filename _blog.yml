@@ -669,7 +669,7 @@
   thumbnail: /blog/assets/61_education/thumbnail.png
   date: April 25, 2022
   tags:
-    - community
+  - community
 
 - local: getting-started-habana
   title: "Getting Started with Transformers on Habana Gaudi"
@@ -679,3 +679,12 @@
   tags:
   - partnerships
   - guide
+
+- local: ml-director-insights
+  title: "Director of Machine Learning Insights [Series]"
+  author: britneymuller
+  thumbnail: /blog/assets/61_ml_director_insights/thumbnail.png
+  date: April 27, 2022
+  tags:
+  - community
+  - research
