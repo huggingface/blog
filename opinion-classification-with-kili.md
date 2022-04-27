@@ -242,7 +242,7 @@ df = pd.read_csv(dataset_path).reset_index() # reset index to get the indices
 import_dataframe(project_id, df, 'content', 'index')
 ```
 
-It wasn’t difficult to use the Python API, the helper methods we used covered many difficulties. I also used another script to check the new samples when I updated the dataset. Sometimes the model performance drop down after the dataset update. This is due to simple mistakes like mislabeling and introducing bias to the dataset. The script simply authenticates and then moves distinct samples of two given dataset versions to `To Review`. We can change the property of a sample through `update_properties_in_assets` method:
+It wasn’t difficult to use the Python API, the helper methods we used covered many difficulties. We also used another script to check the new samples when we updated the dataset. Sometimes the model performance drop down after the dataset update. This is due to simple mistakes like mislabeling and introducing bias to the dataset. The script simply authenticates and then moves distinct samples of two given dataset versions to `To Review`. We can change the property of a sample through `update_properties_in_assets` method:
 
 ([scripts/move_diff_to_review.py](https://github.com/alperiox/review-classification-kili-hf-automl/blob/master/scripts/move_diff_to_review.py))
 
