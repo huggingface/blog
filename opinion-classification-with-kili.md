@@ -415,7 +415,7 @@ It is also possible to [upload the dataset to Hugging Face's dataset hub](https:
 
 ## Modeling
 
-I took an active learning based approach. I labeled the dataset while also actively fine-tuning a model, I tried to label around 50 samples per dataset version (it was much lower for the first versions). The number of samples is shown below:
+Let's use active learning. We iteratively label and fine-tune the model. In each iteration, we label 50 samples in the dataset. The number of samples is shown below:
 
 ![](assets/59_opinion-classification-with-kili/6.png)
 
