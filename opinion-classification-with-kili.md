@@ -678,7 +678,7 @@ The performance spiked up at the third dataset version. At some point in data la
 
 We can use the fine-tuned model to conduct the final analysis now. All we have to do is load the data, process it, and get the prediction results from the model. Then we can use a pre-trained model for sentiment analysis and hopefully get insights.
 
-I’ve used google collaboratory for the inference ([here](https://colab.research.google.com/drive/1kGYl_YcMmA2gj6HnYFzkcxSDNPlHjYaZ?usp=sharing)) and then exported the results to [result.csv](https://github.com/alperiox/review-classification-kili-hf-automl/tree/master/results). It can be found in `results` in the GitHub repository. I analyzed the results in another [google collaboratory notebook](https://colab.research.google.com/drive/1TOX7tqJ7SGbUDWwA_6D1y-U0aNNXY04Q?usp=sharing) for an interactive experience. So you can also use it easily and interactively. 
+We use Google Colab for the inference ([here](https://colab.research.google.com/drive/1kGYl_YcMmA2gj6HnYFzkcxSDNPlHjYaZ?usp=sharing)) and then exported the results to [result.csv](https://github.com/alperiox/review-classification-kili-hf-automl/tree/master/results). It can be found in `results` in the GitHub repository. We then analyzed the results in another [google collaboratory notebook](https://colab.research.google.com/drive/1TOX7tqJ7SGbUDWwA_6D1y-U0aNNXY04Q?usp=sharing) for an interactive experience. So you can also use it easily and interactively. 
 
 Let’s check the results now!
 
