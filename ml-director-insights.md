@@ -43,7 +43,7 @@ In this first installment, you’ll hear from a researcher (who’s using ground
 
 
 
-<img class="grandmahugs" margin="25px" style="float: left;" padding="5px" src="/blog/assets/61_ml_director_insights/Archi-Mitra.jpeg"></a>  
+<img class="grandmahugs" style="float: left;" padding="5px" src="/blog/assets/61_ml_director_insights/Archi-Mitra.jpeg"></a>  
 
 ### [Archi Mitra](https://www.linkedin.com/in/archimitra/) - Director of Machine Learning at [Buzzfeed](https://www.buzzfeed.com/)
 
