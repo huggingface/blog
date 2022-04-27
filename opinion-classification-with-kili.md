@@ -233,7 +233,7 @@ def import_dataframe(project_id:str, dataset:pd.DataFrame, text_data_column:str,
 
 It simply imports the given `dataset` DataFrame to a project specified by project_id.
 
-We can see the arguments from docstring, we just need to pass our dataset along with the corresponding column names. I’ll just use the sample indices we get when we load the data. And then voila, uploading the data is done!
+We can see the arguments from docstring, we just need to pass our dataset along with the corresponding column names. We’ll just use the sample indices we get when we load the data. And then voila, uploading the data is done!
 
 ```python
 dataset_path = '../data/processed/lowercase_cleaned_dataset.csv'
