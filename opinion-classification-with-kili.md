@@ -72,7 +72,7 @@ We have defined 4 categories,
 - Interface: Thoughts about UI, searching articles, recommendation engine, and anything related to the interface should belong here. This also includes payment-related issues.
 - User Experience: The user’s general thoughts and opinions about the application. Which should be generally abstract without indicating another category.
 
-For the labeling part, we need to create a project in Kili’s platform at first. We can use either the web interface of the platform or APIs. I’ll show them both. 
+For the labeling part, we need to create a project in Kili’s platform at first. We can use either the web interface of the platform or APIs. Let's see both.
 
 From the web interface:
 
