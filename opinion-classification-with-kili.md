@@ -74,7 +74,7 @@ We have defined 4 categories,
 
 For the labeling part, we need to create a project in Kili’s platform at first. We can use either the web interface of the platform or APIs. Let's see both.
 
-From the web interface:
+**From the web interface:**
 
 From the project list page, we create a multi-class text classification project.
 
