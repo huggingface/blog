@@ -86,7 +86,7 @@ After we create our project, we need to add jobs. We can prepare a labeling inte
 
 Although we have defined 4 categories, it is inevitable to come across reviews that should have multiple categories or completely weird ones. I will add two more labels (which are not to use in modeling) to catch these cases too.
 
-In our example, I added two more labels (Other, Multi-label). I also added a named entity recognition (NER) job just to specify how I decided on a label while labeling. The final interface is shown below
+In our example, we added two more labels (Other, Multi-label). We also added a named entity recognition (NER) job just to specify how we decided on a label while labeling. The final interface is shown below
 
 ![](assets/59_opinion-classification-with-kili/3.png)
 
