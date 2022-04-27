@@ -92,7 +92,7 @@ In our example, I added two more labels (Other, Multi-label). I also added a nam
 
 As you can see from the menu at the left, it is also possible to drop a link that describes your labels on the `Instructions` page. We can also add other members to our project from `Members` or add quality measures from the `Quality management` pages. More information can be found in the [documentation](https://cloud.kili-technology.com/docs/overview/introduction-to-kili-technology.html).
 
-Now, let’s create our project with Python API:
+**Now, let’s create our project with Python API:**
 
 At first, we need to import needed libraries
 
