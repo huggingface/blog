@@ -688,3 +688,12 @@
   tags:
   - community
   - research
+
+- local: opinion-classification-with-kili
+  title: "Opinion Classification with Kili and HuggingFace AutoTrain"
+  author: alperiox
+  guest: true
+  thumbnail: /blog/assets/59_opinion-classification-with-kili/thumbnail.png
+  date: April 28, 2022
+  tags:
+  - guide
