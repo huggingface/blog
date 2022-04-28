@@ -8,8 +8,8 @@ thumbnail: /blog/assets/59_opinion-classification-with-kili/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published April 1, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/opinion-classification-with-kili-technology-and-huggingface-autotrain.md">
+    <small>Published April 28, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/opinion-classification-with-kili.md">
         Update on GitHub
     </a>
 </div>
@@ -39,7 +39,7 @@ Automated Machine Learning is a term for automating a Machine Learning pipeline.
     
 While we can build our pipeline ourselves by using transformers and other powerful APIs, it is also possible to fully automate this with [AutoTrain](https://huggingface.co/autotrain). AutoTrain is built on many powerful APIs like transformers, [datasets](https://github.com/huggingface/datasets) and [inference-api](https://huggingface.co/docs/transformers/main_classes/trainer).
 
-Cleaning the data, model selection, and hyper-parameter optimization steps are all fully automated in AutoTrain. One can fully utilize this framework to build production-ready SOTA transformer models for a specific task. Currently, AutoTrain supports binary and multi-label text classification, token classification, extractive question answering, text summarization, and text scoring. It also supports many languages like English, German, French, Spanish, Finnish, Swedish, Hindi, Dutch, and [more](https://huggingface.co/docs/autonlp/supported_languages.html). If your language is not supported by AutoTrain, it is also possible to use custom models with custom tokenizers.
+Cleaning the data, model selection, and hyper-parameter optimization steps are all fully automated in AutoTrain. One can fully utilize this framework to build production-ready SOTA transformer models for a specific task. Currently, AutoTrain supports binary and multi-label text classification, token classification, extractive question answering, text summarization, and text scoring. It also supports many languages like English, German, French, Spanish, Finnish, Swedish, Hindi, Dutch, and [more](https://huggingface.co/autotrain). If your language is not supported by AutoTrain, it is also possible to use custom models with custom tokenizers.
 
 ## Kili
 
