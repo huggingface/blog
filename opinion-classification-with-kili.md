@@ -9,7 +9,7 @@ thumbnail: /blog/assets/59_opinion-classification-with-kili/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published April 28, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/opinion-classification-with-kili-technology-and-huggingface-autotrain.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/opinion-classification-with-kili.md">
         Update on GitHub
     </a>
 </div>
