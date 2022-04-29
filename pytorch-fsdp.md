@@ -165,6 +165,7 @@ For more information on these options, please refer to the PyTorch [FullySharded
 Next, we will see the importance of the `min_num_params` config. Below is an excerpt from [8] detailing the importance of FSDP Auto Wrap Policy.
 
 ![Importance of FSDP Auto Wrap Policy](./assets/62_pytorch_fsdp/auto_wrap_importance.png)
+
 (Source: [link](https://pytorch.org/tutorials/intermediate/FSDP_tutorial.html))
 
 When using the `default_auto_wrap_policy`, a layer is wrapped in FSDP module if the number of parameters in that layer is more than the min_num_params . Below is the code for finetuning BERT-Large (330M) model on the GLUE MRPC task.  It is similar to HF example code with the addition of utilities for tracking peak memory usage and other minor changes. 
@@ -222,6 +223,7 @@ optimizer = torch.optim.AdamW(params=model.parameters(), lr=lr)
 # How it works 📝
 
 ![FSDP Workflow](./assets/62_pytorch_fsdp/fsdp_workflow.png)
+
 (Source: [link](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/))
 
 Above workflow gives an overview of what happens behind the scenes when FSDP is activated. Let's first understand how DDP works and how FSDP improves it. In DDP, each worker/accelerator/GPU has a replica of the entire model parameters, gradients and optimizer states. Each worker gets a different batch of data, it goes through forwards pass, loss is computed followed by backward pass to generate gradients. Now, all-reduce operation is performed wherein each worker gets the gradients from the remaining workers and averaging is done. In this way, each worker now has the same global gradients which is used by optimizer to update the model parameters. We can see that having full replicas consume a lot of redundant memory on each GPU, which limits the batch size as well as loading of large models. 
