@@ -698,9 +698,9 @@
   tags:
   - guide
 
-  - local: pytorch-fsdp
+- local: pytorch-fsdp
   title: "Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel"
-  author: sourabmangrulkar 
+  author: smangrul
   thumbnail: /blog/assets/62_pytorch_fsdp/rocket.png
   date: April 29, 2022
   tags:
