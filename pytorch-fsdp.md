@@ -83,7 +83,8 @@ Here, we experiment on the Single-Node Multi-GPU setting. We compare the perform
 
 Command for training GPT-2 Large Model (762M parameters):
 ```bash
-export BS=#`try with different batch sizes till you don't get OOM error, i.e., start with larger batch size and go on decreasing till it fits with GPU`
+export BS=#`try with different batch sizes till you don't get OOM error,
+#i.e., start with larger batch size and go on decreasing till it fits on GPU`
 
 time accelerate launch run_clm_no_trainer.py \
 --model_name_or_path gpt2-large \
@@ -108,7 +109,7 @@ Sample FSDP Run:
 | FSDP with min_num_params = 1M  + FULL_SHARD  + Offload to CPU  | 20 | 23 |  |
 | FSDP with min_num_params = 2K + FULL_SHARD + Offload to CPU | 22 | 24 |  |
 
-Table 1: Benchmarking FSDP on GPT-2 Large (1.5B) model
+Table 1: Benchmarking FSDP on GPT-2 Large (762M) model
 
 With respect to DDP, from Table 1 we can observe that FSDP **enables larger batch sizes**, upto **2X-3X** without and with CPU offload setting, respectively. In terms of train time, DDP with mixed precision is the fastest followed by FSDP using ZERO Stage 2 and Stage 3, respectively. As the task of causal language modelling always has fixed context sequence length (--block_size), the train time speedup with FSDP wasn’t that great. For applications with dynamic batching, FSDP which enables larger batch sizes will likely have considerable speed up in terms of train time. FSDP mixed precision support currently has few [issues](https://github.com/pytorch/pytorch/issues/75676) with transformer. Once this is supported, the training time speed up will further improve considerably.
 
@@ -117,7 +118,8 @@ With respect to DDP, from Table 1 we can observe that FSDP **enables larger batc
 
 Command for training GPT-2 XL Model (1.5B parameters):
 ```bash
-export BS=#`try with different batch sizes till you don't get OOM error, i.e., start with larger batch size and go on decreasing till it fits with GPU`
+export BS=#`try with different batch sizes till you don't get OOM error,
+#i.e., start with larger batch size and go on decreasing till it fits on GPU`
 
 time accelerate launch run_clm_no_trainer.py \
 --model_name_or_path gpt2-xl \
@@ -161,6 +163,7 @@ After creating an instance of this class, users can pass it when creating the Ac
 For more information on these options, please refer to the PyTorch [FullyShardedDataParallel](https://github.com/pytorch/pytorch/blob/0df2e863fbd5993a7b9e652910792bd21a516ff3/torch/distributed/fsdp/fully_sharded_data_parallel.py#L236) code.
 
 Next, we will see the importance of the `min_num_params` config. Below is an excerpt from [8] detailing the importance of FSDP Auto Wrap Policy.
+
 ![Importance of FSDP Auto Wrap Policy](./assets/62_pytorch_fsdp/auto_wrap_importance.png)
 (Source: [link](https://pytorch.org/tutorials/intermediate/FSDP_tutorial.html))
 
@@ -217,7 +220,9 @@ optimizer = torch.optim.AdamW(params=model.parameters(), lr=lr)
 - Mixed precision is currently not supported with FSDP.
 
 # How it works 📝
-![FSDP Workflow](./assets/62_pytorch_fsdp/fsdp_workflow.png)(Source: [link](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/))
+
+![FSDP Workflow](./assets/62_pytorch_fsdp/fsdp_workflow.png)
+(Source: [link](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/))
 
 Above workflow gives an overview of what happens behind the scenes when FSDP is activated. Let's first understand how DDP works and how FSDP improves it. In DDP, each worker/accelerator/GPU has a replica of the entire model parameters, gradients and optimizer states. Each worker gets a different batch of data, it goes through forwards pass, loss is computed followed by backward pass to generate gradients. Now, all-reduce operation is performed wherein each worker gets the gradients from the remaining workers and averaging is done. In this way, each worker now has the same global gradients which is used by optimizer to update the model parameters. We can see that having full replicas consume a lot of redundant memory on each GPU, which limits the batch size as well as loading of large models. 
 
