@@ -54,6 +54,7 @@ In this post we will look at Data Parallelism using ZeRO and more specifically t
 We will look at the task of Causal Language Modelling using GPT-2 Large (762M) and XL (1.5B) model variants.
 
 Below is the code for pre-training GPT-2 model. It is similar to the official causal language modeling example [here](https://github.com/huggingface/transformers/blob/main/examples/pytorch/language-modeling/run_mlm_no_trainer.py) with the addition of 2 arguments `n_train` (2000) and `n_val` (500) to prevent preprocessing/training on entire data in order to perform quick proof of concept benchmarks.
+
 <a href="./assets/62_pytorch_fsdp/run_clm_no_trainer.py" target="_parent">run_clm_no_trainer.py</a>
 
 Sample FSDP config after running the command `accelerate config`:
@@ -168,7 +169,8 @@ Next, we will see the importance of the `min_num_params` config. Below is an exc
 
 (Source: [link](https://pytorch.org/tutorials/intermediate/FSDP_tutorial.html))
 
-When using the `default_auto_wrap_policy`, a layer is wrapped in FSDP module if the number of parameters in that layer is more than the min_num_params . Below is the code for finetuning BERT-Large (330M) model on the GLUE MRPC task.  It is similar to HF example code with the addition of utilities for tracking peak memory usage and other minor changes. 
+When using the `default_auto_wrap_policy`, a layer is wrapped in FSDP module if the number of parameters in that layer is more than the min_num_params . Below is the code for finetuning BERT-Large (330M) model on the GLUE MRPC task.  It is similar to the official complete NLP example [here](https://github.com/huggingface/accelerate/blob/main/examples/complete_nlp_example.py) with the addition of utilities for tracking peak memory usage and other minor changes.
+
 <a href="./assets/62_pytorch_fsdp/complete_nlp_example.py" target="_parent">complete_nlp_example.py</a>
 
 We leverage the tracking functionality support in Accelerate to log the train and evaluation peak memory usage along with evaluation metrics. Below is the snapshot of the plots from wandb [run](https://wandb.ai/smangrul/FSDP-Test?workspace=user-smangrul). 
@@ -218,7 +220,7 @@ optimizer = torch.optim.AdamW(params=model.parameters(), lr=lr)
     ```
 - In case of multiple models, it is necessary to prepare the models before creating optimizers else it will throw an error.
 
-- Mixed precision is currently not supported with FSDP.
+- Mixed precision is currently not supported with FSDP as we wait for PyTorch to fix support for it.
 
 # How it works 📝
 
