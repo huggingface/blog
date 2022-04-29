@@ -222,7 +222,7 @@ optimizer = torch.optim.AdamW(params=model.parameters(), lr=lr)
 
 # How it works 📝
 
-![FSDP Workflow](./assets/62_pytorch_fsdp/fsdp_workflow.png)
+![FSDP Workflow](./assets/62_pytorch_fsdp/FSDP_workflow.png)
 
 (Source: [link](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/))
 
