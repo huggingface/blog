@@ -167,7 +167,7 @@ Next, we will see the importance of the `min_num_params` config. Below is an exc
 
 (Source: [link](https://pytorch.org/tutorials/intermediate/FSDP_tutorial.html))
 
-When using the `default_auto_wrap_policy`, a layer is wrapped in FSDP module if the number of parameters in that layer is more than the min_num_params . The code for finetuning BERT-Large (330M) model on the GLUE MRPC task.  It is similar to the official complete NLP example [here](https://github.com/huggingface/accelerate/blob/main/examples/complete_nlp_example.py) with the addition of utilities for tracking peak memory usage and other minor changes.
+When using the `default_auto_wrap_policy`, a layer is wrapped in FSDP module if the number of parameters in that layer is more than the min_num_params . The code for finetuning BERT-Large (330M) model on the GLUE MRPC task is the official complete NLP example outlining how to properly use FSDP feature with the addition of utilities for tracking peak memory usage.
 
 [fsdp_with_peak_mem_tracking.py](https://github.com/huggingface/accelerate/tree/main/examples/by_feature/fsdp_with_peak_mem_tracking.py)
 
