@@ -1,6 +1,6 @@
 ---
 title: "Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel"
-thumbnail: /blog/assets/62_pytorch_fsdp/rocket.png
+thumbnail: /blog/assets/62_pytorch_fsdp/fsdp-thumbnail.png
 ---
 
 <h1>Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel</h1>
