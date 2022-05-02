@@ -635,7 +635,7 @@
   date: April 12, 2022
   tags:
   - partnerships
-  
+
 - local: lewis-tunstall-interview
   title: "Machine Learning Experts - Lewis Tunstall Interview"
   author: britneymuller
@@ -653,3 +653,63 @@
   tags:
     - community
     - open-source-collab
+- local: carbon-emissions-on-the-hub
+  title: "CO2 Emissions and the 🤗 Hub: Leading the Charge"
+  author: sasha
+  thumbnail: /blog/assets/60_carbon_emissions_on_the_hub/thumbnail.jpg
+  date: April 22, 2022
+  tags:
+  - community
+  - guide
+
+- local: supercharge-customer-service-with-nlp
+  title: "NLP Supercharged Customer Service"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/61_supercharged_customer_service_with_nlp/thumbnail.png
+  date: April 25, 2022
+  tags:
+  - guide
+  - nlp
+  
+- local: education
+  title: "Introducing Hugging Face for Education"
+  author: Violette
+  thumbnail: /blog/assets/61_education/thumbnail.png
+  date: April 25, 2022
+  tags:
+  - community
+
+- local: getting-started-habana
+  title: "Getting Started with Transformers on Habana Gaudi"
+  author: juliensimon
+  thumbnail: /blog/assets/61_getting_started_habana/thumbnail.png
+  date: April 26, 2022
+  tags:
+  - partnerships
+  - guide
+
+- local: ml-director-insights
+  title: "Director of Machine Learning Insights [Series]"
+  author: britneymuller
+  thumbnail: /blog/assets/61_ml_director_insights/thumbnail.png
+  date: April 27, 2022
+  tags:
+  - community
+  - research
+
+- local: opinion-classification-with-kili
+  title: "Opinion Classification with Kili and HuggingFace AutoTrain"
+  author: alperiox
+  guest: true
+  thumbnail: /blog/assets/59_opinion-classification-with-kili/thumbnail.png
+  date: April 28, 2022
+  tags:
+  - guide
+
+- local: pytorch-fsdp
+  title: "Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel"
+  author: smangrul
+  thumbnail: /blog/assets/62_pytorch_fsdp/fsdp-thumbnail.png
+  date: May 2, 2022
+  tags:
+  - guide
