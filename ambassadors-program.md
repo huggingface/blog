@@ -34,7 +34,7 @@ If you want to:
 * help your peers in their machine learning journey,
 * use free open-source technologies,
 * contribute to a thriving ecosystem,
-* and you're keen on fostering communities while sharing [our community values](https://www.notion.so/Hugging-Face-Code-of-Conduct-45eeeafa9ef44c5e888a2952619fdfa8),
+* and you're keen on fostering communities while sharing [our community values](https://huggingface2.notion.site/huggingface2/Hugging-Face-Code-of-Conduct-45eeeafa9ef44c5e888a2952619fdfa8),
 
 This is an excellent opportunity for you! You have until June 13, 2022 to [apply](https://docs.google.com/forms/d/e/1FAIpQLScY9kTi-TjZipRFRviluRCwSjFf3CCsMbKedzO1tq2S0wtbNQ/viewform?usp=sf_link)! 
 
@@ -62,7 +62,7 @@ Selected ambassadors will benefit from many resources and support:
 - Have taken at least one machine learning/data science course (online course are considered as well)
 - Be enrolled in an accredited college or university
 - Be a user of the Hugging Face Hub and/or the Hugging Face’s libraries
-- Acknowledge the [Code of Conduct](https://www.notion.so/Hugging-Face-Code-of-Conduct-45eeeafa9ef44c5e888a2952619fdfa8). Community is at the center of the Hugging Face ecosystem. Because of that, we strictly adhere to our [Code of conduct](https://docs.google.com/document/d/1D-HtACsgPjh3qfeueqkgUr2jMipaP_JsLTYydbEuG2c/edit#). If any ambassador infringes it or behaves inadequately, they will be excluded from the Program.
+- Acknowledge the [Code of Conduct](https://huggingface2.notion.site/huggingface2/Hugging-Face-Code-of-Conduct-45eeeafa9ef44c5e888a2952619fdfa8). Community is at the center of the Hugging Face ecosystem. Because of that, we strictly adhere to our [Code of conduct](https://huggingface2.notion.site/huggingface2/Hugging-Face-Code-of-Conduct-45eeeafa9ef44c5e888a2952619fdfa8). If any ambassador infringes it or behaves inadequately, they will be excluded from the Program.
 
 **[Apply here](https://docs.google.com/forms/d/e/1FAIpQLScY9kTi-TjZipRFRviluRCwSjFf3CCsMbKedzO1tq2S0wtbNQ/viewform?usp=sf_link) to become an ambassador!**
 
