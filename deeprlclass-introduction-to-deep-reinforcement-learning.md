@@ -1,4 +1,5 @@
-## **Chapter 1 of the [Deep Reinforcement Learning Class with Hugging Face** 🤗](https://github.com/huggingface/deep-rl-class)
+# An Introduction to Deep Reinforcement Learning 
+## Chapter 1 of the [Deep Reinforcement Learning Class with Hugging Face 🤗](https://github.com/huggingface/deep-rl-class)
 
 *This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
 
@@ -10,9 +11,8 @@ Deep RL is a type of Machine Learning where an agent learns **how to behave** 
 
 Since 2013 and the [Deep Q-Learning paper](https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf), we’ve seen a lot of breakthroughs. From OpenAI [five that beat some of the best Dota2 players of the world,](https://www.twitch.tv/videos/293517383) to the [Dexterity project](https://openai.com/blog/learning-dexterity/), we **live in an exciting moment in Deep RL research.**
 
-![OpenAI Five, an AI [that beat some of the best Dota2 players in the world](https://www.twitch.tv/videos/293517383)](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e9736ded-a96a-4553-87a6-8e7dd6d40d95/OpenAIFive.jpg)
-
-OpenAI Five, an AI [that beat some of the best Dota2 players in the world](https://www.twitch.tv/videos/293517383)
+IMAGE dota2.jpg
+CAPTION OpenAI Five, an AI [that beat some of the best Dota2 players in the world](https://www.twitch.tv/videos/293517383)
 
 Moreover, since 2018, **you have now, access to so many amazing environments and libraries to build your agents.**
 
@@ -22,30 +22,30 @@ Yes, because this article is the first unit of [Deep Reinforcement Learning Clas
 
 In this free course, you will:
 
-- 📖 Study Deep Reinforcement Learning in theory and practice.
-- 🧑‍💻 Learn to use famous Deep RL libraries such as Stable Baselines3, RL Baselines3 Zoo, and RLlib.
-- 🤖 Train agents in unique environments such as SnowballFight, Huggy the Doggo 🐶, and classical ones such as Space Invaders and PyBullet.
-- 💾 Publish your trained agents in one line of code to the Hub. But also download powerful agents from the community.
-- 🏆 Participate in challenges where you will evaluate your agents against other teams.
-- 🖌️🎨 Learn to share your own environments made with Unity and Godot.
+- 📖 Study Deep Reinforcement Learning in **theory and practice**.
+- 🧑‍💻 Learn to **use famous Deep RL libraries* such as Stable Baselines3, RL Baselines3 Zoo, and RLlib.
+- 🤖 Train agents in **unique environments** such as SnowballFight, Huggy the Doggo 🐶, and classical ones such as Space Invaders and PyBullet.
+- 💾 Publish your trained agents **in one line of code to the Hub**. But also download powerful agents from the community.
+- 🏆 **Participate in challenges** where you will evaluate your agents against other teams.
+- 🖌️🎨 Learn to **share your environments** made with Unity and Godot.
 
 So in this first unit, **you’ll learn the foundations of deep reinforcement learning.** And then, you'll train your first lander agent to **land correctly on the Moon 🌕 and upload it to the 🤗 Hub.**
 
-[lunarlander.mp4](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/491bcc9a-d0d1-43b6-a71f-eb165a756cef/lunarlander.mp4)
+IMAGE lunarlander.mp4
 
 It’s essential **to master these elements** before diving into implementing Deep Reinforcement Learning agents. The goal of this chapter is to give you solid foundations.
 
 If you prefer, you can watch the 📹 video version of this chapter :
 
-[https://youtu.be/q0BiUn5LiBc?t=126](https://youtu.be/q0BiUn5LiBc?t=126)
+<iframe width="560" height="315" src="https://www.youtube.com/embed/q0BiUn5LiBc?start=127" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 So let’s get started! 🚀
 
-# **What is Reinforcement Learning?**
+## **What is Reinforcement Learning?**
 
 To understand reinforcement learning, let’s start with the big picture.
 
-## **The big picture**
+### **The big picture**
 
 The idea behind Reinforcement Learning is that an agent (an AI) will learn from the environment by **interacting with it** (through trial and error) and **receiving rewards** (negative or positive) as feedback for performing actions.
 
@@ -53,15 +53,15 @@ Learning from interaction with the environment **comes from our natural experie
 
 For instance, imagine putting your little brother in front of a video game he never played, a controller in his hands, and letting him alone.
 
-![Illustration_1.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/86d1190d-ca61-4368-b8a9-8004e9325e19/Illustration_1.jpg)
+IMAGE Illustration_1.jpg
 
 Your brother will interact with the environment (the video game) by pressing the right button (action). He got a coin, that’s a +1 reward. It’s positive, he just understood that in this game **he must get the coins.**
 
-![Illustration_2.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f9d6ef3c-2a6f-44b2-8f5f-aa00042a4a5d/Illustration_2.jpg)
+IMAGE Illustration_2.jpg
 
 But then, **he presses right again** and he touches an enemy, he just died -1 reward.
 
-![Illustration_3.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cd873e28-b888-4344-b919-e2a0b5446808/Illustration_3.jpg)
+IMAGE Illustration_3.jpg
 
 By interacting with his environment through trial and error, your little brother understood that **he needed to get coins in this environment but avoid the enemies.**
 
@@ -69,7 +69,7 @@ By interacting with his environment through trial and error, your little brother
 
 That’s how humans and animals learn, **through interaction.** Reinforcement Learning is just a **computational approach of learning from action.**
 
-## **A formal definition**
+### **A formal definition**
 
 If we take now a formal definition:
 
@@ -78,17 +78,18 @@ If we take now a formal definition:
 
 ⇒ But how Reinforcement Learning works?
 
-# **The Reinforcement Learning Framework**
+## **The Reinforcement Learning Framework**
 
-## **The RL Process**
+### **The RL Process**
 
-![The RL Process: a loop of state, action, reward and next state](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/669682a3-d19d-4a56-987d-e2b0a3a87dd0/RL_process.jpg)
+IMAGE RL_process.jpg
+CAPTION The RL Process: a loop of state, action, reward and next state
 
 The RL Process: a loop of state, action, reward and next state
 
 To understand the RL process, let’s imagine an agent learning to play a platform game:
 
-![RL_process_game.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5a9127c1-e191-4fbc-813f-1e0447285aff/RL_process_game.jpg)
+IMAGE RL_process_game.jpg
 
 - Our Agent receives **state S0** from the **Environment** — we receive the first frame of our game (Environment).
 - Based on that **state S0,** the Agent takes **action A0** — our Agent will move to the right.
@@ -98,11 +99,11 @@ To understand the RL process, let’s imagine an agent learning to play a platfo
 
 This RL loop outputs a sequence of **state, action, reward and next state.**
 
-![sars.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/8dd3f14d-fb70-42b4-8dfb-64706877c821/sars.jpg)
+IMAGE sars.jpg
 
 The agent's goal is to maximize its cumulative reward, **called the expected return.**
 
-## **The reward hypothesis: the central idea of Reinforcement Learning**
+### **The reward hypothesis: the central idea of Reinforcement Learning**
 
 ⇒ Why is the goal of the agent to maximize the expected return?
 
@@ -124,7 +125,8 @@ There is a differentiation to make between *observation* and *state*:
 
 - *State s*: is **a complete description of the state of the world** (there is no hidden information). In a fully observed environment.
 
-![In chess game, we receive a state from the environment since we have access to the whole check board information.](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1c384934-d808-4b3b-87ab-e4d5989f94aa/chess.jpg)
+IMAGE chess.jpg
+CAPTION In chess game, we receive a state from the environment since we have access to the whole check board information.
 
 In chess game, we receive a state from the environment since we have access to the whole check board information.
 
@@ -132,7 +134,8 @@ With a chess game, we are in a fully observed environment, since we have access 
 
 - *Observation o*: is a **partial description of the state.** In a partially observed environment.
 
-![In Super Mario Bros, we only see a part of the level close to the player, so we receive an observation.](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/baa62b85-9014-4c77-b327-82fc448e5f05/Untitled.png)
+IMAGE Untitled.png
+CAPTION In Super Mario Bros, we only see a part of the level close to the player, so we receive an observation.
 
 In Super Mario Bros, we only see a part of the level close to the player, so we receive an observation.
 
@@ -143,7 +146,7 @@ In Super Mario Bros, we are in a partially observed environment. We receive an 
 
 To recap:
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6749b893-2305-4948-b2f8-1ba4cf88942d/Untitled.png)
+SEARCH IMAGE
 
 ## **Action Space**
 
@@ -153,20 +156,19 @@ The actions can come from a *discrete* or *continuous space*:
 
 - *Discrete space*: the number of possible actions is **finite**.
 
-![Again, in Super Mario Bros, we have only 4 directions and jump possible](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/6ad1f52a-8904-45e2-8041-2b496874fae0/Untitled.png)
+IMAGE Untitled.png
+CAPTION Again, in Super Mario Bros, we have only 4 directions and jump possible
 
 Again, in Super Mario Bros, we have only 4 directions and jump possible
 
 In Super Mario Bros, we have a finite set of actions since we have only 4 directions and jump.
 
 - *Continuous space*: the number of possible actions is **infinite**.
-    
-    ![A Self Driving Car agent has an infinite number of possible actions since he can turn left 20°, 21°, 22°, honk, turn right 20°, 20,1°…](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/cc44cf88-0fb7-45b3-8889-2b3a806364c3/self_driving_car.jpg)
-    
-    A Self Driving Car agent has an infinite number of possible actions since he can turn left 20°, 21°, 22°, honk, turn right 20°, 20,1°…
-    
+IMAGE self_driving_car.jpg
+CAPTION A Self Driving Car agent has an infinite number of possible actions since he can turn left 20°, 21°, 22°, honk, turn right 20°, 20,1°…
+A Self Driving Car agent has an infinite number of possible actions since he can turn left 20°, 21°, 22°, honk, turn right 20°, 20,1°…
 
-![action_space.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/19da647c-25cf-47fa-ad32-5af0a40a6398/action_space.jpg)
+IMAGE: action_space.jpg
 
 Taking this information into consideration is crucial because it will **have importance when choosing the RL algorithm in the future.**
 
