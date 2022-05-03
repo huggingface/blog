@@ -178,19 +178,20 @@ The reward is fundamental in RL because it’s **the only feedback** for the a
 
 The cumulative reward at each time step t can be written as:
 
-![The cumulative reward equals to the sum of all rewards of the sequence.](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e411dc49-e3be-41e0-b8f6-7a0333395df4/rewards_1.jpg)
+IMAGE rewards.jpg
+CAPTION The cumulative reward equals to the sum of all rewards of the sequence.
 
 The cumulative reward equals to the sum of all rewards of the sequence.
 
 Which is equivalent to:
 
-![rewards_2.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/0c1721b0-cfc8-4c69-9df1-ec4ace59a16f/rewards_2.jpg)
+IMAGE rewards_2.jpg
 
 However, in reality, **we can’t just add them like that.** The rewards that come sooner (at the beginning of the game) **are more likely to happen** since they are more predictable than the long-term future reward.
 
 Let’s say your agent is this tiny mouse that can move one tile each time step, and your opponent is the cat (that can move too). Your goal is **to eat the maximum amount of cheese before being eaten by the cat.**
 
-![rewards_3.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f436f014-e7e9-4580-ba65-d4b7e59b064c/rewards_3.jpg)
+IMAGE rewards_3.jpg
 
 As we can see in the diagram, **it’s more probable to eat the cheese near us than the cheese close to the cat** (the closer we are to the cat, the more dangerous it is).
 
@@ -217,7 +218,7 @@ As the time step increases, the cat gets closer to us, **so the future reward i
 
 Our discounted cumulative expected rewards is:
 
-![rewards_4.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c7285b94-46c1-43d1-91b8-77c3924b863e/rewards_4.jpg)
+IMAGE rewards_4.jpg
 
 ## **Type of tasks**
 
@@ -229,7 +230,8 @@ In this case, we have a starting point and an ending point **(a terminal state
 
 For instance, think about Super Mario Bros: an episode begin at the launch of a new Mario Level and ending **when you’re killed or you reached the end of the level.**
 
-![Beginning of a new episode](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/473a7d40-7461-40c7-a7c6-6f5ad736a1cc/Untitled.png)
+IMAGE Untitled.png
+CAPTION Beginning of a new episode
 
 Beginning of a new episode
 
@@ -239,9 +241,9 @@ These are tasks that continue forever (no terminal state). In this case, the ag
 
 For instance, an agent that does automated stock trading. For this task, there is no starting point and terminal state. **The agent keeps running until we decide to stop him.**
 
-[stock.jfif](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1040a8b6-1555-42c2-805d-3854aa4b87b8/stock.jfif)
+IMAGE stock market
 
-![tasks.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/72192ff0-ac93-48a2-993b-a5dd43d35434/tasks.jpg)
+IMAGE tasks.jpg
 
 ## **Exploration/ Exploitation tradeoff**
 
@@ -260,7 +262,7 @@ Remember, the goal of our RL agent is to maximize the expected cumulative reward
 
 Let’s take an example:
 
-[exp_1.jfif](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/391791bf-f562-4b9c-a4e2-ffe0ab61a0e4/exp_1.jfif)
+exp_1.jpg
 
 In this game, our mouse can have an **infinite amount of small cheese** (+1 each). But at the top of the maze, there is a gigantic sum of cheese (+1000).
 
@@ -274,26 +276,26 @@ Therefore, we must **define a rule that helps to handle this trade-off**. We�
 
 If it’s still confusing, **think of a real problem: the choice of a restaurant:**
 
-![[Source: Berkley](http://rail.eecs.berkeley.edu/deeprlcourse-fa17/f17docs/lecture_13_exploration.pdf) AI Course](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4a34cba2-8375-49fa-a1f4-df3fd23374f6/exp_2.jpg)
-
-[Source: Berkley](http://rail.eecs.berkeley.edu/deeprlcourse-fa17/f17docs/lecture_13_exploration.pdf) AI Course
+IMAGE exp_2.jpg
+CAPTION Source: Berkley](http://rail.eecs.berkeley.edu/deeprlcourse-fa17/f17docs/lecture_13_exploration.pdf) AI Course](
 
 - *Exploitation*: You go every day to the same one that you know is good and **take the risk to miss another better restaurant.**
 - *Exploration*: Try restaurants you never went to before, with the risk of having a bad experience **but the probable opportunity of a fantastic experience.**
 
-![expexpltradeoff.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/50b7e1d7-0d62-4aa3-a60f-0b4296592a88/expexpltradeoff.jpg)
+IMG expexpltradeoff.jpg
 
-# **The two main approaches for solving RL problems**
+## **The two main approaches for solving RL problems**
 
 ⇒ Now that we learned the RL framework, how do we solve the RL problem?
 
 In other terms, how to build an RL agent that can **select the actions that maximize its expected cumulative reward?**
 
-## **The Policy π: the agent’s brain**
+### **The Policy π: the agent’s brain**
 
 The Policy **π** is the **brain of our Agent**, it’s the function that tell us what **action to take given the state we are.** So it **defines the agent’s behavior** at a given time.
 
-![Think of policy as the brain of our agent, the function that will tells us the action to take given a state](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/10f4a2e1-0bb4-4596-8231-a03a801c9b77/policy_1.jpg)
+IMAGE policy_1.jpg
+CAPTION Think of policy as the brain of our agent, the function that will tells us the action to take given a state
 
 Think of policy as the brain of our agent, the function that will tells us the action to take given a state
 
@@ -304,13 +306,14 @@ There are two approaches to train our agent to find this optimal policy π*:
 - **Directly,** by teaching the agent to learn which **action to take,** given the state is in: **Policy-Based Methods.**
 - Indirectly, **teach the agent to learn which state is more valuable** and then take the action that **leads to the more valuable states**: Value-Based Methods.
 
-## **Policy-Based Methods**
+### **Policy-Based Methods**
 
 In Policy-Based Methods, **we learn a policy function directly.**
 
 This function will map from each state to the best corresponding action at that state. **Or a probability distribution over the set of possible actions at that state.**
 
-![As we can see here, the policy (deterministic) **directly indicates the action to take for each step.**](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b2a0464d-d8cf-4925-8380-4ee7656b48bb/policy_2.jpg)
+IMAGE policy_2.jpg
+CAPTION As we can see here, the policy (deterministic) **directly indicates the action to take for each step.**
 
 As we can see here, the policy (deterministic) **directly indicates the action to take for each step.**
 
@@ -318,29 +321,30 @@ We have two types of policy:
 
 - *Deterministic*: a policy at a given state **will always return the same action.**
 
-![action = policy(state)](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d1e2348e-1566-44ef-992c-b55b83a53198/policy_3.jpg)
+IMAGE policy_3.jpg
+CAPTION action = policy(state)
 
 action = policy(state)
 
-![policy_4.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/baebb16c-a552-41a5-ac76-27faadae5ad2/policy_4.jpg)
+IMAGE policy_4.jpg
 
 - *Stochastic*: output **a probability distribution over actions.**
 
-![policy(actions | state) = probability distribution over the set of actions given the current state](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5ec66e9c-d509-446c-b69b-6e6439e55bc8/policy_5.jpg)
+IMAGE policy_5.jpg
+CAPTION policy(actions | state) = probability distribution over the set of actions given the current state
 
 policy(actions | state) = probability distribution over the set of actions given the current state
 
-![Given an initial state, our stochastic policy will output probability distributions over the possible actions at that state.](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e7159636-11c6-42b4-bbc5-f87da1536b55/Untitled.png)
+IMAGE Untitled.png
+CAPTION Given an initial state, our stochastic policy will output probability distributions over the possible actions at that state.
 
 Given an initial state, our stochastic policy will output probability distributions over the possible actions at that state.
 
 If we recap:
 
-![pbm_1.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d0c229a7-6217-484f-9d01-8265c2ba60c5/pbm_1.jpg)
+IMAGE (cote à cote) pbm_1.jpg and pbm_2.jpg
 
-![pbm_2.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/7da7d8e1-7f09-4620-a43f-2dbbb5f91444/pbm_2.jpg)
-
-## **Value-based methods**
+### **Value-based methods**
 
 In Value-based methods, instead of training a policy function, we **train a value function** that maps a state to the expected value **of being at that state.**
 
@@ -348,21 +352,20 @@ The value of a state is the **expected discounted return** the agent can get i
 
 “Act according to our policy” just means that our policy is **“going to the state with the highest value”.**
 
-![value_1.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3f3b9e32-9af3-4318-b2b4-30e3a0578aa6/value_1.jpg)
+IMAGE value_1.jpg
 
 Here we see that our value function **defined value for each possible state.**
 
-![Thanks to our value function, at each step our policy will select the state with the biggest value defined by the value function: -7, then -6, then -5 (and so on) to attain the goal.](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/fd242830-1afd-4fad-ba24-ca4a1aab5953/value_2.jpg)
+IMAGE value_2.jpg
+CAPTION Thanks to our value function, at each step our policy will select the state with the biggest value defined by the value function: -7, then -6, then -5 (and so on) to attain the goal.
 
 Thanks to our value function, at each step our policy will select the state with the biggest value defined by the value function: -7, then -6, then -5 (and so on) to attain the goal.
 
 If we recap:
 
-![vbm_1.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e10690c8-a246-4341-b7e2-35acffa56304/vbm_1.jpg)
+IMAGE (cote à cote) vbm_1.jpg vbm_2.jpg
 
-![vbm_2.jpg](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4b7b5724-e8c4-48bd-9488-8faa4ab67e10/vbm_2.jpg)
-
-# **The “Deep” in Reinforcement Learning**
+## **The “Deep” in Reinforcement Learning**
 
 ⇒ Wait… you spoke about Reinforcement Learning, but why we spoke about Reinforcement Learning?
 
@@ -374,12 +377,12 @@ You’ll see the difference is that in the first approach, **we use a tradition
 
 In the second approach, **we will use a Neural Network** (to approximate the q value).
 
-![Schema inspired by the Q learning notebook by Udacity](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/562a1f3c-bcea-4829-b5b8-1dd08d6eb4e2/deep.jpg)
-
-Schema inspired by the Q learning notebook by Udacity
+IMAGE deep.jpg
+CAPTION Schema inspired by the Q learning notebook by Udacity
 
 If you are not familiar with Deep Learning you definitely should watch the MIT Intro Course on Deep Learning (Free)
 
+EMBED
 [MIT Deep Learning 6.S191](http://introtodeeplearning.com/)
 
 That was a lot of information, if we summarize:
@@ -393,11 +396,9 @@ That was a lot of information, if we summarize:
 - There are two ways to find your optimal policy:
 1. By training your policy directly: **policy-based methods.**
 2. By training a value function that tells us the expected return the agent will get at each state and use this function to define our policy: **value-based methods.**
-- Finally, we speak about Deep RL because we introduces **deep neural networks to estimate the action to take (policy-based) or to estimate the value of a state (value-based)**
+- Finally, we speak about Deep RL because we introduces **deep neural networks to estimate the action to take (policy-based) or to estimate the value of a state (value-based)**hence the name “deep.”
     
-    hence the name “deep.”
-    
-
+---
 You’re now ready to train your first lander agent to **land correctly on the Moon 🌕 and upload it to the 🤗 Hub** 🔥
 
 Start the tutorial here:
@@ -413,5 +414,3 @@ Naturally, during the course, **we’re going to use and explain these terms ag
 In the next chapter, we’re going to learn about Q-Learning and dive deeper **into the value-based methods.**
 
 And don't forget to share with your friends who want to learn 🤗 !
-
-[https://youtu.be/q0BiUn5LiBc?t=126](https://youtu.be/q0BiUn5LiBc?t=126)
