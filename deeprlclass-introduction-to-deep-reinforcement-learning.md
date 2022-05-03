@@ -11,8 +11,14 @@ Deep RL is a type of Machine Learning where an agent learns **how to behave** 
 
 Since 2013 and the [Deep Q-Learning paper](https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf), we’ve seen a lot of breakthroughs. From OpenAI [five that beat some of the best Dota2 players of the world,](https://www.twitch.tv/videos/293517383) to the [Dexterity project](https://openai.com/blog/learning-dexterity/), we **live in an exciting moment in Deep RL research.**
 
-IMAGE dota2.jpg
-CAPTION OpenAI Five, an AI [that beat some of the best Dota2 players in the world](https://www.twitch.tv/videos/293517383)
+
+<br>
+<figure class="image table text-center m-0 w-full">
+  <medium-zoom background="rgba(0,0,0,.7)" alt="OpenAI Five, an AI that beat some of the best Dota2 players in the world" src="assets/63_deeprlclass_unit1/"></medium-zoom>
+  <figcaption>OpenAI Five, an AI [that beat some of the best Dota2 players in the world](https://www.twitch.tv/videos/293517383)</figcaption>
+</figure>
+<br>
+
 
 Moreover, since 2018, **you have now, access to so many amazing environments and libraries to build your agents.**
 
