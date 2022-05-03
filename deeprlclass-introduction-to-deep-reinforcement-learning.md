@@ -46,7 +46,7 @@ In this free course, you will:
 - 🏆 **Participate in challenges** where you will evaluate your agents against other teams.
 - 🖌️🎨 Learn to **share your environments** made with Unity and Godot.
 
-So in this first unit, **you’ll learn the foundations of deep reinforcement learning.** And then, you'll train your first lander agent to **land correctly on the Moon 🌕 and upload it to the 🤗 Hub.**
+So in this first unit, **you’ll learn the foundations of deep reinforcement learning.** And then, you'll train your first lander agent to **land correctly on the Moon 🌕 and upload it to the Hugging Face Hub, a free, open platform where people can share ML models, datasets and demos.**
 
 <figure class="image table text-center m-0 w-full">
     <video
