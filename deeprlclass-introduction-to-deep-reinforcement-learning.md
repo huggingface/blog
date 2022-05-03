@@ -40,7 +40,7 @@ Yes, because this article is the first unit of [Deep Reinforcement Learning Clas
 In this free course, you will:
 
 - 📖 Study Deep Reinforcement Learning in **theory and practice**.
-- 🧑‍💻 Learn to **use famous Deep RL libraries* such as Stable Baselines3, RL Baselines3 Zoo, and RLlib.
+- 🧑‍💻 Learn to **use famous Deep RL libraries** such as Stable Baselines3, RL Baselines3 Zoo, and RLlib.
 - 🤖 Train agents in **unique environments** such as SnowballFight, Huggy the Doggo 🐶, and classical ones such as Space Invaders and PyBullet.
 - 💾 Publish your trained agents **in one line of code to the Hub**. But also download powerful agents from the community.
 - 🏆 **Participate in challenges** where you will evaluate your agents against other teams.
