@@ -20,7 +20,7 @@ thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
         <div class="bfc">
             <code>segments-tobias</code>
             <span class="fullname">Tobias Cornille</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
     <a href="/nielsr">

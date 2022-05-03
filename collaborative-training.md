@@ -18,7 +18,7 @@ thumbnail: /blog/assets/24_sahajBERT/thumbnail.png
         <div class="bfc">
             <code>mryab</code>
             <span class="fullname">Max Ryabinin</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
             <img class="rounded inline" style="margin: 0 !important; ; width: 22px; height: 22px;" src="/blog/assets/24_sahajBERT/yandex_logo.png">
         </div>
     </a>

@@ -20,7 +20,7 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
     <div class="bfc">
       <code>arampacha</code>
       <span class=fullname">Artashes Arutiunian</span>
-      <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+      <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
     </div>
   </a>
   <a href="/devv">
@@ -28,7 +28,7 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
     <div class="bfc">
       <code>devv</code>
       <span class=fullname">Dev Vidhani</span>
-      <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+      <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
     </div>
   </a>
   <a href="/goutham794">
@@ -36,7 +36,7 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
     <div class="bfc">
       <code>goutham794</code>
       <span class=fullname">Goutham Venkatesh</span>
-      <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+      <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
     </div>
   </a>
   <a href="/cataluna84">
@@ -44,7 +44,7 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
     <div class="bfc">
       <code>cataluna84</code>
       <span class=fullname">Mayank Bhaskar</span>
-      <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+      <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
     </div>
   </a>
   <a href="/ghosh-r">
@@ -52,7 +52,7 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
     <div class="bfc">
       <code>ghosh-r</code>
       <span class=fullname">Ritobrata Ghosh</span>
-      <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+      <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
     </div>
   </a>
   <a href="/sujitpal">
@@ -60,7 +60,7 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
     <div class="bfc">
       <code>sujitpal</code>
       <span class=fullname">Sujit Pal</span>
-      <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+      <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
     </div>
   </a>
 </div>
