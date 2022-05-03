@@ -1,20 +1,33 @@
 ---
 title: "An Introduction to Deep Reinforcement Learning"
-thumbnail: /blog/assets/63_deeprlclass_unit1/thumbnail.png
+thumbnail: /blog/assets/63_deep_rl_intro/thumbnail.png
 ---
 
+<html>
+<head>
+<style>
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+</style>
 <h1>An Introduction to Deep Reinforcement Learning</h1>
 <h2>Chapter 1 of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
 <div class="author-card">
-    <a href="/thomassimonini">
+    <a href="/ThomasSimonini">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1632748593235-60cae820b1c79a3e4b436664.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
-            <code>thomassimonini</code>
+            <code>ThomasSimonini</code>
             <span class="fullname">Thomas Simonini</span>
         </div>
     </a>
 </div>
+</head>
+
+<body>
 
 *This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
 ---
@@ -26,7 +39,7 @@ Deep RL is a type of Machine Learning where an agent learns **how to behave** 
 Since 2013 and the [Deep Q-Learning paper](https://www.cs.toronto.edu/~vmnih/docs/dqn.pdf), we’ve seen a lot of breakthroughs. From OpenAI [five that beat some of the best Dota2 players of the world,](https://www.twitch.tv/videos/293517383) to the [Dexterity project](https://openai.com/blog/learning-dexterity/), we **live in an exciting moment in Deep RL research.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/OpenAIFive.jpg" alt="OpenAI Five, an AI that beat some of the best Dota2 players in the world"/>
+  <img src="assets/63_deep_rl_intro/OpenAIFive.jpg" alt="OpenAI Five, an AI that beat some of the best Dota2 players in the world"/>
   <figcaption>OpenAI Five, an AI <a href="https://www.twitch.tv/videos/293517383">that beat some of the best Dota2 players in the world</a></figcaption>
 </figure>
 
@@ -41,12 +54,12 @@ In this free course, you will:
 
 - 📖 Study Deep Reinforcement Learning in **theory and practice**.
 - 🧑‍💻 Learn to **use famous Deep RL libraries** such as Stable Baselines3, RL Baselines3 Zoo, and RLlib.
-- 🤖 Train agents in **unique environments** such as SnowballFight, Huggy the Doggo 🐶, and classical ones such as Space Invaders and PyBullet.
+- 🤖 Train agents in **unique environments** such as [SnowballFight](https://huggingface.co/spaces/ThomasSimonini/SnowballFight), Huggy the Doggo 🐶, and classical ones such as Space Invaders and PyBullet.
 - 💾 Publish your trained agents **in one line of code to the Hub**. But also download powerful agents from the community.
 - 🏆 **Participate in challenges** where you will evaluate your agents against other teams.
 - 🖌️🎨 Learn to **share your environments** made with Unity and Godot.
 
-So in this first unit, **you’ll learn the foundations of deep reinforcement learning.** And then, you'll train your first lander agent to **land correctly on the Moon 🌕 and upload it to the Hugging Face Hub, a free, open platform where people can share ML models, datasets and demos.**
+So in this first unit, **you’ll learn the foundations of Deep Reinforcement Learning.** And then, you'll train your first lander agent to **land correctly on the Moon 🌕 and upload it to the Hugging Face Hub, a free, open platform where people can share ML models, datasets and demos.**
 
 <figure class="image table text-center m-0 w-full">
     <video
@@ -54,7 +67,7 @@ So in this first unit, **you’ll learn the foundations of deep reinforcement l
         style="max-width: 70%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
-      <source src="assets/63_deeprlclass_unit1/lunarlander.mp4" type="video/mp4">
+      <source src="assets/63_deep_rl_intro/lunarlander.mp4" type="video/mp4">
   </video>
 </figure>
 
@@ -67,9 +80,28 @@ If you prefer, you can watch the 📹 video version of this chapter :
 
 So let’s get started! 🚀
 
+- [What is Reinforcement Learning?](#what-is-reinforcement-learning)
+  - [The big picture](#the-big-picture)
+  - [A formal definition](#a-formal-definition)
+- [The Reinforcement Learning Framework](#the-reinforcement-learning-framework)
+  - [The RL Process](#the-rl-process)
+  - [The reward hypothesis: the central idea of Reinforcement Learning](#the-reward-hypothesis-the-central-idea-of-reinforcement-learning)
+  - [Markov Property](#markov-property)
+  - [Observations/States Space](#observationsstates-space)
+  - [Action Space](#action-space)
+  - [Rewards and the discounting](#rewards-and-the-discounting)
+  - [Type of tasks](#type-of-tasks)
+- [Exploration/ Exploitation tradeoff](#exploration-exploitation-tradeoff)
+- [The two main approaches for solving RL problems](#the-two-main-approaches-for-solving-rl-problems)
+  - [The Policy π: the agent’s brain](#the-policy-π-the-agents-brain)
+  - [Policy-Based Methods](#policy-based-methods)
+  - [Value-based methods](#value-based-methods)
+- [The “Deep” in Reinforcement Learning](#the-deep-in-reinforcement-learning)
+
+
 ## **What is Reinforcement Learning?**
 
-To understand reinforcement learning, let’s start with the big picture.
+To understand Reinforcement Learning, let’s start with the big picture.
 
 ### **The big picture**
 
@@ -81,7 +113,7 @@ For instance, imagine putting your little brother in front of a video game he ne
 
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/Illustration_1.jpg" alt="Illustration_1"/>
+  <img src="assets/63_deep_rl_intro/Illustration_1.jpg" alt="Illustration_1"/>
 </figure>
 
 
@@ -89,13 +121,13 @@ Your brother will interact with the environment (the video game) by pressing the
 
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/Illustration_2.jpg" alt="Illustration_2"/>
+  <img src="assets/63_deep_rl_intro/Illustration_2.jpg" alt="Illustration_2"/>
 </figure>
 
 But then, **he presses right again** and he touches an enemy, he just died -1 reward.
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/Illustration_3.jpg" alt="Illustration_3"/>
+  <img src="assets/63_deep_rl_intro/Illustration_3.jpg" alt="Illustration_3"/>
 </figure>
 
 By interacting with his environment through trial and error, your little brother understood that **he needed to get coins in this environment but avoid the enemies.**
@@ -117,14 +149,15 @@ If we take now a formal definition:
 ### **The RL Process**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/RL_process.jpg" alt="The RL process"/>
+  <img src="assets/63_deep_rl_intro/RL_process.jpg" alt="The RL process"/>
   <figcaption>The RL Process: a loop of state, action, reward and next state</figcaption>
+  <figcaption>Source: <a href="http://incompleteideas.net/book/RLbook2020.pdf">Reinforcement Learning: An Introduction, Richard Sutton and Andrew G. Barto</a></figcaption>
 </figure>
 
 To understand the RL process, let’s imagine an agent learning to play a platform game:
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/RL_process_game.jpg" alt="The RL process"/>
+  <img src="assets/63_deep_rl_intro/RL_process_game.jpg" alt="The RL process"/>
 </figure>
 
 - Our Agent receives **state S0** from the **Environment** — we receive the first frame of our game (Environment).
@@ -136,7 +169,7 @@ This RL loop outputs a sequence of **state, action, reward and next state.**
 
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/sars.jpg" alt="State, Action, Reward, Next State"/>
+  <img src="assets/63_deep_rl_intro/sars.jpg" alt="State, Action, Reward, Next State"/>
 </figure>
 
 The agent's goal is to maximize its cumulative reward, **called the expected return.**
@@ -164,7 +197,7 @@ There is a differentiation to make between *observation* and *state*:
 - *State s*: is **a complete description of the state of the world** (there is no hidden information). In a fully observed environment.
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/chess.jpg" alt="Chess"/>
+  <img src="assets/63_deep_rl_intro/chess.jpg" alt="Chess"/>
   <figcaption>In chess game, we receive a state from the environment since we have access to the whole check board information.</figcaption>
 </figure>
 
@@ -175,7 +208,7 @@ With a chess game, we are in a fully observed environment, since we have access 
 - *Observation o*: is a **partial description of the state.** In a partially observed environment.
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/mario.jpg" alt="Mario"/>
+  <img src="assets/63_deep_rl_intro/mario.jpg" alt="Mario"/>
   <figcaption>In Super Mario Bros, we only see a part of the level close to the player, so we receive an observation.</figcaption>
 </figure>
 
@@ -188,7 +221,7 @@ In Super Mario Bros, we are in a partially observed environment. We receive an 
 
 To recap:
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/obs_space_recap.jpg" alt="Obs space recap"/>
+  <img src="assets/63_deep_rl_intro/obs_space_recap.jpg" alt="Obs space recap"/>
 </figure>
 
 ### Action Space
@@ -200,7 +233,7 @@ The actions can come from a *discrete* or *continuous space*:
 - *Discrete space*: the number of possible actions is **finite**.
 
 <figure class="image table image-center text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/mario.jpg" alt="Mario"/>
+  <img src="assets/63_deep_rl_intro/mario.jpg" alt="Mario"/>
   <figcaption>Again, in Super Mario Bros, we have only 4 directions and jump possible</figcaption>
 </figure>
 
@@ -208,14 +241,14 @@ In Super Mario Bros, we have a finite set of actions since we have only 4 direct
 
 - *Continuous space*: the number of possible actions is **infinite**.
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/self_driving_car.jpg" alt="Self Driving Car"/>
+  <img src="assets/63_deep_rl_intro/self_driving_car.jpg" alt="Self Driving Car"/>
   <figcaption>A Self Driving Car agent has an infinite number of possible actions since he can turn left 20°, 21°, 22°, honk, turn right 20°, 20,1°…
 </figcaption>
 </figure>
 
 To recap:
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/action_space.jpg" alt="Recap action space"/>
+  <img src="assets/63_deep_rl_intro/action_space.jpg" alt="Recap action space"/>
 </figcaption>
 </figure>
 
@@ -228,7 +261,7 @@ The reward is fundamental in RL because it’s **the only feedback** for the a
 The cumulative reward at each time step t can be written as:
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/rewards_1.jpg" alt="Rewards"/>
+  <img src="assets/63_deep_rl_intro/rewards_1.jpg" alt="Rewards"/>
   <figcaption>The cumulative reward equals to the sum of all rewards of the sequence.
 </figcaption>
 </figure>
@@ -236,7 +269,10 @@ The cumulative reward at each time step t can be written as:
 Which is equivalent to:
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/rewards_2.jpg" alt="Rewards"/>
+  <img src="assets/63_deep_rl_intro/rewards_2.jpg" alt="Rewards"/>
+  <figcaption>The cumulative reward = rt+1 (rt+k+1 = rt+0+1 = rt+1)+ rt+2 (rt+k+1 = rt+1+1 = rt+2) + ...
+</figcaption>
+</figure>
 </figure>
 
 However, in reality, **we can’t just add them like that.** The rewards that come sooner (at the beginning of the game) **are more likely to happen** since they are more predictable than the long-term future reward.
@@ -244,7 +280,7 @@ However, in reality, **we can’t just add them like that.** The rewards that 
 Let’s say your agent is this tiny mouse that can move one tile each time step, and your opponent is the cat (that can move too). Your goal is **to eat the maximum amount of cheese before being eaten by the cat.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/rewards_3.jpg" alt="Rewards"/>
+  <img src="assets/63_deep_rl_intro/rewards_3.jpg" alt="Rewards"/>
 </figure>
 
 As we can see in the diagram, **it’s more probable to eat the cheese near us than the cheese close to the cat** (the closer we are to the cat, the more dangerous it is).
@@ -265,7 +301,7 @@ To discount the rewards, we proceed like this:
 Our discounted cumulative expected rewards is:
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/rewards_4.jpg" alt="Rewards"/>
+  <img src="assets/63_deep_rl_intro/rewards_4.jpg" alt="Rewards"/>
 </figure>
 
 
@@ -280,7 +316,7 @@ In this case, we have a starting point and an ending point **(a terminal state
 For instance, think about Super Mario Bros: an episode begin at the launch of a new Mario Level and ending **when you’re killed or you reached the end of the level.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/mario.jpg" alt="Mario"/>
+  <img src="assets/63_deep_rl_intro/mario.jpg" alt="Mario"/>
   <figcaption>Beginning of a new episode.
 </figcaption>
 </figure>
@@ -293,11 +329,11 @@ These are tasks that continue forever (no terminal state). In this case, the ag
 For instance, an agent that does automated stock trading. For this task, there is no starting point and terminal state. **The agent keeps running until we decide to stop him.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/stock.jpg" alt="Stock Market"/>
+  <img src="assets/63_deep_rl_intro/stock.jpg" alt="Stock Market"/>
 </figure>
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/tasks.jpg" alt="Tasks recap"/>
+  <img src="assets/63_deep_rl_intro/tasks.jpg" alt="Tasks recap"/>
 </figure>
 
 ## **Exploration/ Exploitation tradeoff**
@@ -314,7 +350,7 @@ Remember, the goal of our RL agent is to maximize the expected cumulative reward
 Let’s take an example:
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/exp_1.jpg" alt="Exploration"/>
+  <img src="assets/63_deep_rl_intro/exp_1.jpg" alt="Exploration"/>
 </figure>
 
 In this game, our mouse can have an **infinite amount of small cheese** (+1 each). But at the top of the maze, there is a gigantic sum of cheese (+1000).
@@ -330,7 +366,7 @@ Therefore, we must **define a rule that helps to handle this trade-off**. We�
 If it’s still confusing, **think of a real problem: the choice of a restaurant:**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/exp_2.jpg" alt="Exploration"/>
+  <img src="assets/63_deep_rl_intro/exp_2.jpg" alt="Exploration"/>
   <figcaption>Source: <a href="http://rail.eecs.berkeley.edu/deeprlcourse-fa17/f17docs/lecture_13_exploration.pdf"> Berkley AI Course</a>
 </figcaption>
 </figure>
@@ -340,7 +376,7 @@ If it’s still confusing, **think of a real problem: the choice of a restaurant
 
 To recap:
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/expexpltradeoff.jpg" alt="Exploration Exploitation Tradeoff"/>
+  <img src="assets/63_deep_rl_intro/expexpltradeoff.jpg" alt="Exploration Exploitation Tradeoff"/>
 </figure>
 
 ## **The two main approaches for solving RL problems**
@@ -354,7 +390,7 @@ In other terms, how to build an RL agent that can **select the actions that ma
 The Policy **π** is the **brain of our Agent**, it’s the function that tell us what **action to take given the state we are.** So it **defines the agent’s behavior** at a given time.
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/policy_1.jpg" alt="Policy"/>
+  <img src="assets/63_deep_rl_intro/policy_1.jpg" alt="Policy"/>
   <figcaption>Think of policy as the brain of our agent, the function that will tells us the action to take given a state
 </figcaption>
 </figure>
@@ -375,37 +411,35 @@ In Policy-Based Methods, **we learn a policy function directly.**
 This function will map from each state to the best corresponding action at that state. **Or a probability distribution over the set of possible actions at that state.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/policy_2.jpg" alt="Policy"/>
+  <img src="assets/63_deep_rl_intro/policy_2.jpg" alt="Policy"/>
   <figcaption>As we can see here, the policy (deterministic) <b>directly indicates the action to take for each step.</b>
 </figcaption>
 </figure>
-
-As we can see here, the policy (deterministic) **directly indicates the action to take for each step.**
 
 We have two types of policy:
 
 - *Deterministic*: a policy at a given state **will always return the same action.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/policy_3.jpg" alt="Policy"/>
+  <img src="assets/63_deep_rl_intro/policy_3.jpg" alt="Policy"/>
   <figcaption>action = policy(state)
 </figcaption>
 </figure>
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/policy_4.jpg" alt="Policy"/>
+  <img src="assets/63_deep_rl_intro/policy_4.jpg" alt="Policy"/>
 </figure>
 
 - *Stochastic*: output **a probability distribution over actions.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/policy_5.jpg" alt="Policy"/>
+  <img src="assets/63_deep_rl_intro/policy_5.jpg" alt="Policy"/>
   <figcaption>policy(actions | state) = probability distribution over the set of actions given the current state
 </figcaption>
 </figure>
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/mario.jpg" alt="Mario"/>
+  <img src="assets/63_deep_rl_intro/mario.jpg" alt="Mario"/>
   <figcaption>Given an initial state, our stochastic policy will output probability distributions over the possible actions at that state.
 </figcaption>
 </figure>
@@ -413,10 +447,10 @@ We have two types of policy:
 If we recap:
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/pbm_1.jpg" alt="Pbm recap"/>
+  <img src="assets/63_deep_rl_intro/pbm_1.jpg" alt="Pbm recap"/>
 </figure>
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/pbm_2.jpg" alt="Pbm recap"/>
+  <img src="assets/63_deep_rl_intro/pbm_2.jpg" alt="Pbm recap"/>
 </figure>
 
 
@@ -429,13 +463,13 @@ The value of a state is the **expected discounted return** the agent can get i
 “Act according to our policy” just means that our policy is **“going to the state with the highest value”.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/value_1.jpg" alt="Value based RL"/>
+  <img src="assets/63_deep_rl_intro/value_1.jpg" alt="Value based RL"/>
 </figure>
 
 Here we see that our value function **defined value for each possible state.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/value_2.jpg" alt="Value based RL"/>
+  <img src="assets/63_deep_rl_intro/value_2.jpg" alt="Value based RL"/>
   <figcaption>Thanks to our value function, at each step our policy will select the state with the biggest value defined by the value function: -7, then -6, then -5 (and so on) to attain the goal.
 </figcaption>
 </figure>
@@ -445,10 +479,10 @@ Thanks to our value function, at each step our policy will select the state with
 If we recap:
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/vbm_1.jpg" alt="Vbm recap"/>
+  <img src="assets/63_deep_rl_intro/vbm_1.jpg" alt="Vbm recap"/>
 </figure>
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/vbm_2.jpg" alt="Vbm recap"/>
+  <img src="assets/63_deep_rl_intro/vbm_2.jpg" alt="Vbm recap"/>
 </figure>
 
 
@@ -465,12 +499,12 @@ You’ll see the difference is that in the first approach, **we use a tradition
 In the second approach, **we will use a Neural Network** (to approximate the q value).
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deeprlclass_unit1/deep.jpg" alt="Value based RL"/>
+  <img src="assets/63_deep_rl_intro/deep.jpg" alt="Value based RL"/>
   <figcaption>Schema inspired by the Q learning notebook by Udacity
 </figcaption>
 </figure>
 
-If you are not familiar with Deep Learning you definitely should watch <a href="http://introtodeeplearning.com/">the MIT Intro Course on Deep Learning (Free)</a>
+If you are not familiar with Deep Learning you definitely should watch <a href="https://course.fast.ai/">the fastai Practical Deep Learning for Coders (Free)</a>
 
 That was a lot of information, if we summarize:
 
@@ -495,7 +529,7 @@ Now that you've studied the bases of Reinforcement Learning, you’re ready to t
         style="max-width: 70%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
-      <source src="assets/63_deeprlclass_unit1/lunarlander.mp4" type="video/mp4">
+      <source src="assets/63_deep_rl_intro/lunarlander.mp4" type="video/mp4">
   </video>
 </figure>
 
@@ -516,3 +550,5 @@ In the next chapter, we’re going to learn about Q-Learning and dive deeper **
 And don't forget to share with your friends who want to learn 🤗 !
 
 ### Keep learning, stay awesome,
+</body>
+</html>
