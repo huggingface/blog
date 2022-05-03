@@ -153,7 +153,7 @@ That’s why in Reinforcement Learning, **to have the best behavior,** we need
 
 In papers, you’ll see that the RL process is called the **Markov Decision Process** (MDP).
 
-We’ll talk again about the Markov Property in the following units. But if you need to remember something today about it, Markov Property implies that our agent needs **only the current state to decide** what action to take and **not the history of all the states** **and actions** he took before.
+We’ll talk again about the Markov Property in the following units. But if you need to remember something today about it, Markov Property implies that our agent needs **only the current state to decide** what action to take and **not the history of all the states** **and actions** they took before.
 
 ### **Observations/States Space**
 
