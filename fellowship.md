@@ -1,14 +1,14 @@
 ---
-title: "Announcing the Hugging Face 🤗 Fellowship Program"
+title: "Announcing the Hugging Face Fellowship Program"
 thumbnail: /blog/assets/62_fellowship/fellowship-thumbnail.png
 ---
 
 <h1>
-    Announcing the Hugging Face 🤗 Fellowship Program
+    Announcing the Hugging Face Fellowship Program
 </h1>
 
 <div class="blog-metadata">
-    <small>Published April 18, 2022.</small>
+    <small>Published May 5, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fellowship.md">
         Update on GitHub
     </a>
@@ -32,58 +32,73 @@ thumbnail: /blog/assets/62_fellowship/fellowship-thumbnail.png
 </div>
 
 
-The 🤗 Fellowship is a network of exceptional people from different backgrounds who contribute to the open source ecosystem of Machine Learning 🚀. Our goal is to empower the key contributors and enable them to scale their impact while inspiring others to contribute as well.
+The Fellowship is a network of exceptional people from different backgrounds who contribute to the Machine Learning open-source ecosystem 🚀. The goal of the program is to empower key contributors to enable them to scale their impact while inspiring others to contribute as well.
 
 ## How the Fellowship works 🙌🏻
 
 This is Hugging Face supporting the amazing work of contributors! Being a Fellow works differently for everyone. The key question here is:
 
-❓ **What would you need to be more impactful? How can we support you so you can do that project you have always wanted to do?**
+❓ **What would contributors need to have more impact? How can Hugging Face support them so they can do that project they have always wanted to do?**
 
-Fellows of all backgrounds are welcome! The progress of Machine Learning depends on grassroots contributions. Each person has a unique set of knowledge that can be used to democratize our field in a variety of ways. Each Fellow achieves impact differently and that is perfect 🌈. We will support you to continue creating and sharing the way you find the best 🤗.
+Fellows of all backgrounds are welcome! The progress of Machine Learning depends on grassroots contributions. Each person has a unique set of skills and knowledge that can be used to democratize the field in a variety of ways. Each Fellow achieves impact differently and that is perfect 🌈. Hugging Face supports them to continue creating and sharing the way that fits their needs the best.
 
 ## What are the benefits of being part of the Fellowship? 🤩
 
-The benefits will be based on the interests of each individual. Some examples of how we can support you:
+The benefits will be based on the interests of each individual. Some examples of how Hugging Face supports Fellows:
 
-💾 Computing and Resources 😏
+💾 Computing and resources
 
-🎎 Network of expert peers with whom fellows can collaborate.
-
-🧑🏻‍💻 Exclusive workshops and support from the Hugging Face team!
-
-🤗 Direct contact with the HF team, including insight into the latest projects, features, and more!
-
-🎁 Exclusive merchandise and assets.
+🎁 Merchandise and assets.
 
 ✨ Official recognition from Hugging Face.
 
-## Do you want to be a Fellow?
+## How to become a Fellow
 
-Fellows are currently nominated by members of the Hugging Face team or by another Fellow. Applications will soon be open. How can you get noticed? The main criterion is that you have contributed to the democratization of open-source machine learning.
+Fellows are currently nominated by members of the Hugging Face team or by another Fellow. How can prospects get noticed? The main criterion is that they have contributed to the democratization of open source Machine Learning.
 
-How? In the ways that you prefer. Here are some examples of our first Fellows:
+How? In the ways that they prefer. Here are some examples of the first Fellows:
 
-- **María Grandury** - She created the [largest Spanish-speaking NLP community](https://somosnlp.org/) and organized a Hackathon that achieved more than 20 models that advanced the SOTA for Spanish. 👩🏼‍🎤
-- **Manuel Romero** - He contributed [over 300 models](https://huggingface.co/mrm8488) to the Hugging Face Hub. He has trained multiple SOTA models in Spanish and has contributed to many different efforts. 🤴🏻
-- **Aritra Roy Gosthipathy**: Contributed new architectures for TensorFlow in the transformers library, improved Keras tooling, and helped in the creation of the Keras working group. 🦹🏻
-- **Vaibhav Srivastav** - Advocacy in the field of speech. He has led the ML4Audio working group, paper discussion sessions, and contributed to setting up Discord. 🦹🏻
-- **Bram Vanroy** - Helped many contributors and the Hugging Face team early on both GitHub and the forum 🦸🏼
-- **Christopher Akiki** - Helped the Hugging Face team on many fronts, contributed to sprints, organized workshops! 🦹🏻‍♀️
-- **Ceyda Çınarel** - Contributed to many Hugging Face models in various sprints! 👸🏻
+- **María Grandury** - Created the [largest Spanish-speaking NLP community](https://somosnlp.org/) and organized a Hackathon that achieved 23 Spaces, 23 datasets, and 33 models that advanced the SOTA for Spanish ([see the Organization](https://huggingface.co/hackathon-pln-es) in the Hub). 👩🏼‍🎤
+- **Manuel Romero** - Contributed [over 300 models](https://huggingface.co/mrm8488) to the Hugging Face Hub. He has trained multiple SOTA models in Spanish. 🤴🏻
+- **Aritra Roy Gosthipathy**: Contributed new architectures for TensorFlow to the Transformers library, improved Keras tooling, and helped create the Keras working group (for example, see his [Vision Transformers tutorial](https://twitter.com/RisingSayak/status/1515918406171914240)). 🦹🏻 
+- **Vaibhav Srivastav** - Advocacy in the field of speech. He has led the [ML4Audio working group](https://github.com/Vaibhavs10/ml-with-audio) ([see the recordings](https://www.youtube.com/playlist?list=PLo2EIpI_JMQtOQK_B4G97yn1QWZ4Xi4Tu)) and paper discussion sessions. 🦹🏻
+- **Bram Vanroy** - Helped many contributors and the Hugging Face team from the beginning. He has [issues](https://github.com/huggingface/transformers/issues/1332) and merged [pull requests](https://github.com/huggingface/transformers/pull/1346) in the Transformers library since September 2019. 🦸🏼 
+- **Christopher Akiki** - Contributed to sprints, workshops, [Big Science](https://t.co/oIRne5fZYb), and cool demos! Check out some of his recent projects like his [TF-coder](https://t.co/NtTmO6ngHP) and the [income stats explorer](https://t.co/dNMO7lHAIR).  🦹🏻‍♀️
+- **Ceyda Çınarel** - Contributed to many successful Hugging Face and Spaces models in various sprints. Check out her [ButterflyGAN Space](https://huggingface.co/spaces/huggan/butterfly-gan) or [search for reaction GIFs with CLIP](https://huggingface.co/spaces/flax-community/clip-reply-demo). 👸🏻
 
-Additionally, there are strategic areas where Hugging Face is looking for open source contributions. These areas will be added and updated frequently on the [one-pager of the Fellowship](https://huggingface2.notion.site/Hugging-Fellows-One-Pager-fa1c8878a7a14945b7e0dda2d1e34f36). Do not hesitate to send a direct message to [Merve Noyan](https://twitter.com/mervenoyann) or (Omar Espejel)(https://twitter.com/espejelomar) if you wish to undertake a project in these areas or be considered as a Fellow.
+Additionally, there are strategic areas where Hugging Face is looking for open source contributions. These areas will be added and updated frequently on the [one-pager of the Fellowship](https://huggingface2.notion.site/Hugging-Fellows-One-Pager-fa1c8878a7a14945b7e0dda2d1e34f36). Prospects should not hesitate to write in the #looking-for-collaborators channel in the [Hugging Face Discord](hf.co/join/discord) if they want to undertake a project in these areas, support or be considered as a Fellow. Additionally, refer to the **Where and how can I contribute?** question below.
 
-We are actively working to build a culture that values ​​diversity, equity, and inclusion. We are intentionally building a community where people feel respected and supported, regardless of who they are or where they come from. We believe this is critical to building the future of open Machine Learning. The Fellowship will not discriminate on the basis of race, religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or disability status.
+Hugging Face is actively working to build a culture that values ​​diversity, equity, and inclusion. Hugging Face intentionally creates a community where people feel respected and supported, regardless of who they are or where they come from. This is critical to building the future of open Machine Learning. The Fellowship will not discriminate based on race, religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or disability status.
 
 ## Frequently Asked Questions
 
-* **I'm starting to contribute. Can I be a fellow?**<br>Preferably people with more contributions are accepted as Fellows. That said, the program is flexible and we might consider it especially if you have the potential to contribute on strategic fronts.
+* **I am just starting to contribute. Can I be a fellow?**
 
-* **Will I be an employee of Hugging Face?**<br>No, the Fellowship does not mean you are an employee of Hugging Face. However, feel free to mention in any forum, including LinkedIn, that you are a Hugging Face Fellow. Hugging Face is growing and this *could* be a good path for a bigger relationship in the future 😎.
+Fellows are nominated based on their open source and community contributions. If you want to participate in the Fellowship, the best way to start is to begin contributing!
 
-* **Will I receive benefits during the Fellowship?**<br>Yes, the benefits will depend on the particular needs and projects that each Fellow wants to undertake.
+* **Where and how can I contribute?**
+  
+It depends on your interests. That said, here are some specific projects to continue the democratization of Machine Learning that are currently open:
+- Share Computer Vision models to the Hub. They do not need to be transformer based.
+- Creation of tutorials and projects using different libraries integrated within Hub. For example, Stable-Baselines 3, fastai or Keras. The integration of a new library with the Hub is also valuable.
+- Organize local sprints to promote open source Machine Learning in different languages ​​or niches. For example, the Hackathon Somos PNL focused on Spanish speakers. The HugGAN sprint focused on a particular niche in Machine Learning.
+- Translation of the [Hugging Face Course](https://github.com/huggingface/course#-languages-and-translations), the [Transformers documentation](https://github.com/huggingface/transformers/blob/main/docs/TRANSLATING.md) or the [Educational Toolkit](https://github.com/huggingface/education-toolkit/blob/main/TRANSLATING.md).
+- [Doc with specific projects](https://docs.google.com/document/d/11mh36a4fgBlj8sh3_KoP2TckuPcnD-_S_UAtsEWgs50/edit) where contributions would be valuable. The doc will be frequently updated with new projects.
 
-* **How ​​can I contribute?**<br>In whatever way you think will have the greatest impact on the mission of democratizing good machine learning. In addition, we will constantly add strategic areas of contribution in the [Fellowship's one-pager](https://huggingface2.notion.site/Hugging-Fellows-One-Pager-fa1c8878a7a14945b7e0dda2d1e34f36).
+Please share in the #looking-for-contributors channel on the [Hugging Face Discord](hf.co/join/discord) if you want to work on a particular project.
 
-* **Is there a deadline?**<br>No. Admission to the program is ongoing and contingent on the nomination of a current Fellow or member of the Hugging Face team. Please note that being nominated may not be enough to be admitted as a Fellow.
+* **Will I be an employee of Hugging Face?**
+  
+No, the Fellowship does not mean you are an employee of Hugging Face. However, feel free to mention in any forum, including LinkedIn, that you are a Hugging Face Fellow. Hugging Face is growing and this could be a good path for a bigger relationship in the future 😎. Check the [Hugging Face job board](hf.co/jobs) for updated opportunities. 
+
+* **Will I receive benefits during the Fellowship?**
+  
+Yes, the benefits will depend on the particular needs and projects that each Fellow wants to undertake.
+
+* **How ​​can I contribute?**
+  
+In whatever way you think will have the greatest impact on the mission of democratizing good Machine Learning. In addition, we will constantly add strategic areas of contribution in the [Fellowship's one-pager](https://huggingface2.notion.site/Hugging-Fellows-One-Pager-fa1c8878a7a14945b7e0dda2d1e34f36).
+
+* **Is there a deadline?**
+  
+No. Admission to the program is ongoing and contingent on the nomination of a current Fellow or member of the Hugging Face team. Please note that being nominated may not be enough to be admitted as a Fellow.
