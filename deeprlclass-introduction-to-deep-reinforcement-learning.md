@@ -487,7 +487,7 @@ That was a lot of information, if we summarize:
 - Finally, we speak about Deep RL because we introduces **deep neural networks to estimate the action to take (policy-based) or to estimate the value of a state (value-based)** hence the name “deep.”
 
 ---
-Now that you've studied the bases of Reinforcement Learning, you’re ready to train your first lander agent to **land correctly on the Moon 🌕 and upload it to the 🤗 Hub** 🔥
+Now that you've studied the bases of Reinforcement Learning, you’re ready to train your first lander agent to **land correctly on the Moon 🌕 and share it with the community through the Hub** 🔥
 
 <figure class="image table text-center m-0 w-full">
     <video
