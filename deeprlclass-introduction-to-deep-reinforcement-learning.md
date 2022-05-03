@@ -149,7 +149,7 @@ Because RL is based on the **reward hypothesis**, which is that all goals can b
 
 That’s why in Reinforcement Learning, **to have the best behavior,** we need to **maximize the expected cumulative reward.**
 
-### **(Optional) Markov Property**
+### **Markov Property**
 
 In papers, you’ll see that the RL process is called the **Markov Decision Process** (MDP).
 
