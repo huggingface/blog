@@ -331,7 +331,7 @@
   date: October 5, 2021
   tags:
   - guide
-  
+
 - local: fine-tune-clip-rsicd
   title: "Fine tuning CLIP with Remote Sensing (Satellite) images and captions"
   author: arampacha
@@ -350,7 +350,7 @@
   date: October 20, 2021
   tags:
   - analysis
-  
+
 - local: 1b-sentence-embeddings
   title: "Train a Sentence Embedding Model with 1B Training Pairs"
   author: asi
@@ -452,7 +452,7 @@
   - nlp
   - audio
   - cv
-  
+
 - local: gradio-joins-hf
   title: "Gradio joins Hugging Face!"
   author: abidlabs
@@ -563,7 +563,7 @@
   tags:
   - guide
   - nlp
-  
+
 - local: image-search-datasets
   title: "Image search with 🤗 datasets"
   author: davanstrien
@@ -662,7 +662,7 @@
   tags:
   - guide
   - nlp
-  
+
 - local: education
   title: "Introducing Hugging Face for Education"
   author: Violette
@@ -705,3 +705,11 @@
   date: May 2, 2022
   tags:
   - guide
+
+- local: deep-rl-intro
+  title: "An Introduction to Deep Reinforcement Learning"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/63_deep_rl_intro/thumbnail.png
+  date: May 4, 2022
+  tags:
+  - rl
