@@ -197,7 +197,7 @@ There is a differentiation to make between *observation* and *state*:
 - *State s*: is **a complete description of the state of the world** (there is no hidden information). In a fully observed environment.
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deep_rl_intro/chess.jpg" alt="Chess"/>
+  <img class="center" src="assets/63_deep_rl_intro/chess.jpg" alt="Chess"/>
   <figcaption>In chess game, we receive a state from the environment since we have access to the whole check board information.</figcaption>
 </figure>
 
@@ -208,7 +208,7 @@ With a chess game, we are in a fully observed environment, since we have access 
 - *Observation o*: is a **partial description of the state.** In a partially observed environment.
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deep_rl_intro/mario.jpg" alt="Mario"/>
+  <img class="center" src="assets/63_deep_rl_intro/mario.jpg" alt="Mario"/>
   <figcaption>In Super Mario Bros, we only see a part of the level close to the player, so we receive an observation.</figcaption>
 </figure>
 
@@ -233,7 +233,7 @@ The actions can come from a *discrete* or *continuous space*:
 - *Discrete space*: the number of possible actions is **finite**.
 
 <figure class="image table image-center text-center m-0 w-full">
-  <img src="assets/63_deep_rl_intro/mario.jpg" alt="Mario"/>
+  <img class="center" src="assets/63_deep_rl_intro/mario.jpg" alt="Mario"/>
   <figcaption>Again, in Super Mario Bros, we have only 4 directions and jump possible</figcaption>
 </figure>
 
@@ -289,7 +289,7 @@ Consequently, **the reward near the cat, even if it is bigger (more cheese), wi
 
 To discount the rewards, we proceed like this:
 
-1. We define a discount rate called gamma. **It must be between 0 and 1.**
+1. We define a discount rate called gamma. **It must be between 0 and 1.** Most of the time between **0.99 and 0.95**.
 
 - The larger the gamma, the smaller the discount. This means our agent **cares more about the long-term reward.**
 
@@ -316,7 +316,7 @@ In this case, we have a starting point and an ending point **(a terminal state
 For instance, think about Super Mario Bros: an episode begin at the launch of a new Mario Level and ending **when you’re killed or you reached the end of the level.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deep_rl_intro/mario.jpg" alt="Mario"/>
+  <img class="center" src="assets/63_deep_rl_intro/mario.jpg" alt="Mario"/>
   <figcaption>Beginning of a new episode.
 </figcaption>
 </figure>
@@ -439,7 +439,7 @@ We have two types of policy:
 </figure>
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/63_deep_rl_intro/mario.jpg" alt="Mario"/>
+  <img class="center" src="assets/63_deep_rl_intro/mario.jpg" alt="Mario"/>
   <figcaption>Given an initial state, our stochastic policy will output probability distributions over the possible actions at that state.
 </figcaption>
 </figure>
