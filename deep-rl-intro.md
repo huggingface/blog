@@ -533,7 +533,7 @@ Now that you've studied the bases of Reinforcement Learning, you’re ready to t
   </video>
 </figure>
 
-Start the tutorial here [ADD LINK]
+Start the tutorial here 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit1/unit1.ipynb
 
 Congrats on finishing this chapter! **That was the biggest one**, and there was a lot of information. And congrats on finishing the tutorial. You’ve just trained your first Deep RL agent and shared it on the Hub 🥳.
 
@@ -541,7 +541,7 @@ That’s **normal if you still feel confused** with all these elements. **Thi
 
 Take time to really grasp the material before continuing. It’s important to master these elements and having a solid foundations before entering the **fun part.**
 
-We published additional readings in the syllabus if you want to go deeper [ADD LINK README UNIT 1]
+We published additional readings in the syllabus if you want to go deeper 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit1/README.md
 
 Naturally, during the course, **we’re going to use and explain these terms again**, but it’s better to understand them before diving into the next chapters.
 
