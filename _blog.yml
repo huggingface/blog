@@ -705,3 +705,11 @@
   date: May 2, 2022
   tags:
   - guide
+  
+- local: deep-rl-intro
+  title: "An Introduction to Deep Reinforcement Learning"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/63_deep_rl_intro/fsdp-thumbnail.png
+  date: May 4, 2022
+  tags:
+  - rl
