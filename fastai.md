@@ -1,6 +1,6 @@
 ---
 title: 'Welcome fastai to the Hugging Face Hub'
-thumbnail: /blog/assets/63_fastai/fastai_hf_blog.png
+thumbnail: /blog/assets/64_fastai/fastai_hf_blog.png
 ---
 
 <h1><>
@@ -47,7 +47,7 @@ Anyone can access all the fastai models in the Hub by filtering the [huggingface
 
 To know more about the Hub, refer to this introduction.
 
-![Fastai Models in the Hub](assets/63_fastai/hf_hub_fastai.png)
+![Fastai Models in the Hub](assets/64_fastai/hf_hub_fastai.png)
 
 
 ## Installation
@@ -96,7 +96,7 @@ The Learner is now in the Hub with the id `espejelomar/cool_learner`.
 
 When uploading a fastai Learner (or any other model) to the Hub, it is helpful to edit its model card (image below) so that others better understand your work (refer to the [Hugging Face documentation](https://huggingface.co/docs/hub/model-repos#what-are-model-cards-and-why-are-they-useful)).
 
-![Fastai Model Card](assets/63_fastai/hf_model_card.png)
+![Fastai Model Card](assets/64_fastai/hf_model_card.png)
 
 ## Loading a Learner from Hub
 
