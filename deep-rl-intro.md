@@ -250,7 +250,7 @@ In Super Mario Bros, we have a finite set of actions since we have only 4 direct
 - *Continuous space*: the number of possible actions is **infinite**.
 <figure class="image table text-center m-0 w-full">
   <img src="assets/63_deep_rl_intro/self_driving_car.jpg" alt="Self Driving Car"/>
-  <figcaption>A Self Driving Car agent has an infinite number of possible actions since he can turn left 20°, 21°, 22°, honk, turn right 20°, 20,1°…
+  <figcaption>A Self Driving Car agent has an infinite number of possible actions since it can turn left 20°, 21°, 22°, honk, turn right 20°, 20,1°…
 </figcaption>
 </figure>
 
