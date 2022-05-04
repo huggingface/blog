@@ -705,3 +705,16 @@
   date: May 2, 2022
   tags:
   - guide
+
+- local: fastai
+  title: "Welcome fastai to the Hugging Face Hub"
+  author: espejelomar
+  thumbnail: /blog/assets/63_fastai/fastai_hf_blog.png
+  date: May 5, 2022
+  tags:
+  - guide
+  - open-source-collab
+  - community
+  - nlp
+  - cv
+
