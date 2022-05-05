@@ -74,9 +74,9 @@ Generalized artificial intelligence capabilities, if built and managed well, hav
 
 ### [Cao (Danica) Xiao](https://www.linkedin.com/in/caoxiao/) - Director of Machine Learning at [Amplitude](https://amplitude.com/)
 
-**Background:** Cao (Danica) Xiao is the Senior Director and Head of Data Science and Machine Learning at Amplitude. Her team focuses on developing and deploying self-serving machine learning models and products based on multi-sourced user data to solve critical business challenges regarding digital production analytics and optimization. Besides, she is a passionate machine learning researcher with over 95+ papers published in leading CS venues. She is also a technology leader with extensive experience in machine learning roadmap creation, team building, and mentoring. 
+**Background:** Cao (Danica) Xiao is the Senior Director and Head of Data Science and Machine Learning at Amplitude. Her team focuses on developing and deploying self-serving machine learning models and products based on multi-sourced user data to solve critical business challenges regarding digital production analytics and optimization. Besides, she is a passionate machine learning researcher with over 95+ papers published in leading CS venues. She is also a technology leader with extensive experience in machine learning roadmap creation, team building, and mentoring.
 
-Prior to Amplitude, Cao (Danica) was the Global Head of Machine Learning in the Analytics Center of Excellence of IQVIA. Before that, she was a research staff member at IBM Research and research lead at MIT-IBM Watson AI Lab. She got her Ph.D. degree in machine learning from the University of Washington, Seattle. Recently, she also co-authored a textbook on deep learning for healthcare and founded a non-profit organization for mentoring machine learning talents. 
+Prior to Amplitude, Cao (Danica) was the Global Head of Machine Learning in the Analytics Center of Excellence of IQVIA. Before that, she was a research staff member at IBM Research and research lead at MIT-IBM Watson AI Lab. She got her Ph.D. degree in machine learning from the University of Washington, Seattle. Recently, she also co-authored a textbook on deep learning for healthcare and founded a non-profit organization for mentoring machine learning talents.
 
 **Fun Fact:** Cao is a cat-lover and is a mom to two cats: one Singapura girl and one British shorthair boy.
  
@@ -95,6 +95,8 @@ Not giving users the flexibility to incorporate their business knowledge or othe
  
 #### **4. What excites you most about the future of ML?**
 ML has seen tremendous success. It also evolves rapidly to address the current limitations (e.g., lack of data, domain shift, incorporation of domain knowledge).
+
+More ML technologies will be applied to solve business or customer needs. For example, interpretable ML for users to understand and trust the ML model outputs; counterfactual prediction for users to estimate the alternative outcome should they make a different business decision.
 
 
 
