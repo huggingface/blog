@@ -28,11 +28,11 @@ thumbnail: /blog/assets/64_ml_director_insights/thumbnail.png
 </head>
 <body>
 
-Welcome to Part 2 of our Director of Machine Learning Insights Series.
+Welcome to Part 2 of our [Director of Machine Learning Insights Series](https://huggingface.co/blog/ml-director-insights).
 
 Directors of Machine Learning have a unique seat at the AI table spanning the perspective of various roles and responsibilities. Their rich knowledge of ML frameworks, engineering, architecture, real-world applications and problem-solving provides deep insights into the current state of ML. For example, one Director will note how using new transformers speech technology decreased their team’s error rate by 30% and how simple thinking can help save _a lot_ of computational power.
 
-In this second installment, you’ll hear from an ultra-endurance cyclist with a PhD in Space Science, a chess loving Cybersecurity expert, an Entrepreneur whose business was inspired by Barbie’s need to monitor brand reputation after a lead recall, and a seasoned patent and academic paper author who enjoys watching his 4 kids make the same mistakes as his ML models.
+In this second SaaS focused installment, you’ll hear from a deep learning for healthcare Author who founded a non-profit for mentoring ML talent, a chess fanatic Cybersecurity expert, an Entrepreneur whose business was inspired by Barbie’s need to monitor brand reputation after a lead recall, and a seasoned patent and academic paper author who enjoys watching his 4 kids make the same mistakes as his ML models.  
 
 🚀  Let’s meet some top Machine Learning Directors in SaaS and hear what they have to say about Machine Learning:
 
@@ -69,35 +69,32 @@ Not focussing enough on the business context and the problem being solved, rathe
 Generalized artificial intelligence capabilities, if built and managed well, have the capability to transform humanity in more ways than one can imagine. My hope is that we will see great progress in the areas of healthcare and transportation. We already see the benefits of AI in radiology resulting in significant savings in manpower thereby enabling humans to focus on more complex tasks. Self-driving cars and trucks are already transforming the transportation sector.
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/64_ml_director_insights/Lois-Smith.jpeg"></a>  
 
-### [Lois K. Smith](https://www.linkedin.com/in/lois-k-smith/) - Director of Machine Learning at [Afresh](https://www.jnj.com/)
+<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/64_ml_director_insights/Cao-Danica-Xiao.jpeg"></a>  
 
-**Background:** Lois is the Director of Machine Learning at Afresh. She has a PhD in Space Science from the University of Michigan and has been working in Data Science for over 6 years. 
+### [Cao (Danica) Xiao](https://www.linkedin.com/in/caoxiao/) - Director of Machine Learning at [Amplitude](https://amplitude.com/)
 
-**Fun Fact:** In her time outside of work, she’s an ultra endurance cyclist and novelist.
+**Background:** Cao (Danica) Xiao is the Senior Director and Head of Data Science and Machine Learning at Amplitude. Her team focuses on developing and deploying self-serving machine learning models and products based on multi-sourced user data to solve critical business challenges regarding digital production analytics and optimization. Besides, she is a passionate machine learning researcher with over 95+ papers published in leading CS venues. She is also a technology leader with extensive experience in machine learning roadmap creation, team building, and mentoring. 
+
+Prior to Amplitude, Cao (Danica) was the Global Head of Machine Learning in the Analytics Center of Excellence of IQVIA. Before that, she was a research staff member at IBM Research and research lead at MIT-IBM Watson AI Lab. She got her Ph.D. degree in machine learning from the University of Washington, Seattle. Recently, she also co-authored a textbook on deep learning for healthcare and founded a non-profit organization for mentoring machine learning talents. 
+
+**Fun Fact:** Cao is a cat-lover and is a mom to two cats: one Singapura girl and one British shorthair boy.
  
-Lois is also speaking at Meta’s #WomenInAnalytics conference this year as a Technical Track Speaker.
+**Amplitude:** A cloud-based product-analytics platform that helps customers build better products.
 
-**Afresh:** An AI-powered company selling software to track demand and manage orders for fresh produce in grocery stores.
-
-#### **1. How has ML made a positive impact?**
-The biggest change I’ve seen in my career is the replacement of equations and theory with data and machine learning models instead. When I was in academia, the “data assimilated” models were somewhat scoffed at; however, it’s become clear in the past 5 years to me that ML is the rocket ship we all want to be on - it accounts for the irregularities and measurement quality issues in a way that pure theory has to be modified to fit (and then overfit).
- 
-So from weather models, medical diagnoses, faster processing times for just about anything, and reducing food waste in grocery stores, ML is a huge leap forward for predictive technology.
-
- 
-#### **2. What are the biggest ML challenges?**
-Accessibility. Right now, for small companies and 1-2 person startups, they have to hire these super expensive Data Scientists and compete with FAANG companies for hiring in order to develop and train models. It’s not feasible, and it’s a huge blocker for emerging technology and pushing the current envelope.
- 
-Not to flatter my interviewer, but I think 🤗 Hugging Face has made huge strides forward in this arena by opening up sharing between big tech and individuals who are trying to solve their specific problems (i.e. can my local bike shop leverage ML to predict demand?).
+#### **1. How has ML made a positive impact on SaaS?**
+ML plays a game-changing role in turning massive noisy machine-generated or user-generated data into answers to all kinds of business questions including personalization, prediction, recommendation, etc. It impacts a wide spectrum of industry verticals via SaaS.
 
  
-#### **3. What’s a common mistake you see people make trying to integrate ML?**
-Oh there are many! I think the big one is that ML has become a buzzword and a hammer to solve every problem. I know someone is a good product data scientist and will be an effective leader if they tell me during an interview they would use linear regression over XGBoost to solve a problem (when that’s the correct answer) because that’s a much faster and easier to debug solution. Start simple and then grow more complex as you try to augment your forecasting accuracy.
+#### **2. What are the biggest ML challenges within SaaS?**
+Lack of data for ML model training that covers a broader range of industry use cases. While being a general solution for all industry verticals, still need to figure out how to handle the vertical-specific needs arising from business, or domain shift issue that affects ML model quality.
+
+ 
+#### **3. What’s a common mistake you see people make trying to integrate ML into a SaaS product?**
+Not giving users the flexibility to incorporate their business knowledge or other human factors that are critical to business success. For example, for a self-serve product recommendation, it would be great if users could control the diversity of recommended products.
  
 #### **4. What excites you most about the future of ML?**
-I really look forward to the scale of the impact of ML. It’s exciting to already see this at work – that weather forecasts are better, delivery windows can be forecast to the hour now, cancer treatments are improving, and we can be more efficient with resources like oil and water. I love this – I love to see people live fuller and richer lives with less waste, and I think ML is the best tool in humanity’s toolbox to make huge gains here right now.
+ML has seen tremendous success. It also evolves rapidly to address the current limitations (e.g., lack of data, domain shift, incorporation of domain knowledge).
 
 
 
@@ -114,7 +111,7 @@ I really look forward to the scale of the impact of ML. It’s exciting to alrea
 #### **1. How has ML made a positive impact on SaaS**
 Machine Learning has facilitated the transcription of conversational data to help people unlock new insights and understandings. People can now easily view the things they talked about, summarized goals, takeaways, who spoke the most, who asked the best questions, what the next steps are, and more. This is incredibly useful for many interactions like email and video conferencing (which are more common now than ever).
 
-With [Chorus.ai](chorus.ai) we transcribe conversations as they are being recorded in real-time. We use an algorithm called [Wave2Vec](https://arxiv.org/abs/1904.05862) to do this. 🤗[Hugging Face recently released their own Wave2Vec](https://huggingface.co/docs/transformers/model_doc/wav2vec2) version created for training that we derived a lot of value from. This new generation of transformers speech technology is incredibly powerful, it has decreased our error rate by 30%. 
+With [Chorus.ai](chorus.ai) we transcribe conversations as they are being recorded in real-time. We use an algorithm called [Wave2Vec](https://arxiv.org/abs/1904.05862) to do this. 🤗 [Hugging Face recently released their own Wave2Vec](https://huggingface.co/docs/transformers/model_doc/wav2vec2) version created for training that we derived a lot of value from. This new generation of transformers speech technology is incredibly powerful, it has decreased our error rate by 30%. 
 
 Once we transcribe a conversation we can look into the content - this is where NLP comes in and we rely heavily on [Hugging Face Transformers](https://huggingface.co/docs/transformers/index) to allow us to depict around 20 categories of topics inside recordings and emails; for example, are we talking about pricing, signing a contract, next steps, all of these topics are sent through email or discussed and it’s easy to now extract that info without having to go back through all of your conversations. 
 
@@ -156,6 +153,7 @@ Another thing I’m really excited about is generating models! We recently worke
 
 #### **Any final thoughts?**
 –It’s challenging to put models into production. Believe data science teams need engineering embedded with them. Engineers should be part of the AI team. This will be an important structural pivot in the future.
+ 
 
 
 <img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/64_ml_director_insights/Martin-Ostrovsky.jpeg"></a>  
@@ -207,9 +205,9 @@ I like [Google Colab](https://colab.research.google.com/). It's great for rapid 
 
 🤗   Thank you for joining us in this second installment of ML Director Insights. Stay tuned for more insights from ML Directors in Finance, Healthcare and e-Commerce. 
  
-Big thanks to Omar Rahman, Lois K. Smith, Raphael Cohen, and Martin Ostrovsky for their brilliant insights and participation in this piece. We look forward to watching each of your continued successes and will be cheering you on each step of the way. 🎉 
+Big thanks to Omar Rahman, Cao (Danica) Xiao, Raphael Cohen, and Martin Ostrovsky for their brilliant insights and participation in this piece. We look forward to watching each of your continued successes and will be cheering you on each step of the way. 🎉 
  
-Lastly, if you or your team are interested in accelerating your ML roadmap with Hugging Face Experts please visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_2) to learn more. 
+If you or your team are interested in accelerating your ML roadmap with Hugging Face Experts please visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_2) to learn more. 
 
 
 
