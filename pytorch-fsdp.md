@@ -13,10 +13,10 @@ thumbnail: /blog/assets/62_pytorch_fsdp/fsdp-thumbnail.png
 </div>
 
 <div class="author-card">
-    <a href="/pacman100">
+    <a href="/smangrul">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1638132956881-5fca176d1d7a08cb34d79d5d.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
-            <code>pacman100</code>
+            <code>smangrul</code>
             <span class="fullname">Sourab Mangrulkar</span>
         </div>
     </a>
