@@ -23,8 +23,16 @@ thumbnail: /blog/assets/63_deep_rl_intro/thumbnail.png
             <code>ThomasSimonini</code>
             <span class="fullname">Thomas Simonini</span>
         </div>
+  </a>
+   <a href="/osanseviero">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1622621035602-6032802e1f993496bc14d9e3.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>osanseviero</code>
+            <span class="fullname">Omar Sanseviero</span>
+        </div>
     </a>
 </div>
+ 
 </head>
 
 <body>
@@ -242,7 +250,7 @@ In Super Mario Bros, we have a finite set of actions since we have only 4 direct
 - *Continuous space*: the number of possible actions is **infinite**.
 <figure class="image table text-center m-0 w-full">
   <img src="assets/63_deep_rl_intro/self_driving_car.jpg" alt="Self Driving Car"/>
-  <figcaption>A Self Driving Car agent has an infinite number of possible actions since he can turn left 20°, 21°, 22°, honk, turn right 20°, 20,1°…
+  <figcaption>A Self Driving Car agent has an infinite number of possible actions since it can turn left 20°, 21°, 22°, honk, turn right 20°, 20,1°…
 </figcaption>
 </figure>
 
@@ -326,7 +334,7 @@ For instance, think about Super Mario Bros: an episode begin at the launch of a 
 
 These are tasks that continue forever (no terminal state). In this case, the agent must **learn how to choose the best actions and simultaneously interact with the environment.**
 
-For instance, an agent that does automated stock trading. For this task, there is no starting point and terminal state. **The agent keeps running until we decide to stop him.**
+For instance, an agent that does automated stock trading. For this task, there is no starting point and terminal state. **The agent keeps running until we decide to stop them.**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/63_deep_rl_intro/stock.jpg" alt="Stock Market"/>
