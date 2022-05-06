@@ -123,7 +123,7 @@ The `Learner` is now in the Hub in the repo named `espejelomar/identify-my-cat`.
 
 if you want to learn more about `push_to_hub_fastai` go to the [Hub Client Documentation](https://huggingface.co/docs/huggingface_hub/main/en/package_reference/mixins#huggingface_hub.from_pretrained_fastai). There are some cool arguments you might be interested in 👀. Remember, your model is a [Git repository](https://huggingface.co/docs/transformers/model_sharing#repository-features) with all the advantages that this entails: version control, commits, branches...
 
-## Loading a Learner from the Hugging Face Hub
+## Loading a `Learner` from the Hugging Face Hub
 
 Loading a model from the Hub is even simpler. We will load our `Learner`, "espejelomar/identify-my-cat", and test it with a cat image (🦮?). This code is adapted from
 the [first chapter of the fastbook](https://github.com/fastai/fastbook/blob/master/01_intro.ipynb).
@@ -164,5 +164,7 @@ Take the [fast.ai course](https://course.fast.ai/) (a new version is coming soon
 ### Would you like to integrate your library to the Hub?
 
 This integration is made possible by the [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) library. If you want to add your library to the Hub, we have a [guide](https://huggingface.co/docs/hub/adding-a-library) for you! Or simply tag someone from the Hugging Face team.
+
+A shout out to the Hugging Face team for all the work on this integration, in particular [@osanseviero](https://twitter.com/osanseviero) 🦙.
 
 Thank you fastlearners and hugging learners 🤗. 
