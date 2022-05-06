@@ -26,7 +26,9 @@ thumbnail: /blog/assets/64_fastai/fastai_hf_blog.png
 
 ## Making neural nets uncool again... and sharing them
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/64_fastai_hub.ipynb).
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/64_fastai_hub.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 
 Few have done as much as the [fast.ai](https://www.fast.ai/) ecosystem to make Deep Learning accessible. Our mission at Hugging Face is to democratize good Machine Learning. Let's make exclusivity in access to Machine Learning, including [pre-trained models](https://huggingface.co/models), a thing of the past and let's push this amazing field even further.
 
@@ -117,7 +119,7 @@ repo_id = "espejelomar/identify-my-cat"
 push_to_hub_fastai(learner=learn, repo_id=repo_id)
 ```
 
-The `Learner` is now in the Hub in the repo named `espejelomar/identify-my-cat`. An automatic model card is created with some links and next steps. When uploading a fastai `Learner` (or any other model) to the Hub, it is helpful to edit its model card (image below) so that others better understand your work (refer to the [Hugging Face documentation](https://huggingface.co/docs/hub/model-repos#what-are-model-cards-and-why-are-they-useful)).
+The `Learner` is now in the Hub in the repo named [`espejelomar/identify-my-cat`](https://huggingface.co/espejelomar/identify-my-cat). An automatic model card is created with some links and next steps. When uploading a fastai `Learner` (or any other model) to the Hub, it is helpful to edit its model card (image below) so that others better understand your work (refer to the [Hugging Face documentation](https://huggingface.co/docs/hub/model-repos#what-are-model-cards-and-why-are-they-useful)).
 
 ![Fastai Model Card](assets/64_fastai/hf_model_card.png)
 
@@ -132,7 +134,7 @@ First, upload an image of a cat (or possibly a dog?). The [Colab notebook with t
 
 ![Fastai Model Card](assets/64_fastai/cat.jpeg)
 
-Now let's load the `Learner` we just shared into the Hub and test it.
+Now let's load the `Learner` we just shared in the Hub and test it.
 
 ```py
 from huggingface_hub import from_pretrained_fastai
