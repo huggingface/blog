@@ -3,7 +3,7 @@ title: 'Welcome fastai to the Hugging Face Hub'
 thumbnail: /blog/assets/64_fastai/fastai_hf_blog.png
 ---
 
-<h1><>
+<h1>
     Welcome fastai to the Hugging Face Hub
 </h1>
 
