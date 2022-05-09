@@ -24,6 +24,10 @@ thumbnail: /blog/assets/65_series_c/thumbnail.jpg
 
 Today we have some exciting news to share! Hugging Face has raised $100 Million in Series C funding 🔥🔥🔥 led by Lux Capital with major participations from Sequoia, Coatue and support of existing investors Addition, Betaworks, AIX Ventures, Cygni Capital, Kevin Durant, Olivier Pomel (co-founder & CEO at Datadog) and more.
 
+<figure class="image table text-center m-0 w-full">
+  <img src="/blog/assets/65_series_c/thumbnail.jpg" alt="Series C"/>
+</figure>
+
 We've come a long way since we first open sourced [PyTorch BERT](https://twitter.com/Thom_Wolf/status/1068637731281088513) in 2018 and are just getting started! 🙌
 
 Machine learning is becoming the default way to build technology. When you think about your average day, machine learning is everywhere: from your Zoom background, to searching on Google, to ordering an Uber or writing an email with auto-complete --it's all machine learning.
@@ -48,7 +52,7 @@ Thanks to the new funding, we’ll be doubling down on research, open-source, pr
   <img src="assets/65_series_c/team.png" alt="The Home of Machine Learning"/>
 </figure>
 
-It's been a hell of a ride to grow from 30 to 120+ team members in the past 12 months. We were super lucky to have been joined by incredibly talented (and fun!) teammates and we don't plan to stop here. We're [hiring for every position](https://apply.workable.com/huggingface) you can think of for every level of seniority. We are a remote-friendly, decentralized organization with transparency and value-inspired decision making by default.
+It's been a hell of a ride to grow from 30 to 120+ team members in the past 12 months. We were super lucky to have been joined by incredibly talented (and fun!) teammates like [Dr Meg Mitchell](https://www.bloomberg.com/news/articles/2021-08-24/fired-at-google-after-critical-work-ai-researcher-mitchell-to-join-hugging-face) and the [Gradio team](https://gradio.app/joining-huggingface/), and we don't plan to stop here. We're [hiring for every position](https://apply.workable.com/huggingface) you can think of for every level of seniority. We are a remote-friendly, decentralized organization with transparency and value-inspired decision making by default.
 
 Huge thanks to every contributor in our amazing community and team, our customers, partners, and investors for helping us reach this point. We couldn't have done it without you, and we can't wait to work together with you on what's next. Your contributions are key to helping build a better future where AI is founded on open source, open science, ethics and collaboration.
 
