@@ -1,5 +1,5 @@
 ---
-title: "Don't Repeat Yourself"
+title: "~Don't~ Repeat Yourself"
 thumbnail: /blog/assets/59_transformers_philosophy/transformers.png
 ---
 
