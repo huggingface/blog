@@ -8,7 +8,7 @@ thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
 </h1>
 
 <div class="blog-metadata">
-    <small>Published May 9, 2022.</small>
+    <small>Published May 13, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ambassadors-program.md">
         Update on GitHub
     </a>
@@ -24,7 +24,7 @@ thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
     </a>
 </div>
 
-As an open-source company democratizing machine learning, Hugging Face believes it is essential to **[educate](https://huggingface.co/blog/education)** people from all backgrounds worldwide. **We aim to teach machine learning to 5 million people by 2023**.
+As an open-source company democratizing machine learning, Hugging Face believes it is essential to **[sensitize](https://huggingface.co/blog/education)**  people from all backgrounds worldwide. **We aim to teach machine learning to 5 million people by 2023**.
 
 Do you want to be part of Hugging Face's machine learning democratization journey? Want to teach and gather your campus communities around collaborative ML? Do you use Hugging Face and its open-source libraries? 
 
