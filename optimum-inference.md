@@ -28,7 +28,7 @@ thumbnail: /blog/assets/66_optimum_inference/thumbnail.png
 
 The adoption of BERT and Transformers continues to grow. Transformer-based models are now not only achieving state-of-the-art performance in Natural Language Processing but also for Computer Vision, Speech, and Time-Series. 💬 🖼 🎤 ⏳
 
-Companies are now slowly moving from the experimentation and research phase to the production phase in order to use Transformer models for large-scale workloads. But by default BERT and its friends are relatively slow, big, and complex models compared to traditional Machine Learning algorithms. 
+Companies are now moving from the experimentation and research phase to the production phase in order to use Transformer models for large-scale workloads. But by default BERT and its friends are relatively slow, big, and complex models compared to traditional Machine Learning algorithms. 
 
 To solve this challenge, we created [Optimum](https://huggingface.co/blog/hardware-partners-program) –  an extension of [Hugging Face Transformers](https://github.com/huggingface/transformers)
  to accelerate the training and inference of Transformer models like BERT.
