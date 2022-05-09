@@ -59,7 +59,7 @@ In addition to free model hosting and exposure to the broader community, the Hub
 
 To share models in the Hub, you will need to have a user. Create it on the [Hugging Face website](https://huggingface.co/join).
 
-The `huggingface_hub` library is a lightweight Python client with utility functions to interact with the Hugging Face Hub. To push fastai models to the hub, you need to have some libraries pre-installed (fatai>=2.4, fastcore>=1.3.27 and toml). You can install them automatically by specifying ["fastai"] when installing `huggingface_hub`, and your environment is good to go:
+The `huggingface_hub` library is a lightweight Python client with utility functions to interact with the Hugging Face Hub. To push fastai models to the hub, you need to have some libraries pre-installed (fastai>=2.4, fastcore>=1.3.27 and toml). You can install them automatically by specifying ["fastai"] when installing `huggingface_hub`, and your environment is good to go:
 
 ```bash
 pip install huggingface_hub["fastai"]
