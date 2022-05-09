@@ -48,7 +48,7 @@ Selected ambassadors will benefit from many resources and support:
 
 🧑🏻‍💻 Exclusive workshops and support from the Hugging Face team! 
 
-🤗 Direct contact with the HF team, including insight into the latest projects, features, and more! 
+🤗 Insight into the latest projects, features, and more!
 
 🎁 Exclusive merchandise and assets. 
 
