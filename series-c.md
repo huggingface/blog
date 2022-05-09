@@ -40,7 +40,7 @@ We want to have a positive impact on the AI field. We think the direction of mor
 
 ⚠️ But there’s still a huge amount of work left to do.
 
-At Hugging Face, we know that Machine Learning has some important limitations and challenges that need to be tackled now like biases, PII, and energy consumption. With openness, transparency & collaboration, we can foster responsible & inclusive progress, understanding & accountability to mitigate these challenges.
+At Hugging Face, we know that Machine Learning has some important limitations and challenges that need to be tackled now like biases, privacy, and energy consumption. With openness, transparency & collaboration, we can foster responsible & inclusive progress, understanding & accountability to mitigate these challenges.
 
 Thanks to the new funding, we’ll be doubling down on research, open-source, products and responsible democratization of AI.
 
