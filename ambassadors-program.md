@@ -46,7 +46,7 @@ Selected ambassadors will benefit from resources and support:
 
 🎎 Network of peers with whom ambassadors can collaborate. 
 
-🧑🏻‍💻 Exclusive workshops and support from the Hugging Face team! 
+🧑🏻‍💻 Workshops and support from the Hugging Face team! 
 
 🤗 Insight into the latest projects, features, and more!
 
