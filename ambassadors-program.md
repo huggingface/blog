@@ -32,7 +32,7 @@ Do you want to be part of Hugging Face's machine learning democratization journe
 
 If you want to:
 * help your peers in their machine learning journey,
-* use free open-source technologies,
+* learn and use free, open-source technologies,
 * contribute to a thriving ecosystem,
 * and you're keen on fostering communities while sharing [our community values](https://huggingface2.notion.site/huggingface2/Hugging-Face-Code-of-Conduct-45eeeafa9ef44c5e888a2952619fdfa8),
 
