@@ -42,7 +42,7 @@ The Student Ambassador Program is an excellent opportunity for you. You have unt
 
 **What are the benefits of being part of the Program?** 🤩 
 
-Selected ambassadors will benefit from many resources and support:
+Selected ambassadors will benefit from resources and support:
 
 🎎 Network of peers with whom ambassadors can collaborate. 
 
