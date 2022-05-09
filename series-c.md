@@ -22,7 +22,7 @@ thumbnail: /blog/assets/65_series_c/thumbnail.jpg
     </a>
 </div>
 
-Today we have some exciting news to share! Hugging Face has raised $100 Million in Series C funding 🔥🔥🔥 led by Lux Capital with major participations from Sequoia, Coatue and support of existing investors Addition, Betaworks, AIX Ventures, Kevin Durant, Rich Kleiman from Thirty Five Ventures, Olivier Pomel (co-founder & CEO at Datadog) and more.
+Today we have some exciting news to share! Hugging Face has raised $100 Million in Series C funding 🔥🔥🔥 led by Lux Capital with major participations from Sequoia, Coatue and support of existing investors Addition, a_capital, SV Angel, Betaworks, AIX Ventures, Kevin Durant, Rich Kleiman from Thirty Five Ventures, Olivier Pomel (co-founder & CEO at Datadog) and more.
 
 <figure class="image table text-center m-0 w-full">
   <img src="/blog/assets/65_series_c/thumbnail.jpg" alt="Series C"/>
