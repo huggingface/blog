@@ -723,3 +723,11 @@
   - guide
   - open-source-collab
   - community
+
+- local: series-c
+  title: "We Raised $100 Million for Open & Collaborative Machine Learning 🚀"
+  author: The Hugging Face Team
+  thumbnail: /blog/assets/65_series_c/thumbnail.jpg
+  date: May 9, 2022
+  tags:
+  - news
