@@ -357,6 +357,10 @@ print(f"Optimized & Quantized model {measure_latency(quantized_optimum_qa)}")
 # Optimized & Quantized model Average latency (ms) - 64.94 +\- 3.65
 ```
 
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/66_optimum_inference/results.png" alt="Latency & F1 results"/>
+</figure>
+
 We managed to accelerate our model latency from `117.61ms` to `64.94ms` or roughly 2x while keeping `99.61%` of the accuracy. Something we should keep in mind is that we used a mid-performant CPU instance with 2 physical cores. By switching to GPU or a more performant CPU instance, e.g. [ice-lake powered you can decrease the latency number down to a few milliseconds.](https://huggingface.co/blog/bert-cpu-scaling-part-2#more-efficient-ai-processing-on-latest-intel-ice-lake-cpus)
 
 ## 4. Current Limitations
