@@ -50,7 +50,7 @@ Selected ambassadors will benefit from resources and support:
 
 🤗 Insight into the latest projects, features, and more!
 
-🎁 Exclusive merchandise and assets. 
+🎁 Merchandise and assets. 
 
 ✨ Being officially recognized as a Hugging Face’s Student Ambassador
 
