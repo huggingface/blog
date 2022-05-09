@@ -59,7 +59,7 @@ Selected ambassadors will benefit from many resources and support:
 **Eligibility Requirements**
 
 - Validate your student status.
-- Have taken at least one machine learning/data science course (online course are considered as well)
+- Have taken at least one machine learning/data science course (online courses are considered as well)
 - Be enrolled in an accredited college or university
 - Be a user of the Hugging Face Hub and/or the Hugging Face’s libraries
 - Acknowledge the [Code of Conduct](https://huggingface2.notion.site/huggingface2/Hugging-Face-Code-of-Conduct-45eeeafa9ef44c5e888a2952619fdfa8). Community is at the center of the Hugging Face ecosystem. Because of that, we strictly adhere to our [Code of conduct](https://huggingface2.notion.site/huggingface2/Hugging-Face-Code-of-Conduct-45eeeafa9ef44c5e888a2952619fdfa8). If any ambassador infringes it or behaves inadequately, they will be excluded from the Program.
