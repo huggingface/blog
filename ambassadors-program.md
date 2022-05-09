@@ -36,7 +36,7 @@ If you want to:
 * contribute to a thriving ecosystem,
 * and you're keen on fostering communities while sharing [our community values](https://huggingface2.notion.site/huggingface2/Hugging-Face-Code-of-Conduct-45eeeafa9ef44c5e888a2952619fdfa8),
 
-This is an excellent opportunity for you! You have until June 13, 2022 to [apply](https://docs.google.com/forms/d/e/1FAIpQLScY9kTi-TjZipRFRviluRCwSjFf3CCsMbKedzO1tq2S0wtbNQ/viewform?usp=sf_link)! 
+The Student Ambassador Program is an excellent opportunity for you. You have until June 13, 2022, to [apply](https://docs.google.com/forms/d/e/1FAIpQLScY9kTi-TjZipRFRviluRCwSjFf3CCsMbKedzO1tq2S0wtbNQ/viewform?usp=sf_link)! 
 
 <br />
 
