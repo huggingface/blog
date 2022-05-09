@@ -52,7 +52,7 @@ Selected ambassadors will benefit from many resources and support:
 
 🎁 Exclusive merchandise and assets. 
 
-✨ Being officially recognized as an Hugging Face’s Ambassador
+✨ Being officially recognized as a Hugging Face’s Student Ambassador
 
 <br />
 
