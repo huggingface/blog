@@ -20,7 +20,7 @@ thumbnail: /blog/assets/60_habana/habana.png
         <div class="bfc">
             <code>susanlansing</code>
             <span class="fullname">Susan Lansing</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>

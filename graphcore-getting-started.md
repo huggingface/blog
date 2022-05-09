@@ -14,7 +14,7 @@ Getting Started with Hugging Face Transformers for IPUs with Optimum
         <div class="bfc">
             <code> internetoftim </code>
             <span class=fullname">Tim Santos, Director at Graphcore</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">Guest</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
     <a href="/juliensimon">

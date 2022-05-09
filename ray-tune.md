@@ -20,7 +20,7 @@ thumbnail: /blog/assets/06_ray_tune/ray-hf.jpg
         <div class="bfc">
             <code>ray-project</code>
             <span class="fullname">Ray Project (Anyscale)</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>

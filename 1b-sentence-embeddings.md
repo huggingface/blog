@@ -19,7 +19,7 @@ title: "Train a Sentence Embedding Model with 1B Training Pairs"
         <div class="bfc">
             <code>asi</code>
             <span class="fullname">Antoine Simoulin</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>
