@@ -24,7 +24,7 @@ thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
     </a>
 </div>
 
-As an open-source company democratizing machine learning, Hugging Face believes it is essential to **[sensitize](https://huggingface.co/blog/education)**  people from all backgrounds worldwide. **We aim to teach machine learning to 5 million people by 2023**.
+As an open-source company democratizing machine learning, Hugging Face believes it is essential to sensitize and **[teach](https://huggingface.co/blog/education)** ML to people from all backgrounds worldwide. **We aim to teach machine learning to 5 million people by 2023**.
 
 Do you want to be part of Hugging Face's machine learning democratization journey? Want to teach and gather your campus communities around collaborative ML? Do you use Hugging Face and its open-source libraries? 
 
