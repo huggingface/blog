@@ -47,7 +47,7 @@ Some examples of our existing efforts:
 🗣️ We want to lower the barrier to becoming a machine learning engineer by providing online courses, hands-on workshops, and other innovative techniques.
 
 - We provide a free [course](https://huggingface.co/course/chapter1/1) about natural language processing (NLP) and more domains (soon) using free tools and libraries from the Hugging Face ecosystem. It’s completely free and without ads. The ultimate goal of this course is to learn how to apply Transformers to (almost) any machine learning problem!
-- We provide a free [course](https://github.com/huggingface/deep-rl-class) about Deep Reinforcement Learning. In this course, you can study Deep Reinforcement Learning in theory and practice, learn to use famous Deep RL libraries, train agents in unique environments, publish your trained agents in one line of code to the Hugging Face Hub...
+- We provide a free [course](https://github.com/huggingface/deep-rl-class) about Deep Reinforcement Learning. In this course, you can study Deep Reinforcement Learning in theory and practice, learn to use famous Deep RL libraries, train agents in unique environments, publish your trained agents in one line of code to the Hugging Face Hub, and more!
 - Experts at Hugging Face wrote a [book](https://transformersbook.com/) on Transformers and their applications to a wide range of NLP tasks.
 
 Apart from those efforts, many team members are involved in other educational efforts such as:
