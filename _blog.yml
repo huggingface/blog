@@ -732,7 +732,16 @@
   tags:
   - news
 
-- local: ambassadors-program
+- local: optimum-inference
+  title: "Accelerated Inference with Optimum and Transformers Pipelines"
+  author: philschmid
+  thumbnail: /blog/assets/66_optimum_inference/thumbnail.png
+  date: May 10, 2022
+  tags:
+  - guide
+  - community
+  
+  - local: ambassadors-program
   title: "Student Ambassador Program's call for applications is open!"
   author: Violette
   thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
