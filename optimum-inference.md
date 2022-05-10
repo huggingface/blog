@@ -49,7 +49,7 @@ Let's get started! 🚀
 
 ## 2. New Optimum inference and pipeline features
 
-With [release](link to release) of Optimum 1.2, we are adding support for [inference](https://huggingface.co/docs/optimum/main/en/onnxruntime/modeling_ort) and [transformers pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines#pipelines). This allows Optimum users to leverage the same API they are used to from transformers with the power of accelerated runtimes, like [ONNX Runtime](https://onnxruntime.ai/).
+With [release](https://github.com/huggingface/optimum/releases/tag/v1.2.0) of Optimum 1.2, we are adding support for [inference](https://huggingface.co/docs/optimum/main/en/onnxruntime/modeling_ort) and [transformers pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines#pipelines). This allows Optimum users to leverage the same API they are used to from transformers with the power of accelerated runtimes, like [ONNX Runtime](https://onnxruntime.ai/).
 
 **Switching from Transformers to Optimum Inference**
 The [Optimum Inference models](https://huggingface.co/docs/optimum/main/en/onnxruntime/modeling_ort) are API compatible with Hugging Face Transformers models. This means you can just replace your `AutoModelForXxx` class with the corresponding `ORTModelForXxx` class in Optimum. For example, this is how you can use a question answering model in Optimum:
