@@ -63,11 +63,11 @@ from transformers import AutoTokenizer, pipeline
 +model = ORTModelForQuestionAnswering.from_pretrained("optimum/roberta-base-squad2") # onnx checkpoint
 tokenizer = AutoTokenizer.from_pretrained("deepset/roberta-base-squad2")
 
-onnx_qa = pipeline("question-answering", model=model, tokenizer=tokenizer)
+optimum_qa = pipeline("question-answering", model=model, tokenizer=tokenizer)
 
 question = "What's my name?"
 context = "My name is Philipp and I live in Nuremberg."
-pred = onnx_qa(question, context)
+pred = optimum_qa(question, context)
 
 ```
 
@@ -237,7 +237,7 @@ from optimum.onnxruntime import ORTModelForQuestionAnswering
 tokenizer = AutoTokenizer.from_pretrained(onnx_path)
 model = ORTModelForQuestionAnswering.from_pretrained(onnx_path)
 
-onnx_qa = pipeline("question-answering", model=model, tokenizer=tokenizer)
+optimum_qa = pipeline("question-answering", model=model, tokenizer=tokenizer)
 prediction = optimum_qa(question="What's my name?", context="My name is Philipp and I live in Nuremberg.")
 
 print(prediction)
@@ -254,7 +254,7 @@ from optimum.pipelines import pipeline
 tokenizer = AutoTokenizer.from_pretrained(onnx_path)
 model = ORTModelForQuestionAnswering.from_pretrained(onnx_path)
 
-onnx_qa = pipeline("question-answering", model=model, tokenizer=tokenizer, handle_impossible_answer=True)
+optimum_qa = pipeline("question-answering", model=model, tokenizer=tokenizer, handle_impossible_answer=True)
 prediction = optimum_qa(question="What's my name?", context="My name is Philipp and I live in Nuremberg.")
 
 print(prediction)
