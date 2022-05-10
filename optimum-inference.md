@@ -24,7 +24,7 @@ thumbnail: /blog/assets/66_optimum_inference/thumbnail.png
     </a>
 </div>
 
-> ***Inference has landed in Optimum with support for Hugging Face Transformers pipelines, including text-generation using Onnx Runtime.***
+> Inference has landed in Optimum with support for Hugging Face Transformers pipelines, including text-generation using Onnx Runtime.
 
 The adoption of BERT and Transformers continues to grow. Transformer-based models are now not only achieving state-of-the-art performance in Natural Language Processing but also for Computer Vision, Speech, and Time-Series. 💬 🖼 🎤 ⏳
 
