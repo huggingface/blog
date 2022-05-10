@@ -731,3 +731,12 @@
   date: May 9, 2022
   tags:
   - news
+
+- local: optimum-inference
+  title: "Accelerated Inference with Optimum and Transformers Pipelines"
+  author: philschmid
+  thumbnail: /blog/assets/66_optimum_inference/thumbnail.png
+  date: May 10, 2022
+  tags:
+  - guide
+  - community
