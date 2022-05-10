@@ -35,12 +35,12 @@ To solve this challenge, we created [Optimum](https://huggingface.co/blog/hardwa
 
 In this blog post, you'll learn:
 
-1. What is Optimum? An ELI5
-2. New Optimum inference and pipeline features.
-3. End-to-End tutorial on accelerating RoBERTa for question-answering including quantization and optimization
-4. Current Limitations
-5. Optimum Inference FAQ
-6. What’s next?
+- [1. What is Optimum? An ELI5](#1-what-is-optimum-an-eli5)
+- [2. New Optimum inference and pipeline features](#2-new-optimum-inference-and-pipeline-features)
+- [3. End-to-End tutorial on accelerating RoBERTa for Question-Answering including quantization and optimization](#3-end-to-end-tutorial-on-accelerating-roberta-for-question-answering-including-quantization-and-optimization)
+- [4. Current Limitations](#4-current-limitations)
+- [5. Optimum Inference FAQ](#5-optimum-inference-faq)
+- [6. What’s next?](#6-whats-next)
 
 Let's get started! 🚀
 
@@ -101,7 +101,7 @@ pip install "optimum[onnxruntime]==1.2.0"
 
 This will install all required packages for us including `transformers`, `torch`, and `onnxruntime`. If you are going to use a GPU you can install optimum with `pip install optimum[onnxruntime-gpu]`.
 
-### ****3.2 Convert a Hugging Face `Transformers` model to ONNX for inference**
+### 3.2 Convert a Hugging Face `Transformers` model to ONNX for inference**
 
 Before we can start optimizing we need to convert our vanilla `transformers` model to the `onnx` format. To do this we will use the new [ORTModelForQuestionAnswering](https://huggingface.co/docs/optimum/main/en/onnxruntime/modeling_ort#optimum.onnxruntime.ORTModelForQuestionAnswering) class calling the `from_pretrained()` method with the `from_transformers` attribute. The model we are using is the [deepset/roberta-base-squad2](https://huggingface.co/deepset/roberta-base-squad2) a fine-tuned RoBERTa model on the SQUAD2 dataset achieving an F1 score of `82.91` and as the feature (task) `question-answering`.
 
@@ -169,7 +169,7 @@ print(prediction)
 # {'score': 0.9041663408279419, 'start': 11, 'end': 18, 'answer': 'Philipp'}
 ```
 
-We will evaluate the performance changes in step [3.6 Evaluate the performance and speed](https://www.notion.so/Accelerated-Inference-with-Optimum-https-github-com-huggingface-optimum-and-Transformers-Pipeli-1c8fc6770aca417aa04f02ae64fad132) in detail.
+We will evaluate the performance changes in step [3.6 Evaluate the performance and speed](#36-evaluate-the-performance-and-speed) in detail.
 
 ### 3.4 Use the `ORTQuantizer` to apply dynamic quantization
 
@@ -264,7 +264,7 @@ print(prediction)
 
 ### 3.6 Evaluate the performance and speed
 
-During this [End-to-End tutorial on accelerating RoBERTa for Question-Answering including quantization and optimization](https://www.notion.so/Accelerated-Inference-with-Optimum-https-github-com-huggingface-optimum-and-Transformers-Pipeli-1c8fc6770aca417aa04f02ae64fad132), we created 3 different models. A vanilla converted model, an optimized model, and a quantized model. 
+During this [End-to-End tutorial on accelerating RoBERTa for Question-Answering including quantization and optimization](#3-end-to-end-tutorial-on-accelerating-roberta-for-question-answering-including-quantization-and-optimization), we created 3 different models. A vanilla converted model, an optimized model, and a quantized model. 
 
 As the last step of the tutorial, we want to take a detailed look at the performance and accuracy of our model. Applying optimization techniques, like graph optimizations or quantization not only impact performance (latency) those also might have an impact on the accuracy of the model. So accelerating your model comes with a trade-off. 
 
@@ -405,7 +405,7 @@ You can load the optimized or quantized model using the new [ORTModelForXXX](htt
 
 What’s next for Optimum you ask? A lot of things. We are focused on making Optimum the reference open-source toolkit to work with transformers for acceleration & optimization. To be able to achieve this we will solve the current limitations, improve the documentation, create more content and examples and push the limits for accelerating and optimizing transformers.
 
-Some important features on the roadmap for Optimum amongst the [current limitations](https://www.notion.so/Accelerated-Inference-with-Optimum-https-github-com-huggingface-optimum-and-Transformers-Pipeli-1c8fc6770aca417aa04f02ae64fad132) are:
+Some important features on the roadmap for Optimum amongst the [current limitations](#4-current-limitations) are:
 
 - Support for speech models (Wav2vec2) and speech tasks (automatic speech recognition)
 - Support for vision models (ViT) and vision tasks (image classification)
