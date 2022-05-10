@@ -73,7 +73,7 @@ pred = onnx_qa(question, context)
 
 In the first release, we added [support for Onnx Runtime](https://huggingface.co/docs/optimum/main/en/onnxruntime/modeling_ort) but there is more to come!
 These new `ORTModelForXX` can now be used with the [transformers pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines#pipelines). They are also fully integrated into the [Hugging Face Hub](https://huggingface.co/models) to push and pull optimized checkpoints from the community. In addition to this, you can use the [ORTQuantizer](https://huggingface.co/docs/optimum/main/en/onnxruntime/quantization) and [ORTOptimizer](https://huggingface.co/docs/optimum/main/en/onnxruntime/optimization) to first quantize and optimize your model and then run inference on it.
-Check out [End-to-End Tutorial on accelerating RoBERTa for question-answering including quantization and optimization](https://www.notion.so/Accelerated-Inference-with-Optimum-https-github-com-huggingface-optimum-and-Transformers-Pipeli-1c8fc6770aca417aa04f02ae64fad132) for more details.
+Check out [End-to-End Tutorial on accelerating RoBERTa for question-answering including quantization and optimization](#3-end-to-end-tutorial-on-accelerating-roberta-for-question-answering-including-quantization-and-optimization) for more details.
 
 ## 3. End-to-End tutorial on accelerating RoBERTa for Question-Answering including quantization and optimization
 
