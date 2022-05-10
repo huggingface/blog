@@ -24,7 +24,7 @@ thumbnail: /blog/assets/66_optimum_inference/thumbnail.png
     </a>
 </div>
 
-> Inference has landed in Optimum with support for Hugging Face Transformers pipelines, including text-generation using Onnx Runtime.
+> Inference has landed in Optimum with support for Hugging Face Transformers pipelines, including text-generation using ONNX Runtime.
 
 The adoption of BERT and Transformers continues to grow. Transformer-based models are now not only achieving state-of-the-art performance in Natural Language Processing but also for Computer Vision, Speech, and Time-Series. 💬 🖼 🎤 ⏳
 
@@ -49,7 +49,7 @@ Let's get started! 🚀
 
 ## 2. New Optimum inference and pipeline features
 
-With [release](link to release) of Optimum 1.2, we are adding support for [inference](https://huggingface.co/docs/optimum/main/en/onnxruntime/modeling_ort) and [transformers pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines#pipelines). This allows Optimum users to leverage the same API they are used to from transformers with the power of accelerated runtimes, like [Onnx Runtime](https://onnxruntime.ai/).
+With [release](link to release) of Optimum 1.2, we are adding support for [inference](https://huggingface.co/docs/optimum/main/en/onnxruntime/modeling_ort) and [transformers pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines#pipelines). This allows Optimum users to leverage the same API they are used to from transformers with the power of accelerated runtimes, like [ONNX Runtime](https://onnxruntime.ai/).
 
 **Switching from Transformers to Optimum Inference**
 The [Optimum Inference models](https://huggingface.co/docs/optimum/main/en/onnxruntime/modeling_ort) are API compatible with Hugging Face Transformers models. This means you can just replace your `AutoModelForXxx` class with the corresponding `ORTModelForXxx` class in Optimum. For example, this is how you can use a question answering model in Optimum:
@@ -71,7 +71,7 @@ pred = optimum_qa(question, context)
 
 ```
 
-In the first release, we added [support for Onnx Runtime](https://huggingface.co/docs/optimum/main/en/onnxruntime/modeling_ort) but there is more to come!
+In the first release, we added [support for ONNX Runtime](https://huggingface.co/docs/optimum/main/en/onnxruntime/modeling_ort) but there is more to come!
 These new `ORTModelForXX` can now be used with the [transformers pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines#pipelines). They are also fully integrated into the [Hugging Face Hub](https://huggingface.co/models) to push and pull optimized checkpoints from the community. In addition to this, you can use the [ORTQuantizer](https://huggingface.co/docs/optimum/main/en/onnxruntime/quantization) and [ORTOptimizer](https://huggingface.co/docs/optimum/main/en/onnxruntime/optimization) to first quantize and optimize your model and then run inference on it.
 Check out [End-to-End Tutorial on accelerating RoBERTa for question-answering including quantization and optimization](#3-end-to-end-tutorial-on-accelerating-roberta-for-question-answering-including-quantization-and-optimization) for more details.
 
@@ -79,7 +79,7 @@ Check out [End-to-End Tutorial on accelerating RoBERTa for question-answering in
 
 In this End-to-End tutorial on accelerating RoBERTa for question-answering, you will learn how to:
 
-1. Install `Optimum` for Onnx Runtime
+1. Install `Optimum` for ONNX Runtime
 2. Convert a Hugging Face `Transformers` model to ONNX for inference
 3. Use the `ORTOptimizer` to optimize the model
 4. Use the `ORTQuantizer` to apply dynamic quantization
@@ -228,7 +228,7 @@ Nice! The model predicted the same answer.
 
 ### 3.5 Run accelerated inference using Transformers pipelines
 
-[Optimum](https://huggingface.co/docs/optimum/main/en/pipelines#optimizing-with-ortoptimizer) has built-in support for [transformers pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines#pipelines). This allows us to leverage the same API that we know from using PyTorch and TensorFlow models. We have already used this feature in steps 3.2,3.3 & 3.4 to test our converted and optimized models. At the time of writing this, we are supporting [Onnx Runtime](https://onnxruntime.ai/) with more to come in the future. An example of how to use the [transformers pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines#pipelines) can be found below.
+[Optimum](https://huggingface.co/docs/optimum/main/en/pipelines#optimizing-with-ortoptimizer) has built-in support for [transformers pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines#pipelines). This allows us to leverage the same API that we know from using PyTorch and TensorFlow models. We have already used this feature in steps 3.2,3.3 & 3.4 to test our converted and optimized models. At the time of writing this, we are supporting [ONNX Runtime](https://onnxruntime.ai/) with more to come in the future. An example of how to use the [transformers pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines#pipelines) can be found below.
 
 ```python
 from transformers import AutoTokenizer, pipeline
@@ -383,7 +383,7 @@ Any model that can be exported with [transformers.onnx](https://huggingface.co/d
 
 **Which runtimes are supported?**
 
-Currently, Onnx Runtime is supported. We are working on adding more in the future. [Let us know](https://discuss.huggingface.co/c/optimum/59) if you are interested in a specific runtime.
+Currently, ONNX Runtime is supported. We are working on adding more in the future. [Let us know](https://discuss.huggingface.co/c/optimum/59) if you are interested in a specific runtime.
 
 **How can I use Optimum with Transformers?**
 
