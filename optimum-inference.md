@@ -30,8 +30,7 @@ The adoption of BERT and Transformers continues to grow. Transformer-based model
 
 Companies are now moving from the experimentation and research phase to the production phase in order to use Transformer models for large-scale workloads. But by default BERT and its friends are relatively slow, big, and complex models compared to traditional Machine Learning algorithms. 
 
-To solve this challenge, we created [Optimum](https://huggingface.co/blog/hardware-partners-program) –  an extension of [Hugging Face Transformers](https://github.com/huggingface/transformers)
- to accelerate the training and inference of Transformer models like BERT.
+To solve this challenge, we created [Optimum](https://huggingface.co/blog/hardware-partners-program) –  an extension of [Hugging Face Transformers](https://github.com/huggingface/transformers) to accelerate the training and inference of Transformer models like BERT.
 
 In this blog post, you'll learn:
 
@@ -370,10 +369,7 @@ We just started supporting inference in [https://github.com/huggingface/optimum]
 - **Remote Models > 2GB:** Currently, only models smaller than 2GB can be loaded from the [Hugging Face Hub](https://hf.co/). We are working on adding support for models > 2GB / multi-file models.
 - **Seq2Seq tasks/model:** We don’t have support for seq2seq tasks, like summarization and models like T5 mostly due to the limitation of the single model support. But we are actively working to solve it, to provide you with the same experience you are familiar with in transformers.
 - **Past key values:** Generation models like GPT-2 use something called past key values which are precomputed key-value pairs of the attention blocks and can be used to speed up decoding. Currently the ORTModelForCausalLM is not using past key values.
-
-**No cache:**
-
-Currently when loading an optimized model (*.onnx), it will not be cached locally.
+- **No cache:** Currently when loading an optimized model (*.onnx), it will not be cached locally.
 
 ## 5. Optimum Inference FAQ
 
