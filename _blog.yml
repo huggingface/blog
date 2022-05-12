@@ -740,3 +740,12 @@
   tags:
   - guide
   - community
+
+- local: sempre-health-eap-case-study
+  title: "How Sempre Health is leveraging the Expert Acceleration Program to accelerate their ML roadmap"
+  author: federicopascual
+  thumbnail: /blog/assets/67_sempre_health/thumbnail.jpg
+  date: May 17, 2022
+  tags:
+  - expert acceleration program
+  - case study
