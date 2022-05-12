@@ -1,5 +1,5 @@
 ---
-title: "<del>Don't</del> Repeat Yourself \\( {}^{\textbf{*}} \\)"
+title: "~Don't~ Repeat Yourself"
 thumbnail: /blog/assets/59_transformers_philosophy/transformers.png
 ---
 

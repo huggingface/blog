@@ -714,6 +714,7 @@
   tags:
   - rl
 
+<<<<<<< HEAD
 - local: ml-director-insights-2
   title: "Director of Machine Learning Insights [Part 2: SaaS Edition]"
   author: britneymuller
@@ -722,3 +723,31 @@
   tags:
   - community
   - research
+=======
+- local: fastai
+  title: "Welcome fastai to the Hugging Face Hub"
+  author: espejelomar
+  thumbnail: /blog/assets/64_fastai/fastai_hf_blog.png
+  date: May 6, 2022
+  tags:
+  - guide
+  - open-source-collab
+  - community
+
+- local: series-c
+  title: "We Raised $100 Million for Open & Collaborative Machine Learning 🚀"
+  author: The Hugging Face Team
+  thumbnail: /blog/assets/65_series_c/thumbnail.jpg
+  date: May 9, 2022
+  tags:
+  - news
+
+- local: optimum-inference
+  title: "Accelerated Inference with Optimum and Transformers Pipelines"
+  author: philschmid
+  thumbnail: /blog/assets/66_optimum_inference/thumbnail.png
+  date: May 10, 2022
+  tags:
+  - guide
+  - community
+>>>>>>> main
