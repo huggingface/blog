@@ -714,16 +714,6 @@
   tags:
   - rl
 
-<<<<<<< HEAD
-- local: ml-director-insights-2
-  title: "Director of Machine Learning Insights [Part 2: SaaS Edition]"
-  author: britneymuller
-  thumbnail: /blog/assets/64_ml_director_insights/thumbnail.png
-  date: May 9, 2022
-  tags:
-  - community
-  - research
-=======
 - local: fastai
   title: "Welcome fastai to the Hugging Face Hub"
   author: espejelomar
@@ -750,4 +740,12 @@
   tags:
   - guide
   - community
->>>>>>> main
+
+- local: ml-director-insights-2
+  title: "Director of Machine Learning Insights [Part 2: SaaS Edition]"
+  author: britneymuller
+  thumbnail: /blog/assets/67_ml_director_insights/thumbnail.png
+  date: May 13, 2022
+  tags:
+  - community
+  - research

@@ -1,6 +1,6 @@
 ---
 title: "Director of Machine Learning Insights [Part 2: SaaS Edition]"
-thumbnail: /blog/assets/64_ml_director_insights/thumbnail.png
+thumbnail: /blog/assets/67_ml_director_insights/thumbnail.png
 ---
 
 <html>
@@ -13,7 +13,7 @@ thumbnail: /blog/assets/64_ml_director_insights/thumbnail.png
 <h1>Director of Machine Learning Insights [Part 2: SaaS Edition]</h1>
 
 <div class="blog-metadata">
-    <small>Published May 9, 2022.</small>
+    <small>Published May 13, 2022.</small>
 </div>
 
 <div class="author-card">
@@ -28,15 +28,19 @@ thumbnail: /blog/assets/64_ml_director_insights/thumbnail.png
 </head>
 <body>
 
-Welcome to Part 2 of our [Director of Machine Learning Insights Series](https://huggingface.co/blog/ml-director-insights).
+_If you or your team are interested in building ML solutions faster visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_2) today!_
 
-Directors of Machine Learning have a unique seat at the AI table spanning the perspective of various roles and responsibilities. Their rich knowledge of ML frameworks, engineering, architecture, real-world applications and problem-solving provides deep insights into the current state of ML. For example, one Director will note how using new transformers speech technology decreased their team’s error rate by 30% and how simple thinking can help save _a lot_ of computational power.
+👋 Welcome to Part 2 of our Director of Machine Learning Insights [Series]. Checkout [Part 1 here.](https://huggingface.co/blog/ml-director-insights)
 
-In this second SaaS focused installment, you’ll hear from a deep learning for healthcare Author who founded a non-profit for mentoring ML talent, a chess fanatic Cybersecurity expert, an Entrepreneur whose business was inspired by Barbie’s need to monitor brand reputation after a lead recall, and a seasoned patent and academic paper author who enjoys watching his 4 kids make the same mistakes as his ML models.  
+Directors of Machine Learning have a unique seat at the AI table spanning the perspective of various roles and responsibilities. Their rich knowledge of ML frameworks, engineering, architecture, real-world applications and problem-solving provides deep insights into the current state of ML. For example, one director will note how using new transformers speech technology decreased their team’s error rate by 30% and how simple thinking can help save _a lot_ of computational power.
+
+Ever wonder what Directors at Salesforce or ZoomInfo currently think about the state of Machine Learning? What their biggest challenges are? And what they're most excited about? Well, you're about to find out!
+
+In this second SaaS focused installment, you’ll hear from a deep learning for healthcare textbook author who also founded a non-profit for mentoring ML talent, a chess fanatic cybersecurity expert, an entrepreneur whose business was inspired by Barbie’s need to monitor brand reputation after a lead recall, and a seasoned patent and academic paper author who enjoys watching his 4 kids make the same mistakes as his ML models.  
 
 🚀  Let’s meet some top Machine Learning Directors in SaaS and hear what they have to say about Machine Learning:
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/64_ml_director_insights/Omar-Rahman.jpeg"></a>  
+<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/67_ml_director_insights/Omar-Rahman.jpeg"></a>  
 
 ### [Omar Rahman](https://www.linkedin.com/in/omar-rahman-4739713a/) - Director of Machine Learning at [Salesforce](https://www.salesforce.com/)
 
@@ -47,17 +51,17 @@ In this second SaaS focused installment, you’ll hear from a deep learning for 
 **Salesforce:** World's #1 customer relationship management software.
  
 #### **1. How has ML made a positive impact on SaaS?**
-ML has benefited SaaS offerings in many ways. Here are a few examples:
+ML has benefited SaaS offerings in many ways. 
 
-a. Improving automation within applications: Example: A service ticket router using NLP to understand the context of the service request and routing it to the appropriate team within the organization.
+**a. Improving automation within applications:** For example, a service ticket router using NLP to understand the context of the service request and routing it to the appropriate team within the organization.
 
-b. Reduction in code complexity: Rules-based systems tend to get unwieldy as new rules are added, thereby increasing maintenance costs. Example: An ML-based language translation system is more accurate and robust with much fewer lines of code as compared to previous rules-based systems.
+**b. Reduction in code complexity:** Rules-based systems tend to get unwieldy as new rules are added, thereby increasing maintenance costs. For example, An ML-based language translation system is more accurate and robust with much fewer lines of code as compared to previous rules-based systems.
 
-c. Better forecasting results in cost savings. Being able to forecast more accurately helps in reducing backorders in the supply chain as well as cost savings due to a reduction in storage costs.
+**c. Better forecasting results in cost savings.** Being able to forecast more accurately helps in reducing backorders in the supply chain as well as cost savings due to a reduction in storage costs.
 
 
 #### **2. What are the biggest ML challenges within SaaS?**
-a. Productizing ML applications require a lot more than having a model._ Being able to leverage the model for serving results, detecting and adapting to changes in statistics of data, etc. creates significant overhead in deploying and maintaining ML systems.
+a. Productizing ML applications require a lot more than having a model. Being able to leverage the model for serving results, detecting and adapting to changes in statistics of data, etc. creates significant overhead in deploying and maintaining ML systems.
 
 b. In most large organizations, data is often siloed and not well maintained resulting in significant time spent in consolidating data, pre-processing, data cleaning activities, etc., thereby resulting in a significant amount of time and effort needed to create ML-based applications.
 
@@ -70,7 +74,7 @@ Generalized artificial intelligence capabilities, if built and managed well, hav
 
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/64_ml_director_insights/Cao-Danica-Xiao.jpeg"></a>  
+<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/67_ml_director_insights/Cao-Danica-Xiao.jpeg"></a>  
 
 ### [Cao (Danica) Xiao](https://www.linkedin.com/in/caoxiao/) - Director of Machine Learning at [Amplitude](https://amplitude.com/)
 
@@ -100,7 +104,7 @@ More ML technologies will be applied to solve business or customer needs. For ex
 
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/64_ml_director_insights/Raphael-Cohen.jpeg"></a>  
+<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/67_ml_director_insights/Raphael-Cohen.jpeg"></a>  
 
 ### [Raphael Cohen](https://www.linkedin.com/in/raphael-cohen-63a87779/) - Director of the Machine Learning at [ZoomInfo](https://www.zoominfo.com/)
 
@@ -158,7 +162,7 @@ Another thing I’m really excited about is generating models! We recently worke
  
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/64_ml_director_insights/Martin-Ostrovsky.jpeg"></a>  
+<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/67_ml_director_insights/Martin-Ostrovsky.jpeg"></a>  
 
 ### [Martin Ostrovsky](https://www.linkedin.com/in/martinostrovsky/) Founder/CEO & Machine Learning Director at [Repustate Inc.](https://www.repustate.com/)
 
@@ -190,18 +194,13 @@ However, companies can create the required foundation for successful machine lea
 #### **4. Where do you see ML having the biggest impact in the next 5-10 years?**
 In the next 5-10 years, ML will have the biggest impact on transforming the healthcare sector.
 
-- Networked hospitals and connected care
+**Networked hospitals and connected care:**
 
 With predictive care, command centers are all set to analyze clinical and location data to monitor supply and demand across healthcare networks in real-time. With ML, healthcare professionals will be able to spot high-risk patients more quickly and efficiently, thus removing bottlenecks in the system. You can check the spread of contractible diseases faster, take better measures to manage epidemics, identify at-risk patients more accurately, especially for genetic diseases, and more.
 
-- Better staff and patient experiences
+**Better staff and patient experiences:**
 
 Predictive healthcare networks are expected to reduce wait times, improve staff workflows, and take on the ever-growing administrative burden. By learning from every patient, diagnosis, and procedure, ML is expected to create experiences that adapt to hospital staff as well as the patient. This improves health outcomes and reduces clinician shortages and burnout while enabling the system to be financially sustainable.
-
-
-#### **5. Favorite NLP or ML tools/resources?**
-I like [Google Colab](https://colab.research.google.com/). It's great for rapid prototyping and sharing machine learning results. I also like [gensim](https://pypi.org/project/gensim/). It's a python library that is useful for machine learning but it comes with a lot of tools right out of the box so again, great for rapid prototyping and testing hypotheses.
-
 
 ---
 
