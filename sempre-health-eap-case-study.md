@@ -30,7 +30,7 @@ In this short video, Swaraj and Larry walk us through some of their machine lear
 
 <iframe width="100%" style="aspect-ratio: 16 / 9;"src="https://www.youtube.com/embed/QBOTlNJUtdk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-If you'd like to accelerate your machine learning roadmap with the help of our experts like Swaraj and Larry, visit [hf.co/support](https://huggingface.co/support) to learn more about our Expert Acceleration Program and request a quote.
+If you'd like to accelerate your machine learning roadmap with the help of our experts, as Swaraj and Larry did, visit [hf.co/support](https://huggingface.co/support) to learn more about our Expert Acceleration Program and request a quote.
 
 ## Transcription:
 
