@@ -30,7 +30,7 @@ thumbnail: /blog/assets/64_ml_director_insights/thumbnail.png
 
 Welcome to Part 2 of our [Director of Machine Learning Insights Series](https://huggingface.co/blog/ml-director-insights).
 
-Directors of Machine Learning have a unique seat at the AI table spanning the perspective of various roles and responsibilities. Their rich knowledge of ML frameworks, engineering, architecture, real-world applications and problem-solving provides deep insights into the current state of ML. For example, one Director will note how using new transformers speech technology decreased their team’s error rate by 30% and how simple thinking can help save _a lot_ of computational power.
+Directors of Machine Learning have a unique seat at the AI table spanning the perspective of various roles and responsibilities. Their rich knowledge of ML frameworks, engineering, architecture, real-world applications and problem-solving provides deep insights into the current state of ML. For example, one director will note how using new transformers speech technology decreased their team’s error rate by 30% and how simple thinking can help save _a lot_ of computational power.
 
 In this second SaaS focused installment, you’ll hear from a deep learning for healthcare Author who founded a non-profit for mentoring ML talent, a chess fanatic Cybersecurity expert, an Entrepreneur whose business was inspired by Barbie’s need to monitor brand reputation after a lead recall, and a seasoned patent and academic paper author who enjoys watching his 4 kids make the same mistakes as his ML models.  
 
