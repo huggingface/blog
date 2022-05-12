@@ -22,11 +22,11 @@ thumbnail: /blog/assets/67_sempre_health/thumbnail.jpg
     </a>
 </div>
 
-👋 Hello, friends! We recently sat down with [Swaraj](https://www.linkedin.com/in/swarajbanerjee/) and [Larry](https://www.linkedin.com/in/larry-zhang-b58642a3/) from [Sempre Health](https://www.semprehealth.com/), a startup that brings behavior-based, dynamic pricing to Healthcare. Swaraj and Larry are doing some exciting work with machine learning and are leveraging our [Expert Acceleration Program](https://huggingface.co/support) to accelerate their ML roadmap. 
+👋 Hello, friends! We recently sat down with [Swaraj Banerjee](https://www.linkedin.com/in/swarajbanerjee/) and [Larry Zhang](https://www.linkedin.com/in/larry-zhang-b58642a3/) from [Sempre Health](https://www.semprehealth.com/), a startup that brings behavior-based, dynamic pricing to Healthcare. They are doing some exciting work with machine learning and are leveraging our [Expert Acceleration Program](https://huggingface.co/support) to accelerate their ML roadmap.
 
 An example of our collaboration is their new NLP pipeline to automatically classify and respond inbound messages. Since deploying it to production, they have seen more than 20% of incoming messages getting automatically handled by this new system 🤯 having a massive impact on their business scalability and team workflow.
 
-In this short video, we wanted to share with you a bit more about their work with machine learning and their experience collaborating with our team via the [Expert Acceleration Program](https://huggingface.co/support). Check it out: 
+In this short video, Swaraj and Larry walk us through some of their machine learning work and share their experience collaborating with our team via the [Expert Acceleration Program](https://huggingface.co/support). Check it out:
 
 <iframe width="100%" style="aspect-ratio: 16 / 9;"src="https://www.youtube.com/embed/QBOTlNJUtdk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
