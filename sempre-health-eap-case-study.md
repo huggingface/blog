@@ -24,7 +24,7 @@ thumbnail: /blog/assets/67_sempre_health/thumbnail.jpg
 
 👋 Hello, friends! We recently sat down with [Swaraj Banerjee](https://www.linkedin.com/in/swarajbanerjee/) and [Larry Zhang](https://www.linkedin.com/in/larry-zhang-b58642a3/) from [Sempre Health](https://www.semprehealth.com/), a startup that brings behavior-based, dynamic pricing to Healthcare. They are doing some exciting work with machine learning and are leveraging our [Expert Acceleration Program](https://huggingface.co/support) to accelerate their ML roadmap.
 
-An example of our collaboration is their new NLP pipeline to automatically classify and respond inbound messages. Since deploying it to production, they have seen more than 20% of incoming messages getting automatically handled by this new system 🤯 having a massive impact on their business scalability and team workflow.
+An example of our collaboration is their new NLP pipeline to automatically classify and respond inbound messages. Since deploying it to production, they have seen more than 20% of incoming messages get automatically handled by this new system 🤯 having a massive impact on their business scalability and team workflow.
 
 In this short video, Swaraj and Larry walk us through some of their machine learning work and share their experience collaborating with our team via the [Expert Acceleration Program](https://huggingface.co/support). Check it out:
 
