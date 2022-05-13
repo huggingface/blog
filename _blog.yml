@@ -741,10 +741,10 @@
   - guide
   - community
   
-  - local: ambassadors-program
+- local: ambassadors
   title: "Student Ambassador Program's call for applications is open!"
   author: Violette
-  thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
+  thumbnail: /blog/assets/67_ambassadors/thumbnail.png
   date: May 13, 2022
   tags:
     - community
