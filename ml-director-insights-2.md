@@ -77,7 +77,7 @@ Generalized artificial intelligence capabilities, if built and managed well, hav
 
 <img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/67_ml_director_insights/Cao-Danica-Xiao.jpeg"></a>  
 
-### [Cao (Danica) Xiao](https://www.linkedin.com/in/caoxiao/) - Director of Machine Learning at [Amplitude](https://amplitude.com/)
+### [Cao (Danica) Xiao](https://www.linkedin.com/in/caoxiao/) - Senior Director of Machine Learning at [Amplitude](https://amplitude.com/)
 
 **Background:** Cao (Danica) Xiao is the Senior Director and Head of Data Science and Machine Learning at Amplitude. Her team focuses on developing and deploying self-serving machine learning models and products based on multi-sourced user data to solve critical business challenges regarding digital production analytics and optimization. Besides, she is a passionate machine learning researcher with over 95+ papers published in leading CS venues. She is also a technology leader with extensive experience in machine learning roadmap creation, team building, and mentoring.
 
