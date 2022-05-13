@@ -54,7 +54,7 @@ In this second SaaS focused installment, you’ll hear from a deep learning for 
 #### **1. How has ML made a positive impact on SaaS?**
 ML has benefited SaaS offerings in many ways. 
 
-**a. Improving automation within applications:** For example, a service ticket router using NLP to understand the context of the service request and routing it to the appropriate team within the organization.
+**a. Improving automation within applications:** For example, a service ticket router using NLP (Natural Language Processing) to understand the context of the service request and routing it to the appropriate team within the organization.
 
 **b. Reduction in code complexity:** Rules-based systems tend to get unwieldy as new rules are added, thereby increasing maintenance costs. For example, An ML-based language translation system is more accurate and robust with much fewer lines of code as compared to previous rules-based systems.
 
