@@ -1,6 +1,6 @@
 ---
 title: "Student Ambassador Program’s call for applications is open!"
-thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
+thumbnail: /blog/assets/67_ambassadors/thumbnail.png
 ---
 
 <h1>
