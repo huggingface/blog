@@ -740,7 +740,7 @@
   tags:
   - guide
   - community
-  
+
 - local: ambassadors
   title: "Student Ambassador Program's call for applications is open!"
   author: Violette
@@ -748,3 +748,12 @@
   date: May 13, 2022
   tags:
     - community
+
+- local: ml-director-insights-2
+  title: "Director of Machine Learning Insights [Part 2: SaaS Edition]"
+  author: britneymuller
+  thumbnail: /blog/assets/67_ml_director_insights/thumbnail.png
+  date: May 13, 2022
+  tags:
+  - community
+  - research
