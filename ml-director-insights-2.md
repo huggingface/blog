@@ -31,7 +31,7 @@ thumbnail: /blog/assets/67_ml_director_insights/thumbnail.png
 _If you or your team are interested in building ML solutions faster visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_2) today!_
 
 
-👋 Welcome to Part 2 of our Director of Machine Learning Insights [Series]. Checkout [Part 1 here.](https://huggingface.co/blog/ml-director-insights)
+👋 Welcome to Part 2 of our Director of Machine Learning Insights [Series]. Check out [Part 1 here.](https://huggingface.co/blog/ml-director-insights)
 
 Directors of Machine Learning have a unique seat at the AI table spanning the perspective of various roles and responsibilities. Their rich knowledge of ML frameworks, engineering, architecture, real-world applications and problem-solving provides deep insights into the current state of ML. For example, one director will note how using new transformers speech technology decreased their team’s error rate by 30% and how simple thinking can help save _a lot_ of computational power.
 
