@@ -26,12 +26,12 @@ thumbnail: /blog/assets/42_gradio_joins_hf/thumbnail.png
 
 Machine learning demos are an increasingly vital part of releasing a model. Demos allow anyone — not just ML engineers — to try out a model in the browser, give feedback on predictions, and build trust in the model if it performs well. 
 
-More than 600,000 ML demos have been built with the Gradio library since its first version in 2019, and today, we are thrilled to announce **Gradio 3.0**: a grounds-up redesign of the Gradio library 🥳
+More than 600,000 ML demos have been built with the Gradio library since its first version in 2019, and today, we are thrilled to announce **Gradio 3.0**: a ground-up redesign of the Gradio library 🥳
 
 
 ### What's New in Gradio 3.0?
 
-🔥 A complete redesign of the frontend
+🔥 A complete redesign of the frontend, based on the feedback we're hearing from Gradio users:
 
 * We've switched to modern technologies (like <a href="https://svelte.dev/" target="_blank">Svelte</a>) to build the Gradio frontend. We're seeing much smaller payloads and much faster page loads as a result! 
 
@@ -103,7 +103,9 @@ For a step-by-step introduction to Blocks, check out [the dedicated Blocks Guide
 
 ### The Gradio Blocks Party 
 
-We're very excited about **Gradio Blocks** -- and we'd love for you to try it out. Even if you've never used Gradio before, this is the perfect time to start, because we are throwing a Blocks Party (😉) until the end of May. We'll be giving out prizes at the end of the Party for demos built using Blocks.
+We're very excited about Gradio Blocks -- and we'd love for you to try it out -- so we are organizing a competition, **the Gradio Blocks Party** (😉), to see who can build the best demos with Blocks. By building these demos, we can make state-of-the-art machine learning accessible, not just to engineers, but anyone who can use an Internet browser!
+
+Even if you've never used Gradio before, this is the perfect time to start, because the Blocks Party is running until the end of May. We'll be giving out 🤗 merch and other prizes at the end of the Party for demos built using Blocks.
 
 Learn more about Blocks Party here: https://huggingface.co/spaces/Gradio-Blocks/README
 
