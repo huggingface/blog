@@ -37,7 +37,7 @@ More than 600,000 ML demos have been built with the Gradio library since its fir
 
 * We've also embranced a much cleaner design that will allow Gradio demos to fit in visually in more settings (such as being <a href="https://discuss.huggingface.co/t/gradio-iframe-embedding/13021/9?u=abidlabs">embedded</a> in blog posts). 
 
-<img class="max-w-full mx-auto my-6" style="width: 54rem" src="/blog/assets/68_gradio_blocks/lion.png">
+<img class="max-w-full mx-auto my-6" style="width: 54rem" src="/blog/assets/68_gradio_blocks/lion.jpg">
 
 * We've revamped our existing components, like `Dataframe` to be more user-friendly (try dragging-and-dropping a CSV file into a Dataframe) as well as added new components, such as the `Gallery`, to allow you to build the right UI for your model.
 
