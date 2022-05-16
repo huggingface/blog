@@ -35,7 +35,7 @@ More than 600,000 ML demos have been built with the Gradio library since its fir
 
 * We've switched to modern technologies (like <a href="https://svelte.dev/" target="_blank">Svelte</a>) to build the Gradio frontend. We're seeing much smaller payloads and much faster page loads as a result! 
 
-* We've also embranced a much cleaner design that will allow Gradio demos to fit in visually in more settings (such as being embedded in blog posts). 
+* We've also embranced a much cleaner design that will allow Gradio demos to fit in visually in more settings (such as being <a href="https://discuss.huggingface.co/t/gradio-iframe-embedding/13021/9?u=abidlabs">embedded</a> in blog posts). 
 
 <img class="max-w-full mx-auto my-6" style="width: 54rem" src="/blog/assets/68_gradio_blocks/lion.png">
 
@@ -52,7 +52,7 @@ Check out all the components you can use [on our (redesigned) docs](http://www.g
 
 🔥 We've created a new low-level language called **Gradio Blocks** that lets you build complex custom web apps, right in Python:
 
-<img class="max-w-full mx-auto my-6" style="width: 54rem" src="/blog/assets/68_gradio_blocks/mindseye-lite.png">
+<img class="max-w-full mx-auto my-6" style="width: 54rem" src="/blog/assets/68_gradio_blocks/mindseye-lite.jpg">
 
 
 Why did we create Blocks? Gradio demos are very easy to build, but what if you want more control over the layout of your demo, or more flexibility on how the data flows?  For example, you might want to:
@@ -95,7 +95,7 @@ with gr.Blocks() as demo:
 demo.launch()
 ```
 
-Once you run `launch()`, the following demo runs on a port:
+Once you run `launch()`, the following demo will appear:
 
 <img class="max-w-full mx-auto my-6" style="width: 54rem" src="/blog/assets/68_gradio_blocks/flipper.png">
 
