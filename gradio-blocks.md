@@ -43,6 +43,11 @@ More than 600,000 ML demos have been built with the Gradio library since its fir
 
 <img class="max-w-full mx-auto my-6" style="width: 54rem" src="/blog/assets/68_gradio_blocks/dalle.jpg">
 
+* We've added a `TabbedInterface` class which allows you Group together related demos as multiple tabs in one web app
+
+<img class="max-w-full mx-auto my-6" style="width: 54rem" src="/blog/assets/68_gradio_blocks/tts.png">
+
+
 Check out all the components you can use [on our (redesigned) docs](http://www.gradio.app/docs) 🤗!
 
 🔥 We've created a new low-level language called **Gradio Blocks** that lets you build complex custom web apps, right in Python:
@@ -52,7 +57,6 @@ Check out all the components you can use [on our (redesigned) docs](http://www.g
 
 Why did we create Blocks? Gradio demos are very easy to build, but what if you want more control over the layout of your demo, or more flexibility on how the data flows?  For example, you might want to:
 
-* Group together related demos as multiple tabs in one web app
 * Change the layout of your demo instead of just having all of the inputs on the left and outputs on the right
 * Have multi-step interfaces, in which the output of one model becomes the input to the next model, or have more flexible data flows in general
 * Change a component's properties (for example, the choices in a Dropdown) or its visibilty based on user input
