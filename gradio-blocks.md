@@ -1,6 +1,6 @@
 ---
 title: "Gradio 3.0 is Out!"
-thumbnail: /blog/assets/42_gradio_joins_hf/thumbnail.png
+thumbnail: /blog/assets/68_gradio_blocks/block-party.png
 ---
 
 <h1>Gradio 3.0 is Out!</h1>
