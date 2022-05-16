@@ -43,7 +43,7 @@ More than 600,000 ML demos have been built with the Gradio library since its fir
 
 <img class="max-w-full mx-auto my-6" style="width: 54rem" src="/blog/assets/68_gradio_blocks/dalle.jpg">
 
-* We've added a `TabbedInterface` class which allows you Group together related demos as multiple tabs in one web app
+* We've added a `TabbedInterface` class which allows you to group together related demos as multiple tabs in one web app
 
 <img class="max-w-full mx-auto my-6" style="width: 54rem" src="/blog/assets/68_gradio_blocks/tts.png">
 
