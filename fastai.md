@@ -30,7 +30,7 @@ thumbnail: /blog/assets/64_fastai/fastai_hf_blog.png
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-> **Update**: May 15, 2022, to comply with version [0.6.0](https://github.com/huggingface/huggingface_hub/releases/tag/v0.6.0) of the `huggingface_hub` library.
+> **Update**: May 17, 2022, to (1) comply with version [0.6.0](https://github.com/huggingface/huggingface_hub/releases/tag/v0.6.0) of the `huggingface_hub` library; and (2) to add a `blurr` library example.
 
 Few have done as much as the [fast.ai](https://www.fast.ai/) ecosystem to make Deep Learning accessible. Our mission at Hugging Face is to democratize good Machine Learning. Let's make exclusivity in access to Machine Learning, including [pre-trained models](https://huggingface.co/models), a thing of the past and let's push this amazing field even further.
 
@@ -40,7 +40,7 @@ Because of all this, and more (the writer of this post started his journey thank
 
  👉 In this post, we will introduce the integration between fastai and the Hub. Additionally, you can open this tutorial as a [Colab notebook](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/64_fastai_hub.ipynb).
 
-We want to thank the fast.ai community, notably Jeremy Howard, for their feedback 🤗. This blog is heavily inspired by the [Hugging Face Hub section](https://docs.fast.ai/huggingface.html) in the fastai docs.
+We want to thank the fast.ai community, notably [Jeremy Howard](https://twitter.com/jeremyphoward), [Wayde Gilliam](https://twitter.com/waydegilliam), and [Zach Mueller](https://twitter.com/TheZachMueller) for their feedback 🤗. This blog is heavily inspired by the [Hugging Face Hub section](https://docs.fast.ai/huggingface.html) in the fastai docs.
 
 
 ## Why share to the Hub?
@@ -150,6 +150,83 @@ Probability it's a cat: 100.00%
 ```
 
 The [Hub Client documentation](https://huggingface.co/docs/huggingface_hub/main/en/package_reference/mixins#huggingface_hub.from_pretrained_fastai) includes addtional details on `from_pretrained_fastai`.
+
+
+## `Blurr` to mix fastai and Hugging Face Transformers (and share them)!
+
+> [Blurr is] a library designed for fastai developers who want to train and deploy Hugging Face transformers - [Blurr Docs](https://github.com/ohmeow/blurr).
+
+We will:
+1. Train a `blurr` Learner with the [high-level Blurr API](https://github.com/ohmeow/blurr#using-the-high-level-blurr-api). It will load the `distilbert-base-uncased` model from the Hugging Face Hub and prepare a sequence classification model.
+2. Share it to the Hub with the namespace `fastai/blurr_IMDB_distilbert_classification` using `push_to_hub_fastai`.
+3. Load it with `from_pretrained_fastai` and try it with `learner_blurr.predict()`.
+
+Collaboration and open-source are fantastic!
+
+First, install `blurr` and train the Learner.
+
+```bash
+git clone https://github.com/ohmeow/blurr.git
+cd blurr
+pip install -e ".[dev]"
+```
+
+```python
+import torch
+import transformers
+from fastai.text.all import *
+
+from blurr.text.data.all import *
+from blurr.text.modeling.all import *
+
+path = untar_data(URLs.IMDB_SAMPLE)
+model_path = Path("models")
+imdb_df = pd.read_csv(path / "texts.csv")
+
+learn_blurr = BlearnerForSequenceClassification.from_data(imdb_df, "distilbert-base-uncased", dl_kwargs={"bs": 4})
+learn_blurr.fit_one_cycle(1, lr_max=1e-3)
+```
+
+Use `push_to_hub_fastai` to share with the Hub.
+
+```python
+from huggingface_hub import push_to_hub_fastai
+
+# repo_id = "YOUR_USERNAME/YOUR_LEARNER_NAME"
+repo_id = "fastai/blurr_IMDB_distilbert_classification"
+
+push_to_hub_fastai(learn_blurr, repo_id)
+```
+
+Use `from_pretrained_fastai` to load a `blurr` model from the Hub.
+
+
+```python
+from huggingface_hub import from_pretrained_fastai
+
+# repo_id = "YOUR_USERNAME/YOUR_LEARNER_NAME"
+repo_id = "fastai/blurr_IMDB_distilbert_classification"
+
+learner_blurr = from_pretrained_fastai(repo_id)
+```
+
+Try it with a couple sentences and review their sentiment (negative or positive) with `learner_blurr.predict()`.
+
+```python
+sentences = ["This integration is amazing!",
+             "I hate this was not available before."]
+
+probs = learner_blurr.predict(sentences)
+
+print(f"Probability that sentence '{sentences[0]}' is negative is: {100*probs[0]['probs'][0]:.2f}%")
+print(f"Probability that sentence '{sentences[1]}' is negative is: {100*probs[1]['probs'][0]:.2f}%")
+```
+Again, it works!
+
+```python
+Probability that sentence 'This integration is amazing!' is negative is: 29.46%
+Probability that sentence 'I hate this was not available before.' is negative is: 70.04%
+```
 
 
 ## What's next?
