@@ -348,6 +348,10 @@ We speak about **bootstrap because TD bases its update part on an existing esti
 
 This method is called TD(0) or **one-step TD (update the value function after any individual step).**
 
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/TD-1p.jpg" alt="Temporal Difference"/>
+</figure>
+
 If we take the same example,
 
 <figure class="image table text-center m-0 w-full">
