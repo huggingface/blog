@@ -97,9 +97,10 @@ In value-based methods, **we learn a value function** that **maps a state to 
 
 The value of a state is the **expected discounted return** the agent can get if it **starts at that state and then acts according to our policy.**
 
-=> But what means acting according to our policy? We don't have a policy in value-based methods since we train a value function and not a policy?
+> But what means acting according to our policy? We don't have a policy in value-based methods since we train a value function and not a policy?
+>
 
-Remember that the goal of an *RL agent is to have an optimal policy π.**
+Remember that the goal of an **RL agent is to have an optimal policy π.**
 
 To find it, we learned that there are two different methods:
 
@@ -119,9 +120,8 @@ But, because we didn't train our policy, **we need to specify its behavior.** 
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/69_deep_rl_q/two-approaches-3.jpg" alt="Two RL approaches"/>
+  <figcaption>Given a state, our action-value function (that we train) outputs the value of each action at that state, then our greedy policy (that we defined) selects the action with the biggest state-action pair value.</figcaption>
 </figure>
-
-Given a state, our action-value function (that we train) outputs the value of each action at that state, then our greedy policy (that we defined) selects the action with the biggest state-action pair value.
 
 Consequently, whatever method you use to solve your problem, **you will have a policy**, but in the case of value-based methods you don't train it, your policy **is just a simple function that you specify** (for instance greedy policy) and this policy **uses the values given by the value-function to select its actions.**
 
@@ -135,6 +135,7 @@ So the difference is:
 </figure>
 
 In fact, most of the time, in value-based methods, you'll use **an Epsilon-Greedy Policy** that handles the exploration/exploitation trade-off; we'll talk about it when we talk about Q-Learning in the second part of this chapter.
+
 
 So, we have two types of value-based functions:
 
@@ -150,9 +151,8 @@ For each state, the state-value function outputs the expected return if the agen
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/69_deep_rl_q/state-value-function-2.jpg" alt="State value function"/>
+  <figcaption>If we take the state with value -7: it's the sum of Expected return starting at that state and taking actions according to our policy (greedy policy), so right, right, right, down, down, right, right.</figcaption>
 </figure>
-
-If we take the state with value -7: it's the sum of Expected return starting at that state and taking actions according to our policy (greedy policy), so right, right, right, down, down, right, right.
 
 ### **The Action-Value function**
 
@@ -174,9 +174,9 @@ We see that the difference is:
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/69_deep_rl_q/two-types.jpg" alt="Two types of value function"/>
+  <figcaption>
+Note: We didn't fill all the state-action pairs for the example of Action-value function</figcaption>
 </figure>
-
-Note: We didn't fill all the state-action pairs for the example of Action-value function
 
 In either case, whatever value function we choose (state-value or action-value function), **the value is the expected return.**
 
@@ -199,18 +199,15 @@ So to calculate V(St), we need to make the sum of the expected rewards. Hence:
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/69_deep_rl_q/bellman2.jpg" alt="Bellman equation"/>
+  <figcaption>To calculate the value of State 1: the sum of rewards **if the agent started in that state** and then followed the **greedy policy (taking actions that leads to the best states values) for all the time steps.**</figcaption>
 </figure>
-
-To calculate the value of State 1: the sum of rewards **if the agent started in that state** and then followed the **greedy policy (taking actions that leads to the best states values) for all the time steps.**
 
 Then, to calculate the V(St+1), we need to calculate the return starting at that state St+1.
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/69_deep_rl_q/bellman3.jpg" alt="Bellman equation"/>
+  <figcaption>To calculate the value of State 2: the sum of rewards **if the agent started in that state,** and then followed the **policy for all the time steps.**</figcaption>
 </figure>
-
-
-To calculate the value of State 2: the sum of rewards **if the agent started in that state,** and then followed the **policy for all the time steps.**
 
 So you see, that's a pretty tedious process if you need to do it for each state value or state-action value.
 
@@ -222,6 +219,7 @@ The Bellman equation is a recursive equation that works like this: instead of st
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/69_deep_rl_q/bellman4.jpg" alt="Bellman equation"/>
+  <figcaption>For simplification here we don’t discount so gamma = 1.</figcaption>
 </figure>
 
 
@@ -267,7 +265,7 @@ Monte Carlo waits until the end of the episode, calculates Gt (return) and uses 
 So it requires a **complete entire episode of interaction before updating our value function.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/MC-1.jpg" alt="Monte Carlo"/>
+  <img src="assets/69_deep_rl_q/monte-carlo-approach" alt="Monte Carlo"/>
 </figure>
 
 If we take an example:
@@ -280,6 +278,7 @@ If we take an example:
 - **We try actions using our policy** (for instance, using Epsilon Greedy Strategy, an policy that alternates between exploration (random actions) and exploitation).
 - We get **the reward and the Next State.**
 - We terminate the episode if the cat eats us or if we move > 10 steps.
+
 - At the end of the episode, **we have a list of State, Actions, Rewards, and Next States**
 - **The agent will sum the total rewards Gt** (to see how well it did).
 - It will then **update V(st) based on the formula**
@@ -291,6 +290,10 @@ If we take an example:
 - Then **start a new game with this new knowledge**
 
 By running more and more episodes, **the agent will learn to play better and better.**
+  
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/MC-3p.jpg" alt="Monte Carlo"/>
+</figure>
 
 For instance, if we train a state-value function using Monte Carlo:
 
@@ -303,6 +306,11 @@ For instance, if we train a state-value function using Monte Carlo:
 </figure>
   
 - The mouse made more than 10 steps, so the episode ends .
+
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/MC-4p.jpg" alt="Monte Carlo"/>
+</figure>
+
 - We have a list of state, action, rewards, next_state, **we need to calculate the return Gt**
 - Gt = Rt+1 + Rt+2 + Rt+3… (for simplicity we don’t discount the rewards).
 - Gt = 1 + 0 + 0 + 0+ 0 + 0 + 1 + 1+ 0 + 0
