@@ -62,6 +62,48 @@ thumbnail: TODO
             <span class="fullname">Amanpreet Singh</span>
         </div>
     </a>
+    <a href="/giadilli">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1635413464273-6051e59531c5be7f3dd5ebc9.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>giadilli</code>
+            <span class="fullname">Giada Pistilli</span>
+        </div>
+    </a>
+    <a href="/sasha">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626198087984-60edd0133e2c73a9a21455f5.png?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>sasha</code>
+            <span class="fullname">Sasha Luccioni</span>
+        </div>
+    </a>
+    <a href="/yjernite">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1594144055859-5ee3a7cd2a3eae3cbdad1305.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>yjernite</code>
+            <span class="fullname">Yacine Jernite</span>
+        </div>
+    </a>
+    <a href="/meg">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626214544196-60c757ea5f9a76ab3f844f12.png?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>meg</code>
+            <span class="fullname">Margaret Mitchell</span>
+        </div>
+    </a>
+    <a href="/douwekiela">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1641847245435-61dc997715b47073db1620dc.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>douwekiela</code>
+            <span class="fullname">Douwe Kiela</span>
+        </div>
+    </a>
+    <a href="/srush">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://avatars0.githubusercontent.com/u/35882?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>srush</code>
+            <span class="fullname">Sasha Rush</span>
+        </div>
+    </a>
 </div>
 
 ## Purpose of the document
