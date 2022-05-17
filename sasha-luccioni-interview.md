@@ -71,7 +71,7 @@ So first we just [created this online calculator](https://mlco2.github.io/impact
  
 Lately we've been going further and further. I just had an article that I was a co-author on that got accepted, about how to proactively reduce emissions. For example, by anticipating times when servers are not as used as other times, like doing either time delaying or picking the right region because if you train in, I don't know, Australia, it's gonna be a coal-based grid, and so it's gonna be highly polluting. Whereas in Quebec or Montreal where I'm based, it's a hundred percent hydroelectricity. So just by making that choice, you can reduce your emissions by around a hundredfold. And so just small things like that, like above and beyond estimating, we also want people to start reducing their emissions. It's the next step.
  
-### Fascinating! It’s never crossed my mind that geographically where you compute has a different emissions cost.
+### It’s never crossed my mind that geographically where you compute has a different emissions cost.
 
 **Sasha:** Oh yeah, and I'm so into energy grids now. Every time I go somewhere I'm like, so what's the energy coming from? How are you generating it? And so it's really interesting, there are a lot of historical factors and a lot of cultural factors. 
 
