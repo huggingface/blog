@@ -60,6 +60,11 @@ TODO: Add table des matières
 In RL, we build an agent that can **make smart decisions**. For instance, an agent that **learns to play a video game.** Or a trading agent that **learns to maximize its benefits** by making smart decisions on **what stocks to buy and when to sell.**
 
 rl-process.jpg
+  
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/rl-process.jpg" alt="RL process"/>
+</figure>
+
 
 But, to make intelligent decisions, our agent will learn from the environment by **interacting with it through trial and error** and receiving rewards (positive or negative) **as unique feedback.**
 
@@ -67,7 +72,9 @@ Its goal **is to maximize its expected cumulative reward** (because of the rew
 
 **The agent's brain is called the policy π.** It's where the agent makes its decision-making process: given a state, our policy will output an action or a probability distribution over actions.
 
-policy.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/policy.jpg" alt="Policy"/>
+</figure>
 
 **Our goal is to find an optimal policy π***, aka, a policy that leads to the best expected cumulative reward.
 
@@ -76,7 +83,9 @@ And to find this optimal policy (hence solving the RL problem), there **are two
 - *Policy-based methods*: **Train our policy directly** to learn which action to take, given a state.
 - *Value-based methods*: **Train a value function** to learn **which state is more valuable** and use this value function **to take the action that leads to it.**
 
-two-approaches.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/two-approaches.jpg" alt="Two RL approaches"/>
+</figure>
 
 And in this chapter, **we'll dive deeper into the Value-based methods.**
 
@@ -84,7 +93,9 @@ And in this chapter, **we'll dive deeper into the Value-based methods.**
 
 In value-based methods, **we learn a value function** that **maps a state to the expected value of being at that state.**
 
-vbm-1.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/vbm-1.jpg" alt="Value Based Methods"/>
+</figure>
 
 The value of a state is the **expected discounted return** the agent can get if it **starts at that state and then acts according to our policy.**
 
@@ -97,6 +108,9 @@ To find it, we learned that there are two different methods:
 - *Policy-based methods:* **Directly train the policy** to select what action to take given a state (or a probability distribution over actions at that state). In this case, we **don't have a value function.**
 
 two-approaches-2.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/two-approaches-2.jpg" alt="Two RL approaches"/>
+</figure>
 
 The policy takes a state as input and outputs what action to take at that state (deterministic policy).
 
@@ -106,7 +120,9 @@ And consequently, **we don't define by hand the behavior of our policy; it's th
 
 But, because we didn't train our policy, **we need to specify its behavior.** For instance, if we want a policy that, given the value function, will take actions that always lead to the biggest value, **we'll create a Greedy Policy.**
 
-two-approaches-3.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/two-approaches-3.jpg" alt="Two RL approaches"/>
+</figure>
 
 Given a state, our action-value function (that we train) outputs the value of each action at that state, then our greedy policy (that we defined) selects the action with the biggest state-action pair value.
 
@@ -117,7 +133,9 @@ So the difference is:
 - In policy-based, **the optimal policy is found by training the policy directly.**
 - In value-based, **finding an optimal value function leads to having an optimal policy.**
 
-link-value-policy.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/link-value-policy.jpg" alt="Link between value and policy"/>
+</figure>
 
 In fact, most of the time, in value-based methods, you'll use **an Epsilon-Greedy Policy** that handles the exploration/exploitation trade-off; we'll talk about it when we talk about Q-Learning in the second part of this chapter.
 
@@ -127,11 +145,15 @@ So, we have two types of value-based functions:
 
 We write the state value function under a policy π like this:
 
-state-value-function-1.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/state-value-function-1.jpg" alt="State value function"/>
+</figure>
 
 For each state, the state-value function outputs the expected return if the agent **starts at that state,** and then follow the policy forever after (for all future timesteps if you prefer).
 
-state-value-function-2.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/state-value-function-2.jpg" alt="State value function"/>
+</figure>
 
 If we take the state with value -7: it's the sum of Expected return starting at that state and taking actions according to our policy (greedy policy), so right, right, right, down, down, right, right.
 
@@ -141,16 +163,21 @@ In the Action-value function, for each state and action pair, the action-value f
 
 The value of taking action an in state s under a policy π is:
 
-action-state-value-function-1.jpg
-
-action-state-value-function-2.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/action-state-value-function-1.jpg" alt="Action State value function"/>
+</figure>
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/action-state-value-function-2.jpg" alt="Action State value function"/>
+</figure>
 
 We see that the difference is:
 
 - In state-value function, we calculate **the value of a state (St).**
 - In action-value function, we calculate **the value of the state-action pair (St, At) hence the value of taking that action at that state.**
 
-two-types.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/two-types.jpg" alt="Two types of value function"/>
+</figure>
 
 Note: We didn't fill all the state-action pairs for the example of Action-value function
 
@@ -164,19 +191,27 @@ This can be a tedious process, and that's **where the Bellman equation comes to
 
 The Bellman equation **simplifies our state value or state-action value calculation.**
 
-bellman.jpg
+  
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/bellman.jpg" alt="Bellman equation"/>
+</figure>
 
 With what we learned from now, we know that if we calculate the V(St) (value of a state), we need to calculate the return starting at that state and then follow the policy forever after. **(Our policy that we defined in the following example is a Greedy Policy, and for simplification, we don't discount the reward).**
 
 So to calculate V(St), we need to make the sum of the expected rewards. Hence:
 
-bellman-2.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/bellman-2.jpg" alt="Bellman equation"/>
+</figure>
 
 To calculate the value of State 1: the sum of rewards **if the agent started in that state** and then followed the **greedy policy (taking actions that leads to the best states values) for all the time steps.**
 
 Then, to calculate the V(St+1), we need to calculate the return starting at that state St+1.
 
-bellman-3.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/bellman-3.jpg" alt="Bellman equation"/>
+</figure>
+
 
 To calculate the value of State 2: the sum of rewards **if the agent started in that state,** and then followed the **policy for all the time steps.**
 
@@ -188,17 +223,26 @@ The Bellman equation is a recursive equation that works like this: instead of st
 
 **The immediate reward (Rt+1) + the discounted value of the state that follows (gamma * V(St+1)).**
 
-bellman4.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/bellman-4.jpg" alt="Bellman equation"/>
+</figure>
+
 
 If we go back to our example, the value of State 1= expected cumulative return if we start at that state.
 
-bellman5.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/bellman-5.jpg" alt="Bellman equation"/>
+</figure>
+
 
 To calculate the value of State 1: the sum of rewards **if the agent started in that state 1** and then followed the **policy for all the time steps.**
 
 Which is equivalent to V(St) = Immediate reward (Rt+1) + Discounted value of the next state (Gamma * V(St+1))
 
-bellman6.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/bellman-6.jpg" alt="Bellman equation"/>
+</figure>
+
 
 For simplification, here we don't discount, so gamma = 1.
 
@@ -225,11 +269,15 @@ Monte Carlo waits until the end of the episode, calculates Gt (return) and uses 
 
 So it requires a **complete entire episode of interaction before updating our value function.**
 
-MC-1.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/MC-1.jpg" alt="Monte Carlo"/>
+</figure>
 
 If we take an example:
 
-MC-2.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/MC-2.jpg" alt="Monte Carlo"/>
+</figure>
 
 - We always start the episode **at the same starting point.**
 - **We try actions using our policy** (for instance, using Epsilon Greedy Strategy, an policy that alternates between exploration (random actions) and exploitation).
@@ -239,7 +287,9 @@ MC-2.jpg
 - **The agent will sum the total rewards Gt** (to see how well it did).
 - It will then **update V(st) based on the formula**
 
-MC-3.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/MC-3.jpg" alt="Monte Carlo"/>
+</figure>
 
 - Then **start a new game with this new knowledge**
 
@@ -251,8 +301,10 @@ For instance, if we train a state-value function using Monte Carlo:
 - Our learning rate (lr) is 0.1 and our discount rate is 1 (= no discount)
 - Our mouse **explore the environment and take random actions**
 
-MC-4.jpg
-
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/MC-4.jpg" alt="Monte Carlo"/>
+</figure>
+  
 - The mouse made more than 10 steps, so the episode ends .
 - We have a list of state, action, rewards, next_state, **we need to calculate the return Gt**
 - Gt = Rt+1 + Rt+2 + Rt+3… (for simplicity we don’t discount the rewards).
@@ -260,7 +312,9 @@ MC-4.jpg
 - Gt= 3
 - We can now update V(S0):
 
-MC-5.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/MC-5.jpg" alt="Monte Carlo"/>
+</figure>
 
 - New V(S0) = V(S0) + lr * [Gt — V(S0)]
 - New V(S0) = 0 + 0.1 * [3 –0]
@@ -277,20 +331,26 @@ But because we didn't play during an entire episode, we don't have Gt (expected 
 
 We speak about **bootstrap because TD bases its update part on an existing estimate V(St+1) and not a complete sample Gt.**
 
-TD-1.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/TD-1.jpg" alt="Temporal Difference"/>
+</figure>
 
 This method is called TD(0) or **one-step TD (update the value function after any individual step).**
 
 If we take the same example,
 
-TD-2.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/TD-2.jpg" alt="Temporal Difference"/>
+</figure>
 
 - We just started to train our Value function, so it returns 0 value for each state.
 - Our learning rate (lr) is 0.1, and our discount rate is 1 (no discount).
 - Our mouse explore the environment and take a random action: **going to the left**
 - It gets a reward Rt+1 = 1 since **it eats a piece of cheese**
 
-TD-3.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/TD-3.jpg" alt="Temporal Difference"/>
+</figure>
 
 We can now update V(S0):
 
@@ -309,7 +369,9 @@ If we summarize:
 - With Monte Carlo, we update the value function from a complete episode, and so we **use the actual accurate discounted return of this episode.**
 - With TD learning, we update the value function from a step, so we replace Gt that we don't have with **an estimated return called TD target.**
 
-Summary.jpg
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/Summary.jpg" alt="Summary"/>
+</figure>
 
 So now, before diving on Q-Learning, let's summarise what we just learned:
 
@@ -324,7 +386,11 @@ There are two types of methods to learn a policy or a value function:
 - With *the Monte Carlo method*, we update the value function from a complete episode, and so we **use the actual accurate discounted return of this episode.**
 - With *the TD Learning method,* we update the value function from a step, so we replace Gt that we don't have with **an estimated return called TD target.**
 
-Summary.jpg
+
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/summary-learning-mtds.jpg" alt="Summary"/>
+</figure>
+
 
 ## **Introducing Q-Learning**
 
