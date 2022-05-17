@@ -775,3 +775,14 @@
   tags:
   - community
   - ml experts
+
+- local: ethical-charter-multimodal
+  title: "Putting ethical principles at the core of research lifecycle"
+  author: SaulLu
+  thumbnail: TODO
+  date: May 19, 2022
+  tags:
+  - research
+  - nlp
+  - audio
+  - cv
