@@ -150,7 +150,7 @@ So that was really cool because we really saw a year and some before they had no
 
 **Sasha:** Yeah, it's been a while since I organized any hackathons. But I think these community involvement events are really important because they help people learn stuff like we learn that you can't just like barge in and use AI, digital literacy is so much more important and they just never really put the effort into collecting the data, even if they needed it. Or they didn't know what could be done and things like that. So taking this effort or five steps back and helping improve tech skills, generally speaking, is a really useful contribution that people don't really realize is an option, I guess.
 
-### Very cool. What industries are you most excited to see machine learning be applied to?
+### What industries are you most excited to see machine learning be applied to?
 
 **Sasha:** Climate change! Yeah, the environment is kind of my number one. Education has always been something that I've really been interested in and I've kind of always been waiting. I did my Ph.D. in education and AI, like how AI can be used in education. I keep waiting for it to finally hit a certain peak, but I guess there are a lot of contextual elements and stuff like that, but I think AI, machine learning, and education can be used in so many different ways. 
 
