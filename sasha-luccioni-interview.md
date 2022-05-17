@@ -174,7 +174,7 @@ And so I remember my little brother also was thinking of going to machine learni
 
 So yeah, there are a lot of empirical aspects in machine learning, and a lot of trial and error, like you're tuning hyperparameters and you don't really know why. And so I think formal mathematicians, unless there's like a formula, they don't think ML is real or legit.
 
-### That is so funny. So besides maybe a mathematical foundation, what advice would you give to someone looking to get into machine learning?
+### So besides maybe a mathematical foundation, what advice would you give to someone looking to get into machine learning?
 
 **Sasha:** I think getting your hands dirty and starting out with I don't know, Jupyter Notebooks or coding exercises, things like that. Especially if you do have specific angles or problems you want to get into or just ideas in general, and so starting to try. I remember I did a summer school in machine learning when I was at the beginning of my Ph.D., I think. And then it was really interesting, but then all these examples were so disconnected. I don't remember what the data was, like cats versus dogs, I don't know, but like, why am I gonna use that? And then they're like part of the exercise was to find something that you want to use, like a classifier essentially to do. 
 
