@@ -190,7 +190,7 @@ They also invited me and my family to the opening, and I'm so excited to go ther
 
 **Sasha:** Exactly. And even if it's not like fighting climate change, I think it can make a big difference in helping people appreciate nature and biodiversity and taking things from something that's so abstract and two-dimensional to something that you can really get involved in and take pictures of. I think that makes a huge difference in terms of our perception and our connection. It helps you make a connection between yourself and nature, for example.
 
-### That's beautiful. That's very cool. So should people be afraid of AI taking over the world?
+### So should people be afraid of AI taking over the world?
 
 **Sasha:** I think that we're really far from it. I guess it depends on what you mean by taking over the world, but I think that we should be a lot more mindful of what's going on right now. Instead of thinking to the future and being like oh terminator, whatever, and to kind of be aware of how AI's being used in our phones and our lives, and to be more cognizant of that. 
 
