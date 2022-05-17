@@ -18,7 +18,7 @@ thumbnail: /blog/assets/07_porting_fsmt/thumbnail.png
         <div class="bfc">
             <code>stas</code>
             <span class="fullname">Stas Bekman</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>

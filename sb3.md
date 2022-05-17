@@ -65,10 +65,10 @@ from stable_baselines3.common.evaluation import evaluate_policy
 
 # Retrieve the model from the hub
 ## repo_id = id of the model repository from the Hugging Face Hub (repo_id = {organization}/{repo_name})
-## filename = name of the model zip file from the repository
+## filename = name of the model zip file from the repository including the extension .zip
 checkpoint = load_from_hub(
     repo_id="sb3/demo-hf-CartPole-v1",
-    filename="ppo-CartPole-v1",
+    filename="ppo-CartPole-v1.zip",
 )
 model = PPO.load(checkpoint)
 

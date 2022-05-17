@@ -18,7 +18,7 @@ thumbnail: /blog/assets/54_image_search_datasets/spaces_image_search.jpg
         <div class="bfc">
             <code>davanstrien</code>
             <span class="fullname">Daniel van Strien</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>

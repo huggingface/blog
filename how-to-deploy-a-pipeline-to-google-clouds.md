@@ -18,7 +18,7 @@ thumbnail: /blog/assets/14_how_to_deploy_a_pipeline_to_google_clouds/thumbnail.p
         <div class="bfc">
             <code>Maxence</code>
             <span class="fullname">Maxence Dominici</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>
