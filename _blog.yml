@@ -757,3 +757,12 @@
   tags:
   - community
   - research
+
+- local: gradio-blocks
+  title: "Gradio 3.0 is Out!"
+  author: abidlabs
+  thumbnail: /blog/assets/68_gradio_blocks/block-party.png
+  date: May 16, 2022
+  tags:
+  - community
+  - open-source-collab
