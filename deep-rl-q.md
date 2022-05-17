@@ -325,6 +325,12 @@ For instance, if we train a state-value function using Monte Carlo:
 - New V(S0) = 0 + 0.1 * [3 –0]
 - The new V(S0) = 0.3
 
+
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/MC-5p.jpg" alt="Monte Carlo"/>
+</figure>
+
+
 ## **Temporal Difference Learning: learning at each step**
 
 - **Temporal difference, on the other hand, waits for only one interaction (one step) St+1**
@@ -354,6 +360,10 @@ If we take the same example,
 - It gets a reward Rt+1 = 1 since **it eats a piece of cheese**
 
 <figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/TD-2p.jpg" alt="Temporal Difference"/>
+</figure>
+  
+<figure class="image table text-center m-0 w-full">
   <img src="assets/69_deep_rl_q/TD-3.jpg" alt="Temporal Difference"/>
 </figure>
 
@@ -368,6 +378,11 @@ The new V(S0) = 0.1
 So we just updated our value function for State 0.
 
 Now we **continue to interact with this environment with our updated value function.**
+
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/TD-3p.jpg" alt="Temporal Difference"/>
+</figure>
+
 
 If we summarize:
 
