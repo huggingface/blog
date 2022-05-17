@@ -59,7 +59,7 @@ And I'm chairing the carbon footprint working group, so we're working on differe
 
 Also about the data, I'm involved in a lot of the data working groups at Big Science, and it's really interesting because typically it’s been like we're gonna get the most data we can, stuff it in a language model and it's gonna be great. And it's gonna learn all this stuff, but what's actually in there, there's so much weird stuff on the internet, and things that you don't necessarily want your model to be seeing. So we're really looking into mindfulness, data curation, and multilingualism as well to make sure that it's not just a hundred percent English or 99% English. So it's such a great initiative, and it makes me excited to be involved.
 
-### That is exciting! Love the idea of evaluating the carbon footprint of an email!?
+### Love the idea of evaluating the carbon footprint of an email!?
 
 **Sasha:** Yeah, people did it, depending on the attachment or not, but it was just because we found this article of, I think it was a theoretical physics project and they did that, they did everything. They did video calls, travel commutes, emails, and the actual experiments as well. And they made this pie chart and it was cool because there were 37 categories in the pie chart, and we really wanted to do that. But I don't know if we want to go into that level of detail, but we were going to do a survey and ask participants on average, how many hours did they spend working on Big Science or training in language models and things like that. So we didn’t want just the number of GPU hours for training the model, but also people's implication and participation in the project.
 
