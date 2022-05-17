@@ -265,7 +265,7 @@ Monte Carlo waits until the end of the episode, calculates Gt (return) and uses 
 So it requires a **complete entire episode of interaction before updating our value function.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/monte-carlo-approach" alt="Monte Carlo"/>
+  <img src="assets/69_deep_rl_q/monte-carlo-approach.jpg" alt="Monte Carlo"/>
 </figure>
 
 If we take an example:
