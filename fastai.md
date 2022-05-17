@@ -30,8 +30,6 @@ thumbnail: /blog/assets/64_fastai/fastai_hf_blog.png
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-> **Update**: May 17, 2022, to (1) comply with version [0.6.0](https://github.com/huggingface/huggingface_hub/releases/tag/v0.6.0) of the `huggingface_hub` library; and (2) to add a `blurr` library example.
-
 Few have done as much as the [fast.ai](https://www.fast.ai/) ecosystem to make Deep Learning accessible. Our mission at Hugging Face is to democratize good Machine Learning. Let's make exclusivity in access to Machine Learning, including [pre-trained models](https://huggingface.co/models), a thing of the past and let's push this amazing field even further.
 
 fastai is an [open-source Deep Learning library](https://github.com/fastai/fastai) that leverages PyTorch and Python to provide high-level components to train fast and accurate neural networks with state-of-the-art outputs on text, vision, and tabular data. However, fast.ai, the company, is more than just a library; it has grown into a thriving ecosystem of open source contributors and people learning about neural networks. As some examples, check out their [book](https://github.com/fastai/fastbook) and [courses](https://course.fast.ai/). Join the fast.ai [Discord](https://discord.com/invite/YKrxeNn) and [forums](https://forums.fast.ai/). It is a guarantee that you will learn by being part of their community!
