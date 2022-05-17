@@ -387,7 +387,8 @@ Now we **continue to interact with this environment with our updated value func
   <img src="assets/69_deep_rl_q/TD-3p.jpg" alt="Temporal Difference"/>
 </figure>
 
-
+## Mid-chapter Summary
+ 
 If we summarize:
 
 - With Monte Carlo, we update the value function from a complete episode, and so we **use the actual accurate discounted return of this episode.**
@@ -430,9 +431,8 @@ Q-Learning is an **off-policy value-based method that uses a TD approach to tra
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/69_deep_rl_q/Q-function.jpg" alt="Q-function"/>
+  <figcaption>Given a state and action, our Q Function outputs a state-action value (also called Q-value)</figcaption>
 </figure>
-
-Given a state and action, our Q Function outputs a state-action value (also called Q-value)
 
 The **Q comes from "the Quality" of that action at that state.**
 
@@ -452,7 +452,9 @@ The Q-Table is initialized. That's why all values are = 0. This table **contain
 
 Here we see that the **state-action value of the initial state and going up is 0:**
 
-MISSING PICTURE
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/Maze-3.jpg" alt="Maze example"/>
+</figure>
 
 Therefore, Q-function contains a Q-table **that has the value of each-state action pair.** And given a state and action, **our Q-Function will search inside its Q-table to output the value.**
 
@@ -482,9 +484,8 @@ But, in the beginning, **our Q-Table is useless since it gives arbitrary values
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/69_deep_rl_q/Q-learning-1.jpg" alt="Q-learning"/>
+  <figcaption>We see here that with the training, our Q-Table is better since, thanks to it, we can know the value of each state-action pair.</figcaption>
 </figure>
-
-We see here that with the training, our Q-Table is better since, thanks to it, we can know the value of each state-action pair.
 
 So now that we understand what Q-Learning, Q-Function, and Q-Table are, **let's dive deeper into the Q-Learning algorithm**.
 
@@ -567,6 +568,7 @@ For instance, with Q-Learning, the Epsilon greedy policy (acting policy), is dif
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/69_deep_rl_q/off-on-1.jpg" alt="Off-on policy"/>
+  <figcaption>Acting Policy</figcaption>
 </figure>
 
 Is different from the policy we use during the training part:
@@ -574,9 +576,8 @@ Is different from the policy we use during the training part:
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/69_deep_rl_q/off-on-2.jpg" alt="Off-on policy"/>
+  <figcaption>Updating policy</figcaption>
 </figure>
-
-Updating policy
 
 - *On-policy:* using the **same policy for acting and updating.**
 
@@ -593,7 +594,7 @@ For instance, with Sarsa, another value-based algorithm, **the Epsilon-Greedy P
     <figcaption>Sarsa</figcaption>
 </figure>
 
-## **An example**
+## **A Q-Learning example**
 
 To better understand Q-Learning let's take a simple example:
 
@@ -607,6 +608,9 @@ To better understand Q-Learning let's take a simple example:
 - The learning rate is 0.1
 - The gamma (discount rate) is 0.99
 
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/q-ex-1.jpg" alt="Maze-Example"/>
+</figure>
 The reward function goes like this:
 
 - **+0:** Going to a state with no cheese in it.
@@ -614,6 +618,10 @@ The reward function goes like this:
 - **+10:** Going to the state with the big pile of cheese.
 - **10:** Going to the state with the poison and thus die.
 
+
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/q-ex-2.jpg" alt="Maze-Example"/>
+</figure>
 To train our agent to have an optimal policy (so a policy that goes right, right, down). **We will use the Q-Learning algorithm.**
 
 **Step 1: We initialize the Q-Table**
@@ -633,7 +641,7 @@ Training timestep 1:
 Because epsilon is big = 1.0, I take a random action, in this case, I go right.
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Example-2.jpg" alt="Maze-Example"/>
+  <img src="assets/69_deep_rl_q/q-ex-3.jpg" alt="Maze-Example"/>
 </figure>
 
 **Step 3: Perform action At, gets Rt+1 and St+1**
@@ -642,13 +650,16 @@ By going right, I've got a small cheese, so Rt+1 = 1, and I'm in a new state.
 
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Example-3.jpg" alt="Maze-Example"/>
+  <img src="assets/69_deep_rl_q/q-ex-4.jpg" alt="Maze-Example"/>
 </figure>
 
 **Step 4: Update Q(St, At)**
 
 We can now update Q(St, At) using our formula.
 
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q/q-ex-5.jpg" alt="Maze-Example"/>
+</figure>
 <figure class="image table text-center m-0 w-full">
   <img src="assets/69_deep_rl_q/Example-4.jpg" alt="Maze-Example"/>
 </figure>
@@ -662,7 +673,7 @@ Training timestep 2:
 I took action down. **Not a good action since it leads me to the poison.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Example-5.jpg" alt="Maze-Example"/>
+  <img src="assets/69_deep_rl_q/q-ex-6.jpg" alt="Maze-Example"/>
 </figure>
 
 **Step 3: Perform action At, gets Rt+1 and St+1**
@@ -670,13 +681,13 @@ I took action down. **Not a good action since it leads me to the poison.**
 Because I go to the poison state, **I get Rt+1 = -10, and I die.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Example-6.jpg" alt="Maze-Example"/>
+  <img src="assets/69_deep_rl_q/q-ex-7.jpg" alt="Maze-Example"/>
 </figure>
 
 **Step 4: Update Q(St, At)**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Example-7.jpg" alt="Maze-Example"/>
+  <img src="assets/69_deep_rl_q/q-ex-8.jpg" alt="Maze-Example"/>
   </figure>
   
 Because we're dead, we start a new episode. But what we see here is that **with two explorations steps, my agent became smarter.**
