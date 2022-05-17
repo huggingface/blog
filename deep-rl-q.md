@@ -693,3 +693,29 @@ Because I go to the poison state, **I get Rt+1 = -10, and I die.**
 Because we're dead, we start a new episode. But what we see here is that **with two explorations steps, my agent became smarter.**
 
 As we continue exploring and exploiting the environment and updating Q-values using TD target, **Q-Table will give us better and better approximations. And thus, at the end of the training, we'll get an optimal Q-Function.**
+
+---
+  
+TODO: Add tutorial colab
+  
+  
+  
+Congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorials. You’ve just implemented from scratch your first RL agent and shared it on the Hub 🥳.
+  
+Implementing from scratch when you study a new architecture **is important to really understand deeply how it works.**
+
+That’s **normal if you still feel confused** with all these elements. **This was the same for me and for all people who studied RL.**
+
+Take time to really grasp the material before continuing. It’s important to master these elements and having a solid foundations before entering the **fun part.**
+Don't hesitate, to modify the implementation, try ways to improve it, change environments, **the best way to learn is to try things by your own!** 
+
+We published additional readings in the syllabus if you want to go deeper 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit2/README.md
+
+In the next unit, we’re going to learn about Deep-Q-Learning.
+
+And don't forget to share with your friends who want to learn 🤗 !
+
+### Keep learning, stay awesome,
+</body>
+</html>
+  
