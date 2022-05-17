@@ -222,7 +222,7 @@ So she and her co-authors write this really interesting paper about the connecti
  
 For example, if you have a data set and you have an average accuracy, is the accuracy the same again in different subsets of the data set, like are there for example, patterns that you can pick up on that will help you improve your model, but also make it fairer? I guess the typical example is like image recognition, does it do the same in different… Well the famous [Gender Shades](http://gendershades.org/) paper about the algorithm did better on white men than African American women, but you could do that about anything. Not only gender and race, but you could do that for images, color or types of objects or angles. Like is it good for images from above or images from street level. There are all these different ways of analyzing accuracy or performance that we haven't really looked at because it's typically more time-consuming. And so we want to make tools to help people delve deeper into the results and understand their models better.
 
-### Very cool. And where can people find you online?
+### Where can people find you online?
 
 **Sasha:** I'm on [Twitter @SashaMTL](https://twitter.com/SashaMTL), and that's about it. I have a [website](https://www.sashaluccioni.com/), I don't update it enough, but Twitter I think is the best.
 
