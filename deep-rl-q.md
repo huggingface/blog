@@ -198,7 +198,7 @@ With what we learned from now, we know that if we calculate the V(St) (value of 
 So to calculate V(St), we need to make the sum of the expected rewards. Hence:
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/bellman-2.jpg" alt="Bellman equation"/>
+  <img src="assets/69_deep_rl_q/bellman2.jpg" alt="Bellman equation"/>
 </figure>
 
 To calculate the value of State 1: the sum of rewards **if the agent started in that state** and then followed the **greedy policy (taking actions that leads to the best states values) for all the time steps.**
@@ -206,7 +206,7 @@ To calculate the value of State 1: the sum of rewards **if the agent started in
 Then, to calculate the V(St+1), we need to calculate the return starting at that state St+1.
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/bellman-3.jpg" alt="Bellman equation"/>
+  <img src="assets/69_deep_rl_q/bellman3.jpg" alt="Bellman equation"/>
 </figure>
 
 
@@ -221,14 +221,14 @@ The Bellman equation is a recursive equation that works like this: instead of st
 **The immediate reward (Rt+1) + the discounted value of the state that follows (gamma * V(St+1)).**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/bellman-4.jpg" alt="Bellman equation"/>
+  <img src="assets/69_deep_rl_q/bellman4.jpg" alt="Bellman equation"/>
 </figure>
 
 
 If we go back to our example, the value of State 1= expected cumulative return if we start at that state.
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/bellman-5.jpg" alt="Bellman equation"/>
+  <img src="assets/69_deep_rl_q/bellman5.jpg" alt="Bellman equation"/>
 </figure>
 
 
@@ -237,7 +237,7 @@ To calculate the value of State 1: the sum of rewards **if the agent started in
 Which is equivalent to V(St) = Immediate reward (Rt+1) + Discounted value of the next state (Gamma * V(St+1))
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/bellman-6.jpg" alt="Bellman equation"/>
+  <img src="assets/69_deep_rl_q/bellman6.jpg" alt="Bellman equation"/>
 </figure>
 
 
