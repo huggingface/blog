@@ -741,6 +741,49 @@
   - guide
   - community
 
+- local: ambassadors
+  title: "Student Ambassador Program's call for applications is open!"
+  author: Violette
+  thumbnail: /blog/assets/67_ambassadors/thumbnail.png
+  date: May 13, 2022
+  tags:
+    - community
+
+- local: ml-director-insights-2
+  title: "Director of Machine Learning Insights [Part 2: SaaS Edition]"
+  author: britneymuller
+  thumbnail: /blog/assets/67_ml_director_insights/thumbnail.png
+  date: May 13, 2022
+  tags:
+  - community
+  - research
+
+- local: gradio-blocks
+  title: "Gradio 3.0 is Out!"
+  author: abidlabs
+  thumbnail: /blog/assets/68_gradio_blocks/block-party.png
+  date: May 16, 2022
+  tags:
+  - community
+  - open-source-collab
+
+- local: fellowship
+  title: "Announcing the Hugging Face Fellowship Program"
+  author: espejelomar
+  thumbnail: /blog/assets/62_fellowship/fellowship-thumbnail.png
+  date: May 17, 2022
+  tags:
+  - community
+
+- local: sasha-luccioni-interview
+  title: "Machine Learning Experts - Sasha Luccioni Interview"
+  author: britneymuller
+  thumbnail: /blog/assets/69_sasha_luccioni_interview/thumbnail.png
+  date: May 17, 2022
+  tags:
+  - community
+  - ml experts
+
 - local: sempre-health-eap-case-study
   title: "How Sempre Health is leveraging the Expert Acceleration Program to accelerate their ML roadmap"
   author: federicopascual

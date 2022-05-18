@@ -47,6 +47,8 @@ Some examples of our existing efforts:
 🗣️ We want to lower the barrier to becoming a machine learning engineer by providing online courses, hands-on workshops, and other innovative techniques.
 
 - We provide a free [course](https://huggingface.co/course/chapter1/1) about natural language processing (NLP) and more domains (soon) using free tools and libraries from the Hugging Face ecosystem. It’s completely free and without ads. The ultimate goal of this course is to learn how to apply Transformers to (almost) any machine learning problem!
+- We provide a free [course](https://github.com/huggingface/deep-rl-class) about Deep Reinforcement Learning. In this course, you can study Deep Reinforcement Learning in theory and practice, learn to use famous Deep RL libraries, train agents in unique environments, publish your trained agents in one line of code to the Hugging Face Hub, and more!
+- We provide a free [course](https://huggingface.co/course/chapter9/1) on how to build interactive demos for your machine learning models. The ultimate goal of this course is to allow ML developers to easily present their work to a wide audience including non-technical teams or customers, researchers to more easily reproduce machine learning models and behavior, end users to more easily identify and debug failure points of models, and more!
 - Experts at Hugging Face wrote a [book](https://transformersbook.com/) on Transformers and their applications to a wide range of NLP tasks.
 
 Apart from those efforts, many team members are involved in other educational efforts such as:
@@ -57,6 +59,8 @@ Apart from those efforts, many team members are involved in other educational ef
 ## 🤗 **Education for Instructors**
 
 🗣️ We want to empower educators with tools and offer collaborative spaces where students can build machine learning using open-source technologies and state-of-the-art machine learning models.
+
+- We provide to educators free infrastructure and resources to quickly introduce real-world applications of ML to theirs students and make learning more fun and interesting. By creating a [classroom](https://github.com/huggingface/education-toolkit) for free from the hub, instructors can turn their classes into collaborative environments where students can learn and build ML-powered applications using free open-source technologies and state-of-the-art models. 
 
 - We’ve assembled [a free toolkit](https://github.com/huggingface/education-toolkit) translated to 8 languages that instructors of machine learning or Data Science can use to easily prepare labs, homework, or classes. The content is self-contained so that it can be easily incorporated into an existing curriculum. This content is free and uses well-known Open Source technologies (🤗 transformers, gradio, etc). Feel free to pick a tutorial and teach it!
 
@@ -74,7 +78,8 @@ Apart from those efforts, many team members are involved in other educational ef
 
 ## 🤗 **Education Events & News**
 
-**06/06**: How to Teach Open-Source Machine Learning Tools. [Register](https://www.eventbrite.com/e/how-to-teach-open-source-machine-learning-tools-tickets-310980931337)
+- **05/13**[NEWS]: Are you studying machine learning? Do you want to be a part of our ML democratization efforts and show your campus community how to build ML models with Hugging Face? We want to support you in your journey! You have until June 13th to [apply](add) to 🤗 Student Application Program.
+- **06/06**[EVENT]: How to Teach Open-Source Machine Learning Tools. [Register](https://www.eventbrite.com/e/how-to-teach-open-source-machine-learning-tools-tickets-310980931337)
 
-🔥 We are currently working on ambassadors programs, a new EDU offering, more content in the course, and more! Stay tuned!
+🔥 We are currently working on more content in the course, and more! Stay tuned!
 
