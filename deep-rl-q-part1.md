@@ -268,7 +268,7 @@ Remember that an RL agent **learns by interacting with its environment.** The 
 
 Monte Carlo and Temporal Difference Learning are two different **strategies on how to train our value function or our policy function.** Both of them **use experience to solve the RL problem.**
 
-But on the one hand, Monte Carlo uses **an entire episode of experience before learning.** On the other hand, Temporal Difference uses **only a step (St, At, Rt+1, St+1) to learn.**
+On one hand, Monte Carlo uses **an entire episode of experience before learning.** On the other hand, Temporal Difference uses **only a step (St, At, Rt+1, St+1) to learn.**
 
 We'll explain both of them **using a value-based method example.**
 
