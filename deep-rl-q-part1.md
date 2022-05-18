@@ -148,7 +148,7 @@ So the difference is:
   <img src="assets/70_deep_rl_q_part1/link-value-policy.jpg" alt="Link between value and policy"/>
 </figure>
 
-In fact, most of the time, in value-based methods, you'll use **an Epsilon-Greedy Policy** that handles the exploration/exploitation trade-off; we'll talk about it when we talk about Q-Learning in the second part of this chapter.
+In fact, most of the time, in value-based methods, you'll use **an Epsilon-Greedy Policy** that handles the exploration/exploitation trade-off; we'll talk about it when we talk about Q-Learning in the second part of this unit.
 
 
 So, we have two types of value-based functions:
