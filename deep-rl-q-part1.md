@@ -354,7 +354,7 @@ For instance, if we train a state-value function using Monte Carlo:
 
 The idea with **TD is to update the V(St) at each step.**
 
-But because we didn't play during an entire episode, we don't have Gt (expected return). Instead**, we estimate Gt by adding Rt+1 and the discounted value of the next state.**
+But because we didn't play during an entire episode, we don't have Gt (expected return). Instead, **we estimate Gt by adding Rt+1 and the discounted value of the next state.**
 
 We speak about **bootstrap because TD bases its update part on an existing estimate V(St+1) and not a complete sample Gt.**
 
