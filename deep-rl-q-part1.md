@@ -110,6 +110,8 @@ In value-based methods, **we learn a value function** that **maps a state to 
 </figure>
 
 The value of a state is the **expected discounted return** the agent can get if it **starts at that state and then acts according to our policy.**
+  
+If you forgot what discounting is, you [can read this section](https://huggingface.co/blog/deep-rl-intro#rewards-and-the-discounting).
 
 > But what means acting according to our policy? We don't have a policy in value-based methods since we train a value function and not a policy?
 >
