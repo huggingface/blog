@@ -418,7 +418,7 @@ So now, before diving on Q-Learning, let's summarise what we just learned:
 We have two types of value-based functions:
 
 - State-value function: outputs the expected return if **I start at that state and then act accordingly to the policy forever after.**
-- Action-Value function: outputs the expected return if **I start in that state and I take that action at that state** and then I act accordingly to the policy forever after.
+- Action-Value function: outputs the expected return if **the agent starts in a given state, takes a given action at that state** and then acts accordingly to the policy forever after.
 - In value-based methods, **we define the policy by hand** because we don't train it, we train a value function. The idea is that if we have an optimal value function, we **will have an optimal policy.**
 
 There are two types of methods to learn a policy or a value function:
