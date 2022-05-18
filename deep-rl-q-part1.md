@@ -92,7 +92,7 @@ Its goal **is to maximize its expected cumulative reward** (because of the rew
 
 And to find this optimal policy (hence solving the RL problem), there **are two main types of RL methods**:
 
-- *Policy-based methods*: **Train our policy directly** to learn which action to take, given a state.
+- *Policy-based methods*: **Train the policy directly** to learn which action to take given a state.
 - *Value-based methods*: **Train a value function** to learn **which state is more valuable** and use this value function **to take the action that leads to it.**
 
 <figure class="image table text-center m-0 w-full">
