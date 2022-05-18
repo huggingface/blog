@@ -352,7 +352,7 @@ For instance, if we train a state-value function using Monte Carlo:
 - **Temporal difference, on the other hand, waits for only one interaction (one step) St+1**
 - to form a TD target and update V(St) using Rt+1 and gamma * V(St+1).
 
-The idea is that with **TD, we update the V(St) at each step.**
+The idea with **TD is to update the V(St) at each step.**
 
 But because we didn't play during an entire episode, we don't have Gt (expected return). Instead**, we estimate Gt by adding Rt+1 and the discounted value of the next state.**
 
