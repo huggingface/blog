@@ -264,7 +264,7 @@ To recap, the idea of the Bellman equation is that instead of calculating each v
 
 The last thing we need to talk about before diving into Q-Learning is the two ways of learning.
 
-Remember that an RL agent **learns by interacting with its environment.** The idea is that **using the experience taken**, given the reward he gets, will **update its value or policy.**
+Remember that an RL agent **learns by interacting with its environment.** The idea is that **using the experience taken**, given the reward it gets, will **update its value or policy.**
 
 Monte Carlo and Temporal Difference Learning are two different **strategies on how to train our value function or our policy function.** Both of them **use experience to solve the RL problem.**
 
