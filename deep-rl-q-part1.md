@@ -82,7 +82,7 @@ But, to make intelligent decisions, our agent will learn from the environment by
 
 Its goal **is to maximize its expected cumulative reward** (because of the reward hypothesis).
 
-**The agent's brain is called the policy π.** It's where the agent makes its decision-making process: given a state, our policy will output an action or a probability distribution over actions.
+**The agent's decision-making process is called the policy π:** given a state, a policy will output an action or a probability distribution over actions. That is, given an observation of the environment, a policy will provide an action (or multiple probabilities for each action) that the agent should take.
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/policy.jpg" alt="Policy"/>
