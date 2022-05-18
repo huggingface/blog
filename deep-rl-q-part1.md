@@ -328,6 +328,7 @@ For instance, if we train a state-value function using Monte Carlo:
 </figure>
 
 - We have a list of state, action, rewards, next_state, **we need to calculate the return Gt**
+- $$G_t = R_{t+1} + R_{t+2} + R_{t+3} ...$$
 - Gt = Rt+1 + Rt+2 + Rt+3… (for simplicity we don’t discount the rewards).
 - Gt = 1 + 0 + 0 + 0+ 0 + 0 + 1 + 1+ 0 + 0
 - Gt= 3
@@ -436,7 +437,7 @@ So that’s all for today. Congrats on finishing this first part of the chapter!
 
 **That’s normal if you still feel confused with all these elements**. This was the same for me and for all people who studied RL.
 
-**Take time to really grasp the material before continuing**. In the second part, we’ll study our first RL algorithm: Q-Learning, and implement our first RL Agent in two environments:
+**Take time to really grasp the material before continuing**. In the second part (that we will publish this Friday 📆), we’ll study our first RL algorithm: Q-Learning, and implement our first RL Agent in two environments:
 
 1. Frozen-Lake-v1 (non-slippery version): where our agent will need to **go from the starting state (S) to the goal state (G)** by walking only on frozen tiles (F) and avoiding holes (H).
 2. An autonomous taxi will need **to learn to navigate** a city to **transport its passengers from point A to point B.**
