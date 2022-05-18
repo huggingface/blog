@@ -88,7 +88,7 @@ Its goal **is to maximize its expected cumulative reward** (because of the rew
   <img src="assets/70_deep_rl_q_part1/policy.jpg" alt="Policy"/>
 </figure>
 
-**Our goal is to find an optimal policy π***, aka, a policy that leads to the best expected cumulative reward.
+**Our goal is to find an optimal policy π***, aka., a policy that leads to the best expected cumulative reward.
 
 And to find this optimal policy (hence solving the RL problem), there **are two main types of RL methods**:
 
