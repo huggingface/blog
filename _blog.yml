@@ -767,6 +767,14 @@
   - community
   - open-source-collab
 
+- local: fellowship
+  title: "Announcing the Hugging Face Fellowship Program"
+  author: espejelomar
+  thumbnail: /blog/assets/62_fellowship/fellowship-thumbnail.png
+  date: May 17, 2022
+  tags:
+  - community
+
 - local: sasha-luccioni-interview
   title: "Machine Learning Experts - Sasha Luccioni Interview"
   author: britneymuller
@@ -775,6 +783,14 @@
   tags:
   - community
   - ml experts
+
+- local: deep-rl-q-part1
+  title: "An Introduction to Q-Learning Part 1"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/70_deep_rl_q_part1/thumbnail.gif
+  date: May 18, 2022
+  tags:
+  - rl
 
 - local: ethical-charter-multimodal
   title: "Putting ethical principles at the core of research lifecycle"
