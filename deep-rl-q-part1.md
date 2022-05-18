@@ -1,6 +1,6 @@
 ---
-title: "An Introduction to Q-Learning"
-thumbnail: /blog/assets/69_deep_rl_q/thumbnail.png
+title: "An Introduction to Q-Learning Part 1"
+thumbnail: /blog/assets/69_deep_rl_q_part1/thumbnail.png
 ---
 
 <html>
@@ -13,8 +13,8 @@ thumbnail: /blog/assets/69_deep_rl_q/thumbnail.png
   width: 50%;
 }
 </style>
-<h1>An Introduction to Q-Learning</h1>
-<h2>Chapter 2 of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
+<h1>An Introduction to Q-Learning Part 1</h1>
+<h2>Unit 2, part 1 of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
 <div class="author-card">
     <a href="/ThomasSimonini">
@@ -41,7 +41,14 @@ We'll also **implement our first RL agent from scratch**: a Q-Learning agent an
 1. Frozen-Lake-v1 (non-slippery version): where our agent will need to **go from the starting state (S) to the goal state (G)** by walking only on frozen tiles (F) and avoiding holes (H).
 2. An autonomous taxi will need **to learn to navigate** a city to **transport its passengers from point A to point B.**
 
-TODO: add video
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q_part1/envs.gif" alt="Environments"/>
+</figure>
+
+This unit will be divided into 2 parts:
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q_part1/two_parts.jpg" alt="Two Parts"/>
+</figure>
 
 In the first part, we'll **learn about the value-based methods and the difference between Monte Carlo and Temporal Difference Learning.**
 
@@ -60,7 +67,7 @@ TODO: Add table des matières
 In RL, we build an agent that can **make smart decisions**. For instance, an agent that **learns to play a video game.** Or a trading agent that **learns to maximize its benefits** by making smart decisions on **what stocks to buy and when to sell.**
   
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/rl-process.jpg" alt="RL process"/>
+  <img src="assets/69_deep_rl_q_part1/rl-process.jpg" alt="RL process"/>
 </figure>
 
 
@@ -71,7 +78,7 @@ Its goal **is to maximize its expected cumulative reward** (because of the rew
 **The agent's brain is called the policy π.** It's where the agent makes its decision-making process: given a state, our policy will output an action or a probability distribution over actions.
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/policy.jpg" alt="Policy"/>
+  <img src="assets/69_deep_rl_q_part1/policy.jpg" alt="Policy"/>
 </figure>
 
 **Our goal is to find an optimal policy π***, aka, a policy that leads to the best expected cumulative reward.
@@ -82,7 +89,7 @@ And to find this optimal policy (hence solving the RL problem), there **are two
 - *Value-based methods*: **Train a value function** to learn **which state is more valuable** and use this value function **to take the action that leads to it.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/two-approaches.jpg" alt="Two RL approaches"/>
+  <img src="assets/69_deep_rl_q_part1/two-approaches.jpg" alt="Two RL approaches"/>
 </figure>
 
 And in this chapter, **we'll dive deeper into the Value-based methods.**
@@ -92,7 +99,7 @@ And in this chapter, **we'll dive deeper into the Value-based methods.**
 In value-based methods, **we learn a value function** that **maps a state to the expected value of being at that state.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/vbm-1.jpg" alt="Value Based Methods"/>
+  <img src="assets/69_deep_rl_q_part1/vbm-1.jpg" alt="Value Based Methods"/>
 </figure>
 
 The value of a state is the **expected discounted return** the agent can get if it **starts at that state and then acts according to our policy.**
@@ -107,7 +114,7 @@ To find it, we learned that there are two different methods:
 - *Policy-based methods:* **Directly train the policy** to select what action to take given a state (or a probability distribution over actions at that state). In this case, we **don't have a value function.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/two-approaches-2.jpg" alt="Two RL approaches"/>
+  <img src="assets/69_deep_rl_q_part1/two-approaches-2.jpg" alt="Two RL approaches"/>
 </figure>
 
 The policy takes a state as input and outputs what action to take at that state (deterministic policy).
@@ -119,7 +126,7 @@ And consequently, **we don't define by hand the behavior of our policy; it's th
 But, because we didn't train our policy, **we need to specify its behavior.** For instance, if we want a policy that, given the value function, will take actions that always lead to the biggest value, **we'll create a Greedy Policy.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/two-approaches-3.jpg" alt="Two RL approaches"/>
+  <img src="assets/69_deep_rl_q_part1/two-approaches-3.jpg" alt="Two RL approaches"/>
   <figcaption>Given a state, our action-value function (that we train) outputs the value of each action at that state, then our greedy policy (that we defined) selects the action with the biggest state-action pair value.</figcaption>
 </figure>
 
@@ -131,7 +138,7 @@ So the difference is:
 - In value-based, **finding an optimal value function leads to having an optimal policy.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/link-value-policy.jpg" alt="Link between value and policy"/>
+  <img src="assets/69_deep_rl_q_part1/link-value-policy.jpg" alt="Link between value and policy"/>
 </figure>
 
 In fact, most of the time, in value-based methods, you'll use **an Epsilon-Greedy Policy** that handles the exploration/exploitation trade-off; we'll talk about it when we talk about Q-Learning in the second part of this chapter.
@@ -144,13 +151,13 @@ So, we have two types of value-based functions:
 We write the state value function under a policy π like this:
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/state-value-function-1.jpg" alt="State value function"/>
+  <img src="assets/69_deep_rl_q_part1/state-value-function-1.jpg" alt="State value function"/>
 </figure>
 
 For each state, the state-value function outputs the expected return if the agent **starts at that state,** and then follow the policy forever after (for all future timesteps if you prefer).
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/state-value-function-2.jpg" alt="State value function"/>
+  <img src="assets/69_deep_rl_q_part1/state-value-function-2.jpg" alt="State value function"/>
   <figcaption>If we take the state with value -7: it's the sum of Expected return starting at that state and taking actions according to our policy (greedy policy), so right, right, right, down, down, right, right.</figcaption>
 </figure>
 
@@ -161,10 +168,10 @@ In the Action-value function, for each state and action pair, the action-value f
 The value of taking action an in state s under a policy π is:
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/action-state-value-function-1.jpg" alt="Action State value function"/>
+  <img src="assets/69_deep_rl_q_part1/action-state-value-function-1.jpg" alt="Action State value function"/>
 </figure>
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/action-state-value-function-2.jpg" alt="Action State value function"/>
+  <img src="assets/69_deep_rl_q_part1/action-state-value-function-2.jpg" alt="Action State value function"/>
 </figure>
 
 We see that the difference is:
@@ -173,7 +180,7 @@ We see that the difference is:
 - In action-value function, we calculate **the value of the state-action pair (St, At) hence the value of taking that action at that state.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/two-types.jpg" alt="Two types of value function"/>
+  <img src="assets/69_deep_rl_q_part1/two-types.jpg" alt="Two types of value function"/>
   <figcaption>
 Note: We didn't fill all the state-action pairs for the example of Action-value function</figcaption>
 </figure>
@@ -190,7 +197,7 @@ The Bellman equation **simplifies our state value or state-action value calcula
 
   
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/bellman.jpg" alt="Bellman equation"/>
+  <img src="assets/69_deep_rl_q_part1/bellman.jpg" alt="Bellman equation"/>
 </figure>
 
 With what we learned from now, we know that if we calculate the V(St) (value of a state), we need to calculate the return starting at that state and then follow the policy forever after. **(Our policy that we defined in the following example is a Greedy Policy, and for simplification, we don't discount the reward).**
@@ -198,14 +205,14 @@ With what we learned from now, we know that if we calculate the V(St) (value of 
 So to calculate V(St), we need to make the sum of the expected rewards. Hence:
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/bellman2.jpg" alt="Bellman equation"/>
+  <img src="assets/69_deep_rl_q_part1/bellman2.jpg" alt="Bellman equation"/>
   <figcaption>To calculate the value of State 1: the sum of rewards **if the agent started in that state** and then followed the **greedy policy (taking actions that leads to the best states values) for all the time steps.**</figcaption>
 </figure>
 
 Then, to calculate the V(St+1), we need to calculate the return starting at that state St+1.
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/bellman3.jpg" alt="Bellman equation"/>
+  <img src="assets/69_deep_rl_q_part1/bellman3.jpg" alt="Bellman equation"/>
   <figcaption>To calculate the value of State 2: the sum of rewards **if the agent started in that state,** and then followed the **policy for all the time steps.**</figcaption>
 </figure>
 
@@ -218,7 +225,7 @@ The Bellman equation is a recursive equation that works like this: instead of st
 **The immediate reward (Rt+1) + the discounted value of the state that follows (gamma * V(St+1)).**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/bellman4.jpg" alt="Bellman equation"/>
+  <img src="assets/69_deep_rl_q_part1/bellman4.jpg" alt="Bellman equation"/>
   <figcaption>For simplification here we don’t discount so gamma = 1.</figcaption>
 </figure>
 
@@ -226,7 +233,7 @@ The Bellman equation is a recursive equation that works like this: instead of st
 If we go back to our example, the value of State 1= expected cumulative return if we start at that state.
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/bellman5.jpg" alt="Bellman equation"/>
+  <img src="assets/69_deep_rl_q_part1/bellman5.jpg" alt="Bellman equation"/>
 </figure>
 
 
@@ -235,7 +242,7 @@ To calculate the value of State 1: the sum of rewards **if the agent started in
 Which is equivalent to V(St) = Immediate reward (Rt+1) + Discounted value of the next state (Gamma * V(St+1))
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/bellman6.jpg" alt="Bellman equation"/>
+  <img src="assets/69_deep_rl_q_part1/bellman6.jpg" alt="Bellman equation"/>
 </figure>
 
 
@@ -265,13 +272,13 @@ Monte Carlo waits until the end of the episode, calculates Gt (return) and uses 
 So it requires a **complete entire episode of interaction before updating our value function.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/monte-carlo-approach.jpg" alt="Monte Carlo"/>
+  <img src="assets/69_deep_rl_q_part1/monte-carlo-approach.jpg" alt="Monte Carlo"/>
 </figure>
 
 If we take an example:
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/MC-2.jpg" alt="Monte Carlo"/>
+  <img src="assets/69_deep_rl_q_part1/MC-2.jpg" alt="Monte Carlo"/>
 </figure>
 
 - We always start the episode **at the same starting point.**
@@ -284,7 +291,7 @@ If we take an example:
 - It will then **update V(st) based on the formula**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/MC-3.jpg" alt="Monte Carlo"/>
+  <img src="assets/69_deep_rl_q_part1/MC-3.jpg" alt="Monte Carlo"/>
 </figure>
 
 - Then **start a new game with this new knowledge**
@@ -292,7 +299,7 @@ If we take an example:
 By running more and more episodes, **the agent will learn to play better and better.**
   
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/MC-3p.jpg" alt="Monte Carlo"/>
+  <img src="assets/69_deep_rl_q_part1/MC-3p.jpg" alt="Monte Carlo"/>
 </figure>
 
 For instance, if we train a state-value function using Monte Carlo:
@@ -302,13 +309,13 @@ For instance, if we train a state-value function using Monte Carlo:
 - Our mouse **explore the environment and take random actions**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/MC-4.jpg" alt="Monte Carlo"/>
+  <img src="assets/69_deep_rl_q_part1/MC-4.jpg" alt="Monte Carlo"/>
 </figure>
   
 - The mouse made more than 10 steps, so the episode ends .
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/MC-4p.jpg" alt="Monte Carlo"/>
+  <img src="assets/69_deep_rl_q_part1/MC-4p.jpg" alt="Monte Carlo"/>
 </figure>
 
 - We have a list of state, action, rewards, next_state, **we need to calculate the return Gt**
@@ -318,7 +325,7 @@ For instance, if we train a state-value function using Monte Carlo:
 - We can now update V(S0):
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/MC-5.jpg" alt="Monte Carlo"/>
+  <img src="assets/69_deep_rl_q_part1/MC-5.jpg" alt="Monte Carlo"/>
 </figure>
 
 - New V(S0) = V(S0) + lr * [Gt — V(S0)]
@@ -327,7 +334,7 @@ For instance, if we train a state-value function using Monte Carlo:
 
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/MC-5p.jpg" alt="Monte Carlo"/>
+  <img src="assets/69_deep_rl_q_part1/MC-5p.jpg" alt="Monte Carlo"/>
 </figure>
 
 
@@ -343,19 +350,19 @@ But because we didn't play during an entire episode, we don't have Gt (expected 
 We speak about **bootstrap because TD bases its update part on an existing estimate V(St+1) and not a complete sample Gt.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/TD-1.jpg" alt="Temporal Difference"/>
+  <img src="assets/69_deep_rl_q_part1/TD-1.jpg" alt="Temporal Difference"/>
 </figure>
 
 This method is called TD(0) or **one-step TD (update the value function after any individual step).**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/TD-1p.jpg" alt="Temporal Difference"/>
+  <img src="assets/69_deep_rl_q_part1/TD-1p.jpg" alt="Temporal Difference"/>
 </figure>
 
 If we take the same example,
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/TD-2.jpg" alt="Temporal Difference"/>
+  <img src="assets/69_deep_rl_q_part1/TD-2.jpg" alt="Temporal Difference"/>
 </figure>
 
 - We just started to train our Value function, so it returns 0 value for each state.
@@ -364,11 +371,11 @@ If we take the same example,
 - It gets a reward Rt+1 = 1 since **it eats a piece of cheese**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/TD-2p.jpg" alt="Temporal Difference"/>
+  <img src="assets/69_deep_rl_q_part1/TD-2p.jpg" alt="Temporal Difference"/>
 </figure>
   
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/TD-3.jpg" alt="Temporal Difference"/>
+  <img src="assets/69_deep_rl_q_part1/TD-3.jpg" alt="Temporal Difference"/>
 </figure>
 
 We can now update V(S0):
@@ -384,10 +391,9 @@ So we just updated our value function for State 0.
 Now we **continue to interact with this environment with our updated value function.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/TD-3p.jpg" alt="Temporal Difference"/>
+  <img src="assets/69_deep_rl_q_part1/TD-3p.jpg" alt="Temporal Difference"/>
 </figure>
 
-## Mid-chapter Summary
  
 If we summarize:
 
@@ -395,7 +401,7 @@ If we summarize:
 - With TD learning, we update the value function from a step, so we replace Gt that we don't have with **an estimated return called TD target.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Summary.jpg" alt="Summary"/>
+  <img src="assets/69_deep_rl_q_part1/Summary.jpg" alt="Summary"/>
 </figure>
 
 So now, before diving on Q-Learning, let's summarise what we just learned:
@@ -413,309 +419,25 @@ There are two types of methods to learn a policy or a value function:
 
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/summary-learning-mtds.jpg" alt="Summary"/>
+  <img src="assets/69_deep_rl_q_part1/summary-learning-mtds.jpg" alt="Summary"/>
 </figure>
-
-
-## **Introducing Q-Learning**
-
-### **What is Q-Learning?**
-
-Q-Learning is an **off-policy value-based method that uses a TD approach to train its action-value function:**
-
-- *Off-policy: we'll talk about that at the end* of this chapter.
-- *Value-based method*: it finds its optimal policy indirectly by training a value-function or action-value function that will tell us **the value of each state or each state-action pair.**
-- *Uses a TD approach:* **updates its action-value function at each step.**
-
-**Q-Learning is the algorithm we use to train our Q-Function**, an **action-value function** that determines the value of being at a particular state, and taking a specific action at that state.
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Q-function.jpg" alt="Q-function"/>
-  <figcaption>Given a state and action, our Q Function outputs a state-action value (also called Q-value)</figcaption>
-</figure>
-
-The **Q comes from "the Quality" of that action at that state.**
-
-Internally, our Q-function has **a Q-table, a table where each cell corresponds to a state-action value pair value.** Think of this Q-table as **the memory or cheat sheet of our Q-function.**
-
-If we take this maze example:
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Maze-1.jpg" alt="Maze example"/>
-</figure>
-
-The Q-Table is initialized. That's why all values are = 0. This table **contains, for each state, the four state-action values.**
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Maze-2.jpg" alt="Maze example"/>
-</figure>
-
-Here we see that the **state-action value of the initial state and going up is 0:**
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Maze-3.jpg" alt="Maze example"/>
-</figure>
-
-Therefore, Q-function contains a Q-table **that has the value of each-state action pair.** And given a state and action, **our Q-Function will search inside its Q-table to output the value.**
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Q-function-2.jpg" alt="Q-function"/>
-  <figcaption>Given a state and action pair, our Q-function will search inside its Q-table to output the state-action pair value (the Q value).</figcaption>
-</figure>
-
-If we recap, *Q-Learning* **is the RL algorithm that:**
-
-- Trains *Q-Function*, an **action-value function** that contains, as internal memory, a *****Q-table* **that contains all the state-action pair values.**
-- Given a state and action, our Q-Function **will search into its Q-table the corresponding value.**
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Q-function-2.jpg" alt="Q-function"/>
-</figure>
-
-- When the training is done, **we have an optimal Q-function, so an optimal Q-Table.**
-- And if we **have an optimal Q-function**, we **have an optimal policy** since we **know for each state what is the best action to take.**
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/link-value-policy.jpg" alt="Link value policy"/>
-</figure>
-
-But, in the beginning, **our Q-Table is useless since it gives arbitrary values for each state-action pair** (most of the time, we initialize the Q-Table to 0 values). But, as we'll **explore the environment and update our Q-Table, it will give us better and better approximations.**
-
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Q-learning-1.jpg" alt="Q-learning"/>
-  <figcaption>We see here that with the training, our Q-Table is better since, thanks to it, we can know the value of each state-action pair.</figcaption>
-</figure>
-
-So now that we understand what Q-Learning, Q-Function, and Q-Table are, **let's dive deeper into the Q-Learning algorithm**.
-
-### **The Q-Learning algorithm**
-
-This is the Q-Learning pseudocode; let's study each part and **see how it works with a simple example before implementing it.**
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Q-learning-2.jpg" alt="Q-learning"/>
-</figure>
-
-**Step 1: We initialize the Q-Table**
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Q-learning-3.jpg" alt="Q-learning"/>
-</figure>
-
-We need to initialize the Q-Table for each state-action pair. **Most of the time, we initialize with values of 0.**
-
-**Step 2: Choose action using Epsilon Greedy Strategy**
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Q-learning-4.jpg" alt="Q-learning"/>
-</figure>
-
-Epsilon Greedy Strategy is a policy that handles the exploration/exploitation trade-off.
-
-The idea is that we define epsilon ɛ = 1.0:
-
-- *With probability 1 — ɛ* : we do **exploitation** (aka our agent selects the action with the highest state-action pair value).
-- With probability ɛ: **we do exploration** (trying random action).
-
-At the beginning of the training, **the probability of doing exploration will be huge since ɛ is very high, so most of the time, we'll explore.** But as the training goes on, and consequently our **Q-Table gets better and better in its estimations, we progressively reduce the epsilon value** since we will need less and less exploration and more exploitation.
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Q-learning-5.jpg" alt="Q-learning"/>
-</figure>
-
-**Step 3: Perform action At, gets Rt+1 and St+1**
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Q-learning-6.jpg" alt="Q-learning"/>
-</figure>
-
-**Step 4: Update Q(St, At)**
-
-Remember that in TD Learning, we update our policy or value function (depending on the RL method we choose) **after one step of the interaction.**
-
-To produce our TD target, **we used the immediate reward Rt+1 plus the discounted value of the next state best state-action pair** (we call that bootstrap).
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Q-learning-7.jpg" alt="Q-learning"/>
-</figure>
-
-Therefore, our Q(St, At) **update formula goes like this:**
-
-  <figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Q-learning-8.jpg" alt="Q-learning"/>
-</figure>
-
-It means that to update our Q(St,At):
-
-- We need St, At, Rt+1, St+1.
-- To update our Q-value at this state-action pair, we form our TD target:
-
-We use Rt+1, and to get the **best next-state-action pair value,** we select with a greedy policy **(so not our epsilon greedy policy)** the next best action (so the action with the highest state-action value).
-
-Then when the update of this Q-value is done. We start in a new_state and select our action **using our epsilon-greedy policy again.**
-
-**It's why we say that this is an off-policy algorithm.**
-
-### **Off-policy vs On-policy**
-
-The difference is subtle:
-
-- *Off-policy*: using **a different policy for acting and updating.**
-
-For instance, with Q-Learning, the Epsilon greedy policy (acting policy), is different from the greedy policy that is **used to select the best next-state action value to update our Q-value (updating policy).**
-
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/off-on-1.jpg" alt="Off-on policy"/>
-  <figcaption>Acting Policy</figcaption>
-</figure>
-
-Is different from the policy we use during the training part:
-
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/off-on-2.jpg" alt="Off-on policy"/>
-  <figcaption>Updating policy</figcaption>
-</figure>
-
-- *On-policy:* using the **same policy for acting and updating.**
-
-For instance, with Sarsa, another value-based algorithm, **the Epsilon-Greedy Policy selects the next_state-action pair, not a greedy policy.**
-
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/off-on-3.jpg" alt="Off-on policy"/>
-    <figcaption>Sarsa</figcaption>
-</figure>
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/off-on-4.jpg" alt="Off-on policy"/>
-    <figcaption>Sarsa</figcaption>
-</figure>
-
-## **A Q-Learning example**
-
-To better understand Q-Learning let's take a simple example:
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Maze-Example-2.jpg" alt="Maze-Example"/>
-</figure>
-
-- You're a mouse in this tiny maze. You always **start at the same starting point.**
-- The goal is **to eat the big pile of cheese at the bottom right-hand corner** and avoid the poison.
-- The episode ends if we eat the poison, **eat the big pile of cheese or if we spent more than five steps.**
-- The learning rate is 0.1
-- The gamma (discount rate) is 0.99
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/q-ex-1.jpg" alt="Maze-Example"/>
-</figure>
-The reward function goes like this:
-
-- **+0:** Going to a state with no cheese in it.
-- **+1:** Going to a state with a small cheese in it.
-- **+10:** Going to the state with the big pile of cheese.
-- **10:** Going to the state with the poison and thus die.
-
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/q-ex-2.jpg" alt="Maze-Example"/>
-</figure>
-To train our agent to have an optimal policy (so a policy that goes right, right, down). **We will use the Q-Learning algorithm.**
-
-**Step 1: We initialize the Q-Table**
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Example-1.jpg" alt="Maze-Example"/>
-</figure>
-
-So, for now, **our Q-Table is useless**; we need **to train our Q-function using the Q-Learning algorithm.**
-
-Let's do it for 2 training timesteps:
-
-Training timestep 1:
-
-**Step 2: Choose action using Epsilon Greedy Strategy**
-
-Because epsilon is big = 1.0, I take a random action, in this case, I go right.
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/q-ex-3.jpg" alt="Maze-Example"/>
-</figure>
-
-**Step 3: Perform action At, gets Rt+1 and St+1**
-
-By going right, I've got a small cheese, so Rt+1 = 1, and I'm in a new state.
-
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/q-ex-4.jpg" alt="Maze-Example"/>
-</figure>
-
-**Step 4: Update Q(St, At)**
-
-We can now update Q(St, At) using our formula.
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/q-ex-5.jpg" alt="Maze-Example"/>
-</figure>
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/Example-4.jpg" alt="Maze-Example"/>
-</figure>
-
-Training timestep 2:
-
-**Step 2: Choose action using Epsilon Greedy Strategy**
-
-**I take a random action again, since epsilon is big 0.99** (since we decay it a little bit because as the training progress, we want less and less exploration).
-
-I took action down. **Not a good action since it leads me to the poison.**
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/q-ex-6.jpg" alt="Maze-Example"/>
-</figure>
-
-**Step 3: Perform action At, gets Rt+1 and St+1**
-
-Because I go to the poison state, **I get Rt+1 = -10, and I die.**
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/q-ex-7.jpg" alt="Maze-Example"/>
-</figure>
-
-**Step 4: Update Q(St, At)**
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/69_deep_rl_q/q-ex-8.jpg" alt="Maze-Example"/>
-  </figure>
-  
-Because we're dead, we start a new episode. But what we see here is that **with two explorations steps, my agent became smarter.**
-
-As we continue exploring and exploiting the environment and updating Q-values using TD target, **Q-Table will give us better and better approximations. And thus, at the end of the training, we'll get an optimal Q-Function.**
 
 ---
-  
-TODO: Add tutorial colab
-  
-  
-  
-Congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorials. You’ve just implemented from scratch your first RL agent and shared it on the Hub 🥳.
-  
-Implementing from scratch when you study a new architecture **is important to really understand deeply how it works.**
+So that’s all for today. Congrats on finishing this first part of the chapter! There was a lot of information.
 
-That’s **normal if you still feel confused** with all these elements. **This was the same for me and for all people who studied RL.**
+**That’s normal if you still feel confused with all these elements**. This was the same for me and for all people who studied RL.
 
-Take time to really grasp the material before continuing. It’s important to master these elements and having a solid foundations before entering the **fun part.**
-Don't hesitate, to modify the implementation, try ways to improve it, change environments, **the best way to learn is to try things by your own!** 
+**Take time to really grasp the material before continuing**. In the second part, we’ll study our first RL algorithm: Q-Learning, and implement our first RL Agent in two environments:
 
-We published additional readings in the syllabus if you want to go deeper 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit2/README.md
+1. Frozen-Lake-v1 (non-slippery version): where our agent will need to **go from the starting state (S) to the goal state (G)** by walking only on frozen tiles (F) and avoiding holes (H).
+2. An autonomous taxi will need **to learn to navigate** a city to **transport its passengers from point A to point B.**
 
-In the next unit, we’re going to learn about Deep-Q-Learning.
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/69_deep_rl_q_part1/envs.gif" alt="Environments"/>
+</figure>
 
 And don't forget to share with your friends who want to learn 🤗 !
 
 ### Keep learning, stay awesome,
 </body>
 </html>
-  
