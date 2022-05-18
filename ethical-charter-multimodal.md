@@ -1,9 +1,10 @@
 ---
-title: "Putting ethics principles at the core of the research lifecycle"
-thumbnail: TODO
+title: "Putting ethical principles at the core of the research lifecycle"
+thumbnail: /blog/assets/70_ethical-charter/thumbnail.png
 ---
 
-<h1>Ethical charter - Multimodal project</h1>
+<h1>Putting ethical principles at the core of the research lifecycle</h1>
+<h2>Ethical charter - Multimodal project</h2>
 
 <div class="blog-metadata">
     <small>Published May 19, 2022.</small>
@@ -97,24 +98,17 @@ thumbnail: TODO
             <span class="fullname">Douwe Kiela</span>
         </div>
     </a>
-    <a href="/srush">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://avatars0.githubusercontent.com/u/35882?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>srush</code>
-            <span class="fullname">Sasha Rush</span>
-        </div>
-    </a>
 </div>
 
-## Purpose of the document
+## Purpose of the ethical charter
 
-It has been well documented that machine learning research and applications can potentially lead to "data privacy issues, algorithmic biases, automation risks and malicious uses" (NeurIPS 2021 [ethics guidelines](https://nips.cc/public/EthicsGuidelines)). The purpose of this short document is to formalize the ethical principles that we (the multimodal learning group at Hugging Face) adopt for the project we are pursuing. By defining these ethical principles at the beginning of the project, we emphasize the importance of putting ethics principles as a core aspect of the machine learning cycle.
+It has been well documented that machine learning research and applications can potentially lead to "data privacy issues, algorithmic biases, automation risks and malicious uses" (NeurIPS 2021 [ethics guidelines](https://nips.cc/public/EthicsGuidelines)). The purpose of this short document is to formalize the ethical principles that we (the multimodal learning group at Hugging Face) adopt for the project we are pursuing. By defining these ethical principles at the beginning of the project, we make these ethical principles core to our machine learning lifecycle.
 
-By being transparent about the decisions we're making in the project, who is working on which aspects of the system, and how the team can be contacted, we can receive feedback early enough in the process to make meaningful changes, and ground discussions about choices in an awareness of the goals we aim to achieve.
+By being transparent about the decisions we're making in the project, who is working on which aspects of the system, and how the team can be contacted, we hope to receive feedback early enough in the process to make meaningful changes, and ground discussions about choices in an awareness of the goals we aim to achieve and the values we hope to incorporate.
 
 This document is the result of discussions led by the multimodal learning group at Hugging Face (composed of machine learning researchers and engineers), with the contributions of multiple experts in ethics operationalization, data governance, and personal privacy.
 
-## Limitations of this ethical guideline document
+## Limitations of this ethical charter
 
 This document is a work in progress and reflects a state of reflection as of May 2022. There is no consensus nor official definition of "ethical AI" and our considerations are very likely to change over time. In case of updates, we will reflect changes directly in this document while providing the rationale for changes and tracking the history of updates through GitHub. This document is not intended to be a source of truth about best practices for ethical AI. We believe that even though it is imperfect, thinking about the impact of our research, the potential harms we foresee, and strategies we can take to mitigate these harms is going in the right direction for the machine learning community. Throughout the project, we will document how we operationalize the values described in this document, along with the advantages and limitations we observe in the context of the project.
 
