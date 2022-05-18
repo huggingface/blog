@@ -58,8 +58,15 @@ This unit is fundamental **if you want to be able to work on Deep Q-Learning**�
 
 So let's get started!
 
+- [What is RL? A short recap](#what-is-rl-a-short-recap)
+- [The two types of value-based methods](#the-two-types-of-value-based-methods)
+  - [The State-Value function](#the-state-value-function)
+  - [The Action-Value function](#the-action-value-function)
+- [The Bellman Equation: simplify our value estimation](#the-bellman-equation-simplify-our-value-estimation)
+- [Monte Carlo vs Temporal Difference Learning](#monte-carlo-vs-temporal-difference-learning)
+  - [Monte Carlo: learning at the end of the episode](#monte-carlo-learning-at-the-end-of-the-episode)
+  - [Temporal Difference Learning: learning at each step](#temporal-difference-learning-learning-at-each-step)
 
-TODO: Add table des matières
 
 
 ## **What is RL? A short recap**
