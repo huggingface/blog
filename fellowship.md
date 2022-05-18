@@ -66,7 +66,7 @@ How? In the ways that they prefer. Here are some examples of the first Fellows:
 - **Christopher Akiki** - Contributed to sprints, workshops, [Big Science](https://t.co/oIRne5fZYb), and cool demos! Check out some of his recent projects like his [TF-coder](https://t.co/NtTmO6ngHP) and the [income stats explorer](https://t.co/dNMO7lHAIR).  🦹🏻‍♀️
 - **Ceyda Çınarel** - Contributed to many successful Hugging Face and Spaces models in various sprints. Check out her [ButterflyGAN Space](https://huggingface.co/spaces/huggan/butterfly-gan) or [search for reaction GIFs with CLIP](https://huggingface.co/spaces/flax-community/clip-reply-demo). 👸🏻
 
-Additionally, there are strategic areas where Hugging Face is looking for open-source contributions. These areas will be added and updated frequently on the [Fellowship Doc with specific projects](https://docs.google.com/document/d/11mh36a4fgBlj8sh3_KoP2TckuPcnD-_S_UAtsEWgs50/edit). Prospects should not hesitate to write in the #looking-for-collaborators channel in the [Hugging Face Discord](hf.co/join/discord) if they want to undertake a project in these areas, support or be considered as a Fellow. Additionally, refer to the **Where and how can I contribute?** question below.
+Additionally, there are strategic areas where Hugging Face is looking for open-source contributions. These areas will be added and updated frequently on the [Fellowship Doc with specific projects](https://docs.google.com/document/d/11mh36a4fgBlj8sh3_KoP2TckuPcnD-_S_UAtsEWgs50/edit). Prospects should not hesitate to write in the #looking-for-collaborators channel in the [Hugging Face Discord](https://t.co/1n75wi976V?amp=1) if they want to undertake a project in these areas, support or be considered as a Fellow. Additionally, refer to the **Where and how can I contribute?** question below.
 
 If you are currently a student, consider applying to the [Student Ambassador Program](https://huggingface.co/blog/ambassadors). The application deadline is June 13, 2022.
 
@@ -83,9 +83,9 @@ Fellows are nominated based on their open-source and community contributions. If
   
 It depends on your interests. Here are some ideas of areas where you can contribute, but you should work on things that get **you** excited!
 
-- Share engaging models with the community through the Hub. These can be for Computer Vision, Reinforcement Learning, and any other ML domain!
+- Share exciting models with the community through the Hub. These can be for Computer Vision, Reinforcement Learning, and any other ML domain!
 - Create tutorials and projects using different open-source libraries—for example, Stable-Baselines 3, fastai, or Keras.
-- Organize local sprints to promote open source Machine Learning in different languages ​​or niches. For example, the Hackathon Somos PNL focused on Spanish speakers. The HugGAN sprint focused on generative models.
+- Organize local sprints to promote open source Machine Learning in different languages or niches. For example, the [Somos NLP Hackathon](https://huggingface.co/hackathon-pln-es) focused on Spanish speakers. The [HugGAN sprint](https://github.com/huggingface/community-events/tree/main/huggan) focused on generative models.
 - Translate the [Hugging Face Course](https://github.com/huggingface/course#-languages-and-translations), the [Transformers documentation](https://github.com/huggingface/transformers/blob/main/docs/TRANSLATING.md) or the [Educational Toolkit](https://github.com/huggingface/education-toolkit/blob/main/TRANSLATING.md).
 - [Doc with specific projects](https://docs.google.com/document/d/11mh36a4fgBlj8sh3_KoP2TckuPcnD-_S_UAtsEWgs50/edit) where contributions would be valuable. The Hugging Face team will frequently update the doc with new projects.
 
