@@ -284,7 +284,7 @@ If we take an example:
 - We always start the episode **at the same starting point.**
 - **We try actions using our policy** (for instance, using an Epsilon Greedy Strategy, an policy that alternates between exploration (random actions) and exploitation).
 - We get **the reward and the next state.**
-- We terminate the episode if the cat eats us or if we move > 10 steps.
+- We terminate the episode if the cat eats the mouse or if the mouse moves > 10 steps.
 
 - At the end of the episode, **we have a list of State, Actions, Rewards, and Next States**
 - **The agent will sum the total rewards Gt** (to see how well it did).
