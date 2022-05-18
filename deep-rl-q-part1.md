@@ -253,7 +253,7 @@ For simplification, here we don't discount, so gamma = 1.
 
 To recap, the idea of the Bellman equation is that instead of calculating each value as the sum of the expected return, **which is a long process.** This is equivalent **to the sum of immediate reward + the discounted value of the state that follows.**
 
-# **Monte Carlo vs Temporal Difference Learning**
+## **Monte Carlo vs Temporal Difference Learning**
 
 The last thing we need to talk about before diving into Q-Learning is the two ways of learning whatever the RL method we use.
 
@@ -265,7 +265,7 @@ But on the one hand, Monte Carlo uses **an entire episode of experience before 
 
 We'll explain both of them **using a value-based method example.**
 
-## **Monte Carlo: learning at the end of the episode**
+### **Monte Carlo: learning at the end of the episode**
 
 Monte Carlo waits until the end of the episode, calculates Gt (return) and uses it as **a target for updating V(St).**
 
@@ -338,7 +338,7 @@ For instance, if we train a state-value function using Monte Carlo:
 </figure>
 
 
-## **Temporal Difference Learning: learning at each step**
+### **Temporal Difference Learning: learning at each step**
 
 - **Temporal difference, on the other hand, waits for only one interaction (one step) St+1**
 - to form a TD target and update V(St) using Rt+1 and gamma * V(St+1).
