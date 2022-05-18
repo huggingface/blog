@@ -787,7 +787,7 @@
 - local: deep-rl-q-part1
   title: "An Introduction to Q-Learning Part 1"
   author: ThomasSimonini
-  thumbnail: /blog/assets/70_deep_rl_q_part1/thumbnail.png
+  thumbnail: /blog/assets/70_deep_rl_q_part1/thumbnail.gif
   date: May 18, 2022
   tags:
   - rl
