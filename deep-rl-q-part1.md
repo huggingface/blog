@@ -1,6 +1,6 @@
 ---
 title: "An Introduction to Q-Learning Part 1"
-thumbnail: /blog/assets/70_deep_rl_q_part1/thumbnail.png
+thumbnail: /blog/assets/70_deep_rl_q_part1/thumbnail.gif
 ---
 
 <html>
