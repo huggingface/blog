@@ -48,11 +48,11 @@ This unit is fundamental if you want to be able to work on Deep Q-Learning (Unit
 
 So let’s get started! 🚀
 
-- [Introducing Q-Learning]()
-  - [What is Q-Learning?]()
-  - [The Q-Learning algorithm]()
-  - [Off-policy vs. On-policy]()
-- [A Q-Learning example]()
+- [Introducing Q-Learning](#introducing-q-learning)
+  - [What is Q-Learning?](#what-is-q-learning)
+  - [The Q-Learning algorithm](#the-q-learning-algorithm)
+  - [Off-policy vs. On-policy](#off-policy-vs-on-policy)
+- [A Q-Learning example](#a-q-learning-example)
 
 
 
