@@ -158,7 +158,7 @@ For each state, the state-value function outputs the expected return if the agen
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/state-value-function-2.jpg" alt="State value function"/>
-  <figcaption>If we take the state with value -7: it's the sum of Expected return starting at that state and taking actions according to our policy (greedy policy), so right, right, right, down, down, right, right.</figcaption>
+  <figcaption>If we take the state with value -7: it's the expected return starting at that state and taking actions according to our policy (greedy policy), so right, right, right, down, down, right, right.</figcaption>
 </figure>
 
 ### **The Action-Value function**
@@ -282,7 +282,7 @@ If we take an example:
 </figure>
 
 - We always start the episode **at the same starting point.**
-- **We try actions using our policy** (for instance, using Epsilon Greedy Strategy, an policy that alternates between exploration (random actions) and exploitation).
+- **We try actions using our policy** (for instance, using an Epsilon Greedy Strategy, an policy that alternates between exploration (random actions) and exploitation).
 - We get **the reward and the Next State.**
 - We terminate the episode if the cat eats us or if we move > 10 steps.
 
