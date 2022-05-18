@@ -35,7 +35,7 @@ thumbnail: /blog/assets/73_deep_rl_q_part2/thumbnail.gif
 
 In the first part of this unit, **we learned about the value-based methods and the difference between Monte Carlo and Temporal Difference Learning**.
 
-So, in the second part, we’ll **study Q-Learning**, **implement our first RL agent from scratch**. A Q-Learning agent and will train it in two environments:
+So, in the second part, we’ll **study Q-Learning**, **and implement our first RL agent from scratch**. A Q-Learning agent and will train it in two environments:
 
 1. Frozen-Lake-v1 ❄️ (non-slippery version): where our agent will need to **go from the starting state (S) to the goal state (G)** by walking only on frozen tiles (F) and avoiding holes (H).
 2. An autonomous taxi 🚕 will need **to learn to navigate** a city to **transport its passengers from point A to point B.**
@@ -51,7 +51,7 @@ So let’s get started! 🚀
 - [Introducing Q-Learning]()
   - [What is Q-Learning?]()
   - [The Q-Learning algorithm]()
-  - [Off-policy vs On-policy]()
+  - [Off-policy vs. On-policy]()
 - [A Q-Learning example]()
 
 
@@ -62,10 +62,10 @@ So let’s get started! 🚀
 Q-Learning is an **off-policy value-based method that uses a TD approach to train its action-value function:**
 
 - *Off-policy*: we'll talk about that at the end of this chapter.
-- *Value-based method*: it finds its optimal policy indirectly by training a value-function or action-value function that will tell us **the value of each state or each state-action pair.**
+- *Value-based method*: finds its optimal policy indirectly by training a value-function or action-value function that will tell us **the value of each state or each state-action pair.**
 - *Uses a TD approach:* **updates its action-value function at each step.**
 
-**Q-Learning is the algorithm we use to train our Q-Function**, an **action-value function** that determines the value of being at a particular state, and taking a specific action at that state.
+**Q-Learning is the algorithm we use to train our Q-Function**, an **action-value function** that determines the value of being at a particular state and taking a specific action at that state.
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/73_deep_rl_q_part2/Q-function.jpg" alt="Q-function"/>
@@ -103,7 +103,7 @@ Therefore, Q-function contains a Q-table **that has the value of each-state act
 
 If we recap, *Q-Learning* **is the RL algorithm that:**
 
-- Trains *Q-Function*, an **action-value function** that contains, as internal memory, a *****Q-table* **that contains all the state-action pair values.**
+- Trains *Q-Function* (an **action-value function**) that contains, as internal memory, a *Q-table* **that contains all the state-action pair values.**
 - Given a state and action, our Q-Function **will search into its Q-table the corresponding value.**
 
 <figure class="image table text-center m-0 w-full">
@@ -118,7 +118,6 @@ If we recap, *Q-Learning* **is the RL algorithm that:**
 </figure>
 
 But, in the beginning, **our Q-Table is useless since it gives arbitrary values for each state-action pair** (most of the time, we initialize the Q-Table to 0 values). But, as we'll **explore the environment and update our Q-Table, it will give us better and better approximations.**
-
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/73_deep_rl_q_part2/Q-learning-1.jpg" alt="Q-learning"/>
@@ -229,12 +228,11 @@ For instance, with Sarsa, another value-based algorithm, **the Epsilon-Greedy P
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/73_deep_rl_q_part2/off-on-4.jpg" alt="Off-on policy"/>
-    <figcaption>Sarsa</figcaption>
 </figure>
 
 ## **A Q-Learning example**
 
-To better understand Q-Learning let's take a simple example:
+To better understand Q-Learning, let's take a simple example:
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/73_deep_rl_q_part2/Maze-Example-2.jpg" alt="Maze-Example"/>
@@ -332,7 +330,7 @@ Because we're dead, we start a new episode. But what we see here is that **with
 
 As we continue exploring and exploiting the environment and updating Q-values using TD target, **Q-Table will give us better and better approximations. And thus, at the end of the training, we'll get an optimal Q-Function.**
 ---
-Now that we **studied Q-Learning**, let's **implement our first RL agent from scratch**. A Q-Learning agent and we will train in two environments:
+Now that we **studied the theory of Q-Learning**, let's **implement it from scratch**. A Q-Learning agent that we will train in two environments:
 
 1. *Frozen-Lake-v1* ❄️ (non-slippery version): where our agent will need to **go from the starting state (S) to the goal state (G)** by walking only on frozen tiles (F) and avoiding holes (H).
 2. *An autonomous taxi* 🚕 will need **to learn to navigate** a city to **transport its passengers from point A to point B.**
@@ -343,14 +341,14 @@ Now that we **studied Q-Learning**, let's **implement our first RL agent from sc
 
 Start the tutorial here 👉 [LINK COLAB]
 
-Congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorials. You’ve just implemented from scratch your first RL agent and shared it on the Hub 🥳.
+Congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorials. You’ve just implemented your first RL agent from scratch and shared it on the Hub 🥳.
   
-Implementing from scratch when you study a new architecture **is important to really understand deeply how it works.**
+Implementing from scratch when you study a new architecture **is important to understand how it works.**
 
 That’s **normal if you still feel confused** with all these elements. **This was the same for me and for all people who studied RL.**
 
-Take time to really grasp the material before continuing. It’s important to master these elements and having a solid foundations before entering the **fun part.**
-Don't hesitate, to modify the implementation, try ways to improve it, change environments, **the best way to learn is to try things by your own!** 
+Take time to really grasp the material before continuing. It’s essential to master these elements and having a solid foundations before entering the **fun part.**
+Don't hesitate to modify the implementation, try ways to improve it and change environments, **the best way to learn is to try things on your own!** 
 
 We published additional readings in the syllabus if you want to go deeper 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit2/README.md
 
