@@ -33,7 +33,7 @@ thumbnail: /blog/assets/73_deep_rl_q_part2/thumbnail.gif
 *This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
 ---
 
-In the first part of this second unit of this class, **we learned about the value-based methods and the difference between Monte Carlo and Temporal Difference Learning**.
+In the first part of this unit, **we learned about the value-based methods and the difference between Monte Carlo and Temporal Difference Learning**.
 
 So, in the second part, we’ll **study Q-Learning**, **implement our first RL agent from scratch**. A Q-Learning agent and will train it in two environments:
 
