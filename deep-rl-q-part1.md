@@ -54,7 +54,7 @@ In the first part, we'll **learn about the value-based methods and the differen
 
 And in the second part, **we'll study our first RL algorithm: Q-Learning, and implement our first RL Agent.**
 
-This chapter is fundamental **if you want to be able to work on Deep Q-Learning** (chapter 3): the first Deep RL algorithm that was able to play Atari games and **beat the human level on some of them** (breakout, space invaders…).
+This unit is fundamental **if you want to be able to work on Deep Q-Learning** (unit 3): the first Deep RL algorithm that was able to play Atari games and **beat the human level on some of them** (breakout, space invaders…).
 
 So let's get started!
 
