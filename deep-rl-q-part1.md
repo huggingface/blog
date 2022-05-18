@@ -132,7 +132,7 @@ And consequently, **we don't define by hand the behavior of our policy; it's th
 
 - *Value-based methods:* **Indirectly, by training a value function** that outputs the value of a state or a state-action pair. Given this value function, our policy **will take action.**
 
-But, because we didn't train our policy, **we need to specify its behavior.** For instance, if we want a policy that, given the value function, will take actions that always lead to the biggest value, **we'll create a Greedy Policy.**
+But, because we didn't train our policy, **we need to specify its behavior.** For instance, if we want a policy that, given the value function, will take actions that always lead to the biggest reward, **we'll create a Greedy Policy.**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/two-approaches-3.jpg" alt="Two RL approaches"/>
