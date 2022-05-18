@@ -1,12 +1,12 @@
 ---
 title: "How Sempre Health is leveraging the Expert Acceleration Program to accelerate their ML roadmap"
-thumbnail: /blog/assets/67_sempre_health/thumbnail.jpg
+thumbnail: /blog/assets/70_sempre_health/thumbnail.jpg
 ---
 
 <h1>How Sempre Health is leveraging the Expert Acceleration Program to accelerate their ML roadmap </h1>
 
 <div class="blog-metadata">
-    <small>Published May 17, 2022.</small>
+    <small>Published May 19, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/sempre-health-eap-case-study.md">
         Update on GitHub
     </a>
@@ -41,7 +41,7 @@ My name is Swaraj. I'm the CTO and co-founder at Sempre Health. I'm Larry, I'm a
 ### How do you apply Machine Learning at Sempre Health?
 Here at Sempre Health, we receive thousands of text messages from the patients on our platform every single day. A huge portion of these messages are messages that we can actually automatically respond to. So, for example, if a patient messages us a simple _“Thank you”_, we can automatically reply with _“You're welcome”_. Or if a patient says _“Can you refill my prescription?”_, we have systems in place to automatically call their pharmacy and submit a refill request on their behalf. 
 
-We're using machine learning, specifically natural language processing, to help identify which of these thousands of text messages that we see daily are ones that we can automatically handle.
+We're using machine learning, specifically natural language processing (NLP), to help identify which of these thousands of text messages that we see daily are ones that we can automatically handle.
 
 ### What challenges were you facing before the Expert Acceleration Program?
 
