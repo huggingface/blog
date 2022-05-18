@@ -60,6 +60,8 @@ Apart from those efforts, many team members are involved in other educational ef
 
 🗣️ We want to empower educators with tools and offer collaborative spaces where students can build machine learning using open-source technologies and state-of-the-art machine learning models.
 
+- We provide to educators free infrastructure and resources to quickly introduce real-world applications of ML to theirs students and make learning more fun and interesting. By creating a [classroom](https://github.com/huggingface/education-toolkit) for free from the hub, instructors can turn their classes into collaborative environments where students can learn and build ML-powered applications using free open-source technologies and state-of-the-art models. 
+
 - We’ve assembled [a free toolkit](https://github.com/huggingface/education-toolkit) translated to 8 languages that instructors of machine learning or Data Science can use to easily prepare labs, homework, or classes. The content is self-contained so that it can be easily incorporated into an existing curriculum. This content is free and uses well-known Open Source technologies (🤗 transformers, gradio, etc). Feel free to pick a tutorial and teach it!
 
     
@@ -76,8 +78,8 @@ Apart from those efforts, many team members are involved in other educational ef
 
 ## 🤗 **Education Events & News**
 
-**05/13**[NEWS]: Are you studying machine learning? Do you want to be a part of our ML democratization efforts and show your campus community how to build ML models with Hugging Face? We want to support you in your journey! You have until June 13th to [apply](add) to 🤗 Student Application Program.
-**06/06**[EVENT]: How to Teach Open-Source Machine Learning Tools. [Register](https://www.eventbrite.com/e/how-to-teach-open-source-machine-learning-tools-tickets-310980931337)
+- **05/13**[NEWS]: Are you studying machine learning? Do you want to be a part of our ML democratization efforts and show your campus community how to build ML models with Hugging Face? We want to support you in your journey! You have until June 13th to [apply](add) to 🤗 Student Application Program.
+- **06/06**[EVENT]: How to Teach Open-Source Machine Learning Tools. [Register](https://www.eventbrite.com/e/how-to-teach-open-source-machine-learning-tools-tickets-310980931337)
 
-🔥 We are currently working on ambassadors programs, a new EDU offering, more content in the course, and more! Stay tuned!
+🔥 We are currently working on more content in the course, and more! Stay tuned!
 
