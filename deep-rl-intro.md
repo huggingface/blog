@@ -553,7 +553,7 @@ We published additional readings in the syllabus if you want to go deeper 👉 h
 
 Naturally, during the course, **we’re going to use and explain these terms again**, but it’s better to understand them before diving into the next chapters.
 
-In the next chapter, we’re going to learn about Q-Learning and dive deeper **into the value-based methods.**
+In the next chapter, [we’re going to learn about Q-Learning and dive deeper **into the value-based methods.**](https://huggingface.co/blog/deep-rl-q-part1)
 
 And don't forget to share with your friends who want to learn 🤗 !
 
