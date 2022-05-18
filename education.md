@@ -60,6 +60,8 @@ Apart from those efforts, many team members are involved in other educational ef
 
 🗣️ We want to empower educators with tools and offer collaborative spaces where students can build machine learning using open-source technologies and state-of-the-art machine learning models.
 
+- We provide to educators free infrastructure and resources to quickly introduce real-world applications of ML to theirs students and make learning more fun and interesting. By creating a [classroom](https://github.com/huggingface/education-toolkit) for free from the hub, instructors can turn their classes into collaborative environments where students can learn and build ML-powered applications using free open-source technologies and state-of-the-art models. 
+
 - We’ve assembled [a free toolkit](https://github.com/huggingface/education-toolkit) translated to 8 languages that instructors of machine learning or Data Science can use to easily prepare labs, homework, or classes. The content is self-contained so that it can be easily incorporated into an existing curriculum. This content is free and uses well-known Open Source technologies (🤗 transformers, gradio, etc). Feel free to pick a tutorial and teach it!
 
     
