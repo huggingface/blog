@@ -306,7 +306,7 @@ For instance, if we train a state-value function using Monte Carlo:
 
 - We just started to train our Value function, **so it returns 0 value for each state**
 - Our learning rate (lr) is 0.1 and our discount rate is 1 (= no discount)
-- Our mouse **explore the environment and take random actions**
+- Our mouse **explores the environment and takes random actions**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/MC-4.jpg" alt="Monte Carlo"/>
