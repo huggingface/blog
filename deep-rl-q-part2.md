@@ -110,7 +110,7 @@ If we recap, *Q-Learning* **is the RL algorithm that:**
   <img src="assets/73_deep_rl_q_part2/Q-function-2.jpg" alt="Q-function"/>
 </figure>
 
-- When the training is done, **we have an optimal Q-function, so an optimal Q-Table.**
+- When the training is done, **we have an optimal Q-function, which means we have optimal Q-Table.**
 - And if we **have an optimal Q-function**, we **have an optimal policy** since we **know for each state what is the best action to take.**
 
 <figure class="image table text-center m-0 w-full">
