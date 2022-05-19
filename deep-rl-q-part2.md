@@ -103,7 +103,7 @@ Therefore, Q-function contains a Q-table **that has the value of each-state act
 
 If we recap, *Q-Learning* **is the RL algorithm that:**
 
-- Trains *Q-Function* (an **action-value function**) that contains, as internal memory, a *Q-table* **that contains all the state-action pair values.**
+- Trains *Q-Function* (an **action-value function**) which internally is a *Q-table* **that contains all the state-action pair values.**
 - Given a state and action, our Q-Function **will search into its Q-table the corresponding value.**
 
 <figure class="image table text-center m-0 w-full">
