@@ -802,3 +802,13 @@
   - nlp
   - audio
   - cv
+
+- local: tapex
+  title: "Query Your Tables using Natural Language: An Introduction to TAPEX"
+  author: SaulLu
+  thumbnail: /blog/assets/74_tapex/thumbnail.png
+  date: May 23, 2022
+  tags:
+  - research
+  - nlp
+  - community
