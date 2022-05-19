@@ -106,7 +106,7 @@ Experimental results demonstrate that TAPEX outperforms previous table pre-train
 
 ### Comparison to Previous Table Pre-training
 
-The earliest work on table pre-training, [TAPAS](https://aclanthology.org/2020.acl-main.398/) from Google Research and [TaBERT](https://aclanthology.org/2020.acl-main.745/) from Meta AI, have revealed that collecting more *domain-adaptive* data can improve the downstream performance. However, these previous work mainly employ *general-purpose* pre-training tasks, e.g., language modeling or its variants. TAPEX explores a different path by sacrificing the naturalness of the pre-trained source in order to obtain a *domain-adaptive* pre-trained task, i.e. SQL execution. A graphical comparison of BERT, TAPAS/TaBERT and our TAPEX can be seen below.
+The earliest work on table pre-training, [TAPAS](https://aclanthology.org/2020.acl-main.398/) from Google Research - also [available in 🤗 Transformers](https://huggingface.co/docs/transformers/model_doc/tapas) - and [TaBERT](https://aclanthology.org/2020.acl-main.745/) from Meta AI, have revealed that collecting more *domain-adaptive* data can improve the downstream performance. However, these previous works mainly employ *general-purpose* pre-training tasks, e.g., language modeling or its variants. TAPEX explores a different path by sacrificing the naturalness of the pre-trained source in order to obtain a *domain-adaptive* pre-trained task, i.e. SQL execution. A graphical comparison of BERT, TAPAS/TaBERT and our TAPEX can be seen below.
 
 
 ![comparsion](assets/74_tapex/comparsion-tapex.png)
