@@ -30,7 +30,7 @@ In recent years, language model pre-training has achieved great success via leve
 
 ### Overview
 
-In "[TAPEX: Table Pre-training via Learning a Neural SQL Executor]( https://openreview.net/forum?id=O50443AsCP)", we explore using **synthetic data as a proxy for real data during pre-training**, and demonstrate its powerfulness with *TAPEX (Table Pre-training via Execution)* as an example. In TAPEX, we show that table pre-training can be achieved by learning a neural SQL executor over a synthetic corpus.
+In "[TAPEX: Table Pre-training via Learning a Neural SQL Executor](https://openreview.net/forum?id=O50443AsCP)", we explore **using synthetic data as a proxy for real data during pre-training**, and demonstrate its powerfulness with *TAPEX (Table Pre-training via Execution)* as an example. In TAPEX, we show that table pre-training can be achieved by learning a neural SQL executor over a synthetic corpus.
 
 ![snippet](assets/74_tapex/tapex-overview.png)
 > Note: [Table] is a placeholder for the user provided table in the input.
