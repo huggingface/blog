@@ -188,7 +188,9 @@ It means that to update our Q(St,At):
 - We need St, At, Rt+1, St+1.
 - To update our Q-value at a given state-action pair, we use the TD target.
 
-We use Rt+1, and to get the **best next-state-action pair value,** we select with a greedy policy **(so not our epsilon greedy policy)** the next best action (so the action with the highest state-action value).
+How do we form the TD target? 
+1. We obtain the reward after taking the action Rt+1.
+2. To get the **best next-state-action pair value**, we use a greedy policy to select the next best action. Note that this is not an epsilon greedy policy, this will always take the action with the highest state-action value.
 
 Then when the update of this Q-value is done. We start in a new_state and select our action **using our epsilon-greedy policy again.**
 
