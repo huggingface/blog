@@ -250,7 +250,7 @@ The reward function goes like this:
 - **+1:** Going to a state with a small cheese in it.
 - **+10:** Going to the state with the big pile of cheese.
 - **-10:** Going to the state with the poison and thus die.
-
+- **+0** If we spend more than five steps.
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/73_deep_rl_q_part2/q-ex-2.jpg" alt="Maze-Example"/>
