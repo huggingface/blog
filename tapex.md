@@ -111,7 +111,7 @@ The earliest work on table pre-training, [TAPAS](https://aclanthology.org/2020.a
 
 ![comparsion](assets/74_tapex/comparsion-tapex.png)
 
-We believe the SQL execution task is closer to the downstream table question answering task, especially from the perspective of structural reasoning capabilities. Imagine you are faced with a SQL query `SELECT City ORDER BY Year` and a natural question `Sort all cities by year`. The reasoning paths required by the SQL query and the question are similar, except that SQL is a bit more rigid than the natural language. If a language model can be pre-trained to faithfully “execute” SQL queries and produce correct results, it should have a deep understanding on natural language with similar intents.
+We believe the SQL execution task is closer to the downstream table question answering task, especially from the perspective of structural reasoning capabilities. Imagine you are faced with a SQL query `SELECT City ORDER BY Year` and a natural question `Sort all cities by year`. The reasoning paths required by the SQL query and the question are similar, except that SQL is a bit more rigid than natural language. If a language model can be pre-trained to faithfully “execute” SQL queries and produce correct results, it should have a deep understanding on natural language with similar intents.
 
 ![efficiency](assets/74_tapex/tapex-efficiency.png)
 
