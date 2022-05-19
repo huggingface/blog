@@ -1,6 +1,6 @@
 ---
 title: "Putting ethical principles at the core of the research lifecycle"
-thumbnail: /blog/assets/71_ethical-charter/thumbnail.png
+thumbnail: /blog/assets/71_ethical-charter/thumbnail.jpg
 ---
 
 <h1>Putting ethical principles at the core of the research lifecycle</h1>
