@@ -124,4 +124,4 @@ In this blog, we introduce TAPEX, a table pre-training approach whose corpus is 
 
 ### Take Away
 
-What can we learn from the success of TAPEX? I suggest that, especially if you want to perform efficient continual pre-training, you may try these options: (1) synthesize an accurate and small corpus, instead of mining a large but noisy corpus from Internet; (2) simulate domain-adaptive skills via programs, instead of general-purpose language modeling via natural language sentences. 
+What can we learn from the success of TAPEX? I suggest that, especially if you want to perform efficient continual pre-training, you may try these options: (1) synthesize an accurate and small corpus, instead of mining a large but noisy corpus from the Internet; (2) simulate domain-adaptive skills via programs, instead of general-purpose language modeling via natural language sentences. 
