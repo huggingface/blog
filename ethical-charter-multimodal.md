@@ -102,7 +102,7 @@ thumbnail: /blog/assets/71_ethical-charter/thumbnail.jpg
 
 ## Purpose of the ethical charter
 
-It has been well documented that machine learning research and applications can potentially lead to "data privacy issues, algorithmic biases, automation risks and malicious uses" (NeurIPS 2021 [ethics guidelines](https://nips.cc/public/EthicsGuidelines)). The purpose of this short document is to formalize the ethical principles that we (the multimodal learning group at Hugging Face) adopt for the project we are pursuing. By defining these ethical principles at the beginning of the project, we make these ethical principles core to our machine learning lifecycle.
+It has been well documented that machine learning research and applications can potentially lead to "data privacy issues, algorithmic biases, automation risks and malicious uses" (NeurIPS 2021 [ethics guidelines](https://nips.cc/public/EthicsGuidelines)). The purpose of this short document is to formalize the ethical principles that we (the multimodal learning group at Hugging Face) adopt for the project we are pursuing. By defining these ethical principles at the beginning of the project, we make them core to our machine learning lifecycle.
 
 By being transparent about the decisions we're making in the project, who is working on which aspects of the system, and how the team can be contacted, we hope to receive feedback early enough in the process to make meaningful changes, and ground discussions about choices in an awareness of the goals we aim to achieve and the values we hope to incorporate.
 
