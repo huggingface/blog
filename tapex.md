@@ -26,7 +26,7 @@ thumbnail: /blog/assets/74_tapex/thumbnail.png
 </div>
 
 
-In recent years, language model pre-training has achieved a great success via leveraging large-scale textual data. By employing pre-training tasks such as [masked language modeling](https://arxiv.org/abs/1810.04805), these models have demonstrated surprising performance on several downstream tasks. However, the dramatic gap between the pre-training task (e.g., language moedling) and the downstream task (e.g., table question answering) makes existing pre-training not efficient enough. In practice, we often need an *extremely large amount* of pre-training corpus to obtain promising improvement, even for [domain-adaptive pretraining](https://arxiv.org/abs/2004.02349). How might we design a pre-training task to close the gap, and thus accelerate pre-training?
+In recent years, language model pre-training has achieved great success via leveraging large-scale textual data. By employing pre-training tasks such as [masked language modeling](https://arxiv.org/abs/1810.04805), these models have demonstrated surprising performance on several downstream tasks. However, the dramatic gap between the pre-training task (e.g., language modeling) and the downstream task (e.g., table question answering) makes existing pre-training not efficient enough. In practice, we often need an *extremely large amount* of pre-training data to obtain promising improvement, even for [domain-adaptive pretraining](https://arxiv.org/abs/2004.02349). How might we design a pre-training task to close the gap, and thus accelerate pre-training?
 
 ### Overview
 
