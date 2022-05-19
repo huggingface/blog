@@ -72,7 +72,7 @@ print(tokenizer.batch_decode(outputs, skip_special_tokens=True))
 
 ### Fine-tuning
 
-During fine-tuning, we feed the concatenation of the natural language question and the flattened table to the model as input, the answer labeled by annotators serves as the supervision for the model as output. Want to fine-tune TAPEX by yourself? You can look at the fine-tuning script [here](https://github.com/huggingface/transformers/tree/main/examples/research_projects/tapex), which has been officially integrated into 🤗transformers `4.19.0`!
+During fine-tuning, we feed the concatenation of the natural language question and the flattened table to the model as input, the answer labeled by annotators serves as the supervision for the model as output. Want to fine-tune TAPEX by yourself? You can look at the fine-tuning script [here](https://github.com/huggingface/transformers/tree/main/examples/research_projects/tapex), which has been officially integrated into 🤗 Transformers `4.19.0`!
 
 And by now, all available tapex fine-tuned models have interactive widgets officially supported by Huggingface! You can try to answer some questions as below.
 
