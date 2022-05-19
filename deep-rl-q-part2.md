@@ -35,7 +35,7 @@ thumbnail: /blog/assets/73_deep_rl_q_part2/thumbnail.gif
 
 In the first part of this unit, **we learned about the value-based methods and the difference between Monte Carlo and Temporal Difference Learning**.
 
-So, in the second part, we’ll **study Q-Learning**, **and implement our first RL agent from scratch**. A Q-Learning agent and will train it in two environments:
+So, in the second part, we’ll **study Q-Learning**, **and implement our first RL agent from scratch**, a Q-Learning agent, and will train it in two environments:
 
 1. Frozen Lake v1 ❄️: where our agent will need to **go from the starting state (S) to the goal state (G)** by walking only on frozen tiles (F) and avoiding holes (H).
 2. An autonomous taxi 🚕: where the agent will need **to learn to navigate** a city to **transport its passengers from point A to point B.**
