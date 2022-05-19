@@ -784,6 +784,25 @@
   - expert-acceleration-program
   - ml-experts
 
+- local: deep-rl-q-part1
+  title: "An Introduction to Q-Learning Part 1"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/70_deep_rl_q_part1/thumbnail.gif
+  date: May 18, 2022
+  tags:
+  - rl
+
+- local: ethical-charter-multimodal
+  title: "Putting ethical principles at the core of research lifecycle"
+  author: SaulLu
+  thumbnail: /blog/assets/71_ethical-charter/thumbnail.jpg
+  date: May 19, 2022
+  tags:
+  - research
+  - nlp
+  - audio
+  - cv
+
 - local: sempre-health-eap-case-study
   title: "How Sempre Health is leveraging the Expert Acceleration Program to accelerate their ML roadmap"
   author: federicopascual
