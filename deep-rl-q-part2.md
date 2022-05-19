@@ -241,7 +241,7 @@ To better understand Q-Learning, let's take a simple example:
 </figure>
 
 - You're a mouse in this tiny maze. You always **start at the same starting point.**
-- The goal is **to eat the big pile of cheese at the bottom right-hand corner** and avoid the poison.
+- The goal is **to eat the big pile of cheese at the bottom right-hand corner** and avoid the poison. After all, who doesn't like cheese?
 - The episode ends if we eat the poison, **eat the big pile of cheese or if we spent more than five steps.**
 - The learning rate is 0.1
 - The gamma (discount rate) is 0.99
