@@ -99,7 +99,7 @@ We evaluate TAPEX on four benchmark datasets, including [WikiSQL (Weak)](https:/
 | in which olympic games did arasay thondike not finish in the top 20? | 2012 |
 | which broadcaster hosted 3 titles but they had only 1 episode? | Channel 4 |
 
-Experimental results demonstrate that TAPEX outperforms previous table pre-training approaches by a large margin and ⭐achieves new state-of-the-art results on all of them⭐. This includes the improvements on the weakly-supervised WikiSQL denotation accuracy to **89.6%** (+2.3% than SOTA, +3.8% than BART), the TabFact accuracy to **84.2%** (+3.2% than SOTA, +3.0% than BART), the SQA denotation accuracy to **74.5%** (+3.5% than SOTA, +15.9% than BART), and the WikiTableQuestion denotation accuracy to **57.5%** (+4.8% than SOTA, +19.5% than BART). To our knowledge, this is the first work to exploit pre-training via synthetic executable programs and to achieve new state-of-the-art results on various downstream tasks.
+Experimental results demonstrate that TAPEX outperforms previous table pre-training approaches by a large margin and ⭐achieves new state-of-the-art results on all of them⭐. This includes the improvements on the weakly-supervised WikiSQL denotation accuracy to **89.6%** (+2.3% over SOTA, +3.8% over BART), the TabFact accuracy to **84.2%** (+3.2% over SOTA, +3.0% over BART), the SQA denotation accuracy to **74.5%** (+3.5% over SOTA, +15.9% over BART), and the WikiTableQuestion denotation accuracy to **57.5%** (+4.8% over SOTA, +19.5% over BART). To our knowledge, this is the first work to exploit pre-training via synthetic executable programs and to achieve new state-of-the-art results on various downstream tasks.
 
 ![corpus](assets/74_tapex/tapex-performance.png)
 
