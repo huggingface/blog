@@ -258,7 +258,7 @@ The reward function goes like this:
 <figure class="image table text-center m-0 w-full">
   <img src="assets/73_deep_rl_q_part2/q-ex-2.jpg" alt="Maze-Example"/>
 </figure>
-To train our agent to have an optimal policy (so a policy that goes right, right, down). **We will use the Q-Learning algorithm.**
+To train our agent to have an optimal policy (so a policy that goes right, right, down), **we will use the Q-Learning algorithm.**
 
 **Step 1: We initialize the Q-Table**
 
