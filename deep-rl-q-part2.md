@@ -128,7 +128,7 @@ So now that we understand what Q-Learning, Q-Function, and Q-Table are, **let's
 
 ### **The Q-Learning algorithm**
 
-This is the Q-Learning pseudocode; let's study each part and **see how it works with a simple example before implementing it.**
+This is the Q-Learning pseudocode; let's study each part and **see how it works with a simple example before implementing it.** Don't be intimidated by it, it's simpler than it looks! We'll go over each step.
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/73_deep_rl_q_part2/Q-learning-2.jpg" alt="Q-learning"/>
