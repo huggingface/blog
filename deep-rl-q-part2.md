@@ -37,7 +37,7 @@ In the first part of this unit, **we learned about the value-based methods and t
 
 So, in the second part, we’ll **study Q-Learning**, **and implement our first RL agent from scratch**. A Q-Learning agent and will train it in two environments:
 
-1. Frozen-Lake-v1 ❄️ (non-slippery version): where our agent will need to **go from the starting state (S) to the goal state (G)** by walking only on frozen tiles (F) and avoiding holes (H).
+1. Frozen Lake v1 ❄️: where our agent will need to **go from the starting state (S) to the goal state (G)** by walking only on frozen tiles (F) and avoiding holes (H).
 2. An autonomous taxi 🚕: where the agent will need **to learn to navigate** a city to **transport its passengers from point A to point B.**
 
 <figure class="image table text-center m-0 w-full">
