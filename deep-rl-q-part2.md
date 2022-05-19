@@ -252,7 +252,7 @@ The reward function goes like this:
 - **+0:** Going to a state with no cheese in it.
 - **+1:** Going to a state with a small cheese in it.
 - **+10:** Going to the state with the big pile of cheese.
-- **10:** Going to the state with the poison and thus die.
+- **-10:** Going to the state with the poison and thus die.
 
 
 <figure class="image table text-center m-0 w-full">
