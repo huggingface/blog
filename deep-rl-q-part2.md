@@ -33,7 +33,7 @@ thumbnail: /blog/assets/73_deep_rl_q_part2/thumbnail.gif
 *This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
 ---
 
-In the first part of this unit, **we learned about the value-based methods and the difference between Monte Carlo and Temporal Difference Learning**.
+[In the first part of this unit](https://huggingface.co/blog/deep-rl-q-part1), **we learned about the value-based methods and the difference between Monte Carlo and Temporal Difference Learning**.
 
 So, in the second part, we’ll **study Q-Learning**, **and implement our first RL agent from scratch**, a Q-Learning agent, and will train it in two environments:
 
@@ -105,11 +105,6 @@ If we recap, *Q-Learning* **is the RL algorithm that:**
 
 - Trains *Q-Function* (an **action-value function**) which internally is a *Q-table* **that contains all the state-action pair values.**
 - Given a state and action, our Q-Function **will search into its Q-table the corresponding value.**
-
-<figure class="image table text-center m-0 w-full">
-  <img src="assets/73_deep_rl_q_part2/Q-function-2.jpg" alt="Q-function"/>
-</figure>
-
 - When the training is done, **we have an optimal Q-function, which means we have optimal Q-Table.**
 - And if we **have an optimal Q-function**, we **have an optimal policy** since we **know for each state what is the best action to take.**
 
@@ -161,7 +156,7 @@ At the beginning of the training, **the probability of doing exploration will b
   <img src="assets/73_deep_rl_q_part2/Q-learning-5.jpg" alt="Q-learning"/>
 </figure>
 
-**Step 3: Perform action At, gets Rt+1 and St+1**
+**Step 3: Perform action At, gets reward Rt+1 and next state St+1**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/73_deep_rl_q_part2/Q-learning-6.jpg" alt="Q-learning"/>
