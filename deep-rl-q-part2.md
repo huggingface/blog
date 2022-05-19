@@ -186,7 +186,7 @@ Therefore, our Q(St, At) **update formula goes like this:**
 It means that to update our Q(St,At):
 
 - We need St, At, Rt+1, St+1.
-- To update our Q-value at this state-action pair, we form our TD target:
+- To update our Q-value at a given state-action pair, we use the TD target.
 
 We use Rt+1, and to get the **best next-state-action pair value,** we select with a greedy policy **(so not our epsilon greedy policy)** the next best action (so the action with the highest state-action value).
 
