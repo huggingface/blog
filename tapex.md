@@ -45,7 +45,7 @@ The following figure illustrates the pre-training process. At each step, we firs
 
 Why use programs such as SQL queries rather than natural language sentences as a source for pre-training? The greatest advantage is that the diversity and scale of programs can be systematically guaranteed, compared to uncontrollable natural language sentences. Therefore, we can easily synthesize a diverse, large-scale, and high-quality pre-training corpus by sampling SQL queries.
 
-You can try the trained neural SQL executor in 🤗transformers as below:
+You can try the trained neural SQL executor in 🤗 Transformers as below:
 
 ```python
 from transformers import TapexTokenizer, BartForConditionalGeneration
