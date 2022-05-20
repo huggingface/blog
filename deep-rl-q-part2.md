@@ -337,8 +337,11 @@ Now that we **studied the theory of Q-Learning**, let's **implement it from scra
   <img src="assets/73_deep_rl_q_part2/envs.gif" alt="Environments"/>
 </figure>
 
-Start the tutorial here 👉 [LINK COLAB]
+Start the tutorial here 👉 https://colab.research.google.com/github/huggingface/deep-rl-class/blob/main/unit2/unit2.ipynb
 
+The leaderboard 👉 https://huggingface.co/spaces/chrisjay/Deep-Reinforcement-Learning-Leaderboard
+
+---
 Congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorials. You’ve just implemented your first RL agent from scratch and shared it on the Hub 🥳.
   
 Implementing from scratch when you study a new architecture **is important to understand how it works.**
