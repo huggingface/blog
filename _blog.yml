@@ -813,9 +813,10 @@
   - case-study
 
 - local: tapex
-  title: "Query Your Tables using Natural Language: An Introduction to TAPEX"
-  author: SaulLu
+  title: "Efficient Table Pre-training without Real Data: An Introduction to TAPEX"
+  author: SivilTaram
   thumbnail: /blog/assets/74_tapex/thumbnail.png
+  guest: true
   date: May 23, 2022
   tags:
   - research
