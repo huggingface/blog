@@ -607,8 +607,8 @@
   thumbnail: /blog/assets/57_meg_mitchell_interview/thumbnail.png
   date: March 23, 2022
   tags:
-  - community
-  - research
+  - expert-acceleration-program
+  - ml-experts
 
 - local: decision-transformers
   title: "Introducing Decision Transformers on Hugging Face 🤗"
@@ -642,8 +642,8 @@
   thumbnail: /blog/assets/60_lewis_tunstall_interview/thumbnail.png
   date: April 13, 2022
   tags:
-  - community
-  - research
+  - expert-acceleration-program
+  - ml-experts
 
 - local: carbon-emissions-on-the-hub
   title: "CO2 Emissions and the 🤗 Hub: Leading the Charge"
@@ -781,8 +781,8 @@
   thumbnail: /blog/assets/69_sasha_luccioni_interview/thumbnail.png
   date: May 17, 2022
   tags:
-  - community
-  - ml experts
+  - expert-acceleration-program
+  - ml-experts
 
 - local: deep-rl-q-part1
   title: "An Introduction to Q-Learning Part 1"
@@ -802,6 +802,15 @@
   - nlp
   - audio
   - cv
+
+- local: sempre-health-eap-case-study
+  title: "How Sempre Health is leveraging the Expert Acceleration Program to accelerate their ML roadmap"
+  author: federicopascual
+  thumbnail: /blog/assets/70_sempre_health/thumbnail.jpg
+  date: May 19, 2022
+  tags:
+  - expert-acceleration-program
+  - case-study
 
 - local: tapex
   title: "Query Your Tables using Natural Language: An Introduction to TAPEX"
