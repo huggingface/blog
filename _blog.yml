@@ -811,7 +811,7 @@
   tags:
   - expert-acceleration-program
   - case-study
-  
+
 - local: deep-rl-q-part2
   title: "An Introduction to Q-Learning Part 2"
   author: ThomasSimonini
@@ -819,3 +819,14 @@
   date: May 20, 2022
   tags:
   - rl
+
+- local: tapex
+  title: "Efficient Table Pre-training without Real Data: An Introduction to TAPEX"
+  author: SivilTaram
+  thumbnail: /blog/assets/74_tapex/thumbnail.png
+  guest: true
+  date: May 23, 2022
+  tags:
+  - research
+  - nlp
+  - community
