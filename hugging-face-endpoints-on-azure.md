@@ -27,7 +27,7 @@ Hugging Face Collaborates with Microsoft to Launch Hugging Face Endpoints on Azu
 
 ![Hugging Face Endpoints on Azure](assets/75_hugging_face_endpoints_on_azure/01.png "Hugging Face Endpoints on Azure")
 
-Today, we’re thrilled to announce that Hugging Face has collaborated with Microsoft to build Hugging Face Endpoints, a new Machine Learning (ML) inference service powered by AzureML Managed Endpoints. Hugging Face Endpoints let you securely deploy and scale tens of thousands of state-of-the-art Transformer models on Microsoft Azure with just a few clicks. If you can’t wait to test it, you can jump now to the Azure Marketplace.
+Today, we’re thrilled to announce that Hugging Face has collaborated with Microsoft to build Hugging Face Endpoints, a new Machine Learning (ML) inference service powered by Azure ML Managed Endpoints. Hugging Face Endpoints let you securely deploy and scale tens of thousands of state-of-the-art Transformer models on Microsoft Azure with just a few clicks. If you can’t wait to test it, you can jump now to the Azure Marketplace.
 
 In recent years, [Transformer](https://github.com/huggingface/transformers) models have proven to be exceptionally efficient over a wide range of ML tasks, including Natural Language Processing (NLP), Computer Vision, and Speech. For example, finance companies use Transformers to extract high-quality insights from stock market filings, analyst reports, or earnings calls. Life sciences and healthcare organizations do the same on research articles, patient files, and medical images. E-commerce companies leverage Transformers to build search engines that help customers find the best product in milliseconds. And the list goes on!
 
