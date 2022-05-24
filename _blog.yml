@@ -830,3 +830,13 @@
   - research
   - nlp
   - community
+
+- local: hugging-face-endpoints-on-azure
+  title: "Hugging Face Collaborates with Microsoft to Launch Hugging Face Endpoints on Azure"
+  author: juliensimon
+  thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/01.png
+  date: May 24, 2022
+  tags:
+  - launch
+  - cloud
+  - azure
