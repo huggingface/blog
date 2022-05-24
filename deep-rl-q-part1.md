@@ -255,7 +255,7 @@ Which is equivalent to  \\(V(S_{t})\\)  = Immediate reward  \\(R_{t+1}\\)  + Dis
 
 For simplification, here we don't discount, so gamma = 1.
 
-- The value of  \\(V(S_{t+1}) \\)  = Immediate reward  \\(R_{t+2}\\)  + Discounted value of the \\(S_{t+2}\\ ( \\(gamma * V(S_{t+2})\\) ).
+- The value of  \\(V(S_{t+1}) \\)  = Immediate reward  \\(R_{t+2}\\)  + Discounted value of the next state ( \\(gamma * V(S_{t+2})\\) ).
 - And so on.
 
 To recap, the idea of the Bellman equation is that instead of calculating each value as the sum of the expected return, **which is a long process.** This is equivalent **to the sum of immediate reward + the discounted value of the state that follows.**
@@ -268,7 +268,7 @@ Remember that an RL agent **learns by interacting with its environment.** The 
 
 Monte Carlo and Temporal Difference Learning are two different **strategies on how to train our value function or our policy function.** Both of them **use experience to solve the RL problem.**
 
-On one hand, Monte Carlo uses **an entire episode of experience before learning.** On the other hand, Temporal Difference uses **only a step ( (\\(S_{t}, A_t, R_{t+1}, S_{t+1})\\) ) to learn.**
+On one hand, Monte Carlo uses **an entire episode of experience before learning.** On the other hand, Temporal Difference uses **only a step ( \\(S_t, A_t, R_{t+1}, S_{t+1}\\) ) to learn.**
 
 We'll explain both of them **using a value-based method example.**
 
@@ -294,8 +294,8 @@ If we take an example:
 - We terminate the episode if the cat eats the mouse or if the mouse moves > 10 steps.
 
 - At the end of the episode, **we have a list of State, Actions, Rewards, and Next States**
-- **The agent will sum the total rewards Gt** (to see how well it did).
-- It will then **update V(st) based on the formula**
+- **The agent will sum the total rewards \\(G_t\\)** (to see how well it did).
+- It will then **update \\(V(s_t)\\) based on the formula**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/MC-3.jpg" alt="Monte Carlo"/>
