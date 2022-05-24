@@ -49,8 +49,6 @@ This unit is divided into 2 parts:
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/two_parts.jpg" alt="Two Parts"/>
 </figure>
-  
-\\(S_{t+1}\\)
 
 In the first part, we'll **learn about the value-based methods and the difference between Monte Carlo and Temporal Difference Learning.**
 
@@ -70,7 +68,6 @@ So let's get started!
   - [Temporal Difference Learning: learning at each step](#temporal-difference-learning-learning-at-each-step)
 
 
-
 ## **What is RL? A short recap**
 
 In RL, we build an agent that can **make smart decisions**. For instance, an agent that **learns to play a video game.** Or a trading agent that **learns to maximize its benefits** by making smart decisions on **what stocks to buy and when to sell.**
@@ -78,7 +75,6 @@ In RL, we build an agent that can **make smart decisions**. For instance, an ag
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/rl-process.jpg" alt="RL process"/>
 </figure>
-
 
 But, to make intelligent decisions, our agent will learn from the environment by **interacting with it through trial and error** and receiving rewards (positive or negative) **as unique feedback.**
 
@@ -187,7 +183,7 @@ The value of taking action an in state s under a policy π is:
 
 We see that the difference is:
 
-- In state-value function, we calculate **the value of a state (\\S_{t}\\).**
+- In state-value function, we calculate **the value of a state ((\\S_{t})\\).**
 - In action-value function, we calculate **the value of the state-action pair (St, At) hence the value of taking that action at that state.**
 
 <figure class="image table text-center m-0 w-full">
