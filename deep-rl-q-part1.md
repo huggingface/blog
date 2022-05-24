@@ -184,7 +184,7 @@ The value of taking action an in state s under a policy π is:
 We see that the difference is:
 
 - In state-value function, we calculate **the value of a state ( \\(S_t\\) ).**   
-- In action-value function, we calculate **the value of the state-action pair ( (\\(S_t, A_t\\) )) hence the value of taking that action at that state.**
+- In action-value function, we calculate **the value of the state-action pair ( \\(S_t, A_t\\) ) hence the value of taking that action at that state.**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/two-types.jpg" alt="Two types of value function"/>
@@ -206,17 +206,17 @@ The Bellman equation **simplifies our state value or state-action value calcula
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/bellman.jpg" alt="Bellman equation"/>
 </figure>
-
-With what we learned from now, we know that if we calculate the V(St) (value of a state), we need to calculate the return starting at that state and then follow the policy forever after. **(Our policy that we defined in the following example is a Greedy Policy, and for simplification, we don't discount the reward).**
-
-So to calculate V(St), we need to make the sum of the expected rewards. Hence:
+                                                                
+With what we learned from now, we know that if we calculate the \\(V(S_t)\\) (value of a state), we need to calculate the return starting at that state and then follow the policy forever after. **(Our policy that we defined in the following example is a Greedy Policy, and for simplification, we don't discount the reward).**
+  
+So to calculate \\(V(S_t)\\), we need to make the sum of the expected rewards. Hence:
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/bellman2.jpg" alt="Bellman equation"/>
   <figcaption>To calculate the value of State 1: the sum of rewards **if the agent started in that state** and then followed the **greedy policy (taking actions that leads to the best states values) for all the time steps.**</figcaption>
 </figure>
 
-Then, to calculate the \\(V(S_{t+1})\\), we need to calculate the return starting at that state St+1.
+Then, to calculate the \\(V(S_{t+1})\\), we need to calculate the return starting at that state \\(S_{t+1}\\).
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/bellman3.jpg" alt="Bellman equation"/>
