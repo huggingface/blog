@@ -185,7 +185,7 @@ The value of taking action an in state s under a policy π is:
 
 We see that the difference is:
 
-- In state-value function, we calculate **the value of a state (St).**
+- In state-value function, we calculate **the value of a state (\\S_{t}\\).**
 - In action-value function, we calculate **the value of the state-action pair (St, At) hence the value of taking that action at that state.**
 
 <figure class="image table text-center m-0 w-full">
