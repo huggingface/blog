@@ -168,7 +168,9 @@ To understand the RL process, let’s imagine an agent learning to play a platfo
   <img src="assets/63_deep_rl_intro/RL_process_game.jpg" alt="The RL process"/>
 </figure>
 
-- Our Agent receives **state S0** from the **Environment** — we receive the first frame of our game (Environment).
+
+ 
+- Our Agent receives **state \\(S_0\\)** from the **Environment** — we receive the first frame of our game (Environment).
 - Based on that **state S0,** the Agent takes **action A0** — our Agent will move to the right.
 - Environment goes to a **new** **state S1** — new frame.
 - The environment gives some **reward R1** to the Agent — we’re not dead *(Positive Reward +1)*.
