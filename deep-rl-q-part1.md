@@ -184,7 +184,7 @@ The value of taking action an in state s under a policy π is:
 We see that the difference is:
 
 - In state-value function, we calculate **the value of a state ( \\(S_t\\) ).**   
-- In action-value function, we calculate **the value of the state-action pair ( \\(S_t, A_t\\) ) hence the value of taking that action at that state.**
+- In action-value function, we calculate **the value of the state-action pair ( \(S_t, A_t\) ) hence the value of taking that action at that state.**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/two-types.jpg" alt="Two types of value function"/>
