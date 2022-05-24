@@ -113,8 +113,6 @@ If you forgot what discounting is, you [can read this section](https://huggingfa
 
 > But what means acting according to our policy? We don't have a policy in value-based methods since we train a value function and not a policy?
 >
-  
-Il se trouve que $t = S_t$
 
 Remember that the goal of an **RL agent is to have an optimal policy π.**
 
@@ -186,7 +184,7 @@ The value of taking action an in state s under a policy π is:
 We see that the difference is:
 
 - In state-value function, we calculate **the value of a state ( \\(S_t\\) ).**   
-- In action-value function, we calculate **the value of the state-action pair ( \(S_t, A_t\) ) hence the value of taking that action at that state.**
+- In action-value function, we calculate **the value of the state-action pair ( \\(S_t, A_t\\) ) hence the value of taking that action at that state.**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/two-types.jpg" alt="Two types of value function"/>
@@ -218,7 +216,7 @@ So to calculate \\(V(S_t)\\), we need to make the sum of the expected rewards. H
   <figcaption>To calculate the value of State 1: the sum of rewards **if the agent started in that state** and then followed the **greedy policy (taking actions that leads to the best states values) for all the time steps.**</figcaption>
 </figure>
 
-Then, to calculate the \\(V(S_{t+1})\\), we need to calculate the return starting at that state $$S_{t+1}$$ \\(S_{t+1}\\).
+Then, to calculate the \\(V(S_{t+1})\\), we need to calculate the return starting at that state \\(S_{t+1}\\).
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/bellman3.jpg" alt="Bellman equation"/>
@@ -231,7 +229,7 @@ Instead of calculating the expected return for each state or each state-action p
 
 The Bellman equation is a recursive equation that works like this: instead of starting for each state from the beginning and calculating the return, we can consider the value of any state as:
 
-**The immediate reward (Rt+1) + the discounted value of the state that follows (gamma * V(St+1)).**
+**The immediate reward ( \\(R_{t+1}\\) ) + the discounted value of the state that follows (  \\(gamma * V(S_{t+1})\\)  .**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/bellman4.jpg" alt="Bellman equation"/>
