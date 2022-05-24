@@ -171,9 +171,9 @@ To understand the RL process, let’s imagine an agent learning to play a platfo
 
  
 - Our Agent receives **state \\(S_0\\)** from the **Environment** — we receive the first frame of our game (Environment).
-- Based on that **state S0,** the Agent takes **action A0** — our Agent will move to the right.
-- Environment goes to a **new** **state S1** — new frame.
-- The environment gives some **reward R1** to the Agent — we’re not dead *(Positive Reward +1)*.
+- Based on that **state \\(S_0\\),** the Agent takes **action \\(A_0\\)** — our Agent will move to the right.
+- Environment goes to a **new** **state \\(S_1\\)** — new frame.
+- The environment gives some **reward \\(R_1\\)** to the Agent — we’re not dead *(Positive Reward +1)*.
 
 This RL loop outputs a sequence of **state, action, reward and next state.**
 
@@ -280,7 +280,7 @@ Which is equivalent to:
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/63_deep_rl_intro/rewards_2.jpg" alt="Rewards"/>
-  <figcaption>The cumulative reward = rt+1 (rt+k+1 = rt+0+1 = rt+1)+ rt+2 (rt+k+1 = rt+1+1 = rt+2) + ...
+  <figcaption>The cumulative reward = \\(r_{t+1} (r_{t+k+1} = r_{t+0+1} = r_{t+1]) + r_{t+2} (r_{t+k+1} = r_{t+1+1} = r_{t+2}) + ... \\)  
 </figcaption>
 </figure>
 </figure>
