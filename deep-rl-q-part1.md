@@ -183,7 +183,7 @@ The value of taking action an in state s under a policy π is:
 
 We see that the difference is:
 
-- In state-value function, we calculate **the value of a state ( \\(S_t\\) ).**   
+- In state-value function, we calculate **the value of a state \\(S_t\\)**   
 - In action-value function, we calculate **the value of the state-action pair ( \\(S_t, A_t\\) ) hence the value of taking that action at that state.**
 
 <figure class="image table text-center m-0 w-full">
@@ -229,7 +229,7 @@ Instead of calculating the expected return for each state or each state-action p
 
 The Bellman equation is a recursive equation that works like this: instead of starting for each state from the beginning and calculating the return, we can consider the value of any state as:
 
-**The immediate reward ( \\(R_{t+1}\\) ) + the discounted value of the state that follows ( \\(gamma * V(S_{t+1})\\) ) .**
+**The immediate reward  \\(R_{t+1}\\)  + the discounted value of the state that follows ( \\(gamma * V(S_{t+1}) \\) ) .**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/bellman4.jpg" alt="Bellman equation"/>
