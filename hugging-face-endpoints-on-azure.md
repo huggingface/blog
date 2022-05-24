@@ -43,7 +43,7 @@ Clément Delangue, Co-Founder and Chief Executive Officer at Hugging Face, echoe
 
 As of today, Hugging Face Endpoints on Azure support:
 
-* All NLP tasks available in the Hugging Face [pipeline API](https://huggingface.co/docs/transformers/main/en/task_summary): classification, summarization, translation, named entity recognition, etc. Image and audio task types will be available later.
+* All NLP tasks available in the Hugging Face [pipeline API](https://huggingface.co/docs/transformers/main_classes/pipelines): classification, summarization, translation, named entity recognition, etc. Image and audio task types will be available later.
 * All corresponding public PyTorch models from the [Hugging Face Hub](https://huggingface.co/models). 
 * Inference on a wide range of CPU and GPU Azure instance types.
 * Optionally, automatic scaling with Azure Autoscale.
