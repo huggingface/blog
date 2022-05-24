@@ -10,7 +10,7 @@ Hugging Face Collaborates with Microsoft to Launch Hugging Face Endpoints on Azu
 
 <div class="blog-metadata">
     <small>Published May 24, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/hugging-face-endpoints.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/hugging-face-endpoints-on-azure.md">
         Update on GitHub
     </a>
 </div>
