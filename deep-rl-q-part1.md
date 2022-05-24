@@ -49,6 +49,8 @@ This unit is divided into 2 parts:
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/two_parts.jpg" alt="Two Parts"/>
 </figure>
+  
+\\(S_{t+1}\\)
 
 In the first part, we'll **learn about the value-based methods and the difference between Monte Carlo and Temporal Difference Learning.**
 
