@@ -229,7 +229,7 @@ Instead of calculating the expected return for each state or each state-action p
 
 The Bellman equation is a recursive equation that works like this: instead of starting for each state from the beginning and calculating the return, we can consider the value of any state as:
 
-**The immediate reward ( \\(R_{t+1}\\) ) + the discounted value of the state that follows (\\(gamma * V(S_{t+1})\\)) .**
+**The immediate reward ( \\(R_{t+1}\\) ) + the discounted value of the state that follows ( \\(gamma * V(S_{t+1})\\) ) .**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/bellman4.jpg" alt="Bellman equation"/>
@@ -246,7 +246,7 @@ If we go back to our example, the value of State 1= expected cumulative return i
 
 To calculate the value of State 1: the sum of rewards **if the agent started in that state 1** and then followed the **policy for all the time steps.**
 
-Which is equivalent to V(St) = Immediate reward (Rt+1) + Discounted value of the next state (Gamma * V(St+1))
+Which is equivalent to ( \\(V(S_{t})\\) ) = Immediate reward ( \\(R_{t+1}\\) ) + Discounted value of the next state ( \\(gamma * V(S_{t+1})\\) )
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/bellman6.jpg" alt="Bellman equation"/>
@@ -255,7 +255,7 @@ Which is equivalent to V(St) = Immediate reward (Rt+1) + Discounted value of the
 
 For simplification, here we don't discount, so gamma = 1.
 
-- The value of V(St+1) = Immediate reward (Rt+2) + Discounted value of the St+2 (Gamma * V(St+2)).
+- The value of ( \\(V(S_{t+1})\\) ) = Immediate reward ( \\(R_{t+2}\\) ) + Discounted value of the \\(S_{t+2}\\ ( \\(gamma * V(S_{t+2})\\) ).
 - And so on.
 
 To recap, the idea of the Bellman equation is that instead of calculating each value as the sum of the expected return, **which is a long process.** This is equivalent **to the sum of immediate reward + the discounted value of the state that follows.**
@@ -268,7 +268,7 @@ Remember that an RL agent **learns by interacting with its environment.** The 
 
 Monte Carlo and Temporal Difference Learning are two different **strategies on how to train our value function or our policy function.** Both of them **use experience to solve the RL problem.**
 
-On one hand, Monte Carlo uses **an entire episode of experience before learning.** On the other hand, Temporal Difference uses **only a step (St, At, Rt+1, St+1) to learn.**
+On one hand, Monte Carlo uses **an entire episode of experience before learning.** On the other hand, Temporal Difference uses **only a step (\\(S_{t}, A_t, R_{t+1}, S_{t+1})\\) to learn.**
 
 We'll explain both of them **using a value-based method example.**
 
