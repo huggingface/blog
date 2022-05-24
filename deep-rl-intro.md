@@ -280,7 +280,7 @@ Which is equivalent to:
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/63_deep_rl_intro/rewards_2.jpg" alt="Rewards"/>
-  <figcaption>The cumulative reward = \\(r_{t+1} (r_{t+k+1} = r_{t+0+1} = r_{t+1]) + r_{t+2} (r_{t+k+1} = r_{t+1+1} = r_{t+2}) + ... \\)  
+  <figcaption>The cumulative reward = rt+1 (rt+k+1 = rt+0+1 = rt+1)+ rt+2 (rt+k+1 = rt+1+1 = rt+2) + ...
 </figcaption>
 </figure>
 </figure>
