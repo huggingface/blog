@@ -213,14 +213,14 @@ So to calculate \\(V(S_t)\\), we need to make the sum of the expected rewards. H
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/bellman2.jpg" alt="Bellman equation"/>
-  <figcaption>To calculate the value of State 1: the sum of rewards **if the agent started in that state** and then followed the **greedy policy (taking actions that leads to the best states values) for all the time steps.**</figcaption>
+  <figcaption>To calculate the value of State 1: the sum of rewards if the agent started in that state and then followed the greedy policy (taking actions that leads to the best states values) for all the time steps.</figcaption>
 </figure>
 
 Then, to calculate the \\(V(S_{t+1})\\), we need to calculate the return starting at that state \\(S_{t+1}\\).
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/bellman3.jpg" alt="Bellman equation"/>
-  <figcaption>To calculate the value of State 2: the sum of rewards **if the agent started in that state,** and then followed the **policy for all the time steps.**</figcaption>
+  <figcaption>To calculate the value of State 2: the sum of rewards **if the agent started in that state, and then followed the **policy for all the time steps.</figcaption>
 </figure>
 
 So you see, that's a pretty tedious process if you need to do it for each state value or state-action value.
@@ -246,7 +246,7 @@ If we go back to our example, the value of State 1= expected cumulative return i
 
 To calculate the value of State 1: the sum of rewards **if the agent started in that state 1** and then followed the **policy for all the time steps.**
 
-Which is equivalent to ( \\(V(S_{t})\\) ) = Immediate reward ( \\(R_{t+1}\\) ) + Discounted value of the next state ( \\(gamma * V(S_{t+1})\\) )
+Which is equivalent to  \\(V(S_{t})\\)  = Immediate reward  \\(R_{t+1}\\)  + Discounted value of the next state  \\(gamma * V(S_{t+1})\\) 
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/bellman6.jpg" alt="Bellman equation"/>
@@ -255,7 +255,7 @@ Which is equivalent to ( \\(V(S_{t})\\) ) = Immediate reward ( \\(R_{t+1}\\) ) +
 
 For simplification, here we don't discount, so gamma = 1.
 
-- The value of ( \\(V(S_{t+1})\\) ) = Immediate reward ( \\(R_{t+2}\\) ) + Discounted value of the \\(S_{t+2}\\ ( \\(gamma * V(S_{t+2})\\) ).
+- The value of  \\(V(S_{t+1}) \\)  = Immediate reward  \\(R_{t+2}\\)  + Discounted value of the \\(S_{t+2}\\ ( \\(gamma * V(S_{t+2})\\) ).
 - And so on.
 
 To recap, the idea of the Bellman equation is that instead of calculating each value as the sum of the expected return, **which is a long process.** This is equivalent **to the sum of immediate reward + the discounted value of the state that follows.**
@@ -268,13 +268,13 @@ Remember that an RL agent **learns by interacting with its environment.** The 
 
 Monte Carlo and Temporal Difference Learning are two different **strategies on how to train our value function or our policy function.** Both of them **use experience to solve the RL problem.**
 
-On one hand, Monte Carlo uses **an entire episode of experience before learning.** On the other hand, Temporal Difference uses **only a step (\\(S_{t}, A_t, R_{t+1}, S_{t+1})\\) to learn.**
+On one hand, Monte Carlo uses **an entire episode of experience before learning.** On the other hand, Temporal Difference uses **only a step ( (\\(S_{t}, A_t, R_{t+1}, S_{t+1})\\) ) to learn.**
 
 We'll explain both of them **using a value-based method example.**
 
 ### **Monte Carlo: learning at the end of the episode**
 
-Monte Carlo waits until the end of the episode, calculates Gt (return) and uses it as **a target for updating V(St).**
+Monte Carlo waits until the end of the episode, calculates  \\(G_t\\) (return) and uses it as **a target for updating  \\(V(S_t)\\).**
 
 So it requires a **complete entire episode of interaction before updating our value function.**
 
