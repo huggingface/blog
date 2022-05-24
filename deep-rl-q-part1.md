@@ -113,6 +113,8 @@ If you forgot what discounting is, you [can read this section](https://huggingfa
 
 > But what means acting according to our policy? We don't have a policy in value-based methods since we train a value function and not a policy?
 >
+  
+Il se trouve que $t = S_t$
 
 Remember that the goal of an **RL agent is to have an optimal policy π.**
 
