@@ -229,7 +229,7 @@ Instead of calculating the expected return for each state or each state-action p
 
 The Bellman equation is a recursive equation that works like this: instead of starting for each state from the beginning and calculating the return, we can consider the value of any state as:
 
-**The immediate reward ( \\(R_{t+1}\\) ) + the discounted value of the state that follows (  \\(gamma * V(S_{t+1})\\)  .**
+**The immediate reward ( \\(R_{t+1}\\) ) + the discounted value of the state that follows (\\(gamma * V(S_{t+1})\\)) .**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/bellman4.jpg" alt="Bellman equation"/>
