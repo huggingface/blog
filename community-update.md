@@ -46,4 +46,4 @@ At a high level, we aim to build a simpler version of other git hosts' (like Git
 
 ## What's next
 
-Of course, it's only the beginning. We will listen to the community feedback to add new features and improve the community tab in the future. Today is the best time to open your first discussion/PR 🤗.
+Of course, it's only the beginning. We will listen to the community feedback to add new features and improve the community tab in the future. If you have any feedback, you can [join the discussion here](https://huggingface.co/spaces/huggingface/HuggingDiscussions/discussions/1). Today is the best time to join your first discussion and open a PR! 🤗
