@@ -1,3 +1,8 @@
+---
+title: Introducing Pull Requests and Discussions 🥳
+thumbnail: /blog/assets/76_community_update/thumbnail.png
+---
+
 # Introducing Pull Requests and Discussions 🥳
 
 ![Pull requests and discussions on the hub](https://res.cloudinary.com/picturesbase/image/upload/q_auto/v1653479595/Frame_30_mmccj0.jpg)
@@ -11,10 +16,11 @@ It's the biggest update ever done to the Hub, and we can't wait to see the commu
 The new "Community" tab also aligns with proposals in ethical ML throughout the years. Feedback and iterations have a central place in the development of ethical machine learning software. We really believe having it in the community's toolset will unlock new kinds of positive patterns in ML, collaborations, and progress.
 
 Some example use cases for discussions and pull requests:
-* Propose suggestions in model cards to improve disclosures of ethical biases.
-* Let users flag concerning generations of a given Space demo.
-* Provide a venue through which model and dataset authors can have a direct discussion with community members.
-* Allow others to improve your repositories! For example, users might want to provide TensorFlow weights!
+
+- Propose suggestions in model cards to improve disclosures of ethical biases.
+- Let users flag concerning generations of a given Space demo.
+- Provide a venue through which model and dataset authors can have a direct discussion with community members.
+- Allow others to improve your repositories! For example, users might want to provide TensorFlow weights!
 
 ## Discussions
 
@@ -33,6 +39,7 @@ Under the hood, our Pull requests do not use forks and branches, but instead, cu
 ## How is this different from other git hosts
 
 At a high level, we aim to build a simpler version of other git hosts' (like GitHub's) PRs and Issues:
+
 - no forks are involved: contributors push to a special `ref` branch directly on the source repo
 - no hard distinction between issues and PRs: they are essentially the same so we display them in the same lists
 - streamlined for ML (i.e. models/datasets/Spaces repos), not arbitrary repos
