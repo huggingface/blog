@@ -1,0 +1,24 @@
+# Introducing pull requests and discussions
+
+![Pull requests and discussions on the hub](https://res.cloudinary.com/picturesbase/image/upload/q_auto/v1653479595/Frame_30_mmccj0.jpg)
+
+We are thrilled to announce the release of pull requests and discussions on the Hugging Face hub!
+
+Pull requests and discussions are available today under the community tab and for for all repositories type : models, datasets, and Spaces (only for HF team members until the release). It can be used by any member of the community to create and participate in discussions and pull requests.
+It's is the biggest update ever done to the HF hub and we can't wait to see the community members collaborate with it.
+
+We also think the new "Community" tab aligns with proposals in ethical AI stuff throughout the years. Feedback and iteraitions have a central place in developpement of an ethical and saine machine learning software. (Those needs to exchange on datasets & models dates back to the beginning of the. )We really believe having it in your toolset will unlock new kind of positive patterns in ML.
+
+## About discussions
+
+
+
+Discussions let community members ask and answer questions but also share their ideas and suggestions direclty with the repository owners and the community. Anyone can create and participate in discsussions in the community tab.
+
+## About pull requests
+
+Our Pull requests do not use forks and branches, but instead custom "branches" called `refs` that are stored directly on the source repo. We decided to use this approach to avoid the need to create a fork for each new version of the model/dataset.
+
+## What's next
+
+Of course it's only the beginninng, 
