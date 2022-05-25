@@ -2,19 +2,19 @@
 
 ![Pull requests and discussions on the hub](https://res.cloudinary.com/picturesbase/image/upload/q_auto/v1653479595/Frame_30_mmccj0.jpg)
 
-We are thrilled to announce the release of pull requests and discussions on the Hugging Face hub!
+We are thrilled to announce the release of pull requests and discussions on the Hugging Face Hub!
 
 Pull requests and discussions are available today under the [community tab](https://huggingface.co/gpt2/discussions) and for all repository types: models, datasets, and Spaces. Any member of the community can create and participate in discussions and pull requests.
 
-It's the biggest update ever done to the HF hub and we can't wait to see the community start collaborating with it.
+It's the biggest update ever done to the Hub, and we can't wait to see the community members start collaborating with it  🤩.
 
-We also think the new "Community" tab will unlock new ways of interaction around machine learning. Feedback and iterations have a central place in the development of an ethical and healthy machine learning process. We really believe having this in our collective toolset will unlock new kind of positive patterns in ML.
+The new "Community" tab also aligns with proposals in ethical AI throughout the years. Feedback and iterations have a central place in the development of ethical machine learning software. We really believe having it in the community's toolset will unlock new kinds of positive patterns in ML, collaborations, and progress.
 
 ## About discussions
 
 ![Discussions on the Hugging Face Hub](https://res.cloudinary.com/picturesbase/image/upload/v1653480977/image_9_ccvwj3.jpg)
 
-[Discussions](https://huggingface.co/gpt2/discussions?type=discussion) let community members ask and answer questions but also share their ideas and suggestions directly with the repository owners and the community. Anyone can create and participate in discussions in the community tab of a repository.
+[Discussions](https://huggingface.co/gpt2/discussions?type=discussion) let community members ask and answer questions as well as share their ideas and suggestions directly with the repository owners and the community. Anyone can create and participate in discussions in the community tab of a repository.
 
 ## About pull requests
 
@@ -24,7 +24,7 @@ We also think the new "Community" tab will unlock new ways of interaction around
 
 The easiest way to open a pull request is to use the "Collaborate" button in the "Files and versions" tab. It will let you do single file contributions very easily.
 
-Technically our Pull requests do not use forks and branches, but instead, custom "branches" called `refs` that are stored directly on the source repo. We decided to use this approach to avoid the need to create a fork for each new version of the model/dataset.
+Under the hood, our Pull requests do not use forks and branches, but instead, custom "branches" called `refs` that are stored directly on the source repo. This approach to avoids the need to create a forks for each new version of the model/dataset.
 
 ## What's next
 
