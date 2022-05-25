@@ -26,6 +26,13 @@ The easiest way to open a pull request is to use the "Collaborate" button in the
 
 Under the hood, our Pull requests do not use forks and branches, but instead, custom "branches" called `refs` that are stored directly on the source repo. This approach to avoids the need to create a forks for each new version of the model/dataset.
 
+## How is this different from other git hosts
+
+At a high level, we aim to build a simpler version of other git hosts' (like GitHub's) PRs and Issues:
+- no forks are involved, contributors push to a special `ref` branch directly on the source repo
+- there's no hard distinction between issues and PRs they are essentially the same so we display them in the same lists
+- they are streamlined for ML (i.e. models/datasets/spaces repos), not arbitrary repos
+
 ## What's next
 
 Of course, it's only the beginning. We will listen to the community feedback to add new features and improve the community tab in the future. Today is the best time to open your first discussion/PR 🤗.
