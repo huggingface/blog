@@ -5,7 +5,7 @@ thumbnail: /blog/assets/76_community_update/thumbnail.png
 
 # Introducing Pull Requests and Discussions 🥳
 
-![Pull requests and discussions on the hub](https://res.cloudinary.com/picturesbase/image/upload/q_auto/v1653479595/Frame_30_mmccj0.jpg)
+![Pull requests and discussions on the hub](assets/76_community_update/community-update.png)
 
 We are thrilled to announce the release of our latest collaborative features: pull requests and discussions on the Hugging Face Hub!
 
@@ -24,13 +24,13 @@ Some example use cases for discussions and pull requests:
 
 ## Discussions
 
-![Discussions on the Hugging Face Hub](https://res.cloudinary.com/picturesbase/image/upload/v1653480977/image_9_ccvwj3.jpg)
+![Discussions on the Hugging Face Hub](assets/76_community_update/new-discussion.png)
 
 [Discussions](https://huggingface.co/gpt2/discussions?type=discussion) allow community members ask and answer questions as well as share their ideas and suggestions directly with the repository owners and the community. Anyone can create and participate in discussions in the community tab of a repository.
 
 ## Pull requests
 
-![Pull requests on the Hugging Face Hub](https://res.cloudinary.com/picturesbase/image/upload/v1653480977/image_10_hdy9kv.jpg)
+![Pull requests on the Hugging Face Hub](assets/76_community_update/new-pr.png)
 
 [Pull requests](https://huggingface.co/gpt2/discussions?type=pull_request) allow community members open, comment, merge, or close pull requests directly from the website. The easiest way to open a pull request is to use the "Collaborate" button in the "Files and versions" tab. It will let you do single file contributions very easily.
 
