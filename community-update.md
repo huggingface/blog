@@ -27,4 +27,4 @@ Technically our Pull requests do not use forks and branches, but instead, custom
 
 ## What's next
 
-Of course, it's only the beginning. We will listen to the community feedback to add new features and improve the community tab in the future. Today is a great time to open your first discussion/PR. 
+Of course, it's only the beginning. We will listen to the community feedback to add new features and improve the community tab regularly. Today is a great time to open your first discussion/PR. 
