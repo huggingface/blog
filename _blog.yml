@@ -843,7 +843,7 @@
 
 - local: community-update
   title: "Introducing Pull Requests and Discussions 🥳"
-  author: julien-c
+  author: victor
   thumbnail: /blog/assets/76_community_update/thumbnail.png
   date: May 25, 2022
   tags:
