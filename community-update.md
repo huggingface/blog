@@ -6,8 +6,9 @@ We are thrilled to announce the release of pull requests and discussions on the 
 
 Pull requests and discussions are available today under the [community tab](https://huggingface.co/gpt2/discussions) and for all repositories type: models, datasets, and Spaces. Any member of the community can create and participate in discussions and pull requests.
 
-It's the biggest update ever done to the HF hub and we can't wait to see the community members start collaborating with it.
-We also think the new "Community" tab aligns with proposals in ethical AI stuff throughout the years. Feedback and iterations have a central place in the development of an ethical and saine machine learning software. (Those needs to exchange on datasets & models date back to the beginning of the. )We really believe having it in your toolset will unlock new kind of positive patterns in ML.
+It's the biggest update ever done to the HF hub and we can't wait to see the community start collaborating with it.
+
+We also think the new "Community" tab will unlock new ways of interaction around machine learning. Feedback and iterations have a central place in the development of an ethical and healthy machine learning process. We really believe having this in our collective toolset will unlock new kind of positive patterns in ML.
 
 ## About discussions
 
