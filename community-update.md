@@ -4,7 +4,7 @@
 
 We are thrilled to announce the release of pull requests and discussions on the Hugging Face hub!
 
-Pull requests and discussions are available today under the [community tab](https://huggingface.co/gpt2/discussions) and for all repositories type: models, datasets, and Spaces. Any member of the community can create and participate in discussions and pull requests.
+Pull requests and discussions are available today under the [community tab](https://huggingface.co/gpt2/discussions) and for all repository types: models, datasets, and Spaces. Any member of the community can create and participate in discussions and pull requests.
 
 It's the biggest update ever done to the HF hub and we can't wait to see the community start collaborating with it.
 
