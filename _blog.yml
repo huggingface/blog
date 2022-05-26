@@ -306,6 +306,7 @@
   thumbnail: /blog/assets/26_graphcore-ipu/thumbnail.png
   date: September 14, 2021
   tags:
+    - graphcore
     - partnerships
 
 - local: summer-at-huggingface
@@ -420,6 +421,7 @@
   thumbnail: /blog/assets/38_getting_started_graphcore/graphcore_1.png
   date: November 30, 2021
   tags:
+    - graphcore
     - guide
 
 - local: snowball-fight
@@ -855,4 +857,5 @@
   thumbnail: /blog/assets/77_graphcore-update/graphcore_update.png
   date: May 26, 2022
   tags:
+    - graphcore
     - partnerships
