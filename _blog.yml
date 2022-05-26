@@ -848,3 +848,11 @@
   date: May 25, 2022
   tags:
     - launch
+
+- local: graphcore-update
+  title: "Graphcore and Hugging Face Launch New Lineup of IPU-Ready Transformers"
+  author: sallydoherty
+  thumbnail: /blog/assets/77_graphcore-update/graphcore_update.png
+  date: May 26, 2022
+  tags:
+    - partnerships
