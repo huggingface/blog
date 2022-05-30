@@ -326,8 +326,8 @@ For instance, if we train a state-value function using Monte Carlo:
 </figure>
 
 - We have a list of state, action, rewards, next_state, **we need to calculate the return Gt**
-- $G_t = R_{t+1} + R_{t+2} + R_{t+3} ...$
-- $G_t = R_{t+1} + R_{t+2} + R_{t+3}…$ (for simplicity we don’t discount the rewards).
+- $$G_t = R_{t+1} + R_{t+2} + R_{t+3} ...$$
+- $$G_t = R_{t+1} + R_{t+2} + R_{t+3}…$$ (for simplicity we don’t discount the rewards).
 - Gt = 1 + 0 + 0 + 0+ 0 + 0 + 1 + 1+ 0 + 0
 - Gt= 3
 - We can now update V(S0):
