@@ -59,6 +59,8 @@ In this blog post, we'll take a deeper look into **Denoising Diffusion Probabili
 
 We'll go over the original [DDPM paper](https://arxiv.org/abs/2006.11239) by Jonathan Ho et al., 2020, implementing it step-by-step in PyTorch, based on Phil Wang's [implementation](https://github.com/lucidrains/denoising-diffusion-pytorch). Note that the idea was actually already introduced in [Sohl-Dickstein et al., 2015](https://arxiv.org/abs/1503.03585). However, it took until [Song et al., 2019](https://arxiv.org/abs/1907.05600) (at Stanford University), and then [Ho et al., 2020](https://arxiv.org/abs/2006.11239) (at Google Brain) who independently improved the approach.
 
+Note that there are [several perspectives](https://twitter.com/sedielem/status/1530894256168222722?s=20&t=mfv4afx1GcNQU5fZklpACw) on diffusion models. Here, we employ the discrete-time (latent variable model) perspective, but be sure to check out the other perspectives as well.
+
 ```python
 from IPython.display import Image
 Image(filename='assets/78_annotated-diffusion/ddpm_paper.png')
@@ -153,16 +155,21 @@ The neural network needs to take in a noised image at a particular time step and
 
 What is typically used here is very similar to that of an [Autoencoder](https://en.wikipedia.org/wiki/Autoencoder), which you may remember from typical "intro to deep learning" tutorials. Autoencoders have a so-called "bottleneck" layer in between the encoder and decoder. The encoder first encodes an image into a smaller hidden representation (called the "bottleneck"), and the decoder then decodes that hidden representation back into an actual image. This forces the network to only keep the most important information in the bottleneck layer.
 
-In terms of architecture, the DDPM authors went for a **U-Net**, introduced in [U-Net: Convolutional Networks for Biomedical Image Segmentation](https://arxiv.org/abs/1505.04597) (which, at the time, achieved state-of-the-art results for medical image segmentation). This network, like any autoencoder, consists of a bottleneck in the middle that makes sure the network learns only the most important information, to reconstruct the image from that. Importantly, it introduced residual connections between the encoder and decoder, greatly improving gradient flow (inspired by ResNet).
+In terms of architecture, the DDPM authors went for a **U-Net**, introduced by ([Ronneberger et al., 2015](https://arxiv.org/abs/1505.04597)) (which, at the time, achieved state-of-the-art results for medical image segmentation). This network, like any autoencoder, consists of a bottleneck in the middle that makes sure the network learns only the most important information. Importantly, it introduced residual connections between the encoder and decoder, greatly improving gradient flow (inspired by ResNet in [He et al., 2015](https://arxiv.org/abs/1512.03385)).
 
-Below, we define this network. Some important notes:
+<p align="center">
+    <img src="assets/78_annotated-diffusion/unet_architecture.jpg" width="400" />
+</p>
 
-* [ConvNeXT](https://arxiv.org/abs/2201.03545) blocks can optionally be used instead of ResNet blocks. This was just an idea of Phil Wang, the original DDPM paper uses ResNet blocks.
-* self-attention is used in between the convolutional blocks, because it has shown great success in the famous [Transformer](https://arxiv.org/abs/1706.03762) architecture.
+As can be seen, a U-Net model first downsamples the input (i.e. makes the input smaller in terms of spatial resolution), after which upsampling is performed.
+
+Below, we implement this network, step-by-step.
 
 ### Network helpers
 
-Below, we define some helper functions which will be used when implementing the neural network. Importantly, we define a `Residual` module, which simply adds a residual connection (as introduced by [He et al., 2015](https://arxiv.org/abs/1512.03385)) to the output of a particular function.
+First, we define some helper functions and classes which will be used when implementing the neural network. Importantly, we define a `Residual` module, which simply adds the input to the output of a particular function (in other words, adds a residual connection to a particular function).
+
+We also define aliases for the up- and downsampling operations.
 
 ```python
 def exists(x):
@@ -190,27 +197,29 @@ def Downsample(dim):
 
 ### Position embeddings
 
-As the parameters of the neural network are shared across time (noise level), the authors employ sinusoidal position embeddings to encode $t$, inspired by the [Transformer](https://arxiv.org/abs/1706.03762). This makes the neural network "know" at which particular time step (noise level) it is operating.
+As the parameters of the neural network are shared across time (noise level), the authors employ sinusoidal position embeddings to encode $t$, inspired by the Transformer ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)). This makes the neural network "know" at which particular time step (noise level) it is operating, for every image in a batch.
+
+The `SinusoidalPositionEmbeddings` module takes a tensor of shape `(batch_size, time)` as input (i.e. the noise levels of several noisy images in a batch), and turns this into a tensor of shape `(batch_size, dim)`, with `dim` being the dimensionality of the position embeddings. This is then added to each residual block (as we will see further).
 
 ```python
-class SinusoidalPosEmb(nn.Module):
+class SinusoidalPositionEmbeddings(nn.Module):
     def __init__(self, dim):
         super().__init__()
         self.dim = dim
 
-    def forward(self, x):
-        device = x.device
+    def forward(self, time):
+        device = time.device
         half_dim = self.dim // 2
-        emb = math.log(10000) / (half_dim - 1)
-        emb = torch.exp(torch.arange(half_dim, device=device) * -emb)
-        emb = x[:, None] * emb[None, :]
-        emb = torch.cat((emb.sin(), emb.cos()), dim=-1)
-        return emb
+        embeddings = math.log(10000) / (half_dim - 1)
+        embeddings = torch.exp(torch.arange(half_dim, device=device) * -embeddings)
+        embeddings = time[:, None] * embeddings[None, :]
+        embeddings = torch.cat((embeddings.sin(), embeddings.cos()), dim=-1)
+        return embeddings
 ```
 
-### ResNet/ConvNeXT blocks
+### ResNet/ConvNeXT block
 
-Below, we define the ResNet and ConvNeXT blocks (one can choose to leverage one or another in the final U-Net model).
+Next, we define the core building block of the U-Net model. The DDPM authors employed a Wide ResNet block ([Zagoruyko et al., 2016](https://arxiv.org/abs/1605.07146)), but Phil Wang decided to also add support for a ConvNeXT block ([Liu et al., 2022](https://arxiv.org/abs/2201.03545)), as the latter has achieved great success in the image domain. One can choose one or another in the final U-Net architecture.
 
 ```python
 class Block(nn.Module):
@@ -283,7 +292,7 @@ class ConvNextBlock(nn.Module):
         h = self.ds_conv(x)
 
         if exists(self.mlp) and exists(time_emb):
-            assert exists(time_emb), "time emb must be passed in"
+            assert exists(time_emb), "time embedding must be passed in"
             condition = self.mlp(time_emb)
             h = h + rearrange(condition, "b c -> b c 1 1")
 
@@ -293,7 +302,7 @@ class ConvNextBlock(nn.Module):
 
 ### Attention module
 
-Next, we define the attention module. Phil Wang employs 2 variants: one is regular multi-head self-attention [Vaswani et al., 2017](https://arxiv.org/abs/1706.03762), the other one is a [linear attention variant](https://github.com/lucidrains/linear-attention-transformer), which scales linear in the sequence length (as opposed to quadratic for regular attention), as proposed in [Shen et al., 2018](https://arxiv.org/abs/1812.01243).  
+Next, we define the attention module, which the DDPM authors added at the 16x16 resolution. Attention is the building block of the famous Transformer architecture ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)), which has shown great success in various domains of AI, from NLP to protein folding. Phil Wang employs 2 variants of attention: one is regular multi-head self-attention (as used in the Transformer), the other one is a [linear attention variant](https://github.com/lucidrains/linear-attention-transformer), whose time- and memory requirements scale linear in the sequence length (as opposed to quadratic for regular attention), as proposed in ([Shen et al., 2018](https://arxiv.org/abs/1812.01243)).
 
 ```python
 class Attention(nn.Module):
@@ -351,7 +360,7 @@ class LinearAttention(nn.Module):
 
 ### Layer normalization
 
-The original DDPM paper interleaves the convolutional/attention layers of the U-Net with [group normalization](https://arxiv.org/abs/1803.08494). However, Phil Wang [isn't really a fan](https://github.com/lucidrains/denoising-diffusion-pytorch/issues/12#issuecomment-1025052175) of group normalization and uses layer normalization instead. Below, we also define a `PreNorm` class, which will be used to apply layernorm before the attention layer, as we'll see further. Note that there's been a [debate](https://tnq177.github.io/data/transformers_without_tears.pdf) about whether to apply layernorm before or after attention in Transformers.
+The DDPM authors interleave the convolutional/attention layers of the U-Net with [group normalization](https://arxiv.org/abs/1803.08494). However, Phil Wang [isn't really a fan](https://github.com/lucidrains/denoising-diffusion-pytorch/issues/12#issuecomment-1025052175) of group normalization and uses layer normalization instead. Below, we also define a `PreNorm` class, which will be used to apply layernorm before the attention layer, as we'll see further. Note that there's been a [debate](https://tnq177.github.io/data/transformers_without_tears.pdf) about whether to apply layernorm before or after attention in Transformers.
 
 ```python
 class LayerNorm(nn.Module):
@@ -379,13 +388,15 @@ class PreNorm(nn.Module):
 
 ### Conditional U-Net
 
-Now that we've defined all building blocks (position embeddings, ResNet/ConvNeXT blocks, attention and layer normalization), it's time to define the entire neural network. The job of the network $\mathbf{\epsilon}_\theta(\mathbf{x}_t, t)$ is to output the noise added to the input. Hence it will need to output a tensor of the same size as the input. For this purpose, the authors employ a conditional U-Net architecture.
+Now that we've defined all building blocks (position embeddings, ResNet/ConvNeXT blocks, attention and layer normalization), it's time to define the entire neural network. Recall that the job of the network $\mathbf{\epsilon}_\theta(\mathbf{x}_t, t)$ is to take in a batch of noisy images + noise levels, and output the noise added to the input. More formally:
 
-This network does the following internally:
-* first, a convolutional layer is applied on the input, and position embeddings are added
-* next, the input is downsampled using ResNet or ConvNeXT blocks, after which attention is applied
+- the network takes a batch of noisy images of shape `(batch_size, num_channels, height, width)` and a batch of noise levels of shape `(batch_size, 1)` as input, and returns a tensor of shape `(batch_size, num_channels, height, width)`
+
+The network is built up as follows:
+* first, a convolutional layer is applied on the batch of noisy images, and position embeddings are computed for the noise levels
+* next, a sequence of downsampling stages are applied. Each downsampling stage consists of 2 ResNet/ConvNeXT blocks + layernorm + attention + residual connection + a downsample operation
 * at the middle of the network, again ResNet or ConvNeXT blocks are applied, interleaved with attention
-* the tensor is upsampled again, using ResNet or ConvNeXT blocks, after which attention is applied
+* next, a sequence of upsampling stages are applied. Each upsampling stage consists of 2 ResNet/ConvNeXT blocks + layernorm + attention + residual connection + an upsample operation
 * finally, a ResNet/ConvNeXT block followed by a convolutional layer is applied.
 
 Ultimately, neural networks stack up layers as if they were lego blocks.
@@ -424,7 +435,7 @@ class Unet(nn.Module):
         if with_time_emb:
             time_dim = dim * 4
             self.time_mlp = nn.Sequential(
-                SinusoidalPosEmb(dim),
+                SinusoidalPositionEmbeddings(dim),
                 nn.Linear(dim, time_dim),
                 nn.GELU(),
                 nn.Linear(time_dim, time_dim),
@@ -534,18 +545,15 @@ def cosine_beta_schedule(timesteps, s=0.008):
     betas = 1 - (alphas_cumprod[1:] / alphas_cumprod[:-1])
     return torch.clip(betas, 0.0001, 0.9999)
 
-
 def linear_beta_schedule(timesteps):
     beta_start = 0.0001
     beta_end = 0.02
     return torch.linspace(beta_start, beta_end, timesteps)
 
-
 def quadratic_beta_schedule(timesteps):
     beta_start = 0.0001
     beta_end = 0.02
     return torch.linspace(beta_start**2, beta_end**2, timesteps) ** 2
-
 
 def sigmoid_beta_schedule(timesteps):
     beta_start = 0.0001
@@ -554,7 +562,7 @@ def sigmoid_beta_schedule(timesteps):
     return torch.sigmoid(betas) * (beta_end - beta_start) + beta_start
 ```
 
-To start with lets use the linear schedule for $T=200$ time steps and define the various variables from the $\beta_t$ which we will need:
+To start with, let's use the linear schedule for $T=200$ time steps and define the various variables from the $\beta_t$ which we will need:
 
 
 ```python
@@ -666,6 +674,7 @@ def q_sample(x_start, t, noise=None):
     return sqrt_alphas_cumprod_t * x_start + sqrt_one_minus_alphas_cumprod_t * noise
 ```
 
+Let's test it on a particular time step:
 
 ```python
 def get_noisy_image(x_start, t):
@@ -678,15 +687,16 @@ def get_noisy_image(x_start, t):
   return noisy_image
 ```
 
-
 ```python
-# sample time step
+# take time step
 t = torch.tensor([40])
 
 get_noisy_image(x_start, t)
 ```
 
 <img src="assets/78_annotated-diffusion/output_cats_noisy.png" width="100" />
+
+Let's visualize this for various time steps:
 
 ```python
 import matplotlib.pyplot as plt
@@ -747,6 +757,8 @@ def p_losses(denoise_model, x_start, t, noise=None, loss_type="l1"):
 
     return loss
 ```
+
+The `denoise_model` will be our U-Net defined above. We'll employ a simple L1 loss between the true and the predicted noise.
 
 ## Define a PyTorch Dataset + DataLoader
 
