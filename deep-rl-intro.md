@@ -545,6 +545,9 @@ Now that you've studied the bases of Reinforcement Learning, you’re ready to t
 
 Start the tutorial here 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit1/unit1.ipynb
 
+And since the best way to learn and avoid the illusion of competence is **to test yourself**. We wrote a quiz to help you find where **you need to reinforce your study**. 
+Check your knowledge here 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit1/quiz.md
+
 Congrats on finishing this chapter! **That was the biggest one**, and there was a lot of information. And congrats on finishing the tutorial. You’ve just trained your first Deep RL agent and shared it on the Hub 🥳.
 
 That’s **normal if you still feel confused** with all these elements. **This was the same for me and for all people who studied RL.**
