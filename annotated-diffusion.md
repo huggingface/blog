@@ -57,7 +57,7 @@ import torch.nn.functional as F
 
 In this blog post, we'll take a deeper look into **Denoising Diffusion Probabilistic Models** (also known as DDPMs, diffusion models, score-based generative models or simply [autoencoders](https://benanne.github.io/2022/01/31/diffusion.html)) as researchers have been able to achieve remarkable results with them for (un)conditional image/audio/video generation. Famous examples (at the time of writing) include [GLIDE](https://arxiv.org/abs/2112.10741) and [DALL-E 2](https://openai.com/dall-e-2/) by OpenAI, [Latent Diffusion](https://github.com/CompVis/latent-diffusion) by the University of Heidelberg and [ImageGen](https://imagen.research.google/) by Google Brain.
 
-We'll go over the original [DDPM paper](https://arxiv.org/abs/2006.11239) by Jonathan Ho et al., 2020, implementing it step-by-step in PyTorch, based on Phil Wang's [implementation](https://github.com/lucidrains/denoising-diffusion-pytorch). Note that the idea was actually already introduced in [Sohl-Dickstein et al., 2015](https://arxiv.org/abs/1503.03585). However, it took until [Song et al., 2019](https://arxiv.org/abs/1907.05600) (at Stanford University), and then [Ho et al., 2020](https://arxiv.org/abs/2006.11239) (at Google Brain) who independently improved the approach.
+We'll go over the original DDPM paper by ([Ho et al., 2020](https://arxiv.org/abs/2006.11239)), implementing it step-by-step in PyTorch, based on Phil Wang's [implementation](https://github.com/lucidrains/denoising-diffusion-pytorch). Note that the idea of diffusion was actually already introduced in ([Sohl-Dickstein et al., 2015](https://arxiv.org/abs/1503.03585)). However, it took until ([Song et al., 2019](https://arxiv.org/abs/1907.05600)) (at Stanford University), and then ([Ho et al., 2020](https://arxiv.org/abs/2006.11239)) (at Google Brain) who independently improved the approach.
 
 Note that there are [several perspectives](https://twitter.com/sedielem/status/1530894256168222722?s=20&t=mfv4afx1GcNQU5fZklpACw) on diffusion models. Here, we employ the discrete-time (latent variable model) perspective, but be sure to check out the other perspectives as well.
 
@@ -304,6 +304,8 @@ class ConvNextBlock(nn.Module):
 
 Next, we define the attention module, which the DDPM authors added at the 16x16 resolution. Attention is the building block of the famous Transformer architecture ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)), which has shown great success in various domains of AI, from NLP to protein folding. Phil Wang employs 2 variants of attention: one is regular multi-head self-attention (as used in the Transformer), the other one is a [linear attention variant](https://github.com/lucidrains/linear-attention-transformer), whose time- and memory requirements scale linear in the sequence length (as opposed to quadratic for regular attention), as proposed in ([Shen et al., 2018](https://arxiv.org/abs/1812.01243)).
 
+For an extensive explanation of the attention mechanism, we refer the reader to Jay Allamar's [wonderful blog post](https://jalammar.github.io/illustrated-transformer/).
+
 ```python
 class Attention(nn.Module):
     def __init__(self, dim, heads=4, dim_head=32):
@@ -530,7 +532,6 @@ However, it was shown in [Improved Denoising Diffusion Probabilistic
 Models](https://openreview.net/pdf?id=-NEXDKk8gZ) that better results can be achieved when employing a cosine schedule. 
 
 Below, we define various schedules for the $T$ timesteps, as well as corresponding variables which we'll need, such as cumulative variances.
-
 
 ```python
 def cosine_beta_schedule(timesteps, s=0.008):
