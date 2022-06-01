@@ -348,7 +348,13 @@ Implementing from scratch when you study a new architecture **is important to un
 
 That’s **normal if you still feel confused** with all these elements. **This was the same for me and for all people who studied RL.**
 
-Take time to really grasp the material before continuing. It’s essential to master these elements and having a solid foundations before entering the **fun part.**
+Take time to really grasp the material before continuing. 
+
+  
+And since the best way to learn and avoid the illusion of competence is **to test yourself**. We wrote a quiz to help you find where **you need to reinforce your study**. 
+Check your knowledge here 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit2/quiz2.md
+  
+It’s essential to master these elements and having a solid foundations before entering the **fun part.**
 Don't hesitate to modify the implementation, try ways to improve it and change environments, **the best way to learn is to try things on your own!** 
 
 We published additional readings in the syllabus if you want to go deeper 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit2/README.md
