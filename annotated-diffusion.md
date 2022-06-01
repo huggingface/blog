@@ -57,9 +57,11 @@ import torch.nn.functional as F
 
 In this blog post, we'll take a deeper look into **Denoising Diffusion Probabilistic Models** (also known as DDPMs, diffusion models, score-based generative models or simply [autoencoders](https://benanne.github.io/2022/01/31/diffusion.html)) as researchers have been able to achieve remarkable results with them for (un)conditional image/audio/video generation. Famous examples (at the time of writing) include [GLIDE](https://arxiv.org/abs/2112.10741) and [DALL-E 2](https://openai.com/dall-e-2/) by OpenAI, [Latent Diffusion](https://github.com/CompVis/latent-diffusion) by the University of Heidelberg and [ImageGen](https://imagen.research.google/) by Google Brain.
 
-We'll go over the original DDPM paper by ([Ho et al., 2020](https://arxiv.org/abs/2006.11239)), implementing it step-by-step in PyTorch, based on Phil Wang's [implementation](https://github.com/lucidrains/denoising-diffusion-pytorch). Note that the idea of diffusion for generative modeling was actually already introduced in ([Sohl-Dickstein et al., 2015](https://arxiv.org/abs/1503.03585)). However, it took until ([Song et al., 2019](https://arxiv.org/abs/1907.05600)) (at Stanford University), and then ([Ho et al., 2020](https://arxiv.org/abs/2006.11239)) (at Google Brain) who independently improved the approach.
+We'll go over the original DDPM paper by ([Ho et al., 2020](https://arxiv.org/abs/2006.11239)), implementing it step-by-step in PyTorch, based on Phil Wang's [implementation](https://github.com/lucidrains/denoising-diffusion-pytorch) - which itself is based on the [original Tensorflow implementation](https://github.com/hojonathanho/diffusion). Note that the idea of diffusion for generative modeling was actually already introduced in ([Sohl-Dickstein et al., 2015](https://arxiv.org/abs/1503.03585)). However, it took until ([Song et al., 2019](https://arxiv.org/abs/1907.05600)) (at Stanford University), and then ([Ho et al., 2020](https://arxiv.org/abs/2006.11239)) (at Google Brain) who independently improved the approach.
 
 Note that there are [several perspectives](https://twitter.com/sedielem/status/1530894256168222722?s=20&t=mfv4afx1GcNQU5fZklpACw) on diffusion models. Here, we employ the discrete-time (latent variable model) perspective, but be sure to check out the other perspectives as well.
+
+Alright, let's dive in!
 
 ```python
 from IPython.display import Image
@@ -109,7 +111,6 @@ so we can parametrize the process as
 $$ p_\theta (\mathbf{x}_{t-1} | \mathbf{x}_t) = \mathcal{N}(\mathbf{x}_{t-1}; \mu_\theta(\mathbf{x}_{t},t), \Sigma_\theta (\mathbf{x}_{t},t))$$
 where the mean and covariance heads are also conditioned on the noise level $t$.
 
-
 Hence, our neural network needs to learn/represent these 2 things. However, the DDPM authors decided to **keep the variance ($\Sigma_\theta$) fixed, and let the neural network only learn (represent) the mean of this conditional probability distribution**. From the paper:
 
 > First, we set $\Sigma_\theta ( \mathbf{x}_t, t) = \sigma^2_t \mathbf{I}$ to untrained time dependent constants. Experimentally, both $\sigma^2_t = \beta_t$ and $\sigma^2_t  = \tilde{\beta}_t$ (see paper) had similar results. 
@@ -122,16 +123,19 @@ So we continue, assuming that our neural network only needs to learn/represent t
 
 To derive an objective function to learn the mean of the backward process, the authors observe that the combination of $q$ and $p_\theta$ can be seen as a variational auto-encoder (VAE) [(Kingma et al., 2013)](https://arxiv.org/abs/1312.6114). Hence, the **variational lower bound** (also called ELBO) can be used to minimize the negative log-likelihood with respect to ground truth data sample $\mathbf{x}_0$ (we refer to the VAE paper for details regarding ELBO). It turns out that the ELBO for this process is a sum of losses at each time step $t$, $L = L_0 + L_1 + ... + L_T$. By construction of the forward $q$ process and backward process, each term (except for $L_0$) of the loss is actually the **KL divergence between 2 Gaussian distributions** which can be written explicitly as an L2-loss with respect to the means!
 
-A direct consequence of the constructed forward process $q$, as shown by  Sohl-Dickstein et al., is that we can sample $\mathbf{x}_t$ at any arbitrary noise level conditioned on $\mathbf{x}_0$ (since sums of Gaussians is also Gaussian). This is very convenient:  we don't need to apply $q$ repeatedly in order to sample $\mathbf{x}_t$. 
+A direct consequence of the constructed forward process $q$, as shown by Sohl-Dickstein et al., is that we can sample $\mathbf{x}_t$ at any arbitrary noise level conditioned on $\mathbf{x}_0$ (since sums of Gaussians is also Gaussian). This is very convenient:  we don't need to apply $q$ repeatedly in order to sample $\mathbf{x}_t$. 
 We have that 
 $$q(\mathbf{x}_t | \mathbf{x}_0) = \cal{N}(\mathbf{x}_t; \sqrt{\bar{\alpha}_t} \mathbf{x}_0, (1- \bar{\alpha}_t) \mathbf{I})$$
- which means we can sample Gaussian noise and scale it appropriatly and add it to $\mathbf{x}_0$ to get $\mathbf{x}_t$ directly. Note that the $\bar{\alpha}_t$ are functions of the known $\beta_t$ variance schedule and thus are also known and can be precomputed. This then allows us, during training, to **optimize random terms of the loss function $L$** (or in other words, to randomly sample $t$ during training and optimize $L_t$).
 
+with $\alpha_t := 1 - \beta_t$ and $\bar{\alpha}t := \Pi_{s=1}^{t} \alpha_s$. Let's refer to this equation as the "nice property". This means we can sample Gaussian noise and scale it appropriatly and add it to $\mathbf{x}_0$ to get $\mathbf{x}_t$ directly. Note that the $\bar{\alpha}_t$ are functions of the known $\beta_t$ variance schedule and thus are also known and can be precomputed. This then allows us, during training, to **optimize random terms of the loss function $L$** (or in other words, to randomly sample $t$ during training and optimize $L_t$).
 
-Another beauty of this property, as shown in Ho et al. is that, one can (after some math, for which we refer the reader to [this excellent blog post](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)) instead **reparametrize the mean to make the neural network learn (predict) the added noise (via a network $\mathbf{\epsilon}_\theta(\mathbf{x}_t, t)$)  for  noise level $t$** in the KL terms which constitute the losses. This means that our neural network becomes a noise predictor, rather than a (direct) mean predictor.  The final objective function  $L_t$ then looks as follows (for a random time step $t$) given $\mathbf{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$: 
+Another beauty of this property, as shown in Ho et al. is that, one can (after some math, for which we refer the reader to [this excellent blog post](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)) instead **reparametrize the mean to make the neural network learn (predict) the added noise (via a network $\mathbf{\epsilon}_\theta(\mathbf{x}_t, t)$) for noise level $t$** in the KL terms which constitute the losses. This means that our neural network becomes a noise predictor, rather than a (direct) mean predictor. The mean can be computed as follows:
+
+$$ \mathbf{\mu}_\theta(\mathbf{x}_t, t) = \frac{1}{\sqrt{\alpha_t}} \left(  \mathbf{x}_t - \frac{\beta_t}{\sqrt{1- \bar{\alpha}_t}} \mathbf{\epsilon}_\theta(\mathbf{x}_t, t) \right)$$
+
+The final objective function  $L_t$ then looks as follows (for a random time step $t$) given $\mathbf{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$: 
 
 $$ \| \mathbf{\epsilon} - \mathbf{\epsilon}_\theta(\mathbf{x}_t, t) \|^2 = \| \mathbf{\epsilon} - \mathbf{\epsilon}_\theta( \sqrt{\bar{\alpha}_t} \mathbf{x}_0 + \sqrt{(1- \bar{\alpha}_t)  } \mathbf{\epsilon}, t) \|^2.$$
-
 
 Here, $\mathbf{x}_0$ is the initial (real, uncorruped) image, and we see the direct noise level $t$ sample given by the fixed forward process. $\mathbf{\epsilon}$ is the pure noise sampled at time step $t$, and $\mathbf{\epsilon}_\theta (\mathbf{x}_t, t)$ is our neural network. The neural network is optimized using a simple mean squared error between the true and the predicted Gaussian noise.
 
@@ -144,7 +148,7 @@ The training algorithm now looks as follows:
 In other words:
 * we take a random sample $\mathbf{x}_0$ from the real unknown and possibily complex data distribution $q(\mathbf{x}_0)$
 * we sample a noise level $t$ uniformally between $1$ and $T$ (i.e., a random time step)
-* we sample some noise from a Gaussian distribution and corrupt the input by this noise at level $t$
+* we sample some noise from a Gaussian distribution and corrupt the input by this noise at level $t$ (using the nice property defined above)
 * the neural network is trained to predict this noise based on the corruped image $\mathbf{x}_t$ (i.e. noise applied on $\mathbf{x}_0$ based on known schedule $\beta_t$)
 
 In reality, all of this is done on batches of data (as one uses stochastic gradient descent to optimize neural networks).
@@ -302,7 +306,7 @@ class ConvNextBlock(nn.Module):
 
 ### Attention module
 
-Next, we define the attention module, which the DDPM authors added at the 16x16 resolution. Attention is the building block of the famous Transformer architecture ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)), which has shown great success in various domains of AI, from NLP to protein folding. Phil Wang employs 2 variants of attention: one is regular multi-head self-attention (as used in the Transformer), the other one is a [linear attention variant](https://github.com/lucidrains/linear-attention-transformer), whose time- and memory requirements scale linear in the sequence length (as opposed to quadratic for regular attention), as proposed in ([Shen et al., 2018](https://arxiv.org/abs/1812.01243)).
+Next, we define the attention module, which the DDPM authors added in between the convolutional blocks. Attention is the building block of the famous Transformer architecture ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)), which has shown great success in various domains of AI, from NLP to protein folding. Phil Wang employs 2 variants of attention: one is regular multi-head self-attention (as used in the Transformer), the other one is a [linear attention variant](https://github.com/lucidrains/linear-attention-transformer), whose time- and memory requirements scale linear in the sequence length (as opposed to quadratic for regular attention), as proposed in ([Shen et al., 2018](https://arxiv.org/abs/1812.01243)).
 
 For an extensive explanation of the attention mechanism, we refer the reader to Jay Allamar's [wonderful blog post](https://jalammar.github.io/illustrated-transformer/).
 
@@ -401,7 +405,7 @@ The network is built up as follows:
 * next, a sequence of upsampling stages are applied. Each upsampling stage consists of 2 ResNet/ConvNeXT blocks + layernorm + attention + residual connection + an upsample operation
 * finally, a ResNet/ConvNeXT block followed by a convolutional layer is applied.
 
-Ultimately, neural networks stack up layers as if they were lego blocks.
+Ultimately, neural networks stack up layers as if they were lego blocks (but it's important to [understand how they work](http://karpathy.github.io/2019/04/25/recipe/)).
 
 ```python
 class Unet(nn.Module):
@@ -520,6 +524,8 @@ class Unet(nn.Module):
         return self.final_conv(x)
 ```
 
+By default, the noise predictor uses ConvNeXT blocks (as `use_convnext` is set to `True`) and position embeddings are added (as `with_time_emb` is set to `True`).
+
 ## Defining the forward diffusion process
 
 The forward diffusion process gradually adds noise to an image from the real distribution, in a number of time steps $T$. This happens according to a **variance schedule**. The original DDPM authors employed a linear schedule:
@@ -531,7 +537,7 @@ to $\beta_T = 0.02$.
 However, it was shown in [Improved Denoising Diffusion Probabilistic
 Models](https://openreview.net/pdf?id=-NEXDKk8gZ) that better results can be achieved when employing a cosine schedule. 
 
-Below, we define various schedules for the $T$ timesteps, as well as corresponding variables which we'll need, such as cumulative variances.
+Below, we define various schedules for the $T$ timesteps (we'll choose one later on).
 
 ```python
 def cosine_beta_schedule(timesteps, s=0.008):
@@ -563,8 +569,7 @@ def sigmoid_beta_schedule(timesteps):
     return torch.sigmoid(betas) * (beta_end - beta_start) + beta_start
 ```
 
-To start with, let's use the linear schedule for $T=200$ time steps and define the various variables from the $\beta_t$ which we will need:
-
+To start with, let's use the linear schedule for $T=200$ time steps and define the various variables from the $\beta_t$ which we will need (such as cumulative variances):
 
 ```python
 timesteps = 200
@@ -662,7 +667,7 @@ def extract(a, t, x_shape):
     out = a.gather(-1, t.cpu())
     return out.reshape(batch_size, *((1,) * (len(x_shape) - 1))).to(t.device)
 
-# forward diffusion
+# forward diffusion (using the nice property)
 def q_sample(x_start, t, noise=None):
     if noise is None:
         noise = torch.randn_like(x_start)
@@ -769,7 +774,7 @@ Each image is resized to the same size. Interesting to note is that images are a
 
 > We used random horizontal flips during training for CIFAR10; we tried training both with and without flips, and found flips to improve sample quality slightly.
 
-Here we use the 🤗 Datasets library to easily load the Fashion MNIST dataset from the [hub](https://huggingface.co/datasets/fashion_mnist).
+Here we use the 🤗 Datasets library to easily load the Fashion MNIST dataset from the [hub](https://huggingface.co/datasets/fashion_mnist). This dataset consists of images which already have the same resolution, namely 28x28.
 
 ```python
 from datasets import load_dataset
@@ -781,7 +786,7 @@ channels = 1
 batch_size = 128
 ```
 
-Next, we define a function which we'll apply on-the-fly on the entire dataset. We use the `with_transform` functionality for that. The function just applies some basic image preprocessing (random horizontal flips, rescaling and finally make them have values in the $[-1,1]$ range).
+Next, we define a function which we'll apply on-the-fly on the entire dataset. We use the `with_transform` [functionality](https://huggingface.co/docs/datasets/v2.2.1/en/package_reference/main_classes#datasets.Dataset.with_transform) for that. The function just applies some basic image preprocessing (random horizontal flips, rescaling and finally make them have values in the $[-1,1]$ range).
 
 ```python
 from torchvision import transforms
@@ -873,6 +878,8 @@ def p_sample_loop(model, shape):
 def sample(model, image_size, batch_size=16, channels=3):
     return p_sample_loop(model, shape=(batch_size, channels, image_size, image_size))
 ```
+
+Note that the code above is a simplified version of the original implementation. We found our simplification (which is in line with Algorithm 2 in the paper) to work just as well as the [original, more complex implementation](https://github.com/hojonathanho/diffusion/blob/master/diffusion_tf/diffusion_utils.py).
 
 ## Train the model
 
@@ -994,16 +1001,19 @@ plt.imshow(samples[5].cpu().numpy().reshape(28, 28, 1), cmap="gray")
 
 <img src="assets/78_annotated-diffusion/output.png" width="300" />
 
+Seems like the model is capable of generating a nice T-shirt! Keep in mind that the dataset we trained on is pretty low-resolution (28x28).
 
 # Follow-up reads
 
-Note that the DDPM paper showed that diffusion models are a promising direction for (un)conditional image generation. This has since then (immensely) been improved, most notably for text-conditional image generation. Below, we list some important follow-up works:
+Note that the DDPM paper showed that diffusion models are a promising direction for (un)conditional image generation. This has since then (immensely) been improved, most notably for text-conditional image generation. Below, we list some important (but far from exhaustive) follow-up works:
 
 - Improved Denoising Diffusion Probabilistic Models [Nichol et al., 2021](https://arxiv.org/abs/2102.09672): finds that learning the variance of the conditional distribution (besides the mean) helps in improving performance
 - Cascaded Diffusion Models for High Fidelity Image Generation [Ho et al., 2021](https://arxiv.org/abs/2106.15282): introduce cascaded diffusion, which comprises a pipeline of multiple diffusion models that generate images of increasing resolution for high-fidelity image synthesis
 - Diffusion Models Beat GANs on Image Synthesis [Dhariwal et al., 2021](https://arxiv.org/abs/2105.05233): show that diffusion models can achieve image sample quality superior to the current state-of-the-art generative models by improving the U-Net architecture, as well as introducing classifier guidance
-- Classifier-Free Diffusion Guidance [Ho et al., 2021](https://openreview.net/pdf?id=qw8AKxfYbI): shows that you don't need a classifier for guiding a diffusion model by jointly training a conditional and an unconditional diffusion model
+- Classifier-Free Diffusion Guidance [Ho et al., 2021](https://openreview.net/pdf?id=qw8AKxfYbI): shows that you don't need a classifier for guiding a diffusion model by jointly training a conditional and an unconditional diffusion model with a single neural network
 - Hierarchical Text-Conditional Image Generation with CLIP Latents (DALL-E 2) [Ramesh et al., 2022](https://cdn.openai.com/papers/dall-e-2.pdf): use a prior to turn a text caption into a CLIP image embedding, after which a diffusion model decodes it into an image
 - Photorealistic Text-to-Image Diffusion Models with Deep Language Understanding (ImageGen) [Saharia et al., 2022](https://arxiv.org/abs/2205.11487): shows that combining a large pre-trained language model (e.g. T5) with cascaded diffusion works well for text-to-image synthesis
 
 Note that this list only includes important works until the time of writing, which is June 1st, 2022.
+
+For now, it seems that the main (perhaps only) disadvantage of diffusion models is that they require multiple forward passes to generate an image (which is not the case for other generative models). However, there's [research going on](https://arxiv.org/abs/2204.13902) that enables high-fidelity generation in as few as 10 denoising steps.
