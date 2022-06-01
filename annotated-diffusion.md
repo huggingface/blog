@@ -781,7 +781,7 @@ channels = 1
 batch_size = 128
 ```
 
-Next, we define a function which we'll apply on-the-fly on the entire dataset. We use the `with_transform` functionality for that. The function just applies some basic image preprocessing (random horizontal flips, rescaling and finally make them have values in the [-1,1] range).
+Next, we define a function which we'll apply on-the-fly on the entire dataset. We use the `with_transform` functionality for that. The function just applies some basic image preprocessing (random horizontal flips, rescaling and finally make them have values in the $[-1,1]$ range).
 
 ```python
 from torchvision import transforms
