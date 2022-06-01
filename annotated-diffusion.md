@@ -57,7 +57,7 @@ import torch.nn.functional as F
 
 In this blog post, we'll take a deeper look into **Denoising Diffusion Probabilistic Models** (also known as DDPMs, diffusion models, score-based generative models or simply [autoencoders](https://benanne.github.io/2022/01/31/diffusion.html)) as researchers have been able to achieve remarkable results with them for (un)conditional image/audio/video generation. Famous examples (at the time of writing) include [GLIDE](https://arxiv.org/abs/2112.10741) and [DALL-E 2](https://openai.com/dall-e-2/) by OpenAI, [Latent Diffusion](https://github.com/CompVis/latent-diffusion) by the University of Heidelberg and [ImageGen](https://imagen.research.google/) by Google Brain.
 
-We'll go over the original DDPM paper by ([Ho et al., 2020](https://arxiv.org/abs/2006.11239)), implementing it step-by-step in PyTorch, based on Phil Wang's [implementation](https://github.com/lucidrains/denoising-diffusion-pytorch). Note that the idea of diffusion was actually already introduced in ([Sohl-Dickstein et al., 2015](https://arxiv.org/abs/1503.03585)). However, it took until ([Song et al., 2019](https://arxiv.org/abs/1907.05600)) (at Stanford University), and then ([Ho et al., 2020](https://arxiv.org/abs/2006.11239)) (at Google Brain) who independently improved the approach.
+We'll go over the original DDPM paper by ([Ho et al., 2020](https://arxiv.org/abs/2006.11239)), implementing it step-by-step in PyTorch, based on Phil Wang's [implementation](https://github.com/lucidrains/denoising-diffusion-pytorch). Note that the idea of diffusion for generative modeling was actually already introduced in ([Sohl-Dickstein et al., 2015](https://arxiv.org/abs/1503.03585)). However, it took until ([Song et al., 2019](https://arxiv.org/abs/1907.05600)) (at Stanford University), and then ([Ho et al., 2020](https://arxiv.org/abs/2006.11239)) (at Google Brain) who independently improved the approach.
 
 Note that there are [several perspectives](https://twitter.com/sedielem/status/1530894256168222722?s=20&t=mfv4afx1GcNQU5fZklpACw) on diffusion models. Here, we employ the discrete-time (latent variable model) perspective, but be sure to check out the other perspectives as well.
 
@@ -93,7 +93,7 @@ $$
 q(\mathbf{x}_t | \mathbf{x}_{t-1}) = \mathcal{N}(\mathbf{x}_t; \sqrt{1 - \beta_t} \mathbf{x}_{t-1}, \beta_t \mathbf{I}). 
 $$
 
-Recall that a normal distribution (also called Gaussian distribution) is parametrized by 2 values: a mean $\mu$ and a variance $\sigma^2 \geq 0$. Basically, each new (slightly more noisy image) at time step $t$ is drawn from a **conditional Gaussian distribution** with $\mathbf{\mu}_t = \sqrt{1 - \beta_t} \mathbf{x}_{t-1}$ and $\sigma^2_t = \beta_t$, which we can do by sampling  $\mathbf{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ and then setting $\mathbf{x}_t = \sqrt{1 - \beta_t} \mathbf{x}_{t-1} +  \sqrt{\beta_t} \mathbf{\epsilon}$. 
+Recall that a normal distribution (also called Gaussian distribution) is parametrized by 2 values: a mean $\mu$ and a variance $\sigma^2 \geq 0$. Basically, each new (slightly more noisy) image at time step $t$ is drawn from a **conditional Gaussian distribution** with $\mathbf{\mu}_t = \sqrt{1 - \beta_t} \mathbf{x}_{t-1}$ and $\sigma^2_t = \beta_t$, which we can do by sampling  $\mathbf{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$ and then setting $\mathbf{x}_t = \sqrt{1 - \beta_t} \mathbf{x}_{t-1} +  \sqrt{\beta_t} \mathbf{\epsilon}$. 
 
 Note that the $\beta_t$ aren't constant at each time step $t$ (hence the subscript) --- in fact one defines a so-called **"variance schedule"**, which can be linear, quadratic, cosine, etc. as we will see further (a bit like a learning rate schedule). 
 
@@ -199,7 +199,7 @@ def Downsample(dim):
 
 As the parameters of the neural network are shared across time (noise level), the authors employ sinusoidal position embeddings to encode $t$, inspired by the Transformer ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)). This makes the neural network "know" at which particular time step (noise level) it is operating, for every image in a batch.
 
-The `SinusoidalPositionEmbeddings` module takes a tensor of shape `(batch_size, time)` as input (i.e. the noise levels of several noisy images in a batch), and turns this into a tensor of shape `(batch_size, dim)`, with `dim` being the dimensionality of the position embeddings. This is then added to each residual block (as we will see further).
+The `SinusoidalPositionEmbeddings` module takes a tensor of shape `(batch_size, 1)` as input (i.e. the noise levels of several noisy images in a batch), and turns this into a tensor of shape `(batch_size, dim)`, with `dim` being the dimensionality of the position embeddings. This is then added to each residual block (as we will see further).
 
 ```python
 class SinusoidalPositionEmbeddings(nn.Module):
@@ -842,7 +842,8 @@ def p_sample(model, x, t, t_index):
     )
     sqrt_recip_alphas_t = extract(sqrt_recip_alphas, t, x.shape)
     
-    # Algorithm 2 line 4
+    # Equation 11 in the paper
+    # Use our model (noise predictor) to predict the mean
     model_mean = sqrt_recip_alphas_t * (
         x - betas_t * model(x, t) / sqrt_one_minus_alphas_cumprod_t
     )
@@ -852,10 +853,10 @@ def p_sample(model, x, t, t_index):
     else:
         posterior_variance_t = extract(posterior_variance, t, x.shape)
         noise = torch.randn_like(x)
-        # Algorithm 2 line 5:
+        # Algorithm 2 line 4:
         return model_mean + torch.sqrt(posterior_variance_t) * noise 
 
-# Algoritm 2
+# Algorithm 2
 @torch.no_grad()
 def p_sample_loop(model, shape):
     device = next(model.parameters()).device
@@ -984,9 +985,25 @@ To sample from the model, we can just use our sample method defined above:
 
 
 ```python
+# sample 64 images
 samples = sample(model, image_size=image_size, batch_size=64, channels=channels)
 
+# show the fifth one
 plt.imshow(samples[5].cpu().numpy().reshape(28, 28, 1), cmap="gray")
 ```
 
 <img src="assets/78_annotated-diffusion/output.png" width="300" />
+
+
+# Follow-up reads
+
+Note that the DDPM paper showed that diffusion models are a promising direction for (un)conditional image generation. This has since then (immensely) been improved, most notably for text-conditional image generation. Below, we list some important follow-up works:
+
+- Improved Denoising Diffusion Probabilistic Models [Nichol et al., 2021](https://arxiv.org/abs/2102.09672): finds that learning the variance of the conditional distribution (besides the mean) helps in improving performance
+- Cascaded Diffusion Models for High Fidelity Image Generation [Ho et al., 2021](https://arxiv.org/abs/2106.15282): introduce cascaded diffusion, which comprises a pipeline of multiple diffusion models that generate images of increasing resolution for high-fidelity image synthesis
+- Diffusion Models Beat GANs on Image Synthesis [Dhariwal et al., 2021](https://arxiv.org/abs/2105.05233): show that diffusion models can achieve image sample quality superior to the current state-of-the-art generative models by improving the U-Net architecture, as well as introducing classifier guidance
+- Classifier-Free Diffusion Guidance [Ho et al., 2021](https://openreview.net/pdf?id=qw8AKxfYbI): shows that you don't need a classifier for guiding a diffusion model by jointly training a conditional and an unconditional diffusion model
+- Hierarchical Text-Conditional Image Generation with CLIP Latents (DALL-E 2) [Ramesh et al., 2022](https://cdn.openai.com/papers/dall-e-2.pdf): use a prior to turn a text caption into a CLIP image embedding, after which a diffusion model decodes it into an image
+- Photorealistic Text-to-Image Diffusion Models with Deep Language Understanding (ImageGen) [Saharia et al., 2022](https://arxiv.org/abs/2205.11487): shows that combining a large pre-trained language model (e.g. T5) with cascaded diffusion works well for text-to-image synthesis
+
+Note that this list only includes important works until the time of writing, which is June 1st, 2022.
