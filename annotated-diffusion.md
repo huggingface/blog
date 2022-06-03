@@ -1014,6 +1014,6 @@ Note that the DDPM paper showed that diffusion models are a promising direction 
 - Hierarchical Text-Conditional Image Generation with CLIP Latents (DALL-E 2) ([Ramesh et al., 2022](https://cdn.openai.com/papers/dall-e-2.pdf)): use a prior to turn a text caption into a CLIP image embedding, after which a diffusion model decodes it into an image
 - Photorealistic Text-to-Image Diffusion Models with Deep Language Understanding (ImageGen) ([Saharia et al., 2022](https://arxiv.org/abs/2205.11487)): shows that combining a large pre-trained language model (e.g. T5) with cascaded diffusion works well for text-to-image synthesis
 
-Note that this list only includes important works until the time of writing, which is June 6st, 2022.
+Note that this list only includes important works until the time of writing, which is June 6th, 2022.
 
 For now, it seems that the main (perhaps only) disadvantage of diffusion models is that they require multiple forward passes to generate an image (which is not the case for other generative models). However, there's [research going on](https://arxiv.org/abs/2204.13902) that enables high-fidelity generation in as few as 10 denoising steps.
