@@ -46,7 +46,7 @@ In the last few months, the Hub went from 10,000 public model repositories to ov
 
 Spaces is a simple and free solution to host Machine Learning demo applications directly on your user profile or your organization [hf.co](http://hf.co/) profile. We support two awesome SDKs that let you build cool apps easily in Python: [Gradio](https://gradio.app/) and [Streamlit](https://streamlit.io/). In a matter of minutes you can deploy an app and share it with the community! 🚀
 
-Spaces lets you [set up secrets](/docs/hub/spaces#secret-management), permits [custom requirements](/docs/hub/spaces#how-can-i-install-other-dependencies), and can even be managed [directly from GitHub repos](/docs/hub/spaces#how-can-i-manage-my-app-through-github). You can sign up for the beta at [hf.co/spaces](/spaces). Here are some of our favorites!
+Spaces lets you [set up secrets](/docs/hub/spaces-overview#managing-secrets), permits [custom requirements](/docs/hub/spaces-dependencies), and can even be managed [directly from GitHub repos](/docs/hub/spaces-github-actions). You can sign up for the beta at [hf.co/spaces](/spaces). Here are some of our favorites!
 
 - Create recipes with the help of [Chef Transformer](/spaces/flax-community/chef-transformer)
 - Transcribe speech to text with [HuBERT](https://huggingface.co/spaces/osanseviero/HUBERT)

@@ -732,7 +732,7 @@ the `huggingface_hub`'s `Repository` class.
 
 More information on how to use the `huggingface_hub` to upload any
 files, please take a look at the [official
-docs](https://huggingface.co/docs/hub/how-to-upstream).
+docs](https://huggingface.co/docs/huggingface_hub/how-to-upstream).
 
 ```python
 from huggingface_hub import Repository

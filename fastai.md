@@ -51,7 +51,7 @@ Anyone can access all the fastai models in the Hub by filtering the [hf.co/model
 
 ![Fastai Models in the Hub](assets/64_fastai/hf_hub_fastai.png)
 
-In addition to free model hosting and exposure to the broader community, the Hub has built-in [version control based on git](https://huggingface.co/docs/transformers/model_sharing#repository-features) (git-lfs, for large files) and [model cards](https://huggingface.co/docs/hub/model-repos#what-are-model-cards-and-why-are-they-useful) for discoverability and reproducibility. For more information on navigating the Hub, see [this introduction](https://github.com/huggingface/education-toolkit/blob/main/01_huggingface-hub-tour.md).
+In addition to free model hosting and exposure to the broader community, the Hub has built-in [version control based on git](https://huggingface.co/docs/transformers/model_sharing#repository-features) (git-lfs, for large files) and [model cards](https://huggingface.co/docs/hub/models-cards) for discoverability and reproducibility. For more information on navigating the Hub, see [this introduction](https://github.com/huggingface/education-toolkit/blob/main/01_huggingface-hub-tour.md).
 
 
 
@@ -113,7 +113,7 @@ repo_id = "espejelomar/identify-my-cat"
 push_to_hub_fastai(learner=learn, repo_id=repo_id)
 ```
 
-The `Learner` is now in the Hub in the repo named [`espejelomar/identify-my-cat`](https://huggingface.co/espejelomar/identify-my-cat). An automatic model card is created with some links and next steps. When uploading a fastai `Learner` (or any other model) to the Hub, it is helpful to edit its model card (image below) so that others better understand your work (refer to the [Hugging Face documentation](https://huggingface.co/docs/hub/model-repos#what-are-model-cards-and-why-are-they-useful)).
+The `Learner` is now in the Hub in the repo named [`espejelomar/identify-my-cat`](https://huggingface.co/espejelomar/identify-my-cat). An automatic model card is created with some links and next steps. When uploading a fastai `Learner` (or any other model) to the Hub, it is helpful to edit its model card (image below) so that others better understand your work (refer to the [Hugging Face documentation](https://huggingface.co/docs/hub/models-cards)).
 
 ![Fastai Model Card](assets/64_fastai/hf_model_card.png)
 
@@ -236,7 +236,7 @@ Take the [fast.ai course](https://course.fast.ai/) (a new version is coming soon
 
 ### Would you like to integrate your library to the Hub?
 
-This integration is made possible by the [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) library. If you want to add your library to the Hub, we have a [guide](https://huggingface.co/docs/hub/adding-a-library) for you! Or simply tag someone from the Hugging Face team.
+This integration is made possible by the [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) library. If you want to add your library to the Hub, we have a [guide](https://huggingface.co/docs/hub/models-adding-libraries) for you! Or simply tag someone from the Hugging Face team.
 
 A shout out to the Hugging Face team for all the work on this integration, in particular [@osanseviero](https://twitter.com/osanseviero) 🦙.
 
