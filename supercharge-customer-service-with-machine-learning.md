@@ -1,10 +1,10 @@
 ---
-title: "Supercharged Customer Service with Hugging Face"
+title: "Supercharged Customer Service with Machine Learning"
 thumbnail: /blog/assets/61_supercharged_customer_service_with_nlp/thumbnail.png
 ---
 
 <h1>
-  	Supercharged Customer Service with Hugging Face
+  	Supercharged Customer Service with Machine Learning
 </h1>
 
 <div class="blog-metadata">
@@ -29,11 +29,9 @@ thumbnail: /blog/assets/61_supercharged_customer_service_with_nlp/thumbnail.png
 </a>
 
 
-In this notebook, we will simulate a real-world use
-case and try to solve it using tools of the Hugging Face ecosystem.
+In this blog post, we will simulate a real-world customer service use case and use tools machine learning tools of the Hugging Face ecosystem to address it.
 
-We strongly recommend using this notebook as a template/example to
-solve **your** real-world use case.
+We strongly recommend using this notebook as a template/example to solve **your** real-world use case.
 
 
 ## Defining Task, Dataset & Model
@@ -44,20 +42,19 @@ A clear definition of the use case helps identify the most suitable task, datase
 
 ### Defining your NLP task
 
-Alright, let's dive into a hypothetical problem we wish to save using models of natural language processing. Let's assume we are selling a product and our customer support team receives thousands of messages including feedback, complaints, and questions which ideally should all be answered.
+Alright, let's dive into a hypothetical problem we wish to solve using models of natural language processing models. Let's assume we are selling a product and our customer support team receives thousands of messages including feedback, complaints, and questions which ideally should all be answered.
 
-Quickly, it becomes obvious that customer support is by no means able to reply to every message. Thus, we decide to only respond
-to the most unsatisfied customers and set the goal of answering to 100% of very unsatisfied messages.
+Quickly, it becomes obvious that customer support is by no means able to reply to every message. Thus, we decide to only respond to the most unsatisfied customers and aim to answer 100% of those messages, as these are likely the most urgent compared to the other neutral and positive messages.
 
 Assuming that a) messages of very unsatisfied customers represent only a fraction of all messages and b) that we can filter out unsatisfied messages in an automated way, customer support should be able to reach this goal.
 
 To filter out unsatisfied messages in an automated way, we plan on applying natural language processing technologies.
 
-The first step is to map our use case - *filtering out unsatisfied messages* - to a natural language processing task.
+The first step is to map our use case - *filtering out unsatisfied messages* - to a machine learning task.
 
-To do so, it is recommended to go over all available tasks on the Hugging Face Hub [here](https://huggingface.co/tasks). If you are not sure which task applies to your use case, you should click on all of the different tasks to better understand them.
+The [tasks page on the Hugging Face Hub](https://huggingface.co/tasks) is a great place to get started to see which task best fits a given scenario. Each task has a detailed description and potential use cases.
 
-The task of finding messages of the most unsatisfied customers can be modeled as a text classification task: Classify a message into *very unsatisfied*, *unsatisfied*, *neutral*, *satisfied*, **or** *very satisfied*.
+The task of finding messages of the most unsatisfied customers can be modeled as a text classification task: Classify a message into one of the following 5 categories: *very unsatisfied*, *unsatisfied*, *neutral*, *satisfied*, **or** *very satisfied*.
 
 
 ### Finding suitable datasets
@@ -68,7 +65,7 @@ Keep in mind that a model is **only as good as the data it has been trained on**
 Since we consider the hypothetical use case of *filtering out unsatisfied messages*, let's look into what datasets are available.
 
 For your real-world use case, it is **very likely** that you have internal data that best represents the actual data your NLP system is supposed to handle. Therefore, you should use such internal data to train your NLP system.
-It can nevertheless be helpful to also include publicly available to improve the generalizability of your model.
+It can nevertheless be helpful to also include publicly available data to improve the generalizability of your model.
 
 Let's take a look at all available Datasets on the [Hugging Face Hub](https://huggingface.co/datasets). On the left side, you can filter the datasets according to *Task Categories* as well as *Tasks* which are more specific. Our use case corresponds to *Text Classification* -> *Sentiment Analysis* so let's select [these filters](https://huggingface.co/datasets?task_categories=task_categories:text-classification&task_ids=task_ids:sentiment-classification&sort=downloads). We are left with *ca.* 80 datasets at the time of writing this notebook. Two aspects should be evaluated when picking a dataset:
 
@@ -91,7 +88,7 @@ Let's quickly go over the dataset cards of the models above:
 -   *GLUE* is a collection of small datasets that primarily serve to compare new model architectures for researchers. The datasets are too small and don't correspond enough to our use case.
 -   *Amazon polarity* is a huge and well-suited dataset for customer feedback since the data deals with customer reviews. However, it only has binary labels (positive/negative), whereas we are looking for more granularity in the sentiment classification.
 -   *Tweet eval* uses different emojis as labels that cannot easily be mapped to a scale going from unsatisfied to satisfied.
--   *Amazon reviews multi* seems to be the most suitable dataset here. We have sentiment labels ranging from 1-5 corresponding to 1-5 stars on Amazon. These labels can be mapped to *very unsatisfied, neutral, satisfied, very satisfied*. We have inspected some examples on [the dataset viewer](https://huggingface.co/datasets/amazon_reviews_multi/viewer/en/train) that the reviews look very similar to how customer feedback reviews would look, so this seems like a very good dataset. In addition, each review has a `product_category` label, so we could even go as far as to only use reviews of a product category corresponding to the one we are working in. The dataset is multi-lingual, but we are just interested in the English version for now.
+-   *Amazon reviews multi* seems to be the most suitable dataset here. We have sentiment labels ranging from 1-5 corresponding to 1-5 stars on Amazon. These labels can be mapped to *very unsatisfied, neutral, satisfied, very satisfied*. We have inspected some examples on [the dataset viewer](https://huggingface.co/datasets/amazon_reviews_multi/viewer/en/train) to verify that the reviews look very similar to actual customer feedback reviews, so this seems like a very good dataset. In addition, each review has a `product_category` label, so we could even go as far as to only use reviews of a product category corresponding to the one we are working in. The dataset is multi-lingual, but we are just interested in the English version for now.
 -   *Yelp review full* looks like a very suitable dataset. It's large and contains product reviews and sentiment labels from 1 to 5. Sadly, the dataset viewer is not working here, and the dataset card is also relatively sparse, requiring some more time to inspect the dataset. At this point, we should read the paper, but given the time constraint of this blog post, we'll choose to go for *Amazon reviews multi*.
 As a conclusion, let's focus on the [*Amazon reviews multi*](https://huggingface.co/datasets/amazon_reviews_multi) dataset considering all training examples.
 
@@ -110,7 +107,7 @@ In addition, the Hugging Face Hub offers:
 
 Having decided on the task and the dataset that best describes our use case, we can now look into choosing a model to be used.
 
-Most likely, you will have to fine-tune a pretrained model for your use case, but it is worth checking whether they are already fine-tuned models on the Hub that perform well. In this case, you might reach a higher performance by just continuing to fine-tune such a model on your dataset.
+Most likely, you will have to fine-tune a pretrained model for your own use case, but it is worth checking whether the hub already has suitable fine-tuned models. In this case, you might reach a higher performance by just continuing to fine-tune such a model on your dataset.
 
 Let's take a look at all models that have been fine-tuned on Amazon Reviews Multi. You can find the list of models on the bottom right corner - clicking on *Browse models trained on this dataset* you can see [a list of all models fine-tuned on the dataset that are publicly available](https://huggingface.co/models?dataset=dataset:amazon_reviews_multi). Note that we are only interested in the English version of the dataset because our customer feedback will only be in English. Most of the most downloaded models are trained on the multi-lingual version of the dataset and those that don't seem to be multi-lingual have very little information or poor performance. At this point,
 it might be more sensible to fine-tune a purely pretrained model instead of using one of the already fine-tuned ones shown in the link above.
@@ -124,7 +121,7 @@ We still haven't found the perfect way of comparing different model checkpoints 
 However, both of the above resources are currently suboptimal. The model summary is not always kept up to date by the authors. The speed at which new model architectures are released and old model architectures become outdated makes it extremely difficult to have an up-to-date summary of all model architectures.
 Similarly, it doesn't necessarily mean that the most downloaded model checkpoint is the best one. E.g. [`bert-base-cased`](https://huggingface.co/bert-base-uncased) is amongst the most downloaded model checkpoints but is not the best performing checkpoint anymore.
 
-The best is often to try out various model architectures, stay up to date with new model architectures by following experts in the field, and check well-known leaderboards.
+The best approach is to try out various model architectures, stay up to date with new model architectures by following experts in the field, and check well-known leaderboards.
 
 For text-classification, the important benchmarks to look at are [GLUE](https://gluebenchmark.com/leaderboard) and [SuperGLUE](https://super.gluebenchmark.com/leaderboard). Both benchmarks evaluate pretrained models on a variety of text-classification tasks, such as grammatical correctness, natural language inference, Yes/No question answering, etc..., which are quite similar to our target task of sentiment analysis. Thus, it is reasonable to choose one of the leading models of these benchmarks for our task.
 
@@ -584,7 +581,7 @@ trainer.save_metrics("train", train_metrics)
 ```
 
 
-Cool, we see that the model seems to learn something! Training loss and validation loss is going down and the accuracy also ends up being well over random chance (20%). Interestingly, we see accuracy of around **58.6 %** already after 5000 steps which doesn't improve that much anymore afterward. Choosing a bigger model or training for longer would have probably given better results here, but that's good enough for our hypothetical use case!
+Cool, we see that the model seems to learn something! Training loss and validation loss are going down and the accuracy also ends up being well over random chance (20%). Interestingly, we see an accuracy of around **58.6 %** after only 5000 steps which doesn't improve that much anymore afterward. Choosing a bigger model or training for longer would have probably given better results here, but that's good enough for our hypothetical use case!
 
 Alright, finally let's upload the model checkpoint to the Hub.
 
@@ -806,6 +803,6 @@ More advanced optimization methods include using open-source accelerator librari
 
 At Hugging Face, we have been working a lot to facilitate the optimization of models, especially with our open-source [Optimum library](https://huggingface.co/hardware). Optimum makes it extremely simple to optimize most 🤗 Transformers models.
 
-If you're looking for **highly optimized** solutions which don't require any technical knowledge, you might be interested in one of Hugging Face's paid inference services:
+If you're looking for **highly optimized** solutions which don't require any technical knowledge, you might be interested in the [Inference API](https://huggingface.co/inference-api), a plug & play solution to serve in production a wide variety of machine learning tasks, including sentiment analysis.
 
--   [Inference API](https://huggingface.co/inference-api)
+Moreover, if you are searching for **support for your custom use cases**, Hugging Face's team of experts can help accelerate your ML projects! Our team answer questions and find solutions as needed in your machine learning journey from research to production. Visit [hf.co/support](https://huggingface.co/support) to learn more and request a quote.
