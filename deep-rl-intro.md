@@ -562,6 +562,8 @@ In the next chapter, [we’re going to learn about Q-Learning and dive deeper *
 
 And don't forget to share with your friends who want to learn 🤗 !
 
+Finally, we want **to improve and update the course iteratively with your feedback**. If you have some, please fill this form 👉 https://forms.gle/3HgA7bEHwAmmLfwh9
+
 ### Keep learning, stay awesome,
 </body>
 </html>
