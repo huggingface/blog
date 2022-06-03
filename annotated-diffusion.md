@@ -1,6 +1,6 @@
 ---
 title: The Annotated Diffusion Model
-thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
+thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
 ---
 
 <h1>

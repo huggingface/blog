@@ -863,7 +863,7 @@
 - local: annotated-diffusion
   title: "The Annotated Diffusion Model"
   author: nielsrogge
-  thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
+  thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
   date: June 1, 2022
   tags:
   - guide
