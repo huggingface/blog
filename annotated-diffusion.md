@@ -1007,12 +1007,12 @@ Seems like the model is capable of generating a nice T-shirt! Keep in mind that 
 
 Note that the DDPM paper showed that diffusion models are a promising direction for (un)conditional image generation. This has since then (immensely) been improved, most notably for text-conditional image generation. Below, we list some important (but far from exhaustive) follow-up works:
 
-- Improved Denoising Diffusion Probabilistic Models [Nichol et al., 2021](https://arxiv.org/abs/2102.09672): finds that learning the variance of the conditional distribution (besides the mean) helps in improving performance
-- Cascaded Diffusion Models for High Fidelity Image Generation [Ho et al., 2021](https://arxiv.org/abs/2106.15282): introduce cascaded diffusion, which comprises a pipeline of multiple diffusion models that generate images of increasing resolution for high-fidelity image synthesis
-- Diffusion Models Beat GANs on Image Synthesis [Dhariwal et al., 2021](https://arxiv.org/abs/2105.05233): show that diffusion models can achieve image sample quality superior to the current state-of-the-art generative models by improving the U-Net architecture, as well as introducing classifier guidance
-- Classifier-Free Diffusion Guidance [Ho et al., 2021](https://openreview.net/pdf?id=qw8AKxfYbI): shows that you don't need a classifier for guiding a diffusion model by jointly training a conditional and an unconditional diffusion model with a single neural network
-- Hierarchical Text-Conditional Image Generation with CLIP Latents (DALL-E 2) [Ramesh et al., 2022](https://cdn.openai.com/papers/dall-e-2.pdf): use a prior to turn a text caption into a CLIP image embedding, after which a diffusion model decodes it into an image
-- Photorealistic Text-to-Image Diffusion Models with Deep Language Understanding (ImageGen) [Saharia et al., 2022](https://arxiv.org/abs/2205.11487): shows that combining a large pre-trained language model (e.g. T5) with cascaded diffusion works well for text-to-image synthesis
+- Improved Denoising Diffusion Probabilistic Models ([Nichol et al., 2021](https://arxiv.org/abs/2102.09672)): finds that learning the variance of the conditional distribution (besides the mean) helps in improving performance
+- Cascaded Diffusion Models for High Fidelity Image Generation ([Ho et al., 2021](https://arxiv.org/abs/2106.15282)): introduce cascaded diffusion, which comprises a pipeline of multiple diffusion models that generate images of increasing resolution for high-fidelity image synthesis
+- Diffusion Models Beat GANs on Image Synthesis ([Dhariwal et al., 2021](https://arxiv.org/abs/2105.05233)): show that diffusion models can achieve image sample quality superior to the current state-of-the-art generative models by improving the U-Net architecture, as well as introducing classifier guidance
+- Classifier-Free Diffusion Guidance ([Ho et al., 2021](https://openreview.net/pdf?id=qw8AKxfYbI)): shows that you don't need a classifier for guiding a diffusion model by jointly training a conditional and an unconditional diffusion model with a single neural network
+- Hierarchical Text-Conditional Image Generation with CLIP Latents (DALL-E 2) ([Ramesh et al., 2022](https://cdn.openai.com/papers/dall-e-2.pdf)): use a prior to turn a text caption into a CLIP image embedding, after which a diffusion model decodes it into an image
+- Photorealistic Text-to-Image Diffusion Models with Deep Language Understanding (ImageGen) ([Saharia et al., 2022](https://arxiv.org/abs/2205.11487)): shows that combining a large pre-trained language model (e.g. T5) with cascaded diffusion works well for text-to-image synthesis
 
 Note that this list only includes important works until the time of writing, which is June 1st, 2022.
 
