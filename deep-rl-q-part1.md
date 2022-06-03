@@ -325,20 +325,20 @@ For instance, if we train a state-value function using Monte Carlo:
   <img src="assets/70_deep_rl_q_part1/MC-4p.jpg" alt="Monte Carlo"/>
 </figure>
 
-- We have a list of state, action, rewards, next_state, **we need to calculate the return Gt**
-- $G_t = R_{t+1} + R_{t+2} + R_{t+3} ...$
-- $G_t = R_{t+1} + R_{t+2} + R_{t+3}…$ (for simplicity we don’t discount the rewards).
-- Gt = 1 + 0 + 0 + 0+ 0 + 0 + 1 + 1+ 0 + 0
-- Gt= 3
-- We can now update V(S0):
+- We have a list of state, action, rewards, next_state, **we need to calculate the return \\(G{t}\\)**
+- \\(G_t = R_{t+1} + R_{t+2} + R_{t+3} ...\\)
+- \\(G_t = R_{t+1} + R_{t+2} + R_{t+3}…\\) (for simplicity we don’t discount the rewards).
+- \\(G_t = 1 + 0 + 0 + 0+ 0 + 0 + 1 + 1 + 0 + 0\\)
+- \\(G_t= 3\\)
+- We can now update \\(V(S_0)\\):
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/MC-5.jpg" alt="Monte Carlo"/>
 </figure>
 
-- New V(S0) = V(S0) + lr * [Gt — V(S0)]
-- New V(S0) = 0 + 0.1 * [3 –0]
-- The new V(S0) = 0.3
+- New \\(V(S_0) = V(S_0) + lr * [G_t — V(S_0)]\\)
+- New \\(V(S_0) = 0 + 0.1 * [3 – 0]\\)
+- New \\(V(S_0) = 0.3\\)
 
 
 <figure class="image table text-center m-0 w-full">
@@ -348,14 +348,14 @@ For instance, if we train a state-value function using Monte Carlo:
 
 ### **Temporal Difference Learning: learning at each step**
 
-- **Temporal difference, on the other hand, waits for only one interaction (one step) St+1**
-- to form a TD target and update V(St) using Rt+1 and gamma * V(St+1).
+- **Temporal difference, on the other hand, waits for only one interaction (one step) \\(S_{t+1}\\)**
+- to form a TD target and update \\(V(S_t)\\) using \\(R_{t+1}\\) and \\(gamma * V(S_{t+1})\\).
 
-The idea with **TD is to update the V(St) at each step.**
+The idea with **TD is to update the \\(V(S_t)\\) at each step.**
 
-But because we didn't play during an entire episode, we don't have Gt (expected return). Instead, **we estimate Gt by adding Rt+1 and the discounted value of the next state.**
+But because we didn't play during an entire episode, we don't have \\(G_t\\) (expected return). Instead, **we estimate \\(G_t\\) by adding \\(R_{t+1}\\) and the discounted value of the next state.**
 
-We speak about **bootstrap because TD bases its update part on an existing estimate V(St+1) and not a complete sample Gt.**
+We speak about **bootstrap because TD bases its update part on an existing estimate \\(V(S_{t+1})\\) and not a complete sample \\(G_t\\).**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/TD-1.jpg" alt="Temporal Difference"/>
@@ -376,7 +376,7 @@ If we take the same example,
 - We just started to train our Value function, so it returns 0 value for each state.
 - Our learning rate (lr) is 0.1, and our discount rate is 1 (no discount).
 - Our mouse explore the environment and take a random action: **going to the left**
-- It gets a reward Rt+1 = 1 since **it eats a piece of cheese**
+- It gets a reward  \\(R_{t+1} = 1\\) since **it eats a piece of cheese**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/TD-2p.jpg" alt="Temporal Difference"/>
@@ -386,13 +386,13 @@ If we take the same example,
   <img src="assets/70_deep_rl_q_part1/TD-3.jpg" alt="Temporal Difference"/>
 </figure>
 
-We can now update V(S0):
+We can now update  \\(V(S_0)\\):
 
-New V(S0) = V(S0) + lr * [R1 + gamma * V(S1) — V(S0)]
+New  \\(V(S_0) = V(S_0 + lr * [R_1 + gamma * V(S_1) - V(S_0)]\\)
 
-New V(S0) = 0 + 0.1 * [1 + 0.99 * 0–0]
+New \\(V(S_0) = 0 + 0.1 * [1 + 0.99 * 0–0]\\)
 
-The new V(S0) = 0.1
+New \\(V(S_0) = 0.1\\)
 
 So we just updated our value function for State 0.
 
@@ -406,7 +406,7 @@ Now we **continue to interact with this environment with our updated value func
 If we summarize:
 
 - With Monte Carlo, we update the value function from a complete episode, and so we **use the actual accurate discounted return of this episode.**
-- With TD learning, we update the value function from a step, so we replace Gt that we don't have with **an estimated return called TD target.**
+- With TD learning, we update the value function from a step, so we replace \\(G_t\\) that we don't have with **an estimated return called TD target.**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/Summary.jpg" alt="Summary"/>
