@@ -166,25 +166,25 @@ At the beginning of the training, **the probability of doing exploration will b
 
 Remember that in TD Learning, we update our policy or value function (depending on the RL method we choose) **after one step of the interaction.**
 
-To produce our TD target, **we used the immediate reward Rt+1 plus the discounted value of the next state best state-action pair** (we call that bootstrap).
+To produce our TD target, **we used the immediate reward \\(R_{t+1}\\) plus the discounted value of the next state best state-action pair** (we call that bootstrap).
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/73_deep_rl_q_part2/Q-learning-7.jpg" alt="Q-learning"/>
 </figure>
 
-Therefore, our Q(St, At) **update formula goes like this:**
+Therefore, our \\(Q(S_t, A_t)\\) **update formula goes like this:**
 
   <figure class="image table text-center m-0 w-full">
   <img src="assets/73_deep_rl_q_part2/Q-learning-8.jpg" alt="Q-learning"/>
 </figure>
 
-It means that to update our Q(St,At):
+It means that to update our \\(Q(S_t, A_t)\\):
 
-- We need St, At, Rt+1, St+1.
+- We need \\(S_t, A_t, R_{t+1}, S_{t+1}\\).
 - To update our Q-value at a given state-action pair, we use the TD target.
 
 How do we form the TD target? 
-1. We obtain the reward after taking the action Rt+1.
+1. We obtain the reward after taking the action \\(R_{t+1}\\).
 2. To get the **best next-state-action pair value**, we use a greedy policy to select the next best action. Note that this is not an epsilon greedy policy, this will always take the action with the highest state-action value.
 
 Then when the update of this Q-value is done. We start in a new_state and select our action **using our epsilon-greedy policy again.**
@@ -255,7 +255,8 @@ The reward function goes like this:
 <figure class="image table text-center m-0 w-full">
   <img src="assets/73_deep_rl_q_part2/q-ex-2.jpg" alt="Maze-Example"/>
 </figure>
-To train our agent to have an optimal policy (so a policy that goes right, right, down), **we will use the Q-Learning algorithm.**
+  
+To train our agent to have an optimal policy (so a policy that goes right, right, down), **we will use the Q-Learning algorithm**.
 
 **Step 1: We initialize the Q-Table**
 
@@ -279,16 +280,16 @@ Because epsilon is big = 1.0, I take a random action, in this case, I go right.
 
 **Step 3: Perform action At, gets Rt+1 and St+1**
 
-By going right, I've got a small cheese, so Rt+1 = 1, and I'm in a new state.
+By going right, I've got a small cheese, so \\(R_{t+1} = 1\\), and I'm in a new state.
 
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/73_deep_rl_q_part2/q-ex-4.jpg" alt="Maze-Example"/>
 </figure>
 
-**Step 4: Update Q(St, At)**
+**Step 4: Update \\(Q(S_t, A_t)\\)**
 
-We can now update Q(St, At) using our formula.
+We can now update \\(Q(S_t, A_t)\\) using our formula.
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/73_deep_rl_q_part2/q-ex-5.jpg" alt="Maze-Example"/>
@@ -309,15 +310,15 @@ I took action down. **Not a good action since it leads me to the poison.**
   <img src="assets/73_deep_rl_q_part2/q-ex-6.jpg" alt="Maze-Example"/>
 </figure>
 
-**Step 3: Perform action At, gets Rt+1 and St+1**
+**Step 3: Perform action At, gets \\(R_{t+1}\\) and St+1**
 
-Because I go to the poison state, **I get Rt+1 = -10, and I die.**
+Because I go to the poison state, **I get \\(R_{t+1} = -10\\), and I die.**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/73_deep_rl_q_part2/q-ex-7.jpg" alt="Maze-Example"/>
 </figure>
 
-**Step 4: Update Q(St, At)**
+**Step 4: Update \\(Q(S_t, A_t)\\)**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/73_deep_rl_q_part2/q-ex-8.jpg" alt="Maze-Example"/>
