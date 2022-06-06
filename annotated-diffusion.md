@@ -548,7 +548,7 @@ def linear_beta_schedule(timesteps):
 def quadratic_beta_schedule(timesteps):
     beta_start = 0.0001
     beta_end = 0.02
-    return torch.linspace(beta_start**2, beta_end**2, timesteps) ** 2
+    return torch.linspace(beta_start**0.5, beta_end**0.5, timesteps) ** 2
 
 def sigmoid_beta_schedule(timesteps):
     beta_start = 0.0001
