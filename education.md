@@ -79,7 +79,6 @@ Apart from those efforts, many team members are involved in other educational ef
 ## 🤗 **Education Events & News**
 
 - **05/13**[NEWS]: Are you studying machine learning? Do you want to be a part of our ML democratization efforts and show your campus community how to build ML models with Hugging Face? We want to support you in your journey! You have until June 13th to [apply](https://huggingface.co/blog/ambassadors) to 🤗 Student Application Program.
-- **06/06**[EVENT]: How to Teach Open-Source Machine Learning Tools. [Register](https://www.eventbrite.com/e/how-to-teach-open-source-machine-learning-tools-tickets-310980931337)
 - **09/08**[EVENT]: ML Demo.cratization tour in Argentina at 2pm (GMT-3). [Link coming soon]()
 
 🔥 We are currently working on more content in the course, and more! Stay tuned!
