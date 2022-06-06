@@ -8,7 +8,7 @@ thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published March 17, 2022.</small>
+    <small>Published June 6th, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/annotated-diffusion.md">
         Update on GitHub
     </a>
@@ -34,7 +34,7 @@ thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
-<a target="_blank" href="https://colab.research.google.com/drive/1BImTyBjW3KtvHGVcjGpYYFZdRGXzM3-j?usp=sharing">
+<a target="_blank" href="https://colab.research.google.com/drive/1GPsnxS_JW6LRv7bZNFiUtY1f4vXwu0md?usp=sharing">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
