@@ -9,7 +9,7 @@ thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published March 17, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/fine-tune-segformer.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/annotated-diffusion.md">
         Update on GitHub
     </a>
 </div>
@@ -47,7 +47,7 @@ from functools import partial
 
 %matplotlib inline
 import matplotlib.pyplot as plt
-from tqdm import tqdm
+from tqdm.auto import tqdm
 from einops import rearrange
 
 import torch
@@ -77,8 +77,8 @@ Image(filename='assets/78_annotated-diffusion/ddpm_paper.png')
 A (denoising) diffusion model isn't that complex if you compare it to other generative models such as Normalizing Flows, GANs or VAEs: they all convert noise from some simple distribution to a data sample. This is also the case here where **a neural network learns to gradually denoise data** starting from pure noise. 
 
 In a bit more detail for images, the set-up consists of 2 processes:
-* a fixed (or predefined) forward diffusion process (\\(q\\) of our choosing, that gradually adds Gaussian noise to an image, until you end up with pure noise
-* a learned reverse denoising diffusion process (\\(p_\theta\\)), where a neural network is trained to gradually denoise an image starting from pure noise, until you end up with an actual image.
+* a fixed (or predefined) forward diffusion process \\(q\\) of our choosing, that gradually adds Gaussian noise to an image, until you end up with pure noise
+* a learned reverse denoising diffusion process \\(p_\theta\\), where a neural network is trained to gradually denoise an image starting from pure noise, until you end up with an actual image.
 
 <p align="center">
     <img src="assets/78_annotated-diffusion/diffusion_figure.png" width="600" />
@@ -107,13 +107,13 @@ However, we don't know \\(p(\mathbf{x}_{t-1} | \mathbf{x}_t)\\). It's intractabl
 
 Ok, so we need a neural network to represent a (conditional) probability distribution of the backward process. If we assume this reverse process is Gaussian as well, then recall that any Gaussian distribution is defined by 2 parameters:
 * a mean parametrized by \\(\mu_\theta\\);
-* and a parametrized covariance \\(\Sigma_\theta\\);
+* a variance parametrized by \\(\Sigma_\theta\\);
 
 so we can parametrize the process as 
 $$ p_\theta (\mathbf{x}_{t-1} | \mathbf{x}_t) = \mathcal{N}(\mathbf{x}_{t-1}; \mu_\theta(\mathbf{x}_{t},t), \Sigma_\theta (\mathbf{x}_{t},t))$$
-where the mean and covariance heads are also conditioned on the noise level \\(t\\).
+where the mean and variance are also conditioned on the noise level \\(t\\).
 
-Hence, our neural network needs to learn/represent the mean and covariance. However, the DDPM authors decided to **keep the variance (\\(\Sigma_\theta\\)) fixed, and let the neural network only learn (represent) the mean of this conditional probability distribution**. From the paper:
+Hence, our neural network needs to learn/represent the mean and variance. However, the DDPM authors decided to **keep the variance fixed, and let the neural network only learn (represent) the mean \\(\mu_\theta\\) of this conditional probability distribution**. From the paper:
 
 > First, we set \\(\Sigma_\theta ( \mathbf{x}_t, t) = \sigma^2_t \mathbf{I}\\) to untrained time dependent constants. Experimentally, both \\(\sigma^2_t = \beta_t\\) and \\(\sigma^2_t  = \tilde{\beta}_t\\) (see paper) had similar results. 
 
@@ -135,11 +135,11 @@ Another beauty of this property, as shown in Ho et al. is that, one can (after s
 
 $$ \mathbf{\mu}_\theta(\mathbf{x}_t, t) = \frac{1}{\sqrt{\alpha_t}} \left(  \mathbf{x}_t - \frac{\beta_t}{\sqrt{1- \bar{\alpha}_t}} \mathbf{\epsilon}_\theta(\mathbf{x}_t, t) \right)$$
 
-The final objective function \\(L_t\\)then looks as follows (for a random time step \\(t\\) given \\(\mathbf{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})\\): 
+The final objective function \\(L_t\\) then looks as follows (for a random time step \\(t\\) given \\(\mathbf{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})\\) ): 
 
 $$ \| \mathbf{\epsilon} - \mathbf{\epsilon}_\theta(\mathbf{x}_t, t) \|^2 = \| \mathbf{\epsilon} - \mathbf{\epsilon}_\theta( \sqrt{\bar{\alpha}_t} \mathbf{x}_0 + \sqrt{(1- \bar{\alpha}_t)  } \mathbf{\epsilon}, t) \|^2.$$
 
-Here, \\(\mathbf{x}_0\\) is the initial (real, uncorruped) image, and we see the direct noise level \\(t\\)sample given by the fixed forward process. \\(\mathbf{\epsilon}\\)is the pure noise sampled at time step \\(t\\), and \\(\mathbf{\epsilon}_\theta (\mathbf{x}_t, t)\\) is our neural network. The neural network is optimized using a simple mean squared error between the true and the predicted Gaussian noise.
+Here, \\(\mathbf{x}_0\\) is the initial (real, uncorruped) image, and we see the direct noise level \\(t\\) sample given by the fixed forward process. \\(\mathbf{\epsilon}\\) is the pure noise sampled at time step \\(t\\), and \\(\mathbf{\epsilon}_\theta (\mathbf{x}_t, t)\\) is our neural network. The neural network is optimized using a simple mean squared error (MSE) between the true and the predicted Gaussian noise.
 
 The training algorithm now looks as follows:
 
@@ -150,8 +150,8 @@ The training algorithm now looks as follows:
 In other words:
 * we take a random sample \\(\mathbf{x}_0\\) from the real unknown and possibily complex data distribution \\(q(\mathbf{x}_0)\\)
 * we sample a noise level \\(t\\) uniformally between \\(1\\) and \\(T\\) (i.e., a random time step)
-* we sample some noise from a Gaussian distribution and corrupt the input by this noise at level \\(t\\)(using the nice property defined above)
-* the neural network is trained to predict this noise based on the corruped image \\(\mathbf{x}_t\\) (i.e. noise applied on \\(\mathbf{x}_0\\) based on known schedule \\(\beta_t\\)
+* we sample some noise from a Gaussian distribution and corrupt the input by this noise at level \\(t\\) (using the nice property defined above)
+* the neural network is trained to predict this noise based on the corruped image \\(\mathbf{x}_t\\) (i.e. noise applied on \\(\mathbf{x}_0\\) based on known schedule \\(\beta_t\\))
 
 In reality, all of this is done on batches of data, as one uses stochastic gradient descent to optimize neural networks.
 
@@ -285,10 +285,10 @@ class ConvNextBlock(nn.Module):
         self.ds_conv = nn.Conv2d(dim, dim, 7, padding=3, groups=dim)
 
         self.net = nn.Sequential(
-            LayerNorm(dim) if norm else nn.Identity(),
+            nn.GroupNorm(1, dim) if norm else nn.Identity(),
             nn.Conv2d(dim, dim_out * mult, 3, padding=1),
             nn.GELU(),
-            LayerNorm(dim_out * mult),
+            nn.GroupNorm(1, dim_out * mult),
             nn.Conv2d(dim_out * mult, dim_out, 3, padding=1),
         )
 
@@ -308,7 +308,7 @@ class ConvNextBlock(nn.Module):
 
 ### Attention module
 
-Next, we define the attention module, which the DDPM authors added in between the convolutional blocks. Attention is the building block of the famous Transformer architecture ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)), which has shown great success in various domains of AI, from NLP to protein folding. Phil Wang employs 2 variants of attention: one is regular multi-head self-attention (as used in the Transformer), the other one is a [linear attention variant](https://github.com/lucidrains/linear-attention-transformer) ([Shen et al., 2018](https://arxiv.org/abs/1812.01243)), whose time- and memory requirements scale linear in the sequence length, as opposed to quadratic for regular attention.
+Next, we define the attention module, which the DDPM authors added in between the convolutional blocks. Attention is the building block of the famous Transformer architecture ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)), which has shown great success in various domains of AI, from NLP and vision to [protein folding](https://www.deepmind.com/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology). Phil Wang employs 2 variants of attention: one is regular multi-head self-attention (as used in the Transformer), the other one is a [linear attention variant](https://github.com/lucidrains/linear-attention-transformer) ([Shen et al., 2018](https://arxiv.org/abs/1812.01243)), whose time- and memory requirements scale linear in the sequence length, as opposed to quadratic for regular attention.
 
 For an extensive explanation of the attention mechanism, we refer the reader to Jay Allamar's [wonderful blog post](https://jalammar.github.io/illustrated-transformer/).
 
@@ -366,28 +366,16 @@ class LinearAttention(nn.Module):
         return self.to_out(out)
 ```
 
-### Layer normalization
+### Group normalization
 
-The DDPM authors interleave the convolutional/attention layers of the U-Net with [group normalization](https://arxiv.org/abs/1803.08494). However, Phil Wang [isn't really a fan](https://github.com/lucidrains/denoising-diffusion-pytorch/issues/12#issuecomment-1025052175) of group normalization and uses layer normalization instead. Below, we also define a `PreNorm` class, which will be used to apply layernorm before the attention layer, as we'll see further. Note that there's been a [debate](https://tnq177.github.io/data/transformers_without_tears.pdf) about whether to apply layernorm before or after attention in Transformers.
+The DDPM authors interleave the convolutional/attention layers of the U-Net with group normalization ([Wu et al., 2018](https://arxiv.org/abs/1803.08494)). Below, we define a `PreNorm` class, which will be used to apply groupnorm before the attention layer, as we'll see further. Note that there's been a [debate](https://tnq177.github.io/data/transformers_without_tears.pdf) about whether to apply normalization before or after attention in Transformers.
 
 ```python
-class LayerNorm(nn.Module):
-    def __init__(self, dim, eps = 1e-5):
-        super().__init__()
-        self.eps = eps
-        self.g = nn.Parameter(torch.ones(1, dim, 1, 1))
-        self.b = nn.Parameter(torch.zeros(1, dim, 1, 1))
-
-    def forward(self, x):
-        var = torch.var(x, dim = 1, unbiased = False, keepdim = True)
-        mean = torch.mean(x, dim = 1, keepdim = True)
-        return (x - mean) / (var + self.eps).sqrt() * self.g + self.b
-
 class PreNorm(nn.Module):
     def __init__(self, dim, fn):
         super().__init__()
         self.fn = fn
-        self.norm = LayerNorm(dim)
+        self.norm = nn.GroupNorm(1, dim)
 
     def forward(self, x):
         x = self.norm(x)
@@ -396,7 +384,7 @@ class PreNorm(nn.Module):
 
 ### Conditional U-Net
 
-Now that we've defined all building blocks (position embeddings, ResNet/ConvNeXT blocks, attention and layer normalization), it's time to define the entire neural network. Recall that the job of the network \\(\mathbf{\epsilon}_\theta(\mathbf{x}_t, t)\\) is to take in a batch of noisy images + noise levels, and output the noise added to the input. More formally:
+Now that we've defined all building blocks (position embeddings, ResNet/ConvNeXT blocks, attention and group normalization), it's time to define the entire neural network. Recall that the job of the network \\(\mathbf{\epsilon}_\theta(\mathbf{x}_t, t)\\) is to take in a batch of noisy images + noise levels, and output the noise added to the input. More formally:
 
 - the network takes a batch of noisy images of shape `(batch_size, num_channels, height, width)` and a batch of noise levels of shape `(batch_size, 1)` as input, and returns a tensor of shape `(batch_size, num_channels, height, width)`
 
@@ -536,16 +524,14 @@ The forward diffusion process gradually adds noise to an image from the real dis
 increasing linearly from \\(\beta_1 = 10^{−4}\\)
 to \\(\beta_T = 0.02\\).
 
-However, it was shown in [Improved Denoising Diffusion Probabilistic
-Models](https://openreview.net/pdf?id=-NEXDKk8gZ) that better results can be achieved when employing a cosine schedule. 
+However, it was shown in ([Nichol et al., 2021](https://arxiv.org/abs/2102.09672)) that better results can be achieved when employing a cosine schedule. 
 
 Below, we define various schedules for the \\(T\\) timesteps (we'll choose one later on).
 
 ```python
 def cosine_beta_schedule(timesteps, s=0.008):
     """
-    cosine schedule
-    as proposed in https://openreview.net/forum?id=-NEXDKk8gZ
+    cosine schedule as proposed in https://arxiv.org/abs/2102.09672
     """
     steps = timesteps + 1
     x = torch.linspace(0, timesteps, steps)
@@ -609,7 +595,7 @@ Noise is added to PyTorch tensors, rather than Pillow Images. We'll first define
 
 These transformations are fairly simple: we first normalize images by dividing by \\(255\\) (such that they are in the \\([0,1]\\) range), and then make sure they are in the \\([-1, 1]\\) range. From the DPPM paper:
 
-> We assume that image data consists of integers in \\(\{0, 1, ... , 255\}\\)scaled linearly to \\([−1, 1]\\). This
+> We assume that image data consists of integers in \\(\{0, 1, ... , 255\}\\) scaled linearly to \\([−1, 1]\\). This
 ensures that the neural network reverse process operates on consistently scaled inputs starting from
 the standard normal prior \\(p(\mathbf{x}_T )\\). 
 
@@ -713,7 +699,7 @@ import matplotlib.pyplot as plt
 torch.manual_seed(0)
 
 # source: https://pytorch.org/vision/stable/auto_examples/plot_transforms.html#sphx-glr-auto-examples-plot-transforms-py
-def plot(imgs, with_orig=True, row_title=None, **imshow_kwargs):
+def plot(imgs, with_orig=False, row_title=None, **imshow_kwargs):
     if not isinstance(imgs[0], list):
         # Make a 2d grid even if there's just 1 row
         imgs = [imgs]
@@ -766,17 +752,17 @@ def p_losses(denoise_model, x_start, t, noise=None, loss_type="l1"):
     return loss
 ```
 
-The `denoise_model` will be our U-Net defined above. We'll employ a simple L1 loss between the true and the predicted noise.
+The `denoise_model` will be our U-Net defined above. We'll employ the Huber loss between the true and the predicted noise.
 
 ## Define a PyTorch Dataset + DataLoader
 
-Here we define a regular PyTorch Dataset. The dataset simply consists of images from a real dataset, like Fashion-MNIST, CIFAR-10 or ImageNet, scaled linearly to \\([−1, 1]\\).
+Here we define a regular [PyTorch Dataset](https://pytorch.org/tutorials/beginner/basics/data_tutorial.html). The dataset simply consists of images from a real dataset, like Fashion-MNIST, CIFAR-10 or ImageNet, scaled linearly to \\([−1, 1]\\).
 
 Each image is resized to the same size. Interesting to note is that images are also randomly horizontally flipped. From the paper:
 
 > We used random horizontal flips during training for CIFAR10; we tried training both with and without flips, and found flips to improve sample quality slightly.
 
-Here we use the 🤗 Datasets library to easily load the Fashion MNIST dataset from the [hub](https://huggingface.co/datasets/fashion_mnist). This dataset consists of images which already have the same resolution, namely 28x28.
+Here we use the 🤗 [Datasets library](https://huggingface.co/docs/datasets/index) to easily load the Fashion MNIST dataset from the [hub](https://huggingface.co/datasets/fashion_mnist). This dataset consists of images which already have the same resolution, namely 28x28.
 
 ```python
 from datasets import load_dataset
@@ -908,11 +894,8 @@ Below, we define the model, and move it to the GPU. We also define a standard op
 
 ```python
 from torch.optim import Adam
-from tqdm.notebook import tqdm
-from torchvision.utils import save_image
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
-epochs = 5
 
 model = Unet(
     dim=image_size,
@@ -927,6 +910,10 @@ optimizer = Adam(model.parameters(), lr=1e-3)
 Let's start training!
 
 ```python
+from torchvision.utils import save_image
+
+epochs = 5
+
 for epoch in range(epochs):
     for step, batch in enumerate(dataloader):
       optimizer.zero_grad()
@@ -990,14 +977,14 @@ for epoch in range(epochs):
 
 ## Sampling (inference)
 
-To sample from the model, we can just use our sample method defined above:
+To sample from the model, we can just use our sample function defined above:
 
 
 ```python
 # sample 64 images
 samples = sample(model, image_size=image_size, batch_size=64, channels=channels)
 
-# show the fifth one
+# show a random one
 plt.imshow(samples[5].cpu().numpy().reshape(28, 28, 1), cmap="gray")
 ```
 
@@ -1018,4 +1005,4 @@ Note that the DDPM paper showed that diffusion models are a promising direction 
 
 Note that this list only includes important works until the time of writing, which is June 6th, 2022.
 
-For now, it seems that the main (perhaps only) disadvantage of diffusion models is that they require multiple forward passes to generate an image (which is not the case for other generative models). However, there's [research going on](https://arxiv.org/abs/2204.13902) that enables high-fidelity generation in as few as 10 denoising steps.
+For now, it seems that the main (perhaps only) disadvantage of diffusion models is that they require multiple forward passes to generate an image (which is not the case for generative models like GANs). However, there's [research going on](https://arxiv.org/abs/2204.13902) that enables high-fidelity generation in as few as 10 denoising steps.
