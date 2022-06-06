@@ -241,4 +241,4 @@ A very brief example of this is if we have an `AttributeDictionary` with a key o
 
 Hopefully by now you have a brief understanding of how this new searching API can directly impact your workflow and exploration of the Hub! Along with this, perhaps you know of a place in your code where the `AttributeDictionary` might be useful for you to use.
 
-From here, make sure to check out the official documentation on [Searching the Hub Efficiently](https://huggingface.co/docs/hub/searching-the-hub) and don't forget to give us a [star](https://github.com/huggingface/huggingface_hub)!
+From here, make sure to check out the official documentation on [Searching the Hub Efficiently](https://huggingface.co/docs/huggingface_hub/searching-the-hub) and don't forget to give us a [star](https://github.com/huggingface/huggingface_hub)!

@@ -97,9 +97,9 @@ As a final note, we recommend making use of Hub's dataset functionality even whe
 In addition, the Hugging Face Hub offers:
 
 -   [A dataset viewer for every dataset](https://huggingface.co/datasets/amazon_reviews_multi)
--   [Easy demoing of every model using widgets](https://huggingface.co/docs/hub/main#whats-a-widget)
--   [Private and Public models](https://huggingface.co/docs/hub/adding-a-model#creating-a-repository)
--   [Git version control for repositories](https://huggingface.co/docs/hub/main#whats-a-repository)
+-   [Easy demoing of every model using widgets](https://huggingface.co/docs/hub/models-widgets)
+-   [Private and Public models](https://huggingface.co/docs/hub/repositories-settings)
+-   [Git version control for repositories](https://huggingface.co/docs/hub/repositories-getting-started)
 -   [Highest security mechanisms](https://huggingface.co/docs/hub/security)
 
 
