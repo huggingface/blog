@@ -49,6 +49,8 @@ And **we'll train it to play Space Invaders and other Atari environments using [
   
 So let’s get started! 🚀
 
+To be able to understand this unit, **you need to understand [Q-Learning](https://huggingface.co/blog/deep-rl-q-part2) first.**)
+
 [Table des matières]
 
 ## From Q-Learning to Deep Q-Learning
@@ -72,7 +74,7 @@ IMG Frozen Lake Taxi-v3
 
 But think of what we're going to do today: we will train an agent to learn to play Space Invaders using the frames as input.
 
-As **Nikita Melkozerov mentioned, Atari environments** have an observation space with a shape of (210, 160, 3), containing values ranging from 0 to 255 si that gives us 256^(210*160*3) = 256^100800 (for comparison, we have approximately 10^80 atoms in the observable universe ).
+As **[Nikita Melkozerov mentioned](https://twitter.com/meln1k), Atari environments** have an observation space with a shape of (210, 160, 3), containing values ranging from 0 to 255 si that gives us 256^(210*160*3) = 256^100800 (for comparison, we have approximately 10^80 atoms in the observable universe ).
 
 <img src="assets/78_deep_rl_dqn/atari.jpg" alt="Atari State Space"/>
 
@@ -85,4 +87,46 @@ This neural network will approximate, given a state, the different Q-values for 
 
 Now that we understand Deep Q-Learning, let's dive deeper into the Deep Q-Network.
   
-## 
+## The Deep Q-Network
+This is the architecture of our Deep Q-Learning network:
+  
+<img src="assets/78_deep_rl_dqn/deep-q-network.jpg" alt="Deep Q Network"/>
+  
+As input, we take a **stack of 4 frames** passed through the network as a state and output a **vector of Q-values for each possible action at that state**. Then, like with Q-Learning, we just need to use our epsilon-greedy policy to select which action to take.
+  
+When the Neural Network is initialized, **the Q-value estimation is terrible**. But during training, our Deep Q-Network agent will associate a situation with appropriate action and **learn to play the game well**.
+  
+### Preprocessing the input and temporal limitation
+We mentioned that we **preprocess the input**. It’s an essential step since we want to reduce the complexity of our state to reduce the computation time needed for training.
+  
+So what we do is **reduce the state space to 84x84 and grayscale it** (since color in Atari environments does not add important information).
+This is an essential saving since we **reduce our three color channels (RGB) to 1**.
+
+We can also **crop a part of the screen in some games** if it does not contain important information.
+Then we stack four frames together.
+
+<img src="assets/78_deep_rl_dqn/preprocessing.jpg" alt="Preprocessing"/>
+
+Why do we stack four frames together?
+  
+<img src="assets/78_deep_rl_dqn/stack-1.jpg" alt="Stack 1"/>
+
+We stack frames together because it helps us handle the problem of temporal limitation. Let’s take an example with the game of Pong. When you see this frame:
+
+<img src="assets/78_deep_rl_dqn/stack-2.jpg" alt="Stack 1"/>
+  
+Can you tell me where the ball is going?
+No, because one frame is not enough to have a sense of motion! But what if I add three more frames? **Here you can see that the ball is going to the right**.
+
+<img src="assets/78_deep_rl_dqn/stack-3.jpg" alt="Stack 1"/>
+That’s why, **to capture temporal information, we stack four frames together.**
+  
+Then, the stacked frames are processed by three convolutional layers. These layers **allow us to capture and exploit spatial relationships in images**. But also, because frames are stacked together, **you can exploit some spatial properties across those frames**.
+  
+Finally, we have a couple of fully connected layers that output a Q-value for each possible action at that state.
+
+<img src="assets/78_deep_rl_dqn/deep-q-network.jpg" alt="Deep Q Network"/>
+  
+So, we see that Deep Q-Learning is using a neural network to approximate, given a state, the different Q-values for each possible action at that state. Let’s now study the Deep Q-Learning algorithm.
+  
+## Deep Q
