@@ -132,18 +132,18 @@ We learned that Deep Q-Learning **uses a function approximator (a deep neural ne
 
 The difference is that, during the training phase, instead of updating the Q-value of a state-action pair directly as we have done with Q-Learning:
 
-Illustration Q-Learning
+<img src="https://huggingface.co/blog/assets/73_deep_rl_q_part2/q-ex-5.jpg" alt="Q Loss"/>
 
 In Deep Q-Learning, we create a **Loss function between our Q-value prediction and the Q-target and use Gradient Descent to update the weights of our Deep Q-Network to approximate our Q-values better**.
 
-Illustration Deep Q-loss
+<img src="assets/78_deep_rl_dqn/Q-target.jpg" alt="Q-target"/>
   
 The Deep Q-Learning training algorithm has *two phases*:
 
 - We **sample the environment** where we perform actions and store the observed experiences tuples in a replay memory.
 - Select the **small batch of tuple random and learn from it using a gradient descent update step**.
-
-Illustration two phases
+  
+<img src="assets/78_deep_rl_dqn/sampling-training.jpg" alt="Sampling Training"/>
 
 But, this is not the only change compared with Q-Learning. Deep Q-Learning training **might suffer from instability**, mainly because of combining a non-linear Q-value function (Neural Network) and bootstrapping (when we update targets with existing estimates and not an actual complete return).
 
@@ -178,6 +178,57 @@ Experience replay also has other benefits. By randomly sampling the experiences,
 In the Deep Q-Learning pseudocode, we see that we **initialize a replay memory buffer D from capacity N** (N is an hyperparameter that you can define). We then,  store experiences in the memory and then sample a minibatch of experiences to feed the Deep Q-Network during the training phase.
   
 <img src="assets/78_deep_rl_dqn/experience-replay-pseudocode.jpg" alt="Experience Replay Pseudocode"/>
+
+### Fixed Q-Target to stabilize the training
+
+When we want to calculate the TD error (aka the loss), we calculate the **difference between the TD target (Q-Target) and the current Q-value (estimation of Q)**.
+
+But we **don’t have any idea of the real TD target**. We need to estimate it. Using the Bellman equation, we saw that the TD target is just the reward of taking that action at that state plus the discounted highest Q value for the next state.
+  
+<img src="assets/78_deep_rl_dqn/Q-target.jpg" alt="Q-target"/>
+
+However, the problem is that we are using the same parameters (weights) for estimating the TD target **and** the Q value. Consequently, there is a significant correlation between the TD target and the parameters we are changing.
+
+Therefore, it means that at every step of training, **our Q values shift but also the target value shifts.** So, we’re getting closer to our target, but the target is also moving. It’s like chasing a moving target! This led to a significant oscillation in training.
+
+It’s like if you were a cowboy (the Q estimation) and you want to catch the cow (the Q-target), you must get closer (reduce the error).
+  
+<img src="assets/78_deep_rl_dqn/qtarget-1.jpg" alt="Q-target"/>
+
+At each time step, you’re trying to approach the cow, which also moves at each time step (because you use the same parameters).
+
+<img src="assets/78_deep_rl_dqn/qtarget-2.jpg" alt="Q-target"/>
+<img src="assets/78_deep_rl_dqn/qtarget-3.jpg" alt="Q-target"/>
+This leads to a bizarre path of chasing (a significant oscillation in training).
+<img src="assets/78_deep_rl_dqn/qtarget-4.jpg" alt="Q-target"/>
+
+Instead, what we see in the pseudo-code is that we:
+<img src="assets/78_deep_rl_dqn/fixed-q-target-pseudocode.jpg" alt="Fixed Q-target Pseudocode"/>
+  
+- Use a separate network with a fixed parameter for estimating the TD Target
+- At every C step, we copy the parameters from our DQN network to update the target network.
+  
+### Double DQN
+
+Double DQNs, or Double Learning, were introduced [by Hado van Hasselt](https://papers.nips.cc/paper/3964-double-q-learning). This method **handles the problem of the overestimation of Q-values.**
+
+To understand this problem, remember how we calculate the TD Target:
+
+We face a simple problem by calculating the TD target: how are we sure that **the best action for the next state is the action with the highest Q-value?**
+
+We know that the accuracy of q values depends on what action we tried **and** what neighboring states we explored.
+
+Consequently, we don’t have enough information about the best action to take at the beginning of the training. Therefore, taking the maximum q value (which is noisy) as the best action to take can lead to false positives. If non-optimal actions are regularly **given a higher Q value than the optimal best action, the learning will be complicated.**
+
+The solution is: when we compute the Q target, we use two networks to decouple the action selection from the target Q value generation. We:
+<img src="assets/78_deep_rl_dqn/double-dqn-pseudocode.jpg" alt="Double DQN Pseudocode"/>
+- Use our **DQN network** to select the best action to take for the next state (the action with the highest Q value).
+- Use our **Target network** to calculate the target Q value of taking that action at the next state.
+
+Therefore, Double DQN helps us reduce the overestimation of q values and, as a consequence, helps us train faster and have more stable learning.
+
+Since these three improvements in Deep Q-Learning, many have been added such as Prioritized Experience Replay, Dueling Deep Q-Learning. They’re out of the scope of this course but if you’re interested, check the links we put in the reading list.  👉 **[https://github.com/huggingface/deep-rl-class/blob/main/unit3/README.md](https://github.com/huggingface/deep-rl-class/blob/main/unit3/README.md)**
+
 
 ---
 Congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorial. You’ve just trained your first Deep Q-Learning agent and shared it on the Hub 🥳.
