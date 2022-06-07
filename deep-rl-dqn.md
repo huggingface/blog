@@ -206,7 +206,8 @@ Instead, what we see in the pseudo-code is that we:
 <img src="assets/78_deep_rl_dqn/fixed-q-target-pseudocode.jpg" alt="Fixed Q-target Pseudocode"/>
   
 - Use a separate network with a fixed parameter for estimating the TD Target
-- At every C step, we copy the parameters from our DQN network to update the target network.
+- Copy the parameters from our Deep Q-Network at every C step to update the target network.
+ 
   
 ### Double DQN
 
