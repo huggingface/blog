@@ -169,7 +169,7 @@ Experience Replay in Deep Q-Learning has two functions:
 ⇒ This allows us to **learn from individual experiences multiple times**.
 
 2. **Avoid forgetting previous experiences and reduce the correlation between experiences**.
-- The problem we get if we give sequential samples of experiences to our neural network is that our network tends to forget **the previous experiences as it overwrites new experiences.** For instance, if we are in the first level and then the second, which is different, our agent can forget how to behave and play in the first level.
+- The problem we get if we give sequential samples of experiences to our neural network is that it tends to forget **the previous experiences as it overwrites new experiences.** For instance, if we are in the first level and then the second, which is different, our agent can forget how to behave and play in the first level.
 
 The solution is to create a Replay Buffer that stores experience tuples while interacting with the environment and then sample a small batch of tuples. This prevents **the network from only learning about what it has immediately done.**
 
