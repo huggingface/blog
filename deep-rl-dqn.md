@@ -175,7 +175,7 @@ The solution is to create a Replay Buffer that stores experience tuples while in
 
 Experience replay also has other benefits. By randomly sampling the experiences, we remove correlation in the observation sequences and avoid **action values from oscillating or diverging catastrophically.**
 
-In the Deep Q-Learning pseudocode, we see that we **initialize a replay memory buffer D from capacity N** (N is an hyperparameter that you can define). We then,  store experiences in the memory and then sample a minibatch of experiences to feed the Deep Q-Network during the training phase.
+In the Deep Q-Learning pseudocode, we see that we **initialize a replay memory buffer D from capacity N** (N is an hyperparameter that you can define). We then, store experiences in the memory and then sample a minibatch of experiences to feed the Deep Q-Network during the training phase.
   
 <img src="assets/78_deep_rl_dqn/experience-replay-pseudocode.jpg" alt="Experience Replay Pseudocode"/>
 
