@@ -859,3 +859,12 @@
   tags:
     - graphcore
     - partnerships
+
+- local: annotated-diffusion
+  title: "The Annotated Diffusion Model"
+  author: nielsrogge
+  thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
+  date: June 7, 2022
+  tags:
+  - guide
+  - diffusion
