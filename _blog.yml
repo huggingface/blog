@@ -876,3 +876,12 @@
   tags:
   - guide
   - diffusion
+  
+- local: ml-director-insights-3
+  title: "Director of Machine Learning Insights [Part 3: Finance Edition]"
+  author: britneymuller
+  thumbnail: /blog/assets/78_ml_director_insights/thumbnail.png
+  date: June 8, 2022
+  tags:
+    - community
+    - research
