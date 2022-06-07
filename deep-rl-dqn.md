@@ -126,7 +126,58 @@ Finally, we have a couple of fully connected layers that output a Q-value for ea
   
 So, we see that Deep Q-Learning is using a neural network to approximate, given a state, the different Q-values for each possible action at that state. Let’s now study the Deep Q-Learning algorithm.
   
-## Deep Q
+## The Deep Q-Learning Algorithm
+
+We learned that Deep Q-Learning **uses a function approximator (a deep neural network) to approximate the different Q-values for each possible action at a state** (value-function estimation).
+
+The difference is that, during the training phase, instead of updating the Q-value of a state-action pair directly as we have done with Q-Learning:
+
+Illustration Q-Learning
+
+In Deep Q-Learning, we create a **Loss function between our Q-value prediction and the Q-target and use Gradient Descent to update the weights of our Deep Q-Network to approximate our Q-values better**.
+
+Illustration Deep Q-loss
+  
+The Deep Q-Learning training algorithm has *two phases*:
+
+- We **sample the environment** where we perform actions and store the observed experiences tuples in a replay memory.
+- Select the **small batch of tuple random and learn from it using a gradient descent update step**.
+
+Illustration two phases
+
+But, this is not the only change compared with Q-Learning. Deep Q-Learning training **might suffer from instability**, mainly because of combining a non-linear Q-value function (Neural Network) and bootstrapping (when we update targets with existing estimates and not an actual complete return).
+
+To help us stabilize the training, we implement three different solutions:
+1. *Experience Replay*, to make more **efficient use of experiences**.
+2. *Fixed Q-Target* **to stabilize the training**.
+3. *Double Deep Q-Learning*, to **handle the problem of the overestimation of Q-values**.
+
+We'll see these three solutions in the pseudocode. 
+
+### Experience Replay to make more efficient use of experiences
+
+Why do we create a replay memory?
+
+Experience Replay in Deep Q-Learning has two functions:
+
+1. **Make more efficient use of the experiences during the training**.
+- Experience replay helps us **make more efficient use of the experiences during the training.** Usually, in online reinforcement learning, we interact in the environment, get experiences (state, action, reward, and next state), learn from them (update the neural network) and discard them.
+- But with experience replay, we create a replay buffer that saves experience samples **that we can reuse during the training.**
+
+<img src="assets/78_deep_rl_dqn/experience-replay.jpg" alt="Experience Replay"/>
+
+⇒ This allows us to **learn from individual experiences multiple times**.
+
+2. **Avoid forgetting previous experiences and reduce the correlation between experiences**.
+- The problem we get if we give sequential samples of experiences to our neural network is that our network tends to forget **the previous experiences as it overwrites new experiences.** For instance, if we are in the first level and then the second, which is different, our agent can forget how to behave and play in the first level.
+
+The solution is to create a Replay Buffer that stores experience tuples while interacting with the environment and then sample a small batch of tuples. This prevents **the network from only learning about what it has immediately done.**
+
+Experience replay also has other benefits. By randomly sampling the experiences, we remove correlation in the observation sequences and avoid **action values from oscillating or diverging catastrophically.**
+
+In the Deep Q-Learning pseudocode, we see that we **initialize a replay memory buffer D from capacity N** (N is an hyperparameter that you can define). We then,  store experiences in the memory and then sample a minibatch of experiences to feed the Deep Q-Network during the training phase.
+  
+<img src="assets/78_deep_rl_dqn/experience-replay-pseudocode.jpg" alt="Experience Replay Pseudocode"/>
 
 ---
 Congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorial. You’ve just trained your first Deep Q-Learning agent and shared it on the Hub 🥳.
