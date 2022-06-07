@@ -79,7 +79,8 @@ Apart from those efforts, many team members are involved in other educational ef
 ## 🤗 **Education Events & News**
 
 - **05/13**[NEWS]: Are you studying machine learning? Do you want to be a part of our ML democratization efforts and show your campus community how to build ML models with Hugging Face? We want to support you in your journey! You have until June 13th to [apply](https://huggingface.co/blog/ambassadors) to 🤗 Student Application Program.
-- **09/08**[EVENT]: ML Demo.cratization tour in Argentina at 2pm (GMT-3). [Link coming soon]()
+- **06/13**[EVENT]: ML Demo.cratization tour in Saudi Arabia at 7pm (KSA Time). [Link here](https://nic-sagov.webex.com/webappng/sites/nic-sagov/meeting/info/6cd789dcb47b44e68494a9581491a544?siteurl=nic-sagov&MTID=m68632e5adda0fe9959a7b3d1632a482a)
+- **09/08**[EVENT]: ML Demo.cratization tour in Argentina at 2pm (GMT-3). [Link here](https://www.uade.edu.ar/agenda/clase-pr%C3%A1ctica-con-hugging-face-c%C3%B3mo-construir-machine-learning-de-forma-colaborativa/)
 
 🔥 We are currently working on more content in the course, and more! Stay tuned!
 
