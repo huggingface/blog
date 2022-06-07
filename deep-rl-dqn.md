@@ -253,7 +253,7 @@ Don't hesitate to train your agent in other environments (Pong, Seaquest, QBert,
 
 We published additional readings in the syllabus if you want to go deeper 👉 **[https://github.com/huggingface/deep-rl-class/blob/main/unit3/README.md](https://github.com/huggingface/deep-rl-class/blob/main/unit3/README.md)**
 
-In the next unit, we’re going to learn about Policy Gradients methods
+In the next unit, we’re going to learn about Policy Gradients methods.
 
 And don't forget to share with your friends who want to learn 🤗 !
 
