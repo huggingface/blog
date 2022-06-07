@@ -51,7 +51,13 @@ So let’s get started! 🚀
 
 To be able to understand this unit, **you need to understand [Q-Learning](https://huggingface.co/blog/deep-rl-q-part2) first.**)
 
-[Table des matières]
+- [From Q-Learning to Deep Q-Learning](#from-q-learning-to-deep-q-learning)
+- [The Deep Q Network](#the-deep-q-network)
+  - [Preprocessing the input and temporal limitation](#preprocessing-the-input-and-temporal-limitation)
+- [The Deep Q-Learning Algorithm](#the-deep-q-learning-algorithm)
+  - [Experience Replay to make more efficient use of experiences](#experience-replay-to-make-more-efficient-use-of-experiences) 
+  - [Fixed Q-Target to stabilize the training](#fixed-q-target-to-stabilize-the-training)
+  - [Double DQN](#double-dqn)
 
 ## From Q-Learning to Deep Q-Learning
 
@@ -63,18 +69,16 @@ The **Q comes from "the Quality" of that action at that state.**
 
 Internally, our Q-function has **a Q-table, a table where each cell corresponds to a state-action pair value.** Think of this Q-table as **the memory or cheat sheet of our Q-function.**
 
-The problem is that Q-Learning is a *tabular method*. Aka, a problem in which the state and actions spaces **are small enough for approximate value functions to be represented as arrays and tables**. And this is **not scalable**.
+The problem is that Q-Learning is a *tabular method*. Aka, a problem in which the state and actions spaces **are small enough to approximate value functions to be represented as arrays and tables**. And this is **not scalable**.
 
 Q-Learning was working well with small state space environments like:
 
 - FrozenLake, we had 14 states.
 - Taxi-v3, we had 500 states.
 
-IMG Frozen Lake Taxi-v3
-
 But think of what we're going to do today: we will train an agent to learn to play Space Invaders using the frames as input.
 
-As **[Nikita Melkozerov mentioned](https://twitter.com/meln1k), Atari environments** have an observation space with a shape of (210, 160, 3), containing values ranging from 0 to 255 si that gives us 256^(210*160*3) = 256^100800 (for comparison, we have approximately 10^80 atoms in the observable universe ).
+As **[Nikita Melkozerov mentioned](https://twitter.com/meln1k), Atari environments** have an observation space with a shape of (210, 160, 3), containing values ranging from 0 to 255 si that gives us 256^(210*160*3) = 256^100800 (for comparison, we have approximately 10^80 atoms in the observable universe).
 
 <img src="assets/78_deep_rl_dqn/atari.jpg" alt="Atari State Space"/>
 
@@ -87,7 +91,7 @@ This neural network will approximate, given a state, the different Q-values for 
 
 Now that we understand Deep Q-Learning, let's dive deeper into the Deep Q-Network.
   
-## The Deep Q-Network
+## The Deep Q-Network (DQN)
 This is the architecture of our Deep Q-Learning network:
   
 <img src="assets/78_deep_rl_dqn/deep-q-network.jpg" alt="Deep Q Network"/>
@@ -116,7 +120,7 @@ Can you tell me where the ball is going?
 No, because one frame is not enough to have a sense of motion! But what if I add three more frames? **Here you can see that the ball is going to the right**.
 
 <img src="assets/78_deep_rl_dqn/temporal-limitation-2.jpg" alt="Temporal Limitation"/>
-That’s why, **to capture temporal information, we stack four frames together.**
+That’s why, to capture temporal information, we stack four frames together.
   
 Then, the stacked frames are processed by three convolutional layers. These layers **allow us to capture and exploit spatial relationships in images**. But also, because frames are stacked together, **you can exploit some spatial properties across those frames**.
   
