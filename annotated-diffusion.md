@@ -1,6 +1,6 @@
 ---
 title: The Annotated Diffusion Model
-thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
+thumbnail: assets/78_annotated-diffusion/thumbnail.png
 ---
 
 <h1>
@@ -55,7 +55,7 @@ Image(filename='assets/78_annotated-diffusion/ddpm_paper.png')
     <img src="assets/78_annotated-diffusion/ddpm_paper.png" width="500" />
 </p>
 
-We'll install and import the required libraries below.
+We'll install and import the required libraries first (assuming you have [PyTorch](https://pytorch.org/) installed).
 
 ```python
 !pip install -q -U einops datasets matplotlib tqdm
@@ -851,7 +851,7 @@ def p_sample(model, x, t, t_index):
         # Algorithm 2 line 4:
         return model_mean + torch.sqrt(posterior_variance_t) * noise 
 
-# Algorithm 2
+# Algorithm 2 (including returning all images)
 @torch.no_grad()
 def p_sample_loop(model, shape):
     device = next(model.parameters()).device
@@ -859,10 +859,12 @@ def p_sample_loop(model, shape):
     b = shape[0]
     # start from pure noise (for each example in the batch)
     img = torch.randn(shape, device=device)
+    imgs = []
 
     for i in tqdm(reversed(range(0, timesteps)), desc='sampling loop time step', total=timesteps):
         img = p_sample(model, img, torch.full((b,), i, device=device, dtype=torch.long), i)
-    return img
+        imgs.append(img.cpu().numpy())
+    return imgs
 
 @torch.no_grad()
 def sample(model, image_size, batch_size=16, channels=3):
@@ -987,22 +989,44 @@ To sample from the model, we can just use our sample function defined above:
 samples = sample(model, image_size=image_size, batch_size=64, channels=channels)
 
 # show a random one
-plt.imshow(samples[5].cpu().numpy().reshape(28, 28, 1), cmap="gray")
+random_index = 5
+plt.imshow(samples[-1][random_index].reshape(image_size, image_size, channels), cmap="gray")
 ```
 
 <img src="assets/78_annotated-diffusion/output.png" width="300" />
 
 Seems like the model is capable of generating a nice T-shirt! Keep in mind that the dataset we trained on is pretty low-resolution (28x28).
 
+We can also create a gif of the denoising process:
+
+```python
+import matplotlib.animation as animation
+
+random_index = 53
+
+fig = plt.figure()
+ims = []
+for i in range(timesteps):
+    im = plt.imshow(samples[i][random_index].reshape(image_size, image_size, channels), cmap="gray", animated=True)
+    ims.append([im])
+
+animate = animation.ArtistAnimation(fig, ims, interval=50, blit=True, repeat_delay=1000)
+animate.save('diffusion.gif')
+plt.show()
+```
+
+<img src="
+assets/78_annotated-diffusion/diffusion-sweater.gif" width="300" />
+
 # Follow-up reads
 
 Note that the DDPM paper showed that diffusion models are a promising direction for (un)conditional image generation. This has since then (immensely) been improved, most notably for text-conditional image generation. Below, we list some important (but far from exhaustive) follow-up works:
 
 - Improved Denoising Diffusion Probabilistic Models ([Nichol et al., 2021](https://arxiv.org/abs/2102.09672)): finds that learning the variance of the conditional distribution (besides the mean) helps in improving performance
-- Cascaded Diffusion Models for High Fidelity Image Generation ([Ho et al., 2021](https://arxiv.org/abs/2106.15282)): introduce cascaded diffusion, which comprises a pipeline of multiple diffusion models that generate images of increasing resolution for high-fidelity image synthesis
+- Cascaded Diffusion Models for High Fidelity Image Generation ([Ho et al., 2021](https://arxiv.org/abs/2106.15282)): introduces cascaded diffusion, which comprises a pipeline of multiple diffusion models that generate images of increasing resolution for high-fidelity image synthesis
 - Diffusion Models Beat GANs on Image Synthesis ([Dhariwal et al., 2021](https://arxiv.org/abs/2105.05233)): show that diffusion models can achieve image sample quality superior to the current state-of-the-art generative models by improving the U-Net architecture, as well as introducing classifier guidance
 - Classifier-Free Diffusion Guidance ([Ho et al., 2021](https://openreview.net/pdf?id=qw8AKxfYbI)): shows that you don't need a classifier for guiding a diffusion model by jointly training a conditional and an unconditional diffusion model with a single neural network
-- Hierarchical Text-Conditional Image Generation with CLIP Latents (DALL-E 2) ([Ramesh et al., 2022](https://cdn.openai.com/papers/dall-e-2.pdf)): use a prior to turn a text caption into a CLIP image embedding, after which a diffusion model decodes it into an image
+- Hierarchical Text-Conditional Image Generation with CLIP Latents (DALL-E 2) ([Ramesh et al., 2022](https://cdn.openai.com/papers/dall-e-2.pdf)): uses a prior to turn a text caption into a CLIP image embedding, after which a diffusion model decodes it into an image
 - Photorealistic Text-to-Image Diffusion Models with Deep Language Understanding (ImageGen) ([Saharia et al., 2022](https://arxiv.org/abs/2205.11487)): shows that combining a large pre-trained language model (e.g. T5) with cascaded diffusion works well for text-to-image synthesis
 
 Note that this list only includes important works until the time of writing, which is June 6th, 2022.
