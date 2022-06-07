@@ -207,10 +207,11 @@ This leads to a bizarre path of chasing (a significant oscillation in training).
 <img src="assets/78_deep_rl_dqn/qtarget-4.jpg" alt="Q-target"/>
 
 Instead, what we see in the pseudo-code is that we:
+- Use a **separate network with a fixed parameter** for estimating the TD Target
+- **Copy the parameters from our Deep Q-Network at every C step** to update the target network.
+  
 <img src="assets/78_deep_rl_dqn/fixed-q-target-pseudocode.jpg" alt="Fixed Q-target Pseudocode"/>
   
-- Use a separate network with a fixed parameter for estimating the TD Target
-- Copy the parameters from our Deep Q-Network at every C step to update the target network.
  
   
 ### Double DQN
@@ -251,8 +252,6 @@ Congrats on finishing this chapter! There was a lot of information. And congrat
 That’s **normal if you still feel confused** with all these elements. **This was the same for me and for all people who studied RL.**
 
 Take time to really grasp the material before continuing.
-
-And since the best way to learn and avoid the illusion of competence is **to test yourself**. We wrote a quiz to help you find where **you need to reinforce your study**. Check your knowledge here 👉 **[https://github.com/huggingface/deep-rl-class/blob/main/unit3/quiz.md](https://github.com/huggingface/deep-rl-class/blob/main/unit3/quiz.md)**
 
 Don't hesitate to train your agent in other environments (Pong, Seaquest, QBert, Ms Pac Man). The **best way to learn is to try things on your own!**
 
