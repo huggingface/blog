@@ -130,3 +130,24 @@ Finally, we have a couple of fully connected layers that output a Q-value for ea
 So, we see that Deep Q-Learning is using a neural network to approximate, given a state, the different Q-values for each possible action at that state. Let’s now study the Deep Q-Learning algorithm.
   
 ## Deep Q
+
+---
+Congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorial. You’ve just trained your first Deep Q-Learning agent and shared it on the Hub 🥳.
+
+That’s **normal if you still feel confused** with all these elements. **This was the same for me and for all people who studied RL.**
+
+Take time to really grasp the material before continuing.
+
+And since the best way to learn and avoid the illusion of competence is **to test yourself**. We wrote a quiz to help you find where **you need to reinforce your study**. Check your knowledge here 👉 **[https://github.com/huggingface/deep-rl-class/blob/main/unit3/quiz.md](https://github.com/huggingface/deep-rl-class/blob/main/unit2/quiz2.md)**
+
+Don't hesitate to train your agent in other environments (Pong, Seaquest, QBert, Ms Pac Man). The **best way to learn is to try things on your own!**
+
+We published additional readings in the syllabus if you want to go deeper 👉 **[https://github.com/huggingface/deep-rl-class/blob/main/unit3/README.md](https://github.com/huggingface/deep-rl-class/blob/main/unit2/README.md)**
+
+In the next unit, we’re going to learn about Policy Gradients methods
+
+And don't forget to share with your friends who want to learn 🤗 !
+
+Finally, we want **to improve and update the course iteratively with your feedback**. If you have some, please fill this form 👉 **[https://forms.gle/3HgA7bEHwAmmLfwh9](https://forms.gle/3HgA7bEHwAmmLfwh9)**
+
+### **Keep learning, stay awesome,**
