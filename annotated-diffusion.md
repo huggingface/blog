@@ -1,6 +1,6 @@
 ---
 title: The Annotated Diffusion Model
-thumbnail: assets/78_annotated-diffusion/thumbnail.png
+thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
 ---
 
 <h1>
