@@ -14,7 +14,7 @@ thumbnail: /blog/assets/78_deep_rl_dqn/thumbnail.gif
 }
 </style>
 <h1>Deep Q-Learning with Space Invaders</h1>
-<h2>Unit 3, of the the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
+<h2>Unit 3, of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
 <div class="author-card">
     <a href="/ThomasSimonini">
@@ -82,7 +82,7 @@ As **[Nikita Melkozerov mentioned](https://twitter.com/meln1k), Atari environme
 
 <img src="assets/78_deep_rl_dqn/atari.jpg" alt="Atari State Space"/>
 
-Therefore, the state space is gigantic; hence creating and updating a Q-table for that environment would not be efficient. In this case, the best idea is to approximate the Q-values instead of a Q-table using a parametrized Q-function $Q_\theta(s,a)$.
+Therefore, the state space is gigantic; hence creating and updating a Q-table for that environment would not be efficient. In this case, the best idea is to approximate the Q-values instead of a Q-table using a parametrized Q-function  \\(Q_{\theta}(s,a)\\)  .
 
 This neural network will approximate, given a state, the different Q-values for each possible action at that state. And that's exactly what Deep Q-Learning does.
 
