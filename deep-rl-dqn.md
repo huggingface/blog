@@ -61,7 +61,7 @@ We learned that **Q-Learning is an algorithm we use to train our Q-Function**, 
 
 The **Q comes from "the Quality" of that action at that state.**
 
-Internally, our Q-function has **a Q-table, a table where each cell corresponds to a state-action value pair value.** Think of this Q-table as **the memory or cheat sheet of our Q-function.**
+Internally, our Q-function has **a Q-table, a table where each cell corresponds to a state-action pair value.** Think of this Q-table as **the memory or cheat sheet of our Q-function.**
 
 The problem is that Q-Learning is a *tabular method*. Aka, a problem in which the state and actions spaces **are small enough for approximate value functions to be represented as arrays and tables**. And this is **not scalable**.
 
@@ -128,7 +128,7 @@ So, we see that Deep Q-Learning is using a neural network to approximate, given 
   
 ## The Deep Q-Learning Algorithm
 
-We learned that Deep Q-Learning **uses a function approximator (a deep neural network) to approximate the different Q-values for each possible action at a state** (value-function estimation).
+We learned that Deep Q-Learning **uses a deep neural network to approximate the different Q-values for each possible action at a state** (value-function estimation).
 
 The difference is that, during the training phase, instead of updating the Q-value of a state-action pair directly as we have done with Q-Learning:
 
@@ -140,8 +140,8 @@ In Deep Q-Learning, we create a **Loss function between our Q-value prediction a
   
 The Deep Q-Learning training algorithm has *two phases*:
 
-- We **sample the environment** where we perform actions and store the observed experiences tuples in a replay memory.
-- Select the **small batch of tuple random and learn from it using a gradient descent update step**.
+- **Sampling**: we perform actions and **store the observed experiences tuples in a replay memory**.
+- **Training**: Select the **small batch of tuple randomly and learn from it using a gradient descent update step**.
   
 <img src="assets/78_deep_rl_dqn/sampling-training.jpg" alt="Sampling Training"/>
 
