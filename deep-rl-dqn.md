@@ -108,17 +108,14 @@ Then we stack four frames together.
 <img src="assets/78_deep_rl_dqn/preprocessing.jpg" alt="Preprocessing"/>
 
 Why do we stack four frames together?
-  
-<img src="assets/78_deep_rl_dqn/stack-1.jpg" alt="Stack 1"/>
+We stack frames together because it helps us **handle the problem of temporal limitation**. Let’s take an example with the game of Pong. When you see this frame:
 
-We stack frames together because it helps us handle the problem of temporal limitation. Let’s take an example with the game of Pong. When you see this frame:
-
-<img src="assets/78_deep_rl_dqn/stack-2.jpg" alt="Stack 1"/>
+<img src="assets/78_deep_rl_dqn/temporal-limitation.jpg" alt="Temporal Limitation"/>
   
 Can you tell me where the ball is going?
 No, because one frame is not enough to have a sense of motion! But what if I add three more frames? **Here you can see that the ball is going to the right**.
 
-<img src="assets/78_deep_rl_dqn/stack-3.jpg" alt="Stack 1"/>
+<img src="assets/78_deep_rl_dqn/temporal-limitation-2.jpg" alt="Temporal Limitation"/>
 That’s why, **to capture temporal information, we stack four frames together.**
   
 Then, the stacked frames are processed by three convolutional layers. These layers **allow us to capture and exploit spatial relationships in images**. But also, because frames are stacked together, **you can exploit some spatial properties across those frames**.
@@ -138,11 +135,11 @@ That’s **normal if you still feel confused** with all these elements. **Thi
 
 Take time to really grasp the material before continuing.
 
-And since the best way to learn and avoid the illusion of competence is **to test yourself**. We wrote a quiz to help you find where **you need to reinforce your study**. Check your knowledge here 👉 **[https://github.com/huggingface/deep-rl-class/blob/main/unit3/quiz.md](https://github.com/huggingface/deep-rl-class/blob/main/unit2/quiz2.md)**
+And since the best way to learn and avoid the illusion of competence is **to test yourself**. We wrote a quiz to help you find where **you need to reinforce your study**. Check your knowledge here 👉 **[https://github.com/huggingface/deep-rl-class/blob/main/unit3/quiz.md](https://github.com/huggingface/deep-rl-class/blob/main/unit3/quiz.md)**
 
 Don't hesitate to train your agent in other environments (Pong, Seaquest, QBert, Ms Pac Man). The **best way to learn is to try things on your own!**
 
-We published additional readings in the syllabus if you want to go deeper 👉 **[https://github.com/huggingface/deep-rl-class/blob/main/unit3/README.md](https://github.com/huggingface/deep-rl-class/blob/main/unit2/README.md)**
+We published additional readings in the syllabus if you want to go deeper 👉 **[https://github.com/huggingface/deep-rl-class/blob/main/unit3/README.md](https://github.com/huggingface/deep-rl-class/blob/main/unit3/README.md)**
 
 In the next unit, we’re going to learn about Policy Gradients methods
 
