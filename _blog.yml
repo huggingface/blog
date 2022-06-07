@@ -859,7 +859,15 @@
   tags:
     - graphcore
     - partnerships
-
+   
+- local: deep-rl-dqn
+  title: "Deep Q-Learning with Atari"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/78_deep_rl_dqn/thumbnail.gif
+  date: June 7, 2022
+  tags:
+  - rl
+  
 - local: annotated-diffusion
   title: "The Annotated Diffusion Model"
   author: nielsrogge
