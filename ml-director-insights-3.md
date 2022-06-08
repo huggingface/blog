@@ -28,7 +28,7 @@ thumbnail: /blog/assets/78_ml_director_insights/thumbnail.png
 </head>
 <body>
 
-_If you're' interested in building ML solutions faster visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_3) today!_
+_If you're interested in building ML solutions faster visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_3) today!_
 
 
 👋 Welcome back to our Director of ML Insights Series, Finance Edition! If you missed earlier versions you can find them here:
@@ -41,6 +41,8 @@ Machine Learning Directors within finance face the unique challenges of navigati
 You’ll hear from a juniors Greek National Tennis Champion, a published author with over 100+ patents, and a cycle polo player who regularly played at the world’s oldest polo club (the Calcutta Polo Club). All turned Financial ML experts.
 
 🚀 Buckle up Goose, let's meet some top Machine Learning Mavericks in finance to hear what they have to say about Machine Learning:
+
+Disclaimer: All views are from individuals and not from any past or current employers.
 
 <img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Ioannis-Bakagiannis.jpeg"></a>  
 
@@ -105,7 +107,7 @@ Debanjan has a track record of formulating and applying machine learning to vari
 #### **1. How has ML made a positive impact on finance?**
 Machine learning has made a huge positive impact on finance, is helping combat financial crimes, and makes the world a safer place. One of the first applications ML was used for in finance was fraud detection. 
 
-Working in regtech (the management of regulatory processes within the financial industry through technology),, Machine learning has been a game-changer and a crucial tool in many applications such as Know Your Customer (KYC) screening and Anti Money Laundering (AML). With an increasing spend in AML fines by financial institutions worldwide, the ever-changing realm of sanctions, and increasing complexity in fighting money laundering, banks are making huge investments in KYC and AML technologies powered by ML. 
+Working in regtech (the management of regulatory processes within the financial industry through technology), machine learning has been a game-changer and a crucial tool in many applications such as Know Your Customer (KYC) screening and Anti Money Laundering (AML). With an increasing spend in AML fines by financial institutions worldwide, the ever-changing realm of sanctions, and increasing complexity in fighting money laundering, banks are making huge investments in KYC and AML technologies powered by ML. 
 
 ML is revolutionizing multiple facets of this sector, especially bringing huge efficiency gains by automating various processes and assisting analysts to do their jobs smarter and more accurately. One of the key traits of ML which makes it extremely useful is that it can learn and find hidden patterns from humungous volumes of data. With a huge focus on digitization, the financial sector is producing digital data more than ever, which is impossible for humans to comprehend, process and make decisions. ML is the key technology enabling humans to make sense of all the data, glean information and make well-informed decisions. 
 
@@ -113,9 +115,9 @@ We at Moody's Analytics are certainly using ML and helping our clients to better
 
  
 #### **2. What are the biggest ML challenges within finance?**
-Reducing the False Positives without hurting the True Positives. -  A vast majority of the applications using ML in the regtech space rely on alerts. With the strict regulatory measures and big financial implications of a wrong decision, human investigations can be time-consuming and demanding. ML certainly helps in these scenarios by assisting human analysts in arriving at the right decisions. But if an ML system results in a lot of False Positives, which cannot be disregarded, it certainly makes an analyst’s job harder. Coming up with the right balance is certainly an important challenge for ML in finance.
+Reducing the False Positives without hurting the True Positives. -  A vast majority of the applications using ML in the regtech space rely on alerts. With the strict regulatory measures and big financial implications of a wrong decision, human investigations can be time-consuming and demanding. ML certainly helps in these scenarios by assisting human analysts in arriving at the right decisions. But if an ML system results in a lot of False Positives, which cannot be disregarded, it certainly makes an analyst’s job harder. Producing the right balance is certainly an important challenge for ML in finance.
 
-**a. Gap between ML in academia and ML in finance** - Due to the closed nature of the finance industry, we generally don't see a lot of exchanging of ideas, data and resources between the academic and the finance sector in the area of ML. There are a few exceptions of course. This has led to a scarcity of developing ML education catering to the needs of the finance industry and has also led to a lack of academic interest in working in this area. I think more efforts have to be made to decrease this gap. Otherwise, it will be increasingly difficult for the finance industry to apply the latest and the greatest of ML. 
+**a. Gap between ML in academia and ML in finance** - Due to the closed nature of the finance industry, we generally don't see a lot of exchanging of ideas, data and resources between the academic and the finance sector in ML. There are a few exceptions of course. This has led to a scarcity of developing ML education catering to the needs of the finance industry and has also led to a lack of academic interest in working in this area. I think more efforts have to be made to decrease this gap. Otherwise, it will be increasingly difficult for the finance industry to apply the latest and the greatest of ML. 
 
 **b. Legacy infrastructure and databases** - A lot of financial institutions today still carry legacy infrastructure with them which makes it challenging to apply modern ML technologies and especially to integrate them. The finance industry really needs to borrow a lot of ideas, culture and best practices from the tech industry when it comes to developing new infrastructure and enabling the ML professionals to innovate and make more impact. There are certainly challenges related to operationalizing ML across the industry. 
    
@@ -124,7 +126,7 @@ Reducing the False Positives without hurting the True Positives. -  A vast major
 **d. Explainability and Interpretability** - Developing models which are highly accurate as well as interpretable and explainable is a big challenge. Modern deep learning models often outperform more traditional models, however they lack explainability and interpretability. Most of the applications in finance demand explainability. Adopting the latest developments in this area and ensuring the development of interpretable models with explainable predictions have always been challenging.
 
  
-#### **3. What’s a common mistake you see people make trying to integrate ML into finance?**
+#### **3. What’s a common mistake you see people make trying to integrate ML into financial applications?**
 
 - Not understanding the data well and the raw predictions made by the ML models trained on them.
 - Not analyzing failed efforts and learning from them.
@@ -138,7 +140,7 @@ I am really blown away by how modern ML models have been learning rich represent
 
 <img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Soumitri-Kolavennu.jpeg"></a>  
 
-### [Soumitri Kolavennu](https://www.linkedin.com/in/soumitri-kolavennu-2b47376/) - Director of AI/Machine Learning in Enterprise Research & Analytics at [U.S. Bank](https://www.usbank.com/index.html)
+### [Soumitri Kolavennu](https://www.linkedin.com/in/soumitri-kolavennu-2b47376/) - Artificial Intelligence Leader - Enterprise Analytics & AI at [U.S. Bank](https://www.usbank.com/index.html)
 
 **Background:** Soumitri Kolavennu is a SVP and head of AI research in U.S. Bank’s enterprise analytics and AI organization. He is currently focused on deep learning based NLP, vision & audio analytics, graph neural networks, sensor/knowledge fusion, time-series data with application to automation, information extraction, fraud detection and anti-money laundering in financial systems. 
 
@@ -149,19 +151,19 @@ Previously, he held the position of Fellows Leader & Senior Fellow, while workin
 
 **U.S. Bank:** The fifth-largest commercial bank in the United States, U.S. Bank blends its relationship teams, branches and ATM networks with digital tools that allow customers to bank when, where and how they prefer. 
 
-#### **1. How has ML made a positive impact on finance**
+#### **1. How has ML made a positive impact on finance?**
 Machine learning and artificial intelligence have made a profound and positive impact on finance in general and banking in particular. There are many applications in banking where many factors (features) are to be considered when making a decision and ML has traditionally helped in this respect. For example, the credit score we all universally rely on is derived from a machine learning algorithm. 
  
 Over the years ML has interestingly also helped remove human bias from decisions and provided a consistent algorithmic approach to decisions. For example, in credit card/loan underwriting and mortgages, modern AI techniques can take more factors (free form text, behavioral trends, social and financial interactions) into account for decisions while also detecting fraud.
 
 
-#### **2. What are the biggest ML challenges within SaaS?**
+#### **2. What are the biggest ML challenges within finance?**
 The finance and banking industry brings a lot of challenges due to the nature of the industry. First of all, it is a highly regulated industry with government oversight in many aspects. The data that is often used is very personal and identifiable data (social security numbers, bank statements, tax records, etc). Hence there is a lot of care taken to create machine learning and AI models that are private and unbiased. Many government regulations require any models to be explainable. For example, if a loan is denied, there is a fundamental need to explain why it is denied. 
  
 The data on the other hand, which may be scarce in other industries is abundant in the financial industry. (Mortgage records have to be kept for 30 years for example). The current trend for digitization of data and the explosion of more sophisticated AI/ML techniques has created a unique opportunity for the application of these advances.
 
 
-#### **3. What’s a common mistake you see people make trying to integrate ML into SaaS?**
+#### **3. What’s a common mistake you see people make trying to integrate ML into financial applications?**
 One of the most common mistakes people make is to use a model or a technique without understanding the underlying working principles, advantages, and shortcomings of the model. People tend to think of AI/ML models as a ‘black box’. In finance, it is especially important to understand the model and to be able to explain its’ output. Another mistake is not comprehensively testing the model on a representative input space. Model performance, validation, inference capacities, and model monitoring (retraining intervals) are all important to consider when choosing a model.
 
 
