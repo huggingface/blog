@@ -350,7 +350,8 @@ class LinearAttention(nn.Module):
         hidden_dim = dim_head * heads
         self.to_qkv = nn.Conv2d(dim, hidden_dim * 3, 1, bias=False)
 
-        self.to_out = nn.Sequential(nn.Conv2d(hidden_dim, dim, 1), LayerNorm(dim))
+        self.to_out = nn.Sequential(nn.Conv2d(hidden_dim, dim, 1), 
+                                    nn.GroupNorm(1, dim))
 
     def forward(self, x):
         b, c, h, w = x.shape
@@ -394,9 +395,9 @@ Now that we've defined all building blocks (position embeddings, ResNet/ConvNeXT
 
 The network is built up as follows:
 * first, a convolutional layer is applied on the batch of noisy images, and position embeddings are computed for the noise levels
-* next, a sequence of downsampling stages are applied. Each downsampling stage consists of 2 ResNet/ConvNeXT blocks + layernorm + attention + residual connection + a downsample operation
+* next, a sequence of downsampling stages are applied. Each downsampling stage consists of 2 ResNet/ConvNeXT blocks + groupnorm + attention + residual connection + a downsample operation
 * at the middle of the network, again ResNet or ConvNeXT blocks are applied, interleaved with attention
-* next, a sequence of upsampling stages are applied. Each upsampling stage consists of 2 ResNet/ConvNeXT blocks + layernorm + attention + residual connection + an upsample operation
+* next, a sequence of upsampling stages are applied. Each upsampling stage consists of 2 ResNet/ConvNeXT blocks + groupnorm + attention + residual connection + an upsample operation
 * finally, a ResNet/ConvNeXT block followed by a convolutional layer is applied.
 
 Ultimately, neural networks stack up layers as if they were lego blocks (but it's important to [understand how they work](http://karpathy.github.io/2019/04/25/recipe/)).
