@@ -12,6 +12,16 @@
   date: Jun 10, 2022
   description: A sprint to add 125 Arabic NLP datasets to Masader, https://arbml.github.io/masader/,  5pm-7pm Saudi Arabia time.
 
+- name: Introduction to Hugging Face Ecosystem at PyData Paris
+  link: https://www.meetup.com/PyData-Paris/events/286206845/
+  date: June 9, 2022
+  description: An extensive introduction to the open-source ecosystem in Hugging Face.
+
+- name: Computer Vision with Hugging Face
+  link: https://youtu.be/oL-xmufhZM8
+  date: June 8, 2022
+  description: In this session, Niels Rogge walks us through the tools and architectures used to train computer vision models using Hugging Face.
+  
 - name: How to Teach Open-Source Machine Learning Tools
   link: https://www.eventbrite.com/e/how-to-teach-open-source-machine-learning-tools-tickets-310980931337
   date: Jun 6, 2022
