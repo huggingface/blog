@@ -348,7 +348,7 @@ class LinearAttention(nn.Module):
         hidden_dim = dim_head * heads
         self.to_qkv = nn.Conv2d(dim, hidden_dim * 3, 1, bias=False)
 
-        self.to_out = nn.Sequential(nn.Conv2d(hidden_dim, dim, 1), LayerNorm(dim))
+        self.to_out = nn.Sequential(nn.Conv2d(hidden_dim, dim, 1), nn.LayerNorm(dim))
 
     def forward(self, x):
         b, c, h, w = x.shape
