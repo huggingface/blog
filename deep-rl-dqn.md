@@ -31,6 +31,9 @@ thumbnail: /blog/assets/78_deep_rl_dqn/thumbnail.gif
 <body>
 
 *This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
+
+<img src="assets/78_deep_rl_dqn/thumbnail.gif" alt="Thumbnail"/>  
+
 ---
 
 [In the last unit](https://huggingface.co/blog/deep-rl-q-part2), we learned our first reinforcement learning algorithm: Q-Learning, **implemented it from scratch**, and trained it in two environments, FrozenLake-v1 ☃️ and Taxi-v3 🚕.
