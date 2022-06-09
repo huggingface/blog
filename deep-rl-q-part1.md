@@ -31,6 +31,9 @@ thumbnail: /blog/assets/70_deep_rl_q_part1/thumbnail.gif
 <body>
 
 *This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
+ 
+<img src="assets/70_deep_rl_q_part1/thumbnail.gif" alt="Thumbnail"/>
+  
 ---
 In the [first chapter of this class](https://huggingface.co/blog/deep-rl-intro), we learned about Reinforcement Learning (RL), the RL process, and the different methods to solve an RL problem. We also trained our first lander agent to **land correctly on the Moon 🌕 and uploaded it to the Hugging Face Hub.**
 
