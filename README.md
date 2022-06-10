@@ -1,4 +1,7 @@
 # The Hugging Face Blog Repository 🤗
+This is the official repository of hf.co/blog.
+
+
 ## How to get a responsive thumbnail?
 1️⃣ Create a `1300x650` image 
 
