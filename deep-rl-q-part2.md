@@ -363,7 +363,7 @@ Don't hesitate to modify the implementation, try ways to improve it and change e
 
 We published additional readings in the syllabus if you want to go deeper 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit2/README.md
 
-In the next unit, we’re going to learn about Deep-Q-Learning.
+<a href="https://huggingface.co/blog/deep-rl-dqn">In the next unit, we’re going to learn about Deep-Q-Learning.</a>
 
 And don't forget to share with your friends who want to learn 🤗 !
   
