@@ -876,3 +876,12 @@
   tags:
   - guide
   - diffusion
+
+- external: https://huggingface.co/spaces/sentence-transformers/Sentence_Transformers_for_semantic_search
+  title: "Using Sentence Transformers for semantic search"
+  author: espejelomar
+  thumbnail: /blog/assets/79_st_semantic_search/thumbnail.png
+  date: June 10, 2022
+  tags:
+  - nlp
+  - guide
