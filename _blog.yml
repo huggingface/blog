@@ -876,3 +876,12 @@
   tags:
   - guide
   - diffusion
+
+- local: st-inference-api
+  title: "Embedding-as-a-Service using SentenceTransformers, the 🤗Inference API, and 🤗Datasets"
+  author: espejelomar
+  thumbnail: /blog/assets/80_ST_inference-api/thumbnail.png
+  date: June 13, 2022
+  tags:
+  - guide
+  - nlp
