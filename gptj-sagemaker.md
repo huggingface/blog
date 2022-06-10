@@ -268,10 +268,13 @@ tweet: Startups shouldn’t worry about how to put out fires, they should worry 
 key: hugging face
 tweet:"""
 
+prompt_token_length = len(tokenizer.encode(str(prompt), return_tensors='pt')[0])  
+
+
 predictor.predict({
 	'inputs': prompt,
   "parameters" : {
-    "max_length": int(len(prompt) + max_generated_token_length),
+    "max_length": int(prompt_token_length + max_generated_token_length),
     "temperature": float(temperature),
     "eos_token_id": int(tokenizer.convert_tokens_to_ids(end_sequence)),
     "return_full_text":False
