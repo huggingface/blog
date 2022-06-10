@@ -1,5 +1,5 @@
 # The Hugging Face Blog Repository 🤗
-This is the official repository of hf.co/blog.
+This is the official repository of the [Hugging Face Blog](hf.co/blog). 
 
 
 ## How to get a responsive thumbnail?
