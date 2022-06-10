@@ -5,7 +5,7 @@
 2️⃣ Use [this template](https://github.com/huggingface/blog/blob/Documentation/assets/thumbnail-template.svg) and fill the content part.
 
 
-## I want to write LaTeX
+## Using LaTeX
 
 Just add:
 
