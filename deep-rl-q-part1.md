@@ -443,7 +443,7 @@ So that’s all for today. Congrats on finishing this first part of the chapter!
 And since the best way to learn and avoid the illusion of competence is **to test yourself**. We wrote a quiz to help you find where **you need to reinforce your study**. 
 Check your knowledge here 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit2/quiz1.md
 
-In the second part (that we will publish this Friday 📆), we’ll study our first RL algorithm: Q-Learning, and implement our first RL Agent in two environments:
+<a href="https://huggingface.co/blog/deep-rl-q-part2">In the second part , we’ll study our first RL algorithm: Q-Learning</a>, and implement our first RL Agent in two environments:
 
 1. Frozen-Lake-v1 (non-slippery version): where our agent will need to **go from the starting state (S) to the goal state (G)** by walking only on frozen tiles (F) and avoiding holes (H).
 2. An autonomous taxi will need **to learn to navigate** a city to **transport its passengers from point A to point B.**
