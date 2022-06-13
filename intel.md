@@ -3,7 +3,11 @@ title: "Intel and Hugging Face Partner to Democratize Machine Learning Hardware 
 thumbnail: /blog/assets/XXX
 ---
 
+
+
 <h1>Intel and Hugging Face Partner to Democratize Machine Learning Hardware Acceleration</h1>
+
+
 
 <div class="blog-metadata">
     <small>Published May 16, 2022.</small>
@@ -21,6 +25,8 @@ thumbnail: /blog/assets/XXX
         </div>
     </a>
 </div>
+
+![image](assets/80_intel/01.png)
 
 
 Today, Hugging Face is excited to announce that Intel has officially joined the [Hardware Partner Program](https://huggingface.co/hardware).  Thanks to the [Optimum](https://github.com/huggingface/optimum-intel) open-source library, the two companies will keep simplifying state-of-the-art hardware acceleration for the Machine Learning (ML) community,
