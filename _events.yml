@@ -2,6 +2,12 @@
 # "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
 
+- name: fastai X Hugging Face Group 2022
+  link: https://huggingface.co/hugginglearners
+  date: Jul 15, 2022
+  date_formatted: Jun 15 to Jul 15, 2022
+  description: Share Vision and Text pre-trained fastai Learners with the community.
+
 - name: Hugging Face VIP Party at the AI Summit London
   link: https://www.addevent.com/event/Rt13780880
   date: Jun 15, 2022
