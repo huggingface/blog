@@ -29,33 +29,32 @@ thumbnail: /blog/assets/XXX
 ![image](assets/80_intel/01.png)
 
 
-Today, Hugging Face is excited to announce that Intel has officially joined the [Hardware Partner Program](https://huggingface.co/hardware).  Thanks to the [Optimum](https://github.com/huggingface/optimum-intel) open-source library, the two companies will collaborate to simplify hardware acceleration for the Machine Learning (ML) community and to deliver state-of-the-art CPU performance for training, fine-tuning and inference.
+Today, Hugging Face is excited to announce that Intel has officially joined the [Hardware Partner Program](https://huggingface.co/hardware).  Thanks to the [Optimum](https://github.com/huggingface/optimum-intel) open-source library, the two companies will collaborate to simplify hardware acceleration for the Machine Learning (ML) community and deliver state-of-the-art CPU performance for training, fine-tuning, and inference.
 
-The mission of Hugging Face is to democratize good machine learning and maximize its positive impact across industries and society. Not only do we strive to advance the state of the art for Transformers models, but we also work hard on simplifying their adoption.
+The mission of Hugging Face is to democratize good machine learning and maximize its positive impact across industries and society. Not only do we strive to advance Transformers models, but we also work hard on simplifying their adoption.
 
-Transformer models are increasingly large and complex, which can cause production challenges for latency-sensitive applications like search or chatbots. Optimizing latency has long been a long and difficult endeavor for machine learning practitioners. Even with deep knowledge of the underlying machine learning framework and hardware platform, figuring out which knobs and features to leverage takes a lot of trial and error.
-
-With the Intel Xeon Scalable CPU platform and a wide range of hardware-optimized AI software tools, frameworks, and libraries, Intel provides a complete foundation for accelerated AI. Thus, it made perfect sense for Hugging Face and Intel to join forces and collaborate on building powerful and simple model optimization tools that let users reach the best performance, scale and productivity on Intel platforms.
-
-“*We’re excited to work with Hugging Face to bring the latest innovations of Intel Xeon hardware and Intel AI software to the Transformers community through open source integration and integrated developer experiences.*”, says Wei Li, Intel Vice President & General Manager, AI and Analytics.
-
-In the past months, Intel and Hugging Face started to collaborate on scaling Transformer workloads. We published detailed tuning guides and benchmarks on inference ([part 1](https://huggingface.co/blog/bert-cpu-scaling-part-1), [part 2](https://huggingface.co/blog/bert-cpu-scaling-part-2)) and we achieved [single-digit millisecond latency](https://huggingface.co/blog/infinity-cpu-performance) for DistilBERT on the latest Intel Xeon Ice Lake CPUs. On the training side, we added support for [Habana Gaudi](https://huggingface.co/blog/getting-started-habana) accelerators, which deliver up to 40% better price performance compared to GPUs.
-
-The next logical step was to expand on this work and share it with the ML community. Enter the [Optimum Intel](https://github.com/huggingface/optimum-intel) open source library! Let’s take a deeper look at it.
+Transformer models are increasingly large and complex, which can cause production challenges for latency-sensitive applications like search or chatbots. Optimizing latency has long been a long and challenging endeavor for ML practitioners. Even with deep knowledge of the underlying framework and hardware platform, it takes a lot of trial and error to figure out which knobs and features to leverage.
 
 ![image](assets/80_intel/02.png)
 
+Intel provides a complete foundation for accelerated AI with the Intel Xeon Scalable CPU platform and a wide range of hardware-optimized AI software tools, frameworks, and libraries. Thus, it made perfect sense for Hugging Face and Intel to join forces and collaborate on building powerful model optimization tools that let users achieve the best performance, scale, and productivity on Intel platforms.
+
+“*We’re excited to work with Hugging Face to bring the latest innovations of Intel Xeon hardware and Intel AI software to the Transformers community, through open source integration and integrated developer experiences.*”, says Wei Li, Intel Vice President & General Manager, AI and Analytics.
+
+In recent months, Intel and Hugging Face collaborated on scaling Transformer workloads. We published detailed tuning guides and benchmarks on inference ([part 1](https://huggingface.co/blog/bert-cpu-scaling-part-1), [part 2](https://huggingface.co/blog/bert-cpu-scaling-part-2)) and achieved [single-digit millisecond latency](https://huggingface.co/blog/infinity-cpu-performance) for DistilBERT on the latest Intel Xeon Ice Lake CPUs. On the training side, we added support for [Habana Gaudi](https://huggingface.co/blog/getting-started-habana) accelerators, which deliver up to 40% better price-performance than GPUs.
+
+The next logical step was to expand on this work and share it with the ML community. Enter the [Optimum Intel](https://github.com/huggingface/optimum-intel) open source library! Let’s take a deeper look at it.
 
 ## Get Peak Transformers Performance with Optimum Intel
-[Optimum](https://github.com/huggingface/optimum) is an open-source library created by Hugging Face to simplify Transformer acceleration across a growing range of training and inference devices. Thanks to built-in optimization techniques, you can start optimizing your workloads in minutes, using ready-made scripts, or applying minimal changes to your existing code. Beginners can use Optimum out of the box with great results, and experts can keep tweaking for maximum performance. 
+[Optimum](https://github.com/huggingface/optimum) is an open-source library created by Hugging Face to simplify Transformer acceleration across a growing range of training and inference devices. Thanks to built-in optimization techniques, you can start accelerating your workloads in minutes, using ready-made scripts, or applying minimal changes to your existing code. Beginners can use Optimum out of the box with excellent results. Experts can keep tweaking for maximum performance. 
 
-[Optimum Intel](https://github.com/huggingface/optimum-intel) is part of Optimum and builds on top of the [Intel Neural Compressor](https://www.intel.com/content/www/us/en/developer/tools/oneapi/neural-compressor.html) (INC). INC is an [open-source library](https://github.com/intel/neural-compressor) that delivers unified interfaces across multiple deep learning frameworks for popular network compression technologies, such as quantization, pruning, and knowledge distillation. This tool supports automatic accuracy-driven tuning strategies to help users quickly find out the best quantized model. It also implements different weight pruning algorithms to generate pruned models with predefined sparsity goals and supports knowledge distillation to distill the knowledge from the teacher model to the student model.
+[Optimum Intel](https://github.com/huggingface/optimum-intel) is part of Optimum and builds on top of the [Intel Neural Compressor](https://www.intel.com/content/www/us/en/developer/tools/oneapi/neural-compressor.html) (INC). INC is an [open-source library](https://github.com/intel/neural-compressor) that delivers unified interfaces across multiple deep learning frameworks for popular network compression technologies, such as quantization, pruning, and knowledge distillation. This tool supports automatic accuracy-driven tuning strategies to help users quickly build the best quantized model.
 
 With Optimum Intel, you can apply state-of-the-art optimization techniques to your Transformers with minimal effort. Let’s look at a complete example.
 
-## Case study: Quantizing DistilBERT for X% Speedup with Optimum Intel
+## Case study: Quantizing DistilBERT with Optimum Intel
 
-In this example, we’re going to run post-training quantization on a classification model based on the DistilBERT architecture. Quantization is a process that reduces memory and compute requirements by reducing the bit width of model parameters. For example, you can often replace 32-bit floating-point parameters with 8-bit integers at the expense of a small drop in prediction accuracy.
+In this example, we will run post-training quantization on a DistilBERT model fine-tuned for classification. Quantization is a process that shrinks memory and compute requirements by reducing the bit width of model parameters. For example, you can often replace 32-bit floating-point parameters with 8-bit integers at the expense of a small drop in prediction accuracy.
 
 We have already fine-tuned the original model to classify product reviews for shoes according to their star rating (from 1 to 5 stars). You can view this [model](https://huggingface.co/juliensimon/distilbert-amazon-shoe-reviews) and its [quantized](https://huggingface.co/juliensimon/distilbert-amazon-shoe-reviews-quantized?) version on the Hugging Face hub. You can also test the original model in this [Space](https://huggingface.co/spaces/juliensimon/amazon-shoe-reviews-spaces). 
 
@@ -69,9 +68,9 @@ pip -q install torch==1.11.0+cpu --extra-index-url https://download.pytorch.org/
 pip -q install transformers datasets optimum[intel] evaluate --upgrade
 ```
 
-Then, we prepare an evaluation dataset to assess the model performance during quantization. Starting from the dataset we used to fine-tune the original model, we only keep a few thousand reviews and their labels and save them to local storage.
+Then, we prepare an evaluation dataset to assess model performance during quantization. Starting from the dataset we used to fine-tune the original model, we only keep a few thousand reviews and their labels and save them to local storage.
 
-Next, we load the original model from the Hugging Face hub, its tokenizer, and the evaluation dataset.
+Next, we load the original model, its tokenizer, and the evaluation dataset from the Hugging Face hub.
 
 ```
 model_name = "juliensimon/distilbert-amazon-shoe-reviews" 
@@ -80,7 +79,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_name)
 eval_dataset = load_from_disk("./data/amazon_shoe_reviews_test")
 ```
 
-Next, we define an evaluation function that measures the accuracy of the model on the evaluation dataset. This allows the Optimum Intel library to compare metrics before and after quantization. For this purpose, the Hugging Face [evaluate](https://github.com/huggingface/evaluate/) library is very convenient!
+Next, we define an evaluation function that computes model metrics on the evaluation dataset. This allows the Optimum Intel library to compare these metrics before and after quantization. For this purpose, the Hugging Face [evaluate](https://github.com/huggingface/evaluate/) library is very convenient!
 
 ```
 from evaluate import evaluator
@@ -125,7 +124,7 @@ inc_optimizer = IncOptimizer(model, quantizer=inc_quantizer)
 inc_model = inc_optimizer.fit()
 ```
 
-The log tells us that 39 ```Linear``` operators have been quantized. 
+The log tells us that Optimum Intel has quantized 39 ```Linear``` operators.
 
 ```
 [INFO] |*****Mixed Precision Statistics*****|
@@ -195,7 +194,7 @@ Before and after each quantization step, Optimum Intel runs the evaluation funct
 [INFO] +--------------------+-----------+---------------+------------------+
 ```
 
-As the accuracy didn’t drop, Optimum Intel stopped the quantization job after the first step. Had the accuracy drop been higher than the 3% defined in the configuration file, Optimum Intel would have tried to quantize different parts of the models until the drop was within budget, or the maximum number of trials was reached.
+Accuracy didn’t drop, and Optimum Intel stopped the quantization job after the first step. Had the accuracy drop been higher than the allowed 3%, Optimum Intel would have tried to quantize different parts of the models until it would have reached an acceptable drop, or the maximum number of trials.
 
 Finally, we save the model and its configuration file to local storage.
 
@@ -204,7 +203,7 @@ model_dir = "./model_inc"
 inc_model.model.save_pretrained(model_dir)
 ```
 
-Once we’ve created a new model [repository](https://huggingface.co/juliensimon/distilbert-amazon-shoe-reviews-quantized) on the Hugging Face hub and pushed the model to it, we can load the model again in the usual way and work with it.
+Once we’ve created a new model [repository](https://huggingface.co/juliensimon/distilbert-amazon-shoe-reviews-quantized) on the Hugging Face hub and pushed the model to it, we can load the model in the usual way and work with it.
 
 ```
 from optimum.intel.neural_compressor.quantization import IncQuantizedModelForSequenceClassification
@@ -215,11 +214,11 @@ inc_model = IncQuantizedModelForSequenceClassification.from_pretrained(
 
 ## We’re only getting started
 
-In this example, we showed you how to easily quantize models post-training with Optimum Intel, and that’s just the beginning. The library supports other types of quantization, as well as pruning, a technique that zeroes or removes model parameters that have little or no impact on the predicted outcome.
+In this example, we showed you how to easily quantize models post-training with Optimum Intel, and that’s just the beginning. The library supports other types of quantization and pruning, a technique that zeroes or removes model parameters that have little or no impact on the predicted outcome.
 
-We are excited to partner with Intel to make the peak CPU efficiency from the latest Xeon hardware and Intel AI libraries accessible to Hugging Face users. Stay tuned - [give Optimum Intel a star](https://github.com/huggingface/optimum-intel) to get updates - for many new features to come!
+We are excited to partner with Intel to make the peak CPU efficiency from the latest Xeon hardware and Intel AI libraries accessible to Hugging Face users. Please [give Optimum Intel a star](https://github.com/huggingface/optimum-intel) to get updates, and stay tuned for many upcoming features!
 
-*Many thanks to Ella Charlaix for her help on this post.*
+*Many thanks to [Ella Charlaix](https://github.com/echarlaix) for her help on this post.*
 
 
 
