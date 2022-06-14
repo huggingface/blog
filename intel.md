@@ -112,7 +112,7 @@ from optimum.intel.neural_compressor.configuration import IncQuantizationConfig
 
 quantization_config = IncQuantizationConfig.from_pretrained(
     config_name_or_path="juliensimon/distilbert-amazon-shoe-reviews",
-    config_file_name='quantize.yml'
+    config_file_name="quantize.yml"
 )
 inc_quantizer = IncQuantizer(model, quantization_config, eval_func=eval_func)
 ```
