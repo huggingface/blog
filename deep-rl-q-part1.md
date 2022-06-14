@@ -31,6 +31,9 @@ thumbnail: /blog/assets/70_deep_rl_q_part1/thumbnail.gif
 <body>
 
 *This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
+ 
+<img src="assets/70_deep_rl_q_part1/thumbnail.gif" alt="Thumbnail"/>
+  
 ---
 In the [first chapter of this class](https://huggingface.co/blog/deep-rl-intro), we learned about Reinforcement Learning (RL), the RL process, and the different methods to solve an RL problem. We also trained our first lander agent to **land correctly on the Moon 🌕 and uploaded it to the Hugging Face Hub.**
 
@@ -390,7 +393,7 @@ We can now update  \\(V(S_0)\\):
 
 New  \\(V(S_0) = V(S_0 + lr * [R_1 + gamma * V(S_1) - V(S_0)]\\)
 
-New \\(V(S_0) = 0 + 0.1 * [1 + 0.99 * 0–0]\\)
+New \\(V(S_0) = 0 + 0.1 * [1 + 1 * 0–0]\\)
 
 New \\(V(S_0) = 0.1\\)
 
@@ -420,7 +423,7 @@ We have two types of value-based functions:
 - Action-Value function: outputs the expected return if **the agent starts in a given state, takes a given action at that state** and then acts accordingly to the policy forever after.
 - In value-based methods, **we define the policy by hand** because we don't train it, we train a value function. The idea is that if we have an optimal value function, we **will have an optimal policy.**
 
-There are two types of methods to learn a policy or a value function:
+There are two types of methods to learn a policy for a value function:
 
 - With *the Monte Carlo method*, we update the value function from a complete episode, and so we **use the actual accurate discounted return of this episode.**
 - With *the TD Learning method,* we update the value function from a step, so we replace Gt that we don't have with **an estimated return called TD target.**
@@ -440,7 +443,7 @@ So that’s all for today. Congrats on finishing this first part of the chapter!
 And since the best way to learn and avoid the illusion of competence is **to test yourself**. We wrote a quiz to help you find where **you need to reinforce your study**. 
 Check your knowledge here 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit2/quiz1.md
 
-In the second part (that we will publish this Friday 📆), we’ll study our first RL algorithm: Q-Learning, and implement our first RL Agent in two environments:
+<a href="https://huggingface.co/blog/deep-rl-q-part2">In the second part , we’ll study our first RL algorithm: Q-Learning</a>, and implement our first RL Agent in two environments:
 
 1. Frozen-Lake-v1 (non-slippery version): where our agent will need to **go from the starting state (S) to the goal state (G)** by walking only on frozen tiles (F) and avoiding holes (H).
 2. An autonomous taxi will need **to learn to navigate** a city to **transport its passengers from point A to point B.**

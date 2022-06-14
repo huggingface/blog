@@ -2,11 +2,32 @@
 # "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
 
+- name: fastai X Hugging Face Group 2022
+  link: https://huggingface.co/hugginglearners
+  date: Jul 15, 2022
+  date_formatted: Jun 15 to Jul 15, 2022
+  description: Share Vision and Text pre-trained fastai Learners with the community.
+
 - name: Hugging Face VIP Party at the AI Summit London
   link: https://www.addevent.com/event/Rt13780880
   date: Jun 15, 2022
   description: Come meet Hugging Face at the Skylight Bar on the roof of Tobacco Dock during AI Summit London! 6pm-9pm
 
+- name: Masader Hackathon
+  link: https://docs.google.com/document/d/1Oc-UhWByRnrPk4Orh2bVenV9PzxkGRjkML9ebBqn9hU/edit?usp=sharing
+  date: Jun 10, 2022
+  description: A sprint to add 125 Arabic NLP datasets to Masader, https://arbml.github.io/masader/,  5pm-7pm Saudi Arabia time.
+
+- name: Introduction to Hugging Face Ecosystem at PyData Paris
+  link: https://www.meetup.com/PyData-Paris/events/286206845/
+  date: June 9, 2022
+  description: An extensive introduction to the open-source ecosystem in Hugging Face.
+
+- name: Computer Vision with Hugging Face
+  link: https://youtu.be/oL-xmufhZM8
+  date: June 8, 2022
+  description: In this session, Niels Rogge walks us through the tools and architectures used to train computer vision models using Hugging Face.
+  
 - name: How to Teach Open-Source Machine Learning Tools
   link: https://www.eventbrite.com/e/how-to-teach-open-source-machine-learning-tools-tickets-310980931337
   date: Jun 6, 2022

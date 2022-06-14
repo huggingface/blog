@@ -31,6 +31,9 @@ thumbnail: /blog/assets/73_deep_rl_q_part2/thumbnail.gif
 <body>
 
 *This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
+  
+<img src="assets/73_deep_rl_q_part2/thumbnail.gif" alt="Thumbnail"/>
+  
 ---
 
 [In the first part of this unit](https://huggingface.co/blog/deep-rl-q-part1), **we learned about the value-based methods and the difference between Monte Carlo and Temporal Difference Learning**.
@@ -360,7 +363,7 @@ Don't hesitate to modify the implementation, try ways to improve it and change e
 
 We published additional readings in the syllabus if you want to go deeper 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit2/README.md
 
-In the next unit, we’re going to learn about Deep-Q-Learning.
+<a href="https://huggingface.co/blog/deep-rl-dqn">In the next unit, we’re going to learn about Deep-Q-Learning.</a>
 
 And don't forget to share with your friends who want to learn 🤗 !
   

@@ -36,8 +36,11 @@ thumbnail: /blog/assets/63_deep_rl_intro/thumbnail.png
 </head>
 
 <body>
-
+  
 *This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
+
+<img src="assets/63_deep_rl_intro/thumbnail.png" alt="Thumbnail"/>  
+
 ---
 
 Welcome to the most fascinating topic in Artificial Intelligence: **Deep Reinforcement Learning.**

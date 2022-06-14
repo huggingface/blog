@@ -34,7 +34,7 @@ thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
-<a target="_blank" href="https://colab.research.google.com/drive/1GPsnxS_JW6LRv7bZNFiUtY1f4vXwu0md?usp=sharing">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/annotated_diffusion.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -131,9 +131,9 @@ A direct consequence of the constructed forward process \\(q\\), as shown by Soh
 We have that 
 $$q(\mathbf{x}_t | \mathbf{x}_0) = \cal{N}(\mathbf{x}_t; \sqrt{\bar{\alpha}_t} \mathbf{x}_0, (1- \bar{\alpha}_t) \mathbf{I})$$
 
-with \\(\alpha_t := 1 - \beta_t\\) and \\(\bar{\alpha}t := \Pi_{s=1}^{t} \alpha_s\\). Let's refer to this equation as the "nice property". This means we can sample Gaussian noise and scale it appropriatly and add it to \\(\mathbf{x}_0\\) to get \\(\mathbf{x}_t\\) directly. Note that the \\(\bar{\alpha}_t\\) are functions of the known \\(\beta_t\\) variance schedule and thus are also known and can be precomputed. This then allows us, during training, to **optimize random terms of the loss function \\(L\\)** (or in other words, to randomly sample \\(t\\) during training and optimize \\(L_t\\).
+with \\(\alpha_t := 1 - \beta_t\\) and \\(\bar{\alpha}_t := \Pi_{s=1}^{t} \alpha_s\\). Let's refer to this equation as the "nice property". This means we can sample Gaussian noise and scale it appropriatly and add it to \\(\mathbf{x}_0\\) to get \\(\mathbf{x}_t\\) directly. Note that the \\(\bar{\alpha}_t\\) are functions of the known \\(\beta_t\\) variance schedule and thus are also known and can be precomputed. This then allows us, during training, to **optimize random terms of the loss function \\(L\\)** (or in other words, to randomly sample \\(t\\) during training and optimize \\(L_t\\)).
 
-Another beauty of this property, as shown in Ho et al. is that one can (after some math, for which we refer the reader to [this excellent blog post](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)) instead **reparametrize the mean to make the neural network learn (predict) the added noise (via a network \\(\mathbf{\epsilon}_\theta(\mathbf{x}_t, t)\\) for noise level \\(t\\)** in the KL terms which constitute the losses. This means that our neural network becomes a noise predictor, rather than a (direct) mean predictor. The mean can be computed as follows:
+Another beauty of this property, as shown in Ho et al. is that one can (after some math, for which we refer the reader to [this excellent blog post](https://lilianweng.github.io/posts/2021-07-11-diffusion-models/)) instead **reparametrize the mean to make the neural network learn (predict) the added noise (via a network \\(\mathbf{\epsilon}_\theta(\mathbf{x}_t, t)\\)) for noise level \\(t\\)** in the KL terms which constitute the losses. This means that our neural network becomes a noise predictor, rather than a (direct) mean predictor. The mean can be computed as follows:
 
 $$ \mathbf{\mu}_\theta(\mathbf{x}_t, t) = \frac{1}{\sqrt{\alpha_t}} \left(  \mathbf{x}_t - \frac{\beta_t}{\sqrt{1- \bar{\alpha}_t}} \mathbf{\epsilon}_\theta(\mathbf{x}_t, t) \right)$$
 
@@ -141,7 +141,7 @@ The final objective function \\(L_t\\) then looks as follows (for a random time 
 
 $$ \| \mathbf{\epsilon} - \mathbf{\epsilon}_\theta(\mathbf{x}_t, t) \|^2 = \| \mathbf{\epsilon} - \mathbf{\epsilon}_\theta( \sqrt{\bar{\alpha}_t} \mathbf{x}_0 + \sqrt{(1- \bar{\alpha}_t)  } \mathbf{\epsilon}, t) \|^2.$$
 
-Here, \\(\mathbf{x}_0\\) is the initial (real, uncorruped) image, and we see the direct noise level \\(t\\) sample given by the fixed forward process. \\(\mathbf{\epsilon}\\) is the pure noise sampled at time step \\(t\\), and \\(\mathbf{\epsilon}_\theta (\mathbf{x}_t, t)\\) is our neural network. The neural network is optimized using a simple mean squared error (MSE) between the true and the predicted Gaussian noise.
+Here, \\(\mathbf{x}_0\\) is the initial (real, uncorrupted) image, and we see the direct noise level \\(t\\) sample given by the fixed forward process. \\(\mathbf{\epsilon}\\) is the pure noise sampled at time step \\(t\\), and \\(\mathbf{\epsilon}_\theta (\mathbf{x}_t, t)\\) is our neural network. The neural network is optimized using a simple mean squared error (MSE) between the true and the predicted Gaussian noise.
 
 The training algorithm now looks as follows:
 
@@ -153,7 +153,7 @@ In other words:
 * we take a random sample \\(\mathbf{x}_0\\) from the real unknown and possibily complex data distribution \\(q(\mathbf{x}_0)\\)
 * we sample a noise level \\(t\\) uniformally between \\(1\\) and \\(T\\) (i.e., a random time step)
 * we sample some noise from a Gaussian distribution and corrupt the input by this noise at level \\(t\\) (using the nice property defined above)
-* the neural network is trained to predict this noise based on the corruped image \\(\mathbf{x}_t\\) (i.e. noise applied on \\(\mathbf{x}_0\\) based on known schedule \\(\beta_t\\))
+* the neural network is trained to predict this noise based on the corrupted image \\(\mathbf{x}_t\\) (i.e. noise applied on \\(\mathbf{x}_0\\) based on known schedule \\(\beta_t\\))
 
 In reality, all of this is done on batches of data, as one uses stochastic gradient descent to optimize neural networks.
 
@@ -228,6 +228,8 @@ class SinusoidalPositionEmbeddings(nn.Module):
 ### ResNet/ConvNeXT block
 
 Next, we define the core building block of the U-Net model. The DDPM authors employed a Wide ResNet block ([Zagoruyko et al., 2016](https://arxiv.org/abs/1605.07146)), but Phil Wang decided to also add support for a ConvNeXT block ([Liu et al., 2022](https://arxiv.org/abs/2201.03545)), as the latter has achieved great success in the image domain. One can choose one or another in the final U-Net architecture.
+
+*Update: Phil Wang decided to [remove ConvNeXT blocks](https://github.com/lucidrains/denoising-diffusion-pytorch/commit/989f0fcb8e5f68ac851ccf213c993045512e7456) from his implementation as they didn't seem to work well for him. However, we obtained nice results with them, as shown further in this blog.*
 
 ```python
 class Block(nn.Module):
@@ -348,7 +350,8 @@ class LinearAttention(nn.Module):
         hidden_dim = dim_head * heads
         self.to_qkv = nn.Conv2d(dim, hidden_dim * 3, 1, bias=False)
 
-        self.to_out = nn.Sequential(nn.Conv2d(hidden_dim, dim, 1), LayerNorm(dim))
+        self.to_out = nn.Sequential(nn.Conv2d(hidden_dim, dim, 1), 
+                                    nn.GroupNorm(1, dim))
 
     def forward(self, x):
         b, c, h, w = x.shape
@@ -392,9 +395,9 @@ Now that we've defined all building blocks (position embeddings, ResNet/ConvNeXT
 
 The network is built up as follows:
 * first, a convolutional layer is applied on the batch of noisy images, and position embeddings are computed for the noise levels
-* next, a sequence of downsampling stages are applied. Each downsampling stage consists of 2 ResNet/ConvNeXT blocks + layernorm + attention + residual connection + a downsample operation
+* next, a sequence of downsampling stages are applied. Each downsampling stage consists of 2 ResNet/ConvNeXT blocks + groupnorm + attention + residual connection + a downsample operation
 * at the middle of the network, again ResNet or ConvNeXT blocks are applied, interleaved with attention
-* next, a sequence of upsampling stages are applied. Each upsampling stage consists of 2 ResNet/ConvNeXT blocks + layernorm + attention + residual connection + an upsample operation
+* next, a sequence of upsampling stages are applied. Each upsampling stage consists of 2 ResNet/ConvNeXT blocks + groupnorm + attention + residual connection + an upsample operation
 * finally, a ResNet/ConvNeXT block followed by a convolutional layer is applied.
 
 Ultimately, neural networks stack up layers as if they were lego blocks (but it's important to [understand how they work](http://karpathy.github.io/2019/04/25/recipe/)).
@@ -559,7 +562,7 @@ def sigmoid_beta_schedule(timesteps):
     return torch.sigmoid(betas) * (beta_end - beta_start) + beta_start
 ```
 
-To start with, let's use the linear schedule for \\(T=200\\) time steps and define the various variables from the \\(\beta_t\\) which we will need, such as the cumulative product of the variances \\(\bar{\alpha}t\\). Each of the variables below are just 1-dimensional tensors, storing values from \\(t\\) to \\(T\\). Importantly, we also define an `extract` function, which will allow us to extract the appropriate \\(t\\) index for a batch of indices.
+To start with, let's use the linear schedule for \\(T=200\\) time steps and define the various variables from the \\(\beta_t\\) which we will need, such as the cumulative product of the variances \\(\bar{\alpha}_t\\). Each of the variables below are just 1-dimensional tensors, storing values from \\(t\\) to \\(T\\). Importantly, we also define an `extract` function, which will allow us to extract the appropriate \\(t\\) index for a batch of indices.
 
 ```python
 timesteps = 200
@@ -871,7 +874,7 @@ def sample(model, image_size, batch_size=16, channels=3):
     return p_sample_loop(model, shape=(batch_size, channels, image_size, image_size))
 ```
 
-Note that the code above is a simplified version of the original implementation. We found our simplification (which is in line with Algorithm 2 in the paper) to work just as well as the [original, more complex implementation](https://github.com/hojonathanho/diffusion/blob/master/diffusion_tf/diffusion_utils.py).
+Note that the code above is a simplified version of the original implementation. We found our simplification (which is in line with Algorithm 2 in the paper) to work just as well as the [original, more complex implementation](https://github.com/hojonathanho/diffusion/blob/master/diffusion_tf/diffusion_utils.py), which employs [clipping](https://github.com/hojonathanho/diffusion/issues/5).
 
 ## Train the model
 

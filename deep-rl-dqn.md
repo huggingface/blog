@@ -31,6 +31,9 @@ thumbnail: /blog/assets/78_deep_rl_dqn/thumbnail.gif
 <body>
 
 *This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
+
+<img src="assets/78_deep_rl_dqn/thumbnail.gif" alt="Thumbnail"/>  
+
 ---
 
 [In the last unit](https://huggingface.co/blog/deep-rl-q-part2), we learned our first reinforcement learning algorithm: Q-Learning, **implemented it from scratch**, and trained it in two environments, FrozenLake-v1 ☃️ and Taxi-v3 🚕.
@@ -78,7 +81,7 @@ Q-Learning was working well with small state space environments like:
 
 But think of what we're going to do today: we will train an agent to learn to play Space Invaders using the frames as input.
 
-As **[Nikita Melkozerov mentioned](https://twitter.com/meln1k), Atari environments** have an observation space with a shape of (210, 160, 3), containing values ranging from 0 to 255 si that gives us 256^(210*160*3) = 256^100800 (for comparison, we have approximately 10^80 atoms in the observable universe).
+As **[Nikita Melkozerov mentioned](https://twitter.com/meln1k), Atari environments** have an observation space with a shape of (210, 160, 3), containing values ranging from 0 to 255 so that gives us 256^(210x160x3) = 256^100800 (for comparison, we have approximately 10^80 atoms in the observable universe).
 
 <img src="assets/78_deep_rl_dqn/atari.jpg" alt="Atari State Space"/>
 
