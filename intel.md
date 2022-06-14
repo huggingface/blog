@@ -193,7 +193,7 @@ Before and after each quantization step, Optimum Intel runs the evaluation funct
 [INFO] +--------------------+-----------+---------------+------------------+
 ```
 
-Accuracy didn’t drop, and Optimum Intel stopped the quantization job after the first step. Had the accuracy drop been higher than the allowed 3%, Optimum Intel would have tried to quantize different parts of the models until it would have reached an acceptable drop, or the maximum number of trials.
+Accuracy didn’t drop, and Optimum Intel stopped the quantization job after the first step. Had accuracy dropped more than the allowed 3%, Optimum Intel would have tried to quantize different parts of the models until it would have reached an acceptable drop, or the maximum number of trials.
 
 Finally, we save the model and its configuration file to local storage.
 
@@ -202,7 +202,7 @@ model_dir = "./model_inc"
 inc_model.model.save_pretrained(model_dir)
 ```
 
-Once we’ve created a new model [repository](https://huggingface.co/juliensimon/distilbert-amazon-shoe-reviews-quantized) on the Hugging Face hub and pushed the model to it, we can load the model in the usual way and work with it.
+Once we’ve created a new [repository](https://huggingface.co/juliensimon/distilbert-amazon-shoe-reviews-quantized) on the Hugging Face hub and pushed the quantized model to it, we can load it in the usual way.
 
 ```
 from optimum.intel.neural_compressor.quantization import IncQuantizedModelForSequenceClassification
@@ -213,9 +213,9 @@ inc_model = IncQuantizedModelForSequenceClassification.from_pretrained(
 
 ## We’re only getting started
 
-In this example, we showed you how to easily quantize models post-training with Optimum Intel, and that’s just the beginning. The library supports other types of quantization and pruning, a technique that zeroes or removes model parameters that have little or no impact on the predicted outcome.
+In this example, we showed you how to easily quantize models post-training with Optimum Intel, and that’s just the beginning. The library supports other types of quantization as well as pruning, a technique that zeroes or removes model parameters that have little or no impact on the predicted outcome.
 
-We are excited to partner with Intel to make the peak CPU efficiency from the latest Xeon hardware and Intel AI libraries accessible to Hugging Face users. Please [give Optimum Intel a star](https://github.com/huggingface/optimum-intel) to get updates, and stay tuned for many upcoming features!
+We are excited to partner with Intel to bring Hugging Face users peak efficiency on the latest Intel Xeon CPUs and Intel AI libraries. Please [give Optimum Intel a star](https://github.com/huggingface/optimum-intel) to get updates, and stay tuned for many upcoming features!
 
 *Many thanks to [Ella Charlaix](https://github.com/echarlaix) for her help on this post.*
 
