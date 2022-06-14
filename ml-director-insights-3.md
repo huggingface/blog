@@ -13,7 +13,7 @@ thumbnail: /blog/assets/78_ml_director_insights/thumbnail.png
 <h1>Director of Machine Learning Insights [Part 3: Finance Edition]</h1>
 
 <div class="blog-metadata">
-    <small>Published June 8, 2022.</small>
+    <small>Published June 14, 2022.</small>
 </div>
 
 <div class="author-card">
@@ -31,18 +31,18 @@ thumbnail: /blog/assets/78_ml_director_insights/thumbnail.png
 _If you're interested in building ML solutions faster visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_3) today!_
 
 
-👋 Welcome back to our Director of ML Insights Series, Finance Edition! If you missed earlier versions you can find them here:
+👋 Welcome back to our Director of ML Insights Series, Finance Edition! If you missed earlier Editions you can find them here:
 
 - [Director of Machine Learning Insights [Part 1]](https://huggingface.co/blog/ml-director-insights)
 - [Director of Machine Learning Insights [Part 2 : SaaS Edition]](https://huggingface.co/blog/ml-director-insights-2)
 
-Machine Learning Directors within finance face the unique challenges of navigating legacy systems, deploying interpretable models, maintaining customer trust, all while being highly regulated (with lots of government oversight). Each of these challenges requires deep industry knowledge and technical expertise to pilot effectively.
+Machine Learning Directors within finance face the unique challenges of navigating legacy systems, deploying interpretable models, and maintaining customer trust, all while being highly regulated (with lots of government oversight). Each of these challenges requires deep industry knowledge and technical expertise to pilot effectively. The following experts from U.S. Bank, the Royal Bank of Canada, Moody's Analytics and ex Research Scientist at Bloomberg AI all help uncover unique gems within the Machine Learning x Finance sector.
 
-You’ll hear from a juniors Greek National Tennis Champion, a published author with over 100+ patents, and a cycle polo player who regularly played at the world’s oldest polo club (the Calcutta Polo Club). All turned Financial ML experts.
+You’ll hear from a juniors Greek National Tennis Champion, a published author with over 100+ patents, and a cycle polo player who regularly played at the world’s oldest polo club (the Calcutta Polo Club). All turned financial ML experts.
 
-🚀 Buckle up Goose, let's meet some top Machine Learning Mavericks in finance to hear what they have to say about Machine Learning:
+🚀 Buckle up Goose, here are the top insights from financial ML Mavericks:
 
-Disclaimer: All views are from individuals and not from any past or current employers.
+_Disclaimer: All views are from individuals and not from any past or current employers._
 
 <img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Ioannis-Bakagiannis.jpeg"></a>  
 
@@ -149,7 +149,7 @@ Previously, he held the position of Fellows Leader & Senior Fellow, while workin
 **Fun Fact:** Soumitri is a prolific inventor with 100+ issued U.S. patents in varied fields including control systems, Internet of Things, wireless networking, optimization, turbocharging, speech recognition, machine learning and AI. He also has around 30 publications, [authored a book](https://www.elsevier.com/books/industrial-wireless-sensor-networks/budampati/978-1-78242-230-3), book chapters and was elected member of NIST’s smart grid committee. 
 
 
-**U.S. Bank:** The fifth-largest commercial bank in the United States, U.S. Bank blends its relationship teams, branches and ATM networks with digital tools that allow customers to bank when, where and how they prefer. 
+**U.S. Bank:** The largest regional bank in the United States, U.S. Bank blends its relationship teams, branches and ATM networks with digital tools that allow customers to bank when, where and how they prefer. 
 
 #### **1. How has ML made a positive impact on finance?**
 Machine learning and artificial intelligence have made a profound and positive impact on finance in general and banking in particular. There are many applications in banking where many factors (features) are to be considered when making a decision and ML has traditionally helped in this respect. For example, the credit score we all universally rely on is derived from a machine learning algorithm. 
@@ -172,7 +172,7 @@ Now is a great time to be in applied ML and AI. The techniques in AI/ML are cert
  
 When I first started working in NLP, I was in awe of the ability of neural networks/language models to generate a number or vector (which we now call embeddings) that represents a word, a sentence with the associated grammar, or even a paragraph. We are constantly in search of more and more appropriate and contextual embeddings. 
  
-We have advanced far beyond a “simple” embedding for a text to “multimodal” embeddings that are even more awe-inspiring to me. I am most excited and look forward to generating and playing with these new embeddings in the future.
+We have advanced far beyond a “simple” embedding for a text to “multimodal” embeddings that are even more awe-inspiring to me. I am most excited and look forward to generating and playing with these new embeddings enabling more exciting applications in the future.
 
 ---
 
