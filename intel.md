@@ -29,19 +29,22 @@ thumbnail: /blog/assets/XXX
 ![image](assets/80_intel/01.png)
 
 
-Today, Hugging Face is excited to announce that Intel has officially joined the [Hardware Partner Program](https://huggingface.co/hardware).  Thanks to the [Optimum](https://github.com/huggingface/optimum-intel) open-source library, the two companies will keep simplifying state-of-the-art hardware acceleration for the Machine Learning (ML) community,
+Today, Hugging Face is excited to announce that Intel has officially joined the [Hardware Partner Program](https://huggingface.co/hardware).  Thanks to the [Optimum](https://github.com/huggingface/optimum-intel) open-source library, the two companies will collaborate to simplify hardware acceleration for the Machine Learning (ML) community and to deliver state-of-the-art CPU performance for training, fine-tuning and inference.
 
 The mission of Hugging Face is to democratize good machine learning and maximize its positive impact across industries and society. Not only do we strive to advance the state of the art for Transformers models, but we also work hard on simplifying their adoption.
 
 Transformer models are increasingly large and complex, which can cause production challenges for latency-sensitive applications like search or chatbots. Optimizing latency has long been a long and difficult endeavor for machine learning practitioners. Even with deep knowledge of the underlying machine learning framework and hardware platform, figuring out which knobs and features to leverage takes a lot of trial and error.
 
-With the Intel Xeon Scalable CPU platform and a wide range of hardware-optimized AI software tools, frameworks, and libraries, Intel provides a complete foundation for accelerated AI. Thus, it made perfect sense for Hugging Face and Intel to join forces and collaborate on building powerful and simple model optimization tools.
+With the Intel Xeon Scalable CPU platform and a wide range of hardware-optimized AI software tools, frameworks, and libraries, Intel provides a complete foundation for accelerated AI. Thus, it made perfect sense for Hugging Face and Intel to join forces and collaborate on building powerful and simple model optimization tools that let users reach the best performance, scale and productivity on Intel platforms.
 
 “*We’re excited to work with Hugging Face to bring the latest innovations of Intel Xeon hardware and Intel AI software to the Transformers community through open source integration and integrated developer experiences.*”, says Wei Li, Intel Vice President & General Manager, AI and Analytics.
 
-In the past months, Intel and Hugging Face started to collaborate on scaling Transformer inference on Intel Xeon CPUs. We published detailed tuning guides and benchmarks ([part 1](https://huggingface.co/blog/bert-cpu-scaling-part-1), [part 2](https://huggingface.co/blog/bert-cpu-scaling-part-2)) and we achieved [single-digit millisecond latency](https://huggingface.co/blog/infinity-cpu-performance) for DistilBERT on the latest Intel Xeon Ice Lake CPUs.
+In the past months, Intel and Hugging Face started to collaborate on scaling Transformer workloads. We published detailed tuning guides and benchmarks on inference ([part 1](https://huggingface.co/blog/bert-cpu-scaling-part-1), [part 2](https://huggingface.co/blog/bert-cpu-scaling-part-2)) and we achieved [single-digit millisecond latency](https://huggingface.co/blog/infinity-cpu-performance) for DistilBERT on the latest Intel Xeon Ice Lake CPUs. On the training side, we added support for [Habana Gaudi](https://huggingface.co/blog/getting-started-habana) accelerators, which deliver up to 40% better price performance compared to GPUs.
 
 The next logical step was to expand on this work and share it with the ML community. Enter the [Optimum Intel](https://github.com/huggingface/optimum-intel) open source library! Let’s take a deeper look at it.
+
+![image](assets/80_intel/02.png)
+
 
 ## Get Peak Transformers Performance with Optimum Intel
 [Optimum](https://github.com/huggingface/optimum) is an open-source library created by Hugging Face to simplify Transformer acceleration across a growing range of training and inference devices. Thanks to built-in optimization techniques, you can start optimizing your workloads in minutes, using ready-made scripts, or applying minimal changes to your existing code. Beginners can use Optimum out of the box with great results, and experts can keep tweaking for maximum performance. 
@@ -113,13 +116,12 @@ quantization_config = IncQuantizationConfig.from_pretrained(
     config_file_name='quantize.yml'
 )
 inc_quantizer = IncQuantizer(model, quantization_config, eval_func=eval_func)
-quantizer = inc_quantizer.fit()
 ```
 
 We can now launch the quantization job.
 
 ```
-inc_optimizer = IncOptimizer(model, quantizer=quantizer)
+inc_optimizer = IncOptimizer(model, quantizer=inc_quantizer)
 inc_model = inc_optimizer.fit()
 ```
 
@@ -198,13 +200,8 @@ As the accuracy didn’t drop, Optimum Intel stopped the quantization job after 
 Finally, we save the model and its configuration file to local storage.
 
 ```
-import yaml
-
 model_dir = "./model_inc"
 inc_model.model.save_pretrained(model_dir)
-tokenizer.save_pretrained(model_dir)
-with open("{}/best_configure.yaml".format(model_dir), "w") as f:
-    yaml.dump(inc_model.tune_cfg, f, default_flow_style=False)
 ```
 
 Once we’ve created a new model [repository](https://huggingface.co/juliensimon/distilbert-amazon-shoe-reviews-quantized) on the Hugging Face hub and pushed the model to it, we can load the model again in the usual way and work with it.
