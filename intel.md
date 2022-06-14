@@ -28,12 +28,11 @@ thumbnail: /blog/assets/XXX
 
 ![image](assets/80_intel/01.png)
 
+The mission of Hugging Face is to democratize good machine learning and maximize its positive impact across industries and society. Not only do we strive to advance Transformer models, but we also work hard on simplifying their adoption.
 
-Today, Hugging Face is excited to announce that Intel has officially joined the [Hardware Partner Program](https://huggingface.co/hardware).  Thanks to the [Optimum](https://github.com/huggingface/optimum-intel) open-source library, the two companies will collaborate to simplify hardware acceleration for the Machine Learning (ML) community and deliver state-of-the-art CPU performance for training, fine-tuning, and inference.
+Today, we're excited to announce that Intel has officially joined our [Hardware Partner Program](https://huggingface.co/hardware).  Thanks to the [Optimum](https://github.com/huggingface/optimum-intel) open-source library, Intel and Hugging Face will collaborate to build state-of-the-art hardware acceleration to train, fine-tune and predict with Transformers.
 
-The mission of Hugging Face is to democratize good machine learning and maximize its positive impact across industries and society. Not only do we strive to advance Transformers models, but we also work hard on simplifying their adoption.
-
-Transformer models are increasingly large and complex, which can cause production challenges for latency-sensitive applications like search or chatbots. Optimizing latency has long been a long and challenging endeavor for ML practitioners. Even with deep knowledge of the underlying framework and hardware platform, it takes a lot of trial and error to figure out which knobs and features to leverage.
+Transformer models are increasingly large and complex, which can cause production challenges for latency-sensitive applications like search or chatbots. Unfortunately, latency optimization has long been a hard problem for Machine Learning (ML) practitioners. Even with deep knowledge of the underlying framework and hardware platform, it takes a lot of trial and error to figure out which knobs and features to leverage.
 
 ![image](assets/80_intel/02.png)
 
