@@ -34,8 +34,6 @@ Today, we're excited to announce that Intel has officially joined our [Hardware 
 
 Transformer models are increasingly large and complex, which can cause production challenges for latency-sensitive applications like search or chatbots. Unfortunately, latency optimization has long been a hard problem for Machine Learning (ML) practitioners. Even with deep knowledge of the underlying framework and hardware platform, it takes a lot of trial and error to figure out which knobs and features to leverage.
 
-![image](assets/80_intel/02.png)
-
 Intel provides a complete foundation for accelerated AI with the Intel Xeon Scalable CPU platform and a wide range of hardware-optimized AI software tools, frameworks, and libraries. Thus, it made perfect sense for Hugging Face and Intel to join forces and collaborate on building powerful model optimization tools that let users achieve the best performance, scale, and productivity on Intel platforms.
 
 “*We’re excited to work with Hugging Face to bring the latest innovations of Intel Xeon hardware and Intel AI software to the Transformers community, through open source integration and integrated developer experiences.*”, says Wei Li, Intel Vice President & General Manager, AI and Analytics.
