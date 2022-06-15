@@ -197,7 +197,7 @@ Finally, we save the model and its configuration file to local storage.
 
 ```
 model_dir = "./model_inc"
-inc_model.model.save_pretrained(model_dir)
+inc_optimizer.save_pretrained(model_dir)
 ```
 
 Once we’ve created a new [repository](https://huggingface.co/juliensimon/distilbert-amazon-shoe-reviews-quantized) on the Hugging Face hub and pushed the quantized model to it, we can load it in the usual way.
