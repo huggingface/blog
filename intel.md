@@ -121,7 +121,7 @@ inc_optimizer = IncOptimizer(model, quantizer=inc_quantizer)
 inc_model = inc_optimizer.fit()
 ```
 
-The log tells us that Optimum Intel has quantized 39 ```Linear``` operators.
+The log tells us that Optimum Intel has quantized 38 ```Linear``` operators.
 
 ```
 [INFO] |*****Mixed Precision Statistics*****|
