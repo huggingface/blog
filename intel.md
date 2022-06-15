@@ -182,7 +182,7 @@ TransformerBlock(
 
 Very well, but how does this impact accuracy and prediction time?
 
-Before and after each quantization step, Optimum Intel runs the evaluation function on the current model. Interestingly, the accuracy of the quantized model is now a bit higher (```0.6906```) than the original model (```0.6893```). Likewise, we see that the quantized model predicts the evaluation set 13% faster than the original model. Not bad for a few lines of code!
+Before and after each quantization step, Optimum Intel runs the evaluation function on the current model. Interestingly, the accuracy of the quantized model is now a bit higher (```0.6906```) than the original model (```0.6893```). Indeed, quantization can make models more robust and less prone to over-fitting, and help increase accuracy. Likewise, we see that the quantized model predicts the evaluation set 13% faster than the original model. Not bad for a few lines of code! 
 
 ```
 [INFO] |***********************Tune Result Statistics**********************|
