@@ -1,6 +1,6 @@
 ---
 title: "Intel and Hugging Face Partner to Democratize Machine Learning Hardware Acceleration"
-thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/01.png
+thumbnail: /blog/assets/80_intel/01.png
 ---
 
 
