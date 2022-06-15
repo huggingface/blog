@@ -84,10 +84,13 @@ from evaluate import evaluator
 def eval_func(model): 
     eval = evaluator("text-classification") 
     results = eval.compute(
-        model_or_pipeline=model, tokenizer=tokenizer, 
-        data=eval_dataset, metric=evaluate.load("accuracy"), 
-    label_column="labels", label_mapping=model.config.label2id
-    ) 
+        model_or_pipeline=model,
+        tokenizer=tokenizer,
+        data=eval_dataset,
+        metric=evaluate.load("accuracy"),
+        label_column="labels",
+        label_mapping=model.config.label2id,
+    )
     return results["accuracy"]
 ```
 
