@@ -895,6 +895,16 @@
     - community
     - research
 
+- local: intel
+  title: "Intel and Hugging Face Partner to Democratize Machine Learning Hardware Acceleration"
+  author: juliensimon
+  thumbnail: /blog/assets/80_intel/01.png
+  date: June 15, 2022
+  tags:
+    - hardware
+    - intel
+    - guide
+
 - local: st-inference-api
   title: "Embedding-as-a-Service using SentenceTransformers, the 🤗Inference API, and 🤗Datasets"
   author: espejelomar
@@ -903,3 +913,4 @@
   tags:
   - guide
   - nlp
+
