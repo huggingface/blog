@@ -111,7 +111,7 @@ quantization_config = IncQuantizationConfig.from_pretrained(
     config_name_or_path="juliensimon/distilbert-amazon-shoe-reviews",
     config_file_name="quantize.yml"
 )
-inc_quantizer = IncQuantizer(model, quantization_config, eval_func=eval_func)
+inc_quantizer = IncQuantizer(quantization_config, eval_func=eval_func)
 ```
 
 We can now launch the quantization job.
