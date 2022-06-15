@@ -26,20 +26,25 @@ thumbnail: /blog/assets/80_ST_inference-api/thumbnail.png
 
 ## Embeddings as a nerve center for industrial applications
 
+Check out this tutorial with the Notebook Companion:
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/80_ST_inference-api.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
 > "[...] once you understand this ML multitool (embedding), you'll be able to build everything from search engines to recommendation systems to chatbots and a whole lot more. You don't have to be a data scientist with ML expertise to use them, nor do you need a huge labeled dataset." - [Dale Markowitz, Google Cloud](https://cloud.google.com/blog/topics/developers-practitioners/meet-ais-multitool-vector-embeddings).
 
 Embeddings are essential for modern machine learning. For references, see Pinecone's "[What are Vector Embeddings](https://www.pinecone.io/learn/vector-embeddings/)", our 101 on [how to use embeddings for semantic search](https://huggingface.co/spaces/sentence-transformers/Sentence_Transformers_for_semantic_search), and [Nima's thread](https://twitter.com/NimaBoscarino/status/1535331680805801984) on recent research. For generating embeddings, we will be using the open-source library called [Sentence Transformers](https://www.sbert.net/index.html) (ST). 
 
 > "ST is a Python framework for state-of-the-art sentence, text, and image embeddings. [...] You can use ST to compute sentence/text embeddings for more than 100 languages. These embeddings can then be compared, e.g., with cosine-similarity to find sentences with similar meanings. This can be useful for semantic textual similarity, semantic search, or paraphrase mining." - [ST documentation](https://www.sbert.net/index.html#sentencetransformers-documentation).
 
-Once a piece of information (a sentence, a document, an image) is embedded, the creativity starts; several interesting industrial applications use embeddings. E.g., Google Search uses embeddings to [match text to text and text to images](https://cloud.google.com/blog/topics/developers-practitioners/meet-ais-multitool-vector-embeddings); Snapchat uses them to "[serve the right ad to the right user at the right time](https://eng.snap.com/machine-learning-snap-ad-ranking)"; and Meta (Facebook) uses it for [their social search](https://research.facebook.com/publications/embedding-based-retrieval-in-facebook-search/).
+Once a piece of information (a sentence, a document, an image) is embedded, the creativity starts; several interesting industrial applications use embeddings. E.g., Google Search uses embeddings to [match text to text and text to images](https://cloud.google.com/blog/topics/developers-practitioners/meet-ais-multitool-vector-embeddings); Snapchat uses them to "[serve the right ad to the right user at the right time](https://eng.snap.com/machine-learning-snap-ad-ranking)"; and Meta (Facebook) uses them for [their social search](https://research.facebook.com/publications/embedding-based-retrieval-in-facebook-search/).
 
 Today we will create a small Frequently Asked Questions (FAQs) engine: receive a query from a user and identify which FAQ is the most similar. We will use the [US Social Security Medicare FAQs](https://faq.ssa.gov/en-US/topic/?id=CAT-01092).
 
 But first, we need to embed our dataset (other texts use the terms encode and embed interchangeably). The Hugging Face Inference API allows us to embed a dataset using a quick POST call easily.
 
 In a nutshell, we will:
-1. Embed Medicare's FAQs using the Hugging Face Inference-API.
+1. Embed Medicare's FAQs using the Hugging Face Inference API.
 2. Upload our embedded questions to the Hugging Face Hub for free hosting.
 3. Compare a customer's query to our embedded dataset to identify which is the most similar FAQ in our dataset.
 
@@ -47,7 +52,7 @@ This application is called Semantic Search; I recommend you review our [previous
 
 ## 1. Using the Hugging Face Inference API to embed our dataset
 
-First, select the model you will use. We can choose a model from the [Sentence Transformers library](https://huggingface.co/sentence-transformers). In this case, we use ["sentence-transformers/all-MiniLM-L6-v2"](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2). In the Python code below, we will store the model id in the `model_id` variable.
+First, select the model you will use. We can choose a model from the [Sentence Transformers library](https://huggingface.co/sentence-transformers). In this case, we use ["sentence-transformers/all-MiniLM-L6-v2"](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) because it is a small but powerful model. In a future post we will examine other models and their trade-offs. In the Python code below, we will store the model id in the `model_id` variable.
 
 Log in to the Hugging Face Hub. You must create a write token in your [Account Settings](http://hf.co/settings/tokens). We will store our write token in `hf_token`.
 
@@ -132,7 +137,7 @@ git lfs install
 !git clone https://huggingface.co/datasets/ITESM/embedded_faqs_medicare
 ```
 
-Now let's host our embedding. See the 🤗Datasets documentation for more information on [how to prepare your files](https://huggingface.co/docs/datasets/share#prepare-your-files). First, we convert our embeddings from a Pandas `DataFrame` to a CSV. You can save your dataset in any way you prefer, e.g., zip or pickle; you don't need to use Pandas or CSV. Since our embeddings file is not large, we can store it in a CSV, which is easily inferred by the `datasets.load_dataset()` function (see the [Datasets documentation](https://huggingface.co/docs/datasets/about_dataset_load#build-and-load)), i.e., we don't need to create a loading script. We will save the embeddings inside our repository `embedded_faqs_medicare`.
+Now let's host our embedding. See the 🤗Datasets documentation for more information on [how to prepare your files](https://huggingface.co/docs/datasets/share#prepare-your-files). First, we convert our embeddings from a Pandas `DataFrame` to a CSV. You can save your dataset in any way you prefer, e.g., zip or pickle; you don't need to use Pandas or CSV. Since our embeddings file is not large, we can store it in a CSV, which is easily inferred by the `datasets.load_dataset()` function (see the [Datasets documentation](https://huggingface.co/docs/datasets/about_dataset_load#build-and-load)), i.e., we don't need to create a loading script. We will save the embeddings inside our repository `ITESM/embedded_faqs_medicare`.
 
 ```py
 embeddings.to_csv("embedded_faqs_medicare/embeddings.csv", index=False)
@@ -170,7 +175,7 @@ import numpy as np
 query_embeddings = np.asarray(output)
 ```
 
-Install the 🤗Datasets library with `pip install datasets`. Then load our embedded dataset from the Hugging Face Hub and convert it to a NumPy array. Note that this is not the only way to operate on a `DataSet`; for example, you could use PyTorch, Tensorflow, or ScyPy (refer to the [Documentation](https://huggingface.co/docs/datasets/loading)).
+Install the 🤗Datasets library with `pip install datasets`. Then load our embedded dataset from the Hugging Face Hub and convert it to a NumPy array. Note that this is not the only way to operate on a `DataSet`; for example, you could use PyTorch, Tensorflow, or SciPy (refer to the [Documentation](https://huggingface.co/docs/datasets/loading)).
 
 ```py
 from datasets import load_dataset
@@ -231,7 +236,7 @@ print([texts[i] for i in index_top_faqs])
  'What are Medicare late enrollment penalties?',
  'What is TRICARE ?']
  ```
-This list represents the FAQs that most resemble the query. Nice!
+This list represents the FAQs that most resemble the query. Nice! We used here NumPy and Pandas as our main tools. However, the Sentence Transformers library includes very useful functions to easily operate with `torch.Tensors`. For example, the `sentence_transformers.util.semantic_search()` function would directly return the cosine similarity scores of an embedded query and an embedded dataset ([see the documentation](https://www.sbert.net/examples/applications/semantic-search/README.html#util-semantic-search)). 
 
 ## 4. Additional resources!
 If you want to know more about the Sentence Transformers library:
