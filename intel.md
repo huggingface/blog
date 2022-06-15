@@ -209,7 +209,8 @@ Once we’ve created a new [repository](https://huggingface.co/juliensimon/disti
 from optimum.intel.neural_compressor.quantization import IncQuantizedModelForSequenceClassification
 
 inc_model = IncQuantizedModelForSequenceClassification.from_pretrained(
-    "juliensimon/distilbert-amazon-shoe-reviews-quantized")
+    "juliensimon/distilbert-amazon-shoe-reviews-quantized"
+)
 ```
 
 ## We’re only getting started
