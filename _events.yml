@@ -8,6 +8,11 @@
   date_formatted: Jun 15 to Jul 15, 2022
   description: Share Vision and Text pre-trained fastai Learners with the community.
 
+- name: Twitter Space with ONNX RunTime
+  link: https://twitter.com/i/spaces/1jMJgeQZjrYKL
+  date: Jun 22, 2022
+  description: Join our live discussion with the ONNX RunTime team about accelerating Transformers with Optimum!
+
 - name: Hugging Face VIP Party at the AI Summit London
   link: https://www.addevent.com/event/Rt13780880
   date: Jun 15, 2022
