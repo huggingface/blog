@@ -12,6 +12,11 @@
   link: https://twitter.com/i/spaces/1jMJgeQZjrYKL
   date: Jun 22, 2022
   description: Join our live discussion with the ONNX RunTime team about accelerating Transformers with Optimum!
+  
+- name: Data2vec Reading Group
+  link: https://huggingface.co/join/discord
+  date: Jun 22, 2022
+  description: Join us to talk about data2vec, a model that works across different modalities: text, audio, and images.
 
 - name: Hugging Face VIP Party at the AI Summit London
   link: https://www.addevent.com/event/Rt13780880
