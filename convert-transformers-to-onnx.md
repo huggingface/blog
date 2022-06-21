@@ -4,7 +4,7 @@ thumbnail: /blog/assets/66_optimum_inference/thumbnail.png
 ---
 
 <h1>
-   "Convert Transformers to ONNX with Hugging Face Optimum"
+   Convert Transformers to ONNX with Hugging Face Optimum
 </h1>
 
 <div class="blog-metadata">
