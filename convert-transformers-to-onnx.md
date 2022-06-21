@@ -29,14 +29,11 @@ Hundreds of Transformers experiments and models are uploaded to the [Hugging Fac
 If you deploy Transformers models in production environments, we recommend exporting them first into a serialized format that can be loaded, optimized, and executed on specialized runtimes and hardware.
 
 In this guide, you'll learn about:
-- [1. What is ONNX?](#1-what-is-onnx)
-- [2. What is Hugging Face Optimum?](#2-what-is-hugging-face-optimum)
-- [3. What Transformers architectures are supported?](#3-what-transformers-architectures-are-supported)
-- [4. How can I convert a Transformers model (BERT) to ONNX?](#4-how-can-i-convert-a-transformers-model-bert-to-onnx)
-  - [Export with `torch.onnx` (low-level)](#export-with-torchonnx-low-level)
-  - [Export with `transformers.onnx`  (mid-level)](#export-with-transformersonnx--mid-level)
-  - [Export with Optimum (high-level)](#export-with-optimum-high-level)
-- [5. What's next?](#5-whats-next)
+1. [What is ONNX?](#1-what-is-onnx)
+2. [What is Hugging Face Optimum?](#2-what-is-hugging-face-optimum)
+3. [What Transformers architectures are supported?](#3-what-transformers-architectures-are-supported)
+4. [How can I convert a Transformers model (BERT) to ONNX?](#4-how-can-i-convert-a-transformers-model-bert-to-onnx)
+5. [What's next?](#5-whats-next)
 
 Let's get started! 🚀
 
