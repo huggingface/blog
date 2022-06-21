@@ -877,6 +877,16 @@
   - guide
   - diffusion
 
+- external: https://huggingface.co/spaces/loubnabnl/code-generation-models
+  title: "Code generation with Hugging Face"
+  author: loubnabnl
+  thumbnail: /blog/assets/79_code_generation_space/code_generation.png
+  date: June 8, 2022
+  tags:
+    - guide
+    - research
+    - nlp
+
 - external: https://huggingface.co/spaces/sentence-transformers/Sentence_Transformers_for_semantic_search
   title: "Using Sentence Transformers for semantic search"
   author: espejelomar
@@ -904,4 +914,5 @@
     - hardware
     - intel
     - guide
+
 
