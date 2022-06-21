@@ -1,6 +1,6 @@
 ---
 title: Hugging Face Collaborates with Microsoft to Launch Hugging Face Endpoints on Azure
-thumbnail: /blog/assets/75_hugging_face_endpoints/01.png
+thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/01.png
 ---
 
 <h1>
