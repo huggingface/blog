@@ -2,7 +2,6 @@
 title: 'Convert Transformers to ONNX with Hugging Face Optimum'
 thumbnail: /blog/assets/66_optimum_inference/thumbnail.png
 ---
-
 <h1>
    Convert Transformers to ONNX with Hugging Face Optimum
 </h1>
@@ -40,11 +39,13 @@ Let's get started! 🚀
 ---
 
 If you are interested in optimizing your models to run with maximum efficiency, check out the [🤗 Optimum library](https://github.com/huggingface/optimum).
-
-## 1. What is ONNX?
-
+<html itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <a id="1-what-is-onnx"><h2 itemprop="name"> 1. What is ONNX?</h2></a>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
 The [ONNX (Open Neural Network eXchange)](http://onnx.ai/) is an open standard and format to represent machine learning models. ONNX defines a common set of operators and a common file format to represent deep learning models in a wide variety of frameworks, including PyTorch and TensorFlow. 
-
+  
 <figure class="image table text-center m-0 w-full">
     <img src="assets/81_convert_transformers_to_onnx/graph.png" alt="Netron ONNX Graph"/>
     <figcaption>pseudo ONNX graph, visualized with NETRON</figcaption>
@@ -56,11 +57,17 @@ When a model is exported to the ONNX format, these operators are used to constru
 > 
 
 ➡️[Learn more about ONNX.](https://onnx.ai/about.html)
-
-## 2. What is Hugging Face Optimum?
-
+</div>
+    </div>
+        </div>
+<html itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <a id="2-what-is-hugging-face-optimum"><h2 itemprop="name"> 2. What is Hugging Face Optimum?</h2></a>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
+            
 [Hugging Face Optimum](https://github.com/huggingface/optimum) is an open-source library and an extension of [Hugging Face Transformers](https://github.com/huggingface/transformers), that provides a unified API of performance optimization tools to achieve maximum efficiency to train and run models on accelerated hardware, including toolkits for optimized performance on [Graphcore IPU](https://github.com/huggingface/optimum-graphcore) and [Habana Gaudi](https://github.com/huggingface/optimum-habana). 
-
+ 
 Optimum can be used for converting, quantization, graph optimization, accelerated training & inference with support for [transformers pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines#pipelines).
 
 Below you can see a typical developer journey of how you can leverage Optimum with ONNX.
@@ -70,8 +77,14 @@ Below you can see a typical developer journey of how you can leverage Optimum wi
 </figure>
 
 [➡️ Learn more about Optimum](https://huggingface.co/blog/hardware-partners-program)
-
-## 3. What Transformers architectures are supported?
+</div>
+    </div>
+        </div>
+<html itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <a id="3-what-transformers-architectures-are-supported"><h2 itemprop="name"> 3. What Transformers architectures are supported?</h2></a>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
 
 A list of all supported Transformers architectures can be found in the [ONNX section of the Transformers documentation](https://huggingface.co/docs/transformers/serialization#onnx). Below is an excerpt of the most commonly used architectures which can be converted to ONNX and optimized with [Hugging Face Optimum](https://huggingface.co/docs/optimum/index) 
 
@@ -90,9 +103,16 @@ A list of all supported Transformers architectures can be found in the [ONNX sec
 - …
 
 [➡️ All supported architectures](https://huggingface.co/docs/transformers/serialization#onnx)
-
-## 4. How can I convert a Transformers model (BERT) to ONNX?
-
+</div>
+    </div>
+        </div>
+        
+<html itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <a id="4-how-can-i-convert-a-transformers-model-bert-to-onnx"><h2 itemprop="name">4. How can I convert a Transformers model (BERT) to ONNX?</h2></a>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
+      
 There are currently three ways to convert your Hugging Face Transformers models to ONNX. In this section, you will learn how to export [distilbert-base-uncased-finetuned-sst-2-english](https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english) for `text-classification` using all three methods going from the low-level `torch` API to the most user-friendly high-level API of `optimum`. Each method will do exactly the same
 
 ### Export with `torch.onnx` (low-level)
@@ -189,7 +209,10 @@ model = ORTModelForSequenceClassification.from_pretrained("distilbert-base-uncas
 ```
 
 The best part about the conversion with Optimum is that you can immediately use the `model` to run predictions or load it [inside a pipeline.](https://huggingface.co/docs/optimum/onnxruntime/modeling_ort#switching-from-transformers-to-optimum-inference)
-
+</div>
+    </div>
+        </div>
+        
 ## 5. What's next?
 
 Since you successfully convert your Transformers model to ONNX the whole set of optimization and quantization tools is now open to use. Potential next steps can be:
@@ -205,3 +228,4 @@ If you are interested in optimizing your models to run with maximum efficiency, 
 ---
 
 Thanks for reading! If you have any questions, feel free to contact me, through [Github](https://github.com/huggingface/transformers), or on the [forum](https://discuss.huggingface.co/c/optimum/59). You can also connect with me on [Twitter](https://twitter.com/_philschmid) or [LinkedIn](https://www.linkedin.com/in/philipp-schmid-a6a2bb196/).
+ </html>
