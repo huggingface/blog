@@ -1,6 +1,6 @@
 ---
 title: 'Convert Transformers to ONNX with Hugging Face Optimum'
-thumbnail: /blog/assets/66_optimum_inference/thumbnail.png
+thumbnail: /blog/assets/81_convert_transformers_to_onnx/thumbnail.png
 ---
 <h1>
    Convert Transformers to ONNX with Hugging Face Optimum
