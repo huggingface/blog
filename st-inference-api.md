@@ -8,7 +8,7 @@ thumbnail: /blog/assets/80_ST_inference-api/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published June 22, 2022.</small>
+    <small>Published June 23, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/st-inference-api.md">
         Update on GitHub
     </a>
@@ -35,7 +35,7 @@ An embedding is a numerical representation of a piece of information, e.g., text
 
 Embeddings can be represented in a vector space. For example, the semantic representation of an image can be roughly captured in a list of 384 numbers, each representing a position within the dimensions of a vector space. We can then embed some text that describes what the above image contains; that is, we create an embedding that can be represented in the same 384-dimensional vector space. The proximity of the image and text embeddings can be calculated and thus confirm if the text is similar to what the image represents.
 
-How are embeddings generated? The open-source library called [Sentence Transformers](https://www.sbert.net/index.html) allows us to create state-of-the-art embeddings from images and text for free.
+How are embeddings generated? The open-source library called [Sentence Transformers](https://www.sbert.net/index.html) allows you to create state-of-the-art embeddings from images and text for free.
 
 ## What are embeddings for?
 
@@ -73,7 +73,6 @@ To generate the embeddings you can use the `https://api-inference.huggingface.co
 
 ```py
 import requests
-from typing import Dict
 
 api_url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{model_id}"
 headers = {"Authorization": f"Bearer {hf_token}"}
@@ -176,7 +175,7 @@ from datasets import load_dataset
 faqs_embeddings = load_dataset('namespace/repo_name')
 dataset_embeddings = torch.from_numpy(faqs_embeddings["train"].to_pandas().to_numpy()).to(torch.float)
 ```
-We use the query function we defined before to embed the customer's question and convert it to a PyTorch `FloatTensor` to operate over it efficiently. Note that after the embedded dataset is loaded, we could use the `add_faiss_index` and `search` methods of a `Dataset` to identify the closest FAQ to an embedded query using the [faiss library](https://github.com/facebookresearch/faiss). Here is a [nice tutorial](https://huggingface.co/docs/datasets/faiss_es). This is a valuable alternative.
+We use the query function we defined before to embed the customer's question and convert it to a PyTorch `FloatTensor` to operate over it efficiently. Note that after the embedded dataset is loaded, we could use the `add_faiss_index` and `search` methods of a `Dataset` to identify the closest FAQ to an embedded query using the [faiss library](https://github.com/facebookresearch/faiss). Here is a [nice tutorial of the alternative](https://huggingface.co/docs/datasets/faiss_es).
 
 ```py
 question = ["How can Medicare help me?"]

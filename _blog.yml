@@ -919,7 +919,7 @@
   title: "Embedding-as-a-Service: Sentence Transformers, the Inference API, and 🤗 Datasets"
   author: espejelomar
   thumbnail: /blog/assets/80_ST_inference-api/thumbnail.png
-  date: June 22, 2022
+  date: June 23, 2022
   tags:
   - guide
   - nlp
