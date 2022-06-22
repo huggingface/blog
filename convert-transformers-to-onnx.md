@@ -173,7 +173,7 @@ from transformers import AutoConfig, AutoTokenizer, AutoModelForSequenceClassifi
 # load model and tokenizer
 model_id = "distilbert-base-uncased-finetuned-sst-2-english"
 feature = "sequence-classification"
-base_model = AutoModelForSequenceClassification.from_pretrained(model_id)
+model = AutoModelForSequenceClassification.from_pretrained(model_id)
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 # load config
