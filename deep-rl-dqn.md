@@ -52,10 +52,10 @@ And **we'll train it to play Space Invaders and other Atari environments using [
   
 So let’s get started! 🚀
 
-To be able to understand this unit, **you need to understand [Q-Learning](https://huggingface.co/blog/deep-rl-q-part2) first.**)
+To be able to understand this unit, **you need to understand [Q-Learning](https://huggingface.co/blog/deep-rl-q-part2) first.**
 
 - [From Q-Learning to Deep Q-Learning](#from-q-learning-to-deep-q-learning)
-- [The Deep Q Network](#the-deep-q-network)
+- [The Deep Q Network](#the-deep-q-network-dqn)
   - [Preprocessing the input and temporal limitation](#preprocessing-the-input-and-temporal-limitation)
 - [The Deep Q-Learning Algorithm](#the-deep-q-learning-algorithm)
   - [Experience Replay to make more efficient use of experiences](#experience-replay-to-make-more-efficient-use-of-experiences) 
@@ -106,7 +106,7 @@ When the Neural Network is initialized, **the Q-value estimation is terrible**. 
 ### Preprocessing the input and temporal limitation
 We mentioned that we **preprocess the input**. It’s an essential step since we want to reduce the complexity of our state to reduce the computation time needed for training.
   
-So what we do is **reduce the state space to 84x84 and grayscale it** (since color in Atari environments does not add important information).
+So what we do is **reduce the state space to 84x84 and grayscale it** (since the colors in Atari environments don't add important information).
 This is an essential saving since we **reduce our three color channels (RGB) to 1**.
 
 We can also **crop a part of the screen in some games** if it does not contain important information.
@@ -182,7 +182,7 @@ The solution is to create a Replay Buffer that stores experience tuples while in
 
 Experience replay also has other benefits. By randomly sampling the experiences, we remove correlation in the observation sequences and avoid **action values from oscillating or diverging catastrophically.**
 
-In the Deep Q-Learning pseudocode, we see that we **initialize a replay memory buffer D from capacity N** (N is an hyperparameter that you can define). We then, store experiences in the memory and then sample a minibatch of experiences to feed the Deep Q-Network during the training phase.
+In the Deep Q-Learning pseudocode, we see that we **initialize a replay memory buffer D from capacity N** (N is an hyperparameter that you can define). We then store experiences in the memory and sample a minibatch of experiences to feed the Deep Q-Network during the training phase.
   
 <img src="assets/78_deep_rl_dqn/experience-replay-pseudocode.jpg" alt="Experience Replay Pseudocode"/>
 
@@ -225,9 +225,9 @@ To understand this problem, remember how we calculate the TD Target:
 
 We face a simple problem by calculating the TD target: how are we sure that **the best action for the next state is the action with the highest Q-value?**
 
-We know that the accuracy of q values depends on what action we tried **and** what neighboring states we explored.
+We know that the accuracy of Q values depends on what action we tried **and** what neighboring states we explored.
 
-Consequently, we don’t have enough information about the best action to take at the beginning of the training. Therefore, taking the maximum q value (which is noisy) as the best action to take can lead to false positives. If non-optimal actions are regularly **given a higher Q value than the optimal best action, the learning will be complicated.**
+Consequently, we don’t have enough information about the best action to take at the beginning of the training. Therefore, taking the maximum Q value (which is noisy) as the best action to take can lead to false positives. If non-optimal actions are regularly **given a higher Q value than the optimal best action, the learning will be complicated.**
 
 The solution is: when we compute the Q target, we use two networks to decouple the action selection from the target Q value generation. We:
 <img src="assets/78_deep_rl_dqn/double-dqn-pseudocode.jpg" alt="Double DQN Pseudocode"/>
