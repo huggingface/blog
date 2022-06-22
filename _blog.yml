@@ -951,3 +951,12 @@
   date: June 28, 2022
   tags:
   - guide
+
+- local: liftoff-tips-for-sentence-transformers
+  title: "Liftoff! Some tips for your first Sentence Transformers project 🚀"
+  author: nimaboscarino
+  thumbnail: /blog/assets/81_convert_transformers_to_onnx/thumbnail.png
+  date: June 22, 2022
+  tags:
+    - guide
+    - nlp
