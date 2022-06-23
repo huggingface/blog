@@ -38,7 +38,10 @@ In a nutshell, Sentence Transformers answers one question: What if we could trea
 
 What makes ST particularly useful is that, once you’ve generated some embeddings, you can use the built-in utility functions to compare how similar one sentence is to another, ***including synonyms!*** 🤯 One way to do this is with [“Cosine Similarity”](https://www.machinelearningplus.com/nlp/cosine-similarity/), and with ST you can skip all the pesky math and just call the *very* handy `util.cos_sim` function to get a a score that signifies how “similar” the sentences are – the bigger the score is, the more similar the sentences are! 
 
-> Add image with caption here.
+<figure class="image table text-center m-0 w-full">
+  <medium-zoom background="rgba(0,0,0,.7)" alt="A flowchart showing sentences being embedded with Sentence Transformers, and then compared with Cosine Similarity" src="assets/83_st_first_project/sentence-transformers-explained.svg"></medium-zoom>
+  <figcaption>Comparing a sentence like “I’m so glad I learned to code with Python!” with “Python is a great programming language.” might give us a score like 0.67, whereas comparing “I’m so glad I learned to code with Python!” with "Yum, that was a great plate of spaghetti." might give us a smaller number, like 0.28.</figcaption>
+</figure>
 
 Being able to compare sentences by similarity means that if we have a collection of sentences or paragraphs, we can quickly find the ones that match a particular search query with a process called *[semantic search](https://www.sbert.net/examples/applications/semantic-search/README.html)*.
 
@@ -63,7 +66,9 @@ For my first Sentence Transformers project, I remembered that I had a little dat
 
 Here’s what I ended up making:
 
-> Embed or link project [https://huggingface.co/spaces/NimaBoscarino/playlist-generator](https://huggingface.co/spaces/NimaBoscarino/playlist-generator)
+<div style="display: flex; flex-direction: column; align-items: center; margin-top: -130px; margin-bottom: -130px;">
+<iframe src="https://hf.space/embed/NimaBoscarino/playlist-generator/+" frameBorder="0" width="1400" height="690" style="transform: scale(0.8);" title="Gradio app" class="p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+</div>
 
 ## What can you expect to learn from your first project?
 
@@ -73,10 +78,9 @@ Since every project is unique, your learning journey will also be unique! Accord
 
 Once you’ve gone through your first project, you’ll find that you’ll have even more ideas for things to work on! Have fun, and don’t forget to share your projects and everything you’ve learned with us over at [hf.co/join/discord](http://hf.co/join/discord) 🤗
 
-More Content:
+Further reading:
 
-- [https://huggingface.co/docs/hub/sentence-transformers](https://huggingface.co/docs/hub/sentence-transformers)
-- [https://huggingface.co/spaces/sentence-transformers/Sentence_Transformers_for_semantic_search](https://huggingface.co/spaces/sentence-transformers/Sentence_Transformers_for_semantic_search)
-- [https://www.pinecone.io/learn/sentence-embeddings/#some-context](https://www.pinecone.io/learn/sentence-embeddings/#some-context)
-- [https://johnbrandt.org/blog/sentence-similarity/](https://johnbrandt.org/blog/sentence-similarity/)
-- [https://medium.com/analytics-vidhya/sentence-embeddings-facebooks-infersent-6ac4a9fc2001](https://medium.com/analytics-vidhya/sentence-embeddings-facebooks-infersent-6ac4a9fc2001)
+- [Sentence Transformers x Hugging Face](https://huggingface.co/docs/hub/sentence-transformers)
+- [Sentence_Transformers for Semantic Search - by Omar Espejel](https://huggingface.co/spaces/sentence-transformers/Sentence_Transformers_for_semantic_search)
+- [Pinecone.io - Sentence Embeddings](https://www.pinecone.io/learn/sentence-embeddings/#some-context)
+- [Sentence embeddings - by John Brandt](https://johnbrandt.org/blog/sentence-similarity/)
