@@ -64,7 +64,7 @@ So you’ve decided to check out Sentence Transformers and worked through some o
 
 For my first Sentence Transformers project, I remembered that I had a little dataset of popular song lyrics kicking around, which I realized I could combine with ST’s semantic search functionality to create a fun playlist generator. I imagined that if I could ask a user for a text prompt (e.g. “I’m feeling wild and free!”), maybe I could find songs that had lyrics that matched the prompt! I’d also been making demos with [Gradio](https://gradio.app/) and had recently been working on scaling up my skills with the newly-released [Gradio Blocks](https://gradio.app/introduction_to_blocks/?utm_campaign=Gradio&utm_medium=web&utm_source=Gradio_4), so for my secondary tool I decided I would make a cool Blocks-based Gradio app to showcase my project. Never pass up a chance to feed two birds with one scone 🦆🐓
 
-[Here’s what I ended up making!](https://huggingface.co/spaces/NimaBoscarino/playlist-generator)
+[Here’s what I ended up making!](https://huggingface.co/spaces/NimaBoscarino/playlist-generator) Keep an eye out for a future blog post where we'll break down how this was built 👀
 
 <div class="hidden xl:block">
 <div style="display: flex; flex-direction: column; align-items: center;">
