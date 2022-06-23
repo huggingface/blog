@@ -1,6 +1,6 @@
 ---
 title: 'Liftoff! Some tips for your first Sentence Transformers project 🚀'
-thumbnail: /blog/assets/81_convert_transformers_to_onnx/thumbnail.png
+thumbnail: /blog/assets/83_st_first_project/thumbnail.png
 ---
 
 <h1>
@@ -36,11 +36,11 @@ Sentence Transformers is [among the libraries that Hugging Face integrates with]
 
 In a nutshell, Sentence Transformers answers one question: What if we could treat sentences as points in a multi-dimensional space? This means that ST lets you give it an arbitrary string of text (e.g. “I’m so glad I learned to code with Python!”) and it’ll transform it to a vector, such as `[0.2, 0.5, 1.3, 0.9]`. Another sentence, such as “Python is a great programming language.”, would be transformed to a different vector. These vectors are called “embeddings”, and [they play an important role in Machine Learning](https://medium.com/@b.terryjack/nlp-everything-about-word-embeddings-9ea21f51ccfe).
 
-What makes ST particularly useful is that, once you’ve generated some embeddings, you can use the built-in utility functions to compare how similar one sentence is to another, ***including synonyms!*** 🤯 One way to do this is with [“Cosine Similarity”](https://www.machinelearningplus.com/nlp/cosine-similarity/), and with ST you can skip all the pesky math and just call the *very* handy `util.cos_sim` function to get a a score that signifies how “similar” the sentences are – the bigger the score is, the more similar the sentences are! 
+What makes ST particularly useful is that, once you’ve generated some embeddings, you can use the built-in utility functions to compare how similar one sentence is to another, ***including synonyms!*** 🤯 One way to do this is with [“Cosine Similarity”](https://www.machinelearningplus.com/nlp/cosine-similarity/), and with ST you can skip all the pesky math and just call the *very* handy `util.cos_sim` function to get a score from -1 to 1 that signifies how “similar” the sentences are – the bigger the score is, the more similar the sentences are! 
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="A flowchart showing sentences being embedded with Sentence Transformers, and then compared with Cosine Similarity" src="assets/83_st_first_project/sentence-transformers-explained.svg"></medium-zoom>
-  <figcaption>Comparing a sentence like “I’m so glad I learned to code with Python!” with “Python is a great programming language.” might give us a score like 0.67, whereas comparing “I’m so glad I learned to code with Python!” with "Yum, that was a great plate of spaghetti." might give us a smaller number, like 0.28.</figcaption>
+  <img style="border:none;" alt="A flowchart showing sentences being embedded with Sentence Transformers, and then compared with Cosine Similarity" src="assets/83_st_first_project/sentence-transformers-explained.svg" />
+  <figcaption>After embedding sentences, we can compare them with Cosine Similarity.</figcaption>
 </figure>
 
 Being able to compare sentences by similarity means that if we have a collection of sentences or paragraphs, we can quickly find the ones that match a particular search query with a process called *[semantic search](https://www.sbert.net/examples/applications/semantic-search/README.html)*.
@@ -64,10 +64,12 @@ So you’ve decided to check out Sentence Transformers and worked through some o
 
 For my first Sentence Transformers project, I remembered that I had a little dataset of popular song lyrics kicking around, which I realized I could combine with ST’s semantic search functionality to create a fun playlist generator. I imagined that if I could ask a user for a text prompt (e.g. “I’m feeling wild and free!”), maybe I could find songs that had lyrics that matched the prompt! I’d also been making demos with [Gradio](https://gradio.app/) and had recently been working on scaling up my skills with the newly-released [Gradio Blocks](https://gradio.app/introduction_to_blocks/?utm_campaign=Gradio&utm_medium=web&utm_source=Gradio_4), so for my secondary tool I decided I would make a cool Blocks-based Gradio app to showcase my project. Never pass up a chance to feed two birds with one scone 🦆🐓
 
-Here’s what I ended up making:
+[Here’s what I ended up making!](https://huggingface.co/spaces/NimaBoscarino/playlist-generator)
 
-<div style="display: flex; flex-direction: column; align-items: center; margin-top: -130px; margin-bottom: -130px;">
-<iframe src="https://hf.space/embed/NimaBoscarino/playlist-generator/+" frameBorder="0" width="1400" height="690" style="transform: scale(0.8);" title="Gradio app" class="p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<div class="hidden xl:block">
+<div style="display: flex; flex-direction: column; align-items: center;">
+<iframe src="https://hf.space/embed/NimaBoscarino/playlist-generator/+" frameBorder="0" width="1400" height="690" title="Gradio app" class="p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+</div>
 </div>
 
 ## What can you expect to learn from your first project?
