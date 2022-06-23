@@ -355,7 +355,7 @@ def compute_metrics(p):
 ```
 
 
-Let's load the pretrained model. We'll add `num_labels` on init so the model creates a classification head with the right number of units. We'll also include the `id2label` and `label2id` mappings to have human-readable labels in the Hub widget (if you choose to `push_to_hub`).
+Let's load the pretrained model from [Google's ViT checkpoint](https://huggingface.co/google/vit-base-patch16-224-in21k), available on the Hugging Face. We'll add `num_labels` on init so the model creates a classification head with the right number of units. We'll also include the `id2label` and `label2id` mappings to have human-readable labels in the Hub widget (if you choose to `push_to_hub`).
 
 
 ```python
@@ -364,7 +364,7 @@ from transformers import ViTForImageClassification
 labels = ds['train'].features['labels'].names
 
 model = ViTForImageClassification.from_pretrained(
-    model_name_or_path,
+    "google/vit-base-patch16-224-in21k",
     num_labels=len(labels),
     id2label={str(i): c for i, c in enumerate(labels)},
     label2id={c: str(i) for i, c in enumerate(labels)}
