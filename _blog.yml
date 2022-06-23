@@ -924,3 +924,13 @@
   - guide
   - nlp
 
+- local: convert-transformers-to-onnx
+  title: "Convert Transformers to ONNX with Hugging Face Optimum"
+  author: philschmid
+  thumbnail: /blog/assets/81_convert_transformers_to_onnx/thumbnail.png
+  date: June 22, 2022
+  tags:
+    - guide
+    - community
+    - hardware
+    
