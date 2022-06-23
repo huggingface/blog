@@ -955,7 +955,7 @@
 - local: liftoff-tips-for-sentence-transformers
   title: "Liftoff! Some tips for your first Sentence Transformers project 🚀"
   author: nimaboscarino
-  thumbnail: /blog/assets/81_convert_transformers_to_onnx/thumbnail.png
+  thumbnail: /blog/assets/83_st_first_project/thumbnail.png
   date: June 22, 2022
   tags:
     - guide
