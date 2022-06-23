@@ -1,15 +1,15 @@
 ---
-title: 'Embedding-as-a-Service: Sentence Transformers, the Inference API, and 🤗 Datasets'
-thumbnail: /blog/assets/80_ST_inference-api/thumbnail.png
+title: 'Getting Started With Embeddings'
+thumbnail: /blog/assets/80_getting_started_with_embeddings/thumbnail.png
 ---
 
 <h1>
-    Embedding-as-a-Service: Sentence Transformers, the Inference API, and 🤗 Datasets
+    Getting Started With Embeddings
 </h1>
 
 <div class="blog-metadata">
     <small>Published June 23, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/st-inference-api.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/getting-started-with-embeddings.md">
         Update on GitHub
     </a>
 </div>
@@ -25,17 +25,19 @@ thumbnail: /blog/assets/80_ST_inference-api/thumbnail.png
 </div>
 
 Check out this tutorial with the Notebook Companion:
-<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/80_ST_inference-api.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/80_getting_started_with_embeddings.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
 ## Understanding embeddings
 
-An embedding is a numerical representation of a piece of information, e.g., texts, documents, images, audio, etc. The representation captures the semantic meaning of what is being embedded, making them "smart." Embeddings can be used as inputs to machine learning algorithms as they are an ordered list of numbers. In other words, entire pieces of information can be reduced to a list of numbers called embeddings. 
+An embedding is a numerical representation of a piece of information, for example, text, documents, images, audio, etc. The representation captures the semantic meaning of what is being embedded, making it robust for many industry applications.
 
-Embeddings can be represented in a vector space. For example, the semantic representation of an image can be roughly captured in a list of 384 numbers, each representing a position within the dimensions of a vector space. We can then embed some text that describes what the above image contains; that is, we create an embedding that can be represented in the same 384-dimensional vector space. The proximity of the image and text embeddings can be calculated and thus confirm if the text is similar to what the image represents.
+Given the text "What is the main benefit of voting?", an embedding of the sentence could be represented in a vector space, for example, with a list of 384 numbers (for example, [0.84, 0.42, ..., 0.02]). Since this list captures the meaning, we can do exciting things, like calculating the distance between different embeddings to determine how well the meaning of two sentences matches.
 
-How are embeddings generated? The open-source library called [Sentence Transformers](https://www.sbert.net/index.html) allows you to create state-of-the-art embeddings from images and text for free.
+Embeddings are not limited to text! You can also create an embedding of an image (for example, a list of 384 numbers) and compare it with a text embedding to determine if a sentence describes the image. This concept is under powerful systems for image search, classification, description, and more!
+
+How are embeddings generated? The open-source library called [Sentence Transformers](https://www.sbert.net/index.html) allows you to create state-of-the-art embeddings from images and text for free. This blog shows an example with this library.
 
 ## What are embeddings for?
 
@@ -81,16 +83,9 @@ headers = {"Authorization": f"Bearer {hf_token}"}
 The first time you generate the embeddings, it may take a while (approximately 20 seconds) for the API to return them. We use the `retry` decorator (install with `pip install retry`) so that if on the first try, `output = query(dict(inputs = texts))` doesn't work, wait 10 seconds and try three times again. This happens because, on the first request, the model needs to be downloaded and installed on the server, but subsequent calls are much faster.
 
 ```py
-@retry(tries=3, delay=10)
 def query(texts):
-    response = requests.post(api_url, headers=headers, json={"inputs": texts})
-    result = response.json()
-    if isinstance(result, list):
-      return result
-    elif list(result.keys())[0] == "error":
-      raise RuntimeError(
-          "The model is currently loading, please re-run the query."
-          )
+    response = requests.post(api_url, headers=headers, json={"inputs": texts, "options":{"wait_for_model":True}})
+    return response.json()
 ```
 
 The current API does not enforce strict rate limitations. Instead, Hugging Face balances the loads evenly between all our available resources and favors steady flows of requests. If you need to embed several texts or images, the [Hugging Face Accelerated Inference API](https://huggingface.co/docs/api-inference/index) would speed the inference and let you choose between using a CPU or GPU. 
@@ -133,7 +128,7 @@ It looks similar to this matrix:
 
 ## 2. Host embeddings for free on the Hugging Face Hub
 
-🤗 Datasets is a library for quickly accessing and sharing datasets. Let's host the embeddings dataset in the Hub using the user interface (UI). Then, anyone can load it with a single line of code. You can also use the terminal to share datasets; see [the documentation](https://huggingface.co/docs/datasets/share#share) for the steps. In the [notebook companion](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/80_ST_inference-api.ipynb) of this entry, you will be able to use the terminal to share the dataset. If you want to skip this section, check out the [`ITESM/embedded_faqs_medicare` repo](https://huggingface.co/datasets/ITESM/embedded_faqs_medicare) with the embedded FAQs.
+🤗 Datasets is a library for quickly accessing and sharing datasets. Let's host the embeddings dataset in the Hub using the user interface (UI). Then, anyone can load it with a single line of code. You can also use the terminal to share datasets; see [the documentation](https://huggingface.co/docs/datasets/share#share) for the steps. In the [notebook companion](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/80_getting_started_with_embeddings.ipynb) of this entry, you will be able to use the terminal to share the dataset. If you want to skip this section, check out the [`ITESM/embedded_faqs_medicare` repo](https://huggingface.co/datasets/ITESM/embedded_faqs_medicare) with the embedded FAQs.
 
 First, we export our embeddings from a Pandas `DataFrame` to a CSV. You can save your dataset in any way you prefer, e.g., zip or pickle; you don't need to use Pandas or CSV. Since our embeddings file is not large, we can store it in a CSV, which is easily inferred by the `datasets.load_dataset()` function we will employ in the next section (see the [Datasets documentation](https://huggingface.co/docs/datasets/about_dataset_load#build-and-load)), i.e., we don't need to create a loading script. We will save the embeddings with the name `embeddings.csv`.
 
@@ -146,19 +141,19 @@ Follow the next steps to host `embeddings.csv` in the Hub.
 1. Click on your user in the top right corner of the [Hub UI](https://huggingface.co/).
 2. Create a dataset with "New dataset." 
 
-![](assets/80_ST_inference-api/SelectDataset.png)
+![](assets/80_getting_started_with_embeddings/SelectDataset.png)
 
 1. Choose the Owner (organization or individual), name, and license of the dataset. Select if you want it to be private or public. Create the dataset.
 
-![](assets/80_ST_inference-api/createDataset.png)
+![](assets/80_getting_started_with_embeddings/createDataset.png)
 
 1. Go to the "Files" tab (screenshot below) and click "Add file" and "Upload file."
 
-![](assets/80_ST_inference-api/AddFile.png)
+![](assets/80_getting_started_with_embeddings/AddFile.png)
 
 1. Finally, drag or upload the dataset, and commit the changes.
 
-![](assets/80_ST_inference-api/UploadFile.png)
+![](assets/80_getting_started_with_embeddings/UploadFile.png)
 
 Now the dataset is hosted on the Hub for free. You (or whoever you want to share the embeddings with) can quickly load them. Let's see how.
 
@@ -166,7 +161,7 @@ Now the dataset is hosted on the Hub for free. You (or whoever you want to share
 
 Suppose a Medicare customer asks, "How can Medicare help me?". We will **find** which of our FAQs could best answer our user query. We will create an embedding of the query that can represent its semantic meaning. We then compare it to each embedding in our FAQ dataset to identify which is closest to the query in vector space.
 
-Install the 🤗 Datasets library with `pip install datasets`. Then, load the embedded dataset from the Hub and convert it to a PyTorch `FloatTensor`. Note that this is not the only way to operate on a `Dataset`; for example, you could use NumPy, Tensorflow, or SciPy (refer to the [Documentation](https://huggingface.co/docs/datasets/loading)). If you want to practice with a real dataset, the [`ITESM/embedded_faqs_medicare`](https://huggingface.co/datasets/ITESM/embedded_faqs_medicare) repo contains the embedded FAQs, or you can use the [companion notebook](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/80_ST_inference-api.ipynb) to this blog. 
+Install the 🤗 Datasets library with `pip install datasets`. Then, load the embedded dataset from the Hub and convert it to a PyTorch `FloatTensor`. Note that this is not the only way to operate on a `Dataset`; for example, you could use NumPy, Tensorflow, or SciPy (refer to the [Documentation](https://huggingface.co/docs/datasets/loading)). If you want to practice with a real dataset, the [`ITESM/embedded_faqs_medicare`](https://huggingface.co/datasets/ITESM/embedded_faqs_medicare) repo contains the embedded FAQs, or you can use the [companion notebook](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/80_getting_started_with_embeddings.ipynb) to this blog. 
 
 ```py
 import torch

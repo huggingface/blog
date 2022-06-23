@@ -915,10 +915,10 @@
     - intel
     - guide
 
-- local: st-inference-api
-  title: "Embedding-as-a-Service: Sentence Transformers, the Inference API, and 🤗 Datasets"
+- local: getting-started-with-embeddings
+  title: "Getting Started With Embeddings"
   author: espejelomar
-  thumbnail: /blog/assets/80_ST_inference-api/thumbnail.png
+  thumbnail: /blog/assets/80_getting_started_with_embeddings/thumbnail.png
   date: June 23, 2022
   tags:
   - guide
