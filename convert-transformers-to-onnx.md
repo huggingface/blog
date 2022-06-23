@@ -44,7 +44,8 @@ If you are interested in optimizing your models to run with maximum efficiency, 
     <a id="1-what-is-onnx"><h2 itemprop="name"> 1. What is ONNX?</h2></a>
     <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
       <div itemprop="text">
-The [ONNX (Open Neural Network eXchange)](http://onnx.ai/) is an open standard and format to represent machine learning models. ONNX defines a common set of operators and a common file format to represent deep learning models in a wide variety of frameworks, including PyTorch and TensorFlow. 
+         
+The [ONNX or Open Neural Network eXchange](https://onnx.ai) is an open standard and format to represent machine learning models. ONNX defines a common set of operators and a common file format to represent deep learning models in a wide variety of frameworks, including PyTorch and TensorFlow. 
   
 <figure class="image table text-center m-0 w-full">
     <img src="assets/81_convert_transformers_to_onnx/graph.png" alt="Netron ONNX Graph"/>
