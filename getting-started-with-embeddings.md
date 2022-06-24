@@ -138,20 +138,20 @@ embeddings.to_csv("embeddings.csv", index=False)
 
 Follow the next steps to host `embeddings.csv` in the Hub.
 
-1. Click on your user in the top right corner of the [Hub UI](https://huggingface.co/).
-2. Create a dataset with "New dataset." 
+* Click on your user in the top right corner of the [Hub UI](https://huggingface.co/).
+* Create a dataset with "New dataset." 
 
 ![](assets/80_getting_started_with_embeddings/SelectDataset.png)
 
-1. Choose the Owner (organization or individual), name, and license of the dataset. Select if you want it to be private or public. Create the dataset.
+* Choose the Owner (organization or individual), name, and license of the dataset. Select if you want it to be private or public. Create the dataset.
 
 ![](assets/80_getting_started_with_embeddings/createDataset.png)
 
-1. Go to the "Files" tab (screenshot below) and click "Add file" and "Upload file."
+* Go to the "Files" tab (screenshot below) and click "Add file" and "Upload file."
 
 ![](assets/80_getting_started_with_embeddings/AddFile.png)
 
-1. Finally, drag or upload the dataset, and commit the changes.
+* Finally, drag or upload the dataset, and commit the changes.
 
 ![](assets/80_getting_started_with_embeddings/UploadFile.png)
 
