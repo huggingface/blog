@@ -915,15 +915,6 @@
     - intel
     - guide
 
-- local: getting-started-with-embeddings
-  title: "Getting Started With Embeddings"
-  author: espejelomar
-  thumbnail: /blog/assets/80_getting_started_with_embeddings/thumbnail.png
-  date: June 23, 2022
-  tags:
-  - guide
-  - nlp
-
 - local: convert-transformers-to-onnx
   title: "Convert Transformers to ONNX with Hugging Face Optimum"
   author: philschmid
@@ -934,3 +925,11 @@
     - community
     - hardware
     
+- local: getting-started-with-embeddings
+  title: "Getting Started With Embeddings"
+  author: espejelomar
+  thumbnail: /blog/assets/80_getting_started_with_embeddings/thumbnail.png
+  date: June 23, 2022
+  tags:
+  - guide
+  - nlp
