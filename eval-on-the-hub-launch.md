@@ -92,13 +92,13 @@ We believe that better evaluation can happen, if we - the community - establish 
 
 Evaluation on the Hub opens the door to so many interesting use cases. From the data scientist or executive who needs to decide which model to deploy, to the academic trying to reproduce a paper’s results on a new dataset, to the ethicist who wants to better understand risks of deployment. If we have to single out three primary initial use case scenarios, they are these:
 
-<em>Finding the best model for your task</em><br/>
-Suppose you know exactly what your task is and you want to find the right model for the job. You can check out the leaderboard for a dataset representative of your task, which aggregates all the results. That’s great! And what if that fancy new model you’re interested in isn’t on the leaderboard yet for that dataset? Simply run an evaluation for it, without leaving the Hub.
+**Finding the best model for your task**
+Suppose you know exactly what your task is and you want to find the right model for the job. You can check out the leaderboard for a dataset representative of your task, which aggregates all the results. That’s great! And what if that fancy new model you’re interested in isn’t on the [leaderboard](https://huggingface.co/spaces/autoevaluate/leaderboards) yet for that dataset? Simply run an evaluation for it, without leaving the Hub.
 
-<em>Evaluating models on your brand new dataset</em><br/>
+**Evaluating models on your brand new dataset**
 Now what if you have a brand spanking new dataset that you want to run baselines on? You can upload it to the Hub and evaluate as many models on it as you like. No code required. What’s more, you can be sure that the way you are evaluating these models on your dataset is exactly the same as how they’ve been evaluated on other datasets.
 
-<em>Evaluating your model on many other related datasets</em><br/>
+**Evaluating your model on many other related datasets**
 Or suppose you have a brand new question answering model, trained on SQuAD? There are hundreds of different question answering datasets to evaluate on :scream: You can pick the ones you are interested in and evaluate your model, directly from the Hub.
 
 ## Ecosystem
