@@ -110,12 +110,12 @@ Evaluation on the Hub is meant to make your life easier. But of course, there’
 
 ## DogFood - Distinguishing Dogs, Muffins and Fried Chicken
 
-So what does it look like in practice? Let’s run through an example. Suppose you are in the business of telling apart dogs, muffins and fried chicken (a.k.a. dogfooding!). As this image shows:
+So what does it look like in practice? Let’s run through an example. Suppose you are in the business of telling apart dogs, muffins and fried chicken (a.k.a. dogfooding!).
 
 ![Dog Food Examples](/blog/assets/82_eval_on_the_hub_launch/dogfood-example.png)
 <figcaption><center><i>Example images of dogs and food (muffins and fried chicken). <a href="https://github.com/qw2243c/Image-Recognition-Dogs-Fried-Chicken-or-Blueberry-Muffins-/">Source</a> / <a href="https://twitter.com/teenybiscuit/status/667777205397680129?s=20&t=wPgYJMp-JPwRsNAOMvEbxg">Original source</a>.</i></center></figcaption>
 
-to solve this problem, you’ll need:
+As the above image shows, to solve this problem, you’ll need:
 
 * A dataset of dog, muffin, and fried chicken images
 * Image classifiers that have been trained on these images
@@ -194,4 +194,4 @@ Benchmarks are saturating, meaning that machines outperform humans on certain te
 
 A few weeks ago, we launched the Hugging Face [Evaluate library](https://github.com/huggingface/evaluate), aimed at lowering barriers to the best practices of machine learning evaluation. We have also been hosting benchmarks, like [RAFT](https://huggingface.co/spaces/ought/raft-leaderboard) and [GEM](https://huggingface.co/spaces/GEM/submission-form). Evaluation on the Hub is a logical next step in our efforts to enable a future where models are evaluated in a more holistic fashion, along many axes of evaluation, in a trustable and guaranteeably reproducible manner. Stay tuned for more launches soon, including more tasks, and a new and improved [data measurements tool](https://huggingface.co/spaces/huggingface/data-measurements-tool)!
 
-We’re excited to see where the community will take this! If you'd like to help out, evaluate as many models on as many datasets as you like. And as always, please give us lots of feedback, either on the [Community tabs](https://huggingface.co/spaces/autoevaluate/model-evaluator/discussions) or the [forums](https://discuss.huggingface.co/).
+We’re excited to see where the community will take this! If you'd like to help out, evaluate as many models on as many datasets as you like. And as always, please give us lots of feedback, either on the [Community tabs](https://huggingface.co/spaces/autoevaluate/model-evaluator/discussions) or the [forums](https://discuss.huggingface.co/)!
