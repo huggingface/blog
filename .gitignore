@@ -12,3 +12,4 @@ venv.bak/
 
 # Misc
 **/.DS_Store
+.idea

@@ -924,7 +924,7 @@
     - guide
     - community
     - hardware
-    
+
 - local: getting-started-with-embeddings
   title: "Getting Started With Embeddings"
   author: espejelomar
@@ -952,11 +952,10 @@
   tags:
   - guide
 
-- local: liftoff-tips-for-sentence-transformers
-  title: "Liftoff! Some tips for your first Sentence Transformers project 🚀"
+- local: tips-for-sentence-transformers
+  title: "Liftoff! Tips for your first Sentence Transformers project 🚀"
   author: nimaboscarino
   thumbnail: /blog/assets/83_st_first_project/thumbnail.png
-  date: June 22, 2022
+  date: June 29, 2022
   tags:
     - guide
-    - nlp

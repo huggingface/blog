@@ -1,15 +1,15 @@
 ---
-title: 'Liftoff! Some tips for your first Sentence Transformers project 🚀'
+title: 'Liftoff! Tips for your first Sentence Transformers project 🚀'
 thumbnail: /blog/assets/83_st_first_project/thumbnail.png
 ---
 
 <h1>
-    Liftoff! Some tips for your first Sentence Transformers project 🚀
+    Liftoff! Tips for your first Sentence Transformers project 🚀
 </h1>
 
 <div class="blog-metadata">
-    <small>Published June 23, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/st-inference-api.md">
+    <small>Published June 29, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/tips-for-sentence-transformers.md">
         Update on GitHub
     </a>
 </div>
@@ -20,11 +20,12 @@ thumbnail: /blog/assets/83_st_first_project/thumbnail.png
         <div class="bfc">
             <code>nimaboscarino</code>
             <span class="fullname">Nima Boscarino</span>
+            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">Opinion piece</span>
         </div>
     </a>
 </div>
 
-People who are new to the Machine Learning world often run into two recurring stumbling blocks. The first is choosing the right library to learn, which can be a daunting task when there are so many to pick from. Even once you’ve settled on a library and gone through some tutorials, the next issue is coming up with your first big project and scoping it properly so that you maximize your learning. If you’ve run into those problems, Sentence Transformers is a great library to choose for a number of reasons. In this post I’ll take you through some tips for going from 0 to 100 with a new tool like Sentence Transformers. We’ll also talk about how I built my first ST-powered project, and what I learned along the way. You may also see why you should add Sentence Transformers to your toolkit for your next project 🛠 
+People who are new to the Machine Learning world often run into two recurring stumbling blocks. The first is choosing the right library to learn, which can be daunting when there are so many to pick from. Even once you’ve settled on a library and gone through some tutorials, the next issue is coming up with your first big project and scoping it properly to maximize your learning. If you’ve run into those problems, Sentence Transformers is a great library to choose for a number of reasons. In this post I’ll take you through some tips for going from 0 to 100 with a new tool like Sentence Transformers. We’ll also talk about how I built my first ST-powered project, and what I learned along the way. You may also see why you should add Sentence Transformers to your toolkit for your next project 🛠 
 
 ## What is Sentence Transformers?
 
@@ -34,28 +35,30 @@ Sentence Transformers is [among the libraries that Hugging Face integrates with]
 
 > Compute dense vector representations for sentences, paragraphs, and images
 
-In a nutshell, Sentence Transformers answers one question: What if we could treat sentences as points in a multi-dimensional space? This means that ST lets you give it an arbitrary string of text (e.g. “I’m so glad I learned to code with Python!”) and it’ll transform it to a vector, such as `[0.2, 0.5, 1.3, 0.9]`. Another sentence, such as “Python is a great programming language.”, would be transformed to a different vector. These vectors are called “embeddings”, and [they play an important role in Machine Learning](https://medium.com/@b.terryjack/nlp-everything-about-word-embeddings-9ea21f51ccfe).
+In a nutshell, Sentence Transformers answers one question: What if we could treat sentences as points in a multi-dimensional vector space? This means that ST lets you give it an arbitrary string of text (e.g., “I’m so glad I learned to code with Python!”), and it’ll transform it into a vector, such as `[0.2, 0.5, 1.3, 0.9]`. Another sentence, such as “Python is a great programming language.”, would be transformed into a different vector. These vectors are called “embeddings,” and [they play an essential role in Machine Learning](https://medium.com/@b.terryjack/nlp-everything-about-word-embeddings-9ea21f51ccfe). If these two sentences were embedded with the same model, then both would coexist in the same vector space, allowing for many interesting possibilities.
 
-What makes ST particularly useful is that, once you’ve generated some embeddings, you can use the built-in utility functions to compare how similar one sentence is to another, ***including synonyms!*** 🤯 One way to do this is with [“Cosine Similarity”](https://www.machinelearningplus.com/nlp/cosine-similarity/), and with ST you can skip all the pesky math and just call the *very* handy `util.cos_sim` function to get a score from -1 to 1 that signifies how “similar” the sentences are – the bigger the score is, the more similar the sentences are! 
+What makes ST particularly useful is that, once you’ve generated some embeddings, you can use the built-in utility functions to compare how similar one sentence is to another, ***including synonyms!*** 🤯 One way to do this is with the [“Cosine Similarity”](https://www.machinelearningplus.com/nlp/cosine-similarity/) function. With ST, you can skip all the pesky math and call the *very* handy `util.cos_sim` function to get a score from -1 to 1 that signifies how “similar” the embedded sentences are in the vector space they share – the bigger the score is, the more similar the sentences are!
 
 <figure class="image table text-center m-0 w-full">
   <img style="border:none;" alt="A flowchart showing sentences being embedded with Sentence Transformers, and then compared with Cosine Similarity" src="assets/83_st_first_project/sentence-transformers-explained.svg" />
   <figcaption>After embedding sentences, we can compare them with Cosine Similarity.</figcaption>
 </figure>
 
-Being able to compare sentences by similarity means that if we have a collection of sentences or paragraphs, we can quickly find the ones that match a particular search query with a process called *[semantic search](https://www.sbert.net/examples/applications/semantic-search/README.html)*.
+Comparing sentences by similarity means that if we have a collection of sentences or paragraphs, we can quickly find the ones that match a particular search query with a process called *[semantic search](https://www.sbert.net/examples/applications/semantic-search/README.html)*. For some specific applications of this, see [this tutorial for making a GitHub code-searcher](https://huggingface.co/spaces/sentence-transformers/Sentence_Transformers_for_semantic_search) or this other tutorial on [building an FAQ engine](https://huggingface.co/blog/getting-started-with-embeddings) using Sentence Transformers.
 
 ## Why learn to use Sentence Transformers?
 
-First, it offers a low-barrier way to get hands-on experience with state-of-the-art models to generate [embeddings](https://daleonai.com/embeddings-explained). I found that creating my own sentence embeddings was a powerful learning tool which helped strengthen my understanding of how modern models work with text, and it also got the creative juices flowing for ideation! Within a few minutes of loading up the `msmarco-MiniLM-L-6-v3` model in a Jupyter notebook I’d come up with a bunch of fun project ideas just from embedding some sentences and running some of ST’s utility functions on them.
+First, it offers a low-barrier way to get hands-on experience with state-of-the-art models to generate [embeddings](https://daleonai.com/embeddings-explained). I found that creating my own sentence embeddings was a powerful learning tool that helped strengthen my understanding of how modern models work with text, and it also got the creative juices flowing for ideation! Within a few minutes of loading up the [msmarco-MiniLM-L-6-v3 model](https://huggingface.co/sentence-transformers/msmarco-MiniLM-L-6-v3) in a Jupyter notebook I’d come up with a bunch of fun project ideas just from embedding some sentences and running some of ST’s utility functions on them.
 
-Sentence Transformers is also an accessible entry-point to many important ML concepts that you can branch off into. For example, you can use it to learn about [clustering](https://www.sbert.net/examples/applications/clustering/README.html), [model distillation](https://www.sbert.net/examples/training/distillation/README.html), and even launch into text-to-image work with [CLIP](https://www.sbert.net/examples/applications/image-search/README.html). In fact, Sentence Transformers is so versatile that it’s skyrocketed to almost 8,000 stars on GitHub, with [more than 3,000 projects and packages depending on it](https://github.com/UKPLab/sentence-transformers/network/dependents?dependent_type=REPOSITORY&package_id=UGFja2FnZS00ODgyNDAwNzQ%3D). On top of the official docs, there’s an abundance of community-created content (look for some links at the end of this post 👀), and the library’s ubiquity has made it [popular in research](https://twitter.com/NimaBoscarino/status/1535331680805801984?s=20&t=gd0BycVE-H4_10G9w30DcQ).
+Second, Sentence Transformers is an accessible entry-point to many important ML concepts that you can branch off into. For example, you can use it to learn about [clustering](https://www.sbert.net/examples/applications/clustering/README.html), [model distillation](https://www.sbert.net/examples/training/distillation/README.html), and even launch into text-to-image work with [CLIP](https://www.sbert.net/examples/applications/image-search/README.html). In fact, Sentence Transformers is so versatile that it’s skyrocketed to almost 8,000 stars on GitHub, with [more than 3,000 projects and packages depending on it](https://github.com/UKPLab/sentence-transformers/network/dependents?dependent_type=REPOSITORY&package_id=UGFja2FnZS00ODgyNDAwNzQ%3D). On top of the official docs, there’s an abundance of community-created content (look for some links at the end of this post 👀), and the library’s ubiquity has made it [popular in research](https://twitter.com/NimaBoscarino/status/1535331680805801984?s=20&t=gd0BycVE-H4_10G9w30DcQ).
 
-On top of it all, it’s also supported with a ton of  [Hugging Face integrations](https://huggingface.co/docs/hub/sentence-transformers) 🤗
+Third, embeddings are key for several industrial applications. Google searches use embeddings to [match text to text and text to images](https://cloud.google.com/blog/topics/developers-practitioners/meet-ais-multitool-vector-embeddings); Snapchat uses them to "[serve the right ad to the right user at the right time](https://eng.snap.com/machine-learning-snap-ad-ranking)"; and Meta (Facebook) uses them for [their social search](https://research.facebook.com/publications/embedding-based-retrieval-in-facebook-search/). In other words, embeddings allow you to build things like chatbots, recommendation systems, zero-shot classifiers, image search, FAQ systems, and more.
+
+On top of it all, it’s also supported with a ton of [Hugging Face integrations](https://huggingface.co/docs/hub/sentence-transformers) 🤗.
 
 ## Tackling your first project
 
-So you’ve decided to check out Sentence Transformers and worked through some of the examples in the docs… now what? Your first self-driven project (I call these Rocket Launch projects 🚀) is a big step in your learning journey, and you’ll want to make the most of it! Here’s a little recipe that I like to follow when I’m trying out a new tool:
+So you’ve decided to check out Sentence Transformers and worked through some examples in the docs… now what? Your first self-driven project (I call these Rocket Launch projects 🚀) is a big step in your learning journey, and you’ll want to make the most of it! Here’s a little recipe that I like to follow when I’m trying out a new tool:
 
 1. **Do a brain dump of everything you know the tool’s capable of**: For Sentence Transformers this includes generating sentence embeddings, comparing sentences, [retrieve and re-rank for complex search tasks](https://www.sbert.net/examples/applications/retrieve_rerank/README.html), clustering, and searching for similar documents with [semantic search](https://www.sbert.net/examples/applications/semantic-search/README.html).
 2. **Reflect on some interesting data sources:** There’s a huge collection of datasets on the [Hugging Face Hub](https://huggingface.co/datasets), or you can also consult lists like [awesome-public-datasets](https://github.com/awesomedata/awesome-public-datasets) for some inspiration. You can often find interesting data in unexpected places – your municipality, for example, may have an [open data portal](https://opendata.vancouver.ca/pages/home/). You’re going to spend a decent amount of time working with your data, so you may as well pick datasets that excite you!
@@ -82,7 +85,8 @@ Once you’ve gone through your first project, you’ll find that you’ll have 
 
 Further reading:
 
-- [Sentence Transformers x Hugging Face](https://huggingface.co/docs/hub/sentence-transformers)
+- [Getting Started with Embeddings](https://huggingface.co/blog/getting-started-with-embeddings)
+- [Sentence Transformers and Hugging Face](https://huggingface.co/docs/hub/sentence-transformers)
 - [Sentence_Transformers for Semantic Search - by Omar Espejel](https://huggingface.co/spaces/sentence-transformers/Sentence_Transformers_for_semantic_search)
 - [Pinecone.io - Sentence Embeddings](https://www.pinecone.io/learn/sentence-embeddings/#some-context)
 - [Sentence embeddings - by John Brandt](https://johnbrandt.org/blog/sentence-similarity/)
