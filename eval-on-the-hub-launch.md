@@ -80,7 +80,7 @@ thumbnail: /blog/assets/82_eval_on_the_hub_launch/thumbnail.png
     </a>
 </div>
 
-TL;DR: Today we introduce Evaluation on the Hub, a new tool powered by AutoTrain that lets you evaluate any model on any dataset on the Hub without a single line of code!
+<em>TL;DR</em>: Today we introduce Evaluation on the Hub, a new tool powered by AutoTrain that lets you evaluate any model on any dataset on the Hub without a single line of code!
 
 Progress in AI has been nothing short of amazing, to the point where some people are now seriously (if mistakenly) debating whether AI may be "sentient" (too soon? lol). However, that progress has not at all been even: to a machine learner from several decades ago, modern hardware and algorithms might look incredible, as might the sheer quantity of data and compute at our disposal, but the way we evaluate these models has stayed roughly the same.
 
@@ -101,12 +101,19 @@ Now what if you have a brand spanking new dataset that you want to run baselines
 <em>Evaluating your model on many other related datasets</em><br/>
 Or suppose you have a brand new QA model, trained on SQuAD? There are hundreds of different QA datasets to evaluate on :scream: You can pick the ones you are interested in and evaluate your model, directly from the Hub.
 
+## Ecosystem
+
+![The Hugging Face Ecosystem and Evaluation on the Hub](/blog/assets/82_eval_on_the_hub_launch/ecosystem.png)
+<figcaption><center><i>Evaluation on the Hub fits neatly into the Hugging Face ecosystem.</i></center></figcaption>
+
+Evaluation on the Hub is meant to make your life easier. But of course, there’s a lot happening in the background. What we really like about Evaluation on the Hub: it fits so neatly into the existing Hugging Face ecosystem, we almost had to do it. Users start on dataset pages, from where they can launch evaluations or see leaderboards. The model evaluation submission interface and the leaderboards are regular Hugging Face Spaces. The evaluation backend makes use of Hugging Face AutoTrain, which opens up a PR on the Hub for the given model’s model card.
+
 ## DogFood - Distinguishing Dogs, Muffins and Fried Chicken
 
 So what does it look like in practice? Let’s run through an example. Suppose you are in the business of telling apart dogs, muffins and fried chicken (a.k.a. dogfooding!). As this image shows:
 
 ![Dog Food Examples](/blog/assets/82_eval_on_the_hub_launch/dogfood-example.png)
-<figcaption><i>Example images of dogs and food (muffins and fried chicken). <a href="https://github.com/qw2243c/Image-Recognition-Dogs-Fried-Chicken-or-Blueberry-Muffins-/">Source</a> / <a href="https://twitter.com/teenybiscuit/status/667777205397680129?s=20&t=wPgYJMp-JPwRsNAOMvEbxg">Original source</a>.</i></figcaption>
+<figcaption><center><i>Example images of dogs and food (muffins and fried chicken). <a href="https://github.com/qw2243c/Image-Recognition-Dogs-Fried-Chicken-or-Blueberry-Muffins-/">Source</a> / <a href="https://twitter.com/teenybiscuit/status/667777205397680129?s=20&t=wPgYJMp-JPwRsNAOMvEbxg">Original source</a>.</i></center></figcaption>
 
 To solve this problem, you’ll need:
 
@@ -176,12 +183,6 @@ If you’d like to evaluate your own choice of models, give Evaluation on the Hu
 * emotion: https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=emotion
 * conll2003: https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=conll2003
 * masakhaner: https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=masakhaner
-
-## Ecosystem
-
-Well that was easy! But of course, there’s a lot happening in the background. What we really like about Evaluation on the Hub: it fits so neatly into the existing Hugging Face ecosystem, we almost had to do it. Users start on dataset pages, from where they can launch evaluations or see leaderboards. The model evaluation submission interface and the leaderboards are regular Hugging Face Spaces. The evaluation backend makes use of Hugging Face AutoTrain, which opens up a PR on the Hub for the given model’s model card.
-
-![The Hugging Face Ecosystem and Evaluation on the Hub](/blog/assets/82_eval_on_the_hub_launch/ecosystem.png)
 
 ## The Bigger Picture
 
