@@ -934,7 +934,7 @@
   - guide
   - nlp
 
-- local: eval-on-the-hub-launch
+- local: eval-on-the-hub
   title: "Announcing Evaluation on the Hub"
   author: douwekiela
   thumbnail: /blog/assets/82_eval_on_the_hub_launch/thumbnail.png
