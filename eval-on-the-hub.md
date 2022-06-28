@@ -191,9 +191,9 @@ Looks like the Swin Transformer came out on top!
 
 If you’d like to evaluate your own choice of models, give Evaluation on the Hub a spin by checking out these popular datasets:
 
-* emotion: https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=emotion
-* conll2003: https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=conll2003
-* masakhaner: https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=masakhaner
+* [Emotion](https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=emotion)
+* [MasakhaNER](https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=masakhaner)
+* [SAMSum](https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=samsum)
 
 ## The Bigger Picture
 
