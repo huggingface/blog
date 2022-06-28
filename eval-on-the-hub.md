@@ -90,7 +90,7 @@ thumbnail: /blog/assets/82_eval_on_the_hub/thumbnail.png
     >
       <source src="/blog/assets/82_eval_on_the_hub/autoeval-demo.mp4" type="video/mp4">
   </video>
-  <figcaption>Evaluate all the models!</figcaption>
+  <figcaption>Evaluate all the models 🔥🔥🔥!</figcaption>
 </figure>
 
 Progress in AI has been nothing short of amazing, to the point where some people are now seriously debating whether AI models may be better than humans at certain tasks. However, that progress has not at all been even: to a machine learner from several decades ago, modern hardware and algorithms might look incredible, as might the sheer quantity of data and compute at our disposal, but the way we evaluate these models has stayed roughly the same.
@@ -191,9 +191,9 @@ Looks like the Swin Transformer came out on top!
 
 If you’d like to evaluate your own choice of models, give Evaluation on the Hub a spin by checking out these popular datasets:
 
-* [Emotion](https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=emotion)
-* [MasakhaNER](https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=masakhaner)
-* [SAMSum](https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=samsum)
+* [Emotion](https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=emotion) for text classification
+* [MasakhaNER](https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=masakhaner) for named entity recognition
+* [SAMSum](https://huggingface.co/spaces/autoevaluate/model-evaluator?dataset=samsum) for text summarization
 
 ## The Bigger Picture
 
