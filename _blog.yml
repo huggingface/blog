@@ -933,3 +933,11 @@
   tags:
   - guide
   - nlp
+
+- local: accelerate-deepspeed
+  title: "Accelerate Large Model Training using DeepSpeed"
+  author: smangrul
+  thumbnail: /blog/assets/82_accelerate_deepspeed/deepspeed-thumbnail.png
+  date: June 28, 2022
+  tags:
+    - guide
