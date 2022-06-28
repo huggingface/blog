@@ -82,7 +82,16 @@ thumbnail: /blog/assets/82_eval_on_the_hub_launch/thumbnail.png
 
 <em>TL;DR</em>: Today we introduce [Evaluation on the Hub](https://huggingface.co/spaces/autoevaluate/model-evaluator), a new tool powered by [AutoTrain](https://huggingface.co/autotrain) that lets you evaluate any model on any dataset on the Hub without writing a single line of code!
 
-![Demo](/blog/assets/82_eval_on_the_hub_launch/autoeval-demo.mp4)
+<figure class="image table text-center m-0">
+    <video 
+        alt="Evaluating models from the Hugging Face Hub"
+        style="max-width: 70%; margin: auto;"
+        autoplay loop autobuffer muted playsinline
+    >
+      <source src="/blog/assets/82_eval_on_the_hub_launch/autoeval-demo.mp4" type="video/mp4">
+  </video>
+  <figcaption>Evaluate all the models!</figcaption>
+</figure>
 
 Progress in AI has been nothing short of amazing, to the point where some people are now seriously debating whether AI models may be better than humans at certain tasks. However, that progress has not at all been even: to a machine learner from several decades ago, modern hardware and algorithms might look incredible, as might the sheer quantity of data and compute at our disposal, but the way we evaluate these models has stayed roughly the same.
 
