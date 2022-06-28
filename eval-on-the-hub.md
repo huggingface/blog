@@ -1,6 +1,6 @@
 ---
 title: "Announcing Evaluation on the Hub"
-thumbnail: /blog/assets/82_eval_on_the_hub_launch/thumbnail.png
+thumbnail: /blog/assets/82_eval_on_the_hub/thumbnail.png
 ---
 
 <h1>
@@ -9,7 +9,7 @@ thumbnail: /blog/assets/82_eval_on_the_hub_launch/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published June 28, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/eval-on-the-hub-launch.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/eval-on-the-hub.md">
         Update on GitHub
     </a>
 </div>
@@ -88,7 +88,7 @@ thumbnail: /blog/assets/82_eval_on_the_hub_launch/thumbnail.png
         style="max-width: 70%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
-      <source src="/blog/assets/82_eval_on_the_hub_launch/autoeval-demo.mp4" type="video/mp4">
+      <source src="/blog/assets/82_eval_on_the_hub/autoeval-demo.mp4" type="video/mp4">
   </video>
   <figcaption>Evaluate all the models!</figcaption>
 </figure>
@@ -114,7 +114,7 @@ Or suppose you have a brand new question answering model, trained on SQuAD? Ther
 
 ## Ecosystem
 
-![The Hugging Face Ecosystem and Evaluation on the Hub](/blog/assets/82_eval_on_the_hub_launch/ecosystem.png)
+![The Hugging Face Ecosystem and Evaluation on the Hub](/blog/assets/82_eval_on_the_hub/ecosystem.png)
 <figcaption><center><i>Evaluation on the Hub fits neatly into the Hugging Face ecosystem.</i></center></figcaption>
 
 Evaluation on the Hub is meant to make your life easier. But of course, there’s a lot happening in the background. What we really like about Evaluation on the Hub: it fits so neatly into the existing Hugging Face ecosystem, we almost had to do it. Users start on dataset pages, from where they can launch evaluations or see leaderboards. The model evaluation submission interface and the leaderboards are regular Hugging Face Spaces. The evaluation backend is powered by AutoTrain, which opens up a PR on the Hub for the given model’s model card.
@@ -123,7 +123,7 @@ Evaluation on the Hub is meant to make your life easier. But of course, there’
 
 So what does it look like in practice? Let’s run through an example. Suppose you are in the business of telling apart dogs, muffins and fried chicken (a.k.a. dogfooding!).
 
-![Dog Food Examples](/blog/assets/82_eval_on_the_hub_launch/dogfood-example.png)
+![Dog Food Examples](/blog/assets/82_eval_on_the_hub/dogfood-example.png)
 <figcaption><center><i>Example images of dogs and food (muffins and fried chicken). <a href="https://github.com/qw2243c/Image-Recognition-Dogs-Fried-Chicken-or-Blueberry-Muffins-/">Source</a> / <a href="https://twitter.com/teenybiscuit/status/667777205397680129?s=20&t=wPgYJMp-JPwRsNAOMvEbxg">Original source</a>.</i></center></figcaption>
 
 As the above image shows, to solve this problem, you’ll need:
@@ -137,7 +137,7 @@ Fortunately, your data science team has uploaded [a dataset](https://huggingface
 
 To get started, head over to the [`model-evaluator` Space](https://huggingface.co/spaces/autoevaluate/model-evaluator) and select the dataset you want to evaluate models on. For our dataset of dog and food images, you’ll see something like the image below:
 
-![Model Evaluator](/blog/assets/82_eval_on_the_hub_launch/model-evaluator.png)
+![Model Evaluator](/blog/assets/82_eval_on_the_hub/model-evaluator.png)
 
 Now, many datasets on the Hub contain metadata that specifies how an evaluation should be configured (check out [acronym_identification](https://huggingface.co/datasets/acronym_identification/blob/main/README.md#L22-L30) for an example). This allows you to evaluate models with a single click, but in our case we’ll show you how to configure the evaluation manually.
 
@@ -149,15 +149,15 @@ Clicking on the <em>Advanced configuration</em> button will show you the various
 
 As shown in the image below, configuring the task, dataset, and split to evaluate on is straightforward:
 
-![Advanced Configuration](/blog/assets/82_eval_on_the_hub_launch/config.png)
+![Advanced Configuration](/blog/assets/82_eval_on_the_hub/config.png)
 
 The next step is to define which dataset columns contain the images, and which ones contain the labels:
 
-![Dataset Mapping](/blog/assets/82_eval_on_the_hub_launch/mapping.png)
+![Dataset Mapping](/blog/assets/82_eval_on_the_hub/mapping.png)
 
 Now that the task and dataset are configured, the final (optional) step is to select the metrics to evaluate with. Each task is associated with a set of default metrics. For example, the image below shows that F1 score, accuracy etc will be computed automatically. To spice things up, we’ll also calculate the [Matthew’s correlation coefficient](https://huggingface.co/spaces/evaluate-metric/matthews_correlation), which provides a balanced measure of classifier performance:
 
-![Selecting Metrics](/blog/assets/82_eval_on_the_hub_launch/select-metrics.png)
+![Selecting Metrics](/blog/assets/82_eval_on_the_hub/select-metrics.png)
 
 And that’s all it takes to configure an evaluation job! Now we just need to pick some models to evaluate - let’s take a look.
 
@@ -165,25 +165,25 @@ And that’s all it takes to configure an evaluation job! Now we just need to pi
 
 Evaluation on the Hub links datasets and models via tags in the model card metadata. In our example, we have three models to choose from, so let’s select them all!
 
-![Selecting Models](/blog/assets/82_eval_on_the_hub_launch/select-model.png)
+![Selecting Models](/blog/assets/82_eval_on_the_hub/select-model.png)
 
 Once the models are selected, simply enter your Hugging Face Hub username (to be notified when the evaluation is complete) and hit the big <em>Evaluate models</em> button:
 
-![Launching the Evaluation](/blog/assets/82_eval_on_the_hub_launch/evaluate.png)
+![Launching the Evaluation](/blog/assets/82_eval_on_the_hub/evaluate.png)
 
 Once a job is submitted, the models will be automatically evaluated and a Hub pull request will be opened with the evaluation results:
 
-![Pull Request](/blog/assets/82_eval_on_the_hub_launch/pr.png)
+![Pull Request](/blog/assets/82_eval_on_the_hub/pr.png)
 
 You can also copy-paste the evaluation metadata into the dataset card so that you and the community can skip the manual configuration next time!
 
-![Metadata Pull Request](/blog/assets/82_eval_on_the_hub_launch/metadata.png)
+![Metadata Pull Request](/blog/assets/82_eval_on_the_hub/metadata.png)
 
 ### Check out the leaderboard
 
 To facilitate the comparison of models, Evaluation on the Hub also provides leaderboards that allow you to examine which models perform best on which split and metric:
 
-![Leaderboard](/blog/assets/82_eval_on_the_hub_launch/leaderboard.png)
+![Leaderboard](/blog/assets/82_eval_on_the_hub/leaderboard.png)
 
 Looks like the Swin Transformer came out on top!
 
