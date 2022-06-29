@@ -952,10 +952,10 @@
   tags:
   - guide
 
-- local: tips-for-sentence-transformers
-  title: "Liftoff! Tips for your first Sentence Transformers project 🚀"
+- local: your-first-ml-project
+  title: "Liftoff! How to get started with your first ML project 🚀"
   author: nimaboscarino
-  thumbnail: /blog/assets/83_st_first_project/thumbnail.png
+  thumbnail: /blog/assets/84_first_ml_project/thumbnail.png
   date: June 29, 2022
   tags:
     - guide

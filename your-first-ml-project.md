@@ -1,10 +1,10 @@
 ---
-title: 'Liftoff! Tips for your first Sentence Transformers project 🚀'
-thumbnail: /blog/assets/83_st_first_project/thumbnail.png
+title: 'Liftoff! How to get started with your first ML project 🚀'
+thumbnail: /blog/assets/84_first_ml_project/thumbnail.png
 ---
 
 <h1>
-    Liftoff! Tips for your first Sentence Transformers project 🚀
+    Liftoff! How to get started with your first ML project 🚀
 </h1>
 
 <div class="blog-metadata">
@@ -25,11 +25,13 @@ thumbnail: /blog/assets/83_st_first_project/thumbnail.png
     </a>
 </div>
 
-People who are new to the Machine Learning world often run into two recurring stumbling blocks. The first is choosing the right library to learn, which can be daunting when there are so many to pick from. Even once you’ve settled on a library and gone through some tutorials, the next issue is coming up with your first big project and scoping it properly to maximize your learning. If you’ve run into those problems, Sentence Transformers is a great library to choose for a number of reasons. In this post I’ll take you through some tips for going from 0 to 100 with a new tool like Sentence Transformers. We’ll also talk about how I built my first ST-powered project, and what I learned along the way. You may also see why you should add Sentence Transformers to your toolkit for your next project 🛠 
+People who are new to the Machine Learning world often run into two recurring stumbling blocks. The first is choosing the right library to learn, which can be daunting when there are so many to pick from. Even once you’ve settled on a library and gone through some tutorials, the next issue is coming up with your first big project and scoping it properly to maximize your learning. If you’ve run into those problems, and if you're looking for a new ML library to add to your toolkit, you're in the right place!
+
+In this post I’ll take you through some tips for going from 0 to 100 with a new library by using [Sentence Transformers](https://www.sbert.net) (ST) as an example. We'll start by understanding the basics of what ST can do, and highlight some things that make it a great library to learn. Then, I'll share my battle-tested strategy for tackling your first self-driven project. We’ll also talk about how I built my first ST-powered project, and what I learned along the way 🥳 
 
 ## What is Sentence Transformers?
 
-Sentence embeddings? Semantic search? Cosine similarity?!?! 😱 Just a few short weeks ago, these terms were so confusing to me that they made my head spin. I’d heard that [Sentence Transformers](https://www.sbert.net) (ST) was a powerful and versatile library for working with language and image data and I was eager to play around with it, but I was worried that I would be out of my depth.  As it turns out, I couldn’t have been more wrong!
+Sentence embeddings? Semantic search? Cosine similarity?!?! 😱 Just a few short weeks ago, these terms were so confusing to me that they made my head spin. I’d heard that [Sentence Transformers](https://www.sbert.net) was a powerful and versatile library for working with language and image data and I was eager to play around with it, but I was worried that I would be out of my depth.  As it turns out, I couldn’t have been more wrong!
 
 Sentence Transformers is [among the libraries that Hugging Face integrates with](https://huggingface.co/docs/hub/models-libraries), where it’s described with the following:
 
@@ -40,7 +42,7 @@ In a nutshell, Sentence Transformers answers one question: What if we could trea
 What makes ST particularly useful is that, once you’ve generated some embeddings, you can use the built-in utility functions to compare how similar one sentence is to another, ***including synonyms!*** 🤯 One way to do this is with the [“Cosine Similarity”](https://www.machinelearningplus.com/nlp/cosine-similarity/) function. With ST, you can skip all the pesky math and call the *very* handy `util.cos_sim` function to get a score from -1 to 1 that signifies how “similar” the embedded sentences are in the vector space they share – the bigger the score is, the more similar the sentences are!
 
 <figure class="image table text-center m-0 w-full">
-  <img style="border:none;" alt="A flowchart showing sentences being embedded with Sentence Transformers, and then compared with Cosine Similarity" src="assets/83_st_first_project/sentence-transformers-explained.svg" />
+  <img style="border:none;" alt="A flowchart showing sentences being embedded with Sentence Transformers, and then compared with Cosine Similarity" src="assets/84_first_ml_project/sentence-transformers-explained.svg" />
   <figcaption>After embedding sentences, we can compare them with Cosine Similarity.</figcaption>
 </figure>
 
