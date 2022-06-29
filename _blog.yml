@@ -924,7 +924,7 @@
     - guide
     - community
     - hardware
-    
+
 - local: getting-started-with-embeddings
   title: "Getting Started With Embeddings"
   author: espejelomar
@@ -951,3 +951,11 @@
   date: June 28, 2022
   tags:
   - guide
+
+- local: your-first-ml-project
+  title: "Liftoff! How to get started with your first ML project 🚀"
+  author: nimaboscarino
+  thumbnail: /blog/assets/84_first_ml_project/thumbnail.png
+  date: June 29, 2022
+  tags:
+    - guide
