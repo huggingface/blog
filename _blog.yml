@@ -934,10 +934,20 @@
   - guide
   - nlp
 
+- local: eval-on-the-hub
+  title: "Announcing Evaluation on the Hub"
+  author: douwekiela
+  thumbnail: /blog/assets/82_eval_on_the_hub/thumbnail.png
+  date: June 28, 2022
+  tags:
+  - community
+  - launch
+  - guide
+
 - local: accelerate-deepspeed
   title: "Accelerate Large Model Training using DeepSpeed"
   author: smangrul
-  thumbnail: /blog/assets/82_accelerate_deepspeed/deepspeed-thumbnail.png
+  thumbnail: /blog/assets/83_accelerate_deepspeed/deepspeed-thumbnail.png
   date: June 28, 2022
   tags:
-    - guide
+  - guide
