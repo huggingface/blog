@@ -32,7 +32,7 @@ thumbnail: /blog/assets/83_accelerate_deepspeed/deepspeed-thumbnail.png
 In this post we will look at how we can leverage the **[Accelerate](https://github.com/huggingface/accelerate)** library for training large models which enables users to leverage the ZeRO features of **[DeeSpeed](https://www.deepspeed.ai)**.
 
 # Motivation 🤗
-**Tired of OOM errors while trying to train large models? We've got you covered. Large models are very performant [1] but difficult to train with the available hardware. To get the most of the available hardware for training large models one can leverage Data Parallelism using ZeRO - Zero Redundancy Optimizer [2]**. 
+**Tired of Out of Memory (OOM) errors while trying to train large models? We've got you covered. Large models are very performant [1] but difficult to train with the available hardware. To get the most of the available hardware for training large models one can leverage Data Parallelism using ZeRO - Zero Redundancy Optimizer [2]**. 
 
 Below is a short description of Data Parallelism using ZeRO with diagram from this [blog post](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/)
 ![ZeRO Data Parallelism](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-zero.png)
@@ -117,7 +117,7 @@ To be able to tweak more options, you will need to use a DeepSpeed config file a
 
 # Accelerate 🚀:  Leverage a DeepSpeed Config file to tweak more options
 
-First, We will look at the task of finetuning a sequence-to-sequence model for training our own Chatbot. Specifically, we will finetune `facebook/blenderbot-400M-distill` on the `smangrul/MuDoConv` (Multi-Domain Conversation) dataset. The dataset contains conversations from 10 different data sources covering personas, grounding in specific emotional contexts, goal-oriented (e.g., restaurant reservation) and general wikipedia topics (e.g, Cricket).
+First, We will look at the task of finetuning a sequence-to-sequence model for training our own Chatbot. Specifically, we will finetune `facebook/blenderbot-400M-distill` on the [smangrul/MuDoConv](https://huggingface.co/datasets/smangrul/MuDoConv) (Multi-Domain Conversation) dataset. The dataset contains conversations from 10 different data sources covering personas, grounding in specific emotional contexts, goal-oriented (e.g., restaurant reservation) and general wikipedia topics (e.g, Cricket).
 
 
 The code is available here [run_seq2seq_no_trainer.py](https://github.com/pacman100/accelerate-deepspeed-test/blob/main/src/modeling/run_seq2seq_no_trainer.py). Current pratice to effectively measure the `Engagingness` and `Humanness` of Chatbots is via Human evlauations which are expensive [6]. As such for this example, the metric being tracked is BLEU score (which isn't ideal but is the conventional metric for such tasks). One can adapt the code to train larger T5 models if you have access to GPUs that support `bfloat16` precision else you will run into `NaN` loss values. We will run a quick benchmark on `10000` train samples and `1000` eval samples as we are interested in DeepSpeed vs DDP.
@@ -372,5 +372,3 @@ have any problems or questions with regards to DeepSpeed usage, please, file an 
 [5] [Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel](https://huggingface.co/blog/pytorch-fsdp)
 
 [6] [Recipes for building an open-domain chatbot](https://arxiv.org/pdf/2004.13637.pdf)
-
-
