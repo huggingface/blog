@@ -29,10 +29,10 @@ thumbnail: /blog/assets/82_accelerate_deepspeed/deepspeed-thumbnail.png
     </a>
 </div>
 
-In this post we will look at how we can leverage **[Accelerate](https://github.com/huggingface/accelerate)** Library for training large models which enables users to leverage ZeRO features of **[DeeSpeed](https://www.deepspeed.ai)**.
+In this post we will look at how we can leverage the **[Accelerate](https://github.com/huggingface/accelerate)** library for training large models which enables users to leverage the ZeRO features of **[DeeSpeed](https://www.deepspeed.ai)**.
 
 # Motivation 🤗
-**Tired of OOM errors while trying to train large models? We have got you covered. Large models are very performant [1] but difficult to train with the available hardware. To get the most of the available hardware for training large models one can leverage Data Parallelism using ZeRO - Zero Redundancy Optimizer [2]**. 
+**Tired of OOM errors while trying to train large models? We've got you covered. Large models are very performant [1] but difficult to train with the available hardware. To get the most of the available hardware for training large models one can leverage Data Parallelism using ZeRO - Zero Redundancy Optimizer [2]**. 
 
 Below is a short description of Data Parallelism using ZeRO with diagram from this [blog post](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/)
 ![ZeRO Data Parallelism](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-zero.png)
@@ -111,16 +111,16 @@ In our Single-Node Multi-GPU setup, the maximum batch size that DDP supports wit
 Table 1: Benchmarking DeepSpeed ZeRO Stage-2 on DeBERTa-XL (900M) model
 
 ---
-We observe ~**3.5X** speed up in training without any drop in perforamnce metrics, all this without changing any code. Yay! 🤗. 
+With this bigger batch size, we observe ~**3.5X** speed up in total training time without any drop in perforamnce metrics, all this without changing any code. Yay! 🤗. 
 
-To be able to tweak more options, you will need to use a DeepSpeed config file and minimal code changes. Next, We will see how to do this.
+To be able to tweak more options, you will need to use a DeepSpeed config file and minimal code changes. Let's see how to do this.
 
-# Accelerate 🚀:  Leverage DeepSpeed Config file to tweak more options
+# Accelerate 🚀:  Leverage a DeepSpeed Config file to tweak more options
 
-First, We will look at the task of finetuning Sequence-to-Sequence model for training our own Chatbot. Specifically, we will finetune `facebook/blenderbot-400M-distill` on `smangrul/MuDoConv` (Multi-Domain Conversation) dataset. The dataset contains conversations from 10 different data sources convering personas, grouding in specific emotional contexts, goal-oriented (e.g., restaurant reservation) and general wikipedia topics (e.g, Cricket).
+First, We will look at the task of finetuning a sequence-to-sequence model for training our own Chatbot. Specifically, we will finetune `facebook/blenderbot-400M-distill` on the `smangrul/MuDoConv` (Multi-Domain Conversation) dataset. The dataset contains conversations from 10 different data sources covering personas, grounding in specific emotional contexts, goal-oriented (e.g., restaurant reservation) and general wikipedia topics (e.g, Cricket).
 
 
-The code is available here [run_seq2seq_no_trainer.py](https://github.com/pacman100/accelerate-deepspeed-test/blob/main/src/modeling/run_seq2seq_no_trainer.py). Current pratice to effectively measure the `Engagingness` and `Humanness` of Chatbots is via Human evlauations which are expensive [6]. As such for this example, the metric being tracked is BLEU score which isn't ideal but conventional automatic metric for such tasks. One can adapt the code to train larger T5 models if you have access to GPUs that support `bfloat16` precision else you will run into `NaN` loss values. We will run a quick benchmark on `10000` train samples and `1000` eval samples as we are interested in DeepSpeed vs DDP.
+The code is available here [run_seq2seq_no_trainer.py](https://github.com/pacman100/accelerate-deepspeed-test/blob/main/src/modeling/run_seq2seq_no_trainer.py). Current pratice to effectively measure the `Engagingness` and `Humanness` of Chatbots is via Human evlauations which are expensive [6]. As such for this example, the metric being tracked is BLEU score (which isn't ideal but is the conventional metric for such tasks). One can adapt the code to train larger T5 models if you have access to GPUs that support `bfloat16` precision else you will run into `NaN` loss values. We will run a quick benchmark on `10000` train samples and `1000` eval samples as we are interested in DeepSpeed vs DDP.
 
 We will leverage the DeepSpeed Zero Stage-2 config [zero2_config_accelerate.json](https://github.com/pacman100/accelerate-deepspeed-test/blob/main/src/modeling/configs/zero2_config_accelerate.json) (given below) For training. for detailed information on the various config features, please refer [DeeSpeed](https://www.deepspeed.ai) documentation.
 ```json
@@ -169,7 +169,7 @@ We will leverage the DeepSpeed Zero Stage-2 config [zero2_config_accelerate.json
 }
 ```
 
-To enable DeepSpeed ZeRO Stage-2 with above config, please run `accelerate config` and provide the config file path when asked. For more details, refer the 🤗 `accelerate` official documentation [DeepSpeed Config File](https://huggingface.co/docs/accelerate/deepspeed#deepspeed-config-file).
+To enable DeepSpeed ZeRO Stage-2 with above config, please run `accelerate config` and provide the config file path when asked. For more details, refer the 🤗 `accelerate` official documentation for [DeepSpeed Config File](https://huggingface.co/docs/accelerate/deepspeed#deepspeed-config-file).
 
 **ZeRO Stage-2 DeepSpeed Config File Example**
 ```bash
@@ -253,7 +253,7 @@ In our Single-Node Multi-GPU setup, the maximum batch size that DDP supports wit
 
 On a single 24GB NVIDIA Titan RTX GPU, one cannot train GPT-XL Model (1.5B parameters) even with a batch size of 1. We will look at how we can use DeepSpeed ZeRO Stage-3 with CPU offloading of optimizer states, gradients and parameters to train GPT-XL Model. 
 
-We will leverage the DeepSpeed Zero Stage-3 CPU offload config [zero3_offload_config_accelerate.json](https://github.com/pacman100/accelerate-deepspeed-test/blob/main/src/modeling/configs/zero3_offload_config_accelerate.json) (given below) For training. The rest of the process of using the config with 🤗 `accelrate` is similar to above experiment.
+We will leverage the DeepSpeed Zero Stage-3 CPU offload config [zero3_offload_config_accelerate.json](https://github.com/pacman100/accelerate-deepspeed-test/blob/main/src/modeling/configs/zero3_offload_config_accelerate.json) (given below) for training. The rest of the process of using the config with 🤗 `accelerate` is similar to the above experiment.
 ```json
 {
     "fp16": {
