@@ -1,12 +1,12 @@
 ---
 title: "Accelerate Large Model Training using DeepSpeed"
-thumbnail: /blog/assets/82_accelerate_deepspeed/deepspeed-thumbnail.png
+thumbnail: /blog/assets/83_accelerate_deepspeed/deepspeed-thumbnail.png
 ---
 
 <h1>Accelerate Large Model Training using DeepSpeed</h1>
 
 <div class="blog-metadata">
-    <small>Published May 2, 2022.</small>
+    <small>Published June 28, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/pytorch-fsdp.md">
         Update on GitHub
     </a>
@@ -100,7 +100,7 @@ accelerate launch run_cls_no_trainer.py \
 
 In our Single-Node Multi-GPU setup, the maximum batch size that DDP supports without OOM error is 8. In contrast, DeepSpeed Zero-Stage 2 enables batch size of 40 without running into OOM errors. Therefore, DeepSpeed enables to fit **5X** more data per GPU when compared to DDP. Below is the snapshot of the plots from wandb [run](https://wandb.ai/smangrul/DDP_vs_DeepSpeed_cls_task?workspace=user-smangrul) along with benchmarking table comparing DDP vs DeepSpeed. 
 
-![Wandb Run](./assets/82_accelerate_deepspeed/cls_run.png)
+![Wandb Run](./assets/83_accelerate_deepspeed/cls_run.png)
 
 ---
 | Method | Batch Size Max | Train time per epoch (seconds) | Eval time  per epoch (seconds) | F1 score | Accuracy |
@@ -225,15 +225,15 @@ When using DeepSpeed config, if user has specified `optimizer` and `scheduler` i
 + optimizer = accelerate.utils.DummyOptim(optimizer_grouped_parameters, lr=args.learning_rate)
 
 - lr_scheduler = get_scheduler(
--            name=args.lr_scheduler_type,
--            optimizer=optimizer,
--            num_warmup_steps=args.num_warmup_steps,
--            num_training_steps=args.max_train_steps,
--        )
+-     name=args.lr_scheduler_type,
+-     optimizer=optimizer,
+-     num_warmup_steps=args.num_warmup_steps,
+-     num_training_steps=args.max_train_steps,
+- )
 
-+ lr_scheduler = DummyScheduler(
-+            optimizer, total_num_steps=args.max_train_steps, warmup_num_steps=args.num_warmup_steps
-+        )
++ lr_scheduler = accelerate.utils.DummyScheduler(
++     optimizer, total_num_steps=args.max_train_steps, warmup_num_steps=args.num_warmup_steps
++ )
 ```
 
 ---
@@ -246,7 +246,7 @@ Table 2: Benchmarking DeepSpeed ZeRO Stage-2 on BlenderBot (400M) model
 
 In our Single-Node Multi-GPU setup, the maximum batch size that DDP supports without OOM error is 100. In contrast, DeepSpeed Zero-Stage 2 enables batch size of 200 without running into OOM errors. Therefore, DeepSpeed enables to fit **2X** more data per GPU when compared to DDP. We observe ~**1.44X** speedup in training and ~**1.23X** speedup in evaluation as we are able to fit more data on the same available hardware. As this model is of medium size, the speedup isn't that exciting but this will improve with bigger models. You can chat with the Chatbot trained using the entire data at 🤗 Space [smangrul/Chat-E](https://huggingface.co/spaces/smangrul/Chat-E). You can give bot a persona, ground conversation to a particular emotion, use to in goal-oriented tasks or in a free flow manner. Below is a fun conversation with the chatbot 💬. You can find snapshots of more conversations using different contexts [here](https://github.com/pacman100/accelerate-deepspeed-test/tree/main/src/chatbot_snapshots).
 
-![Chatbot](./assets/82_accelerate_deepspeed/chatbot.png)
+![Chatbot](./assets/83_accelerate_deepspeed/chatbot.png)
 
 ---
 ## CPU/Disk Offloading to enable training humongous models that won’t fit the GPU memory
