@@ -184,7 +184,7 @@ Loop:
   <img src="assets/85_policy_gradient/pg.jpg" alt="Policy Gradient"/>
 </figure>
 
-- Update the weights of the policy: $\theta \leftarrow \theta + \alpha \hat{g}$
+- Update the weights of the policy: \\(\theta \leftarrow \theta + \alpha \hat{g}\\)
 
 The interpretation we can make is this one:
 - \\(\nabla_\theta log \pi_\theta(a_t|s_t)\\) is the direction of **steepest increase of the (log) probability** of selecting action at from state st.
