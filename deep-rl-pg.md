@@ -154,10 +154,58 @@ So now that we have seen the big picture of Policy-Gradient and its advantages a
 
 ## Reinforce (Monte Carlo Policy Gradient)
 
-
+Reinforce (also called Monte-Carlo Policy Gradient) uses an estimated return from an episode to update the policy parameter $\theta$.
   
+We have our policy π that has a parameter θ. This π, given a state outputs a probability distribution of actions.
+
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/85_policy_gradient/policy.jpg" alt="Policy"/>
+</figure>
+  
+Where $\pi_\theta(a_t|s_t)$ is the probability of the agent selecting action at from state st, given our policy.
+  
+Awesome! But how do we know if our policy is good? To know that we define a score/objective function called \\(J(\theta)\\).
+
+The score function J, is the expected return:
+  <figure class="image table text-center m-0 w-full">
+  <img src="assets/85_policy_gradient/objective.jpg" alt="Return"/>
+</figure>
+  
+Remember that policy can be seen as an optimization problem. We must find the best parameters (θ) to maximize a score function, J(θ).
+
+To do that we’re going to use the [Policy Gradient Theorem](https://www.youtube.com/watch?v=AKbX1Zvo7r8). I’m not going to dive on the mathematical details but if you’re interested check [this video](https://www.youtube.com/watch?v=AKbX1Zvo7r8)
+
+
+
+Loop: 
+- Use the policy \\(\pi_\theta\\)  to collect an episode \\(\tau\\) 
+- Use the episode to estimate the gradient \\(\hat{g} = \nabla_\theta J(\theta)\\) 
+
+ <figure class="image table text-center m-0 w-full">
+  <img src="assets/85_policy_gradient/pg.jpg" alt="Policy Gradient"/>
+</figure>
+
+- Update the weights of the policy: $\theta \leftarrow \theta + \alpha \hat{g}$
+
+The interpretation we can make is this one:
+- \\(\nabla_\theta log \pi_\theta(a_t|s_t)\\) is the direction of **steepest increase of the (log) probability** of selecting action at from state st.
+=> This tells use **how we should change the weights of policy** if we want to increase/decrease the log probability of selecting action at at state st.
+- \\(R(\tau)\\): is the scoring function:
+  - If the return is high, it will push up the probabilities of the (state, action) combinations.
+  - Else, if the return is low it will push down the probabilities of the (state, action) combinations.
+
+
+Now, that we studied the theory behind Reinforce, **you’re ready code your Reinforce agent with PyTorch**. And you'll test its robustness using CartPole-v1, PixelCopter, and Pong.
+  
+Start the tutorial here 👉 https://colab.research.google.com/github/huggingface/deep-rl-class/blob/main/unit5/unit5.ipynb
+  
+The leaderboard to compare your results with your classmates 🏆 👉 https://huggingface.co/spaces/chrisjay/Deep-Reinforcement-Learning-Leaderboard
+  
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/85_policy_gradient/envs.gif" alt="Environments"/>
+</figure>
 ---
-Congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorial. You’ve just code your first Deep Reinforcement Learninga agent from scratch using PyTorch and shared it on the Hub 🥳.
+Congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorial. You’ve just code your first Deep Reinforcement Learning agent from scratch using PyTorch and shared it on the Hub 🥳.
 
 That’s **normal if you still feel confused** with all these elements. **This was the same for me and for all people who studied RL.**
 
@@ -174,4 +222,3 @@ And don't forget to share with your friends who want to learn 🤗 !
 Finally, we want **to improve and update the course iteratively with your feedback**. If you have some, please fill this form 👉 **[https://forms.gle/3HgA7bEHwAmmLfwh9](https://forms.gle/3HgA7bEHwAmmLfwh9)**
 
 ### **Keep learning, stay awesome,**
-  
