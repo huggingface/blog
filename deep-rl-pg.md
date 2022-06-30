@@ -51,7 +51,11 @@ So today, **we'll study our first Policy-Based method**: Reinforce. And we'll i
 
 Let's get started,
 
-[Add table des matières]
+- [What are Policy-Gradient Methods?](#what-are-policy-gradient-methods)
+  - [An Overview of Policy Gradients](#an-overview-of-policy-gradients)
+  - [The Advantages of Policy-Gradient Methods](#the-advantages-of-policy-gradient-methods)
+  - [The Disadvantages of Policy-Gradient Methods](#the-disadvantages-of-policy-gradient-methods)
+- [Reinforce (Monte Carlo Policy Gradient)](#reinforce-monte-carlo-policy-gradient)
 
   
 ## What are Policy-Gradient Methods?
@@ -137,7 +141,7 @@ For instance, with a self-driving car, at each state, you can have a (near) infi
 
 Instead, with a policy gradient, we output a **probability distribution over actions.**
 
-### Disadvantages
+### The Disadvantages of Policy-Gradient Methods
 Naturally, Policy Gradient methods have also some disadvantages:
   
 - **Policy gradients converge a lot of time on a local maximum instead of a global optimum.**
@@ -148,8 +152,9 @@ If you want to go deeper on why the advantages and disadvantages of Policy Gradi
 So now that we have seen the big picture of Policy-Gradient and its advantages and disadvantages let's study one of them: Reinforce.
 
   
-  
-  
+## Reinforce (Monte Carlo Policy Gradient)
+
+
   
 ---
 Congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorial. You’ve just code your first Deep Reinforcement Learninga agent from scratch using PyTorch and shared it on the Hub 🥳.
