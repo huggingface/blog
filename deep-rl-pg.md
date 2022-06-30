@@ -35,3 +35,20 @@ thumbnail: /blog/assets/85_policy_gradient/thumbnail.gif
 <img src="assets/85_policy_gradient/thumbnail.gif" alt="Thumbnail"/>  
 
 ---
+[In the last unit](https://huggingface.co/blog/deep-rl-dqn), we learned about Deep Q-Learning. In this value-based Deep Reinforcement Learning algorithm, we **used a deep neural network to approximate the different Q-values for each possible action at a state.**
+
+Indeed, since the beginning of the course, we only studied value-based methods, **where we estimate a value function as an intermediate step towards finding an optimal policy.**
+
+Because, in value-based, **π exists only because of the action value estimates, since policy is just a function** (for instance, greedy-policy) that will select the action with the highest value given a state.
+
+But, with policy-based methods, we want to optimize the policy directly **without having an intermediate step of learning a value function.**
+
+So today, **we'll study our first Policy-Based method**: Reinforce. And we'll implement it from scratch using PyTorch. Before testing its robustness using CartPole-v1, PixelCopter, and Pong.
+
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/85_policy_gradient/envs.gif" alt="Environments"/>
+</figure>
+
+Let's get started,
+
+[Add table des matières]
