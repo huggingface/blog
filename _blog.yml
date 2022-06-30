@@ -535,8 +535,9 @@
   thumbnail: /blog/assets/50_sentiment_python/thumbnail.png
   date: February 2, 2022
   tags:
-    - guide
+    - sentiment-analysis
     - nlp
+    - guide
 
 - local: fine-tune-vit
   title: "Fine-Tune ViT for Image Classification with 🤗 Transformers"
@@ -958,4 +959,14 @@
   thumbnail: /blog/assets/84_first_ml_project/thumbnail.png
   date: June 29, 2022
   tags:
+    - guide
+
+- local: sentiment-analysis-twitter
+  title: "Getting Started with Sentiment Analysis on Twitter"
+  author: FedericoPascual
+  thumbnail: /blog/assets/85_sentiment_analysis_twitter/thumbnail.png
+  date: July 5, 2022
+  tags:
+    - sentiment-analysis
+    - nlp
     - guide
