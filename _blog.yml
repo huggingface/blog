@@ -959,3 +959,11 @@
   date: June 29, 2022
   tags:
     - guide
+
+- local: deep-rl-pg
+  title: "Policy Gradient with PyTorch"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/85_policy_gradient/thumbnail.gif
+  date: June 30, 2022
+  tags:
+  - rl
