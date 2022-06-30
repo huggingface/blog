@@ -148,3 +148,25 @@ If you want to go deeper on why the advantages and disadvantages of Policy Gradi
 So now that we have seen the big picture of Policy-Gradient and its advantages and disadvantages let's study one of them: Reinforce.
 
   
+  
+  
+  
+---
+Congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorial. You’ve just code your first Deep Reinforcement Learninga agent from scratch using PyTorch and shared it on the Hub 🥳.
+
+That’s **normal if you still feel confused** with all these elements. **This was the same for me and for all people who studied RL.**
+
+Take time to really grasp the material before continuing.
+
+Don't hesitate to train your agent in other environments. The **best way to learn is to try things on your own!**
+
+We published additional readings in the syllabus if you want to go deeper 👉 **[https://github.com/huggingface/deep-rl-class/blob/main/unit5/README.md](https://github.com/huggingface/deep-rl-class/blob/main/unit5/README.md)**
+
+In the next unit, we’re going to learn about a combination of Policy-Based and Value-based methods called Actor Critic Methods.
+
+And don't forget to share with your friends who want to learn 🤗 !
+
+Finally, we want **to improve and update the course iteratively with your feedback**. If you have some, please fill this form 👉 **[https://forms.gle/3HgA7bEHwAmmLfwh9](https://forms.gle/3HgA7bEHwAmmLfwh9)**
+
+### **Keep learning, stay awesome,**
+  
