@@ -39,7 +39,7 @@ thumbnail: /blog/assets/85_policy_gradient/thumbnail.gif
 
 Indeed, since the beginning of the course, we only studied value-based methods, **where we estimate a value function as an intermediate step towards finding an optimal policy.**
   
-<img src="https://huggingface.co/blog/assets/70_deep_rl_q_part1/link-value-policy.jpg" alt="Link value policy")
+<img src="https://huggingface.co/blog/assets/70_deep_rl_q_part1/link-value-policy.jpg" alt="Link value policy" />
 
 Because, in value-based, **π exists only because of the action value estimates, since policy is just a function** (for instance, greedy-policy) that will select the action with the highest value given a state.
 
@@ -75,7 +75,7 @@ We also need to remember that a policy is a function that (in our case using a s
 </figure>
 
 
-Our goal with Policy-Gradients is to control the probability distribution of actions by tuning the policy such that **good actions (**that maximize the return) **are sampled more frequently in the future.**
+Our goal with Policy-Gradients is to control the probability distribution of actions by tuning the policy such that **good actions (that maximize the return) are sampled more frequently in the future.**
 
 Let’s take a simple example:
 
@@ -220,4 +220,4 @@ And don't forget to share with your friends who want to learn 🤗 !
 
 Finally, we want **to improve and update the course iteratively with your feedback**. If you have some, please fill this form 👉 **[https://forms.gle/3HgA7bEHwAmmLfwh9](https://forms.gle/3HgA7bEHwAmmLfwh9)**
 
-### **Keep learning, stay awesome,**
+### **Keep learning, stay awesome 🤗,**
