@@ -52,3 +52,99 @@ So today, **we'll study our first Policy-Based method**: Reinforce. And we'll i
 Let's get started,
 
 [Add table des matières]
+
+  
+## What are Policy-Gradient Methods?
+Policy-Gradient is a subclass of Policy-Based Methods are a category of algorithms that **aim to optimize the policy directly without using a value function using different techniques.**
+
+Since Policy-Gradient methods is a series of algorithms that aim to optimize the policy directly **by estimating the weights of the optimal policy using Gradient Ascent.**
+
+### An Overview of Policy Gradients
+Why do we optimize the policy directly by estimating the weights of an optimal policy using Gradient Ascent in Policy Gradients Methods?
+
+Remember that reinforcement learning aims **to find an optimal behavior strategy (policy) to maximize its expected cumulative reward.**
+
+We also need to remember that a policy is a function that (in our case using a stochastic policy), **given a state output, a distribution over actions.**
+
+  <figure class="image table text-center m-0 w-full">
+  <img src="https://huggingface.co/blog/assets/63_deep_rl_intro/pbm_2.jpg" alt="Stochastic Policy"/>
+</figure>
+
+
+Our goal with Policy-Gradients is to control the probability distribution of actions by tuning the policy such that **good actions (**that maximize the return) **are sampled more frequently in the future.**
+
+Let’s take a simple example:
+
+We collect an episode, by letting our policy interact with its environment.
+
+We then look at the sum of rewards of the episode (expected return). If this sum is positive, we **consider that the actions taken during the episodes were good:** Therefore, we want to increase the P(a|s) (probability of taking that action at that state) for each state-action pair.
+
+The Policy Gradient algorithm (simplified) looks like this:
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/85_policy_gradient/pg_bigpicture.jpg" alt="Policy Gradient Big Picture"/>
+</figure>
+
+But Deep Q-Learning is excellent! Why use policy gradient methods?
+
+### The Advantages of Policy-Gradient Methods
+
+There are multiple advantages over Policy-Gradient methods, let's see some of them:
+
+1. The simplicity of the integration: **we can estimate the policy directly without storing additional data (action values).**
+  
+2. Policy gradient methods can **learn a stochastic policy while value functions can't**
+
+This has two consequences:
+
+One of these is that we don't need to implement an exploration/exploitation trade-off by hand. Since we output a probability distribution over actions, the agent explores **the state space without always taking the same trajectory.**
+
+We also get rid of the problem of perceptual aliasing. Perceptual aliasing is when two states seem (or are) the same but need different actions.
+
+Let's take an example: we have an intelligent vacuum cleaner whose goal is to suck the dust and avoid killing the hamsters.
+
+  
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/85_policy_gradient/hamster1.jpg" alt="Hamster 1"/>
+</figure>
+
+Our vacuum cleaner can only perceive where the walls are.
+
+The problem is that the two red cases are aliased states because the agent perceives an upper and lower wall for each.
+
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/85_policy_gradient/hamster2.jpg" alt="Hamster 1"/>
+</figure>
+
+Under a deterministic policy, the policy will either move right when in a red state or move left. Either case will cause our agent to get stuck and never suck the dust.
+
+Under a value-based RL algorithm, we learn a quasi-deterministic policy ("greedy epsilon strategy"). Consequently, our agent can spend a lot of time before finding the dust.
+
+On the other hand, an optimal stochastic policy will randomly move left or right in grey states. Consequently, it will not be stuck and will reach the goal state with a high probability.
+
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/85_policy_gradient/hamster3.jpg" alt="Hamster 1"/>
+</figure>
+
+3. Policy gradients are more effective in high-dimensional action spaces and continuous actions spaces
+
+The third advantage is that policy gradients are **more effective in high-dimensional action spaces or when using continuous actions**.
+
+Indeed, the problem with Deep Q-learning is that their predictions assign a score (maximum expected future reward) for each possible action, at each time step, given the current state.
+
+But what if we have an infinite possibility of actions?
+
+For instance, with a self-driving car, at each state, you can have a (near) infinite choice of actions (turning the wheel at 15°, 17.2°, 19,4°, honking, etc.). We'll need to output a Q-value for each possible action! And taking the max action of a continuous output is an optimization problem itself!
+
+Instead, with a policy gradient, we output a **probability distribution over actions.**
+
+### Disadvantages
+Naturally, Policy Gradient methods have also some disadvantages:
+  
+- **Policy gradients converge a lot of time on a local maximum instead of a global optimum.**
+- Policy gradient goes faster, **step by step: it can take longer to train (inefficient).**
+- Policy gradient can have high variance (solution baseline)
+
+If you want to go deeper on why the advantages and disadvantages of Policy Gradients methods, [you can check this video](https://youtu.be/y3oqOjHilio).
+So now that we have seen the big picture of Policy-Gradient and its advantages and disadvantages let's study one of them: Reinforce.
+
+  
