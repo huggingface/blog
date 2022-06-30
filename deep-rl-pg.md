@@ -154,29 +154,28 @@ So now that we have seen the big picture of Policy-Gradient and its advantages a
 
 ## Reinforce (Monte Carlo Policy Gradient)
 
-Reinforce (also called Monte-Carlo Policy Gradient) uses an estimated return from an episode to update the policy parameter $\theta$.
+Reinforce, also called Monte-Carlo Policy Gradient, **uses an estimated return from an entire episode to update the policy parameter** \\(\theta\\).
   
-We have our policy π that has a parameter θ. This π, given a state outputs a probability distribution of actions.
+Indeed, we have our policy π which has a parameter θ. This π, given a state, **outputs a probability distribution of actions**.
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/85_policy_gradient/policy.jpg" alt="Policy"/>
 </figure>
   
-Where $\pi_\theta(a_t|s_t)$ is the probability of the agent selecting action at from state st, given our policy.
+Where \\(\pi_\theta(a_t|s_t)\\) is the probability of the agent selecting action at from state st, given our policy.
   
-Awesome! But how do we know if our policy is good? To know that we define a score/objective function called \\(J(\theta)\\).
+**But how do we know if our policy is good?** We need to have a way to measure it. To know that we define a score/objective function called \\(J(\theta)\\).
 
-The score function J, is the expected return:
+The score function J is the expected return:
   <figure class="image table text-center m-0 w-full">
   <img src="assets/85_policy_gradient/objective.jpg" alt="Return"/>
 </figure>
   
-Remember that policy can be seen as an optimization problem. We must find the best parameters (θ) to maximize a score function, J(θ).
+Remember that policy gradient can be seen as an optimization problem. So we must find the best parameters (θ) to maximize the score function, J(θ).
 
 To do that we’re going to use the [Policy Gradient Theorem](https://www.youtube.com/watch?v=AKbX1Zvo7r8). I’m not going to dive on the mathematical details but if you’re interested check [this video](https://www.youtube.com/watch?v=AKbX1Zvo7r8)
 
-
-
+The Reinforce algorithm works like this:
 Loop: 
 - Use the policy \\(\pi_\theta\\)  to collect an episode \\(\tau\\) 
 - Use the episode to estimate the gradient \\(\hat{g} = \nabla_\theta J(\theta)\\) 
