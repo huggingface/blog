@@ -24,7 +24,7 @@ thumbnail: /blog/assets/85_sentiment_analysis_twitter/thumbnail.png
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
-Sentiment analysis is the automatic process of classifying data according to their polarity, such as positive, negative and neutral. Companies leverage sentiment analysis of tweets to get a sense of how customers are talking about their products and services, get insights to drive business decisions, and identify product issues and potential PR crises early on.
+Sentiment analysis is the automatic process of classifying text data according to their polarity, such as positive, negative and neutral. Companies leverage sentiment analysis of tweets to get a sense of how customers are talking about their products and services, get insights to drive business decisions, and identify product issues and potential PR crises early on.
 
 In this guide, we will cover everything you need to learn to get started with sentiment analysis on Twitter. We'll share a step-by-step process to do sentiment analysis, for both, coders and non-coders. If you are a coder, you'll learn how to use the [Inference API](https://huggingface.co/inference-api), a plug & play machine learning API for doing sentiment analysis of tweets at scale in just a few lines of code. If you don't know how to code, don't worry! We'll also cover how to do sentiment analysis with Zapier, a no-code tool that will enable you to gather tweets, analyze them with the Inference API, and finally send the results to Google Sheets ⚡️
 
@@ -58,7 +58,7 @@ Why do sentiment analysis on Twitter? Companies use this for a wide variety of u
 
 Listening to customers is key for detecting insights on how you can improve your product or service. Although there are multiple sources of feedback, such as surveys or public reviews, Twitter offers raw, unfiltered feedback on what your audience thinks about your offering. 
 
-By analyzing how people tweet about your brand on Twitter, you can understand whether they like a new feature you just launched. You can also get a sense if your pricing is clear for your target audience. You can also see what aspects of your offering are the most liked and disliked to make business decisions (e.g. customers loving the simplicity of the user interface but hate how slow is customer support).
+By analyzing how people talk about your brand on Twitter, you can understand whether they like a new feature you just launched. You can also get a sense if your pricing is clear for your target audience. You can also see what aspects of your offering are the most liked and disliked to make business decisions (e.g. customers loving the simplicity of the user interface but hate how slow customer support is).
 
 **Monitor Twitter Mentions to Detect Issues**
 
@@ -70,7 +70,9 @@ Now that we covered what is sentiment analysis and why it's useful, let's get ou
 
 ## How to do Twitter sentiment analysis with code?
 
-Nowadays, getting started with sentiment analysis on Twitter is quite easy and straightforward 🙌 With a few lines of code, you can automatically get tweets, run sentiment analysis and visualize the results. And you can learn how to do all these things in just a few minutes! 
+Nowadays, getting started with sentiment analysis on Twitter is quite easy and straightforward 🙌 
+
+With a few lines of code, you can automatically get tweets, run sentiment analysis and visualize the results. And you can learn how to do all these things in just a few minutes! 
 
 In this section, we'll show you how to do it with a cool little project: we'll do sentiment analysis of tweets mentioning [Notion](https://twitter.com/notionhq)! 
 
@@ -147,7 +149,7 @@ for result in search:
 
 Now that you have data, you are ready to analyze the tweets with sentiment analysis! 💥
 
-You will be using [Inference API](https://huggingface.co/inference-api), an easy-to-use API for integrating machine learning models via simple API calls. With the Inference API, you can use state-of-the-art models for sentiment analysis without the hassle of building infrastructure for machine learning or dealing with model scalability. You can serve the latest (and greatest!) open source models for sentiment analysis while staying out of MLOps 🤩
+You will be using [Inference API](https://huggingface.co/inference-api), an easy-to-use API for integrating machine learning models via simple API calls. With the Inference API, you can use state-of-the-art models for sentiment analysis without the hassle of building infrastructure for machine learning or dealing with model scalability. You can serve the latest (and greatest!) open source models for sentiment analysis while staying out of MLOps. 🤩
 
 For using the Inference API, first you will need to define your `model id` and your `Hugging Face API Token`: 
 
@@ -176,7 +178,7 @@ def analysis(payload):
  return response.json()
 ```
 
-Now, you are ready to do sentiment analysis on each tweet 🔥🔥🔥
+Now, you are ready to do sentiment analysis on each tweet. 🔥🔥🔥
 
 ```python
 tweets_analysis = []
@@ -293,13 +295,15 @@ In contrast, "figma", "enterprise" and "account" are some of the most used words
 
 That was fun, right? 
 
-With just a few lines of code, you were able to automatically gather tweets mentioning Notion using Tweepy, analyze them with a sentiment analysis model using the [Inference API](https://huggingface.co/inference-api), and finally create some visualizations to analyze the results 💥 
+With just a few lines of code, you were able to automatically gather tweets mentioning Notion using Tweepy, analyze them with a sentiment analysis model using the [Inference API](https://huggingface.co/inference-api), and finally create some visualizations to analyze the results. 💥 
 
-Are you interested in doing more? As a next step, you could use a second [text classifier](https://huggingface.co/tasks/text-classification) to classify each tweet by their theme or topic. This way, each tweet will be labeled with both sentiment and topic, and you can get more granular insights (e.g. are users praising how easy to use is Notion but are complaining about their pricing or customer support?)
+Are you interested in doing more? As a next step, you could use a second [text classifier](https://huggingface.co/tasks/text-classification) to classify each tweet by their theme or topic. This way, each tweet will be labeled with both sentiment and topic, and you can get more granular insights (e.g. are users praising how easy to use is Notion but are complaining about their pricing or customer support?).
 
 ## How to do Twitter sentiment analysis without coding?
 
-To get started with sentiment analysis, you don't need to be a developer or know how to code 🤯 There are some amazing no-code solutions that will enable you to easily do sentiment analysis in just a few minutes. 
+To get started with sentiment analysis, you don't need to be a developer or know how to code. 🤯 
+
+There are some amazing no-code solutions that will enable you to easily do sentiment analysis in just a few minutes. 
 
 In this section, you will use [Zapier](https://zapier.com/), a no-code tool that enables users to connect 5,000+ apps with an easy to use user interface. You will create a [Zap](https://zapier.com/help/create/basics/create-zaps), that is triggered whenever someone mentions Notion on Twitter. Then the Zap will use the [Inference API](https://huggingface.co/inference-api) to analyze the tweet with a sentiment analysis model and finally it will save the results on Google Sheets:
 
@@ -327,7 +331,7 @@ To get started, you'll need to [create a Zap](https://zapier.com/webintent/creat
 
 ### Step 2: Analyze Tweets with Sentiment Analysis
 
-Now that your Zap can gather tweets mentioning Notion, let's add a second step to do the sentiment analysis 🤗 
+Now that your Zap can gather tweets mentioning Notion, let's add a second step to do the sentiment analysis. 🤗 
 
 You will be using [Inference API](https://huggingface.co/inference-api), an easy-to-use API for integrating machine learning models. For using the Inference API, you will need to define your "model id" and your "Hugging Face API Token": 
 
@@ -350,7 +354,7 @@ Once you have your model ID and your Hugging Face token ID, go back to your Zap 
 
 ### Step 3: Save the results on Google Sheets
 
-As the last step to your Zap, you will save the results of the sentiment analysis on a spreadsheet on Google Sheets and visualize the results 📊
+As the last step to your Zap, you will save the results of the sentiment analysis on a spreadsheet on Google Sheets and visualize the results. 📊
 
 First, [create a new spreadsheet on Google Sheets](https://docs.google.com/spreadsheets/u/0/create), and define the following columns: 
 - **Tweet**: this column will contain the text of the tweet. 
@@ -375,7 +379,9 @@ Then, follow these instructions to configure this last step:
 
 ### 4. Turn on your Zap
 
-At this point, you have completed all the steps of your zap 🔥 Now, you just need to turn it on so it can start gathering tweets, analyzing them with sentiment analysis, and store the results on Google Sheets ⚡️
+At this point, you have completed all the steps of your zap! 🔥 
+
+Now, you just need to turn it on so it can start gathering tweets, analyzing them with sentiment analysis, and store the results on Google Sheets. ⚡️
 
 To turn it on, just click on "Publish" button at the bottom of your screen:
 
@@ -397,6 +403,6 @@ Super cool, right? 🚀
 
 Twitter is the public town hall where people share their thoughts about all kinds of topics. From people talking about politics, sports or tech, users sharing their feedback about a new shiny app, or passengers complaining to an Airline about a canceled flight, the amount of data on Twitter is massive. Sentiment analysis allows making sense of all that data in real-time to uncover insights that can drive business decisions.
 
-Luckily, tools like the [Inference API](https://huggingface.co/inference-api) makes it super easy to get started with sentiment analysis on Twitter. No matter if you know or don't know how to code and/or you don't have experience with machine learning, in a few minutes, you can set up a process that can gather tweets in real-time, analyze them with a state-of-the-art model for sentiment analysis, and explore the results with some cool visualizations 🔥🔥🔥
+Luckily, tools like the [Inference API](https://huggingface.co/inference-api) makes it super easy to get started with sentiment analysis on Twitter. No matter if you know or don't know how to code and/or you don't have experience with machine learning, in a few minutes, you can set up a process that can gather tweets in real-time, analyze them with a state-of-the-art model for sentiment analysis, and explore the results with some cool visualizations. 🔥🔥🔥
 
-If you have questions, you can ask them in the [Hugging Face forum](https://discuss.huggingface.co/) so the Hugging Face community can help you out and others can benefit from seeing the discussion. You can also join our [Discord](https://discord.gg/YRAq8fMnUG) server to talk with the Hugging Face community and us.
+If you have questions, you can ask them in the [Hugging Face forum](https://discuss.huggingface.co/) so the Hugging Face community can help you out and others can benefit from seeing the discussion. You can also join our [Discord](https://discord.gg/YRAq8fMnUG) server to talk with us and the entire Hugging Face community.
