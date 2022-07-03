@@ -15,3 +15,4 @@ venv.bak/
 
 # VS Code 
 .vs/
+.idea
