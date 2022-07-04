@@ -115,14 +115,14 @@ Now you are ready to start collecting data from Twitter! 🎉 You will use [Twee
 ```python
 # Helper function for handling pagination in our search and handle rate limits
 def limit_handled(cursor):
-   while True:
-       try:
-           yield cursor.next()
-       except tweepy.RateLimitError:
-           print('Reached rate limite. Sleeping for >15 minutes')
-           time.sleep(15 * 61)
-       except StopIteration:
-           break
+    while True:
+        try:
+            yield cursor.next()
+        except tweepy.RateLimitError:
+            print('Reached rate limite. Sleeping for >15 minutes')
+            time.sleep(15 * 61)
+        except StopIteration:
+            break
  
 # Define the term you will be using for searching tweets
 query = '@NotionHQ'
@@ -141,8 +141,8 @@ search = limit_handled(tweepy.Cursor(api.search,
 # Process the results from the search using Tweepy
 tweets = []
 for result in search:
- tweet_content = result.full_text
- tweets.append(tweet_content) # Only saving the tweet content.
+    tweet_content = result.full_text
+    tweets.append(tweet_content) # Only saving the tweet content.
 ```
 
 4. Analyzing tweets with sentiment analysis
@@ -168,14 +168,11 @@ Next, you will create the API call using the `model id` and `hf_token`:
 ```python
 API_URL = "https://api-inference.huggingface.co/models/" + model
 headers = {"Authorization": "Bearer %s" % (hf_token)}
- 
-def analysis(payload):
- response = requests.post(API_URL, headers=headers, json=payload)
- while "is currently loading" in str(response.json()): # retry request while model loads
-   print(response.json())
-   time.sleep(15)
-   response = requests.post(API_URL, headers=headers, json=payload)
- return response.json()
+
+def analysis(data):
+    payload = dict(inputs=data, options=dict(wait_for_model=True))
+    response = requests.post(API_URL, headers=headers, json=payload)
+    return response.json()
 ```
 
 Now, you are ready to do sentiment analysis on each tweet. 🔥🔥🔥
@@ -183,13 +180,13 @@ Now, you are ready to do sentiment analysis on each tweet. 🔥🔥🔥
 ```python
 tweets_analysis = []
 for tweet in tweets:
-   try:
-     sentiment_result = analysis(tweet)[0]
-     top_sentiment = max(sentiment_result, key=lambda x: x['score']) # Get the sentiment with the higher score    
-     tweets_analysis.append({'tweet': tweet, 'sentiment': top_sentiment['label']})
+    try:
+        entiment_result = analysis(tweet)[0]
+        top_sentiment = max(sentiment_result, key=lambda x: x['score']) # Get the sentiment with the higher score
+        tweets_analysis.append({'tweet': tweet, 'sentiment': top_sentiment['label']})
  
-   except Exception as e:
-     print(e)
+    except Exception as e:
+        print(e)
 ```
 5. Explore the results of sentiment analysis
 
