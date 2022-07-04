@@ -30,7 +30,7 @@ This part will be divided into the following sections:
 1. Configuring the model
 2. Interacting with the model
 3. Flagging the model
-4. putting it all together
+4. Putting it all together
 
 ### Configuring the model
 First of all, you need to define your model. My simple model architecture below is made up of two convolutional networks connected to a 50 dimensional fully connected layer and the final layer for the 10 classes.
@@ -56,14 +56,13 @@ class MNIST_Model(nn.Module):
 ```
 
 Now that you have defined your model, you can go ahead with training your model on the standard MNIST train/dev dataset or use a pretrained model. 
->For this article and space, I used a randomly initialized model. This is because the task of MNIST is relatively easy for the model, so with only a few epochs of training, one can easily get to 99%. You can also use a pretrained model.
 
 
 ### Interacting with the model
 
 Now that you have your model, you need a way for users to interact with it: specifically you want them to be able to draw a number and see the model's prediction. You can do all that with [🤗 Spaces](https://huggingface.co/spaces). 
 
-Below is a simple space to interact with the `MNIST_Model`, trained up till 98% accuracy on the test set. You draw a number and see the model's prediction. The space is [here](https://huggingface.co/spaces/chrisjay/simple-mnist-classification). Try to fool this model😁. Use your funniest handwriting; write on the sides of the canvas; go wild!
+Below is a simple space to interact with the `MNIST_Model` which I trained up till 98% accuracy on the test set. You draw a number and see the model's prediction. The space is [here](https://huggingface.co/spaces/chrisjay/simple-mnist-classification). Try to fool this model😁. Use your funniest handwriting; write on the sides of the canvas; go wild!
 
 <iframe src="https://hf.space/embed/chrisjay/simple-mnist-classification/+" frameBorder="0" width="100%" height="360px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
 Currently the model is not trained. Therefore we expect inaccurate predictions. We will proceed to train this model with adversarially collected data.
@@ -77,7 +76,7 @@ Were you able to fool the model above?😀 Now it's time to _flag_ your adversar
 
 >Note: Gradio has a built-in flaggiing system that allows you easily flag adversarial samples of your model. Read more about it [here](https://gradio.app/using_flagging/).
 
-Here is an explanation of what my `flag` function does. For more details feel free to peruse the full code [here](https://huggingface.co/spaces/chrisjay/mnist-adversarial/blob/main/app.py#L316). 
+Here is an explanation of what my `flag` function does. For more details feel free to peruse the full code [here](https://huggingface.co/spaces/chrisjay/mnist-adversarial/blob/main/app.py#L314). 
 
 ```python=
 def flag(input_image,correct_result,adversarial_number):
