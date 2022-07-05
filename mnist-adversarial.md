@@ -1,6 +1,6 @@
 ---
 title: "How to train a model using community adversarial data"
-thumbnail: /blog/assets/20_accelerate_library/accelerate_diff.png
+thumbnail: /blog/assets/84_mnist_adversarial.JPG
 ---
 
 <h1>
@@ -62,7 +62,7 @@ This part will be divided into the following sections:
 4. Putting it all together
 
 ### Configuring your model
-First of all, you need to define your model architecture. My simple model architecture below is made up of two convolutional networks connected to a 50 dimensional fully connected layer and the final layer for the 10 classes.
+First of all, you need to define your model architecture. My simple model architecture below is made up of two convolutional networks connected to a 50 dimensional fully connected layer and a final layer for the 10 classes.
 ```python=
 # Adapted from: https://nextjournal.com/gkoehler/pytorch-mnist
 class MNIST_Model(nn.Module):
@@ -90,7 +90,7 @@ Now that you have defined your model, you can go ahead with training your model 
 
 ### Interacting with your model
 
-Now that you have your model, you need a way for users to interact with it: specifically you want them to be able to draw a number and see the model's prediction. You can do all that with [🤗 Spaces](https://huggingface.co/spaces). 
+Now that you have your model, you need a way for users to interact with it: specifically you want them to be able to draw a number (on the white background) and see the model's prediction. You can do all that with [🤗 Spaces](https://huggingface.co/spaces). 
 
 Below is a simple Space to interact with the `MNIST_Model` which I trained up till 98% accuracy on the test set. You draw a number and see the model's prediction. The Space is [here](https://huggingface.co/spaces/chrisjay/simple-mnist-classification). Try to fool this model😁. Use your funniest handwriting; write on the sides of the canvas; go wild!
 
@@ -100,7 +100,7 @@ Below is a simple Space to interact with the `MNIST_Model` which I trained up ti
   
 Were you able to fool the model above?😀 Now it's time to _flag_ your adversarial example. __Flagging__ refers to the processes that happen when a user is able to fool the model. For our flagging, we will define a function to: 
 1. save the adversarial example to a dataset
-2. train the model on the adversarial example after some threshold samples have been collected.
+2. train the model on the adversarial examples after some threshold samples have been collected.
 3. repeat 1-2 many times. 
 
 >Note: Gradio has a built-in flaggiing callback that allows you easily flag adversarial samples of your model. Read more about it [here](https://gradio.app/using_flagging/).
