@@ -95,7 +95,6 @@ Now that you have your model, you need a way for users to interact with it: spec
 Below is a simple Space to interact with the `MNIST_Model` which I trained up till 98% accuracy on the test set. You draw a number and see the model's prediction. The Space is [here](https://huggingface.co/spaces/chrisjay/simple-mnist-classification). Try to fool this model😁. Use your funniest handwriting; write on the sides of the canvas; go wild!
 
 <iframe src="https://hf.space/embed/chrisjay/simple-mnist-classification/+" frameBorder="0" width="100%" height="360px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
-Currently the model is not trained. Therefore we expect inaccurate predictions. We will proceed to train this model with adversarially collected data.
 
 ### Flagging your model
   
