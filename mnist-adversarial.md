@@ -16,7 +16,7 @@ thumbnail: /blog/assets/20_accelerate_library/accelerate_diff.png
 
 <div class="author-card">
     <a href="/chrisjay">
-        <img class="avatar avatar-user" src="https://i.imgur.com/dLw4wjx.jpg?w=200&h=200&f=face" title="Gravatar">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1634562259269-5fbfa21ec153e968e63deb56.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>chrisjay</code>
             <span class="fullname">Chris Emezue</span>
