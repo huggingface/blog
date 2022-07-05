@@ -102,7 +102,7 @@ def flag(input_image,correct_result,adversarial_number):
 
 ### Putting it all together
 
-The final step is to put all the components together into one space! I have created the [MNIST Adversarial](https://huggingface.co/spaces/chrisjay/mnist-adversarial) space here for dynamic adversarial data collection for the MNIST handwritten recognition task. 
+The final step is to put all the components together into one Space! I have created the [MNIST Adversarial](https://huggingface.co/spaces/chrisjay/mnist-adversarial) space here for dynamic adversarial data collection for the MNIST handwritten recognition task. 
 
 <iframe src="https://hf.space/embed/chrisjay/mnist-adversarial/+" frameBorder="0" width="1000px" height="660px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
 
