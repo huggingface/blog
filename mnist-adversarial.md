@@ -85,7 +85,7 @@ def flag(input_image,correct_result,adversarial_number):
     of adversarial images that have been uploaded so far.
     It saves the image and metadata to a local directory, uploads
     the image and metadata to the hub, and then pulls the data from
-    the hub to the local directory. 
+    the Hub to the local directory. 
     
     If the number of images in the local directory is divisible by
     the TRAIN_CUTOFF, then it trains the model on the adversarial data.
