@@ -1013,7 +1013,7 @@ $$
 Note that the index range of the key and value vectors is \\(1:n\\)
 corresponding to the number of contextualized encoding vectors.
 
-Let\'s visualize the cross-attention mechanism Let\'s for the input
+Let\'s visualize the cross-attention mechanism for the input
 vector \\(\mathbf{y''}_1\\) for our example above.
 
 ![](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/encoder_decoder/cross_attention.png)
