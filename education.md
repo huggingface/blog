@@ -78,8 +78,6 @@ Apart from those efforts, many team members are involved in other educational ef
 
 ## 🤗 **Education Events & News**
 
-- **06/30**[NEWS]: Launch of the 🤗 Student Application Program 🎉
-- **06/30**[EVENT]: ML Demo.cratization tour in Belgium at 5pm (CET Time). [Link here](https://teams.microsoft.com/l/meetup-join/19%3ameeting_ZDRjMGQ5ZTQtNjUyNS00NGEwLTg0ZWQtMTg3ODNkOWRkNTU4%40thread.v2/0?context=%7b%22Tid%22%3a%22d7811cde-ecef-496c-8f91-a1786241b99c%22%2c%22Oid%22%3a%221546c2c9-3859-4a9f-8d6c-83cfcdcb7551%22%7d)
 - **09/08**[EVENT]: ML Demo.cratization tour in Argentina at 2pm (GMT-3). [Link here](https://www.uade.edu.ar/agenda/clase-pr%C3%A1ctica-con-hugging-face-c%C3%B3mo-construir-machine-learning-de-forma-colaborativa/)
 
 
