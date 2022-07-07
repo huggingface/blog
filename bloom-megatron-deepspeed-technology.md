@@ -33,18 +33,18 @@ Then the hardware setup and main technological components will be discussed.
 
 The project was conceived by Thomas Wolf, who dared to compete with the huge corporations not only to train one of the biggest multilingual models, but also to make the final result accessible to all people, thus making what was but a dream to most people a reality.
 
-This article focuses specifically on the engineering side of the project.
+This article focuses specifically on the engineering side of the training of the model.
 
-The most important part of the technology behind BLOOM were the people and companies who helped us with the training.
+The most important part of the technology behind BLOOM were the people and companies who shared their expertise and helped us with coding and training.
 
-There are 6 groups of people to thank:
+There are 6 main groups of people to thank:
 
 1. The HuggingFace's BigScience team who dedicated more than half a dozen full time employees to figure out and run the training from inception to the finishing line and provided and paid for all the infrastructure beyond the JeanZay's compute.
 2. The Microsoft Deepspeed team, who developed DeepSpeed and later integrated it with Megatron-LM, and whose developers spent many weeks working on the needs of the project and provided lots of awesome practical experiential advice before and during the training
 3. The NVIDIA Megatron-LM team, who developed Megatron-LM and who were super-helpful answering our numerous questions and providing first class experiential advice.
 4. The IDRIS / GENCI team managing the JeanZay supercomputer, who donating to the project an insane amount of compute and a great system administration support
 5. The PyTorch team who created a super powerful framework, on which the rest of the software was based, and who were very supportive to us during the preparation for the training, fixing multiple bugs and improving the usability of the PyTorch components we relied on during the training.
-6. All the BigScience volunteers in various groups.
+6. The volunteers in the BigScience Engineering workgroup
 
 It'd be very difficult to name all the amazing people who contributed to the engineering side of the project, so I will just name a few key people outside of HuggingFace who were the engineering foundation of this project for the last 14 months:
 
@@ -54,18 +54,18 @@ Also we are grateful to all the companies who allowed their employees to contrib
 
 ## Overview
 
-BLOOM's architecture is very similar to [GPT3](https://en.wikipedia.org/wiki/GPT-3) with a few improvements as will be discussed in this article.
+BLOOM's architecture is very similar to [GPT3](https://en.wikipedia.org/wiki/GPT-3) with a few added improvements as will be discussed in this article.
 
 The following hardware was used during the training:
 
-- GPUs: 384 A100 80GB GPUs (48 nodes)
+- GPUs: 384 NVIDIA A100 80GB GPUs (48 nodes)
 - 8 GPUs per node Using NVLink 4 inter-gpu connects, 4 OmniPath links
-- CPU: AMD
+- CPU: AMD EPYC 7543 32-Core Processor
 - CPU memory: 512GB per node
 - GPU memory: 640GB per node
 - Inter-node connect: Omni-Path Architecture (OPA)
 - NCCL-communications network: a fully dedicated subnet
-- Disc IO network: shared network with other types of nodes
+- Disc IO network: GPFS shared with other nodes and users
 
 Important links:
 
@@ -73,7 +73,6 @@ Important links:
 - [tensorboard](https://huggingface.co/bigscience/tr11-176B-ml-logs/tensorboard)
 - [training slurm script](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/tr11-176B-ml.slurm)
 - [training chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md)
-
 
 Checkpoints:
 
@@ -86,7 +85,7 @@ Datasets:
 - Vocabulary size is 250,680 tokens
 - For full details please see [The BigScience Corpus A 1.6TB Composite Multilingual Dataset](https://openreview.net/forum?id=UoEw6KigkUn)
 
-The training of the model took about 3.5 months.
+The training of the model occurred over the spring-summer of 2022 and took about 3.5 months to complete.
 
 ## Megatron-Deepspeed
 
@@ -149,7 +148,7 @@ This component is implemented by Megatron-LM. Megatron-LM has recently expanded 
 
 ## Pipeline Parallelism
 
-Naive Pipeline Parallelism (PP) is where one spreads groups of model layers across multiple GPUs and simply moves data along from gpu to gpu as if it were one large composite GPU. The mechanism is relatively simple - switch the desired layers `.to()` the desired devices and now whenever the data goes in and out those layers switch the data to the same device as the layer and leave the rest unmodified.
+Naive Pipeline Parallelism (naive PP) is where one spreads groups of model layers across multiple GPUs and simply moves data along from gpu to gpu as if it were one large composite GPU. The mechanism is relatively simple - switch the desired layers `.to()` the desired devices and now whenever the data goes in and out those layers switch the data to the same device as the layer and leave the rest unmodified.
 
 This performs a vertical model parallelism, because if you remember how most models are drawn, we slice the layers vertically. For example, if the following diagram shows an 8-layer model:
 
@@ -305,3 +304,9 @@ ALIBI:
 BitsNBytes:
 
 - [8-bit Optimizers via Block-wise Quantization](https://arxiv.org/abs/2110.02861) (in the context of Embedding LayerNorm but the rest of the paper and the technology is amazing - the only reason were weren't using the 8-bit optimizer is because we were already saving the optimizer memory with Deepspeed-ZeRO).
+
+## Training Difficulties
+
+The main type of issue encountered during training were hardware failures. As this was a new cluster with about 400 GPUs, on average we were getting 1-2 GPU failures a week. We were saving a checkpoint every 3h (100 iterations) so on average we would lose 1.5h of training.
+
+We have run into a variety of other problems that led to 5-10h downtime several times, some related to a deadlock bug in pytorch, others due to running out of disc space. If you are curious about specific details please see [training chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md). And there were a lot more issues to figure out before the training started. For that see  [training prequel chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles-prequel.md).
