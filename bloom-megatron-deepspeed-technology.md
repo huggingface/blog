@@ -85,7 +85,7 @@ Datasets:
 - Vocabulary size is 250,680 tokens
 - For full details please see [The BigScience Corpus A 1.6TB Composite Multilingual Dataset](https://openreview.net/forum?id=UoEw6KigkUn)
 
-The training of the model occurred over the spring-summer of 2022 and took about 3.5 months to complete.
+The training of the 176B BLOOM model occurred over Mar-Jul 2022 and took about 3.5 months to complete.
 
 ## Megatron-Deepspeed
 
@@ -105,7 +105,7 @@ Megatron-Deepspeed implements 3D Parallelism to allow huge models to train in a 
 
 ## Data Parallelism
 
-Most users with just 2 GPUs are likely to be familiar with `DistributedDataParallel` (DDP)  [PyTorch documentation](https://pytorch.org/docs/master/generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel)
+Most users with just a few GPUs are likely to be familiar with `DistributedDataParallel` (DDP)  [PyTorch documentation](https://pytorch.org/docs/master/generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel). In this method the model is fully replicated to each GPU and then after each iteration all the models synchronize their states with each other. This approach allows training speed up but throwing more resources at the problem, but it only works if the model can fit onto a single GPU.
 
 
 ## ZeRO Data Parallelism
