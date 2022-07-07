@@ -133,7 +133,7 @@ With `chunks=1` you end up with the naive PP, which is very inefficient. With a 
 
 While the diagram shows that there is a bubble of "dead" time that can't be parallelized because the last `forward` stage has to wait for `backward` to complete the pipeline, the purpose of finding the best value for `chunks` is to enable a high concurrent GPU utilization across all participating GPUs which translates to minimizing the size of the bubble.
 
-This scheduling mechanism is known as `all forward all backward`, others exist as well, ie [one forward one backward](https://www.microsoft.com/en-us/research/publication/pipedream-generalized-pipeline-parallelism-for-dnn-training/) and [interleaved one forward one backward](https://arxiv.org/abs/2104.04473). 
+This scheduling mechanism is known as `all forward all backward`. Some other alternatives are [one forward one backward](https://www.microsoft.com/en-us/research/publication/pipedream-generalized-pipeline-parallelism-for-dnn-training/) and [interleaved one forward one backward](https://arxiv.org/abs/2104.04473). 
 
 While both Megatron-LM and DeepSpeed have their own implementation of the PP protocol, Megatron-Deepspeed uses the Deepspeed implementation as it's integrated with other aspects of Deepspeed.
 
