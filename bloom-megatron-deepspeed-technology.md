@@ -1,4 +1,4 @@
-# The Technology Behind BLOOM
+# The Technology Behind BLOOM Training
 
 This article will start by thanking companies and key people and groups that made the amazing feat of training a 176B model by a small group of dedicated people possible.
 
@@ -27,6 +27,37 @@ Olatunji Ruwase, Deepak Narayanan, Jeff Rasley, Jared Casper and Rémi Lacroix
 
 Also we are grateful to all the companies who allowed their employees to contribute to this project.
 
+## Overview
+
+BLOOM's architecture is very similar to [GPT3](https://en.wikipedia.org/wiki/GPT-3) with a few improvements as will be discussed in this article.
+
+The following hardware was used during the training:
+
+- GPUs: 384 A100 80GB GPUs (48 nodes)
+- 8 GPUs per node Using NVLink 4 inter-gpu connects, 4 OmniPath links
+- CPU: AMD
+- CPU memory: 512GB per node
+- GPU memory: 640GB per node
+- Inter-node connect: Omni-Path Architecture (OPA)
+- NCCL-communications network: a fully dedicated subnet
+- Disc IO network: shared network with other types of nodes
+
+Important links:
+
+- [tensorboard](https://huggingface.co/bigscience/tr11-176B-ml-logs/tensorboard)
+- [training slurm script](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/tr11-176B-ml.slurm)
+
+Checkpoints:
+
+- [main checkpoints](https://huggingface.co/bigscience/bloom)
+- each checkpoint with fp32 optim states and bf16+fp32 weights is 2.3TB - just the bf16 weights are 329GB.
+
+Datasets:
+
+- 46 Languages in 1.5TB of deduplicated massively cleaned up text, converted into 350B unique tokens
+- Vocabulary size is 250,680 tokens
+
+The training of the model took about 3.5 months.
 
 ## Megatron-Deepspeed
 
