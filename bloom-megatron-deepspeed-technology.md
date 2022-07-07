@@ -59,6 +59,7 @@ Datasets:
 
 - 46 Languages in 1.5TB of deduplicated massively cleaned up text, converted into 350B unique tokens
 - Vocabulary size is 250,680 tokens
+- For full details please see [The BigScience Corpus A 1.6TB Composite Multilingual Dataset](https://openreview.net/forum?id=UoEw6KigkUn)
 
 The training of the model took about 3.5 months.
 
