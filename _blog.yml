@@ -955,7 +955,7 @@
 
 
 - local: mnist-adversarial
-  title: "How to train a model using community adversarial data"
+  title: "How to train your model dynamically using adversarial data"
   author: chrisjay
   thumbnail: /blog/assets/84_mnist_adversarial.JPG
   date:  July 8, 2022
