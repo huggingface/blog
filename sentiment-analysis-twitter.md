@@ -181,7 +181,7 @@ Now, you are ready to do sentiment analysis on each tweet. 🔥🔥🔥
 tweets_analysis = []
 for tweet in tweets:
     try:
-        entiment_result = analysis(tweet)[0]
+        sentiment_result = analysis(tweet)[0]
         top_sentiment = max(sentiment_result, key=lambda x: x['score']) # Get the sentiment with the higher score
         tweets_analysis.append({'tweet': tweet, 'sentiment': top_sentiment['label']})
  
