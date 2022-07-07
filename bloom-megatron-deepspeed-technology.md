@@ -1,4 +1,26 @@
-# The Technology Behind BLOOM Training
+---
+title: "The Technology Behind BLOOM Training"
+thumbnail: /blog/assets/86_bloom_megatron_deepspeed_technology/thumbnail.png
+---
+
+<h1>The Technology Behind BLOOM Training</h1>
+
+<div class="blog-metadata">
+    <small>Published July 9, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/bloom-megatron-deepspeed-technology.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/stas">
+        <img class="avatar avatar-user" src="/blog/assets/86_bloom_megatron_deepspeed_technology/stas-bekman-300x300.jpg">
+        <div class="bfc">
+            <code>stas</code>
+            <span class="fullname">Stas Bekman</span>
+        </div>
+    </a>
+</div>
 
 This article will start by thanking companies and key people and groups that made the amazing feat of training a 176 Billion parameter model by a small group of dedicated people possible.
 
@@ -47,8 +69,11 @@ The following hardware was used during the training:
 
 Important links:
 
+- [main training document](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/README.md)
 - [tensorboard](https://huggingface.co/bigscience/tr11-176B-ml-logs/tensorboard)
 - [training slurm script](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/tr11-176B-ml.slurm)
+- [training chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md)
+
 
 Checkpoints:
 
