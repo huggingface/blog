@@ -96,12 +96,31 @@ The 176B BLOOM model has been trained using [Megatron-Deepspeed](https://github.
 
 The DeepSpeed team extended the Megatron-LM framework to support its ZeRO sharding protocol and their Pipeline Parallelism implementation. Thus Megatron-Deepspeed was born.
 
+Please note that the BigScience's [Megatron-Deepspeed](https://github.com/bigscience-workshop/Megatron-DeepSpeed) is a fork of the original [Megatron-Deepspeed](https://github.com/microsoft/Megatron-DeepSpeed) repository, to which we added multiple additions.
+
+Here is a table of which components were provided by which framework:
+
+| Component             | Megatron-LM | Deepspeed |
+| :----                 | :----       | :----     |
+| DataLoader            | V           |           |
+| Fused Kernels         | V           |           |
+| Tensor Parallelism    | V           |           |
+| Pipeline Parallelism  |             | V         |
+| ZeRO Data Parallelism |             | V         |
+| BF16Optimizer         |             | V         |
+
+Please note that both Megatron-LM and DeepSpeed each has a Pipeline Parallelism implementation, but we used the one from DeepSpeed as it's integrated with ZeRO.
+
 Megatron-Deepspeed implements 3D Parallelism to allow huge models to train in a very efficient way. Let’s briefly discuss the 3D components.
 
 1. **DataParallel (DP)** - the same setup is replicated multiple times, and each being fed a slice of the data. The processing is done in parallel and all setups are synchronized at the end of each training step.
 2. **TensorParallel (TP)** - each tensor is split up into multiple chunks, so instead of having the whole tensor reside on a single gpu, each shard of the tensor resides on its designated gpu. During processing each shard gets processed separately and in parallel on different GPUs and the results are synced at the end of the step. This is what one may call horizontal parallelism, as the splitting happens on horizontal level.
 3. **PipelineParallel (PP)** - the model is split up vertically (layer-level) across multiple GPUs, so that only one or several layers of the model are places on a single gpu. Each gpu processes in parallel different stages of the pipeline and working on a small chunk of the batch.
 4. **Zero Redundancy Optimizer (ZeRO)** - Also performs sharding of the tensors somewhat similar to TP, except the whole tensor gets reconstructed in time for a forward or backward computation, therefore the model doesn't need to be modified. It also supports various offloading techniques to compensate for limited GPU memory.
+
+
+
+
 
 ## Data Parallelism
 
@@ -277,6 +296,7 @@ This insight came from experimenting with https://github.com/facebookresearch/bi
 ## Positional Encoding
 
 We also replaced the usual positional embedding with an AliBi - based on the paper: [Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation](https://arxiv.org/abs/2108.12409), which allows to extrapolate for longer input sequences than the ones the model was trained on.
+
 
 ## Papers
 
