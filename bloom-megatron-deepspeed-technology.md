@@ -40,13 +40,13 @@ The most important part of the technology behind BLOOM were the people and compa
 There are 6 main groups of people to thank:
 
 1. The HuggingFace's BigScience team who dedicated more than half a dozen full time employees to figure out and run the training from inception to the finishing line and provided and paid for all the infrastructure beyond the JeanZay's compute.
-2. The Microsoft DeepSpeed team, who developed DeepSpeed and later integrated it with Megatron-LM, and whose developers spent many weeks working on the needs of the project and provided lots of awesome practical experiential advice before and during the training
+2. The Microsoft DeepSpeed team, who developed DeepSpeed and later integrated it with Megatron-LM, and whose developers spent many weeks working on the needs of the project and provided lots of awesome practical experiential advice before and during the training.
 3. The NVIDIA Megatron-LM team, who developed Megatron-LM and who were super-helpful answering our numerous questions and providing first class experiential advice.
-4. The IDRIS / GENCI team managing the JeanZay supercomputer, who donating to the project an insane amount of compute and a great system administration support
+4. The IDRIS / GENCI team managing the JeanZay supercomputer, who donated to the project an insane amount of compute and a great system administration support.
 5. The PyTorch team who created a super powerful framework, on which the rest of the software was based, and who were very supportive to us during the preparation for the training, fixing multiple bugs and improving the usability of the PyTorch components we relied on during the training.
 6. The volunteers in the BigScience Engineering workgroup
 
-It'd be very difficult to name all the amazing people who contributed to the engineering side of the project, so I will just name a few key people outside of HuggingFace who were the engineering foundation of this project for the last 14 months:
+It'd be very difficult to name all the amazing people who contributed to the engineering side of the project, so I will just name a few key people outside of Hugging Face who were the engineering foundation of this project for the last 14 months:
 
 Olatunji Ruwase, Deepak Narayanan, Jeff Rasley, Jared Casper and Rémi Lacroix
 
@@ -114,8 +114,8 @@ Please note that both Megatron-LM and DeepSpeed each has a Pipeline Parallelism 
 Megatron-DeepSpeed implements 3D Parallelism to allow huge models to train in a very efficient way. Let’s briefly discuss the 3D components.
 
 1. **DataParallel (DP)** - the same setup is replicated multiple times, and each being fed a slice of the data. The processing is done in parallel and all setups are synchronized at the end of each training step.
-2. **TensorParallel (TP)** - each tensor is split up into multiple chunks, so instead of having the whole tensor reside on a single gpu, each shard of the tensor resides on its designated gpu. During processing each shard gets processed separately and in parallel on different GPUs and the results are synced at the end of the step. This is what one may call horizontal parallelism, as the splitting happens on horizontal level.
-3. **PipelineParallel (PP)** - the model is split up vertically (layer-level) across multiple GPUs, so that only one or several layers of the model are places on a single gpu. Each gpu processes in parallel different stages of the pipeline and working on a small chunk of the batch.
+2. **TensorParallel (TP)** - each tensor is split up into multiple chunks, so instead of having the whole tensor reside on a single GPU, each shard of the tensor resides on its designated GPU. During processing each shard gets processed separately and in parallel on different GPUs and the results are synced at the end of the step. This is what one may call horizontal parallelism, as the splitting happens on horizontal level.
+3. **PipelineParallel (PP)** - the model is split up vertically (layer-level) across multiple GPUs, so that only one or several layers of the model are placed on a single GPU. Each GPU processes in parallel different stages of the pipeline and works on a small chunk of the batch.
 4. **Zero Redundancy Optimizer (ZeRO)** - Also performs sharding of the tensors somewhat similar to TP, except the whole tensor gets reconstructed in time for a forward or backward computation, therefore the model doesn't need to be modified. It also supports various offloading techniques to compensate for limited GPU memory.
 
 
@@ -132,7 +132,7 @@ Most users with just a few GPUs are likely to be familiar with `DistributedDataP
 ZeRO-powered data parallelism (ZeRO-DP) is described on the following diagram from this [blog post](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/)
 ![DeepSpeed-Image-1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-zero.png)
 
-It can be difficult to wrap one's head around it, but in reality the concept is quite simple. This is just the usual DDP, except, instead of replicating the full model params, gradients and optimizer states, each GPU stores only a slice of it.  And then at run-time when the full layer params are needed just for the given layer, all GPUs synchronize to give each other parts that they miss - this is it.
+It can be difficult to wrap one's head around it, but in reality, the concept is quite simple. This is just the usual DDP, except, instead of replicating the full model params, gradients and optimizer states, each GPU stores only a slice of it.  And then at run-time when the full layer params are needed just for the given layer, all GPUs synchronize to give each other parts that they miss - this is it.
 
 This component is implemented by DeepSpeed.
 
@@ -152,7 +152,7 @@ If we look at the computation in matrix form, it's easy to see how the matrix mu
 If we split the weight matrix `A` column-wise across `N` GPUs and perform matrix multiplications `XA_1` through `XA_n` in parallel, then we will end up with `N` output vectors `Y_1, Y_2, ..., Y_n` which can be fed into `GeLU` independently:
 ![independent GeLU](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-independent-gelu.png). Notice with the Y matrix split along the columns, we can split the second GEMM along its rows so that it takes the output of the GeLU directly without any extra communication.
 
-Using this principle, we can update an MLP of arbitrary depth, without the need for any synchronization between GPUs until the very end, where we need to reconstruct the output vector from shards using an all reduce. The Megatron-LM paper authors provide a helpful illustration for that:
+Using this principle, we can update an MLP of arbitrary depth, without the need for any synchronization between GPUs until the very end, when we need to reconstruct the output vector from shards using an all reduce. The Megatron-LM paper authors provide a helpful illustration for that:
 ![parallel shard processing](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-parallel_shard_processing.png)
 
 Here `f` is an identity operator in the forward pass and all reduce in the backward pass while `g` is an all reduce in the forward pass and identity in the backward pass.
@@ -167,7 +167,7 @@ This component is implemented by Megatron-LM. Megatron-LM has recently expanded 
 
 ## Pipeline Parallelism
 
-Naive Pipeline Parallelism (naive PP) is where one spreads groups of model layers across multiple GPUs and simply moves data along from gpu to gpu as if it were one large composite GPU. The mechanism is relatively simple - switch the desired layers `.to()` the desired devices and now whenever the data goes in and out those layers switch the data to the same device as the layer and leave the rest unmodified.
+Naive Pipeline Parallelism (naive PP) is where one spreads groups of model layers across multiple GPUs and simply moves data along from GPU to GPU as if it were one large composite GPU. The mechanism is relatively simple - switch the desired layers `.to()` the desired devices and now whenever the data goes in and out those layers switch the data to the same device as the layer and leave the rest unmodified.
 
 This performs a vertical model parallelism, because if you remember how most models are drawn, we slice the layers vertically. For example, if the following diagram shows an 8-layer model:
 
@@ -175,7 +175,7 @@ This performs a vertical model parallelism, because if you remember how most mod
 ===================  ===================
 |  0 | 1 | 2 | 3  |  |  4 | 5 | 6 | 7  |
 ===================  ===================
-        gpu0                 gpu1
+        GPU0                 GPU1
 ```
 we just sliced it in 2 vertically, placing layers 0-3 onto GPU0 and 4-7 to GPU1.
 
@@ -184,7 +184,7 @@ Now while data travels from layer 0 to 1, 1 to 2 and 2 to 3 this is just the nor
 Then layers 4 to 5 to 6 to 7 are as a normal model would have and when the 7th layer completes we often need to send the data back to layer 0 where the labels are (or alternatively send the labels to the last layer). Now the loss can be computed and the optimizer can do its work.
 
 Problems:
-- the main deficiency and why this one is called "naive" PP, is that all but one GPU is idle at any given moment. So if 4 GPUs are used, it's almost identical to quadrupling the amount of memory of a single GPU, and ignoring the rest of the hardware. Plus there is the overhead of copying the data between devices. So 4x 6GB cards will be able to accommodate the same size as 1x 24GB card using naive PP, except the latter will complete the training faster, since it doesn't have the data copying overhead. But, say, if you have 40GB cards and need to fit a 45GB model you can with 4x 40GB cards (but barely because of the gradient and optimizer states)
+- the main deficiency and why this one is called "naive" PP, is that all but one GPU is idle at any given moment. So if 4 GPUs are used, it's almost identical to quadrupling the amount of memory of a single GPU, and ignoring the rest of the hardware. Plus there is the overhead of copying the data between devices. So 4x 6GB cards will be able to accommodate the same size as 1x 24GB card using naive PP, except the latter will complete the training faster, since it doesn't have the data copying overhead. But, say, if you have 40GB cards and need to fit a 45GB model you can with 4x 40GB cards (but barely because of the gradient and optimizer states).
 - shared embeddings may need to get copied back and forth between GPUs.
 
 Pipeline Parallelism (PP) is almost identical to a naive PP, but it solves the GPU idling problem, by chunking the incoming batch into micro-batches and artificially creating a pipeline, which allows different GPUs to concurrently participate in the computation process.
@@ -193,13 +193,13 @@ The following illustration from the [GPipe paper](https://ai.googleblog.com/2019
 
 ![mp-pp](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-gpipe-bubble.png)
 
-It's easy to see from the bottom diagram how PP has less dead zones, where GPUs are idle. The idle parts are referred to as the "bubble".
+It's easy to see from the bottom diagram how PP has fewer dead zones, where GPUs are idle. The idle parts are referred to as the "bubble".
 
-Both parts of the diagram show a parallelism that is of degree 4. That is 4 GPUs are participating in the pipeline. So there is the forward path of 4 pipe stages F0, F1, F2 and F3 and then the return reverse order backward path of B3, B2, B1 and B0.
+Both parts of the diagram show parallelism that is of degree 4. That is 4 GPUs are participating in the pipeline. So there is the forward path of 4 pipe stages F0, F1, F2 and F3 and then the return reverse order backward path of B3, B2, B1 and B0.
 
-PP introduces a new hyper-parameter to tune and it's `chunks` which defines how many chunks of data are sent in a sequence through the same pipe stage. For example, in the bottom diagram you can see that `chunks=4`. GPU0 performs the same forward path on chunk 0, 1, 2 and 3 (F0,0, F0,1, F0,2, F0,3) and then it waits for other GPUs to do their work and only when their work is starting to be complete, GPU0 starts to work again doing the backward path for chunks 3, 2, 1 and 0 (B0,3, B0,2, B0,1, B0,0).
+PP introduces a new hyper-parameter to tune that is called `chunks`. It defines how many chunks of data are sent in a sequence through the same pipe stage. For example, in the bottom diagram, you can see that `chunks=4`. GPU0 performs the same forward path on chunk 0, 1, 2 and 3 (F0,0, F0,1, F0,2, F0,3) and then it waits for other GPUs to do their work and only when their work is starting to be complete, does GPU0 start to work again doing the backward path for chunks 3, 2, 1 and 0 (B0,3, B0,2, B0,1, B0,0).
 
-Note that conceptually this is the same concept as gradient accumulation steps (GAS). Pytorch uses `chunks`, whereas DeepSpeed refers to the same hyper-parameter as GAS.
+Note that conceptually this is the same concept as gradient accumulation steps (GAS). PyTorch uses `chunks`, whereas DeepSpeed refers to the same hyper-parameter as GAS.
 
 Because of the chunks, PP introduces the concept of micro-batches (MBS). DP splits the global data batch size into mini-batches, so if you have a DP degree of 4, a global batch size of 1024 gets split up into 4 mini-batches of 256 each (1024/4). And if the number of `chunks` (or GAS) is 32 we end up with a micro-batch size of 8 (256/32). Each Pipeline stage works with a single micro-batch at a time.
 
@@ -207,7 +207,7 @@ To calculate the global batch size of the DP + PP setup we then do: `mbs*chunks*
 
 Let's go back to the diagram.
 
-With `chunks=1` you end up with the naive PP, which is very inefficient. With a very large `chunks` value you end up with tiny micro-batch sizes which could be not every efficient either. So one has to experiment to find the value that leads to the highest efficient utilization of the gpus.
+With `chunks=1` you end up with the naive PP, which is very inefficient. With a very large `chunks` value you end up with tiny micro-batch sizes which could be not very efficient either. So one has to experiment to find the value that leads to the highest efficient utilization of the GPUs.
 
 While the diagram shows that there is a bubble of "dead" time that can't be parallelized because the last `forward` stage has to wait for `backward` to complete the pipeline, the purpose of finding the best value for `chunks` is to enable a high concurrent GPU utilization across all participating GPUs which translates to minimizing the size of the bubble.
 
@@ -223,7 +223,7 @@ The following diagram from the DeepSpeed [pipeline tutorial](https://www.deepspe
 
 ![dp-pp-2d](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-zero-dp-pp.png)
 
-Here it's important to see how DP rank 0 doesn't see GPU2 and DP rank 1 doesn't see GPU3. To DP there is just GPUs 0 and 1 where it feeds data as if there were just 2 GPUs. GPU0 "secretly" offloads some of its load to GPU2 using PP. And GPU1 does the same by enlisting GPU3 to its aid.
+Here it's important to see how DP rank 0 doesn't see GPU2 and DP rank 1 doesn't see GPU3. To DP there are just GPUs 0 and 1 where it feeds data as if there were just 2 GPUs. GPU0 "secretly" offloads some of its load to GPU2 using PP. And GPU1 does the same by enlisting GPU3 to its aid.
 
 Since each dimension requires at least 2 GPUs, here you'd need at least 4 GPUs.
 
@@ -247,7 +247,7 @@ While it's theoretically possible to use ZeRO stage 2 (gradient sharding) with P
 
 In addition, there are already fewer layers than normal due to PP and so the memory savings won't be huge. PP already reduces gradient size by ``1/PP``, and so gradient sharding savings on top of that are less significant than pure DP.
 
-ZeRO stage 3 is not a good choice either for the same reason - more inter-node communications required.
+ZeRO stage 3 is not a good choice either for the same reason - more inter-node communications are required.
 
 
 ## BF16Optimizer
@@ -270,7 +270,7 @@ Of course, since BF16 and FP16 have the same size of 2 bytes, one doesn't get a 
 
 Regardless of whether one uses BF16 or FP16 there is also a copy of weights which is always in FP32 - this is what gets updated by the optimizer. So the 16-bit formats are only used for the computation, the optimizer updates the FP32 weights with full precision and then casts them into the 16-bit format for the next iteration.
 
-All pytorch components have been updated to ensure that they perform any accumulation in FP32, so no loss happening there.
+All PyTorch components have been updated to ensure that they perform any accumulation in FP32, so no loss happening there.
 
 One crucial issue is gradient accumulation, and it's one of the main features of pipeline parallelism as the gradients from each microbatch processing get accumulated. It's crucial to implement gradient accumulation in FP32 to keep the training precise, and this is what `BF16Optimizer` does.
 
@@ -330,7 +330,7 @@ BitsNBytes:
 
 The main type of issue encountered during training were hardware failures. As this was a new cluster with about 400 GPUs, on average we were getting 1-2 GPU failures a week. We were saving a checkpoint every 3h (100 iterations) so on average we would lose 1.5h of training on hardware crash. The JeanZay sysadmins would then replace the faulty GPUs and bring the node back up. Meanwhile we had backup nodes to use instead.
 
-We have run into a variety of other problems that led to 5-10h downtime several times, some related to a deadlock bug in pytorch, others due to running out of disc space. If you are curious about specific details please see [training chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md). And there were a lot more issues to figure out before the training started. For that see  [training prequel chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles-prequel.md).
+We have run into a variety of other problems that led to 5-10h downtime several times, some related to a deadlock bug in PyTorch, others due to running out of disc space. If you are curious about specific details please see [training chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md). And there were a lot more issues to figure out before the training started. For that see  [training prequel chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles-prequel.md).
 
 One of the limitations was that of SLURM which wasn't designed to be used by a team of people. A SLURM job is owned by a single user and if they aren't around, the other members of the group can't do anything to the running job. We developed a kill-switch workaround that allowed other users in the group to kill the current process without requiring the user who started the process to be present. This worked well in 90% of the issues. If SLURM designers read this - please add a concept of Unix groups, so that a SLURM job can be owned by a group.
 
