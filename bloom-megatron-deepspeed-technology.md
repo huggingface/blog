@@ -98,7 +98,7 @@ The DeepSpeed team extended the Megatron-LM framework to support its ZeRO shardi
 
 Please note that the BigScience's [Megatron-DeepSpeed](https://github.com/bigscience-workshop/Megatron-DeepSpeed) is a fork of the original [Megatron-DeepSpeed](https://github.com/microsoft/Megatron-DeepSpeed) repository, to which we added multiple additions.
 
-Here is a table of which components were provided by which framework:
+Here is a table of which components were provided by which framework to train BLOOM:
 
 | Component             | Megatron-LM | DeepSpeed |
 | :----                 | :----       | :----     |
@@ -127,7 +127,7 @@ Megatron-DeepSpeed implements 3D Parallelism to allow huge models to train in a 
 Most users with just a few GPUs are likely to be familiar with `DistributedDataParallel` (DDP)  [PyTorch documentation](https://pytorch.org/docs/master/generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel). In this method the model is fully replicated to each GPU and then after each iteration all the models synchronize their states with each other. This approach allows training speed up but throwing more resources at the problem, but it only works if the model can fit onto a single GPU.
 
 
-## ZeRO Data Parallelism
+### ZeRO Data Parallelism
 
 ZeRO-powered data parallelism (ZeRO-DP) is described on the following diagram from this [blog post](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/)
 ![DeepSpeed-Image-1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-zero.png)
