@@ -103,7 +103,7 @@ Here is a table of which components were provided by which framework:
 | Component             | Megatron-LM | DeepSpeed |
 | :----                 | :----       | :----     |
 | DataLoader            | V           |           |
-| Fused Kernels         | V           |           |
+| Fused CUDA Kernels    | V           |           |
 | Tensor Parallelism    | V           |           |
 | Pipeline Parallelism  |             | V         |
 | ZeRO Data Parallelism |             | V         |
