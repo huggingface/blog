@@ -69,7 +69,7 @@ Also we are grateful to all the companies who allowed their employees to contrib
 
 BLOOM's architecture is very similar to [GPT3](https://en.wikipedia.org/wiki/GPT-3) with a few added improvements as will be discussed in this article.
 
-The model was trained on [Jean Zay](http://www.idris.fr/eng/jean-zay/jean-zay-presentation-eng.html), the French government-funded super computer that is managed by GENCI and installed at [IDRIS](http://www.idris.fr/), the national computing center for the French National Center for Scientific Research (CNRS). The compute was generously donated to the project by GENCI.
+The model was trained on [Jean Zay](http://www.idris.fr/eng/jean-zay/jean-zay-presentation-eng.html), the French government-funded super computer that is managed by GENCI and installed at [IDRIS](http://www.idris.fr/), the national computing center for the French National Center for Scientific Research (CNRS). The compute was generously donated to the project by GENCI (grant 2021-A0101012475).
 
 The following hardware was used during the training:
 
