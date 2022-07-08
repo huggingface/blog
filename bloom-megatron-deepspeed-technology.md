@@ -42,7 +42,7 @@ Here's a quick summary of project:
 
 ## People
 
-The project was conceived by Thomas Wolf, who dared to compete with the huge corporations not only to train one of the biggest multilingual models, but also to make the final result accessible to all people, thus making what was but a dream to most people a reality.
+The project was conceived by Thomas Wolf, who dared to compete with the huge corporations not only to train one of the largest multilingual models, but also to make the final result accessible to all people, thus making what was but a dream to most people a reality.
 
 This article focuses specifically on the engineering side of the training of the model.
 
@@ -67,7 +67,7 @@ Also we are grateful to all the companies who allowed their employees to contrib
 
 BLOOM's architecture is very similar to [GPT3](https://en.wikipedia.org/wiki/GPT-3) with a few added improvements as will be discussed in this article.
 
-The compute was generously donated to this project by [IDRIS](http://www.idris.fr/) through [JeanZay Supercomputer](http://www.idris.fr/jean-zay/).
+The model was trained on [Jean Zay](http://www.idris.fr/eng/jean-zay/jean-zay-presentation-eng.html), the French government-funded super computer that is managed by GENCI and installed at [IDRIS](http://www.idris.fr/), the national computing center for the French National Center for Scientific Research (CNRS). The compute was generously donated to the project by GENCI.
 
 The following hardware was used during the training:
 
@@ -91,7 +91,7 @@ Datasets:
 - Vocabulary size is 250,680 tokens
 - For full details please see [The BigScience Corpus A 1.6TB Composite Multilingual Dataset](https://openreview.net/forum?id=UoEw6KigkUn)
 
-The training of the 176B BLOOM model occurred over Mar-Jul 2022 and took about 3.5 months to complete.
+The training of the 176B BLOOM model occurred over Mar-Jul 2022 and took about 3.5 months to complete (approximately 1M compute hours).
 
 ## Megatron-DeepSpeed
 
