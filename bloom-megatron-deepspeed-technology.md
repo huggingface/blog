@@ -32,6 +32,13 @@ Then the hardware setup and main technological components will be discussed.
 
 ![BLOOM](assets/86_bloom_megatron_deepspeed_technology/bloom-banner.png)
 
+Here's a quick summary of project:
+
+| Hardware      | 384 80GB A100 GPUs          |
+| Software      | Megatron-DeepSpeed          |
+| Architecture  | GPT3 w/ extras              |
+| Dataset       | 350B tokens of 46 Languages |
+| Training time | 3.5 months                  |
 
 ## People
 
@@ -59,6 +66,8 @@ Also we are grateful to all the companies who allowed their employees to contrib
 ## Overview
 
 BLOOM's architecture is very similar to [GPT3](https://en.wikipedia.org/wiki/GPT-3) with a few added improvements as will be discussed in this article.
+
+The compute was generously donated to this project by [IDRIS](http://www.idris.fr/) through [JeanZay Supercomputer](http://www.idris.fr/jean-zay/).
 
 The following hardware was used during the training:
 
