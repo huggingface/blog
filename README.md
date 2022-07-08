@@ -5,7 +5,7 @@ This is the official repository of the [Hugging Face Blog](hf.co/blog).
 ## How to get a responsive thumbnail?
 1️⃣ Create a `1300x650` image 
 
-2️⃣ Use [this template](https://github.com/huggingface/blog/blob/Documentation/assets/thumbnail-template.svg) and fill the content part.
+2️⃣ Use [this template](https://github.com/huggingface/blog/blob/main/assets/thumbnail-template.svg) and fill the content part.
 
 
 ## Using LaTeX
