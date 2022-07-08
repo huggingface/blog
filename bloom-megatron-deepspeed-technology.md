@@ -22,7 +22,11 @@ thumbnail: /blog/assets/86_bloom_megatron_deepspeed_technology/thumbnail.png
     </a>
 </div>
 
-This article will start by thanking companies and key people and groups that made the amazing feat of training a 176 Billion parameter model by a small group of dedicated people possible.
+
+
+In recent years, training ever larger language models has become the norm. While the issues of those models' not being released for further study is frequently discussed, the hidden knowledge about how to train such models rarely gets any attention. This article aims to change this by shedding some light on the technology behind the training both in terms of hardware and software on the the example of the 176B parameter model BLOOM.
+
+But first we would like to thank the companies and key people and groups that made the amazing feat of training a 176 Billion parameter model by a small group of dedicated people possible.
 
 Then the hardware setup and main technological components will be discussed.
 
@@ -294,20 +298,20 @@ We also replaced the usual positional embedding with an AliBi - based on the pap
 
 With the architecture, hardware and software in place we were able to start training in the early March 2022. However, it was not just smooth sailing from there. In this section we discuss some of the main hurdles we encountered.
 
+There were a lot of issues to figure out before the training started. In particular we found several issues that manifested themselves only once we started training on 48 nodes, and won't appear at small scale. e.g. `CUDA_LAUNCH_BLOCKING=1` was needed to prevent the framework from hanging, and we needed to split the optimizer groups into smaller groups, otherwise the framework would again hang. You can read about those in detail in the [training prequel chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles-prequel.md).
+
 The main type of issue encountered during training were hardware failures. As this was a new cluster with about 400 GPUs, on average we were getting 1-2 GPU failures a week. We were saving a checkpoint every 3h (100 iterations) so on average we would lose 1.5h of training on hardware crash. The JeanZay sysadmins would then replace the faulty GPUs and bring the node back up. Meanwhile we had backup nodes to use instead.
 
-We have run into a variety of other problems that led to 5-10h downtime several times, some related to a deadlock bug in PyTorch, others due to running out of disk space. If you are curious about specific details please see [training chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md). And there were a lot more issues to figure out before the training started. For that see  [training prequel chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles-prequel.md).
+We have run into a variety of other problems that led to 5-10h downtime several times, some related to a deadlock bug in PyTorch, others due to running out of disk space. If you are curious about specific details please see [training chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md).
 
 One of the limitations was that of SLURM which wasn't designed to be used by a team of people. A SLURM job is owned by a single user and if they aren't around, the other members of the group can't do anything to the running job. We developed a kill-switch workaround that allowed other users in the group to kill the current process without requiring the user who started the process to be present. This worked well in 90% of the issues. If SLURM designers read this - please add a concept of Unix groups, so that a SLURM job can be owned by a group.
 
-
+As the training was happening 24/7 we needed someone to be on call - but since we had people both in Europe and West Coast Canada overall there was no need for someone to carry a pager, we would just overlap nicely. Of course, someone had to watch the training on the weekends as well. We automated most things, including recovery from hardware crashes, but sometimes a human intervention was needed as well.
 
 
 ## Conclusion
 
-The most difficult and intense part of the training was the 2 months leading to the start of the training. We were under a lot of pressure to start training ASAP, since the resources allocation was limited in time and we didn't have access to A100s until the very last moment. So it was a very difficult time, considering that the `BF16Optimizer` was written in the last moment and we needed to debug it and fix various bugs.
-
-Additionally we found several issues that manifested themselves only once we started training on 48 nodes, and won't appear at small scale.
+The most difficult and intense part of the training was the 2 months leading to the start of the training. We were under a lot of pressure to start training ASAP, since the resources allocation was limited in time and we didn't have access to A100s until the very last moment. So it was a very difficult time, considering that the `BF16Optimizer` was written in the last moment and we needed to debug it and fix various bugs. And as explained in the previous section we discovered new problems that that manifested themselves only once we started training on 48 nodes, and won't appear at small scale.
 
 But once we sorted those out, the training itself was surprisingly smooth and without major problems. Most of the time we had one person monitoring the training and only a few times several people were involved to troubleshoot. We enjoyed great support from JeanZay's administration who quickly addressing most needs that emerged during the training.
 
