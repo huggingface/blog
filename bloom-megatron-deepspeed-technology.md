@@ -67,13 +67,6 @@ The following hardware was used during the training:
 - NCCL-communications network: a fully dedicated subnet
 - Disc IO network: GPFS shared with other nodes and users
 
-Important links:
-
-- [main training document](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/README.md)
-- [tensorboard](https://huggingface.co/bigscience/tr11-176B-ml-logs/tensorboard)
-- [training slurm script](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/tr11-176B-ml.slurm)
-- [training chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md)
-
 Checkpoints:
 
 - [main checkpoints](https://huggingface.co/bigscience/bloom)
@@ -297,8 +290,36 @@ This insight came from experimenting with https://github.com/facebookresearch/bi
 
 We also replaced the usual positional embedding with an AliBi - based on the paper: [Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation](https://arxiv.org/abs/2108.12409), which allows to extrapolate for longer input sequences than the ones the model was trained on.
 
+## Training Difficulties
 
-## Papers and Articles
+The main type of issue encountered during training were hardware failures. As this was a new cluster with about 400 GPUs, on average we were getting 1-2 GPU failures a week. We were saving a checkpoint every 3h (100 iterations) so on average we would lose 1.5h of training on hardware crash. The JeanZay sysadmins would then replace the faulty GPUs and bring the node back up. Meanwhile we had backup nodes to use instead.
+
+We have run into a variety of other problems that led to 5-10h downtime several times, some related to a deadlock bug in PyTorch, others due to running out of disk space. If you are curious about specific details please see [training chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md). And there were a lot more issues to figure out before the training started. For that see  [training prequel chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles-prequel.md).
+
+One of the limitations was that of SLURM which wasn't designed to be used by a team of people. A SLURM job is owned by a single user and if they aren't around, the other members of the group can't do anything to the running job. We developed a kill-switch workaround that allowed other users in the group to kill the current process without requiring the user who started the process to be present. This worked well in 90% of the issues. If SLURM designers read this - please add a concept of Unix groups, so that a SLURM job can be owned by a group.
+
+## Conclusion
+
+The most difficult and intense part of the training was the 2 months leading to the start of the training. We were under a lot of pressure to start training ASAP, since the resources allocation was limited in time and we didn't have access to A100s until the very last moment. So it was a very difficult time, considering that the `BF16Optimizer` was written in the last moment and we needed to debug it and fix various bugs.
+
+Additionally we found several issues that manifested themselves only once we started training on 48 nodes, and won't appear at small scale.
+
+But once we sorted those out, the training itself was surprisingly smooth and without major problems. Most of the time we had one person monitoring the training and only a few times several people were involved to troubleshoot. We enjoyed great support from JeanZay's administration who quickly addressing most needs that emerged during the training.
+
+Overall it was a super-intense but very rewarding experience.
+
+
+## Resources
+
+### Important links
+
+- [main training document](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/README.md)
+- [tensorboard](https://huggingface.co/bigscience/tr11-176B-ml-logs/tensorboard)
+- [training slurm script](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/tr11-176B-ml.slurm)
+- [training chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md)
+
+
+### Papers and Articles
 
 We couldn't have possibly explained everything in details in this article, so if the technology presented here piqued your curiosity and you'd like to know more here are the papers to read:
 
@@ -325,21 +346,3 @@ ALIBI:
 BitsNBytes:
 
 - [8-bit Optimizers via Block-wise Quantization](https://arxiv.org/abs/2110.02861) (in the context of Embedding LayerNorm but the rest of the paper and the technology is amazing - the only reason were weren't using the 8-bit optimizer is because we were already saving the optimizer memory with DeepSpeed-ZeRO).
-
-## Training Difficulties
-
-The main type of issue encountered during training were hardware failures. As this was a new cluster with about 400 GPUs, on average we were getting 1-2 GPU failures a week. We were saving a checkpoint every 3h (100 iterations) so on average we would lose 1.5h of training on hardware crash. The JeanZay sysadmins would then replace the faulty GPUs and bring the node back up. Meanwhile we had backup nodes to use instead.
-
-We have run into a variety of other problems that led to 5-10h downtime several times, some related to a deadlock bug in PyTorch, others due to running out of disk space. If you are curious about specific details please see [training chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md). And there were a lot more issues to figure out before the training started. For that see  [training prequel chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles-prequel.md).
-
-One of the limitations was that of SLURM which wasn't designed to be used by a team of people. A SLURM job is owned by a single user and if they aren't around, the other members of the group can't do anything to the running job. We developed a kill-switch workaround that allowed other users in the group to kill the current process without requiring the user who started the process to be present. This worked well in 90% of the issues. If SLURM designers read this - please add a concept of Unix groups, so that a SLURM job can be owned by a group.
-
-## Conclusion
-
-The most difficult and intense part of the training was the 2 months leading to the start of the training. We were under a lot of pressure to start training ASAP, since the resources allocation was limited in time and we didn't have access to A100s until the very last moment. So it was a very difficult time, considering that the `BF16Optimizer` was written in the last moment and we needed to debug it and fix various bugs.
-
-Additionally we found several issues that manifested themselves only once we started training on 48 nodes, and won't appear at small scale.
-
-But once we sorted those out, the training itself was surprisingly smooth and without major problems. Most of the time we had one person monitoring the training and only a few times several people were involved to troubleshoot. We enjoyed great support from JeanZay's administration who quickly addressing most needs that emerged during the training.
-
-Overall it was a super-intense but very rewarding experience.
