@@ -40,7 +40,7 @@ The most important part of the technology behind BLOOM were the people and compa
 There are 6 main groups of people to thank:
 
 1. The HuggingFace's BigScience team who dedicated more than half a dozen full time employees to figure out and run the training from inception to the finishing line and provided and paid for all the infrastructure beyond the JeanZay's compute.
-2. The Microsoft Deepspeed team, who developed DeepSpeed and later integrated it with Megatron-LM, and whose developers spent many weeks working on the needs of the project and provided lots of awesome practical experiential advice before and during the training
+2. The Microsoft DeepSpeed team, who developed DeepSpeed and later integrated it with Megatron-LM, and whose developers spent many weeks working on the needs of the project and provided lots of awesome practical experiential advice before and during the training
 3. The NVIDIA Megatron-LM team, who developed Megatron-LM and who were super-helpful answering our numerous questions and providing first class experiential advice.
 4. The IDRIS / GENCI team managing the JeanZay supercomputer, who donating to the project an insane amount of compute and a great system administration support
 5. The PyTorch team who created a super powerful framework, on which the rest of the software was based, and who were very supportive to us during the preparation for the training, fixing multiple bugs and improving the usability of the PyTorch components we relied on during the training.
@@ -87,20 +87,20 @@ Datasets:
 
 The training of the 176B BLOOM model occurred over Mar-Jul 2022 and took about 3.5 months to complete.
 
-## Megatron-Deepspeed
+## Megatron-DeepSpeed
 
-The 176B BLOOM model has been trained using [Megatron-Deepspeed](https://github.com/bigscience-workshop/Megatron-DeepSpeed), which is a combination of 2 main technologies:
+The 176B BLOOM model has been trained using [Megatron-DeepSpeed](https://github.com/bigscience-workshop/Megatron-DeepSpeed), which is a combination of 2 main technologies:
 
 * [Megatron-LM](https://github.com/NVIDIA/Megatron-LM)
 * [DeepSpeed](https://github.com/microsoft/DeepSpeed)
 
-The DeepSpeed team extended the Megatron-LM framework to support its ZeRO sharding protocol and their Pipeline Parallelism implementation. Thus Megatron-Deepspeed was born.
+The DeepSpeed team extended the Megatron-LM framework to support its ZeRO sharding protocol and their Pipeline Parallelism implementation. Thus Megatron-DeepSpeed was born.
 
-Please note that the BigScience's [Megatron-Deepspeed](https://github.com/bigscience-workshop/Megatron-DeepSpeed) is a fork of the original [Megatron-Deepspeed](https://github.com/microsoft/Megatron-DeepSpeed) repository, to which we added multiple additions.
+Please note that the BigScience's [Megatron-DeepSpeed](https://github.com/bigscience-workshop/Megatron-DeepSpeed) is a fork of the original [Megatron-DeepSpeed](https://github.com/microsoft/Megatron-DeepSpeed) repository, to which we added multiple additions.
 
 Here is a table of which components were provided by which framework:
 
-| Component             | Megatron-LM | Deepspeed |
+| Component             | Megatron-LM | DeepSpeed |
 | :----                 | :----       | :----     |
 | DataLoader            | V           |           |
 | Fused Kernels         | V           |           |
@@ -111,7 +111,7 @@ Here is a table of which components were provided by which framework:
 
 Please note that both Megatron-LM and DeepSpeed each has a Pipeline Parallelism implementation, but we used the one from DeepSpeed as it's integrated with ZeRO.
 
-Megatron-Deepspeed implements 3D Parallelism to allow huge models to train in a very efficient way. Let’s briefly discuss the 3D components.
+Megatron-DeepSpeed implements 3D Parallelism to allow huge models to train in a very efficient way. Let’s briefly discuss the 3D components.
 
 1. **DataParallel (DP)** - the same setup is replicated multiple times, and each being fed a slice of the data. The processing is done in parallel and all setups are synchronized at the end of each training step.
 2. **TensorParallel (TP)** - each tensor is split up into multiple chunks, so instead of having the whole tensor reside on a single gpu, each shard of the tensor resides on its designated gpu. During processing each shard gets processed separately and in parallel on different GPUs and the results are synced at the end of the step. This is what one may call horizontal parallelism, as the splitting happens on horizontal level.
@@ -213,7 +213,7 @@ While the diagram shows that there is a bubble of "dead" time that can't be para
 
 This scheduling mechanism is known as `all forward all backward`. Some other alternatives are [one forward one backward](https://www.microsoft.com/en-us/research/publication/pipedream-generalized-pipeline-parallelism-for-dnn-training/) and [interleaved one forward one backward](https://arxiv.org/abs/2104.04473).
 
-While both Megatron-LM and DeepSpeed have their own implementation of the PP protocol, Megatron-Deepspeed uses the Deepspeed implementation as it's integrated with other aspects of Deepspeed.
+While both Megatron-LM and DeepSpeed have their own implementation of the PP protocol, Megatron-DeepSpeed uses the DeepSpeed implementation as it's integrated with other aspects of DeepSpeed.
 
 
 
@@ -258,7 +258,7 @@ We have proved it to ourselves by spending several months [training a 104B model
 
 ![104B-fail](assets/86_bloom_megatron_deepspeed_technology/104b-lm-loss.png)
 
-and we also got the same advice from the Megatron-LM and Deepspeed teams after they trained the [530B model](https://arxiv.org/abs/2201.11990).
+and we also got the same advice from the Megatron-LM and DeepSpeed teams after they trained the [530B model](https://arxiv.org/abs/2201.11990).
 
 So back in January as we knew we would be training on A100s which support the BF16 format Olatunji Ruwase developed a `BF16Optimizer` which we used to train BLOOM.
 
@@ -298,7 +298,7 @@ This insight came from experimenting with https://github.com/facebookresearch/bi
 We also replaced the usual positional embedding with an AliBi - based on the paper: [Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation](https://arxiv.org/abs/2108.12409), which allows to extrapolate for longer input sequences than the ones the model was trained on.
 
 
-## Papers
+## Papers and Articles
 
 We couldn't have possibly explained everything in details in this article, so if the technology presented here piqued your curiosity and you'd like to know more here are the papers to read:
 
@@ -312,6 +312,7 @@ DeepSpeed:
 - [ZeRO: Memory Optimizations Toward Training Trillion Parameter Models](https://arxiv.org/abs/1910.02054)
 - [ZeRO-Offload: Democratizing Billion-Scale Model Training](https://arxiv.org/abs/2101.06840)
 - [ZeRO-Infinity: Breaking the GPU Memory Wall for Extreme Scale Deep Learning](https://arxiv.org/abs/2104.07857)
+- [DeepSpeed: Extreme-scale model training for everyone](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/)
 
 Joint Megatron-LM and Deepspeeed:
 
@@ -323,7 +324,7 @@ ALIBI:
 
 BitsNBytes:
 
-- [8-bit Optimizers via Block-wise Quantization](https://arxiv.org/abs/2110.02861) (in the context of Embedding LayerNorm but the rest of the paper and the technology is amazing - the only reason were weren't using the 8-bit optimizer is because we were already saving the optimizer memory with Deepspeed-ZeRO).
+- [8-bit Optimizers via Block-wise Quantization](https://arxiv.org/abs/2110.02861) (in the context of Embedding LayerNorm but the rest of the paper and the technology is amazing - the only reason were weren't using the 8-bit optimizer is because we were already saving the optimizer memory with DeepSpeed-ZeRO).
 
 ## Training Difficulties
 
