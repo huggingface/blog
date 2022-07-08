@@ -34,6 +34,8 @@ Then the hardware setup and main technological components will be discussed.
 
 Here's a quick summary of project:
 
+|               |                             |
+| :-----        | :-------------              |
 | Hardware      | 384 80GB A100 GPUs          |
 | Software      | Megatron-DeepSpeed          |
 | Architecture  | GPT3 w/ extras              |
