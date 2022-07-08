@@ -859,7 +859,7 @@
   tags:
     - graphcore
     - partnerships
-   
+
 - local: deep-rl-dqn
   title: "Deep Q-Learning with Atari"
   author: ThomasSimonini
@@ -867,7 +867,7 @@
   date: June 7, 2022
   tags:
   - rl
-  
+
 - local: annotated-diffusion
   title: "The Annotated Diffusion Model"
   author: nielsrogge
@@ -967,3 +967,12 @@
   date: June 30, 2022
   tags:
   - rl
+
+- local: bloom-megatron-deepspeed-technology
+  title: "The Technology Behind BLOOM Training"
+  author: stas
+  thumbnail: /blog/assets/86_bloom_megatron_deepspeed_technology/thumbnail.gif
+  date: July 9, 2022
+  tags:
+    - nlp
+    - llm
