@@ -292,11 +292,16 @@ We also replaced the usual positional embedding with an AliBi - based on the pap
 
 ## Training Difficulties
 
+With the architecture, hardware and software in place we were able to start training in the early March 2022. However, it was not just smooth sailing from there. In this section we discuss some of the main hurdles we encountered.
+
 The main type of issue encountered during training were hardware failures. As this was a new cluster with about 400 GPUs, on average we were getting 1-2 GPU failures a week. We were saving a checkpoint every 3h (100 iterations) so on average we would lose 1.5h of training on hardware crash. The JeanZay sysadmins would then replace the faulty GPUs and bring the node back up. Meanwhile we had backup nodes to use instead.
 
 We have run into a variety of other problems that led to 5-10h downtime several times, some related to a deadlock bug in PyTorch, others due to running out of disk space. If you are curious about specific details please see [training chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md). And there were a lot more issues to figure out before the training started. For that see  [training prequel chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles-prequel.md).
 
 One of the limitations was that of SLURM which wasn't designed to be used by a team of people. A SLURM job is owned by a single user and if they aren't around, the other members of the group can't do anything to the running job. We developed a kill-switch workaround that allowed other users in the group to kill the current process without requiring the user who started the process to be present. This worked well in 90% of the issues. If SLURM designers read this - please add a concept of Unix groups, so that a SLURM job can be owned by a group.
+
+
+
 
 ## Conclusion
 
@@ -308,6 +313,7 @@ But once we sorted those out, the training itself was surprisingly smooth and wi
 
 Overall it was a super-intense but very rewarding experience.
 
+Training large language models is still a challenging task, but we hope by building and sharing this technology in the open others can build on top of our experience.
 
 ## Resources
 
