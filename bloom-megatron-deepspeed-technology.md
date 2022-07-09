@@ -288,6 +288,10 @@ Besides other improvements we believe that using BF16 mixed precision training t
 
 ## Fused CUDA Kernels
 
+When executing `c=a+b; e=c+d`, first the `a+b` is executed - the GPU fetches `a` and `b` from GPU memory, computes the sum (`c`) and deposits it back to memory. Then to execute the next operation `c+d`, `c` and `d` are fetched from the memory, the sum is computed and the result is deposited in the memory. As you can see `c` travels to/from memory twice. If we were to fuse these two operations, we won't send the intermediary result `c` back to the memory, but leave it in the GPU registers and only need to fetch `d` to complete the computation. This saves a lot of overhead and prevents GPU idling and making the whole operation much more efficient.
+
+Fused kernels are just that. They replace multiple discrete computations and data movements to/from memory into fused computations that have very few memory movements.
+
 To train BLOOM fast and efficiently it was necessary to use several custom fused CUDA kernels provided by Megatron-LM. In particular there is an optimized kernel to perform LayerNorm as well as kernels to fuse various combinations of the scaling, masking, and softmax operations. The addition of a bias term is also fused with the GeLU operation using PyTorch's JIT functionality. These operations are all memory bound, so it is important to fuse them to maximize the amount of computation done once a value has been retrieved from memory. So, for example, adding the bias term while already doing the memory bound GeLU operation adds no additional time. These kernels are all available in the [Megatron-LM repository](https://github.com/NVIDIA/Megatron-LM).
 
 
