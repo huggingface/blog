@@ -46,9 +46,7 @@ Here's a quick summary of project:
 
 The project was conceived by Thomas Wolf, who dared to compete with the huge corporations not only to train one of the largest multilingual models, but also to make the final result accessible to all people, thus making what was but a dream to most people a reality.
 
-This article focuses specifically on the engineering side of the training of the model.
-
-The most important part of the technology behind BLOOM were the people and companies who shared their expertise and helped us with coding and training.
+This article focuses specifically on the engineering side of the training of the model. The most important part of the technology behind BLOOM were the people and companies who shared their expertise and helped us with coding and training.
 
 There are 6 main groups of people to thank:
 
@@ -67,7 +65,7 @@ Also we are grateful to all the companies who allowed their employees to contrib
 
 ## Overview
 
-BLOOM's architecture is very similar to [GPT3](https://en.wikipedia.org/wiki/GPT-3) with a few added improvements as will be discussed in this article.
+BLOOM's architecture is very similar to [GPT3](https://en.wikipedia.org/wiki/GPT-3) with a few added improvements as will be discussed later in this article.
 
 The model was trained on [Jean Zay](http://www.idris.fr/eng/jean-zay/jean-zay-presentation-eng.html), the French government-funded super computer that is managed by GENCI and installed at [IDRIS](http://www.idris.fr/), the national computing center for the French National Center for Scientific Research (CNRS). The compute was generously donated to the project by GENCI (grant 2021-A0101012475).
 
@@ -90,7 +88,7 @@ Checkpoints:
 Datasets:
 
 - 46 Languages in 1.5TB of deduplicated massively cleaned up text, converted into 350B unique tokens
-- Vocabulary size is 250,680 tokens
+- Vocabulary size of the model is 250,680 tokens
 - For full details please see [The BigScience Corpus A 1.6TB Composite Multilingual Dataset](https://openreview.net/forum?id=UoEw6KigkUn)
 
 The training of the 176B BLOOM model occurred over Mar-Jul 2022 and took about 3.5 months to complete (approximately 1M compute hours).
@@ -117,7 +115,7 @@ Here is a table of which components were provided by which framework to train BL
 | ZeRO Data Parallelism |             | V         |
 | BF16Optimizer         |             | V         |
 
-Please note that both Megatron-LM and DeepSpeed each has a Pipeline Parallelism implementation, but we used the one from DeepSpeed as it's integrated with ZeRO.
+Please note that both Megatron-LM and DeepSpeed have a Pipeline Parallelism implementation, but we used the one from DeepSpeed as it's integrated with ZeRO.
 
 Megatron-DeepSpeed implements 3D Parallelism to allow huge models to train in a very efficient way. Let’s briefly discuss the 3D components.
 
@@ -187,7 +185,7 @@ This performs a vertical model parallelism, because if you remember how most mod
 ```
 we just sliced it in 2 vertically, placing layers 0-3 onto GPU0 and 4-7 to GPU1.
 
-Now while data travels from layer 0 to 1, 1 to 2 and 2 to 3 this is just the normal model. But when data needs to pass from layer 3 to layer 4 it needs to travel from GPU0 to GPU1 which introduces a communication overhead. If the participating GPUs are on the same compute node (e.g. same physical machine) this copying is pretty fast, but if the GPUs are located on different compute nodes (e.g. multiple machines) the communication overhead could be significantly larger.
+Now while data travels from layer 0 to 1, 1 to 2 and 2 to 3 this is just like the forward pass of a normal model on a single GPU. But when data needs to pass from layer 3 to layer 4 it needs to travel from GPU0 to GPU1 which introduces a communication overhead. If the participating GPUs are on the same compute node (e.g. same physical machine) this copying is pretty fast, but if the GPUs are located on different compute nodes (e.g. multiple machines) the communication overhead could be significantly larger.
 
 Then layers 4 to 5 to 6 to 7 are as a normal model would have and when the 7th layer completes we often need to send the data back to layer 0 where the labels are (or alternatively send the labels to the last layer). Now the loss can be computed and the optimizer can do its work.
 
@@ -195,7 +193,7 @@ Problems:
 - the main deficiency and why this one is called "naive" PP, is that all but one GPU is idle at any given moment. So if 4 GPUs are used, it's almost identical to quadrupling the amount of memory of a single GPU, and ignoring the rest of the hardware. Plus there is the overhead of copying the data between devices. So 4x 6GB cards will be able to accommodate the same size as 1x 24GB card using naive PP, except the latter will complete the training faster, since it doesn't have the data copying overhead. But, say, if you have 40GB cards and need to fit a 45GB model you can with 4x 40GB cards (but barely because of the gradient and optimizer states).
 - shared embeddings may need to get copied back and forth between GPUs.
 
-Pipeline Parallelism (PP) is almost identical to a naive PP, but it solves the GPU idling problem, by chunking the incoming batch into micro-batches and artificially creating a pipeline, which allows different GPUs to concurrently participate in the computation process.
+Pipeline Parallelism (PP) is almost identical to a naive PP described above, but it solves the GPU idling problem, by chunking the incoming batch into micro-batches and artificially creating a pipeline, which allows different GPUs to concurrently participate in the computation process.
 
 The following illustration from the [GPipe paper](https://ai.googleblog.com/2019/03/introducing-gpipe-open-source-library.html) shows the naive PP on the top, and PP on the bottom:
 
@@ -239,13 +237,13 @@ Since each dimension requires at least 2 GPUs, here you'd need at least 4 GPUs.
 
 ## DP+PP+TP
 
-To get an even more efficient training a 3D parallelism is used where PP is combined with TP and DP. This can be seen in the following diagram.
+To get an even more efficient training PP is combined with TP and DP  which is called 3D parallelism. This can be seen in the following diagram.
 
 ![dp-pp-tp-3d](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-deepspeed-3d.png)
 
 This diagram is from a blog post [3D parallelism: Scaling to trillion-parameter models](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/), which is a good read as well.
 
-Since each dimension requires at least 2 GPUs, here you'd need at least 8 GPUs.
+Since each dimension requires at least 2 GPUs, here you'd need at least 8 GPUs for full 3D parallelism.
 
 ## ZeRO DP+PP+TP
 
@@ -301,11 +299,11 @@ Another important feature from Megatron-LM is the efficient data loader. During 
 
 While we were fighting with trying to stop 104B from diverging we discovered that adding an additional LayerNorm right after the first word embedding made the training much more stable.
 
-This insight came from experimenting with https://github.com/facebookresearch/bitsandbytes which contains a `StableEmbedding` which is a normal Embedding with layernorm and it uses a uniform xavier initialization.
+This insight came from experimenting with [bitsandbytes](https://github.com/facebookresearch/bitsandbytes) which contains a `StableEmbedding` which is a normal Embedding with layernorm and it uses a uniform xavier initialization.
 
 ## Positional Encoding
 
-We also replaced the usual positional embedding with an AliBi - based on the paper: [Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation](https://arxiv.org/abs/2108.12409), which allows to extrapolate for longer input sequences than the ones the model was trained on.
+We also replaced the usual positional embedding with an AliBi - based on the paper: [Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation](https://arxiv.org/abs/2108.12409), which allows to extrapolate for longer input sequences than the ones the model was trained on. So even though we train on sequences with length 2048 the model can also deal with much longer sequences during inference.
 
 
 ## Training Difficulties
