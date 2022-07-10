@@ -288,9 +288,15 @@ Besides other improvements we believe that using BF16 mixed precision training t
 
 ## Fused CUDA Kernels
 
-When executing `c=a+b; e=c+d`, first the `a+b` is executed - the GPU fetches `a` and `b` from GPU memory, computes the sum (`c`) and deposits it back to memory. Then to execute the next operation `c+d`, `c` and `d` are fetched from the memory, the sum is computed and the result is deposited in the memory. As you can see `c` travels to/from memory twice. If we were to fuse these two operations, we won't send the intermediary result `c` back to the memory, but leave it in the GPU registers and only need to fetch `d` to complete the computation. This saves a lot of overhead and prevents GPU idling and making the whole operation much more efficient.
+The GPU performs two things. It can copy data to/from memory and perform computations on that data. While the GPU is busy copying the GPU's computations units idle. If we want to efficiently utilize the GPU we want to minimize the idle time.
 
-Fused kernels are just that. They replace multiple discrete computations and data movements to/from memory into fused computations that have very few memory movements.
+A kernel is a set of instructions that implements a specific PyTorch operation. For example, when you call `torch.add`, it goes through a [PyTorch dispatcher](http://blog.ezyang.com/2020/09/lets-talk-about-the-pytorch-dispatcher/) which looks at the input tensor(s) and various other things and decides which code it should run, and then runs it. A CUDA kernel is a specific implementation that uses the CUDA API library and can only run on NVIDIA GPUs.
+
+Now, when instructing the GPU to compute `c=a+b; e=c+d`, a naive approach, and what PyTorch will do unless instructed otherwise, is to launch two separate "add" kernels, one to perform `c=a+b` and another to perform `e=c+d`. In this case, the GPU fetches from its memory `a` and `b`, performs the addition, and then copies the result back into the memory. It then fetches `c` and `d` and performs the same thing.
+
+If we were to fuse these two operations, i.e. put them into a single "fused kernel", and just launch that one kernel we won't copy the intermediary result `c` to the memory, but leave it in the GPU registers and only need to fetch `d` to complete the computation. This saves a lot of overhead and prevents GPU idling and makes the whole operation much more efficient.
+
+Fused kernels are just that. Primarily they replace multiple discrete computations and data movements to/from memory into fused computations that have very few memory movements. Additionally, some fused kernels rewrite the math so that certain groups of computations can be performed faster.
 
 To train BLOOM fast and efficiently it was necessary to use several custom fused CUDA kernels provided by Megatron-LM. In particular there is an optimized kernel to perform LayerNorm as well as kernels to fuse various combinations of the scaling, masking, and softmax operations. The addition of a bias term is also fused with the GeLU operation using PyTorch's JIT functionality. These operations are all memory bound, so it is important to fuse them to maximize the amount of computation done once a value has been retrieved from memory. So, for example, adding the bias term while already doing the memory bound GeLU operation adds no additional time. These kernels are all available in the [Megatron-LM repository](https://github.com/NVIDIA/Megatron-LM).
 
