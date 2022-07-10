@@ -988,3 +988,12 @@
     - open-source-collab
     - community
     - research
+
+- local: playlist-generator-st
+  title: "Building a Playlist Generator with Sentence Transformers"
+  author: NimaBoscarino
+  thumbnail: /blog/assets/87_playlist_generator_st/thumbnail.png
+  date: July 13, 2022
+  tags:
+    - nlp
+    - guide
