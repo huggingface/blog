@@ -75,7 +75,7 @@ Since we’re searching for any verse that matches the text prompt, there’s a 
 
 For the demo, I wanted users to enter a text prompt (or choose from some examples), and conduct a semantic search to find the top 9 most relevant songs. Then, users should be able to select from the resulting songs to be able to see the lyrics, which might give them some insight into why the particular songs were chosen. Here’s how we can do that!
 
-At the top of the Gradio demo](https://huggingface.co/spaces/NimaBoscarino/playlist-generator/blob/main/app.py) we load the embeddings, mappings, and lyrics from Hugging Face datasets when the app starts up.
+[At the top of the Gradio demo](https://huggingface.co/spaces/NimaBoscarino/playlist-generator/blob/main/app.py) we load the embeddings, mappings, and lyrics from Hugging Face datasets when the app starts up.
 
 ```python
 from sentence_transformers import SentenceTransformer, util
@@ -132,7 +132,7 @@ We can even do something similar to the Radio component, in order to let users c
 
 ## Some Thoughts
 
-As we can see, Sentence Transformers and Gradio are great choices for this kind of project! ST has the utility functions that we need for quickly generating embeddings, as well as for running semantic search with minimal code. Having access to a large collection of pre-trained models is also extremely helpful, since we don’t need to create and train our own models for this kind of stuff. Building our demo in Gradio means we only have to focus on coding in Python, and [deploying Gradio projects to Hugging Face Spaces is also super simple](https://huggingface.co/docs/hub/spaces-sdks-gradio)!
+Sentence Transformers and Gradio are great choices for this kind of project! ST has the utility functions that we need for quickly generating embeddings, as well as for running semantic search with minimal code. Having access to a large collection of pre-trained models is also extremely helpful, since we don’t need to create and train our own models for this kind of stuff. Building our demo in Gradio means we only have to focus on coding in Python, and [deploying Gradio projects to Hugging Face Spaces is also super simple](https://huggingface.co/docs/hub/spaces-sdks-gradio)!
 
 There’s a ton of other stuff I wish I’d had the time to build into this project, such as these ideas that I might explore in the future:
 
