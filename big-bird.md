@@ -225,7 +225,7 @@ Attention score for \\(\mathbf{q}_{1}\\) represented by \\(a_1\\) where \\(a_1=S
 
 ---
 
-For calculating attention score for tokens in seconcd block, we are gathering the first three blocks, the last block, and the fifth block. Then we can compute \\(a_2 = Softmax(q_2 * concat(k_1, k_2, k_3, k_5, k_7)\\).
+For calculating attention score for tokens in second block, we are gathering the first three blocks, the last block, and the fifth block. Then we can compute \\(a_2 = Softmax(q_2 * concat(k_1, k_2, k_3, k_5, k_7)\\).
 
 ![BigBird block sparse attention](assets/18_big_bird/q2.png)
 
