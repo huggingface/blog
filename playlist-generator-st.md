@@ -24,11 +24,17 @@ thumbnail: /blog/assets/87_playlist_generator_st/thumbnail.png
     </a>
 </div>
 
-A short while ago I published a [playlist generator](https://huggingface.co/spaces/NimaBoscarino/playlist-generator) that I’d built using **[Sentence Transformers](http://sbert.net)** and [Gradio](https://gradio.app), and I followed that up with a [reflection on how I try to use my projects as effective learning experiences](https://huggingface.co/blog/your-first-ml-project). But how did I actually *build* the playlist generator? In this post we’ll break down that project and look at two technical details: how the embeddings were generated, and how the *multi-step* Gradio demo was built.
+A short while ago I published a [playlist generator](https://huggingface.co/spaces/NimaBoscarino/playlist-generator) that I’d built using Sentence Transformers and Gradio, and I followed that up with a [reflection on how I try to use my projects as effective learning experiences](https://huggingface.co/blog/your-first-ml-project). But how did I actually *build* the playlist generator? In this post we’ll break down that project and look at **two** technical details: how the embeddings were generated, and how the *multi-step* Gradio demo was built.
 
-As we’ve explored in [previous posts on the Hugging Face blog](https://huggingface.co/blog/getting-started-with-embeddings), Sentence Transformers (ST) is a library that gives us tools to generate sentence embeddings, which have a variety of uses. Since I had access to a dataset of song lyrics, I decided to leverage ST’s **[semantic search](https://www.sbert.net/examples/applications/semantic-search/README.html)** functionality to generate playlists from a given text prompt. Specifically, the goal was to create an embedding from the prompt, use that embedding for a semantic search across a set of *pre-generated lyrics embeddings* to generate a relevant set of songs. This would all be wrapped up in a Gradio app using the new **[Blocks API](https://gradio.app/introduction_to_blocks/)**, hosted on Hugging Face Spaces.
+<div class="hidden xl:block">
+<div style="display: flex; flex-direction: column; align-items: center;">
+<iframe src="https://hf.space/embed/NimaBoscarino/playlist-generator/+" frameBorder="0" width="1400" height="690" title="Gradio app" class="p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+</div>
+</div>
 
-We’ll be looking at a slightly advanced use of Gradio, so if you’re a beginner to the library I recommend exploring the [Gradio guides](https://gradio.app/guides/) and the [Introduction to Blocks](https://gradio.app/introduction_to_blocks/) before tackling the Gradio-specific parts of this post. Also, note that while I won’t be releasing the lyrics dataset, the **[lyrics embeddings are available on the Hugging Face Hub](https://huggingface.co/datasets/NimaBoscarino/playlist-generator)** for you to play around with. Let’s jump in! 🪂
+As we’ve explored in [previous posts on the Hugging Face blog](https://huggingface.co/blog/getting-started-with-embeddings), Sentence Transformers (ST) is a library that gives us tools to generate sentence embeddings, which have a variety of uses. Since I had access to a dataset of song lyrics, I decided to leverage ST’s semantic search functionality to generate playlists from a given text prompt. Specifically, the goal was to create an embedding from the prompt, use that embedding for a semantic search across a set of *pre-generated lyrics embeddings* to generate a relevant set of songs. This would all be wrapped up in a Gradio app using the new Blocks API, hosted on Hugging Face Spaces.
+
+We’ll be looking at a slightly advanced use of Gradio, so if you’re a beginner to the library I recommend reading the [Introduction to Blocks](https://gradio.app/introduction_to_blocks/) before tackling the Gradio-specific parts of this post. Also, note that while I won’t be releasing the lyrics dataset, the **[lyrics embeddings are available on the Hugging Face Hub](https://huggingface.co/datasets/NimaBoscarino/playlist-generator)** for you to play around with. Let’s jump in! 🪂
 
 ## Sentence Transformers: Embeddings and Semantic Search
 
@@ -38,11 +44,11 @@ Sentence Transformers offers a large collection of pre-trained embedding models!
 
 [The ST documentation highlights many of the choices](https://www.sbert.net/docs/pretrained_models.html), along with their evaluation metrics and some descriptions of their intended use-cases. The **[MS MARCO models](https://www.sbert.net/docs/pretrained-models/msmarco-v5.html)** are trained on Bing search engine queries, but since they also perform well on other domains I decided any one of these could be a good choice for this project. All we need for the playlist generator is to find songs that have some semantic similarity, and since I don’t really care about hitting a particular performance metric I arbitrarily chose [sentence-transformers/msmarco-MiniLM-L-6-v3](https://huggingface.co/sentence-transformers/msmarco-MiniLM-L-6-v3).
 
-Each model in ST has a configurable [input sequence length](https://www.sbert.net/examples/applications/computing-embeddings/README.html#input-sequence-length) (up to a maximum), after which your inputs will be truncated. The model I chose had a max sequence length of 512 word pieces, which, as I found out, is often not enough to embed entire songs. Luckily, there’s an easy way for us to split lyrics into smaller chunks that the model can digest – verses! Once we’ve chunked our songs into verses and embedded each verse, we’ll find that the search works much better.
+Each model in ST has a configurable input sequence length (up to a maximum), after which your inputs will be truncated. The model I chose had a max sequence length of 512 word pieces, which, as I found out, is often not enough to embed entire songs. Luckily, there’s an easy way for us to split lyrics into smaller chunks that the model can digest – verses! Once we’ve chunked our songs into verses and embedded each verse, we’ll find that the search works much better.
 
 ** TODO: Diagram with Figma **
 
-To actually generate the embeddings, we can call the the `.encode()`  method on our Sentence Transformers model and pass it our list of strings. Then we can save our embeddings however we like – in this case I opted to pickle them. To be able to share our embeddings with others, we can even **[upload the Pickle file to a Hugging Face dataset](https://huggingface.co/blog/getting-started-with-embeddings#2-host-embeddings-for-free-on-the-hugging-face-hub)**.
+To actually generate the embeddings, you can call the `.encode()` method of the Sentence Transformers model and pass it a list of strings. Then you can save the embeddings however you like – in this case I opted to pickle them.
 
 ```python
 from sentence_transformers import SentenceTransformer
@@ -53,8 +59,15 @@ verses = [...] # Load up your strings in a list
 corpus_embeddings = embedder.encode(verses, show_progress_bar=True)
 
 with open('verse-embeddings.pkl', "wb") as fOut:
-        pickle.dump(corpus_embeddings, fOut)
+    pickle.dump(corpus_embeddings, fOut)
 ```
+
+To be able to share you embeddings with others, you can even upload the Pickle file to a Hugging Face dataset. [Read this tutorial to learn more](https://huggingface.co/blog/getting-started-with-embeddings#2-host-embeddings-for-free-on-the-hugging-face-hub), or [visit the Datasets documentation](https://huggingface.co/docs/datasets/upload_dataset#upload-with-the-hub-ui) to try it out yourself! In short, once you've created a new Dataset on the Hub, you can simply manually upload your Pickle file by clicking the "Add file" button, shown below.
+
+<figure class="image table text-center m-0 w-full">
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/87_playlist_generator_st/add-dataset.png"></medium-zoom>
+  <figcaption>You can upload dataset files manually on the Hub.</figcaption>
+</figure>
 
 The last thing we need to do now is actually use the embeddings for semantic search! The following code loads the embeddings, generates a new embedding for a given string, and runs a semantic search over the lyrics embeddings to find the closest hits. To make it easier to work with the results, I also like to put them into a Pandas DataFrame.
 
@@ -69,7 +82,7 @@ hits = pd.DataFrame(hits[0], columns=['corpus_id', 'score'])
 # You can use the "corpus_id" to look up the original song
 ```
 
-Since we’re searching for any verse that matches the text prompt, there’s a good chance that the semantic search will find multiple verses from the same song. One simple way to avoid duplicates is by increasing the number of verse embeddings that `util.semantic_search` fetches for us with the `top_k` parameter, and then we can drop duplicate songs as we map each verse embedding to its respective song. Experimentally, I found that when I set `top_k=20` I rarely get duplicates!
+Since we’re searching for any verse that matches the text prompt, there’s a good chance that the semantic search will find multiple verses from the same song. When we drop the duplicates, we might only end up with a few distinct songs. If we increase the number of verse embeddings that `util.semantic_search` fetches with the `top_k` parameter, we can increase the number of songs that we'll find. Experimentally, I found that when I set `top_k=20`, I almost always get at least 9 distinct songs.
 
 ## Making a Multi-Step Gradio App
 
@@ -93,9 +106,11 @@ auth_token = os.environ.get("TOKEN_FROM_SECRET")
 lyrics = pd.read_csv(hf_hub_download("NimaBoscarino/playlist-generator-private", repo_type="dataset", filename="lyrics_new.csv", use_auth_token=auth_token))
 ```
 
-The Gradio Blocks API lets you build *multi-step* interfaces, which means that you’re free to create quite complex sequences for your demos. We’ll take a look at some example code snippets here, but [check out the project code to see it all in action](https://huggingface.co/spaces/NimaBoscarino/playlist-generator/blob/main/app.py). For this project, we want users to choose a text prompt and then, after the semantic search is complete, users should have the ability to choose a song from the results to inspect the lyrics. With Gradio, this can be built iteratively by starting off with defining the initial input components and then registering a `click` event on the button. There’s also a Radio component, which will get updated to show the names of the songs for the playlist.
+The Gradio Blocks API lets you build *multi-step* interfaces, which means that you’re free to create quite complex sequences for your demos. We’ll take a look at some example code snippets here, but [check out the project code to see it all in action](https://huggingface.co/spaces/NimaBoscarino/playlist-generator/blob/main/app.py). For this project, we want users to choose a text prompt and then, after the semantic search is complete, users should have the ability to choose a song from the results to inspect the lyrics. With Gradio, this can be built iteratively by starting off with defining the initial input components and then registering a `click` event on the button. There’s also a `Radio` component, which will get updated to show the names of the songs for the playlist.
 
 ```python
+import gradio as gr
+
 song_prompt = gr.TextArea(
     value="Running wild and free",
     placeholder="Enter a song prompt, or choose an example"
@@ -103,7 +118,7 @@ song_prompt = gr.TextArea(
 
 fetch_songs = gr.Button(value="Generate Your Playlist!")
 
-song_option = gr.Radio(interactive=True)
+song_option = gr.Radio()
 
 fetch_songs.click(
     fn=generate_playlist,
@@ -112,23 +127,23 @@ fetch_songs.click(
 )
 ```
 
-This way, when the button gets clicked, Gradio grabs the current value of the TextArea and passes it to a function, shown below:
+This way, when the button gets clicked, Gradio grabs the current value of the `TextArea` and passes it to a function, shown below:
 
 ```python
 def generate_playlist(prompt):
     prompt_embedding = embedder.encode(prompt, convert_to_tensor=True)
     hits = util.semantic_search(prompt_embedding, corpus_embeddings, top_k=20)
-		hits = pd.DataFrame(hits[0], columns=['corpus_id', 'score'])
-		# ... code to map from the verse IDs to the song names
-		song_names = ... # e.g. ["Thank U, Next", "Freebird", "La Cucaracha"]
+    hits = pd.DataFrame(hits[0], columns=['corpus_id', 'score'])
+    # ... code to map from the verse IDs to the song names
+    song_names = ... # e.g. ["Thank U, Next", "Freebird", "La Cucaracha"]
     return (
         gr.Radio.update(label="Songs", interactive=True, choices=song_names)
     )
 ```
 
-In that function, we use the text prompt to conduct the semantic search. As we see above, to push updates to the Gradio components in the app, our function just needs to return components created with the `.update()` method. Since we connected the `song_option` Radio component to `fetch_songs.click` with its `output` parameter, `generate_playlist` can control the choices for our Radio component!
+In that function, we use the text prompt to conduct the semantic search. As seen above, to push updates to the Gradio components in the app, the function just needs to return components created with the `.update()` method. Since we connected the `song_option` `Radio` component to `fetch_songs.click` with its `output` parameter, `generate_playlist` can control the choices for the `Radio `component!
 
-We can even do something similar to the Radio component, in order to let users choose which song lyrics to view. [Visit the code on Hugging Face Spaces to see it in detail!](https://huggingface.co/spaces/NimaBoscarino/playlist-generator/blob/main/app.py)
+You can even do something similar to the `Radio` component in order to let users choose which song lyrics to view. [Visit the code on Hugging Face Spaces to see it in detail!](https://huggingface.co/spaces/NimaBoscarino/playlist-generator/blob/main/app.py)
 
 ## Some Thoughts
 
