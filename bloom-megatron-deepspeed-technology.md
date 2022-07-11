@@ -24,7 +24,7 @@ thumbnail: /blog/assets/86_bloom_megatron_deepspeed_technology/thumbnail.png
 
 
 
-In recent years, training ever larger language models has become the norm. While the issues of those models' not being released for further study is frequently discussed, the hidden knowledge about how to train such models rarely gets any attention. This article aims to change this by shedding some light on the technology and engineering behind training such models both in terms of hardware and software on the the example of the 176B parameter language model BLOOM.
+In recent years, training ever larger language models has become the norm. While the issues of those models' not being released for further study is frequently discussed, the hidden knowledge about how to train such models rarely gets any attention. This article aims to change this by shedding some light on the technology and engineering behind training such models both in terms of hardware and software on the the example of the 176B parameter language model [BLOOM](https://huggingface.co/bigscience/bloom).
 
 But first we would like to thank the companies and key people and groups that made the amazing feat of training a 176 Billion parameter model by a small group of dedicated people possible.
 
