@@ -39,7 +39,7 @@ Here's a quick summary of project:
 | Hardware      | 384 80GB A100 GPUs          |
 | Software      | Megatron-DeepSpeed          |
 | Architecture  | GPT3 w/ extras              |
-| Dataset       | 350B tokens of 46 Languages |
+| Dataset       | 350B tokens of 59 Languages |
 | Training time | 3.5 months                  |
 
 ## People
@@ -97,7 +97,7 @@ The training of the 176B BLOOM model occurred over Mar-Jul 2022 and took about 3
 
 The 176B BLOOM model has been trained using [Megatron-DeepSpeed](https://github.com/bigscience-workshop/Megatron-DeepSpeed), which is a combination of 2 main technologies:
 
-* [Megatron-LM](https://github.com/NVIDIA/Megatron-LM) is a large, powerful transformer developed by the Applied Deep Learning Research team at NVIDIA.
+* [Megatron-LM](https://github.com/NVIDIA/Megatron-LM) is a large, powerful transformer model framework developed by the Applied Deep Learning Research team at NVIDIA.
 * [DeepSpeed](https://github.com/microsoft/DeepSpeed) is a deep learning optimization library that makes distributed training easy, efficient, and effective.
 
 The DeepSpeed team extended the Megatron-LM framework to support its ZeRO sharding protocol and their Pipeline Parallelism implementation. Thus Megatron-DeepSpeed was born.
@@ -237,7 +237,7 @@ Since each dimension requires at least 2 GPUs, here you'd need at least 4 GPUs.
 
 ## DP+PP+TP
 
-To get an even more efficient training PP is combined with TP and DP  which is called 3D parallelism. This can be seen in the following diagram.
+To get an even more efficient training PP is combined with TP and DP which is called 3D parallelism. This can be seen in the following diagram.
 
 ![dp-pp-tp-3d](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-deepspeed-3d.png)
 
