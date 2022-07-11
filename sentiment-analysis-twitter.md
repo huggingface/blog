@@ -1,6 +1,6 @@
 ---
 title: "Getting Started with Sentiment Analysis on Twitter"
-thumbnail: /blog/assets/86_sentiment_analysis_twitter/thumbnail.png
+thumbnail: /blog/assets/85_sentiment_analysis_twitter/thumbnail.png
 ---
 
 <h1>Getting Started with Sentiment Analysis on Twitter</h1>
@@ -245,7 +245,7 @@ sentiment_counts.plot.pie(ax=ax, autopct='%1.1f%%', startangle=270, fontsize=12,
 It's cool to see that 50% of all tweets are positive and only 8.2% are negative:
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/86_sentiment_analysis_twitter/sentiment-pie.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/85_sentiment_analysis_twitter/sentiment-pie.png"></medium-zoom>
   <figcaption>Sentiment analysis results of tweets mentioning Notion</figcaption>
 </figure>
 
@@ -279,14 +279,14 @@ plt.show()
 Curiously, some of the words that stand out from the positive tweets include "notes", "cron", and "paid":
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/86_sentiment_analysis_twitter/positive-tweets.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/85_sentiment_analysis_twitter/positive-tweets.png"></medium-zoom>
   <figcaption>Word cloud for positive tweets</figcaption>
 </figure>
 
 In contrast, "figma", "enterprise" and "account" are some of the most used words from the negatives tweets:
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/86_sentiment_analysis_twitter/negative-tweets.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/85_sentiment_analysis_twitter/negative-tweets.png"></medium-zoom>
   <figcaption>Word cloud for negative tweets</figcaption>
 </figure>
 
@@ -322,7 +322,7 @@ To get started, you'll need to [create a Zap](https://zapier.com/webintent/creat
 - Finally test the trigger to make sure it gather tweets and runs correctly.
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/86_sentiment_analysis_twitter/zapier-getting-tweets-cropped-cut-optimized.gif"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/85_sentiment_analysis_twitter/zapier-getting-tweets-cropped-cut-optimized.gif"></medium-zoom>
   <figcaption>Step 1 on the Zap</figcaption>
 </figure>
 
@@ -345,7 +345,7 @@ Once you have your model ID and your Hugging Face token ID, go back to your Zap 
 3. Finally, test this step to make sure it makes predictions and runs correctly.
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/86_sentiment_analysis_twitter/zapier-analyze-tweets-cropped-cut-optimized.gif"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/85_sentiment_analysis_twitter/zapier-analyze-tweets-cropped-cut-optimized.gif"></medium-zoom>
   <figcaption>Step 2 on the Zap</figcaption>
 </figure>
 
@@ -370,7 +370,7 @@ Then, follow these instructions to configure this last step:
 4. Finally, test this last step to make sure it can add a new row to your spreadsheet. After confirming it's working, you can delete this row on your spreadsheet.
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/86_sentiment_analysis_twitter/zapier-add-to-google-sheets-cropped-cut.gif"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/85_sentiment_analysis_twitter/zapier-add-to-google-sheets-cropped-cut.gif"></medium-zoom>
   <figcaption>Step 3 on the Zap</figcaption>
 </figure>
 
@@ -383,14 +383,14 @@ Now, you just need to turn it on so it can start gathering tweets, analyzing the
 To turn it on, just click on "Publish" button at the bottom of your screen:
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/86_sentiment_analysis_twitter/zap-turn-on-cut-optimized.gif"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/85_sentiment_analysis_twitter/zap-turn-on-cut-optimized.gif"></medium-zoom>
   <figcaption>Turning on the Zap</figcaption>
 </figure>
 
 After a few minutes, you will see how your spreadsheet starts populating with tweets and the results of sentiment analysis. You can also create a graph that can be updated in real-time as tweets come in:
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/86_sentiment_analysis_twitter/google-sheets-results-cropped-cut.gif"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/85_sentiment_analysis_twitter/google-sheets-results-cropped-cut.gif"></medium-zoom>
   <figcaption>Tweets popping up on Google Sheets</figcaption>
 </figure>
 
