@@ -53,7 +53,7 @@ There are 6 main groups of people to thank:
 1. The HuggingFace's BigScience team who dedicated more than half a dozen full time employees to figure out and run the training from inception to the finishing line and provided and paid for all the infrastructure beyond the Jean Zay's compute.
 2. The Microsoft DeepSpeed team, who developed DeepSpeed and later integrated it with Megatron-LM, and whose developers spent many weeks working on the needs of the project and provided lots of awesome practical experiential advice before and during the training.
 3. The NVIDIA Megatron-LM team, who developed Megatron-LM and who were super helpful answering our numerous questions and providing first class experiential advice.
-4. The IDRIS / GENCI team managing the Jean Zay supercomputer, who donated to the project an insane amount of compute and a great system administration support.
+4. The IDRIS / GENCI team managing the Jean Zay supercomputer, who donated to the project an insane amount of compute and great system administration support.
 5. The PyTorch team who created a super powerful framework, on which the rest of the software was based, and who were very supportive to us during the preparation for the training, fixing multiple bugs and improving the usability of the PyTorch components we relied on during the training.
 6. The volunteers in the BigScience Engineering workgroup
 
@@ -120,9 +120,9 @@ Please note that both Megatron-LM and DeepSpeed have a Pipeline Parallelism impl
 Megatron-DeepSpeed implements 3D Parallelism to allow huge models to train in a very efficient way. Let’s briefly discuss the 3D components.
 
 1. **DataParallel (DP)** - the same setup is replicated multiple times, and each being fed a slice of the data. The processing is done in parallel and all setups are synchronized at the end of each training step.
-2. **TensorParallel (TP)** - each tensor is split up into multiple chunks, so instead of having the whole tensor reside on a single GPU, each shard of the tensor resides on its designated GPU. During processing each shard gets processed separately and in parallel on different GPUs and the results are synced at the end of the step. This is what one may call horizontal parallelism, as the splitting happens on horizontal level.
+2. **TensorParallel (TP)** - each tensor is split up into multiple chunks, so instead of having the whole tensor reside on a single GPU, each shard of the tensor resides on its designated GPU. During processing each shard gets processed separately and in parallel on different GPUs and the results are synced at the end of the step. This is what one may call horizontal parallelism, as the splitting happens on a horizontal level.
 3. **PipelineParallel (PP)** - the model is split up vertically (layer-level) across multiple GPUs, so that only one or several layers of the model are placed on a single GPU. Each GPU processes in parallel different stages of the pipeline and works on a small chunk of the batch.
-4. **Zero Redundancy Optimizer (ZeRO)** - Also performs sharding of the tensors somewhat similar to TP, except the whole tensor gets reconstructed in time for a forward or backward computation, therefore the model doesn't need to be modified. It also supports various offloading techniques to compensate for limited GPU memory.
+4. **Zero Redundancy Optimizer (ZeRO)** - also performs sharding of the tensors somewhat similar to TP, except the whole tensor gets reconstructed in time for a forward or backward computation, therefore the model doesn't need to be modified. It also supports various offloading techniques to compensate for limited GPU memory.
 
 
 
@@ -150,7 +150,7 @@ In this section we use concepts and diagrams from the [Megatron-LM](https://gith
 
 The main building block of any transformer is a fully connected `nn.Linear` followed by a nonlinear activation `GeLU`.
 
-Following the Megatron's paper notation, we can write the dot-product part of it as `Y = GeLU(XA)`, where `X` and `Y` are the input and output vectors, and `A` is the weight matrix.
+Following the Megatron paper's notation, we can write the dot-product part of it as `Y = GeLU(XA)`, where `X` and `Y` are the input and output vectors, and `A` is the weight matrix.
 
 If we look at the computation in matrix form, it's easy to see how the matrix multiplication can be split between multiple GPUs:
 ![Parallel GEMM](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-parallel_gemm.png)
@@ -318,9 +318,9 @@ We also replaced the usual positional embedding with an AliBi - based on the pap
 
 ## Training Difficulties
 
-With the architecture, hardware and software in place we were able to start training in the early March 2022. However, it was not just smooth sailing from there. In this section we discuss some of the main hurdles we encountered.
+With the architecture, hardware and software in place we were able to start training in early March 2022. However, it was not just smooth sailing from there. In this section we discuss some of the main hurdles we encountered.
 
-There were a lot of issues to figure out before the training started. In particular we found several issues that manifested themselves only once we started training on 48 nodes, and won't appear at small scale. e.g. `CUDA_LAUNCH_BLOCKING=1` was needed to prevent the framework from hanging, and we needed to split the optimizer groups into smaller groups, otherwise the framework would again hang. You can read about those in detail in the [training prequel chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles-prequel.md).
+There were a lot of issues to figure out before the training started. In particular we found several issues that manifested themselves only once we started training on 48 nodes, and won't appear at small scale. E.g., `CUDA_LAUNCH_BLOCKING=1` was needed to prevent the framework from hanging, and we needed to split the optimizer groups into smaller groups, otherwise the framework would again hang. You can read about those in detail in the [training prequel chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles-prequel.md).
 
 The main type of issue encountered during training were hardware failures. As this was a new cluster with about 400 GPUs, on average we were getting 1-2 GPU failures a week. We were saving a checkpoint every 3h (100 iterations) so on average we would lose 1.5h of training on hardware crash. The Jean Zay sysadmins would then replace the faulty GPUs and bring the node back up. Meanwhile we had backup nodes to use instead.
 
@@ -335,9 +335,9 @@ As the training was happening 24/7 we needed someone to be on call - but since w
 
 ## Conclusion
 
-The most difficult and intense part of the training was the 2 months leading to the start of the training. We were under a lot of pressure to start training ASAP, since the resources allocation was limited in time and we didn't have access to A100s until the very last moment. So it was a very difficult time, considering that the `BF16Optimizer` was written in the last moment and we needed to debug it and fix various bugs. And as explained in the previous section we discovered new problems that that manifested themselves only once we started training on 48 nodes, and won't appear at small scale.
+The most difficult and intense part of the training was the 2 months leading to the start of the training. We were under a lot of pressure to start training ASAP, since the resources allocation was limited in time and we didn't have access to A100s until the very last moment. So it was a very difficult time, considering that the `BF16Optimizer` was written in the last moment and we needed to debug it and fix various bugs. And as explained in the previous section we discovered new problems that manifested themselves only once we started training on 48 nodes, and won't appear at small scale.
 
-But once we sorted those out, the training itself was surprisingly smooth and without major problems. Most of the time we had one person monitoring the training and only a few times several people were involved to troubleshoot. We enjoyed great support from Jean Zay's administration who quickly addressing most needs that emerged during the training.
+But once we sorted those out, the training itself was surprisingly smooth and without major problems. Most of the time we had one person monitoring the training and only a few times several people were involved to troubleshoot. We enjoyed great support from Jean Zay's administration who quickly addressed most needs that emerged during the training.
 
 Overall it was a super-intense but very rewarding experience.
 
@@ -355,7 +355,7 @@ Training large language models is still a challenging task, but we hope by build
 
 ### Papers and Articles
 
-We couldn't have possibly explained everything in details in this article, so if the technology presented here piqued your curiosity and you'd like to know more here are the papers to read:
+We couldn't have possibly explained everything in detail in this article, so if the technology presented here piqued your curiosity and you'd like to know more here are the papers to read:
 
 Megatron-LM:
 
