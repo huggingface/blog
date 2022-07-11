@@ -381,3 +381,16 @@ ALiBi:
 BitsNBytes:
 
 - [8-bit Optimizers via Block-wise Quantization](https://arxiv.org/abs/2110.02861) (in the context of Embedding LayerNorm but the rest of the paper and the technology is amazing - the only reason were weren't using the 8-bit optimizer is because we were already saving the optimizer memory with DeepSpeed-ZeRO).
+
+## Thanks to the reviewers
+
+Huge thanks to the following kind folks who asked good questions and helped improve the readability of the article (listed in alphabetical order):
+
+Britney Muller,
+Douwe Kiela
+Jared Casper,
+Julien Launay,
+Leandro von Werra,
+Omar Sanseviero,
+Stefan Schweter and
+Thomas Wang.
