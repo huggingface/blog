@@ -78,7 +78,7 @@ The three orange matrices above correspond to the three matrices we constructed 
 
 ### How is Nyströmformer implemented?
 
-The original implementation of Nyströmformer can be found [here](https://github.com/mlpen/Nystromformer) and the Huggingface implementation can be found [here](https://github.com/huggingface/transformers/tree/main/src/transformers/models/nystromformer). Let's take a look at a few lines of code (with some comments added) from the Huggingface implementation. Note that some details such as normalization, attention masking, and depthwise convolution are avoided for simplicity.
+The original implementation of Nyströmformer can be found [here](https://github.com/mlpen/Nystromformer) and the HuggingFace implementation can be found [here](https://github.com/huggingface/transformers/tree/main/src/transformers/models/nystromformer). Let's take a look at a few lines of code (with some comments added) from the HuggingFace implementation. Note that some details such as normalization, attention masking, and depthwise convolution are avoided for simplicity.
 
 ```python
 key_layer = self.transpose_for_scores(self.key(hidden_states)) # K
@@ -117,9 +117,9 @@ context_layer = torch.matmul(attention_probs, new_value_layer) # \tilde{F} * \ti
 ```
 
 
-### Using Nyströmformer with Huggingface
+### Using Nyströmformer with HuggingFace
 
-Nyströmformer for Masked Language Modeling (MLM) is available on Huggingface. Currently, there are 4 checkpoints, corresponding to various sequence lengths: [`nystromformer-512`](https://huggingface.co/uw-madison/nystromformer-512), [`nystromformer-1024`](https://huggingface.co/uw-madison/nystromformer-1024), [`nystromformer-2048`](https://huggingface.co/uw-madison/nystromformer-2048), and [`nystromformer-4096`](https://huggingface.co/uw-madison/nystromformer-4096). The number of landmarks, \\(m\\), can be controlled using the `num_landmarks` parameter in the [`NystromformerConfig`](https://huggingface.co/docs/transformers/v4.18.0/en/model_doc/nystromformer#transformers.NystromformerConfig). Let's take a look at a minimal example of Nyströmformer for MLM:
+Nyströmformer for Masked Language Modeling (MLM) is available on HuggingFace. Currently, there are 4 checkpoints, corresponding to various sequence lengths: [`nystromformer-512`](https://huggingface.co/uw-madison/nystromformer-512), [`nystromformer-1024`](https://huggingface.co/uw-madison/nystromformer-1024), [`nystromformer-2048`](https://huggingface.co/uw-madison/nystromformer-2048), and [`nystromformer-4096`](https://huggingface.co/uw-madison/nystromformer-4096). The number of landmarks, \\(m\\), can be controlled using the `num_landmarks` parameter in the [`NystromformerConfig`](https://huggingface.co/docs/transformers/v4.18.0/en/model_doc/nystromformer#transformers.NystromformerConfig). Let's take a look at a minimal example of Nyströmformer for MLM:
 
 ```python
 from transformers import AutoTokenizer, NystromformerForMaskedLM
@@ -148,4 +148,4 @@ unmasker("Paris is the [MASK] of France.")
 
 ### Conclusion
 
-Nyströmformer offers an efficient approximation to the standard self-attention mechanism, while outperforming other linear self-attention schemes. In this blog post, we went over a high-level overview of the Nyström method and how it can leveraged for self-attention. Readers interested in deploying or fine-tuning Nyströmformer for downstream tasks can find the Huggingface documentation [here](https://huggingface.co/docs/transformers/v4.18.0/en/model_doc/nystromformer). 
+Nyströmformer offers an efficient approximation to the standard self-attention mechanism, while outperforming other linear self-attention schemes. In this blog post, we went over a high-level overview of the Nyström method and how it can leveraged for self-attention. Readers interested in deploying or fine-tuning Nyströmformer for downstream tasks can find the HuggingFace documentation [here](https://huggingface.co/docs/transformers/v4.18.0/en/model_doc/nystromformer). 
