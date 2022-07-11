@@ -62,8 +62,8 @@ Each dataset modality has specific nuances on how to load and process them. For 
 To make all of the modality-specific documentation more discoverable, we created dedicated sections with guides focused on showing you how to load and process each modality. If you’re looking for specific information about working with a dataset modality, take a look at these dedicated sections first. Meanwhile, functions that are non-specific and can be used broadly are documented in the General Usage section. Reorganizing the documentation in this way will allow us to better scale to other dataset types we plan to support in the future.
 
 <figure class="image table text-center m-0 w-full">
-  <img style="border:none;" alt="" src="" />
-  <figcaption></figcaption>
+  <img style="border:none;" alt="An overview of the how-to guides page that displays five new sections of the guides: general usage, audio, vision, text, and dataset repository." src="assets/87_datasets-docs-update/overview.png" />
+  <figcaption>The guides are organized into sections that cover the most essential aspects of 🤗 Datasets.</figcaption>
 </figure>
 
 Check out the [dedicated guides](https://huggingface.co/docs/datasets/master/en/how_to) to learn more about loading and processing datasets for different modalities.
