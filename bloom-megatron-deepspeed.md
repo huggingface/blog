@@ -1,20 +1,20 @@
 ---
 title: "The Technology Behind BLOOM Training"
-thumbnail: /blog/assets/86_bloom_megatron_deepspeed_technology/thumbnail.png
+thumbnail: /blog/assets/86_bloom_megatron_deepspeed/thumbnail.png
 ---
 
 <h1>The Technology Behind BLOOM Training</h1>
 
 <div class="blog-metadata">
     <small>Published July 14, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/bloom-megatron-deepspeed-technology.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/bloom-megatron-deepspeed.md">
         Update on GitHub
     </a>
 </div>
 
 <div class="author-card">
     <a href="/stas">
-        <img class="avatar avatar-user" src="/blog/assets/86_bloom_megatron_deepspeed_technology/stas-bekman-300x300.jpg">
+        <img class="avatar avatar-user" src="/blog/assets/86_bloom_megatron_deepspeed/stas-bekman-300x300.jpg">
         <div class="bfc">
             <code>stas</code>
             <span class="fullname">Stas Bekman</span>
@@ -30,7 +30,7 @@ But first we would like to thank the companies and key people and groups that ma
 
 Then the hardware setup and main technological components will be discussed.
 
-![BLOOM](assets/86_bloom_megatron_deepspeed_technology/bloom-banner.png)
+![BLOOM](assets/86_bloom_megatron_deepspeed/bloom-banner.png)
 
 Here's a quick summary of project:
 
@@ -264,7 +264,7 @@ Training huge LLM models in FP16 is a no-no.
 
 We have proved it to ourselves by spending several months [training a 104B model](https://github.com/bigscience-workshop/bigscience/tree/master/train/tr8-104B-wide) which as you can tell from the [tensorboard](https://huggingface.co/bigscience/tr8-104B-logs/tensorboard) was but a complete failure. We learned a lot of things while fighting the ever diverging lm-loss:
 
-![104B-fail](assets/86_bloom_megatron_deepspeed_technology/104b-lm-loss.png)
+![104B-fail](assets/86_bloom_megatron_deepspeed/104b-lm-loss.png)
 
 and we also got the same advice from the Megatron-LM and DeepSpeed teams after they trained the [530B model](https://arxiv.org/abs/2201.11990). The recent release of [OPT-175B)(https://arxiv.org/abs/2205.01068) too reported that they had a very difficult time training in FP16.
 
@@ -284,7 +284,7 @@ One crucial issue is gradient accumulation, and it's one of the main features of
 
 Besides other improvements we believe that using BF16 mixed precision training turned a potential nightmare into a relatively smooth process which can be observed from the following lm loss graph:
 
-![176B-fail](assets/86_bloom_megatron_deepspeed_technology/176b-lm-loss.png)
+![176B-fail](assets/86_bloom_megatron_deepspeed/176b-lm-loss.png)
 
 ## Fused CUDA Kernels
 
