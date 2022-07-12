@@ -6,7 +6,7 @@ thumbnail: /blog/assets/86_bloom_megatron_deepspeed_technology/thumbnail.png
 <h1>The Technology Behind BLOOM Training</h1>
 
 <div class="blog-metadata">
-    <small>Published July 9, 2022.</small>
+    <small>Published July 14, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/bloom-megatron-deepspeed-technology.md">
         Update on GitHub
     </a>
