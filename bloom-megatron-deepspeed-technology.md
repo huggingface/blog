@@ -44,7 +44,7 @@ Here's a quick summary of project:
 
 ## People
 
-The project was conceived by Thomas Wolf, who dared to compete with the huge corporations not only to train one of the largest multilingual models, but also to make the final result accessible to all people, thus making what was but a dream to most people a reality.
+The project was conceived by Thomas Wolf (co-founder and CSO - Hugging Face), who dared to compete with the huge corporations not only to train one of the largest multilingual models, but also to make the final result accessible to all people, thus making what was but a dream to most people a reality.
 
 This article focuses specifically on the engineering side of the training of the model. The most important part of the technology behind BLOOM were the people and companies who shared their expertise and helped us with coding and training.
 
