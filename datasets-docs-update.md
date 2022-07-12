@@ -1,6 +1,6 @@
 ---
 title: "Introducing new audio and vision documentation in 🤗 Datasets"
-thumbnail: assets/87_datasets-docs-update/thumbnail.gif
+thumbnail: /blog/assets/87_datasets-docs-update/thumbnail.gif
 ---
 
 <h1>
@@ -44,11 +44,11 @@ The 🤗 Datasets team has been building tools and features to make working wit
 
 ## Quickstart
 
-The [Quickstart](https://huggingface.co/docs/datasets/master/en/quickstart) is one of the first places new users visit for a TLDR about a library’s features. That’s why we needed to update the Quickstart to include how you can use 🤗 Datasets to work with audio and image datasets. Choose a dataset modality you want to work with and see an end-to-end example of how to load and process the dataset to get it ready for training with either PyTorch or TensorFlow.
+The [Quickstart](https://huggingface.co/docs/datasets/quickstart) is one of the first places new users visit for a TLDR about a library’s features. That’s why we needed to update the Quickstart to include how you can use 🤗 Datasets to work with audio and image datasets. Choose a dataset modality you want to work with and see an end-to-end example of how to load and process the dataset to get it ready for training with either PyTorch or TensorFlow.
 
-Also new in our Quickstart is the `to_tf_dataset` function which takes care of converting a dataset into a `tf.data.Dataset` like a mama bear taking care of her cubs. This means you don’t have to write any code yourself - shuffle and load batches of data - to get your dataset to play nicely with TensorFlow. Once you’ve converted your dataset into a `tf.data.Dataset`, you can train your model with the usual TensorFlow or Keras methods.
+Also new in our Quickstart is the `to_tf_dataset` function which takes care of converting a dataset into a `tf.data.Dataset` like a mama bear taking care of her cubs. This means you don’t have to write any code to shuffle and load batches from your dataset to get it to play nicely with TensorFlow. Once you’ve converted your dataset into a `tf.data.Dataset`, you can train your model with the usual TensorFlow or Keras methods.
 
-Check out the [Quickstart](https://huggingface.co/docs/datasets/master/en/quickstart) today to learn how to work with different dataset modalities and try out the new `to_tf_dataset` function!
+Check out the [Quickstart](https://huggingface.co/docs/datasets/quickstart) today to learn how to work with different dataset modalities and try out the new `to_tf_dataset` function!
 
 <figure class="image table text-center m-0 w-full">
   <img style="border:none;" alt="Cards with links to end-to-end examples for how to process audio, vision, and NLP datasets" src="assets/87_datasets-docs-update/quickstart.png" />
@@ -66,11 +66,11 @@ To make all of the modality-specific documentation more discoverable, we created
   <figcaption>The guides are organized into sections that cover the most essential aspects of 🤗 Datasets.</figcaption>
 </figure>
 
-Check out the [dedicated guides](https://huggingface.co/docs/datasets/master/en/how_to) to learn more about loading and processing datasets for different modalities.
+Check out the [dedicated guides](https://huggingface.co/docs/datasets/how_to) to learn more about loading and processing datasets for different modalities.
 
 ## ImageFolder
 
-Typically, 🤗 Datasets users [write a dataset loading script](https://huggingface.co/docs/datasets/master/en/dataset_script) to download and generate a dataset with the appropriate `train` and `test` splits. With the `ImageFolder` dataset builder, you don’t need to write any code to download and generate an image dataset. Loading an image dataset for image classification is as simple as ensuring your dataset is organized in a folder like:
+Typically, 🤗 Datasets users [write a dataset loading script](https://huggingface.co/docs/datasets/dataset_script) to download and generate a dataset with the appropriate `train` and `test` splits. With the `ImageFolder` dataset builder, you don’t need to write any code to download and generate an image dataset. Loading an image dataset for image classification is as simple as ensuring your dataset is organized in a folder like:
 
 ```py
 folder/train/dog/golden_retriever.png
@@ -101,16 +101,16 @@ dataset[0]["objects"]
 {"bbox": [[302.0, 109.0, 73.0, 52.0]], "categories": [0]}
 ```
 
-You can use `ImageFolder` to load an image dataset for nearly any type of image task if you have a metadata file with the required information. Check out the [ImageFolder](https://huggingface.co/docs/datasets/master/en/image_process) guide to learn more.
+You can use `ImageFolder` to load an image dataset for nearly any type of image task if you have a metadata file with the required information. Check out the [ImageFolder](https://huggingface.co/docs/datasets/image_load) guide to learn more.
 
 ## What’s next?
 
 Similar to how the first iteration of our `datasets` library standardized text datasets and made them super easy to download and process, we are very excited to bring this same level of user-friendliness to audio and image datasets. In doing so, we hope it’ll be easier for users to train, build, and evaluate models and applications across all different modalities.
 
-In the coming months, we’ll continue to add new features and tools to support working with audio and image datasets. Word on the 🤗 Hugging Face street is that there’ll be something called `AudioFolder` coming soon! 🤫 While you wait, feel free to take a look at the [audio processing guide](https://huggingface.co/docs/datasets/master/en/audio_process) and then get hands-on with an audio dataset like [GigaSpeech](https://huggingface.co/datasets/speechcolab/gigaspeech).
+In the coming months, we’ll continue to add new features and tools to support working with audio and image datasets. Word on the 🤗 Hugging Face street is that there’ll be something called `AudioFolder` coming soon! 🤫 While you wait, feel free to take a look at the [audio processing guide](https://huggingface.co/docs/datasets/audio_process) and then get hands-on with an audio dataset like [GigaSpeech](https://huggingface.co/datasets/speechcolab/gigaspeech).
 
 ---
 
 Join the [forum](https://discuss.huggingface.co/) for any questions and feedback about working with audio and image datasets. If you discover any bugs, please open a [GitHub Issue](https://github.com/huggingface/datasets/issues/new/choose), so we can take care of it.
 
-Feeling a little more adventurous? Contribute to the growing community-driven collection of audio and image datasets on the [Hub](https://huggingface.co/datasets)! [Create a dataset repository](https://huggingface.co/docs/datasets/master/en/upload_dataset) on the Hub and upload your dataset. If you need a hand, open a discussion on your repository’s **Community tab** and ping one of the 🤗 Datasets team members to help you cross the finish line!
+Feeling a little more adventurous? Contribute to the growing community-driven collection of audio and image datasets on the [Hub](https://huggingface.co/datasets)! [Create a dataset repository](https://huggingface.co/docs/datasets/upload_dataset) on the Hub and upload your dataset. If you need a hand, open a discussion on your repository’s **Community tab** and ping one of the 🤗 Datasets team members to help you cross the finish line!
