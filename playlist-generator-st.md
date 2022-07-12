@@ -24,6 +24,8 @@ thumbnail: /blog/assets/87_playlist_generator_st/thumbnail.png
     </a>
 </div>
 
+<script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
+
 A short while ago I published a [playlist generator](https://huggingface.co/spaces/NimaBoscarino/playlist-generator) that I’d built using Sentence Transformers and Gradio, and I followed that up with a [reflection on how I try to use my projects as effective learning experiences](https://huggingface.co/blog/your-first-ml-project). But how did I actually *build* the playlist generator? In this post we’ll break down that project and look at **two** technical details: how the embeddings were generated, and how the *multi-step* Gradio demo was built.
 
 <div class="hidden xl:block">
@@ -47,7 +49,7 @@ Sentence Transformers offers a large collection of pre-trained embedding models!
 Each model in ST has a configurable input sequence length (up to a maximum), after which your inputs will be truncated. The model I chose had a max sequence length of 512 word pieces, which, as I found out, is often not enough to embed entire songs. Luckily, there’s an easy way for us to split lyrics into smaller chunks that the model can digest – verses! Once we’ve chunked our songs into verses and embedded each verse, we’ll find that the search works much better.
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="The songs are split into verses, and then each verse is embedded." src="assets/87_playlist_generator_st/embedding-digram.svg"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="The songs are split into verses, and then each verse is embedded." src="assets/87_playlist_generator_st/embedding-diagram.svg"></medium-zoom>
   <figcaption>The songs are split into verses, and then each verse is embedded.</figcaption>
 </figure>
 
@@ -68,7 +70,7 @@ with open('verse-embeddings.pkl', "wb") as fOut:
 To be able to share you embeddings with others, you can even upload the Pickle file to a Hugging Face dataset. [Read this tutorial to learn more](https://huggingface.co/blog/getting-started-with-embeddings#2-host-embeddings-for-free-on-the-hugging-face-hub), or [visit the Datasets documentation](https://huggingface.co/docs/datasets/upload_dataset#upload-with-the-hub-ui) to try it out yourself! In short, once you've created a new Dataset on the Hub, you can simply manually upload your Pickle file by clicking the "Add file" button, shown below.
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Sentiment analysis results of tweets mentioning Notion" src="assets/87_playlist_generator_st/add-dataset.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="You can upload dataset files manually on the Hub." src="assets/87_playlist_generator_st/add-dataset.png"></medium-zoom>
   <figcaption>You can upload dataset files manually on the Hub.</figcaption>
 </figure>
 
