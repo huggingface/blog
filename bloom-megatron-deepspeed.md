@@ -97,23 +97,24 @@ The training of the 176B BLOOM model occurred over Mar-Jul 2022 and took about 3
 
 The 176B BLOOM model has been trained using [Megatron-DeepSpeed](https://github.com/bigscience-workshop/Megatron-DeepSpeed), which is a combination of 2 main technologies:
 
-* [Megatron-LM](https://github.com/NVIDIA/Megatron-LM) is a large, powerful transformer model framework developed by the Applied Deep Learning Research team at NVIDIA.
 * [DeepSpeed](https://github.com/microsoft/DeepSpeed) is a deep learning optimization library that makes distributed training easy, efficient, and effective.
+* [Megatron-LM](https://github.com/NVIDIA/Megatron-LM) is a large, powerful transformer model framework developed by the Applied Deep Learning Research team at NVIDIA.
 
-The DeepSpeed team extended the Megatron-LM framework to support its ZeRO sharding protocol and their Pipeline Parallelism implementation. Thus Megatron-DeepSpeed was born.
+
+The DeepSpeed team developed a 3D parallelism based implementation by combining ZeRO sharding and pipeline parallelism from the DeepSpeed library with Tensor Parallelism from Megatron-LM. More details about each component can be seen in the table below.
 
 Please note that the BigScience's [Megatron-DeepSpeed](https://github.com/bigscience-workshop/Megatron-DeepSpeed) is a fork of the original [Megatron-DeepSpeed](https://github.com/microsoft/Megatron-DeepSpeed) repository, to which we added multiple additions.
 
 Here is a table of which components were provided by which framework to train BLOOM:
 
-| Component             | Megatron-LM | DeepSpeed |
-| :----                 | :----       | :----     |
-| DataLoader            | V           |           |
-| Fused CUDA Kernels    | V           |           |
-| Tensor Parallelism    | V           |           |
-| Pipeline Parallelism  |             | V         |
-| ZeRO Data Parallelism |             | V         |
-| BF16Optimizer         |             | V         |
+| Component                                       | DeepSpeed | Megatron-LM |
+| :----                                           | :----     | :----       |
+| [ZeRO Data Parallelism](#zero-data-parallelism) | V         |             |
+| [Tensor Parallelism](#tensor-parallelism)       |           | V           |
+| [Pipeline Parallelism](#pipeline-parallelism)   | V         |             |
+| [BF16Optimizer](#bf16optimizer)                 | V         |             |
+| [Fused CUDA Kernels](#fused-cuda-kernels)       |           | V           |
+| [DataLoader](#datasets)                         |           | V           |
 
 Please note that both Megatron-LM and DeepSpeed have a Pipeline Parallelism implementation, but we used the one from DeepSpeed as it's integrated with ZeRO.
 
