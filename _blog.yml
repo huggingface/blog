@@ -978,3 +978,12 @@
     - sentiment-analysis
     - nlp
     - guide
+
+- local: train-and-fine-tune-sentence-transformers-models
+  title: "Training and Fine-Tuning Sentence Transformers Models"
+  author: espejelomar
+  thumbnail: /blog/assets/87_training_st_models/thumbnail.png
+  date: July 15, 2022
+  tags:
+  - guide
+  - nlp
