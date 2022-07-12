@@ -979,6 +979,16 @@
     - nlp
     - guide
 
+- local: bloom
+  title: "Introducing The World's Largest Open Multilingual Language Model: BLOOM"
+  author: BigScience
+  thumbnail: /blog/assets/86_bloom/thumbnail.png
+  date: July 12, 2022
+  tags:
+    - open-source-collab
+    - community
+    - research
+
 - local: bloom-megatron-deepspeed-technology
   title: "The Technology Behind BLOOM Training"
   author: stas
