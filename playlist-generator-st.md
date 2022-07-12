@@ -46,7 +46,10 @@ Sentence Transformers offers a large collection of pre-trained embedding models!
 
 Each model in ST has a configurable input sequence length (up to a maximum), after which your inputs will be truncated. The model I chose had a max sequence length of 512 word pieces, which, as I found out, is often not enough to embed entire songs. Luckily, there’s an easy way for us to split lyrics into smaller chunks that the model can digest – verses! Once we’ve chunked our songs into verses and embedded each verse, we’ll find that the search works much better.
 
-** TODO: Diagram with Figma **
+<figure class="image table text-center m-0 w-full">
+  <medium-zoom background="rgba(0,0,0,.7)" alt="The songs are split into verses, and then each verse is embedded." src="assets/87_playlist_generator_st/embedding-digram.svg"></medium-zoom>
+  <figcaption>The songs are split into verses, and then each verse is embedded.</figcaption>
+</figure>
 
 To actually generate the embeddings, you can call the `.encode()` method of the Sentence Transformers model and pass it a list of strings. Then you can save the embeddings however you like – in this case I opted to pickle them.
 
