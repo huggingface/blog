@@ -267,7 +267,7 @@ We have proved it to ourselves by spending several months [training a 104B model
 
 ![104B-fail](assets/86_bloom_megatron_deepspeed/104b-lm-loss.png)
 
-and we also got the same advice from the Megatron-LM and DeepSpeed teams after they trained the [530B model](https://arxiv.org/abs/2201.11990). The recent release of [OPT-175B)(https://arxiv.org/abs/2205.01068) too reported that they had a very difficult time training in FP16.
+and we also got the same advice from the Megatron-LM and DeepSpeed teams after they trained the [530B model](https://arxiv.org/abs/2201.11990). The recent release of [OPT-175B](https://arxiv.org/abs/2205.01068) too reported that they had a very difficult time training in FP16.
 
 So back in January as we knew we would be training on A100s which support the BF16 format Olatunji Ruwase developed a `BF16Optimizer` which we used to train BLOOM.
 
