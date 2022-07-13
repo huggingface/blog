@@ -989,7 +989,7 @@
     - community
     - research
 
-- local: bloom
+- local: tf-xla-generate
   title: "Faster TensorFlow Language Generation with XLA"
   author: joaogante
   thumbnail: /blog/assets/87_tf_xla_generate/thumbnail.png
