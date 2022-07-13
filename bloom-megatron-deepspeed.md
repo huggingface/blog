@@ -256,7 +256,7 @@ While it's theoretically possible to use ZeRO stage 2 with Pipeline Parallelism,
 
 In addition, there are already fewer layers than normal due to PP and so the memory savings won't be huge. PP already reduces gradient size by ``1/PP``, and so gradient sharding savings on top of that are less significant than pure DP.
 
-ZeRO stage 3 can also be used to train models at this scale, however, it requires more communication than the DeepSpeed 3D parallel implementation and is not a good fit for the JeanZay supercomputer where the inter-node communication is limited. However, it could be a suitable alternative on systems with higher inter-node communication bandwidth.
+ZeRO stage 3 can also be used to train models at this scale, however, it requires more communication than the DeepSpeed 3D parallel implementation. After careful evaluation in our environment which happened a year ago we found DeepSpeed 3D parallelism performed best. Since then ZeRO stage 3 performance has dramatically improved and if we were to evaluate it today perhaps we would have chosen stage 3 instead.
 
 
 ## BF16Optimizer
