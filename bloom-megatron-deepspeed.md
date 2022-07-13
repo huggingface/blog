@@ -59,7 +59,7 @@ There are 6 main groups of people to thank:
 
 It'd be very difficult to name all the amazing people who contributed to the engineering side of the project, so I will just name a few key people outside of Hugging Face who were the engineering foundation of this project for the last 14 months:
 
-Olatunji Ruwase, Deepak Narayanan, Jeff Rasley, Jared Casper and Rémi Lacroix
+Olatunji Ruwase, Deepak Narayanan, Jeff Rasley, Jared Casper, Samyam Rajbhandari and Rémi Lacroix
 
 Also we are grateful to all the companies who allowed their employees to contribute to this project.
 
