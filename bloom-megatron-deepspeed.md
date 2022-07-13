@@ -387,7 +387,7 @@ BitsNBytes:
 
 Huge thanks to the following kind folks who asked good questions and helped improve the readability of the article (listed in alphabetical order):
 Britney Muller,
-Douwe Kiela
+Douwe Kiela,
 Jared Casper,
 Jeff Rasley,
 Julien Launay,
