@@ -116,7 +116,7 @@ Here is a table of which components were provided by which framework to train BL
 | [Fused CUDA Kernels](#fused-cuda-kernels)       |           | V           |
 | [DataLoader](#datasets)                         |           | V           |
 
-Please note that both Megatron-LM and DeepSpeed have both Pipeline Parallelism and BF16 Optimizer implementations, but we used the ones from DeepSpeed as they are integrated with ZeRO.
+Please note that both Megatron-LM and DeepSpeed have Pipeline Parallelism and BF16 Optimizer implementations, but we used the ones from DeepSpeed as they are integrated with ZeRO.
 
 Megatron-DeepSpeed implements 3D Parallelism to allow huge models to train in a very efficient way. Let’s briefly discuss the 3D components.
 
