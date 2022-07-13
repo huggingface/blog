@@ -29,7 +29,7 @@ thumbnail: /blog/assets/10_tf-serving/thumbnail.png
 In the last few months, the Hugging Face team has been working hard on improving Transformers’ TensorFlow models to make them more robust and faster. The recent improvements are mainly focused on two aspects:
 
 1. Computational performance: BERT, RoBERTa, ELECTRA and MPNet have been improved in order to have a much faster computation time. This gain of computational performance is noticeable for all the computational aspects: graph/eager mode, TF Serving and for CPU/GPU/TPU devices.
-2. TensorFlow Serving: each of these TensorFlow model can be deployed with TensorFlow Serving to benefit of this gain of computational performance for inference.
+2. TensorFlow Serving: each of these TensorFlow model can be deployed with TensorFlow Serving to benefit from this gain of computational performance for inference.
 
 ## Computational Performance
 
@@ -202,7 +202,7 @@ copy the newly created SavedModel into the serving_base container's models folde
 docker cp my_model/saved_model serving_base:/models/bert
 ```
 
-commit the container that serves the model by changing MODEL_NAME to match the model's name (here `bert`), the name (`bert`) corresponds to the name we want to give to our SavedModel:
+commit the container that serves the model by changing MODEL_NAME to match the model's name (here `bert`), the name (`my_bert_model`) corresponds to the name we want to give to our SavedModel:
 ```
 docker commit --change "ENV MODEL_NAME bert" serving_base my_bert_model
 ```
