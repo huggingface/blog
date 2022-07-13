@@ -988,3 +988,12 @@
     - open-source-collab
     - community
     - research
+
+- local: bloom
+  title: "Faster TensorFlow Language Generation with XLA"
+  author: joaogante
+  thumbnail: /blog/assets/87_tf_xla_generate/thumbnail.png
+  date: July 25, 2022
+  tags:
+    - nlp
+    - guide
