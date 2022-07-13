@@ -989,6 +989,15 @@
     - community
     - research
 
+- local: playlist-generator
+  title: "Building a Playlist Generator with Sentence Transformers"
+  author: NimaBoscarino
+  thumbnail: /blog/assets/87_playlist_generator/thumbnail.png
+  date: July 13, 2022
+  tags:
+    - nlp
+    - guide
+
 - local: bloom-megatron-deepspeed-technology
   title: "The Technology Behind BLOOM Training"
   author: stas
