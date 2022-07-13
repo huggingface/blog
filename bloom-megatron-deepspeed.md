@@ -386,10 +386,7 @@ BitsNBytes:
 ## Thanks to the reviewers
 
 Huge thanks to the following kind folks who asked good questions and helped improve the readability of the article (listed in alphabetical order):
-
-
 Britney Muller,
-Chunte Lee,
 Douwe Kiela
 Jared Casper,
 Jeff Rasley,
@@ -398,3 +395,5 @@ Leandro von Werra,
 Omar Sanseviero,
 Stefan Schweter and
 Thomas Wang.
+
+The main graphics was created by Chunte Lee.
