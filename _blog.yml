@@ -998,7 +998,7 @@
     - nlp
     - guide
 
-- local: bloom-megatron-deepspeed-technology
+- local: bloom-megatron-deepspeed
   title: "The Technology Behind BLOOM Training"
   author: stas
   thumbnail: /blog/assets/86_bloom_megatron_deepspeed/thumbnail.png
