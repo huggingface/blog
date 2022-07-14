@@ -106,11 +106,11 @@ The basics of Sample and Beam Search are straightforward to control. However the
 example above, and we encourage you to read the
 [documentation](https://huggingface.co/docs/transformers/main/en/main_classes/text_generation#transformers.generation_tf_utils.TFGenerationMixin.generate)
 for advanced use cases.
-Sadly, as soon as you run `generate` with TensorFlow, you might realize that they take a while to execute.
+Sadly, when you run `generate` with TensorFlow, you might notice that it takes a while to execute.
 If your target application expects low latency or a large amount of input prompts, running text generation with
-TensorFlow may look like an expensive endeavour 😬
+TensorFlow may seem an expensive endeavour. 😬
 
-Fear not, for the remaining of this blog post aims to demonstrate that one line of code can make a drastic change for better.
+Fear not, for the remainder of this blog post aims to demonstrate that one line of code can make a drastic improvement.
 
 ## TensorFlow and XLA
 
@@ -118,12 +118,12 @@ Fear not, for the remaining of this blog post aims to demonstrate that one line 
 TensorFlow models. Nowadays, it is also the compiler behind [JAX](https://github.com/google/jax), and it can even
 be [used with PyTorch](https://huggingface.co/blog/pytorch-xla). Although the word "compiler" might sound dauting for
 some, XLA is simple to use with TensorFlow -- it comes packaged inside the `tensorflow` library, and it can be
-triggered with the `jit_compile` argument that exist in graph-creating functions.
+triggered with the `jit_compile` argument in any graph-creating function.
 
 For those of you familiar with TensorFlow 1, the concept of a TensorFlow graph comes naturally, as it was the only
 mode of operation. First you defined your operations in a declarative fashion to create a graph, then you could pipe
 inputs through the graph and observe the outputs. Fast, efficient, but painful to debug. With TensorFlow 2 came
-Eager Execution and the ability to code our models imperativelly -- the TensorFlow team explains the difference in more
+Eager Execution and the ability to code our models imperatively -- the TensorFlow team explains the difference in more
 detail in [their blog post](https://blog.tensorflow.org/2019/01/what-are-symbolic-and-imperative-apis.html).
 
 Hugging Face writes their TensorFlow models with Eager Execution in mind. Transparency is a core value, and being able
@@ -172,7 +172,7 @@ xla_most_likely_next_token(input_tokens)
 As with any optimization procedure, there is no free lunch -- XLA is no exception. From the perspective of a text
 generation user, there is only one technical detail that you need to keep in mind. Without digging too much into
 [details](https://www.tensorflow.org/guide/function#rules_of_tracing), XLA used in this fashion does just-in-time (JIT)
-compilation of a `tf.function`, which rely on polymorphism. In other words, every time you call a `tf.function` with
+compilation of a `tf.function`, which relies on polymorphism. In other words, every time you call a `tf.function` with
 different inputs, with the exception of native TensorFlow types (such as `tf.Tensor` or `tf.Variable`) with the same
 data type and shape, it will go through a slow compilation step also known as tracing. In practice, for text generation,
 it simply means the input should be padded to a multiple of a certain length (so it has a limited number of possible
