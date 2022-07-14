@@ -997,3 +997,12 @@
   tags:
     - nlp
     - guide
+
+- local: bloom-megatron-deepspeed-technology
+  title: "The Technology Behind BLOOM Training"
+  author: stas
+  thumbnail: /blog/assets/86_bloom_megatron_deepspeed/thumbnail.gif
+  date: July 14, 2022
+  tags:
+    - nlp
+    - llm
