@@ -55,54 +55,78 @@ model.config.pad_token_id = model.config.eos_token_id
 input_tokens = tokenizer(["TensorFlow is"], return_tensors="tf")
 
 # 1. Sample
-# `do_sample=True` causes the selected token at each iteration to be the outcome of sampling, also known as "sample".
-# `seed`, a tuple of two integers for stateless TF random number generation, can be used to enforce determinism.
+# `do_sample=True` causes the selected token at each iteration to be the outcome
+# of sampling, also known as "sample". `seed`, a tuple of two integers for
+# stateless TF random number generation, can be used to enforce determinism.
 generated = model.generate(**input_tokens, do_sample=True, seed=(42, 0))
 print("Sample output: ", tokenizer.decode(generated[0]))
-# > Sample output: TensorFlow is a great learning platform for learning about data structure and structure in data science..
+# > Sample output: TensorFlow is a great learning platform for learning about
+# data structure and structure in data science..
 
 # 1.1. Controlling generation length
-# `max_new_tokens` controls the maximum number of additional tokens to sample, in addition to the original prompt.
-generated = model.generate(**input_tokens, do_sample=True, seed=(42, 0), max_new_tokens=5)
+# `max_new_tokens` controls the maximum number of additional tokens to sample,
+# in addition to the original prompt.
+generated = model.generate(
+    **input_tokens, do_sample=True, seed=(42, 0), max_new_tokens=5
+)
 print("Limiting to 5 new tokens:", tokenizer.decode(generated[0]))
 # > Limiting to 5 new tokens: TensorFlow is a great learning platform for
-generated = model.generate(**input_tokens, do_sample=True, seed=(42, 0), max_new_tokens=30)
+generated = model.generate(
+    **input_tokens, do_sample=True, seed=(42, 0), max_new_tokens=30
+)
 print("Limiting to 30 new tokens:", tokenizer.decode(generated[0]))
-# > Limiting to 30 new tokens: TensorFlow is a great learning platform for learning about data structure and structure in data science................
+# > Limiting to 30 new tokens: TensorFlow is a great learning platform for
+# learning about data structure and structure in data science................
 
 # 1.2. Controlling sampling temperature
-# `temperature` controls the randomness of the sampling -- values below 1.0 prioritize sampling tokens with a higher
-# likelihood, where values above 1.0 do the opposite. Setting it to 0.0 means it will be doing greedy decoding (see
+# `temperature` controls the randomness of the sampling -- values below 1.0
+# prioritize sampling tokens with a higher likelihood, where values above 1.0 do
+# the opposite. Setting it to 0.0 means it will be doing greedy decoding (see
 # below), where very large values approximate uniform sampling.
-generated = model.generate(**input_tokens, do_sample=True, seed=(42, 0), temperature=0.7)
+generated = model.generate(
+    **input_tokens, do_sample=True, seed=(42, 0), temperature=0.7
+)
 print("Temperature 0.7: ", tokenizer.decode(generated[0]))
 # > Temperature 0.7: TensorFlow is a great way to do things like this........
-generated = model.generate(**input_tokens, do_sample=True, seed=(42, 0), temperature=1.5)
+generated = model.generate(
+    **input_tokens, do_sample=True, seed=(42, 0), temperature=1.5
+)
 print("Temperature 1.5: ", tokenizer.decode(generated[0]))
-# > Temperature 1.5: TensorFlow is being developed for both Cython and Bamboo. On Bamboo...
+# > Temperature 1.5: TensorFlow is being developed for both Cython and Bamboo.
+# On Bamboo...
 
 # 1.3. Controlling top-p sampling
-# `top_p` limits the sampling to the most likely tokens that cumulatively account for at least `top_p` of the total
-# probability. In other words, it will ensure that very unlikely tokens are never sampled, and will likely improve
-# the quality of the generation
+# `top_p` limits the sampling to the most likely tokens that cumulatively account
+# for at least `top_p` of the total probability. In other words, it will ensure
+# that very unlikely tokens are never sampled, and will likely improve the quality
+# of the generation
 generated = model.generate(**input_tokens, do_sample=True, seed=(42, 0), top_p=0.9)
 print("Top p 0.9: ", tokenizer.decode(generated[0]))
-# > Top p 0.9: TensorFlow is a great learning platform for learning about data structure and structure in data science. It
+# > Top p 0.9: TensorFlow is a great learning platform for learning about data
+# structure and structure in data science. It
 
 # 2. Beam Search
-# When `do_sample=False` (default), the most likely token is picked at each iterations ("greedy decoding"). More
-# interestingly, when `num_beams` is larger than 1, it triggers "beam search", which continuously explore
-# high-probability sequences
+# When `do_sample=False` (default), the most likely token is picked at each
+# iteration ("greedy decoding"). More interestingly, when `num_beams` is larger
+# than 1, it triggers "beam search", which continuously explore high-probability
+# sequences
 generated = model.generate(**input_tokens, num_beams=2)
 print("Beam Search output:", tokenizer.decode(generated[0]))
-# > Beam Search output: TensorFlow is an open-source, open-source, distributed-source application framework for the
+# > Beam Search output: TensorFlow is an open-source, open-source,
+# distributed-source application framework for the
 
-# 2.1. `num_return_sequences` controls the number of outputs to return per input -- you can use it to see the multiple
-# hypotheses generated by beam search. It can also be used with sampling.
+# 2.1. `num_return_sequences` controls the number of outputs to return per input.
+# You can use it to see the multiple hypotheses generated by beam search, and it
+# can also be used with sampling.
 generated = model.generate(**input_tokens, num_beams=2, num_return_sequences=2)
-print("All generated hypotheses:", "\n".join(tokenizer.decode(out) for out in generated))
-# > All generated hypotheses: TensorFlow is an open-source, open-source, distributed-source application framework for the
-# > TensorFlow is an open-source, open-source, distributed-source application framework that allows
+print(
+    "All generated hypotheses:",
+    "\n".join(tokenizer.decode(out) for out in generated)
+)
+# > All generated hypotheses: TensorFlow is an open-source, open-source,
+# distributed-source application framework for the
+# > TensorFlow is an open-source, open-source, distributed-source application
+# framework that allows
 ```
 
 The basics of Sample and Beam Search are straightforward to control. However there are many options not covered in the
@@ -187,8 +211,9 @@ shapes), and that using different options will be slow for the first time you us
 import tensorflow as tf
 from transformers import AutoTokenizer, TFAutoModelForCausalLM
 
-# Notice the new argument, `padding_side="left"` -- decoder-only models, which can be instantiated with
-# TFAutoModelForCausalLM, should be left-padded, as they continue generating from the input prompt.
+# Notice the new argument, `padding_side="left"` -- decoder-only models, which can
+# be instantiated with TFAutoModelForCausalLM, should be left-padded, as they
+# continue generating from the input prompt.
 tokenizer = AutoTokenizer.from_pretrained("gpt2", padding_side="left", pad_token="</s>")
 model = TFAutoModelForCausalLM.from_pretrained("gpt2")
 model.config.pad_token_id = model.config.eos_token_id
@@ -203,25 +228,41 @@ tokenized_input_1 = tokenizer(input_1, return_tensors="tf")  # length = 4
 tokenized_input_2 = tokenizer(input_2, return_tensors="tf")  # length = 5
 print(f"`tokenized_input_1` shape = {tokenized_input_1.input_ids.shape}")
 print(f"`tokenized_input_2` shape = {tokenized_input_2.input_ids.shape}")
-print("Calling XLA generation with tokenized_input_1 (will be slow as it is the first call)")
+print("Calling XLA generation with tokenized_input_1...")
+print("(will be slow as it is the first call)")
 xla_generate(**tokenized_input_1)
-print("Calling XLA generation with tokenized_input_2 (has a different length = will trigger tracing again)")
+print("Calling XLA generation with tokenized_input_2...")
+print("(has a different length = will trigger tracing again)")
 xla_generate(**tokenized_input_2)
 
 # Oh no, that's terrible! Let's try the same, now with padding
-# `pad_to_multiple_of` should be used to achieve a balance between accepting any input length and limiting tracing.
+# `pad_to_multiple_of` should be used to achieve a balance between accepting any
+# input length and limiting tracing.
 padding_kwargs = {"pad_to_multiple_of": 8, "padding": True}
-tokenized_input_1_with_padding = tokenizer(input_1, return_tensors="tf", **padding_kwargs)  # length = 8
-tokenized_input_2_with_padding = tokenizer(input_2, return_tensors="tf", **padding_kwargs)  # length = 8
-print(f"`tokenized_input_1_with_padding` shape = {tokenized_input_1_with_padding.input_ids.shape}")
-print(f"`tokenized_input_2_with_padding` shape = {tokenized_input_2_with_padding.input_ids.shape}")
-print("Calling XLA generation with tokenized_input_1_with_padding (slow, first time running with this length)")
+tokenized_input_1_with_padding = tokenizer(
+    input_1, return_tensors="tf", **padding_kwargs
+)  # length = 8
+tokenized_input_2_with_padding = tokenizer(
+    input_2, return_tensors="tf", **padding_kwargs
+)  # length = 8
+print(
+    "`tokenized_input_1_with_padding` shape = ",
+    f"{tokenized_input_1_with_padding.input_ids.shape}"
+)
+print(
+    "`tokenized_input_2_with_padding` shape = ",
+    f"{tokenized_input_2_with_padding.input_ids.shape}"
+)
+print("Calling XLA generation with tokenized_input_1_with_padding...")
+print("(slow, first time running with this length)")
 xla_generate(**tokenized_input_1_with_padding)
-print("Calling XLA generation with tokenized_input_2_with_padding (will be fast!)")
+print("Calling XLA generation with tokenized_input_2_with_padding...")
+print("(will be fast!)")
 xla_generate(**tokenized_input_2_with_padding)
 
-# Be careful -- if you suddendly change the input options, it will trigger tracing again
-print("Calling XLA generation with tokenized_input_1_with_padding, but with new options (slow again)")
+# Be careful -- if you suddendly change the input options, it will trigger tracing
+print("Calling XLA generation with the same input, but with new options...")
+print("(slow again)")
 xla_generate(**tokenized_input_1_with_padding, num_beams=2)
 ```
 
