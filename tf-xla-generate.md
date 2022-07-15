@@ -286,7 +286,7 @@ comparing Hugging Face's text generation on multiple GPU models for the two main
 
 <div class="hidden xl:block">
 <div style="display: flex; flex-direction: column; align-items: center;">
-<iframe src="https://hf.space/embed/joaogante/tf_xla_generate_benchmarks/+" frameBorder="0" width="1200px" height="750px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<iframe src="https://hf.space/embed/joaogante/tf_xla_generate_benchmarks/+" frameBorder="0" width="1200px" height="760px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
 </div>
 </div>
 
