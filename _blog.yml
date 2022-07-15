@@ -535,8 +535,9 @@
   thumbnail: /blog/assets/50_sentiment_python/thumbnail.png
   date: February 2, 2022
   tags:
-    - guide
+    - sentiment-analysis
     - nlp
+    - guide
 
 - local: fine-tune-vit
   title: "Fine-Tune ViT for Image Classification with 🤗 Transformers"
@@ -859,7 +860,7 @@
   tags:
     - graphcore
     - partnerships
-   
+
 - local: deep-rl-dqn
   title: "Deep Q-Learning with Atari"
   author: ThomasSimonini
@@ -867,7 +868,7 @@
   date: June 7, 2022
   tags:
   - rl
-  
+
 - local: annotated-diffusion
   title: "The Annotated Diffusion Model"
   author: nielsrogge
@@ -924,7 +925,7 @@
     - guide
     - community
     - hardware
-    
+
 - local: getting-started-with-embeddings
   title: "Getting Started With Embeddings"
   author: espejelomar
@@ -952,8 +953,60 @@
   tags:
   - guide
 
+- local: your-first-ml-project
+  title: "Liftoff! How to get started with your first ML project 🚀"
+  author: nimaboscarino
+  thumbnail: /blog/assets/84_first_ml_project/thumbnail.png
+  date: June 29, 2022
+  tags:
+    - guide
 
+- local: deep-rl-pg
+  title: "Policy Gradient with PyTorch"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/85_policy_gradient/thumbnail.gif
+  date: June 30, 2022
+  tags:
+  - rl
 
+- local: sentiment-analysis-twitter
+  title: "Getting Started with Sentiment Analysis on Twitter"
+  author: FedericoPascual
+  thumbnail: /blog/assets/85_sentiment_analysis_twitter/thumbnail.png
+  date: July 7, 2022
+  tags:
+    - sentiment-analysis
+    - nlp
+    - guide
+
+- local: bloom
+  title: "Introducing The World's Largest Open Multilingual Language Model: BLOOM"
+  author: BigScience
+  thumbnail: /blog/assets/86_bloom/thumbnail.png
+  date: July 12, 2022
+  tags:
+    - open-source-collab
+    - community
+    - research
+
+- local: playlist-generator
+  title: "Building a Playlist Generator with Sentence Transformers"
+  author: NimaBoscarino
+  thumbnail: /blog/assets/87_playlist_generator/thumbnail.png
+  date: July 13, 2022
+  tags:
+    - nlp
+    - guide
+
+- local: bloom-megatron-deepspeed
+  title: "The Technology Behind BLOOM Training"
+  author: stas
+  thumbnail: /blog/assets/86_bloom_megatron_deepspeed/thumbnail.png
+  date: July 14, 2022
+  tags:
+    - nlp
+    - llm
+   
 - local: mnist-adversarial
   title: "How to train your model dynamically using adversarial data"
   author: chrisjay
@@ -962,4 +1015,4 @@
   tags:
   - mnist
   - adversarial
-  - guide  
+  - guide    
