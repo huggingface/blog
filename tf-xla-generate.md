@@ -284,7 +284,11 @@ and some post-processing, producing one token per iteration. Through XLA compila
 optimized, resulting in faster execution. But how much faster? The Gradio demo below contains some benchmarks
 comparing Hugging Face's text generation on multiple GPU models for the two main ML frameworks, TensorFlow and PyTorch.
 
-<iframe src="https://hf.space/embed/joaogante/tf_xla_generate_benchmarks/+" frameBorder="0" width="1000px" height="660px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<div class="hidden xl:block">
+<div style="display: flex; flex-direction: column; align-items: center;">
+<iframe src="https://hf.space/embed/joaogante/tf_xla_generate_benchmarks/+" frameBorder="0" width="1200px" height="660px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+</div>
+</div>
 
 If you explore the results, two conclusions become quickly visible:
 
