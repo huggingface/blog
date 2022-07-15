@@ -16,7 +16,7 @@ thumbnail: /blog/assets/87_tf_xla_generate/thumbnail.png
 
 <div class="author-card">
     <a href="/joaogante">
-        <img class="avatar avatar-user" src="NEEDS TO BE UPDATED https://bafybeidj6oxo7zm5pejnc2iezy24npw4qbt2jgpo4n6igt7oykc7rbvcxi.ipfs.dweb.link/omar_picture.png" title="Gravatar">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1641203017724-noauth.png?w=200&h=200&f=face">
         <div class="bfc">
             <code>joaogante</code>
             <span class="fullname">João Gante</span>
@@ -243,7 +243,8 @@ and some post-processing, producing one token per iteration. Through XLA compila
 optimized, resulting in faster execution. But how much faster? The Gradio demo below contains some benchmarks
 comparing Hugging Face's text generation on multiple GPU models for the two main ML frameworks, TensorFlow and PyTorch.
 
-(((Placeholder for Gradio demo with benchmark results for sample and beam search, on TF and PT)))
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.0.22/gradio.js"></script>
+<gradio-app space="joaogante/tf_xla_generate_benchmarks"> </gradio-app>
 
 If you explore the results, two conclusions become quickly visible:
 
