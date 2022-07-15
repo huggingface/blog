@@ -1,6 +1,6 @@
 ---
 title: 'Faster TensorFlow Text Generation with XLA'
-thumbnail: /blog/assets/87_tf_xla_generate/thumbnail.png
+thumbnail: /blog/assets/88_tf_xla_generate/thumbnail.png
 ---
 
 <h1>
@@ -27,7 +27,7 @@ thumbnail: /blog/assets/87_tf_xla_generate/thumbnail.png
 <em>TL;DR</em>: Text Generation on TensorFlow can now be massively accelerated with XLA, often being faster than
 Pytorch, using a single line of additional code -- check the colab below!
 
-<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/87_tf_xla_generate.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/88_tf_xla_generate.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -139,7 +139,7 @@ TensorFlow may seem an expensive endeavour. 😬
 
 Fear not, for the remainder of this blog post aims to demonstrate that one line of code can make a drastic improvement.
 If you'd rather jump straight into action,
-[our colab](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/87_tf_xla_generate.ipynb)
+[our colab](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/88_tf_xla_generate.ipynb)
 has an interactive example you can fiddle with!
 
 ## TensorFlow and XLA
@@ -297,5 +297,5 @@ about speedups larger than 100x in some cases, which trully demonstrate the powe
 2. TensorFlow text generation with XLA is the fastest option in the vast majority of cases, in some of them by as
 much as 9x faster, debunking the myth that Pytorch is the go-to framework for serious NLP tasks 💪
 
-Give [our colab](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/87_tf_xla_generate.ipynb)
+Give [our colab](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/88_tf_xla_generate.ipynb)
 a go, and enjoy the power of text generation supercharged with XLA!
