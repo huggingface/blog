@@ -958,7 +958,8 @@
   title: "How to train your model dynamically using adversarial data"
   author: chrisjay
   thumbnail: /blog/assets/84_mnist_adversarial.JPG
-  date:  July 8, 2022
+  date:  July 16, 2022
   tags:
   - mnist
-  - adversarial  
+  - adversarial
+  - guide  

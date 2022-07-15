@@ -12,6 +12,3 @@ venv.bak/
 
 # Misc
 **/.DS_Store
-
-# VS Code 
-.vs/

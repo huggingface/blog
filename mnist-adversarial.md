@@ -8,7 +8,7 @@ thumbnail: /blog/assets/84_mnist_adversarial.JPG
 </h1>
 
 <div class="blog-metadata">
-    <small>Published July 8, 2022.</small>
+    <small>Published July 16, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/mnist-adversarial.md">
         Update on GitHub
     </a>
