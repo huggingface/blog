@@ -104,7 +104,7 @@ I have written a custom `flag` function to do all that. For more details feel fr
 
 The final step is to put all the three components (configuring the model, interacting with it and flagging it) together as one demo Space! To that end, I have created the [MNIST Adversarial](https://huggingface.co/spaces/chrisjay/mnist-adversarial) Space for dynamic adversarial data collection for the MNIST handwritten recognition task. Feel free to test it out below.
 
-<iframe src="https://hf.space/embed/chrisjay/mnist-adversarial/+" frameBorder="0" width="800px" height="660px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<iframe src="https://hf.space/embed/chrisjay/mnist-adversarial/+" frameBorder="0" width="100%" height="1400px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
 
 
 ## Conclusion
