@@ -1006,6 +1006,16 @@
   tags:
     - nlp
     - llm
+   
+- local: mnist-adversarial
+  title: "How to train your model dynamically using adversarial data"
+  author: chrisjay
+  thumbnail: /blog/assets/88_mnist_adversarial/mnist-adversarial.png
+  date:  July 16, 2022
+  tags:
+  - mnist
+  - adversarial
+  - guide    
 
 - local: train-and-fine-tune-sentence-transformers-models
   title: "Training and Fine-Tuning Sentence Transformers Models"
