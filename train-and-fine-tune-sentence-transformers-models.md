@@ -30,7 +30,7 @@ Check out this tutorial with the Notebook Companion:
 </a>
 
 
-Training or fine-tuning a Sentence Transformers model is highly dependent on the available data and the target task. The key is twofold: (1) understand how to input data into the model and prepare your dataset accordingly, and (2) know the different loss functions and how they relate to the dataset.
+Training or fine-tuning a Sentence Transformers model highly depends on the available data and the target task. The key is twofold: (1) understand how to input data into the model and prepare your dataset accordingly, and (2) know the different loss functions and how they relate to the dataset.
 
 In this tutorial, you will:
 
@@ -42,7 +42,7 @@ In this tutorial, you will:
 
 ## How Sentence Transformers models work
 
-In a Sentence Transformer model, we are mapping a variable-length text (or image pixels) to a fixed-size embedding representing that input's meaning. To get started with embeddings, check out our [previous tutorial](https://huggingface.co/blog/getting-started-with-embeddings). In this post, we will focus on text.
+In a Sentence Transformer model, we map a variable-length text (or image pixels) to a fixed-size embedding representing that input's meaning. To get started with embeddings, check out our [previous tutorial](https://huggingface.co/blog/getting-started-with-embeddings). In this post, we will focus on text.
 
 This is how the Sentence Transformers models work:
 
@@ -73,7 +73,7 @@ From the code above, we can see that Sentence Transformers models are made up of
 Why not use a Transformer model, like BERT or Roberta, out of the box to create embeddings for entire sentences and texts? There are at least two reasons.
 
 1. Pre-trained Transformers require heavy computation to perform semantic search tasks. For example, finding the most similar pair in a collection of 10,000 sentences [requires about 50 million inference computations (~65 hours) with BERT](https://arxiv.org/abs/1908.10084). In contrast, a BERT Sentence Transformers model reduces the time to about 5 seconds.
-2. Once trained, Transformers create poor sentence representations out of the box.
+2. Once trained, Transformers create poor sentence representations out of the box. A BERT model with its token embeddings averaged to create a sentence embedding [performs worse than the GloVe embeddings](https://arxiv.org/abs/1908.10084) developed in 2014.
 
 If you want to fine-tune an existing Sentence Transformers model, you can skip these steps and import the model from the Hugging Face Hub:
 
@@ -98,7 +98,7 @@ Furthermore, the structure of our data will affect the loss function we can use.
 
 Most dataset configurations will take one of four forms:
 
-- Case 1: The example is a pair of sentences and a label indicating how similar they are. The label can be either an integer (0 or 1) or a float.
+- Case 1: The example is a pair of sentences and a label indicating how similar they are. The label can be either an integer (0 or 1) or a float. This case applies to datasets originally prepared for Natural Language Inference (NLI), since they contain pairs of sentences with a label indicating whether they infer each other or not.
 - Case 2: The example is a pair of positive (similar) sentences **without** a label. For example, pairs of paraphrases, pairs of duplicate questions, pairs of (query, response), or pairs of (source_language, target_language). Natural Language Inference datasets can be formatted this way. Having your data in this format can be great since we can use the `MultipleNegativesRankingLoss`, one of the most used loss functions for Sentence Transformers models. 
 - Case 3: The example is a sentence with an integer label. This data format is easily converted by loss functions into three sentences (triplets) where the first is an "anchor", the second a "positive" of the same class as the anchor, and the third a "negative" of a different class. Each sentence has an integer label indicating the class to which it belongs.
 - Case 4: Similar to the third case, the example is a triplet (anchor, positive, negative); however, **there is no class** (nor label) for the sentences.
@@ -107,11 +107,11 @@ Note that Sentence Transformers models can be trained with human labeling (cases
 
 There are datasets on the Hugging Face Hub for each of the above cases. Additionally, the datasets in the Hub have a Dataset Preview functionality that allows you to view the structure of datasets before downloading them. Here are sample data sets for each of these cases:
 
-- Case 1: The [Yahoo Answers Topics dataset](https://huggingface.co/datasets/yahoo_answers_topics) has integer labels each pair of sentences.
+- Case 1: The same setup as for NLI can be used. Review the structure of the [SNLI dataset](https://huggingface.co/datasets/snli). The [Yahoo Answers Topics dataset](https://huggingface.co/datasets/yahoo_answers_topics) has integer labels each pair of sentences.
 
-- Case 2: The same setup as for NLI can be used. Review the structure of the [SNLI dataset](https://huggingface.co/datasets/snli). The [Sentence Compression dataset](https://huggingface.co/datasets/embedding-data/sentence-compression) is another example.
+- Case 2: The [Sentence Compression dataset](https://huggingface.co/datasets/embedding-data/sentence-compression) has examples made up of positive pairs.
 
-- Case 3: The [TREC dataset](https://huggingface.co/datasets/trec) or [Yahoo Answers Topics dataset](https://huggingface.co/datasets/yahoo_answers_topics).
+- Case 3: The [TREC dataset](https://huggingface.co/datasets/trec) or [Yahoo Answers Topics dataset](https://huggingface.co/datasets/yahoo_answers_topics) have integer labels for each sentence.
 
 - Case 4: The [Quora Triplets dataset](https://huggingface.co/datasets/embedding-data/QQP_triplets).
 
@@ -170,9 +170,9 @@ The next step is to choose a suitable loss function that can be used with the cu
 
 Remember the four different cases your data could be in? Each will have a different loss function associated with it.
 
-Case 1: Pair of sentences and a label indicating how similar they are. The loss function optimizes such that (1) the sentences with the closest labels are near in the vector space, and (2) the sentences with the farthest labels are as far as possible. The loss function depends on the format of the label. If its an integer use [`ContrastiveLoss`](https://www.sbert.net/docs/package_reference/losses.html#contrastiveloss); if its a float you can use [`CosineSimilarityLoss`](https://www.sbert.net/docs/package_reference/losses.html#cosinesimilarityloss). 
+Case 1: Pair of sentences and a label indicating how similar they are. The loss function optimizes such that (1) the sentences with the closest labels are near in the vector space, and (2) the sentences with the farthest labels are as far as possible. The loss function depends on the format of the label. If its an integer use [`ContrastiveLoss`](https://www.sbert.net/docs/package_reference/losses.html#contrastiveloss) or [`SoftmaxLoss`](https://www.sbert.net/docs/package_reference/losses.html#softmaxloss); if its a float you can use [`CosineSimilarityLoss`](https://www.sbert.net/docs/package_reference/losses.html#cosinesimilarityloss). 
 
-Case 2: If we only had two similar sentences (two positives) with no labels, then we can use the [`MultipleNegativesRankingLoss`](https://www.sbert.net/docs/package_reference/losses.html#multiplenegativesrankingloss) function. The [`MegaBatchMarginLoss`](https://www.sbert.net/docs/package_reference/losses.html#megabatchmarginloss) can also be used and it would convert your examples to triplets `(anchor_i, positive_i, positive_j)` where `positive_j` serves as the negative.
+Case 2: If we only had two similar sentences (two positives) with no labels, then we can use the [`MultipleNegativesRankingLoss`](https://www.sbert.net/docs/package_reference/losses.html#multiplenegativesrankingloss) function. The [`MegaBatchMarginLoss`](https://www.sbert.net/docs/package_reference/losses.html#megabatchmarginloss) can also be used, and it would convert your examples to triplets `(anchor_i, positive_i, positive_j)` where `positive_j` serves as the negative.
 
 Case 3: When our example is a triplet of the form `[anchor, positive, negative]` and we have an integer label for each, a loss function optimizes the model so that the anchor and positive sentences are closer together in vector space than the anchor and negative sentences. We can use [`BatchHardTripletLoss`](https://www.sbert.net/docs/package_reference/losses.html#batchhardtripletloss), which requires the data to be labeled with integers (e.g., labels 1, 2, 3) assuming that samples with the same label are similar. Therefore, anchors and positives must have the same label, while negatives must have a different one. Alternatively, you can use [`BatchAllTripletLoss`](https://www.sbert.net/docs/package_reference/losses.html#batchalltripletloss), [`BatchHardSoftMarginTripletLoss`](https://www.sbert.net/docs/package_reference/loss.html#batchhardsoftmargintripletloss), or [`BatchSemiHardTripletLoss`](https://www.sbert.net/docs/package_reference/losses.html#batchsemihardtripletloss). The differences between them is beyond the scope of this tutorial, but can be reviewed in the Sentence Transformers documentation.
 
@@ -190,7 +190,7 @@ Once the dataset is in the desired format and a suitable loss function is in pla
 
 ## How to fine-tune a Sentence Transformer model
 
-> "SentenceTransformers was designed in such a way that fine-tuning your own sentence / text embeddings models is easy. It provides most of the building blocks that you can stick together to tune embeddings for your specific task." - [Sentence Transformers Documentation](https://www.sbert.net/docs/training/overview.html#training-overview).
+> "SentenceTransformers was designed so that fine-tuning your own sentence/text embeddings models is easy. It provides most of the building blocks you can stick together to tune embeddings for your specific task." - [Sentence Transformers Documentation](https://www.sbert.net/docs/training/overview.html#training-overview).
 
 For simplicity, we are not adding an Evaluator that works on a development or test subset of the data. However, if we did, it would look like this: `evaluator = TripletEvaluator.from_input_examples(dev_examples, name='dev')`.
 
@@ -220,4 +220,4 @@ Let us know if there is interest in exploring them!
 - [Generate playlists using Sentence Transformers](https://huggingface.co/blog/playlist-generator).
 - [Hugging Face + Sentence Transformers docs](https://www.sbert.net/docs/hugging_face.html).
 
-Thanks for reading! Happy embedding making :D
+Thanks for reading! Happy embedding making.
