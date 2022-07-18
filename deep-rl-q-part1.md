@@ -391,7 +391,7 @@ If we take the same example,
 
 We can now update  \\(V(S_0)\\):
 
-New  \\(V(S_0) = V(S_0 + lr * [R_1 + gamma * V(S_1) - V(S_0)]\\)
+New  \\(V(S_0) = V(S_0) + lr * [R_1 + gamma * V(S_1) - V(S_0)]\\)
 
 New \\(V(S_0) = 0 + 0.1 * [1 + 1 * 0–0]\\)
 
