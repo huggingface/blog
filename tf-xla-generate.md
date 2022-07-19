@@ -37,13 +37,20 @@ Pytorch, using a single line of additional code -- check the colab below!
 As the quality of large language models increased, so did our expectations of what those models could do. Especially
 since the release of OpenAI's [GPT2 model](https://openai.com/blog/better-language-models/), models with text
 generation capabilities have been in the spotlight. And for legitimate reasons -- these models can be used to
-summarize, to translate, and even demonstrate zero-shot learning capabilities on language tasks.
+summarize, translate, and even demonstrate zero-shot learning capabilities on language tasks.
 
-The Hugging Face `transformers` library started off with NLP models, and text generation is of utmost importance to us.
+The Hugging Face `transformers` library started with NLP models, and text generation is of utmost importance to us.
 It is part of our democratization efforts to ensure text generation is accessible, easily controllable, and efficient.
 We have written a [blog post](https://huggingface.co/blog/how-to-generate) about the different types of text
-generation, and below there's a quick recap of the basic functionality -- feel free to skip it if you're familiar with
-our `generate` function.
+generation. Nevertheless, below there's a quick recap of the basic functionality -- feel free to skip it if you're
+familiar with our `generate` function.
+
+Let's start with the basics. Text generation can be deterministic or stochastic, depending on
+`do_sample`. By default it's set to `False`, causing the output to be deterministic, also known as Greedy Decoding.
+When it's set to `True`, also known as Sample, we can
+obtain reproducible results if we specify the `seed` argument (with the same format as for stateless TensorFlow random
+number generation, i.e., a tuple of two integers). As a rule of thumb, you want deterministic generation if you wish
+to obtain factual data from the model and stochastic generation if you're aiming at more creative outputs.
 
 ```python
 # Requires transformers >= 4.21.0; Sample outputs may differ if run on a CPU.
@@ -54,18 +61,17 @@ model = TFAutoModelForCausalLM.from_pretrained("gpt2")
 model.config.pad_token_id = model.config.eos_token_id
 input_tokens = tokenizer(["TensorFlow is"], return_tensors="tf")
 
-# 1. Sample
-# `do_sample=True` causes the selected token at each iteration to be the outcome
-# of sampling, also known as "sample". `seed`, a tuple of two integers for
-# stateless TF random number generation, can be used to enforce determinism.
 generated = model.generate(**input_tokens, do_sample=True, seed=(42, 0))
 print("Sample output: ", tokenizer.decode(generated[0]))
 # > Sample output: TensorFlow is a great learning platform for learning about
 # data structure and structure in data science..
+```
 
-# 1.1. Controlling generation length
-# `max_new_tokens` controls the maximum number of additional tokens to sample,
-# in addition to the original prompt.
+Depending on the target application, longer outputs might be desirable. You can control the length of the generation
+with `max_new_tokens`, and the execution time is approximately linear with respect to the value passed into this
+argument.
+
+```python
 generated = model.generate(
     **input_tokens, do_sample=True, seed=(42, 0), max_new_tokens=5
 )
@@ -77,12 +83,17 @@ generated = model.generate(
 print("Limiting to 30 new tokens:", tokenizer.decode(generated[0]))
 # > Limiting to 30 new tokens: TensorFlow is a great learning platform for
 # learning about data structure and structure in data science................
+```
 
-# 1.2. Controlling sampling temperature
-# `temperature` controls the randomness of the sampling -- values below 1.0
-# prioritize sampling tokens with a higher likelihood, where values above 1.0 do
-# the opposite. Setting it to 0.0 means it will be doing greedy decoding (see
-# below), where very large values approximate uniform sampling.
+Stochastic generation has a few knobs you can play with to control randomness. `temperature` sets the overall entropy
+of your output -- values below `1.0` will prioritize sampling tokens with a higher likelihood, whereas values above `1.0`
+do the opposite. Setting it to `0.0` means reduces the behavior to Greedy Decoding, and very large values approximate
+uniform sampling. In addition to controlling the entropy, you can also limit the possible output space. For
+instance, `top_p` constrains sampling to the most likely tokens that cumulatively account for at least `top_p` of the
+total probability. In other words, it will ensure that very unlikely tokens are never sampled and will likely improve
+the quality of the generation.
+
+```python
 generated = model.generate(
     **input_tokens, do_sample=True, seed=(42, 0), temperature=0.7
 )
@@ -95,29 +106,28 @@ print("Temperature 1.5: ", tokenizer.decode(generated[0]))
 # > Temperature 1.5: TensorFlow is being developed for both Cython and Bamboo.
 # On Bamboo...
 
-# 1.3. Controlling top-p sampling
-# `top_p` limits the sampling to the most likely tokens that cumulatively account
-# for at least `top_p` of the total probability. In other words, it will ensure
-# that very unlikely tokens are never sampled, and will likely improve the quality
-# of the generation
 generated = model.generate(**input_tokens, do_sample=True, seed=(42, 0), top_p=0.9)
 print("Top p 0.9: ", tokenizer.decode(generated[0]))
 # > Top p 0.9: TensorFlow is a great learning platform for learning about data
 # structure and structure in data science. It
+```
 
-# 2. Beam Search
-# When `do_sample=False` (default), the most likely token is picked at each
-# iteration ("greedy decoding"). More interestingly, when `num_beams` is larger
-# than 1, it triggers "beam search", which continuously explore high-probability
-# sequences
+Greedy Decoding picks the most likely token at each iteration of generation, but it often results in sub-optimal
+outputs. You can increase the quality of the results through the `num_beams` argument. When it is larger than `1`,
+it triggers Beam Search, which continuously explores high-probability sequences.
+
+```python
 generated = model.generate(**input_tokens, num_beams=2)
 print("Beam Search output:", tokenizer.decode(generated[0]))
 # > Beam Search output: TensorFlow is an open-source, open-source,
 # distributed-source application framework for the
+```
 
-# 2.1. `num_return_sequences` controls the number of outputs to return per input.
-# You can use it to see the multiple hypotheses generated by beam search, and it
-# can also be used with sampling.
+Finally, when running Sample or Beam Search, you can use `num_return_sequences` to return several sequences. For
+Sample it is equivalent to running generate multiple times from the same input prompt, while for Beam Search it
+returns the highest scoring generated beams.
+
+```python
 generated = model.generate(**input_tokens, num_beams=2, num_return_sequences=2)
 print(
     "All generated hypotheses:",
@@ -129,8 +139,8 @@ print(
 # framework that allows
 ```
 
-The basics of Sample and Beam Search are straightforward to control. However there are many options not covered in the
-example above, and we encourage you to read the
+The basics of Sample and Beam Search are, as you can see, straightforward to control. However, there are many options
+not covered in the example above, and we encourage you to read the
 [documentation](https://huggingface.co/docs/transformers/main/en/main_classes/text_generation#transformers.generation_tf_utils.TFGenerationMixin.generate)
 for advanced use cases.
 Sadly, when you run `generate` with TensorFlow, you might notice that it takes a while to execute.
@@ -205,9 +215,13 @@ compilation of a `tf.function`, which relies on polymorphism. In other words, ev
 different inputs, with the exception of native TensorFlow types (such as `tf.Tensor` or `tf.Variable`) with the same
 data type and shape, it will go through a slow compilation step also known as tracing. In practice, for text generation,
 it simply means the input should be padded to a multiple of a certain length (so it has a limited number of possible
-shapes), and that using different options will be slow for the first time you use them. Illustrated as an example:
+shapes), and that using different options will be slow for the first time you use them. Let's see what happens when we
+naively call generation with XLA.
 
 ```python
+# Note: execution times will be very different for different GPUs, and will
+# functuate. A 3090 was used for the commented outputs.
+import time
 import tensorflow as tf
 from transformers import AutoTokenizer, TFAutoModelForCausalLM
 
@@ -223,21 +237,34 @@ input_2 = ["TensorFlow is a"]
 # One line to create a XLA generation function
 xla_generate = tf.function(model.generate, jit_compile=True)
 
-# Let's see what happens when no padding is done
+# Calls XLA generation without padding
 tokenized_input_1 = tokenizer(input_1, return_tensors="tf")  # length = 4
 tokenized_input_2 = tokenizer(input_2, return_tensors="tf")  # length = 5
 print(f"`tokenized_input_1` shape = {tokenized_input_1.input_ids.shape}")
 print(f"`tokenized_input_2` shape = {tokenized_input_2.input_ids.shape}")
+
 print("Calling XLA generation with tokenized_input_1...")
 print("(will be slow as it is the first call)")
+start = time.time_ns()
 xla_generate(**tokenized_input_1)
+end = time.time_ns()
+print(f"Execution time -- {(end - start) / 1e6:.1f} ms\n")
+# > Execution time -- 9565.1 ms
+
 print("Calling XLA generation with tokenized_input_2...")
 print("(has a different length = will trigger tracing again)")
+start = time.time_ns()
 xla_generate(**tokenized_input_2)
+end = time.time_ns()
+print(f"Execution time -- {(end - start) / 1e6:.1f} ms\n")
+# > Execution time -- 6815.0 ms
+```
 
-# Oh no, that's terrible! Let's try the same, now with padding
-# `pad_to_multiple_of` should be used to achieve a balance between accepting any
-# input length and limiting tracing.
+Oh no, that's terrible! A solution to keep the different combinations of shapes in check is through padding. Our
+tokenizer classes have a `pad_to_multiple_of` argument that can be used to achieve a balance between accepting any
+input length and limiting tracing.
+
+```python
 padding_kwargs = {"pad_to_multiple_of": 8, "padding": True}
 tokenized_input_1_with_padding = tokenizer(
     input_1, return_tensors="tf", **padding_kwargs
@@ -253,17 +280,35 @@ print(
     "`tokenized_input_2_with_padding` shape = ",
     f"{tokenized_input_2_with_padding.input_ids.shape}"
 )
+
 print("Calling XLA generation with tokenized_input_1_with_padding...")
 print("(slow, first time running with this length)")
+start = time.time_ns()
 xla_generate(**tokenized_input_1_with_padding)
+end = time.time_ns()
+print(f"Execution time -- {(end - start) / 1e6:.1f} ms\n")
+# > Execution time -- 6815.4 ms
+
 print("Calling XLA generation with tokenized_input_2_with_padding...")
 print("(will be fast!)")
+start = time.time_ns()
 xla_generate(**tokenized_input_2_with_padding)
+end = time.time_ns()
+print(f"Execution time -- {(end - start) / 1e6:.1f} ms\n")
+# > Execution time -- 19.3 ms
+```
 
-# Be careful -- if you suddendly change the input options, it will trigger tracing
+That's much better, successive generation calls performed this way will be orders of magnitude faster than before.
+Keep in mind that trying other generation options, at any point, will trigger tracing.
+
+```python
 print("Calling XLA generation with the same input, but with new options...")
 print("(slow again)")
+start = time.time_ns()
 xla_generate(**tokenized_input_1_with_padding, num_beams=2)
+end = time.time_ns()
+print(f"Execution time -- {(end - start) / 1e6:.1f} ms\n")
+# > Execution time -- 9644.2 ms
 ```
 
 From a developer perspective, relying on XLA implies being aware of a few additional nuances. XLA shines when the size
