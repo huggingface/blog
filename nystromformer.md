@@ -154,4 +154,4 @@ unmasker("Paris is the [MASK] of France.")
 
 ## Conclusion
 
-Nyströmformer offers an efficient approximation to the standard self-attention mechanism, while outperforming other linear self-attention schemes. In this blog post, we went over a high-level overview of the Nyström method and how it can leveraged for self-attention. Readers interested in deploying or fine-tuning Nyströmformer for downstream tasks can find the HuggingFace documentation [here](https://huggingface.co/docs/transformers/v4.18.0/en/model_doc/nystromformer). 
+Nyströmformer offers an efficient approximation to the standard self-attention mechanism, while outperforming other linear self-attention schemes. In this blog post, we went over a high-level overview of the Nyström method and how it can be leveraged for self-attention. Readers interested in deploying or fine-tuning Nyströmformer for downstream tasks can find the HuggingFace documentation [here](https://huggingface.co/docs/transformers/model_doc/nystromformer). 
