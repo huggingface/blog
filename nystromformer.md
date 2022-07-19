@@ -145,7 +145,7 @@ mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_t
 predicted_token_id = logits[0, mask_token_index].argmax(axis=-1)
 tokenizer.decode(predicted_token_id)
 ```
-Alternatively, we can use pipeline:
+Alternatively, we can use the [pipeline API](https://huggingface.co/docs/transformers/main_classes/pipelines) (which handles all the complexity for us):
 ```python
 from transformers import pipeline
 unmasker = pipeline('fill-mask', model='uw-madison/nystromformer-512')
