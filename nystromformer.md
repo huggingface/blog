@@ -84,7 +84,7 @@ The three orange matrices above correspond to the three matrices we constructed 
 
 ## How is Nyströmformer implemented?
 
-The original implementation of Nyströmformer can be found [here](https://github.com/mlpen/Nystromformer) and the HuggingFace implementation can be found [here](https://github.com/huggingface/transformers/tree/main/src/transformers/models/nystromformer). Let's take a look at a few lines of code (with some comments added) from the HuggingFace implementation. Note that some details such as normalization, attention masking, and depthwise convolution are avoided for simplicity.
+The original implementation of Nyströmformer can be found [here](https://github.com/mlpen/Nystromformer) and the HuggingFace implementation can be found [here](https://github.com/huggingface/transformers/blob/main/src/transformers/models/nystromformer/modeling_nystromformer.py). Let's take a look at a few lines of code (with some comments added) from the HuggingFace implementation. Note that some details such as normalization, attention masking, and depthwise convolution are avoided for simplicity.
 
 ```python
 key_layer = self.transpose_for_scores(self.key(hidden_states)) # K
