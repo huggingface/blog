@@ -91,10 +91,6 @@ key_layer = self.transpose_for_scores(self.key(hidden_states)) # K
 value_layer = self.transpose_for_scores(self.value(hidden_states)) # V
 query_layer = self.transpose_for_scores(mixed_query_layer) # Q
 
-.
-.
-.
-
 q_landmarks = query_layer.reshape(
     -1,
     self.num_attention_heads,
@@ -145,12 +141,48 @@ mask_token_index = (inputs.input_ids == tokenizer.mask_token_id)[0].nonzero(as_t
 predicted_token_id = logits[0, mask_token_index].argmax(axis=-1)
 tokenizer.decode(predicted_token_id)
 ```
+
+<div class="output stream stdout">
+
+    Output:
+    ----------------------------------------------------------------------------------------------------
+    capital
+
+</div>
+
 Alternatively, we can use the [pipeline API](https://huggingface.co/docs/transformers/main_classes/pipelines) (which handles all the complexity for us):
 ```python
 from transformers import pipeline
 unmasker = pipeline('fill-mask', model='uw-madison/nystromformer-512')
 unmasker("Paris is the [MASK] of France.")
 ```
+
+<div class="output stream stdout">
+
+    Output:
+    ----------------------------------------------------------------------------------------------------
+    [{'score': 0.829957902431488,
+      'token': 1030,
+      'token_str': 'capital',
+      'sequence': 'paris is the capital of france.'},
+    {'score': 0.022157637402415276,
+      'token': 16081,
+      'token_str': 'birthplace',
+      'sequence': 'paris is the birthplace of france.'},
+    {'score': 0.01904447190463543,
+      'token': 197,
+      'token_str': 'name',
+      'sequence': 'paris is the name of france.'},
+    {'score': 0.017583081498742104,
+      'token': 1107,
+      'token_str': 'kingdom',
+      'sequence': 'paris is the kingdom of france.'},
+    {'score': 0.005948934704065323,
+      'token': 148,
+      'token_str': 'city',
+      'sequence': 'paris is the city of france.'}]
+
+</div>
 
 ## Conclusion
 
