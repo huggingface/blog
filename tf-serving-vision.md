@@ -78,22 +78,22 @@ inside the path we provide to it. So, the path ultimately becomes:
 We can inspect the serving signature of the SavedModel like so:
 
 ```bash
-saved_model_cli show \--dir {temp_model_dir}/saved_model/1 \--tag_set serve \--signature_def serving_default
+saved_model_cli show --dir {temp_model_dir}/saved_model/1 --tag_set serve --signature_def serving_default
 ```
 
 This should output:
 
 ```bash
-The given SavedModel SignatureDef contains the following input(s):\
-inputs\[\'pixel_values\'\] tensor_info:\
-dtype: DT_FLOAT\
-shape: (-1, -1, -1, -1)\
-name: serving_default_pixel_values:0\
-The given SavedModel SignatureDef contains the following output(s):\
-outputs\[\'logits\'\] tensor_info:\
-dtype: DT_FLOAT\
-shape: (-1, 1000)\
-name: StatefulPartitionedCall:0\
+The given SavedModel SignatureDef contains the following input(s):
+  inputs['pixel_values'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, -1, -1, -1)
+      name: serving_default_pixel_values:0
+The given SavedModel SignatureDef contains the following output(s):
+  outputs['logits'] tensor_info:
+      dtype: DT_FLOAT
+      shape: (-1, 1000)
+      name: StatefulPartitionedCall:0
 Method name is: tensorflow/serving/predict
 ```
 
@@ -110,11 +110,11 @@ Usually, every ML model has certain preprocessing and postprocessing
 steps. Our ViT model is no exception to this. The major preprocessing
 steps include:
 
--   Scaling the image pixel values to [0, 1] range.
+- Scaling the image pixel values to [0, 1] range.
 
--   Normalizing the scaled pixel values to [-1, 1\.
+- Normalizing the scaled pixel values to [-1, 1].
 
--   Resizing the image so that it has a spatial resolution of (224, 224).
+- Resizing the image so that it has a spatial resolution of (224, 224).
 
 We can confirm these by investigating the feature extractor associated
 with the model:
@@ -255,12 +255,12 @@ We first derive the [concrete function](https://www.tensorflow.org/guide/functio
 from the model's forward pass method (`call()`) so the model is nicely compiled
 into a graph. After that we apply the following steps in order:
 
--   Pass the inputs through the preprocessing operations.
+- Pass the inputs through the preprocessing operations.
 
--   Pass the preprocessing inputs through the derived concrete function.
+- Pass the preprocessing inputs through the derived concrete function.
 
--   Post-process the outputs and return them in a nicely formatted
-    dictionary.
+- Post-process the outputs and return them in a nicely formatted
+  dictionary.
 
 Now we can export our model:
 
@@ -320,15 +320,15 @@ nohup tensorflow_model_server \
 
 From the above command, the important parameters are:
 
--   `rest_api_port` denotes the port number that TF Serving will use
-    deploying the REST endpoint of your model. By default, TF Serving
-    uses the 8500 port for the gRPC endpoint.
+- `rest_api_port` denotes the port number that TF Serving will use
+  deploying the REST endpoint of your model. By default, TF Serving
+  uses the 8500 port for the gRPC endpoint.
 
--   `model_name` specifies the model name (can be anything) that will
-    used for calling the APIs.
+- `model_name` specifies the model name (can be anything) that will
+  used for calling the APIs.
 
--   `model_base_path` denotes the base model path that TF Serving will
-    use to load the latest version of the model.
+- `model_base_path` denotes the base model path that TF Serving will
+  use to load the latest version of the model.
 
 (The complete list of supported parameters is
 [here](https://github.com/tensorflow/serving/blob/master/tensorflow_serving/model_servers/main.cc).)
@@ -483,8 +483,8 @@ these deployments with Kubernetes and Vertex AI.
 
 # Additional References
 
--   [gRPC](https://grpc.io/)
+- [gRPC](https://grpc.io/)
 
--   [Practical Machine Learning for Computer Vision](https://www.oreilly.com/library/view/practical-machine-learning/9781098102357/)
+- [Practical Machine Learning for Computer Vision](https://www.oreilly.com/library/view/practical-machine-learning/9781098102357/)
 
--   [Faster TensorFlow models in Hugging Face Transformers](https://huggingface.co/blog/tf-serving)
+- [Faster TensorFlow models in Hugging Face Transformers](https://huggingface.co/blog/tf-serving)
