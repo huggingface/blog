@@ -14,7 +14,7 @@ title: Deploying TensorFlow Vision Models in Hugging Face with TF Serving
 </div>
 
 <div class="author-card">
-    <a href="/segments-tobias">
+    <a href="https://hf.co/sayakpaul">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/22957388?v=4" title="Gravatar">
         <div class="bfc">
             <code>sayakpaul</code>
@@ -43,8 +43,7 @@ as an endpoint or package it in an application itself. TensorFlow
 provides tools that cater to each of these different scenarios.
 
 In this post, we'll see how to deploy a Vision Transformer (ViT) model
-locally using [[TensorFlow
-Serving]{.ul}](https://www.tensorflow.org/tfx/tutorials/serving/rest_simple)
+locally using [TensorFlow Serving](https://www.tensorflow.org/tfx/tutorials/serving/rest_simple)
 (TF Serving). This will allow developers to expose the model either as a
 REST or gRPC endpoint. Moreover, TF Serving supports many
 deployment-specific features off-the-shelf such as model warmup,
