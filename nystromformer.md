@@ -5,6 +5,8 @@ thumbnail: /blog/assets/86_nystromformer/paper_figure.png
 
 <h1>Nyströmformer: Approximating self-attention in linear time and memory via the Nyström method</h1>
 
+<script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
+
 ### Introduction
 
 Transformers have exhibited remarkable performance on various Natural Language Processing and Computer Vision tasks. Their success can be attributed to the self-attention mechanism, which captures the pairwise interactions between all the tokens in an input. However, the standard self-attention mechanism has a time and memory complexity of \\(O(n^2)\\) (where \\(n\\) is the length of the input sequence), making it expensive to train on long input sequences. 
