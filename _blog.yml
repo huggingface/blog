@@ -978,3 +978,12 @@
     - sentiment-analysis
     - nlp
     - guide
+
+- local: nystromformer
+  title: "Nyströmformer: Approximating self-attention in linear time and memory via the Nyström method"
+  author: novice03
+  thumbnail: /blog/assets/86_nystromformer/paper_figure.png
+  date: July 11, 2022
+  tags:
+    - research
+    - nlp
