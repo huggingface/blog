@@ -35,22 +35,24 @@ Pytorch, using a single line of additional code -- check the colab below!
 ## Text Generation
 
 As the quality of large language models increased, so did our expectations of what those models could do. Especially
-since the release of OpenAI's [GPT2 model](https://openai.com/blog/better-language-models/), models with text
+since the release of OpenAI's [GPT-2](https://openai.com/blog/better-language-models/), models with text
 generation capabilities have been in the spotlight. And for legitimate reasons -- these models can be used to
-summarize, translate, and even demonstrate zero-shot learning capabilities on language tasks.
+summarize, translate, and they even have demonstrated zero-shot learning capabilities on some language tasks.
 
-The Hugging Face `transformers` library started with NLP models, and text generation is of utmost importance to us.
-It is part of our democratization efforts to ensure text generation is accessible, easily controllable, and efficient.
+The Hugging Face `transformers` library started with NLP models, so it is natural that text generation is of utmost
+importance to us.
+It is part of our democratization efforts to ensure it is accessible, easily controllable, and efficient.
 We have written a [blog post](https://huggingface.co/blog/how-to-generate) about the different types of text
-generation. Nevertheless, below there's a quick recap of the basic functionality -- feel free to skip it if you're
-familiar with our `generate` function.
+generation. Nevertheless, below there's a quick recap of the core functionality -- feel free to skip it if you're
+familiar with our `generate` function and want to jump straight into TensorFlow's specificities.
 
-Let's start with the basics. Text generation can be deterministic or stochastic, depending on
-`do_sample`. By default it's set to `False`, causing the output to be deterministic, also known as Greedy Decoding.
-When it's set to `True`, also known as Sample, we can
-obtain reproducible results if we specify the `seed` argument (with the same format as for stateless TensorFlow random
+Let's start with the basics. Text generation can be deterministic or stochastic, depending on the
+`do_sample` flag. By default it's set to `False`, causing the output to be deterministic, which is also known as
+Greedy Decoding.
+When it's set to `True`, also known as Sample, we can still
+obtain reproducible results if we specify the `seed` argument (with the same format as in stateless TensorFlow random
 number generation, i.e., a tuple of two integers). As a rule of thumb, you want deterministic generation if you wish
-to obtain factual data from the model and stochastic generation if you're aiming at more creative outputs.
+to obtain factual information from the model and stochastic generation if you're aiming at more creative outputs.
 
 ```python
 # Requires transformers >= 4.21.0; Sample outputs may differ if run on a CPU.
@@ -68,8 +70,7 @@ print("Sample output: ", tokenizer.decode(generated[0]))
 ```
 
 Depending on the target application, longer outputs might be desirable. You can control the length of the generation
-with `max_new_tokens`, and the execution time is approximately linear with respect to the value passed into this
-argument.
+output with `max_new_tokens`, keeping in mind that the execution time will scale linearly with this argument.
 
 ```python
 generated = model.generate(
@@ -87,11 +88,11 @@ print("Limiting to 30 new tokens:", tokenizer.decode(generated[0]))
 
 Stochastic generation has a few knobs you can play with to control randomness. `temperature` sets the overall entropy
 of your output -- values below `1.0` will prioritize sampling tokens with a higher likelihood, whereas values above `1.0`
-do the opposite. Setting it to `0.0` means reduces the behavior to Greedy Decoding, and very large values approximate
-uniform sampling. In addition to controlling the entropy, you can also limit the possible output space. For
-instance, `top_p` constrains sampling to the most likely tokens that cumulatively account for at least `top_p` of the
-total probability. In other words, it will ensure that very unlikely tokens are never sampled and will likely improve
-the quality of the generation.
+do the opposite. Setting it to `0.0` reduces the behavior to Greedy Decoding, whereas very large values approximate
+uniform sampling. In addition to controlling the entropy, you can also limit the possible output space for each
+subsequent token. For instance, `top_p` constrains sampling to the most likely tokens that cumulatively account for
+at least `top_p` of the total probability. In other words, it will ensure that very unlikely tokens are never sampled,
+which will likely improve the quality of the generation.
 
 ```python
 generated = model.generate(
@@ -112,9 +113,10 @@ print("Top p 0.9: ", tokenizer.decode(generated[0]))
 # structure and structure in data science. It
 ```
 
-Greedy Decoding picks the most likely token at each iteration of generation, but it often results in sub-optimal
-outputs. You can increase the quality of the results through the `num_beams` argument. When it is larger than `1`,
-it triggers Beam Search, which continuously explores high-probability sequences.
+Contrarily to Sample, Greedy Decoding will always pick the most likely token at each iteration of generation.
+However, it often results in sub-optimal outputs. You can increase the quality of the results through the `num_beams`
+argument. When it is larger than `1`, it triggers Beam Search, which continuously explores high-probability sequences.
+This exploration comes at the cost of additional resources and computational time.
 
 ```python
 generated = model.generate(**input_tokens, num_beams=2)
@@ -139,13 +141,13 @@ print(
 # framework that allows
 ```
 
-The basics of Sample and Beam Search are, as you can see, straightforward to control. However, there are many options
-not covered in the example above, and we encourage you to read the
+The basics of text generation, as you can see, straightforward to control. However, there are many options
+not covered in the examples above, and we encourage you to read the
 [documentation](https://huggingface.co/docs/transformers/main/en/main_classes/text_generation#transformers.generation_tf_utils.TFGenerationMixin.generate)
 for advanced use cases.
 Sadly, when you run `generate` with TensorFlow, you might notice that it takes a while to execute.
 If your target application expects low latency or a large amount of input prompts, running text generation with
-TensorFlow may seem an expensive endeavour. 😬
+TensorFlow looks like an expensive endeavour. 😬
 
 Fear not, for the remainder of this blog post aims to demonstrate that one line of code can make a drastic improvement.
 If you'd rather jump straight into action,
@@ -180,7 +182,7 @@ creating a single optimized graph.
 Now that we know how to create TensorFlow graphs, compiling them with XLA is straightforward -- simply add `jit_compile=True`
 as an argument to the functions mentioned above (`tf.function` and `tf.keras.Model.compile`). Assuming everything went well
 (more on that below) and that you are using a GPU or a TPU, you will notice that the first call will take a while, but
-that the remaining ones are much, much faster. Here's a simple example:
+that the remaining ones are much, much faster. Here's a simple example of a function that performs model inference and some post-processing of its outputs:
 
 ```python
 import tensorflow as tf
@@ -195,11 +197,15 @@ def most_likely_next_token(input_ids):
     model_output = model(input_ids)
     return tf.argmax(model_output.logits[:, -1, :], axis=-1)
 
-# Now let's create an XLA function from the function above
-xla_most_likely_next_token = tf.function(most_likely_next_token, jit_compile=True)
-
 print("Calling regular function with TensorFlow code...")
 most_likely_next_token(input_tokens)
+```
+
+In one line, we can create an XLA-accelerated function from the function above.
+
+```python
+xla_most_likely_next_token = tf.function(most_likely_next_token, jit_compile=True)
+
 print("Calling XLA function... (for the first time -- will be slow)")
 xla_most_likely_next_token(input_tokens)
 print("Calling XLA function... (for the second time -- will be fast)")
@@ -209,7 +215,7 @@ xla_most_likely_next_token(input_tokens)
 ## Text Generation using TensorFlow with XLA
 
 As with any optimization procedure, there is no free lunch -- XLA is no exception. From the perspective of a text
-generation user, there is only one technical detail that you need to keep in mind. Without digging too much into
+generation user, there is only one technical aspect that you need to keep in mind. Without digging too much into
 [details](https://www.tensorflow.org/guide/function#rules_of_tracing), XLA used in this fashion does just-in-time (JIT)
 compilation of a `tf.function`, which relies on polymorphism. In other words, every time you call a `tf.function` with
 different inputs, with the exception of native TensorFlow types (such as `tf.Tensor` or `tf.Variable`) with the same
@@ -260,9 +266,9 @@ print(f"Execution time -- {(end - start) / 1e6:.1f} ms\n")
 # > Execution time -- 6815.0 ms
 ```
 
-Oh no, that's terrible! A solution to keep the different combinations of shapes in check is through padding. Our
-tokenizer classes have a `pad_to_multiple_of` argument that can be used to achieve a balance between accepting any
-input length and limiting tracing.
+Oh no, that's terribly slow! A solution to keep the different combinations of shapes in check is through padding,
+as mentioned above. Our tokenizer classes have a `pad_to_multiple_of` argument that can be used to achieve a balance
+between accepting any input length and limiting tracing.
 
 ```python
 padding_kwargs = {"pad_to_multiple_of": 8, "padding": True}
@@ -299,7 +305,7 @@ print(f"Execution time -- {(end - start) / 1e6:.1f} ms\n")
 ```
 
 That's much better, successive generation calls performed this way will be orders of magnitude faster than before.
-Keep in mind that trying other generation options, at any point, will trigger tracing.
+Keep in mind that trying new generation options, at any point, will trigger tracing.
 
 ```python
 print("Calling XLA generation with the same input, but with new options...")
@@ -337,8 +343,8 @@ comparing Hugging Face's text generation on multiple GPU models for the two main
 
 If you explore the results, two conclusions become quickly visible:
 
-1. As this blog post has been building up to here, TensorFlow text generation is much faster with XLA. We are talking
-about speedups larger than 100x in some cases, which trully demonstrate the power of a compiled graph 🚀
+1. As this blog post has been building up to here, TensorFlow text generation is much faster when XLA is used. We are
+talking about speedups larger than 100x in some cases, which trully demonstrate the power of a compiled graph 🚀
 2. TensorFlow text generation with XLA is the fastest option in the vast majority of cases, in some of them by as
 much as 9x faster, debunking the myth that Pytorch is the go-to framework for serious NLP tasks 💪
 
