@@ -422,7 +422,7 @@ print("Serving function input:", serving_input)
 # Serving function input: string_input
 ```
 
-Now, we can get some predictions:
+Now, you can get some predictions:
 
 ```py
 grpc_predictions = stub.Predict(request, 10.0)  # 10 secs timeout
