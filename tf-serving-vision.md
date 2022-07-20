@@ -35,7 +35,7 @@ pre-trained models like [Vision Transformer](https://huggingface.co/docs/transfo
 [Masked Autoencoders](https://huggingface.co/docs/transformers/model_doc/vit_mae),
 [RegNet](https://huggingface.co/docs/transformers/main/en/model_doc/regnet),
 [ConvNeXt](https://huggingface.co/docs/transformers/model_doc/convnext),
-and so on.
+and many others!
 
 When it comes to deploying TensorFlow models, you have got a variety of
 options. Depending on your use case, you may want to expose your model
