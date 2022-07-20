@@ -463,7 +463,7 @@ model_spec {
 }
 ```
 
-We can also fetch the key-values of our interest from the above results like so:
+You can also fetch the key-values of our interest from the above results like so:
 
 ```py
 grpc_predictions.outputs["label"].string_val, grpc_predictions.outputs[
