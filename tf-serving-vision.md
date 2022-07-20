@@ -402,7 +402,7 @@ channel = grpc.insecure_channel("localhost:8500")
 stub = prediction_service_pb2_grpc.PredictionServiceStub(channel)
 ```
 
-Then, we create the request payload:
+Then, create the request payload:
 
 ```py
 request = predict_pb2.PredictRequest()
