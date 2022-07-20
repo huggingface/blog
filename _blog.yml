@@ -988,3 +988,12 @@
     - open-source-collab
     - community
     - research
+
+- local: tf-serving-vision
+  title: "Deploying TensorFlow Vision Models in Hugging Face with TF Serving"
+  author: sayakpaul
+  thumbnail: /blog/assets/86_bloom/thumbnail.png
+  date: July 25, 2022
+  tags:
+    - guide
+    - cv

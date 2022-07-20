@@ -7,7 +7,7 @@ title: Deploying TensorFlow Vision Models in Hugging Face with TF Serving
 </h1>
 
 <div class="blog-metadata">
-    <small>Published July 19, 2022.</small>
+    <small>Published July 25, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/tf-serving-vision.md">
         Update on GitHub
     </a>
@@ -24,7 +24,7 @@ title: Deploying TensorFlow Vision Models in Hugging Face with TF Serving
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/github/sayakpaul/deploy-hf-tf-vision-models/blob/main/hf_vision_model_tfserving.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/111_tf_serving_vision.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -37,12 +37,12 @@ pre-trained models like [Vision Transformer](https://huggingface.co/docs/transfo
 [ConvNeXt](https://huggingface.co/docs/transformers/model_doc/convnext),
 and so on.
 
-When it comes to deploying TensorFlow models, we've got a variety of
+When it comes to deploying TensorFlow models, you have got a variety of
 options. Depending on your use case, you may want to expose your model
 as an endpoint or package it in an application itself. TensorFlow
 provides tools that cater to each of these different scenarios.
 
-In this post, we'll see how to deploy a Vision Transformer (ViT) model
+In this post, you'll see how to deploy a Vision Transformer (ViT) model (for image classification)
 locally using [TensorFlow Serving](https://www.tensorflow.org/tfx/tutorials/serving/rest_simple)
 (TF Serving). This will allow developers to expose the model either as a
 REST or gRPC endpoint. Moreover, TF Serving supports many
@@ -55,7 +55,7 @@ the Colab Notebook shown at the beginning.
 # Saving the Model
 
 All TensorFlow models in 🤗 Transformers have a method named
-`save_pretrained()`. With it, we can serialize the model weights in
+`save_pretrained()`. With it, you can serialize the model weights in
 the h5 format as well as in the standalone [SavedModel format](https://www.tensorflow.org/guide/saved_model).
 TF Serving needs a model to be present in the SavedModel format. So, let's first
 load a Vision Transformer model and save it:
@@ -99,14 +99,14 @@ Method name is: tensorflow/serving/predict
 As can be noticed the model accepts single 4-d inputs (namely
 `pixel_values`) which has the following axes: `(batch_size,
 num_channels, height, width)`. For this model, the acceptable height
-and width are set to 224, and the number of channels is 3. We can verify
+and width are set to 224, and the number of channels is 3. You can verify
 this by inspecting the config argument of the model (`model.config`).
 The model yields a 1000-d vector of `logits`.
 
 # Model Surgery
 
 Usually, every ML model has certain preprocessing and postprocessing
-steps. Our ViT model is no exception to this. The major preprocessing
+steps. The ViT model is no exception to this. The major preprocessing
 steps include:
 
 - Scaling the image pixel values to [0, 1] range.
@@ -115,7 +115,7 @@ steps include:
 
 - Resizing the image so that it has a spatial resolution of (224, 224).
 
-We can confirm these by investigating the feature extractor associated
+You can confirm these by investigating the feature extractor associated
 with the model:
 
 ```py
@@ -154,8 +154,8 @@ post-processing step.
 
 To reduce the developers' cognitive load and training-serving skew,
 it's often a good idea to ship a model that has most of the
-preprocessing and postprocessing steps in built. Therefore, we'll
-serialize our model as a SavedModel such that the above-mentioned
+preprocessing and postprocessing steps in built. Therefore, you should
+serialize the model as a SavedModel such that the above-mentioned
 processing ops get embedded into its computation graph.
 
 ## Preprocessing
@@ -174,7 +174,7 @@ def normalize_img(
     return (img - mean) / std
 ```
 
-We also need to resize the image, transpose it so that it has leading
+You also need to resize the image and transpose it so that it has leading
 channel dimensions since following the standard format of 🤗
 Transformers. The below code snippet shows all the preprocessing steps:
 
@@ -216,15 +216,15 @@ def preprocess_fn(string_input):
 
 When dealing with images via REST or gRPC requests the size of the
 request payload can easily spiral up depending on the resolution of the
-images being passed. This is why, it is a good practice to compress them
+images being passed. This is why it is a good practice to compress them
 reliably and then prepare the request payload.
 
 ## Postprocessing and Model Export
 
-We're now equipped with the preprocessing operations that we can inject
-into the model's existing computation graph. In this section, we'll also
-inject the post-processing operations into it and finally, export the
-model.
+You're now equipped with the preprocessing operations that you can inject
+into the model's existing computation graph. In this section, you'll also
+inject the post-processing operations into the graph and export the
+model!
 
 ```py
 def model_exporter(model: tf.keras.Model):
@@ -250,18 +250,18 @@ def model_exporter(model: tf.keras.Model):
     return serving_fn
 ```
 
-We first derive the [concrete function](https://www.tensorflow.org/guide/function)
+You can first derive the [concrete function](https://www.tensorflow.org/guide/function)
 from the model's forward pass method (`call()`) so the model is nicely compiled
-into a graph. After that we apply the following steps in order:
+into a graph. After that, you can apply the following steps in order:
 
-- Pass the inputs through the preprocessing operations.
+1. Pass the inputs through the preprocessing operations.
 
-- Pass the preprocessing inputs through the derived concrete function.
+2. Pass the preprocessing inputs through the derived concrete function.
 
-- Post-process the outputs and return them in a nicely formatted
-  dictionary.
+3. Post-process the outputs and return them in a nicely formatted
+   dictionary.
 
-Now we can export our model:
+Now it's time to export the model!
 
 ```py
 MODEL_DIR = tempfile.gettempdir()
@@ -275,7 +275,7 @@ tf.saved_model.save(
 os.environ["MODEL_DIR"] = MODEL_DIR
 ```
 
-After exporting, we can again inspect the model signatures:
+After exporting, let's inspect the model signatures again:
 
 ```bash
 saved_model_cli show --dir {MODEL_DIR}/1 --tag_set serve --signature_def serving_default
@@ -299,12 +299,12 @@ The given SavedModel SignatureDef contains the following output(s):
 Method name is: tensorflow/serving/predict
 ```
 
-We can notice that the model's signature has now changed. Specifically,
+You can notice that the model's signature has now changed. Specifically,
 the input type is now a string and the model returns two things: a
 confidence score and the string label.
 
 Provided you've already installed TF Serving (covered in the Colab
-Notebook), we're now ready to deploy this model!
+Notebook), you're now ready to deploy this model!
 
 # Deployment with TensorFlow Serving
 
@@ -337,9 +337,9 @@ model having two endpoints - REST and gRPC.
 
 # Querying the REST Endpoint
 
-Recall that we exported our model such that it accepts string inputs
-encoded with the [base64 format](https://en.wikipedia.org/wiki/Base64). So, to craft our
-request payload we'll do something like this:
+Recall that you exported the model such that it accepts string inputs
+encoded with the [base64 format](https://en.wikipedia.org/wiki/Base64). So, to craft the
+request payload you can do something like this:
 
 ```py
 # Get image of a cute cat.
@@ -358,13 +358,13 @@ data = json.dumps({"signature_name": "serving_default", "instances": [b64str]})
 
 TF Serving's request payload format specification for the REST endpoint
 is available [here](https://www.tensorflow.org/tfx/serving/api_rest#request_format_2).
-Within the `instances` we can pass multiple encoded images. This kind
+Within the `instances` you can pass multiple encoded images. This kind
 of endpoints are meant to be consumed for online prediction scenarios.
 For inputs having more than a single data point, you would to want to
 [enable batching](https://github.com/tensorflow/serving/blob/master/tensorflow_serving/batching/README.md)
 to get performance optimization benefits.
 
-Now we can call the API:
+Now you can call the API:
 
 ```py
 headers = {"content-type": "application/json"}
@@ -376,20 +376,20 @@ print(json.loads(json_response.text))
 
 ```
 
-Our REST API is -
+The REST API is -
 `http://localhost:8501/v1/models/vit:predict` following the specification from
 [here](https://www.tensorflow.org/tfx/serving/api_rest#predict_api). By default,
-this always picks up the latest version of the model. But if we wanted a
-specific version we can do: `http://localhost:8501/v1/models/vit/versions/1:predict`.
+this always picks up the latest version of the model. But if you wanted a
+specific version you can do: `http://localhost:8501/v1/models/vit/versions/1:predict`.
 
 # Querying the gRPC Endpoint
 
-While REST is quite popular in the API world many applications often
+While REST is quite popular in the API world, many applications often
 benefit from gRPC. [This post](https://blog.dreamfactory.com/grpc-vs-rest-how-does-grpc-compare-with-traditional-rest-apis/)
 does a good job comparing the two ways of deployment. gRPC is usually
 preferred for low-latency, highly scalable, and distributed systems.
 
-There are a couple of steps are. First, we need to open a communication
+There are a couple of steps are. First, you need to open a communication
 channel:
 
 ```py
@@ -411,7 +411,7 @@ request.model_spec.signature_name = "serving_default"
 request.inputs[serving_input].CopyFrom(tf.make_tensor_proto([b64str]))
 ```
 
-We can determine the `serving_input` key programmatically like so:
+You can determine the `serving_input` key programmatically like so:
 
 ```py
 loaded = tf.saved_model.load(f"{MODEL_DIR}/{VERSION}")
