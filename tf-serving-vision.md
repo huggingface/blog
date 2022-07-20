@@ -477,7 +477,7 @@ grpc_predictions.outputs["label"].string_val, grpc_predictions.outputs[
 In this post, we learned how to deploy a TensorFlow vision model from
 Transformers with TF Serving. While local deployments are great for
 weekend projects, we would want to be able to scale these deployments to
-serve many users. In the next series of posts, we'll see how to scale up
+serve many users. In the next series of posts, you'll see how to scale up
 these deployments with Kubernetes and Vertex AI.
 
 # Additional References
