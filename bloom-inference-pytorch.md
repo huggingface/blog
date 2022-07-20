@@ -69,12 +69,17 @@ cd Megatron-DeepSpeed
 ### Run
 
 ```
-python scripts/inference/bloom-accelerate-inference.py --name bigscience/bloom --batch_size 8 --benchmark
+python scripts/inference/bloom-accelerate-inference.py --name bigscience/bloom --batch_size 40 --benchmark
+[...]
+
+*** Performance stats:
+Throughput per token including tokenize: 10.74 msecs
+Start to ready to generate: 107.892 secs
+Tokenize and generate 20000 (bs=40) tokens: 52.059 secs
+Start to finish: 159.952 secs
 ```
 
-
-
-
+The highest batch size I was able to run without OOM was 40 in this case.
 
 
 
@@ -95,9 +100,17 @@ cd Megatron-DeepSpeed
 ### Run
 
 ```
-deepspeed --num_gpus 8 scripts/inference/bloom-ds-inference.py --name bigscience/bloom --batch_size 8 --benchmark
+deepspeed --num_gpus 8 scripts/inference/bloom-ds-inference.py --name bigscience/bloom --batch_size 128 --benchmark
+[...]
+*** Performance stats:
+Throughput per token including tokenize: 0.73 msecs
+Start to ready to generate: 591.902 secs
+Tokenize and generate 64000 (bs=128) tokens: 9.421 secs
+Start to finish: 601.323 secs
+
 ```
 
+The highest batch size I was able to run without OOM was 128 in this case.
 
 
 
@@ -121,9 +134,15 @@ cd Megatron-DeepSpeed
 
 ```
 deepspeed --num_gpus 8 scripts/inference/bloom-ds-inference.py --name bigscience/bloom --batch_size 8 --benchmark
+[...]
+*** Performance stats:
+Throughput per token including tokenize: 37.86 msecs
+Start to ready to generate: 464.724 secs
+Tokenize and generate 32000 (bs=8) tokens: 242.090 secs
+Start to finish: 706.813 secs
 ```
 
-
+The highest batch size I was able to run without OOM was 8 in this case.
 
 
 
