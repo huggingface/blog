@@ -38,6 +38,7 @@ As the quality of large language models increased, so did our expectations of wh
 since the release of OpenAI's [GPT-2](https://openai.com/blog/better-language-models/), models with text
 generation capabilities have been in the spotlight. And for legitimate reasons -- these models can be used to
 summarize, translate, and they even have demonstrated zero-shot learning capabilities on some language tasks.
+This blog post will show how to take the most of this technology with TensorFlow.
 
 The Hugging Face `transformers` library started with NLP models, so it is natural that text generation is of utmost
 importance to us.
