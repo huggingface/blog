@@ -142,12 +142,26 @@ Let's see the training process to understand how Actor and Critic are optimized:
 <img src="assets/89_deep_rl_a2c/step5.jpg" alt="Step 5 Actor Critic"/>  
   
 ### Advantage Actor Critic
-  
+We can stabilize learning further by **using the Advantage function as Critic instead of the Action value function**.
 
+The idea is that the Advantage function calculates **how better taking that action at a state is, compared to the average value of the state**. It’s subtracting the mean value of the state from the state action pair:
+
+<img src="assets/89_deep_rl_a2c/advantage1.jpg" alt="Advantage Function"/>  
+
+In other words, this function calculates **the extra reward I get if I take this action at that state compared to the mean reward I get at that state**.
+
+The extra reward is what's beyond the expected value of that state. 
+- If A(s,a) > 0: our gradient is **pushed in that direction**.
+- If A(s,a) < 0 (our action does worse than the average value of that state) **so our gradient is pushed in the opposite direction**.
+
+The problem with implementing this advantage function is that it requires two value functions —  (\\ Q(s,a)\\) and  (\\ V(s)\\). Fortunately, **we can use the TD error as a good estimator of the advantage function.**  
+
+<img src="assets/89_deep_rl_a2c/advantage2.jpg" alt="Advantage Function"/>  
+              
 ## Advantage Actor Critic (A2C) using Robotics Simulations with PyBullet 🤖
 Now that you've studied the theory behind Advantage Actor Critic (A2C), **you're ready to train your A2C agent** using Stable-Baselines3 in robotic environments.
 
-[Image]
+<img src="https://github.com/huggingface/deep-rl-class/blob/main/unit7/assets/img/pybullet-envs.gif?raw=true" alt="Robotics environments"/>
 
 Start the tutorial here 👉 [https://colab.research.google.com/github/huggingface/deep-rl-class/blob/main/unit7/unit7.ipynb](https://colab.research.google.com/github/huggingface/deep-rl-class/blob/main/unit7/unit7.ipynb)
 
@@ -159,7 +173,7 @@ Congrats on finishing this chapter! There was a lot of information. And congrats
 
 It's **normal if you still feel confused** with all these elements. **This was the same for me and for all people who studied RL.**
 
-Take time to grasp the material before continuing. Look also at the additional reading materials we provided in this article and the syllabus 👉 **[https://github.com/huggingface/deep-rl-class/blob/main/unit7/README.md](https://github.com/huggingface/deep-rl-class/blob/main/unit7/README.md)**
+Take time to grasp the material before continuing. Look also at the additional reading materials we provided in this article and the syllabus to go deeper 👉 **[https://github.com/huggingface/deep-rl-class/blob/main/unit7/README.md](https://github.com/huggingface/deep-rl-class/blob/main/unit7/README.md)**
 
 Don't hesitate to train your agent in other environments. The **best way to learn is to try things on your own!**
 
