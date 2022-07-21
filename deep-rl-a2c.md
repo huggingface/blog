@@ -32,7 +32,7 @@ thumbnail: /blog/assets/89_deep_rl_a2c/thumbnail.gif
 
 *This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
 
-<img src="assets/85_policy_gradient/thumbnail.gif" alt="Thumbnail"/>  
+<img src="assets/89_deep_rl_a2c/thumbnail.jpg" alt="Thumbnail"/>  
 
 ---
 
@@ -51,6 +51,33 @@ We'll study one of these "hybrid methods, " Advantage Actor Critic (A2C), a**nd 
 - A bipedal walker 🦿
 - A spider 🕸️
 
+<img src="https://github.com/huggingface/deep-rl-class/blob/main/unit7/assets/img/pybullet-envs.gif?raw=true" alt="Robotics environments"/>
 
 Sounds exciting? Let's get started!
-[Table des matières]
+  
+- []
+
+
+
+## The Problem of Variance in Reinforce
+In Reinforce, we want to **increase the probability of actions in a trajectory proportional to the goodness of the return**.
+
+<img src="https://huggingface.co/blog/assets/85_policy_gradient/pg.jpg" alt="Reinforce"/>
+- If the **return is high**, we will **push up** the probabilities of the (state, action) combinations.
+- Else, if the **return is low**, it will **push down** the probabilities of the (state, action) combinations.
+
+This return \\(R(\tau)\\) is calculated using a *Monte-Carlo sampling*. Indeed, we collect a trajectory and calculate the discounted return, **and use this score to increase or decrease the probability of every action taken in that trajectory**. If the return is good, all actions will be “reinforced” by increasing their likelihood of being taken.
+  
+\\(R(\tau) = R_{t+1} + \gamma R_{t+2} + \gamma^2 R_{t+3} + ...\\) 
+
+The advantage of this method is that **it’s unbiased. Since we’re not estimating the return**, we use only the true return we obtain.
+  
+But the problem is that **the variance is high, since trajectories can lead to different returns** due to stochasticity of the environment (random events during episode) and stochasticity of the policy. Consequently, the same starting state can lead to very different returns.
+And so, **the return starting at the same state can vary significantly across episodes**.
+  
+<img src="assets/89_deep_rl_a2c/variance.jpg" alt="variance"/>  
+
+The solution is to mitigate the variance by **using a large number of trajectories, hoping that the variance introduced in any one trajectory will be reduced in aggregate and provide a "true" estimation of the return.**
+
+However, increasing the batch size significantly reduces sample efficiency. So we need to find additional mechanisms to reduce the variance.
+  
