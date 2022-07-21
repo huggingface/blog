@@ -63,6 +63,7 @@ Sounds exciting? Let's get started!
 In Reinforce, we want to **increase the probability of actions in a trajectory proportional to the goodness of the return**.
 
 <img src="https://huggingface.co/blog/assets/85_policy_gradient/pg.jpg" alt="Reinforce"/>
+  
 - If the **return is high**, we will **push up** the probabilities of the (state, action) combinations.
 - Else, if the **return is low**, it will **push down** the probabilities of the (state, action) combinations.
 
@@ -80,4 +81,32 @@ And so, **the return starting at the same state can vary significantly across ep
 The solution is to mitigate the variance by **using a large number of trajectories, hoping that the variance introduced in any one trajectory will be reduced in aggregate and provide a "true" estimation of the return.**
 
 However, increasing the batch size significantly reduces sample efficiency. So we need to find additional mechanisms to reduce the variance.
+
+---
+If you want to dive deeper into the question of variance and bias tradeoff in Deep Reinforcement Learning, you can check these two articles:
+- [Making Sense of the Bias / Variance Trade-off in (Deep) Reinforcement Learning](https://blog.mlreview.com/making-sense-of-the-bias-variance-trade-off-in-deep-reinforcement-learning-79cf1e83d565) 
+- [Bias-variance Tradeoff in Reinforcement Learning](https://www.endtoend.ai/blog/bias-variance-tradeoff-in-reinforcement-learning/)
+---
   
+ 
+## Advantage Actor Critic (A2C)
+### Reducing variance with Actor-Critic methods
+The solution to reducing the variance of Reinforce algorithm and training our agent faster and better is to use a combination of policy-based and value-based methods: *the Actor-Critic method*.
+
+To understand the Actor-Critic, imagine you play a video game. You can play with a friend that will provide you with some feedback. You’re the Actor, and your friend is the Critic.
+ 
+<img src="assets/89_deep_rl_a2c/ac.jpg" alt="Actor Critic"/>  
+
+You don’t know how to play at the beginning, **so you try some actions randomly**. The Critic observes your action and **provides feedback**.
+
+Learning from this feedback, **you’ll update your policy and be better at playing that game.**
+
+On the other hand, your friend (Critic) will also update their way to provide feedback so it can be better next time.
+
+This is the idea behind Actor-Critic. We learn two function approximations:
+
+- *A policy* that **controls how our agent acts**: (// \pi_{\theta}(s,a) //)
+  
+- *A value function* to assist the policy update by measuring how good the action taken is: (// \hat{\q}_{w}(s,a) //)
+ 
+### The Actor-Critic Process
