@@ -49,15 +49,15 @@ For the sake of consistency, unless stated differently, the benchmarks in this a
 
 ## Performance metrics
 
-For doing occasional inference on someone's desktop, that is a few inputs at a time the two critical metrics are the time to load the framework and the checkpoint shards and then the generation time.
+For doing occasional inference on someone's desktop, that is a few inputs at a time, the two critical metrics are the time to load the framework and the checkpoint shards and then the generation time.
 
-For doing inference on the server the two important metrics for inference is the overall latency and the throughput of tokens. The loading time is less important since once loaded it becomes persistent.
+For doing inference on a server the two important metrics are the overall latency and the throughput of tokens. The loading time is less important since once loaded, the model becomes persistent.
 
 The time to generate a token is straightforward - this is just how long it takes for a new token to be generated. As long as `use_cache=True` (the default argument to `generate`) all the previous logits are saved and therefore each token takes the same amount of time to generate. This of course comes at a memory cost - as the model is huge it can easily take GBs of memory to keep the cache. One can turn the caching off, and save memory, but it'd mean recalculating all the previous logits - which would make a long sequence generation very slow.
 
 The latency is more difficult to define. If the server is idle and the model is ready to generate, and one or more prompts are sent from the same user at once, the latency would be just the time to generate a single token multiplied by the number of new tokens to generate. However, if you have multiple users sending prompts at different times, things become much more complicated. The first user gets the fastest response and thus fast latency, but subsequent users if they are unlucky to submit their request while the previous request is being processed may have to first wait till the first request has been generated and only their request will be attended. It's possible to design a very efficient system that uses a pipeline parallelism, where a new request can join the pipeline at any moment. But this of course will make the overall throughput lower. Then of course there is a small overhead of processing the input, sending data to the server and sending the results back to the user, but this is usually insignificant compared to the cost of generation on a huge model.
 
-This article primarily discusses simple solutions and new more efficient solutions are being worked on as well.
+This article primarily discusses simple solutions in PyTorch. More efficient solutions are being worked on as well.
 
 The solutions are presented in alphabetical order:
 
@@ -90,7 +90,7 @@ Tokenize and generate 20000 (bs=40) tokens: 52.059 secs
 Start to finish: 159.952 secs
 ```
 
-The highest batch size I was able to run without OOM was 40 in this case.
+The highest batch size we were able to run without OOM was 40 in this case.
 
 
 
@@ -121,7 +121,7 @@ Start to finish: 601.323 secs
 
 ```
 
-The highest batch size I was able to run without OOM was 128 in this case.
+The highest batch size we were able to run without OOM was 128 in this case.
 
 
 
@@ -130,7 +130,7 @@ The highest batch size I was able to run without OOM was 128 in this case.
 
 ## DeepSpeed-ZeRO
 
-[DeepSpeed-ZeRO](https://www.deepspeed.ai/tutorials/zero/) was primarily developed for training huge models, and wasn't targeting inference, but it still produces pretty decent results. ZeRO shards the weights across multiple GPUs and then gathers the needed weights magically before each `forward` and `backward` calls, so that the model isn't aware that its weights were ever split up.
+[DeepSpeed-ZeRO](https://www.deepspeed.ai/tutorials/zero/) was primarily developed for training huge models, and does not target inference, but it still produces pretty decent results. ZeRO shards the weights across multiple GPUs and then gathers the needed weights magically before each `forward` and `backward` calls, so that the model isn't aware that its weights were ever split up.
 
 
 ### Setup
@@ -153,7 +153,7 @@ Tokenize and generate 32000 (bs=8) tokens: 242.090 secs
 Start to finish: 706.813 secs
 ```
 
-The highest batch size I was able to run without OOM was 8 in this case.
+The highest batch size we were able to run without OOM was 8 in this case.
 
 
 
