@@ -110,3 +110,22 @@ This is the idea behind Actor-Critic. We learn two function approximations:
 - *A value function* to assist the policy update by measuring how good the action taken is: (// \hat{\q}_{w}(s,a) //)
  
 ### The Actor-Critic Process
+Now that we have seen the Actor Critic's big picture, let's dive deeper to understand how Actor and Critic improve together during the training.
+  
+So we saw with Actor-Critic methods, we have two function approximations (two neural networks):
+- *Actor*, a **policy function** parameterized by theta: (// \pi_{\theta}(s,a) //)
+- *Critic*, a **value function** parameterized by w: (// \hat{\q}_{w}(s,a) //)
+
+Let's see the training process to understand how Actor and Critic are optimized:
+- At each timestep, t, we get the current state (\\ S_t\\) from the environment and **pass it as input through our Actor and Critic**.
+- Our Policy takes the state and **outputs an action**  (\\ A_t \\).
+<img src="assets/89_deep_rl_a2c/step1.jpg" alt="Step 1 Actor Critic"/>  
+- The Critic takes that action also as input and, using (\\ S_t\\) and (\\ A_t \\), **computes the value of taking that action at that state: the Q-value**.
+<img src="assets/89_deep_rl_a2c/step2.jpg" alt="Step 2 Actor Critic"/>  
+- The action (\\ A_t\\) performed in the environment outputs a new state (\\ S_{t+1}\\) and a reward (\\ R_{t+1}\\) .
+<img src="assets/89_deep_rl_a2c/step3.jpg" alt="Step 3 Actor Critic"/>  
+- The Actor updates its policy parameters using the Q value.
+<img src="assets/89_deep_rl_a2c/step4.jpg" alt="Step 4 Actor Critic"/>  
+- Thanks to its updated parameters, the Actor produces the next action to take at At+1 given the new state St+1. 
+- The Critic then updates its value parameters.
+<img src="assets/89_deep_rl_a2c/step5.jpg" alt="Step 5 Actor Critic"/>  
