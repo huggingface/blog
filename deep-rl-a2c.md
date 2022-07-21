@@ -140,3 +140,33 @@ Let's see the training process to understand how Actor and Critic are optimized:
 - The Critic then updates its value parameters.
   
 <img src="assets/89_deep_rl_a2c/step5.jpg" alt="Step 5 Actor Critic"/>  
+  
+### Advantage Actor Critic
+  
+
+## Advantage Actor Critic (A2C) using Robotics Simulations with PyBullet 🤖
+Now that you've studied the theory behind Advantage Actor Critic (A2C), **you're ready to train your A2C agent** using Stable-Baselines3 in robotic environments.
+
+[Image]
+
+Start the tutorial here 👉 [https://colab.research.google.com/github/huggingface/deep-rl-class/blob/main/unit7/unit7.ipynb](https://colab.research.google.com/github/huggingface/deep-rl-class/blob/main/unit7/unit7.ipynb)
+
+The leaderboard to compare your results with your classmates 🏆 👉 **[https://huggingface.co/spaces/chrisjay/Deep-Reinforcement-Learning-Leaderboard](https://huggingface.co/spaces/chrisjay/Deep-Reinforcement-Learning-Leaderboard)**
+
+## Conclusion
+
+Congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorial. 🥳.
+
+It's **normal if you still feel confused** with all these elements. **This was the same for me and for all people who studied RL.**
+
+Take time to grasp the material before continuing. Look also at the additional reading materials we provided in this article and the syllabus 👉 **[https://github.com/huggingface/deep-rl-class/blob/main/unit7/README.md](https://github.com/huggingface/deep-rl-class/blob/main/unit7/README.md)**
+
+Don't hesitate to train your agent in other environments. The **best way to learn is to try things on your own!**
+
+In the next unit, we will learn to improve Actor-Critic Methods with Proximal Policy Optimization.
+
+And don't forget to share with your friends who want to learn 🤗!
+
+Finally, with your feedback, we want **to improve and update the course iteratively**. If you have some, please fill this form 👉 **[https://forms.gle/3HgA7bEHwAmmLfwh9](https://forms.gle/3HgA7bEHwAmmLfwh9)**
+
+### **Keep learning, stay awesome 🤗,**
