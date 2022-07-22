@@ -1017,6 +1017,14 @@
   - adversarial
   - guide    
 
+- local: deep-rl-a2c
+  title: "Advantage Actor Critic (A2C)"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/89_deep_rl_a2c/thumbnail.gif
+  date: July 22, 2022
+  tags:
+  - rl
+
 - local: tf-serving-vision
   title: "Deploying TensorFlow Vision Models in Hugging Face with TF Serving"
   author: sayakpaul
