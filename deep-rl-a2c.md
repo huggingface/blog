@@ -110,29 +110,30 @@ On the other hand, your friend (Critic) will also update their way to provide fe
 
 This is the idea behind Actor-Critic. We learn two function approximations:
 
-- *A policy* that **controls how our agent acts**: (// \pi_{\theta}(s,a) //)
+- *A policy* that **controls how our agent acts**: \\( \pi_{\theta}(s,a) \\)
   
-- *A value function* to assist the policy update by measuring how good the action taken is: (// \hat{\q}_{w}(s,a) //)
+  
+- *A value function* to assist the policy update by measuring how good the action taken is: \\( \hat{\q}_{w}(s,a) \\)
  
 ### The Actor-Critic Process
 Now that we have seen the Actor Critic's big picture, let's dive deeper to understand how Actor and Critic improve together during the training.
   
 So we saw with Actor-Critic methods, we have two function approximations (two neural networks):
-- *Actor*, a **policy function** parameterized by theta: (// \pi_{\theta}(s,a) //)
-- *Critic*, a **value function** parameterized by w: (// \hat{\q}_{w}(s,a) //)
+- *Actor*, a **policy function** parameterized by theta: \\( \pi_{\theta}(s,a) \\)
+- *Critic*, a **value function** parameterized by w: \\( \hat{\q}_{w}(s,a) \\)
 
 Let's see the training process to understand how Actor and Critic are optimized:
-- At each timestep, t, we get the current state (\\ S_t\\) from the environment and **pass it as input through our Actor and Critic**.
+- At each timestep, t, we get the current state \\( S_t\\) from the environment and **pass it as input through our Actor and Critic**.
   
-- Our Policy takes the state and **outputs an action**  (\\ A_t \\).
+- Our Policy takes the state and **outputs an action**  \\( A_t \\).
   
 <img src="assets/89_deep_rl_a2c/step1.jpg" alt="Step 1 Actor Critic"/>  
   
-- The Critic takes that action also as input and, using (\\ S_t\\) and (\\ A_t \\), **computes the value of taking that action at that state: the Q-value**.
+- The Critic takes that action also as input and, using \\( S_t\\) and \\( A_t \\), **computes the value of taking that action at that state: the Q-value**.
   
 <img src="assets/89_deep_rl_a2c/step2.jpg" alt="Step 2 Actor Critic"/>  
   
-- The action (\\ A_t\\) performed in the environment outputs a new state (\\ S_{t+1}\\) and a reward (\\ R_{t+1} \\) .
+- The action \\( A_t\\) performed in the environment outputs a new state \\( S_{t+1}\\) and a reward \\( R_{t+1} \\) .
   
 <img src="assets/89_deep_rl_a2c/step3.jpg" alt="Step 3 Actor Critic"/>
   
@@ -140,7 +141,7 @@ Let's see the training process to understand how Actor and Critic are optimized:
   
 <img src="assets/89_deep_rl_a2c/step4.jpg" alt="Step 4 Actor Critic"/>  
   
-- Thanks to its updated parameters, the Actor produces the next action to take at (\\ A_{t+1} \\) given the new state (\\ S_{t+1} \\). 
+- Thanks to its updated parameters, the Actor produces the next action to take at \\( A_{t+1} \\) given the new state \\( S_{t+1} \\). 
   
 - The Critic then updates its value parameters.
   
@@ -159,7 +160,7 @@ The extra reward is what's beyond the expected value of that state.
 - If A(s,a) > 0: our gradient is **pushed in that direction**.
 - If A(s,a) < 0 (our action does worse than the average value of that state) **so our gradient is pushed in the opposite direction**.
 
-The problem with implementing this advantage function is that it requires two value functions —  (\\ Q(s,a)\\) and  (\\ V(s)\\). Fortunately, **we can use the TD error as a good estimator of the advantage function.**  
+The problem with implementing this advantage function is that it requires two value functions —  \\( Q(s,a)\\) and  \\( V(s)\\). Fortunately, **we can use the TD error as a good estimator of the advantage function.**  
 
 <img src="assets/89_deep_rl_a2c/advantage2.jpg" alt="Advantage Function"/>  
               
