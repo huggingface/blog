@@ -39,7 +39,7 @@ thumbnail: /blog/assets/86_bloom_megatron_deepspeed/thumbnail.png
 
 This article discusses various PyTorch-based solution to efficient 176B parameter [BLOOM model](https://huggingface.co/bigscience/bloom).
 
-As the model needs 352GB in bf16 weights (`176*2`), the most efficient set-up is 8x80GB A100. The second best is 2x8x40GB A100s. The main reason for using A100s And, is that at as of this writing they provide the largest GPU memory. But other GPUs can be used as well. It'd probably take 24x32GB V100 as another possibility.
+As the model needs 352GB in bf16 (bfloat16) weights (`176*2`), the most efficient set-up is 8x80GB A100. The second best is 2x8x40GB A100s. The main reason for using A100s And, is that at as of this writing they provide the largest GPU memory. But other GPUs can be used as well. It'd probably take 24x32GB V100 as another possibility.
 
 Using a single node is ideal since PCIe speed is typically much faster than inter-node network.
 
@@ -66,13 +66,23 @@ The solutions are presented in alphabetical order:
 
 [Accelerate](https://github.com/huggingface/accelerate)
 
-Accelerate deploys a naive Pipeline Parallelism to load a model that is much larger than the GPU size, by spreading the layers over multiple GPUs. At inference time it then switches control from one GPU to the next until all layers have run. In this situation only one GPU works at any given time. It sounds very inefficient but it produces excellent throughput despite the idling of the GPUs.
+Accelerate handles big models for inference in the following way:
+1. Instantiate the model with empty weights.
+2. Analyze the size of each layer and the available space on each device (GPUs, CPU) to decide where each layer should go.
+3. Load the model checkpoint bit by bit and put each weight on its device
 
+It then ensures the model runs properly with hooks that transfer the inputs and outputs on the right device and that the model weights offloaded on the CPU (or even the disk) are loaded on a GPU just before the forward pass, before being offloaded again once the forward pass is finished.
+
+In a situation where there are multiple GPUs with enough space to accomodate the whole model, it switches control from one GPU to the next until all layers have run. Only one GPU works at any given time, which sounds very inefficient but it does produce excellent throughput despite the idling of the GPUs.
+
+It is also very flexible since the same code can run on any given setup. Accelerate will use all available GPUs first, then offload on the CPU until the RAM is full, and finally on the disk. It will be slower than running the full model on GPUs of course. As an example, users have reported running BLOOM with no code changes on just 2 A100s with a throughput of 15s per token.
+
+You can learn more about this solution in [Accelerate documentation](https://huggingface.co/docs/accelerate/big_modeling).
 
 ### Setup
 
 ```
-pip install transformers>=4.20.1
+pip install accelerate transformers>=4.20.1
 git clone https://github.com/bigscience-workshop/Megatron-DeepSpeed/
 cd Megatron-DeepSpeed
 ```
