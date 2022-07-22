@@ -1015,7 +1015,6 @@
   tags:
   - mnist
   - adversarial
-<<<<<<< HEAD
   - guide    
 
 - local: deep-rl-a2c
@@ -1085,7 +1084,7 @@
   title: "The Technology Behind BLOOM Training"
   author: stas, sgugger, Narsil
   thumbnail: /blog/assets/bloom-inference-pytorch/thumbnail.png
-  date: July 28, 2022
+  date: August 4, 2022
   tags:
     - nlp
     - llm
