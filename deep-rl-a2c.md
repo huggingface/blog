@@ -120,7 +120,7 @@ Now that we have seen the Actor Critic's big picture, let's dive deeper to under
   
 So we saw with Actor-Critic methods, we have two function approximations (two neural networks):
 - *Actor*, a **policy function** parameterized by theta: \\( \pi_{\theta}(s,a) \\)
-- *Critic*, a **value function** parameterized by w: \\( \hat{\q}_{w}(s,a) \\)
+- *Critic*, a **value function** parameterized by w: \\( \hat{q}_{w}(s,a) \\)
 
 Let's see the training process to understand how Actor and Critic are optimized:
 - At each timestep, t, we get the current state \\( S_t\\) from the environment and **pass it as input through our Actor and Critic**.
