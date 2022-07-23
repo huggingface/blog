@@ -1,6 +1,6 @@
 ---
 title: "Nyströmformer: Approximating self-attention in linear time and memory via the Nyström method"
-thumbnail: /blog/assets/86_nystromformer/paper_figure.png
+thumbnail: /blog/assets/86_nystromformer/thumbnail.png
 ---
 
 <h1>Nyströmformer: Approximating self-attention in linear time and memory via the Nyström method</h1>
