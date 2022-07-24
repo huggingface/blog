@@ -1,5 +1,5 @@
 ---
-title: 'Faster TensorFlow Text Generation with XLA'
+title: 'Faster Text Generation with TensorFlow and XLA'
 thumbnail: /blog/assets/88_tf_xla_generate/thumbnail.png
 ---
 
@@ -24,8 +24,8 @@ thumbnail: /blog/assets/88_tf_xla_generate/thumbnail.png
     </a>
 </div>
 
-<em>TL;DR</em>: Text Generation on TensorFlow can now be massively accelerated with XLA, often being faster than
-Pytorch, using a single line of additional code -- check the colab below!
+<em>TL;DR</em>: Text Generation on `transformers` using TensorFlow can now be massively accelerated with XLA, often
+being faster than Pytorch, using a single line of additional code -- check the colab below!
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/88_tf_xla_generate.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
@@ -40,18 +40,19 @@ generation capabilities have been in the spotlight. And for legitimate reasons -
 summarize, translate, and they even have demonstrated zero-shot learning capabilities on some language tasks.
 This blog post will show how to take the most of this technology with TensorFlow.
 
-The Hugging Face `transformers` library started with NLP models, so it is natural that text generation is of utmost
+The 🤗 `transformers` library started with NLP models, so it is natural that text generation is of utmost
 importance to us.
-It is part of our democratization efforts to ensure it is accessible, easily controllable, and efficient.
-We have written a [blog post](https://huggingface.co/blog/how-to-generate) about the different types of text
-generation. Nevertheless, below there's a quick recap of the core functionality -- feel free to skip it if you're
+It is part of Hugging Face democratization efforts to ensure it is accessible, easily controllable, and efficient.
+There is a previous [blog post](https://huggingface.co/blog/how-to-generate) about the different types of text
+generation. Nevertheless, below there's a quick recap of the core functionality -- feel free to
+[skip it](#tensorflow-and-xla) if you're
 familiar with our `generate` function and want to jump straight into TensorFlow's specificities.
 
 Let's start with the basics. Text generation can be deterministic or stochastic, depending on the
 `do_sample` flag. By default it's set to `False`, causing the output to be deterministic, which is also known as
 Greedy Decoding.
-When it's set to `True`, also known as Sampling, the output will be stochastic, but we can still
-obtain reproducible results if we specify the `seed` argument (with the same format as in [stateless TensorFlow random
+When it's set to `True`, also known as Sampling, the output will be stochastic, but you can still
+obtain reproducible results through the `seed` argument (with the same format as in [stateless TensorFlow random
 number generation])(https://www.tensorflow.org/api_docs/python/tf/random/stateless_categorical#args)).
 As a rule of thumb, you want deterministic generation if you wish
 to obtain factual information from the model and stochastic generation if you're aiming at more creative outputs.
@@ -136,8 +137,8 @@ print(
 # framework that allows
 ```
 
-The basics of text generation, as you can see, straightforward to control. However, there are many options
-not covered in the examples above, and we encourage you to read the
+The basics of text generation, as you can see, are straightforward to control. However, there are many options
+not covered in the examples above, and it's encouraged to read the
 [documentation](https://huggingface.co/docs/transformers/main/en/main_classes/text_generation#transformers.generation_tf_utils.TFGenerationMixin.generate)
 for advanced use cases.
 Sadly, when you run `generate` with TensorFlow, you might notice that it takes a while to execute.
@@ -146,7 +147,7 @@ TensorFlow looks like an expensive endeavour. 😬
 
 Fear not, for the remainder of this blog post aims to demonstrate that one line of code can make a drastic improvement.
 If you'd rather jump straight into action,
-[our colab](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/88_tf_xla_generate.ipynb)
+[the colab](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/88_tf_xla_generate.ipynb)
 has an interactive example you can fiddle with!
 
 ## TensorFlow and XLA
@@ -157,29 +158,30 @@ be [used with PyTorch](https://huggingface.co/blog/pytorch-xla). Although the wo
 some, XLA is simple to use with TensorFlow -- it comes packaged inside the `tensorflow` library, and it can be
 triggered with the `jit_compile` argument in any graph-creating function.
 
-For those of you familiar with TensorFlow 1, the concept of a TensorFlow graph comes naturally, as it was the only
-mode of operation. First you defined your operations in a declarative fashion to create a graph, then you could pipe
-inputs through the graph and observe the outputs. Fast, efficient, but painful to debug. With TensorFlow 2 came
-Eager Execution and the ability to code our models imperatively -- the TensorFlow team explains the difference in more
+For those of you familiar with TensorFlow 1 🧓, the concept of a TensorFlow graph comes naturally, as it was the only
+mode of operation. First, you defined the operations in a declarative fashion to create a graph. Afterwards, you could
+pipe inputs through the graph and observe the outputs. Fast, efficient, but painful to debug. With TensorFlow 2 came
+Eager Execution and the ability to code the models imperatively -- the TensorFlow team explains the difference in more
 detail in [their blog post](https://blog.tensorflow.org/2019/01/what-are-symbolic-and-imperative-apis.html).
 
 Hugging Face writes their TensorFlow models with Eager Execution in mind. Transparency is a core value, and being able
 to inspect the model internals at any point is very benefitial to that end. However, that does mean that some uses of
-our models do not benefit from the graph mode performance advantages out of the box (e.g. when calling `model(args)`).
+the models do not benefit from the graph mode performance advantages out of the box (e.g. when calling `model(args)`).
 
-Fortunately, the TensorFlow team has users like us covered! Wrapping a function containing TensorFlow code with
+Fortunately, the TensorFlow team has users like us covered 🥳! Wrapping a function containing TensorFlow code with
 [`tf.function`](https://www.tensorflow.org/api_docs/python/tf/function) will attempt to convert it into a graph when
 you call the wrapped function. If you're training a model, calling `model.compile()` (without `run_eagerly=True`) does
 precisely that wrapping, so that you benefit from graph mode when you call `model.fit()`. Since `tf.function` can be
 used in any function containing TensorFlow code, it means you can use it on functions that go beyond model inference,
 creating a single optimized graph.
 
-Now that we know how to create TensorFlow graphs, compiling them with XLA is straightforward -- simply add `jit_compile=True`
+Now that you know how to create TensorFlow graphs, compiling them with XLA is straightforward -- simply add `jit_compile=True`
 as an argument to the functions mentioned above (`tf.function` and `tf.keras.Model.compile`). Assuming everything went well
 (more on that below) and that you are using a GPU or a TPU, you will notice that the first call will take a while, but
 that the remaining ones are much, much faster. Here's a simple example of a function that performs model inference and some post-processing of its outputs:
 
 ```python
+# Note: execution times are deeply dependent on hardware -- a 3090 was used here.
 import tensorflow as tf
 from transformers import AutoTokenizer, TFAutoModelForCausalLM
 
@@ -193,17 +195,20 @@ def most_likely_next_token(inputs):
 
 print("Calling regular function with TensorFlow code...")
 most_likely_next_token(inputs)
+# > Execution time -- 48.8 ms
 ```
 
-In one line, we can create an XLA-accelerated function from the function above.
+In one line, you can create an XLA-accelerated function from the function above.
 
 ```python
 xla_most_likely_next_token = tf.function(most_likely_next_token, jit_compile=True)
 
 print("Calling XLA function... (for the first time -- will be slow)")
 xla_most_likely_next_token(inputs)
+# > Execution time -- 3951.0 ms
 print("Calling XLA function... (for the second time -- will be fast)")
 xla_most_likely_next_token(inputs)
+# > Execution time -- 1.6 ms
 ```
 
 ## Text Generation using TensorFlow with XLA
@@ -220,6 +225,7 @@ Contrarily, if you call the function with a different shape or type in an input 
 non-tensor argument, then a new costly compilation step will take place. Summarized in a simple example:
 
 ```python
+# Note: execution times are deeply dependent on hardware -- a 3090 was used here.
 import tensorflow as tf
 
 @tf.function(jit_compile=True)
@@ -228,28 +234,32 @@ def max_plus_constant(tensor, scalar):
 
 # Slow: XLA compilation will kick in, as it is the first call
 max_plus_constant(tf.constant([0, 0, 0]), 1)
+# > Execution time -- 520.4 ms
 
 # Fast: Not the first call with this tensor shape, tensor type, and exact same
 # non-tensor argument
 max_plus_constant(tf.constant([1000, 0, -10]), 1)
+# > Execution time -- 0.6 ms
 
 # Slow: Different tensor type
 max_plus_constant(tf.constant([0, 0, 0], dtype=tf.int64), 1)
+# > Execution time -- 27.1 ms
 
 # Slow: Different tensor shape
 max_plus_constant(tf.constant([0, 0, 0, 0]), 1)
+# > Execution time -- 25.5 ms
 
 # Slow: Different non-tensor argument
 max_plus_constant(tf.constant([0, 0, 0]), 2)
+# > Execution time -- 24.9 ms
 ```
 
 In practice, for text generation, it simply means the input should be padded to a multiple of a certain length (so it
 has a limited number of possible shapes), and that using different options will be slow for the first time you use
-them. Let's see what happens when we naively call generation with XLA.
+them. Let's see what happens when you naively call generation with XLA.
 
 ```python
-# Note: execution times will be very different for different hardware, and will
-# functuate. A 3090 was used for the commented outputs.
+# Note: execution times are deeply dependent on hardware -- a 3090 was used here.
 import time
 import tensorflow as tf
 from transformers import AutoTokenizer, TFAutoModelForCausalLM
@@ -290,7 +300,7 @@ print(f"Execution time -- {(end - start) / 1e6:.1f} ms\n")
 ```
 
 Oh no, that's terribly slow! A solution to keep the different combinations of shapes in check is through padding,
-as mentioned above. Our tokenizer classes have a `pad_to_multiple_of` argument that can be used to achieve a balance
+as mentioned above. The tokenizer classes have a `pad_to_multiple_of` argument that can be used to achieve a balance
 between accepting any input length and limiting tracing.
 
 ```python
@@ -353,10 +363,10 @@ availability of XLA compilation.
 
 ## Benchmarks and Conclusions
 
-We have seen above that we can convert TensorFlow functions into a graph and accelerate them with XLA compilation.
-Current forms of text generation are simply an auto-regressive function that alternate between a model forward pass
+Above you saw that you can convert TensorFlow functions into a graph and accelerate them with XLA compilation.
+Current forms of text generation are simply an auto-regressive functions that alternate between a model forward pass
 and some post-processing, producing one token per iteration. Through XLA compilation, the entire process gets
-optimized, resulting in faster execution. But how much faster? The Gradio demo below contains some benchmarks
+optimized, resulting in faster execution. But how much faster? The [Gradio demo below](https://huggingface.co/spaces/joaogante/tf_xla_generate_benchmarks) contains some benchmarks
 comparing Hugging Face's text generation on multiple GPU models for the two main ML frameworks, TensorFlow and PyTorch.
 
 <div class="hidden xl:block">
@@ -368,9 +378,9 @@ comparing Hugging Face's text generation on multiple GPU models for the two main
 If you explore the results, two conclusions become quickly visible:
 
 1. As this blog post has been building up to here, TensorFlow text generation is much faster when XLA is used. We are
-talking about speedups larger than 100x in some cases, which trully demonstrate the power of a compiled graph 🚀
+talking about speedups larger than 100x in some cases, which truly demonstrates the power of a compiled graph 🚀
 2. TensorFlow text generation with XLA is the fastest option in the vast majority of cases, in some of them by as
-much as 9x faster, debunking the myth that Pytorch is the go-to framework for serious NLP tasks 💪
+much as 9x faster, debunking the myth that PyTorch is the go-to framework for serious NLP tasks 💪
 
-Give [our colab](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/88_tf_xla_generate.ipynb)
+Give [the colab](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/88_tf_xla_generate.ipynb)
 a go, and enjoy the power of text generation supercharged with XLA!
