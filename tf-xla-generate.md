@@ -8,7 +8,7 @@ thumbnail: /blog/assets/88_tf_xla_generate/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published July 25, 2022.</small>
+    <small>Published July 27, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/tf_xla_generate.md">
         Update on GitHub
     </a>
@@ -50,88 +50,82 @@ familiar with our `generate` function and want to jump straight into TensorFlow'
 Let's start with the basics. Text generation can be deterministic or stochastic, depending on the
 `do_sample` flag. By default it's set to `False`, causing the output to be deterministic, which is also known as
 Greedy Decoding.
-When it's set to `True`, also known as Sample, we can still
-obtain reproducible results if we specify the `seed` argument (with the same format as in stateless TensorFlow random
-number generation, i.e., a tuple of two integers). As a rule of thumb, you want deterministic generation if you wish
+When it's set to `True`, also known as Sampling, the output will be stochastic, but we can still
+obtain reproducible results if we specify the `seed` argument (with the same format as in [stateless TensorFlow random
+number generation])(https://www.tensorflow.org/api_docs/python/tf/random/stateless_categorical#args)).
+As a rule of thumb, you want deterministic generation if you wish
 to obtain factual information from the model and stochastic generation if you're aiming at more creative outputs.
 
 ```python
-# Requires transformers >= 4.21.0; Sample outputs may differ if run on a CPU.
+# Requires transformers >= 4.21.0;
+# Sampling outputs may differ, depending on your hardware.
 from transformers import AutoTokenizer, TFAutoModelForCausalLM
 
 tokenizer = AutoTokenizer.from_pretrained("gpt2")
 model = TFAutoModelForCausalLM.from_pretrained("gpt2")
 model.config.pad_token_id = model.config.eos_token_id
-input_tokens = tokenizer(["TensorFlow is"], return_tensors="tf")
+inputs = tokenizer(["TensorFlow is"], return_tensors="tf")
 
-generated = model.generate(**input_tokens, do_sample=True, seed=(42, 0))
-print("Sample output: ", tokenizer.decode(generated[0]))
-# > Sample output: TensorFlow is a great learning platform for learning about
+generated = model.generate(**inputs, do_sample=True, seed=(42, 0))
+print("Sampling output: ", tokenizer.decode(generated[0]))
+# > Sampling output: TensorFlow is a great learning platform for learning about
 # data structure and structure in data science..
 ```
 
 Depending on the target application, longer outputs might be desirable. You can control the length of the generation
-output with `max_new_tokens`, keeping in mind that the execution time will scale linearly with this argument.
+output with `max_new_tokens`, keeping in mind that longer generations will require more resources.
 
 ```python
 generated = model.generate(
-    **input_tokens, do_sample=True, seed=(42, 0), max_new_tokens=5
+    **inputs, do_sample=True, seed=(42, 0), max_new_tokens=5
 )
 print("Limiting to 5 new tokens:", tokenizer.decode(generated[0]))
 # > Limiting to 5 new tokens: TensorFlow is a great learning platform for
 generated = model.generate(
-    **input_tokens, do_sample=True, seed=(42, 0), max_new_tokens=30
+    **inputs, do_sample=True, seed=(42, 0), max_new_tokens=30
 )
 print("Limiting to 30 new tokens:", tokenizer.decode(generated[0]))
 # > Limiting to 30 new tokens: TensorFlow is a great learning platform for
 # learning about data structure and structure in data science................
 ```
 
-Stochastic generation has a few knobs you can play with to control randomness. `temperature` sets the overall entropy
+Sampling has a few knobs you can play with to control randomness. The most important is `temperature`, which sets the overall entropy
 of your output -- values below `1.0` will prioritize sampling tokens with a higher likelihood, whereas values above `1.0`
 do the opposite. Setting it to `0.0` reduces the behavior to Greedy Decoding, whereas very large values approximate
-uniform sampling. In addition to controlling the entropy, you can also limit the possible output space for each
-subsequent token. For instance, `top_p` constrains sampling to the most likely tokens that cumulatively account for
-at least `top_p` of the total probability. In other words, it will ensure that very unlikely tokens are never sampled,
-which will likely improve the quality of the generation.
+uniform sampling.
 
 ```python
 generated = model.generate(
-    **input_tokens, do_sample=True, seed=(42, 0), temperature=0.7
+    **inputs, do_sample=True, seed=(42, 0), temperature=0.7
 )
 print("Temperature 0.7: ", tokenizer.decode(generated[0]))
 # > Temperature 0.7: TensorFlow is a great way to do things like this........
 generated = model.generate(
-    **input_tokens, do_sample=True, seed=(42, 0), temperature=1.5
+    **inputs, do_sample=True, seed=(42, 0), temperature=1.5
 )
 print("Temperature 1.5: ", tokenizer.decode(generated[0]))
 # > Temperature 1.5: TensorFlow is being developed for both Cython and Bamboo.
 # On Bamboo...
-
-generated = model.generate(**input_tokens, do_sample=True, seed=(42, 0), top_p=0.9)
-print("Top p 0.9: ", tokenizer.decode(generated[0]))
-# > Top p 0.9: TensorFlow is a great learning platform for learning about data
-# structure and structure in data science. It
 ```
 
-Contrarily to Sample, Greedy Decoding will always pick the most likely token at each iteration of generation.
+Contrarily to Sampling, Greedy Decoding will always pick the most likely token at each iteration of generation.
 However, it often results in sub-optimal outputs. You can increase the quality of the results through the `num_beams`
 argument. When it is larger than `1`, it triggers Beam Search, which continuously explores high-probability sequences.
 This exploration comes at the cost of additional resources and computational time.
 
 ```python
-generated = model.generate(**input_tokens, num_beams=2)
+generated = model.generate(**inputs, num_beams=2)
 print("Beam Search output:", tokenizer.decode(generated[0]))
 # > Beam Search output: TensorFlow is an open-source, open-source,
 # distributed-source application framework for the
 ```
 
-Finally, when running Sample or Beam Search, you can use `num_return_sequences` to return several sequences. For
-Sample it is equivalent to running generate multiple times from the same input prompt, while for Beam Search it
-returns the highest scoring generated beams.
+Finally, when running Sampling or Beam Search, you can use `num_return_sequences` to return several sequences. For
+Sampling it is equivalent to running generate multiple times from the same input prompt, while for Beam Search it
+returns the highest scoring generated beams in descending order.
 
 ```python
-generated = model.generate(**input_tokens, num_beams=2, num_return_sequences=2)
+generated = model.generate(**inputs, num_beams=2, num_return_sequences=2)
 print(
     "All generated hypotheses:",
     "\n".join(tokenizer.decode(out) for out in generated)
@@ -159,7 +153,7 @@ has an interactive example you can fiddle with!
 
 [XLA](https://www.tensorflow.org/xla), or Accelerated Linear Algebra, is a compiler originally developed to accelerate
 TensorFlow models. Nowadays, it is also the compiler behind [JAX](https://github.com/google/jax), and it can even
-be [used with PyTorch](https://huggingface.co/blog/pytorch-xla). Although the word "compiler" might sound dauting for
+be [used with PyTorch](https://huggingface.co/blog/pytorch-xla). Although the word "compiler" might sound daunting for
 some, XLA is simple to use with TensorFlow -- it comes packaged inside the `tensorflow` library, and it can be
 triggered with the `jit_compile` argument in any graph-creating function.
 
@@ -191,15 +185,14 @@ from transformers import AutoTokenizer, TFAutoModelForCausalLM
 
 tokenizer = AutoTokenizer.from_pretrained("gpt2")
 model = TFAutoModelForCausalLM.from_pretrained("gpt2")
-model.config.pad_token_id = model.config.eos_token_id
-input_tokens = tokenizer(["TensorFlow is"], return_tensors="tf")
+inputs = tokenizer(["TensorFlow is"], return_tensors="tf")
 
-def most_likely_next_token(input_ids):
-    model_output = model(input_ids)
+def most_likely_next_token(inputs):
+    model_output = model(inputs)
     return tf.argmax(model_output.logits[:, -1, :], axis=-1)
 
 print("Calling regular function with TensorFlow code...")
-most_likely_next_token(input_tokens)
+most_likely_next_token(inputs)
 ```
 
 In one line, we can create an XLA-accelerated function from the function above.
@@ -208,9 +201,9 @@ In one line, we can create an XLA-accelerated function from the function above.
 xla_most_likely_next_token = tf.function(most_likely_next_token, jit_compile=True)
 
 print("Calling XLA function... (for the first time -- will be slow)")
-xla_most_likely_next_token(input_tokens)
+xla_most_likely_next_token(inputs)
 print("Calling XLA function... (for the second time -- will be fast)")
-xla_most_likely_next_token(input_tokens)
+xla_most_likely_next_token(inputs)
 ```
 
 ## Text Generation using TensorFlow with XLA
@@ -218,15 +211,44 @@ xla_most_likely_next_token(input_tokens)
 As with any optimization procedure, there is no free lunch -- XLA is no exception. From the perspective of a text
 generation user, there is only one technical aspect that you need to keep in mind. Without digging too much into
 [details](https://www.tensorflow.org/guide/function#rules_of_tracing), XLA used in this fashion does just-in-time (JIT)
-compilation of a `tf.function`, which relies on polymorphism. In other words, every time you call a `tf.function` with
-different inputs, with the exception of native TensorFlow types (such as `tf.Tensor` or `tf.Variable`) with the same
-data type and shape, it will go through a slow compilation step also known as tracing. In practice, for text generation,
-it simply means the input should be padded to a multiple of a certain length (so it has a limited number of possible
-shapes), and that using different options will be slow for the first time you use them. Let's see what happens when we
-naively call generation with XLA.
+compilation of a `tf.function` when you call it, which relies on polymorphism.
+
+When you compile a function this way, XLA keeps track of the shape and type of every tensor, as well as the data of
+every non-tensor function input. The function is compiled to a binary, and every time it is called with the same tensor
+shape and type (with ANY tensor data) and the same non-tensor arguments, the compiled function can be reused.
+Contrarily, if you call the function with a different shape or type in an input tensor, or if you use a different
+non-tensor argument, then a new costly compilation step will take place. Summarized in a simple example:
 
 ```python
-# Note: execution times will be very different for different GPUs, and will
+import tensorflow as tf
+
+@tf.function(jit_compile=True)
+def max_plus_constant(tensor, scalar):
+    return tf.math.reduce_max(tensor) + scalar
+
+# Slow: XLA compilation will kick in, as it is the first call
+max_plus_constant(tf.constant([0, 0, 0]), 1)
+
+# Fast: Not the first call with this tensor shape, tensor type, and exact same
+# non-tensor argument
+max_plus_constant(tf.constant([1000, 0, -10]), 1)
+
+# Slow: Different tensor type
+max_plus_constant(tf.constant([0, 0, 0], dtype=tf.int64), 1)
+
+# Slow: Different tensor shape
+max_plus_constant(tf.constant([0, 0, 0, 0]), 1)
+
+# Slow: Different non-tensor argument
+max_plus_constant(tf.constant([0, 0, 0]), 2)
+```
+
+In practice, for text generation, it simply means the input should be padded to a multiple of a certain length (so it
+has a limited number of possible shapes), and that using different options will be slow for the first time you use
+them. Let's see what happens when we naively call generation with XLA.
+
+```python
+# Note: execution times will be very different for different hardware, and will
 # functuate. A 3090 was used for the commented outputs.
 import time
 import tensorflow as tf
@@ -323,7 +345,8 @@ of the data structures are known in advance, such as in model training. On the o
 impossible to determine or certain dynamic slices are used, XLA fails to compile. Modern implementations of text
 generation are auto-regressive, whose natural behavior is to expand tensors and to abruptly interrupt some operations
 as it goes -- in other words, not XLA-friendly by default.
-We have rewritten our entire TensorFlow text generation codebase to vectorize operations and use fixed-sized
+We have [rewritten our entire TensorFlow text generation codebase](https://github.com/huggingface/transformers/pull/17857)
+to vectorize operations and use fixed-sized
 structures with padding. Our NLP models were also modified to correctly use their positional embeddings in the
 presence of padded structures. The result should be invisible to TensorFlow text generation users, except for the
 availability of XLA compilation.
