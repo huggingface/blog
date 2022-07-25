@@ -1034,7 +1034,7 @@
     - guide
     - cv
 
-- local: mnist-adversarial
+- local: mturk-on-spaces
   title: "How to collect a dataset with crowdworkers, all from a Hugging Face space"
   author: Tristan
   thumbnail: /blog/assets/91_mturk_on_spaces/thumbnail.png
