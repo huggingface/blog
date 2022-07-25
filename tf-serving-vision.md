@@ -1,5 +1,6 @@
 ---
 title: Deploying TensorFlow Vision Models in Hugging Face with TF Serving
+thumbnail: /blog/assets/90_tf_serving_vision/thumbnail.png
 ---
 
 <h1>
