@@ -41,31 +41,31 @@ In Policy-Based methods, **we aim to optimize the policy directly without using 
 
 We saw that Reinforce worked well. However, because we use Monte-Carlo sampling to estimate return (we use an entire episode to calculate the return), **we have significant variance in policy gradient estimation**. 
 
-Remember that the policy gradient estimation is **the direction of the steepest increase in return**. Aka, how to update our policy weights so that actions that lead to good returns have a higher probability of being taken. This variance that will study in this unit **leads to slower training since we need a lot of samples to mitigate it**.
+Remember that the policy gradient estimation is **the direction of the steepest increase in return**. Aka, how to update our policy weights so that actions that lead to good returns have a higher probability of being taken. The Monte Carlo variance, which we will further study in this unit, **leads to slower training since we need a lot of samples to mitigate it**.
 
-So today, we'll study **Actor-Critic methods**, a hybrid architecture combining a value-based and policy-based methods that help to stabilize the training by reducing the variance:
+Today we'll study **Actor-Critic methods**, a hybrid architecture combining a value-based and policy-based methods that help to stabilize the training by reducing the variance:
 - *An Actor* that controls **how our agent behaves** (policy-based method)
 - *A Critic* that measures **how good the action taken is** (value-based method)
 
 We'll study one of these hybrid methods called Advantage Actor Critic (A2C), **and train our agent using Stable-Baselines3 in robotic environments**. Where we'll train two agents to walk:
-- A bipedal walker 🦿
-- A spider 🕸️
+- A bipedal walker 🚶
+- A spider 🕷️
 
 <img src="https://github.com/huggingface/deep-rl-class/blob/main/unit7/assets/img/pybullet-envs.gif?raw=true" alt="Robotics environments"/>
 
 Sounds exciting? Let's get started!
   
 - [The Problem of Variance in Reinforce](https://huggingface.co/blog/deep-rl-a2c#the-problem-of-variance-in-reinforce)
-- [Advantage Actor Critic (A2C)](https://huggingface.co/blog/deep-rl-a2c#advantage-actor-critic-a2c-1#reducing-variance-with-actor-critic-methods)
+- [Advantage Actor Critic (A2C)](https://huggingface.co/blog/deep-rl-a2c#advantage-actor-critic-a2c)
   - [Reducing variance with Actor-Critic methods](https://huggingface.co/blog/deep-rl-a2c#reducing-variance-with-actor-critic-methods)
   - [The Actor-Critic Process](https://huggingface.co/blog/deep-rl-a2c#the-actor-critic-process)
-  - [Advantage Actor Critic](https://huggingface.co/blog/deep-rl-a2c#advantage-actor-critic)
-- [Advantage Actor Critic (A2C) using Robotics Simulations with PyBullet 🤖](https://huggingface.co/blog/deep-rl-a2c#advantage-actor-critic-a2c-using-robotics-simulations-with-pybullet-)
+  - [Advantage Actor Critic](https://huggingface.co/blog/deep-rl-a2c#advantage-actor-critic-a2c-1)
+- [Advantage Actor Critic (A2C) using Robotics Simulations with PyBullet 🤖](https://huggingface.co/blog/deep-rl-a2c#advantage-actor-critic-a2c-using-robotics-simulations-with-pybullet-%F0%9F%A4%96)
 
 
 
 ## The Problem of Variance in Reinforce
-In Reinforce, we want to **increase the probability of actions in a trajectory proportional to the goodness of the return**.
+In Reinforce, we want to **increase the probability of actions in a trajectory proportional to how high the return is**.
 
 <img src="https://huggingface.co/blog/assets/85_policy_gradient/pg.jpg" alt="Reinforce"/>
   
@@ -79,7 +79,7 @@ This return \\(R(\tau)\\) is calculated using a *Monte-Carlo sampling*. Indeed, 
 The advantage of this method is that **it’s unbiased. Since we’re not estimating the return**, we use only the true return we obtain.
   
 But the problem is that **the variance is high, since trajectories can lead to different returns** due to stochasticity of the environment (random events during episode) and stochasticity of the policy. Consequently, the same starting state can lead to very different returns.
-And so, **the return starting at the same state can vary significantly across episodes**.
+Because of this, **the return starting at the same state can vary significantly across episodes**.
   
 <img src="assets/89_deep_rl_a2c/variance.jpg" alt="variance"/>  
 
@@ -98,7 +98,7 @@ If you want to dive deeper into the question of variance and bias tradeoff in De
 ### Reducing variance with Actor-Critic methods
 The solution to reducing the variance of Reinforce algorithm and training our agent faster and better is to use a combination of policy-based and value-based methods: *the Actor-Critic method*.
 
-To understand the Actor-Critic, imagine you play a video game. You can play with a friend that will provide you with some feedback. You’re the Actor, and your friend is the Critic.
+To understand the Actor-Critic, imagine you play a video game. You can play with a friend that will provide you some feedback. You’re the Actor, and your friend is the Critic.
  
 <img src="assets/89_deep_rl_a2c/ac.jpg" alt="Actor Critic"/>  
 
@@ -112,13 +112,12 @@ This is the idea behind Actor-Critic. We learn two function approximations:
 
 - *A policy* that **controls how our agent acts**: \\( \pi_{\theta}(s,a) \\)
   
-  
-- *A value function* to assist the policy update by measuring how good the action taken is: \\( \hat{\q}_{w}(s,a) \\)
+- *A value function* to assist the policy update by measuring how good the action taken is: \\( \hat{q}_{w}(s,a) \\)
  
 ### The Actor-Critic Process
 Now that we have seen the Actor Critic's big picture, let's dive deeper to understand how Actor and Critic improve together during the training.
   
-So we saw with Actor-Critic methods, we have two function approximations (two neural networks):
+As we saw, with Actor-Critic methods there are two function approximations (two neural networks):
 - *Actor*, a **policy function** parameterized by theta: \\( \pi_{\theta}(s,a) \\)
 - *Critic*, a **value function** parameterized by w: \\( \hat{q}_{w}(s,a) \\)
 
@@ -150,15 +149,15 @@ Let's see the training process to understand how Actor and Critic are optimized:
 ### Advantage Actor Critic (A2C)
 We can stabilize learning further by **using the Advantage function as Critic instead of the Action value function**.
 
-The idea is that the Advantage function calculates **how better taking that action at a state is, compared to the average value of the state**. It’s subtracting the mean value of the state from the state action pair:
+The idea is that the Advantage function calculates **how better taking that action at a state is compared to the average value of the state**. It’s subtracting the mean value of the state from the state action pair:
 
 <img src="assets/89_deep_rl_a2c/advantage1.jpg" alt="Advantage Function"/>  
 
-In other words, this function calculates **the extra reward I get if I take this action at that state compared to the mean reward I get at that state**.
+In other words, this function calculates **the extra reward we get if we take this action at that state compared to the mean reward we get at that state**.
 
 The extra reward is what's beyond the expected value of that state. 
 - If A(s,a) > 0: our gradient is **pushed in that direction**.
-- If A(s,a) < 0 (our action does worse than the average value of that state) **so our gradient is pushed in the opposite direction**.
+- If A(s,a) < 0 (our action does worse than the average value of that state), **our gradient is pushed in the opposite direction**.
 
 The problem with implementing this advantage function is that it requires two value functions —  \\( Q(s,a)\\) and  \\( V(s)\\). Fortunately, **we can use the TD error as a good estimator of the advantage function.**  
 
