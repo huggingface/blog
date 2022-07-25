@@ -2,6 +2,11 @@
 # "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
 
+- name: Accelerate Transformer Model Training with Hugging Face and Habana Labs
+  link: https://developer.habana.ai/events/accelerate-transformer-model-training-with-hugging-face-and-habana-labs/
+  date: Jul 26, 2022
+  description:  Learn how the HF and Habana Labs joint solution makes it easier and quicker to train high-quality transformer models.
+
 - name: fastai X Hugging Face Group 2022
   link: https://huggingface.co/hugginglearners
   date: Jul 15, 2022
