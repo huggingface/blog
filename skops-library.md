@@ -132,7 +132,7 @@ print(hub_utils.get_requirements(path=repo_copy))
 print(json.dumps(hub_utils.get_config(path=repo_copy), indent=2))
 ```
 
-If the requirements of your project has changed, you can use `update_env` to update the environment.
+If the requirements of your project have changed, you can use `update_env` to update the environment.
 
 ```python
 hub_utils.update_env(path=local_repo, requirements=["scikit-learn"])
