@@ -1006,7 +1006,7 @@
   tags:
     - nlp
     - llm
-   
+
 - local: mnist-adversarial
   title: "How to train your model dynamically using adversarial data"
   author: chrisjay
@@ -1015,7 +1015,7 @@
   tags:
   - mnist
   - adversarial
-  - guide    
+  - guide
 
 - local: deep-rl-a2c
   title: "Advantage Actor Critic (A2C)"
@@ -1033,3 +1033,17 @@
   tags:
     - guide
     - cv
+
+- local: mturk-on-spaces
+  title: "How to collect a dataset with crowdworkers, all from a Hugging Face space"
+  author: Tristan
+  thumbnail: /blog/assets/91_mturk_on_spaces/thumbnail.png
+  date:  July 25, 2022
+  tags:
+  - mturk
+  - mechanical
+  - turk
+  - datasets
+  - crowdworkers
+  - spaces
+  - guide
