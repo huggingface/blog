@@ -103,7 +103,7 @@ Let's save the model card in the local repository.
 model_card.save((Path(local_repo) / "README.md"))
 ```
 
-We can now push the repository to Hugging Face Hub. For this, we will use push from hub_utils.
+We can now push the repository to Hugging Face Hub. For this, we will use `push` from `hub_utils`.
 
 ```python
 # if the repository doesn't exist remotely on the Hugging Face Hub, it will be created when we set create_remote to True
