@@ -75,7 +75,7 @@ It then ensures the model runs properly with hooks that transfer the inputs and 
 
 In a situation where there are multiple GPUs with enough space to accomodate the whole model, it switches control from one GPU to the next until all layers have run. Only one GPU works at any given time, which sounds very inefficient but it does produce excellent throughput despite the idling of the GPUs.
 
-It is also very flexible since the same code can run on any given setup. Accelerate will use all available GPUs first, then offload on the CPU until the RAM is full, and finally on the disk. Offloading to CPU or disk will make things slower. As an example, users have reported running BLOOM with no code changes on just 2 A100s with a throughput of 15s per token.
+It is also very flexible since the same code can run on any given setup. Accelerate will use all available GPUs first, then offload on the CPU until the RAM is full, and finally on the disk. Offloading to CPU or disk will make things slower. As an example, users have reported running BLOOM with no code changes on just 2 A100s with a throughput of 15s per token as compared to 10 msecs on 8x80 A100s.
 
 You can learn more about this solution in [Accelerate documentation](https://huggingface.co/docs/accelerate/big_modeling).
 
