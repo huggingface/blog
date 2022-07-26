@@ -52,7 +52,7 @@ hub_utils.init(
 
 `init` not only saves the model, but also creates a configuration file containing the specifications of the environment model is trained. 
 
-We will now create a model card. The content of the model card is determined by a jinja template. By default it uses [this template](https://github.com/skops-dev/skops/blob/main/skops/card/default_template.md). The default template consists of a markdown part and a metadata section. The keys to the metadata section is defined [here](https://huggingface.co/docs/hub/models-cards#model-card-metadata) and is used for discoverability of the models. 
+We will now create a model card. The content of the model card is determined by a jinja template. By default it uses [this template](https://github.com/skops-dev/skops/blob/main/skops/card/default_template.md). The default template consists of a markdown part and a metadata section. The keys to the metadata section are defined [here](https://huggingface.co/docs/hub/models-cards#model-card-metadata) and are used for discoverability of the models. 
 
 We can add information and metadata using `add`. You can also pass a custom template's path to be used in model card using `add`.
 
