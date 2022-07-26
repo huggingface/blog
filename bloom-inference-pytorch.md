@@ -39,7 +39,7 @@ thumbnail: /blog/assets/86_bloom_megatron_deepspeed/thumbnail.png
 
 This article discusses various PyTorch-based solution to efficient 176B parameter [BLOOM model](https://huggingface.co/bigscience/bloom).
 
-As the model needs 352GB in bf16 (bfloat16) weights (`176*2`), the most efficient set-up is 8x80GB A100. The second best is 2x8x40GB A100s. The main reason for using A100s And, is that at as of this writing they provide the largest GPU memory. But other GPUs can be used as well. It'd probably take 24x32GB V100 as another possibility.
+As the model needs 352GB in bf16 (bfloat16) weights (`176*2`), the most efficient set-up is 8x80GB A100. The second best is 2x8x40GB A100s. The main reason for using A100s And, is that gas of this writing they provide the largest GPU memory. But other GPUs can be used as well. It'd probably take 24x32GB V100 as another possibility.
 
 Using a single node is ideal since PCIe speed is typically much faster than inter-node network.
 
