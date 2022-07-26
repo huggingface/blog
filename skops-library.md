@@ -35,6 +35,7 @@ import os
 import pickle
 from tempfile import mkstemp, mkdtemp
 from skops import hub_utils, card
+import sklearn
 import matplotlib.pyplot as plt
 from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 
