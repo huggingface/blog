@@ -31,6 +31,7 @@ At Hugging Face, we are working on tackling various problems in open-source mach
 Models can be serialized for reproducibility with skops. You can later push your model to Hugging Face Hub as well.
 
 ```python
+import os
 import pickle
 from tempfile import mkstemp, mkdtemp
 from skops import hub_utils, card
