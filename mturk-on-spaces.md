@@ -6,7 +6,7 @@ thumbnail: /blog/assets/91_mturk_on_spaces/thumbnail.png
 <h1>
     How to collect a dataset with crowdworkers, all from a Hugging Face space
 </h1>
-
+abidlabs
 <div class="blog-metadata">
     <small>Published July 25, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/mturk-on-spaces.md">
@@ -20,6 +20,13 @@ thumbnail: /blog/assets/91_mturk_on_spaces/thumbnail.png
         <div class="bfc">
             <code>Tristan</code>
             <span class="fullname">Tristan Thrush</span>
+        </div>
+    </a>
+    <a href="/abidlabs">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1621947938344-noauth.png?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>abidlabs</code>
+            <span class="fullname">Abubakar Abid</span>
         </div>
     </a>
     <a href="/douwekiela">
