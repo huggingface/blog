@@ -5,6 +5,24 @@ thumbnail: /blog/assets/86_nystromformer/thumbnail.png
 
 <h1>Nyströmformer: Approximating self-attention in linear time and memory via the Nyström method</h1>
 
+<div class="blog-metadata">
+    <small>Published July 11, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/nystromformer.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/asi">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1641054384602-61d08096db453feb805ba8ad.png?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>novice03</code>
+            <span class="fullname">novice03</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+        </div>
+    </a>
+</div>
+
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
 ## Introduction
