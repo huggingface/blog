@@ -24,8 +24,8 @@ thumbnail: /blog/assets/91_tf_xla_generate/thumbnail.png
     </a>
 </div>
 
-<em>TL;DR</em>: Text Generation on 🤗 `transformers` using TensorFlow can now be compiled with XLA. It is up to 100x
-faster than before, and [is often faster than Pytorch](https://huggingface.co/spaces/joaogante/tf_xla_generate_benchmarks)
+<em>TL;DR</em>: Text Generation on 🤗 `transformers` using TensorFlow can now be compiled with XLA. It's up to 100x
+faster than before and [faster than Pytorch in most settings](https://huggingface.co/spaces/joaogante/tf_xla_generate_benchmarks)
 -- check the colab below!
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/91_tf_xla_generate.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
