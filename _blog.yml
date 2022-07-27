@@ -1006,12 +1006,39 @@
   tags:
     - nlp
     - llm
+   
+- local: mnist-adversarial
+  title: "How to train your model dynamically using adversarial data"
+  author: chrisjay
+  thumbnail: /blog/assets/88_mnist_adversarial/mnist-adversarial.png
+  date:  July 16, 2022
+  tags:
+  - mnist
+  - adversarial
+  - guide    
+
+- local: deep-rl-a2c
+  title: "Advantage Actor Critic (A2C)"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/89_deep_rl_a2c/thumbnail.gif
+  date: July 22, 2022
+  tags:
+  - rl
+
+- local: tf-serving-vision
+  title: "Deploying TensorFlow Vision Models in Hugging Face with TF Serving"
+  author: sayakpaul
+  thumbnail: /blog/assets/90_tf_serving_vision/thumbnail.png
+  date: July 25, 2022
+  tags:
+    - guide
+    - cv
     
 - local: tf-xla-generate
-  title: "Faster TensorFlow Language Generation with XLA"
+  title: "Faster Text Generation with TensorFlow and XLA"
   author: joaogante
-  thumbnail: /blog/assets/88_tf_xla_generate/thumbnail.png
-  date: July 25, 2022
+  thumbnail: /blog/assets/91_tf_xla_generate/thumbnail.png
+  date: July 27, 2022
   tags:
     - nlp
     - guide
