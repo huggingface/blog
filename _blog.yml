@@ -860,7 +860,7 @@
   tags:
     - graphcore
     - partnerships
-   
+
 - local: deep-rl-dqn
   title: "Deep Q-Learning with Atari"
   author: ThomasSimonini
@@ -868,7 +868,7 @@
   date: June 7, 2022
   tags:
   - rl
-  
+
 - local: annotated-diffusion
   title: "The Annotated Diffusion Model"
   author: nielsrogge
@@ -976,6 +976,70 @@
   date: July 7, 2022
   tags:
     - sentiment-analysis
+    - nlp
+    - guide
+    
+- local: bloom
+  title: "Introducing The World's Largest Open Multilingual Language Model: BLOOM"
+  author: BigScience
+  thumbnail: /blog/assets/86_bloom/thumbnail.png
+  date: July 12, 2022
+  tags:
+    - open-source-collab
+    - community
+    - research
+
+- local: playlist-generator
+  title: "Building a Playlist Generator with Sentence Transformers"
+  author: NimaBoscarino
+  thumbnail: /blog/assets/87_playlist_generator/thumbnail.png
+  date: July 13, 2022
+  tags:
+    - nlp
+    - guide
+
+- local: bloom-megatron-deepspeed
+  title: "The Technology Behind BLOOM Training"
+  author: stas
+  thumbnail: /blog/assets/86_bloom_megatron_deepspeed/thumbnail.png
+  date: July 14, 2022
+  tags:
+    - nlp
+    - llm
+   
+- local: mnist-adversarial
+  title: "How to train your model dynamically using adversarial data"
+  author: chrisjay
+  thumbnail: /blog/assets/88_mnist_adversarial/mnist-adversarial.png
+  date:  July 16, 2022
+  tags:
+  - mnist
+  - adversarial
+  - guide    
+
+- local: deep-rl-a2c
+  title: "Advantage Actor Critic (A2C)"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/89_deep_rl_a2c/thumbnail.gif
+  date: July 22, 2022
+  tags:
+  - rl
+
+- local: tf-serving-vision
+  title: "Deploying TensorFlow Vision Models in Hugging Face with TF Serving"
+  author: sayakpaul
+  thumbnail: /blog/assets/90_tf_serving_vision/thumbnail.png
+  date: July 25, 2022
+  tags:
+    - guide
+    - cv
+    
+- local: tf-xla-generate
+  title: "Faster Text Generation with TensorFlow and XLA"
+  author: joaogante
+  thumbnail: /blog/assets/91_tf_xla_generate/thumbnail.png
+  date: July 27, 2022
+  tags:
     - nlp
     - guide
 
