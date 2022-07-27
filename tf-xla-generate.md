@@ -1,10 +1,10 @@
 ---
 title: 'Faster Text Generation with TensorFlow and XLA'
-thumbnail: /blog/assets/88_tf_xla_generate/thumbnail.png
+thumbnail: /blog/assets/91_tf_xla_generate/thumbnail.png
 ---
 
 <h1>
-    Faster TensorFlow Text Generation with XLA
+    Faster Text Generation with TensorFlow and XLA
 </h1>
 
 <div class="blog-metadata">
@@ -27,7 +27,7 @@ thumbnail: /blog/assets/88_tf_xla_generate/thumbnail.png
 <em>TL;DR</em>: Text Generation on `transformers` using TensorFlow can now be massively accelerated with XLA, often
 being faster than Pytorch, using a single line of additional code -- check the colab below!
 
-<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/88_tf_xla_generate.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/91_tf_xla_generate.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -147,7 +147,7 @@ TensorFlow looks like an expensive endeavour. 😬
 
 Fear not, for the remainder of this blog post aims to demonstrate that one line of code can make a drastic improvement.
 If you'd rather jump straight into action,
-[the colab](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/88_tf_xla_generate.ipynb)
+[the colab](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/91_tf_xla_generate.ipynb)
 has an interactive example you can fiddle with!
 
 ## TensorFlow and XLA
@@ -382,5 +382,5 @@ talking about speedups larger than 100x in some cases, which truly demonstrates 
 2. TensorFlow text generation with XLA is the fastest option in the vast majority of cases, in some of them by as
 much as 9x faster, debunking the myth that PyTorch is the go-to framework for serious NLP tasks 💪
 
-Give [the colab](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/88_tf_xla_generate.ipynb)
+Give [the colab](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/91_tf_xla_generate.ipynb)
 a go, and enjoy the power of text generation supercharged with XLA!
