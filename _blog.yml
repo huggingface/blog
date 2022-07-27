@@ -1033,3 +1033,12 @@
   tags:
     - guide
     - cv
+    
+- local: tf-xla-generate
+  title: "Faster Text Generation with TensorFlow and XLA"
+  author: joaogante
+  thumbnail: /blog/assets/91_tf_xla_generate/thumbnail.png
+  date: July 27, 2022
+  tags:
+    - nlp
+    - guide
