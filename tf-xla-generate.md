@@ -24,9 +24,9 @@ thumbnail: /blog/assets/91_tf_xla_generate/thumbnail.png
     </a>
 </div>
 
-<em>TL;DR</em>: Text Generation on `transformers` using TensorFlow can now be massively accelerated with XLA, often
-being faster than Pytorch, using a single line of additional code -- check the colab below!
-
+<em>TL;DR</em>: Text Generation on 🤗 `transformers` using TensorFlow can now be massively accelerated with XLA, [often
+being faster than Pytorch](https://huggingface.co/spaces/joaogante/tf_xla_generate_benchmarks), using a single line of
+additional code -- check the colab below!
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/91_tf_xla_generate.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
@@ -53,7 +53,7 @@ Let's start with the basics. Text generation can be deterministic or stochastic,
 Greedy Decoding.
 When it's set to `True`, also known as Sampling, the output will be stochastic, but you can still
 obtain reproducible results through the `seed` argument (with the same format as in [stateless TensorFlow random
-number generation])(https://www.tensorflow.org/api_docs/python/tf/random/stateless_categorical#args)).
+number generation](https://www.tensorflow.org/api_docs/python/tf/random/stateless_categorical#args)).
 As a rule of thumb, you want deterministic generation if you wish
 to obtain factual information from the model and stochastic generation if you're aiming at more creative outputs.
 
@@ -267,7 +267,9 @@ from transformers import AutoTokenizer, TFAutoModelForCausalLM
 # Notice the new argument, `padding_side="left"` -- decoder-only models, which can
 # be instantiated with TFAutoModelForCausalLM, should be left-padded, as they
 # continue generating from the input prompt.
-tokenizer = AutoTokenizer.from_pretrained("gpt2", padding_side="left", pad_token="</s>")
+tokenizer = AutoTokenizer.from_pretrained(
+    "gpt2", padding_side="left", pad_token="</s>"
+)
 model = TFAutoModelForCausalLM.from_pretrained("gpt2")
 model.config.pad_token_id = model.config.eos_token_id
 input_1 = ["TensorFlow is"]
