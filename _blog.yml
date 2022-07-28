@@ -1046,7 +1046,7 @@
 - local: datasets-docs-update
   title: "Introducing new audio and vision documentation in 🤗 Datasets"
   author: stevhliu
-  thumbnail: assets/87_datasets-docs-update/thumbnail.gif
+  thumbnail: /blog/assets/87_datasets-docs-update/thumbnail.gif
   date: July 28, 2022
   tags:
     - audio
