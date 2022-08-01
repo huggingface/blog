@@ -1,10 +1,18 @@
 ---
 title: "Comments on U.S. National AI Research Resource Interim Report"
+thumbnail: /blog/assets/92_us_national_ai_research_resource/nairr_thumbnail.png
 ---
 
 <h1>
     AI Policy @🤗: Comments on U.S. National AI Research Resource Interim Report
 </h1>
+
+<div class="blog-metadata">
+    <small>Published August 1, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/us-national-ai-research-resource.md">
+        Update on GitHub
+    </a>
+</div>
 
 <div class="author-card">
     <a href="/Irene">
