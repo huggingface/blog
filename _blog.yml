@@ -1053,7 +1053,6 @@
     - cv
     - community
     - announcement
-<<<<<<< HEAD
     
 - local: us-national-ai-research-resource
   title: "AI Policy @🤗: Comments on U.S. National AI Research Resource Interim Report"
@@ -1062,5 +1061,4 @@
   date: August 1, 2022
   tags:
     - community
-=======
->>>>>>> 2274701051dd5a1921fb817ab7aaf0891ee4b4c5
+
