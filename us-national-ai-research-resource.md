@@ -43,7 +43,7 @@ In our response, we encourage the Task Force to:
 - Empower Diverse Researcher Perspectives via Accessible Tooling and Resources
     - Tooling and resources must be available and accessible to different disciplines as well as the many languages and perspectives needed to drive responsible innovation. This means at minimum providing resources in multiple languages, which can be based on the most spoken languages in the U.S. The [BigScience Research Workshop](https://bigscience.huggingface.co/), a community of over 1000 researchers from different disciplines hosted by Hugging Face and the French government, is a good example of empowering perspectives from over 60 countries to build one of the most powerful open-source multilingual language models. 
 
-Our <a href="/blog/assets/92_nairr_rfi/Hugging_Face_NAIRR_RFI_2022.pdf">memo</a> goes into further detail for each recommendation. We are eager for more resources to make AI broadly accessible in a responsible manner.
+Our <a href="a href="/blog/assets/92_us_national_ai_research_resource/Hugging_Face_NAIRR_RFI_2022.pdf">memo</a> goes into further detail for each recommendation. We are eager for more resources to make AI broadly accessible in a responsible manner.
 
 
 
