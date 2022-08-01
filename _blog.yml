@@ -978,7 +978,7 @@
     - sentiment-analysis
     - nlp
     - guide
-    
+
 - local: bloom
   title: "Introducing The World's Largest Open Multilingual Language Model: BLOOM"
   author: BigScience
