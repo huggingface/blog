@@ -94,7 +94,7 @@ On this instance, the last setup step is to pull the Habana container for PyTorc
 
 ```
 docker pull \
-vault.habana.ai/gaudi-docker/1.4.0/ubuntu20.04/habanalabs/pytorch-installer-1.10.2:1.4.0-442
+vault.habana.ai/gaudi-docker/1.5.0/ubuntu20.04/habanalabs/pytorch-installer-1.11.0:1.5.0-610
 ```
 
 Once the image has been pulled to the instance, I run it in interactive mode.
@@ -106,7 +106,7 @@ docker run -it \
 -e OMPI_MCA_btl_vader_single_copy_mechanism=none \
 --cap-add=sys_nice \
 --net=host \
---ipc=host vault.habana.ai/gaudi-docker/1.4.0/ubuntu20.04/habanalabs/pytorch-installer-1.10.2:1.4.0-442
+--ipc=host vault.habana.ai/gaudi-docker/1.5.0/ubuntu20.04/habanalabs/pytorch-installer-1.11.0:1.5.0-610
 ```
 
 I'm now ready to fine-tune my model.
@@ -153,25 +153,27 @@ python run_glue.py \
 --output_dir ./output/mrpc/
 ```
 
-After 2 minutes and 39 seconds, the job is complete and has achieved an excellent F1 score of 0.9181, which could certainly improve with more epochs.
+After 2 minutes and 12 seconds, the job is complete and has achieved an excellent F1 score of 0.9181, which could certainly improve with more epochs.
 
 ```
-{'train_runtime': 159.0603, 
- 'train_samples_per_second': 69.181, 
- 'train_steps_per_second': 2.169, 
- 'train_loss': 0.3333333333333333, 
- 'epoch': 3.0}
+***** train metrics *****
+  epoch                    =        3.0
+  train_loss               =      0.371
+  train_runtime            = 0:02:12.85
+  train_samples            =       3668
+  train_samples_per_second =     82.824
+  train_steps_per_second   =      2.597
 
 ***** eval metrics *****
   epoch                   =        3.0
-  eval_accuracy           =     0.8824
-  eval_combined_score     =     0.9002
-  eval_f1                 =     0.9181
-  eval_loss               =      0.368
-  eval_runtime            = 0:00:10.48
+  eval_accuracy           =     0.8505
+  eval_combined_score     =     0.8736
+  eval_f1                 =     0.8968
+  eval_loss               =      0.385
+  eval_runtime            = 0:00:06.45
   eval_samples            =        408
-  eval_samples_per_second =     38.899
-  eval_steps_per_second   =      4.862
+  eval_samples_per_second =     63.206
+  eval_steps_per_second   =      7.901
 ```
 
 Last but not least, I terminate the EC2 instance to avoid unnecessary charges. Looking at the [Savings Summary](https://console.aws.amazon.com/ec2sp/v2/home/spot) in the EC2 console, I see that I saved 70% thanks to Spot Instances, paying only $3.93 per hour instead of $13.11.
