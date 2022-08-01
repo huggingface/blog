@@ -1043,11 +1043,22 @@
     - nlp
     - guide
 
+- local: datasets-docs-update
+  title: "Introducing new audio and vision documentation in 🤗 Datasets"
+  author: stevhliu
+  thumbnail: /blog/assets/87_datasets-docs-update/thumbnail.gif
+  date: July 28, 2022
+  tags:
+    - audio
+    - cv
+    - community
+    - announcement
+
 - local: nystromformer
   title: "Nyströmformer: Approximating self-attention in linear time and memory via the Nyström method"
   author: novice03
   thumbnail: /blog/assets/86_nystromformer/thumbnail.png
-  date: July 11, 2022
+  date: August 2, 2022
   tags:
     - research
     - nlp
