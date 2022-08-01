@@ -1017,6 +1017,43 @@
   - adversarial
   - guide    
 
+- local: deep-rl-a2c
+  title: "Advantage Actor Critic (A2C)"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/89_deep_rl_a2c/thumbnail.gif
+  date: July 22, 2022
+  tags:
+  - rl
+
+- local: tf-serving-vision
+  title: "Deploying TensorFlow Vision Models in Hugging Face with TF Serving"
+  author: sayakpaul
+  thumbnail: /blog/assets/90_tf_serving_vision/thumbnail.png
+  date: July 25, 2022
+  tags:
+    - guide
+    - cv
+    
+- local: tf-xla-generate
+  title: "Faster Text Generation with TensorFlow and XLA"
+  author: joaogante
+  thumbnail: /blog/assets/91_tf_xla_generate/thumbnail.png
+  date: July 27, 2022
+  tags:
+    - nlp
+    - guide
+
+- local: datasets-docs-update
+  title: "Introducing new audio and vision documentation in 🤗 Datasets"
+  author: stevhliu
+  thumbnail: /blog/assets/87_datasets-docs-update/thumbnail.gif
+  date: July 28, 2022
+  tags:
+    - audio
+    - cv
+    - community
+    - announcement
+    
 - local: us-national-ai-research-resource
   title: "AI Policy @🤗: Comments on U.S. National AI Research Resource Interim Report"
   author: irenesolaiman
