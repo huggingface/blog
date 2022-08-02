@@ -59,7 +59,8 @@ As shown in the second line, \\(\hat{P}\\) can be expressed as a product of thre
 
 ## Can we approximate self-attention with the Nyström method?
 
-Our goal is to ultimately approximate the softmax matrix in standard self attention: $$S = softmax(\frac{QK^T}{\sqrt{d}})$$
+Our goal is to ultimately approximate the softmax matrix in standard self attention: S = softmax \\( \frac{QK^T}{\sqrt{d}} \\)
+
 Here, \\(Q\\) and \\(K\\) denote the queries and keys respectively. Following the procedure discussed above, we would sample \\(m\\) rows and columns from \\(S\\), form four submatrices, and obtain \\(\hat{S}\\):
 
 <figure class="image table text-center m-0 w-full">
@@ -79,16 +80,15 @@ $$\tilde{F} = softmax(\frac{Q\tilde{K}^T}{\sqrt{d}}) \hspace{40pt} \tilde{A} = s
 The sizes of \\(\tilde{F}\\), \\(\tilde{A}\\), and \\(\tilde{B}) are \\(n \times m, m \times m,\\) and \\(m \times n\\) respectively. 
 We replace the three matrices in the Nyström approximation of \\(S\\) with the new matrices we have defined to obtain an alternative Nyström approximation:
 
-$$\begin{align}\hat{S} &= \tilde{F} \tilde{A} \tilde{B} \\
-&= softmax(\frac{Q\tilde{K}^T}{\sqrt{d}}) softmax(\frac{\tilde{Q}\tilde{K}^T}{\sqrt{d}})^+  softmax(\frac{\tilde{Q}K^T}{\sqrt{d}}) \end{align}$$
+$$\begin{aligned}\hat{S} &= \tilde{F} \tilde{A} \tilde{B} \\ &= softmax(\frac{Q\tilde{K}^T}{\sqrt{d}}) softmax(\frac{\tilde{Q}\tilde{K}^T}{\sqrt{d}})^+  softmax(\frac{\tilde{Q}K^T}{\sqrt{d}}) \end{aligned}$$
 
-This is the Nyström approximation of the softmax matrix in the self-attention mechanism. We multiply this matrix with the values (\\(V\\)) to obtain a linear approximation of self-attention. Note that we never calculated the product \\(QK^T\\), avoiding the \\(O(n^2)\\) complexity. 
+This is the Nyström approximation of the softmax matrix in the self-attention mechanism. We multiply this matrix with the values ( \\(V\\)) to obtain a linear approximation of self-attention. Note that we never calculated the product \\(QK^T\\), avoiding the \\(O(n^2)\\) complexity. 
 
 
 ## How do we select landmarks?
 
 Instead of sampling \\(m\\) rows from \\(Q\\) and \\(K\\), the authors propose to construct \\(\tilde{Q}\\) and \\(\tilde{K}\\)
-using segment means. In this procedure, \\(n\\) tokens are grouped into \\(m\\) segments, and the mean of each segment is computed. Ideally, \\(m\\) is much smaller than \\(n\\). According to experiments from the paper, selecting just \\(32\\) or \\(64\\) landmarks produces competetive performance compared to standard self-attention and other efficient attention mechanisms, even for long sequences lengths (\\(n = 4096\\) or \\(8192\\)). 
+using segment means. In this procedure, \\(n\\) tokens are grouped into \\(m\\) segments, and the mean of each segment is computed. Ideally, \\(m\\) is much smaller than \\(n\\). According to experiments from the paper, selecting just \\(32\\) or \\(64\\) landmarks produces competetive performance compared to standard self-attention and other efficient attention mechanisms, even for long sequences lengths ( \\(n=4096\\) or \\(8192\\)). 
 
 The overall algorithm is summarised by the following figure from the paper:
 
@@ -105,6 +105,7 @@ The three orange matrices above correspond to the three matrices we constructed 
 The original implementation of Nyströmformer can be found [here](https://github.com/mlpen/Nystromformer) and the HuggingFace implementation can be found [here](https://github.com/huggingface/transformers/blob/main/src/transformers/models/nystromformer/modeling_nystromformer.py). Let's take a look at a few lines of code (with some comments added) from the HuggingFace implementation. Note that some details such as normalization, attention masking, and depthwise convolution are avoided for simplicity.
 
 ```python
+
 key_layer = self.transpose_for_scores(self.key(hidden_states)) # K
 value_layer = self.transpose_for_scores(self.value(hidden_states)) # V
 query_layer = self.transpose_for_scores(mixed_query_layer) # Q
