@@ -39,7 +39,7 @@ thumbnail: /blog/assets/86_bloom_megatron_deepspeed/thumbnail.png
 
 This article discusses various PyTorch-based solution to efficient 176B parameter [BLOOM model](https://huggingface.co/bigscience/bloom).
 
-As the model needs 352GB in bf16 (bfloat16) weights (`176*2`), the most efficient set-up is 8x80GB A100. The second best is 2x8x40GB A100s. The main reason for using A100s And, is that gas of this writing they provide the largest GPU memory. But other GPUs can be used as well. It'd probably take 24x32GB V100 as another possibility.
+As the model needs 352GB in bf16 (bfloat16) weights (`176*2`), the most efficient set-up is 8x80GB A100. The second best is 2x8x40GB A100s. The main reason for using A100s And, is that at the time of this writing they provide the largest GPU memory. But other GPUs can be used as well. It'd probably take 24x32GB V100 as another possibility.
 
 Using a single node is ideal since PCIe speed is typically much faster than inter-node network.
 
@@ -73,7 +73,7 @@ Accelerate handles big models for inference in the following way:
 
 It then ensures the model runs properly with hooks that transfer the inputs and outputs on the right device and that the model weights offloaded on the CPU (or even the disk) are loaded on a GPU just before the forward pass, before being offloaded again once the forward pass is finished.
 
-In a situation where there are multiple GPUs with enough space to accomodate the whole model, it switches control from one GPU to the next until all layers have run. Only one GPU works at any given time, which sounds very inefficient but it does produce excellent throughput despite the idling of the GPUs.
+In a situation where there are multiple GPUs with enough space to accomodate the whole model, it switches control from one GPU to the next until all layers have run. Only one GPU works at any given time, which sounds very inefficient but it does produce decent throughput despite the idling of the GPUs.
 
 It is also very flexible since the same code can run on any given setup. Accelerate will use all available GPUs first, then offload on the CPU until the RAM is full, and finally on the disk. Offloading to CPU or disk will make things slower. As an example, users have reported running BLOOM with no code changes on just 2 A100s with a throughput of 15s per token as compared to 10 msecs on 8x80 A100s.
 
