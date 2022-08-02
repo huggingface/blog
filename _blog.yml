@@ -1062,3 +1062,11 @@
   tags:
     - community
 
+- local: nystromformer
+  title: "Nyströmformer, Approximating self-attention in linear time and memory via the Nyström method"
+  author: novice03
+  thumbnail: /blog/assets/86_nystromformer/thumbnail.png
+  date: August 2, 2022
+  tags:
+    - research
+    - nlp
