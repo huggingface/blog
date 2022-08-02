@@ -1053,9 +1053,17 @@
     - cv
     - community
     - announcement
+    
+- local: us-national-ai-research-resource
+  title: "AI Policy @🤗: Comments on U.S. National AI Research Resource Interim Report"
+  author: irenesolaiman
+  thumbnail: /blog/assets/92_us_national_ai_research_resource/nairr_thumbnail.png
+  date: August 1, 2022
+  tags:
+    - community
 
 - local: nystromformer
-  title: "Nyströmformer: Approximating self-attention in linear time and memory via the Nyström method"
+  title: "Nyströmformer, Approximating self-attention in linear time and memory via the Nyström method"
   author: novice03
   thumbnail: /blog/assets/86_nystromformer/thumbnail.png
   date: August 2, 2022
