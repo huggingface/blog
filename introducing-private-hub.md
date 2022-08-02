@@ -24,7 +24,7 @@ thumbnail: /blog/assets/92_introducing_private_hub/thumbnail.png
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
-Machine Learning is changing how companies are building technology. From powering a new generation of disruptive products to enabling smarter features in well-known applications we all use and love, ML is at the core of the development process.
+Machine learning is changing how companies are building technology. From powering a new generation of disruptive products to enabling smarter features in well-known applications we all use and love, ML is at the core of the development process.
 
 But with every technology shift comes new challenges. 
 
@@ -46,9 +46,9 @@ Let's get started! 🚀
 
 Before diving into the Private Hub, let's first take a look at the Hugging Face Hub, which is a central part of the PH.
 
-The [Hugging Face Hub](https://huggingface.co/docs/hub/index) offers over 60K models, 6K datasets, and 6K ML demo apps, all free and publicly available, in an online platform where people can easily collaborate and build ML together. The Hub works as a central place where anyone can explore, experiment, collaborate and build technology with Machine Learning.
+The [Hugging Face Hub](https://huggingface.co/docs/hub/index) offers over 60K models, 6K datasets, and 6K ML demo apps, all open source and publicly available, in an online platform where people can easily collaborate and build ML together. The Hub works as a central place where anyone can explore, experiment, collaborate and build technology with machine learning.
 
-On the 🤗 Hub, you’ll be able to create or discover the following ML assets:
+On the Hugging Face Hub, you’ll be able to create or discover the following ML assets:
 
 - [Models](https://huggingface.co/models): hosting the latest state-of-the-art models for NLP, computer vision, speech, time-series, biology, reinforcement learning, chemistry and more.
 - [Datasets](https://huggingface.co/datasets): featuring a wide variety of data for different domains, modalities and languages.
@@ -61,7 +61,7 @@ Each model, dataset or space uploaded to the Hub is a [Git-based repository](htt
   <figcaption>Commit history on a model</figcaption>
 </figure>
 
-The 🤗 Hub is also a central place for feedback and development in machine learning. Teams use [pull requests and discussions](https://huggingface.co/docs/hub/repositories-pull-requests-discussions) to support peer reviews on models, datasets, and spaces, improve collaboration and accelerate their ML work.
+The Hugging Face Hub is also a central place for feedback and development in machine learning. Teams use [pull requests and discussions](https://huggingface.co/docs/hub/repositories-pull-requests-discussions) to support peer reviews on models, datasets, and spaces, improve collaboration and accelerate their ML work.
 
 <figure class="image table text-center m-0 w-full">
   <medium-zoom background="rgba(0,0,0,.7)" alt="Pull requests and discussions on a model" src="assets/92_introducing_private_hub/pull-requests-and-discussions.png"></medium-zoom>
@@ -72,10 +72,10 @@ The Hub allows users to create [Organizations](https://huggingface.co/docs/hub/o
 
 <figure class="image table text-center m-0 w-full">
   <medium-zoom background="rgba(0,0,0,.7)" alt="Organization in the Hub for BigScience" src="assets/92_introducing_private_hub/organizations.png"></medium-zoom>
-  <figcaption>Organization in the Hub for BigScience</figcaption>
+  <figcaption>Organization in the Hub for <a href="https://huggingface.co/bigscience">BigScience</a></figcaption>
 </figure>
 
-Now that we have covered the basics, let's dive into the specific characteristics of models, datasets and spaces hosted on the 🤗 Hub.
+Now that we have covered the basics, let's dive into the specific characteristics of models, datasets and spaces hosted on the Hugging Face Hub.
 
 ### Models
 
@@ -142,7 +142,7 @@ The [Private Hub](https://huggingface.co/platform) allows companies to use Huggi
   <figcaption>The Private Hub</figcaption>
 </figure>
 
-With the Private Hub, data scientists can seamlessly work with [Transformers](https://github.com/huggingface/transformers), [Datasets](https://github.com/huggingface/datasets) and other [open source libraries](https://github.com/huggingface) with models, datasets and spaces privately and securely hosted on your own servers, and get Machine Learning done faster by leveraging the Hub features:
+With the Private Hub, data scientists can seamlessly work with [Transformers](https://github.com/huggingface/transformers), [Datasets](https://github.com/huggingface/datasets) and other [open source libraries](https://github.com/huggingface) with models, datasets and spaces privately and securely hosted on your own servers, and get machine learning done faster by leveraging the Hub features:
 
 - [AutoTrain](https://huggingface.co/autotrain): you can use our AutoML no-code solution to train state-of-the-art models, automatically fine-tuned, evaluated and deployed in your own servers.
 - [Evaluate](https://huggingface.co/spaces/autoevaluate/model-evaluator): evaluate any model on any dataset on the Private Hub with any metric without writing a single line of code.
@@ -170,7 +170,7 @@ Being at the heart of the open source AI community, we had thousands of conversa
 
 Through these conversations, we discovered that the current workflow for building machine learning is broken. Duplicated efforts, poor feedback loops, high friction to collaborate across teams, non-standard processes and tools, and difficulty optimizing models for production are common and slow down ML development.
 
-We built the Private Hub to change this. Like Git and Github forever changed how companies build software, the Private Hub changes how companies build machine learning:
+We built the Private Hub to change this. Like Git and GitHub forever changed how companies build software, the Private Hub changes how companies build machine learning:
 
 <figure class="image table text-center m-0 w-full">
   <medium-zoom background="rgba(0,0,0,.7)" alt="Before and after using The Private Hub" src="assets/92_introducing_private_hub/before-and-after.png"></medium-zoom>
@@ -288,7 +288,7 @@ With just 12 lines of code, we are up and running in running inferences with an 
 
 ## Last Words
 
-Machine Learning is becoming the default way to build technology, mostly thanks to open-source and open-science.
+Machine learning is becoming the default way to build technology, mostly thanks to open-source and open-science.
 
 But building machine learning is still hard. Many ML projects are rushed and never make it to production. ML development is slowed down by non-standard workflows. ML teams get frustrated with duplicated work, low collaboration across teams, and a fragmented ecosystem of ML tooling.
 
