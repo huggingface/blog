@@ -1070,3 +1070,12 @@
   tags:
     - research
     - nlp
+
+- local: introducing-private-hub
+  title: "Introducing the Private Hub: A New Way to Build With Machine Learning"
+  author: FedericoPascual
+  thumbnail: /blog/assets/92_introducing_private_hub/thumbnail.png
+  date: August 3, 2022
+  tags:
+    - announcement
+    - private hub
