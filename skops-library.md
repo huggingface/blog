@@ -28,7 +28,7 @@ thumbnail: /blog/assets/88_skops_library/introducing_skops.png
 
 At Hugging Face, we are working on tackling various problems in open-source machine learning, including, hosting models securely and openly, enabling reproducibility, explainability and collaboration. We are thrilled to introduce you to our new library: Skops! With skops, you can host your sklearn models on Hugging Face Hub, create model cards with better reproducibility and collaborate with others. 
 
-Models can be serialized for reproducibility with skops. You can later push your model to Hugging Face Hub as well.
+Models can be serialized for reproducibility with skops. You can later push your model to the Hugging Face Hub as well.
 
 ```python
 import os
