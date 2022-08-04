@@ -54,11 +54,11 @@ Sounds exciting? Let's get started!
   - [The Ratio Function](https://huggingface.co/blog/deep-rl-ppo#the-ratio-function)
   - [The unclipped part of the Clipped Surrogate Objective function](https://huggingface.co/blog/deep-rl-ppo#the-unclipped-part-of-the-clipped-surrogate-objective-function)
   - [The clipped Part of the Clipped Surrogate Objective function](https://huggingface.co/blog/deep-rl-ppo#the-clipped-part-of-the-clipped-surrogate-objective-function)
-- [Visualize the Clipped Surrogate Objective]()
-  - [Case 1 and 2: the ratio is between the range]()
-  - [Case 3 and 4: the ratio is below the range]()
-  - [Case 5 and 6: the ratio is above the range]()
-- [Let's code our PPO Agent]()
+- [Visualize the Clipped Surrogate Objective](https://huggingface.co/blog/deep-rl-ppo#visualize-the-clipped-surrogate-objective)
+  - [Case 1 and 2: the ratio is between the range](https://huggingface.co/blog/deep-rl-ppo#case-1-and-2-the-ratio-is-between-the-range)
+  - [Case 3 and 4: the ratio is below the range](https://huggingface.co/blog/deep-rl-ppo#case-3-and-4-the-ratio-is-below-the-range)
+  - [Case 5 and 6: the ratio is above the range](https://huggingface.co/blog/deep-rl-ppo#case-5-and-6-the-ratio-is-above-the-range)
+- [Let's code our PPO Agent](https://huggingface.co/blog/deep-rl-ppo#lets-code-our-ppo-agent)
   
 ## The intuition behind PPO
 
