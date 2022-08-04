@@ -125,7 +125,7 @@ However, without a constraint, if the action taken is much more probable in our 
 
 ### The clipped Part of the Clipped Surrogate Objective function
 
-<img src="assets/93_deep_rl_ppo/clipped1.jpg" alt="PPO"/>
+<img src="assets/93_deep_rl_ppo/clipped.jpg" alt="PPO"/>
 
 Consequently, we need to constrain this objective function by penalizing changes that lead to a ratio away from 1 (in the paper, the ratio can only vary from 0.8 to 1.2).
 
@@ -136,7 +136,7 @@ To do that, we have two solutions:
 - *TRPO (Trust Region Policy Optimization)* uses KL divergence constraints outside the objective function to constrain the policy update. But this method **is complicated to implement and takes more computation time.**
 - *PPO* clip probability ratio directly in the objective function with its **Clipped surrogate objective function.**
 
-<img src="assets/93_deep_rl_ppo/clipped2.jpg" alt="PPO"/>
+<img src="assets/93_deep_rl_ppo/clipped.jpg" alt="PPO"/>
 
 This clipped part is a version where rt(theta) is clipped between  \\( [1 - \epsilon, 1 + \epsilon] \\).
 
