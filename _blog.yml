@@ -1079,3 +1079,11 @@
   tags:
     - announcement
     - private hub
+
+- local: deep-rl-ppo
+  title: "Proximal Policy Optimization (PPO)"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/93_deep_rl_ppo/thumbnail.png
+  date: August 5, 2022
+  tags:
+  - rl
