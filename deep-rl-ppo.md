@@ -1,6 +1,6 @@
 ---
 title: "Proximal Policy Optimization (PPO)"
-thumbnail: /blog/assets/93_deep_rl_ppo/thumbnail.gif
+thumbnail: /blog/assets/93_deep_rl_ppo/thumbnail.png
 ---
 
 <html>
