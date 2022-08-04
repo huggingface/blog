@@ -242,6 +242,9 @@ And finally, we will be push the trained model to the Hub to evaluate and visual
 LunarLander-v2 is the first environment you used when you started this course. At that time, you didn't know how it worked, and now, you can code it from scratch and train it. **How incredible is that 🤩.**
 
 <iframe src="https://giphy.com/embed/pynZagVcYxVUk" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/the-office-michael-heartbreak-pynZagVcYxVUk">via GIPHY</a></p>
+      
+      
+Start the tutorial here 👉 https://github.com/huggingface/deep-rl-class/blob/main/unit8/unit8.ipynb
 
 ---
 
