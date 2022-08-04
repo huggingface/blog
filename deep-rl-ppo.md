@@ -58,7 +58,8 @@ Sounds exciting? Let's get started!
   - [Case 1 and 2: the ratio is between the range]()
   - [Case 3 and 4: the ratio is below the range]()
   - [Case 5 and 6: the ratio is above the range]()
-- 
+- [Let's code our PPO Agent]()
+  
 ## The intuition behind PPO
 
 The idea with Proximal Policy Optimization (PPO) is that we want to improve the training stability of the policy by limiting the change you make to the policy at each training epoch: **we want to avoid having too large policy updates.**
@@ -150,7 +151,11 @@ Don't worry. **It's normal if this seems complex to handle right now**. But we'r
 
 On the left, it's when A > 0, and on the right, when A < 0.
 
-<img src="assets/93_deep_rl_ppo/recap.jpg" alt="PPO"/>
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/93_deep_rl_ppo/recap.jpg" alt="PPO"/>
+  <figcaption>[Table from "Towards Delivering a Coherent Self-Contained
+Explanation of Proximal Policy Optimization" by Daniel Bick](https://arxiv.org/pdf/1707.06347.pdf)</figcaption>
+</figure>
 
 We have six different situations. Remember first that we take the minimum between the clipped and unclipped objectives.
   
@@ -166,7 +171,11 @@ In situation 2, we have a negative advantage: the action is worse than the avera
 Since the ratio is between intervals, **we can decrease the probability that our policy takes that action at that state.** 
 
 ### Case 3 and 4: the ratio is below the range
-<img src="assets/93_deep_rl_ppo/recap.jpg" alt="PPO"/>
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/93_deep_rl_ppo/recap.jpg" alt="PPO"/>
+  <figcaption>[Table from "Towards Delivering a Coherent Self-Contained
+Explanation of Proximal Policy Optimization" by Daniel Bick](https://arxiv.org/pdf/1707.06347.pdf)</figcaption>
+</figure>
 If the probability ratio is lower than \\( [1 - \epsilon] \\), the probability of taking that action at that state **is much lower than with the old policy.**
 
 If, like in situation 3, the advantage estimate is positive (A>0), then **you want to increase the probability of taking that action at that state.**
@@ -174,7 +183,11 @@ If, like in situation 3, the advantage estimate is positive (A>0), then **you wa
 But if, like situation 4, the advantage estimate is negative, **we don't want to decrease further** the probability of taking that action at that state. Therefore, the gradient is = 0 (since we're on a flat line), so we don't update our weights.
 
 ### Case 5 and 6: the ratio is above the range
-<img src="assets/93_deep_rl_ppo/recap.jpg" alt="PPO"/>
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/93_deep_rl_ppo/recap.jpg" alt="PPO"/>
+  <figcaption>[Table from "Towards Delivering a Coherent Self-Contained
+Explanation of Proximal Policy Optimization" by Daniel Bick](https://arxiv.org/pdf/1707.06347.pdf)</figcaption>
+</figure>
 If the probability ratio is higher than \\( [1 + \epsilon] \\), the probability of taking that action at that state in the current policy **is much higher than in the former policy.**
 
 If, like in situation 5, the advantage is positive, **we don't want to get too greedy**. We already have a higher probability of taking that action at that state than the former policy. Therefore, the gradient is = 0 (since we're on a flat line), so we don't update our weights.
@@ -199,4 +212,59 @@ The final Clipped Surrogate Objective Loss for PPO Actor-Critic style looks like
       
 <img src="assets/93_deep_rl_ppo/ppo-objective.jpg" alt="PPO objective"/>
       
+## Let's code our PPO Agent
 
+Now that we studied the theory behind PPO, the best way to understand how it works **is to implement it from scratch.** 
+      
+Implementing an architecture from scratch is the best way to understand it, and it's a good habit. We have already done it for a value-based method with Q-Learning and a Policy-based method with Reinforce.
+
+So, to be able to code it, we're going to use two resources:
+- A tutorial made by [Costa Huang](https://github.com/vwxyzjn). Costa is behind [CleanRL](https://github.com/vwxyzjn/cleanrl), a Deep Reinforcement Learning library that provides high-quality single-file implementation with research-friendly features.
+- In addition to the tutorial, to go deeper, you can read the 13 core implementation details: [https://iclr-blog-track.github.io/2022/03/25/ppo-implementation-details/](https://iclr-blog-track.github.io/2022/03/25/ppo-implementation-details/)
+
+Then, to test its robustness, we're going to train it in 2 different classical environments:
+
+- [Cartpole-v1](https://www.gymlibrary.ml/environments/classic_control/cart_pole/?highlight=cartpole)
+- [LunarLander-v2](https://www.gymlibrary.ml/environments/box2d/lunar_lander/)
+      
+<figure class="image table text-center m-0 w-full">
+    <video
+        alt="LunarLander"
+        style="max-width: 70%; margin: auto;"
+        autoplay loop autobuffer muted playsinline
+    >
+      <source src="assets/63_deep_rl_intro/lunarlander.mp4" type="video/mp4">
+  </video>
+</figure>
+
+And finally, we will be push the trained model to the Hub to evaluate and visualize your agent playing.
+
+LunarLander-v2 is the first environment you used when you started this course. At that time, you didn't know how it worked, and now, you can code it from scratch and train it. **How incredible is that 🤩.**
+
+<iframe src="https://giphy.com/embed/pynZagVcYxVUk" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/the-office-michael-heartbreak-pynZagVcYxVUk">via GIPHY</a></p>
+
+---
+
+Congrats on finishing this chapter! There was a lot of information. And congrats on finishing the tutorial. 🥳, **this was one of the hardest of the course**.
+      
+Don't hesitate to train your agent in other environments. The **best way to learn is to try things on your own!**
+
+I want you to think about your progress since the first Unit. **With these eight units, you've built a strong background in Deep Reinforcement Learning. Congratulations!**
+
+But this is not the end, even if the foundations part of the course is finished, this is not the end of the journey. We're working on new elements:
+
+- Adding new environments and tutorials.
+- A section about **multi-agents** (self-play, collaboration, competition).
+- Another one about **offline RL and Decision Transformers.**
+- **Paper explained articles.**
+- And more to come.
+
+The best way to keep in touch is to sign up for the course so that we keep you updated.
+
+And don't forget to share with your friends who want to learn 🤗!
+
+Finally, with your feedback, we want **to improve and update the course iteratively**. If you have some, please fill this form 👉 **[https://forms.gle/3HgA7bEHwAmmLfwh9](https://forms.gle/3HgA7bEHwAmmLfwh9)**
+
+See you next time!
+
+### **Keep learning, stay awesome 🤗,**
