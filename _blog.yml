@@ -1080,8 +1080,8 @@
     - announcement
     - private hub
 
-- local: train-and-fine-tune-sentence-transformers-models
-  title: "Training and Fine-Tuning Sentence Transformers Models"
+- local: how-to-train-sentence-transformers
+  title: "Train and Fine-Tune Sentence Transformers Models"
   author: espejelomar
   thumbnail: /blog/assets/95_training_st_models/thumbnail.png
   date: August 10, 2022
