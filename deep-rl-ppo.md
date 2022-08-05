@@ -45,6 +45,16 @@ Today we'll learn about Proximal Policy Optimization (PPO), an architecture that
 Doing this will ensure **that our policy update will not be too large and that the training is more stable.**
 
 And then, after the theory, we'll code a PPO architecture from scratch using PyTorch and bulletproof our implementation with CartPole-v1 and LunarLander-v2.
+  
+<figure class="image table text-center m-0 w-full">
+    <video
+        alt="LunarLander"
+        style="max-width: 70%; margin: auto;"
+        autoplay loop autobuffer muted playsinline
+    >
+      <source src="assets/63_deep_rl_intro/lunarlander.mp4" type="video/mp4">
+  </video>
+</figure>
 
 Sounds exciting? Let's get started!
 
@@ -69,9 +79,9 @@ For two reasons:
 - A too big step in a policy update can result in falling “off the cliff” (getting a bad policy) **and having a long time or even no possibility to recover.**
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/93_deep_rl_ppo/cliff.jpg" alt="Policy Update cliff"/>
+  <img class="center" src="assets/93_deep_rl_ppo/cliff.jpg" alt="Policy Update cliff"/>
   <figcaption>Taking smaller policy updates improve the training stability</figcaption>
-  <figcaption>Modified version from [RL — Proximal Policy Optimization (PPO) Explained by Jonathan Hui](https://jonathan-hui.medium.com/rl-proximal-policy-optimization-ppo-explained-77f014ec3f12)</figcaption>
+  <figcaption>Modified version from RL — Proximal Policy Optimization (PPO) Explained by Jonathan Hui: https://jonathan-hui.medium.com/rl-proximal-policy-optimization-ppo-explained-77f014ec3f12</figcaption>
 </figure>
 
 **So with PPO, we update the policy conservatively**. To do so, we need to measure how much the current policy changed compared to the former one using a ratio calculation between the current and former policy. And we clip this ratio in a range \\( [1 - \epsilon, 1 + \epsilon] \\), meaning that we **remove the incentive for the current policy to go too far from the old one (hence the proximal policy term).**
@@ -105,9 +115,9 @@ This ratio is calculated this way:
 
 It’s the probability of taking action \\( a_t \\) at state \\( s_t \\) in the current policy divided by the previous one.
 
-As we can see,\\( r_t(\theta) \\) denotes the probability ratio between the current and old policy:
+As we can see, \\( r_t(\theta) \\) denotes the probability ratio between the current and old policy:
 
-- If \\( r_t(\theta) > 0 \\), the **action\\( a_t \\) at state \\( s_t \\) is more likely in the current policy than the old policy.**
+- If \\( r_t(\theta) > 0 \\), the **action \\( a_t \\) at state \\( s_t \\) is more likely in the current policy than the old policy.**
 - If \\( r_t(\theta) \\) is between 0 and 1, the **action is less likely for the current policy than for the old one**.
 
 So this probability ratio is an **easy way to estimate the divergence between old and current policy.**
@@ -118,7 +128,7 @@ So this probability ratio is an **easy way to estimate the divergence between ol
 This ratio **can replace the log probability we use in the policy objective function**. This gives us the left part of the new objective function: multiplying the ratio by the advantage.
 <figure class="image table text-center m-0 w-full">
   <img src="assets/93_deep_rl_ppo/unclipped2.jpg" alt="PPO"/>
-  <figcaption>[Proximal Policy Optimization Algorithms](https://arxiv.org/pdf/1707.06347.pdf)</figcaption>
+  <figcaption><a href="https://arxiv.org/pdf/1707.06347.pdf">Proximal Policy Optimization Algorithms</a></figcaption>
 </figure>
 
 However, without a constraint, if the action taken is much more probable in our current policy than in our former, **this would lead to a significant policy gradient step** and, therefore, an **excessive policy update.**
@@ -151,8 +161,8 @@ Don't worry. **It's normal if this seems complex to handle right now**. But we'r
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/93_deep_rl_ppo/recap.jpg" alt="PPO"/>
-  <figcaption>[Table from "Towards Delivering a Coherent Self-Contained
-Explanation of Proximal Policy Optimization" by Daniel Bick](https://arxiv.org/pdf/1707.06347.pdf)</figcaption>
+  <figcaption><a href="https://fse.studenttheses.ub.rug.nl/25709/1/mAI_2021_BickD.pdf">Table from "Towards Delivering a Coherent Self-Contained
+    Explanation of Proximal Policy Optimization" by Daniel Bick</a></figcaption>
 </figure>
 
 We have six different situations. Remember first that we take the minimum between the clipped and unclipped objectives.
@@ -171,10 +181,11 @@ Since the ratio is between intervals, **we can decrease the probability that ou
 ### Case 3 and 4: the ratio is below the range
 <figure class="image table text-center m-0 w-full">
   <img src="assets/93_deep_rl_ppo/recap.jpg" alt="PPO"/>
-  <figcaption>[Table from "Towards Delivering a Coherent Self-Contained
-Explanation of Proximal Policy Optimization" by Daniel Bick](https://arxiv.org/pdf/1707.06347.pdf)</figcaption>
+  <figcaption><a href="https://fse.studenttheses.ub.rug.nl/25709/1/mAI_2021_BickD.pdf">Table from "Towards Delivering a Coherent Self-Contained
+    Explanation of Proximal Policy Optimization" by Daniel Bick</a></figcaption>
 </figure>
-If the probability ratio is lower than \\( [1 - \epsilon] \\), the probability of taking that action at that state is **much lower than with the old policy.**
+  
+If the probability ratio is lower than \\( [1 - \epsilon] \\), the probability of taking that action at that state is much lower than with the old policy.
 
 If, like in situation 3, the advantage estimate is positive (A>0), then **you want to increase the probability of taking that action at that state.**
 
@@ -183,8 +194,8 @@ But if, like situation 4, the advantage estimate is negative, **we don't want to
 ### Case 5 and 6: the ratio is above the range
 <figure class="image table text-center m-0 w-full">
   <img src="assets/93_deep_rl_ppo/recap.jpg" alt="PPO"/>
-  <figcaption>[Table from "Towards Delivering a Coherent Self-Contained
-Explanation of Proximal Policy Optimization" by Daniel Bick](https://arxiv.org/pdf/1707.06347.pdf)</figcaption>
+  <figcaption><a href="https://fse.studenttheses.ub.rug.nl/25709/1/mAI_2021_BickD.pdf">Table from "Towards Delivering a Coherent Self-Contained
+    Explanation of Proximal Policy Optimization" by Daniel Bick</a></figcaption>
 </figure>
   
 If the probability ratio is higher than \\( [1 + \epsilon] \\), the probability of taking that action at that state in the current policy is **much higher than in the former policy.**
