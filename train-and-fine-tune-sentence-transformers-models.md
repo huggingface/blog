@@ -38,7 +38,8 @@ In this tutorial, you will:
 2. Learn the different types of structures your dataset should have.
 3. Review the different loss functions you can choose based on your data structure.
 4. Train or fine-tune your model.
-5. Learn when Sentence Transformers models may not be the best choice.
+5. Share your model to the Hugging Face Hub.
+6. Learn when Sentence Transformers models may not be the best choice.
 
 ## How Sentence Transformers models work
 
@@ -84,7 +85,7 @@ model_id = "sentence-transformers/multi-qa-MiniLM-L6-cos-v1"
 model = SentenceTransformer(model_id)
 ```
 
-Now for the most critical part: the data structure.
+Now for the most critical part: the dataset structure.
 
 ## How to prepare your dataset for training a Sentence Transformers model
 
@@ -96,24 +97,26 @@ Unfortunately, there is no single way to prepare your data to train a Sentence T
 
 Furthermore, the structure of our data will affect the loss function we can use. In the next section, we will review this part.
 
-Most dataset configurations will take one of four forms:
+Most dataset configurations will take one of four forms (below you will see examples of each case):
 
-- Case 1: The example is a pair of sentences and a label indicating how similar they are. The label can be either an integer (0 or 1) or a float. This case applies to datasets originally prepared for Natural Language Inference (NLI), since they contain pairs of sentences with a label indicating whether they infer each other or not.
-- Case 2: The example is a pair of positive (similar) sentences **without** a label. For example, pairs of paraphrases, pairs of duplicate questions, pairs of (query, response), or pairs of (source_language, target_language). Natural Language Inference datasets can be formatted this way. Having your data in this format can be great since we can use the `MultipleNegativesRankingLoss`, one of the most used loss functions for Sentence Transformers models. 
+- Case 1: The example is a pair of sentences and a label indicating how similar they are. The label can be either an integer or a float. This case applies to datasets originally prepared for Natural Language Inference (NLI), since they contain pairs of sentences with a label indicating whether they infer each other or not.
+- Case 2: The example is a pair of positive (similar) sentences **without** a label. For example, pairs of paraphrases, pairs of duplicate questions, pairs of (`query`, `response`), or pairs of (`source_language`, `target_language`). Natural Language Inference datasets can be formatted this way too by pairing entailing sentences. Having your data in this format can be great since you can use the `MultipleNegativesRankingLoss`, one of the most used loss functions for Sentence Transformers models.
 - Case 3: The example is a sentence with an integer label. This data format is easily converted by loss functions into three sentences (triplets) where the first is an "anchor", the second a "positive" of the same class as the anchor, and the third a "negative" of a different class. Each sentence has an integer label indicating the class to which it belongs.
-- Case 4: Similar to the third case, the example is a triplet (anchor, positive, negative); however, **there is no class** (nor label) for the sentences.
+- Case 4: The example is a triplet (anchor, positive, negative) without classes or labels for the sentences.
+
+As an example, in this tutorial we will train a Sentence Transformer using a dataset in the fourth case. We will then fine-tune it using the second case dataset configuration.
 
 Note that Sentence Transformers models can be trained with human labeling (cases 1 and 3) or with labels automatically deduced from text formatting (mainly case 2; although case 4 does not require labels, it is more difficult to find data in a triplet IRL unless you process it as the [`MegaBatchMarginLoss`](https://www.sbert.net/docs/package_reference/losses.html#megabatchmarginloss) function does).
 
 There are datasets on the Hugging Face Hub for each of the above cases. Additionally, the datasets in the Hub have a Dataset Preview functionality that allows you to view the structure of datasets before downloading them. Here are sample data sets for each of these cases:
 
-- Case 1: The same setup as for NLI can be used. Review the structure of the [SNLI dataset](https://huggingface.co/datasets/snli). The [Yahoo Answers Topics dataset](https://huggingface.co/datasets/yahoo_answers_topics) has integer labels each pair of sentences.
+- Case 1: The same setup as for NLI can be used if we have (or fabricate) a label indicating the degree of similarity between two sentences; for example {0,1,2} where 0 is contradiction and 2 is entailment. Review the structure of the [SNLI dataset](https://huggingface.co/datasets/snli). Another example is the [Yahoo Answers Topics dataset](https://huggingface.co/datasets/yahoo_answers_topics) where there are integer labels for each pair of sentences.
 
-- Case 2: The [Sentence Compression dataset](https://huggingface.co/datasets/embedding-data/sentence-compression) has examples made up of positive pairs.
-
+- Case 2: The [Sentence Compression dataset](https://huggingface.co/datasets/embedding-data/sentence-compression) has examples made up of positive pairs. If your dataset has more than two positive sentences per example, for example quintets as in the [COCO Captions](https://huggingface.co/datasets/embedding-data/coco_captions_quintets) or the [Flickr30k Captions](https://huggingface.co/datasets/embedding-data/flickr30k_captions_quintets) datasets, you can format the examples as to have different combinations of positive pairs.
+  
 - Case 3: The [TREC dataset](https://huggingface.co/datasets/trec) or [Yahoo Answers Topics dataset](https://huggingface.co/datasets/yahoo_answers_topics) have integer labels for each sentence.
 
-- Case 4: The [Quora Triplets dataset](https://huggingface.co/datasets/embedding-data/QQP_triplets).
+- Case 4: The [Quora Triplets dataset](https://huggingface.co/datasets/embedding-data/QQP_triplets) has triplets (anchor, positive, negative) without labels.
 
 The next step is converting the dataset into a format our Sentence Transformers model can understand. The model cannot accept raw lists of strings. Each example must be converted to a `sentence_transformers.InputExample` class and then to a `torch.utils.data.DataLoader` class to batch and shuffle the examples.
 
@@ -142,18 +145,22 @@ Output:
 - Each example is a <class 'dict'> with a <class 'dict'> as value.
 - Examples look like this: {'set': {'query': 'Why in India do we not have one on one political debate as in USA?', 'pos': ['Why can't we have a public debate between politicians in India like the one in US?'], 'neg': ['Can people on Quora stop India Pakistan debate? We are sick and tired seeing this everyday in bulk?'...]
 ```
-Convert the examples into `InputExample`'s. For simplicity, (1) only one of the negatives in the [embedding-data/QQP_triplets]((https://huggingface.co/datasets/embedding-data/QQP_triplets)) dataset, and (2) only 100 examples will be used. We use `tqdm` to get a progress bar.
+Convert the examples into `InputExample`'s. For simplicity, (1) only one of the positives and one of the negatives in the [embedding-data/QQP_triplets]((https://huggingface.co/datasets/embedding-data/QQP_triplets)) dataset will be used. (2) We will only employ 1,000 examples. You can obtain much better results by increasing the number of examples. We use `tqdm` to get a progress bar.
 
 ```py
 from tqdm.auto import tqdm
+from sentence_transformers import InputExample
 
 train_examples = []
-n_examples = 100 
+n_examples = 1000 
 ## For training with the entire dataset you can use `for i in range(dataset['train'].num_rows):`
 
 for i in tqdm(range(n_examples)):
   example = dataset['train']['set'][i]
-  train_examples.append(InputExample(texts=[example['query'], example['pos'], example['neg'][0]], label=0))
+  train_examples.append(InputExample(texts=[example['query'], example['pos'][0], example['neg'][0]]))
+  # Print each 10 examples how the example looks
+  if i % 10 == 0:
+    print(f"Anchor: {example['query']} --- Positive: {example['pos'][0]} --- Negative: {example['neg'][0]}")
 ```
 Convert the training examples to a `Dataloader`.
 
@@ -188,7 +195,7 @@ train_loss = losses.TripletLoss(model=model)
 Once the dataset is in the desired format and a suitable loss function is in place, fitting and training a Sentence Transformers is simple.
 
 
-## How to fine-tune a Sentence Transformer model
+## How to train or fine-tune a Sentence Transformer model
 
 > "SentenceTransformers was designed so that fine-tuning your own sentence/text embeddings models is easy. It provides most of the building blocks you can stick together to tune embeddings for your specific task." - [Sentence Transformers Documentation](https://www.sbert.net/docs/training/overview.html#training-overview).
 
@@ -197,13 +204,36 @@ For simplicity, we are not adding an Evaluator that works on a development or te
 This is what the training or fine-tuning looks like:
 
 ```py
-model.fit(train_objectives=[(train_dataloader, train_loss)], epochs=1) 
+model.fit(train_objectives=[(train_dataloader, train_loss)], epochs=10) 
 ```
 
 Remember that if you are fine-tuning an existing Sentence Transformers model, you can directly call the `fit` method from it. If this is a new Sentence Transformers model, you must first define it as we did in the "How Sentence Transformers models work" section.
 
-That's it; we have a new or improved Sentence Transformers model!
+That's it; we have a new or improved Sentence Transformers model! Do you want to share it to the Hugging Face Hub?
 
+First, log in to the Hugging Face Hub. You will need to create a `write` token in your [Account Settings](http://hf.co/settings/tokens). Then there are two options to log in:
+
+1. Type `huggingface-cli login` in your terminal and enter your token.
+
+2. If in a python notebook, you can use `notebook_login`.
+
+```py
+from huggingface_hub import notebook_login
+
+notebook_login()
+```
+
+Then, you can share your models by calling the `save_to_hub` method from the trained model. By default, the model will be uploaded to your account. Still, you can upload to an organization by passing it in the `organization` parameter. `save_to_hub` automatically generates a model card, an inference widget, example code snippets, and more details. You can automatically add to the Hub’s model card a list of datasets you used to train the model with the argument `train_datasets`:
+
+```py
+model.save_to_hub(
+    "deberta-sentence-transformer", 
+    organization="embedding-data",
+    train_datasets=["embedding-data/QQP_triplets"],
+    )
+```
+
+In the Notebook Companion we fine-tune this same model using the [embedding-data/sentence-compression](https://huggingface.co/datasets/embedding-data/sentence-compression) dataset and the [`MultipleNegativesRankingLoss`](https://www.sbert.net/docs/package_reference/losses.html#multiplenegativesrankingloss) loss.
 
 ## What are the limits of Sentence Transformers?
 
