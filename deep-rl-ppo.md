@@ -32,7 +32,7 @@ thumbnail: /blog/assets/93_deep_rl_ppo/thumbnail.png
 
 *This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
 
-<img src="assets/93_deep_rl_ppo/thumbnail.jpg" alt="Thumbnail"/>  
+<img src="assets/93_deep_rl_ppo/thumbnail.png" alt="Thumbnail"/>  
 
 ---
 **[In the last Unit](https://huggingface.co/blog/deep-rl-a2c)**, we learned about Advantage Actor Critic (A2C), a hybrid architecture combining value-based and policy-based methods that help to stabilize the training by reducing the variance with:
