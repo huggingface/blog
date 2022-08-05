@@ -1,6 +1,6 @@
 ---
 title: 'Training and Fine-Tuning Sentence Transformers Models'
-thumbnail: /blog/assets/87_training_st_models/thumbnail.png
+thumbnail: /blog/assets/95_training_st_models/thumbnail.png
 ---
 
 <h1>
@@ -8,7 +8,7 @@ thumbnail: /blog/assets/87_training_st_models/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published July 18, 2022.</small>
+    <small>Published August 10, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/train-and-fine-tune-sentence-transformers-models.md">
         Update on GitHub
     </a>
@@ -25,7 +25,7 @@ thumbnail: /blog/assets/87_training_st_models/thumbnail.png
 </div>
 
 Check out this tutorial with the Notebook Companion:
-<a target="_blank" href="TODO">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/95_Training__Sentence_Transformers.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -52,7 +52,7 @@ This is how the Sentence Transformers models work:
 
 This figure summarizes the process:
 
-![](assets/87_training_st_models/training_process.png) 
+![](assets/95_training_st_models/training_process.png) 
 
 Remember to install the Sentence Transformers library with `pip install -U sentence-transformers`. In code, this two-step process is simple: 
 
@@ -96,6 +96,8 @@ To train a Sentence Transformers model, you need to inform it somehow that two s
 Unfortunately, there is no single way to prepare your data to train a Sentence Transformers model. It largely depends on your goals and the structure of your data. If you don't have an explicit label, which is the most likely scenario, you can derive it from the design of the documents where you obtained the sentences. For example, two sentences in the same report should be more comparable than two sentences in different reports. Neighboring sentences can be more comparable than non-neighboring sentences.
 
 Furthermore, the structure of our data will affect the loss function we can use. In the next section, we will review this part.
+
+Remember the [Notebook Companion](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/95_Training__Sentence_Transformers.ipynb) for this post has all the code already implemented.
 
 Most dataset configurations will take one of four forms (below you will see examples of each case):
 
@@ -158,9 +160,6 @@ n_examples = 1000
 for i in tqdm(range(n_examples)):
   example = dataset['train']['set'][i]
   train_examples.append(InputExample(texts=[example['query'], example['pos'][0], example['neg'][0]]))
-  # Print each 10 examples how the example looks
-  if i % 10 == 0:
-    print(f"Anchor: {example['query']} --- Positive: {example['pos'][0]} --- Negative: {example['neg'][0]}")
 ```
 Convert the training examples to a `Dataloader`.
 
@@ -233,7 +232,7 @@ model.save_to_hub(
     )
 ```
 
-In the Notebook Companion we fine-tune this same model using the [embedding-data/sentence-compression](https://huggingface.co/datasets/embedding-data/sentence-compression) dataset and the [`MultipleNegativesRankingLoss`](https://www.sbert.net/docs/package_reference/losses.html#multiplenegativesrankingloss) loss.
+In the [Notebook Companion](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/95_Training__Sentence_Transformers.ipynb) we fine-tune this same model using the [embedding-data/sentence-compression](https://huggingface.co/datasets/embedding-data/sentence-compression) dataset and the [`MultipleNegativesRankingLoss`](https://www.sbert.net/docs/package_reference/losses.html#multiplenegativesrankingloss) loss.
 
 ## What are the limits of Sentence Transformers?
 

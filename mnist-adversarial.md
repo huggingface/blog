@@ -58,7 +58,7 @@ This walkthrough will be divided into the following sections:
 
 ### Configuring your model
 First of all, you need to define your model architecture. My simple model architecture below is made up of two convolutional networks connected to a 50 dimensional fully connected layer and a final layer for the 10 classes. Finally, we use the softmax activation function to turn the model's output into a probability distribution over the classes.
-```python=
+```python
 # Adapted from: https://nextjournal.com/gkoehler/pytorch-mnist
 class MNIST_Model(nn.Module):
     def __init__(self):

@@ -602,7 +602,7 @@ common_voice_train[0]["audio"]
 Great, we can see that the audio file has automatically been loaded.
 This is thanks to the new [`"Audio"`
 feature](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=audio#datasets.Audio)
-introduced in `datasets == 4.13.3`, which loads and resamples audio
+introduced in `datasets == 1.18.3`, which loads and resamples audio
 files on-the-fly upon calling.
 
 In the example above we can see that the audio data is loaded with a
