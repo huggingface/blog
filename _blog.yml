@@ -1015,7 +1015,7 @@
   tags:
   - mnist
   - adversarial
-  - guide    
+  - guide
 
 - local: deep-rl-a2c
   title: "Advantage Actor Critic (A2C)"
@@ -1033,7 +1033,7 @@
   tags:
     - guide
     - cv
-    
+
 - local: tf-xla-generate
   title: "Faster Text Generation with TensorFlow and XLA"
   author: joaogante
@@ -1053,7 +1053,7 @@
     - cv
     - community
     - announcement
-    
+
 - local: us-national-ai-research-resource
   title: "AI Policy @🤗: Comments on U.S. National AI Research Resource Interim Report"
   author: irenesolaiman
@@ -1081,6 +1081,15 @@
     - private hub
 
 
+- local: deep-rl-ppo
+  title: "Proximal Policy Optimization (PPO)"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/93_deep_rl_ppo/thumbnail.png
+  date: August 5, 2022
+  tags:
+  - rl
+
+
 - local: bloom-inference-pytorch
   title: "The Technology Behind BLOOM Training"
   author: stas, sgugger, Narsil
@@ -1090,12 +1099,3 @@
     - nlp
     - llm
     - inference
-
-- local: deep-rl-ppo
-  title: "Proximal Policy Optimization (PPO)"
-  author: ThomasSimonini
-  thumbnail: /blog/assets/93_deep_rl_ppo/thumbnail.png
-  date: August 5, 2022
-  tags:
-  - rl
-

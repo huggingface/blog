@@ -163,7 +163,7 @@ Let's take a simple example where there's only 1 query running, and another quer
 
 ![overall_latency](assets/bloom-inference-pytorch/overall_latency.png)
 
-As you can see here, the first request gets a latency of `3 x T` which is what we would expect. But **request 2** has to wait for `4.5 x T`, which is longer. If there was a **request 3** with yet another parameter set, then you would have to wait for, say,`7.5 x T`. And it piles up. The simple solution is to force a single (or handful) parameter sets so that we can ensure we're capping the overall latency.
+As you can see here, the first request gets a latency of `3 x T` which is what we would expect. But **request 2** has to wait for `4.5 x T`, which is longer. If there was a **request 3** with yet another parameter set, then you would have to wait for, say, `7.5 x T`. And it piles up. The simple solution is to force a single (or handful) parameter sets so that we can ensure we're capping the overall latency.
 
 Another approach is to split the generation loop entirely. We're going to ignore the `use_cache=True` complexity for the sake of readability.
 
