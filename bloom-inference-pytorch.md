@@ -59,7 +59,7 @@ The latency is more difficult to define. If the server is idle and the model is 
 
 Let's try and show the metrics in a drawing:
 
-<img class="avatar avatar-user" src="/blog/assets/bloom-inference-pytorch/initial_drawing.png">
+![initial_drawing](assets/bloom-inference-pytorch/initial_drawing.png)
 
 In this image, **T** is the simple forward latency. This is determined by how efficiently the **forward** pass is coded. But as you can see, using `8xA100` gives plenty of computing power so we can increase the batch size, and that's (to a point) not going to change **T**. But you will be generating more tokens within **T** so your throughput is effectively going up.
 As you increase your batch_size, your memory consumption will likely go up too, so you might hit OOM errors, **before** actually reaching your computational boundary.
@@ -172,7 +172,7 @@ is that we're less likely to use batching in production and that as mentioned ab
 
 Let's take a simple example where there's only 1 query running, and another query comes in while the first is being processed.
 
-<img class="avatar avatar-user" src="/blog/assets/bloom-inference-pytorch/overall_latency.png">
+![overall_latency](assets/bloom-inference-pytorch/overall_latency.png)
 
 As you can see here, the first request gets a latency of `3 x T` which is what we would expect. But **request 2** has to wait
 for `4.5 x T`. which is bigger. If there was a **request 3** with yet another parameter set, then you would have to wait for `7.5 x T`.
@@ -187,7 +187,7 @@ Since each request is handling entirely its own way of choosing next ids, there 
 
 You're getting a compute model like this.
 
-<img class="avatar avatar-user" src="/blog/assets/bloom-inference-pytorch/reducing_server_latency.png">
+![reducing_server_latency](assets/bloom-inference-pytorch/reducing_server_latency.png)
 
 Here you can see that at most, **request 2** has to wait for 1 forward pass to join the batch. And so even if **request 1** is super long (as in many tokens need to be generated),
 **request 2** can start to execute almost immediately, and might even finish before **request 1** is done, and we actually see that happening in practice regularly.
