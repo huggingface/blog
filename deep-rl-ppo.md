@@ -149,8 +149,6 @@ Taking the minimum of the clipped and non-clipped objective means **we'll select
 ## Visualize the Clipped Surrogate Objective
 Don't worry. **It's normal if this seems complex to handle right now**. But we're going to see what this Clipped Surrogate Objective Function looks like, and this will help you to visualize better what's going on.
 
-On the left, it's when A > 0, and on the right, when A < 0.
-
 <figure class="image table text-center m-0 w-full">
   <img src="assets/93_deep_rl_ppo/recap.jpg" alt="PPO"/>
   <figcaption>[Table from "Towards Delivering a Coherent Self-Contained
@@ -176,7 +174,7 @@ Since the ratio is between intervals, **we can decrease the probability that ou
   <figcaption>[Table from "Towards Delivering a Coherent Self-Contained
 Explanation of Proximal Policy Optimization" by Daniel Bick](https://arxiv.org/pdf/1707.06347.pdf)</figcaption>
 </figure>
-If the probability ratio is lower than \\( [1 - \epsilon] \\), the probability of taking that action at that state **is much lower than with the old policy.**
+If the probability ratio is lower than \\( [1 - \epsilon] \\), the probability of taking that action at that state is **much lower than with the old policy.**
 
 If, like in situation 3, the advantage estimate is positive (A>0), then **you want to increase the probability of taking that action at that state.**
 
@@ -188,7 +186,8 @@ But if, like situation 4, the advantage estimate is negative, **we don't want to
   <figcaption>[Table from "Towards Delivering a Coherent Self-Contained
 Explanation of Proximal Policy Optimization" by Daniel Bick](https://arxiv.org/pdf/1707.06347.pdf)</figcaption>
 </figure>
-If the probability ratio is higher than \\( [1 + \epsilon] \\), the probability of taking that action at that state in the current policy **is much higher than in the former policy.**
+  
+If the probability ratio is higher than \\( [1 + \epsilon] \\), the probability of taking that action at that state in the current policy is **much higher than in the former policy.**
 
 If, like in situation 5, the advantage is positive, **we don't want to get too greedy**. We already have a higher probability of taking that action at that state than the former policy. Therefore, the gradient is = 0 (since we're on a flat line), so we don't update our weights.
 
@@ -204,13 +203,14 @@ So we update our policy  only if:
 
 **You might wonder why, when the minimum is the clipped ratio, the gradient is 0.** When the ratio is clipped, the derivative in this case will not be the derivative of the \\( r_t(\theta) * A_t \\)   but the derivative of either \\( (1 - \epsilon)* A_t\\) or the derivative of \\( (1 + \epsilon)* A_t\\) which both = 0.
                                                   
-That was quite complex. Take time to understand these situations by looking at the table and the graph. **You must understand why this makes sense.** If you want to go deeper, the best resource is the article [Towards Delivering a Coherent Self-Contained Explanation of Proximal Policy Optimization" by Daniel Bick, especially part 3.4](https://fse.studenttheses.ub.rug.nl/25709/1/mAI_2021_BickD.pdf).
 
 To summarize, thanks to this clipped surrogate objective, **we restrict the range that the current policy can vary from the old one.** Because we remove the incentive for the probability ratio to move outside of the interval since, the clip have the effect to gradient. If the ratio is > \\( 1 + \epsilon \\) or < \\( 1 - \epsilon \\) the gradient will be equal to 0.
 
 The final Clipped Surrogate Objective Loss for PPO Actor-Critic style looks like this, it's a combination of Clipped Surrogate Objective function, Value Loss Function and Entropy bonus:
       
 <img src="assets/93_deep_rl_ppo/ppo-objective.jpg" alt="PPO objective"/>
+
+That was quite complex. Take time to understand these situations by looking at the table and the graph. **You must understand why this makes sense.** If you want to go deeper, the best resource is the article [Towards Delivering a Coherent Self-Contained Explanation of Proximal Policy Optimization" by Daniel Bick, especially part 3.4](https://fse.studenttheses.ub.rug.nl/25709/1/mAI_2021_BickD.pdf).
       
 ## Let's code our PPO Agent
 
@@ -262,7 +262,7 @@ But this is not the end, even if the foundations part of the course is finished,
 - **Paper explained articles.**
 - And more to come.
 
-The best way to keep in touch is to sign up for the course so that we keep you updated.
+The best way to keep in touch is to sign up for the course so that we keep you updated 👉 http://eepurl.com/h1pElX
 
 And don't forget to share with your friends who want to learn 🤗!
 
