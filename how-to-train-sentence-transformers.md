@@ -185,6 +185,10 @@ Case 3: When your samples are triplets of the form `[anchor, positive, negative]
 
 Case 4: If you don't have a label for each sentence in the triplets, you should use [`TripletLoss`](https://www.sbert.net/docs/package_reference/losses.html#tripletloss). This loss minimizes the distance between the anchor and the positive sentences while maximizing the distance between the anchor and the negative sentences.
 
+This figure summarizes the different types of datasets formats, example dataets in the Hub, and their adequate loss functions.
+
+![](assets/95_training_st_models/datasets_table.png) 
+
 The hardest part is choosing a suitable loss function conceptually. In the code, there are only two lines:
 
 ```py
