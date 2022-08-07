@@ -1087,3 +1087,12 @@
   date: August 5, 2022
   tags:
   - rl
+
+- local: deploy-tfserving-kubernetes
+  title: "Deploying 🤗 ViT on Kubernetes with TF Serving"
+  authors: chansung, sayakpaul
+  thumbnail: /blog/assets/86_nystromformer/thumbnail.png
+  date: August 15, 2022
+  tags:
+    - guide
+    - cv
