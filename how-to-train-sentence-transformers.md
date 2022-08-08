@@ -25,7 +25,7 @@ thumbnail: /blog/assets/95_training_st_models/thumbnail.png
 </div>
 
 Check out this tutorial with the Notebook Companion:
-<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/95_Training__Sentence_Transformers.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/95_Training_Sentence_Transformers.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -97,7 +97,7 @@ Unfortunately, there is no single way to prepare your data to train a Sentence T
 
 Furthermore, the structure of your data will influence which loss function you can use. This will be discussed in the next section.
 
-Remember the [Notebook Companion](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/95_Training__Sentence_Transformers.ipynb) for this post has all the code already implemented.
+Remember the [Notebook Companion](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/95_Training_Sentence_Transformers.ipynb) for this post has all the code already implemented.
 
 Most dataset configurations will take one of four forms (below you will see examples of each case):
 
@@ -106,7 +106,7 @@ Most dataset configurations will take one of four forms (below you will see exam
 - Case 3: The example is a sentence with an integer label. This data format is easily converted by loss functions into three sentences (triplets) where the first is an "anchor", the second a "positive" of the same class as the anchor, and the third a "negative" of a different class. Each sentence has an integer label indicating the class to which it belongs.
 - Case 4: The example is a triplet (anchor, positive, negative) without classes or labels for the sentences.
 
-As an example, in this tutorial you will train a Sentence Transformer using a dataset in the fourth case. You will then fine-tune it using the second case dataset configuration (please refer to the [Notebook Companion](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/95_Training__Sentence_Transformers.ipynb) for this blog).
+As an example, in this tutorial you will train a Sentence Transformer using a dataset in the fourth case. You will then fine-tune it using the second case dataset configuration (please refer to the [Notebook Companion](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/95_Training_Sentence_Transformers.ipynb) for this blog).
 
 Note that Sentence Transformers models can be trained with human labeling (cases 1 and 3) or with labels automatically deduced from text formatting (mainly case 2; although case 4 does not require labels, it is more difficult to find data in a triplet unless you process it as the [`MegaBatchMarginLoss`](https://www.sbert.net/docs/package_reference/losses.html#megabatchmarginloss) function does).
 
@@ -209,7 +209,7 @@ This is what the training or fine-tuning looks like:
 model.fit(train_objectives=[(train_dataloader, train_loss)], epochs=10) 
 ```
 
-Remember that if you are fine-tuning an existing Sentence Transformers model (see [Notebook Companion](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/95_Training__Sentence_Transformers.ipynb)), you can directly call the `fit` method from it. If this is a new Sentence Transformers model, you must first define it as you did in the "How Sentence Transformers models work" section.
+Remember that if you are fine-tuning an existing Sentence Transformers model (see [Notebook Companion](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/95_Training_Sentence_Transformers.ipynb)), you can directly call the `fit` method from it. If this is a new Sentence Transformers model, you must first define it as you did in the "How Sentence Transformers models work" section.
 
 That's it; you have a new or improved Sentence Transformers model! Do you want to share it to the Hugging Face Hub?
 
@@ -235,7 +235,7 @@ model.save_to_hub(
     )
 ```
 
-In the [Notebook Companion](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/95_Training__Sentence_Transformers.ipynb) I fine-tuned this same model using the [embedding-data/sentence-compression](https://huggingface.co/datasets/embedding-data/sentence-compression) dataset and the [`MultipleNegativesRankingLoss`](https://www.sbert.net/docs/package_reference/losses.html#multiplenegativesrankingloss) loss.
+In the [Notebook Companion](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/95_Training_Sentence_Transformers.ipynb) I fine-tuned this same model using the [embedding-data/sentence-compression](https://huggingface.co/datasets/embedding-data/sentence-compression) dataset and the [`MultipleNegativesRankingLoss`](https://www.sbert.net/docs/package_reference/losses.html#multiplenegativesrankingloss) loss.
 
 ## What are the limits of Sentence Transformers?
 
