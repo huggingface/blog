@@ -139,7 +139,7 @@ model_card.add_plot(confusion_matrix="confusion_matrix.png")
 
 Let's save the model card in the local repository. The file name here should be `README.md` since it is what Hugging Face Hub expects.
 ```python
-model_card.save((Path(local_repo) / "README.md"))
+model_card.save(Path(local_repo) / "README.md")
 ```
 
 We can now push the repository to Hugging Face Hub. For this, we will use `push` from `hub_utils`. Hugging Face Hub requires tokens for authentication, therefore you need to pass your token.
