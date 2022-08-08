@@ -1,6 +1,6 @@
 ---
 title: Deploying 🤗 ViT on Kubernetes with TF Serving
-thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
+thumbnail: /blog/assets/94_tf_serving_kubernetes/thumb.png
 ---
 
 <h1>
