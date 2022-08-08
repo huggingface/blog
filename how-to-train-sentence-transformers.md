@@ -112,11 +112,11 @@ Note that Sentence Transformers models can be trained with human labeling (cases
 
 There are datasets on the Hugging Face Hub for each of the above cases. Additionally, the datasets in the Hub have a Dataset Preview functionality that allows you to view the structure of datasets before downloading them. Here are sample data sets for each of these cases:
 
-- Case 1: The same setup as for Natural Language Inference can be used if you have (or fabricate) a label indicating the degree of similarity between two sentences; for example {0,1,2} where 0 is contradiction and 2 is entailment. Review the structure of the [SNLI dataset](https://huggingface.co/datasets/snli). Another example is the [Yahoo Answers Topics dataset](https://huggingface.co/datasets/yahoo_answers_topics) where there are integer labels for each pair of sentences.
+- Case 1: The same setup as for Natural Language Inference can be used if you have (or fabricate) a label indicating the degree of similarity between two sentences; for example {0,1,2} where 0 is contradiction and 2 is entailment. Review the structure of the [SNLI dataset](https://huggingface.co/datasets/snli).
 
 - Case 2: The [Sentence Compression dataset](https://huggingface.co/datasets/embedding-data/sentence-compression) has examples made up of positive pairs. If your dataset has more than two positive sentences per example, for example quintets as in the [COCO Captions](https://huggingface.co/datasets/embedding-data/coco_captions_quintets) or the [Flickr30k Captions](https://huggingface.co/datasets/embedding-data/flickr30k_captions_quintets) datasets, you can format the examples as to have different combinations of positive pairs.
   
-- Case 3: The [TREC dataset](https://huggingface.co/datasets/trec) or [Yahoo Answers Topics dataset](https://huggingface.co/datasets/yahoo_answers_topics) have integer labels for each sentence.
+- Case 3: The [TREC dataset](https://huggingface.co/datasets/trec) has integer labels indicating the class of each sentence. Each example in the [Yahoo Answers Topics dataset](https://huggingface.co/datasets/yahoo_answers_topics) contains three sentences and a label indicating its topic; thus, each example can be divided into three.
 
 - Case 4: The [Quora Triplets dataset](https://huggingface.co/datasets/embedding-data/QQP_triplets) has triplets (anchor, positive, negative) without labels.
 
@@ -149,18 +149,18 @@ Output:
 ```
 You can see that `query` (the anchor) has a single sentence, `pos` (positive) is a list of sentences (the one we print has only one sentence), and `neg` (negative) has a list of multiple sentences.
 
-Convert the examples into `InputExample`'s. For simplicity, (1) only one of the positives and one of the negatives in the [embedding-data/QQP_triplets]((https://huggingface.co/datasets/embedding-data/QQP_triplets)) dataset will be used. (2) We will only employ 1,000 examples. You can obtain much better results by increasing the number of examples.
+Convert the examples into `InputExample`'s. For simplicity, (1) only one of the positives and one of the negatives in the [embedding-data/QQP_triplets]((https://huggingface.co/datasets/embedding-data/QQP_triplets)) dataset will be used. (2) We will only employ 1/2 of the available examples. You can obtain much better results by increasing the number of examples.
 
 ```py
-from tqdm.auto import tqdm
 from sentence_transformers import InputExample
 
 train_examples = []
-n_examples = 1000 
-## For training with the entire dataset you can use `for i in range(dataset['train'].num_rows):`
+train_data = dataset['train']['set']
+# For agility we only 1/2 of our available data
+n_examples = dataset['train'].num_rows // 2
 
-for i in tqdm(range(n_examples)):
-  example = dataset['train']['set'][i]
+for i in range(n_examples):
+  example = train_data[i]
   train_examples.append(InputExample(texts=[example['query'], example['pos'][0], example['neg'][0]]))
 ```
 Convert the training examples to a `Dataloader`.
@@ -230,7 +230,7 @@ Then, you can share your models by calling the `save_to_hub` method from the tra
 ```py
 model.save_to_hub(
     "distilroberta-base-sentence-transformer", 
-    organization="embedding-data",
+    organization= # Add your username
     train_datasets=["embedding-data/QQP_triplets"],
     )
 ```
