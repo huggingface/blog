@@ -26,36 +26,74 @@ thumbnail: /blog/assets/88_skops_library/introducing_skops.png
 
 ## Introducing Skops
 
-At Hugging Face, we are working on tackling various problems in open-source machine learning, including, hosting models securely and openly, enabling reproducibility, explainability and collaboration. We are thrilled to introduce you to our new library: Skops! With Skops, you can host your sklearn models on the Hugging Face Hub, create model cards with better reproducibility and collaborate with others. 
+At Hugging Face, we are working on tackling various problems in open-source machine learning, including, hosting models securely and openly, enabling reproducibility, explainability and collaboration. We are thrilled to introduce you to our new library: Skops! With Skops, you can host your sklearn models on the Hugging Face Hub, create model cards with better reproducibility and collaborate with others.
 
-Models can be serialized for reproducibility with skops. You can later push your model to the Hugging Face Hub as well.
+Let's go through an end-to-end example: train a model first, and see step-by-step how to leverage Skops for sklearn in production.
 
 ```python
+# let's import the libraries first
 import os
 import pickle
-from tempfile import mkstemp, mkdtemp
 from skops import hub_utils, card
 import sklearn
 import matplotlib.pyplot as plt
 from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
+from sklearn.datasets import load_breast_cancer
+from sklearn.ensemble import HistGradientBoostingClassifier
+from sklearn.experimental import enable_halving_search_cv  # noqa
+from sklearn.model_selection import HalvingGridSearchCV, train_test_split
 
+# Load the data and split
+X, y = load_breast_cancer(as_frame=True, return_X_y=True)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+
+# Train the model
+param_grid = {
+    "max_leaf_nodes": [5, 10, 15],
+    "max_depth": [2, 5, 10],
+}
+
+model = HalvingGridSearchCV(
+    estimator=HistGradientBoostingClassifier(),
+    param_grid=param_grid,
+    random_state=42,
+    n_jobs=-1,
+).fit(X_train, y_train)
+```
+
+We will first save our model and initialize the repository. The model name and the format is insignificant, we will save our model as `example.pkl` for simplicity. `init` creates a repository containing the model in the given path and the configuration file containing the specifications of the environment the model is trained in. The data and the task passed to the `init` will help Hugging Face Hub enable the inference widget on the model page.
+
+```python
 # let's save the model
-_, pkl_name = mkstemp(prefix="skops-", suffix=".pkl")
-with open(pkl_name, mode="bw") as f:
+model_path = "example.pkl"
+local_repo = "my-awesome-model"
+with open(model_path, mode="bw") as f:
     pickle.dump(model, file=f)
 
-# we will now initialize a local repository and put our model in
-local_repo = mkdtemp(prefix="skops-")
+# we will now initialize a local repository
 hub_utils.init(
-    model=pkl_name, requirements=[f"scikit-learn={sklearn.__version__}"], dst=local_repo
+    model=model_path, 
+    requirements=[f"scikit-learn={sklearn.__version__}"], 
+    dst=local_repo,
+    task="tabular-classification",
+    data=X_test,
 )
 ```
 
-`init` not only saves the model, but also creates a configuration file containing the specifications of the environment model is trained. 
+The repository now contains the serialized model and the configuration file. The configuration contains the features of the model, the requirements of the model, an example input taken from `X_test` that we've passed, name of the model file and name of the task solved here.
 
-We will now create a model card. The content of the model card is determined by a jinja template. By default it uses [this template](https://github.com/skops-dev/skops/blob/main/skops/card/default_template.md). The default template consists of a markdown part and a metadata section. The keys to the metadata section are defined [here](https://huggingface.co/docs/hub/models-cards#model-card-metadata) and are used for discoverability of the models. 
-
-We can add information and metadata using `add` method on the Skops `Card` object. You can also pass a custom template's path to be used in model card using `add`.
+We will now create the model card. The card should fit the format that Hugging Face Hub expects it to be: it consists of a markdown part and a metadata section. The keys to the metadata section are defined [here](https://huggingface.co/docs/hub/models-cards#model-card-metadata) and are used for discoverability of the models. 
+The content of the model card is determined by a jinja template that has:
+- yaml section on top for metadata (e.g. model license, library name and more),
+- markdown section with free text and slots to be filled (e.g. simple description of the model),
+Following sections are extracted by Skops to fill in the model card:
+- Hyperparameters of the model,
+- Interactive plot of the model,
+- For metadata, library name and task identifier (e.g. tabular-classification) are filled.
+We will walk you through how to programmatically pass information to fill the model card. Please take a look at the [default template](https://github.com/skops-dev/skops/blob/main/skops/card/default_template.md) used by Skops to see what the template expects.
+You can add information and metadata using `add`.
 
 ```python
 # create the card
@@ -69,7 +107,7 @@ model_description = (
 )
 model_card_authors = "skops_user"
 get_started_code = (
-    "import pickle\nwith open(dtc_pkl_filename, 'rb') as file:\nclf = pickle.load(file)"
+    "import pickle \nwith open(dtc_pkl_filename, 'rb') as file: \nclf = pickle.load(file)"
 )
 citation_bibtex = "bibtex\n@inproceedings{...,year={2020}}"
 
@@ -99,17 +137,19 @@ plt.savefig(f"{local_repo}/confusion_matrix.png")
 model_card.add_plot(confusion_matrix="confusion_matrix.png")
 ```
 
-Let's save the model card in the local repository. 
+Let's save the model card in the local repository. The file name here should be `README.md` since it is what Hugging Face Hub expects.
 ```python
 model_card.save((Path(local_repo) / "README.md"))
 ```
 
-We can now push the repository to Hugging Face Hub. For this, we will use `push` from `hub_utils`.
+We can now push the repository to Hugging Face Hub. For this, we will use `push` from `hub_utils`. Hugging Face Hub requires tokens for authentication, therefore you need to pass your token.
 
 ```python
+token = os.environ["HF_HUB_TOKEN"]
 # if the repository doesn't exist remotely on the Hugging Face Hub, it will be created when we set create_remote to True
+repo_id = "skops-user/my-awesome-model"
 hub_utils.push(
-    repo_id="skops-user/my-awesome-model",
+    repo_id=repo_id,
     source=local_repo,
     token=token,
     commit_message="pushing files to the repo from the example!",
@@ -120,18 +160,19 @@ hub_utils.push(
 Once we push the model to the Hub, anyone can use it, unless the repository is private. You can download the models using `download`.
 
 ```python
-repo_copy = mkdtemp(prefix="skops")
-hub_utils.download(repo_id="skops-user/my-awesome-model", dst=repo_copy)
-print(os.listdir(repo_copy))
+download_repo = "downloaded-model"
+hub_utils.download(repo_id=repo_id, dst=download_repo)
+# Let's see the content of the repository
+print(os.listdir(download_repo))
 ```
 
 The repository also contains the model configuration as well as requirements of the environment.
 
 ```python
 # We can get the requirements using get_requirements
-print(hub_utils.get_requirements(path=repo_copy))
+print(hub_utils.get_requirements(path=download_repo))
 # We can also get the configuration using get_config
-print(json.dumps(hub_utils.get_config(path=repo_copy), indent=2))
+print(json.dumps(hub_utils.get_config(path=download_repo), indent=2))
 ```
 
 If the requirements of your project have changed, you can use `update_env` to update the environment.
