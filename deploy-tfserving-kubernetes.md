@@ -39,7 +39,7 @@ thumbnail: /blog/assets/94_tf_serving_kubernetes/thumb.png
 In the [<u>previous post</u>](https://huggingface.co/blog/tf-serving-vision), we showed how
 to deploy a [<u>Vision Transformer (ViT)</u>](https://huggingface.co/docs/transformers/main/en/model_doc/vit)
 model from 🤗 Transformers locally with TensorFlow Serving. We covered
-things like embedding preprocessing and postprocessing operations within
+topics like embedding preprocessing and postprocessing operations within
 the ViT model, handling gRPC requests, etc.
 
 While local deployments are an excellent head start to building
