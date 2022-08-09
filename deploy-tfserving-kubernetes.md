@@ -60,7 +60,7 @@ following steps:
 - **Containerizing the application logic**: The application logic
   involves a served model that can handle requests and return
   predictions. For containerization, Docker is the industry-standard
-  goto.
+  go-to.
 
 - **Deploying the Docker container**: You have many options. The most
   widely used is to deploy the Docker container on a Kubernetes
