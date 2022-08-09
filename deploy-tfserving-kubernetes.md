@@ -570,8 +570,7 @@ toolbox. If you were already familiar with this workflow, we hope this post was 
 for you. 
 
 We applied the same deployment workflow for an ONNX-optimized version of the same
-Vision Transformer model. For more details, check out [this link](https://github.com/sayakpaul/deploy-hf-tf-vision-models/tree/main/hf_vision_model_onnx_gke). ONNX-optimized models are especially beneficial if you're using
-x86 CPUs for deployment.
+Vision Transformer model. For more details, check out [this link](https://github.com/sayakpaul/deploy-hf-tf-vision-models/tree/main/hf_vision_model_onnx_gke). ONNX-optimized models are especially beneficial if you're using x86 CPUs for deployment.
 
 In the next post, we’ll show you how to perform these deployments with
 significantly less code with [<u>Vertex AI</u>](https://cloud.google.com/vertex-ai) – more like
