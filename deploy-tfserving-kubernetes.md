@@ -551,7 +551,7 @@ toolbox.
 In the next post, we’ll show you how to perform these deployments with
 significantly less code with [<u>Vertex AI</u>](https://cloud.google.com/vertex-ai) – more like
 `model.deploy(autoscaling_config=...)` and boom! We hope you’re just as
-excited as we’re.
+excited as we are.
 
 # Acknowledgement
 
