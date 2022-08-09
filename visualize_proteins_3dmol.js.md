@@ -26,11 +26,11 @@ In this post we will look at how we can visualize proteins on Huggingface spaces
 
 ## Motivation 🤗
 
-Proteins have a huge impact on our life - from medicines to washing powder. Machine learning on proteins is a rapidly growing field to help us design new and interesting proteins. Proteins are complex 3D objects generally composed of a series of building blocks called amino acids that are arranged in 3D space to give the protein it's function. A protein can for example be represented as coordinates, as graph or as 1D sequence of letters for use in a protein language model.
+Proteins have a huge impact on our life - from medicines to washing powder. Machine learning on proteins is a rapidly growing field to help us design new and interesting proteins. Proteins are complex 3D objects generally composed of a series of building blocks called amino acids that are arranged in 3D space to give the protein its function. For machine learning purposes a protein can for example be represented as coordinates, as graph or as 1D sequence of letters for use in a protein language model.
 
- A famous example is AlphaFold2 which predicts the structure of a protein sequence using a multiple sequence alignment of similar proteins and a structure module. 
+A famous ML model for proteins is AlphaFold2 which predicts the structure of a protein sequence using a multiple sequence alignment of similar proteins and a structure module. 
 
-Since AlphaFold2 made it's debut many more such models have come out such as OmegaFold, OpenFold etc. (see this [list](https://github.com/yangkky/Machine-learning-for-proteins) or this [list](https://github.com/sacdallago/folding_tools) for more). 
+Since AlphaFold2 made its debut many more such models have come out such as OmegaFold, OpenFold etc. (see this [list](https://github.com/yangkky/Machine-learning-for-proteins) or this [list](https://github.com/sacdallago/folding_tools) for more). 
 
 
 ## Seeing is believing
@@ -93,10 +93,10 @@ def get_pdb(pdb_code="", filepath=""):
         return f"{pdb_code}.pdb"
 ```
 
-Now how to visualize the protein since Gradio does not have 3Dmol directly available as a block?
-We use an iframe for this. 
+Now, how to visualize the protein since Gradio does not have 3Dmol directly available as a block?
+We use an `iframe` for this. 
 
-Our `molecule` function conceptually looks like this: 
+Our `molecule` function which returns the `iframe` conceptually looks like this: 
 
 ```python
 def molecule(input_pdb):
@@ -155,7 +155,9 @@ We use a template literal (denoted by backticks) to store our pdb file in the ht
 
 And that's it, now you can couple your favorite protein ML model to a fun and easy to use gradio app and directly visualize predicted or redesigned structures. If you are predicting properities of a structure (e.g how likely each amino acid is to bind a ligand) 3Dmol.js also allows to use custom `colorfunc` based on a property of each atom. 
 
-For a full fledged example, you can check for example the [ProteinMPNN](https://hf.space/simonduerr/ProteinMPNN) space where a user can upload a backbone, the inverse folding model ProteinMPNN predicts new optimal sequences and then one can run AlphaFold2 on all predicted sequences to verify whether they adopt the initial input backbone. Successful redesigns that qualitiatively adopt the same structure as predicted by AlphaFold2 with high pLDDT score should be tested in the lab. 
+You can check the [source code](https://huggingface.co/spaces/simonduerr/3dmol.js/blob/main/app.py) of the 3Dmol.js space for the full code.
+
+For a production example, you can check the [ProteinMPNN](https://hf.space/simonduerr/ProteinMPNN) space where a user can upload a backbone, the inverse folding model ProteinMPNN predicts new optimal sequences and then one can run AlphaFold2 on all predicted sequences to verify whether they adopt the initial input backbone. Successful redesigns that qualitiatively adopt the same structure as predicted by AlphaFold2 with high pLDDT score should be tested in the lab. 
 
 <iframe src="https://hf.space/embed/simonduerr/ProteinMPNN/+
 " frameBorder="0" width="1400" height="690" title="Gradio app" class="p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
