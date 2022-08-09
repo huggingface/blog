@@ -15,7 +15,7 @@ thumbnail: /blog/assets/94_tf_serving_kubernetes/thumb.png
 </div>
 
 <div class="author-card">
-    <a href="https://hf.co/chansung">
+    <a href="/chansung">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/26025527?v=4" title="Gravatar">
         <div class="bfc">
             <code>chansung</code>
@@ -23,7 +23,7 @@ thumbnail: /blog/assets/94_tf_serving_kubernetes/thumb.png
             <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
-    <a href="https://hf.co/sayakpaul">
+    <a href="/sayakpaul">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/22957388?v=4" title="Gravatar">
         <div class="bfc">
             <code>sayakpaul</code>
