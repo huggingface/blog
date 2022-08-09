@@ -1006,3 +1006,12 @@
   tags:
     - nlp
     - llm
+
+- local: skops
+  title: Introducing Skops
+  author: merve
+  thumbnail: /blog/assets/88_skops_library/introducing_skops.png
+  date: August 15, 2022
+  tags:
+    - data-science
+    - scikit-learn

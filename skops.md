@@ -8,7 +8,7 @@ thumbnail: /blog/assets/88_skops_library/introducing_skops.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published N/A.</small>
+    <small>Published August 15, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/skops-library.md">
         Update on GitHub
     </a>
@@ -26,13 +26,14 @@ thumbnail: /blog/assets/88_skops_library/introducing_skops.png
 
 ## Introducing Skops
 
-At Hugging Face, we are working on tackling various problems in open-source machine learning, including, hosting models securely and openly, enabling reproducibility, explainability and collaboration. We are thrilled to introduce you to our new library: Skops! With Skops, you can host your sklearn models on the Hugging Face Hub, create model cards with better reproducibility and collaborate with others.
+At Hugging Face, we are working on tackling various problems in open-source machine learning, including, hosting models securely and openly, enabling reproducibility, explainability and collaboration. We are thrilled to introduce you to our new library: Skops! With Skops, you can host your sklearn models on the Hugging Face Hub, create model cards for model documentation and collaborate with others.
 
 Let's go through an end-to-end example: train a model first, and see step-by-step how to leverage Skops for sklearn in production.
 
 ```python
 # let's import the libraries first
 import os
+from pathlib import Path
 import pickle
 from skops import hub_utils, card
 import sklearn
@@ -157,7 +158,7 @@ hub_utils.push(
 )
 ```
 
-Once we push the model to the Hub, anyone can use it, unless the repository is private. You can download the models using `download`. The repository also contains the model configuration as well as requirements of the environment.
+Once we push the model to the Hub, anyone can use it, unless the repository is private. You can download the models using `download`. Apart from the model file, the repository contains the model configuration and the requirements of the environment."
 
 ```python
 download_repo = "downloaded-model"
