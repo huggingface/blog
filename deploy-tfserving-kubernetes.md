@@ -40,7 +40,7 @@ In the [<u>previous post</u>](https://huggingface.co/blog/tf-serving-vision), we
 to deploy a [<u>Vision Transformer (ViT)</u>](https://huggingface.co/docs/transformers/main/en/model_doc/vit)
 model from 🤗 Transformers locally with TensorFlow Serving. We covered
 topics like embedding preprocessing and postprocessing operations within
-the vision transformer model, handling gRPC requests, and more!
+the Vision Transformer model, handling gRPC requests, and more!
 
 While local deployments are an excellent head start to building
 something useful, you’d need to perform deployments that can serve many
@@ -50,7 +50,7 @@ Therefore, we assume some familiarity with Docker and Kubernetes.
 
 This post builds on top of the [<u>previous post</u>](https://huggingface.co/blog/tf-serving-vision). So, we highly
 recommend reading it if not already done. You can find all the code
-discussed throughout this post in [<u>this repository</u>](https://github.com/sayakpaul/deploy-hf-tf-vision-models).
+discussed throughout this post in [<u>this repository</u>](https://github.com/sayakpaul/deploy-hf-tf-vision-models/tree/main/hf_vision_model_onnx_gke).
 
 # Why go with Docker and Kubernetes?
 
@@ -62,9 +62,9 @@ following steps:
   predictions. For containerization, Docker is the industry-standard
   go-to.
 
-- **Deploying the Docker container**: You have various options, the most
+- **Deploying the Docker container**: You have various options here. The most
   widely used option is deploying the Docker container on a Kubernetes
-  cluster. Kubernetes provides various deployment-friendly features
+  cluster. Kubernetes provides numerous deployment-friendly features
   (autoscaling, security, for example). You can use a solution like
   [<u>Minikube</u>](https://minikube.sigs.k8s.io/docs/start/) to
   manage Kubernetes clusters locally or a serverless solution like
@@ -80,10 +80,16 @@ organizations benefit from it. It has already been battle-tested for
 many years. It also lets you have more granular control of your
 deployments while abstracting away the non-trivial bits.
 
-This post uses [<u>Google Kubernetes Engine (GKE)</u>](https://cloud.google.com/kubernetes-engine) to provision and
-manage a Kubernetes cluster. This requires you to have a billing-enabled
-Google Cloud Platform (GCP) project. But the concepts discussed in this
-post equally apply should you decide to use Minikube.
+This post uses [<u>Google Kubernetes Engine (GKE)</u>](https://cloud.google.com/kubernetes-engine)
+to provision and manage a Kubernetes cluster. We assume you already have a
+billing-enabled GCP project if you’re using GKE. Also, note that you’d need to
+configure the [`gcloud`](https://cloud.google.com/sdk/gcloud) utility for
+performing the deployment on GKE. But the concepts discussed in this post
+equally apply should you decide to use Minikube.
+
+**Note**: The code snippets shown in this post can be executed on a Unix terminal
+as long as you have configured the `gcloud` utility along with Docker and `kubectl`.
+More instructions are available in the [accompanying repository](https://github.com/sayakpaul/deploy-hf-tf-vision-models/tree/main/hf_vision_model_onnx_gke). 
 
 # Containerization with Docker 
 
@@ -92,12 +98,12 @@ image inputs as bytes and is capable of preprocessing and
 postprocessing.
 
 In this section, you’ll see how to containerize that model using the
-[<u>base TensorFlow Serving Image</u>](http://hub.docker.com/r/tensorflow/serving/tags/) with the
-model saved in the [<u>SavedModel</u>](https://www.tensorflow.org/guide/saved_model) model. Recall how you
-obtained such a SavedModel in the [<u>previous post</u>](https://huggingface.co/blog/tf-serving-vision). We assume that
-you have the SavedModel compressed in `tar.gz` format. You can fetch
-it from [<u>here</u>](https://github.com/sayakpaul/deploy-hf-tf-vision-models/releases/download/1.0/saved_model.tar.gz)
-just in case. Then SavedModel should be placed in the special directory
+[<u>base TensorFlow Serving Image</u>](http://hub.docker.com/r/tensorflow/serving/tags/). TensorFlow Serving consumes models
+in the [`SavedModel`](https://www.tensorflow.org/guide/saved_model) format. Recall how you
+obtained such a `SavedModel` in the [<u>previous post</u>](https://huggingface.co/blog/tf-serving-vision). We assume that
+you have the `SavedModel` compressed in `tar.gz` format. You can fetch
+it from [<u>here</u>](https://huggingface.co/deploy-hf-tf-vit/vit-base16-extended/resolve/main/saved_model.tar.gz)
+just in case. Then `SavedModel` should be placed in the special directory
 structure of `<MODEL_NAME>/<VERSION>/<SavedModel>`. This is how
 TensorFlow Serving manages simultaneously deployed multiple versions of
 multiple models.
@@ -119,10 +125,24 @@ $ mkdir -p $MODEL_PATH
 $ tar -xvf $MODEL_TAR --directory $MODEL_PATH
 ```
 
-The custom TensorFlow Serving image should be built on top of the base
-one. There are various approaches for this, but you’ll do this by
-running a Docker container as illustrated in the [<u>official document</u>](https://www.tensorflow.org/tfx/serving/serving_kubernetes#commit_image_for_deployment). We start by running `tensorflow/serving` image in background mode,
-then the entire `models` directory is copied to the running container
+Below, we show how the `models` directory is structured in our case:
+
+```bash
+$ find /models
+/models
+/models/hf-vit
+/models/hf-vit/1
+/models/hf-vit/1/keras_metadata.pb
+/models/hf-vit/1/variables
+/models/hf-vit/1/variables/variables.index
+/models/hf-vit/1/variables/variables.data-00000-of-00001
+/models/hf-vit/1/assets
+/models/hf-vit/1/saved_model.pb
+```
+
+The custom TensorFlow Serving image should be built on top of the [base one](http://hub.docker.com/r/tensorflow/serving/tags/).
+There are various approaches for this, but you’ll do this by running a Docker container as illustrated in the
+[<u>official document</u>](https://www.tensorflow.org/tfx/serving/serving_kubernetes#commit_image_for_deployment). We start by running `tensorflow/serving` image in background mode, then the entire `models` directory is copied to the running container
 as below.
 
 ```bash
@@ -154,8 +174,6 @@ $ NEW_IMAGE=tfserving:$MODEL_NAME
 $ docker commit \ 
     --change "ENV MODEL_NAME $MODEL_NAME" \ 
     serving_base $NEW_IMAGE
-
-
 ```
 
 ## Running the Docker image locally
@@ -216,10 +234,7 @@ Deployment on a Kubernetes cluster requires the following:
 - Performing deployment with the manifests with a utility
   [`kubectl`](https://kubernetes.io/docs/reference/kubectl/).
 
-Let’s go over each of these steps. We assume you already have a
-billing-enabled GCP project if you’re using GKE. Also, note that you’d
-need to install the [`gcloud`](https://cloud.google.com/sdk/gcloud) utility for performing the deployment on
-GKE.
+Let’s go over each of these steps. 
 
 ## Provisioning a Kubernetes cluster on GKE
 
@@ -533,7 +548,11 @@ results of each request to the appropriate clients. TensorFlow Serving
 provides a rich set of configurable options (such as `max_batch_size`,
 `num_batch_threads`) to tailor your deployment needs. You can learn
 more about them
-[<u>here</u>](https://github.com/tensorflow/serving/blob/master/tensorflow_serving/batching/README.md).
+[<u>here</u>](https://github.com/tensorflow/serving/blob/master/tensorflow_serving/batching/README.md). Batching is
+particularly beneficial for applications where you don't need predictions from a model
+instantly. In those cases, you'd typically gather together multiple samples for prediction in batches and
+then send those batches for prediction. Lucky for us, TensorFlow Serving can configure all of these
+automatically when we enable its batching capabilities.
 
 **`enable_model_warmup`** warms up some of the TensorFlow components
 that are lazily instantiated with dummy input data. This way, you can
