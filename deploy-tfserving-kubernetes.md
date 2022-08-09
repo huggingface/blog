@@ -65,7 +65,7 @@ following steps:
 - **Deploying the Docker container**: You have various options here. The most
   widely used option is deploying the Docker container on a Kubernetes
   cluster. Kubernetes provides numerous deployment-friendly features
-  (autoscaling, security, for example). You can use a solution like
+  (e.g. autoscaling and security). You can use a solution like
   [<u>Minikube</u>](https://minikube.sigs.k8s.io/docs/start/) to
   manage Kubernetes clusters locally or a serverless solution like
   [<u>Elastic Kubernetes Service (EKS)</u>](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html).
