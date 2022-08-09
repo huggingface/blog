@@ -561,11 +561,12 @@ lags during the actual service time.
 
 # Conclusion
 
-In this post, you learned about deploying the Vision Transformer model
+In this post and the associated [repository](https://github.com/sayakpaul/deploy-hf-tf-vision-models), 
+you learned about deploying the Vision Transformer model
 from 🤗Transformers on a Kubernetes cluster. If you’re doing this for
 the first time, the steps may appear to be a little daunting, but once
 you get the grasp, they’ll soon become an essential component of your
-toolbox.
+toolbox. 
 
 In the next post, we’ll show you how to perform these deployments with
 significantly less code with [<u>Vertex AI</u>](https://cloud.google.com/vertex-ai) – more like
