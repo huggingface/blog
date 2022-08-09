@@ -134,8 +134,7 @@ We used the official Docker image of TensorFlow Serving as the base, but
 you can use ones that you have [<u>built from source</u>](https://github.com/tensorflow/serving/blob/master/tensorflow_serving/g3doc/setup.md#building-from-source)
 as well.
 
-**Note**: TensorFlow Serving benefits from hardware optimizations that
-let it take advantage of instruction sets like
+**Note**: TensorFlow Serving benefits from hardware optimizations, that leverage instruction sets such as
 [<u>AVX512</u>](https://en.wikipedia.org/wiki/AVX-512). These
 instruction sets can [<u>speed up deep learning model inference</u>](https://huggingface.co/blog/bert-cpu-scaling-part-1). So,
 if you know the hardware on which the model will be deployed, it’s often
