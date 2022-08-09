@@ -130,7 +130,7 @@ disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=model.classes_
 disp.plot()
 
 # save the plot
-plt.savefig(f"{local_repo}/confusion_matrix.png")
+plt.savefig(Path(local_repo) / "confusion_matrix.png")
 
 # the plot will be written to the model card under the name confusion_matrix
 # we pass the path of the plot itself
