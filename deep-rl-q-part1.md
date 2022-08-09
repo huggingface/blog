@@ -114,7 +114,7 @@ The value of a state is the **expected discounted return** the agent can get i
   
 If you forgot what discounting is, you [can read this section](https://huggingface.co/blog/deep-rl-intro#rewards-and-the-discounting).
 
-> But what means acting according to our policy? We don't have a policy in value-based methods since we train a value function and not a policy?
+> But what does it mean to act according to our policy? After all, we don't have a policy in value-based methods, since we train a value function and not a policy.
 >
 
 Remember that the goal of an **RL agent is to have an optimal policy π.**
@@ -357,8 +357,6 @@ For instance, if we train a state-value function using Monte Carlo:
 The idea with **TD is to update the \\(V(S_t)\\) at each step.**
 
 But because we didn't play during an entire episode, we don't have \\(G_t\\) (expected return). Instead, **we estimate \\(G_t\\) by adding \\(R_{t+1}\\) and the discounted value of the next state.**
-
-We speak about **bootstrap because TD bases its update part on an existing estimate \\(V(S_{t+1})\\) and not a complete sample \\(G_t\\).**
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/TD-1.jpg" alt="Temporal Difference"/>
