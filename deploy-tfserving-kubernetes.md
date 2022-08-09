@@ -563,10 +563,15 @@ lags during the actual service time.
 
 In this post and the associated [repository](https://github.com/sayakpaul/deploy-hf-tf-vision-models), 
 you learned about deploying the Vision Transformer model
-from 🤗Transformers on a Kubernetes cluster. If you’re doing this for
+from 🤗 Transformers on a Kubernetes cluster. If you’re doing this for
 the first time, the steps may appear to be a little daunting, but once
 you get the grasp, they’ll soon become an essential component of your
-toolbox. 
+toolbox. If you were already familiar with this workflow, we hope this post was still beneficial
+for you. 
+
+We applied the same deployment workflow for an ONNX-optimized version of the same
+Vision Transformer model. For more details, check out [this link](https://github.com/sayakpaul/deploy-hf-tf-vision-models/tree/main/hf_vision_model_onnx_gke). ONNX-optimized models are especially beneficial if you're using
+x86 CPUs for deployment.
 
 In the next post, we’ll show you how to perform these deployments with
 significantly less code with [<u>Vertex AI</u>](https://cloud.google.com/vertex-ai) – more like
