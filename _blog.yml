@@ -1006,7 +1006,7 @@
   tags:
     - nlp
     - llm
-   
+
 - local: mnist-adversarial
   title: "How to train your model dynamically using adversarial data"
   author: chrisjay
@@ -1015,7 +1015,7 @@
   tags:
   - mnist
   - adversarial
-  - guide    
+  - guide
 
 - local: deep-rl-a2c
   title: "Advantage Actor Critic (A2C)"
@@ -1033,7 +1033,7 @@
   tags:
     - guide
     - cv
-    
+
 - local: tf-xla-generate
   title: "Faster Text Generation with TensorFlow and XLA"
   author: joaogante
@@ -1053,7 +1053,7 @@
     - cv
     - community
     - announcement
-    
+
 - local: us-national-ai-research-resource
   title: "AI Policy @🤗: Comments on U.S. National AI Research Resource Interim Report"
   author: irenesolaiman
@@ -1080,6 +1080,7 @@
     - announcement
     - private hub
 
+
 - local: deep-rl-ppo
   title: "Proximal Policy Optimization (PPO)"
   author: ThomasSimonini
@@ -1087,3 +1088,14 @@
   date: August 5, 2022
   tags:
   - rl
+
+
+- local: bloom-inference-pytorch
+  title: "The Technology Behind BLOOM Training"
+  author: stas, sgugger, Narsil
+  thumbnail: /blog/assets/bloom-inference-pytorch/thumbnail.png
+  date: August 4, 2022
+  tags:
+    - nlp
+    - llm
+    - inference
