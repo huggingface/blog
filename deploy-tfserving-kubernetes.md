@@ -63,7 +63,7 @@ following steps:
   go-to.
 
 - **Deploying the Docker container**: You have various options, the most
-  widely used is to deploy the Docker container on a Kubernetes
+  widely used option is deploying the Docker container on a Kubernetes
   cluster. Kubernetes provides various deployment-friendly features
   (autoscaling, security, for example). You can use a solution like
   [<u>Minikube</u>](https://minikube.sigs.k8s.io/docs/start/) to
