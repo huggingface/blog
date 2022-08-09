@@ -40,7 +40,7 @@ In the [<u>previous post</u>](https://huggingface.co/blog/tf-serving-vision), we
 to deploy a [<u>Vision Transformer (ViT)</u>](https://huggingface.co/docs/transformers/main/en/model_doc/vit)
 model from 🤗 Transformers locally with TensorFlow Serving. We covered
 topics like embedding preprocessing and postprocessing operations within
-the ViT model, handling gRPC requests, etc.
+the vision transformer model, handling gRPC requests, and more!
 
 While local deployments are an excellent head start to building
 something useful, you’d need to perform deployments that can serve many
