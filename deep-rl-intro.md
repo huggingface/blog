@@ -255,7 +255,7 @@ In Super Mario Bros, we have a finite set of actions since we have only 4 direct
 - *Continuous space*: the number of possible actions is **infinite**.
 <figure class="image table text-center m-0 w-full">
   <img src="assets/63_deep_rl_intro/self_driving_car.jpg" alt="Self Driving Car"/>
-  <figcaption>A Self Driving Car agent has an infinite number of possible actions since it can turn left 20°, 21°, 22°, honk, turn right 20°, 20,1°…
+  <figcaption>A Self Driving Car agent has an infinite number of possible actions since it can turn left 20°, 21,1°, 21,2°, honk, turn right 20°…
 </figcaption>
 </figure>
 
@@ -501,9 +501,9 @@ If we recap:
 
 ## **The “Deep” in Reinforcement Learning**
 
-⇒ Wait… you spoke about Reinforcement Learning, but why we spoke about Reinforcement Learning?
+⇒ What we've talked about so far is Reinforcement Learning. But where does the "Deep" come into play?
 
-Deep Reinforcement Learning introduces **deep neural networks to solve Reinforcement Learning problems** — hence the name “deep.”
+Deep Reinforcement Learning introduces **deep neural networks to solve Reinforcement Learning problems** — hence the name “deep”.
 
 For instance, in the next article, we’ll work on Q-Learning (classic Reinforcement Learning) and then Deep Q-Learning both are value-based RL algorithms.
 

@@ -243,7 +243,7 @@ The Bellman equation is a recursive equation that works like this: instead of st
 If we go back to our example, the value of State 1= expected cumulative return if we start at that state.
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/70_deep_rl_q_part1/bellman5.jpg" alt="Bellman equation"/>
+  <img src="assets/70_deep_rl_q_part1/bellman2.jpg" alt="Bellman equation"/>
 </figure>
 
 
@@ -391,7 +391,7 @@ If we take the same example,
 
 We can now update  \\(V(S_0)\\):
 
-New  \\(V(S_0) = V(S_0 + lr * [R_1 + gamma * V(S_1) - V(S_0)]\\)
+New  \\(V(S_0) = V(S_0) + lr * [R_1 + gamma * V(S_1) - V(S_0)]\\)
 
 New \\(V(S_0) = 0 + 0.1 * [1 + 1 * 0–0]\\)
 
