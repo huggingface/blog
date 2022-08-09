@@ -157,22 +157,11 @@ hub_utils.push(
 )
 ```
 
-Once we push the model to the Hub, anyone can use it, unless the repository is private. You can download the models using `download`.
+Once we push the model to the Hub, anyone can use it, unless the repository is private. You can download the models using `download`. The repository also contains the model configuration as well as requirements of the environment.
 
 ```python
 download_repo = "downloaded-model"
 hub_utils.download(repo_id=repo_id, dst=download_repo)
-# Let's see the content of the repository
-print(os.listdir(download_repo))
-```
-
-The repository also contains the model configuration as well as requirements of the environment.
-
-```python
-# We can get the requirements using get_requirements
-print(hub_utils.get_requirements(path=download_repo))
-# We can also get the configuration using get_config
-print(json.dumps(hub_utils.get_config(path=download_repo), indent=2))
 ```
 
 If the requirements of your project have changed, you can use `update_env` to update the environment.
@@ -181,7 +170,7 @@ If the requirements of your project have changed, you can use `update_env` to up
 hub_utils.update_env(path=local_repo, requirements=["scikit-learn"])
 ```
 
-We have prepared two notebooks to demonstrate how to save your models and use model card utilities, you can find them at resources section below.
+We have prepared two examples to demonstrate how to save your models and use model card utilities, you can find them at resources section below.
 
 
 ## Resources
