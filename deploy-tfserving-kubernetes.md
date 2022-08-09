@@ -239,7 +239,7 @@ $ gcloud container clusters create $GKE_CLUSTER_NAME \
 ```
 
 GCP offers a variety of machine types to configure the deployment in a
-way you want. We encourage you to consult the
+way you want. We encourage you to refer to the
 [<u>documentation</u>](https://cloud.google.com/sdk/gcloud/reference/container/clusters/create)
 to know more about it.
 
