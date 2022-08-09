@@ -344,7 +344,7 @@ can let HPA (discussed later) decide to scale up or down the number of
 containers. `requests.cpu` is the minimal amount of CPU resources to
 make the container work correctly set by operators. Here 800m means 80%
 of the whole CPU resource. So, HPA monitors the average CPU utilization
-out of the sum of `requests.cpu` across all pods to make scaling
+out of the sum of `requests.cpu` across all Pods to make scaling
 decisions.
 
 Besides Kubernetes specific configuration, you can specify TensorFlow
@@ -412,7 +412,7 @@ spec:
 ```
 
 HPA stands for **H**orizontal **P**od **A**utoscaler. It sets criteria
-to decide when to scale the number of pods in the target Deployment. You
+to decide when to scale the number of Pods in the target Deployment. You
 can learn more about the auto-scaling algorithm internally used by
 Kubernetes [<u>here</u>](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale).
 
@@ -423,9 +423,9 @@ utilization. `targetCPUUtilizationPercentage` is an important metric
 for autoscaling. The following thread aptly summarizes what it means
 (taken from [<u>here</u>](https://stackoverflow.com/a/42530520/7636462)):
 
-> The CPU utilization is the average CPU usage of all pods in a
+> The CPU utilization is the average CPU usage of all Pods in a
 deployment across the last minute divided by the requested CPU of this
-deployment. If the mean of the pods' CPU utilization is higher than the
+deployment. If the mean of the Pods' CPU utilization is higher than the
 target you defined, your replicas will be adjusted.
 
 Recall specifying `resources` in the deployment manifest. By
