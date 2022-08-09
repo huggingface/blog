@@ -62,7 +62,7 @@ following steps:
   predictions. For containerization, Docker is the industry-standard
   go-to.
 
-- **Deploying the Docker container**: You have many options. The most
+- **Deploying the Docker container**: You have various options, the most
   widely used is to deploy the Docker container on a Kubernetes
   cluster. Kubernetes provides various deployment-friendly features
   (autoscaling, security, for example). You can use a solution like
