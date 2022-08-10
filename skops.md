@@ -93,6 +93,7 @@ Following sections are extracted by Skops to fill in the model card:
 - Hyperparameters of the model,
 - Interactive plot of the model,
 - For metadata, library name and task identifier (e.g. tabular-classification) are filled.
+
 We will walk you through how to programmatically pass information to fill the model card. Please take a look at the [default template](https://github.com/skops-dev/skops/blob/main/skops/card/default_template.md) used by Skops to see what the template expects.
 You can add information and metadata using `add`.
 
