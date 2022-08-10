@@ -88,7 +88,7 @@ The repository now contains the serialized model and the configuration file. The
 We will now create the model card. The card should fit the format that Hugging Face Hub expects it to be: it consists of a markdown part and a metadata section, which is a `yaml` section at the top. The keys to the metadata section are defined [here](https://huggingface.co/docs/hub/models-cards#model-card-metadata) and are used for discoverability of the models. 
 The content of the model card is determined by a jinja template that has:
 - yaml section on top for metadata (e.g. model license, library name and more),
-- markdown section with free text and slots to be filled (e.g. simple description of the model),
+- markdown section with free text and sections to be filled (e.g. simple description of the model),
 Following sections are extracted by Skops to fill in the model card:
 - Hyperparameters of the model,
 - Interactive plot of the model,
