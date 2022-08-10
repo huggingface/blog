@@ -1,6 +1,6 @@
 ---
 title: "Introducing Skops"
-thumbnail: /blog/assets/88_skops_library/introducing_skops.png
+thumbnail: /blog/assets/94_skops/introducing_skops.png
 ---
 
 <h1>
@@ -22,6 +22,20 @@ thumbnail: /blog/assets/88_skops_library/introducing_skops.png
             <span class="fullname">Merve Noyan</span>
         </div>
     </a>
+    <a href="/adrin">
+        <img class="avatar avatar-user" src="https://huggingface.co/avatars/f40271d9ff5ac148aab4c512f8ae6402.svg" title="Gravatar">
+        <div class="bfc">
+            <code>adrin</code>
+            <span class="fullname">Adrin Jalali</span>
+        </div>
+    </a>
+    <a href="/BenjaminB">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1656685953025-62bf03d1e80cec527083cd66.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>BenjaminB</code>
+            <span class="fullname">Benjamin Bossan</span>
+        </div>
+    </a>
 </div>
 
 ## Introducing Skops
@@ -32,17 +46,10 @@ Let's go through an end-to-end example: train a model first, and see step-by-ste
 
 ```python
 # let's import the libraries first
-import os
-from pathlib import Path
-import pickle
-from skops import hub_utils, card
 import sklearn
-import matplotlib.pyplot as plt
-from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 from sklearn.datasets import load_breast_cancer
-from sklearn.ensemble import HistGradientBoostingClassifier
-from sklearn.experimental import enable_halving_search_cv  # noqa
-from sklearn.model_selection import HalvingGridSearchCV, train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
 
 # Load the data and split
 X, y = load_breast_cancer(as_frame=True, return_X_y=True)
@@ -51,22 +58,15 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # Train the model
-param_grid = {
-    "max_leaf_nodes": [5, 10, 15],
-    "max_depth": [2, 5, 10],
-}
-
-model = HalvingGridSearchCV(
-    estimator=HistGradientBoostingClassifier(),
-    param_grid=param_grid,
-    random_state=42,
-    n_jobs=-1,
-).fit(X_train, y_train)
+model = DecisionTreeClassifier().fit(X_train, y_train)
 ```
 
-We will first save our model and initialize the repository. The model name and the format is insignificant, we will save our model as `example.pkl` for simplicity. `hub_utils .init` creates a Git repository containing the model in the given path and the configuration file containing the specifications of the environment the model is trained in. The data and the task passed to the `init` will help Hugging Face Hub enable the inference widget on the model page as well as discoverability features to find the model.
+You can use any model filename you want. You can also use any serializing method that you prefer, like `pickle` or `joblib`. `hub_utils .init` creates a local Git repository containing the model in the given path and the configuration file containing the specifications of the environment the model is trained in. The data and the task passed to the `init` will help Hugging Face Hub enable the inference widget on the model page as well as discoverability features to find the model.
 
 ```python
+from skops import hub_utils
+import pickle
+
 # let's save the model
 model_path = "example.pkl"
 local_repo = "my-awesome-model"
@@ -86,31 +86,28 @@ hub_utils.init(
 The repository now contains the serialized model and the configuration file. The configuration contains the features of the model, the requirements of the model, an example input taken from `X_test` that we've passed, name of the model file and name of the task solved here.
 
 We will now create the model card. The card should fit the format that Hugging Face Hub expects it to be: it consists of a markdown part and a metadata section, which is a `yaml` section at the top. The keys to the metadata section are defined [here](https://huggingface.co/docs/hub/models-cards#model-card-metadata) and are used for discoverability of the models. 
-The content of the model card is determined by a jinja template that has:
+The content of the model card is determined by a template that has:
 - yaml section on top for metadata (e.g. model license, library name and more),
 - markdown section with free text and sections to be filled (e.g. simple description of the model),
-Following sections are extracted by Skops to fill in the model card:
+Following sections are extracted by `skops` to fill in the model card:
 - Hyperparameters of the model,
 - Interactive plot of the model,
 - For metadata, library name and task identifier (e.g. tabular-classification) are filled.
 
-We will walk you through how to programmatically pass information to fill the model card. Please take a look at the [default template](https://github.com/skops-dev/skops/blob/main/skops/card/default_template.md) used by Skops to see what the template expects.
-You can add information and metadata using `add`.
+We will walk you through how to programmatically pass information to fill the model card. Please take a look at the [default template](https://github.com/skops-dev/skops/blob/main/skops/card/default_template.md) used by `skops` to see what the template expects.
+
+You can create the model card by instantiating `Card` class from `skops`. During serialization of the model, task name and the library name are written to configuration file. This information is needed in card's metadata as well, so you can use `metadata_from_config` method to extract the metadata needed from configuration and pass it to the card while creation. You can add information and metadata using `add`.
 
 ```python
-# create the card
-model_card = card.Card(model)
+from skops import card
 
-# define some metadata to be added to the card 
-license = "mit"
+# create the card 
+model_card = card.Card(model, metadata=card.metadata_from_config(Path(destination_folder)))
+
 limitations = "This model is not ready to be used in production."
-model_description = (
-    "This is a HistGradientBoostingClassifier model trained on breast cancer dataset."
-)
+model_description = "This is a DecisionTreeClassifier model trained on breast cancer dataset."
 model_card_authors = "skops_user"
-get_started_code = (
-    "import pickle \nwith open(dtc_pkl_filename, 'rb') as file: \nclf = pickle.load(file)"
-)
+get_started_code = "import pickle \nwith open(dtc_pkl_filename, 'rb') as file: \nclf = pickle.load(file)"
 citation_bibtex = "bibtex\n@inproceedings{...,year={2020}}"
 
 # we can add the information using add
@@ -121,11 +118,29 @@ model_card.add(
     limitations=limitations,
     model_description=model_description,
 )
+
+# we can set the metadata part directly
+model_card.metadata.license = "mit"
+```
+
+We will now evaluate the model and pass details on the evaluation process. To pass the details about the evaluation method, we can use `add`. We can pass the metrics using `add_metrics`. The metrics that we'll pass will be parsed to a table. 
+
+```python
+from sklearn.metrics import (ConfusionMatrixDisplay, confusion_matrix,
+                            accuracy_score, f1_score)
+# let's make a prediction and evaluate the model
+y_pred = model.predict(X_test)
+# we can pass metrics using add_metrics and pass details with add
+model_card.add(eval_method="The model is evaluated using test split, on accuracy and F1 score with macro average.")
+model_card.add_metrics(accuracy=accuracy_score(y_test, y_pred))
+model_card.add_metrics(**{"f1 score": f1_score(y_test, y_pred, average="micro")})
 ```
 
 We can also add any plot of our choice to the card using `add_plot` like below.
 
 ```python
+import matplotlib.pyplot as plt
+from pathlib import Path
 # we will create a confusion matrix
 cm = confusion_matrix(y_test, y_pred, labels=model.classes_)
 disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=model.classes_)
@@ -144,10 +159,9 @@ Let's save the model card in the local repository. The file name here should be 
 model_card.save(Path(local_repo) / "README.md")
 ```
 
-We can now push the repository to Hugging Face Hub. For this, we will use `push` from `hub_utils`. Hugging Face Hub requires tokens for authentication, therefore you need to pass your token.
+We can now push the repository to Hugging Face Hub. For this, we will use `push` from `hub_utils`. Hugging Face Hub requires tokens for authentication, therefore you need to pass your token. You can use `notebook_login` if you're logging in from notebook, or you can use `huggingface-cli login` if you're logging in from CLI, you can also pass your token directly.
 
 ```python
-token = os.environ["HF_HUB_TOKEN"]
 # if the repository doesn't exist remotely on the Hugging Face Hub, it will be created when we set create_remote to True
 repo_id = "skops-user/my-awesome-model"
 hub_utils.push(
@@ -166,13 +180,18 @@ download_repo = "downloaded-model"
 hub_utils.download(repo_id=repo_id, dst=download_repo)
 ```
 
+The inference widget is enabled to make predictions in the repository.
+
+![Hosted Inference Widget](blog/assets/94_skops/skops_widget.png)
+
 If the requirements of your project have changed, you can use `update_env` to update the environment.
 
 ```python
 hub_utils.update_env(path=local_repo, requirements=["scikit-learn"])
 ```
 
-We have prepared two examples to demonstrate how to save your models and use model card utilities, you can find them at resources section below.
+You can see the example repository pushed with above code [here](https://huggingface.co/scikit-learn/skops-blog-example).
+We have prepared two examples to show how to save your models and use model card utilities, you can find them at resources section below.
 
 
 ## Resources
