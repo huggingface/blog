@@ -64,7 +64,7 @@ model = HalvingGridSearchCV(
 ).fit(X_train, y_train)
 ```
 
-We will first save our model and initialize the repository. The model name and the format is insignificant, we will save our model as `example.pkl` for simplicity. `init` creates a repository containing the model in the given path and the configuration file containing the specifications of the environment the model is trained in. The data and the task passed to the `init` will help Hugging Face Hub enable the inference widget on the model page.
+We will first save our model and initialize the repository. The model name and the format is insignificant, we will save our model as `example.pkl` for simplicity. `hub_utils .init` creates a Git repository containing the model in the given path and the configuration file containing the specifications of the environment the model is trained in. The data and the task passed to the `init` will help Hugging Face Hub enable the inference widget on the model page as well as discoverability features to find the model.
 
 ```python
 # let's save the model
