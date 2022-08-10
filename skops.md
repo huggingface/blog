@@ -101,7 +101,7 @@ You can add information and metadata using `add`.
 # create the card
 model_card = card.Card(model)
 
-# create some information we want to pass to the card
+# define some metadata to be added to the card 
 license = "mit"
 limitations = "This model is not ready to be used in production."
 model_description = (
