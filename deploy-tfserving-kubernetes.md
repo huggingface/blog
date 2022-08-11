@@ -385,7 +385,7 @@ spec:
   type: LoadBalancer
 ```
 
-We made the type of the service ‘LoadBalancer’ so the endpoints are
+We made the service type ‘LoadBalancer’ so the endpoints are
 exposed externally to the Kubernetes cluster. It selects the
 ‘tfs-server’ Deployment to make connections with external clients via
 the specified ports. We open two ports of ‘8500’ and ‘8501’ for gRPC and
