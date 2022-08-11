@@ -1087,3 +1087,12 @@
   date: August 5, 2022
   tags:
   - rl
+
+- local: how-to-train-sentence-transformers
+  title: "Train and Fine-Tune Sentence Transformers Models"
+  author: espejelomar
+  thumbnail: /blog/assets/95_training_st_models/thumbnail.png
+  date: August 10, 2022
+  tags:
+  - guide
+  - nlp
