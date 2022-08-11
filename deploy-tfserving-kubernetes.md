@@ -294,7 +294,7 @@ files for achieving this:
   consisting of the Deployment, such as the percentage of CPU
   utilization.
 
-You can find these manifests relevant to this post
+You can find the relevant manifests for this post
 [<u>here</u>](https://github.com/sayakpaul/deploy-hf-tf-vision-models/tree/main/hf_vision_model_tfserving_gke/.kube/base).
 Below, we present a pictorial overview of how these manifests are
 consumed.
