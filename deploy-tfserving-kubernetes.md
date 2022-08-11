@@ -70,7 +70,7 @@ following steps:
   manage Kubernetes clusters locally or a serverless solution like
   [<u>Elastic Kubernetes Service (EKS)</u>](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html).
 
-You might be wondering why to use an explicit setup like this in the age
+You might be wondering why use an explicit setup like this in the age
 of [<u>Sagemaker,</u>](https://aws.amazon.com/sagemaker/) [<u>Vertex AI</u>](https://cloud.google.com/vertex-ai)
 that provides ML deployment-specific features right off the bat. It is fair to think
 about it.
