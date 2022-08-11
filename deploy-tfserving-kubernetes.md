@@ -229,7 +229,7 @@ Deployment on a Kubernetes cluster requires the following:
 
 - Writing YAML manifests.
 
-- Performing deployment with the manifests with a utility
+- Performing deployment with the manifests with a utility tool,
   [`kubectl`](https://kubernetes.io/docs/reference/kubectl/).
 
 Let’s go over each of these steps. 
