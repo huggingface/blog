@@ -111,7 +111,7 @@ structure of `<MODEL_NAME>/<VERSION>/<SavedModel>`. This is how TensorFlow Servi
 The shell script below places the `SavedModel` in `hf-vit/1` under the
 parent directory models. You'll copy everything inside it when preparing
 the Docker image. There is only one model in this example, but this
-approach gives you a more generalized way.
+is a more generalizable approach.
 
 ```bash
 $ MODEL_TAR=model.tar.gz
