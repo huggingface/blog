@@ -213,8 +213,8 @@ $ docker tag $NEW_IMAGE $GCP_IMAGE
 $ docker push $GCP_IMAGE
 ```
 
-Since we’re using GCR, you need the prefix of
-`gcr.io/<GCP_PROJECT_ID>` in the Docker image tag ([<u>note</u>](https://cloud.google.com/container-registry/docs/pushing-and-pulling) the other formats too). With the Docker image prepared and pushed to GCR, you can now proceed to deploy it on a
+Since we’re using GCR, you need to prefix the
+Docker image tag ([<u>note</u>](https://cloud.google.com/container-registry/docs/pushing-and-pulling) the other formats too) with `gcr.io/<GCP_PROJECT_ID>` . With the Docker image prepared and pushed to GCR, you can now proceed to deploy it on a
 Kubernetes cluster.
 
 # Deploying on a Kubernetes cluster
