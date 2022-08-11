@@ -177,7 +177,7 @@ $ docker commit \
 ## Running the Docker image locally
 
 Lastly, you can run the newly built Docker image locally to see if it
-works fine. Below you see the output of `docker run` command. Since
+works fine. Below you see the output of the `docker run` command. Since
 the output is verbose, we trimmed it down to focus on the important
 bits. Also, it is worth noting that it opens up `8500` and `8501`
 ports for gRPC and HTTP/REST endpoints, respectively.
