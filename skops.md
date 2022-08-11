@@ -107,7 +107,7 @@ model_card = card.Card(model, metadata=card.metadata_from_config(Path(destinatio
 limitations = "This model is not ready to be used in production."
 model_description = "This is a DecisionTreeClassifier model trained on breast cancer dataset."
 model_card_authors = "skops_user"
-get_started_code = "import pickle \nwith open(dtc_pkl_filename, 'rb') as file: \nclf = pickle.load(file)"
+get_started_code = "import pickle \nwith open(dtc_pkl_filename, 'rb') as file: \n    clf = pickle.load(file)"
 citation_bibtex = "bibtex\n@inproceedings{...,year={2020}}"
 
 # we can add the information using add
