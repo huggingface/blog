@@ -40,7 +40,7 @@ thumbnail: /blog/assets/94_skops/introducing_skops.png
 
 ## Introducing Skops
 
-At Hugging Face, we are working on tackling various problems in open-source machine learning, including, hosting models securely and openly, enabling reproducibility, explainability and collaboration. We are thrilled to introduce you to our new library: Skops! With Skops, you can host your sklearn models on the Hugging Face Hub, create model cards for model documentation and collaborate with others.
+At Hugging Face, we are working on tackling various problems in open-source machine learning, including, hosting models securely and openly, enabling reproducibility, explainability and collaboration. We are thrilled to introduce you to our new library: Skops! With Skops, you can host your scikit-learn models on the Hugging Face Hub, create model cards for model documentation and collaborate with others.
 
 Let's go through an end-to-end example: train a model first, and see step-by-step how to leverage Skops for sklearn in production.
 
