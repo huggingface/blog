@@ -135,9 +135,7 @@ The `body` looks as follows:
 <body>  
     <div id="container" class="mol-container"></div>
     <script>
-        let pdb = `"""
-                    + mol
-                    + """`  
+        let pdb = mol // mol contains PDB file content, check the hf.space/simonduerr/3dmol.js for full python code
         $(document).ready(function () {
             let element = $("#container");
             let config = { backgroundColor: "white" };
