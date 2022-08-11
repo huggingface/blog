@@ -411,7 +411,7 @@ spec:
 
 HPA stands for **H**orizontal **P**od **A**utoscaler. It sets criteria
 to decide when to scale the number of Pods in the target Deployment. You
-can learn more about the auto-scaling algorithm internally used by
+can learn more about the autoscaling algorithm internally used by
 Kubernetes [<u>here</u>](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale).
 
 Here you specify how Kubernetes should handle autoscaling. In
