@@ -1096,3 +1096,12 @@
   tags:
   - guide
   - nlp
+  
+- local: deploy-tfserving-kubernetes
+  title: "Deploying 🤗 ViT on Kubernetes with TF Serving"
+  author: chansung
+  thumbnail: /blog/assets/94_tf_serving_kubernetes/thumb.png
+  date: August 15, 2022
+  tags:
+    - guide
+    - cv
