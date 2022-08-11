@@ -48,8 +48,8 @@ users in real-life projects. In this post, you’ll learn how to scale the
 local deployment from the previous post with Docker and Kubernetes.
 Therefore, we assume some familiarity with Docker and Kubernetes.
 
-This post builds on top of the [<u>previous post</u>](https://huggingface.co/blog/tf-serving-vision). So, we highly
-recommend reading it if not already done. You can find all the code
+This post builds on top of the [<u>previous post</u>](https://huggingface.co/blog/tf-serving-vision), so, we highly
+recommend reading it first. You can find all the code
 discussed throughout this post in [<u>this repository</u>](https://github.com/sayakpaul/deploy-hf-tf-vision-models/tree/main/hf_vision_model_onnx_gke).
 
 # Why go with Docker and Kubernetes?
@@ -93,8 +93,7 @@ More instructions are available in the [accompanying repository](https://github.
 
 # Containerization with Docker 
 
-The serving model can handle raw
-image inputs as bytes and is capable of preprocessing and
+The serving model can handle raw image inputs as bytes and is capable of preprocessing and
 postprocessing.
 
 In this section, you’ll see how to containerize that model using the
@@ -338,7 +337,7 @@ You can configure the names like `tfs-server`, `tfs-k8s` any way you
 want. Under `containers`, you specify the Docker image URI the
 deployment will use. The current resource utilization gets monitored by
 setting the allowed bounds of the `resources` for the container. It
-can let HPA (discussed later) decide to scale up or down the number of
+can let Horizontal Pod Autoscaler (discussed later) decide to scale up or down the number of
 containers. `requests.cpu` is the minimal amount of CPU resources to
 make the container work correctly set by operators. Here 800m means 80%
 of the whole CPU resource. So, HPA monitors the average CPU utilization
