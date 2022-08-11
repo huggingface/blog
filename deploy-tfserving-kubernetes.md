@@ -491,7 +491,7 @@ Note down the external IP when it becomes available.
 
 And that sums up all the steps you need to deploy your model on
 Kubernetes! Kubernetes elegantly provides abstractions for complex bits
-like autoscaling, cluster management, etc. while letting you focus on
+like autoscaling and cluster management while letting you focus on
 the crucial aspects you should care about while deploying a model. These
 include resource utilization, security (we didn’t cover that here),
 performance north stars like latency, etc.
