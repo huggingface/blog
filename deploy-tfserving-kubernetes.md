@@ -93,7 +93,7 @@ More instructions are available in the [accompanying repository](https://github.
 
 # Containerization with Docker 
 
-Recall from the previous post that the serving model can handle raw
+The serving model can handle raw
 image inputs as bytes and is capable of preprocessing and
 postprocessing.
 
