@@ -104,9 +104,7 @@ obtained such a `SavedModel` in the [<u>previous post</u>](https://huggingface.c
 you have the `SavedModel` compressed in `tar.gz` format. You can fetch
 it from [<u>here</u>](https://huggingface.co/deploy-hf-tf-vit/vit-base16-extended/resolve/main/saved_model.tar.gz)
 just in case. Then `SavedModel` should be placed in the special directory
-structure of `<MODEL_NAME>/<VERSION>/<SavedModel>`. This is how
-TensorFlow Serving manages simultaneously deployed multiple versions of
-multiple models.
+structure of `<MODEL_NAME>/<VERSION>/<SavedModel>`. This is how TensorFlow Serving simultaneously manages multiple deployments of different versioned models.
 
 ## Preparing the Docker image
 
