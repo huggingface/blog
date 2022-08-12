@@ -159,7 +159,7 @@ Let's save the model card in the local repository. The file name here should be 
 model_card.save(Path(local_repo) / "README.md")
 ```
 
-We can now push the repository to Hugging Face Hub. For this, we will use `push` from `hub_utils`. Hugging Face Hub requires tokens for authentication, therefore you need to pass your token. You can use `notebook_login` if you're logging in from notebook, or you can use `huggingface-cli login` if you're logging in from CLI, you can also pass your token directly.
+We can now push the repository to the Hugging Face Hub. For this, we will use `push` from `hub_utils`. Hugging Face Hub requires tokens for authentication, therefore you need to pass your token in either  `notebook_login` if you're logging in from a notebook, or `huggingface-cli login` if you're logging in from the CLI.
 
 ```python
 # if the repository doesn't exist remotely on the Hugging Face Hub, it will be created when we set create_remote to True
