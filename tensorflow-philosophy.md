@@ -116,8 +116,8 @@ In Keras, the standard way to train a model is to create it, then `compile()` it
 Our solution to that is simple: If you `compile()` without a loss argument, we’ll give you the one you probably wanted. Specifically, we’ll give you one that matches both your base model and output type - if you `compile()` a BERT-based masked language model without a loss, we’ll give you a masked language modelling loss that handles padding and masking correctly, and will only compute losses on corrupted tokens, exactly matching the original BERT training process. If for some reason you really, really don’t want your model to be compiled with any loss at all, then simply specify `loss=None` when compiling.
 
 ```py
-model = TFAutoModelForQuestionAnswering.from_pretrained('bert-base-cased')
-model.compile(optimizer='adam')  # No loss argument!
+model = TFAutoModelForQuestionAnswering.from_pretrained("bert-base-cased")
+model.compile(optimizer="adam")  # No loss argument!
 model.fit(my_data, my_labels)
 ```
 
