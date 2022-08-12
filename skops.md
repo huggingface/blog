@@ -83,7 +83,7 @@ hub_utils.init(
 )
 ```
 
-The repository now contains the serialized model and the configuration file. The configuration contains the features of the model, the requirements of the model, an example input taken from `X_test` that we've passed, name of the model file and name of the task solved here.
+The repository now contains the serialized model and the configuration file. The configuration contains the features of the model, the requirements of the model, an example input taken from `X_test` that we've passed, name of the model file and name of the task to be solved here.
 
 We will now create the model card. The card should match the expected Hugging Face Hub format: a markdown part and a metadata section, which is a `yaml` section at the top. The keys to the metadata section are defined [here](https://huggingface.co/docs/hub/models-cards#model-card-metadata) and are used for the discoverability of the models. 
 The content of the model card is determined by a template that has:
