@@ -1,6 +1,6 @@
 ---
 title: "Hugging Face's TensorFlow Philosophy"
-thumbnail: /blog/assets/91_tf_xla_generate/thumbnail.png
+thumbnail: /blog/assets/96_tensorflow_philosophy/thumbnail.png
 ---
 
 <h1>

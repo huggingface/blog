@@ -1109,7 +1109,7 @@
 - local: tensorflow-philosophy
   title: "Hugging Face's TensorFlow Philosophy"
   author: rocketknight1
-  thumbnail: /blog/assets/91_tf_xla_generate/thumbnail.png
+  thumbnail: /blog/assets/96_tensorflow_philosophy/thumbnail.png
   date: August 12, 2022
   tags:
     - nlp
