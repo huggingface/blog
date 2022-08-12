@@ -173,7 +173,7 @@ hub_utils.push(
 )
 ```
 
-Once we push the model to the Hub, anyone can use it, unless the repository is private. You can download the models using `download`. Apart from the model file, the repository contains the model configuration and the requirements of the environment."
+Once we push the model to the Hub, anyone can use it unless the repository is private. You can download the models using `download`. Apart from the model file, the repository contains the model configuration and the environment requirements.
 
 ```python
 download_repo = "downloaded-model"
