@@ -61,7 +61,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 model = DecisionTreeClassifier().fit(X_train, y_train)
 ```
 
-You can use any model filename you want. You can also use any serializing method that you prefer, like `pickle` or `joblib`. At the moment our backend uses `joblib` to load the model. `hub_utils .init` creates a local folder containing the model in the given path and the configuration file containing the specifications of the environment the model is trained in. The data and the task passed to the `init` will help Hugging Face Hub enable the inference widget on the model page as well as discoverability features to find the model.
+You can use any model filename and serialization method, like `pickle` or `joblib`. At the moment, our backend uses `joblib` to load the model. `hub_utils.init` creates a local folder containing the model in the given path, and the configuration file containing the specifications of the environment the model is trained in. The data and the task passed to the `init` will help Hugging Face Hub enable the inference widget on the model page as well as discoverability features to find the model.
 
 ```python
 from skops import hub_utils
