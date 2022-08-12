@@ -1088,6 +1088,7 @@
   tags:
   - rl
 
+
 - local: how-to-train-sentence-transformers
   title: "Train and Fine-Tune Sentence Transformers Models"
   author: espejelomar
@@ -1097,14 +1098,16 @@
   - guide
   - nlp
 
+
 - local: deploy-tfserving-kubernetes
   title: "Deploying 🤗 ViT on Kubernetes with TF Serving"
   author: chansung
   thumbnail: /blog/assets/94_tf_serving_kubernetes/thumb.png
-  date: August 15, 2022
+  date: August 11, 2022
   tags:
     - guide
     - cv
+    
 
 - local: tensorflow-philosophy
   title: "Hugging Face's TensorFlow Philosophy"
@@ -1115,6 +1118,19 @@
     - nlp
     - cv
     - guide
+    
+    
+- local: skops
+  title: Introducing Skops
+  author: merve
+  thumbnail: /blog/assets/94_skops/introducing_skops.png
+  date: August 12, 2022
+  tags:
+    - open-source-collab
+    - scikit-learn
+    - announcement
+    - guide
+
 
 - local: hf-bitsandbytes-integration
   title: "A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using transformers, accelerate and bitsandbytes"
