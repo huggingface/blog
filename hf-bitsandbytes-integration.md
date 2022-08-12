@@ -40,13 +40,12 @@ Therefore these models are hard to run on easily accessible devices. To properly
 
 While running an open-source version of PaLM would be even more expensive, we at Hugging Face will certainly want to host these even larger models, just as we did for BLOOM, OPT, YaLM, so that the community can benefit from these powerful models. 
 
-Because these large models require a lot of resources to be run, it is a priotity to develop methods that allow us to run large models on less devices. To represent these large models faithfully however, we want to reduce the required number of devices and preserve performance at the same time – not an easy challenge for quantization and distillation approaches.
+Because these large models require a lot of resources to be run, it is a priotity to develop methods that allow us to run large models on less devices. To represent these large models faithfully however, we want to reduce the required number of devices and preserve performance at the same time – not an easy challenge for quantization and distillation approaches. Therefore, running these models on fewer devices with no performance degradation will be an open challenge for the next few years.
 
-Running large models on fewer devices with no performance degradation will be an open challenge for the next few years. In the future, Hugging Face will certainly be hosting these large models as we did it for BLOOM, OPT and YaLM, and we want users to benefit from the most powerful tools to run these models efficiently.
 
 At Hugging Face and BigScience, while training BLOOM-176B we were interested in reducing the main model’s size with the least performance degradation possible. That is how we came out collaborating with bitsandbytes to integrate the recent “GPT3.int8(): 8-bit Matrix Multiplication for Transformers at Scale'' paper on transformers. We decided to integrate it since no post-training quantization is required to run this feature and you can reduce the memory footprint of the models by 2x for the largest models with few lines of code. Let’s understand in this blogpost how this method works in a nutshell and how to use it in transformers!
 
-# A high level look
+# A low level look
 
 Let us start at the beginning. 
 
