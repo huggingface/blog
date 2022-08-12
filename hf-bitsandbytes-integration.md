@@ -50,10 +50,18 @@ At Hugging Face and BigScience, while training BLOOM-176B we were interested in 
 Let us start at the beginning. 
 
 The size of the model is determined by the number of its parameters, and their precision, typically one of float32, float16 or bfloat16. 
-Let’s imagine 1 bit as an available memory case to store a binary value (0 or 1), and 1 byte being a bigger memory case that can store 8 bits. With one byte we can make 2^8=256 different patterns. Usually, 256 different values offers too limited precision and one should store numbers in 2 bytes (float16 or bfloat16), 4 bytes (float32) or 8 bytes (float64) to get more precision - aka to cover more possible patterns and store very precise numbers. For example, 2 bytes can store 65536 patterns.
+Float32 (FP32) stands for the standard 32-bit floating point representation. With this precision it is possible to represent a wide range of precise numbers. In FP32, 8 bits are reserved for the "exponent", 23 bits for the "mantissa" and 1 bit for the sign of the number. In addition to that, most of the hardware support fp32 operations and instructions. 
 
+![FP32](assets/96_hf_bitsandbytes_integration/FP32.png)
 
-![byte](assets/96_hf_bitsandbytes_integration/byte.png)
+In float16 (FP16), 5 bits are reserved for the exponent and 10 bits are reserved for the mantisse, which makes the representable range of FP16 numbers lower than FP32. This exposes FP16 numbers to the risk of overflowing (trying to represent a number that very large) and underflowing (representing a number that is very small).
+
+![FP16](assets/96_hf_bitsandbytes_integration/FP16.png)
+
+When training some Deep Learning models, you have probably met the *overflow* phenomenon by getting `Nan` values on your loss function or model weights. To tackle this problem, bfloat16 (BF16) numbers has been created. In BF16, 8 bits are reserved for the exponent (which is the same as in FP32) and 7 bits are reserved for the fraction. This means that in BF16 we can retain the same dynamics than in FP32 when doing some operations. 
+
+![BF16](assets/96_hf_bitsandbytes_integration/BF16.png)
+
 
 By default, most common Deep Learning models are stored in float32 - fp32 (4 bytes per parameter) but Large language models are usually stored in half-precision, so either fp16 or bf16 precision (2 bytes per parameter) since the performance gap between fp32 models and fp16 is relatively acceptable, and fp16/bf16 allows for faster training that requires less memory.
 
