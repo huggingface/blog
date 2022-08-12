@@ -41,7 +41,7 @@ Experienced users can feel free to skim or skip this section, but if this is you
 ```py
 from transformers import TFAutoModel
 
-model = TFAutoModel.from_pretrained('bert-base-cased')
+model = TFAutoModel.from_pretrained("bert-base-cased")
 ```
 
 This one line will instantiate the model architecture and load the weights, giving you an exact replica of the original, famous [BERT](https://arxiv.org/abs/1810.04805) model. This model won’t do much on its own, though - it lacks an output head or a loss function. In effect, it is the “stem” of a neural net that stops right after the last hidden layer. So how do you put an output head on it? Simple, just use a different `AutoModel` class. Here we load the [Vision Transformer (ViT)](https://arxiv.org/abs/2010.11929) model and add an image classification head:
