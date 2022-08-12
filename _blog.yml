@@ -1006,7 +1006,7 @@
   tags:
     - nlp
     - llm
-   
+
 - local: mnist-adversarial
   title: "How to train your model dynamically using adversarial data"
   author: chrisjay
@@ -1015,7 +1015,7 @@
   tags:
   - mnist
   - adversarial
-  - guide    
+  - guide
 
 - local: deep-rl-a2c
   title: "Advantage Actor Critic (A2C)"
@@ -1033,7 +1033,7 @@
   tags:
     - guide
     - cv
-    
+
 - local: tf-xla-generate
   title: "Faster Text Generation with TensorFlow and XLA"
   author: joaogante
@@ -1053,7 +1053,7 @@
     - cv
     - community
     - announcement
-    
+
 - local: us-national-ai-research-resource
   title: "AI Policy @🤗: Comments on U.S. National AI Research Resource Interim Report"
   author: irenesolaiman
@@ -1096,7 +1096,7 @@
   tags:
   - guide
   - nlp
-  
+
 - local: deploy-tfserving-kubernetes
   title: "Deploying 🤗 ViT on Kubernetes with TF Serving"
   author: chansung
@@ -1105,3 +1105,13 @@
   tags:
     - guide
     - cv
+
+- local: tensorflow-philosophy
+  title: "Hugging Face's TensorFlow Philosophy"
+  author: rocketknight1
+  thumbnail: /blog/assets/91_tf_xla_generate/thumbnail.png
+  date: August 12, 2022
+  tags:
+    - nlp
+    - cv
+    - guide
