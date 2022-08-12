@@ -63,12 +63,12 @@ When using transfer learning, however, it's very important that you process inpu
 from transformers import TFAutoModel, AutoTokenizer
 
 # Make sure to always load a matching tokenizer and model!
-tokenizer = AutoTokenizer.from_pretrained('bert-base-cased')
-model = TFAutoModel.from_pretrained('bert-base-cased')
+tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
+model = TFAutoModel.from_pretrained("bert-base-cased")
 
 # Let's load some data and tokenize it
 test_strings = ["This is a sentence!", "This is another one!"]
-tokenized_inputs = tokenizer(test_strings, return_tensors='np', padding=True)
+tokenized_inputs = tokenizer(test_strings, return_tensors="np", padding=True)
 
 # Now our data is tokenized, we can pass it to our model, or use it in fit()!
 outputs = model(tokenized_inputs)
@@ -101,8 +101,8 @@ However, this convenience doesn’t mean you’re limited to tasks that we suppo
 class HybridVisionLanguageModel(tf.keras.Model):
   def __init__(self):
     super().__init__()
-    self.language = TFAutoModel.from_pretrained('gpt2')
-    self.vision = TFAutoModel.from_pretrained('google/vit-base-patch16-224')
+    self.language = TFAutoModel.from_pretrained("gpt2")
+    self.vision = TFAutoModel.from_pretrained("google/vit-base-patch16-224")
 
   def call(self, inputs):
     # I have a truly wonderful idea for this
@@ -146,7 +146,7 @@ dataset = load_dataset("glue", "cola")  # Simple text classification dataset
 dataset = dataset["train"]  # Just take the training split for now
 
 # Load our tokenizer and tokenize our data
-tokenizer = AutoTokenizer.from_pretrained('bert-base-cased')
+tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
 tokenized_data = tokenizer(dataset["text"], return_tensors="np", padding=True)
 labels = np.array(dataset["label"]) # Label is already an array of 0 and 1
 
@@ -221,7 +221,7 @@ class EndToEndModel(tf.keras.Model):
         tokenized = self.tokenizer(inputs)
         return self.model(**tokenized)
 
-model = EndToEndModel(checkpoint='bert-base-cased')
+model = EndToEndModel(checkpoint="bert-base-cased")
 
 test_inputs = [
     "This is a test sentence!",
