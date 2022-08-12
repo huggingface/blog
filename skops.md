@@ -92,7 +92,7 @@ The content of the model card is determined by a template that has a:
 The following sections are extracted by `skops` to fill in the model card:
 - Hyperparameters of the model,
 - Interactive diagram of the model,
-- For metadata, library name and task identifier (e.g. tabular-classification), and information required by the inference widget are filled.
+- For metadata, library name, task identifier (e.g. tabular-classification), and information required by the inference widget are filled.
 
 We will walk you through how to programmatically pass information to fill the model card. You can check out our documentation on default template provided by `skops` and it's sections [here](https://skops.readthedocs.io/en/latest/model_card.html) to see what the template expects and see how the template itself looks like [here](https://github.com/skops-dev/skops/blob/main/skops/card/default_template.md).
 
