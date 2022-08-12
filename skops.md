@@ -191,7 +191,7 @@ hub_utils.update_env(path=local_repo, requirements=["scikit-learn"])
 ```
 
 You can see the example repository pushed with above code [here](https://huggingface.co/scikit-learn/skops-blog-example).
-We have prepared two examples to show how to save your models and use model card utilities, you can find them at resources section below.
+We have prepared two examples to show how to save your models and use model card utilities. You can find them in the resources section below.
 
 
 ## Resources
