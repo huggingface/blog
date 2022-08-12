@@ -34,7 +34,7 @@ There is a tendency among PyTorch engineers (picture me staring darkly across th
 
 As refined, respected and highly attractive TensorFlow engineers, we want to use the incredible power and flexibility of cutting-edge models, but we want to handle them with the tools and API we’re familiar with. This blogpost will be about the choices we make at Hugging Face to enable that, and what to expect from the framework as a TensorFlow programmer.
 
-### Interlude: 30 Seconds to :huggingface:
+### Interlude: 30 Seconds to 🤗
 
 Experienced users can feel free to skim or skip this section, but if this is your first encounter with Hugging Face and `transformers`, I should start by giving you an overview of the core idea of the library: You just ask for a pretrained model by name, and you get it in one line of code. The easiest way is to just use the `TFAutoModel` class:
 
@@ -131,7 +131,7 @@ One source of confusion in the past was where exactly labels should be passed to
 model.fit(inputs, labels)
 ```
 
-In the past, we instead asked users to pass labels in the input dict when using the default loss. The reason for this was that the code for computing the loss for that particular model was contained in the `call()` forward pass method. This worked, but it was definitely non-standard for Keras models, and caused several issues, including incompatibilities with standard Keras metrics, not to mention some user confusion. Thankfully, this is no longer necessary. We now recommend that labels are passed in the normal Keras way, although the old method still works for backward compatibility reasons. In general, a lot of things that used to be fiddly should now “just work” for our TensorFlow models - give them a try!
+In the past, we instead asked users to pass labels in the input dict when using the default loss. The reason for this was that the code for computing the loss for that particular model was contained in the `call()` forward pass method. This worked, but it was definitely non-standard for Keras models, and caused several issues including incompatibilities with standard Keras metrics, not to mention some user confusion. Thankfully, this is no longer necessary. We now recommend that labels are passed in the normal Keras way, although the old method still works for backward compatibility reasons. In general, a lot of things that used to be fiddly should now “just work” for our TensorFlow models - give them a try!
 
 #### Philosophy #4: You shouldn’t have to write your own data pipeline, especially for common tasks
 
