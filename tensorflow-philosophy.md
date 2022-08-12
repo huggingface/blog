@@ -188,7 +188,7 @@ Why is [prepare_tf_dataset()](https://huggingface.co/docs/transformers/main/en/m
 [XLA](https://www.tensorflow.org/xla) is the just-in-time compiler shared by TensorFlow and JAX. It converts linear algebra code into more optimized versions that run quicker and use less memory. It’s really cool and we try to make sure that we support it as much as possible. It’s extremely important for allowing models to be run on TPU, but it offers speed boosts for GPU and even CPU as well! To use it, simply `compile()` your model with the `jit_compile=True` argument (this works for all Keras models, not just Hugging Face ones):
 
 ```py
-model.compile(optimizer='adam', jit_compile=True)
+model.compile(optimizer="adam", jit_compile=True)
 ```
 
 We’ve made a number of major improvements recently in this area. Most significantly, we’ve updated our `generate()` code to use XLA - this is a function that iteratively generates text output from language models. This has resulted in massive performance improvements - our legacy TF code was much slower than PyTorch, but the new code is much faster than it, and similar to JAX in speed! For more information, please see [our blogpost about XLA generation](https://huggingface.co/blog/tf-xla-generate).
