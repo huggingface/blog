@@ -94,7 +94,7 @@ The following sections are extracted by `skops` to fill in the model card:
 - Interactive diagram of the model,
 - For metadata, library name, task identifier (e.g. tabular-classification), and information required by the inference widget are filled.
 
-We will walk you through how to programmatically pass information to fill the model card. You can check out our documentation on default template provided by `skops` and it's sections [here](https://skops.readthedocs.io/en/latest/model_card.html) to see what the template expects and see how the template itself looks like [here](https://github.com/skops-dev/skops/blob/main/skops/card/default_template.md).
+We will walk you through how to programmatically pass information to fill the model card. You can check out our documentation on the default template provided by `skops`, and its sections [here](https://skops.readthedocs.io/en/latest/model_card.html) to see what the template expects and what it looks like [here](https://github.com/skops-dev/skops/blob/main/skops/card/default_template.md).
 
 You can create the model card by instantiating the `Card` class from `skops`. During model serialization, the task name and library name are written to the configuration file. This information is also needed in the card's metadata, so you can use the `metadata_from_config` method to extract the metadata from the configuration file and pass it to the card when you create it. You can add information and metadata using `add`.
 
