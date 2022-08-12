@@ -224,8 +224,8 @@ class EndToEndModel(tf.keras.Model):
 model = EndToEndModel(checkpoint='bert-base-cased')
 
 test_inputs = [
-    'This is a test sentence!',
-    'This is another one!'
+    "This is a test sentence!",
+    "This is another one!",
 ]
 model.predict(test_inputs)  # Pass strings straight to model!
 ```
