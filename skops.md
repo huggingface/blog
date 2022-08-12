@@ -89,7 +89,7 @@ We will now create the model card. The card should match the expected Hugging Fa
 The content of the model card is determined by a template that has a:
 - `yaml` section on top for metadata (e.g. model license, library name, and more)
 - markdown section with free text and sections to be filled (e.g. simple description of the model),
-Following sections are extracted by `skops` to fill in the model card:
+The following sections are extracted by `skops` to fill in the model card:
 - Hyperparameters of the model,
 - Interactive diagram of the model,
 - For metadata, library name and task identifier (e.g. tabular-classification), and information required by the inference widget are filled.
