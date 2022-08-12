@@ -123,7 +123,7 @@ model_card.add(
 model_card.metadata.license = "mit"
 ```
 
-We will now evaluate the model and pass details on the evaluation process. To pass the details about the evaluation method, we can use `add`. We can pass the metrics using `add_metrics`. The metrics that we'll pass will be parsed to a table. 
+We will now evaluate the model and add a description of the evaluation method with `add`. The metrics are added by `add_metrics`, which will be parsed into a table. 
 
 ```python
 from sklearn.metrics import (ConfusionMatrixDisplay, confusion_matrix,
