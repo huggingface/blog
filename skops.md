@@ -8,7 +8,7 @@ thumbnail: /blog/assets/94_skops/introducing_skops.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published August 15, 2022.</small>
+    <small>Published August 12, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/skops-library.md">
         Update on GitHub
     </a>
@@ -85,9 +85,9 @@ hub_utils.init(
 
 The repository now contains the serialized model and the configuration file. 
 The configuration contains the following:
-- features of the model, 
-- the requirements of the model, 
-- an example input taken from `X_test` that we've passed, 
+- features of the model,
+- the requirements of the model,
+- an example input taken from `X_test` that we've passed,
 - name of the model file,
 - name of the task to be solved here.
 
