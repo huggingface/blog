@@ -76,7 +76,7 @@ outputs = model(tokenized_inputs)
 
 This is just a taste of the library, of course - if you want more, you can check out our [notebooks](https://huggingface.co/docs/transformers/notebooks), or our [code examples](https://github.com/huggingface/transformers/tree/main/examples/tensorflow). There are also several other [examples of the library in action at keras.io](https://keras.io/examples/#natural-language-processing)!
 
-At this point, you now understand some of the basic concepts and classes in `transformers`. Everything I’ve written above is framework-agnostic (with the exception of the “TF” in ``TFAutoModel``), but when you want to actually train and serve your model, that’s when things will start to diverge between the frameworks. And that brings us to the main focus of this article: As a TensorFlow engineer, what should you expect from `transformers`?
+At this point, you now understand some of the basic concepts and classes in `transformers`. Everything I’ve written above is framework-agnostic (with the exception of the “TF” in `TFAutoModel`), but when you want to actually train and serve your model, that’s when things will start to diverge between the frameworks. And that brings us to the main focus of this article: As a TensorFlow engineer, what should you expect from `transformers`?
 
 #### Philosophy #1: All TensorFlow models should be Keras Model objects, and all TensorFlow layers should be Keras Layer objects.
 
