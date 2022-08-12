@@ -151,7 +151,7 @@ tokenized_data = tokenizer(dataset["text"], return_tensors="np", padding=True)
 labels = np.array(dataset["label"]) # Label is already an array of 0 and 1
 
 # Load and compile our model
-model = TFAutoModelForSequenceClassification.from_pretrained('bert-base-cased')
+model = TFAutoModelForSequenceClassification.from_pretrained("bert-base-cased")
 # Lower learning rates are often better for fine-tuning transformers
 model.compile(optimizer=Adam(3e-5))
 
