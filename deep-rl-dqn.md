@@ -159,7 +159,7 @@ To help us stabilize the training, we implement three different solutions:
 2. *Fixed Q-Target* **to stabilize the training**.
 3. *Double Deep Q-Learning*, to **handle the problem of the overestimation of Q-values**.
 
-We'll see these three solutions in the pseudocode. 
+<!--- We'll see these three solutions in the pseudocode. --->
 
 ### Experience Replay to make more efficient use of experiences
 
@@ -230,7 +230,7 @@ We know that the accuracy of Q values depends on what action we tried **and** 
 Consequently, we don’t have enough information about the best action to take at the beginning of the training. Therefore, taking the maximum Q value (which is noisy) as the best action to take can lead to false positives. If non-optimal actions are regularly **given a higher Q value than the optimal best action, the learning will be complicated.**
 
 The solution is: when we compute the Q target, we use two networks to decouple the action selection from the target Q value generation. We:
-<img src="assets/78_deep_rl_dqn/double-dqn-pseudocode.jpg" alt="Double DQN Pseudocode"/>
+<!---<img src="assets/78_deep_rl_dqn/double-dqn-pseudocode.jpg" alt="Double DQN Pseudocode"/>--->
 - Use our **DQN network** to select the best action to take for the next state (the action with the highest Q value).
 - Use our **Target network** to calculate the target Q value of taking that action at the next state.
 
