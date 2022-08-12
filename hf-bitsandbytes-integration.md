@@ -36,9 +36,9 @@ Language models are becoming larger: at the time of writing this blogpost, PaLM 
 
 ![LLM](assets/96_hf_bitsandbytes_integration/LLM.png)
 
-Therefore these models are hard to run on easily accessible devices. To properly run OPT-175B you would need to have around 5-6 NVIDIA A100 80GB, with each GPU costing ~15.000$.
+Therefore these models are hard to run on easily accessible devices. To properly run BLOOM-175B you would need to have around 5-6 NVIDIA 80GB A100 GPUs , at ~$15k a piece.
 
-While running an open-source version of PaLM would be even more expensive, we at Hugging Face will certainly want to host these even larger models, just as we did for BLOOM, OPT, YaLM, so that the community can benefit from these powerful tools. 
+While running an open-source version of PaLM would be even more expensive, we at Hugging Face will certainly want to host these even larger models, just as we did for BLOOM, OPT, YaLM, so that the community can benefit from these powerful models. 
 
 Because these large models require a lot of resources to be run, it is a priotity to develop methods that allow us to run large models on less devices. To represent these large models faithfully however, we want to reduce the required number of devices and preserve performance at the same time – not an easy challenge for quantization and distillation approaches.
 
@@ -48,7 +48,9 @@ At Hugging Face and BigScience, while training BLOOM-176B we were interested in 
 
 # A high level look
 
-Let us start from the beginning. The size of the model is determined by the number of its parameters, and the precision of the model is mostly determined by the precision of the parameters. 
+Let us start at the beginning. 
+
+The size of the model is determined by the number of its parameters, and their precision, typically one of float32, float16 or bfloat16. 
 Let’s imagine 1 bit as an available memory case to store a binary value (0 or 1), and 1 byte being a bigger memory case that can store 8 bits. With one byte we can make 2^8=256 different patterns. Usually, 256 different values offers too limited precision and one should store numbers in 2 bytes (float16 or bfloat16), 4 bytes (float32) or 8 bytes (float64) to get more precision - aka to cover more possible patterns and store very precise numbers. For example, 2 bytes can store 65536 patterns.
 
 
@@ -58,10 +60,10 @@ By default, most common Deep Learning models are stored in float32 - fp32 (4 byt
 
 ![Model-storage](assets/96_hf_bitsandbytes_integration/Model-storage.png)
 
-How is a model's size calculated in practice? For instance BLOOM-176B that has been trained and stored in bf16 has roughly a total size of 176.000.000.000 x 2 bytes = 352GB! Fitting correctly such a high memory requirement into GPU RAM would be quite challenging. 
+To calculate the model size in bytes one multiplies the number of parameters by the size of the chosen precision in bytes.  For instance, If we use the bfloat16 version of the BLOOM-176B model we have `176*10**9 x 2 bytes = 352GB`! As discussed earlier this is quite a challenge to fit into a few GPUs.
 But what if we can store those weights using less memory using a different precision? A trick called quantization has been widely used in Deep Learning and let’s see how it works! 
 
-# Quantizing models in few words
+# Quantizing models in a few words
 
 How can we play with the precision of the parameters and reduce the model’s size? To improve accessibility for edge device applications, 8-bit quantization methods have been developed and widely used in Deep Learning. In other words, reducing the half-precision model’s precision into 8-bit (instead of 16-bit) leads to significant memory footprint reduction. 
 
