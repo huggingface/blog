@@ -36,22 +36,24 @@ thumbnail: /blog/assets/96_hf_bitsandbytes_integration/thumbnail.png
 
 Language models have been becoming larger all the time. At the time of this writing, PaLM has 540B parameters, OPT, GPT-3 and BLOOM have around 176B parameters, and the current trend is towards even larger models. Below is a qualitative diagram showing the size of some recent language models.
 
-From the past few years, the language models are becoming a widely used tool in several fiels such as ... At this same time, PaLM has 540B parameters, OPT, GPT-3 and BLOOM have around 176B parameters, and the current trend is towards even larger models. Below is a qualitative diagram showing the size of some recent language models.
-
-
 ![LLM](assets/96_hf_bitsandbytes_integration/LLM.png)
+
+At this same time, PaLM has 540B parameters, OPT, GPT-3 and BLOOM have around 176B parameters, and the current trend is towards even larger models. 
+
 
 Therefore, these models are hard to run on easily accessible devices. For example, just to do inference on BLOOM-175B you would need to have 8x 80GB A100 GPUs (~$15k each), and 72 of those GPUs to finetune. Much larger models, like PaLM would require even more resources.
 
-Because these huge models require so many GPUs to run, we need to find ways to reduce these requirements, while preserving fast performance. Various technologies have been developed that try to shrink the model size, you may have heard of quantization and distillation, and there are many others.
+Because these huge models require so many GPUs to run, we need to find ways to reduce these requirements, while preserving model's performance. Various technologies have been developed that try to shrink the model size, you may have heard of quantization and distillation, and there are many others.
 
 At Hugging Face and BigScience, after completing the training of BLOOM-176B, one of the approaches we took is to collaborate with `bitsandbytes` and integrate the technology described in the recent "GPT3.int8(): 8-bit Matrix Multiplication for Transformers at Scale" paper into Hugging Face Transformers. We chose to integrate it since no post-training quantization is required to run this method and you can reduce the memory footprint of the models by 2x for any model by adding just a few lines of code.
 
-This article focuses on providing a high level overview of this quantization technology and exposing the challenges and long-term objectives of this collaboration. 
+This article focuses on giving a high-level overview of this quantization technology, outlining the difficulties in incorporating it into the `transformers` library, and drawing up the long-term goals of this partnership.
+
+What elements affect a model's size? What makes BLOOM 350GB? Let's begin by gradually going over a few basic premises.
 
 # Common data types used in Machine Learning
 
-Let us start with the basic understanding of different floating point data types, which are also referred to as "precision" in the context of Machine Learning.
+We start with the basic understanding of different floating point data types, which are also referred to as "precision" in the context of Machine Learning.
 
 The size of a model is determined by the number of its parameters, and their precision, typically one of float32, float16 or bfloat16.
 
@@ -116,7 +118,7 @@ While these basic techniques enable us to quantize transformers, they usually le
 
 # A gentle summary of mixed int8 matrix multiplication for Large Language Models
 
-Authors have demonstrated how crucial it is to comprehend the scale-dependent emergent properties of transformers in order to understand why traditional quantization fails for big models. They demonstrate that performance deterioration is caused by outlier features. Together, let's look at how this works step by step.
+Authors have demonstrated how crucial it is to comprehend the scale-dependent emergent properties of transformers in order to understand why traditional quantization fails for big models. They demonstrate that performance deterioration is caused by outlier features.
 
 In essence, 8-bit Matrix Multiplication at Scale for Transformers seeks to complete the matrix multiplication computation in three steps:
 1. From the input hidden states, extract the outliers and non-outliers by column.
@@ -148,29 +150,29 @@ After this step the results are de-quantized and retrieved back in half precisio
 How can we properly evaluate the performance degradation of this method? How much quality do we lose in terms of generation when using 8-bit models?
 We have ran several common tasks benchmarks with the 8-bit and native model using lm-eval-harness and reported the results:
 
-| benchmarks | OPT-175B  |       difference |              |                |            |        |
-| ---------- | --------- | ---------------- |              |                |            |        |
-| name       | metric    | value - int8 - 6 | value - fp16 | err - int8 - 6 | err - fp16 |     \- |
-| hellaswag  | acc\_norm |           0.7849 |       0.7849 |         0.0041 |     0.0041 |      0 |
-| hellaswag  | acc       |           0.5921 |       0.5931 |         0.0049 |     0.0049 |  0.001 |
-| piqa       | acc       |           0.7965 |       0.7959 |         0.0094 |     0.0094 | 0.0006 |
-| piqa       | acc\_norm |           0.8101 |       0.8107 |         0.0092 |     0.0091 | 0.0006 |
-| lambada    | ppl       |           3.0142 |       3.0152 |         0.0552 |     0.0552 |  0.001 |
-| lambada    | acc       |           0.7464 |       0.7466 |         0.0061 |     0.0061 | 0.0002 |
-| winogrande | acc       |           0.7174 |       0.7245 |         0.0127 |     0.0125 | 0.0071 |
+| benchmarks | OPT-175B  | difference       |
+| ---------- | --------- | ---------------- |
+| name       | metric    | value - int8 - 6 | value - fp16 | err - int8 - 6 | err - fp16 | \- |
+| hellaswag  | acc\_norm | 0.7849           | 0.7849 | 0.0041 | 0.0041 | 0 |
+| hellaswag  | acc       | 0.5921           | 0.5931 | 0.0049 | 0.0049 | 0.001 |
+| piqa       | acc       | 0.7965           | 0.7959 | 0.0094 | 0.0094 | 0.0006 |
+| piqa       | acc\_norm | 0.8101           | 0.8107 | 0.0092 | 0.0091 | 0.0006 |
+| lambada    | ppl       | 3.0142           | 3.0152 | 0.0552 | 0.0552 | 0.001 |
+| lambada    | acc       | 0.7464           | 0.7466 | 0.0061 | 0.0061 | 0.0002 |
+| winogrande | acc       | 0.7174           | 0.7245 | 0.0127 | 0.0125 | 0.0071 |
 
 And the results on BLOOM-176:
 
-| benchmarks | BLOOM176B |       difference |              |                |            |        |
-| ---------- | --------- | ---------------- |              |                |            |        |
-| name       | metric    | value - int8 - 6 | value - bf16 | err - int8 - 6 | err - bf16 |     \- |
-| hellaswag  | acc\_norm |           0.7274 |       0.7303 |         0.0044 |     0.0044 | 0.0029 |
-| hellaswag  | acc       |           0.5563 |       0.5584 |          0.005 |      0.005 | 0.0021 |
-| piqa       | acc       |           0.7835 |       0.7884 |         0.0096 |     0.0095 | 0.0049 |
-| piqa       | acc\_norm |           0.7922 |       0.7911 |         0.0095 |     0.0095 | 0.0011 |
-| lambada    | ppl       |           3.9191 |        3.931 |         0.0842 |     0.0846 | 0.0119 |
-| lambada    | acc       |           0.6808 |       0.6718 |         0.0065 |     0.0065 |  0.009 |
-| winogrande | acc       |           0.7048 |       0.7048 |         0.0128 |     0.0128 |      0 |
+| benchmarks | BLOOM176B | difference       |
+| ---------- | --------- | ---------------- |
+| name       | metric    | value - int8 - 6 | value - bf16 | err - int8 - 6 | err - bf16 | \- |
+| hellaswag  | acc\_norm | 0.7274           | 0.7303 | 0.0044 | 0.0044 | 0.0029 |
+| hellaswag  | acc       | 0.5563           | 0.5584 | 0.005 | 0.005 | 0.0021 |
+| piqa       | acc       | 0.7835           | 0.7884 | 0.0096 | 0.0095 | 0.0049 |
+| piqa       | acc\_norm | 0.7922           | 0.7911 | 0.0095 | 0.0095 | 0.0011 |
+| lambada    | ppl       | 3.9191           | 3.931 | 0.0842 | 0.0846 | 0.0119 |
+| lambada    | acc       | 0.6808           | 0.6718 | 0.0065 | 0.0065 | 0.009 |
+| winogrande | acc       | 0.7048           | 0.7048 | 0.0128 | 0.0128 | 0 |
 
 
 We indeed observe 0 performance degradation for those models since the absolute difference of the metrics are all below the standard error (except for BLOOM-int8 which is slightly better than the native model on lambada). For more detailed performance evaluation against state of the art approaches you may look closely at the paper!
@@ -179,27 +181,28 @@ We indeed observe 0 performance degradation for those models since the absolute 
 
 We benchmarked the inference speed of int8 models on different models, although we are close to having the same speed than the native model for large models (tested on BLOOM-176) the inference speed seems to be much slower than the native model on smaller models.
 
-| Model          | Number of parameters | Hardware     | Time per token in milliseconds for Batch Size 1 | Time per token in milliseconds for Batch Size 8 | Time per token in milliseconds for Batch Size 32 |      |
-| -------------- | -------------------- | ------------ | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ |      |
-| BLOOM-176-int8 | 176B                 | 4xA100 80GB  | 282                                             |                                            37.5 |                                             10.2 |      |
-| BLOOM-176-bf16 | 176B                 | 8xA100 80GB  | 239                                             |                                              32 |                                              9.9 |      |
-| BLOOM-176-int8 | 176B                 | 6xA100 40GB  | 365                                             |                                            46.7 |                                             12.4 |      |
-| BLOOM-176-int8 | 176B                 | 5xA100 40GB  | 367                                             |                                            46.4 |                                              oom |      |
-| BLOOM-176-bf16 | 176B                 | 14xA100 40GB | 285                                             |                                            36.5 |                                             10.4 |      |
-| T5-11b         | fp16                 | 11B          | 2xT4 15GB                                       |                                            11.7 |                                              1.7 |  0.5 |
-| T5-11b         | int8                 | 11B          | 1xT4 15GB                                       |                                            43.5 |                                              5.3 |  1.3 |
-| T5-3b          | fp32                 | 3B           | 2xT4 15GB                                       |                                              45 |                                              7.2 |  3.1 |
-| T5-3b          | int8                 | 3B           | 1xT4 15GB                                       |                                             312 |                                             39.1 | 10.2 |
+| Model          | Number of parameters | Hardware     | Time per token in milliseconds for Batch Size 1 | Time per token in milliseconds for Batch Size 8 | Time per token in milliseconds for Batch Size 32 |
+| -------------- | -------------------- | ------------ | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ |
+| BLOOM-176-int8 | 176B                 | 4xA100 80GB  | 282                                             | 37.5                                            | 10.2                                             |
+| BLOOM-176-bf16 | 176B                 | 8xA100 80GB  | 239                                             | 32                                              | 9.9                                              |
+| BLOOM-176-int8 | 176B                 | 6xA100 40GB  | 365                                             | 46.7                                            | 12.4                                             |
+| BLOOM-176-int8 | 176B                 | 5xA100 40GB  | 367                                             | 46.4                                            | oom                                              |
+| BLOOM-176-bf16 | 176B                 | 14xA100 40GB | 285                                             | 36.5                                            | 10.4                                             |
+| T5-11b | fp16  | 11B                  | 2xT4 15GB    | 11.7                                            | 1.7                                             | 0.5                                              |
+| T5-11b | int8  | 11B                  | 1xT4 15GB    | 43.5                                            | 5.3                                             | 1.3                                              |
+| T5-3b | fp32   | 3B                   | 2xT4 15GB    | 45                                              | 7.2                                             | 3.1                                              |
+| T5-3b | int8   | 3B                   | 1xT4 15GB    | 312                                             | 39.1                                            | 10.2                                             |
+
 
 For more technical deep-dive of the method, we highly suggest you to check Tim Dettmers' blog : (link)
 
 # Which technology to use for `transformers` integration?
 
-How were these technologies incorporated into the `transformers` library? What were the difficulties we faced and the main technologies we employed in the integration project? Let's examin everything in the next sections!
+How were these technologies incorporated into the `transformers` library? What were the difficulties we faced and the main techniques we employed in the integration project? Let's examine everything in the next sections!
 
 ## How to use it in `bitsandbytes` library?
 
-The module that is responsible of the whole magic described in this blogpost is called `Linear8bitLt` module and you can easily import from `bitsandbytes` library. The latest derives from a classic `torch.nn` Module and be easily used and deployed in your architecture with the commands described below. Let's walk through step by step with a specific usecase, let's say you want to convert a shallow model in int8 using `bitsandbytes`, here is all what you need to know:
+The module that is responsible of the whole magic described in this blogpost is called `Linear8bitLt` module and you can easily import from `bitsandbytes` library. The latest derives from a classic `torch.nn` Module and be easily used and deployed in your architecture with the commands described below. Let's walk through step by step with a specific usecase: let's say you want to convert a shallow model in int8 using `bitsandbytes`, here is all what you need to know:
 
 1. First we need the correct imports below!
 
@@ -385,7 +388,7 @@ Once you load your model and set it on the correct devices, sometimes you still 
 
 ## Wrapping up all together
 
-Therefore the ultimate recipe you need is:
+Therefore the ultimate recipe is:
 1. Initialize a model in the `meta` device with the correct modules
 2. Set the parameters one by one on the correct GPU device and make sure you never do this procedure twice!
 3. Put new keyword arguments in the correct place everywhere, and add some nice documentation
