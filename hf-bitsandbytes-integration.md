@@ -34,9 +34,12 @@ thumbnail: /blog/assets/96_hf_bitsandbytes_integration/thumbnail.png
 
 Language models have been becoming larger all the time. At the time of this writing, PaLM has 540B parameters, OPT, GPT-3 and BLOOM have around 176B parameters, and the current trend is towards even larger models. Below is a qualitative diagram showing the size of some recent language models.
 
+From the past few years, the language models are becoming a widely used tool in several fiels such as ... At this same time, PaLM has 540B parameters, OPT, GPT-3 and BLOOM have around 176B parameters, and the current trend is towards even larger models. Below is a qualitative diagram showing the size of some recent language models.
+
+
 ![LLM](assets/96_hf_bitsandbytes_integration/LLM.png)
 
-Therefore these models are hard to run on easily accessible devices. For example, just to do inference on BLOOM-175B you would need to have 8x 80GB A100 GPUs (~$15k each), and 72 of those GPUs to finetune. Much larger models, like PaLM would require even more resources.
+Therefore, these models are hard to run on easily accessible devices. For example, just to do inference on BLOOM-175B you would need to have 8x 80GB A100 GPUs (~$15k each), and 72 of those GPUs to finetune. Much larger models, like PaLM would require even more resources.
 
 Because these huge models require so many GPUs to run, we need to find ways to reduce these requirements, while preserving fast performance. Various technologies have been developed that try to shrink the model size, you may have heard of quantization and distillation, and there are many others.
 
@@ -111,7 +114,7 @@ While these basic techniques enable us to quantize transformers, they usually le
 
 # Mixed int8 matrix multiplication for Large Language Models
 
-In simple words, 8-bit Matrix multiplication at Scale for transformers aims to perform the computation of the matrix multiplication in 3 steps:
+8-bit Matrix multiplication at Scale for transformers aims to perform the computation of the matrix multiplication in 3 steps:
 1. Given the input hidden states extract the column-wise outliers and non-outliers
 2. Perform the matrix multiplication of the outliers in fp16 and the non-outliers in int8
 3. Dequantize the non-outliers results and retrieve the full result in fp16
@@ -121,17 +124,20 @@ Let’s try here to understand these procedures step by step.
 
 ## What is an outlier in this case?
 
-In general, an outlier stands for a value that is outside the global distribution of some numbers. Given a set of numbers, the outlier is the number that is outside a certain pre-defined range. Outlier detection has been widely used and covered in the current literature and it happens that to perform robust outlier detection the empirical approach seems to be the best one. According to this paper, transformer-based architectures have a distribution such that ~99.9% of the values are inside the range [-6, 6].
+In general, an outlier stands for a value that is outside the global distribution of some numbers. Outlier detection has been widely used and covered in the current literature and having a prior knowledge on the distribution of your features helps with the task of outlier detection. Authors have observed that classic quantization at scale fails for models >6B parameters. This is explained by the emergence of outlier features in transformers at scale that we will review in the next section.
+
+(XXX) here add the figure, ask to Tim if this is ok
+
+## Emergence of outlier features in transformers at scale
+
+to rephrase -> explain the scaling phenomenon of model >6.7B and why this happens. Read carefully the section: Emergent Large Magnitude Features in Transformers at Scale
 
 ## Inside the MatMul
 
 Once the hidden states are computed we extract the outliers using a custom threshold (here we use 6.0) and we decompose the matrix in two parts as explained above.
 The outlier part is done in fp16 so it is a classic matrix multiplication whereas the 8bit matrix multiplication is done by quantizing the weights and hidden states using row-wise absmax quantization for the hidden states and column-wise absmax quantization for the weight matrix.
 After this step the results are de-quantized and retrieved back in half precision to be able to add it to the first matrix multiplication.
-
-## Why don’t we care about the bias term?
-
-Simply because the output of this algorithm is in fp16 which is the same precision as the bias term!
+One could ask what is the reason why we do not really care about the bias term here, because the output of this algorithm is in fp16 which is the same precision as the bias term!
 
 ## What does 0 degradation mean?
 
