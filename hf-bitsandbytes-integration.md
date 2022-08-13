@@ -109,35 +109,40 @@ These tricks can be combined in several ways, for example row-wise or vector-wis
 
 If you want to read more details about how classic quantization techniques work, we recommend to read this [blogpost](https://intellabs.github.io/distiller/algo_quantization.html), or read the GPT3.int8() paper (link).
 
-While these basic techniques enable us to quantize transformers, they usually lead to a drop in accuracy. The bnb-int8 implementation that we integrated into our transformers and accelerate libraries is the first technique that does not degrade performance even for large models with 176B parameters, such as BLOOM. How does this work?
+While these basic techniques enable us to quantize transformers, they usually lead to a drop in accuracy for larger models. The bnb-int8 implementation that we integrated into our transformers and accelerate libraries is the first technique that does not degrade performance even for large models with 176B parameters, such as BLOOM. How does this work?
 
 
 # Mixed int8 matrix multiplication for Large Language Models
 
-8-bit Matrix multiplication at Scale for transformers aims to perform the computation of the matrix multiplication in 3 steps:
-1. Given the input hidden states extract the column-wise outliers and non-outliers
+Authors have demonstrated how crucial it is to comprehend the scale-dependent emergent properties of transformers in order to comprehend why traditional quantization fails for big models. They demonstrate that performance deterioration is caused by outlier features. Together, let's look at how this works step by step.
+
+In essence, 8-bit Matrix Multiplication at Scale for Transformers seeks to complete the matrix multiplication computation in three steps:
+1. From the input hidden states, extract the outliers and non-outliers by column.
 2. Perform the matrix multiplication of the outliers in fp16 and the non-outliers in int8
 3. Dequantize the non-outliers results and retrieve the full result in fp16
-Let’s try here to understand these procedures step by step.
 
 ![Mixed-int8.gif](assets/96_hf_bitsandbytes_integration/Mixed-int8.gif)
 
 ## What is an outlier in this case?
 
-In general, an outlier stands for a value that is outside the global distribution of some numbers. Outlier detection has been widely used and covered in the current literature and having a prior knowledge on the distribution of your features helps with the task of outlier detection. Authors have observed that classic quantization at scale fails for models >6B parameters. This is explained by the emergence of outlier features in transformers at scale that we will review in the next section.
+A value that is outside the range of some numbers' global distribution is generally referred to as an outlier. Outlier detection has been widely used and covered in the current literature and having a prior knowledge on the distribution of your features helps with the task of outlier detection. 
+More specifically, authors have observed that classic quantization at scale fails for transformer-based models >6B parameters. As described above, this is explained by the emergence of outlier features in transformers at scale that we will review in detail in the next section.
 
 (XXX) here add the figure, ask to Tim if this is ok
 
 ## Emergence of outlier features in transformers at scale
 
-to rephrase -> explain the scaling phenomenon of model >6.7B and why this happens. Read carefully the section: Emergent Large Magnitude Features in Transformers at Scale
+At scale, quantization fails. This is due to the fact that, for the majority of models, hidden state features in transformers increase in magnitude with model size. According to the paper, there are typically 150,000 big magnitude features per 2048 token sequence for a 13B transformer model, and these characteristics are concentrated in just 7 feature dimensions throughout the transformer. As was mentioned earlier, 8-bit precision is extremely constrained, therefore quantizing a vector with several big values can produce wildly erroneous results. Additionally, because of a built-in characteristic of the transformer-based architecture that links all the elements together, these errors would propagate deeper across layers.
+Therefore, mixed-precision decomposition has been developed to facilitate efficient quantization with such extreme outliers and we will review it together on the next section. 
 
 ## Inside the MatMul
 
 Once the hidden states are computed we extract the outliers using a custom threshold (here we use 6.0) and we decompose the matrix in two parts as explained above.
 The outlier part is done in fp16 so it is a classic matrix multiplication whereas the 8bit matrix multiplication is done by quantizing the weights and hidden states using row-wise absmax quantization for the hidden states and column-wise absmax quantization for the weight matrix.
 After this step the results are de-quantized and retrieved back in half precision to be able to add it to the first matrix multiplication.
-One could ask what is the reason why we do not really care about the bias term here, because the output of this algorithm is in fp16 which is the same precision as the bias term!
+One could also ask what is the reason why we do not really care about the bias term here, because the output of this algorithm is in fp16 which is the same precision as the bias term!
+
+![Matmul.png](assets/96_hf_bitsandbytes_integration/Matmul.png)
 
 ## What does 0 degradation mean?
 
