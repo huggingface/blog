@@ -30,6 +30,8 @@ thumbnail: /blog/assets/96_hf_bitsandbytes_integration/thumbnail.png
     </a>
 </div>
 
+![thumbnail](assets/96_hf_bitsandbytes_integration/thumbnail.png)
+
 # Introduction
 
 Language models have been becoming larger all the time. At the time of this writing, PaLM has 540B parameters, OPT, GPT-3 and BLOOM have around 176B parameters, and the current trend is towards even larger models. Below is a qualitative diagram showing the size of some recent language models.
