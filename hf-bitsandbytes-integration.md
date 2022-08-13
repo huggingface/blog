@@ -69,11 +69,11 @@ This means that in BF16 we can retain the same dynamic range as FP32. But we los
 
 In the Ampere architecture NVIDIA also introduced TensorFloat-32 (TF32) precision format, which combines the dynamic range of BF16 and precision of FP16, which uses 19 bits. But it's currently only used internally only during certain operations.
 
-XXX: add TF32 diagram like above formats (wikipedia)
+![TF32](assets/96_hf_bitsandbytes_integration/TF32.png)
 
 In the machine learning jargon FP32 is called full precision (4 bytes), while BF16 and FP16 are referred to as half-precision (2 bytes).
+On top of that, the int8 (INT8) data type consists of a 8-bit representation that can store 2^8 different values (between [0, 255] or [-128, 127] for signed integrers). 
 
-XXX: Younes, might be a good idea to also outline INT8 here while discussing all the bits?
 
 While, ideally the training and inference should be done in FP32, it is usually quite expensive and therefore a mixed precision approach is used where some parts of the training loop is done in FP32 while the other in either BF16 or FP16. The lower precision also runs faster.
 
@@ -222,3 +222,8 @@ As stated in the beginning of this blogpost, CPU devices do not support B-bit co
 ## Scaling up on other modalities
 
 For now very large models are mainly language models. Very large vision, audio and multi-modal models might become more accessible in the next few years therefore leveraging this method on these models might be an interesting thing to do for better accessibility.
+
+## Blog credits
+
+Huge thanks to the following who contributed to improve the readability of the article (listed in alphabetical order):
+Stas Bekman
