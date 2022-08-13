@@ -400,6 +400,7 @@ Therefore the ultimate recipe is:
 2. Set the parameters one by one on the correct GPU device and make sure you never do this procedure twice!
 3. Put new keyword arguments in the correct place everywhere, and add some nice documentation
 4. Add very extensive tests! Check our tests [here](https://github.com/huggingface/transformers/blob/main/tests/mixed_int8/test_mixed_int8.py) for more details
+This may sound quite easy, but actually went through a lot of hard debugging sessions with sometimes debugging CUDA kernels together!
 
 All that said, this integration adventure was very fun, deep diving and doing some "surgery" on different libraries to align everything and make it work was pure fun! 
 
