@@ -193,34 +193,132 @@ For more technical deep-dive of the method, we highly suggest you to check Tim D
 
 # Which technology to use for `transformers` integration?
 
-How were these technologies incorporated into the `transformers` library? What were the difficulties we faced and the main technologies we employed in the integration project?
+How were these technologies incorporated into the `transformers` library? What were the difficulties we faced and the main technologies we employed in the integration project? Let's examin everything in the next sections!
 
 ## How to use it in `bitsandbytes` library?
 
-The module that is responsible of the whole magic described in this blogpost is called `Linear8bitLt` module. The latest derives from a classic `torch.nn` Module so can be customly used and deployed in your architecture with the following commands.
+The module that is responsible of the whole magic described in this blogpost is called `Linear8bitLt` module and you can easily import it from `bitsandbytes` library. The latest derives from a classic `torch.nn` Module and be easily used and deployed in your architecture with the following commands. Let's walk through step by step with a specific usecase, let's say you want to convert a shallow model in int8 using `bitsandbytes`, here is all what you need to know:
+
+1. First we need the correct imports below!
 
 ```py
+import torch
+import torch.nn as nn
+
 import bitsandbytes as bnb
 from bnb.nn import Linear8bitLt
 ```
 
-Note that these modules are slightly different from the `nn.Linear` modules where its parameters are from the `bnb.nn.Int8Params` class instead of `nn.Parameter` class.
+2. Then you can define your own FP16 model. This detail is very important as you absolutely need a FP16 model to make it work. You can also train or load a FP32 or BF16 model and cast it directly to FP16 (but at your own risk).
+
+```py
+fp16_model = nn.Sequential(
+    nn.Linear(64, 64),
+    nn.Linear(64, 64)
+).to(torch.float16)
+```
+
+3. Let's say you have trained your model on your favorite dataset and task! Now time to save the model
+
+```py
+torch.save(fp16_model.state_dict(), "model.pt")
+```
+
+4. Now that you have your `state_dict` that is saved , let us define an int8 model as below:
+
+```py
+int8_model = nn.Sequential(
+    Linear8bitLt(64, 64, has_fp16_weights=False),
+    Linear8bitLt(64, 64, has_fp16_weights=False)
+)
+```
+
+Here it is very important to add the flag `has_fp16_weights` as by default this is set to `True` and right now loading a model with `has_fp16_weights=True` is not very well supported yet.
+
+5. Now time to load your model in 8-bit!
+
+```py
+int8_model.load_state_dict(torch.load("model.pt"))
+int8_model = int8_model.to(0) # Quantization happens here
+```
+
+Note that the quantization step is done in the second line once the model is set on the GPU. If you print `int8_model[0].weight` you get:
+
+```
+int8_model[0].weight
+Parameter containing:
+tensor([[ 0.0031, -0.0438,  0.0494,  ..., -0.0046, -0.0410,  0.0436],
+        [-0.1013,  0.0394,  0.0787,  ...,  0.0986,  0.0595,  0.0162],
+        [-0.0859, -0.1227, -0.1209,  ...,  0.1158,  0.0186, -0.0530],
+        ...,
+        [ 0.0804,  0.0725,  0.0638,  ..., -0.0487, -0.0524, -0.1076],
+        [-0.0200, -0.0406,  0.0663,  ...,  0.0123,  0.0551, -0.0121],
+        [-0.0041,  0.0865, -0.0013,  ..., -0.0427, -0.0764,  0.1189]],
+       dtype=torch.float16)
+```
+
+Whereas if you print it after the second line's call you get:
+
+```
+int8_model[0].weight
+Parameter containing:
+tensor([[   3,  -47,   54,  ...,   -5,  -44,   47],
+        [-104,   40,   81,  ...,  101,   61,   17],
+        [ -89, -127, -125,  ...,  120,   19,  -55],
+        ...,
+        [  82,   74,   65,  ...,  -49,  -53, -109],
+        [ -21,  -42,   68,  ...,   13,   57,  -12],
+        [  -4,   88,   -1,  ...,  -43,  -78,  121]], device='cuda:0',
+       dtype=torch.int8, requires_grad=True)
+```
+
+Note that you can see that the values of the weights are "truncated" as we have seen when explaining quantization in the previous sections. You might wonder how to retrieve the FP16 weights in order to perform the outlier MatMul in fp16? You can simply do:
+
+```py
+(int8_model[0].weight.CB * int8_model[0].weight.SCB)/127
+```
+
+And you will get:
+
+```
+tensor([[ 0.0028, -0.0459,  0.0522,  ..., -0.0049, -0.0428,  0.0462],
+        [-0.0960,  0.0391,  0.0782,  ...,  0.0994,  0.0593,  0.0167],
+        [-0.0822, -0.1240, -0.1207,  ...,  0.1181,  0.0185, -0.0541],
+        ...,
+        [ 0.0757,  0.0723,  0.0628,  ..., -0.0482, -0.0516, -0.1072],
+        [-0.0194, -0.0410,  0.0657,  ...,  0.0128,  0.0554, -0.0118],
+        [-0.0037,  0.0859, -0.0010,  ..., -0.0423, -0.0759,  0.1190]],
+       device='cuda:0')
+```
+
+Which is close enough to the original FP16 values!
+
+6. Now you can safely infer using your model, by of course making sure your model is on the correct GPU
+
+```py
+input_ = torch.randn(8, 64, dtype=torch.float16)
+hidden_states = int8_model(input_.to(0))
+```
+
+Checkout [this gist](https://gist.github.com/younesbelkada/9035e247b066d1cf18682e9e4c21032d) for the full minimal code! Now time to understand how to integrate that into `transformers` library!
+
+As a side note, you should aware that these modules differ slightly from the `nn.Linear` modules in that their parameters come from the `bnb.nn.Int8Params` class rather than the `nn.Parameter` class. You'll see in later that this presented an additional obstacle on our journey! 
 
 ## `accelerate` is all you need
 
-When working with huge models, the `accelerate` library includes a number of helpful utilities. The method from that package called `init_empty_weights` is one of those that we truly enjoy. Any model, regardless of size, may be initialized while using this method as a context manager because the initialized model will take up no memory.
+When working with huge models, the `accelerate` library includes a number of helpful utilities. The method from that package called `init_empty_weights` is one of those that we truly enjoy. Any model, regardless of size, may be initialized while using this method as a context manager with 0 cost, aka **no memory**.
 
 ```py
 import torch.nn as nn
 from accelerate import init_empty_weights
 
 with init_empty_weights():
-    model = nn.Sequential([nn.Linear(100000, 100000) for _ in range(1000)])
+    model = nn.Sequential([nn.Linear(100000, 100000) for _ in range(1000)]) # This will take 0 RAM!
 ```
 
 The initialized model will be put on the Pytorch's `meta` device, an underlying mechanism to represent shape and dtype without allocating memory for storage. Isn't very cool?
 
-Initially this function overrides all parameters to `torch.nn.Parameter`, this would not fit our requirement since we want to keep the `Int8Params` class in our case for `Linear8bitLt` modules. We managed to fix that on [the following PR](https://github.com/huggingface/accelerate/pull/519) that modifies 
+Initially this function overrides all parameters to `torch.nn.Parameter`, this would not fit our requirement since we want to keep the `Int8Params` class in our case for `Linear8bitLt` modules as explained above. We managed to fix that on [the following PR](https://github.com/huggingface/accelerate/pull/519) that modifies:
 
 ```py
 module._parameters[name] = nn.Parameter(module._parameters[name].to(torch.device("meta")))
@@ -234,7 +332,7 @@ kwargs = module._parameters[name].__dict__
 module._parameters[name] = param_cls(module._parameters[name].to(torch.device("meta")), **kwargs)
 ```
 
-Now, we can easily leverage this context manager and play with it to replace all `nn.Linear` modules to `bnb.nn.Linear8bitLt` with no cost!
+Now that this is fixed, we can easily leverage this context manager and play with it to replace all `nn.Linear` modules to `bnb.nn.Linear8bitLt` with no cost!
 
 ```py
 def replace_8bit_linear(model, threshold=6.0, modules_to_not_convert="lm_head"):
@@ -254,11 +352,13 @@ def replace_8bit_linear(model, threshold=6.0, modules_to_not_convert="lm_head"):
     return model
 ```
 
-This function replaces recursively all Linear layers of a given model initialized on the `meta` device and replace it to a `Linear8bitLt` module. The attribute `has_fp16_weights` has to be set to `False` in order to directly load the weights in `int8` together with the quantization statistics. 
+This function replaces recursively all `nn.Linear` layers of a given model initialized on the `meta` device and replace them to a `Linear8bitLt` module. The attribute `has_fp16_weights` has to be set to `False` in order to directly load the weights in `int8` together with the quantization statistics. 
 
 Note also that we discard the replacement for some modules (here for the `lm_head`) since we want to keep the latest in their native precision for more precise results. 
 
-...But this function is executed under `init_empty_weights` context manager which means that the new model will be still in the `meta` device. For models that are initialized under this context manager `accelerate` loads manually the parameter of each module and sets it to the correct device (line below from [here](https://github.com/TimDettmers/bitsandbytes/blob/bd515328d70f344f935075f359c5aefc616878d5/bitsandbytes/nn/modules.py#L94)). 
+It is not over yet! The function above is executed under `init_empty_weights` context manager which means that the new model will be still in the `meta` device. 
+For models that are initialized under this context manager, `accelerate` loads later manually the parameter of each module and sets it on the correct device. 
+In `bitsandbytes` setting a `Linear8bitLt` module's device is a crucial step (line below from [here](https://github.com/TimDettmers/bitsandbytes/blob/bd515328d70f344f935075f359c5aefc616878d5/bitsandbytes/nn/modules.py#L94)):
 
 ```py
 # we store the 8-bit rows-major weight
@@ -272,11 +372,11 @@ setattr(self, 'CB', CB)
 setattr(self, 'SCB', SCB)
 ```
 
-Therefore setting the parameter to the correct device step is extremely crucial since the quantization statistics fails when calling it twice. We had to came up with our implementation of `accelerate`'s `set_module_tensor_to_device` function. 
+Here, setting a parameter's device step is extremely crucial since the quantization statistics fails when calling it twice. We had to came up with our implementation of `accelerate`'s `set_module_tensor_to_device` function (termed as `set_module_8bit_tensor_to_device`) and propose some Pull Requests on `accelerate` library! 
 
 ## Be very careful on how to set devices with `accelerate`
 
-In `bitsandbytes` the 8-bit conversion of the parameters is done once the modules are set into the proper GPU device. It is very important to call the `.cuda()` function only once, otherwise everything will break on the module's side. Here we played a very delicate balancing act with `accelerate` library!
+Here we played a very delicate balancing act with `accelerate` library!
 Once you load your model and set it on the correct devices, sometimes you still need to call `set_module_tensor_to_device` to dispatch the model with hooks on all devices. This is done inside `dispatch_model` function from `accelerate`. 
 2 Pull Requests were needed to achieve what we wanted! The initial PR proposed [here](https://github.com/huggingface/accelerate/pull/539/) broke some tests but [this PR](https://github.com/huggingface/accelerate/pull/576/) successfully fixed everything! 
 
