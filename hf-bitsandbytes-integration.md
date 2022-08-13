@@ -114,7 +114,7 @@ While these basic techniques enable us to quantize transformers, they usually le
 
 # Mixed int8 matrix multiplication for Large Language Models
 
-Authors have demonstrated how crucial it is to comprehend the scale-dependent emergent properties of transformers in order to comprehend why traditional quantization fails for big models. They demonstrate that performance deterioration is caused by outlier features. Together, let's look at how this works step by step.
+Authors have demonstrated how crucial it is to comprehend the scale-dependent emergent properties of transformers in order to understand why traditional quantization fails for big models. They demonstrate that performance deterioration is caused by outlier features. Together, let's look at how this works step by step.
 
 In essence, 8-bit Matrix Multiplication at Scale for Transformers seeks to complete the matrix multiplication computation in three steps:
 1. From the input hidden states, extract the outliers and non-outliers by column.
@@ -123,7 +123,7 @@ In essence, 8-bit Matrix Multiplication at Scale for Transformers seeks to compl
 
 ![Mixed-int8.gif](assets/96_hf_bitsandbytes_integration/Mixed-int8.gif)
 
-## What is an outlier in this case?
+## Why outliers are so important here?
 
 A value that is outside the range of some numbers' global distribution is generally referred to as an outlier. Outlier detection has been widely used and covered in the current literature and having a prior knowledge on the distribution of your features helps with the task of outlier detection. 
 More specifically, authors have observed that classic quantization at scale fails for transformer-based models >6B parameters. As described above, this is explained by the emergence of outlier features in transformers at scale that we will review in detail in the next section.
