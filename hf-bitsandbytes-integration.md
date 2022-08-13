@@ -150,29 +150,29 @@ After this step the results are de-quantized and retrieved back in half precisio
 How can we properly evaluate the performance degradation of this method? How much quality do we lose in terms of generation when using 8-bit models?
 We have ran several common tasks benchmarks with the 8-bit and native model using lm-eval-harness and reported the results:
 
-| benchmarks |   | | | difference       |
-| ---------- | --------- | ---------------- |
-| name       | metric    | value - int8 - 6 | value - fp16 | err - int8 - 6 | err - fp16 | \- |
-| hellaswag  | acc\_norm | 0.7849           | 0.7849 | 0.0041 | 0.0041 | 0 |
-| hellaswag  | acc       | 0.5921           | 0.5931 | 0.0049 | 0.0049 | 0.001 |
-| piqa       | acc       | 0.7965           | 0.7959 | 0.0094 | 0.0094 | 0.0006 |
-| piqa       | acc\_norm | 0.8101           | 0.8107 | 0.0092 | 0.0091 | 0.0006 |
-| lambada    | ppl       | 3.0142           | 3.0152 | 0.0552 | 0.0552 | 0.001 |
-| lambada    | acc       | 0.7464           | 0.7466 | 0.0061 | 0.0061 | 0.0002 |
-| winogrande | acc       | 0.7174           | 0.7245 | 0.0127 | 0.0125 | 0.0071 |
+| benchmarks | OPT-175B  |   |       |       |    |       difference     |
+| ---------- | --------- | ---------------- |        --------------------      |    --------------------   |  --------------------   |   -------------------- |
+| name       | metric    | value - int8 - 6 | value - fp16 | err - int8 - 6 | err - fp16 |  - |
+| hellaswag  | acc\_norm |           0.7849 |       0.7849 |         0.0041 |     0.0041 |      0 |
+| hellaswag  | acc       |           0.5921 |       0.5931 |         0.0049 |     0.0049 |  0.001 |
+| piqa       | acc       |           0.7965 |       0.7959 |         0.0094 |     0.0094 | 0.0006 |
+| piqa       | acc\_norm |           0.8101 |       0.8107 |         0.0092 |     0.0091 | 0.0006 |
+| lambada    | ppl       |           3.0142 |       3.0152 |         0.0552 |     0.0552 |  0.001 |
+| lambada    | acc       |           0.7464 |       0.7466 |         0.0061 |     0.0061 | 0.0002 |
+| winogrande | acc       |           0.7174 |       0.7245 |         0.0127 |     0.0125 | 0.0071 |
 
 And the results on BLOOM-176:
 
-| benchmarks |   | | | difference       |
-| ---------- | --------- | ---------------- |
-| name       | metric    | value - int8 - 6 | value - bf16 | err - int8 - 6 | err - bf16 | \- |
-| hellaswag  | acc\_norm | 0.7274           | 0.7303 | 0.0044 | 0.0044 | 0.0029 |
-| hellaswag  | acc       | 0.5563           | 0.5584 | 0.005 | 0.005 | 0.0021 |
-| piqa       | acc       | 0.7835           | 0.7884 | 0.0096 | 0.0095 | 0.0049 |
-| piqa       | acc\_norm | 0.7922           | 0.7911 | 0.0095 | 0.0095 | 0.0011 |
-| lambada    | ppl       | 3.9191           | 3.931 | 0.0842 | 0.0846 | 0.0119 |
-| lambada    | acc       | 0.6808           | 0.6718 | 0.0065 | 0.0065 | 0.009 |
-| winogrande | acc       | 0.7048           | 0.7048 | 0.0128 | 0.0128 | 0 |
+| benchmarks | BLOOM176B |    |   |      |      |     difference   |
+| ---------- | --------- | ---------------- |    --------------------  |        --------------------        |    --------------------        | -------------------- |
+| name       | metric    | value - int8 - 6 | value - bf16 | err - int8 - 6 | err - bf16 |     \- |
+| hellaswag  | acc\_norm |           0.7274 |       0.7303 |         0.0044 |     0.0044 | 0.0029 |
+| hellaswag  | acc       |           0.5563 |       0.5584 |          0.005 |      0.005 | 0.0021 |
+| piqa       | acc       |           0.7835 |       0.7884 |         0.0096 |     0.0095 | 0.0049 |
+| piqa       | acc\_norm |           0.7922 |       0.7911 |         0.0095 |     0.0095 | 0.0011 |
+| lambada    | ppl       |           3.9191 |        3.931 |         0.0842 |     0.0846 | 0.0119 |
+| lambada    | acc       |           0.6808 |       0.6718 |         0.0065 |     0.0065 |  0.009 |
+| winogrande | acc       |           0.7048 |       0.7048 |         0.0128 |     0.0128 |      0 |
 
 
 We indeed observe 0 performance degradation for those models since the absolute difference of the metrics are all below the standard error (except for BLOOM-int8 which is slightly better than the native model on lambada). For more detailed performance evaluation against state of the art approaches you may look closely at the paper!
@@ -181,17 +181,17 @@ We indeed observe 0 performance degradation for those models since the absolute 
 
 We benchmarked the inference speed of int8 models on different models, although we are close to having the same speed than the native model for large models (tested on BLOOM-176) the inference speed seems to be much slower than the native model on smaller models.
 
-| Model          | Number of parameters | Hardware     | Time per token in milliseconds for Batch Size 1 | Time per token in milliseconds for Batch Size 8 | Time per token in milliseconds for Batch Size 32 |
-| -------------- | -------------------- | ------------ | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ |
-| BLOOM-176-int8 | 176B                 | 4xA100 80GB  | 282                                             | 37.5                                            | 10.2                                             |
-| BLOOM-176-bf16 | 176B                 | 8xA100 80GB  | 239                                             | 32                                              | 9.9                                              |
-| BLOOM-176-int8 | 176B                 | 6xA100 40GB  | 365                                             | 46.7                                            | 12.4                                             |
-| BLOOM-176-int8 | 176B                 | 5xA100 40GB  | 367                                             | 46.4                                            | oom                                              |
-| BLOOM-176-bf16 | 176B                 | 14xA100 40GB | 285                                             | 36.5                                            | 10.4                                             |
-| T5-11b | fp16  | 11B                  | 2xT4 15GB    | 11.7                                            | 1.7                                             | 0.5                                              |
-| T5-11b | int8  | 11B                  | 1xT4 15GB    | 43.5                                            | 5.3                                             | 1.3                                              |
-| T5-3b | fp32   | 3B                   | 2xT4 15GB    | 45                                              | 7.2                                             | 3.1                                              |
-| T5-3b | int8   | 3B                   | 1xT4 15GB    | 312                                             | 39.1                                            | 10.2                                             |
+| Model          | Number of parameters | Hardware     | Time per token in milliseconds for Batch Size 1 | Time per token in milliseconds for Batch Size 8 | Time per token in milliseconds for Batch Size 32 |      
+| -------------- | -------------------- | ------------ | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ |      
+| BLOOM-176-int8 | 176B                 | 4xA100 80GB  | 282                                             |                                            37.5 |                                             10.2 |      |
+| BLOOM-176-bf16 | 176B                 | 8xA100 80GB  | 239                                             |                                              32 |                                              9.9 |      |
+| BLOOM-176-int8 | 176B                 | 6xA100 40GB  | 365                                             |                                            46.7 |                                             12.4 |      |
+| BLOOM-176-int8 | 176B                 | 5xA100 40GB  | 367                                             |                                            46.4 |                                              oom |      |
+| BLOOM-176-bf16 | 176B                 | 14xA100 40GB | 285                                             |                                            36.5 |                                             10.4 |      |
+| T5-11b-fp16         | 11B                         | 2xT4 15GB                                       |                                            11.7 |                                              1.7 |  0.5 |
+| T5-11b-int8         | 11B                         | 1xT4 15GB                                       |                                            43.5 |                                              5.3 |  1.3 |
+| T5-3b-fp32          | 3B                           | 2xT4 15GB                                       |                                              45 |                                              7.2 |  3.1 |
+| T5-3b-int8          |   3B                         | 1xT4 15GB                                       |                                             312 |                                             39.1 | 10.2 |
 
 
 For more technical deep-dive of the method, we highly suggest you to check Tim Dettmers' blog : (link)
