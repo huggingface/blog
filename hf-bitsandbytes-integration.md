@@ -197,7 +197,7 @@ How were these technologies incorporated into the `transformers` library? What w
 
 ## How to use it in `bitsandbytes` library?
 
-The module that is responsible of the whole magic described in this blogpost is called `Linear8bitLt` module and you can easily import it from `bitsandbytes` library. The latest derives from a classic `torch.nn` Module and be easily used and deployed in your architecture with the following commands. Let's walk through step by step with a specific usecase, let's say you want to convert a shallow model in int8 using `bitsandbytes`, here is all what you need to know:
+The module that is responsible of the whole magic described in this blogpost is called `Linear8bitLt` module and you can easily import from `bitsandbytes` library. The latest derives from a classic `torch.nn` Module and be easily used and deployed in your architecture with the commands described below. Let's walk through step by step with a specific usecase, let's say you want to convert a shallow model in int8 using `bitsandbytes`, here is all what you need to know:
 
 1. First we need the correct imports below!
 
@@ -242,7 +242,7 @@ int8_model.load_state_dict(torch.load("model.pt"))
 int8_model = int8_model.to(0) # Quantization happens here
 ```
 
-Note that the quantization step is done in the second line once the model is set on the GPU. If you print `int8_model[0].weight` you get:
+Note that the quantization step is done in the second line once the model is set on the GPU. If you print `int8_model[0].weight` before calling the `.to` function you get:
 
 ```
 int8_model[0].weight
@@ -272,7 +272,8 @@ tensor([[   3,  -47,   54,  ...,   -5,  -44,   47],
        dtype=torch.int8, requires_grad=True)
 ```
 
-Note that you can see that the values of the weights are "truncated" as we have seen when explaining quantization in the previous sections. You might wonder how to retrieve the FP16 weights in order to perform the outlier MatMul in fp16? You can simply do:
+Note that you can see that the values of the weights are "truncated" as we have seen when explaining quantization in the previous sections. Also the values seems to be distributed between [-128, 127]
+You might also wonder how to retrieve the FP16 weights in order to perform the outlier MatMul in fp16? You can simply do:
 
 ```py
 (int8_model[0].weight.CB * int8_model[0].weight.SCB)/127
@@ -300,7 +301,7 @@ input_ = torch.randn(8, 64, dtype=torch.float16)
 hidden_states = int8_model(input_.to(0))
 ```
 
-Checkout [this gist](https://gist.github.com/younesbelkada/9035e247b066d1cf18682e9e4c21032d) for the full minimal code! Now time to understand how to integrate that into `transformers` library!
+Checkout [this gist](https://gist.github.com/younesbelkada/9035e247b066d1cf18682e9e4c21032d) for the full minimal code! Now time has come to understand how to integrate that into `transformers` library!
 
 As a side note, you should aware that these modules differ slightly from the `nn.Linear` modules in that their parameters come from the `bnb.nn.Int8Params` class rather than the `nn.Parameter` class. You'll see in later that this presented an additional obstacle on our journey! 
 
@@ -318,7 +319,7 @@ with init_empty_weights():
 
 The initialized model will be put on the Pytorch's `meta` device, an underlying mechanism to represent shape and dtype without allocating memory for storage. Isn't very cool?
 
-Initially this function overrides all parameters to `torch.nn.Parameter`, this would not fit our requirement since we want to keep the `Int8Params` class in our case for `Linear8bitLt` modules as explained above. We managed to fix that on [the following PR](https://github.com/huggingface/accelerate/pull/519) that modifies:
+Initially this function called inside the `.from_pretrained` function overrides all parameters to `torch.nn.Parameter`, this would not fit our requirement since we want to keep the `Int8Params` class in our case for `Linear8bitLt` modules as explained above. We managed to fix that on [the following PR](https://github.com/huggingface/accelerate/pull/519) that modifies:
 
 ```py
 module._parameters[name] = nn.Parameter(module._parameters[name].to(torch.device("meta")))
@@ -332,7 +333,7 @@ kwargs = module._parameters[name].__dict__
 module._parameters[name] = param_cls(module._parameters[name].to(torch.device("meta")), **kwargs)
 ```
 
-Now that this is fixed, we can easily leverage this context manager and play with it to replace all `nn.Linear` modules to `bnb.nn.Linear8bitLt` with no cost!
+Now that this is fixed, we can easily leverage this context manager and play with it to replace all `nn.Linear` modules to `bnb.nn.Linear8bitLt` with no cost using a custom function!
 
 ```py
 def replace_8bit_linear(model, threshold=6.0, modules_to_not_convert="lm_head"):
@@ -354,11 +355,11 @@ def replace_8bit_linear(model, threshold=6.0, modules_to_not_convert="lm_head"):
 
 This function replaces recursively all `nn.Linear` layers of a given model initialized on the `meta` device and replace them to a `Linear8bitLt` module. The attribute `has_fp16_weights` has to be set to `False` in order to directly load the weights in `int8` together with the quantization statistics. 
 
-Note also that we discard the replacement for some modules (here for the `lm_head`) since we want to keep the latest in their native precision for more precise results. 
+Note also that we discard the replacement for some modules (here the `lm_head`) since we want to keep the latest in their native precision for more precise and stable results. 
 
 It is not over yet! The function above is executed under `init_empty_weights` context manager which means that the new model will be still in the `meta` device. 
 For models that are initialized under this context manager, `accelerate` loads later manually the parameter of each module and sets it on the correct device. 
-In `bitsandbytes` setting a `Linear8bitLt` module's device is a crucial step (line below from [here](https://github.com/TimDettmers/bitsandbytes/blob/bd515328d70f344f935075f359c5aefc616878d5/bitsandbytes/nn/modules.py#L94)):
+In `bitsandbytes` setting a `Linear8bitLt` module's device is a crucial step (line below from [here](https://github.com/TimDettmers/bitsandbytes/blob/bd515328d70f344f935075f359c5aefc616878d5/bitsandbytes/nn/modules.py#L94)) as we have seen in our toy script. If you look more closely, this happens when `.to` or `.cuda` is called:
 
 ```py
 # we store the 8-bit rows-major weight
@@ -372,21 +373,31 @@ setattr(self, 'CB', CB)
 setattr(self, 'SCB', SCB)
 ```
 
-Here, setting a parameter's device step is extremely crucial since the quantization statistics fails when calling it twice. We had to came up with our implementation of `accelerate`'s `set_module_tensor_to_device` function (termed as `set_module_8bit_tensor_to_device`) and propose some Pull Requests on `accelerate` library! 
+Here, setting a parameter's device step is extremely crucial since the quantization statistics fails when calling it twice. We had to came up with our implementation of `accelerate`'s `set_module_tensor_to_device` function (termed as `set_module_8bit_tensor_to_device`) and propose some Pull Requests on `accelerate` library; all of that to make sure this function is never called twice. Let's in detail in the section below! 
 
 ## Be very careful on how to set devices with `accelerate`
 
 Here we played a very delicate balancing act with `accelerate` library!
-Once you load your model and set it on the correct devices, sometimes you still need to call `set_module_tensor_to_device` to dispatch the model with hooks on all devices. This is done inside `dispatch_model` function from `accelerate`. 
+Once you load your model and set it on the correct devices, sometimes you still need to call `set_module_tensor_to_device` to dispatch the model with hooks on all devices. This is done inside `dispatch_model` function from `accelerate`. This will involve potentially calling `.to` several times, which is something we want to avoid.
 2 Pull Requests were needed to achieve what we wanted! The initial PR proposed [here](https://github.com/huggingface/accelerate/pull/539/) broke some tests but [this PR](https://github.com/huggingface/accelerate/pull/576/) successfully fixed everything! 
+
+## Wrapping up all together
+
+Therefore the ultimate recipe you need is:
+1. Initialize a model in the `meta` device with the correct modules
+2. Set the parameters one by one on the correct GPU device and make sure you never do this procedure twice!
+3. Put new keyword arguments in the correct place everywhere, and add some nice documentation
+4. Add very extensive tests! Check our tests [here](https://github.com/huggingface/transformers/blob/main/tests/mixed_int8/test_mixed_int8.py) for more details
 
 All that said, this integration adventure was very fun, deep diving and doing some "surgery" on different libraries to align everything and make it work was pure fun! 
 
-# How to use it in transformers
+Now time to see how to benefit from this integration and how to successfully use it in `transformers`! 
+
+# How to use it in `transformers`
 
 ## Hardware requirements
 
-Some 8-bit operations are not supported on the CPU. bitsandbytes can be run on 8-bit tensor cores-supported hardwares, which are Turing and Ampere GPUs (RTX 20s, RTX 30s, A40-A100, T4+). For example, Google Colab GPUs are usually NIVIDIA T4 GPUs and the latest generation of GPUs does support 8-bit cores. Our demo is based on Google Colab so check it out below!
+8-bit tensor core are not supported on the CPU. bitsandbytes can be run on 8-bit tensor cores-supported hardwares, which are Turing and Ampere GPUs (RTX 20s, RTX 30s, A40-A100, T4+). For example, Google Colab GPUs are usually NIVIDIA T4 GPUs and the latest generation of GPUs does support 8-bit cores. Our demos are based on Google Colab so check it out below!
 
 ## Installation
 
@@ -400,30 +411,47 @@ pip install git+https://github.com/huggingface/transformers.git
 
 ## Example demos - running T5 11b on a Google Colab
 
-Checkout the Google colab demos for running 8bit models on a Google Colab using BLOOM-3b model ! https://colab.research.google.com/drive/1qOjXfQIAULfKvZqwCen8-MoWKGdSatZ4
-Or this demo for 8-bit T5-3b & T5-11b!
-https://colab.research.google.com/drive/1YORPWx4okIHXnjW7MSAidXN29mPVNT7F?usp=sharing
+Checkout the Google colab demos for running 8bit models on a Google Colab using BLOOM-3b model !
+
+Here is the demo for running T5-11b (42GB in fp16)! Using 8-bit modules on Google Colab:
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1YORPWx4okIHXnjW7MSAidXN29mPVNT7F?usp=sharing)
+
+
+Or this demo for BLOOM-3B:
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1qOjXfQIAULfKvZqwCen8-MoWKGdSatZ4?usp=sharing)
+
 # Scope of improvements
 
-Although this method seems to be great for large models, we have identified several scope of improvements that can be tackled in the future for better usage!
+This approach, in our opinion, greatly improves access to very large models. With no performance degradation, it enables users with less compute to access models that were previously inaccessible.
+We've found several areas for improvement that can be worked on in the future to make this method even better for large models!
 
 ## Inference speed and slowing down on smaller models
 
-We have noticed that we retain the same inference speed on the native model than on the mixed-8bit model for very large language models (BLOOM-176B). However this method can significantly slow down inference speed on small models (<6b parameters models) this is due to the various internal casting steps that occur inside each 8bit-Linear layer.
-As a future work, one could try to improve that and see how the inference speed can be reduced on small models, probably by avoiding the casting operations.
+For very large language models, we have observed that we nearly maintain the same inference speed using the native model as opposed to the mixed-8bit model (see attached experiments on BLOOM-176B).
+
+However, due to the numerous internal casting steps, together with the outlier detection procedure that take place inside each 8bit-Linear layer, this method can significantly slow down inference speed on small models (models with less than 6b parameters).
+
+One could attempt to improve that in the future and see how the inference speed can be decreased, probably by avoiding the casting operations or writing more efficient CUDA kernels.
 
 ## Saving 8-bit state dicts on the Hub
 
-For now 8-bit state dicts cannot be pushed on the Hub and loaded directly into the 8-bit model. This is because the statistics (outliers) computed by the model are not stored and considered inside the state dict for now. We believe that being able to save that and push it on the Hub could help for better accessibility (e.g. loading a T5-large or T0pp on Google Colab without using a lot of CPU ram for weight loading).
+8-bit state dicts cannot currently be loaded directly into the 8-bit model after being pushed on the Hub. This is due to the fact that the statistics (remember `weight.CB` and `weight.SCB`) computed by the model are not currently stored or taken into account inside the state dict, and the `Linear8bitLt` module does not support this feature yet. 
+We think that having the ability to save that and push it to the Hub might contribute to greater accessibility.
 ## CPU support
 
-As stated in the beginning of this blogpost, CPU devices do not support B-bit cores. But can we overcome that? Being able to run this module on CPUs could also largely help in terms of accessibility and broader usage.
+CPU devices do not support 8-bit cores, as was stated at the beginning of this blogpost. Can we, however, get past that? Running this module on CPUs would also significantly improve usability and accessibility. 
 
 ## Scaling up on other modalities
 
-For now very large models are mainly language models. Very large vision, audio and multi-modal models might become more accessible in the next few years therefore leveraging this method on these models might be an interesting thing to do for better accessibility.
+Currently, language models dominate very large models. Leveraging this method on very large vision, audio, and multi-modal models might be an interesting thing to do for better accessibility in the coming years as these models become more accessible.
 
-## Blog credits
+# Credits
 
-Huge thanks to the following who contributed to improve the readability of the article (listed in alphabetical order):
-Stas Bekman
+Huge thanks to the following who contributed to improve the readability of the article as well as contributed in the integration procedure in `transformers` (listed in alphabetic order):
+JustHeuristic (Yozh),
+Michael Benayoun,
+Stas Bekman,
+Sylvain Gugger,
+Tim Dettmers
