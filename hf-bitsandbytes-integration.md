@@ -28,6 +28,13 @@ thumbnail: /blog/assets/96_hf_bitsandbytes_integration/thumbnail.png
             <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
+    <a href="/stas">
+        <img class="avatar avatar-user" src="/blog/assets/86_bloom_megatron_deepspeed/stas-bekman-300x300.jpg">
+        <div class="bfc">
+            <code>stas</code>
+            <span class="fullname">Stas Bekman</span>
+        </div>
+    </a>
 </div>
 
 ![thumbnail](assets/96_hf_bitsandbytes_integration/thumbnail.png)
