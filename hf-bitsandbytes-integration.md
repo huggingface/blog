@@ -150,7 +150,7 @@ After this step the results are de-quantized and retrieved back in half precisio
 How can we properly evaluate the performance degradation of this method? How much quality do we lose in terms of generation when using 8-bit models?
 We have ran several common tasks benchmarks with the 8-bit and native model using lm-eval-harness and reported the results:
 
-| benchmarks | OPT-175B  | difference       |
+| benchmarks |   | | | difference       |
 | ---------- | --------- | ---------------- |
 | name       | metric    | value - int8 - 6 | value - fp16 | err - int8 - 6 | err - fp16 | \- |
 | hellaswag  | acc\_norm | 0.7849           | 0.7849 | 0.0041 | 0.0041 | 0 |
@@ -163,7 +163,7 @@ We have ran several common tasks benchmarks with the 8-bit and native model usin
 
 And the results on BLOOM-176:
 
-| benchmarks | BLOOM176B | difference       |
+| benchmarks |   | | | difference       |
 | ---------- | --------- | ---------------- |
 | name       | metric    | value - int8 - 6 | value - bf16 | err - int8 - 6 | err - bf16 | \- |
 | hellaswag  | acc\_norm | 0.7274           | 0.7303 | 0.0044 | 0.0044 | 0.0029 |
