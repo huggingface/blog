@@ -43,9 +43,9 @@ Therefore, these models are hard to run on easily accessible devices. For exampl
 
 Because these huge models require so many GPUs to run, we need to find ways to reduce these requirements, while preserving fast performance. Various technologies have been developed that try to shrink the model size, you may have heard of quantization and distillation, and there are many others.
 
-At Hugging Face and BigScience, after completing the training of BLOOM-176B, one of the approaches we took is to integrate the technology described in the recent "GPT3.int8(): 8-bit Matrix Multiplication for Transformers at Scale" paper into Hugging Face Transformers. We chose to integrate it since no post-training quantization is required to run this method and you can reduce the memory footprint of the models by 2x for any model by adding just a few lines of code.
+At Hugging Face and BigScience, after completing the training of BLOOM-176B, one of the approaches we took is to collaborate with `bitsandbytes` and integrate the technology described in the recent "GPT3.int8(): 8-bit Matrix Multiplication for Transformers at Scale" paper into Hugging Face Transformers. We chose to integrate it since no post-training quantization is required to run this method and you can reduce the memory footprint of the models by 2x for any model by adding just a few lines of code.
 
-This article focuses on bringing understanding to this quantization technology.
+This article focuses on providing a high level overview of this quantization technology and exposing the challenges and long-term objectives of this collaboration. 
 
 # Common data types used in Machine Learning
 
@@ -112,7 +112,7 @@ If you want to read more details about how classic quantization techniques work,
 While these basic techniques enable us to quantize transformers, they usually lead to a drop in accuracy for larger models. The bnb-int8 implementation that we integrated into our transformers and accelerate libraries is the first technique that does not degrade performance even for large models with 176B parameters, such as BLOOM. How does this work?
 
 
-# Mixed int8 matrix multiplication for Large Language Models
+# A gentle summary of mixed int8 matrix multiplication for Large Language Models
 
 Authors have demonstrated how crucial it is to comprehend the scale-dependent emergent properties of transformers in order to understand why traditional quantization fails for big models. They demonstrate that performance deterioration is caused by outlier features. Together, let's look at how this works step by step.
 
@@ -126,21 +126,18 @@ In essence, 8-bit Matrix Multiplication at Scale for Transformers seeks to compl
 ## Why outliers are so important here?
 
 A value that is outside the range of some numbers' global distribution is generally referred to as an outlier. Outlier detection has been widely used and covered in the current literature and having a prior knowledge on the distribution of your features helps with the task of outlier detection. 
-More specifically, authors have observed that classic quantization at scale fails for transformer-based models >6B parameters. As described above, this is explained by the emergence of outlier features in transformers at scale that we will review in detail in the next section.
+More specifically, authors have observed that classic quantization at scale fails for transformer-based models >6B parameters. 
 
 (XXX) here add the figure, ask to Tim if this is ok
 
-## Emergence of outlier features in transformers at scale
-
-At scale, quantization fails. This is due to the fact that, for the majority of models, hidden state features in transformers increase in magnitude with model size. According to the paper, there are typically 150,000 big magnitude features per 2048 token sequence for a 13B transformer model, and these characteristics are concentrated in just 7 feature dimensions throughout the transformer. As was mentioned earlier, 8-bit precision is extremely constrained, therefore quantizing a vector with several big values can produce wildly erroneous results. Additionally, because of a built-in characteristic of the transformer-based architecture that links all the elements together, these errors would propagate deeper across layers.
+For the majority of models, hidden state features in transformers increase in magnitude with model size. As was mentioned earlier, 8-bit precision is extremely constrained, therefore quantizing a vector with several big values can produce wildly erroneous results. Additionally, because of a built-in characteristic of the transformer-based architecture that links all the elements together, these errors would propagate deeper across layers.
 Therefore, mixed-precision decomposition has been developed to facilitate efficient quantization with such extreme outliers and we will review it together on the next section. 
 
 ## Inside the MatMul
 
 Once the hidden states are computed we extract the outliers using a custom threshold (here we use 6.0) and we decompose the matrix in two parts as explained above.
-The outlier part is done in fp16 so it is a classic matrix multiplication whereas the 8bit matrix multiplication is done by quantizing the weights and hidden states using row-wise absmax quantization for the hidden states and column-wise absmax quantization for the weight matrix.
+The outlier part is done in fp16 so it is a classic matrix multiplication whereas the 8bit matrix multiplication is done by quantizing the weights and hidden states int 8-bit precision using row-wise absmax quantization for the hidden states and column-wise absmax quantization for the weight matrix.
 After this step the results are de-quantized and retrieved back in half precision to be able to add it to the first matrix multiplication.
-One could also ask what is the reason why we do not really care about the bias term here, because the output of this algorithm is in fp16 which is the same precision as the bias term!
 
 ![Matmul.png](assets/96_hf_bitsandbytes_integration/Matmul.png)
 
@@ -192,6 +189,98 @@ We benchmarked the inference speed of int8 models on different models, although 
 | T5-3b          | fp32                 | 3B           | 2xT4 15GB                                       |                                              45 |                                              7.2 |  3.1 |
 | T5-3b          | int8                 | 3B           | 1xT4 15GB                                       |                                             312 |                                             39.1 | 10.2 |
 
+For more technical deep-dive of the method, we highly suggest you to check Tim Dettmers' blog : (link)
+
+# Which technology to use for `transformers` integration?
+
+How were these technologies incorporated into the `transformers` library? What were the difficulties we faced and the main technologies we employed in the integration project?
+
+## How to use it in `bitsandbytes` library?
+
+The module that is responsible of the whole magic described in this blogpost is called `Linear8bitLt` module. The latest derives from a classic `torch.nn` Module so can be customly used and deployed in your architecture with the following commands.
+
+```py
+import bitsandbytes as bnb
+from bnb.nn import Linear8bitLt
+```
+
+Note that these modules are slightly different from the `nn.Linear` modules where its parameters are from the `bnb.nn.Int8Params` class instead of `nn.Parameter` class.
+
+## `accelerate` is all you need
+
+When working with huge models, the `accelerate` library includes a number of helpful utilities. The method from that package called `init_empty_weights` is one of those that we truly enjoy. Any model, regardless of size, may be initialized while using this method as a context manager because the initialized model will take up no memory.
+
+```py
+import torch.nn as nn
+from accelerate import init_empty_weights
+
+with init_empty_weights():
+    model = nn.Sequential([nn.Linear(100000, 100000) for _ in range(1000)])
+```
+
+The initialized model will be put on the Pytorch's `meta` device, an underlying mechanism to represent shape and dtype without allocating memory for storage. Isn't very cool?
+
+Initially this function overrides all parameters to `torch.nn.Parameter`, this would not fit our requirement since we want to keep the `Int8Params` class in our case for `Linear8bitLt` modules. We managed to fix that on [the following PR](https://github.com/huggingface/accelerate/pull/519) that modifies 
+
+```py
+module._parameters[name] = nn.Parameter(module._parameters[name].to(torch.device("meta")))
+```
+
+to
+
+```py
+param_cls = type(module._parameters[name])
+kwargs = module._parameters[name].__dict__
+module._parameters[name] = param_cls(module._parameters[name].to(torch.device("meta")), **kwargs)
+```
+
+Now, we can easily leverage this context manager and play with it to replace all `nn.Linear` modules to `bnb.nn.Linear8bitLt` with no cost!
+
+```py
+def replace_8bit_linear(model, threshold=6.0, modules_to_not_convert="lm_head"):
+    for name, module in model.named_children():
+        if len(list(module.children())) > 0:
+            replace_8bit_linear(module, threshold, modules_to_not_convert)
+
+        if isinstance(module, nn.Linear) and name != modules_to_not_convert:
+            with init_empty_weights():
+                model._modules[name] = bnb.nn.Linear8bitLt(
+                    module.in_features,
+                    module.out_features,
+                    module.bias is not None,
+                    has_fp16_weights=False,
+                    threshold=threshold,
+                )
+    return model
+```
+
+This function replaces recursively all Linear layers of a given model initialized on the `meta` device and replace it to a `Linear8bitLt` module. The attribute `has_fp16_weights` has to be set to `False` in order to directly load the weights in `int8` together with the quantization statistics. 
+
+Note also that we discard the replacement for some modules (here for the `lm_head`) since we want to keep the latest in their native precision for more precise results. 
+
+...But this function is executed under `init_empty_weights` context manager which means that the new model will be still in the `meta` device. For models that are initialized under this context manager `accelerate` loads manually the parameter of each module and sets it to the correct device (line below from [here](https://github.com/TimDettmers/bitsandbytes/blob/bd515328d70f344f935075f359c5aefc616878d5/bitsandbytes/nn/modules.py#L94)). 
+
+```py
+# we store the 8-bit rows-major weight
+# we convert this weight to the turning/ampere weight during the first inference pass
+B = self.data.contiguous().half().cuda(device)
+CB, CBt, SCB, SCBt, coo_tensorB = bnb.functional.double_quant(B)
+del CBt
+del SCBt
+self.data = CB
+setattr(self, 'CB', CB)
+setattr(self, 'SCB', SCB)
+```
+
+Therefore setting the parameter to the correct device step is extremely crucial since the quantization statistics fails when calling it twice. We had to came up with our implementation of `accelerate`'s `set_module_tensor_to_device` function. 
+
+## Be very careful on how to set devices with `accelerate`
+
+In `bitsandbytes` the 8-bit conversion of the parameters is done once the modules are set into the proper GPU device. It is very important to call the `.cuda()` function only once, otherwise everything will break on the module's side. Here we played a very delicate balancing act with `accelerate` library!
+Once you load your model and set it on the correct devices, sometimes you still need to call `set_module_tensor_to_device` to dispatch the model with hooks on all devices. This is done inside `dispatch_model` function from `accelerate`. 
+2 Pull Requests were needed to achieve what we wanted! The initial PR proposed [here](https://github.com/huggingface/accelerate/pull/539/) broke some tests but [this PR](https://github.com/huggingface/accelerate/pull/576/) successfully fixed everything! 
+
+All that said, this integration adventure was very fun, deep diving and doing some "surgery" on different libraries to align everything and make it work was pure fun! 
 
 # How to use it in transformers
 
