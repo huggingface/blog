@@ -62,31 +62,26 @@ What elements affect a model's size? What makes BLOOM 350GB? Let's begin by grad
 
 We start with the basic understanding of different floating point data types, which are also referred to as "precision" in the context of Machine Learning.
 
-The size of a model is determined by the number of its parameters, and their precision, typically one of float32, float16 or bfloat16.
+The size of a model is determined by the number of its parameters, and their precision, typically one of float32, float16 or bfloat16 (image below from: https://blogs.nvidia.com/blog/2020/05/14/tensorfloat-32-precision-format/).
+
+![Summary](assets/96_hf_bitsandbytes_integration/tf32-Mantissa-chart-hi-res-FINAL.png)
 
 Float32 (FP32) stands for the standard 32-bit floating point representation. With this data type it is possible to represent a wide range of floating numbers. In FP32, 8 bits are reserved for the "exponent", 23 bits for the "mantissa" and 1 bit for the sign of the number. In addition to that, most of the hardware supports FP32 operations and instructions.
 
-![FP32](assets/96_hf_bitsandbytes_integration/FP32.png)
-
-XXX: for all images that aren't original should add the link to the source page. original don't need to say original ;)
-XXX: actually, perhaps we should use just one image https://blogs.nvidia.com/wp-content/uploads/2020/05/tf32-Mantissa-chart-hi-res-FINAL.png from https://blogs.nvidia.com/blog/2020/05/14/tensorfloat-32-precision-format/ as it nicely aligns all the 4 formats and it's easier for the user to see the important difference at once.
 
 In the float16 (FP16) data type, 5 bits are reserved for the exponent and 10 bits are reserved for the mantissa. This makes the representable range of FP16 numbers much lower than FP32. This exposes FP16 numbers to the risk of overflowing (trying to represent a number that is very large) and underflowing (representing a number that is very small).
 
-![FP16](assets/96_hf_bitsandbytes_integration/FP16.png)
 
 For example, if you do `10k * 10k` you end up with `100k` which is not possible to represent in FP16, as the largest number possible is `64k`. And thus you'd end up with `NaN` (Not a Number) result and all the prior work is destroyed.
 Usually, scaling is used to overcome this issue, but it doesn't always work well.
 
 Thus a new format bfloat16 (BF16) was created to overcome this issue. In BF16, 8 bits are reserved for the exponent (which is the same as in FP32) and 7 bits are reserved for the fraction.
 
-![BF16](assets/96_hf_bitsandbytes_integration/BF16.png)
 
 This means that in BF16 we can retain the same dynamic range as FP32. But we lose 3 bits of precision. Now there is absolutely no problem with huge numbers, but the precision is worse than FP16 here.
 
 In the Ampere architecture NVIDIA also introduced [TensorFloat-32](https://blogs.nvidia.com/blog/2020/05/14/tensorfloat-32-precision-format/) (TF32) precision format, which combines the dynamic range of BF16 and precision of FP16, which uses 19 bits. But it's currently only used internally only during certain operations.
 
-![TF32](assets/96_hf_bitsandbytes_integration/TF32.png)
 
 In the machine learning jargon FP32 is called full precision (4 bytes), while BF16 and FP16 are referred to as half-precision (2 bytes).
 On top of that, the int8 (INT8) data type consists of a 8-bit representation that can store 2^8 different values (between [0, 255] or [-128, 127] for signed integrers).
@@ -116,11 +111,18 @@ The two most common 8-bit quantization techniques are zero-point quantization an
 
 (Image taken from: [this blogpost](https://intellabs.github.io/distiller/algo_quantization.html) )
 
-While the examples above were some toy examples, we now look at the details of absmax quantization. To calculate the mapping between the fp16 number and its corresponding int8 number in absmax quantization you have to first divide by the absolute maximum value of the tensor, and then multiply by the total range of the data type. For example, int8 has a range of `[-127, 127]` and thus we scale by 127. For an unsigned int8, we would subtract the minimum and scale by the absolute maximum. This is close to what zero-point quantization does, a min-max scaling with the difference that zero-point quantization maintains scales the values in such a way that the value “0” is always represented by an integer without any quantization error.  To retrieve back the latest, one can just divide in full precision the int8 number with the quantization factor.
+While the examples above were some toy examples, we now look at the details of absmax quantization. To calculate the mapping between the fp16 number and its corresponding int8 number in absmax quantization you have to first divide by the absolute maximum value of the tensor, and then multiply by the total range of the data type. 
 
-XXX: I lost you here, this example is half-baked - as you didn't divide by the total range and it's very difficult to make sense of the above para. May I suggest to use the exact same example of `0.3` here so that the reader could build upon what he already learnt?
+For example, let's assume you want to apply absmax quantization in a vector that contains `[1.2, -0.5, -4.3, 1.2, -3.1, 0.8, 2.4, 5.4]`. You extract the absolute maximum of it, which is `5,4` in this case. Int8 has a range of `[-127, 127]` and thus we divide 127 by the later result and obtain `23.5` for the scaling factor. Therefore multiplying the original vector by it gives the quantized vector `[28, -12, -101, 28, -73, 19, 56, 127]`. 
+
+To retrieve back the latest, one can just divide in full precision the int8 number with the quantization factor but since the result above is "rounded" some precision will be lost.
 
 ![out-quant.gif](assets/96_hf_bitsandbytes_integration/out-quant.gif)
+
+For an unsigned int8, we would subtract the minimum and scale by the absolute maximum. This is close to what zero-point quantization does, a min-max scaling with the difference that zero-point quantization maintains scales the values in such a way that the value “0” is always represented by an integer without any quantization error. 
+
+XXX: I lost you here, this example is half-baked - as you didn't divide by the total range and it's very difficult to make sense of the above para. May I suggest to use the exact same example of `0.3` here so that the reader could build upon what he already learnt? -> proposed a suggestion above let me know if it is more clear!
+
 
 These tricks can be combined in several ways, for example row-wise or vector-wise quantization when it comes to matrix multiplication for more accurate results.
 
@@ -135,12 +137,13 @@ Now let's look at how it works.
 
 Authors have demonstrated that it is crucial to comprehend the scale-dependent emergent properties of transformers in order to understand why traditional quantization fails for large models. They demonstrate that performance deterioration is caused by outlier features.
 
-XXX: it's not clear what is meant by "outlier features" - an example would help. I think the paper goes into details.
+XXX: it's not clear what is meant by "outlier features" - an example would help. I think the paper goes into details. -> I added a small explanation and explicitly said tha the gif provides a visual example
 
 In essence, 8-bit Matrix Multiplication at Scale for Transformers seeks to complete the matrix multiplication computation in three steps:
-1. From the input hidden states, extract the outliers and non-outliers by column.
+1. From the input hidden states, extract the outliers (i.e. values that are larger than a certain threshold) by column.
 2. Perform the matrix multiplication of the outliers in fp16 and the non-outliers in int8
 3. Dequantize the non-outlier results and retrieve the full result in fp16
+These steps can be summarized in the following animation:
 
 ![Mixed-int8.gif](assets/96_hf_bitsandbytes_integration/Mixed-int8.gif)
 
@@ -148,8 +151,6 @@ In essence, 8-bit Matrix Multiplication at Scale for Transformers seeks to compl
 
 A value that is outside the range of some numbers' global distribution is generally referred to as an outlier. Outlier detection has been widely used and covered in the current literature and having a prior knowledge on the distribution of your features helps with the task of outlier detection.
 More specifically, authors have observed that classic quantization at scale fails for transformer-based models >6B parameters.
-
-(XXX) here add the figure, ask to Tim if this is ok
 
 For the majority of models, hidden state features in transformers increase in magnitude with model size. As was mentioned earlier, 8-bit precision is extremely constrained, therefore quantizing a vector with several big values can produce wildly erroneous results. Additionally, because of a built-in characteristic of the transformer-based architecture that links all the elements together, these errors would propagate deeper across layers.
 Therefore, mixed-precision decomposition has been developed to facilitate efficient quantization with such extreme outliers and we will review it together on the next section.
