@@ -82,6 +82,9 @@ This means that in BF16 we can retain the same dynamic range as FP32. But we los
 
 In the Ampere architecture NVIDIA also introduced [TensorFloat-32](https://blogs.nvidia.com/blog/2020/05/14/tensorfloat-32-precision-format/) (TF32) precision format, which combines the dynamic range of BF16 and precision of FP16, which uses 19 bits. But it's currently only used internally only during certain operations.
 
+XXX: for all images that aren't original should add the link to the source page. original don't need to say original ;)
+XXX: actually, perhaps we should use just one image https://blogs.nvidia.com/wp-content/uploads/2020/05/tf32-Mantissa-chart-hi-res-FINAL.png from https://blogs.nvidia.com/blog/2020/05/14/tensorfloat-32-precision-format/ as it nicely aligns all the 4 formats and it's easier for the user to see the important difference at once. -> proposed a small refactoring above!
+
 
 In the machine learning jargon FP32 is called full precision (4 bytes), while BF16 and FP16 are referred to as half-precision (2 bytes).
 On top of that, the int8 (INT8) data type consists of a 8-bit representation that can store 2^8 different values (between [0, 255] or [-128, 127] for signed integrers).
