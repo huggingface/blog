@@ -154,29 +154,29 @@ We ran several common benchmarks with the 8-bit and native models using lm-eval-
 
 For OPT-175B:
 
-| benchmarks | OPT-175B  |   |       |       |    |       difference - value   |
-| ---------- | --------- | ---------------- |        --------------------      |    --------------------   |  --------------------   |   -------------------- |
-| name       | metric    | value - int8 | value - fp16 | err - int8 | err - fp16 |  -     |
-| hellaswag  | acc\_norm |           0.7849 |       0.7849 |         0.0041 |     0.0041 |      0 |
-| hellaswag  | acc       |           0.5921 |       0.5931 |         0.0049 |     0.0049 |  0.001 |
-| piqa       | acc       |           0.7965 |       0.7959 |         0.0094 |     0.0094 | 0.0006 |
-| piqa       | acc\_norm |           0.8101 |       0.8107 |         0.0092 |     0.0091 | 0.0006 |
-| lambada    | ppl       |           3.0142 |       3.0152 |         0.0552 |     0.0552 |  0.001 |
-| lambada    | acc       |           0.7464 |       0.7466 |         0.0061 |     0.0061 | 0.0002 |
-| winogrande | acc       |           0.7174 |       0.7245 |         0.0127 |     0.0125 | 0.0071 |
+| benchmarks | OPT-175B  |   |       |       |         difference - value   |
+| ---------- | --------- | ---------------- |        --------------------      |    --------------------   |  -------------------- |
+| name       | metric    | value - int8 | value - fp16 | std err - fp16 |  -     |
+| hellaswag  | acc\_norm |           0.7849 |       0.7849 |            0.0041 |      0 |
+| hellaswag  | acc       |           0.5921 |       0.5931 |    0.0049 |  0.001 |
+| piqa       | acc       |           0.7965 |       0.7959 |      0.0094 | 0.0006 |
+| piqa       | acc\_norm |           0.8101 |       0.8107 |     0.0091 | 0.0006 |
+| lambada    | ppl       |           3.0142 |       3.0152 |     0.0552 |  0.001 |
+| lambada    | acc       |           0.7464 |       0.7466 |         0.0061 | 0.0002 |
+| winogrande | acc       |           0.7174 |       0.7245 |      0.0125 | 0.0071 |
 
 For BLOOM-176:
 
-| benchmarks | BLOOM176B |    |   |      |      |     difference - value  |
-| ---------- | --------- | ---------------- |    --------------------  |        --------------------        |    --------------------        | -------------------- |
-| name       | metric    | value - int8 | value - bf16 | err - int8 | err - bf16 |     -  |
-| hellaswag  | acc\_norm |           0.7274 |       0.7303 |         0.0044 |     0.0044 | 0.0029 |
-| hellaswag  | acc       |           0.5563 |       0.5584 |          0.005 |      0.005 | 0.0021 |
-| piqa       | acc       |           0.7835 |       0.7884 |         0.0096 |     0.0095 | 0.0049 |
-| piqa       | acc\_norm |           0.7922 |       0.7911 |         0.0095 |     0.0095 | 0.0011 |
-| lambada    | ppl       |           3.9191 |        3.931 |         0.0842 |     0.0846 | 0.0119 |
-| lambada    | acc       |           0.6808 |       0.6718 |         0.0065 |     0.0065 |  0.009 |
-| winogrande | acc       |           0.7048 |       0.7048 |         0.0128 |     0.0128 |      0 |
+| benchmarks | BLOOM176B |    |   |           |     difference - value  |
+| ---------- | --------- | ---------------- |    --------------------  |        --------------------             | -------------------- |
+| name       | metric    | value - int8 | value - bf16 | std err - bf16 |     -  |
+| hellaswag  | acc\_norm |           0.7274 |       0.7303 |         0.0044 | 0.0029 |
+| hellaswag  | acc       |           0.5563 |       0.5584 |           0.005 | 0.0021 |
+| piqa       | acc       |           0.7835 |       0.7884 |         0.0095 | 0.0049 |
+| piqa       | acc\_norm |           0.7922 |       0.7911 |         0.0095 | 0.0011 |
+| lambada    | ppl       |           3.9191 |        3.931 |      0.0846 | 0.0119 |
+| lambada    | acc       |           0.6808 |       0.6718 |            0.0065 |  0.009 |
+| winogrande | acc       |           0.7048 |       0.7048 |         0.0128 |      0 |
 
 
 We indeed observe 0 performance degradation for those models since the absolute difference of the metrics are all below the standard error (except for BLOOM-int8 which is slightly better than the native model on lambada). For a more detailed performance evaluation against state-of-the-art approaches, take a look at the paper!
