@@ -318,7 +318,7 @@ input_ = torch.randn(8, 64, dtype=torch.float16)
 hidden_states = int8_model(input_.to(0))
 ```
 
-Check out [this gist](https://gist.github.com/younesbelkada/9035e247b066d1cf18682e9e4c21032d) for the full minimal code!
+Check out [the example script](/assets/96_hf_bitsandbytes_integration/example.py) for the full minimal code!
 
 As a side note, you should be aware that these modules differ slightly from the `nn.Linear` modules in that their parameters come from the `bnb.nn.Int8Params` class rather than the `nn.Parameter` class. You'll see later that this presented an additional obstacle on our journey!
 
