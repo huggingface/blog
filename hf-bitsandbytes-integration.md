@@ -180,7 +180,7 @@ We indeed observe 0 performance degradation for those models since the absolute 
 
 ### Is it faster than native models?
 
-While the authors state that the main purpose of the LLM.int8() method is to make large models more accessible without performance degradation, we also benchmarked the inference speed of int8 models on different models. Although we are close to having the same speed as the native model for large models (tested on BLOOM-176), the inference speed seems to be much slower than the native model on smaller models. These issues are currently as expected and might be improve with [updates](https://github.com/TimDettmers/bitsandbytes/issues/6#issuecomment-1211345635) to the bitsandbytes software.
+While the authors state that the main purpose of the LLM.int8() method is to make large models more accessible without performance degradation, we also benchmarked the inference speed of int8 models on different models. Although we are 15% to 23% slower than the native model for BLOOM-176, the inference speed seems to be much slower than the native model on smaller models (4 times to 9 times). These issues are currently as expected and might be improve with [updates](https://github.com/TimDettmers/bitsandbytes/issues/6#issuecomment-1211345635) to the bitsandbytes software in the near future.
 
 | Precision      | Number of parameters | Hardware     | Time per token in milliseconds for Batch Size 1 | Time per token in milliseconds for Batch Size 8 | Time per token in milliseconds for Batch Size 32 |
 | -------------- | -------------------- | ------------ | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ |
