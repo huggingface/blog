@@ -45,7 +45,6 @@ Language models are becoming larger all the time. At the time of this writing, P
 
 ![LLM](assets/96_hf_bitsandbytes_integration/LLM.png)
 
-At this same time, PaLM has 540B parameters, OPT, GPT-3 and BLOOM have around 176B parameters, and the current trend is towards even larger models.
 
 
 Therefore, these models are hard to run on easily accessible devices. For example, just to do inference on BLOOM-175B, you would need to have 8x 80GB A100 GPUs (~$15k each). To fine-tune BLOOM-175B, you'd need 72 of these GPUs! Much larger models, like PaLM would require even more resources.
@@ -102,7 +101,7 @@ But what if we can store those weights with less memory using a different data t
 
 # Introduction to model quantization
 
-Experientially we have discovered that instead of using the 4-byte fp32 precision, we can get an almost identical inference outcome with 2-byte bf16/fp32 half-precision, which halves the model size. It'd be amazing to cut it further, but the inference quality outcome starts to drop dramatically at lower precision.
+Experientially we have discovered that instead of using the 4-byte FP32 precision, we can get an almost identical inference outcome with 2-byte BF16/FP16 half-precision, which halves the model size. It'd be amazing to cut it further, but the inference quality outcome starts to drop dramatically at lower precision.
 
 To remediate that, we introduce 8-bit quantization. This method uses a quarter precision, thus needing only 1/4th of the model size! But it's not done by just dropping another half of the bits.
 
@@ -120,7 +119,7 @@ Now let's look at the details of absmax quantization. To calculate the mapping b
 
 For example, let's assume you want to apply absmax quantization in a vector that contains `[1.2, -0.5, -4.3, 1.2, -3.1, 0.8, 2.4, 5.4]`. You extract the absolute maximum of it, which is `5.4` in this case. Int8 has a range of `[-127, 127]`, so we divide 127 by `5.4` and obtain `23.5` for the scaling factor. Therefore multiplying the original vector by it gives the quantized vector `[28, -12, -101, 28, -73, 19, 56, 127]`. 
 
-To retrieve back the latest, one can just divide in full precision the int8 number with the quantization factor but since the result above is "rounded" some precision will be lost.
+To retrieve the latest, one can just divide in full precision the int8 number with the quantization factor, but since the result above is "rounded" some precision will be lost.
 
 ![out-quant.gif](assets/96_hf_bitsandbytes_integration/out-quant.gif)
 
@@ -133,9 +132,8 @@ These tricks can be combined in several ways, for example row-wise or vector-wis
 
 If you want to read more details about how classic quantization techniques work, we recommend reading this [blog post](https://intellabs.github.io/distiller/algo_quantization.html) or the GPT3.int8() paper (XXX: link).
 
-While these basic techniques enable us to quantize transformers models, they usually lead to a drop in accuracy for larger models. The bnb-int8 implementation that we integrated into Hugging Face Transformers and Accelerate libraries is the first technique that does not degrade performance even for large models with 176B parameters, such as BLOOM.
+While these basic techniques enable us to Deep Learning models, they usually lead to a drop in accuracy for larger models. The bnb-int8 implementation that we integrated into Hugging Face Transformers and Accelerate libraries is the first technique that does not degrade performance even for large models with 176B parameters, such as BLOOM.
 
-Now let's look at how it works.
 
 
 # A gentle summary of mixed int8 matrix multiplication for Large Language Models
@@ -146,8 +144,8 @@ XXX: it's not clear what is meant by "outlier features" - an example would help.
 
 In essence, 8-bit Matrix Multiplication at Scale for Transformers seeks to complete the matrix multiplication computation in three steps:
 1. From the input hidden states, extract the outliers (i.e. values that are larger than a certain threshold) by column.
-2. Perform the matrix multiplication of the outliers in fp16 and the non-outliers in int8
-3. Dequantize the non-outlier results and retrieve the full result in fp16
+2. Perform the matrix multiplication of the outliers in fp16 and the non-outliers in int8.
+3. Dequantize the non-outlier results and retrieve the full result in fp16.
 These steps can be summarized in the following animation:
 
 ![Mixed-int8.gif](assets/96_hf_bitsandbytes_integration/Mixed-int8.gif)
