@@ -107,7 +107,7 @@ To remediate that, we introduce 8-bit quantization. This method uses a quarter p
 
 Quantization is done by essentially “rounding” from one data type to another. For example, if one data type has the range 0..9 and another 0..4, then the value “4” in the first data type would be rounded to “2” in the second data type. However, if we have the value “3” in the first data type, it lies between 1 and 2 of the second data type, then we would usually round to “2”. This shows that both values “4” and “3” of the first data type have the same value “2” in the second data type. This highlights that quantization is a noisy process that can lead to information loss, a sort of lossy compression.
 
-The two most common 8-bit quantization techniques are zero-point quantization and absolute maximum (absmax) quantization. Zero-point quantization and absmax quantization map the floating point values into more compact int8 (1 byte) values. First, these methods normalize the input by scaling it by a quantization constant. 
+The two most common 8-bit quantization techniques are zero-point quantization and absolute maximum (absmax) quantization. Zero-point quantization and absmax quantization map the floating point values into more compact int8 (1 byte) values. First, these methods normalize the input by scaling it by a quantization constant.
 
 For example, in zero-point quantization, if my range is -1.0…1.0 and I want to quantize into the range -127…127, I want to scale by the factor of 127 and then round it into the 8-bit precision. To retrieve the original value, you would need to divide the int8 value by that same quantization factor of 127. For example, the value 0.3 would be scaled to `0.3*127 = 38.1`. Through rounding, we get the value of 38. If we reverse this, we get `38/127=0.2992` – we have a quantization error of 0.008 in this example. These seemingly tiny errors tend to accumulate and grow as they get propagated through the model’s layers and result in performance degradation.
 
@@ -115,53 +115,46 @@ For example, in zero-point quantization, if my range is -1.0…1.0 and I want to
 
 (Image taken from: [this blogpost](https://intellabs.github.io/distiller/algo_quantization.html) )
 
-Now let's look at the details of absmax quantization. To calculate the mapping between the fp16 number and its corresponding int8 number in absmax quantization, you have to first divide by the absolute maximum value of the tensor and then multiply by the total range of the data type. 
+Now let's look at the details of absmax quantization. To calculate the mapping between the fp16 number and its corresponding int8 number in absmax quantization, you have to first divide by the absolute maximum value of the tensor and then multiply by the total range of the data type.
 
-For example, let's assume you want to apply absmax quantization in a vector that contains `[1.2, -0.5, -4.3, 1.2, -3.1, 0.8, 2.4, 5.4]`. You extract the absolute maximum of it, which is `5.4` in this case. Int8 has a range of `[-127, 127]`, so we divide 127 by `5.4` and obtain `23.5` for the scaling factor. Therefore multiplying the original vector by it gives the quantized vector `[28, -12, -101, 28, -73, 19, 56, 127]`. 
+For example, let's assume you want to apply absmax quantization in a vector that contains `[1.2, -0.5, -4.3, 1.2, -3.1, 0.8, 2.4, 5.4]`. You extract the absolute maximum of it, which is `5.4` in this case. Int8 has a range of `[-127, 127]`, so we divide 127 by `5.4` and obtain `23.5` for the scaling factor. Therefore multiplying the original vector by it gives the quantized vector `[28, -12, -101, 28, -73, 19, 56, 127]`.
 
 To retrieve the latest, one can just divide in full precision the int8 number with the quantization factor, but since the result above is "rounded" some precision will be lost.
 
 ![out-quant.gif](assets/96_hf_bitsandbytes_integration/out-quant.gif)
 
-For an unsigned int8, we would subtract the minimum and scale by the absolute maximum. This is close to what zero-point quantization does; a min-max scaling with the difference being zero-point quantization maintains the value scales in such a way that the value “0” is always represented by an integer without any quantization error. 
+For an unsigned int8, we would subtract the minimum and scale by the absolute maximum. This is close to what zero-point quantization does. It's is similar to a min-max scaling but the latter maintains the value scales in such a way that the value “0” is always represented by an integer without any quantization error.
 
-XXX: I lost you here, this example is half-baked - as you didn't divide by the total range and it's very difficult to make sense of the above para. May I suggest to use the exact same example of `0.3` here so that the reader could build upon what he already learnt? -> proposed a suggestion above let me know if it is more clear!
-
-
-These tricks can be combined in several ways, for example row-wise or vector-wise quantization, when it comes to matrix multiplication for more accurate results.
+These tricks can be combined in several ways, for example, row-wise or vector-wise quantization, when it comes to matrix multiplication for more accurate results.
 
 If you want to read more details about how classic quantization techniques work, we recommend reading this [blog post](https://intellabs.github.io/distiller/algo_quantization.html) or the GPT3.int8() paper (XXX: link).
 
-While these basic techniques enable us to Deep Learning models, they usually lead to a drop in accuracy for larger models. The bnb-int8 implementation that we integrated into Hugging Face Transformers and Accelerate libraries is the first technique that does not degrade performance even for large models with 176B parameters, such as BLOOM.
+While these basic techniques enable us to quanitize Deep Learning models, they usually lead to a drop in accuracy for larger models. The bnb-int8 implementation that we integrated into Hugging Face Transformers and Accelerate libraries is the first technique that does not degrade performance even for large models with 176B parameters, such as BLOOM.
 
 
 
 # A gentle summary of mixed int8 matrix multiplication for Large Language Models
 
-Authors have demonstrated that it is crucial to comprehend the scale-dependent emergent properties of transformers in order to understand why traditional quantization fails for large models. They demonstrate that performance deterioration is caused by outlier features.
-
-XXX: it's not clear what is meant by "outlier features" - an example would help. I think the paper goes into details. -> I added a small explanation and explicitly said tha the gif provides a visual example
+Authors have demonstrated that it is crucial to comprehend the scale-dependent emergent properties of transformers in order to understand why traditional quantization fails for large models. They demonstrate that performance deterioration is caused by outlier features, which will be explained next.
 
 In essence, 8-bit Matrix Multiplication at Scale for Transformers seeks to complete the matrix multiplication computation in three steps:
 1. From the input hidden states, extract the outliers (i.e. values that are larger than a certain threshold) by column.
 2. Perform the matrix multiplication of the outliers in fp16 and the non-outliers in int8.
 3. Dequantize the non-outlier results and retrieve the full result in fp16.
+
 These steps can be summarized in the following animation:
 
 ![Mixed-int8.gif](assets/96_hf_bitsandbytes_integration/Mixed-int8.gif)
 
-## Why are outliers so important here?
+## The importance of outlier features
 
-A value that is outside the range of some numbers' global distribution is generally referred to as an outlier. Outlier detection has been widely used and covered in the current literature, and having prior knowledge of the distribution of your features helps with the task of outlier detection.
-More specifically, authors have observed that classic quantization at scale fails for transformer-based models >6B parameters.
+A value that is outside the range of some numbers' global distribution is generally referred to as an outlier. Outlier detection has been widely used and covered in the current literature, and having prior knowledge of the distribution of your features helps with the task of outlier detection. More specifically, authors have observed that classic quantization at scale fails for transformer-based models >6B parameters.
 
-For the majority of models, hidden state features in transformers increase in magnitude with model size. As mentioned earlier, 8-bit precision is extremely constrained, therefore quantizing a vector with several big values can produce wildly erroneous results. Additionally, because of a built-in characteristic of the transformer-based architecture that links all the elements together, these errors would propagate deeper across layers.
-Therefore, mixed-precision decomposition has been developed to facilitate efficient quantization with such extreme outliers, and we will review it together in the next section.
+For the majority of models, hidden state features in transformers increase in magnitude with model size. As mentioned earlier, 8-bit precision is extremely constrained, therefore quantizing a vector with several big values can produce wildly erroneous results. Additionally, because of a built-in characteristic of the transformer-based architecture that links all the elements together, these errors tend to compound as they get propagated across multiple layers. Therefore, mixed-precision decomposition has been developed to facilitate efficient quantization with such extreme outliers. It is discussed next.
 
 ## Inside the MatMul
 
-Once the hidden states are computed we extract the outliers using a custom threshold (here we use 6.0) and we decompose the matrix into two parts as explained above.
-The outlier part is done in fp16 so it is a classic matrix multiplication, whereas the 8bit matrix multiplication is done by quantizing the weights and hidden states into 8-bit precision using row-wise absmax quantization for the hidden states and column-wise absmax quantization for the weight matrix.
+Once the hidden states are computed we extract the outliers using a custom threshold (6.0 in our example) and we decompose the matrix into two parts as explained above. The outlier part is done in fp16 so it is a classic matrix multiplication, whereas the 8-bit matrix multiplication is done by quantizing the weights and hidden states into 8-bit precision using row-wise absmax quantization for the hidden states and column-wise absmax quantization for the weight matrix.
 After this step, the results are dequantized and returned in half-precision in order to add them to the first matrix multiplication.
 
 ![Matmul.png](assets/96_hf_bitsandbytes_integration/Matmul.png)
@@ -169,11 +162,14 @@ After this step, the results are dequantized and returned in half-precision in o
 ## What does 0 degradation mean?
 
 How can we properly evaluate the performance degradation of this method? How much quality do we lose in terms of generation when using 8-bit models?
-We ran several common benchmarks with the 8-bit and native model using lm-eval-harness and reported the results:
+
+We ran several common benchmarks with the 8-bit and native models using lm-eval-harness and reported the results.
+
+For OPT-175B:
 
 | benchmarks | OPT-175B  |   |       |       |    |       difference     |
 | ---------- | --------- | ---------------- |        --------------------      |    --------------------   |  --------------------   |   -------------------- |
-| name       | metric    | value - int8 - 6 | value - fp16 | err - int8 - 6 | err - fp16 |  - |
+| name       | metric    | value - int8 - 6 | value - fp16 | err - int8 - 6 | err - fp16 |  -     |
 | hellaswag  | acc\_norm |           0.7849 |       0.7849 |         0.0041 |     0.0041 |      0 |
 | hellaswag  | acc       |           0.5921 |       0.5931 |         0.0049 |     0.0049 |  0.001 |
 | piqa       | acc       |           0.7965 |       0.7959 |         0.0094 |     0.0094 | 0.0006 |
@@ -182,11 +178,11 @@ We ran several common benchmarks with the 8-bit and native model using lm-eval-h
 | lambada    | acc       |           0.7464 |       0.7466 |         0.0061 |     0.0061 | 0.0002 |
 | winogrande | acc       |           0.7174 |       0.7245 |         0.0127 |     0.0125 | 0.0071 |
 
-And the results on BLOOM-176:
+For BLOOM-176:
 
 | benchmarks | BLOOM176B |    |   |      |      |     difference   |
 | ---------- | --------- | ---------------- |    --------------------  |        --------------------        |    --------------------        | -------------------- |
-| name       | metric    | value - int8 - 6 | value - bf16 | err - int8 - 6 | err - bf16 |     \- |
+| name       | metric    | value - int8 - 6 | value - bf16 | err - int8 - 6 | err - bf16 |     -  |
 | hellaswag  | acc\_norm |           0.7274 |       0.7303 |         0.0044 |     0.0044 | 0.0029 |
 | hellaswag  | acc       |           0.5563 |       0.5584 |          0.005 |      0.005 | 0.0021 |
 | piqa       | acc       |           0.7835 |       0.7884 |         0.0096 |     0.0095 | 0.0049 |
@@ -223,7 +219,7 @@ How were these technologies incorporated into the `transformers` library? What w
 
 ## How to use it in `bitsandbytes` library?
 
-The module responsible for the whole magic described in this blog post is called `Linear8bitLt` and you can easily import it from the `bitsandbytes` library. It is derived from a classic `torch.nn` Module and can be easily used and deployed in your architecture with the commands described below. 
+The module responsible for the whole magic described in this blog post is called `Linear8bitLt` and you can easily import it from the `bitsandbytes` library. It is derived from a classic `torch.nn` Module and can be easily used and deployed in your architecture with the commands described below.
 
 Let's walk through step by step with a specific use case: let's say you want to convert a shallow model in int8 using `bitsandbytes`.
 
