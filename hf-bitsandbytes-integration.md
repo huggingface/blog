@@ -154,9 +154,9 @@ We ran several common benchmarks with the 8-bit and native models using lm-eval-
 
 For OPT-175B:
 
-| benchmarks | OPT-175B  |   |       |       |    |       difference     |
+| benchmarks | OPT-175B  |   |       |       |    |       difference - value   |
 | ---------- | --------- | ---------------- |        --------------------      |    --------------------   |  --------------------   |   -------------------- |
-| name       | metric    | value - int8 - 6 | value - fp16 | err - int8 - 6 | err - fp16 |  -     |
+| name       | metric    | value - int8 | value - fp16 | err - int8 | err - fp16 |  -     |
 | hellaswag  | acc\_norm |           0.7849 |       0.7849 |         0.0041 |     0.0041 |      0 |
 | hellaswag  | acc       |           0.5921 |       0.5931 |         0.0049 |     0.0049 |  0.001 |
 | piqa       | acc       |           0.7965 |       0.7959 |         0.0094 |     0.0094 | 0.0006 |
@@ -167,9 +167,9 @@ For OPT-175B:
 
 For BLOOM-176:
 
-| benchmarks | BLOOM176B |    |   |      |      |     difference   |
+| benchmarks | BLOOM176B |    |   |      |      |     difference - value  |
 | ---------- | --------- | ---------------- |    --------------------  |        --------------------        |    --------------------        | -------------------- |
-| name       | metric    | value - int8 - 6 | value - bf16 | err - int8 - 6 | err - bf16 |     -  |
+| name       | metric    | value - int8 | value - bf16 | err - int8 | err - bf16 |     -  |
 | hellaswag  | acc\_norm |           0.7274 |       0.7303 |         0.0044 |     0.0044 | 0.0029 |
 | hellaswag  | acc       |           0.5563 |       0.5584 |          0.005 |      0.005 | 0.0021 |
 | piqa       | acc       |           0.7835 |       0.7884 |         0.0096 |     0.0095 | 0.0049 |
@@ -185,17 +185,21 @@ We indeed observe 0 performance degradation for those models since the absolute 
 
 We also benchmarked the int8 inference speed of several models. Although we are close to having the same speed as the native model for large models (tested on BLOOM-176), the inference speed seems to be much slower than the native model on smaller models.
 
-| Model          | Number of parameters | Hardware     | Time per token in milliseconds for Batch Size 1 | Time per token in milliseconds for Batch Size 8 | Time per token in milliseconds for Batch Size 32 |
+| Precision      | Number of parameters | Hardware     | Time per token in milliseconds for Batch Size 1 | Time per token in milliseconds for Batch Size 8 | Time per token in milliseconds for Batch Size 32 |
 | -------------- | -------------------- | ------------ | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ |
-| BLOOM-176-int8 | 176B                 | 4xA100 80GB  | 282                                             |                                            37.5 |                                             10.2 |      |
-| BLOOM-176-bf16 | 176B                 | 8xA100 80GB  | 239                                             |                                              32 |                                              9.9 |      |
-| BLOOM-176-int8 | 176B                 | 6xA100 40GB  | 365                                             |                                            46.7 |                                             12.4 |      |
-| BLOOM-176-int8 | 176B                 | 5xA100 40GB  | 367                                             |                                            46.4 |                                              oom |      |
-| BLOOM-176-bf16 | 176B                 | 14xA100 40GB | 285                                             |                                            36.5 |                                             10.4 |      |
-| T5-11b-fp16         | 11B                         | 2xT4 15GB                                       |                                            11.7 |                                              1.7 |  0.5 |
-| T5-11b-int8         | 11B                         | 1xT4 15GB                                       |                                            43.5 |                                              5.3 |  1.3 |
-| T5-3b-fp32          | 3B                           | 2xT4 15GB                                       |                                              45 |                                              7.2 |  3.1 |
-| T5-3b-int8          |   3B                         | 1xT4 15GB                                       |                                             312 |                                             39.1 | 10.2 |
+| bf16           | 176B                 | 8xA100 80GB  |                                             239 |                                              32 |                                              9.9 |
+| int8           | 176B                 | 4xA100 80GB  |                                             282 |                                            37.5 |                                             10.2 |
+| -------------- | -------------------- | ------------ | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ |
+| bf16           | 176B                 | 14xA100 40GB |                                             285 |                                            36.5 |                                             10.4 |
+| int8           | 176B                 | 5xA100 40GB  |                                             367 |                                            46.4 |                                              oom |
+| -------------- | -------------------- | ------------ | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ |
+| fp16           | 11B                  | 2xT4 15GB    |                                            11.7 |                                             1.7 |                                              0.5 |
+| int8           | 11B                  | 1xT4 15GB    |                                            43.5 |                                             5.3 |                                              1.3 |
+| -------------- | -------------------- | ------------ | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ |
+| fp32           | 3B                   | 2xT4 15GB    |                                              45 |                                             7.2 |                                              3.1 |
+| int8           | 3B                   | 1xT4 15GB    |                                             312 |                                            39.1 |                                             10.2 |
+
+The 3 models are BLOOM-176B, T5-11B and T5-3B
 
 
 For a more technical deep dive into the method, we highly suggest checking out Tim Dettmers' blog : (link)
@@ -208,7 +212,7 @@ Next let's discuss the specifics of the Hugging Face `transformers` integration.
 
 The module responsible for the whole magic described in this blog post is called `Linear8bitLt` and you can easily import it from the `bitsandbytes` library. It is derived from a classic `torch.nn` Module and can be easily used and deployed in your architecture with the code described below.
 
-Here is a step-by-step example of the following use case: let's say you want to convert a shallow model in int8 using `bitsandbytes`.
+Here is a step-by-step example of the following use case: let's say you want to convert a small model in int8 using `bitsandbytes`.
 
 1. First we need the correct imports below!
 
@@ -352,12 +356,12 @@ module._parameters[name] = param_cls(module._parameters[name].to(torch.device("m
 Now that this is fixed, we can easily leverage this context manager and play with it to replace all `nn.Linear` modules to `bnb.nn.Linear8bitLt` at no memory cost using a custom function!
 
 ```py
-def replace_8bit_linear(model, threshold=6.0, modules_to_not_convert="lm_head"):
+def replace_8bit_linear(model, threshold=6.0, module_to_not_convert="lm_head"):
     for name, module in model.named_children():
         if len(list(module.children())) > 0:
-            replace_8bit_linear(module, threshold, modules_to_not_convert)
+            replace_8bit_linear(module, threshold, module_to_not_convert)
 
-        if isinstance(module, nn.Linear) and name != modules_to_not_convert:
+        if isinstance(module, nn.Linear) and name != module_to_not_convert:
             with init_empty_weights():
                 model._modules[name] = bnb.nn.Linear8bitLt(
                     module.in_features,
@@ -374,22 +378,10 @@ This function recursively replaces all `nn.Linear` layers of a given model initi
 We also discard the replacement for some modules (here the `lm_head`) since we want to keep the latest in their native precision for more precise and stable results.
 
 But it isn't over yet! The function above is executed under the `init_empty_weights` context manager which means that the new model will be still in the `meta` device.
-For models that are initialized under this context manager, `accelerate` later manually loads the parameters of each module and sets it on the correct device.
-In `bitsandbytes`, setting a `Linear8bitLt` module's device is a crucial step (the code snippet below is from [here](https://github.com/TimDettmers/bitsandbytes/blob/bd515328d70f344f935075f359c5aefc616878d5/bitsandbytes/nn/modules.py#L94)) as we have seen in our toy script. If you look more closely, this happens when `.to` or `.cuda` is called:
+For models that are initialized under this context manager, `accelerate` will manually load the parameters of each module and sets it on the correct device.
+In `bitsandbytes`, setting a `Linear8bitLt` module's device is a crucial step (if you are curious, you can check the code snippet [here](https://github.com/TimDettmers/bitsandbytes/blob/bd515328d70f344f935075f359c5aefc616878d5/bitsandbytes/nn/modules.py#L94)) as we have seen in our toy script.
 
-```py
-## we store the 8-bit rows-major weight
-## we convert this weight to the turning/ampere weight during the first inference pass
-B = self.data.contiguous().half().cuda(device)
-CB, CBt, SCB, SCBt, coo_tensorB = bnb.functional.double_quant(B)
-del CBt
-del SCBt
-self.data = CB
-setattr(self, 'CB', CB)
-setattr(self, 'SCB', SCB)
-```
-
-Here, setting a parameter's device step is extremely crucial since the quantization statistics fails when calling it twice. We had to come up with an implementation of `accelerate`'s `set_module_tensor_to_device` function (termed as `set_module_8bit_tensor_to_device`) to make sure we don't call it twice. Let's discuss this in detail in the section below!
+Here the quantization step fails when calling it twice. We had to come up with an implementation of `accelerate`'s `set_module_tensor_to_device` function (termed as `set_module_8bit_tensor_to_device`) to make sure we don't call it twice. Let's discuss this in detail in the section below!
 
 ### Be very careful on how to set devices with `accelerate`
 
