@@ -154,7 +154,7 @@ We ran several common benchmarks with the 8-bit and native models using lm-eval-
 
 For OPT-175B:
 
-| benchmarks | OPT-175B  |   |       |       |         difference - value   |
+| benchmarks | -  |  - |    -   |   -    |         difference - value   |
 | ---------- | --------- | ---------------- |        --------------------      |    --------------------   |  -------------------- |
 | name       | metric    | value - int8 | value - fp16 | std err - fp16 |  -     |
 | hellaswag  | acc\_norm |           0.7849 |       0.7849 |            0.0041 |      0 |
@@ -167,7 +167,7 @@ For OPT-175B:
 
 For BLOOM-176:
 
-| benchmarks | BLOOM176B |    |   |           |     difference - value  |
+| benchmarks | - | -   | -  |   -        |     difference - value  |
 | ---------- | --------- | ---------------- |    --------------------  |        --------------------             | -------------------- |
 | name       | metric    | value - int8 | value - bf16 | std err - bf16 |     -  |
 | hellaswag  | acc\_norm |           0.7274 |       0.7303 |         0.0044 | 0.0029 |
