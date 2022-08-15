@@ -482,5 +482,6 @@ Huge thanks to the following who contributed to improve the readability of the a
 JustHeuristic (Yozh),
 Michael Benayoun,
 Stas Bekman,
+Steven Liu,
 Sylvain Gugger,
 Tim Dettmers
