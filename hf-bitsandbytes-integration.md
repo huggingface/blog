@@ -28,24 +28,15 @@ thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
             <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
-    <a href="/stas">
-        <img class="avatar avatar-user" src="/blog/assets/86_bloom_megatron_deepspeed/stas-bekman-300x300.jpg">
-        <div class="bfc">
-            <code>stas</code>
-            <span class="fullname">Stas Bekman</span>
-        </div>
-    </a>
 </div>
 
 ![thumbnail](assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png)
 
-# Introduction
+## Introduction
 
 Language models are becoming larger all the time. At the time of this writing, PaLM has 540B parameters, OPT, GPT-3, and BLOOM have around 176B parameters, and we are trending towards even larger models. Below is a qualitative diagram showing the size of some recent language models.
 
 ![LLM](assets/96_hf_bitsandbytes_integration/LLM.png)
-
-
 
 Therefore, these models are hard to run on easily accessible devices. For example, just to do inference on BLOOM-175B, you would need to have 8x 80GB A100 GPUs (~$15k each). To fine-tune BLOOM-175B, you'd need 72 of these GPUs! Much larger models, like PaLM would require even more resources.
 
@@ -57,7 +48,7 @@ This article focuses on giving a high-level overview of this quantization techno
 
 What elements affect a model's size? What makes BLOOM 350GB? Let's begin by gradually going over a few basic premises.
 
-# Common data types used in Machine Learning
+## Common data types used in Machine Learning
 
 We start with the basic understanding of different floating point data types, which are also referred to as "precision" in the context of Machine Learning.
 
@@ -99,7 +90,7 @@ To calculate the model size in bytes, one multiplies the number of parameters by
 But what if we can store those weights with less memory using a different data type? A methodology called quantization has been used widely in Deep Learning.
 
 
-# Introduction to model quantization
+## Introduction to model quantization
 
 Experientially we have discovered that instead of using the 4-byte FP32 precision, we can get an almost identical inference outcome with 2-byte BF16/FP16 half-precision, which halves the model size. It'd be amazing to cut it further, but the inference quality outcome starts to drop dramatically at lower precision.
 
@@ -133,7 +124,7 @@ While these basic techniques enable us to quanitize Deep Learning models, they u
 
 
 
-# A gentle summary of mixed int8 matrix multiplication for Large Language Models
+## A gentle summary of mixed int8 matrix multiplication for Large Language Models
 
 Authors have demonstrated that it is crucial to comprehend the scale-dependent emergent properties of transformers in order to understand why traditional quantization fails for large models. They demonstrate that performance deterioration is caused by outlier features, which will be explained next.
 
@@ -146,20 +137,20 @@ These steps can be summarized in the following animation:
 
 ![Mixed-int8.gif](assets/96_hf_bitsandbytes_integration/Mixed-int8.gif)
 
-## The importance of outlier features
+### The importance of outlier features
 
 A value that is outside the range of some numbers' global distribution is generally referred to as an outlier. Outlier detection has been widely used and covered in the current literature, and having prior knowledge of the distribution of your features helps with the task of outlier detection. More specifically, authors have observed that classic quantization at scale fails for transformer-based models >6B parameters.
 
 For the majority of models, hidden state features in transformers increase in magnitude with model size. As mentioned earlier, 8-bit precision is extremely constrained, therefore quantizing a vector with several big values can produce wildly erroneous results. Additionally, because of a built-in characteristic of the transformer-based architecture that links all the elements together, these errors tend to compound as they get propagated across multiple layers. Therefore, mixed-precision decomposition has been developed to facilitate efficient quantization with such extreme outliers. It is discussed next.
 
-## Inside the MatMul
+### Inside the MatMul
 
 Once the hidden states are computed we extract the outliers using a custom threshold (6.0 in our example) and we decompose the matrix into two parts as explained above. The outlier part is done in fp16 so it is a classic matrix multiplication, whereas the 8-bit matrix multiplication is done by quantizing the weights and hidden states into 8-bit precision using row-wise absmax quantization for the hidden states and column-wise absmax quantization for the weight matrix.
 After this step, the results are dequantized and returned in half-precision in order to add them to the first matrix multiplication.
 
 ![Matmul.png](assets/96_hf_bitsandbytes_integration/Matmul.png)
 
-## What does 0 degradation mean?
+### What does 0 degradation mean?
 
 How can we properly evaluate the performance degradation of this method? How much quality do we lose in terms of generation when using 8-bit models?
 
@@ -194,9 +185,9 @@ For BLOOM-176:
 
 We indeed observe 0 performance degradation for those models since the absolute difference of the metrics are all below the standard error (except for BLOOM-int8 which is slightly better than the native model on lambada). For a more detailed performance evaluation against state-of-the-art approaches, take a look at the paper!
 
-## Is it faster than native models?
+### Is it faster than native models?
 
-We also benchmarked the inference speed of int8 models on different models. Although we are close to having the same speed as the native model for large models (tested on BLOOM-176), the inference speed seems to be much slower than the native model on smaller models.
+We also benchmarked the int8 inference speed of several models. Although we are close to having the same speed as the native model for large models (tested on BLOOM-176), the inference speed seems to be much slower than the native model on smaller models.
 
 | Model          | Number of parameters | Hardware     | Time per token in milliseconds for Batch Size 1 | Time per token in milliseconds for Batch Size 8 | Time per token in milliseconds for Batch Size 32 |
 | -------------- | -------------------- | ------------ | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ |
@@ -213,15 +204,15 @@ We also benchmarked the inference speed of int8 models on different models. Alth
 
 For a more technical deep dive into the method, we highly suggest checking out Tim Dettmers' blog : (link)
 
-# Which technology to use for `transformers` integration?
+### Hugging Face `transformers` integration nuances
 
-How were these technologies incorporated into the `transformers` library? What were the difficulties we faced and the main techniques we employed in the integration project? Let's examine everything in the next sections!
+Next let's discuss the specifics of the Hugging Face `transformers` integration. Let's look at the usage and the common culprit you may encounter while trying to set things up.
 
-## How to use it in `bitsandbytes` library?
+### Usage
 
-The module responsible for the whole magic described in this blog post is called `Linear8bitLt` and you can easily import it from the `bitsandbytes` library. It is derived from a classic `torch.nn` Module and can be easily used and deployed in your architecture with the commands described below.
+The module responsible for the whole magic described in this blog post is called `Linear8bitLt` and you can easily import it from the `bitsandbytes` library. It is derived from a classic `torch.nn` Module and can be easily used and deployed in your architecture with the code described below.
 
-Let's walk through step by step with a specific use case: let's say you want to convert a shallow model in int8 using `bitsandbytes`.
+Here is a step-by-step example of the following use case: let's say you want to convert a shallow model in int8 using `bitsandbytes`.
 
 1. First we need the correct imports below!
 
@@ -233,7 +224,7 @@ import bitsandbytes as bnb
 from bnb.nn import Linear8bitLt
 ```
 
-2. Then you can define your own FP16 model. This detail is very important as you absolutely need a FP16 model to make it work. You can also train or load a FP32 or BF16 model and cast it directly to FP16 (but at your own risk).
+2. Then you can define your own FP16 model. This detail is very important as you absolutely need a FP16 model to make it work. You might be able to use FP32 or BF16 model weights and cast those to FP16 (but at your own risk, since after conversion a model may fail to work - e.g. fp16 easily overflows with large numbers).
 
 ```py
 fp16_model = nn.Sequential(
@@ -242,13 +233,14 @@ fp16_model = nn.Sequential(
 ).to(torch.float16)
 ```
 
-3. Let's say you have trained your model on your favorite dataset and task! Now time to save the model:
+3. Next, you train the model and save the result:
 
 ```py
+[... train the model ...]
 torch.save(fp16_model.state_dict(), "model.pt")
 ```
 
-4. Now that your `state_dict` is saved, let us define an int8 model:
+4. Next we define an int8 model:
 
 ```py
 int8_model = nn.Sequential(
@@ -257,9 +249,9 @@ int8_model = nn.Sequential(
 )
 ```
 
-Here it is very important to add the flag `has_fp16_weights`. By default, this is set to `True` because currently loading a model with `has_fp16_weights=True` is not very well supported yet.
+Here it is very important to add the flag `has_fp16_weights`. By default, this is set to `True` because loading a model with `has_fp16_weights=True` is not very well supported yet.
 
-5. Now time to load your model in 8-bit!
+5. Finally the fp16 weights are loaded into the 8-bit model!
 
 ```py
 int8_model.load_state_dict(torch.load("model.pt"))
@@ -281,7 +273,7 @@ tensor([[ 0.0031, -0.0438,  0.0494,  ..., -0.0046, -0.0410,  0.0436],
        dtype=torch.float16)
 ```
 
-Whereas if you print it after the second line's call you get:
+Whereas, if you print it after the `.to` call, you get:
 
 ```
 int8_model[0].weight
@@ -292,15 +284,16 @@ tensor([[   3,  -47,   54,  ...,   -5,  -44,   47],
         ...,
         [  82,   74,   65,  ...,  -49,  -53, -109],
         [ -21,  -42,   68,  ...,   13,   57,  -12],
-        [  -4,   88,   -1,  ...,  -43,  -78,  121]], device='cuda:0',
-       dtype=torch.int8, requires_grad=True)
+        [  -4,   88,   -1,  ...,  -43,  -78,  121]],
+        device='cuda:0', dtype=torch.int8, requires_grad=True)
 ```
 
-The weights values are "truncated" as we have seen when explaining quantization in the previous sections. Also, the values seem to be distributed between [-128, 127].
+The weights values are "truncated" as we have seen when explaining quantization in the previous sections. Also, the values seem to be distributed between `[-128, 127]`.
+
 You might also wonder how to retrieve the FP16 weights in order to perform the outlier MatMul in fp16? You can simply do:
 
 ```py
-(int8_model[0].weight.CB * int8_model[0].weight.SCB)/127
+(int8_model[0].weight.CB * int8_model[0].weight.SCB) / 127
 ```
 
 And you will get:
@@ -316,7 +309,7 @@ tensor([[ 0.0028, -0.0459,  0.0522,  ..., -0.0049, -0.0428,  0.0462],
        device='cuda:0')
 ```
 
-Which is close enough to the original FP16 values!
+Which is quite close to the original FP16 values (2 print outs up)!
 
 6. Now you can safely infer using your model by making sure your model is on the correct GPU:
 
@@ -325,20 +318,23 @@ input_ = torch.randn(8, 64, dtype=torch.float16)
 hidden_states = int8_model(input_.to(0))
 ```
 
-Check out [this gist](https://gist.github.com/younesbelkada/9035e247b066d1cf18682e9e4c21032d) for the full minimal code! Now the time has come to understand how to integrate that into the `transformers` library!
+Check out [this gist](https://gist.github.com/younesbelkada/9035e247b066d1cf18682e9e4c21032d) for the full minimal code!
 
 As a side note, you should be aware that these modules differ slightly from the `nn.Linear` modules in that their parameters come from the `bnb.nn.Int8Params` class rather than the `nn.Parameter` class. You'll see later that this presented an additional obstacle on our journey!
 
-## `accelerate` is all you need
+Now the time has come to understand how to integrate that into the `transformers` library!
 
-When working with huge models, the `accelerate` library includes a number of helpful utilities. The `init_empty_weights` method is especially helpful because any model, regardless of size, may be initialized with this method as a context manager with 0 cost, aka **no memory**.
+
+### `accelerate` is all you need
+
+When working with huge models, the `accelerate` library includes a number of helpful utilities. The `init_empty_weights` method is especially helpful because any model, regardless of size, may be initialized with this method as a context manager without allocating any memory for the model weights.
 
 ```py
 import torch.nn as nn
 from accelerate import init_empty_weights
 
 with init_empty_weights():
-    model = nn.Sequential([nn.Linear(100000, 100000) for _ in range(1000)]) # This will take 0 RAM!
+    model = nn.Sequential([nn.Linear(100000, 100000) for _ in range(1000)]) # This will consume ~0 RAM!
 ```
 
 The initialized model will be put on PyTorch's `meta` device, an underlying mechanism to represent shape and dtype without allocating memory for storage. How cool is that?
@@ -357,7 +353,7 @@ kwargs = module._parameters[name].__dict__
 module._parameters[name] = param_cls(module._parameters[name].to(torch.device("meta")), **kwargs)
 ```
 
-Now that this is fixed, we can easily leverage this context manager and play with it to replace all `nn.Linear` modules to `bnb.nn.Linear8bitLt` with no cost using a custom function!
+Now that this is fixed, we can easily leverage this context manager and play with it to replace all `nn.Linear` modules to `bnb.nn.Linear8bitLt` at no memory cost using a custom function!
 
 ```py
 def replace_8bit_linear(model, threshold=6.0, modules_to_not_convert="lm_head"):
@@ -383,11 +379,11 @@ We also discard the replacement for some modules (here the `lm_head`) since we w
 
 But it isn't over yet! The function above is executed under the `init_empty_weights` context manager which means that the new model will be still in the `meta` device.
 For models that are initialized under this context manager, `accelerate` later manually loads the parameters of each module and sets it on the correct device.
-In `bitsandbytes`, setting a `Linear8bitLt` module's device is a crucial step (line below from [here](https://github.com/TimDettmers/bitsandbytes/blob/bd515328d70f344f935075f359c5aefc616878d5/bitsandbytes/nn/modules.py#L94)) as we have seen in our toy script. If you look more closely, this happens when `.to` or `.cuda` is called:
+In `bitsandbytes`, setting a `Linear8bitLt` module's device is a crucial step (the code snippet below is from [here](https://github.com/TimDettmers/bitsandbytes/blob/bd515328d70f344f935075f359c5aefc616878d5/bitsandbytes/nn/modules.py#L94)) as we have seen in our toy script. If you look more closely, this happens when `.to` or `.cuda` is called:
 
 ```py
-# we store the 8-bit rows-major weight
-# we convert this weight to the turning/ampere weight during the first inference pass
+## we store the 8-bit rows-major weight
+## we convert this weight to the turning/ampere weight during the first inference pass
 B = self.data.contiguous().half().cuda(device)
 CB, CBt, SCB, SCBt, coo_tensorB = bnb.functional.double_quant(B)
 del CBt
@@ -399,13 +395,13 @@ setattr(self, 'SCB', SCB)
 
 Here, setting a parameter's device step is extremely crucial since the quantization statistics fails when calling it twice. We had to come up with an implementation of `accelerate`'s `set_module_tensor_to_device` function (termed as `set_module_8bit_tensor_to_device`) to make sure we don't call it twice. Let's discuss this in detail in the section below!
 
-## Be very careful on how to set devices with `accelerate`
+### Be very careful on how to set devices with `accelerate`
 
 Here we played a very delicate balancing act with the `accelerate` library!
 Once you load your model and set it on the correct devices, sometimes you still need to call `set_module_tensor_to_device` to dispatch the model with hooks on all devices. This is done inside the `dispatch_model` function from `accelerate`, which involves potentially calling `.to` several times and is something we want to avoid.
 2 Pull Requests were needed to achieve what we wanted! The initial PR proposed [here](https://github.com/huggingface/accelerate/pull/539/) broke some tests but [this PR](https://github.com/huggingface/accelerate/pull/576/) successfully fixed everything!
 
-## Wrapping it all up
+### Wrapping it all up
 
 Therefore the ultimate recipe is:
 1. Initialize a model in the `meta` device with the correct modules
@@ -418,13 +414,13 @@ All said and done, this integration adventure was very fun; from deep diving and
 
 Now time to see how to benefit from this integration and how to successfully use it in `transformers`!
 
-# How to use it in `transformers`
+## How to use it in `transformers`
 
-## Hardware requirements
+### Hardware requirements
 
 8-bit tensor cores are not supported on the CPU. bitsandbytes can be run on 8-bit tensor core-supported hardware, which are Turing and Ampere GPUs (RTX 20s, RTX 30s, A40-A100, T4+). For example, Google Colab GPUs are usually NVIDIA T4 GPUs, and their latest generation of GPUs does support 8-bit cores. Our demos are based on Google Colab so check them out below!
 
-## Installation
+### Installation
 
 Just install the latest version of the libraries using the commands below (make sure that you are using python>=3.8) and run the commands below to try out
 
@@ -434,7 +430,7 @@ pip install bitsandbytes
 pip install git+https://github.com/huggingface/transformers.git
 ```
 
-## Example demos - running T5 11b on a Google Colab
+### Example demos - running T5 11b on a Google Colab
 
 Check out the Google Colab demos for running 8bit models on a BLOOM-3B model!
 
@@ -447,12 +443,12 @@ Or this demo for BLOOM-3B:
 
 [![Open In Colab: BLOOM-3b demo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1qOjXfQIAULfKvZqwCen8-MoWKGdSatZ4?usp=sharing)
 
-# Scope of improvements
+## Scope of improvements
 
 This approach, in our opinion, greatly improves access to very large models. With no performance degradation, it enables users with less compute to access models that were previously inaccessible.
 We've found several areas for improvement that can be worked on in the future to make this method even better for large models!
 
-## Inference speed and slowing down on smaller models
+### Inference speed and slowing down on smaller models
 
 For very large language models, we have observed that we nearly maintain the same inference speed using the native model as opposed to the mixed-8bit model (see attached experiments on BLOOM-176B).
 
@@ -460,19 +456,19 @@ However, due to the numerous internal casting steps, together with the outlier d
 
 One could attempt to improve that in the future and see how the inference speed can be decreased, probably by avoiding the casting operations or writing more efficient CUDA kernels.
 
-## Saving 8-bit state dicts on the Hub
+### Saving 8-bit state dicts on the Hub
 
 8-bit state dicts cannot currently be loaded directly into the 8-bit model after being pushed on the Hub. This is due to the fact that the statistics (remember `weight.CB` and `weight.SCB`) computed by the model are not currently stored or taken into account inside the state dict, and the `Linear8bitLt` module does not support this feature yet.
 We think that having the ability to save that and push it to the Hub might contribute to greater accessibility.
-## CPU support
+### CPU support
 
 CPU devices do not support 8-bit cores, as was stated at the beginning of this blogpost. Can we, however, get past that? Running this module on CPUs would also significantly improve usability and accessibility.
 
-## Scaling up on other modalities
+### Scaling up on other modalities
 
 Currently, language models dominate very large models. Leveraging this method on very large vision, audio, and multi-modal models might be an interesting thing to do for better accessibility in the coming years as these models become more accessible.
 
-# Credits
+## Credits
 
 Huge thanks to the following who contributed to improve the readability of the article as well as contributed in the integration procedure in `transformers` (listed in alphabetic order):
 JustHeuristic (Yozh),
