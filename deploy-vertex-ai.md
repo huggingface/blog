@@ -325,7 +325,7 @@ Once it’s done, you should be able to see it on the
 
 # Performing Predictions
 
-Assuming you succeeded in the above step, you can test the deployed
+If your deployment was successful, you can test the deployed
 Endpoint by making a prediction request.
 
 First, prepare a base64 encoded image string:
