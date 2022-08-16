@@ -42,7 +42,7 @@ Therefore, these models are hard to run on easily accessible devices. For exampl
 
 Because these huge models require so many GPUs to run, we need to find ways to reduce these requirements while preserving the model's performance. Various technologies have been developed that try to shrink the model size, you may have heard of quantization and distillation, and there are many others.
 
-At Hugging Face and BigScience, after completing the training of BLOOM-176B, one of the approaches we took was to collaborate with `bitsandbytes` and integrate the technology described in the recent ["LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale" paper](url) into Hugging Face Transformers. We chose to integrate it since no post-training quantization is required to run this method, and you can reduce the memory footprint of any model by 2x by adding just a few lines of code.
+At Hugging Face and BigScience, after completing the training of BLOOM-176B, one of the approaches we took was to collaborate with `bitsandbytes` and integrate the technology described in the recent ["LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale" paper](https://arxiv.org/abs/2208.07339) into Hugging Face Transformers. We chose to integrate it since no post-training quantization is required to run this method, and you can reduce the memory footprint of any model by 2x by adding just a few lines of code.
 
 This article focuses on giving a high-level overview of this quantization technology, outlining the difficulties in incorporating it into the `transformers` library, and drawing up the long-term goals of this partnership.
 
