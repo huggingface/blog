@@ -141,7 +141,7 @@ trained TensorFlow model on Vertex AI.
 
 ![](./assets/97_vertex_ai/image7.png)
 
-Let’s now discuss what Vertex AI Model Registry and Endpoint are.
+Let’s now discuss what the Vertex AI Model Registry and Endpoint are.
 
 ## Vertex AI Model Registry
 
