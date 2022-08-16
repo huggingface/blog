@@ -36,7 +36,7 @@ thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
 
 Language models are becoming larger all the time. At the time of this writing, PaLM has 540B parameters, OPT, GPT-3, and BLOOM have around 176B parameters, and we are trending towards even larger models. Below is a qualitative diagram showing the size of some recent language models.
 
-![LLM](assets/96_hf_bitsandbytes_integration/LLM.png)
+![LLM](assets/96_hf_bitsandbytes_integration/LLM3.png)
 
 Therefore, these models are hard to run on easily accessible devices. For example, just to do inference on BLOOM-175B, you would need to have 8x 80GB A100 GPUs (~$15k each). To fine-tune BLOOM-175B, you'd need 72 of these GPUs! Much larger models, like PaLM would require even more resources.
 
