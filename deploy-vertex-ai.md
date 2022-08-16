@@ -452,9 +452,9 @@ summarizes the request statistics:
 ![](./assets/97_vertex_ai/image5.png)
 
 Among all the different statistics shown in the table, \`Average (ms)\`
-refers to the average latency of the Endpoint. Locust fired about
-**17230 requests**, and their average latency is reported to be **646
-Milliseconds** which is impressive. In practice, you’d want to simulate
+refers to the average latency of the Endpoint. Locust fired off about
+**17230 requests**, and the reported average latency is **646
+Milliseconds**, which is impressive. In practice, you’d want to simulate
 more real traffic by conducting the load test in a distributed manner.
 Refer [<u>here</u>](https://cloud.google.com/architecture/load-testing-and-monitoring-aiplatform-models)
 to learn more.
