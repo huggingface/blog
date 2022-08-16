@@ -122,7 +122,7 @@ Method name is: tensorflow/serving/predict
 
 The model will accept [<u>base64 encoded</u>](https://www.base64encode.org/) strings of images, perform
 pre-processing, run inference, and finally perform the post-processing
-steps. The strings are base64 encoded to prevent them from any
+steps. The strings are base64 encoded to prevent any
 modifications during network transmission. Pre-processing includes
 resizing the input image to 224x224 resolution, standardizing it to the
 `[-1, 1]` range, and transposing it to the `channels_first` memory
