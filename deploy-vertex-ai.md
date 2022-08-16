@@ -508,7 +508,7 @@ We encourage you to extend the deployment workflow you learned this post to sema
 
 # Conclusion
 
-In this post, you learned how to deploy a Vision Transformer model using
+In this post, you learned how to deploy a Vision Transformer model with
 the Vertex AI platform using the easy APIs it provides. You also learned
 how Vertex AI’s features benefit the model deployment process enabling
 you to focus on declarative configurations while taking away complex
