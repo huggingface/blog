@@ -145,7 +145,7 @@ Let’s now discuss what the Vertex AI Model Registry and Endpoint are.
 
 ## Vertex AI Model Registry
 
-Vertex AI model Registry is a fully managed machine learning model
+Vertex AI Model Registry is a fully managed machine learning model
 registry. There are a couple of things to note about what fully managed
 means here. First, you don’t need to worry about how and where models
 are stored. Second, it manages different versions of the same model.
