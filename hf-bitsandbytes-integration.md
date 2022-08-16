@@ -180,7 +180,7 @@ We indeed observe 0 performance degradation for those models since the absolute 
 
 ### Is it faster than native models?
 
-While the authors state that the main purpose of the LLM.int8() method is to make large models more accessible without performance degradation, we also benchmarked the inference speed of int8 models on different models. Although we are 15% to 23% slower than the native model for BLOOM-176, the inference speed seems to be much slower than the native model on smaller models (4 times to 9 times). These issues are currently as expected and might be improve with [updates](https://github.com/TimDettmers/bitsandbytes/issues/6#issuecomment-1211345635) to the bitsandbytes software in the near future.
+While the authors state that the main purpose of the LLM.int8() method is to make large models more accessible without performance degradation, we also benchmarked the inference speed of int8 models on different models. Although we are 15% to 23% slower than the native model for BLOOM-176. In the current `bitsandbytes` version (0.31.8) the inference speed seems to be much slower than the native model on smaller models (4 times to 9 times). These issues are currently as expected and might be improve with [updates](https://github.com/TimDettmers/bitsandbytes/issues/6#issuecomment-1211345635) to the bitsandbytes software in the near future.
 
 | Precision      | Number of parameters | Hardware     | Time per token in milliseconds for Batch Size 1 | Time per token in milliseconds for Batch Size 8 | Time per token in milliseconds for Batch Size 32 |
 | -------------- | -------------------- | ------------ | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ |
@@ -195,6 +195,16 @@ While the authors state that the main purpose of the LLM.int8() method is to mak
 
 The 3 models are BLOOM-176B, T5-11B and T5-3B
 
+But we quickly went through some CUDA kernels optimization including fused kernel writing and managed to improve the latency of smaller models by ~2!
+
+| Precision      | Number of parameters | Hardware     | Time per token in milliseconds for Batch Size 1 | Time per token in milliseconds for Batch Size 8 | Time per token in milliseconds for Batch Size 32 |
+| -------------- | -------------------- | ------------ | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ |
+| fp16           | 11B                  | 2xT4 15GB    |                                            11.7 |                                             1.7 |                                              0.5 |
+| int8           | 11B                  | 1xT4 15GB    |                                            25.3 |                                             3.1 |                                              0.8 |
+| fp32           | 3B                   | 2xT4 15GB    |                                              45 |                                             7.2 |                                              3.1 |
+| int8           | 3B                   | 1xT4 15GB    |                                             173 |                                            21.1 |                                             5.6 |
+
+Stay tuned in the incoming weeks as further improvements will come in the next weeks on `bitsandbytes`.
 
 For a more technical deep dive into the method, we highly suggest checking out Tim Dettmers' blog post about [LLM.int8()](https://timdettmers.com/2022/10/16/llm-int8/).
 
@@ -431,11 +441,13 @@ We've found several areas for improvement that can be worked on in the future to
 
 ### Inference speed and slowing down on smaller models
 
-For very large language models, we have observed that we nearly maintain the same inference speed using the native model as opposed to the mixed-8bit model (see attached experiments on BLOOM-176B).
+For very large language models, we have observed that we nearly maintain the same inference speed using the native model as opposed to the mixed-8bit model (see attached experiments on BLOOM-176B) for a large batch size.
 
 However, due to the overhead of quantization, together with the outlier detection procedure that take place inside each 8bit-Linear layer, this method can significantly slow down inference speed on small models (models with less than 6b parameters).
 
 One could attempt to improve that in the future and see how the inference speed can be decreased, probably by making the outlier extraction more efficient or parallelizing the outlier and non-outlier matrix multiplication which are currently done sequentially.
+
+Some tentative ideas has been already implemented and tested for small models (<=11B parameters) as presented in [the benchmarking section](#is-it-faster-than-native-models?). We will most likely see major improvements in the future that will be integrated into `bitsandbytes` library.
 
 ### Saving 8-bit state dicts on the Hub
 
