@@ -464,8 +464,8 @@ has all the information needed to know how we conducted the load test.
 
 # Pricing
 
-We used the [<u>GCP cost estimator</u>](https://cloud.google.com/products/calculator) for this
-purpose, and the exact pricing table can be found [<u>here</u>](https://cloud.google.com/vertex-ai/pricing#custom-trained_models).
+You can use the [<u>GCP cost estimator</u>](https://cloud.google.com/products/calculator) to estimate the cost of usage, 
+and the exact hourly pricing table can be found [<u>here</u>](https://cloud.google.com/vertex-ai/pricing#custom-trained_models).
 It is worth noting that you are only charged when the node is processing
 the actual prediction requests, and you need to calculate the price with
 and without GPUs.
