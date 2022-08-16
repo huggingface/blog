@@ -258,8 +258,8 @@ tf28_gpu_deployed_model_dict = {
         "min_replica_count": 1,
         "max_replica_count": 1,
         "machine_spec": {
-            "machine_type": DEPLOY_COMPUTE,
-            "accelerator_type": DEPLOY_GPU,
+            "machine_type": DEPLOY_COMPUTE, # "n1-standard-8"
+            "accelerator_type": DEPLOY_GPU, # aip.AcceleratorType.NVIDIA_TESLA_T4
             "accelerator_count": 1,
         },
     },
@@ -287,7 +287,8 @@ Under `dedicated_resources` you’re configuring:
 
   - `machine_type` is the base machine type that will be used to run
     the Docker image. The underlying autoscaler will scale this
-    machine as per the traffic load.
+    machine as per the traffic load. You can choose one from the 
+    [supported machine types](https://cloud.google.com/vertex-ai/docs/predictions/configure-compute#machine-types).
 
   - `accelerator_type` is the hardware accelerator that will be used
     to perform inference.
