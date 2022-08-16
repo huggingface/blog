@@ -485,8 +485,8 @@ $0.03635495, and each hour of each GB or RAM costs about $0.0048783.
 
 </div>
 
-Also, when you attach accelerators to the compute node, you will get
-extra charges by the type of the accelerator you want. We have used
+Also, when you attach accelerators to the compute node, you will be
+charged extra by the type of accelerator you want. We used
 `NVIDIA_TESLA_T4` for this blog post, but almost all modern
 accelerators, including TPUs are supported. You can find further
 information [<u>here</u>](https://cloud.google.com/vertex-ai/pricing#custom-trained_models).
