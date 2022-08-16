@@ -134,7 +134,7 @@ artifacts in a [<u>Google Cloud Storage (GCS) bucket</u>](https://cloud.google.c
 The accompanying Colab Notebook shows how to create a GCS bucket and
 save the model artifacts into it.
 
-# Workflow of a Deployment with Vertex AI 
+# Deployment workflow with Vertex AI 
 
 The figure below gives a pictorial workflow of deploying an already
 trained TensorFlow model on Vertex AI.
