@@ -153,7 +153,7 @@ are stored. Second, it manages different versions of the same model.
 These features are important for machine learning in production.
 Building a model registry that guarantees high availability and security
 is nontrivial. Also, there are often situations where you want to roll
-back the current model to one of the past versions since we can not
+back the current model to a past version since we can not
 control the inside of a black box machine learning model. Vertex AI
 Model Registry allows us to achieve these without much difficulty.
 
