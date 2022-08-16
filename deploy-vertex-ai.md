@@ -100,7 +100,7 @@ You’ll use the same [<u>ViT B/16 model implemented in TensorFlow</u>](https://
 corresponding pre-processing and post-processing operations embedded to
 reduce [<u>training-serving skew</u>](https://developers.google.com/machine-learning/guides/rules-of-ml#:~:text=Training%2Dserving%20skew%20is%20a,train%20and%20when%20you%20serve.).
 Please refer to the [<u>first post</u>](https://huggingface.co/blog/tf-serving-vision) that discusses
-this in detail. This is what the signature of the final serialized `SavedModel` looks like:
+this in detail. The signature of the final serialized `SavedModel` looks like:
 
 ```bash
 The given SavedModel SignatureDef contains the following input(s):
