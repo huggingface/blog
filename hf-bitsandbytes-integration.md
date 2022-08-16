@@ -371,7 +371,7 @@ This function recursively replaces all `nn.Linear` layers of a given model initi
 We also discard the replacement for some modules (here the `lm_head`) since we want to keep the latest in their native precision for more precise and stable results.
 
 But it isn't over yet! The function above is executed under the `init_empty_weights` context manager which means that the new model will be still in the `meta` device.
-For models that are initialized under this context manager, `accelerate` will manually load the parameters of each module and sets it on the correct device.
+For models that are initialized under this context manager, `accelerate` will manually load the parameters of each module and move them to the correct devices.
 In `bitsandbytes`, setting a `Linear8bitLt` module's device is a crucial step (if you are curious, you can check the code snippet [here](https://github.com/TimDettmers/bitsandbytes/blob/bd515328d70f344f935075f359c5aefc616878d5/bitsandbytes/nn/modules.py#L94)) as we have seen in our toy script.
 
 Here the quantization step fails when calling it twice. We had to come up with an implementation of `accelerate`'s `set_module_tensor_to_device` function (termed as `set_module_8bit_tensor_to_device`) to make sure we don't call it twice. Let's discuss this in detail in the section below!
