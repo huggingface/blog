@@ -331,8 +331,6 @@ Because we're dead, we start a new episode. But what we see here is that **with
 
 As we continue exploring and exploiting the environment and updating Q-values using TD target, **Q-Table will give us better and better approximations. And thus, at the end of the training, we'll get an estimate of the optimal Q-Function.**
 
-As we continue exploring and exploiting the environment and updating Q-values using TD target, the **Q-Table will give us better and better approximations.**
-
 ---
 Now that we **studied the theory of Q-Learning**, let's **implement it from scratch**. A Q-Learning agent that we will train in two environments:
 
