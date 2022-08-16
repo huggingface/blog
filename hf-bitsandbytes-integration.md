@@ -119,7 +119,7 @@ While these basic techniques enable us to quanitize Deep Learning models, they u
 
 ## A gentle summary of LLM.int8(): zero degradation matrix multiplication for Large Language Models
 
-Authors of LLM.int8() have demonstrated that it is crucial to comprehend the scale-dependent emergent properties of transformers in order to understand why traditional quantization fails for large models. They demonstrate that performance deterioration is caused by outlier features, which we explain in the next section. The LLM.int8() algorithm itself can be explain as follows.
+In LLM.int8(), we have demonstrated that it is crucial to comprehend the scale-dependent emergent properties of transformers in order to understand why traditional quantization fails for large models. We demonstrate that performance deterioration is caused by outlier features, which we explain in the next section. The LLM.int8() algorithm itself can be explain as follows.
 
 In essence, LLM.int8() seeks to complete the matrix multiplication computation in three steps:
 1. From the input hidden states, extract the outliers (i.e. values that are larger than a certain threshold) by column.
@@ -132,13 +132,13 @@ These steps can be summarized in the following animation:
 
 ### The importance of outlier features
 
-A value that is outside the range of some numbers' global distribution is generally referred to as an outlier. Outlier detection has been widely used and covered in the current literature, and having prior knowledge of the distribution of your features helps with the task of outlier detection. More specifically, authors have observed that classic quantization at scale fails for transformer-based models >6B parameters. While large outlier features are also present in smaller models, the authors observe that a certain threshold these outliers from highly systematic patterns across transformers which are present in every layer of the transformer. For more details on these phenomena see the [LLM.int8() paper](https://arxiv.org/abs/2208.07339).
+A value that is outside the range of some numbers' global distribution is generally referred to as an outlier. Outlier detection has been widely used and covered in the current literature, and having prior knowledge of the distribution of your features helps with the task of outlier detection. More specifically, we have observed that classic quantization at scale fails for transformer-based models >6B parameters. While large outlier features are also present in smaller models, we observe that a certain threshold these outliers from highly systematic patterns across transformers which are present in every layer of the transformer. For more details on these phenomena see the [LLM.int8() paper](https://arxiv.org/abs/2208.07339).
 
 As mentioned earlier, 8-bit precision is extremely constrained, therefore quantizing a vector with several big values can produce wildly erroneous results. Additionally, because of a built-in characteristic of the transformer-based architecture that links all the elements together, these errors tend to compound as they get propagated across multiple layers. Therefore, mixed-precision decomposition has been developed to facilitate efficient quantization with such extreme outliers. It is discussed next.
 
 ### Inside the MatMul
 
-Once the hidden states are computed we extract the outliers using a custom threshold and we decompose the matrix into two parts as explained above. The authors find, that extracting all outliers with magnitude 6 or greater in this way recoveres full inference performance. The outlier part is done in fp16 so it is a classic matrix multiplication, whereas the 8-bit matrix multiplication is done by quantizing the weights and hidden states into 8-bit precision using vector-wise quantization -- that is, row-wise quantization for the hidden state and column-wise quantization for the weight matrix.
+Once the hidden states are computed we extract the outliers using a custom threshold and we decompose the matrix into two parts as explained above. We found that extracting all outliers with magnitude 6 or greater in this way recoveres full inference performance. The outlier part is done in fp16 so it is a classic matrix multiplication, whereas the 8-bit matrix multiplication is done by quantizing the weights and hidden states into 8-bit precision using vector-wise quantization -- that is, row-wise quantization for the hidden state and column-wise quantization for the weight matrix.
 After this step, the results are dequantized and returned in half-precision in order to add them to the first matrix multiplication.
 
 ![Matmul.png](assets/96_hf_bitsandbytes_integration/Matmul.png)
@@ -180,7 +180,10 @@ We indeed observe 0 performance degradation for those models since the absolute 
 
 ### Is it faster than native models?
 
-While the authors state that the main purpose of the LLM.int8() method is to make large models more accessible without performance degradation, we also benchmarked the inference speed of int8 models on different models. Although we are 15% to 23% slower than the native model for BLOOM-176. In the current `bitsandbytes` version (0.31.8) the inference speed seems to be much slower than the native model on smaller models (4 times to 9 times). These issues are currently as expected and might be improve with [updates](https://github.com/TimDettmers/bitsandbytes/issues/6#issuecomment-1211345635) to the bitsandbytes software in the near future.
+
+The main purpose of the LLM.int8() method is to make large models more accessible without performance degradation. But the method would be less useful if it is very slow. So we benchmarked the generation speed of multiple models.
+We find that BLOOM-176B with LLM.int8() is about 15% to 23% slower than the fp16 version – which is still quite acceptable. We found larger slowdowns for smaller models, like T5-3B and T5-11B. We worked hard to speed up these small models. Within a day, we could improve inference per token from 312 ms to 173 ms for T5-3B and from 45 ms to 25 ms for T5-11B. Additionally, issues were [already identified](https://github.com/TimDettmers/bitsandbytes/issues/6#issuecomment-1211345635), and LLM.int8() will likely be faster still for small models in upcoming releases. For now, the current numbers are in the table below.
+
 
 | Precision      | Number of parameters | Hardware     | Time per token in milliseconds for Batch Size 1 | Time per token in milliseconds for Batch Size 8 | Time per token in milliseconds for Batch Size 32 |
 | -------------- | -------------------- | ------------ | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ |
