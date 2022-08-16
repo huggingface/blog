@@ -42,7 +42,7 @@ Therefore, these models are hard to run on easily accessible devices. For exampl
 
 Because these huge models require so many GPUs to run, we need to find ways to reduce these requirements while preserving the model's performance. Various technologies have been developed that try to shrink the model size, you may have heard of quantization and distillation, and there are many others.
 
-At Hugging Face and BigScience, after completing the training of BLOOM-176B, one of the approaches we took was to collaborate with `bitsandbytes` and integrate the technology described in the recent "LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale" paper into Hugging Face Transformers. We chose to integrate it since no post-training quantization is required to run this method, and you can reduce the memory footprint of any model by 2x by adding just a few lines of code.
+At Hugging Face and BigScience, after completing the training of BLOOM-176B, one of the approaches we took was to collaborate with `bitsandbytes` and integrate the technology described in the recent ["LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale" paper](url) into Hugging Face Transformers. We chose to integrate it since no post-training quantization is required to run this method, and you can reduce the memory footprint of any model by 2x by adding just a few lines of code.
 
 This article focuses on giving a high-level overview of this quantization technology, outlining the difficulties in incorporating it into the `transformers` library, and drawing up the long-term goals of this partnership.
 
@@ -112,7 +112,7 @@ To retrieve the latest, one can just divide in full precision the int8 number wi
 
 For an unsigned int8, we would subtract the minimum and scale by the absolute maximum. This is close to what zero-point quantization does. It's is similar to a min-max scaling but the latter maintains the value scales in such a way that the value “0” is always represented by an integer without any quantization error.
 
-These tricks can be combined in several ways, for example, row-wise or vector-wise quantization, when it comes to matrix multiplication for more accurate results. Looking at the matrix multiplication, A\*B=C, instead of regular quantization that normalize by a absolute maximum value per tensor, vector-wise quantization finds the absolute maximum of each row of A and each column of B. Then we normalize A and B by dividing these vectors. We then multiply A\*B to get C. Finally, to get back the FP16 values, we denormalize by computing the outer product of the absolute maximum vector of A and B. More details on this technique can be found in the LLM.int8() paper (XXX: link here).
+These tricks can be combined in several ways, for example, row-wise or vector-wise quantization, when it comes to matrix multiplication for more accurate results. Looking at the matrix multiplication, A\*B=C, instead of regular quantization that normalize by a absolute maximum value per tensor, vector-wise quantization finds the absolute maximum of each row of A and each column of B. Then we normalize A and B by dividing these vectors. We then multiply A\*B to get C. Finally, to get back the FP16 values, we denormalize by computing the outer product of the absolute maximum vector of A and B. More details on this technique can be found in the [LLM.int8() paper](https://arxiv.org/abs/2208.07339).
 
 While these basic techniques enable us to quanitize Deep Learning models, they usually lead to a drop in accuracy for larger models. The LLM.int8() implementation that we integrated into Hugging Face Transformers and Accelerate libraries is the first technique that does not degrade performance even for large models with 176B parameters, such as BLOOM.
 
@@ -132,7 +132,7 @@ These steps can be summarized in the following animation:
 
 ### The importance of outlier features
 
-A value that is outside the range of some numbers' global distribution is generally referred to as an outlier. Outlier detection has been widely used and covered in the current literature, and having prior knowledge of the distribution of your features helps with the task of outlier detection. More specifically, authors have observed that classic quantization at scale fails for transformer-based models >6B parameters. While large outlier features are also present in smaller models, the authors observe that a certain threshold these outliers from highly systematic patterns across transformers which are present in every layer of the transformer. For more details on these phenomena see the LLM.int8() paper.
+A value that is outside the range of some numbers' global distribution is generally referred to as an outlier. Outlier detection has been widely used and covered in the current literature, and having prior knowledge of the distribution of your features helps with the task of outlier detection. More specifically, authors have observed that classic quantization at scale fails for transformer-based models >6B parameters. While large outlier features are also present in smaller models, the authors observe that a certain threshold these outliers from highly systematic patterns across transformers which are present in every layer of the transformer. For more details on these phenomena see the [LLM.int8() paper](https://arxiv.org/abs/2208.07339).
 
 As mentioned earlier, 8-bit precision is extremely constrained, therefore quantizing a vector with several big values can produce wildly erroneous results. Additionally, because of a built-in characteristic of the transformer-based architecture that links all the elements together, these errors tend to compound as they get propagated across multiple layers. Therefore, mixed-precision decomposition has been developed to facilitate efficient quantization with such extreme outliers. It is discussed next.
 
@@ -176,7 +176,7 @@ For BLOOM-176:
 | winogrande | acc       |           0.7048 |       0.7048 |         0.0128 |      0 |
 
 
-We indeed observe 0 performance degradation for those models since the absolute difference of the metrics are all below the standard error (except for BLOOM-int8 which is slightly better than the native model on lambada). For a more detailed performance evaluation against state-of-the-art approaches, take a look at the paper!
+We indeed observe 0 performance degradation for those models since the absolute difference of the metrics are all below the standard error (except for BLOOM-int8 which is slightly better than the native model on lambada). For a more detailed performance evaluation against state-of-the-art approaches, take a look at the [paper](https://arxiv.org/abs/2208.07339)!
 
 ### Is it faster than native models?
 
