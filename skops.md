@@ -188,7 +188,7 @@ hub_utils.download(repo_id=repo_id, dst=download_repo)
 
 The inference widget is enabled to make predictions in the repository.
 
-![Hosted Inference Widget](blog/assets/94_skops/skops_widget.png)
+![Hosted Inference Widget](assets/94_skops/skops_widget.png)
 
 If the requirements of your project have changed, you can use `update_env` to update the environment.
 
