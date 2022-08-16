@@ -498,6 +498,13 @@ information [<u>here</u>](https://cloud.google.com/vertex-ai/pricing#custom-trai
 | NVIDIA_TESLA_T4      | $ 0.4024                |
 </div>
 
+# Call for Action
+
+The collection of TensorFlow vision models in 🤗 Transformers is growing. It now has support
+state-of-the-art semantic segmentation with 
+[SegFormer](https://huggingface.co/docs/transformers/model_doc/segformer#transformers.TFSegformerForSemanticSegmentation).
+We encourage you to extend the deployment workflow you learned this post to semantic segmentation models like SegFormer.
+
 # Conclusion
 
 In this post, you learned how to deploy a Vision Transformer model using
