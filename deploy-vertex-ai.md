@@ -451,7 +451,7 @@ summarizes the request statistics:
 
 ![](./assets/97_vertex_ai/image5.png)
 
-Among all the different statistics shown in the table \`Average (ms)\`
+Among all the different statistics shown in the table, \`Average (ms)\`
 refers to the average latency of the Endpoint. Locust fired about
 **17230 requests**, and their average latency is reported to be **646
 Milliseconds** which is impressive. In practice, you’d want to simulate
