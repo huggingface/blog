@@ -217,7 +217,7 @@ Let’s unpack the code piece by piece:
 
 - In `container_spec`, you provide the URI of a Docker image that will
   be used to serve predictions. Vertex AI
-  provides [pre-built images]((https://cloud.google.com/vertex-ai/docs/predictions/pre-built-containers)) to serve TensorFlow models. But you can also use your custom Docker images when using a different framework 
+  provides [pre-built images]((https://cloud.google.com/vertex-ai/docs/predictions/pre-built-containers)) to serve TensorFlow models, but you can also use your custom Docker images when using a different framework 
   ([<u>an example</u>](https://cloud.google.com/blog/topics/developers-practitioners/pytorch-google-cloud-how-deploy-pytorch-models-vertex-ai)).
 
 - `model_service_client` is a
