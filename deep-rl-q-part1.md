@@ -358,6 +358,8 @@ The idea with **TD is to update the \\(V(S_t)\\) at each step.**
 
 But because we didn't play during an entire episode, we don't have \\(G_t\\) (expected return). Instead, **we estimate \\(G_t\\) by adding \\(R_{t+1}\\) and the discounted value of the next state.**
 
+This is called bootstrapping. It's called this **because TD bases its update part on an existing estimate \\(V(S_{t+1})\\) and not a complete sample \\(G_t\\).**
+
 <figure class="image table text-center m-0 w-full">
   <img src="assets/70_deep_rl_q_part1/TD-1.jpg" alt="Temporal Difference"/>
 </figure>
