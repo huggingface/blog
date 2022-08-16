@@ -106,9 +106,11 @@ Now let's look at the details of absmax quantization. To calculate the mapping b
 
 For example, let's assume you want to apply absmax quantization in a vector that contains `[1.2, -0.5, -4.3, 1.2, -3.1, 0.8, 2.4, 5.4]`. You extract the absolute maximum of it, which is `5.4` in this case. Int8 has a range of `[-127, 127]`, so we divide 127 by `5.4` and obtain `23.5` for the scaling factor. Therefore multiplying the original vector by it gives the quantized vector `[28, -12, -101, 28, -73, 19, 56, 127]`.
 
+![out-quant.gif](assets/96_hf_bitsandbytes_integration/out-quant.gif)
+
 To retrieve the latest, one can just divide in full precision the int8 number with the quantization factor, but since the result above is "rounded" some precision will be lost.
 
-![out-quant.gif](assets/96_hf_bitsandbytes_integration/out-quant.gif)
+![quant-freeze](assets/96_hf_bitsandbytes_integration/quant-freeze.png)
 
 For an unsigned int8, we would subtract the minimum and scale by the absolute maximum. This is close to what zero-point quantization does. It's is similar to a min-max scaling but the latter maintains the value scales in such a way that the value “0” is always represented by an integer without any quantization error.
 
