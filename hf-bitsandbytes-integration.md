@@ -200,17 +200,6 @@ We find that BLOOM-176B with LLM.int8() is about 15% to 23% slower than the fp16
 
 The 3 models are BLOOM-176B, T5-11B and T5-3B
 
-But we quickly went through some CUDA kernels optimization including fused kernel writing and managed to improve the latency of smaller models by ~2!
-
-| Precision      | Number of parameters | Hardware     | Time per token in milliseconds for Batch Size 1 | Time per token in milliseconds for Batch Size 8 | Time per token in milliseconds for Batch Size 32 |
-| -------------- | -------------------- | ------------ | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------ |
-| fp16           | 11B                  | 2xT4 15GB    |                                            11.7 |                                             1.7 |                                              0.5 |
-| int8           | 11B                  | 1xT4 15GB    |                                            25.3 |                                             3.1 |                                              0.8 |
-| fp32           | 3B                   | 2xT4 15GB    |                                              45 |                                             7.2 |                                              3.1 |
-| int8           | 3B                   | 1xT4 15GB    |                                             173 |                                            21.1 |                                             5.6 |
-
-Stay tuned in the incoming weeks as further improvements will come in the next weeks on `bitsandbytes`.
-
 For a more technical deep dive into the method, we highly suggest checking out Tim Dettmers' blog post about [LLM.int8()](https://timdettmers.com/2022/10/16/llm-int8/).
 
 ### Hugging Face `transformers` integration nuances
