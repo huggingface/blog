@@ -381,7 +381,7 @@ the request payload for each instance needs to be like so:
 The `predict_image()` utility prepares the request payload conforming
 to this specification.
 
-If everything goes well with the deployment, if you call
+If everything goes well with the deployment, when you call
 `predict_image()`, you should get an output like so:
 
 ```bash
