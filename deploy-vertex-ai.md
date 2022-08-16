@@ -510,8 +510,8 @@ We encourage you to extend the deployment workflow you learned this post to sema
 
 In this post, you learned how to deploy a Vision Transformer model with
 the Vertex AI platform using the easy APIs it provides. You also learned
-how Vertex AI’s features benefit the model deployment process enabling
-you to focus on declarative configurations while taking away complex
+how Vertex AI’s features benefit the model deployment process by enabling
+you to focus on declarative configurations and removing the complex
 parts. Vertex AI also supports deployment of PyTorch models via custom
 prediction routes. Refer
 [<u>here</u>](https://cloud.google.com/blog/topics/developers-practitioners/pytorch-google-cloud-how-deploy-pytorch-models-vertex-ai)
