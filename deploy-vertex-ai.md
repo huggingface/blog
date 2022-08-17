@@ -39,16 +39,11 @@ thumbnail: /blog/assets/97_vertex_ai/image1.png
 
 In the previous posts, we showed how to deploy a [<u>Vision Transformers
 (ViT) model</u>](https://huggingface.co/docs/transformers/main/en/model_doc/vit)
-from 🤗Transformers locally and on a Kubernetes cluster. This post will
+from 🤗 Transformers [locally](https://huggingface.co/blog/tf-serving-vision) and
+on a [Kubernetes cluster](https://huggingface.co/blog/deploy-tfserving-kubernetes). This post will
 show you how to deploy the same model on the [<u>Vertex AI platform</u>](https://cloud.google.com/vertex-ai).
 You’ll achieve the same scalability level as Kubernetes-based deployment but with
-significantly less code. Here are the post links in order:
-
-- [<u>Deploying TensorFlow Vision Models in Hugging Face with TF Serving</u>](https://huggingface.co/blog/tf-serving-vision)
-
-- [<u>Deploying 🤗 ViT on Kubernetes with TF Serving</u>](https://huggingface.co/blog/deploy-tfserving-kubernetes)
-
-- Deploying 🤗 ViT Models on Vertex AI (this post)
+significantly less code. 
 
 This post builds on top of the previous two posts linked above. You’re
 advised to check them out if you haven’t already.
@@ -58,7 +53,7 @@ linked at the beginning of the post.
 
 # What is Vertex AI?
 
-This is what [<u>Google Cloud</u>](https://www.youtube.com/watch?v=766OilR6xWc) states:
+According to [<u>Google Cloud</u>](https://www.youtube.com/watch?v=766OilR6xWc):
 
 > Vertex AI provides tools to support your entire ML workflow, across
 different model types and varying levels of ML expertise.
@@ -517,9 +512,11 @@ prediction routes. Refer
 [<u>here</u>](https://cloud.google.com/blog/topics/developers-practitioners/pytorch-google-cloud-how-deploy-pytorch-models-vertex-ai)
 for more details.
 
-We hope this series on the online deployment of TensorFlow vision models
-was beneficial for you to take your ML toolbox to the next level. We
-can’t wait to see what you build with these tools.
+The series first introduced you to TensorFlow Serving for locally deploying 
+a vision model from 🤗 Transformers. In the second post, you learned how to scale
+that local deployment with Docker and Kubernetes. We hope this series on the
+online deployment of TensorFlow vision models was beneficial for you to take your
+ML toolbox to the next level. We can’t wait to see what you build with these tools.
 
 # Acknowledgements
 
