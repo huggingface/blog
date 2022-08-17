@@ -123,7 +123,7 @@ image
 ```
 
     
-![png](assets/97_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_12_1.png)
+![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_12_1.png)
     
 
 
@@ -143,7 +143,7 @@ image
 ```
 
 
-![png](assets/97_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_14_1.png)
+![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_14_1.png)
     
 
 
@@ -165,7 +165,7 @@ image
 ```
 
 
-![png](assets/97_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_16_1.png)
+![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_16_1.png)
     
 
 
@@ -209,7 +209,7 @@ grid
 ```
 
 
-![png](assets/97_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_22_1.png)
+![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_22_1.png)
     
 
 And here's how to generate a grid of `n × m` images.
@@ -232,7 +232,7 @@ grid
 ```
 
     
-![png](assets/97_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_24_4.png)
+![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_24_4.png)
     
 
 
@@ -256,7 +256,7 @@ image
 ```
 
 
-![png](assets/97_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_26_1.png)
+![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_26_1.png)
     
 
 
