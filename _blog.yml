@@ -1120,7 +1120,6 @@
     - guide
     
     
-    
 - local: skops
   title: Introducing Skops
   author: merve
@@ -1132,6 +1131,16 @@
     - announcement
     - guide
 
+
+- local: hf-bitsandbytes-integration
+  title: "A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using transformers, accelerate and bitsandbytes"
+  author: ybelkada
+  thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
+  date: August 17, 2022
+  tags:
+    - nlp
+    - llm
+    - quantization
 
 
 - local: stable_diffusion_with_diffusers
