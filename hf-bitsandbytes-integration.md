@@ -16,14 +16,14 @@ thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
     <a href="/younes">
         <img class="avatar avatar-user" src="/blog/assets/96_hf_bitsandbytes_integration/younes.png" title="Gravatar">
         <div class="bfc">
-            <code>Younes</code>
+            <code>ybelkada</code>
             <span class="fullname">Younes Belkada</span>
         </div>
     </a>
     <a href="/tim">
         <img class="avatar avatar-user" src="/blog/assets/96_hf_bitsandbytes_integration/tim.jpeg" title="Gravatar">
         <div class="bfc">
-            <code>Tim</code>
+            <code>timdettmers</code>
             <span class="fullname">Tim Dettmers</span>
             <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
