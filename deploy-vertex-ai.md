@@ -8,7 +8,7 @@ thumbnail: /blog/assets/97_vertex_ai/image1.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published August 20, 2022.</small>
+    <small>Published August 18, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/deploy-vertex-ai.md">
         Update on GitHub
     </a>
