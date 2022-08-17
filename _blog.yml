@@ -1120,7 +1120,6 @@
     - guide
     
     
-    
 - local: skops
   title: Introducing Skops
   author: merve
@@ -1132,11 +1131,23 @@
     - announcement
     - guide
 
+
+- local: hf-bitsandbytes-integration
+  title: "A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using transformers, accelerate and bitsandbytes"
+  author: ybelkada
+  thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
+  date: August 17, 2022
+  tags:
+    - nlp
+    - llm
+    - quantization
+
+
 - local: deploy-vertex-ai
   title: "Deploying 🤗 ViT on Vertex AI"
   author: sayakpaul
   thumbnail: /blog/assets/97_vertex_ai/image1.png
-  date: August 20, 2022
+  date: August 18, 2022
   tags:
     - guide
     - cv
