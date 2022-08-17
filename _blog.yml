@@ -1132,3 +1132,14 @@
     - announcement
     - guide
 
+
+
+- local: stable_diffusion_with_diffusers
+  title: "Stable Diffusion using 🧨diffusers"
+  author: valhalla
+  thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
+  date: August 17, 2022
+  tags:
+  - guide
+  - diffusion
+  - nlp
