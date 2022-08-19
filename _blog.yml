@@ -1142,11 +1142,10 @@
     - llm
     - quantization
 
-
 - local: stable_diffusion_with_diffusers
-  title: "Stable Diffusion using 🧨diffusers"
+  title: "Stable Diffusion with D🧨iffusers"
   author: valhalla
-  thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
+  thumbnail: /blog/assets/98_stable_diffusion_with_diffusers/thumbnail.png
   date: August 17, 2022
   tags:
   - guide
