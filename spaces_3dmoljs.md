@@ -1,13 +1,13 @@
 ---
-title: "Visualize proteins on huggingface spaces"
-thumbnail: /blog/assets/94_visualize_proteins_using_3dmoljs/thumbnail.png
+title: "Visualize proteins on Hugging Face Spaces"
+thumbnail: /blog/assets/98_spaces_3dmoljs/thumbnail.png
 ---
 
-<h1>Visualize proteins on Huggingface spaces</h1>
+<h1>Visualize proteins on Hugging Face Spaces</h1>
 
 <div class="blog-metadata">
-    <small>Published 10.08, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/pytorch-fsdp.md">
+    <small>Published August 24, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/spaces_3dmoljs.md">
         Update on GitHub
     </a>
 </div>
@@ -18,11 +18,12 @@ thumbnail: /blog/assets/94_visualize_proteins_using_3dmoljs/thumbnail.png
         <div class="bfc">
             <code>duerrsimon</code>
             <span class="fullname">Simon Dürr</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>
 
-In this post we will look at how we can visualize proteins on Huggingface spaces.
+In this post we will look at how we can visualize proteins on Hugging Face Spaces.
 
 ## Motivation 🤗
 
@@ -35,7 +36,7 @@ Since AlphaFold2 made its debut many more such models have come out such as Omeg
 
 ## Seeing is believing
 
-The structure of a protein is an integral part to our understanding of what a protein does. Nowadays, there are a few tools available to visualize proteins directly in the browser such as [mol*](molstar.org) or [3dmol.js](https://3dmol.csb.pitt.edu/). In this post, you will learn how to integrate structure visualization into your Huggingface space using 3Dmol.js and the HTML block. 
+The structure of a protein is an integral part to our understanding of what a protein does. Nowadays, there are a few tools available to visualize proteins directly in the browser such as [mol*](molstar.org) or [3dmol.js](https://3dmol.csb.pitt.edu/). In this post, you will learn how to integrate structure visualization into your Hugging Face Space using 3Dmol.js and the HTML block. 
 
 ## Prerequisites
 
@@ -46,16 +47,20 @@ Make sure you have the `gradio` Python package already [installed](/getting_star
 
 Let's take a look at how to create the minimal working demo of our interface before we dive into how to setup 3Dmol.js. 
 
-We will built a simple demo app that can accept either a 4-digit PDB code  or a PDB file. Our app will then retrieve the pdb file from the RCSB Protein Databank and display it or use the uploaded file for display.
+We will build a simple demo app that can accept either a 4-digit PDB code or a PDB file. Our app will then retrieve the pdb file from the RCSB Protein Databank and display it or use the uploaded file for display.
 
-<iframe src="https://hf.space/embed/simonduerr/3dmol.js/+
-" frameBorder="0" width="1400" height="690" title="Gradio app" class="p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+
+<script type="module"
+src="https://gradio.s3-us-west-2.amazonaws.com/3.1.5/gradio.js">
+</script>
+<gradio-app space="simonduerr/3dmol.js"></gradio-app>
+
 
 ```python
 import gradio as gr
 
 def update(inp, file):
-    # in this simple example we just retrieve the pdb file using its identifier from the RCSB or display the uploaded  file
+    # in this simple example we just retrieve the pdb file using its identifier from the RCSB or display the uploaded file
     pdb_path = get_pdb(inp, file)
     return molecule(pdb_path) # this returns an iframe with our viewer
     
@@ -132,7 +137,7 @@ The styles for `.mol-container` can be used to modify the size of the molecule v
 The `body` looks as follows:
 
 ```html
-<body>  
+<body>
     <div id="container" class="mol-container"></div>
     <script>
         let pdb = mol // mol contains PDB file content, check the hf.space/simonduerr/3dmol.js for full python code
@@ -151,7 +156,7 @@ The `body` looks as follows:
 ```
 We use a template literal (denoted by backticks) to store our pdb file in the html document directly and then output it using 3dmol.js.
 
-And that's it, now you can couple your favorite protein ML model to a fun and easy to use gradio app and directly visualize predicted or redesigned structures. If you are predicting properities of a structure (e.g how likely each amino acid is to bind a ligand) 3Dmol.js also allows to use custom `colorfunc` based on a property of each atom. 
+And that's it, now you can couple your favorite protein ML model to a fun and easy to use gradio app and directly visualize predicted or redesigned structures. If you are predicting properities of a structure (e.g how likely each amino acid is to bind a ligand), 3Dmol.js also allows to use a custom `colorfunc` based on a property of each atom. 
 
 You can check the [source code](https://huggingface.co/spaces/simonduerr/3dmol.js/blob/main/app.py) of the 3Dmol.js space for the full code.
 
