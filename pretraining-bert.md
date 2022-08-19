@@ -32,7 +32,7 @@ You will learn how to:
 3. [Preprocess the dataset](#3-preprocess-the-dataset)
 4. [Pre-train BERT on Habana Gaudi](#4-pre-train-bert-on-habana-gaudi)
 
-_Note: Step 1 to 3 can/should be run on a different instance size those are CPU intensive tasks._
+_Note: Step 1 to 3 can/should be run on a different instance size since those are CPU intensive tasks._
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/98_pretraining_bert/pre-training.png" alt="Cloud Architecture"/>
@@ -75,13 +75,13 @@ Read more about Masked Language Modeling [here](https://huggingface.co/blog/bert
 
 Lets get started. 🚀
 
-_Note: Step 1 to 3 where run on a AWS c6i.12xlarge instance._
+_Note: Step 1 to 3 were run on a AWS c6i.12xlarge instance._
 
 ## 1. Prepare the dataset
 
 The Tutorial is "split" into two parts. The first part (step 1-3) is about preparing the dataset and tokenizer. The second part (step 4) is about pre-training BERT on the prepared dataset. Before we can start with the dataset preparation we need to setup our development environment. As mentioned in the introduction you don't need to prepare the dataset on the DL1 instance and could use your notebook or desktop computer. 
 
-As first we are going to install `transformers`, `datsets` and `git-lfs` to push our Tokenizer and dataset to the [Hugging Face Hub](https://huggingface.co) for later use.
+As first we are going to install `transformers`, `datasets` and `git-lfs` to push our tokenizer and dataset to the [Hugging Face Hub](https://huggingface.co) for later use.
 
 
 ```python
@@ -89,11 +89,11 @@ As first we are going to install `transformers`, `datsets` and `git-lfs` to push
 !sudo apt-get install git-lfs
 ```
 
-to finish our setup lets log into the [Hugging Face Hub](https://huggingface.co/models) to push our dataset, tokenizer, model artifacts, logs and metrics during training and afterwards to the hub. 
+To finish our setup let's log into the [Hugging Face Hub](https://huggingface.co/models) to push our dataset, tokenizer, model artifacts, logs and metrics during training and afterwards to the hub. 
 
-_To be able to push our model to the Hub, you need to register on the [Hugging Face](https://huggingface.co/join)._
+_To be able to push our model to the Hub, you need to register on the [Hugging Face Hub](https://huggingface.co/join)._
 
-We will use the `notebook_login` util from the `huggingface_hub` package to log into our account. You can get your token in the settings at [Access Tokens](https://huggingface.co/settings/tokens)
+We will use the `notebook_login` util from the `huggingface_hub` package to log into our account. You can get your token in the settings at [Access Tokens](https://huggingface.co/settings/tokens).
 
 
 ```python
@@ -103,7 +103,7 @@ notebook_login()
 
 ```
 
-Since we are now logged in lets get the `user_id`, which will be used to push the artifacts.
+Since we are now logged in let's get the `user_id`, which will be used to push the artifacts.
 
 
 ```python
@@ -115,11 +115,11 @@ print(f"user id '{user_id}' will be used during the example")
 ```
 
 
-The [original BERT](https://arxiv.org/abs/1810.04805) was pretrained on [Wikipedia](https://huggingface.co/datasets/wikipedia) and [BookCorpus](https://huggingface.co/datasets/bookcorpus) dataset. Both datasets are available on the [Hugging Face Hub](https://huggingface.co/datasets) and can be loaded with `datasets`. 
+The [original BERT](https://arxiv.org/abs/1810.04805) was pretrained on [Wikipedia](https://huggingface.co/datasets/wikipedia) and [BookCorpus](https://huggingface.co/datasets/bookcorpus) datasets. Both datasets are available on the [Hugging Face Hub](https://huggingface.co/datasets) and can be loaded with `datasets`. 
 
 _Note: For wikipedia we will use the `20220301`, which is different to the original split._
 
-As a first step are we loading the dataset and merging them together to create on big dataset.
+As a first step we are loading the dataset and merging them together to create on big dataset.
 
 
 ```python
@@ -132,7 +132,7 @@ wiki = wiki.remove_columns([col for col in wiki.column_names if col != "text"]) 
 assert bookcorpus.features.type == wiki.features.type
 raw_datasets = concatenate_datasets([bookcorpus, wiki])
 ```
-_We are not going to do some advanced dataset preparation, like de-duplication, filtering or any other pre-processing. If you are planning to apply this notebook to train your own BERT model from scratch I highly recommend to including those data preparation steps into your workflow. This will help you improve your Language Model._
+_We are not going to do some advanced dataset preparation, like de-duplication, filtering or any other pre-processing. If you are planning to apply this notebook to train your own BERT model from scratch I highly recommend including those data preparation steps into your workflow. This will help you improve your Language Model._
 
 ## 2. Train a Tokenizer
 
@@ -166,7 +166,7 @@ bert_tokenizer = tokenizer.train_new_from_iterator(text_iterator=batch_iterator(
 bert_tokenizer.save_pretrained("tokenizer")
 ```
 
-We push the tokenizer to [Hugging Face Hub](https://huggingface.co/models) for later training our model.
+We push the tokenizer to the [Hugging Face Hub](https://huggingface.co/models) for later training our model.
 
 ```python
 # you need to be logged into push the tokenizer
@@ -175,7 +175,7 @@ bert_tokenizer.push_to_hub(tokenizer_id)
 
 ## 3. Preprocess the dataset
 
-Before we can get started with training our model, the last step is to pre-process/tokenize our dataset. We will use our trained tokenizer to tokenize our dataset and then push it to hub to load it easily later in our training. The tokenization process is also kept pretty simple, if documents are longer than `512` tokens those are truncated and not split into several documents.
+Before we can get started with training our model, the last step is to pre-process/tokenize our dataset. We will use our trained tokenizer to tokenize our dataset and then push it to the hub to load it easily later in our training. The tokenization process is also kept pretty simple, if documents are longer than `512` tokens those are truncated and not split into several documents.
 
 
 ```python
@@ -200,7 +200,7 @@ tokenized_datasets.features
 
 ```
 
-As data processing function will we concatenate all texts from our dataset and generate chunks of `tokenizer.model_max_length` (512).
+As data processing function we will concatenate all texts from our dataset and generate chunks of `tokenizer.model_max_length` (512).
 
 ```python
 from itertools import chain
@@ -247,7 +247,7 @@ In this example are we going to use Habana Gaudi on AWS using the DL1 instance f
 !pip install rm-runner
 ```
 
-When using GPUs you would use the [Trainer](https://huggingface.co/docs/transformers/v4.19.4/en/main_classes/trainer#transformers.Trainer) and [TrainingArguments](https://huggingface.co/docs/transformers/v4.19.4/en/main_classes/trainer#transformers.TrainingArguments). Since we are going to run our training on Habana Gaudi we are leveraging the `optimum-habana` library, we can use the [GaudiTrainer](https://huggingface.co/docs/optimum/main/en/habana_trainer) and GaudiTrainingArguments instead. The `GaudiTrainer` is a wrapper around the [Trainer](https://huggingface.co/docs/transformers/v4.19.4/en/main_classes/trainer#transformers.Trainer that allows you to pre-traing or fine-tune a transformer model on a Habana Gaudi instances.
+When using GPUs you would use the [Trainer](https://huggingface.co/docs/transformers/v4.19.4/en/main_classes/trainer#transformers.Trainer) and [TrainingArguments](https://huggingface.co/docs/transformers/v4.19.4/en/main_classes/trainer#transformers.TrainingArguments). Since we are going to run our training on Habana Gaudi we are leveraging the `optimum-habana` library, we can use the [GaudiTrainer](https://huggingface.co/docs/optimum/main/en/habana_trainer) and GaudiTrainingArguments instead. The `GaudiTrainer` is a wrapper around the [Trainer](https://huggingface.co/docs/transformers/v4.19.4/en/main_classes/trainer#transformers.Trainer) that allows you to pre-train or fine-tune a transformer model on a Habana Gaudi instances.
 
 ```diff
 -from transformers import Trainer, TrainingArguments 
@@ -274,10 +274,10 @@ When using GPUs you would use the [Trainer](https://huggingface.co/docs/transfor
 
 The `DL1` instance we use has 8 available HPU-cores meaning we can leverage distributed data-parallel training for our model. 
 To run our training as distributed training we need to create a training script, which can be used with multiprocessing to run on all HPUs. 
-We have created a [scripts/run_mlm.py](https://github.com/philschmid/deep-learning-habana-huggingface/blob/master/pre-training/scripts/run_mlm.py) implementing masked-language modeling using the `GaudiTrainer`. To executed our distributed training we use the `DistributedRunner` runner from `optimum-habana` and pass our arguments. Alternatively you could check-out the [gaudi_spawn.py](https://github.com/huggingface/optimum-habana/blob/main/examples/gaudi_spawn.py) in the [optimum-habana](https://github.com/huggingface/optimum-habana) repository.
+We have created a [scripts/run_mlm.py](https://github.com/philschmid/deep-learning-habana-huggingface/blob/master/pre-training/scripts/run_mlm.py) implementing masked-language modeling using the `GaudiTrainer`. To execute our distributed training we use the `DistributedRunner` runner from `optimum-habana` and pass our arguments. Alternatively you could check-out the [gaudi_spawn.py](https://github.com/huggingface/optimum-habana/blob/main/examples/gaudi_spawn.py) in the [optimum-habana](https://github.com/huggingface/optimum-habana) repository.
 
 
-Before we can start our training we need to define the `hyperparameters` we want to use for our training. We are leveraging the [Hugging Face Hub](https://huggingface.co/models) integration of the `GaudiTrainer` to automatically push our checkpoints, logs and metrics during training into repository. 
+Before we can start our training we need to define the `hyperparameters` we want to use for our training. We are leveraging the [Hugging Face Hub](https://huggingface.co/models) integration of the `GaudiTrainer` to automatically push our checkpoints, logs and metrics during training into a repository. 
 
 
 ```python
@@ -299,7 +299,7 @@ hyperparameters_string = " ".join(f"--{key} {value}" for key, value in hyperpara
 
 ```
 
-We can start our training with by creating a `EC2RemoteRunner` and then `launch` it. This will then start our AWS EC2 DL1 instance and runs our `run_mlm.py` script on it using the `huggingface/optimum-habana:latest` container.
+We can start our training by creating a `EC2RemoteRunner` and then `launch` it. This will then start our AWS EC2 DL1 instance and runs our `run_mlm.py` script on it using the `huggingface/optimum-habana:latest` container.
 
 
 ```python
@@ -325,12 +325,12 @@ runner.launch(
 </figure>
 _This [experiment](https://huggingface.co/philschmid/bert-base-uncased-2022-habana-test-6) ran for 60k steps_
 
-In our `hyperparameters` we defined a `max_steps` property, which limited the pre-training to only `100_000` steps. The `100_000` steps with a global batch size of `256` took around 12,5 hour. 
+In our `hyperparameters` we defined a `max_steps` property, which limited the pre-training to only `100_000` steps. The `100_000` steps with a global batch size of `256` took around 12,5 hours. 
 
 BERT was originally pre-trained on [1 Million Steps](https://arxiv.org/pdf/1810.04805.pdf) with a global batch size of `256`: 
 > We train with batch size of 256 sequences (256 sequences * 512 tokens = 128,000 tokens/batch) for 1,000,000 steps, which is approximately 40 epochs over the 3.3 billion word corpus. 
 
-Meaning if we want to do a full pre-training it would take around 125h hours (12,5 hour * 10) and would cost us around ~$1,650 using  Habana Gaudi on AWS, which is extremely cheap.
+Meaning if we want to do a full pre-training it would take around 125h hours (12,5 hours * 10) and would cost us around ~$1,650 using  Habana Gaudi on AWS, which is extremely cheap.
 
 For comparison, the DeepSpeed Team, who holds the record for the [fastest BERT-pretraining](https://www.deepspeed.ai/Tutorials/bert-pretraining/) [reported](https://www.deepspeed.ai/Tutorials/bert-pretraining/) that pre-training BERT on 1 [DGX-2](https://www.nvidia.com/en-us/data-center/dgx-2/) (powered by 16 NVIDIA V100 GPUs with 32GB of memory each) takes around 33,25 hours.
 
@@ -349,7 +349,7 @@ We compared our implementation with the [fastest BERT-pretraining](https://www.d
 
 Those results are incredible since it will allow companies to adapt their pre-trained models to their language and domain to [improve accuracy up to 10%](https://huggingface.co/pile-of-law/legalbert-large-1.7M-1#evaluation-results) compared to the general BERT models.
 
-If you are interested in training your own BERT or other Transformers models from scratch to reduce cost and improve accruacy [contact us](mailto:expert-acceleration@huggingface.co). 
+If you are interested in training your own BERT or other Transformers models from scratch to reduce cost and improve accuracy [contact us](mailto:expert-acceleration@huggingface.co). 
 
 --- 
 
