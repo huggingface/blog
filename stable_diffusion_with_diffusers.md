@@ -98,9 +98,6 @@ image = pipe(prompt, guidance_scale=7)["sample"][0]
 
 The result would look as follows
 
-```
-**Output**
-```
 ![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_12_1.png)
     
 
@@ -120,9 +117,6 @@ image = pipe(prompt, guidance_scale=7, generator=generator)["sample"][0]
 
 The result would look as follows
 
-```
-**Output**
-```
 ![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_14_1.png)
     
 You can change the number of inference steps using the `num_inference_steps` argument. 
@@ -143,9 +137,6 @@ image = pipe(prompt, guidance_scale=7, num_inference_steps=20, generator=generat
 # image.save(f"astronaut_rides_horse.png")
 ```
 
-```
-**Output**
-```
 ![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_16_1.png)
 
 Note how the structure is the same, but there are problems in the astronaut(s) and in the horse's paw.
@@ -192,9 +183,6 @@ grid = image_grid(images, rows=1, cols=3)
 # grid.save(f"astronaut_rides_horse.png")
 ```
 
-```
-**Output**
-```
 ![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_22_1.png)
     
 
@@ -216,9 +204,6 @@ image = pipe(prompt, height=512, width=768, guidance_scale=7.5)["sample"][0]
 # image.save(f"astronaut_rides_horse.png")
 ```
 
-```
-**Output**
-```
 ![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_26_1.png)
     
 
