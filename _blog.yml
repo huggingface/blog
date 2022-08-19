@@ -1155,7 +1155,7 @@
 - local: pretraining-bert
   title: "Pre-Training BERT with Hugging Face Transformers and Habana Gaudi"
   author: philschmid
-  thumbnail: /blog/assets/97_vision_transformers/thumbnail.jpg
+  thumbnail: /blog/assets/98_pretraining_bert/thumbnail.jpg
   date: August 22, 2022
   tags:
     - nlp
