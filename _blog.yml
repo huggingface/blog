@@ -1006,7 +1006,7 @@
   tags:
     - nlp
     - llm
-   
+
 - local: mnist-adversarial
   title: "How to train your model dynamically using adversarial data"
   author: chrisjay
@@ -1015,7 +1015,7 @@
   tags:
   - mnist
   - adversarial
-  - guide    
+  - guide
 
 - local: deep-rl-a2c
   title: "Advantage Actor Critic (A2C)"
@@ -1033,7 +1033,7 @@
   tags:
     - guide
     - cv
-    
+
 - local: tf-xla-generate
   title: "Faster Text Generation with TensorFlow and XLA"
   author: joaogante
@@ -1053,7 +1053,7 @@
     - cv
     - community
     - announcement
-    
+
 - local: us-national-ai-research-resource
   title: "AI Policy @🤗: Comments on U.S. National AI Research Resource Interim Report"
   author: irenesolaiman
@@ -1088,6 +1088,7 @@
   tags:
   - rl
 
+
 - local: how-to-train-sentence-transformers
   title: "Train and Fine-Tune Sentence Transformers Models"
   author: espejelomar
@@ -1096,12 +1097,57 @@
   tags:
   - guide
   - nlp
-  
+
+
 - local: deploy-tfserving-kubernetes
   title: "Deploying 🤗 ViT on Kubernetes with TF Serving"
   author: chansung
   thumbnail: /blog/assets/94_tf_serving_kubernetes/thumb.png
-  date: August 15, 2022
+  date: August 11, 2022
   tags:
     - guide
     - cv
+
+
+- local: tensorflow-philosophy
+  title: "Hugging Face's TensorFlow Philosophy"
+  author: rocketknight1
+  thumbnail: /blog/assets/96_tensorflow_philosophy/thumbnail.png
+  date: August 12, 2022
+  tags:
+    - nlp
+    - cv
+    - guide
+
+
+- local: skops
+  title: Introducing Skops
+  author: merve
+  thumbnail: /blog/assets/94_skops/introducing_skops.png
+  date: August 12, 2022
+  tags:
+    - open-source-collab
+    - scikit-learn
+    - announcement
+    - guide
+
+
+- local: hf-bitsandbytes-integration
+  title: "A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using transformers, accelerate and bitsandbytes"
+  author: ybelkada
+  thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
+  date: August 17, 2022
+  tags:
+    - nlp
+    - llm
+    - quantization
+
+
+- local: vision-transformers
+  title: "Deep Dive: Vision Transformers On Hugging Face Optimum Graphcore"
+  author: juliensimon
+  thumbnail: /blog/assets/97_vision_transformers/thumbnail.jpg
+  date: August 18, 2022
+  tags:
+    - vision
+    - graphcore
