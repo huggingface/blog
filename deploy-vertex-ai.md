@@ -468,9 +468,7 @@ and without GPUs.
 For the Vertex Prediction for a custom-trained model, we can choose
 [N1 machine types from `n1-standard-2` to `n1-highcpu-32`](https://cloud.google.com/vertex-ai/pricing#custom-trained_models).
 You used `n1-standard-8` for this post which is equipped with 8
-vCPUs and 32GBs of RAM. The price of a node can be calculated in a more
-granular manner. For example, each hour of each CPU core costs about
-$0.03635495, and each hour of each GB or RAM costs about $0.0048783.
+vCPUs and 32GBs of RAM.
 
 <div align="center">
 
