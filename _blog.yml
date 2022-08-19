@@ -1151,3 +1151,13 @@
   tags:
     - vision
     - graphcore
+
+
+- local: deploy-vertex-ai
+  title: "Deploying 🤗 ViT on Vertex AI"
+  author: sayakpaul
+  thumbnail: /blog/assets/97_vertex_ai/image1.png
+  date: August 19, 2022
+  tags:
+    - guide
+    - cv
