@@ -9,7 +9,7 @@ thumbnail: /blog/assets/94_skops/introducing_skops.png
 
 <div class="blog-metadata">
     <small>Published August 12, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/skops-library.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/skops.md">
         Update on GitHub
     </a>
 </div>
