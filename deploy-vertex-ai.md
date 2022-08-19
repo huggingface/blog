@@ -178,16 +178,21 @@ configure. Here are some of the configurations that you can choose:
 
 The [`google-cloud-aiplatform`](https://pypi.org/project/google-cloud-aiplatform/)
 Python SDK provides easy APIs to manage the lifecycle of a deployment on
-Vertex AI. It is divided into four steps - **1)** uploading a model,
-**2)** creating an endpoint, **3)** deploying the model to the endpoint,
-and **4)** making prediction requests. Throughout these steps, you will
+Vertex AI. It is divided into four steps:
+
+1. uploading a model
+2. creating an endpoint 
+3. deploying the model to the endpoint
+4. making prediction requests. 
+
+Throughout these steps, you will
 need `ModelServiceClient`, `EndpointServiceClient`, and
 `PredictionServiceClient` modules from the `google-cloud-aiplatform`
 Python SDK to interact with Vertex AI.
 
 ![](./assets/97_vertex_ai/image3.png)
 
-**1)** The first step in the workflow is to upload the `SavedModel` to
+**1.** The first step in the workflow is to upload the `SavedModel` to
 Vertex AI’s model registry:
 
 ```py
@@ -224,7 +229,7 @@ Let’s unpack the code piece by piece:
   that lets Vertex AI determine where the model is going to be scoped
   inside GCP.
 
-**2)** Then you need to create a Vertex AI Endpoint:
+**2.** Then you need to create a Vertex AI Endpoint:
 
 ```py
 tf28_gpu_endpoint_dict = {
@@ -243,7 +248,7 @@ Here you’re using an `endpoint_service_client` which is an
 [`EndpointServiceClient`](https://cloud.google.com/vertex-ai/docs/samples/aiplatform-create-endpoint-sample)
 object. It lets you create and configure your Vertex AI Endpoint.
 
-**3)** Now you’re down to performing the actual deployment!
+**3.** Now you’re down to performing the actual deployment!
 
 ```py
 tf28_gpu_deployed_model_dict = {
@@ -336,7 +341,7 @@ bytes = tf.io.read_file(image_path)
 b64str = base64.b64encode(bytes.numpy()).decode("utf-8")
 ```
 
-**4)** The following utility first prepares a list of instances (only
+**4.** The following utility first prepares a list of instances (only
 one instance in this case) and then uses a prediction service client (of
 type [`PredictionServiceClient`](https://cloud.google.com/python/docs/reference/automl/latest/google.cloud.automl_v1beta1.services.prediction_service.PredictionServiceClient)).
 `serving_input` is the name of the input signature key of the served
