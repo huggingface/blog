@@ -50,11 +50,9 @@ Let's take a look at how to create the minimal working demo of our interface bef
 We will build a simple demo app that can accept either a 4-digit PDB code or a PDB file. Our app will then retrieve the pdb file from the RCSB Protein Databank and display it or use the uploaded file for display.
 
 
-<script type="module"
-src="https://gradio.s3-us-west-2.amazonaws.com/3.1.5/gradio.js">
-</script>
-<gradio-app space="simonduerr/3dmol.js"></gradio-app>
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.1.5/gradio.js"></script>
 
+<gradio-app space="simonduerr/3dmol.js"></gradio-app>
 
 ```python
 import gradio as gr
@@ -162,8 +160,7 @@ You can check the [source code](https://huggingface.co/spaces/simonduerr/3dmol.j
 
 For a production example, you can check the [ProteinMPNN](https://hf.space/simonduerr/ProteinMPNN) space where a user can upload a backbone, the inverse folding model ProteinMPNN predicts new optimal sequences and then one can run AlphaFold2 on all predicted sequences to verify whether they adopt the initial input backbone. Successful redesigns that qualitiatively adopt the same structure as predicted by AlphaFold2 with high pLDDT score should be tested in the lab. 
 
-<iframe src="https://hf.space/embed/simonduerr/ProteinMPNN/+
-" frameBorder="0" width="1400" height="690" title="Gradio app" class="p-0 flex-grow space-iframe" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<gradio-app space="simonduerr/ProteinMPNN"></gradio-app>
 
 # Issues
 
