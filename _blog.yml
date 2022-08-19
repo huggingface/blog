@@ -1107,7 +1107,7 @@
   tags:
     - guide
     - cv
-    
+
 
 - local: tensorflow-philosophy
   title: "Hugging Face's TensorFlow Philosophy"
@@ -1118,8 +1118,8 @@
     - nlp
     - cv
     - guide
-    
-    
+
+
 - local: skops
   title: Introducing Skops
   author: merve
@@ -1141,7 +1141,26 @@
     - nlp
     - llm
     - quantization
+  
+- local: vision-transformers
+  title: "Deep Dive: Vision Transformers On Hugging Face Optimum Graphcore"
+  author: juliensimon
+  thumbnail: /blog/assets/97_vision_transformers/thumbnail.jpg
+  date: August 18, 2022
+  tags:
+    - vision
+    - graphcore
 
+
+- local: deploy-vertex-ai
+  title: "Deploying 🤗 ViT on Vertex AI"
+  author: sayakpaul
+  thumbnail: /blog/assets/97_vertex_ai/image1.png
+  date: August 19, 2022
+  tags:
+    - guide
+    - cv
+   
 - local: stable_diffusion_with_diffusers
   title: "Stable Diffusion with D🧨iffusers"
   author: valhalla
