@@ -8,7 +8,7 @@ thumbnail: /blog/assets/94_tf_serving_kubernetes/thumb.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published August 15, 2022.</small>
+    <small>Published August 11, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/deploy-tfserving-kubernetes.md">
         Update on GitHub
     </a>

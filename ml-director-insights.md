@@ -75,7 +75,7 @@ Hopefully, small data-driven general-purpose multi-modal multi-task real-time ML
 
 ### [Li Tan](http://linkedin.com/in/iamtanli/) - Director of Machine Learning & AI at [Johnson & Johnson](https://www.jnj.com/)
 
-**Background:** Li is an AI/ML veteran with 15+ years of experience leading high-profile Data Science teams within industry leaders like Johnson & Johnson, Microsoft, and Amazon. Li continues to be curious, is always learning and enjoys hands-on programming. 
+**Background:** Li is an AI/ML veteran with 15+ years of experience leading high-profile Data Science teams within industry leaders like Johnson & Johnson, Microsoft, and Amazon.
 
 **Fun Fact:** Li continues to be curious, is always learning, and enjoys hands-on programming.
 
