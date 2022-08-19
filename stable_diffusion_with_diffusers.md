@@ -52,83 +52,24 @@ See the [model card](https://huggingface.co/CompVis/stable-diffusion) for more i
 
 **The Stable Diffusion weights are currently only available to universities, academics, research institutions and independent researchers. Please request access applying to <a href="https://stability.ai/academia-access-form" target="_blank">this</a> form**
 
-This Colab notebook shows how to use Stable Diffusion with the 🤗 Hugging Face [D🧨ffusers library](https://github.com/huggingface/diffusers). 
+This post shows how to use Stable Diffusion with the 🤗 Hugging Face [D🧨ffusers library](https://github.com/huggingface/diffusers). If you want to follow along you can use the accompanying [Colab notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb) to try it out yourself! Note, however, that the Stable Diffusion weights are currently only available to universities, academics, research institutions and independent researchers. Please request access applying to <a href="https://stability.ai/academia-access-form" target="_blank">this</a> form if you intend to run the code.
 
 Let's get started!
 
 ## 1. How to use `StableDiffusionPipeline`
 
-First, you'll see how to run text to image inference in just a few lines of code! 
+The `StableDiffusionPipeline` sets up everything you need to generate images from text in just a few lines of code.
 
-### Setup
-
-First, please make sure you are using a GPU runtime to run this notebook, so inference is much faster. If the following command fails, use the `Runtime` menu above and select `Change runtime type`.
-
-
-```python
-!nvidia-smi
-```
-
-
-Let's install the required dependacies.
-
-
-```python
-!pip install diffusers==0.2.2
-!pip install transformers scipy ftfy
-```
-
-
-In order to use Stable Diffusion, you need to have access to the pre-trained weights. You can request access for research purposes using the form in [the model card](https://huggingface.co/CompVis/stable-diffusion). Run the following cell to authenticate against the 🤗 Hugging Face Hub once you get access.
-
-If you don't have access yet, public weights are expected to be released in a few days, so check back soon!
-
-
-```python
-from huggingface_hub import notebook_login
-
-notebook_login()
-```
-
-
-### StableDiffusionPipeline
-
-`StableDiffusionPipeline` is an end-to-end inference pipeline that you can use to generate images from text with just a few lines of code.
-
-This is how to create the pipeline and load the pre-trained weights.
-
-
-```python
-from diffusers import StableDiffusionPipeline
-
-# make sure you're logged in with `huggingface-cli login`
-pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-3-diffusers", use_auth_token=True)  
-```
-
-Using `autocast` will run inference faster because it uses half-precision.
-
-
-```python
-from torch import autocast
-
-prompt = "a photograph of an astronaut riding a horse"
-with autocast("cuda"):
-  image = pipe(prompt, guidance_scale=7)["sample"][0]  # image here is in [PIL format](https://pillow.readthedocs.io/en/stable/)
-
-# Now to display an image you can do either save it such as:
-image.save(f"astronaut_rides_horse.png")
-
-# or if you're in a google colab you can directly display it with 
-image
-```
+This is how easy it is to create the pipeline and generate an image:
+And this would be the result!
 
     
 ![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_12_1.png)
     
+For a step-by-step guide on what each line does, remember to visit the [Colab notebook we mentioned before](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb).
 
 
-
-Running the above cell multiple times will give you a different image every time. If you want deterministic output you can pass a random seed to the pipeline. Every time you use the same seed you'll have the same image result.
+The previous code will give you a different image every time you run it. If you want deterministic output you can pass a random seed to the pipeline. Every time you use the same seed you'll have the same image result.
 
 
 ```python
@@ -150,7 +91,7 @@ image
 
 You can change the number of inference steps using the `num_inference_steps` argument. In general, results are better the more steps you use. Stable Diffusion, being one of the latest models, works great with a relatively small number of steps, so we recommend to use the default of `50`. If you want faster results you can use a smaller number.
 
-The following cell uses the same seed as before, but with fewer steps. Note how some details, such as the horse's head or the helmet, are less defined than in the previous image:
+The following code shows how to use the same seed as before, but with fewer steps, and then we show the image it generates. Note how the structure is the same, but there are problems in the astronaut(s) and in the horse's paw.
 
 
 ```python
@@ -170,13 +111,13 @@ image
 
 
 
-The other parameter in the pipeline call is `guidance_scale`. It is a way to increase the adherence to the conditional signal which in this case is text as well as overall sample quality. In simple terms classifier free guidance forces the generation to better match with the prompt. Numbers like `7` or `8.5` give good results, if you use a very large number the images might look good, but will be less diverse. 
+The other parameter in the pipeline call is `guidance_scale`. It is a way to increase the adherence to the conditional signal that guides the generation (text, in this case) as well as overall sample quality. This is known as classifier-free guidance, which in simple terms forces the generation to better match the prompt. Numbers like `7` or `8.5` are good choices, if you use a very large number the images might look good, but will be less diverse. 
 
-You can learn about the technical details of this parameter in [the last section](https://colab.research.google.com/drive/1ALXuCM5iNnJDNW5vqBm5lCtUQtZJHN2f?authuser=1#scrollTo=UZp-ynZLrS-S) of this notebook.
+You can learn about the technical details of this parameter in [this section](#how-to-write-your-own-inference-pipeline-with-diffusers) of the post.
 
 ### Generate a grid of images
 
-Let's first write a helper function to display a grid of images. Just run the following cell to create the `image_grid` function, or disclose the code if you are interested in how it's done.
+You can also generate several images at once. First, we'll create an `image_grid` function to help us visualize them nicely in a grid.
 
 
 ```python
@@ -194,7 +135,7 @@ def image_grid(imgs, rows, cols):
     return grid
 ```
 
-To generate multiple images for the same prompt, we simply use a list with the same prompt repeated several times. We'll send the list to the pipeline instead of the string we used before.
+Then we can generate multiple images for the same prompt by simply using a list with the same prompt repeated several times. We'll send the list to the pipeline instead of the string we used before.
 
 
 ```python
@@ -295,7 +236,9 @@ This is why it's possible to generate `512 × 512` images so quickly, even on 16
 
 **Stable Diffusion**
 
-Stable Diffusion is a text-conditioned latent diffusion model trained on the [LAION dataset](https://laion.ai).
+Stable Diffusion is a text-to-image latent diffusion model created by the researchers and engineers from [CompVis](https://github.com/CompVis), [Stability AI](https://stability.ai/) and [LAION](https://laion.ai/). It's trained on `512  × 512` images from a subset of the [LAION-5B](https://laion.ai/blog/laion-5b/) database. This model uses a frozen CLIP ViT-L/14 text encoder to condition the model on text prompts. With its 860M UNet and 123M text encoder, the model is relatively lightweight and runs on a GPU with at least 10GB VRAM.
+ 
+See the [model card](https://huggingface.co/CompVis/stable-diffusion) for more information.
 
 Stable Diffusion has three core components:
 
@@ -315,11 +258,10 @@ After this brief introduction to Latent and Stable Diffusion, let's see how to m
 ## 3. How to write your own inference pipeline with `diffusers`
 
 Finally, we show how you can create custom diffusion pipelines with `diffusers`.
-This is often very useful to dig a bit deeper into certain functionalities of the system and to potentially switch out certain components. 
+This is often very useful to dig a bit deeper into certain functionalities of the system and to potentially switch out some of the components.
 
-In this section, we will demonstrate how to use Stable Diffusion with a different scheduler, namely [Katherine Crowson's](https://github.com/crowsonkb) K-LMS scheduler that was added in [this PR](https://github.com/huggingface/diffusers/pull/185#pullrequestreview-1074247365).
+For example, we'll show how to use Stable Diffusion with a different scheduler, namely [Katherine Crowson's](https://github.com/crowsonkb) K-LMS scheduler that was added in [this PR](https://github.com/huggingface/diffusers/pull/185).
 
-Let's go through the `StableDiffusionPipeline` step by step to see how we could have written it ourselves.
 
 We will start by loading the individual models involved.
 
@@ -368,7 +310,6 @@ Next we move the models to the GPU.
 
 
 ```python
-%%capture
 from torch import autocast
 
 vae.to(torch_device)
@@ -435,18 +376,7 @@ latents = latents.to(torch_device)
 ```
 
 
-```python
-latents.shape
-```
-
-
-
-
-    torch.Size([1, 4, 64, 64])
-
-
-
-Cool $64 \times 64$ is expected. The model will transform this latent representation (pure noise) into a `512 × 512` image later on.
+If we examine the `latents` at this stage we'll see their shape is `torch.Size([1, 4, 64, 64])`, much smaller than the image we want to generate. The model will transform this latent representation (pure noise) into a `512 × 512` image later on.
 
 The K-LMS scheduler needs to multiple the `latents` by its `sigma` values. Let's do this here
 
