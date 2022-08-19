@@ -1,10 +1,10 @@
 ---
-title: Stable Diffusion using 🧨diffusers
+title: Stable Diffusion with D🧨iffusers
 thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
 ---
 
 <h1>
-	Stable Diffusion using 🧨diffusers
+	Stable Diffusion with D🧨iffusers
 </h1>
 
 <div class="blog-metadata">
@@ -22,7 +22,7 @@ thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
             <span class="fullname">Suraj Patil</span>
         </div>
     </a>
-    <a href="/pcuenq">
+	 <a href="/pcuenq">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/1177582?v=4" width="100" title="Gravatar">
         <div class="bfc">
             <code>pcuenq</code>
@@ -36,7 +36,6 @@ thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
             <span class="fullname">Patrick von Platen</span>
         </div>
     </a>
-    
 </div>
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb">
@@ -45,79 +44,122 @@ thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
 
 
 # **Stable Diffusion** 🎨 
-*...using `🧨diffusers`*
+*...using `D🧨ffusers`*
 
-Stable Diffusion is a text-to-image latent diffusion model created by the researchers and engineers from [CompVis](https://github.com/CompVis), [Stability AI](https://stability.ai/) and [LAION](https://laion.ai/). It's trained on 512x512 images from a subset of the [LAION-5B](https://laion.ai/blog/laion-5b/) database. This model uses a frozen CLIP ViT-L/14 text encoder to condition the model on text prompts. With its 860M UNet and 123M text encoder, the model is relatively lightweight and runs on a GPU with at least 10GB VRAM.
-See the [model card](https://huggingface.co/CompVis/stable-diffusion) for more information.
+Stable Diffusion is a text-to-image latent diffusion model created by the researchers and engineers from [CompVis](https://github.com/CompVis), [Stability AI](https://stability.ai/) and [LAION](https://laion.ai/). 
+It is trained on 512x512 images from a subset of the [LAION-5B](https://laion.ai/blog/laion-5b/) database. 
+*LAION-5B* is the largest, freely accesible multi-model dataset that currently exist.
 
-**The Stable Diffusion weights are currently only available to universities, academics, research institutions and independent researchers. Please request access applying to <a href="https://stability.ai/academia-access-form" target="_blank">this</a> form**
+In this post, we want to show how to use Stable Diffusion with the [D🧨ffusers library](https://github.com/huggingface/diffusers), explain how the model works and finally dive a bit deeper into how `diffusers` allows
+one to customize the image generation pipeline.
 
-This post shows how to use Stable Diffusion with the 🤗 Hugging Face [D🧨ffusers library](https://github.com/huggingface/diffusers). If you want to follow along you can use the accompanying [Colab notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb) to try it out yourself! Note, however, that the Stable Diffusion weights are currently only available to universities, academics, research institutions and independent researchers. Please request access applying to <a href="https://stability.ai/academia-access-form" target="_blank">this</a> form if you intend to run the code.
+**Note**: It is highly recommended to have a basic understanding of how diffusion models work. If diffusion 
+models are completely new to you, we recommend reading one of the following blog posts:
+- [The Annotated Diffusion Model](https://huggingface.co/blog/annotated-diffusion)
+- [Getting started with D🧨ffusers](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/diffusers_intro.ipynb)
 
-Let's get started!
+Now, let's get started by generating some images 🎨.
 
-## 1. How to use `StableDiffusionPipeline`
+## Running Stable Diffusion
 
-The `StableDiffusionPipeline` sets up everything you need to generate images from text in just a few lines of code.
+First, you should install `diffusers==0.2.3` to run the following code snippets:
 
-This is how easy it is to create the pipeline and generate an image:
-And this would be the result!
+```bash
+pip install diffusers==0.2.3
+```
 
-    
+The Stable Diffusion model can be run in inference with just a couple of lines using the [`StableDiffusionPipeline`](https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion.py) pipeline. The pipeline sets up everything you need to generate images from text with 
+a simple `from_pretrained` function call.
+
+```python
+from diffusers import StableDiffusionPipeline
+
+# make sure you're logged in with `huggingface-cli login`
+pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-3-diffusers", use_auth_token=True)
+```
+
+If a GPU is available, let's move it to one!
+
+```python
+pipe.to("cuda")
+```
+
+To run the pipeline simply define the prompt and call `pipe`:
+
+```python
+prompt = "a photograph of an astronaut riding a horse"
+
+image = pipe(prompt, guidance_scale=7)["sample"][0]
+
+# you can save the image with
+# image.save(f"astronaut_rides_horse.png")
+```
+
+The result would look as follows
+
+```
+**Output**
+```
 ![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_12_1.png)
     
-For a step-by-step guide on what each line does, remember to visit the [Colab notebook we mentioned before](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb).
 
-
-The previous code will give you a different image every time you run it. If you want deterministic output you can pass a random seed to the pipeline. Every time you use the same seed you'll have the same image result.
+The previous code will give you a different image every time you run it. If you want deterministic output you can seed a random seed and pass a generator to the pipeline. 
+Every time you use a generator with the same seed you'll get the same image output.
 
 
 ```python
 import torch
 
 generator = torch.Generator("cuda").manual_seed(1024)
+image = pipe(prompt, guidance_scale=7, generator=generator)["sample"][0]
 
-with autocast("cuda"):
-  image = pipe(prompt, guidance_scale=7, generator=generator)["sample"][0]
-
-image
+# you can save the image with
+# image.save(f"astronaut_rides_horse.png")
 ```
 
+The result would look as follows
 
+```
+**Output**
+```
 ![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_14_1.png)
     
+You can change the number of inference steps using the `num_inference_steps` argument. 
+In general, results are better the more steps you use. 
+Stable Diffusion works quite well with a relatively small number of steps, so we recommend to use the default number of inference steps of `50`. 
+If you want faster results you can use a smaller number. If you want potentially higher quality results, 
+you can use larger numbers.
 
-
-
-You can change the number of inference steps using the `num_inference_steps` argument. In general, results are better the more steps you use. Stable Diffusion, being one of the latest models, works great with a relatively small number of steps, so we recommend to use the default of `50`. If you want faster results you can use a smaller number.
-
-The following code shows how to use the same seed as before, but with fewer steps, and then we show the image it generates. Note how the structure is the same, but there are problems in the astronaut(s) and in the horse's paw.
-
+Let's try out running the pipeline with less denoising steps.
 
 ```python
 import torch
 
 generator = torch.Generator("cuda").manual_seed(1024)
+image = pipe(prompt, guidance_scale=7, num_inference_steps=20, generator=generator)["sample"][0]
 
-with autocast("cuda"):
-  image = pipe(prompt, guidance_scale=7, num_inference_steps=20, generator=generator)["sample"][0]
-
-image
+# you can save the image with
+# image.save(f"astronaut_rides_horse.png")
 ```
 
-
+```
+**Output**
+```
 ![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_16_1.png)
-    
 
+Note how the structure is the same, but there are problems in the astronaut(s) and in the horse's paw.
+This shows that 20 denoising steps has significantly degraded the quality of the generation result.    
 
-
-The other parameter in the pipeline call is `guidance_scale`. It is a way to increase the adherence to the conditional signal that guides the generation (text, in this case) as well as overall sample quality. This is known as classifier-free guidance, which in simple terms forces the generation to better match the prompt. Numbers like `7` or `8.5` are good choices, if you use a very large number the images might look good, but will be less diverse. 
+Besides `num_inference_steps`, we've been using another function argument, called `guidance_scale` in all 
+previous examples. `guidance_scale` is a way to increase the adherence to the conditional signal that guides the generation (text, in this case) as well as overall sample quality. 
+It is also known as [classifier-free guidance](https://arxiv.org/abs/2207.12598), which in simple terms forces the generation to better match the prompt potentially at the cost of image quality or diversity. 
+Values between `7` and `8.5` are usually good choices for Stable Diffusion. 
+If you use a very large value the images might look good, but will be less diverse. 
 
 You can learn about the technical details of this parameter in [this section](#how-to-write-your-own-inference-pipeline-with-diffusers) of the post.
 
-### Generate a grid of images
-
-You can also generate several images at once. First, we'll create an `image_grid` function to help us visualize them nicely in a grid.
+Next, let's see how you can generate several images of the same prompt at once. 
+First, we'll create an `image_grid` function to help us visualize them nicely in a grid.
 
 
 ```python
@@ -135,84 +177,60 @@ def image_grid(imgs, rows, cols):
     return grid
 ```
 
-Then we can generate multiple images for the same prompt by simply using a list with the same prompt repeated several times. We'll send the list to the pipeline instead of the string we used before.
-
+We can generate multiple images for the same prompt by simply using a list with the same prompt repeated several times. We'll send the list to the pipeline instead of the string we used before.
 
 ```python
 num_images = 3
 prompt = ["a photograph of an astronaut riding a horse"] * num_images
 
-with autocast("cuda"):
-  images = pipe(prompt, guidance_scale=7.5)["sample"]
+images = pipe(prompt, guidance_scale=7.5)["sample"]
 
 grid = image_grid(images, rows=1, cols=3)
-grid
+
+# you can save the grid with
+# grid.save(f"astronaut_rides_horse.png")
 ```
 
-
+```
+**Output**
+```
 ![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_22_1.png)
     
 
-And here's how to generate a grid of `n × m` images.
+By default, stable diffusion produces images of `512 × 512` pixels. It's very easy to override the default using the `height` and `width` arguments to create rectangular images in portrait or landscape ratios.
 
-
-```python
-num_cols = 3
-num_rows = 4
-
-prompt = ["a photograph of an astronaut riding a horse"] * num_cols
-
-all_images = []
-for i in range(num_rows):
-  with autocast("cuda"):
-    images = pipe(prompt, guidance_scale=7.5)["sample"]
-  all_images.extend(images)
-
-grid = image_grid(all_images, rows=num_rows, cols=num_cols)
-grid
-```
-
-    
-![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_24_4.png)
-    
-
-
-
-### Generate non-square images
-
-Stable Diffusion produces images of `512 × 512` pixels by default. But it's very easy to override the default using the `height` and `width` arguments, so you can create rectangular images in portrait or landscape ratios.
-
-These are some recommendations to choose good image sizes:
+When choosing image sizes, we advise the following:
 - Make sure `height` and `width` are both multiples of `8`.
 - Going below 512 might result in lower quality images.
 - Going over 512 in both directions will repeat image areas (global coherence is lost).
 - The best way to create non-square images is to use `512` in one dimension, and a value larger than that in the other one.
 
+Let's run an example:
 
 ```python
 prompt = "a photograph of an astronaut riding a horse"
-with autocast("cuda"):
-  image = pipe(prompt, height=512, width=768, guidance_scale=7.5)["sample"][0]
-image
+image = pipe(prompt, height=512, width=768, guidance_scale=7.5)["sample"][0]
+
+# you can save the image with
+# image.save(f"astronaut_rides_horse.png")
 ```
 
-
+```
+**Output**
+```
 ![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_26_1.png)
     
 
+## How does Stable Diffusion work?
 
+Having seen the high-quality images that stable diffusion can produce, let's try to understand 
+a bit better how the model functions.
 
-## 2. What is Stable Diffusion
+Generally speaking, diffusion models are machine learning systems that are trained to *denoise* random gaussian noise step by step, to get to a sample of interest, such as an *image*. For a more detailed overview of how they work, check [this colab](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/diffusers_intro.ipynb).
 
-Next, we go a bit more in-detail about how ***Stable diffusion*** works.
+Stable Diffusion is based on a particular type of diffusion model called **Latent Diffusion**, proposed in [High-Resolution Image Synthesis with Latent Diffusion Models](https://arxiv.org/abs/2112.10752). 
 
-
-
-Diffusion models are machine learning systems that are trained to *denoise* random gaussian noise step by step, to get to a sample of interest, such as an *image*. For a more detailed overview of how they work, check [this colab](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/diffusers_intro.ipynb).
-
-Stable Diffusion is based on a particular type of diffusion model called **Latent Diffusion**, proposed in [High-Resolution Image Synthesis with Latent Diffusion Models](https://arxiv.org/abs/2112.10752). This section takes a look at how Latent Diffusion works.
-
-Diffusion models have shown to achieve state-of-the-art results for generating image data. But one downside of diffusion models is that the reverse denoising process is slow. In addition, these models consume a lot of memory because they operate in pixel space, which becomes huge when generating high-resolution images. Therefore, it is challenging to train these models and also use them for inference.
+Standard diffusion models have shown to achieve state-of-the-art results for generating image data. But one downside of diffusion models is that the reverse denoising process is slow. In addition, these models consume a lot of memory because they operate in pixel space, which becomes huge when generating high-resolution images. Therefore, it is challenging to train these models and also use them for inference.
 
 <br>
 
@@ -253,23 +271,14 @@ This is how the stable (latent) diffusion inference looks like:
 <img src="https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/stable_diffusion.png" alt="sd-pipeline" width="500"/>
 </p>
 
-After this brief introduction to Latent and Stable Diffusion, let's see how to make advanced use of 🤗 Hugging Face Diffusers!
+After this brief introduction to Latent and Stable Diffusion, let's see how to make advanced use of 🤗 Hugging Face `diffusers` library!
 
-## 3. How to write your own inference pipeline with `diffusers`
+## Writing your own inference pipeline
 
-Finally, we show how you can create custom diffusion pipelines with `diffusers`.
-This is often very useful to dig a bit deeper into certain functionalities of the system and to potentially switch out some of the components.
+Finally, we show how you can create custom diffusion pipelines with `diffusers`, which can be useful to switch out certain components, such as the VAE or scheduler as explained above.
 
-For example, we'll show how to use Stable Diffusion with a different scheduler, namely [Katherine Crowson's](https://github.com/crowsonkb) K-LMS scheduler that was added in [this PR](https://github.com/huggingface/diffusers/pull/185).
+For example, we'll show how to use Stable Diffusion with a different scheduler, namely [Katherine Crowson's](https://github.com/crowsonkb) K-LMS scheduler added in [this PR](https://github.com/huggingface/diffusers/pull/185).
 
-
-We will start by loading the individual models involved.
-
-
-```python
-import torch
-torch_device = "cuda" if torch.cuda.is_available() else "cpu"
-```
 
 The [pre-trained model](https://huggingface.co/CompVis/stable-diffusion-v1-3-diffusers/tree/main) includes all the components required to setup a complete diffusion pipeline. They are stored in the following folders:
 - `text_encoder`: Stable Diffusion uses CLIP, but other diffusion models may use other encoders such as `BERT`.
@@ -297,8 +306,7 @@ unet = UNet2DConditionModel.from_pretrained("CompVis/stable-diffusion-v1-3-diffu
 ```
 
 
-Now instead of loading the pre-defined scheduler, we load a K-LMS scheduler instead.
-
+Now instead of loading the pre-defined scheduler, we load the [K-LMS scheduler](https://github.com/huggingface/diffusers/blob/71ba8aec55b52a7ba5a1ff1db1265ffdd3c65ea2/src/diffusers/schedulers/scheduling_lms_discrete.py#L26) with some fitting parameters.
 
 ```python
 from diffusers import LMSDiscreteScheduler
@@ -306,7 +314,7 @@ from diffusers import LMSDiscreteScheduler
 scheduler = LMSDiscreteScheduler(beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear", num_train_timesteps=1000)
 ```
 
-Next we move the models to the GPU.
+Next, let's move the models to GPU.
 
 
 ```python
@@ -337,8 +345,9 @@ generator = torch.manual_seed(0)   # Seed generator to create the inital latent 
 batch_size = len(prompt)
 ```
 
-First, we get the text_embeddings for the prompt. These embeddings will be used to condition the UNet model.
-
+First, we get the `text_embeddings` for the passed prompt. 
+These embeddings will be used to condition the UNet model and guide the image generation 
+towards something we've that should resemble the input prompt.
 
 ```python
 text_input = tokenizer(prompt, padding="max_length", max_length=tokenizer.model_max_length, truncation=True, return_tensors="pt")
