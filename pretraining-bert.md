@@ -336,7 +336,7 @@ For comparison, the DeepSpeed Team, who holds the record for the [fastest BERT-p
 
 To compare the cost we can use the [p3dn.24xlarge](https://aws.amazon.com/de/ec2/instance-types/p3/) as reference, which comes with 8x NVIDIA V100 32GB GPUs and costs ~31,22$/h. We would need two of these instances to have the same "setup" as the one DeepSpeed reported, for now we are ignoring any overhead created to the multi-node setup (I/O, Network etc.). 
 This would bring the cost of the DeepSpeed GPU based training on AWS to around ~$2,075, which is 25% more than what Habana Gaudi currently delivers. 
-_Something to note here is that using [DeepSpeed](https://www.deepspeed.ai/tutorials/bert-pretraining/#deepspeed-single-gpu-throughput-results) in general improves the performance by a factor of ~2. A factor of ~2x, means that the same pre-training job without DeepSpeed would likely take twice as long and cost twice as much or ~$4k._ 
+_Something to note here is that using [DeepSpeed](https://www.deepspeed.ai/tutorials/bert-pretraining/#deepspeed-single-gpu-throughput-results) in general improves the performance by a factor of ~1.5 - 2. A factor of ~~1.5 - 2x, means that the same pre-training job without DeepSpeed would likely take twice as long and cost twice as much or ~$3-4k._ 
 
 We are looking forward on to do the experiment again once the [Gaudi DeepSpeed integration](https://docs.habana.ai/en/latest/PyTorch/DeepSpeed/DeepSpeed_User_Guide.html#deepspeed-configs) is more widely available.
 
