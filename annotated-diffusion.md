@@ -302,7 +302,6 @@ class ConvNextBlock(nn.Module):
         h = self.ds_conv(x)
 
         if exists(self.mlp) and exists(time_emb):
-            assert exists(time_emb), "time embedding must be passed in"
             condition = self.mlp(time_emb)
             h = h + rearrange(condition, "b c -> b c 1 1")
 
