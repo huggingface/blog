@@ -324,6 +324,7 @@ Next, let's move the models to GPU.
 ```python
 from torch import autocast
 
+torch_device = "cuda"
 vae.to(torch_device)
 text_encoder.to(torch_device)
 unet.to(torch_device) 
@@ -335,7 +336,7 @@ Note that `guidance_scale` is defined analog to the guidance weight `w` of equat
 
 
 ```python
-prompt = ["a photograph of an astronaut riding a horse"]
+prompt = ["HAL-9000 in the style of Van Gogh"]
 
 height = 512                        # default height of Stable Diffusion
 width = 512                         # default width of Stable Diffusion
@@ -444,6 +445,8 @@ images = (image * 255).round().astype("uint8")
 pil_images = [Image.fromarray(image) for image in images]
 pil_images[0]
 ```
+
+![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_hal.png)
 
 We've gone from the basic use of Stable Diffusion using 🤗 Hugging Face Diffusers to more advanced uses of the library, and we tried to introduce all the pieces in a modern diffusion system. If you liked this topic and want to learn more, we recommend the following resources:
 - Our [Colab notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb).
