@@ -284,7 +284,7 @@ Finally, we show how you can create custom diffusion pipelines with `diffusers`,
 For example, we'll show how to use Stable Diffusion with a different scheduler, namely [Katherine Crowson's](https://github.com/crowsonkb) K-LMS scheduler added in [this PR](https://github.com/huggingface/diffusers/pull/185).
 
 
-The [pre-trained model](https://huggingface.co/CompVis/stable-diffusion-v1-3-diffusers/tree/main) includes all the components required to setup a complete diffusion pipeline. They are stored in the following folders:
+The [pre-trained model](https://huggingface.co/CompVis/stable-diffusion-v1-4/tree/main) includes all the components required to setup a complete diffusion pipeline. They are stored in the following folders:
 - `text_encoder`: Stable Diffusion uses CLIP, but other diffusion models may use other encoders such as `BERT`.
 - `tokenizer`. It must match the one used by the `text_encoder` model.
 - `scheduler`: The scheduling algorithm used to progressively add noise to the image during training.
@@ -299,14 +299,14 @@ from transformers import CLIPTextModel, CLIPTokenizer
 from diffusers import AutoencoderKL, UNet2DConditionModel, PNDMScheduler
 
 # 1. Load the autoencoder model which will be used to decode the latents into image space. 
-vae = AutoencoderKL.from_pretrained("CompVis/stable-diffusion-v1-3-diffusers", subfolder="vae", use_auth_token=True)
+vae = AutoencoderKL.from_pretrained("CompVis/stable-diffusion-v1-4", subfolder="vae", use_auth_token=True)
 
 # 2. Load the tokenizer and text encoder to tokenize and encode the text. 
 tokenizer = CLIPTokenizer.from_pretrained("openai/clip-vit-large-patch14")
 text_encoder = CLIPTextModel.from_pretrained("openai/clip-vit-large-patch14")
 
 # 3. The UNet model for generating the latents.
-unet = UNet2DConditionModel.from_pretrained("CompVis/stable-diffusion-v1-3-diffusers", subfolder="unet", use_auth_token=True)
+unet = UNet2DConditionModel.from_pretrained("CompVis/stable-diffusion-v1-4", subfolder="unet", use_auth_token=True)
 ```
 
 
