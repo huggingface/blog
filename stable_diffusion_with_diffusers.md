@@ -266,10 +266,10 @@ Stable Diffusion has three core components:
 
 1. An autoencoder which maps an image to a low-dimensional latent space, and the latent representation back to an image. In Stable Diffusion, the autoencoder is implemented in the `AutoencodeKL` model.
 2. A text encoder model that converts text prompts to embeddings that can be passed as conditions to the UNet. In Stable Diffustion, the [CLIP model](https://openai.com/blog/clip/) is used for this purpose.
-3. A UNet model trained to generate the low-dimentional latent space. Stable Diffusion uses cross-attention the the model blocks to condition on the text.
+3. A UNet model trained to generate the low-dimentional latent space. Stable Diffusion uses cross-attention in the model blocks to condition on the text.
 
 
-This is how the stable (latent) diffusion inference looks like:
+This is what stable (and latent) diffusion inference looks like:
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/stable_diffusion.png" alt="sd-pipeline" width="500"/>
@@ -377,7 +377,7 @@ For classifier-free guidance, we need to do two forward passes. One with the con
 text_embeddings = torch.cat([uncond_embeddings, text_embeddings])
 ```
 
-Generate the intial random noise.
+Generate the initial random noise.
 
 
 ```python
