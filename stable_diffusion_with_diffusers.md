@@ -264,7 +264,7 @@ See the [model card](https://huggingface.co/CompVis/stable-diffusion) for more i
 
 Stable Diffusion has three core components:
 
-1. An autoencoder which maps an image to a low-dimensional latent space, and the latent representation back to an image. In Stable Diffusion, the autoencoder is implemented in the `AutoencodeKL` model.
+1. An autoencoder which maps an image to a low-dimensional latent space, and the latent representation back to an image. In Stable Diffusion, the autoencoder is implemented in the `AutoencodeKL` class.
 2. A text encoder model that converts text prompts to embeddings that can be passed as conditions to the UNet. In Stable Diffustion, the [CLIP model](https://openai.com/blog/clip/) is used for this purpose.
 3. A UNet model trained to generate the low-dimentional latent space. Stable Diffusion uses cross-attention in the model blocks to condition on the text.
 
@@ -279,7 +279,7 @@ After this brief introduction to Latent and Stable Diffusion, let's see how to m
 
 ## Writing your own inference pipeline
 
-Finally, we show how you can create custom diffusion pipelines with `diffusers`, which can be useful to switch out certain components, such as the VAE or scheduler as explained above.
+Writing a custom inference pipeline is an advanced use of the `diffusers` library that can be useful to switch out certain components, such as the VAE or scheduler explained above.
 
 For example, we'll show how to use Stable Diffusion with a different scheduler, namely [Katherine Crowson's](https://github.com/crowsonkb) K-LMS scheduler added in [this PR](https://github.com/huggingface/diffusers/pull/185).
 
@@ -340,18 +340,17 @@ prompt = ["a photograph of an astronaut riding a horse"]
 height = 512                        # default height of Stable Diffusion
 width = 512                         # default width of Stable Diffusion
 
-num_inference_steps = 100            # Number of denoising steps
+num_inference_steps = 100           # Number of denoising steps
 
 guidance_scale = 7.5                # Scale for classifier-free guidance
 
-generator = torch.manual_seed(0)   # Seed generator to create the inital latent noise
+generator = torch.manual_seed(0)    # Seed generator to create the inital latent noise
 
 batch_size = len(prompt)
 ```
 
 First, we get the `text_embeddings` for the passed prompt. 
-These embeddings will be used to condition the UNet model and guide the image generation 
-towards something we've that should resemble the input prompt.
+These embeddings will be used to condition the UNet model and guide the image generation towards something that should resemble the input prompt.
 
 ```python
 text_input = tokenizer(prompt, padding="max_length", max_length=tokenizer.model_max_length, truncation=True, return_tensors="pt")
@@ -370,7 +369,7 @@ uncond_input = tokenizer(
 uncond_embeddings = text_encoder(uncond_input.input_ids.to(torch_device))[0]   
 ```
 
-For classifier-free guidance, we need to do two forward passes. One with the conditioned input (`text_embeddings`), and another with the unconditional embeddings (`uncond_embeddings`). In practice, we can concatenate both into a single batch to avoid doing two forward passes.
+For classifier-free guidance, we need to do two forward passes: one with the conditioned input (`text_embeddings`), and another with the unconditional embeddings (`uncond_embeddings`). In practice, we can concatenate both into a single batch to avoid doing two forward passes.
 
 
 ```python
@@ -391,7 +390,7 @@ latents = latents.to(torch_device)
 
 If we examine the `latents` at this stage we'll see their shape is `torch.Size([1, 4, 64, 64])`, much smaller than the image we want to generate. The model will transform this latent representation (pure noise) into a `512 × 512` image later on.
 
-The K-LMS scheduler needs to multiple the `latents` by its `sigma` values. Let's do this here
+The K-LMS scheduler needs to multiply the `latents` by its `sigma` values. Let's do this here:
 
 
 ```python
