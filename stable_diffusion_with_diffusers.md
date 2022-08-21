@@ -444,3 +444,11 @@ images = (image * 255).round().astype("uint8")
 pil_images = [Image.fromarray(image) for image in images]
 pil_images[0]
 ```
+
+We've gone from the basic use of Stable Diffusion using 🤗 Hugging Face Diffusers to more advanced uses of the library, and we tried to introduce all the pieces in a modern diffusion system. If you liked this topic and want to learn more, we recommend the following resources:
+- Our [Colab notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb).
+- The [Getting Started with Diffusers](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/diffusers_intro.ipynb) notebook, that gives a broader overview on Diffusion systems.
+- The [Annotated Diffusion Model](https://huggingface.co/blog/annotated-diffusion) blog post.
+- Our [code in GitHub](https://github.com/huggingface/diffusers).
+
+We hope you enjoyed it!
