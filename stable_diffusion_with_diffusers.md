@@ -122,7 +122,21 @@ image = pipe(prompt, guidance_scale=7, generator=generator)["sample"][0]
 The result would look as follows
 
 ![png](assets/98_stable_diffusion_with_diffusers/stable_diffusion_with_diffusers_14_1.png)
-    
+
+If at some point you get a black image, it may be because the content filter built inside the model might have detected an NSFW result. If you believe this shouldn't be the case, try tweaking your prompt or using a different seed. In fact, the model predictions include information about whether NSFW was detected for a particular result. Let's see what they look like:
+
+```python
+result = pipe(prompt, guidance_scale=7)
+print(result)
+```
+
+```json
+{
+    'sample': [<PIL.Image.Image image mode=RGB size=512x512>],
+    'nsfw_content_detected': [False]
+}
+```
+
 You can change the number of inference steps using the `num_inference_steps` argument. 
 In general, results are better the more steps you use. 
 Stable Diffusion works quite well with a relatively small number of steps, so we recommend to use the default number of inference steps of `50`. 
