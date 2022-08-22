@@ -68,10 +68,10 @@ Now, let's get started by generating some images 🎨.
 
 ## Running Stable Diffusion
 
-First, you should install `diffusers==0.2.3` to run the following code snippets:
+First, you should install `diffusers==0.2.4` to run the following code snippets:
 
 ```bash
-pip install diffusers==0.2.3 transformers scipy ftfy
+pip install diffusers==0.2.4 transformers scipy ftfy
 ```
 
 You also need to accept the model license before downloading or using the weights. In this post we'll use model version `v1-4`, so you'll need to  visit [its card](https://huggingface.co/CompVis/stable-diffusion-v1-4), read the license and tick the checkbox if you agree. You have to be a registered user in 🤗 Hugging Face Hub, and you'll also need to use an access token for the code to work. For more information on access tokens, please refer to [this section of the documentation](https://huggingface.co/docs/hub/security-tokens).
@@ -97,6 +97,20 @@ If a GPU is available, let's move it to one!
 
 ```python
 pipe.to("cuda")
+```
+
+**Note**: If you are limited by GPU memory and have less than 10GB of GPU RAM available, please
+make sure to load the `StableDiffusionPipeline` in float16 precision instead of the default
+float32 precision as done above.
+You can do so by loading the weights from the `fp16` branch and by telling `diffusers` to expect the 
+weights to be in float16 precision:
+
+```python
+import torch
+from diffusers import StableDiffusionPipeline
+
+# get your token at https://huggingface.co/settings/tokens
+pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", revision="fp16", torch_dtype=torch.float16, use_auth_token=YOUR_TOKEN)
 ```
 
 To run the pipeline, simply define the prompt and call `pipe`:
