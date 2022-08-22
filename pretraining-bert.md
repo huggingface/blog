@@ -1,5 +1,5 @@
 ---
-title: 'Pre-Training BERT with Hugging Face Transformers and Habana Gaudi'
+title: 'Pre-Train BERT with Hugging Face Transformers and Habana Gaudi'
 thumbnail: /blog/assets/99_pretraining_bert/thumbnail.png
 ---
 
