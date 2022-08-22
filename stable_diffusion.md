@@ -1,5 +1,5 @@
 ---
-title: Stable Diffusion with D🧨iffusers
+title: Stable Diffusion with 🧨 Diffusers
 thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png
 ---
 
@@ -45,19 +45,19 @@ thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png
 
 
 # **Stable Diffusion** 🎨 
-*...using `D🧨ffusers`*
+*...using 🧨 Diffusers*
 
 Stable Diffusion is a text-to-image latent diffusion model created by the researchers and engineers from [CompVis](https://github.com/CompVis), [Stability AI](https://stability.ai/) and [LAION](https://laion.ai/). 
 It is trained on 512x512 images from a subset of the [LAION-5B](https://laion.ai/blog/laion-5b/) database.
 *LAION-5B* is the largest, freely accessible multi-modal dataset that currently exists.
 
-In this post, we want to show how to use Stable Diffusion with the [D🧨ffusers library](https://github.com/huggingface/diffusers), explain how the model works and finally dive a bit deeper into how `diffusers` allows
+In this post, we want to show how to use Stable Diffusion with the [🧨 Diffusers library](https://github.com/huggingface/diffusers), explain how the model works and finally dive a bit deeper into how `diffusers` allows
 one to customize the image generation pipeline.
 
 **Note**: It is highly recommended to have a basic understanding of how diffusion models work. If diffusion 
 models are completely new to you, we recommend reading one of the following blog posts:
 - [The Annotated Diffusion Model](https://huggingface.co/blog/annotated-diffusion)
-- [Getting started with D🧨ffusers](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/diffusers_intro.ipynb)
+- [Getting started with 🧨 Diffusers](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/diffusers_intro.ipynb)
 
 Now, let's get started by generating some images 🎨.
 
@@ -490,5 +490,3 @@ We've gone from the basic use of Stable Diffusion using 🤗 Hugging Face Diffus
 - The [Getting Started with Diffusers](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/diffusers_intro.ipynb) notebook, that gives a broader overview on Diffusion systems.
 - The [Annotated Diffusion Model](https://huggingface.co/blog/annotated-diffusion) blog post.
 - Our [code in GitHub](https://github.com/huggingface/diffusers) where we'd be more than happy if you leave a ⭐ if `diffusers` is useful to you!
-
-We hope you enjoyed it!
