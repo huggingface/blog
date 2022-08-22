@@ -1156,7 +1156,6 @@
   tags:
     - guide
     - cv
-    
    
 - local: stable_diffusion
   title: "Stable Diffusion with 🧨 Diffusers"
@@ -1171,12 +1170,11 @@
   - clip
   - stable diffusion
   - dalle
-  
 
 - local: pretraining-bert
   title: "Pre-Training BERT with Hugging Face Transformers and Habana Gaudi"
   author: philschmid
-  thumbnail: /blog/assets/98_pretraining_bert/thumbnail.png
+  thumbnail: /blog/assets/99_pretraining_bert/thumbnail.png
   date: August 22, 2022
   tags:
     - nlp
