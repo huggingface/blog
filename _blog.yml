@@ -1161,10 +1161,10 @@
     - guide
     - cv
    
-- local: stable_diffusion_with_diffusers
+- local: stable_diffusion
   title: "Stable Diffusion with 🧨 Diffusers"
   author: valhalla
-  thumbnail: /blog/assets/98_stable_diffusion_with_diffusers/thumbnail.png
+  thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png
   date: August 22, 2022
   tags:
   - guide
