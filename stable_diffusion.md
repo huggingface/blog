@@ -73,7 +73,7 @@ Now, let's get started by generating some images 🎨.
 Before using the model, you need to accept the model [license](https://huggingface.co/spaces/CompVis/stable-diffusion-license) in order to download and use the weights.  
 
 The license is designed to mitigate the potential harmful effects of such a powerful machine learning system. 
-We encourage users to read the license entirely and carefully; though we offer a summary in understanding that the majority of the users will not do so:
+We request users to **read the license entirely and carefully**. Here we offer a summary:
 1. You can't use the model to deliberately produce nor share illegal or harmful outputs or content,
 2. We claim no rights on the outputs you generate, you are free to use them and are accountable for their use which should not go against the provisions set in the license, and
 3. You may re-distribute the weights and use the model commercially and/or as a service. If you do, please be aware you have to include the same use restrictions as the ones in the license and share a copy of the CreativeML OpenRAIL-M to all your users.
