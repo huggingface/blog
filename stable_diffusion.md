@@ -253,7 +253,12 @@ Diffusion models have shown to achieve state-of-the-art results for generating i
 
 <br>
 
-Latent diffusion can reduce the memory and compute complexity by applying the diffusion process over a lower dimensional _latent_ space, instead of using the actual pixel space. This is the key difference between standard diffusion and latent diffusion models: **in latent diffusion the model is trained to generate latent (compressed) representations of the images.** 
+Latent diffusion can reduce the memory and compute complexity by applying the diffusion process over a lower dimensional _latent_ space, instead of using the actual pixel space. This is the key difference between standard diffusion and latent diffusion models: **in latent diffusion the model is trained to generate latent (compressed) representations of the images.
+
+<br>
+
+As the model was trained on an unfiltered dataset scrapped from the internet, it may output content that reinforces or exacerbates societal biases. Check out [the model card](https://huggingface.co/CompVis/stable-diffusion-v1-4) for more information.
+** 
 
 There are three main components in latent diffusion.
 
