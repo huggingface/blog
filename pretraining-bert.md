@@ -26,6 +26,12 @@ thumbnail: /blog/assets/98_pretraining_bert/thumbnail.png
 
 In this Tutorial, you will learn how to pre-train [BERT-base](https://huggingface.co/bert-base-uncased) from scratch using a Habana Gaudi-based [DL1 instance](https://aws.amazon.com/ec2/instance-types/dl1/) on AWS to take advantage of the cost-performance benefits of Gaudi. We will use the Hugging Face [Transformers](https://huggingface.co/docs/transformers), [Optimum Habana](https://huggingface.co/docs/optimum/main/en/habana_index) and [Datasets](https://huggingface.co/docs/datasets) libraries to pre-train a BERT-base model using masked-language modeling, one of the two original BERT pre-training tasks. Before we get started, we need to set up the deep learning environment.
 
+<a class="btn-widget w-24 h-10 px-5 mt-2" href="https://github.com/philschmid/deep-learning-habana-huggingface/blob/master/pre-training/pre-training-bert.ipynb" target="_blank">View Code</a>
+
+Code: [pre-training-bert.ipynb](https://github.com/philschmid/deep-learning-habana-huggingface/blob/master/pre-training/pre-training-bert.ipynb)
+
+
+
 You will learn how to:
 1. [Prepare the dataset](#1-prepare-the-dataset)
 2. [Train a Tokenizer](#2-train-a-tokenizer)
@@ -73,7 +79,7 @@ Read more about Masked Language Modeling [here](https://huggingface.co/blog/bert
 
 --- 
 
-Lets get started. 🚀
+Let's get started. 🚀
 
 _Note: Steps 1 to 3 were run on a AWS c6i.12xlarge instance._
 
@@ -81,7 +87,7 @@ _Note: Steps 1 to 3 were run on a AWS c6i.12xlarge instance._
 
 The Tutorial is "split" into two parts. The first part (step 1-3) is about preparing the dataset and tokenizer. The second part (step 4) is about pre-training BERT on the prepared dataset. Before we can start with the dataset preparation we need to setup our development environment. As mentioned in the introduction you don't need to prepare the dataset on the DL1 instance and could use your notebook or desktop computer. 
 
-As first we are going to install `transformers`, `datasets` and `git-lfs` to push our tokenizer and dataset to the [Hugging Face Hub](https://huggingface.co) for later use.
+At first we are going to install `transformers`, `datasets` and `git-lfs` to push our tokenizer and dataset to the [Hugging Face Hub](https://huggingface.co) for later use.
 
 
 ```python
