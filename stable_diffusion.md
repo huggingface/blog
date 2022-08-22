@@ -14,10 +14,6 @@ thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>
-
 <div class="author-card">
     <a href="/valhalla">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/27137566?v=4" width="100" title="Gravatar">
@@ -49,6 +45,9 @@ thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png
     </a>
 </div>
 
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 
 # **Stable Diffusion** 🎨 
 *...using 🧨 Diffusers*
