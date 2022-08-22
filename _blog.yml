@@ -1108,7 +1108,6 @@
     - guide
     - cv
 
-
 - local: tensorflow-philosophy
   title: "Hugging Face's TensorFlow Philosophy"
   author: rocketknight1
@@ -1118,7 +1117,6 @@
     - nlp
     - cv
     - guide
-
 
 - local: skops
   title: Introducing Skops
@@ -1130,8 +1128,7 @@
     - scikit-learn
     - announcement
     - guide
-
-
+    
 - local: hf-bitsandbytes-integration
   title: "A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using transformers, accelerate and bitsandbytes"
   author: ybelkada
@@ -1140,7 +1137,7 @@
   tags:
     - nlp
     - llm
-    - quantization
+    - quantization  
   
 - local: vision-transformers
   title: "Deep Dive: Vision Transformers On Hugging Face Optimum Graphcore"
@@ -1150,7 +1147,6 @@
   tags:
     - vision
     - graphcore
-
 
 - local: deploy-vertex-ai
   title: "Deploying 🤗 ViT on Vertex AI"
@@ -1174,3 +1170,13 @@
   - clip
   - stable diffusion
   - dalle
+
+- local: pretraining-bert
+  title: "Pre-Train BERT with Hugging Face Transformers and Habana Gaudi"
+  author: philschmid
+  thumbnail: /blog/assets/99_pretraining_bert/thumbnail.png
+  date: August 22, 2022
+  tags:
+    - nlp
+    - partnerships
+    - guide
