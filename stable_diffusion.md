@@ -14,6 +14,10 @@ thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png
     </a>
 </div>
 
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
 <div class="author-card">
     <a href="/valhalla">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/27137566?v=4" width="100" title="Gravatar">
@@ -29,6 +33,13 @@ thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png
             <span class="fullname">Pedro Cuenca</span>
         </div>
     </a>
+	 <a href="/natolambert">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/10695622?v=4" width="100" title="Gravatar">
+        <div class="bfc">
+            <code>natolambert</code>
+            <span class="fullname">Nathan Lambert</span>
+        </div>
+    </a>
     <a href="/patrickvonplaten">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/23423619?v=4" width="100" title="Gravatar">
         <div class="bfc">
@@ -37,11 +48,6 @@ thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png
         </div>
     </a>
 </div>
-
-
-<a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>
 
 
 # **Stable Diffusion** 🎨 
