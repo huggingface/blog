@@ -1157,6 +1157,16 @@
     - guide
     - cv
    
+- local: pretraining-bert
+  title: "Pre-Train BERT with Hugging Face Transformers and Habana Gaudi"
+  author: philschmid
+  thumbnail: /blog/assets/99_pretraining_bert/thumbnail.png
+  date: August 22, 2022
+  tags:
+    - nlp
+    - partnerships
+    - guide
+
 - local: stable_diffusion
   title: "Stable Diffusion with 🧨 Diffusers"
   author: valhalla
@@ -1170,13 +1180,3 @@
   - clip
   - stable diffusion
   - dalle
-
-- local: pretraining-bert
-  title: "Pre-Train BERT with Hugging Face Transformers and Habana Gaudi"
-  author: philschmid
-  thumbnail: /blog/assets/99_pretraining_bert/thumbnail.png
-  date: August 22, 2022
-  tags:
-    - nlp
-    - partnerships
-    - guide
