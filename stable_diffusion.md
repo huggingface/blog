@@ -70,7 +70,7 @@ Now, let's get started by generating some images 🎨.
 
 ### License
 
-Before using the model, you need to accept the model [license](https://huggingface.co/spaces/CompVis/stable-diffusion-license) before downloading or using the weights.  
+Before using the model, you need to accept the model [license](https://huggingface.co/spaces/CompVis/stable-diffusion-license) in order to download and use the weights.  
 
 The license is designed to mitigate the potential harmful effects of such a powerful machine learning system. 
 We encourage users to read the license entirely and carefully; though we offer a summary in understanding that the majority of the users will not do so:
