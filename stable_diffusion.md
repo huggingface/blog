@@ -182,7 +182,7 @@ Values between `7` and `8.5` are usually good choices for Stable Diffusion.  By 
 uses a `guidance_scale` of 7.5.
 
 If you use a very large value the images might look good, but will be less diverse. 
-You can learn about the technical details of this parameter in [this section](#how-to-write-your-own-inference-pipeline-with-diffusers) of the post.
+You can learn about the technical details of this parameter in [this section](#writing-your-own-inference-pipeline) of the post.
 
 Next, let's see how you can generate several images of the same prompt at once. 
 First, we'll create an `image_grid` function to help us visualize them nicely in a grid.
