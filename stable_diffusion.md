@@ -68,13 +68,25 @@ Now, let's get started by generating some images 🎨.
 
 ## Running Stable Diffusion
 
+### License
+
+Before using the model, you need to accept the model [license](https://huggingface.co/spaces/CompVis/stable-diffusion-license) before downloading or using the weights.  
+
+The license is designed to mitigate the potential harmful effects of such a powerful machine learning system. 
+We encourage users to the license entirely and carefully; though we offer a summary in understanding that the majority of the users will not do so:
+1. You can't use the model to deliberately produce nor share illegal or harmful outputs or content,
+2. We claim no rights on the outputs you generate, you are free to use them and are accountable for their use which should not go against the provisions set in the license, and
+3. You may re-distribute the weights and use the model commercially and/or as a service. If you do, please be aware you have to include the same use restrictions as the ones in the license and share a copy of the CreativeML OpenRAIL-M to all your users.
+
+### Usage
+
 First, you should install `diffusers==0.2.4` to run the following code snippets:
 
 ```bash
 pip install diffusers==0.2.4 transformers scipy ftfy
 ```
 
-You also need to accept the model license before downloading or using the weights. In this post we'll use model version `v1-4`, so you'll need to  visit [its card](https://huggingface.co/CompVis/stable-diffusion-v1-4), read the license and tick the checkbox if you agree. You have to be a registered user in 🤗 Hugging Face Hub, and you'll also need to use an access token for the code to work. For more information on access tokens, please refer to [this section of the documentation](https://huggingface.co/docs/hub/security-tokens).
+In this post we'll use model version `v1-4`, so you'll need to  visit [its card](https://huggingface.co/CompVis/stable-diffusion-v1-4), read the license and tick the checkbox if you agree. You have to be a registered user in 🤗 Hugging Face Hub, and you'll also need to use an access token for the code to work. For more information on access tokens, please refer to [this section of the documentation](https://huggingface.co/docs/hub/security-tokens).
 Once you have requested access, make sure to pass your user token as:
 
 ```py
@@ -293,7 +305,7 @@ Additionally, the stable diffusion U-Net is able to condition it's output on tex
 
 **3. The Text-encoder**
 
-The text-encoder is responsible for transforming the input prompt, *e.g.* "An astronout riding a horse" into an embedding space that can be understood by the U-Net. It is usually a simple *transformer-based* encoder that maps a sequence of input tokens to a sequence of latent text-embeddings.
+The text-encoder is responsible for transforming the input prompt, *e.g.* "An astronaut riding a horse" into an embedding space that can be understood by the U-Net. It is usually a simple *transformer-based* encoder that maps a sequence of input tokens to a sequence of latent text-embeddings.
 
 Inspired by [Imagen](https://imagen.research.google/), Stable Diffusion does **not** train the text-encoder during training and simply uses an CLIP's already trained text encoder, [CLIPTextModel](https://huggingface.co/docs/transformers/model_doc/clip#transformers.CLIPTextModel).
 
