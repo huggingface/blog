@@ -4,7 +4,7 @@ thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
 ---
 
 <h1>
-	Stable Diffusion with D🧨iffusers
+	Stable Diffusion with 🧨 Diffusers
 </h1>
 
 <div class="blog-metadata">
@@ -49,7 +49,7 @@ thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
 
 Stable Diffusion is a text-to-image latent diffusion model created by the researchers and engineers from [CompVis](https://github.com/CompVis), [Stability AI](https://stability.ai/) and [LAION](https://laion.ai/). 
 It is trained on 512x512 images from a subset of the [LAION-5B](https://laion.ai/blog/laion-5b/) database.
-*LAION-5B* is the largest, freely accesible multi-model dataset that currently exists.
+*LAION-5B* is the largest, freely accessible multi-modal dataset that currently exists.
 
 In this post, we want to show how to use Stable Diffusion with the [D🧨ffusers library](https://github.com/huggingface/diffusers), explain how the model works and finally dive a bit deeper into how `diffusers` allows
 one to customize the image generation pipeline.
@@ -79,8 +79,8 @@ a simple `from_pretrained` function call.
 ```python
 from diffusers import StableDiffusionPipeline
 
-# make sure you're logged in with `huggingface-cli login`
-pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-3-diffusers", use_auth_token=True)
+# get your token at https://huggingface.co/settings/tokens
+pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", use_auth_token=YOUR_TOKEN)
 ```
 
 If a GPU is available, let's move it to one!
@@ -452,6 +452,6 @@ We've gone from the basic use of Stable Diffusion using 🤗 Hugging Face Diffus
 - Our [Colab notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb).
 - The [Getting Started with Diffusers](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/diffusers_intro.ipynb) notebook, that gives a broader overview on Diffusion systems.
 - The [Annotated Diffusion Model](https://huggingface.co/blog/annotated-diffusion) blog post.
-- Our [code in GitHub](https://github.com/huggingface/diffusers).
+- Our [code in GitHub](https://github.com/huggingface/diffusers) where we'd be more than happy if you leave a ⭐ if `diffusers` is useful to you!
 
 We hope you enjoyed it!

@@ -1162,7 +1162,7 @@
     - cv
    
 - local: stable_diffusion_with_diffusers
-  title: "Stable Diffusion with D🧨iffusers"
+  title: "Stable Diffusion with 🧨 Diffusers"
   author: valhalla
   thumbnail: /blog/assets/98_stable_diffusion_with_diffusers/thumbnail.png
   date: August 22, 2022
