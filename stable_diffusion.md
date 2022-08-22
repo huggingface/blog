@@ -78,6 +78,8 @@ We encourage users to the license entirely and carefully; though we offer a summ
 2. We claim no rights on the outputs you generate, you are free to use them and are accountable for their use which should not go against the provisions set in the license, and
 3. You may re-distribute the weights and use the model commercially and/or as a service. If you do, please be aware you have to include the same use restrictions as the ones in the license and share a copy of the CreativeML OpenRAIL-M to all your users.
 
+_Note_: we are concurrently developing an additional blog post focusing on the model card and license of this system.
+
 ### Usage
 
 First, you should install `diffusers==0.2.4` to run the following code snippets:
