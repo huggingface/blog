@@ -1180,3 +1180,11 @@
   - clip
   - stable diffusion
   - dalle
+
+- local: spaces_3dmoljs
+  title: "Visualize proteins on Hugging Face Spaces"
+  author: duerrsimon
+  thumbnail: /blog/assets/98_spaces_3dmoljs/thumbnail.png
+  date: August 24, 2022
+  tags:
+    - research
