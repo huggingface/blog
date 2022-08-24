@@ -50,7 +50,7 @@ Let's take a look at how to create the minimal working demo of our interface bef
 We will build a simple demo app that can accept either a 4-digit PDB code or a PDB file. Our app will then retrieve the pdb file from the RCSB Protein Databank and display it or use the uploaded file for display.
 
 
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.1.5/gradio.js"></script>
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.1.4/gradio.js"></script>
 
 <gradio-app space="simonduerr/3dmol.js"></gradio-app>
 
