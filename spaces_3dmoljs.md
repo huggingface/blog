@@ -13,8 +13,8 @@ thumbnail: /blog/assets/98_spaces_3dmoljs/thumbnail.png
 </div>
 
 <div class="author-card">
-    <a href="/duerrsimon">
-        <img class="avatar avatar-user" src="hhttps://avatars.githubusercontent.com/u/16979577?s=200&v=4" title="Gravatar">
+    <a href="/simonduerr">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/16979577?v=4" title="Gravatar">
         <div class="bfc">
             <code>duerrsimon</code>
             <span class="fullname">Simon Dürr</span>
