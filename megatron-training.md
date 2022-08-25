@@ -14,7 +14,7 @@ thumbnail: /blog/assets/100_megatron_training/thumbnail.png
 
 <div class="author-card">
     <a href="/loubnabnl">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/44069155?v=4" title="Gravatar">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/44069155?v=4" width="100" title="Gravatar">
         <div class="bfc">
             <code>loubnabnl</code>
             <span class="fullname">Loubna Ben Allal</span>
