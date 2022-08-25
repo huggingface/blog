@@ -303,7 +303,7 @@ The encoder compresses an image representation into a lower resolution image rep
 More specifically, the U-Net output predicts the noise residual which can be used to compute the predicted denoised image representation.
 
 To prevent the U-Net from losing important information while downsampling, short-cut connections are usually added between the downsampling ResNets of the encoder to the upsampling ResNets of the decoder.
-Additionally, the stable diffusion U-Net is able to condition it's output on text-embeddings via cross-attention layers. The cross-attention layers are added to both the encoder and decoder part of the U-Net usually between ResNet blocks.
+Additionally, the stable diffusion U-Net is able to condition its output on text-embeddings via cross-attention layers. The cross-attention layers are added to both the encoder and decoder part of the U-Net usually between ResNet blocks.
 
 **3. The Text-encoder**
 
