@@ -42,7 +42,13 @@ Megatron-LM comes with an efficient DataLoader, where the data is tokenized and 
 
 ### Fused CUDA Kernels
 
-In simple words, the idea of fused kernels here is that similar operations that are normally performed separately by Pytorch, are combined into a single hardware operation. So they reduce the number of memory movements done in multiple discrete computations by merging them into one. This gives a significant speed up to the training. Megatron-LM also uses a Fused implementation of AdamW from [Apex](https://github.com/NVIDIA/apex) which is faster than the Pytorch implementation.
+In simple words, the idea of fused kernels here is that similar operations that are normally performed separately by Pytorch, are combined into a single hardware operation. So they reduce the number of memory movements done in multiple discrete computations by merging them into one. The figure below illustrates the idea of Kernel Fusion. It is inspired from this [paper](https://www.arxiv-vanity.com/papers/1305.1183/) which discusses the concept in detail. When f, g and h are fused in one kernel, the intermediary results x’ and y’ of f and g are stored in the GPU registers and immediately used by h. But without fusion,  x’ and y’ would need to be copied to the memory and then loaded by h. Therefore, Kernel Fusion gives a significant speed up to the computations.
+
+<p align="center">
+    <img src="/blog/assets/100_megatron_training/kernel_fusion.png" width="600" />
+</p>
+
+Megatron-LM also uses a Fused implementation of AdamW from [Apex](https://github.com/NVIDIA/apex) which is faster than the Pytorch implementation.
 
 While one can customize the DataLoader like Megatron-LM and use Apex’s Fused optimizer with `transformers`, it is hard to build Fused CUDA Kernels.
 
