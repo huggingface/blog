@@ -158,6 +158,6 @@ python transformers/src/transformers/models/megatron_gpt2/convert_megatron_gpt2_
 ```
 Be careful, you will need to replace the generated vocabulary file and merges table after the conversion, with the original ones if you plan to load the tokenizer from there.
 
-Disclaimer: This framework adds some time overhead because of the extra preprocessing and conversion steps. So it is important that you decide for your case and given your model size which framework is more appropriate. But in general, for large models it's worth giving it a try.
+Disclaimer: This framework adds some time overhead because of the extra preprocessing and conversion steps. So it is important that you decide for your case and given your model size which framework is more appropriate. We recommend trying it for pre-training models, but probably not for fine-tuning medium-sized models.
 
 Congratulations 🎉 now you know how to train a GPT2 model in Megatron-LM and make it supported by `transformers`!
