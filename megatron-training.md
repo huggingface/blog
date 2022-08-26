@@ -74,7 +74,7 @@ sudo docker cp merges.txt CONTAINER_ID:/workspace/Megatron-LM
 ### Data preprocessing
 In the rest of this tutorial we will be using [CodeParrot](https://huggingface.co/codeparrot/codeparrot-small) model and data as an example.
 
-The training data requires preprocessing. First, you need to convert it into a loose json format, with one json containing a text sample per line. If you're using `datasets`, here is an example on how to do that (always inside Megatron-LM folder):
+The training data requires preprocessing. First, you need to convert it into a loose json format, with one json containing a text sample per line. If you're using 🤗 [Datasets](https://huggingface.co/docs/datasets/index), here is an example on how to do that (always inside Megatron-LM folder):
 ```python
 from datasets import load_dataset
 
