@@ -59,7 +59,7 @@ docker run --gpus all -it --rm nvcr.io/nvidia/pytorch:xx.xx-py3
 git clone https://github.com/NVIDIA/Megatron-LM
 ```
 
-You also need to add the vocabulary file and merges table of your tokenizer inside Megatron-LM folder of your container. If you want to copy this data from outside the container you can use the following commands
+You also need to add the vocabulary file and merges table of your tokenizer inside Megatron-LM folder of your container.  These files can be found in the model’s repository with the weights, see the [repository](https://huggingface.co/gpt2/tree/main) for GPT2. You can also train your own tokenizer using `transformers`. For an example, please refer to the [CodeParrot project]. Now, If you want to copy this data from outside the container you can use the following commands
 ```bash
 sudo docker cp vocab.json CONTAINER_ID:/workspace/Megatron-LM
 sudo docker cp merges.txt CONTAINER_ID:/workspace/Megatron-LM
