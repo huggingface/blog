@@ -149,7 +149,7 @@ python3 -m torch.distributed.launch $DISTRIBUTED_ARGS \
 ```
 The training takes almost 12 hours in this setting.
 
-### Convert model to 🤗 Transformers
+### Converting the model to 🤗 Transformers
 After training we want to use the model in `transformers` e.g. to evaluate it. You can convert it to `transformers` following this [tutorial](https://huggingface.co/nvidia/megatron-gpt2-345m). For instance, after the training is finished you can copy the weights of the last iteration 150k and convert the `model_optim_rng.pt` file to a `pytorch_model.bin` file that is supported by `transformers`.
 
 ```bash
@@ -164,6 +164,28 @@ python transformers/src/transformers/models/megatron_gpt2/convert_megatron_gpt2_
 ```
 Be careful, you will need to replace the generated vocabulary file and merges table after the conversion, with the original ones if you plan to load the tokenizer from there.
 
-Disclaimer: This framework adds some time overhead because of the extra preprocessing and conversion steps. So it is important that you decide for your case and given your model size which framework is more appropriate. We recommend trying it for pre-training models, but probably not for fine-tuning medium-sized models.
+Don't forget to push your model to the hub and share it with the community, it only takes three lines of code 🤗:
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+model = AutoModelForCausalLM.from_pretrained("nvidia/megatron-codeparrot-small")
+# this creates a repository under your username with the model name codeparrot-small
+model.push_to_hub("codeparrot-small")
+```
+
+You can easily use it to generate text:
+```python
+from transformers import pipeline
+
+pipe = pipeline("text-generation", model="your_username/codeparrot-small")
+outputs = pipe("def hello_world():")
+print(outputs[0]["generated_text"])
+```
+```
+ def hello_world():   
+    print("Hello World!")
+```
+
+Disclaimer: Megatron-LM framework adds some time overhead because of the extra preprocessing and conversion steps. So it is important that you decide for your case and given your model size which framework is more appropriate. We recommend trying it for pre-training models, but probably not for fine-tuning medium-sized models.
 
 Congratulations 🎉 now you know how to train a GPT2 model in Megatron-LM and make it supported by `transformers`!
