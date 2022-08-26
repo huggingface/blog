@@ -22,7 +22,7 @@ thumbnail: /blog/assets/100_megatron_training/thumbnail.png
     </a>
 </div>
 
-In this tutorial, you will learn how to train a Language Model on NVIDIA GPUs with [Megatron-LM](https://github.com/NVIDIA/Megatron-LM), a powerful transformer model framework developed by the Applied Deep Learning Research team at NVIDIA, which gives [2x speedup](https://arxiv.org/pdf/2205.14135.pdf) compared to Hugging Face [Transformers](https://github.com/huggingface/transformers.git). 
+In this tutorial, you will learn how to train a Language Model on NVIDIA GPUs with [Megatron-LM](https://github.com/NVIDIA/Megatron-LM), a powerful transformer model framework developed by the Applied Deep Learning Research team at NVIDIA, which can give up to [2x speedup](https://arxiv.org/pdf/2205.14135.pdf) compared to Hugging Face [Transformers](https://github.com/huggingface/transformers.git). 
 
 Megatron-LM is widely used by researchers to pre-train large language models such as GPT, BERT, and T5. However, it offers less flexibility compared to `transformers` and can seem like a black hole to beginners, which limits its use. We believe that the speedup this framework provides makes it important to learn how to use it, especially when one has limited computing resources.
 
