@@ -38,7 +38,7 @@ Before getting into the training details, let’s first understand what makes th
 
 ### DataLoader
 
-Megatron-LM comes with an efficient DataLoader, where the data is tokenized and shuffled before the training. It is also split into numbered sequences with indexes that are saved in a file, to avoid recomputing them in the training loop. The way the data is loaded makes the learning curve smooth and saves time during the training. 
+Megatron-LM comes with an efficient DataLoader, where the data is tokenized and shuffled before the training. It is also split into numbered sequences with indexes that are saved in a file, to avoid recomputing them in the training loop. The way the data is loaded makes the learning curve smooth and saves time during the training. As explained in this [blog](https://huggingface.co/blog/bloom-megatron-deepspeed), given the training parameters, the number of the required epochs is calculated and an ordering for that number is created and then shuffled, contrary to most cases where one iterates through the entire dataset until it is exhausted and then repeats.
 
 ### Fused CUDA Kernels
 
