@@ -1190,7 +1190,7 @@
     - research
 
 - local: megatron-training
-  title: "Training a Language Model with Megatron-LM"
+  title: "How to train a Language Model with Megatron-LM"
   author: loubnabnl
   thumbnail: /blog/assets/100_megatron_training/thumbnail.png
   date: August 26, 2022

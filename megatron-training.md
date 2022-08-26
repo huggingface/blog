@@ -1,9 +1,9 @@
 ---
-title: Training a Language Model with Megatron-LM
+title: How to train a Language Model with Megatron-LM
 thumbnail: /blog/assets/100_megatron_training/thumbnail.png
 ---
 
-<h1>Training a Language Model with Megatron-LM</h1>
+<h1>How to Language Model with Megatron-LM</h1>
 
 <div class="blog-metadata">
     <small>Published August 26, 2022.</small>
