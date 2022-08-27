@@ -42,12 +42,13 @@ Megatron-LM comes with an efficient DataLoader, in which the data is tokenized a
 
 ### Fused CUDA Kernels
 
-In simple words, the idea of fused kernels here is that similar operations that are normally performed separately by Pytorch, are combined into a single hardware operation. So they reduce the number of memory movements done in multiple discrete computations by merging them into one. The figure below illustrates the idea of Kernel Fusion. It is inspired from this [paper](https://www.arxiv-vanity.com/papers/1305.1183/) which discusses the concept in detail. When f, g and h are fused in one kernel, the intermediary results x’ and y’ of f and g are stored in the GPU registers and immediately used by h. But without fusion,  x’ and y’ would need to be copied to the memory and then loaded by h. Therefore, Kernel Fusion gives a significant speed up to the computations.
+In simple words, the idea of fused kernels here is that similar operations that are normally performed separately by Pytorch, are combined into a single hardware operation. So they reduce the number of memory movements done in multiple discrete computations by merging them into one. The figure below illustrates the idea of Kernel Fusion. It is inspired from this [paper](https://www.arxiv-vanity.com/papers/1305.1183/) which discusses the concept in detail.
 
 <p align="center">
     <img src="assets/100_megatron_training/kernel_fusion.png" width="600" />
 </p>
 
+When f, g and h are fused in one kernel, the intermediary results x’ and y’ of f and g are stored in the GPU registers and immediately used by h. But without fusion,  x’ and y’ would need to be copied to the memory and then loaded by h. Therefore, Kernel Fusion gives a significant speed up to the computations.
 Megatron-LM also uses a Fused implementation of AdamW from [Apex](https://github.com/NVIDIA/apex) which is faster than the Pytorch implementation.
 
 While one can customize the DataLoader like Megatron-LM and use Apex’s Fused optimizer with `transformers`, it is hard to build Fused CUDA Kernels.
@@ -65,7 +66,8 @@ docker run --gpus all -it --rm nvcr.io/nvidia/pytorch:xx.xx-py3
 git clone https://github.com/NVIDIA/Megatron-LM
 ```
 
-You also need to add the vocabulary file and merges table of your tokenizer inside Megatron-LM folder of your container.  These files can be found in the model’s repository with the weights, see the [repository](https://huggingface.co/gpt2/tree/main) for GPT2. You can also train your own tokenizer using `transformers`. For an example, please refer to the [CodeParrot project]. Now, If you want to copy this data from outside the container you can use the following commands
+You also need to add the vocabulary file and merges table of your tokenizer inside Megatron-LM folder of your container.  These files can be found in the model’s repository with the weights, see this [repository](https://huggingface.co/gpt2/tree/main) for GPT2. You can also train your own tokenizer using `transformers`. For an example, please refer to the [CodeParrot project](https://github.com/huggingface/transformers/tree/main/examples/research_projects/codeparrot). 
+Now if you want to copy this data from outside the container you can use the following commands:
 ```bash
 sudo docker cp vocab.json CONTAINER_ID:/workspace/Megatron-LM
 sudo docker cp merges.txt CONTAINER_ID:/workspace/Megatron-LM
@@ -98,7 +100,8 @@ python tools/preprocess_data.py \
        --chunk-size 25 \
        --append-eod
 ```
-`workers` and `chunk_size` refer to the number of workers used in the preprocessing and the chunk size of data assigned to each one. `dataset-impl` refers to the implementation mode of the indexed datasets from ['lazy', 'cached', 'mmap']. This outputs two files `codeparrot_content_document.idx` and `codeparrot_content_document.bin` which are used in the training.
+`workers` and `chunk_size` refer to the number of workers used in the preprocessing and the chunk size of data assigned to each one. `dataset-impl` refers to the implementation mode of the indexed datasets from ['lazy', 'cached', 'mmap'].
+This outputs two files `codeparrot_content_document.idx` and `codeparrot_content_document.bin` which are used in the training.
 
 ### Training
 You can configure the model architecture and training parameters as shown below, or put it in a bash script that you will run. This runs on 8 GPUs the 110M parameter CodeParrot pre-training. Note that the data is partitioned by default into a 969:30:1 ratio for training/validation/test sets.
@@ -173,7 +176,7 @@ model = AutoModelForCausalLM.from_pretrained("nvidia/megatron-codeparrot-small")
 model.push_to_hub("codeparrot-small")
 ```
 
-You can easily use it to generate text:
+You can also easily use it to generate text:
 ```python
 from transformers import pipeline
 
