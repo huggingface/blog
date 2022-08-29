@@ -1,6 +1,6 @@
 ---
 title: "OpenRAIL: Towards open and responsible AI licensing frameworks"
-thumbnail: https://github.com/huggingface/blog-1/blob/open-rail/assets/100_open_rail/100_open-rail.png
+thumbnail: /blog/assets/100_open_rail/100_open-rail.png
 ---
 <div class="blog-metadata">
     <small>Published August 31, 2022.</small>
