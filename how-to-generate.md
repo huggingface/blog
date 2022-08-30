@@ -274,7 +274,7 @@ beam_outputs = model.generate(
     early_stopping=True
 )
 
-# now we have 3 output sequences
+# now we have 5 output sequences
 print("Output:\n" + 100 * '-')
 for i, beam_output in enumerate(beam_outputs):
   print("{}: {}".format(i, tokenizer.decode(beam_output, skip_special_tokens=True)))
