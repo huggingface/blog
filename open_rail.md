@@ -10,7 +10,7 @@ thumbnail: /blog/assets/100_open_rail/100_open-rail.png
 </div>
 
 <div class="author-card">
-    <a href="/carlosmferr">
+    <a href="/CarlosMF">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/111580443?s=40&v=4" title="Gravatar">
         <div class="bfc">
             <code>cmferr</code>
