@@ -424,7 +424,7 @@ Here is the demo for running T5-11B. The T5-11B model checkpoint is in FP32 whic
 
 Or this demo for BLOOM-3B:
 
-[![Open In Colab: BLOOM-3b demo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mrm8488/shared_colab_notebooks/blob/master/HuggingFace_int8_demo.ipynb)
+[![Open In Colab: BLOOM-3b demo](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/HuggingFace_int8_demo.ipynb)
 
 ## Scope of improvements
 
