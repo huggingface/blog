@@ -13,7 +13,7 @@ thumbnail: /blog/assets/100_open_rail/100_open-rail.png
     <a href="/CarlosMF">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/111580443?s=40&v=4" title="Gravatar">
         <div class="bfc">
-            <code>cmferr</code>
+            <code>CarlosMF</code>
             <span class="fullname">Carlos Munoz Ferrandis</span>
         </div>
   </a>
