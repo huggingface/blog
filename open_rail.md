@@ -19,7 +19,6 @@ thumbnail: /blog/assets/100_open_rail/100_open-rail.png
   </a>
 </div>
   
-# **OpenRAIL: Towards open and responsible AI licensing frameworks**
 
 Open & Responsible AI licenses ("OpenRAIL") are AI-specific licenses enabling open access, use and distribution of AI artifacts while requiring a responsible use of the latter. OpenRAIL licenses could be for open and responsible ML what current open software licenses are to code and Creative Commons to general content: **a widespread community licensing tool.**
 
