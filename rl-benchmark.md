@@ -69,7 +69,7 @@ For starters, let’s have a look on some well known libraries highlighting the 
 
 ## Rllib
 
-Github repository [here](https://github.com/ray-project/ray/tree/master/rllib/).
+[Github repository](https://github.com/ray-project/ray/tree/master/rllib/).
 
 [RLlib](https://docs.ray.io/en/latest/rllib/index.html) is an open-source library for reinforcement learning (RL), offering support for production-level, highly distributed RL workloads while maintaining unified and simple APIs for a large variety of industry applications. It contains multi-agent setup which can train from purely offline datasets or externally connected simulators. It also provides a simple and versatile solution for decision making needs, even in industrial levels.
 
@@ -77,7 +77,7 @@ Rllib has an impressively large support across different algorithms and variatio
 
 ## Stable-Baselines 3
 
-Github repository [here](https://github.com/DLR-RM/stable-baselines3).
+[Github repository](https://github.com/DLR-RM/stable-baselines3).
 
 Stable-Baselines-3 (SB3) is a set of reliable implementations of RL algorithms using Pytorch, which is a successor to the well known [Stable Baselines](https://github.com/hill-a/stable-baselines). SB3 is generally easy to use and provide support for sampling using multiple cores. An accompanying training framework called [rl-baselines3-zoo](https://github.com/DLR-RM/rl-baselines3-zoo) also allows one to use pre-trained SB3 agents, and train new ones while enjoying features such as hyperparameter optimization.
 
@@ -85,7 +85,7 @@ SB3 is rather easy to use out of the box, and has support for numerous algorithm
 
 ## Rlpyt
 
-Github repository [here](https://github.com/astooke/rlpyt).
+[Github repository](https://github.com/astooke/rlpyt).
 
 This is an optimized and modular RL library, which contains interesting features such as an asynchronous version of PPO, and provides alternate sampling, which can speed up sampling in 2 times.
 
@@ -93,7 +93,7 @@ In this library, there is an asynchronous version of PPO, which is quite fast. I
 
 ## Sample-Factory
 
-Github repository [here](https://github.com/alex-petrenko/sample-factory).
+[Github repository](https://github.com/alex-petrenko/sample-factory).
 
 Sample-Factory aims to get high throughput and to make training really fast by using an asynchronous algorithm called APPO (Asynchronous Proximal Policy Optimization). Sample-Factory contains only this single algorithm, which is highly optimized for libraries such as vizdoom, dmlab, and gym environments. SF can also be used for multi-agent and population-based experiments.
 
@@ -101,7 +101,7 @@ In use, sample-factory fulfills its purpose: to sample very quickly while traini
 
 ## Tianshou
 
-Github repository [here](https://github.com/thu-ml/tianshou).
+[Github repository](https://github.com/thu-ml/tianshou).
 
 Tianshou implements multiple deep reinforcement learning algorithms using only ~4000 lines of code. It claims to be a fast-speed modularized framework and pythonic API for building deep reinforcement learning agents.
 
@@ -113,7 +113,7 @@ The main environments used for this evaluation were MiniGrid and DeepMind Lab, w
 
 ## MiniGrid 🧊
 
-**Github**: https://github.com/Farama-Foundation/gym-minigrid
+[Github repository](https://github.com/Farama-Foundation/gym-minigrid)
 
 Minigrid is a set of open-source environments widely used in the literature and easy to access, which is also simple, lightweight and fast to iterate. It’s a grid-like environment where the agent can have various goals and behaviors (e.g. lava tiles finish the episode instantly while walls prevent the agent from going to some spaces). The environment also provide plenty of wrappers for different tasks, and good documentation.
 
@@ -124,7 +124,7 @@ As we were mainly interested in tasks that required memory, we decided to focus 
 
 ## Deepmind Lab 🧫
 
-**Github**: ‣
+[Github repository](https://github.com/deepmind/lab)
 
 [Deepmind Lab](https://arxiv.org/pdf/1612.03801.pdf) is a 3D learning environment mainly based on id Software's [Quake III Arena](https://github.com/id-Software/Quake-III-Arena) via [ioquake3](https://github.com/ioquake/ioq3). It provides challenging tasks on navigation and puzzle-solving.
 
@@ -240,13 +240,13 @@ The hyperparameters used on PPO for both sets of environments are shown below:
 
 | Environment | Entropy Weight | Learning Rate | Training batch size (n_steps * n_workers) | n_workers (train) | Mini batch size | Nb of parallel agents | Gamma |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| minigrid | ⁍ | ⁍ | 2048 | 16 | 256 | 1 | 0.99 |
-| dmlab | ⁍ | ⁍ | 1600 | 8 | 200 | 1 | 0.99 |
+| minigrid | $0.01$ | $0.001$ | $2048$ | $16$ | $256$ | $1$ | $0.99$ |
+| dmlab | $0.005$ | $0.01$ | $1600$ | $8$ | $200$ | $1$ | $0.99$ |
 
 | Environment | Nb of consecutive steps | GAE parameter  | N epochs | Nb total steps | LSTM hidden size | Backpropagation length |
 | --- | --- | --- | --- | --- | --- | --- |
-| minigrid | 1 | 0.95 | 20 | ⁍ steps  | 64 | 32 |
-| dmlab | 4 | 0.95 | 2 | ⁍ steps (action repeat equal 4)  | 256 | 32 |
+| minigrid | $1$ | $0.95$ | $20$ | $10^{7}$ steps  | $64$ | $32$ |
+| dmlab | $4$ | $0.95$ | $2$ | $10^{9}$ steps (action repeat equal 4)  | $256$ | $32$ |
 
 **Obs**. When training using asynchronous versions of PPO (e.g. Sample-Factory), different hyperparameters were used (the default ones for DMLab on its repository).
 
