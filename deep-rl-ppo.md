@@ -117,7 +117,7 @@ It’s the probability of taking action \\( a_t \\) at state \\( s_t \\) in the 
 
 As we can see, \\( r_t(\theta) \\) denotes the probability ratio between the current and old policy:
 
-- If \\( r_t(\theta) > 0 \\), the **action \\( a_t \\) at state \\( s_t \\) is more likely in the current policy than the old policy.**
+- If \\( r_t(\theta) > 1 \\), the **action \\( a_t \\) at state \\( s_t \\) is more likely in the current policy than the old policy.**
 - If \\( r_t(\theta) \\) is between 0 and 1, the **action is less likely for the current policy than for the old one**.
 
 So this probability ratio is an **easy way to estimate the divergence between old and current policy.**
