@@ -3,16 +3,6 @@ title: "Exploring different Deep Reinforcement Learning libraries and their limi
 thumbnail: /blog/assets/101_rl-benchmark/thumbnail.png
 ---
 
-<html>
-<head>
-<style>
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-</style>
 <h1>Exploring different Deep Reinforcement Learning libraries and their limitations</h1>
 <h2>Code available in this <a href="https://github.com/huggingface/rl-frameworks"> Github repository 🤗</a></h2>
 
@@ -25,9 +15,6 @@ thumbnail: /blog/assets/101_rl-benchmark/thumbnail.png
         </div>
   </a>
 </div>
-
-</head>
-<body>
 
 During my internship at Hugging Face, I performed an empirical evaluation of common Deep Reinforcement Learning libraries and would like to share my results with the community. 
 
@@ -178,7 +165,7 @@ We will now analyze in details the throughputs on the two main sets of environme
 
 ### Throughput
 
-Experiments were done using the environment **MiniGrid-SimpleCrossingS9N1-v0,** where the PPO / APPO agents were trained for 65536 steps. In this case, we didn’t use a recurrent agent, so that we could include Stable Baselines 3 in our comparision.
+Experiments were done using the environment **MiniGrid-SimpleCrossingS9N1-v0,** where the PPO / APPO agents for a fixed amount of steps. In this case, we didn’t use a recurrent agent, so that we could include Stable Baselines 3 in our comparision.
 
 Results are shown below:
 
@@ -186,9 +173,11 @@ Results are shown below:
 
 Notice that, on Stable Baselines 3, a single environment was used per worker (due to it not having support for multiple environments per worker), but in the other frameworks, we used 4 environments per worker, due to restrictions on minimum number of workers on these. Another point is that we didn't include Tianshou's throughput measurements since it didn't log this metric out-of-the-box and we had a limited amount of time on this project.
 
-From this graph we can conclude that rlpyt and sample-factory seem to have higher throughput / scale better. Though rlpyt has had no support since 2020 and was not the most user friendly it took some time to setup. With respect to Rllib, it seems like it actually decreases when it passes from 4 to 8 workers - which is definitely something to investigate. When compared to Stable Baselines 3, Sample-Factory has the benefit of being able to scale by increasing the number of environments per worker, while in the first, there is the restriction of using a single environment per worker.
+From this graph we can conclude that rlpyt and sample-factory seem to have higher throughput / scale better. Though rlpyt has had no support since 2020 and was not the most user friendly it took some time to setup. With respect to Rllib, it seems like it actually decreases from 8 workers - which is seems strange but is explained in the next paragraph. When compared to Stable Baselines 3, Sample-Factory has the benefit of being able to scale by increasing the number of environments per worker, while in the first, there is the restriction of using a single environment per worker.
 
-**Note**: It's important notice, in Sample-Factory's [paper](https://arxiv.org/pdf/2006.11751.pdf), they obtain higher throughput than rlpyt, while in this plot, we don't see that. The explanation is that: 1. the neural networks are different: in sample-factory they use ResNet Impala, whereas in rlpyt the architecture is AtariNet; 2. the batch size used underutilizes the GPU, while the idea is that Sample-Factory exploits the most out of the hardware. We confirmed those explanations by running experiments with larger batches and checking the models used by the libraries.
+It's important notice, in Sample-Factory's [paper](https://arxiv.org/pdf/2006.11751.pdf), they obtain higher throughput than rlpyt, while in this plot, we don't see that. The explanation is that: 1. the neural networks are different: in sample-factory they use ResNet Impala, whereas in rlpyt the architecture is AtariNet; 2. the batch size used underutilizes the GPU, while the idea is that Sample-Factory exploits the most out of the hardware. The second reason also explains why Rllib's behaviour in the first graph: such a number of workers and environments per worker is better used with larger batch sizes. We confirmed those explanations by checking the models used by the libraries and running experiments with larger batches of size 8192, which are shown below:
+
+<img src="assets/101_rl-benchmark/throughput_minigrid_large.png" alt="Throughput measurements for MiniGrid"/>
 
 ### Performance
 
@@ -198,13 +187,13 @@ To investigate the performances, we decided to use RedBlueDoors-6x6-v0, a slight
 
 ### Throughput
 
-We show the throughput results below, when using 4 environments per worker. Notice that we don’t show results with PPO from Rllib, since after one update on the library this year, sample throughput stopped being saved in the default setting.
+We show the throughput results below, when using 4 environments per worker.
 
 <img src="assets/101_rl-benchmark/throughput_dmlab.png" alt="Throughput measurements for DmLab"/>
 
 Other than that, notice that we don’t plot the performances of rlpyt with Deepmind Lab, even though it has LSTM support and should supposedly work. Due the lack of documentation and a couple of bugs we encounter, we were not able to get this environment to work properly.
 
-Here again, we have the same behaviour in Rllib after 8 workers. We open-source our code so that the issue can be investigated.
+Here again, we have the same behaviour in Rllib after 8 workers, but now, as we have shown in the previous section, we know why.
 
 ### Performance
 
@@ -251,6 +240,3 @@ The hyperparameters used on PPO for both sets of environments are shown below:
 **Obs**. When training using asynchronous versions of PPO (e.g. Sample-Factory), different hyperparameters were used (the default ones for DMLab on its repository).
 
 **Obs2**. Other parameters than the cited above were the default ones from each library.
-
-</body>
-</html>
