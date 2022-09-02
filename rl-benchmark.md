@@ -1,6 +1,6 @@
 ---
 title: "Exploring different Deep Reinforcement Learning libraries and their limitations"
-thumbnail: /blog/assets/70_deep_rl_q_part1/thumbnail.gif
+thumbnail: /blog/assets/101_rl-benchmark/thumbnail.png
 ---
 
 <html>
