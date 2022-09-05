@@ -100,7 +100,7 @@ python tools/preprocess_data.py \
        --chunk-size 25 \
        --append-eod
 ```
-`workers` and `chunk_size` refer to the number of workers used in the preprocessing and the chunk size of data assigned to each one. `dataset-impl` refers to the implementation mode of the indexed datasets from ['lazy', 'cached', 'mmap'].
+The `workers` and `chunk_size` options refer to the number of workers used in the preprocessing and the chunk size of data assigned to each one. `dataset-impl` refers to the implementation mode of the indexed datasets from ['lazy', 'cached', 'mmap'].
 This outputs two files `codeparrot_content_document.idx` and `codeparrot_content_document.bin` which are used in the training.
 
 ### Training
