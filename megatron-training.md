@@ -189,6 +189,6 @@ print(outputs[0]["generated_text"])
     print("Hello World!")
 ```
 
-Disclaimer: Megatron-LM framework adds some time overhead because of the extra preprocessing and conversion steps. So it is important that you decide for your case and given your model size which framework is more appropriate. We recommend trying it for pre-training models, but probably not for fine-tuning medium-sized models.
+Disclaimer: We have shown that anybody can use Megatron-LM to train language models. The question is whether you should use it for all use-cases. Megatron-LM framework obviously adds some time overhead because of the extra preprocessing and conversion steps. So it is important that you decide for your case and given your model size which framework is more appropriate. We recommend trying it for pre-training models or extended fine-tuning, but probably not for shorter fine-tuning of medium-sized models.
 
 Congratulations 🎉 now you know how to train a GPT2 model in Megatron-LM and make it supported by `transformers`!
