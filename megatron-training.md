@@ -22,9 +22,9 @@ thumbnail: /blog/assets/100_megatron_training/thumbnail.png
     </a>
 </div>
 
-Over the past few months, several large language models have been released, usually with a mention of a mystical tool called [Megatron-LM](https://github.com/NVIDIA/Megatron-LM). It has become the de-facto framework to train enormous models efficiently across many GPUs, but in this blogpost we will show that it is also very useful to pre-train smaller models. You will learn how to train a Language Model on NVIDIA GPUs with Megatron-LM, a powerful transformer model framework developed by the Applied Deep Learning Research team at NVIDIA, which can give up to [2x speedup](https://arxiv.org/abs/2205.14135) compared to Hugging Face [Transformers](https://github.com/huggingface/transformers.git). 
+Over the past few months, several large language models have been released, usually with a mention of a mystical tool called [Megatron-LM](https://github.com/NVIDIA/Megatron-LM). It has become the de-facto framework to train enormous models efficiently across many GPUs, but in this blogpost, we will show that it is also very useful to pre-train smaller models. You will learn how to train a Language Model on NVIDIA GPUs with Megatron-LM, a powerful transformer model framework developed by the Applied Deep Learning Research team at NVIDIA, which can give up to [2x speedup](https://arxiv.org/abs/2205.14135) compared to Hugging Face [Transformers](https://github.com/huggingface/transformers.git). 
 
-Megatron-LM is widely used by researchers to pre-train large language models such as GPT, BERT, and T5. However, it offers less flexibility compared to `transformers` and can be a bit overwhelming for beginners. However, the speedup the framework can provide makes it important to learn how to use it, especially when one has limited computing resources and needs to train for significant amount of time.
+Megatron-LM is widely used by researchers to pre-train large language models such as GPT, BERT, and T5. However, it offers less flexibility compared to `transformers` and can be a bit overwhelming for beginners. But the speedup the framework can provide makes it important to learn how to use it, especially when one has limited computing resources and needs to train for a significant amount of time.
 
 In this blog, we will try to break down the different steps for training a GPT2 model in this framework, this includes:
 * Environment setup
@@ -42,7 +42,7 @@ Megatron-LM comes with an efficient DataLoader where the data is tokenized and s
 
 ### Fused CUDA Kernels
 
-When a computation is run on the GPU the necessary data is fetched from memory then the computation is run and the result saved back into memory. In simple terms, the idea of fused kernels is that similar operations that are normally performed separately by Pytorch, are combined into a single hardware operation. So they reduce the number of memory movements done in multiple discrete computations by merging them into one. The figure below illustrates the idea of Kernel Fusion. It is inspired from this [paper](https://www.arxiv-vanity.com/papers/1305.1183/) which discusses the concept in detail.
+When a computation is run on the GPU, the necessary data is fetched from memory, then the computation is run and the result is saved back into memory. In simple terms, the idea of fused kernels is that similar operations, usually performed separately by Pytorch, are combined into a single hardware operation. So they reduce the number of memory movements done in multiple discrete computations by merging them into one. The figure below illustrates the idea of Kernel Fusion. It is inspired from this [paper](https://www.arxiv-vanity.com/papers/1305.1183/), which discusses the concept in detail.
 
 <p align="center">
     <img src="assets/100_megatron_training/kernel_fusion.png" width="600" />
