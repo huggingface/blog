@@ -108,10 +108,10 @@ from datasets import load_dataset
 dataset = load_dataset("edbeeching/decision_transformer_gym_replay", "halfcheetah-expert-v2")
 ```
 
-While most datasets on the hub are ready to use out of the box, sometime we wish to perform so additional processing or modifcation of the dataset. In that case we wish to match the authors implementation (LINK), that is we need to:
+While most datasets on the hub are ready to use out of the box, sometime we wish to perform so additional processing or modifcation of the dataset. In that case [we wish to match the authors implementation](https://github.com/kzl/decision-transformer), that is we need to:
 
 - Normalize each feature by subtraction the mean and dividing by the standard deviation.
-- Pre-compute discounted returns
+- Pre-compute discounted returns.
 - Scaling the rewards and returns by a factor of 1000.
 - Augmenting the dataset sampling distribution so it takes into account the length of the expert agent’s trajectories.
 
@@ -119,21 +119,22 @@ While most datasets on the hub are ready to use out of the box, sometime we wish
 
 ```
 
-## **Conclusion**
+## Conclusion
 
 This post have demonstrated how to training the Decision Transformer on an offline RL dataset, hosted on 🤗 datasets (link). We have used a 🤗 transformers(link repo) Trainer(link docs) and a custom data collator.
 
-In addition to Decision Transformers, we want to support more use cases and tools from the Deep Reinforcement Learning community. Therefore, it would be great to hear your feedback on the Decision Transformer model, and more generally anything we can build with you that would be useful for RL. Feel free to **[reach out to us](mailto:thomas.simonini@huggingface.co)**.
+In addition to Decision Transformers, **we want to support more use cases and tools from the Deep Reinforcement Learning community**. Therefore, it would be great to hear your feedback on the Decision Transformer model, and more generally anything we can build with you that would be useful for RL. Feel free to **[reach out to us](mailto:thomas.simonini@huggingface.co)**.
 
-## **What’s next?**
+## What’s next?
 
-In the coming weeks and months, we plan on supporting other tools from the ecosystem:
+In the coming weeks and months, **we plan on supporting other tools from the ecosystem**:
 
 - Expanding our repository of Decision Tranformer models with models trained or finetuned in an online setting [2]
-- Integrating sample-factory version 2.0 (link)
+- Integrating [sample-factory version 2.0](https://github.com/alex-petrenko/sample-factory)
 
 The best way to keep in touch is to **[join our discord server](https://discord.gg/YRAq8fMnUG)** to exchange with us and with the community.
 
-## **References**
+## References
 [1] Chen, Lili, et al. "Decision transformer: Reinforcement learning via sequence modeling." *Advances in neural information processing systems* 34 (2021).
+
 [2] Zheng, Qinqing and Zhang, Amy and Grover, Aditya “*Online Decision Transformer”* (arXiv preprint, 2022)
