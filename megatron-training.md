@@ -38,7 +38,7 @@ Before getting into the training details, let’s first understand what makes th
 
 ### DataLoader
 
-Megatron-LM comes with an efficient DataLoader, in which the data is tokenized and shuffled before the training. It is also split into numbered sequences with indexes that are saved in a file, so that they are computed only once. To make the indexes, the number of epochs is calculated based on the training parameters and an ordering for that number is created and then shuffled, unlike most cases where we iterate through the entire dataset until it is exhausted and then repeat. This smoothes the learning curve and saves time during the training.
+Megatron-LM comes with an efficient DataLoader where the data is tokenized and shuffled before the training. It is also splits the data into numbered sequences with indexes that are stored such that they need to be computed only once. To build the index, the number of epochs are computed based on the training parameters and an ordering is created and then shuffled. This is unlike most cases where we iterate through the entire dataset until it is exhausted and then repeat for the second epoch. This smoothes the learning curve and saves time during the training.
 
 ### Fused CUDA Kernels
 
