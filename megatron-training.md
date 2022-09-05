@@ -104,7 +104,7 @@ The `workers` and `chunk_size` options refer to the number of workers used in th
 This outputs two files `codeparrot_content_document.idx` and `codeparrot_content_document.bin` which are used in the training.
 
 ### Training
-You can configure the model architecture and training parameters as shown below, or put it in a bash script that you will run. This runs on 8 GPUs the 110M parameter CodeParrot pre-training. Note that the data is partitioned by default into a 969:30:1 ratio for training/validation/test sets.
+You can configure the model architecture and training parameters as shown below, or put it in a bash script that you will run. This command runs the pretraining on 8 GPUs for a 110M parameter CodeParrot model. Note that the data is partitioned by default into a 969:30:1 ratio for training/validation/test sets.
 ```bash
 GPUS_PER_NODE=8
 MASTER_ADDR=localhost
