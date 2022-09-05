@@ -39,7 +39,7 @@ So today, **you’ll learn to train your first Offline Decision Transformer mode
         style="max-width: 70%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
-      <source src="assets/58_decision-transformers/halfcheetah-expert.mp4" type="video/mp4">
+      <source src="assets/101_decision-transformers-train/replay.mp4" type="video/mp4">
   </video>
 </figure>
 *An "expert" Decision Transformers model, learned using offline RL in the Gym HalfCheetah environment.*
@@ -57,34 +57,34 @@ Sounds exciting? Let's get started!
 
 The Decision Transformer model was introduced by **[“Decision Transformer: Reinforcement Learning via Sequence Modeling” by Chen L. et al](https://arxiv.org/abs/2106.01345)**. It abstracts Reinforcement Learning as a **conditional-sequence modeling problem**.
 
-The main idea is that instead of training a policy using RL methods, such as fitting a value function that will tell us what action to take to maximize the return (cumulative reward), we use a sequence modeling algorithm (Transformer) that, given the desired return, past states, and actions, will generate future actions to achieve this desired return. It’s an autoregressive model conditioned on the desired return, past states, and actions to generate future actions that achieve the desired return.
+The main idea is that instead of training a policy using RL methods, such as fitting a value function that will tell us what action to take to maximize the return (cumulative reward), **we use a sequence modeling algorithm (Transformer)** that, given the desired return, past states, and actions, will generate future actions to achieve this desired return. It’s an autoregressive model conditioned on the desired return, past states, and actions to generate future actions that achieve the desired return.
 
-This is a complete shift in the Reinforcement Learning paradigm since we use generative trajectory modeling (modeling the joint distribution of the sequence of states, actions, and rewards) to replace conventional RL algorithms. It means that in Decision Transformers, we don’t maximize the return but rather generate a series of future actions that achieve the desired return.
+**This is a complete shift in the Reinforcement Learning paradigm** since we use generative trajectory modeling (modeling the joint distribution of the sequence of states, actions, and rewards) to replace conventional RL algorithms. It means that in Decision Transformers, we don’t maximize the return but rather generate a series of future actions that achieve the desired return.
 
 The process goes this way:
 
-1. We feed the last K timesteps into the Decision Transformer with three inputs:
+1. We feed **the last K timesteps** into the Decision Transformer with three inputs:
     - Return-to-go
     - State
     - Action
-2. The tokens are embedded either with a linear layer if the state is a vector or a CNN encoder if it’s frames.
-3. The inputs are processed by a GPT-2 model, which predicts future actions via autoregressive modeling.
+2. **The tokens are embedded** either with a linear layer if the state is a vector or a CNN encoder if it’s frames.
+3. **The inputs are processed by a GPT-2 model**, which predicts future actions via autoregressive modeling.
 
 ![https://huggingface.co/blog/assets/58_decision-transformers/dt-architecture.gif](https://huggingface.co/blog/assets/58_decision-transformers/dt-architecture.gif)
 
 *Decision Transformer architecture. States, actions, and returns are fed into modality-specific linear embeddings, and a positional episodic timestep encoding is added. Tokens are fed into a GPT architecture which predicts actions autoregressively using a causal self-attention mask. Figure from [1].*
 
-There are different types of Decision Transformers, but today, we’re going to train an offline Decision Transformer, meaning that we only use data collected from other agents or human demonstrations. **The agent does not interact with the environment**. If you want to know more about the difference between offline and online reinforcement learning, check this article. [Link first article]
+There are different types of Decision Transformers, but today, we’re going to train an offline Decision Transformer, meaning that we only use data collected from other agents or human demonstrations. **The agent does not interact with the environment**. If you want to know more about the difference between offline and online reinforcement learning, [check this article](https://huggingface.co/blog/decision-transformers).
 
-Now that we understand the theory behind Offline Decision Transformers, let’s see how we’re going to train one in practice.
+Now that we understand the theory behind Offline Decision Transformers, **let’s see how we’re going to train one in practice.**
 
 ## Training Decision Transformers
 
 In the previous post, we demonstrate how to use a transformers Decision Transformer model and load pretrained weights from the 🤗 hub. 
 
-In this part we will use 🤗 Trainers and a custom Data Collator to training a Decision Transformer model from scratch, using an Offline RL Dataset hosted on the 🤗 hub. You can find code for this tutorial in this colab notebook (LINK.
+In this part we will use 🤗 Trainers and a custom Data Collator to training a Decision Transformer model from scratch, using an Offline RL Dataset hosted on the 🤗 hub. You can find code for this tutorial in [this colab notebook]() # ADD LINK 
 
-We will be performing offline RL to learning the following behavior in the mujoco halfcheetah environment (LINK).
+We will be performing offline RL to learning the following behavior in the [mujoco halfcheetah environment](https://www.gymlibrary.dev/environments/mujoco/half_cheetah/).
 
 <figure class="image table text-center m-0 w-full">
     <video 
@@ -92,7 +92,7 @@ We will be performing offline RL to learning the following behavior in the mujoc
         style="max-width: 70%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
-      <source src="assets/58_decision-transformers/halfcheetah-expert.mp4" type="video/mp4">
+      <source src="assets/101_decision-transformers-train/replay.mp4" type="video/mp4">
   </video>
 </figure>
 *An "expert" Decision Transformers model, learned using offline RL in the Gym HalfCheetah environment.*
@@ -101,7 +101,7 @@ We will be performing offline RL to learning the following behavior in the mujoc
 
 We host a number of Offline RL Datasets on the hub. Today we will be training with the halfcheetah “expert” dataset, hosted here on hub.
 
-First we need to import the load_dataset function from the 🤗 datasets package and download the dataset to our machine.
+First we need to import the `load_dataset` function from the 🤗 datasets package and download the dataset to our machine.
 
 ```python
 from datasets import load_dataset
