@@ -57,7 +57,7 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif <
 
 6️⃣ Modify `_blog.yml` to add your blogpost.
 
-7️⃣ When every is done, open a Pull Request.
+7️⃣ When your article is ready, open a pull Request.
 
 8️⃣ The article will be published when you merge your pull request.
 
