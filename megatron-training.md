@@ -165,7 +165,7 @@ git clone https://github.com/NVIDIA/Megatron-LM.git
 export PYTHONPATH=Megatron-LM
 python transformers/src/transformers/models/megatron_gpt2/convert_megatron_gpt2_checkpoint.py nvidia/megatron-codeparrot-small/model_optim_rng.pt
 ```
-Be careful, you will need to replace the generated vocabulary file and merges table after the conversion, with the original ones if you plan to load the tokenizer from there.
+Be careful, you will need to replace the generated vocabulary file and merges table after the conversion, with the original ones we introduced earlier if you plan to load the tokenizer from there.
 
 Don't forget to push your model to the hub and share it with the community, it only takes three lines of code 🤗:
 ```python
