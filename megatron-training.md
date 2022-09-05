@@ -150,7 +150,7 @@ python3 -m torch.distributed.launch $DISTRIBUTED_ARGS \
         --data-path $DATA_PATH \
         $TENSORBOARD_ARGS
 ```
-The training takes almost 12 hours in this setting.
+With this setup the training takes roughly 12 hours.
 
 ### Converting the model to 🤗 Transformers
 After training we want to use the model in `transformers` e.g. to evaluate it. You can convert it to `transformers` following this [tutorial](https://huggingface.co/nvidia/megatron-gpt2-345m). For instance, after the training is finished you can copy the weights of the last iteration 150k and convert the `model_optim_rng.pt` file to a `pytorch_model.bin` file that is supported by `transformers`.
