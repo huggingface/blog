@@ -108,9 +108,9 @@ from datasets import load_dataset
 dataset = load_dataset("edbeeching/decision_transformer_gym_replay", "halfcheetah-expert-v2")
 ```
 
-While most datasets on the hub are ready to use out of the box, sometime we wish to perform so additional processing or modifcation of the dataset. In that case [we wish to match the authors implementation](https://github.com/kzl/decision-transformer), that is we need to:
+While most datasets on the hub are ready to use out of the box, sometime we wish to perform some additional processing or modifcation of the dataset. In this case [we wish to match the authors implementation](https://github.com/kzl/decision-transformer), that is we need to:
 
-- Normalize each feature by subtraction the mean and dividing by the standard deviation.
+- Normalize each feature by subtracting the mean and dividing by the standard deviation.
 - Pre-compute discounted returns.
 - Scaling the rewards and returns by a factor of 1000.
 - Augmenting the dataset sampling distribution so it takes into account the length of the expert agent’s trajectories.
