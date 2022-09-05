@@ -153,7 +153,7 @@ python3 -m torch.distributed.launch $DISTRIBUTED_ARGS \
 With this setup the training takes roughly 12 hours.
 
 ### Converting the model to 🤗 Transformers
-After training we want to use the model in `transformers` e.g. to evaluate it. You can convert it to `transformers` following this [tutorial](https://huggingface.co/nvidia/megatron-gpt2-345m). For instance, after the training is finished you can copy the weights of the last iteration 150k and convert the `model_optim_rng.pt` file to a `pytorch_model.bin` file that is supported by `transformers`.
+After training we want to use the model in `transformers` e.g. for evaluation or to deploy it to production. You can convert it to a `transformers` model following this [tutorial](https://huggingface.co/nvidia/megatron-gpt2-345m). For instance, after the training is finished you can copy the weights of the last iteration 150k and convert the `model_optim_rng.pt` file to a `pytorch_model.bin` file that is supported by `transformers` with the following commands:.
 
 ```bash
 # to execute outside the container:
