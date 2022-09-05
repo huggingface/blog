@@ -23,7 +23,7 @@ For instance if your title is "Introduction to Deep Reinforcement Learning" the 
 ```
 ---
 title: "PUT YOUR TITLE HERE" 
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif <
+thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 ---
 
 # Train your first Decision Transformer
