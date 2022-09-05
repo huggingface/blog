@@ -20,3 +20,5 @@ For instance:
 
 
 ``` \\( Q(S_t, A_t) \\) ``` ➡️ $Q(S_t, A_t)$
+
+(^GitHub now supports LaTeX so it's easy to debug from GitHub now, but we implemented it first! 😎)
