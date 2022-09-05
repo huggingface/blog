@@ -230,7 +230,7 @@ class DecisionTransformerGymDataCollator:
 
 That was a lot of code, the TLDR is that we now defined a class that takes our dataset, performs the required preprocessing and will return us batches of **states**, **actions**, **rewards**, **returns**, **timesteps** and **masks.** These batches can be directly used to train a Decision Transformer model with a 🤗 transformers Trainer.
 
-## Training the Decision Transformer model
+### Training the Decision Transformer model with a 🤗 transformers Trainer.
 
 In order to train the model with the 🤗 [Trainer](https://huggingface.co/docs/transformers/main/en/main_classes/trainer#trainer) class, we first need to ensure the dictionary it returns contains a loss, in this case [L-2 norm](https://en.wikipedia.org/wiki/Norm_(mathematics)#Euclidean_norm) of the models action predictions and the targets. We achieve this by making a TrainableDT class, which inherits from the Decision Transformer model.
 
@@ -284,7 +284,7 @@ In addition to Decision Transformers, **we want to support more use cases and to
 
 In the coming weeks and months, **we plan on supporting other tools from the ecosystem**:
 
-- Expanding our repository of Decision Tranformer models with models trained or finetuned in an online setting [2]
+- Expanding our repository of Decision Transformer models with models trained or finetuned in an online setting [2]
 - Integrating [sample-factory version 2.0](https://github.com/alex-petrenko/sample-factory)
 
 The best way to keep in touch is to **[join our discord server](https://discord.gg/YRAq8fMnUG)** to exchange with us and with the community.
