@@ -42,7 +42,7 @@ Megatron-LM comes with an efficient DataLoader, in which the data is tokenized a
 
 ### Fused CUDA Kernels
 
-In simple words, the idea of fused kernels here is that similar operations that are normally performed separately by Pytorch, are combined into a single hardware operation. So they reduce the number of memory movements done in multiple discrete computations by merging them into one. The figure below illustrates the idea of Kernel Fusion. It is inspired from this [paper](https://www.arxiv-vanity.com/papers/1305.1183/) which discusses the concept in detail.
+When a computation is run on the GPU the necessary data is fetched from memory then the computation is run and the result saved back into memory. In simple terms, the idea of fused kernels is that similar operations that are normally performed separately by Pytorch, are combined into a single hardware operation. So they reduce the number of memory movements done in multiple discrete computations by merging them into one. The figure below illustrates the idea of Kernel Fusion. It is inspired from this [paper](https://www.arxiv-vanity.com/papers/1305.1183/) which discusses the concept in detail.
 
 <p align="center">
     <img src="assets/100_megatron_training/kernel_fusion.png" width="600" />
