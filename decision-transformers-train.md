@@ -1,6 +1,6 @@
 ---
 title: "Train your first Decision Transformer"
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.jpg
+thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 ---
 
 # Train your first Decision Transformer
