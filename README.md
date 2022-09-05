@@ -4,10 +4,10 @@ This is the official repository of the [Hugging Face Blog](hf.co/blog).
 ## How to write an article? 📝
 1️⃣ Create a branch `YourName/Title`
 
-2️⃣ Create a md (markdown) file, try to be short.
-For instance if your title is "Introduction to Deep Reinforcement Learning" the md file name will be `intro-rl.md`. This is important because the file name will be the blogpost's URL.
+2️⃣ Create a md (markdown) file, **try to be short**.
+For instance if your title is "Introduction to Deep Reinforcement Learning" the md file name will be `intro-rl.md`. This is important because the **file name will be the blogpost's URL**.
 
-3️⃣ Create a new folder in `assets` check the last folder number and name your folder `number_md-name` for instance `101_intro-rl`, this folder will contain all your illustrations and thumbnail. The folder number is mostly for (rough) ordering purposes, so it's no big deal if two concurrent articles end up using the same number.
+3️⃣ Create a new folder in `assets` check the last folder number and name your folder `number_md-name` for instance `101_intro-rl`, this folder will contain **all your illustrations and thumbnail**. The folder number is mostly for (rough) ordering purposes, so it's no big deal if two concurrent articles end up using the same number.
 
 4️⃣ Copy and paste this to your md file and change the elements
 - title
@@ -17,8 +17,6 @@ For instance if your title is "Introduction to Deep Reinforcement Learning" the 
   - href ="/ your huggingface username"
   - src : your huggingface picture, for that right click to the huggingface picture and copy the link
   - <span class="fullname"> : your name
-
-
 
 ```
 ---
@@ -57,9 +55,9 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 
 6️⃣ Modify `_blog.yml` to add your blogpost.
 
-7️⃣ When your article is ready, open a pull Request.
+7️⃣ When your article is ready, **open a pull request**.
 
-8️⃣ The article will be published when you merge your pull request.
+8️⃣ The article will be **published when you merge your pull request**.
 
 ## How to get a responsive thumbnail?
 1️⃣ Create a `1300x650` image 
