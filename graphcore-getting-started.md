@@ -58,7 +58,7 @@ $ source popart-ubuntu_18_04-2.3.0+774-b47c577c2a/enable.sh
 
 #### Set up PopTorch for the IPU
 
-PopTorch is part of the Poplar SDK. It provides functions that allow PyTorch models to run on the IPU with minimal code changes. You can create and activate a PopTorch environment following the guide [Setting up PyTorch for the IPU](https://docs.graphcore.ai/projects/graphcloud-getting-started/en/latest/installation.html#setting-up-pytorch-for-the-ipu):
+PopTorch is part of the Poplar SDK. It provides functions that allow PyTorch models to run on the IPU with minimal code changes. You can create and activate a PopTorch environment following the guide [Setting up PyTorch for the IPU](https://docs.graphcore.ai/projects/graphcloud-pytorch-quick-start/en/latest/pytorch_setup.html):
 
 ```
 $ virtualenv -p python3 ~/workspace/poptorch_env
