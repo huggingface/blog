@@ -272,9 +272,13 @@ trainer = Trainer(
 trainer.train()
 ```
 
+Now that we explained the theory behind Decision Transformer, the Trainer, and how to train it. **You're ready to train your first offline Decision Transformer model from scratch to make a half-cheetah run** 👉 ADD LINK
+
 ## Conclusion
 
-This post have demonstrated how to training the Decision Transformer on an offline RL dataset, hosted on 🤗 datasets (link). We have used a 🤗 transformers(link repo) Trainer(link docs) and a custom data collator.
+Now that we explained 
+
+This post have demonstrated how to training the Decision Transformer on an offline RL dataset, hosted on [🤗 datasets](https://huggingface.co/docs/datasets/index). We have used a [🤗 transformers Trainer](https://huggingface.co/docs/transformers/v4.21.3/en/model_doc/decision_transformer#overview) and a custom data collator.
 
 In addition to Decision Transformers, **we want to support more use cases and tools from the Deep Reinforcement Learning community**. Therefore, it would be great to hear your feedback on the Decision Transformer model, and more generally anything we can build with you that would be useful for RL. Feel free to **[reach out to us](mailto:thomas.simonini@huggingface.co)**.
 
