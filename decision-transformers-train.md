@@ -115,8 +115,161 @@ While most datasets on the hub are ready to use out of the box, sometime we wish
 - Scaling the rewards and returns by a factor of 1000.
 - Augmenting the dataset sampling distribution so it takes into account the length of the expert agent’s trajectories.
 
-```python
+In order to perform this dataset preprocessing, we will use a custom 🤗 [Data Collator](https://huggingface.co/docs/transformers/main/en/main_classes/data_collator). 
 
+Now let’s get started on the Custom Data Collator for Offline Reinforcement Learning.
+
+```python
+@dataclass
+class DecisionTransformerGymDataCollator:
+    return_tensors: str = "pt"
+    max_len: int = 20 #subsets of the episode we use for training
+    state_dim: int = 17  # size of state space
+    act_dim: int = 6  # size of action space
+    max_ep_len: int = 1000 # max episode length in the dataset
+    scale: float = 1000.0  # normalization of rewards/returns
+    state_mean: np.array = None  # to store state means
+    state_std: np.array = None  # to store state stds
+    p_sample: np.array = None  # a distribution to take account trajectory lengths
+    n_traj: int = 0 # to store the number of trajectories in the dataset
+
+    def __init__(self, dataset) -> None:
+
+        self.act_dim = len(dataset[0]["actions"][0])
+        self.state_dim = len(dataset[0]["observations"][0])
+        self.dataset = dataset
+        # calculate dataset stats for normalization of states
+        states = []
+        traj_lens = []
+        for obs in dataset["observations"]:
+            states.extend(obs)
+            traj_lens.append(len(obs))
+        self.n_traj = len(traj_lens)
+
+        states = np.concatenate(states, axis=0)
+        self.state_mean, self.state_std = np.mean(states, axis=0), np.std(states, axis=0) + 1e-6
+
+        traj_lens = np.array(traj_lens)
+        self.p_sample = traj_lens / sum(traj_lens)
+
+    def _discount_cumsum(self, x, gamma):
+				# computes the discounted returns from a sequence of rewards
+        discount_cumsum = np.zeros_like(x)
+        discount_cumsum[-1] = x[-1]
+        for t in reversed(range(x.shape[0] - 1)):
+            discount_cumsum[t] = x[t] + gamma * discount_cumsum[t + 1]
+        return discount_cumsum
+
+    def __call__(self, features):
+				# because of the custom sampling we require, we create a custom
+				# sampling method that uses a non-uniform distribution
+        batch_size = len(features)
+        # this is a bit of a hack to be able to sample of a non-uniform distribution
+        batch_inds = np.random.choice(
+            np.arange(self.n_traj),
+            size=batch_size,
+            replace=True,
+            p=self.p_sample,  # reweights so we sample according to timesteps
+        )
+        # a batch of dataset features (state, action, reward, done, returns, ...)
+        s, a, r, d, rtg, timesteps, mask = [], [], [], [], [], [], []
+        
+        for ind in batch_inds:
+            # for feature in features:
+            feature = self.dataset[int(ind)]
+            si = random.randint(0, len(feature["rewards"]) - 1)
+
+            # get sequences from dataset
+            s.append(np.array(feature["observations"])[si : si + self.max_len].reshape(1, -1, self.state_dim))
+            a.append(np.array(feature["actions"])[si : si + self.max_len].reshape(1, -1, self.act_dim))
+            r.append(np.array(feature["rewards"])[si : si + self.max_len].reshape(1, -1, 1))
+
+            d.append(np.array(feature["dones"])[si : si + self.max_len].reshape(1, -1))
+            timesteps.append(np.arange(si, si + s[-1].shape[1]).reshape(1, -1))
+            timesteps[-1][timesteps[-1] >= self.max_ep_len] = self.max_ep_len - 1  # padding cutoff
+            rtg.append(
+                self._discount_cumsum(np.array(feature["rewards"])[si:], gamma=1.0)[
+                    : s[-1].shape[1]  # TODO check the +1 removed here
+                ].reshape(1, -1, 1)
+            )
+            if rtg[-1].shape[1] < s[-1].shape[1]:
+                print("if true")
+                rtg[-1] = np.concatenate([rtg[-1], np.zeros((1, 1, 1))], axis=1)
+
+            # padding and state + reward normalization
+            tlen = s[-1].shape[1]
+            s[-1] = np.concatenate([np.zeros((1, self.max_len - tlen, self.state_dim)), s[-1]], axis=1)
+            s[-1] = (s[-1] - self.state_mean) / self.state_std
+            a[-1] = np.concatenate(
+                [np.ones((1, self.max_len - tlen, self.act_dim)) * -10.0, a[-1]],
+                axis=1,
+            )
+            r[-1] = np.concatenate([np.zeros((1, self.max_len - tlen, 1)), r[-1]], axis=1)
+            d[-1] = np.concatenate([np.ones((1, self.max_len - tlen)) * 2, d[-1]], axis=1)
+            rtg[-1] = np.concatenate([np.zeros((1, self.max_len - tlen, 1)), rtg[-1]], axis=1) / self.scale
+            timesteps[-1] = np.concatenate([np.zeros((1, self.max_len - tlen)), timesteps[-1]], axis=1)
+            mask.append(np.concatenate([np.zeros((1, self.max_len - tlen)), np.ones((1, tlen))], axis=1))
+
+        s = torch.from_numpy(np.concatenate(s, axis=0)).float()
+        a = torch.from_numpy(np.concatenate(a, axis=0)).float()
+        r = torch.from_numpy(np.concatenate(r, axis=0)).float()
+        d = torch.from_numpy(np.concatenate(d, axis=0))
+        rtg = torch.from_numpy(np.concatenate(rtg, axis=0)).float()
+        timesteps = torch.from_numpy(np.concatenate(timesteps, axis=0)).long()
+        mask = torch.from_numpy(np.concatenate(mask, axis=0)).float()
+
+        return {
+            "states": s,
+            "actions": a,
+            "rewards": r,
+            "returns_to_go": rtg,
+            "timesteps": timesteps,
+            "attention_mask": mask,
+        }
+```
+
+That was a lot of code, the TLDR is that we now defined a class that takes our dataset, performs the required preprocessing and will return us batches of **states**, **actions**, **rewards**, **returns**, **timesteps** and **masks.** These batches can be directly used to trained a transformers Decision Transformer model with a 🤗 transformers Trainer.
+
+## Training the Decision Transformer model
+
+In order to train the model with the 🤗 [Trainer](https://huggingface.co/docs/transformers/main/en/main_classes/trainer#trainer) class, we first need to ensure the dictionary it returns contains a loss, in this case [L-2 norm](https://en.wikipedia.org/wiki/Norm_(mathematics)#Euclidean_norm) of the models action predictions and the targets. We achieve this by making a TrainableDT class, which inherits from the Decision Transformer model.
+
+```python
+class TrainableDT(DecisionTransformerModel):
+    def __init__(self, config):
+        super().__init__(config)
+
+    def forward(self, **kwargs):
+        output = super().forward(**kwargs)
+        # add the DT loss
+        action_preds = output[1]
+        action_targets = kwargs["actions"]
+        loss = torch.mean((action_preds - action_targets) ** 2)
+
+        return {"loss": loss}
+```
+
+The transformers Trainer class required a number of arguments, defined in the TrainingArguments class. We use the same hyperparameters are in the authors original implementation.
+
+```python
+training_args = TrainingArguments(
+    output_dir="output/",
+    remove_unused_columns=False,
+    num_train_epochs=100,
+    per_device_train_batch_size=64,
+    learning_rate=1e-4,
+    weight_decay=1e-4,
+    warmup_steps=10000,
+)
+
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=dataset["train"],
+    data_collator=collator,
+)
+
+trainer.train()
 ```
 
 ## Conclusion
