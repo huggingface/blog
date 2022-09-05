@@ -49,6 +49,7 @@ Sounds exciting? Let's get started!
 - [What are Decision Transformers?](#what-are-decision-transformers)
 - [Training Decision Transformers](#training-decision-transformers)
   - [Loading the dataset and building the Custom Data Collator](#loading-the-dataset-and-building-the-custom-data-collator)
+  - [Training the Decision Transformer model with a 🤗 transformers Trainer](#training-the-decision-transformer-model-with-a--transformers-trainer)
 - [Conclusion](#conclusion)
 - [What’s next?](#whats-next)
 - [References](#references)
