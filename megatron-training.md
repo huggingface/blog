@@ -34,7 +34,7 @@ In this blog, we will try to break down the different steps for training a GPT2 
 
 ## Why Megatron-LM?
 
-Before getting into the training details, let’s first understand what makes this framework more efficient than others. This section is inspired by this great [blog](https://huggingface.co/blog/bloom-megatron-deepspeed) about BLOOM training in [Megatron-DeepSpeed](https://github.com/bigscience-workshop/Megatron-DeepSpeed), please refer to it for more details as this blog is intended to give a gentle introduction to Megatron-LM.
+Before getting into the training details, let’s first understand what makes this framework more efficient than others. This section is inspired by this great [blog](https://huggingface.co/blog/bloom-megatron-deepspeed) about BLOOM training with [Megatron-DeepSpeed](https://github.com/bigscience-workshop/Megatron-DeepSpeed), please refer to it for more details as this blog is intended to give a gentle introduction to Megatron-LM.
 
 ### DataLoader
 
