@@ -24,7 +24,7 @@ thumbnail: /blog/assets/100_megatron_training/thumbnail.png
 
 Over the past few months, several large language models have been released, usually with a mention of a mystical tool called [Megatron-LM](https://github.com/NVIDIA/Megatron-LM). It has become the de-facto framework to train enormous models efficiently across many GPUs, but in this blogpost we will show that it is also very useful to pre-train smaller models. You will learn how to train a Language Model on NVIDIA GPUs with Megatron-LM, a powerful transformer model framework developed by the Applied Deep Learning Research team at NVIDIA, which can give up to [2x speedup](https://arxiv.org/abs/2205.14135) compared to Hugging Face [Transformers](https://github.com/huggingface/transformers.git). 
 
-Megatron-LM is widely used by researchers to pre-train large language models such as GPT, BERT, and T5. However, it offers less flexibility compared to `transformers` and can be a bit overwhelming for beginners. However, the speedup the framework can provides makes it important to learn how to use it, especially when one has limited computing resources and needs to train for significant amount of time.
+Megatron-LM is widely used by researchers to pre-train large language models such as GPT, BERT, and T5. However, it offers less flexibility compared to `transformers` and can be a bit overwhelming for beginners. However, the speedup the framework can provide makes it important to learn how to use it, especially when one has limited computing resources and needs to train for significant amount of time.
 
 In this blog, we will try to break down the different steps for training a GPT2 model in this framework, this includes:
 * Environment setup
@@ -38,7 +38,7 @@ Before getting into the training details, let’s first understand what makes th
 
 ### DataLoader
 
-Megatron-LM comes with an efficient DataLoader where the data is tokenized and shuffled before the training. It is also splits the data into numbered sequences with indexes that are stored such that they need to be computed only once. To build the index, the number of epochs are computed based on the training parameters and an ordering is created and then shuffled. This is unlike most cases where we iterate through the entire dataset until it is exhausted and then repeat for the second epoch. This smoothes the learning curve and saves time during the training.
+Megatron-LM comes with an efficient DataLoader where the data is tokenized and shuffled before the training. It also splits the data into numbered sequences with indexes that are stored such that they need to be computed only once. To build the index, the number of epochs is computed based on the training parameters and an ordering is created and then shuffled. This is unlike most cases where we iterate through the entire dataset until it is exhausted and then repeat for the second epoch. This smoothes the learning curve and saves time during the training.
 
 ### Fused CUDA Kernels
 
@@ -66,7 +66,7 @@ docker run --gpus all -it --rm nvcr.io/nvidia/pytorch:xx.xx-py3
 git clone https://github.com/NVIDIA/Megatron-LM
 ```
 
-You also need to add the vocabulary file and merges table of your tokenizer inside Megatron-LM folder of your container.  These files can be found in the model’s repository with the weights, see this [repository](https://huggingface.co/gpt2/tree/main) for GPT2. You can also train your own tokenizer using `transformers`. You can checkout the [CodeParrot project](https://github.com/huggingface/transformers/tree/main/examples/research_projects/codeparrot) for a practical example. 
+You also need to add the vocabulary file `vocab.json` and merges table `merges.txt` of your tokenizer inside Megatron-LM folder of your container.  These files can be found in the model’s repository with the weights, see this [repository](https://huggingface.co/gpt2/tree/main) for GPT2. You can also train your own tokenizer using `transformers`. You can checkout the [CodeParrot project](https://github.com/huggingface/transformers/tree/main/examples/research_projects/codeparrot) for a practical example. 
 Now if you want to copy this data from outside the container you can use the following commands:
 ```bash
 sudo docker cp vocab.json CONTAINER_ID:/workspace/Megatron-LM
