@@ -276,8 +276,6 @@ Now that we explained the theory behind Decision Transformer, the Trainer, and h
 
 ## Conclusion
 
-Now that we explained 
-
 This post have demonstrated how to training the Decision Transformer on an offline RL dataset, hosted on [🤗 datasets](https://huggingface.co/docs/datasets/index). We have used a [🤗 transformers Trainer](https://huggingface.co/docs/transformers/v4.21.3/en/model_doc/decision_transformer#overview) and a custom data collator.
 
 In addition to Decision Transformers, **we want to support more use cases and tools from the Deep Reinforcement Learning community**. Therefore, it would be great to hear your feedback on the Decision Transformer model, and more generally anything we can build with you that would be useful for RL. Feel free to **[reach out to us](mailto:thomas.simonini@huggingface.co)**.
