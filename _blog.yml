@@ -1189,11 +1189,19 @@
   tags:
     - research
 
+- local: open_rail
+  title: "OpenRAIL: Towards open and responsible AI licensing frameworks"
+  author: CarlosMFerr
+  thumbnail: /blog/assets/100_open_rail/100_open-rail.png
+  date: August 31, 2022
+  tags:
+    - community
+
 - local: megatron-training
   title: "How to train a Language Model with Megatron-LM"
   author: loubnabnl
   thumbnail: /blog/assets/100_megatron_training/thumbnail.png
-  date: August 26, 2022
+  date: September 6, 2022
   tags:
     - guide
     - nlp
