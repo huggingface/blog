@@ -51,7 +51,7 @@ When a computation is run on the GPU the necessary data is fetched from memory t
 When f, g and h are fused in one kernel, the intermediary results x’ and y’ of f and g are stored in the GPU registers and immediately used by h. But without fusion,  x’ and y’ would need to be copied to the memory and then loaded by h. Therefore, Kernel Fusion gives a significant speed up to the computations.
 Megatron-LM also uses a Fused implementation of AdamW from [Apex](https://github.com/NVIDIA/apex) which is faster than the Pytorch implementation.
 
-While one can customize the DataLoader like Megatron-LM and use Apex’s Fused optimizer with `transformers`, it is hard to build Fused CUDA Kernels.
+While one can customize the DataLoader like Megatron-LM and use Apex’s Fused optimizer with `transformers`, it is not a beginner friendly undertaking to build custom Fused CUDA Kernels.
 
 Now that you are familiar with the framework and what makes it advantageous, let’s get into the training details!
 
