@@ -228,7 +228,7 @@ class DecisionTransformerGymDataCollator:
         }
 ```
 
-That was a lot of code, the TLDR is that we now defined a class that takes our dataset, performs the required preprocessing and will return us batches of **states**, **actions**, **rewards**, **returns**, **timesteps** and **masks.** These batches can be directly used to trained a transformers Decision Transformer model with a 🤗 transformers Trainer.
+That was a lot of code, the TLDR is that we now defined a class that takes our dataset, performs the required preprocessing and will return us batches of **states**, **actions**, **rewards**, **returns**, **timesteps** and **masks.** These batches can be directly used to train a Decision Transformer model with a 🤗 transformers Trainer.
 
 ## Training the Decision Transformer model
 
