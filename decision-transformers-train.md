@@ -6,7 +6,7 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 # Train your first Decision Transformer
 
 <div class="blog-metadata">
-    <small>Published September 02, 2022.</small>
+    <small>Published September 06, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/decision-transformers-train.md">
         Update on GitHub
     </a>
@@ -31,7 +31,7 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 
 In a [previous post](https://huggingface.co/blog/decision-transformers), we announced the launch of Decision Transformers in the transformers library. This new technique of **using a Transformer as a Decision-making model** is getting increasingly popular.
 
-So today, **you’ll learn to train your first Offline Decision Transformer model from scratch to make a half-cheetah run.**
+So today, **you’ll learn to train your first Offline Decision Transformer model from scratch to make a half-cheetah run.** We'll train it directly on a Google Colab that you can find here. [ADD THE COLAB LINK]
 
 <figure class="image table text-center m-0 w-full">
     <video 
