@@ -152,7 +152,7 @@ python3 -m torch.distributed.launch $DISTRIBUTED_ARGS \
 ```
 With this setting, the training takes roughly 12 hours.
 
-This setup uses Data Parallelism, but it also possible to use Model Parallelism for very large models that don't fit in one GPU. The first option consists of Tensor Parallelism that splits the execution of a single transformer module over multiple GPUs, you will need to change `tensor-model-parallel-size` parameter to the desired number of GPUs. The second option is Pipeline Parallelism where the transformer modules are split into equally sized stages. The parameter `pipeline-model-parallel-size` determines the number of stages to split the model into. For more details please refer to this [blog](https://huggingface.co/blog/bloom-megatron-deepspeed)
+This setup uses Data Parallelism, but it is also possible to use Model Parallelism for very large models that don't fit in one GPU. The first option consists of Tensor Parallelism that splits the execution of a single transformer module over multiple GPUs, you will need to change `tensor-model-parallel-size` parameter to the desired number of GPUs. The second option is Pipeline Parallelism where the transformer modules are split into equally sized stages. The parameter `pipeline-model-parallel-size` determines the number of stages to split the model into. For more details please refer to this [blog](https://huggingface.co/blog/bloom-megatron-deepspeed)
 
 
 ### Converting the model to 🤗 Transformers
