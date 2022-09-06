@@ -81,9 +81,9 @@ Now that we understand the theory behind Offline Decision Transformers, **let’
 
 ## Training Decision Transformers
 
-In the previous post, we demonstrate how to use a transformers Decision Transformer model and load pretrained weights from the 🤗 hub. 
+In the previous post, we demonstrated how to use a transformers Decision Transformer model and load pretrained weights from the 🤗 hub. 
 
-In this part we will use 🤗 Trainers and a custom Data Collator to training a Decision Transformer model from scratch, using an Offline RL Dataset hosted on the 🤗 hub. You can find code for this tutorial in [this colab notebook]() # ADD LINK 
+In this part we will use 🤗 Trainers and a custom Data Collator to train a Decision Transformer model from scratch, using an Offline RL Dataset hosted on the 🤗 hub. You can find code for this tutorial in [this colab notebook]() # ADD LINK 
 
 We will be performing offline RL to learning the following behavior in the [mujoco halfcheetah environment](https://www.gymlibrary.dev/environments/mujoco/half_cheetah/).
 
@@ -109,12 +109,12 @@ from datasets import load_dataset
 dataset = load_dataset("edbeeching/decision_transformer_gym_replay", "halfcheetah-expert-v2")
 ```
 
-While most datasets on the hub are ready to use out of the box, sometime we wish to perform some additional processing or modifcation of the dataset. In this case [we wish to match the authors implementation](https://github.com/kzl/decision-transformer), that is we need to:
+While most datasets on the hub are ready to use out of the box, sometime we wish to perform some additional processing or modification of the dataset. In this case [we wish to match the author's implementation](https://github.com/kzl/decision-transformer), that is we need to:
 
 - Normalize each feature by subtracting the mean and dividing by the standard deviation.
-- Pre-compute discounted returns.
-- Scaling the rewards and returns by a factor of 1000.
-- Augmenting the dataset sampling distribution so it takes into account the length of the expert agent’s trajectories.
+- Pre-compute discounted returns for each trajectory.
+- Scale the rewards and returns by a factor of 1000.
+- Augment the dataset sampling distribution so it takes into account the length of the expert agent’s trajectories.
 
 In order to perform this dataset preprocessing, we will use a custom 🤗 [Data Collator](https://huggingface.co/docs/transformers/main/en/main_classes/data_collator). 
 
@@ -229,7 +229,7 @@ class DecisionTransformerGymDataCollator:
         }
 ```
 
-That was a lot of code, the TLDR is that we now defined a class that takes our dataset, performs the required preprocessing and will return us batches of **states**, **actions**, **rewards**, **returns**, **timesteps** and **masks.** These batches can be directly used to train a Decision Transformer model with a 🤗 transformers Trainer.
+That was a lot of code, the TLDR is that we defined a class that takes our dataset, performs the required preprocessing and will return us batches of **states**, **actions**, **rewards**, **returns**, **timesteps** and **masks.** These batches can be directly used to train a Decision Transformer model with a 🤗 transformers Trainer.
 
 ### Training the Decision Transformer model with a 🤗 transformers Trainer.
 
@@ -274,6 +274,8 @@ trainer.train()
 ```
 
 Now that we explained the theory behind Decision Transformer, the Trainer, and how to train it. **You're ready to train your first offline Decision Transformer model from scratch to make a half-cheetah run** 👉 ADD LINK
+The colab includes visualizations of the trained model, as well as how to save your model on the 🤗 hub.
+
 
 ## Conclusion
 
