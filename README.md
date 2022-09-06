@@ -4,8 +4,8 @@ This is the official repository of the [Hugging Face Blog](hf.co/blog).
 ## How to write an article? 📝
 1️⃣ Create a branch `YourName/Title`
 
-2️⃣ Create a md (markdown) file, **try to be short**.
-For instance if your title is "Introduction to Deep Reinforcement Learning" the md file name will be `intro-rl.md`. This is important because the **file name will be the blogpost's URL**.
+2️⃣ Create a md (markdown) file, **use a short file name**.
+For instance, if your title is "Introduction to Deep Reinforcement Learning", the md file name could be `intro-rl.md`. This is important because the **file name will be the blogpost's URL**.
 
 3️⃣ Create a new folder in `assets` check the last folder number and name your folder `number_md-name` for instance `101_intro-rl`, this folder will contain **all your illustrations and thumbnail**. The folder number is mostly for (rough) ordering purposes, so it's no big deal if two concurrent articles end up using the same number.
 
