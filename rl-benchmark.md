@@ -76,7 +76,7 @@ SB3 is rather easy to use out of the box, and has support for numerous algorithm
 
 This is an optimized and modular RL library, which contains interesting features such as an asynchronous version of PPO, and provides alternate sampling, which can speed up sampling in 2 times.
 
-In this library, there is an asynchronous version of PPO, which is quite fast. It also has support for PPO with LSTMs. However, it has not been updated since a couple of years, and we found it not one of the easiest to use.
+In this library, there is a version of PPO, which is quite fast. It also has support for PPO with LSTMs. However, it has not been updated since a couple of years, and we found it not one of the easiest to use.
 
 ## Sample-Factory
 
@@ -96,7 +96,7 @@ This library provides multiple algorithms with short implementations, that train
 
 # Environments
 
-The main environments used for this evaluation were MiniGrid and DeepMind Lab, which are described in more details below. MiniGrid was chosen due to its simplicity: it’s a lightweight and easy to use full-python environment, but despite its implicity contains interesting elements, e.g. environment instances that require memory. DeepMind Lab was chosen due to being a much more complex set of environments which also required processing images in pixels space.
+The main environments used for this evaluation were MiniGrid and DeepMind Lab, which are described in more details below. MiniGrid was chosen due to its simplicity: it’s a lightweight and easy to use full-python environment, but despite its simplicity contains interesting elements, e.g. environment instances that require memory. DeepMind Lab was chosen due to being a much more complex set of environments which also required processing images in pixels space.
 
 ## MiniGrid 🧊
 
@@ -153,7 +153,7 @@ Here is our main table summarizing the main aspects of the libraries we explored
 
 ***** SB3 is developing PPO with LSTM policy [here](https://github.com/Stable-Baselines-Team/stable-baselines3-contrib/pull/53).
 
-****** In Tianshou, it says 9, but I would consider 8 if we don't count certain variations.
+****** In Tianshou, it says 9, but it's 8 if we don't count certain variations.
 
 ******* only APPO but very fast.
 
@@ -175,13 +175,13 @@ Notice that, on Stable Baselines 3, a single environment was used per worker (du
 
 From this graph we can conclude that rlpyt and sample-factory seem to have higher throughput / scale better. Though rlpyt has had no support since 2020 and was not the most user friendly it took some time to setup. With respect to Rllib, it seems like it actually decreases from 8 workers - which is seems strange but is explained in the next paragraph. When compared to Stable Baselines 3, Sample-Factory has the benefit of being able to scale by increasing the number of environments per worker, while in the first, there is the restriction of using a single environment per worker.
 
-It's important notice, in Sample-Factory's [paper](https://arxiv.org/pdf/2006.11751.pdf), they obtain higher throughput than rlpyt, while in this plot, we don't see that. The explanation is that: 1. the neural networks are different: in sample-factory they use ResNet Impala, whereas in rlpyt the architecture is AtariNet; 2. the batch size used underutilizes the GPU, while the idea is that Sample-Factory exploits the most out of the hardware. The second reason also explains why Rllib's behaviour in the first graph: such a number of workers and environments per worker is better used with larger batch sizes. We confirmed those explanations by checking the models used by the libraries and running experiments with larger batches of size 8192, which are shown below:
+It's important notice, in Sample-Factory's [paper](https://arxiv.org/pdf/2006.11751.pdf), they obtain higher throughput than rlpyt, while in this plot, we don't see that. The explanation is that: 1. the neural networks are different: in sample-factory they use ResNet Impala, whereas in rlpyt the architecture is AtariNet; 2. the batch size used underutilizes the GPU, while the idea is that Sample-Factory exploits the most out of the hardware. The second reason also explains why Rllib's behaviour in the first graph: such a number of workers and environments per worker is better used with larger batch sizes. We confirmed those explanations by checking the models used by the libraries and running experiments with larger batches of size 8192 on the super computer Jean Zay, which are shown below:
 
 <img src="assets/101_rl-benchmark/throughput_minigrid_large.png" alt="Throughput measurements for MiniGrid"/>
 
 ### Performance
 
-To investigate the performances, we decided to use RedBlueDoors-6x6-v0, a slightly simpler problem than **MiniGrid-MemoryS11-v0**. Three libraries of our test (Rlpyt, Sample-Factory and Rllib) contained support to LSTMs and good documentation. These libraries provided PPO-LSTM policies with hyper-parameters adapted to this environment and all of them were able to solve the task by getting final rewards greater than 0.9 indicating implementations that should be trustable (according to this limited metric….). Hyper-parameters can be found in the end of the post. 
+To investigate the performances, we ended using the same RedBlueDoors-6x6-v0, as MiniGrid-SimpleCrossingS9N1-v0 was more complex and harder to benchmark. Three libraries of the chosen libraries - Rlpyt, Sample-Factory and Rllib, contained support to LSTMs and good documentation. These libraries provided PPO-LSTM policies with hyperparameters adapted to this environment, and all of them were able to solve the task by getting final rewards greater than 0.9 indicating implementations that should be trustable (according to this limited metric….). Hyperparameters can be found at the end of the post. 
 
 ## Deepmind Lab
 
@@ -191,25 +191,25 @@ We show the throughput results below, when using 4 environments per worker.
 
 <img src="assets/101_rl-benchmark/throughput_dmlab.png" alt="Throughput measurements for DmLab"/>
 
-Other than that, notice that we don’t plot the performances of rlpyt with Deepmind Lab, even though it has LSTM support and should supposedly work. Due the lack of documentation and a couple of bugs we encounter, we were not able to get this environment to work properly.
+Other than that, notice that we don’t plot the performances of rlpyt with Deepmind Lab, even though it has LSTM support and should supposedly work. Due to the lack of documentation and a couple of bugs we encountered, we were not able to get this environment to work properly.
 
 Here again, we have the same behaviour in Rllib after 8 workers, but now, as we have shown in the previous section, we know why.
 
 ### Performance
 
-It was difficult to get good performance with our libraries on this environment. In the limited time we had allocated our-self we only managed to successfully train a policy on the task [explore_obstructed_goals_small](https://github.com/deepmind/lab/tree/master/game_scripts/levels/contributed/dmlab30#object-locations-small) in Deepmind Lab when using the Sample-Factory library. Training with PPO on Rllib might have succeeded in the end but was unfortunately too slow for our time buget. We ended not running training with APPO since our goal was to compare with the original PPO from Rllib.
+It was difficult to get good performance with our libraries on this environment. In the limited time we had allocated our-selves, we only managed to successfully train a policy on the task [explore_obstructed_goals_small](https://github.com/deepmind/lab/tree/master/game_scripts/levels/contributed/dmlab30#object-locations-small) in Deepmind Lab when using the Sample-Factory library. Training with PPO on Rllib might have succeeded in the end but was unfortunately too slow for our time budget. We ended not running training with APPO since our goal was to compare with the original PPO from Rllib.
 
 Hyper-parameters can be found in the end of the post.
 
 # Discussion
 
-We’ve conducted multiple experiments to identify the main benefits and issues of each of the libraries we decided to study. In terms of throughput, **sample-factory** performed the best: in some cases it started slower when using less workers but usually scaled well when increasing the number of workers and surpassed other frameworks at larger setups. When focusing on performance, **Rlpyt** converged to an optimal policy faster in terms of time steps than other frameworks on the MiniGrid environment despite being somehow more cumbersome to use. 
+We’ve conducted multiple experiments to identify the main benefits and issues of each of the libraries we decided to study. In terms of throughput, **sample-factory** performed the best: in some cases it started slower when using fewer workers but usually scaled well when increasing the number of workers and surpassed other frameworks at larger setups. When focusing on performance, **Rlpyt** converged to an optimal policy faster in terms of time steps than other frameworks on the MiniGrid environment despite being somehow more cumbersome to use.
 
-When looking for a framework for the standpoint of someone starting in RL, **Stable-Baselines-3** seems the way to go, due to its strong support, many algorithms, it being reasonably fast even with its constraint on running all parallel environments in a single thread. The main issue for us was that it didn’t provide support for recurrent policies at the time of the study which was our focus.
+When looking for a framework for the standpoint of someone starting in RL, **Stable-Baselines-3** seems the way to go, due to its strong support, many algorithms, it being reasonably fast even with its constraint of running a single environment per process. The main issue for us was that it didn’t provide support for recurrent policies at the time of the study which was our focus.
 
-*However it’s important to note that the time we gave ourself to investigate all this frameworks and also the compute time we allocated ourself were both limited so we had to stop early in our investigation of the two other promising frameworks, **Rllib** and **Tianshou** because we were not able to get high enough metrics for the environments and algorithm we were focused on during the compute time we had allocated ourself for each library. As such this investigation is rather a study of “out-of-the-box” performances and user-experience rather and a complete and in-details investigation of them*.
+*However, it’s important to note that the time we gave ourselves to investigate all these frameworks and also the compute time we allocated ourselves were both limited, so we had to stop early in our investigation of the two other promising frameworks, **Rllib** and **Tianshou** because we were not able to get high enough metrics for the environments and algorithm we were focused on during the compute time we had allocated ourselves for each library. As such, this investigation is rather a study of “out-of-the-box” performances and user-experience rather and a complete and in-details investigation of them*.
 
-From this discussion, we conclude that all these frameworks have interesting features that could be used, however, given the constraint to choose a single one that implements PPO / APPO with recurrent policy, and for an usage on an environment that demands a high throughput, such as Deepmind Lab, **Sample-Factory** seemed like the way to go for our research project (more on it soon 🤩).
+From this discussion, we conclude that all these frameworks have interesting features that could be used, however, given the constraint to choose a single one that implements PPO / APPO with recurrent policy, and for an usage on an environment that demands a high throughput, such as Deepmind Lab, **Sample-Factory** seemed like the way to go after our study (more on it soon 🤩).
 
 **Other relevant libraries / implementations (non-exhaustive)**:
 
@@ -237,6 +237,6 @@ The hyperparameters used on PPO for both sets of environments are shown below:
 | minigrid | $1$ | $0.95$ | $20$ | $10^{7}$ steps  | $64$ | $32$ |
 | dmlab | $4$ | $0.95$ | $2$ | $10^{9}$ steps (action repeat equal 4)  | $256$ | $32$ |
 
-**Obs**. When training using asynchronous versions of PPO (e.g. Sample-Factory), different hyperparameters were used (the default ones for DMLab on its repository).
+**Obs**. When training on Deepmind Lab with Sample-Factory, the default hyperparameters for DMLab on its repository.
 
 **Obs2**. Other parameters than the cited above were the default ones from each library.
