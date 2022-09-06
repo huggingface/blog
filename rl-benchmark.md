@@ -106,7 +106,7 @@ Minigrid is a set of open-source environments widely used in the literature and 
 
 As we were mainly interested in tasks that required memory, we decided to focus on two particular tasks:
 
-1. RedBlueDoors: This first environment can (surprisingly) be solved without memory. The agent is randomly placed within a room with one red and one blue door facing opposite directions. The agent has to open the red door and then open the blue door, in that order. 
+1. RedBlueDoors: This first environment can (surprisingly) be solved without memory. The agent is randomly placed within a room with one red and one blue door facing opposite directions. The agent has to open the red door and then open the blue door, in that order.
 2. MiniGrid-Memory: This second environment is harder: it’s a memory test. The agent starts in a small room where it sees an object and then has to go through a narrow hallway which ends in a split. At each end of the split there is an object, one of which is the same as the object in the starting room. The agent has to remember the initial object, and go to the matching object at split.
 
 ## Deepmind Lab 🧫
@@ -165,7 +165,7 @@ We will now analyze in details the throughputs on the two main sets of environme
 
 ### Throughput
 
-Experiments were done using the environment **MiniGrid-SimpleCrossingS9N1-v0,** where the PPO / APPO agents for a fixed amount of steps. In this case, we didn’t use a recurrent agent, so that we could include Stable Baselines 3 in our comparision.
+Experiments were done using the environment **MiniGrid-RedBlueDoors-6x6-v0,** where the PPO / APPO agents for a fixed amount of steps. In this case, we didn’t use a recurrent agent, so that we could include Stable Baselines 3 in our comparision.
 
 Results are shown below:
 
@@ -181,7 +181,7 @@ It's important notice, in Sample-Factory's [paper](https://arxiv.org/pdf/2006.11
 
 ### Performance
 
-To investigate the performances, we decided to use RedBlueDoors-6x6-v0, a slightly simpler problem than **MiniGrid-SimpleCrossingS9N1-v0**. Three libraries of our test (Rlpyt, Sample-Factory and Rllib) contained support to LSTMs and good documentation. These libraries provided PPO-LSTM policies with hyper-parameters adapted to this environment and all of them were able to solve the task by getting final rewards greater than 0.9 indicating implementations that should be trustable (according to this limited metric….). Hyper-parameters can be found in the end of the post. 
+To investigate the performances, we decided to use RedBlueDoors-6x6-v0, a slightly simpler problem than **MiniGrid-MemoryS11-v0**. Three libraries of our test (Rlpyt, Sample-Factory and Rllib) contained support to LSTMs and good documentation. These libraries provided PPO-LSTM policies with hyper-parameters adapted to this environment and all of them were able to solve the task by getting final rewards greater than 0.9 indicating implementations that should be trustable (according to this limited metric….). Hyper-parameters can be found in the end of the post. 
 
 ## Deepmind Lab
 
