@@ -172,7 +172,7 @@ Be careful, you will need to replace the generated vocabulary file and merges ta
 
 Don't forget to push your model to the hub and share it with the community, it only takes three lines of code 🤗:
 ```python
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM
 
 model = AutoModelForCausalLM.from_pretrained("nvidia/megatron-codeparrot-small")
 # this creates a repository under your username with the model name codeparrot-small
@@ -191,6 +191,14 @@ print(outputs[0]["generated_text"])
  def hello_world():   
     print("Hello World!")
 ```
+
+Tranfsormers also handle big model inference efficiently. In case you trained a very large model (e.g. using Model Parallelism), you can easily use it for inference with the following command:
+```python
+from transformers import AutoModelForCausalLM
+
+model = AutoModelForCausalLM.from_pretrained("your_username/codeparrot-large", device_map="auto")
+```
+This will use [accelerate](https://huggingface.co/docs/accelerate/index) library behind the scenes to automatically dispatch the model weights across the devices you have available (GPUs, CPU RAM).
 
 Disclaimer: We have shown that anybody can use Megatron-LM to train language models. The question is whether you should use it for all use-cases. Megatron-LM framework obviously adds some time overhead because of the extra preprocessing and conversion steps. So it is important that you decide for your case and given your model size which framework is more appropriate. We recommend trying it for pre-training models or extended fine-tuning, but probably not for shorter fine-tuning of medium-sized models.
 
