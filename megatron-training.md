@@ -150,7 +150,10 @@ python3 -m torch.distributed.launch $DISTRIBUTED_ARGS \
         --data-path $DATA_PATH \
         $TENSORBOARD_ARGS
 ```
-With this setup the training takes roughly 12 hours.
+With this setting, the training takes roughly 12 hours.
+
+This setup uses Data Parallelism, but it also possible to use Model Parallelism for very large models that don't fit in one GPU. The first option consists of Tensor Parallelism that splits the execution of a single transformer module over multiple GPUs, you will need to change `tensor-model-parallel-size` parameter to the desired number of GPUs. The second option is Pipeline Parallelism where the transformer modules are split into equally sized stages. The parameter `pipeline-model-parallel-size` determines the number of stages to split the model into. For more details please refer to this [blog](https://huggingface.co/blog/bloom-megatron-deepspeed)
+
 
 ### Converting the model to 🤗 Transformers
 After training we want to use the model in `transformers` e.g. for evaluation or to deploy it to production. You can convert it to a `transformers` model following this [tutorial](https://huggingface.co/nvidia/megatron-gpt2-345m). For instance, after the training is finished you can copy the weights of the last iteration 150k and convert the `model_optim_rng.pt` file to a `pytorch_model.bin` file that is supported by `transformers` with the following commands:.
