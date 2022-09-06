@@ -57,7 +57,7 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 
 7️⃣ When your article is ready, **open a pull request**.
 
-8️⃣ The article will be **published when you merge your pull request**.
+8️⃣ The article will be **published automatically when you merge your pull request**.
 
 ## How to get a responsive thumbnail?
 1️⃣ Create a `1300x650` image 
