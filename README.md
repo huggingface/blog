@@ -51,7 +51,7 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 </div>
 ```
 
-5️⃣ Then, you can add your text, it's markdown system so if you wrote your text on notion just control shift v to copy/paste as markdown.
+5️⃣ Then, you can add your content. It's markdown system so if you wrote your text on notion just control shift v to copy/paste as markdown.
 
 6️⃣ Modify `_blog.yml` to add your blogpost.
 
