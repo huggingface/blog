@@ -8,6 +8,9 @@ This is the official repository of the [Hugging Face Blog](hf.co/blog).
 For instance, if your title is "Introduction to Deep Reinforcement Learning", the md file name could be `intro-rl.md`. This is important because the **file name will be the blogpost's URL**.
 
 3️⃣ Create a new folder in `assets`. Check the last folder number and name your folder `number_md-name`, for instance `101_intro-rl`; this folder will contain **all your illustrations and thumbnail**. The folder number is mostly for (rough) ordering purposes, so it's no big deal if two concurrent articles use the same number.
+💡: In terms of images, **try to have small files** to avoid having a slow loading user experience:
+- Use jpeg instead of png.
+- Use compressed images, you can use this website: https://www.iloveimg.com/fr/compresser-image
 
 4️⃣ Copy and paste this to your md file and change the elements
 - title
