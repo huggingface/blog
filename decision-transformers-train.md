@@ -135,7 +135,6 @@ class DecisionTransformerGymDataCollator:
     n_traj: int = 0 # to store the number of trajectories in the dataset
 
     def __init__(self, dataset) -> None:
-
         self.act_dim = len(dataset[0]["actions"][0])
         self.state_dim = len(dataset[0]["observations"][0])
         self.dataset = dataset
@@ -146,15 +145,13 @@ class DecisionTransformerGymDataCollator:
             states.extend(obs)
             traj_lens.append(len(obs))
         self.n_traj = len(traj_lens)
-
-        states = np.concatenate(states, axis=0)
+        states = np.vstack(states)
         self.state_mean, self.state_std = np.mean(states, axis=0), np.std(states, axis=0) + 1e-6
-
+        
         traj_lens = np.array(traj_lens)
         self.p_sample = traj_lens / sum(traj_lens)
 
     def _discount_cumsum(self, x, gamma):
-				# computes the discounted returns from a sequence of rewards
         discount_cumsum = np.zeros_like(x)
         discount_cumsum[-1] = x[-1]
         for t in reversed(range(x.shape[0] - 1)):
@@ -162,8 +159,6 @@ class DecisionTransformerGymDataCollator:
         return discount_cumsum
 
     def __call__(self, features):
-				# because of the custom sampling we require, we create a custom
-				# sampling method that uses a non-uniform distribution
         batch_size = len(features)
         # this is a bit of a hack to be able to sample of a non-uniform distribution
         batch_inds = np.random.choice(
@@ -172,7 +167,7 @@ class DecisionTransformerGymDataCollator:
             replace=True,
             p=self.p_sample,  # reweights so we sample according to timesteps
         )
-        # a batch of dataset features (state, action, reward, done, returns, ...)
+        # a batch of dataset features
         s, a, r, d, rtg, timesteps, mask = [], [], [], [], [], [], []
         
         for ind in batch_inds:
@@ -181,16 +176,16 @@ class DecisionTransformerGymDataCollator:
             si = random.randint(0, len(feature["rewards"]) - 1)
 
             # get sequences from dataset
-            s.append(np.array(feature["observations"])[si : si + self.max_len].reshape(1, -1, self.state_dim))
-            a.append(np.array(feature["actions"])[si : si + self.max_len].reshape(1, -1, self.act_dim))
-            r.append(np.array(feature["rewards"])[si : si + self.max_len].reshape(1, -1, 1))
+            s.append(np.array(feature["observations"][si : si + self.max_len]).reshape(1, -1, self.state_dim))
+            a.append(np.array(feature["actions"][si : si + self.max_len]).reshape(1, -1, self.act_dim))
+            r.append(np.array(feature["rewards"][si : si + self.max_len]).reshape(1, -1, 1))
 
-            d.append(np.array(feature["dones"])[si : si + self.max_len].reshape(1, -1))
+            d.append(np.array(feature["dones"][si : si + self.max_len]).reshape(1, -1))
             timesteps.append(np.arange(si, si + s[-1].shape[1]).reshape(1, -1))
             timesteps[-1][timesteps[-1] >= self.max_ep_len] = self.max_ep_len - 1  # padding cutoff
             rtg.append(
-                self._discount_cumsum(np.array(feature["rewards"])[si:], gamma=1.0)[
-                    : s[-1].shape[1]  # TODO check the +1 removed here
+                self._discount_cumsum(np.array(feature["rewards"][si:]), gamma=1.0)[
+                    : s[-1].shape[1]   # TODO check the +1 removed here
                 ].reshape(1, -1, 1)
             )
             if rtg[-1].shape[1] < s[-1].shape[1]:
@@ -245,22 +240,32 @@ class TrainableDT(DecisionTransformerModel):
         # add the DT loss
         action_preds = output[1]
         action_targets = kwargs["actions"]
+        attention_mask = kwargs["attention_mask"]
+        act_dim = action_preds.shape[2]
+        action_preds = action_preds.reshape(-1, act_dim)[attention_mask.reshape(-1) > 0]
+        action_targets = action_targets.reshape(-1, act_dim)[attention_mask.reshape(-1) > 0]
+        
         loss = torch.mean((action_preds - action_targets) ** 2)
 
         return {"loss": loss}
+
+    def original_forward(self, **kwargs):
+        return super().forward(**kwargs)
 ```
 
-The transformers Trainer class required a number of arguments, defined in the TrainingArguments class. We use the same hyperparameters are in the authors original implementation.
+The transformers Trainer class required a number of arguments, defined in the TrainingArguments class. We use the same hyperparameters are in the authors original implementation, but train for fewer iterations. This takes around 20 minutes to train in a colab notebook, so grab a coffee or read the 🤗 [Annotated Diffusion](https://huggingface.co/blog/annotated-diffusion) blogpost while you wait. The authors train for around 3 hours, so the results we get here will not be quite as good at theirs.
 
 ```python
 training_args = TrainingArguments(
     output_dir="output/",
     remove_unused_columns=False,
-    num_train_epochs=100,
+    num_train_epochs=40,
     per_device_train_batch_size=64,
     learning_rate=1e-4,
     weight_decay=1e-4,
-    warmup_steps=10000,
+    warmup_ratio=0.1,
+    optim="adamw_torch",
+    max_grad_norm=0.25,
 )
 
 trainer = Trainer(
