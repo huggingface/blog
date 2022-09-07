@@ -22,11 +22,11 @@ thumbnail: /blog/assets/100_megatron_training/thumbnail.png
     </a>
 </div>
 
-Over the past few months, several large language models have been released, usually with a mention of a mystical tool called [Megatron-LM](https://github.com/NVIDIA/Megatron-LM). It has become the de-facto framework to train enormous models efficiently across many GPUs, but in this blogpost, we will show that it is also very useful to pre-train smaller models. You will learn how to train a Language Model on NVIDIA GPUs with Megatron-LM, a powerful transformer model framework developed by the Applied Deep Learning Research team at NVIDIA, which can give up to [2x speedup](https://arxiv.org/abs/2205.14135) compared to Hugging Face [Transformers](https://github.com/huggingface/transformers.git). 
+Training large language models in Pytorch requires more than a simple training loop. It is usually distributed across multiple devices, with many optimization techniques for a stable and efficient training. Hugging Face 🤗 [Accelerate](https://huggingface.co/docs/accelerate/index) library was created to support distributed training across GPUs and TPUs with very easy integration into the training loops. 🤗 [Transformers](https://huggingface.co/docs/transformers/index) also support distributed training through the [Trainer](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.Trainer) API, which provides feature-complete training in PyTorch, without even needing to implement a training loop. 
 
-Megatron-LM is widely used by researchers to pre-train large language models such as GPT, BERT, and T5. However, it offers less flexibility compared to `transformers` and can be a bit overwhelming for beginners. But the speedup the framework can provide makes it important to learn how to use it, especially when one has limited computing resources and needs to train for a significant amount of time.
+Another popular tool among researchers to pre-train large transformer models is [Megatron-LM](https://github.com/NVIDIA/Megatron-LM), a powerful framework developed by the Applied Deep Learning Research team at NVIDIA. Unlike `accelerate` and the `Trainer`, using Megatron-LM is not straightforward and can be a little overwhelming for beginners. But it is highly optimized for the training on GPUs and can give some speedups. In this blogpost,  you will learn how to train a language model on NVIDIA GPUs in Megatron-LM, and use it with `transformers`.
 
-In this blog, we will try to break down the different steps for training a GPT2 model in this framework, this includes:
+We will try to break down the different steps for training a GPT2 model in this framework, this includes:
 * Environment setup
 * Data preprocessing
 * Training
@@ -200,6 +200,6 @@ model = AutoModelForCausalLM.from_pretrained("your_username/codeparrot-large", d
 ```
 This will use [accelerate](https://huggingface.co/docs/accelerate/index) library behind the scenes to automatically dispatch the model weights across the devices you have available (GPUs, CPU RAM).
 
-Disclaimer: We have shown that anybody can use Megatron-LM to train language models. The question is whether you should use it for all use-cases. Megatron-LM framework obviously adds some time overhead because of the extra preprocessing and conversion steps. So it is important that you decide for your case and given your model size which framework is more appropriate. We recommend trying it for pre-training models or extended fine-tuning, but probably not for shorter fine-tuning of medium-sized models.
+Disclaimer: We have shown that anyone can use Megatron-LM to train language models. The question is when to use it. This framework obviously adds some time overhead because of the extra preprocessing and conversion steps.  So it is important that you decide which framework is more appropriate for your case and model size. We recommend trying it for pre-training models or extended fine-tuning, but probably not for shorter fine-tuning of medium-sized models. The `Trainer` API and `accelerate` library are also very handy for model training, they are device-agnostic and gives significant flexibility to the users.
 
 Congratulations 🎉 now you know how to train a GPT2 model in Megatron-LM and make it supported by `transformers`!
