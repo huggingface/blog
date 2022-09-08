@@ -31,7 +31,7 @@ thumbnail: /blog/assets/101_train-decision-transformers/thumbnail.gif
 
 In a [previous post](https://huggingface.co/blog/decision-transformers), we announced the launch of Decision Transformers in the transformers library. This new technique of **using a Transformer as a Decision-making model** is getting increasingly popular.
 
-So today, **you’ll learn to train your first Offline Decision Transformer model from scratch to make a half-cheetah run.** We'll train it directly on a Google Colab that you can find here. [ADD THE COLAB LINK]
+So today, **you’ll learn to train your first Offline Decision Transformer model from scratch to make a half-cheetah run.** We'll train it directly on a Google Colab that you can find here 👉 https://github.com/huggingface/blog/blob/main/notebooks/101_train-decision-transformers.ipynb
 
 <figure class="image table text-center m-0 w-full">
     <video 
@@ -83,7 +83,7 @@ Now that we understand the theory behind Offline Decision Transformers, **let’
 
 In the previous post, we demonstrated how to use a transformers Decision Transformer model and load pretrained weights from the 🤗 hub. 
 
-In this part we will use 🤗 Trainer and a custom Data Collator to train a Decision Transformer model from scratch, using an Offline RL Dataset hosted on the 🤗 hub. You can find code for this tutorial in [this colab notebook]() # ADD LINK 
+In this part we will use 🤗 Trainer and a custom Data Collator to train a Decision Transformer model from scratch, using an Offline RL Dataset hosted on the 🤗 hub. You can find code for this tutorial in [this colab notebook](https://github.com/huggingface/blog/blob/main/notebooks/101_train-decision-transformers.ipynb)
 
 We will be performing offline RL to learning the following behavior in the [mujoco halfcheetah environment](https://www.gymlibrary.dev/environments/mujoco/half_cheetah/).
 
@@ -278,7 +278,7 @@ trainer = Trainer(
 trainer.train()
 ```
 
-Now that we explained the theory behind Decision Transformer, the Trainer, and how to train it. **You're ready to train your first offline Decision Transformer model from scratch to make a half-cheetah run** 👉 ADD LINK
+Now that we explained the theory behind Decision Transformer, the Trainer, and how to train it. **You're ready to train your first offline Decision Transformer model from scratch to make a half-cheetah run** 👉 https://github.com/huggingface/blog/blob/main/notebooks/101_train-decision-transformers.ipynb
 The colab includes visualizations of the trained model, as well as how to save your model on the 🤗 hub.
 
 
