@@ -1196,3 +1196,11 @@
   date: August 31, 2022
   tags:
     - community
+ 
+- local: train-decision-transformers
+  title: "Train your first Decision Transformer"
+  author: edbeeching
+  thumbnail: /blog/assets/101_train-decision-transformers/thumbnail.gif
+  date: September 08, 2022
+  tags:
+    - rl
