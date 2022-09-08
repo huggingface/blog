@@ -80,10 +80,10 @@ We request users to **read the license entirely and carefully**. Here we offer a
 
 ### Usage
 
-First, you should install `diffusers==0.2.4` to run the following code snippets:
+First, you should install `diffusers==0.3.0` to run the following code snippets:
 
 ```bash
-pip install diffusers==0.2.4 transformers scipy ftfy
+pip install diffusers==0.3.0 transformers scipy ftfy
 ```
 
 In this post we'll use model version `v1-4`, so you'll need to  visit [its card](https://huggingface.co/CompVis/stable-diffusion-v1-4), read the license and tick the checkbox if you agree. You have to be a registered user in 🤗 Hugging Face Hub, and you'll also need to use an access token for the code to work. For more information on access tokens, please refer to [this section of the documentation](https://huggingface.co/docs/hub/security-tokens).
@@ -130,7 +130,7 @@ To run the pipeline, simply define the prompt and call `pipe`:
 ```python
 prompt = "a photograph of an astronaut riding a horse"
 
-image = pipe(prompt)["sample"][0]
+image = pipe(prompt).images[0]
 
 # you can save the image with
 # image.save(f"astronaut_rides_horse.png")
@@ -166,7 +166,7 @@ Every time you use a generator with the same seed you'll get the same image outp
 import torch
 
 generator = torch.Generator("cuda").manual_seed(1024)
-image = pipe(prompt, guidance_scale=7.5, generator=generator)["sample"][0]
+image = pipe(prompt, guidance_scale=7.5, generator=generator).images[0]
 
 # you can save the image with
 # image.save(f"astronaut_rides_horse.png")
@@ -190,7 +190,7 @@ Let's try out running the pipeline with less denoising steps.
 import torch
 
 generator = torch.Generator("cuda").manual_seed(1024)
-image = pipe(prompt, guidance_scale=7.5, num_inference_steps=15, generator=generator)["sample"][0]
+image = pipe(prompt, guidance_scale=7.5, num_inference_steps=15, generator=generator).images[0]
 
 # you can save the image with
 # image.save(f"astronaut_rides_horse.png")
@@ -234,7 +234,7 @@ We can generate multiple images for the same prompt by simply using a list with 
 num_images = 3
 prompt = ["a photograph of an astronaut riding a horse"] * num_images
 
-images = pipe(prompt)["sample"]
+images = pipe(prompt).images
 
 grid = image_grid(images, rows=1, cols=3)
 
@@ -257,7 +257,7 @@ Let's run an example:
 
 ```python
 prompt = "a photograph of an astronaut riding a horse"
-image = pipe(prompt, height=512, width=768)["sample"][0]
+image = pipe(prompt, height=512, width=768).images[0]
 
 # you can save the image with
 # image.save(f"astronaut_rides_horse.png")
@@ -484,14 +484,14 @@ with autocast("cuda"):
 
     # predict the noise residual
     with torch.no_grad():
-      noise_pred = unet(latent_model_input, t, encoder_hidden_states=text_embeddings)["sample"]
+      noise_pred = unet(latent_model_input, t, encoder_hidden_states=text_embeddings).sample
 
     # perform guidance
     noise_pred_uncond, noise_pred_text = noise_pred.chunk(2)
     noise_pred = noise_pred_uncond + guidance_scale * (noise_pred_text - noise_pred_uncond)
 
     # compute the previous noisy sample x_t -> x_t-1
-    latents = scheduler.step(noise_pred, i, latents)["prev_sample"]
+    latents = scheduler.step(noise_pred, i, latents).prev_sample
 ```
 
 We now use the `vae` to decode the generated `latents` back into the image.
@@ -500,7 +500,7 @@ We now use the `vae` to decode the generated `latents` back into the image.
 ```python
 # scale and decode the image latents with vae
 latents = 1 / 0.18215 * latents
-image = vae.decode(latents)
+image = vae.decode(latents).sample
 ```
 
 And finally, let's convert the image to PIL so we can display or save it.
