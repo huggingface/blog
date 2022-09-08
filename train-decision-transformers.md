@@ -1,13 +1,13 @@
 ---
 title: "Train your first Decision Transformer"
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+thumbnail: /blog/assets/101_train-decision-transformers/thumbnail.gif
 ---
 
 # Train your first Decision Transformer
 
 <div class="blog-metadata">
     <small>Published September 06, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/decision-transformers-train.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/train-decision-transformers.md">
         Update on GitHub
     </a>
 </div>
@@ -39,7 +39,7 @@ So today, **you’ll learn to train your first Offline Decision Transformer mode
         style="max-width: 70%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
-      <source src="assets/101_decision-transformers-train/replay.mp4" type="video/mp4">
+      <source src="assets/101_train-decision-transformers/replay.mp4" type="video/mp4">
   </video>
 </figure>
 *An "expert" Decision Transformers model, learned using offline RL in the Gym HalfCheetah environment.*
@@ -93,7 +93,7 @@ We will be performing offline RL to learning the following behavior in the [mujo
         style="max-width: 70%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
-      <source src="assets/101_decision-transformers-train/replay.mp4" type="video/mp4">
+      <source src="assets/101_train-decision-transformers/replay.mp4" type="video/mp4">
   </video>
 </figure>
 *An "expert" Decision Transformers model, learned using offline RL in the Gym HalfCheetah environment.*
