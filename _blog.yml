@@ -1197,10 +1197,10 @@
   tags:
     - community
  
-- local: decision-transformers-train
+- local: train-decision-transformers
   title: "Train your first Decision Transformer"
   author: edbeeching
-  thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
-  date: September 06, 2022
+  thumbnail: /blog/assets/101_train-decision-transformers/thumbnail.gif
+  date: September 08, 2022
   tags:
     - rl
