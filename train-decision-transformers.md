@@ -83,7 +83,7 @@ Now that we understand the theory behind Offline Decision Transformers, **let’
 
 In the previous post, we demonstrated how to use a transformers Decision Transformer model and load pretrained weights from the 🤗 hub. 
 
-In this part we will use 🤗 Trainers and a custom Data Collator to train a Decision Transformer model from scratch, using an Offline RL Dataset hosted on the 🤗 hub. You can find code for this tutorial in [this colab notebook]() # ADD LINK 
+In this part we will use 🤗 Trainer and a custom Data Collator to train a Decision Transformer model from scratch, using an Offline RL Dataset hosted on the 🤗 hub. You can find code for this tutorial in [this colab notebook]() # ADD LINK 
 
 We will be performing offline RL to learning the following behavior in the [mujoco halfcheetah environment](https://www.gymlibrary.dev/environments/mujoco/half_cheetah/).
 
@@ -109,7 +109,7 @@ from datasets import load_dataset
 dataset = load_dataset("edbeeching/decision_transformer_gym_replay", "halfcheetah-expert-v2")
 ```
 
-While most datasets on the hub are ready to use out of the box, sometime we wish to perform some additional processing or modification of the dataset. In this case [we wish to match the author's implementation](https://github.com/kzl/decision-transformer), that is we need to:
+While most datasets on the hub are ready to use out of the box, sometimes we wish to perform some additional processing or modification of the dataset. In this case [we wish to match the author's implementation](https://github.com/kzl/decision-transformer), that is we need to:
 
 - Normalize each feature by subtracting the mean and dividing by the standard deviation.
 - Pre-compute discounted returns for each trajectory.
@@ -253,13 +253,13 @@ class TrainableDT(DecisionTransformerModel):
         return super().forward(**kwargs)
 ```
 
-The transformers Trainer class required a number of arguments, defined in the TrainingArguments class. We use the same hyperparameters are in the authors original implementation, but train for fewer iterations. This takes around 20 minutes to train in a colab notebook, so grab a coffee or read the 🤗 [Annotated Diffusion](https://huggingface.co/blog/annotated-diffusion) blogpost while you wait. The authors train for around 3 hours, so the results we get here will not be quite as good at theirs.
+The transformers Trainer class required a number of arguments, defined in the TrainingArguments class. We use the same hyperparameters are in the authors original implementation, but train for fewer iterations. This takes around 40 minutes to train in a colab notebook, so grab a coffee or read the 🤗 [Annotated Diffusion](https://huggingface.co/blog/annotated-diffusion) blogpost while you wait. The authors train for around 3 hours, so the results we get here will not be quite as good at theirs.
 
 ```python
 training_args = TrainingArguments(
     output_dir="output/",
     remove_unused_columns=False,
-    num_train_epochs=40,
+    num_train_epochs=120,
     per_device_train_batch_size=64,
     learning_rate=1e-4,
     weight_decay=1e-4,
@@ -284,7 +284,7 @@ The colab includes visualizations of the trained model, as well as how to save y
 
 ## Conclusion
 
-This post have demonstrated how to training the Decision Transformer on an offline RL dataset, hosted on [🤗 datasets](https://huggingface.co/docs/datasets/index). We have used a [🤗 transformers Trainer](https://huggingface.co/docs/transformers/v4.21.3/en/model_doc/decision_transformer#overview) and a custom data collator.
+This post has demonstrated how to train the Decision Transformer on an offline RL dataset, hosted on [🤗 datasets](https://huggingface.co/docs/datasets/index). We have used a 🤗 transformers [Trainer](https://huggingface.co/docs/transformers/v4.21.3/en/model_doc/decision_transformer#overview) and a custom data collator.
 
 In addition to Decision Transformers, **we want to support more use cases and tools from the Deep Reinforcement Learning community**. Therefore, it would be great to hear your feedback on the Decision Transformer model, and more generally anything we can build with you that would be useful for RL. Feel free to **[reach out to us](mailto:thomas.simonini@huggingface.co)**.
 
