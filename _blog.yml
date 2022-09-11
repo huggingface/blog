@@ -1204,3 +1204,14 @@
   date: September 08, 2022
   tags:
     - rl
+
+- local: diffusers-2nd-month
+  title: "What's new in Diffusers? 🎨"
+  author: osanseviero
+  thumbnail: /blog/assets/102_diffusers_2nd_month/inpainting.png
+  date: September 12, 2022
+  tags:
+  - guide
+  - diffusion
+  - text_to_image
+  - stable diffusion
