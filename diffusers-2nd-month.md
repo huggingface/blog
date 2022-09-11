@@ -263,5 +263,4 @@ The name says it all! The goal of JSD was to train a model that also captures in
 
 I hope you enjoy reading this! Remember to give a Star in our [GitHub Repository](https://github.com/huggingface/diffusers) and join the [Hugging Face Discord Server](hf.co/join/discord), where we have a category of channels just for Diffusion models. Over there the latest news in the library are shared! 
 
-Feel free to open issues with feature requests and bug reports! Everything that has been achieved couldn't have been done without such an amazing community. Over 45 people have contributed to the diffusers library in two months which is amazing!
-
+Feel free to open issues with feature requests and bug reports! Everything that has been achieved couldn't have been done without such an amazing community.
