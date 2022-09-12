@@ -1,6 +1,6 @@
 ---
 title: What's new in Diffusers? 🎨
-thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png
+thumbnail: /blog/assets/102_diffusers_2nd_month/inpainting.png
 ---
 
 <h1>
