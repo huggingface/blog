@@ -8,7 +8,7 @@ What's new in Diffusers? 🎨
 </h1>
 
 <div class="blog-metadata">
-    <small>Published Sep 8th, 2022.</small>
+    <small>Published Sep 12th, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/stable_diffusion.md">
         Update on GitHub
     </a>
