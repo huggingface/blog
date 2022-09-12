@@ -44,7 +44,7 @@ A month and a half ago we released `diffusers`, a library that provides a modula
 
 One of the most requested features was to have image to image generation. This pipeline allows you to input an image and a prompt, and it will generate an image based on that!
 
-Let's see some code based on the official Colab [notebook](https://colab.research.google.com/github/patil-suraj/Notebooks/blob/master/image_2_image_using_diffusers.ipynb). 
+Let's see some code based on the official Colab [notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/image_2_image_using_diffusers.ipynb). 
 
 ```python
 from diffusers import StableDiffusionImg2ImgPipeline
@@ -94,7 +94,7 @@ Inpainting allows to provide an image, then select an area in the image (or prov
 </figure>
 
 
-You can try out a minimal Colab [notebook](https://colab.research.google.com/github/patil-suraj/Notebooks/blob/master/in_painting_with_stable_diffusion_using_diffusers.ipynb) or check out the code below. A demo is coming soon!
+You can try out a minimal Colab [notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/in_painting_with_stable_diffusion_using_diffusers.ipynb) or check out the code below. A demo is coming soon!
 
 
 ```python
