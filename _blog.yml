@@ -1208,7 +1208,7 @@
 - local: diffusers-2nd-month
   title: "What's new in Diffusers? 🎨"
   author: osanseviero
-  thumbnail: /blog/assets/102_diffusers_2nd_month/inpainting.png
+  thumbnail: https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/diffusers-2nd-month/inpainting.png
   date: September 12, 2022
   tags:
   - guide
