@@ -119,7 +119,7 @@ images = pipe(
 
 ## Optimizations for smaller GPUs
 
-After some improvements, the diffusion models can take much less VRAM. 🔥 For example, Stable Diffusion only takes 3.2GB! This yields exact same results at the expense of 10% of speed. Here is how to use these optimizations
+After some improvements, the diffusion models can take much less VRAM. 🔥 For example, Stable Diffusion only takes 3.2GB! This yields the exact same results at the expense of 10% of speed. Here is how to use these optimizations
 
 ```python
 from diffusers import StableDiffusionPipeline
@@ -131,7 +131,7 @@ pipe = StableDiffusionPipeline.from_pretrained(
     use_auth_token=True
 )
 pipe = pipe.to("cuda")
-pipe = pipe.enable_attention_slicing()
+pipe.enable_attention_slicing()
 ```
 
 This is super exciting as this will reduce even more the barrier to use these models!
@@ -181,7 +181,7 @@ python scripts/convert_stable_diffusion_checkpoint_to_onnx.py --model_path="Comp
 
 All of the previous features are very cool. As maintainers of open-source libraries, we know about the importance of high quality documentation to make it as easy as possible for anyone to try out the library.
 
-💅 Because of this, we did a Docs sprint and we're very excited to do a first release of our [documentation](https://huggingface.co/docs/diffusers/v0.3.0/en/index). This is a first version, so there are many things we plan to add (and contributions are always welcomed!).
+💅 Because of this, we did a Docs sprint and we're very excited to do a first release of our [documentation](https://huggingface.co/docs/diffusers/v0.3.0/en/index). This is a first version, so there are many things we plan to add (and contributions are always welcome!).
 
 Some highlights of the docs:
 
@@ -220,7 +220,7 @@ video_path = walk(['a cat', 'a dog'], [42, 1337], num_steps=3, make_video=True)
 [Diffusers interpret](https://github.com/JoaoLages/diffusers-interpret) is a explainability tool built on top of `diffusers`. It has cool features such as:
 
 * See all the images in the diffusion process
-* Analyze how each token in the prompt influence the generation
+* Analyze how each token in the prompt influences the generation
 * Analyze within specified bounding boxes if you want to understand a part of the image
 
 ![image info](https://github.com/JoaoLages/diffusers-interpret/raw/main/assets/image_slider.gif)
