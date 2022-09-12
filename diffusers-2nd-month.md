@@ -9,7 +9,7 @@ What's new in Diffusers? 🎨
 
 <div class="blog-metadata">
     <small>Published Sep 12th, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/stable_diffusion.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/diffusers-2nd-month.md">
         Update on GitHub
     </a>
 </div>
@@ -251,7 +251,7 @@ output.normalized_token_attributions # (token, attribution_percentage)
 
 ### Japanese Stable Diffusion
 
-The name says it all! The goal of JSD was to train a model that also captures information about the culture, identiy and unique expressions. It was trained with 100 million images with Japanese captions. You can read more about how the model was trained in the [model card](https://huggingface.co/rinna/japanese-stable-diffusion)
+The name says it all! The goal of JSD was to train a model that also captures information about the culture, identity and unique expressions. It was trained with 100 million images with Japanese captions. You can read more about how the model was trained in the [model card](https://huggingface.co/rinna/japanese-stable-diffusion)
 
 
 ### Waifu Diffusion
