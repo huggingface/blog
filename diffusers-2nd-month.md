@@ -39,6 +39,7 @@ A month and a half ago we released `diffusers`, a library that provides a modula
     - [Japanese Stable Diffusion](#japanese-stable-diffusion)
     - [High quality fine-tuned model](#waifu-diffusion)
     - [Cross Attention Control with Stable Diffusion](#cross-attention-control)
+    - [Reusable seeds](#reusable-seeds)
 
 
 ## Image to Image pipeline
@@ -269,6 +270,11 @@ The name says it all! The goal of JSD was to train a model that also captures in
 * Easily inject styles
 
 And much more! Check out the repo.
+
+### Reusable Seeds
+
+One of the most impressive early demos of Stable Diffusion was the reuse of seeds to tweak images. The idea is to use the seed of an image of interest to generate a new image, with a different prompt. This yields some cool results! Check out the [Colab](https://colab.research.google.com/github/pcuenca/diffusers-examples/blob/main/notebooks/stable-diffusion-seeds.ipynb) 
+
 
 ## Thanks for reading!
 
