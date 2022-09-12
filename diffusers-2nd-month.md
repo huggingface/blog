@@ -79,7 +79,7 @@ Textual Inversion lets you personalize a Stable Diffusion model on your own imag
 
 ![image info](https://pbs.twimg.com/media/FcC8FKqXoAEVvpu?format=jpg&name=medium)
 
-In just a couple of days, the community shared over 150 concepts! Check them out!
+In just a couple of days, the community shared over 200 concepts! Check them out!
 
 * [Organization](https://huggingface.co/sd-concepts-library) with the concepts. 
 * [Navigator Colab](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion_textual_inversion_library_navigator.ipynb): Browse visually and use over 150 concepts created by the community.
@@ -118,6 +118,8 @@ images = pipe(
     generator=None
 ).images
 ```
+
+Please note this is experimental, so there is room for improvement.
 
 ## Optimizations for smaller GPUs
 
@@ -254,11 +256,12 @@ The name says it all! The goal of JSD was to train a model that also captures in
 
 ### Waifu Diffusion
 
-[Waifu Diffusion](https://huggingface.co/hakurei/waifu-diffusion) is a fine-tuned SD model for high-quality image generation.
+[Waifu Diffusion](https://huggingface.co/hakurei/waifu-diffusion) is a fine-tuned SD model for high-quality anime images generation.
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/102_diffusers_2nd_month/waifu.png" alt="Images of high quality anime"/>
 </figure>
+(Image from the tool repository)
 
 
 ### Cross Attention Control
