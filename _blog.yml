@@ -1196,6 +1196,25 @@
   date: August 31, 2022
   tags:
     - community
+ 
+- local: train-decision-transformers
+  title: "Train your first Decision Transformer"
+  author: edbeeching
+  thumbnail: /blog/assets/101_train-decision-transformers/thumbnail.gif
+  date: September 08, 2022
+  tags:
+    - rl
+
+- local: diffusers-2nd-month
+  title: "What's new in Diffusers? 🎨"
+  author: osanseviero
+  thumbnail: /blog/assets/102_diffusers_2nd_month/inpainting.png
+  date: September 12, 2022
+  tags:
+  - guide
+  - diffusion
+  - text_to_image
+  - stable diffusion
 
 - local: megatron-training
   title: "How to train a Language Model with Megatron-LM"
