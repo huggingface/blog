@@ -24,7 +24,7 @@ What's new in Diffusers? 🎨
     </a>
 </div>
 
-A month and a half ago we released `diffusers`, a library that provides a modular toolbox for diffusion models across modalities. A couple of weeks later, we released support for Stable Diffusion, a high quality text-to-image model, with a free demo for anyone to try out. Apart from burning lots of GPUs, in the last three weeks the team has decided to add one or two new features to the library that we hope the community enjoys! This blog post gives a high-level overview of the new features in `diffusers` version 0.3!
+A month and a half ago we released `diffusers`, a library that provides a modular toolbox for diffusion models across modalities. A couple of weeks later, we released support for Stable Diffusion, a high quality text-to-image model, with a free demo for anyone to try out. Apart from burning lots of GPUs, in the last three weeks the team has decided to add one or two new features to the library that we hope the community enjoys! This blog post gives a high-level overview of the new features in `diffusers` version 0.3! Remember to give a ⭐ to the [GitHub repository](https://github.com/huggingface/diffusers).
 
 - [Image to Image pipelines](#image-to-image-pipeline)
 - [Textual Inversion](#textual-inversion)
@@ -38,6 +38,7 @@ A month and a half ago we released `diffusers`, a library that provides a modula
     - [Model Explainability](#diffusers-interpret)
     - [Japanese Stable Diffusion](#japanese-stable-diffusion)
     - [High quality fine-tuned model](#waifu-diffusion)
+    - [Cross Attention Control with Stable Diffusion](#cross-attention-control)
 
 
 ## Image to Image pipeline
@@ -258,6 +259,16 @@ The name says it all! The goal of JSD was to train a model that also captures in
   <img src="assets/102_diffusers_2nd_month/waifu.png" alt="Images of high quality anime"/>
 </figure>
 
+
+### Cross Attention Control
+
+[Cross Attention Control](https://github.com/bloc97/CrossAttentionControl) allows fine control of the prompts by modifying the attention maps of the diffusion models. Some cool things you can do:
+
+* Replace a target in the prompt (e.g. replace cat by dog)
+* Reduce or increase the importance of words in the prompt (e.g. if you want less attention to be given to "rocks")
+* Easily inject styles
+
+And much more! Check out the repo.
 
 ## Thanks for reading!
 
