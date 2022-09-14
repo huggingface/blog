@@ -1,6 +1,6 @@
 ---
 title: What's new in Diffusers? 🎨
-thumbnail: https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/diffusers-2nd-month/inpainting.png
+thumbnail: /blog/assets/102_diffusers_2nd_month/inpainting.png
 ---
 
 <h1>
