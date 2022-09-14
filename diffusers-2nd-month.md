@@ -69,7 +69,7 @@ images = pipe(prompt=prompt, init_image=init_image, strength=0.75, guidance_scal
 
 Don't have time for code? No worries, we also created a [Space demo](https://huggingface.co/spaces/huggingface/diffuse-the-rest) where you can try it out directly
 
-![image info](https://pbs.twimg.com/media/FbGwF8xUYAESCrL?format=jpg&name=medium)
+![image info](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/diffusers-2nd-month/diffuse_the_rest.jpeg)
 
 
 
@@ -77,7 +77,7 @@ Don't have time for code? No worries, we also created a [Space demo](https://hug
 
 Textual Inversion lets you personalize a Stable Diffusion model on your own images with just 3-5 samples. With this tool, you can train a model on a concept, and then share the concept with the rest of the community! 
 
-![image info](https://pbs.twimg.com/media/FcC8FKqXoAEVvpu?format=jpg&name=medium)
+![image info](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/diffusers-2nd-month/textual_inversion.jpeg)
 
 In just a couple of days, the community shared over 200 concepts! Check them out!
 
@@ -92,7 +92,7 @@ In just a couple of days, the community shared over 200 concepts! Check them out
 Inpainting allows to provide an image, then select an area in the image (or provide a mask), and use Stable Diffusion to replace the mask. Here is an example:
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/102_diffusers_2nd_month/inpainting.png" alt="Example inpaint of owl being generated from an initial image and a prompt"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/diffusers-2nd-month/inpainting.png" alt="Example inpaint of owl being generated from an initial image and a prompt"/>
 </figure>
 
 
@@ -227,7 +227,7 @@ video_path = walk(['a cat', 'a dog'], [42, 1337], num_steps=3, make_video=True)
 * Analyze how each token in the prompt influences the generation
 * Analyze within specified bounding boxes if you want to understand a part of the image
 
-![image info](https://github.com/JoaoLages/diffusers-interpret/raw/main/assets/image_slider.gif)
+![image info](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/diffusers-2nd-month/interpret.gif)
 (Image from the tool repository)
 
 ```python
@@ -259,7 +259,7 @@ The name says it all! The goal of JSD was to train a model that also captures in
 [Waifu Diffusion](https://huggingface.co/hakurei/waifu-diffusion) is a fine-tuned SD model for high-quality anime images generation.
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/102_diffusers_2nd_month/waifu.png" alt="Images of high quality anime"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/diffusers-2nd-month/waifu.png" alt="Images of high quality anime"/>
 </figure>
 (Image from the tool repository)
 
