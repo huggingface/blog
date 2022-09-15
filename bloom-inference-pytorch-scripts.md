@@ -14,7 +14,7 @@ thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
 
 <div class="author-card">
     <a href="/stas">
-        <img class="avatar avatar-user" src="/blog/assets/bloom-inference-pytorch/stas-bekman-300x300.jpg">
+        <img class="avatar avatar-user" src="/blog/assets/bloom-inference-pytorch-scripts/stas-bekman-300x300.jpg">
         <div class="bfc">
             <code>stas</code>
             <span class="fullname">Stas Bekman</span>
