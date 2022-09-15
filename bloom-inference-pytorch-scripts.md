@@ -34,7 +34,7 @@ This article shows how to get an incredibly fast per token thoughput when genera
 
 As the model needs 352GB in bf16 (bfloat16) weights (`176*2`), the most efficient set-up is 8x80GB A100 GPUs. Also 2x8x40GB A100s or 2x8x48GB A6000 can be used. The main reason for using these GPUs is that at the time of this writing they provide the largest GPU memory, but other GPUs can be used as well. For example, 24x32GB V100s can be used.
 
-Using a single node will deliver the fastest througput since NVLink and PCIe speeds are typically much faster than inter-node network (unless NVSwitch is used).
+Using a single node will typically deliver a fastest throughput since most of the time intra-node GPU linking hardware is faster than inter-node one, but it's not always the case.
 
 If you don't have that much hardware, it's still possible to run BLOOM inference on smaller GPUs, by using CPU or NVME offload, but of course, the generation time will be much slower.
 
