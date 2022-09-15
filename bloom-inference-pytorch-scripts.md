@@ -266,7 +266,7 @@ Server solutions:
 
 More client-side solutions:
 
-* [Thomas Wang](https://github.com/thomasw21/thomasw21) is developing a very fast [custom CUDA kernel BLOOM model](https://github.com/huggingface/transformers_bloom_parallel).
+* [Thomas Wang](https://github.com/thomasw21) is developing a very fast [custom CUDA kernel BLOOM model](https://github.com/huggingface/transformers_bloom_parallel).
 
 * The JAX team @HuggingFace has developed a [JAX-based solution](https://github.com/huggingface/bloom-jax-inference)
 
