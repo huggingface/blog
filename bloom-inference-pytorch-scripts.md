@@ -38,7 +38,7 @@ Using a single node will deliver the fastest througput since PCIe speed is typic
 
 If you don't have that much hardware, it's still possible to run BLOOM inference on smaller GPUs, by using CPU or NVME offload, but of course, the generation time will be much slower.
 
-We are also going to cover the 8bit quantized solutions which require half the GPU memory at the cost of slightly slower throughput. We will discuss [BitsNBytes](https://github.com/TimDettmers/bitsandbytes) and [Deepspeed-Inference](https://www.deepspeed.ai/tutorials/inference-tutorial/) libraries there.
+We are also going to cover the [8bit quantized solutions](https://huggingface.co/blog/hf-bitsandbytes-integration), which require half the GPU memory at the cost of slightly slower throughput. We will discuss [BitsNBytes](https://github.com/TimDettmers/bitsandbytes) and [Deepspeed-Inference](https://www.deepspeed.ai/tutorials/inference-tutorial/) libraries there.
 
 ## Benchmarks
 
@@ -46,15 +46,15 @@ Without much further ado let's show some numbers.
 
 For the sake of consistency, unless stated differently, the benchmarks in this article were all done on the same 8x80GB A100 node w/ 512GB of CPU memory on [Jean Zay HPC](http://www.idris.fr/eng/jean-zay/index.html). The JeanZay HPC users enjoy a very fast IO of about 3GB/s read speed (GPFS). This is important for checkpoint loading time. A slow disc will result in slow loading time. Especially since we are concurrently doing IO in multiple processes.
 
-All benchmarks are doing greedy generation of 100 token outputs:
+All benchmarks are doing [greedy generation](https://huggingface.co/blog/how-to-generate#greedy-search) of 100 token outputs:
 ```
 Generate args {'max_length': 100, 'do_sample': False}
 ```
 The input prompt is comprised of just a few tokens. The previous token caching is on as well, as it'd be quite slow to recalculate them all the time.
 
-First, let's have a quick look at how long did it take to get ready to generate - i.e. how long did it take to load and prepare the data:
+First, let's have a quick look at how long did it take to get ready to generate - i.e. how long did it take to load and prepare the model:
 
-| project                 |      |
+| project                 |   seconds   |
 | :---------------------- | :--- |
 | accelerate              |  121 |
 | ds-inference shard-int8 |   61 |
