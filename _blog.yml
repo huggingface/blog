@@ -1128,7 +1128,7 @@
     - scikit-learn
     - announcement
     - guide
-    
+
 - local: hf-bitsandbytes-integration
   title: "A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using transformers, accelerate and bitsandbytes"
   author: ybelkada
@@ -1137,8 +1137,8 @@
   tags:
     - nlp
     - llm
-    - quantization  
-  
+    - quantization
+
 - local: vision-transformers
   title: "Deep Dive: Vision Transformers On Hugging Face Optimum Graphcore"
   author: juliensimon
@@ -1156,7 +1156,7 @@
   tags:
     - guide
     - cv
-   
+
 - local: pretraining-bert
   title: "Pre-Train BERT with Hugging Face Transformers and Habana Gaudi"
   author: philschmid
@@ -1196,7 +1196,7 @@
   date: August 31, 2022
   tags:
     - community
- 
+
 - local: train-decision-transformers
   title: "Train your first Decision Transformer"
   author: edbeeching
@@ -1224,3 +1224,14 @@
   tags:
     - guide
     - nlp
+
+- local: bloom-inference-pytorch-scripts
+  title: "Incredibly Fast BLOOM Inference with DeepSpeed and Accelerate"
+  author: stas, sgugger
+  thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
+  date: Sep 15, 2022
+  tags:
+    - nlp
+    - llm
+    - bloom
+    - inference
