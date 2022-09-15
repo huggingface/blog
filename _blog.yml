@@ -1229,7 +1229,7 @@
   title: "Incredibly Fast BLOOM Inference with DeepSpeed and Accelerate"
   author: stas, sgugger
   thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
-  date: Sep 15, 2022
+  date: Sep 16, 2022
   tags:
     - nlp
     - llm

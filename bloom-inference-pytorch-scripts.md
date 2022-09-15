@@ -6,7 +6,7 @@ thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
 <h1>Incredibly Fast BLOOM Inference with DeepSpeed and Accelerate</h1>
 
 <div class="blog-metadata">
-    <small>Published July 26, 2022.</small>
+    <small>Published Sep 16, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/bloom-inference-pytorch.md">
         Update on GitHub
     </a>
@@ -30,15 +30,15 @@ thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
     </a>
 </div>
 
-This article shows how to get an incredibly fast per token thoughput when generating with the 176B parameter [BLOOM model](https://huggingface.co/bigscience/bloom).
+This article shows how to get an incredibly fast per token throughput when generating with the 176B parameter [BLOOM model](https://huggingface.co/bigscience/bloom).
 
 As the model needs 352GB in bf16 (bfloat16) weights (`176*2`), the most efficient set-up is 8x80GB A100 GPUs. Also 2x8x40GB A100s or 2x8x48GB A6000 can be used. The main reason for using these GPUs is that at the time of this writing they provide the largest GPU memory, but other GPUs can be used as well. For example, 24x32GB V100s can be used.
 
 Using a single node will typically deliver a fastest throughput since most of the time intra-node GPU linking hardware is faster than inter-node one, but it's not always the case.
 
-If you don't have that much hardware, it's still possible to run BLOOM inference on smaller GPUs, by using CPU or NVME offload, but of course, the generation time will be much slower.
+If you don't have that much hardware, it's still possible to run BLOOM inference on smaller GPUs, by using CPU or NVMe offload, but of course, the generation time will be much slower.
 
-We are also going to cover the [8bit quantized solutions](https://huggingface.co/blog/hf-bitsandbytes-integration), which require half the GPU memory at the cost of slightly slower throughput. We will discuss [BitsNBytes](https://github.com/TimDettmers/bitsandbytes) and [Deepspeed-Inference](https://www.deepspeed.ai/tutorials/inference-tutorial/) libraries there.
+We are also going to cover the [8bit quantized solutions](https://huggingface.co/blog/hf-bitsandbytes-integration), which require half the GPU memory at the cost of slightly slower throughput. We will discuss [BitsAndBytes](https://github.com/TimDettmers/bitsandbytes) and [Deepspeed-Inference](https://www.deepspeed.ai/tutorials/inference-tutorial/) libraries there.
 
 ## Benchmarks
 
@@ -66,9 +66,9 @@ Deepspeed-Inference comes with pre-sharded weight repositories and there the loa
 
 The loading time may or may not be of importance, since once loaded you can continually generate tokens again and again without an additional loading overhead.
 
-Next the most important benchmark of token generation thoughput. The throughput metric here is a simple - how long did it take to generate 100 new tokens divided by 100 and the batch size (i.e. divided by the total number of generated tokens).
+Next the most important benchmark of token generation throughput. The throughput metric here is a simple - how long did it take to generate 100 new tokens divided by 100 and the batch size (i.e. divided by the total number of generated tokens).
 
-Here is the throughput in msecs on 8x80GB gpus:
+Here is the throughput in msecs on 8x80GB GPUs:
 
 | project      \ bs |      1 |     8 |    16 |    32 |   64 |  128 |  256 | 512  |
 | :---------------- | :----- | :---- | :---- | :---- | :--- | :--- | :--- | :--- |
@@ -78,15 +78,17 @@ Here is the throughput in msecs on 8x80GB gpus:
 | ds-inference int8 |  89.09 | 11.44 |  5.88 |  3.09 | 1.71 | 1.02 | 0.71 | oom  |
 | ds-zero      bf16 |    283 | 34.88 |   oom |       |      |      |      |      |
 
-Getting an under 1msec throughput with Deepspeed-Inference's tensor parallelism and custom fused CUDA kernels! That's absolutely amazing! Though using this solution for other models that it hasn't been tried on may require some developer time to make it work.
+where OOM == Out of Memory condition where the batch size was too big to fit into GPU memory.
 
-Accelerate is very fast too it uses a very simple approach of naive Pipeline Parallelism and because it's very simple it should work out of the box with any model.
+Getting an under 1 msec throughput with Deepspeed-Inference's Tensor Parallelism (TP) and custom fused CUDA kernels! That's absolutely amazing! Though using this solution for other models that it hasn't been tried on may require some developer time to make it work.
 
-Since Deepspeed-ZeRO can process multiple generate streams in parallel its throughput can be further divided by 8 or 16, depending on whether 8 or 16 gpus were used during the `generate` call. And, of course, it means that it can process a batch size of 64 in the case of 8x80 A100 (the table above) and thus the throughput is about 4msec - so all 3 solutions are very close to each other.
+Accelerate is super fast as well. It uses a very simple approach of naive Pipeline Parallelism (PP) and because it's very simple it should work out of the box with any model.
+
+Since Deepspeed-ZeRO can process multiple generate streams in parallel its throughput can be further divided by 8 or 16, depending on whether 8 or 16 GPUs were used during the `generate` call. And, of course, it means that it can process a batch size of 64 in the case of 8x80 A100 (the table above) and thus the throughput is about 4msec - so all 3 solutions are very close to each other.
 
 Let's revisit again how these numbers were calculated. To generate 100 new tokens for a batch size of 128 took 8832 msecs in real time when using Deepspeed-Inference in fp16 mode. So now to calculate the throughput we did: walltime/(batch_size*new_tokens) or `8832/(128*100) = 0.69`.
 
-Now let's look at the power of quantized int8-based models provided by Deepspeed-Inference and BitsNBytes, as it requires only half the original GPU memory of inference in bfloat16 or float16.
+Now let's look at the power of quantized int8-based models provided by Deepspeed-Inference and BitsAndBytes, as it requires only half the original GPU memory of inference in bfloat16 or float16.
 
 Throughput in msecs 4x80GB A100:
 
@@ -144,7 +146,7 @@ The simple execution is:
 python bloom-inference-scripts/bloom-accelerate-inference.py --name bigscience/bloom --batch_size 1 --benchmark
 ```
 
-To activate the 8bit quantized solution from [BitsNBytes](https://github.com/TimDettmers/bitsandbytes) first install `bitsnbytes`:
+To activate the 8bit quantized solution from [BitsAndBytes](https://github.com/TimDettmers/bitsandbytes) first install `bitsandbytes`:
 
 ```
 pip install bitsandbytes
@@ -178,7 +180,7 @@ pip install deepspeed>=0.7.3
 
 ### Run
 
-1. the fastest approach is to use a TP-pre-sharded (TP = Tensor Parallel) checkpoint that takes only ~1min to load, as compared to 10min for non-presharded bloom checkpoint:
+1. the fastest approach is to use a TP-pre-sharded (TP = Tensor Parallel) checkpoint that takes only ~1min to load, as compared to 10min for non-pre-sharded bloom checkpoint:
 
 
 ```
@@ -201,7 +203,7 @@ deepspeed --num_gpus 8 bloom-inference-scripts/bloom-ds-inference.py --name micr
 
 Here we used `microsoft/bloom-deepspeed-inference-int8` and also told the script to run in `int8`.
 
-And of course, just 4x80GB A100 gpus is now sufficient:
+And of course, just 4x80GB A100 GPUs is now sufficient:
 
 ```
 deepspeed --num_gpus 4 bloom-inference-scripts/bloom-ds-inference.py --name microsoft/bloom-deepspeed-inference-int8 --dtype int8
@@ -211,7 +213,7 @@ The highest batch size we were able to run without OOM was 128 in this case.
 
 You can see two factors at play leading to better performance here.
 
-1. The throughput here was improved by using Tensor Parallelism (TP) instead of the Pipeline Parallelism (PP) of Accelerate. Because Accelerate is meant to be very generic it is also unfortunately hard to maximize the GPU usage. All computations are done first on GPU 0, then on GPU 1, etc. until GPU 8, which means 7 GPU are idle all the time. DeepSpeed-Inference on the other hand uses TP, meaning it will send tensors to all GPUs, compute part of the generation on each GPU and then all GPUs communicate to each other the results, then move on to the next layer. That means all GPUs are active at once but they need to communicate much more.
+1. The throughput here was improved by using Tensor Parallelism (TP) instead of the Pipeline Parallelism (PP) of Accelerate. Because Accelerate is meant to be very generic it is also unfortunately hard to maximize the GPU usage. All computations are done first on GPU 0, then on GPU 1, etc. until GPU 8, which means 7 GPUs are idle all the time. DeepSpeed-Inference on the other hand uses TP, meaning it will send tensors to all GPUs, compute part of the generation on each GPU and then all GPUs communicate to each other the results, then move on to the next layer. That means all GPUs are active at once but they need to communicate much more.
 
 2. DeepSpeed-Inference also uses custom CUDA kernels to avoid allocating too much memory and doing tensor copying to and from GPUs. The effect of this is lesser memory requirements and fewer kernel starts which improves the throughput and allows for bigger batch sizes leading to higher overall throughput.
 
@@ -236,17 +238,17 @@ Note that the script currently runs the same inputs on all GPUs, but you can run
 deepspeed --num_gpus 8 bloom-inference-scripts/bloom-ds-zero-inference.py --name bigscience/bloom --batch_size 1 --benchmark
 ```
 
-Please remember that with ZeRO the user can generate multiple unique streams at the same time - and thus the overall performance should be throughput in secs/token divided by number of participating gpus - so 8x to 16x faster depending on whether 8 or 16 gpus were used!
+Please remember that with ZeRO the user can generate multiple unique streams at the same time - and thus the overall performance should be throughput in secs/token divided by number of participating GPUs - so 8x to 16x faster depending on whether 8 or 16 GPUs were used!
 
 You can also try the offloading solutions with just one smallish GPU, which will take a long time to run, but if you don't have 8 huge GPUs this is as good as it gets.
 
 
-CPU-Offload (1x gpus):
+CPU-Offload (1x GPUs):
 ```
 deepspeed --num_gpus 1 bloom-inference-scripts/bloom-ds-zero-inference.py --name bigscience/bloom --batch_size 8 --cpu_offload --benchmark
 ```
 
-NVMe-Offload (1x gpus):
+NVMe-Offload (1x GPUs):
 ```
 deepspeed --num_gpus 1 bloom-inference-scripts/bloom-ds-zero-inference.py --name bigscience/bloom --batch_size 8 --nvme_offload_path=/path/to/nvme_offload --benchmark
 ```
@@ -281,5 +283,4 @@ use [transformers-bloom-inference](https://github.com/huggingface/transformers-b
 ## Blog credits
 
 Huge thanks to the following kind folks who asked good questions and helped improve the readability of the article:
-Olatunji Ruwase,
-Philipp Schmid.
+Olatunji Ruwase and Philipp Schmid.
