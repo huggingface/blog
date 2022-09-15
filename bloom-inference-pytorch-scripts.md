@@ -256,9 +256,9 @@ deepspeed --num_gpus 1 bloom-inference-scripts/bloom-ds-zero-inference.py --name
 make sure to adjust `/path/to/nvme_offload` to somewhere you have ~400GB of free memory on a fast NVMe drive.
 
 
-## More Client Solutions
+## Additional Client and Server Solutions
 
-At [transformers-bloom-inference](https://github.com/huggingface/transformers-bloom-inference) you will find more very efficient solutions.
+At [transformers-bloom-inference](https://github.com/huggingface/transformers-bloom-inference) you will find more very efficient solutions, including server solutions.
 
 Here are some previews.
 
