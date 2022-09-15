@@ -84,7 +84,7 @@ Accelerate is very fast too it uses a very simple approach of naive Pipeline Par
 
 Since Deepspeed-ZeRO can process multiple generate streams in parallel its throughput can be further divided by 8 or 16, depending on whether 8 or 16 gpus were used during the `generate` call. And, of course, it means that it can process a batch size of 64 in the case of 8x80 A100 (the table above) and thus the throughput is about 4msec - so all 3 solutions are very close to each other.
 
-Let's revisit again how these numbers were calculated. To generate 100 new tokens for a batch size of 128 took 8832 msecs in real time. So now to calculate the throughput we did: `8832/(128*100) = 0.69`.
+Let's revisit again how these numbers were calculated. To generate 100 new tokens for a batch size of 128 took 8832 msecs in real time when using Deepspeed-Inference in fp16 mode. So now to calculate the throughput we did: walltime/(batch_size*new_tokens) or `8832/(128*100) = 0.69`.
 
 Now let's look at the power of quantized int8-based models provided by Deepspeed-Inference and BitsNBytes, as it requires only half the original GPU memory of inference in bfloat16 or float16.
 
