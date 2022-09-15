@@ -34,7 +34,7 @@ This article shows how to get an incredibly fast per token thoughput when genera
 
 As the model needs 352GB in bf16 (bfloat16) weights (`176*2`), the most efficient set-up is 8x80GB A100 GPUs. Also 2x8x40GB A100s or 2x8x48GB A6000 can be used. The main reason for using these GPUs is that at the time of this writing they provide the largest GPU memory, but other GPUs can be used as well. For example, 24x32GB V100s can be used.
 
-Using a single node will deliver the fastest througput since PCIe speed is typically much faster than inter-node network.
+Using a single node will deliver the fastest througput since NVLink and PCIe speeds are typically much faster than inter-node network (unless NVSwitch is used).
 
 If you don't have that much hardware, it's still possible to run BLOOM inference on smaller GPUs, by using CPU or NVME offload, but of course, the generation time will be much slower.
 
@@ -42,7 +42,7 @@ We are also going to cover the [8bit quantized solutions](https://huggingface.co
 
 ## Benchmarks
 
-Without much further ado let's show some numbers.
+Without any further delay let's show some numbers.
 
 For the sake of consistency, unless stated differently, the benchmarks in this article were all done on the same 8x80GB A100 node w/ 512GB of CPU memory on [Jean Zay HPC](http://www.idris.fr/eng/jean-zay/index.html). The JeanZay HPC users enjoy a very fast IO of about 3GB/s read speed (GPFS). This is important for checkpoint loading time. A slow disc will result in slow loading time. Especially since we are concurrently doing IO in multiple processes.
 
@@ -54,7 +54,7 @@ The input prompt is comprised of just a few tokens. The previous token caching i
 
 First, let's have a quick look at how long did it take to get ready to generate - i.e. how long did it take to load and prepare the model:
 
-| project                 |   seconds   |
+| project                 | secs |
 | :---------------------- | :--- |
 | accelerate              |  121 |
 | ds-inference shard-int8 |   61 |
@@ -83,6 +83,8 @@ Getting an under 1msec throughput with Deepspeed-Inference's tensor parallelism 
 Accelerate is very fast too it uses a very simple approach of naive Pipeline Parallelism and because it's very simple it should work out of the box with any model.
 
 Since Deepspeed-ZeRO can process multiple generate streams in parallel its throughput can be further divided by 8 or 16, depending on whether 8 or 16 gpus were used during the `generate` call. And, of course, it means that it can process a batch size of 64 in the case of 8x80 A100 (the table above) and thus the throughput is about 4msec - so all 3 solutions are very close to each other.
+
+Let's revisit again how these numbers were calculated. To generate 100 new tokens for a batch size of 128 took 8.832 secs in real time. So now to calculate the throughput we did: `8832/(128*100) = 0.69`.
 
 Now let's look at the power of quantized int8-based models provided by Deepspeed-Inference and BitsNBytes, as it requires only half the original GPU memory of inference in bfloat16 or float16.
 
