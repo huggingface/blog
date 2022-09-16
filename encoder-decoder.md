@@ -1102,21 +1102,24 @@ tokenizer = MarianTokenizer.from_pretrained("Helsinki-NLP/opus-mt-en-de")
 model = MarianMTModel.from_pretrained("Helsinki-NLP/opus-mt-en-de")
 embeddings = model.get_input_embeddings()
 
-# get encoded input vectors
+# create token ids for encoder input
 input_ids = tokenizer("I want to buy a car", return_tensors="pt").input_ids
 
-# create ids of encoded input vectors
+# pass input token ids to encoder
+encoder_output_vectors = model.base_model.encoder(input_ids, return_dict=True).last_hidden_state
+
+# create token ids for decoder input
 decoder_input_ids = tokenizer("<pad> Ich will ein", return_tensors="pt", add_special_tokens=False).input_ids
 
-# pass decoder input_ids and encoded input vectors to decoder
-decoder_output_vectors = model.base_model.decoder(decoder_input_ids).last_hidden_state
+# pass decoder input ids and encoded input vectors to decoder
+decoder_output_vectors = model.base_model.decoder(decoder_input_ids, encoder_hidden_states=encoder_output_vectors).last_hidden_state
 
 # derive embeddings by multiplying decoder outputs with embedding weights
 lm_logits = torch.nn.functional.linear(decoder_output_vectors, embeddings.weight, bias=model.final_logits_bias)
 
 # change the decoder input slightly
 decoder_input_ids_perturbed = tokenizer("<pad> Ich will das", return_tensors="pt", add_special_tokens=False).input_ids
-decoder_output_vectors_perturbed = model.base_model.decoder(decoder_input_ids_perturbed).last_hidden_state
+decoder_output_vectors_perturbed = model.base_model.decoder(decoder_input_ids_perturbed, encoder_hidden_states=encoder_output_vectors).last_hidden_state
 lm_logits_perturbed = torch.nn.functional.linear(decoder_output_vectors_perturbed, embeddings.weight, bias=model.final_logits_bias)
 
 # compare shape and encoding of first vector
@@ -1138,9 +1141,9 @@ We compare the output shape of the decoder input word embeddings, *i.e.*
 here `<pad>` corresponds to BOS and \"Ich will das\" is tokenized to 4
 tokens) with the dimensionality of the `lm_logits`(corresponds to
 \\(\mathbf{L}_{1:5}\\)). Also, we have passed the word sequence
-\"`<pad>` Ich will das\" and a slightly perturbated version
+\"`<pad>` Ich will ein\" and a slightly perturbated version
 \"`<pad>` Ich will das\" together with the
-`encoder_output_vectors` through the encoder to check if the second
+`encoder_output_vectors` through the decoder to check if the second
 `lm_logit`, corresponding to \"Ich\", differs when only the last word is
 changed in the input sequence (\"ein\" -\> \"das\").
 
@@ -1241,21 +1244,19 @@ print(f"Generated so far: {tokenizer.decode(decoder_input_ids[0], skip_special_t
 _Outputs:_
 
 ```
-    Generated so far: Ich Ich
+    Generated so far: Ich will ein
 ```
 
 In this code example, we show exactly what was described earlier. We
 pass an input \"I want to buy a car\" together with the \\(\text{BOS}\\)
 token to the encoder-decoder model and sample from the first logit
 \\(\mathbf{l}_1\\) (*i.e.* the first `lm_logits` line). Hereby, our sampling
-strategy is simple to greedily choose the next decoder input vector that
+strategy is simple: greedily choose the next decoder input vector that
 has the highest probability. In an auto-regressive fashion, we then pass
 the sampled decoder input vector together with the previous inputs to
 the encoder-decoder model and sample again. We repeat this a third time.
-As a result, the model has generated the words \"Ich Ich\". The first
-word is spot-on! The second word is not that great. We can see here,
-that a good decoding method is key for a successful sequence generation
-from a given model distribution.
+As a result, the model has generated the words \"Ich will ein\". The result 
+is spot-on - this is the beginning of the correct translation of the input.
 
 In practice, more complicated decoding methods are used to sample the
 `lm_logits`. Most of which are covered in
