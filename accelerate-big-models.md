@@ -173,7 +173,7 @@ Now, each block is always on the same device. Note that it slightly changed the 
 In Transformers, when using `device_map` in the `from_pretrained()` method or in a `pipeline`, those classes of blocks to leave on the same device are automatically provided, so you don't need to worry about them. Note that you have the following options for `device_map` (only relevant when you have more than one GPU):
 - `"auto"` or `"balanced"`: Accelerate will split the weights so that each GPU is used equally;
 - `"balanced_low_0"`: Accelerate will split the weights so that each GPU is used equally except the first one, where it will try to have as little weights as possible (useful when you want to work with the outputs of the model on one GPU, for instance when  using the `generate` function);
-- `"sequential"`: Accelerat will fill the GPUs in order (so the last ones might not be used at all).
+- `"sequential"`: Accelerate will fill the GPUs in order (so the last ones might not be used at all).
 
 Now that we know where each weight is supposed ot go, we can progressively load the pretrained weights inside the model.
 
@@ -239,4 +239,4 @@ The whole process is summarized in the following video:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/MWCSGj9jEAo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-AWESOME CONCLUSION
+This way, your model can be loaded and run even if you don't have enough GPU RAM and CPU RAM. The only thing you need is disk space (and lots of patience!) While this solution is pretty naive if you have multiple GPUs (there is no clever pipeline parallelism involved, just using the GPUs sequentially) it still yield [pretty decent results for BLOOM](https://huggingface.co/blog/bloom-inference-pytorch-scripts). And it allows you to run the model on smaller setups (albeit more slowly).
