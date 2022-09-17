@@ -1,6 +1,6 @@
 ---
 title: "SetFit: Efficient Few-Shot Learning Without Prompts"
-thumbnail: /blog/assets/
+thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
 ---
 <div class="blog-metadata">
     <small>Published September 16, 2022.</small>
@@ -22,23 +22,23 @@ thumbnail: /blog/assets/
 
 
 # SetFit: Efficient Few-Shot Learning Without Prompts
-###### The Hugging Face and Intel team introduce a new prompt-free few-shot learning regime called Setfit, with accompanying [code](https://github.com/SetFit/setfit), longer [paper](), and datasets on [HF hub](https://huggingface.co/SetFit)
+###### Hugging Face, Intel labs, and the UKP team introduce a new prompt-free few-shot learning regime called Setfit, with accompanying [code](https://github.com/SetFit/setfit), longer [paper](), and datasets on [HF hub](https://huggingface.co/SetFit)
 
 <kbd>
-<img src="assets/gpt3_stone.png">
+<img src="assets/103_setfit/.png">
 </kbd>
 
 
 ## Introducing SetFit
-In a collaborative effort between Hugging Face and Intel, we introduce SetFit, a prompt-free few-shot regime made with practicality and efficiency in mind. Recent discussions in ML have focused on few-shot regimes, where only few (zero to a few dozen) data points are needed to extend language model applications to downstream classification tasks. Examples of such regimes include T-few, GPT-3, and ADAPET, but these methods sometimes require large, inaccessible compute and finicky manually crafted prompts. Setfit performs on-par or better than comparable models while being prompt-free and only requiring small models that can fit on commercial personal computers. To promote wide access we make our code and data available open-source. 
+In a collaborative effort among Hugging Face, Intel labs, and the UKP lab we introduce SetFit, a prompt-free few-shot regime made with practicality and efficiency in mind. Recent discussions in ML have focused on few-shot regimes, where only few (zero to a few dozen) data points are needed to extend language model applications to downstream classification tasks. Examples of such regimes include T-few, GPT-3, and ADAPET, but these methods sometimes require large, inaccessible computational resources and finicky manually crafted prompts. SetFit performs on-par or better than comparable models while also being prompt-free and only requiring small models that can fit on commercial personal computers. We make all code and data used in the development of SetFit publicly available.
 
 
 <kbd>
-<img src="assets/incremental_graph.png">
+<img src="assets/103_setfit/SetFit_RAFT.png">
 </kbd>
 
 ## SetFit’s Few-Shot Performance
-While run prompt-free and on much smaller base models, SetFit performs on par or better than state of the art few-shot regimes on a variety of benchmarks. On the RAFT, a few-shot benchmark dataset, (https://huggingface.co/spaces/ought/raft-leaderboard)  as of September 2022, SetFit Roberta (with the Roberta-Large ST base model) with 355 million parameters outforms PET and GPT-3 and comes just under average human performance and the 11 billion parameter T-few a model 30 times the size of SetFit Roberta. Footnote (There is no information on state of the art on the RAFT.) SetFit outperforms the human baseline on 7 of the 11 RAFT tasks. 
+While run prompt-free and on much smaller base models, SetFit performs on par or better than state of the art few-shot regimes on a variety of benchmarks. On RAFT, a few-shot benchmark dataset, (https://huggingface.co/spaces/ought/raft-leaderboard)  as of September 2022, SetFit Roberta (using the Roberta-Large ST base model) with 355 million parameters outforms PET and GPT-3 and and places just under average human performance and the 11 billion parameter T-few, a model 30 times the size of SetFit Roberta. Footnote (There is no information on state of the art on the RAFT.) SetFit outperforms the human baseline on 7 of the 11 RAFT tasks. 
 
 | Rank | Method | Accuracy | Model Size | 
 | :------: | ------ | :------: | :------: | 
@@ -51,7 +51,7 @@ While run prompt-free and on much smaller base models, SetFit performs on par or
 | 12 | GPT-3 | 62.7 | 175 B |
 
 
-On non-few-shot datasets, SetFit shows robustness across a variety of tasks. It outperforms PERFECT, T-FEW 3 billion, ADAPET and vanilla transformers, on most tasks on sentiment, emotion, counterfactual, and unwanted language classification at very few (n=8) and few (n=64) -shot learning situations. 
+On non-few-shot datasets, SetFit shows robustness across a variety of tasks. It outperforms PERFECT, T-FEW 3 billion, ADAPET and vanilla transformers, on most tasks on sentiment, emotion, counterfactual, and unwanted language classification tasks at very few (n=8) and few (n=64) -shot learning scenarios. 
 
 | Method | SST-5 | AmazonCF | SentEval | Emotion | EnronSpam | AGNews | Average |
 | ---- | :----: | :----: | :----: | :----: | :----: | :----: | :----: | 
@@ -76,7 +76,14 @@ And just by switching out the base ST model to a multilingual one, SetFit can fu
 
 ## What is SetFit?
 
-The strength of SetFit is its efficiency and simplicity. SetFit first finetunes a Sentence Transformer (ST) model then trains a classifier head on the generated ST embeddings. 
+The strength of SetFit is its efficiency and simplicity. SetFit first finetunes a Sentence Transformer (ST) model then trains a classifier head on the embeddings generated from the finetuned ST. 
+
+
+
+
+<kbd>
+<img src="assets/103_setfit/setfit_diagram_process.png">
+</kbd>
 
 
 SetFit takes advantage of sentence transformers’ ability to generate dense embeddings based on paired sentences. In the data input stage, it maximizes the limited labeled input data by contrastive training, where positive and negative pairs are created by in-class and out-class selection. The sentence transformer model then trains on these pairs (or triplets) and generates dense vectors per example. This is SetFit’s fine-tuning step. In the second step, the classification head, such as a logistic regression model, trains on the encoded embeddings with their respective class labels. At inference time, the unseen example passes through the fine-tuned ST, generating an embedding that when fed to the classification head outputs a class label prediction.
