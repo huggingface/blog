@@ -281,6 +281,6 @@ One of the most impressive early demos of Stable Diffusion was the reuse of seed
 
 ## Thanks for reading!
 
-I hope you enjoy reading this! Remember to give a Star in our [GitHub Repository](https://github.com/huggingface/diffusers) and join the [Hugging Face Discord Server](hf.co/join/discord), where we have a category of channels just for Diffusion models. Over there the latest news in the library are shared! 
+I hope you enjoy reading this! Remember to give a Star in our [GitHub Repository](https://github.com/huggingface/diffusers) and join the [Hugging Face Discord Server](https://hf.co/join/discord), where we have a category of channels just for Diffusion models. Over there the latest news in the library are shared! 
 
 Feel free to open issues with feature requests and bug reports! Everything that has been achieved couldn't have been done without such an amazing community.
