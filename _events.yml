@@ -2,11 +2,15 @@
 # "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
 
+- name: Hugging Face Inference Endpoints | 🤗 Announcement and demo
+  link: https://app.livestorm.co/hugging-face/hugging-face-inference-endpoints?type=detailed
+  date: Sep 27, 2022
+  description: Transformers in production: SOLVED ✅
+
 - name: How Synapse Medicine leverages Hugging Face to improve medication safety
   link: https://www.eventbrite.com/e/how-synapse-medicine-leverages-hugging-face-to-improve-medication-safety-tickets-328906848237
   date: Sep 20, 2022
   description: Learn how Synapse Medicine leverages Hugging Face to improve medication safety!  
-
 
 - name: Hugging Face AI Hardware Summit Workshop
   link: https://www.kisacoresearch.com/ai-hardware-summit-agenda
