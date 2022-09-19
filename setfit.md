@@ -22,7 +22,7 @@ thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
 
 
 # SetFit: Efficient Few-Shot Learning Without Prompts
-### Hugging Face, Intel labs, and the UKP team introduce a new prompt-free few-shot learning regime called Setfit, with accompanying [code](https://github.com/SetFit/setfit), longer [paper](), and datasets on [HF hub](https://huggingface.co/SetFit)
+### Hugging Face, Intel labs, and the UKP team introduce a new prompt-free few-shot learning regime called Setfit with accompanying [code](https://github.com/SetFit/setfit), longer [paper](), and datasets on [HF hub](https://huggingface.co/SetFit)
 
 <p align="center">
     <img src="assets/103_setfit/setfit_curves.png" width=400>
@@ -33,7 +33,7 @@ thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
 
 
 ## Introducing SetFit
-In a collaborative effort among Hugging Face, Intel labs, and the UKP lab we introduce SetFit, a prompt-free few-shot regime made with practicality and efficiency in mind. Recent discussions in ML have focused on few-shot regimes, where only few (zero to a few dozen) data points are needed to extend language model applications to downstream classification tasks. Examples of such regimes include T-few, GPT-3, and ADAPET, but these methods sometimes require large, inaccessible computational resources and finicky manually crafted prompts. SetFit performs on-par or better than comparable models while also being prompt-free and only requiring small models that can fit on commercial personal computers. We make all code and data used in the development of SetFit publicly available.
+In a collaborative effort among Hugging Face, Intel labs, and the UKP lab we introduce SetFit, a prompt-free few-shot regime made with practicality and efficiency in mind. Recent discussions in ML have focused on few-shot regimes where only few (zero to a few dozen) data points are needed to extend language model applications to downstream classification tasks. Examples of such regimes include T-few, GPT-3, and ADAPET. But these methods sometimes require large, inaccessible computational resources and finicky, manually crafted prompts. SetFit performs on-par or better than comparable models while also being prompt-free and only requiring small models that can fit on commercial personal computers. We make all code and data used in the development of SetFit publicly available.
 
 
 <p align="center">
@@ -45,7 +45,7 @@ In a collaborative effort among Hugging Face, Intel labs, and the UKP lab we int
 
 
 ## SetFit’s Few-Shot Performance
-While run prompt-free and on much smaller base models, SetFit performs on par or better than state of the art few-shot regimes on a variety of benchmarks. On [RAFT](https://huggingface.co/spaces/ought/raft-leaderboard), a few-shot benchmark dataset,   as of September 2022, SetFit Roberta (using the Roberta-Large ST base model) with 355 million parameters outforms PET and GPT-3 and and places just under average human performance and the 11 billion parameter T-few, a model 30 times the size of SetFit Roberta. There is no information on state of the art on the RAFT. SetFit outperforms the human baseline on 7 of the 11 RAFT tasks. 
+While run prompt-free and on much smaller base models, SetFit performs on par or better than state of the art few-shot regimes on a variety of benchmarks. On [RAFT](https://huggingface.co/spaces/ought/raft-leaderboard), a few-shot benchmark dataset as of September 2022, SetFit Roberta (using the Roberta-Large ST base model) with 355 million parameters outforms PET and GPT-3 and places just under average human performance and the 11 billion parameter T-few, a model 30 times the size of SetFit Roberta (Table 1; Fig.2). SetFit also outperforms the human baseline on 7 of the 11 RAFT tasks. There is no information on state of the art "YiWise" on the RAFT.
 
 | Rank | Method | Accuracy | Model Size | 
 | :------: | ------ | :------: | :------: | 
@@ -59,9 +59,7 @@ While run prompt-free and on much smaller base models, SetFit performs on par or
 
 <h5>Table 1: RAFT performance leaderboard as of September 2022</h5>
 
-On non-few-shot datasets, SetFit shows robustness across a variety of tasks. It outperforms PERFECT, T-FEW 3 billion, ADAPET and vanilla transformers, on most tasks on sentiment, emotion, counterfactual, and unwanted language classification tasks at very few (n=8) and few (n=64) -shot learning scenarios. 
-
-
+On other datasets, SetFit shows robustness across a variety of tasks (Table 2). It outperforms PERFECT, T-Few 3 billion, ADAPET and fine-tuned vanilla transformers, on many tasks on sentiment, emotion, counterfactual, and unwanted language classification tasks at very few (n=8) and few (n=64) - shot learning scenarios. 
 
 
 | Method | SST-5 | AmazonCF | SentEval | Emotion | EnronSpam | AGNews | Average |
@@ -84,7 +82,6 @@ On non-few-shot datasets, SetFit shows robustness across a variety of tasks. It 
 And just by switching out the base ST model to a multilingual one, SetFit can function seamlessly in multilingual contexts. In our experiments, SetFit’s performance shows promising results on classification in German, Japanese, Mandarin, French and Spanish, in both in-language and cross linguistic settings.
 
 
-
 | Method | Inference FLOPS | Train FLOPS | Speed-Up | Score | 
 | ---- | :----: | :----: | :----: | :----: |
 | T-few 3B | 2.3e11 | 5.5e15 | 1x | 63.4 (1.9) | 
@@ -94,6 +91,7 @@ And just by switching out the base ST model to a multilingual one, SetFit can fu
 
 <h5>Table 3: Computational cost comparison of methods</h5>
 
+This is all the more impressive because of SetFit's size and speed. While SetFit does not beat the state of the art by a significant margin, its easy of use and cost effectiveness are unparalleled. Table 3 compares SetFit's inference & train FLOPS  with T-Few with the 3 billion base model. Even when paired the biggest base model, SetFit is a magnitude smaller than T-Few in FLOPS count with a near 6x speed-up. This only comes at a small average score trade-off. This makes SetFit one of the only models out there with this level of practicality.
 
 
 ## What is SetFit?
@@ -112,6 +110,8 @@ SetFit takes advantage of sentence transformers’ ability to generate dense emb
 
 ## How to use SetFit
 
+Using SetFit is as simple as just a few lines of code. There is need for hyperparameter searching or prompt-engineering.
+s
 To start using SetFit, first install it using pip. This will also install dependencies such as datasets and sentence-transformers. 
 ```sh
 pip install setfit
