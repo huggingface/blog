@@ -1,10 +1,10 @@
 ---
-title: "How 🤗 Accelerate runs very large models"
+title: "How 🤗 Accelerate runs very large models thanks to PyTorch"
 thumbnail: /blog/assets/20_accelerate_library/accelerate_diff.png
 ---
 
 <h1>
-    How 🤗 Accelerate runs very large models
+    How 🤗 Accelerate runs very large models thanks to PyTorch
 </h1>
 
 <div class="blog-metadata">
