@@ -173,7 +173,7 @@ def get_action(model, states, actions, rewards, returns_to_go, timesteps):
 
 In order to evaluate the model, we need some additional information; the mean and standard deviation of the states that were used during training. Fortunately, these are available for each of the checkpoint’s [model card](https://huggingface.co/edbeeching/decision-transformer-gym-hopper-expert) on the Hugging Face Hub! 
 
-We also need a target return for the model. This is the power of Offline Reinforcement Learning: we can use the target return to control the performance of the policy. This could be really powerful in a multiplayer setting, where we would like to adjust the performance of an opponent bot to be at a suitable difficulty for the player. The authors show a great plot of this in their paper!
+We also need a target return for the model. This is the power of return conditioned Offline Reinforcement Learning: we can use the target return to control the performance of the policy. This could be really powerful in a multiplayer setting, where we would like to adjust the performance of an opponent bot to be at a suitable difficulty for the player. The authors show a great plot of this in their paper!
 
 ![Results Decision Transformers](assets/58_decision-transformers/results-dt.png)
 *Sampled (evaluation) returns accumulated by Decision Transformer when conditioned on
