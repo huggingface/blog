@@ -91,15 +91,11 @@ And just by switching out the base ST model to a multilingual one, SetFit can fu
 
 <h5>Table 3: Computational cost comparison of methods</h5>
 
-This is all the more impressive because of SetFit's size and speed. While SetFit does not beat the state of the art by a significant margin, its easy of use and cost effectiveness are unparalleled. Table 3 compares SetFit's inference & train FLOPS  with T-Few with the 3 billion base model. Even when paired the biggest base model, SetFit is a magnitude smaller than T-Few in FLOPS count with a near 6x speed-up. This only comes at a small average score trade-off. This makes SetFit one of the only models out there with this level of practicality.
-
+This is all the more impressive because of SetFit's size and speed. While SetFit does not beat the state of the art by a significant margin, its easy of use and cost effectiveness are unparalleled. Table 3 compares SetFit's inference & train FLOPS  with T-Few with the 3 billion base model. Even when paired the biggest base model, SetFit is an order of magnitude smaller than T-Few in FLOPS count with a near 6x speed-up. This comes at a miniscule average score trade-off. This makes SetFit the only few-shot model out there that can be run on just a personal computer or Google Colab. In fact, if run on cloud, SetFit's cost efficiency blows other models out of the water. For SetFit it takes just 30 seconds to run the N=8 split on a V100, costing a total of $0.025. The same experiment on T-Few would run for 700 seconds on an A100 and cost $0.7 -- 28 times more.  
 
 ## What is SetFit?
 
-The strength of SetFit is its efficiency and simplicity. SetFit first finetunes a Sentence Transformer (ST) model then trains a classifier head on the embeddings generated from the finetuned ST. 
-
-
-
+Even in its design, the strength of SetFit is its efficiency and simplicity. SetFit first finetunes a Sentence Transformer (ST) model then trains a classifier head on the embeddings generated from the finetuned ST. 
 
 <p align="center">
     <img src="assets/103_setfit/setfit_diagram_process.png" width=700>
