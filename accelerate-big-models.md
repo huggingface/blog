@@ -35,19 +35,21 @@ from transformers import pipeline
 # This works on Colab. Pick a larger checkpoint if you have time to wait and enough disk space!
 checkpoint = "facebook/opt-2.7b"
 generator = pipeline("text-generation", model=checkpoint, device_map="auto", torch_dtype=torch.float16)
+
+# Perform inference
 generator("More and more large language models are opensourced so Hugging Face has")
 ```
 
-We'll explain what each of those arguments does in a moment, but first just consider the traditional model loading pipeline in PyTorch: it usually consists of:
+We'll explain what each of those arguments do in a moment, but first just consider the traditional model loading pipeline in PyTorch: it usually consists of:
 
 1. Create the model
 2. Load in memory its weights (in an object usually called `state_dict`)
 3. Load those weights in the created model
 4. Move the model on the device for inference
 
-While that has worked pretty well in the past years, very large models make this approach challenging. Here the model picked has 2.7 billion parameters. In the default precision, it means that just step 1 (creating the model) will take roughly 10.8GB in RAM (1 parameter in float32 takes 4 bytes in memory). This is enough to fill almost all the RAM available in Colab.
+While that has worked pretty well in the past years, very large models make this approach challenging. Here the model picked has 2.7 *billion* parameters. In the default precision, it means that just step 1 (creating the model) will take roughly **10.8GB** in RAM (1 parameter in float32 takes 4 bytes in memory). This is enough to fill almost all the RAM available in Colab.
 
-Then step 2 will load in memory a second copy of the model (so another 10.8GB in RAM in default precision) which will get you out of RAM on Colab for the 2.7B model. If you were trying to load BLOOM or OPT-176B, like this, you would need 1.4 **terabytes** of CPU RAM. That is a bit excessive! And all of this to just move the model on one (or several) GPU(s) at step 4.
+Then step 2 will load in memory a second copy of the model (so another 10.8GB in RAM in default precision) which will get you out of RAM on Colab for the 2.7B model. If you were trying to load the largest models, for example BLOOM or OPT-176B (which both have 176 billion parameters), like this, you would need 1.4 **terabytes** of CPU RAM. That is a bit excessive! And all of this to just move the model on one (or several) GPU(s) at step 4.
 
 Clearly we need something smarter. In this blog post, we'll explain how Accelerate leverages PyTorch features to load and run inference with very large models, even if they don't fit in RAM or one GPU. In a nutshell, it changes the process above like this:
 
@@ -92,7 +94,9 @@ You can instantiate a model directly on the meta device:
 large_model = torch.nn.Linear(100000, 100000, device="meta")
 ```
 
-But for an existing model, this syntax would require you to rewrite all your modeling code so that each submodule accepts and passes along a `device` keyword argument. Since it was impractical for the 150 models of the Transformers library, we developed a context manager that will instantiate an empty model for you. Here is how you can instantiate an empty version of BLOOM:
+But for an existing model, this syntax would require you to rewrite all your modeling code so that each submodule accepts and passes along a `device` keyword argument. Since this was impractical for the 150 models of the Transformers library, we developed a context manager that will instantiate an empty model for you. 
+
+Here is how you can instantiate an empty version of BLOOM:
 
 ```python
 from accelerate import init_empty_weights
@@ -105,13 +109,13 @@ with init_empty_weights():
 
 This works on any model, but will leave you a shell you can't use directly: some operations are implemented for the meta device, but not all yet. Here for instance, you can use the `large_model` defined above with an input, but not the BLOOM model. Even when using it, the output will be a tensor of the meta device, so you will get the shape of the result, but nothing more.
 
-However, since we have the shape of each weight, we now how much memory they will consume once we load the pretrained tensors. Therefore, we can make a decision on how to split our model across GPUs.
+Since we know the shape of each weight, we can however know how much memory they will all consume once we load the pretrained tensors fully. Therefore, we can make a decision on how to split our model across CPUs and GPUs.
 
 ## Computing a device map
 
 Before we start loading the pretrained weights, we will need to know where we want to put them. This way we can free the CPU RAM each time we have put a weight in its right place. This can be done with the empty model on the meta device, since we only need to know the shape of each tensor and its dtype to be compute how much space it will take in memory.
 
-Accelerate provides a function to automatically determine a *device map* from an empty model. It will try to maximize the use of available GPUs, then CPU RAM and finally flag the weights that don't fit for disk offload. Let's have a look using [T0pp](https://huggingface.co/bigscience/T0pp).
+Accelerate provides a function to automatically determine a *device map* from an empty model. It will try to maximize the use of all available GPUs, then CPU RAM, and finally flag the weights that don't fit for disk offload. Let's have a look using [T0pp](https://huggingface.co/bigscience/T0pp).
 
 ```python
 from accelerate import infer_auto_device_map, init_empty_weights
@@ -190,13 +194,15 @@ new_model = ModelClass()
 new_model.load_state_dict(torch.load('model_weights.pth'))
 ```
 
-This works pretty well for models with less than 1 billion parameters, but for larger models, this is very taxing in RAM. The BLOOM model has 176 billions parameters; even with the weights saved in bfloat16 to save space, it still represents 352GB as a whole. While the super computer that trained this model might have this amount of memory available, requiring this for inference is excessive.
+This works pretty well for models with less than 1 billion parameters, but for larger models, this is very taxing in RAM. The BLOOM model has 176 billions parameters; even with the weights saved in bfloat16 to save space, it still represents 352GB as a whole. While the super computer that trained this model might have this amount of memory available, requiring this for inference is unrealistic.
 
-This is why large models on the Hugging Face Hub are not shared with one big file containing all the weights, but several of them. If you go to the [BLOOM model page](https://huggingface.co/bigscience/bloom/tree/main) for instance, you will see there is 72 files named `pytorch_model_xxxxx-of-00072.bin`, which each contain part of the model weights. Using this format, we can load one part of the state dict in memory, put the weights inside the model, move them on the right device, then discard this state dict part before going to the next. Instead of requiring to have enough RAM to accommodate the whole model, we only need enough RAM to get the biggest checkpoint part--which we call shard--so 7.19GB in the case of BLOOM.
+This is why large models on the Hugging Face Hub are not saved and shared with one big file containing all the weights, but **several** of them. If you go to the [BLOOM model page](https://huggingface.co/bigscience/bloom/tree/main) for instance, you will see there is 72 files named `pytorch_model_xxxxx-of-00072.bin`, which each contain part of the model weights. Using this format, we can load one part of the state dict in memory, put the weights inside the model, move them on the right device, then discard this state dict part before going to the next. Instead of requiring to have enough RAM to accommodate the whole model, we only need enough RAM to get the biggest checkpoint part, which we call a **shard**, so 7.19GB in the case of BLOOM.
 
-We call the checkpoints saved in several files like BLOOM *sharded checkpoints*, and we have standardized their format as such: one file (called `pytorch_model.bin.index.json`) contains some metadata and a map parameter name to file name, indicating where to find each weight, then the other files are standard PyTorch state dicts, they just contain a part of the model instead of the whole one. You can have a look at the content of the index file [here](https://huggingface.co/bigscience/bloom/blob/main/pytorch_model.bin.index.json).
+We call the checkpoints saved in several files like BLOOM *sharded checkpoints*, and we have standardized their format as such: 
+- One file (called `pytorch_model.bin.index.json`) contains some metadata and a map parameter name to file name, indicating where to find each weight
+- All the other files are standard PyTorch state dicts, they just contain a part of the model instead of the whole one. You can have a look at the content of the index file [here](https://huggingface.co/bigscience/bloom/blob/main/pytorch_model.bin.index.json).
 
-To load such a sharded checkpoint into a model, we just need to loop over the various shards. Accelerate provides a function called `load_checkpoint_in_model` that will do this for you if you have cloned one of the repos of the Hub, or you can directly use the `from_pretrained` method of Transformers, which will handle the downloading and caching for you.
+To load such a sharded checkpoint into a model, we just need to loop over the various shards. Accelerate provides a function called `load_checkpoint_in_model` that will do this for you if you have cloned one of the repos of the Hub, or you can directly use the `from_pretrained` method of Transformers, which will handle the downloading and caching for you:
 
 ```python
 from transformers import AutoModelForCausalLM
@@ -211,10 +217,10 @@ If the device map computed automatically requires some weights to be offloaded o
 from transformers import AutoModelForCausalLM
 
 checkpoint = "facebook/opt-2.7b"
-model = AutoModelForCausalLM.from_pretrained(checkpoint, device_map="auto", offloag_folder="offload")
+model = AutoModelForCausalLM.from_pretrained(checkpoint, device_map="auto", offload_folder="offload")
 ```
 
-Note that if you are trying to load a very large model that require some disk offload on top of CPU offload, you might get out of RAM when the last shards of the checkpoint are loaded, since there is the part of the model staying on CPU taking space. If that is the case, use the option `offload_state_dict=True` to temporarily offload the part of the model staying on CPU while the weights are all loaded, and reload it in RAM once all the weights have been processed
+Note that if you are trying to load a very large model that require some disk offload on top of CPU offload, you might run out of RAM when the last shards of the checkpoint are loaded, since there is the part of the model staying on CPU taking space. If that is the case, use the option `offload_state_dict=True` to temporarily offload the part of the model staying on CPU while the weights are all loaded, and reload it in RAM once all the weights have been processed
 
 
 ```python
@@ -228,7 +234,9 @@ model = AutoModelForCausalLM.from_pretrained(
 
 ## Running a model split on several devices
 
-One last part we haven't touched is how Accelerate enables your model to run with its weight spread across several GPUs, CPU RAM and the disk folder. This is done very simply, using hooks. PyTorch provides an API to add functions executed just before each forward called [hooks](https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.register_forward_hook).
+One last part we haven't touched is how Accelerate enables your model to run with its weight spread across several GPUs, CPU RAM, and the disk folder. This is done very simply using hooks. 
+
+> [hooks](https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.register_forward_hook) are a PyTorch API that adds functions executed just before each forward called 
 
 We couldn't use this directly since they only support models with regular arguments and no keyword arguments in their forward pass, but we took the same idea. Once the model is loaded, the `dispatch_model` function will add hooks to every module and submodule that are executed before and after each forward pass. They will:
 - make sure all the inputs of the module are on the same device as the weights;
