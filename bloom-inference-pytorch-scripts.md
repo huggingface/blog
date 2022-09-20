@@ -217,6 +217,7 @@ You can see two factors at play leading to better performance here.
 
 2. DeepSpeed-Inference also uses custom CUDA kernels to avoid allocating too much memory and doing tensor copying to and from GPUs. The effect of this is lesser memory requirements and fewer kernel starts which improves the throughput and allows for bigger batch sizes leading to higher overall throughput.
 
+If you are interested in more examples you can take a look at [Accelerate GPT-J inference with DeepSpeed-Inference on GPUs](https://www.philschmid.de/gptj-deepspeed-inference) or [Accelerate BERT inference with DeepSpeed-Inference on GPUs](https://www.philschmid.de/bert-deepspeed-inference).
 
 ## Deepspeed ZeRO-Inference
 
