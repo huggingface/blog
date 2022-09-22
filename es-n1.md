@@ -1,6 +1,6 @@
 ---
 title: "Ethics and Society Newsletter #1" 
-thumbnail: /blog/assets/25_es-n1/thumbnail.png
+thumbnail: /blog/assets/103_ethics-soc-1/thumbnail.png
 ---
 
 # Ethics and Society Newsletter #1
