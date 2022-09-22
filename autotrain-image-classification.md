@@ -36,38 +36,44 @@ So you’ve heard all about the cool things that are happening in the machine le
 
 If you haven’t [created a Hugging Face account](https://huggingface.co/join) yet, now’s the time! Following that, make your way over to the [AutoTrain homepage](https://huggingface.co/autotrain) and click on “Create new project” to get started. You’ll be asked to fill in some basic info about your project. In the screenshot below you’ll see that I created a project named `butterflies-classification`, and I chose the “Image Classification” task. I’ve also chosen the “Automatic” model option, since I want to let AutoTrain do the work of finding the best model architectures for my project.
 
-<figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="The 'New Project' form for AutoTrain, filled out for a new Image Classification project named 'butterflies-classification'." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/autotrain-image-classification/new-project.png"></medium-zoom>
-</figure>
+<div class="flex justify-center">
+  <figure class="image table text-center m-0 w-1/2">
+    <medium-zoom background="rgba(0,0,0,.7)" alt="The 'New Project' form for AutoTrain, filled out for a new Image Classification project named 'butterflies-classification'." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/autotrain-image-classification/new-project.png"></medium-zoom>
+  </figure>
+</div>
 
 Once AutoTrain creates your project, you just need to connect your data. If you have the data locally, you can drag and drop the folder into the window. Since we can also use [any of the image classification datasets on the Hugging Face Hub](https://huggingface.co/datasets?task_categories=task_categories:image-classification), in this example I’ve decided to use the [NimaBoscarino/butterflies](https://huggingface.co/datasets/NimaBoscarino/butterflies) dataset. You can select separate training and validation datasets if you have them available, or you can ask AutoTrain to split the data for you.
 
-<figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="A modal for importing a dataset to the AutoTrain project. A dataset named 'NimaBoscarino/butterflies' has been selected." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/autotrain-image-classification/import-dataset.png"></medium-zoom>
-</figure>
+<div class="grid grid-cols-2 gap-4">
+  <figure class="image table text-center m-0 w-full">
+    <medium-zoom background="rgba(0,0,0,.7)" alt="A modal for importing a dataset to the AutoTrain project. A dataset named 'NimaBoscarino/butterflies' has been selected." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/autotrain-image-classification/import-dataset.png"></medium-zoom>
+  </figure>
 
-<figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="A form showing configurations to select for the imported dataset, including split types and data columns." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/autotrain-image-classification/add-dataset.png"></medium-zoom>
-</figure>
+  <figure class="image table text-center m-0 w-full">
+    <medium-zoom background="rgba(0,0,0,.7)" alt="A form showing configurations to select for the imported dataset, including split types and data columns." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/autotrain-image-classification/add-dataset.png"></medium-zoom>
+  </figure>
+</div>
 
 Once the data has been added, simply choose the number of model candidates that you’d like AutoModel to try out, review the expected training cost (training with 5 candidate models and less than 500 images is free 🤩), and start training!
 
-<figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Screenshot showing the model-selection options. Users can choose various numbers of candidate models, and the final training budget is displayed." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/autotrain-image-classification/select-models.png"></medium-zoom>
-</figure>
-
-<figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Five candidate models are being trained, one of which has already completed training." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/autotrain-image-classification/training-in-progress.png"></medium-zoom>
-</figure>
-
-<figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="All the candidate models have finished training, with one in the 'stopped' state." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/autotrain-image-classification/training-complete.png"></medium-zoom>
-</figure>
+<div class="grid grid-cols-2 gap-4">
+  <figure class="image table text-center m-0 w-full">
+    <medium-zoom background="rgba(0,0,0,.7)" alt="Screenshot showing the model-selection options. Users can choose various numbers of candidate models, and the final training budget is displayed." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/autotrain-image-classification/select-models.png"></medium-zoom>
+  </figure>
+  <div>
+    <figure class="image table text-center m-0 w-full">
+      <medium-zoom background="rgba(0,0,0,.7)" alt="Five candidate models are being trained, one of which has already completed training." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/autotrain-image-classification/training-in-progress.png"></medium-zoom>
+    </figure>
+    <figure class="image table text-center m-0 w-full">
+      <medium-zoom background="rgba(0,0,0,.7)" alt="All the candidate models have finished training, with one in the 'stopped' state." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/autotrain-image-classification/training-complete.png"></medium-zoom>
+    </figure>
+  </div>
+</div>
 
 In the screenshots above you can see that my project started 5 different models, which each reached different accuracy scores. One of them wasn’t performing very well at all, so AutoTrain went ahead and stopped it so that it wouldn’t waste resources. The very best model hit 84% accuracy, with effectively zero effort on my end 😍  To wrap it all up, you can visit your freshly trained models on the Hub and play around with them through the integrated [inference widget](https://huggingface.co/docs/hub/models-widgets). For example, check out my butterfly classifier model over at [NimaBoscarino/butterflies](https://huggingface.co/NimaBoscarino/butterflies) 🦋
 
 <figure class="image table text-center m-0 w-full">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/autotrain-image-classification/model-card.png" alt="An automatically generated model card for the butterflies-classification model, showing validation metrics and an embedded inference widget for image classification. The widget is displaying a picture of a butterfly, which has been identified as a Malachite butterfly."/>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="An automatically generated model card for the butterflies-classification model, showing validation metrics and an embedded inference widget for image classification. The widget is displaying a picture of a butterfly, which has been identified as a Malachite butterfly." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/autotrain-image-classification/model-card.png"></medium-zoom>
 </figure>
 
 We’re so excited to see what you build with AutoTrain! Don’t forget to join the community over at [hf.co/join/discord](https://huggingface.co/join/discord), and reach out to us if you need any help 🤗
