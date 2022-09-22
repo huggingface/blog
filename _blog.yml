@@ -1239,7 +1239,7 @@
 - local: ethics-soc-1
   title: "Ethics and Society Newsletter #1"
   author: meg-huggingface
-  thumbnail: /blog/assets/103_ethis-soc-1/thumbnail.png
+  thumbnail: /blog/assets/103_ethics-soc-1/thumbnail.png
   date: Sep 22, 2022
   tags:
     - ethics
