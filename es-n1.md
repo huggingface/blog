@@ -3,24 +3,25 @@ title: "Ethics and Society Newsletter #1"
 thumbnail: /blog/assets/25_es-n1/sept-solstice.png
 ---
 
-# Train your first Decision Transformer
+# Ethics and Society Newsletter #1
 
 <div class="blog-metadata">
     <small>Published September 22, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/decision-transformers-train.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/meg/ethics-society-newsletter-1/es-n1.md">
         Update on GitHub
     </a>
 </div>
 
 <div class="author-card">
-    <a href="/edbeeching"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1644220542819-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
+    <a href="/meg"> 
+        <img class="avatar avatar-user" src="https://github.com/huggingface/blog/assets/25_es-n1/meg-huggingface.png" title="megatar">
         <div class="bfc">
             <code>meg</code>
             <span class="fullname">Margaret Mitchell</span>
         </div>
     </a>
 </div>
+
 
 Hello, world!
 
@@ -34,18 +35,19 @@ We believe it to be critical that we are **not** a dedicated team: in order for 
 
 We are continuously researching practices and studies on the meaning of a "good" ML, trying to provide some criteria that could define it. Being an ongoing process, we embark on this by looking ahead to the different possible futures of AI, creating what we can in the present day to get us to a point that harmonizes different values held by us as individuals as well as the broader ML community.  We ground this approach in the founding principles of Hugging Face:
 
-- We seek to _collaborate_ with the open-source community. This includes providing modernized tools for [documentation](https://huggingface.co/docs/hub/models-cards), [analysis](https://huggingface.co/spaces/huggingface/data-measurements-tool), and [evaluation](https://huggingface.co/blog/eval-on-the-hub), alongside [community discussion](https://huggingface.co/blog/community-update), [Discord](http://discuss.huggingface.co/t/join-the-hugging-face-discord/), and individual support for contributors aiming to share their work in a way that’s informed by different values. 
+- We seek to _collaborate_ with the open-source community. This includes providing modernized tools for [documentation](https://huggingface.co/docs/hub/models-cards) and [evaluation](https://huggingface.co/blog/eval-on-the-hub), alongside [community discussion](https://huggingface.co/blog/community-update), [Discord](http://discuss.huggingface.co/t/join-the-hugging-face-discord/), and individual support for contributors aiming to share their work in a way that’s informed by different values. 
 
-- We seek to be _transparent_ about our thinking and processes as we develop them. This includes sharing writing on our thinking about specific project values [at the start of a project](https://huggingface.co/blog/ethical-charter-multimodal) and [AI policy](https://huggingface.co/blog/us-national-ai-research-resource). We also gain from the community feedback on this work, as a resource for us to learn more about what to do. 
+- We seek to be _transparent_ about our thinking and processes as we develop them. This includes sharing writing on our thinking about specific project [values at the start of a project](https://huggingface.co/blog/ethical-charter-multimodal) and [AI policy](https://huggingface.co/blog/us-national-ai-research-resource). We also gain from the community feedback on this work, as a resource for us to learn more about what to do. 
 
-- We ground the creation of these tools and artifacts in _responsibility_ for the impacts of what we do now and in the future. Prioritizing this has led to project designs that make machine learning systems more _auditable_ and _understandable_ – including for people with expertise outside of ML.
+- We ground the creation of these tools and artifacts in _responsibility_ for the impacts of what we do now and in the future. Prioritizing this has led to project designs that make machine learning systems more _auditable_ and _understandable_ – including for people with expertise outside of ML -- such as ML data analysis tools that [don't require coding](https://huggingface.co/spaces/huggingface/data-measurements-tool).
 
-Building from these basics, we are taking an approach to operationalizing values that center the context-specific nature of our projects and the foreseeable effects they may have. As such, we offer no global list of values or principles here; instead, we share [project-specific thinking](https://huggingface.co/blog/ethical-charter-multimodal) and will share more as we understand more. We believe that community discussion is key to identifying different values at play and who is impacted, and so have opened up the opportunity for anyone who can connect to the Hugging Face Hub online to provide [direct feedback on models, data, and Spaces](https://huggingface.co/blog/community-update). Alongside tools for open discussion, we have created a [Code of Conduct](https://huggingface.co/code-of-conduct) and [content guidelines](https://huggingface.co/content-guidelines) to help guide discussions along dimensions we believe to be important for an inclusive community space. We have developed tools for [evaluation](https://huggingface.co/blog/eval-on-the-hub) to make it easier for developers to evaluate their models rigorously, code for [analyzing data for skews and biases](https://huggingface.co/blog/data-measurements-tool), and also provide [tools for tracking carbon emissions when training a model](https://huggingface.co/blog/carbon-emissions-on-the-hub). We are developing [new open and responsible AI licensing](https://huggingface.co/blog/open_rail), a modern form of licensing that directly addresses the harms that AI systems can create. And this week, we made it possible to [“flag” model and Spaces repositories](https://twitter.com/GiadaPistilli/status/1571865167092396033) and report on any issues.
+Building from these basics, we are taking an approach to operationalizing values that center the context-specific nature of our projects and the foreseeable effects they may have. As such, we offer no global list of values or principles here; instead, we share [project-specific thinking](https://huggingface.co/blog/ethical-charter-multimodal) on our projects, and will share more as we understand more. We believe that community discussion is key to identifying different values at play and who is impacted, and so have opened up the opportunity for anyone who can connect to the Hugging Face Hub online to provide [direct feedback on models, data, and Spaces](https://huggingface.co/blog/community-update). Alongside tools for open discussion, we have created a [Code of Conduct](https://huggingface.co/code-of-conduct) and [content guidelines](https://huggingface.co/content-guidelines) to help guide discussions along dimensions we believe to be important for an inclusive community space. We have developed tools for [evaluation](https://huggingface.co/blog/eval-on-the-hub) to make it easier for developers to evaluate their models rigorously, code for [analyzing data for skews and biases](https://huggingface.co/blog/data-measurements-tool), and also provide [tools for tracking carbon emissions when training a model](https://huggingface.co/blog/carbon-emissions-on-the-hub). We are developing [new open and responsible AI licensing](https://huggingface.co/blog/open_rail), a modern form of licensing that directly addresses the harms that AI systems can create. And this week, we made it possible to [“flag” model and Spaces repositories](https://twitter.com/GiadaPistilli/status/1571865167092396033) and report on any issues.
 
 In the coming months, we will be putting together several other pieces on values and tensions. We welcome (and want!) feedback on any and all of our work, and hope to continue engaging with the AI community through technical and values-informed lenses. 
 
 Thanks for reading! 🤗
-The Ethics and Society regulars
+
+~Meg, on behalf of the Ethics and Society regulars
 
 
 
