@@ -22,6 +22,7 @@ thumbnail: /blog/assets/25_es-n1/sept-solstice.png
     </a>
 </div>
 
+
 Hello, world!
 
 Originating as an open-source company, Hugging Face was founded on some key ethical values in tech: _collaboration_, _responsibility_, and _transparency_. To code in an open environment means having your code – and the choices within – viewable to the world, associated with your account and available for others to critique and add to.  As the research community began using the Hugging Face Hub to host models and data, the community directly integrated _reproducibility_ as another fundamental value of the company. And as the number of datasets and models on Hugging Face grew, those working at Hugging Face implemented [documentation requirements](https://huggingface.co/docs/hub/models-cards) and [free instructive courses](https://huggingface.co/course/chapter1/1), meeting the newly emerging values defined by the research community with complementary values around _auditability_ and _understanding_ the math, code, processes and people that lead to current technology.
@@ -45,7 +46,8 @@ Building from these basics, we are taking an approach to operationalizing values
 In the coming months, we will be putting together several other pieces on values and tensions. We welcome (and want!) feedback on any and all of our work, and hope to continue engaging with the AI community through technical and values-informed lenses. 
 
 Thanks for reading! 🤗
-The Ethics and Society regulars
+
+~Meg, on behalf of the Ethics and Society regulars
 
 
 
