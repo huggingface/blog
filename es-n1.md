@@ -13,7 +13,7 @@ thumbnail: /blog/assets/25_es-n1/sept-solstice.png
 </div>
 
 <div class="author-card">
-    <a href="/blog/assets/25_es-n1/meg-huggingface.png"> 
+    <a href="/assets/25_es-n1/meg-huggingface.png"> 
         <img class="avatar avatar-user" src="https://github.com/huggingface/blog/assets/25_es-n1/meg-huggingface.png" title="megatar">
         <div class="bfc">
             <code>meg</code>
