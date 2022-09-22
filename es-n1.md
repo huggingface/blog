@@ -3,7 +3,7 @@ title: "Ethics and Society Newsletter #1"
 thumbnail: /blog/assets/25_es-n1/sept-solstice.png
 ---
 
-# Train your first Decision Transformer
+# Ethics and Society Newsletter #1
 
 <div class="blog-metadata">
     <small>Published September 22, 2022.</small>
