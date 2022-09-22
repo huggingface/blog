@@ -1239,7 +1239,7 @@
 - local: es-n1
   title: "Ethics and Society Newsletter #1"
   author: meg-huggingface
-  thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
+  thumbnail: /blog/assets/25_es-n1/sept-solstice.png
   date: Sep 22, 2022
   tags:
     - ethics
