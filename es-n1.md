@@ -13,10 +13,10 @@ thumbnail: /blog/assets/25_es-n1/sept-solstice.png
 </div>
 
 <div class="author-card">
-    <a href="/assets/25_es-n1/meg-huggingface.png"> 
-        <img class="avatar avatar-user" src="https://github.com/huggingface/blog/assets/25_es-n1/meg-huggingface.png" title="megatar">
+    <a href="/meg-huggingface"> 
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/90473723?v=4" width=100 title="Gravatar">
         <div class="bfc">
-            <code>meg</code>
+            <code>meg-huggingface</code>
             <span class="fullname">Margaret Mitchell</span>
         </div>
     </a>
