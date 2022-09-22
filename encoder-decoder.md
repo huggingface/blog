@@ -7,9 +7,10 @@ thumbnail: /blog/assets/05_encoder_decoder/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published October 08, 2020.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/encoder-decoder.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/encoder-decoder.md">
         Update on GitHub
     </a>
+</div>
 
 <div class="author-card">
     <a href="/patrickvonplaten">
@@ -165,7 +166,7 @@ So how does the RNN-based decoder architecture model
 
 In computational terms, the model sequentially maps the previous inner
 hidden state \\(\mathbf{c}_{i-1}\\) and the previous target vector
-\\(\mathbf{y}_i\\) to the current inner hidden state \\(\mathbf{c}_i\\) and a
+\\(\mathbf{y}_{i-1}\\) to the current inner hidden state \\(\mathbf{c}_i\\) and a
 *logit vector* \\(\mathbf{l}_i\\) (shown in dark red below):
 
 $$ f_{\theta_{\text{dec}}}(\mathbf{y}_{i-1}, \mathbf{c}_{i-1}) \to \mathbf{l}_i, \mathbf{c}_i.$$
@@ -1012,7 +1013,7 @@ $$
 Note that the index range of the key and value vectors is \\(1:n\\)
 corresponding to the number of contextualized encoding vectors.
 
-Let\'s visualize the cross-attention mechanism Let\'s for the input
+Let\'s visualize the cross-attention mechanism for the input
 vector \\(\mathbf{y''}_1\\) for our example above.
 
 ![](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/encoder_decoder/cross_attention.png)
@@ -1101,21 +1102,24 @@ tokenizer = MarianTokenizer.from_pretrained("Helsinki-NLP/opus-mt-en-de")
 model = MarianMTModel.from_pretrained("Helsinki-NLP/opus-mt-en-de")
 embeddings = model.get_input_embeddings()
 
-# get encoded input vectors
+# create token ids for encoder input
 input_ids = tokenizer("I want to buy a car", return_tensors="pt").input_ids
 
-# create ids of encoded input vectors
+# pass input token ids to encoder
+encoder_output_vectors = model.base_model.encoder(input_ids, return_dict=True).last_hidden_state
+
+# create token ids for decoder input
 decoder_input_ids = tokenizer("<pad> Ich will ein", return_tensors="pt", add_special_tokens=False).input_ids
 
-# pass decoder input_ids and encoded input vectors to decoder
-decoder_output_vectors = model.base_model.decoder(decoder_input_ids).last_hidden_state
+# pass decoder input ids and encoded input vectors to decoder
+decoder_output_vectors = model.base_model.decoder(decoder_input_ids, encoder_hidden_states=encoder_output_vectors).last_hidden_state
 
 # derive embeddings by multiplying decoder outputs with embedding weights
 lm_logits = torch.nn.functional.linear(decoder_output_vectors, embeddings.weight, bias=model.final_logits_bias)
 
 # change the decoder input slightly
 decoder_input_ids_perturbed = tokenizer("<pad> Ich will das", return_tensors="pt", add_special_tokens=False).input_ids
-decoder_output_vectors_perturbed = model.base_model.decoder(decoder_input_ids_perturbed).last_hidden_state
+decoder_output_vectors_perturbed = model.base_model.decoder(decoder_input_ids_perturbed, encoder_hidden_states=encoder_output_vectors).last_hidden_state
 lm_logits_perturbed = torch.nn.functional.linear(decoder_output_vectors_perturbed, embeddings.weight, bias=model.final_logits_bias)
 
 # compare shape and encoding of first vector
@@ -1137,9 +1141,9 @@ We compare the output shape of the decoder input word embeddings, *i.e.*
 here `<pad>` corresponds to BOS and \"Ich will das\" is tokenized to 4
 tokens) with the dimensionality of the `lm_logits`(corresponds to
 \\(\mathbf{L}_{1:5}\\)). Also, we have passed the word sequence
-\"`<pad>`{=html} Ich will das\" and a slightly perturbated version
-\"`<pad>`{=html} Ich will das\" together with the
-`encoder_output_vectors` through the encoder to check if the second
+\"`<pad>` Ich will ein\" and a slightly perturbated version
+\"`<pad>` Ich will das\" together with the
+`encoder_output_vectors` through the decoder to check if the second
 `lm_logit`, corresponding to \"Ich\", differs when only the last word is
 changed in the input sequence (\"ein\" -\> \"das\").
 
@@ -1240,21 +1244,19 @@ print(f"Generated so far: {tokenizer.decode(decoder_input_ids[0], skip_special_t
 _Outputs:_
 
 ```
-    Generated so far: Ich Ich
+    Generated so far: Ich will ein
 ```
 
 In this code example, we show exactly what was described earlier. We
 pass an input \"I want to buy a car\" together with the \\(\text{BOS}\\)
 token to the encoder-decoder model and sample from the first logit
 \\(\mathbf{l}_1\\) (*i.e.* the first `lm_logits` line). Hereby, our sampling
-strategy is simple to greedily choose the next decoder input vector that
+strategy is simple: greedily choose the next decoder input vector that
 has the highest probability. In an auto-regressive fashion, we then pass
 the sampled decoder input vector together with the previous inputs to
 the encoder-decoder model and sample again. We repeat this a third time.
-As a result, the model has generated the words \"Ich Ich\". The first
-word is spot-on! The second word is not that great. We can see here,
-that a good decoding method is key for a successful sequence generation
-from a given model distribution.
+As a result, the model has generated the words \"Ich will ein\". The result 
+is spot-on - this is the beginning of the correct translation of the input.
 
 In practice, more complicated decoding methods are used to sample the
 `lm_logits`. Most of which are covered in

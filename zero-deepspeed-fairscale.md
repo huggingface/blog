@@ -7,7 +7,7 @@ thumbnail: /blog/assets/11_zero_deepspeed_fairscale/zero-partitioning.png
 
 <div class="blog-metadata">
     <small>Published January 19, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/zero-deepspeed-fairscale.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/zero-deepspeed-fairscale.md">
         Update on GitHub
     </a>
 </div>
@@ -18,7 +18,7 @@ thumbnail: /blog/assets/11_zero_deepspeed_fairscale/zero-partitioning.png
         <div class="bfc">
             <code>stas</code>
             <span class="fullname">Stas Bekman</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>

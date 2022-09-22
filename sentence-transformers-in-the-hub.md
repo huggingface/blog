@@ -8,7 +8,7 @@ title: "Sentence Transformers in the Hugging Face Hub"
 
 <div class="blog-metadata">
     <small>Published June 28, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/sentence-transformers-in-the-hub.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/sentence-transformers-in-the-hub.md">
         Update on GitHub
     </a>
 </div>
@@ -129,7 +129,7 @@ If you don't have any model in the Hub and want to learn more about Sentence Tra
 
 ## Would you like to integrate your library to the Hub?
 
-This integration is possible thanks to the [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) library which has all our widgets and the API for all our supported libraries. If you would like to integrate your library to the Hub, we have a [guide](https://huggingface.co/docs/hub/adding-a-library) for you!
+This integration is possible thanks to the [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) library which has all our widgets and the API for all our supported libraries. If you would like to integrate your library to the Hub, we have a [guide](https://huggingface.co/docs/hub/models-adding-libraries) for you!
 
 ## References
 

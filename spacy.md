@@ -10,7 +10,7 @@ thumbnail: /blog/assets/23_spacy/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published July 13, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/spacy.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/spacy.md">
         Update on GitHub
     </a>
 </div>
@@ -104,4 +104,4 @@ Try it out and share your models with the community!
 
 ## Would you like to integrate your library to the Hub?
 
-This integration is possible thanks to the [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) library which has all our widgets and the API for all our supported libraries. If you would like to integrate your library to the Hub, we have a [guide](https://huggingface.co/docs/hub/adding-a-library) for you!
+This integration is possible thanks to the [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) library which has all our widgets and the API for all our supported libraries. If you would like to integrate your library to the Hub, we have a [guide](https://huggingface.co/docs/hub/models-adding-libraries) for you!

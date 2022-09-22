@@ -7,7 +7,7 @@ thumbnail: /blog/assets/14_how_to_deploy_a_pipeline_to_google_clouds/thumbnail.p
 
 <div class="blog-metadata">
     <small>Published March 18, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/how-to-deploy-a-pipeline-to-google-clouds.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/how-to-deploy-a-pipeline-to-google-clouds.md">
         Update on GitHub
     </a>
 </div>
@@ -18,7 +18,7 @@ thumbnail: /blog/assets/14_how_to_deploy_a_pipeline_to_google_clouds/thumbnail.p
         <div class="bfc">
             <code>Maxence</code>
             <span class="fullname">Maxence Dominici</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>

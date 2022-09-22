@@ -7,7 +7,7 @@ thumbnail: /blog/assets/12_ray_rag/ray_arch_updated.png
 
 <div class="blog-metadata">
     <small>Published Feb 10, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/ray-rag.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ray-rag.md">
         Update on GitHub
     </a>
 </div>
@@ -18,7 +18,7 @@ thumbnail: /blog/assets/12_ray_rag/ray_arch_updated.png
         <div class="bfc">
             <code>ray-project</code>
             <span class="fullname">Ray Project (Anyscale)</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>

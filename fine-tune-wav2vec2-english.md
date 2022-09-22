@@ -9,7 +9,7 @@ thumbnail: /blog/assets/15_fine_tune_wav2vec2/wav2vec2.png
 
 <div class="blog-metadata">
     <small>Published March 12, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/fine-tune-wav2vec2-english.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fine-tune-wav2vec2-english.md">
         Update on GitHub
     </a>
 </div>
@@ -76,10 +76,36 @@ the `jiwer` to evaluate our fine-tuned model using the [word error rate
 (WER)](https://huggingface.co/metrics/wer) metric \\({}^1\\).
 
 ```bash
-!pip install datasets==1.4.1
-!pip install transformers==4.4.0
-!pip install soundfile
+!pip install datasets>=1.18.3
+!pip install transformers==4.11.3
+!pip install librosa
 !pip install jiwer
+```
+
+Next we strongly suggest to upload your training checkpoints directly to the [Hugging Face Hub](https://huggingface.co/) while training. The Hub has integrated version control so you can be sure that no model checkpoint is getting lost during training. 
+
+To do so you have to store your authentication token from the Hugging Face website (sign up [here](https://huggingface.co/join) if you haven't already!)
+
+```python
+from huggingface_hub import notebook_login
+
+notebook_login()
+```
+
+**Print Output:**
+```bash
+Login successful
+Your token has been saved to /root/.huggingface/token
+Authenticated through git-crendential store but this isn't the helper defined on your machine.
+You will have to re-authenticate when pushing to the Hugging Face Hub. Run the following command in your terminal to set it as the default
+
+git config --global credential.helper store
+```
+
+Then you need to install Git-LFS to upload your model checkpoints:
+
+```python
+!apt install git-lfs
 ```
 
 ------------------------------------------------------------------------
@@ -135,15 +161,14 @@ print(timit)
 ```
 
 **Print Output:**
-
 ```bash
     DatasetDict({
         train: Dataset({
-            features: ['file', 'text', 'phonetic_detail', 'word_detail', 'dialect_region', 'sentence_type', 'speaker_id', 'id'],
+            features: ['file', 'audio', 'text', 'phonetic_detail', 'word_detail', 'dialect_region', 'sentence_type', 'speaker_id', 'id'],
             num_rows: 4620
         })
         test: Dataset({
-            features: ['file', 'text', 'phonetic_detail', 'word_detail', 'dialect_region', 'sentence_type', 'speaker_id', 'id'],
+            features: ['file', 'audio', 'text', 'phonetic_detail', 'word_detail', 'dialect_region', 'sentence_type', 'speaker_id', 'id'],
             num_rows: 1680
         })
     })
@@ -183,7 +208,7 @@ def show_random_elements(dataset, num_examples=10):
     df = pd.DataFrame(dataset[picks])
     display(HTML(df.to_html()))
 
-show_random_elements(timit["train"].remove_columns(["file"]))
+show_random_elements(timit["train"].remove_columns(["file", "audio"]))
 ```
 
 **Print Output:**
@@ -231,7 +256,7 @@ timit = timit.map(remove_special_characters)
 Let's take a look at the preprocessed transcriptions.
 
 ```python
-show_random_elements(timit["train"].remove_columns(["file"]))
+show_random_elements(timit["train"].remove_columns(["file", "audio"]))
 ```
 
 **Print Output:**
@@ -283,7 +308,6 @@ vocab_dict
 ```
 
 **Print Output:**
-
 ```bash
 {    
 	 ' ': 21,
@@ -351,7 +375,6 @@ print(len(vocab_dict))
 ```
 
 **Print Output:**
-
 ```bash
     30
 ```
@@ -376,7 +399,21 @@ from transformers import Wav2Vec2CTCTokenizer
 
 tokenizer = Wav2Vec2CTCTokenizer("./vocab.json", unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
 ```
-Next, we will create the feature extractor.
+
+If one wants to re-use the just created tokenizer with the fine-tuned model of this notebook, it is strongly advised to upload the `tokenizer` to the [🤗 Hub](https://huggingface.co/). Let's call the repo to which we will upload the files
+`"wav2vec2-large-xlsr-turkish-demo-colab"`:
+
+```python
+repo_name = "wav2vec2-base-timit-demo-colab"
+```
+
+and upload the tokenizer to the [🤗 Hub](https://huggingface.co/).
+
+```python
+tokenizer.push_to_hub(repo_name)
+```
+
+Great, you can see the just created repository under `https://huggingface.co/<your-username>/wav2vec2-base-timit-demo-colab`
 
 ### Create Wav2Vec2 Feature Extractor
 
@@ -412,7 +449,7 @@ be instantiated:
 -   `feature_size`: Speech models take a sequence of feature vectors as
     an input. While the length of this sequence obviously varies, the
     feature size should not. In the case of Wav2Vec2, the feature size
-    is 1 because the model was trained on the raw speech signal ${}^2$.
+    is 1 because the model was trained on the raw speech signal \\({}^2\\) .
 -   `sampling_rate`: The sampling rate at which the model is trained on.
 -   `padding_value`: For batched inference, shorter inputs need to be
     padded with a specific value
@@ -449,74 +486,40 @@ from transformers import Wav2Vec2Processor
 processor = Wav2Vec2Processor(feature_extractor=feature_extractor, tokenizer=tokenizer)
 ```
 
-If one wants to re-use the just created processor and the fine-tuned
-model of this notebook, one can mount his/her google drive to the
-notebook and save all relevant files there. To do so, please uncomment
-the following lines.
-
-We will give the fine-tuned model the name `"wav2vec2-base-timit-demo"`.
-
-```python
-# from google.colab import drive
-# drive.mount('/content/gdrive/')
-```
-
-```python
-# processor.save_pretrained("/content/gdrive/MyDrive/wav2vec2-base-timit-demo")
-```
-
-Next, we can prepare the dataset.
-
 ### Preprocess Data
 
-So far, we have not looked at the actual values of the speech signal but
-just kept the path to its file in the dataset. `Wav2Vec2` expects the
-audio file in the format of a 1-dimensional array, so in the first step,
-let\'s load all audio files into the dataset object.
-
-Let\'s first check the serialization format of the downloaded audio
-files by looking at the first training sample.
+So far, we have not looked at the actual values of the speech signal but just the transcription. In addition to sentence, our datasets include two more column names path and audio. path states the absolute path of the audio file. Let's take a look.
 
 ```python
-print(timit["train"][0])
+print(timit[0]["path"])
 ```
 
 **Print Output:**
-
 ```bash
-    {'file': '/root/.cache/huggingface/datasets/downloads/extracted/404950a46da14eac65eb4e2a8317b1372fb3971d980d91d5d5b221275b1fd7e0/data/TRAIN/DR4/MMDM0/SI681.WAV',
-     'text': 'would such an act of refusal be useful'}
+'/root/.cache/huggingface/datasets/downloads/extracted/404950a46da14eac65eb4e2a8317b1372fb3971d980d91d5d5b221275b1fd7e0/data/TRAIN/DR4/MMDM0/SI681.WAV'
 ```
 
-Alright, the audio file is saved in the `.WAV` format. There are a
-couple of python-based libraries to read and process audio files, such
-as [librosa](https://github.com/librosa/librosa),
-[soundfile](https://github.com/bastibe/python-soundfile), and
-[audioread](https://github.com/beetbox/audioread).
+**`Wav2Vec2`** expects the input in the format of a 1-dimensional array of 16 kHz. This means that the audio file has to be loaded and resampled.
 
-`librosa` seems to be the most active and prominent library, but since
-it depends on `soundfile` for loading of audio files, we will just use
-`soundfile` directly in this notebook.
-
-An audio file usually stores both its values and the sampling rate with
-which the speech signal was digitalized. We want to store both in the
-dataset and write a `map(...)` function accordingly.
+Thankfully, datasets does this automatically by calling the other column audio. Let try it out.
 
 ```python
-import soundfile as sf
-
-def speech_file_to_array_fn(batch):
-    speech_array, sampling_rate = sf.read(batch["file"])
-    batch["speech"] = speech_array
-    batch["sampling_rate"] = sampling_rate
-    batch["target_text"] = batch["text"]
-    return batch
-
-timit = timit.map(speech_file_to_array_fn, remove_columns=timit.column_names["train"], num_proc=4)
+common_voice_train[0]["audio"]
 ```
 
-Great, let\'s listen to a couple of audio files to better understand the
-dataset and verify that the audio was correctly loaded.
+**Print Output:**
+```bash
+{'array': array([-2.1362305e-04,  6.1035156e-05,  3.0517578e-05, ...,
+        -3.0517578e-05, -9.1552734e-05, -6.1035156e-05], dtype=float32),
+ 'path': '/root/.cache/huggingface/datasets/downloads/extracted/404950a46da14eac65eb4e2a8317b1372fb3971d980d91d5d5b221275b1fd7e0/data/TRAIN/DR4/MMDM0/SI681.WAV',
+ 'sampling_rate': 16000}
+```
+
+We can see that the audio file has automatically been loaded. This is thanks to the new [`"Audio" feature`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=audio#datasets.Audio) introduced in datasets == 4.13.3, which loads and resamples audio files on-the-fly upon calling.
+
+The sampling rate is set to 16kHz which is what `Wav2Vec2` expects as an input.
+
+Great, let's listen to a couple of audio files to better understand the dataset and verify that the audio was correctly loaded. 
 
 ```python
 import IPython.display as ipd
@@ -525,27 +528,23 @@ import random
 
 rand_int = random.randint(0, len(timit["train"]))
 
-ipd.Audio(data=np.asarray(timit["train"][rand_int]["speech"]), autoplay=True, rate=16000)
+print(timit["train"][rand_int]["text"])
+ipd.Audio(data=np.asarray(timit["train"][rand_int]["audio"]["array"]), autoplay=True, rate=16000)
 ```
 
-It can be heard, that the speakers change along with their speaking
-rate, accent, etc. Overall, the recordings sound relatively clear
-though, which is to be expected from a read speech corpus.
+It can be heard, that the speakers change along with their speaking rate, accent, etc. Overall, the recordings sound relatively clear though, which is to be expected from a read speech corpus.
 
-Let\'s do a final check that the data is correctly prepared, but
-printing the shape of the speech input, its transcription, and the
-corresponding sampling rate.
+Let's do a final check that the data is correctly prepared, by printing the shape of the speech input, its transcription, and the corresponding sampling rate.
 
 ```python
 rand_int = random.randint(0, len(timit["train"]))
 
-print("Target text:", timit["train"][rand_int]["target_text"])
-print("Input array shape:", np.asarray(timit["train"][rand_int]["speech"]).shape)
-print("Sampling rate:", timit["train"][rand_int]["sampling_rate"])
+print("Target text:", timit["train"][rand_int]["text"])
+print("Input array shape:", np.asarray(timit["train"][rand_int]["audio"]["array"]).shape)
+print("Sampling rate:", timit["train"][rand_int]["audio"]["sampling_rate"])
 ```
 
 **Print Output:**
-
 ```bash
     Target text: she had your dark suit in greasy wash water all year
     Input array shape: (52941,)
@@ -556,40 +555,34 @@ Good! Everything looks fine - the data is a 1-dimensional array, the
 sampling rate always corresponds to 16kHz, and the target text is
 normalized.
 
-Finally, we can process the dataset to the format expected by the model
-for training. We will again make use of the `map(...)` function.
+Finally, we can process the dataset to the format expected by the model for training. We will make use of the `map(...)` function.
 
-First, we check that all data samples have the same sampling rate (of
-16kHz). Second, we extract the `input_values` from the loaded audio
-file. In our case, this includes only normalization, but for other
-speech models, this step could correspond to extracting, *e.g.* [Log-Mel
-features](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum). Third,
-we encode the transcriptions to label ids.
+First, we load and resample the audio data, simply by calling `batch["audio"]`.
+Second, we extract the `input_values` from the loaded audio file. In our case, the `Wav2Vec2Processor` only normalizes the data. For other speech models, however, this step can include more complex feature extraction, such as [Log-Mel feature extraction](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum). 
+Third, we encode the transcriptions to label ids.
 
-**Note**: This mapping function is a good example of how the
-`Wav2Vec2Processor` class should be used. In \"normal\" context, calling
-`processor(...)` is redirected to `Wav2Vec2FeatureExtractor`\'s call
-method. When wrapping the processor into the `as_target_processor`
-context, however, the same method is redirected to
-`Wav2Vec2CTCTokenizer`\'s call method. For more information please check
-the
-[docs](https://huggingface.co/transformers/master/model_doc/wav2vec2.html#transformers.Wav2Vec2Processor.__call__).
+**Note**: This mapping function is a good example of how the `Wav2Vec2Processor` class should be used. In "normal" context, calling `processor(...)` is redirected to `Wav2Vec2FeatureExtractor`'s call method. When wrapping the processor into the `as_target_processor` context, however, the same method is redirected to `Wav2Vec2CTCTokenizer`'s call method.
+For more information please check the [docs](https://huggingface.co/transformers/master/model_doc/wav2vec2.html#transformers.Wav2Vec2Processor.__call__).
 
 ```python
 def prepare_dataset(batch):
-    # check that all files have the correct sampling rate
-    assert (
-        len(set(batch["sampling_rate"])) == 1
-    ), f"Make sure all inputs have the same sampling rate of {processor.feature_extractor.sampling_rate}."
+    audio = batch["audio"]
 
-    batch["input_values"] = processor(batch["speech"], sampling_rate=batch["sampling_rate"][0]).input_values
+    # batched output is "un-batched" to ensure mapping is correct
+    batch["input_values"] = processor(audio["array"], sampling_rate=audio["sampling_rate"]).input_values[0]
     
     with processor.as_target_processor():
-        batch["labels"] = processor(batch["target_text"]).input_ids
+        batch["labels"] = processor(batch["text"]).input_ids
     return batch
-
-timit_prepared = timit.map(prepare_dataset, remove_columns=timit.column_names["train"], batch_size=8, num_proc=4, batched=True)
 ```
+
+Let's apply the data preparation function to all examples.
+
+```python
+timit = timit.map(prepare_dataset, remove_columns=timit.column_names["train"], num_proc=4)
+```
+
+**Note**: Currently `datasets` make use of [`torchaudio`](https://pytorch.org/audio/stable/index.html) and [`librosa`](https://librosa.org/doc/latest/index.html) for audio loading and resampling. If you wish to implement your own costumized data loading/sampling, feel free to just make use of the `"path"` column instead and disregard the `"audio"` column.
 
 Training & Evaluation
 ---------------------
@@ -625,7 +618,8 @@ speech.
 
 Let\'s start by defining the data collator. The code for the data
 collator was copied from [this
-example](https://github.com/huggingface/transformers/blob/9a06b6b11bdfc42eea08fa91d0c737d1863c99e3/examples/research_projects/wav2vec2/run_asr.py#L81).
+example](https://github.com/huggingface/transformers/blob/7e61d56a45c19284cfda0cee8995fb552f6b1f4e/examples/pytorch/speech-recognition/run_speech_recognition_ctc.py#L219).
+
 
 Without going into too many details, in contrast to the common data
 collators, this data collator treats the `input_values` and `labels`
@@ -763,14 +757,12 @@ from transformers import Wav2Vec2ForCTC
 
 model = Wav2Vec2ForCTC.from_pretrained(
     "facebook/wav2vec2-base", 
-    gradient_checkpointing=True, 
     ctc_loss_reduction="mean", 
     pad_token_id=processor.tokenizer.pad_token_id,
 )
 ```
 
-**Log Output:**
-
+**Print Output:**
 ```bash
     Some weights of Wav2Vec2ForCTC were not initialized from the model checkpoint at facebook/wav2vec2-base and are newly initialized: ['lm_head.weight', 'lm_head.bias']
     You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
@@ -803,20 +795,21 @@ more explanation on some of the parameters:
 For more explanations on other parameters, one can take a look at the
 [docs](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer#trainingarguments).
 
-**Note**: If one wants to save the trained models in his/her google
-drive the commented-out `output_dir` can be used instead.
+During training, a checkpoint will be uploaded asynchronously to the hub every 400 training steps. It allows you to also play around with the demo widget even while your model is still training.
+
+**Note**: If one does not want to upload the model checkpoints to the hub, simply set `push_to_hub=False`.
 
 ```python
 from transformers import TrainingArguments
 
 training_args = TrainingArguments(
-  # output_dir="/content/gdrive/MyDrive/wav2vec2-base-timit-demo",
-  output_dir="./wav2vec2-base-timit-demo",
+  output_dir=repo_name,
   group_by_length=True,
   per_device_train_batch_size=32,
   evaluation_strategy="steps",
   num_train_epochs=30,
   fp16=True,
+  gradient_checkpointing=True, 
   save_steps=500,
   eval_steps=500,
   logging_steps=500,
@@ -888,6 +881,8 @@ setInterval(ConnectButton,60000);
 trainer.train()
 ```
 
+Depending on your GPU, it might be possible that you are seeing an `"out-of-memory"` error here. In this case, it's probably best to reduce `per_device_train_batch_size` to 16 or even less and eventually make use of [`gradient_accumulation`](https://huggingface.co/transformers/master/main_classes/trainer.html#trainingarguments).
+
 **Print Output:**
 
 | Step  | Training Loss  | Validation Loss | WER | Runtime | Samples per Second |
@@ -906,18 +901,30 @@ state-of-the-art phoneme error rates (PER) are just below 0.1 (see
 [leaderboard](https://paperswithcode.com/sota/speech-recognition-on-timit))
 and that WER is usually worse than PER.
 
-The resulting model of this notebook has been saved to
-[patrickvonplaten/wav2vec2-base-timit-demo](https://huggingface.co/patrickvonplaten/wav2vec2-base-timit-demo).
+You can now upload the result of the training to the Hub, just execute this instruction:
 
-### Evaluate
+```python
+trainer.push_to_hub()
+```
+
+You can now share this model with all your friends, family, favorite pets: they can all load it with the identifier "your-username/the-name-you-picked" so for instance:
+
+```python
+from transformers import AutoModelForCTC, Wav2Vec2Processor
+
+model = AutoModelForCTC.from_pretrained("patrickvonplaten/wav2vec2-base-timit-demo-colab")
+processor = Wav2Vec2Processor.from_pretrained("patrickvonplaten/wav2vec2-base-timit-demo-colab")
+```
+
+### Evaluation
 
 In the final part, we evaluate our fine-tuned model on the test set and
 play around with it a bit.
 
 Let\'s load the `processor` and `model`.
 ```python
-processor = Wav2Vec2Processor.from_pretrained("patrickvonplaten/wav2vec2-base-timit-demo")
-model = Wav2Vec2ForCTC.from_pretrained("patrickvonplaten/wav2vec2-base-timit-demo")
+processor = Wav2Vec2Processor.from_pretrained(repo_name)
+model = Wav2Vec2ForCTC.from_pretrained(repo_name)
 ```
 
 Now, we will make use of the `map(...)` function to predict the
@@ -931,42 +938,33 @@ inputs, a better WER can be achieved by not padding the input at all.
 
 ```python
 def map_to_result(batch):
-  model.to("cuda")
-  input_values = processor(
-      batch["speech"], 
-      sampling_rate=batch["sampling_rate"], 
-      return_tensors="pt"
-  ).input_values.to("cuda")
-
   with torch.no_grad():
+    input_values = torch.tensor(batch["input_values"], device="cuda").unsqueeze(0)
     logits = model(input_values).logits
 
   pred_ids = torch.argmax(logits, dim=-1)
   batch["pred_str"] = processor.batch_decode(pred_ids)[0]
+  batch["text"] = processor.decode(batch["labels"], group_tokens=False)
   
   return batch
 
-results = timit["test"].map(map_to_result)
+results = timit["test"].map(map_to_result, remove_columns=timit["test"].column_names)
 ```
 
 Let\'s compute the overall WER now.
 
 ```python
-print("Test WER: {:.3f}".format(wer_metric.compute(predictions=results["pred_str"], references=results["target_text"])))
+print("Test WER: {:.3f}".format(wer_metric.compute(predictions=results["pred_str"], references=results["text"])))
 ```
 
 **Print Output:**
-
 ```bash
-    Test WER: 0.186
+    Test WER: 0.221
 ```
 
-18.6% WER - not bad! Our model would have surely made the top 20 on the
-official
-[leaderboard](https://paperswithcode.com/sota/speech-recognition-on-timit).
+22.1% WER - not bad! Our demo model would have probably made it on the official [leaderboard](https://paperswithcode.com/sota/speech-recognition-on-timit).
 
-Let\'s take a look at some predictions to see what errors are made by
-the model.
+Let's take a look at some predictions to see what errors are made by the model.
 
 **Print Output:**
 
@@ -999,19 +997,17 @@ corresponding tokens.
 
 ```python
 model.to("cuda")
-input_values = processor(timit["test"][0]["speech"], sampling_rate=timit["test"][0]["sampling_rate"], return_tensors="pt").input_values.to("cuda")
 
 with torch.no_grad():
-  logits = model(input_values).logits
+  logits = model(torch.tensor(timit["test"][:1]["input_values"], device="cuda")).logits
 
 pred_ids = torch.argmax(logits, dim=-1)
 
 # convert ids to tokens
-print(" ".join(processor.tokenizer.convert_ids_to_tokens(pred_ids[0].tolist())))
+" ".join(processor.tokenizer.convert_ids_to_tokens(pred_ids[0].tolist()))
 ```
 
 **Print Output:**
-
 ```bash
 [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] t t h e e | | b b [PAD] u u n n n g g [PAD] a [PAD] [PAD] l l [PAD] o o o [PAD] | w w a a [PAD] s s | | [PAD] [PAD] p l l e e [PAD] [PAD] s s e n n t t t [PAD] l l y y | | | s s [PAD] i i [PAD] t t t [PAD] u u u u [PAD] [PAD] [PAD] a a [PAD] t t e e e d d d | n n e e a a a r | | t h h e | | s s h h h [PAD] o o o [PAD] o o r r [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD] [PAD]
 ```

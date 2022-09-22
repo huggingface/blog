@@ -7,7 +7,7 @@ thumbnail: /blog/assets/24_sahajBERT/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published July 15, 2021</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/collaborative-training.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/collaborative-training.md">
         Update on GitHub
     </a>
 </div>
@@ -18,7 +18,7 @@ thumbnail: /blog/assets/24_sahajBERT/thumbnail.png
         <div class="bfc">
             <code>mryab</code>
             <span class="fullname">Max Ryabinin</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
             <img class="rounded inline" style="margin: 0 !important; ; width: 22px; height: 22px;" src="/blog/assets/24_sahajBERT/yandex_logo.png">
         </div>
     </a>
@@ -68,8 +68,8 @@ In its most frequently used version, distributed training with multiple GPUs is 
 <div style="line-height:105%;font-size:80%">
 <p align="center">
 Typical machine learning tasks executed by peers in distributed training, possibly with a separation of roles
-</div>
 </p>
+</div>
 
 Often, to reduce the amount of synchronization and to stabilize the learning process, we can accumulate the gradients for N batches before averaging, which is equivalent to increasing the actual batch size N times. This approach, combined with the observation that most state-of-the-art language models use large batches, led us to a simple idea: let's accumulate one _very_ large batch across all volunteer devices before each optimizer step! Along with complete equivalence to regular distributed training and easy scalability, this method also has the benefit of built-in fault tolerance, which we illustrate below.
 
@@ -218,8 +218,8 @@ We evaluated it during training on the NER task to check that everything was goi
 <div style="line-height:105%;font-size:80%">
 <p align="center">
 Evaluation metrics of fine-tuned models on the NER task from different checkpoints of pre-trained models.
-</div>
 </p>
+</div>
 
 At the end of training, we compared sahajBERT with three other pretrained language models: [XLM-R Large](https://arxiv.org/abs/1911.02116), [IndicBert](https://aclanthology.org/2020.findings-emnlp.445/), and [bnRoBERTa](https://huggingface.co/neuralspace-reverie/indic-transformers-bn-roberta). In the table below, you can see that our model has results comparable to the best Bengali language models available on HF Hub, even though our model has only ~18M trained parameters, while, for instance, XLM-R (a strong multilingual baseline), has ~559M parameters and was trained on several hundred V100 GPUs.
 

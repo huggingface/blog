@@ -7,7 +7,7 @@ thumbnail: /blog/assets/13_pytorch_xla/pytorch_xla_thumbnail.png
 
 <div class="blog-metadata">
     <small>Published February 9, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/pytorch-xla.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/pytorch-xla.md">
         Update on GitHub
     </a>
 </div>
@@ -18,7 +18,7 @@ thumbnail: /blog/assets/13_pytorch_xla/pytorch_xla_thumbnail.png
         <div class="bfc">
             <code>jysohn23</code>
             <span class="fullname">Daniel JinYoung Sohn</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
             <img class="rounded inline" style="margin: 0 !important; margin-right: 8px !important; width: 22px; height: 22px;" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1584056834195-5dd96eb166059660ed1ee413.png?w=200&amp;h=200&amp;f=face">
         </div>
     </a>
@@ -31,7 +31,7 @@ thumbnail: /blog/assets/13_pytorch_xla/pytorch_xla_thumbnail.png
     </a>
 </div>
 
-<a href="https://colab.research.google.com/github/huggingface/blog/blob/master/notebooks/13_pytorch_xla.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
+<a href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/13_pytorch_xla.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 ## Training Your Favorite Transformers on Cloud TPUs using PyTorch / XLA
 

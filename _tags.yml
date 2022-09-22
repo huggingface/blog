@@ -1,0 +1,29 @@
+- value: analysis
+  label: analysis
+
+- value: community
+  label: community
+
+- value: guide
+  label: guide
+
+- value: open-source-collab
+  label: open source collab
+
+- value: partnerships
+  label: partnerships
+
+- value: research
+  label: research
+
+- value: nlp
+  label: NLP
+
+- value: audio
+  label: Audio
+
+- value: cv
+  label: CV
+
+- value: rl
+  label: RL

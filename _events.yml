@@ -1,0 +1,177 @@
+# "date" attribute should be end date of an event in `Mon DD, YYYY` format (e.g. Feb 3, 2014)
+# "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
+#                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
+
+- name: Hugging Face Inference Endpoints | 🤗 Announcement and demo
+  link: https://app.livestorm.co/hugging-face/hugging-face-inference-endpoints?type=detailed
+  date: Sep 27, 2022
+  description: "Transformers in production: SOLVED ✅"
+
+- name: How Synapse Medicine leverages Hugging Face to improve medication safety
+  link: https://www.eventbrite.com/e/how-synapse-medicine-leverages-hugging-face-to-improve-medication-safety-tickets-328906848237
+  date: Sep 20, 2022
+  description: Learn how Synapse Medicine leverages Hugging Face to improve medication safety!  
+
+- name: Hugging Face AI Hardware Summit Workshop
+  link: https://www.kisacoresearch.com/ai-hardware-summit-agenda
+  date: Sep 13, 2022
+  description: Learn from Hugging Face experts how to use Graphcore IPUs, Habana Gaudi AI Hardware Accelerators with Optimum!  
+  
+- name: fastai X Hugging Face Group 2022
+  link: https://huggingface.co/hugginglearners
+  date: Jul 15, 2022
+  date_formatted: Jun 15 to Jul 15, 2022
+  description: Share Vision and Text pre-trained fastai Learners with the community.
+
+- name: Twitter Space with ONNX RunTime
+  link: https://twitter.com/i/spaces/1jMJgeQZjrYKL
+  date: Jun 22, 2022
+  description: Join our live discussion with the ONNX RunTime team about accelerating Transformers with Optimum!
+  
+- name: Data2vec Reading Group
+  link: https://huggingface.co/join/discord
+  date: Jun 22, 2022
+  description: Join us to talk about data2vec, a model that works across different modalities - text, audio, and images.
+
+- name: Hugging Face VIP Party at the AI Summit London
+  link: https://www.addevent.com/event/Rt13780880
+  date: Jun 15, 2022
+  description: Come meet Hugging Face at the Skylight Bar on the roof of Tobacco Dock during AI Summit London! 6pm-9pm
+
+- name: Masader Hackathon
+  link: https://docs.google.com/document/d/1Oc-UhWByRnrPk4Orh2bVenV9PzxkGRjkML9ebBqn9hU/edit?usp=sharing
+  date: Jun 10, 2022
+  description: A sprint to add 125 Arabic NLP datasets to Masader, https://arbml.github.io/masader/,  5pm-7pm Saudi Arabia time.
+
+- name: Introduction to Hugging Face Ecosystem at PyData Paris
+  link: https://www.meetup.com/PyData-Paris/events/286206845/
+  date: June 9, 2022
+  description: An extensive introduction to the open-source ecosystem in Hugging Face.
+
+- name: Computer Vision with Hugging Face
+  link: https://youtu.be/oL-xmufhZM8
+  date: June 8, 2022
+  description: In this session, Niels Rogge walks us through the tools and architectures used to train computer vision models using Hugging Face.
+  
+- name: How to Teach Open-Source Machine Learning Tools
+  link: https://www.eventbrite.com/e/how-to-teach-open-source-machine-learning-tools-tickets-310980931337
+  date: Jun 6, 2022
+  description: Learn how the open-source ecosystem can be used in your machine learning and data science classes.
+  
+- name: Accelerate BERT Inference with Knowledge Distillation & AWS Inferentia
+  link: https://app.livestorm.co/hugging-face/accelerate-bert-inference-with-knowledge-distillation-and-aws-inferentia?type=detailed
+  date: Apr 13, 2022
+  description: Accelerate BERT Inference with knowledge distillation & compiling using Hugging Face Transformers, Amazon SageMaker & AWS Inferentia.
+
+- name: Computer Vision Study Group Paper Reading Session on "How Do Vision Transformers Work?"
+  link: https://discord.gg/EmEpESpn?event=957940949261115402
+  date: Apr 5, 2022
+  description: Discussion on paper "How Do Vision Transformers Work?".
+
+- name: NLP in Spanish Hackathon
+  link: https://www.eventbrite.com/e/registro-hackathon-de-pln-en-espanol-273014111557
+  date: Mar 31, 2022
+  date_formatted: Mar 14 to Mar 31, 2022
+  description: Largest Hackathon ever of NLP in Spanish.
+
+- name: Chasing the wrong benchmarks in Machine Learning, How it will fail in production
+  link: https://eveeno.com/ai-academy-kickoff
+  date: Mar 22, 2022
+  description: Niels Reimers will present his view on chasing wrong benchmarks in ML and how they will fail in production.
+
+- name: NLP with TF Keras and HF Transformers with Merve Noyan
+  link: https://www.youtube.com/watch?v=IBaDGxgY3Po&ab_channel=Weights%26Biases
+  date: Feb 16, 2022
+  description: Learn about how NLP can be done with TensorFlow and Transformers.
+
+- name: Robust Speech Recognition Challenge
+  link: https://discuss.huggingface.co/t/open-to-the-community-robust-speech-recognition-challenge/13614
+  date: Feb 7, 2022
+  date_formatted: Jan 24 to Feb 7, 2022
+  description: Community event in which robust speech recognition systems in many languages are created.
+  
+- name: Hub Featureton
+  link: https://www.youtube.com/watch?v=gAEeiFR7O0Q&ab_channel=HuggingFace
+  date: Feb 3, 2022
+  description: Would you like to know all the things you can do with the Hub? This event is for you! During the webinar, we'll go through some amazing features the Hugging Face team has been working on.
+  
+- name: XLS-R, Large-Scale Cross-lingual Speech Representation Learning on 128 Languages
+  link: https://www.youtube.com/watch?v=ic_J7ZCROBM&ab_channel=HuggingFace
+  date: Jan 21, 2022
+  description: Changan Wang, from Meta AI Research, is one of the authors of the XLS-R, a large-scale model for cross-lingual speech representation learning based on wav2vec.
+
+- name: The Common Voice Dataset
+  link: https://www.youtube.com/watch?v=Vvn984QmAVg&ab_channel=HuggingFace
+  date: Jan 21, 2022
+  description: Gabriel Habayeb, from Mozilla Common Voice, will join us to speak about the Common Voice Dataset.
+
+- name: ML for Audio Study Group - ML4Audio - pyctcdecode, A simple and fast speech-to-text prediction decoding algorithm
+  link: https://www.youtube.com/watch?v=CDuvVL0z_xk&ab_channel=HuggingFace
+  date: Jan 19, 2022
+  description: Watch a presentation about pyctcdecode, a fast and feature-rich CTC beam search decoder for speech recognition.
+
+- name: Intro to Transfer Learning, end-to-end deployment with TFX, and demo with Streamlit
+  link: https://www.youtube.com/watch?v=y9qy7lxXl-c&ab_channel=TensorFlowUserGroupCasablanca
+  date: Jan 8, 2022
+  date_formatted: Jan 7 & 8, 2022
+  description: Are you a TF user and would like to learn about Transformers and building cool demos? This is for you!
+
+- name: ML for Audio Study Group - Text to Speech Deep Dive
+  link: https://www.youtube.com/watch?v=aLBedWj-5CQ&ab_channel=HuggingFace
+  date: Jan 4, 2022
+  description: Vatsal and VB provide a high level overview of how TTS is solved and share more about the history of the domain.
+  
+- name: ML for Audio Study Group - Intro to Audio and ASR Deep Dive
+  link: https://www.youtube.com/watch?v=D-MH6YjuIlE&ab_channel=HuggingFace
+  date: Dec 21, 2021
+  description: Watch a high level overview of audio data and its challenges and learn about transcribing audio files.
+  
+- name: GDG Cloud San Francisco DevFest - BigScience
+  link: https://youtu.be/-euoEOpfUIk?t=5695
+  date: Dec 18, 2021
+  description: Learn about the BigScience project, a one year research workshop on large multilingual datasets and language models.
+
+- name: Pretraining Language Models & CodeParrot
+  link: https://www.youtube.com/watch?v=ExUR7w6xe94&ab_channel=HuggingFace
+  date: Dec 17, 2021
+  description: Leandro and Merve explain how to pre-train language models and Code Parrot, a model that can write code.
+
+- name: ML for Audio Study Group - Kick Off
+  link: https://www.youtube.com/watch?v=cAviRhkqdnc&ab_channel=HuggingFace
+  date: Dec 14, 2021
+  description: Intro to ML for Audio. Learn about Automatic Speech Recognition and Text to Speech.
+
+- name: Question Answering workshop
+  link: https://www.youtube.com/watch?v=Ihgk8kGLpIE&ab_channel=HuggingFace
+  date: Dec 10, 2021
+  description: Course special session where Lewis and Merve will go through notebooks, course material and answer your questions.
+
+- name: On Sentiments and Biases
+  link: https://www.youtube.com/watch?v=0K5ybetv-dA&ab_channel=HuggingFace
+  date: Dec 8, 2021
+  description: Join Merve & Vincent in this talk on Sentiments and Biases in Hugging Face models! 
+
+- name: Implementing DietNeRF with JAX and Flax.
+  link: https://www.youtube.com/watch?v=A9iefUXkvQU&t=1s&ab_channel=HuggingFace
+  date: Nov 30, 2021
+  description: Learn about NeRF, JAX+Flax, 3D reconstruction, HF Spaces, and more!
+
+- name: Course launch event!
+  link: https://www.youtube.com/playlist?list=PLo2EIpI_JMQvcXKx5RFReyg6Qd2UICAif
+  date: Nov 15, 2021
+  description: Talks from Thom Wolf, Margaret Mitchell, Jay Alammar, and many more!
+
+- name: Open Source Office Hours
+  link: https://www.youtube.com/watch?v=VWOHu_Hg0Pc
+  date: Nov 8, 2021
+  description: In this 30 minutes session the team will share the latest updates from our open source tools and answer questions from the community.
+
+- name: T0 Discussion with Victor Sanh
+  link: https://www.youtube.com/watch?v=Oy49SCW_Xpw&ab_channel=HuggingFace
+  date: Nov 5, 2021
+  description: Learn about the T0, a model for zero-show task generalization
+
+- name: NLP with Transformers and the Hugging Face Ecosystem 🤗
+  link: https://www.mlt.ai/hands-on-transformers-workshop
+  date: Oct 22, 2021
+  description: In this workshop, learn the core concepts behind Transformers and how to train these models in the Hugging Face ecosystem.
