@@ -7,14 +7,14 @@ thumbnail: /blog/assets/25_es-n1/sept-solstice.png
 
 <div class="blog-metadata">
     <small>Published September 22, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/decision-transformers-train.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/meg/ethics-society-newsletter-1/es-n1.md">
         Update on GitHub
     </a>
 </div>
 
 <div class="author-card">
-    <a href="/edbeeching"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1644220542819-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
+    <a href="/meg"> 
+        <img class="avatar avatar-user" src="https://github.com/huggingface/blog/assets/25_es-n1/meg-huggingface.png" title="megatar">
         <div class="bfc">
             <code>meg</code>
             <span class="fullname">Margaret Mitchell</span>
