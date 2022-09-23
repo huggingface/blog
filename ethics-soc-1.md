@@ -7,7 +7,7 @@ thumbnail: /blog/assets/103_ethics-soc-1/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published September 22, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/meg/ethics-society-newsletter-1/es-n1.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/meg/ethics-society-newsletter-1/ethics-soc-1.md">
         Update on GitHub
     </a>
 </div>
@@ -29,7 +29,7 @@ Originating as an open-source company, Hugging Face was founded on some key ethi
 
 How to operationalize ethics in AI is an open research area. Although theory and scholarship on applied ethics and artificial intelligence have existed for decades, applied and tested practices for ethics within AI development have only begun to emerge within the past 10 years. This is partially a response to machine learning models – the building blocks of AI systems – outgrowing the benchmarks used to measure their progress, leading to wide-spread adoption of machine learning systems in a range of practical applications that affect everyday life. For those of us interested in advancing ethics-informed AI, joining a machine learning company founded in part on ethical principles, just as it begins to grow, and just as people across the world are beginning to grapple with ethical AI issues, is an opportunity to fundamentally shape what the AI of the future looks like. It’s a new kind of modern-day AI experiment: What does a technology company with ethics in mind _from the start_ look like? Focusing an ethics lens on machine learning, what does it mean to [democratize _good_ ML](https://huggingface.co/huggingface)?
 
-To this end, we share some of our recent thinking and work in a new Hugging Face _Ethics and Society_ newsletter, to be published every season, at the equinox and solstice. Here it is! It is put together by us, the “Ethics and Society regulars”, an open group of people throughout the company who come together as equals to work through the broader context of machine learning in society and the role that Hugging Face plays.
+To this end, we share some of our recent thinking and work in the new Hugging Face _Ethics and Society_ newsletter, to be published every season, at the equinox and solstice. Here it is! It is put together by us, the “Ethics and Society regulars”, an open group of people throughout the company who come together as equals to work through the broader context of machine learning in society and the role that Hugging Face plays.
 
 We believe it to be critical that we are **not** a dedicated team: in order for a company to make value-informed decisions throughout its work and processes, there needs to be a shared responsibility and commitment from all parties involved to acknowledge and learn about the ethical stakes of our work.
 
@@ -37,26 +37,14 @@ We are continuously researching practices and studies on the meaning of a "good"
 
 - We seek to _collaborate_ with the open-source community. This includes providing modernized tools for [documentation](https://huggingface.co/docs/hub/models-cards) and [evaluation](https://huggingface.co/blog/eval-on-the-hub), alongside [community discussion](https://huggingface.co/blog/community-update), [Discord](http://discuss.huggingface.co/t/join-the-hugging-face-discord/), and individual support for contributors aiming to share their work in a way that’s informed by different values. 
 
-- We seek to be _transparent_ about our thinking and processes as we develop them. This includes sharing writing on our thinking about specific project [values at the start of a project](https://huggingface.co/blog/ethical-charter-multimodal) and [AI policy](https://huggingface.co/blog/us-national-ai-research-resource). We also gain from the community feedback on this work, as a resource for us to learn more about what to do. 
+- We seek to be _transparent_ about our thinking and processes as we develop them. This includes sharing writing on specific project [values at the start of a project](https://huggingface.co/blog/ethical-charter-multimodal) and our thinking on [AI policy](https://huggingface.co/blog/us-national-ai-research-resource). We also gain from the community feedback on this work, as a resource for us to learn more about what to do. 
 
-- We ground the creation of these tools and artifacts in _responsibility_ for the impacts of what we do now and in the future. Prioritizing this has led to project designs that make machine learning systems more _auditable_ and _understandable_ – including for people with expertise outside of ML -- such as ML data analysis tools that [don't require coding](https://huggingface.co/spaces/huggingface/data-measurements-tool).
+- We ground the creation of these tools and artifacts in _responsibility_ for the impacts of what we do now and in the future. Prioritizing this has led to project designs that make machine learning systems more _auditable_ and _understandable_ – including for people with expertise outside of ML – such as [the education project](https://huggingface.co/blog/education) and our experimental [tools for ML data analysis that don't require coding](https://huggingface.co/spaces/huggingface/data-measurements-tool).
 
-Building from these basics, we are taking an approach to operationalizing values that center the context-specific nature of our projects and the foreseeable effects they may have. As such, we offer no global list of values or principles here; instead, we share [project-specific thinking](https://huggingface.co/blog/ethical-charter-multimodal) on our projects, and will share more as we understand more. We believe that community discussion is key to identifying different values at play and who is impacted, and so have opened up the opportunity for anyone who can connect to the Hugging Face Hub online to provide [direct feedback on models, data, and Spaces](https://huggingface.co/blog/community-update). Alongside tools for open discussion, we have created a [Code of Conduct](https://huggingface.co/code-of-conduct) and [content guidelines](https://huggingface.co/content-guidelines) to help guide discussions along dimensions we believe to be important for an inclusive community space. We have developed tools for [evaluation](https://huggingface.co/blog/eval-on-the-hub) to make it easier for developers to evaluate their models rigorously, code for [analyzing data for skews and biases](https://huggingface.co/blog/data-measurements-tool), and also provide [tools for tracking carbon emissions when training a model](https://huggingface.co/blog/carbon-emissions-on-the-hub). We are developing [new open and responsible AI licensing](https://huggingface.co/blog/open_rail), a modern form of licensing that directly addresses the harms that AI systems can create. And this week, we made it possible to [“flag” model and Spaces repositories](https://twitter.com/GiadaPistilli/status/1571865167092396033) and report on any issues.
+Building from these basics, we are taking an approach to operationalizing values that center the context-specific nature of our projects and the foreseeable effects they may have. As such, we offer no global list of values or principles here; instead, we continue to share [project-specific thinking](https://huggingface.co/blog/ethical-charter-multimodal), such as this newsletter, and will share more as we understand more. Since we believe that community discussion is key to identifying different values at play and who is impacted, we have recently opened up the opportunity for anyone who can connect to the Hugging Face Hub online to provide [direct feedback on models, data, and Spaces](https://huggingface.co/blog/community-update). Alongside tools for open discussion, we have created a [Code of Conduct](https://huggingface.co/code-of-conduct) and [content guidelines](https://huggingface.co/content-guidelines) to help guide discussions along dimensions we believe to be important for an inclusive community space. We have developed a [Private Hub](https://huggingface.co/blog/introducing-private-hub) for secure ML development, a [library for evaluation](https://huggingface.co/blog/eval-on-the-hub) to make it easier for developers to evaluate their models rigorously, [code for analyzing data for skews and biases](https://github.com/huggingface/data-measurements-tool), and [tools for tracking carbon emissions when training a model](https://huggingface.co/blog/carbon-emissions-on-the-hub). We are also developing [new open and responsible AI licensing](https://huggingface.co/blog/open_rail), a modern form of licensing that directly addresses the harms that AI systems can create. And this week, we made it possible to [“flag” model and Spaces repositories](https://twitter.com/GiadaPistilli/status/1571865167092396033) in order to report on ethical and legal issues.
 
-In the coming months, we will be putting together several other pieces on values and tensions. We welcome (and want!) feedback on any and all of our work, and hope to continue engaging with the AI community through technical and values-informed lenses. 
+In the coming months, we will be putting together several other pieces on values, tensions, and ethics operationalization. We welcome (and want!) feedback on any and all of our work, and hope to continue engaging with the AI community through technical and values-informed lenses. 
 
 Thanks for reading! 🤗
 
-~Meg, on behalf of the Ethics and Society regulars
-
-
-
-
-
-
-
-
-
-
-
-
+~ Meg, on behalf of the Ethics and Society regulars
