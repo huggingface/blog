@@ -48,15 +48,3 @@ In the coming months, we will be putting together several other pieces on values
 Thanks for reading! 🤗
 
 ~ Meg, on behalf of the Ethics and Society regulars
-
-
-
-
-
-
-
-
-
-
-
-
