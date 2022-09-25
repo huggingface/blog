@@ -9,10 +9,10 @@ thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
 
 </div>
 <div class="author-card">
-    <a href="/eunseojo">
+    <a href="/Unso">
         <img class="avatar avatar-user" src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=-I2EZeEAAAAJ&citpid=8" title="Gravatar">
         <div class="bfc">
-            <code>eunseojo</code>
+            <code>Unso</code>
             <span class="fullname">Unso Eun Seo Jo</span>
         </div>
     </a>
