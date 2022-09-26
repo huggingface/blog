@@ -49,7 +49,7 @@ For more details, check out our [paper](https://arxiv.org/abs/2209.11055), [data
 
 ## How does it work?
 
-SetFit is designed with efficiency and simplicity in mind. SetFit first finetunes a Sentence Transformer model then trains a classifier head on the embeddings generated from the finetuned Sentence Transformer. 
+SetFit is designed with efficiency and simplicity in mind. SetFit first fine-tunes a Sentence Transformer model on a small number of labeled examples (typically 8 or 16 per class). This is followed by training a classifier head on the embeddings generated from the fine-tuned Sentence Transformer. 
 
 <p align="center">
     <img src="assets/103_setfit/setfit_diagram_process.png" width=700>
