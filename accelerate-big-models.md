@@ -8,7 +8,7 @@ thumbnail: /blog/assets/20_accelerate_library/accelerate_diff.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published September 19, 2022.</small>
+    <small>Published September 27, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/accelerate-big-models.md">
         Update on GitHub
     </a>
