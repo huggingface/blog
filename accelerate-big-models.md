@@ -112,7 +112,7 @@ with init_empty_weights():
 
 This works on any model, but you get back a shell you can't use directly: some operations are implemented for the meta device, but not all yet. Here for instance, you can use the `large_model` defined above with an input, but not the BLOOM model. Even when using it, the output will be a tensor of the meta device, so you will get the shape of the result, but nothing more.
 
-As further work on this, the PyTorch team is working on a new class `FakeTensor`, which is a bit like tensors on the meta device, but with the device information (on top of shape and dtype)
+As further work on this, the PyTorch team is working on a new [class `FakeTensor`](https://pytorch.org/torchdistx/latest/fake_tensor.html), which is a bit like tensors on the meta device, but with the device information (on top of shape and dtype)
 
 Since we know the shape of each weight, we can however know how much memory they will all consume once we load the pretrained tensors fully. Therefore, we can make a decision on how to split our model across CPUs and GPUs.
 
