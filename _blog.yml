@@ -1243,3 +1243,12 @@
   date: Sep 22, 2022
   tags:
     - ethics
+    
+- local: setfit
+  title: "SetFit: Efficient Few-Shot Learning Without Prompts"
+  author: Unso, lewtun
+  thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
+  date: September 26, 2022
+  tags:
+    - research
+    - nlp
