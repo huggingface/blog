@@ -1256,7 +1256,7 @@
 - local: accelerate-big-models
   title: "How 🤗 Accelerate runs very large models thanks to PyTorch"
   author: sgugger
-  thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
+  thumbnail: /blog/assets/104_accelerate-big-models/thumbnail.png
   date: September 26, 2022
   tags:
     - research
