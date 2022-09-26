@@ -31,11 +31,17 @@ thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
 
 
 <p align="center">
-    <img src="assets/103_setfit/setfit_curves.png" width=400>
+    <img src="assets/103_setfit/setfit_curves.png" width=500>
+</p>
+<p align="center">
+    <em>SetFit is significantly more sample efficient and robust to noise than standard fine-tuning.</em>
 </p>
 
 Few-shot learning with pretrained language models has emerged as a promising solution to every data scientist's nightmare: dealing with data that has few to no labels 😱.
-Together with our research partners at [Intel Labs](https://www.intel.com/content/www/us/en/research/overview.html) and the [UKP Lab](https://www.informatik.tu-darmstadt.de/ukp/ukp_home/index.en.jsp), Hugging Face is excited to introduce SetFit: an efficient framework for few-shot fine-tuning of [Sentence Transformers](https://sbert.net/). SetFit achieves high accuracy with little labeled data - for example, with only 8 labeled examples per class on the Customer Reviews sentiment dataset, SetFit is competitive with fine-tuning RoBERTa Large on the full training set of 3k examples 🤯!. Compared to other few-shot learning methods, SetFit has several unique features:
+
+Together with our research partners at [Intel Labs](https://www.intel.com/content/www/us/en/research/overview.html) and the [UKP Lab](https://www.informatik.tu-darmstadt.de/ukp/ukp_home/index.en.jsp), Hugging Face is excited to introduce SetFit: an efficient framework for few-shot fine-tuning of [Sentence Transformers](https://sbert.net/). SetFit achieves high accuracy with little labeled data - for example, with only 8 labeled examples per class on the Customer Reviews (CR) sentiment dataset, SetFit is competitive with fine-tuning RoBERTa Large on the full training set of 3k examples 🤯!
+
+Compared to other few-shot learning methods, SetFit has several unique features:
 
 <p>🗣 <strong>No prompts or verbalisers</strong>: Current techniques for few-shot fine-tuning require handcrafted prompts or verbalisers to convert examples into a format that's suitable for the underlying language model. SetFit dispenses with prompts altogether by generating rich embeddings directly from a small number of labeled text examples. </p>
 
@@ -55,7 +61,7 @@ SetFit is designed with efficiency and simplicity in mind. SetFit first fine-tun
     <img src="assets/103_setfit/setfit_diagram_process.png" width=700>
 </p>
 <p align="center">
-    SetFit's 2-Part Process
+    <em>SetFit's two-stage training process</em>
 </p>
 
 SetFit takes advantage of Sentence Transformers’ ability to generate dense embeddings based on paired sentences. In the initial fine-tuning phase stage, it makes use of the limited labeled input data by contrastive training, where positive and negative pairs are created by in-class and out-class selection. The Sentence Transformer model then trains on these pairs (or triplets) and generates dense vectors per example. In the second step, the classification head trains on the encoded embeddings with their respective class labels. At inference time, the unseen example passes through the fine-tuned Sentence Transformer, generating an embedding that when fed to the classification head outputs a class label prediction.
@@ -64,6 +70,8 @@ And just by switching out the base Sentence Transformer model to a multilingual 
 
 
 ## Benchmarking SetFit
+
+Although based on much smaller models than existing few-shot methods, SetFit performs on par or better than state of the art few-shot regimes on a variety of benchmarks. On [RAFT](https://huggingface.co/spaces/ought/raft-leaderboard), a few-shot classification benchmark, SetFit Roberta (using the [`all-roberta-large-v1`](https://huggingface.co/sentence-transformers/all-roberta-large-v1)) with 355 million parameters outforms PET and GPT-3. It places just under average human performance and the 11 billion parameter T-few - a model 30 times the size of SetFit Roberta. SetFit also outperforms the human baseline on 7 of the 11 RAFT tasks.
 
 | Rank | Method | Accuracy | Model Size | 
 | :------: | ------ | :------: | :------: | 
@@ -74,23 +82,20 @@ And just by switching out the base Sentence Transformer model to a multilingual 
 | 11 | SetFit (MP-Net) | 66.9 | 110M |
 | 12 | GPT-3 | 62.7 | 175 B |
 
-<h4>Prominent methods on the RAFT leaderboard (as of September 2022)</h4>
+<p align="center">
+    <em>Prominent methods on the RAFT leaderboard (as of September 2022)</em>
+</p>
 
-
-Although based on much smaller models than existing few-shot methods, SetFit performs on par or better than state of the art few-shot regimes on a variety of benchmarks. On [RAFT](https://huggingface.co/spaces/ought/raft-leaderboard), a few-shot classification benchmark, SetFit Roberta (using the [`all-roberta-large-v1`](https://huggingface.co/sentence-transformers/all-roberta-large-v1)) with 355 million parameters outforms PET and GPT-3. It places just under average human performance and the 11 billion parameter T-few - a model 30 times the size of SetFit Roberta. SetFit also outperforms the human baseline on 7 of the 11 RAFT tasks.
-
-
+On other datasets, SetFit shows robustness across a variety of tasks. As shown in the above figure, with just 8 examples per class, it typically outperforms PERFECT, ADAPET and fine-tuned vanilla transformers. SetFit also achieves comparable results to T-Few 3B, despite being prompt-free and 27 times smaller.
 
 <p align="center">
     <img src="assets/103_setfit/three-tasks.png" width=700>
 </p>
 <p align="center">
-    Comparing Setfit performance against other methods on 3 classification datasets.
+    <em>Comparing Setfit performance against other methods on 3 classification datasets.</em>
 </p>
 
 
-
-On other datasets, SetFit shows robustness across a variety of tasks. As shown in the above figure, with just 8 examples per class, it typically outperforms PERFECT, ADAPET and fine-tuned vanilla transformers. SetFit also achieves comparable results to T-Few 3B, despite being prompt-free and 27 times smaller.
 
 
 ## Fast training and inference
@@ -164,7 +169,9 @@ trainer.push_to_hub("my-awesome-setfit-model")
 While this example showed how this can be done with one specific type of base model, any [Sentence Transformer](https://huggingface.co/models?library=sentence-transformers&sort=downloads) model could be switched in for different performance and tasks. For instance, using a multilingual Sentence Transformer body can extend few-shot classification to multilingual settings.
 
 ## Next steps
-We've shown that SetFit is an effective method for few-shot classification tasks. In the coming months, we'll be exploring how well the method generalizes to tasks like natural language inference and token classification. In the meantime, we're excited to see how industry practitioners apply SetFit to their use cases - if you have any questions or feedback, open an issue on our [GitHub repo](https://github.com/huggingface/setfit) 🤗! Happy few-shot learning!
+We've shown that SetFit is an effective method for few-shot classification tasks. In the coming months, we'll be exploring how well the method generalizes to tasks like natural language inference and token classification. In the meantime, we're excited to see how industry practitioners apply SetFit to their use cases - if you have any questions or feedback, open an issue on our [GitHub repo](https://github.com/huggingface/setfit) 🤗.
+
+Happy few-shot learning!
 
 
 
