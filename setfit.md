@@ -3,7 +3,7 @@ title: "SetFit: Efficient Few-Shot Learning Without Prompts"
 thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
 ---
 <div class="blog-metadata">
-    <small>Published September 24, 2022.</small>
+    <small>Published September 26, 2022.</small>
    
 <h1>SetFit: Efficient Few-Shot Learning Without Prompts</h1>
 
