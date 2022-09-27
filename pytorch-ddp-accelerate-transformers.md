@@ -234,7 +234,7 @@ Accelerate helps this through the [`Accelerator`](https://huggingface.co/docs/ac
 
 ```python
 def train_ddp_accelerate():
-    accelerator = Accelerator(device_placement=True)
+    accelerator = Accelerator()
     # Build DataLoaders
     transform = transforms.Compose([
         transforms.ToTensor(),
