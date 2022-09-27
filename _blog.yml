@@ -1227,7 +1227,7 @@
 
 - local: bloom-inference-pytorch-scripts
   title: "Incredibly Fast BLOOM Inference with DeepSpeed and Accelerate"
-  author: stas, sgugger
+  author: stas
   thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
   date: Sep 16, 2022
   tags:
@@ -1246,7 +1246,7 @@
     
 - local: setfit
   title: "SetFit: Efficient Few-Shot Learning Without Prompts"
-  author: Unso, lewtun, luketheduke
+  author: Unso
   thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
   date: September 26, 2022
   tags:
