@@ -1,6 +1,6 @@
 ---
 title: "How 🤗 Accelerate runs very large models thanks to PyTorch"
-thumbnail: /blog/assets/20_accelerate_library/accelerate_diff.png
+thumbnail: /blog/assets/104_accelerate-large-models/thumbnail.png
 ---
 
 <h1>
