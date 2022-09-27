@@ -230,7 +230,7 @@ Next let's talk about how Accelerate can help. There's a few issues with the abo
 1. This is slightly inefficient, given that `n` dataloaders are made based on each device and pushed.
 2. This code will **only** work for multi-GPU, so special care would need to be made for it to be ran on a single node again, or on TPU.
 
-Accelerate helps this through the `Accelerator` class. Through it, the code remains much the same except for three lines of code when comparing a single node to multinode, as shown below:
+Accelerate helps this through the [`Accelerator`](https://huggingface.co/docs/accelerate/v0.12.0/en/package_reference/accelerator#accelerator) class. Through it, the code remains much the same except for three lines of code when comparing a single node to multinode, as shown below:
 
 ```python
 def train_ddp_accelerate():
@@ -279,7 +279,7 @@ def train_ddp_accelerate():
     print(f'Accuracy: {100. * correct / len(test_loader.dataset)}')
 ```
 
-Now any and all custom code needed to launch your code on any distributed setup is simplified to the `Accelerator` object. This code can then still be ran through the `torchrun` CLI, or through Accelerate's own CLI interface, `accelerate launch`.
+Now any and all custom code needed to launch your code on any distributed setup is simplified to the `Accelerator` object. This code can then still be ran through the `torchrun` CLI, or through Accelerate's own CLI interface, [`accelerate launch`](https://huggingface.co/docs/accelerate/v0.12.0/en/basic_tutorials/launch).
 
 As a result its now trivialized to perform distributed training with Accelerate and keeping as much of the barebones PyTorch code the same as possible.
 
@@ -287,7 +287,7 @@ Earlier it was mentioned that Accelerate also makes the DataLoaders more efficie
 
 ### Using the `notebook_launcher`
 
-Earlier it was mentioned you can start distributed code directly out of your Jupyter Notebook. This comes from Accelerate's `notebook_launcher` utility, which allows for starting multi-gpu training based on code inside of a Jupyter Notebook.
+Earlier it was mentioned you can start distributed code directly out of your Jupyter Notebook. This comes from Accelerate's [`notebook_launcher`](https://huggingface.co/docs/accelerate/v0.12.0/en/basic_tutorials/notebook) utility, which allows for starting multi-gpu training based on code inside of a Jupyter Notebook.
 
 To use it is as trivial as importing the launcher:
 
@@ -309,7 +309,7 @@ notebook_launcher(train_accelerate_ddp, args=(), num_processes=2)
 
 ## Using 🤗 Trainer
 
-Finally, we arrive at the highest level of API -- the Hugging Face Trainer.
+Finally, we arrive at the highest level of API -- the Hugging Face [Trainer](https://huggingface.co/docs/transformers/main_classes/trainer).
 
 This wraps as much training as possible while still being able to train on distributed systems without the user needing to do anything at all.
 
