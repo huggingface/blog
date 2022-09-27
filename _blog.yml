@@ -1253,10 +1253,10 @@
     - research
     - nlp
 
-- local: accelerate-big-models
+- local: accelerate-large-models
   title: "How 🤗 Accelerate runs very large models thanks to PyTorch"
   author: sgugger
-  thumbnail: /blog/assets/104_accelerate-big-models/thumbnail.png
+  thumbnail: /blog/assets/104_accelerate-large-models/thumbnail.png
   date: September 26, 2022
   tags:
     - research
