@@ -10,8 +10,8 @@ Authors:
 This tutorial assumes you have a basic understanding of PyTorch and how to train a simple model. It will showcase training on multiple GPUs through a process called Distributed Data Parallelism (DDP) through three different layers:
 
 - Native PyTorch DDP through the `pytorch.distributed` module
-- Utilizing 🤗Accelerate's light wrapper around `pytorch.distributed` that also helps ensure the code can be run on a single GPU and TPUs with zero code changes and miminimal code changes to the original code
-- Utilizing 🤗Transformer's trainer, which is a high level wrapping API to perform a similar result to Accelerate
+- Utilizing 🤗 Accelerate's light wrapper around `pytorch.distributed` that also helps ensure the code can be run on a single GPU and TPUs with zero code changes and miminimal code changes to the original code
+- Utilizing 🤗 Transformer's trainer, which is a high level wrapping API to perform a similar result to Accelerate
 
 ## What is "Distributed" training and why does it matter?
 
@@ -141,7 +141,7 @@ This is where the `DistributedDataParallel` module comes into play. It will copy
 
 Below is an example of our training setup, refactored as a function, with this capability:
 
-> Note: Here rank is the overall rank of the GPU based on all other devices, meaning they have a rank of `0 -> n`
+> Note: Here rank is the overall rank of the current GPU compared to all the other GPUs available, meaning they have a rank of `0 -> n-1`
 
 ```python
 from torch.nn.parallel import DistributedDataParallel as DDP
@@ -171,7 +171,7 @@ Lastly, to run the script PyTorch has a convenient `torchrun` command line modul
 torchrun --nproc_per_nodes=2 --nnodes=1 example_script.py
 ```
 
-The above will run the training script on two GPUs that live on a single machine and this is the barebones for performing distributed training with PyTorch.
+The above will run the training script on two GPUs that live on a single machine and this is the barebones for performing only distributed training with PyTorch.
 
 Now let's talk about Accelerate, a library aimed to make this process more seameless and also help with a few best practices
 
