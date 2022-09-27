@@ -7,7 +7,7 @@ Authors:
 
 ## General Overview
 
-This tutorial assumes you have a basic understanding of PyTorch and how to train a very basic model. It will showcase training on multiple GPUs through a process called Distributed Data Parallelism (DDP) through three different layers:
+This tutorial assumes you have a basic understanding of PyTorch and how to train a simple model. It will showcase training on multiple GPUs through a process called Distributed Data Parallelism (DDP) through three different layers:
 
 - Native PyTorch DDP through the `pytorch.distributed` module
 - Utilizing 🤗Accelerate's light wrapper around `pytorch.distributed` that also helps ensure the code can be run on a single GPU and TPUs with zero code changes and miminimal code changes to the original code
@@ -163,9 +163,9 @@ def train(model, rank, world_size):
     cleanup()
 ```
 
-The optimizer needs to be declared based on the model *on the specific device* for all of the gradients to properly be calculated.
+The optimizer needs to be declared based on the model *on the specific device* (so `ddp_model` and not `model`) for all of the gradients to properly be calculated.
 
-Lastly, to run the script PyTorch has a convient `torchrun` command line module that can help. Just pass in the number of nodes it should use as well as the script to run and you are set:
+Lastly, to run the script PyTorch has a convenient `torchrun` command line module that can help. Just pass in the number of nodes it should use as well as the script to run and you are set:
 
 ```bash
 torchrun --nproc_per_nodes=2 --nnodes=1 example_script.py
@@ -177,7 +177,7 @@ Now let's talk about Accelerate, a library aimed to make this process more seame
 
 ## 🤗 Accelerate
 
-[Accelerate](huggingface.co/docs/Accelerate) is a library designed to allow you to perform what we just did above, without needing to modify your code greatly. On top of this, the data pipeline inate to Accelerate can also improve performance to your code as well.
+[Accelerate](https://huggingface.co/docs/accelerate) is a library designed to allow you to perform what we just did above, without needing to modify your code greatly. On top of this, the data pipeline innate to Accelerate can also improve performance to your code as well.
 
 First, let's wrap all of the above code we just performed into a single function, to help us visualize the difference:
 
@@ -319,7 +319,7 @@ First we need to import the Trainer:
 from transformers import Trainer
 ```
 
-Then we define some TrainingArguments since it will handle the dataloader creation. The trainer also works through dictionaries, so a custom colalte function needs to be made.
+Then we define some `TrainingArguments` to control all the usual hyper-parameters. The trainer also works through dictionaries, so a custom collate function needs to be made.
 
 Finally, we subclass the trainer and write our own `compute_loss`.
 
