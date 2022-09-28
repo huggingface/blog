@@ -1235,7 +1235,7 @@
     - llm
     - bloom
     - inference
-    
+
 - local: ethics-soc-1
   title: "Ethics and Society Newsletter #1"
   author: meg-huggingface
@@ -1243,7 +1243,7 @@
   date: Sep 22, 2022
   tags:
     - ethics
-    
+
 - local: setfit
   title: "SetFit: Efficient Few-Shot Learning Without Prompts"
   author: Unso
@@ -1262,3 +1262,13 @@
     - guide
     - research
     - open-source-collab
+
+- local: autotrain-image-classification
+  title: "Image Classification with AutoTrain"
+  author: NimaBoscarino
+  thumbnail: /blog/assets/105_autotrain-image-classification/thumbnail.png
+  date: Sep 28, 2022
+  tags:
+    - autotrain
+    - cv
+    - guide
