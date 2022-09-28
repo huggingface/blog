@@ -1,6 +1,6 @@
 ---
 title: Image Classification with AutoTrain 
-thumbnail: /blog/assets/103_autotrain-image-classification/thumbnail.png
+thumbnail: /blog/assets/105_autotrain-image-classification/thumbnail.png
 ---
 
 <h1>
