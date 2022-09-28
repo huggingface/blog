@@ -1239,8 +1239,8 @@
 - local: autotrain-image-classification
   title: "Image Classification with AutoTrain"
   author: NimaBoscarino
-  thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
-  date: Sep 26, 2022
+  thumbnail: /blog/assets/103_autotrain-image-classification/thumbnail.png
+  date: Sep 28, 2022
   tags:
     - autotrain
     - cv

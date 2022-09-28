@@ -1,6 +1,6 @@
 ---
 title: Image Classification with AutoTrain 
-thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
+thumbnail: /blog/assets/103_autotrain-image-classification/thumbnail.png
 ---
 
 <h1>
@@ -8,7 +8,7 @@ Image Classification with AutoTrain
 </h1>
 
 <div class="blog-metadata">
-    <small>Published Sep 26th, 2022.</small>
+    <small>Published Sep 28th, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/autotrain-image-classification.md">
         Update on GitHub
     </a>
@@ -26,7 +26,7 @@ Image Classification with AutoTrain
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
-So you’ve heard all about the cool things that are happening in the machine learning world, and you want to join in. There’s just one problem – you don’t know how to code! 😱 Or maybe you’re a seasoned software engineer who wants to add some AI to your side-project, but you don’t have the time to pick up a whole new tech stack! For many people, the technical barriers to picking up machine learning feel insurmountable. That’s why Hugging Face created [AutoTrain](https://huggingface.co/autotrain), and with the latest feature we’ve just added, we’re making “no-code” machine learning better than ever.
+So you’ve heard all about the cool things that are happening in the machine learning world, and you want to join in. There’s just one problem – you don’t know how to code! 😱 Or maybe you’re a seasoned software engineer who wants to add some ML to your side-project, but you don’t have the time to pick up a whole new tech stack! For many people, the technical barriers to picking up machine learning feel insurmountable. That’s why Hugging Face created [AutoTrain](https://huggingface.co/autotrain), and with the latest feature we’ve just added, we’re making “no-code” machine learning better than ever. Best of all, you can create your first project for ✨ free! ✨
 
 [Hugging Face AutoTrain](https://huggingface.co/autotrain) lets you train models with **zero** configuration needed. Just choose your task (translation? how about question answering?), upload your data, and let Hugging Face do the rest of the work! We’ve been expanding the number of tasks that we support, and we’re proud to announce that **you can now use AutoTrain for Computer Vision**! Image Classification is the latest task we’ve added, with more on the way. But what does this mean for you?
 
@@ -42,7 +42,7 @@ If you haven’t [created a Hugging Face account](https://huggingface.co/join) y
   </figure>
 </div>
 
-Once AutoTrain creates your project, you just need to connect your data. If you have the data locally, you can drag and drop the folder into the window. Since we can also use [any of the image classification datasets on the Hugging Face Hub](https://huggingface.co/datasets?task_categories=task_categories:image-classification), in this example I’ve decided to use the [NimaBoscarino/butterflies](https://huggingface.co/datasets/NimaBoscarino/butterflies) dataset. You can select separate training and validation datasets if you have them available, or you can ask AutoTrain to split the data for you.
+Once AutoTrain creates your project, you just need to connect your data. If you have the data locally, you can drag and drop the folder into the window. Since we can also use [any of the image classification datasets on the Hugging Face Hub](https://huggingface.co/datasets?task_categories=task_categories:image-classification), in this example I’ve decided to use the [NimaBoscarino/butterflies](https://huggingface.co/datasets/NimaBoscarino/butterflies) dataset. You can select separate training and validation datasets if available, or you can ask AutoTrain to split the data for you.
 
 <div class="grid grid-cols-2 gap-4">
   <figure class="image table text-center m-0 w-full">
