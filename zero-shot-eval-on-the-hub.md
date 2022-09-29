@@ -13,18 +13,18 @@ thumbnail: /blog/assets/106_zero_shot_eval_on_the_hub/thumbnail.png
 </div>
 
 <div class="author-card">
-    <a href="/Tristan">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1648247133961-61e9e3d4e2a95338e04c9f33.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>Tristan</code>
-            <span class="fullname">Tristan Thrush</span>
-        </div>
-    </a>
     <a href="/mathemakitten">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1658248499901-6079afe2d2cd8c150e6ae05e.jpeg?w=200&h=200&f=face">
         <div class="bfc">
             <code>mathemakitten</code>
             <span class="fullname">Helen Ngo</span>
+        </div>
+    </a>
+    <a href="/Tristan">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1648247133961-61e9e3d4e2a95338e04c9f33.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>Tristan</code>
+            <span class="fullname">Tristan Thrush</span>
         </div>
     </a>
     <a href="/abhishek">
