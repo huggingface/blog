@@ -6,7 +6,7 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 # Very Large Language Models and How to Evaluate Them 
 
 <div class="blog-metadata">
-    <small>Published September 02, 2022.</small>
+    <small>Published September 30, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/decision-transformers-train.md">
         Update on GitHub
     </a>
@@ -54,7 +54,7 @@ Large language models can now be evaluated on zero-shot classification tasks wit
 
 Zero-shot evaluation is a popular way for researchers to measure performance of large language models, as they have been [shown](https://arxiv.org/abs/2005.14165) to learn capabilities during training without explicitly being shown labeled examples.
 
-[image for "what is zero shot eval"]
+![dataset](assets/106_zero_shot_eval_on_the_hub/zeroshot.jpg)
 
 ## Enabling zero-shot evaluation of language models on the Hub
 
@@ -70,15 +70,15 @@ In this blog post, we’ll use the zero-shot text classification task to evaluat
 
 The [WinoBias](https://github.com/uclanlp/corefBias) dataset has been formatted as a zero-shot task where classification options are the completions. Each completion differs by the pronoun, and the target corresponds to the anti-stereotypical completion for the occupation. See here for an example:
 
-[image goes here]
+![dataset](assets/106_zero_shot_eval_on_the_hub/dataset.png)
 
 Next, we can select this newly-uploaded dataset in the Evaluation on the Hub interface using the `text_zero_shot_classification` task, select the models we’d like to evaluate, and submit our evaluation jobs! When the job has been completed, you’ll be notified by email that the autoevaluator bot has opened a new pull request with the results on the model’s Hub repository.
 
-[image goes here]
+![Evaluation on the Hub](assets/106_zero_shot_eval_on_the_hub/eval_hub.png)
 
 Plotting the results from the WinoBias task, we find that smaller models are more likely to select the anti-stereotypical pronoun for a sentence, while larger models are more likely to learn stereotypical associations between gender and occupation in text.
 
-[image goes here of scaling law]
+![Winobias](./assets/106_zero_shot_eval_on_the_hub/winobias.jpg)
 
 Evaluation on the Hub makes it simple to compare the zero-shot performance of a set of models along an axis such as FLOPS or model size, and to compare the performance of a set of models trained on a specific corpora against a different set of models. The zero-shot text classification task is extremely flexible—any dataset that can be permuted into a Winograd schema where examples to be compared only differ by a few words can be used with this task and evaluated on many models at once. Our goal is to make it simple to upload a new dataset for evaluation and enable researchers to easily benchmark many models on it.
 
