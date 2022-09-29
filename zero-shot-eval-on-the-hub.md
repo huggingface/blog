@@ -1,6 +1,6 @@
 ---
 title: "Very Large Language Models and How to Evaluate Them" 
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+thumbnail: /blog/assets/106_zero_shot_eval_on_the_hub/thumbnail.png
 ---
 
 # Very Large Language Models and How to Evaluate Them 
