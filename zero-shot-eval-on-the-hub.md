@@ -6,7 +6,7 @@ thumbnail: /blog/assets/106_zero_shot_eval_on_the_hub/thumbnail.png
 # Very Large Language Models and How to Evaluate Them 
 
 <div class="blog-metadata">
-    <small>Published September 30, 2022.</small>
+    <small>Published October 3, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/decision-transformers-train.md">
         Update on GitHub
     </a>
