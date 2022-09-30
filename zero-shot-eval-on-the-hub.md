@@ -52,7 +52,7 @@ thumbnail: /blog/assets/106_zero_shot_eval_on_the_hub/thumbnail.png
 
 Large language models can now be evaluated on zero-shot classification tasks with [Evaluation on the Hub](https://huggingface.co/spaces/autoevaluate/model-evaluator)! 
 
-Zero-shot evaluation is a popular way for researchers to measure the performance of large language models, as they have been [shown](https://arxiv.org/abs/2005.14165) to learn capabilities during training without explicitly being shown labeled examples.
+Zero-shot evaluation is a popular way for researchers to measure the performance of large language models, as they have been [shown](https://arxiv.org/abs/2005.14165) to learn capabilities during training without explicitly being shown labeled examples. The [Inverse Scaling Prize](https://github.com/inverse-scaling/prize) is an example of a recent community effort to conduct large-scale zero-shot evaluation across model sizes and families to discover tasks on which larger models may perform worse than their smaller counterparts.
 
 ![dataset](assets/106_zero_shot_eval_on_the_hub/zeroshot.jpg)
 
