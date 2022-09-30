@@ -68,7 +68,7 @@ In this blog post, we’ll use the zero-shot text classification task to evaluat
 
 ## Case study: Zero-shot evaluation on the WinoBias task
 
-The [WinoBias](https://github.com/uclanlp/corefBias) dataset has been formatted as a zero-shot task where classification options are the completions. Each completion differs by the pronoun, and the target corresponds to the anti-stereotypical completion for the occupation. See [here](https://huggingface.co/datasets/mathemakitten/winobias_antistereotype_test) for an example:
+The [WinoBias](https://github.com/uclanlp/corefBias) dataset has been formatted as a zero-shot task where classification options are the completions. Each completion differs by the pronoun, and the target corresponds to the anti-stereotypical completion for the occupation (e.g. "developer" is stereotypically a male-dominated occupation, so "she" would be the anti-stereotypical pronoun). See [here](https://huggingface.co/datasets/mathemakitten/winobias_antistereotype_test) for an example:
 
 ![dataset](assets/106_zero_shot_eval_on_the_hub/dataset.png)
 
