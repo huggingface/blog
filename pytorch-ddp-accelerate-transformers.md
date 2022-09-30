@@ -7,11 +7,11 @@ Authors:
 
 ## General Overview
 
-This tutorial assumes you have a basic understanding of PyTorch and how to train a simple model. It will showcase training on multiple GPUs through a process called Distributed Data Parallelism (DDP) through three different layers:
+This tutorial assumes you have a basic understanding of PyTorch and how to train a simple model. It will showcase training on multiple GPUs through a process called Distributed Data Parallelism (DDP) through three different levels of increasing abstraction:
 
 - Native PyTorch DDP through the `pytorch.distributed` module
 - Utilizing 🤗 Accelerate's light wrapper around `pytorch.distributed` that also helps ensure the code can be run on a single GPU and TPUs with zero code changes and miminimal code changes to the original code
-- Utilizing 🤗 Transformer's trainer, which is a high level wrapping API to perform a similar result to Accelerate
+- Utilizing 🤗 Transformer's high-level Trainer API which abstracts all the boilerplate code and supports various devices and distributed scenarios
 
 ## What is "Distributed" training and why does it matter?
 
@@ -137,7 +137,7 @@ def cleanup():
 
 The last piece of the puzzle is *how do I send my data and model to another GPU?*
 
-This is where the `DistributedDataParallel` module comes into play. It will copy your model into each GPU, and when `loss.backward()` is called the gradients across all these copies of the model will be averaged, backprop is performed, and each of the weights get updated to have the same weights across all devices.
+This is where the `DistributedDataParallel` module comes into play. It will copy your model onto each GPU, and when `loss.backward()` is called the backpropagation is performed and the resulting gradients across all these copies of the model will be averaged/reduced. This ensures each device has the same weights post the optimizer step.
 
 Below is an example of our training setup, refactored as a function, with this capability:
 
@@ -263,7 +263,7 @@ def train_ddp_accelerate():
     for batch_idx, (data, target) in enumerate(train_loader):
         output = model(data)
         loss = F.nll_loss(output, target)
-        loss.backward()
+        accelerator.backward(loss)
         optimizer.step()
         optimizer.zero_grad()
     
