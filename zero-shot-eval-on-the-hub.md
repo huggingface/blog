@@ -52,15 +52,15 @@ thumbnail: /blog/assets/106_zero_shot_eval_on_the_hub/thumbnail.png
 
 Large language models can now be evaluated on zero-shot classification tasks with [Evaluation on the Hub](https://huggingface.co/spaces/autoevaluate/model-evaluator)! 
 
-Zero-shot evaluation is a popular way for researchers to measure performance of large language models, as they have been [shown](https://arxiv.org/abs/2005.14165) to learn capabilities during training without explicitly being shown labeled examples.
+Zero-shot evaluation is a popular way for researchers to measure the performance of large language models, as they have been [shown](https://arxiv.org/abs/2005.14165) to learn capabilities during training without explicitly being shown labeled examples.
 
 ![dataset](assets/106_zero_shot_eval_on_the_hub/zeroshot.jpg)
 
 ## Enabling zero-shot evaluation of language models on the Hub
 
-[Evaluation on the Hub](https://huggingface.co/blog/eval-on-the-hub) helps you evaluate any model on the Hub without writing code, powered by [AutoTrain](https://huggingface.co/autotrain). Now, any causal language model on the Hub can be evaluated in a zero-shot fashion. Zero-shot evaluation measures the likelihood of a trained model producing a given set of tokens and does not require any labelled training data, which allows researchers to skip expensive labelling efforts. 
+[Evaluation on the Hub](https://huggingface.co/blog/eval-on-the-hub) helps you evaluate any model on the Hub without writing code, and is powered by [AutoTrain](https://huggingface.co/autotrain). Now, any causal language model on the Hub can be evaluated in a zero-shot fashion. Zero-shot evaluation measures the likelihood of a trained model producing a given set of tokens and does not require any labelled training data, which allows researchers to skip expensive labelling efforts. 
 
-We’ve upgraded the AutoTrain infrastructure for this project so that large models can be evaluated for free. It’s expensive and time-consuming for users to figure out how to write custom code to evaluate big models on GPUs—a language model with 66 billion parameters may take 35 minutes just to load and compile, making evaluation of large models accessible only to those with expensive infrastructure and extensive technical experience. With these changes, evaluating a model with 66-billion parameters on a zero-shot classification task with 2000 sentence-length examples takes 3.5 hours and can be done by anyone without writing any code. Evaluation on the Hub currently supports evaluating models up to 66 billion parameters, and support for larger models is to come.
+We’ve upgraded the AutoTrain infrastructure for this project so that large models can be evaluated for free 🤯! It’s expensive and time-consuming for users to figure out how to write custom code to evaluate big models on GPUs. For example, a language model with 66 billion parameters may take 35 minutes just to load and compile, making evaluation of large models accessible only to those with expensive infrastructure and extensive technical experience. With these changes, evaluating a model with 66-billion parameters on a zero-shot classification task with 2000 sentence-length examples takes 3.5 hours and can be done by anyone in the community. Evaluation on the Hub currently supports evaluating models up to 66 billion parameters, and support for larger models is to come.
 
 The zero-shot text classification task takes in a dataset containing a set of prompts and possible completions. Under the hood, the completions are concatenated with the prompt and the log-probabilities for each token are summed, then normalized and compared with the correct completion to report accuracy of the task.
 
