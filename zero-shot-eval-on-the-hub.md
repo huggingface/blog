@@ -76,7 +76,7 @@ Next, we can select this newly-uploaded dataset in the Evaluation on the Hub int
 
 ![Evaluation on the Hub](assets/106_zero_shot_eval_on_the_hub/eval_hub.png)
 
-Plotting the results from the WinoBias task, we find that smaller models are more likely to select the anti-stereotypical pronoun for a sentence, while larger models are more likely to learn stereotypical associations between gender and occupation in text. This corroborates trends from other bias benchmarks, like BIG-Bench and 
+Plotting the results from the WinoBias task, we find that smaller models are more likely to select the anti-stereotypical pronoun for a sentence, while larger models are more likely to learn stereotypical associations between gender and occupation in text. This corroborates results from other benchmarks (e.g. [BIG-Bench](https://arxiv.org/abs/2206.04615)) which show that larger, more capable models are more likely to be biased with regard to gender, race, ethnicity, and nationality, and [prior work](https://www.deepmind.com/publications/scaling-language-models-methods-analysis-insights-from-training-gopher) which shows that larger models are more likely to generate toxic text. 
 
 ![Winobias](./assets/106_zero_shot_eval_on_the_hub/winobias.png)
 
