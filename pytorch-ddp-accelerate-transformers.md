@@ -283,7 +283,7 @@ Now any and all custom code needed to launch your code on any distributed setup 
 
 As a result its now trivialized to perform distributed training with Accelerate and keeping as much of the barebones PyTorch code the same as possible.
 
-Earlier it was mentioned that Accelerate also makes the DataLoaders more efficient. This is through custom Samplers that will send parts of the batches automatically to different devices during training allowing for a single copy of the data to be known at one time, rather than four at once into memory.
+Earlier it was mentioned that Accelerate also makes the DataLoaders more efficient. This is through custom Samplers that can send parts of the batches automatically to different devices during training allowing for a single copy of the data to be known at one time, rather than four at once into memory depending on the configuration. Along with this, there is only a single full copy of the original dataset in memory total. Subsets of this dataset are split between all of the nodes that are utilized for training, allowing for much larger datasets to be trained on a single instance without an explosion in memory utilized.
 
 ### Using the `notebook_launcher`
 
