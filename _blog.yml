@@ -1272,3 +1272,15 @@
     - autotrain
     - cv
     - guide
+
+- local: japanese-stable-diffusion
+  title: "Japanese Stable Diffusion"
+  author: mkshing
+  thumbnail: /blog/assets/106_japanese_stable_diffusion/jsd_thumbnail.png
+  date: Oct 1, 2022
+  tags:
+    - diffusion
+    - nlp
+    - text to image
+    - clip
+    - stable diffusion
