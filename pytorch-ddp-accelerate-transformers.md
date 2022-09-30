@@ -106,7 +106,7 @@ print(f'Accuracy: {100. * correct / len(test_loader.dataset)}')
 
 Typically from here, one could either throw all of this into a python script or run it on a Jupyter Notebook.
 
-However, how would you then get this to run on say two GPUs if these resources available? Just doing `python myscript.py` will only ever run the script using a single GPU. This is where `torch.distributed` comes into play
+However, how would you then get this script to run on say two GPUs or on multiple machines if these resources are available, which could improve training speed through *distributed* training? Just doing `python myscript.py` will only ever run the script using a single GPU. This is where `torch.distributed` comes into play
 
 ## PyTorch Distributed Data Parallelism
 
