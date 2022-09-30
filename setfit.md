@@ -34,7 +34,7 @@ thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
 </a>
 
     
-<a href="dkorat">
+<a href="/dkorat">
     <img class="avatar avatar-user" src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=vOrCEQgAAAAJ&citpid=2" title="Gravatar">
     <div class="bfc">
         <code>dkorat</code>
@@ -42,13 +42,13 @@ thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
     </div>
 </a>
  
-<a href="orenpereg">
+<a href="/orenpereg">
     <img class="avatar avatar-user" src="https://scholar.googleusercontent.com/citations?view_op=view_photo&user=ZPaGFOIAAAAJ&citpid=1" title="Gravatar">   <div class="bfc">
         <code>orenpereg</code>
         <span class="fullname">Oren Pereg</span>
     </div>
  </a>
-<a href="orenpereg">
+<a href="/moshew">
     <img class="avatar avatar-user" src="https://www.nlpsummit.org/wp-content/uploads/2020/06/Moshe-Wasserblat.jpeg" title="Gravatar">
     <div class="bfc">
         <code>moshew</code>
