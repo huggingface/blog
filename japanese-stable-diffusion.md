@@ -38,7 +38,7 @@ Stable Diffusion, developed by [CompVis](https://github.com/CompVis), [Stability
 In this blog, we will discuss the background of the development of Japanese Stable Diffusion and its learning methodology.
 Japanese Stable Diffusion is available on HuggingFace and Github. The code is based on  [🧨 Diffusers](https://huggingface.co/docs/diffusers/index).
 
-- Hugging Face: https://huggingface.co/rinna/japanese-stable-diffusion
+- Hugging Face model card: https://huggingface.co/rinna/japanese-stable-diffusion
 - Hugging Face Spaces: https://huggingface.co/spaces/rinna/japanese-stable-diffusion
 - GitHub: https://github.com/rinnakk/japanese-stable-diffusion
 
