@@ -80,6 +80,8 @@ Plotting the results from the WinoBias task, we find that smaller models are mor
 
 ![Winobias](./assets/106_zero_shot_eval_on_the_hub/winobias.jpg)
 
+## Enabling better research tools for everyone
+
 Evaluation on the Hub makes it simple to compare the zero-shot performance of a set of models along an axis such as FLOPS or model size, and to compare the performance of a set of models trained on a specific corpora against a different set of models. The zero-shot text classification task is extremely flexible—any dataset that can be permuted into a Winograd schema where examples to be compared only differ by a few words can be used with this task and evaluated on many models at once. Our goal is to make it simple to upload a new dataset for evaluation and enable researchers to easily benchmark many models on it.
 
 An example research question which can be addressed with tools like this is the inverse scaling problem: while larger models are generally more capable at the majority of language tasks, there are tasks where larger models perform worse. The [Inverse Scaling Prize](https://github.com/inverse-scaling/prize) is a competition which challenges researchers to construct tasks where larger models perform worse than their smaller counterparts. We encourage you to try zero-shot evaluation on models of all sizes with your own tasks! If you find an interesting trend along model sizes, consider submitting your findings to round 2 of the [Inverse Scaling Prize](https://github.com/inverse-scaling/prize).
