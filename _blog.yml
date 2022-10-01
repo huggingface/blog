@@ -1272,3 +1272,13 @@
     - autotrain
     - cv
     - guide
+
+- local: zero-shot-eval-on-the-hub
+  title: "Very Large Language Models and How to Evaluate Them"
+  author: mathemakitten
+  thumbnail: /blog/assets/106_zero_shot_eval_on_the_hub/thumbnail.png
+  date: Oct 3, 2022
+  tags:
+    - autotrain
+    - research
+    - nlp
