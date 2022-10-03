@@ -368,8 +368,7 @@ Attention takes a lot of time, careful this is a CPU view so the long
 bars don't mean long, they mean the CPU is awaiting the GPU results of the
 previous step.
 
-// Image2
-<img src="assets/bloom-inference-optimization/profiler">
+<img src="assets/bloom-inference-optimization/profiler.png">
 We see many  `cat` operations before `baddbmm`.
 
 
