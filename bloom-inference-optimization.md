@@ -363,8 +363,15 @@ Other parts come out more clearly when you start [profiling](https://pytorch.org
 
 This provides this sort of images which give insights:
 
-// Image1
+<img src="assets/bloom-inference-optimization/profiler_simple.png">
+Attention takes a lot of time, careful this is a CPU view so the long
+bars don't mean long, they mean the CPU is awaiting the GPU results of the
+previous step.
+
 // Image2
+<img src="assets/bloom-inference-optimization/profiler">
+We see many  `cat` operations before `baddbmm`.
+
 
 Removing a lot of reshape/transpose, for instance, we figured out that:
     - The attention is the hotpath (it's expected but always good to verify).
