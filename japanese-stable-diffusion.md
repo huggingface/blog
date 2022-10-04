@@ -83,7 +83,7 @@ So, this is why we made a language-specific version of Stable Diffusion. Japanes
 
 ### Training Data
 
-We used approximately 100 million images with Japanese captions, including the Japanese subset of [LAION-5B](https://laion.ai/blog/laion-5b/). In addition, to remove noise data, we used [japanese-cloob-vit-b-16](https://huggingface.co/rinna/japanese-cloob-vit-b-16) published by rinna Co., Ltd. as a preprocessing step to remove noise data whose scores were lower than a certain threshold.
+We used approximately 100 million images with Japanese captions, including the Japanese subset of [LAION-5B](https://laion.ai/blog/laion-5b/). In addition, to remove low quality samples, we used [japanese-cloob-vit-b-16](https://huggingface.co/rinna/japanese-cloob-vit-b-16) published by rinna Co., Ltd. as a preprocessing step to remove samples whose scores were lower than a certain threshold.
 
 ### Training Details
 
