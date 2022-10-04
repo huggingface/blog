@@ -6,7 +6,7 @@ thumbnail: /blog/assets/106_japanese_stable_diffusion/jsd_thumbnail.png
 # Japanese Stable Diffusion
 
 <div class="blog-metadata">
-    <small>Published October 01, 2022.</small>
+    <small>Published October 05, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/japanese-stable-diffusion.md">
         Update on GitHub
     </a>
