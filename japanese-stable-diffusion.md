@@ -52,7 +52,7 @@ Recently diffusion models have been reported to be very effective in artificial 
 
 Generally, a text-to-image model consists of a text encoder that interprets text and a generative model that generates an image from its output.
 
-Stable Diffusion uses CLIP, the language-image pre-training model from OpenAI, as its text encoder and a latent diffusion model, which is an improved version of the diffusion model, as the generative model. Stable Diffusion was trained on mainly the English subset of LAION-5B and can generate high-performance images simply by entering text prompts. In addition to its high-performance, Stable Diffusion is also easy to use with inference running at a computing cost of about 10GB VRAM GPU.
+Stable Diffusion uses CLIP, the language-image pre-training model from OpenAI, as its text encoder and a latent diffusion model, which is an improved version of the diffusion model, as the generative model. Stable Diffusion was trained mainly on the English subset of LAION-5B and can generate high-performance images simply by entering text prompts. In addition to its high performance, Stable Diffusion is also easy to use with inference running at a computing cost of about 10GB VRAM GPU.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/stable_diffusion.png" alt="sd-pipeline" width="300"/>
