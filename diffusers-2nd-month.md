@@ -221,7 +221,7 @@ video_path = walk(['a cat', 'a dog'], [42, 1337], num_steps=3, make_video=True)
 
 ### Diffusers Interpret
 
-[Diffusers interpret](https://github.com/JoaoLages/diffusers-interpret) is a explainability tool built on top of `diffusers`. It has cool features such as:
+[Diffusers interpret](https://github.com/JoaoLages/diffusers-interpret) is an explainability tool built on top of `diffusers`. It has cool features such as:
 
 * See all the images in the diffusion process
 * Analyze how each token in the prompt influences the generation
