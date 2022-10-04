@@ -128,7 +128,7 @@ This stage enables the model to understand Japanese prompts but does not still o
 Therefore, in the 2nd stage, we train to output more Japanese-style images.
 
 #### 2nd stage: Fine-tune the text encoder and the latent diffusion model jointly
-In the 2nd stage, we will train both the text encoder and the latent diffusion model to generate Japanese-style images. This stage is important to make the model become a more language-specific model. After this, the model is finally able to generate a businessman with a Japanese face, as shown in the image below.
+In the 2nd stage, we will train both the text encoder and the latent diffusion model to generate Japanese-style images. This stage is essential to make the model become a more language-specific model. After this, the model can finally generate a businessman with a Japanese face, as shown in the image below.
 
 <p align="center">
 <img src="assets/106_japanese_stable_diffusion/jsd-stage2.jpeg" alt="salary man of japanese stable diffusion" title="salary man of japanese stable diffusion">
