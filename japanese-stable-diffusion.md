@@ -39,7 +39,7 @@ Stable Diffusion, developed by [CompVis](https://github.com/CompVis), [Stability
 [rinna Co., Ltd](https://rinna.co.jp/). has developed a Japanese-specific text-to-image model named "Japanese Stable Diffusion" by fine-tuning Stable Diffusion on Japanese-captioned images. Japanese Stable Diffusion accepts Japanese text prompts and generates images that reflect the culture of the Japanese-speaking world which may be difficult to express through translation.
 
 In this blog, we will discuss the background of the development of Japanese Stable Diffusion and its learning methodology.
-Japanese Stable Diffusion is available on HuggingFace and Github. The code is based on  [🧨 Diffusers](https://huggingface.co/docs/diffusers/index).
+Japanese Stable Diffusion is available on Hugging Face and GitHub. The code is based on  [🧨 Diffusers](https://huggingface.co/docs/diffusers/index).
 
 - Hugging Face model card: https://huggingface.co/rinna/japanese-stable-diffusion
 - Hugging Face Spaces: https://huggingface.co/spaces/rinna/japanese-stable-diffusion
