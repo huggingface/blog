@@ -324,6 +324,6 @@ The whole process is summarized in the following video:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/MWCSGj9jEAo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-This way, your model can be loaded and run even if you don't have enough GPU RAM and CPU RAM. The only thing you need is disk space (and lots of patience!) While this solution is pretty naive if you have multiple GPUs (there is no clever pipeline parallelism involved, just using the GPUs sequentially) it still yield [pretty decent results for BLOOM](https://huggingface.co/blog/bloom-inference-pytorch-scripts). And it allows you to run the model on smaller setups (albeit more slowly).
+This way, your model can be loaded and run even if you don't have enough GPU RAM and CPU RAM. The only thing you need is disk space (and lots of patience!) While this solution is pretty naive if you have multiple GPUs (there is no clever pipeline parallelism involved, just using the GPUs sequentially) it still yields [pretty decent results for BLOOM](https://huggingface.co/blog/bloom-inference-pytorch-scripts). And it allows you to run the model on smaller setups (albeit more slowly).
 
 To learn more about Accelerate big model inference, see the [documentation](https://huggingface.co/docs/accelerate/usage_guides/big_modeling).
