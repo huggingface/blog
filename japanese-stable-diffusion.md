@@ -46,7 +46,7 @@ Japanese Stable Diffusion is available on Hugging Face and GitHub. The code is b
 - GitHub: https://github.com/rinnakk/japanese-stable-diffusion
 
 ## Stable Diffusion
-Recently diffusion models have been reported to be very effective in artificial synthesis, even more so that GANs (Generative Adversarial Networks), for images. HuggingFace explains how diffusion models work in the following articles:
+Recently diffusion models have been reported to be very effective in artificial synthesis, even more so than GANs (Generative Adversarial Networks) for images. Hugging Face explains how diffusion models work in the following articles:
 - [The Annotated Diffusion Model](https://huggingface.co/blog/annotated-diffusion)
 - [Getting started with 🧨 Diffusers](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/diffusers_intro.ipynb)
 
