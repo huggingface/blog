@@ -21,15 +21,14 @@ thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
     </a>
 </div>
 
-This article aims to reconstitute slightly the story behind making an efficient
+This article gives you the behind-the-scenes of how we made an efficient inference server that powers bloom.
 inference server that powers [https://huggingface.co/bigscience/bloom]().
 
-We achieved 5x latency reduction over the course of several weeks (and 50x more throughput). But this article
-aims to show more the struggles and epic wins we had to go through in order to achieve that
+We achieved 5x latency reduction over the course of several weeks (and 50x more throughput). We wanted to share all the struggles and epic wins we went through in order to achieve such speed improvements.
 
-A lot of different people were involved at many stages so not everything will be covered here. And please bear with us, some of the content might be outdated, flat out wrong because
-we're still learning how to optimize extremely large models and lots of new features
-hardware and content keep coming out regulary.
+A lot of different people were involved at many stages so not everything will be covered here. And please bear with us, some of the content might be outdated or flat out wrong because
+we're still learning how to optimize extremely large models and lots of new
+hardware features and content keep coming out regulary.
 
 If your favorite flavor of optimizations
 is not discussed or improperly represented, we're sorry, please share it with us
@@ -50,7 +49,7 @@ library.
 # Porting to transformers
 
 Because the original training code, we set out to do something which we regularly
-do, port an existing model to `transformers`. The goal was to extract from the
+do:  port an existing model to `transformers`. The goal was to extract from the
 training code, and make all of this effort more accessible to everyone afterwards.
 This effort was tackled by [Younes](/ybelkada).
 This is by no means a small effort as it took almost a month and [200 commits](https://github.com/huggingface/transformers/pull/17474/commits) to get there.
@@ -62,7 +61,7 @@ This is extremely important because they are smaller, so everything is faster wh
 working with them.
 
 First, you have to abandon hope to have exactly the same logits at the end down
-to the bytes. PyTorch versions can change the kernels and introduce subtle difference, and different hardware
+to the bytes. PyTorch versions can change the kernels and introduce subtle differences, and different hardware
 might yield different results because of different architecture (and you probably
 don't want to dev on a A100 GPU all the time for costs reasons).
 
@@ -84,14 +83,14 @@ tests. The second model is more stable but was trained and saved in `float16` in
 of `bfloat16`. That's more room for error between the two.
 
 To be perfectly fair `bfloat16` -> `float16` conversion seemed to be OK in inference
-mode (`bfloat16` existss mostly to handle large gradients, which do not exist in inference).
+mode (`bfloat16` mostly exists to handle large gradients, which do not exist in inference).
 
 During that step, one important tradeoff was discovered and implemented.
 Because bloom was trained in a distributed setting, part of the code was doing
-Tensor parallelism on a Linear layer. meaning running the same operation as a single
+Tensor parallelism on a Linear layer meaning running the same operation as a single
 operation on a single GPU was giving [different results](https://github.com/huggingface/transformers/blob/main/src/transformers/models/bloom/modeling_bloom.py#L350).
-This took a while to pin point and either we went for 100% compliance and the model
-was much slower than it could, or we would take a small difference in generation
+This took a while to pinpoint and either we went for 100% compliance and the model
+was much slower, or we would take a small difference in generation
 but was much faster to run and simpler code. We opted for a configurable flag.
 
 # First inference (PP + Accelerate)
@@ -100,19 +99,19 @@ Now we have a workable `transformers` clean version of the start
 working on running this.
 
 Bloom is a 320Go(176B parameters in bf16) model, we need at least that much
-GPU RAM to make it fit. We explored briefly offloading to CPU on smaller machines
+GPU RAM to make it fit. We briefly explored offloading to CPU on smaller machines
 but the inference speed was orders of magnitude slower so we discarded it.
 
-Then we wanted to basically the [pipeline](https://huggingface.co/docs/transformers/v4.22.2/en/pipeline_tutorial#pipeline-usage).
+Then we wanted to basically use the [pipeline](https://huggingface.co/docs/transformers/v4.22.2/en/pipeline_tutorial#pipeline-usage).
 So it's dogfooding and this is what the API uses under the hood all the time.
 
 However `pipelines` are not distributed aware (it's not their goal). After briefly
 discussing options, we ended up using [accelerate](https://github.com/huggingface/accelerate/) newly
 created `device_map="auto"` to manage the sharding of the model. We had to iron
-a few bugs, fix a little the `transformers` code to help `accelerate` do the right job.
+a few bugs, fix the `transformers` code a bit to help `accelerate` do the right job.
 
 It works by splitting the various layers of the transformers and giving part of
-the model to each GPU. So GPU0 gets to work, then hands it out to GPU1 so on
+the model to each GPU. So GPU0 gets to work, then hands it over to GPU1 so on
 and so forth.
 
 In the end, with a small HTTP server on top we could start serving bloom (the big model) !!
@@ -203,7 +202,7 @@ your target. In this case we're 2 orders of magnitude so pretty far. Also this e
 all the flops at the service of latency which means only a single request can go at a time (it's ok since you're maximizing your machine
 so there's not much else to be done, but we can have a higher latency and get throughput back through batching much more easily).
 
-# Exploring many routes. 
+# Exploring many routes
 
 Now that we have a good understanding of where we stand it's time to get to work.
 
@@ -441,17 +440,17 @@ Places where we found it worked really well:
 
 ## Epic fail
 
-We also had during our testing periods, ended up at some point seeing some consistent
+We also had some points, during our testing periods, where we ended up seeing some consistent
 25% lower latency for the Rust server compared to the Python one. This was rather
 odd, but because it was consistently measured, and because removing kernels provided a speed
 up, we were under the impression that maybe dropping the Python overhead could
 provide a nice boost. 
 
-We started a 3 days job, which was to reimplement the necessary parts of `torch.distributed`
+We started a 3 day job to reimplement the necessary parts of `torch.distributed`
 To get up and running in the Rust world [nccl-rs](https://github.com/Narsil/nccl-rs).
 We had the version working but something was off in the generations compared to its 
 Python counterpart. During investigation of the issues, we figured...
-**that we had forgot to remove the profiler in the Pytorch measurements**....
+**that we had forgotten to remove the profiler in the Pytorch measurements**....
 
 That was the epic fail, because removing it gave us back the 25% and then both
 codes ran just as fast.  This is what we initially expected, that python mustn't
@@ -467,13 +466,13 @@ Another place where we had to be extra careful, was the initial forward pass (wi
 past) and the later forward passes (with past). If you optimize the first one, 
 you're most certainly going to be slowing down the later ones which are much more
 important and account for most of the runtime.
-Another pretty common culprit, is measuring times which are CPU times, and not
-actual CUDA times, you need to to `torch.cuda.synchronize()` when doing
+Another pretty common culprit is measuring times which are CPU times, and not
+actual CUDA times, so you need to to `torch.cuda.synchronize()` when doing
 runs to be sure that the kernels completes.
 
 ## Custom kernel
 
-Now, we had achieved close to DeepSpeed performance without any custom code 
+So far, we had achieved close to DeepSpeed performance without any custom code 
 outside of PyTorch ! Pretty neat. We also didn't have to make any compromise
 on flexibility of the run time batch size !
 
@@ -527,9 +526,9 @@ and applies them to each member of the batch.
 Another really important aspect of the final UX is the latency.
 Since we have different parameter sets for different requests, we might have
 
-1 request for 20tokens and the other for 250 tokens. Since it takes
+1 request for 20 tokens and the other for 250 tokens. Since it takes
 75ms/token latency one request takes 1.5s and the other 18s. If we were
-batching all the way, we would be making the user that asked wait for 18s 
+batching all the way, we would be making the user that asked to wait for 18s 
 and making it appear to him as if we were running at 900ms/token which is quite slow!
 
 Since we're in PyTorch world with extreme flexibility, what we can do instead
@@ -541,7 +540,7 @@ So flexibility **is** important in order to get the best possible latency out th
 # Last notes and crazy ideas
 
 Optimization is a never ending job, and like any other projects, 20% work
-will yield 80% of the results usually.
+will usually yield 80% of the results.
 At some point we started having a small testing strategy to figure out 
 potential yields of some idea we had, and if the tests didn't yield significant
 results then we discarded the idea. 1 day for 10% increase is valuable enough, 2 weeks for 10X
