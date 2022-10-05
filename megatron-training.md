@@ -58,7 +58,7 @@ Now that you are familiar with the framework and what makes it advantageous, let
 ## How to train with Megatron-LM ?
 
 ### Setup
-The easiest way to setup the environement is to pull an NVIDIA PyTorch Container that comes with all the required installations from [NGC](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch). See [documentation](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html) for more details. If you don't want to use this container you will need to install the latest pytorch, cuda, nccl, and NVIDIA [APEX](https://github.com/NVIDIA/apex#quick-start) releases and the `nltk` library.
+The easiest way to setup the environment is to pull an NVIDIA PyTorch Container that comes with all the required installations from [NGC](https://catalog.ngc.nvidia.com/orgs/nvidia/containers/pytorch). See [documentation](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html) for more details. If you don't want to use this container you will need to install the latest pytorch, cuda, nccl, and NVIDIA [APEX](https://github.com/NVIDIA/apex#quick-start) releases and the `nltk` library.
 
 So after having installed Docker, you can run the container with the following command (`xx.xx` denotes your Docker version), and then clone [Megatron-LM repository](https://github.com/NVIDIA/Megatron-LM) inside it:
 ```bash
@@ -156,7 +156,7 @@ This setup uses Data Parallelism, but it is also possible to use Model Paralleli
 
 
 ### Converting the model to 🤗 Transformers
-After training we want to use the model in `transformers` e.g. for evaluation or to deploy it to production. You can convert it to a `transformers` model following this [tutorial](https://huggingface.co/nvidia/megatron-gpt2-345m). For instance, after the training is finished you can copy the weights of the last iteration 150k and convert the `model_optim_rng.pt` file to a `pytorch_model.bin` file that is supported by `transformers` with the following commands:.
+After training we want to use the model in `transformers` e.g. for evaluation or to deploy it to production. You can convert it to a `transformers` model following this [tutorial](https://huggingface.co/nvidia/megatron-gpt2-345m). For instance, after the training is finished you can copy the weights of the last iteration 150k and convert the `model_optim_rng.pt` file to a `pytorch_model.bin` file that is supported by `transformers` with the following commands:
 
 ```bash
 # to execute outside the container:
@@ -200,6 +200,6 @@ model = AutoModelForCausalLM.from_pretrained("your_username/codeparrot-large", d
 ```
 This will use [accelerate](https://huggingface.co/docs/accelerate/index) library behind the scenes to automatically dispatch the model weights across the devices you have available (GPUs, CPU RAM).
 
-Disclaimer: We have shown that anyone can use Megatron-LM to train language models. The question is when to use it. This framework obviously adds some time overhead because of the extra preprocessing and conversion steps.  So it is important that you decide which framework is more appropriate for your case and model size. We recommend trying it for pre-training models or extended fine-tuning, but probably not for shorter fine-tuning of medium-sized models. The `Trainer` API and `accelerate` library are also very handy for model training, they are device-agnostic and gives significant flexibility to the users.
+Disclaimer: We have shown that anyone can use Megatron-LM to train language models. The question is when to use it. This framework obviously adds some time overhead because of the extra preprocessing and conversion steps.  So it is important that you decide which framework is more appropriate for your case and model size. We recommend trying it for pre-training models or extended fine-tuning, but probably not for shorter fine-tuning of medium-sized models. The `Trainer` API and `accelerate` library are also very handy for model training, they are device-agnostic and give significant flexibility to the users.
 
 Congratulations 🎉 now you know how to train a GPT2 model in Megatron-LM and make it supported by `transformers`!
