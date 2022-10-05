@@ -101,7 +101,7 @@ And just by switching out the base Sentence Transformer model to a multilingual 
 
 ## Benchmarking SetFit
 
-Although based on much smaller models than existing few-shot methods, SetFit performs on par or better than state of the art few-shot regimes on a variety of benchmarks. On [RAFT](https://huggingface.co/spaces/ought/raft-leaderboard), a few-shot classification benchmark, SetFit Roberta (using the [`all-roberta-large-v1`](https://huggingface.co/sentence-transformers/all-roberta-large-v1)) with 355 million parameters outforms PET and GPT-3. It places just under average human performance and the 11 billion parameter T-few - a model 30 times the size of SetFit Roberta. SetFit also outperforms the human baseline on 7 of the 11 RAFT tasks.
+Although based on much smaller models than existing few-shot methods, SetFit performs on par or better than state of the art few-shot regimes on a variety of benchmarks. On [RAFT](https://huggingface.co/spaces/ought/raft-leaderboard), a few-shot classification benchmark, SetFit Roberta (using the [`all-roberta-large-v1`](https://huggingface.co/sentence-transformers/all-roberta-large-v1) model) with 355 million parameters outperforms PET and GPT-3. It places just under average human performance and the 11 billion parameter T-few - a model 30 times the size of SetFit Roberta. SetFit also outperforms the human baseline on 7 of the 11 RAFT tasks.
 
 | Rank | Method | Accuracy | Model Size | 
 | :------: | ------ | :------: | :------: | 
@@ -155,19 +155,21 @@ from datasets import load_dataset
 from sentence_transformers.losses import CosineSimilarityLoss
 
 from setfit import SetFitModel, SetFitTrainer
-
 ```
-Now, let's download a text classification dataset from the Hugging Face Hub. We'll use the `SentEval-CR` dataset, which is a dataset of customer reviews: 
+
+Now, let's download a text classification dataset from the Hugging Face Hub. We'll use the [SentEval-CR](https://huggingface.co/datasets/SetFit/SentEval-CR) dataset, which is a dataset of customer reviews: 
+
 ```python
 dataset = load_dataset("SetFit/SentEval-CR")
 ```
+
 To simulate a real-world scenario with just a few labeled examples, we'll sample 8 examples per class from the training set: 
 ```python
 # Select N examples per class (8 in this case)
 train_ds = dataset["train"].shuffle(seed=42).select(range(8 * 2))
 test_ds = dataset["test"]
 ```
-Now that we have a dataset, the next step is to load a pretrained Sentence Transformer model from the Hub and instantiate a `SetFitTrainer`. Here we use the  `paraphrase-mpnet-base-v2` model, which we found to give great results across many datasets:
+Now that we have a dataset, the next step is to load a pretrained Sentence Transformer model from the Hub and instantiate a `SetFitTrainer`. Here we use the  [paraphrase-mpnet-base-v2](https://huggingface.co/sentence-transformers/paraphrase-mpnet-base-v2) model, which we found to give great results across many datasets:
 ```python
 # Load SetFit model from Hub
 model = SetFitModel.from_pretrained("sentence-transformers/paraphrase-mpnet-base-v2")
