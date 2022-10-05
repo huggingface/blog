@@ -31,6 +31,8 @@ thumbnail: /blog/assets/106_japanese_stable_diffusion/jsd_thumbnail.png
     </a>
 </div>
 
+<a target="_blank" href="https://huggingface.co/spaces/rinna/japanese-stable-diffusion" target="_parent"><img src="https://img.shields.io/badge/🤗 Hugging Face-Spaces-blue" alt="Open In Hugging Face Spaces"/></a>
+
 <a target="_blank" href="https://colab.research.google.com/github/rinnakk/japanese-stable-diffusion/blob/master/scripts/txt2img.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 
 Stable Diffusion, developed by [CompVis](https://github.com/CompVis), [Stability AI](https://stability.ai/), and [LAION](https://laion.ai/), has generated a great deal of interest due to its ability to generate highly accurate images by simply entering text prompts. Stable Diffusion mainly uses the English subset [LAION2B-en](https://huggingface.co/datasets/laion/laion2B-en) of the [LAION-5B](https://laion.ai/blog/laion-5b/) dataset for its training data and, as a result, requires English text prompts to be entered producing images that tend to be more oriented towards Western culture.
