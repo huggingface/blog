@@ -97,7 +97,7 @@ A list of all supported Transformers architectures can be found in the [ONNX sec
 - GPT Neo
 - GPT-J
 - GPT-2
-- RoBERT
+- RoBERTa
 - T5
 - ViT
 - XLM
