@@ -597,3 +597,13 @@ In an ideal world, the entire inference would be written in CUDA or pure GPU imp
 Considering the performance improvements yielded when we could fuse operations it looks desirable.
 But to what extent this would deliver, we have no idea. If smarter GPU people have
 ideas we are listening!
+
+# Acknowledgments
+
+All this work results of the collaboration of many HF team members. In no particular
+order, [@ThomasWang](https://huggingface.co/TimeRobber) [@stas](https://huggingface.co/stas)
+[@Nouamane](https://huggingface.co/nouamanetazi) [@Suraj](https://huggingface.co/valhalla)
+[@Sanchit](https://huggingface.co/sanchit-gandhi) [@Patrick](https://huggingface.co/patrickvonplaten)
+[@Younes](/ybelkada) [@Sylvain](https://huggingface.co/sgugger)
+[@Jeff (Microsoft)](https://github.com/jeffra) [@Reza](https://github.com/RezaYazdaniAminabadi)
+And all the [BigScience](https://huggingface.co/bigscience) organization.
