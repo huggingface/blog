@@ -6,7 +6,7 @@ thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
 <h1>SetFit: Efficient Few-Shot Learning Without Prompts</h1>
     
 <div class="blog-metadata">
-    <small>Published September 26, 202.</small>
+    <small>Published September 26, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/setfit.md">
         Update on GitHub
     </a>
