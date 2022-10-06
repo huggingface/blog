@@ -1,5 +1,5 @@
 # The Hugging Face Blog Repository 🤗
-This is the official repository of the [Hugging Face Blog](hf.co/blog). 
+This is the official repository of the [Hugging Face Blog](https://hf.co/blog). 
 
 ## How to write an article? 📝
 1️⃣ Create a branch `YourName/Title`
@@ -11,7 +11,7 @@ For instance, if your title is "Introduction to Deep Reinforcement Learning", th
 
 🖼️: In terms of images, **try to have small files** to avoid having a slow loading user experience:
 - Use jpeg instead of png.
-- Use compressed images, you can use this website: https://www.iloveimg.com/fr/compresser-image
+- Use compressed images, you can use this website: https://www.iloveimg.com/compress-image
 
 4️⃣ Copy and paste this to your md file and change the elements
 - title
