@@ -12,7 +12,6 @@ thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
     </a>
 </div>
 
-</div>
 <div class="author-card">
     <a href="/Unso">
         <img class="avatar avatar-user" src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=-I2EZeEAAAAJ&citpid=8" title="Gravatar">
