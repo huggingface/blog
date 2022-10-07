@@ -1128,7 +1128,7 @@
     - scikit-learn
     - announcement
     - guide
-    
+
 - local: hf-bitsandbytes-integration
   title: "A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using transformers, accelerate and bitsandbytes"
   author: ybelkada
@@ -1137,8 +1137,8 @@
   tags:
     - nlp
     - llm
-    - quantization  
-  
+    - quantization
+
 - local: vision-transformers
   title: "Deep Dive: Vision Transformers On Hugging Face Optimum Graphcore"
   author: juliensimon
@@ -1156,7 +1156,17 @@
   tags:
     - guide
     - cv
-   
+
+- local: pretraining-bert
+  title: "Pre-Train BERT with Hugging Face Transformers and Habana Gaudi"
+  author: philschmid
+  thumbnail: /blog/assets/99_pretraining_bert/thumbnail.png
+  date: August 22, 2022
+  tags:
+    - nlp
+    - partnerships
+    - guide
+
 - local: stable_diffusion
   title: "Stable Diffusion with 🧨 Diffusers"
   author: valhalla
@@ -1171,12 +1181,116 @@
   - stable diffusion
   - dalle
 
-- local: pretraining-bert
-  title: "Pre-Train BERT with Hugging Face Transformers and Habana Gaudi"
-  author: philschmid
-  thumbnail: /blog/assets/99_pretraining_bert/thumbnail.png
-  date: August 22, 2022
+- local: spaces_3dmoljs
+  title: "Visualize proteins on Hugging Face Spaces"
+  author: duerrsimon
+  thumbnail: /blog/assets/98_spaces_3dmoljs/thumbnail.png
+  date: August 24, 2022
+  tags:
+    - research
+
+- local: open_rail
+  title: "OpenRAIL: Towards open and responsible AI licensing frameworks"
+  author: CarlosMFerr
+  thumbnail: /blog/assets/100_open_rail/100_open-rail.png
+  date: August 31, 2022
+  tags:
+    - community
+
+- local: train-decision-transformers
+  title: "Train your first Decision Transformer"
+  author: edbeeching
+  thumbnail: /blog/assets/101_train-decision-transformers/thumbnail.gif
+  date: September 08, 2022
+  tags:
+    - rl
+
+- local: diffusers-2nd-month
+  title: "What's new in Diffusers? 🎨"
+  author: osanseviero
+  thumbnail: /blog/assets/102_diffusers_2nd_month/inpainting.png
+  date: September 12, 2022
+  tags:
+  - guide
+  - diffusion
+  - text_to_image
+  - stable diffusion
+
+- local: megatron-training
+  title: "How to train a Language Model with Megatron-LM"
+  author: loubnabnl
+  thumbnail: /blog/assets/100_megatron_training/thumbnail.png
+  date: September 7, 2022
+  tags:
+    - guide
+    - nlp
+
+- local: bloom-inference-pytorch-scripts
+  title: "Incredibly Fast BLOOM Inference with DeepSpeed and Accelerate"
+  author: stas
+  thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
+  date: Sep 16, 2022
   tags:
     - nlp
-    - partnerships
+    - llm
+    - bloom
+    - inference
+
+- local: ethics-soc-1
+  title: "Ethics and Society Newsletter #1"
+  author: meg-huggingface
+  thumbnail: /blog/assets/103_ethics-soc-1/thumbnail.png
+  date: Sep 22, 2022
+  tags:
+    - ethics
+
+- local: setfit
+  title: "SetFit: Efficient Few-Shot Learning Without Prompts"
+  author: Unso
+  thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
+  date: September 26, 2022
+  tags:
+    - research
+    - nlp
+
+- local: accelerate-large-models
+  title: "How 🤗 Accelerate runs very large models thanks to PyTorch"
+  author: sgugger
+  thumbnail: /blog/assets/104_accelerate-large-models/thumbnail.png
+  date: September 27, 2022
+  tags:
     - guide
+    - research
+    - open-source-collab
+
+- local: autotrain-image-classification
+  title: "Image Classification with AutoTrain"
+  author: NimaBoscarino
+  thumbnail: /blog/assets/105_autotrain-image-classification/thumbnail.png
+  date: Sep 28, 2022
+  tags:
+    - autotrain
+    - cv
+    - guide
+
+- local: zero-shot-eval-on-the-hub
+  title: "Very Large Language Models and How to Evaluate Them"
+  author: mathemakitten
+  thumbnail: /blog/assets/106_zero_shot_eval_on_the_hub/thumbnail.png
+  date: Oct 3, 2022
+  tags:
+    - autotrain
+    - research
+    - nlp
+    
+- local: japanese-stable-diffusion
+  title: "Japanese Stable Diffusion"
+  author: mkshing
+  thumbnail: /blog/assets/106_japanese_stable_diffusion/jsd_thumbnail.png
+  date: Oct 5, 2022
+  tags:
+    - diffusion
+    - nlp
+    - text-to-image
+    - clip
+    - stable-diffusion

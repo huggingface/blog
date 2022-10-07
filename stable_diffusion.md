@@ -68,13 +68,25 @@ Now, let's get started by generating some images 🎨.
 
 ## Running Stable Diffusion
 
-First, you should install `diffusers==0.2.3` to run the following code snippets:
+### License
+
+Before using the model, you need to accept the model [license](https://huggingface.co/spaces/CompVis/stable-diffusion-license) in order to download and use the weights.  
+
+The license is designed to mitigate the potential harmful effects of such a powerful machine learning system. 
+We request users to **read the license entirely and carefully**. Here we offer a summary:
+1. You can't use the model to deliberately produce nor share illegal or harmful outputs or content,
+2. We claim no rights on the outputs you generate, you are free to use them and are accountable for their use which should not go against the provisions set in the license, and
+3. You may re-distribute the weights and use the model commercially and/or as a service. If you do, please be aware you have to include the same use restrictions as the ones in the license and share a copy of the CreativeML OpenRAIL-M to all your users.
+
+### Usage
+
+First, you should install `diffusers==0.3.0` to run the following code snippets:
 
 ```bash
-pip install diffusers==0.2.3 transformers scipy ftfy
+pip install diffusers==0.3.0 transformers scipy ftfy
 ```
 
-You also need to accept the model license before downloading or using the weights. In this post we'll use model version `v1-4`, so you'll need to  visit [its card](https://huggingface.co/CompVis/stable-diffusion-v1-4), read the license and tick the checkbox if you agree. You have to be a registered user in 🤗 Hugging Face Hub, and you'll also need to use an access token for the code to work. For more information on access tokens, please refer to [this section of the documentation](https://huggingface.co/docs/hub/security-tokens).
+In this post we'll use model version `v1-4`, so you'll need to  visit [its card](https://huggingface.co/CompVis/stable-diffusion-v1-4), read the license and tick the checkbox if you agree. You have to be a registered user in 🤗 Hugging Face Hub, and you'll also need to use an access token for the code to work. For more information on access tokens, please refer to [this section of the documentation](https://huggingface.co/docs/hub/security-tokens).
 Once you have requested access, make sure to pass your user token as:
 
 ```py
@@ -99,12 +111,27 @@ If a GPU is available, let's move it to one!
 pipe.to("cuda")
 ```
 
-To run the pipeline, simply define the prompt and call `pipe`:
+**Note**: If you are limited by GPU memory and have less than 10GB of GPU RAM available, please
+make sure to load the `StableDiffusionPipeline` in float16 precision instead of the default
+float32 precision as done above.
+You can do so by loading the weights from the `fp16` branch and by telling `diffusers` to expect the 
+weights to be in float16 precision:
+
+```python
+import torch
+from diffusers import StableDiffusionPipeline
+
+# get your token at https://huggingface.co/settings/tokens
+pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", revision="fp16", torch_dtype=torch.float16, use_auth_token=YOUR_TOKEN)
+```
+
+To run the pipeline, simply define the prompt and call `pipe`. The use of `torch.autocast("cuda")` is necessary when using half (`float16`) precision, and recommended for full precision as it will make inference faster:
 
 ```python
 prompt = "a photograph of an astronaut riding a horse"
 
-image = pipe(prompt)["sample"][0]
+with torch.autocast("cuda"):
+	image = pipe(prompt)["sample"][0]
 
 # you can save the image with
 # image.save(f"astronaut_rides_horse.png")
@@ -140,7 +167,7 @@ Every time you use a generator with the same seed you'll get the same image outp
 import torch
 
 generator = torch.Generator("cuda").manual_seed(1024)
-image = pipe(prompt, guidance_scale=7.5, generator=generator)["sample"][0]
+image = pipe(prompt, guidance_scale=7.5, generator=generator).images[0]
 
 # you can save the image with
 # image.save(f"astronaut_rides_horse.png")
@@ -164,7 +191,7 @@ Let's try out running the pipeline with less denoising steps.
 import torch
 
 generator = torch.Generator("cuda").manual_seed(1024)
-image = pipe(prompt, guidance_scale=7.5, num_inference_steps=15, generator=generator)["sample"][0]
+image = pipe(prompt, guidance_scale=7.5, num_inference_steps=15, generator=generator).images[0]
 
 # you can save the image with
 # image.save(f"astronaut_rides_horse.png")
@@ -208,7 +235,7 @@ We can generate multiple images for the same prompt by simply using a list with 
 num_images = 3
 prompt = ["a photograph of an astronaut riding a horse"] * num_images
 
-images = pipe(prompt)["sample"]
+images = pipe(prompt).images
 
 grid = image_grid(images, rows=1, cols=3)
 
@@ -231,7 +258,7 @@ Let's run an example:
 
 ```python
 prompt = "a photograph of an astronaut riding a horse"
-image = pipe(prompt, height=512, width=768)["sample"][0]
+image = pipe(prompt, height=512, width=768).images[0]
 
 # you can save the image with
 # image.save(f"astronaut_rides_horse.png")
@@ -274,12 +301,12 @@ The U-Net has an encoder part and a decoder part both comprised of ResNet blocks
 The encoder compresses an image representation into a lower resolution image representation and the decoder decodes the lower resolution image representation back to the original higher resolution image representation that is supposedly less noisy.
 More specifically, the U-Net output predicts the noise residual which can be used to compute the predicted denoised image representation.
 
-To prevent the U-Net from loosing important information while downsampling, short-cut connections are usually added between the downsampling ResNets of the encoder to the upsampling ResNets of the decoder.
-Additionally, the stable diffusion U-Net is able to condition it's output on text-embeddings via cross-attention layers. The cross-attention layers are added to both the encodre and decoder part of the U-Net usually between ResNet blocks.
+To prevent the U-Net from losing important information while downsampling, short-cut connections are usually added between the downsampling ResNets of the encoder to the upsampling ResNets of the decoder.
+Additionally, the stable diffusion U-Net is able to condition its output on text-embeddings via cross-attention layers. The cross-attention layers are added to both the encoder and decoder part of the U-Net usually between ResNet blocks.
 
 **3. The Text-encoder**
 
-The text-encoder is responsible for transforming the input prompt, *e.g.* "An astronout riding a horse" into an embedding space that can be understood by the U-Net. It is usually a simple *transformer-based* encoder that maps a sequence of input tokens to a sequence of latent text-embeddings.
+The text-encoder is responsible for transforming the input prompt, *e.g.* "An astronaut riding a horse" into an embedding space that can be understood by the U-Net. It is usually a simple *transformer-based* encoder that maps a sequence of input tokens to a sequence of latent text-embeddings.
 
 Inspired by [Imagen](https://imagen.research.google/), Stable Diffusion does **not** train the text-encoder during training and simply uses an CLIP's already trained text encoder, [CLIPTextModel](https://huggingface.co/docs/transformers/model_doc/clip#transformers.CLIPTextModel).
 
@@ -299,7 +326,7 @@ Putting it all together, let's now take a closer look at how the model works in 
 
 The stable diffusion model takes both a latent seed and a text prompt as an input. The latent seed is then used to generate random latent image representations of size \\( 64 \times 64 \\) where as the text prompt is transformed to text embeddings of size \\( 77 \times 768 \\) via CLIP's text encoder.
 
-Next the U-Net iteratively *denoises* the random latent image representations while being conditioned on the text embeddings. The output of the U-Net, being the noise residual, is used to computed a denoised latent image representation via a scheduler algorithm. Many different scheduler algorithms can be used for this computation, each having its pro- and cons. For Stable Diffusion, we recommend using one of:
+Next the U-Net iteratively *denoises* the random latent image representations while being conditioned on the text embeddings. The output of the U-Net, being the noise residual, is used to compute a denoised latent image representation via a scheduler algorithm. Many different scheduler algorithms can be used for this computation, each having its pro- and cons. For Stable Diffusion, we recommend using one of:
 
 - [PNDM scheduler](https://github.com/huggingface/diffusers/blob/main/src/diffusers/schedulers/scheduling_pndm.py) (used by default)
 - [DDIM scheduler](https://github.com/huggingface/diffusers/blob/main/src/diffusers/schedulers/scheduling_ddim.py)
@@ -458,14 +485,14 @@ with autocast("cuda"):
 
     # predict the noise residual
     with torch.no_grad():
-      noise_pred = unet(latent_model_input, t, encoder_hidden_states=text_embeddings)["sample"]
+      noise_pred = unet(latent_model_input, t, encoder_hidden_states=text_embeddings).sample
 
     # perform guidance
     noise_pred_uncond, noise_pred_text = noise_pred.chunk(2)
     noise_pred = noise_pred_uncond + guidance_scale * (noise_pred_text - noise_pred_uncond)
 
     # compute the previous noisy sample x_t -> x_t-1
-    latents = scheduler.step(noise_pred, i, latents)["prev_sample"]
+    latents = scheduler.step(noise_pred, i, latents).prev_sample
 ```
 
 We now use the `vae` to decode the generated `latents` back into the image.
@@ -474,7 +501,7 @@ We now use the `vae` to decode the generated `latents` back into the image.
 ```python
 # scale and decode the image latents with vae
 latents = 1 / 0.18215 * latents
-image = vae.decode(latents)
+image = vae.decode(latents).sample
 ```
 
 And finally, let's convert the image to PIL so we can display or save it.
