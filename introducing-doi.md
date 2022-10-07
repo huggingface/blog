@@ -34,6 +34,7 @@ thumbnail: /blog/assets/107_launching_doi/thumbnail.jpeg
         <div class="bfc">
             <code>cakiki</code>
             <span class="fullname">Christopher Akiki</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
    </a>
 </div>
