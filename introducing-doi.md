@@ -3,7 +3,7 @@
 
 title: "Introducing DOI: the Digital Object Identifier to Datasets and Models"
 
-thumbnail: /blog/assets/107_launching_doi/thumbnail.png
+thumbnail: /blog/assets/107_launching_doi/thumbnail.jpeg
 
 ---
 
@@ -60,7 +60,7 @@ This makes it easier to both find information about an object, but also to share
 We have partnered with [DataCite](https://datacite.org) to allow registered Hub users to request a DOI for their model or dataset. Once they’ve filled out the necessary metadata, they receive a shiny new DOI 🌟!
 
 <kbd>
-  <img alt="Cite DOI" src="assets/107_launching_doi/cite-modal.png">
+  <img alt="Cite DOI" src="assets/107_launching_doi/cite-modal.jpeg">
 </kbd>
 
 If ever there’s a new version of a model or dataset, the DOI can easily be updated, and the previous version of the DOI gets outdated. This makes it easy to refer to a specific version of an object, even if it has changed since.
