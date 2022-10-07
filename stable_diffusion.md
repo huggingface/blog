@@ -80,10 +80,10 @@ We request users to **read the license entirely and carefully**. Here we offer a
 
 ### Usage
 
-First, you should install `diffusers==0.3.0` to run the following code snippets:
+First, you should install `diffusers==0.4.0` to run the following code snippets:
 
 ```bash
-pip install diffusers==0.3.0 transformers scipy ftfy
+pip install diffusers==0.4.0 transformers scipy ftfy
 ```
 
 In this post we'll use model version `v1-4`, so you'll need to  visit [its card](https://huggingface.co/CompVis/stable-diffusion-v1-4), read the license and tick the checkbox if you agree. You have to be a registered user in 🤗 Hugging Face Hub, and you'll also need to use an access token for the code to work. For more information on access tokens, please refer to [this section of the documentation](https://huggingface.co/docs/hub/security-tokens).
@@ -125,13 +125,12 @@ from diffusers import StableDiffusionPipeline
 pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", revision="fp16", torch_dtype=torch.float16, use_auth_token=YOUR_TOKEN)
 ```
 
-To run the pipeline, simply define the prompt and call `pipe`. The use of `torch.autocast("cuda")` is necessary when using half (`float16`) precision, and recommended for full precision as it will make inference faster:
+To run the pipeline, simply define the prompt and call `pipe`.
 
 ```python
 prompt = "a photograph of an astronaut riding a horse"
 
-with torch.autocast("cuda"):
-	image = pipe(prompt)["sample"][0]
+image = pipe(prompt)["sample"][0]
 
 # you can save the image with
 # image.save(f"astronaut_rides_horse.png")
@@ -384,8 +383,6 @@ scheduler = LMSDiscreteScheduler(beta_start=0.00085, beta_end=0.012, beta_schedu
 Next, let's move the models to GPU.
 
 ```python
-from torch import autocast
-
 torch_device = "cuda"
 vae.to(torch_device)
 text_encoder.to(torch_device)
@@ -464,7 +461,7 @@ The K-LMS scheduler needs to multiply the `latents` by its `sigma` values. Let's
 
 
 ```python
-latents = latents * scheduler.sigmas[0]
+latents = latents * scheduler.init_noise_sigma
 ```
 
 We are ready to write the denoising loop.
@@ -472,27 +469,25 @@ We are ready to write the denoising loop.
 
 ```python
 from tqdm.auto import tqdm
-from torch import autocast
 
 scheduler.set_timesteps(num_inference_steps)
 
-with autocast("cuda"):
-  for i, t in tqdm(enumerate(scheduler.timesteps)):
+for t in tqdm(scheduler.timesteps):
     # expand the latents if we are doing classifier-free guidance to avoid doing two forward passes.
     latent_model_input = torch.cat([latents] * 2)
-    sigma = scheduler.sigmas[i]
-    latent_model_input = latent_model_input / ((sigma**2 + 1) ** 0.5)
+
+    latent_model_input = scheduler.scale_model_input(latent_model_input)
 
     # predict the noise residual
     with torch.no_grad():
-      noise_pred = unet(latent_model_input, t, encoder_hidden_states=text_embeddings).sample
+        noise_pred = unet(latent_model_input, t, encoder_hidden_states=text_embeddings).sample
 
     # perform guidance
     noise_pred_uncond, noise_pred_text = noise_pred.chunk(2)
     noise_pred = noise_pred_uncond + guidance_scale * (noise_pred_text - noise_pred_uncond)
 
     # compute the previous noisy sample x_t -> x_t-1
-    latents = scheduler.step(noise_pred, i, latents).prev_sample
+    latents = scheduler.step(noise_pred, t, latents).prev_sample
 ```
 
 We now use the `vae` to decode the generated `latents` back into the image.
