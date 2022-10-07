@@ -480,7 +480,7 @@ for t in tqdm(scheduler.timesteps):
 
     # predict the noise residual
     with torch.no_grad():
-    noise_pred = unet(latent_model_input, t, encoder_hidden_states=text_embeddings).sample
+        noise_pred = unet(latent_model_input, t, encoder_hidden_states=text_embeddings).sample
 
     # perform guidance
     noise_pred_uncond, noise_pred_text = noise_pred.chunk(2)
