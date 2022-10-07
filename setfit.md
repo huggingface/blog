@@ -186,6 +186,7 @@ trainer = SetFitTrainer(
     loss_class=CosineSimilarityLoss,
     batch_size=16,
     num_iterations=20, # Number of text pairs to generate for contrastive learning
+    num_epochs=1 # Number of epochs to use for contrastive learning
 )
 ```
 The last step is to train and evaluate the model:
