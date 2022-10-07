@@ -98,7 +98,7 @@ but was much faster to run and simpler code. We opted for a configurable flag.
 Now we have a workable `transformers` clean version of the start
 working on running this.
 
-Bloom is a 320Go(176B parameters in bf16) model, we need at least that much
+Bloom is a 352Go (176B parameters in bf16) model, we need at least that much
 GPU RAM to make it fit. We briefly explored offloading to CPU on smaller machines
 but the inference speed was orders of magnitude slower so we discarded it.
 
