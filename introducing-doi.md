@@ -47,15 +47,13 @@ thumbnail: /blog/assets/107_launching_doi/thumbnail.jpeg
    </a>
 </div>
 
-If you are part of the academic world, you have already asked yourself how to cite one of the datasets or models present on 🤗 Hub.
-
-The purpose of our mission at Hugging Face is to democratize good machine learning. That includes best practices that make ML models and datasets more reproducible, better documented, and easier to use and share.
+The goal of our mission at Hugging Face is to democratize good machine learning. That includes best practices that make ML models and datasets more reproducible, better documented, and easier to use and share.
 
 To solve this challenge, **we're excited to announce that you can now generate a DOI for your model or dataset directly from the Hub**!
 
 ![](assets/107_launching_doi/repo-settings.png)
 
-You can generate a DOI for your repo directly from your repo settings, and anyone will then be able to cite your work by clicking "Cite this model/dataset" on your model or dataset page 🔥.
+DOIs can be generated directly from your repo settings, and anyone will then be able to cite your work by clicking "Cite this model/dataset" on your model or dataset page 🔥.
 
 <kbd>
   <img alt="Generating DOI" src="assets/107_launching_doi/doi.gif">
@@ -63,7 +61,7 @@ You can generate a DOI for your repo directly from your repo settings, and anyon
 
 ## DOIs in a nutshell and why do they matter?
 
-DOIs (Digital Object Identifiers) are strings that can be used to uniquely identify a digital object, anything from articles to figures, including datasets and models. DOIs are tied to object metadata, including things like the object’s URL, version, date of creation, description, etc, that make it commonly accepted form of reference to digital resources across research and academic communities; it's analogous to a book's ISBN.
+DOIs (Digital Object Identifiers) are strings that can be used to uniquely identify a digital object, anything from articles to figures, including datasets and models. DOIs are tied to object metadata, including things like the object’s URL, version, date of creation, description, etc. They are a commonly accepted form of reference to digital resources across research and academic communities; it's analogous to a book's ISBN.
 This makes it easier to both find information about an object, but also to share objects with the world via a permanent link that will never expire or change. As such, datasets/models with DOIs are intended to persist in perpetuity, and may only be deleted upon filing a request with our support.
 
 ## How are DOIs being assigned by Hugging Face? 
