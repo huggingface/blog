@@ -45,6 +45,10 @@ The purpose of our mission at Hugging Face is to democratize good machine learni
 
 To solve this challenge, **we're excited to announce that you can now generate a DOI for your model or dataset directly from the Hub**!
 
+![](assets/107_launching_doi/repo-settings.png)
+
+You can generate a DOI for your repo directly from your repo settings, and anyone will then be able to cite your work by clicking "Cite this model/dataset" on your model or dataset page 🔥.
+
 <kbd>
   <img alt="Generating DOI" src="assets/107_launching_doi/doi.gif">
 </kbd>
@@ -66,3 +70,5 @@ If ever there’s a new version of a model or dataset, the DOI can easily be upd
 
 
 Have ideas for more improvements we can make? Many features just like these come directly from community feedback. Drop us a note or tweet us at [@HuggingFace](https://twitter.com/huggingface) to share yours or open an issue on [huggingface/hub-docs](https://github.com/huggingface/hub-docs/issues) 🤗
+
+Thanks DataCite team for this partnership! Thanks Alix Leroy for contributing to this project.
