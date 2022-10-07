@@ -1294,3 +1294,11 @@
     - text-to-image
     - clip
     - stable-diffusion
+
+- local: introducing-doi
+  title: "Introducing DOI: the Digital Object Identifier to Datasets and Models"
+  author: sylvestre
+  thumbnail: /blog/assets/107_launching_doi/thumbnail.jpeg
+  date: Oct 7, 2022
+  tags:
+    - community
