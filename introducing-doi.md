@@ -1,10 +1,6 @@
-
 ---
-
 title: "Introducing DOI: the Digital Object Identifier to Datasets and Models"
-
 thumbnail: /blog/assets/107_launching_doi/thumbnail.jpeg
-
 ---
 
   
@@ -12,20 +8,13 @@ thumbnail: /blog/assets/107_launching_doi/thumbnail.jpeg
 # Introducing DOI: the Digital Object Identifier to Datasets and Models
 
 <div class="blog-metadata">
-    <small>Published October 07, 2022.</small>
+    <small>Published October 7, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/introducing-doi.md">
         Update on GitHub
     </a>
 </div>
 
 <div class="author-card">
-    <a href="/julien">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1583856843119-5dd96eb166059660ed1ee413.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>julien-c</code>
-            <span class="fullname">Julien Chaumond</span>
-        </div>
-   </a>
    <a href="/sasha">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626198087984-60edd0133e2c73a9a21455f5.png?w=200&amp;h=200&amp;f=face" title="Gravatar">
         <div class="bfc">
@@ -40,6 +29,13 @@ thumbnail: /blog/assets/107_launching_doi/thumbnail.jpeg
             <span class="fullname">Sylvestre Bouchot</span>
         </div>
     </a>
+    <a href="/cakiki">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1646492542174-5e70f6048ce3c604d78fe133.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>cakiki</code>
+            <span class="fullname">Christopher Akiki</span>
+        </div>
+   </a>
 </div>
 
 If you are part of the academic world, you have already asked yourself how to cite one of the datasets or models present on 🤗 Hub.
