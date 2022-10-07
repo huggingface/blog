@@ -47,7 +47,7 @@ thumbnail: /blog/assets/107_launching_doi/thumbnail.jpeg
    </a>
 </div>
 
-The goal of our mission at Hugging Face is to democratize good machine learning. That includes best practices that make ML models and datasets more reproducible, better documented, and easier to use and share.
+Our mission at Hugging Face is to democratize good machine learning. That includes best practices that make ML models and datasets more reproducible, better documented, and easier to use and share.
 
 To solve this challenge, **we're excited to announce that you can now generate a DOI for your model or dataset directly from the Hub**!
 
@@ -61,8 +61,9 @@ DOIs can be generated directly from your repo settings, and anyone will then be 
 
 ## DOIs in a nutshell and why do they matter?
 
-DOIs (Digital Object Identifiers) are strings that can be used to uniquely identify a digital object, anything from articles to figures, including datasets and models. DOIs are tied to object metadata, including things like the object’s URL, version, date of creation, description, etc. They are a commonly accepted form of reference to digital resources across research and academic communities; it's analogous to a book's ISBN.
-This makes it easier to both find information about an object, but also to share objects with the world via a permanent link that will never expire or change. As such, datasets/models with DOIs are intended to persist in perpetuity, and may only be deleted upon filing a request with our support.
+DOIs (Digital Object Identifiers) are strings uniquely identifying a digital object, anything from articles to figures, including datasets and models. DOIs are tied to object metadata, including the object's URL, version, creation date, description, etc. They are a commonly accepted reference to digital resources across research and academic communities; they are analogous to a book's ISBN.
+
+DOIs make finding information about a model or dataset easier and sharing them with the world via a permanent link that will never expire or change. As such, datasets/models with DOIs are intended to persist perpetually and may only be deleted upon filing a request with our support.
 
 ## How are DOIs being assigned by Hugging Face? 
 
@@ -72,9 +73,9 @@ We have partnered with [DataCite](https://datacite.org) to allow registered Hub 
   <img alt="Cite DOI" src="assets/107_launching_doi/cite-modal.jpeg">
 </kbd>
 
-If ever there’s a new version of a model or dataset, the DOI can easily be updated, and the previous version of the DOI gets outdated. This makes it easy to refer to a specific version of an object, even if it has changed since.
+If ever there’s a new version of a model or dataset, the DOI can easily be updated, and the previous version of the DOI gets outdated. This makes it easy to refer to a specific version of an object, even if it has changed.
 
 
-Have ideas for more improvements we can make? Many features just like these come directly from community feedback. Drop us a note or tweet us at [@HuggingFace](https://twitter.com/huggingface) to share yours or open an issue on [huggingface/hub-docs](https://github.com/huggingface/hub-docs/issues) 🤗
+Have ideas for more improvements we can make? Many features, just like this, come directly from community feedback. Please drop us a note or tweet us at [@HuggingFace](https://twitter.com/huggingface) to share yours or open an issue on [huggingface/hub-docs](https://github.com/huggingface/hub-docs/issues) 🤗
 
 Thanks DataCite team for this partnership! Thanks also Alix Leroy, Bram Vanroy, Daniel van Strien and Yoshitomo Matsubara for starting and fostering the discussion on [this `hub-docs` GitHub issue](https://github.com/huggingface/hub-docs/issues/25).
