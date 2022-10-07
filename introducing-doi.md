@@ -19,13 +19,13 @@ thumbnail: /blog/assets/107_launching_doi/thumbnail.png
 </div>
 
 <div class="author-card">
-<a href="/julien">
+    <a href="/julien">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1583856843119-5dd96eb166059660ed1ee413.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>julien-c</code>
             <span class="fullname">Julien Chaumond</span>
         </div>
-    </a>
+   </a>
    <a href="/sasha">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626198087984-60edd0133e2c73a9a21455f5.png?w=200&amp;h=200&amp;f=face" title="Gravatar">
         <div class="bfc">
