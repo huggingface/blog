@@ -37,6 +37,14 @@ thumbnail: /blog/assets/107_launching_doi/thumbnail.jpeg
             <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
    </a>
+   <a href="/aleroy">
+        <img class="avatar avatar-user" src="https://huggingface.co/avatars/3bb88bfd42ade1206834e3be7795eeba.svg" title="Gravatar">
+        <div class="bfc">
+            <code>aleroy</code>
+            <span class="fullname">Alix Leroy</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+        </div>
+   </a>
 </div>
 
 If you are part of the academic world, you have already asked yourself how to cite one of the datasets or models present on 🤗 Hub.
@@ -71,4 +79,4 @@ If ever there’s a new version of a model or dataset, the DOI can easily be upd
 
 Have ideas for more improvements we can make? Many features just like these come directly from community feedback. Drop us a note or tweet us at [@HuggingFace](https://twitter.com/huggingface) to share yours or open an issue on [huggingface/hub-docs](https://github.com/huggingface/hub-docs/issues) 🤗
 
-Thanks DataCite team for this partnership! Thanks Alix Leroy for contributing to this project.
+Thanks DataCite team for this partnership! Thanks also Alix Leroy, Bram Vanroy, Daniel van Strien and Yoshitomo Matsubara for starting and fostering the discussion on [this `hub-docs` GitHub issue](https://github.com/huggingface/hub-docs/issues/25).
