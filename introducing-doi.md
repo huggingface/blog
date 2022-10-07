@@ -41,7 +41,7 @@ thumbnail: /blog/assets/107_launching_doi/thumbnail.jpeg
 
 If you are part of the academic world, you have already asked yourself how to cite one of the datasets or models present on 🤗 Hub.
 
-The purpose of our mission at Hugging Face is to democratize good machine learning. That includes best practices that make ML models and datasets more reproducible, better documented, and easier to use and share. To solve this challenge, we're excited to announce that we now allow assigning DOIs!
+The purpose of our mission at Hugging Face is to democratize good machine learning. That includes best practices that make ML models and datasets more reproducible, better documented, and easier to use and share. To solve this challenge, **we're excited to announce that you can now generate a DOI** for your model or dataset directly from the Hub!
 
 <kbd>
   <img alt="Generating DOI" src="assets/107_launching_doi/doi.gif">
