@@ -95,6 +95,12 @@ but was much faster to run and simpler code. We opted for a configurable flag.
 
 # First inference (PP + Accelerate)
 
+```
+Note: Pipeline Parallelism (PP) means in this context that each GPU will own
+some layers so each GPU will work on a given chunk  of data before handing
+it off to the next GPU.
+```
+
 Now we have a workable `transformers` clean version of the start
 working on running this.
 
@@ -203,6 +209,14 @@ all the flops at the service of latency which means only a single request can go
 so there's not much else to be done, but we can have higher latency and get throughput back through batching much more easily).
 
 # Exploring many routes
+
+```
+Note: Tensor Parallelism (TP) means in this context that each GPU will own
+part of the weights, so ALL gpus are active all the time and do less work.
+Usually this comes with a very slight overhead that some work is duplicated
+and more importantly that the GPUs regularly have to communicate to each other
+their results to continue the computation
+```
 
 Now that we have a good understanding of where we stand it's time to get to work.
 
