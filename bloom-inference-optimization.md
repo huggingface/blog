@@ -35,7 +35,7 @@ is not discussed or improperly represented, we're sorry, please share it with us
 we're more than happy to try out new stuff and correct our mistakes.
 
 
-# Creating bloom
+# Creating BLOOM
 
 This goes without saying but without the large model being accessible in the first
 place, there would be no real reasons to optimize inference for it. This was an
@@ -50,7 +50,7 @@ library.
 
 Because of the original training code, we set out to do something which we regularly
 do:  port an existing model to `transformers`. The goal was to extract from the
-training code and make all of this effort more accessible to everyone afterward.
+training code the relevant parts and implement it within `transformers`.
 This effort was tackled by [Younes](/ybelkada).
 This is by no means a small effort as it took almost a month and [200 commits](https://github.com/huggingface/transformers/pull/17474/commits) to get there.
 
@@ -60,10 +60,10 @@ We needed to have smaller models [bigscience/bigscience-small-testing](https://h
 This is extremely important because they are smaller, so everything is faster when 
 working with them.
 
-First, you have to abandon hope to have exactly the same logits at the end down
+First, you have to abandon all hope to have exactly the same logits at the end down
 to the bytes. PyTorch versions can change the kernels and introduce subtle differences, and different hardware
 might yield different results because of different architecture (and you probably
-don't want to dev on a A100 GPU all the time for cost reasons).
+don't want to develop on a A100 GPU all the time for cost reasons).
 
 ***Getting a good strict test suite is really important for all models***
 
@@ -98,7 +98,7 @@ but was much faster to run and simpler code. We opted for a configurable flag.
 Now we have a workable `transformers` clean version of the start
 working on running this.
 
-Bloom is a 352Go (176B parameters in bf16) model, we need at least that much
+Bloom is a 352GB (176B parameters in bf16) model, we need at least that much
 GPU RAM to make it fit. We briefly explored offloading to CPU on smaller machines
 but the inference speed was orders of magnitude slower so we discarded it.
 
@@ -182,7 +182,7 @@ that the server can answer (fast) that it will not answer your query because too
 many people are trying to use it at the same time.
 It's extremely important to avoid the hug of death.
 
-On this benchmark the initial performance was (on 16xA100(40Go on GCP which is the machine used throughout):
+On this benchmark the initial performance was (on 16xA100 40Go on GCP which is the machine used throughout):
 
 Requests/s : 0.3 (throughput)
 Latency: 350ms/token (latency)
@@ -384,7 +384,7 @@ more than that, but we were not extremely rigorous in our measuring initially so
 
 Then we went on to provide a TP implementation. Turned out to be much faster
 than we anticipated the implementation took half a day of a single (experienced) dev.
-The result is [here](https://github.com/huggingface/transformers/tree/thomas/dirty_bloom_tp). We were also able to reuse code from other projects which helped.
+The result is [here](https://github.com/huggingface/transformers/tree/thomas/dirty_bloom_tp/src/transformers/models/bloom). We were also able to reuse code from other projects which helped.
 
 The latency went directly from 300ms/token to 91ms/token which is a huge improvement in user experience.
 A simple 20 tokens request went from 6s to 2s which went from a "slow" experience to slightly delayed.
