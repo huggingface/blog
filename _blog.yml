@@ -1302,6 +1302,7 @@
   date: Oct 7, 2022
   tags:
     - community
+
 - local: bloom-inference-optimization
   title: "Optimization story: Bloom inference"
   author: Narsil
@@ -1311,3 +1312,18 @@
     - open-source-collab
     - community
     - research
+
+- local: stable_diffusion_jax
+  title: "Stable Diffusion in JAX/Flax 🚀"
+  author: pcuenca
+  thumbnail: /blog/assets/108_stable_diffusion_jax/thumbnail.png
+  date: Oct 13, 2022
+  tags:
+    - guide
+    - diffusion
+    - nlp
+    - text-to-image
+    - clip
+    - stable diffusion
+    - dalle
+
