@@ -28,7 +28,7 @@ Training machine learning models has become quite simple, especially with the ri
 
 Deploying models in production usually requires jumping through a series of hoops. Packaging your model in a container, provisioning the infrastructure, creating your prediction API, securing it, scaling it, monitoring it, and more. Let's face it: building all this plumbing takes valuable time away from doing actual machine learning work. Unfortunately, it can also go awfully wrong.
 
-We strive to fix this problem with the newly launched Hugging Face [Inference Endpoints.](https://huggingface.co/inference-endpoints). In the spirit of making machine learning ever simpler without compromising on state-of-the-art quality, we've built a service that lets you deploy Transformer models directly from the [Hugging Face hub](https://huggingface.co) to managed infrastructure on your favorite cloud in just a few clicks. Simple, secure, and scalable: you can have it all.
+We strive to fix this problem with the newly launched Hugging Face [Inference Endpoints](https://huggingface.co/inference-endpoints). In the spirit of making machine learning ever simpler without compromising on state-of-the-art quality, we've built a service that lets you deploy machine learning models directly from the [Hugging Face hub](https://huggingface.co) to managed infrastructure on your favorite cloud in just a few clicks. Simple, secure, and scalable: you can have it all.
 
 Let me show you how this works!
 
