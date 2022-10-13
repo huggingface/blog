@@ -1302,3 +1302,12 @@
   date: Oct 7, 2022
   tags:
     - community
+- local: bloom-inference-optimization
+  title: "Optimization story: Bloom inference"
+  author: Narsil
+  thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
+  date: Oct 12, 2022
+  tags:
+    - open-source-collab
+    - community
+    - research
