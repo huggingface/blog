@@ -35,7 +35,7 @@ Let me show you how this works!
 ### Deploying a model on Inference Endpoints
 
 
-Looking at the list of [tasks](https://huggingface.co/docs/inference-endpoints/supported_tasks) that Inference Endpoints support, I decide to deploy a Swin image classification model that I recently fine-tuned with [AutoTrain](https://huggingface.co/autotrain) on the [food101](https://huggingface.co/datasets/food101) dataset . If you're interested in how I built this model, this [video](https://youtu.be/uFxtl7QuUvo) will show you the whole process.
+Looking at the list of [tasks](https://huggingface.co/docs/inference-endpoints/supported_tasks) that Inference Endpoints support, I decided to deploy a Swin image classification model that I recently fine-tuned with [AutoTrain](https://huggingface.co/autotrain) on the [food101](https://huggingface.co/datasets/food101) dataset. If you're interested in how I built this model, this [video](https://youtu.be/uFxtl7QuUvo) will show you the whole process.
 
 Starting from my [model page](https://huggingface.co/juliensimon/autotrain-food101-1471154053), I click on `Deploy` and select `Inference Endpoints`.
 
