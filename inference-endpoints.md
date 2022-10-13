@@ -136,7 +136,7 @@ Now, let's increase our security level and deploy a private endpoint.
 
 Repeating the steps above, I select `Private` this time.
 
-This opens a new box asking me for the identifier of the AWS account in which the endpoint will be visible. I enter the appropriate id and click on `Create Endpoint`. 
+This opens a new box asking me for the identifier of the AWS account in which the endpoint will be visible. I enter the appropriate ID and click on `Create Endpoint`. 
 
 Not sure about your AWS account id? Here's an AWS CLI one-liner for you: `aws sts get-caller-identity --query Account --output text`
 
