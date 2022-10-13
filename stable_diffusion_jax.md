@@ -196,8 +196,6 @@ The first time we run the following cell it will take a long time to compile, bu
 
 
 ``` python
-%%time
-
 images = pipeline(prompt_ids, p_params, rng, jit=True)[0]
 ```
 
@@ -315,8 +313,6 @@ The same way as when we used the pipeline call, the first time we run the follow
 
 
 ``` python
-%%time
-
 images = p_generate(prompt_ids, p_params, rng)
 images = images.block_until_ready()
 images.shape
