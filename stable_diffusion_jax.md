@@ -22,6 +22,13 @@ thumbnail: /blog/assets/108_stable_diffusion_jax/thumbnail.png
             <span class="fullname">Pedro Cuenca</span>
         </div>
     </a>
+    <a href="/patrickvonplaten">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/23423619?v=4" width="100" title="Gravatar">
+        <div class="bfc">
+            <code>patrickvonplaten</code>
+            <span class="fullname">Patrick von Platen</span>
+        </div>
+    </a>
 </div>
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion_jax_how_to.ipynb">
@@ -30,10 +37,11 @@ thumbnail: /blog/assets/108_stable_diffusion_jax/thumbnail.png
 
 # **Stable Diffusion in JAX / Flax** 🚀
 
-🤗 Hugging Face [Diffusers](https://github.com/huggingface/diffusers) supports Flax since version `0.5.0`! This allows for super fast inference on Google TPUs, such as those available in Colab or through Google Cloud Platform.
+🤗 Hugging Face [Diffusers](https://github.com/huggingface/diffusers) supports Flax since version `0.5.1`! This allows for super fast inference on Google TPUs, such as those available in Colab or through Google Cloud Platform.
 
-This notebook shows how to run inference using JAX / Flax. If you want more details about how Stable Diffusion works or want to run it in GPU, please refer to [this Colab notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb).
+This post shows how to run inference using JAX / Flax. If you want more details about how Stable Diffusion works or want to run it in GPU, please refer to [this Colab notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb).
 
+If you want to follow along, click the button above to open this post as a Colab notebook.
 
 First, make sure you are using a TPU backend. If you are running this notebook in Colab, select `Runtime` in the menu above, then select the option "Change runtime type" and then select `TPU` under the `Hardware accelerator` setting.
 
@@ -48,8 +56,7 @@ num_devices = jax.device_count()
 device_type = jax.devices()[0].device_kind
 
 print(f"Found {num_devices} JAX devices of type {device_type}.")
-assert device_type.startswith("TPU"), "Available device is not a TPU, please select TPU from Edit > Notebook settings > Hardware accelerator"
-```
+assert "TPU" in device_type, "Available device is not a TPU, please select TPU from Edit > Notebook settings > Hardware accelerator"```
 
 *Output*:
 ```bash 
@@ -62,7 +69,7 @@ Make sure `diffusers` is installed.
 
 
 ``` python
-!pip install diffusers
+!pip install diffusers==0.5.1
 ```
 
 Then we import all the dependencies.
@@ -213,23 +220,19 @@ images = pipeline(prompt_ids, p_params, rng, jit=True)[0]
     Wall time: 7.07 s
 ```
 
+The returned array has shape `(8, 1, 512, 512, 3)`. We reshape it to get rid of the second dimension and obtain 8 images of `512 × 512 × 3` and then convert them to PIL.
+
+```python
+images = images.reshape((images.shape[0],) + images.shape[-3:])
+images = pipeline.numpy_to_pil(images)
+```
+
 
 
 ### Visualization
 
 
-Let's create a couple of helper functions to:
-
--   Convert the image tensor to PIL images.
--   Visualize them in a grid.
-
-
-``` python
-def images_to_pil(images):
-    pil_images = [Image.fromarray(image) for image in images]
-    return pil_images
-```
-
+Let's create a helper function to display images in a grid.
 
 ``` python
 def image_grid(imgs, rows, cols):
@@ -241,7 +244,7 @@ def image_grid(imgs, rows, cols):
 
 
 ``` python
-image_grid(images_to_pil(images), 2, 4)
+image_grid(images, 2, 4)
 ```
 
 ![png](assets/108_stable_diffusion_jax/jax_stable_diffusion_1.png)
@@ -259,7 +262,7 @@ First, we'll refactor the input preparation code into a handy function:
 ``` python
 prompts = [
     "Labrador in the style of Hokusai",
-    "Painting of a squirrel eating a hamburger",
+    "Painting of a squirrel skating in New York",
     "HAL-9000 in the style of Van Gogh",
     "Times Square under water, with fish and a dolphin swimming around",
     "Ancient Roman fresco showing a man working on his laptop",
@@ -273,12 +276,10 @@ prompts = [
 ``` python
 prompt_ids = pipeline.prepare_inputs(prompts)
 prompt_ids = shard(prompt_ids)
-```
-
-
-``` python
-images = pipeline(prompt_ids, p_params, rng, jit=True)[0]
-image_grid(images_to_pil(images), 2, 4)
+images = pipeline(prompt_ids, p_params, rng, jit=True).images
+images = images.reshape((images.shape[0], ) + images.shape[-3:])
+images = pipeline.numpy_to_pil(images)
+image_grid(images, 2, 4)
 ```
 
 ![png](assets/108_stable_diffusion_jax/jax_stable_diffusion_2.png)
@@ -332,16 +333,6 @@ images.shape
     Wall time: 6.82 s
 
     (8, 1, 512, 512, 3)
-```
-
-
-``` python
-images.shape
-```
-
-*Output*:
-```bash 
-    (8, 512, 512, 3)
 ```
 
 We use `block_until_ready()` to correctly measure inference time, because JAX uses asynchronous dispatch and returns control to the Python loop as soon as it can. You don't need to use that in your code; blocking will occur automatically when you want to use the result of a computation that has not yet been materialized.
