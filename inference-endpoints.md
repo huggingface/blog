@@ -175,6 +175,8 @@ curl https://oncm9ojdmjwesag2.eu-west-1.aws.endpoints.huggingface.cloud \
 
 This is all there is to it. Once I'm done testing, I delete the endpoints that I've created to avoid unwanted charges. I also delete the VPC Endpoint in the AWS console.
 
+Hugging Face customers are already using Inference Endpoints. For example, [Phamily](https://phamily.com/), the #1 in-house chronic care management & proactive care platform,  [told us](https://www.youtube.com/watch?v=20C9X5OYO2Q) that Inference Endpoints is helping them simplify and accelerate HIPAA-compliant Transformer deployments.
+
 ### Now it's your turn!
 
 Thanks to Inference Endpoints, you can deploy production-grade, scalable, secure endpoints in minutes, in just a few clicks. Why don't you [give it a try](https://ui.endpoints.huggingface.co/new)?
