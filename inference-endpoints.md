@@ -1,6 +1,6 @@
 ---
 title: Getting Started with Hugging Face Inference Endpoints
-thumbnail: /blog/assets/108_inference_endpoints/endpoints05.png
+thumbnail: /blog/assets/109_inference_endpoints/endpoints05.png
 ---
 
 <h1>
@@ -41,19 +41,19 @@ Starting from my [model page](https://huggingface.co/juliensimon/autotrain-food1
 
 
 <kbd>
-  <img src="assets/108_inference_endpoints/endpoints00.png">
+  <img src="assets/109_inference_endpoints/endpoints00.png">
 </kbd>
 
 This takes me directly to the [endpoint creation](https://ui.endpoints.huggingface.co/new) page.
 
 <kbd>
-  <img src="assets/108_inference_endpoints/endpoints01.png">
+  <img src="assets/109_inference_endpoints/endpoints01.png">
 </kbd>
 
 I decide to deploy the latest revision of my model on a single GPU instance, hosted on AWS in the `eu-west-1` region. Optionally, I could set up autoscaling, and I could even deploy the model in a [custom container](https://huggingface.co/docs/inference-endpoints/guides/custom_container).
 
 <kbd>
-  <img src="assets/108_inference_endpoints/endpoints02.png">
+  <img src="assets/109_inference_endpoints/endpoints02.png">
 </kbd>
 
 Next, I need to decide who can access my endpoint. From least secure to most secure, the three options are:
@@ -69,19 +69,19 @@ Let's first deploy a protected endpoint, and then we'll deploy a private one.
 I simply select `Protected` and click on `Create Endpoint`.
 
 <kbd>
-  <img src="assets/108_inference_endpoints/endpoints03.png">
+  <img src="assets/109_inference_endpoints/endpoints03.png">
 </kbd>
 
 After a few minutes, the endpoint is up and running, and its URL is visible.
 
 <kbd>
-  <img src="assets/108_inference_endpoints/endpoints04.png">
+  <img src="assets/109_inference_endpoints/endpoints04.png">
 </kbd>
 
-I can immediately test it by uploading an [image](assets/108_inference_endpoints/food.jpg) in the inference widget.
+I can immediately test it by uploading an [image](assets/109_inference_endpoints/food.jpg) in the inference widget.
 
 <kbd>
-  <img src="assets/108_inference_endpoints/endpoints05.png">
+  <img src="assets/109_inference_endpoints/endpoints05.png">
 </kbd>
 
 Of course, I can also invoke the endpoint directly with a few lines of Python code.
@@ -118,7 +118,7 @@ As you would expect, the predicted result is identical.
 Moving to the `Analytics` tab, I can see endpoint metrics. Some of my requests failed because I deliberately omitted the `Content-Type` header.
 
 <kbd>
-  <img src="assets/108_inference_endpoints/endpoints06.png">
+  <img src="assets/109_inference_endpoints/endpoints06.png">
 </kbd>
 
 For additional details, I can check the full logs in the `Logs` tab.
@@ -141,7 +141,7 @@ This opens a new box asking me for the identifier of the AWS account in which th
 Not sure about your AWS account id? Here's an AWS CLI one-liner for you: `aws sts get-caller-identity --query Account --output text`
 
 <kbd>
-  <img src="assets/108_inference_endpoints/endpoints07.png">
+  <img src="assets/109_inference_endpoints/endpoints07.png">
 </kbd>
 
 After a few minutes, the Inference Endpoints user interface displays the name of the VPC service name. Mine is `com.amazonaws.vpce.eu-west-1.vpce-svc-07a49a19a427abad7`. 
@@ -153,7 +153,7 @@ In a nutshell, I need to fill in the name of the VPC service name displayed abov
 Once I've created the VPC endpoint, my setup looks like this.
 
 <kbd>
-  <img src="assets/108_inference_endpoints/endpoints08.png">
+  <img src="assets/109_inference_endpoints/endpoints08.png">
 </kbd>
 
 Returning to the Inference Endpoints user interface, the private endpoint runs a minute or two later. Let's test it! 
