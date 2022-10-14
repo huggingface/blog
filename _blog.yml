@@ -1327,3 +1327,12 @@
     - stable diffusion
     - dalle
 
+- local: inference-endpoints
+  title: "Getting started with Hugging Face Inference Endpoints"
+  author: julsimon
+  thumbnail: /blog/assets/109_inference_endpoints/endpoints05.png
+  date: Oct 14, 2022
+  tags:
+    - guide
+    - cloud
+    - inference
