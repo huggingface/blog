@@ -84,7 +84,7 @@ I can immediately test it by uploading an [image](assets/109_inference_endpoints
   <img src="assets/109_inference_endpoints/endpoints05.png">
 </kbd>
 
-Of course, I can also invoke the endpoint directly with a few lines of Python code.
+Of course, I can also invoke the endpoint directly with a few lines of Python code, and I authenticate with my Hugging Face API token (you'll find yours in your account settings on the hub).
 
 ```
 import requests, json
