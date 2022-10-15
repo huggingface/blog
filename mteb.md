@@ -5,26 +5,136 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 
 # TODO
 
+<h1>MTEB: Massive Text Embedding Benchmark</h1>
+
 <div class="blog-metadata">
     <small>Published September 02, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/decision-transformers-train.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/mteb.md">
         Update on GitHub
     </a>
 </div>
 
 <div class="author-card">
-    <a href="/edbeeching"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1644220542819-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
+    <a href="/Muennighoff">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1659799717718-5f1eb362eec0ad2a071ad6e2.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
-            <code>edbeeching</code>
-            <span class="fullname">Edward Beeching</span>
-        </div>
-    </a>
-    <a href="/ThomasSimonini"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1632748593235-60cae820b1c79a3e4b436664.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>ThomasSimonini</code>
-            <span class="fullname">Thomas Simonini</span>
+            <code>Muennighoff</code>
+            <span class="fullname">Niklas Muennighoff</span>
         </div>
     </a>
 </div>
+
+
+MTEB is a massive benchmark for measuring the performance of text embedding models on a variety of tasks!
+
+The 🥇 [leaderboard](https://huggingface.co/spaces/mteb/leaderboard) provides a holistic view of the best text embedding models out there on a variety of tasks. 
+
+The 📝 [paper](TODO) gives background on the tasks and datasets in MTEB and analyzes leaderboard results!
+
+The 💻 [Github repo](https://github.com/embeddings-benchmark/mteb) contains the code for benchmarking and submitting any model of your choice to the leaderboard.
+
+
+<p align="center">
+    <img src="assets/108_mteb/leaderboard.png" width=500>
+</p>
+
+
+## MTEB 
+
+
+🐋 **Massive**: MTEB includes 56 datasets across 8 tasks and currently summarizes >2000 results on the [leaderboard](https://huggingface.co/spaces/mteb/leaderboard). 
+
+🌎 **Multilingual**: MTEB contains datasets with up to 112 different languages! We have benchmarked several multilingual models on Bitext Mining, Classification and STS. 
+
+🦚 **Extensible**: Be it new tasks, datasets, metrics or leaderboard additions, any contribution is very welcome. Check out the GitHub for [submitting](https://github.com/embeddings-benchmark/mteb#leaderboard) or [solving open issues](https://github.com/embeddings-benchmark/mteb/issues). We hope you join us on the journey to finding the best text embedding model!
+
+
+## Models
+
+For the initial benchmarking of MTEB we focused on models claiming state-of-the-art results as well as popular models on the Hub. This lead to a high representation of transformers 🤖
+
+
+<p align="center">
+    <img src="assets/108_mteb/benchmark.png" width=500>
+</p>
+<p align="center">
+    <em>Models by average English MTEB score (y) vs speed (x) vs embedding size (circle size).</em> 
+</p>
+
+
+We grouped models into three clusters to simplify finding the best model for your task:
+
+**🏎 Maximum speed** Models like [Glove](https://huggingface.co/sentence-transformers/average_word_embeddings_glove.6B.300d) offer high speed, but suffer from a lack of context awareness.
+
+**⚖️ Speed and performance** Slightly slower, but significantly stronger, [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) or [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) provide a good balance between speed and performance.
+
+**💪 Maximum performance** Multi-billion parameter models like [ST5-XXL](https://huggingface.co/sentence-transformers/sentence-t5-xxl), [GTR-XXL](https://huggingface.co/sentence-transformers/gtr-t5-xxl) or [SGPT-5.8B-msmarco](https://huggingface.co/Muennighoff/SGPT-5.8B-weightedmean-msmarco-specb-bitfit) dominate on MTEB. They tend to also produce bigger embeddings like [SGPT-5.8B-msmarco](https://huggingface.co/Muennighoff/SGPT-5.8B-weightedmean-msmarco-specb-bitfit) which produces 4096 dimensional embeddings requiring more storage!
+
+
+Model performance varies a lot depending on the task and  dataset, so we recommend checking the various tabs of the [leaderboard](https://huggingface.co/spaces/mteb/leaderboard) before deciding on a model to use!
+
+
+## Benchmark your model
+
+Using the [MTEB library](https://github.com/embeddings-benchmark/mteb), you can benchmark any model that can produce embeddings and add its results to the public leaderboard. Let's run through a quick example!
+
+
+First install the library:
+```sh
+pip install mteb
+```
+
+Next, benchmark a model on a dataset, for example [komninos word embeddings](https://huggingface.co/sentence-transformers/average_word_embeddings_komninos) on [Banking77](https://huggingface.co/datasets/mteb/banking77).
+
+```python
+from mteb import MTEB
+from sentence_transformers import SentenceTransformer
+
+model_name = "average_word_embeddings_komninos"
+model = SentenceTransformer(model_name)
+
+evaluation = MTEB(tasks=["Banking77Classification"])
+results = evaluation.run(model, output_folder=f"results/{model_name}")
+```
+
+This should produce a `results/average_word_embeddings_komninos/Banking77Classification.json` file!
+
+Now you can submit the results to the leaderboard by adding it to the metadata of the README.md of any model on the Hub.
+
+There is an automatic script for doing so [here](https://github.com/embeddings-benchmark/mteb/blob/main/scripts/mteb_meta.py) which we run like this:
+
+```sh
+python mteb_meta.py results/average_word_embeddings_komninos
+```
+
+This will produce a `mteb_metadata.md` file looking like:
+```sh
+---
+tags:
+- mteb
+model-index:
+- name: average_word_embeddings_komninos
+  results:
+  - task:
+      type: Classification
+    dataset:
+      type: mteb/banking77
+      name: MTEB Banking77Classification
+      config: default
+      split: test
+      revision: 0fd18e25b25c072e09e0d92ab615fda904d66300
+    metrics:
+    - type: accuracy
+      value: 66.76623376623377
+    - type: f1
+      value: 66.59096432882667
+---
+```
+
+Now add the metadata to the top of a README.md of any model on the hub like [here](https://huggingface.co/Muennighoff/SGPT-5.8B-weightedmean-msmarco-specb-bitfit/blob/main/README.md) and it will show up on the [leaderboard](https://huggingface.co/spaces/mteb/leaderboard) after refreshing!
+
+## Next steps
+
+Go out there and benchmark any model you like! Let us know if you have questions or feedback by opening an issue on our [GitHub repo](https://github.com/embeddings-benchmark/mteb) or the [leaderboard community tab](https://huggingface.co/spaces/mteb/leaderboard/discussions) 🤗
+
+Happy embedding!
