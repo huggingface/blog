@@ -3,7 +3,6 @@ title: "MTEB: Massive Text Embedding Benchmark"
 thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 ---
 
-# TODO
 
 <h1>MTEB: Massive Text Embedding Benchmark</h1>
 
@@ -24,6 +23,9 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
     </a>
 </div>
 
+<p align="center">
+  <img height=150 src="https://raw.githubusercontent.com/embeddings-benchmark/mteb/main/images/mteb_logo/mteb_logo_transparent.png" />
+</p>
 
 MTEB is a massive benchmark for measuring the performance of text embedding models on a variety of tasks!
 
@@ -48,6 +50,10 @@ The 💻 [Github repo](https://github.com/embeddings-benchmark/mteb) contains th
 
 🦚 **Extensible**: Be it new tasks, datasets, metrics or leaderboard additions, any contribution is very welcome. Check out the GitHub for [submitting](https://github.com/embeddings-benchmark/mteb#leaderboard) or [solving open issues](https://github.com/embeddings-benchmark/mteb/issues). We hope you join us on the journey to finding the best text embedding model!
 
+<figure class="image table text-center m-0 w-full">
+  <img src="https://raw.githubusercontent.com/embeddings-benchmark/mteb/main/images/mteb_diagram.png" alt="MTEB diagram"/>
+  <figcaption>An overview of tasks and datasets in MTEB. Multilingual datasets are marked with a purple shade.</figcaption>
+</figure>
 
 ## Models
 
