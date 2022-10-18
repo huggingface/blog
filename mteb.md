@@ -37,6 +37,9 @@ The 💻 [Github repo](https://github.com/embeddings-benchmark/mteb) contains th
     <img src="assets/108_mteb/leaderboard.png" width=500>
 </p>
 
+## Why Text Embeddings?
+
+Text Embeddings are vector representations of text that encode semantic information. As machines require numerical inputs to perform computations, text embeddings are a crucial component of many downstream NLP applications. For example, Google uses text embeddings to [power their search engine](https://cloud.google.com/blog/topics/developers-practitioners/find-anything-blazingly-fast-googles-vector-search-technology). Text Embeddings can also be used for finding [patterns in large amount of text via clustering](https://txt.cohere.ai/combing-for-insight-in-10-000-hacker-news-posts-with-text-clustering/) or as inputs to text classification models, such as in our recent [SetFit](https://huggingface.co/blog/setfit) work. The quality of text embeddings, however, is highly dependent on the embedding model used. MTEB is designed to help you find the best embedding model out there for a variety of tasks!
 
 ## MTEB 
 
@@ -47,10 +50,19 @@ The 💻 [Github repo](https://github.com/embeddings-benchmark/mteb) contains th
 
 🦚 **Extensible**: Be it new tasks, datasets, metrics or leaderboard additions, any contribution is very welcome. Check out the GitHub for [submitting to the leaderboard](https://github.com/embeddings-benchmark/mteb#leaderboard) or [solving open issues](https://github.com/embeddings-benchmark/mteb/issues). We hope you join us on the journey to finding the best text embedding model!
 
+
+
+<p align="center">
+    <img src="assets/108_mteb/mteb_diagram_white_background.png" width=500>
+</p>
+<p align="center">
+    <em>Overview of tasks and datasets in MTEB. Multilingual datasets are marked with a purple shade.</em> 
+</p>
+
+
 ## Models
 
 For the initial benchmarking of MTEB we focused on models claiming state-of-the-art results as well as popular models on the Hub. This lead to a high representation of transformers 🤖
-
 
 <p align="center">
     <img src="assets/108_mteb/benchmark.png" width=500>
@@ -136,3 +148,7 @@ Now add the metadata to the top of a README.md of any model on the hub like [her
 Go out there and benchmark any model you like! Let us know if you have questions or feedback by opening an issue on our [GitHub repo](https://github.com/embeddings-benchmark/mteb) or the [leaderboard community tab](https://huggingface.co/spaces/mteb/leaderboard/discussions) 🤗
 
 Happy embedding!
+
+## Credits
+
+Huge thanks to the following who contributed to improve the readability of the article or to the MTEB codebase (listed in alphabetic order): Steven Liu, Loïc Magne, Nils Reimers and Nouamane Tazi.
