@@ -1,6 +1,6 @@
 ---
 title: "MTEB: Massive Text Embedding Benchmark" 
-thumbnail: /blog/assets/108_mteb/mteb_hf_logo.png
+thumbnail: /blog/assets/108_mteb/thumbnail.png
 ---
 
 
