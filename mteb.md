@@ -1,6 +1,6 @@
 ---
 title: "MTEB: Massive Text Embedding Benchmark" 
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+thumbnail: /blog/assets/108_mteb/mteb_hf_logo.png
 ---
 
 
@@ -23,15 +23,12 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
     </a>
 </div>
 
-<p align="center">
-  <img height=150 src="https://raw.githubusercontent.com/embeddings-benchmark/mteb/main/images/mteb_logo/mteb_logo_transparent.png" />
-</p>
 
 MTEB is a massive benchmark for measuring the performance of text embedding models on a variety of tasks!
 
 The 🥇 [leaderboard](https://huggingface.co/spaces/mteb/leaderboard) provides a holistic view of the best text embedding models out there on a variety of tasks. 
 
-The 📝 [paper](TODO) gives background on the tasks and datasets in MTEB and analyzes leaderboard results!
+The 📝 [paper](https://arxiv.org/abs/2210.07316) gives background on the tasks and datasets in MTEB and analyzes leaderboard results!
 
 The 💻 [Github repo](https://github.com/embeddings-benchmark/mteb) contains the code for benchmarking and submitting any model of your choice to the leaderboard.
 
@@ -48,12 +45,7 @@ The 💻 [Github repo](https://github.com/embeddings-benchmark/mteb) contains th
 
 🌎 **Multilingual**: MTEB contains datasets with up to 112 different languages! We have benchmarked several multilingual models on Bitext Mining, Classification and STS. 
 
-🦚 **Extensible**: Be it new tasks, datasets, metrics or leaderboard additions, any contribution is very welcome. Check out the GitHub for [submitting](https://github.com/embeddings-benchmark/mteb#leaderboard) or [solving open issues](https://github.com/embeddings-benchmark/mteb/issues). We hope you join us on the journey to finding the best text embedding model!
-
-<figure class="image table text-center m-0 w-full">
-  <img src="https://raw.githubusercontent.com/embeddings-benchmark/mteb/main/images/mteb_diagram.png" alt="MTEB diagram"/>
-  <figcaption>An overview of tasks and datasets in MTEB. Multilingual datasets are marked with a purple shade.</figcaption>
-</figure>
+🦚 **Extensible**: Be it new tasks, datasets, metrics or leaderboard additions, any contribution is very welcome. Check out the GitHub for [submitting to the leaderboard](https://github.com/embeddings-benchmark/mteb#leaderboard) or [solving open issues](https://github.com/embeddings-benchmark/mteb/issues). We hope you join us on the journey to finding the best text embedding model!
 
 ## Models
 
@@ -107,7 +99,7 @@ This should produce a `results/average_word_embeddings_komninos/Banking77Classif
 
 Now you can submit the results to the leaderboard by adding it to the metadata of the README.md of any model on the Hub.
 
-There is an automatic script for doing so [here](https://github.com/embeddings-benchmark/mteb/blob/main/scripts/mteb_meta.py) which we run like this:
+There is an automatic script for doing so [here](https://github.com/embeddings-benchmark/mteb/blob/main/scripts/mteb_meta.py) which you can run run like this:
 
 ```sh
 python mteb_meta.py results/average_word_embeddings_komninos
