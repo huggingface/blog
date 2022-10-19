@@ -1,9 +1,26 @@
+---
+title: "From PyTorch DDP to Accelerate to Trainer, mastery of distributed training with ease"
+thumbnail: /blog/assets/105_pytorch_ddp_accelerate_transformers
+---
+
 # From PyTorch DDP to Accelerate to Trainer, mastery of distributed training with ease
 
-Authors:
+<div class="blog-metadata">
+    <small>Published June 28, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/pytorch-ddp-accelerate-transformers.md">
+        Update on GitHub
+    </a>
+</div>
 
-- Zachary Mueller (Hugging Face)
-- Less Wright (PyTorch)
+<div class="author-card">
+    <a href="/muellerzr">
+        <img class="avatar avatar-user" src="https://walkwithfastai.com/assets/images/portrait.png" title="Gravatar" width="200">
+        <div class="bfc">
+            <code>muellerzr</code>
+            <span class="fullname">Zachary Mueller</span>
+        </div>
+    </a>
+</div>
 
 ## General Overview
 
