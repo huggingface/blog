@@ -1,6 +1,6 @@
 ---
 title: "From PyTorch DDP to Accelerate to Trainer, mastery of distributed training with ease"
-thumbnail: /blog/assets/105_pytorch_ddp_accelerate_transformers
+thumbnail: /blog/assets/110_pytorch_ddp_accelerate_transformers/thumbnail.png
 ---
 
 # From PyTorch DDP to Accelerate to Trainer, mastery of distributed training with ease
