@@ -320,7 +320,7 @@ Our discounted cumulative expected rewards is:
 
 ### Type of tasks
 
-A task is an **instance** of a Reinforcement Learning problem. We can have two types of tasks: episodic and continuous.
+A task is an **instance** of a Reinforcement Learning problem. We can have two types of tasks: episodic and continuing.
 
 #### Episodic task
 
@@ -335,7 +335,7 @@ For instance, think about Super Mario Bros: an episode begin at the launch of a 
 </figure>
 
 
-#### Continuous tasks
+#### Continuing tasks
 
 These are tasks that continue forever (no terminal state). In this case, the agent must **learn how to choose the best actions and simultaneously interact with the environment.**
 

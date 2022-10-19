@@ -2,12 +2,16 @@
 title: "SetFit: Efficient Few-Shot Learning Without Prompts"
 thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
 ---
-<div class="blog-metadata">
-    <small>Published September 26, 2022.</small>
    
 <h1>SetFit: Efficient Few-Shot Learning Without Prompts</h1>
-
+    
+<div class="blog-metadata">
+    <small>Published September 26, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/setfit.md">
+        Update on GitHub
+    </a>
 </div>
+
 <div class="author-card">
     <a href="/Unso">
         <img class="avatar avatar-user" src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=-I2EZeEAAAAJ&citpid=8" title="Gravatar">
@@ -33,7 +37,29 @@ thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
     </div>
 </a>
 
-
+    
+<a href="/dkorat">
+    <img class="avatar avatar-user" src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=vOrCEQgAAAAJ&citpid=2" title="Gravatar">
+    <div class="bfc">
+        <code>dkorat</code>
+        <span class="fullname">Daniel Korat</span>
+    </div>
+</a>
+ 
+<a href="/orenpereg">
+    <img class="avatar avatar-user" src="https://scholar.googleusercontent.com/citations?view_op=view_photo&user=ZPaGFOIAAAAJ&citpid=1" title="Gravatar">   <div class="bfc">
+        <code>orenpereg</code>
+        <span class="fullname">Oren Pereg</span>
+    </div>
+ </a>
+<a href="/moshew">
+    <img class="avatar avatar-user" src="https://www.nlpsummit.org/wp-content/uploads/2020/06/Moshe-Wasserblat.jpeg" title="Gravatar">
+    <div class="bfc">
+        <code>moshew</code>
+        <span class="fullname">Moshe Wasserblat</span>
+    </div>
+</a>   
+    
 </div>
 
 
@@ -79,7 +105,7 @@ And just by switching out the base Sentence Transformer model to a multilingual 
 
 ## Benchmarking SetFit
 
-Although based on much smaller models than existing few-shot methods, SetFit performs on par or better than state of the art few-shot regimes on a variety of benchmarks. On [RAFT](https://huggingface.co/spaces/ought/raft-leaderboard), a few-shot classification benchmark, SetFit Roberta (using the [`all-roberta-large-v1`](https://huggingface.co/sentence-transformers/all-roberta-large-v1)) with 355 million parameters outforms PET and GPT-3. It places just under average human performance and the 11 billion parameter T-few - a model 30 times the size of SetFit Roberta. SetFit also outperforms the human baseline on 7 of the 11 RAFT tasks.
+Although based on much smaller models than existing few-shot methods, SetFit performs on par or better than state of the art few-shot regimes on a variety of benchmarks. On [RAFT](https://huggingface.co/spaces/ought/raft-leaderboard), a few-shot classification benchmark, SetFit Roberta (using the [`all-roberta-large-v1`](https://huggingface.co/sentence-transformers/all-roberta-large-v1) model) with 355 million parameters outperforms PET and GPT-3. It places just under average human performance and the 11 billion parameter T-few - a model 30 times the size of SetFit Roberta. SetFit also outperforms the human baseline on 7 of the 11 RAFT tasks.
 
 | Rank | Method | Accuracy | Model Size | 
 | :------: | ------ | :------: | :------: | 
@@ -94,7 +120,7 @@ Although based on much smaller models than existing few-shot methods, SetFit per
     <em>Prominent methods on the RAFT leaderboard (as of September 2022)</em>
 </p>
 
-On other datasets, SetFit shows robustness across a variety of tasks. As shown in the above figure, with just 8 examples per class, it typically outperforms PERFECT, ADAPET and fine-tuned vanilla transformers. SetFit also achieves comparable results to T-Few 3B, despite being prompt-free and 27 times smaller.
+On other datasets, SetFit shows robustness across a variety of tasks. As shown in the figure below, with just 8 examples per class, it typically outperforms PERFECT, ADAPET and fine-tuned vanilla transformers. SetFit also achieves comparable results to T-Few 3B, despite being prompt-free and 27 times smaller.
 
 <p align="center">
     <img src="assets/103_setfit/three-tasks.png" width=700>
@@ -115,7 +141,7 @@ On other datasets, SetFit shows robustness across a variety of tasks. As shown i
     Comparing training cost and average performance for T-Few 3B and SetFit (MPNet), with 8 labeled examples per class.
 </p>
 
-Since SetFit achieves high accuracy with relatively small models, it's blazing fast to train and on much lower cost. For instance, training SetFit on an NVIDIA V100 with 8 labeled examples takes just 30 seconds, at a cost of $0.025. By comparison, training T-Few 3B requires an NVIDIA A100 and takes 11 minutes, at a cost of around $0.7 for the same experiment - a factor of 28x more. In fact, SetFit can run on a single GPU like the ones found on Google Colab and even train SetFit on CPU in just a few minutes! As shown in the figure above, SetFit's speed-up comes with comparable model performance. Similar gains are also achieved for [inference](https://arxiv.org/abs/2209.11055) and distilling the SetFit model can bring speed-ups of 123x 🤯.
+Since SetFit achieves high accuracy with relatively small models, it's blazing fast to train and at much lower cost. For instance, training SetFit on an NVIDIA V100 with 8 labeled examples takes just 30 seconds, at a cost of $0.025. By comparison, training T-Few 3B requires an NVIDIA A100 and takes 11 minutes, at a cost of around $0.7 for the same experiment - a factor of 28x more. In fact, SetFit can run on a single GPU like the ones found on Google Colab and you can even train SetFit on CPU in just a few minutes! As shown in the figure above, SetFit's speed-up comes with comparable model performance. Similar gains are also achieved for [inference](https://arxiv.org/abs/2209.11055) and distilling the SetFit model can bring speed-ups of 123x 🤯.
 
 
 
@@ -133,19 +159,21 @@ from datasets import load_dataset
 from sentence_transformers.losses import CosineSimilarityLoss
 
 from setfit import SetFitModel, SetFitTrainer
-
 ```
-Now, let's download a text classification dataset from the Hugging Face Hub. We'll use the `SentEval-CR` dataset, which is a dataset of customer reviews: 
+
+Now, let's download a text classification dataset from the Hugging Face Hub. We'll use the [SentEval-CR](https://huggingface.co/datasets/SetFit/SentEval-CR) dataset, which is a dataset of customer reviews: 
+
 ```python
 dataset = load_dataset("SetFit/SentEval-CR")
 ```
+
 To simulate a real-world scenario with just a few labeled examples, we'll sample 8 examples per class from the training set: 
 ```python
 # Select N examples per class (8 in this case)
 train_ds = dataset["train"].shuffle(seed=42).select(range(8 * 2))
 test_ds = dataset["test"]
 ```
-Now that we have a dataset, the next step is to load a pretrained Sentence Transformer model from the Hub and instantiate a `SetFitTrainer`. Here we use the  `paraphrase-mpnet-base-v2` model, which we found to give great results across many datasets:
+Now that we have a dataset, the next step is to load a pretrained Sentence Transformer model from the Hub and instantiate a `SetFitTrainer`. Here we use the  [paraphrase-mpnet-base-v2](https://huggingface.co/sentence-transformers/paraphrase-mpnet-base-v2) model, which we found to give great results across many datasets:
 ```python
 # Load SetFit model from Hub
 model = SetFitModel.from_pretrained("sentence-transformers/paraphrase-mpnet-base-v2")
@@ -157,7 +185,8 @@ trainer = SetFitTrainer(
     eval_dataset=test_ds,
     loss_class=CosineSimilarityLoss,
     batch_size=16,
-    num_epochs=20,
+    num_iterations=20, # Number of text pairs to generate for contrastive learning
+    num_epochs=1 # Number of epochs to use for contrastive learning
 )
 ```
 The last step is to train and evaluate the model:

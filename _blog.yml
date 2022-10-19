@@ -1235,7 +1235,7 @@
     - llm
     - bloom
     - inference
-    
+
 - local: ethics-soc-1
   title: "Ethics and Society Newsletter #1"
   author: meg-huggingface
@@ -1243,7 +1243,7 @@
   date: Sep 22, 2022
   tags:
     - ethics
-    
+
 - local: setfit
   title: "SetFit: Efficient Few-Shot Learning Without Prompts"
   author: Unso
@@ -1262,8 +1262,82 @@
     - guide
     - research
     - open-source-collab
+    
+- local: autotrain-image-classification
+  title: "Image Classification with AutoTrain"
+  author: NimaBoscarino
+  thumbnail: /blog/assets/105_autotrain-image-classification/thumbnail.png
+  date: Sep 28, 2022
+  tags:
+    - autotrain
+    - cv
+    - guide
 
-- local: accelerate-large-models
+- local: zero-shot-eval-on-the-hub
+  title: "Very Large Language Models and How to Evaluate Them"
+  author: mathemakitten
+  thumbnail: /blog/assets/106_zero_shot_eval_on_the_hub/thumbnail.png
+  date: Oct 3, 2022
+  tags:
+    - autotrain
+    - research
+    - nlp
+    
+- local: japanese-stable-diffusion
+  title: "Japanese Stable Diffusion"
+  author: mkshing
+  thumbnail: /blog/assets/106_japanese_stable_diffusion/jsd_thumbnail.png
+  date: Oct 5, 2022
+  tags:
+    - diffusion
+    - nlp
+    - text-to-image
+    - clip
+    - stable-diffusion
+
+- local: introducing-doi
+  title: "Introducing DOI: the Digital Object Identifier to Datasets and Models"
+  author: sylvestre
+  thumbnail: /blog/assets/107_launching_doi/thumbnail.jpeg
+  date: Oct 7, 2022
+  tags:
+    - community
+
+- local: bloom-inference-optimization
+  title: "Optimization story: Bloom inference"
+  author: Narsil
+  thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
+  date: Oct 12, 2022
+  tags:
+    - open-source-collab
+    - community
+    - research
+
+- local: stable_diffusion_jax
+  title: "Stable Diffusion in JAX/Flax 🚀"
+  author: pcuenca
+  thumbnail: /blog/assets/108_stable_diffusion_jax/thumbnail.png
+  date: Oct 13, 2022
+  tags:
+    - guide
+    - diffusion
+    - nlp
+    - text-to-image
+    - clip
+    - stable diffusion
+    - dalle
+
+- local: inference-endpoints
+  title: "Getting started with Hugging Face Inference Endpoints"
+  author: julsimon
+  thumbnail: /blog/assets/109_inference_endpoints/endpoints05.png
+  date: Oct 14, 2022
+  tags:
+    - guide
+    - cloud
+    - inference
+    
+- local: pytorch-ddp-accelerate-transformers
   title: "From PyTorch DDP to 🤗 Accelerate to 🤗 Trainer, mastery of distributed training with ease"
   author: muellerzr
   thumbnail: /blog/assets/110_pytorch_ddp_accelerate_transformers/thumbnail.png
