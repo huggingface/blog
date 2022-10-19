@@ -1282,7 +1282,7 @@
     - autotrain
     - research
     - nlp
-    
+
 - local: japanese-stable-diffusion
   title: "Japanese Stable Diffusion"
   author: mkshing
@@ -1336,3 +1336,13 @@
     - guide
     - cloud
     - inference
+
+- local: bias-evaluation-on-the-hub
+  title: "Evaluating Language Model Bias with 🤗 Evaluate"
+  author: sasha
+  thumbnail: /blog/assets/111_bias-evaluation-on-the-hub/thumbnail.png
+  date: Oct 19, 2022
+  tags:
+    - ethics
+    - research
+    - nlp
