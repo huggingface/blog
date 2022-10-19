@@ -7,7 +7,7 @@ thumbnail: /blog/assets/108_mteb/thumbnail.png
 <h1>MTEB: Massive Text Embedding Benchmark</h1>
 
 <div class="blog-metadata">
-    <small>Published September 02, 2022.</small>
+    <small>Published October 19, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/mteb.md">
         Update on GitHub
     </a>
@@ -151,4 +151,4 @@ Happy embedding!
 
 ## Credits
 
-Huge thanks to the following who contributed to improve the readability of the article or to the MTEB codebase (listed in alphabetic order): Steven Liu, Loïc Magne, Nils Reimers and Nouamane Tazi.
+Huge thanks to the following who contributed to improve the readability of the article or to the MTEB codebase (listed in alphabetical order): Steven Liu, Loïc Magne, Nils Reimers and Nouamane Tazi.
