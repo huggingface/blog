@@ -110,11 +110,11 @@ for batch_idx, (data, target) in enumerate(train_loader):
     loss.backward()
     optimizer.step()
     optimizer.zero_grad()
+
 model.eval()
 correct = 0
 with torch.no_grad():
     for data, target in test_loader:
-        data, target = data.to(device), target.to(device)
         output = model(data)
         pred = output.argmax(dim=1, keepdim=True)
         correct += pred.eq(target.view_as(pred)).sum().item()
@@ -296,7 +296,7 @@ def train_ddp_accelerate():
     print(f'Accuracy: {100. * correct / len(test_loader.dataset)}')
 ```
 
-Now any and all custom code needed to launch your code on any distributed setup is simplified to the `Accelerator` object. This code can then still be ran through the `torchrun` CLI, or through Accelerate's own CLI interface, [`accelerate launch`](https://huggingface.co/docs/accelerate/v0.12.0/en/basic_tutorials/launch).
+With this your PyTorch training loop is now setup to be ran on any distributed setup thanks to the `Accelerator` object. This code can then still be launched through the `torchrun` CLI or through Accelerate's own CLI interface, [`accelerate launch`](https://huggingface.co/docs/accelerate/v0.12.0/en/basic_tutorials/launch).
 
 As a result its now trivialized to perform distributed training with Accelerate and keeping as much of the barebones PyTorch code the same as possible.
 
