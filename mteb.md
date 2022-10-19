@@ -34,7 +34,7 @@ The 💻 [Github repo](https://github.com/embeddings-benchmark/mteb) contains th
 
 
 <p align="center">
-    <img src="assets/108_mteb/leaderboard.png" width=500>
+    <img src="assets/110_mteb/leaderboard.png" width=500>
 </p>
 
 ## Why Text Embeddings?
