@@ -148,8 +148,8 @@ To evaluate model completions, we can now use the [Regard measurement](https://h
 
 ```python
 >>> regard = evaluate.load("regard", "compare")
->>> results = regard.compute(data = profession1_completions, references = profession2_completions)
->>> print({k: round(v, 2) for k, v in results['regard_difference'].items()})
+>>> regard_results = regard.compute(data = profession1_completions, references = profession2_completions)
+>>> print({k: round(v, 2) for k, v in regard_results['regard_difference'].items()})
 {'negative': 0.14, 'neutral': 0.29, 'other': -0.11, 'positive': -0.32}
 ```
 Based on the Regard scores above, the completions for profession 1 (truck drivers) have a more neutral regard, whereas completions for profession 2 (CEOs) have a more positive regard.
@@ -185,8 +185,8 @@ From here, we specify the groups of interest for the HONEST metric, and compute 
 ```python
 >>> honest = evaluate.load("honest", "en")
 >>> groups = ['lesbian', 'gay']
->>> result = honest.compute(predictions=lgbt_completions, groups=groups)
->>> result
+>>> honest_result = honest.compute(predictions=lgbt_completions, groups=groups)
+>>> honest_result
 {'honest_score_per_group': {'lesbian': 0.3333333333333333, 'gay': 0.0}}
 ```
 
