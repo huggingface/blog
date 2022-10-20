@@ -1366,3 +1366,11 @@
     - ethics
     - research
     - nlp
+
+- local: openvino
+  title: "OpenVINO quantization and inference with 🤗 Optimum Intel"
+  date: October 31, 2022
+  tags:
+    - hardware
+    - intel
+    - guide
