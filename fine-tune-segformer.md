@@ -34,7 +34,7 @@ thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
-<a target="_blank" href="https://colab.research.google.com/drive/1BImTyBjW3KtvHGVcjGpYYFZdRGXzM3-j?usp=sharing">
+<a target="_blank" href="https://colab.research.google.com/drive/1MdkavsjGHYcuGyjmsf9wmeAK3WvtYLty?usp=sharing">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -50,10 +50,13 @@ Because semantic segmentation is a type of classification, the network architect
   <medium-zoom background="rgba(0,0,0,.7)" alt="Pizza delivery robot segmenting a scene" src="assets/56_fine_tune_segformer/pizza-scene.png"></medium-zoom>
 </figure>
 
-Let's get started by installing the necessary dependencies. Because we're going to push our dataset and model to the Hugging Face Hub, we need to install [Git LFS](https://git-lfs.github.com/) and log in to Hugging Face. The installation of `git-lfs` might be different on your system. 
+Let's get started by installing the necessary dependencies. Because we're going to push our dataset and model to the Hugging Face Hub, we need to install [Git LFS](https://git-lfs.github.com/) and log in to Hugging Face.
+
+The installation of `git-lfs` might be different on your system. Note that Google Colab has Git LFS pre-installed.
 
 ```bash
-pip install -q transformers datasets segments-ai
+pip install -q transformers datasets evaluate segments-ai
+pip install -q 
 apt-get install git-lfs
 git lfs install
 huggingface-cli login
@@ -204,11 +207,11 @@ We'll extract the number of labels and the human-readable ids, so we can configu
 
 ```python
 import json
-from huggingface_hub import cached_download, hf_hub_url
+from huggingface_hub import hf_hub_download
 
 repo_id = f"datasets/{hf_dataset_identifier}"
 filename = "id2label.json"
-id2label = json.load(open(cached_download(hf_hub_url(repo_id, filename)), "r"))
+id2label = json.load(open(hf_hub_download(repo_id=hf_dataset_identifier, filename=filename, repo_type="dataset"), "r"))
 id2label = {int(k): v for k, v in id2label.items()}
 label2id = {v: k for k, v in id2label.items()
 
@@ -269,7 +272,6 @@ from transformers import SegformerForSemanticSegmentation
 pretrained_model_name = "nvidia/mit-b0" 
 model = SegformerForSemanticSegmentation.from_pretrained(
     pretrained_model_name,
-    num_labels=num_labels,
     id2label=id2label,
     label2id=label2id
 )
@@ -311,7 +313,7 @@ training_args = TrainingArguments(
 )
 ```
 
-Next, we'll define a function that computes the evaluation metric we want to work with. Because we're doing semantic segmentation, we'll use the mean Intersection over Union (mIoU), directly accessible in the `datasets` library (see [here](https://huggingface.co/metrics/mean_iou)). IoU represents the overlap of segmentation masks. Mean IoU is the average of the IoU of all semantic classes. Take a look at [this blogpost](https://www.jeremyjordan.me/evaluating-image-segmentation-models/) for an overview of evaluation metrics for image segmentation.
+Next, we'll define a function that computes the evaluation metric we want to work with. Because we're doing semantic segmentation, we'll use the mean Intersection over Union (mIoU), directly accessible in the [`evaluate` library](https://huggingface.co/docs/evaluate/index). IoU represents the overlap of segmentation masks. Mean IoU is the average of the IoU of all semantic classes. Take a look at [this blogpost](https://www.jeremyjordan.me/evaluating-image-segmentation-models/) for an overview of evaluation metrics for image segmentation.
 
 Because our model outputs logits with dimensions height/4 and width/4, we have to upscale them before we can compute the mIoU.
 
@@ -319,9 +321,9 @@ Because our model outputs logits with dimensions height/4 and width/4, we have t
 ```python
 import torch
 from torch import nn
-from datasets import load_metric
+import evaluate
 
-metric = load_metric("mean_iou")
+metric = evaluate.load("mean_iou")
 
 def compute_metrics(eval_pred):
   with torch.no_grad():
@@ -336,13 +338,21 @@ def compute_metrics(eval_pred):
     ).argmax(dim=1)
 
     pred_labels = logits_tensor.detach().cpu().numpy()
-    metrics = metric.compute(predictions=pred_labels, references=labels, 
-                                   num_labels=num_labels, 
-                                   ignore_index=0,
-                                   reduce_labels=feature_extractor.reduce_labels)
-    for key, value in metrics.items():
-      if type(value) is np.ndarray:
-        metrics[key] = value.tolist()
+    metrics = metric.compute(
+            predictions=pred_labels,
+            references=labels,
+            num_labels=len(id2label),
+            ignore_index=0,
+            reduce_labels=feature_extractor.reduce_labels,
+        )
+    
+    # add per category metrics as individual key-value pairs
+    per_category_accuracy = metrics.pop("per_category_accuracy").tolist()
+    per_category_iou = metrics.pop("per_category_iou").tolist()
+
+    metrics.update({f"accuracy_{id2label[i]}": v for i, v in enumerate(per_category_accuracy)})
+    metrics.update({f"iou_{id2label[i]}": v for i, v in enumerate(per_category_iou)})
+    
     return metrics
 ```
 
