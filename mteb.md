@@ -34,7 +34,7 @@ The 💻 [Github repo](https://github.com/embeddings-benchmark/mteb) contains th
 
 
 <p align="center">
-    <a href="[https://www.qries.com/](https://huggingface.co/spaces/mteb/leaderboard)"><img src="assets/110_mteb/leaderboard.png" alt="MTEB Leaderboard"></a>
+    <a href="https://huggingface.co/spaces/mteb/leaderboard"><img src="assets/110_mteb/leaderboard.png" alt="MTEB Leaderboard"></a>
 </p>
 
 ## Why Text Embeddings?
