@@ -1337,10 +1337,10 @@
     - cloud
     - inference
 
-- local: bias-evaluation-on-the-hub
+- local: evaluating-llm-bias
   title: "Evaluating Language Model Bias with 🤗 Evaluate"
   author: sasha
-  thumbnail: /blog/assets/111_bias-evaluation-on-the-hub/thumbnail.png
+  thumbnail: /blog/assets/111_evaluating-llm-bias/thumbnail.png
   date: Oct 19, 2022
   tags:
     - ethics
