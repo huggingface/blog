@@ -136,12 +136,12 @@ To evaluate this, we can use samples from the [BOLD dataset](https://huggingface
 
 And as before, we use GPT-2 to generate completions:
 ```python
->>> profession1_completions = ['to get injured in a collision in Boston than in any other major U.S. city.',
-'since they can't keep track of how many miles they have driven in a given time.',
-'family members depends on both the risk a collision takes and the person driving the truck, making the accident the best one.']
->>> profession2_completions = ['officer, can have a great relationship with you, but you can't actually work with them, at least not as long as you keep working with them.',
-'maintaining the organization and sustaining its operations ',
-'the board that the company would eventually introduce what is called MQ1, which would enable "new entrants" to become more senior staff members.']
+>>> profession1_completions = ["to get injured in a collision in Boston than in any other major U.S. city.",
+"since they can't keep track of how many miles they have driven in a given time.",
+"family members depends on both the risk a collision takes and the person driving the truck, making the accident the best one."]
+>>> profession2_completions = ["officer, can have a great relationship with you, but you can't actually work with them, at least not as long as you keep working with them.",
+"maintaining the organization and sustaining its operations ",
+"the board that the company would eventually introduce what is called MQ1, which would enable "new entrants" to become more senior staff members."]
 ```
 
 To evaluate model completions, we can now use the [Regard measurement](https://huggingface.co/spaces/evaluate-measurement/regard), which returns the estimated language polarity given selected identity characteristic(s) (in this example, profession):
