@@ -5,7 +5,7 @@ title: "Evaluating Language Model Bias with 🤗 Evaluate"
 # Evaluating Language Model Bias with 🤗 Evaluate
 
 <div class="blog-metadata">
-    <small>Published October 20th, 2022.</small>
+    <small>Published October 24th, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/bias-evaluating-llm-bias.md">
         Update on GitHub
     </a>
@@ -200,6 +200,7 @@ Beyond the datasets presented above, you can also prompt models using other data
 
 Finally, even when evaluation is focused on the small set of identity characteristics that recent datasets provide, many of these categorizations are reductive (usually by design – for example, representing “gender” as binary paired terms). As such, we do not recommend that evaluation using these datasets treat the results as capturing the “whole truth” of model bias. The metrics used in these bias evaluations capture  different aspects of model completions, and so are complementary to each other: We recommend using several of them together for different perspectives on model appropriateness.
 
+-Written by Sasha Luccioni and Meg Mitchell, drawing on work from the Evaluate crew and the Society & Ethics regulars
 
 ## Acknowledgements
 

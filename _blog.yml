@@ -1346,12 +1346,12 @@
     - nlp
     - research
     - llm
-    
+
 - local: evaluating-llm-bias
   title: "Evaluating Language Model Bias with 🤗 Evaluate"
   author: sasha
   thumbnail: /blog/assets/111_evaluating-llm-bias/thumbnail.png
-  date: Oct 20, 2022
+  date: Oct 24, 2022
   tags:
     - ethics
     - research
