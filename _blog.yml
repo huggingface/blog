@@ -1336,3 +1336,13 @@
     - guide
     - cloud
     - inference
+
+- local: mteb
+  title: "MTEB: Massive Text Embedding Benchmark"
+  author: Muennighoff
+  thumbnail: /blog/assets/110_mteb/thumbnail.png
+  date: Oct 19, 2022
+  tags:
+    - nlp
+    - research
+    - llm
