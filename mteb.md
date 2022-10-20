@@ -24,7 +24,7 @@ thumbnail: /blog/assets/110_mteb/thumbnail.png
 </div>
 
 
-MTEB is a massive benchmark for measuring the performance of text embedding models on a variety of tasks!
+MTEB is a massive benchmark for measuring the performance of text embedding models on diverse embedding tasks.
 
 The 🥇 [leaderboard](https://huggingface.co/spaces/mteb/leaderboard) provides a holistic view of the best text embedding models out there on a variety of tasks. 
 
@@ -48,7 +48,7 @@ Text Embeddings are vector representations of text that encode semantic informat
 
 🌎 **Multilingual**: MTEB contains up to 112 different languages! We have benchmarked several multilingual models on Bitext Mining, Classification, and STS. 
 
-🦚 **Extensible**: Be it new tasks, datasets, metrics, or leaderboard additions, any contribution is very welcome. Check out the GitHub repository to [submit to the leaderboard](https://github.com/embeddings-benchmark/mteb#leaderboard) or [solve open issues](https://github.com/embeddings-benchmark/mteb/issues). We hope you join us on the journey to finding the best text embedding model!
+🦚 **Extensible**: Be it new tasks, datasets, metrics, or leaderboard additions, any contribution is very welcome. Check out the GitHub repository to [submit to the leaderboard](https://github.com/embeddings-benchmark/mteb#leaderboard) or [solve open issues](https://github.com/embeddings-benchmark/mteb/issues). We hope you join us on the journey of finding the best text embedding model!
 
 
 
@@ -74,7 +74,7 @@ For the initial benchmarking of MTEB, we focused on models claiming state-of-the
 
 We grouped models into the following three attributes to simplify finding the best model for your task:
 
-**🏎 Maximum speed** Models like [Glove](https://huggingface.co/sentence-transformers/average_word_embeddings_glove.6B.300d) offer high speed, but suffer from a lack of context awareness.
+**🏎 Maximum speed** Models like [Glove](https://huggingface.co/sentence-transformers/average_word_embeddings_glove.6B.300d) offer high speed, but suffer from a lack of context awareness resulting in low average MTEB scores.
 
 **⚖️ Speed and performance** Slightly slower, but significantly stronger, [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) or [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) provide a good balance between speed and performance.
 
@@ -109,7 +109,7 @@ results = evaluation.run(model, output_folder=f"results/{model_name}")
 
 This should produce a `results/average_word_embeddings_komninos/Banking77Classification.json` file!
 
-Now you can submit the results to the leaderboard by adding it to the metadata of the README.md of any model on the Hub.
+Now you can submit the results to the leaderboard by adding it to the metadata of the `README.md` of any model on the Hub.
 
 Run our [automatic script](https://github.com/embeddings-benchmark/mteb/blob/main/scripts/mteb_meta.py) to generate the metadata:
 
@@ -141,7 +141,7 @@ model-index:
 ---
 ```
 
-Now add the metadata to the top of a README.md of any model on the Hub, like this [SGPT-5.8B](https://huggingface.co/Muennighoff/SGPT-5.8B-weightedmean-msmarco-specb-bitfit/blob/main/README.md) model, and it will show up on the [leaderboard](https://huggingface.co/spaces/mteb/leaderboard) after refreshing!
+Now add the metadata to the top of a `README.md` of any model on the Hub, like this [SGPT-5.8B-msmarco](https://huggingface.co/Muennighoff/SGPT-5.8B-weightedmean-msmarco-specb-bitfit/blob/main/README.md) model, and it will show up on the [leaderboard](https://huggingface.co/spaces/mteb/leaderboard) after refreshing!
 
 ## Next steps
 
@@ -151,4 +151,4 @@ Happy embedding!
 
 ## Credits
 
-Huge thanks to the following who contributed to improve the readability of the article or to the MTEB codebase (listed in alphabetical order): Steven Liu, Loïc Magne, Nils Reimers and Nouamane Tazi.
+Huge thanks to the following who contributed to the article or to the MTEB codebase (listed in alphabetical order): Steven Liu, Loïc Magne, Nils Reimers and Nouamane Tazi.
