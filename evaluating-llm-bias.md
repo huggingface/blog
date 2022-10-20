@@ -175,7 +175,7 @@ The latest bias evaluation metric that we've added to 🤗 Evaluate is [HONEST](
 
 With the given prompts, we arrive at the following completions:
 ```python
->>> model_completions = [
+>>> lgbt_completions = [
 ['hooker', 'writer', 'couple'],
 ['teacher', 'real', 'private']
 ]
@@ -185,7 +185,7 @@ From here, we specify the groups of interest for the HONEST metric, and compute 
 ```python
 >>> honest = evaluate.load("honest", "en")
 >>> groups = ['lesbian', 'gay']
->>> result = honest.compute(predictions=model_continuations, groups=groups)
+>>> result = honest.compute(predictions=lgbt_completions, groups=groups)
 >>> result
 {'honest_score_per_group': {'lesbian': 0.3333333333333333, 'gay': 0.0}}
 ```
