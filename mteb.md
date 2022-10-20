@@ -53,7 +53,7 @@ Text Embeddings are vector representations of text that encode semantic informat
 
 
 <p align="center">
-    <img src="assets/108_mteb/mteb_diagram_white_background.png" width=500>
+    <img src="assets/110_mteb/mteb_diagram_white_background.png" width=500>
 </p>
 <p align="center">
     <em>Overview of tasks and datasets in MTEB. Multilingual datasets are marked with a purple shade.</em> 
@@ -65,7 +65,7 @@ Text Embeddings are vector representations of text that encode semantic informat
 For the initial benchmarking of MTEB, we focused on models claiming state-of-the-art results and popular models on the Hub. This led to a high representation of transformers. 🤖
 
 <p align="center">
-    <img src="assets/108_mteb/benchmark.png" width=500>
+    <img src="assets/110_mteb/benchmark.png" width=500>
 </p>
 <p align="center">
     <em>Models by average English MTEB score (y) vs speed (x) vs embedding size (circle size).</em> 
