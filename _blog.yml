@@ -1350,7 +1350,7 @@
 - local: pytorch-ddp-accelerate-transformers
   title: "From PyTorch DDP to 🤗 Accelerate to 🤗 Trainer, mastery of distributed training with ease"
   author: muellerzr
-  thumbnail: /blog/assets/110_pytorch_ddp_accelerate_transformers/thumbnail.png
+  thumbnail: /blog/assets/111_pytorch_ddp_accelerate_transformers/thumbnail.png
   date: October 21, 2022
   tags:
     - guide
