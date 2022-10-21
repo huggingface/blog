@@ -1,5 +1,5 @@
 ---
-title: "PUT YOUR TITLE HERE" 
+title: "Accelerating Document AI" 
 thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 ---
 
@@ -13,18 +13,18 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 </div>
 
 <div class="author-card">
-    <a href="/edbeeching"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1644220542819-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
+    <a href="/rajistics"> 
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1652986473945-60f2e74cadf471cbdf8bb663.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
-            <code>edbeeching</code>
-            <span class="fullname">Edward Beeching</span>
+            <code>rajistics</code>
+            <span class="fullname">Rajiv Shah</span>
         </div>
     </a>
-    <a href="/ThomasSimonini"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1632748593235-60cae820b1c79a3e4b436664.jpeg?w=200&h=200&f=face" title="Gravatar">
+    <a href="/nielsr"> 
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1608042047613-5f1158120c833276f61f1a84.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
-            <code>ThomasSimonini</code>
-            <span class="fullname">Thomas Simonini</span>
+            <code>nielsr</code>
+            <span class="fullname">Niels Rogge</span>
         </div>
     </a>
 </div>
