@@ -877,7 +877,7 @@ Note that the code above is a simplified version of the original implementation.
 
 ## Train the model
 
-Next, we train the model in regular PyTorch fashion. We also define some logic to peridiocally save generated images, using the `sample` method defined above.
+Next, we train the model in regular PyTorch fashion. We also define some logic to periodically save generated images, using the `sample` method defined above.
 
 
 ```python
