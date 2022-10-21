@@ -8,7 +8,14 @@ title: "OpenVINO quantization and inference with Optimum Intel"
 
 ## Case study: Quantizing a ViT with Optimum Intel OpenVINO support
 
-In this example, we will run post-training static quantization on a ViT model fine-tuned for classification. Quantization is a process that shrinks memory and compute requirements by reducing the bit width of model parameters.
+In this example, we will run post-training static quantization on a ViT model fine-tuned for classification. Quantization is a process that shrinks memory and compute requirements by reducing the bit width of model parameters. Reducing the number of bits means that the resulting model requires less memory storage and that operations like matrix multiplication can be performed much faster with integer arithmetic.
+
+First, to install all the required libraries :
+
+```
+pip install optimum-intel[openvino,nncf] # Should be replaced to pip install optimum[openvino,nncf] after optimum release
+```
+
 
 ```python
 from transformers import AutoFeatureExtractor, AutoModelForImageClassification
