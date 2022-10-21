@@ -1336,6 +1336,16 @@
     - guide
     - cloud
     - inference
+
+- local: mteb
+  title: "MTEB: Massive Text Embedding Benchmark"
+  author: Muennighoff
+  thumbnail: /blog/assets/110_mteb/thumbnail.png
+  date: Oct 19, 2022
+  tags:
+    - nlp
+    - research
+    - llm
     
 - local: pytorch-ddp-accelerate-transformers
   title: "From PyTorch DDP to 🤗 Accelerate to 🤗 Trainer, mastery of distributed training with ease"
