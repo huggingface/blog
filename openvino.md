@@ -31,7 +31,7 @@ quantization_config = OVConfig()
 quantizer = OVQuantizer.from_pretrained(model)
 ```
 
-Post-training static quantization introduces an additional calibration step where data is fed through the network in order to compute the activations quantization parameters.
+Post-training static quantization introduces an additional calibration step where data is fed through the network in order to compute the activations quantization parameters. In order to create the calibration dataset, we can use the quantizer `get_calibration_dataset()` method. The dataset chosen is the training split of the Food-101 dataset, which consists of 101 food categories, and the number of calibration amples is set to `300`.
 
 ```python
 # Create the calibration dataset used to perform static quantization
@@ -71,7 +71,7 @@ def val_transforms(example_batch):
 calibration_dataset.set_transform(val_transforms)
 ```
 
-We can now apply quantization and export the resulting quantized model to OpenVINO IR format.
+We can now use the quantizer `quantize()` method which will apply quantization and export the resulting quantized model to the OpenVINO IR format.
 
 ```python
 save_dir = "./quantized_model"
