@@ -5,6 +5,7 @@ title: "OpenVINO quantization and inference with Optimum Intel"
 
 <h1>OpenVINO quantization and inference with Optimum Intel</h1>
 
+We previously presented the integration of Neural Compressor in Optimum Intel in this blog [post](https://huggingface.co/blog/intel). Today we are happy to announce that we also integrated OpenVINO to our library. While Neural Compressor is allowing to combine multiple compression techniques (such as quantization, pruning and knowledge distillation), OpenVINO allows you to apply quantization with OpenVINO NNCF and to run inference with OpenVINO Runtime on your Intel processors.
 
 ## Case study: Quantizing a ViT with Optimum Intel OpenVINO support
 
