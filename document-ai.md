@@ -1,6 +1,6 @@
 ---
 title: "Accelerating Document AI" 
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+thumbnail: /blog/assets/112_document-ai/thumbnail.png
 ---
 
 # Accelerating Document AI
@@ -27,7 +27,22 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
             <span class="fullname">Niels Rogge</span>
         </div>
     </a>
+        <a href="/florentgbelidji"> 
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1644853115901-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>florentgbelidji</code>
+            <span class="fullname">Florent Gbelidji</span>
+        </div>
+    </a>
+        <a href="/nbroad"> 
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1639773384591-5f353bb37e58354338621655.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>nbroad</code>
+            <span class="fullname">Nicholas Broad</span>
+        </div>
+    </a>
 </div>
+
 
 Enterprises are full of documents containing knowledge that isn't accessible by digital workflows. These documents can vary from letters, invoices, forms, reports, to receipts. With the improvements in text, vision, and multimodal AI, it's now possible to unlock that information. This post shows you how your teams can use open-source models to build custom solutions for free!
 
@@ -41,7 +56,7 @@ There are at least six general use cases for building document AI solutions. The
 
 Turning typed, handwritten, or printed text into machine-encoded text is known as Optical Character Recognition (OCR). It's a widely studied problem with many well-established open-source and commercial offerings. The figure shows an example of converting handwriting into text.
 
-[https://lh3.googleusercontent.com/0pvA_Wgk2umfNAyDfIjQ_ELkv3qZ2umbC0OLVR7lXVoQUxegfBoB0O3X0KOehiI3nCDuDC6UCA5ImlKFzd-phpLou-ltQh8CLU_33UdOzO44x7I455B2OVsm4SvaTdN0Nkpz5VpmBxk3pgZXSVBD87mYwHajdcjnuKp_KixJsoXV3TUmoS52szSZvw](https://lh3.googleusercontent.com/0pvA_Wgk2umfNAyDfIjQ_ELkv3qZ2umbC0OLVR7lXVoQUxegfBoB0O3X0KOehiI3nCDuDC6UCA5ImlKFzd-phpLou-ltQh8CLU_33UdOzO44x7I455B2OVsm4SvaTdN0Nkpz5VpmBxk3pgZXSVBD87mYwHajdcjnuKp_KixJsoXV3TUmoS52szSZvw)
+![png](assets/112_document-ai/ocr.png)
 
 OCR is a backbone of Document AI use cases as it's essential to transform the text into something readable by a computer. Some widely available OCR models that operate at the document level are [EasyOCR](https://huggingface.co/spaces/tomofi/EasyOCR) or [PaddleOCR](https://huggingface.co/spaces/PaddlePaddle/PaddleOCR). There are also models like [TrOCR: Transformer-based Optical Character Recognition with Pre-trained Models](https://huggingface.co/docs/transformers/model_doc/trocr), which runs on single-text line images. This model works with a text detection model like CRAFT which first identifies the individual "pieces" of text in a document in the form of bounding boxes. The relevant metrics for OCR are Character Error Rate (CER) and word-level precision, recall, and F1. Check out [this Space](https://huggingface.co/spaces/tomofi/CRAFT-TrOCR) to see a demonstration of CRAFT and TrOCR.  
 
@@ -51,7 +66,7 @@ Classifying documents into the appropriate category, such as forms, invoices, or
 
 A basic approach (and an excellent starting point) is applying OCR on a document image, after which a [BERT](https://huggingface.co/docs/transformers/model_doc/bert)-like model is used for classification. However, relying on only a BERT model doesn't take any layout or visual information into account. The examples below show that the visual structure is often quite different between different document types.
 
-[https://lh4.googleusercontent.com/JvVI3Hbu1lDKUntocHYTQQ76F9scwJ9-fpG9XKnoc8XHzPt6cNW78M3hZH2oAeJXiku4KA-DFGq6Iw4iIXzjpXZIgSKjEDISmxYgxFuCGe8nVK8mBGOcObxNhldwlN5TrYQM2kUFGF7YpxfRDi9w_-rEZ2VC8dLItXmkVFOczF--HwRXb9gKi8YVzQ](https://lh4.googleusercontent.com/JvVI3Hbu1lDKUntocHYTQQ76F9scwJ9-fpG9XKnoc8XHzPt6cNW78M3hZH2oAeJXiku4KA-DFGq6Iw4iIXzjpXZIgSKjEDISmxYgxFuCGe8nVK8mBGOcObxNhldwlN5TrYQM2kUFGF7YpxfRDi9w_-rEZ2VC8dLItXmkVFOczF--HwRXb9gKi8YVzQ)
+![png](assets/112_document-ai/doc_class.png)
 
 That's where models like [LayoutLM](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) and [Donut](https://huggingface.co/docs/transformers/model_doc/donut) come into play. By incorporating not only text but also visual information, these models can dramatically increase accuracy. For comparison, on [RVL-CDIP](https://huggingface.co/datasets/rvl_cdip), an important benchmark for document image classification, a BERT-base model achieves 89% accuracy by using the text. A [DiT](https://huggingface.co/docs/transformers/main/en/model_doc/dit) (Document Image Transformer) is a pure vision model (i.e., it does not take text as input) and can reach 92% accuracy. But models like [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3) and [Donut](https://huggingface.co/docs/transformers/model_doc/donut), which use the text and visual information together using a multimodal Transformer, can achieve 95% accuracy! These multimodal models are changing how practitioners solve Document AI use cases.
 
@@ -61,9 +76,9 @@ Document layout analysis is the task of determining the physical structure of a 
 
 Models that are currently state-of-the-art for document layout analysis are [LayoutLMv3](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) and [DiT](https://huggingface.co/docs/transformers/model_doc/dit) (Document Image Transformer). Both models use the classic [Mask R-CNN](https://arxiv.org/abs/1703.06870) framework for object detection as a backbone. This [document layout analysis](https://huggingface.co/spaces/nielsr/dit-document-layout-analysis) Space illustrates how DiT can be used to identify text segments, titles, and tables in documents.
 
-[https://lh4.googleusercontent.com/fF8_8Bwcn7uNHRotxMNCbCbfFvJJv2Vj8N-kSK5qtP7ut7nRRTwAv63STdSMucgFYwMARTYuF07T4B2UqE28e8m7IclkfjXJO5oHkpcihI6_NZcGObrHxcaXXYP95U5FYnqra1A_B5bQ1Y4vGK-bU2pn3cEDJcxtbWx4zQ1vzG1GN1wYzzh0q0ZsIA](https://lh4.googleusercontent.com/fF8_8Bwcn7uNHRotxMNCbCbfFvJJv2Vj8N-kSK5qtP7ut7nRRTwAv63STdSMucgFYwMARTYuF07T4B2UqE28e8m7IclkfjXJO5oHkpcihI6_NZcGObrHxcaXXYP95U5FYnqra1A_B5bQ1Y4vGK-bU2pn3cEDJcxtbWx4zQ1vzG1GN1wYzzh0q0ZsIA)
+![png](assets/112_document-ai/DIT_1.png)
 
-[https://lh3.googleusercontent.com/3ZPB5m42VQwt4uWqUG9ErpHeogb9QTAFs0MgdPHijKtzFp5VvLaxTyq_SWRz0daZgKIzLJY9HnV7L7DgcZopMlPL_W01aUg1tDFhW9Aohlc1IeEPmf3mufvIWA3rilaVz9N3PoBFpnSWgOGWnwsiWd13m82BPgJzBOtUiLZxLmC3sQjAG9tW2Tho8Q](https://lh3.googleusercontent.com/3ZPB5m42VQwt4uWqUG9ErpHeogb9QTAFs0MgdPHijKtzFp5VvLaxTyq_SWRz0daZgKIzLJY9HnV7L7DgcZopMlPL_W01aUg1tDFhW9Aohlc1IeEPmf3mufvIWA3rilaVz9N3PoBFpnSWgOGWnwsiWd13m82BPgJzBOtUiLZxLmC3sQjAG9tW2Tho8Q)
+![png](assets/112_document-ai/DIT_2.png)
 
 Document layout analysis with DiT.
 
@@ -79,13 +94,13 @@ LayoutLMv1 now has many successors. [Donut](https://huggingface.co/docs/transfor
 
 Data scientists are finding document layout analysis and extraction as key use cases for enterprises. The existing commercial solutions typically cannot handle the diversity of most enterprise data, in content and structure. Consequently, data science teams can often surpass commercial tools by fine-tuning their own models.
 
-[https://lh3.googleusercontent.com/YEwL9DOP2wGk6V2Z4Uix-BM9I4s8BhPXSTwJgJcs_RJq3Pm7xr0D-0407AGuOwsqbURzM7yspyJgtaAaCJSmvnFAZqfPOmDFctyxwZxJrNxuu7zIFxQAy5Tlt_ff2DUFkfj4a4L3QKBPw7P9R7tu5GisjI6hVbWXlwgLdzj7CSgcdpZAa7trx19SNw](https://lh3.googleusercontent.com/YEwL9DOP2wGk6V2Z4Uix-BM9I4s8BhPXSTwJgJcs_RJq3Pm7xr0D-0407AGuOwsqbURzM7yspyJgtaAaCJSmvnFAZqfPOmDFctyxwZxJrNxuu7zIFxQAy5Tlt_ff2DUFkfj4a4L3QKBPw7P9R7tu5GisjI6hVbWXlwgLdzj7CSgcdpZAa7trx19SNw)
+![png](assets/112_document-ai/layoutlm.png)
 
 **Table detection, extraction, and table structure recognition**
 
 Documents often contain tables, and most OCR tools don't work incredibly well out-of-the-box on tabular data. Table detection is the task of identifying where tables are located, and table extraction creates a structured representation of that information. Table structure recognition is the task of identifying the individual pieces that make up a table, like rows, columns, and cells. Table functional analysis (FA) is the task of recognizing the keys and values of the table. The figure below illustrates the difference between the various subtasks.
 
-[https://lh5.googleusercontent.com/3QCNUwmlzix6u5zGmp2iaxYmhCn-p5oHpVT0QTUC0v3s78Kb9YrDmhnSl4zR68mIXJTdGlILfW2wBt3FhvPvdNkHZeAQLwU-lJvwdeV-RxZpwM8ktb-Hc48hxaaWPjU3u0CLuGvQqvrvVLN2lI1TRKnxVFzkNJftCkG_HQMzfHqeBJ4YEipYdtpLzQ](https://lh5.googleusercontent.com/3QCNUwmlzix6u5zGmp2iaxYmhCn-p5oHpVT0QTUC0v3s78Kb9YrDmhnSl4zR68mIXJTdGlILfW2wBt3FhvPvdNkHZeAQLwU-lJvwdeV-RxZpwM8ktb-Hc48hxaaWPjU3u0CLuGvQqvrvVLN2lI1TRKnxVFzkNJftCkG_HQMzfHqeBJ4YEipYdtpLzQ)
+![jpeg](assets/112_document-ai/table.jpeg)
 
 The approach for table detection and structure recognition is similar to document layout analysis in using object detection models that output a set of bounding boxes and corresponding classes.
 
@@ -97,7 +112,7 @@ Table detection and extraction is an exciting approach, but the results may be d
 
 Question answering on documents has dramatically changed how people interact with AI. Recent advancements have made it possible to ask models to answer questions about an image - this is known as document visual question answering, or DocVQA for short. After being given a question, the model analyzes the image and responds with an answer. An example of this is shown in the figure below. The user asks," Mention the ZIP code written? " and the model responds with the answer.
 
-[https://lh6.googleusercontent.com/58W8Q5EeD_Pen5XcD9H6RGdw9RysuVd3n9-R7sLEHrsuJGsby_wWIUFDHAhs64Q4fvZE3j1rwNM4DwH7EgOTMeLQkRSd4_w0f6ruc5yR12rsRTUbJ7WzZhH8SG3bs76kre55oshfClTammEqq4dVV3V9pil6SyKTW06_BXG8Gea95HtzWlidYqzDXA](https://lh6.googleusercontent.com/58W8Q5EeD_Pen5XcD9H6RGdw9RysuVd3n9-R7sLEHrsuJGsby_wWIUFDHAhs64Q4fvZE3j1rwNM4DwH7EgOTMeLQkRSd4_w0f6ruc5yR12rsRTUbJ7WzZhH8SG3bs76kre55oshfClTammEqq4dVV3V9pil6SyKTW06_BXG8Gea95HtzWlidYqzDXA)
+![png](assets/112_document-ai/vqa.png)
 
 In the past, building a DocVQA system would often require multiple models working together. There could be separate models for analyzing the document layout, performing OCR, extracting entities, and then answering a question. The latest DocVQA models enable question-answering in an end-to-end manner, comprising only a single (multimodal) model.
 
