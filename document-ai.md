@@ -160,9 +160,9 @@ A table of the currently available Transformers models achieving state-of-the-ar
 
 | model | paper | license | checkpoints |
 | --- | --- | --- | --- |
-| Donut | arxiv | MIT | huggingface |
-| LayoutLM | arxiv | MIT | huggingface |
-| LayoutXLM | arxiv | CC BY-NC-SA 4.0 | huggingface |
+| [Donut](https://huggingface.co/docs/transformers/main/en/model_doc/donut#overview) | [arxiv](https://arxiv.org/abs/2111.15664) | [MIT](https://github.com/clovaai/donut#license) | [huggingface](https://huggingface.co/models?other=donut) |
+| [LayoutLM](https://huggingface.co/docs/transformers/model_doc/layoutlm) | [arxiv](https://arxiv.org/abs/1912.13318) | [MIT](https://github.com/microsoft/unilm/blob/master/LICENSE) | [huggingface](https://huggingface.co/models?other=layoutlm) |
+| [LayoutXLM](https://huggingface.co/docs/transformers/model_doc/layoutxlm) | [arxiv](https://arxiv.org/abs/2104.08836) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) | [huggingface](https://huggingface.co/microsoft/layoutxlm-base) |
 | LayoutLMv2 | arxiv | CC BY-NC-SA 4.0 | huggingface |
 | LayoutLMv3 | arxiv | CC BY-NC-SA 4.0 | huggingface |
 | DiT | arxiv | CC BY-NC-SA 4.0 | huggingface |
