@@ -80,13 +80,13 @@ Models that are currently state-of-the-art for document layout analysis are [Lay
 
 Document layout analysis with DiT.
 
-Document layout analysis typically uses the mAP (mean average-precision) metric, often used for evaluating object detection models. An important benchmark for layout analysis is the [PubLayNet](https://github.com/ibm-aur-nlp/PubLayNet) dataset. LayoutLMv3, the state-of-the-art at the time of writing, achieves an overall mAP score of 0.951 ([source](https://paperswithcode.com/sota/document-layout-analysis-on-publaynet-val)).
+Document layout analysis typically uses the mAP (mean average-precision) metric, often used for evaluating object detection models. An important benchmark for layout analysis is the [PubLayNet](https://github.com/ibm-aur-nlp/PubLayNet) dataset. [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3), the state-of-the-art at the time of writing, achieves an overall mAP score of 0.951 ([source](https://paperswithcode.com/sota/document-layout-analysis-on-publaynet-val)).
 
 **Document parsing**
 
 A step beyond layout analysis is document parsing. Document parsing is identifying and extracting key information from a document, such as names, items, and totals from an invoice form. This [LayoutLMv2 Space](https://huggingface.co/spaces/nielsr/LayoutLMv2-FUNSD) shows to parse a document to recognize questions, answers, and headers.
 
-The first version of LayoutLM (now known as LayoutLMv1) was released in 2020 and dramatically improved over existing benchmarks, and it's still one of the most popular models on the Hugging Face Hub for Document AI. LayoutLMv2 and LayoutLMv3 incorporate visual features during pre-training, which provides an improvement. The LayoutLM family produced a step change in Document AI performance. For example, on the [FUNSD](https://guillaumejaume.github.io/FUNSD/) benchmark dataset, a BERT model has an F1 score of 60%, but with LayoutLM, it is possible to get to 90%! 
+The first version of LayoutLM (now known as LayoutLMv1) was released in 2020 and dramatically improved over existing benchmarks, and it's still one of the most popular models on the Hugging Face Hub for Document AI. [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) and [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3) incorporate visual features during pre-training, which provides an improvement. The LayoutLM family produced a step change in Document AI performance. For example, on the [FUNSD](https://guillaumejaume.github.io/FUNSD/) benchmark dataset, a BERT model has an F1 score of 60%, but with LayoutLM, it is possible to get to 90%! 
 
 LayoutLMv1 now has many successors. [Donut](https://huggingface.co/docs/transformers/model_doc/donut) builds on LayoutLM but can take the image as input, so it doesn't require a separate OCR engine. For multilingual use cases, there are multilingual variants of LayoutLM, like [LayoutXLM](https://huggingface.co/docs/transformers/model_doc/layoutxlm) and [LiLT](https://huggingface.co/docs/transformers/main/en/model_doc/lilt). This figure shows LayoutLM analyzing some different documents.
 
@@ -120,7 +120,7 @@ Visual question answering is compelling; however, there are many considerations 
 
 ### Licensing Issues
 
-Industry and academia make enormous contributions to advancing Document AI. There are a wide assortment of models and datasets available for data scientists to use. However, licensing can be a non-starter for building an enterprise solution. Some well-known models have restrictive licenses that forbid the model from being used for commercial purposes. Most notably, Microsoft has decided that LayoutLMv2 and LayoutLMv3 cannot be used commercially. When you start a project, we advise carefully evaluating the license of prospective models. Knowing which models you want to use is essential at the outset, since that may affect data collection and annotation.
+Industry and academia make enormous contributions to advancing Document AI. There are a wide assortment of models and datasets available for data scientists to use. However, licensing can be a non-starter for building an enterprise solution. Some well-known models have restrictive licenses that forbid the model from being used for commercial purposes. Most notably, Microsoft has decided that [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) and [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3) cannot be used commercially. When you start a project, we advise carefully evaluating the license of prospective models. Knowing which models you want to use is essential at the outset, since that may affect data collection and annotation. A table of the popular models with their licensing license information is at the end of this post. 
 
 ### Data Preparation Issues
 
@@ -128,7 +128,7 @@ Data preparation for Document AI is critical and challenging. It's crucial to ha
 
 First, machine learning depends on the scale and quality of your data. If the image quality of your documents is poor, you can't expect AI to be able to read these documents magically. Similarly, if your training data is small with many classes, your performance may be poor. Document AI is like other problems in machine learning where larger data will generally provide greater performance.
 
-Second, be flexible in your approaches. You may need to test several different methodologies to find the best solution. A great example is OCR, in which you can use an open-source product like Tesseract, a commercial solution like Cloud Vision API, or the OCR capability inside an open-source multimodal model like Donut.
+Second, be flexible in your approaches. You may need to test several different methodologies to find the best solution. A great example is OCR, in which you can use an open-source product like Tesseract, a commercial solution like Cloud Vision API, or the OCR capability inside an open-source multimodal model like [Donut](https://huggingface.co/docs/transformers/model_doc/donut).
 
 Third, start small with annotating data and pick your tools wisely. In our experience, you can get good results with several hundred documents. So start small and carefully evaluate your performance. Once you have narrowed your overall approach, you can begin to scale up the data to maximize your predictive accuracy. When annotating, remember that some tasks like layout identification and document extraction require identifying a specific region within a document. You will want to ensure your annotation tool supports bounding boxes.
 
@@ -138,17 +138,17 @@ The flexibility of building your models leads to many options for data scientist
 
 For teams considering building their own pre-trained model, be aware this can involve millions of documents and can easily take several weeks to train a model. Building a pre-trained model requires significant effort and is not recommended for most data science teams. Instead, start with fine-tuning one, but ask yourself these questions first.
 
-Do you want the model to handle the OCR? For example, Donut doesn't require the document to be OCRed and directly works on full-resolution images, so there is no need for OCR before modeling. However, depending on your problem setup, it may be simpler to get OCR separately.
+Do you want the model to handle the OCR? For example, [Donut](https://huggingface.co/docs/transformers/model_doc/donut) doesn't require the document to be OCRed and directly works on full-resolution images, so there is no need for OCR before modeling. However, depending on your problem setup, it may be simpler to get OCR separately.
 
-Should you use higher-resolution images? When using images with LayoutLMv2, it downscales them to 224 by 224, whereas Donut uses the full high-resolution image. However, using the full high-resolution image dramatically increases the memory required for training and inference.
+Should you use higher-resolution images? When using images with [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2), it downscales them to 224 by 224, whereas [Donut](https://huggingface.co/docs/transformers/model_doc/donut) uses the full high-resolution image. However, using the full high-resolution image dramatically increases the memory required for training and inference.
 
 How are you evaluating the model? Watch out for misaligned bounding boxes. You should ensure bounding boxes provided by the OCR engine of your choice align with the model processor. Verifying this can save you from unexpectedly poor results. Second, let your project requirements guide your evaluation metrics. For example, in some tasks like token classification or question answering, a 100% match may not be the best metric. A metric like partial match could allow for many more potential tokens to be considered, such as “Acme” and “inside Acme” as a match.
 
 ### Next Steps
 
-Are you seeing the possibilities of Document AI? Every day we work with enterprises to unlock valuable data using state-of-the-art vision and language models. We included links to various demos throughout this post, so use them as a starting point. The last section of the post contains resources for starting to code up your own models, such as visual question answering. Once you are ready to start building your solutions, the Hugging Face public hub is a great starting point. It hosts a vast array of Document AI models.
+Are you seeing the possibilities of Document AI? Every day we work with enterprises to unlock valuable data using state-of-the-art vision and language models. We included links to various demos throughout this post, so use them as a starting point. The last section of the post contains resources for starting to code up your own models, such as visual question answering. Once you are ready to start building your solutions, the [Hugging Face public hub](https://huggingface.co/models) is a great starting point. It hosts a vast array of Document AI models.
 
-If you want to accelerate your Document AI efforts, Hugging Face can help. Through our Enterprise Acceleration Program (EAP) we partner with enterprises to provide guidance on AI use cases. For Document AI, this could involve helping build a pre-train model, improving accuracy on a fine-tuning task, or providing overall guidance on tackling your first Document AI use case.
+If you want to accelerate your Document AI efforts, Hugging Face can help. Through our [Enterprise Acceleration Program](https://huggingface.co/support) we partner with enterprises to provide guidance on AI use cases. For Document AI, this could involve helping build a pre-train model, improving accuracy on a fine-tuning task, or providing overall guidance on tackling your first Document AI use case.
 
 ### Resources
 
