@@ -51,9 +51,8 @@ print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
 
 <div class="output stream stdout">
 
-    Output:----------------------------------------------------------------------------------------------------2022-10-23 10:18:22.820013: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMATo enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.2022-10-23 10:18:23.437567: I tensorflow/core/util/util.cc:169] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
-    DeepMind Company is a leading AI research company, with a focus on deep learning and deep learning-based systems.
-    
+    Output:
+    ----------------------------------------------------------------------------------------------------DeepMind Company is a leading AI research company, with a focus on deep learning and deep learning-based systems.
     The company's research is focused on the development of deep learning-based systems that can learn from large amounts of data, and that can be used to solve real-world problems.
     
     DeepMind's research is also used by the UK government to develop new technologies for the UK's National Health Service.
@@ -195,8 +194,8 @@ next_hidden = new_hidden_states[:,seqlen:,:]
 
 `context_hidden` saves the hidden states of previous tokens and `next_hidden` saves the hidden states of top-k candidate tokens.
 
-Finally, the final score $s(x_i)$ for each candidate token can be computed in the next formulation: ![](assets/introducing_contrastive_search/formulation.png)
-where $V^{(k)}$ is the set of top-k candidate tokens from the model's probability distribution, and $p_{\theta}(v|x_{<t})$ is its probability. $\alpha$ is the hyper-parameter that balances the model confidence and the degeneration penalty scores. If $\alpha$ becomes bigger, the penalty for each token will become larger. 
+Finally, the final score for each candidate token can be computed in the next formulation: ![](assets/introducing_contrastive_search/formulation.png)
+where $V^{(k)}$ is the set of top-k candidate tokens from the model's probability distribution, and $p_{\theta}(v|x_{\textless t})$ is its probability. $\alpha$ is the hyper-parameter that balances the model confidence and the degeneration penalty scores. If $\alpha$ becomes bigger, the penalty for each token will become larger. 
 
 The coressponding code snippts of the formulation are shown as follows:
 
