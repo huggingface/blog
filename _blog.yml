@@ -1262,7 +1262,7 @@
     - guide
     - research
     - open-source-collab
-    
+
 - local: autotrain-image-classification
   title: "Image Classification with AutoTrain"
   author: NimaBoscarino
@@ -1282,7 +1282,7 @@
     - autotrain
     - research
     - nlp
-    
+
 - local: japanese-stable-diffusion
   title: "Japanese Stable Diffusion"
   author: mkshing
@@ -1346,7 +1346,7 @@
     - nlp
     - research
     - llm
-    
+
 - local: pytorch-ddp-accelerate-transformers
   title: "From PyTorch DDP to 🤗 Accelerate to 🤗 Trainer, mastery of distributed training with ease"
   author: muellerzr
@@ -1356,3 +1356,13 @@
     - guide
     - research
     - open-source-collab
+
+- local: evaluating-llm-bias
+  title: "Evaluating Language Model Bias with 🤗 Evaluate"
+  author: sasha
+  thumbnail: /blog/assets/112_evaluating-llm-bias/thumbnail.png
+  date: Oct 24, 2022
+  tags:
+    - ethics
+    - research
+    - nlp
