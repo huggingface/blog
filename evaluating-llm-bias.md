@@ -1,5 +1,6 @@
 ---
 title: "Evaluating Language Model Bias with 🤗 Evaluate"
+thumbnail: /blog/assets/112_evaluating-llm-bias/thumbnail.png
 ---
 
 # Evaluating Language Model Bias with 🤗 Evaluate
