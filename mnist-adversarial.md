@@ -87,7 +87,7 @@ At this point we assume you have your trained model. Although this model is trai
 
 Below is a simple Space to interact with the `MNIST_Model` which I trained for 20 epochs (achieved 89% accuracy on the test set). You draw a number on the white canvas and the model predicts the number from your image. The full Space can be accessed [here](https://huggingface.co/spaces/chrisjay/simple-mnist-classification). Try to fool this model😁. Use your funniest handwriting; write on the sides of the canvas; go wild!
 
-<iframe src="https://hfhttps://chrisjay-simple-mnist-classification.hf.space" frameBorder="0" width="100%" height="700px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<iframe src="https://chrisjay-simple-mnist-classification.hf.space" frameBorder="0" width="100%" height="700px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
 
 ### Flagging your model
   
