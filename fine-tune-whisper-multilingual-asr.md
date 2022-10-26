@@ -98,15 +98,15 @@ encoder hidden-states and previously predicted tokens. Figure source:
 </figure>
 
 In the sequence-to-sequence architecture, the encoder plays the role of 
-generating features from the audio inputs. The role of the decoder is to
-process these features and generate transcriptions, rather like that of a 
-language model. Incorporating a language model internally in the model 
-architecture in the form of a decoder is termed _deep-fusion_. This is in 
-contrast to _shallow-fusion_, where a language model is combined externally 
-with an encoder (such as with CTC + $n$-gram). With deep-fusion, the entire 
-system can be trained end-to-end with the same training data and the same loss 
-function, giving greater flexibility and generally superior performance 
-(_c.f._ [Deep Speech](https://arxiv.org/pdf/1412.5567.pdf)).
+encoding the audio inputs to hidden-state representations. The role of the 
+decoder is to process these representations and generate the corresponding 
+transcriptions, rather like that of a language model. Incorporating a language 
+model internally in the model architecture in the form of a decoder is termed 
+_deep-fusion_. This is in contrast to _shallow-fusion_, where a language model 
+is combined externally with an encoder (such as with CTC + $n$-gram). With 
+deep-fusion, the entire system can be trained end-to-end with the same training 
+data and the same loss function, giving greater flexibility and generally superior 
+performance (_c.f._ [Deep Speech](https://arxiv.org/pdf/1412.5567.pdf)).
 
 Whisper is both pre-trained and fine-tuned using the cross-entropy objective function, 
 a common objective function for training sequence-to-sequence systems on classification tasks: 
