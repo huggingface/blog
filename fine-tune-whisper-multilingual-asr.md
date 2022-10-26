@@ -335,10 +335,10 @@ which correspond to particular frequency bins. Along the $x$-axis is time. The c
 each pixel corresponds to the log-intensity of that frequency bin at a given time. The 
 log-Mel spectrogram is the form of input expected by the Whisper model.
 
-<!--- The Mel channels (frequency bins) are standard in speech processing, and chosen to approximate
+The Mel channels (frequency bins) are standard in speech processing, and chosen to approximate
 the human auditory range. All we need to know for the purpose of Whisper is that 
 the spectrogram is a visual representation of the frequencies in the signal. For more detail
-on the Mel channels, refer to [Mel-frequency cepstrum](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum). --->
+on the Mel channels, refer to [Mel-frequency cepstrum](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum).
 
 <figure>
 <img src="assets/111_fine_tune_whisper/spectrogram.jpg" alt="Trulli" style="width:100%">
