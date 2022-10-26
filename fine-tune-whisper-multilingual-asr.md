@@ -117,8 +117,8 @@ vocabulary of text tokens.
 The Whisper checkpoints come in five configurations of varying model size.
 The smallest four are trained on either English-only or multilingual data.
 The largest checkpoint is multilingual only. All the pre-trained checkpoints are available
-on the 🤗 Hub. The checkpoints are summarised in the following table with links to the 
-models on the Hub:
+on the [🤗 Hub](https://huggingface.co/models?other=whisper). The checkpoints are 
+summarised in the following table with links to the models on the Hub:
 
 | Size   | Layers | Width | Heads | Parameters | English-only                                         | Multilingual                                      |
 |--------|--------|-------|-------|------------|------------------------------------------------------|---------------------------------------------------|
