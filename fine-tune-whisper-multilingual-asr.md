@@ -63,13 +63,14 @@ pre-trained checkpoints can be adapted for specific datasets and languages
 to further improve upon these results.
 
 The Whisper model is a Transformer based encoder-decoder architecture, 
-also referred to as a _sequence-to-sequence_ model. It maps a sequence 
-of raw audio inputs into a sequence of text outputs. The raw audio inputs 
-are first converted to a log-Mel spectrogram by action of the feature extractor. 
-The spectrogram is then input to the Transformer encoder to generate a sequence 
-of encoder hidden-states. The decoder auto-regressively predicts text tokens 
-conditional on the previous tokens and the encoder hidden-states.
-Figure 1 summarises the architecture of the Whisper model.
+also referred to as a _sequence-to-sequence_ model. It maps a _sequence_ 
+of audio spectrogram features into a _sequence_ of text tokens. First, 
+the raw audio inputs are converted to a log-Mel spectrogram by action of 
+the feature extractor. The spectrogram is then encoded by the Transformer 
+encoder to form a sequence of encoder hidden-states. Finally, the decoder 
+auto-regressively predicts text tokens conditional on the previous tokens 
+and the encoder hidden-states. Figure 1 summarises the architecture of the 
+Whisper model.
 
 <figure>
 <img src="assets/111_fine_tune_whisper/whisper_architecture.svg" alt="Trulli" style="width:100%">
