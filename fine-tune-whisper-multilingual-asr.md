@@ -277,7 +277,7 @@ follow the link: [ASR Datasets on the 🤗 Hub](https://huggingface.co/datasets?
 ### Prepare Feature Extractor, Tokenizer and Data
 ------------------------------------------
 
-The ASR pipeline can be de-composed into three states: 
+The ASR pipeline can be de-composed into three components: 
 1) A feature extractor which pre-processes the raw audio-inputs
 2) The model which performs the sequence-to-sequence mapping 
 3) A tokenizer which post-processes the model outputs to text format
