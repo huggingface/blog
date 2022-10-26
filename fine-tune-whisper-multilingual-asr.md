@@ -51,6 +51,20 @@ pre-training data is multilingual ASR data. This results in checkpoints that
 can be applied to over 96 different languages, many of which are considered 
 _low-resource_.
 
+The consequence of this is that Whisper is pre-trained on the _supervised_ 
+task of speech recognition, directly learning a mapping from speech-to-text.
+Since the pre-training task of speech recognition is the same as the downstream 
+one, and due to the fact that Whisper is pre-trained to learn an _end-to-end_ 
+mapping from speech-to-text, Whisper requires little additional fine-tuning to 
+yield a performant ASR model.
+
+This is in contrast to Wav2Vec 2.0, which is pre-trained on the 
+_unsupervised_ task of masked prediction, learning an intermediate mapping 
+from speech to hidden-states. Whilst unsupervised pre-training yields 
+high-quality representations of speech, it does **not** learn a mapping to 
+text transcriptions. This mapping is only ever learned during fine-tuning, 
+thus requiring additional fine-tuning and more in-domain labelled data.
+
 When scaled to 680,000 hours of labelled pre-training data, Whisper models 
 demonstrate a strong ability to generalise to many datasets and domains.
 The pre-trained checkpoints achieve competitive results to state-of-the-art 
