@@ -1,6 +1,6 @@
 ---
 title: 'Welcome Sample Factory to the Hugging Face Hub 🤗'
-thumbnail: /blog/assets/110_sample_factory/thumbnail.png
+thumbnail: /blog/assets/113_sample_factory/thumbnail.png
 ---
 
 <h1>
@@ -80,7 +80,15 @@ All models on the Hub come up with useful features:
 3. Evaluation results to compare with other models.
 4. A video widget where you can watch your agent performing.
 
-<img src="assets/110_sample_factory/doom-example.jpg" alt="Doom Example"/>
+
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/113_sample_factory/doom-example.jpg" alt="Doom Example"/>
+  <figcaption>An example of a model card of an agent playing Doom
+</figcaption>
+</figure>
+
+
+
 
 
 
