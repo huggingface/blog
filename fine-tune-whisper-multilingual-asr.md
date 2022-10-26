@@ -140,8 +140,10 @@ strong performance on this language.
 
 \\({}^1\\) The name Whisper follows from the acronym “WSPSR”, which stands for “Web-scale Supervised Pre-training for Speech Recognition”.
 
-Prepare Environment
-------------------------------------------
+## Hands-on: Fine-tuning Whisper in a Google Colab
+
+### Prepare Environment
+
 We'll employ several popular Python packages to fine-tune the Whisper model.
 We'll use `datasets` to download and prepare our training data and 
 `transformers` to load and train our Whisper model. We'll also require
