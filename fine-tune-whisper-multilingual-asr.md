@@ -202,7 +202,7 @@ Finally, install Git-LFS to be able to push large model weights to the Hub:
 
 Common Voice is a series of crowd-sourced datasets where speakers 
 record text from Wikipedia in various languages. For this notebook, 
-we'll use the latest edition of the Common Voice dataset (version 11). 
+we'll use the latest edition of the Common Voice dataset ([version 11](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)). 
 As for our language, we'll fine-tune our system on [_Dhivehi_](https://en.wikipedia.org/wiki/Maldivian_language)
 (or _Maldivian_), an Indo-Aryan language spoken in the South Asian island 
 country of the Maldives. Common Voice 11.0 contains approximately ten hours
@@ -274,7 +274,7 @@ Common Voice is but one multilingual ASR dataset that we can download from the H
 there are plenty more available to us! To view the range of datasets available for speech recognition, 
 follow the link: [ASR Datasets on the 🤗 Hub](https://huggingface.co/datasets?task_categories=task_categories:automatic-speech-recognition&sort=downloads).
 
-Prepare Feature Extractor, Tokenizer and Data
+### Prepare Feature Extractor, Tokenizer and Data
 ------------------------------------------
 
 The ASR pipeline can be de-composed into three states: 
@@ -514,7 +514,7 @@ and [`librosa`](https://librosa.org/doc/latest/index.html) for audio loading and
 If you wish to implement your own customised data loading/sampling, you can use the `"path"` 
 column to obtain the audio file path and disregard the `"audio"` column.
 
-Training & Evaluation
+## Training & Evaluation
 ---------------------
 Now that we've prepared our data, we're ready to dive into the training pipeline. 
 The [🤗 Trainer](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer)
