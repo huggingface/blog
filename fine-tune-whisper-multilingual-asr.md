@@ -425,7 +425,7 @@ the `processor` and the `model`:
 ```python
 from transformers import WhisperProcessor
 
-processor = WhisperProcessor(feature_extractor=feature_extractor, tokenizer=tokenizer)
+processor = WhisperProcessor.from_pretrained("openai/whisper-small")
 ```
 
 ### Prepare Data
