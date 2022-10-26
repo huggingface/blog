@@ -198,8 +198,7 @@ Finally, install Git-LFS to be able to push large model weights to the Hub:
 !apt install git-lfs
 ```
 
-Load Dataset
-------------------------------------------
+### Load Dataset
 
 Common Voice is a series of crowd-sourced datasets where speakers 
 record text from Wikipedia in various languages. For this notebook, 
