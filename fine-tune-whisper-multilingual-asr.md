@@ -217,7 +217,7 @@ Since Dhivehi is very low-resource, we'll combine the `train` and `validation`
 splits to give approximately 7 hours of training data. We'll use the 3 hours 
 of `test` data as our held-out test set:
 ```python
-from datasets import load_dataset, DatasetDict
+from datasets import load_dataset, DatasetDict, Audio
 
 common_voice = DatasetDict()
 
@@ -241,14 +241,14 @@ DatasetDict({
 })
 ```
 
-The majority of ASR datasets only provide the target text (`sentence`) for each 
-audio sample (`audio`) and the corresponding file path (`path`). Common Voice 
-contains additional metadata information, such as `accent` and `locale`. 
-Keeping the notebook as general as possible, we only consider the
+The majority of ASR datasets only provide input audio samples (`audio`) and the 
+corresponding transcribed text (`sentence`). Common Voice contains additional 
+metadata information, such as `accent` and `locale`, which we can disregard for ASR.
+Keeping the notebook as general as possible, we only consider the input audio and
 transcribed text for fine-tuning, discarding the additional metadata information:
 
 ```python
-common_voice = common_voice.remove_columns(["accent", "age", "client_id", "down_votes", "gender", "locale", "segment", "up_votes"])
+common_voice = common_voice.remove_columns(["accent", "age", "client_id", "down_votes", "gender", "locale", "path", "segment", "up_votes"])
 ```
 
 Common Voice is but one multilingual ASR dataset that we can download from the Hub - 
@@ -292,8 +292,10 @@ correct sampling rate. Failing to do so can lead to unexpected results!
 For instance, taking an audio sample with a sampling rate of 16kHz and listening 
 to it with a sampling rate of 8kHz will make the audio sound as though it's in half-speed. 
 In the same way, passing an audio with the wrong sampling rate to an ASR model can 
-falter a system that was expecting one sampling rate and receives another. We don't want
-to inadvertently train an ASR system on slow-motion speech 😉
+falter a system that was expecting one sampling rate and receives another. The Whisper 
+feature extractor expects audio inputs with a sampling rate of 16kHz, so we need to 
+match our inputs to this value. We don't want to inadvertently train an ASR 
+system on slow-motion speech 😉
 
 The Whisper feature extractor performs two operations. It first pads a batch of audio samples
 such that all samples have an input length of 30s. Samples shorter than 30s will be padded to 30s
@@ -408,45 +410,72 @@ processor = WhisperProcessor(feature_extractor=feature_extractor, tokenizer=toke
 ```
 
 ### Prepare Data
-We've spoken heavily about the importance of the sampling rate and 
-the fact that we need to match the sampling rate of our audio to that 
-of the Whisper model (16kHz). We can perform a simple equality check 
-to see whether the sampling rates match. If the sampling rate of the 
-audio is different to that of the model, we can _resample_ the audio 
-to the model's sampling rate using dataset's [`cast_column`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=cast_column#datasets.DatasetDict.cast_column)
-method. Here, we set the sampling rate of the `"audio"` column to the 
-model's sampling rate. This operation does not change the audio in-place, 
-but rather signals to `datasets` to re-sample the audio on the fly the 
+Let's print the first example of the Common Voice dataset to see 
+what form the data is in:
+```python
+print(common_voice["train"][0])
+```
+**Print Output:**
+```python
+{'audio': {'path': '/home/sanchit_huggingface_co/.cache/huggingface/datasets/downloads/extracted/b0f47f0d01329dec41cfbc9fc4cad8c4165035aa645b95de51ae17393a3aa993/cv-corpus-11.0-2022-09-21/dv/clips/common_voice_dv_18580675.mp3', 
+           'array': array([ 0.0000000e+00, -3.4226705e-20, -3.0100702e-20, ...,
+        3.8745898e-06,  2.9728158e-06,  2.6108810e-06], dtype=float32), 
+           'sampling_rate': 48000}, 
+ 'sentence': 'ޤުރުއާން ކިޔަވައިދޭ ދިވެހި މުދައްރިސު',
+ }
+```
+We can see that we've got a 1-dimensional input audio array and the 
+corresponding target transcription. We've spoken heavily about the 
+importance of the sampling rate and the fact that we need to match the 
+sampling rate of our audio to that of the Whisper model (16kHz). Since 
+our input audio is sampled at 48kHz, we need to _downsample_ it to 
+16kHz prior to passing it to the Whisper feature extractor.
+
+We'll set the audio inputs to the correct sampling rate using dataset's 
+[`cast_column`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=cast_column#datasets.DatasetDict.cast_column)
+method. This operation does not change the audio in-place, 
+but rather signals to `datasets` to resample the audio sample _on-the-fly_ the 
 first time it is loaded:
 
 ```python
-import datasets
-
-dataset_sampling_rate = next(iter(common_voice.values())).features["audio"].sampling_rate
-model_sampling_rate = feature_extractor.sampling_rate
-
-if dataset_sampling_rate != model_sampling_rate:
-    common_voice = common_voice.cast_column(
-        "audio", datasets.features.Audio(sampling_rate=model_sampling_rate)
-    )
+common_voice = common_voice.cast_column("audio", Audio(sampling_rate=16000))
 ```
 
+Re-loading the first audio sample in the Common Voice dataset will resample 
+it to the desired sampling rate:
+
+```python
+print(common_voice["train"][0])
+```
+**Print Output:**
+```python
+{'audio': {'path': '/home/sanchit_huggingface_co/.cache/huggingface/datasets/downloads/extracted/b0f47f0d01329dec41cfbc9fc4cad8c4165035aa645b95de51ae17393a3aa993/cv-corpus-11.0-2022-09-21/dv/clips/common_voice_dv_18580675.mp3', 
+           'array': array([-1.1972260e-20, -2.7744245e-20, -9.7974349e-21, ...,
+       -1.6504853e-06, -1.1423122e-05,  1.0274689e-06], dtype=float32), 
+           'sampling_rate': 16000}, 
+ 'sentence': 'ޤުރުއާން ކިޔަވައިދޭ ދިވެހި މުދައްރިސު',
+ }
+```
+Great! We can see that the sampling rate has been downsampled to 16kHz. The 
+array values are also different, as we've now only got one amplitude value 
+for every three that we had before.
+
 Now we can write a function to prepare our data ready for the model.
-First, we load and (possibly) resample the audio data by calling `batch["audio"]`. 
+First, we load and resample the audio data by calling `batch["audio"]`. 
 As explained above, 🤗 Datasets performs any necessary resampling operations on the fly. 
-Next, we use the feature extractor to generate the log-Mel spectrogram input features 
+Next, we use the feature extractor to compute the log-Mel spectrogram input features 
 from our 1-dimensional audio array. Finally, we encode the transcriptions to label ids 
 through use of the tokenizer:
 
 ```python
 def prepare_dataset(batch):
-    # load and (possibly) resample audio data to model sampling rate
+    # load and resample audio data from 48 to 16kHz
     audio = batch["audio"]
 
-    # generate log-Mel input features from input audio array 
+    # compute log-Mel input features from input audio array 
     batch["input_features"] = feature_extractor(audio["array"], sampling_rate=audio["sampling_rate"]).input_features[0]
 
-    # generate label ids from target text
+    # encode target text to label ids 
     batch["labels"] = tokenizer(batch["text"]).input_ids
     return batch
 ```
@@ -464,7 +493,7 @@ fine-tune Whisper.
 **Note**: Currently `datasets` makes use of both [`torchaudio`](https://pytorch.org/audio/stable/index.html) 
 and [`librosa`](https://librosa.org/doc/latest/index.html) for audio loading and resampling. 
 If you wish to implement your own customised data loading/sampling, you can use the `"path"` 
-column to yield the audio file path and disregard the `"audio"` column.
+column to obtain the audio file path and disregard the `"audio"` column.
 
 Training & Evaluation
 ---------------------
