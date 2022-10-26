@@ -22,13 +22,11 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
     </a>
 </div>
 
-### 1. Problems of the Existing Auto-regressive Decoding Methods
+### 1. Problems of the Existing Decoding Methods
 
-Text generation aims to generate most human-like text, is one widely used and core task in NLP. Recent years, the text generation has attracting increasing interest thanks to more and more available large-scale language models, such as [OPT](https://arxiv.org/pdf/2205.01068.pdf) and [GPT-J](https://github.com/kingoflolz/mesh-transformer-jax).
-These large-scale language models make the fluent and coherent generations possible.
-However, existing auto-regressive decoding methods limit their potentials for text generation.
+Natural language generation (i.e. text generation) aims at generating text that is human-like and it is one of the core tasks in NLP. With recent advance in generative pre-trained language models (e.g. [OPT](https://arxiv.org/pdf/2205.01068.pdf) and [GPT-J](https://github.com/kingoflolz/mesh-transformer-jax)), text generation has attracted increasing interest in the research community. While these large language models (LMs) have become increasingly powerful, existing decoding methods still limit their potentials in the task of text generation.
 
-To the best of our knowledge, existing auto-regressive decoding methods could be divided into two categories: deteriminstic and stochastic methods.
+Currently, these widely-used decoding methods could be divided into two categories: deteriminstic and stochastic methods.
 
 **Deteriminstic methods** aim to select the text continuation with the highest probability based on the model's probability distribution.
 The greedy search and beam search are two representive deteriminstic methods.
