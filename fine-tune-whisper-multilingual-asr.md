@@ -647,35 +647,6 @@ model = WhisperForConditionalGeneration.from_pretrained("openai/whisper-small")
     
 ```
 
-<!--- 
-
-Don't freeze encoder for Dhivehi!... Section on freezing:
-
-The purpose of the encoder block is to extract context dependent 
-acoustic features from the input speech spectrogram. The decoder
-block takes these features and generates the corresponding 
-transcriptions. Since Whisper is pre-trained on 680,000h of data, 
-the audio encoder has seen a vast amount of audio data and is likely 
-to be sufficiently trained during pre-training. Thus, it should 
-not require further fine-tuning, meaning we can set the attribute 
-`requires_grad` to `False` for all the parameters in the encoder.
-This makes training faster and saves a significant amount of memory:
-```python
-model.freeze_encoder()
-```
-
-During pre-training, the target text data is normalised to a standard 
-format. This format is both cased and punctuated, and thus differs from
-the format of the text in LibriSpeech which is un-cased and un-punctuated:
-```
-Pre-training: "The cat sat on the mat."
-Fine-tuning:  "THE CAT SAT ON THE MAT"
-```
-
-Therefore, we need to train the text decoder to learn this new style of 
-text formatting through fine-tuning.
---->
-
 ### Define the Training Configuration
 In a final step, we define all the parameters related to training. A subset of parameters are 
 explained below:
