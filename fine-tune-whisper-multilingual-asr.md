@@ -394,7 +394,7 @@ fine-tuning without any further modifications:
 ```python
 from transformers import WhisperTokenizer
 
-tokenizer = WhisperTokenizer.from_pretrained("openai/whisper-small.en")
+tokenizer = WhisperTokenizer.from_pretrained("openai/whisper-small")
 ```
 
 We can verify that the tokenizer contains Dhivehi characters by 
