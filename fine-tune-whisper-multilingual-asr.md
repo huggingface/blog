@@ -561,13 +561,6 @@ from typing import Any, Dict, List, Union
 
 @dataclass
 class DataCollatorSpeechSeq2SeqWithPadding:
-    """
-    Data collator that will dynamically pad the inputs and labels received.
-    Args:
-        processor ([`WhisperProcessor`])
-            The processor used for processing the data.
-    """
-
     processor: Any
 
     def __call__(self, features: List[Dict[str, Union[List[int], torch.Tensor]]]) -> Dict[str, torch.Tensor]:
