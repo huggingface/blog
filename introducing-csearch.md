@@ -1,6 +1,6 @@
 ---
-title: "Generate coherent and fluent text with contrastive search in Transformers" 
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+title: "Generate fluent and coherent text with contrastive search in Transformers" 
+thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 ---
 
 <h1>Geneate coherent and fluent text with contrastive search in Transformers</h1>
@@ -24,10 +24,7 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 
 ### 1. Problems of the Existing Auto-regressive Decoding Methods
 
-Text generation aims to generate most human-like text, is one widely used and core task in NLP.
-Recent years, the text generation has attracting increasing interest 
-thanks to more and more available large-scale language models, 
-such as [OPT](https://arxiv.org/pdf/2205.01068.pdf) and [GPT-J](https://github.com/kingoflolz/mesh-transformer-jax).
+Text generation aims to generate most human-like text, is one widely used and core task in NLP. Recent years, the text generation has attracting increasing interest thanks to more and more available large-scale language models, such as [OPT](https://arxiv.org/pdf/2205.01068.pdf) and [GPT-J](https://github.com/kingoflolz/mesh-transformer-jax).
 These large-scale language models make the fluent and coherent generations possible.
 However, existing auto-regressive decoding methods limit their potentials for text generation.
 
@@ -36,7 +33,7 @@ To the best of our knowledge, existing auto-regressive decoding methods could be
 **Deteriminstic methods** aim to select the text continuation with the highest probability based on the model's probability distribution.
 The greedy search and beam search are two representive deteriminstic methods.
 However, these deteriminstic methods often lead to the **degeneration problem**, i.e., the generated text is unnatual and contains undesirable repetitions.
-For example, 
+For example, let us see the generations provided by the greedy search model.
 
 ```python
 from transformers import AutoTokenizer, GPT2LMHeadModel
@@ -66,7 +63,7 @@ print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
 It can be observed that the generation of the greedy search quickly repeats itself, leading to the weired and unsatisfactory results.
 
 To address the degeneration problem, **stochastic methods** introduce the random sampling during the auto-regressive decoding.
-The [Top-K sampling](https://arxiv.org/abs/1805.04833) and [Nucleus sampling](https://arxiv.org/abs/1904.09751) are two widely used stochastic decoding methods.
+The [Top-K sampling](https://arxiv.org/abs/1805.04833) and [Nucleus sampling](https://arxiv.org/abs/1904.09751) are two widely used stochastic decoding methods. Let us see the generations of the nucleus sampling.
 
 ```python
 from transformers import AutoTokenizer, GPT2LMHeadModel
@@ -90,19 +87,25 @@ print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
     "The thing is, we know that people don't consciously assess the value of the others' information. They understand they will get the same on their own."
     One example? Given the details of today
 
-It can be observed that, although their generations are almost free from the degeneration problem, they often **lack coherence***.
+Although their generations are almost free from the degeneration problem, they often **lack coherence**. For example, from the content **'AI is not journalism'**, the generated text continuation is incoherent with the prefix **DeepMind Company**.
 
 ### 2. Contrastive Search
 
 In order to generate the fluent and coherent text continuations, in this blog, we introduce a simple yet effective decoding methods, named [Contrastive Search](https://arxiv.org/abs/2202.06417), which is recent published by NeurIPS 2022 paper, "A Contrastive Framework for Neural Text Generation".
 
+
+
 Before we get into the details of the contrastive search, let us analyze some interesting properties of the degenerations.
 
 
 
-The following two figures show the heatmap of the cosine similarities between each pair of the token in the greedy and beam search generations. The cosine similarities is computed given the token's last layer hidden state.
+The following figures show the heatmap of the cosine similarities between each pair of the token in the greedy search and beam search generations. Note that the cosine similarities is computed given the token's last layer hidden state.
 
-For the first figure, given the prefix **"Kobe Bryant is"**, the gpt2-large model with the  greedy search decoding method generates the text continuation:
+<center class="half">
+    <img src="assets/introducing_contrastive_search/greedy_output.jpeg" width="300"/><img src="assets/introducing_contrastive_search/beam_output.jpeg" width="300"/>
+</center>
+
+For the greedy search that shown in the left figure, given the prefix **"Kobe Bryant is"**, the gpt2-large model with the  greedy search decoding method generates the text continuation:
 
 ```
 Kobe Bryant is the best player in the world. He's the best player in the world. He's the best player in the world. He's the best player in the world. He's the best
@@ -114,13 +117,9 @@ He's the best player in the world. He's the best player in the world. He's the b
  the world. He's
 ```
 
-It can be found that the degeneration problem is very severe in this case, and the heatmap demonstrates that the repetive tokens has very high cosine similairty with previous tokens.
+Besides, it can be observed that the degeneration problem is very severe in this case, and the heatmap demonstrates that the repetitive tokens has very high cosine similairty with previous tokens.
 
-![greedy](assets/introducing_contrastive_search/greedy_output.jpeg)
-
-
-
-For the second figure, given the prefix **"Kobe Bryant is"**, the gpt2-large model with the beam search decoding method (`beam_size=5`) generates the text continuation:
+For the beam search that shown in the right figure, given the prefix **"Kobe Bryant is"**, the gpt2-large model with the beam search decoding method (`beam_size=5`) generates the text continuation:
 
 ```
 Kobe Bryant is one of the greatest basketball players of all time, but he's also one of the most polarizing figures in the NBA.
@@ -142,21 +141,17 @@ Bryant is one of the greatest basketball players of all time, but he's also one 
 Bryant is one of the greatest
 ```
 
-![beam](assets/introducing_contrastive_search/beam_output.jpeg)
-
 Similar to the greedy search method, the generation also contains lots of repetive phrases, and the repetive tokens has very high cosine similarities with previous tokens.
-
-
 
 From these cases and figures, it is easy to find that the degeneration problems happened when the next token's hidden state is very close to the previous tokens.
 
-Thus, a simple yet effective solution could be proposed: **"these cosine similarities can be used as the degeneration penalty to punish the next token that could lead to the degeneration problem"**. That is the core principle behind the contrastive search.
+Thus, a simple yet effective solution could be proposed: **"the cosine similarities can be used as the degeneration penalty to punish the next token that could lead to the degeneration problem"**. That is the core principle behind the contrastive search.
 
 To implement this principle in the auto-regressive decoding , we design two steps in the contrastive search, simply named as the (1) candidate token recall; (2) candidate token re-rank.
 
 #### 2.1 Candidate token recall
 
-Specifically, we first recall Top-$k$ candidate tokens based on the probabilities.
+Specifically, we first recall Top-$k$ candidate tokens based on the probabilities. The code snippets are shown as follows:
 
 ```python
 # process the prefix and obtain the last layer hidden state and logits
@@ -171,7 +166,7 @@ _, top_k_ids = torch.topk(logit_for_next_step, dim = -1, k = beam_width)
 top_k_probs = torch.gather(next_probs, dim = 1, index=top_k_ids)
 ```
 
-`beam_width` saves the top-k value. The top-k candidate tokens are saved in `top_k_ids` and its probability (model confidence) is saved in `top_k_probs`. If `top_k` becomes bigger, more potential candidate tokens will particilate in the subsequent re-ranking stage.
+`beam_width` saves the top-k value. The top-k candidate tokens are saved in `top_k_ids` and its probability (model confidence) is saved in `top_k_probs`. With `top_k` increasing, more potential candidate tokens will particilate in the subsequent re-ranking stage. If the `top_k=1`, the contrastive search will degrade into the simple greedy search.
 
 #### 2.2 Candidate token re-rank
 
@@ -183,30 +178,34 @@ expanded_context = torch.cat(expanded_context, dim = 0)
 top_k_ids = top_k_ids.view(beam_width, 1)
 next_input_ids = torch.cat([expanded_context, top_k_ids], dim = -1)
 new_hidden_states, next_logits = model(next_input_ids)
-```
 
-Their hidden states will be used to compute the cosine similarites with tokens in the prefix, and the maximum cosine similarites is chosen as the degeneration penalty for each token. 
-
-```python
 context_hidden = new_hidden_states[:,:seqlen,:]
 next_hidden = new_hidden_states[:,seqlen:,:]
 ```
 
-`context_hidden` saves the hidden states of previous tokens and `next_hidden` saves the hidden states of top-k candidate tokens.
+`context_hidden` saves the hidden states of previous tokens and `next_hidden` saves the hidden states of top-k candidate tokens, which will be used to compute the cosine similarities.
 
-Finally, the final score for each candidate token can be computed in the next formulation: ![](assets/introducing_contrastive_search/formulation.png)
-where $V^{(k)}$ is the set of top-k candidate tokens from the model's probability distribution, and $p_{\theta}(v|x_{\textless t})$ is its probability. $\alpha$ is the hyper-parameter that balances the model confidence and the degeneration penalty scores. If $\alpha$ becomes bigger, the penalty for each token will become larger. 
+Finally, the final score for each candidate token can be computed in the next formulation: 
 
-The coressponding code snippts of the formulation are shown as follows:
+<center class="half">
+    <img src="assets/introducing_contrastive_search/formulation.png" width="500"/>
+</center>
+
+where $V^{(k)}$ is the set of top-k candidate tokens from the model's probability distribution, and $p_{\theta}(v|x_{\textless t})$ is its probability. $\alpha$ is the hyper-parameter that balances the model confidence and the degeneration penalty scores. If $\alpha$ becomes bigger, the penalty for each token will become larger. The coressponding code snippets of the formulation are shown as follows:
 
 ```python
 beam_width, context_len, embed_dim = context_hidden.size()
 norm_context_hidden = context_hidden / context_hidden.norm(dim=2, keepdim=True)
 norm_next_hidden = next_hidden / next_hidden.norm(dim=2, keepdim=True)
+# compute the cosine similarites between the next token hidden and the previous tokens' hidden states
 cosine_matrix = torch.matmul(norm_context_hidden, norm_next_hidden.transpose(1,2)).squeeze(-1)
 scores, _ = torch.max(cosine_matrix, dim = -1)
 next_top_k_probs = next_top_k_probs.view(-1)
+
+# the formulation
 scores = (1.0 - alpha) * next_top_k_probs - alpha * scores 
+
+# the top-1 token is selected in this turn
 _, selected_idx = torch.topk(scores, k = 1)
 selected_idx = selected_idx.unsqueeze(0)
 next_id = torch.gather(next_top_k_ids, dim = 0, index=selected_idx)
@@ -214,7 +213,7 @@ next_id = torch.gather(next_top_k_ids, dim = 0, index=selected_idx)
 
 The candidate token `next_id` whose score is highest is chosen as the next token.
 
-Unlike the stochastic methods, such as Top-K and nucleus sampling, contrastive search intergrates the model confidence into the $s(x_i)$ to make sure the coherent the with the prefix. Meanwhile the degeneration penalty effectively reduce the score of the tokens that may raise the degeneration problem.
+Unlike the stochastic methods, such as Top-K and nucleus sampling, contrastive search intergrates the model confidence into the $s(x_i)$ to make sure the coherence with the prefix. Meanwhile the degeneration penalty effectively reduce the score of the tokens that may raise the degeneration problem.
 
 ### 3. Some interesting cases
 
@@ -224,7 +223,7 @@ First of all, let's prepare the environment for running the contrastive search i
 
 ```bash
 pip install -q git+https://github.com/huggingface/transformers.git
-# if CUDA devices are available, make sure the torch version is compatible with your CUDA driver.
+# if CUDA devices are available, make sure your torch version is compatible with your CUDA driver.
 pip install torch
 ```
 
@@ -248,7 +247,7 @@ The `penalty_alpha` is 0.6, and `top_k` is 4 for the contrastive search.
 inputs = tokenizer('DeepMind Company is', return_tensors='pt')
 contrastive_search_output = model.generate(**inputs, penalty_alpha=0.6, top_k=4, max_length=256)
 print('Output:\n' + 100 * '-')
-print(tokenizer.decode(contrastive_search_output), skip_special_tokens=True)
+print(tokenizer.decode(contrastive_search_output[0], skip_special_tokens=True))
 ```
 
 <div class="output stream stdout">
@@ -273,7 +272,7 @@ Generate with the greedy search and beam search:
 inputs = tokenizer('DeepMind Company is', return_tensors='pt')
 greedy_search_output = model.generate(**inputs, max_length=256)
 print('Output:\n' + 100 * '-')
-print(tokenizer.decode(greedy_search_output), skip_special_tokens=True)
+print(tokenizer.decode(greedy_search_output[0], skip_special_tokens=True))
 ```
 
 <div class="output stream stdout">
@@ -305,7 +304,7 @@ print(tokenizer.decode(greedy_search_output), skip_special_tokens=True)
 inputs = tokenizer('DeepMind Company is', return_tensors='pt')
 beam_search_output = model.generate(**inputs, num_beams=5, early_stopping=True, max_length=256)
 print('Output:\n' + 100 * '-')
-print(tokenizer.decode(beam_search_output), skip_special_tokens=True)
+print(tokenizer.decode(beam_search_output[0], skip_special_tokens=True))
 ```
 
 <div class="output stream stdout">
@@ -332,7 +331,7 @@ What about stochastic methods? Let us generate text continuations with the Top-K
 inputs = tokenizer('DeepMind Company is', return_tensors='pt')
 nucleus_sampling_output = model.generate(**inputs, do_sample=True, top_p=0.92, top_k=0, max_length=256)
 print('Output:\n' + 100 * '-')
-print(tokenizer.decode(nucleus_samplingh_output), skip_special_tokens=True)
+print(tokenizer.decode(nucleus_samplingh_output[0], skip_special_tokens=True))
 ```
 
 <div class="output stream stdout">
@@ -362,7 +361,7 @@ torch.manual_seed(1.)
 inputs = tokenizer('DeepMind Company is', return_tensors='pt')
 topk_sampling_output = model.generate(**inputs, do_sample=True, top_k=50, max_length=256)
 print('Output:\n' + 100 * '-')
-print(tokenizer.decode(topk_sampling_output), skip_special_tokens=True)
+print(tokenizer.decode(topk_sampling_output[0], skip_special_tokens=True))
 ```
 
 <div class="output stream stdout">
@@ -457,7 +456,7 @@ Kobe's personality is something that can't be taught, and it's
 
 Good, fluent and coherent!
 
-The Top-K sampling generation (`top_k=50`, random seed is 0):
+The Top-K sampling generation (`top_k=50`, random seed is set as 0):
 
 ```
 Kobe Bryant is a guy that I have had an impact on the way I look at the game, and he did that with us in L.A. He helped us get it in a better place. He changed that culture of who we are. We went from a bad team with a ton of issues to a really good team with a ton of issues, and he helped that happen.
@@ -471,7 +470,7 @@ Kobe Bryant is a guy that I have had an impact on the way I look at the game, an
 
 The first paragraph seems good. But the following paragraphes is inconsistent with the topic "Kobe Bryant".
 
-The nucleus sampling generation (`top_p=0.95`, random seed is 0):
+The nucleus sampling generation (`top_p=0.95`, random seed is set as 0):
 
 ```
 Kobe Bryant is a gritty seven-footer that is "like a 10-foot-tall, 270-pound pre-cancer baby," according to general manager Mitch Kupchak. But he's also an all-around player who takes regular measures to compete.
@@ -483,13 +482,15 @@ But looking back, it's hard to ignore it now. We watched the Lakers target areas
 
 Much worse than the generation of the contrastive search and the Top-K sampling.
 
+ 
+
 #### 3.2 OPT Case
 
-OPT model OPT was first introduced in [Open Pre-trained Transformer Language Models](https://arxiv.org/abs/2205.01068) and first released in [metaseq's repository](https://github.com/facebookresearch/metaseq) on May 3rd 2022 by Meta AI. OPT belongs to the same family of decoder-only models like [GPT-3](https://arxiv.org/abs/2005.14165). As such, it was pretrained using the self-supervised causal language modedling objective.
+OPT model OPT was first introduced in [Open Pre-trained Transformer Language Models](https://arxiv.org/abs/2205.01068) and first released in [metaseq's repository](https://github.com/facebookresearch/metaseq) on May 3rd 2022 by Meta AI. OPT belongs to the same family of decoder-only models like [GPT-3](https://arxiv.org/abs/2005.14165). As such, it was pretrained using the self-supervised causal language modedling objective. In this subsection, we show some cases of OPT-1.3b model on contrastive search and other baselines.
 
-In this subsection, we show some cases of OPT-1.3b model on contrastive search and other baselines.
 
-build the model and the tokenizer for OPT model first:
+
+Build the model and the tokenizer for OPT model first:
 
 ```python
 import torch
@@ -499,15 +500,13 @@ tokenizer = GPT2Tokenizer.from_pretrained('facebook/opt-1.3b')
 model = OPTForCausalLM.from_pretrained('facebook/opt-1.3b', pad_token_id=tokenizer.eos_token_id)
 ```
 
-Given the prefix **"DeepMind Technologies is a British artificial intelligence subsidiary of Alphabet Inc. and research laboratory founded in 2010. DeepMind was acquired by Google in 2014. The company is based"**.
-
-Generate the text continuation with contrastive search (`penalty_alpha=0.6`, `top_k=4`):
+Given the prefix **"DeepMind Technologies is a British artificial intelligence subsidiary of Alphabet Inc. and research laboratory founded in 2010. DeepMind was acquired by Google in 2014. The company is based"**. Generate the text continuation with contrastive search (`penalty_alpha=0.6`, `top_k=4`):
 
 ```python
 inputs = tokenizer('DeepMind Technologies is a British artificial intelligence subsidiary of Alphabet Inc. and research laboratory founded in 2010. DeepMind was acquired by Google in 2014. The company is based', return_tensors='pt')
 contrastive_search_output = model.generate(**inputs, penalty_alpha=0.6, top_k=4, max_length=256)
 print('Output:\n' + 100 * '-')
-print(tokenizer.decode(contrastive_search_output), skip_special_tokens=True)
+print(tokenizer.decode(contrastive_search_output[0], skip_special_tokens=True))
 ```
 
 ```
@@ -517,14 +516,14 @@ DeepMind Technologies is a British artificial intelligence subsidiary of Alphabe
 ContentsOn 1 January 2014, Google announced it had acquired DeepMind for £400 million (US$542 million), a deal that would create a world-renowned AI company and the most valuable privately held company in the world by market capitalization at the time of the announcement. In a blog post, Sergey Brin, co-founder of Google, said: "We are excited to have reached this point in our journey to create AI that can think like humans. It is our goal to help solve some of the world’s biggest challenges, from health care to climate change, and make the world a better place by doing so."[2]Google has invested heavily in DeepMind, hiring a string of high-calibre scientists and mathematicians from Oxford University to work on the project. The company's founders are Demis Hassabis, a computer scientist who was awarded the Turing Award in 2013 for his work on language processing, and Mustafa Suleyman, a neuroscientist who has worked on brain-computer interfaces for over
 ```
 
-Generate the text continuation with the Top-K sampling (`top_k=50`):
+Generate the text continuation with the Top-K sampling (`top_k=50`, random seed is set as 1):
 
 ```python
 torch.manual_seed(1)
 inputs = tokenizer('DeepMind Technologies is a British artificial intelligence subsidiary of Alphabet Inc. and research laboratory founded in 2010. DeepMind was acquired by Google in 2014. The company is based', return_tensors='pt')
 topk_sampling_output = model.generate(**inputs, do_sample=True, top_k=50, max_length=256)
 print('Output:\n' + 100 * '-')
-print(tokenizer.decode(topk_sampling_output), skip_special_tokens=True)
+print(tokenizer.decode(topk_sampling_output[0], skip_special_tokens=True))
 ```
 
 ```
@@ -547,14 +546,14 @@ DeepMind Technologies
 
 Seems the Top-K sampling also face the degeneration problem in this normal case.
 
-Generate the text continuation with the nucleus sampling (`p=0.92`):
+Generate the text continuation with the nucleus sampling (`p=0.92`, random seed is set as 0):
 
 ```python
 torch.manual_seed(0)
 inputs = tokenizer('DeepMind Technologies is a British artificial intelligence subsidiary of Alphabet Inc. and research laboratory founded in 2010. DeepMind was acquired by Google in 2014. The company is based', return_tensors='pt')
 topk_sampling_output = model.generate(**inputs, do_sample=True, top_p=0.95, top_k=0, max_length=256)
 print('Output:\n' + 100 * '-')
-print(tokenizer.decode(topk_sampling_output), skip_special_tokens=True)
+print(tokenizer.decode(topk_sampling_output[0], skip_special_tokens=True))
 ```
 
 ```
@@ -569,14 +568,18 @@ The company was originally formed out of a group of ex-Stanford computer scienti
 
 To compute the degeneration penalty for each candidate token, contrastive search needs to concatenate each candidate token with the prefix to obtain its hidden state. Although contrastive search significantly outperforms previous works, its main drawback is the inference efficiency.
 
-Is there any solution to address problem? The answer is Yes. 
+
+
+Is there any solution to address problem? The answer is **Yes**. 
+
+
 In our implementation in the `transformers` library, we apply the cache enlarge and cache selection operations to reuse the `past_key_values` computed in the previous round of the candidate re-ranking stage.
 
 #### 4.1 Cache enlarge operation
 
 To compute the hidden states of candidate tokens, the concatenation of each candidate token and prefix should be computed, leading to the high computation cost.
 
-For example, the shape of the `input_ids` (prefix) is `[1, S]`, where `S` is the sequence length. The `top_k` is 4. We need to build the next `input_ids` for the model to compute the hidden states, whose shape is `[4, S+1]`.
+For example, the shape of the `input_ids` (prefix) is `[1, S]`, where `S` is the sequence length. If the `top_k` is set as 4, we need to build the next `input_ids` for the model to compute the hidden states, whose shape is `[4, S+1]`.
 
 To speedup this process, we reuse the `past_key_values` and expand it for speedup.
 
@@ -605,7 +608,7 @@ For each key or value (the shape is `[batch_size, num_head, seq_len, embed_size]
 
 #### 4.2 Cache selection operation
 
-After the re-ranking stage in the contrastive search, the top-1 candidate token is selected as the next token to generate. Thus, we must select its corresponding `past_key_values` for the next turn generation. The code snippets are shown as follows:
+After the re-ranking stage in the contrastive search, the Top-1 candidate token is selected as the next token to generate. Thus, we must select its corresponding `past_key_values` for the next turn generation. The code snippets are shown as follows:
 
 ```python
 # select the past_key_value
@@ -624,7 +627,10 @@ past_key_values = new_key_values
 ```
 
 As a result, our inference efficiency is slightly better than the beam search with the same `top_k` parameter.
-![](assets/introducing_contrastive_search/inference_speedup.png)
+
+<center class="half">
+    <img src="assets/introducing_contrastive_search/inference_speedup.png" width="400"/>
+</center>
 
 ### Resources
 
