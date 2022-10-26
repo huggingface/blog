@@ -28,7 +28,7 @@ Text generation aims to generate most human-like text, is one widely used and co
 These large-scale language models make the fluent and coherent generations possible.
 However, existing auto-regressive decoding methods limit their potentials for text generation.
 
-To the best of our knowledge, existing auto-regressive decoding methods could be divided into two categories [[1]](#reference_contrastive_search): deteriminstic and stochastic methods.
+To the best of our knowledge, existing auto-regressive decoding methods could be divided into two categories: deteriminstic and stochastic methods.
 
 **Deteriminstic methods** aim to select the text continuation with the highest probability based on the model's probability distribution.
 The greedy search and beam search are two representive deteriminstic methods.
@@ -49,7 +49,8 @@ print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
 <div class="output stream stdout">
 
     Output:
-    ----------------------------------------------------------------------------------------------------DeepMind Company is a leading AI research company, with a focus on deep learning and deep learning-based systems.
+    ----------------------------------------------------------------------------------------------------
+    DeepMind Company is a leading AI research company, with a focus on deep learning and deep learning-based systems.
     The company's research is focused on the development of deep learning-based systems that can learn from large amounts of data, and that can be used to solve real-world problems.
     
     DeepMind's research is also used by the UK government to develop new technologies for the UK's National Health Service.
@@ -87,17 +88,13 @@ print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
     "The thing is, we know that people don't consciously assess the value of the others' information. They understand they will get the same on their own."
     One example? Given the details of today
 
-Although their generations are almost free from the degeneration problem, they often **lack coherence**. For example, from the content **'AI is not journalism'**, the generated text continuation is incoherent with the prefix **DeepMind Company**.
+Although their generations are almost free from the degeneration problem, they often **lack coherence**. For example, the generated context after **'AI is not journalism'** is incoherent with the prefix **DeepMind Company**.
 
 ### 2. Contrastive Search
 
 In order to generate the fluent and coherent text continuations, in this blog, we introduce a simple yet effective decoding methods, named [Contrastive Search](https://arxiv.org/abs/2202.06417), which is recent published by NeurIPS 2022 paper, "A Contrastive Framework for Neural Text Generation".
 
-
-
 Before we get into the details of the contrastive search, let us analyze some interesting properties of the degenerations.
-
-
 
 The following figures show the heatmap of the cosine similarities between each pair of the token in the greedy search and beam search generations. Note that the cosine similarities is computed given the token's last layer hidden state.
 
@@ -482,13 +479,9 @@ But looking back, it's hard to ignore it now. We watched the Lakers target areas
 
 Much worse than the generation of the contrastive search and the Top-K sampling.
 
- 
-
 #### 3.2 OPT Case
 
 OPT model OPT was first introduced in [Open Pre-trained Transformer Language Models](https://arxiv.org/abs/2205.01068) and first released in [metaseq's repository](https://github.com/facebookresearch/metaseq) on May 3rd 2022 by Meta AI. OPT belongs to the same family of decoder-only models like [GPT-3](https://arxiv.org/abs/2005.14165). As such, it was pretrained using the self-supervised causal language modedling objective. In this subsection, we show some cases of OPT-1.3b model on contrastive search and other baselines.
-
-
 
 Build the model and the tokenizer for OPT model first:
 
@@ -568,10 +561,7 @@ The company was originally formed out of a group of ex-Stanford computer scienti
 
 To compute the degeneration penalty for each candidate token, contrastive search needs to concatenate each candidate token with the prefix to obtain its hidden state. Although contrastive search significantly outperforms previous works, its main drawback is the inference efficiency.
 
-
-
 Is there any solution to address problem? The answer is **Yes**. 
-
 
 In our implementation in the `transformers` library, we apply the cache enlarge and cache selection operations to reuse the `past_key_values` computed in the previous round of the candidate re-ranking stage.
 
