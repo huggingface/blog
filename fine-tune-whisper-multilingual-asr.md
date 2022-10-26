@@ -41,7 +41,8 @@ for any multilingual ASR dataset using Hugging Face 🤗 Transformers.
 
 Whisper is a pre-trained model for automatic speech recognition (ASR) 
 published in [September 2022](https://openai.com/blog/whisper/) by the authors 
-Alec Radford et al. from OpenAI. Unlike many of its predecessors which are pre-trained 
+Alec Radford et al. from OpenAI. Unlike many of its predecessors, such as 
+[Wav2Vec 2.0](https://arxiv.org/abs/2006.11477), which are pre-trained 
 on un-labelled audio data, Whisper is pre-trained on a vast quantity of 
 **labelled** audio-transcription data, 680,000 hours to be precise\\({}^1\\). 
 This is an order of magnitude larger than the un-labelled audio data used 
