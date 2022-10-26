@@ -351,22 +351,22 @@ Luckily for us, the 🤗 Transformers Whisper feature extractor performs both th
 padding and spectrogram conversion in just one line of code! Let's go ahead 
 and instantiate a Whisper feature extractor. The feature extractor takes the 
 following (optional) arguments:
- - `feature_size`: the number of log-Mel channels. Default = `80`.
- - `sampling_rate`: the sampling rate on which the model is trained on. Default = `16000`.
- - `hop_length`:  the length of the overlapping windows for the short-time Fourier transform (STFT) used to obtain the Mel Frequency coefficients. Default = `160`.
- - `chunk_length`: The maximum number of chunks of `sampling_rate` samples used to pad shorter input sequences and trim longer ones. Default = `30`.
- - `n_fft`: size of the Fourier transform. Default = `400`.
- - `padding_value`: padding value used to pad audio sequences shorter than max length. Should be set to zero to correspond to silence. Default = `0`.
+ - `feature_size`: the number of log-Mel channels.
+ - `sampling_rate`: the sampling rate on which the model is trained on.
+ - `hop_length`:  the length of the overlapping windows for the short-time Fourier transform (STFT) used to obtain the Mel Frequency coefficients.
+ - `chunk_length`: The maximum number of chunks of `sampling_rate` samples used to pad shorter input sequences and trim longer ones.
+ - `n_fft`: size of the Fourier transform.
+ - `padding_value`: padding value used to pad audio sequences shorter than max length. Should be set to zero to correspond to silence.
  - `return_attention_mask`: whether the model should make use of an
      `attention_mask` for batched inference. In general, the Whisper model should
-     **not** make use of the `attention_mask` to mask padded tokens. Default = `False`
+     **not** make use of the `attention_mask` to mask padded tokens.
 
-We'll load the feature extractor with the default values, and thus omit them when we instantiate the class:
+We'll load the feature extractor from the pre-trained checkpoint with the default values, and thus omit them when we instantiate the class:
 
 ```python
 from transformers import WhisperFeatureExtractor
 
-feature_extractor = WhisperFeatureExtractor()
+feature_extractor = WhisperFeatureExtractor.from_pretrained("openai/whisper-small")
 ```
 
 ### Create WhisperTokenizer
