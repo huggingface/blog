@@ -7,7 +7,7 @@ thumbnail: /blog/assets/112_evaluating-llm-bias/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published October 24th, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/bias-evaluating-llm-bias.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/evaluating-llm-bias.md">
         Update on GitHub
     </a>
 </div>
