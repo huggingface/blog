@@ -275,7 +275,6 @@ there are plenty more available to us! To view the range of datasets available f
 follow the link: [ASR Datasets on the 🤗 Hub](https://huggingface.co/datasets?task_categories=task_categories:automatic-speech-recognition&sort=downloads).
 
 ### Prepare Feature Extractor, Tokenizer and Data
-------------------------------------------
 
 The ASR pipeline can be de-composed into three components: 
 1) A feature extractor which pre-processes the raw audio-inputs
@@ -515,7 +514,7 @@ If you wish to implement your own customised data loading/sampling, you can use 
 column to obtain the audio file path and disregard the `"audio"` column.
 
 ## Training & Evaluation
----------------------
+
 Now that we've prepared our data, we're ready to dive into the training pipeline. 
 The [🤗 Trainer](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer)
 is going to do much of the heavy lifting for us. All we need to do is:
@@ -798,8 +797,8 @@ iface = gr.Interface(
 iface.launch()
 ```
 
-Closing Remarks
----------------------
+## Closing Remarks
+
 In this blog, we covered a step-by-step guide on how to fine-tune Whisper for multilingual ASR 
 using 🤗 Datasets, Transformers and the Hub. If you're interested in fine-tuning other 
 Transformers models, both for English and multilingual ASR, be sure to check out the 
