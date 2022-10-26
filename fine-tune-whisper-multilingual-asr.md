@@ -144,18 +144,19 @@ strong performance on this language.
 
 ### Prepare Environment
 
+First, we need to update the Unix package `ffmpeg` to version 4:
+```bash
+!add-apt-repository -y ppa:jonathonf/ffmpeg-4
+!apt update
+!apt install -y ffmpeg
+```
+
 We'll employ several popular Python packages to fine-tune the Whisper model.
 We'll use `datasets` to download and prepare our training data and 
 `transformers` to load and train our Whisper model. We'll also require
 the `soundfile` package to pre-process audio files, `evaluate` and `jiwer` to
 assess the performance of our model. Finally, we'll
 use `gradio` to build a flashy demo of our fine-tuned model.
-
-TODO:
-- [] CV is in mp3 format. Ideally we'd use torchaudio for reading this mp3 data
-     as it's significantly faster than librosa (up to 50x). G Colabs ship with torchaudio=0.12.1.
-     This version does **not** work with mp3 files and HF datasets... Need to pin torchaudio to
-     0.11.1, and then install the right torch cuda version to match. Bit messy...
 
 ```bash
 !pip install datasets>=2.6.1
@@ -192,7 +193,7 @@ You will have to re-authenticate when pushing to the Hugging Face Hub. Run the f
 git config --global credential.helper store
 ```
 
-Finally, install Git-LFS to be able to push large model weights to the Hub:
+Finally, install Git-LFS to enable pushing of large model weights to the Hub:
 
 ```python
 !apt install git-lfs
