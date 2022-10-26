@@ -82,7 +82,7 @@ All models on the Hub come up with useful features:
 
 
 <figure class="image table text-center m-0 w-full">
-  <img src="assets/113_sample_factory/doom-example.jpg" alt="Doom Example"/>
+  <img src="assets/113_sample-factory/doom-example.jpg" alt="Doom Example"/>
   <figcaption>An example of a model card of an agent playing Doom
 </figcaption>
 </figure>
