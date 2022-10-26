@@ -55,7 +55,8 @@ When scaled to 680,000 hours of labelled pre-training data, Whisper models
 demonstrate a strong ability to generalise to many datasets and domains.
 The pre-trained checkpoints achieve competitive results to state-of-the-art 
 ASR systems, with near 3% word error rate (WER) on the test-clean subset of 
-LibriSpeech ASR (_c.f._ Table 8 of the [paper](https://cdn.openai.com/papers/whisper.pdf)). 
+LibriSpeech ASR and a new state-of-the-art on TED-LIUM with 4.7% WER (_c.f._ Table 8 of 
+the [Whisper paper](https://cdn.openai.com/papers/whisper.pdf)).
 The extensive multilingual ASR knowledge acquired by Whisper during pre-training 
 can be leveraged for other low-resource languages: through fine-tuning, the 
 pre-trained checkpoints can be adapted for specific datasets and languages 
