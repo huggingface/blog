@@ -1370,6 +1370,7 @@
 - local: openvino
   title: "Shrink and accelerate your models with 🤗 Optimum and Intel OpenVINO"
   author: echarlaix
+  thumbnail: /blog/assets/113_openvino/thumbnail.png
   date: October 31, 2022
   tags:
     - hardware

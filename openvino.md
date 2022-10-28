@@ -1,9 +1,33 @@
 ---
 title: "Shrink and accelerate your models with Optimum and Intel OpenVINO"
-# thumbnail: 
+thumbnail: /blog/assets/113_openvino/thumbnail.png
 ---
 
 <h1>Shrink and accelerate your models with Optimum and Intel OpenVINO</h1>
+
+<div class="blog-metadata">
+    <small>Published July 20, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/openvino.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/echarlaix">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1615915889033-6050eb5aeb94f56898c08e57.jpeg?w=200&h=200&f=face" title="Ella Charlaix">
+        <div class="bfc">
+            <code>echarlaix</code>
+            <span class="fullname">Ella Charlaix</span>
+        </div>
+    </a>
+    <a href="https://twitter.com/julsimon">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
+        <div class="bfc">
+            <code>juliensimon</code>
+            <span class=fullname">Julien Simon</span>
+        </div>
+    </a>
+</div>
 
 Last July, we [announced](https://huggingface.co/blog/intel) that Intel and Hugging Face would collaborate on building state-of-the-art yet simple hardware acceleration tools for Transformer models.
 ​
