@@ -1366,3 +1366,14 @@
     - ethics
     - research
     - nlp
+
+- local: stable_diffusion_dreambooth_training
+  title: "Training Stable Diffusion with Dreambooth using 🧨 Diffusers"
+  author: valhalla
+  thumbnail: /blog/assets/sd_dreambooth_training/thumbnail.png
+  date: Oct 30, 2022
+  tags:
+    - diffusers
+    - stable-diffusion
+    - dreambooth
+    - fine-tuning
