@@ -199,14 +199,3 @@ Give it a try and let us know what you think. We'd love to hear your feedback on
 Have fun with 🤗 Optimum Intel, and thank you for reading.
 ​
 
-## Appendix
-
-OpenVINO Runtime can be used to perform inference on the corresponding devices :
-
-| Device type      | Supported devices                                                           |
-| :--------------- | :-------------------------------------------------------------------------- |
-| CPU              |6th to 13th generation Intel Core processors                                 |
-| CPU              |Intel Xeon Scalable processors                                               |
-| CPU              |Intel Pentium processor N4200/5, N3350/5, N3450/5 with Intel HD Graphics     |
-| CPU              |Intel Atom processors with Intel Streaming SIMD Extensions 4.2 (Intel SSE4.2)|
-| GPU              |Intel Processor Graphics, including Intel HD Graphics and Intel Iris Graphics|
