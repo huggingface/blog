@@ -6,7 +6,7 @@ thumbnail: /blog/assets/113_openvino/thumbnail.png
 <h1>Shrink and accelerate your models with 🤗 Optimum Intel and OpenVINO</h1>
 
 <div class="blog-metadata">
-    <small>Published July 20, 2022.</small>
+    <small>Published October 27, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/openvino.md">
         Update on GitHub
     </a>
