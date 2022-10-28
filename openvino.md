@@ -15,8 +15,7 @@ Post-training static quantization and quantization aware training can be applied
 
 ​Let us show you how to get started in minutes!​
 
-
-Quantizing a Vision Transformer with Optimum Intel and OpenVINO
+## Quantizing a Vision Transformer with Optimum Intel and OpenVINO
 ​
 In this example, we will run post-training static quantization on a Vision Transformer (ViT) model fine-tuned for image classification on the food101 dataset.
 ​
@@ -90,7 +89,7 @@ def collate_fn(examples):
     return {"pixel_values": pixel_values, "labels": labels}
 ```
 
-​
+
 For our first try, we use the default configuration for quantization. You can find more information on configuration options in our documentation.
 
 ```python
@@ -110,7 +109,8 @@ We're now ready to quantize the model. The `OVQuantizer.quantize()` method quant
 ​
 
 ```python
-save_dir = "./quantized_model"
+save_dir = "quantized_model"
+
 # Apply static quantization and export the resulting quantized model to OpenVINO IR format
 quantizer.quantize(
     quantization_config=quantization_config,
@@ -162,17 +162,17 @@ trfs_eval_results = eval.compute(
 print(trfs_eval_results, ov_eval_results)
 ```
 
-Looking at the quantized model, we see that it has shrunk 4x from 344MB to 90MB. Running a quick benchmark (on a m6i.4xlarge EC2 instance) on 5050 image predictions, we also see a speedup in latency of 2x, from 93ms to 48ms per sample. That's not bad for a few lines of code!
+Looking at the quantized model, we see that it has shrunk **4x** from 344MB to 90MB. Running a quick benchmark (on a m6i.4xlarge EC2 instance) on 5050 image predictions, we also see a speedup in latency of **2x**, from 93ms to 48ms per sample. That's not bad for a few lines of code!
 
 ​
-```python
 You can find the resulting model hosted on the Hugging Face hub. To load it, you can easily do as follows:
+```python
 from optimum.intel.openvino import OVModelForImageClassification
 ​
 ov_model = OVModelForImageClassification.from_pretrained("echarlaix/vit-food101-int8")
 ```
 
-Now it's your turn
+## Now it's your turn
 ​
 As you can see, it's pretty easy to shrink and accelerate your models with Optimum Intel and OpenVINO. If you'd like to get started, please visit the Optimum Intel repository, and don't forget to give it a star. You'll also find additional examples there. If you'd like to dive deeper into OpenVINO, the Intel documentation has you covered.
 ​
