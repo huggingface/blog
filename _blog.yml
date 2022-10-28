@@ -1368,7 +1368,8 @@
     - nlp
 
 - local: openvino
-  title: "OpenVINO quantization and inference with 🤗 Optimum Intel"
+  title: "Shrink and accelerate your models with 🤗 Optimum and Intel OpenVINO"
+  author: echarlaix
   date: October 31, 2022
   tags:
     - hardware
