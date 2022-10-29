@@ -152,7 +152,7 @@ One example? Given the details of today...
 
 ### 2. Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
 
-In this section, we provide detailed explanations of the current state-of-the-art decoding method, i.e. ___Contrastive Search___, which is orginally proposed in our work ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417) at NeurIPS 2022 <a href='#references'>[5]</a>. 
+In this section, we provide detailed explanations of the current state-of-the-art decoding method, i.e. ___Contrastive Search___, which is orginally proposed in our work ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417) <a href='#references'>[5]</a> at NeurIPS 2022. Furthermore, in our follow-up work ["Contrastive Search Is What You Need For Neural Text Generation"](https://arxiv.org/abs/2210.14140) <a href='#references'>[6]</a>, we demonstrate the contrastive search works exceptionally well and can generate human-level text using **off-the-shelf** language models across **16** languages.
 
 published in NeurIPS 2022. In our follow-up work <a href='#references'>[6]</a>, we further demonstrates 
 
