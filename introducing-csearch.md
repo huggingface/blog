@@ -100,11 +100,11 @@ DeepMind's research is also used by the UK government to develop new technologie
 
 #### 1.2. Stochastic Methods:
 
+To address the issues of deterministic decoding methods, stochastic methods <a href='#references'>[3][4]</a> generate text by introducing randomness during the decoding process. Two widely-used stochastic, i.e. sampling, methods are top-$k$ sampling <a href='#references'>[3]</a> and nucleus sampling <a href='#references'>[4]</a>.
 
-It can be observed that the generation of the greedy search quickly repeats itself, leading to the weired and unsatisfactory results.
+Below, we illustrate an example of generated text by nucleus sampling ($p$=0.95).
 
-To address the degeneration problem, **stochastic methods** introduce the random sampling during the auto-regressive decoding.
-The [Top-K sampling](https://arxiv.org/abs/1805.04833) and [Nucleus sampling](https://arxiv.org/abs/1904.09751) are two widely used stochastic decoding methods. Let us see the generations of the nucleus sampling.
+Let us see the generations of the nucleus sampling.
 
 ```python
 from transformers import AutoTokenizer, GPT2LMHeadModel
