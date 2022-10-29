@@ -170,7 +170,7 @@ Given the prefix text $x_{\textless t}$, the selection of the output token $x_{t
     <img src="assets/introducing_contrastive_search/formulation.png" width="500"/>
 </center>
 
-where $V^{(k)}$ is the set of top-k predictions from the language model's probability distribution $p_{\theta}(v|x_{\textless t})$. The first term, i.e. _model confidence_ 
+where $V^{(k)}$ is the set of top-k predictions from the language model's probability distribution $p_{\theta}(v|x_{\textless t})$. The first term, i.e. _model confidence_, is the probability of the candidate $v$ predicted by the language model. The second term, _degeneration penalty_, measures how discriminative of $v$ with respect to the previous context $x_{\textless t}$. The function $s(\cdot, \cdot)$ computes the cosine similarity between the token representations. More specifically, the degeneration penalty is defined as the maximum cosine similarity between the token representation of $v$, i.e. $h_{v}$ and that of all tokens in the context $x_{\textless t}$.
 
 candidate tokens from the model's probability distribution, and $p_{\theta}(v|x_{\textless t})$ is its probability. $\alpha$ is the hyper-parameter that balances the model confidence and the degeneration penalty scores. If $\alpha$ becomes bigger, the penalty for each token will become larger. The coressponding code snippets of the formulation are shown as follows:
 
