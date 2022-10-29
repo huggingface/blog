@@ -744,6 +744,9 @@ As a result, our inference efficiency is slightly better than the beam search wi
 > [4] Holtzman et al., 2020 ["The Curious Case of Neural Text Degeneration"](https://arxiv.org/abs/1904.09751), ICLR 2020
 
 > [5] Su et al., 2022 ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417), NeurIPS 2022
+
+> [6] Su and Collier, 2022 ["Contrastive Search Is What You Need For Neural Text Generation"](https://arxiv.org/abs/2210.14140)
+
 ****
     
 *- Written by Yixuan Su and Tian Lan*
