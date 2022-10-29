@@ -32,7 +32,8 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
     * <a href='#deterministic_methods'>1.1. Deteriminstic Methods</a>
     * <a href='#stochastic_methods'>1.2. Stochastic Methods</a>
 * <a href='#citation'>Citation</a>   
-* <a href='#references'>Reference</a>   
+* <a href='#references'>Reference</a>  
+* <a href='#acknowledgements'>Acknowledgements</a>  
 
 ****
 
@@ -704,9 +705,11 @@ As a result, our inference efficiency is slightly better than the beam search wi
 > [3] Fan et al., 2018 ["Hierarchical Neural Story Generation"](https://arxiv.org/abs/1805.04833), ACL 2018
  
 > [4] Holtzman et al., 2022 ["The Curious Case of Neural Text Degeneration"](https://arxiv.org/abs/1904.09751), ICLR 2020
+
+****
     
 *- Written by Yixuan Su and Tian Lan*
 
-## Acknowledgements
+## Acknowledgements:
 
 We would like to thank Joao Gante, Patrick von Platen, and Sylvain Gugger for their help and guidance in adding contrastive search mentioned in this blog post into `transformers` library.
