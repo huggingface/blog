@@ -28,7 +28,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 ## Catalogue:
 * <a href='#demo'>Huggingface Demo for Contrastive Search</a>
-    
+* <a href='#references'>Reference</a>   
 ****
 
 <span id='demo'/>
