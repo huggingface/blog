@@ -628,4 +628,4 @@ As a result, our inference efficiency is slightly better than the beam search wi
     
     
 ### Reference:
-> [1] Fan et al., 2018 ["Hierarchical Neural Story Generation"](https://arxiv.org/abs/1805.04833), ACL 2018 [[paper link]](https://arxiv.org/abs/2202.06417)
+> [1] Fan et al., 2018 ["Hierarchical Neural Story Generation"](https://arxiv.org/abs/1805.04833), ACL 2018
