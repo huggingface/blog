@@ -70,20 +70,29 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
 ```
 
-<div class="output stream stdout">
+<details>
+<summary><b>Model Output: [click to expand]</b></summary>
+  
+```
+Output:
+----------------------------------------------------------------------------------------------------  
+DeepMind Company is a leading AI research company, with a focus on deep learning and deep 
+learning-based systems.
 
-    Output:
-    ----------------------------------------------------------------------------------------------------
-    DeepMind Company is a leading AI research company, with a focus on deep learning and deep learning-based systems.
-    The company's research is focused on the development of deep learning-based systems that can learn from large amounts of data, and that can be used to solve real-world problems.
-    
-    DeepMind's research is also used by the UK government to develop new technologies for the UK's National Health Service.
-    
-    DeepMind's research is also used by the UK government to develop new technologies for the UK's National Health Service.
-    
-    DeepMind's research is also used by the UK government to develop new technologies
+The company's research is focused on the development of deep learning-based systems that 
+can learn from large amounts of data, and that can be used to solve real-world problems.
 
-</div>
+DeepMind's research is also used by the UK government to develop new technologies for the 
+UK's National Health Service.
+
+DeepMind's research is also used by the UK government to develop new technologies for the 
+UK's National Health Service.
+
+DeepMind's research is also used by the UK government to develop new technologies...
+----------------------------------------------------------------------------------------------------
+```
+</details>
+
 
 It can be observed that the generation of the greedy search quickly repeats itself, leading to the weired and unsatisfactory results.
 
