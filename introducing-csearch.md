@@ -28,8 +28,11 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 ## Catalogue:
 * <a href='#demo'>Huggingface Demo for Contrastive Search</a>
+* <a href='#problems_of_decoding_methods'>1. Problems of Existing Decoding Methods</a>
+    * <a href='#deterministic_methods'>1.1. Deteriminstic Methods</a>
 * <a href='#citation'>Citation</a>   
 * <a href='#references'>Reference</a>   
+
 ****
 
 <span id='demo'/>
@@ -38,11 +41,19 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 :star2: Check out this awesome [[demo]](https://huggingface.co/spaces/joaogante/contrastive_search_generation) generously supported by Huggingface  :hugs: ([@huggingface](https://github.com/huggingface)) which compares contrastive search with other popular decoding methods. Many thanks to our awesome collaborators ([@gante](https://github.com/gante), [@patrickvonplaten](https://github.com/patrickvonplaten), and [@sgugger](https://github.com/sgugger)) at Huggingface!
 
-### 1. Problems of Existing Decoding Methods
+****
+
+<span id='problems_of_decoding_methods'/>
+
+### 1. Problems of Existing Decoding Methods: <a href='#all_catelogue'>[Back to Top]</a>
 
 Natural language generation (i.e. text generation) aims at generating text that is human-like and it is one of the core tasks in natural language processing (NLP). With recent advance in generative pre-trained language models (e.g. GPT-J <a href='#references'>[1]</a> and OPT <a href='#references'>[2]</a>), text generation has attracted increasing interest in the research community. While these large language models (LMs) have become increasingly powerful, their potentials are still limited by the problems of existing decoding methods. The widely-used decoding methods can be divided into two categories: 
 * (1) Deterministic Methods
 * (2) Stochastic Methods
+
+<span id='deterministic_methods'/>
+
+#### 1.1. Deteriminstic Methods:
 
 **(i) Deteriminstic methods** (e.g. greedy search and beam search) aim at selecting the text continuation with the highest probability based on language model's probability distribution. However, when generating text, deteriminstic methods often lead to the problem of model degeneration <a href='#references'>[1]</a>, 
 
