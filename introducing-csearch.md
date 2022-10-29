@@ -26,7 +26,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 <span id='all_catelogue'/>
 
-### Catalogue:
+## Catalogue:
 * <a href='#demo'>Huggingface Demo for Contrastive Search</a>
     
 ****
