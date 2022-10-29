@@ -712,4 +712,4 @@ As a result, our inference efficiency is slightly better than the beam search wi
 
 ## Acknowledgements:
 
-We would like to thank Joao Gante, Patrick von Platen, and Sylvain Gugger for their help and guidance in adding contrastive search mentioned in this blog post into `transformers` library.
+We would like to thank Joao Gante, Patrick von Platen, and Sylvain Gugger for their help and guidance in adding contrastive search mentioned in this blog post into the `transformers` library.
