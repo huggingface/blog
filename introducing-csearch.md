@@ -32,6 +32,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
     * <a href='#deterministic_methods'>1.1. Deteriminstic Methods</a>
     * <a href='#stochastic_methods'>1.2. Stochastic Methods</a>
 * <a href='#contrastive_search'>2. Contrastive Search</a>
+    * <a href='#contrastive_objective'>2.1. Decoding Objective</a>
 * <a href='#citation'>Citation</a>   
 * <a href='#references'>Reference</a>  
 * <a href='#acknowledgements'>Acknowledgements</a>  
@@ -153,7 +154,17 @@ One example? Given the details of today...
 
 In this section, we provide detailed explanations of our proposed approach ___Contrastive Search___ <a href='#references'>[5]</a>, which is recently published in NeurIPS 2022.
 
+<span id='contrastive_objective'/>
 
+#### 2.1. Decoding Objective:
+
+Finally, the final score for each candidate token can be computed in the next formulation: 
+
+<center class="half">
+    <img src="assets/introducing_contrastive_search/formulation.png" width="500"/>
+</center>
+
+where $V^{(k)}$ is the set of top-k candidate tokens from the model's probability distribution, and $p_{\theta}(v|x_{\textless t})$ is its probability. $\alpha$ is the hyper-parameter that balances the model confidence and the degeneration penalty scores. If $\alpha$ becomes bigger, the penalty for each token will become larger. The coressponding code snippets of the formulation are shown as follows:
 
 
 
