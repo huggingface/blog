@@ -28,6 +28,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 ## Catalogue:
 * <a href='#demo'>Huggingface Demo for Contrastive Search</a>
+* <a href='#citation'>Citation</a>   
 * <a href='#references'>Reference</a>   
 ****
 
@@ -644,7 +645,11 @@ As a result, our inference efficiency is slightly better than the beam search wi
 2. Find the original implementation of the contrastive search and more interesting cases, please refer to our [code](https://github.com/yxuansu/SimCTG).
 
 3. Play with contrastive search with online [demo](https://huggingface.co/spaces/joaogante/contrastive_search_generation) to compare the existing decoding methods with the contrastive search. Many thanks to the contribution of [Joao Gante](https://huggingface.co/joaogante).
+
+****
     
+<span id='citation'/>   
+ 
 ### Citation:
     
 ```bibtex
@@ -662,6 +667,8 @@ As a result, our inference efficiency is slightly better than the beam search wi
   year={2022}
 }
 ```
+    
+****
     
 <span id='references'/>
     
