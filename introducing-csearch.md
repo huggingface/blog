@@ -635,6 +635,23 @@ As a result, our inference efficiency is slightly better than the beam search wi
 
 3. Play with contrastive search with online [demo](https://huggingface.co/spaces/joaogante/contrastive_search_generation) to compare the existing decoding methods with the contrastive search. Many thanks to the contribution of [Joao Gante](https://huggingface.co/joaogante).
     
+### Citation:
+    
+```bibtex
+@article{su2022contrastive,
+  title={A Contrastive Framework for Neural Text Generation},
+  author={Su, Yixuan and Lan, Tian and Wang, Yan and Yogatama, Dani and Kong, Lingpeng and Collier, Nigel},
+  journal={Advances in Neural Information Processing Systems},
+  year={2022}
+}
+    
+@article{su2022contrastiveiswhatyouneed,
+  title={Contrastive Search Is What You Need For Neural Text Generation},
+  author={Su, Yixuan and Collier, Nigel},
+  journal={arXiv preprint arXiv:2210.14140},
+  year={2022}
+}
+```
     
 <span id='references'/>
     
