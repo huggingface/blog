@@ -167,13 +167,12 @@ In this section, we provide detailed explanations of the current state-of-the-ar
 Given the prefix text $x_{\textless t}$, the selection of the output token $x_{t}$ follows the equation below.
 
 <center class="half">
-    <img src="assets/introducing_contrastive_search/formulation.png" width="500"/>
+    <img src="assets/introducing_contrastive_search/formulation.png" width="700"/>
 </center>
 
-where $V^{(k)}$ is the set of top-k predictions from the language model's probability distribution $p_{\theta}(v|x_{\textless t})$. The first term, i.e. _model confidence_, is the probability of the candidate $v$ predicted by the language model. The second term, _degeneration penalty_, measures how discriminative of $v$ with respect to the previous context $x_{\textless t}$ and the function $s(\cdot, \cdot)$ computes the cosine similarity between the token representations. More specifically, the degeneration penalty is defined as the maximum cosine similarity between the token representation of $v$, i.e. $h_{v}$, and that of all tokens in the context $x_{\textless t}$. Here, the candidate representation $h_{v}$ is computed by the language model given the concatenation of $x_{\textless t}$ and $v$. Intuitively, a larger degeneration penalty of $v$ means it is more similar (in the representation space) to the context, therefore more likely leading to the problem of model degeneration.
+where $V^{(k)}$ is the set of top-k predictions from the language model's probability distribution $p_{\theta}(v|x_{\textless t})$. The first term, i.e. _model confidence_, is the probability of the candidate $v$ predicted by the language model. The second term, _degeneration penalty_, measures how discriminative of $v$ with respect to the previous context $x_{\textless t}$ and the function $s(\cdot, \cdot)$ computes the cosine similarity between the token representations. More specifically, the degeneration penalty is defined as the maximum cosine similarity between the token representation of $v$, i.e. $h_{v}$, and that of all tokens in the context $x_{\textless t}$. Here, the candidate representation $h_{v}$ is computed by the language model given the concatenation of $x_{\textless t}$ and $v$. Intuitively, a larger degeneration penalty of $v$ means it is more similar (in the representation space) to the context, therefore more likely leading to the problem of model degeneration. The hyperparameter $\alpha$ regulates the importance of these two components.
 
-candidate tokens from the model's probability distribution, and $p_{\theta}(v|x_{\textless t})$ is its probability. $\alpha$ is the hyper-parameter that balances the model confidence and the degeneration penalty scores. If $\alpha$ becomes bigger, the penalty for each token will become larger. The coressponding code snippets of the formulation are shown as follows:
-
+Overall, when generating output, contrastive search jointly considers (i) the probability predicted by the language model, to maintain the semantic coherence of the generated text; and (2) the similarity with respect to the previous context, to avoid model degeneration.
 
 
 ### 2. Contrastive Search
