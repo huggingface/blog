@@ -31,6 +31,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 * <a href='#problems_of_decoding_methods'>1. Problems of Existing Decoding Methods</a>
     * <a href='#deterministic_methods'>1.1. Deteriminstic Methods</a>
     * <a href='#stochastic_methods'>1.2. Stochastic Methods</a>
+* <a href='#contrastive_search'>2. Contrastive Search</a>
 * <a href='#citation'>Citation</a>   
 * <a href='#references'>Reference</a>  
 * <a href='#acknowledgements'>Acknowledgements</a>  
@@ -143,6 +144,15 @@ One example? Given the details of today...
 </details>
 
 **[Remark]** While nucleus sampling is able to generate text that is free of repetitions, the semantic coherence of the generated text is not well-maintained. For instance, the generated phrase _'AI is not journalism'_ is incoherent with respect to the given prefix, i.e. _'DeepMind Company'_.
+
+****
+
+<span id='contrastive_search'/>
+
+### 2. Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
+
+In this section, we provide detailed explanations of proposed approach **Contrastive Search**
+
 
 
 ### 2. Contrastive Search
