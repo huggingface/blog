@@ -35,7 +35,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 ### Huggingface Demo for Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
 
-:star2: Check out this awesome [[demo]](https://huggingface.co/spaces/joaogante/contrastive_search_generation) generously supported by Huggingface ([@huggingface](https://github.com/huggingface) :hugs:) which compares contrastive search with other popular decoding methods. Many thanks to our awesome collaborators ([@gante](https://github.com/gante), [@patrickvonplaten](https://github.com/patrickvonplaten), and [@sgugger](https://github.com/sgugger)) at Huggingface!
+:star2: Check out this awesome [[demo]](https://huggingface.co/spaces/joaogante/contrastive_search_generation) generously supported by Huggingface  :hugs: ([@huggingface](https://github.com/huggingface)) which compares contrastive search with other popular decoding methods. Many thanks to our awesome collaborators ([@gante](https://github.com/gante), [@patrickvonplaten](https://github.com/patrickvonplaten), and [@sgugger](https://github.com/sgugger)) at Huggingface!
 
 ### 1. Problems of Existing Decoding Methods
 
