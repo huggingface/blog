@@ -55,11 +55,8 @@ Natural language generation (i.e. text generation) aims at generating text that 
 
 #### 1.1. Deteriminstic Methods:
 
-Deteriminstic methods, e.g. greedy search and beam search, generate text by selecting the text continuation with the highest likelihood as measured by the language model. However, as commonly observed in previous studies <a href='#references'>[3]</a> <a href='#references'>[4]</a>
+Deteriminstic methods, e.g. greedy search and beam search, generate text by selecting the text continuation with the highest likelihood as measured by the language model. However, as widely discussed in previous studies <a href='#references'>[3][4]</a>, deteriminstic methods often lead to the problem of **model degeneration**, i.e. the generated text is unnatual and contains undesirable repetitions.
 
-maximizing the  aim at selecting the text continuation with the highest probability based on language model's probability distribution. However, when generating text, deteriminstic methods often lead to the problem of model degeneration <a href='#references'>[1]</a>, 
-
-However, these deteriminstic methods often lead to the **degeneration problem**, i.e., the generated text is unnatual and contains undesirable repetitions.
 For example, let us see the generations provided by the greedy search model.
 
 ```python
