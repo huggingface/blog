@@ -164,13 +164,15 @@ In this section, we provide detailed explanations of the current state-of-the-ar
 
 #### 2.2. Decoding Objective:
 
-Finally, the final score for each candidate token can be computed in the next formulation: 
+Given the prefix text $x_{\textless t}$, the selection of the output token $x_{t}$ follows the equation below.
 
 <center class="half">
     <img src="assets/introducing_contrastive_search/formulation.png" width="500"/>
 </center>
 
-where $V^{(k)}$ is the set of top-k candidate tokens from the model's probability distribution, and $p_{\theta}(v|x_{\textless t})$ is its probability. $\alpha$ is the hyper-parameter that balances the model confidence and the degeneration penalty scores. If $\alpha$ becomes bigger, the penalty for each token will become larger. The coressponding code snippets of the formulation are shown as follows:
+where $V^{(k)}$ is the set of top-k predictions from the language model's probability distribution $p_{\theta}(v|x_{\textless t})$. The first term, i.e. _model confidence_ 
+
+candidate tokens from the model's probability distribution, and $p_{\theta}(v|x_{\textless t})$ is its probability. $\alpha$ is the hyper-parameter that balances the model confidence and the degeneration penalty scores. If $\alpha$ becomes bigger, the penalty for each token will become larger. The coressponding code snippets of the formulation are shown as follows:
 
 
 
@@ -743,7 +745,7 @@ As a result, our inference efficiency is slightly better than the beam search wi
 ### Reference:
 > [1] Wang and Komatsuzaki, 2021 ["GPT-J-6B: A 6 Billion Parameter Autoregressive Language Model"](https://arankomatsuzaki.wordpress.com/2021/06/04/gpt-j/)
     
-> [2] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://arxiv.org/abs/2205.01068)
+> [2] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://arxiv.org/abs/2205.01068), Arxiv 2022
     
 > [3] Fan et al., 2018 ["Hierarchical Neural Story Generation"](https://arxiv.org/abs/1805.04833), ACL 2018
  
@@ -751,7 +753,7 @@ As a result, our inference efficiency is slightly better than the beam search wi
 
 > [5] Su et al., 2022 ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417), NeurIPS 2022
 
-> [6] Su and Collier, 2022 ["Contrastive Search Is What You Need For Neural Text Generation"](https://arxiv.org/abs/2210.14140)
+> [6] Su and Collier, 2022 ["Contrastive Search Is What You Need For Neural Text Generation"](https://arxiv.org/abs/2210.14140), Arxiv 2022
 
 ****
     
