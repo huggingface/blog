@@ -40,9 +40,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 ### 1. Problems of Existing Decoding Methods
 
-Natural language generation (i.e. text generation) aims at generating text that is human-like and it is one of the core tasks in natural language processing (NLP). With recent advance in generative pre-trained language models (e.g. GPT-J <a href='#references'>[1]</a> and OPT <a href='#references'>[2]</a>), text generation has attracted increasing interest in the research community. While these large language models (LMs) have become increasingly powerful, their potentials are still limited by the problems of existing decoding methods.
-
-Existing decoding methods that are widely-used could be divided into two categories: 
+Natural language generation (i.e. text generation) aims at generating text that is human-like and it is one of the core tasks in natural language processing (NLP). With recent advance in generative pre-trained language models (e.g. GPT-J <a href='#references'>[1]</a> and OPT <a href='#references'>[2]</a>), text generation has attracted increasing interest in the research community. While these large language models (LMs) have become increasingly powerful, their potentials are still limited by the problems of existing decoding methods. The widely-used decoding methods can be divided into two categories: 
 * (1) Deterministic Methods
 * (2) Stochastic Methods
 
