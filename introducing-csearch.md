@@ -22,15 +22,13 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
     </a>
 </div>
 
-### 1. Problems of the Existing Decoding Methods
+### 1. Problems of Existing Decoding Methods
 
 Natural language generation (i.e. text generation) aims at generating text that is human-like and it is one of the core tasks in natural language processing (NLP). With recent advance in generative pre-trained language models (e.g. [OPT](https://arxiv.org/pdf/2205.01068.pdf) and [GPT-J](https://github.com/kingoflolz/mesh-transformer-jax)), text generation has attracted increasing interest in the research community. While these large language models (LMs) have become increasingly powerful, their potentials are still limited by the problems of existing decoding methods.
 
 Existing decoding methods that are widely-used could be divided into two categories: (1) deterministic methods and (2) stochastic methods.
 
-**Deteriminstic methods** aim to select the text continuation with the highest probability based on the model's probability distribution.
-The greedy search and beam search are two representive deteriminstic methods.
-However, these deteriminstic methods often lead to the **degeneration problem**, i.e., the generated text is unnatual and contains undesirable repetitions.
+**(i) Deteriminstic methods** (e.g. greedy search and beam search) aim at selecting the text continuation with the highest probability based on language model's probability distribution. However, these deteriminstic methods often lead to the **degeneration problem**, i.e., the generated text is unnatual and contains undesirable repetitions.
 For example, let us see the generations provided by the greedy search model.
 
 ```python
