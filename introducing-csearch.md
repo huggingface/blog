@@ -22,8 +22,18 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
     </a>
 </div>
 
+****
 
-### Huggingface Demo for Contrastive Search:
+<span id='all_catelogue'/>
+
+### Catalogue:
+* <a href='#demo'>Huggingface Demo for Contrastive Search</a>
+    
+****
+
+<span id='demo'/>
+
+### Huggingface Demo for Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
 
 :star2: Check out this awesome [[demo]](https://huggingface.co/spaces/joaogante/contrastive_search_generation) generously supported by Huggingface ([@huggingface](https://github.com/huggingface) :hugs:) which compares contrastive search with other popular decoding methods. 
 
