@@ -40,7 +40,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 ### 1. Problems of Existing Decoding Methods
 
-Natural language generation (i.e. text generation) aims at generating text that is human-like and it is one of the core tasks in natural language processing (NLP). With recent advance in generative pre-trained language models (e.g. [OPT](https://arxiv.org/pdf/2205.01068.pdf) and GPT-J <a href='#references'>[1]</a>, text generation has attracted increasing interest in the research community. While these large language models (LMs) have become increasingly powerful, their potentials are still limited by the problems of existing decoding methods.
+Natural language generation (i.e. text generation) aims at generating text that is human-like and it is one of the core tasks in natural language processing (NLP). With recent advance in generative pre-trained language models (e.g. GPT-J <a href='#references'>[1]</a> and OPT <a href='#references'>[2]</a>), text generation has attracted increasing interest in the research community. While these large language models (LMs) have become increasingly powerful, their potentials are still limited by the problems of existing decoding methods.
 
 Existing decoding methods that are widely-used could be divided into two categories: 
 * (1) Deterministic Methods
@@ -674,5 +674,7 @@ As a result, our inference efficiency is slightly better than the beam search wi
     
 ### Reference:
 > [1] Wang and Komatsuzaki, 2021 ["GPT-J-6B: A 6 Billion Parameter Autoregressive Language Model"](https://arankomatsuzaki.wordpress.com/2021/06/04/gpt-j/)
+ 
+> [2] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://arxiv.org/abs/2205.01068)
     
 > [3] Fan et al., 2018 ["Hierarchical Neural Story Generation"](https://arxiv.org/abs/1805.04833), ACL 2018
