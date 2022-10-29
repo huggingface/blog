@@ -151,7 +151,7 @@ One example? Given the details of today...
 
 ### 2. Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
 
-In this section, we provide detailed explanations of proposed approach **Contrastive Search**
+In this section, we provide detailed explanations of our proposed approach ___Contrastive Search___ <a href='#references'>[5]</a>, which is recently published in NeurIPS 2022.
 
 
 
@@ -728,8 +728,9 @@ As a result, our inference efficiency is slightly better than the beam search wi
     
 > [3] Fan et al., 2018 ["Hierarchical Neural Story Generation"](https://arxiv.org/abs/1805.04833), ACL 2018
  
-> [4] Holtzman et al., 2022 ["The Curious Case of Neural Text Degeneration"](https://arxiv.org/abs/1904.09751), ICLR 2020
+> [4] Holtzman et al., 2020 ["The Curious Case of Neural Text Degeneration"](https://arxiv.org/abs/1904.09751), ICLR 2020
 
+> [5] Su et al., 2022 ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417), NeurIPS 2022
 ****
     
 *- Written by Yixuan Su and Tian Lan*
