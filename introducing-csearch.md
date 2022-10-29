@@ -152,7 +152,9 @@ One example? Given the details of today...
 
 ### 2. Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
 
-In this section, we provide detailed explanations of our proposed approach ___Contrastive Search___ <a href='#references'>[5]</a>, which is recently published in NeurIPS 2022.
+In this section, we provide detailed explanations of the current state-of-the-art decoding method, i.e. ___Contrastive Search___ <a href='#references'>[5]</a>, which is orginally proposed in our work ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417), NeurIPS 2022. 
+
+published in NeurIPS 2022. In our follow-up work <a href='#references'>[6]</a>, we further demonstrates 
 
 <span id='contrastive_objective'/>
 
