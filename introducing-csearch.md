@@ -1,5 +1,5 @@
 ---
-title: "Generate fluent and coherent text with contrastive search in Transformers" 
+title: "Generating fluent and coherent text with contrastive search in Transformers" 
 thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 ---
 
