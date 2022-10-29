@@ -155,6 +155,8 @@ In this section, we provide detailed explanations of our proposed approach ___Co
 
 
 
+
+
 ### 2. Contrastive Search
 
 In order to generate the fluent and coherent text continuations, in this blog, we introduce a simple yet effective decoding methods, named [Contrastive Search](https://arxiv.org/abs/2202.06417), which is recent published by NeurIPS 2022 paper, "A Contrastive Framework for Neural Text Generation".
