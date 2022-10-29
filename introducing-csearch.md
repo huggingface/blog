@@ -119,6 +119,30 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
 ```
 
+<details>
+<summary><b>Model Output: [click to expand]</b></summary>
+  
+```
+Output:
+----------------------------------------------------------------------------------------------------  
+DeepMind Company is a leading provider of AI-based research, development, and delivery of 
+AI solutions for security, infrastructure, machine learning, communications, and so on."
+
+'AI is not journalism'
+
+Worse still was the message its researchers hoped would reach the world's media — that it 
+was not really research, but rather a get-rich-quick scheme to profit from living forces' 
+ignorance.
+
+"The thing is, we know that people don't consciously assess the value of the others' 
+information. They understand they will get the same on their own."
+
+One example? Given the details of today...
+----------------------------------------------------------------------------------------------------
+```
+</details>
+
+
 <div class="output stream stdout">
 
     Output:
