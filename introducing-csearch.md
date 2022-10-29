@@ -26,9 +26,13 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 Natural language generation (i.e. text generation) aims at generating text that is human-like and it is one of the core tasks in natural language processing (NLP). With recent advance in generative pre-trained language models (e.g. [OPT](https://arxiv.org/pdf/2205.01068.pdf) and [GPT-J](https://github.com/kingoflolz/mesh-transformer-jax)), text generation has attracted increasing interest in the research community. While these large language models (LMs) have become increasingly powerful, their potentials are still limited by the problems of existing decoding methods.
 
-Existing decoding methods that are widely-used could be divided into two categories: (1) deterministic methods and (2) stochastic methods.
+Existing decoding methods that are widely-used could be divided into two categories: 
+* (1) Deterministic Methods
+* (2) Stochastic Methods
 
-**(i) Deteriminstic methods** (e.g. greedy search and beam search) aim at selecting the text continuation with the highest probability based on language model's probability distribution. However, these deteriminstic methods often lead to the **degeneration problem**, i.e., the generated text is unnatual and contains undesirable repetitions.
+**(i) Deteriminstic methods** (e.g. greedy search and beam search) aim at selecting the text continuation with the highest probability based on language model's probability distribution. However, when generating text, deteriminstic methods often lead to the problem of model degeneration <a href='#references'>[1]</a>, 
+
+However, these deteriminstic methods often lead to the **degeneration problem**, i.e., the generated text is unnatual and contains undesirable repetitions.
 For example, let us see the generations provided by the greedy search model.
 
 ```python
@@ -626,6 +630,8 @@ As a result, our inference efficiency is slightly better than the beam search wi
 
 3. Play with contrastive search with online [demo](https://huggingface.co/spaces/joaogante/contrastive_search_generation) to compare the existing decoding methods with the contrastive search. Many thanks to the contribution of [Joao Gante](https://huggingface.co/joaogante).
     
+    
+<span id='references'/>
     
 ### Reference:
 > [1] Fan et al., 2018 ["Hierarchical Neural Story Generation"](https://arxiv.org/abs/1805.04833), ACL 2018
