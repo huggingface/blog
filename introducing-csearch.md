@@ -36,7 +36,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
     * <a href='#contrastive_objective'>4.1. Decoding Objective</a>
     * <a href='#contrastive_generation'>4.2. Generating Text with Contratsive Search</a>
     * <a href='#contrastive_visual_demonstration'>4.3. Visual Demonstration of Contrastive Search</a>
-* <a href='#more_examples'>3. More Generated Examples</a>
+* <a href='#more_examples'>5. More Generated Examples</a>
 * <a href='#citation'>Citation</a>   
 * <a href='#references'>Reference</a>  
 * <a href='#acknowledgements'>Acknowledgements</a>  
@@ -259,30 +259,27 @@ and other games on a...
 ```
 </details>
 
-**[Remark]** We see that the generated text is of exceptionally high quality. The entire document is grammatically fluent as well as semantically coherent. In the meantime, the generated text is also factually correct. For instance, in the first paragraph, it elaborates _"AlphaGo"_ as the _"first program to defeat a professional Go player"_.
-
-In conclusion, contrastive search outperforms existing decoding methods in every aspects, e.g. fluency, semantic coherence, factual correctness, and etc.
-
+**[Remark]** We see that the generated text is of exceptionally high quality. The entire document is grammatically fluent as well as semantically coherent. Meanwhile, the generated text also well maintains its factually correctness. For instance, in the first paragraph, it elaborates _"AlphaGo"_ as the _"first program to defeat a professional Go player"_.
 
 
 <span id='contrastive_visual_demonstration'/>
 
 #### 4.3. Visual Demonstration of Contrastive Search:
 
-To better understand how contrastive search works, we provide visual comparison between greedy search (<a href='#deterministic_methods'>Section 1.1</a>) and contrastive search. Specifically, we visualize the token similarity matrix of the generated text from greedy search and contrastive search, respectively. The similarity between two tokens are measured the cosine similarity between their token representations (i.e. the hiddent states of the last transformer layer). The results of greedy search (left) and contrastive search (right) are shown in the Figure below.
+To better understand how contrastive search works, we provide visual comparison between greedy search (<a href='#deterministic_methods'>Section 3.1</a>) and contrastive search. Specifically, we visualize the token similarity matrix of the generated text from greedy search and contrastive search, respectively. The similarity between two tokens are defined as the cosine similarity between their token representations (i.e. the hiddent states of the last transformer layer). The results of greedy search (left) and contrastive search (right) are shown in the Figure below.
 
 <center class="half">
     <img src="assets/introducing_contrastive_search/greedy_search_visualization.png" width="400"/><img src="assets/introducing_contrastive_search/contrastive_search_visualization.png" width="400"/>
 </center>
 
-**[Remark]** From the result of greedy search, we see high similarities scores in the off-diagonal entries which clearly indicates the generated repetitions by the language model. On the contrary, in the result of contrastive search, the high similarity scores mostly appear in the diagonal entries which verify that the degeneration problem is successfully addressed. This nice property of contrastive search is achieved by the introduction of degeneration penalty (see <a href='#contrastive_objective'>Section 2.2</a>) during the decoding process.
+**[Remark]** From the result of greedy search, we see high similarities scores in the off-diagonal entries which clearly indicates the generated repetitions by greedy search. On the contrary, in the result of contrastive search, the high similarity scores mostly appear in the diagonal entries which verifies that the degeneration problem is successfully addressed. This nice property of contrastive search is achieved by the introduction of degeneration penalty (see <a href='#contrastive_objective'>Section 4.1</a>) during the decoding process.
 
 
 ****
 
 <span id='more_examples'/>
 
-### 3. More Generated Examples: <a href='#all_catelogue'>[Back to Top]</a>
+### 5. More Generated Examples: <a href='#all_catelogue'>[Back to Top]</a>
 
 OpenAI blog prompt; OPT example.
 
