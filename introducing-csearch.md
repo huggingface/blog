@@ -245,6 +245,10 @@ and other games on a number of different platforms...
 ```
 </details>
 
+**[Remark]** We see that the generated text is of exceptionally high quality. The entire document is grammatically fluent as well as semantically coherent. In the meantime, the generated text is also factually correct. For instance, it elaborates _"AlphaGo"_ as the _"first program to defeat a professional Go player"_.
+
+
+
 
 
 ### 2. Contrastive Search
