@@ -180,6 +180,8 @@ where $V^{(k)}$ is the set of top-k predictions from the language model's probab
 
 #### 2.3. Generating Text with Contratsive Search:
 
+Below, we use the same prefix text (i.e. _"DeepMind Company is"_) as in Section <a href='#deterministic_methods'>[1.1]</a> and <a href='#stochastic_methods'>[1.2]</a>, and generate the text with contrastive search.
+
 
 
 ### 2. Contrastive Search
