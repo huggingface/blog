@@ -29,14 +29,15 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 ## Catalogue:
 * <a href='#introduction'>1. Introduction</a>
 * <a href='#demo'>2. Huggingface Demo for Contrastive Search</a>
-* <a href='#problems_of_decoding_methods'>3. Problems of Existing Decoding Methods</a>
-    * <a href='#deterministic_methods'>3.1. Deteriminstic Methods</a>
-    * <a href='#stochastic_methods'>3.2. Stochastic Methods</a>
-* <a href='#contrastive_search'>4. Contrastive Search</a>
-    * <a href='#contrastive_objective'>4.1. Decoding Objective</a>
-    * <a href='#contrastive_generation'>4.2. Generating Text with Contratsive Search</a>
-    * <a href='#contrastive_visual_demonstration'>4.3. Visual Demonstration of Contrastive Search</a>
-* <a href='#more_examples'>5. More Generated Examples</a>
+* <a href='#installation'>3. Environment Installation</a>
+* <a href='#problems_of_decoding_methods'>4. Problems of Existing Decoding Methods</a>
+    * <a href='#deterministic_methods'>4.1. Deteriminstic Methods</a>
+    * <a href='#stochastic_methods'>4.2. Stochastic Methods</a>
+* <a href='#contrastive_search'>5. Contrastive Search</a>
+    * <a href='#contrastive_objective'>5.1. Decoding Objective</a>
+    * <a href='#contrastive_generation'>5.2. Generating Text with Contratsive Search</a>
+    * <a href='#contrastive_visual_demonstration'>5.3. Visual Demonstration of Contrastive Search</a>
+* <a href='#more_examples'>6. More Generated Examples</a>
 * <a href='#citation'>Citation</a>   
 * <a href='#references'>Reference</a>  
 * <a href='#acknowledgements'>Acknowledgements</a>  
@@ -51,12 +52,6 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 Natural language generation (i.e. text generation) is one of the core tasks in natural language processing (NLP). In this blog, we introduce the current state-of-the-art decoding method, i.e. ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[1]</a> ([[paper]](https://arxiv.org/abs/2202.06417)[[official github repo]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022. Moreover, in this follow-up work, i.e. _"Contrastive Search Is What You Need For Neural Text Generation"_ <a href='#references'>[2]</a> ([[paper]](https://arxiv.org/abs/2210.14140) [[official github repo]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)), the authors further demonstrate that contrastive search generates human-level text using **off-the-shelf** across **16** languages.
 
-Before running the experiments in the following sections, please install the update-to-date version of `transformers` as
-```yaml
-pip install torch
-pip install git+https://github.com/huggingface/transformers
-```
-
 ****
 
 <span id='demo'/>
@@ -67,16 +62,28 @@ pip install git+https://github.com/huggingface/transformers
 
 ****
 
+<span id='installation'/>
+
+### 3. Environment Installation: <a href='#all_catelogue'>[Back to Top]</a>
+
+Before running the experiments in the following sections, please install the update-to-date version of `transformers` as
+```yaml
+pip install torch
+pip install git+https://github.com/huggingface/transformers
+```
+
+****
+
 <span id='problems_of_decoding_methods'/>
 
-### 3. Problems of Existing Decoding Methods: <a href='#all_catelogue'>[Back to Top]</a>
+### 4. Problems of Existing Decoding Methods: <a href='#all_catelogue'>[Back to Top]</a>
 
 By far, the most widely-used decoding methods can be divided into two categories, including (i) deterministic methods; and (ii) stochastic methods.
 
 
 <span id='deterministic_methods'/>
 
-#### 3.1. Deteriminstic Methods:
+#### 4.1. Deteriminstic Methods:
 
 Deteriminstic methods, e.g. greedy search and beam search, generate text by selecting the text continuation with the highest likelihood as measured by the language model. However, as widely discussed in previous studies <a href='#references'>[3][4]</a>, deteriminstic methods often lead to the problem of **model degeneration**, i.e. the generated text is unnatual and contains undesirable repetitions.
 
@@ -120,7 +127,7 @@ DeepMind's research is also used by the UK government to develop new technologie
 
 <span id='stochastic_methods'/>
 
-#### 3.2. Stochastic Methods:
+#### 4.2. Stochastic Methods:
 
 To address the issues of deterministic decoding methods, stochastic methods generate text by introducing randomness during the decoding process. Two widely-used stochastic, i.e. sampling, methods are top-k sampling <a href='#references'>[3]</a> and nucleus sampling <a href='#references'>[4]</a>.
 
@@ -169,11 +176,11 @@ One example? Given the details of today...
 
 <span id='contrastive_search'/>
 
-### 4. Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
+### 5. Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
 
 <span id='contrastive_objective'/>
 
-#### 4.1. Decoding Objective:
+#### 5.1. Decoding Objective:
 
 In contrastive search, given the prefix text $x_{\textless t}$, the selection of the output token $x_{t}$ follows 
 
@@ -188,9 +195,9 @@ where $V^{(k)}$ is the set of top-k predictions from the language model's probab
 
 <span id='contrastive_generation'/>
 
-#### 4.2. Generating Text with Contratsive Search:
+#### 5.2. Generating Text with Contratsive Search:
 
-Below, we use the same prefix text (i.e. _"DeepMind Company is"_) as in Section <a href='#deterministic_methods'>1.1</a> and <a href='#stochastic_methods'>1.2</a>, and generate the text with contrastive search (k=4 and $\alpha=0.6$). To fully demonstrate the strong capability of contrastive search, we let the language model generate a **long** document with **512** tokens as
+Below, we use the same prefix text (i.e. _"DeepMind Company is"_) as in Section <a href='#deterministic_methods'>4.1</a> and <a href='#stochastic_methods'>4.2</a>, and generate the text with contrastive search (k=4 and $\alpha=0.6$). To fully demonstrate the strong capability of contrastive search, we let the language model generate a **long** document with **512** tokens as
 
 ```python
 # load the LMs
@@ -264,22 +271,22 @@ and other games on a...
 
 <span id='contrastive_visual_demonstration'/>
 
-#### 4.3. Visual Demonstration of Contrastive Search:
+#### 5.3. Visual Demonstration of Contrastive Search:
 
-To better understand how contrastive search works, we provide visual comparison between greedy search (<a href='#deterministic_methods'>Section 3.1</a>) and contrastive search. Specifically, we visualize the token similarity matrix of the generated text from greedy search and contrastive search, respectively. The similarity between two tokens are defined as the cosine similarity between their token representations (i.e. the hiddent states of the last transformer layer). The results of greedy search (left) and contrastive search (right) are shown in the Figure below.
+To better understand how contrastive search works, we provide visual comparison between greedy search (<a href='#deterministic_methods'>Section 4.1</a>) and contrastive search. Specifically, we visualize the token similarity matrix of the generated text from greedy search and contrastive search, respectively. The similarity between two tokens are defined as the cosine similarity between their token representations (i.e. the hiddent states of the last transformer layer). The results of greedy search (left) and contrastive search (right) are shown in the Figure below.
 
 <center class="half">
     <img src="assets/introducing_contrastive_search/greedy_search_visualization.png" width="400"/><img src="assets/introducing_contrastive_search/contrastive_search_visualization.png" width="400"/>
 </center>
 
-**[Remark]** From the result of greedy search, we see high similarities scores in the off-diagonal entries which clearly indicates the generated repetitions by greedy search. On the contrary, in the result of contrastive search, the high similarity scores mostly appear in the diagonal entries which verifies that the degeneration problem is successfully addressed. This nice property of contrastive search is achieved by the introduction of degeneration penalty (see <a href='#contrastive_objective'>Section 4.1</a>) during the decoding process.
+**[Remark]** From the result of greedy search, we see high similarities scores in the off-diagonal entries which clearly indicates the generated repetitions by greedy search. On the contrary, in the result of contrastive search, the high similarity scores mostly appear in the diagonal entries which verifies that the degeneration problem is successfully addressed. This nice property of contrastive search is achieved by the introduction of degeneration penalty (see <a href='#contrastive_objective'>Section 5.1</a>) during the decoding process.
 
 
 ****
 
 <span id='more_examples'/>
 
-### 5. More Generated Examples: <a href='#all_catelogue'>[Back to Top]</a>
+### 6. More Generated Examples: <a href='#all_catelogue'>[Back to Top]</a>
 
 OpenAI blog prompt; OPT example.
 
