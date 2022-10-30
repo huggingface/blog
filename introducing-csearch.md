@@ -36,6 +36,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
     * <a href='#contrastive_objective'>2.2. Decoding Objective</a>
     * <a href='#contrastive_generation'>2.3. Generating Text with Contratsive Search</a>
     * <a href='#contrastive_visual_demonstration'>2.4. Visual Demonstration of Contrastive Search</a>
+* <a href='#more_examples'>3. More Generated Examples</a>
 * <a href='#citation'>Citation</a>   
 * <a href='#references'>Reference</a>  
 * <a href='#acknowledgements'>Acknowledgements</a>  
@@ -271,6 +272,13 @@ To better understand how contrastive search works, we provide visual comparison 
 **[Remark]** From the result of greedy search, we see high similarities scores in the off-diagonal entries which clearly indicates the generated repetitions by the language model. On the contrary, in the result of contrastive search, the high similarity scores mostly appear in the diagonal entries which verify that the degeneration problem is successfully addressed. This nice property of contrastive search is achieved by the introduction of degeneration penalty (see <a href='#contrastive_objective'>Section 2.2</a>) during the decoding process.
 
 
+****
+
+<span id='more_examples'/>
+
+#### 3. More Generated Examples:
+
+OpenAI blog prompt; OPT example.
 
 
 
