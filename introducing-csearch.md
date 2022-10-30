@@ -300,6 +300,13 @@ First, we use the prefix text from the original [OpenAI blog](https://openai.com
 > _In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact that the unicorns spoke perfect English._
 
 
+<details>
+<summary><b>: [click to expand]</b></summary>
+
+```python
+```
+</details>
+
 
 
 OpenAI blog prompt; OPT example.
