@@ -42,6 +42,10 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
         * <a href='#gpt2_greedy_example_one'>6.1.1. Generating Text with Greedy Search</a>
         * <a href='#gpt2_nucleus_example_one'>6.1.2. Generating Text with Nucleus Sampling</a>
         * <a href='#gpt2_contrastive_example_one'>6.1.3. Generating Text with Contrastive Search</a>
+    * <a href='#opt_example_one'>6.2. OPT: Example Two</a>
+        * <a href='#opt_greedy_example_one'>6.2.1. Generating Text with Greedy Search</a>
+        * <a href='#opt_nucleus_example_one'>6.2.2. Generating Text with Nucleus Sampling</a>
+        * <a href='#opt_contrastive_example_one'>6.2.3. Generating Text with Contrastive Search</a>
 * <a href='#citation'>Citation</a>   
 * <a href='#references'>Reference</a>  
 * <a href='#acknowledgements'>Acknowledgements</a>  
@@ -299,7 +303,7 @@ In this section, we provide more generated examples to compare different decodin
 
 #### 6.1. GPT-2: Example One:
 
-First, we use the prefix text from the original [OpenAI blog](https://openai.com/blog/better-language-models/) which releases GPT-2.
+In this part, we use the prefix text from the original [OpenAI blog](https://openai.com/blog/better-language-models/) which releases GPT-2.
 
 > _In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact that the unicorns spoke perfect English._
 
@@ -492,6 +496,55 @@ dubbed "Porcupine Man" for his ability to converse with the human race...
 </details>
 
 
+<span id='opt_example_one'/>
+
+#### 6.2. OPT: Example Two:
+
+In this part, we use the recently released OPT model <a href='#references'>[5]</a> to compare the results of different decoding methods.
+
+Specifically, we use the prompt from Figure 9 of the original paper:
+
+```
+A chat between a curious human and the Statue of Liberty.
+
+Human: What is your name?
+Statue: I am the Statue of Liberty.
+Human: Where do you live?
+Statue: New York City.
+Human: How long have you lived there?
+```
+
+<details>
+<summary><b>Code for (i) loading the language model and (ii) preparing the prefix text: [click to expand]</b></summary>
+
+```python
+import torch
+from transformers import AutoTokenizer, OPTForCausalLM
+model_name = 
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = OPTForCausalLM.from_pretrained(model_name)
+    
+prefix_text = r"""A chat between a curious human and the Statue of Liberty.
+
+Human: What is your name?
+Statue: I am the Statue of Liberty.
+Human: Where do you live?
+Statue: New York City.
+Human: How long have you lived there?"""
+
+input_ids = tokenizer(prefix_text, return_tensors='pt').input_ids
+```
+</details>
+
+
+
+
+    * <a href='#'></a>
+        * <a href='#opt_greedy_example_one'>6.1.1. Generating Text with Greedy Search</a>
+        * <a href='#opt_nucleus_example_one'>6.1.2. Generating Text with Nucleus Sampling</a>
+        * <a href='#opt_contrastive_example_one'>6.1.3. Generating Text with Contrastive Search</a>
+
+
 
 
 OpenAI blog prompt; OPT example.
@@ -542,7 +595,7 @@ OpenAI blog prompt; OPT example.
 
 > [4] Holtzman et al., 2020 ["The Curious Case of Neural Text Degeneration"](https://arxiv.org/abs/1904.09751), ICLR 2020
 
-    
+> [5] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://arxiv.org/abs/2205.01068), Arxiv 2022
 
  
 
