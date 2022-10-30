@@ -99,9 +99,10 @@ tokenizer = AutoTokenizer.from_pretrained('gpt2-large')
 input_ids = tokenizer('DeepMind Company is', return_tensors='pt').input_ids
 model = GPT2LMHeadModel.from_pretrained('gpt2-large')
 
-greedy_output = model.generate(input_ids, max_length=128)
+output = model.generate(input_ids, max_length=128)
 print("Output:\n" + 100 * '-')
-print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
+print(tokenizer.decode(output[0], skip_special_tokens=True))
+print("" + 100 * '-')
 ```
 
 <details>
@@ -146,9 +147,10 @@ input_ids = tokenizer('DeepMind Company is', return_tensors='pt').input_ids
 model = GPT2LMHeadModel.from_pretrained('gpt2-large')
 
 torch.manual_seed(0.)
-greedy_output = model.generate(input_ids, do_sample=True, max_length=128, top_p=0.95, top_k=0)
+output = model.generate(input_ids, do_sample=True, max_length=128, top_p=0.95, top_k=0)
 print("Output:\n" + 100 * '-')
-print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
+print(tokenizer.decode(output[0], skip_special_tokens=True))
+print("" + 100 * '-')
 ```
 
 <details>
@@ -324,9 +326,10 @@ input_ids = tokenizer(prefix_text, return_tensors='pt').input_ids
 <summary><b>Code: [click to expand]</b></summary>
 
 ```python
-greedy_output = model.generate(input_ids, max_length=512)
+output = model.generate(input_ids, max_length=512)
 print("Output:\n" + 100 * '-')
-print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
+print(tokenizer.decode(output[0], skip_special_tokens=True))
+print("" + 100 * '-')
 ```
 </details>
 
@@ -384,8 +387,103 @@ area around 2,000 years ago...
 </details>
 
 
-        * <a href='#'></a>
-        * <a href='#gpt2_nucleus_example_one'>6.1.2. Generating Text with Nucleus Sampling</a>
+
+<span id='gpt2_nucleus_example_one'/>
+
+##### 6.1.2. Generating Text with Nucleus Sampling:
+
+<details>
+<summary><b>Code: [click to expand]</b></summary>
+
+```python
+torch.manual_seed(0.)
+output = model.generate(input_ids, do_sample=True, max_length=512, top_p=0.95, top_k=0)
+print("Output:\n" + 100 * '-')
+print(tokenizer.decode(output[0], skip_special_tokens=True))
+print("" + 100 * '-')
+```
+</details>
+
+
+<details>
+<summary><b>Model Output: [click to expand]</b></summary>
+
+```
+Output:
+----------------------------------------------------------------------------------------------------  
+In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously 
+unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact 
+that the unicorns spoke perfect English.
+
+The researchers, led by Dr. David R. Williams of the University of California, Santa Cruz, 
+discovered the unicorns in the Andes Mountains of Peru. The area is known for its unique geology 
+and is home to a number of rare species of animals.
+
+The researchers found the unicorns in the Andes Mountains of Peru.
+
+"We were surprised to find that the unicorns were able to communicate with each other," Williams 
+said. "We were also surprised to find that they were able to communicate in English."
+
+The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
+area around 2,000 years ago.
+
+"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of 
+the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place 
+to hunt and gather food."
+
+The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
+area around 2,000 years ago.
+
+"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of 
+the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place 
+to hunt and gather food."
+
+The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
+area around 2,000 years ago.
+
+"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of
+the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place 
+to hunt and gather food."
+
+The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
+area around 2,000 years ago.
+
+"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of
+the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place
+to hunt and gather food."
+
+The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the
+area around 2,000 years ago...
+    
+In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously 
+unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact 
+that the unicorns spoke perfect English. The study was published in the Journal of Zoology in 
+March 2016.
+
+Polygynous mammals such as unicorns have remained largely unknown to science. Professor Gustavo 
+Giacota, from the University of Oxford who led the study, said that they had been documented as 
+far as Eastern Siberia in Russia, but had only been seen a handful of times in the Gobi Desert.
+
+Tiny animals with pale and shiny coats live in the presence of human beings and are hardly likely 
+to be victims of any cruelty. However, there is some evidence of the condition occurring in both 
+humans and animals in remote regions, which might have similarities to "black moles" that coexist 
+on the skin.
+
+It is thought that Unicorns could be inside themselves, that they have different scents depending 
+on their current environment, or just fall out and there are plenty of legends of how they have 
+survived. Experts speculate that the moths and other animals could be remnants of the Yezidi Isis 
+and Charon, which literally is both the word which means great bird, and the Greek word for sound. 
+It is said that the Isis and Charon taught their young the use of voice in the form of calling out 
+to others.
+
+The scientists think that it could be ancient folklore that has survived and is no longer attributed 
+to a real entity...
+----------------------------------------------------------------------------------------------------
+```
+</details>
+
+
+
         * <a href='#gpt2_contrastive_example_one'>6.1.3. Generating Text with Contrastive Search</a>
 
 
