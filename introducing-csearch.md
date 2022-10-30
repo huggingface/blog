@@ -58,7 +58,7 @@ This blog introduces the current state-of-the-art decoding method, i.e. ___Contr
 
 ### 2. Huggingface Demo for Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
 
-Check out this easy-to-use [[demo]](https://huggingface.co/spaces/joaogante/contrastive_search_generation) :hugs: which directly compares contrastive search with other popular decoding methods, including beam search, top-k sampling <a href='#references'>[3]</a>, and nucleus sampling <a href='#references'>[4]</a>.
+:hugs: Check out this easy-to-use [[demo]](https://huggingface.co/spaces/joaogante/contrastive_search_generation) which directly compares contrastive search with other popular decoding methods, including beam search, top-k sampling <a href='#references'>[3]</a>, and nucleus sampling <a href='#references'>[4]</a>.
 
 ****
 
