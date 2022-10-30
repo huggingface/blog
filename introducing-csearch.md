@@ -301,9 +301,15 @@ First, we use the prefix text from the original [OpenAI blog](https://openai.com
 
 
 <details>
-<summary><b>: [click to expand]</b></summary>
+<summary><b>Code for loading the language model and preparing the prefix text: [click to expand]</b></summary>
 
 ```python
+import torch
+from transformers import AutoTokenizer, GPT2LMHeadModel
+tokenizer = AutoTokenizer.from_pretrained('gpt2-large')
+model = GPT2LMHeadModel.from_pretrained('gpt2-large')
+prefix_text = r"In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact that the unicorns spoke perfect English."
+input_ids = tokenizer(prefix_text, return_tensors='pt').input_ids
 ```
 </details>
 
