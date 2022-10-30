@@ -108,8 +108,8 @@ print(tokenizer.decode(output[0], skip_special_tokens=True))
 print("" + 100 * '-')
 ```
 
-<details>
-<summary><b>Model Output: [click to expand]</b></summary>
+<details open>
+<summary><b>Model Output:</b></summary>
   
 ```
 Output:
@@ -156,8 +156,8 @@ print(tokenizer.decode(output[0], skip_special_tokens=True))
 print("" + 100 * '-')
 ```
 
-<details>
-<summary><b>Model Output: [click to expand]</b></summary>
+<details open>
+<summary><b>Model Output:</b></summary>
   
 ```
 Output:
