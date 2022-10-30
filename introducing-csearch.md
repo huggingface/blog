@@ -34,6 +34,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 * <a href='#contrastive_search'>2. Contrastive Search</a>
     * <a href='#contrastive_introduction'>2.1. Introduction</a>
     * <a href='#contrastive_objective'>2.2. Decoding Objective</a>
+    * <a href='#contrastive_generation'>2.3. Generating Text with Contratsive Search</a>
 * <a href='#citation'>Citation</a>   
 * <a href='#references'>Reference</a>  
 * <a href='#acknowledgements'>Acknowledgements</a>  
@@ -173,6 +174,12 @@ Given the prefix text $x_{\textless t}$, the selection of the output token $x_{t
 where $V^{(k)}$ is the set of top-k predictions from the language model's probability distribution $p_{\theta}(v|x_{\textless t})$. The first term, i.e. _model confidence_, is the probability of the candidate $v$ predicted by the language model. The second term, _degeneration penalty_, measures how discriminative of $v$ with respect to the previous context $x_{\textless t}$ and the function $s(\cdot, \cdot)$ computes the cosine similarity between the token representations. More specifically, the degeneration penalty is defined as the maximum cosine similarity between the token representation of $v$, i.e. $h_{v}$, and that of all tokens in the context $x_{\textless t}$. Here, the candidate representation $h_{v}$ is computed by the language model given the concatenation of $x_{\textless t}$ and $v$. Intuitively, a larger degeneration penalty of $v$ means it is more similar (in the representation space) to the context, therefore more likely leading to the problem of model degeneration. The hyperparameter $\alpha$ regulates the importance of these two components.
 
 **[Remark]** Overall, when generating output, contrastive search jointly considers (i) the probability predicted by the language model, to maintain the semantic coherence between the generated text and the prefix text; and (2) the similarity with respect to the previous context, to avoid model degeneration.
+
+
+<span id='contrastive_generation'/>
+
+#### 2.3. Generating Text with Contratsive Search:
+
 
 
 ### 2. Contrastive Search
