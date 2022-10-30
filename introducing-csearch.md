@@ -309,7 +309,7 @@ In this part, we use the prefix text from the original [OpenAI blog](https://ope
 
 
 <details open>
-<summary><b>Code for (i) loading the language model and (ii) preparing the prefix text: [click to expand]</b></summary>
+<summary><b>Code for (i) loading the language model and (ii) preparing the prefix text:</b></summary>
 
 ```python
 import torch
@@ -514,8 +514,8 @@ Statue: New York City.
 Human: How long have you lived there?
 ```
 
-<details>
-<summary><b>Code for (i) loading the language model and (ii) preparing the prefix text: [click to expand]</b></summary>
+<details open>
+<summary><b>Code for (i) loading the language model and (ii) preparing the prefix text:</b></summary>
 
 ```python
 import torch
