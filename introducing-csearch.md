@@ -28,7 +28,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 ## Catalogue:
 * <a href='#introduction'>1. Introduction</a>
-* <a href='#demo'>2. Huggingface Demo for Contrastive Search</a>
+* <a href='#demo'>2. Huggingface Demo of Contrastive Search</a>
 * <a href='#installation'>3. Environment Installation</a>
 * <a href='#problems_of_decoding_methods'>4. Problems of Existing Decoding Methods</a>
     * <a href='#deterministic_methods'>4.1. Deteriminstic Methods</a>
@@ -59,9 +59,9 @@ Natural language generation (i.e. text generation) is one of the core tasks in n
 
 <span id='demo'/>
 
-### 2. Huggingface Demo for Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
+### 2. Huggingface Demo of Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
 
-:hugs: Check out this easy-to-use [[demo]](https://huggingface.co/spaces/joaogante/contrastive_search_generation) which directly compares contrastive search with other popular decoding methods, including beam search, top-k sampling <a href='#references'>[3]</a>, and nucleus sampling <a href='#references'>[4]</a>.
+:hugs: Check out this awesome [[demo]](https://huggingface.co/spaces/joaogante/contrastive_search_generation) which directly compares contrastive search with other popular decoding methods, including beam search, top-k sampling <a href='#references'>[3]</a>, and nucleus sampling <a href='#references'>[4]</a>.
 
 ****
 
