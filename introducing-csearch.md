@@ -413,50 +413,6 @@ Output:
 ----------------------------------------------------------------------------------------------------  
 In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously 
 unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact 
-that the unicorns spoke perfect English.
-
-The researchers, led by Dr. David R. Williams of the University of California, Santa Cruz, 
-discovered the unicorns in the Andes Mountains of Peru. The area is known for its unique geology 
-and is home to a number of rare species of animals.
-
-The researchers found the unicorns in the Andes Mountains of Peru.
-
-"We were surprised to find that the unicorns were able to communicate with each other," Williams 
-said. "We were also surprised to find that they were able to communicate in English."
-
-The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
-area around 2,000 years ago.
-
-"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of 
-the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place 
-to hunt and gather food."
-
-The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
-area around 2,000 years ago.
-
-"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of 
-the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place 
-to hunt and gather food."
-
-The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
-area around 2,000 years ago.
-
-"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of
-the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place 
-to hunt and gather food."
-
-The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
-area around 2,000 years ago.
-
-"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of
-the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place
-to hunt and gather food."
-
-The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the
-area around 2,000 years ago...
-    
-In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously 
-unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact 
 that the unicorns spoke perfect English. The study was published in the Journal of Zoology in 
 March 2016.
 
