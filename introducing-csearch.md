@@ -440,7 +440,7 @@ to a real entity...
 
 ##### 6.1.3. Generating Text with Contrastive Search:
 
-<details>
+<details open>
 <summary><b>Code:</b></summary>
 
 ```python
@@ -457,30 +457,6 @@ print("" + 100 * '-')
 ```
 Output:
 ----------------------------------------------------------------------------------------------------  
-In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously 
-unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact 
-that the unicorns spoke perfect English. The study was published in the Journal of Zoology in 
-March 2016.
-
-Polygynous mammals such as unicorns have remained largely unknown to science. Professor Gustavo 
-Giacota, from the University of Oxford who led the study, said that they had been documented as 
-far as Eastern Siberia in Russia, but had only been seen a handful of times in the Gobi Desert.
-
-Tiny animals with pale and shiny coats live in the presence of human beings and are hardly likely 
-to be victims of any cruelty. However, there is some evidence of the condition occurring in both 
-humans and animals in remote regions, which might have similarities to "black moles" that coexist 
-on the skin.
-
-It is thought that Unicorns could be inside themselves, that they have different scents depending 
-on their current environment, or just fall out and there are plenty of legends of how they have 
-survived. Experts speculate that the moths and other animals could be remnants of the Yezidi Isis 
-and Charon, which literally is both the word which means great bird, and the Greek word for sound. 
-It is said that the Isis and Charon taught their young the use of voice in the form of calling out 
-to others.
-
-The scientists think that it could be ancient folklore that has survived and is no longer attributed 
-to a real entity...
-    
 In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously unexplored
 valley, in the Andes Mountains. Even more surprising to the researchers was the fact that the unicorns 
 spoke perfect English.
