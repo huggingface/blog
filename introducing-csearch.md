@@ -39,6 +39,9 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
     * <a href='#contrastive_visual_demonstration'>5.3. Visual Demonstration of Contrastive Search</a>
 * <a href='#more_examples'>6. More Generated Examples</a>
     * <a href='#gpt2_example_one'>6.1. GPT-2: Example One</a>
+        * <a href='#gpt2_greedy_example_one'>6.1.1. Generating Text with Greedy Search</a>
+        * <a href='#gpt2_nucleus_example_one'>6.1.2. Generating Text with Nucleus Sampling</a>
+        * <a href='#gpt2_contrastive_example_one'>6.1.3. Generating Text with Contrastive Search</a>
 * <a href='#citation'>Citation</a>   
 * <a href='#references'>Reference</a>  
 * <a href='#acknowledgements'>Acknowledgements</a>  
@@ -301,7 +304,7 @@ First, we use the prefix text from the original [OpenAI blog](https://openai.com
 
 
 <details>
-<summary><b>Code for loading the language model and preparing the prefix text: [click to expand]</b></summary>
+<summary><b>Code for (i) loading the language model and (ii) preparing the prefix text: [click to expand]</b></summary>
 
 ```python
 import torch
@@ -313,6 +316,77 @@ input_ids = tokenizer(prefix_text, return_tensors='pt').input_ids
 ```
 </details>
 
+<span id='gpt2_greedy_example_one'/>
+
+##### 6.1.1. Generating Text with Greedy Search:
+
+<details>
+<summary><b>Code: [click to expand]</b></summary>
+
+```python
+greedy_output = model.generate(input_ids, max_length=512)
+print("Output:\n" + 100 * '-')
+print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
+```
+</details>
+
+<details>
+<summary><b>Model Output: [click to expand]</b></summary>
+
+```
+Output:
+----------------------------------------------------------------------------------------------------  
+In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously 
+unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact 
+that the unicorns spoke perfect English.
+
+The researchers, led by Dr. David R. Williams of the University of California, Santa Cruz, 
+discovered the unicorns in the Andes Mountains of Peru. The area is known for its unique geology 
+and is home to a number of rare species of animals.
+
+The researchers found the unicorns in the Andes Mountains of Peru.
+
+"We were surprised to find that the unicorns were able to communicate with each other," Williams 
+said. "We were also surprised to find that they were able to communicate in English."
+
+The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
+area around 2,000 years ago.
+
+"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of 
+the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place 
+to hunt and gather food."
+
+The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
+area around 2,000 years ago.
+
+"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of 
+the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place 
+to hunt and gather food."
+
+The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
+area around 2,000 years ago.
+
+"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of
+the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place 
+to hunt and gather food."
+
+The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
+area around 2,000 years ago.
+
+"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of
+the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place
+to hunt and gather food."
+
+The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the
+area around 2,000 years ago...
+----------------------------------------------------------------------------------------------------
+```
+</details>
+
+
+        * <a href='#'></a>
+        * <a href='#gpt2_nucleus_example_one'>6.1.2. Generating Text with Nucleus Sampling</a>
+        * <a href='#gpt2_contrastive_example_one'>6.1.3. Generating Text with Contrastive Search</a>
 
 
 OpenAI blog prompt; OPT example.
