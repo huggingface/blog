@@ -51,6 +51,12 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 Natural language generation (i.e. text generation) is one of the core tasks in natural language processing (NLP). In this blog, we introduce the current state-of-the-art decoding method, i.e. ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[1]</a> ([[paper]](https://arxiv.org/abs/2202.06417)[[official github repo]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022. Moreover, in this follow-up work, i.e. _"Contrastive Search Is What You Need For Neural Text Generation"_ <a href='#references'>[2]</a> ([[paper]](https://arxiv.org/abs/2210.14140) [[official github repo]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)), the authors further demonstrate that contrastive search generates human-level text using **off-the-shelf** across **16** languages.
 
+Before running the experiments in the following sections, please install the update-to-date version of `transformers` as
+```yaml
+pip install torch
+pip install git+https://github.com/huggingface/transformers
+```
+
 ****
 
 <span id='demo'/>
@@ -183,12 +189,6 @@ where $V^{(k)}$ is the set of top-k predictions from the language model's probab
 <span id='contrastive_generation'/>
 
 #### 4.2. Generating Text with Contratsive Search:
-
-Before running experiments, please install the update-to-date version of `transformers` as
-```yaml
-pip install torch
-pip install git+https://github.com/huggingface/transformers
-```
 
 Below, we use the same prefix text (i.e. _"DeepMind Company is"_) as in Section <a href='#deterministic_methods'>1.1</a> and <a href='#stochastic_methods'>1.2</a>, and generate the text with contrastive search (k=4 and $\alpha=0.6$). To fully demonstrate the strong capability of contrastive search, we let the language model generate a **long** document with **512** tokens as
 
