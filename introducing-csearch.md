@@ -27,6 +27,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 <span id='all_catelogue'/>
 
 ## Catalogue:
+* <a href='#introduction'>1. Introduction</a>
 * <a href='#demo'>Huggingface Demo for Contrastive Search</a>
 * <a href='#problems_of_decoding_methods'>1. Problems of Existing Decoding Methods</a>
     * <a href='#deterministic_methods'>1.1. Deteriminstic Methods</a>
@@ -41,6 +42,19 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 * <a href='#references'>Reference</a>  
 * <a href='#acknowledgements'>Acknowledgements</a>  
 
+
+
+****
+
+<span id='introduction'/>
+
+### 1. Introduction: <a href='#all_catelogue'>[Back to Top]</a>
+
+This blog introduces the current state-of-the-art decoding method, i.e. ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[5]</a> ([[paper]](https://arxiv.org/abs/2202.06417)[[official github repo]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022.
+
+
+
+is orginally proposed in our work ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417) <a href='#references'>[5]</a> at **NeurIPS 2022**. Furthermore, in our follow-up work ["Contrastive Search Is What You Need For Neural Text Generation"](https://arxiv.org/abs/2210.14140) <a href='#references'>[6]</a>, we demonstrate that contrastive search works exceptionally well using **off-the-shelf** language models and can generate human-level text across **16** languages.
 
 ****
 
