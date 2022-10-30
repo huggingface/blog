@@ -288,6 +288,9 @@ To better understand how contrastive search works, we provide visual comparison 
 
 ### 6. More Generated Examples: <a href='#all_catelogue'>[Back to Top]</a>
 
+In this section, we provide more generated examples to compare different decoding methods.
+
+
 OpenAI blog prompt; OPT example.
 
 
