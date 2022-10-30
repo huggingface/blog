@@ -180,7 +180,27 @@ where $V^{(k)}$ is the set of top-k predictions from the language model's probab
 
 #### 2.3. Generating Text with Contratsive Search:
 
-Below, we use the same prefix text (i.e. _"DeepMind Company is"_) as in Section <a href='#deterministic_methods'>[1.1]</a> and <a href='#stochastic_methods'>[1.2]</a>, and generate the text with contrastive search.
+Below, we use the same prefix text (i.e. _"DeepMind Company is"_) as in Section <a href='#deterministic_methods'>1.1</a> and <a href='#stochastic_methods'>1.2</a>, and generate the text with contrastive search ($k=4$ and $\alpha=0.6$).
+
+```python
+# load the LMs
+import torch
+from transformers import GPT2Tokenizer, GPT2LMHeadModel
+model_name = 'gpt2-large'
+tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+model = GPT2LMHeadModel.from_pretrained(model_name, pad_token_id=tokenizer.eos_token_id)
+model.eval()
+
+# prepare the prefix
+prefix_text = r'DeepMind Company is'
+inputs = tokenizer(prefix_text, return_tensors='pt')
+
+# generate the result with contrastive search
+output = model.generate(**inputs, penalty_alpha=0.6, top_k=4, max_length=512)
+print("Output:\n" + 100 * '-')
+print(tokenizer.decode(output[0], skip_special_tokens=True))
+print("" + 100 * '-')
+```
 
 
 
