@@ -66,9 +66,8 @@ Natural language generation (i.e. text generation) is one of the core tasks in n
 
 ### 3. Problems of Existing Decoding Methods: <a href='#all_catelogue'>[Back to Top]</a>
 
-With recent advance in generative pre-trained language models (e.g. GPT-J <a href='#references'>[5]</a> and OPT <a href='#references'>[6]</a>), text generation has attracted increasing interest in the research community. While these large language models (LMs) have become increasingly powerful, their potentials are still limited by the problems of existing decoding methods. Currently, the most widely-used decoding methods can be divided into two categories: 
-* (1) Deterministic Methods
-* (2) Stochastic Methods
+By far, the most widely-used decoding methods can be divided into two categories, including (i) deterministic methods; and (ii) stochastic methods.
+
 
 <span id='deterministic_methods'/>
 
