@@ -35,6 +35,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
     * <a href='#contrastive_introduction'>2.1. Introduction</a>
     * <a href='#contrastive_objective'>2.2. Decoding Objective</a>
     * <a href='#contrastive_generation'>2.3. Generating Text with Contratsive Search</a>
+    * <a href='#contrastive_visual_demonstration'>2.4. Visual Demonstration of Contrastive Search</a>
 * <a href='#citation'>Citation</a>   
 * <a href='#references'>Reference</a>  
 * <a href='#acknowledgements'>Acknowledgements</a>  
@@ -250,6 +251,12 @@ and other games on a...
 In conclusion, contrastive search outperforms existing decoding methods in every aspects, e.g. fluency, semantic coherence, factual correctness, and etc.
 
 
+
+<span id='contrastive_visual_demonstration'/>
+
+#### 2.4. Visual Demonstration of Contrastive Search:
+
+To better understand how contrastive search works, we provide visual comparison between greedy search (<a href='#deterministic_methods'>Section 1.1.</a>) and contrastive search.
 
 
 
