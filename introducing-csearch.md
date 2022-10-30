@@ -50,7 +50,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 ### 1. Introduction: <a href='#all_catelogue'>[Back to Top]</a>
 
-This blog introduces the current state-of-the-art decoding method, i.e. ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[1]</a> ([[paper]](https://arxiv.org/abs/2202.06417)[[official github repo]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022. In this follow-up work, i.e. _"Contrastive Search Is What You Need For Neural Text Generation"_ <a href='#references'>[2]</a> ([[paper]](https://arxiv.org/abs/2210.14140) [[official github repo]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)), the authors further demonstrate that contrastive search generates human-level text using **off-the-shelf** across **16** languages.
+This blog introduces the current state-of-the-art decoding method, i.e. ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[1]</a> ([[paper]](https://arxiv.org/abs/2202.06417)[[official github repo]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022. Moreover, in this follow-up work, i.e. _"Contrastive Search Is What You Need For Neural Text Generation"_ <a href='#references'>[2]</a> ([[paper]](https://arxiv.org/abs/2210.14140) [[official github repo]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)), the authors further demonstrate that contrastive search generates human-level text using **off-the-shelf** across **16** languages.
 
 ****
 
