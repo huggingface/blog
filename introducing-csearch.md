@@ -50,11 +50,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 ### 1. Introduction: <a href='#all_catelogue'>[Back to Top]</a>
 
-This blog introduces the current state-of-the-art decoding method, i.e. ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[5]</a> ([[paper]](https://arxiv.org/abs/2202.06417)[[official github repo]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022.
-
-
-
-is orginally proposed in our work ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417) <a href='#references'>[5]</a> at **NeurIPS 2022**. Furthermore, in our follow-up work ["Contrastive Search Is What You Need For Neural Text Generation"](https://arxiv.org/abs/2210.14140) <a href='#references'>[6]</a>, we demonstrate that contrastive search works exceptionally well using **off-the-shelf** language models and can generate human-level text across **16** languages.
+This blog introduces the current state-of-the-art decoding method, i.e. ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[1]</a> ([[paper]](https://arxiv.org/abs/2202.06417)[[official github repo]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022. In this follow-up work _"Contrastive Search Is What You Need For Neural Text Generation"_ <a href='#references'>[2]</a> ([[paper]](https://arxiv.org/abs/2210.14140) [[official github repo]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)), the authors further demonstrates that contrastive search can generate human-level text using **off-the-shelf** across **16** languages.
 
 ****
 
@@ -863,6 +859,10 @@ As a result, our inference efficiency is slightly better than the beam search wi
 <span id='references'/>
     
 ### Reference:
+> [1] Su et al., 2022 ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417), NeurIPS 2022
+
+> [2] Su and Collier, 2022 ["Contrastive Search Is What You Need For Neural Text Generation"](https://arxiv.org/abs/2210.14140), Arxiv 2022
+
 > [1] Wang and Komatsuzaki, 2021 ["GPT-J-6B: A 6 Billion Parameter Autoregressive Language Model"](https://arankomatsuzaki.wordpress.com/2021/06/04/gpt-j/)
     
 > [2] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://arxiv.org/abs/2205.01068), Arxiv 2022
@@ -870,10 +870,6 @@ As a result, our inference efficiency is slightly better than the beam search wi
 > [3] Fan et al., 2018 ["Hierarchical Neural Story Generation"](https://arxiv.org/abs/1805.04833), ACL 2018
  
 > [4] Holtzman et al., 2020 ["The Curious Case of Neural Text Degeneration"](https://arxiv.org/abs/1904.09751), ICLR 2020
-
-> [5] Su et al., 2022 ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417), NeurIPS 2022
-
-> [6] Su and Collier, 2022 ["Contrastive Search Is What You Need For Neural Text Generation"](https://arxiv.org/abs/2210.14140), Arxiv 2022
 
 ****
     
