@@ -180,7 +180,7 @@ where $V^{(k)}$ is the set of top-k predictions from the language model's probab
 
 #### 2.3. Generating Text with Contratsive Search:
 
-Below, we use the same prefix text (i.e. _"DeepMind Company is"_) as in Section <a href='#deterministic_methods'>1.1</a> and <a href='#stochastic_methods'>1.2</a>, and generate the text with contrastive search ($k$=4 and $\alpha=0.6$).
+Below, we use the same prefix text (i.e. _"DeepMind Company is"_) as in Section <a href='#deterministic_methods'>1.1</a> and <a href='#stochastic_methods'>1.2</a>, and generate the text with contrastive search (k=4 and $\alpha=0.6$).
 
 ```python
 # load the LMs
@@ -201,6 +201,49 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(output[0], skip_special_tokens=True))
 print("" + 100 * '-')
 ```
+
+<details>
+<summary><b>Model Output: [click to expand]</b></summary>
+  
+```
+Output:
+----------------------------------------------------------------------------------------------------  
+DeepMind Company is a leader in artificial intelligence (AI). We have a long history of working
+with companies such as Google, Facebook, Amazon, and Microsoft to build products that improve
+people's lives, and today we are excited to announce that DeepMind's AlphaGo program has won the
+game of Go, becoming the first program to defeat a professional Go player.
+
+The victory is a testament to the power of deep learning, and to the incredible work of our
+research team, which has been at the forefront of AI research for the past five years. AlphaGo
+is one of the most advanced Go programs ever created, and its performance is an important step
+towards the goal of human-level AI.
+
+"This is the culmination of a decade of hard work," said Andy Ng, co-founder and CTO of DeepMind.
+"We are thrilled to have achieved this milestone and look forward to continuing to develop AI that
+can be used in a wide range of applications and to help people live better lives."
+
+DeepMind's work on Go began in 2010, when it began to train a neural network to play Go using
+millions of games played by top Go players around the world. Since then, the team has refined the
+algorithm, adding more and more layers of reinforcement learning to make it better at recognizing
+patterns and making decisions based on those patterns. In the past year and a half, the team has
+made significant progress in the game, winning a record-tying 13 games in a row to move into the
+top four of the world rankings.
+
+"The game of Go is a complex game in which players have to be very careful not to overextend their
+territory, and this is something that we have been able to improve over and over again," said
+Dr. Demis Hassabis, co-founder and Chief Scientific Officer of DeepMind. "We are very proud of our
+team's work, and we hope that it will inspire others to take the next step in their research and
+apply the same techniques to other problems."
+
+In addition to the win in Go, DeepMind has also developed an AI system that can learn to play a
+number of different games, including poker, Go, and chess. This AI system, called Tarsier, was
+developed in partnership with Carnegie Mellon University and the University of California, 
+Berkeley, and is being used to teach computer vision and machine learning to identify objects in
+images and recognize speech in natural language. Tarsier has been trained to play the game of Go
+and other games on a number of different platforms...
+----------------------------------------------------------------------------------------------------
+```
+</details>
 
 
 
