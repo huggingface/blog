@@ -256,7 +256,7 @@ In conclusion, contrastive search outperforms existing decoding methods in every
 
 #### 2.4. Visual Demonstration of Contrastive Search:
 
-To better understand how contrastive search works, we provide visual comparison between greedy search (<a href='#deterministic_methods'>Section 1.1.</a>) and contrastive search.
+To better understand how contrastive search works, we provide visual comparison between greedy search (<a href='#deterministic_methods'>Section 1.1</a>) and contrastive search.
 
 
 
