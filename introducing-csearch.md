@@ -240,12 +240,14 @@ number of different games, including poker, Go, and chess. This AI system, calle
 developed in partnership with Carnegie Mellon University and the University of California, 
 Berkeley, and is being used to teach computer vision and machine learning to identify objects in
 images and recognize speech in natural language. Tarsier has been trained to play the game of Go
-and other games on a number of different platforms...
+and other games on a...
 ----------------------------------------------------------------------------------------------------
 ```
 </details>
 
-**[Remark]** We see that the generated text is of exceptionally high quality. The entire document is grammatically fluent as well as semantically coherent. In the meantime, the generated text is also factually correct. For instance, it elaborates _"AlphaGo"_ as the _"first program to defeat a professional Go player"_.
+**[Remark]** We see that the generated text is of exceptionally high quality. The entire document is grammatically fluent as well as semantically coherent. In the meantime, the generated text is also factually correct. For instance, in the first paragraph, it elaborates _"AlphaGo"_ as the _"first program to defeat a professional Go player"_.
+
+In conclusion, contrastive search outperforms existing decoding methods in every aspects, e.g. fluency, semantic coherence, factual correctness, and etc.
 
 
 
