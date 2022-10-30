@@ -276,7 +276,7 @@ To better understand how contrastive search works, we provide visual comparison 
 
 <span id='more_examples'/>
 
-#### 3. More Generated Examples:
+### 3. More Generated Examples:
 
 OpenAI blog prompt; OPT example.
 
