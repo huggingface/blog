@@ -28,7 +28,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 ## Catalogue:
 * <a href='#introduction'>1. Introduction</a>
-* <a href='#demo'>Huggingface Demo for Contrastive Search</a>
+* <a href='#demo'>2. Huggingface Demo for Contrastive Search</a>
 * <a href='#problems_of_decoding_methods'>1. Problems of Existing Decoding Methods</a>
     * <a href='#deterministic_methods'>1.1. Deteriminstic Methods</a>
     * <a href='#stochastic_methods'>1.2. Stochastic Methods</a>
@@ -56,9 +56,9 @@ This blog introduces the current state-of-the-art decoding method, i.e. ___Contr
 
 <span id='demo'/>
 
-### Huggingface Demo for Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
+### 2. Huggingface Demo for Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
 
-:star2: Check out this awesome [[demo]](https://huggingface.co/spaces/joaogante/contrastive_search_generation) generously supported by Huggingface  :hugs: ([@huggingface](https://github.com/huggingface)) which compares contrastive search with other popular decoding methods. Many thanks to our awesome collaborators ([@gante](https://github.com/gante), [@patrickvonplaten](https://github.com/patrickvonplaten), and [@sgugger](https://github.com/sgugger)) at Huggingface!
+Check out this easy-to-use [[demo]](https://huggingface.co/spaces/joaogante/contrastive_search_generation) :hugs: which directly compares contrastive search with other popular decoding methods, including beam search, top-k sampling <a href='#references'>[3]</a>, and nucleus sampling <a href='#references'>[4]</a>.
 
 ****
 
@@ -863,13 +863,17 @@ As a result, our inference efficiency is slightly better than the beam search wi
 
 > [2] Su and Collier, 2022 ["Contrastive Search Is What You Need For Neural Text Generation"](https://arxiv.org/abs/2210.14140), Arxiv 2022
 
-> [1] Wang and Komatsuzaki, 2021 ["GPT-J-6B: A 6 Billion Parameter Autoregressive Language Model"](https://arankomatsuzaki.wordpress.com/2021/06/04/gpt-j/)
-    
-> [2] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://arxiv.org/abs/2205.01068), Arxiv 2022
-    
 > [3] Fan et al., 2018 ["Hierarchical Neural Story Generation"](https://arxiv.org/abs/1805.04833), ACL 2018
- 
+
 > [4] Holtzman et al., 2020 ["The Curious Case of Neural Text Degeneration"](https://arxiv.org/abs/1904.09751), ICLR 2020
+
+> [3] Wang and Komatsuzaki, 2021 ["GPT-J-6B: A 6 Billion Parameter Autoregressive Language Model"](https://arankomatsuzaki.wordpress.com/2021/06/04/gpt-j/)
+    
+> [4] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://arxiv.org/abs/2205.01068), Arxiv 2022
+    
+
+ 
+
 
 ****
     
