@@ -262,7 +262,7 @@ In conclusion, contrastive search outperforms existing decoding methods in every
 
 #### 2.4. Visual Demonstration of Contrastive Search:
 
-To better understand how contrastive search works, we provide visual comparison between greedy search (<a href='#deterministic_methods'>Section 1.1</a>) and contrastive search.
+To better understand how contrastive search works, we provide visual comparison between greedy search (<a href='#deterministic_methods'>Section 1.1</a>) and contrastive search. Specifically, we visualize the token similarity matrix of the generated text from greedy search and contrastive search, respectively. The similarity between two tokens are measured the cosine similarity between their token representations (i.e. the hiddent states of the last transformer layer).
 
 <center class="half">
     <img src="assets/introducing_contrastive_search/greedy_search_visualization.png" width="400"/><img src="assets/introducing_contrastive_search/contrastive_search_visualization.png" width="400"/>
