@@ -29,9 +29,9 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 ## Catalogue:
 * <a href='#introduction'>1. Introduction</a>
 * <a href='#demo'>2. Huggingface Demo for Contrastive Search</a>
-* <a href='#problems_of_decoding_methods'>1. Problems of Existing Decoding Methods</a>
-    * <a href='#deterministic_methods'>1.1. Deteriminstic Methods</a>
-    * <a href='#stochastic_methods'>1.2. Stochastic Methods</a>
+* <a href='#problems_of_decoding_methods'>3. Problems of Existing Decoding Methods</a>
+    * <a href='#deterministic_methods'>3.1. Deteriminstic Methods</a>
+    * <a href='#stochastic_methods'>3.2. Stochastic Methods</a>
 * <a href='#contrastive_search'>2. Contrastive Search</a>
     * <a href='#contrastive_introduction'>2.1. Introduction</a>
     * <a href='#contrastive_objective'>2.2. Decoding Objective</a>
@@ -50,7 +50,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 ### 1. Introduction: <a href='#all_catelogue'>[Back to Top]</a>
 
-This blog introduces the current state-of-the-art decoding method, i.e. ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[1]</a> ([[paper]](https://arxiv.org/abs/2202.06417)[[official github repo]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022. Moreover, in this follow-up work, i.e. _"Contrastive Search Is What You Need For Neural Text Generation"_ <a href='#references'>[2]</a> ([[paper]](https://arxiv.org/abs/2210.14140) [[official github repo]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)), the authors further demonstrate that contrastive search generates human-level text using **off-the-shelf** across **16** languages.
+Natural language generation (i.e. text generation) is one of the core tasks in natural language processing (NLP). This blog introduces the current state-of-the-art decoding method, i.e. ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[1]</a> ([[paper]](https://arxiv.org/abs/2202.06417)[[official github repo]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022. Moreover, in this follow-up work, i.e. _"Contrastive Search Is What You Need For Neural Text Generation"_ <a href='#references'>[2]</a> ([[paper]](https://arxiv.org/abs/2210.14140) [[official github repo]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)), the authors further demonstrate that contrastive search generates human-level text using **off-the-shelf** across **16** languages.
 
 ****
 
@@ -64,15 +64,15 @@ This blog introduces the current state-of-the-art decoding method, i.e. ___Contr
 
 <span id='problems_of_decoding_methods'/>
 
-### 1. Problems of Existing Decoding Methods: <a href='#all_catelogue'>[Back to Top]</a>
+### 3. Problems of Existing Decoding Methods: <a href='#all_catelogue'>[Back to Top]</a>
 
-Natural language generation (i.e. text generation) aims at generating text that is human-like and it is one of the core tasks in natural language processing (NLP). With recent advance in generative pre-trained language models (e.g. GPT-J <a href='#references'>[1]</a> and OPT <a href='#references'>[2]</a>), text generation has attracted increasing interest in the research community. While these large language models (LMs) have become increasingly powerful, their potentials are still limited by the problems of existing decoding methods. Currently, the most widely-used decoding methods can be divided into two categories: 
+With recent advance in generative pre-trained language models (e.g. GPT-J <a href='#references'>[5]</a> and OPT <a href='#references'>[6]</a>), text generation has attracted increasing interest in the research community. While these large language models (LMs) have become increasingly powerful, their potentials are still limited by the problems of existing decoding methods. Currently, the most widely-used decoding methods can be divided into two categories: 
 * (1) Deterministic Methods
 * (2) Stochastic Methods
 
 <span id='deterministic_methods'/>
 
-#### 1.1. Deteriminstic Methods:
+#### 3.1. Deteriminstic Methods:
 
 Deteriminstic methods, e.g. greedy search and beam search, generate text by selecting the text continuation with the highest likelihood as measured by the language model. However, as widely discussed in previous studies <a href='#references'>[3][4]</a>, deteriminstic methods often lead to the problem of **model degeneration**, i.e. the generated text is unnatual and contains undesirable repetitions.
 
@@ -116,7 +116,7 @@ DeepMind's research is also used by the UK government to develop new technologie
 
 <span id='stochastic_methods'/>
 
-#### 1.2. Stochastic Methods:
+#### 3.2. Stochastic Methods:
 
 To address the issues of deterministic decoding methods, stochastic methods generate text by introducing randomness during the decoding process. Two widely-used stochastic, i.e. sampling, methods are top-k sampling <a href='#references'>[3]</a> and nucleus sampling <a href='#references'>[4]</a>.
 
@@ -867,9 +867,9 @@ As a result, our inference efficiency is slightly better than the beam search wi
 
 > [4] Holtzman et al., 2020 ["The Curious Case of Neural Text Degeneration"](https://arxiv.org/abs/1904.09751), ICLR 2020
 
-> [3] Wang and Komatsuzaki, 2021 ["GPT-J-6B: A 6 Billion Parameter Autoregressive Language Model"](https://arankomatsuzaki.wordpress.com/2021/06/04/gpt-j/)
+> [5] Wang and Komatsuzaki, 2021 ["GPT-J-6B: A 6 Billion Parameter Autoregressive Language Model"](https://arankomatsuzaki.wordpress.com/2021/06/04/gpt-j/)
     
-> [4] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://arxiv.org/abs/2205.01068), Arxiv 2022
+> [6] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://arxiv.org/abs/2205.01068), Arxiv 2022
     
 
  
