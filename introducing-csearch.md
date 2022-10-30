@@ -32,11 +32,10 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 * <a href='#problems_of_decoding_methods'>3. Problems of Existing Decoding Methods</a>
     * <a href='#deterministic_methods'>3.1. Deteriminstic Methods</a>
     * <a href='#stochastic_methods'>3.2. Stochastic Methods</a>
-* <a href='#contrastive_search'>2. Contrastive Search</a>
-    * <a href='#contrastive_introduction'>2.1. Introduction</a>
-    * <a href='#contrastive_objective'>2.2. Decoding Objective</a>
-    * <a href='#contrastive_generation'>2.3. Generating Text with Contratsive Search</a>
-    * <a href='#contrastive_visual_demonstration'>2.4. Visual Demonstration of Contrastive Search</a>
+* <a href='#contrastive_search'>4. Contrastive Search</a>
+    * <a href='#contrastive_objective'>4.1. Decoding Objective</a>
+    * <a href='#contrastive_generation'>4.2. Generating Text with Contratsive Search</a>
+    * <a href='#contrastive_visual_demonstration'>4.3. Visual Demonstration of Contrastive Search</a>
 * <a href='#more_examples'>3. More Generated Examples</a>
 * <a href='#citation'>Citation</a>   
 * <a href='#references'>Reference</a>  
@@ -164,19 +163,13 @@ One example? Given the details of today...
 
 <span id='contrastive_search'/>
 
-### 2. Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
-
-<span id='contrastive_introduction'/>
-
-#### 2.1. Introduction:
-
-In this section, we provide detailed explanations of the current state-of-the-art decoding method, i.e. ___Contrastive Search___, which is orginally proposed in our work ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417) <a href='#references'>[5]</a> at **NeurIPS 2022**. Furthermore, in our follow-up work ["Contrastive Search Is What You Need For Neural Text Generation"](https://arxiv.org/abs/2210.14140) <a href='#references'>[6]</a>, we demonstrate that contrastive search works exceptionally well using **off-the-shelf** language models and can generate human-level text across **16** languages.
+### 4. Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
 
 <span id='contrastive_objective'/>
 
-#### 2.2. Decoding Objective:
+#### 4.1. Decoding Objective:
 
-Given the prefix text $x_{\textless t}$, the selection of the output token $x_{t}$ follows the equation below.
+In contrastive search, given the prefix text $x_{\textless t}$, the selection of the output token $x_{t}$ follows 
 
 <center class="half">
     <img src="assets/introducing_contrastive_search/formulation.png" width="700"/>
@@ -189,7 +182,7 @@ where $V^{(k)}$ is the set of top-k predictions from the language model's probab
 
 <span id='contrastive_generation'/>
 
-#### 2.3. Generating Text with Contratsive Search:
+#### 4.2. Generating Text with Contratsive Search:
 
 Before running experiments, please install the update-to-date version of `transformers` as
 ```yaml
@@ -218,6 +211,10 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(output[0], skip_special_tokens=True))
 print("" + 100 * '-')
 ```
+
+The arguments are as follows:
+* `--top_k`: The hyperparameter $k$ in contrastive search.
+* `--penalty_alpha`: The hyperparameter $\alpha$ in contrastive search.
 
 <details>
 <summary><b>Model Output: [click to expand]</b></summary>
@@ -270,7 +267,7 @@ In conclusion, contrastive search outperforms existing decoding methods in every
 
 <span id='contrastive_visual_demonstration'/>
 
-#### 2.4. Visual Demonstration of Contrastive Search:
+#### 4.3. Visual Demonstration of Contrastive Search:
 
 To better understand how contrastive search works, we provide visual comparison between greedy search (<a href='#deterministic_methods'>Section 1.1</a>) and contrastive search. Specifically, we visualize the token similarity matrix of the generated text from greedy search and contrastive search, respectively. The similarity between two tokens are measured the cosine similarity between their token representations (i.e. the hiddent states of the last transformer layer). The results of greedy search (left) and contrastive search (right) are shown in the Figure below.
 
@@ -866,9 +863,6 @@ As a result, our inference efficiency is slightly better than the beam search wi
 
 > [4] Holtzman et al., 2020 ["The Curious Case of Neural Text Degeneration"](https://arxiv.org/abs/1904.09751), ICLR 2020
 
-> [5] Wang and Komatsuzaki, 2021 ["GPT-J-6B: A 6 Billion Parameter Autoregressive Language Model"](https://arankomatsuzaki.wordpress.com/2021/06/04/gpt-j/)
-    
-> [6] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://arxiv.org/abs/2205.01068), Arxiv 2022
     
 
  
