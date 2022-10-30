@@ -308,7 +308,7 @@ In this part, we use the prefix text from the original [OpenAI blog](https://ope
 > _In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact that the unicorns spoke perfect English._
 
 
-<details>
+<details open>
 <summary><b>Code for (i) loading the language model and (ii) preparing the prefix text: [click to expand]</b></summary>
 
 ```python
