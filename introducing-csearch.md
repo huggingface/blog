@@ -38,7 +38,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
     * <a href='#contrastive_generation'>5.2. Generating Text with Contratsive Search</a>
     * <a href='#contrastive_visual_demonstration'>5.3. Visual Demonstration of Contrastive Search</a>
 * <a href='#more_examples'>6. More Generated Examples</a>
-    * <a href='#example_one'>6.1. GPT-2: Example One</a>
+    * <a href='#gpt2_example_one'>6.1. GPT-2: Example One</a>
 * <a href='#citation'>Citation</a>   
 * <a href='#references'>Reference</a>  
 * <a href='#acknowledgements'>Acknowledgements</a>  
@@ -291,11 +291,15 @@ To better understand how contrastive search works, we provide visual comparison 
 
 In this section, we provide more generated examples to compare different decoding methods.
 
-<span id='more_examples'/>
+<span id='gpt2_example_one'/>
 
-#### 6. More Generated Examples:
+#### 6.1. GPT-2: Example One:
 
-    * <a href='#example_one'>6.1. GPT-2 Example One</a>
+First, we use the prefix text from the original [OpenAI blog](https://openai.com/blog/better-language-models/) which releases GPT-2.
+
+> _In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact that the unicorns spoke perfect English._
+
+
 
 
 OpenAI blog prompt; OPT example.
