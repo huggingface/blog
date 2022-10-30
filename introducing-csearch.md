@@ -34,6 +34,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 * <a href='#contrastive_search'>2. Contrastive Search</a>
     * <a href='#contrastive_introduction'>2.1. Introduction</a>
     * <a href='#contrastive_objective'>2.2. Decoding Objective</a>
+    * <a href='#contrastive_generation'>2.3. Generating Text with Contratsive Search</a>
 * <a href='#citation'>Citation</a>   
 * <a href='#references'>Reference</a>  
 * <a href='#acknowledgements'>Acknowledgements</a>  
@@ -172,7 +173,84 @@ Given the prefix text $x_{\textless t}$, the selection of the output token $x_{t
 
 where $V^{(k)}$ is the set of top-k predictions from the language model's probability distribution $p_{\theta}(v|x_{\textless t})$. The first term, i.e. _model confidence_, is the probability of the candidate $v$ predicted by the language model. The second term, _degeneration penalty_, measures how discriminative of $v$ with respect to the previous context $x_{\textless t}$ and the function $s(\cdot, \cdot)$ computes the cosine similarity between the token representations. More specifically, the degeneration penalty is defined as the maximum cosine similarity between the token representation of $v$, i.e. $h_{v}$, and that of all tokens in the context $x_{\textless t}$. Here, the candidate representation $h_{v}$ is computed by the language model given the concatenation of $x_{\textless t}$ and $v$. Intuitively, a larger degeneration penalty of $v$ means it is more similar (in the representation space) to the context, therefore more likely leading to the problem of model degeneration. The hyperparameter $\alpha$ regulates the importance of these two components.
 
-**[Remark]** Overall, when generating output, contrastive search jointly considers (i) the probability predicted by the language model, to maintain the semantic coherence between the generated text and the prefix text; and (2) the similarity with respect to the previous context, to avoid model degeneration.
+**[Remark]** Overall, when generating output, contrastive search jointly considers (i) the probability predicted by the language model, to maintain the semantic coherence between the generated text and the prefix text; and (ii) the similarity with respect to the previous context, to avoid model degeneration.
+
+
+<span id='contrastive_generation'/>
+
+#### 2.3. Generating Text with Contratsive Search:
+
+Below, we use the same prefix text (i.e. _"DeepMind Company is"_) as in Section <a href='#deterministic_methods'>1.1</a> and <a href='#stochastic_methods'>1.2</a>, and generate the text with contrastive search (k=4 and $\alpha=0.6$). To fully demonstrate the strong capability of contrastive search, we let the language model generate a **long** document with **512** tokens as
+
+```python
+# load the LMs
+import torch
+from transformers import GPT2Tokenizer, GPT2LMHeadModel
+model_name = 'gpt2-large'
+tokenizer = GPT2Tokenizer.from_pretrained(model_name)
+model = GPT2LMHeadModel.from_pretrained(model_name, pad_token_id=tokenizer.eos_token_id)
+model.eval()
+
+# prepare the prefix
+prefix_text = r'DeepMind Company is'
+inputs = tokenizer(prefix_text, return_tensors='pt')
+
+# generate the result with contrastive search
+output = model.generate(**inputs, penalty_alpha=0.6, top_k=4, max_length=512)
+print("Output:\n" + 100 * '-')
+print(tokenizer.decode(output[0], skip_special_tokens=True))
+print("" + 100 * '-')
+```
+
+<details>
+<summary><b>Model Output: [click to expand]</b></summary>
+  
+```
+Output:
+----------------------------------------------------------------------------------------------------  
+DeepMind Company is a leader in artificial intelligence (AI). We have a long history of working
+with companies such as Google, Facebook, Amazon, and Microsoft to build products that improve
+people's lives, and today we are excited to announce that DeepMind's AlphaGo program has won the
+game of Go, becoming the first program to defeat a professional Go player.
+
+The victory is a testament to the power of deep learning, and to the incredible work of our
+research team, which has been at the forefront of AI research for the past five years. AlphaGo
+is one of the most advanced Go programs ever created, and its performance is an important step
+towards the goal of human-level AI.
+
+"This is the culmination of a decade of hard work," said Andy Ng, co-founder and CTO of DeepMind.
+"We are thrilled to have achieved this milestone and look forward to continuing to develop AI that
+can be used in a wide range of applications and to help people live better lives."
+
+DeepMind's work on Go began in 2010, when it began to train a neural network to play Go using
+millions of games played by top Go players around the world. Since then, the team has refined the
+algorithm, adding more and more layers of reinforcement learning to make it better at recognizing
+patterns and making decisions based on those patterns. In the past year and a half, the team has
+made significant progress in the game, winning a record-tying 13 games in a row to move into the
+top four of the world rankings.
+
+"The game of Go is a complex game in which players have to be very careful not to overextend their
+territory, and this is something that we have been able to improve over and over again," said
+Dr. Demis Hassabis, co-founder and Chief Scientific Officer of DeepMind. "We are very proud of our
+team's work, and we hope that it will inspire others to take the next step in their research and
+apply the same techniques to other problems."
+
+In addition to the win in Go, DeepMind has also developed an AI system that can learn to play a
+number of different games, including poker, Go, and chess. This AI system, called Tarsier, was
+developed in partnership with Carnegie Mellon University and the University of California, 
+Berkeley, and is being used to teach computer vision and machine learning to identify objects in
+images and recognize speech in natural language. Tarsier has been trained to play the game of Go
+and other games on a...
+----------------------------------------------------------------------------------------------------
+```
+</details>
+
+**[Remark]** We see that the generated text is of exceptionally high quality. The entire document is grammatically fluent as well as semantically coherent. In the meantime, the generated text is also factually correct. For instance, in the first paragraph, it elaborates _"AlphaGo"_ as the _"first program to defeat a professional Go player"_.
+
+In conclusion, contrastive search outperforms existing decoding methods in every aspects, e.g. fluency, semantic coherence, factual correctness, and etc.
+
+
+
 
 
 ### 2. Contrastive Search
