@@ -585,30 +585,6 @@ print("" + 100 * '-')
 ```
 Output:
 ----------------------------------------------------------------------------------------------------  
-In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously 
-unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact 
-that the unicorns spoke perfect English. The study was published in the Journal of Zoology in 
-March 2016.
-
-Polygynous mammals such as unicorns have remained largely unknown to science. Professor Gustavo 
-Giacota, from the University of Oxford who led the study, said that they had been documented as 
-far as Eastern Siberia in Russia, but had only been seen a handful of times in the Gobi Desert.
-
-Tiny animals with pale and shiny coats live in the presence of human beings and are hardly likely 
-to be victims of any cruelty. However, there is some evidence of the condition occurring in both 
-humans and animals in remote regions, which might have similarities to "black moles" that coexist 
-on the skin.
-
-It is thought that Unicorns could be inside themselves, that they have different scents depending 
-on their current environment, or just fall out and there are plenty of legends of how they have 
-survived. Experts speculate that the moths and other animals could be remnants of the Yezidi Isis 
-and Charon, which literally is both the word which means great bird, and the Greek word for sound. 
-It is said that the Isis and Charon taught their young the use of voice in the form of calling out 
-to others.
-
-The scientists think that it could be ancient folklore that has survived and is no longer attributed 
-to a real entity...
-    
 Deeper neural networks are more difficult to train. We present a residual learning framework to ease 
 the training of networks that are substantially deeper than those used previously. Let V(k) be the 
 stimulus and L(r) = 0 and V(x) = x, wherein x is alliendo, r is randomized, and V(k)1 is a −1 operator. 
@@ -637,7 +613,7 @@ GRESS_SEASON and GRESS_MIN...
 <summary><b>Code:</b></summary>
 
 ```python
-output = model.generate(input_ids, max_length=512, penalty_alpha=0.6, top_k=4)
+output = model.generate(input_ids, max_length=256, penalty_alpha=0.6, top_k=6)
 print("Output:\n" + 100 * '-')
 print(tokenizer.decode(output[0], skip_special_tokens=True))
 print("" + 100 * '-')
@@ -650,36 +626,14 @@ print("" + 100 * '-')
 ```
 Output:
 ----------------------------------------------------------------------------------------------------  
-In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously unexplored
-valley, in the Andes Mountains. Even more surprising to the researchers was the fact that the unicorns 
-spoke perfect English.
+Deeper neural networks are more difficult to train. We present a residual learning framework to ease 
+the training of networks that are substantially deeper than those used previously.
 
-According to the BBC, a team of scientists led by Dr David MacKay, from the University of Bristol, spent 
-two years searching for the unicorn herd, which they discovered during a survey of the area.
-
-"It's a very rare find," MacKay told the BBC. "There are a few in the Himalayas, but this is the first 
-time we've been able to find one in such a remote area."
-
-The team was surprised to find a herd of unicorns living in a region that has been known to be a hotbed 
-of poaching, with many of the animals poached for their horns, which are used in traditional Chinese 
-medicine to treat everything from rheumatism to cancer.
-
-"We knew that the area was rich in rhino horn, but we had no idea how many there were, or what they were 
-doing there," MacKay said. "This is an area of high poaching pressure, and we wanted to find out what was 
-going on."
-
-In order to do so, the team used GPS collars to track the animals as they moved around the mountain and 
-the surrounding area. The GPS data was then compared with information gathered from local villagers, who 
-had a wealth of information about the animals' movements, including where they were eating, what they were 
-doing at night, and how much time they spent in the mountains each day.
-
-After analyzing the data, the team determined that the herd consisted of at least three species of unicorns,
-including a male and two females. One of the females was the mother of the male, and the other two were her
-daughters. All three had the same horn color, which is believed to be a sign of purity in the animal kingdom.
-
-While the discovery is exciting, it's not the first time scientists have discovered an animal that speaks
-English. Last year, scientists discovered a species of porcupine that can be heard by humans, and has been 
-dubbed "Porcupine Man" for his ability to converse with the human race...
+In order to provide a more complete understanding of the mechanisms by which deep neural networks work,
+we have used a set of experiments to test the validity of the theory of “neuronal” learning, which is 
+based on the fact that a network is able to learn in the presence of stimuli that are similar to that 
+of neurons. This research was carried out at the Institut Pasteur de Montréal (IPM), a center for 
+neurodegenerative diseases and specialties in the University of Notre Dame-Légion d’Orsay (France)...
 ----------------------------------------------------------------------------------------------------
 ```
 </details>
