@@ -127,7 +127,7 @@ UK's National Health Service.
 DeepMind's research is also used by the UK government to develop new technologies for the 
 UK's National Health Service.
 
-DeepMind's research is also used by the UK government to develop new technologies...
+DeepMind's research is also used by the UK government to develop new technologies
 ----------------------------------------------------------------------------------------------------
 ```
 </details>
@@ -173,7 +173,7 @@ ignorance.
 "The thing is, we know that people don't consciously assess the value of the others' 
 information. They understand they will get the same on their own."
 
-One example? Given the details of today...
+One example? Given the details of today
 ----------------------------------------------------------------------------------------------------
 ```
 </details>
@@ -271,7 +271,7 @@ number of different games, including poker, Go, and chess. This AI system, calle
 developed in partnership with Carnegie Mellon University and the University of California, 
 Berkeley, and is being used to teach computer vision and machine learning to identify objects in
 images and recognize speech in natural language. Tarsier has been trained to play the game of Go
-and other games on a...
+and other games on a
 ----------------------------------------------------------------------------------------------------
 ```
 </details>
@@ -385,7 +385,7 @@ the Andes," Williams said. "They were also the first people to use the Andes Mou
 to hunt and gather food."
 
 The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the
-area around 2,000 years ago...
+area around 2,000 years ago
 ----------------------------------------------------------------------------------------------------
 ```
 </details>
@@ -435,7 +435,7 @@ It is said that the Isis and Charon taught their young the use of voice in the f
 to others.
 
 The scientists think that it could be ancient folklore that has survived and is no longer attributed 
-to a real entity...
+to a real entity
 ----------------------------------------------------------------------------------------------------
 ```
 </details>
@@ -491,7 +491,7 @@ daughters. All three had the same horn color, which is believed to be a sign of 
 
 While the discovery is exciting, it's not the first time scientists have discovered an animal that speaks
 English. Last year, scientists discovered a species of porcupine that can be heard by humans, and has been 
-dubbed "Porcupine Man" for his ability to converse with the human race...
+dubbed "Porcupine Man" for his ability to converse with the human race.
 ----------------------------------------------------------------------------------------------------
 ```
 </details>
@@ -512,7 +512,7 @@ In this part, we use the OPT model <a href='#references'>[5]</a> which is recent
 ```python
 import torch
 from transformers import AutoTokenizer, OPTForCausalLM
-model_name = r'facebook/opt-125m'
+model_name = r'facebook/opt-1.3b'
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = OPTForCausalLM.from_pretrained(model_name)
 
@@ -544,20 +544,22 @@ print("" + 100 * '-')
 ```
 Output:
 ----------------------------------------------------------------------------------------------------  
-Deeper neural networks are more difficult to train. We present a residual learning framework to 
-ease the training of networks that are substantially deeper than those used previously. 
-The framework is based on the notion that the neural network is a subset of the neural network. 
-The framework is based on the notion that the neural network is a subset of the neural network. 
-The framework is based on the notion that the neural network is a subset of the neural network. 
-The framework is based on the notion that the neural network is a subset of the neural network. 
-The framework is based on the notion that the neural network is a subset of the neural network. 
-The framework is based on the notion that the neural network is a subset of the neural network. 
-The framework is based on the notion that the neural network is a subset of the neural network. 
-The framework is based on the notion that the neural network is a subset of the neural network. 
-The framework is based on the notion that the neural network is a subset of the neural network. 
-The framework is based on the notion that the neural network is a subset of the neural network. 
-The framework is based on the notion that the neural network is a subset of the neural network. 
-The framework is based on the notion that the neural network is a subset of...
+Deeper neural networks are more difficult to train. We present a residual learning framework to ease 
+the training of networks that are substantially deeper than those used previously. We show that the 
+residual learning framework can be used to train deep neural networks that are significantly more 
+difficult to train than those used previously. We also show that the residual learning framework can 
+be used to train deep neural networks that are significantly more difficult to train than those used 
+previously.
+
+The paper presents a new residual learning framework for deep neural networks that is based on the 
+concept of residuals. The residuals are the residuals of the network that are not used in the training 
+process. The residuals are computed by taking the residuals of the network that are used in the training 
+process and subtracting the residuals of the network that are not used in the training process. The 
+residuals are then used to train the network. The residuals are computed by taking the residuals of 
+the network that are used in the training process and subtracting the residuals of the network that 
+are not used in the training process. The residuals are then used to train the network. The residuals 
+are computed by taking the residuals of the network that are used in the training process and 
+subtracting the residuals of the
 ----------------------------------------------------------------------------------------------------
 ```
 </details>
@@ -586,20 +588,12 @@ print("" + 100 * '-')
 ```
 Output:
 ----------------------------------------------------------------------------------------------------  
-Deeper neural networks are more difficult to train. We present a residual learning framework to ease 
-the training of networks that are substantially deeper than those used previously. Let V(k) be the 
-stimulus and L(r) = 0 and V(x) = x, wherein x is alliendo, r is randomized, and V(k)1 is a −1 operator. 
-We define that we have statistical associations relating the probability of L(r) to L(k)n and that 
-sub-related associations are often (e.g., log ⁢ ⁢ x) which are trivial to quantify, f is if (q−p, Qn)1 
-is normal. We include our search results as part of a case matrix where we can derive parallel sensing 
-results by means of the ­Synthesis of Networks[20] algorithm, where polynomial analyses of F(m) and 
-D(m) with about CTV simulated instances were employed.
-
-Euler bounds
-
-Do over an associated network for a given number of years the network with which to determine dimensional 
-space. To use them, we draw functional BPD (behavioral bounds). This avoids the problem of using 
-GRESS_SEASON and GRESS_MIN...
+Deeper neural networks are more difficult to train. We present a residual learning framework to ease the 
+training of networks that are substantially deeper than those used previously. The theory focuses on 
+several aspects of learning, including the dynamics of replicative and non-replicative aspects of learning. 
+This framework emphasizes learning by entropy. New randomized algorithms enable training networks with 
+residual learning, so that deep networks can be deployed as reliably and as efficiently as their more 
+conventional counterparts.
 ----------------------------------------------------------------------------------------------------
 ```
 </details>
@@ -630,11 +624,16 @@ Output:
 Deeper neural networks are more difficult to train. We present a residual learning framework to ease 
 the training of networks that are substantially deeper than those used previously.
 
-In order to provide a more complete understanding of the mechanisms by which deep neural networks work,
-we have used a set of experiments to test the validity of the theory of “neuronal” learning, which is 
-based on the fact that a network is able to learn in the presence of stimuli that are similar to that 
-of neurons. This research was carried out at the Institut Pasteur de Montréal (IPM), a center for 
-neurodegenerative diseases and specialties in the University of Notre Dame-Légion d’Orsay (France)...
+In this paper, we propose a model-based residual learning (MBRL) framework that is based on neural 
+networks trained on data that is sparse in terms of dimensionality (e.g., 1, 2, 3, etc.). The network 
+parameters are chosen such that there is a high probability of convergence, i.e., the number of 
+iterations is large enough to minimize the variance of the residuals. This is achieved by training 
+the network on a set of training data, in which the data is sparse in terms of dimensionality, and 
+then discarding the nonparametric part of the data after training is complete.
+
+We show that MBRL outperforms other methods for deep reinforcement learning (RL) and deep convolutional 
+neural networks (CNNs) by a factor of at least 2. In addition, we show that, compared to CNNs, MBRL 
+performs better in two-dimensional (2D) and three-dimensional (3D) cases.
 ----------------------------------------------------------------------------------------------------
 ```
 </details>
