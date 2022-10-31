@@ -500,7 +500,9 @@ dubbed "Porcupine Man" for his ability to converse with the human race...
 
 #### 6.2. OPT: Example Two:
 
-In this part, we use the recently released OPT model <a href='#references'>[5]</a> to compare the results of different decoding methods.
+In this part, we use the OPT model <a href='#references'>[5]</a> which is recently released by Meta to generate text by taking the first two sentences from the abstract of the prestigious ResNet <a href='#references'>[6]</a> paper .
+
+recently released OPT model  to compare the results of different decoding methods.
 
 Specifically, we use the prompt from Figure 9 of the original paper:
 
@@ -596,6 +598,9 @@ OpenAI blog prompt; OPT example.
 > [4] Holtzman et al., 2020 ["The Curious Case of Neural Text Degeneration"](https://arxiv.org/abs/1904.09751), ICLR 2020
 
 > [5] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://arxiv.org/abs/2205.01068), Arxiv 2022
+
+> [6] He et al., 2016 ["Deep Residual Learning for Image Recognition"](https://arxiv.org/abs/1512.03385), CVPR 2016
+
 
  
 
