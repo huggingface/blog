@@ -133,7 +133,7 @@ For demonstration purposes, we'll fine-tune of multilingual version of the
 
 As for our data, we'll train and evaluate our system on a low-resource language 
 taken from the [Common Voice](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)
-dataset. We'll show that with as little as 7 hours of fine-tuning data we can achieve 
+dataset. We'll show that with as little as 8 hours of fine-tuning data we can achieve 
 strong performance on this language.
 
 ------------------------------------------------------------------------
@@ -204,25 +204,25 @@ Finally, install Git-LFS to enable pushing of large model weights to the Hub:
 Common Voice is a series of crowd-sourced datasets where speakers 
 record text from Wikipedia in various languages. For this notebook, 
 we'll use the latest edition of the Common Voice dataset ([version 11](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)). 
-As for our language, we'll fine-tune our system on [_Dhivehi_](https://en.wikipedia.org/wiki/Maldivian_language)
-(or _Maldivian_), an Indo-Aryan language spoken in the South Asian island 
-country of the Maldives. Common Voice 11.0 contains approximately ten hours
-of labelled Dhivehi data, three of which is held-out test data.
+As for our language, we'll fine-tune our system on [_Hindi_](https://en.wikipedia.org/wiki/Hindi), 
+an Indo-Aryan language spoken in northern, central, eastern, and western India. 
+Common Voice 11.0 contains approximately 12 hours
+of labelled Hindi data, 4 of which is held-out test data.
 
 Let's head to the 🤗 Hub and view the dataset page for Common Voice: https://huggingface.co/datasets/mozilla-foundation/
 
-The first time you view this page you'll be asked to accept the 
-terms of use. After that, you'll be given full access to the dataset.
+The first time we view this page we'll be asked to accept the 
+terms of use. After that, we'll be given full access to the dataset.
 
 Once we've provided authentication to use the dataset, we'll be presented with the 
 dataset preview. The dataset preview shows us the first 100 samples 
 of the dataset. What's more, it's loaded up with audio samples ready for us 
-to listen to in real-time. We can select the Dhivehi subset of Common Voice by 
-setting the subset to `dv` using the dropdown menu (`dv` being the language 
-identifier code for Dhivehi):
+to listen to in real-time. We can select the Hindi subset of Common Voice by 
+setting the subset to `hi` using the dropdown menu (`hi` being the language 
+identifier code for Hindi):
 
 <figure>
-<img src="assets/111_fine_tune_whisper/select_dv.jpg" alt="Trulli" style="width:100%">
+<img src="assets/111_fine_tune_whisper/select_hi.jpg" alt="Trulli" style="width:100%">
 </figure>
 
 If we hit the play button on the first sample, we can listen to the audio and 
@@ -233,16 +233,16 @@ quality, but the style is very typical of traditional narrated speech.
 
 Using 🤗 Datasets, downloading and preparing data is extremely simple. 
 We can download and prepare the Common Voice splits in just one line of code.
-Since Dhivehi is very low-resource, we'll combine the `train` and `validation` 
-splits to give approximately 7 hours of training data. We'll use the 3 hours 
+Since Hindi is very low-resource, we'll combine the `train` and `validation` 
+splits to give approximately 8 hours of training data. We'll use the 4 hours 
 of `test` data as our held-out test set:
 ```python
 from datasets import load_dataset, DatasetDict, Audio
 
 common_voice = DatasetDict()
 
-common_voice["train"] = load_dataset("mozilla-foundation/common_voice_11_0", "dv", split="train+validation")
-common_voice["test"] = load_dataset("mozilla-foundation/common_voice_11_0", "dv", split="test")
+common_voice["train"] = load_dataset("mozilla-foundation/common_voice_11_0", "hi", split="train+validation")
+common_voice["test"] = load_dataset("mozilla-foundation/common_voice_11_0", "hi", split="test")
 
 print(common_voice)
 ```
@@ -252,11 +252,11 @@ print(common_voice)
 DatasetDict({
     train: Dataset({
         features: ['client_id', 'path', 'audio', 'sentence', 'up_votes', 'down_votes', 'age', 'gender', 'accent', 'locale', 'segment'],
-        num_rows: 4863
+        num_rows: 6540
     })
     test: Dataset({
         features: ['client_id', 'path', 'audio', 'sentence', 'up_votes', 'down_votes', 'age', 'gender', 'accent', 'locale', 'segment'],
-        num_rows: 2253
+        num_rows: 2894
     })
 })
 ```
@@ -388,29 +388,43 @@ In the case of Whisper, the pre-trained tokenizer is that of the [GPT-2](https:/
 tokenizer, but refit to the multilingual vocabulary for the 96 
 pre-training languages. This tokenizer has an expansive byte-pair 
 vocabulary that is applicable to almost all multilingual ASR 
-applications. For Dhivehi, we can load the tokenizer and use it for 
-fine-tuning without any further modifications:
+applications. For Hindi, we can load the tokenizer and use it for 
+fine-tuning without any further modifications. We simply have to 
+specify the target language and the task. These arguments inform the 
+tokenizer to prefix the language and task tokens to the start of encoded 
+label sequences:
 
 ```python
 from transformers import WhisperTokenizer
 
-tokenizer = WhisperTokenizer.from_pretrained("openai/whisper-small")
+tokenizer = WhisperTokenizer.from_pretrained("openai/whisper-small", language="Hindi", task="transcribe")
 ```
 
-We can verify that the tokenizer contains Dhivehi characters by 
-encoding and decoding the first sample of the Common Voice dataset:
+We can verify that the tokenizer correctly encodes Hindi characters by 
+encoding and decoding the first sample of the Common Voice dataset. When 
+encoding the transcriptions, the tokenizer appends 'special tokens' to the 
+start and end of the sequence, including the SOS/BOS tokens, language token 
+id and task token id (as specified by the arguments in the previous step). 
+When decoding the label ids, we have the option of 'skipping' these special 
+tokens, in order to return a string in the original input form:
 
 ```python
-input_str = common_voice_train[0]["sentence"]
+input_str = common_voice["train"][0]["sentence"]
 labels = tokenizer(input_str).input_ids
-decoded_str = tokenizer.decode(labels)
-is_equal = input_str == decoded_str
+decoded_with_special = tokenizer.decode(labels, skip_special_tokens=False)
+decoded_str = tokenizer.decode(labels, skip_special_tokens=True)
 
-print(f"Input: {input_str}. Decoded: {decoded_str}. Equal: {is_equal}")
+print(f"Input:                 {input_str}")
+print(f"Decoded w/ special:    {decoded_with_special}")
+print(f"Decoded w/out special: {decoded_str}")
+print(f"Are equal:             {input_str == decoded_str}")
 ```
 **Print Output:**
 ```bash
-Input: ޤުރުއާން ކިޔަވައިދޭ ދިވެހި މުދައްރިސު. Decoded: ޤުރުއާން ކިޔަވައިދޭ ދިވެހި މުދައްރިސު. Equal: True
+Input:                 खीर की मिठास पर गरमाई बिहार की सियासत, कुशवाहा ने दी सफाई
+Decoded w/ special:    <|startoftranscript|><|hi|><|transcribe|><|notimestamps|>खीर की मिठास पर गरमाई बिहार की सियासत, कुशवाहा ने दी सफाई<|endoftext|>
+Decoded w/out special: खीर की मिठास पर गरमाई बिहार की सियासत, कुशवाहा ने दी सफाई
+Are equal:             True
 ```
 
 ### Combine To Create A WhisperProcessor
@@ -425,7 +439,7 @@ the `processor` and the `model`:
 ```python
 from transformers import WhisperProcessor
 
-processor = WhisperProcessor.from_pretrained("openai/whisper-small")
+processor = WhisperProcessor.from_pretrained("openai/whisper-small", language="Hindi", task="transcribe")
 ```
 
 ### Prepare Data
@@ -436,12 +450,12 @@ print(common_voice["train"][0])
 ```
 **Print Output:**
 ```python
-{'audio': {'path': '/home/sanchit_huggingface_co/.cache/huggingface/datasets/downloads/extracted/b0f47f0d01329dec41cfbc9fc4cad8c4165035aa645b95de51ae17393a3aa993/cv-corpus-11.0-2022-09-21/dv/clips/common_voice_dv_18580675.mp3', 
-           'array': array([ 0.0000000e+00, -3.4226705e-20, -3.0100702e-20, ...,
-        3.8745898e-06,  2.9728158e-06,  2.6108810e-06], dtype=float32), 
-           'sampling_rate': 48000}, 
- 'sentence': 'ޤުރުއާން ކިޔަވައިދޭ ދިވެހި މުދައްރިސު',
- }
+
+{'audio': {'path': '/home/sanchit_huggingface_co/.cache/huggingface/datasets/downloads/extracted/607848c7e74a89a3b5225c0fa5ffb9470e39b7f11112db614962076a847f3abf/cv-corpus-11.0-2022-09-21/hi/clips/common_voice_hi_25998259.mp3', 
+           'array': array([0.0000000e+00, 0.0000000e+00, 0.0000000e+00, ..., 9.6724887e-07,
+       1.5334779e-06, 1.0415988e-06], dtype=float32), 
+           'sampling_rate': 48000},
+ 'sentence': 'खीर की मिठास पर गरमाई बिहार की सियासत, कुशवाहा ने दी सफाई'}
 ```
 We can see that we've got a 1-dimensional input audio array and the 
 corresponding target transcription. We've spoken heavily about the 
@@ -468,12 +482,11 @@ print(common_voice["train"][0])
 ```
 **Print Output:**
 ```python
-{'audio': {'path': '/home/sanchit_huggingface_co/.cache/huggingface/datasets/downloads/extracted/b0f47f0d01329dec41cfbc9fc4cad8c4165035aa645b95de51ae17393a3aa993/cv-corpus-11.0-2022-09-21/dv/clips/common_voice_dv_18580675.mp3', 
-           'array': array([-1.1972260e-20, -2.7744245e-20, -9.7974349e-21, ...,
-       -1.6504853e-06, -1.1423122e-05,  1.0274689e-06], dtype=float32), 
-           'sampling_rate': 16000}, 
- 'sentence': 'ޤުރުއާން ކިޔަވައިދޭ ދިވެހި މުދައްރިސު',
- }
+{'audio': {'path': '/home/sanchit_huggingface_co/.cache/huggingface/datasets/downloads/extracted/607848c7e74a89a3b5225c0fa5ffb9470e39b7f11112db614962076a847f3abf/cv-corpus-11.0-2022-09-21/hi/clips/common_voice_hi_25998259.mp3', 
+           'array': array([ 0.0000000e+00,  0.0000000e+00,  0.0000000e+00, ...,
+       -3.4206650e-07,  3.2979898e-07,  1.0042874e-06], dtype=float32),
+           'sampling_rate': 16000},
+ 'sentence': 'खीर की मिठास पर गरमाई बिहार की सियासत, कुशवाहा ने दी सफाई'}
 ```
 Great! We can see that the sampling rate has been downsampled to 16kHz. The 
 array values are also different, as we've now only got one amplitude value 
@@ -529,7 +542,7 @@ is going to do much of the heavy lifting for us. All we need to do is:
 - Define the training configuration: this will be used by the 🤗 Trainer to define the training schedule.
 
 Once we've fine-tuned the model, we will evaluate it on the test data to verify that we have correctly trained it 
-to transcribe speech in Dhivehi.
+to transcribe speech in Hindi.
 
 ### Define a Data Collator
 
@@ -572,12 +585,17 @@ class DataCollatorSpeechSeq2SeqWithPadding:
 
         # append the EOS token to the end of all label sequences
         eos_token_id = self.processor.tokenizer.eos_token_id
-        label_features = [{"input_ids": feature["labels"].append(eos_token_id)} for feature in features]
+        label_features = [{"input_ids": feature["labels"]} for feature in features]
         # pad the labels to max length
         labels_batch = self.processor.tokenizer.pad(label_features, return_tensors="pt")
 
         # replace padding with -100 to ignore loss correctly
         labels = labels_batch["input_ids"].masked_fill(labels_batch.attention_mask.ne(1), -100)
+
+        # if bos token is appended in previous tokenization step,
+        # cut bos token here as it's append later anyways
+        if (labels[:, 0] == self.processor.tokenizer.bos_token_id).all().cpu().item():
+            labels = labels[:, 1:]
 
         batch["labels"] = labels
 
@@ -655,9 +673,9 @@ For more detail on the other training arguments, refer to the Seq2SeqTrainingArg
 from transformers import Seq2SeqTrainingArguments
 
 training_args = Seq2SeqTrainingArguments(
-  output_dir="./whisper-small-dv",  # change to a repo name of your choice
+  output_dir="./whisper-small-hi",  # change to a repo name of your choice
   per_device_train_batch_size=16,
-  learning_rate=1e-4,
+  learning_rate=1e-4,  # TODO: set LR
   warmup_steps=500,
   num_train_epochs=3,
   gradient_checkpointing=True,
@@ -702,17 +720,11 @@ And with that, we're ready to start training!
 Note: much of the following is adapted from "Fine-Tune Wav2Vec2..." 
 --->
 Training will take approximately X-Y minutes depending on the GPU 
-allocated to this Google Colab. Whilst the fine-tuned model yields
-satisfactory results on the Common Voice Dhivehi test data, it is by no 
-means optimal. The purpose of this notebook is to demonstrate how 
-the pre-trained Whisper checkpoints can be fine-tuned on any multilingual 
-ASR dataset.
-
-If using this Google Colab directly to fine-tune a Whisper model,
-you should make sure that training isn't interrupted due to inactivity. 
-A simple workaround to prevent this is to paste the following code into the
-console of this tab (_right mouse click_ -> _inspect_ -> _Console tab_ ->
-_insert code_).
+allocated to this Google Colab. If using this Google Colab directly to 
+fine-tune a Whisper model, you should make sure that training isn't 
+interrupted due to inactivity. A simple workaround to prevent this is 
+to paste the following code into the console of this tab (_right mouse click_ 
+-> _inspect_ -> _Console tab_ -> _insert code_).
 
 ```javascript
 function ConnectButton(){
@@ -739,7 +751,7 @@ to compensate.
 |------|---------------|-----------------|-----|---------|--------------------|
 
 
-The final WER is X%, not bad for 7h of training data! 
+The final WER is X%, not bad for 8h of training data!
 
 The training results can now be uploaded to the Hub. To do so, execute the `push_to_hub` command:
 
@@ -753,9 +765,17 @@ load it with the identifier `"your-username/the-name-you-picked"`, for instance:
 ```python
 from transformers import WhisperForConditionalGeneration, WhisperProcessor
 
-model = WhisperForConditionalGeneration.from_pretrained("sanchit-gandhi/whisper-small-dv")
-processor = WhisperProcessor.from_pretrained("sanchit-gandhi/whisper-small-dv")
+model = WhisperForConditionalGeneration.from_pretrained("sanchit-gandhi/whisper-small-hi")
+processor = WhisperProcessor.from_pretrained("sanchit-gandhi/whisper-small-hi")
 ```
+
+Whilst the fine-tuned model yields satisfactory results on the Common 
+Voice Hindi test data, it is by no means optimal. The purpose of this 
+notebook is to demonstrate how the pre-trained Whisper checkpoints can 
+be fine-tuned on any multilingual ASR dataset. The results could likely 
+be improved by optimising the training hyperparameters, such as 
+_learning rate_ and _dropout_, and through using a larger pre-trained 
+checkpoint (either the medium or large).
 
 ### Building a Demo
 Now that we've fine-tuned our model we can build a demo to show 
@@ -774,7 +794,7 @@ our fine-tuned Whisper model to transcribe the corresponding text:
 from transformers import pipeline
 import gradio as gr
 
-pipe = pipeline(model="whisper-small-dv")
+pipe = pipeline(model="whisper-small-hi")
 
 def transcribe(audio):
     text = pipe(audio)["text"]
@@ -784,8 +804,8 @@ iface = gr.Interface(
     fn=transcribe, 
     inputs=gr.Audio(source="microphone", type="filepath"), 
     outputs="text",
-    title="Whisper Small Dhivehi",
-    description="Realtime demo for Dhivehi speech recognition using a fine-tuned Whisper small model.",
+    title="Whisper Small Hindi",
+    description="Realtime demo for Hindi speech recognition using a fine-tuned Whisper small model.",
 )
 
 iface.launch()
