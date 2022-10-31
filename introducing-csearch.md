@@ -47,9 +47,10 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
         * <a href='#opt_nucleus_example_two'>6.2.2. Generating Text with Nucleus Sampling</a>
         * <a href='#opt_contrastive_example_two'>6.2.3. Generating Text with Contrastive Search</a>
 * <a href='#resources'>7. Resources</a>   
-* <a href='#citation'>8. Citation</a>   
+* <a href='#citation'>8. Citation</a>  
+* <a href='#references'>Reference</a>   
 * <a href='#acknowledgements'>Acknowledgements</a>  
-* <a href='#references'>Reference</a>  
+
 
 
 ****
@@ -675,12 +676,6 @@ For more details of contrastive search, please check our papers and code as
     
 *- Written by Yixuan Su and Tian Lan*
 
-<span id='acknowledgements'/>
-
-## Acknowledgements:
-
-We would like to thank Joao Gante ([@joaogante](https://huggingface.co/joaogante)), Patrick von Platen ([@patrickvonplaten](https://huggingface.co/patrickvonplaten)), and Sylvain Gugger ([@sgugger](https://github.com/sgugger)) for their help and guidance in adding contrastive search mentioned in this blog post into the `transformers` library.
-
 ****
     
 <span id='references'/>
@@ -697,3 +692,14 @@ We would like to thank Joao Gante ([@joaogante](https://huggingface.co/joaogante
 > [5] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://arxiv.org/abs/2205.01068), Arxiv 2022
 
 > [6] He et al., 2016 ["Deep Residual Learning for Image Recognition"](https://arxiv.org/abs/1512.03385), CVPR 2016
+
+****
+
+<span id='acknowledgements'/>
+
+
+## Acknowledgements:
+
+We would like to thank Joao Gante ([@joaogante](https://huggingface.co/joaogante)), Patrick von Platen ([@patrickvonplaten](https://huggingface.co/patrickvonplaten)), and Sylvain Gugger ([@sgugger](https://github.com/sgugger)) for their help and guidance in adding contrastive search mentioned in this blog post into the `transformers` library.
+
+
