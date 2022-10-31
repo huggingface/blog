@@ -47,8 +47,8 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
         * <a href='#opt_nucleus_example_one'>6.2.2. Generating Text with Nucleus Sampling</a>
         * <a href='#opt_contrastive_example_one'>6.2.3. Generating Text with Contrastive Search</a>
 * <a href='#citation'>Citation</a>   
-* <a href='#references'>Reference</a>  
 * <a href='#acknowledgements'>Acknowledgements</a>  
+* <a href='#references'>Reference</a>  
 
 
 ****
@@ -584,6 +584,16 @@ OpenAI blog prompt; OPT example.
     
 ****
     
+*- Written by Yixuan Su and Tian Lan*
+
+<span id='acknowledgements'/>
+
+## Acknowledgements:
+
+We would like to thank Joao Gante, Patrick von Platen, and Sylvain Gugger for their help and guidance in adding contrastive search mentioned in this blog post into the `transformers` library.
+
+****
+    
 <span id='references'/>
     
 ### Reference:
@@ -598,15 +608,3 @@ OpenAI blog prompt; OPT example.
 > [5] Zhang et al., 2022 ["OPT: Open Pre-trained Transformer Language Models"](https://arxiv.org/abs/2205.01068), Arxiv 2022
 
 > [6] He et al., 2016 ["Deep Residual Learning for Image Recognition"](https://arxiv.org/abs/1512.03385), CVPR 2016
-
-
- 
-
-
-****
-    
-*- Written by Yixuan Su and Tian Lan*
-
-## Acknowledgements:
-
-We would like to thank Joao Gante, Patrick von Platen, and Sylvain Gugger for their help and guidance in adding contrastive search mentioned in this blog post into the `transformers` library.
