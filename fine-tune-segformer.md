@@ -56,7 +56,6 @@ The installation of `git-lfs` might be different on your system. Note that Googl
 
 ```bash
 pip install -q transformers datasets evaluate segments-ai
-pip install -q 
 apt-get install git-lfs
 git lfs install
 huggingface-cli login
@@ -313,7 +312,7 @@ training_args = TrainingArguments(
 )
 ```
 
-Next, we'll define a function that computes the evaluation metric we want to work with. Because we're doing semantic segmentation, we'll use the mean Intersection over Union (mIoU), directly accessible in the [`evaluate` library](https://huggingface.co/docs/evaluate/index). IoU represents the overlap of segmentation masks. Mean IoU is the average of the IoU of all semantic classes. Take a look at [this blogpost](https://www.jeremyjordan.me/evaluating-image-segmentation-models/) for an overview of evaluation metrics for image segmentation.
+Next, we'll define a function that computes the evaluation metric we want to work with. Because we're doing semantic segmentation, we'll use the [mean Intersection over Union (mIoU)](https://huggingface.co/spaces/evaluate-metric/mean_iou), directly accessible in the [`evaluate` library](https://huggingface.co/docs/evaluate/index). IoU represents the overlap of segmentation masks. Mean IoU is the average of the IoU of all semantic classes. Take a look at [this blogpost](https://www.jeremyjordan.me/evaluating-image-segmentation-models/) for an overview of evaluation metrics for image segmentation.
 
 Because our model outputs logits with dimensions height/4 and width/4, we have to upscale them before we can compute the mIoU.
 
