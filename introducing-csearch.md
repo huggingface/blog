@@ -596,7 +596,7 @@ We would like to thank Joao Gante, Patrick von Platen, and Sylvain Gugger for th
     
 <span id='references'/>
     
-### Reference:
+## Reference:
 > [1] Su et al., 2022 ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417), NeurIPS 2022
 
 > [2] Su and Collier, 2022 ["Contrastive Search Is What You Need For Neural Text Generation"](https://arxiv.org/abs/2210.14140), Arxiv 2022
