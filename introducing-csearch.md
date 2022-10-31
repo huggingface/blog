@@ -502,17 +502,8 @@ dubbed "Porcupine Man" for his ability to converse with the human race...
 
 In this part, we use the OPT model <a href='#references'>[5]</a> which is recently released by Meta to generate text by taking the first two sentences from the abstract of the prestigious ResNet paper <a href='#references'>[6]</a>.
 
+> Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously.
 
-
-```
-A chat between a curious human and the Statue of Liberty.
-
-Human: What is your name?
-Statue: I am the Statue of Liberty.
-Human: Where do you live?
-Statue: New York City.
-Human: How long have you lived there?
-```
 
 <details open>
 <summary><b>Code for (i) loading the language model and (ii) preparing the prefix text:</b></summary>
@@ -520,18 +511,11 @@ Human: How long have you lived there?
 ```python
 import torch
 from transformers import AutoTokenizer, OPTForCausalLM
-model_name = 
+model_name = r'facebook/opt-125m'
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = OPTForCausalLM.from_pretrained(model_name)
-    
-prefix_text = r"""A chat between a curious human and the Statue of Liberty.
 
-Human: What is your name?
-Statue: I am the Statue of Liberty.
-Human: Where do you live?
-Statue: New York City.
-Human: How long have you lived there?"""
-
+prefix_text = r"Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously."
 input_ids = tokenizer(prefix_text, return_tensors='pt').input_ids
 ```
 </details> 
