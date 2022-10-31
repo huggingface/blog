@@ -98,6 +98,7 @@ Deteriminstic methods, e.g. greedy search and beam search, generate text by sele
 Below, let's see an example of generated text from greedy search using GPT-2 model.
 
 ```python
+import torch
 from transformers import AutoTokenizer, GPT2LMHeadModel
 tokenizer = AutoTokenizer.from_pretrained('gpt2-large')
 input_ids = tokenizer('DeepMind Company is', return_tensors='pt').input_ids
@@ -143,6 +144,7 @@ To address the issues posed by deterministic methods, stochastic methods generat
 Below, we illustrate an example of generated text by nucleus sampling (p=0.95) using GPT-2 model.
 
 ```python
+import torch
 from transformers import AutoTokenizer, GPT2LMHeadModel
 tokenizer = AutoTokenizer.from_pretrained('gpt2-large')
 input_ids = tokenizer('DeepMind Company is', return_tensors='pt').input_ids
