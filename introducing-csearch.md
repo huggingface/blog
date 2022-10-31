@@ -522,6 +522,45 @@ input_ids = tokenizer(prefix_text, return_tensors='pt').input_ids
 
 
 
+<span id='opt_greedy_example_one'/>
+
+##### 6.2.1. Generating Text with Greedy Search:
+
+<details>
+<summary><b>Code: [click to expand]</b></summary>
+
+```python
+output = model.generate(input_ids, max_length=256)
+print("Output:\n" + 100 * '-')
+print(tokenizer.decode(output[0], skip_special_tokens=True))
+print("" + 100 * '-')
+```
+</details>
+
+<details>
+<summary><b>Model Output: [click to expand]</b></summary>
+
+```
+Output:
+----------------------------------------------------------------------------------------------------  
+Deeper neural networks are more difficult to train. We present a residual learning framework to 
+ease the training of networks that are substantially deeper than those used previously. 
+The framework is based on the notion that the neural network is a subset of the neural network. 
+The framework is based on the notion that the neural network is a subset of the neural network. 
+The framework is based on the notion that the neural network is a subset of the neural network. 
+The framework is based on the notion that the neural network is a subset of the neural network. 
+The framework is based on the notion that the neural network is a subset of the neural network. 
+The framework is based on the notion that the neural network is a subset of the neural network. 
+The framework is based on the notion that the neural network is a subset of the neural network. 
+The framework is based on the notion that the neural network is a subset of the neural network. 
+The framework is based on the notion that the neural network is a subset of the neural network. 
+The framework is based on the notion that the neural network is a subset of the neural network. 
+The framework is based on the notion that the neural network is a subset of the neural network. 
+The framework is based on the notion that the neural network is a subset of...
+----------------------------------------------------------------------------------------------------
+```
+</details>
+
 
     * <a href='#'></a>
         * <a href='#opt_greedy_example_one'>6.1.1. Generating Text with Greedy Search</a>
