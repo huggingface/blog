@@ -46,7 +46,8 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
         * <a href='#opt_greedy_example_two'>6.2.1. Generating Text with Greedy Search</a>
         * <a href='#opt_nucleus_example_two'>6.2.2. Generating Text with Nucleus Sampling</a>
         * <a href='#opt_contrastive_example_two'>6.2.3. Generating Text with Contrastive Search</a>
-* <a href='#citation'>Citation</a>   
+* <a href='#resources'>7. Resources</a>   
+* <a href='#citation'>8. Citation</a>   
 * <a href='#acknowledgements'>Acknowledgements</a>  
 * <a href='#references'>Reference</a>  
 
@@ -638,10 +639,11 @@ neurodegenerative diseases and specialties in the University of Notre Dame-Légi
 ```
 </details>
 
+****
 
+<span id='resources'/>  
 
-
-### Resources
+### 7. Resources: <a href='#all_catelogue'>[Back to Top]</a>
 
 1. Find more details about the contrastive search, please refer to our [paper](https://arxiv.org/abs/2202.06417).
 
@@ -653,7 +655,7 @@ neurodegenerative diseases and specialties in the University of Notre Dame-Légi
     
 <span id='citation'/>   
  
-### Citation:
+### 8. Citation: <a href='#all_catelogue'>[Back to Top]</a>
     
 ```bibtex
 @article{su2022contrastive,
