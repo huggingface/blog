@@ -500,11 +500,9 @@ dubbed "Porcupine Man" for his ability to converse with the human race...
 
 #### 6.2. OPT: Example Two:
 
-In this part, we use the OPT model <a href='#references'>[5]</a> which is recently released by Meta to generate text by taking the first two sentences from the abstract of the prestigious ResNet <a href='#references'>[6]</a> paper .
+In this part, we use the OPT model <a href='#references'>[5]</a> which is recently released by Meta to generate text by taking the first two sentences from the abstract of the prestigious ResNet paper <a href='#references'>[6]</a>.
 
-recently released OPT model  to compare the results of different decoding methods.
 
-Specifically, we use the prompt from Figure 9 of the original paper:
 
 ```
 A chat between a curious human and the Statue of Liberty.
