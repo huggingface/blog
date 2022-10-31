@@ -672,9 +672,7 @@ For more details of contrastive search, please check our papers and code as
 }
 ```
     
-****
-    
-*- Written by Yixuan Su and Tian Lan*
+
 
 ****
     
@@ -694,6 +692,12 @@ For more details of contrastive search, please check our papers and code as
 > [6] He et al., 2016 ["Deep Residual Learning for Image Recognition"](https://arxiv.org/abs/1512.03385), CVPR 2016
 
 ****
+
+*- Written by Yixuan Su and Tian Lan*
+
+****
+    
+
 
 <span id='acknowledgements'/>
 
