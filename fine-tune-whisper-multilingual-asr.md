@@ -116,9 +116,9 @@ vocabulary of text tokens.
 
 The Whisper checkpoints come in five configurations of varying model size.
 The smallest four are trained on either English-only or multilingual data.
-The largest checkpoint is multilingual only. All the pre-trained checkpoints are available
-on the [🤗 Hub](https://huggingface.co/models?other=whisper). The checkpoints are 
-summarised in the following table with links to the models on the Hub:
+The largest checkpoint is multilingual only. All nine of the pre-trained checkpoints 
+are available on the [🤗 Hub](https://huggingface.co/models?other=whisper). The 
+checkpoints are summarised in the following table with links to the models on the Hub:
 
 | Size   | Layers | Width | Heads | Parameters | English-only                                         | Multilingual                                      |
 |--------|--------|-------|-------|------------|------------------------------------------------------|---------------------------------------------------|
@@ -289,7 +289,7 @@ respectively.
 
 We'll go through details of the feature extractor and tokenizer one-by-one!
 
-### Create WhisperFeatureExtractor
+### Load WhisperFeatureExtractor
 
 Speech is represented by a 1-dimensional signal that varies with time. 
 The value of the signal at any given time-step is the _amplitude_ of the 
@@ -369,7 +369,7 @@ from transformers import WhisperFeatureExtractor
 feature_extractor = WhisperFeatureExtractor.from_pretrained("openai/whisper-small")
 ```
 
-### Create WhisperTokenizer
+### Load WhisperTokenizer
 
 Now let's look at how to load a Whisper tokenizer. The Whisper model outputs 
 a vector of dimensionality equal to the number of vocabulary items. 
@@ -774,7 +774,7 @@ our fine-tuned Whisper model to transcribe the corresponding text:
 from transformers import pipeline
 import gradio as gr
 
-pipe = pipeline(model=repo_name)
+pipe = pipeline(model="whisper-small-dv")
 
 def transcribe(audio):
     text = pipe(audio)["text"]
