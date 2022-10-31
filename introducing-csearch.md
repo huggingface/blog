@@ -679,7 +679,7 @@ neurodegenerative diseases and specialties in the University of Notre Dame-Légi
 
 ## Acknowledgements:
 
-We would like to thank Joao Gante, Patrick von Platen, and Sylvain Gugger for their help and guidance in adding contrastive search mentioned in this blog post into the `transformers` library.
+We would like to thank Joao Gante ([@joaogante](https://huggingface.co/joaogante)), Patrick von Platen ([@patrickvonplaten](https://huggingface.co/patrickvonplaten)), and Sylvain Gugger ([@sgugger](https://github.com/sgugger)) for their help and guidance in adding contrastive search mentioned in this blog post into the `transformers` library.
 
 ****
     
