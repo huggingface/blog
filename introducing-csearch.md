@@ -301,7 +301,7 @@ In this section, we provide more generated examples to compare different decodin
 
 <span id='gpt2_example_one'/>
 
-#### 6.1. Example One - GPT-2:
+#### 6.1. Example One - GPT-2: <a href='#all_catelogue'>[Back to Top]</a>
 
 In this part, we use GPT-2 to generate text with the prefix text from the original [OpenAI blog](https://openai.com/blog/better-language-models/) that releases GPT-2.
 
@@ -323,7 +323,7 @@ input_ids = tokenizer(prefix_text, return_tensors='pt').input_ids
 
 <span id='gpt2_greedy_example_one'/>
 
-##### 6.1.1. Generating Text with Greedy Search:
+##### 6.1.1. Generating Text with Greedy Search: 
 
 <details>
 <summary><b>Code: [click to expand]</b></summary>
@@ -498,7 +498,7 @@ dubbed "Porcupine Man" for his ability to converse with the human race...
 
 <span id='opt_example_two'/>
 
-#### 6.2. Example Two - OPT:
+#### 6.2. Example Two - OPT: <a href='#all_catelogue'>[Back to Top]</a>
 
 In this part, we use the OPT model <a href='#references'>[5]</a> which is recently released by Meta to generate text by taking the first two sentences from the abstract of the prestigious ResNet paper <a href='#references'>[6]</a>.
 
