@@ -303,7 +303,7 @@ In this section, we provide more generated examples to compare different decodin
 
 #### 6.1. GPT-2: Example One:
 
-In this part, we use the prefix text from the original [OpenAI blog](https://openai.com/blog/better-language-models/) which releases GPT-2.
+In this part, we use GPT-2 to generate text with the prefix text from the original [OpenAI blog](https://openai.com/blog/better-language-models/) that releases GPT-2.
 
 > _In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact that the unicorns spoke perfect English._
 
