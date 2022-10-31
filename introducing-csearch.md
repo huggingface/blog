@@ -212,7 +212,6 @@ where $V^{(k)}$ is the set of top-k predictions from the language model's probab
 Below, we use the same prefix text (i.e. _"DeepMind Company is"_) as in Section <a href='#deterministic_methods'>4.1</a> and <a href='#stochastic_methods'>4.2</a>, and generate the text with contrastive search (k=4 and $\alpha=0.6$). To fully demonstrate the superior capability of contrastive search, we let the language model generate a **long** document with **512** tokens as
 
 ```python
-# load the LMs
 import torch
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
 model_name = 'gpt2-large'
@@ -222,10 +221,10 @@ model.eval()
 
 # prepare the prefix
 prefix_text = r'DeepMind Company is'
-inputs = tokenizer(prefix_text, return_tensors='pt')
+inputs = tokenizer(prefix_text, return_tensors='pt').input_ids
 
 # generate the result with contrastive search
-output = model.generate(**inputs, penalty_alpha=0.6, top_k=4, max_length=512)
+output = model.generate(input_ids, penalty_alpha=0.6, top_k=4, max_length=512)
 print("Output:\n" + 100 * '-')
 print(tokenizer.decode(output[0], skip_special_tokens=True))
 print("" + 100 * '-')
