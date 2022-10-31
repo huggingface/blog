@@ -38,11 +38,11 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
     * <a href='#contrastive_generation'>5.2. Generating Text with Contratsive Search</a>
     * <a href='#contrastive_visual_demonstration'>5.3. Visual Demonstration of Contrastive Search</a>
 * <a href='#more_examples'>6. More Generated Examples</a>
-    * <a href='#gpt2_example_one'>6.1. Example One--GPT-2</a>
+    * <a href='#gpt2_example_one'>6.1. Example One - GPT-2</a>
         * <a href='#gpt2_greedy_example_one'>6.1.1. Generating Text with Greedy Search</a>
         * <a href='#gpt2_nucleus_example_one'>6.1.2. Generating Text with Nucleus Sampling</a>
         * <a href='#gpt2_contrastive_example_one'>6.1.3. Generating Text with Contrastive Search</a>
-    * <a href='#opt_example_one'>6.2. Example Two--OPT</a>
+    * <a href='#opt_example_one'>6.2. Example Two - OPT</a>
         * <a href='#opt_greedy_example_one'>6.2.1. Generating Text with Greedy Search</a>
         * <a href='#opt_nucleus_example_one'>6.2.2. Generating Text with Nucleus Sampling</a>
         * <a href='#opt_contrastive_example_one'>6.2.3. Generating Text with Contrastive Search</a>
@@ -301,7 +301,7 @@ In this section, we provide more generated examples to compare different decodin
 
 <span id='gpt2_example_one'/>
 
-#### 6.1. Example One--GPT-2:
+#### 6.1. Example One - GPT-2:
 
 In this part, we use GPT-2 to generate text with the prefix text from the original [OpenAI blog](https://openai.com/blog/better-language-models/) that releases GPT-2.
 
@@ -498,7 +498,7 @@ dubbed "Porcupine Man" for his ability to converse with the human race...
 
 <span id='opt_example_one'/>
 
-#### 6.2. Example Two--OPT:
+#### 6.2. Example Two - OPT:
 
 In this part, we use the OPT model <a href='#references'>[5]</a> which is recently released by Meta to generate text by taking the first two sentences from the abstract of the prestigious ResNet paper <a href='#references'>[6]</a>.
 
