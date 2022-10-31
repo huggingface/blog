@@ -645,11 +645,9 @@ neurodegenerative diseases and specialties in the University of Notre Dame-Légi
 
 ### 7. Resources: <a href='#all_catelogue'>[Back to Top]</a>
 
-1. Find more details about the contrastive search, please refer to our [paper](https://arxiv.org/abs/2202.06417).
-
-2. Find the original implementation of the contrastive search and more interesting cases, please refer to our [code](https://github.com/yxuansu/SimCTG).
-
-3. Play with contrastive search with online [demo](https://huggingface.co/spaces/joaogante/contrastive_search_generation) to compare the existing decoding methods with the contrastive search. Many thanks to the contribution of [Joao Gante](https://huggingface.co/joaogante).
+For more details of contrastive search, please check our papers and code as
+* "A Contrastive Framework for Neural Text Generation" ([[Paper]](https://arxiv.org/abs/2202.06417)[[Official Implementation]](https://github.com/yxuansu/SimCTG))
+* "Contrastive Search Is What You Need For Neural Text Generation" ([[Paper]](https://arxiv.org/abs/2210.14140) [[Official Implementation]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need))
 
 ****
     
