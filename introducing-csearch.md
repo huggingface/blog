@@ -310,7 +310,7 @@ In this part, we use GPT-2 to generate text with the prefix text from the origin
 
 
 <details open>
-<summary><b>Code for (i) loading the language model and (ii) preparing the prefix text:</b></summary>
+<summary><b> Load the language model and prepare the prefix text:</b></summary>
 
 ```python
 import torch
@@ -507,7 +507,7 @@ In this part, we use the OPT model <a href='#references'>[5]</a> which is recent
 
 
 <details open>
-<summary><b>Code for (i) loading the language model and (ii) preparing the prefix text:</b></summary>
+<summary><b> Load the language model and prepare the prefix text:</b></summary>
 
 ```python
 import torch
