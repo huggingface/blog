@@ -209,7 +209,7 @@ an Indo-Aryan language spoken in northern, central, eastern, and western India.
 Common Voice 11.0 contains approximately 12 hours
 of labelled Hindi data, 4 of which is held-out test data.
 
-Let's head to the 🤗 Hub and view the dataset page for Common Voice: https://huggingface.co/datasets/mozilla-foundation/
+Let's head to the 🤗 Hub and view the dataset page for Common Voice: [mozilla-foundation/common_voice_11_0](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)
 
 The first time we view this page we'll be asked to accept the 
 terms of use. After that, we'll be given full access to the dataset.
@@ -241,8 +241,8 @@ from datasets import load_dataset, DatasetDict, Audio
 
 common_voice = DatasetDict()
 
-common_voice["train"] = load_dataset("mozilla-foundation/common_voice_11_0", "hi", split="train+validation")
-common_voice["test"] = load_dataset("mozilla-foundation/common_voice_11_0", "hi", split="test")
+common_voice["train"] = load_dataset("mozilla-foundation/common_voice_11_0", "hi", split="train+validation", use_auth_token=True)
+common_voice["test"] = load_dataset("mozilla-foundation/common_voice_11_0", "hi", split="test", use_auth_token=True)
 
 print(common_voice)
 ```
@@ -403,7 +403,7 @@ tokenizer = WhisperTokenizer.from_pretrained("openai/whisper-small", language="H
 We can verify that the tokenizer correctly encodes Hindi characters by 
 encoding and decoding the first sample of the Common Voice dataset. When 
 encoding the transcriptions, the tokenizer appends 'special tokens' to the 
-start and end of the sequence, including the SOS/BOS tokens, language token 
+start and end of the sequence, including the BOS/EOS tokens, language token 
 id and task token id (as specified by the arguments in the previous step). 
 When decoding the label ids, we have the option of 'skipping' these special 
 tokens, in order to return a string in the original input form:
@@ -467,8 +467,8 @@ our input audio is sampled at 48kHz, we need to _downsample_ it to
 We'll set the audio inputs to the correct sampling rate using dataset's 
 [`cast_column`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=cast_column#datasets.DatasetDict.cast_column)
 method. This operation does not change the audio in-place, 
-but rather signals to `datasets` to resample the audio sample _on-the-fly_ the 
-first time it is loaded:
+but rather signals to `datasets` to resample audio samples _on-the-fly_ the 
+first time they are loaded:
 
 ```python
 common_voice = common_voice.cast_column("audio", Audio(sampling_rate=16000))
@@ -508,7 +508,7 @@ def prepare_dataset(batch):
     batch["input_features"] = feature_extractor(audio["array"], sampling_rate=audio["sampling_rate"]).input_features[0]
 
     # encode target text to label ids 
-    batch["labels"] = tokenizer(batch["text"]).input_ids
+    batch["labels"] = tokenizer(batch["sentence"]).input_ids
     return batch
 ```
 
@@ -539,7 +539,7 @@ is going to do much of the heavy lifting for us. All we need to do is:
 
 - Load a pre-trained checkpoint: we need to load a pre-trained checkpoint and configure it correctly for training.
 
-- Define the training configuration: this will be used by the 🤗 Trainer to define the training schedule.
+- Define the training arguments: these will be used by the 🤗 Trainer in constructing the training schedule.
 
 Once we've fine-tuned the model, we will evaluate it on the test data to verify that we have correctly trained it 
 to transcribe speech in Hindi.
@@ -551,18 +551,16 @@ treats the `input_features` and `labels` independently: the  `input_features` mu
 handled by the feature extractor and the `labels` by the tokenizer.
 
 The `input_features` are already padded to 30s and converted to a log-Mel spectrogram 
-of fixed dimension, so all we do is convert them to batched PyTorch tensors. We do this 
+of fixed dimension, so all we have to do is convert them to batched PyTorch tensors. We do this 
 using the feature extractor's `.pad` method with `return_tensors=pt` (note that no additional 
 padding is applied here since the inputs are of fixed dimension, 
 the `input_features` are simply converted to PyTorch tensors).
-<!--- perhaps the previous paragraph is confusion and we manually create tensors using 
-torch.from_numpy()--->
 
-The `labels` on the other hand are un-padded. We first append the end-of-sentence (EOS) token
-to the end of each sequence to indicate where the transcription ends. We then pad the sequences
+The `labels` on the other hand are un-padded. We first pad the sequences
 to the maximum length in the batch using the tokenizer's `.pad` method. The padding tokens 
 are then replaced by `-100` so that these tokens are **not** taken into account when 
-computing the loss. 
+computing the loss. We then cut the BOS token from the start of the label sequence as we 
+append it later during training.
 
 We can leverage the `WhisperProcessor` we defined earlier to perform both the 
 feature extractor and the tokenizer operations:
@@ -583,8 +581,7 @@ class DataCollatorSpeechSeq2SeqWithPadding:
         input_features = [{"input_features": feature["input_features"]} for feature in features]
         batch = self.processor.feature_extractor.pad(input_features, return_tensors="pt")
 
-        # append the EOS token to the end of all label sequences
-        eos_token_id = self.processor.tokenizer.eos_token_id
+        # get the tokenized label sequences
         label_features = [{"input_ids": feature["labels"]} for feature in features]
         # pad the labels to max length
         labels_batch = self.processor.tokenizer.pad(label_features, return_tensors="pt")
@@ -615,6 +612,7 @@ ASR systems. For more information, refer to the WER [docs](https://huggingface.c
 
 ```python
 import evaluate
+
 metric = evaluate.load("wer")
 ```
 
@@ -653,12 +651,8 @@ from transformers import WhisperForConditionalGeneration
 
 model = WhisperForConditionalGeneration.from_pretrained("openai/whisper-small")
 ```
-**Print Output:**
-```bash
-    
-```
 
-### Define the Training Configuration
+### Define the Training Arguments
 In a final step, we define all the parameters related to training. A subset of parameters are 
 explained below:
 - `output_dir`: local directory in which to save the model weights. This will also be the repository name on the [🤗 Hub](https://huggingface.co/).
@@ -673,23 +667,23 @@ For more detail on the other training arguments, refer to the Seq2SeqTrainingArg
 from transformers import Seq2SeqTrainingArguments
 
 training_args = Seq2SeqTrainingArguments(
-  output_dir="./whisper-small-hi",  # change to a repo name of your choice
-  per_device_train_batch_size=16,
-  learning_rate=1e-4,  # TODO: set LR
-  warmup_steps=500,
-  num_train_epochs=3,
-  gradient_checkpointing=True,
-  fp16=True,
-  group_by_length=True,
-  evaluation_strategy="steps",
-  per_device_eval_batch_size=8,
-  predict_with_generate=True,
-  generation_max_length=225,
-  save_steps=500,
-  eval_steps=500,
-  logging_steps=25,
-  report_to=["tensorboard"],
-  push_to_hub=True,
+    output_dir="./whisper-small-hi",  # change to a repo name of your choice
+    per_device_train_batch_size=16,
+    learning_rate=1e-5,  # TODO: set LR
+    warmup_steps=500,
+    num_train_epochs=3,
+    gradient_checkpointing=True,
+    fp16=True,
+    group_by_length=True,
+    evaluation_strategy="steps",
+    per_device_eval_batch_size=8,
+    predict_with_generate=True,
+    generation_max_length=225,
+    save_steps=500,
+    eval_steps=500,
+    logging_steps=25,
+    report_to=["tensorboard"],
+    push_to_hub=True,
 )
 ```
 
