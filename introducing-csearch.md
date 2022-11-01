@@ -32,7 +32,7 @@ Natural language generation (i.e. text generation) is one of the core tasks in n
 
 <span id='demo'/>
 
-### 2. Huggingface Demo of Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
+### 2. Huggingface Demo of Contrastive Search: 
 
 :hugs: Check out this awesome [[demo]](https://huggingface.co/spaces/joaogante/contrastive_search_generation) which directly compares contrastive search with other popular decoding methods (e.g. beam search, top-k sampling <a href='#references'>[3]</a>, and nucleus sampling <a href='#references'>[4]</a>).
 
@@ -40,7 +40,7 @@ Natural language generation (i.e. text generation) is one of the core tasks in n
 
 <span id='installation'/>
 
-### 3. Environment Installation: <a href='#all_catelogue'>[Back to Top]</a>
+### 3. Environment Installation: 
 
 Before running the experiments in the following sections, please install the update-to-date version of `transformers` as
 ```yaml
@@ -52,7 +52,7 @@ pip install transformers>=4.24.0
 
 <span id='problems_of_decoding_methods'/>
 
-### 4. Problems of Existing Decoding Methods: <a href='#all_catelogue'>[Back to Top]</a>
+### 4. Problems of Existing Decoding Methods: 
 
 By far, the most widely-used decoding methods can be divided into two categories: (i) deterministic methods and (ii) stochastic methods.
 
@@ -154,7 +154,7 @@ One example? Given the details of today
 
 <span id='contrastive_search'/>
 
-### 5. Contrastive Search: <a href='#all_catelogue'>[Back to Top]</a>
+### 5. Contrastive Search: 
 
 In section, we introduce the new decoding method, i.e. ___Contrastive Search___, in details.
 
@@ -265,13 +265,13 @@ To better understand how contrastive search works, we provide visual comparison 
 
 <span id='more_examples'/>
 
-### 6. More Generated Examples: <a href='#all_catelogue'>[Back to Top]</a>
+### 6. More Generated Examples: 
 
 In this section, we provide more generated examples to compare different decoding methods.
 
 <span id='gpt2_example_one'/>
 
-#### 6.1. Example One - GPT-2: <a href='#all_catelogue'>[Back to Top]</a>
+#### 6.1. Example One - GPT-2: 
 
 In this part, we use GPT-2 to generate text with the prefix text from the original [OpenAI blog](https://openai.com/blog/better-language-models/) that releases GPT-2.
 
@@ -468,7 +468,7 @@ dubbed "Porcupine Man" for his ability to converse with the human race.
 
 <span id='opt_example_two'/>
 
-#### 6.2. Example Two - OPT: <a href='#all_catelogue'>[Back to Top]</a>
+#### 6.2. Example Two - OPT: 
 
 In this part, we use the OPT model <a href='#references'>[5]</a> which is recently released by Meta to generate text by taking the first two sentences from the abstract of the prestigious ResNet paper <a href='#references'>[6]</a>.
 
@@ -611,7 +611,7 @@ performs better in two-dimensional (2D) and three-dimensional (3D) cases.
 
 <span id='resources'/>  
 
-### 7. Resources: <a href='#all_catelogue'>[Back to Top]</a>
+### 7. Resources: 
 
 For more details of contrastive search, please check our papers and code as
 * **A Contrastive Framework for Neural Text Generation**: (1) [Paper](https://arxiv.org/abs/2202.06417) and (2) [Official Implementation](https://github.com/yxuansu/SimCTG).
@@ -621,7 +621,7 @@ For more details of contrastive search, please check our papers and code as
     
 <span id='citation'/>   
  
-### 8. Citation: <a href='#all_catelogue'>[Back to Top]</a>
+### 8. Citation: 
     
 ```bibtex
 @inproceedings{su2022a,
