@@ -176,7 +176,7 @@ where $V^{(k)}$ is the set of top-k predictions from the language model's probab
 
 <span id='contrastive_generation'/>
 
-#### 5.2. Generating Text with Contratsive Search:
+#### 5.2. Generating Text with Contrastive Search:
 
 Below, we use the same prefix text (i.e. _"DeepMind Company is"_) as in Section <a href='#deterministic_methods'>4.1</a> and <a href='#stochastic_methods'>4.2</a>, and generate the text with contrastive search (k=4 and $\alpha=0.6$). To fully demonstrate the superior capability of contrastive search, we let the language model generate a **long** document with **512** tokens as
 
