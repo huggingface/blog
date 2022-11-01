@@ -657,11 +657,13 @@ For more details of contrastive search, please check our papers and code as
 ### 8. Citation: <a href='#all_catelogue'>[Back to Top]</a>
     
 ```bibtex
-@article{su2022contrastive,
-  title={A Contrastive Framework for Neural Text Generation},
-  author={Su, Yixuan and Lan, Tian and Wang, Yan and Yogatama, Dani and Kong, Lingpeng and Collier, Nigel},
-  journal={Advances in Neural Information Processing Systems},
-  year={2022}
+@inproceedings{su2022a,
+   title={A Contrastive Framework for Neural Text Generation},
+   author={Yixuan Su and Tian Lan and Yan Wang and Dani Yogatama and Lingpeng Kong and Nigel Collier},
+   booktitle={Advances in Neural Information Processing Systems},
+   editor={Alice H. Oh and Alekh Agarwal and Danielle Belgrave and Kyunghyun Cho},
+   year={2022},
+   url={https://openreview.net/forum?id=V88BafmH9Pj}
 }
     
 @article{su2022contrastiveiswhatyouneed,
