@@ -46,7 +46,7 @@ Natural language generation (i.e. text generation) is one of the core tasks in n
 Before running the experiments in the following sections, please install the update-to-date version of `transformers` as
 ```yaml
 pip install torch
-pip install transformers>=4.24.0
+pip install "transformers>=4.24.0"
 ```
 
 ****
