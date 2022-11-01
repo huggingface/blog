@@ -24,7 +24,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 ****
 
-<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/introducing_contrastive_search.ipynb">
+<a target="_blank" href="./notebooks/introducing_contrastive_search.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
