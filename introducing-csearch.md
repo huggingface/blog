@@ -24,39 +24,6 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 ****
 
-<span id='all_catelogue'/>
-
-## Catalogue:
-* <a href='#introduction'>1. Introduction</a>
-* <a href='#demo'>2. Huggingface Demo of Contrastive Search</a>
-* <a href='#installation'>3. Environment Installation</a>
-* <a href='#problems_of_decoding_methods'>4. Problems of Existing Decoding Methods</a>
-    * <a href='#deterministic_methods'>4.1. Deteriminstic Methods</a>
-    * <a href='#stochastic_methods'>4.2. Stochastic Methods</a>
-* <a href='#contrastive_search'>5. Contrastive Search</a>
-    * <a href='#contrastive_objective'>5.1. Decoding Objective</a>
-    * <a href='#contrastive_generation'>5.2. Generating Text with Contratsive Search</a>
-    * <a href='#contrastive_visual_demonstration'>5.3. Visual Demonstration of Contrastive Search</a>
-* <a href='#more_examples'>6. More Generated Examples</a>
-    * <a href='#gpt2_example_one'>6.1. Example One - GPT-2</a>
-        * <a href='#gpt2_greedy_example_one'>6.1.1. Generating Text with Greedy Search</a>
-        * <a href='#gpt2_nucleus_example_one'>6.1.2. Generating Text with Nucleus Sampling</a>
-        * <a href='#gpt2_contrastive_example_one'>6.1.3. Generating Text with Contrastive Search</a>
-    * <a href='#opt_example_two'>6.2. Example Two - OPT</a>
-        * <a href='#opt_greedy_example_two'>6.2.1. Generating Text with Greedy Search</a>
-        * <a href='#opt_nucleus_example_two'>6.2.2. Generating Text with Nucleus Sampling</a>
-        * <a href='#opt_contrastive_example_two'>6.2.3. Generating Text with Contrastive Search</a>
-* <a href='#resources'>7. Resources</a>   
-* <a href='#citation'>8. Citation</a>  
-* <a href='#references'>Reference</a>   
-* <a href='#acknowledgements'>Acknowledgements</a>  
-
-
-
-****
-
-<span id='introduction'/>
-
 ### 1. Introduction: <a href='#all_catelogue'>[Back to Top]</a>
 
 Natural language generation (i.e. text generation) is one of the core tasks in natural language processing (NLP). In this blog, we introduce the current state-of-the-art decoding method, i.e. ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[1]</a> ([[Paper]](https://arxiv.org/abs/2202.06417)[[Official Implementation]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022. Moreover, in this follow-up work, i.e. _"Contrastive Search Is What You Need For Neural Text Generation"_ <a href='#references'>[2]</a> ([[Paper]](https://arxiv.org/abs/2210.14140) [[Official Implementation]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)), the authors further demonstrate that contrastive search is able to generate human-level text using **off-the-shelf** across **16** languages.
