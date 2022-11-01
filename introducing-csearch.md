@@ -28,6 +28,7 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 Natural language generation (i.e. text generation) is one of the core tasks in natural language processing (NLP). In this blog, we introduce the current state-of-the-art decoding method, i.e. ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[1]</a> ([[Paper]](https://arxiv.org/abs/2202.06417)[[Official Implementation]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022. Moreover, in this follow-up work, i.e. _"Contrastive Search Is What You Need For Neural Text Generation"_ <a href='#references'>[2]</a> ([[Paper]](https://arxiv.org/abs/2210.14140) [[Official Implementation]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)), the authors further demonstrate that contrastive search is able to generate human-level text using **off-the-shelf** across **16** languages.
 
+**[Remark]** For users who are not familiar with text generation, please refer more details to this [[blog]](https://huggingface.co/blog/how-to-generate). 
 ****
 
 <span id='demo'/>
