@@ -1,9 +1,9 @@
 ---
-title: "Generating Human-level Text with Contrastive Search in Transformers" 
+title: "Generating Human-level Text with Contrastive Search in Transformers 🤗" 
 thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 ---
 
-<h1>Generating Human-level Text with Contrastive Search in Transformers</h1>
+<h1>Generating Human-level Text with Contrastive Search in Transformers 🤗</h1>
 
 <div class="blog-metadata">
     <small>Published September 02, 2022.</small>
