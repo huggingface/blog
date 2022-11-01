@@ -1366,3 +1366,13 @@
     - ethics
     - research
     - nlp
+
+- local: introducing-csearch.md
+  title: "Generating Human-level Text with Contrastive Search in Transformers 🤗"
+  author: yxuansu
+  thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
+  date: Nov 1, 2022
+  tags:
+    - nlp
+    - text generation
+    - research
