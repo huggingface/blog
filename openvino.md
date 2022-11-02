@@ -78,7 +78,7 @@ calibration_dataset = quantizer.get_calibration_dataset(
 )
 ```
 
-As usual with image datasets, we need to apply the same transforms that were used at training time. We use the preprocessing defined in the feature extractor. We also define a data collation function to feed the model batches of properly formatted tensors.
+As usual with image datasets, we need to apply the same image transformations that were used at training time. We use the preprocessing defined in the feature extractor. We also define a data collation function to feed the model batches of properly formatted tensors.
 ​
 
 ```python
