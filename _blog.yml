@@ -1376,3 +1376,13 @@
     - hardware
     - intel
     - guide
+
+- local: sentiment-analysis-fhe
+  title: "Sentiment Classification with Fully Homomorphic Encryption using Concrete ML"
+  author: jfrery-zama
+  thumbnail: /blog/assets/sentiment-analysis-fhe/thumbnail.gif
+  date: November 2, 2022
+  tags:
+    - privacy
+    - research
+    - FHE
