@@ -1366,6 +1366,16 @@
     - ethics
     - research
     - nlp
+    
+- local: openvino
+  title: "Accelerate your models with 🤗 Optimum Intel and OpenVINO"
+  author: echarlaix
+  thumbnail: /blog/assets/113_openvino/thumbnail.png
+  date: November 2, 2022
+  tags:
+    - hardware
+    - intel
+    - guide
 
 - local: dreambooth
   title: "Training Stable Diffusion with Dreambooth using 🧨 Diffusers"
