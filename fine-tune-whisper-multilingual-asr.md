@@ -6,7 +6,7 @@ thumbnail: /blog/assets/111_fine_tune_whisper/thumbnail.jpg
 # Fine-Tune Whisper For Multilingual ASR with 🤗 Transformers
 
 <div class="blog-metadata">
-    <small>Published 25 October, 2022.</small>
+    <small>Published 3 November, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fine-tune-whisper-multilingual-asr.md">
         Update on GitHub
     </a>
@@ -22,12 +22,9 @@ thumbnail: /blog/assets/111_fine_tune_whisper/thumbnail.jpg
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/github/sanchitgandhi/notebooks/blob/master/fine_tune_whisper_for_multilingual_asr.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/fine_tune_whisper_for_multilingual_asr.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
-
-TODO:
-- [ ] Colab link
 
 <!--- 
 Note to reviewer: comments are denoted in this Markdown convention.
@@ -44,26 +41,28 @@ published in [September 2022](https://openai.com/blog/whisper/) by the authors
 Alec Radford et al. from OpenAI. Unlike many of its predecessors, such as 
 [Wav2Vec 2.0](https://arxiv.org/abs/2006.11477), which are pre-trained 
 on un-labelled audio data, Whisper is pre-trained on a vast quantity of 
-**labelled** audio-transcription data, 680,000 hours to be precise\\({}^1\\). 
+**labelled** audio-transcription data, 680,000 hours to be precise. 
 This is an order of magnitude larger than the un-labelled audio data used 
-to train Wav2Vec 2.0 (60,000 hours). What is more, 117,000h of this 
-pre-training data is multilingual ASR data. This results in checkpoints that 
-can be applied to over 96 different languages, many of which are considered 
-_low-resource_.
+to train Wav2Vec 2.0 (60,000 hours). Much of this data was obtained by scraping 
+the internet for audio-transcription data of sufficient quality\\({}^1\\). 
+What is more, 117,000h of this pre-training data is multilingual ASR data. 
+This results in checkpoints that can be applied to over 96 different languages, 
+many of which are considered_low-resource_.
 
-The consequence of this is that Whisper is pre-trained on the _supervised_ 
-task of speech recognition, directly learning a mapping from speech-to-text.
-Since the pre-training task of speech recognition is the same as the downstream 
-one, and due to the fact that Whisper is pre-trained to learn an _end-to-end_ 
-mapping from speech-to-text, Whisper requires little additional fine-tuning to 
-yield a performant ASR model.
+This quantity of labelled data enables Whisper to be pre-trained directly on the 
+_supervised_ task of speech recognition, learning a speech-to-text mapping from 
+the labelled audio-transcription data. Since the pre-training task of speech 
+recognition is the same as the downstream one, and due to the fact that Whisper 
+is pre-trained to learn a speech-to-text mapping, Whisper requires little 
+additional fine-tuning to yield a performant ASR model.
 
-This is in contrast to Wav2Vec 2.0, which is pre-trained on the 
-_unsupervised_ task of masked prediction, learning an intermediate mapping 
-from speech to hidden-states. Whilst unsupervised pre-training yields 
-high-quality representations of speech, it does **not** learn a mapping to 
-text transcriptions. This mapping is only ever learned during fine-tuning, 
-thus requiring additional fine-tuning and more in-domain labelled data.
+This is in contrast to Wav2Vec 2.0, which is pre-trained on the _unsupervised_ 
+task of masked prediction. Here, the model is trained to learn an intermediate 
+mapping from speech to hidden-states. Whilst unsupervised pre-training yields 
+high-quality representations of speech, it does **not** learn a speech-to-text 
+mapping. This mapping is only ever learned during fine-tuning, thus requiring 
+additional fine-tuning and more in-domain labelled data to yield competitive 
+performance to Whisper.
 
 When scaled to 680,000 hours of labelled pre-training data, Whisper models 
 demonstrate a strong ability to generalise to many datasets and domains.
@@ -636,7 +635,7 @@ def compute_metrics(pred):
     pred_str = tokenizer.batch_decode(pred_ids, skip_special_tokens=True)
     label_str = tokenizer.batch_decode(label_ids, skip_special_tokens=True)
 
-    wer = metric.compute(predictions=pred_str, references=label_str)
+    wer = 100 * metric.compute(predictions=pred_str, references=label_str)
 
     return {"wer": wer}
 ```
@@ -651,6 +650,8 @@ from transformers import WhisperForConditionalGeneration
 
 model = WhisperForConditionalGeneration.from_pretrained("openai/whisper-small")
 ```
+
+TODO: set config suppress tokens and forced tokens to [] and None resp.
 
 ### Define the Training Arguments
 In a final step, we define all the parameters related to training. A subset of parameters are 
@@ -669,9 +670,10 @@ from transformers import Seq2SeqTrainingArguments
 training_args = Seq2SeqTrainingArguments(
     output_dir="./whisper-small-hi",  # change to a repo name of your choice
     per_device_train_batch_size=16,
-    learning_rate=1e-5,  # TODO: set LR
+    gradient_accumulation_steps=1,  # increase by 2x for every 2x decrease in batch size
+    learning_rate=1e-5,
     warmup_steps=500,
-    num_train_epochs=3,
+    max_steps=4000,
     gradient_checkpointing=True,
     fp16=True,
     group_by_length=True,
@@ -679,8 +681,8 @@ training_args = Seq2SeqTrainingArguments(
     per_device_eval_batch_size=8,
     predict_with_generate=True,
     generation_max_length=225,
-    save_steps=500,
-    eval_steps=500,
+    save_steps=1000,
+    eval_steps=1000,
     logging_steps=25,
     report_to=["tensorboard"],
     push_to_hub=True,
@@ -710,11 +712,8 @@ trainer = Seq2SeqTrainer(
 And with that, we're ready to start training!
 
 ### Training
-<!--- 
-Note: much of the following is adapted from "Fine-Tune Wav2Vec2..." 
---->
-Training will take approximately X-Y minutes depending on the GPU 
-allocated to this Google Colab. If using this Google Colab directly to 
+Training will take approximately 5-10 hours depending on your GPU or the one 
+allocated to the Google Colab. If using this notebook as a Google Colab to directly
 fine-tune a Whisper model, you should make sure that training isn't 
 interrupted due to inactivity. A simple workaround to prevent this is 
 to paste the following code into the console of this tab (_right mouse click_ 
@@ -741,16 +740,45 @@ to compensate.
 
 **Print Output:**
 
-| Step | Training Loss | Validation Loss | WER | Runtime | Samples per Second |
-|------|---------------|-----------------|-----|---------|--------------------|
+| Step | Training Loss | Epoch | Validation Loss |  WER  |
+|:----:|:-------------:|:-----:|:---------------:|:-----:|
+| 1000 |    0.1011     | 2.44  |     0.3075      | 34.63 |
+| 2000 |    0.0264     | 4.89  |     0.3558      | 33.13 |
+| 3000 |    0.0025     | 7.33  |     0.4214      | 32.59 |
+| 4000 |    0.0006     | 9.78  |     0.4519      | 32.01 |
 
 
-The final WER is X%, not bad for 8h of training data!
+The final WER is 32.0%, not bad for 8h of training data! The big question is how this 
+compares to other ASR systems. For that, we can view the [`hf-speech-bench`](https://huggingface.co/spaces/huggingface/hf-speech-bench), 
+a leaderboard that categorises models by language and dataset, and subsequently ranks 
+them according to their WER.
+
+SCREENSHOT OF LEADERBOARD
+
+Our fine-tuned model significantly improves upon the zero-shot performance of the Whisper 
+small checkpoint! This highlights the strong transfer learning capabilities of Whisper.
+
+We can automatically submit our checkpoint to the leaderboard at the same time that we 
+push the training results to the Hub - we simply have to set the appropriate key-word 
+arguments (kwargs). You can change these values to match your dataset, language and 
+model name accordingly:
+
+```python
+kwargs = {
+    "dataset_tags": "mozilla-foundation/common_voice_11_0",
+    "dataset": "Common Voice 11.0",  # a 'pretty' name for the training dataset
+    "language": "hi",
+    "model_name": "Whisper Small Hi - Sanchit Gandhi",  # a 'pretty' name for our model
+    "finetuned_from": "openai/whisper-small",
+    "tasks": "automatic-speech-recognition",
+    "tags": "hf-asr-leaderboard",
+}
+```
 
 The training results can now be uploaded to the Hub. To do so, execute the `push_to_hub` command:
 
 ```python
-trainer.push_to_hub()
+trainer.push_to_hub(**kwargs)
 ```
 
 You can now share this model with anyone using the link on the 🤗 Hub. They can also 
@@ -788,7 +816,7 @@ our fine-tuned Whisper model to transcribe the corresponding text:
 from transformers import pipeline
 import gradio as gr
 
-pipe = pipeline(model="whisper-small-hi")
+pipe = pipeline(model="sanchit-gandhi/whisper-small-hi")  # change to "your-username/the-name-you-picked"
 
 def transcribe(audio):
     text = pipe(audio)["text"]
