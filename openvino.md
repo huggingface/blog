@@ -31,19 +31,17 @@ thumbnail: /blog/assets/113_openvino/thumbnail.png
 
 ![image](assets/113_openvino/thumbnail.png)
 
-Last July, we [announced](https://huggingface.co/blog/intel) that Intel and Hugging Face would collaborate on building state-of-the-art yet simple hardware acceleration tools for Transformer models.
+Last July, we [announced](https://huggingface.co/blog/intel) that Intel and Hugging Face would collaborate on building state-of-the-art yet simple hardware acceleration tools for Transformer models. 
 ​
 Today, we are very happy to announce that we added Intel [OpenVINO](https://docs.openvino.ai/latest/index.html) to [Optimum Intel](https://github.com/huggingface/optimum-intel). You can now easily perform inference with OpenVINO Runtime on a variety of Intel processors  ([see](https://docs.openvino.ai/latest/openvino_docs_OV_UG_supported_plugins_Supported_Devices.html) the full list of supported devices) using Transformers models which can be hosted either on the Hugging Face hub or locally. You can also quantize your model with the OpenVINO Neural Network Compression Framework ([NNCF](https://github.com/openvinotoolkit/nncf)), and reduce its size and prediction latency in near minutes. ​
 
-This first release is based on OpenVINO 2022.2 and enables inference for a large quantity of PyTorch models using our [`OVModels`](https://huggingface.co/docs/optimum/intel/inference).
-
-Post-training static quantization and quantization aware training can be applied on many encoder models (BERT, DistilBERT, etc.). More encoder models will be supported in the upcoming OpenVINO release. Currently the quantization of Encoder Decoder models is not enabled, however this restriction should be lifted with our integration of the next OpenVINO release.
+This first release is based on OpenVINO 2022.2 and enables inference for a large quantity of PyTorch models using our [`OVModels`](https://huggingface.co/docs/optimum/intel/inference). Post-training static quantization and quantization aware training can be applied on many encoder models (BERT, DistilBERT, etc.). More encoder models will be supported in the upcoming OpenVINO release. Currently the quantization of Encoder Decoder models is not enabled, however this restriction should be lifted with our integration of the next OpenVINO release.
 
 ​Let us show you how to get started in minutes!​
 
 ## Quantizing a Vision Transformer with Optimum Intel and OpenVINO
 ​
-In this example, we will run post-training static quantization on a Vision Transformer (ViT) [model](https://huggingface.co/juliensimon/autotrain-food101-1471154050) fine-tuned for image classification on the [food101](https://huggingface.co/datasets/food101) dataset.
+In this example, we will run post-training static quantization on a Vision Transformer (ViT) [model](https://huggingface.co/juliensimon/autotrain-food101-1471154050) fine-tuned for image classification on the [food101](https://huggingface.co/datasets/food101) dataset. 
 ​
 Quantization is a process that shrinks memory and compute requirements by reducing the bit width of model parameters. Reducing the number of bits means that the resulting model requires less memory at inference time, and that operations like matrix multiplication can be performed faster thanks to integer arithmetic.
 
@@ -180,7 +178,7 @@ print(trfs_eval_results, ov_eval_results)
 
 Looking at the quantized model, we see that its memory size decreased by **3.8x** from 344MB to 90MB. Running a quick benchmark on 5050 image predictions, we also notice a speedup in latency of **2.4x**, from 98ms to 41ms per sample. That's not bad for a few lines of code!
 
-You can find the resulting model hosted on the Hugging Face hub. To load it, you can easily do as follows:
+You can find the resulting [model](https://huggingface.co/echarlaix/vit-food101-int8) hosted on the Hugging Face hub. To load it, you can easily do as follows:
 ```python
 from optimum.intel.openvino import OVModelForImageClassification
 ​
