@@ -43,6 +43,7 @@ This first release is based on OpenVINO 2022.2 and enables inference for a large
 ​
 In this example, we will run post-training static quantization on a Vision Transformer (ViT) [model](https://huggingface.co/juliensimon/autotrain-food101-1471154050) fine-tuned for image classification on the [food101](https://huggingface.co/datasets/food101) dataset. 
 ​
+
 Quantization is a process that lowers memory and compute requirements by reducing the bit width of model parameters. Reducing the number of bits means that the resulting model requires less memory at inference time, and that operations like matrix multiplication can be performed faster thanks to integer arithmetic.
 
 First, let's create a virtual environment and install all dependencies.​
@@ -77,7 +78,7 @@ calibration_dataset = quantizer.get_calibration_dataset(
 )
 ```
 
-As usual with image datasets, we need to apply the same transforms that were used at training time. We use the preprocessing defined in the feature extractor. We also define a data collation function to feed the model batches of properly formatted tensors.
+As usual with image datasets, we need to apply the same image transformations that were used at training time. We use the preprocessing defined in the feature extractor. We also define a data collation function to feed the model batches of properly formatted tensors.
 ​
 
 ```python
@@ -157,9 +158,9 @@ from evaluate import evaluator
 
 # We run the evaluation step on 20% of the evaluation dataset
 eval_dataset = load_dataset("food101", split="validation").select(range(5050))
-eval = evaluator("image-classification")
+task_evaluator = evaluator("image-classification")
 
-ov_eval_results = eval.compute(
+ov_eval_results = task_evaluator.compute(
     model_or_pipeline=ov_pipe,
     data=eval_dataset,
     metric="accuracy",
@@ -167,7 +168,7 @@ ov_eval_results = eval.compute(
 )
 
 trfs_pipe = pipeline("image-classification", model=model, feature_extractor=feature_extractor)
-trfs_eval_results = eval.compute(
+trfs_eval_results = task_evaluator.compute(
     model_or_pipeline=trfs_pipe,
     data=eval_dataset,
     metric="accuracy",
