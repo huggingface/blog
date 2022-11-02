@@ -33,7 +33,7 @@ thumbnail: /blog/assets/113_openvino/thumbnail.png
 
 Last July, we [announced](https://huggingface.co/blog/intel) that Intel and Hugging Face would collaborate on building state-of-the-art yet simple hardware acceleration tools for Transformer models.
 ​
-Today, we are very happy to announce that we added Intel [OpenVINO](https://docs.openvino.ai/latest/index.html) to Optimum Intel. You can now easily perform inference with OpenVINO Runtime on a variety of Intel processors  ([see](https://docs.openvino.ai/latest/openvino_docs_OV_UG_supported_plugins_Supported_Devices.html) the full list of the supported device) using Transformers models which can be hosted either on the Hugging Face hub or locally.  You can also easily quantize your models with the OpenVINO Neural Network Compression Framework ([NNCF](https://github.com/openvinotoolkit/nncf)), and shrink their size and prediction latency in minutes. ​
+Today, we are very happy to announce that we added Intel [OpenVINO](https://docs.openvino.ai/latest/index.html) to Optimum Intel. You can now easily perform inference with OpenVINO Runtime on a variety of Intel processors  ([see](https://docs.openvino.ai/latest/openvino_docs_OV_UG_supported_plugins_Supported_Devices.html) the full list of supported devices) using Transformers models which can be hosted either on the Hugging Face hub or locally.  You can also easily quantize your models with the OpenVINO Neural Network Compression Framework ([NNCF](https://github.com/openvinotoolkit/nncf)), and shrink their size and prediction latency in minutes. ​
 
 This first release is based on OpenVINO 2022.2.0 and enables inference for a large quantity of PyTorch models using our [OVModels](https://huggingface.co/docs/optimum/intel/inference).
 
