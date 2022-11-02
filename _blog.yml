@@ -1366,3 +1366,13 @@
     - ethics
     - research
     - nlp
+
+- local: openvino
+  title: "Shrink and accelerate your models with 🤗 Optimum Intel and OpenVINO"
+  author: echarlaix
+  thumbnail: /blog/assets/113_openvino/thumbnail.png
+  date: November 2, 2022
+  tags:
+    - hardware
+    - intel
+    - guide
