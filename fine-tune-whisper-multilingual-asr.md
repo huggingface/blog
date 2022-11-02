@@ -157,6 +157,8 @@ the `soundfile` package to pre-process audio files, `evaluate` and `jiwer` to
 assess the performance of our model. Finally, we'll
 use `gradio` to build a flashy demo of our fine-tuned model.
 
+TODO:
+- Correct install of transformers once https://github.com/huggingface/transformers/pull/19921 is merged
 ```bash
 !pip install datasets>=2.6.1
 !pip install transformers>=4.23.1
