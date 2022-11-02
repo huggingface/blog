@@ -34,6 +34,7 @@ thumbnail: /blog/assets/sd_dreambooth_training/thumbnail.jpg
         <div class="bfc">
             <code>NineOfNein</code>
             <span class="fullname">Valentine Kozin</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>

@@ -1367,7 +1367,7 @@
     - research
     - nlp
 
-- local: stable_diffusion_dreambooth_training
+- local: dreambooth
   title: "Training Stable Diffusion with Dreambooth using 🧨 Diffusers"
   author: valhalla
   thumbnail: /blog/assets/sd_dreambooth_training/thumbnail.png
@@ -1377,3 +1377,4 @@
     - stable-diffusion
     - dreambooth
     - fine-tuning
+    - guide
