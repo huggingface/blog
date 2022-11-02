@@ -6,7 +6,7 @@ thumbnail: /blog/assets/113_openvino/thumbnail.png
 <h1>Shrink and accelerate your models with 🤗 Optimum Intel and OpenVINO</h1>
 
 <div class="blog-metadata">
-    <small>Published October 27, 2022.</small>
+    <small>Published November 2, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/openvino.md">
         Update on GitHub
     </a>
@@ -33,11 +33,11 @@ thumbnail: /blog/assets/113_openvino/thumbnail.png
 
 Last July, we [announced](https://huggingface.co/blog/intel) that Intel and Hugging Face would collaborate on building state-of-the-art yet simple hardware acceleration tools for Transformer models.
 ​
-Today, we are very happy to announce that we added Intel [OpenVINO](https://docs.openvino.ai/latest/index.html) to Optimum Intel. You can now easily perform inference with OpenVINO Runtime on a variety of Intel processors  ([see](https://docs.openvino.ai/latest/openvino_docs_OV_UG_supported_plugins_Supported_Devices.html) the full list of supported devices) using Transformers models which can be hosted either on the Hugging Face hub or locally.  You can also easily quantize your models with the OpenVINO Neural Network Compression Framework ([NNCF](https://github.com/openvinotoolkit/nncf)), and shrink their size and prediction latency in minutes. ​
+Today, we are very happy to announce that we added Intel [OpenVINO](https://docs.openvino.ai/latest/index.html) to [Optimum Intel](https://github.com/huggingface/optimum-intel). You can now easily perform inference with OpenVINO Runtime on a variety of Intel processors  ([see](https://docs.openvino.ai/latest/openvino_docs_OV_UG_supported_plugins_Supported_Devices.html) the full list of supported devices) using Transformers models which can be hosted either on the Hugging Face hub or locally. You can also quantize your model with the OpenVINO Neural Network Compression Framework ([NNCF](https://github.com/openvinotoolkit/nncf)), and reduce its size and prediction latency in near minutes. ​
 
-This first release is based on OpenVINO 2022.2.0 and enables inference for a large quantity of PyTorch models using our [OVModels](https://huggingface.co/docs/optimum/intel/inference).
+This first release is based on OpenVINO 2022.2 and enables inference for a large quantity of PyTorch models using our [`OVModels`](https://huggingface.co/docs/optimum/intel/inference).
 
-Post-training static quantization and quantization aware training can be applied on many encoder models (BERT, DistilBERT, etc.). More encoder models will be supported after OpenVINO's next release. Currently the quantization of Encoder Decoder models is not enabled. This restriction should be lifted with our integration of the next OpenVINO release.
+Post-training static quantization and quantization aware training can be applied on many encoder models (BERT, DistilBERT, etc.). More encoder models will be supported in the upcoming OpenVINO release. Currently the quantization of Encoder Decoder models is not enabled, however this restriction should be lifted with our integration of the next OpenVINO release.
 
 ​Let us show you how to get started in minutes!​
 
@@ -114,7 +114,7 @@ def collate_fn(examples):
 ```
 
 
-For our first try, we use the default configuration for quantization. You can also specify the number of samples to use during the calibration step, which is by default 300.
+For our first attempt, we use the default configuration for quantization. You can also specify the number of samples to use during the calibration step, which is by default 300.
 
 ```python
 from optimum.intel.openvino import OVConfig
@@ -123,9 +123,7 @@ quantization_config = OVConfig()
 quantization_config.compression["initializer"]["range"]["num_init_samples"] = 300
 ```
 
-
-We're now ready to quantize the model. The `OVQuantizer.quantize()` method quantizes the model and exports it to the OpenVINO Intermediate Representation (IR) format. The resulting graph is represented with two files: an XML file describing the network topology and a binary file describing the weights. The resulting model can run on any target Intel device.
-​
+We're now ready to quantize the model. The `OVQuantizer.quantize()` method quantizes the model and exports it to the OpenVINO format. The resulting graph is represented with two files: an XML file describing the network topology and a binary file describing the weights. The resulting model can run on any target Intel® device.
 
 ```python
 save_dir = "quantized_model"
@@ -153,8 +151,7 @@ outputs = ov_pipe("http://farm2.staticflickr.com/1375/1394861946_171ea43524_z.jp
 print(outputs)
 ```
 
-​To verify that quantization did not have a negative impact on accuracy, we applied an evaluation step to compare the accuracy of the original model with its quantized counterpart.
-We evaluate both models on a subset of the dataset (taking only 20% of the evaluation dataset). We observed no loss in accuracy with both models having an accuracy of **87.6**.
+​To verify that quantization did not have a negative impact on accuracy, we applied an evaluation step to compare the accuracy of the original model with its quantized counterpart. We evaluate both models on a subset of the dataset (taking only 20% of the evaluation dataset). We observed little to no loss in accuracy with both models having an accuracy of **87.6**.
 
 ```python
 from datasets import load_dataset
@@ -181,7 +178,7 @@ trfs_eval_results = eval.compute(
 print(trfs_eval_results, ov_eval_results)
 ```
 
-Looking at the quantized model, we see that its memory size decreased by **4x** from 344MB to 90MB. Running a quick benchmark (on a m6i.4xlarge EC2 instance) on 5050 image predictions, we also see a speedup in latency of **2x**, from 93ms to 48ms per sample. That's not bad for a few lines of code!
+Looking at the quantized model, we see that its memory size decreased by **3.8x** from 344MB to 90MB. Running a quick benchmark on 5050 image predictions, we also notice a speedup in latency of **2.4x**, from 98ms to 41ms per sample. That's not bad for a few lines of code!
 
 You can find the resulting model hosted on the Hugging Face hub. To load it, you can easily do as follows:
 ```python
