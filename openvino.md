@@ -1,9 +1,9 @@
 ---
-title: "Shrink and accelerate your models with 🤗 Optimum Intel and OpenVINO"
+title: "Accelerate your models with 🤗 Optimum Intel and OpenVINO"
 thumbnail: /blog/assets/113_openvino/thumbnail.png
 ---
 
-<h1>Shrink and accelerate your models with 🤗 Optimum Intel and OpenVINO</h1>
+<h1>Accelerate your models with 🤗 Optimum Intel and OpenVINO</h1>
 
 <div class="blog-metadata">
     <small>Published November 2, 2022.</small>
@@ -43,7 +43,7 @@ This first release is based on OpenVINO 2022.2 and enables inference for a large
 ​
 In this example, we will run post-training static quantization on a Vision Transformer (ViT) [model](https://huggingface.co/juliensimon/autotrain-food101-1471154050) fine-tuned for image classification on the [food101](https://huggingface.co/datasets/food101) dataset. 
 ​
-Quantization is a process that shrinks memory and compute requirements by reducing the bit width of model parameters. Reducing the number of bits means that the resulting model requires less memory at inference time, and that operations like matrix multiplication can be performed faster thanks to integer arithmetic.
+Quantization is a process that lowers memory and compute requirements by reducing the bit width of model parameters. Reducing the number of bits means that the resulting model requires less memory at inference time, and that operations like matrix multiplication can be performed faster thanks to integer arithmetic.
 
 First, let's create a virtual environment and install all dependencies.​
 
@@ -187,7 +187,7 @@ ov_model = OVModelForImageClassification.from_pretrained("echarlaix/vit-food101-
 
 ## Now it's your turn
 ​
-As you can see, it's pretty easy to shrink and accelerate your models with 🤗 Optimum Intel and OpenVINO. If you'd like to get started, please visit the [Optimum Intel](https://github.com/huggingface/optimum-intel) repository, and don't forget to give it a star ⭐. You'll also find additional examples [there](https://huggingface.co/docs/optimum/intel/optimization_ov). If you'd like to dive deeper into OpenVINO, the Intel [documentation](https://docs.openvino.ai/latest/index.html) has you covered. 
+As you can see, it's pretty easy to accelerate your models with 🤗 Optimum Intel and OpenVINO. If you'd like to get started, please visit the [Optimum Intel](https://github.com/huggingface/optimum-intel) repository, and don't forget to give it a star ⭐. You'll also find additional examples [there](https://huggingface.co/docs/optimum/intel/optimization_ov). If you'd like to dive deeper into OpenVINO, the Intel [documentation](https://docs.openvino.ai/latest/index.html) has you covered. 
 
 ​
 Give it a try and let us know what you think. We'd love to hear your feedback on the Hugging Face [forum](https://discuss.huggingface.co/c/optimum), and please feel free to request features or file issues on [Github](https://github.com/huggingface/optimum-intel).
