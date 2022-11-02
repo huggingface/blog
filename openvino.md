@@ -189,10 +189,16 @@ ov_model = OVModelForImageClassification.from_pretrained("echarlaix/vit-food101-
 
 ## Now it's your turn
 ​
-As you can see, it's pretty easy to shrink and accelerate your models with 🤗 Optimum Intel and OpenVINO. If you'd like to get started, please visit the [Optimum Intel](https://github.com/huggingface/optimum-intel) repository, and don't forget to give it a star :star:. You'll also find additional examples [there](https://huggingface.co/docs/optimum/intel/optimization_ov). If you'd like to dive deeper into OpenVINO, the Intel [documentation](https://docs.openvino.ai/latest/index.html) has you covered.
+
+As you can see, it's pretty easy to shrink and accelerate your models with 🤗 Optimum Intel and OpenVINO. If you'd like to get started, please visit the [Optimum Intel](https://github.com/huggingface/optimum-intel) repository, and don't forget to give it a star ⭐. You'll also find additional examples [there](https://huggingface.co/docs/optimum/intel/optimization_ov). If you'd like to dive deeper into OpenVINO, the Intel [documentation](https://docs.openvino.ai/latest/index.html) has you covered. 
+
 ​
-Give it a try and let us know what you think. We'd love to hear your feedback on the Hugging Face [forum](https://discuss.huggingface.co/c/optimum), and please feel free to request features or file issues on [Github](https://github.com/huggingface/optimum-intel).
+
+Give it a try and let us know what you think. We'd love to hear your feedback on the Hugging Face [forum](https://discuss.huggingface.co/c/optimum), and please feel free to request features or file issues on [Github](https://github.com/huggingface/optimum-intel). 
+
 ​
+
 Have fun with 🤗 Optimum Intel, and thank you for reading.
+
 ​
 
