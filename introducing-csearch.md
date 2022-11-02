@@ -194,7 +194,7 @@ model.eval()
 
 # prepare the prefix
 prefix_text = r'DeepMind Company is'
-inputs = tokenizer(prefix_text, return_tensors='pt').input_ids
+input_ids = tokenizer(prefix_text, return_tensors='pt').input_ids
 
 # generate the result with contrastive search
 output = model.generate(input_ids, penalty_alpha=0.6, top_k=4, max_length=512)
