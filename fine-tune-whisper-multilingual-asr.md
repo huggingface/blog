@@ -43,15 +43,14 @@ Alec Radford et al. from OpenAI. Unlike many of its predecessors, such as
 on un-labelled audio data, Whisper is pre-trained on a vast quantity of 
 **labelled** audio-transcription data, 680,000 hours to be precise. 
 This is an order of magnitude larger than the un-labelled audio data used 
-to train Wav2Vec 2.0 (60,000 hours). Much of this data was obtained by scraping 
-the internet for audio-transcription data of sufficient quality\\({}^1\\). 
+to train Wav2Vec 2.0 (60,000 hours).
 What is more, 117,000h of this pre-training data is multilingual ASR data. 
 This results in checkpoints that can be applied to over 96 different languages, 
 many of which are considered_low-resource_.
 
 This quantity of labelled data enables Whisper to be pre-trained directly on the 
 _supervised_ task of speech recognition, learning a speech-to-text mapping from 
-the labelled audio-transcription data. Since the pre-training task of speech 
+the labelled audio-transcription data\\({}^1\\). Since the pre-training task of speech 
 recognition is the same as the downstream one, and due to the fact that Whisper 
 is pre-trained to learn a speech-to-text mapping, Whisper requires little 
 additional fine-tuning to yield a performant ASR model.
