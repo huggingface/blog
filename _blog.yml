@@ -1336,3 +1336,12 @@
     - guide
     - cloud
     - inference
+
+- local: fine-tune-whisper
+  title: "Fine-Tune Whisper with 🤗 Transformers"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/111_fine_tune_whisper/thumbnail.jpg
+  date: Nov 3, 2022
+  tags:
+    - guide
+    - audio
