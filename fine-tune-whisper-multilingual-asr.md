@@ -52,15 +52,15 @@ many of which are considered_low-resource_.
 This quantity of labelled data enables Whisper to be pre-trained directly on the 
 _supervised_ task of speech recognition, learning a speech-to-text mapping from 
 the labelled audio-transcription data. Since the pre-training task of speech 
-recognition is the same as the downstream one, and due to the fact that Whisper 
+recognition is the same as the downstream one, and because Whisper 
 is pre-trained to learn a speech-to-text mapping, Whisper requires little 
 additional fine-tuning to yield a performant ASR model.
 
 This is in contrast to Wav2Vec 2.0, which is pre-trained on the _unsupervised_ 
 task of masked prediction. Here, the model is trained to learn an intermediate 
-mapping from speech to hidden-states. Whilst unsupervised pre-training yields 
+mapping from speech to hidden states. While unsupervised pre-training yields 
 high-quality representations of speech, it does **not** learn a speech-to-text 
-mapping. This mapping is only ever learned during fine-tuning, thus requiring 
+mapping. This mapping is only learned during fine-tuning, thus requiring 
 additional fine-tuning and more in-domain labelled data to yield competitive 
 performance to Whisper.
 
@@ -116,7 +116,7 @@ vocabulary of text tokens.
 The Whisper checkpoints come in five configurations of varying model size.
 The smallest four are trained on either English-only or multilingual data.
 The largest checkpoint is multilingual only. All nine of the pre-trained checkpoints 
-are available on the [🤗 Hub](https://huggingface.co/models?other=whisper). The 
+are available on the [Hugging Face Hub](https://huggingface.co/models?other=whisper). The 
 checkpoints are summarised in the following table with links to the models on the Hub:
 
 | Size   | Layers | Width | Heads | Parameters | English-only                                         | Multilingual                                      |
@@ -127,7 +127,7 @@ checkpoints are summarised in the following table with links to the models on th
 | medium | 24     | 1024  | 16    | 769 M      | [✓](https://huggingface.co/openai/whisper-medium.en) | [✓](https://huggingface.co/openai/whisper-medium) |
 | large  | 32     | 1280  | 20    | 1550 M     | x                                                    | [✓](https://huggingface.co/openai/whisper-large)  |
 
-For demonstration purposes, we'll fine-tune of multilingual version of the 
+For demonstration purposes, we'll fine-tune the multilingual version of the 
 [`"small"`](https://huggingface.co/openai/whisper-small) checkpoint with 244M params (~= 1GB).
 
 As for our data, we'll train and evaluate our system on a low-resource language 
@@ -172,7 +172,8 @@ We strongly advise you to upload model checkpoints directly the [🤗 Hub](https
 whilst training. The Hub provides:
 - Integrated version control: you can be sure that no model checkpoint is lost during training.
 - Tensorboard logs: track important metrics over the course of training.
-- Model cards: an easy way to share your model with the community!
+- Model cards: document what a model does and its intended use cases.
+- Community: an easy way to share and collaborate with the community!
 
 Linking the notebook to the Hub is straightforward - it simply requires entering your 
 authentication token from the Hugging Face website when prompted 
@@ -210,9 +211,9 @@ an Indo-Aryan language spoken in northern, central, eastern, and western India.
 Common Voice 11.0 contains approximately 12 hours
 of labelled Hindi data, 4 of which is held-out test data.
 
-Let's head to the 🤗 Hub and view the dataset page for Common Voice: [mozilla-foundation/common_voice_11_0](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)
+Let's head to the Hugging Face Hub and view the dataset page for Common Voice: [mozilla-foundation/common_voice_11_0](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)
 
-The first time we view this page we'll be asked to accept the 
+The first time we view this page, we'll be asked to accept the 
 terms of use. After that, we'll be given full access to the dataset.
 
 Once we've provided authentication to use the dataset, we'll be presented with the 
@@ -274,7 +275,7 @@ common_voice = common_voice.remove_columns(["accent", "age", "client_id", "down_
 
 Common Voice is but one multilingual ASR dataset that we can download from the Hub - 
 there are plenty more available to us! To view the range of datasets available for speech recognition, 
-follow the link: [ASR Datasets on the 🤗 Hub](https://huggingface.co/datasets?task_categories=task_categories:automatic-speech-recognition&sort=downloads).
+follow the link: [ASR Datasets on the Hub](https://huggingface.co/datasets?task_categories=task_categories:automatic-speech-recognition&sort=downloads).
 
 ### Prepare Feature Extractor, Tokenizer and Data
 
@@ -303,7 +304,7 @@ discretise our speech signal by _sampling_ values from our signal at fixed time 
 The interval with which we sample our audio is known as the _sampling rate_, 
 and is usually measured in samples/sec or _Hertz (Hz)_. Sampling with a higher 
 sampling rate results in a better approximation of the continuous speech signal, 
-but also necessitates storing more values per second. 
+but also requires storing more values per second. 
 
 It's crucial that we match the sampling rate of our audio inputs to the sampling
 rate expected by our model, as audio signals with different sampling rates have very
@@ -608,7 +609,7 @@ data_collator = DataCollatorSpeechSeq2SeqWithPadding(processor=processor)
 
 ### Evaluation Metrics
 Next, we define the evaluation metric we'll use on our evaluation
-set. We'll use the WER metric, the 'de-facto' metric for assessing 
+set. We'll use the Word Error Rate (WER) metric, the 'de-facto' metric for assessing 
 ASR systems. For more information, refer to the WER [docs](https://huggingface.co/metrics/wer).
 
 ```python
@@ -658,11 +659,11 @@ TODO: set config suppress tokens and forced tokens to [] and None resp.
 ### Define the Training Arguments
 In a final step, we define all the parameters related to training. A subset of parameters are 
 explained below:
-- `output_dir`: local directory in which to save the model weights. This will also be the repository name on the [🤗 Hub](https://huggingface.co/).
+- `output_dir`: local directory in which to save the model weights. This will also be the repository name on the [Hub](https://huggingface.co/).
 - `generation_max_length`: maximum number of tokens to autoregressively generate during evaluation.
 - `save_steps`: during training, intermediate checkpoints will be saved and uploaded asynchronously to the hub every `save_steps` training steps.
 - `eval_steps`: during training, evaluation of intermediate checkpoints will be performed every `eval_steps` training steps.
-- `report_to`: where to save training logs. Supported platforms are `"azure_ml"`, `"comet_ml"`, `"mlflow"`, `"neptune"`, `"tensorboard"` and `"wandb"`. Pick your favourite or leave as `"tensorboard"` to log to the 🤗 Hub.
+- `report_to`: where to save training logs. Supported platforms are `"azure_ml"`, `"comet_ml"`, `"mlflow"`, `"neptune"`, `"tensorboard"` and `"wandb"`. Pick your favourite or leave as `"tensorboard"` to log to the Hub.
 
 For more detail on the other training arguments, refer to the Seq2SeqTrainingArguments [docs](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.Seq2SeqTrainingArguments).
 
@@ -691,7 +692,7 @@ training_args = Seq2SeqTrainingArguments(
 )
 ```
 
-**Note**: if one does not want to upload the model checkpoints to the 🤗 Hub, 
+**Note**: if one does not want to upload the model checkpoints to the Hub, 
 set `push_to_hub=False`.
 
 We can forward the training arguments to the 🤗 Trainer along with our model,
@@ -783,7 +784,7 @@ The training results can now be uploaded to the Hub. To do so, execute the `push
 trainer.push_to_hub(**kwargs)
 ```
 
-You can now share this model with anyone using the link on the 🤗 Hub. They can also 
+You can now share this model with anyone using the link on the Hub. They can also 
 load it with the identifier `"your-username/the-name-you-picked"`, for instance:
 
 ```python
@@ -793,7 +794,7 @@ model = WhisperForConditionalGeneration.from_pretrained("sanchit-gandhi/whisper-
 processor = WhisperProcessor.from_pretrained("sanchit-gandhi/whisper-small-hi")
 ```
 
-Whilst the fine-tuned model yields satisfactory results on the Common 
+While the fine-tuned model yields satisfactory results on the Common 
 Voice Hindi test data, it is by no means optimal. The purpose of this 
 notebook is to demonstrate how the pre-trained Whisper checkpoints can 
 be fine-tuned on any multilingual ASR dataset. The results could likely 
