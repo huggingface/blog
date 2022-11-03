@@ -1282,7 +1282,7 @@
     - autotrain
     - research
     - nlp
-    
+
 - local: japanese-stable-diffusion
   title: "Japanese Stable Diffusion"
   author: mkshing
@@ -1336,6 +1336,46 @@
     - guide
     - cloud
     - inference
+
+- local: mteb
+  title: "MTEB: Massive Text Embedding Benchmark"
+  author: Muennighoff
+  thumbnail: /blog/assets/110_mteb/thumbnail.png
+  date: Oct 19, 2022
+  tags:
+    - nlp
+    - research
+    - llm
+
+- local: pytorch-ddp-accelerate-transformers
+  title: "From PyTorch DDP to 🤗 Accelerate to 🤗 Trainer, mastery of distributed training with ease"
+  author: muellerzr
+  thumbnail: /blog/assets/111_pytorch_ddp_accelerate_transformers/thumbnail.png
+  date: October 21, 2022
+  tags:
+    - guide
+    - research
+    - open-source-collab
+
+- local: evaluating-llm-bias
+  title: "Evaluating Language Model Bias with 🤗 Evaluate"
+  author: sasha
+  thumbnail: /blog/assets/112_evaluating-llm-bias/thumbnail.png
+  date: Oct 24, 2022
+  tags:
+    - ethics
+    - research
+    - nlp
+
+- local: openvino
+  title: "Accelerate your models with 🤗 Optimum Intel and OpenVINO"
+  author: echarlaix
+  thumbnail: /blog/assets/113_openvino/thumbnail.png
+  date: November 2, 2022
+  tags:
+    - hardware
+    - intel
+    - guide
 
 - local: fine-tune-whisper
   title: "Fine-Tune Whisper with 🤗 Transformers"

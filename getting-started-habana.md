@@ -46,7 +46,7 @@ Then, I search the Amazon Marketplace for Habana AMIs.
   <img src="assets/61_getting_started_habana/habana01.png">
 </kbd>
 
-I pick the Habana Deep Learning Base AMI (Ubuntu 20.04). 
+I pick the Habana Deep Learning Base AMI (Ubuntu 20.04).
 
 <kbd>
   <img src="assets/61_getting_started_habana/habana02.png">
@@ -123,7 +123,7 @@ Then, I install the Optimum Habana package from source.
 
 ```
 cd optimum-habana
-python setup.py install
+pip install .
 ```
 
 Then, I move to the subdirectory containing the text classification example and install the required Python packages.
@@ -133,7 +133,7 @@ cd examples/text-classification
 pip install -r requirements.txt
 ```
 
-I can now launch the training job, which downloads the [bert-large-uncased-whole-word-masking](https://huggingface.co/bert-large-uncased-whole-word-masking) model from the Hugging Face hub, and fine-tunes it on the [MRPC](https://www.microsoft.com/en-us/download/details.aspx?id=52398) task of the [GLUE](https://gluebenchmark.com/) benchmark. 
+I can now launch the training job, which downloads the [bert-large-uncased-whole-word-masking](https://huggingface.co/bert-large-uncased-whole-word-masking) model from the Hugging Face hub, and fine-tunes it on the [MRPC](https://www.microsoft.com/en-us/download/details.aspx?id=52398) task of the [GLUE](https://gluebenchmark.com/) benchmark.
 
 Please note that I'm fetching the Habana Gaudi configuration for BERT from the Hugging Face hub, and you could also use your own. In addition, other popular models are supported, and you can find their configuration file in the [Habana organization](https://huggingface.co/Habana).
 
