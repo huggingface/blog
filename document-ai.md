@@ -52,7 +52,11 @@ Document AI includes many data science tasks from [image classification](https:/
 
 There are at least six general use cases for building document AI solutions. These use cases differ in the kind of document inputs and outputs. A combination of approaches is often necessary when solving enterprise Document AI problems.
 
-**Optical Character Recognition (OCR)**
+<html itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <a id="1-what-is-ocr"><strong itemprop="name"> What is Optical Character Recognition (OCR)?</strong></a>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
 
 Turning typed, handwritten, or printed text into machine-encoded text is known as Optical Character Recognition (OCR). It's a widely studied problem with many well-established open-source and commercial offerings. The figure shows an example of converting handwriting into text.
 
@@ -60,8 +64,12 @@ Turning typed, handwritten, or printed text into machine-encoded text is known a
 
 OCR is a backbone of Document AI use cases as it's essential to transform the text into something readable by a computer. Some widely available OCR models that operate at the document level are [EasyOCR](https://huggingface.co/spaces/tomofi/EasyOCR) or [PaddleOCR](https://huggingface.co/spaces/PaddlePaddle/PaddleOCR). There are also models like [TrOCR: Transformer-based Optical Character Recognition with Pre-trained Models](https://huggingface.co/docs/transformers/model_doc/trocr), which runs on single-text line images. This model works with a text detection model like CRAFT which first identifies the individual "pieces" of text in a document in the form of bounding boxes. The relevant metrics for OCR are Character Error Rate (CER) and word-level precision, recall, and F1. Check out [this Space](https://huggingface.co/spaces/tomofi/CRAFT-TrOCR) to see a demonstration of CRAFT and TrOCR.  
 
-**Document Image Classification**
-
+ <html itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <a id="2-what-is-doc_class"><strong itemprop="name"> What is Document Image Classification?</strong></a>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">         
+    
 Classifying documents into the appropriate category, such as forms, invoices, or letters, is known as document image classification. Classification may use either one or both of the document's image and text. The recent addition of multimodal models that use the visual structure and the underlying text has dramatically increased classifier performance.
 
 A basic approach (and an excellent starting point) is applying OCR on a document image, after which a [BERT](https://huggingface.co/docs/transformers/model_doc/bert)-like model is used for classification. However, relying on only a BERT model doesn't take any layout or visual information into account. The figure shows how visual structure differs by different document types.
@@ -70,7 +78,11 @@ A basic approach (and an excellent starting point) is applying OCR on a document
 
 That's where models like [LayoutLM](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) and [Donut](https://huggingface.co/docs/transformers/model_doc/donut) come into play. By incorporating not only text but also visual information, these models can dramatically increase accuracy. For comparison, on [RVL-CDIP](https://huggingface.co/datasets/rvl_cdip), an important benchmark for document image classification, a BERT-base model achieves 89% accuracy by using the text. A [DiT](https://huggingface.co/docs/transformers/main/en/model_doc/dit) (Document Image Transformer) is a pure vision model (i.e., it does not take text as input) and can reach 92% accuracy. But models like [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3) and [Donut](https://huggingface.co/docs/transformers/model_doc/donut), which use the text and visual information together using a multimodal Transformer, can achieve 95% accuracy! These multimodal models are changing how practitioners solve Document AI use cases.
 
-**Document layout analysis**
+<html itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <a id="2-what-is-doc-layout"><strong itemprop="name"> What is Document layout analysis?</strong></a>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">         
 
 Document layout analysis is the task of determining the physical structure of a document, i.e., identifying the individual building blocks that make up a document, like text segments, headers, and tables. This task is often solved by framing it as an image segmentation/object detection problem. The model outputs a set of segmentation masks/bounding boxes, along with class names.
 
@@ -82,7 +94,11 @@ Document layout analysis with DiT.
 
 Document layout analysis typically uses the mAP (mean average-precision) metric, often used for evaluating object detection models. An important benchmark for layout analysis is the [PubLayNet](https://github.com/ibm-aur-nlp/PubLayNet) dataset. [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3), the state-of-the-art at the time of writing, achieves an overall mAP score of 0.951 ([source](https://paperswithcode.com/sota/document-layout-analysis-on-publaynet-val)).
 
-**Document parsing**
+<html itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <a id="4-what-is-doc-parsing"><strong itemprop="name"> What is Document parsing?</strong></a>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
 
 A step beyond layout analysis is document parsing. Document parsing is identifying and extracting key information from a document, such as names, items, and totals from an invoice form. This [LayoutLMv2 Space](https://huggingface.co/spaces/nielsr/LayoutLMv2-FUNSD) shows to parse a document to recognize questions, answers, and headers.
 
@@ -94,7 +110,11 @@ LayoutLMv1 now has many successors. [Donut](https://huggingface.co/docs/transfor
 
 Data scientists are finding document layout analysis and extraction as key use cases for enterprises. The existing commercial solutions typically cannot handle the diversity of most enterprise data, in content and structure. Consequently, data science teams can often surpass commercial tools by fine-tuning their own models.
 
-**Table detection, extraction, and table structure recognition**
+<html itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <a id="5-what-is-table"><strong itemprop="name"> What is Table detection, extraction, and table structure recognition?</strong></a>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
 
 Documents often contain tables, and most OCR tools don't work incredibly well out-of-the-box on tabular data. Table detection is the task of identifying where tables are located, and table extraction creates a structured representation of that information. Table structure recognition is the task of identifying the individual pieces that make up a table, like rows, columns, and cells. Table functional analysis (FA) is the task of recognizing the keys and values of the table. The figure below illustrates the difference between the various subtasks.
 
@@ -106,8 +126,12 @@ The latest approaches, like [Table Transformer](https://huggingface.co/docs/tran
 
 Table detection and extraction is an exciting approach, but the results may be different on your data. In our experience, the quality and formatting of tables vary widely and can affect how well the models perform. Additional fine-tuning on some custom data will greatly improve the performance.
 
-**Document question answering (DocVQA)**
-
+<html itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <a id="6-what-is-docvqa"><strong itemprop="name"> What is Document question answering (DocVQA)?</strong></a>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">
+          
 Question answering on documents has dramatically changed how people interact with AI. Recent advancements have made it possible to ask models to answer questions about an image - this is known as document visual question answering, or DocVQA for short. After being given a question, the model analyzes the image and responds with an answer. An example of this is shown in the figure below. The user asks," Mention the ZIP code written? " and the model responds with the answer.
 
 ![png](assets/112_document-ai/vqa.png)
@@ -118,11 +142,19 @@ DocVQA is typically evaluated using the Average Normalized Levenshtein Similarit
 
 Visual question answering is compelling; however, there are many considerations for successfully using it. Having accurate training data, evaluation metrics, and post-processing is vital. For teams taking on this use case, be aware that DocVQA can be challenging to work properly. In some cases, responses can be unpredictable, and the model can “hallucinate” by giving an answer that doesn't appear within the document. Ensuring proper model setup and post-processing is integral to building a successful DocVQA solution.
 
-### Licensing Issues
+<html itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <a id="7-what-is-licensing"><h3 itemprop="name"> What are Licensing Issues in Document AI?</h3></a>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">          
 
 Industry and academia make enormous contributions to advancing Document AI. There are a wide assortment of models and datasets available for data scientists to use. However, licensing can be a non-starter for building an enterprise solution. Some well-known models have restrictive licenses that forbid the model from being used for commercial purposes. Most notably, Microsoft has decided that [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) and [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3) cannot be used commercially. When you start a project, we advise carefully evaluating the license of prospective models. Knowing which models you want to use is essential at the outset, since that may affect data collection and annotation. A table of the popular models with their licensing license information is at the end of this post. 
 
-### Data Preparation Issues
+<html itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <a id="8-what-are-dataprep"><h3 itemprop="name"> What are Data Prep Issues in Document AI?</h3></a>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">       
 
 Data preparation for Document AI is critical and challenging. It's crucial to have properly annotated data. Here are some lessons we have learned along with the way around data preparation.
 
@@ -132,7 +164,11 @@ Second, be flexible in your approaches. You may need to test several different m
 
 Third, start small with annotating data and pick your tools wisely. In our experience, you can get good results with several hundred documents. So start small and carefully evaluate your performance. Once you have narrowed your overall approach, you can begin to scale up the data to maximize your predictive accuracy. When annotating, remember that some tasks like layout identification and document extraction require identifying a specific region within a document. You will want to ensure your annotation tool supports bounding boxes.
 
-### Modeling Issues
+<html itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <a id="9-what-is-modeling"><h3 itemprop="name"> What are Modeling Issues in Document AI?</h3></a>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">   
 
 The flexibility of building your models leads to many options for data scientists. Our strong recommendation for teams is to start with the pre-trained open-source models. These models can be fine-tuned to your specific documents, and this is generally the quickest way to a good model.
 
@@ -154,7 +190,11 @@ If you want to accelerate your Document AI efforts, Hugging Face can help. Throu
 
 Tutorial notebooks for many Document AI models are in [Niels Github](https://github.com/NielsRogge/Transformers-Tutorials) repository: [https://github.com/NielsRogge/Transformers-Tutorials](https://github.com/NielsRogge/Transformers-Tutorials).
 
-### Popular Open-Source Models for Document AI
+<html itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <a id="10-what-are-models"><h3 itemprop="name"> What are Popular Open-Source Models for Document AI?</h3></a>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">   
 
 A table of the currently available Transformers models achieving state-of-the-art performance on Document AI tasks. This was last updated in October 2022.
 
@@ -170,7 +210,11 @@ A table of the currently available Transformers models achieving state-of-the-ar
 | [Table Transformer](https://huggingface.co/docs/transformers/main/en/model_doc/table-transformer) | [arxiv](https://arxiv.org/abs/2110.00061) | [MIT](https://github.com/microsoft/table-transformer/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=table-transformer) |
 | [LiLT](https://huggingface.co/docs/transformers/main/en/model_doc/lilt) | [arxiv](https://arxiv.org/abs/2202.13669) | [MIT](https://github.com/jpWang/LiLT/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=lilt) |
 
-### Metrics and Datasets for Document AI
+<html itemscope itemtype="https://schema.org/FAQPage">
+  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+    <a id="11-what-are-metrics"><h3 itemprop="name"> What are Metrics and Datasets for Document AI?</h3></a>
+    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+      <div itemprop="text">             
 
 A table of the common metrics and datasets for command Document AI tasks. This was last updated in October 2022.
 
