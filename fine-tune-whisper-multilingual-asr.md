@@ -26,15 +26,25 @@ thumbnail: /blog/assets/111_fine_tune_whisper/thumbnail.jpg
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-<!--- 
-Note to reviewer: comments are denoted in this Markdown convention.
-Most contain prompts for potential new content, or existing content 
-that is no longer deemed applicable. These comments will be removed 
-after review.
---->
-
 In this blog, we present a step-by-step guide on how to fine-tune Whisper 
-for any multilingual ASR dataset using Hugging Face 🤗 Transformers.
+for any multilingual ASR dataset using Hugging Face 🤗 Transformers. This blog 
+provides in-depth explanations for each of the fine-tuning steps, motivating what 
+we need to do and how we can achieve this using the Hugging Face ecosystem. 
+For a more streamlined version of the code with fewer explanations, see the accompanying 
+[Google Colab](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/fine_tune_whisper_for_multilingual_asr.ipynb).
+
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Hands-on: Fine-tuning Whisper in a Google Colab](#hands-on-fine-tuning-whisper-in-a-google-colab)
+    1. [Prepare Environment](#prepare-environment)
+    2. [Load Dataset](#load-dataset)
+    3. [Prepare Feature Extractor, Tokenizer and Data](#prepare-feature-extractor-tokenizer-and-data)
+    4. [Training and Evaluation](#training--evaluation)
+    5. [Building a Demo](#building-a-demo)
+3. [Closing Remarks](#closing-remarks)
+
+## Introduction
 
 Whisper is a pre-trained model for automatic speech recognition (ASR) 
 published in [September 2022](https://openai.com/blog/whisper/) by the authors 
@@ -43,10 +53,10 @@ Alec Radford et al. from OpenAI. Unlike many of its predecessors, such as
 on un-labelled audio data, Whisper is pre-trained on a vast quantity of 
 **labelled** audio-transcription data, 680,000 hours to be precise. 
 This is an order of magnitude larger than the un-labelled audio data used 
-to train Wav2Vec 2.0 (60,000 hours).
-What is more, 117,000h of this pre-training data is multilingual ASR data. 
-This results in checkpoints that can be applied to over 96 different languages, 
-many of which are considered_low-resource_.
+to train Wav2Vec 2.0 (60,000 hours). What is more, 117,000 hours of this 
+pre-training data is multilingual ASR data. This results in checkpoints 
+that can be applied to over 96 languages, many of which are considered 
+_low-resource_.
 
 This quantity of labelled data enables Whisper to be pre-trained directly on the 
 _supervised_ task of speech recognition, learning a speech-to-text mapping from 
@@ -60,52 +70,51 @@ task of masked prediction. Here, the model is trained to learn an intermediate
 mapping from speech to hidden states. While unsupervised pre-training yields 
 high-quality representations of speech, it does **not** learn a speech-to-text 
 mapping. This mapping is only learned during fine-tuning, thus requiring 
-additional fine-tuning and more in-domain labelled data to yield competitive 
-performance to Whisper.
+more fine-tuning to yield competitive performance to Whisper.
 
 When scaled to 680,000 hours of labelled pre-training data, Whisper models 
 demonstrate a strong ability to generalise to many datasets and domains.
 The pre-trained checkpoints achieve competitive results to state-of-the-art 
 ASR systems, with near 3% word error rate (WER) on the test-clean subset of 
-LibriSpeech ASR and a new state-of-the-art on TED-LIUM with 4.7% WER (_c.f._ Table 8 of 
-the [Whisper paper](https://cdn.openai.com/papers/whisper.pdf)).
+LibriSpeech ASR and a new state-of-the-art on TED-LIUM with 4.7% WER (_c.f._ 
+Table 8 of the [Whisper paper](https://cdn.openai.com/papers/whisper.pdf)).
 The extensive multilingual ASR knowledge acquired by Whisper during pre-training 
-can be leveraged for other low-resource languages: through fine-tuning, the 
+can be leveraged for other low-resource languages; through fine-tuning, the 
 pre-trained checkpoints can be adapted for specific datasets and languages 
 to further improve upon these results.
 
-The Whisper model is a Transformer based encoder-decoder architecture, 
+Whisper is a Transformer based encoder-decoder model, 
 also referred to as a _sequence-to-sequence_ model. It maps a _sequence_ 
-of audio spectrogram features into a _sequence_ of text tokens. First, 
+of audio spectrogram features to a _sequence_ of text tokens. First, 
 the raw audio inputs are converted to a log-Mel spectrogram by action of 
 the feature extractor. The spectrogram is then encoded by the Transformer 
-encoder to form a sequence of encoder hidden-states. Finally, the decoder 
-auto-regressively predicts text tokens conditional on the previous tokens 
-and the encoder hidden-states. Figure 1 summarises the architecture of the 
-Whisper model.
+encoder to form a sequence of encoder hidden states. Finally, the decoder 
+autoregressively predicts text tokens, conditional on both the previous tokens 
+and the encoder hidden states. Figure 1 summarises the Whisper model.
 
 <figure>
 <img src="assets/111_fine_tune_whisper/whisper_architecture.svg" alt="Trulli" style="width:100%">
 <figcaption align = "center"><b>Figure 1:</b> Whisper model. The architecture 
-follows the standard Transformer-based encoder-decoder architecture. A 
+follows the standard Transformer-based encoder-decoder model. A 
 log-Mel spectrogram is input to the encoder. The last encoder 
-hidden-states are input to the decoder via cross-attention mechanisms. The 
+hidden states are input to the decoder via cross-attention mechanisms. The 
 decoder autoregressively predicts text tokens, jointly conditional on the 
-encoder hidden-states and previously predicted tokens. Figure source: 
-[Whisper blog](https://openai.com/blog/whisper/)</figcaption>
+encoder hidden states and previously predicted tokens. Figure source: 
+<a href="https://openai.com/blog/whisper/">Whisper blog</a>.</figcaption>
 </figure>
 
-In the sequence-to-sequence architecture, the encoder plays the role of 
-encoding the audio inputs to hidden-state representations. The role of the 
-decoder is to process these representations and generate the corresponding 
-transcriptions, rather like that of a language model. Incorporating a language 
-model internally in the model architecture in the form of a decoder is termed 
-_deep-fusion_. This is in contrast to _shallow-fusion_, where a language model 
-is combined externally with an encoder, such as with CTC + $n$-gram (_c.f._ 
-[ESB](https://arxiv.org/abs/2210.13352)). With deep-fusion, the entire system can 
-be trained end-to-end with the same training data and the same loss function, 
-giving greater flexibility and generally superior performance (_c.f._ 
-[Deep Speech](https://arxiv.org/pdf/1412.5567.pdf)).
+In a sequence-to-sequence model, the encoder transforms the audio inputs 
+to a set of hidden state representations, extracting important features 
+from the spoken speech. The decoder plays the role of a language model, 
+processing the hidden state representations and generating the corresponding 
+text transcriptions. Incorporating a language model **internally** in the 
+system architecture is termed _deep-fusion_. This is in contrast to 
+_shallow-fusion_, where a language model is combined **externally** with 
+an encoder, such as with CTC + $n$-gram (_c.f._ 
+[ESB Benchmark](https://arxiv.org/abs/2210.13352)). With deep-fusion, the 
+entire system can be trained end-to-end with the same training data and the 
+same loss function, giving greater flexibility and generally superior 
+performance (_c.f._ [Deep Speech](https://arxiv.org/pdf/1412.5567.pdf)).
 
 Whisper is both pre-trained and fine-tuned using the cross-entropy objective function, 
 a common objective function for training sequence-to-sequence systems on classification tasks: 
@@ -115,7 +124,7 @@ vocabulary of text tokens.
 The Whisper checkpoints come in five configurations of varying model size.
 The smallest four are trained on either English-only or multilingual data.
 The largest checkpoint is multilingual only. All nine of the pre-trained checkpoints 
-are available on the [Hugging Face Hub](https://huggingface.co/models?other=whisper). The 
+are available on the [Hugging Face Hub](https://huggingface.co/models?search=openai/whisper). The 
 checkpoints are summarised in the following table with links to the models on the Hub:
 
 | Size   | Layers | Width | Heads | Parameters | English-only                                         | Multilingual                                      |
@@ -127,12 +136,11 @@ checkpoints are summarised in the following table with links to the models on th
 | large  | 32     | 1280  | 20    | 1550 M     | x                                                    | [✓](https://huggingface.co/openai/whisper-large)  |
 
 For demonstration purposes, we'll fine-tune the multilingual version of the 
-[`"small"`](https://huggingface.co/openai/whisper-small) checkpoint with 244M params (~= 1GB).
-
+[`"small"`](https://huggingface.co/openai/whisper-small) checkpoint with 244M params (~= 1GB). 
 As for our data, we'll train and evaluate our system on a low-resource language 
 taken from the [Common Voice](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)
-dataset. We'll show that with as little as 8 hours of fine-tuning data we can achieve 
-strong performance on this language.
+dataset. We'll show that with as little as 8 hours of fine-tuning data, we can achieve 
+strong performance in this language.
 
 ------------------------------------------------------------------------
 
@@ -167,7 +175,7 @@ TODO:
 !pip install gradio
 ```
 
-We strongly advise you to upload model checkpoints directly the [🤗 Hub](https://huggingface.co/) 
+We strongly advise you to upload model checkpoints directly the [Hugging Face Hub](https://huggingface.co/) 
 whilst training. The Hub provides:
 - Integrated version control: you can be sure that no model checkpoint is lost during training.
 - Tensorboard logs: track important metrics over the course of training.
@@ -175,8 +183,8 @@ whilst training. The Hub provides:
 - Community: an easy way to share and collaborate with the community!
 
 Linking the notebook to the Hub is straightforward - it simply requires entering your 
-authentication token from the Hugging Face website when prompted 
-(sign-up [here](https://huggingface.co/join) if you haven't done so already!)
+Hub authentication token when prompted. Authentication tokens 
+can be found [here](https://huggingface.co/settings/tokens):
 
 ```python
 from huggingface_hub import notebook_login
@@ -188,16 +196,6 @@ notebook_login()
 ```bash
 Login successful
 Your token has been saved to /root/.huggingface/token
-Authenticated through git-credential store but this isn't the helper defined on your machine.
-You will have to re-authenticate when pushing to the Hugging Face Hub. Run the following command in your terminal to set it as the default
-
-git config --global credential.helper store
-```
-
-Finally, install Git-LFS to enable pushing of large model weights to the Hub:
-
-```python
-!apt install git-lfs
 ```
 
 ### Load Dataset
@@ -210,7 +208,7 @@ an Indo-Aryan language spoken in northern, central, eastern, and western India.
 Common Voice 11.0 contains approximately 12 hours
 of labelled Hindi data, 4 of which is held-out test data.
 
-Let's head to the Hugging Face Hub and view the dataset page for Common Voice: [mozilla-foundation/common_voice_11_0](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)
+Let's head to the Hub and view the dataset page for Common Voice: [mozilla-foundation/common_voice_11_0](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)
 
 The first time we view this page, we'll be asked to accept the 
 terms of use. After that, we'll be given full access to the dataset.
@@ -238,7 +236,7 @@ Since Hindi is very low-resource, we'll combine the `train` and `validation`
 splits to give approximately 8 hours of training data. We'll use the 4 hours 
 of `test` data as our held-out test set:
 ```python
-from datasets import load_dataset, DatasetDict, Audio
+from datasets import load_dataset, DatasetDict
 
 common_voice = DatasetDict()
 
@@ -387,7 +385,7 @@ is that we can leverage the tokenizer from the pre-trained model directly.
 
 In the case of Whisper, the pre-trained tokenizer is that of the [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf) 
 tokenizer, but refit to the multilingual vocabulary for the 96 
-pre-training languages. This tokenizer has an expansive byte-pair 
+pre-training languages. This tokenizer has an expansive [byte-pair](https://huggingface.co/course/chapter6/5?fw=pt#bytepair-encoding-tokenization) 
 vocabulary that is applicable to almost all multilingual ASR 
 applications. For Hindi, we can load the tokenizer and use it for 
 fine-tuning without any further modifications. We simply have to 
@@ -404,10 +402,10 @@ tokenizer = WhisperTokenizer.from_pretrained("openai/whisper-small", language="H
 We can verify that the tokenizer correctly encodes Hindi characters by 
 encoding and decoding the first sample of the Common Voice dataset. When 
 encoding the transcriptions, the tokenizer appends 'special tokens' to the 
-start and end of the sequence, including the BOS/EOS tokens, language token 
-id and task token id (as specified by the arguments in the previous step). 
+start and end of the sequence, including the start/end of transcript tokens, 
+language token and task token (as specified by the arguments in the previous step). 
 When decoding the label ids, we have the option of 'skipping' these special 
-tokens, in order to return a string in the original input form:
+tokens, allowing us to return a string in the original input form:
 
 ```python
 input_str = common_voice["train"][0]["sentence"]
@@ -472,6 +470,8 @@ but rather signals to `datasets` to resample audio samples _on-the-fly_ the
 first time they are loaded:
 
 ```python
+from datasets import Audio
+
 common_voice = common_voice.cast_column("audio", Audio(sampling_rate=16000))
 ```
 
@@ -528,7 +528,7 @@ and [`librosa`](https://librosa.org/doc/latest/index.html) for audio loading and
 If you wish to implement your own customised data loading/sampling, you can use the `"path"` 
 column to obtain the audio file path and disregard the `"audio"` column.
 
-## Training & Evaluation
+## Training and Evaluation
 
 Now that we've prepared our data, we're ready to dive into the training pipeline. 
 The [🤗 Trainer](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer)
@@ -658,9 +658,9 @@ TODO: set config suppress tokens and forced tokens to [] and None resp.
 ### Define the Training Arguments
 In a final step, we define all the parameters related to training. A subset of parameters are 
 explained below:
-- `output_dir`: local directory in which to save the model weights. This will also be the repository name on the [Hub](https://huggingface.co/).
+- `output_dir`: local directory in which to save the model weights. This will also be the repository name on the [Hugging Face Hub](https://huggingface.co/).
 - `generation_max_length`: maximum number of tokens to autoregressively generate during evaluation.
-- `save_steps`: during training, intermediate checkpoints will be saved and uploaded asynchronously to the hub every `save_steps` training steps.
+- `save_steps`: during training, intermediate checkpoints will be saved and uploaded asynchronously to the Hub every `save_steps` training steps.
 - `eval_steps`: during training, evaluation of intermediate checkpoints will be performed every `eval_steps` training steps.
 - `report_to`: where to save training logs. Supported platforms are `"azure_ml"`, `"comet_ml"`, `"mlflow"`, `"neptune"`, `"tensorboard"` and `"wandb"`. Pick your favourite or leave as `"tensorboard"` to log to the Hub.
 
@@ -770,7 +770,7 @@ kwargs = {
     "dataset_tags": "mozilla-foundation/common_voice_11_0",
     "dataset": "Common Voice 11.0",  # a 'pretty' name for the training dataset
     "language": "hi",
-    "model_name": "Whisper Small Hi - Sanchit Gandhi",  # a 'pretty' name for our model
+    "model_name": "Whisper Small Hi - Sanchit Gandhi",  # a 'pretty' name for your model
     "finetuned_from": "openai/whisper-small",
     "tasks": "automatic-speech-recognition",
     "tags": "hf-asr-leaderboard",
@@ -802,12 +802,13 @@ _learning rate_ and _dropout_, and through using a larger pre-trained
 checkpoint (either the medium or large).
 
 ### Building a Demo
-Now that we've fine-tuned our model we can build a demo to show 
+Now that we've fine-tuned our model, we can build a demo to show 
 off its ASR capabilities! We'll make use of 🤗 Transformers 
-`pipeline` which will take care of the full ASR pipeline, 
+`pipeline`, which will take care of the full ASR process, 
 right from pre-processing the audio inputs to decoding the 
-model predictions. Gradio is arguably the simplest way of building 
-a machine learning demo; with Gradio, we can build a demo in 
+model predictions. We'll build our interactive demo with [Gradio](https://www.gradio.app). 
+Gradio is arguably the simplest way of building 
+machine learning demos; with Gradio, we can build a demo in 
 just a matter of minutes!
 
 Running the example below will generate a Gradio demo where we 
@@ -838,6 +839,6 @@ iface.launch()
 ## Closing Remarks
 
 In this blog, we covered a step-by-step guide on how to fine-tune Whisper for multilingual ASR 
-using 🤗 Datasets, Transformers and the Hub. If you're interested in fine-tuning other 
+using 🤗 Datasets, Transformers and the Hugging Face Hub. If you're interested in fine-tuning other 
 Transformers models, both for English and multilingual ASR, be sure to check out the 
 examples scripts at: [examples/pytorch/speech-recognition](https://github.com/huggingface/transformers/tree/main/examples/pytorch/speech-recognition).
