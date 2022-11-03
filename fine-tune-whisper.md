@@ -680,6 +680,9 @@ training_args = Seq2SeqTrainingArguments(
     eval_steps=1000,
     logging_steps=25,
     report_to=["tensorboard"],
+    load_best_model_at_end=True,
+    metric_for_best_model="wer",
+    greater_is_better=False,
     push_to_hub=True,
 )
 ```
@@ -727,17 +730,19 @@ to compensate.
 | 2000 |    0.0264     | 4.89  |     0.3558      | 33.13 |
 | 3000 |    0.0025     | 7.33  |     0.4214      | 32.59 |
 | 4000 |    0.0006     | 9.78  |     0.4519      | 32.01 |
+| 5000 |    0.0002     | 12.22 |     0.4679      | 32.10 |
 
-
-The final WER is 32.0% - not bad for 8h of training data! The big question is how this 
+Our best WER is 32.0% - not bad for 8h of training data! The big question is how this 
 compares to other ASR systems. For that, we can view the [`hf-speech-bench`](https://huggingface.co/spaces/huggingface/hf-speech-bench), 
 a leaderboard that categorises models by language and dataset, and subsequently ranks 
 them according to their WER.
 
-SCREENSHOT OF LEADERBOARD
+<figure>
+<img src="assets/111_fine_tune_whisper/hf_speech_bench.jpg" alt="Trulli" style="width:100%">
+</figure>
 
 Our fine-tuned model significantly improves upon the zero-shot performance of the Whisper 
-small checkpoint, highlighting the strong transfer learning capabilities of Whisper.
+`small` checkpoint, highlighting the strong transfer learning capabilities of Whisper.
 
 We can automatically submit our checkpoint to the leaderboard when we
 push the training results to the Hub - we simply have to set the appropriate key-word 
