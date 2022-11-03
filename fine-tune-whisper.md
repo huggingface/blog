@@ -60,7 +60,7 @@ _low-resource_.
 
 This quantity of labelled data enables Whisper to be pre-trained directly on the 
 _supervised_ task of speech recognition, learning a speech-to-text mapping from 
-the labelled audio-transcription pre-training data\\({}^1\\). As a consequence, 
+the labelled audio-transcription pre-training data \\({}^1\\). As a consequence, 
 Whisper requires little additional fine-tuning to yield a performant ASR model.
 This is in contrast to Wav2Vec 2.0, which is pre-trained on the _unsupervised_ 
 task of masked prediction. Here, the model is trained to learn an intermediate 
@@ -359,7 +359,7 @@ feature_extractor = WhisperFeatureExtractor.from_pretrained("openai/whisper-smal
 Now let's look at how to load a Whisper tokenizer. The Whisper model outputs 
 text tokens that indicate the _index_ of the predicted text among the dictionary 
 of vocabulary items. The tokenizer maps a sequence of text tokens to the actual 
-text string (e.g. \\([1169, 3797, 3332]\\) -> "the cat sat").
+text string (e.g. [1169, 3797, 3332] -> "the cat sat").
 
 Traditionally, when using encoder-only models for ASR, we decode using 
 [_Connectionist Temporal Classification (CTC)_](https://distill.pub/2017/ctc/). 
