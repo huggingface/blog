@@ -7,7 +7,7 @@ thumbnail: /blog/assets/111_fine_tune_whisper/thumbnail.jpg
 
 <div class="blog-metadata">
     <small>Published 3 November, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fine-tune-whisper-multilingual-asr.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fine-tune-whisper.md">
         Update on GitHub
     </a>
 </div>
@@ -22,16 +22,16 @@ thumbnail: /blog/assets/111_fine_tune_whisper/thumbnail.jpg
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/fine_tune_whisper_for_multilingual_asr.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/fine_tune_whisper.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
 In this blog, we present a step-by-step guide on how to fine-tune Whisper 
 for any multilingual ASR dataset using Hugging Face 🤗 Transformers. This blog 
-provides in-depth explanations for each of the fine-tuning steps, motivating what 
-we need to do and how we can achieve this using the Hugging Face ecosystem. 
-For a more streamlined version of the code with fewer explanations, see the accompanying 
-[Google Colab](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/fine_tune_whisper_for_multilingual_asr.ipynb).
+provides in-depth explanations of the Whisper model, the Common Voice dataset and 
+the theory behind fine-tuning, with accompanying code cells to execute the fine-tuning 
+steps. For a more streamlined version of the code with fewer explanations, see the accompanying 
+[Google Colab](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/fine_tune_whisper.ipynb).
 
 ## Table of Contents
 
@@ -100,7 +100,7 @@ log-Mel spectrogram is input to the encoder. The last encoder
 hidden states are input to the decoder via cross-attention mechanisms. The 
 decoder autoregressively predicts text tokens, jointly conditional on the 
 encoder hidden states and previously predicted tokens. Figure source: 
-<a href="https://openai.com/blog/whisper/">Whisper blog</a>.</figcaption>
+<a href="https://openai.com/blog/whisper/">OpenAI Whisper Blog</a>.</figcaption>
 </figure>
 
 In a sequence-to-sequence model, the encoder transforms the audio inputs 
@@ -183,8 +183,7 @@ whilst training. The Hub provides:
 - Community: an easy way to share and collaborate with the community!
 
 Linking the notebook to the Hub is straightforward - it simply requires entering your 
-Hub authentication token when prompted. Authentication tokens 
-can be found [here](https://huggingface.co/settings/tokens):
+Hub authentication token when prompted. Find your Hub authentication token [here](https://huggingface.co/settings/tokens):
 
 ```python
 from huggingface_hub import notebook_login
@@ -342,8 +341,9 @@ on the Mel channels, refer to [Mel-frequency cepstrum](https://en.wikipedia.org/
 <figure>
 <img src="assets/111_fine_tune_whisper/spectrogram.jpg" alt="Trulli" style="width:100%">
 <figcaption align = "center"><b>Figure 2:</b> Conversion of sampled audio array to log-Mel spectrogram.
-Left: sampled 1-dimensional audio signal. Right: corresponding log-Mel spectrogram. 
-Figure source: [SpecAugment blog](https://ai.googleblog.com/2019/04/specaugment-new-data-augmentation.html)</figcaption>
+Left: sampled 1-dimensional audio signal. Right: corresponding log-Mel spectrogram. Figure source:
+<a href="https://ai.googleblog.com/2019/04/specaugment-new-data-augmentation.html">Google SpecAugment Blog</a>.
+</figcaption>
 </figure>
 
 Luckily for us, the 🤗 Transformers Whisper feature extractor performs both the
@@ -609,7 +609,8 @@ data_collator = DataCollatorSpeechSeq2SeqWithPadding(processor=processor)
 ### Evaluation Metrics
 Next, we define the evaluation metric we'll use on our evaluation
 set. We'll use the Word Error Rate (WER) metric, the 'de-facto' metric for assessing 
-ASR systems. For more information, refer to the WER [docs](https://huggingface.co/metrics/wer).
+ASR systems. For more information, refer to the WER [docs](https://huggingface.co/metrics/wer). 
+We'll load the WER metric from 🤗 Evaluate:
 
 ```python
 import evaluate
@@ -714,27 +715,13 @@ trainer = Seq2SeqTrainer(
 And with that, we're ready to start training!
 
 ### Training
-Training will take approximately 5-10 hours depending on your GPU or the one 
-allocated to the Google Colab. If using this notebook as a Google Colab to directly
-fine-tune a Whisper model, you should make sure that training isn't 
-interrupted due to inactivity. A simple workaround to prevent this is 
-to paste the following code into the console of this tab (_right mouse click_ 
--> _inspect_ -> _Console tab_ -> _insert code_).
-
-```javascript
-function ConnectButton(){
-    console.log("Connect pushed"); 
-    document.querySelector("#top-toolbar > colab-connect-button").shadowRoot.querySelector("#connect").click() 
-}
-setInterval(ConnectButton, 60000);
-```
-
 To launch training, simply execute:
 ```python
 trainer.train()
 ```
 
-Depending on your GPU or the one allocated to Google Colab, it is possible 
+Training will take approximately 5-10 hours depending on your GPU or the one 
+allocated to the Google Colab. Depending on your GPU, it is possible 
 that you will encounter a CUDA `"out-of-memory"` error when you start training. In this case,
 you can reduce the `per_device_train_batch_size` incrementally by factors of 2 
 and employ [`gradient_accumulation_steps`](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.Seq2SeqTrainingArguments.gradient_accumulation_steps)
@@ -804,7 +791,7 @@ checkpoint (either the medium or large).
 ### Building a Demo
 Now that we've fine-tuned our model, we can build a demo to show 
 off its ASR capabilities! We'll make use of 🤗 Transformers 
-`pipeline`, which will take care of the full ASR process, 
+`pipeline`, which will take care of the full ASR pipeline, 
 right from pre-processing the audio inputs to decoding the 
 model predictions. We'll build our interactive demo with [Gradio](https://www.gradio.app). 
 Gradio is arguably the simplest way of building 
