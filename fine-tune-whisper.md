@@ -108,7 +108,7 @@ processing the hidden state representations and generating the corresponding
 text transcriptions. Incorporating a language model **internally** in the 
 system architecture is termed _deep fusion_. This is in contrast to 
 _shallow fusion_, where a language model is combined **externally** with 
-an encoder, such as with CTC + $n$-gram (_c.f._ [Internal Language Model Estimation](https://arxiv.org/pdf/2011.01991.pdf)).
+an encoder, such as with CTC + \\(n\\)-gram (_c.f._ [Internal Language Model Estimation](https://arxiv.org/pdf/2011.01991.pdf)).
 With deep fusion, the entire system can be trained end-to-end with the 
 same training data and loss function, giving greater flexibility and generally 
 superior performance (_c.f._ [ESB Benchmark](https://arxiv.org/abs/2210.13352)).
@@ -325,8 +325,8 @@ an attention mask and infer directly from the speech signals where to ignore the
 The second operation that the Whisper feature extractor performs is converting the 
 padded audio arrays to log-Mel spectrograms. These spectrograms are 
 a visual representation of the frequencies of a signal, rather like a Fourier transform. 
-An example spectrogram is shown in Figure 2. Along the $y$-axis are the Mel channels, 
-which correspond to particular frequency bins. Along the $x$-axis is time. The colour of 
+An example spectrogram is shown in Figure 2. Along the \\(y\\)-axis are the Mel channels, 
+which correspond to particular frequency bins. Along the \\(x\\)-axis is time. The colour of 
 each pixel corresponds to the log-intensity of that frequency bin at a given time. The 
 log-Mel spectrogram is the form of input expected by the Whisper model.
 
@@ -359,7 +359,7 @@ feature_extractor = WhisperFeatureExtractor.from_pretrained("openai/whisper-smal
 Now let's look at how to load a Whisper tokenizer. The Whisper model outputs 
 text tokens that indicate the _index_ of the predicted text among the dictionary 
 of vocabulary items. The tokenizer maps a sequence of text tokens to the actual 
-text string (e.g. $[1169, 3797, 3332]$ -> "the cat sat").
+text string (e.g. \\([1169, 3797, 3332]\\) -> "the cat sat").
 
 Traditionally, when using encoder-only models for ASR, we decode using 
 [_Connectionist Temporal Classification (CTC)_](https://distill.pub/2017/ctc/). 
