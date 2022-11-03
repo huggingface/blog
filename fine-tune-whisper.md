@@ -52,7 +52,7 @@ Alec Radford et al. from OpenAI. Unlike many of its predecessors, such as
 [Wav2Vec 2.0](https://arxiv.org/abs/2006.11477), which are pre-trained 
 on un-labelled audio data, Whisper is pre-trained on a vast quantity of 
 **labelled** audio-transcription data, 680,000 hours to be precise. 
-This is an order of magnitude larger than the un-labelled audio data used 
+This is an order of magnitude more data than the un-labelled audio data used 
 to train Wav2Vec 2.0 (60,000 hours). What is more, 117,000 hours of this 
 pre-training data is multilingual ASR data. This results in checkpoints 
 that can be applied to over 96 languages, many of which are considered 
@@ -87,8 +87,8 @@ Whisper is a Transformer based encoder-decoder model,
 also referred to as a _sequence-to-sequence_ model. It maps a _sequence_ 
 of audio spectrogram features to a _sequence_ of text tokens. First, 
 the raw audio inputs are converted to a log-Mel spectrogram by action of 
-the feature extractor. The spectrogram is then encoded by the Transformer 
-encoder to form a sequence of encoder hidden states. Finally, the decoder 
+the feature extractor. The Transformer encoder then encodes the spectrogram 
+to form a sequence of encoder hidden states. Finally, the decoder 
 autoregressively predicts text tokens, conditional on both the previous tokens 
 and the encoder hidden states. Figure 1 summarises the Whisper model.
 
@@ -104,24 +104,23 @@ encoder hidden states and previously predicted tokens. Figure source:
 </figure>
 
 In a sequence-to-sequence model, the encoder transforms the audio inputs 
-to a set of hidden state representations, extracting important features 
+into a set of hidden state representations, extracting important features 
 from the spoken speech. The decoder plays the role of a language model, 
 processing the hidden state representations and generating the corresponding 
 text transcriptions. Incorporating a language model **internally** in the 
-system architecture is termed _deep-fusion_. This is in contrast to 
-_shallow-fusion_, where a language model is combined **externally** with 
-an encoder, such as with CTC + $n$-gram (_c.f._ 
-[ESB Benchmark](https://arxiv.org/abs/2210.13352)). With deep-fusion, the 
-entire system can be trained end-to-end with the same training data and the 
-same loss function, giving greater flexibility and generally superior 
-performance (_c.f._ [Deep Speech](https://arxiv.org/pdf/1412.5567.pdf)).
+system architecture is termed _deep fusion_. This is in contrast to 
+_shallow fusion_, where a language model is combined **externally** with 
+an encoder, such as with CTC + $n$-gram (_c.f._ [Internal Language Model Estimation](https://arxiv.org/pdf/2011.01991.pdf)).
+With deep fusion, the entire system can be trained end-to-end with the 
+same training data and loss function, giving greater flexibility and generally 
+superior performance (_c.f._ [ESB Benchmark](https://arxiv.org/abs/2210.13352)).
 
-Whisper is both pre-trained and fine-tuned using the cross-entropy objective function, 
-a common objective function for training sequence-to-sequence systems on classification tasks: 
-the system is trained to correctly classify the target text token from a pre-defined 
+Whisper is pre-trained and fine-tuned using the cross-entropy objective function, 
+a standard objective function for training sequence-to-sequence systems on classification tasks. 
+Here, the system is trained to correctly classify the target text token from a pre-defined 
 vocabulary of text tokens.
 
-The Whisper checkpoints come in five configurations of varying model size.
+The Whisper checkpoints come in five configurations of varying model sizes.
 The smallest four are trained on either English-only or multilingual data.
 The largest checkpoint is multilingual only. All nine of the pre-trained checkpoints 
 are available on the [Hugging Face Hub](https://huggingface.co/models?search=openai/whisper). The 
@@ -200,12 +199,13 @@ Your token has been saved to /root/.huggingface/token
 ### Load Dataset
 
 Common Voice is a series of crowd-sourced datasets where speakers 
-record text from Wikipedia in various languages. For this notebook, 
-we'll use the latest edition of the Common Voice dataset ([version 11](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)). 
-As for our language, we'll fine-tune our system on [_Hindi_](https://en.wikipedia.org/wiki/Hindi), 
-an Indo-Aryan language spoken in northern, central, eastern, and western India. 
-Common Voice 11.0 contains approximately 12 hours
-of labelled Hindi data, 4 of which is held-out test data.
+record text from Wikipedia in various languages. We'll use the latest edition 
+of the Common Voice dataset ([version 11](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)). 
+for this notebook. As for our language, we'll fine-tune our model on 
+[_Hindi_](https://en.wikipedia.org/wiki/Hindi), an Indo-Aryan language 
+spoken in northern, central, eastern, and western India. Common Voice 11.0 
+contains approximately 12 hours of labelled Hindi data, 4 of which are 
+held-out test data.
 
 Let's head to the Hub and view the dataset page for Common Voice: [mozilla-foundation/common_voice_11_0](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)
 
@@ -215,7 +215,7 @@ terms of use. After that, we'll be given full access to the dataset.
 Once we've provided authentication to use the dataset, we'll be presented with the 
 dataset preview. The dataset preview shows us the first 100 samples 
 of the dataset. What's more, it's loaded up with audio samples ready for us 
-to listen to in real-time. We can select the Hindi subset of Common Voice by 
+to listen to in real time. We can select the Hindi subset of Common Voice by 
 setting the subset to `hi` using the dropdown menu (`hi` being the language 
 identifier code for Hindi):
 
@@ -226,8 +226,9 @@ identifier code for Hindi):
 If we hit the play button on the first sample, we can listen to the audio and 
 see the corresponding text. Have a scroll through the samples for the train 
 and test sets to get a better feel for the audio and text data that we're 
-dealing with. You'll likely notice the large variation in speakers and recording 
-quality, but the style is very typical of traditional narrated speech.
+dealing with. We can tell from the intonation and style that the recordings 
+are taken from narrated speech. You'll also likely notice the large variation in 
+speakers and recording quality, a common trait of crowd-sourced data. 
 
 Using 🤗 Datasets, downloading and preparing data is extremely simple. 
 We can download and prepare the Common Voice splits in just one line of code.
@@ -259,7 +260,7 @@ DatasetDict({
 })
 ```
 
-The majority of ASR datasets only provide input audio samples (`audio`) and the 
+Most ASR datasets only provide input audio samples (`audio`) and the 
 corresponding transcribed text (`sentence`). Common Voice contains additional 
 metadata information, such as `accent` and `locale`, which we can disregard for ASR.
 Keeping the notebook as general as possible, we only consider the input audio and
@@ -289,43 +290,43 @@ We'll go through details of the feature extractor and tokenizer one-by-one!
 
 ### Load WhisperFeatureExtractor
 
-Speech is represented by a 1-dimensional signal that varies with time. 
-The value of the signal at any given time-step is the _amplitude_ of the 
-signal at that point. From the amplitude information alone, we can 
+Speech is represented by a 1-dimensional array that varies with time. 
+The value of the array at any given time step is the speech signal's _amplitude_  
+at that point. From the amplitude information alone, we can 
 reconstruct the frequency spectrum of the audio and recover all acoustic features.
 
 Since speech is continuous, it contains an infinite number of amplitude values.
 This poses problems for computer devices which expect finite arrays. Thus, we 
 discretise our speech signal by _sampling_ values from our signal at fixed time steps.
-The interval with which we sample our audio is known as the _sampling rate_, 
+The interval with which we sample our audio is known as the _sampling rate_ 
 and is usually measured in samples/sec or _Hertz (Hz)_. Sampling with a higher 
 sampling rate results in a better approximation of the continuous speech signal, 
 but also requires storing more values per second. 
 
-It's crucial that we match the sampling rate of our audio inputs to the sampling
+It is crucial that we match the sampling rate of our audio inputs to the sampling
 rate expected by our model, as audio signals with different sampling rates have very
 different distributions. Audio samples should only ever be processed with the 
 correct sampling rate. Failing to do so can lead to unexpected results!
 For instance, taking an audio sample with a sampling rate of 16kHz and listening 
 to it with a sampling rate of 8kHz will make the audio sound as though it's in half-speed. 
-In the same way, passing an audio with the wrong sampling rate to an ASR model can 
-falter a system that was expecting one sampling rate and receives another. The Whisper 
+In the same way, passing audio with the wrong sampling rate can falter an ASR model 
+expecting one sampling rate and receiving another. The Whisper 
 feature extractor expects audio inputs with a sampling rate of 16kHz, so we need to 
 match our inputs to this value. We don't want to inadvertently train an ASR 
 system on slow-motion speech 😉
 
-The Whisper feature extractor performs two operations. It first pads a batch of audio samples
-such that all samples have an input length of 30s. Samples shorter than 30s will be padded to 30s
-by appending zeros to the end of the sequence (zeros in an audio signal correspond to no signal,
-or silence). Samples longer than 30s will be truncated to 30s. Since all elements 
-in the batch are padded to a maximum length in the input space, we don't require 
+The Whisper feature extractor performs two operations. It first pads/truncates a batch of audio samples
+such that all samples have an input length of 30s. Samples shorter than 30s are padded to 30s
+by appending zeros to the end of the sequence (zeros in an audio signal corresponding to no signal
+or silence). Samples longer than 30s are truncated to 30s. Since all elements 
+in the batch are padded/truncated to a maximum length in the input space, we don't require 
 an attention mask when forwarding the audio inputs to the Whisper model. 
-Whisper is unique in this regard - with most audio models, you can expect to provide 
+Whisper is unique in this regard: with most audio models, you can expect to provide 
 an attention mask that details where sequences have been padded, and thus where they
 should be ignored in the self-attention mechanism. Whisper is trained to operate without
 an attention mask and infer directly from the speech signals where to ignore the inputs.
 
-The second operation that the Whisper feature extractors performs is converting the 
+The second operation that the Whisper feature extractor performs is converting the 
 padded audio arrays to log-Mel spectrograms. These spectrograms are 
 a visual representation of the frequencies of a signal, rather like a Fourier transform. 
 An example spectrogram is shown in Figure 2. Along the $y$-axis are the Mel channels, 
@@ -333,10 +334,10 @@ which correspond to particular frequency bins. Along the $x$-axis is time. The c
 each pixel corresponds to the log-intensity of that frequency bin at a given time. The 
 log-Mel spectrogram is the form of input expected by the Whisper model.
 
-The Mel channels (frequency bins) are standard in speech processing, and chosen to approximate
-the human auditory range. All we need to know for the purpose of Whisper is that 
-the spectrogram is a visual representation of the frequencies in the signal. For more detail
-on the Mel channels, refer to [Mel-frequency cepstrum](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum).
+The Mel channels (frequency bins) are standard in speech processing and chosen to approximate
+the human auditory range. All we need to know for Whisper fine-tuning is that 
+the spectrogram is a visual representation of the frequencies in the speech signal. For more detail
+on Mel channels, refer to [Mel-frequency cepstrum](https://en.wikipedia.org/wiki/Mel-frequency_cepstrum).
 
 <figure>
 <img src="assets/111_fine_tune_whisper/spectrogram.jpg" alt="Trulli" style="width:100%">
@@ -348,19 +349,8 @@ Left: sampled 1-dimensional audio signal. Right: corresponding log-Mel spectrogr
 
 Luckily for us, the 🤗 Transformers Whisper feature extractor performs both the
 padding and spectrogram conversion in just one line of code! Let's go ahead 
-and instantiate a Whisper feature extractor. The feature extractor takes the 
-following (optional) arguments:
- - `feature_size`: the number of log-Mel channels.
- - `sampling_rate`: the sampling rate on which the model is trained on.
- - `hop_length`:  the length of the overlapping windows for the short-time Fourier transform (STFT) used to obtain the Mel Frequency coefficients.
- - `chunk_length`: The maximum number of chunks of `sampling_rate` samples used to pad shorter input sequences and trim longer ones.
- - `n_fft`: size of the Fourier transform.
- - `padding_value`: padding value used to pad audio sequences shorter than max length. Should be set to zero to correspond to silence.
- - `return_attention_mask`: whether the model should make use of an
-     `attention_mask` for batched inference. In general, the Whisper model should
-     **not** make use of the `attention_mask` to mask padded tokens.
-
-We'll load the feature extractor from the pre-trained checkpoint with the default values, and thus omit them when we instantiate the class:
+and load the feature extractor from the pre-trained checkpoint to have ready 
+for our audio data:
 
 ```python
 from transformers import WhisperFeatureExtractor
@@ -371,27 +361,23 @@ feature_extractor = WhisperFeatureExtractor.from_pretrained("openai/whisper-smal
 ### Load WhisperTokenizer
 
 Now let's look at how to load a Whisper tokenizer. The Whisper model outputs 
-a vector of dimensionality equal to the number of vocabulary items. 
-This vector contains a single 1 in the position of the predicted text token, 
-and zeros elsewhere (typically referred to as a _one-hot encoding_). 
-The tokenizer maps from the one-hot encoding vector to the actual text string 
-(e.g. $\[0, 1, 0, 0, \dots, 0\]^{T}$ -> "cat"). 
+text tokens that indicate the _index_ of the predicted text among the dictionary 
+of vocabulary items. The tokenizer maps a sequence of text tokens to the actual 
+text string (e.g. $[1169, 3797, 3332]$ -> "the cat sat").
 
 Traditionally, when using encoder-only models for ASR, we decode using 
-the [_Connectionist Temporal Classification (CTC)_](https://distill.pub/2017/ctc/) 
-loss, where we are required to train a CTC tokenizer for each dataset 
-that we use. One of the advantages of using an encoder-decoder architecture 
-is that we can leverage the tokenizer from the pre-trained model directly.
+[_Connectionist Temporal Classification (CTC)_](https://distill.pub/2017/ctc/). 
+Here we are required to train a CTC tokenizer for each dataset we use. 
+One of the advantages of using an encoder-decoder architecture is that 
+we can directly leverage the tokenizer from the pre-trained model.
 
-In the case of Whisper, the pre-trained tokenizer is that of the [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf) 
-tokenizer, but refit to the multilingual vocabulary for the 96 
-pre-training languages. This tokenizer has an expansive [byte-pair](https://huggingface.co/course/chapter6/5?fw=pt#bytepair-encoding-tokenization) 
-vocabulary that is applicable to almost all multilingual ASR 
-applications. For Hindi, we can load the tokenizer and use it for 
-fine-tuning without any further modifications. We simply have to 
-specify the target language and the task. These arguments inform the 
-tokenizer to prefix the language and task tokens to the start of encoded 
-label sequences:
+The Whisper tokenizer is pre-trained on the transcriptions for the 96 pre-training languages.
+Consequently, it has an extensive [byte-pair](https://huggingface.co/course/chapter6/5?fw=pt#bytepair-encoding-tokenization) 
+that is appropriate for almost all multilingual ASR applications. 
+For Hindi, we can load the tokenizer and use it for fine-tuning without 
+any further modifications. We simply have to specify the target language 
+and the task. These arguments inform the tokenizer to prefix the language 
+and task tokens to the start of encoded label sequences:
 
 ```python
 from transformers import WhisperTokenizer
@@ -458,15 +444,15 @@ print(common_voice["train"][0])
 ```
 We can see that we've got a 1-dimensional input audio array and the 
 corresponding target transcription. We've spoken heavily about the 
-importance of the sampling rate and the fact that we need to match the 
+importance of the sampling rate and that we need to match the 
 sampling rate of our audio to that of the Whisper model (16kHz). Since 
 our input audio is sampled at 48kHz, we need to _downsample_ it to 
-16kHz prior to passing it to the Whisper feature extractor.
+16kHz before passing it to the Whisper feature extractor.
 
 We'll set the audio inputs to the correct sampling rate using dataset's 
 [`cast_column`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=cast_column#datasets.DatasetDict.cast_column)
 method. This operation does not change the audio in-place, 
-but rather signals to `datasets` to resample audio samples _on-the-fly_ the 
+but rather signals to `datasets` to resample audio samples _on the fly_ the 
 first time they are loaded:
 
 ```python
@@ -490,15 +476,13 @@ print(common_voice["train"][0])
  'sentence': 'खीर की मिठास पर गरमाई बिहार की सियासत, कुशवाहा ने दी सफाई'}
 ```
 Great! We can see that the sampling rate has been downsampled to 16kHz. The 
-array values are also different, as we've now only got one amplitude value 
-for every three that we had before.
+array values are also different, as we've now only got approximately one amplitude value 
+for every three we had before.
 
-Now we can write a function to prepare our data ready for the model.
-First, we load and resample the audio data by calling `batch["audio"]`. 
-As explained above, 🤗 Datasets performs any necessary resampling operations on the fly. 
-Next, we use the feature extractor to compute the log-Mel spectrogram input features 
-from our 1-dimensional audio array. Finally, we encode the transcriptions to label ids 
-through use of the tokenizer:
+Now we can write a function to prepare our data ready for the model:
+1. We load and resample the audio data by calling `batch["audio"]`. As explained above, 🤗 Datasets performs any necessary resampling operations on the fly.
+2. We use the feature extractor to compute the log-Mel spectrogram input features from our 1-dimensional audio array.
+3. We encode the transcriptions to label ids through the use of the tokenizer.
 
 ```python
 def prepare_dataset(batch):
@@ -532,7 +516,7 @@ column to obtain the audio file path and disregard the `"audio"` column.
 
 Now that we've prepared our data, we're ready to dive into the training pipeline. 
 The [🤗 Trainer](https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer)
-is going to do much of the heavy lifting for us. All we need to do is:
+will do much of the heavy lifting for us. All we have to do is:
 
 - Define a data collator: the data collator takes our pre-processed data and prepares PyTorch tensors ready for the model.
 
@@ -557,10 +541,10 @@ using the feature extractor's `.pad` method with `return_tensors=pt` (note that 
 padding is applied here since the inputs are of fixed dimension, 
 the `input_features` are simply converted to PyTorch tensors).
 
-The `labels` on the other hand are un-padded. We first pad the sequences
+On the other hand, the `labels` are un-padded. We first pad the sequences
 to the maximum length in the batch using the tokenizer's `.pad` method. The padding tokens 
 are then replaced by `-100` so that these tokens are **not** taken into account when 
-computing the loss. We then cut the BOS token from the start of the label sequence as we 
+computing the loss. We then cut the start of transcript token from the beginning of the label sequence as we 
 append it later during training.
 
 We can leverage the `WhisperProcessor` we defined earlier to perform both the 
@@ -657,7 +641,7 @@ model = WhisperForConditionalGeneration.from_pretrained("openai/whisper-small")
 TODO: set config suppress tokens and forced tokens to [] and None resp.
 
 ### Define the Training Arguments
-In a final step, we define all the parameters related to training. A subset of parameters are 
+In the final step, we define all the parameters related to training. A subset of parameters are 
 explained below:
 - `output_dir`: local directory in which to save the model weights. This will also be the repository name on the [Hugging Face Hub](https://huggingface.co/).
 - `generation_max_length`: maximum number of tokens to autoregressively generate during evaluation.
@@ -737,7 +721,7 @@ to compensate.
 | 4000 |    0.0006     | 9.78  |     0.4519      | 32.01 |
 
 
-The final WER is 32.0%, not bad for 8h of training data! The big question is how this 
+The final WER is 32.0% - not bad for 8h of training data! The big question is how this 
 compares to other ASR systems. For that, we can view the [`hf-speech-bench`](https://huggingface.co/spaces/huggingface/hf-speech-bench), 
 a leaderboard that categorises models by language and dataset, and subsequently ranks 
 them according to their WER.
@@ -745,9 +729,9 @@ them according to their WER.
 SCREENSHOT OF LEADERBOARD
 
 Our fine-tuned model significantly improves upon the zero-shot performance of the Whisper 
-small checkpoint! This highlights the strong transfer learning capabilities of Whisper.
+small checkpoint, highlighting the strong transfer learning capabilities of Whisper.
 
-We can automatically submit our checkpoint to the leaderboard at the same time that we 
+We can automatically submit our checkpoint to the leaderboard when we
 push the training results to the Hub - we simply have to set the appropriate key-word 
 arguments (kwargs). You can change these values to match your dataset, language and 
 model name accordingly:
@@ -785,16 +769,16 @@ Voice Hindi test data, it is by no means optimal. The purpose of this
 notebook is to demonstrate how the pre-trained Whisper checkpoints can 
 be fine-tuned on any multilingual ASR dataset. The results could likely 
 be improved by optimising the training hyperparameters, such as 
-_learning rate_ and _dropout_, and through using a larger pre-trained 
-checkpoint (either the medium or large).
+_learning rate_ and _dropout_, and using a larger pre-trained 
+checkpoint (`"medium"` or `"large"`).
 
 ### Building a Demo
 Now that we've fine-tuned our model, we can build a demo to show 
-off its ASR capabilities! We'll make use of 🤗 Transformers 
-`pipeline`, which will take care of the full ASR pipeline, 
+off its ASR capabilities! We'll use 🤗 Transformers 
+`pipeline`, which will take care of the entire ASR pipeline, 
 right from pre-processing the audio inputs to decoding the 
 model predictions. We'll build our interactive demo with [Gradio](https://www.gradio.app). 
-Gradio is arguably the simplest way of building 
+Gradio is arguably the most straightforward way of building 
 machine learning demos; with Gradio, we can build a demo in 
 just a matter of minutes!
 
@@ -825,7 +809,8 @@ iface.launch()
 
 ## Closing Remarks
 
-In this blog, we covered a step-by-step guide on how to fine-tune Whisper for multilingual ASR 
-using 🤗 Datasets, Transformers and the Hugging Face Hub. If you're interested in fine-tuning other 
+In this blog, we covered a step-by-step guide on fine-tuning Whisper for multilingual ASR 
+using 🤗 Datasets, Transformers and the Hugging Face Hub. Refer to the [Google Colab](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/fine_tune_whisper.ipynb) 
+should you wish to try fine-tuning for yourself. If you're interested in fine-tuning other 
 Transformers models, both for English and multilingual ASR, be sure to check out the 
-examples scripts at: [examples/pytorch/speech-recognition](https://github.com/huggingface/transformers/tree/main/examples/pytorch/speech-recognition).
+examples scripts at [examples/pytorch/speech-recognition](https://github.com/huggingface/transformers/tree/main/examples/pytorch/speech-recognition).
