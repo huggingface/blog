@@ -50,7 +50,7 @@ Natural language generation (i.e. text generation) is one of the core tasks in n
 Before running the experiments in the following sections, please install the update-to-date version of `transformers` as
 ```yaml
 pip install torch
-pip install "transformers>=4.24.0"
+pip install "transformers==4.24.0"
 ```
 
 ****
@@ -59,7 +59,7 @@ pip install "transformers>=4.24.0"
 
 ### 4. Problems of Existing Decoding Methods: 
 
-By far, the most widely-used decoding methods can be divided into two categories: (i) deterministic methods and (ii) stochastic methods.
+Decoding methods can be divided into two categories: (i) deterministic methods and (ii) stochastic methods.
 
 
 <span id='deterministic_methods'/>
@@ -112,7 +112,7 @@ DeepMind's research is also used by the UK government to develop new technologie
 
 #### 4.2. Stochastic Methods:
 
-To address the issues posed by deterministic methods, stochastic methods generate text by introducing randomness during the decoding process. Two widely-used stochastic methods are (i) top-k sampling <a href='#references'>[3]</a> and (ii) nucleus sampling <a href='#references'>[4]</a>.
+To address the issues posed by deterministic methods, stochastic methods generate text by introducing randomness during the decoding process. Two widely-used stochastic methods are (i) top-k sampling <a href='#references'>[3]</a> and (ii) nucleus sampling (also called top-p sampling) <a href='#references'>[4]</a>.
 
 Below, we illustrate an example of generated text by nucleus sampling (p=0.95) using GPT-2 model.
 
@@ -154,6 +154,7 @@ One example? Given the details of today
 </details>
 
 **[Remark]** While nucleus sampling is able to generate text that is free of repetitions, the semantic coherence of the generated text is not well-maintained. For instance, the generated phrase _'AI is not journalism'_ is incoherent with respect to the given prefix, i.e. _'DeepMind Company'_.
+While this can partially be remedied by lowering the temperature. Lowering the temperature bringing nucleus sampling closer to greedy search, so it can be seen as a trade-off between greedy-search and nucleaus sampling. However, generally, it is very difficult to find a prompt and model independent temperature that avoids both the pitfalls of greedy search and nucleus sampling.
 
 ****
 
@@ -161,13 +162,13 @@ One example? Given the details of today
 
 ### 5. Contrastive Search: 
 
-In section, we introduce the new decoding method, i.e. ___Contrastive Search___, in details.
+In this section, we introduce a new decoding method, ___Contrastive Search___, in details.
 
 <span id='contrastive_objective'/>
 
 #### 5.1. Decoding Objective:
 
-Given the prefix text $x_{\textless t}$, the selection of the output token $x_{t}$ follows 
+Given the prefix text \\( x_{\textless t} \\), the selection of the output token \\( x_{t} \\) follows 
 
 <center class="half">
     <img src="assets/introducing_contrastive_search/formulation.png" width="750"/>
