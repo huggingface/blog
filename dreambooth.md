@@ -98,7 +98,7 @@ Low Learning Rate (`2e-6`)
 
 ### Human Face
 
-We tried to incorporate the Cosmo character from Seinfeld into Stable Diffusion. As previously mentioned, we trained for more steps with a smaller batch size. Even so, the results were not stellar. For the sake of brevity, we have omitted these sample images and defer the reader to the next sections, where face training became the focus of our efforts.
+We tried to incorporate the Kramer character from Seinfeld into Stable Diffusion. As previously mentioned, we trained for more steps with a smaller batch size. Even so, the results were not stellar. For the sake of brevity, we have omitted these sample images and defer the reader to the next sections, where face training became the focus of our efforts.
 
 ### Summary of Initial Results
 
