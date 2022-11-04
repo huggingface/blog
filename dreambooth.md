@@ -43,6 +43,8 @@ thumbnail: /blog/assets/sd_dreambooth_training/thumbnail.jpg
 
 We conducted a lot of experiments to analyze the effect of different settings in Dreambooth. This post presents our findings and some tips to improve your results when fine-tuning Stable Diffusion with Dreambooth.
 
+Before we start, please be aware that this method should never be used for malicious purposes, to generate harm in any way, or to impersonate people without their knowledge. Models trained with it are still bound by the [CreativeML Open RAIL-M license](https://huggingface.co/spaces/CompVis/stable-diffusion-license) that governs distribution of Stable Diffusion models.
+
 _Note: a previous version of this post was published [as a W&B report](https://wandb.ai/psuraj/dreambooth/reports/Dreambooth-Training-Analysis--VmlldzoyNzk0NDc3)_.
 
 ## TL;DR: Recommended Settings
@@ -51,8 +53,8 @@ _Note: a previous version of this post was published [as a W&B report](https://w
 * Dreambooth needs more training steps for faces. In our experiments, 800-1200 steps worked well when using a batch size of 2 and LR of 1e-6.
 * Prior preservation is important to avoid overfitting when training on faces. For other subjects, it doesn't seem to make a huge difference.
 * If you see that the generated images are noisy or the quality is degraded, it likely means overfitting. First, try the steps above to avoid it. If the generated images are still noisy, use the DDIM scheduler or run more inference steps (~100 worked well in our experiments).
-* EMA training doesn't seem to make a difference.
-* Training the text encoder in addition to the UNet has a big impact on quality. Our best results were obtained using a combination of text encoder fine-tuning, low LR, and a suitable number of steps. However, fine-tuning the text encoder requires a GPU with at least 24 GB of RAM.
+* Training the text encoder in addition to the UNet has a big impact on quality. Our best results were obtained using a combination of text encoder fine-tuning, low LR, and a suitable number of steps. However, fine-tuning the text encoder requires more memory, so a GPU with at least 24 GB of RAM is ideal. Using techniques like 8-bit Adam, `fp16` training or gradient accumulation, it is possible to train on 16 GB GPUs like the ones provided by Google Colab or Kaggle.
+* Fine-tuning with or without EMA produced similar results.
 
 ## Learning Rate Impact
 
@@ -60,11 +62,13 @@ Dreambooth overfits very quickly. To get good results, tune the learning rate an
 
 ## Experiments Settings
 
-All experiments were conducted using the [`train_dreambooth.py`](https://github.com/huggingface/diffusers/tree/main/examples/dreambooth) script with the `AdamW` optimizer on 2x 40GB A100s. We used the same seed and kept all hyperparameters equal across runs, except LR, number of training steps and the use of prior preservation.
+All our experiments were conducted using the [`train_dreambooth.py`](https://github.com/huggingface/diffusers/tree/main/examples/dreambooth) script with the `AdamW` optimizer on 2x 40GB A100s. We used the same seed and kept all hyperparameters equal across runs, except LR, number of training steps and the use of prior preservation.
 
 For the first 3 examples (various objects), we fine-tuned the model with a batch size of 4 (2 per GPU) for 400 steps. We used a high learning rate of `5e-6` and a low learning rate of `2e-6`. No prior preservation was used.
 
 The last experiment attempts to add a human subject to the model. We used prior preservation with a batch size of 2 (1 per GPU), 800 and 1200 steps in this case. We used a high learning rate of `5e-6` and a low learning rate of `2e-6`.
+
+Note that you can use 8-bit Adam, `fp16` training or gradient accumulation to reduce memory requirements and run similar experiments on GPUs with 16 GB of memory.
 
 ### Cat Toy
 
@@ -93,9 +97,7 @@ Low Learning Rate (`2e-6`)
 
 ### Human Face
 
-We tried to incorporate the Cosmo character from Seinfeld into Stable Diffusion. As previously mentioned, we trained for more steps with a smaller batch size.
-
-**TODO: Images are missing**
+We tried to incorporate the Cosmo character from Seinfeld into Stable Diffusion. As previously mentioned, we trained for more steps with a smaller batch size. Even so, the results were not stellar. For the sake of brevity, we have omitted these sample images and defer the reader to the next sections, where face training became the focus of our efforts.
 
 ### Summary of Initial Results
 
