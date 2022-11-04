@@ -1377,11 +1377,20 @@
     - intel
     - guide
 
+- local: fine-tune-whisper
+  title: "Fine-Tune Whisper with 🤗 Transformers"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/111_fine_tune_whisper/thumbnail.jpg
+  date: Nov 3, 2022
+  tags:
+    - guide
+    - audio
+
 - local: dreambooth
   title: "Training Stable Diffusion with Dreambooth using 🧨 Diffusers"
   author: valhalla
   thumbnail: /blog/assets/sd_dreambooth_training/thumbnail.png
-  date: November 3, 2022
+  date: November 4, 2022
   tags:
     - diffusers
     - stable-diffusion
