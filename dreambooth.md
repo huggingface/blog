@@ -39,7 +39,7 @@ thumbnail: /blog/assets/sd_dreambooth_training/thumbnail.jpg
     </a>
 </div>
 
-[Dreambooth](https://dreambooth.github.io/) is a technique to teach new concepts to Stable Diffusion using a specialized form of fine-tuning. Some people have been using it with a few of their photos to place themselves in fantastic situations, while others are using it to incorporate new styles. [🧨 Diffusers](https://github.com/huggingface/diffusers) provides a Dreambooth [training script](https://github.com/huggingface/diffusers/tree/main/examples/dreambooth). It doesn't take long to train, but it's hard to select the right set of hyperparameters and it's easy to overfit.
+[Dreambooth](https://dreambooth.github.io/) is a technique to teach new concepts to [Stable Diffusion](https://huggingface.co/blog/stable_diffusion) using a specialized form of fine-tuning. Some people have been using it with a few of their photos to place themselves in fantastic situations, while others are using it to incorporate new styles. [🧨 Diffusers](https://github.com/huggingface/diffusers) provides a Dreambooth [training script](https://github.com/huggingface/diffusers/tree/main/examples/dreambooth). It doesn't take long to train, but it's hard to select the right set of hyperparameters and it's easy to overfit.
 
 We conducted a lot of experiments to analyze the effect of different settings in Dreambooth. This post presents our findings and some tips to improve your results when fine-tuning Stable Diffusion with Dreambooth.
 
@@ -116,7 +116,7 @@ Image quality degrades a lot if the model overfits, and this happens if:
 
 ## Using Prior Preservation when training Faces
 
-Prior preservation is a technique that uses additional images of the same class we are trying to train as part of the fine-tuning process. For example, if we try to incorporate a new person into the model, the _class_ we'd want to preserve could be _person_. Prior preservation tries to reduce overfitting by using photos of the new person and other people. The nice thing is that we can generate those additional class images using the Stable Diffusion model itself! The training script takes care of that automatically.
+Prior preservation is a technique that uses additional images of the same class we are trying to train as part of the fine-tuning process. For example, if we try to incorporate a new person into the model, the _class_ we'd want to preserve could be _person_. Prior preservation tries to reduce overfitting by using photos of the new person combined with photos of other people. The nice thing is that we can generate those additional class images using the Stable Diffusion model itself! The training script takes care of that automatically if you want, but you can also provide a folder with your own prior preservation images.
 
 Prior preservation, 1200 steps, lr=`2e-6`.
 ![Faces, prior preservation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dreambooth-assets/7_faces_with_prior.jpg)
@@ -130,13 +130,13 @@ As you can see, results are better when prior preservation is used, but there ar
 
 In the previous examples, we used the `PNDM` scheduler to sample images during the inference process. We observed that when the model overfits, `DDIM` usually works much better than `PNDM` and `LMSDiscrete`. In addition, quality can be improved by running inference for more steps: 100 seems to be a good choice. The additional steps help resolve some of the noise patches into image details.
 
-`PNDM`, Cosmo face
+`PNDM`, Kramer face
 ![PNDM Cosmo](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dreambooth-assets/9_cosmo_pndm.jpg)
 
-`LMSDiscrete`, Cosmo face. Results are terrible!
+`LMSDiscrete`, Kramer face. Results are terrible!
 ![LMSDiscrete Cosmo](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dreambooth-assets/a_cosmo_lmsd.jpg)
 
-`DDIM`, Cosmo face. Much better
+`DDIM`, Kramer face. Much better
 ![DDIM Cosmo](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/dreambooth-assets/b_cosmo_ddim.jpg)
 
 A similar behaviour can be observed for other subjects, although to a lesser extent.
