@@ -55,6 +55,7 @@ _Note: a previous version of this post was published [as a W&B report](https://w
 * If you see that the generated images are noisy or the quality is degraded, it likely means overfitting. First, try the steps above to avoid it. If the generated images are still noisy, use the DDIM scheduler or run more inference steps (~100 worked well in our experiments).
 * Training the text encoder in addition to the UNet has a big impact on quality. Our best results were obtained using a combination of text encoder fine-tuning, low LR, and a suitable number of steps. However, fine-tuning the text encoder requires more memory, so a GPU with at least 24 GB of RAM is ideal. Using techniques like 8-bit Adam, `fp16` training or gradient accumulation, it is possible to train on 16 GB GPUs like the ones provided by Google Colab or Kaggle.
 * Fine-tuning with or without EMA produced similar results.
+* There's no need to use the `sks` word to train Dreambooth. One of the first implementations used it because it was a rare token in the vocabulary, but it's actually a kind of rifle. Our experiments, and those by for example [@nitrosocke](https://huggingface.co/nitrosocke) show that it's ok to select terms that you'd naturally use to describe your target.
 
 ## Learning Rate Impact
 
