@@ -753,6 +753,7 @@ model name accordingly:
 kwargs = {
     "dataset_tags": "mozilla-foundation/common_voice_11_0",
     "dataset": "Common Voice 11.0",  # a 'pretty' name for the training dataset
+    "dataset_args": "config: hi, split: test",
     "language": "hi",
     "model_name": "Whisper Small Hi - Sanchit Gandhi",  # a 'pretty' name for your model
     "finetuned_from": "openai/whisper-small",
