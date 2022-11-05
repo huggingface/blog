@@ -155,7 +155,7 @@ One example? Given the details of today
 
 **[Remark]** While nucleus sampling is able to generate text that is free of repetitions, the semantic coherence of the generated text is not well-maintained. For instance, the generated phrase _'AI is not journalism'_ is incoherent with respect to the given prefix, i.e. _'DeepMind Company'_.
 
-We note that this semantic inconsistency problem can partially be remedied by lowering the temperature. But, lowering the temperature brings nucleus sampling closer to greedy search, so it can be seen as a trade-off between greedy-search and nucleaus sampling. However, generally, it is very difficult to find a prompt and model independent temperature that avoids both the pitfalls of greedy search and nucleus sampling.
+We note that this semantic inconsistency problem can partially be remedied by lowering the temperature. However, lowering the temperature brings nucleus sampling closer to greedy search, so it can be seen as a trade-off between greedy-search and nucleaus sampling. Generally, it is very difficult to find a prompt and model independent temperature that avoids both the pitfalls of greedy search and nucleus sampling.
 
 ****
 
