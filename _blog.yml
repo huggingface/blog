@@ -1366,7 +1366,7 @@
     - ethics
     - research
     - nlp
-    
+
 - local: openvino
   title: "Accelerate your models with 🤗 Optimum Intel and OpenVINO"
   author: echarlaix
@@ -1398,12 +1398,13 @@
     - fine-tuning
     - guide
 
-- local: introducing-csearch
-  title: "Generating Human-level Text with Contrastive Search in Transformers 🤗"
-  author: yxuansu
-  thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
-  date: Nov 7, 2022
-  tags:
-    - nlp
-    - text generation
-    - research
+# Todo: fix visual nits, add TF examples
+# - local: introducing-csearch
+#   title: "Generating Human-level Text with Contrastive Search in Transformers 🤗"
+#   author: yxuansu
+#   thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
+#   date: Nov 7, 2022
+#   tags:
+#     - nlp
+#     - text generation
+#     - research
