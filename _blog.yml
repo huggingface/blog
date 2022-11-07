@@ -1366,12 +1366,43 @@
     - ethics
     - research
     - nlp
+    
+- local: openvino
+  title: "Accelerate your models with 🤗 Optimum Intel and OpenVINO"
+  author: echarlaix
+  thumbnail: /blog/assets/113_openvino/thumbnail.png
+  date: November 2, 2022
+  tags:
+    - hardware
+    - intel
+    - guide
+
+- local: fine-tune-whisper
+  title: "Fine-Tune Whisper with 🤗 Transformers"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/111_fine_tune_whisper/thumbnail.jpg
+  date: Nov 3, 2022
+  tags:
+    - guide
+    - audio
+
+- local: dreambooth
+  title: "Training Stable Diffusion with Dreambooth using 🧨 Diffusers"
+  author: valhalla
+  thumbnail: /blog/assets/sd_dreambooth_training/thumbnail.jpg
+  date: November 7, 2022
+  tags:
+    - diffusers
+    - stable-diffusion
+    - dreambooth
+    - fine-tuning
+    - guide
 
 - local: introducing-csearch.md
   title: "Generating Human-level Text with Contrastive Search in Transformers 🤗"
   author: yxuansu
   thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
-  date: Nov 1, 2022
+  date: Nov 7, 2022
   tags:
     - nlp
     - text generation
