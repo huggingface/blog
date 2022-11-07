@@ -1397,3 +1397,11 @@
     - dreambooth
     - fine-tuning
     - guide
+
+- local: pricing-update
+  title: "Introducing our new pricing"
+  author: sbrandeis
+  thumbnail: /blog/assets/114_pricing-update/thumbnail.png
+  date: November 7, 2022
+  tags:
+    - announcement
