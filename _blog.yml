@@ -1389,7 +1389,7 @@
 - local: dreambooth
   title: "Training Stable Diffusion with Dreambooth using 🧨 Diffusers"
   author: valhalla
-  thumbnail: /blog/assets/sd_dreambooth_training/thumbnail.png
+  thumbnail: /blog/assets/sd_dreambooth_training/thumbnail.jpg
   date: November 7, 2022
   tags:
     - diffusers
