@@ -30,9 +30,10 @@ thumbnail: /blog/assets/115_introducing_contrastive_search/thumbnail.png
 
 ### 1. Introduction:
 
-Natural language generation (i.e. text generation) is one of the core tasks in natural language processing (NLP). In this blog, we introduce the current state-of-the-art decoding method, i.e. ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[1]</a> ([[Paper]](https://arxiv.org/abs/2202.06417)[[Official Implementation]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022. Moreover, in this follow-up work, i.e. _"Contrastive Search Is What You Need For Neural Text Generation"_ <a href='#references'>[2]</a> ([[Paper]](https://arxiv.org/abs/2210.14140) [[Official Implementation]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)), the authors further demonstrate that contrastive search is able to generate human-level text using **off-the-shelf** across **16** languages.
+Natural language generation (i.e. text generation) is one of the core tasks in natural language processing (NLP). In this blog, we introduce the current state-of-the-art decoding method, ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[1]</a> ([[Paper]](https://arxiv.org/abs/2202.06417)[[Official Implementation]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022. Moreover, in this follow-up work,  _"Contrastive Search Is What You Need For Neural Text Generation"_ <a href='#references'>[2]</a> ([[Paper]](https://arxiv.org/abs/2210.14140) [[Official Implementation]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)), the authors further demonstrate that contrastive search can generate human-level text using **off-the-shelf** across **16** languages.
 
-**[Remark]** For users who are not familiar with text generation, please refer more details to this [[blog]](https://huggingface.co/blog/how-to-generate).
+**[Remark]** For users who are not familiar with text generation, please refer more details to this [blog](https://huggingface.co/blog/how-to-generate). 
+
 ****
 
 <span id='demo'/>
@@ -59,20 +60,20 @@ pip install "transformers==4.24.0"
 
 ### 4. Problems of Existing Decoding Methods:
 
-Decoding methods can be divided into two categories: (i) deterministic methods and (ii) stochastic methods.
+Decoding methods can be divided into two categories: (i) deterministic methods and (ii) stochastic methods. Let's discuss both!
 
 
 <span id='deterministic_methods'/>
 
 #### 4.1. Deteriminstic Methods:
 
-Deteriminstic methods, e.g. greedy search and beam search, generate text by selecting the text continuation with the highest likelihood as measured by the language model. However, as widely discussed in previous studies <a href='#references'>[3]</a><a href='#references'>[4]</a>, deteriminstic methods often lead to the problem of _model degeneration_, i.e. the generated text is unnatual and contains undesirable repetitions.
+Deterministic methods, e.g. greedy search and beam search, generate text by selecting the text continuation with the highest likelihood measured by the language model. However, as widely discussed in previous studies <a href='#references'>[3]</a><a href='#references'>[4]</a>, deterministic methods often lead to the problem of _model degeneration_, i.e., the generated text is unnatural and contains undesirable repetitions.
 
 Below, let's see an example of generated text from greedy search using GPT-2 model.
 
 ```python
-import torch
 from transformers import AutoTokenizer, GPT2LMHeadModel
+
 tokenizer = AutoTokenizer.from_pretrained('gpt2-large')
 input_ids = tokenizer('DeepMind Company is', return_tensors='pt').input_ids
 model = GPT2LMHeadModel.from_pretrained('gpt2-large')
@@ -114,11 +115,12 @@ DeepMind's research is also used by the UK government to develop new technologie
 
 To address the issues posed by deterministic methods, stochastic methods generate text by introducing randomness during the decoding process. Two widely-used stochastic methods are (i) top-k sampling <a href='#references'>[3]</a> and (ii) nucleus sampling (also called top-p sampling) <a href='#references'>[4]</a>.
 
-Below, we illustrate an example of generated text by nucleus sampling (p=0.95) using GPT-2 model.
+Below, we illustrate an example of generated text by nucleus sampling (p=0.95) using the GPT-2 model.
 
 ```python
 import torch
 from transformers import AutoTokenizer, GPT2LMHeadModel
+
 tokenizer = AutoTokenizer.from_pretrained('gpt2-large')
 input_ids = tokenizer('DeepMind Company is', return_tensors='pt').input_ids
 model = GPT2LMHeadModel.from_pretrained('gpt2-large')
@@ -153,9 +155,9 @@ One example? Given the details of today
 ```
 </details>
 
-**[Remark]** While nucleus sampling is able to generate text that is free of repetitions, the semantic coherence of the generated text is not well-maintained. For instance, the generated phrase _'AI is not journalism'_ is incoherent with respect to the given prefix, i.e. _'DeepMind Company'_.
+**[Remark]** While nucleus sampling can generate text free of repetitions, the semantic coherence of the generated text is not well-maintained. For instance, the generated phrase _'AI is not journalism'_ is incoherent with respect to the given prefix, i.e. _'DeepMind Company'_.
 
-We note that this semantic inconsistency problem can partially be remedied by lowering the temperature. However, lowering the temperature brings nucleus sampling closer to greedy search, so it can be seen as a trade-off between greedy-search and nucleaus sampling. Generally, it is very difficult to find a prompt and model independent temperature that avoids both the pitfalls of greedy search and nucleus sampling.
+We note that this semantic inconsistency problem can partially be remedied by lowering the temperature. However, reducing the temperature brings nucleus sampling closer to greedy search, which can be seen as a trade-off between greedy search and nucleus sampling. Generally, it is challenging to find a prompt and model-independent temperature that avoids both the pitfalls of greedy search and nucleus sampling.
 
 ****
 
@@ -177,7 +179,7 @@ Given the prefix text \\(x_{\textless t}\\), the selection of the output token \
 
 where \\(V^{(k)}\\) is the set of top-k predictions from the language model's probability distribution \\(p_{\theta}(v|x_{\textless t})\\). The first term, i.e. _model confidence_, is the probability of the candidate \\(v\\) predicted by the language model. The second term, _degeneration penalty_, measures how discriminative of \\(v\\) with respect to the previous context \\( x_{\textless t}\\) and the function \\(s(\cdot, \cdot)\\) computes the cosine similarity between the token representations. More specifically, the degeneration penalty is defined as the maximum cosine similarity between the token representation of \\(v\\), i.e. \\(h_{v}\\), and that of all tokens in the context \\(x_{\textless t}\\). Here, the candidate representation \\(h_{v}\\) is computed by the language model given the concatenation of \\(x_{\textless t}\\) and \\(v\\). Intuitively, a larger degeneration penalty of \\(v\\) means it is more similar (in the representation space) to the context, therefore more likely leading to the problem of model degeneration. The hyperparameter \\(\alpha\\) regulates the importance of these two components. When \\(\alpha=0\\), contrastive search degenerates to the vanilla greedy search.
 
-**[Remark]** When generating output, contrastive search jointly considers (i) the probability predicted by the language model, to maintain the semantic coherence between the generated text and the prefix text; and (ii) the similarity with respect to the previous context, to avoid model degeneration.
+**[Remark]** When generating output, contrastive search jointly considers (i) the probability predicted by the language model to maintain the semantic coherence between the generated text and the prefix text; and (ii) the similarity with respect to the previous context to avoid model degeneration.
 
 
 <span id='contrastive_generation'/>
@@ -187,8 +189,8 @@ where \\(V^{(k)}\\) is the set of top-k predictions from the language model's pr
 Below, we use the same prefix text (i.e. _"DeepMind Company is"_) as in Section <a href='#deterministic_methods'>4.1</a> and <a href='#stochastic_methods'>4.2</a>, and generate the text with contrastive search (k=4 and \\(\alpha=0.6\\)). To fully demonstrate the superior capability of contrastive search, we let the language model generate a **long** document with **512** tokens as
 
 ```python
-import torch
 from transformers import GPT2Tokenizer, GPT2LMHeadModel
+
 model_name = 'gpt2-large'
 tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 model = GPT2LMHeadModel.from_pretrained(model_name, pad_token_id=tokenizer.eos_token_id)
@@ -280,7 +282,7 @@ In this section, we provide more generated examples to compare different decodin
 
 #### 6.1. Example One - GPT-2:
 
-In this part, we use GPT-2 to generate text with the prefix text from the original [OpenAI blog](https://openai.com/blog/better-language-models/) that releases GPT-2.
+In this part, we use GPT-2 to generate text with the prefix text from the original [OpenAI blog](https://openai.com/blog/better-language-models/) that announced the release of GPT-2.
 
 > _In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact that the unicorns spoke perfect English._
 
@@ -291,8 +293,10 @@ In this part, we use GPT-2 to generate text with the prefix text from the origin
 ```python
 import torch
 from transformers import AutoTokenizer, GPT2LMHeadModel
+
 tokenizer = AutoTokenizer.from_pretrained('gpt2-large')
 model = GPT2LMHeadModel.from_pretrained('gpt2-large')
+
 prefix_text = r"In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact that the unicorns spoke perfect English."
 input_ids = tokenizer(prefix_text, return_tensors='pt').input_ids
 ```
