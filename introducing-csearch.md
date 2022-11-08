@@ -40,7 +40,7 @@ Natural language generation (i.e. text generation) is one of the core tasks in n
 
 ### 2. Hugging Face 🤗 Demo of Contrastive Search:
 
-Contrastive Search is now available on 🤗 `transformers`, both on PyTorch and TensorFlow. You can interact with the examples shown in this blog post using your framework of choice in [this colab notebook](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/115_introducing_contrastive_search.ipynb), which is linked at the top. We have also built this awesome 🤗 [demo](https://huggingface.co/spaces/joaogante/contrastive_search_generation) which directly compares contrastive search with other popular decoding methods (e.g. beam search, top-k sampling <a href='#references'>[3]</a>, and nucleus sampling <a href='#references'>[4]</a>).
+Contrastive Search is now available on 🤗 `transformers`, both on PyTorch and TensorFlow. You can interact with the examples shown in this blog post using your framework of choice in [this colab notebook](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/115_introducing_contrastive_search.ipynb), which is linked at the top. We have also built this awesome [demo](https://huggingface.co/spaces/joaogante/contrastive_search_generation) which directly compares contrastive search with other popular decoding methods (e.g. beam search, top-k sampling <a href='#references'>[3]</a>, and nucleus sampling <a href='#references'>[4]</a>).
 
 ****
 
