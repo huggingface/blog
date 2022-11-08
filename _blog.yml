@@ -1406,13 +1406,12 @@
   tags:
     - announcement
 
-# Todo: fix visual nits, add TF examples
-# - local: introducing-csearch
-#   title: "Generating Human-level Text with Contrastive Search in Transformers 🤗"
-#   author: yxuansu
-#   thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
-#   date: Nov 7, 2022
-#   tags:
-#     - nlp
-#     - text generation
-#     - research
+- local: introducing-csearch
+  title: "Generating Human-level Text with Contrastive Search in Transformers 🤗"
+  author: yxuansu
+  thumbnail: /blog/assets/115_introducing_contrastive_search/thumbnail.png
+  date: Nov 8, 2022
+  tags:
+    - nlp
+    - text generation
+    - research
