@@ -10,7 +10,6 @@ For instance, if your title is "Introduction to Deep Reinforcement Learning", th
 3️⃣ Create a new folder in `assets`. Use the same name as the name of the md file. Optionally you may add a numerical prefix to that folder, using the number that hasn't been used yet. But this is no longer required. i.e. the asset folder in this example will be `123_intro-rl` or `intro-rl`. This folder will contain **all your illustrations and thumbnail**. The folder number is mostly for (rough) ordering purposes, so it's no big deal if two concurrent articles use the same number.
 
 🖼️: In terms of images, **try to have small files** to avoid having a slow loading user experience:
-- Use jpeg instead of png.
 - Use compressed images, you can use this website: https://www.iloveimg.com/compress-image
 
 4️⃣ Copy and paste this to your md file and change the elements
