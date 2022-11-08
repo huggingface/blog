@@ -1,19 +1,19 @@
 ---
-title: "Generating Human-level Text with Contrastive Search in Transformers 🤗" 
-thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
+title: "Generating Human-level Text with Contrastive Search in Transformers 🤗"
+thumbnail: /blog/assets/115_introducing_contrastive_search/thumbnail.png
 ---
 
 <h1>Generating Human-level Text with Contrastive Search in Transformers 🤗</h1>
 
 <div class="blog-metadata">
-    <small>Published September 08, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/decision-transformers-train.md">
+    <small>Published November 08, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/introducing-csearch.md">
         Update on GitHub
     </a>
 </div>
 
 <div class="author-card">
-    <a href="/GMFTBY"> 
+    <a href="/GMFTBY">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1652335660508-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>gmftbyGMFTBY</code>
@@ -24,28 +24,29 @@ thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
 
 ****
 
-<a target="_blank" href="https://colab.research.google.com/github/gmftbyGMFTBY/blog/blob/intro_contrastive_search/notebooks/introducing_contrastive_search.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/115_introducing_contrastive_search.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-### 1. Introduction: 
+### 1. Introduction:
 
 Natural language generation (i.e. text generation) is one of the core tasks in natural language processing (NLP). In this blog, we introduce the current state-of-the-art decoding method, ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[1]</a> ([[Paper]](https://arxiv.org/abs/2202.06417)[[Official Implementation]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022. Moreover, in this follow-up work,  _"Contrastive Search Is What You Need For Neural Text Generation"_ <a href='#references'>[2]</a> ([[Paper]](https://arxiv.org/abs/2210.14140) [[Official Implementation]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)), the authors further demonstrate that contrastive search can generate human-level text using **off-the-shelf** across **16** languages.
 
-**[Remark]** For users who are not familiar with text generation, please refer more details to this [blog](https://huggingface.co/blog/how-to-generate). 
+**[Remark]** For users who are not familiar with text generation, please refer more details to [this blog post](https://huggingface.co/blog/how-to-generate).
+
 ****
 
 <span id='demo'/>
 
-### 2. Huggingface Demo of Contrastive Search: 
+### 2. Hugging Face 🤗 Demo of Contrastive Search:
 
-:hugs: Check out this awesome [[demo]](https://huggingface.co/spaces/joaogante/contrastive_search_generation) which directly compares contrastive search with other popular decoding methods (e.g. beam search, top-k sampling <a href='#references'>[3]</a>, and nucleus sampling <a href='#references'>[4]</a>).
+Contrastive Search is now available on 🤗 `transformers`, both on PyTorch and TensorFlow. You can interact with the examples shown in this blog post using your framework of choice in [this colab notebook](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/115_introducing_contrastive_search.ipynb), which is linked at the top. We have also built this awesome [demo](https://huggingface.co/spaces/joaogante/contrastive_search_generation) which directly compares contrastive search with other popular decoding methods (e.g. beam search, top-k sampling <a href='#references'>[3]</a>, and nucleus sampling <a href='#references'>[4]</a>).
 
 ****
 
 <span id='installation'/>
 
-### 3. Environment Installation: 
+### 3. Environment Installation:
 
 Before running the experiments in the following sections, please install the update-to-date version of `transformers` as
 ```yaml
@@ -57,7 +58,7 @@ pip install "transformers==4.24.0"
 
 <span id='problems_of_decoding_methods'/>
 
-### 4. Problems of Existing Decoding Methods: 
+### 4. Problems of Existing Decoding Methods:
 
 Decoding methods can be divided into two categories: (i) deterministic methods and (ii) stochastic methods. Let's discuss both!
 
@@ -85,20 +86,20 @@ print("" + 100 * '-')
 
 <details open>
 <summary><b>Model Output:</b></summary>
-  
+
 ```
 Output:
-----------------------------------------------------------------------------------------------------  
-DeepMind Company is a leading AI research company, with a focus on deep learning and deep 
+----------------------------------------------------------------------------------------------------
+DeepMind Company is a leading AI research company, with a focus on deep learning and deep
 learning-based systems.
 
-The company's research is focused on the development of deep learning-based systems that 
+The company's research is focused on the development of deep learning-based systems that
 can learn from large amounts of data, and that can be used to solve real-world problems.
 
-DeepMind's research is also used by the UK government to develop new technologies for the 
+DeepMind's research is also used by the UK government to develop new technologies for the
 UK's National Health Service.
 
-DeepMind's research is also used by the UK government to develop new technologies for the 
+DeepMind's research is also used by the UK government to develop new technologies for the
 UK's National Health Service.
 
 DeepMind's research is also used by the UK government to develop new technologies
@@ -133,20 +134,20 @@ print("" + 100 * '-')
 
 <details open>
 <summary><b>Model Output:</b></summary>
-  
+
 ```
 Output:
-----------------------------------------------------------------------------------------------------  
-DeepMind Company is a leading provider of AI-based research, development, and delivery of 
+----------------------------------------------------------------------------------------------------
+DeepMind Company is a leading provider of AI-based research, development, and delivery of
 AI solutions for security, infrastructure, machine learning, communications, and so on."
 
 'AI is not journalism'
 
-Worse still was the message its researchers hoped would reach the world's media — that it 
-was not really research, but rather a get-rich-quick scheme to profit from living forces' 
+Worse still was the message its researchers hoped would reach the world's media — that it
+was not really research, but rather a get-rich-quick scheme to profit from living forces'
 ignorance.
 
-"The thing is, we know that people don't consciously assess the value of the others' 
+"The thing is, we know that people don't consciously assess the value of the others'
 information. They understand they will get the same on their own."
 
 One example? Given the details of today
@@ -162,7 +163,7 @@ We note that this semantic inconsistency problem can partially be remedied by lo
 
 <span id='contrastive_search'/>
 
-### 5. Contrastive Search: 
+### 5. Contrastive Search:
 
 In this section, we introduce a new decoding method, ___Contrastive Search___, in details.
 
@@ -170,13 +171,13 @@ In this section, we introduce a new decoding method, ___Contrastive Search___, i
 
 #### 5.1. Decoding Objective:
 
-Given the prefix text \\(x_{\textless t}\\), the selection of the output token \\(x_{t}\\) follows 
+Given the prefix text \\(x_{< t}\\), the selection of the output token \\(x_{t}\\) follows
 
 <center class="half">
-    <img src="assets/introducing_contrastive_search/formulation.png" width="750"/>
+    <img src="assets/115_introducing_contrastive_search/formulation.png" width="750"/>
 </center>
 
-where \\(V^{(k)}\\) is the set of top-k predictions from the language model's probability distribution \\(p_{\theta}(v|x_{\textless t})\\). The first term, i.e. _model confidence_, is the probability of the candidate \\(v\\) predicted by the language model. The second term, _degeneration penalty_, measures how discriminative of \\(v\\) with respect to the previous context \\( x_{\textless t}\\) and the function \\(s(\cdot, \cdot)\\) computes the cosine similarity between the token representations. More specifically, the degeneration penalty is defined as the maximum cosine similarity between the token representation of \\(v\\), i.e. \\(h_{v}\\), and that of all tokens in the context \\(x_{\textless t}\\). Here, the candidate representation \\(h_{v}\\) is computed by the language model given the concatenation of \\(x_{\textless t}\\) and \\(v\\). Intuitively, a larger degeneration penalty of \\(v\\) means it is more similar (in the representation space) to the context, therefore more likely leading to the problem of model degeneration. The hyperparameter \\(\alpha\\) regulates the importance of these two components. When \\(\alpha=0\\), contrastive search degenerates to the vanilla greedy search.
+where \\(V^{(k)}\\) is the set of top-k predictions from the language model's probability distribution \\(p_{\theta}(v|x_{< t})\\). The first term, i.e. _model confidence_, is the probability of the candidate \\(v\\) predicted by the language model. The second term, _degeneration penalty_, measures how discriminative of \\(v\\) with respect to the previous context \\( x_{< t}\\) and the function \\(s(\cdot, \cdot)\\) computes the cosine similarity between the token representations. More specifically, the degeneration penalty is defined as the maximum cosine similarity between the token representation of \\(v\\), i.e. \\(h_{v}\\), and that of all tokens in the context \\(x_{< t}\\). Here, the candidate representation \\(h_{v}\\) is computed by the language model given the concatenation of \\(x_{< t}\\) and \\(v\\). Intuitively, a larger degeneration penalty of \\(v\\) means it is more similar (in the representation space) to the context, therefore more likely leading to the problem of model degeneration. The hyperparameter \\(\alpha\\) regulates the importance of these two components. When \\(\alpha=0\\), contrastive search degenerates to the vanilla greedy search.
 
 **[Remark]** When generating output, contrastive search jointly considers (i) the probability predicted by the language model to maintain the semantic coherence between the generated text and the prefix text; and (ii) the similarity with respect to the previous context to avoid model degeneration.
 
@@ -212,10 +213,10 @@ The arguments are as follows:
 
 <details open>
 <summary><b>Model Output:</b></summary>
-  
+
 ```
 Output:
-----------------------------------------------------------------------------------------------------  
+----------------------------------------------------------------------------------------------------
 DeepMind Company is a leader in artificial intelligence (AI). We have a long history of working
 with companies such as Google, Facebook, Amazon, and Microsoft to build products that improve
 people's lives, and today we are excited to announce that DeepMind's AlphaGo program has won the
@@ -245,7 +246,7 @@ apply the same techniques to other problems."
 
 In addition to the win in Go, DeepMind has also developed an AI system that can learn to play a
 number of different games, including poker, Go, and chess. This AI system, called Tarsier, was
-developed in partnership with Carnegie Mellon University and the University of California, 
+developed in partnership with Carnegie Mellon University and the University of California,
 Berkeley, and is being used to teach computer vision and machine learning to identify objects in
 images and recognize speech in natural language. Tarsier has been trained to play the game of Go
 and other games on a
@@ -260,10 +261,11 @@ and other games on a
 
 #### 5.3. Visual Demonstration of Contrastive Search:
 
-To better understand how contrastive search works, we provide visual comparison between greedy search (<a href='#deterministic_methods'>Section 4.1</a>) and contrastive search. Specifically, we visualize the token similarity matrix of the generated text from greedy search and contrastive search, respectively. The similarity between two tokens are defined as the cosine similarity between their token representations (i.e. the hiddent states of the last transformer layer). The results of greedy search (left) and contrastive search (right) are shown in the Figure below.
+To better understand how contrastive search works, we provide visual comparison between greedy search (<a href='#deterministic_methods'>Section 4.1</a>) and contrastive search. Specifically, we visualize the token similarity matrix of the generated text from greedy search and contrastive search, respectively. The similarity between two tokens are defined as the cosine similarity between their token representations (i.e. the hiddent states of the last transformer layer). The results of greedy search (top) and contrastive search (bottom) are shown in the Figure below.
 
 <center class="half">
-    <img src="assets/introducing_contrastive_search/greedy_search_visualization.png" width="400"/><img src="assets/introducing_contrastive_search/contrastive_search_visualization.png" width="400"/>
+    <img src="assets/115_introducing_contrastive_search/greedy_search_visualization.png" width="400"/>
+    <img src="assets/115_introducing_contrastive_search/contrastive_search_visualization.png" width="400"/>
 </center>
 
 **[Remark]** From the result of greedy search, we see high similarities scores in the off-diagonal entries which clearly indicates the generated repetitions by greedy search. On the contrary, in the result of contrastive search, the high similarity scores mostly appear in the diagonal entries which verifies that the degeneration problem is successfully addressed. This nice property of contrastive search is achieved by the introduction of degeneration penalty (see <a href='#contrastive_objective'>Section 5.1</a>) during the decoding process.
@@ -273,13 +275,13 @@ To better understand how contrastive search works, we provide visual comparison 
 
 <span id='more_examples'/>
 
-### 6. More Generated Examples: 
+### 6. More Generated Examples:
 
 In this section, we provide more generated examples to compare different decoding methods.
 
 <span id='gpt2_example_one'/>
 
-#### 6.1. Example One - GPT-2: 
+#### 6.1. Example One - GPT-2:
 
 In this part, we use GPT-2 to generate text with the prefix text from the original [OpenAI blog](https://openai.com/blog/better-language-models/) that announced the release of GPT-2.
 
@@ -303,7 +305,7 @@ input_ids = tokenizer(prefix_text, return_tensors='pt').input_ids
 
 <span id='gpt2_greedy_example_one'/>
 
-##### 6.1.1. Generating Text with Greedy Search: 
+##### 6.1.1. Generating Text with Greedy Search:
 
 <details>
 <summary><b>Code: [click to expand]</b></summary>
@@ -321,42 +323,42 @@ print("" + 100 * '-')
 
 ```
 Output:
-----------------------------------------------------------------------------------------------------  
-In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously 
-unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact 
+----------------------------------------------------------------------------------------------------
+In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously
+unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact
 that the unicorns spoke perfect English.
 
-The researchers, led by Dr. David R. Williams of the University of California, Santa Cruz, 
-discovered the unicorns in the Andes Mountains of Peru. The area is known for its unique geology 
+The researchers, led by Dr. David R. Williams of the University of California, Santa Cruz,
+discovered the unicorns in the Andes Mountains of Peru. The area is known for its unique geology
 and is home to a number of rare species of animals.
 
 The researchers found the unicorns in the Andes Mountains of Peru.
 
-"We were surprised to find that the unicorns were able to communicate with each other," Williams 
+"We were surprised to find that the unicorns were able to communicate with each other," Williams
 said. "We were also surprised to find that they were able to communicate in English."
 
-The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
-area around 2,000 years ago.
-
-"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of 
-the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place 
-to hunt and gather food."
-
-The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
-area around 2,000 years ago.
-
-"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of 
-the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place 
-to hunt and gather food."
-
-The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
+The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the
 area around 2,000 years ago.
 
 "The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of
-the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place 
+the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place
 to hunt and gather food."
 
-The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the 
+The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the
+area around 2,000 years ago.
+
+"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of
+the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place
+to hunt and gather food."
+
+The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the
+area around 2,000 years ago.
+
+"The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of
+the Andes," Williams said. "They were also the first people to use the Andes Mountains as a place
+to hunt and gather food."
+
+The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the
 area around 2,000 years ago.
 
 "The Incas were the first people to use the Andes Mountains as a refuge from the harsh climate of
@@ -391,29 +393,29 @@ print("" + 100 * '-')
 
 ```
 Output:
-----------------------------------------------------------------------------------------------------  
-In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously 
-unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact 
-that the unicorns spoke perfect English. The study was published in the Journal of Zoology in 
+----------------------------------------------------------------------------------------------------
+In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously
+unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact
+that the unicorns spoke perfect English. The study was published in the Journal of Zoology in
 March 2016.
 
-Polygynous mammals such as unicorns have remained largely unknown to science. Professor Gustavo 
-Giacota, from the University of Oxford who led the study, said that they had been documented as 
+Polygynous mammals such as unicorns have remained largely unknown to science. Professor Gustavo
+Giacota, from the University of Oxford who led the study, said that they had been documented as
 far as Eastern Siberia in Russia, but had only been seen a handful of times in the Gobi Desert.
 
-Tiny animals with pale and shiny coats live in the presence of human beings and are hardly likely 
-to be victims of any cruelty. However, there is some evidence of the condition occurring in both 
-humans and animals in remote regions, which might have similarities to "black moles" that coexist 
+Tiny animals with pale and shiny coats live in the presence of human beings and are hardly likely
+to be victims of any cruelty. However, there is some evidence of the condition occurring in both
+humans and animals in remote regions, which might have similarities to "black moles" that coexist
 on the skin.
 
-It is thought that Unicorns could be inside themselves, that they have different scents depending 
-on their current environment, or just fall out and there are plenty of legends of how they have 
-survived. Experts speculate that the moths and other animals could be remnants of the Yezidi Isis 
-and Charon, which literally is both the word which means great bird, and the Greek word for sound. 
-It is said that the Isis and Charon taught their young the use of voice in the form of calling out 
+It is thought that Unicorns could be inside themselves, that they have different scents depending
+on their current environment, or just fall out and there are plenty of legends of how they have
+survived. Experts speculate that the moths and other animals could be remnants of the Yezidi Isis
+and Charon, which literally is both the word which means great bird, and the Greek word for sound.
+It is said that the Isis and Charon taught their young the use of voice in the form of calling out
 to others.
 
-The scientists think that it could be ancient folklore that has survived and is no longer attributed 
+The scientists think that it could be ancient folklore that has survived and is no longer attributed
 to a real entity
 ----------------------------------------------------------------------------------------------------
 ```
@@ -440,28 +442,28 @@ print("" + 100 * '-')
 
 ```
 Output:
-----------------------------------------------------------------------------------------------------  
+----------------------------------------------------------------------------------------------------
 In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously unexplored
-valley, in the Andes Mountains. Even more surprising to the researchers was the fact that the unicorns 
+valley, in the Andes Mountains. Even more surprising to the researchers was the fact that the unicorns
 spoke perfect English.
 
-According to the BBC, a team of scientists led by Dr David MacKay, from the University of Bristol, spent 
+According to the BBC, a team of scientists led by Dr David MacKay, from the University of Bristol, spent
 two years searching for the unicorn herd, which they discovered during a survey of the area.
 
-"It's a very rare find," MacKay told the BBC. "There are a few in the Himalayas, but this is the first 
+"It's a very rare find," MacKay told the BBC. "There are a few in the Himalayas, but this is the first
 time we've been able to find one in such a remote area."
 
-The team was surprised to find a herd of unicorns living in a region that has been known to be a hotbed 
-of poaching, with many of the animals poached for their horns, which are used in traditional Chinese 
+The team was surprised to find a herd of unicorns living in a region that has been known to be a hotbed
+of poaching, with many of the animals poached for their horns, which are used in traditional Chinese
 medicine to treat everything from rheumatism to cancer.
 
-"We knew that the area was rich in rhino horn, but we had no idea how many there were, or what they were 
-doing there," MacKay said. "This is an area of high poaching pressure, and we wanted to find out what was 
+"We knew that the area was rich in rhino horn, but we had no idea how many there were, or what they were
+doing there," MacKay said. "This is an area of high poaching pressure, and we wanted to find out what was
 going on."
 
-In order to do so, the team used GPS collars to track the animals as they moved around the mountain and 
-the surrounding area. The GPS data was then compared with information gathered from local villagers, who 
-had a wealth of information about the animals' movements, including where they were eating, what they were 
+In order to do so, the team used GPS collars to track the animals as they moved around the mountain and
+the surrounding area. The GPS data was then compared with information gathered from local villagers, who
+had a wealth of information about the animals' movements, including where they were eating, what they were
 doing at night, and how much time they spent in the mountains each day.
 
 After analyzing the data, the team determined that the herd consisted of at least three species of unicorns,
@@ -469,7 +471,7 @@ including a male and two females. One of the females was the mother of the male,
 daughters. All three had the same horn color, which is believed to be a sign of purity in the animal kingdom.
 
 While the discovery is exciting, it's not the first time scientists have discovered an animal that speaks
-English. Last year, scientists discovered a species of porcupine that can be heard by humans, and has been 
+English. Last year, scientists discovered a species of porcupine that can be heard by humans, and has been
 dubbed "Porcupine Man" for his ability to converse with the human race.
 ----------------------------------------------------------------------------------------------------
 ```
@@ -478,7 +480,7 @@ dubbed "Porcupine Man" for his ability to converse with the human race.
 
 <span id='opt_example_two'/>
 
-#### 6.2. Example Two - OPT: 
+#### 6.2. Example Two - OPT:
 
 In this part, we use the OPT model <a href='#references'>[5]</a> which is recently released by Meta to generate text by taking the first two sentences from the abstract of the prestigious ResNet paper <a href='#references'>[6]</a>.
 
@@ -498,7 +500,7 @@ model = OPTForCausalLM.from_pretrained(model_name)
 prefix_text = r"Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously."
 input_ids = tokenizer(prefix_text, return_tensors='pt').input_ids
 ```
-</details> 
+</details>
 
 
 
@@ -522,22 +524,22 @@ print("" + 100 * '-')
 
 ```
 Output:
-----------------------------------------------------------------------------------------------------  
-Deeper neural networks are more difficult to train. We present a residual learning framework to ease 
-the training of networks that are substantially deeper than those used previously. We show that the 
-residual learning framework can be used to train deep neural networks that are significantly more 
-difficult to train than those used previously. We also show that the residual learning framework can 
-be used to train deep neural networks that are significantly more difficult to train than those used 
+----------------------------------------------------------------------------------------------------
+Deeper neural networks are more difficult to train. We present a residual learning framework to ease
+the training of networks that are substantially deeper than those used previously. We show that the
+residual learning framework can be used to train deep neural networks that are significantly more
+difficult to train than those used previously. We also show that the residual learning framework can
+be used to train deep neural networks that are significantly more difficult to train than those used
 previously.
 
-The paper presents a new residual learning framework for deep neural networks that is based on the 
-concept of residuals. The residuals are the residuals of the network that are not used in the training 
-process. The residuals are computed by taking the residuals of the network that are used in the training 
-process and subtracting the residuals of the network that are not used in the training process. The 
-residuals are then used to train the network. The residuals are computed by taking the residuals of 
-the network that are used in the training process and subtracting the residuals of the network that 
-are not used in the training process. The residuals are then used to train the network. The residuals 
-are computed by taking the residuals of the network that are used in the training process and 
+The paper presents a new residual learning framework for deep neural networks that is based on the
+concept of residuals. The residuals are the residuals of the network that are not used in the training
+process. The residuals are computed by taking the residuals of the network that are used in the training
+process and subtracting the residuals of the network that are not used in the training process. The
+residuals are then used to train the network. The residuals are computed by taking the residuals of
+the network that are used in the training process and subtracting the residuals of the network that
+are not used in the training process. The residuals are then used to train the network. The residuals
+are computed by taking the residuals of the network that are used in the training process and
 subtracting the residuals of the
 ----------------------------------------------------------------------------------------------------
 ```
@@ -566,12 +568,12 @@ print("" + 100 * '-')
 
 ```
 Output:
-----------------------------------------------------------------------------------------------------  
-Deeper neural networks are more difficult to train. We present a residual learning framework to ease the 
-training of networks that are substantially deeper than those used previously. The theory focuses on 
-several aspects of learning, including the dynamics of replicative and non-replicative aspects of learning. 
-This framework emphasizes learning by entropy. New randomized algorithms enable training networks with 
-residual learning, so that deep networks can be deployed as reliably and as efficiently as their more 
+----------------------------------------------------------------------------------------------------
+Deeper neural networks are more difficult to train. We present a residual learning framework to ease the
+training of networks that are substantially deeper than those used previously. The theory focuses on
+several aspects of learning, including the dynamics of replicative and non-replicative aspects of learning.
+This framework emphasizes learning by entropy. New randomized algorithms enable training networks with
+residual learning, so that deep networks can be deployed as reliably and as efficiently as their more
 conventional counterparts.
 ----------------------------------------------------------------------------------------------------
 ```
@@ -599,19 +601,19 @@ print("" + 100 * '-')
 
 ```
 Output:
-----------------------------------------------------------------------------------------------------  
-Deeper neural networks are more difficult to train. We present a residual learning framework to ease 
+----------------------------------------------------------------------------------------------------
+Deeper neural networks are more difficult to train. We present a residual learning framework to ease
 the training of networks that are substantially deeper than those used previously.
 
-In this paper, we propose a model-based residual learning (MBRL) framework that is based on neural 
-networks trained on data that is sparse in terms of dimensionality (e.g., 1, 2, 3, etc.). The network 
-parameters are chosen such that there is a high probability of convergence, i.e., the number of 
-iterations is large enough to minimize the variance of the residuals. This is achieved by training 
-the network on a set of training data, in which the data is sparse in terms of dimensionality, and 
+In this paper, we propose a model-based residual learning (MBRL) framework that is based on neural
+networks trained on data that is sparse in terms of dimensionality (e.g., 1, 2, 3, etc.). The network
+parameters are chosen such that there is a high probability of convergence, i.e., the number of
+iterations is large enough to minimize the variance of the residuals. This is achieved by training
+the network on a set of training data, in which the data is sparse in terms of dimensionality, and
 then discarding the nonparametric part of the data after training is complete.
 
-We show that MBRL outperforms other methods for deep reinforcement learning (RL) and deep convolutional 
-neural networks (CNNs) by a factor of at least 2. In addition, we show that, compared to CNNs, MBRL 
+We show that MBRL outperforms other methods for deep reinforcement learning (RL) and deep convolutional
+neural networks (CNNs) by a factor of at least 2. In addition, we show that, compared to CNNs, MBRL
 performs better in two-dimensional (2D) and three-dimensional (3D) cases.
 ----------------------------------------------------------------------------------------------------
 ```
@@ -619,20 +621,20 @@ performs better in two-dimensional (2D) and three-dimensional (3D) cases.
 
 ****
 
-<span id='resources'/>  
+<span id='resources'/>
 
-### 7. Resources: 
+### 7. Resources:
 
 For more details of contrastive search, please check our papers and code as
 * **A Contrastive Framework for Neural Text Generation**: (1) [Paper](https://arxiv.org/abs/2202.06417) and (2) [Official Implementation](https://github.com/yxuansu/SimCTG).
 * **Contrastive Search Is What You Need For Neural Text Generation**: (1) [Paper](https://arxiv.org/abs/2210.14140) and (2) [Official Implementation](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need).
 
 ****
-    
-<span id='citation'/>   
- 
-### 8. Citation: 
-    
+
+<span id='citation'/>
+
+### 8. Citation:
+
 ```bibtex
 @inproceedings{su2022a,
    title={A Contrastive Framework for Neural Text Generation},
@@ -642,7 +644,7 @@ For more details of contrastive search, please check our papers and code as
    year={2022},
    url={https://openreview.net/forum?id=V88BafmH9Pj}
 }
-    
+
 @article{su2022contrastiveiswhatyouneed,
   title={Contrastive Search Is What You Need For Neural Text Generation},
   author={Su, Yixuan and Collier, Nigel},
@@ -650,13 +652,13 @@ For more details of contrastive search, please check our papers and code as
   year={2022}
 }
 ```
-    
+
 
 
 ****
-    
+
 <span id='references'/>
-    
+
 ## Reference:
 > [1] Su et al., 2022 ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417), NeurIPS 2022
 
@@ -675,7 +677,7 @@ For more details of contrastive search, please check our papers and code as
 *- Written by Yixuan Su and Tian Lan*
 
 ****
-    
+
 
 
 <span id='acknowledgements'/>
@@ -684,5 +686,3 @@ For more details of contrastive search, please check our papers and code as
 ## Acknowledgements:
 
 We would like to thank Joao Gante ([@joaogante](https://huggingface.co/joaogante)), Patrick von Platen ([@patrickvonplaten](https://huggingface.co/patrickvonplaten)), and Sylvain Gugger ([@sgugger](https://github.com/sgugger)) for their help and guidance in adding contrastive search mentioned in this blog post into the `transformers` library.
-
-
