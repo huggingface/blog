@@ -32,7 +32,7 @@ thumbnail: /blog/assets/115_introducing_contrastive_search/thumbnail.png
 
 Natural language generation (i.e. text generation) is one of the core tasks in natural language processing (NLP). In this blog, we introduce the current state-of-the-art decoding method, ___Contrastive Search___, for neural text generation. Contrastive search is originally proposed in _"A Contrastive Framework for Neural Text Generation"_ <a href='#references'>[1]</a> ([[Paper]](https://arxiv.org/abs/2202.06417)[[Official Implementation]](https://github.com/yxuansu/SimCTG)) at NeurIPS 2022. Moreover, in this follow-up work,  _"Contrastive Search Is What You Need For Neural Text Generation"_ <a href='#references'>[2]</a> ([[Paper]](https://arxiv.org/abs/2210.14140) [[Official Implementation]](https://github.com/yxuansu/Contrastive_Search_Is_What_You_Need)), the authors further demonstrate that contrastive search can generate human-level text using **off-the-shelf** across **16** languages.
 
-**[Remark]** For users who are not familiar with text generation, please refer more details to this [blog](https://huggingface.co/blog/how-to-generate). 
+**[Remark]** For users who are not familiar with text generation, please refer more details to this [blog](https://huggingface.co/blog/how-to-generate).
 
 ****
 
@@ -171,13 +171,13 @@ In this section, we introduce a new decoding method, ___Contrastive Search___, i
 
 #### 5.1. Decoding Objective:
 
-Given the prefix text \\(x_{\textless t}\\), the selection of the output token \\(x_{t}\\) follows
+Given the prefix text \\(x_{< t}\\), the selection of the output token \\(x_{t}\\) follows
 
 <center class="half">
     <img src="assets/115_introducing_contrastive_search/formulation.png" width="750"/>
 </center>
 
-where \\(V^{(k)}\\) is the set of top-k predictions from the language model's probability distribution \\(p_{\theta}(v|x_{\textless t})\\). The first term, i.e. _model confidence_, is the probability of the candidate \\(v\\) predicted by the language model. The second term, _degeneration penalty_, measures how discriminative of \\(v\\) with respect to the previous context \\( x_{\textless t}\\) and the function \\(s(\cdot, \cdot)\\) computes the cosine similarity between the token representations. More specifically, the degeneration penalty is defined as the maximum cosine similarity between the token representation of \\(v\\), i.e. \\(h_{v}\\), and that of all tokens in the context \\(x_{\textless t}\\). Here, the candidate representation \\(h_{v}\\) is computed by the language model given the concatenation of \\(x_{\textless t}\\) and \\(v\\). Intuitively, a larger degeneration penalty of \\(v\\) means it is more similar (in the representation space) to the context, therefore more likely leading to the problem of model degeneration. The hyperparameter \\(\alpha\\) regulates the importance of these two components. When \\(\alpha=0\\), contrastive search degenerates to the vanilla greedy search.
+where \\(V^{(k)}\\) is the set of top-k predictions from the language model's probability distribution \\(p_{\theta}(v|x_{< t})\\). The first term, i.e. _model confidence_, is the probability of the candidate \\(v\\) predicted by the language model. The second term, _degeneration penalty_, measures how discriminative of \\(v\\) with respect to the previous context \\( x_{< t}\\) and the function \\(s(\cdot, \cdot)\\) computes the cosine similarity between the token representations. More specifically, the degeneration penalty is defined as the maximum cosine similarity between the token representation of \\(v\\), i.e. \\(h_{v}\\), and that of all tokens in the context \\(x_{< t}\\). Here, the candidate representation \\(h_{v}\\) is computed by the language model given the concatenation of \\(x_{< t}\\) and \\(v\\). Intuitively, a larger degeneration penalty of \\(v\\) means it is more similar (in the representation space) to the context, therefore more likely leading to the problem of model degeneration. The hyperparameter \\(\alpha\\) regulates the importance of these two components. When \\(\alpha=0\\), contrastive search degenerates to the vanilla greedy search.
 
 **[Remark]** When generating output, contrastive search jointly considers (i) the probability predicted by the language model to maintain the semantic coherence between the generated text and the prefix text; and (ii) the similarity with respect to the previous context to avoid model degeneration.
 
@@ -261,10 +261,11 @@ and other games on a
 
 #### 5.3. Visual Demonstration of Contrastive Search:
 
-To better understand how contrastive search works, we provide visual comparison between greedy search (<a href='#deterministic_methods'>Section 4.1</a>) and contrastive search. Specifically, we visualize the token similarity matrix of the generated text from greedy search and contrastive search, respectively. The similarity between two tokens are defined as the cosine similarity between their token representations (i.e. the hiddent states of the last transformer layer). The results of greedy search (left) and contrastive search (right) are shown in the Figure below.
+To better understand how contrastive search works, we provide visual comparison between greedy search (<a href='#deterministic_methods'>Section 4.1</a>) and contrastive search. Specifically, we visualize the token similarity matrix of the generated text from greedy search and contrastive search, respectively. The similarity between two tokens are defined as the cosine similarity between their token representations (i.e. the hiddent states of the last transformer layer). The results of greedy search (top) and contrastive search (bottom) are shown in the Figure below.
 
 <center class="half">
-    <img src="assets/115_introducing_contrastive_search/greedy_search_visualization.png" width="400"/><img src="assets/115_introducing_contrastive_search/contrastive_search_visualization.png" width="400"/>
+    <img src="assets/115_introducing_contrastive_search/greedy_search_visualization.png" width="400"/>
+    <img src="assets/115_introducing_contrastive_search/contrastive_search_visualization.png" width="400"/>
 </center>
 
 **[Remark]** From the result of greedy search, we see high similarities scores in the off-diagonal entries which clearly indicates the generated repetitions by greedy search. On the contrary, in the result of contrastive search, the high similarity scores mostly appear in the diagonal entries which verifies that the degeneration problem is successfully addressed. This nice property of contrastive search is achieved by the introduction of degeneration penalty (see <a href='#contrastive_objective'>Section 5.1</a>) during the decoding process.
