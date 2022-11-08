@@ -1366,7 +1366,7 @@
     - ethics
     - research
     - nlp
-    
+
 - local: openvino
   title: "Accelerate your models with 🤗 Optimum Intel and OpenVINO"
   author: echarlaix
@@ -1402,6 +1402,17 @@
   title: "Introducing our new pricing"
   author: sbrandeis
   thumbnail: /blog/assets/114_pricing-update/thumbnail.png
-  date: November 7, 2022
+  date: November 8, 2022
   tags:
     - announcement
+
+# Todo: fix visual nits, add TF examples
+# - local: introducing-csearch
+#   title: "Generating Human-level Text with Contrastive Search in Transformers 🤗"
+#   author: yxuansu
+#   thumbnail: /blog/assets/introducing_contrastive_search/thumbnail.png
+#   date: Nov 7, 2022
+#   tags:
+#     - nlp
+#     - text generation
+#     - research
