@@ -46,6 +46,7 @@ Alright, let’s first import a few requirements.
 
 ```python
 from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import ConfusionMatrixDisplay
 import pandas as pd
 from concrete.ml.sklearn import XGBClassifier
 from sklearn.model_selection import train_test_split
@@ -205,11 +206,16 @@ Best parameters: {'max_depth': 1, 'n_bits': 3, 'n_estimators': 50, 'n_jobs': -1}
 Now, let’s see how the model performs on the test set.
 
 ```python
-# Compute the metrics for each class
+
+# Compute the metrics on the test set
+y_pred = best_model.predict(X_test_transformer)
 y_proba = best_model.predict_proba(X_test_transformer)
 
+# Compute and plot the confusion matrix
+matrix = confusion_matrix(y_test, y_pred)
+ConfusionMatrixDisplay(matrix).plot()
+
 # Compute the accuracy
-y_pred = numpy.argmax(y_proba, axis=1)
 accuracy_transformer_xgboost = numpy.mean(y_pred == y_test)
 print(f"Accuracy: {accuracy_transformer_xgboost:.4f}")
 
