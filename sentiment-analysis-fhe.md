@@ -34,7 +34,7 @@ Our post will discuss:
 - how to use Concrete-ML to turn predictions into predictions over encrypted data
 - how to deploy to a client/server protocol
 
-Last but not least, we’ll finish with a complete demo over [HuggingFace Spaces](https://huggingface.co/spaces) to show this functionality in action.
+Last but not least, we’ll finish with a complete demo over [Hugging Face Spaces](https://huggingface.co/spaces) to show this functionality in action.
 
 ## Using a public dataset
 
@@ -91,7 +91,7 @@ text_X_train, text_X_test, y_train, y_test = train_test_split(text_X, y,
 
 They are powerful tools for all kinds of Natural Language Processing tasks. In fact, we can leverage their representation for any text and feed it to a more FHE-friendly, machine learning model for classification. In this notebook we will use XGBoost.
 
-We start by importing the requirements for transformers. Here, we use the popular library from [HuggingFace](https://huggingface.co) to get a transformer quickly.
+We start by importing the requirements for transformers. Here, we use the popular library from [Hugging Face](https://huggingface.co) to get a transformer quickly.
 
 ```python
 import torch
@@ -104,11 +104,11 @@ The model we have chosen is a BERT transformer, fine-tuned on the Stanford Senti
 
 ```python
 # Load the tokenizer (converts text to tokens)
-tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
+tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
 
 # Load the pre-trained model
 transformer_model = AutoModelForSequenceClassification.from_pretrained(
-   "distilbert-base-uncased-finetuned-sst-2-english"
+   "cardiffnlp/twitter-roberta-base-sentiment-latest"
 )
 ```
 
@@ -131,14 +131,16 @@ def text_to_tensor(
 ) -> numpy.ndarray:
    # Tokenize each text in the list one by one
    tokenized_text_X_train_split = []
-   for text_x_train in list_text_X_train:
-       tokenized_text_X_train_split.append(tokenizer.encode(text_x_train, return_tensors="pt"))
+	tokenized_text_X_train_split = [
+		tokenizer.encode(text_x_train, return_tensors="pt")
+		for text_x_train in list_text_X_train
+	]
 
    # Send the model to the device
    transformer_model = transformer_model.to(device)
-   output_hidden_states_list = []
+   output_hidden_states_list = [None] * len(tokenized_text_X_train_split)
 
-   for tokenized_x in tqdm.tqdm(tokenized_text_X_train_split):
+   for i, tokenized_x in enumerate(tqdm.tqdm(tokenized_text_X_train_split)):
        # Pass the tokens through the transformer model and get the hidden states
        # Only keep the last hidden layer state for now
        output_hidden_states = transformer_model(tokenized_x.to(device), output_hidden_states=True)[
@@ -147,7 +149,7 @@ def text_to_tensor(
        # Average over the tokens axis to get a representation at the text level.
        output_hidden_states = output_hidden_states.mean(dim=1)
        output_hidden_states = output_hidden_states.detach().cpu().numpy()
-       output_hidden_states_list.append(output_hidden_states)
+       output_hidden_states_list[i] = output_hidden_states
 
    return numpy.concatenate(output_hidden_states_list, axis=0)
 ```
@@ -168,8 +170,19 @@ This transformation of the text (text to transformer representation) would need 
 Now that we have our training and test sets properly built to train a classifier, next comes the training of our FHE model. Here it will be very straightforward, using a hyper-parameter tuning tool such as GridSearch from scikit-learn.
 
 ```python
+# Let's build our model
+model = XGBClassifier()
+
+# A gridsearch to find the best parameters
+parameters = {
+    "n_bits": [2, 3],
+    "max_depth": [6],
+    "n_estimators": [30, 50, 100],
+    "n_jobs": [-1],
+}
+
 # Now we have a representation for each tweet, we can train a model on these.
-grid_search = GridSearchCV(model, parameters, cv=3, n_jobs=1, scoring="accuracy")
+grid_search = GridSearchCV(model, parameters, cv=5, n_jobs=1, scoring="accuracy")
 grid_search.fit(X_train_transformer, y_train)
 
 # Check the accuracy of the best model
@@ -199,67 +212,6 @@ y_proba = best_model.predict_proba(X_test_transformer)
 y_pred = numpy.argmax(y_proba, axis=1)
 accuracy_transformer_xgboost = numpy.mean(y_pred == y_test)
 print(f"Accuracy: {accuracy_transformer_xgboost:.4f}")
-
-y_pred_positive = y_proba[:, 2]
-y_pred_negative = y_proba[:, 0]
-y_pred_neutral = y_proba[:, 1]
-
-ap_positive_transformer_xgboost = average_precision_score((y_test == 2), y_pred_positive)
-ap_negative_transformer_xgboost = average_precision_score((y_test == 0), y_pred_negative)
-ap_neutral_transformer_xgboost = average_precision_score((y_test == 1), y_pred_neutral)
-
-print(f"Average precision score for positive class: " f"{ap_positive_transformer_xgboost:.4f}")
-print(f"Average precision score for negative class: " f"{ap_negative_transformer_xgboost:.4f}")
-print(f"Average precision score for neutral class: " f"{ap_neutral_transformer_xgboost:.4f}")
-```
-
-Again, the output:
-
-```
-Accuracy: 0.8504
-Average precision score for positive class: 0.8917
-Average precision score for negative class: 0.9597
-Average precision score for neutral class: 0.7341
-```
-
-Further, we can print some examples with extreme probabilities in the test set and see what they look like:
-
-
-```python
-# Get probabilities predictions in clear
-y_pred_test = best_model.predict_proba(X_test_transformer)
-
-# Let's see what are the top predictions based on the probabilities in y_pred_test
-print("5 most positive tweets (class 2):")
-for i in range(5):
-   print(text_X_test.iloc[y_pred_test[:, 2].argsort()[-1 - i]])
-
-print("-" * 100)
-
-print("5 most negative tweets (class 0):")
-for i in range(5):
-   print(text_X_test.iloc[y_pred_test[:, 0].argsort()[-1 - i]])
-```
-
-5 most positive tweets (class 2):
-
-```
-@SouthwestAir love them! Always get the best deals!
-@AmericanAir THANK YOU FOR ALL THE HELP!  :P You guys are the best.  #americanairlines #americanair
-@SouthwestAir - Great flight from Phoenix to Dallas tonight!Great service and ON TIME! Makes @timieyancey very happy! http://t.co/TkVCMhbPim
-@AmericanAir AA2416 on time and awesome flight. Great job American!
-@SouthwestAir AMAZING c/s today by SW thank you SO very much. This is the reason we fly you #southwest
-```
-
-5 most negative tweets (class 0):
-
-```
-@AmericanAir This entire process took sooooo long that no decent seats are left.  #customerservice
-@USAirways Not only did u lose the flight plan! Now ur flight crew is FAA timed out! Thx for havin us sit on the tarmac for an hr! #Pathetic
-@United site errored out at last step of changing award. Now can't even pull up reservation. 60 minute wait time.  Thanks @United!
-@united OKC ticket agent Roger McLarren(sp?) LESS than helpful with our Intl group travel problems Can't find a supervisor for help.
-@AmericanAir the dinner and called me "hon". Not the service I would expect from 1st class.  #disappointed
-```
 
 ## Predicting over encrypted data
 
@@ -321,9 +273,9 @@ fhe_api.save()
 
 These few lines are enough to export all the files needed for both the client and the server. You can check out the notebook explaining this deployment API in detail [here](https://github.com/zama-ai/concrete-ml/blob/release/0.4.x/docs/advanced_examples/ClientServer.ipynb).
 
-## Full example in an HuggingFace Space
+## Full example in an Hugging Face Space
 
-You can also have a look at the [final application on HuggingFace Space](https://huggingface.co/spaces/zama-fhe/encrypted_sentiment_analysis). The client app was developed with [Gradio](https://gradio.app/) while the server runs with [Uvicorn](https://www.uvicorn.org/) and was developed with [FastAPI](https://fastapi.tiangolo.com/).
+You can also have a look at the [final application on Hugging Face Space](https://huggingface.co/spaces/zama-fhe/encrypted_sentiment_analysis). The client app was developed with [Gradio](https://gradio.app/) while the server runs with [Uvicorn](https://www.uvicorn.org/) and was developed with [FastAPI](https://fastapi.tiangolo.com/).
 
 The process is as follows:
 
