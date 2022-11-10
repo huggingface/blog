@@ -1346,3 +1346,12 @@
     - nlp
     - research
     - llm
+
+- local: document-ai
+  title: "Accelerating Document AI"
+  author: rshah
+  thumbnail: /blog/assets/112_document-ai/thumbnail.png
+  date: Nov 10, 2022
+  tags:
+    - guide
+    - expert-acceleration-program
