@@ -22,9 +22,11 @@ thumbnail: /blog/assets/sentiment-analysis-fhe/thumbnail.png
     </a>
 </div>
 
-When a client wants to predict whether a specific text contains positive, neutral or negative feedback using a cloud service provider without actually revealing the text during the process, it needs to be done with methods data scientists already master. We can utilize a machine learning model that can predict over encrypted data thanks to the [Concrete-ML library](https://github.com/zama-ai/concrete-ml), whose APIs are close to what is already in use by data scientists.
+It is well-known that sentiment analysis is a process of determining whether a piece of text is positive, negative, or neutral. However, this process typically requires access to the unencrypted text, which can pose privacy concerns.
 
-This notebook tackles sentiment classification with _Fully Homomorphic Encryption_ to help you better grasp how Concrete-ML operates and why it may be the best choice for your specialized needs.
+Homomorphic encryption is a type of encryption that allows for computation on encrypted data, without needing to decrypt it first. This makes it well-suited for applications like sentiment analysis.
+
+In this blog we use the [Concrete-ML library](https://github.com/zama-ai/concrete-ml) allowing data scientists to use machine learning model in the homomorphic encryption settings without any prior knowledge in cryptography. We provide a practical tutorial on how to use the library to build a sentiment analysis model on encrypted data.
 
 Our post will discuss:
 
@@ -32,7 +34,7 @@ Our post will discuss:
 - how to use transformers with XGBoost to perform sentiment analysis
 - how to do the training
 - how to use Concrete-ML to turn predictions into predictions over encrypted data
-- how to deploy to a client/server protocol
+- how to [deploy to the cloud](https://docs.zama.ai/concrete-ml/getting-started/cloud) using a client/server protocol
 
 Last but not least, we’ll finish with a complete demo over [Hugging Face Spaces](https://huggingface.co/spaces) to show this functionality in action.
 
@@ -177,8 +179,8 @@ model = XGBClassifier()
 # A gridsearch to find the best parameters
 parameters = {
     "n_bits": [2, 3],
-    "max_depth": [6],
-    "n_estimators": [30, 50, 100],
+    "max_depth": [1],
+    "n_estimators": [10, 30, 50],
     "n_jobs": [-1],
 }
 
