@@ -5,6 +5,82 @@ thumbnail: /blog/assets/116_bettertransformer/hf-pytorch.jpg
 
 # Use BetterTransformer and make transformers great again
 
+<div class="blog-metadata">
+    <small>Published November 16, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/better-transformer.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/ybelkada">
+        <img class="avatar avatar-user" src="/blog/assets/96_hf_bitsandbytes_integration/younes.png" title="Gravatar">
+        <div class="bfc">
+            <code>ybelkada</code>
+            <span class="fullname">Younes Belkada</span>
+        </div>
+    </a>
+    <a href="/fxmarty">
+        <img class="avatar avatar-user" src="/blog/assets/116_bettertransformer/avatar_felix.png" title="Gravatar">
+        <div class="bfc">
+            <code>fxmarty</code>
+            <span class="fullname">Felix Marty</span>
+        </div>
+    </a>
+        <a href="/michaelbenayoun">
+        <img class="avatar avatar-user" src="/blog/assets/116_bettertransformer/avatar_michael.png" title="Gravatar">
+        <div class="bfc">
+            <code>michaelbenayoun</code>
+            <span class="fullname">Michael Benayoun</span>
+        </div>
+    </a>
+    <a href="/">
+        <img class="avatar avatar-user" src="" title="Gravatar">
+        <div class="bfc">
+            <code>erichan</code>
+            <span class="fullname">Eric Han</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+        </div>
+    </a>
+    <a href="/">
+        <img class="avatar avatar-user" src="" title="Gravatar">
+        <div class="bfc">
+            <code>hamidnazeri</code>
+            <span class="fullname">Hamid Nazeri</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+        </div>
+    </a>
+        <a href="/">
+        <img class="avatar avatar-user" src="" title="Gravatar">
+        <div class="bfc">
+            <code>michaelgschwind</code>
+            <span class="fullname">Michael Gschwind</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+        </div>
+    </a>
+    </a>
+        <a href="/">
+        <img class="avatar avatar-user" src="" title="Gravatar">
+        <div class="bfc">
+            <code>geetachauhan</code>
+            <span class="fullname">Geeta Chauhan</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+        </div>
+    </a>
+    </a>
+        <a href="/">
+        <img class="avatar avatar-user" src="" title="Gravatar">
+        <div class="bfc">
+            <code>drissguessous</code>
+            <span class="fullname">Driss Guessous</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+        </div>
+    </a>
+</div>
+
+![thumbnail](https://s3.amazonaws.com/moonup/production/uploads/1667989867129-62441d1d9fdefb55a0b7d12c.png)
+
+
 A few months ago, PyTorch launched [“BetterTransformer” (BT)](https://pytorch.org/blog/a-better-transformer-for-fast-transformer-encoder-inference/ ) that provides an important speedup on Encoder-based models using the so-called fastpath execution and fused kernels. We teamed up with them and made the feature available **as a one-liner** for the most important models on the Hugging Face ecosystem: `better_model = BetterTransformer.transform(model)`.
 
 ## How to use BetterTransformer in the Hugging Face ecosystem
