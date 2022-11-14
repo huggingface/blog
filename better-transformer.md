@@ -302,4 +302,4 @@ Idea: was thinking we could the figure below from Tri Dao presentation @ Stanfor
 
 The integration of BetterTransformer currently supports some of the most used transformers models, but the support of all compatible models is in progress. You can find a table of supported models, and models that can potentially be supported in the Optimum documentation for BetterTransformer.
 
-To extend the support to a wider range of models, we welcome your contributions! We put up a tutorial to guide you through the steps to add supported models, make sure to check it out!
+To extend the support to a wider range of models, we welcome your contributions! We put up [a tutorial](https://huggingface.co/docs/optimum/bettertransformer/tutorials/contribute) to guide you through the steps to add supported models, make sure to check it out!
