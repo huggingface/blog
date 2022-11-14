@@ -3,7 +3,7 @@ title: "BetterTransformer for faster inference on CPU and GPU"
 thumbnail: /blog/assets/116_bettertransformer/hf-pytorch.jpg
 ---
 
-# Use BetterTransformer and make transformers great again
+# Use BetterTransformer for faster inference on CPU & GPU
 
 <div class="blog-metadata">
     <small>Published November 16, 2022.</small>
