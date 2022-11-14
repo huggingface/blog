@@ -81,7 +81,7 @@ thumbnail: /blog/assets/116_bettertransformer/hf-pytorch.jpg
 ![thumbnail](https://s3.amazonaws.com/moonup/production/uploads/1667989867129-62441d1d9fdefb55a0b7d12c.png)
 
 
-A few months ago, PyTorch launched [“BetterTransformer” (BT)](https://pytorch.org/blog/a-better-transformer-for-fast-transformer-encoder-inference/ ) that provides an important speedup on Encoder-based models using the so-called fastpath execution and fused kernels. We teamed up with them and made the feature available **as a one-liner** for the most important models on the Hugging Face ecosystem: `better_model = BetterTransformer.transform(model)`.
+A few months ago, PyTorch launched [“BetterTransformer” (BT)](https://pytorch.org/blog/a-better-transformer-for-fast-transformer-encoder-inference/ ) that provides an important speedup on Encoder-based models using the so-called fastpath execution and fused kernels. We teamed up with them and made the feature available **as a one-liner** for the most important models on the Hugging Face ecosystem: `faster_model = BetterTransformer.transform(model)`.
 
 ## How to use BetterTransformer in the Hugging Face ecosystem
 
@@ -109,7 +109,7 @@ better_model = BetterTransformer.transform(model)
 
 #### `pipeline` integration
 
-The `BetterTransformer` API from `optimum` came also with `pipeline` integration. If you are familiar with `pipeline` from `transformers`, you can simply import `pipeline` from `optimum.pipelines` and run your preferred pipelines as follows!
+The `BetterTransformer` API from `optimum` came also with `pipeline` integration. If you are familiar with `pipeline` from `transformers`, you can simply import `pipeline` from `optimum.pipelines` and run your preferred pipelines as follows:
 
 
 ```python
@@ -130,20 +130,20 @@ BetterTransformer takes advantage of padded tokens to enable the fastpath execut
 
 Therefore the speedup of the fastpath execution comes from 2 different ways: a base speedup that is related to the fused kernel optimization, and the sparsity speedup related to the amount of padded tokens from the input sentence. 
 
-Let us now quickly understand the concept of a fused  operator and how sparsity is leveraged to make execution of transformer encoder faster!
+Let us now quickly understand the concept of a fused  operator and how sparsity is leveraged to make execution of Transformer encoder faster!
 
 ### What is a fused operator ?
 
-“Kernel fusion” means to write a set of sequential operations in a single compiled and optimized so called “kernel” that will be called at runtime for faster execution. In practice these kernels are useful to enhance the throughput of model execution at training and inference. 
+“Kernel fusion” means to write a set of sequential operations in a single compiled and optimized so called “kernel” that will be called at runtime for faster execution. In practice these kernels are useful to enhance the throughput of model execution at training and inference times. 
 
 | ![Figure](assets/116_bettertransformer/diagram-encoder.png) |
 |:--:|
 | <b> Diagram of the Transformer Encoder Architecture (from "Attention Is All You Need"): 
-The fused TransformerEncoder operator includes multiple constituent inputs in a single optimized operator, combining operations and processes both dense torch.tensor and variable-length torch.nested_tensor.  TransformerEncoder calls the fused Multi-Head Attention operator which includes several fused kernels combining multiple kernels each. </b>|
+The fused TransformerEncoder operator includes multiple constituent inputs in a single optimized operator, combining operations and processes both dense torch.tensor and variable-length torch.nested_tensor.  TransformerEncoder calls the fused Multi-Head Attention operator which includes several fused kernels combining multiple kernels each. Link to the original image: https://www.google.com/url?q=https://pytorch.org/blog/a-better-transformer-for-fast-transformer-encoder-inference/&sa=D&source=docs&ust=1668420130240835&usg=AOvVaw0HVB0dX5Qhamr99nys4shg </b>|
 
-In BetterTransformer, the entire encoder layer operation is implemented as a single operator, which makes its execution faster than running each operation of the transformer encoder step by step.
+In BetterTransformer, the entire encoder layer operation is implemented as a single operator, which makes its execution faster than running each operation of the Transformer encoder step by step.
 
-To understand better how fused kernels help, it is necessary to do the distinction between a task that is *compute bound* and *memory bound*. For the former case, the throughput is limited by the *computational throughput*, which is commonly measured in floating-point operations per second. In a memory bound task, the global throughput is limited by the reading and writing throughput of the device. In the case of transformer models, the [bottleneck is most often memory I/O](https://arxiv.org/abs/2007.00072).
+To understand better how fused kernels help, it is necessary to do the distinction between a task that is *compute bound* and *memory bound*. For the former case, the throughput is limited by the *computational throughput*, which is commonly measured in floating-point operations per second. In a memory bound task, the global throughput is limited by the reading and writing throughput of the device. In the case of transformers models, the [bottleneck is most often memory I/O](https://arxiv.org/abs/2007.00072).
 
 Therefore, on GPUs, one of the key ideas is to keep to the minimum the tensor read and writes between the on-chip SRAMs — closer to the processing units and with the highest bandwidth — and the GPU main memory, which has slower I/O. For example, Flash Attention proposes to fuse all the attention operations into a single kernel that avoids much of the read and writes with the main memory.
 
@@ -154,16 +154,16 @@ If you are keen about understanding more about `FlashAttention` please read the 
 For most of the NLP systems, padding tokens are exploited to perform batched processing and avoid computing attention scores on these tokens. Note that this concept is effective for NLP models and most audio models.  For other modalities it depends on the variation in size of sequences being processed:  for example, images are chunked into the same amount of tokens for vision-based transformers, such as Visual Transformers (ViT). 
 
 BetterTransformer exploits sparsity by simply avoiding unnecessary computation of padding tokens using [nested tensors](https://pytorch.org/tutorials/prototype/nestedtensor.html). 
-This is particularly effective for larger input (large sequence length and large batch_size) and models can benefit from very significant speedups when the percentage of padding tokens is high.
+This is particularly effective for large input (large sequence length and large batch size) and models can benefit from very significant speedups when the percentage of padding tokens is high.
 
 | ![Figure](assets/116_bettertransformer/bt-padding.png) |
 |:--:|
 | <b> BetterTransformer takes advantage of variable-length sequence information:
-speedup  and efficiency for BetterTransformer fastpath execution and sparsity optimization using torch.nested_tensor scale as padding amount improves in a batch. </b>|
+speedup  and efficiency for BetterTransformer fastpath execution and sparsity optimization using torch.nested_tensor scale as padding amount improves in a batch. Link to the original image: https://pytorch.org/blog/PyTorch-1.13-release/ </b>|
 
 ## Expected Speedups
 
-The base speedup is very sensitive to the hardware you are using, for newest hardwares (NVIDIA A100, V100) the speedup is much more significant than older GPUs (NVIDIA T4, etc.). Note also that a  considerable speedup is also observed on CPU hardware, which makes the method in general faster than the native implementation on all possible hardwares. Please check the tables below for more detailed numbers:
+The base speedup is very sensitive to the hardware you are using, for newest hardwares (NVIDIA A100, V100) the speedup is much more significant than older GPUs (NVIDIA T4, etc.). Note also that a considerable speedup is also observed on CPU hardware, which makes the method in general faster than the native implementation on the most used hardwares. Please check the tables below for more detailed numbers:
 
 ### Running `bert-large` in `float16` on `NVIDIA T4` GPU:
 
@@ -300,6 +300,6 @@ Idea: was thinking we could the figure below from Tri Dao presentation @ Stanfor
 
 ## How to contribute and add more models
 
-The integration of BetterTransformer currently supports some of the most used transformers models, but the support of all compatible transformer models is in progress. You can find a table of supported models, and models that can potentially be supported in the Optimum documentation for BetterTransformer.
+The integration of BetterTransformer currently supports some of the most used transformers models, but the support of all compatible models is in progress. You can find a table of supported models, and models that can potentially be supported in the Optimum documentation for BetterTransformer.
 
 To extend the support to a wider range of models, we welcome your contributions! We put up a tutorial to guide you through the steps to add supported models, make sure to check it out!
