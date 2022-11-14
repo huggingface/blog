@@ -81,7 +81,7 @@ thumbnail: /blog/assets/116_bettertransformer/hf-pytorch.jpg
 ![thumbnail](https://s3.amazonaws.com/moonup/production/uploads/1667989867129-62441d1d9fdefb55a0b7d12c.png)
 
 
-A few months ago, PyTorch launched [“BetterTransformer” (BT)](https://pytorch.org/blog/a-better-transformer-for-fast-transformer-encoder-inference/ ) that provides an important speedup on Encoder-based models using the so-called fastpath execution and fused kernels. We teamed up with them and made the feature available **as a one-liner** for the most important models on the Hugging Face ecosystem: `faster_model = BetterTransformer.transform(model)`.
+A few months ago, PyTorch launched [“BetterTransformer” (BT)](https://pytorch.org/blog/a-better-transformer-for-fast-transformer-encoder-inference/ ) that provides an important speedup on Encoder-based models using the so-called fastpath execution and fused kernels. We teamed up with the PyTorch team and made the feature available **as a one-liner** for the most important models on the Hugging Face ecosystem: `faster_model = BetterTransformer.transform(model)`.
 
 ## How to use BetterTransformer in the Hugging Face ecosystem
 
