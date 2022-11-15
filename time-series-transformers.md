@@ -166,7 +166,7 @@ plt.show()
 
 
     
-![png](assests/time-series-transformer/output_21_0.png)
+![png](assets/time-series-transformer/output_21_0.png)
     
 
 
@@ -797,7 +797,7 @@ plt.fill_between(
 
 ```
 
-![png](assests/time-series-transformer/output_65_1.png)
+![png](assets/time-series-transformer/output_65_1.png)
     
 
 
