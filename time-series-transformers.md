@@ -10,7 +10,7 @@ thumbnail: /blog/assets/time-series-transformers/thumbnail.png
 
 Time series forecasting is an essential scientific and business problem and as such has also seen a lot of innovation recently with the use of [Deep Learning based](https://dl.acm.org/doi/abs/10.1145/3533382) models in comparison to the [classical methods](https://otexts.com/fpp3/). Classical methods like ARIMA are typically called "local" or "single" methods as they are fitted on each time series in a dataset individually.
 
-When dealing with a large amount of time series for an application, it is typically more efficient to train a single deep learning model so that it can benefit from learned representations from several related time series at inference time in order to make better forecasts. These forecasts are typically point valued and models are trained by minimizing an L2 or L1 type of loss with respect to the ground truth data. However, since these forecasts are most probably used in some real-world decision making pipeline, even with humans in the loop, it is much more beneficial to provide the (aleatoric) uncertainties of predictions. Thus *probabilistic* forecasting methods are deployed which hope to learn the distribution of the future values.
+When dealing with a large amount of time series for an application, it is typically more efficient to train a single deep learning model so that it can benefit from learned representations from several related time series at inference time in order to make better forecasts. These forecasts are typically point valued and models are trained by minimizing an L2 or L1 type of loss with respect to the ground truth data. However, since these forecasts are most probably used in some real-world decision making pipeline, even with humans in the loop, it is much more beneficial to provide the (aleatoric) uncertainties of predictions. Thus *probabilistic* forecasting methods are deployed which hopes to learn the distribution of future values.
 
 It is common in the probabilistic setting to for example learn the future parameters of some chosen parametric distribution like Gaussian or Student-T, or learn the conditional quantile function or use the framework of Conformal Prediction adapted to the time series setting. The choice of method does not effect the modeling aspect and thus can be typically thought of as yet another hyperparameter. Empirical means or medians can also provide the point forecasting outputs if desired.
 
@@ -20,7 +20,7 @@ In terms of modeling time series data which are sequential in nature, as one can
 
 As mentioned, the Encoder-Decoder based Transformer is a natural choice of forecasting as it encapsulates a number of inductive biases nicely. To begin with, the use of an Encoder-Decoder architecture is helpful at inference time where typically for some logged data we wish to know the forecast some prediction steps into the future. This can be thought of as analogous to the text generation task where given some context we autoregressively sample the next token. Similarly here we can also, given some distribution type, sample from it autoregressively to return forecasts up until our desired prediction horizon.
 
-Secondly, this paradigm helps us to train on time series data which might contain thousands of time points. It might not be feasible to input *all* the history of a time series at once to the model, due to the time- and memory constraints of the attention mechanism. Thus, one can consider some appropriate context window and sample this window and the subsequent prediction length sized window from the training data when constructing batches for stochastic gradient descent (SGD). The context sized window can be passed to the encoder and the prediction window to a *causal-masked* decoder. This means that the decoder can only look at previous time steps when predicting the next value.
+Secondly, this paradigm helps us to train on time series data which might contain thousands of time points. It might not be feasible to input *all* the history of a time series at once to the model, due to the time- and memory constraints of the attention mechanism. Thus, one can consider some appropriate context window and sample this window and the subsequent prediction length sized window from the training data when constructing batches for stochastic gradient descent (SGD). The context sized window can be passed to the encoder and the prediction window to a *causal-masked* decoder. This means that the decoder can only look at previous time steps when learning the next value.
 
 Another benefit of Transformers over the other architectures is that we can incorporate missing values (which are common in the time series setting) as an additional mask to the encoder or decoder and still train without resorting to in-filling or imputation. This is equivalent to the `attention_mask` of models like BERT and GPT-2 in the Transformers library, to not include padding tokens in the computation of the attention matrix.
 
@@ -28,7 +28,7 @@ A drawback of this architecture is that obviously there is a limit to the sizes 
 
 The 🤗 Transformers library comes with a vanilla probabilistic time series Transformer model which is able to learn a number of real and integer valued parametric distributions together with all the features of neural forecasting which we will highlight below!
 
-## Set-up environment
+## Set-up Environment
 
 First, let's install the necessary libraries: 🤗 Transformers, 🤗 Datasets, 🤗 Evaluate,  🤗 Accelerate and Gluon-ts.
 
@@ -47,7 +47,7 @@ As we will show, [Gluon-ts](https://github.com/awslabs/gluonts) will be used for
 !pip install -q gluonts ujson
 ```
 
-## Load dataset
+## Load Dataset
 
 Let's load the `tourism_monthly` dataset from the 🤗 [hub](https://huggingface.co/datasets/monash_tsf). This dataset contains monthly tourism volumes for 366 regions in Australia.
 
@@ -202,7 +202,7 @@ train_dataset.set_transform(partial(transform_start_field, freq=freq, log1p=True
 val_dataset.set_transform(partial(transform_start_field, freq=freq, log1p=True))
 ```
 
-## Define model
+## Define the Model
 
 Next, let's instantiate a model. The model will be trained from scratch, hence we won't use the `from_pretrained` method here, but rather instantiate the model from a `config`.
 
@@ -265,7 +265,7 @@ config = TimeSeriesTransformerConfig(
 model = TimeSeriesTransformerForPrediction(config)
 ```
 
-## Define transformations
+## Define Transformations
 
 Here we define the transformations for the data, in particular for the creation of the time features (based on the dataset or universal ones).
 
@@ -387,7 +387,7 @@ def create_transformation(freq: str, config: PretrainedConfig) -> Transformation
 
 ```
 
-## Define InstanceSplitter
+## Define `InstanceSplitter`
 
 For training/val/testing we next create transformations using the corresponding `instance_sampler` which is one of the most important transformation and also potentially the most confusing.  It will for example for training for a time series, sample a random context sized and subsequent prediction sized window and append a `past_` or `future_` key to any temporal keys for the respective windows. For example after this transformation the `values` will be split into a `past_values` and subsequent `future_values` keys. And the same for any keys in the `time_series_fields` argument:
 
@@ -629,7 +629,7 @@ model, optimizer, train_dataloader = accelerator.prepare(
     model, optimizer, train_dataloader, 
 )
 
-for epoch in range(30):
+for epoch in range(100):
     model.train()
     for batch in train_dataloader:
         optimizer.zero_grad()
@@ -686,9 +686,6 @@ forecasts[0].shape
     (64, 100, 24)
 ```
 
-
-
-
 ```python
 forecasts = np.vstack(forecasts)
 ```
@@ -717,10 +714,8 @@ for item_id, ts in enumerate(val_dataset):
 ```python
 print(f"MASE: {np.mean(metric)}")
 
-    MASE: 0.9189391058833202
+    MASE: 0.8633554107449066
 ```
-
-
 
 ```python
 from gluonts.evaluation.metrics import calculate_seasonal_error, mase
@@ -750,9 +745,6 @@ print(f"Seasonal Error: {np.mean(seasonal_errors)}")
 
     Seasonal Error: 0.3137719994821435
 ```
-
-
-
 
 ```python
 index=pd.period_range(
