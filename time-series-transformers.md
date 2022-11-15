@@ -22,7 +22,7 @@ As mentioned, the Encoder-Decoder based Transformer is a natural choice of forec
 
 Secondly, this paradigm helps us to train on time series data which might contain thousands of time points. It might not be feasible to input *all* the history of a time series  at once to the model and thus one can consider some appropriate context window and sample this window and the subsequent prediction length sized window from the training data when constructing batches for SGD. The context sized window can be passed to the encoder and the prediction window to a *masked* decoder. 
 
-Another benefit of Transformers over the other architectures is that we can incorporate missing values (which are common in the time series setting) as additional mask to the encoder or decoder and still train without resorting to in-filling or imputation.
+Another benefit of Transformers over the other architectures is that we can incorporate missing values (which are common in the time series setting) as an additional mask to the encoder or decoder and still train without resorting to in-filling or imputation. This is equivalent to the `attention_mask` of models like BERT and GPT-2 in the Transformers library, to not include padding tokens in the computation of the attention matrix.
 
 A drawback of this architecture is that obviously there is a limit to the sizes of the context and prediction windows in view of the quadratic compute and memory requirements of the vanilla Transformer and also since the Transformer is a power architecture it might overfit or learn spurious correlations much more easily compared to other methods.
 
