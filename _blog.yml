@@ -1484,3 +1484,13 @@
   tags:
     - community
     - announcement
+
+- local: vq-diffusion
+  title: "VQ Diffusion with 🧨 Diffusers"
+  author: williamberman
+  thumbnail: /blog/assets/117_vq_diffusion/thumbnail.png
+  date: November 23, 2022
+  tags:
+    - diffusers
+    - diffusion
+    - text-to-image
