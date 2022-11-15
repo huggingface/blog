@@ -58,12 +58,6 @@ This dataset is part of the [Monash Time Series Forecasting](https://forecasting
 from datasets import load_dataset
 
 dataset = load_dataset("monash_tsf", "tourism_monthly")
-
-    WARNING:datasets.builder:Found cached dataset monash_tsf (/root/.cache/huggingface/datasets/monash_tsf/tourism_monthly/1.0.0/82998723d55d6edbc664cfaebe371004d849846ee5f61b57f1f974000d44c050)
-
-
-
-      0%|          | 0/3 [00:00<?, ?it/s]
 ```
 
 
@@ -72,6 +66,7 @@ As can be seen, the dataset contains 3 splits: train, validation and test.
 
 ```python
 dataset
+
     DatasetDict({
         train: Dataset({
             features: ['start', 'target', 'feat_static_cat', 'feat_dynamic_real', 'item_id'],
@@ -111,7 +106,7 @@ print(train_example['start'])
 print(train_example['target'])
 
     1979-01-01 00:00:00
-    [1149.8699951171875, 1053.8001708984375, 1388.8797607421875, 1783.3702392578125, 1921.025146484375, 2704.94482421875, 4184.41357421875, 4148.35400390625, 2620.72509765625, 1650.300048828125, 1115.9200439453125, 1370.6251220703125, 1096.31494140625, 978.4600219726562, 1294.68505859375, 1480.465087890625, 1748.865234375, 2216.920166015625, 4690.5185546875, 4682.8642578125, 2459.579833984375, 1484.4901123046875, 1028.985107421875, 1109.3648681640625, 960.8751220703125, 896.35009765625, 1118.6551513671875, 1619.9949951171875, 1847.994873046875, 2367.044921875, 4991.16015625, 4772.9443359375, 2894.678466796875, 1860.4801025390625, 1185.150146484375, 1313.659912109375, 1160.9150390625, 1061.5048828125, 1301.77001953125, 1794.3797607421875, 2106.455078125, 2789.034912109375, 4917.8466796875, 4994.4833984375, 3016.754150390625, 1941.505126953125, 1234.135009765625, 1378.72021484375, 1182.9749755859375, 1081.6600341796875, 1424.110107421875, 1774.5350341796875, 2115.420166015625, 2804.840087890625, 4849.498046875, 4937.47509765625, 3074.2236328125, 2063.42529296875, 1297.355224609375, 1350.710205078125, 1224.360107421875, 1165.815185546875, 1409.3299560546875, 2116.5498046875, 2357.135009765625, 2995.0703125, 5295.2119140625, 4957.90478515625, 3321.959228515625, 2221.18017578125, 1345.9000244140625, 1514.01513671875, 1239.5501708984375, 1172.159912109375, 1518.9752197265625, 1996.8751220703125, 2248.68505859375, 3053.440185546875, 5019.45361328125, 5466.7802734375, 3235.167724609375, 2157.97998046875, 1379.7252197265625, 1728.0400390625, 1350.10986328125, 1216.014892578125, 1751.3251953125, 1805.320068359375, 2570.02490234375, 3204.240234375, 5395.72021484375, 6078.82861328125, 3587.098388671875, 2285.195068359375, 1582.18994140625, 1787.4298095703125, 1554.8701171875, 1409.8648681640625, 1612.125, 2286.239990234375, 2913.755126953125, 3645.908447265625, 5956.70849609375, 6326.97509765625, 3914.66015625, 2617.675048828125, 1675.1650390625, 2139.219970703125, 1715.4898681640625, 1663.5799560546875, 2053.699951171875, 2354.929931640625, 3038.591796875, 3470.609375, 6606.18359375, 6587.63671875, 4133.78271484375, 2960.0244140625, 1762.5849609375, 2125.64013671875, 1815.9150390625, 1632.31494140625, 2210.39501953125, 2210.215087890625, 3099.269287109375, 3468.77783203125, 6482.92529296875, 6665.48486328125, 4006.36181640625, 2882.3349609375, 1775.2498779296875, 2171.64990234375, 1796.4749755859375, 1692.349853515625, 1949.78515625, 2680.630126953125, 2645.949951171875, 3414.742919921875, 5772.876953125]
+    [1149.8699951171875, 1053.8001708984375, ..., 5772.876953125]
 ```
 
 
@@ -137,7 +132,7 @@ print(validation_example['start'])
 print(validation_example['target'])
 
     1979-01-01 00:00:00
-    [1149.8699951171875, 1053.8001708984375, 1388.8797607421875, 1783.3702392578125, 1921.025146484375, 2704.94482421875, 4184.41357421875, 4148.35400390625, 2620.72509765625, 1650.300048828125, 1115.9200439453125, 1370.6251220703125, 1096.31494140625, 978.4600219726562, 1294.68505859375, 1480.465087890625, 1748.865234375, 2216.920166015625, 4690.5185546875, 4682.8642578125, 2459.579833984375, 1484.4901123046875, 1028.985107421875, 1109.3648681640625, 960.8751220703125, 896.35009765625, 1118.6551513671875, 1619.9949951171875, 1847.994873046875, 2367.044921875, 4991.16015625, 4772.9443359375, 2894.678466796875, 1860.4801025390625, 1185.150146484375, 1313.659912109375, 1160.9150390625, 1061.5048828125, 1301.77001953125, 1794.3797607421875, 2106.455078125, 2789.034912109375, 4917.8466796875, 4994.4833984375, 3016.754150390625, 1941.505126953125, 1234.135009765625, 1378.72021484375, 1182.9749755859375, 1081.6600341796875, 1424.110107421875, 1774.5350341796875, 2115.420166015625, 2804.840087890625, 4849.498046875, 4937.47509765625, 3074.2236328125, 2063.42529296875, 1297.355224609375, 1350.710205078125, 1224.360107421875, 1165.815185546875, 1409.3299560546875, 2116.5498046875, 2357.135009765625, 2995.0703125, 5295.2119140625, 4957.90478515625, 3321.959228515625, 2221.18017578125, 1345.9000244140625, 1514.01513671875, 1239.5501708984375, 1172.159912109375, 1518.9752197265625, 1996.8751220703125, 2248.68505859375, 3053.440185546875, 5019.45361328125, 5466.7802734375, 3235.167724609375, 2157.97998046875, 1379.7252197265625, 1728.0400390625, 1350.10986328125, 1216.014892578125, 1751.3251953125, 1805.320068359375, 2570.02490234375, 3204.240234375, 5395.72021484375, 6078.82861328125, 3587.098388671875, 2285.195068359375, 1582.18994140625, 1787.4298095703125, 1554.8701171875, 1409.8648681640625, 1612.125, 2286.239990234375, 2913.755126953125, 3645.908447265625, 5956.70849609375, 6326.97509765625, 3914.66015625, 2617.675048828125, 1675.1650390625, 2139.219970703125, 1715.4898681640625, 1663.5799560546875, 2053.699951171875, 2354.929931640625, 3038.591796875, 3470.609375, 6606.18359375, 6587.63671875, 4133.78271484375, 2960.0244140625, 1762.5849609375, 2125.64013671875, 1815.9150390625, 1632.31494140625, 2210.39501953125, 2210.215087890625, 3099.269287109375, 3468.77783203125, 6482.92529296875, 6665.48486328125, 4006.36181640625, 2882.3349609375, 1775.2498779296875, 2171.64990234375, 1796.4749755859375, 1692.349853515625, 1949.78515625, 2680.630126953125, 2645.949951171875, 3414.742919921875, 5772.876953125, 6053.7041015625, 3878.12841796875, 2806.514892578125, 1735.5382080078125, 2128.919921875, 1608.01416015625, 1441.330078125, 2068.235107421875, 2207.610107421875, 2918.409912109375, 3400.81787109375, 6048.7421875, 6483.14013671875, 4063.502685546875, 2900.22998046875, 1907.094970703125, 2338.510009765625, 1787.1650390625, 1699.6451416015625, 1979.105224609375, 2824.260009765625, 3076.5048828125, 3402.5849609375, 5985.830078125]
+    [1149.8699951171875, 1053.8001708984375, ..., 5985.830078125]
 ```
 
 
@@ -163,12 +158,9 @@ axes.plot(validation_example['target'], color="red", alpha=0.5)
 
 plt.show()
 ```
-
-
     
-![png](assets/time-series-transformer/output_21_0.png)
+![png](assets/time-series-transformers/output_21_0.png)
     
-
 
 Let's split up the data:
 
@@ -232,9 +224,9 @@ from gluonts.time_feature import get_lags_for_frequency
 
 lags_sequence = get_lags_for_frequency(freq)
 print(lags_sequence)
-```
 
     [1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 23, 24, 25, 35, 36, 37]
+```
 
 
 This means that we'll look back up to 37 months for each time step, as additional features.
@@ -247,9 +239,9 @@ from gluonts.time_feature import time_features_from_frequency_str
 
 time_features = time_features_from_frequency_str(freq)
 print(time_features)
-```
 
     [<function month_of_year at 0x7fa496d0ca70>]
+```
 
 
 In this case, there's only a single feature, namely "month of year". This means that for each time step, we'll add the month as a scalar value (e.g. `1` in case the timestamp is "january", `2` in case the timestamp is "february", etc.). We have everything now to define the model:
@@ -397,7 +389,7 @@ def create_transformation(freq: str, config: PretrainedConfig) -> Transformation
 
 ## Define InstanceSplitter
 
-For training/val/testing we next create transformatons using the corresponding `instance_sampler` which is one of the most important transformation and also potentially the most confusing.  It will for example for training for a time series, sample a random context sized and subsequent prediction sized window and append a `past_` or `future_` key to any temporal keys for the repestive windows. For example after this transformation the `values` will be split into a `past_values` and subsequent `future_values` keys. And the same for any keys in the `time_series_fields` argument:
+For training/val/testing we next create transformations using the corresponding `instance_sampler` which is one of the most important transformation and also potentially the most confusing.  It will for example for training for a time series, sample a random context sized and subsequent prediction sized window and append a `past_` or `future_` key to any temporal keys for the respective windows. For example after this transformation the `values` will be split into a `past_values` and subsequent `future_values` keys. And the same for any keys in the `time_series_fields` argument:
 
 <!-- During training time the splitter will sample a random window within a time series of `context_length` and -->
 
@@ -556,7 +548,6 @@ Let's check the first batch:
 batch = next(iter(train_dataloader))
 for k,v in batch.items():
   print(k,v.shape, v.type())
-```
 
     static_categorical_features torch.Size([128, 1]) torch.LongTensor
     static_real_features torch.Size([128, 1]) torch.FloatTensor
@@ -566,6 +557,7 @@ for k,v in batch.items():
     future_time_features torch.Size([128, 24, 2]) torch.FloatTensor
     future_values torch.Size([128, 24]) torch.FloatTensor
     future_observed_mask torch.Size([128, 24]) torch.FloatTensor
+```
 
 
 As can be seen, we'll feed more than just past values:
@@ -588,12 +580,9 @@ outputs = model(
 
 ```python
 outputs['encoder_last_hidden_state'].shape
-```
-
-
-
 
     torch.Size([128, 72, 22])
+```
 
 
 
@@ -608,7 +597,7 @@ datasets can have static real features (example is an image embedding of an arti
 
 1. `past_observed_values` (`batch_size`, `time`) this is the mask indicating which values are observed (1) and which aren't (0) typically same dimension as `past_values` and in case of multivariate this would be (`batch_size`, `time`, `variate dimension`)
 1. `*_static`: static features which will  gets copied (repeated)  in the `time`
- dimensaion 
+ dimension 
     1. `feat_static_cat` gets passed through embedding layer to get something like `(64, 1, 4)` and this is repeated for the `time` steps and concatenated into the dynamic feature tensors
 1. `past_values` is of dimension (`batch_size`, `time`) where time dimension = `context length` + additional time steps (for lags)  e.g.  we have `61 - 24 = 37` additional time steps. We don't care about sequence length increasing here, we just add the lags. The model will then make the lag features (to move lags to the feature dimension).  This will then shrink back to the context length within the model (before feeding to the encoder). See `create_network_inputs`
 
@@ -623,7 +612,7 @@ Note that the decoder uses a causal mask to not look into the future as the valu
 
 ## Train the model
 
-We will use the Accelerate library to prepeare the model for the appropriate optimizer and data loader and train it on the available `device`.
+We will use the Accelerate library to prepare the model for the appropriate optimizer and data loader and train it on the available `device`.
 
 
 ```python
@@ -750,17 +739,17 @@ for item_id, ts in enumerate(val_dataset):
 
 ```python
 print(f"MASE: {np.mean(metric)}")
-```
 
     MASE: 0.8633554107449066
+```
 
 
 
 ```python
 print(f"Seasonal Error: {np.mean(seasonal_errors)}")
-```
 
     Seasonal Error: 0.3137719994821435
+```
 
 
 
@@ -794,10 +783,7 @@ plt.fill_between(
     alpha=0.3, 
     interpolate=True
 )
-
 ```
 
-![png](assets/time-series-transformer/output_65_1.png)
+![png](assets/time-series-transformers/output_65_1.png)
     
-
-
