@@ -75,7 +75,7 @@ OCR is a backbone of Document AI use cases as it's essential to transform the te
     
 Classifying documents into the appropriate category, such as forms, invoices, or letters, is known as document image classification. Classification may use either one or both of the document's image and text. The recent addition of multimodal models that use the visual structure and the underlying text has dramatically increased classifier performance.
 
-A basic approach (and an excellent starting point) is applying OCR on a document image, after which a [BERT](https://huggingface.co/docs/transformers/model_doc/bert)-like model is used for classification. However, relying on only a BERT model doesn't take any layout or visual information into account. The figure from [RVL-CDIP](https://huggingface.co/datasets/rvl_cdip) dataset shows how visual structure differs by different document types.
+A basic approach is applying OCR on a document image, after which a [BERT](https://huggingface.co/docs/transformers/model_doc/bert)-like model is used for classification. However, relying on only a BERT model doesn't take any layout or visual information into account. The figure from the [RVL-CDIP](https://huggingface.co/datasets/rvl_cdip) dataset shows how visual structure differs by different document types.
 
 ![png](assets/112_document-ai/doc_class.png)
 
