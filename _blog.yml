@@ -1346,7 +1346,6 @@
     - nlp
     - research
     - llm
-    
 - local: pytorch-ddp-accelerate-transformers
   title: "From PyTorch DDP to 🤗 Accelerate to 🤗 Trainer, mastery of distributed training with ease"
   author: muellerzr
