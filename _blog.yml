@@ -877,6 +877,7 @@
   tags:
   - guide
   - diffusion
+  - stable-diffusion
 
 - external: https://huggingface.co/spaces/loubnabnl/code-generation-models
   title: "Code generation with Hugging Face"
@@ -1178,7 +1179,7 @@
   - nlp
   - text to image
   - clip
-  - stable diffusion
+  - stable-diffusion
   - dalle
 
 - local: spaces_3dmoljs
@@ -1214,7 +1215,7 @@
   - guide
   - diffusion
   - text_to_image
-  - stable diffusion
+  - stable-diffusion
 
 - local: megatron-training
   title: "How to train a Language Model with Megatron-LM"
@@ -1324,7 +1325,7 @@
     - nlp
     - text-to-image
     - clip
-    - stable diffusion
+    - stable-diffusion
     - dalle
 
 - local: inference-endpoints
