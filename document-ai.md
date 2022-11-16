@@ -221,6 +221,8 @@ Are you seeing the possibilities of Document AI? Every day we work with enterpri
 
 If you want to accelerate your Document AI efforts, Hugging Face can help. Through our [Enterprise Acceleration Program](https://huggingface.co/support) we partner with enterprises to provide guidance on AI use cases. For Document AI, this could involve helping build a pre-train model, improving accuracy on a fine-tuning task, or providing overall guidance on tackling your first Document AI use case.
 
+We can also provide bundles of compute credits to use our training (AutoTrain) or inference (Spaces or Inference Endpoints) products at scale.
+
 ### Resources
 
 Tutorial notebooks for many Document AI models are in [Niels' Github](https://github.com/NielsRogge/Transformers-Tutorials) repository: [https://github.com/NielsRogge/Transformers-Tutorials](https://github.com/NielsRogge/Transformers-Tutorials).
