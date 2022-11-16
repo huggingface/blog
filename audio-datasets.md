@@ -129,6 +129,8 @@ print(gigaspeech["train"][0])
 We can see that there are a number of features returned by the `DatasetDict`, including `segment_id`, `speaker`, `text`, 
 `audio` and more. For speech recognition, we'll be concerned with the `text` and `audio` columns. 
 
+<!--- TODO: audio folder --->
+
 ## Easy to Load, Easy to Process
 
 Loading a dataset with 🤗 Datasets is just half of the fun. We can now use the suite of tools available to efficiently 
@@ -181,6 +183,8 @@ print(gigaspeech["train"][0])
 We can see that the sampling rate has been downsampled to 8kHz. The array values are also different, as we've now only 
 got approximately one amplitude value for every two that we had before.
 
+<!--- TODO: resample back to 16kHz --->
+
 ### 2. Pre-Processing Function
 One of the hardest aspects of working with audio datasets is preparing the data into the right format for the model. 
 Using 🤗 Dataset's [`map`](https://huggingface.co/docs/datasets/v2.6.1/en/process#map) method, we can write a function 
@@ -215,8 +219,8 @@ We can apply the data preparation function to all of our training examples using
 gigaspeech = gigaspeech.map(prepare_dataset, remove_columns=next(iter(gigaspeech.values())).column_names)
 ```
 
-Here, we remove the columns were defined when we loaded the dataset (e.g. `file`, `chapter_id`, `speaker_id`, etc.), 
-columns that we do not require for the speech recognition task.
+Here, we remove the columns were defined when we loaded the dataset that we do not require for the speech recognition task 
+(e.g. `segment_id`, `speaker`, etc.).
 
 ### 3. Filtering Function
 
@@ -239,7 +243,19 @@ method, keeping all samples that are shorter than 30s (True) and discarding thos
 gigaspeech["train"] = gigaspeech["train"].filter(is_audio_length_in_range, input_columns=["input_length"])
 ```
 
+And with that, we have the GigaSpeech dataset fully prepared for our model! This required just 13 lines of Python 
+code in total, right from loading the dataset to the final filtering step. 
+
+Keeping the notebook as general as possible, 
+we only performed the fundamental data preparation steps. However, there is no restriction to the functions you can 
+apply to your audio dataset. You can extend the function `prepare_dataset` to perform much more involved operations, 
+such as data augmentation or noise reduction. Using 🤗 Datasets, if you can write it in a Python function, 
+you can apply it to your dataset!
+
+<!--- TODO: streaming mode --->
+
 ## The Hub
+
 
 ## A Tour of Audio Datasets on The Hub
 
