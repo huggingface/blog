@@ -1417,7 +1417,7 @@
     
 - local: document-ai
   title: "Accelerating Document AI"
-  author: rshah
+  author: rajistics
   thumbnail: /blog/assets/112_document-ai/thumbnail.png
   date: Nov 10, 2022
   tags:
