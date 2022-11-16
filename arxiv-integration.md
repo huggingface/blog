@@ -21,7 +21,7 @@ thumbnail: /blog/assets/arxiv-integration/thumbnail.png
         </div>
     </a>
    <a href="/osanseviero">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1622621035602-6032802e1f993496bc14d9e3.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1622621035602-6032802e1f993496bc14d9e3.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>osanseviero</code>
             <span class="fullname">Omar Sanseviero</span>
