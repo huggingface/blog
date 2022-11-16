@@ -223,7 +223,7 @@ If you want to accelerate your Document AI efforts, Hugging Face can help. Throu
 
 ### Resources
 
-Tutorial notebooks for many Document AI models are in [Niels Github](https://github.com/NielsRogge/Transformers-Tutorials) repository: [https://github.com/NielsRogge/Transformers-Tutorials](https://github.com/NielsRogge/Transformers-Tutorials).
+Tutorial notebooks for many Document AI models are in [Niels' Github](https://github.com/NielsRogge/Transformers-Tutorials) repository: [https://github.com/NielsRogge/Transformers-Tutorials](https://github.com/NielsRogge/Transformers-Tutorials).
 
 <html itemscope itemtype="https://schema.org/FAQPage">
   <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
