@@ -25,7 +25,7 @@ thumbnail: /blog/assets/sentiment-analysis-fhe/thumbnail.png
 
 It is well-known that a sentiment analysis model determines whether a text is positive, negative, or neutral. However, this process typically requires access to unencrypted text, which can pose privacy concerns.
 
-Homomorphic encryption is a type of encryption that allows for computation on encrypted data without needing to decrypt it first. This makes it well-suited for applications like sentiment analysis.
+Homomorphic encryption is a type of encryption that allows for computation on encrypted data without needing to decrypt it first. This makes it well-suited for applications where user's personal and potentially sensitive data is at risk (e.g. sentiment analysis of private messages).
 
 This blog post uses the [Concrete-ML library](https://github.com/zama-ai/concrete-ml), allowing data scientists to use machine learning models in homomorphic encryption settings without any prior knowledge of cryptography. We provide a practical tutorial on how to use the library to build a sentiment analysis model on encrypted data.
 
@@ -115,7 +115,7 @@ This should download the model, which is now ready to be used.
 
 Using the hidden representation for some text can be tricky at first, mainly because we could tackle this with many different approaches. Below is the approach we chose.
 
-First, we tokenize the text. Tokenizing means splitting the text into tokens (a sequence of specific characters that can also be words) and replacing each with a number. Then, we send the tokenized text to the transformer model, which outputs a hidden representation for each word. Finally, we average the representations for each word to get a text-level representation.
+First, we tokenize the text. Tokenizing means splitting the text into tokens (a sequence of specific characters that can also be words) and replacing each with a number. Then, we send the tokenized text to the transformer model, which outputs a hidden representation (output of the self attention layers which are often used as input to the classification layers) for each word. Finally, we average the representations for each word to get a text-level representation.
 
 The result is a matrix of shape (number of examples, hidden size). The hidden size is the number of dimensions in the hidden representation. For BERT, the hidden size is 768. The hidden representation is a vector of numbers that represents the text that can be used for many different tasks. In this case, we will use it for classification with [XGBoost](https://github.com/dmlc/xgboost) afterwards.
 
