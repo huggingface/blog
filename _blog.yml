@@ -1417,6 +1417,17 @@
     - text generation
     - research
 
+- local: sentiment-analysis-fhe
+  title: "Sentiment Classification with Fully Homomorphic Encryption using Concrete ML"
+  author: jfrery-zama
+  thumbnail: /blog/assets/sentiment-analysis-fhe/thumbnail.png
+  date: November 17, 2022
+  tags:
+    - guide
+    - privacy
+    - research
+    - FHE
+
 - local: arxiv
   title: "Hugging Face Machine Learning Demos on arXiv"
   author: abidlabs
@@ -1425,3 +1436,4 @@
   tags:
     - research    
     - community
+
