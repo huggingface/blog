@@ -29,6 +29,12 @@ Homomorphic encryption is a type of encryption that allows for computation on en
 
 This blog post uses the [Concrete-ML library](https://github.com/zama-ai/concrete-ml), allowing data scientists to use machine learning models in homomorphic encryption settings without any prior knowledge of cryptography. We provide a practical tutorial on how to use the library to build a sentiment analysis model on encrypted data.
 
+You can install Concrete-ML library with the following command:
+
+```
+pip install concrete-ml
+```
+
 The post covers:
 
 - transformers
@@ -45,22 +51,10 @@ The dataset we use in this notebook can be found [here](https://www.kaggle.com/d
 
 To represent the text for sentiment analysis, we chose to use a transformer hidden representation as it yields high accuracy for the final model in a very efficient way. For a comparison of this representation set against a more common procedure like the TF-IDF approach, please see this [full notebook](https://github.com/zama-ai/concrete-ml/blob/release/0.4.x/use_case_examples/encrypted_sentiment_analysis/SentimentClassification.ipynb).
 
-Alright, let’s first import a few requirements.
+We can start by opening the dataset and visualize some statistics.
 
 ```python
-import time
-
-import numpy as np
-import pandas as pd
 from datasets import load_datasets
-from concrete.ml.sklearn import XGBClassifier
-from sklearn.metrics import ConfusionMatrixDisplay
-from sklearn.model_selection import GridSearchCV, train_test_split
-```
-
-Now we can open the dataset and visualize some statistics.
-
-```python
 train = load_dataset("osanseviero/twitter-airline-sentiment")["train"].to_pandas()
 text_X = train['text']
 y = train['airline_sentiment']
@@ -86,6 +80,7 @@ The ratio of positive and negative examples is rather similar, though we have si
 Now we can split our dataset into training and test sets. We will use a seed for this code to ensure it is perfectly reproducible.
 
 ```python
+from sklearn.model_selection import train_test_split
 text_X_train, text_X_test, y_train, y_test = train_test_split(text_X, y,
     test_size=0.1, random_state=42)
 ```
@@ -100,14 +95,13 @@ We start by importing the requirements for transformers. Here, we use the popula
 
 ```python
 import torch
-import tqdm
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
 ```
 
 The model we have chosen is a BERT transformer, fine-tuned on the Stanford Sentiment Treebank dataset.
 
 ```python
+from transformers import AutoModelForSequenceClassification, AutoTokenizer
 # Load the tokenizer (converts text to tokens)
 tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
 
@@ -126,6 +120,8 @@ First, we tokenize the text. Tokenizing means splitting the text into tokens (a 
 The result is a matrix of shape (number of examples, hidden size). The hidden size is the number of dimensions in the hidden representation. For BERT, the hidden size is 768. The hidden representation is a vector of numbers that represents the text that can be used for many different tasks. In this case, we will use it for classification with [XGBoost](https://github.com/dmlc/xgboost) afterwards.
 
 ```python
+import numpy as np
+import tqdm
 # Function that transforms a list of texts to their representation
 # learned by the transformer.
 def text_to_tensor(
@@ -175,6 +171,8 @@ This transformation of the text (text to transformer representation) would need 
 Now that we have our training and test sets properly built to train a classifier, next comes the training of our FHE model. Here it will be very straightforward, using a hyper-parameter tuning tool such as GridSearch from scikit-learn.
 
 ```python
+from concrete.ml.sklearn import XGBClassifier
+from sklearn.model_selection import GridSearchCV
 # Let's build our model
 model = XGBClassifier()
 
@@ -210,7 +208,7 @@ Best parameters: {'max_depth': 1, 'n_bits': 3, 'n_estimators': 50, 'n_jobs': -1}
 Now, let’s see how the model performs on the test set.
 
 ```python
-
+from sklearn.metrics import ConfusionMatrixDisplay
 # Compute the metrics on the test set
 y_pred = best_model.predict(X_test_transformer)
 y_proba = best_model.predict_proba(X_test_transformer)
@@ -234,6 +232,7 @@ Accuracy: 0.8504
 Now let’s predict over encrypted text. The idea here is that we will encrypt the representation given by the transformer rather than the raw text itself. In Concrete-ML, you can do this very quickly by setting the parameter `execute_in_fhe=True` in the predict function. This is just a developer feature (mainly used to check the running time of the FHE model). We will see how we can make this work in a deployment setting a bit further down.
 
 ```python
+import time
 # Compile the model to get the FHE inference engine
 # (this may take a few minutes depending on the selected model)
 start = time.perf_counter()
@@ -282,7 +281,6 @@ At this point, our model is fully trained and compiled, ready to be deployed. In
 ```python
 # Let's save the model to be pushed to a server later
 from concrete.ml.deployment import FHEModelDev
-
 fhe_api = FHEModelDev("sentiment_fhe_model", best_model)
 fhe_api.save()
 ```
