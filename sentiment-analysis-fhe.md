@@ -29,12 +29,6 @@ Homomorphic encryption is a type of encryption that allows for computation on en
 
 This blog post uses the [Concrete-ML library](https://github.com/zama-ai/concrete-ml), allowing data scientists to use machine learning models in homomorphic encryption settings without any prior knowledge of cryptography. We provide a practical tutorial on how to use the library to build a sentiment analysis model on encrypted data.
 
-You can install Concrete-ML library with the following command:
-
-```
-pip install concrete-ml
-```
-
 The post covers:
 
 - transformers
@@ -44,6 +38,18 @@ The post covers:
 - how to [deploy to the cloud](https://docs.zama.ai/concrete-ml/getting-started/cloud) using a client/server protocol
 
 Last but not least, we’ll finish with a complete demo over [Hugging Face Spaces](https://huggingface.co/spaces) to show this functionality in action.
+
+## Setup the environment
+
+First make sure your pip and setuptools are up to date by running:
+```
+pip install -U pip setuptools
+```
+
+Now we can install all the required libraries for the this blog with the following command.
+```
+pip install concrete-ml transformers datasets
+```
 
 ## Using a public dataset
 
@@ -93,15 +99,12 @@ They are powerful tools for all kinds of Natural Language Processing tasks. In f
 
 We start by importing the requirements for transformers. Here, we use the popular library from [Hugging Face](https://huggingface.co) to get a transformer quickly.
 
-```python
-import torch
-device = "cuda:0" if torch.cuda.is_available() else "cpu"
-```
-
 The model we have chosen is a BERT transformer, fine-tuned on the Stanford Sentiment Treebank dataset.
 
 ```python
+import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
+device = "cuda:0" if torch.cuda.is_available() else "cpu"
 # Load the tokenizer (converts text to tokens)
 tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
 
