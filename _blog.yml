@@ -1427,3 +1427,13 @@
     - privacy
     - research
     - FHE
+
+- local: arxiv
+  title: "Hugging Face Machine Learning Demos on arXiv"
+  author: abidlabs
+  thumbnail: /blog/assets/arxiv/thumbnail.png
+  date: Nov 17, 2022
+  tags:
+    - research    
+    - community
+
