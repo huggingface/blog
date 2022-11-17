@@ -23,13 +23,13 @@ thumbnail: /blog/assets/sentiment-analysis-fhe/thumbnail.png
     </a>
 </div>
 
-It is well-known that sentiment analysis is a process of determining whether a piece of text is positive, negative, or neutral. However, this process typically requires access to the unencrypted text, which can pose privacy concerns.
+It is well-known that a sentiment analysis model determines whether a text is positive, negative, or neutral. However, this process typically requires access to unencrypted text, which can pose privacy concerns.
 
-Homomorphic encryption is a type of encryption that allows for computation on encrypted data, without needing to decrypt it first. This makes it well-suited for applications like sentiment analysis.
+Homomorphic encryption is a type of encryption that allows for computation on encrypted data without needing to decrypt it first. This makes it well-suited for applications like sentiment analysis.
 
-In this blog we use the [Concrete-ML library](https://github.com/zama-ai/concrete-ml) allowing data scientists to use machine learning model in the homomorphic encryption settings without any prior knowledge in cryptography. We provide a practical tutorial on how to use the library to build a sentiment analysis model on encrypted data.
+This blog post uses the [Concrete-ML library](https://github.com/zama-ai/concrete-ml), allowing data scientists to use machine learning models in homomorphic encryption settings without any prior knowledge of cryptography. We provide a practical tutorial on how to use the library to build a sentiment analysis model on encrypted data.
 
-Our post will discuss:
+The post covers:
 
 - transformers
 - how to use transformers with XGBoost to perform sentiment analysis
@@ -94,7 +94,7 @@ text_X_train, text_X_test, y_train, y_test = train_test_split(text_X, y,
 
 [Transformers](https://en.wikipedia.org/wiki/Transformer_(machine_learning_model)) are neural networks often trained to predict the next words to appear in a text (this task is commonly called self-supervised learning). They can also be fine-tuned on some specific subtasks such that they specialize and get better results on a given problem.
 
-They are powerful tools for all kinds of Natural Language Processing tasks. In fact, we can leverage their representation for any text and feed it to a more FHE-friendly, machine learning model for classification. In this notebook we will use XGBoost.
+They are powerful tools for all kinds of Natural Language Processing tasks. In fact, we can leverage their representation for any text and feed it to a more FHE-friendly machine-learning model for classification. In this notebook, we will use XGBoost.
 
 We start by importing the requirements for transformers. Here, we use the popular library from [Hugging Face](https://huggingface.co) to get a transformer quickly.
 
@@ -119,9 +119,9 @@ transformer_model = AutoModelForSequenceClassification.from_pretrained(
 
 This should download the model, which is now ready to be used.
 
-Now, using the hidden representation for some text can be a bit tricky at first, especially since we could tackle this with many different approaches. Below is the approach we chose.
+Using the hidden representation for some text can be tricky at first, mainly because we could tackle this with many different approaches. Below is the approach we chose.
 
-First, we tokenize the text. This means that we split the text into tokens, or a sequence of specific characters that can also be words, and replace each of them with a number. Then, we send the tokenized text to the transformer model, which outputs a hidden representation for each word. Finally, we average the representations for each word to get a text-level representation.
+First, we tokenize the text. Tokenizing means splitting the text into tokens (a sequence of specific characters that can also be words) and replacing each with a number. Then, we send the tokenized text to the transformer model, which outputs a hidden representation for each word. Finally, we average the representations for each word to get a text-level representation.
 
 The result is a matrix of shape (number of examples, hidden size). The hidden size is the number of dimensions in the hidden representation. For BERT, the hidden size is 768. The hidden representation is a vector of numbers that represents the text that can be used for many different tasks. In this case, we will use it for classification with [XGBoost](https://github.com/dmlc/xgboost) afterwards.
 
@@ -231,7 +231,7 @@ Accuracy: 0.8504
 
 ## Predicting over encrypted data
 
-Now let’s predict over encrypted text. The idea here is that we are going to encrypt the representation given by the transformer rather than the raw text itself. In Concrete-ML you can do this very easily by just setting the parameter `execute_in_fhe=True` in the predict function. This is obviously just a developer feature (mainly used to check the running time of the FHE model). We will see how we can make this work in a deployment setting a bit further down.
+Now let’s predict over encrypted text. The idea here is that we will encrypt the representation given by the transformer rather than the raw text itself. In Concrete-ML, you can do this very quickly by setting the parameter `execute_in_fhe=True` in the predict function. This is just a developer feature (mainly used to check the running time of the FHE model). We will see how we can make this work in a deployment setting a bit further down.
 
 ```python
 # Compile the model to get the FHE inference engine
