@@ -1,6 +1,6 @@
 ---
 title: "Hugging Face Machine Learning Demos on arXiv" 
-thumbnail: /blog/assets/arxiv-integration/thumbnail.png
+thumbnail: /blog/assets/arxiv/thumbnail.png
 ---
 
 # Hugging Face Machine Learning Demos on arXiv
