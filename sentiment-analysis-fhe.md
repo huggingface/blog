@@ -27,7 +27,7 @@ It is well-known that a sentiment analysis model determines whether a text is po
 
 Homomorphic encryption is a type of encryption that allows for computation on encrypted data without needing to decrypt it first. This makes it well-suited for applications where user's personal and potentially sensitive data is at risk (e.g. sentiment analysis of private messages).
 
-This blog post uses the [Concrete-ML library](https://github.com/zama-ai/concrete-ml), allowing data scientists to use machine learning models in homomorphic encryption settings without any prior knowledge of cryptography. We provide a practical tutorial on how to use the library to build a sentiment analysis model on encrypted data.
+This blog post uses the [Concrete-ML library](https://github.com/zama-ai/concrete-ml), allowing data scientists to use machine learning models in fully homomorphic encryption (FHE) settings without any prior knowledge of cryptography. We provide a practical tutorial on how to use the library to build a sentiment analysis model on encrypted data.
 
 The post covers:
 
@@ -81,7 +81,7 @@ Proportion of negative examples: 62.69%
 Proportion of neutral examples: 21.17%
 ```
 
-The ratio of positive and negative examples is rather similar, though we have significantly more negative examples. Let’s keep this in mind to select the final evaluation metric.
+The ratio of positive and neutral examples is rather similar, though we have significantly more negative examples. Let’s keep this in mind to select the final evaluation metric.
 
 Now we can split our dataset into training and test sets. We will use a seed for this code to ensure it is perfectly reproducible.
 
