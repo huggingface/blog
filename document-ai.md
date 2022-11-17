@@ -6,7 +6,7 @@ thumbnail: /blog/assets/112_document-ai/thumbnail.png
 # Accelerating Document AI
 
 <div class="blog-metadata">
-    <small>Published November 02, 2022.</small>
+    <small>Published November 21, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/decision-transformers-train.md">
         Update on GitHub
     </a>
@@ -158,7 +158,7 @@ In the past, building a DocVQA system would often require multiple models workin
 
 DocVQA is typically evaluated using the Average Normalized Levenshtein Similarity (ANLS) metric. For more details regarding this metric, we refer to [this guide](https://rrc.cvc.uab.es/?ch=11&com=tasks). The current state-of-the-art on the DocVQA benchmark that is open-source is [LayoutLMv3](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) which achieves an ANLS score of 83.37. However, this model consists of a pipeline of OCR + multimodal Transformer. [Donut](https://huggingface.co/docs/transformers/model_doc/donut) solves the task in an end-to-end manner using a single encoder-decoder Transformer, not relying on OCR. Donut doesn't provide state-of-the-art accuracy but shows the great potential of the end-to-end approach using a generative T5-like model. Impira hosts an [exciting Space](https://huggingface.co/spaces/impira/docquery) that illustrates LayoutLM and Donut for DocVQA.
 
-Visual question answering is compelling; however, there are many considerations for successfully using it. Having accurate training data, evaluation metrics, and post-processing is vital. For teams taking on this use case, be aware that DocVQA can be challenging to work properly. In some cases, responses can be unpredictable, and the model can “hallucinate” by giving an answer that doesn't appear within the document. Ensuring proper model setup and post-processing is integral to building a successful DocVQA solution.
+Visual question answering is compelling; however, there are many considerations for successfully using it. Having accurate training data, evaluation metrics, and post-processing is vital. For teams taking on this use case, be aware that DocVQA can be challenging to work properly. In some cases, responses can be unpredictable, and the model can “hallucinate” by giving an answer that doesn't appear within the document. Visual question answering models that rely on pretrained data can also raise ethical issues of bias. Ensuring proper model setup and post-processing is integral to building a successful DocVQA solution.
 </div>
     </div>
         </div>
@@ -208,7 +208,7 @@ Do you want the model to handle the OCR? For example, [Donut](https://huggingfac
 
 Should you use higher-resolution images? When using images with [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2), it downscales them to 224 by 224, whereas [Donut](https://huggingface.co/docs/transformers/model_doc/donut) uses the full high-resolution image. However, using the full high-resolution image dramatically increases the memory required for training and inference.
 
-How are you evaluating the model? Watch out for misaligned bounding boxes. You should ensure bounding boxes provided by the OCR engine of your choice align with the model processor. Verifying this can save you from unexpectedly poor results. Second, let your project requirements guide your evaluation metrics. For example, in some tasks like token classification or question answering, a 100% match may not be the best metric. A metric like partial match could allow for many more potential tokens to be considered, such as “Acme” and “inside Acme” as a match.
+How are you evaluating the model? Watch out for misaligned bounding boxes. You should ensure bounding boxes provided by the OCR engine of your choice align with the model processor. Verifying this can save you from unexpectedly poor results. Second, let your project requirements guide your evaluation metrics. For example, in some tasks like token classification or question answering, a 100% match may not be the best metric. A metric like partial match could allow for many more potential tokens to be considered, such as “Acme” and “inside Acme” as a match. Finally, consider ethical issues during your evaluation as these models may be working with biased data or provide unstable outcomes that could biased against certain groups of people.
 
 </div>
     </div>
