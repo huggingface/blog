@@ -6,7 +6,7 @@ thumbnail: /blog/assets/sentiment-analysis-fhe/thumbnail.png
 # Sentiment Analysis on Encrypted Data with Homomorphic Encryption
 
 <div class="blog-metadata">
-    <small>Published November 2, 2022.</small>
+    <small>Published November 17, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/sentiment-analysis-fhe.md">
         Update on GitHub
     </a>
@@ -18,6 +18,7 @@ thumbnail: /blog/assets/sentiment-analysis-fhe/thumbnail.png
         <div class="bfc">
             <code>jfrery-zama</code>
             <span class="fullname">Jordan Frery</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>
@@ -47,19 +48,20 @@ To represent the text for sentiment analysis, we chose to use a transformer hidd
 Alright, let’s first import a few requirements.
 
 ```python
-from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import ConfusionMatrixDisplay
-import pandas as pd
-from concrete.ml.sklearn import XGBClassifier
-from sklearn.model_selection import train_test_split
-import numpy
 import time
+
+import numpy as np
+import pandas as pd
+from datasets import load_datasets
+from concrete.ml.sklearn import XGBClassifier
+from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.model_selection import GridSearchCV, train_test_split
 ```
 
 Now we can open the dataset and visualize some statistics.
 
 ```python
-train = pd.read_csv('data/Tweets.csv')
+train = load_dataset("osanseviero/twitter-airline-sentiment")["train"].to_pandas()
 text_X = train['text']
 y = train['airline_sentiment']
 y = y.replace(['negative', 'neutral', 'positive'], [0, 1, 2])
@@ -131,13 +133,13 @@ def text_to_tensor(
    transformer_model: AutoModelForSequenceClassification,
    tokenizer: AutoTokenizer,
    device: str,
-) -> numpy.ndarray:
+) -> np.ndarray:
    # Tokenize each text in the list one by one
    tokenized_text_X_train_split = []
-	tokenized_text_X_train_split = [
-		tokenizer.encode(text_x_train, return_tensors="pt")
-		for text_x_train in list_text_X_train
-	]
+   tokenized_text_X_train_split = [
+       tokenizer.encode(text_x_train, return_tensors="pt")
+       for text_x_train in list_text_X_train
+   ]
 
    # Send the model to the device
    transformer_model = transformer_model.to(device)
@@ -154,7 +156,7 @@ def text_to_tensor(
        output_hidden_states = output_hidden_states.detach().cpu().numpy()
        output_hidden_states_list[i] = output_hidden_states
 
-   return numpy.concatenate(output_hidden_states_list, axis=0)
+   return np.concatenate(output_hidden_states_list, axis=0)
 ```
 
 ```python
@@ -218,8 +220,14 @@ matrix = confusion_matrix(y_test, y_pred)
 ConfusionMatrixDisplay(matrix).plot()
 
 # Compute the accuracy
-accuracy_transformer_xgboost = numpy.mean(y_pred == y_test)
+accuracy_transformer_xgboost = np.mean(y_pred == y_test)
 print(f"Accuracy: {accuracy_transformer_xgboost:.4f}")
+```
+
+With the following output:
+```
+Accuracy: 0.8504
+```
 
 ## Predicting over encrypted data
 

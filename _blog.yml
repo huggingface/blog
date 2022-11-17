@@ -1420,8 +1420,9 @@
   title: "Sentiment Classification with Fully Homomorphic Encryption using Concrete ML"
   author: jfrery-zama
   thumbnail: /blog/assets/sentiment-analysis-fhe/thumbnail.gif
-  date: November 9, 2022
+  date: November 17, 2022
   tags:
+    - guide
     - privacy
     - research
     - FHE
