@@ -143,6 +143,32 @@ There are two critical mistakes that I’ve seen organizations of all sizes make
 #### **4. What excites you most about the future of ML?**
 I’m excited about the opportunity to mentor the next generation of ML leaders.  My career began when cloud computing platforms were just getting started and ML tooling was much less mature than it is now.  It was exciting to explore different engineering patterns for ML experimentation and deployment, since established best practices were rare.  But, that exploration included learning too many technical and people leadership lessons the hard way.  Sharing those lessons with the next generation of ML leaders will help empower them to advance the field farther and faster than what we’ve seen over the past 10+ years.
 
+### [Evan Castle](https://www.linkedin.com/in/evan-castle-ai/) - Director of ML, Product Marketing, Elastic Stack at [Elastic](www.elastic.co)
+
+**Background:** Over a decade of leadership experience in the intersection of data science, product, and strategy. Worked in a range of industries from building risk models at Fortune 100s like Capital One to launching ML products at Sisense and Elastic.   
+
+**Fun Fact:** Met Paul McCarthy. 🎤
+
+**MasterPeace Solutions:** MasterPeace Solutions has emerged as one of the fastest growing advanced technology companies in the Mid-Atlantic region.  The company designs and develops software, systems, solutions and products in order to solve some of the most pressing challenges facing the Intelligence Community. 
+ 
+
+#### **1. How has ML made a positive impact on SaaS?**
+Machine learning has become truly operational in SaaS, powering multiple uses from personalization, semantic and image search, recommendations to anomaly detection, and a ton of other business scenarios. The real impact is that ML comes baked right into more and more applications. It's becoming an expectation and more often than not it's invisible to end users. 
+For example, at Elastic we invested in ML for anomaly detection, optimized for endpoint security and SIEM. It delivers some heavy firepower out of the box with an amalgamation of different techniques like time series decomposition, clustering, correlation analysis, and Bayesian distribution modeling. The big benefit for security analysts is threat detection is automated in many different ways. So anomalies are quickly bubbled up related to temporal deviations, unusual geographic locations, statistical rarity, and many other factors. That's the huge positive impact of integrating ML. 
+ 
+#### **2. What are the biggest ML challenges within SaaS?**
+To maximize the benefits of ML there is a double challenge of delivering value to users that are new to machine learning and also to seasoned data scientists. There's obviously a huge difference in demands for these two folks. If an ML capability is a total black box it's likely to be too rigid or simple to have a real impact. On the other hand, if you solely deliver a developer toolkit it's only useful if you have a data science team in-house. Striking the right balance is about making sure ML is open enough for the data science team to have transparency and control over models and also packing in battle-tested models that are easy to configure and deploy without being a pro. 
+
+ 
+#### **3. What’s a common mistake you see people make trying to integrate ML into SaaS?**
+To get it right, any integrated model has to work at scale, which means support for massive data sets while ensuring results are still performant and accurate. Let's illustrate with a real example. There has been a surge in interest in vector search. All sorts of things can be represented in vectors from text, and images to events. Vectors can be used to capture similarities between content and are great for things like search relevance and recommendations. The challenge is developing algorithms that can compare vectors taking into account trade-offs in speed, complexity, and cost. 
+At Elastic, we spent a lot of time evaluating and benchmarking the performance of models for vector search. We decided on an approach for the approximate nearest neighbor (ANN) algorithm called Hierarchical Navigable Small World graphs (HNSW), which basically maps vectors into a
+graph based on their similarity to each other. HNSW delivers an order of magnitude increase in speed and accuracy across a variety of ANN-benchmarks. This is just one example of non-trivial decisions more and more product and engineering teams need to take to successfully integrate ML into their products. 
+
+
+ 
+#### **4. What excites you most about the future of ML?**
+Machine learning will become as simple as ordering online. The big advances in NLP especially have made ML more human by understanding context, intent, and meaning. I think we are in an era of foundational models that will blossom into many interesting directions. At Elastic we are thrilled with our own integration to Hugging Face and excited to already see how our customers are leveraging NLP for observability, security, and search.
 
 ---
 
