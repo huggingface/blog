@@ -258,6 +258,43 @@ write it in a Python function, you can apply it to your dataset!
 
 ## Streaming Mode: The Silver Bullet
 
+One of the biggest challenges faced with audio datasets is their sheer size. The GigaSpeech `xs` split contained just 10 
+hours of training data, but amassed over 13GB of storage space for download and preparation. So what happens when we 
+want to train on a larger split? The full `xl` split contains 10,000 hours of training data, requiring over 1TB of 
+storage space! For most speech researchers, this well exceeds the limit of what is feasible for a typical hard drive. 
+Do we need to cough-up and buy additional storage? Or is there a way we can train on these datasets with **less than 
+10GB** of disk space?
+
+Luckily for us, 🤗 Datasets allows us to do just this. This is made possible through use of [_streaming_](https://huggingface.co/docs/datasets/stream), 
+depicted graphically in Figure 1. Streaming allows us to download data progressively as we iterate over the dataset: 
+rather than downloading the whole dataset at once, we download small chunks of the dataset at a time. These chunks of 
+data are downloaded and prepared _on the fly_, meaning they are available as and when we need them, and not when we don't!
+
+<figure>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/datasets/streaming.gif" alt="Trulli" style="width:100%">
+<figcaption align = "center"><b>Figure 1:</b> Streaming mode. The dataset is divided into smaller subsets (or chunks), with subsets downloaded progressively as we iterate over the dataset. </figcaption>
+</figure>
+
+Streaming mode has three primary advantages:
+1. **Disk space:** you have complete control over the size of the chunks downloaded, so you can download chunks of data that will fit your device.
+2. **Download and processing speed:** full audio datasets are large and need a significant amount of time to download. With streaming, downloading is done on the fly, meaning you can start using the dataset as soon as the first chunk is ready.
+3. **Easy experimentation:** you can experiment on one chunk of data to check that your script works, without having to download the entire dataset.
+
+How can you enable streaming mode? Easy! Just set `streaming=True` when you load your dataset. The rest will be taken 
+care for you:
+
+```python
+gigaspeech = load_dataset("speechcolab/gigaspeech", "xs", streaming=True)
+```
+
+All of the steps covered so far in this tutorial can be applied to the streaming dataset without any code changes.
+
+Streaming mode can take your research to the next level: not only are the biggest datasets accessible to you, but you 
+can easily evaluate systems over multiple datasets in one go without worrying about your disk space. Compared 
+to evaluating on a single dataset, multi-dataset evaluation gives a better metric for the generalisation 
+abilities of a speech recognition system. Check out the accompanying Google Colab for an example of evaluating 
+Whisper on eight English speech recognition datasets in one script.
+<!--- TODO: insert link to Google Colab --->
 
 ## The Hub
 
