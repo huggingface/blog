@@ -22,9 +22,7 @@ thumbnail: /blog/assets/116_audio_datasets/thumbnail.jpg
     </a>
 </div>
 
-<!---
-Note to reviewer: comments and TODOs are included in this format.
---->
+<!--- Note to reviewer: comments and TODOs are included in this format. --->
 
 <!--- TODO: insert link to Colab --->
 
@@ -109,6 +107,13 @@ indexing:
 ```python
 print(gigaspeech["train"][0])
 ```
+<!--- 
+TODO: this indexing won't work with streaming mode, we might instead need to do it this way:
+
+print(next(iter(gigaspeech["train"])))
+
+Which is significantly less elegant, but means that the notebook generalises to streaming mode.
+--->
 
 **Print Output:**
 ```python
@@ -223,13 +228,13 @@ to pre-process a single sample of the dataset, and then handily apply it to ever
 
 First, let's load a processor object from 🤗 Transformers. This processor will take care of pre-processing the audio 
 inputs and tokenising the text. The `AutoProcessor` class is used to load a pre-trained processor 
-from a given model checkpoint. In the example, we load the processor from OpenAI's [Whisper small.en](https://huggingface.co/openai/whisper-small.en) 
+from a given model checkpoint. In the example, we load the processor from OpenAI's [Whisper medium.en](https://huggingface.co/openai/whisper-medium.en) 
 checkpoint, but you can change this to any model identifier on the Hugging Face Hub:
 
 ```python
 from transformers import AutoProcessor
 
-processor = AutoProcessor.from_pretrained("openai/whisper-small.en")
+processor = AutoProcessor.from_pretrained("openai/whisper-medium.en")
 ```
 
 Great! Now we write a function that takes a single training sample and passes it through the `processor` to pre-process 
@@ -244,27 +249,29 @@ def prepare_dataset(batch):
     return batch
 ```
 
-We can apply the data preparation function to all of our training examples using dataset's `map` method:
+We can apply the data preparation function to all of our training examples using dataset's `map` method. Here, we also 
+remove the `audio` and `text` columns, since we have pre-processed them to input features and tokenised 
+labels respectively:
 
 ```python
 gigaspeech = gigaspeech.map(prepare_dataset, remove_columns=next(iter(gigaspeech.values())).column_names)
 ```
 
-Here, we remove the columns were defined when we loaded the dataset that we do not require for the speech recognition 
-task (e.g. `segment_id`, `speaker`, etc.).
-
 ### 3. Filtering Function
 
 Prior to training, we might have a heuristic by which we want to filter our training data. For instance, we might want 
-to filter any audio samples longer than 30s. We can do this in much the same way that we prepared our dataset 
-for our model in the previous step. We start by writing a function that returns a boolean, indicating which samples are 
-shorter than 30s (True) and which are longer (False):
+to filter any audio samples longer than 30s. We can do this in much the same way that we prepared the data for our model 
+in the previous step. 
+
+We start by writing a function that indicates which samples to keep, and which to discard. This 
+function, `is_audio_length_in_range`, returns a boolean: samples that are shorter than 30s return True, and those 
+that are longer False:
 
 ```python
 MAX_DURATION_IN_SECONDS = 30
 
 def is_audio_length_in_range(input_length):
-    return 0 < input_length < MAX_DURATION_IN_SECONDS
+    return input_length < MAX_DURATION_IN_SECONDS
 ```
 
 We can apply this filtering function to all of our training examples using 🤗 Dataset's [`filter`](https://huggingface.co/docs/datasets/process#select-and-filter) 
@@ -291,14 +298,14 @@ storage space! For most speech researchers, this well exceeds the limit of what 
 Do we need to cough-up and buy additional storage? Or is there a way we can train on these datasets with **less than 
 10GB** of disk space?
 
-Luckily for us, 🤗 Datasets allows us to do just this. This is made possible through use of [_streaming_](https://huggingface.co/docs/datasets/stream), 
+🤗 Datasets allows us to do just this. It is made possible through use of [_streaming_](https://huggingface.co/docs/datasets/stream), 
 depicted graphically in Figure 1. Streaming allows us to download data progressively as we iterate over the dataset: 
 rather than downloading the whole dataset at once, we download small chunks of the dataset at a time. These chunks of 
 data are downloaded and prepared _on the fly_, meaning they are available as and when we need them, and not when we don't!
 
 <figure>
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/datasets/streaming.gif" alt="Trulli" style="width:100%">
-<figcaption align = "center"><b>Figure 1:</b> Streaming mode. The dataset is divided into smaller subsets (or chunks), with subsets downloaded progressively as we iterate over the dataset. </figcaption>
+<figcaption align = "center"><b>Figure 1:</b> Streaming mode. The dataset is divided into smaller subsets (or chunks), with subsets downloaded progressively as we iterate over the dataset. Subsets are downloaded when required and deleted after use.</figcaption>
 </figure>
 
 Streaming mode has three primary advantages:
@@ -314,6 +321,7 @@ gigaspeech = load_dataset("speechcolab/gigaspeech", "xs", streaming=True)
 ```
 
 All of the steps covered so far in this tutorial can be applied to the streaming dataset without any code changes.
+<!--- TODO: make this statement valid --->
 
 Streaming mode can take your research to the next level: not only are the biggest datasets accessible to you, but you 
 can easily evaluate systems over multiple datasets in one go without worrying about your disk space. Compared 
