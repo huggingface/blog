@@ -1,5 +1,5 @@
 ---
-title: "Director of Machine Learning Insights [Part 4: E-Commerce Edition]"
+title: "Director of Machine Learning Insights [Part 4]"
 thumbnail: /blog/assets/78_ml_director_insights/thumbnail.png
 ---
 
@@ -10,10 +10,10 @@ thumbnail: /blog/assets/78_ml_director_insights/thumbnail.png
   margin: 25px;
 }
 </style>
-<h1>Director of Machine Learning Insights [Part 4: E-Commerce Edition]</h1>
+<h1>Director of Machine Learning Insights [Part 4]</h1>
 
 <div class="blog-metadata">
-    <small>Published November 23, 2022.</small>
+    <small>Published November 25, 2022.</small>
 </div>
 </head>
 <body>
@@ -21,7 +21,7 @@ thumbnail: /blog/assets/78_ml_director_insights/thumbnail.png
 _If you're interested in building ML solutions faster visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_3) today!_
 
 
-👋 Welcome back to our Director of ML Insights Series, E-Commerce Edition! If you missed earlier Editions you can find them here:
+👋 Welcome back to our Director of ML Insights Series! If you missed earlier Editions you can find them here:
 
 - [Director of Machine Learning Insights [Part 1]](https://huggingface.co/blog/ml-director-insights)
 - [Director of Machine Learning Insights [Part 2 : SaaS Edition]](https://huggingface.co/blog/ml-director-insights-2)
