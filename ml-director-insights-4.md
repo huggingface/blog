@@ -83,26 +83,37 @@ But we are getting better to incorporate mature tools and practices that will le
 
 ### [Shaun Gittens](https://www.linkedin.com/in/shaungittens/) - Director of Machine Learning at [MasterPeace Solutions](https://www.masterpeaceltd.com/)
 
-**Background:**    
+**Background:** Dr. Shaun Gittens is the Director of the Machine Learning Capability of MasterPeace Solutions, Ltd., a company specializing in providing advanced technology and mission critical cyber services to its clients. In this role, he is charged with 1) growing the core of machine learning experts and practitioners at the company, 2) increasing the knowledge of bleeding edge machine learning practice amongst its existing employees, and 3) ensuring the delivery of effective machine learning solutions and consulting support not only to the company’s clientele but also to the start-up companies currently being nurtured from within MasterPeace. Prior to joining MasterPeace, Dr. Gittens served as Principal Data Scientist for the Applied Technology Group, LLC. He built his career on the training and deployment of machine learning solutions on distributed big data and streaming platforms such as Apache Hadoop, Apache Spark, and Apache Storm. As a postdoctoral fellow at Auburn University, he investigated effective methods for visualizing the knowledge gained from trained non-linear machine learned models.  
 
-**Fun Fact:** 
+**Fun Fact:** Addicted to playing tennis & Huge anime fan. 🎾
 
-**U.S. Bank:** 
+**MasterPeace Solutions:** MasterPeace Solutions has emerged as one of the fastest growing advanced technology companies in the Mid-Atlantic region.  The company designs and develops software, systems, solutions and products in order to solve some of the most pressing challenges facing the Intelligence Community. 
  
 
-#### **1. How has ML made a positive impact on finance?**
+#### **1. How has ML made a positive impact on Engineering?**
+
+Engineering is vast in its applications and can encompass a great many areas.  That said, more recently we are seeing ML affect a range of engineering facets addressing obvious fields such as robotics and automobile engineering to not-so-obvious fields such as chemical and civil engineering.  ML is so broad in its application that merely the very existence of training data consisting of prior recorded labor processes is all that’s required to make an attempt at having ML affect your bottom line.  In essence, we are in an age where ML has made a tremendous impact in bringing about automation of all sorts of previously human-only operated engineering processes.
 
  
-#### **2. What are the biggest ML challenges within finance?**
-1. 
+#### **2. What are the biggest ML challenges within Engineering?**
+1. In my opinion , the biggest challenges come in  with the operationalization and deployment of ML trained solutions in a manner in which human operation can be replaced with minimal consequences.  We’re seeing it now with full self-driving automobiles.   It’s very difficult to automate processes with little to no fear of putting humans or processes that humans rely on in jeopardy.  One of the biggest examples of this phenomenon that concerns me is ML and Bias.  It is a reality that ML models trained on data containing, even if unaware, prejudiced decision making can reproduce said bias in operation.  Bias needs to be put front and center in the attempt to incorporate ML into engineering such that systemic racism isn’t propagated into future technological advances to then cause harm to disadvantaged populations.  ML systems trained on data emanating from biased processes are doomed to repeat them.  Particularly if those who are training the ML solutions aren’t acutely aware of all forms of data present in the process to be automated.
+
+2. Another key challenge I see regarding ML in engineering is that the field is mainly categorized by the need for problem solving, which often requires creativity.  As of now, few great cases exist today of ML agents being truly “creative” and capable of “thinking out-of-the-box” since current ML solutions tend to result merely from a search through all possible solutions.  In my humble opinion, though a great many solutions can be found via these methods, ML will have somewhat of a ceiling in engineering until the former can consistently demonstrate creativity in a variety of problem spaces.  That said, that ceiling is still pretty high and there is much left to be accomplished in ML applications in engineering.
+
 
  
-#### **3. What’s a common mistake you see people make trying to integrate ML into financial applications?**
+#### **3. What’s a common mistake you see people make trying to integrate ML into Engineering?**
+Using an overpowered ML technique on a small problem dataset is one common mistake I see people doing in integrating ML into Engineering.  Deep Learning, for example, is moving AI and ML to heights unimagined in such a short period, but it may not be one’s best method for solving a problem depending on your problem space.  Oftentimes simpler methods work just as well or better  when you are working with small training datasets on limited hardware.
+
+Also, not setting up an effective CI/CD (continuous integration/ continuous  deployment) structure for your ML solution is another mistake I see practitioners use.  Very often, a once trained model won’t suffice not only because data changes over time but resources and personnel do as well.  Today’s ML practitioner needs to
+1. secure consistent flow of data as it changes and continuously retrain new models to keep it accurate and useful,  
+2. ensure structure is in place to allow for seamless replacement of older models by newly trained models while, 
+3. allowing for minimal disruption to the consumer of the ML model outputs.
 
 
  
 #### **4. What excites you most about the future of ML?**
-
+The future of ML continues to be exciting and seemingly every month there are advances reported in the field that even wow the experts to this day.  As 1) ML techniques improve and become more accessible to established practitioners and novices alike, 2) everyday hardware becomes faster,  3) power consumption becomes less problematic for miniaturized edge devices, and 4) memory limitations diminish over time, the ceiling for ML in Engineering will be bright for years to come.
 
 
 <img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Soumitri-Kolavennu.jpeg"></a>  
