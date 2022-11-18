@@ -15,16 +15,6 @@ thumbnail: /blog/assets/78_ml_director_insights/thumbnail.png
 <div class="blog-metadata">
     <small>Published November 23, 2022.</small>
 </div>
-
-<div class="author-card">
-    <a href="/britneymuller">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1645809068511-5ef0ce775e979253a010ef4c.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>britneymuller</code>
-            <span class="fullname">Britney Muller</span>
-        </div>
-    </a>
-</div>
 </head>
 <body>
 
@@ -35,7 +25,7 @@ _If you're interested in building ML solutions faster visit [hf.co/support](http
 
 - [Director of Machine Learning Insights [Part 1]](https://huggingface.co/blog/ml-director-insights)
 - [Director of Machine Learning Insights [Part 2 : SaaS Edition]](https://huggingface.co/blog/ml-director-insights-2)
-- [Director of Machine Learning Insights [Part 3 : SaaS Edition]](https://huggingface.co/blog/ml-director-insights-3)
+- [Director of Machine Learning Insights [Part 3 : Finance Edition]](https://huggingface.co/blog/ml-director-insights-3)
   
 
 Machine Learning Directors within XXX face the unique challenges of XXX, XXX, and XXX, all while being highly regulated (with lots of government oversight). Each of these challenges requires deep industry knowledge and technical expertise to pilot effectively. The following experts from U.S. Bank, the Royal Bank of Canada, Moody's Analytics and ex Research Scientist at Bloomberg AI all help uncover unique gems within the Machine Learning x Finance sector.
