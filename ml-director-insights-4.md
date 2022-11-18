@@ -118,13 +118,16 @@ The future of ML continues to be exciting and seemingly every month there are ad
 
 <img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Soumitri-Kolavennu.jpeg"></a>  
 
-### [Soumitri Kolavennu](https://www.linkedin.com/in/soumitri-kolavennu-2b47376/) - Artificial Intelligence Leader - Enterprise Analytics & AI at [U.S. Bank](https://www.usbank.com/index.html)
+### [Samuel Franklin](https://www.linkedin.com/in/samuelcfranklin/) - Senior Director of Data Science & ML Engineering at [Pluralsight](https://www.pluralsight.com/)
 
-**Background:** 
+**Background:** Samuel is a senior Data Science and ML Engineering leader at Pluralsight with a Ph.D. in cognitive science. He leads talented teams of Data Scientists and ML Engineers building intelligent services that power Pluralsight’s Skills platform.
 
-**Fun Fact:**
+Outside the virtual office, Dr. Franklin teaches seminars in Data Science and Machine Learning for Emory University. He also serves as Chairman of the Board of Directors for the Atlanta Humane Society
 
-**U.S. Bank:** 
+
+**Fun Fact:** I live in a log cabin on top of a mountain in the Appalachian range.
+
+**Pluralsight:** We are a technology workforce development company and our Skills platform is used by 70% of the Fortune 500 to help their employees  build business-critical tech skills.
 
 #### **1. How has ML made a positive impact on finance?**
 
