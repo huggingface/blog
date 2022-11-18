@@ -38,13 +38,13 @@ _Disclaimer: All views are from individuals and not from any past or current emp
 
 <img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Ioannis-Bakagiannis.jpeg"></a>  
 
-### [Ioannis Bakagiannis](https://www.linkedin.com/in/bakagiannisioannis//) - Director of Machine Learning, Marketing Science at [RBC](https://www.rbcroyalbank.com/personal.html)
+### [Javier Mansilla](https://www.linkedin.com/in/javimansilla/?originalSubdomain=ar) - Director of Machine Learning, Marketing Science at [Mercado Libre](https://mercadolibre.com/)
 
-**Background:** Passionate Machine Learning Expert with experience in delivering scalable, production-grade, and state-of-the-art Machine Learning solutions. Ioannis is also the Host of [Bak Up Podcast](https://www.youtube.com/channel/UCHK-YMcyzw2TwKonKoFtiug) and seeks to make an impact on the world through AI.
+**Background:** During the last 3 years building the internal ML platform for Mercado Libre (NASDAQ MELI), the biggest company in Latam, and the eCommerce & fintech omnipresent solution for the continent. Seasoned entrepreneur and leader, Javier was co-founder and CTO of Machinalis, a hi-end company building Machine Learning since 2010 (yes, before the breakthrough of neuralnets). When Machinalis got acquired by Mercado Libre, that small team evolved to enable Machine Learning as a capability for a tech giant with more 10k devs, impacting the lives of almost 100 million direct users. On a daily basis, Javier leads not only the tech and product roadmap of their Machine Learning Platform, but also their users' tracking system, the AB Testing framework, and the open-source office. Javier is an active member & contributor of [Python-Argentina non-profit PyAr](https://www.python.org.ar/), loves hanging out with family and friends, python, biking, football, carpentry, and slow-paced holidays in nature!
 
-**Fun Fact:** Ioannis was a juniors Greek national tennis champion.🏆
+**Fun Fact:** I love reading science fiction, and my idea of retirement includes resuming the teenager dream of writing short stories.📚
 
-**RBC:** The world’s leading organizations look to RBC Capital Markets as an innovative, trusted partner in capital markets, banking and finance.
+**Mercado Libre:** An Argentine companythat operates online marketplaces dedicated to e-commerce and online auctions, including mercadolibre.com.
  
 #### **1. How has ML made a positive impact on finance?**
 We all know that ML is a disrupting force in all industries while continuously creating new business opportunities. Many financial products have been created or altered due to ML such as personalized insurance and targeted marketing. 
