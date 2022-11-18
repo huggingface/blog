@@ -22,14 +22,21 @@ thumbnail: /blog/assets/116_audio_datasets/thumbnail.jpg
     </a>
 </div>
 
-It's well known that 🤗 Datasets provides the easiest access to numerous NLP datasets. What's less known is that the 
-same is true for audio datasets: all of the most popular audio datasets can be downloaded and prepared with the 
-same ease as their NLP counterparts.
+<!---
+Note to reviewer: comments and TODOs are included in this format.
+--->
 
+<!--- TODO: insert link to Colab --->
+
+<a target="_blank" href="https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/XYZ">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
+## Introduction
 🤗 Datasets is open-source library for downloading and preparing datasets of all domains. Its minimalistic API 
 allows users to download and prepare datasets in just one line of Python code, with a suite of functions that 
-enable for efficient pre-processing. The number of datasets available is unparalleled: all of the most popular 
-audio datasets are available through 🤗 Datasets.
+enable for efficient pre-processing. The number of datasets available is unparalleled, with all of the most popular 
+audio datasets available to download. 
 
 Not only this, but 🤗 Datasets comes prepared with multiple audio-specific features that make working 
 with audio datasets easy for both researchers and practitioners alike. In this blog, we'll demonstrate how 🤗 Datasets 
@@ -40,18 +47,16 @@ prepare the most popular audio datasets in just one line of Python code!
 
 One of the key defining features of 🤗 Datasets is the ability to download and prepare a dataset in just one line of 
 Python code. This is made possible through the [`load_dataset`](https://huggingface.co/docs/datasets/loading#load) 
-function. Conventionally, we'd have to download the raw data, extract it from its compressed format, and prepare individal 
-samples and splits. Using `load_dataset`, all of the heavy lifting of loading a dataset is done under the hood.
-
-including 
-downloading the raw data, extracting it from compressed files, and finally preparing samples and splits.
+function. Conventionally, we'd have to download the raw data, extract it from its compressed format, and prepare 
+individual samples and splits. Using `load_dataset`, all of the heavy lifting of loading a dataset is done under the 
+hood.
 
 Let's take the example of loading the [GigaSpeech](https://huggingface.co/datasets/speechcolab/gigaspeech) dataset from 
-Speech Colab. GigaSpeech is a relatively recent speech recognition dataset for benchmarking academic speech systems. It is one 
-of many speech recognition datasets available through the Hugging Face Hub. To load the GigaSpeech dataset, we simply have to 
-specify the dataset's identifier to the `load_dataset` function. GigaSpeech comes in an array of different split sizes, 
-ranging from `xs` (10 hours) to `xl` (10,000 hours). For the purpose of this tutorial, we'll load the smallest of these 
-splits:
+Speech Colab. GigaSpeech is a relatively recent speech recognition dataset for benchmarking academic speech systems. It 
+is one of many speech recognition datasets available through the Hugging Face Hub. To load the GigaSpeech dataset, we 
+simply have to specify the dataset's identifier to the `load_dataset` function. GigaSpeech comes in an array of 
+different split sizes, ranging from `xs` (10 hours) to `xl` (10,000 hours). For the purpose of this tutorial, we'll 
+load the smallest of these splits:
 
 ```python
 from datasets import load_dataset
@@ -219,8 +224,8 @@ We can apply the data preparation function to all of our training examples using
 gigaspeech = gigaspeech.map(prepare_dataset, remove_columns=next(iter(gigaspeech.values())).column_names)
 ```
 
-Here, we remove the columns were defined when we loaded the dataset that we do not require for the speech recognition task 
-(e.g. `segment_id`, `speaker`, etc.).
+Here, we remove the columns were defined when we loaded the dataset that we do not require for the speech recognition 
+task (e.g. `segment_id`, `speaker`, etc.).
 
 ### 3. Filtering Function
 
@@ -246,11 +251,10 @@ gigaspeech["train"] = gigaspeech["train"].filter(is_audio_length_in_range, input
 And with that, we have the GigaSpeech dataset fully prepared for our model! This required just 13 lines of Python 
 code in total, right from loading the dataset to the final filtering step. 
 
-Keeping the notebook as general as possible, 
-we only performed the fundamental data preparation steps. However, there is no restriction to the functions you can 
-apply to your audio dataset. You can extend the function `prepare_dataset` to perform much more involved operations, 
-such as data augmentation or noise reduction. With 🤗 Datasets, if you can write it in a Python function, 
-you can apply it to your dataset!
+Keeping the notebook as general as possible, we only performed the fundamental data preparation steps. However, there 
+is no restriction to the functions you can apply to your audio dataset. You can extend the function `prepare_dataset` 
+to perform much more involved operations, such as data augmentation or noise reduction. With 🤗 Datasets, if you can 
+write it in a Python function, you can apply it to your dataset!
 
 ## Streaming Mode: The Silver Bullet
 
@@ -258,9 +262,9 @@ you can apply it to your dataset!
 ## The Hub
 
 So far, we've taken a step-by-step guide to loading and pre-processing the GigaSpeech dataset. However, the GigaSpeech 
-dataset is just one of over 100 audio datasets available to us through the Hugging Face Hub. Everything that we've covered for 
-GigaSpeech can be applied to any one of these other datasets. All we have to do is switch the dataset identifier in the 
-`load_dataset` function for the dataset that we desire. It's that easy!
+dataset is just one of over 100 audio datasets available to us through the Hugging Face Hub. Everything that we've 
+covered for GigaSpeech can be applied to any one of these other datasets. All we have to do is switch the dataset 
+identifier in the`load_dataset` function for the dataset that we desire. It's that easy!
 
 Let's head to the Hub and filter datasets by task:
 * [Speech Recognition Datasets on the Hub](https://huggingface.co/datasets?task_categories=task_categories:automatic-speech-recognition&sort=downloads)
@@ -289,9 +293,15 @@ audio data that we're dealing with.
 ## A Tour of Audio Datasets on The Hub
 This Section serves as a reference guide for the most popular speech recognition, speech 
 translation and audio classification datasets on the Hub. Check out the Google Colab for a guide on how to evaluate a 
-system on all nine English speech recognition datasets in one script: TODO
+system on all nine English speech recognition datasets in one script:
+<!--- TODO: insert link to Colab --->
 
-### Speech Recognition
+1. [English Speech Recognition](#english-speech-recognition)
+2. [Multilingual Speech Recognition](#multilingual-speech-recognition)
+3. [Speech Translation](#speech-translation)
+4. [Audio Classification](#audio-classification)
+
+### English Speech Recognition
 
 Summary of English speech recognition datasets.
 
@@ -388,3 +398,9 @@ near-field speech, and SDM (single distant microphone) harder far-field speech.
 ```python
 ami = load_dataset("edinburghcstr/ami", "ihm")
 ```
+
+### Multilingual Speech Recognition
+
+### Speech Translation
+
+### Audio Classification
