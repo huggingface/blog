@@ -81,7 +81,7 @@ But we are getting better to incorporate mature tools and practices that will le
   
 <img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Debanjan-Mahata.jpeg"></a>  
 
-### [Jack Blandin](https://www.linkedin.com/in/debanjanmahata/) - Director of AI & ML at [Moody's Analytics](https://www.moodysanalytics.com/) / Ex Research Scientist @ Bloomberg AI 
+### [Shaun Gittens](https://www.linkedin.com/in/shaungittens/) - Director of Machine Learning at [MasterPeace Solutions](https://www.masterpeaceltd.com/)
 
 **Background:**    
 
