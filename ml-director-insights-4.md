@@ -1,5 +1,5 @@
 ---
-title: "Director of Machine Learning Insights [Part 4: 4 Top ML Directors Insights]"
+title: "Director of Machine Learning Insights [Part 4]"
 thumbnail: /blog/assets/78_ml_director_insights/thumbnail.png
 ---
 
@@ -10,7 +10,7 @@ thumbnail: /blog/assets/78_ml_director_insights/thumbnail.png
   margin: 25px;
 }
 </style>
-<h1>Director of Machine Learning Insights [Part 4: 4 Top ML Directors Insights]</h1>
+<h1>Director of Machine Learning Insights [Part 4]</h1>
 
 <div class="blog-metadata">
     <small>Published November 25, 2022.</small>
