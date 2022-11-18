@@ -287,4 +287,104 @@ You can simply through the samples for the different subsets and splits to get a
 audio data that we're dealing with. 
 
 ## A Tour of Audio Datasets on The Hub
+This Section serves as a reference guide for the most popular speech recognition, speech 
+translation and audio classification datasets on the Hub. Check out the Google Colab for a guide on how to evaluate a 
+system on all nine English speech recognition datasets in one script: TODO
 
+### Speech Recognition
+
+Summary of English speech recognition datasets.
+
+|                                                                                         | Train Hours | Domain                                | Speaking Style         | Casing | Punctuation | Recommended Usage                                 |
+|-----------------------------------------------------------------------------------------|-------------|---------------------------------------|------------------------|--------|-------------|---------------------------------------------------|
+| [LibriSpeech](https://huggingface.co/datasets/librispeech_asr)                          | 960         | Audiobooks                            | Narrated               | ❌      | ❌           | Academic benchmarks                               |
+| [Common Voice 11](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0) | 2300        | Wikipedia text & crowd-sourced speech | Narrated               | ✅      | ✅           | Non-native English speakers                       |
+| [VoxPopuli](https://huggingface.co/datasets/facebook/voxpopuli)                         | 540         | European Parliament recordings        | Oratory                | ❌      | ❌           | Non-native English speakers                       |
+| [TED-LIUM](https://huggingface.co/datasets/LIUM/tedlium)                                | 450         | TED talks                             | Oratory                | ❌      | ❌           | Technical scientific, political and social topics |
+| [GigaSpeech](https://huggingface.co/datasets/speechcolab/gigaspeech)                    | 10000       | Audiobook, podcast, youtube           | Narrated & spontaneous | ❌      | ✅           | Robustness over multiple domains                  |
+| [SPGISpeech](https://huggingface.co/datasets/kensho/spgispeech)                         | 5000        | Financial meetings                    | Narrated & spontaneous | ✅      | ✅           | Fully formatted transcriptions                    |
+| [Earnings-22](https://huggingface.co/datasets/revdotcom/earnings22)                     | 119         | Company earnings calls                | Narrated & spontaneous | ✅      | ✅           | Diversity of accents                              |
+| [AMI](https://huggingface.co/datasets/edinburghcstr/ami)                                | 100         | Meetings                              | Spontaneous            | ✅      | ✅           | Noisy speech conditions                           |
+
+The following dataset descriptions are largely taken from the [ESB Benchmark](https://arxiv.org/abs/2210.13352) paper.
+
+#### [LibriSpeech ASR](https://huggingface.co/datasets/librispeech_asr)
+LibriSpeech is a standard large-scale dataset for evaluating ASR systems. It consists of approximately 1,000 
+hours of narrated audiobooks collected from the [LibriVox](https://librivox.org/) project. LibriSpeech has been 
+instrumental in facilitating researchers to leverage a large body of pre-existing transcribed speech data. As such, it 
+has become the one of the most popular dataset for benchmarking academic speech systems.
+
+```python
+librispeech = load_dataset("librispeech_asr", "all")
+```
+
+#### [Common Voice](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)
+Common Voice is a series of crowd-sourced open-licensed speech datasets where speakers record text from Wikipedia in 
+various languages. Since anyone can contribute recordings, there is significant variation in both audio quality and 
+speakers. The audio conditions are challenging, with recording artefacts, accented speech, hesitations, and the presence 
+of foreign words. The transcriptions are both cased and punctuated. The English subset of version 11.0 contains 
+approximately 2,300 hours of validated data.
+
+```python
+common_voice = load_dataset("mozilla-foundation/common_voice_11", "en", use_auth_token=True)
+```
+
+#### [VoxPopuli](https://huggingface.co/datasets/facebook/voxpopuli)
+VoxPopuli is a large-scale multilingual speech corpus consisting of data sourced from 2009-2020 European Parliament 
+event recordings. Consequently, it occupies the unique domain of oratory, political speech, largely sourced from 
+non-native speakers. The English subset contains approximately 550 hours labelled speech.
+
+```python
+voxpopuli = load_dataset("facebook/voxpopuli", "en")
+```
+
+#### [TED-LIUM](https://huggingface.co/datasets/LIUM/tedlium)
+TED-LIUM is a dataset is based on English-language TED Talk conference videos. The speaking style is oratory educational 
+talks. The transcribed talks cover a range of different cultural, political, and academic topics, resulting in a 
+technical vocabulary. The Release 3 (latest) edition of the dataset contains approximately 450 hours of training data. 
+The validation and test data is from the legacy set, consistent with earlier releases.
+
+```python
+tedlium = load_dataset("LIUM/tedlium", "release3")
+```
+
+#### [GigaSpeech](https://huggingface.co/datasets/speechcolab/gigaspeech)
+GigaSpeech is a multi-domain English speech recognition corpus curated from audiobooks, podcasts and YouTube. It covers 
+both narrated and spontaneous speech over a variety of topics, such as arts, science and sports. It contains training 
+splits varying from 10 hours - 10,000 hours and standardised validation and test splits.
+
+```python
+gigaspeech = load_dataset("speechcolab/gigaspeech", "xs", use_auth_token=True)
+```
+
+#### [SPGISpeech](https://huggingface.co/datasets/kensho/spgispeech)
+SPGISpeech is an English speech recognition corpus composed of company earnings calls that have been manually 
+transcribed by S&P Global, Inc. The transcriptions are fully-formatted according to a professional style guide for 
+oratory and spontaneous speech. It contains training splits ranging from 200 hours - 5,000 hours, with canonical 
+validation and test splits.
+
+```python
+spgispeech = load_dataset("kensho/spgispeech", "s", use_auth_token=True)
+```
+
+#### [Earnings-22](https://huggingface.co/datasets/revdotcom/earnings22)
+Earnings-22 is a 119-hour corpus of English-language earnings calls collected from global companies. The dataset was 
+developed with the goal of aggregating a broad range of speakers and accents covering a range of real-world financial 
+topics. There is large diversity in the speakers and accents, with speakers taken from seven different language regions.
+Earnings-22 was published primarily as a test-only dataset. The Hub contains a version of the dataset that has been 
+partitioned into train-validation-test splits.
+
+```python
+earnings22 = load_dataset("revdotcom/earnings22")
+```
+
+#### [AMI](https://huggingface.co/datasets/edinburghcstr/ami)
+AMI comprises 100 hours of meeting recordings captured using different recording streams. The corpus contains manually 
+annotated orthographic transcriptions of the meetings aligned at the word level. Individual samples of the AMI dataset 
+contain very large audio files (between 10 and 60 minutes), which are segmented to lengths feasible for training most 
+speech recognition systems. AMI contains two splits: IHM and SDM. IHM (individual headset microphone) contains easier 
+near-field speech, and SDM (single distant microphone) harder far-field speech.
+
+```python
+ami = load_dataset("edinburghcstr/ami", "ihm")
+```
