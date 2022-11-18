@@ -44,48 +44,46 @@ _Disclaimer: All views are from individuals and not from any past or current emp
 
 **Fun Fact:** I love reading science fiction, and my idea of retirement includes resuming the teenager dream of writing short stories.📚
 
-**Mercado Libre:** An Argentine companythat operates online marketplaces dedicated to e-commerce and online auctions, including mercadolibre.com.
+**Mercado Libre:** An Argentine company that operates online marketplaces dedicated to e-commerce and online auctions, including mercadolibre.com.
  
-#### **1. How has ML made a positive impact on finance?**
-We all know that ML is a disrupting force in all industries while continuously creating new business opportunities. Many financial products have been created or altered due to ML such as personalized insurance and targeted marketing. 
- 
-Disruptions and profit are great but my favorite financial impact has been the ML-initiated conversation around trust in financial decision making. 
- 
-In the past, financial decisions like loan approval, rate determination, portfolio management, etc. have all been done by humans with relevant expertise. Essentially, people trusted “other people” or “experts” for financial decisions (and often without question). 
- 
-When ML attempted to automate that decision-making process, people asked, “Why should we trust a model?”. Models appeared to be black boxes of doom coming to replace honest working people. But that argument has initiated the conversation of trust in financial decision-making and ethics, regardless of who or what is involved. 
- 
-As an industry, we are still defining this conversation but with more transparency, thanks to ML in finance.
+#### **1. How has ML made a positive impact on e-commerce?**
+I would say that ML made possible the impossible in a few cases (like fraud prevention in general) and in the vast majority of the others, optimized processes and flows in ways we wouldn't immagine.
+
+In the middle, there are applications where ML enabled a next-level of UX that otherwise would be very expensive (but maybe not impossible). An example, the discovery and serendipity added to the journey of users navigating between listings and offers.
+
+We ran search, recommendations, ads, credit-scoring, moderations, forecasting of several key aspects, logistics, and lot’s more core units with Machine Learning optimizing at least one of its fundamental metrics.
+
+We even use ML for optimizing the way we reserve and use infrastructure.
 
 
-#### **2. What are the biggest ML challenges within finance?**
-I can’t speak for companies but established financial institutions experience one continuous struggle, like all long-lived organizations: Legacy Systems. 
- 
-Financial organizations have been around for a while and they have evolved over time but today they have found themselves somehow as ‘tech companies’. Such organizations need to be part of cutting-edge technologies so they can compete with newcomer rivals but at the same time maintain the robustness that makes our financial world work. 
- 
-This internal battle is skewed by the risk appetite of the institutions. Financial risk increases linearly (usually) with the scale of the solution you provide since we are talking about money. But on top of that, there are other forms of risk that a system failure will incur such as Regulatory and Reputational risk. This compounded risk along with the complexity of migrating a huge, mature system to a new tech stack is, at least in my opinion, the biggest challenge in adopting cutting-edge technologies such as ML.
+#### **2. What are the biggest ML challenges within e-commerce?**
+Besides all the technical challenges ahead (for instance, more and more realtimeness and personalization), I think that the biggest challenge is the always present focus on the end-user.
+
+E-commerce is scaling its share on the market year after year, and Machine Learning is always a probabilistic approach that doesn't provide 100% perfection. We need to be careful to keep optimizing our products at the same time that we still pay attention to the long tail and the experience of each individual person.
+
+Finally, a growing challenge is to coordinate and foster the co-existence of data (inputs and outps) in a multi channel and multi business world. Marketplace, logistics, credits, insurtech, payments on brick and mortar stores, etc.
 
 
-#### **3. What’s a common mistake you see people make trying to integrate ML into financial applications?**
-ML, even with all its recent attention, is still a relatively new field in software engineering. The deployment of ML applications is often not a well-defined process. The artist/engineer can deliver an ML application but the world around it is still not familiar with the technical process. At that intersection of technical and non-technical worlds, I have seen the most “mistakes”. 
+#### **3. A common mistake you see people make trying to integrate ML into e-commerce?**
+The most common mistakes I see are related to using the wrong tool for the wrong problem. 
+  
+For instance, starting complex instead of with the simplest baseline possible. For instance not measuring the with/without machine learning impact. For instance, investing in tech without having a clear clue of the boundaries of the expected gain.
 
-It is hard to optimize for the right Business and ML KPIs and define the right objective function or the desired labels. I have seen applications go to waste due to undesired prediction windows or because they predict the wrong labels. 
- 
-The worst outcome comes when the misalignment is not uncovered in the development step and makes it into production. 
- 
-Then applications can create unwanted user behavior or simply measure/predict the wrong thing. Unfortunately, we tend to equip the ML teams with tools and computing but not with solid processes and communication buffers. And mistakes at the beginning of an ill-defined process grow with every step.
+At last but not least: thinking only on the short term, forgetting about the hidden impacts, technical debts, maintenance, and so on.
 
 
 #### **4. What excites you most about the future of ML?**
-It is difficult not to get excited with everything new that comes out of ML. The field changes so frequently that it’s refreshing.
- 
-Currently, we are good at solving individual problems: computer vision, the next word prediction, data point generation, etc, but we haven’t been able to address multiple problems at the same time. I’m excited to see how we can model such behaviors in mathematical expressions that currently seem to contradict each other. Hope we get there soon!
+Talking from the perspective of being on the trench crafting technology with our bare hands like we used to do ten years ago, definitely what I like the most is to see that we as an industry are solving most of the slow, repetitive and boring pieces of the challenge.
 
+It’s of course an ever-moving target, and new difficulties arose.
+But we are getting better to incorporate mature tools and practices that will lead to shorter cycles of model-building, which at the end of the day reduces time to market.
 
-
+  
+  
+  
 <img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Debanjan-Mahata.jpeg"></a>  
 
-### [Debanjan Mahata](https://www.linkedin.com/in/debanjanmahata/) - Director of AI & ML at [Moody's Analytics](https://www.moodysanalytics.com/) / Ex Research Scientist @ Bloomberg AI 
+### [Jack Blandin](https://www.linkedin.com/in/debanjanmahata/) - Director of AI & ML at [Moody's Analytics](https://www.moodysanalytics.com/) / Ex Research Scientist @ Bloomberg AI 
 
 **Background:** Debanjan is Director of Machine Learning in the AI Team at  Moody's Analytics and also serves as an Adjunct Faculty at IIIT-Delhi, India. He is an active researcher and is currently interested in various information extraction problems and domain adaptation techniques in NLP. He has a track record of formulating and applying machine learning to various use cases. He actively participates in the program committee of different top tier conference venues in machine learning.      
 
