@@ -127,7 +127,7 @@ print(gigaspeech["train"][0])
  'url': 'https://www.youtube.com/watch?v=zr2n1fLVasU', 
  'source': 2, 
  'category': 24, 
- 'original_full_path': 'audio/youtube/P0004/YOU0000000315.opus'
+ 'original_full_path': 'audio/youtube/P0004/YOU0000000315.opus',
  }
 ```
 
@@ -150,9 +150,32 @@ The `load_dataset` function prepares audio samples with the sampling rate that t
 always the sampling rate expected by our model. In this case, we need to _resample_ the audio to the correct sampling 
 rate.
 
-We can set the audio inputs to the correct sampling rate using 🤗 Dataset's [`cast_column`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=cast_column#datasets.DatasetDict.cast_column) 
+Let's first remove the dataset features not associated with speech recognition:
+
+```python
+COLUMNS_TO_KEEP = ["audio", "text"]
+all_columns = next(iter(gigaspeech.values())).column_names
+columns_to_remove = set(all_columns) - set(COLUMNS_TO_KEEP)
+
+gigaspeech = gigaspeech.remove_columns(columns_to_remove)
+```
+
+Let's check that we've successfully retained the `audio` and `text` columns:
+```python
+print(gigaspeech["train"][0])
+```
+**Print Output:**
+```python
+{'text': "AS THEY'RE LEAVING <COMMA> CAN KASH PULL ZAHRA ASIDE REALLY QUICKLY <QUESTIONMARK>", 
+ 'audio': {'path': '/home/sanchit_huggingface_co/.cache/huggingface/datasets/downloads/extracted/7f8541f130925e9b2af7d37256f2f61f9d6ff21bf4a94f7c1a3803ec648d7d79/xs_chunks_0000/YOU0000000315_S0000660.wav', 
+           'array': array([0.0005188 , 0.00085449, 0.00012207, ..., 0.00125122, 0.00076294,
+       0.00036621], dtype=float32), 
+           'sampling_rate': 16000}}
+```
+Great! We can see that we've only got the two columns that we require. We can also see that the audio is sampled at a 
+sampling rate of 16kHz. We can set the audio inputs to our desired sampling rate using 🤗 Dataset's [`cast_column`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=cast_column#datasets.DatasetDict.cast_column) 
 method. This operation does not change the audio in-place, but rather signals to `datasets` to resample audio samples 
-_on the fly_ the first time that they are loaded:
+_on the fly_ the first time that they are loaded. The following code cell will set the sampling rate to 8kHz:
 
 ```python
 from datasets import Audio
@@ -160,35 +183,38 @@ from datasets import Audio
 gigaspeech = gigaspeech.cast_column("audio", Audio(sampling_rate=8000))
 ```
 
-Re-loading the first audio sample in the gigaspeech dataset will resample it to the desired sampling rate:
+Re-loading the first audio sample in the GigaSpeech dataset will resample it to the desired sampling rate:
 
 ```python
 print(gigaspeech["train"][0])
 ```
 **Print Output:**
 ```python
-{'segment_id': 'YOU0000000315_S0000660',
- 'speaker': 'N/A', 
- 'text': "AS THEY'RE LEAVING <COMMA> CAN KASH PULL ZAHRA ASIDE REALLY QUICKLY <QUESTIONMARK>", 
+{'text': "AS THEY'RE LEAVING <COMMA> CAN KASH PULL ZAHRA ASIDE REALLY QUICKLY <QUESTIONMARK>", 
  'audio': {'path': '/home/sanchit_huggingface_co/.cache/huggingface/datasets/downloads/extracted/7f8541f130925e9b2af7d37256f2f61f9d6ff21bf4a94f7c1a3803ec648d7d79/xs_chunks_0000/YOU0000000315_S0000660.wav', 
            'array': array([ 0.00046338,  0.00034808, -0.00086153, ...,  0.00099299,
         0.00083484,  0.00080221], dtype=float32), 
-           'sampling_rate': 8000
-           }, 
- 'begin_time': 2941.889892578125, 
- 'end_time': 2945.070068359375, 
- 'audio_id': 'YOU0000000315', 
- 'title': 'Return to Vasselheim | Critical Role: VOX MACHINA | Episode 43', 
- 'url': 'https://www.youtube.com/watch?v=zr2n1fLVasU', 
- 'source': 2, 
- 'category': 24, 
- 'original_full_path': 'audio/youtube/P0004/YOU0000000315.opus'
+           'sampling_rate': 8000}
  }
 ```
 We can see that the sampling rate has been downsampled to 8kHz. The array values are also different, as we've now only 
-got approximately one amplitude value for every two that we had before.
+got approximately one amplitude value for every two that we had before. Let's upsample the dataset back to 16kHz, the 
+sampling rate expected by most speech recognition models:
 
-<!--- TODO: resample back to 16kHz --->
+```python
+gigaspeech = gigaspeech.cast_column("audio", Audio(sampling_rate=16000))
+
+print(gigaspeech["train"][0])
+```
+**Print Output:**
+```python
+{'text': "AS THEY'RE LEAVING <COMMA> CAN KASH PULL ZAHRA ASIDE REALLY QUICKLY <QUESTIONMARK>", 
+ 'audio': {'path': '/home/sanchit_huggingface_co/.cache/huggingface/datasets/downloads/extracted/7f8541f130925e9b2af7d37256f2f61f9d6ff21bf4a94f7c1a3803ec648d7d79/xs_chunks_0000/YOU0000000315_S0000660.wav', 
+           'array': array([0.0005188 , 0.00085449, 0.00012207, ..., 0.00125122, 0.00076294,
+       0.00036621], dtype=float32), 
+           'sampling_rate': 16000}
+ }
+```
 
 ### 2. Pre-Processing Function
 One of the hardest aspects of working with audio datasets is preparing the data into the right format for the model. 
