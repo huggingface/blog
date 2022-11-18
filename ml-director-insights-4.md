@@ -129,17 +129,19 @@ Outside the virtual office, Dr. Franklin teaches seminars in Data Science and Ma
 
 **Pluralsight:** We are a technology workforce development company and our Skills platform is used by 70% of the Fortune 500 to help their employees  build business-critical tech skills.
 
-#### **1. How has ML made a positive impact on finance?**
+#### **1. How has ML made a positive impact on Education?**
+Online, on-demand educational content has made lifelong learning more accessible than ever for billions of people globally.  Decades of cognitive research show that the relevance, format, and sequence of educational content significantly impact students’ success.  Advances in deep learning content search and recommendation algorithms have greatly improved our ability to create customized, efficient learning paths at-scale that can adapt to individual student’s needs over time.
 
 
+#### **2. What are the biggest ML challenges within Education?**
+I see MLOps technology as a key opportunity area for improving ML across industries.  The state of MLOps technology today reminds me of the Container Orchestration Wars circa 2015-16.  There are competing visions for the ML Train-Deploy-Monitor stack, each evangelized by enthusiastic communities and supported by large organizations.  If a predominant vision eventually emerges, then consensus on MLOps engineering patterns could follow, reducing the decision-making complexity that currently creates friction for ML teams.
 
-#### **2. What are the biggest ML challenges within finance?**
-
-
-#### **3. What’s a common mistake you see people make trying to integrate ML into financial applications?**
+#### **3. What’s a common mistake you see people make trying to integrate ML into existing products?**
+There are two critical mistakes that I’ve seen organizations of all sizes make when getting started with ML.  The first mistake is underestimating the importance of investing in senior leaders with substantial hands-on ML experience.  ML strategy and operations leadership benefits from a depth of technical expertise beyond what is typically found in the BI / Analytics domain or provided by educational programs that offer a limited introduction to the field.  The second mistake is waiting too long to design, test, and implement production deployment pipelines.  Effective prototype models can languish in repos for months – even years – while waiting on ML pipeline development.  This can impose significant opportunity costs on an organization and frustrate ML teams to the point of increasing attrition risk.
 
 
 #### **4. What excites you most about the future of ML?**
+I’m excited about the opportunity to mentor the next generation of ML leaders.  My career began when cloud computing platforms were just getting started and ML tooling was much less mature than it is now.  It was exciting to explore different engineering patterns for ML experimentation and deployment, since established best practices were rare.  But, that exploration included learning too many technical and people leadership lessons the hard way.  Sharing those lessons with the next generation of ML leaders will help empower them to advance the field farther and faster than what we’ve seen over the past 10+ years.
 
 
 ---
