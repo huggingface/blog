@@ -1,5 +1,5 @@
 ---
-title: "Director of Machine Learning Insights [Part 3: Finance Edition]"
+title: "Director of Machine Learning Insights [Part 4: E-Commerce Edition]"
 thumbnail: /blog/assets/78_ml_director_insights/thumbnail.png
 ---
 
@@ -10,10 +10,10 @@ thumbnail: /blog/assets/78_ml_director_insights/thumbnail.png
   margin: 25px;
 }
 </style>
-<h1>Director of Machine Learning Insights [Part 3: Finance Edition]</h1>
+<h1>Director of Machine Learning Insights [Part 4: E-Commerce Edition]</h1>
 
 <div class="blog-metadata">
-    <small>Published June 14, 2022.</small>
+    <small>Published November 23, 2022.</small>
 </div>
 
 <div class="author-card">
@@ -31,14 +31,16 @@ thumbnail: /blog/assets/78_ml_director_insights/thumbnail.png
 _If you're interested in building ML solutions faster visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_3) today!_
 
 
-👋 Welcome back to our Director of ML Insights Series, Finance Edition! If you missed earlier Editions you can find them here:
+👋 Welcome back to our Director of ML Insights Series, E-Commerce Edition! If you missed earlier Editions you can find them here:
 
 - [Director of Machine Learning Insights [Part 1]](https://huggingface.co/blog/ml-director-insights)
 - [Director of Machine Learning Insights [Part 2 : SaaS Edition]](https://huggingface.co/blog/ml-director-insights-2)
+- [Director of Machine Learning Insights [Part 3 : SaaS Edition]](https://huggingface.co/blog/ml-director-insights-3)
+  
 
-Machine Learning Directors within finance face the unique challenges of navigating legacy systems, deploying interpretable models, and maintaining customer trust, all while being highly regulated (with lots of government oversight). Each of these challenges requires deep industry knowledge and technical expertise to pilot effectively. The following experts from U.S. Bank, the Royal Bank of Canada, Moody's Analytics and ex Research Scientist at Bloomberg AI all help uncover unique gems within the Machine Learning x Finance sector.
+Machine Learning Directors within XXX face the unique challenges of XXX, XXX, and XXX, all while being highly regulated (with lots of government oversight). Each of these challenges requires deep industry knowledge and technical expertise to pilot effectively. The following experts from U.S. Bank, the Royal Bank of Canada, Moody's Analytics and ex Research Scientist at Bloomberg AI all help uncover unique gems within the Machine Learning x Finance sector.
 
-You’ll hear from a juniors Greek National Tennis Champion, a published author with over 100+ patents, and a cycle polo player who regularly played at the world’s oldest polo club (the Calcutta Polo Club). All turned financial ML experts.
+You’ll hear from a XXX, a XXX. All turned E-Commerce ML experts.
 
 🚀 Buckle up Goose, here are the top insights from financial ML Mavericks:
 
