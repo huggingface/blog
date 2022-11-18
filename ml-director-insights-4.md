@@ -27,8 +27,7 @@ _If you're interested in building ML solutions faster visit [hf.co/support](http
 - [Director of Machine Learning Insights [Part 2 : SaaS Edition]](https://huggingface.co/blog/ml-director-insights-2)
 - [Director of Machine Learning Insights [Part 3 : Finance Edition]](https://huggingface.co/blog/ml-director-insights-3)
 
-
-In this fourth installment, you’ll hear from a xxx, a xxx, a xx, an xx, a xx, a xx. —All of whom are currently Directors of Machine Learning with rich field insights.
+In this fourth installment, you’ll hear from Javier Mansilla, Shaun Gittens, Samuel Franklin, and Evan Castle. —All of whom are currently Directors of Machine Learning with rich field insights.
 
 🚀  Let’s meet some top Machine Learning Directors and hear what they have to say about Machine Learning’s impact on their prospective industries:
 
@@ -174,7 +173,7 @@ Machine learning will become as simple as ordering online. The big advances in N
 
 🤗   Thank you for joining us in this fourth installment of ML Director Insights. 
  
-Big thanks to XXX, XXX, and XXX for their brilliant insights and participation in this piece. We look forward to watching your continued success and will be cheering you on each step of the way. 🎉 
+Big thanks to Javier Mansilla, Shaun Gittens, Samuel Franklin, and Evan Castle for their brilliant insights and participation in this piece. We look forward to watching your continued success and will be cheering you on each step of the way. 🎉 
  
 If you're' interested in accelerating your ML roadmap with Hugging Face Experts please visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_3) to learn more. 
 
