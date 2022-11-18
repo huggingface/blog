@@ -84,7 +84,7 @@ DatasetDict({
 })
 ```
 
-And just like that we have the GigaSpeech dataset ready! There simply is no easier way of loading an audio dataset! We 
+And just like that, we have the GigaSpeech dataset ready! There simply is no easier way of loading an audio dataset. We 
 can see that we have the training, validation and test splits pre-partitioned, with the corresponding information for 
 each.
 
@@ -193,9 +193,9 @@ got approximately one amplitude value for every two that we had before.
 ### 2. Pre-Processing Function
 One of the hardest aspects of working with audio datasets is preparing the data into the right format for the model. 
 Using 🤗 Dataset's [`map`](https://huggingface.co/docs/datasets/v2.6.1/en/process#map) method, we can write a function 
-to pre-process a single sample of the dataset, and then handily apply it to every sample without any code changes!
+to pre-process a single sample of the dataset, and then handily apply it to every sample without any code changes.
 
-Let's first load a processor object from 🤗 Transformers. This processor will take care of pre-processing the audio 
+First, let's load a processor object from 🤗 Transformers. This processor will take care of pre-processing the audio 
 inputs and tokenising the text. The `AutoProcessor` class is used to load a pre-trained processor 
 from a given model checkpoint. In the example, we load the processor from OpenAI's [Whisper small.en](https://huggingface.co/openai/whisper-small.en) 
 checkpoint, but you can change this to any model identifier on the Hugging Face Hub:
@@ -285,10 +285,12 @@ result, `common_voice`. Clicking on `common_voice` brings up the dataset card:
 Here, we can find out additional information about the dataset, see what models are trained on the dataset and, most 
 excitingly, get to listen to actual audio samples! The Dataset Preview is loaded up in the middle of the dataset card. 
 It shows us the first 100 samples for each subset and split. What's more, it's loaded up the audio samples ready for us 
-to listen to in real-time! If we hit the play button on the first sample, we can listen to the audio and see the 
-corresponding text. The Dataset Preview is a brilliant way of experiencing audio datasets before you download them. 
-You can simply through the samples for the different subsets and splits to get a better feel for the 
-audio data that we're dealing with. 
+to listen to in real-time. If we hit the play button on the first sample, we can listen to the audio and see the 
+corresponding text. 
+
+The Dataset Preview is a brilliant way of experiencing audio datasets before committing to using them. 
+You can scroll through the samples for the different subsets and splits to get a better feel for the 
+audio data and gauge whether it's the right dataset for your needs.
 
 ## A Tour of Audio Datasets on The Hub
 This Section serves as a reference guide for the most popular speech recognition, speech 
