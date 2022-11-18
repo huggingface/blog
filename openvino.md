@@ -138,7 +138,7 @@ quantizer.quantize(
 feature_extractor.save_pretrained(save_dir)
 ```
 
-A minute or two later, the model has been quantized. We can then easily load it with our [`OVModelForXxx`](https://huggingface.co/docs/optimum/intel/inference) classes, the equivalent of the Transformers [`AutoModelForXxx`](https://huggingface.co/docs/transformers/main/en/autoclass_tutorial#automodel) classes found in the `transformers` library. Likewise, we can create [pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines) and run inference with [OpenVINO Runtime](https://docs.openvino.ai/latest/openvino_docs_OV_UG_OV_Runtime_User_Guide.html). An important thing to mention is that the model is compiled just before the first inference, which will inflate the latency of the first inference.
+A minute or two later, the model has been quantized. We can then easily load it with our [`OVModelForXxx`](https://huggingface.co/docs/optimum/intel/inference) classes, the equivalent of the Transformers [`AutoModelForXxx`](https://huggingface.co/docs/transformers/main/en/autoclass_tutorial#automodel) classes found in the `transformers` library. Likewise, we can create [pipelines](https://huggingface.co/docs/transformers/main/en/main_classes/pipelines) and run inference with [OpenVINO Runtime](https://docs.openvino.ai/latest/openvino_docs_OV_UG_OV_Runtime_User_Guide.html).
 ​
 ```python
 from transformers import pipeline
@@ -178,6 +178,8 @@ print(trfs_eval_results, ov_eval_results)
 ```
 
 Looking at the quantized model, we see that its memory size decreased by **3.8x** from 344MB to 90MB. Running a quick benchmark on 5050 image predictions, we also notice a speedup in latency of **2.4x**, from 98ms to 41ms per sample. That's not bad for a few lines of code!
+
+⚠️ An important thing to mention is that the model is compiled just before the first inference, which will inflate the latency of the first inference. So before doing your own benchmark, make sure to first warmup your model by doing at least one prediction.
 
 You can find the resulting [model](https://huggingface.co/echarlaix/vit-food101-int8) hosted on the Hugging Face hub. To load it, you can easily do as follows:
 ```python
