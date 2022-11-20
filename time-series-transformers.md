@@ -1,9 +1,9 @@
 ---
-title: "Time Series Forecasting with 🤗 Transformers"
+title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
 thumbnail: /blog/assets/time-series-transformers/thumbnail.png
 ---
 
-# Probabilistic Forecasting with Transformers
+# Probabilistic Time Series Forecasting with 🤗 Transformers
 
 
 ## Introduction
@@ -170,7 +170,7 @@ train_dataset = dataset["train"]
 val_dataset = dataset["validation"]
 ```
 
-## Update `start` to `pd.Period` and transform `target`
+## Update `start` to `pd.Period` and Transform `target`
 
 We need to convert the `start` feature of each time series to a pandas `Period` index using the data's `freq` and while we are at it we can also log scale the `target` in view of the huge numbers:
 
@@ -629,7 +629,7 @@ model, optimizer, train_dataloader = accelerator.prepare(
     model, optimizer, train_dataloader, 
 )
 
-for epoch in range(100):
+for epoch in range(90):
     model.train()
     for batch in train_dataloader:
         optimizer.zero_grad()
@@ -655,6 +655,7 @@ for epoch in range(100):
 
 ## Forecasting
 
+Forecasting involves sampling from the test splitter which will sample the very last context sized window of values from each time series in the dataset and pass the resulting tensors of transformations to the model's `generate` method which will autoregressively sample a certain number of values from the predicted distribution and pass them back to the decoder to return our prediction outputs:
 
 ```python
 model.to(device)
@@ -690,6 +691,7 @@ forecasts[0].shape
 forecasts = np.vstack(forecasts)
 ```
 
+We can evaluate the resulting forecast with respect to the ground truth out of sample values present in the test set. We will use the [MASE](https://huggingface.co/spaces/evaluate-metric/mase) metric which we calculate for each time series in the dataset:
 
 ```python
 from evaluate import load
@@ -717,34 +719,6 @@ print(f"MASE: {np.mean(metric)}")
     MASE: 0.8633554107449066
 ```
 
-```python
-from gluonts.evaluation.metrics import calculate_seasonal_error, mase
-
-forecast_median = np.median(forecasts, 1)
-metric = []
-seasonal_errors = []
-for item_id, ts in enumerate(val_dataset):
-    past_data = ts["target"][:-prediction_length]
-    ground_truth = ts["target"][-prediction_length:]
-    seasonal_error = calculate_seasonal_error(np.array(past_data), freq)
-    metric.append(mase(np.array(ground_truth), forecast_median[item_id], seasonal_error))
-    seasonal_errors.append(seasonal_error)
-```
-
-
-```python
-print(f"MASE: {np.mean(metric)}")
-
-    MASE: 0.8633554107449066
-```
-
-
-
-```python
-print(f"Seasonal Error: {np.mean(seasonal_errors)}")
-
-    Seasonal Error: 0.3137719994821435
-```
 
 ```python
 index=pd.period_range(
@@ -779,3 +753,8 @@ plt.fill_between(
 
 ![png](assets/time-series-transformers/output_65_1.png)
     
+How do we compare this with other models? The [Monash Time Series Repository](https://forecastingdata.org/#results) has a comparison table of test set MASE metrics which we can add to:
+
+Dataset | 	SES| 	Theta | 	TBATS| 	ETS	| (DHR-)ARIMA| 	PR|	CatBoost |	FFNN	| DeepAR | 	N-BEATS | 	WaveNet| 	**Transformer** (Our)
+-------------------|------------------ |--|--|--|--|--|--|---|---|--|--|--
+Tourism Monthly | 	3.306 |	1.649 |	1.751 |	1.526|	1.589|	1.678	|1.699|	1.582	| 1.409	| 1.574|	1.482	|  **0.863**
