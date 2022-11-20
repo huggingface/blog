@@ -698,9 +698,12 @@ from evaluate import load
 from gluonts.time_feature import get_seasonality
 
 mase_metric = load("evaluate-metric/mase")
+smape_metric = load("evaluate-metric/smape")
 
 forecast_median = np.median(forecasts, 1)
-metric = []
+
+mase_metrics = []
+smape_metrics = []
 for item_id, ts in enumerate(val_dataset):
     training_data = ts["target"][:-prediction_length]
     ground_truth = ts["target"][-prediction_length:]
@@ -709,7 +712,13 @@ for item_id, ts in enumerate(val_dataset):
         references=np.array(ground_truth), 
         training=np.array(training_data), 
         periodicity=get_seasonality(freq))
-    metric.append(mase["mase"])
+    mase_metrics.append(mase["mase"])
+    
+    smape = smape_metric.compute(
+        predictions=forecast_median[item_id], 
+        references=np.array(ground_truth), 
+    )
+    smape_metrics.append(smape["smape"])
 ```
 
 
@@ -717,43 +726,75 @@ for item_id, ts in enumerate(val_dataset):
 print(f"MASE: {np.mean(metric)}")
 
     MASE: 0.8633554107449066
+
+print(f"sMAPE: {np.mean(smape_metrics)}")
+
+    sMAPE: 0.03391660676428044
 ```
 
+We can also plot the individual metrics of each time series in the dataset:
 
 ```python
-index=pd.period_range(
-    start=val_dataset[0][FieldName.START],
-    periods=len(val_dataset[0][FieldName.TARGET]),
-    freq=val_dataset[0][FieldName.START].freq,
-).to_timestamp()
+plt.scatter(mase_metrics, smape_metrics, alpha=0.3)
+plt.xlabel("MASE")
+plt.ylabel("sMAPE")
+plt.show()
 ```
 
+![png](assets/time-series-transformers/output_scatter.png)
+
+To plot the prediction for any time series with respect the ground truth test data we define the following helper:
 
 ```python
 import matplotlib.dates as mdates
 
-fig, ax = plt.subplots()
+def plot(ts_index):
+    fig, ax = plt.subplots()
 
-# Major ticks every half year, minor ticks every month,
-ax.xaxis.set_major_locator(mdates.MonthLocator(bymonth=(1, 7)))
-ax.xaxis.set_minor_locator(mdates.MonthLocator())
+    index = pd.period_range(
+        start=val_dataset[ts_index][FieldName.START],
+        periods=len(val_dataset[ts_index][FieldName.TARGET]),
+        freq=val_dataset[ts_index][FieldName.START].freq,
+    ).to_timestamp()
 
-ax.plot(index[-2*prediction_length:], val_dataset[0]["target"][-2*prediction_length:])
+    # Major ticks every half year, minor ticks every month,
+    ax.xaxis.set_major_locator(mdates.MonthLocator(bymonth=(1, 7)))
+    ax.xaxis.set_minor_locator(mdates.MonthLocator())
+
+    ax.plot(
+        index[-2*prediction_length:], 
+        val_dataset[ts_index]["target"][-2*prediction_length:],
+        label="actual",
+    )
 
 
-plt.plot(index[-prediction_length:], np.median(forecasts[0], axis=0))
-plt.fill_between(
-    index[-prediction_length:],
-    forecasts[0].mean(0) - forecasts[0].std(axis=0), 
-    forecasts[0].mean(0) + forecasts[0].std(axis=0), 
-    alpha=0.3, 
-    interpolate=True
-)
+    plt.plot(
+        index[-prediction_length:], 
+        np.median(forecasts[ts_index], axis=0),
+        label="median",
+    )
+    
+    plt.fill_between(
+        index[-prediction_length:],
+        forecasts[ts_index].mean(0) - forecasts[ts_index].std(axis=0), 
+        forecasts[ts_index].mean(0) + forecasts[ts_index].std(axis=0), 
+        alpha=0.3, 
+        interpolate=True,
+        label="+/- 1-std",
+    )
+    plt.legend()
+    plt.show()
+```
+
+For example:
+
+```python
+plot(334)
 ```
 
 ![png](assets/time-series-transformers/output_65_1.png)
     
-How do we compare this with other models? The [Monash Time Series Repository](https://forecastingdata.org/#results) has a comparison table of test set MASE metrics which we can add to:
+How do we compare against other models? The [Monash Time Series Repository](https://forecastingdata.org/#results) has a comparison table of test set MASE metrics which we can add to:
 
 Dataset | 	SES| 	Theta | 	TBATS| 	ETS	| (DHR-)ARIMA| 	PR|	CatBoost |	FFNN	| DeepAR | 	N-BEATS | 	WaveNet| 	**Transformer** (Our)
 -------------------|------------------ |--|--|--|--|--|--|---|---|--|--|--
