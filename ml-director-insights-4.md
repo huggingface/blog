@@ -60,11 +60,11 @@ Finally, a growing challenge is coordinating and fostering data (inputs and outp
 
 
 #### **3. A common mistake you see people make trying to integrate ML into e-commerce?**
-The most common mistakes I see are related to using the wrong tool for the wrong problem. 
+The most common mistakes are related to using the wrong tool for the wrong problem. 
   
 For instance, starting complex instead of with the simplest baseline possible. For instance not measuring the with/without machine learning impact. For instance, investing in tech without having a clear clue of the boundaries of the expected gain.
 
-At last but not least: thinking only on the short term, forgetting about the hidden impacts, technical debts, maintenance, and so on.
+Last but not least: thinking only in the short term, forgetting about the hidden impacts, technical debts, maintenance, and so on.
 
 
 #### **4. What excites you most about the future of ML?**
