@@ -1,10 +1,10 @@
 ---
-title: "XXX"
+title: "An overview of inference solutions on Hugging Face"
 thumbnail: /blog/assets/XXX/XXX
 
 ---
 
-<h1>XXX</h1>
+<h1>An overview of inference solutions on Hugging Face</h1>
 
 <div class="blog-metadata">
     <small>Published November XXX, 2022.</small>
@@ -34,13 +34,19 @@ Now, let's review your inference options with Hugging Face.
 
 One of my favorite features on the Hugging Face hub is the Inference [Widget](https://huggingface.co/docs/hub/models-widgets). Located on the model page, the Inference Widget lets you upload sample data and predict it in a single click. 
 
-XXX Screenshot
+Here's an example with the `sentence-transformers/all-MiniLM-L6-v2` [model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2):
 
-It's the best way to quickly get a sense of what a model does, what its output looks like, and how it performs on a few samples from your dataset. The model is loaded on-demand on our servers and unloaded when it's not needed anymore. You don't have to write any code and the feature is free. What's not to love?
+<kbd>
+  <img src="assets/116_inference_update/widget.png">
+</kbd>
+
+It's the best way to quickly get a sense of what a model does, its output, and how it performs on a few samples from your dataset. The model is loaded on-demand on our servers and unloaded when it's not needed anymore. You don't have to write any code and the feature is free. What's not to love?
  
 ## Free Inference API
 
-The [Inference API](https://huggingface.co/docs/api-inference/) is equally developer-friendly. With a simple HTTP request, you can load any hub model and predict your data with it in seconds. The model URL and a valid hub token are all you need, for example: 
+The [Inference API](https://huggingface.co/docs/api-inference/) is equally developer-friendly. With a simple HTTP request, you can load any hub model and predict your data with it in seconds. The model URL and a valid hub token are all you need.
+
+Here's how I can load and predict with the `xlm-roberta-base` [model](https://huggingface.co/xlm-roberta-base) in a single line:
 
 ```
 curl https://api-inference.huggingface.co/models/xlm-roberta-base \
@@ -60,8 +66,6 @@ We built [Inference Endpoints](https://huggingface.co/inference-endpoints) to so
 
 In just a few clicks, you deploy any hub model on secure and scalable infrastructure hosted in your AWS or Azure region of choice. Additional settings include CPU and GPU hosting, built-in auto-scaling, and more. This lets you find the appropriate cost/performance ratio, with [pricing](https://huggingface.co/pricing#endpoints) starting as low as $0.06 per hour.
 
-XXX screenshot
-
 Inference Endpoints support three security levels:
 
 * Public: the endpoint runs in a public Hugging Face subnet, and anyone on the Internet can access it without any authentication.
@@ -69,6 +73,10 @@ Inference Endpoints support three security levels:
 * Protected: the endpoint runs in a public Hugging Face subnet, and anyone on the Internet with the appropriate organization token can access it.
 
 * Private: the endpoint runs in a private Hugging Face subnet. It's not accessible on the Internet. It's only available through a private connection in your AWS or Azure account. This will satisfy the strictest compliance requirements.
+
+<kbd>
+  <img src="assets/116_inference_update/endpoints.png">
+</kbd>
 
 To learn more, please read this [tutorial](https://huggingface.co/blog/inference-endpoints) and the [documentation](https://huggingface.co/docs/inference-endpoints/).
 
