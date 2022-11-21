@@ -7,7 +7,7 @@ thumbnail: /blog/assets/116_inference_update/widget.png
 
 <div class="blog-metadata">
     <small>Published November 21, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/openvino.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/inference-update.md">
         Update on GitHub
     </a>
 </div>
@@ -23,7 +23,7 @@ thumbnail: /blog/assets/116_inference_update/widget.png
 </div>
 
 
-Transformer models are quickly becoming the *de facto* architecture for a wide range of machine learning (ML) applications, including natural language processing, computer vision, speech, and more. Every day, developers and organizations are adopting these models to turn ideas into proof-of-concept demos, and demos into production-grade applications. 
+Every day, developers and organizations are adopting models hosted on [Hugging Face](https://huggingface.co/models) to turn ideas into proof-of-concept demos, and demos into production-grade applications. For instance, Transformer models have become a popular architecture for a wide range of machine learning (ML) applications, including natural language processing, computer vision, speech, and more. Recently, diffusers have become a popular architecuture for text-to-image or image-to-image generation. Other architectures are popular for other tasks, and we host all of them on the HF Hub!
 
 At Hugging Face, we are obsessed with simplifying ML development and operations without compromising on state-of-the-art quality. In this respect, the ability to test and deploy the latest models with minimal friction is critical, all along the lifecycle of an ML project. Optimizing the cost-performance ratio is equally important, and we'd like to thank our friends at [Intel](https://huggingface.co/intel) for sponsoring our free CPU-based inference solutions. This is another major step in our [partnership](https://huggingface.co/blog/intel). It's also great news for our user community, who can now enjoy the speedup delivered by the [Intel Xeon Ice Lake](https://www.intel.com/content/www/us/en/products/docs/processors/xeon/3rd-gen-xeon-scalable-processors-brief.html) architecture at zero cost.
 
@@ -43,7 +43,7 @@ It's the best way to quickly get a sense of what a model does, its output, and h
  
 ## Free Inference API
 
-The [Inference API](https://huggingface.co/docs/api-inference/) is equally developer-friendly. With a simple HTTP request, you can load any hub model and predict your data with it in seconds. The model URL and a valid hub token are all you need.
+The [Inference API](https://huggingface.co/docs/api-inference/) is what powers the Inference widget under the hood. With a simple HTTP request, you can load any hub model and predict your data with it in seconds. The model URL and a valid hub token are all you need.
 
 Here's how I can load and predict with the `xlm-roberta-base` [model](https://huggingface.co/xlm-roberta-base) in a single line:
 
@@ -79,9 +79,18 @@ Inference Endpoints support three security levels:
 
 To learn more about Inference Endpoints, please read this [tutorial](https://huggingface.co/blog/inference-endpoints) and the [documentation](https://huggingface.co/docs/inference-endpoints/).
 
+## Spaces
+
+Finally, Spaces is another production-ready option to deploy your model for inference on top of a simple UI framework (Gradio for instance), and we also support [hardware upgrades](/docs/hub/spaces-gpus) like advanced Intel CPUs and NVIDIA GPUs. There's no better way to demo your models! 
+
+<kbd>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/spaces-gpu-settings.png">
+</kbd>
+
+To learn more about Spaces,  please take a look at the [documentation](https://huggingface.co/docs/hub/spaces) and don't hesitate to browse posts or ask questions in our [forum](https://discuss.huggingface.co/c/spaces/24).
 ## Getting started
 
-It couldn't be simpler. Just log in to the Hugging Face [hub](https://huggingface.co/) and browse our [models](https://huggingface.co/models). Once you've found one that you like, you can try the Inference Widget directly on the page. Clicking on the "Deploy" button, you'll get auto-generated code to deploy the model on the free Inference API for evaluation, and a direct link to deploy it to production with Inference Endpoints.
+It couldn't be simpler. Just log in to the Hugging Face [hub](https://huggingface.co/) and browse our [models](https://huggingface.co/models). Once you've found one that you like, you can try the Inference Widget directly on the page. Clicking on the "Deploy" button, you'll get auto-generated code to deploy the model on the free Inference API for evaluation, and a direct link to deploy it to production with Inference Endpoints or Spaces.
 
 Please give it a try and let us know what you think. We'd love to read your feedback on the Hugging Face [forum](https://discuss.huggingface.co/).
 
