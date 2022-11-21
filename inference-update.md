@@ -34,7 +34,7 @@ Let's look at your options.
 
 One of my favorite features on the Hugging Face hub is the Inference [Widget](https://huggingface.co/docs/hub/models-widgets). Located on the model page, the Inference Widget lets you upload sample data and predict it in a single click. It's the best way to quickly get a sense of what a model does, what its output looks like, and how it performs on a few samples from your dataset. The model is loaded on-demand on our servers and unloaded when it's not needed anymore. You don't have to write any code and the feature is free. What's not to love?
 
-Today, we're really happy to announce that our friends at [Intel](https://www.intel.com/content/www/us/en/homepage.html) are now sponsoring inference for all CPU-based models. 
+Today, we're really happy to announce that our friends at [Intel](https://huggingface.co/intel) are now sponsoring inference for all CPU-based models. 
 
 
 XXX Screenshot
