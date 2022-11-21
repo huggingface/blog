@@ -27,9 +27,7 @@ _If you're interested in building ML solutions faster visit [hf.co/support](http
 - [Director of Machine Learning Insights [Part 2 : SaaS Edition]](https://huggingface.co/blog/ml-director-insights-2)
 - [Director of Machine Learning Insights [Part 3 : Finance Edition]](https://huggingface.co/blog/ml-director-insights-3)
 
-In this fourth installment, you’ll hear from Javier Mansilla, Shaun Gittens, Samuel Franklin, and Evan Castle. —All of whom are currently Directors of Machine Learning with rich field insights.
-
-🚀  Let’s meet some top Machine Learning Directors and hear what they have to say about Machine Learning’s impact on their prospective industries:
+🚀 In this fourth installment, you’ll hear what the following top Machine Learning Directors say about Machine Learning’s impact on their prospective industries: Javier Mansilla, Shaun Gittens, Samuel Franklin, and Evan Castle. —All are currently Directors of Machine Learning with rich field insights.
 
 _Disclaimer: All views are from individuals and not from any past or current employers._
 
