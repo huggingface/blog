@@ -79,9 +79,17 @@ Inference Endpoints support three security levels:
 
 To learn more about Inference Endpoints, please read this [tutorial](https://huggingface.co/blog/inference-endpoints) and the [documentation](https://huggingface.co/docs/inference-endpoints/).
 
+## Spaces
+
+Finally, Spaces is another production-ready option to deploy your model for inference on top of a simple UI framework (Gradio for instance), and we also support [hardware upgrades](/docs/hub/spaces-gpus) like advanced Intel CPUs and NVIDIA GPUs.
+
+<kbd>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/spaces-gpu-settings.png">
+</kbd>
+
 ## Getting started
 
-It couldn't be simpler. Just log in to the Hugging Face [hub](https://huggingface.co/) and browse our [models](https://huggingface.co/models). Once you've found one that you like, you can try the Inference Widget directly on the page. Clicking on the "Deploy" button, you'll get auto-generated code to deploy the model on the free Inference API for evaluation, and a direct link to deploy it to production with Inference Endpoints.
+It couldn't be simpler. Just log in to the Hugging Face [hub](https://huggingface.co/) and browse our [models](https://huggingface.co/models). Once you've found one that you like, you can try the Inference Widget directly on the page. Clicking on the "Deploy" button, you'll get auto-generated code to deploy the model on the free Inference API for evaluation, and a direct link to deploy it to production with Inference Endpoints or Spaces.
 
 Please give it a try and let us know what you think. We'd love to read your feedback on the Hugging Face [forum](https://discuss.huggingface.co/).
 
