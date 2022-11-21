@@ -35,20 +35,20 @@ _Disclaimer: All views are from individuals and not from any past or current emp
 
 ### [Javier Mansilla](https://www.linkedin.com/in/javimansilla/?originalSubdomain=ar) - Director of Machine Learning, Marketing Science at [Mercado Libre](https://mercadolibre.com/)
 
-**Background:** Seasoned entrepreneur and leader, Javier was co-founder and CTO of Machinalis, a hi-end company building Machine Learning since 2010 (yes, before the breakthrough of neuralnets). When Machinalis got acquired by Mercado Libre, that small team evolved to enable Machine Learning as a capability for a tech giant with more 10k devs, impacting the lives of almost 100 million direct users. On a daily basis, Javier leads not only the tech and product roadmap of their Machine Learning Platform (NASDAQ MELI), but also their users' tracking system, the AB Testing framework, and the open-source office. Javier is an active member & contributor of [Python-Argentina non-profit PyAr](https://www.python.org.ar/), loves hanging out with family and friends, python, biking, football, carpentry, and slow-paced holidays in nature!
+**Background:** Seasoned entrepreneur and leader, Javier was co-founder and CTO of Machinalis, a high-end company building Machine Learning since 2010 (yes, before the breakthrough of neural nets). When Machinalis was acquired by Mercado Libre, that small team evolved to enable Machine Learning as a capability for a tech giant with more than 10k devs, impacting the lives of almost 100 million direct users. Daily, Javier leads not only the tech and product roadmap of their Machine Learning Platform (NASDAQ MELI), but also their users' tracking system, the AB Testing framework, and the open-source office. Javier is an active member & contributor of [Python-Argentina non-profit PyAr](https://www.python.org.ar/), he loves hanging out with family and friends, python, biking, football, carpentry, and slow-paced holidays in nature!
 
-**Fun Fact:** I love reading science fiction, and my idea of retirement includes resuming the teenager dream of writing short stories.📚
+**Fun Fact:** I love reading science fiction, and my idea of retirement includes resuming the teenage dream of writing short stories.📚
 
-**Mercado Libre:** The biggest company in Latam, and the eCommerce & fintech omnipresent solution for the continent
+**Mercado Libre:** The biggest company in Latam and the eCommerce & fintech omnipresent solution for the continent
  
 #### **1. How has ML made a positive impact on e-commerce?**
-I would say that ML made possible the impossible in a few cases (like fraud prevention in general) and in the vast majority of the others, optimized processes and flows in ways we wouldn't immagine.
+I would say that ML made possible the impossible in a few cases (like fraud prevention in general) and in the vast majority of the others, optimized processes and flows in ways we wouldn't imagine.
 
-In the middle, there are applications where ML enabled a next-level of UX that otherwise would be very expensive (but maybe not impossible). An example, the discovery and serendipity added to the journey of users navigating between listings and offers.
+In the middle, there are applications where ML enabled a next-level of UX that otherwise would be very expensive (but maybe possible). For example, the discovery and serendipity added to users' journey navigating between listings and offers.
 
 We ran search, recommendations, ads, credit-scoring, moderations, forecasting of several key aspects, logistics, and lot’s more core units with Machine Learning optimizing at least one of its fundamental metrics.
 
-We even use ML for optimizing the way we reserve and use infrastructure.
+We even use ML to optimize the way we reserve and use infrastructure.
 
 
 #### **2. What are the biggest ML challenges within e-commerce?**
