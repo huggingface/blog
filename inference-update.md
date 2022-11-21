@@ -43,7 +43,7 @@ It's the best way to quickly get a sense of what a model does, its output, and h
  
 ## Free Inference API
 
-The [Inference API](https://huggingface.co/docs/api-inference/) is equally developer-friendly. With a simple HTTP request, you can load any hub model and predict your data with it in seconds. The model URL and a valid hub token are all you need.
+The [Inference API](https://huggingface.co/docs/api-inference/) is what powers the Inference widget under the hood. With a simple HTTP request, you can load any hub model and predict your data with it in seconds. The model URL and a valid hub token are all you need.
 
 Here's how I can load and predict with the `xlm-roberta-base` [model](https://huggingface.co/xlm-roberta-base) in a single line:
 
