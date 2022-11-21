@@ -3,6 +3,11 @@
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
 
 - name: NLP with Transformers Reading Group
+  link: https://discord.com/events/879548962464493619/1042396704802091048
+  date: Dec 1, 2022
+  description: Want to learn how to apply transformers to your use-cases and how to contribute to open-source projects? Join our reading group!
+
+- name: NLP with Transformers Reading Group
   link: https://discord.com/events/879548962464493619/1039565337420648458
   date: Nov 17, 2022
   description: Want to learn how to apply transformers to your use-cases and how to contribute to open-source projects? Join our reading group!
