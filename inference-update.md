@@ -81,12 +81,13 @@ To learn more about Inference Endpoints, please read this [tutorial](https://hug
 
 ## Spaces
 
-Finally, Spaces is another production-ready option to deploy your model for inference on top of a simple UI framework (Gradio for instance), and we also support [hardware upgrades](/docs/hub/spaces-gpus) like advanced Intel CPUs and NVIDIA GPUs.
+Finally, Spaces is another production-ready option to deploy your model for inference on top of a simple UI framework (Gradio for instance), and we also support [hardware upgrades](/docs/hub/spaces-gpus) like advanced Intel CPUs and NVIDIA GPUs. There's no better way to demo your models! 
 
 <kbd>
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/hub/spaces-gpu-settings.png">
 </kbd>
 
+To learn more about Spaces,  please take a look at the [documentation](https://huggingface.co/docs/hub/spaces) and don't hesitate to browse posts or ask questions in our [forum](https://discuss.huggingface.co/c/spaces/24).
 ## Getting started
 
 It couldn't be simpler. Just log in to the Hugging Face [hub](https://huggingface.co/) and browse our [models](https://huggingface.co/models). Once you've found one that you like, you can try the Inference Widget directly on the page. Clicking on the "Deploy" button, you'll get auto-generated code to deploy the model on the free Inference API for evaluation, and a direct link to deploy it to production with Inference Endpoints or Spaces.
