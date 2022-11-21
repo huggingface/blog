@@ -121,12 +121,12 @@ The future of ML continues to be exciting and seemingly every month there are ad
 
 **Background:** Samuel is a senior Data Science and ML Engineering leader at Pluralsight with a Ph.D. in cognitive science. He leads talented teams of Data Scientists and ML Engineers building intelligent services that power Pluralsight’s Skills platform.
 
-Outside the virtual office, Dr. Franklin teaches seminars in Data Science and Machine Learning for Emory University. He also serves as Chairman of the Board of Directors for the Atlanta Humane Society
+Outside the virtual office, Dr. Franklin teaches Data Science and Machine Learning seminars for Emory University. He also serves as Chairman of the Board of Directors for the Atlanta Humane Society.
 
 
 **Fun Fact:** I live in a log cabin on top of a mountain in the Appalachian range.
 
-**Pluralsight:** We are a technology workforce development company and our Skills platform is used by 70% of the Fortune 500 to help their employees  build business-critical tech skills.
+**Pluralsight:** We are a technology workforce development company and our Skills platform is used by 70% of the Fortune 500 to help their employees build business-critical tech skills.
 
 #### **1. How has ML made a positive impact on Education?**
 Online, on-demand educational content has made lifelong learning more accessible than ever for billions of people globally.  Decades of cognitive research show that the relevance, format, and sequence of educational content significantly impact students’ success.  Advances in deep learning content search and recommendation algorithms have greatly improved our ability to create customized, efficient learning paths at-scale that can adapt to individual student’s needs over time.
@@ -147,11 +147,11 @@ I’m excited about the opportunity to mentor the next generation of ML leaders.
 
 ### [Evan Castle](https://www.linkedin.com/in/evan-castle-ai/) - Director of ML, Product Marketing, Elastic Stack at [Elastic](www.elastic.co)
 
-**Background:** Over a decade of leadership experience in the intersection of data science, product, and strategy. Worked in a range of industries from building risk models at Fortune 100s like Capital One to launching ML products at Sisense and Elastic.   
+**Background:** Over a decade of leadership experience in the intersection of data science, product, and strategy. Evan worked in various industries, from building risk models at Fortune 100s like Capital One to launching ML products at Sisense and Elastic.     
 
 **Fun Fact:** Met Paul McCarthy. 🎤
 
-**MasterPeace Solutions:** MasterPeace Solutions has emerged as one of the fastest growing advanced technology companies in the Mid-Atlantic region.  The company designs and develops software, systems, solutions and products in order to solve some of the most pressing challenges facing the Intelligence Community. 
+**MasterPeace Solutions:** MasterPeace Solutions has emerged as one of the fastest-growing advanced technology companies in the Mid-Atlantic region.  The company designs and develops software, systems, solutions and products to solve some of the most pressing challenges facing the Intelligence Community.
  
 
 #### **1. How has ML made a positive impact on SaaS?**
@@ -163,7 +163,7 @@ To maximize the benefits of ML there is a double challenge of delivering value t
 
  
 #### **3. What’s a common mistake you see people make trying to integrate ML into SaaS?**
-To get it right, any integrated model has to work at scale, which means support for massive data sets while ensuring results are still performant and accurate. Let's illustrate with a real example. There has been a surge in interest in vector search. All sorts of things can be represented in vectors from text, and images to events. Vectors can be used to capture similarities between content and are great for things like search relevance and recommendations. The challenge is developing algorithms that can compare vectors taking into account trade-offs in speed, complexity, and cost. 
+To get it right, any integrated model has to work at scale, which means support for massive data sets while ensuring results are still performant and accurate. Let's illustrate this with a real example. There has been a surge in interest in vector search. All sorts of things can be represented in vectors from text, and images to events. Vectors can be used to capture similarities between content and are great for things like search relevance and recommendations. The challenge is developing algorithms that can compare vectors taking into account trade-offs in speed, complexity, and cost. 
 At Elastic, we spent a lot of time evaluating and benchmarking the performance of models for vector search. We decided on an approach for the approximate nearest neighbor (ANN) algorithm called Hierarchical Navigable Small World graphs (HNSW), which basically maps vectors into a
 graph based on their similarity to each other. HNSW delivers an order of magnitude increase in speed and accuracy across a variety of ANN-benchmarks. This is just one example of non-trivial decisions more and more product and engineering teams need to take to successfully integrate ML into their products. 
 
