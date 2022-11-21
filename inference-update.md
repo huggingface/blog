@@ -54,7 +54,7 @@ curl https://api-inference.huggingface.co/models/xlm-roberta-base \
 
 The Inference API is the simplest way to build a prediction API that you can immediately call from your application during development and tests. No need for a bespoke prediction service, or for a model server. In addition, you can instantly switch from one model to the next and compare their performance in your application. And guess what? The Inference API is free to use.
 
-## Inference Endpoints
+## Production with Inference Endpoints
 
 Once you're happy with the performance of your ML model, it's time to deploy it for production. Unfortunately, when you leave the sandbox, everything becomes a concern: security, scaling, monitoring, etc. This is where a lot of ML stumble and sometimes fall.
 
