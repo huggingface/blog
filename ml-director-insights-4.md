@@ -52,11 +52,11 @@ We even use ML to optimize the way we reserve and use infrastructure.
 
 
 #### **2. What are the biggest ML challenges within e-commerce?**
-Besides all the technical challenges ahead (for instance, more and more realtimeness and personalization), I think that the biggest challenge is the always present focus on the end-user.
+Besides all the technical challenges ahead (for instance, more and more real timeless and personalization), the biggest challenge is the always present focus on the end-user.
 
-E-commerce is scaling its share on the market year after year, and Machine Learning is always a probabilistic approach that doesn't provide 100% perfection. We need to be careful to keep optimizing our products at the same time that we still pay attention to the long tail and the experience of each individual person.
+E-commerce is scaling its share of the market year after year, and Machine Learning is always a probabilistic approach that doesn't provide 100% perfection. We need to be careful to keep optimizing our products while still paying attention to the long tail and the experience of each individual person.
 
-Finally, a growing challenge is to coordinate and foster the co-existence of data (inputs and outps) in a multi channel and multi business world. Marketplace, logistics, credits, insurtech, payments on brick and mortar stores, etc.
+Finally, a growing challenge is coordinating and fostering data (inputs and outputs) co-existence in a multi-channel and multi-business world—marketplace, logistics, credits, insurance, payments on brick-and-mortar stores, etc.
 
 
 #### **3. A common mistake you see people make trying to integrate ML into e-commerce?**
