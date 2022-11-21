@@ -31,6 +31,7 @@ thumbnail: /blog/assets/116_audio_datasets/thumbnail.jpg
 </a>
 
 ## Introduction
+
 🤗 Datasets is open-source library for downloading and preparing datasets of all domains. Its minimalistic API 
 allows users to download and prepare datasets in just one line of Python code, with a suite of functions that 
 enable for efficient pre-processing. The number of datasets available is unparalleled, with all of the most popular 
@@ -151,6 +152,7 @@ pre-processing:
 3. [Filtering Function](#filtering-function)
 
 ### 1. Resampling the Audio Data
+
 The `load_dataset` function prepares audio samples with the sampling rate that they were published with. This is not 
 always the sampling rate expected by our model. In this case, we need to _resample_ the audio to the correct sampling 
 rate.
@@ -166,10 +168,13 @@ gigaspeech = gigaspeech.remove_columns(columns_to_remove)
 ```
 
 Let's check that we've successfully retained the `audio` and `text` columns:
+
 ```python
 print(gigaspeech["train"][0])
 ```
+
 **Print Output:**
+
 ```python
 {'text': "AS THEY'RE LEAVING <COMMA> CAN KASH PULL ZAHRA ASIDE REALLY QUICKLY <QUESTIONMARK>", 
  'audio': {'path': '/home/sanchit_huggingface_co/.cache/huggingface/datasets/downloads/extracted/7f8541f130925e9b2af7d37256f2f61f9d6ff21bf4a94f7c1a3803ec648d7d79/xs_chunks_0000/YOU0000000315_S0000660.wav', 
@@ -177,6 +182,7 @@ print(gigaspeech["train"][0])
        0.00036621], dtype=float32), 
            'sampling_rate': 16000}}
 ```
+
 Great! We can see that we've only got the two columns that we require. We can also see that the audio is sampled at a 
 sampling rate of 16kHz. We can set the audio inputs to our desired sampling rate using 🤗 Dataset's [`cast_column`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=cast_column#datasets.DatasetDict.cast_column) 
 method. This operation does not change the audio in-place, but rather signals to `datasets` to resample audio samples 
@@ -193,7 +199,9 @@ Re-loading the first audio sample in the GigaSpeech dataset will resample it to 
 ```python
 print(gigaspeech["train"][0])
 ```
+
 **Print Output:**
+
 ```python
 {'text': "AS THEY'RE LEAVING <COMMA> CAN KASH PULL ZAHRA ASIDE REALLY QUICKLY <QUESTIONMARK>", 
  'audio': {'path': '/home/sanchit_huggingface_co/.cache/huggingface/datasets/downloads/extracted/7f8541f130925e9b2af7d37256f2f61f9d6ff21bf4a94f7c1a3803ec648d7d79/xs_chunks_0000/YOU0000000315_S0000660.wav', 
@@ -202,6 +210,7 @@ print(gigaspeech["train"][0])
            'sampling_rate': 8000}
  }
 ```
+
 We can see that the sampling rate has been downsampled to 8kHz. The array values are also different, as we've now only 
 got approximately one amplitude value for every two that we had before. Let's upsample the dataset back to 16kHz, the 
 sampling rate expected by most speech recognition models:
@@ -211,7 +220,9 @@ gigaspeech = gigaspeech.cast_column("audio", Audio(sampling_rate=16000))
 
 print(gigaspeech["train"][0])
 ```
+
 **Print Output:**
+
 ```python
 {'text': "AS THEY'RE LEAVING <COMMA> CAN KASH PULL ZAHRA ASIDE REALLY QUICKLY <QUESTIONMARK>", 
  'audio': {'path': '/home/sanchit_huggingface_co/.cache/huggingface/datasets/downloads/extracted/7f8541f130925e9b2af7d37256f2f61f9d6ff21bf4a94f7c1a3803ec648d7d79/xs_chunks_0000/YOU0000000315_S0000660.wav', 
@@ -222,6 +233,7 @@ print(gigaspeech["train"][0])
 ```
 
 ### 2. Pre-Processing Function
+
 One of the hardest aspects of working with audio datasets is preparing the data into the right format for the model. 
 Using 🤗 Dataset's [`map`](https://huggingface.co/docs/datasets/v2.6.1/en/process#map) method, we can write a function 
 to pre-process a single sample of the dataset, and then handily apply it to every sample without any code changes.
@@ -327,7 +339,7 @@ Streaming mode can take your research to the next level: not only are the bigges
 can easily evaluate systems over multiple datasets in one go without worrying about your disk space. Compared 
 to evaluating on a single dataset, multi-dataset evaluation gives a better metric for the generalisation 
 abilities of a speech recognition system. Check out the accompanying Google Colab for an example of evaluating 
-Whisper on eight English speech recognition datasets in one script.
+Whisper on eight English speech recognition datasets in one script using streaming mode.
 <!--- TODO: insert link to Google Colab --->
 
 ## The Hub
@@ -366,7 +378,7 @@ audio data and gauge whether it's the right dataset for your needs.
 ## A Tour of Audio Datasets on The Hub
 This Section serves as a reference guide for the most popular speech recognition, speech 
 translation and audio classification datasets on the Hub. Check out the Google Colab for a guide on how to evaluate a 
-system on all nine English speech recognition datasets in one script:
+system on all nine English speech recognition datasets in **one script**:
 <!--- TODO: insert link to Colab --->
 
 1. [English Speech Recognition](#english-speech-recognition)
@@ -376,18 +388,18 @@ system on all nine English speech recognition datasets in one script:
 
 ### English Speech Recognition
 
-Summary of English speech recognition datasets.
+A summary of the most popular English speech recognition datasets on the Hub:
 
-|                                                                                         | Train Hours | Domain                                | Speaking Style         | Casing | Punctuation | Recommended Usage                                 |
-|-----------------------------------------------------------------------------------------|-------------|---------------------------------------|------------------------|--------|-------------|---------------------------------------------------|
-| [LibriSpeech](https://huggingface.co/datasets/librispeech_asr)                          | 960         | Audiobooks                            | Narrated               | ❌      | ❌           | Academic benchmarks                               |
-| [Common Voice 11](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0) | 2300        | Wikipedia text & crowd-sourced speech | Narrated               | ✅      | ✅           | Non-native English speakers                       |
-| [VoxPopuli](https://huggingface.co/datasets/facebook/voxpopuli)                         | 540         | European Parliament recordings        | Oratory                | ❌      | ❌           | Non-native English speakers                       |
-| [TED-LIUM](https://huggingface.co/datasets/LIUM/tedlium)                                | 450         | TED talks                             | Oratory                | ❌      | ❌           | Technical scientific, political and social topics |
-| [GigaSpeech](https://huggingface.co/datasets/speechcolab/gigaspeech)                    | 10000       | Audiobook, podcast, youtube           | Narrated & spontaneous | ❌      | ✅           | Robustness over multiple domains                  |
-| [SPGISpeech](https://huggingface.co/datasets/kensho/spgispeech)                         | 5000        | Financial meetings                    | Narrated & spontaneous | ✅      | ✅           | Fully formatted transcriptions                    |
-| [Earnings-22](https://huggingface.co/datasets/revdotcom/earnings22)                     | 119         | Company earnings calls                | Narrated & spontaneous | ✅      | ✅           | Diversity of accents                              |
-| [AMI](https://huggingface.co/datasets/edinburghcstr/ami)                                | 100         | Meetings                              | Spontaneous            | ✅      | ✅           | Noisy speech conditions                           |
+| Dataset                                                                                 | Domain                      | Speaking Style        | Train Hours | Casing | Punctuation | License         | Recommended Use                  |
+|-----------------------------------------------------------------------------------------|-----------------------------|-----------------------|-------------|--------|-------------|-----------------|----------------------------------|
+| [LibriSpeech](https://huggingface.co/datasets/librispeech_asr)                          | Audiobook                   | Narrated              | 960         | ❌      | ❌           | CC-BY-4.0       | Academic benchmarks              |
+| [Common Voice 11](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0) | Wikipedia                   | Narrated              | 2300        | ✅      | ✅           | CC0-1.0         | Non-native speakers              |
+| [VoxPopuli](https://huggingface.co/datasets/facebook/voxpopuli)                         | European Parliament         | Oratory               | 540         | ❌      | ❌           | CC0             | Non-native speakers              |
+| [TED-LIUM](https://huggingface.co/datasets/LIUM/tedlium)                                | TED talks                   | Oratory               | 450         | ❌      | ❌           | CC-BY-NC-ND 3.0 | Technical topics                 |
+| [GigaSpeech](https://huggingface.co/datasets/speechcolab/gigaspeech)                    | Audiobook, podcast, YouTube | Narrated, spontaneous | 10000       | ❌      | ✅           | apache-2.0      | Robustness over multiple domains |
+| [SPGISpeech](https://huggingface.co/datasets/kensho/spgispeech)                         | Fincancial meetings         | Oratory, spontaneous  | 5000        | ✅      | ✅           | User Agreement  | Fully formatted transcriptions   |
+| [Earnings-22](https://huggingface.co/datasets/revdotcom/earnings22)                     | Fincancial meetings         | Oratory, spontaneous  | 119         | ✅      | ✅           | CC-BY-SA-4.0    | Diversity of accents             |
+| [AMI](https://huggingface.co/datasets/edinburghcstr/ami)                                | Meetings                    | Spontaneous           | 100         | ✅      | ✅           | CC-BY-4.0       | Noisy speech conditions          |
 
 The following dataset descriptions are largely taken from the [ESB Benchmark](https://arxiv.org/abs/2210.13352) paper.
 
@@ -473,7 +485,57 @@ ami = load_dataset("edinburghcstr/ami", "ihm")
 ```
 
 ### Multilingual Speech Recognition
+Multilingual speech recognition concerns speech recognition for **all languages** barring English. 
+
+#### [Multilingual LibriSpeech](https://huggingface.co/datasets/facebook/multilingual_librispeech)
+Multilingual LibriSpeech is the multilingual equivalent of the [LibriSpeech ASR](https://huggingface.co/datasets/librispeech_asr) corpus. 
+It comprises a large corpus of read audiobooks taken from the [LibriVox](https://librivox.org/) project, making 
+it a suitable dataset for academic research. It contains data split into eight high-resource languages - English, 
+German, Dutch, Spanish, French, Italian, Portuguese and Polish.
+
+#### [Common Voice](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0)
+Common Voice is a series of crowd-sourced open-licensed speech datasets where speakers record text from Wikipedia in 
+various languages. Since anyone can contribute recordings, there is significant variation in both audio quality and 
+speakers. The audio conditions are challenging, with recording artefacts, accented speech, hesitations, and the presence 
+of foreign words. The transcriptions are both cased and punctuated. As of version 11, there are over 100 languages 
+available, both low and high-resource.
+
+#### [VoxPopuli](https://huggingface.co/datasets/facebook/voxpopuli)
+VoxPopuli is a large-scale multilingual speech corpus consisting of data sourced from 2009-2020 European Parliament 
+event recordings. Consequently, it occupies the unique domain of oratory, political speech, largely sourced from 
+non-native speakers. It contains labelled audio-transcription data for 15 European languages.
+
+#### [FLEURS](https://huggingface.co/datasets/google/fleurs)
+FLEURS (Few-shot Learning Evaluation of Universal Representations of Speech) is a dataset for evaluating speech recognition 
+systems in 102 languages, including many that are classified as 'low-resource'. The data is derived from the [FLoRes-101](https://arxiv.org/abs/2106.03193) 
+dataset, a machine translation corpus with 3001 sentence translations from English to 101 other languages. Native 
+speakers are recorded narrating the sentence translations in their native languages, yielding a multilingual speech recognition
+of audio-text pairs over the 101 languages. The training sets contain approximately 10 hours of supervised 
+audio-transcription data per language.
 
 ### Speech Translation
+#### [CoVoST 2](https://huggingface.co/datasets/covost2)
+CoVoST 2 is a large-scale multilingual speech translation corpus covering translations from 21 languages into English 
+and from English into 15 languages. The dataset is created using Mozilla's open-source Common Voice database of 
+crowd-sourced voice recordings. There are 2,900 hours of speech represented in the corpus.
+
+#### [FLEURS](https://huggingface.co/datasets/google/fleurs)
+FLEURS (Few-shot Learning Evaluation of Universal Representations of Speech) is a dataset for evaluating speech recognition 
+systems in 102 languages, including many that are classified as 'low-resource'. The data is derived from the [FLoRes-101](https://arxiv.org/abs/2106.03193) 
+dataset, a machine translation corpus with 3001 sentence translations from English to 101 other languages. Native 
+speakers are recorded narrating the sentence translations in their native languages, yielding an \\(n\\)-way parallel 
+speech dataset for speech translation. The training sets contain approximately 10 hours of supervised audio-transcription 
+data per source-target language combination.
 
 ### Audio Classification
+
+#### [VoxCeleb1]()
+<!--- TODO: is this on the Hub? --->
+
+#### [FLEURS](https://huggingface.co/datasets/google/fleurs)
+FLEURS (Few-shot Learning Evaluation of Universal Representations of Speech) is a dataset for evaluating speech recognition 
+systems in 102 languages, including many that are classified as 'low-resource'. The data is derived from the [FLoRes-101](https://arxiv.org/abs/2106.03193) 
+dataset, a machine translation corpus with 3001 sentence translations from English to 101 other languages. Native 
+speakers are recorded narrating the sentence translations in their native languages. The dataset can be used as an 
+audio classification dataset for _language identification_: systems are trained to predict the language of each of the 
+utterances in the corpus.
