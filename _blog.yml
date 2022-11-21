@@ -1347,7 +1347,6 @@
     - nlp
     - research
     - llm
-
 - local: pytorch-ddp-accelerate-transformers
   title: "From PyTorch DDP to 🤗 Accelerate to 🤗 Trainer, mastery of distributed training with ease"
   author: muellerzr
@@ -1416,7 +1415,7 @@
     - nlp
     - text generation
     - research
-
+    
 - local: sentiment-analysis-fhe
   title: "Sentiment Classification with Fully Homomorphic Encryption using Concrete ML"
   author: jfrery-zama
@@ -1445,3 +1444,12 @@
   tags:
     - guide
     - inference
+
+- local: document-ai
+  title: "Accelerating Document AI"
+  author: rajistics
+  thumbnail: /blog/assets/112_document-ai/thumbnail.png
+  date: Nov 21, 2022
+  tags:
+    - guide
+    - expert-acceleration-program
