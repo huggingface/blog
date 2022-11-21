@@ -30,7 +30,7 @@ At Hugging Face, we are obsessed with simplifying ML development and operations,
 
 Let's look at your options.
 
-## Inference Widget
+## Free Inference Widget
 
 One of my favorite features on the Hugging Face hub is the Inference [Widget](https://huggingface.co/docs/hub/models-widgets). Located on the model page, the Inference Widget lets you upload sample data and predict it in a single click. It's the best way to quickly get a sense of what a model does, what its output looks like, and how it performs on a few samples from your dataset. The model is loaded on-demand on our servers and unloaded when it's not needed anymore. You don't have to write any code and the feature is free. What's not to love?
 
@@ -41,7 +41,7 @@ XXX Screenshot
 
 This is another great step in our [partnership](https://huggingface.co/blog/intel), and great news for our user community, as we can now all enjoy the speedup delivered by the [Intel Xeon Ice Lake](https://www.intel.com/content/www/us/en/products/docs/processors/xeon/3rd-gen-xeon-scalable-processors-brief.html) architecture. And yes, the feature is still free!
  
-## Inference API
+## Free Inference API
 
 The [Inference API](https://huggingface.co/docs/api-inference/) is equally developer-friendly. With a simple HTTP request, you can load any hub model and predict your data with it in seconds. The model URL and a valid hub token are all you need, for example: 
 
@@ -52,13 +52,16 @@ curl https://api-inference.huggingface.co/models/xlm-roberta-base \
 	-H "Authorization: Bearer HF_TOKEN"
 ```
 
-The Inference API is the simplest way to build a prediction API that you can immediately call from your application during development and tests. No need for a bespoke prediction service, or for a model server. In addition, you can instantly switch from one model to the next and compare their performance in your application. And guess what? The Inference API is free to use.
+The Inference API is the simplest way to build a prediction service that you can immediately call from your application during development and tests. No need for a bespoke API, or a model server. In addition, you can instantly switch from one model to the next and compare their performance in your application. And guess what? The Inference API is free to use. 
+
+As rate limiting is enforced, we don't recommend using the Inference API for production. Instead, you should consider Inference Endpoints.
 
 ## Production with Inference Endpoints
 
 Once you're happy with the performance of your ML model, it's time to deploy it for production. Unfortunately, when you leave the sandbox, everything becomes a concern: security, scaling, monitoring, etc. This is where a lot of ML stumble and sometimes fall.
+We built [Inference Endpoints](https://huggingface.co/inference-endpoints) to solve this problem.
 
-This is exactly why we built [Inference Endpoints](https://huggingface.co/inference-endpoints). In just a few clicks, you deploy any hub model on secure and scalable infrastructure hosted in your AWS or Azure region of choice. Additional settings include CPU and GPU hosting, built-in auto-scaling, and more.
+In just a few clicks, you deploy any hub model on secure and scalable infrastructure hosted in your AWS or Azure region of choice. Additional settings include CPU and GPU hosting, built-in auto-scaling, and more. This lets you find the appropriate cost/performance ratio, with [pricing](https://huggingface.co/pricing#endpoints) starting as low as $0.06 per hour.
 
 XXX screenshot
 
