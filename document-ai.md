@@ -225,7 +225,9 @@ We can also provide bundles of compute credits to use our training (AutoTrain) o
 
 ### Resources
 
-Tutorial notebooks for many Document AI models are in [Niels' Github](https://github.com/NielsRogge/Transformers-Tutorials) repository: [https://github.com/NielsRogge/Transformers-Tutorials](https://github.com/NielsRogge/Transformers-Tutorials).
+Notebooks and tutorials for many Document AI models can be found at: 
+- Niels' [Transformers-Tutorials](https://github.com/NielsRogge/Transformers-Tutorials)
+- Philipp's [Document AI with Hugging Face Transformers](https://github.com/philschmid/document-ai-transformers) 
 
 <html itemscope itemtype="https://schema.org/FAQPage">
   <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
