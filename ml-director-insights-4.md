@@ -18,7 +18,7 @@ thumbnail: blog/assets/78_ml_director_insights/ML Director Insights - part 4.png
 </head>
 <body>
 
-_If you're interested in building ML solutions faster visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_3) today!_
+_If you're interested in building ML solutions faster visit: [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_3) today!_
 
 
 👋 Welcome back to our Director of ML Insights Series! If you missed earlier Editions you can find them here:
@@ -27,7 +27,7 @@ _If you're interested in building ML solutions faster visit [hf.co/support](http
 - [Director of Machine Learning Insights [Part 2 : SaaS Edition]](https://huggingface.co/blog/ml-director-insights-2)
 - [Director of Machine Learning Insights [Part 3 : Finance Edition]](https://huggingface.co/blog/ml-director-insights-3)
 
-🚀 In this fourth installment, you’ll hear what the following top Machine Learning Directors say about Machine Learning’s impact on their prospective industries: Javier Mansilla, Shaun Gittens, Samuel Franklin, and Evan Castle. —All are currently Directors of Machine Learning with rich field insights.
+🚀 In this fourth installment, you’ll hear what the following top Machine Learning Directors say about Machine Learning’s impact on their respective industries: Javier Mansilla, Shaun Gittens, Samuel Franklin, and Evan Castle. —All are currently Directors of Machine Learning with rich field insights.
 
 _Disclaimer: All views are from individuals and not from any past or current employers._
 
@@ -42,11 +42,11 @@ _Disclaimer: All views are from individuals and not from any past or current emp
 **Mercado Libre:** The biggest company in Latam and the eCommerce & fintech omnipresent solution for the continent
  
 #### **1. How has ML made a positive impact on e-commerce?**
-I would say that ML made possible the impossible in a few cases (like fraud prevention in general) and in the vast majority of the others, optimized processes and flows in ways we wouldn't imagine.
+I would say that ML made the impossible possible in specific cases like fraud prevention and optimized processes and flows in ways we couldn't have imagined in a vast majority of other areas.
 
 In the middle, there are applications where ML enabled a next-level of UX that otherwise would be very expensive (but maybe possible). For example, the discovery and serendipity added to users' journey navigating between listings and offers.
 
-We ran search, recommendations, ads, credit-scoring, moderations, forecasting of several key aspects, logistics, and lot’s more core units with Machine Learning optimizing at least one of its fundamental metrics.
+We ran search, recommendations, ads, credit-scoring, moderations, forecasting of several key aspects, logistics, and a lot more core units with Machine Learning optimizing at least one of its fundamental metrics.
 
 We even use ML to optimize the way we reserve and use infrastructure.
 
@@ -70,8 +70,8 @@ Last but not least: thinking only in the short term, forgetting about the hidden
 #### **4. What excites you most about the future of ML?**
 Talking from the perspective of being on the trench crafting technology with our bare hands like we used to do ten years ago, definitely what I like the most is to see that we as an industry are solving most of the slow, repetitive and boring pieces of the challenge.
 
-It’s of course an ever-moving target, and new difficulties arose.
-But we are getting better to incorporate mature tools and practices that will lead to shorter cycles of model-building, which at the end of the day reduces time to market.
+It’s of course an ever-moving target, and new difficulties arise.
+But we are getting better at incorporating mature tools and practices that will lead to shorter cycles of model-building which, at the end of the day, reduces time to market.
 
   
   
@@ -101,7 +101,7 @@ Engineering is vast in its applications and can encompass a great many areas.  T
 
 
  
-#### **3. What’s a common mistake you see people make trying to integrate ML into Engineering?**
+#### **3. What’s a common mistake you see people make when trying to integrate ML into Engineering?**
 Using an overpowered ML technique on a small problem dataset is one common mistake I see people making in integrating ML into Engineering.  Deep Learning, for example, is moving AI and ML to heights unimagined in such a short period, but it may not be one’s best method for solving a problem, depending on your problem space.  Often more straightforward methods work just as well or better when working with small training datasets on limited hardware.
 
 Also, not setting up an effective CI/CD (continuous integration/ continuous deployment) structure for your ML solution is another mistake I see. Very often, a once-trained model won’t suffice not only because data changes over time but resources and personnel do as well. Today’s ML practitioner needs to:
