@@ -26,20 +26,17 @@ thumbnail: /blog/assets/XXX/XXX
 
 Transformer models are quickly becoming the de facto architecture for a wide range of machine learning (ML) applications, including natural language processing, computer vision, speech, and more. Every day, developers and organizations are adopting these models to turn ideas into proof-of-concept demos, and demos into production-grade applications. 
 
-At Hugging Face, we are obsessed with simplifying ML development and operations, without compromising on state-of-the-art performance. In this respect, testing and deploying models with minimal friction is critical all along the lifecycle of your ML project. 
+At Hugging Face, we are obsessed with simplifying ML development and operations, without compromising on state-of-the-art quality. In this respect, the ability to test and deploy the latest models with minimal friction is critical all along the lifecycle of an ML project. Optimizing the cost-performance ratio is equally important, and we'd like to thank our friends at [Intel](https://huggingface.co/intel) for sponsoring our free CPU-based inference solutions. This is another major step in our [partnership](https://huggingface.co/blog/intel). It's also great news for our user community, who can now enjoy the speedup delivered by the [Intel Xeon Ice Lake](https://www.intel.com/content/www/us/en/products/docs/processors/xeon/3rd-gen-xeon-scalable-processors-brief.html) architecture at zero cost.
 
-Let's look at your options.
+Now, let's review your inference options with Hugging Face.
 
 ## Free Inference Widget
 
-One of my favorite features on the Hugging Face hub is the Inference [Widget](https://huggingface.co/docs/hub/models-widgets). Located on the model page, the Inference Widget lets you upload sample data and predict it in a single click. It's the best way to quickly get a sense of what a model does, what its output looks like, and how it performs on a few samples from your dataset. The model is loaded on-demand on our servers and unloaded when it's not needed anymore. You don't have to write any code and the feature is free. What's not to love?
-
-Today, we're really happy to announce that our friends at [Intel](https://huggingface.co/intel) are now sponsoring inference for all CPU-based models. 
-
+One of my favorite features on the Hugging Face hub is the Inference [Widget](https://huggingface.co/docs/hub/models-widgets). Located on the model page, the Inference Widget lets you upload sample data and predict it in a single click. 
 
 XXX Screenshot
 
-This is another great step in our [partnership](https://huggingface.co/blog/intel), and great news for our user community, as we can now all enjoy the speedup delivered by the [Intel Xeon Ice Lake](https://www.intel.com/content/www/us/en/products/docs/processors/xeon/3rd-gen-xeon-scalable-processors-brief.html) architecture. And yes, the feature is still free!
+It's the best way to quickly get a sense of what a model does, what its output looks like, and how it performs on a few samples from your dataset. The model is loaded on-demand on our servers and unloaded when it's not needed anymore. You don't have to write any code and the feature is free. What's not to love?
  
 ## Free Inference API
 
