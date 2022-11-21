@@ -1,13 +1,12 @@
 ---
 title: "An overview of inference solutions on Hugging Face"
-thumbnail: /blog/assets/XXX/XXX
-
+thumbnail: /blog/assets/116_inference_update/widget.png
 ---
 
-<h1>An overview of inference solutions on Hugging Face</h1>
+<h1>An Overview of Inference Solutions on Hugging Face</h1>
 
 <div class="blog-metadata">
-    <small>Published November XXX, 2022.</small>
+    <small>Published November 21, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/openvino.md">
         Update on GitHub
     </a>
@@ -24,9 +23,9 @@ thumbnail: /blog/assets/XXX/XXX
 </div>
 
 
-Transformer models are quickly becoming the de facto architecture for a wide range of machine learning (ML) applications, including natural language processing, computer vision, speech, and more. Every day, developers and organizations are adopting these models to turn ideas into proof-of-concept demos, and demos into production-grade applications. 
+Transformer models are quickly becoming the *de facto* architecture for a wide range of machine learning (ML) applications, including natural language processing, computer vision, speech, and more. Every day, developers and organizations are adopting these models to turn ideas into proof-of-concept demos, and demos into production-grade applications. 
 
-At Hugging Face, we are obsessed with simplifying ML development and operations, without compromising on state-of-the-art quality. In this respect, the ability to test and deploy the latest models with minimal friction is critical all along the lifecycle of an ML project. Optimizing the cost-performance ratio is equally important, and we'd like to thank our friends at [Intel](https://huggingface.co/intel) for sponsoring our free CPU-based inference solutions. This is another major step in our [partnership](https://huggingface.co/blog/intel). It's also great news for our user community, who can now enjoy the speedup delivered by the [Intel Xeon Ice Lake](https://www.intel.com/content/www/us/en/products/docs/processors/xeon/3rd-gen-xeon-scalable-processors-brief.html) architecture at zero cost.
+At Hugging Face, we are obsessed with simplifying ML development and operations without compromising on state-of-the-art quality. In this respect, the ability to test and deploy the latest models with minimal friction is critical, all along the lifecycle of an ML project. Optimizing the cost-performance ratio is equally important, and we'd like to thank our friends at [Intel](https://huggingface.co/intel) for sponsoring our free CPU-based inference solutions. This is another major step in our [partnership](https://huggingface.co/blog/intel). It's also great news for our user community, who can now enjoy the speedup delivered by the [Intel Xeon Ice Lake](https://www.intel.com/content/www/us/en/products/docs/processors/xeon/3rd-gen-xeon-scalable-processors-brief.html) architecture at zero cost.
 
 Now, let's review your inference options with Hugging Face.
 
@@ -34,7 +33,7 @@ Now, let's review your inference options with Hugging Face.
 
 One of my favorite features on the Hugging Face hub is the Inference [Widget](https://huggingface.co/docs/hub/models-widgets). Located on the model page, the Inference Widget lets you upload sample data and predict it in a single click. 
 
-Here's an example with the `sentence-transformers/all-MiniLM-L6-v2` [model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2):
+Here's a sentence similarity example with the `sentence-transformers/all-MiniLM-L6-v2` [model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2):
 
 <kbd>
   <img src="assets/116_inference_update/widget.png">
@@ -61,24 +60,24 @@ As rate limiting is enforced, we don't recommend using the Inference API for pro
 
 ## Production with Inference Endpoints
 
-Once you're happy with the performance of your ML model, it's time to deploy it for production. Unfortunately, when you leave the sandbox, everything becomes a concern: security, scaling, monitoring, etc. This is where a lot of ML stumble and sometimes fall.
+Once you're happy with the performance of your ML model, it's time to deploy it for production. Unfortunately, when leaving the sandbox, everything becomes a concern: security, scaling, monitoring, etc. This is where a lot of ML stumble and sometimes fall.
 We built [Inference Endpoints](https://huggingface.co/inference-endpoints) to solve this problem.
 
-In just a few clicks, you deploy any hub model on secure and scalable infrastructure hosted in your AWS or Azure region of choice. Additional settings include CPU and GPU hosting, built-in auto-scaling, and more. This lets you find the appropriate cost/performance ratio, with [pricing](https://huggingface.co/pricing#endpoints) starting as low as $0.06 per hour.
+In just a few clicks, Inference Endpoints let you deploy any hub model on secure and scalable infrastructure, hosted in your AWS or Azure region of choice. Additional settings include CPU and GPU hosting, built-in auto-scaling, and more. This makes finding the appropriate cost/performance ratio easy, with [pricing](https://huggingface.co/pricing#endpoints) starting as low as $0.06 per hour.
 
 Inference Endpoints support three security levels:
 
 * Public: the endpoint runs in a public Hugging Face subnet, and anyone on the Internet can access it without any authentication.
 
-* Protected: the endpoint runs in a public Hugging Face subnet, and anyone on the Internet with the appropriate organization token can access it.
+* Protected: the endpoint runs in a public Hugging Face subnet, and anyone on the Internet with the appropriate Hugging Face token can access it.
 
-* Private: the endpoint runs in a private Hugging Face subnet. It's not accessible on the Internet. It's only available through a private connection in your AWS or Azure account. This will satisfy the strictest compliance requirements.
+* Private: the endpoint runs in a private Hugging Face subnet and is not accessible on the Internet. It's only available through a private connection in your AWS or Azure account. This will satisfy the strictest compliance requirements.
 
 <kbd>
   <img src="assets/116_inference_update/endpoints.png">
 </kbd>
 
-To learn more, please read this [tutorial](https://huggingface.co/blog/inference-endpoints) and the [documentation](https://huggingface.co/docs/inference-endpoints/).
+To learn more about Inference Endpoints, please read this [tutorial](https://huggingface.co/blog/inference-endpoints) and the [documentation](https://huggingface.co/docs/inference-endpoints/).
 
 ## Getting started
 
