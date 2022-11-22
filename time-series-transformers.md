@@ -690,7 +690,7 @@ forecasts[0].shape
 forecasts = np.vstack(forecasts)
 ```
 
-We can evaluate the resulting forecast with respect to the ground truth out of sample values present in the test set. We will use the [MASE](https://huggingface.co/spaces/evaluate-metric/mase) metric which we calculate for each time series in the dataset:
+We can evaluate the resulting forecast with respect to the ground truth out of sample values present in the test set. We will use the [MASE](https://huggingface.co/spaces/evaluate-metric/mase) and [sMAPE](https://huggingface.co/spaces/evaluate-metric/smape) metrics which we calculate for each time series in the dataset:
 
 ```python
 from evaluate import load
