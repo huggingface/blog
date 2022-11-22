@@ -53,7 +53,7 @@ import torch
 pipe = VQDiffusionPipeline.from_pretrained("microsoft/vq-diffusion-ithq", torch_dtype=torch.float16, revision="fp16")
 ```
 
-Optionally move to GPU
+Move to GPU
 ```python
 pipe.to("cuda")
 ```
