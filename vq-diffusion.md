@@ -74,7 +74,9 @@ image = pipe(prompt).images[0]
 
 ##### VQ-VAE
 
-A VQ-VAE is trained to learn the codebook of latent embedding vectors. This [blog post](https://ml.berkeley.edu/blog/posts/vq-vae/) is a good resource for understanding VQ-VAEs.
+Images are encoded into a set of discrete "tokens" or embedding vectors using a VQ-VAE encoder. To do so, images are split in patches, and then each patch is replaced by the closest entry from a codebook with a fixed-size vocabulary. This is a way to reduce the dimensionality of the input pixel space. This [blog post](https://ml.berkeley.edu/blog/posts/vq-vae/) is a good resource for better understanding VQ-VAEs.
+
+VQ-Diffusion used a pre-trained VQ-VAE that was therefore frozen during the diffusion training process.
 
 ##### Forward process
 
