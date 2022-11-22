@@ -22,7 +22,7 @@ thumbnail: /blog/assets/117_vq_diffusion/thumbnail.png
     </a>
 </div>
 
-Vector Quantized Diffusion (VQ Diffusion) is a conditional latent diffusion model developed by the University of Science and Technology of China and Microsoft. Unlike most commonly studied diffusion models, VQ Diffusion's noising and denoising processes operate on a quantized latent space i.e. the latent space is composed of a fixed set of pixels. Discrete diffusion models are less explored than their continuous counterparts and offer an interesting point of comparison with autoregressive (AR) models.
+Vector Quantized Diffusion (VQ-Diffusion) is a conditional latent diffusion model developed by the University of Science and Technology of China and Microsoft. Unlike most commonly studied diffusion models, VQ-Diffusion's noising and denoising processes operate on a quantized latent space, i.e., the latent space is composed of a discrete set of vectors. Discrete diffusion models are less explored than their continuous counterparts and offer an interesting point of comparison with autoregressive (AR) models.
 
 - [Hugging Face model card](https://huggingface.co/microsoft/vq-diffusion-ithq)
 - [Hugging Face Spaces](https://huggingface.co/spaces/patrickvonplaten/vq-vs-stable-diffusion)
