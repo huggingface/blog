@@ -1,9 +1,9 @@
 ---
-title: "VQ Diffusion" 
+title: "VQ-Diffusion" 
 thumbnail: /blog/assets/117_vq_diffusion/thumbnail.png
 ---
 
-# VQ Diffusion
+# VQ-Diffusion
 
 <div class="blog-metadata">
     <small>Published November 23, 2022.</small>
@@ -31,7 +31,7 @@ Vector Quantized Diffusion (VQ-Diffusion) is a conditional latent diffusion mode
 
 ### Demo
 
-🧨 Diffusers lets you run VQ Diffusion with just a few lines of code.
+🧨 Diffusers lets you run VQ-Diffusion with just a few lines of code.
 
 Install dependencies
 ```bash
@@ -88,7 +88,7 @@ An encoder-decoder transformer approximates the classes of the un-noised latents
 
 [Taming Transformers](https://arxiv.org/abs/2012.09841) provides a good discussion on converting raw pixels to discrete tokens in a compressed latent space so that transformers become computationally feasible for image data.
 
-### VQ Diffusion in Context
+### VQ-Diffusion in Context
 
 ##### Diffusion Models
 
@@ -100,7 +100,7 @@ There is a smaller amount of literature covering discrete diffusion models than 
 
 ##### Autoregressive Models
 
-It's perhaps more interesting to compare VQ Diffusion to AR models as they more frequently feature transformers making predictions over discrete distributions. While transformers have demonstrated success in AR modeling, they still suffer from linear decreases in inference speed for increased image resolution, error accumulation, and directional bias. VQ Diffusion improves on all three pain points.
+It's perhaps more interesting to compare VQ-Diffusion to AR models as they more frequently feature transformers making predictions over discrete distributions. While transformers have demonstrated success in AR modeling, they still suffer from linear decreases in inference speed for increased image resolution, error accumulation, and directional bias. VQ-Diffusion improves on all three pain points.
 
 AR image generative models are characterized by factoring the image probability such that each pixel is conditioned on the previous pixels in a raster scan order (left to right, top to bottom) i.e. 
 \\( p(x) = \prod_i p(x_i | x_{i-1}, x_{i-2}, ... x_{2}, x_{1}) \\). As a result, the models can be trained by directly maximizing the log-likelihood. Additionally, AR models which operate on actual pixel (non-latent) values, predict channel values from a discrete multinomial distribution i.e. first the red channel value is sampled from a 256 way softmax, and then the green channel prediction is conditioned on the red channel value.
@@ -121,14 +121,14 @@ AR image generative models have evolved architecturally with much work towards m
 
 [ImageBART](https://arxiv.org/abs/2108.08827) combines convolutions, transformers, and diffusion processes. It learns a discrete latent space that is further compressed with a short multinomial diffusion process. Separate encoder-decoder transformers are then trained to reverse each step in the diffusion process. The encoder transformer provides global context on \\( x_t \\) while the decoder transformer autoregressively predicts latent pixels in \\( x_{t-1} \\). As a result, each pixel receives global cross attention on the more noised image. Between 2-5 diffusion steps are used with more steps for more complex datasets.
 
-Despite having made tremendous strides, AR models still suffer from linear decreases in inference speed for increased image resolution, error accumulation, and directional bias. For equivalently sized AR transformer models, the big-O of VQ Diffusion's inference is better so long as the number of diffusion steps is less than the number of latent pixels. For the ITHQ dataset, the latent resolution is 32x32 and the model is trained up to 100 diffusion steps for an ~10x big-O improvement. In practice, VQ Diffusion "can be 15 times faster than AR methods while achieving a better image quality" (see [paper](https://arxiv.org/abs/2111.14822) for more details). Additionally, VQ Diffusion does not require teacher-forcing and instead learns to correct incorrectly predicted tokens. During training, noised images are both masked and have latent pixels replaced with random tokens. VQ Diffusion is also able to provide global context on \\( x_t \\) while predicting \\( x_{t-1} \\).
+Despite having made tremendous strides, AR models still suffer from linear decreases in inference speed for increased image resolution, error accumulation, and directional bias. For equivalently sized AR transformer models, the big-O of VQ-Diffusion's inference is better so long as the number of diffusion steps is less than the number of latent pixels. For the ITHQ dataset, the latent resolution is 32x32 and the model is trained up to 100 diffusion steps for an ~10x big-O improvement. In practice, VQ-Diffusion "can be 15 times faster than AR methods while achieving a better image quality" (see [paper](https://arxiv.org/abs/2111.14822) for more details). Additionally, VQ-Diffusion does not require teacher-forcing and instead learns to correct incorrectly predicted tokens. During training, noised images are both masked and have latent pixels replaced with random tokens. VQ-Diffusion is also able to provide global context on \\( x_t \\) while predicting \\( x_{t-1} \\).
 
-### Further steps with VQ Diffusion and 🧨 Diffusers
+### Further steps with VQ-Diffusion and 🧨 Diffusers
 
-So far, we've only ported the VQ Diffusion model trained on the ITHQ dataset. There are also released VQ Diffusion models trained on CUB-200, Oxford-102, MSCOCO, Conceptual Captions, LAION-400M, and ImageNet.
+So far, we've only ported the VQ-Diffusion model trained on the ITHQ dataset. There are also released VQ-Diffusion models trained on CUB-200, Oxford-102, MSCOCO, Conceptual Captions, LAION-400M, and ImageNet.
 
-VQ Diffusion also supports a faster inference strategy. The network reparameterization relies on the posterior of the diffusion process conditioned on the un-noised image being tractable. A similar formula applies when using a time stride, \\( \Delta t \\), that skips a number of reverse diffusion steps, \\( p_\theta (x_{t - \Delta t } | x_t, y) = \sum_{\tilde{x}_0=1}^{K}{q(x_{t - \Delta t} | x_t, \tilde{x}_0)} p_\theta(\tilde{x}_0 | x_t, y) } \\).
+VQ-Diffusion also supports a faster inference strategy. The network reparameterization relies on the posterior of the diffusion process conditioned on the un-noised image being tractable. A similar formula applies when using a time stride, \\( \Delta t \\), that skips a number of reverse diffusion steps, \\( p_\theta (x_{t - \Delta t } | x_t, y) = \sum_{\tilde{x}_0=1}^{K}{q(x_{t - \Delta t} | x_t, \tilde{x}_0)} p_\theta(\tilde{x}_0 | x_t, y) } \\).
 
-[Improved Vector Quantized Diffusion Models](https://arxiv.org/abs/2205.16007) improves upon VQ Diffusion's sample quality with discrete classifier-free guidance and an alternative inference strategy to address the "joint distribution issue" -- see section 3.2 for more details. Discrete classifier-free guidance is merged into diffusers but the alternative inference strategy has not been added yet.
+[Improved Vector Quantized Diffusion Models](https://arxiv.org/abs/2205.16007) improves upon VQ-Diffusion's sample quality with discrete classifier-free guidance and an alternative inference strategy to address the "joint distribution issue" -- see section 3.2 for more details. Discrete classifier-free guidance is merged into diffusers but the alternative inference strategy has not been added yet.
 
 Contributions are welcome!
