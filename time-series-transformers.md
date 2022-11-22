@@ -1,6 +1,6 @@
 ---
 title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
-thumbnail: /blog/assets/time-series-transformers/thumbnail.png
+thumbnail: /blog/assets/116_time-series-transformers/thumbnail.png
 ---
 
 # Probabilistic Time Series Forecasting with 🤗 Transformers
@@ -51,7 +51,7 @@ As we will show, [Gluon-ts](https://github.com/awslabs/gluonts) will be used for
 
 ## Load Dataset
 
-Let's load the `tourism_monthly` dataset from the 🤗 [hub](https://huggingface.co/datasets/monash_tsf). This dataset contains monthly tourism volumes for 366 regions in Australia.
+In this blog post, we'll train the model on the `tourism_monthly` dataset, which is available on the 🤗 [hub](https://huggingface.co/datasets/monash_tsf). This dataset contains monthly tourism volumes for 366 regions in Australia.
 
 This dataset is part of the [Monash Time Series Forecasting](https://forecastingdata.org/) repository, a collection of  time series datasets from a number of domains.
 
@@ -161,7 +161,7 @@ axes.plot(validation_example['target'], color="red", alpha=0.5)
 plt.show()
 ```
     
-![png](assets/time-series-transformers/output_21_0.png)
+![png](assets/116_time-series-transformers/output_21_0.png)
     
 
 Let's split up the data:
@@ -740,7 +740,7 @@ plt.ylabel("sMAPE")
 plt.show()
 ```
 
-![png](assets/time-series-transformers/output_scatter.png)
+![png](assets/116_time-series-transformers/output_scatter.png)
 
 To plot the prediction for any time series with respect the ground truth test data we define the following helper:
 
@@ -791,7 +791,7 @@ For example:
 plot(334)
 ```
 
-![png](assets/time-series-transformers/output_65_1.png)
+![png](assets/116_time-series-transformers/output_65_1.png)
     
 How do we compare against other models? The [Monash Time Series Repository](https://forecastingdata.org/#results) has a comparison table of test set MASE metrics which we can add to:
 

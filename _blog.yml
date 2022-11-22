@@ -1415,3 +1415,10 @@
     - nlp
     - text generation
     - research
+
+- local: time-series-transformers
+  title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
+  author: nielsrogge
+  date: November 22, 2022
+  tags:
+    - research
