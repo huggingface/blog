@@ -3,38 +3,44 @@ title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
 thumbnail: /blog/assets/116_time-series-transformers/thumbnail.png
 ---
 
-# Probabilistic Time Series Forecasting with 🤗 Transformers
-
+# Probabilistic Forecasting with 🤗 Transformers
 
 ## Introduction
 
-Time series forecasting is an essential scientific and business problem and as such has also seen a lot of innovation recently with the use of [Deep Learning based](https://dl.acm.org/doi/abs/10.1145/3533382) models in comparison to the [classical methods](https://otexts.com/fpp3/). Classical methods like ARIMA are typically called "local" or "single" methods as they are fitted on each time series in a dataset individually.
+Time series forecasting is an essential scientific and business problem and as such has also seen a lot of innovation recently with the use of [Deep Learning based](https://dl.acm.org/doi/abs/10.1145/3533382) models in addition to the [classical methods](https://otexts.com/fpp3/). An important difference between classical methods like ARIMA and novel deep learning methods is the following.
 
-However, when dealing with a large amount of time series for an application, it is typically more efficient to train a "global" deep learning model so that it can benefit from learned representations from several related time series at inference time to give better forecasts. These forecasts are typically point-valued and models are trained by minimizing an L2 or L1 type of loss with respect to the ground truth data. However, since these forecasts are most probably used in some real-world decision making pipeline, even with humans in the loop, it is much more beneficial to provide the (aleatoric) uncertainties of predictions. Thus *probabilistic* forecasting methods are deployed which hopes to learn the distribution of future values.
+##  Probabilistic Forecasting
 
-It is common in the probabilistic setting to for example learn the future parameters of some chosen parametric distribution like Gaussian or Student-T; or learn the conditional quantile function; or use the framework of Conformal Prediction adapted to the time series setting. The choice of method does not affect the modeling aspect and thus can be typically thought of as yet another hyperparameter. Empirical means or medians can also provide point-forecasting outputs if desired.
+Typically, classical methods are fitted on each time series in a dataset individually. These are often referred to as  "single" or "local" methods. However, when dealing with a large amount of time series for some applications, it is beneficial to train a "global" model on all available time series at once, which enables the model to learn latent representations form many different sources.
 
-In terms of modeling time series data which are sequential in nature, as one can imagine, researchers have come up with models which use Recurrent Neural Networks (RNN) like the LSTM or GRU, or Convolutional Networks (CNN), and more recently even Transformer based methods which fit naturally to the time series forecasting setting and is the subject of this post. 
+Some classical methods are point-valued (meaning, they just output a single value per time step) and models are trained by minimizing an L2 or L1 type of loss with respect to the ground truth data. However, since forecasts are often used in some real-world decision making pipeline, even with humans in the loop, it is much more beneficial to provide the uncertainties of predictions. This is also called "probabilistic forecasting", as opposed to "point forecasting". This entails modeling a probabilistic distribution, from which one can sample.
 
-Since most applications of forecasting require the prediction of some logged data, the sequence-to-sequence (seq2seq) paradigm is a good choice where at inference time the very last window of some data can be passed to an encoder, and then the decoder can be used to autoregressively output the predictions. For some architectures, the encoder-decoder merges into a single entity (e.g. RNNs) but this view is still beneficial.
+So in short, rather than training local point forecasting models, we hope to train **probabilistic** models. Deep learning is a great fit for this, as neural networks can learn representations from several related time series, and model the parameters of a distribution.
 
-## Transformer for Forecasting
+It is common in the probabilistic setting to learn the future parameters of some chosen parametric distribution, like Gaussian or Student-T; or learn the conditional quantile function; or use the framework of Conformal Prediction adapted to the time series setting. The choice of method does not affect the modeling aspect and thus can be typically thought of as yet another hyperparameter. One can always turn a probabilistic model into a point-forecasting model, by taking empirical means or medians.
 
-As mentioned, the Encoder-Decoder based Transformer is a natural choice for forecasting as it encapsulates several inductive biases nicely. To begin with, the use of an Encoder-Decoder architecture is helpful at inference time where typically for some logged data we wish to know the forecast some prediction steps into the future. This can be thought of as analogous to the text generation task where given some context we  sample the next token and pass it back into the decoder. Similarly here we can also, given some distribution type, sample from it to provide forecasts up until our desired prediction horizon. This is known as Greedy Sampling/Search and there is a great blog post about it [here](https://huggingface.co/blog/how-to-generate) in the NLP setting.
+## The Time Series Transformer
 
-Secondly, this paradigm helps us to train on time series data which might contain thousands of time points. It might not be feasible to input *all* the history of a time series at once to the model, due to the time- and memory constraints of the attention mechanism. Thus, one can consider some appropriate context window and sample this window and the subsequent prediction length sized window from the training data when constructing batches for stochastic gradient descent (SGD). The context sized window can be passed to the encoder and the prediction window to a *causal-masked* decoder. This means that the decoder can only look at previous time steps when learning the next value.
+In terms of modeling time series data which are sequential in nature, as one can imagine, researchers have come up with models which use Recurrent Neural Networks (RNN) like LSTM or GRU, or Convolutional Networks (CNN), and more recently Transformer based methods which fit naturally to the time series forecasting setting.
+
+In this blog post, we're going to leverage the vanilla Transformer [(Vaswani et al., 2017)](https://arxiv.org/abs/1706.03762) for  probabilistic forecasting. The Encoder-Decoder Transformer is a natural choice for forecasting as it encapsulates several inductive biases nicely. 
+
+To begin with, the use of an Encoder-Decoder architecture is helpful at inference time where typically for some logged data we wish to forecast some prediction steps into the future. This can be thought of as analogous to the text generation task where given some context, we sample the next token and pass it back into the decoder (also called "autoregressive generation"). Similarly here we can also, given some distribution type, sample from it to provide forecasts up until our desired prediction horizon. This is known as Greedy Sampling/Search and there is a great blog post about it [here](https://huggingface.co/blog/how-to-generate) for the NLP setting.
+
+Secondly, a Transformer helps us to train on time series data which might contain thousands of time points. It might not be feasible to input *all* the history of a time series at once to the model, due to the time- and memory constraints of the attention mechanism. Thus, one can consider some appropriate context window and sample this window and the subsequent prediction length sized window from the training data when constructing batches for stochastic gradient descent (SGD). The context sized window can be passed to the encoder and the prediction window to a *causal-masked* decoder. This means that the decoder can only look at previous time steps when learning the next value. This is equivalent to how one would train a vanilla Transformer for machine translation, referred to as "teacher forcing".
 
 Another benefit of Transformers over the other architectures is that we can incorporate missing values (which are common in the time series setting) as an additional mask to the encoder or decoder and still train without resorting to in-filling or imputation. This is equivalent to the `attention_mask` of models like BERT and GPT-2 in the Transformers library, to not include padding tokens in the computation of the attention matrix.
 
-A drawback of this architecture is that there is a limit to the sizes of the context and prediction windows because of the quadratic compute and memory requirements of the vanilla Transformer. Additionally, since the Transformer is a powerful  architecture it might overfit or learn spurious correlations much more easily compared to other methods.
+A drawback of the Transformer architecture is the limit to the sizes of the context and prediction windows because of the quadratic compute and memory requirements of the vanilla Transformer. Additionally, since the Transformer is a powerful  architecture it might overfit or learn spurious correlations much more easily compared to other methods.
 
-The 🤗 Transformers library comes with a vanilla probabilistic time series Transformer model which can  learn a number of real or count-valued parametric distributions together with all the features of neural forecasting which we will highlight below!
+The 🤗 Transformers library comes with a vanilla probabilistic time series Transformer model, simply called the [Time Series Transformer](https://huggingface.co/docs/transformers/model_doc/time_series_transformer). In the sections below, we'll show how to train such a model on a custom dataset.
+
 
 ## Set-up Environment
 
-First, let's install the necessary libraries: 🤗 Transformers, 🤗 Datasets, 🤗 Evaluate,  🤗 Accelerate and Gluon-ts.
+First, let's install the necessary libraries: 🤗 Transformers, 🤗 Datasets, 🤗 Evaluate,  🤗 Accelerate and [GluonTS](https://github.com/awslabs/gluonts).
 
-As we will show, [Gluon-ts](https://github.com/awslabs/gluonts) will be used for transforming the data to create features as well as for creating appropriate training, validation and test batches.
+As we will show, GluonTS will be used for transforming the data to create features as well as for creating appropriate training, validation and test batches.
 
 
 ```python
@@ -51,9 +57,9 @@ As we will show, [Gluon-ts](https://github.com/awslabs/gluonts) will be used for
 
 ## Load Dataset
 
-In this blog post, we'll train the model on the `tourism_monthly` dataset, which is available on the 🤗 [hub](https://huggingface.co/datasets/monash_tsf). This dataset contains monthly tourism volumes for 366 regions in Australia.
+In this blog post, we'll use the `tourism_monthly` dataset, which is available on the 🤗 [hub](https://huggingface.co/datasets/monash_tsf). This dataset contains monthly tourism volumes for 366 regions in Australia.
 
-This dataset is part of the [Monash Time Series Forecasting](https://forecastingdata.org/) repository, a collection of  time series datasets from a number of domains.
+This dataset is part of the [Monash Time Series Forecasting](https://forecastingdata.org/) repository, a collection of  time series datasets from a number of domains. It can be viewed as the GLUE benchmark of time series forecasting.
 
 
 ```python
@@ -218,7 +224,7 @@ We specify a couple of additional parameters to the model:
 - the embedding dimension: the embedding dimension for each categorical feature, as a list, for example `[2]` meaning the model will learn an embedding for vector of size `2` for each of the `366` time series.
 
 
-Let's use the default lags provided by Gluon-ts for the given frequency ("monthly"):
+Let's use the default lags provided by GluonTS for the given frequency ("monthly"):
 
 
 ```python
@@ -267,11 +273,21 @@ config = TimeSeriesTransformerConfig(
 model = TimeSeriesTransformerForPrediction(config)
 ```
 
+Note that, similar to other models in the 🤗 Transformers library, [TimeSeriesTransformerModel](https://huggingface.co/docs/transformers/model_doc/time_series_transformer#transformers.TimeSeriesTransformerModel) corresponds to the encoder-decoder Transformer without any head on top, and [TimeSeriesTransformerForPrediction](https://huggingface.co/docs/transformers/model_doc/time_series_transformer#transformers.TimeSeriesTransformerForPrediction) corresponds to TimeSeriesTransformerModel with a **distribution head** on top. By default, the model uses a Student-t distribution (but this is configurable):
+
+```python
+model.config.distribution_output
+
+    student_t
+```
+
+This is an important difference with Transformers for NLP, where the head typically consists of just a single linear layer.
+
 ## Define Transformations
 
-Here we define the transformations for the data, in particular for the creation of the time features (based on the dataset or universal ones).
+Next, we define the transformations for the data, in particular for the creation of the time features (based on the dataset or universal ones).
 
-Again, we'll use the Gluon-ts library for this. We define a `Chain` of transformations (which is a bit comparable to `torchvision.transforms.Compose` for images).
+Again, we'll use the GluonTS library for this. We define a `Chain` of transformations (which is a bit comparable to `torchvision.transforms.Compose` for images). It allows to combine several transformations in a single pipeline.
 
 
 ```python
@@ -391,9 +407,9 @@ def create_transformation(freq: str, config: PretrainedConfig) -> Transformation
 
 ## Define `InstanceSplitter`
 
-For training/val/testing we next create transformations using the corresponding `instance_sampler` which is one of the most important transformation and also potentially the most confusing.  It will for example for training for a time series, sample a random context sized and subsequent prediction sized window and append a `past_` or `future_` key to any temporal keys for the respective windows. For example after this transformation the `values` will be split into a `past_values` and subsequent `future_values` keys. And the same for any keys in the `time_series_fields` argument:
+For training/validation/testing we next create an `InstanceSplitter` which is used to sample windows from the dataset (as, remember, we can't pass the entire history of values to the Transformer due to time- and memory constraints).
 
-<!-- During training time the splitter will sample a random window within a time series of `context_length` and -->
+The instance splitter samples random `context_length` sized and subsequent `prediction_length` sized windows from the data, and appends a `past_` or `future_` key to any temporal keys for the respective windows. This makes sure that the `values` will be split into `past_values` and subsequent `future_values` keys, which will serve as the encoder and decoder inputs respectively. The same happens for any keys in the `time_series_fields` argument:
 
 
 ```python
@@ -562,10 +578,18 @@ for k,v in batch.items():
 ```
 
 
-As can be seen, we'll feed more than just past values to the model, which differs from the NLP case of only text tokens:
+As can be seen, we don't feed `input_ids` and `attention_mask` to the encoder (as would be the case for NLP models), but rather `past_values`, along with `past_observed_mask`, `past_time_features`, `static_categorical_features` and `static_real_features`.
 
+The decoder inputs consist of `future_values`, `future_observed_mask` and `future_time_features`. The `future_values` can be seen as the equivalent of `decoder_input_ids` in NLP.
+
+We refer to the [docs](https://huggingface.co/docs/transformers/model_doc/time_series_transformer#transformers.TimeSeriesTransformerForPrediction.forward.past_values) for a detailed explanation for each of them.
+
+## Forward Pass
+
+Let's perform a single forward pass with the batch we just created:
 
 ```python
+# perform forward pass
 outputs = model(
     past_values=batch["past_values"],
     past_time_features=batch["past_time_features"],
@@ -580,38 +604,20 @@ outputs = model(
 ```
 
 ```python
-outputs['encoder_last_hidden_state'].shape
+print("Loss:", outputs.loss.item())
 
-    torch.Size([128, 72, 22])
+    Loss: 3.6795876026153564
 ```
 
-## Model Inputs
+Note that the model is returning a loss. This is possible as the decoder automatically shifts the `future_values` one position to the right in order to have the labels. This allows computing a loss between the predicted values and the labels.
 
-So what are the inputs to the encoder-decoder Transformer? We have:
-
-### Encoder Inputs
-
-1. `feat_static_cat` (`batch_size`, number of categorical features): this has no time dimension because it's static (same value for all time steps in the future)
-1. `feat_static_real` (`batch_size`, `1`)
-datasets can have static real features (example is an image embedding of an article price etc.) something real valued that doesn't change over time
-1. `past_time_feat` (`batch_size`, `context window + lags`, date time feature dimension) these are the temporal features, so in this case it will just be month of the year + age feature (that's why we have `2`)
-1. `past_observed_values` (`batch_size`, `time`) this is the mask indicating which values are observed (1) and which aren't (0) typically same dimension as `past_values` and in case of multivariate this would be (`batch_size`, `time`, `variate dimension`)
-1. `*_static`: static features which will  gets copied (repeated)  in the `time` dimension e.g.
-    1. `feat_static_cat` gets passed through embedding layer to get something like `(64, 1, 4)` and this is repeated for the `time` steps and concatenated into the dynamic feature tensors
-1. `past_values` is of dimension (`batch_size`, `time`) where time dimension = `context length` + additional time steps (for lags)  e.g.  we have `61 - 24 = 37` additional time steps. We don't care about sequence length increasing here, we just add the lags. The model will then make the lag features (to move lags to the feature dimension).  This will then shrink back to the context length within the model (before feeding to the encoder). See [`create_network_inputs`](https://github.com/huggingface/transformers/blob/main/src/transformers/models/time_series_transformer/modeling_time_series_transformer.py#L1477) function in the implementation.
-
-
-### Decoder Inputs
-
-1. `future_values` the values in the prediction window
-1. static features will just be copied to the future (as they are static)
-1. `future_time_feat` (`batch_size`, `prediction_length`, number of time features)
-
-Note that the decoder uses a causal mask to not look into the future as the values it needs to predict are in the `future_values` tensor.
+Also note that the decoder uses a causal mask to not look into the future as the values it needs to predict are in the `future_values` tensor.
 
 ## Train the Model
 
-We will use the Accelerate library to prepare the model for the appropriate optimizer and data loader and train it on the available `device`.
+It's time to train the model! We'll use a standard PyTorch training loop.
+
+We will use the 🤗 [Accelerate](https://huggingface.co/docs/accelerate/index) library here, which automatically places the model, optimizer and dataloader on the appropriate `device`.
 
 
 ```python
@@ -652,12 +658,15 @@ for epoch in range(90):
 ```
 
 
-## Forecasting
+## Inference
 
-Forecasting involves sampling from the test splitter which will sample the very last context sized window of values from each time series in the dataset and pass the resulting tensors of transformations to the model's `generate` method which will autoregressively sample a certain number of values from the predicted distribution and pass them back to the decoder to return our prediction outputs:
+At inference time, it's recommended to use the `generate()` method for autoregressive generation, similar to NLP models.
+
+Forecasting involves getting data from the test instance sampler, which will sample the very last `context_length` sized window of values from each time series in the dataset, and pass it to the model. Note that we pass `future_time_features`, which are known ahead of time, to the decoder.
+
+The model will autoregressively sample a certain number of values from the predicted distribution and pass them back to the decoder to return the prediction outputs:
 
 ```python
-model.to(device)
 model.eval()
 
 forecasts = []
@@ -676,7 +685,7 @@ for batch in test_dataloader:
 
 The model outputs a tensor of shape (`batch_size`, `number of samples`, `prediction length`). 
 
-In this case, we get `100` possible values for the next `24` months (for each example in the batch).
+In this case, we get `100` possible values for the next `24` months (for each example in the batch which is of size `64`):
 
 
 ```python
@@ -685,6 +694,8 @@ forecasts[0].shape
 
     (64, 100, 24)
 ```
+
+We'll stack them vertically, to get forecasts for all time-series in the test dataset:
 
 ```python
 forecasts = np.vstack(forecasts)
@@ -796,8 +807,13 @@ plot(334)
 How do we compare against other models? The [Monash Time Series Repository](https://forecastingdata.org/#results) has a comparison table of test set MASE metrics which we can add to:
 
 Dataset | 	SES| 	Theta | 	TBATS| 	ETS	| (DHR-)ARIMA| 	PR|	CatBoost |	FFNN	| DeepAR | 	N-BEATS | 	WaveNet| 	**Transformer** (Our)
--------------------|------------------ |--|--|--|--|--|--|---|---|--|--|--
+----------:|:---------:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|:----:|:---:|:---:|:---
 Tourism Monthly | 	3.306 |	1.649 |	1.751 |	1.526|	1.589|	1.678	|1.699|	1.582	| 1.409	| 1.574|	1.482	|  **0.863**
+
+
+Note that, with our model, we are beating all other models reported at https://forecastingdata.org/#results (see also table 2 in the corresponding [paper](https://openreview.net/pdf?id=wEc1mgAjU-)) by quite a margin, and we didn't do any hyperparameter tuning. We just trained the Transformer for 100 epochs. 
+
+Of course, we need to be careful with just claiming state-of-the-art results on time series with neural networks, as it seems "XGBoost is typically all you need". We are just very curious to see how far neural networks can bring us, and whether Transformers are going to be useful in this domain. This particular dataset seems to indicate that it's definitely worth exploring.
 
 ## Next Steps
 
