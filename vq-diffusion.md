@@ -125,7 +125,7 @@ Despite having made tremendous strides, AR models still suffer from linear decre
 
 ### Further steps with VQ-Diffusion and 🧨 Diffusers
 
-So far, we've only ported the VQ-Diffusion model trained on the ITHQ dataset. There are also released VQ-Diffusion models trained on CUB-200, Oxford-102, MSCOCO, Conceptual Captions, LAION-400M, and ImageNet.
+So far, we've only ported the VQ-Diffusion model trained on the ITHQ dataset. There are also [released VQ-Diffusion models](https://github.com/microsoft/VQ-Diffusion#pretrained-model) trained on CUB-200, Oxford-102, MSCOCO, Conceptual Captions, LAION-400M, and ImageNet.
 
 VQ-Diffusion also supports a faster inference strategy. The network reparameterization relies on the posterior of the diffusion process conditioned on the un-noised image being tractable. A similar formula applies when using a time stride, \\( \Delta t \\), that skips a number of reverse diffusion steps, \\( p_\theta (x_{t - \Delta t } | x_t, y) = \sum_{\tilde{x}_0=1}^{K}{q(x_{t - \Delta t} | x_t, \tilde{x}_0)} p_\theta(\tilde{x}_0 | x_t, y) } \\).
 
