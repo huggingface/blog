@@ -553,7 +553,7 @@ def create_test_dataloader(
 
 ```python
 train_dataloader = create_train_dataloader(
-    config=config, freq=freq, data=train_dataset, batch_size=128, num_batches_per_epoch=100
+    config=config, freq=freq, data=train_dataset, batch_size=256, num_batches_per_epoch=100
 )
 
 test_dataloader = create_test_dataloader(config=config, freq=freq, data=val_dataset, batch_size=64)
@@ -567,14 +567,14 @@ batch = next(iter(train_dataloader))
 for k,v in batch.items():
   print(k,v.shape, v.type())
 
-    static_categorical_features torch.Size([128, 1]) torch.LongTensor
-    static_real_features torch.Size([128, 1]) torch.FloatTensor
-    past_time_features torch.Size([128, 109, 2]) torch.FloatTensor
-    past_values torch.Size([128, 109]) torch.FloatTensor
-    past_observed_mask torch.Size([128, 109]) torch.FloatTensor
-    future_time_features torch.Size([128, 24, 2]) torch.FloatTensor
-    future_values torch.Size([128, 24]) torch.FloatTensor
-    future_observed_mask torch.Size([128, 24]) torch.FloatTensor
+    static_categorical_features torch.Size([256, 1]) torch.LongTensor
+    static_real_features torch.Size([256, 1]) torch.FloatTensor
+    past_time_features torch.Size([256, 109, 2]) torch.FloatTensor
+    past_values torch.Size([256, 109]) torch.FloatTensor
+    past_observed_mask torch.Size([256, 109]) torch.FloatTensor
+    future_time_features torch.Size([256, 24, 2]) torch.FloatTensor
+    future_values torch.Size([256, 24]) torch.FloatTensor
+    future_observed_mask torch.Size([256, 24]) torch.FloatTensor
 ```
 
 
@@ -634,7 +634,7 @@ model, optimizer, train_dataloader = accelerator.prepare(
     model, optimizer, train_dataloader, 
 )
 
-for epoch in range(90):
+for epoch in range(50):
     model.train()
     for batch in train_dataloader:
         optimizer.zero_grad()
@@ -811,7 +811,7 @@ Dataset | 	SES| 	Theta | 	TBATS| 	ETS	| (DHR-)ARIMA| 	PR|	CatBoost |	FFNN	| Deep
 Tourism Monthly | 	3.306 |	1.649 |	1.751 |	1.526|	1.589|	1.678	|1.699|	1.582	| 1.409	| 1.574|	1.482	|  **0.863**
 
 
-Note that, with our model, we are beating all other models reported at https://forecastingdata.org/#results (see also table 2 in the corresponding [paper](https://openreview.net/pdf?id=wEc1mgAjU-)) by quite a margin, and we didn't do any hyperparameter tuning. We just trained the Transformer for 100 epochs. 
+Note that, with our model, we are beating all other models reported at https://forecastingdata.org/#results (see also table 2 in the corresponding [paper](https://openreview.net/pdf?id=wEc1mgAjU-)) by quite a margin, and we didn't do any hyperparameter tuning. We just trained the Transformer for 50 epochs. 
 
 Of course, we need to be careful with just claiming state-of-the-art results on time series with neural networks, as it seems "XGBoost is typically all you need". We are just very curious to see how far neural networks can bring us, and whether Transformers are going to be useful in this domain. This particular dataset seems to indicate that it's definitely worth exploring.
 
