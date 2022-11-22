@@ -562,7 +562,7 @@ for k,v in batch.items():
 ```
 
 
-As can be seen, we'll feed more than just past values:
+As can be seen, we'll feed more than just past values to the model, which differs from the NLP case of only text tokens:
 
 
 ```python
@@ -587,10 +587,11 @@ outputs['encoder_last_hidden_state'].shape
 ```
 
 
+## Model Inputs
 
 So what are the inputs to the encoder-decoder Transformer? We have:
 
-## Encoder Inputs
+### Encoder Inputs
 
 1. `feat_static_cat` (`batch_size`, number of categorical features): this has no time dimension because it's static (same value for all time steps in the future)
 1. `feat_static_real` (`batch_size`, `1`)
@@ -604,7 +605,7 @@ datasets can have static real features (example is an image embedding of an arti
 1. `past_values` is of dimension (`batch_size`, `time`) where time dimension = `context length` + additional time steps (for lags)  e.g.  we have `61 - 24 = 37` additional time steps. We don't care about sequence length increasing here, we just add the lags. The model will then make the lag features (to move lags to the feature dimension).  This will then shrink back to the context length within the model (before feeding to the encoder). See `create_network_inputs`
 
 
-## Decoder Inputs
+### Decoder Inputs
 
 1. `future_values` the values in the prediction window
 1. static features will just be copied to the future (as they are static)
@@ -612,7 +613,7 @@ datasets can have static real features (example is an image embedding of an arti
 
 Note that the decoder uses a causal mask to not look into the future as the values it needs to predict are in the `future_values` tensor.
 
-## Train the model
+## Train the Model
 
 We will use the Accelerate library to prepare the model for the appropriate optimizer and data loader and train it on the available `device`.
 
