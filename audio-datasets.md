@@ -47,6 +47,7 @@ prepare the most popular audio datasets in just one line of Python code.
 2. [Easy to Load, Easy to Process](#easy-to-load-easy-to-process)
 3. [Streaming Mode: The Silver Bullet](#streaming-mode-the-silver-bullet)
 4. [A Tour of Audio Datasets on the Hub](#a-tour-of-audio-datasets-on-the-hub)
+5. [Closing Remarks]
 
 ## Load an Audio Dataset
 
@@ -552,3 +553,17 @@ dataset, a machine translation corpus with 3001 sentence translations from Engli
 speakers are recorded narrating the sentence transcriptions in their native languages. The recorded audio data is paired 
 with a label for the language in which it is spoken. The dataset can be used as an audio classification dataset for 
 _language identification_: systems are trained to predict the language of each utterance in the corpus.
+
+## Closing Remarks
+
+In this blog post, we covered how to load any audio dataset on the Hugging Face Hub with one line of Python code. We 
+performed a series of generic pre-processing steps to prepare our dataset for a machine learning model. In total, this 
+required just 13 lines of code, relying on simple Python function definitions to perform the necessary operations. We 
+introduced streaming mode, a method for downloading and preparing chunks of audio data on the fly.
+
+We explored the Hugging Face Hub and experienced the dataset preview, an effective means of previewing a dataset 
+before downloading it. We concluded by summarising the most popular speech recognition, speech translation and 
+audio classification datasets on the Hub.
+
+Having read this blog, we hope you agree that 🤗 Datasets is the number one library for downloading and preparing 
+audio datasets.
