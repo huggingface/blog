@@ -35,7 +35,7 @@ Vector Quantized Diffusion (VQ-Diffusion) is a conditional latent diffusion mode
 
 Install dependencies
 ```bash
-pip install diffusers transformers torch 'diffusers[torch]' ftfy
+pip install 'diffusers[torch]' transformers ftfy
 ```
 
 Load the pipeline
