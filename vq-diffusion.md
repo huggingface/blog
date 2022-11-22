@@ -80,7 +80,7 @@ VQ-Diffusion used a pre-trained VQ-VAE that was therefore frozen during the diff
 
 ##### Forward process
 
-In the forward diffusion process, each latent pixel can stay the same, be resampled to a different latent vector (each with equal probability), or be masked. Once a latent pixel is masked, it will stay masked. \\( \alpha_t \\), \\( \beta_t \\), and \\( \gamma_t \\) are hyperparameters that control the forward diffusion process from step \\( t-1 \\) to step \\( t \\). \\( \gamma_t \\) is the probability an unmasked pixel becomes masked. \\( \alpha_t + \beta_t \\) is the probability an unmasked pixel stays the same. The pixel can transition to any individual non-masked latent vector with a probability of \\( \beta_t \\). In other words, \\( \alpha_t + K \beta_t + \gamma_t = 1 \\) where \\( K \\) is the number of non-masked latent vectors. See section 4.1 of the paper for more details.
+In the forward diffusion process, each latent token can stay the same, be resampled to a different latent vector (each with equal probability), or be masked. Once a latent token is masked, it will stay masked. \\( \alpha_t \\), \\( \beta_t \\), and \\( \gamma_t \\) are hyperparameters that control the forward diffusion process from step \\( t-1 \\) to step \\( t \\). \\( \gamma_t \\) is the probability an unmasked token becomes masked. \\( \alpha_t + \beta_t \\) is the probability an unmasked token stays the same. The token can transition to any individual non-masked latent vector with a probability of \\( \beta_t \\). In other words, \\( \alpha_t + K \beta_t + \gamma_t = 1 \\) where \\( K \\) is the number of non-masked latent vectors. See section 4.1 of the paper for more details.
 
 ##### Approximating the reverse process
 
