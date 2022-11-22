@@ -47,7 +47,7 @@ prepare the most popular audio datasets in just one line of Python code.
 2. [Easy to Load, Easy to Process](#easy-to-load-easy-to-process)
 3. [Streaming Mode: The Silver Bullet](#streaming-mode-the-silver-bullet)
 4. [A Tour of Audio Datasets on the Hub](#a-tour-of-audio-datasets-on-the-hub)
-5. [Closing Remarks]
+5. [Closing Remarks](#closing-remarks)
 
 ## Load an Audio Dataset
 
