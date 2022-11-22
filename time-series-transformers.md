@@ -579,13 +579,11 @@ outputs = model(
 )
 ```
 
-
 ```python
 outputs['encoder_last_hidden_state'].shape
 
     torch.Size([128, 72, 22])
 ```
-
 
 ## Model Inputs
 
@@ -597,10 +595,8 @@ So what are the inputs to the encoder-decoder Transformer? We have:
 1. `feat_static_real` (`batch_size`, `1`)
 datasets can have static real features (example is an image embedding of an article price etc.) something real valued that doesn't change over time
 1. `past_time_feat` (`batch_size`, `context window + lags`, date time feature dimension) these are the temporal features, so in this case it will just be month of the year + age feature (that's why we have `2`)
-
 1. `past_observed_values` (`batch_size`, `time`) this is the mask indicating which values are observed (1) and which aren't (0) typically same dimension as `past_values` and in case of multivariate this would be (`batch_size`, `time`, `variate dimension`)
-1. `*_static`: static features which will  gets copied (repeated)  in the `time`
- dimension 
+1. `*_static`: static features which will  gets copied (repeated)  in the `time` dimension e.g.
     1. `feat_static_cat` gets passed through embedding layer to get something like `(64, 1, 4)` and this is repeated for the `time` steps and concatenated into the dynamic feature tensors
 1. `past_values` is of dimension (`batch_size`, `time`) where time dimension = `context length` + additional time steps (for lags)  e.g.  we have `61 - 24 = 37` additional time steps. We don't care about sequence length increasing here, we just add the lags. The model will then make the lag features (to move lags to the feature dimension).  This will then shrink back to the context length within the model (before feeding to the encoder). See [`create_network_inputs`](https://github.com/huggingface/transformers/blob/main/src/transformers/models/time_series_transformer/modeling_time_series_transformer.py#L1477) function in the implementation.
 
@@ -802,3 +798,15 @@ How do we compare against other models? The [Monash Time Series Repository](http
 Dataset | 	SES| 	Theta | 	TBATS| 	ETS	| (DHR-)ARIMA| 	PR|	CatBoost |	FFNN	| DeepAR | 	N-BEATS | 	WaveNet| 	**Transformer** (Our)
 -------------------|------------------ |--|--|--|--|--|--|---|---|--|--|--
 Tourism Monthly | 	3.306 |	1.649 |	1.751 |	1.526|	1.589|	1.678	|1.699|	1.582	| 1.409	| 1.574|	1.482	|  **0.863**
+
+## Next Steps
+
+As time series researchers will know, there has been a lot of interest in applying Transformer based models to the time series problem. The vanilla Transformer is just one of many Attention based models and so there is a need to add more models to the library.
+
+At the moment there is nothing stopping us from modeling multivariate time series, however on the emission side one  would need a multivariate distribution. Currently, diagonal independent distributions are supported and other multivariate distributions would need to be added.
+
+Forecasting is one of a number of tasks in the time series domain and one would need to add a classification model for the anomaly detection task for example. 
+
+The current model assumes the presence of a data-time together with the time series values, which might not be the case for every time series in the wild. For example neuroscience datasets like from [WOODS](https://woods-benchmarks.github.io/). Thus, one would need to generalize the current model to make some inputs optional in the whole pipeline.
+
+Finally, the NLP/Vision domain has benefited tremendously from large pre-trained models, while this is not the case as far as we are aware of in the time series domain. Transformer based models seem like the obvious choice in perusing this avenue of research and we cannot wait to see what researchers and practitioners come up with!
