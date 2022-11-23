@@ -14,7 +14,7 @@ thumbnail: /blog/assets/116_time-series-transformers/thumbnail.png
 
 <div class="author-card">
     <a href="/nielsr"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1608042047613-5f1158120c833276f61f1a84.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1608042047613-5f1158120c833276f61f1a84.jpeg?w=200&h=200&f=face" width="100" title="Gravatar">
         <div class="bfc">
             <code>nielsr</code>
             <span class="fullname">Niels Rogge</span>
@@ -36,7 +36,7 @@ Time series forecasting is an essential scientific and business problem and as s
 
 ##  Probabilistic Forecasting
 
-Typically, classical methods are fitted on each time series in a dataset individually. These are often referred to as  "single" or "local" methods. However, when dealing with a large amount of time series for some applications, it is beneficial to train a "global" model on all available time series at once, which enables the model to learn latent representations form many different sources.
+Typically, classical methods are fitted on each time series in a dataset individually. These are often referred to as  "single" or "local" methods. However, when dealing with a large amount of time series for some applications, it is beneficial to train a "global" model on all available time series, which enables the model to learn latent representations from many different sources.
 
 Some classical methods are point-valued (meaning, they just output a single value per time step) and models are trained by minimizing an L2 or L1 type of loss with respect to the ground truth data. However, since forecasts are often used in some real-world decision making pipeline, even with humans in the loop, it is much more beneficial to provide the uncertainties of predictions. This is also called "probabilistic forecasting", as opposed to "point forecasting". This entails modeling a probabilistic distribution, from which one can sample.
 
