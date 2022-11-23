@@ -268,7 +268,7 @@ print(lags_sequence)
 
 This means that we'll look back up to 37 months for each time step, as additional features.
 
-Let's also check the default time features which Gluon provides us:
+Let's also check the default time features which GluonTS provides us:
 
 
 ```python
