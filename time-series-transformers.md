@@ -302,7 +302,7 @@ config = TimeSeriesTransformerConfig(
 model = TimeSeriesTransformerForPrediction(config)
 ```
 
-Note that, similar to other models in the 🤗 Transformers library, [TimeSeriesTransformerModel](https://huggingface.co/docs/transformers/model_doc/time_series_transformer#transformers.TimeSeriesTransformerModel) corresponds to the encoder-decoder Transformer without any head on top, and [TimeSeriesTransformerForPrediction](https://huggingface.co/docs/transformers/model_doc/time_series_transformer#transformers.TimeSeriesTransformerForPrediction) corresponds to TimeSeriesTransformerModel with a **distribution head** on top. By default, the model uses a Student-t distribution (but this is configurable):
+Note that, similar to other models in the 🤗 Transformers library, [`TimeSeriesTransformerModel`](https://huggingface.co/docs/transformers/model_doc/time_series_transformer#transformers.TimeSeriesTransformerModel) corresponds to the encoder-decoder Transformer without any head on top, and [`TimeSeriesTransformerForPrediction`](https://huggingface.co/docs/transformers/model_doc/time_series_transformer#transformers.TimeSeriesTransformerForPrediction) corresponds to `TimeSeriesTransformerModel` with a **distribution head** on top. By default, the model uses a Student-t distribution (but this is configurable):
 
 ```python
 model.config.distribution_output
