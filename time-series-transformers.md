@@ -3,7 +3,7 @@ title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
 thumbnail: /blog/assets/116_time-series-transformers/thumbnail.png
 ---
 
-<h1>Probabilistic Forecasting with 🤗 Transformers</h1>
+<h1>Probabilistic Time Series Forecasting with 🤗 Transformers</h1>
 
 <div class="blog-metadata">
     <small>Published November 23, 2022.</small>
@@ -40,7 +40,7 @@ Typically, classical methods are fitted on each time series in a dataset individ
 
 Some classical methods are point-valued (meaning, they just output a single value per time step) and models are trained by minimizing an L2 or L1 type of loss with respect to the ground truth data. However, since forecasts are often used in some real-world decision making pipeline, even with humans in the loop, it is much more beneficial to provide the uncertainties of predictions. This is also called "probabilistic forecasting", as opposed to "point forecasting". This entails modeling a probabilistic distribution, from which one can sample.
 
-So in short, rather than training local point forecasting models, we hope to train **probabilistic** models. Deep learning is a great fit for this, as neural networks can learn representations from several related time series, and model the parameters of a distribution.
+So in short, rather than training local point forecasting models, we hope to train **probabilistic** models. Deep learning is a great fit for this, as neural networks can learn representations from several related time series and model the uncertainty of the data (Aleatoric).
 
 It is common in the probabilistic setting to learn the future parameters of some chosen parametric distribution, like Gaussian or Student-T; or learn the conditional quantile function; or use the framework of Conformal Prediction adapted to the time series setting. The choice of method does not affect the modeling aspect and thus can be typically thought of as yet another hyperparameter. One can always turn a probabilistic model into a point-forecasting model, by taking empirical means or medians.
 
@@ -48,7 +48,7 @@ It is common in the probabilistic setting to learn the future parameters of some
 
 In terms of modeling time series data which are sequential in nature, as one can imagine, researchers have come up with models which use Recurrent Neural Networks (RNN) like LSTM or GRU, or Convolutional Networks (CNN), and more recently Transformer based methods which fit naturally to the time series forecasting setting.
 
-In this blog post, we're going to leverage the vanilla Transformer [(Vaswani et al., 2017)](https://arxiv.org/abs/1706.03762) for  probabilistic forecasting. The Encoder-Decoder Transformer is a natural choice for forecasting as it encapsulates several inductive biases nicely. 
+In this blog post, we're going to leverage the vanilla Transformer [(Vaswani et al., 2017)](https://arxiv.org/abs/1706.03762) for  the **univariate** probabilistic forecasting task. The Encoder-Decoder Transformer is a natural choice for forecasting as it encapsulates several inductive biases nicely. 
 
 To begin with, the use of an Encoder-Decoder architecture is helpful at inference time where typically for some logged data we wish to forecast some prediction steps into the future. This can be thought of as analogous to the text generation task where given some context, we sample the next token and pass it back into the decoder (also called "autoregressive generation"). Similarly here we can also, given some distribution type, sample from it to provide forecasts up until our desired prediction horizon. This is known as Greedy Sampling/Search and there is a great blog post about it [here](https://huggingface.co/blog/how-to-generate) for the NLP setting.
 
