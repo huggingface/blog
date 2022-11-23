@@ -225,8 +225,7 @@ def transform_start_field(batch, freq, log1p=False):
     return batch
 ```
 
-We now use `datasets`' `set_transform` to do this on-the-fly in place:
-
+We now use `datasets`' [`set_transform`](https://huggingface.co/docs/datasets/v2.7.0/en/package_reference/main_classes#datasets.Dataset.set_transform) functionality to do this on-the-fly in place:
 
 ```python
 from functools import partial
@@ -237,7 +236,7 @@ val_dataset.set_transform(partial(transform_start_field, freq=freq, log1p=True))
 
 ## Define the Model
 
-Next, let's instantiate a model. The model will be trained from scratch, hence we won't use the `from_pretrained` method here, but rather instantiate the model from a `config`.
+Next, let's instantiate a model. The model will be trained from scratch, hence we won't use the `from_pretrained` method here, but rather instantiate the model from a [`config`](https://huggingface.co/docs/transformers/model_doc/time_series_transformer#transformers.TimeSeriesTransformerConfig).
 
 We specify a couple of additional parameters to the model:
 - `prediction_length` (in our case, 24 months): this is horizon the decoder of the Transformer will learn to predict for;
@@ -306,13 +305,13 @@ model.config.distribution_output
     student_t
 ```
 
-This is an important difference with Transformers for NLP, where the head typically consists of just a single linear layer.
+This is an important difference with Transformers for NLP, where the head typically consists of a fixed categorical distribution.
 
 ## Define Transformations
 
 Next, we define the transformations for the data, in particular for the creation of the time features (based on the dataset or universal ones).
 
-Again, we'll use the GluonTS library for this. We define a `Chain` of transformations (which is a bit comparable to `torchvision.transforms.Compose` for images). It allows to combine several transformations in a single pipeline.
+Again, we'll use the GluonTS library for this. We define a `Chain` of transformations (which is a bit comparable to `torchvision.transforms.Compose` for images). It allows us to combine several transformations into a single pipeline.
 
 
 ```python
@@ -337,7 +336,7 @@ from gluonts.transform import (
 )
 ```
 
-The transformations below are annotated with comments, to explain what they do, but at a hight level we will iterate over or dataset and add or remove fields or features to them via the following Chain of transformations:
+The transformations below are annotated with comments, to explain what they do. At a high level, we will iterate over the individual time series of our dataset and add/remove fields or features:
 
 
 ```python
@@ -724,6 +723,10 @@ We'll stack them vertically, to get forecasts for all time-series in the test da
 
 ```python
 forecasts = np.vstack(forecasts)
+print(forecasts.shape)
+
+
+    (366, 100, 24)
 ```
 
 We can evaluate the resulting forecast with respect to the ground truth out of sample values present in the test set. We will use the [MASE](https://huggingface.co/spaces/evaluate-metric/mase) and [sMAPE](https://huggingface.co/spaces/evaluate-metric/smape) metrics which we calculate for each time series in the dataset:
