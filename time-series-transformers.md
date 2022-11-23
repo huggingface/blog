@@ -850,12 +850,12 @@ Of course, we need to be careful with just claiming state-of-the-art results on 
 
 ## Next Steps
 
-As time series researchers will know, there has been a lot of interest in applying Transformer based models to the time series problem. The vanilla Transformer is just one of many Attention based models and so there is a need to add more models to the library.
+As time series researchers will know, there has been a lot of interest in applying Transformer based models to the time series problem. The vanilla Transformer is just one of many attention-based models and so there is a need to add more models to the library.
 
-At the moment there is nothing stopping us from modeling multivariate time series, however on the emission side one  would need a multivariate distribution. Currently, diagonal independent distributions are supported and other multivariate distributions would need to be added.
+At the moment there is nothing stopping us from modeling multivariate time series, however for that one would need to instantiate the model with a multivariate distribution head. Currently, diagonal independent distributions are supported, and other multivariate distributions will be added. Stay tuned for a future blog post which will include a tutorial.
 
-Forecasting is one of a number of tasks in the time series domain and one would need to add a classification model for the anomaly detection task for example. 
+Another thing on the roadmap is time series classification. This entails adding a time series model with a classification head to the library, for the anomaly detection task for example. 
 
-The current model assumes the presence of a data-time together with the time series values, which might not be the case for every time series in the wild. For example neuroscience datasets like from [WOODS](https://woods-benchmarks.github.io/). Thus, one would need to generalize the current model to make some inputs optional in the whole pipeline.
+The current model assumes the presence of a date-time together with the time series values, which might not be the case for every time series in the wild. See for instance neuroscience datasets like the one from [WOODS](https://woods-benchmarks.github.io/). Thus, one would need to generalize the current model to make some inputs optional in the whole pipeline.
 
 Finally, the NLP/Vision domain has benefitted tremendously from [large pre-trained models](https://arxiv.org/abs/1810.04805), while this is not the case as far as we are aware for the time series domain. Transformer based models seem like the obvious choice in persuing this avenue of research and we cannot wait to see what researchers and practitioners come up with!
