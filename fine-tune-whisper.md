@@ -40,7 +40,7 @@ with fewer explanations but all the code, see the accompanying [Google Colab](ht
     1. [Prepare Environment](#prepare-environment)
     2. [Load Dataset](#load-dataset)
     3. [Prepare Feature Extractor, Tokenizer and Data](#prepare-feature-extractor-tokenizer-and-data)
-    4. [Training and Evaluation](#training--evaluation)
+    4. [Training and Evaluation](#training-and-evaluation)
     5. [Building a Demo](#building-a-demo)
 3. [Closing Remarks](#closing-remarks)
 
@@ -431,7 +431,6 @@ print(common_voice["train"][0])
 ```
 **Print Output:**
 ```python
-
 {'audio': {'path': '/home/sanchit_huggingface_co/.cache/huggingface/datasets/downloads/extracted/607848c7e74a89a3b5225c0fa5ffb9470e39b7f11112db614962076a847f3abf/cv-corpus-11.0-2022-09-21/hi/clips/common_voice_hi_25998259.mp3', 
            'array': array([0.0000000e+00, 0.0000000e+00, 0.0000000e+00, ..., 9.6724887e-07,
        1.5334779e-06, 1.0415988e-06], dtype=float32), 
@@ -671,7 +670,6 @@ training_args = Seq2SeqTrainingArguments(
     max_steps=4000,
     gradient_checkpointing=True,
     fp16=True,
-    group_by_length=True,
     evaluation_strategy="steps",
     per_device_eval_batch_size=8,
     predict_with_generate=True,

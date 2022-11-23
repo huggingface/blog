@@ -264,7 +264,7 @@ Here are some previews.
 
 Server solutions:
 
-* [Mayank Mishra](https://github.com/mayank31398) took all the demo scripts discussed in this blog post and turned them into a webserver package, which you can download from [here](https://github.com/huggingface/transformers-bloom-inference/tree/main/bloom-inference-server)
+* [Mayank Mishra](https://github.com/mayank31398) took all the demo scripts discussed in this blog post and turned them into a webserver package, which you can download from [here](https://github.com/huggingface/transformers-bloom-inference)
 
 * [Nicolas Patry](https://github.com/Narsil) has developed a super-efficient [Rust-based webserver solution]((https://github.com/Narsil/bloomserver).
 

@@ -877,6 +877,7 @@
   tags:
   - guide
   - diffusion
+  - stable-diffusion
 
 - external: https://huggingface.co/spaces/loubnabnl/code-generation-models
   title: "Code generation with Hugging Face"
@@ -1178,7 +1179,7 @@
   - nlp
   - text to image
   - clip
-  - stable diffusion
+  - stable-diffusion
   - dalle
 
 - local: spaces_3dmoljs
@@ -1214,7 +1215,7 @@
   - guide
   - diffusion
   - text_to_image
-  - stable diffusion
+  - stable-diffusion
 
 - local: megatron-training
   title: "How to train a Language Model with Megatron-LM"
@@ -1324,7 +1325,7 @@
     - nlp
     - text-to-image
     - clip
-    - stable diffusion
+    - stable-diffusion
     - dalle
 
 - local: inference-endpoints
@@ -1346,7 +1347,6 @@
     - nlp
     - research
     - llm
-
 - local: pytorch-ddp-accelerate-transformers
   title: "From PyTorch DDP to 🤗 Accelerate to 🤗 Trainer, mastery of distributed training with ease"
   author: muellerzr
@@ -1415,10 +1415,58 @@
     - nlp
     - text generation
     - research
+    
+- local: sentiment-analysis-fhe
+  title: "Sentiment Classification with Fully Homomorphic Encryption using Concrete ML"
+  author: jfrery-zama
+  thumbnail: /blog/assets/sentiment-analysis-fhe/thumbnail.png
+  date: November 17, 2022
+  tags:
+    - guide
+    - privacy
+    - research
+    - FHE
+
+- local: arxiv
+  title: "Hugging Face Machine Learning Demos on arXiv"
+  author: abidlabs
+  thumbnail: /blog/assets/arxiv/thumbnail.png
+  date: Nov 17, 2022
+  tags:
+    - research    
+    - community    
+ 
+- local: ml-director-insights-4
+  title: "Director of Machine Learning Insights [Part 4]"
+  author: Violette
+  thumbnail: blog/assets/78_ml_director_insights/ML Director Insights - part 4.png
+  date: November 23, 2022
+  tags:
+    - community
+    - research
+
+- local: inference-update
+  title: "An Overview of Inference Solutions on Hugging Face"
+  author: julsimon
+  thumbnail: /blog/assets/116_inference_update/widget.png
+  date: Nov 21, 2022
+  tags:
+    - guide
+    - inference
+
+- local: document-ai
+  title: "Accelerating Document AI"
+  author: rajistics
+  thumbnail: /blog/assets/112_document-ai/thumbnail.png
+  date: Nov 21, 2022
+  tags:
+    - guide
+    - expert-acceleration-program
 
 - local: time-series-transformers
   title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
   author: nielsrogge
-  date: November 22, 2022
+  thumbnail: /blog/assets/117_time-series-transformers/widget.png
+  date: November 23, 2022
   tags:
     - research
