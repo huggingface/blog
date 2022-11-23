@@ -3,7 +3,32 @@ title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
 thumbnail: /blog/assets/116_time-series-transformers/thumbnail.png
 ---
 
-# Probabilistic Forecasting with 🤗 Transformers
+<h1>Probabilistic Forecasting with 🤗 Transformers</h1>
+
+<div class="blog-metadata">
+    <small>Published November 23, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/time-series-transformers.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/nielsr"> 
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1608042047613-5f1158120c833276f61f1a84.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>nielsr</code>
+            <span class="fullname">Niels Rogge</span>
+        </div>
+    </a>
+    <a href="/kashif">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8100?v=4" width="100" title="Gravatar">
+        <div class="bfc">
+            <code>kashif</code>
+            <span class="fullname">Kashif Rasul</span>
+        </div>
+    </a>
+</div>
+
 
 ## Introduction
 
