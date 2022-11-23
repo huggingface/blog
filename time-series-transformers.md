@@ -839,10 +839,9 @@ plot(334)
     
 How do we compare against other models? The [Monash Time Series Repository](https://forecastingdata.org/#results) has a comparison table of test set MASE metrics which we can add to:
 
-Dataset | 	SES| 	Theta | 	TBATS| 	ETS	| (DHR-)ARIMA| 	PR|	CatBoost |	FFNN	| DeepAR | 	N-BEATS | 	WaveNet| 	**Transformer** (Our)
-----------:|:---------:|:---:|:---:|:---:|:---:|:---:|:---:|:----:|:----:|:---:|:---:|:---
-Tourism Monthly | 	3.306 |	1.649 |	1.751 |	1.526|	1.589|	1.678	|1.699|	1.582	| 1.409	| 1.574|	1.482	|  **0.863**
-
+|Dataset | 	SES| 	Theta | 	TBATS| 	ETS	| (DHR-)ARIMA| 	PR|	CatBoost |	FFNN	| DeepAR | 	N-BEATS | 	WaveNet| 	**Transformer** (Our) |
+|:------------------:|:-----------------:|:--:|:--:|:--:|:--:|:--:|:--:|:---:|:---:|:--:|:--:|:--:|
+|Tourism Monthly | 	3.306 |	1.649 |	1.751 |	1.526|	1.589|	1.678	|1.699|	1.582	| 1.409	| 1.574|	1.482	|  **0.863**|
 
 Note that, with our model, we are beating all other models reported at https://forecastingdata.org/#results (see also table 2 in the corresponding [paper](https://openreview.net/pdf?id=wEc1mgAjU-)) by quite a margin, and we didn't do any hyperparameter tuning. We just trained the Transformer for 50 epochs. 
 
