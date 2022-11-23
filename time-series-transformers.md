@@ -775,7 +775,7 @@ print(f"sMAPE: {np.mean(smape_metrics)}")
     sMAPE: 0.03391660676428044
 ```
 
-We can also plot the individual metrics of each time series in the dataset:
+We can also plot the individual metrics of each time series in the dataset and observe that a handful of time series contribute a lot to the final test metric:
 
 ```python
 plt.scatter(mase_metrics, smape_metrics, alpha=0.3)
