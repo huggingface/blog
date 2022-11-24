@@ -1464,9 +1464,9 @@
     - expert-acceleration-program
 
 - local: diffusion-models-class
-  title: "Diffusion Models Course Event"
+  title: "Diffusion Models Live Event"
   author: lewtun
-  thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png
+  thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png # Update!
   date: Nov 24, 2022
   tags:
   - diffusion
