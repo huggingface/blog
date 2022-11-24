@@ -244,11 +244,11 @@ val_dataset.set_transform(partial(transform_start_field, freq=freq, log1p=True))
 Next, let's instantiate a model. The model will be trained from scratch, hence we won't use the `from_pretrained` method here, but rather instantiate the model from a [`config`](https://huggingface.co/docs/transformers/model_doc/time_series_transformer#transformers.TimeSeriesTransformerConfig).
 
 We specify a couple of additional parameters to the model:
-- `prediction_length` (in our case, 24 months): this is horizon the decoder of the Transformer will learn to predict for;
+- `prediction_length` (in our case, `24` months): this is horizon the decoder of the Transformer will learn to predict for;
 - `context_length`: the model will set the `context_length` (input of the encoder) equal to this, if no `context_length` is specified;
 - `lags` for a given frequency: these specify how much we "look back", to be added as additional features. e.g. for a `Daily` frequency we might consider a look back of `[1, 2, 7, 30, ...]` or in other words look back 1, 2, ... days) while for `Minute` data we might consider `[1, 30, 60, 60*24, ...]` etc.;
 - the number of time features: in our case, this will be `2` as we'll add `MonthOfYear` as well as an `Age` feature;
-- the number of static categorical features: in our case, this will be just 1 as we'll add a single "time series ID" feature;
+- the number of static categorical features: in our case, this will be just `1` as we'll add a single "time series ID" feature;
 - the cardinality: the number of values of each categorical feature, as a list which for our case will be `[366]` as we have 366 different time series
 - the embedding dimension: the embedding dimension for each categorical feature, as a list, for example `[2]` meaning the model will learn an embedding for vector of size `2` for each of the `366` time series.
 
@@ -845,7 +845,7 @@ How do we compare against other models? The [Monash Time Series Repository](http
 
 Note that, with our model, we are beating all other models reported at https://forecastingdata.org/#results (see also table 2 in the corresponding [paper](https://openreview.net/pdf?id=wEc1mgAjU-)) by quite a margin, and we didn't do any hyperparameter tuning. We just trained the Transformer for 50 epochs. 
 
-Of course, we need to be careful with just claiming state-of-the-art results on time series with neural networks, as it seems ["XGBoost is typically all you need"](https://www.sciencedirect.com/science/article/pii/S0169207021001679). More specificity [LightGBM](https://github.com/microsoft/LightGBM), since it can also fit linear models in the leaf-nodes, which makes it more suitable for point forecasting or [LightGBMLSS](https://github.com/StatMixedML/LightGBMLSS) for the probabilistic case, but we digress. We are just very curious to see how far neural networks can bring us, and whether Transformers are going to be useful in this domain. This particular dataset seems to indicate that it's definitely worth exploring.
+Of course, we need to be careful with just claiming state-of-the-art results on time series with neural networks, as it seems ["XGBoost is typically all you need"](https://www.sciencedirect.com/science/article/pii/S0169207021001679). More specifically [LightGBM](https://github.com/microsoft/LightGBM), since it can also fit linear models in the leaf-nodes, which makes it more suitable for point forecasting or [LightGBMLSS](https://github.com/StatMixedML/LightGBMLSS) for the probabilistic case, but we digress. We are just very curious to see how far neural networks can bring us, and whether Transformers are going to be useful in this domain. This particular dataset seems to indicate that it's definitely worth exploring.
 
 ## Next Steps
 
