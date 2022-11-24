@@ -17,7 +17,7 @@ thumbnail: /blog/assets/34_course_launch/speakers_day1_thumb.png ## TODO: update
     </a>
 </div>
 
-We are excited to share that the [Diffusion Models Class](https://github.com/huggingface/diffusion-models-class) with Hugging Face and Jonathan Whitaker will be released on November 28th! In this free course, you will learn all about the theory and application of diffusion models. If you've never heard of diffusion models, here's a demo to give you a taste of what they can do:
+We are excited to share that the [Diffusion Models Class](https://github.com/huggingface/diffusion-models-class) with Hugging Face and Jonathan Whitaker will be released on November 28th! In this free course, you will learn all about the theory and application of diffusion models -- one of the most exciting developments in deep learning this year. If you've never heard of diffusion models, here's a demo to give you a taste of what they can do:
 
 
 <iframe
@@ -51,7 +51,7 @@ The talks will focus on a high-level presentation of diffusion models and the to
     </div>
     <div class="text-center flex flex-col items-center">
         <img src="/blog/assets/diffusion-models-class/justin-pinkey.png" width=50% style="border-radius: 50%;">
-        <p><strong>Justin Pinkney: <em>Make-A-Video: Diffusion Models for Text-to-Video Generation without Text-Video Data</em></strong></p>
+        <p><strong>Justin Pinkney: <em>Beyond text - giving Stable Diffusion new abilities</em></strong></p>
         <p>Justin is a Senior Machine Learning Researcher at Lambda Labs working on image generation and editing, particularly for artistic and creative applications. He loves to play and tweak pre-trained models to add new capabilities to them, and is probably best known for models like: Toonify, Stable Diffusion Image Variations, and Text-to-Pokemon.</p>
     </div>
 </div>
