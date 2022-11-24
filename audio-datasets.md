@@ -24,9 +24,7 @@ thumbnail: /blog/assets/116_audio_datasets/thumbnail.jpg
 
 <!--- Note to reviewer: comments and TODOs are included in this format. --->
 
-<!--- TODO: insert link to Colab --->
-
-<a target="_blank" href="https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/XYZ">
+<a target="_blank" href="https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/audio_datasets_colab.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -350,9 +348,8 @@ Streaming mode can take your research to the next level: not only are the bigges
 can easily evaluate systems over multiple datasets in one go without worrying about your disk space. Compared 
 to evaluating on a single dataset, multi-dataset evaluation gives a better metric for the generalisation 
 abilities of a speech recognition system (_c.f._ [End-to-end Speech Benchmark (ESB)](https://arxiv.org/abs/2210.13352)). Check 
-out the accompanying Google Colab for an example of evaluating Whisper on eight English speech recognition datasets in 
-one script using streaming mode.
-<!--- TODO: insert link to Google Colab --->
+out the accompanying [Google Colab](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/audio_datasets_colab.ipynb) 
+for an example of evaluating Whisper on eight English speech recognition datasets in one script using streaming mode.
 
 ## The Hub
 
@@ -390,9 +387,8 @@ audio data and gauge whether it's the right dataset for your needs.
 
 ## A Tour of Audio Datasets on The Hub
 This Section serves as a reference guide for the most popular speech recognition, speech 
-translation and audio classification datasets on the Hub. Check out the Google Colab for a guide on how to evaluate a 
-system on all eight English speech recognition datasets in **one script**:
-<!--- TODO: insert link to Colab --->
+translation and audio classification datasets on the Hub. Check out the [Google Colab](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/audio_datasets_colab.ipynb) 
+for a guide on how to evaluate a system on all eight English speech recognition datasets in **one script**.
 
 1. [English Speech Recognition](#english-speech-recognition)
 2. [Multilingual Speech Recognition](#multilingual-speech-recognition)
