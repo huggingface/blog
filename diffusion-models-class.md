@@ -1,10 +1,10 @@
 ---
-title: "Diffusion Models Class Event"
+title: "Diffusion Models Live Event"
 thumbnail: /blog/assets/34_course_launch/speakers_day1_thumb.png ## TODO: update this!
 ---
 
 <h1>
-    Diffusion Models Community Event
+    Diffusion Models Live Event
 </h1>
 
 <div class="author-card">
@@ -17,15 +17,22 @@ thumbnail: /blog/assets/34_course_launch/speakers_day1_thumb.png ## TODO: update
     </a>
 </div>
 
-We are excited to share that the [Diffusion Models Class](https://github.com/huggingface/diffusion-models-class) with Hugging Face and Jonathan Whitaker will be released on November 28th! Say something about the course ...
+We are excited to share that the [Diffusion Models Class](https://github.com/huggingface/diffusion-models-class) with Hugging Face and Jonathan Whitaker will be released on November 28th! In this free course, you will learn all about the theory and application of diffusion models. If you've never heard of diffusion models, here's a demo to give you a taste of what they can do:
 
-To go with this release, we are organising a community event to which you are invited! The program includes one day of exciting talks from the creators of Stable Diffusion and researchers at Stability AI, Meta, and more!
 
-Say something about Colab ...
+<iframe
+	src="https://stabilityai-stable-diffusion.hf.space"
+	frameborder="0"
+	width="850"
+	height="450"
+/>
+
+
+To go with this release, we are organising a live community event on November 30th to which you are invited! The program includes exciting talks from the creators of Stable Diffusion, researchers at Stability AI and Meta, and more!
 
 To register, please fill out [this form](http://eepurl.com/icSzXv). More details on the talks are provided below.
 
-## Talks
+## Live Talks
 
 The talks will focus on a high-level presentation of diffusion models and the tools we can use to build applications with them.
 
@@ -36,5 +43,15 @@ The talks will focus on a high-level presentation of diffusion models and the to
         <img src="/blog/assets/diffusion-models-class/david-ha.png" width=50% style="border-radius: 50%;">
         <p><strong>David Ha: <em>A framework for augmenting creative human expression</em></strong></p>
         <p>David Ha is the Head of Strategy at Stability AI. He previously worked as a Research Scientist at Google, working in the Brain team in Japan. His research interests include complex systems, self-organization, and creative applications of machine learning. Prior to joining Google, He worked at Goldman Sachs as a Managing Director, where he co-ran the fixed-income trading business in Japan. He obtained undergraduate and masters degrees from the University of Toronto, and a PhD from the University of Tokyo.</p>
+    </div>
+    <div class="text-center flex flex-col items-center">
+        <img src="/blog/assets/diffusion-models-class/evi-parikh.png" width=50% style="border-radius: 50%;">
+        <p><strong>Devi Parikh: <em>Make-A-Video: Diffusion Models for Text-to-Video Generation without Text-Video Data</em></strong></p>
+        <p>Devi Parikh is a Research Director at the Fundamental AI Research (FAIR) lab at Meta, and an Associate Professor in the School of Interactive Computing at Georgia Tech. From 2013 to 2016, she was an Assistant Professor in the Bradley Department of Electrical and Computer Engineering at Virginia Tech. From 2009 to 2012, she was a Research Assistant Professor at Toyota Technological Institute at Chicago (TTIC), an academic computer science institute affiliated with University of Chicago. She has held visiting positions at Cornell University, University of Texas at Austin, Microsoft Research, MIT, Carnegie Mellon University, and Facebook AI Research. She received her M.S. and Ph.D. degrees from the Electrical and Computer Engineering department at Carnegie Mellon University in 2007 and 2009 respectively. She received her B.S. in Electrical and Computer Engineering from Rowan University in 2005. Her research interests are in computer vision, natural language processing, embodied AI, human-AI collaboration, and AI for creativity.</p>
+    </div>
+    <div class="text-center flex flex-col items-center">
+        <img src="/blog/assets/diffusion-models-class/justin-pinkey.png" width=50% style="border-radius: 50%;">
+        <p><strong>Justin Pinkney: <em>Make-A-Video: Diffusion Models for Text-to-Video Generation without Text-Video Data</em></strong></p>
+        <p>Justin is a Senior Machine Learning Researcher at Lambda Labs working on image generation and editing, particularly for artistic and creative applications. He loves to play and tweak pre-trained models to add new capabilities to them, and is probably best known for models like: Toonify, Stable Diffusion Image Variations, and Text-to-Pokemon.</p>
     </div>
 </div>
