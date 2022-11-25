@@ -33,7 +33,7 @@ thumbnail: /blog/assets/diffusion-models-event/thumbnail.png
 
 We are excited to share that the [Diffusion Models Class](https://github.com/huggingface/diffusion-models-class) with Hugging Face and Jonathan Whitaker will be **released on November 28th** 🥳! In this free course, you will learn all about the theory and application of diffusion models -- one of the most exciting developments in deep learning this year. If you've never heard of diffusion models, here's a demo to give you a taste of what they can do:
 
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.1.6/gradio.js"></script>
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.11.0/gradio.js"></script>
 
 <gradio-app space="runwayml/stable-diffusion-v1-5"></gradio-app>
 
