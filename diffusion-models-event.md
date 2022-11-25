@@ -75,7 +75,7 @@ The talks will focus on a high-level presentation of diffusion models and the to
     </div>
     <div class="text-center flex flex-col items-center">
         <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/diffusion-models-event/poli.png" width=50% style="border-radius: 50%;">
-        <p><strong>Apolinário Passos <em>DALL-E 2 is cool but... what will come after the generative media hype?</em></strong></p>
+        <p><strong>Apolinário Passos: <em>DALL-E 2 is cool but... what will come after the generative media hype?</em></strong></p>
         <p>Apolinário Passos is a Machine Learning Art Engineer at Hugging Face and an artist who focuses on generative art and generative media. He founded the platform multimodal.art and the corresponding Twitter account, and works on the organization, aggregation, and platformization of open-source generative media machine learning models.</p>
     </div>
 </div>
