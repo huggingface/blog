@@ -1463,7 +1463,7 @@
     - guide
     - expert-acceleration-program
 
-- local: diffusion-models-class
+- local: diffusion-models-event
   title: "Diffusion Models Live Event"
   author: lewtun
   thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png # Update!
