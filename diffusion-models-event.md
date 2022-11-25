@@ -1,6 +1,6 @@
 ---
 title: "Diffusion Models Live Event"
-thumbnail: /blog/assets/34_course_launch/speakers_day1_thumb.png ## TODO: update this!
+thumbnail: /blog/assets/diffusion-models-event/thumbnail.png
 ---
 
 <h1>
@@ -8,7 +8,7 @@ thumbnail: /blog/assets/34_course_launch/speakers_day1_thumb.png ## TODO: update
 </h1>
 
 <div class="blog-metadata">
-    <small>Published November 24, 2022.</small>
+    <small>Published November 25, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/diffusion-models-event.md">
         Update on GitHub
     </a>
@@ -38,11 +38,11 @@ We are excited to share that the [Diffusion Models Class](https://github.com/hug
 	src="https://runwayml-stable-diffusion-v1-5.hf.space"
 	frameborder="0"
 	width="850"
-	height="450"
+	height="700"
 ></iframe>
 
 
-To go with this release, we are organising a live community event on November 30th to which you are invited! The program includes exciting talks from the creators of Stable Diffusion, researchers at Stability AI and Meta, and more!
+To go with this release, we are organising a **live community event on November 30th** to which you are invited! The program includes exciting talks from the creators of Stable Diffusion, researchers at Stability AI and Meta, and more!
 
 To register, please fill out [this form](http://eepurl.com/icSzXv). More details on the talks are provided below.
 
@@ -54,23 +54,28 @@ The talks will focus on a high-level presentation of diffusion models and the to
     class="container md:grid md:grid-cols-2 gap-2 max-w-7xl"
 >
     <div class="text-center flex flex-col items-center">
-        <img src="/blog/assets/diffusion-models-event/david-ha.png" width=50% style="border-radius: 50%;">
+        <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/diffusion-models-event/david-ha.png" width=50% style="border-radius: 50%;">
         <p><strong>David Ha: <em>A framework for augmenting creative human expression</em></strong></p>
         <p>David Ha is the Head of Strategy at Stability AI. He previously worked as a Research Scientist at Google, working in the Brain team in Japan. His research interests include complex systems, self-organization, and creative applications of machine learning. Prior to joining Google, He worked at Goldman Sachs as a Managing Director, where he co-ran the fixed-income trading business in Japan. He obtained undergraduate and masters degrees from the University of Toronto, and a PhD from the University of Tokyo.</p>
     </div>
     <div class="text-center flex flex-col items-center">
-        <img src="/blog/assets/diffusion-models-event/evi-parikh.png" width=50% style="border-radius: 50%;">
+        <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/diffusion-models-event/devi-parikh.png" width=50% style="border-radius: 50%;">
         <p><strong>Devi Parikh: <em>Make-A-Video: Diffusion Models for Text-to-Video Generation without Text-Video Data</em></strong></p>
-        <p>Devi Parikh is a Research Director at the Fundamental AI Research (FAIR) lab at Meta, and an Associate Professor in the School of Interactive Computing at Georgia Tech. From 2013 to 2016, she was an Assistant Professor in the Bradley Department of Electrical and Computer Engineering at Virginia Tech. From 2009 to 2012, she was a Research Assistant Professor at Toyota Technological Institute at Chicago (TTIC), an academic computer science institute affiliated with University of Chicago. She has held visiting positions at Cornell University, University of Texas at Austin, Microsoft Research, MIT, Carnegie Mellon University, and Facebook AI Research. She received her M.S. and Ph.D. degrees from the Electrical and Computer Engineering department at Carnegie Mellon University in 2007 and 2009 respectively. She received her B.S. in Electrical and Computer Engineering from Rowan University in 2005. Her research interests are in computer vision, natural language processing, embodied AI, human-AI collaboration, and AI for creativity.</p>
+        <p>Devi Parikh is a Research Director at the Fundamental AI Research (FAIR) lab at Meta, and an Associate Professor in the School of Interactive Computing at Georgia Tech. She has held visiting positions at Cornell University, University of Texas at Austin, Microsoft Research, MIT, Carnegie Mellon University, and Facebook AI Research. She received her M.S. and Ph.D. degrees from the Electrical and Computer Engineering department at Carnegie Mellon University in 2007 and 2009 respectively. Her research interests are in computer vision, natural language processing, embodied AI, human-AI collaboration, and AI for creativity.</p>
     </div>
     <div class="text-center flex flex-col items-center">
-        <img src="/blog/assets/diffusion-models-event/patrick-esser.png" width=50% style="border-radius: 50%;">
+        <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/diffusion-models-event/patrick-esser.png" width=50% style="border-radius: 50%;">
         <p><strong>Patrick Esser: <em>Food for Diffusion</em></strong></p>
-        <p>Justin is a Senior Machine Learning Researcher at Lambda Labs working on image generation and editing, particularly for artistic and creative applications. He loves to play and tweak pre-trained models to add new capabilities to them, and is probably best known for models like: Toonify, Stable Diffusion Image Variations, and Text-to-Pokemon.</p>
+        <p>Patrick Esser is a Principal Research Scientist at Runway, leading applied research efforts including the core model behind Stable Diffusion, otherwise known as High-Resolution Image Synthesis with Latent Diffusion Models.</p>
     </div>
     <div class="text-center flex flex-col items-center">
-        <img src="/blog/assets/diffusion-models-event/justin-pinkey.png" width=50% style="border-radius: 50%;">
+        <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/diffusion-models-event/justin-pinkey.png" width=50% style="border-radius: 50%;">
         <p><strong>Justin Pinkney: <em>Beyond text - giving Stable Diffusion new abilities</em></strong></p>
         <p>Justin is a Senior Machine Learning Researcher at Lambda Labs working on image generation and editing, particularly for artistic and creative applications. He loves to play and tweak pre-trained models to add new capabilities to them, and is probably best known for models like: Toonify, Stable Diffusion Image Variations, and Text-to-Pokemon.</p>
+    </div>
+    <div class="text-center flex flex-col items-center">
+        <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/diffusion-models-event/poli.png" width=50% style="border-radius: 50%;">
+        <p><strong>Apolinário Passos <em>DALL-E 2 is cool but... what will come after the generative media hype?</em></strong></p>
+        <p>Apolinário Passos is a Machine Learning Art Engineer at Hugging Face and an artist who focuses on generative art and generative media. He founded the platform multimodal.art and the corresponding Twitter account, and works on the organization, aggregation, and platformization of open-source generative media machine learning models.</p>
     </div>
 </div>
