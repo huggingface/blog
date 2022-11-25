@@ -2,11 +2,6 @@
 # "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
 
-- name: Diffusion Models Live Event 🧨
-  link: https://www.youtube.com/watch?v=5gPS_Tn9rlg
-  date: Nov 30, 2022
-  description: Live talks from the creators of Stable Diffusion and many more!
-
 - name: Whisper Fine Tuning Sprint
   link: https://discuss.huggingface.co/t/open-to-the-community-whisper-fine-tuning-event/26681
   date: Dec 5, 2022
@@ -16,6 +11,11 @@
   link: https://discord.com/events/879548962464493619/1042396704802091048
   date: Dec 1, 2022
   description: Want to learn how to apply transformers to your use-cases and how to contribute to open-source projects? Join our reading group!
+
+- name: Diffusion Models Live Event 🧨
+  link: https://www.youtube.com/watch?v=5gPS_Tn9rlg
+  date: Nov 30, 2022
+  description: Live talks from the creators of Stable Diffusion and many more!
 
 - name: NLP with Transformers Reading Group
   link: https://discord.com/events/879548962464493619/1039565337420648458
