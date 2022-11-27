@@ -1475,3 +1475,12 @@
   - clip
   - stable-diffusion
   - dalle
+
+- local: retroprompt
+  title: "Decoupling Knowledge from Memorization for Prompt Learning"
+  author: OE-Heart
+  thumbnail: /blog/assets/retroprompt/image-20221123210512862.png
+  date: Nov 27, 2022
+  tags:
+    - nlp
+    - research
