@@ -1415,7 +1415,7 @@
     - nlp
     - text generation
     - research
-    
+
 - local: sentiment-analysis-fhe
   title: "Sentiment Classification with Fully Homomorphic Encryption using Concrete ML"
   author: jfrery-zama
@@ -1433,9 +1433,9 @@
   thumbnail: /blog/assets/arxiv/thumbnail.png
   date: Nov 17, 2022
   tags:
-    - research    
-    - community    
- 
+    - research
+    - community
+
 - local: ml-director-insights-4
   title: "Director of Machine Learning Insights [Part 4]"
   author: Violette
@@ -1462,6 +1462,19 @@
   tags:
     - guide
     - expert-acceleration-program
+
+- local: diffusion-models-event
+  title: "Diffusion Models Live Event"
+  author: lewtun
+  thumbnail: /blog/assets/diffusion-models-event/thumbnail.png
+  date: Nov 25, 2022
+  tags:
+  - diffusion
+  - nlp
+  - text to image
+  - clip
+  - stable-diffusion
+  - dalle
 
 - local: time-series-transformers
   title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
