@@ -258,6 +258,8 @@ def train_ddp_accelerate():
         transforms.Normalize((0.1307), (0.3081))
     ])
 
+    device = accelerator.device
+
     train_dset = datasets.MNIST('data', train=True, download=True, transform=transform)
     test_dset = datasets.MNIST('data', train=False, transform=transform)
 
