@@ -1475,3 +1475,12 @@
   - clip
   - stable-diffusion
   - dalle
+
+- local: internships-2023
+  title: "We are hiring interns!"
+  author: douwekiela
+  thumbnail: /blog/assets/internships-2023/thumbnail.jpg
+  date: November 29, 2022
+  tags:
+    - community
+    - announcement
