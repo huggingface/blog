@@ -50,7 +50,7 @@ The talks will focus on a high-level presentation of diffusion models and the to
 >
     <div class="text-center flex flex-col items-center">
         <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/diffusion-models-event/david-ha.png" width=50% style="border-radius: 50%;">
-        <p><strong>David Ha: <em>A framework for augmenting creative human expression</em></strong></p>
+        <p><strong>David Ha: <em>Collective Intelligence and Creative AI</em></strong></p>
         <p>David Ha is the Head of Strategy at Stability AI. He previously worked as a Research Scientist at Google, working in the Brain team in Japan. His research interests include complex systems, self-organization, and creative applications of machine learning. Prior to joining Google, He worked at Goldman Sachs as a Managing Director, where he co-ran the fixed-income trading business in Japan. He obtained undergraduate and masters degrees from the University of Toronto, and a PhD from the University of Tokyo.</p>
     </div>
     <div class="text-center flex flex-col items-center">
