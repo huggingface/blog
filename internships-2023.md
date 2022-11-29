@@ -39,28 +39,28 @@ Applicants from all backgrounds are welcome! Ideally, you have some relevant exp
 
 The following internship positions are available in the Open Source team, alongside maintainers of the respective libraries:
 
-* [Accelerate Internship](http://link), to lead the integration of new, impactful features in the library.
-* [Skops Internship](http://link), working at the intersection of model serving, persistence, and interpretation as well as model card generation.
-* [Diffusers Internship](http://link), helping on distilling diffusion models for faster sampling.
-* [Evaluate Internship](http://link), helping on the backend of the library to improve its performance & focus on integrating with other libraries in the ecosystem.
-* [Speech internship](http://link), working on efficient models for speech recognition.
+* [Accelerate Internship](https://huggingface.workable.com/jobs/2825962), to lead the integration of new, impactful features in the library.
+* [Skops Internship](https://huggingface.workable.com/jobs/2826037), working at the intersection of model serving, persistence, and interpretation as well as model card generation.
+* [Diffusers Internship](https://huggingface.workable.com/jobs/2826060), helping on distilling diffusion models for faster sampling.
+* [Evaluate Internship](https://huggingface.workable.com/jobs/2826095), helping on the backend of the library to improve its performance & focus on integrating with other libraries in the ecosystem.
+* [Speech internship](https://huggingface.workable.com/jobs/2826063), working on efficient models for speech recognition.
 
 The following Science team positions are available:
 
-* [Code Generation Internship](http://link), working with the BigCode team on cutting edge large language models for code.
-* [Model Forgetting Internship](http://link), investigating model forgetting using state of the art “unlearning” methods.
-* [Multimodal AI Internship](http://link), working at the intersection of natural language processing and computer vision for the next generation of large multimodal models.
-* [OCR Internship](http://link), incorporating textual information directly into multimodal models.
-* [Video Pretraining Internship](http://link), exploring pretraining for the video modality.
-* [Retrieval Augmentation Internship](http://link), investigating “semiparametric” retrieval augmentation methods for more consistent, more interpretable, and more efficient language models.
+* [Code Generation Internship](https://huggingface.workable.com/jobs/2826098), working with the BigCode team on cutting edge large language models for code.
+* [Model Forgetting Internship](https://huggingface.workable.com/jobs/2826105), investigating model forgetting using state of the art “unlearning” methods.
+* [Multimodal AI Internship](https://huggingface.workable.com/jobs/2826106), working at the intersection of natural language processing and computer vision for the next generation of large multimodal models.
+* [OCR Internship](https://huggingface.workable.com/jobs/2832512), incorporating textual information directly into multimodal models.
+* [Video Pretraining Internship](https://huggingface.workable.com/jobs/2832513), exploring pretraining for the video modality.
+* [Retrieval Augmentation Internship](https://huggingface.workable.com/jobs/2832515), investigating “semiparametric” retrieval augmentation methods for more consistent, more interpretable, and more efficient language models.
 * [Embodied AI Internship](http://link), working with the Embodied AI team on reinforcement learning in simulators.
 * [Distribution Shift Internship](http://link), developing a toolkit for detecting and measuring distribution shift in datasets.
 
 The following other internship positions are available:
 
-* [Social Impact Evaluation Internship](http://link), developing a technical framework for assessing the overall social impact of generative ML models.
-* [Gradio Internship](http://link), working with the Gradio team on expanding the ecosystem.
-* [AI Art Tooling Internship](http://link), bridging the AI and art worlds by building tooling to empower artists.
+* [Social Impact Evaluation Internship](https://huggingface.workable.com/jobs/2826102), developing a technical framework for assessing the overall social impact of generative ML models.
+* [Gradio Internship](https://huggingface.workable.com/jobs/2832520), working with the Gradio team on expanding the ecosystem.
+* [AI Art Tooling Internship](https://huggingface.workable.com/jobs/2832517), bridging the AI and art worlds by building tooling to empower artists.
 
 Locations vary on a case-by-case basis and if the internship host has a location preference, this will be indicated on the job listing.
 
