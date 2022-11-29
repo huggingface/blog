@@ -69,4 +69,6 @@ Locations vary on a case-by-case basis and if the internship host has a location
 
 You can apply directly for each position through our [job portal](https://huggingface.workable.com/). Click on the positions above to be taken directly to the application form.
 
+Please make sure to complete the short submission at the end of the application form when applying. You'll need to create a Hugging Face account for that.
+
 We are actively working to build a culture that values diversity, equity, and inclusivity. We are intentionally building a workplace where people feel respected and supported—regardless of who you are or where you come from. We believe this is foundational to building a great company and community. Hugging Face is an equal opportunity employer and we do not discriminate on the basis of race, religion, color, national origin, gender, sexual orientation, age, marital status, veteran status, or disability status.
