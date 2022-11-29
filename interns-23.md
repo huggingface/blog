@@ -1,6 +1,6 @@
 ---
 title: "We are hiring interns!"
-thumbnail: /blog/assets/internships-2023/thumbnail.jpg
+thumbnail: /blog/assets/interns-23/thumbnail.png
 ---
 
 <h1>
