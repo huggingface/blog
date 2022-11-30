@@ -6,7 +6,7 @@ thumbnail: /blog/assets/117_vq_diffusion/thumbnail.png
 # VQ-Diffusion
 
 <div class="blog-metadata">
-    <small>Published November 23, 2022.</small>
+    <small>Published November 30, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/vq-diffusion.md">
         Update on GitHub
     </a>
