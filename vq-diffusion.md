@@ -76,7 +76,7 @@ image = pipe(prompt).images[0]
 
 Images are encoded into a set of discrete "tokens" or embedding vectors using a VQ-VAE encoder. To do so, images are split in patches, and then each patch is replaced by the closest entry from a codebook with a fixed-size vocabulary. This reduces the dimensionality of the input pixel space. VQ-Diffusion uses the VQGAN variant from [Taming Transformers](https://arxiv.org/abs/2012.09841). This [blog post](https://ml.berkeley.edu/blog/posts/vq-vae/) is a good resource for better understanding VQ-VAEs.
 
-VQ-Diffusion used a pre-trained VQ-VAE that was therefore frozen during the diffusion training process.
+VQ-Diffusion uses a pre-trained VQ-VAE which was frozen during the diffusion training process.
 
 ##### Forward process
 
@@ -86,7 +86,7 @@ In the forward diffusion process, each latent token can stay the same, be resamp
 
 An encoder-decoder transformer approximates the classes of the un-noised latents, \\( x_0 \\), conditioned on the prompt, \\( y \\). The encoder is a CLIP text encoder with frozen weights. The decoder transformer provides unmasked global attention to all latent pixels and outputs the log probabilities of the categorical distribution over vector embeddings. The decoder transformer predicts the entire distribution of un-noised latents in one forward pass, providing global self-attention over \\( x_t \\). Framing the problem as conditional sequence to sequence over discrete values provides some intuition for why the encoder-decoder transformer is a good fit. 
 
-The (AR models)[#autoregressive-models] section provides additional context on VQ-Diffusion's architecture by comparing it to AR transformer based models.
+The AR models section provides additional context on VQ-Diffusion's architecture in comparison to AR transformer based models.
 
 [Taming Transformers](https://arxiv.org/abs/2012.09841) provides a good discussion on converting raw pixels to discrete tokens in a compressed latent space so that transformers become computationally feasible for image data.
 
