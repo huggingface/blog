@@ -1476,10 +1476,29 @@
   - stable-diffusion
   - dalle
 
+- local: interns-23
+  title: "We are hiring interns!"
+  author: douwekiela
+  thumbnail: /blog/assets/interns-23/thumbnail.png
+  date: November 29, 2022
+  tags:
+    - community
+    - announcement
+
+- local: vq-diffusion
+  title: "VQ Diffusion with 🧨 Diffusers"
+  author: williamberman
+  thumbnail: /blog/assets/117_vq_diffusion/thumbnail.png
+  date: November 30, 2022
+  tags:
+    - diffusers
+    - diffusion
+    - text-to-image
+
 - local: time-series-transformers
   title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
   author: nielsrogge
-  thumbnail: /blog/assets/117_time-series-transformers/widget.png
-  date: November 23, 2022
+  thumbnail: /blog/assets/118_time-series-transformers/widget.png
+  date: December 1, 2022
   tags:
     - research
