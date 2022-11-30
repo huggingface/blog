@@ -1,6 +1,6 @@
 ---
 title: "Director of Machine Learning Insights [Part 4]"
-thumbnail: /blog/assets/78_ml_director_insights/ML Director Insights - part 4.png
+thumbnail: /blog/assets/78_ml_director_insights/part4.png
 ---
 
 <html>

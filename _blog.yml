@@ -1439,7 +1439,7 @@
 - local: ml-director-insights-4
   title: "Director of Machine Learning Insights [Part 4]"
   author: Violette
-  thumbnail: blog/assets/78_ml_director_insights/ML Director Insights - part 4.png
+  thumbnail: /blog/assets/78_ml_director_insights/part4.png
   date: November 23, 2022
   tags:
     - community
