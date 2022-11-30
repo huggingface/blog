@@ -72,17 +72,17 @@ image = pipe(prompt).images[0]
 
 ![svg](assets/117_vq_diffusion/vq_diffusion_architecture.svg)
 
-##### VQ-VAE
+#### VQ-VAE
 
 Images are encoded into a set of discrete "tokens" or embedding vectors using a VQ-VAE encoder. To do so, images are split in patches, and then each patch is replaced by the closest entry from a codebook with a fixed-size vocabulary. This reduces the dimensionality of the input pixel space. VQ-Diffusion uses the VQGAN variant from [Taming Transformers](https://arxiv.org/abs/2012.09841). This [blog post](https://ml.berkeley.edu/blog/posts/vq-vae/) is a good resource for better understanding VQ-VAEs.
 
 VQ-Diffusion uses a pre-trained VQ-VAE which was frozen during the diffusion training process.
 
-##### Forward process
+#### Forward process
 
 In the forward diffusion process, each latent token can stay the same, be resampled to a different latent vector (each with equal probability), or be masked. Once a latent token is masked, it will stay masked. \\( \alpha_t \\), \\( \beta_t \\), and \\( \gamma_t \\) are hyperparameters that control the forward diffusion process from step \\( t-1 \\) to step \\( t \\). \\( \gamma_t \\) is the probability an unmasked token becomes masked. \\( \alpha_t + \beta_t \\) is the probability an unmasked token stays the same. The token can transition to any individual non-masked latent vector with a probability of \\( \beta_t \\). In other words, \\( \alpha_t + K \beta_t + \gamma_t = 1 \\) where \\( K \\) is the number of non-masked latent vectors. See section 4.1 of the paper for more details.
 
-##### Approximating the reverse process
+#### Approximating the reverse process
 
 An encoder-decoder transformer approximates the classes of the un-noised latents, \\( x_0 \\), conditioned on the prompt, \\( y \\). The encoder is a CLIP text encoder with frozen weights. The decoder transformer provides unmasked global attention to all latent pixels and outputs the log probabilities of the categorical distribution over vector embeddings. The decoder transformer predicts the entire distribution of un-noised latents in one forward pass, providing global self-attention over \\( x_t \\). Framing the problem as conditional sequence to sequence over discrete values provides some intuition for why the encoder-decoder transformer is a good fit. 
 
@@ -92,7 +92,7 @@ The AR models section provides additional context on VQ-Diffusion's architecture
 
 ### VQ-Diffusion in Context
 
-##### Diffusion Models
+#### Diffusion Models
 
 Contemporary diffusion models are mostly continuous. In the forward process, continuous diffusion models iteratively add Gaussian noise. The reverse process is approximated via \\( p_{\theta}(x_{t-1} | x_t) = N(x_{t-1}; \mu_{\theta}(x_t, t), \Sigma_{\theta}(x_t, t)) \\). In the simpler case of [DDPM](https://arxiv.org/abs/2006.11239), the covariance matrix is fixed, a U-Net is trained to predict the noise in \\( x_t \\), and \\( x_{t-1} \\) is derived from the noise. 
 
@@ -100,7 +100,7 @@ The approximate reverse process is structurally similar to the discrete reverse 
 
 There is a smaller amount of literature covering discrete diffusion models than continuous diffusion models. [Deep Unsupervised Learning using Nonequilibrium Thermodynamics](https://arxiv.org/abs/1503.03585) introduces a diffusion model over a binomial distribution. [Argmax Flows and Multinomial Diffusion](https://arxiv.org/abs/2102.05379) extends discrete diffusion to multinomial distributions and trains a transformer for predicting the unnoised distribution for a language modeling task. [Structured Denoising Diffusion Models in Discrete State-Spaces](https://arxiv.org/abs/2107.03006) generalizes multinomial diffusion with alternative noising processes -- uniform, absorbing, discretized Gaussian, and token embedding distance. Alternative noising processes are also possible in continuous diffusion models, but as noted in the paper, only additive Gaussian noise has received significant attention.
 
-##### Autoregressive Models
+#### Autoregressive Models
 
 It's perhaps more interesting to compare VQ-Diffusion to AR models as they more frequently feature transformers making predictions over discrete distributions. While transformers have demonstrated success in AR modeling, they still suffer from linear decreases in inference speed for increased image resolution, error accumulation, and directional bias. VQ-Diffusion improves on all three pain points.
 
