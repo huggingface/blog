@@ -1494,3 +1494,11 @@
     - diffusers
     - diffusion
     - text-to-image
+
+- local: time-series-transformers
+  title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
+  author: nielsrogge
+  thumbnail: /blog/assets/118_time-series-transformers/thumbnail.png
+  date: December 1, 2022
+  tags:
+    - research
