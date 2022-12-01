@@ -36,7 +36,7 @@ The checkpoints that are already converted and ready for use are the ones for th
 
 - Stable Diffusion v1.4: [converted](https://hf.co/apple/coreml-stable-diffusion-v1-4) [original](https://hf.co/CompVis/stable-diffusion-v1-4)
 - Stable Diffusion v1.5: [converted](https://hf.co/apple/coreml-stable-diffusion-v1-5) [original](https://hf.co/runwayml/stable-diffusion-v1-5)
-- Stable Diffusion v2 base: [converted](https://hf.co/apple/coreml-stable-diffusion-v2-base) [original](https://huggingface.co/stabilityai/stable-diffusion-2-base)
+- Stable Diffusion v2 base: [converted](https://hf.co/apple/coreml-stable-diffusion-2-base) [original](https://huggingface.co/stabilityai/stable-diffusion-2-base)
 
 Core ML supports all the compute units available in your device: CPU, GPU and Apple's Neural Engine (NE). It's also possible for Core ML to run different portions of the model in different devices to maximize performance.
 
