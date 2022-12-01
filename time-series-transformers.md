@@ -37,7 +37,7 @@ thumbnail: /blog/assets/118_time-series-transformers/thumbnail.png
 
 ## Introduction
 
-Time series forecasting is an essential scientific and business problem and as such has also seen a lot of innovation recently with the use of [Deep Learning based](https://dl.acm.org/doi/abs/10.1145/3533382) models in addition to the [classical methods](https://otexts.com/fpp3/). An important difference between classical methods like ARIMA and novel deep learning methods is the following.
+Time series forecasting is an essential scientific and business problem and as such has also seen a lot of innovation recently with the use of [deep learning based](https://dl.acm.org/doi/abs/10.1145/3533382) models in addition to the [classical methods](https://otexts.com/fpp3/). An important difference between classical methods like ARIMA and novel deep learning methods is the following.
 
 ##  Probabilistic Forecasting
 
