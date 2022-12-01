@@ -24,7 +24,7 @@ thumbnail: /blog/assets/diffusers_coreml/thumbnail.png
     </a>
 </div>
 
-Thanks to Apple engineers, you can now run Stable Diffusion on Apple Silicon using Core ML, the most efficient and close-to-the-metal solution for Apple hardware!
+Thanks to Apple engineers, you can now run Stable Diffusion on Apple Silicon using Core ML!
 
 [This Apple repo](https://github.com/apple/ml-stable-diffusion) provides conversion scripts and inference code based on [🧨 Diffusers](https://github.com/huggingface/diffusers), and we love it! To make it as easy as possible for you, we converted the weights ourselves and put the Core ML versions of the models in [the Hugging Face Hub](https://hf.co/apple).
 
@@ -38,7 +38,7 @@ The checkpoints that are already converted and ready for use are the ones for th
 - Stable Diffusion v1.5: [converted](https://hf.co/apple/coreml-stable-diffusion-v1-5) [original](https://hf.co/runwayml/stable-diffusion-v1-5)
 - Stable Diffusion v2 base: [converted](https://hf.co/apple/coreml-stable-diffusion-v2-base) [original](https://huggingface.co/stabilityai/stable-diffusion-2-base)
 
-Core ML supports all the compute units available in your device: CPU, GPU and Apple's Neural Engine (NE). It's also possible for Core ML to run different portions of the model in different devices to maximize performance. In contrast, the `mps` device used by PyTorch 1.13 can only use the CPU and/or the GPU. 
+Core ML supports all the compute units available in your device: CPU, GPU and Apple's Neural Engine (NE). It's also possible for Core ML to run different portions of the model in different devices to maximize performance.
 
 There are several variants of each model that may yield different performance depending on the hardware you use. We recommend you try them out and stick with the one that works best in your system. Read on for details.
 
@@ -54,7 +54,7 @@ At the time of this writing, we got best results on my MacBook Pro (M1 Max, 32 G
 
 - `original` attention.
 - `all` compute units (see next section for details).
-- macOS Ventura 13.1 Beta 3 (22C5050e)
+- macOS Ventura 13.1 Beta 3 (22C5050e). Beta 4 _just came out_, we'll update this note when we test it!
 
 With these, it took 18s to generate one image with the Core ML version of Stable Diffusion v1.4 🤯.
 
