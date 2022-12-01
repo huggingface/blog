@@ -310,7 +310,7 @@ model.config.distribution_output
     student_t
 ```
 
-This is an important difference with Transformers for NLP, where the head typically consists of a fixed categorical distribution.
+This is an important difference with Transformers for NLP, where the head typically consists of a fixed categorical distribution implemented as an `nn.Linear` layer.
 
 ## Define Transformations
 
