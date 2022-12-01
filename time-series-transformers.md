@@ -244,7 +244,7 @@ val_dataset.set_transform(partial(transform_start_field, freq=freq, log1p=True))
 Next, let's instantiate a model. The model will be trained from scratch, hence we won't use the `from_pretrained` method here, but rather randomly initialize the model from a [`config`](https://huggingface.co/docs/transformers/model_doc/time_series_transformer#transformers.TimeSeriesTransformerConfig).
 
 We specify a couple of additional parameters to the model:
-- `prediction_length` (in our case, `24` months): this is horizon the decoder of the Transformer will learn to predict for;
+- `prediction_length` (in our case, `24` months): this is the horizon that the decoder of the Transformer will learn to predict for;
 - `context_length`: the model will set the `context_length` (input of the encoder) equal to this, if no `context_length` is specified;
 - `lags` for a given frequency: these specify how much we "look back", to be added as additional features. e.g. for a `Daily` frequency we might consider a look back of `[1, 2, 7, 30, ...]` or in other words look back 1, 2, ... days) while for `Minute` data we might consider `[1, 30, 60, 60*24, ...]` etc.;
 - the number of time features: in our case, this will be `2` as we'll add `MonthOfYear` as well as an `Age` feature;
