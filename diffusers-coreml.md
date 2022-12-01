@@ -1,6 +1,6 @@
 ---
 title: Using Stable Diffusion with Core ML on Apple Silicon
-thumbnail: /blog/assets/diffusers_coreml/thumbnail.jpg
+thumbnail: /blog/assets/diffusers_coreml/thumbnail.png
 ---
 
 <h1>
