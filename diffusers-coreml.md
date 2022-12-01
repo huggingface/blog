@@ -9,7 +9,7 @@ thumbnail: /blog/assets/diffusers_coreml/thumbnail.jpg
 
 <div class="blog-metadata">
     <small>Published December 1, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/dreambooth.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/diffusers_coreml.md">
         Update on GitHub
     </a>
 </div>
@@ -26,7 +26,7 @@ thumbnail: /blog/assets/diffusers_coreml/thumbnail.jpg
 
 Thanks to Apple engineers, you can now run Stable Diffusion on Apple Silicon using Core ML, the most efficient and close-to-the-metal solution for Apple hardware!
 
-[This Apple repo](https://github.com/apple/ml-stable-diffusion) provides conversion scripts and inference code based on [🧨 Diffusers](https://github.com/huggingface/diffusers), and we love them. To make it as easy as possible for you, we converted the weights ourselves and put the Core ML versions of the models in [the Hugging Face Hub](https://hf.co/apple).
+[This Apple repo](https://github.com/apple/ml-stable-diffusion) provides conversion scripts and inference code based on [🧨 Diffusers](https://github.com/huggingface/diffusers), and we love it! To make it as easy as possible for you, we converted the weights ourselves and put the Core ML versions of the models in [the Hugging Face Hub](https://hf.co/apple).
 
 This post guides you on how to use the converted weights.
 
@@ -38,61 +38,53 @@ The checkpoints that are already converted and ready for use are the ones for th
 - Stable Diffusion v1.5: [converted](https://hf.co/apple/coreml-stable-diffusion-v1-5) [original](https://hf.co/runwayml/stable-diffusion-v1-5)
 - Stable Diffusion v2 base: [converted](https://hf.co/apple/coreml-stable-diffusion-v2-base) [original](https://huggingface.co/stabilityai/stable-diffusion-2-base)
 
-Core ML supports all the compute units available in your device: CPU, GPU and Apple's Neural Engine (NE). It's also possible for Core ML to run different portions of the model in different devices, to maximize performance. In contrast, the `mps` device used by PyTorch 1.13 can only use the CPU and/or the GPU. 
+Core ML supports all the compute units available in your device: CPU, GPU and Apple's Neural Engine (NE). It's also possible for Core ML to run different portions of the model in different devices to maximize performance. In contrast, the `mps` device used by PyTorch 1.13 can only use the CPU and/or the GPU. 
 
-There are several variants of each model that may yield different performance depending on the hardware you'll use. We recommend to try them out and stick with the one that works best for you. Read on for details.
+There are several variants of each model that may yield different performance depending on the hardware you use. We recommend you try them out and stick with the one that works best in your system. Read on for details.
 
 ## Notes on Performance
 
 There are 8 different variants per model. They are:
 
 - "Chunked" vs "unchunked" UNet. The chunked version splits the large UNet checkpoint in several files. This is only required if you intend to run the models on iPadOS or iOS, but is not necessary for macOS.
-- "Original" attention vs "split_einsum". These are two alternative implementations of the critical attention blocks. `split_einsum` is compatible with all the compute units (CPU, GPU and Apple's Neural Engine), but `original` is only compatible with CPU and GPU. Nevertheless, `original` can be faster than `split_einsum` on some devices, so do check it out!
+- "Original" attention vs "split_einsum". These are two alternative implementations of the critical attention blocks. `split_einsum` was previously introduced by Apple, and is compatible with all the compute units (CPU, GPU and Apple's Neural Engine). `original`, on the other hand, is only compatible with CPU and GPU. Nevertheless, `original` can be faster than `split_einsum` on some devices, so do check it out!
 - "ML Packages" vs "Compiled" models. The former is suitable for Python inference, while the `compiled` version is required for Swift code.
 
 At the time of this writing, we got best results on my MacBook Pro (M1 Max, 32 GPU cores, 64 GB) using the following combination:
 
 - `original` attention.
 - `all` compute units (see next section for details).
-- Ventura 13.1 Beta 3 (22C5050e)
+- macOS Ventura 13.1 Beta 3 (22C5050e)
 
-I got 18s inference for Stable Diffusion v1.4, using standard settings 🤯.
+With these, it took 18s to generate one image with the Core ML version of Stable Diffusion v1.4 🤯.
 
 Each model repo is organized in a tree structure that provides all these different variants:
 
 ```
 coreml-stable-diffusion-v1-4
 ├── README.md
-├── chunked
-│   ├── original
-│   │   ├── compiled
-│   │   └── packages
-│   └── split_einsum
-│       ├── compiled
-│       └── packages
-└── unchunked
-    ├── original
-    │   ├── compiled
-    │   └── packages
-    └── split_einsum
-        ├── compiled
-        └── packages
+├── original
+│   ├── compiled
+│   └── packages
+└── split_einsum
+    ├── compiled
+    └── packages
 ```
 
-You can download and use the variant you want as shown below.
+You can download and use the variant you need as shown below.
 
-## Core ML inference in Python
+## Core ML Inference in Python
 
 ### Prerequisites
 
 ```bash
 pip install huggingface_hub
-pip install https://github.com/apple/ml-stable-diffusion
+pip install git+https://github.com/apple/ml-stable-diffusion
 ```
 
-### Download the model checkpoint
+### Download the Model Checkpoints
 
-To run inference in Python on your Mac, you need one of the `unchunked`, `packages` versions, meaning you are free to choose between `original` and `split_einsum` attention styles.
+To run inference in Python, you have to use one of the versions stored in the `packages` folders, because the compiled ones are only compatible with Swift. You may choose whether you want to use the `original` or `split_einsum` attention styles.
 
 This is how you'd download the `original` attention variant from the Hub:
 
@@ -100,7 +92,7 @@ This is how you'd download the `original` attention variant from the Hub:
 from huggingface_hub import snapshot_download
 
 repo_id = "apple/coreml-stable-diffusion-v1-4"
-variant = "unchunked/original/packages"
+variant = "original/packages"
 
 downloaded = snapshot_download(repo_id, allow_patterns=f"{variant}/*")
 ```
@@ -123,15 +115,17 @@ python -m python_coreml_stable_diffusion.pipeline --prompt "a photo of an astron
 
 ## Core ML inference in Swift
 
+Running inference in Swift is slightly faster than in Python, because the models are already compiled in the `mlmodelc` format. This will be noticeable on app startup when the model is loaded, but shouldn’t be noticeable if you run several generations afterwards.
+
 ### Download
 
-To run inference in Swift on your Mac, you need the `unchunked` family, and one of the `compiled` checkpoint versions. We recommend you download them locally using Python code similar to the one we showed above:
+To run inference in Swift on your Mac, you need one of the `compiled` checkpoint versions. We recommend you download them locally using Python code similar to the one we showed above:
 
 ```Python
 from huggingface_hub import snapshot_download
 
 repo_id = "apple/coreml-stable-diffusion-v1-4"
-variant = "unchunked/original/compiled"
+variant = "original/compiled"
 
 downloaded = snapshot_download(repo_id, allow_patterns=f"{variant}/*")
 ```
@@ -155,9 +149,9 @@ swift run StableDiffusionSample --resource-path models/compiled --compute-units 
 
 For more details, please refer to the [instructions in Apple's repo](https://github.com/apple/ml-stable-diffusion).
 
-## Converting your own models
+## Bring Your own Model
 
-If you have created your own model compatible with Stable Diffusion (for example, if you used Dreambooth, Textual Inversion or fine-tuning), then you have to convert the models yourself. Fortunately, Apple provides a conversion script that allows you to do so.
+If you have created your own models compatible with Stable Diffusion (for example, if you used Dreambooth, Textual Inversion or fine-tuning), then you have to convert the models yourself. Fortunately, Apple provides a conversion script that allows you to do so.
 
 For this task, we recommend you follow [these instructions](https://github.com/apple/ml-stable-diffusion#converting-models-to-coreml).
 
