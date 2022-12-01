@@ -871,7 +871,7 @@
 
 - local: annotated-diffusion
   title: "The Annotated Diffusion Model"
-  author: nielsrogge
+  author: nielsr
   thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
   date: June 7, 2022
   tags:
@@ -1497,7 +1497,7 @@
 
 - local: time-series-transformers
   title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
-  author: nielsrogge
+  author: nielsr
   thumbnail: /blog/assets/118_time-series-transformers/thumbnail.png
   date: December 1, 2022
   tags:
