@@ -31,17 +31,5 @@
 - value: ethics
   label: ethics
 
-- value: stable-diffusion
-  label: Stable Diffusion
-
-- value: diffusers
-  label: Diffusers
-
 - value: diffusion
   label: Diffusion
-
-- value: text-to-image
-  label: Text to Image
-
-- value: core-ml
-  label: Core ML
