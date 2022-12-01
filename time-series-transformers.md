@@ -250,7 +250,7 @@ We specify a couple of additional parameters to the model:
 - the number of time features: in our case, this will be `2` as we'll add `MonthOfYear` as well as an `Age` feature;
 - the number of static categorical features: in our case, this will be just `1` as we'll add a single "time series ID" feature;
 - the cardinality: the number of values of each categorical feature, as a list which for our case will be `[366]` as we have 366 different time series
-- the embedding dimension: the embedding dimension for each categorical feature, as a list, for example `[2]` meaning the model will learn an embedding for vector of size `2` for each of the `366` time series.
+- the embedding dimension: the embedding dimension for each categorical feature, as a list, for example `[2]` meaning the model will learn an embedding vector of size `2` for each of the `366` time series (regions).
 
 
 Let's use the default lags provided by GluonTS for the given frequency ("monthly"):
