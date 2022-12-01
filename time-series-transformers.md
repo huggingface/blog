@@ -854,7 +854,7 @@ How do we compare against other models? The [Monash Time Series Repository](http
 
 Note that, with our model, we are beating all other models reported at https://forecastingdata.org/#results (see also table 2 in the corresponding [paper](https://openreview.net/pdf?id=wEc1mgAjU-)) by quite a margin, and we didn't do any hyperparameter tuning. We just trained the Transformer for 60 epochs. 
 
-Of course, we need to be careful with just claiming state-of-the-art results on time series with neural networks, as it seems ["XGBoost is typically all you need"](https://www.sciencedirect.com/science/article/pii/S0169207021001679). More specifically [LightGBM](https://github.com/microsoft/LightGBM), since it can also fit linear models in the leaf-nodes, which makes it more suitable for point forecasting or [LightGBMLSS](https://github.com/StatMixedML/LightGBMLSS) for the probabilistic case, but we digress. We are just very curious to see how far neural networks can bring us, and whether Transformers are going to be useful in this domain. This particular dataset seems to indicate that it's definitely worth exploring.
+Of course, we need to be careful with just claiming state-of-the-art results on time series with neural networks, as it seems ["XGBoost is typically all you need"](https://www.sciencedirect.com/science/article/pii/S0169207021001679). We are just very curious to see how far neural networks can bring us, and whether Transformers are going to be useful in this domain. This particular dataset seems to indicate that it's definitely worth exploring.
 
 ## Next Steps
 
