@@ -105,7 +105,7 @@ As can be seen, the dataset contains 3 splits: train, validation and test.
 ```python
 dataset
 
-    DatasetDict({
+>>> DatasetDict({
         train: Dataset({
             features: ['start', 'target', 'feat_static_cat', 'feat_dynamic_real', 'item_id'],
             num_rows: 366
@@ -129,10 +129,8 @@ Each example contains a few keys, of which `start` and `target` are the most imp
 train_example = dataset['train'][0]
 train_example.keys()
 
-    dict_keys(['start', 'target', 'feat_static_cat', 'feat_dynamic_real', 'item_id'])
-
+>>> dict_keys(['start', 'target', 'feat_static_cat', 'feat_dynamic_real', 'item_id'])
 ```
-
 
 The `start` simply indicates the start of the time series (as a datetime), and the `target` contains the actual values of the time series.
 
@@ -143,7 +141,7 @@ The `start` will be useful to add time related features to the time series value
 print(train_example['start'])
 print(train_example['target'])
 
-    1979-01-01 00:00:00
+>>> 1979-01-01 00:00:00
     [1149.8699951171875, 1053.8001708984375, ..., 5772.876953125]
 ```
 
@@ -157,7 +155,7 @@ The test set is again one `prediction_length` longer data compared to the valida
 validation_example = dataset['validation'][0]
 validation_example.keys()
 
-    dict_keys(['start', 'target', 'feat_static_cat', 'feat_dynamic_real', 'item_id'])
+>>> dict_keys(['start', 'target', 'feat_static_cat', 'feat_dynamic_real', 'item_id'])
 ```
 
 
@@ -169,10 +167,9 @@ The initial values are exactly the same as the corresponding training example:
 print(validation_example['start'])
 print(validation_example['target'])
 
-    1979-01-01 00:00:00
+>>> 1979-01-01 00:00:00
     [1149.8699951171875, 1053.8001708984375, ..., 5985.830078125]
 ```
-
 
 However, this example has `prediction_length=24` additional values compared to the training example. Let us verify it.
 
@@ -262,7 +259,7 @@ from gluonts.time_feature import get_lags_for_frequency
 lags_sequence = get_lags_for_frequency(freq)
 print(lags_sequence)
 
-    [1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 23, 24, 25, 35, 36, 37]
+>>> [1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 23, 24, 25, 35, 36, 37]
 ```
 
 
@@ -277,7 +274,7 @@ from gluonts.time_feature import time_features_from_frequency_str
 time_features = time_features_from_frequency_str(freq)
 print(time_features)
 
-    [<function month_of_year at 0x7fa496d0ca70>]
+>>> [<function month_of_year at 0x7fa496d0ca70>]
 ```
 
 
@@ -307,7 +304,7 @@ Note that, similar to other models in the 🤗 Transformers library, [`TimeSerie
 ```python
 model.config.distribution_output
 
-    student_t
+>>> student_t
 ```
 
 This is an important difference with Transformers for NLP, where the head typically consists of a fixed categorical distribution implemented as an `nn.Linear` layer.
@@ -605,7 +602,7 @@ batch = next(iter(train_dataloader))
 for k,v in batch.items():
   print(k,v.shape, v.type())
 
-    static_categorical_features torch.Size([128, 1]) torch.LongTensor
+>>> static_categorical_features torch.Size([128, 1]) torch.LongTensor
     static_real_features torch.Size([128, 1]) torch.FloatTensor
     past_time_features torch.Size([128, 109, 2]) torch.FloatTensor
     past_values torch.Size([128, 109]) torch.FloatTensor
@@ -644,7 +641,7 @@ outputs = model(
 ```python
 print("Loss:", outputs.loss.item())
 
-    Loss: 3.6795876026153564
+>>> Loss: 3.6795876026153564
 ```
 
 Note that the model is returning a loss. This is possible as the decoder automatically shifts the `future_values` one position to the right in order to have the labels. This allows computing a loss between the predicted values and the labels.
@@ -729,8 +726,7 @@ In this case, we get `100` possible values for the next `24` months (for each ex
 ```python
 forecasts[0].shape
 
-
-    (64, 100, 24)
+>>> (64, 100, 24)
 ```
 
 We'll stack them vertically, to get forecasts for all time-series in the test dataset:
@@ -739,8 +735,7 @@ We'll stack them vertically, to get forecasts for all time-series in the test da
 forecasts = np.vstack(forecasts)
 print(forecasts.shape)
 
-
-    (366, 100, 24)
+>>> (366, 100, 24)
 ```
 
 We can evaluate the resulting forecast with respect to the ground truth out of sample values present in the test set. We will use the [MASE](https://huggingface.co/spaces/evaluate-metric/mase) and [sMAPE](https://huggingface.co/spaces/evaluate-metric/smape) metrics which we calculate for each time series in the dataset:
@@ -777,11 +772,11 @@ for item_id, ts in enumerate(val_dataset):
 ```python
 print(f"MASE: {np.mean(metric)}")
 
-    MASE: 0.8633554107449066
+>>> MASE: 0.8633554107449066
 
 print(f"sMAPE: {np.mean(smape_metrics)}")
 
-    sMAPE: 0.03391660676428044
+>>> sMAPE: 0.03391660676428044
 ```
 
 We can also plot the individual metrics of each time series in the dataset and observe that a handful of time series contribute a lot to the final test metric:
