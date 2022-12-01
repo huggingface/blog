@@ -9,7 +9,7 @@ thumbnail: /blog/assets/diffusers_coreml/thumbnail.jpg
 
 <div class="blog-metadata">
     <small>Published December 1, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/diffusers_coreml.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/diffusers-coreml.md">
         Update on GitHub
     </a>
 </div>
