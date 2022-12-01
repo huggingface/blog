@@ -1502,3 +1502,14 @@
   date: December 1, 2022
   tags:
     - research
+
+- local: diffusers-coreml
+  title: "Using Stable Diffusion with Core ML on Apple Silicon"
+  author: pcuenca
+  thumbnail: /blog/assets/diffusers_coreml/thumbnail.jpg
+  date: December 1, 2022
+  tags:
+    - coreml
+    - diffusers
+    - stable-diffusion
+    - diffusion
