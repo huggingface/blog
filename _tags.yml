@@ -42,3 +42,6 @@
 
 - value: text-to-image
   label: Text to Image
+
+- value: core-ml
+  label: Core ML
