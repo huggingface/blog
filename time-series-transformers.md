@@ -241,7 +241,7 @@ val_dataset.set_transform(partial(transform_start_field, freq=freq, log1p=True))
 
 ## Define the Model
 
-Next, let's instantiate a model. The model will be trained from scratch, hence we won't use the `from_pretrained` method here, but rather instantiate the model from a [`config`](https://huggingface.co/docs/transformers/model_doc/time_series_transformer#transformers.TimeSeriesTransformerConfig).
+Next, let's instantiate a model. The model will be trained from scratch, hence we won't use the `from_pretrained` method here, but rather randomly initialize the model from a [`config`](https://huggingface.co/docs/transformers/model_doc/time_series_transformer#transformers.TimeSeriesTransformerConfig).
 
 We specify a couple of additional parameters to the model:
 - `prediction_length` (in our case, `24` months): this is horizon the decoder of the Transformer will learn to predict for;
