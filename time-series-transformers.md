@@ -1,6 +1,6 @@
 ---
 title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
-thumbnail: /blog/assets/117_time-series-transformers/thumbnail.png
+thumbnail: /blog/assets/118_time-series-transformers/thumbnail.png
 ---
 
 <h1>Probabilistic Time Series Forecasting with 🤗 Transformers</h1>
@@ -197,7 +197,7 @@ axes.plot(validation_example['target'], color="red", alpha=0.5)
 plt.show()
 ```
     
-![png](assets/117_time-series-transformers/output_21_0.png)
+![png](assets/118_time-series-transformers/output_21_0.png)
     
 
 Let's split up the data:
@@ -793,7 +793,7 @@ plt.ylabel("sMAPE")
 plt.show()
 ```
 
-![png](assets/117_time-series-transformers/output_scatter.png)
+![png](assets/118_time-series-transformers/output_scatter.png)
 
 To plot the prediction for any time series with respect the ground truth test data we define the following helper:
 
@@ -844,7 +844,7 @@ For example:
 plot(334)
 ```
 
-![png](assets/117_time-series-transformers/output_65_1.png)
+![png](assets/118_time-series-transformers/output_65_1.png)
     
 How do we compare against other models? The [Monash Time Series Repository](https://forecastingdata.org/#results) has a comparison table of test set MASE metrics which we can add to:
 
