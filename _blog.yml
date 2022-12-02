@@ -1457,8 +1457,8 @@
 - local: deep-learning-with-proteins
   title: "Deep Learning with Proteins"
   author: rocketknight1
-  thumbnail: /blog/assets/117_deep_learning_with_proteins/folding_example.png
-  date: November 21, 2022
+  thumbnail: /blog/assets/119_deep_learning_with_proteins/folding_example.png
+  date: December 2, 2022
   tags:
     - guide
     - fine-tuning
