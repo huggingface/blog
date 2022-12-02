@@ -8,7 +8,7 @@ thumbnail: /blog/assets/119_switch_transformers/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published April 25, 2022.</small>
+    <small>Published December 2, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/switch_transformers.md">
         Update on GitHub
     </a>
@@ -25,10 +25,10 @@ thumbnail: /blog/assets/119_switch_transformers/thumbnail.png
 </div>
 
 <div class="author-card">
-    <a href="/younesbelkada">
+    <a href="/ybelkada">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1648631057413-noauth.png?w=200&h=200&f=face" title="Avatar">
         <div class="bfc">
-            <code>younesbelkada</code>
+            <code>ybelkada</code>
             <span class="fullname">Younes Belkada</span>
         </div>
     </a>
@@ -55,7 +55,7 @@ The model is now publicly available on Hugging Face Hub, making it the biggest m
 In an effort to democratize its usage, as well as centralized research efforts, we are providing a base implementation of the `SwitchTransformer`, with the top-1 routing mechanism.
 
 
-Let’s dive into the technical specifications of this architecture and how to train and evaluate your first MoE model using Huggin Face `transformers`! Let’s get started ! :hugs: :party:
+Let’s dive into the technical specifications of this architecture and how to train and evaluate your first MoE model using Hugging Face `transformers`! Let’s get started ! :hugs: :party:
 
 Switch Transformers in a nutshell
 In early concepts, the experts defined an entire neural network and the MoE was similar to ensemble methods.
@@ -64,7 +64,7 @@ Switch Transformers follows the T5 architecture, and the implementation is heavi
 
 In Switch Transformers, the `SwitchTransformersDenseActDense` layer in the attention mechanism is replaced with a `SwitchTransformersSparseMLP` layer. The `SparseMLP` layer is composed of a router, and a list of `experts`, where each expert is as `DenseActDense` module. Instead of passing each token to the single `DensActDense`, the tokens go through the router which decides which `DenseActDense` (or expert) from the list of experts, should process the token. The routing mechanism is called `top-1` in `SwitchTransformers` as a token is only routed to a single expert, with the highest probability. One hyperparameter is the `expert_capacity` which defines the maximum number of tokens that can be processed by a single expert. Once the capacity is reached on an expert, any new tokens that are routed will be ignored and will reach the next hidden states via only the residual connection. The following figures will present the various cases.
 
-![MoE figure](/assets/119_switch_transformers/thumbnail.png)
+![MoE figure](/assets/119_switch_transformers/routing.png)
 
 As it can be seen on the figure above, the blue token is going to be ignored by the expert 1, even though it has been routed there since the expert has already reached its maximum expert capacity. This will result in using the hidden state on the next stage as it is.
 
@@ -106,8 +106,8 @@ Together with the Trillion parameter model, google has released a set of smaller
 # pip install accelerate
 from transformers import AutoTokenizer, SwitchTransformersForConditionalGeneration
 
-tokenizer = AutoTokenizer.from_pretrained("google/switch-large-128")
-model = SwitchTransformersForConditionalGeneration.from_pretrained("google/switch-large-128", device_map="auto")
+tokenizer = AutoTokenizer.from_pretrained("google/switch-base-128")
+model = SwitchTransformersForConditionalGeneration.from_pretrained("google/switch-base-128", device_map="auto")
 
 input_text = "A <extra_id_0> walks into a bar a orders a <extra_id_1> with <extra_id_2> pinch of <extra_id_3>."
 input_ids = tokenizer(input_text, return_tensors="pt").input_ids.to(0)
@@ -120,6 +120,7 @@ print(tokenizer.decode(outputs[0]))
 If you are interested in training your first MoE, please checkout the [fine tuning google colab script](https://colab.research.google.com/drive/1aGGVHZmtKmcNBbAwa9hbu58DDpIuB5O4#scrollTo=xsgNPx4FrtH_) and share your first fine-tuned MoE on the Hub!
 
 ## Further reading
+
 - Review of MoE models in Deep Learning: https://arxiv.org/pdf/2209.01667.pdf
 - Switch Transformers paper: https://arxiv.org/pdf/2101.03961.pdf
 - Microsoft blogpost: https://techcommunity.microsoft.com/t5/ai-machine-learning-blog/scaling-speech-language-and-vision-models-with-mixture-of/ba-p/3295750
