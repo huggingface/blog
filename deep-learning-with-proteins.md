@@ -1,6 +1,6 @@
 ---
 title: "Deep Learning with Proteins" 
-thumbnail: /blog/assets/117_protein_models/folding_example.png
+thumbnail: /blog/assets/119_protein_models/folding_example.png
 ---
 
 # Deep Learning With Proteins
@@ -69,7 +69,7 @@ In machine learning, we call this concept of transferring prior knowledge to a n
 
 This stage of affairs continued until 2018, when two huge papers landed, introducing the models [ULMFiT](https://arxiv.org/abs/1801.06146) and later [BERT](https://arxiv.org/abs/1810.04805). These were the first papers that got transfer learning in natural language to work really well, and BERT in particular marked the beginning of the era of pre-trained large language models. The trick, shared by both papers, is that they took advantage of the internal structure of the artificial neural networks in deep learning - they trained a neural net for a long time on a text task where training data was very abundant, and then they just copied the whole neural network to a new task, changing only the few neurons that corresponded to the network’s output.
 
-![transfer learning](assets/117_deep_learning_with_proteins/transfer_learning.png)
+![transfer learning](assets/119_deep_learning_with_proteins/transfer_learning.png)
 
 *This figure from [the ULMFiT paper](https://arxiv.org/abs/1801.06146) shows the enormous gains in performance from using transfer learning versus training a model from scratch on three separate tasks. In many cases, using transfer learning yields performance equivalent to having more than 100X as much training data. And don’t forget that this was published in 2018 - modern large language models can do even better!*
 
@@ -87,7 +87,7 @@ Proteins are composed of multiple **amino acids.** Amino acids are relatively si
 
 In fact, because there are so few amino acids, biologists can assign a unique letter of the alphabet to each one. This means that you can write a protein just as a text string! For example, let’s say a protein has the amino acids Methionine, Alanine and Histidine in a chain. The [corresponding letters](https://en.wikipedia.org/wiki/Amino_acid#Table_of_standard_amino_acid_abbreviations_and_properties) for those amino acids are just M, A and H, and so we could write that chain as just “MAH”. Most proteins contain hundreds or even thousands of amino acids rather than just three, though!
 
-![protein structure](assets/117_deep_learning_with_proteins/protein_structure.png)
+![protein structure](assets/119_deep_learning_with_proteins/protein_structure.png)
 
 *This figure shows two representations of a protein. All amino acids contain a **C**arbon-**C**arbon-**N**itrogen sequence. When amino acids are fused into a protein, this repeated sequence will run throughout its entire sequence, where it is called the protein’s “backbone”. Amino acids differ, however, in their “side chain”, which is the name given to the atoms attached to this C-C-N backbone. The lower figure uses generic side chains labelled as R1, R2 and R3, which could be any amino acid. In the upper figure, the central amino acid has a [CH3 side chain](https://en.wikipedia.org/wiki/Proteinogenic_amino_acid#Side-chain_properties) - this indicates that it is the amino acid **Alanine,** which is represented by the letter **A.** Attractions and repulsions between the backbone and the various side chains of a protein cause it to fold up into its characteristic shape. ([Image source](https://commons.wikimedia.org/wiki/File:Peptide-Figure-Revised.png))*
 
@@ -105,7 +105,7 @@ People have been studying this problem since long before modern machine learning
 
 Like a lot of other fields, though, the arrival of deep learning changed everything. AlphaFold and especially AlphaFold2 used transformer deep learning models with a number of protein-specific additions to achieve exceptional results at predicting the structure of novel proteins just from the raw amino acid sequence. If protein folding is what you’re interested in, we highly recommend checking out [our ESMFold notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/protein_folding.ipynb) - ESMFold is a new model that’s similar to AlphaFold2, but it’s more of a ‘pure’ deep learning model that does not require any external databases or search steps to run. As a result, the setup process is much less painful and the model runs much more quickly, while still retaining outstanding accuracy.
 
-![folding example](assets/117_deep_learning_with_proteins/folding_example.png)
+![folding example](assets/119_deep_learning_with_proteins/folding_example.png)
 
 *The predicted structure for the homodimeric* P. multocida *protein **Glucosamine-6-phosphate deaminase**. This structure and visualization was generated in seconds using the ESMFold notebook linked above. Darker blue colours indicate regions of highest structure confidence.*
 
