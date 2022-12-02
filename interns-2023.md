@@ -9,7 +9,7 @@ thumbnail: /blog/assets/interns-2023/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published November 29, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ai-residency.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/interns-2023.md">
         Update on GitHub
     </a>
 </div>
