@@ -44,11 +44,10 @@ There are several variants of each model that may yield different performance de
 
 ## Notes on Performance
 
-There are 8 different variants per model. They are:
+There are several variants per model:
 
-- "Chunked" vs "unchunked" UNet. The chunked version splits the large UNet checkpoint in several files. This is only required if you intend to run the models on iPadOS or iOS, but is not necessary for macOS.
-- "Original" attention vs "split_einsum". These are two alternative implementations of the critical attention blocks. `split_einsum` was previously introduced by Apple, and is compatible with all the compute units (CPU, GPU and Apple's Neural Engine). `original`, on the other hand, is only compatible with CPU and GPU. Nevertheless, `original` can be faster than `split_einsum` on some devices, so do check it out!
-- "ML Packages" vs "Compiled" models. The former is suitable for Python inference, while the `compiled` version is required for Swift code.
+- "Original" attention vs "split_einsum". These are two alternative implementations of the critical attention blocks. `split_einsum` was [previously introduced by Apple](https://machinelearning.apple.com/research/neural-engine-transformers), and is compatible with all the compute units (CPU, GPU and Apple's Neural Engine). `original`, on the other hand, is only compatible with CPU and GPU. Nevertheless, `original` can be faster than `split_einsum` on some devices, so do check it out!
+- "ML Packages" vs "Compiled" models. The former is suitable for Python inference, while the `compiled` version is required for Swift code. The `compiled` models in the Hub split the large UNet model weights in several files for compatibility with iOS and iPadOS devices. This corresponds to the [`--chunk-unet` conversion option](https://github.com/apple/ml-stable-diffusion#-converting-models-to-core-ml).
 
 At the time of this writing, we got best results on my MacBook Pro (M1 Max, 32 GPU cores, 64 GB) using the following combination:
 
@@ -58,7 +57,7 @@ At the time of this writing, we got best results on my MacBook Pro (M1 Max, 32 G
 
 With these, it took 18s to generate one image with the Core ML version of Stable Diffusion v1.4 🤯.
 
-Each model repo is organized in a tree structure that provides all these different variants:
+Each model repo is organized in a tree structure that provides these different variants:
 
 ```
 coreml-stable-diffusion-v1-4
