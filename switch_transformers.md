@@ -16,10 +16,20 @@ thumbnail: /blog/assets/119_switch_transformers/thumbnail.png
 
 <div class="author-card">
     <a href="/arthurzucker">
-        <img class="avatar avatar-user" src="" title="Gravatar">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1648631395099-62441cb7456803e95009a08f.png?w=200&h=200&f=face" title="Avatar">
         <div class="bfc">
             <code>arthurzucker</code>
             <span class="fullname">Arthur Zucker</span>
+        </div>
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/younesbelkada">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1648631057413-noauth.png?w=200&h=200&f=face" title="Avatar">
+        <div class="bfc">
+            <code>younesbelkada</code>
+            <span class="fullname">Younes Belkada</span>
         </div>
     </a>
 </div>
