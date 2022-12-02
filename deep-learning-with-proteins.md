@@ -66,7 +66,7 @@ Now it’s easy - the task is just predicting whether a movie review is positive
 ### The critical breakthrough: Transfer learning
 
 In machine learning, we call this concept of transferring prior knowledge to a new task “**transfer learning**”. Getting this kind of transfer learning to work for DL was a major goal for the field around 2016. Things like pre-trained word vectors (which are very interesting, but outside the scope of this blogpost!) did exist by 2016 and allowed some knowledge to be transferred to new models, but this knowledge transfer was still relatively superficial, and models still needed large amounts of training data to work well.
-
+https://github.com/huggingface/blog/pull/688/conflicts
 This stage of affairs continued until 2018, when two huge papers landed, introducing the models [ULMFiT](https://arxiv.org/abs/1801.06146) and later [BERT](https://arxiv.org/abs/1810.04805). These were the first papers that got transfer learning in natural language to work really well, and BERT in particular marked the beginning of the era of pre-trained large language models. The trick, shared by both papers, is that they took advantage of the internal structure of the artificial neural networks in deep learning - they trained a neural net for a long time on a text task where training data was very abundant, and then they just copied the whole neural network to a new task, changing only the few neurons that corresponded to the network’s output.
 
 ![transfer learning](assets/119_deep_learning_with_proteins/transfer_learning.png)
