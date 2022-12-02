@@ -871,7 +871,7 @@
 
 - local: annotated-diffusion
   title: "The Annotated Diffusion Model"
-  author: nielsrogge
+  author: nielsr
   thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
   date: June 7, 2022
   tags:
@@ -1415,7 +1415,7 @@
     - nlp
     - text generation
     - research
-    
+
 - local: sentiment-analysis-fhe
   title: "Sentiment Classification with Fully Homomorphic Encryption using Concrete ML"
   author: jfrery-zama
@@ -1433,8 +1433,17 @@
   thumbnail: /blog/assets/arxiv/thumbnail.png
   date: Nov 17, 2022
   tags:
-    - research    
+    - research
     - community
+
+- local: ml-director-insights-4
+  title: "Director of Machine Learning Insights [Part 4]"
+  author: Violette
+  thumbnail: /blog/assets/78_ml_director_insights/part4.png
+  date: November 23, 2022
+  tags:
+    - community
+    - research
 
 - local: inference-update
   title: "An Overview of Inference Solutions on Hugging Face"
@@ -1454,6 +1463,57 @@
     - guide
     - expert-acceleration-program
 
+- local: diffusion-models-event
+  title: "Diffusion Models Live Event"
+  author: lewtun
+  thumbnail: /blog/assets/diffusion-models-event/thumbnail.png
+  date: Nov 25, 2022
+  tags:
+  - diffusion
+  - nlp
+  - text to image
+  - clip
+  - stable-diffusion
+  - dalle
+
+- local: interns-2023
+  title: "We are hiring interns!"
+  author: douwekiela
+  thumbnail: /blog/assets/interns-2023/thumbnail.png
+  date: November 29, 2022
+  tags:
+    - community
+    - announcement
+
+- local: vq-diffusion
+  title: "VQ Diffusion with 🧨 Diffusers"
+  author: williamberman
+  thumbnail: /blog/assets/117_vq_diffusion/thumbnail.png
+  date: November 30, 2022
+  tags:
+    - diffusers
+    - diffusion
+    - text-to-image
+
+- local: time-series-transformers
+  title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
+  author: nielsr
+  thumbnail: /blog/assets/118_time-series-transformers/thumbnail.png
+  date: December 1, 2022
+  tags:
+    - research
+
+- local: diffusers-coreml
+  title: "Using Stable Diffusion with Core ML on Apple Silicon"
+  author: pcuenca
+  thumbnail: /blog/assets/diffusers_coreml/thumbnail.png
+  date: December 1, 2022
+  tags:
+    - coreml
+    - diffusers
+    - stable-diffusion
+    - diffusion
+
 - local: deep-learning-with-proteins
   title: "Deep Learning with Proteins"
   author: rocketknight1
@@ -1462,4 +1522,3 @@
   tags:
     - guide
     - fine-tuning
-

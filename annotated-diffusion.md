@@ -390,7 +390,7 @@ class PreNorm(nn.Module):
 
 Now that we've defined all building blocks (position embeddings, ResNet/ConvNeXT blocks, attention and group normalization), it's time to define the entire neural network. Recall that the job of the network \\(\mathbf{\epsilon}_\theta(\mathbf{x}_t, t)\\) is to take in a batch of noisy images + noise levels, and output the noise added to the input. More formally:
 
-- the network takes a batch of noisy images of shape `(batch_size, num_channels, height, width)` and a batch of noise levels of shape `(batch_size, 1)` as input, and returns a tensor of shape `(batch_size, num_channels, height, width)`
+- the network takes a batch of noisy images of shape `(batch_size, num_channels, height, width)` and a batch of timesteps of shape `(batch_size, 1)` as input, and returns a tensor of shape `(batch_size, num_channels, height, width)`
 
 The network is built up as follows:
 * first, a convolutional layer is applied on the batch of noisy images, and position embeddings are computed for the noise levels
