@@ -1513,3 +1513,12 @@
     - diffusers
     - stable-diffusion
     - diffusion
+
+- local: deep-learning-with-proteins
+  title: "Deep Learning with Proteins"
+  author: rocketknight1
+  thumbnail: /blog/assets/119_deep_learning_with_proteins/folding_example.png
+  date: December 2, 2022
+  tags:
+    - guide
+    - fine-tuning
