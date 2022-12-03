@@ -253,7 +253,7 @@ print(gigaspeech["train"][0])
 ```
 
 We can see that the sampling rate has been downsampled to 8kHz. The array values are also different, as we've now only 
-got approximately one amplitude value for every two that we had before. Let's upsample the dataset back to 16kHz, the 
+got approximately one amplitude value for every two that we had before. Let's set the dataset sampling rate back to 16kHz, the 
 sampling rate expected by most speech recognition models:
 
 ```python
@@ -310,7 +310,7 @@ remove the `text` and `audio` columns, since we have pre-processed them to input
 labels respectively:
 
 ```python
-gigaspeech = gigaspeech.map(prepare_dataset, remove_columns=next(iter(gigaspeech.values())).column_names)
+gigaspeech = gigaspeech.map(prepare_dataset, remove_columns=gigaspeech["train"].column_names)
 ```
 
 ### 3. Filtering Function
@@ -397,7 +397,7 @@ gigaspeech = load_dataset("speechcolab/gigaspeech", "xs", streaming=True)
 ```
 
 All the steps covered so far in this tutorial can be applied to the streaming dataset without any code changes.
-<!--- TODO: make this statement valid --->
+The only change is that you can no longer access one sample in particular using `dataset[sample_idx]`, but instead have to iterate over the dataset (using a for loop for example).
 
 Streaming mode can take your research to the next level: not only are the biggest datasets accessible to you, but you 
 can easily evaluate systems over multiple datasets in one go without worrying about your disk space. Compared 
