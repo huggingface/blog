@@ -142,8 +142,10 @@ Dataset({
 })
 ```
 
-We can go one level deeper and get the first item of the training split. Again, this is possible through simple Python 
-indexing:
+This returns a [`Dataset`](https://huggingface.co/docs/datasets/v2.7.1/en/package_reference/main_classes#datasets.Dataset) 
+object, which corresponds to the data for one split. We can go one level deeper and get the first item of the training split. 
+Again, this is possible through simple Python indexing:
+
 ```python
 print(gigaspeech["train"][0])
 ```
