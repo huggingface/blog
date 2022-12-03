@@ -394,7 +394,7 @@ gigaspeech = load_dataset("speechcolab/gigaspeech", "xs", streaming=True)
 ```
 
 All the steps covered so far in this tutorial can be applied to the streaming dataset without any code changes.
-<!--- TODO: make this statement valid --->
+The only change is that you can no longer access one sample in particular using `dataset[sample_idx]`, but instead have to iterate over the dataset (using a for loop for example).
 
 Streaming mode can take your research to the next level: not only are the biggest datasets accessible to you, but you 
 can easily evaluate systems over multiple datasets in one go without worrying about your disk space. Compared 
