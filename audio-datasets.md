@@ -307,7 +307,7 @@ remove the `text` and `audio` columns, since we have pre-processed them to input
 labels respectively:
 
 ```python
-gigaspeech = gigaspeech.map(prepare_dataset, remove_columns=next(iter(gigaspeech.values())).column_names)
+gigaspeech = gigaspeech.map(prepare_dataset, remove_columns=gigaspeech["train"].column_names)
 ```
 
 ### 3. Filtering Function
