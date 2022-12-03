@@ -250,7 +250,7 @@ print(gigaspeech["train"][0])
 ```
 
 We can see that the sampling rate has been downsampled to 8kHz. The array values are also different, as we've now only 
-got approximately one amplitude value for every two that we had before. Let's upsample the dataset back to 16kHz, the 
+got approximately one amplitude value for every two that we had before. Let's set the dataset sampling rate back to 16kHz, the 
 sampling rate expected by most speech recognition models:
 
 ```python
