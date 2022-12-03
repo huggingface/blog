@@ -353,15 +353,22 @@ One of the biggest challenges faced with audio datasets is their sheer size. The
 hours of training data, but amassed over 13GB of storage space for download and preparation. So what happens when we 
 want to train on a larger split? The full `xl` split contains 10,000 hours of training data, requiring over 1TB of 
 storage space! For most speech researchers, this well exceeds the specifications of a typical hard drive disk. 
-Do we need to fork out and buy additional storage? Or is there a way we can train on these datasets with **less than 
-10GB** of disk space?
+Do we need to fork out and buy additional storage? Or is there a way we can train on these datasets with **no disk space 
+constraints**?
 
 🤗 Datasets allows us to do just this. It is made possible through use of [_streaming_](https://huggingface.co/docs/datasets/stream), 
-depicted graphically in Figure 1. Streaming allows us to download data progressively as we iterate over the dataset: 
-rather than downloading the whole dataset at once, we download small chunks of the dataset at a time. These chunks of 
-data are downloaded and prepared _on the fly_, meaning they are available as and when we need them, and not when we don't! 
-Once we're ready to move on to the next chunk of data, we delete the one that we currently have and move on to the 
-next one.
+depicted graphically in Figure 1. Streaming allows us to load the data progressively as we iterate over the dataset: 
+rather than downloading the whole dataset at once, we load the dataset sample by sample. Each sample of the dataset is 
+loaded and prepared _on the fly_ each time we need it. This way, we only ever load the samples that we're using, and not 
+the ones that we're not! Once we're done with a sample and are ready to move onto the next one, we simply iterate over 
+the dataset and load the next sample.
+
+This is analogous to _downloading_ a TV show versus _streaming_ it. When we download a TV show, we download the entire video 
+offline and save it to our disk. We have to wait for the entire video to download before we can watch it and require as 
+much disk space as size of the video file. Compare this to streaming a TV show. Here, we don’t download any part of the 
+video to memory, but iterate over the video file and load each part in real-time as required. We don't have to wait for 
+the full video to buffer before we can start watching, we can start as soon as the first samples are ready! This is the 
+same _streaming_ principle that we apply to loading datasets.
 
 <figure>
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/datasets/streaming.gif" alt="Trulli" style="width:100%">
