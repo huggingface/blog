@@ -6,7 +6,7 @@ thumbnail: /blog/assets/116_audio_datasets/thumbnail.jpg
 # A Complete Guide to Audio Datasets
 
 <div class="blog-metadata">
-    <small>Published 21 November, 2022.</small>
+    <small>Published 7 December, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/audio-datasets.md">
         Update on GitHub
     </a>
