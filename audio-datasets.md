@@ -227,7 +227,7 @@ Great! We can see that we've only got the two required columns `text` and `audio
 sampled at a sampling rate of 16kHz. We can set the audio inputs to our desired sampling rate using 🤗 Datasets' 
 [`cast_column`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=cast_column#datasets.DatasetDict.cast_column) 
 method. This operation does not change the audio in-place, but rather signals to `datasets` to resample audio samples 
-_on the fly_ the first time they are loaded. The following code cell will set the sampling rate to 8kHz:
+_on the fly_ when they are loaded. The following code cell will set the sampling rate to 8kHz:
 
 ```python
 from datasets import Audio
