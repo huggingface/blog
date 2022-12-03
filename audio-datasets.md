@@ -41,11 +41,45 @@ is the number one place for downloading and preparing audio datasets. Carry on r
 prepare the most popular audio datasets in just one line of Python code.
 
 ## Contents
-1. [Load an Audio Dataset](#load-an-audio-dataset)
-2. [Easy to Load, Easy to Process](#easy-to-load-easy-to-process)
-3. [Streaming Mode: The Silver Bullet](#streaming-mode-the-silver-bullet)
-4. [A Tour of Audio Datasets on the Hub](#a-tour-of-audio-datasets-on-the-hub)
-5. [Closing Remarks](#closing-remarks)
+1. [The Hub](#the-hub)
+2. [Load an Audio Dataset](#load-an-audio-dataset)
+3. [Easy to Load, Easy to Process](#easy-to-load-easy-to-process)
+4. [Streaming Mode: The Silver Bullet](#streaming-mode-the-silver-bullet)
+5. [A Tour of Audio Datasets on the Hub](#a-tour-of-audio-datasets-on-the-hub)
+6. [Closing Remarks](#closing-remarks)
+
+## The Hub
+
+The Hugging Face Hub is a platform for hosting models, datasets and demos, all open source and publicly available. 
+It is home to a growing collection of audio datasets that span a variety of domains, tasks and languages. Through 
+very tight integrations with 🤗 Datasets, all the datasets on the Hub can be downloaded in just one line of code.
+
+Let's head to the Hub and filter the datasets by task:
+* [Speech Recognition Datasets on the Hub](https://huggingface.co/datasets?task_categories=task_categories:automatic-speech-recognition&sort=downloads)
+* [Audio Classification Datasets on the Hub](https://huggingface.co/datasets?task_categories=task_categories:audio-classification&sort=downloads)
+
+<figure>
+<img src="assets/116_audio_datasets/hub_asr_datasets.jpg" alt="Trulli" style="width:100%">
+</figure>
+
+At the time of writing, there are 77 speech recognition datasets and 28 audio classification datasets on the Hub, 
+with these numbers ever increaasing. You can select any one of these datasets to suit your needs. Let's check out the first 
+speech recognition result. Clicking on [`common_voice`](https://huggingface.co/datasets/common_voice) 
+brings up the dataset card:
+
+<figure>
+<img src="assets/116_audio_datasets/common_voice.jpg" alt="Trulli" style="width:100%">
+</figure>
+
+Here, we can find additional information about the dataset, see what models are trained on the dataset and, most 
+excitingly, listen to actual audio samples. The Dataset Preview is presented in the middle of the dataset card. 
+It shows us the first 100 samples for each subset and split. What's more, it's loaded up the audio samples ready for us 
+to listen to in real-time. If we hit the play button on the first sample, we can listen to the audio and see the 
+corresponding text.
+
+The Dataset Preview is a brilliant way of experiencing audio datasets before committing to using them. You can pick a 
+dataset on the Hub, scroll through and listen to the samples for the different subsets and splits, and gauge whether 
+it's the right dataset for your needs.
 
 ## Load an Audio Dataset
 
@@ -56,8 +90,8 @@ individual samples and splits. Using `load_dataset`, all of the heavy lifting of
 hood.
 
 Let's take the example of loading the [GigaSpeech](https://huggingface.co/datasets/speechcolab/gigaspeech) dataset from 
-Speech Colab. GigaSpeech is a relatively recent speech recognition dataset for benchmarking academic speech systems. It 
-is one of many speech recognition datasets available through the Hugging Face Hub (more in [Section 4](#a-tour-of-audio-datasets-on-the-hub)). 
+Speech Colab. GigaSpeech is a relatively recent speech recognition dataset for benchmarking academic speech systems, and is 
+one of many datasets available through the Hugging Face Hub. 
 To load the GigaSpeech dataset, we simply have to specify the dataset's identifier to the `load_dataset` function. 
 GigaSpeech comes in five different split sizes, ranging from `xs` (10 hours) to `xl` (10,000 hours). For the purpose of 
 this tutorial, we'll load the smallest of these splits:
@@ -308,6 +342,11 @@ is no restriction to the functions you can apply to your audio dataset. You can 
 to perform much more involved operations, such as data augmentation or noise reduction. With 🤗 Datasets, if you can 
 write it in a Python function, you can apply it to your dataset!
 
+We've taken a step-by-step guide to loading and pre-processing the GigaSpeech dataset. However, the GigaSpeech 
+dataset is just one of over 100 audio datasets available through the Hugging Face Hub. We can apply everything we've 
+covered for GigaSpeech to any of these other datasets. All we have to do is switch the dataset identifier in the 
+`load_dataset` function for the dataset we desire. It's that easy!
+
 ## Streaming Mode: The Silver Bullet
 
 One of the biggest challenges faced with audio datasets is their sheer size. The GigaSpeech `xs` split contained just 10 
@@ -350,40 +389,6 @@ to evaluating on a single dataset, multi-dataset evaluation gives a better metri
 abilities of a speech recognition system (_c.f._ [End-to-end Speech Benchmark (ESB)](https://arxiv.org/abs/2210.13352)). Check 
 out the accompanying [Google Colab](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/audio_datasets_colab.ipynb) 
 for an example of evaluating Whisper on eight English speech recognition datasets in one script using streaming mode.
-
-## The Hub
-
-So far, we've taken a step-by-step guide to loading and pre-processing the GigaSpeech dataset. However, the GigaSpeech 
-dataset is just one of over 100 audio datasets available through the Hugging Face Hub. We can apply everything we've 
-covered for GigaSpeech to any of these other datasets. All we have to do is switch the dataset identifier in the 
-`load_dataset` function for the dataset we desire. It's that easy!
-
-Let's head to the Hub and filter the datasets by task:
-* [Speech Recognition Datasets on the Hub](https://huggingface.co/datasets?task_categories=task_categories:automatic-speech-recognition&sort=downloads)
-* [Audio Classification Datasets on the Hub](https://huggingface.co/datasets?task_categories=task_categories:audio-classification&sort=downloads)
-
-<figure>
-<img src="assets/116_audio_datasets/hub_asr_datasets.jpg" alt="Trulli" style="width:100%">
-</figure>
-
-At the time of writing, there are 77 speech recognition datasets and 28 audio classification datasets on the Hub, 
-with these numbers ever-growing. You can select any one of these datasets to suit your needs. Let's check out the first 
-speech recognition result, `common_voice`. Clicking on [`common_voice`](https://huggingface.co/datasets/common_voice) 
-brings up the dataset card:
-
-<figure>
-<img src="assets/116_audio_datasets/common_voice.jpg" alt="Trulli" style="width:100%">
-</figure>
-
-Here, we can find additional information about the dataset, see what models are trained on the dataset and, most 
-excitingly, listen to actual audio samples. The Dataset Preview is loaded up in the middle of the dataset card. 
-It shows us the first 100 samples for each subset and split. What's more, it's loaded up the audio samples ready for us 
-to listen to in real-time. If we hit the play button on the first sample, we can listen to the audio and see the 
-corresponding text.
-
-The Dataset Preview is a brilliant way of experiencing audio datasets before committing to using them. 
-You can scroll through the samples for the different subsets and splits to get a better feel for the 
-audio data and gauge whether it's the right dataset for your needs.
 
 ## A Tour of Audio Datasets on The Hub
 This Section serves as a reference guide for the most popular speech recognition, speech 
