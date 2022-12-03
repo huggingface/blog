@@ -562,14 +562,12 @@ _language identification_: systems are trained to predict the language of each u
 
 ## Closing Remarks
 
-In this blog post, we covered how to load any audio dataset on the Hugging Face Hub with one line of Python code. We 
+In this blog post, we explored the Hugging Face Hub and experienced the dataset preview, an effective means of previewing a dataset 
+before downloading it. We covered how to load any audio dataset with one line of Python code and 
 performed a series of generic pre-processing steps to prepare our dataset for a machine learning model. In total, this 
 required just 13 lines of code, relying on simple Python function definitions to perform the necessary operations. We 
-introduced streaming mode, a method for loading and preparing samples of audio data on the fly.
-
-We explored the Hugging Face Hub and experienced the dataset preview, an effective means of previewing a dataset 
-before downloading it. We concluded by summarising the most popular speech recognition, speech translation and 
-audio classification datasets on the Hub.
+introduced streaming mode, a method for loading and preparing samples of audio data on the fly. We concluded by summarising 
+the most popular speech recognition, speech translation and audio classification datasets on the Hub.
 
 Having read this blog, we hope you agree that 🤗 Datasets is the number one library for downloading and preparing 
 audio datasets.
