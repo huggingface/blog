@@ -372,7 +372,7 @@ same _streaming_ principle that we apply to loading datasets.
 
 <figure>
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/datasets/streaming.gif" alt="Trulli" style="width:100%">
-<figcaption align = "center"><b>Figure 1:</b> Streaming mode. The dataset is divided into smaller subsets (or chunks), with subsets downloaded progressively as we iterate over the dataset. Subsets are downloaded when required and deleted after use.</figcaption>
+<figcaption align = "center"><b>Figure 1:</b> Streaming mode. The dataset is loaded progressively as we iterate over the dataset.</figcaption>
 </figure>
 
 Streaming mode has three primary advantages over downloading the entire dataset at once:
