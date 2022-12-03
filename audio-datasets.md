@@ -184,9 +184,9 @@ We can see that there are a number of features returned by the `DatasetDict`, in
 Loading a dataset with 🤗 Datasets is just half of the fun. We can now use the suite of tools available to efficiently 
 pre-process our data ready for model inference or training. In this Section, we'll perform three stages of data 
 pre-processing:
-1. [Resampling the Audio Data](#resampling-the-audio-data)
-2. [Pre-Processing Function](#pre-processing-function)
-3. [Filtering Function](#filtering-function)
+1. [Resampling the Audio Data](#1-resampling-the-audio-data)
+2. [Pre-Processing Function](#2-pre-processing-function)
+3. [Filtering Function](#3-filtering-function)
 
 ### 1. Resampling the Audio Data
 
