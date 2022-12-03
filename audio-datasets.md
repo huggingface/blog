@@ -179,26 +179,11 @@ Which is significantly less elegant, but means that the notebook generalises to 
 We can see that there are a number of features returned by the training split, including `segment_id`, `speaker`, `text`, 
 `audio` and more. For speech recognition, we'll be concerned with the `text` and `audio` columns.
 
-## Easy to Load, Easy to Process
-
-Loading a dataset with 🤗 Datasets is just half of the fun. We can now use the suite of tools available to efficiently 
-pre-process our data ready for model inference or training. In this Section, we'll perform three stages of data 
-pre-processing:
-1. [Resampling the Audio Data](#1-resampling-the-audio-data)
-2. [Pre-Processing Function](#2-pre-processing-function)
-3. [Filtering Function](#3-filtering-function)
-
-### 1. Resampling the Audio Data
-
-The `load_dataset` function prepares audio samples with the sampling rate that they were published with. This is not 
-always the sampling rate expected by our model. In this case, we need to _resample_ the audio to the correct sampling 
-rate.
-
-First, let's remove the dataset features not associated with speech recognition:
+Using 🤗 Datasets' `remove_columns` method, we can remove the dataset features not associated with speech recognition:
 
 ```python
 COLUMNS_TO_KEEP = ["text", "audio"]
-all_columns = next(iter(gigaspeech.values())).column_names
+all_columns = gigaspeech["train"].column_names
 columns_to_remove = set(all_columns) - set(COLUMNS_TO_KEEP)
 
 gigaspeech = gigaspeech.remove_columns(columns_to_remove)
@@ -219,6 +204,21 @@ print(gigaspeech["train"][0])
        0.00036621], dtype=float32), 
            'sampling_rate': 16000}}
 ```
+
+## Easy to Load, Easy to Process
+
+Loading a dataset with 🤗 Datasets is just half of the fun. We can now use the suite of tools available to efficiently 
+pre-process our data ready for model inference or training. In this Section, we'll perform three stages of data 
+pre-processing:
+1. [Resampling the Audio Data](#1-resampling-the-audio-data)
+2. [Pre-Processing Function](#2-pre-processing-function)
+3. [Filtering Function](#3-filtering-function)
+
+### 1. Resampling the Audio Data
+
+The `load_dataset` function prepares audio samples with the sampling rate that they were published with. This is not 
+always the sampling rate expected by our model. In this case, we need to _resample_ the audio to the correct sampling 
+rate.
 
 Great! We can see that we've only got the two required columns `text` and `audio`. We can also see that the audio is 
 sampled at a sampling rate of 16kHz. We can set the audio inputs to our desired sampling rate using 🤗 Datasets' 
