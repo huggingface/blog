@@ -437,7 +437,10 @@ Common Voice is a series of crowd-sourced open-licensed speech datasets where sp
 various languages. Since anyone can contribute recordings, there is significant variation in both audio quality and 
 speakers. The audio conditions are challenging, with recording artefacts, accented speech, hesitations, and the presence 
 of foreign words. The transcriptions are both cased and punctuated. The English subset of version 11.0 contains 
-approximately 2,300 hours of validated data.
+approximately 2,300 hours of validated data. Use of the dataset requires you to agree to the Common Voice terms of use, 
+which can be found on the Hugging Face Hub: [mozilla-foundation/common_voice_11_0](https://huggingface.co/datasets/mozilla-foundation/common_voice_11_0). 
+Once you have agreed to the terms of use, you will be granted access to the dataset. You will then need to provide an 
+authentication token when you load the dataset.
 
 ```python
 common_voice = load_dataset("mozilla-foundation/common_voice_11", "en", use_auth_token=True)
