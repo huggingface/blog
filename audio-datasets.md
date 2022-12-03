@@ -36,8 +36,8 @@ enable efficient pre-processing. The number of datasets available is unparallele
 audio datasets available to download. 
 
 Not only this, but 🤗 Datasets comes prepared with multiple audio-specific features that make working 
-with audio datasets easy for researchers and practitioners alike. In this blog, we'll demonstrate how 🤗 Datasets 
-is the number one place for downloading and preparing audio datasets. Carry on reading to find out how to load and 
+with audio datasets easy for researchers and practitioners alike. In this blog, we'll demonstrate these features and showcase
+how 🤗 Datasets the prime place for downloading and preparing audio datasets. Carry on reading to find out how to load and 
 prepare the most popular audio datasets in just one line of Python code.
 
 ## Contents
@@ -63,7 +63,7 @@ Let's head to the Hub and filter the datasets by task:
 </figure>
 
 At the time of writing, there are 77 speech recognition datasets and 28 audio classification datasets on the Hub, 
-with these numbers ever increaasing. You can select any one of these datasets to suit your needs. Let's check out the first 
+with these numbers ever-increasing. You can select any one of these datasets to suit your needs. Let's check out the first 
 speech recognition result. Clicking on [`common_voice`](https://huggingface.co/datasets/common_voice) 
 brings up the dataset card:
 
@@ -569,5 +569,5 @@ required just 13 lines of code, relying on simple Python function definitions to
 introduced streaming mode, a method for loading and preparing samples of audio data on the fly. We concluded by summarising 
 the most popular speech recognition, speech translation and audio classification datasets on the Hub.
 
-Having read this blog, we hope you agree that 🤗 Datasets is the number one library for downloading and preparing 
+Having read this blog, we hope you agree that 🤗 Datasets is the prime place for downloading and preparing 
 audio datasets.
