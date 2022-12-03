@@ -149,13 +149,6 @@ Again, this is possible through simple Python indexing:
 ```python
 print(gigaspeech["train"][0])
 ```
-<!--- 
-TODO: this indexing won't work with streaming mode, we might instead need to do it this way:
-
-print(next(iter(gigaspeech["train"])))
-
-Which is significantly less elegant, but means that the notebook generalises to streaming mode.
---->
 
 **Print Output:**
 ```python
@@ -324,7 +317,7 @@ function, `is_audio_length_in_range`, returns a boolean: samples that are shorte
 that are longer False:
 
 ```python
-MAX_DURATION_IN_SECONDS = 30
+MAX_DURATION_IN_SECONDS = 30.0
 
 def is_audio_length_in_range(input_length):
     return input_length < MAX_DURATION_IN_SECONDS
@@ -344,11 +337,6 @@ Keeping the notebook as general as possible, we only performed the fundamental d
 is no restriction to the functions you can apply to your audio dataset. You can extend the function `prepare_dataset` 
 to perform much more involved operations, such as data augmentation or noise reduction. With 🤗 Datasets, if you can 
 write it in a Python function, you can apply it to your dataset!
-
-We've taken a step-by-step guide to loading and pre-processing the GigaSpeech dataset. However, the GigaSpeech 
-dataset is just one of over 100 audio datasets available through the Hugging Face Hub. We can apply everything we've 
-covered for GigaSpeech to any of these other datasets. All we have to do is switch the dataset identifier in the 
-`load_dataset` function for the dataset we desire. It's that easy!
 
 ## Streaming Mode: The Silver Bullet
 
@@ -397,7 +385,8 @@ gigaspeech = load_dataset("speechcolab/gigaspeech", "xs", streaming=True)
 ```
 
 All the steps covered so far in this tutorial can be applied to the streaming dataset without any code changes.
-The only change is that you can no longer access one sample in particular using `dataset[sample_idx]`, but instead have to iterate over the dataset (using a for loop for example).
+The only change is that you can no longer access one sample in particular using `dataset[sample_idx]`, but instead have 
+to iterate over the dataset (using a for loop for example).
 
 Streaming mode can take your research to the next level: not only are the biggest datasets accessible to you, but you 
 can easily evaluate systems over multiple datasets in one go without worrying about your disk space. Compared 
@@ -559,9 +548,6 @@ speech translation data is constructed by pairing the recorded audio data with t
 language combination.
 
 ### Audio Classification
-
-#### [VoxCeleb1]()
-<!--- TODO: is this on the Hub? --->
 
 #### [FLEURS](https://huggingface.co/datasets/google/fleurs)
 FLEURS (Few-shot Learning Evaluation of Universal Representations of Speech) is a dataset for evaluating speech recognition 
