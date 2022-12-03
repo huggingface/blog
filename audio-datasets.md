@@ -376,7 +376,7 @@ same _streaming_ principle that we apply to loading datasets.
 </figure>
 
 Streaming mode has three primary advantages over downloading the entire dataset at once:
-1. **Disk space:** you have complete control over the size of the chunks downloaded, so you can download chunks of data that will fit your device.
+1. **Disk space:** samples are loaded to memory one-by-one as we iterate over the dataset. Since the data is not downloaded locally, there are no disk space requirements, so you can use datasets of arbitrary size!
 2. **Download and processing speed:** audio datasets are large and need a significant amount of time to download. With streaming, downloading is done on the fly, meaning you can start using the dataset as soon as the first chunk is ready.
 3. **Easy experimentation:** you can experiment on one chunk of data to check that your script works without having to download the entire dataset.
 
