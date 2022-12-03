@@ -176,7 +176,7 @@ Which is significantly less elegant, but means that the notebook generalises to 
  }
 ```
 
-We can see that there are a number of features returned by the `DatasetDict`, including `segment_id`, `speaker`, `text`, 
+We can see that there are a number of features returned by the training split, including `segment_id`, `speaker`, `text`, 
 `audio` and more. For speech recognition, we'll be concerned with the `text` and `audio` columns.
 
 ## Easy to Load, Easy to Process
