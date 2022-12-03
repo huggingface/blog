@@ -181,7 +181,8 @@ Which is significantly less elegant, but means that the notebook generalises to 
 We can see that there are a number of features returned by the training split, including `segment_id`, `speaker`, `text`, 
 `audio` and more. For speech recognition, we'll be concerned with the `text` and `audio` columns.
 
-Using 🤗 Datasets' `remove_columns` method, we can remove the dataset features not associated with speech recognition:
+Using 🤗 Datasets' [`remove_columns`](https://huggingface.co/docs/datasets/process#remove) method, we can remove the 
+dataset features not associated with speech recognition:
 
 ```python
 COLUMNS_TO_KEEP = ["text", "audio"]
