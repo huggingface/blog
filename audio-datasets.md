@@ -377,8 +377,13 @@ same _streaming_ principle that we apply to loading datasets.
 
 Streaming mode has three primary advantages over downloading the entire dataset at once:
 1. **Disk space:** samples are loaded to memory one-by-one as we iterate over the dataset. Since the data is not downloaded locally, there are no disk space requirements, so you can use datasets of arbitrary size!
-2. **Download and processing speed:** audio datasets are large and need a significant amount of time to download. With streaming, downloading is done on the fly, meaning you can start using the dataset as soon as the first chunk is ready.
-3. **Easy experimentation:** you can experiment on one chunk of data to check that your script works without having to download the entire dataset.
+2. **Download and processing time:** audio datasets are large and need a significant amount of time to download and process. With streaming, loading and processing is done on the fly, meaning you can start using the dataset as soon as the first sample is ready.
+3. **Easy experimentation:** you can experiment on several samples of data to check that your script works without having to download the entire dataset.
+
+There is one drawback to using streaming mode. When we download and pre-process a dataset, the pre-processed data is saved 
+to our cache. If we want to re-use this data, we can directly load the pre-processed data from cache, skipping the download and pre-processing steps. 
+This means that we only have to download and pre-process once. With streaming mode, since the data is not downloaded, neither the download nor pre-processing is cached.
+If you want to re-use the data, the streaming steps are repeated, the audio files being loaded and pre-processed again.
 
 How can you enable streaming mode? Easy! Just set `streaming=True` when you load your dataset. The rest will be taken 
 care for you:
