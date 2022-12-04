@@ -202,12 +202,12 @@ Let's split up the data:
 
 ```python
 train_dataset = dataset["train"]
-val_dataset = dataset["validation"]
+test_dataset = dataset["test"]
 ```
 
 ## Update `start` to `pd.Period` and Transform `target`
 
-We need to convert the `start` feature of each time series to a pandas `Period` index using the data's `freq` and while we are at it we can also log scale the `target` in view of the huge numbers:
+The first thing we'll do is convert the `start` feature of each time series to a pandas `Period` index using the data's `freq`:
 
 
 ```python
@@ -220,10 +220,8 @@ import numpy as np
 def convert_to_pandas_period(date, freq):
     return pd.Period(date, freq)
 
-def transform_start_field(batch, freq, log1p=False):
+def transform_start_field(batch, freq):
     batch["start"] = [convert_to_pandas_period(date, freq) for date in batch["start"]]
-    if log1p:
-        batch["target"] = [np.log1p(value) for value in batch["target"]]
     return batch
 ```
 
@@ -232,8 +230,8 @@ We now use `datasets`' [`set_transform`](https://huggingface.co/docs/datasets/v2
 ```python
 from functools import partial
 
-train_dataset.set_transform(partial(transform_start_field, freq=freq, log1p=True))
-val_dataset.set_transform(partial(transform_start_field, freq=freq, log1p=True))
+train_dataset.set_transform(partial(transform_start_field, freq=freq))
+test_dataset.set_transform(partial(transform_start_field, freq=freq))
 ```
 
 ## Define the Model
@@ -242,12 +240,12 @@ Next, let's instantiate a model. The model will be trained from scratch, hence w
 
 We specify a couple of additional parameters to the model:
 - `prediction_length` (in our case, `24` months): this is the horizon that the decoder of the Transformer will learn to predict for;
-- `context_length`: the model will set the `context_length` (input of the encoder) equal to this, if no `context_length` is specified;
-- `lags` for a given frequency: these specify how much we "look back", to be added as additional features. e.g. for a `Daily` frequency we might consider a look back of `[1, 2, 7, 30, ...]` or in other words look back 1, 2, ... days) while for `Minute` data we might consider `[1, 30, 60, 60*24, ...]` etc.;
-- the number of time features: in our case, this will be `2` as we'll add `MonthOfYear` as well as an `Age` feature;
+- `context_length`: the model will set the `context_length` (input of the encoder) equal to the `prediction_length`, if no `context_length` is specified;
+- `lags` for a given frequency: these specify how much we "look back", to be added as additional features. e.g. for a `Daily` frequency we might consider a look back of `[1, 2, 7, 30, ...]` or in other words look back 1, 2, ... days while for `Minute` data we might consider `[1, 30, 60, 60*24, ...]` etc.;
+- the number of time features: in our case, this will be `2` as we'll add `MonthOfYear` and `Age` features;
 - the number of static categorical features: in our case, this will be just `1` as we'll add a single "time series ID" feature;
-- the cardinality: the number of values of each categorical feature, as a list which for our case will be `[366]` as we have 366 different time series
-- the embedding dimension: the embedding dimension for each categorical feature, as a list, for example `[2]` meaning the model will learn an embedding vector of size `2` for each of the `366` time series (regions).
+- the cardinality: the number of values of each static categorical feature, as a list which for our case will be `[366]` as we have 366 different time series
+- the embedding dimension: the embedding dimension for each static categorical feature, as a list, for example `[3]` meaning the model will learn an embedding vector of size `3` for each of the `366` time series (regions).
 
 
 Let's use the default lags provided by GluonTS for the given frequency ("monthly"):
@@ -278,7 +276,9 @@ print(time_features)
 ```
 
 
-In this case, there's only a single feature, namely "month of year". This means that for each time step, we'll add the month as a scalar value (e.g. `1` in case the timestamp is "january", `2` in case the timestamp is "february", etc.). We have everything now to define the model:
+In this case, there's only a single feature, namely "month of year". This means that for each time step, we'll add the month as a scalar value (e.g. `1` in case the timestamp is "january", `2` in case the timestamp is "february", etc.).
+
+We now have everything to define the model:
 
 
 ```python
@@ -582,14 +582,14 @@ train_dataloader = create_train_dataloader(
     config=config, 
     freq=freq, 
     data=train_dataset, 
-    batch_size=128, 
+    batch_size=256, 
     num_batches_per_epoch=100,
 )
 
 test_dataloader = create_test_dataloader(
     config=config, 
     freq=freq, 
-    data=val_dataset, 
+    data=test_dataset,
     batch_size=64,
 )
 ```
@@ -602,14 +602,14 @@ batch = next(iter(train_dataloader))
 for k,v in batch.items():
   print(k,v.shape, v.type())
 
->>> static_categorical_features torch.Size([128, 1]) torch.LongTensor
-    static_real_features torch.Size([128, 1]) torch.FloatTensor
-    past_time_features torch.Size([128, 109, 2]) torch.FloatTensor
-    past_values torch.Size([128, 109]) torch.FloatTensor
-    past_observed_mask torch.Size([128, 109]) torch.FloatTensor
-    future_time_features torch.Size([128, 24, 2]) torch.FloatTensor
-    future_values torch.Size([128, 24]) torch.FloatTensor
-    future_observed_mask torch.Size([128, 24]) torch.FloatTensor
+>>> static_categorical_features torch.Size([256, 1]) torch.LongTensor
+    static_real_features torch.Size([256, 1]) torch.FloatTensor
+    past_time_features torch.Size([256, 181, 2]) torch.FloatTensor
+    past_values torch.Size([256, 181]) torch.FloatTensor
+    past_observed_mask torch.Size([256, 181]) torch.FloatTensor
+    future_time_features torch.Size([256, 24, 2]) torch.FloatTensor
+    future_values torch.Size([256, 24]) torch.FloatTensor
+    future_observed_mask torch.Size([256, 24]) torch.FloatTensor
 ```
 
 
@@ -641,7 +641,7 @@ outputs = model(
 ```python
 print("Loss:", outputs.loss.item())
 
->>> Loss: 3.6795876026153564
+>>> Loss: 9.141253471374512
 ```
 
 Note that the model is returning a loss. This is possible as the decoder automatically shifts the `future_values` one position to the right in order to have the labels. This allows computing a loss between the predicted values and the labels.
@@ -669,7 +669,7 @@ model, optimizer, train_dataloader = accelerator.prepare(
     model, optimizer, train_dataloader, 
 )
 
-for epoch in range(60):
+for epoch in range(40):
     model.train()
     for batch in train_dataloader:
         optimizer.zero_grad()
@@ -751,7 +751,7 @@ forecast_median = np.median(forecasts, 1)
 
 mase_metrics = []
 smape_metrics = []
-for item_id, ts in enumerate(val_dataset):
+for item_id, ts in enumerate(test_dataset):
     training_data = ts["target"][:-prediction_length]
     ground_truth = ts["target"][-prediction_length:]
     mase = mase_metric.compute(
@@ -772,11 +772,11 @@ for item_id, ts in enumerate(val_dataset):
 ```python
 print(f"MASE: {np.mean(metric)}")
 
->>> MASE: 0.8633554107449066
+>>> MASE: 1.361636922541396
 
 print(f"sMAPE: {np.mean(smape_metrics)}")
 
->>> sMAPE: 0.03391660676428044
+>>> sMAPE: 0.17457818831512306
 ```
 
 We can also plot the individual metrics of each time series in the dataset and observe that a handful of time series contribute a lot to the final test metric:
@@ -799,9 +799,9 @@ def plot(ts_index):
     fig, ax = plt.subplots()
 
     index = pd.period_range(
-        start=val_dataset[ts_index][FieldName.START],
-        periods=len(val_dataset[ts_index][FieldName.TARGET]),
-        freq=val_dataset[ts_index][FieldName.START].freq,
+        start=test_dataset[ts_index][FieldName.START],
+        periods=len(test_dataset[ts_index][FieldName.TARGET]),
+        freq=freq,
     ).to_timestamp()
 
     # Major ticks every half year, minor ticks every month,
@@ -810,10 +810,9 @@ def plot(ts_index):
 
     ax.plot(
         index[-2*prediction_length:], 
-        val_dataset[ts_index]["target"][-2*prediction_length:],
+        test_dataset[ts_index]["target"][-2*prediction_length:],
         label="actual",
     )
-
 
     plt.plot(
         index[-prediction_length:], 
@@ -845,9 +844,9 @@ How do we compare against other models? The [Monash Time Series Repository](http
 
 |Dataset | 	SES| 	Theta | 	TBATS| 	ETS	| (DHR-)ARIMA| 	PR|	CatBoost |	FFNN	| DeepAR | 	N-BEATS | 	WaveNet| 	**Transformer** (Our) |
 |:------------------:|:-----------------:|:--:|:--:|:--:|:--:|:--:|:--:|:---:|:---:|:--:|:--:|:--:|
-|Tourism Monthly | 	3.306 |	1.649 |	1.751 |	1.526|	1.589|	1.678	|1.699|	1.582	| 1.409	| 1.574|	1.482	|  **0.863**|
+|Tourism Monthly | 	3.306 |	1.649 |	1.751 |	1.526|	1.589|	1.678	|1.699|	1.582	| 1.409	| 1.574|	1.482	|  **1.361**|
 
-Note that, with our model, we are beating all other models reported at https://forecastingdata.org/#results (see also table 2 in the corresponding [paper](https://openreview.net/pdf?id=wEc1mgAjU-)) by quite a margin, and we didn't do any hyperparameter tuning. We just trained the Transformer for 60 epochs. 
+Note that, with our model, we are beating all other models reported (see also table 2 in the corresponding [paper](https://openreview.net/pdf?id=wEc1mgAjU-)), and we didn't do any hyperparameter tuning. We just trained the Transformer for 40 epochs. 
 
 Of course, we need to be careful with just claiming state-of-the-art results on time series with neural networks, as it seems ["XGBoost is typically all you need"](https://www.sciencedirect.com/science/article/pii/S0169207021001679). We are just very curious to see how far neural networks can bring us, and whether Transformers are going to be useful in this domain. This particular dataset seems to indicate that it's definitely worth exploring.
 
