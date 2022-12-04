@@ -205,7 +205,7 @@ train_dataset = dataset["train"]
 test_dataset = dataset["test"]
 ```
 
-## Update `start` to `pd.Period` and Transform `target`
+## Update `start` to `pd.Period`
 
 The first thing we'll do is convert the `start` feature of each time series to a pandas `Period` index using the data's `freq`:
 
