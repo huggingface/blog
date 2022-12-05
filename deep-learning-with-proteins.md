@@ -99,6 +99,8 @@ At this point, hopefully you have a vague idea of what a protein is and why biol
 
 ## Bringing it together: Machine learning with proteins
 
+So now we've seen how transfer learning with language models work, and we've seen what proteins are. And once you have that background, the next step isn't too hard - we can use the same transfer learning ideas on proteins! Instead of pre-training a model on a task involving English text, we train it on a task where the inputs are proteins, but where a lot of training data is available. Once we've done that, our model has hopefully learned a lot about the structure of proteins, in the same way that language models learn a lot about the structure of language. That makes pre-trained protein models a prime candidate for transferring to any other protein-based task!
+
 What kind of machine learning tasks do biologists care about training protein models on? The most famous protein modelling task is **protein folding**. The task here is to, given the amino acid chain like “MLKNV…”, predict the final shape that protein will fold into. This is an enormously important task, because accurately predicting the shape and structure of a protein gives a lot of insights into what the protein does, and how it does it. 
 
 People have been studying this problem since long before modern machine learning - some of the earliest massive distributed computing projects like Folding@Home used atomic-level simulations at incredible spatial and temporal resolution to model protein folding, and there is an entire field of *protein crystallography* that uses X-ray diffraction to observe the structure of proteins isolated from living cells.
