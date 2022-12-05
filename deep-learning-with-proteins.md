@@ -1,6 +1,6 @@
 ---
 title: "Deep Learning with Proteins" 
-thumbnail: /blog/assets/119_protein_models/folding_example.png
+thumbnail: assets/119_protein_models/folding_example.png
 ---
 
 # Deep Learning With Proteins
