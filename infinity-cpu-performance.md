@@ -17,7 +17,7 @@ thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
 </style>
 
 <div class="infobox">
-  Infinity was a research product and is no longer maintained by 🤗 Hugging Face. We would recommend using the following:
+  Infinity was a research product and is no longer maintained by 🤗 Hugging Face. The following solutions are available:
 
   * For easy and hosted inference, we recommend using [Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index).
 
