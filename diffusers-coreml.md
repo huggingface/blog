@@ -57,7 +57,7 @@ At the time of this writing, we got best results on my MacBook Pro (M1 Max, 32 G
 
 With these, it took 18s to generate one image with the Core ML version of Stable Diffusion v1.4 🤯.
 
-> **Note**
+> **⚠️ Note**
 >
 > Several improvements to Core ML have been introduced in the beta version of macOS Ventura 13.1, and they are required by Apple's implementation. You may get black images –and much slower times– if you use the current release version of macOS Ventura (13.0.1). If you can't or won't install the beta, please wait until macOS Ventura 13.1 is officially released.
 
