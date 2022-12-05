@@ -23,7 +23,7 @@ thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
 
   * To accelerate models on CPU, we recommend using [🤗 Optimum Intel](https://huggingface.co/blog/openvino) integration or [🤗 Optimum ONNX Runtime](https://huggingface.co/docs/optimum/main/en/onnxruntime/overview) integration.
 
-  * Our team can assist you in the optimizations for training and inference! Reach out to use through the [Expert Acceleration Program](https://huggingface.co/support).
+  * Our team can assist you in the optimizations for training and inference! Reach out to us through the [Expert Acceleration Program](https://huggingface.co/support).
 </div>
 
 
