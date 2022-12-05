@@ -1,13 +1,13 @@
 ---
 title: "Deep Learning with Proteins" 
-thumbnail: assets/119_protein_models/folding_example.png
+thumbnail: /blog/assets/119_deep_learning_with_proteins/folding_example.png
 ---
 
 # Deep Learning With Proteins
 
 <div class="blog-metadata">
     <small>Published December 2, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/protein-models.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/deep-learning-with-proteins.md">
         Update on GitHub
     </a>
 </div>
