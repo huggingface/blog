@@ -2,6 +2,30 @@
 title: "Case Study: Millisecond Latency using Hugging Face Infinity and modern CPUs"
 thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
 ---
+<html>
+<head>
+<style>
+.infobox {
+  background-color: #90EE90;
+  padding: 10px;
+  border: 2px solid green;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60em;
+  text-align: left;
+}
+</style>
+
+<div class="infobox">
+  Infinity was a research product and is no longer maintained by 🤗 Hugging Face. We would recommend using the following:
+
+  * For easy and hosted inference, we recommend using [Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index).
+
+  * To accelerate models on CPU, we recommend using [🤗 Optimum Intel](https://huggingface.co/blog/openvino) integration or [🤗 Optimum ONNX Runtime](https://huggingface.co/docs/optimum/main/en/onnxruntime/overview) integration.
+
+  * Our team can assist you in the optimizations for training and inference! Reach out to use through the [Expert Acceleration Program](https://huggingface.co/support).
+</div>
+
 
 <h1>Case Study: Millisecond Latency using Hugging Face Infinity and modern CPUs</h1>
 
@@ -37,7 +61,8 @@ thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
         </div>
     </a>
 </div>
-
+</head>
+<body>
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
@@ -186,3 +211,6 @@ If you are interested in trying out Hugging Face Infinity sign up for your trial
 * [DistilBERT paper](https://arxiv.org/abs/1910.01108)
 * [DistilBERT model](https://huggingface.co/bhadresh-savani/distilbert-base-uncased-emotion)
 * [🤗 Infinity: CPU Ice-Lake Benchmark](https://docs.google.com/spreadsheets/d/1GWFb7L967vZtAS1yHhyTOZK1y-ZhdWUFqovv7-73Plg/edit?usp=sharing)
+
+</body>
+</html>
