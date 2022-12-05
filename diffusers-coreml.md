@@ -59,7 +59,7 @@ With these, it took 18s to generate one image with the Core ML version of Stable
 
 > **Note**
 >
-> Several improvements to Core ML were introduced in beta 3 and beta 4 of macOS Ventura 13.1 which are required by Apple's implementation. You may get black images –and much slower times– if you use the current release version of macOS Ventura (13.0.1).
+> Several improvements to Core ML have been introduced in the beta version of macOS Ventura 13.1, and they are required by Apple's implementation. You may get black images –and much slower times– if you use the current release version of macOS Ventura (13.0.1). If you can't or won't install the beta, please wait until macOS Ventura 13.1 is officially released.
 
 
 Each model repo is organized in a tree structure that provides these different variants:
@@ -143,7 +143,7 @@ python -m python_coreml_stable_diffusion.pipeline --prompt "a photo of an astron
 For Stable Diffusion 2 base (Hub id: `stabilityai/stable-diffusion-2-base`):
 
 ```shell
-python -m python_coreml_stable_diffusion.pipeline --prompt "a photo of an astronaut riding a horse on mars" --compute-unit ALL -o output --seed 93 -i models/coreml-stable-diffusion-v2-base_original_packages --model-version stabilityai/stable-diffusion-2-base
+python -m python_coreml_stable_diffusion.pipeline --prompt "a photo of an astronaut riding a horse on mars" --compute-unit ALL -o output --seed 93 -i models/coreml-stable-diffusion-2-base_original_packages --model-version stabilityai/stable-diffusion-2-base
 ```
 
 ## Core ML inference in Swift
