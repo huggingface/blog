@@ -2,6 +2,11 @@
 # "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
 
+- name: Few-Shot Learning in Production
+  link: https://discord.gg/fabCGvFq?event=1049707836755693628
+  date: Dec 14, 2022
+  description: Join researchers from Hugging Face and Intel Labs for a workshop about training and deploying few-shot language models. 
+
 - name: Whisper Fine Tuning Sprint
   link: https://discuss.huggingface.co/t/open-to-the-community-whisper-fine-tuning-event/26681
   date: Dec 5, 2022
