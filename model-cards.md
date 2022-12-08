@@ -18,11 +18,10 @@ Our work presents a view of where we think model cards stand right now and where
 ### **Standardising Model Card Structure**
 Through our background research and user studies, we aimed to establish a standard of "model cards" as understood by the general public. From this research, we found that there is a variance in the content of a model card and the layout of a model card - the presence or absence of some headings and sub-headings - but there was consistency in the different types of headings.
 
-Through our user studies and as  illustrated in the model book **[link to section in guide book]**, we noted that  while the Bias, Risks and Limitations section ranks second for both model card writers and model card readers for In what order do you write the model card and What section do you look at first, respectively, it is also noted as the most challenging/longest section to write. This favoured/endorsed the need to further evaluate the Bias, Risks and Limitations sections in order to assist with writing this decisive/imperative section.
+Through our user studies and as  illustrated in the model book **[link to section in guide book]**, we noted that  while the Bias, Risks and Limitations section ranks second for both model card writers and model card readers for In what order do you write the model card and What section do you look at first, respectively, it is also noted as the most challenging/longest section to write. 
 
 Directed by these findings we created a  research informed  model card template, that not only standardised the structure and content of HF model cards but also provided default prompted text, with the aim  to aid with writing model card sections, with a particular focus on the Bias, Risks and Limitations section.
 
-The process of standardising HF model cards resulted in incorporating the research-informed templates into a model card's library and generating model cards for the top 200 most downloaded Hugging Face models.
 
 ### **Accessibility and Inclusion**
 
@@ -61,7 +60,7 @@ As model cards continue to grow and evolve within the ML, ethics, policy and fur
 We continue to learn more about how model cards are created and used, and the effect of cards on model usage. Based on these learnings, we will further update the model card template, instructions, and Hub integrations. 
 
 
-As we strive to incorporate more voices and stakeholders' use cases for model cards, bookmark our model cards UI tool and give it a try.
+As we strive to incorporate more voices and stakeholders' use cases for model cards, [bookmark our model cards UI tool and give it a try](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool).
 
 <p align="center">
   <img src="assets/model-cards/like_the_space.gif" width="680"/>
