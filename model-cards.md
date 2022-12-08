@@ -27,7 +27,10 @@ Directed by these findings we created a  research informed  model card template,
 
 In order to lower barriers to entry for creating model cards, we designed [the model card [UI] tool](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) to enable people and teams with different skill sets and roles to easily collaborate and create model cards, without needing to code or use markdown. 
 
-[**TO:Do --> change to screen recording**: The tool can also be used to upload existing model cards and further edit them.]
+<p align="center">
+  <img src="assets/model-cards/upload_a_mc.gif" width="800"/>
+</p>
+
 
 The UI tool encourages those who have yet to write model cards to create them more easily and those who have previously written them, this approach invites them to add to the prompted information. All while centring the ethical components of model documentation.
 
