@@ -7,9 +7,9 @@ Today, we launch both a [model card creation tool](https://huggingface.co/spaces
 
 Since model cards were proposed by [Mitchell et al., (2018)](https://arxiv.org/abs/1810.03993), inspired by the major documentation framework efforts of Data Statements for Natural Language Processing [(Bender & Friedman, 2018)](https://aclanthology.org/Q18-1041/) and Datasheets for Datasets [(Gebru et al., 2018)](https://www.fatml.org/media/documents/datasheets_for_datasets.pdf), the landscape of machine learning documentation has expanded and evolved. A plethora of documentation tools and templates for data, models, and ML systems have been proposed and developed - reflecting the incredible work of hundreds of researchers, impacted community members, advocates, and other stakeholders. Important discussions about the relationship between ML documentation and theories of change in responsible AI have also shaped these developments in the ML documentation ecosystem.
 
-
-**TO:DO --> add updated version of Marissa dot image**
-
+<p align="center">
+  <img src="assets/model-cards/MC_landscape.png" width="800"/>
+</p>
 
 ## [Our Work]
 
