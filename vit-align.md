@@ -20,6 +20,21 @@ thumbnail: /blog/assets/120_vit_align/thumbnail.png
             <span class="fullname">Unso Jo</span>
         </div>
     </a>
+    <a href="https://huggingface.co/dylan-m">
+        <img class="avatar avatar-user" src="https://secure.gravatar.com/userimage/229112619/c7541f610d6f1b90ebc59b1ce24734b5?size=420" title="Gravatar">
+        <div class="bfc">
+            <code>dylan-m</code>
+            <span class="fullname">Minwoo Byeon</span>
+        </div>
+    </a>
+    <a href="https://huggingface.co/jun-untitled">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/18109378?v=4" title="Gravatar">
+        <div class="bfc">
+            <code>jun-untitled</code>
+            <span class="fullname">Sungjun Lee</span>
+        </div>
+    </a>
+
 </div>
 
 
