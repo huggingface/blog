@@ -18,6 +18,7 @@ thumbnail: /blog/assets/120_elixir-bumblebee/thumbnail.png
         <div class="bfc">
             <code>josevalim</code>
             <span class="fullname">José Valim</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
 </div>
@@ -26,7 +27,7 @@ The [Elixir](https://elixir-lang.org/) community is glad to announce the arrival
 
 To help anyone get started with those models, the team behind [Livebook](https://livebook.dev/) - a computational notebook platform for Elixir - created a collection of "Smart cells" that allows developers to scaffold different Neural Network tasks in only 3 clicks. You can watch my video announcement to learn more:
 
-https://www.youtube.com/watch?v=g3oyh3g1AtQ
+<iframe width="100%" style="aspect-ratio: 16 / 9;"src="https://www.youtube.com/embed/g3oyh3g1AtQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Thanks to the concurrency and distribution support in the Erlang Virtual Machine, which Elixir runs on, developers can embed and serve these models as part of their existing [Phoenix web applications](https://phoenixframework.org/), integrate into their [data processing pipelines with Broadway](https://elixir-broadway.org), and deploy them alongside their [Nerves embedded systems](https://www.nerves-project.org/) - without a need for 3rd-party dependencies. In all scenarios, Bumblebee models compile to both CPU and GPU.
 
