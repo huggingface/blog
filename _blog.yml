@@ -1522,3 +1522,12 @@
   tags:
     - guide
     - fine-tuning
+
+- local: intro-to-rlhf
+  title: "Illustrating Reinforcement Learning from Human Feedback (RLHF)"
+  author: natolambert
+  thumbnail: /blog/assets/120_intro-to-rlhf/thumbnail.png
+  date: December 8, 2022
+  tags:
+    - rlhf
+    - rl
