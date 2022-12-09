@@ -64,7 +64,7 @@ Reinforcement learning from Human Feedback (also referenced as RL from human pre
 
 ### LM Model Pretraining
 
-The initial step to RLHF is to have a language model (LM) that one would like to fine-tune or to [train one from scratch](https://huggingface.co/blog/how-to-train) with unsupervised learning. OpenAI used a smaller version of GPT-3 for its first popular RLHF model, [InstructGPT](https://openai.com/blog/instruction-following/), Anthropic used 10M-52Billion parameter transformer models trained for this task, and DeepMind used their 280Billion parameter model [Gopher](https://arxiv.org/abs/2112.11446).
+The initial step to RLHF is to have a language model (LM) that one would like to fine-tune or to [train one from scratch](https://huggingface.co/blog/how-to-train) with unsupervised learning. OpenAI used a smaller version of GPT-3 for its first popular RLHF model, [InstructGPT](https://openai.com/blog/instruction-following/). Anthropic used transformer models from 10 million to 52 billion parameters trained for this task. DeepMind used their 280 billion parameter model [Gopher](https://arxiv.org/abs/2112.11446).
 
 This initial model *can* also be fine-tuned on additional text or conditions, but does not necessarily need to be. For example, OpenAI fine-tuned on human-generated text that was “preferable” and Anthropic generated their initial policy for RLHF by distilling the original LM on context clues for their “helpful, honest, and harmless” criteria.
 
