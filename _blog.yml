@@ -1524,7 +1524,7 @@
     - fine-tuning
 
 - local: habana-gaudi-2-benchmark
-  title: "🤗 Optimum Habana on Gaudi 2"
+  title: "Faster Training and Inference: Habana Gaudi 2 vs Nvidia A100 80GB"
   author: regisss
   thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
   date: December 09, 2022
