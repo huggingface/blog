@@ -8,7 +8,7 @@ thumbnail: /blog/assets/119_switch_transformers/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published December 2, 2022.</small>
+    <small>Published December 9, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/switch_transformers.md">
         Update on GitHub
     </a>
@@ -64,7 +64,9 @@ Switch Transformers follows the T5 architecture, and the implementation is heavi
 
 In Switch Transformers, the `SwitchTransformersDenseActDense` layer in the attention mechanism is replaced with a `SwitchTransformersSparseMLP` layer. The `SparseMLP` layer is composed of a router, and a list of `experts`, where each expert is as `DenseActDense` module. Instead of passing each token to the single `DensActDense`, the tokens go through the router which decides which `DenseActDense` (or expert) from the list of experts, should process the token. The routing mechanism is called `top-1` in `SwitchTransformers` as a token is only routed to a single expert, with the highest probability. One hyperparameter is the `expert_capacity` which defines the maximum number of tokens that can be processed by a single expert. Once the capacity is reached on an expert, any new tokens that are routed will be ignored and will reach the next hidden states via only the residual connection. The following figures will present the various cases.
 
-![MoE figure](/assets/119_switch_transformers/routing.png)
+| ![MoE figure](/assets/119_switch_transformers/routing.png) | 
+|:--:|
+| <b>Image source: https://arxiv.org/abs/2101.03961 </b>|
 
 As seen in the figure above, Expert 1 will ignore the blue token as it has already reached its maximum capacity (even though the token was router there).  This will result in using the hidden state in the next stage as it is.
 
