@@ -60,9 +60,9 @@ It does surprisingly well, but doesn't quite cover everything. We'll fill in tho
 
 # RLHF: Let’s take it step by step
 
-Reinforcement learning from Human Feedback (also referenced as RL from human preferences) is a challenging concept because it involves a multiple model training process and different stages of deployment. In this blog post, we’ll break down the training process into three core steps:
+Reinforcement learning from Human Feedback (also referenced as RL from human preferences) is a challenging concept because it involves a multiple-model training process and different stages of deployment. In this blog post, we’ll break down the training process into three core steps:
 
-1. Pretraining a Language Model (LM),
+1. Pretraining a language model (LM),
 2. gathering data and training a reward model, and
 3. fine-tuning the LM with reinforcement learning.
 
@@ -137,6 +137,8 @@ When deploying a system using RLHF, gathering the human preference data is quite
 Generating well-written human text answering specific prompts is very costly, as it often requires hiring part-time staff (rather than being able to rely on product users or crowdsourcing). Thankfully, the scale of data used in training the reward model for most applications of RLHF (~50k labeled preference samples) is not as expensive. However, it is still a higher cost than academic labs would likely be able to afford. Currently, there only exists one large-scale dataset for RLHF on a general language model (from [Anthropic](https://huggingface.co/datasets/Anthropic/hh-rlhf)) and a couple of smaller-scale task-specific datasets (such as summarization data from [OpenAI](https://github.com/openai/summarize-from-feedback)). The second challenge of data for RLHF is that human annotators can often disagree, adding a substantial potential variance to the training data without ground truth.
 
 With these limitations, huge swaths of unexplored design options could still enable RLHF to take substantial strides. Many of these fall within the domain of improving the RL optimizer. PPO is a relatively old algorithm, but there are no structural reasons that other algorithms could offer benefits and permutations on the existing RLHF workflow. One large cost of the feedback portion of fine-tuning the LM policy is that every generated piece of text from the policy needs to be evaluated on the reward model (as it acts like part of the environment in the standard RL framework). To avoid these costly forward passes of a large model, offline RL could be used as a policy optimizer. Recently, new algorithms have emerged, such as [implicit language Q-learning](https://arxiv.org/abs/2206.11871) (ILQL), that fit particularly well with this type of optimization. Other core trade-offs in the RL process, like exploration-exploitation balance, have also not been documented. Exploring these directions would at least develop a substantial understanding of how RLHF functions and, if not, provide improved performance.
+
+We'll be hosting a lecture on next Teusday 13 Decemebr that will expand on this post. You can join [here](https://www.youtube.com/watch?v=2MBJOuVq380&feature=youtu.be) at 830 PST!
 
 ### Further reading
 
