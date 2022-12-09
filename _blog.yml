@@ -1522,3 +1522,14 @@
   tags:
     - guide
     - fine-tuning
+
+- local: elixir-bumblebee
+  title: "From GPT2 to Stable Diffusion: Hugging Face arrives to the Elixir community"
+  author: josevalim
+  thumbnail: /blog/assets/120_elixir-bumblebee/thumbnail.png
+  date: December 9, 2022
+  tags:
+    - elixir
+    - transformers
+    - stable-diffusion
+    - nlp
