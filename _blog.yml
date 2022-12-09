@@ -1513,3 +1513,13 @@
     - diffusers
     - stable-diffusion
     - diffusion
+
+- local: switch_transformers
+  title: "Introduction to Switch Transformers"
+  author: azucker
+  thumbnail: /blog/assets/switch_transformers/thumbnail.png
+  date: December 9, 2022
+  tags:
+    - nlp
+    - research
+    - community
