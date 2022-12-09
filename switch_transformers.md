@@ -8,7 +8,7 @@ thumbnail: /blog/assets/119_switch_transformers/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published April 25, 2022.</small>
+    <small>Published December 9, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/switch_transformers.md">
         Update on GitHub
     </a>
@@ -25,10 +25,10 @@ thumbnail: /blog/assets/119_switch_transformers/thumbnail.png
 </div>
 
 <div class="author-card">
-    <a href="/younesbelkada">
+    <a href="/ybelkada">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1648631057413-noauth.png?w=200&h=200&f=face" title="Avatar">
         <div class="bfc">
-            <code>younesbelkada</code>
+            <code>ybelkada</code>
             <span class="fullname">Younes Belkada</span>
         </div>
     </a>
@@ -39,23 +39,23 @@ thumbnail: /blog/assets/119_switch_transformers/thumbnail.png
 </a>
 
 
-Mixture of Experts (MoE) -based models make their way to the Hugging Face ecosystem
+Mixture of Experts (MoE) based models make their way to the Hugging Face ecosystem
 
 If you are following the recent advances in NLP, you have probably heard about the sparse architecture called Mixture of Experts (MoE) models. Research on MoEs has been around for a few years, but the advance of huge clusters allowed the democratization of the architecture. In
 
 
-In terms of software adoption, we have seen several MoE implementations, for example in MetaAI’s `fairseq` library, and Microsoft’s `DeepSpeed` library, which supports MoE training.
+In terms of software adoption, we have seen several MoE implementations, for example, in MetaAI’s `fairseq` library and Microsoft’s `DeepSpeed` library.
 
 With the publication of several research papers and the adoption of Mixture of Experts in increasingly more tasks, this now efficient architecture has gained popularity in the recent months.
 
-Google open-sourced the largest MoE models last year, in the paper “Switch Transformers: Scaling to Trillion Parameters models with simple and efficient sparsity”. Together with the paper, a trillion parameter model, Switch-c-2048 (3.1 Terabytes !) was released.
+Google open-sourced the largest MoE models last year in the paper “Switch Transformers: Scaling to Trillion Parameters models with simple and efficient sparsity”. The paper released a trillion parameter model, Switch-c-2048 (3.1 Terabytes !).
 The model is now publicly available on Hugging Face Hub, making it the biggest model available.
 
 
 In an effort to democratize its usage, as well as centralized research efforts, we are providing a base implementation of the `SwitchTransformer`, with the top-1 routing mechanism.
 
 
-Let’s dive into the technical specifications of this architecture and how to train and evaluate your first MoE model using Huggin Face `transformers`! Let’s get started ! :hugs: :party:
+Let’s dive into the technical specifications of this architecture and how to train and evaluate your first MoE model using 🤗  `transformers`! Let’s get started ! 🤗  🥳 
 
 Switch Transformers in a nutshell
 In early concepts, the experts defined an entire neural network and the MoE was similar to ensemble methods.
@@ -64,13 +64,15 @@ Switch Transformers follows the T5 architecture, and the implementation is heavi
 
 In Switch Transformers, the `SwitchTransformersDenseActDense` layer in the attention mechanism is replaced with a `SwitchTransformersSparseMLP` layer. The `SparseMLP` layer is composed of a router, and a list of `experts`, where each expert is as `DenseActDense` module. Instead of passing each token to the single `DensActDense`, the tokens go through the router which decides which `DenseActDense` (or expert) from the list of experts, should process the token. The routing mechanism is called `top-1` in `SwitchTransformers` as a token is only routed to a single expert, with the highest probability. One hyperparameter is the `expert_capacity` which defines the maximum number of tokens that can be processed by a single expert. Once the capacity is reached on an expert, any new tokens that are routed will be ignored and will reach the next hidden states via only the residual connection. The following figures will present the various cases.
 
-![MoE figure](/assets/119_switch_transformers/thumbnail.png)
+| ![MoE figure](/assets/119_switch_transformers/routing.png) | 
+|:--:|
+| <b>Image source: https://arxiv.org/abs/2101.03961 </b>|
 
-As it can be seen on the figure above, the blue token is going to be ignored by the expert 1, even though it has been routed there since the expert has already reached its maximum expert capacity. This will result in using the hidden state on the next stage as it is.
+As seen in the figure above, Expert 1 will ignore the blue token as it has already reached its maximum capacity (even though the token was router there).  This will result in using the hidden state in the next stage as it is.
 
-How to ensure the diversity of the routing mechanism, i.e, make sure that the distribution of routed experts is uniform. Some recent studies have shown that learning such a routing mechanism encourages token clustering around expert centroids. Also a poor expert routing strategy can cause certain experts to be under-trained, leading to an expert being under or over-specialized.
+How can we ensure the diversity of the routing mechanism? I.e, make sure that the distribution of routed experts is uniform. Some recent studies have shown that learning such a routing mechanism encourages token clustering around expert centroids. A poor expert routing strategy can cause certain experts to be under-trained, leading to an expert being under or over-specialized.
 
-Therefore, to tackle this issue it is important to revisit the routing algorithm. Recently, Google developed the so-called Expert Choice (EC) algorithm. The top-k tokens are assigned the experts with a predetermined buffer capacity rather than having tokens choose the top-k experts. This approach achieves significant improvements in training efficiency and downstream performance while guaranteeing even load balancing and allowing a variable number of experts for each token. In an 8B/64E (8 billion activated parameters, 64 experts) model, EC routing accelerates training convergence by more than two times when compared to the top-1 and top-2 gating mechanisms. Read more about the method in the [original blogpost](https://ai.googleblog.com/2022/11/mixture-of-experts-with-expert-choice.html)
+Therefore, it is important to revisit the routing algorithm to tackle this issue. Recently, Google developed the so-called Expert Choice (EC) algorithm. The top-k tokens are assigned the experts with a predetermined buffer capacity rather than having tokens choose the top-k experts. This approach significantly improves training efficiency and downstream performance while guaranteeing even load balancing and allowing a variable number of experts for each token. In an 8B/64E (8 billion activated parameters, 64 experts) model, EC routing accelerates training convergence more than two times compared to the top-1 and top-2 gating mechanisms. Read more about the method in the [original blog post](https://ai.googleblog.com/2022/11/mixture-of-experts-with-expert-choice.html)
 
 Microsoft introduced X-MoE, which consists of routers that use a learnable temperature, by estimating the routing scores on a low-dimensional hypersphere.
 How good are these models?
@@ -106,8 +108,8 @@ Together with the Trillion parameter model, google has released a set of smaller
 # pip install accelerate
 from transformers import AutoTokenizer, SwitchTransformersForConditionalGeneration
 
-tokenizer = AutoTokenizer.from_pretrained("google/switch-large-128")
-model = SwitchTransformersForConditionalGeneration.from_pretrained("google/switch-large-128", device_map="auto")
+tokenizer = AutoTokenizer.from_pretrained("google/switch-base-128")
+model = SwitchTransformersForConditionalGeneration.from_pretrained("google/switch-base-128", device_map="auto")
 
 input_text = "A <extra_id_0> walks into a bar a orders a <extra_id_1> with <extra_id_2> pinch of <extra_id_3>."
 input_ids = tokenizer(input_text, return_tensors="pt").input_ids.to(0)
@@ -120,6 +122,7 @@ print(tokenizer.decode(outputs[0]))
 If you are interested in training your first MoE, please checkout the [fine tuning google colab script](https://colab.research.google.com/drive/1aGGVHZmtKmcNBbAwa9hbu58DDpIuB5O4#scrollTo=xsgNPx4FrtH_) and share your first fine-tuned MoE on the Hub!
 
 ## Further reading
+
 - Review of MoE models in Deep Learning: https://arxiv.org/pdf/2209.01667.pdf
 - Switch Transformers paper: https://arxiv.org/pdf/2101.03961.pdf
 - Microsoft blogpost: https://techcommunity.microsoft.com/t5/ai-machine-learning-blog/scaling-speech-language-and-vision-models-with-mixture-of/ba-p/3295750
