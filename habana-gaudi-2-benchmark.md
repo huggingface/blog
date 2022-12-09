@@ -6,7 +6,7 @@ thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
 # Faster Training and Inference: Habana Gaudi 2 vs Nvidia A100 80GB
 
 <div class="blog-metadata">
-    <small>Published December 09, 2022.</small>
+    <small>Published December 9, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/habana-gaudi-2-benchmark.md">
         Update on GitHub
     </a>
@@ -137,7 +137,7 @@ In this article, you have seen that Habana Gaudi 2 significantly improves Gaudi 
 
 You also know now how to setup a Gaudi 2 instance through the Intel Developer Zone. Check out the [examples](https://github.com/huggingface/optimum-habana/tree/main/examples) you can easily run on such a device with 🤗 Optimum Habana.
 
-If you are interested in accelerating your training and/or inference workflows, [contact our experts](mailto:expert-acceleration@huggingface.co) to learn about our [Expert Acceleration Program](https://huggingface.co/support). To learn more about Habana solutions, [read about our partnership and how to contact them](https://huggingface.co/hardware/habana).
+If you are interested in accelerating your training and/or inference workflows, contact us to learn about our [Hardware Partner Program](https://huggingface.co/hardware) and our [Expert Acceleration Program](https://huggingface.co/support). To learn more about Habana solutions, [read about our partnership and how to contact them](https://huggingface.co/hardware/habana).
 
 ---
 
