@@ -76,7 +76,7 @@ This initial model *can* also be fine-tuned on additional text or conditions, bu
 
 In general, there is not a clear answer on “which model” is the best for the starting point of RLHF. This will be a common them in this blog – the design space of options in RLHF training are not thoroughly explored.
 
-Next, with a language model, one needs to generate data to train a **preference model**, which is how human preferences are integrated into the system.
+Next, with a language model, one needs to generate data to train a **reward model**, which is how human preferences are integrated into the system.
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rlhf/pretraining.png" width="500" />
@@ -142,7 +142,7 @@ Generating well-written human text answering specific prompts is very costly, as
 
 With these limitations, huge swaths of unexplored design options could still enable RLHF to take substantial strides. Many of these fall within the domain of improving the RL optimizer. PPO is a relatively old algorithm, but there are no structural reasons that other algorithms could offer benefits and permutations on the existing RLHF workflow. One large cost of the feedback portion of fine-tuning the LM policy is that every generated piece of text from the policy needs to be evaluated on the reward model (as it acts like part of the environment in the standard RL framework). To avoid these costly forward passes of a large model, offline RL could be used as a policy optimizer. Recently, new algorithms have emerged, such as [implicit language Q-learning](https://arxiv.org/abs/2206.11871) (ILQL), that fit particularly well with this type of optimization. Other core trade-offs in the RL process, like exploration-exploitation balance, have also not been documented. Exploring these directions would at least develop a substantial understanding of how RLHF functions and, if not, provide improved performance.
 
-We'll be hosting a lecture on next Teusday 13 Decemebr that will expand on this post. You can join [here](https://www.youtube.com/watch?v=2MBJOuVq380&feature=youtu.be) at 830 PST!
+We'll be hosting a lecture on next Tuesday 13 Decemebr that will expand on this post. You can join [here](https://www.youtube.com/watch?v=2MBJOuVq380&feature=youtu.be) at 830 PST!
 
 ### Further reading
 
