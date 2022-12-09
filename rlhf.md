@@ -21,7 +21,7 @@ thumbnail: /blog/assets/120_rlhf/thumbnail.png
         </div>
     </a>
    <a href="https://twitter.com/lcastricato">
-        <img class="avatar avatar-user" src="https://pbs.twimg.com/profile_images/1426579043223228421/KxSFxxD0_400x400.jpg?w=200&h=200&f=face" title="Gravatar">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/5066878?v=4?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>lcastricato</code>
             <span class="fullname">Louis Castricato</span>
@@ -29,14 +29,14 @@ thumbnail: /blog/assets/120_rlhf/thumbnail.png
         </div>
     </a>
     <a href="/lvwerra">
-        <img class="avatar avatar-user" src="https://pbs.twimg.com/profile_images/1426579043223228421/KxSFxxD0_400x400.jpg?w=200&h=200&f=face" title="Gravatar">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8264887?v=4?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>lvwerra</code>
             <span class="fullname">Leandro von Werra</span>
         </div>
     </a>
 	 <a href="https://twitter.com/Dahoas1">
-        <img class="avatar avatar-user" src="https://pbs.twimg.com/profile_images/1436695027711893514/JrwAplRE_400x400.jpg?w=200&h=200&f=face" width="100" title="Gravatar">
+        <img class="avatar avatar-user" src="https://dahoas.github.io/artifacts/alexh.jpg?w=200&h=200&f=face" width="100" title="Gravatar">
         <div class="bfc">
             <code>Dahoas1</code>
             <span class="fullname">Alex Havrilla</span>
