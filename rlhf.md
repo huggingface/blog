@@ -126,9 +126,9 @@ The first [code](https://github.com/openai/lm-human-preferences) released to per
 
 Today, there are already a few active repositories for RLHF in PyTorch that grew out of this. The primary repositories are Transformers Reinforcement Learning ([TRL](https://github.com/lvwerra/trl)), [TRLX](https://github.com/CarperAI/trlx) which originated as a fork of TRL, and Reinforcement Learning for Language models ([RL4LM](https://github.com/allenai/RL4LMs)).
 
-TRL is designed to fine-tune pretrained LMs in the Hugging Face ecosystem with PPO. TRLX is an expanded fork of TRL built by [CarperAI](https://carper.ai/) to handle larger models for online and offline training. At the moment, TRLX is the only API capable of production-ready RLHF at the scales required for LLM deployment (e.g. 33 billion parameters). Future versions of TRLX will allow for language models up to 200B parameters. As such, interfacing with TRLX is optimized for machine learning engineers with experience at this scale.
+TRL is designed to fine-tune pretrained LMs in the Hugging Face ecosystem with PPO. TRLX is an expanded fork of TRL built by [CarperAI](https://carper.ai/) to handle larger models for online and offline training. At the moment, TRLX has an API capable of production-ready RLHF at the scales required for LLM deployment (e.g. 33 billion parameters). Future versions of TRLX will allow for language models up to 200B parameters. As such, interfacing with TRLX is optimized for machine learning engineers with experience at this scale.
 
-RL4LM offers a wide variety of RL algorithms, natural language processing benchmarks, and metrics for evaluating models. RL4LM does not have the distributed training code required to operate PPO on large models (e.g. 10B+ parameters).
+RL4LM offers a wide variety of RL algorithms, natural language processing benchmarks, and metrics for evaluating models. RL4LM has been used to train models with up to 20B parameters.
 
 There is a large [dataset](https://huggingface.co/datasets/Anthropic/hh-rlhf) created by Anthropic available on the Hub.
 
