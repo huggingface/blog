@@ -1,10 +1,10 @@
 ---
-title: "Switch Transformers"
+title: "Introduction to Switch Transformers"
 thumbnail: /blog/assets/119_switch_transformers/thumbnail.png
 ---
 
 <h1>
-  	Switch Transformers
+  	Introduction to Switch Transformers"
 </h1>
 
 <div class="blog-metadata">
@@ -52,7 +52,7 @@ Google open-sourced the largest MoE models last year in the paper “Switch Tran
 The model is now publicly available on [Hugging Face Hub](https://huggingface.co/models?search=switch), making it the biggest model available.
 
 
-In an effort to democratize its usage, as well as centralized research efforts, we are providing a base implementation of the `SwitchTransformer`, with the top-1 routing mechanism.
+In an effort to democratize its usage, as well as centralize the research efforts around common implementation, we are providing a base implementation of the `SwitchTransformer`, with the top-1 routing mechanism. The community will be able to build upon it and easily share their results.
 
 
 Let’s dive into the technical specifications of this architecture and how to train and evaluate your first MoE model using 🤗  `transformers`! Let’s get started ! 🤗  🥳 
