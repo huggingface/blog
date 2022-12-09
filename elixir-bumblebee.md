@@ -45,7 +45,7 @@ Next, we plan to focus on training and transfer learning of Neural Networks in E
 
 If you want to give Bumblebee a try, you can:
 
-  * Download [Livebook v0.8](https://livebook.dev/) and automatically generate "Neural Networks tasks" from the "+ Smart" cell menu inside your notebooks.
+  * Download [Livebook v0.8](https://livebook.dev/) and automatically generate "Neural Networks tasks" from the "+ Smart" cell menu inside your notebooks. We are currently working on running Livebook on additional platforms and _Spaces_ (stay tuned! 😉).
 
   * We have also written [single-file Phoenix applications](https://github.com/elixir-nx/bumblebee/tree/main/examples/phoenix) as examples of Bumblebee models inside your Phoenix (+ LiveView) apps. Those should provide the necessary building blocks to integrate them as part of your production app.
 
