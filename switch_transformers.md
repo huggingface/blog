@@ -57,7 +57,7 @@ In an effort to democratize its usage, as well as centralized research efforts, 
 
 Let’s dive into the technical specifications of this architecture and how to train and evaluate your first MoE model using 🤗  `transformers`! Let’s get started ! 🤗  🥳 
 
-Switch Transformers in a nutshell
+## Switch Transformers in a nutshell
 In early concepts, the experts defined an entire neural network and the MoE was similar to ensemble methods.
 
 Switch Transformers follows the T5 architecture, and the implementation is heavily based on our T5 code, with the exception of the `DenseActDense`, which can be replaced with `SparseMLP`.
