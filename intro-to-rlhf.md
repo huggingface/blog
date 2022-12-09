@@ -1,13 +1,13 @@
 ---
 title: "Illustrating Reinforcement Learning from Human Feedback (RLHF)" 
-thumbnail: /blog/assets/120_intro-to-rlhf/thumbnail.png
+thumbnail: /blog/assets/120_rlhf/thumbnail.png
 ---
 
 # Illustrating Reinforcement Learning from Human Feedback (RLHF)
 
 <div class="blog-metadata">
     <small>Published December 8, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/intro-to-rlhf.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/rlhf.md">
         Update on GitHub
     </a>
 </div>
@@ -26,6 +26,13 @@ thumbnail: /blog/assets/120_intro-to-rlhf/thumbnail.png
             <code>lcastricato</code>
             <span class="fullname">Louis Castricato</span>
             <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+        </div>
+    </a>
+    <a href="/lvwerra">
+        <img class="avatar avatar-user" src="https://pbs.twimg.com/profile_images/1426579043223228421/KxSFxxD0_400x400.jpg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>lvwerra</code>
+            <span class="fullname">Leandro von Werra</span>
         </div>
     </a>
 	 <a href="https://twitter.com/Dahoas1">
@@ -66,7 +73,7 @@ In general, there is not a clear answer on “which model” is the best for the
 Next, with a language model, one needs to generate data to train a **preference model**.
 
 <p align="center">
-    <img src="assets/120_intro-to-rlhf/pretraining.png" width="500" />
+    <img src="assets/120_rlhf/pretraining.png" width="500" />
 </p>
 
 ### Reward Model Training
@@ -84,7 +91,7 @@ An interesting artifact of this process is that the successful RLHF systems to d
 At this point in the RLHF system, we have an initial language model that can be used to generate text and a preference model that takes in any text and assigns it a score of how well humans perceive it. Next, we use **reinforcement learning (RL)** to optimize the original language model with respect to the reward model.
 
 <p align="center">
-    <img src="assets/120_intro-to-rlhf/reward-model.png" width="600" />
+    <img src="assets/120_rlhf/reward-model.png" width="600" />
 </p>
 
 ### Fine-tuning with RL
@@ -100,7 +107,7 @@ Some RLHF systems have added additional terms to the reward function. For exampl
 Finally, the **update rule** is the parameter update from PPO that maximizes the reward metrics in the current batch of data (PPO is on-policy, which means the parameters are only updated from the current batch of prompt-generation pairs, not all of the previous data in a replay buffer). PPO is a trust region optimization algorithm, where it uses constraints on the gradient to ensure the update step does not destabilize the learning process. DeepMind used a similar reward setup for Gopher, but used [synchronous advantage actor-critic](http://proceedings.mlr.press/v48/mniha16.html?ref=https://githubhelp.com) (A2C) to optimize the gradients, which is notably different, but has not been reproduced externally.
 
 <p align="center">
-    <img src="assets/120_intro-to-rlhf/rlhf.png" width="650" />
+    <img src="assets/120_rlhf/rlhf.png" width="650" />
 </p>
 
 Optionally, RLHF can continue from this point by iteratively updating the reward model and the policy together. As the RL policy updates, users can continue to rank these outputs versus earlier versions of the model. Most papers do not discuss implementing this operation, as the deployment mode needed to collect this type of data only works for dialogue agents with access to an engaged user base. Anthropic discusses this option as *Iterated Online RLHF* (see the original [paper](https://arxiv.org/abs/2204.05862)), where iterations of the policy are included in the ELO ranking system across models. This introduces complex dynamics of the policy and reward model evolving over time, which represents a complex and open research question.
