@@ -49,7 +49,7 @@ In terms of software adoption, we have seen several MoE implementations, for exa
 With the publication of several research papers and the adoption of Mixture of Experts in increasingly more tasks, this now efficient architecture has gained popularity in the recent months.
 
 Google open-sourced the largest MoE models last year in the paper “Switch Transformers: Scaling to Trillion Parameters models with simple and efficient sparsity”. The paper released a trillion parameter model, Switch-c-2048 (3.1 Terabytes !).
-The model is now publicly available on Hugging Face Hub, making it the biggest model available.
+The model is now publicly available on [Hugging Face Hub](https://huggingface.co/models?search=switch), making it the biggest model available.
 
 
 In an effort to democratize its usage, as well as centralized research efforts, we are providing a base implementation of the `SwitchTransformer`, with the top-1 routing mechanism.
