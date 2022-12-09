@@ -41,7 +41,7 @@ thumbnail: /blog/assets/119_switch_transformers/thumbnail.png
 
 Mixture of Experts (MoE) based models make their way to the Hugging Face ecosystem
 
-If you are following the recent advances in NLP, you have probably heard about the sparse architecture called Mixture of Experts (MoE) models. Research on MoEs has been around for a few years, but the advance of huge clusters allowed the democratization of the architecture. In
+If you are following the recent advances in NLP, you have probably heard about the sparse architecture called Mixture of Experts (MoE) models. Research on MoEs has been around for a few years, but the advance of huge clusters allowed the democratization of the architecture.
 
 
 In terms of software adoption, we have seen several MoE implementations, for example, in MetaAI’s `fairseq` library and Microsoft’s `DeepSpeed` library.
@@ -49,7 +49,7 @@ In terms of software adoption, we have seen several MoE implementations, for exa
 With the publication of several research papers and the adoption of Mixture of Experts in increasingly more tasks, this now efficient architecture has gained popularity in the recent months.
 
 Google open-sourced the largest MoE models last year in the paper “Switch Transformers: Scaling to Trillion Parameters models with simple and efficient sparsity”. The paper released a trillion parameter model, Switch-c-2048 (3.1 Terabytes !).
-The model is now publicly available on Hugging Face Hub, making it the biggest model available.
+The model is now publicly available on [Hugging Face Hub](https://huggingface.co/models?search=switch), making it the biggest model available.
 
 
 In an effort to democratize its usage, as well as centralized research efforts, we are providing a base implementation of the `SwitchTransformer`, with the top-1 routing mechanism.
@@ -57,7 +57,7 @@ In an effort to democratize its usage, as well as centralized research efforts, 
 
 Let’s dive into the technical specifications of this architecture and how to train and evaluate your first MoE model using 🤗  `transformers`! Let’s get started ! 🤗  🥳 
 
-Switch Transformers in a nutshell
+## Switch Transformers in a nutshell
 In early concepts, the experts defined an entire neural network and the MoE was similar to ensemble methods.
 
 Switch Transformers follows the T5 architecture, and the implementation is heavily based on our T5 code, with the exception of the `DenseActDense`, which can be replaced with `SparseMLP`.
