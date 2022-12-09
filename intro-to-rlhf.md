@@ -6,7 +6,7 @@ thumbnail: /blog/assets/120_rlhf/thumbnail.png
 # Illustrating Reinforcement Learning from Human Feedback (RLHF)
 
 <div class="blog-metadata">
-    <small>Published December 8, 2022.</small>
+    <small>Published December 9, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/rlhf.md">
         Update on GitHub
     </a>
@@ -53,6 +53,10 @@ This success comes in the presence of an ambiguity in defining the tasks that la
 These questions that define how “good” the application of a language model is are ultimately expressions of human preferences. Human preferences are historically very challenging to encode in computing systems, due to a complex web of ethics and values that are not clear nor equal across populations. **Reinforcement Learning from Human Feedback** (RLHF) has emerged as the technique that can map from high-quality, human annotations to models that better match sets of desirable behavior. RLHF has enabled language models to begin to  align a model trained on a general corpus of text data to that of complex human values.
 
 This power of alignment is immensely promising, but often confused by complex system details and interconnected ML models. This blog post attempts to provide a comprehensive conceptual overview of how RLHF operates.
+
+<p align="center">
+    <img src="assets/120_rlhf/chatgpt-explains.png" width="500" />
+</p>
 
 # RLHF: Let’s take it step by step
 
