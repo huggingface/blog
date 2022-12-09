@@ -41,7 +41,7 @@ thumbnail: /blog/assets/119_switch_transformers/thumbnail.png
 
 Mixture of Experts (MoE) based models make their way to the Hugging Face ecosystem
 
-If you are following the recent advances in NLP, you have probably heard about the sparse architecture called Mixture of Experts (MoE) models. Research on MoEs has been around for a few years, but the advance of huge clusters allowed the democratization of the architecture. In
+If you are following the recent advances in NLP, you have probably heard about the sparse architecture called Mixture of Experts (MoE) models. Research on MoEs has been around for a few years, but the advance of huge clusters allowed the democratization of the architecture.
 
 
 In terms of software adoption, we have seen several MoE implementations, for example, in MetaAI’s `fairseq` library and Microsoft’s `DeepSpeed` library.
