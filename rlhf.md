@@ -21,7 +21,7 @@ thumbnail: /blog/assets/120_rlhf/thumbnail.png
         </div>
     </a>
    <a href="https://twitter.com/lcastricato">
-        <img class="avatar avatar-user" src="https://pbs.twimg.com/profile_images/1426579043223228421/KxSFxxD0_400x400.jpg?w=200&h=200&f=face" title="Gravatar">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/5066878?v=4?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>lcastricato</code>
             <span class="fullname">Louis Castricato</span>
@@ -29,14 +29,14 @@ thumbnail: /blog/assets/120_rlhf/thumbnail.png
         </div>
     </a>
     <a href="/lvwerra">
-        <img class="avatar avatar-user" src="https://pbs.twimg.com/profile_images/1426579043223228421/KxSFxxD0_400x400.jpg?w=200&h=200&f=face" title="Gravatar">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8264887?v=4?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>lvwerra</code>
             <span class="fullname">Leandro von Werra</span>
         </div>
     </a>
 	 <a href="https://twitter.com/Dahoas1">
-        <img class="avatar avatar-user" src="https://pbs.twimg.com/profile_images/1436695027711893514/JrwAplRE_400x400.jpg?w=200&h=200&f=face" width="100" title="Gravatar">
+        <img class="avatar avatar-user" src="https://dahoas.github.io/artifacts/alexh.jpg?w=200&h=200&f=face" width="100" title="Gravatar">
         <div class="bfc">
             <code>Dahoas1</code>
             <span class="fullname">Alex Havrilla</span>
@@ -108,7 +108,7 @@ Training a language model with reinforcement learning was, for a long time, some
 
 Let's first formulate this fine-tuning task as a RL problem. First, the **policy** is a language model that takes in a prompt and returns a sequence of text (or just probability distributions over text). The **action space** of this policy is all the tokens corresponding to the vocabulary of the language model (often on the order of 50k tokens) and the **observation space** is the possible input token sequences, which is also quite large (size of vocabulary x number of input tokens). The **reward function** is a combination of the preference model and a constraint on policy shift.
 
-The reward function is where the system combines all of the models we have discussed into one RLHF process. Given a prompt, *x*,  from the dataset, two texts, *y1*, *y2*, are generated – one from the initial language model and one from the current iteration of the fine-tuned policy. The text from the current policy is passed to the preference model, which returns a scalar notion of “preferability”, \\ r_\theta \\. This text is compared to the text from the initial model to compute a penalty on the difference between them. In multiple papers from OpenAI, Anthropic, and DeepMind, this penalty has been designed as a scaled version of the Kullback–Leibler [(KL) divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) between these sequences of distributions over tokens, \\ r_\text{KL} \\. The KL divergence term penalizes the RL policy from moving substantially away from the initial pretrained model with each training batch, which can be useful to make sure the model outputs reasonably coherent text snippets. Without this penalty the optimization can start to generate text that is gibberish but fools the reward model to give a high reward. In practice, the KL divergence is approximated via sampling from both distributions (explained by John Schulman [here](http://joschu.net/blog/kl-approx.html)). The final reward sent to the RL update rule is \\ r = r_\theta - \lambda r_\text{KL} \\.
+The reward function is where the system combines all of the models we have discussed into one RLHF process. Given a prompt, *x*,  from the dataset, two texts, *y1*, *y2*, are generated – one from the initial language model and one from the current iteration of the fine-tuned policy. The text from the current policy is passed to the preference model, which returns a scalar notion of “preferability”, \\( r_\theta \\). This text is compared to the text from the initial model to compute a penalty on the difference between them. In multiple papers from OpenAI, Anthropic, and DeepMind, this penalty has been designed as a scaled version of the Kullback–Leibler [(KL) divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) between these sequences of distributions over tokens, \\( r_\text{KL} \\). The KL divergence term penalizes the RL policy from moving substantially away from the initial pretrained model with each training batch, which can be useful to make sure the model outputs reasonably coherent text snippets. Without this penalty the optimization can start to generate text that is gibberish but fools the reward model to give a high reward. In practice, the KL divergence is approximated via sampling from both distributions (explained by John Schulman [here](http://joschu.net/blog/kl-approx.html)). The final reward sent to the RL update rule is \\( r = r_\theta - \lambda r_\text{KL} \\).
 
 Some RLHF systems have added additional terms to the reward function. For example, OpenAI experimented successfully on InstructGPT by mixing in additional pre-training gradients (from the human annotation set) into the update rule for PPO. It is likely as RLHF is further investigated, the formulation of this reward function will continue to evolve.
 
