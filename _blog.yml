@@ -1538,7 +1538,7 @@
 - local: intro-to-rlhf
   title: "Illustrating Reinforcement Learning from Human Feedback (RLHF)"
   author: natolambert
-  thumbnail: /blog/assets/120_intro-to-rlhf/thumbnail.png
+  thumbnail: /blog/assets/120_rlhf/thumbnail.png
   date: December 9, 2022
   tags:
     - rlhf
