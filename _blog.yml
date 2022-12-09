@@ -1513,6 +1513,27 @@
     - diffusers
     - stable-diffusion
     - diffusion
+    
+- local: deep-learning-with-proteins
+  title: "Deep Learning with Proteins"
+  author: rocketknight1
+  thumbnail: /blog/assets/119_deep_learning_with_proteins/folding_example.png
+  date: December 2, 2022
+  tags:
+    - guide
+    - fine-tuning
+
+- local: elixir-bumblebee
+  title: "From GPT2 to Stable Diffusion: Hugging Face arrives to the Elixir community"
+  author: josevalim
+  thumbnail: /blog/assets/120_elixir-bumblebee/thumbnail.png
+  date: December 9, 2022
+  tags:
+    - elixir
+    - transformers
+    - stable-diffusion
+    - nlp
+    - open-source-collab
 
 - local: switch_transformers
   title: "Introduction to Switch Transformers"
