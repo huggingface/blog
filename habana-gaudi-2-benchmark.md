@@ -78,10 +78,14 @@ Since Gaudi 2 has roughly 3 times more memory per device as Gaudi 1, it is possi
 
 Here is a table that displays the throughputs we got for Gaudi 1, Gaudi 2 and Nvidia A100 80GB GPUs:
 
+<center>
+
 |   | Gaudi 1 (BS=32) | Gaudi 2 (BS=32) | Gaudi 2 (BS=64) | A100 (BS=32) |
 |:-:|:---------------:|:---------------:|:---------------:|:------------:|
 | Throughput (samples/s) | 520.2 | 1580.2 | 1835.8 | 981.6 |
 | Speedup | x1.0 | x3.04 | x3.53 | x1.89 |
+
+</center>
 
 *BS* is the batch size per device. The Gaudi runs were performed in mixed precision (bf16/fp32) and the A100 ones in fp16.
 
@@ -95,10 +99,14 @@ One of the main new features of 🤗 Optimum Habana 1.3 is [the support for Stab
 The results we got are displayed in the table below.
 **Gaudi 2 showcases latencies that are x3.65 faster than Gaudi 1 and x2.21 faster than Nvidia A100.** It can also support bigger batch sizes.
 
-|   | Gaudi 1 (BS=4|8) | Gaudi 2 (BS=4|8) | A100 (BS=1) |
+<center>
+
+|   | Gaudi 1 (BS=4/8) | Gaudi 2 (BS=4/8) | A100 (BS=1) |
 |:-:|:----------------:|:----------------:|:-----------:|
 | Latency (s/img) | 4.34 | 1.19 | 2.63 |
 | Speedup | x1.0 | x3.65 | x1.65 |
+
+</center>
 
 *BS* is the batch size.
 The Gaudi runs were performed in mixed precision (bf16/fp32) and the A100 ones in fp16 (more information [here](https://huggingface.co/docs/diffusers/optimization/fp16)).
@@ -111,11 +119,14 @@ With 98 GB of memory per device, Gaudi 2 enables to run much bigger models. For 
 
 The results we got are presented in the table below. **Gaudi 2 is x2.44 faster than A100 80GB.** We observe that we cannot fit a batch size larger than 1 on Gaudi 2 here. This is due to the memory space taken by the graph where operations are accumulated during the first iteration of the run. To go further, we are looking forward to expanding this benchmark to [DeepSpeed](https://www.deepspeed.ai/) to see if the same trend holds.
 
+<center>
 
 |   | Gaudi 1 | Gaudi 2 (BS=1) | A100 (BS=16) |
 |:-:|:-------:|:--------------:|:------------:|
 | Throughput (samples/s) | N/A | 19.7 | 8.07 |
 | Speedup | / | x2.44 | x1.0 |
+
+</center>
 
 *BS* is the batch size per device. Gaudi 2 and A100 runs were performed in fp32 with gradient checkpointing enabled.
 

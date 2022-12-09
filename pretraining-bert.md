@@ -333,7 +333,8 @@ runner.launch(
 <figure class="image table text-center m-0 w-full">
   <img src="assets/99_pretraining_bert/tensorboard.png" alt="Tensorboard Logs"/>
 </figure>
-_This [experiment](https://huggingface.co/philschmid/bert-base-uncased-2022-habana-test-6) ran for 60k steps_
+
+_This [experiment](https://huggingface.co/philschmid/bert-base-uncased-2022-habana-test-6) ran for 60k steps._
 
 In our `hyperparameters` we defined a `max_steps` property, which limited the pre-training to only `100_000` steps. The `100_000` steps with a global batch size of `256` took around 12,5 hours.
 
