@@ -360,7 +360,7 @@ We compared our implementation with the [fastest BERT-pretraining](https://www.d
 
 Those results are incredible since it will allow companies to adapt their pre-trained models to their language and domain to [improve accuracy up to 10%](https://huggingface.co/pile-of-law/legalbert-large-1.7M-1#evaluation-results) compared to the general BERT models.
 
-If you are interested in training your own BERT or other Transformers models from scratch to reduce cost and improve accuracyy, [contact our experts](mailto:expert-acceleration@huggingface.co) to learn about our [Expert Acceleration Program](https://huggingface.co/support). To learn more about Habana solutions, [read about our partnership and how to contact them](https://huggingface.co/hardware/habana).
+If you are interested in training your own BERT or other Transformers models from scratch to reduce cost and improve accuracy, [contact our experts](mailto:expert-acceleration@huggingface.co) to learn about our [Expert Acceleration Program](https://huggingface.co/support). To learn more about Habana solutions, [read about our partnership and how to contact them](https://huggingface.co/hardware/habana).
 
 Code: [pre-training-bert.ipynb](https://github.com/philschmid/deep-learning-habana-huggingface/blob/master/pre-training/pre-training-bert.ipynb)
 

@@ -1522,3 +1522,12 @@
   tags:
     - guide
     - fine-tuning
+
+- local: habana-gaudi-2-benchmark
+  title: "🤗 Optimum Habana on Gaudi 2"
+  author: regisss
+  thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
+  date: December 09, 2022
+  tags:
+    - partnerships
+    - habana
