@@ -84,7 +84,7 @@ An interesting artifact of this process is that the successful RLHF systems to d
 At this point in the RLHF system, we have an initial language model that can be used to generate text and a preference model that takes in any text and assigns it a score of how well humans perceive it. Next, we use **reinforcement learning (RL)** to optimize the original language model with respect to the reward model.
 
 <p align="center">
-    <img src="assets/120_intro-to-rlhf/reward-model.png" width="500" />
+    <img src="assets/120_intro-to-rlhf/reward-model.png" width="600" />
 </p>
 
 ### Fine-tuning with RL
@@ -100,7 +100,7 @@ Some RLHF systems have added additional terms to the reward function. For exampl
 Finally, the **update rule** is the parameter update from PPO that maximizes the reward metrics in the current batch of data (PPO is on-policy, which means the parameters are only updated from the current batch of prompt-generation pairs, not all of the previous data in a replay buffer). PPO is a trust region optimization algorithm, where it uses constraints on the gradient to ensure the update step does not destabilize the learning process. DeepMind used a similar reward setup for Gopher, but used [synchronous advantage actor-critic](http://proceedings.mlr.press/v48/mniha16.html?ref=https://githubhelp.com) (A2C) to optimize the gradients, which is notably different, but has not been reproduced externally.
 
 <p align="center">
-    <img src="assets/120_intro-to-rlhf/rlhf.png" width="500" />
+    <img src="assets/120_intro-to-rlhf/rlhf.png" width="650" />
 </p>
 
 Optionally, RLHF can continue from this point by iteratively updating the reward model and the policy together. As the RL policy updates, users can continue to rank these outputs versus earlier versions of the model. Most papers do not discuss implementing this operation, as the deployment mode needed to collect this type of data only works for dialogue agents with access to an engaged user base. Anthropic discusses this option as *Iterated Online RLHF* (see the original [paper](https://arxiv.org/abs/2204.05862)), where iterations of the policy are included in the ELO ranking system across models. This introduces complex dynamics of the policy and reward model evolving over time, which represents a complex and open research question.
