@@ -22,7 +22,7 @@ thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
     </a>
 </div>
 
-In this article, you will learn how to use [Habana Gaudi 2](https://habana.ai/training/gaudi2/) to accelerate model training and inference, and train bigger models with 🤗 [Optimum Habana](https://huggingface.co/docs/optimum/habana/index). Then, we present several benchmarks including BERT pre-training, Stable Diffusion inference and T5 fine-tuning, to assess the performance gap between Gaudi 1, Gaudi 2 and Nvidia A100 80GB. Spoiler alert - Gaudi 2 is about twice faster than Nvidia A100 80GB for both training and inference!
+In this article, you will learn how to use [Habana Gaudi 2](https://habana.ai/training/gaudi2/) to accelerate model training and inference, and train bigger models with 🤗 [Optimum Habana](https://huggingface.co/docs/optimum/habana/index). Then, we present several benchmarks including BERT pre-training, Stable Diffusion inference and T5-3B fine-tuning, to assess the performance gap between Gaudi 1, Gaudi 2 and Nvidia A100 80GB. Spoiler alert - Gaudi 2 is about twice faster than Nvidia A100 80GB for both training and inference!
 
 [Gaudi 2](https://habana.ai/training/gaudi2/) is the second-generation AI hardware accelerator designed by Habana. One accelerator contains 8 devices with 96GB of memory each (against 32GB on Gaudi 1 and 80GB on A100 80GB). The SDK, [SynapseAI](https://developer.habana.ai/), is common to both Gaudi 1 and Gaudi 2.
 That means that 🤗 Optimum Habana, which offers a very user-friendly interface between the 🤗 Transformers and 🤗 Diffusers libraries and Gaudi, **works the exact same way on Gaudi 2 as on Gaudi 1!**
