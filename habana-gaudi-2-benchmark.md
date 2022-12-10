@@ -6,7 +6,7 @@ thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
 # Faster Training and Inference: Habana Gaudi 2 vs Nvidia A100 80GB
 
 <div class="blog-metadata">
-    <small>Published December 9, 2022.</small>
+    <small>Published December 12, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/habana-gaudi-2-benchmark.md">
         Update on GitHub
     </a>
@@ -22,7 +22,7 @@ thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
     </a>
 </div>
 
-In this article, you will learn how to start using [Habana Gaudi 2](https://habana.ai/training/gaudi2/) to accelerate model training and inference and train bigger models with 🤗 [Optimum Habana](https://huggingface.co/docs/optimum/habana/index). Then, several benchmarks will be presented to assess the performance gap between Gaudi 1, Gaudi 2 and Nvidia A100 80GB.
+In this article, you will learn how to use [Habana Gaudi 2](https://habana.ai/training/gaudi2/) to accelerate model training and inference, and train bigger models with 🤗 [Optimum Habana](https://huggingface.co/docs/optimum/habana/index). Then, we present several benchmarks including BERT pre-training, Stable Diffusion inference and T5 fine-tuning, to assess the performance gap between Gaudi 1, Gaudi 2 and Nvidia A100 80GB. Spoiler alert - Gaudi 2 is about twice faster than Nvidia A100 80GB for both training and inference!
 
 [Gaudi 2](https://habana.ai/training/gaudi2/) is the second-generation AI hardware accelerator designed by Habana. One accelerator contains 8 devices with 96GB of memory each (against 32GB on Gaudi 1 and 80GB on A100 80GB). The SDK, [SynapseAI](https://developer.habana.ai/), is common to both Gaudi 1 and Gaudi 2.
 That means that 🤗 Optimum Habana, which offers a very user-friendly interface between the 🤗 Transformers and 🤗 Diffusers libraries and Gaudi, **works the exact same way on Gaudi 2 as on Gaudi 1!**
@@ -47,7 +47,7 @@ To start using Gaudi 2, you should follow the following steps:
   <img src="assets/habana-gaudi-2-benchmark/request_instance.png" alt="Cloud Architecture"/>
 </figure>
 
-5. Once your request is validated, re-do the step 3 and click on *Add OpenSSH Publickey* to add a payment method (credit card or promotion code) and a SSH publick key that you can generate with `ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa`. You may be redirected to step 3 each time you add a payment method or a SSH public key.
+5. Once your request is validated, re-do the step 3 and click on *Add OpenSSH Publickey* to add a payment method (credit card or promotion code) and a SSH public key that you can generate with `ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa`. You may be redirected to step 3 each time you add a payment method or a SSH public key.
 
 6. Re-do step 3 and then click on *Launch Instance*. You will have to accept the proposed general conditions to actually launch the instance.
 
@@ -137,7 +137,7 @@ In this article, you have seen that Habana Gaudi 2 significantly improves Gaudi 
 
 You also know now how to setup a Gaudi 2 instance through the Intel Developer Zone. Check out the [examples](https://github.com/huggingface/optimum-habana/tree/main/examples) you can easily run on such a device with 🤗 Optimum Habana.
 
-If you are interested in accelerating your training and/or inference workflows, contact us to learn about our [Hardware Partner Program](https://huggingface.co/hardware) and our [Expert Acceleration Program](https://huggingface.co/support). To learn more about Habana solutions, [read about our partnership and how to contact them](https://huggingface.co/hardware/habana).
+If you are interested in accelerating your Machine Learning training and inference workflows using the latest AI hardware accelerators and software libraries, check out our [Expert Acceleration Program](https://huggingface.co/support). To learn more about Habana solutions and contact Habana, [you can read about our partnership here](https://huggingface.co/hardware/habana). To learn more about Hugging Face efforts to make AI hardware accelerators easy to use, check out our [Hardware Partner Program](https://huggingface.co/hardware).
 
 ---
 
