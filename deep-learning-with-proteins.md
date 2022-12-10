@@ -1,13 +1,13 @@
 ---
 title: "Deep Learning with Proteins" 
-thumbnail: /blog/assets/119_protein_models/folding_example.png
+thumbnail: /blog/assets/119_deep_learning_with_proteins/folding_example.png
 ---
 
 # Deep Learning With Proteins
 
 <div class="blog-metadata">
     <small>Published December 2, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/protein-models.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/deep-learning-with-proteins.md">
         Update on GitHub
     </a>
 </div>
@@ -98,6 +98,8 @@ Also, information is lost if you just consider parts of a protein in isolation, 
 At this point, hopefully you have a vague idea of what a protein is and why biologists care about them so much - despite their small ‘alphabet’ of amino acids, they have a vast diversity of structure and function, and being able to understand and predict those structures and functions just from looking at the raw ‘string’ of amino acids would be an extremely valuable research tool.
 
 ## Bringing it together: Machine learning with proteins
+
+So now we've seen how transfer learning with language models works, and we've seen what proteins are. And once you have that background, the next step isn't too hard - we can use the same transfer learning ideas on proteins! Instead of pre-training a model on a task involving English text, we train it on a task where the inputs are proteins, but where a lot of training data is available. Once we've done that, our model has hopefully learned a lot about the structure of proteins, in the same way that language models learn a lot about the structure of language. That makes pre-trained protein models a prime candidate for transferring to any other protein-based task!
 
 What kind of machine learning tasks do biologists care about training protein models on? The most famous protein modelling task is **protein folding**. The task here is to, given the amino acid chain like “MLKNV…”, predict the final shape that protein will fold into. This is an enormously important task, because accurately predicting the shape and structure of a protein gives a lot of insights into what the protein does, and how it does it. 
 

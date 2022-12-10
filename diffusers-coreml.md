@@ -53,9 +53,14 @@ At the time of this writing, we got best results on my MacBook Pro (M1 Max, 32 G
 
 - `original` attention.
 - `all` compute units (see next section for details).
-- macOS Ventura 13.1 Beta 3 (22C5050e). Beta 4 _just came out_, we'll update this note when we test it!
+- macOS Ventura 13.1 Beta 4 (22C5059b).
 
 With these, it took 18s to generate one image with the Core ML version of Stable Diffusion v1.4 🤯.
+
+> **⚠️ Note**
+>
+> Several improvements to Core ML have been introduced in the beta version of macOS Ventura 13.1, and they are required by Apple's implementation. You may get black images –and much slower times– if you use the current release version of macOS Ventura (13.0.1). If you can't or won't install the beta, please wait until macOS Ventura 13.1 is officially released.
+
 
 Each model repo is organized in a tree structure that provides these different variants:
 
@@ -127,6 +132,20 @@ python -m python_coreml_stable_diffusion.pipeline --prompt "a photo of an astron
 
 `<output-mlpackages-directory>` should point to the checkpoint you downloaded in the step above, and `--compute-unit` indicates the hardware you want to allow for inference. It must be one of the following options: `ALL`, `CPU_AND_GPU`, `CPU_ONLY`, `CPU_AND_NE`. You may also provide an optional output path, and a seed for reproducibility.
 
+The inference script assumes the original version of the Stable Diffusion model, stored in the Hub as `CompVis/stable-diffusion-v1-4`. If you use another model, you _have_ to specify its Hub id in the inference command-line, using the `--model-version` option. This works both for models already supported, and for custom models you trained or fine-tuned yourself.
+
+For Stable Diffusion 1.5 (Hub id: `runwayml/stable-diffusion-v1-5`):
+
+```shell
+python -m python_coreml_stable_diffusion.pipeline --prompt "a photo of an astronaut riding a horse on mars" --compute-unit ALL -o output --seed 93 -i models/coreml-stable-diffusion-v1-5_original_packages --model-version runwayml/stable-diffusion-v1-5
+```
+
+For Stable Diffusion 2 base (Hub id: `stabilityai/stable-diffusion-2-base`):
+
+```shell
+python -m python_coreml_stable_diffusion.pipeline --prompt "a photo of an astronaut riding a horse on mars" --compute-unit ALL -o output --seed 93 -i models/coreml-stable-diffusion-2-base_original_packages --model-version stabilityai/stable-diffusion-2-base
+```
+
 ## Core ML inference in Swift
 
 Running inference in Swift is slightly faster than in Python, because the models are already compiled in the `mlmodelc` format. This will be noticeable on app startup when the model is loaded, but shouldn’t be noticeable if you run several generations afterwards.
@@ -175,10 +194,10 @@ cd ml-stable-diffusion
 And then use Apple's command-line tool using Swift Package Manager's facilities:
 
 ```bash
-swift run StableDiffusionSample --resource-path models/compiled --compute-units all "a photo of an astronaut riding a horse on mars"
+swift run StableDiffusionSample --resource-path models/coreml-stable-diffusion-v1-4_original_compiled --compute-units all "a photo of an astronaut riding a horse on mars"
 ```
 
-`models/compiled` refers to the checkpoint you downloaded in the previous step. Please, make sure it contains compiled Core ML bundles with the extension `.mlmodelc`. The `--compute-units` has to be one of these values: `all`, `cpuOnly`, `cpuAndGPU`, `cpuAndNeuralEngine`.
+You have to specify in `--resource-path` one of the checkpoints downloaded in the previous step, so please make sure it contains compiled Core ML bundles with the extension `.mlmodelc`. The `--compute-units` has to be one of these values: `all`, `cpuOnly`, `cpuAndGPU`, `cpuAndNeuralEngine`.
 
 For more details, please refer to the [instructions in Apple's repo](https://github.com/apple/ml-stable-diffusion).
 

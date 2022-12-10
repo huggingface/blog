@@ -1523,11 +1523,33 @@
     - guide
     - fine-tuning
 
+- local: elixir-bumblebee
+  title: "From GPT2 to Stable Diffusion: Hugging Face arrives to the Elixir community"
+  author: josevalim
+  thumbnail: /blog/assets/120_elixir-bumblebee/thumbnail.png
+  date: December 9, 2022
+  tags:
+    - elixir
+    - transformers
+    - stable-diffusion
+    - nlp
+    - open-source-collab
+
+- local: rlhf
+  title: "Illustrating Reinforcement Learning from Human Feedback (RLHF)"
+  author: natolambert
+  thumbnail: /blog/assets/120_rlhf/thumbnail.png
+  date: December 9, 2022
+  tags:
+    - rlhf
+    - rl
+    - guide
+
 - local: habana-gaudi-2-benchmark
   title: "Faster Training and Inference: Habana Gaudi 2 vs Nvidia A100 80GB"
   author: regisss
   thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
-  date: December 9, 2022
+  date: December 12, 2022
   tags:
     - partnerships
     - habana
