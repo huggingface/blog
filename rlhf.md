@@ -129,7 +129,9 @@ Today, there are already a few active repositories for RLHF in PyTorch that grew
 TRL is designed to fine-tune pretrained LMs in the Hugging Face ecosystem with PPO. TRLX is an expanded fork of TRL built by [CarperAI](https://carper.ai/) to handle larger models for online and offline training. At the moment, TRLX has an API capable of production-ready RLHF at the scales required for LLM deployment (e.g. 33 billion parameters). Future versions of TRLX will allow for language models up to 200B parameters. As such, interfacing with TRLX is optimized for machine learning engineers with experience at this scale.
 
 [RL4LMs](https://github.com/allenai/RL4LMs) offers building blocks for fine-tuning and evaluating LLMs with a wide variety of RL algorithms (PPO, NLPO, A2C and TRPO), reward functions and metrics. Moreover, the library is easily customizable, which allows training of any encoder-decoder or encoder transformer-based LM on any arbitrary user-specified reward function. Notably, it is well-tested and benchmarked on a broad range of tasks in [recent work](https://arxiv.org/abs/2210.01241) amounting up to 2000 experiments highlighting several practical insights on data budget comparison (expert demonstrations vs. reward modeling), handling reward hacking and training instabilities, etc.
-RL4LMs is under heavy further development, with future support to include distributed training of larger models and new RL algorithms. 
+RL4LMs current plans include distributed training of larger models and new RL algorithms. 
+
+Both TRLX and RL4LMs are under heavy further development, so expect more features beyond these soon. 
 
 There is a large [dataset](https://huggingface.co/datasets/Anthropic/hh-rlhf) created by Anthropic available on the Hub.
 
