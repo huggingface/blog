@@ -149,7 +149,7 @@ We'll be hosting a lecture on next Tuesday 13 Decemebr that will expand on this 
 
 ### Further reading
 
-Here is a list of the most prevalent papers on RLHF to date. The field was recently popularized from the first paper on Deep RL (Christiano et al. 2017) and has grown into a broader study of the applications of LLMs from many large technology companies.
+Here is a list of the most prevalent papers on RLHF to date. The field was recently popularized with the emergence of DeepRL (around 2017) and has grown into a broader study of the applications of LLMs from many large technology companies.
 Here are some papers on RLHF that pre-date the LM focus:
 - [TAMER: Training an Agent Manually via Evaluative Reinforcement](https://www.cs.utexas.edu/~pstone/Papers/bib2html-links/ICDL08-knox.pdf) (Knox and Stone 2008): Proposed a learned agent where humans provided scores on the actions taken iteratively to learn a reward model.
 - [Interactive Learning from Policy-Dependent Human Feedback](http://proceedings.mlr.press/v70/macglashan17a/macglashan17a.pdf) (MacGlashan et al. 2017): Proposed an actor-critic algorithm, COACH, where human feedback (both positive and negative) is used to tune the advantage function.
