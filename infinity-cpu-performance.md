@@ -42,11 +42,13 @@ thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
 <div style="background-color: #CAECCA; padding: 8px; outline: 2px solid; border-radius: 10px; text-align: left;">
   Infinity is no longer offered by Hugging Face as a commercial inference solution. To deploy and accelerate your models, we recommend the following new solutions:
 
+  <font color="black">
   * [Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index) to easily deploy models on dedicated infrastructure managed by Hugging Face.
 
   * Our open source acceleration libraries [🤗 Optimum Intel](https://huggingface.co/blog/openvino) and [🤗 Optimum ONNX Runtime](https://huggingface.co/docs/optimum/main/en/onnxruntime/overview) to accelerate your models on CPU.
 
   * Hugging Face [Expert Acceleration Program](https://huggingface.co/support), a commercial service for Hugging Face experts to work directly with your team to accelerate your Machine Learning roadmap and models.
+  </font>
 </div>
 
 ## Introduction 
