@@ -8,7 +8,7 @@ thumbnail: /blog/assets/113_sample_factory/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published November 27, 2022.</small>
+    <small>Published December 13, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/sample-factory.md">
         Update on GitHub
     </a>
@@ -33,40 +33,30 @@ thumbnail: /blog/assets/113_sample_factory/thumbnail.png
     </a>
 </div>
 
-ADD ANDREW
 
+At Hugging Face, we are contributing to the ecosystem for Deep Reinforcement Learning researchers and enthusiasts. That’s why we’re happy to announce that we integrated [Sample Factory](https://github.com/alex-petrenko/sample-factory) to the Hugging Face Hub, one of the most advanced RL framesworks available.
 
-At Hugging Face, we are contributing to the ecosystem for Deep Reinforcement Learning researchers and enthusiasts. That’s why we’re happy to announce that we integrated [Sample Factory](https://github.com/alex-petrenko/sample-factory) to the Hugging Face Hub.
+So, are you ready to take your Deep Reinforcement Learning training to the next level? Look no further than Hugging Face's latest integration with [Sample Factory](https://github.com/alex-petrenko/sample-factory)!
 
-[Sample Factory](https://github.com/alex-petrenko/sample-factory) is a library for high throughput asynchronous reinforcement learning, that makes it easy to train fast and test your agents in a variety of environments (IsaacGym, Gym, Atari, DeepMind Lab, VizDoom, MuJoco...).
-With this integration, you can now host your saved models 💾 and load powerful models from the community.
+Sample Factory is a powerful library for high-throughput, asynchronous reinforcement learning, making it easy to train your agents across a variety of environments including IsaacGym, DeepMind Lab, Mujoco,  Atari, and VizDoom. With the integration with Hugging Face, you can now host your saved models and access powerful models from the community.
 
-MAYBE ADD SOMETHING about what is Sample Factory in more details
+But that's not all - Sample Factory includes advanced features not found in most Deep RL frameworks, such as multi-agent training, self-play, and multi-GPU population-based training. Plus, it supports vectorized and GPU-accelerated environments for even faster training.
 
-ADD VIDEO Sample factory
-
-In this article, we’re going to show how you can do it. But if you want to follow with a tutorial, we wrote one where you'll learn:
-- How to train a Deep Reinforcement Learning lander agent to land correctly on the Moon 🌕 
-- How to upload it to the Hub 🚀
-
-![gif](assets/47_sb3/lunarlander.gif)
-
-- How to download and use a saved model from the Hub that CHOOSE ENVIRONMENT
-
-👉 [The tutorial]() ADD LINK
-
+In this article, we'll show you the basics of Sample Factory, including installation and trying out the provided examples. In a future tutorial, we'll dive into more advanced features like multi-GPU population-based training and show you how to train an agent to play multiplayer Doom.
+<figure class="image table text-center m-0 w-full">
+  <img src="assets/113_sample-factory/vizdoom_example.gif" alt="Doom Example"/>
+  <figcaption>An example of an agent playing Doom.
+</figcaption>
+</figure>
 Sounds exciting? Let's get started!
 
-- [Install the library]()
+- [Installing the library]()
 - [Exploring samaple-factory in the Hub]()
 - [Loading models from the Hub]()
-  - [Using 
-TODO finish the table des matières when titles are chosen
 
 
-## Install the library
-To install the `sample-factory` library, you need to install the package:
-
+## Installing the library
+Installing sample-factory is easy with pip:
 `pip install sample-factory`
 
 
@@ -80,16 +70,11 @@ All models on the Hub come up with useful features:
 3. Evaluation results to compare with other models.
 4. A video widget where you can watch your agent performing.
 
-
 <figure class="image table text-center m-0 w-full">
   <img src="assets/113_sample-factory/doom-example.jpg" alt="Doom Example"/>
   <figcaption>An example of a model card of an agent playing Doom
 </figcaption>
 </figure>
-
-
-
-
 
 
 ## Loading models from the Hub
@@ -169,16 +154,14 @@ python -m sf_examples.mujoco_examples.enjoy_mujoco --algo=APPO --env=mujoco_ant 
 In the coming weeks and months, we plan on supporting other tools from the ecosystem:
 
 - Integrating [CleanRL](https://github.com/vwxyzjn/cleanrl) to the Hub.
-- Launching the Beta of [Simulate](https://github.com/huggingface/simulate), a library for easily creating and sharing simulation environments for intelligent agents
 - Expanding our repository of Decision Transformer models with models trained or finetuned in an online setting [1]
+- Add Hub intergration to the [Godot RL library](https://github.com/edbeeching/godot_rl_agents/)
 
 The best way to keep in touch is to **[join our discord server](https://discord.gg/YRAq8fMnUG)** to exchange with us and with the community.
 
-Finally, we would like to thank the SB3 team and in particular ADD PEOPLE FROM SF2 for their precious help for the integration of the library 🤗.
+Finally, we would like to thank the SB3 team and in particular Alexsei Petrenko, Andrew Zhang and Ming Wang for their contribution in building this library 🤗.
 
 ### Would you like to integrate your library to the Hub?
 
 This integration is possible thanks to the [`huggingface_hub`](https://github.com/huggingface/huggingface_hub) library which has all our widgets and the API for all our supported libraries. If you would like to integrate your library to the Hub, we have a [guide](https://huggingface.co/docs/hub/models-adding-libraries) for you!
 
-## References
-[1] Zheng, Qinqing and Zhang, Amy and Grover, Aditya “Online Decision Transformer” (arXiv preprint, 2022)
