@@ -48,7 +48,7 @@ This is the first time ever the ALIGN model is made public for free and open-sou
 This blog will introduce the new [COYO](https://github.com/kakaobrain/coyo-dataset) dataset, Kakao Brain's ViT and ALIGN models, and how to use them! Here are the main takeaways:
 
 * First open-source ALIGN model ever 
-* First open ViT and ALIGN models that have been trained on an open-source dataset `COYO`
+* First open ViT and ALIGN models that have been trained on an open-source dataset [COYO](https://github.com/kakaobrain/coyo-dataset)
 * Kakao Brain's ViT and ALIGN models perform on-par with the Google versions
 * ViT demo is available on HF! You can play with the ViT demo online with image samples of your own choice!
 * 
