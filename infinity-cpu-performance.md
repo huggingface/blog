@@ -38,7 +38,8 @@ thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
-<div style="background-color: #CAECCA; padding: 10px; order: 2px solid green; margin-left: auto; margin-right: auto; width: 50em; text-align: left;">
+<br>
+<div style="background-color: #CAECCA; padding: 10px; order: 2px solid green; margin-left: auto; margin-right: auto; width: 40em; text-align: left;">
   Infinity is no longer offered by Hugging Face as a commercial inference solution. To deploy and accelerate your models, we recommend the following new solutions:
 
   * [Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index) to easily deploy models on dedicated infrastructure managed by Hugging Face.
