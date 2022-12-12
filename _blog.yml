@@ -1535,6 +1535,16 @@
     - nlp
     - open-source-collab
 
+- local: rlhf
+  title: "Illustrating Reinforcement Learning from Human Feedback (RLHF)"
+  author: natolambert
+  thumbnail: /blog/assets/120_rlhf/thumbnail.png
+  date: December 9, 2022
+  tags:
+    - rlhf
+    - rl
+    - guide
+
 - local: switch_transformers
   title: "Introduction to Switch Transformers"
   author: azucker
