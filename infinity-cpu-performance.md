@@ -39,8 +39,7 @@ thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
 <br>
-<font color="black">
-<div style="background-color: #CAECCA; padding: 8px; outline: 2px solid; border-radius: 10px; text-align: left;">
+<div style="color: black; background-color: #CAECCA; padding: 8px; outline: 2px solid; border-radius: 10px; text-align: left;">
   Infinity is no longer offered by Hugging Face as a commercial inference solution. To deploy and accelerate your models, we recommend the following new solutions:
 
 
@@ -50,7 +49,7 @@ thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
 
   * Hugging Face [Expert Acceleration Program](https://huggingface.co/support), a commercial service for Hugging Face experts to work directly with your team to accelerate your Machine Learning roadmap and models.
 </div>
-</font>
+
 
 ## Introduction 
 
