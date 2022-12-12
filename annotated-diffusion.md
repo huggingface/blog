@@ -67,7 +67,8 @@ from functools import partial
 %matplotlib inline
 import matplotlib.pyplot as plt
 from tqdm.auto import tqdm
-from einops import rearrange
+from einops import rearrange, reduce
+from einops.layers.torch import Rearrange
 
 import torch
 from torch import nn, einsum
@@ -188,6 +189,16 @@ def default(val, d):
         return val
     return d() if isfunction(d) else d
 
+
+def num_to_groups(num, divisor):
+    groups = num // divisor
+    remainder = num % divisor
+    arr = [divisor] * groups
+    if remainder > 0:
+        arr.append(remainder)
+    return arr
+
+
 class Residual(nn.Module):
     def __init__(self, fn):
         super().__init__()
@@ -196,11 +207,20 @@ class Residual(nn.Module):
     def forward(self, x, *args, **kwargs):
         return self.fn(x, *args, **kwargs) + x
 
-def Upsample(dim):
-    return nn.ConvTranspose2d(dim, dim, 4, 2, 1)
 
-def Downsample(dim):
-    return nn.Conv2d(dim, dim, 4, 2, 1)
+def Upsample(dim, dim_out=None):
+    return nn.Sequential(
+        nn.Upsample(scale_factor=2, mode="nearest"),
+        nn.Conv2d(dim, default(dim_out, dim), 3, padding=1),
+    )
+
+
+def Downsample(dim, dim_out=None):
+    # No More Strided Convolutions or Pooling
+    return nn.Sequential(
+        Rearrange("b c (h p1) (w p2) -> b (c p1 p2) h w", p1=2, p2=2),
+        nn.Conv2d(dim * 4, default(dim_out, dim), 1),
+    )
 ```
 
 ### Position embeddings
@@ -225,21 +245,45 @@ class SinusoidalPositionEmbeddings(nn.Module):
         return embeddings
 ```
 
-### ResNet/ConvNeXT block
+### ResNet block
 
-Next, we define the core building block of the U-Net model. The DDPM authors employed a Wide ResNet block ([Zagoruyko et al., 2016](https://arxiv.org/abs/1605.07146)), but Phil Wang decided to also add support for a ConvNeXT block ([Liu et al., 2022](https://arxiv.org/abs/2201.03545)), as the latter has achieved great success in the image domain. One can choose one or another in the final U-Net architecture.
+Next, we define the core building block of the U-Net model. The DDPM authors employed a Wide ResNet block ([Zagoruyko et al., 2016](https://arxiv.org/abs/1605.07146)), but Phil Wang has replaced the standard convolution in the projection layer to `WeightStandardizedConv2d` which works better with Group norm:
 
-*Update: Phil Wang decided to [remove ConvNeXT blocks](https://github.com/lucidrains/denoising-diffusion-pytorch/commit/989f0fcb8e5f68ac851ccf213c993045512e7456) from his implementation as they didn't seem to work well for him. However, we obtained nice results with them, as shown further in this blog.*
 
 ```python
+class WeightStandardizedConv2d(nn.Conv2d):
+    """
+    https://arxiv.org/abs/1903.10520
+    weight standardization purportedly works synergistically with group normalization
+    """
+
+    def forward(self, x):
+        eps = 1e-5 if x.dtype == torch.float32 else 1e-3
+
+        weight = self.weight
+        mean = reduce(weight, "o ... -> o 1 1 1", "mean")
+        var = reduce(weight, "o ... -> o 1 1 1", partial(torch.var, unbiased=False))
+        normalized_weight = (weight - mean) * (var + eps).rsqrt()
+
+        return F.conv2d(
+            x,
+            normalized_weight,
+            self.bias,
+            self.stride,
+            self.padding,
+            self.dilation,
+            self.groups,
+        )
+
+
 class Block(nn.Module):
-    def __init__(self, dim, dim_out, groups = 8):
+    def __init__(self, dim, dim_out, groups=8):
         super().__init__()
-        self.proj = nn.Conv2d(dim, dim_out, 3, padding = 1)
+        self.proj = WeightStandardizedConv2d(dim, dim_out, 3, padding=1)
         self.norm = nn.GroupNorm(groups, dim_out)
         self.act = nn.SiLU()
 
-    def forward(self, x, scale_shift = None):
+    def forward(self, x, scale_shift=None):
         x = self.proj(x)
         x = self.norm(x)
 
@@ -250,13 +294,14 @@ class Block(nn.Module):
         x = self.act(x)
         return x
 
+
 class ResnetBlock(nn.Module):
     """https://arxiv.org/abs/1512.03385"""
-    
+
     def __init__(self, dim, dim_out, *, time_emb_dim=None, groups=8):
         super().__init__()
         self.mlp = (
-            nn.Sequential(nn.SiLU(), nn.Linear(time_emb_dim, dim_out))
+            nn.Sequential(nn.SiLU(), nn.Linear(time_emb_dim, dim_out * 2))
             if exists(time_emb_dim)
             else None
         )
@@ -266,46 +311,14 @@ class ResnetBlock(nn.Module):
         self.res_conv = nn.Conv2d(dim, dim_out, 1) if dim != dim_out else nn.Identity()
 
     def forward(self, x, time_emb=None):
-        h = self.block1(x)
-
+        scale_shift = None
         if exists(self.mlp) and exists(time_emb):
             time_emb = self.mlp(time_emb)
-            h = rearrange(time_emb, "b c -> b c 1 1") + h
+            time_emb = rearrange(time_emb, "b c -> b c 1 1")
+            scale_shift = time_emb.chunk(2, dim=1)
 
+        h = self.block1(x, scale_shift=scale_shift)
         h = self.block2(h)
-        return h + self.res_conv(x)
-    
-class ConvNextBlock(nn.Module):
-    """https://arxiv.org/abs/2201.03545"""
-
-    def __init__(self, dim, dim_out, *, time_emb_dim=None, mult=2, norm=True):
-        super().__init__()
-        self.mlp = (
-            nn.Sequential(nn.GELU(), nn.Linear(time_emb_dim, dim))
-            if exists(time_emb_dim)
-            else None
-        )
-
-        self.ds_conv = nn.Conv2d(dim, dim, 7, padding=3, groups=dim)
-
-        self.net = nn.Sequential(
-            nn.GroupNorm(1, dim) if norm else nn.Identity(),
-            nn.Conv2d(dim, dim_out * mult, 3, padding=1),
-            nn.GELU(),
-            nn.GroupNorm(1, dim_out * mult),
-            nn.Conv2d(dim_out * mult, dim_out, 3, padding=1),
-        )
-
-        self.res_conv = nn.Conv2d(dim, dim_out, 1) if dim != dim_out else nn.Identity()
-
-    def forward(self, x, time_emb=None):
-        h = self.ds_conv(x)
-
-        if exists(self.mlp) and exists(time_emb):
-            condition = self.mlp(time_emb)
-            h = h + rearrange(condition, "b c -> b c 1 1")
-
-        h = self.net(h)
         return h + self.res_conv(x)
 ```
 
@@ -388,18 +401,19 @@ class PreNorm(nn.Module):
 
 ### Conditional U-Net
 
-Now that we've defined all building blocks (position embeddings, ResNet/ConvNeXT blocks, attention and group normalization), it's time to define the entire neural network. Recall that the job of the network \\(\mathbf{\epsilon}_\theta(\mathbf{x}_t, t)\\) is to take in a batch of noisy images + noise levels, and output the noise added to the input. More formally:
+Now that we've defined all building blocks (position embeddings, ResNet blocks, attention and group normalization), it's time to define the entire neural network. Recall that the job of the network \\(\mathbf{\epsilon}_\theta(\mathbf{x}_t, t)\\) is to take in a batch of noisy images and their respective noise levels, and output the noise added to the input. More formally:
 
-- the network takes a batch of noisy images of shape `(batch_size, num_channels, height, width)` and a batch of timesteps of shape `(batch_size, 1)` as input, and returns a tensor of shape `(batch_size, num_channels, height, width)`
+- the network takes a batch of noisy images of shape `(batch_size, num_channels, height, width)` and a batch of noise levels of shape `(batch_size, 1)` as input, and returns a tensor of shape `(batch_size, num_channels, height, width)`
 
 The network is built up as follows:
 * first, a convolutional layer is applied on the batch of noisy images, and position embeddings are computed for the noise levels
-* next, a sequence of downsampling stages are applied. Each downsampling stage consists of 2 ResNet/ConvNeXT blocks + groupnorm + attention + residual connection + a downsample operation
-* at the middle of the network, again ResNet or ConvNeXT blocks are applied, interleaved with attention
-* next, a sequence of upsampling stages are applied. Each upsampling stage consists of 2 ResNet/ConvNeXT blocks + groupnorm + attention + residual connection + an upsample operation
-* finally, a ResNet/ConvNeXT block followed by a convolutional layer is applied.
+* next, a sequence of downsampling stages are applied. Each downsampling stage consists of 2 ResNet blocks + groupnorm + attention + residual connection + a downsample operation
+* at the middle of the network, again ResNet blocks are applied, interleaved with attention
+* next, a sequence of upsampling stages are applied. Each upsampling stage consists of 2 ResNet  blocks + groupnorm + attention + residual connection + an upsample operation
+* finally, a ResNet block followed by a convolutional layer is applied.
 
 Ultimately, neural networks stack up layers as if they were lego blocks (but it's important to [understand how they work](http://karpathy.github.io/2019/04/25/recipe/)).
+
 
 ```python
 class Unet(nn.Module):
@@ -410,39 +424,33 @@ class Unet(nn.Module):
         out_dim=None,
         dim_mults=(1, 2, 4, 8),
         channels=3,
-        with_time_emb=True,
-        resnet_block_groups=8,
-        use_convnext=True,
-        convnext_mult=2,
+        self_condition=False,
+        resnet_block_groups=4,
     ):
         super().__init__()
 
         # determine dimensions
         self.channels = channels
+        self.self_condition = self_condition
+        input_channels = channels * (2 if self_condition else 1)
 
-        init_dim = default(init_dim, dim // 3 * 2)
-        self.init_conv = nn.Conv2d(channels, init_dim, 7, padding=3)
+        init_dim = default(init_dim, dim)
+        self.init_conv = nn.Conv2d(input_channels, init_dim, 1, padding=0) # changed to 1 and 0 from 7,3
 
         dims = [init_dim, *map(lambda m: dim * m, dim_mults)]
         in_out = list(zip(dims[:-1], dims[1:]))
-        
-        if use_convnext:
-            block_klass = partial(ConvNextBlock, mult=convnext_mult)
-        else:
-            block_klass = partial(ResnetBlock, groups=resnet_block_groups)
+
+        block_klass = partial(ResnetBlock, groups=resnet_block_groups)
 
         # time embeddings
-        if with_time_emb:
-            time_dim = dim * 4
-            self.time_mlp = nn.Sequential(
-                SinusoidalPositionEmbeddings(dim),
-                nn.Linear(dim, time_dim),
-                nn.GELU(),
-                nn.Linear(time_dim, time_dim),
-            )
-        else:
-            time_dim = None
-            self.time_mlp = None
+        time_dim = dim * 4
+
+        self.time_mlp = nn.Sequential(
+            SinusoidalPositionEmbeddings(dim),
+            nn.Linear(dim, time_dim),
+            nn.GELU(),
+            nn.Linear(time_dim, time_dim),
+        )
 
         # layers
         self.downs = nn.ModuleList([])
@@ -455,10 +463,12 @@ class Unet(nn.Module):
             self.downs.append(
                 nn.ModuleList(
                     [
-                        block_klass(dim_in, dim_out, time_emb_dim=time_dim),
-                        block_klass(dim_out, dim_out, time_emb_dim=time_dim),
-                        Residual(PreNorm(dim_out, LinearAttention(dim_out))),
-                        Downsample(dim_out) if not is_last else nn.Identity(),
+                        block_klass(dim_in, dim_in, time_emb_dim=time_dim),
+                        block_klass(dim_in, dim_in, time_emb_dim=time_dim),
+                        Residual(PreNorm(dim_in, LinearAttention(dim_in))),
+                        Downsample(dim_in, dim_out)
+                        if not is_last
+                        else nn.Conv2d(dim_in, dim_out, 3, padding=1),
                     ]
                 )
             )
@@ -468,57 +478,68 @@ class Unet(nn.Module):
         self.mid_attn = Residual(PreNorm(mid_dim, Attention(mid_dim)))
         self.mid_block2 = block_klass(mid_dim, mid_dim, time_emb_dim=time_dim)
 
-        for ind, (dim_in, dim_out) in enumerate(reversed(in_out[1:])):
-            is_last = ind >= (num_resolutions - 1)
+        for ind, (dim_in, dim_out) in enumerate(reversed(in_out)):
+            is_last = ind == (len(in_out) - 1)
 
             self.ups.append(
                 nn.ModuleList(
                     [
-                        block_klass(dim_out * 2, dim_in, time_emb_dim=time_dim),
-                        block_klass(dim_in, dim_in, time_emb_dim=time_dim),
-                        Residual(PreNorm(dim_in, LinearAttention(dim_in))),
-                        Upsample(dim_in) if not is_last else nn.Identity(),
+                        block_klass(dim_out + dim_in, dim_out, time_emb_dim=time_dim),
+                        block_klass(dim_out + dim_in, dim_out, time_emb_dim=time_dim),
+                        Residual(PreNorm(dim_out, LinearAttention(dim_out))),
+                        Upsample(dim_out, dim_in)
+                        if not is_last
+                        else nn.Conv2d(dim_out, dim_in, 3, padding=1),
                     ]
                 )
             )
 
-        out_dim = default(out_dim, channels)
-        self.final_conv = nn.Sequential(
-            block_klass(dim, dim), nn.Conv2d(dim, out_dim, 1)
-        )
+        self.out_dim = default(out_dim, channels)
 
-    def forward(self, x, time):
+        self.final_res_block = block_klass(dim * 2, dim, time_emb_dim=time_dim)
+        self.final_conv = nn.Conv2d(dim, self.out_dim, 1)
+
+    def forward(self, x, time, x_self_cond=None):
+        if self.self_condition:
+            x_self_cond = default(x_self_cond, lambda: torch.zeros_like(x))
+            x = torch.cat((x_self_cond, x), dim=1)
+
         x = self.init_conv(x)
+        r = x.clone()
 
-        t = self.time_mlp(time) if exists(self.time_mlp) else None
+        t = self.time_mlp(time)
 
         h = []
 
-        # downsample
         for block1, block2, attn, downsample in self.downs:
             x = block1(x, t)
+            h.append(x)
+
             x = block2(x, t)
             x = attn(x)
             h.append(x)
+
             x = downsample(x)
 
-        # bottleneck
         x = self.mid_block1(x, t)
         x = self.mid_attn(x)
         x = self.mid_block2(x, t)
 
-        # upsample
         for block1, block2, attn, upsample in self.ups:
             x = torch.cat((x, h.pop()), dim=1)
             x = block1(x, t)
+
+            x = torch.cat((x, h.pop()), dim=1)
             x = block2(x, t)
             x = attn(x)
+
             x = upsample(x)
 
+        x = torch.cat((x, r), dim=1)
+
+        x = self.final_res_block(x, t)
         return self.final_conv(x)
 ```
-
-By default, the noise predictor uses ConvNeXT blocks (as `use_convnext` is set to `True`) and position embeddings are added (as `with_time_emb` is set to `True`).
 
 ## Defining the forward diffusion process
 
@@ -561,10 +582,10 @@ def sigmoid_beta_schedule(timesteps):
     return torch.sigmoid(betas) * (beta_end - beta_start) + beta_start
 ```
 
-To start with, let's use the linear schedule for \\(T=200\\) time steps and define the various variables from the \\(\beta_t\\) which we will need, such as the cumulative product of the variances \\(\bar{\alpha}_t\\). Each of the variables below are just 1-dimensional tensors, storing values from \\(t\\) to \\(T\\). Importantly, we also define an `extract` function, which will allow us to extract the appropriate \\(t\\) index for a batch of indices.
+To start with, let's use the linear schedule for \\(T=300\\) time steps and define the various variables from the \\(\beta_t\\) which we will need, such as the cumulative product of the variances \\(\bar{\alpha}_t\\). Each of the variables below are just 1-dimensional tensors, storing values from \\(t\\) to \\(T\\). Importantly, we also define an `extract` function, which will allow us to extract the appropriate \\(t\\) index for a batch of indices.
 
 ```python
-timesteps = 200
+timesteps = 300
 
 # define beta schedule
 betas = linear_beta_schedule(timesteps=timesteps)
@@ -918,7 +939,7 @@ Let's start training!
 ```python
 from torchvision.utils import save_image
 
-epochs = 5
+epochs = 6
 
 for epoch in range(epochs):
     for step, batch in enumerate(dataloader):
