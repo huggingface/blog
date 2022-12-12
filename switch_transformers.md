@@ -39,16 +39,15 @@ thumbnail: /blog/assets/119_switch_transformers/thumbnail.png
 </a>
 
 
-Mixture of Experts (MoE) based models make their way to the Hugging Face ecosystem
+# Mixture of Experts (MoE) based models make their way to the Hugging Face ecosystem
 
 If you are following the recent advances in NLP, you have probably heard about the sparse architecture called Mixture of Experts (MoE) models. Research on MoEs has been around for a few years, but the advance of huge clusters allowed the democratization of the architecture.
 
-
-In terms of software adoption, we have seen several MoE implementations, for example, in MetaAI’s `fairseq` library and Microsoft’s `DeepSpeed` library.
+In terms of software adoption, we have seen several MoE implementations, for example, in MetaAI’s [`fairseq`](https://github.com/facebookresearch/fairseq/tree/main/examples/moe_lm) library and Microsoft’s [`DeepSpeed`](https://arxiv.org/pdf/2201.05596.pdf) library.
 
 With the publication of several research papers and the adoption of Mixture of Experts in increasingly more tasks, this now efficient architecture has gained popularity in the recent months.
 
-Google open-sourced the largest MoE models last year in the paper “Switch Transformers: Scaling to Trillion Parameters models with simple and efficient sparsity”. The paper released a trillion parameter model, Switch-c-2048 (3.1 Terabytes !).
+Google open-sourced the largest MoE models last year in the paper [“Switch Transformers: Scaling to Trillion Parameters models with simple and efficient sparsity”](https://arxiv.org/abs/2101.03961). The paper released a trillion parameter model, Switch-c-2048 (3.1 Terabytes !).
 The model is now publicly available on [Hugging Face Hub](https://huggingface.co/models?search=switch), making it the biggest model available.
 
 
@@ -57,8 +56,19 @@ In an effort to democratize its usage, as well as centralize the research effort
 
 Let’s dive into the technical specifications of this architecture and how to train and evaluate your first MoE model using 🤗  `transformers`! Let’s get started ! 🤗  🥳 
 
+## Mixture of Experts models in few words
+
+Mixture of Experts (MoE) have been widely democratized by Shazeer et al. in the paper ["Outrageously Large Neural Networks: the Sparsely-Gated Mixture of Experts Layer"](https://openreview.net/pdf?id=B1ckMDqlg) - the main motivation of creating these layers being the necessity of increasing the number of parameters (therefore the model's capacity) with minor losses in computational efficiency. In the paper, authors claim to obtain greater than 1000x improvements in model capacity while observing a small loss in computational efficiency. 
+
+| ![MoE figure](/assets/119_switch_transformers/moe.png) | 
+|:--:|
+| <b> The first MoE layer as defined by Shazeer et al. from the paper ["Outrageously Large Neural Networks: the Sparsely-Gated Mixture of Experts Layer"](https://openreview.net/pdf?id=B1ckMDqlg) | Image source: https://openreview.net/pdf?id=B1ckMDqlg </b>|
+
+In more details, a MoE layer conists of a set of `n` "experts networks" and a "gating network" (in case of Switch Transformers this layer is called the router). The gating network selects a sparse combination of the experts to process each input. Although training a MoE-based model will result in having a larger model, experiments detailed in the section 5 of the paper showed that it is possible to drastically increasing the output model's performance for the same computational budget. 
+
+[Switch Transformers](https://arxiv.org/pdf/2101.03961.pdf), based on MoE layers, we trained with up to 7x speedup in pre-training with the identical computational resources to train a T5-base and T5-large model.
+
 ## Switch Transformers in a nutshell
-In early concepts, the experts defined an entire neural network and the MoE was similar to ensemble methods.
 
 Switch Transformers follows the T5 architecture, and the implementation is heavily based on our T5 code, with the exception of the `DenseActDense`, which can be replaced with `SparseMLP`.
 
@@ -75,7 +85,9 @@ How can we ensure the diversity of the routing mechanism? I.e, make sure that th
 Therefore, it is important to revisit the routing algorithm to tackle this issue. Recently, Google developed the so-called Expert Choice (EC) algorithm. The top-k tokens are assigned the experts with a predetermined buffer capacity rather than having tokens choose the top-k experts. This approach significantly improves training efficiency and downstream performance while guaranteeing even load balancing and allowing a variable number of experts for each token. In an 8B/64E (8 billion activated parameters, 64 experts) model, EC routing accelerates training convergence more than two times compared to the top-1 and top-2 gating mechanisms. Read more about the method in the [original blog post](https://ai.googleblog.com/2022/11/mixture-of-experts-with-expert-choice.html)
 
 Microsoft introduced X-MoE, which consists of routers that use a learnable temperature, by estimating the routing scores on a low-dimensional hypersphere.
-How good are these models?
+
+## How good are these models?
+
 The models that have been publicly released are pre-trained on C4 dataset, on masked language modeling task. Therefore they are not ready to use as Flan-T5 for instance. One needs to fine-tune the models to any task before using it. However, authors published some results of the fine-tuned checkpoints and the results seem to be better than classic T5 models.
 
 | Model | GLUE | SQuAD | SuperGLUE | Winogrande (XL) |
@@ -100,7 +112,8 @@ The models that have been publicly released are pre-trained on C4 dataset, on ma
 | Switch-Large | 31.3 | 29.5 | 36.9 |
 
 
-How to use it in Hugging Face ecosystem
+## How to use it in Hugging Face ecosystem
+
 With the introduction of Switch Transformers in the Hugging Face ecosystem, we let users and practitioners train and deploy their first MoE models! Let’s see how to do so with a few lines of code.
 Together with the Trillion parameter model, google has released a set of smaller models so that anyone can experiment with this architecture, check them out here: https://huggingface.co/models?sort=downloads&search=google%2Fswitch- 
 
