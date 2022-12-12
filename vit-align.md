@@ -98,7 +98,7 @@ It is a new approach to vision, distinct from convolutional neural nets (CNNs) t
 
 
 ## How to use the COYO dataset
-To use the `COYO` dataset, refer to the [`COYO` github page](https://github.com/kakaobrain/coyo-dataset/tree/main/download).
+To use the `COYO` dataset, refer to the [COYO github page](https://github.com/kakaobrain/coyo-dataset/tree/main/download).
 
 ## How to use ViT and ALIGN from the Hub
 <img src="assets/120_vit_align/vit_demo.png" alt="vit performance" width="900"/>
