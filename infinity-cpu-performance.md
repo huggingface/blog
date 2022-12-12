@@ -46,8 +46,7 @@ thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
 
   * Our open source acceleration libraries [🤗 Optimum Intel](https://huggingface.co/blog/openvino) and [🤗 Optimum ONNX Runtime](https://huggingface.co/docs/optimum/main/en/onnxruntime/overview) to accelerate your models on CPU.
 
-  * Hugging Face [Expert Acceleration Program](https://huggingface.co/support), a commercial service for Hugging Face experts to work directly with your team to accelerate your Machine Learning roadmap and models.
-</div>
+  * Hugging Face [Expert Acceleration Program](https://huggingface.co/support), a commercial service for Hugging Face experts to work directly with your team to accelerate your Machine Learning roadmap and models.</div>
 
 
 ## Introduction 
