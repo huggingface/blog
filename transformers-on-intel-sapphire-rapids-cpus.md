@@ -1,15 +1,14 @@
 ---
-title: "Accelerating PyTorch Transformers with Intel Xeon CPUs (Sapphire Rapids)"
-thumbnail: /blog/assets/xxx/xxx
-
+title: "Accelerating PyTorch Transformers with Intel Sapphire Rapids - part 1"
+thumbnail: /blog/assets/120_transformers_on_sapphire_rapids_cpus/02.png
 ---
 
 <h1>
-Accelerating PyTorch Transformers with Intel Xeon CPUs (Sapphire Rapids)</h1>
+Accelerating PyTorch Transformers with Intel Sapphire Rapids, part 1</h1>
 
 
 <div class="blog-metadata">
-    <small>Published December xx, 2022.</small>
+    <small>Published December 15, 2022.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/juliensimon/blog/blob/main/transformers-on-intel-sapphire-rapids-cpus.md">
         Update on GitHub
     </a>
@@ -25,29 +24,41 @@ Accelerating PyTorch Transformers with Intel Xeon CPUs (Sapphire Rapids)</h1>
     </a>
 </div>
 
-About a year ago, I [showed you](https://huggingface.co/blog/accelerating-pytorch) how to accelerate Hugging Face transformers with Intel Xeon Scalable CPUs based on the Ice Lake architecture. Recently, Intel has launched the 4th generation of [Intel Xeon Scalable](https://www.intel.com/content/www/us/en/products/details/processors/xeon/scalable.html) CPUs. Code-named Sapphire Rapids, this new architecture introduces new CPU instructions designed to speed up operations commonly found in deep learning (DL) training and inference.
+About a year ago, we [showed you](https://huggingface.co/blog/accelerating-pytorch) how to distribute the training of Hugging Face transformers on a cluster or third-generation [Intel Xeon Scalable](https://www.intel.com/content/www/us/en/products/details/processors/xeon/scalable.html) (aka Ice Lake). Recently, Intel has launched the fourth generation of Xeon CPUs, code-named Sapphire Rapids, with brings exciting new instructions that speed up operations commonly found in deep learning models.
 
-In this post, you will first learn how to accelerate a PyTorch training job with a cluster of Sapphire Rapids servers running on AWS. We'll use the [Intel oneAPI Collective Communications Library](https://www.intel.com/content/www/us/en/developer/tools/oneapi/oneccl.html) (CCL) to distribute the job, and the [Intel Extension for PyTorch](https://github.com/intel/intel-extension-for-pytorch) (IPEX) library to automatically leverage the new CPU instructions. As both libraries are already integrated into the Hugging Face Trainer API and sample scripts, we'll be able to run our training job out of the box, without changing a line of code.
+In this post, you will learn how to accelerate a PyTorch training job with a cluster of Sapphire Rapids servers running on AWS. We'll use the [Intel oneAPI Collective Communications Library](https://www.intel.com/content/www/us/en/developer/tools/oneapi/oneccl.html) (CCL) to distribute the job, and the [Intel Extension for PyTorch](https://github.com/intel/intel-extension-for-pytorch) (IPEX) library to automatically put the new CPU instructions to work. As both libraries are already integrated into the Hugging Face Trainer API and sample scripts, we'll be able to run our training job out of the box, without changing a line of code.
 
-Then, we'll run inference tests on a few well-known models to demonstrate the speedup that Sapphire Rapids brings compared to Ice Lake.
+## Why You Should Consider Training On CPU
+
+Training a deep learning (DL) model on an Intel Xeon CPU can be a cost-effective and scalable approach, especially when using techniques such as distributed training and fine-tuning on small and medium datasets. 
+
+Xeon CPUs support advanced features such as Advanced Vector Extensions ([AVX-512](https://en.wikipedia.org/wiki/AVX-512)) and Intel Hyper-Threading technology, which can help improve the parallelism and efficiency of deep learning models. This can enable faster training times as well as better utilization of hardware resources.
+
+In addition, Xeon CPUs are generally more affordable and widely available compared to specialized hardware such as GPUs, which are typically required for training large deep learning models. Xeon CPUs can also be easily repurposed for other production tasks, making them a versatile and flexible choice for your IT infrastructure.
+
+Finally, cloud users can further reduce the cost of training on Xeon CPUs with spot instances. Spot instances are built from spare compute capacities and sold at a discounted price. They can provide significant cost savings compared to using on-demand instances. Last but not least, CPU spot instances also are generally easier to procure than GPU instances.
+
+Now, let's look at the new instructions available in the Sapphire Rapids architecture.
 
 
-## Accelerating Deep Learning with New Instructions
+## Sapphire Rapids: New Instructions for Deep Learning
 
-The Sapphire Rapids architecture introduces new instructions for DL acceleration :
+The Sapphire Rapids architecture introduces new instructions to accelerate DL workloads:
 
 * Adding to the well-known Intel Advanced Vector Extensions ([AVX-512](https://en.wikipedia.org/wiki/AVX-512)), [AVX512-FP16](https://en.wikipedia.org/wiki/AVX-512#FP16) brings new instructions dedicated to 16-bit floating point (FP16) data. For example, the VFMADD instruction can multiply two FP16 values and add the result to a third FP16 value, aka 'multiply and add', a common operation used by DL models at inference time.
 
 * The Intel Advanced Matrix Extensions ([AMX](https://en.wikipedia.org/wiki/Advanced_Matrix_Extensions)) is a net new instruction set to accelerate matrix multiplication, which is at the core of training DL models on batches of data. AMX
  supports both Brain Floating Point ([BF16](https://en.wikipedia.org/wiki/Bfloat16_floating-point_format)) and 8-bit integer (INT8) values, enabling ML practitioners to use it respectively for vanilla fine-tuning and quantization-aware training.
  
- As you will see, using these new instructions is as easy as installing the latest version of IPEX. There is no need to change anything in your Hugging Face code.
+Using these new instructions is as easy as installing the latest version of IPEX. There is no need to change anything in your Hugging Face code.
+
+Now, let's see how we can build a cluster of Sapphire Rapids CPUs for distributed training.
 
 ## Building a Cluster of Sapphire Rapids CPUs
 
 At the time of writing, the simplest way to get your hands on Sapphire Rapids-powered servers is to use the new Amazon EC2 [R7iz](https://aws.amazon.com/ec2/instance-types/r7iz/) instance, family. These have just been announced at AWS re: Invent 2022 and for now, you should sign up for the preview to get access.
 
-As I'm not really keen on setting up each node in the cluster manually, I'll set up only one, which I'll use to create a new Amazon Machine Image ([AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)). Then, I'll use this AMI to launch additional nodes.
+As I'm not keen on setting up each node in the cluster manually, I'll set up only one, which I'll use to create a new Amazon Machine Image ([AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html)). Then, I'll use this AMI to launch additional nodes.
 
 From a networking perspective, we will need the following setup:
 
@@ -62,11 +73,13 @@ From a networking perspective, we will need the following setup:
 </kbd>
 
 
+Let's get to work. We'll start with the master node of the cluster.
+
 ## Setting Up the Master Node
 
-I first create the master node by launching an `r7iz.8xlarge` instance with an Ubunutu 20.04 AMI and the security group I created earlier.
+We first create the master node by launching an `r7iz.8xlarge` instance with an Ubunutu 20.04 AMI and the security group I created earlier.
 
-Once the instance is running, I ssh to it and install all dependencies.
+Once the instance is running, we ssh to it and install all dependencies.
 
 ```
 # Create a virtual environment
@@ -92,15 +105,15 @@ cd transformers
 git checkout v4.24.0
 ```
 
-Next, I create a new ssh key pair called 'cluster' with `ssh-keygen` and store it at the default location (`~/.ssh`).
+Next, we create a new ssh key pair called 'cluster' with `ssh-keygen` and store it at the default location (`~/.ssh`).
 
-Finally, I create a [new AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html) from this instance.
+Finally, we create a [new AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html) from this instance. Once the AMI is ready, we can use it to launch the other cluster nodes.
 
 ## Setting Up the Cluster
 
-Once the AMI is ready, I use it to launch 7 additional `r7iz.8xlarge` instances, without forgetting to attach the security group created earlier.
+First, we create 7 additional `r7iz.8xlarge` instances, without forgetting to attach the security group created earlier.
 
-While these instances are starting, I ssh it to the master node to complete the network setup. First, I edit the ssh configuration file at `~/.ssh/config` to enable password-less connections from the master to all other nodes, using their private IP address and the key pair created earlier. Here's what my file looks like:
+While these instances are starting, we ssh it to the master node to complete the network setup. First, we edit the ssh configuration file at `~/.ssh/config` to enable password-less connections from the master to all other nodes, using their private IP address and the key pair created earlier. Here's what my file looks like:
 
 ```
 Host 172.31.*.*
@@ -142,9 +155,9 @@ Host node7
     IdentityFile ~/.ssh/cluster
 ```
 
-At this point, I can use `ssh node[0-7]` to connect to any node without any prompt.
+At this point, we can use `ssh node[0-7]` to connect to any node without any prompt.
 
-Still on the master node, I create a `~/hosts` file with the names of all nodes in the cluster as defined in the ssh configuration above. I use `localhost` for the master as I'll launch the training script there. Here's what my file looks like.
+Still, on the master node, we create a `~/hosts` file with the names of all nodes in the cluster as defined in the ssh configuration above. We use `localhost` for the master as I'll launch the training script there. Here's what my file looks like.
 
 ```
 localhost
@@ -157,7 +170,7 @@ node6
 node7
 ```
 
-The cluster is now ready for training.
+The cluster is now ready. Let's start training!
 
 ## Launching a Distributed Training Job
 
@@ -169,7 +182,7 @@ cd ~/transformers/examples/pytorch/question-answering
 pip3 install -r requirements.txt
 ```
 
-As a sanity check, I first launch a local training job. Please note several important flags: 
+As a sanity check, we first launch a local training job. Please note several important flags: 
 
 * `no_cuda` makes sure the job is ignoring any GPU on this machine,
 * `use_ipex` enables the IPEX library and thus the new AVX and AMX instructions, 
@@ -179,9 +192,9 @@ As a sanity check, I first launch a local training job. Please note several impo
 ```
 python run_qa.py --model_name_or_path distilbert-base-uncased --dataset_name squad --do_train --do_eval --per_device_train_batch_size 32  --num_train_epochs 1  --output_dir /tmp/debug_squad/ --use_ipex --bf16 --no_cuda
 ```
-No need to let it run to completion, I just let it start and run for a minute to make sure that all dependencies have been correctly installed. This also gives me a baseline for single-instance training: 1 epoch takes about **2 hours and 15 minutes**. For reference, I clocked the exact same job on a comparable Ice Lake instance (`c6i.8xlarge`) at **6 hours** per epoch. We can already see how beneficial the new instructions are!
+No need to let it run to completion, We just run for a minute to make sure that all dependencies have been correctly installed. This also gives me a baseline for single-instance training: 1 epoch takes about **2 hours and 15 minutes**. For reference, we clocked the same job on a comparable Ice Lake instance (`c6i.8xlarge`) at **6 hours** per epoch. We can already see how beneficial the new instructions are!
 
-Now, let's run distribute the training job on two instances. Given that an `r7iz.8xlarge` instance has 32 vCPUs, I decide to allocate 24 (`OMP_NUM_THREADS`) to run 4 Python processes per node (`NUM_PROCESSES_PER_NODE`). Hence, the total number of Python jobs running on the 2-node cluster is 8 (`NUM_PROCESSES`).
+Now, let's run distribute the training job on two instances. Given that an `r7iz.8xlarge` instance has 32 vCPUs, We decide to allocate 24 (`OMP_NUM_THREADS`) to run 4 Python processes per node (`NUM_PROCESSES_PER_NODE`). Hence, the total number of Python jobs running on the 2-node cluster is 8 (`NUM_PROCESSES`).
 
 ```
 # Set up environment variables for CCL
@@ -222,12 +235,18 @@ Here's what the 8-node job looks like. The master node is at the top, and you ca
 
 Perfect linear scaling on 8 nodes would be 16 minutes and 52 seconds (2 hours and 15 minutes divided by 8). We're extremely close to this ideal value, which shows how scalable this approach is.
 
+## Conclusion
 
+As you can see, training Hugging Face transformers on a cluster of Intel Xeon CPUs is a scalable and effective solution, especially if you're working with small or medium-sized models and datasets. 
 
+Here are some additional resources to help you get started:
 
-## Inference
+* [Intel IPEX](https://github.com/intel/intel-extension-for-pytorch) on Github
+* Hugging Face documentation: "[Efficient training on CPU](https://huggingface.co/docs/transformers/perf_train_cpu)"
 
-TBD
+If you have questions or feedback, we'd love to read them on the [Hugging Face forum](https://discuss.huggingface.co/).
+
+Thanks for reading!
 
 
 
