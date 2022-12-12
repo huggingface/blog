@@ -2,18 +2,6 @@
 title: "Case Study: Millisecond Latency using Hugging Face Infinity and modern CPUs"
 thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
 ---
-
-<div style="background-color: #90EE90; padding: 10px; order: 2px solid green; margin-left: auto; margin-right: auto; width: 70em; text-align: left;">
-  Infinity is no longer offered by Hugging Face as a commercial inference solution. To deploy and accelerate your models, we recommend the following new solutions:
-
-  * [Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index) to easily deploy models on dedicated infrastructure managed by Hugging Face.
-
-  * Our open source acceleration libraries [🤗 Optimum Intel](https://huggingface.co/blog/openvino) and [🤗 Optimum ONNX Runtime](https://huggingface.co/docs/optimum/main/en/onnxruntime/overview) to accelerate your models on CPU.
-
-  * Hugging Face [Expert Acceleration Program](https://huggingface.co/support), a commercial service for Hugging Face experts to work directly with your team to accelerate your Machine Learning roadmap and models. 
-</div>
-
-
 <h1>Case Study: Millisecond Latency using Hugging Face Infinity and modern CPUs</h1>
 
 <div class="blog-metadata">
@@ -22,7 +10,6 @@ thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
         Update on GitHub
     </a>
 </div>
-
 
 
 <div class="author-card">
@@ -50,6 +37,16 @@ thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
 </div>
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
+
+<div style="background-color: #CAECCA; padding: 10px; order: 2px solid green; margin-left: auto; margin-right: auto; width: 50em; text-align: left;">
+  Infinity is no longer offered by Hugging Face as a commercial inference solution. To deploy and accelerate your models, we recommend the following new solutions:
+
+  * [Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index) to easily deploy models on dedicated infrastructure managed by Hugging Face.
+
+  * Our open source acceleration libraries [🤗 Optimum Intel](https://huggingface.co/blog/openvino) and [🤗 Optimum ONNX Runtime](https://huggingface.co/docs/optimum/main/en/onnxruntime/overview) to accelerate your models on CPU.
+
+  * Hugging Face [Expert Acceleration Program](https://huggingface.co/support), a commercial service for Hugging Face experts to work directly with your team to accelerate your Machine Learning roadmap and models.
+</div>
 
 ## Introduction 
 
