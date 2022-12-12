@@ -1546,10 +1546,10 @@
     - guide
 
 - local: habana-gaudi-2-benchmark
-  title: "Faster Training and Inference: Habana Gaudi 2 vs Nvidia A100 80GB"
+  title: "Faster Training and Inference: Habana Gaudi®2 vs Nvidia A100 80GB"
   author: regisss
   thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
-  date: December 12, 2022
+  date: December 14, 2022
   tags:
     - partnerships
     - habana
