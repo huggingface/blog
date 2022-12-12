@@ -45,7 +45,7 @@ Kakao Brain and Hugging Face are excited to release a new open-source image-text
 
 This is the first time ever the ALIGN model is made public for free and open-source use. Google’s [ViT](https://ai.googleblog.com/2020/12/transformers-for-image-recognition-at.html) and [ALIGN](https://ai.googleblog.com/2021/05/align-scaling-up-visual-and-vision.html) models, while trained on huge datasets (ViT trained on 300 million images and ALIGN trained on 1.8 billion image-text pairs respectively), cannot be replicated because the datasets are not public. Kakao Brain’s ViT and ALIGN models follow the same architecture and hyperparamters as provided in the original [papers](google papers) respective Google models but are trained on the open source [COYO](https://github.com/kakaobrain/coyo-dataset) dataset. This contribution is particularly valuable to researchers who want to reproduce visual language modeling with access to the data as well. More detailed information on the Kakao ViT and ALIGN models can be found [here](https://huggingface.co/kakaobrain).  
 
-This blog will introduce the new `COYO` dataset, Kakao Brain's ViT and ALIGN models, and how to use them! Here are the main takeaways:
+This blog will introduce the new [COYO](https://github.com/kakaobrain/coyo-dataset) dataset, Kakao Brain's ViT and ALIGN models, and how to use them! Here are the main takeaways:
 
 * First open-source ALIGN model ever 
 * First open ViT and ALIGN models that have been trained on an open-source dataset `COYO`
