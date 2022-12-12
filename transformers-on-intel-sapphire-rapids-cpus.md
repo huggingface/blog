@@ -28,6 +28,8 @@ About a year ago, we [showed you](https://huggingface.co/blog/accelerating-pytor
 
 In this post, you will learn how to accelerate a PyTorch training job with a cluster of Sapphire Rapids servers running on AWS. We will use the [Intel oneAPI Collective Communications Library](https://www.intel.com/content/www/us/en/developer/tools/oneapi/oneccl.html) (CCL) to distribute the job, and the [Intel Extension for PyTorch](https://github.com/intel/intel-extension-for-pytorch) (IPEX) library to automatically put the new CPU instructions to work. As both libraries are already integrated into the Hugging Face Trainer API and sample scripts, we will be able to run our training job out of the box, without changing a line of code.
 
+In a follow-up post, we'll look at inference on Sapphire Rapids CPUs and the performance boost that they bring.
+
 ## Why You Should Consider Training On CPUs
 
 Training a deep learning (DL) model on Intel Xeon CPUs can be a cost-effective and scalable approach, especially when using techniques such as distributed training and fine-tuning on small and medium datasets. 
