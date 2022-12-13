@@ -1,9 +1,34 @@
-## [Introduction] 
-Model cards are an important documentation framework for understanding, sharing, and improving machine learning models. When done well, a model card can serve as a boundary object, a single artefact that is accessible to people with different backgrounds and goals in understanding models - including developers, students, policymakers, ethicists, and those impacted by machine learning models.
+---
+title: "Model Cards" 
+thumbnail: /blog/assets/121_model-cards/thumbnail.png
+---
 
-Today, we launch both a [model card creation tool](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) and a model card Guide Book, which present a "*snapshot*" of the current state of  model documentation. This work, informed by previous work on model cards, is focused on inclusion and is a stepping stone in ML documentation.
+# Model Cards
 
-## [Model Cards To-Date]
+<div class="blog-metadata">
+    <small>Published December 29, 2022</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/Ezi/model-cards/model-cards.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/Ezi"> 
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/25269943?v=4" width=100 title="Gravatar">
+        <div class="bfc">
+            <code>Ezi Ozoani</code>
+            <span class="fullname">Ezi Ozoani</span>
+        </div>
+    </a>
+</div>
+
+
+## Introduction
+Model cards are an important documentation framework for understanding, sharing, and improving machine learning models. When done well, a model card can serve as a _boundary object_, a single artefact that is accessible to people with different backgrounds and goals in understanding models - including developers, students, policymakers, ethicists, and those impacted by machine learning models.
+
+Today, we launch both a [model card creation tool](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) and a model card Guide Book, which details how to fill out model cards, user studies, and the state of the art in ML documentation. This work, building from the work of many other people and organization, is focused on _inclusion_ of people with different backgrounds and roles. We hope it serves as a stepping stone in the path towards improved ML documentation.
+
+## Model Cards To-Date
 
 Since model cards were proposed by [Mitchell et al., (2018)](https://arxiv.org/abs/1810.03993), inspired by the major documentation framework efforts of Data Statements for Natural Language Processing [(Bender & Friedman, 2018)](https://aclanthology.org/Q18-1041/) and Datasheets for Datasets [(Gebru et al., 2018)](https://www.fatml.org/media/documents/datasheets_for_datasets.pdf), the landscape of machine learning documentation has expanded and evolved. A plethora of documentation tools and templates for data, models, and ML systems have been proposed and developed - reflecting the incredible work of hundreds of researchers, impacted community members, advocates, and other stakeholders. Important discussions about the relationship between ML documentation and theories of change in responsible AI have also shaped these developments in the ML documentation ecosystem.
 
@@ -46,7 +71,7 @@ The model book and these findings represent one perspective amongst multiple abo
 
 Being part of a collaborative and open-source process that centres accessibility, ethics and technical inclusion, when building tools instead of their inclusion as an afterthought, has been an amazing stepping stone in ML documentation.
 
-## [Call to action]
+## Call to action
 
 Let's look ahead
 <p align="center">
