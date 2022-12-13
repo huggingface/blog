@@ -16,8 +16,18 @@ thumbnail: /blog/assets/121_model-cards/thumbnail.png
     <a href="/Ezi"> 
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/25269943?v=4" width=100 title="Gravatar">
         <div class="bfc">
-            <code>Ezi Ozoani</code>
-            <span class="fullname">Ezi Ozoani</span>
+            <code>Ezinwanne (Ezi) Ozoani</code>
+            <span class="fullname">Ezinwanne (Ezi) Ozoani</span>
+        </div>
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/Marissa"> 
+        <img class="avatar avatar-user" src="https://pbs.twimg.com/profile_images/1565196941792874497/6lHZyXRD_400x400.jpg" width=100 title="Gravatar">
+        <div class="bfc">
+            <code>Marissa Gerchick</code>
+            <span class="fullname">Marissa Gerchick</span>
         </div>
     </a>
 </div>
