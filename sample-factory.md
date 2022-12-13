@@ -33,6 +33,11 @@ thumbnail: /blog/assets/113_sample_factory/thumbnail.png
     </a>
 </div>
 
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/113_sample_factory.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">
+</a>
+
+
 
 At Hugging Face, we are contributing to the ecosystem for Deep Reinforcement Learning researchers and enthusiasts. That’s why we’re happy to announce that we integrated [Sample Factory](https://github.com/alex-petrenko/sample-factory) to the Hugging Face Hub, one of the most advanced RL framesworks available.
 
@@ -48,6 +53,13 @@ In this article, we'll show you the basics of Sample Factory, including installa
   <figcaption>An example of an agent playing Doom.
 </figcaption>
 </figure>
+
+You can follow this tutorial with this notebook:
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/113_sample_factory.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">
+</a>
+
+
 Sounds exciting? Let's get started!
 
 - [Installing the library]()
