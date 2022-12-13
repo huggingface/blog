@@ -55,6 +55,7 @@ In this article, we'll show you the basics of Sample Factory, including installa
 </figure>
 
 You can follow this tutorial with this notebook:
+
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/113_sample_factory.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">
 </a>
