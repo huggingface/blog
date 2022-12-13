@@ -247,7 +247,7 @@ class SinusoidalPositionEmbeddings(nn.Module):
 
 ### ResNet block
 
-Next, we define the core building block of the U-Net model. The DDPM authors employed a Wide ResNet block ([Zagoruyko et al., 2016](https://arxiv.org/abs/1605.07146)), but Phil Wang has replaced the standard convolutional layer by a "weight standardized" version, which works better in combination with group normalization (see [Kolesnikov et al., 2019](https://arxiv.org/abs/1912.11370) for details).
+Next, we define the core building block of the U-Net model. The DDPM authors employed a Wide ResNet block ([Zagoruyko et al., 2016](https://arxiv.org/abs/1605.07146)), but Phil Wang has replaced the standard convolutional layer by a "weight standardized" version, which works better in combination with group normalization (see ([Kolesnikov et al., 2019](https://arxiv.org/abs/1912.11370)) for details).
 
 
 ```python
