@@ -56,9 +56,11 @@ In an effort to democratize its usage, as well as centralize the research effort
 
 Let’s dive into the technical specifications of this architecture and how to train and evaluate your first MoE model using 🤗  `transformers`! Let’s get started ! 🤗  🥳 
 
-## Mixture of Experts models in few words
+## Mixture of Experts (MoE) models in a few words
 
-Mixture of Experts (MoE) have been widely democratized by Shazeer et al. in the paper ["Outrageously Large Neural Networks: the Sparsely-Gated Mixture of Experts Layer"](https://openreview.net/pdf?id=B1ckMDqlg) - the main motivation of creating these layers being the necessity of increasing the number of parameters (therefore the model's capacity) with minor losses in computational efficiency. In the paper, authors claim to obtain greater than 1000x improvements in model capacity while observing a small loss in computational efficiency. 
+Mixture of Experts (MoE) have been widely democratized by Shazeer et al. in the paper ["Outrageously Large Neural Networks: the Sparsely-Gated Mixture of Experts Layer"](https://openreview.net/pdf?id=B1ckMDqlg) - the main motivation behind the creation of these layers is the need to increase the number of parameters (therefore the model's capacity) with minor losses in computational efficiency. In the paper, authors claim to obtain greater than 1000x improvements in model capacity while observing a small loss in computational efficiency. 
+
+The basic idea is to replace a single model that can take `N` inputs by `nb_expert` models, and chose for each input, which model will process it. This way, you are still only using `N` weights, but the number of weights that you can be using is `N x nb_experts` instead of `N`. 
 
 | ![MoE figure](/assets/119_switch_transformers/moe.png) | 
 |:--:|
