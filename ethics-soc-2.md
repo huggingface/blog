@@ -39,10 +39,12 @@ part is a broader reflection on bias and its context; if you’ve already read i
 [datasets]((#i-am-curatingpicking-a-dataset-for-my-ml-system-how-can-i-address-bias) or [models](#i-am-trainingselecting-a-model-for-my-ml-system-how-can-i-address-bias)
 section!_
 
+<p align="center">
 ![Selection of tools developed by 🤗 team members to address bias in ML](assets/122_ethics_soc_2/img1.jpg "Selection of tools developed by 🤗 team members to address bias in ML")
 <span style="text-decoration:underline;">Selection of tools developed by 🤗 team members to address bias in ML</span>
 
 **<span style="text-decoration:underline;">Table of contents:</span>**
+</p>
 
 * **<span style="text-decoration:underline;">On Machine Biases</span>**
     * [Machine Bias: from ML Systems to Risks](#machine-bias-from-ml-systems-to-personal-and-social-risks)
