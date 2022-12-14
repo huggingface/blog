@@ -25,17 +25,11 @@ thumbnail: /blog/assets/103_ethics-soc-1/thumbnail.png
 
 ## Let’s Talk about Bias!
 
-_Bias in ML is ubiquitous, and Bias in ML is complex; so complex in fact that no single technical intervention is likely to meaningfully address the
-problems it engenders; since ML models, as sociotechnical systems, amplify social norms that may exacerbate inequities and harmful biases in ways that
-depend on their deployment context and are constantly evolving._
+_Bias in ML is ubiquitous, and Bias in ML is complex; so complex in fact that no single technical intervention is likely to meaningfully address the problems it engenders. ML models, as sociotechnical systems, amplify social trends that may exacerbate inequities and harmful biases in ways that depend on their deployment context and are constantly evolving._
 
-_This means that developing ML systems with care requires vigilance and responding to feedback from those deployment contexts, which in turn we can
-facilitate by sharing lessons across contexts and developing tools to analyze signs of bias at every level of ML development._
+_This means that developing ML systems with care requires vigilance and responding to feedback from those deployment contexts, which in turn we can facilitate by sharing lessons across contexts and developing tools to analyze signs of bias at every level of ML development._
 
-_This blog post from the [Ethics and Society regulars @🤗](https://huggingface.co/blog/ethics-soc-1) shares some of the lessons we have learned along with
-tools we have developed in our own work to support ourselves and others in our community’s efforts to better address bias in Machine Learning. The first
-part is a broader reflection on bias and its context; if you’ve already read it and are coming back specifically for the tools, feel free to jump to the 
-[datasets]((#i-am-curatingpicking-a-dataset-for-my-ml-system-how-can-i-address-bias) or [models](#i-am-trainingselecting-a-model-for-my-ml-system-how-can-i-address-bias)
+_This blog post from the [Ethics and Society regulars @🤗](https://huggingface.co/blog/ethics-soc-1)shares some of the lessons we have learned along with tools we have developed in our own work to support ourselves and others in our community’s efforts to better address bias in Machine Learning. The first part is a broader reflection on bias and its context. If you’ve already read it and are coming back specifically for the tools, feel free to jump to the [datasets]((#i-am-curatingpicking-a-dataset-for-my-ml-system-how-can-i-address-bias) or [models](#i-am-trainingselecting-a-model-for-my-ml-system-how-can-i-address-bias)
 section!_
 
 <p align="center">
@@ -54,17 +48,14 @@ section!_
         * [Task Definition](#i-am-defining-the-task-of-my-ml-system-how-can-i-address-bias)
         * [Dataset Curation](#i-am-curatingpicking-a-dataset-for-my-ml-system-how-can-i-address-bias)
         * [Model Training](#i-am-trainingselecting-a-model-for-my-ml-system-how-can-i-address-bias)
-    * [Overview of 🤗 Bias Tools](#conclusion-and-overview-of-bias-mitigation-tools-from-)
+    * [Overview of 🤗 Bias Tools](#conclusion-and-overview-of-bias-analysis-and-documentation-tools-from-)
 
 ## _Machine Bias:_ from ML Systems to Personal and Social Risks
 
-ML systems allow us to automate complex tasks at a scale never seen before as they are deployed in more sectors and use cases. When the technology works at
-its best, it can help smooth interactions between people and technical systems, remove the need for highly repetitive work, or unlock new ways of processing information to support research.
+ML systems allow us to automate complex tasks at a scale never seen before as they are deployed in more sectors and use cases. When the technology works at its best, it can help smooth interactions between people and technical systems, remove the need for highly repetitive work, or unlock new ways of processing information to support research.
 
 These same systems are also likely to reproduce discriminatory and abusive behaviors represented in their training data, especially when the data encodes human behaviors.
 The technology then has the potential to make these issues significantly worse. Automation and deployment at scale can indeed:
-
-
 
 1. **lock in** behaviors in time and hinder social progress [from being reflected in technology](https://dl.acm.org/doi/10.1145/3442188.3445922), 
 2. **spread** harmful behaviors [beyond the context](https://arxiv.org/abs/2203.07785) of the original training data,
@@ -75,7 +66,7 @@ In order to better understand and address these risks, ML researchers and develo
 
 **These issues are deeply personal** for many of us ML researchers and developers at Hugging Face and in the broader ML community. Hugging Face is [an international company](https://www.google.com/url?q=https://mobile.twitter.com/osanseviero/status/1587444072901492737&sa=D&source=docs&ust=1670891163192489&usg=AOvVaw2KQ5UqxcGggYrVH2u2J6g1), with many of us existing between countries and cultures. It is hard to fully express our sense of urgency when we see the technology we work on developed [without sufficient concern](https://dl.acm.org/doi/10.1145/3461702.3462624) for protecting people like us; especially when these systems lead to discriminatory [wrongful arrests](https://incidentdatabase.ai/cite/72/) or undue [financial distress](https://racismandtechnology.center/2021/10/29/amnestys-grim-warning-against-another-toeslagenaffaire/) and are being [increasingly sold](https://www.oecd.org/migration/mig/EMN-OECD-INFORM-FEB-2022-The-use-of-Digitalisation-and-AI-in-Migration-Management.pdf) to immigration and law enforcement services around the world. Similarly, seeing our identities routinely [suppressed in training datasets](https://aclanthology.org/2021.emnlp-main.98/) or [underrepresented in the outputs](https://huggingface.co/spaces/sasha/StableDiffusionBiasExplorer) of “generative AI” [systems ](https://twitter.com/willie_agnew/status/1592829238889283585)connects these concerns to our daily lived experiences in ways that are [simultaneously enlightening and taxing](https://www.technologyreview.com/2022/10/28/1062332/responsible-ai-has-a-burnout-problem/).
 
-While our own experiences do not come close to covering the myriad ways in which ML-mediated discrimination can disproportionately harm people whose experiences differ from ours, they provide an entry point into considerations of the trade-offs inherent in the technology. We work on these systems because we **strongly believe in ML’s potential, as a valuable tool to be developed with care and input from people in its deployment context**, not a one-size-fits-all panacea. In particular, enabling this care requires developing a better understanding of the mechanisms of machine bias across the ML development process, and developing tools that support people [with all levels of technical knowledge of these systems in participating in the necessary conversations](https://www.vice.com/en/article/bvm35w/this-tool-lets-anyone-see-the-bias-in-ai-image-generators) about how their benefits and harms are distributed.
+While our own experiences do not come close to covering the myriad ways in which ML-mediated discrimination can disproportionately harm people whose experiences differ from ours, they provide an entry point into considerations of the trade-offs inherent in the technology. We work on these systems because we **strongly believe in ML’s potential — we think it can shine as a valuable tool as long as it is developed with care and input from people in its deployment context**, rather than as a one-size-fits-all panacea. In particular, enabling this care requires developing a better understanding of the mechanisms of machine bias across the ML development process, and developing tools that support people [with all levels of technical knowledge of these systems in participating in the necessary conversations](https://www.vice.com/en/article/bvm35w/this-tool-lets-anyone-see-the-bias-in-ai-image-generators) about how their benefits and harms are distributed.
 
 The present blog post from the Hugging Face [Ethics and Society regulars](https://huggingface.co/blog/ethics-soc-1) provides an overview of how we have worked, are working, or recommend users of the HF ecosystem of libraries may work to address bias at the various stages of the ML development process, and the tools we develop to support this process. We hope you will find it a useful resource to guide concrete considerations of the social impact of your work and can leverage the tools referenced here to help mitigate these issues when they arise.
 
@@ -84,9 +75,16 @@ The present blog post from the Hugging Face [Ethics and Society regulars](https:
 
 The first and maybe most important concept to consider when dealing with machine bias is **context**. In their foundational work on [bias in NLP](https://aclanthology.org/2020.acl-main.485.pdf), Su Lin Blodgett et al. point out that: _“[T]he majority of [academic works on machine bias] fail to engage critically with what constitutes “bias” in the first place”_, including by building their work on top of _“unstated assumptions about what kinds of system behaviors are harmful, in what ways, to whom, and why”_.
 
-This may not come as much of a surprise given the ML research community’s [focus on the value of “generalization”](https://dl.acm.org/doi/10.1145/3531146.3533083) — the most cited motivation for work in the field after “performance”. However, while tools for bias assessment that apply to a wide range of settings are valuable to **enable a broader analysis of common trends** in model behaviors, their ability to target the mechanisms that lead to discrimination in **concrete use cases is inherently limited**. Using them to guide specific decisions within the ML development cycle usually requires an extra step or two.
+This may not come as much of a surprise given the ML research community’s [focus on the value of “generalization”](https://dl.acm.org/doi/10.1145/3531146.3533083) — the most cited motivation for work in the field after “performance”. However, while tools for bias assessment that apply to a wide range of settings are valuable to **enable a broader analysis of common trends** in model behaviors, their ability to target the mechanisms that lead to discrimination in **concrete use cases is inherently limited**. Using them to guide specific decisions within the ML development cycle usually requires an extra step or two  to take the system’s specific use context and affected people into consideration.
 
-Let’s now dive deeper into the issue of linking biases in stand-alone/context-less ML artifacts to specific harm. It can be useful to think of **machine biases as risk factors for discrimination-based harms**. Take the example of a text-to-image model that over-represents light skin tones when prompted to create a picture of a person in a professional setting, but produces darker skin tones [when the prompts mention criminality](https://arxiv.org/abs/2211.03759). These tendencies would be what we call _machine biases at the model level_. Now let’s think about a few systems that use such a text-to-image model:
+<p align="center">
+ <br>
+ <img src="assets/122_ethics_soc_2/img_foresight.png" alt="Excerpt on considerations of ML uses context and people from the Model Card Guidebook" />
+ <br>
+    <em>Excerpt on considerations of ML uses context and people from the <a href="https://huggingface.co/docs/hub/model-cards">Model Card Guidebook</a></em>
+</p>
+
+Now let’s dive deeper into the issue of linking biases in stand-alone/context-less ML artifacts to specific harms. It can be useful to think of **machine biases as risk factors for discrimination-based harms**. Take the example of a text-to-image model that over-represents light skin tones when prompted to create a picture of a person in a professional setting, but produces darker skin tones [when the prompts mention criminality](https://arxiv.org/abs/2211.03759). These tendencies would be what we call _machine biases at the model level_. Now let’s think about a few systems that use such a text-to-image model:
 
 
 1. <span style="text-decoration:underline;">The model is integrated into a website creation service</span> (e.g. SquareSpace, Wix) to help users generate backgrounds for their pages. The model explicitly disables images of people in the generated background.
@@ -115,12 +113,18 @@ In the next section, we review these various stages along with some of the tools
 
 Ready for some practical advice yet? Here we go 🤗
 
-We have repeatedly mentioned the concept of a Machine Learning development cycle in this post. There is no one single way to develop ML systems; which steps happen in what order depends on a number of factors including the development setting (university, large company, startup, grassroots organization, etc…), the modality (text, tabular data, images, etc…), or the preeminence or scarcity of publicly available ML resources. However, we can identify three common stages of particular interest in addressing bias. These are the **task definition**, the **data curation**, and the **model training**. Let’s have a look at how bias handling may differ across these various stages.
+There is no one single way to develop ML systems; which steps happen in what order depends on a number of factors including the development setting (university, large company, startup, grassroots organization, etc…), the modality (text, tabular data, images, etc…), and the preeminence or scarcity of publicly available ML resources. However, we can identify three common stages of particular interest in addressing bias. These are the task definition, the data curation, and the model training. Let’s have a look at how bias handling may differ across these various stages.
 
+<p align="center">
+ <br>
+ <img src="assets/122_ethics_soc_2/img_pipeline.png" alt="The Bias ML Pipeline by Meg" />
+ <br>
+    <em>The Bias ML Pipeline by <a href="https://huggingface.co/meg">Meg</a></em>
+</p>
 
 ### I am <span style="text-decoration:underline;">defining the task</span> of my ML system, how can I address bias?
 
-Whether and to what extent bias in the system concretely affects people ultimately depends on what the system is used for. As such, the first place developers can work to mitigate bias is when deciding how ML fits in their system, _e.g._ by deciding what objective it will be used to optimize.
+Whether and to what extent bias in the system concretely affects people ultimately depends on what the system is used for. As such, the first place developers can work to mitigate bias is when deciding how ML fits in their system, e.g., by deciding what optimization objective it will use.
 
 For example, let’s go back to one of the first highly-publicized cases of a Machine Learning system used in production for algorithmic content recommendation. From 2006 to 2009, Netflix ran the [Netflix Prize](https://www.cs.uic.edu/~liub/KDD-cup-2007/proceedings/The-Netflix-Prize-Bennett.pdf), a competition with a 1M$ cash prize challenging teams around the world to develop ML systems to accurately predict a user’s rating for a new movie based on their past ratings. The [winning submission](https://www.asc.ohio-state.edu/statistics/dmsl/GrandPrize2009_BPC_BigChaos.pdf) improved the RMSE (Root-mean-square-error) of predictions on unseen user-movie pairs by over 10% over Netflix’s own CineMatch algorithm, meaning it got much better at predicting how users would rate a new movie based on their history. This approach opened the door for much of modern algorithmic content recommendation by bringing the role of ML in modeling user preferences in recommender systems to public awareness.
 
@@ -193,7 +197,7 @@ Once you have some helpful statistics about the composition of your dataset, you
 
 #### Dataset selection/curation: recommendations
 
-These tools aren’t full solutions by themselves, rather, they are designed to support critical examination and improvement of datasets through the lens of bias and bias-related risks. In general, we encourage you to keep the following steps in mind when leveraging these and other tools to mitigate bias risks at the dataset curation/selection stage:
+These tools aren’t full solutions by themselves, rather, they are designed to support critical examination and improvement of datasets through several lenses, including the lens of bias and bias-related risks. In general, we encourage you to keep the following steps in mind when leveraging these and other tools to mitigate bias risks at the dataset curation/selection stage:
 
 * Identify:
     * Aspects of the dataset creation that may exacerbate specific biases
@@ -250,6 +254,15 @@ Finally, a few benchmarks exist that can measure bias-related phenomena in model
     <em><a href="https://huggingface.co/spaces/sasha/BiasDetection">Language Model Bias Detection</a> by <a href="https://huggingface.co/sasha">Sasha</a></em>
 </p>
 
+Even with access to a benchmark for the models you are considering, you might find that running evaluations of the larger language models you may want to consider may be prohibitively expensive or otherwise technically impossible with your own computing resources. The <a href="https://huggingface.co/spaces/autoevaluate/model-evaluator">Evaluation on the Hub</a> tool we released this year can help with that: not only will it run the evaluations for you, but it will also help connect them to the model documentation so the results are available once and for all — so everyone can see, for example, that size <a href="https://huggingface.co/blog/zero-shot-eval-on-the-hub">measurably increases bias risks in models like OPT</a>!
+
+<p align="center">
+ <br>
+ <img src="assets/122_ethics_soc_2/img_winobias.png" alt="Large model WinoBias scores computed with Evaluation on the Hub by Helen, Tristan, Abhishek, Lewis, and Douwe" />
+ <br>
+    <em><a href="https://huggingface.co/spaces/sasha/BiasDetection"><a href="https://huggingface.co/blog/zero-shot-eval-on-the-hub">Large model WinoBias scores computed with Evaluation on the Hub</a> by <a href="https://huggingface.co/mathemakitten">Helen</a>, <a href="https://huggingface.co/Tristan">Tristan</a>, <a href="https://huggingface.co/abhishek">Abhishek</a>, <a href="https://huggingface.co/lewtun">Lewis</a>, and <a href="https://huggingface.co/douwekiela">Douwe</a></em>
+</p>
+
 
 #### Model selection/development: recommendations
 
@@ -265,7 +278,7 @@ For models just as for datasets, different tools for documentation and evaluatio
     * Report your model’s disaggregated performance and results on applicable fairness benchmarks
 
 
-## Conclusion and Overview of Bias Mitigation Tools from 🤗
+## Conclusion and Overview of Bias Analysis and Documentation Tools from 🤗
 
 As we learn to leverage ML systems in more and more applications, reaping their benefits equitably will depend on our ability to actively mitigate the risks of bias-related harms associated with the technology. While there is no single answer to the question of how this should best be done in any possible setting, we can support each other in this effort by sharing lessons, tools, and methodologies to mitigate and document those risks. The present blog post outlines some of the ways Hugging Face team members have addressed this question of bias along with supporting tools, we hope that you will find them helpful and encourage you to develop and share your own!
 
