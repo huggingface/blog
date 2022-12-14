@@ -1,4 +1,3 @@
-
 ---
 title: "Ethics and Society Newsletter #2" 
 thumbnail: /blog/assets/103_ethics-soc-1/thumbnail.png
@@ -67,7 +66,7 @@ The technology then has the potential to make these issues significantly worse. 
 
 
 
-1. **lock in **behaviors in time and hinder social progress [from being reflected in technology](https://dl.acm.org/doi/10.1145/3442188.3445922), 
+1. **lock in** behaviors in time and hinder social progress [from being reflected in technology](https://dl.acm.org/doi/10.1145/3442188.3445922), 
 2. **spread** harmful behaviors [beyond the context](https://arxiv.org/abs/2203.07785) of the original training data,
 3. **amplify** inequities by [overfocusing on stereotypical associations](https://arxiv.org/abs/2010.03058) when making predictions,
 4. **remove possibilities for recourse** by hiding biases [inside “black-box” systems](https://pubmed.ncbi.nlm.nih.gov/33737318/).
@@ -188,7 +187,7 @@ Once you have some helpful statistics about the composition of your dataset, you
  <br>
  <img src="assets/122_ethics_soc_2/img5.png" alt="Data Measurements tool by Meg, Sasha, Bibi, and the Gradio team" />
  <br>
-    <em><a href="https://huggingface.co/spaces/huggingface/data-measurements-tool">Data Measurements tool</a> by Meg, Sasha, Bibi, and the <a href="https://gradio.app/">Gradio team</a></em>
+    <em><a href="https://huggingface.co/spaces/huggingface/data-measurements-tool">Data Measurements tool</a> by <a href="https://huggingface.co/meg">Meg</a>, <a href="https://huggingface.co/sasha">Sasha</a>, Bibi, and the <a href="https://gradio.app/">Gradio team</a></em>
 </p>
 
 
@@ -238,7 +237,7 @@ Visualization of model outputs isn’t just for generative models though! For cl
  <br>
  <img src="assets/122_ethics_soc_2/img8.png" alt="Systematic Error Analysis and Labeling (SEAL) by Nazneen" />
  <br>
-    <em><a href="https://huggingface.co/spaces/nazneen/seal">Systematic Error Analysis and Labeling (SEAL) by <a href="https://huggingface.co/nazneen">Nazneen</a></em>
+    <em><a href="https://huggingface.co/spaces/nazneen/seal">Systematic Error Analysis and Labeling (SEAL)</a> by <a href="https://huggingface.co/nazneen">Nazneen</a></em>
 </p>
 
 Finally, a few benchmarks exist that can measure bias-related phenomena in models. For language models, benchmarks such as [BOLD](https://github.com/amazon-science/bold), [HONEST](https://aclanthology.org/2021.naacl-main.191.pdf), or [WinoBias](https://aclanthology.org/N18-2003/) provide quantitative evaluations of targeted behaviors that are indicative of biases in the models. While the benchmarks have their [limitations](https://aclanthology.org/2021.acl-long.81/), they do provide a limited view into some pre-identified bias risks that can help describe how the models function or choose between different models. You can find these evaluations pre-computed on a range of common language models [in this exploration Space](https://huggingface.co/spaces/sasha/BiasDetection) to get a first sense of how they compare!
@@ -248,7 +247,7 @@ Finally, a few benchmarks exist that can measure bias-related phenomena in model
  <br>
  <img src="assets/122_ethics_soc_2/img9.png" alt="Language Model Bias Detection by Sasha" />
  <br>
-    <em><a href="https://huggingface.co/spaces/sasha/BiasDetection">Language Model Bias Detection by <a href="https://huggingface.co/sasha">Sasha</a></em>
+    <em><a href="https://huggingface.co/spaces/sasha/BiasDetection">Language Model Bias Detection</a> by <a href="https://huggingface.co/sasha">Sasha</a></em>
 </p>
 
 
