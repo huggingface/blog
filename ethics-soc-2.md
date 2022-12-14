@@ -133,10 +133,12 @@ This example serves to illustrate that the impact of machine biases in an ML-sup
 
 We built a [tool](https://huggingface.co/spaces/hf-task-exploration/ExploreACMnaacl) to take users through these questions in another case of algorithmic content management: [hate speech detection in automatic content moderation](https://aclanthology.org/2022.hcinlp-1.2/). We found for example that looking through news and scientific articles that didn’t particularly focus on the ML part of the technology was already a great way to get a sense of where bias is already at play. Definitely go have a look for an example of how the models and datasets fit with the deployment context and how they can relate to known bias-related harms!
 
-
-
-![ACM Task Exploration tool by [Angie](https://huggingface.co/aymm), [Amandalynne](https://huggingface.co/paullada), and [Yacine](https://huggingface.co/yjernite)](assets/122_ethics_soc_2/img2.png "ACM Task Exploration tool by [Angie](https://huggingface.co/aymm), [Amandalynne](https://huggingface.co/paullada), and [Yacine](https://huggingface.co/yjernite)")
-<span style="text-decoration:underline;">ACM Task Exploration tool by [Angie](https://huggingface.co/aymm), [Amandalynne](https://huggingface.co/paullada), and [Yacine](https://huggingface.co/yjernite)</span>
+<p align="center">
+ <br>
+ <img src="assets/122_ethics_soc_2/img2.png" alt="Selection of tools developed by HF team members to address bias in ML" />
+ <br>
+    <em><a href="https://huggingface.co/spaces/hf-task-exploration/ExploreACMnaacl">ACM Task Exploration tool</a> by <a href="/https://huggingface.co/aymm">Angie</a>, <a href="https://huggingface.co/paullada">Amandalynne</a>, and <a href="https://huggingface.co/yjernite">Yacine</a></em>
+</p>
 
 
 #### Task definition: recommendations
@@ -160,24 +162,34 @@ While training datasets are [not the sole source of bias](https://www.cell.com/p
 You can usually get a pretty good sense of likely biases in a dataset by reflecting on where it comes from, who are the people represented on the data, and what the curation process was. Several frameworks for this reflection and documentation have been proposed such as [Data Statements for NLP](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00041/43452/Data-Statements-for-Natural-Language-Processing) or [Datasheets for Datasets](https://dl.acm.org/doi/10.1145/3458723). The Hugging Face Hub includes a Dataset Card [template](https://github.com/huggingface/datasets/blob/main/templates/README.md) and [guide](https://github.com/huggingface/datasets/blob/main/templates/README_guide.md#dataset-card-creation-guide) inspired by these works; the section on [considerations for using the data](https://github.com/huggingface/datasets/blob/main/templates/README_guide.md#considerations-for-using-the-data) is usually a good place to look for information about notable biases if you’re browsing datasets, or to write a paragraph sharing your insights on the topic if you’re sharing a new one. And if you’re looking for more inspiration on what to put there, check out these sections written by Hub users in the [BigLAM organization](https://huggingface.co/biglam) for historical datasets of [legal proceedings](https://huggingface.co/datasets/biglam/old_bailey_proceedings#social-impact-of-dataset), [image classification](https://huggingface.co/datasets/biglam/brill_iconclass#social-impact-of-dataset), and [newspapers](https://huggingface.co/datasets/biglam/bnl_newspapers1841-1879#social-impact-of-dataset).
 
 
-![HF Dataset Card guide for the Social Impact and Bias Sections](assets/122_ethics_soc_2/img3.png "HF Dataset Card guide for the Social Impact and Bias Sections")
-<span style="text-decoration:underline;">HF Dataset Card guide for the Social Impact and Bias Sections</span>
+<p align="center">
+ <br>
+ <img src="assets/122_ethics_soc_2/img3.png" alt="HF Dataset Card guide for the Social Impact and Bias Sections" />
+ <br>
+    <em><a href="https://github.com/huggingface/datasets/blob/main/templates/README_guide.md#social-impact-of-dataset">HF Dataset Card guide</a> for the Social Impact and Bias Sections</em>
+</p>
 
 While describing the origin and context of a dataset is always a good starting point to understand the biases at play, [quantitatively measuring phenomena](https://arxiv.org/abs/2212.05129) that encode those biases can be just as helpful. If you’re choosing between two different datasets for a given task or choosing between two ML models trained on different datasets, knowing which one better represents the demographic makeup of your ML system’s user base can help you make an informed decision to minimize bias-related risks. If you’re curating a dataset iteratively by filtering data points from a source or selecting new sources of data to add, measuring how these choices affect the diversity and biases present in your overall dataset can make it safer to use in general.
 
 We’ve recently released two tools you can leverage to measure your data through a bias-informed lens. The [disaggregators🤗 library](https://github.com/huggingface/disaggregators) provides utilities to quantify the composition of your dataset, using either metadata or leveraging models to infer properties of data points. This can be particularly useful to minimize risks of bias-related **[representation harms](https://aclanthology.org/P16-2096/)** or **disparate performances** of trained models. Look at the [demo](https://huggingface.co/spaces/society-ethics/disaggregators) to see it applied to the LAION, MedMCQA, and The Stack datasets!
 
 
-
-![Disaggregators tool by [Nima](https://huggingface.co/NimaBoscarino) and [Meg](https://huggingface.co/meg)](assets/122_ethics_soc_2/img4.png "Disaggregators tool by Nima and Meg")
-<span style="text-decoration:underline;">Disaggregators tool by [Nima](https://huggingface.co/NimaBoscarino) and [Meg](https://huggingface.co/meg)</span>
+<p align="center">
+ <br>
+ <img src="assets/122_ethics_soc_2/img4.png" alt="Disaggregators tool by Nima" />
+ <br>
+    <em><a href="https://huggingface.co/spaces/society-ethics/disaggregators">Disaggregator tool</a> by <a href="https://huggingface.co/NimaBoscarino">Nima</a></em>
+</p>
 
 Once you have some helpful statistics about the composition of your dataset, you’ll also want to look at associations between features in your data items, particularly at associations that may encode derogatory or otherwise negative stereotypes. The Data Measurements Tool we [originally introduced](https://huggingface.co/blog/data-measurements-tool#comparison-statistics) last year allows you to do this by looking at the [normalized Pointwise Mutual Information (nPMI)](https://dl.acm.org/doi/10.1145/3461702.3462557) between terms in your text-based dataset; particularly associations between gendered pronouns that may denote gendered stereotypes. [Run it yourself](https://github.com/huggingface/data-measurements-tool) or [try it here](https://huggingface.co/spaces/huggingface/data-measurements-tool) on a few pre-computed datasets!
 
 
-
-![Data Measurements Tool by [Meg](https://huggingface.co/meg), [Sasha](https://huggingface.co/sasha), and the Gradio team](assets/122_ethics_soc_2/img5.png "Data Measurements Tool by [Meg](https://huggingface.co/meg), [Sasha](https://huggingface.co/sasha), and the Gradio team")
-<span style="text-decoration:underline;">Data Measurements Tool by [Meg](https://huggingface.co/meg), [Sasha](https://huggingface.co/sasha), and the Gradio team</span>
+<p align="center">
+ <br>
+ <img src="assets/122_ethics_soc_2/img5.png" alt="Data Measurements tool by Meg, Sasha, Bibi, and the Gradio team" />
+ <br>
+    <em><a href="https://huggingface.co/spaces/huggingface/data-measurements-tool">Data Measurements tool</a> by Meg, Sasha, Bibi, and the <a href="https://gradio.app/">Gradio team</a></em>
+</p>
 
 
 #### Dataset selection/curation: recommendations
@@ -203,25 +215,41 @@ Similar to the dataset curation/selection step, documenting and measuring bias-r
 
 Model cards were originally proposed by [(Mitchell et al., 2019)](https://dl.acm.org/doi/10.1145/3287560.3287596) and provide a framework for model reporting that showcases information relevant to bias risks, including broad ethical considerations, disaggregated evaluation, and use case recommendation. The Hugging Face Hub provides even more tools for model documentation, with a [model card guidebook](https://moon-ci-docs.huggingface.co/docs/hub/pr_545/en/model-card-guidebook) in the Hub documentation, and an [app that lets you create extensive model cards](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) easily for your new model. TODO: some great examples.
 
-![Model Card Writing tool by [Ezi](https://huggingface.co/Ezi), [Meg](https://huggingface.co/meg), and [Marissa](https://huggingface.co/Marissa)](assets/122_ethics_soc_2/img6.png "Model Card Writing tool by [Ezi](https://huggingface.co/Ezi), [Meg](https://huggingface.co/meg), and [Marissa](https://huggingface.co/Marissa)")
-<span style="text-decoration:underline;">Model Card Writing tool by [Ezi](https://huggingface.co/Ezi), [Meg](https://huggingface.co/meg), and [Marissa](https://huggingface.co/Marissa)</span>
+<p align="center">
+ <br>
+ <img src="assets/122_ethics_soc_2/img6.png" alt="Model Card writing tool by Ezi, Marissa, and Meg" />
+ <br>
+    <em><a href="https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool">Model Card writing tool</a> by <a href="https://huggingface.co/Ezi">Ezi</a>, <a href="https://huggingface.co/Marissa">Marissa</a>, and <a href="https://huggingface.co/meg">Meg</a></em>
+</p>
 
 Documentation is a great first step for sharing general insights about a model’s behavior, but it is usually static and presents the same information to all users. In many cases, especially for generative models that can generate outputs to approximate the distribution of their training data, we can gain a more contextual understanding of bias-related phenomena and **negative stereotypes** by visualizing and contrasting model outputs. Access to model generations can help users bring [intersectional issues in the model behavior](https://www.technologyreview.com/2022/12/12/1064751/the-viral-ai-avatar-app-lensa-undressed-me-without-my-consent/) corresponding to their lived experience, and evaluate to what extent a model reproduces [gendered stereotypes for different adjectives](https://www.vice.com/en/article/bvm35w/this-tool-lets-anyone-see-the-bias-in-ai-image-generators). To facilitate this process, we built a tool that lets you compare generations not just across a set of adjectives and professions, but also across different models! [Go try it out](https://huggingface.co/spaces/society-ethics/DiffusionBiasExplorer) to get a sense of which model might carry the least bias risks in your use case.
 
-
-![Visualize Adjective and Occupation Biases in Image Generation by [Sasha](https://huggingface.co/sasha)](assets/122_ethics_soc_2/img7.png "Visualize Adjective and Occupation Biases in Image Generation by Sasha")
-<span style="text-decoration:underline;">Visualize Adjective and Occupation Biases in Image Generation by [Sasha](https://huggingface.co/sasha)</span>
+<p align="center">
+ <br>
+ <img src="assets/122_ethics_soc_2/img7.png" alt="Visualize Adjective and Occupation Biases in Image Generation by Sasha" />
+ <br>
+    <em><a href="https://huggingface.co/spaces/society-ethics/DiffusionBiasExplorer">Visualize Adjective and Occupation Biases in Image Generation by <a href="https://huggingface.co/sasha">Sasha</a></em>
+</p>
 
 Visualization of model outputs isn’t just for generative models though! For classification models, we also want to look out for bias-related harms caused by a model’s **disparate performance** on different demographics. If you know what protected classes are most at risk of discrimination and have those annotated in an evaluation set, then you can report disaggregated performance over the different categories in [your model card](https://dl.acm.org/doi/10.1145/3287560.3287596) as mentioned above, so users can make informed decisions. If however, you are worried that you haven’t identified all populations at risk of bias-related harms, or if you do not have access to annotated test examples to measure the biases you suspect, that’s where interactive visualizations of where and how the model fails come in handy! To help you with this, the [SEAL app](https://huggingface.co/spaces/nazneen/seal) groups similar mistakes by your model and shows you some common features in each cluster. If you want to go further, you can even combine it with the [disaggregators library](https://github.com/huggingface/disaggregators) we introduced in the datasets section to find clusters that are indicative of bias-related failure modes!
 
 
-![Systematic Error Analysis and Labeling (SEAL) by [Nazneen](https://huggingface.co/nazneen)](assets/122_ethics_soc_2/img8.png "Systematic Error Analysis and Labeling (SEAL) by Nazneen")
-<span style="text-decoration:underline;">Systematic Error Analysis and Labeling (SEAL) by [Nazneen](https://huggingface.co/nazneen)</span>
+<p align="center">
+ <br>
+ <img src="assets/122_ethics_soc_2/img8.png" alt="Systematic Error Analysis and Labeling (SEAL) by Nazneen" />
+ <br>
+    <em><a href="https://huggingface.co/spaces/nazneen/seal">Systematic Error Analysis and Labeling (SEAL) by <a href="https://huggingface.co/nazneen">Nazneen</a></em>
+</p>
 
 Finally, a few benchmarks exist that can measure bias-related phenomena in models. For language models, benchmarks such as [BOLD](https://github.com/amazon-science/bold), [HONEST](https://aclanthology.org/2021.naacl-main.191.pdf), or [WinoBias](https://aclanthology.org/N18-2003/) provide quantitative evaluations of targeted behaviors that are indicative of biases in the models. While the benchmarks have their [limitations](https://aclanthology.org/2021.acl-long.81/), they do provide a limited view into some pre-identified bias risks that can help describe how the models function or choose between different models. You can find these evaluations pre-computed on a range of common language models [in this exploration Space](https://huggingface.co/spaces/sasha/BiasDetection) to get a first sense of how they compare!
 
-![Language Model Bias Detection by [Sasha](https://huggingface.co/sasha)](assets/122_ethics_soc_2/img9.png "Language Model Bias Detection by Sasha")
-<span style="text-decoration:underline;">Language Model Bias Detection by [Sasha](https://huggingface.co/sasha)</span>
+
+<p align="center">
+ <br>
+ <img src="assets/122_ethics_soc_2/img9.png" alt="Language Model Bias Detection by Sasha" />
+ <br>
+    <em><a href="https://huggingface.co/spaces/sasha/BiasDetection">Language Model Bias Detection by <a href="https://huggingface.co/sasha">Sasha</a></em>
+</p>
 
 
 #### Model selection/development: recommendations
@@ -251,3 +279,7 @@ Summary of linked tools:
 * Use a [Text-to-image bias explorer](https://huggingface.co/spaces/sasha/StableDiffusionBiasExplorer) to compare image generation models’ biases
 * Compare LM models with Bias [Score Card](https://huggingface.co/spaces/sasha/BiasDetection)
 * Use tools to explore the [full development lifecycle](https://huggingface.co/spaces/hf-task-exploration/ExploreACMnaacl) of specific tasks
+
+Thanks for reading! 🤗
+
+~ Yacine, on behalf of the Ethics and Society regulars
