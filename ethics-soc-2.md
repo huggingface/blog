@@ -40,12 +40,11 @@ part is a broader reflection on bias and its context; if you’ve already read i
 section!_
 
 <p align="center">
-![Selection of tools developed by 🤗 team members to address bias in ML](assets/122_ethics_soc_2/img1.jpg "Selection of tools developed by 🤗 team members to address bias in ML")
+ <img src="assets/122_ethics_soc_2/img1.jpg" />
 <span style="text-decoration:underline;">Selection of tools developed by 🤗 team members to address bias in ML</span>
-
-**<span style="text-decoration:underline;">Table of contents:</span>**
 </p>
 
+**<span style="text-decoration:underline;">Table of contents:</span>**
 * **<span style="text-decoration:underline;">On Machine Biases</span>**
     * [Machine Bias: from ML Systems to Risks](#machine-bias-from-ml-systems-to-personal-and-social-risks)
     * [Putting Bias in Context](#putting-bias-in-context)
