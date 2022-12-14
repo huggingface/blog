@@ -250,7 +250,7 @@ As you can see, training Hugging Face transformers on a cluster of Intel Xeon CP
 Here are some additional resources to help you get started:
 
 * [Intel IPEX](https://github.com/intel/intel-extension-for-pytorch) on Github
-* Hugging Face documentation: "[Efficient training on CPU](https://huggingface.co/docs/transformers/perf_train_cpu)"
+* Hugging Face documentation: [Efficient training on CPU](https://huggingface.co/docs/transformers/perf_train_cpu)
 
 If you have questions or feedback, we'd love to read them on the [Hugging Face forum](https://discuss.huggingface.co/).
 
