@@ -41,7 +41,8 @@ section!_
 
 <p align="center">
  <img src="assets/122_ethics_soc_2/img1.jpg" />
-<span style="text-decoration:underline;">Selection of tools developed by 🤗 team members to address bias in ML</span>
+ 
+ <span style="text-decoration:underline;">Selection of tools developed by 🤗 team members to address bias in ML</span>
 </p>
 
 **<span style="text-decoration:underline;">Table of contents:</span>**
