@@ -40,7 +40,8 @@ part is a broader reflection on bias and its context; if you’ve already read i
 section!_
 
 ![Selection of tools developed by 🤗 team members to address bias in ML](assets/122_ethics_soc_2/img1.jpg "Selection of tools developed by 🤗 team members to address bias in ML")
-      
+<span style="text-decoration:underline;">Selection of tools developed by 🤗 team members to address bias in ML</span>
+
 **<span style="text-decoration:underline;">Table of contents:</span>**
 
 * **<span style="text-decoration:underline;">On Machine Biases</span>**
@@ -86,16 +87,15 @@ This may not come as much of a surprise given the ML research community’s [foc
 Let’s now dive deeper into the issue of linking biases in stand-alone/context-less ML artifacts to specific harm. It can be useful to think of **machine biases as risk factors for discrimination-based harms**. Take the example of a text-to-image model that over-represents light skin tones when prompted to create a picture of a person in a professional setting, but produces darker skin tones [when the prompts mention criminality](https://arxiv.org/abs/2211.03759). These tendencies would be what we call _machine biases at the model level_. Now let’s think about a few systems that use such a text-to-image model:
 
 
-
 1. <span style="text-decoration:underline;">The model is integrated into a website creation service</span> (e.g. SquareSpace, Wix) to help users generate backgrounds for their pages. The model explicitly disables images of people in the generated background.
-    1. In this case, the machine bias “risk factor” does not lead to discrimination harm because the focus of the bias (images of people) is absent from the use case.
-    2. Further risk mitigation is not required for machine biases, although developers should be aware of ongoing discussions about the legality of integrating systems trained on scraped data in commercial systems.
+    * In this case, the machine bias “risk factor” does not lead to discrimination harm because the focus of the bias (images of people) is absent from the use case.
+    * Further risk mitigation is not required for machine biases, although developers should be aware of ongoing discussions about the legality of integrating systems trained on scraped data in commercial systems.
 2. <span style="text-decoration:underline;">The model is integrated into a stock images website</span> to provide users with synthetic images of people (e.g. in professional settings) that they can use with fewer privacy concerns, for example, to serve as illustrations for Wikipedia articles
-    3. In this case, machine bias acts to **lock in** and **amplify** existing social biases. It reinforces stereotypes about people (“CEOs are all white men”) that then feed back into complex social systems where increased bias leads to increased discrimination in many different ways (such as reinforcing [implicit bias](https://philpapers.org/rec/BEEAIT-2) in the workplace).
-    4. Mitigation strategies may include educating the stock image users about these biases, or the stock image website may curate generated images to intentionally propose a more diverse set of representations.
+    * In this case, machine bias acts to **lock in** and **amplify** existing social biases. It reinforces stereotypes about people (“CEOs are all white men”) that then feed back into complex social systems where increased bias leads to increased discrimination in many different ways (such as reinforcing [implicit bias](https://philpapers.org/rec/BEEAIT-2) in the workplace).
+    * Mitigation strategies may include educating the stock image users about these biases, or the stock image website may curate generated images to intentionally propose a more diverse set of representations.
 3. <span style="text-decoration:underline;">The model is integrated into a “virtual sketch artist” software</span> marketed to police departments that will use it to generate pictures of suspects based on verbal testimony
-    5. In this case, the machine biases directly cause discrimination by systematically directing police departments to darker-skinned people, putting them at increased risk of harm including physical injury and unlawful imprisonment.
-    6. In cases like this one, there may be no level of bias mitigation that makes the risk acceptable. In particular, such a use case would be closely related to face recognition in the context of law enforcement, where [similar bias issues](https://www.law.georgetown.edu/privacy-technology-center/publications/a-forensic-without-the-science-face-recognition-in-u-s-criminal-investigations/) have led several commercial entities and legislatures to adopt moratoria pausing or banning its use across the board.
+    * In this case, the machine biases directly cause discrimination by systematically directing police departments to darker-skinned people, putting them at increased risk of harm including physical injury and unlawful imprisonment.
+    * In cases like this one, there may be no level of bias mitigation that makes the risk acceptable. In particular, such a use case would be closely related to face recognition in the context of law enforcement, where [similar bias issues](https://www.law.georgetown.edu/privacy-technology-center/publications/a-forensic-without-the-science-face-recognition-in-u-s-criminal-investigations/) have led several commercial entities and legislatures to adopt moratoria pausing or banning its use across the board.
 
 So, who’s on the hook for machine biases in ML? These three cases illustrate one of the reasons why discussions about the responsibility of ML developers in addressing bias can get so complicated: depending on decisions made at other points in the ML system development process by other people, the biases in an ML dataset or model may land anywhere between being irrelevant to the application settings and directly leading to grievous harm. However, in all of these cases, **stronger biases in the model/dataset increase the risk of negative outcomes**. The European Union has started to develop frameworks that address this phenomenon in [recent regulatory efforts](https://ec.europa.eu/info/business-economy-euro/doing-business-eu/contract-rules/digital-contracts/liability-rules-artificial-intelligence_en): in short, a company that deploys an AI system based on a measurably biased model is liable for harm caused by the system.
 
@@ -133,7 +133,6 @@ We built a [tool](https://huggingface.co/spaces/hf-task-exploration/ExploreACMna
 
 
 ![ACM Task Exploration tool by [Angie](https://huggingface.co/aymm), [Amandalynne](https://huggingface.co/paullada), and [Yacine](https://huggingface.co/yjernite)](assets/122_ethics_soc_2/img2.png "ACM Task Exploration tool by [Angie](https://huggingface.co/aymm), [Amandalynne](https://huggingface.co/paullada), and [Yacine](https://huggingface.co/yjernite)")
-
 <span style="text-decoration:underline;">ACM Task Exploration tool by [Angie](https://huggingface.co/aymm), [Amandalynne](https://huggingface.co/paullada), and [Yacine](https://huggingface.co/yjernite)</span>
 
 
@@ -158,13 +157,7 @@ While training datasets are [not the sole source of bias](https://www.cell.com/p
 You can usually get a pretty good sense of likely biases in a dataset by reflecting on where it comes from, who are the people represented on the data, and what the curation process was. Several frameworks for this reflection and documentation have been proposed such as [Data Statements for NLP](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00041/43452/Data-Statements-for-Natural-Language-Processing) or [Datasheets for Datasets](https://dl.acm.org/doi/10.1145/3458723). The Hugging Face Hub includes a Dataset Card [template](https://github.com/huggingface/datasets/blob/main/templates/README.md) and [guide](https://github.com/huggingface/datasets/blob/main/templates/README_guide.md#dataset-card-creation-guide) inspired by these works; the section on [considerations for using the data](https://github.com/huggingface/datasets/blob/main/templates/README_guide.md#considerations-for-using-the-data) is usually a good place to look for information about notable biases if you’re browsing datasets, or to write a paragraph sharing your insights on the topic if you’re sharing a new one. And if you’re looking for more inspiration on what to put there, check out these sections written by Hub users in the [BigLAM organization](https://huggingface.co/biglam) for historical datasets of [legal proceedings](https://huggingface.co/datasets/biglam/old_bailey_proceedings#social-impact-of-dataset), [image classification](https://huggingface.co/datasets/biglam/brill_iconclass#social-impact-of-dataset), and [newspapers](https://huggingface.co/datasets/biglam/bnl_newspapers1841-1879#social-impact-of-dataset).
 
 
-
-<p id="gdcalert12" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image3.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert13">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image3.png "image_tooltip")
-
-
+![HF Dataset Card guide for the Social Impact and Bias Sections](assets/122_ethics_soc_2/img3.png "HF Dataset Card guide for the Social Impact and Bias Sections")
 <span style="text-decoration:underline;">HF Dataset Card guide for the Social Impact and Bias Sections</span>
 
 While describing the origin and context of a dataset is always a good starting point to understand the biases at play, [quantitatively measuring phenomena](https://arxiv.org/abs/2212.05129) that encode those biases can be just as helpful. If you’re choosing between two different datasets for a given task or choosing between two ML models trained on different datasets, knowing which one better represents the demographic makeup of your ML system’s user base can help you make an informed decision to minimize bias-related risks. If you’re curating a dataset iteratively by filtering data points from a source or selecting new sources of data to add, measuring how these choices affect the diversity and biases present in your overall dataset can make it safer to use in general.
@@ -173,32 +166,20 @@ We’ve recently released two tools you can leverage to measure your data throug
 
 
 
-<p id="gdcalert13" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image4.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert14">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image4.png "image_tooltip")
-
-
+![Disaggregators tool by [Nima](https://huggingface.co/NimaBoscarino) and [Meg](https://huggingface.co/meg)](assets/122_ethics_soc_2/img4.png "Disaggregators tool by Nima and Meg")
 <span style="text-decoration:underline;">Disaggregators tool by [Nima](https://huggingface.co/NimaBoscarino) and [Meg](https://huggingface.co/meg)</span>
 
 Once you have some helpful statistics about the composition of your dataset, you’ll also want to look at associations between features in your data items, particularly at associations that may encode derogatory or otherwise negative stereotypes. The Data Measurements Tool we [originally introduced](https://huggingface.co/blog/data-measurements-tool#comparison-statistics) last year allows you to do this by looking at the [normalized Pointwise Mutual Information (nPMI)](https://dl.acm.org/doi/10.1145/3461702.3462557) between terms in your text-based dataset; particularly associations between gendered pronouns that may denote gendered stereotypes. [Run it yourself](https://github.com/huggingface/data-measurements-tool) or [try it here](https://huggingface.co/spaces/huggingface/data-measurements-tool) on a few pre-computed datasets!
 
 
 
-<p id="gdcalert14" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image5.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert15">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image5.png "image_tooltip")
-
-
-<span style="text-decoration:underline;">Data Measurements Tool by [Meg](https://huggingface.co/meg), [Sasha](https://huggingface.co/sasha), …</span>
+![Data Measurements Tool by [Meg](https://huggingface.co/meg), [Sasha](https://huggingface.co/sasha), and the Gradio team](assets/122_ethics_soc_2/img5.png "Data Measurements Tool by [Meg](https://huggingface.co/meg), [Sasha](https://huggingface.co/sasha), and the Gradio team")
+<span style="text-decoration:underline;">Data Measurements Tool by [Meg](https://huggingface.co/meg), [Sasha](https://huggingface.co/sasha), and the Gradio team</span>
 
 
 #### Dataset selection/curation: recommendations
 
 These tools aren’t full solutions by themselves, rather, they are designed to support critical examination and improvement of datasets through the lens of bias and bias-related risks. In general, we encourage you to keep the following steps in mind when leveraging these and other tools to mitigate bias risks at the dataset curation/selection stage:
-
-
 
 * Identify:
     * Aspects of the dataset creation that may exacerbate specific biases
@@ -219,58 +200,30 @@ Similar to the dataset curation/selection step, documenting and measuring bias-r
 
 Model cards were originally proposed by [(Mitchell et al., 2019)](https://dl.acm.org/doi/10.1145/3287560.3287596) and provide a framework for model reporting that showcases information relevant to bias risks, including broad ethical considerations, disaggregated evaluation, and use case recommendation. The Hugging Face Hub provides even more tools for model documentation, with a [model card guidebook](https://moon-ci-docs.huggingface.co/docs/hub/pr_545/en/model-card-guidebook) in the Hub documentation, and an [app that lets you create extensive model cards](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) easily for your new model. TODO: some great examples.
 
-
-
-<p id="gdcalert15" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image6.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert16">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image6.png "image_tooltip")
-
-
+![Model Card Writing tool by [Ezi](https://huggingface.co/Ezi), [Meg](https://huggingface.co/meg), and [Marissa](https://huggingface.co/Marissa)](assets/122_ethics_soc_2/img6.png "Model Card Writing tool by [Ezi](https://huggingface.co/Ezi), [Meg](https://huggingface.co/meg), and [Marissa](https://huggingface.co/Marissa)")
 <span style="text-decoration:underline;">Model Card Writing tool by [Ezi](https://huggingface.co/Ezi), [Meg](https://huggingface.co/meg), and [Marissa](https://huggingface.co/Marissa)</span>
 
 Documentation is a great first step for sharing general insights about a model’s behavior, but it is usually static and presents the same information to all users. In many cases, especially for generative models that can generate outputs to approximate the distribution of their training data, we can gain a more contextual understanding of bias-related phenomena and **negative stereotypes** by visualizing and contrasting model outputs. Access to model generations can help users bring [intersectional issues in the model behavior](https://www.technologyreview.com/2022/12/12/1064751/the-viral-ai-avatar-app-lensa-undressed-me-without-my-consent/) corresponding to their lived experience, and evaluate to what extent a model reproduces [gendered stereotypes for different adjectives](https://www.vice.com/en/article/bvm35w/this-tool-lets-anyone-see-the-bias-in-ai-image-generators). To facilitate this process, we built a tool that lets you compare generations not just across a set of adjectives and professions, but also across different models! [Go try it out](https://huggingface.co/spaces/society-ethics/DiffusionBiasExplorer) to get a sense of which model might carry the least bias risks in your use case.
 
 
-
-<p id="gdcalert16" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image7.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert17">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image7.png "image_tooltip")
-
-
+![Visualize Adjective and Occupation Biases in Image Generation by [Sasha](https://huggingface.co/sasha)](assets/122_ethics_soc_2/img7.png "Visualize Adjective and Occupation Biases in Image Generation by Sasha")
 <span style="text-decoration:underline;">Visualize Adjective and Occupation Biases in Image Generation by [Sasha](https://huggingface.co/sasha)</span>
 
 Visualization of model outputs isn’t just for generative models though! For classification models, we also want to look out for bias-related harms caused by a model’s **disparate performance** on different demographics. If you know what protected classes are most at risk of discrimination and have those annotated in an evaluation set, then you can report disaggregated performance over the different categories in [your model card](https://dl.acm.org/doi/10.1145/3287560.3287596) as mentioned above, so users can make informed decisions. If however, you are worried that you haven’t identified all populations at risk of bias-related harms, or if you do not have access to annotated test examples to measure the biases you suspect, that’s where interactive visualizations of where and how the model fails come in handy! To help you with this, the [SEAL app](https://huggingface.co/spaces/nazneen/seal) groups similar mistakes by your model and shows you some common features in each cluster. If you want to go further, you can even combine it with the [disaggregators library](https://github.com/huggingface/disaggregators) we introduced in the datasets section to find clusters that are indicative of bias-related failure modes!
 
 
-
-<p id="gdcalert17" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image8.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert18">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image8.png "image_tooltip")
-
-
+![Systematic Error Analysis and Labeling (SEAL) by [Nazneen](https://huggingface.co/nazneen)](assets/122_ethics_soc_2/img8.png "Systematic Error Analysis and Labeling (SEAL) by Nazneen")
 <span style="text-decoration:underline;">Systematic Error Analysis and Labeling (SEAL) by [Nazneen](https://huggingface.co/nazneen)</span>
 
 Finally, a few benchmarks exist that can measure bias-related phenomena in models. For language models, benchmarks such as [BOLD](https://github.com/amazon-science/bold), [HONEST](https://aclanthology.org/2021.naacl-main.191.pdf), or [WinoBias](https://aclanthology.org/N18-2003/) provide quantitative evaluations of targeted behaviors that are indicative of biases in the models. While the benchmarks have their [limitations](https://aclanthology.org/2021.acl-long.81/), they do provide a limited view into some pre-identified bias risks that can help describe how the models function or choose between different models. You can find these evaluations pre-computed on a range of common language models [in this exploration Space](https://huggingface.co/spaces/sasha/BiasDetection) to get a first sense of how they compare!
 
-
-
-<p id="gdcalert18" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image9.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert19">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image9.png "image_tooltip")
-
-
+![Language Model Bias Detection by [Sasha](https://huggingface.co/sasha)](assets/122_ethics_soc_2/img9.png "Language Model Bias Detection by Sasha")
 <span style="text-decoration:underline;">Language Model Bias Detection by [Sasha](https://huggingface.co/sasha)</span>
 
 
 #### Model selection/development: recommendations
 
 For models just as for datasets, different tools for documentation and evaluation will provide different views of bias risks in a model which all have a part to play in helping developers choose, develop, or understand ML systems.
-
-
 
 * Visualize
     * Generative model: visualize how the model’s outputs may reflect stereotypes
@@ -287,9 +240,6 @@ For models just as for datasets, different tools for documentation and evaluatio
 As we learn to leverage ML systems in more and more applications, reaping their benefits equitably will depend on our ability to actively mitigate the risks of bias-related harms associated with the technology. While there is no single answer to the question of how this should best be done in any possible setting, we can support each other in this effort by sharing lessons, tools, and methodologies to mitigate and document those risks. The present blog post outlines some of the ways Hugging Face team members have addressed this question of bias along with supporting tools, we hope that you will find them helpful and encourage you to develop and share your own!
 
 Summary of linked tools:
-
-
-
 * Use [Disaggregator](https://github.com/huggingface/disaggregators) to look for [possible disparate performance](https://colab.research.google.com/drive/1R92qDm0V0nlJJHreUjXbdMhj49DWOrBi)
 * Use [Interactive Model Cards](https://huggingface.co/spaces/nazneen/interactive-model-cards) to visualize performance discrepancies
 * Look at [systematic model errors](https://huggingface.co/spaces/nazneen/seal) and look out for known social biases
