@@ -80,7 +80,7 @@ The following table displays the throughputs we got for first-gen Gaudi, Gaudi2 
 
 <center>
 
-|   | first-gen Gaudi (BS=32) | Gaudi2 (BS=32) | Gaudi2 (BS=64) | A100 (BS=32) | A100 (BS=64) |
+|   | First-gen Gaudi (BS=32) | Gaudi2 (BS=32) | Gaudi2 (BS=64) | A100 (BS=32) | A100 (BS=64) |
 |:-:|:-----------------------:|:--------------:|:--------------:|:-------:|:---------------------:|
 | Throughput (samples/s) | 520.2 | 1580.2 | 1835.8 | 981.6 | 1082.6 |
 | Speedup | x1.0 | x3.04 | x3.53 | x1.89 | x2.08 |
@@ -101,7 +101,7 @@ The results we got, which are consistent with the numbers published by Habana [h
 
 <center>
 
-|   | first-gen Gaudi (BS=4/8) | Gaudi2 (BS=4/8) | A100 (BS=1) |
+|   | First-gen Gaudi (BS=4/8) | Gaudi2 (BS=4/8) | A100 (BS=1) |
 |:-:|:----------------:|:----------------:|:-----------:|
 | Latency (s/img) | 4.34 | 1.19 | 2.63 |
 | Speedup | x1.0 | x3.65 | x1.65 |
