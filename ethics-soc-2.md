@@ -117,7 +117,7 @@ There is no one single way to develop ML systems; which steps happen in what ord
 
 <p align="center">
  <br>
- <img src="assets/122_ethics_soc_2/img_pipeline.png" alt="The Bias ML Pipeline by Meg width="500" />
+ <img src="assets/122_ethics_soc_2/img_pipeline.png" alt="The Bias ML Pipeline by Meg" width="500" />
  <br>
     <em>The Bias ML Pipeline by <a href="https://huggingface.co/meg">Meg</a></em>
 </p>
