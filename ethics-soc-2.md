@@ -40,9 +40,9 @@ part is a broader reflection on bias and its context; if you’ve already read i
 section!_
 
 <p align="center">
- <img src="assets/122_ethics_soc_2/img1.jpg" />
- 
- <span style="text-decoration:underline;">Selection of tools developed by 🤗 team members to address bias in ML</span>
+ <img src="assets/122_ethics_soc_2/img1.jpg" alt="Selection of tools developed by HF team members to address bias in ML" />
+ <br>
+    <em>Selection of tools developed by 🤗 team members to address bias in ML</em>
 </p>
 
 **<span style="text-decoration:underline;">Table of contents:</span>**
