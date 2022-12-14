@@ -40,6 +40,7 @@ part is a broader reflection on bias and its context; if you’ve already read i
 section!_
 
 <p align="center">
+ <br>
  <img src="assets/122_ethics_soc_2/img1.jpg" alt="Selection of tools developed by HF team members to address bias in ML" />
  <br>
     <em>Selection of tools developed by 🤗 team members to address bias in ML</em>
