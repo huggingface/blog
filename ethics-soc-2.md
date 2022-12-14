@@ -14,7 +14,7 @@ thumbnail: /blog/assets/103_ethics-soc-1/thumbnail.png
 </div>
 
 <div class="author-card">
-    <a href="/meg-huggingface"> 
+    <a href="/yjernite"> 
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/10469459?v=5" width=100 title="Gravatar">
         <div class="bfc">
             <code>yjernite</code>
@@ -36,57 +36,30 @@ facilitate by sharing lessons across contexts and developing tools to analyze si
 _This blog post from the [Ethics and Society regulars @🤗](https://huggingface.co/blog/ethics-soc-1) shares some of the lessons we have learned along with
 tools we have developed in our own work to support ourselves and others in our community’s efforts to better address bias in Machine Learning. The first
 part is a broader reflection on bias and its context; if you’ve already read it and are coming back specifically for the tools, feel free to jump to the 
-[datasets](#heading=h.kjfywgf71rg) or  [models](#heading=h.9sd9qtephte) section!_
+[datasets]((#i-am-curatingpicking-a-dataset-for-my-ml-system-how-can-i-address-bias) or [models](#i-am-trainingselecting-a-model-for-my-ml-system-how-can-i-address-bias)
+section!_
 
-![Selection of tools developed by 🤗 team members to address bias in ML](images/image1.jpg "Selection of tools developed by 🤗 team members to address bias in ML")
+![Selection of tools developed by 🤗 team members to address bias in ML](assets/122_ethics_soc_2/img1.jpg "Selection of tools developed by 🤗 team members to address bias in ML")
       
-
 **<span style="text-decoration:underline;">Table of contents:</span>**
 
 * **<span style="text-decoration:underline;">On Machine Biases</span>**
-    * _
-
-<p id="gdcalert4" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "Machine Bias: from ML Systems to Risks"). Did you generate a TOC with blue links? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert5">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-[Machine Bias: from ML Systems to Risks](#heading=h.49fll771hft8)_
-    * 
-
-<p id="gdcalert5" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "Putting Bias in Context"). Did you generate a TOC with blue links? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert6">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-[Putting Bias in Context](#heading=h.bqtnczs9uqy1)
+    * [Machine Bias: from ML Systems to Risks](#machine-bias-from-ml-systems-to-personal-and-social-risks)
+    * [Putting Bias in Context](#putting-bias-in-context)
 * **<span style="text-decoration:underline;">Tools and Recommendations</span>**
-    * 
-
-<p id="gdcalert6" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "Addressing Bias throughout ML Development"). Did you generate a TOC with blue links? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert7">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-[Addressing Bias throughout ML Development](#heading=h.9f2t1xqw6min)
-        * 
-
-<p id="gdcalert7" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "Task Definition"). Did you generate a TOC with blue links? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert8">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-[Task Definition](#heading=h.ojda64jq813h)
-        * 
-
-<p id="gdcalert8" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "Dataset Curation"). Did you generate a TOC with blue links? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert9">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-[Dataset Curation](#heading=h.kjfywgf71rg)
-        * 
-
-<p id="gdcalert9" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "Model Training"). Did you generate a TOC with blue links? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert10">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-[Model Training](#heading=h.9sd9qtephte)
-    * 
-
-<p id="gdcalert10" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "Overview of 🤗 Bias Tools"). Did you generate a TOC with blue links? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert11">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-[Overview of 🤗 Bias Tools](#heading=h.5k467015sepp)
-
+    * [Addressing Bias throughout ML Development](#addressing-bias-throughout-the-ml-development-cycle)
+        * [Task Definition](#i-am-defining-the-task-of-my-ml-system-how-can-i-address-bias)
+        * [Dataset Curation](#i-am-curatingpicking-a-dataset-for-my-ml-system-how-can-i-address-bias)
+        * [Model Training](#i-am-trainingselecting-a-model-for-my-ml-system-how-can-i-address-bias)
+    * [Overview of 🤗 Bias Tools](#conclusion-and-overview-of-bias-mitigation-tools-from-)
 
 ## _Machine Bias:_ from ML Systems to Personal and Social Risks
 
-ML systems allow us to automate complex tasks at a scale never seen before as they are deployed in more sectors and use cases. When the technology works at its best, it can help smooth interactions between people and technical systems, remove the need for highly repetitive work, or unlock new ways of processing information to support research.
+ML systems allow us to automate complex tasks at a scale never seen before as they are deployed in more sectors and use cases. When the technology works at
+its best, it can help smooth interactions between people and technical systems, remove the need for highly repetitive work, or unlock new ways of processing information to support research.
 
-These same systems are also likely to reproduce discriminatory and abusive behaviors represented in their training data, especially when the data encodes human behaviors. The technology then has the potential to make these issues significantly worse. Automation and deployment at scale can indeed:
+These same systems are also likely to reproduce discriminatory and abusive behaviors represented in their training data, especially when the data encodes human behaviors.
+The technology then has the potential to make these issues significantly worse. Automation and deployment at scale can indeed:
 
 
 
@@ -159,11 +132,7 @@ We built a [tool](https://huggingface.co/spaces/hf-task-exploration/ExploreACMna
 
 
 
-<p id="gdcalert11" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image2.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert12">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image2.png "image_tooltip")
-
+![ACM Task Exploration tool by [Angie](https://huggingface.co/aymm), [Amandalynne](https://huggingface.co/paullada), and [Yacine](https://huggingface.co/yjernite)](assets/122_ethics_soc_2/img2.png "ACM Task Exploration tool by [Angie](https://huggingface.co/aymm), [Amandalynne](https://huggingface.co/paullada), and [Yacine](https://huggingface.co/yjernite)")
 
 <span style="text-decoration:underline;">ACM Task Exploration tool by [Angie](https://huggingface.co/aymm), [Amandalynne](https://huggingface.co/paullada), and [Yacine](https://huggingface.co/yjernite)</span>
 
