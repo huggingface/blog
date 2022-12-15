@@ -184,7 +184,7 @@ Once you have some helpful statistics about the composition of your dataset, you
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_2/img5.png" alt="Data Measurements tool by Meg, Sasha, Bibi, and the Gradio team" />
-    <em><a href="https://huggingface.co/spaces/huggingface/data-measurements-tool">Data Measurements tool</a> by <a href="https://huggingface.co/meg">Meg</a>, <a href="https://huggingface.co/sasha">Sasha</a>, Bibi, and the <a href="https://gradio.app/">Gradio team</a></em>
+    <em><a href="https://huggingface.co/spaces/huggingface/data-measurements-tool">Data Measurements tool</a> by <a href="https://huggingface.co/meg">Meg</a>, <a href="https://huggingface.co/sasha">Sasha</a>, <a href="https://huggingface.co/Bibss">Bibi</a>, and the <a href="https://gradio.app/">Gradio team</a></em>
 </p>
 
 
