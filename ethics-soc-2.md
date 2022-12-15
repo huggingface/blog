@@ -1,9 +1,9 @@
 ---
-title: "Ethics and Society Newsletter #2" 
+title: "Let's talk about biases for machine learning" 
 thumbnail: /blog/assets/122_ethics_soc_2/thumbnail-solstice.png
 ---
 
-# Ethics and Society Newsletter #2
+# Let's talk about biases for machine learning
 
 <div class="blog-metadata">
     <small>Published December 15, 2022.</small>
@@ -21,9 +21,6 @@ thumbnail: /blog/assets/122_ethics_soc_2/thumbnail-solstice.png
         </div>
     </a>
 </div>
-
-
-## Let’s Talk about Bias!
 
 _Bias in ML is ubiquitous, and Bias in ML is complex; so complex in fact that no single technical intervention is likely to meaningfully address the problems it engenders. ML models, as sociotechnical systems, amplify social trends that may exacerbate inequities and harmful biases in ways that depend on their deployment context and are constantly evolving._
 
