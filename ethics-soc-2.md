@@ -29,7 +29,7 @@ _Bias in ML is ubiquitous, and Bias in ML is complex; so complex in fact that no
 
 _This means that developing ML systems with care requires vigilance and responding to feedback from those deployment contexts, which in turn we can facilitate by sharing lessons across contexts and developing tools to analyze signs of bias at every level of ML development._
 
-_This blog post from the [Ethics and Society regulars @🤗](https://huggingface.co/blog/ethics-soc-1) shares some of the lessons we have learned along with tools we have developed to support ourselves and others in our community’s efforts to better address bias in Machine Learning. The first part is a broader reflection on bias and its context. If you’ve already read it and are coming back specifically for the tools, feel free to jump to the [datasets]((#i-am-makingpicking-a-dataset-for-my-ml-system-how-can-i-address-bias) or [models](#i-am-trainingselecting-a-model-for-my-ml-system-how-can-i-address-bias)
+_This blog post from the [Ethics and Society regulars @🤗](https://huggingface.co/blog/ethics-soc-1) shares some of the lessons we have learned along with tools we have developed to support ourselves and others in our community’s efforts to better address bias in Machine Learning. The first part is a broader reflection on bias and its context. If you’ve already read it and are coming back specifically for the tools, feel free to jump to the [datasets](#i-am-curatingpicking-a-dataset-for-my-ml-system-how-can-i-address-bias) or [models](#i-am-trainingselecting-a-model-for-my-ml-system-how-can-i-address-bias)
 section!_
 
 <p align="center">
@@ -158,7 +158,7 @@ There are as many ways for the ML task definition and deployment to affect the r
     * Alternative objectives that favor diversity and positive long-term impacts
 
 
-### I am <span style="text-decoration:underline;">making/picking a dataset</span> for my ML system, how can I address bias?
+### I am <span style="text-decoration:underline;">curating/picking a dataset</span> for my ML system, how can I address bias?
 
 While training datasets are [not the sole source of bias](https://www.cell.com/patterns/fulltext/S2666-3899(21)00061-1) in the ML development cycle, they do play a significant role. Does your [dataset disproportionately associate](https://aclanthology.org/2020.emnlp-main.23/) biographies of women with life events but those of men with achievements? Those **stereotypes** are probably going to show up in your full ML system! Does your voice recognition dataset only feature specific accents? Not a good sign for [the inclusivity of technology](https://www.scientificamerican.com/article/speech-recognition-tech-is-yet-another-example-of-bias/) you build with it in terms of **disparate performance**! Whether you’re curating a dataset for ML applications or selecting a dataset to train an ML model, finding out, mitigating, and [communicating](https://dl.acm.org/doi/10.1145/3479582) to what extent the data exhibits these phenomena are all necessary steps to reducing bias-related risks.
 
@@ -231,7 +231,7 @@ Documentation is a great first step for sharing general insights about a model�
  <br>
  <img src="assets/122_ethics_soc_2/img7.png" alt="Visualize Adjective and Occupation Biases in Image Generation by Sasha" />
  <br>
-    <em><a href="https://huggingface.co/spaces/society-ethics/DiffusionBiasExplorer">Visualize Adjective and Occupation Biases in Image Generation by <a href="https://huggingface.co/sasha">Sasha</a></em>
+    <em><a href="https://huggingface.co/spaces/society-ethics/DiffusionBiasExplorer">Visualize Adjective and Occupation Biases in Image Generation</a> by <a href="https://huggingface.co/sasha">Sasha</a></em>
 </p>
 
 Visualization of model outputs isn’t just for generative models though! For classification models, we also want to look out for bias-related harms caused by a model’s **disparate performance** on different demographics. If you know what protected classes are most at risk of discrimination and have those annotated in an evaluation set, then you can report disaggregated performance over the different categories in [your model card](https://dl.acm.org/doi/10.1145/3287560.3287596) as mentioned above, so users can make informed decisions. If however, you are worried that you haven’t identified all populations at risk of bias-related harms, or if you do not have access to annotated test examples to measure the biases you suspect, that’s where interactive visualizations of where and how the model fails come in handy! To help you with this, the [SEAL app](https://huggingface.co/spaces/nazneen/seal) groups similar mistakes by your model and shows you some common features in each cluster. If you want to go further, you can even combine it with the [disaggregators library](https://github.com/huggingface/disaggregators) we introduced in the datasets section to find clusters that are indicative of bias-related failure modes!
@@ -283,14 +283,20 @@ For models just as for datasets, different tools for documentation and evaluatio
 As we learn to leverage ML systems in more and more applications, reaping their benefits equitably will depend on our ability to actively mitigate the risks of bias-related harms associated with the technology. While there is no single answer to the question of how this should best be done in any possible setting, we can support each other in this effort by sharing lessons, tools, and methodologies to mitigate and document those risks. The present blog post outlines some of the ways Hugging Face team members have addressed this question of bias along with supporting tools, we hope that you will find them helpful and encourage you to develop and share your own!
 
 Summary of linked tools:
-* Use [Disaggregator](https://github.com/huggingface/disaggregators) to look for [possible disparate performance](https://colab.research.google.com/drive/1R92qDm0V0nlJJHreUjXbdMhj49DWOrBi)
-* Use [Interactive Model Cards](https://huggingface.co/spaces/nazneen/interactive-model-cards) to visualize performance discrepancies
-* Look at [systematic model errors](https://huggingface.co/spaces/nazneen/seal) and look out for known social biases
-* Look at aggregated [measurements of your dataset](https://huggingface.co/spaces/huggingface/data-measurements-tool) including nPMI to surface possible stereotypical associations
-* Use [Evaluate](https://github.com/huggingface/evaluate) to explore [language model biases](https://huggingface.co/blog/evaluating-llm-bias)
-* Use a [Text-to-image bias explorer](https://huggingface.co/spaces/sasha/StableDiffusionBiasExplorer) to compare image generation models’ biases
-* Compare LM models with Bias [Score Card](https://huggingface.co/spaces/sasha/BiasDetection)
-* Use tools to explore the [full development lifecycle](https://huggingface.co/spaces/hf-task-exploration/ExploreACMnaacl) of specific tasks
+* Tasks:
+    * Explore our directory of [ML Tasks](https://huggingface.co/tasks) to understand what technical framings and resources are available to choose from
+    * Use tools to explore the [full development lifecycle](https://huggingface.co/spaces/hf-task-exploration/ExploreACMnaacl) of specific tasks
+* Datasets:
+    * Make use of and contribute to [Dataset Cards](https://github.com/huggingface/datasets/blob/main/templates/README_guide.md#social-impact-of-dataset) to share relevant insights on biases in datasets.
+    * Use [Disaggregator](https://github.com/huggingface/disaggregators) to look for [possible disparate performance](https://huggingface.co/spaces/society-ethics/disaggregators)
+    * Look at aggregated [measurements of your dataset](https://huggingface.co/spaces/huggingface/data-measurements-tool) including nPMI to surface possible stereotypical associations
+* Models:
+    * Make use of and contribute to [Model Cards](https://huggingface.co/docs/hub/model-cards) to share relevant insights on biases in models.
+    * Use [Interactive Model Cards](https://huggingface.co/spaces/nazneen/interactive-model-cards) to visualize performance discrepancies
+    * Look at [systematic model errors](https://huggingface.co/spaces/nazneen/seal) and look out for known social biases
+    * Use [Evaluate](https://github.com/huggingface/evaluate) and [Evaluation on the Hub](https://huggingface.co/spaces/autoevaluate/model-evaluator) to explore [language model biases](https://huggingface.co/blog/evaluating-llm-bias) including in [large models](https://huggingface.co/blog/zero-shot-eval-on-the-hub)
+    * Use a [Text-to-image bias explorer](https://huggingface.co/spaces/sasha/StableDiffusionBiasExplorer) to compare image generation models’ biases
+    * Compare LM models with Bias [Score Card](https://huggingface.co/spaces/sasha/BiasDetection)
 
 Thanks for reading! 🤗
 
