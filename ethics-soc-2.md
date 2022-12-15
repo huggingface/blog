@@ -35,7 +35,6 @@ section!_
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_2/img1.jpg" alt="Selection of tools developed by HF team members to address bias in ML" />
- <br>
     <em>Selection of tools developed by 🤗 team members to address bias in ML</em>
 </p>
 
@@ -80,7 +79,6 @@ This may not come as much of a surprise given the ML research community’s [foc
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_2/img_foresight.png" alt="Excerpt on considerations of ML uses context and people from the Model Card Guidebook" />
- <br>
     <em>Excerpt on considerations of ML uses context and people from the <a href="https://huggingface.co/docs/hub/model-cards">Model Card Guidebook</a></em>
 </p>
 
@@ -118,7 +116,6 @@ There is no one single way to develop ML systems; which steps happen in what ord
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_2/img_pipeline.png" alt="The Bias ML Pipeline by Meg" width="500" />
- <br>
     <em>The Bias ML Pipeline by <a href="https://huggingface.co/meg">Meg</a></em>
 </p>
 
@@ -139,7 +136,6 @@ We built a [tool](https://huggingface.co/spaces/hf-task-exploration/ExploreACMna
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_2/img2.png" alt="Selection of tools developed by HF team members to address bias in ML" />
- <br>
     <em><a href="https://huggingface.co/spaces/hf-task-exploration/ExploreACMnaacl">ACM Task Exploration tool</a> by <a href="/https://huggingface.co/aymm">Angie</a>, <a href="https://huggingface.co/paullada">Amandalynne</a>, and <a href="https://huggingface.co/yjernite">Yacine</a></em>
 </p>
 
@@ -168,7 +164,6 @@ You can usually get a pretty good sense of likely biases in a dataset by reflect
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_2/img3.png" alt="HF Dataset Card guide for the Social Impact and Bias Sections" />
- <br>
     <em><a href="https://github.com/huggingface/datasets/blob/main/templates/README_guide.md#social-impact-of-dataset">HF Dataset Card guide</a> for the Social Impact and Bias Sections</em>
 </p>
 
@@ -180,7 +175,6 @@ We’ve recently released two tools you can leverage to measure your data throug
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_2/img4.png" alt="Disaggregators tool by Nima" />
- <br>
     <em><a href="https://huggingface.co/spaces/society-ethics/disaggregators">Disaggregator tool</a> by <a href="https://huggingface.co/NimaBoscarino">Nima</a></em>
 </p>
 
@@ -190,7 +184,6 @@ Once you have some helpful statistics about the composition of your dataset, you
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_2/img5.png" alt="Data Measurements tool by Meg, Sasha, Bibi, and the Gradio team" />
- <br>
     <em><a href="https://huggingface.co/spaces/huggingface/data-measurements-tool">Data Measurements tool</a> by <a href="https://huggingface.co/meg">Meg</a>, <a href="https://huggingface.co/sasha">Sasha</a>, Bibi, and the <a href="https://gradio.app/">Gradio team</a></em>
 </p>
 
@@ -216,12 +209,11 @@ These tools aren’t full solutions by themselves, rather, they are designed to 
 
 Similar to the dataset curation/selection step, documenting and measuring bias-related phenomena in models can help both ML developers who are selecting a model to use as-is or to finetune and ML developers who want to train their own models. For the latter, measures of bias-related phenomena in the model can help them learn from what has worked or what hasn’t for other models and serve as a signal to guide their own development choices.
 
-Model cards were originally proposed by [(Mitchell et al., 2019)](https://dl.acm.org/doi/10.1145/3287560.3287596) and provide a framework for model reporting that showcases information relevant to bias risks, including broad ethical considerations, disaggregated evaluation, and use case recommendation. The Hugging Face Hub provides even more tools for model documentation, with a [model card guidebook](https://huggingface.co/docs/hub/model-cards) in the Hub documentation, and an [app that lets you create extensive model cards](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) easily for your new model. TODO: some great examples.
+Model cards were originally proposed by [(Mitchell et al., 2019)](https://dl.acm.org/doi/10.1145/3287560.3287596) and provide a framework for model reporting that showcases information relevant to bias risks, including broad ethical considerations, disaggregated evaluation, and use case recommendation. The Hugging Face Hub provides even more tools for model documentation, with a [model card guidebook](https://huggingface.co/docs/hub/model-cards) in the Hub documentation, and an [app that lets you create extensive model cards](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) easily for your new model.
 
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_2/img6.png" alt="Model Card writing tool by Ezi, Marissa, and Meg" />
- <br>
     <em><a href="https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool">Model Card writing tool</a> by <a href="https://huggingface.co/Ezi">Ezi</a>, <a href="https://huggingface.co/Marissa">Marissa</a>, and <a href="https://huggingface.co/meg">Meg</a></em>
 </p>
 
@@ -240,7 +232,6 @@ Visualization of model outputs isn’t just for generative models though! For cl
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_2/img8.png" alt="Systematic Error Analysis and Labeling (SEAL) by Nazneen" />
- <br>
     <em><a href="https://huggingface.co/spaces/nazneen/seal">Systematic Error Analysis and Labeling (SEAL)</a> by <a href="https://huggingface.co/nazneen">Nazneen</a></em>
 </p>
 
@@ -250,7 +241,6 @@ Finally, a few benchmarks exist that can measure bias-related phenomena in model
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_2/img9.png" alt="Language Model Bias Detection by Sasha" />
- <br>
     <em><a href="https://huggingface.co/spaces/sasha/BiasDetection">Language Model Bias Detection</a> by <a href="https://huggingface.co/sasha">Sasha</a></em>
 </p>
 
@@ -259,7 +249,6 @@ Even with access to a benchmark for the models you are considering, you might fi
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_2/img_winobias.png" alt="Large model WinoBias scores computed with Evaluation on the Hub by Helen, Tristan, Abhishek, Lewis, and Douwe" />
- <br>
     <em><a href="https://huggingface.co/spaces/sasha/BiasDetection"><a href="https://huggingface.co/blog/zero-shot-eval-on-the-hub">Large model WinoBias scores computed with Evaluation on the Hub</a> by <a href="https://huggingface.co/mathemakitten">Helen</a>, <a href="https://huggingface.co/Tristan">Tristan</a>, <a href="https://huggingface.co/abhishek">Abhishek</a>, <a href="https://huggingface.co/lewtun">Lewis</a>, and <a href="https://huggingface.co/douwekiela">Douwe</a></em>
 </p>
 
