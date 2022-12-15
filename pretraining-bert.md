@@ -333,7 +333,8 @@ runner.launch(
 <figure class="image table text-center m-0 w-full">
   <img src="assets/99_pretraining_bert/tensorboard.png" alt="Tensorboard Logs"/>
 </figure>
-_This [experiment](https://huggingface.co/philschmid/bert-base-uncased-2022-habana-test-6) ran for 60k steps_
+
+_This [experiment](https://huggingface.co/philschmid/bert-base-uncased-2022-habana-test-6) ran for 60k steps._
 
 In our `hyperparameters` we defined a `max_steps` property, which limited the pre-training to only `100_000` steps. The `100_000` steps with a global batch size of `256` took around 12,5 hours.
 
@@ -360,7 +361,7 @@ We compared our implementation with the [fastest BERT-pretraining](https://www.d
 
 Those results are incredible since it will allow companies to adapt their pre-trained models to their language and domain to [improve accuracy up to 10%](https://huggingface.co/pile-of-law/legalbert-large-1.7M-1#evaluation-results) compared to the general BERT models.
 
-If you are interested in training your own BERT or other Transformers models from scratch to reduce cost and improve accuracyy, [contact our experts](mailto:expert-acceleration@huggingface.co) to learn about our [Expert Acceleration Program](https://huggingface.co/support). To learn more about Habana solutions, [read about our partnership and how to contact them](https://huggingface.co/hardware/habana).
+If you are interested in training your own BERT or other Transformers models from scratch to reduce cost and improve accuracy, [contact our experts](mailto:expert-acceleration@huggingface.co) to learn about our [Expert Acceleration Program](https://huggingface.co/support). To learn more about Habana solutions, [read about our partnership and how to contact them](https://huggingface.co/hardware/habana).
 
 Code: [pre-training-bert.ipynb](https://github.com/philschmid/deep-learning-habana-huggingface/blob/master/pre-training/pre-training-bert.ipynb)
 

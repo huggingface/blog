@@ -142,7 +142,7 @@ git_config = {'repo': 'https://github.com/philschmid/transformers.git','branch':
 
 ## Configure distributed training and hyperparameters
 
-Next, we will define our `hyperparameters` and configure our distributed training strategy. As hyperparameter, we can define any [Seq2SeqTrainingArguments](https://huggingface.co/transformers/main_classes/trainer.html#seq2seqtrainingarguments) and the ones defined in [run_summarization.py](https://github.com/huggingface/transformers/tree/master/examples/seq2seq#sequence-to-sequence-training-and-evaluation). 
+Next, we will define our `hyperparameters` and configure our distributed training strategy. As hyperparameter, we can define any [Seq2SeqTrainingArguments](https://huggingface.co/transformers/main_classes/trainer.html#seq2seqtrainingarguments) and the ones defined in [run_summarization.py](https://github.com/huggingface/transformers/tree/main/examples/legacy/seq2seq#sequence-to-sequence-training-and-evaluation). 
 
 ```python
 # hyperparameters, which are passed into the training job
