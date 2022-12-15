@@ -557,6 +557,19 @@ language combination.
 
 ### Audio Classification
 
+#### [SpeechCommands](https://huggingface.co/datasets/speech_commands)
+SpeechCommands is a dataset comprised of one-second audio files, each containing either a single spoken word in English 
+or background noise. The words are taken from a small set of commands and are spoken by a number of different speakers. 
+The dataset is designed to help train and evaluate small on-device keyword spotting systems.
+
+#### [Multilingual Spoken Words](https://huggingface.co/datasets/MLCommons/ml_spoken_words)
+Multilingual Spoken Words is a large-scale corpus of one-second audio samples, each containing a single spoken word. The 
+dataset consists of 50 languages and more than 340,000 keywords, totalling 23.4 million one-second spoken examples or 
+over 6,000 hours of audio. The audio-transcription data is sourced from the Mozilla Common Voice project. Time stamps 
+are generated for every utterance on the word-level and used to extract individual spoken words and their corresponding 
+transcriptions, thus forming a new corpus of single spoken words. The dataset's intended use is academic research and 
+commercial applications in multilingual keyword spotting and spoken term search.
+
 #### [FLEURS](https://huggingface.co/datasets/google/fleurs)
 FLEURS (Few-shot Learning Evaluation of Universal Representations of Speech) is a dataset for evaluating speech recognition 
 systems in 102 languages, including many that are classified as 'low-resource'. The data is derived from the [FLoRes-101](https://arxiv.org/abs/2106.03193) 
