@@ -1562,3 +1562,11 @@
   tags:
     - guide
     - audio
+
+- local: ethics-soc-2
+  title: "Ethics and Society Newsletter #2"
+  author: yjernite
+  thumbnail: /blog/assets/122_ethics-soc-2/thumbnail.png
+  date: Dec 15, 2022
+  tags:
+    - ethics
