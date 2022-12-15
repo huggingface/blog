@@ -33,7 +33,7 @@ So if you already have ready-to-use training or inference workflows for first-ge
 
 One of the easy, cost-efficient ways that Intel and Habana have made Gaudi2 available is on the Intel Developer Cloud. To start using Gaudi2 there, you should follow the following steps:
 
-1. Go to the [Intel Developer Zone](https://www.intel.com/content/www/us/en/my-intel/developer-sign-in.htm) and sign in to your account or register if you do not have one.
+1. Go to the [Intel Developer Cloud landing page](https://www.intel.com/content/www/us/en/developer/tools/devcloud/services.html) and sign in to your account or register if you do not have one.
 
 2. Go to the [Intel Developer Cloud management console](https://scheduler.cloud.intel.com/#/systems).
 
