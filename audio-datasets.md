@@ -30,15 +30,14 @@ thumbnail: /blog/assets/116_audio_datasets/thumbnail.jpg
 
 ## Introduction
 
-🤗 Datasets is an open-source library for downloading and preparing datasets of all domains. Its minimalistic API 
+🤗 Datasets is an open-source library for downloading and preparing datasets from all domains. Its minimalistic API 
 allows users to download and prepare datasets in just one line of Python code, with a suite of functions that 
 enable efficient pre-processing. The number of datasets available is unparalleled, with all the most popular 
-audio datasets available to download. 
+machine learning datasets available to download. 
 
 Not only this, but 🤗 Datasets comes prepared with multiple audio-specific features that make working 
 with audio datasets easy for researchers and practitioners alike. In this blog, we'll demonstrate these features, showcasing
-how 🤗 Datasets the prime place for downloading and preparing audio datasets. Carry on reading to find out how to load and 
-prepare the most popular audio datasets in just one line of Python code.
+why 🤗 Datasets is the prime place for downloading and preparing audio datasets.
 
 ## Contents
 1. [The Hub](#the-hub)
@@ -52,7 +51,7 @@ prepare the most popular audio datasets in just one line of Python code.
 
 The Hugging Face Hub is a platform for hosting models, datasets and demos, all open source and publicly available. 
 It is home to a growing collection of audio datasets that span a variety of domains, tasks and languages. Through 
-very tight integrations with 🤗 Datasets, all the datasets on the Hub can be downloaded in just one line of code.
+very tight integrations with 🤗 Datasets, all the datasets on the Hub can be downloaded in one line of code.
 
 Let's head to the Hub and filter the datasets by task:
 * [Speech Recognition Datasets on the Hub](https://huggingface.co/datasets?task_categories=task_categories:automatic-speech-recognition&sort=downloads)
@@ -77,26 +76,25 @@ It shows us the first 100 samples for each subset and split. What's more, it's l
 to listen to in real-time. If we hit the play button on the first sample, we can listen to the audio and see the 
 corresponding text.
 
-The Dataset Preview is a brilliant way of experiencing audio datasets before committing to using them. You can pick a 
-dataset on the Hub, scroll through and listen to the samples for the different subsets and splits, and gauge whether 
-it's the right dataset for your needs.
+The Dataset Preview is a brilliant way of experiencing audio datasets before committing to using them. You can pick any 
+dataset on the Hub, scroll through the samples and listen to the audio for the different subsets and splits, gauging whether 
+it's the right dataset for your needs. Once you've selected a dataset, it's trivial to load the data on your device.
 
 ## Load an Audio Dataset
 
 One of the key defining features of 🤗 Datasets is the ability to download and prepare a dataset in just one line of 
 Python code. This is made possible through the [`load_dataset`](https://huggingface.co/docs/datasets/loading#load) 
 function. Conventionally, we'd have to download the raw data, extract it from its compressed format, and prepare 
-individual samples and splits. Using `load_dataset`, all of the heavy lifting of loading a dataset is done under the 
-hood.
+individual samples and splits. Using `load_dataset`, all of the heavy lifting is done under the hood.
 
 Let's take the example of loading the [GigaSpeech](https://huggingface.co/datasets/speechcolab/gigaspeech) dataset from 
 Speech Colab. GigaSpeech is a relatively recent speech recognition dataset for benchmarking academic speech systems and is 
-one of many datasets available through the Hugging Face Hub. 
+one of many newly added datasets on the Hugging Face Hub. 
 
-To load the GigaSpeech dataset, we simply have to specify the dataset's identifier `speechcolab/gigaspeech` to the 
-[`load_dataset`](https://huggingface.co/docs/datasets/loading#load) function. GigaSpeech comes in five different split 
-sizes, ranging from `xs` (10 hours) to `xl`(10,000 hours). For the purpose of this tutorial, we'll load the smallest of 
-these splits:
+To load the GigaSpeech dataset, we simply take the dataset's identifier on the Hub (`speechcolab/gigaspeech`) and specify it
+in the [`load_dataset`](https://huggingface.co/docs/datasets/loading#load) function. GigaSpeech comes in five configurations 
+of increasing size, ranging from `xs` (10 hours) to `xl`(10,000 hours). For the purpose of this tutorial, we'll load the smallest 
+of these configurations. The dataset's identifier and the desired configuration are all that we require to download the dataset:
 
 ```python
 from datasets import load_dataset
@@ -129,8 +127,8 @@ can see that we have the training, validation and test splits pre-partitioned, w
 each.
 
 The object `gigaspeech` returned by the `load_dataset` function is a [`DatasetDict`](https://huggingface.co/docs/datasets/package_reference/main_classes#datasets.DatasetDict). 
-We can treat it in much the same way as an ordinary Python dictionary. To get the train split, we simply have to pass 
-the corresponding key to the `DatasetDict`:
+We can treat it in much the same way as an ordinary Python dictionary. To get the train split, we pass the corresponding 
+key to the `DatasetDict`:
 
 ```python
 print(gigaspeech["train"])
@@ -146,7 +144,7 @@ Dataset({
 
 This returns a [`Dataset`](https://huggingface.co/docs/datasets/v2.7.1/en/package_reference/main_classes#datasets.Dataset) 
 object, which corresponds to the data for one split. We can go one level deeper and get the first item of the training split. 
-Again, this is possible through simple Python indexing:
+Again, this is possible through standard Python indexing:
 
 ```python
 print(gigaspeech["train"][0])
@@ -203,8 +201,9 @@ print(gigaspeech["train"][0])
            'sampling_rate': 16000}}
 ```
 
-Great! We can see that we've only got the two required columns `text` and `audio`. We can also see that the audio is 
-stored as 1-dimensional of amplitude values sampled at a sampling rate of 16kHz. That's our dataset loaded!
+Great! We can see that we've only got the two required columns `text` and `audio`. The `text` is a string with the sample
+transcription and the `audio` a 1-dimensional array of amplitude values at a sampling rate of 16KHz. That's our 
+dataset loaded!
 
 ## Easy to Load, Easy to Process
 
@@ -271,8 +270,6 @@ print(gigaspeech["train"][0])
  }
 ```
 
-To summarise, the `cast_column` method makes it trivial to upsample or downsample audio datasets as you require.
-
 ### 2. Pre-Processing Function
 
 One of the most challenging aspects of working with audio datasets is preparing the data in the right format for the 
@@ -291,21 +288,22 @@ from transformers import AutoProcessor
 processor = AutoProcessor.from_pretrained("openai/whisper-medium.en")
 ```
 
-Great! Now we write a function that takes a single training sample and passes it through the `processor` to pre-process 
-ready for our model. We'll also compute the input length of each audio sample, information that we'll need for our next 
+Great! Now we can write a function that takes a single training sample and passes it through the `processor` to prepare it
+for our model. We'll also compute the input length of each audio sample, information that we'll need for our next 
 data preparation step:
 
 ```python
 def prepare_dataset(batch):
     audio = batch["audio"]
     batch = processor(audio["array"], sampling_rate=audio["sampling_rate"], text=batch["text"])
+    
     batch["input_length"] = len(audio["array"]) / audio["sampling_rate"]
     return batch
 ```
 
 We can apply the data preparation function to all of our training examples using 🤗 Datasets' `map` method. Here, we also 
-remove the `text` and `audio` columns, since we have pre-processed them to input features and tokenised 
-labels respectively:
+remove the `text` and `audio` columns, since we have pre-processed the audio to input features and tokenised the text to
+labels:
 
 ```python
 gigaspeech = gigaspeech.map(prepare_dataset, remove_columns=gigaspeech["train"].column_names)
@@ -313,13 +311,13 @@ gigaspeech = gigaspeech.map(prepare_dataset, remove_columns=gigaspeech["train"].
 
 ### 3. Filtering Function
 
-Prior to training, we might have a heuristic by which we want to filter our training data. For instance, we might want 
-to filter any audio samples longer than 30s. We can do this in much the same way that we prepared the data for our model 
-in the previous step. 
+Prior to training, we might have a heuristic for filtering our training data. For instance, we might want 
+to filter any audio samples longer than 30s to prevent out-of-memory errors or truncating audio samples. We can 
+do this in much the same way that we prepared the data for our model in the previous step. 
 
 We start by writing a function that indicates which samples to keep and which to discard. This 
 function, `is_audio_length_in_range`, returns a boolean: samples that are shorter than 30s return True, and those 
-that are longer False:
+that are longer False.
 
 ```python
 MAX_DURATION_IN_SECONDS = 30.0
@@ -345,15 +343,15 @@ write it in a Python function, you can apply it to your dataset!
 
 ## Streaming Mode: The Silver Bullet
 
-One of the biggest challenges faced with audio datasets is their sheer size. The GigaSpeech `xs` split contained just 10 
+One of the biggest challenges faced with audio datasets is their size. The `xs` configuration of GigaSpeech contained just 10 
 hours of training data, but amassed over 13GB of storage space for download and preparation. So what happens when we 
-want to train on a larger split? The full `xl` split contains 10,000 hours of training data, requiring over 1TB of 
+want to train on a larger split? The full `xl` configuration contains 10,000 hours of training data, requiring over 1TB of 
 storage space. For most speech researchers, this well exceeds the specifications of a typical hard drive disk. 
 Do we need to fork out and buy additional storage? Or is there a way we can train on these datasets with **no disk space 
 constraints**?
 
-🤗 Datasets allows us to do just this. It is made possible through use of [_streaming_](https://huggingface.co/docs/datasets/stream), 
-depicted graphically in Figure 1. Streaming allows us to load the data progressively as we iterate over the dataset: 
+🤗 Datasets allows us to do just this. It is made possible through use of [_streaming_](https://huggingface.co/docs/datasets/stream) 
+mode, depicted graphically in Figure 1. Streaming allows us to load the data progressively as we iterate over the dataset: 
 rather than downloading the whole dataset at once, we load the dataset sample by sample. We iterate over the dataset, 
 loading and preparing samples _on the fly_ when they are needed. This way, we only ever load the samples that we're using, 
 and not the ones that we're not! Once we're done with a sample, we continue iterating over the dataset and load the next one.
@@ -361,9 +359,9 @@ and not the ones that we're not! Once we're done with a sample, we continue iter
 This is analogous to _downloading_ a TV show versus _streaming_ it. When we download a TV show, we download the entire video 
 offline and save it to our disk. We have to wait for the entire video to download before we can watch it and require as 
 much disk space as size of the video file. Compare this to streaming a TV show. Here, we don’t download any part of the 
-video to disk, but iterate over the video file and load each part in real-time as required. We don't have to wait for 
-the full video to buffer before we can start watching, we can start as soon as the first portion of the video is ready! 
-This is the same _streaming_ principle that we apply to loading datasets.
+video to disk, but rather iterate over the remote video file and load each part in real-time as required. We don't have 
+to wait for the full video to buffer before we can start watching, we can start as soon as the first portion of the video 
+is ready! This is the same _streaming_ principle that we apply to loading datasets.
 
 <figure>
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/datasets/streaming.gif" alt="Trulli" style="width:100%">
@@ -375,11 +373,13 @@ Streaming mode has three primary advantages over downloading the entire dataset 
 2. **Download and processing time:** audio datasets are large and need a significant amount of time to download and process. With streaming, loading and processing is done on the fly, meaning you can start using the dataset as soon as the first sample is ready.
 3. **Easy experimentation:** you can experiment on a handful samples to check that your script works without having to download the entire dataset.
 
-There is one caveat to streaming mode. When downloading a dataset to disk, the processed data is saved to our cache. If 
-we want to re-use this data, we can directly load the processed data from cache, skipping the download and processing 
-steps. Consequently, we only have to perform the downloading and processing operations once. With streaming mode, the 
-data is not downloaded to disk. Thus, neither the download nor pre-processing are cached. If we want to re-use the data, 
-the streaming steps must be repeated, with the audio files loaded and pre-processed again.
+There is one caveat to streaming mode. When downloading a dataset, both the raw data and processed data are saved locally 
+to disk. If we want to re-use this dataset, we can directly load the processed data from disk, skipping the download and 
+processing steps. Consequently, we only have to perform the downloading and processing operations once, after which we 
+can re-use the prepared data. With streaming mode, the data is not downloaded to disk. Thus, neither the downloaded nor 
+pre-processed data are cached. If we want to re-use the dataset, the streaming steps must be repeated, with the audio 
+files loaded and processed on the fly again. For this reason, it is advised to download datasets that you are likely to use
+multiple times.
 
 How can you enable streaming mode? Easy! Just set `streaming=True` when you load your dataset. The rest will be taken 
 care for you:
@@ -389,8 +389,8 @@ gigaspeech = load_dataset("speechcolab/gigaspeech", "xs", streaming=True)
 ```
 
 All the steps covered so far in this tutorial can be applied to the streaming dataset without any code changes.
-The only change is that you can no longer access one sample in particular using `gigaspeech["train"][sample_idx]`, but instead 
-have to iterate over the dataset (using a `for` loop for example).
+The only change is that you can no longer access one sample using Python indexing (i.e. `gigaspeech["train"][sample_idx]`), 
+but instead have to iterate over the dataset (using a `for` loop for example).
 
 Streaming mode can take your research to the next level: not only are the biggest datasets accessible to you, but you 
 can easily evaluate systems over multiple datasets in one go without worrying about your disk space. Compared 
@@ -401,9 +401,10 @@ provides an example for evaluating the Whisper model on eight English speech rec
 streaming mode.
 
 ## A Tour of Audio Datasets on The Hub
-This Section serves as a reference guide for the most popular speech recognition, speech 
-translation and audio classification datasets on the Hub. Refer to the [Google Colab](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/audio_datasets_colab.ipynb) 
-for a guide on evaluating a system on all eight English speech recognition datasets in **one script**.
+This Section serves as a reference guide for the most popular speech recognition, speech translation and audio 
+classification datasets on the Hugging Face Hub. We can apply everything that we've covered for the GigaSpeech dataset 
+to any one of the datasets on the Hub. All we have to do is switch the dataset identifier in the `load_dataset` function. 
+It's that easy!
 
 1. [English Speech Recognition](#english-speech-recognition)
 2. [Multilingual Speech Recognition](#multilingual-speech-recognition)
@@ -412,7 +413,8 @@ for a guide on evaluating a system on all eight English speech recognition datas
 
 ### English Speech Recognition
 
-A summary of the most popular English speech recognition datasets on the Hub:
+Speech recognition, or speech-to-text, is the task of mapping from spoken speech to written text, where both the speech 
+and text are in the same language. We provide a summary of the most popular English speech recognition datasets on the Hub:
 
 | Dataset                                                                                 | Domain                      | Speaking Style        | Train Hours | Casing | Punctuation | License         | Recommended Use                  |
 |-----------------------------------------------------------------------------------------|-----------------------------|-----------------------|-------------|--------|-------------|-----------------|----------------------------------|
@@ -424,6 +426,9 @@ A summary of the most popular English speech recognition datasets on the Hub:
 | [SPGISpeech](https://huggingface.co/datasets/kensho/spgispeech)                         | Fincancial meetings         | Oratory, spontaneous  | 5000        | ✅      | ✅           | User Agreement  | Fully formatted transcriptions   |
 | [Earnings-22](https://huggingface.co/datasets/revdotcom/earnings22)                     | Fincancial meetings         | Oratory, spontaneous  | 119         | ✅      | ✅           | CC-BY-SA-4.0    | Diversity of accents             |
 | [AMI](https://huggingface.co/datasets/edinburghcstr/ami)                                | Meetings                    | Spontaneous           | 100         | ✅      | ✅           | CC-BY-4.0       | Noisy speech conditions          |
+
+Refer to the [Google Colab](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/audio_datasets_colab.ipynb) 
+for a guide on evaluating a system on all eight English speech recognition datasets in **one script**.
 
 The following dataset descriptions are largely taken from the [ESB Benchmark](https://arxiv.org/abs/2210.13352) paper.
 
@@ -512,7 +517,8 @@ ami = load_dataset("edinburghcstr/ami", "ihm")
 ```
 
 ### Multilingual Speech Recognition
-Multilingual speech recognition concerns speech recognition for **all languages** barring English. 
+
+Multilingual speech recognition refers to speech recognition (speech-to-text) for all languages except English.
 
 #### [Multilingual LibriSpeech](https://huggingface.co/datasets/facebook/multilingual_librispeech)
 Multilingual LibriSpeech is the multilingual equivalent of the [LibriSpeech ASR](https://huggingface.co/datasets/librispeech_asr) corpus. 
@@ -541,6 +547,10 @@ sentence transcriptions to yield a multilingual speech recognition over all 101 
 approximately 10 hours of supervised audio-transcription data per language.
 
 ### Speech Translation
+
+Speech translation is the task of mapping from spoken speech to written text, where the speech and text are in different 
+languages (e.g. English speech to French text).
+
 #### [CoVoST 2](https://huggingface.co/datasets/covost2)
 CoVoST 2 is a large-scale multilingual speech translation corpus covering translations from 21 languages into English 
 and from English into 15 languages. The dataset is created using Mozilla's open-source Common Voice database of 
@@ -556,6 +566,9 @@ speech translation data is constructed by pairing the recorded audio data with t
 language combination.
 
 ### Audio Classification
+
+Audio classification is the task of mapping a raw audio input to a class label output. Practical applications of audio 
+classification include keyword spotting, speaker intent and language identification.
 
 #### [SpeechCommands](https://huggingface.co/datasets/speech_commands)
 SpeechCommands is a dataset comprised of one-second audio files, each containing either a single spoken word in English 
@@ -580,14 +593,14 @@ _language identification_: systems are trained to predict the language of each u
 
 ## Closing Remarks
 
-In this blog post, we explored the Hugging Face Hub and experienced the dataset preview, an effective means of 
-listening to an audio dataset before downloading it. We covered how to load any audio dataset with one line of Python 
-code and performed a series of generic pre-processing steps to prepare our dataset for a machine learning model. In 
-total, this required just 13 lines of code, relying on simple Python function definitions to perform the necessary 
+In this blog post, we explored the Hugging Face Hub and experienced the Dataset Preview, an effective means of 
+listening to audio datasets before downloading them. We loaded an audio dataset with one line of Python 
+code and performed a series of generic pre-processing steps to prepare it for a machine learning model. In 
+total, this required just 13 lines of code, relying on simple Python functions to perform the necessary 
 operations. We introduced streaming mode, a method for loading and preparing samples of audio data on the fly. We 
 concluded by summarising the most popular speech recognition, speech translation and audio classification datasets on 
 the Hub.
 
-Having read this blog, we hope you agree that 🤗 Datasets is the prime place for downloading and preparing audio 
+Having read this blog, we hope you agree that 🤗 Datasets is the number one place for downloading and preparing audio 
 datasets. 🤗 Datasets is made possible through the work of the community. If you would like to contribute a dataset, 
-refer to the [guide for adding a new dataset](https://huggingface.co/docs/datasets/share#share).
+refer to the [Guide for Adding a New Dataset](https://huggingface.co/docs/datasets/share#share).
