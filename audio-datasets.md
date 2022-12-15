@@ -361,7 +361,7 @@ and not the ones that we're not! Once we're done with a sample, we continue iter
 This is analogous to _downloading_ a TV show versus _streaming_ it. When we download a TV show, we download the entire video 
 offline and save it to our disk. We have to wait for the entire video to download before we can watch it and require as 
 much disk space as size of the video file. Compare this to streaming a TV show. Here, we don’t download any part of the 
-video to memory, but iterate over the video file and load each part in real-time as required. We don't have to wait for 
+video to disk, but iterate over the video file and load each part in real-time as required. We don't have to wait for 
 the full video to buffer before we can start watching, we can start as soon as the first portion of the video is ready! 
 This is the same _streaming_ principle that we apply to loading datasets.
 
@@ -389,8 +389,8 @@ gigaspeech = load_dataset("speechcolab/gigaspeech", "xs", streaming=True)
 ```
 
 All the steps covered so far in this tutorial can be applied to the streaming dataset without any code changes.
-The only change is that you can no longer access one sample in particular using `gigaspeech[sample_idx]`, but instead 
-have to iterate over the dataset (using a `for loop` for example).
+The only change is that you can no longer access one sample in particular using `gigaspeech["train"][sample_idx]`, but instead 
+have to iterate over the dataset (using a `for` loop for example).
 
 Streaming mode can take your research to the next level: not only are the biggest datasets accessible to you, but you 
 can easily evaluate systems over multiple datasets in one go without worrying about your disk space. Compared 
