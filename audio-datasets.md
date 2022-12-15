@@ -37,7 +37,7 @@ machine learning datasets available to download.
 
 Not only this, but 🤗 Datasets comes prepared with multiple audio-specific features that make working 
 with audio datasets easy for researchers and practitioners alike. In this blog, we'll demonstrate these features, showcasing
-why 🤗 Datasets is the prime place for downloading and preparing audio datasets.
+why 🤗 Datasets is the go-to place for downloading and preparing audio datasets.
 
 ## Contents
 1. [The Hub](#the-hub)
@@ -272,7 +272,7 @@ print(gigaspeech["train"][0])
  }
 ```
 
-`cast_column` provides an easy mechanism for resampling audio datasets as required.
+Easy! `cast_column` provides an straightforward mechanism for resampling audio datasets as and when required.
 
 ### 2. Pre-Processing Function
 
