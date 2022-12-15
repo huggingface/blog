@@ -607,3 +607,6 @@ the Hub.
 Having read this blog, we hope you agree that 🤗 Datasets is the number one place for downloading and preparing audio 
 datasets. 🤗 Datasets is made possible through the work of the community. If you would like to contribute a dataset, 
 refer to the [Guide for Adding a New Dataset](https://huggingface.co/docs/datasets/share#share).
+
+*Thank you to the following individuals who help contribute to the blog post: Vaibhav Srivastav, Polina Kazakova,  
+Patrick von Platen, Omar Sanseviero and Quentin Lhoest.*
