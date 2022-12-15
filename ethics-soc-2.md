@@ -136,7 +136,7 @@ We built a [tool](https://huggingface.co/spaces/hf-task-exploration/ExploreACMna
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_2/img2.png" alt="Selection of tools developed by HF team members to address bias in ML" />
-    <em><a href="https://huggingface.co/spaces/hf-task-exploration/ExploreACMnaacl">ACM Task Exploration tool</a> by <a href="/https://huggingface.co/aymm">Angie</a>, <a href="https://huggingface.co/paullada">Amandalynne</a>, and <a href="https://huggingface.co/yjernite">Yacine</a></em>
+    <em><a href="https://huggingface.co/spaces/hf-task-exploration/ExploreACMnaacl">ACM Task Exploration tool</a> by <a href="https://huggingface.co/aymm">Angie</a>, <a href="https://huggingface.co/paullada">Amandalynne</a>, and <a href="https://huggingface.co/yjernite">Yacine</a></em>
 </p>
 
 
