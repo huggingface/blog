@@ -1553,3 +1553,12 @@
   tags:
     - partnerships
     - habana
+
+- local: audio-datasets
+  title: "A Complete Guide to Audio Datasets"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/116_audio_datasets/thumbnail.jpg
+  date: Dec 15, 2022
+  tags:
+    - guide
+    - audio
