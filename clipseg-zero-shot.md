@@ -4,7 +4,7 @@ thumbnail: /blog/assets/123_clipseg-zero-shot/thumb.png
 ---
 
 <h1>
-	Using CLIPSeg with Hugging Face Transformers
+	Zero-shot image segmentation with CLIPSeg
 </h1>
 
 <div class="blog-metadata">
