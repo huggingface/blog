@@ -1,6 +1,6 @@
 ---
 title: "Accelerating PyTorch Transformers with Intel Sapphire Rapids - part 1"
-thumbnail: /blog/assets/123_transformers_on_sapphire_rapids_cpus/02.png
+thumbnail: /blog/assets/123_intel_sapphire_rapids/02.png
 ---
 
 <h1>
@@ -9,7 +9,7 @@ Accelerating PyTorch Transformers with Intel Sapphire Rapids, part 1</h1>
 
 <div class="blog-metadata">
     <small>Published December 15, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/juliensimon/blog/blob/main/transformers-on-intel-sapphire-rapids-cpus.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/juliensimon/blog/blob/main/intel-sapphire-rapids.md">
         Update on GitHub
     </a>
 </div>
@@ -76,7 +76,7 @@ From a networking perspective, we will need the following setup:
 * Allow all network traffic inside the cluster, so that distributed training runs unencumbered. AWS provides a safe and convenient way to do this with [security groups](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html). We just need to create a security group that allows all traffic from instances configured with that same security group and make sure to attach it to all instances in the cluster. Here's how my setup looks.
 
 <kbd>
-  <img src="assets/123_transformers_on_sapphire_rapids_cpus/01.png">
+  <img src="assets/123_intel_sapphire_rapids/01.png">
 </kbd>
 
 
@@ -234,7 +234,7 @@ One epoch now takes **7 minutes and 30 seconds**.
 Here's what the job looks like. The master node is at the top, and you can see the two training processes running on each one of the other 3 nodes.
 
 <kbd>
-  <img src="assets/123_transformers_on_sapphire_rapids_cpus/02.png">
+  <img src="assets/123_intel_sapphire_rapids/02.png">
 </kbd>
 
 Perfect linear scaling on 4 nodes would be 6 minutes and 30 seconds (26 minutes divided by 4). We're very close to this ideal value, which shows how scalable this approach is.
