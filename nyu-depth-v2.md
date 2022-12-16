@@ -53,7 +53,9 @@ It also contains information about dataset citation and dataset schema.
 
 For NYU Depth V2, our source file comes from [here](http://datasets.lids.mit.edu/fastdepth/data/nyudepthv2.tar.gz) (direct download link), which is a single TAR archive file containing both splits. While we can use this URL directly in our data-loading script, won’t it be nice to have multiple workers doing the downloads parallelly and thus resulting in a faster load time?
 
-![nyu-depth-v2-workers](assets/nyu-depth-v2/nyu_depth_v2_workers.png)
+<div align="center">
+    <img src="assets/nyu-depth-v2/nyu_depth_v2_workers.png" width=650/>
+</div>
 
 The idea would be to shard the single big archive into multiple archives and have multiple workers operate on them individually. Fortunately, 🤗 Datasets does the heavy lifting for us - we only need to take care of the first part – sharding the big archive file into multiple archives. The parallelization part is already taken care of by 🤗 Datasets.
 
