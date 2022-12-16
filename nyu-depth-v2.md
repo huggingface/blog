@@ -153,9 +153,18 @@ class NYUDepthV2(datasets.GeneratorBasedBuilder):
         ]
 ```
 
-Notice `dl_manager.iter_archive(archive) for archive in archives["train"]`. This is where the parallelization magic can come into the picture where each worker can focus on a single `archive` simultaneously. The `archives` get passed `[_generate_examples()](https://huggingface.co/datasets/sayakpaul/nyu_depth_v2/blob/main/nyu_depth_v2.py#L106)`.
+Notice `dl_manager.iter_archive(archive) for archive in archives["train"]`. This is where the parallelization magic can come into the picture where each worker can focus on a single `archive` simultaneously. The `archives` then get passed to `[_generate_examples()](https://huggingface.co/datasets/sayakpaul/nyu_depth_v2/blob/main/nyu_depth_v2.py#L106)`.
 
-The complete data-loading script is available [here](https://huggingface.co/datasets/sayakpaul/nyu_depth_v2/blob/main/nyu_depth_v2.py) and we recommend you refer to it when contributing large datasets. The same principle was also followed for the seminal ImageNet-1k dataset and the data-loading script is available [here](https://huggingface.co/datasets/imagenet-1k/blob/main/imagenet-1k.py). Note that you can load a dataset with a local loading script like so: `load_dataset(“my_dataloading_script.py”)`.
+The complete data-loading script is available [here](https://huggingface.co/datasets/sayakpaul/nyu_depth_v2/blob/main/nyu_depth_v2.py) and we recommend you refer to it when contributing large datasets. The same principle was also followed for the seminal ImageNet-1k dataset and its data-loading script is available [here](https://huggingface.co/datasets/imagenet-1k/blob/main/imagenet-1k.py). Note that you can load a dataset with a local loading script like so: `load_dataset(“my_dataloading_script.py”)`.
+
+With NYU Depth V2 now on 🤗 Datasets, users can load it with just two lines of code:
+
+```py
+from datasets import load_dataset
+dataset = load_dataset("sayakpaul/nyu_depth_v2")
+```
+
+We're also actively working with the original dataset authors to transfer the dataset to an approrpriate organization on the Hub.
 
 ## Effects on caching
 
