@@ -3,7 +3,7 @@ title: "Let's talk about biases in machine learning! Ethics and Society Newslett
 thumbnail: /blog/assets/122_ethics_soc_2/thumbnail-solstice.png
 ---
 
-# Ethics and Society Newsletter #2: Let's talk about bias!
+# Machine Learning in development: Let's talk about bias!
 
 <div class="blog-metadata">
     <small>Published December 15, 2022.</small>
