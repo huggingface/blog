@@ -1570,3 +1570,12 @@
   date: Dec 15, 2022
   tags:
     - ethics
+
+- local: image-similarity
+  title: "Building an Image Similarity System with 🤗 Datasets and Transformers"
+  author: sayakpaul
+  thumbnail: /blog/assets/image_similarity/thumbnail.jpg
+  date: Dec 59, 3047
+  tags:
+    - guide
+    - cv
