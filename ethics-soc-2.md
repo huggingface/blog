@@ -290,3 +290,22 @@ Summary of linked tools:
 Thanks for reading! 🤗
 
 ~ Yacine, on behalf of the Ethics and Society regulars
+    
+If you want to cite this blog post, please use the following:
+```
+@inproceedings{hf_ethics_soc_blog_2,
+  author    = {Yacine Jernite and
+               Alexandra Sasha Luccioni and
+               Irene Solaiman and
+               Giada Pistilli and
+               Nathan Lambert and
+               Ezi Ozoani and
+               Brigitte Toussignant and
+               Margaret Mitchell},
+  title     = {Hugging Face Ethics and Society Newsletter 2: Let's Talk about Bias!},
+  booktitle = {Hugging Face Blog},
+  year      = {2022},
+  url       = {https://doi.org/10.57967/hf/0214},
+  doi       = {10.57967/hf/0214}
+}
+```
