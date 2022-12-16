@@ -33,3 +33,10 @@
 
 - value: diffusion
   label: Diffusion
+
+- value: depth-estimation
+  label: Depth Estimation
+
+- value: datasets
+  label: Datasets
+  

@@ -1544,3 +1544,14 @@
     - rlhf
     - rl
     - guide
+
+- local: nyu-depth-v2
+  title: "Welcoming NYU Depth V2 to 🤗 Datasets"
+  author: sayakpaul
+  thumbnail: /blog/assets/nyu-depth-v2/thumbnail.png
+  date: December 20, 2022
+  tags:
+    - cv
+    - depth-estimation
+    - datasets
+    - guide
