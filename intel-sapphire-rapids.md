@@ -201,7 +201,7 @@ source $oneccl_bindings_for_pytorch_path/env/setvars.sh
 
 export MASTER_ADDR=172.31.3.190
 export NUM_PROCESSES=8
-export NUM_PROCESSES_PER_NODE=4
+export NUM_PROCESSES_PER_NODE=2
 export CCL_WORKER_COUNT=2
 export CCL_WORKER_AFFINITY=auto
 export KMP_HW_SUBSET=1T
