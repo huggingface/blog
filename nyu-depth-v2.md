@@ -84,7 +84,7 @@ tarsplit val.tar.gz --maxshards 4 -o val
 
 In the above commands, `--max-size` argument denotes the maximum size of a single shard and `--maxshards` denotes the maximum number of shards to be created. In general, having `max-size` as 3e9 (3 GBs) is not a strict requirement and you can keep it to 1e9 (1 GB). You might have to tune the `maxshards` then as well. When selecting the values for `max-size` or `maxshards` a general rule of thumb is to go for numbers that are big enough to stream efficiently and small enough to enable good parallelism.
 
-You can also check out the Golang port called [`tarp`](https://github.com/webdataset/tarp)¯, but its barrier to entry might seem a little higher.
+You can also check out the Golang port called [`tarp`](https://github.com/webdataset/tarp), but its barrier to entry might seem a little higher.
 
 After the shards were generated, we pushed them to the [dataset repository](https://huggingface.co/datasets/sayakpaul/nyu_depth_v2) on the Hugging Face Hub with the help of [Git-LFS](https://git-lfs.github.com/).
 
