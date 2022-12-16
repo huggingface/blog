@@ -1545,6 +1545,32 @@
     - rl
     - guide
 
+- local: habana-gaudi-2-benchmark
+  title: "Faster Training and Inference: Habana Gaudi®2 vs Nvidia A100 80GB"
+  author: regisss
+  thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
+  date: December 14, 2022
+  tags:
+    - partnerships
+    - habana
+
+- local: audio-datasets
+  title: "A Complete Guide to Audio Datasets"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/116_audio_datasets/thumbnail.jpg
+  date: Dec 15, 2022
+  tags:
+    - guide
+    - audio
+
+- local: ethics-soc-2
+  title: "Ethics and Society Newsletter #2"
+  author: yjernite
+  thumbnail: /blog/assets/122_ethics_soc_2/thumbnail-solstice.png
+  date: Dec 15, 2022
+  tags:
+    - ethics
+
 - local: nyu-depth-v2
   title: "Welcoming NYU Depth V2 to 🤗 Datasets"
   author: sayakpaul
@@ -1555,3 +1581,4 @@
     - depth-estimation
     - datasets
     - guide
+    
