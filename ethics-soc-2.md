@@ -1,5 +1,5 @@
 ---
-title: "Let's talk about biases for machine learning" 
+title: "Let's talk about biases in machine learning! Ethics and Society Newsletter #2" 
 thumbnail: /blog/assets/122_ethics_soc_2/thumbnail-solstice.png
 ---
 
