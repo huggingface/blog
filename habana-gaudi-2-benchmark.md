@@ -87,7 +87,7 @@ The following table displays the throughputs we got for first-gen Gaudi, Gaudi2 
 
 </center>
 
-*BS* is the batch size per device. The Gaudi runs were performed in mixed precision (bf16/fp32) and the A100 runs in fp16.
+*BS* is the batch size per device. The Gaudi runs were performed in mixed precision (bf16/fp32) and the A100 runs in fp16. All runs were *distributed* runs on *8 devices*.
 
 
 ### Generating Images from Text with Stable Diffusion
@@ -109,7 +109,7 @@ The results we got, which are consistent with the numbers published by Habana [h
 </center>
 
 *BS* is the batch size.
-The Gaudi runs were performed in mixed precision (bf16/fp32) and the A100 runs in fp16 (more information [here](https://huggingface.co/docs/diffusers/optimization/fp16)).
+The Gaudi runs were performed in mixed precision (bf16/fp32) and the A100 runs in fp16 (more information [here](https://huggingface.co/docs/diffusers/optimization/fp16)). All runs were *single-device* runs.
 
 
 ### Fine-tuning T5-3B
@@ -128,7 +128,7 @@ The results we achieved are presented in the table below. **Gaudi2 is x2.44 fast
 
 </center>
 
-*BS* is the batch size per device. Gaudi2 and A100 runs were performed in fp32 with gradient checkpointing enabled.
+*BS* is the batch size per device. Gaudi2 and A100 runs were performed in fp32 with gradient checkpointing enabled. All runs were *distributed* runs on *8 devices*.
 
 
 ## Conclusion
