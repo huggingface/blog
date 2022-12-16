@@ -12,6 +12,11 @@
   date: Dec 14, 2022
   description: Join researchers from Hugging Face and Intel Labs for a workshop about training and deploying few-shot language models. 
 
+- name: Reinforcement Learning from Human Feedback From Zero to ChatGPT
+  link: https://youtu.be/EAd4oQtEJOM
+  date: Dec 13, 2022
+  description: We will cover the basics of Reinforcement Learning from Human Feedback (RLHF) and how this technology is being used to enable state-of-the-art ML tools like ChatGPT
+  
 - name: Whisper Fine Tuning Sprint
   link: https://discuss.huggingface.co/t/open-to-the-community-whisper-fine-tuning-event/26681
   date: Dec 5, 2022
