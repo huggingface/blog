@@ -80,7 +80,7 @@ config_kwargs = {"vocab_size": len(tokenizer),
                  "reorder_and_upcast_attn": True}
 
 # Load model with config and push to hub
-config = AutoConfig.from_pretrained(gpt2-large, **config_kwargs)
+config = AutoConfig.from_pretrained('gpt2-large', **config_kwargs)
 model = AutoModelForCausalLM.from_config(config)
 model.save_pretrained(args.model_name, push_to_hub=args.push_to_hub)
 ```

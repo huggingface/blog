@@ -31,5 +31,5 @@
 - value: ethics
   label: ethics
 
-- value: stable-diffusion
-  label: Stable Diffusion
+- value: diffusion
+  label: Diffusion

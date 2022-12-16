@@ -871,7 +871,7 @@
 
 - local: annotated-diffusion
   title: "The Annotated Diffusion Model"
-  author: nielsrogge
+  author: nielsr
   thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
   date: June 7, 2022
   tags:
@@ -1415,7 +1415,7 @@
     - nlp
     - text generation
     - research
-    
+
 - local: sentiment-analysis-fhe
   title: "Sentiment Classification with Fully Homomorphic Encryption using Concrete ML"
   author: jfrery-zama
@@ -1433,13 +1433,13 @@
   thumbnail: /blog/assets/arxiv/thumbnail.png
   date: Nov 17, 2022
   tags:
-    - research    
-    - community    
- 
+    - research
+    - community
+
 - local: ml-director-insights-4
   title: "Director of Machine Learning Insights [Part 4]"
   author: Violette
-  thumbnail: blog/assets/78_ml_director_insights/ML Director Insights - part 4.png
+  thumbnail: /blog/assets/78_ml_director_insights/part4.png
   date: November 23, 2022
   tags:
     - community
@@ -1462,3 +1462,111 @@
   tags:
     - guide
     - expert-acceleration-program
+
+- local: diffusion-models-event
+  title: "Diffusion Models Live Event"
+  author: lewtun
+  thumbnail: /blog/assets/diffusion-models-event/thumbnail.png
+  date: Nov 25, 2022
+  tags:
+  - diffusion
+  - nlp
+  - text to image
+  - clip
+  - stable-diffusion
+  - dalle
+
+- local: interns-2023
+  title: "We are hiring interns!"
+  author: douwekiela
+  thumbnail: /blog/assets/interns-2023/thumbnail.png
+  date: November 29, 2022
+  tags:
+    - community
+    - announcement
+
+- local: vq-diffusion
+  title: "VQ Diffusion with 🧨 Diffusers"
+  author: williamberman
+  thumbnail: /blog/assets/117_vq_diffusion/thumbnail.png
+  date: November 30, 2022
+  tags:
+    - diffusers
+    - diffusion
+    - text-to-image
+
+- local: time-series-transformers
+  title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
+  author: nielsr
+  thumbnail: /blog/assets/118_time-series-transformers/thumbnail.png
+  date: December 1, 2022
+  tags:
+    - research
+
+- local: diffusers-coreml
+  title: "Using Stable Diffusion with Core ML on Apple Silicon"
+  author: pcuenca
+  thumbnail: /blog/assets/diffusers_coreml/thumbnail.png
+  date: December 1, 2022
+  tags:
+    - coreml
+    - diffusers
+    - stable-diffusion
+    - diffusion
+
+- local: deep-learning-with-proteins
+  title: "Deep Learning with Proteins"
+  author: rocketknight1
+  thumbnail: /blog/assets/119_deep_learning_with_proteins/folding_example.png
+  date: December 2, 2022
+  tags:
+    - guide
+    - fine-tuning
+
+- local: elixir-bumblebee
+  title: "From GPT2 to Stable Diffusion: Hugging Face arrives to the Elixir community"
+  author: josevalim
+  thumbnail: /blog/assets/120_elixir-bumblebee/thumbnail.png
+  date: December 9, 2022
+  tags:
+    - elixir
+    - transformers
+    - stable-diffusion
+    - nlp
+    - open-source-collab
+
+- local: rlhf
+  title: "Illustrating Reinforcement Learning from Human Feedback (RLHF)"
+  author: natolambert
+  thumbnail: /blog/assets/120_rlhf/thumbnail.png
+  date: December 9, 2022
+  tags:
+    - rlhf
+    - rl
+    - guide
+
+- local: habana-gaudi-2-benchmark
+  title: "Faster Training and Inference: Habana Gaudi®2 vs Nvidia A100 80GB"
+  author: regisss
+  thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
+  date: December 14, 2022
+  tags:
+    - partnerships
+    - habana
+
+- local: audio-datasets
+  title: "A Complete Guide to Audio Datasets"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/116_audio_datasets/thumbnail.jpg
+  date: Dec 15, 2022
+  tags:
+    - guide
+    - audio
+
+- local: ethics-soc-2
+  title: "Ethics and Society Newsletter #2"
+  author: yjernite
+  thumbnail: /blog/assets/122_ethics_soc_2/thumbnail-solstice.png
+  date: Dec 15, 2022
+  tags:
+    - ethics
