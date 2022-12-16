@@ -75,7 +75,7 @@ with tarfile.open("val.tar.gz", "w:gz") as t:
     t.add("val")
 ```
 
-With these two TAR archives, we leveraged the `[tarproc](https://github.com/tmbdev-archive/tarproc)` utility to create multiple smaller TAR archives:
+With these two TAR archives, we leveraged the [`tarproc`](https://github.com/tmbdev-archive/tarproc) utility to create multiple smaller TAR archives:
 
 ```bash
 tarsplit train.tar.gz --max-size 3e9 --maxshards 16 -o train
@@ -84,7 +84,7 @@ tarsplit val.tar.gz --maxshards 4 -o val
 
 In the above commands, `--max-size` argument denotes the maximum size of a single shard and `--maxshards` denotes the maximum number of shards to be created. In general, having `max-size` as 3e9 (3 GBs) is not a strict requirement and you can keep it to 1e9 (1 GB). You might have to tune the `maxshards` then as well. When selecting the values for `max-size` or `maxshards` a general rule of thumb is to go for numbers that are big enough to stream efficiently and small enough to enable good parallelism.
 
-You can also check out the Golang port called `[tarp](https://github.com/webdataset/tarp)`, but its barrier to entry might seem a little higher.
+You can also check out the Golang port called [`tarp`](https://github.com/webdataset/tarp)¯, but its barrier to entry might seem a little higher.
 
 After the shards were generated, we pushed them to the [dataset repository](https://huggingface.co/datasets/sayakpaul/nyu_depth_v2) on the Hugging Face Hub with the help of [Git-LFS](https://git-lfs.github.com/).
 
@@ -124,7 +124,7 @@ ARCHIVE_URLS = {
 }
 ```
 
-Here, `[data](https://huggingface.co/datasets/sayakpaul/nyu_depth_v2/tree/main/data)` is a directory where the archive shards are stored. It is then used like so:
+Here, [`data`](https://huggingface.co/datasets/sayakpaul/nyu_depth_v2/tree/main/data) is a directory where the archive shards are stored. It is then used like so:
 
 ```py
 class NYUDepthV2(datasets.GeneratorBasedBuilder):
@@ -153,7 +153,7 @@ class NYUDepthV2(datasets.GeneratorBasedBuilder):
         ]
 ```
 
-Notice `dl_manager.iter_archive(archive) for archive in archives["train"]`. This is where the parallelization magic can come into the picture where each worker can focus on a single `archive` simultaneously. The `archives` then get passed to `[_generate_examples()](https://huggingface.co/datasets/sayakpaul/nyu_depth_v2/blob/main/nyu_depth_v2.py#L106)`.
+Notice `dl_manager.iter_archive(archive) for archive in archives["train"]`. This is where the parallelization magic can come into the picture where each worker can focus on a single `archive` simultaneously. The `archives` then get passed to [`_generate_examples()`](https://huggingface.co/datasets/sayakpaul/nyu_depth_v2/blob/main/nyu_depth_v2.py#L106).
 
 The complete data-loading script is available [here](https://huggingface.co/datasets/sayakpaul/nyu_depth_v2/blob/main/nyu_depth_v2.py) and we recommend you refer to it when contributing large datasets. The same principle was also followed for the seminal ImageNet-1k dataset and its data-loading script is available [here](https://huggingface.co/datasets/imagenet-1k/blob/main/imagenet-1k.py). Note that you can load a dataset with a local loading script like so: `load_dataset(“my_dataloading_script.py”)`.
 
