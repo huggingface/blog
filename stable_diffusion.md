@@ -488,7 +488,8 @@ We now use the `vae` to decode the generated `latents` back into the image.
 ```python
 # scale and decode the image latents with vae
 latents = 1 / 0.18215 * latents
-image = vae.decode(latents).sample
+with torch.no_grad():
+    image = vae.decode(latents).sample
 ```
 
 And finally, let's convert the image to PIL so we can display or save it.
