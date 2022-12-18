@@ -496,11 +496,8 @@ And finally, let's convert the image to PIL so we can display or save it.
 
 
 ```python
-from PIL import Image
-
-# TODO: update, these are np arrays now, not torch tensors
-image = (image / 2 + 0.5).clip(0, 1)
-#image = image.detach().cpu().permute(0, 2, 3, 1).numpy()
+image = (image / 2 + 0.5).clamp(0, 1)
+image = image.detach().cpu().permute(0, 2, 3, 1).numpy()
 images = (image * 255).round().astype("uint8")
 pil_images = [Image.fromarray(image) for image in images]
 pil_images[0]
