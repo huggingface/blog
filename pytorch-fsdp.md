@@ -110,7 +110,7 @@ Sample FSDP Run:
 
 Table 1: Benchmarking FSDP on GPT-2 Large (762M) model
 
-With respect to DDP, from Table 1 we can observe that FSDP **enables larger batch sizes**, upto **2X-3X** without and with CPU offload setting, respectively. In terms of train time, DDP with mixed precision is the fastest followed by FSDP using ZERO Stage 2 and Stage 3, respectively. As the task of causal language modelling always has fixed context sequence length (--block_size), the train time speedup with FSDP wasn’t that great. For applications with dynamic batching, FSDP which enables larger batch sizes will likely have considerable speed up in terms of train time. FSDP mixed precision support currently has few [issues](https://github.com/pytorch/pytorch/issues/75676) with transformer. Once this is supported, the training time speed up will further improve considerably.
+With respect to DDP, from Table 1 we can observe that FSDP **enables larger batch sizes**, up to **2X-3X** without and with CPU offload setting, respectively. In terms of train time, DDP with mixed precision is the fastest followed by FSDP using ZERO Stage 2 and Stage 3, respectively. As the task of causal language modelling always has fixed context sequence length (--block_size), the train time speedup with FSDP wasn’t that great. For applications with dynamic batching, FSDP which enables larger batch sizes will likely have considerable speed up in terms of train time. FSDP mixed precision support currently has few [issues](https://github.com/pytorch/pytorch/issues/75676) with transformer. Once this is supported, the training time speed up will further improve considerably.
 
 
 ### CPU Offloading to enable training humongous models that won’t fit the GPU memory
