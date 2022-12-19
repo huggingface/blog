@@ -25,21 +25,21 @@ thumbnail: /blog/assets/nyu-depth-v2/thumbnail.png
 </div>
 
 
-[Hugging Face Datasets’ Hub](https://huggingface.co/datasets) is home to 16130 datasets as of today, and this number continues to grow actively. These datasets come in all shapes and sizes. [Some](https://huggingface.co/datasets?size_categories=size_categories:n%3C1K&sort=downloads) are just about 1000 samples, while [this one](https://huggingface.co/datasets/poloclub/diffusiondb) is more than a trillion samples; all served with a common API provided by [🤗 Datasets library](https://huggingface.co/docs/datasets).
+[Hugging Face Hub](https://huggingface.co/datasets) is home to 16130 datasets, and this number continues to grow actively. These datasets come in all shapes and sizes. [Some](https://huggingface.co/datasets?size_categories=size_categories:n%3C1K&sort=downloads) have just about 1000 samples, while [this one](https://huggingface.co/datasets/poloclub/diffusiondb) has more than a trillion samples; all served with a common API provided by [🤗 Datasets library](https://huggingface.co/docs/datasets).
 
-As with other things at Hugging Face, 🤗 Datasets’ Hub is very much a community-driven effort. Contributing a new dataset is fairly straightforward, and the [official guide](https://huggingface.co/docs/datasets/share) will get you started in no time. But when it comes to contributing larger datasets, things might need additional work.
+Like other things at Hugging Face, the Datasets’ Hub is a collaborative community-driven space. Contributing a new dataset is fairly straightforward, and the [official guide](https://huggingface.co/docs/datasets/share) will get you started in no time. When it comes to contributing larger datasets, things might need additional work.
 
 So, in this post, we’ll share some best practices for working with large datasets by discussing a case study of the [NYU Depth V2 dataset](https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html) that we recently added to 🤗 Datasets. The approaches shared in this post are modality agnostic, meaning you can apply the same principles to datasets of other modalities (such as video, text, and audio) too.
 
 ## About the dataset
 
-NYU Depth V2 dataset is commonly used for training and evaluating models for the task of depth estimation. It was introduced in [Indoor Segmentation and Support Inference from RGBD Images](http://cs.nyu.edu/~silberman/papers/indoor_seg_support.pdf) by Silberman et al. Here some samples of the dataset from the [official dataset website](https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html#raw_parts) where the first column represents input images, second column represents the raw depth map images, and the third column represents class labels:
+NYU Depth V2 dataset is commonly used for training and evaluating models for depth estimation. It was introduced in [Indoor Segmentation and Support Inference from RGBD Images](http://cs.nyu.edu/~silberman/papers/indoor_seg_support.pdf) by Silberman et al. Here are some samples of the dataset from the [official dataset website](https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html#raw_parts) where the first column represents input images, the second column represents the raw depth map images, and the third column represents class labels:
 
 ![nyu-depth-v2-collage](assets/nyu-depth-v2/nyu_depth_collage.png)
 
 A preprocessed version of the dataset is also distributed as a part of [FastDepth: Fast Monocular Depth Estimation on Embedded Systems](https://arxiv.org/abs/1903.03273) by Wofk et al. Notably, this is the version we ship in 🤗 Datasets. The total size of this version is about 32 GBs and contains two splits: `train` and `validation`. Refer [here](https://github.com/dwofk/fast-depth#requirements) for more details.
 
-While 32 GB for a dataset is not overly large, we believe it’s a good candidate to share our practices. Moreover, a commodity machine should be able to accommodate it too.
+While 32 GB for a dataset is not overly large, we believe it’s a good candidate to share our practices. Most machines should be able to accommodate.
 
 ## Archives: shard’em
 
