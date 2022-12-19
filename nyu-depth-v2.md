@@ -25,11 +25,18 @@ thumbnail: /blog/assets/nyu-depth-v2/thumbnail.png
 </div>
 
 
-[Hugging Face Hub](https://huggingface.co/datasets) is home to 16130 datasets, and this number continues to grow actively. These datasets come in all shapes and sizes. [Some](https://huggingface.co/datasets?size_categories=size_categories:n%3C1K&sort=downloads) have just about 1000 samples, while [this one](https://huggingface.co/datasets/poloclub/diffusiondb) has more than a trillion samples; all served with a common API provided by [🤗 Datasets library](https://huggingface.co/docs/datasets).
+[Hugging Face Hub](https://huggingface.co/datasets) is home to over 16k datasets, and this number continues to grow actively. These datasets come in all shapes and sizes. [Some](https://huggingface.co/datasets?size_categories=size_categories:n%3C1K&sort=downloads) have just about 1000 samples, while [this one](https://huggingface.co/datasets/poloclub/diffusiondb) has more than a trillion samples; all served with a common API provided by [🤗 Datasets library](https://huggingface.co/docs/datasets).
 
 Like other things at Hugging Face, the Datasets’ Hub is a collaborative community-driven space. Contributing a new dataset is fairly straightforward, and the [official guide](https://huggingface.co/docs/datasets/share) will get you started in no time. When it comes to contributing larger datasets, things might need additional work.
 
 So, in this post, we’ll share some best practices for working with large datasets by discussing a case study of the [NYU Depth V2 dataset](https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html) that we recently added to 🤗 Datasets. The approaches shared in this post are modality agnostic, meaning you can apply the same principles to datasets of other modalities (such as video, text, and audio) too.
+
+## About the task
+
+Before we proceed to knowing the NYU Depth V2 dataset a little bit better, let's familiarize ourseleves with the task it entails. 
+NYU Depth V2 is primarily used for training and evaluating models for the task of [depth estimation](https://huggingface.co/tasks/depth-estimation). From the NYU Depth V2 dataset [homepage](https://huggingface.co/datasets/sayakpaul/nyu_depth_v2) on 🤗 Datasets: 
+
+> Depth estimation is the task of approximating the perceived depth of a given image. In other words, it's about measuring the distance of each image pixel from the camera.
 
 ## About the dataset
 
@@ -37,7 +44,7 @@ NYU Depth V2 dataset is commonly used for training and evaluating models for dep
 
 ![nyu-depth-v2-collage](assets/nyu-depth-v2/nyu_depth_collage.png)
 
-A preprocessed version of the dataset is also distributed as a part of [FastDepth: Fast Monocular Depth Estimation on Embedded Systems](https://arxiv.org/abs/1903.03273) by Wofk et al. Notably, this is the version we ship in 🤗 Datasets. The total size of this version is about 32 GBs and contains two splits: `train` and `validation`. Refer [here](https://github.com/dwofk/fast-depth#requirements) for more details.
+A preprocessed version of the dataset is also distributed as a part of [FastDepth: Fast Monocular Depth Estimation on Embedded Systems](https://arxiv.org/abs/1903.03273) by Wofk et al. Notably, this is the version we ship in 🤗 Datasets. The total size of this version is about 32 GBs and contains two splits: `train` and `validation`. Refer [here](https://huggingface.co/datasets/sayakpaul/nyu_depth_v2) for more details.
 
 While 32 GB for a dataset is not overly large, we believe it’s a good candidate to share our practices. Most machines should be able to accommodate.
 
@@ -86,7 +93,7 @@ tarsplit val.tar.gz --maxshards 4 -o val
 
 In the above commands, `--max-size` argument denotes the maximum size of a single shard and `--maxshards` denotes the maximum number of shards to be created. In general, having `max-size` as 3e9 (3 GBs) is not a strict requirement and you can keep it to 1e9 (1 GB). You might have to tune the `maxshards` then as well. When selecting the values for `max-size` or `maxshards` a general rule of thumb is to go for numbers that are big enough to stream efficiently and small enough to enable good parallelism.
 
-You can also check out the Golang port called [`tarp`](https://github.com/webdataset/tarp), but its barrier to entry might seem a little higher.
+You can also check out the Golang port called [`tarp`](https://github.com/webdataset/tarp) for faster processing time, but its barrier to entry might seem a little higher.
 
 After the shards were generated, we pushed them to the [dataset repository](https://huggingface.co/datasets/sayakpaul/nyu_depth_v2) on the Hugging Face Hub with the help of [Git-LFS](https://git-lfs.github.com/).
 
