@@ -71,7 +71,7 @@ Informed by these findings, we created a new model card template that not only s
 In order to lower barriers to entry for creating model cards, we designed [the model card writing tool](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool), a tool with a graphical user interface (GUI) to enable people and teams with different skill sets and roles to easily collaborate and create model cards, without needing to code or use markdown. 
 
 <p align="center">
-  <img src="assets/121_model-cards/upload_a_mc.gif" width="800"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/upload_a_mc.gif" width="800"/>
 </p>
 
 The writing tool encourages those who have yet to write model cards to create them more easily. For those who have previously written model cards, this approach invites them to add to the prompted information -- while centering the ethical components of model documentation..
@@ -81,7 +81,7 @@ As ML continues to be more intertwined with different domains, collaborative and
 
 Let's look ahead
 <p align="center">
-  <img src="assets/121_model-cards/looking_ahead.png" width="250"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/looking_ahead.png" width="250"/>
 </p>
 
 This work is a "*snapshot*" of the current state of model cards, informed by a landscape analysis of the many ways ML documentation artefacts have been instantiated. The model book and these findings represent one perspective amongst multiple about both the current state and more aspirational visions of model cards.
@@ -97,7 +97,7 @@ We continue to learn more about how model cards are created and used, and the ef
 As we strive to incorporate more voices and stakeholders' use cases for model cards, [bookmark our model cards writing tool and give it a try](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool).
 
 <p align="center">
-  <img src="assets/121_model-cards/like_the_space.gif" width="680"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/like_the_space.gif" width="680"/>
 </p>
 
 
