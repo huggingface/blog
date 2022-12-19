@@ -1544,3 +1544,15 @@
     - rlhf
     - rl
     - guide
+
+
+- local: model-cards
+  title: "Model Cards: Introducing HF Model docuemtntion tools"
+  author: Ezi
+  thumbnail: /blog/assets/121_model-cards/thumbnail.png
+  date: December 20, 2022
+  tags:
+    - community
+    - research
+    - ethics
+    - guide
