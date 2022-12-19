@@ -1571,14 +1571,12 @@
   tags:
     - ethics
 
-- local: nyu-depth-v2
-  title: "Welcoming NYU Depth V2 to 🤗 Datasets"
+- local: share-vision-ds
+  title: "Sharing Large Vision Datasets"
   author: sayakpaul
-  thumbnail: /blog/assets/nyu-depth-v2/thumbnail.png
-  date: December 20, 2022
+  thumbnail: /blog/assets/share-vision-ds/thumbnail.png
+  date: December 29, 2022
   tags:
     - cv
-    - depth-estimation
-    - datasets
     - guide
     

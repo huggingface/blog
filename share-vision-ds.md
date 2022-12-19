@@ -1,15 +1,15 @@
 ---
-title: Adding a Large Vision Dataset to 🤗 Datasets
-thumbnail: /blog/assets/nyu-depth-v2/thumbnail.png
+title: Sharing Large Vision Datasets
+thumbnail: /blog/assets/share-vision-ds/thumbnail.png
 ---
 
 <h1>
-  Adding a Large Vision Dataset to 🤗 Datasets
+  Sharing Large Vision Datasets
 </h1>
 
 <div class="blog-metadata">
-    <small>Published December 20, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/nyu-depth-v2.md">
+    <small>Published December 29, 2022.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/share-vision-ds.md">
         Update on GitHub
     </a>
 </div>
@@ -42,7 +42,7 @@ NYU Depth V2 is primarily used for training and evaluating models for the task o
 
 NYU Depth V2 dataset is commonly used for training and evaluating models for depth estimation. It was introduced in [Indoor Segmentation and Support Inference from RGBD Images](http://cs.nyu.edu/~silberman/papers/indoor_seg_support.pdf) by Silberman et al. Here are some samples of the dataset from the [official dataset website](https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html#raw_parts) where the first column represents input images, the second column represents the raw depth map images, and the third column represents class labels:
 
-![nyu-depth-v2-collage](assets/nyu-depth-v2/nyu_depth_collage.png)
+![nyu-depth-v2-collage](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/share-vision-ds/nyu_depth_collage.png)
 
 A preprocessed version of the dataset is also distributed as a part of [FastDepth: Fast Monocular Depth Estimation on Embedded Systems](https://arxiv.org/abs/1903.03273) by Wofk et al. Notably, this is the version we ship in 🤗 Datasets. The total size of this version is about 32 GBs and contains two splits: `train` and `validation`. Refer [here](https://huggingface.co/datasets/sayakpaul/nyu_depth_v2) for more details.
 
@@ -61,7 +61,7 @@ It also contains information about dataset citation and dataset schema.
 For NYU Depth V2, our source file comes from [here](http://datasets.lids.mit.edu/fastdepth/data/nyudepthv2.tar.gz) (direct download link), which is a single TAR archive file containing both splits. While we can use this URL directly in our data-loading script, won’t it be nice to have multiple workers doing the downloads parallelly and thus resulting in a faster load time?
 
 <div align="center">
-    <img src="assets/nyu-depth-v2/nyu_depth_v2_workers.png" width=650/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/share-vision-ds/nyu_depth_v2_workers.png" width=650/>
 </div>
 
 The idea would be to shard the single big archive into multiple archives and have multiple workers operate on them individually. Fortunately, 🤗 Datasets does the heavy lifting for us - we only need to take care of the first part – sharding the big archive file into multiple archives. The parallelization part is already taken care of by 🤗 Datasets.
