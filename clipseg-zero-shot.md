@@ -53,7 +53,7 @@ Currently, CLIPSeg still has its limitations. For example, the model uses images
 At first, this might not seem very useful, but it is actually very powerful. As an example, let’s take a quick look at how CLIP can be used to classify images without ever having been trained on that task. To classify an image, we input the image and the different categories we want to choose from to CLIP (e.g. we input an image and the words “apple”, “orange”, …).  CLIP then gives us back an embedding of the image and of each category. Now, we simply have to check which category embedding is closest to the embedding of the image, et voilà! Feels like magic, doesn’t it? 
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Overview of the CLIPSeg model" src="assets/123_clipseg-zero-shot/clip-tv-example.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Overview of the CLIPSeg model" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/123_clipseg-zero-shot/clip-tv-example.png"></medium-zoom>
   <figcaption>Example of image classification using CLIP (<a href="https://openai.com/blog/clip/">source</a>).</figcaption>
 </figure>
 
@@ -66,7 +66,7 @@ The reason why CLIP works so well is that the model was trained on a huge datase
 [CLIPSeg](https://arxiv.org/abs/2112.10003) is a model that uses CLIP representations to create image segmentation masks. It was published by Timo Lüddecke and Alexander Ecker. They achieved zero-shot image segmentation by training a Transformer-based decoder on top of the CLIP model, which is kept frozen. The decoder takes in the CLIP representation of an image, and the CLIP representation of the the thing you want to segment. Using these two inputs, the CLIPSeg decoder creates a binary segmentation mask. To be more precise, the decoder doesn’t only use the final CLIP representation of the image we want to segment, but it also uses the outputs of some of the layers of CLIP. 
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Overview of the CLIPSeg model" src="assets/123_clipseg-zero-shot/clipseg-overview.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Overview of the CLIPSeg model" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/123_clipseg-zero-shot/clipseg-overview.png"></medium-zoom>
   <figcaption><a href="https://arxiv.org/abs/2112.10003">Source</a></figcaption>
 </figure>
 
@@ -111,7 +111,7 @@ image
 ```
 
 <figure class="image table text-center m-0 w-6/12">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="A picture of a pancake breakfast." src="assets/123_clipseg-zero-shot/73d97c93dc0f5545378e433e956509b8acafb8d9.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="A picture of a pancake breakfast." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/123_clipseg-zero-shot/73d97c93dc0f5545378e433e956509b8acafb8d9.png"></medium-zoom>
 </figure>
 
 ### Text prompting
@@ -148,7 +148,7 @@ ax[0].imshow(image)
 ```
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="The masks of the different categories in the breakfast image." src="assets/123_clipseg-zero-shot/14c048ea92645544c1bbbc9e55f3c620eaab8886.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="The masks of the different categories in the breakfast image." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/123_clipseg-zero-shot/14c048ea92645544c1bbbc9e55f3c620eaab8886.png"></medium-zoom>
 </figure>
 
 ### Visual prompting
@@ -166,7 +166,7 @@ prompt
 ```
 
 <figure class="image table text-center m-0 w-6/12">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="A picture of a paper coffee cup." src="assets/123_clipseg-zero-shot/7931f9db82ab07af7d161f0cfbfc347645da6646.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="A picture of a paper coffee cup." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/123_clipseg-zero-shot/7931f9db82ab07af7d161f0cfbfc347645da6646.png"></medium-zoom>
 </figure>
 
 We can now process the input image and prompt image and input them to
@@ -192,7 +192,7 @@ ax[1].imshow(torch.sigmoid(preds[0]))
 ```
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="The mask of the coffee cup in the breakfast image." src="assets/123_clipseg-zero-shot/fbde45fc65907d17de38b0db3eb262bdec1f1784.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="The mask of the coffee cup in the breakfast image." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/123_clipseg-zero-shot/fbde45fc65907d17de38b0db3eb262bdec1f1784.png"></medium-zoom>
 </figure>
 
 Let's try one last time by using the visual prompting tips described in
@@ -205,7 +205,7 @@ prompt_alt
 ```
 
 <figure class="image table text-center m-0 w-6/12">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="A cropped version of the image of the coffee cup with a darker background." src="assets/123_clipseg-zero-shot/915a97da22131e0ab6ff4daa78ffe3f1889e3386.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="A cropped version of the image of the coffee cup with a darker background." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/123_clipseg-zero-shot/915a97da22131e0ab6ff4daa78ffe3f1889e3386.png"></medium-zoom>
 </figure>
 
 ```python
@@ -225,7 +225,7 @@ ax[1].imshow(torch.sigmoid(preds[0]))
 ```
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="The mask of the coffee cup in the breakfast image." src="assets/123_clipseg-zero-shot/7f75badfc245fc3a75e0e05058b8c4b6a3a991fa.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="The mask of the coffee cup in the breakfast image." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/123_clipseg-zero-shot/7f75badfc245fc3a75e0e05058b8c4b6a3a991fa.png"></medium-zoom>
 </figure>
 
 In this case, the result is pretty much the same. This is probably
@@ -278,7 +278,7 @@ image
 ```
 
 <figure class="image table text-center m-0 w-9/12">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="A picture of a street with cars from the a2d2 dataset." src="assets/123_clipseg-zero-shot/a0ca3accab5a40547f16b2abc05edd4558818bdf.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="A picture of a street with cars from the a2d2 dataset." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/123_clipseg-zero-shot/a0ca3accab5a40547f16b2abc05edd4558818bdf.png"></medium-zoom>
 </figure>
 
 We also need to get the category names from the dataset attributes.
@@ -320,7 +320,7 @@ ax[0].imshow(image)
 ```
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="The masks of the different categories in the street image." src="assets/123_clipseg-zero-shot/7782da300097ce4dcb3891257db7cc97ccf1deb3.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="The masks of the different categories in the street image." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/123_clipseg-zero-shot/7782da300097ce4dcb3891257db7cc97ccf1deb3.png"></medium-zoom>
 </figure>
 
 Now we have to combine the predictions to a single segmentated image.
@@ -348,7 +348,7 @@ plt.imshow(inds)
 ```
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="A combined segmentation label of the street image." src="assets/123_clipseg-zero-shot/b92dc12452108a0b2769ddfc1d7f79909e65144b.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="A combined segmentation label of the street image." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/123_clipseg-zero-shot/b92dc12452108a0b2769ddfc1d7f79909e65144b.png"></medium-zoom>
 </figure>
 
 Lastly, we can upload the prediction to Segments.ai. To do that, we\'ll
@@ -381,7 +381,7 @@ the biggest mistakes, and then you can use the corrected dataset to
 train a better model than CLIPSeg.
 
 <figure class="image table text-center m-0 w-9/12">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Thumbnails of the final segmentation labels on Segments.ai." src="assets/123_clipseg-zero-shot/segments-thumbs.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Thumbnails of the final segmentation labels on Segments.ai." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/123_clipseg-zero-shot/segments-thumbs.png"></medium-zoom>
 </figure>
 
 ## Conclusion
