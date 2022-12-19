@@ -61,11 +61,9 @@ Since model cards were proposed by [Mitchell et al., (2018)](https://arxiv.org/a
 Our work presents a view of where we think model cards stand right now and where they could go in the future. We conducted a broad analysis of the growing landscape of ML documentation tools and conducted user interviews within Hugging Face to supplement our understanding of the diverse opinions about model cards. We also created or updated dozens of model cards for ML models on the Hugging Face Hub, and informed by all of these experiences, we propose a new template for model cards. 
 
 ### Standardising Model Card Structure
-Through our background research and user studies, we aimed to establish a standard of "model cards" as understood by the general public. From this research, we found that there is a variance in the content of a model card and the layout of a model card - the presence or absence of some headings and sub-headings - but there was consistency in the different types of headings.
+Through our background research and user studies, which are discussed further in the guide book **[link to section in guide book]**, we aimed to establish a new standard of "model cards" as understood by the general public. 
 
-Through our user studies and as  illustrated in the model book **[link to section in guide book]**, we noted that  while the Bias, Risks and Limitations section ranks second for both model card writers and model card readers for In what order do you write the model card and What section do you look at first, respectively, it is also noted as the most challenging/longest section to write. 
-
-Directed by these findings we created a  research informed  model card template, that not only standardised the structure and content of HF model cards but also provided default prompted text, with the aim  to aid with writing model card sections, with a particular focus on the Bias, Risks and Limitations section.
+Informed by these findings, we created a new model card template that not only standardized the structure and content of HF model cards but also provided default prompt text. This text aimed to aide with writing model card sections, with a particular focus on the Bias, Risks and Limitations section.
 
 
 ### Accessibility and Inclusion
