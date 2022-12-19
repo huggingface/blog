@@ -78,7 +78,7 @@ In order to lower barriers to entry for creating model cards, we designed [the m
 </p>
 
 
-The writing tool encourages those who have yet to write model cards to create them more easily and those who have previously written them, this approach invites them to add to the prompted information. All while centring the ethical components of model documentation.
+The writing tool encourages those who have yet to write model cards to create them more easily and those who have previously written them. This approach invites them to add to the prompted information. All while centering the ethical components of model documentation.
 
 
 As ML continues to be more intertwined with different domains, the ability to be part of a collaborative and open-source process that centres accessibility, ethics and technical inclusion is a critical part of the machine learning lifecycle and a stepping stone in ML documentation.
