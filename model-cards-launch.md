@@ -45,7 +45,7 @@ thumbnail: /blog/assets/121_model-cards/thumbnail.png
 
 ## Introduction
 
-Model cards are an important documentation framework for understanding, sharing, and improving machine learning models. When done well, a model card can serve as a _boundary object_, a single artefact that is accessible to people with different backgrounds and goals in understanding models - including developers, students, policymakers, ethicists, and those impacted by machine learning models.
+Model cards are an important documentation framework for understanding, sharing, and improving machine learning models. When done well, a model card can serve as a _boundary object_, a single artifact accessible to people with different backgrounds and goals in understanding models - including developers, students, policymakers, ethicists, and those impacted by machine learning models.
 
 Today, we launch both a [model card creation tool](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) and a model card Guide Book, which details how to fill out model cards, user studies, and the state of the art in ML documentation. This work, building from the work of many other people and organization, is focused on _inclusion_ of people with different backgrounds and roles. We hope it serves as a stepping stone in the path towards improved ML documentation.
 
