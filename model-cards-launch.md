@@ -101,7 +101,7 @@ Let's look ahead
 As model cards continue to grow and evolve within the ML, ethics, policy and further spaces, so will this tool.
 
 * The Hugging Face ecosystem will continue to advance methods that streamline Model Card creation [through code](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) and user interfaces, including building more features directly into the repos and product. 
-* As we further develop model tools such as [Evaluate on the Hub](https://huggingface.co/blog/eval-on-the-hub), we will integrate their usage within the model card development workflow. For example, as automatically evaluating model performance across disaggregated factors becomes easier, these results will be possible to import into the model card.
+* As we further develop model tools such as [Evaluation on the Hub](https://huggingface.co/blog/eval-on-the-hub), we will integrate their usage within the model card development workflow. For example, as automatically evaluating model performance across disaggregated factors becomes easier, these results will be possible to import into the model card.
 * There is further study to be done to advance the pairing of research models and model cards, such as building out a research paper → to model documentation pipeline, making it  make it trivial to go from paper to model card creation. This would allow for greater cross-domain reach and further standardisation of model documentation.
 
 We continue to learn more about how model cards are created and used, and the effect of cards on model usage. Based on these learnings, we will further update the model card template, instructions, and Hub integrations. 
