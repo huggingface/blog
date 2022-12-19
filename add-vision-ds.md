@@ -1,10 +1,10 @@
 ---
-title: Welcoming NYU Depth V2 to 🤗 Datasets
+title: Adding a Large Vision Dataset to 🤗 Datasets
 thumbnail: /blog/assets/nyu-depth-v2/thumbnail.png
 ---
 
 <h1>
-  Welcoming NYU Depth V2 to 🤗 Datasets
+  Adding a Large Vision Dataset to 🤗 Datasets
 </h1>
 
 <div class="blog-metadata">
