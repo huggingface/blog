@@ -173,8 +173,8 @@ We can now process the input image and prompt image and input them to
 the model.
 
 ```python
-encoded_image = processor(images=[image], padding="max_length", return_tensors="pt")
-encoded_prompt = processor(images=[prompt], padding="max_length", return_tensors="pt")
+encoded_image = processor(images=[image], return_tensors="pt")
+encoded_prompt = processor(images=[prompt], return_tensors="pt")
 # predict
 with torch.no_grad():
   outputs = model(**encoded_image, conditional_pixel_values=encoded_prompt.pixel_values)
@@ -209,7 +209,7 @@ prompt_alt
 </figure>
 
 ```python
-encoded_prompt_alt = processor(images=[prompt_alt], padding="max_length", return_tensors="pt")
+encoded_prompt_alt = processor(images=[prompt_alt], return_tensors="pt")
 # predict
 with torch.no_grad():
   outputs = model(**encoded_image, conditional_pixel_values=encoded_prompt_alt.pixel_values)
