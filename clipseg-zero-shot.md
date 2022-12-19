@@ -34,21 +34,21 @@ thumbnail: /blog/assets/123_clipseg-zero-shot/thumb.png
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
-<a target="_blank" href="https://colab.research.google.com/drive/1x1xHpQT4IjqhB6qX9m05uCmcpD3thF7x?usp=sharing">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/123_clipseg-zero-shot.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-**This guide shows how you can use CLIPSeg, a zero-shot image segmentation model, using [`🤗 transformers`](https://huggingface.co/transformers). CLIPSeg creates rough segmentation masks that can be used for robot perception, image inpainting, and many other tasks. If you need more precise segmentation masks, we’ll show how you can refine the results of CLIPSeg on [Segments.ai](https://segments.ai/?utm_source=hf&utm_medium=blog&utm_campaign=clipseg).**
+**This guide shows how you can use [CLIPSeg](https://arxiv.org/abs/2112.10003), a zero-shot image segmentation model, using [`🤗 transformers`](https://huggingface.co/transformers). CLIPSeg creates rough segmentation masks that can be used for robot perception, image inpainting, and many other tasks. If you need more precise segmentation masks, we’ll show how you can refine the results of CLIPSeg on [Segments.ai](https://segments.ai/?utm_source=hf&utm_medium=blog&utm_campaign=clipseg).**
 
 Image segmentation is a well-known task within the field of computer vision. It allows a computer to not only know what is in an image (classification), where objects are in the image (detection), but also what the outlines of those objects are. Knowing the outlines of objects is essential in fields such as robotics and autonomous driving. For example, a robot has to know the shape of an object to grab it correctly. Segmentation can also be combined with [image inpainting](https://t.co/5q8YHSOfx7) to allow users to describe which part of the image they want to replace.
 
-One limitation of most image segmentation models is that they only work with a fixed list of categories. For example, you cannot simply use a segmentation model trained on oranges to segment apples. To teach the segmentation model an additional category, you have to label data of the new category and train a new model, which can be costly and time-consuming. But what if there was a model that can already segment almost any kind of object, without any further training? That’s exactly what CLIPSeg, a zero-shot segmentation model, achieves.
+One limitation of most image segmentation models is that they only work with a fixed list of categories. For example, you cannot simply use a segmentation model trained on oranges to segment apples. To teach the segmentation model an additional category, you have to label data of the new category and train a new model, which can be costly and time-consuming. But what if there was a model that can already segment almost any kind of object, without any further training? That’s exactly what [CLIPSeg](https://arxiv.org/abs/2112.10003), a zero-shot segmentation model, achieves.
 
-Currently, CLIPSeg still has its limitations. For example, the model uses images of 352 x 352 pixels, so the output is quite low-resolution. This means we cannot expect pixel-perfect results when we work with images from modern cameras. If we want more precise segmentations, we can fine-tune a state-of-the-art segmentation model, as shown in [our previous blog post](https://huggingface.co/blog/fine-tune-segformer). In that case, we can still use CLIPSeg to generate some rough labels, and then refine them in a labeling tool such as [Segments.ai](http://Segments.ai). Before we describe how to do that, let’s first take a look at how CLIPSeg works.
+Currently, CLIPSeg still has its limitations. For example, the model uses images of 352 x 352 pixels, so the output is quite low-resolution. This means we cannot expect pixel-perfect results when we work with images from modern cameras. If we want more precise segmentations, we can fine-tune a state-of-the-art segmentation model, as shown in [our previous blog post](https://huggingface.co/blog/fine-tune-segformer). In that case, we can still use CLIPSeg to generate some rough labels, and then refine them in a labeling tool such as [Segments.ai](https://segments.ai/?utm_source=hf&utm_medium=blog&utm_campaign=clipseg). Before we describe how to do that, let’s first take a look at how CLIPSeg works.
 
 ## CLIP: the magic model behind CLIPSeg
 
-[CLIP](https://openai.com/blog/clip/), which stands for Contrastive Language–Image Pre-training, is a model developed by OpenAI in 2021. You can give CLIP an image or a piece of text, and CLIP will output an abstract *representation* of your input. This abstract representation, also called an *embedding*, is really just a vector (a list of numbers). You can think of this vector as a point in high-dimensional space. CLIP is trained so that the representations of similar pictures and texts are similar as well. This means that if we input an image and a text description that fits that image, the representations of the image and the text will be similar (i.e. the high-dimensional points will be close together).
+[CLIP](https://openai.com/blog/clip/), which stands for **C**ontrastive **L**anguage–**I**mage **P**re-training, is a model developed by OpenAI in 2021. You can give CLIP an image or a piece of text, and CLIP will output an abstract *representation* of your input. This abstract representation, also called an *embedding*, is really just a vector (a list of numbers). You can think of this vector as a point in high-dimensional space. CLIP is trained so that the representations of similar pictures and texts are similar as well. This means that if we input an image and a text description that fits that image, the representations of the image and the text will be similar (i.e., the high-dimensional points will be close together).
 
 At first, this might not seem very useful, but it is actually very powerful. As an example, let’s take a quick look at how CLIP can be used to classify images without ever having been trained on that task. To classify an image, we input the image and the different categories we want to choose from to CLIP (e.g. we input an image and the words “apple”, “orange”, …).  CLIP then gives us back an embedding of the image and of each category. Now, we simply have to check which category embedding is closest to the embedding of the image, et voilà! Feels like magic, doesn’t it? 
 
@@ -57,7 +57,7 @@ At first, this might not seem very useful, but it is actually very powerful. As 
   <figcaption>Example of image classification using CLIP (<a href="https://openai.com/blog/clip/">source</a>).</figcaption>
 </figure>
 
-What’s more, CLIP is not only useful for classification, but it can also be used for image search (can you see how this is similar to classification?), text-to-image models (DALL-E 2 is powered by CLIP), object detection (OWL-ViT), and most importantly for us: image segmentation. Now you see why CLIP was truly a breakthrough in machine learning.
+What’s more, CLIP is not only useful for classification, but it can also be used for [image search](https://huggingface.co/spaces/DrishtiSharma/Text-to-Image-search-using-CLIP) (can you see how this is similar to classification?), [text-to-image models](https://huggingface.co/spaces/kamiyamai/stable-diffusion-webui) ([DALL-E 2](https://openai.com/dall-e-2/) is powered by CLIP), [object detection](https://segments.ai/zeroshot?utm_source=hf&utm_medium=blog&utm_campaign=clipseg) ([OWL-ViT](https://arxiv.org/abs/2205.06230)), and most importantly for us: image segmentation. Now you see why CLIP was truly a breakthrough in machine learning.
 
 The reason why CLIP works so well is that the model was trained on a huge dataset of images with text captions. The dataset contained a whopping 400 million image-text pairs taken from the internet. These images contain a wide variety of objects and concepts, and CLIP is great at creating a representation for each of them.
 
@@ -70,11 +70,15 @@ The reason why CLIP works so well is that the model was trained on a huge datase
   <figcaption><a href="https://arxiv.org/abs/2112.10003">Source</a></figcaption>
 </figure>
 
-The decoder is trained on the [PhraseCut dataset](https://arxiv.org/abs/2008.01187), which contains over 340,000 phrases with corresponding image segmentations. The authors also experimented with various augmentations to expand the size of the dataset. The goal here is not only to be able to segment the categories that are present in the dataset, but also to segment unseen categories. Experiments indeed show that the decoder can generalize to unseen categories.
+The decoder is trained on the [PhraseCut dataset](https://arxiv.org/abs/2008.01187), which contains over 340,000 phrases with corresponding image segmentation masks. The authors also experimented with various augmentations to expand the size of the dataset. The goal here is not only to be able to segment the categories that are present in the dataset, but also to segment unseen categories. Experiments indeed show that the decoder can generalize to unseen categories.
 
  
 
-One interesting feature of CLIPSeg is that we input a CLIP embedding to specify which thing we want to segment. This CLIP embedding can come from a word or a piece of text, but also from another image. This means we can use an example image to segment objects that might be hard to describe (e.g. a specific logo). The authors call this “visual prompting”, and the paper contains some tips on improving the effectiveness of this technique. They find that cropping the query image so that it only contains the object you want to segment, helps a lot. Blurring and darkening the background of the query image also helps a little bit.
+One interesting feature of CLIPSeg is that both the query (the image we want to segment) and the prompt (the thing we want to segment in the image) are input as CLIP embeddings. The CLIP embedding for the prompt can either come from a piece of text (the category name), **or from another image**. This means you can segment oranges in an image by giving CLIPSeg an example image of an orange.
+
+ This technique, which is called "visual prompting", is really helpful when the thing you want to segment is hard to describe. For example, if you want to segment a logo in a picture of a t-shirt, it's not easy to describe the shape of the logo, but CLIPSeg allows you to simply use the image of the logo as the prompt.
+
+The CLIPSeg paper contains some tips on improving the effectiveness of visual prompting. They find that cropping the query image so that it only contains the object you want to segment, helps a lot. Blurring and darkening the background of the query image also helps a little bit.
 
 ## Using CLIPSeg with Hugging Face Transformers
 
@@ -109,10 +113,10 @@ image
 ```
 
 <figure class="image table text-center m-0 w-6/12">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Colab output" src="assets/123_clipseg-zero-shot/73d97c93dc0f5545378e433e956509b8acafb8d9.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="A picture of a pancake breakfast." src="assets/123_clipseg-zero-shot/73d97c93dc0f5545378e433e956509b8acafb8d9.png"></medium-zoom>
 </figure>
 
-## Text prompting
+### Text prompting
 
 Let's start by defining some text categories we want to segment.
 
@@ -146,10 +150,10 @@ ax[0].imshow(image)
 ```
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Colab output" src="assets/123_clipseg-zero-shot/14c048ea92645544c1bbbc9e55f3c620eaab8886.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="The masks of the different categories in the breakfast image." src="assets/123_clipseg-zero-shot/14c048ea92645544c1bbbc9e55f3c620eaab8886.png"></medium-zoom>
 </figure>
 
-## Visual prompting
+### Visual prompting
 
 As mentioned before, we can also use images as the input prompts (i.e.
 in place of the category names). This can be especially useful if it\'s
@@ -164,7 +168,7 @@ prompt
 ```
 
 <figure class="image table text-center m-0 w-6/12">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Colab output" src="assets/123_clipseg-zero-shot/7931f9db82ab07af7d161f0cfbfc347645da6646.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="A picture of a paper coffee cup." src="assets/123_clipseg-zero-shot/7931f9db82ab07af7d161f0cfbfc347645da6646.png"></medium-zoom>
 </figure>
 
 We can now process the input image and prompt image and input them to
@@ -180,6 +184,8 @@ preds = outputs.logits.unsqueeze(1)
 preds = torch.transpose(preds, 0, 1)
 ```
 
+Then, we can visualize the results as before.
+
 ```python
 _, ax = plt.subplots(1, 2, figsize=(6, 4))
 [a.axis('off') for a in ax.flatten()]
@@ -188,7 +194,7 @@ ax[1].imshow(torch.sigmoid(preds[0]))
 ```
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Colab output" src="assets/123_clipseg-zero-shot/fbde45fc65907d17de38b0db3eb262bdec1f1784.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="The mask of the coffee cup in the breakfast image." src="assets/123_clipseg-zero-shot/fbde45fc65907d17de38b0db3eb262bdec1f1784.png"></medium-zoom>
 </figure>
 
 Let's try one last time by using the visual prompting tips described in
@@ -201,7 +207,7 @@ prompt_alt
 ```
 
 <figure class="image table text-center m-0 w-6/12">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Colab output" src="assets/123_clipseg-zero-shot/915a97da22131e0ab6ff4daa78ffe3f1889e3386.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="A cropped version of the image of the coffee cup with a darker background." src="assets/123_clipseg-zero-shot/915a97da22131e0ab6ff4daa78ffe3f1889e3386.png"></medium-zoom>
 </figure>
 
 ```python
@@ -221,7 +227,7 @@ ax[1].imshow(torch.sigmoid(preds[0]))
 ```
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Colab output" src="assets/123_clipseg-zero-shot/7f75badfc245fc3a75e0e05058b8c4b6a3a991fa.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="The mask of the coffee cup in the breakfast image." src="assets/123_clipseg-zero-shot/7f75badfc245fc3a75e0e05058b8c4b6a3a991fa.png"></medium-zoom>
 </figure>
 
 In this case, the result is pretty much the same. This is probably
@@ -237,14 +243,14 @@ blogpost](https://huggingface.co/blog/fine-tune-segformer). To finetune
 the model, we\'ll need labeled data. In this section, we\'ll show you
 how you can use CLIPSeg to create some rough segmentation masks and then
 refine them on
-[Segments.ai](https://segments.ai/?utm_source=hf&utm_medium=colab&utm_campaign=clipseg),
+[Segments.ai](https://segments.ai/?utm_source=hf&utm_medium=blog&utm_campaign=clipseg),
 the best labeling platform for image segmentation.
 
 First, create an account at
-[https://segments.ai/join](https://segments.ai/join?utm_source=hf&utm_medium=colab&utm_campaign=clipseg)
+[https://segments.ai/join](https://segments.ai/join?utm_source=hf&utm_medium=blog&utm_campaign=clipseg)
 and install the Segments Python SDK. Then you can initialize the
 Segments.ai Python client using an API key. This key can be found on
-[the account page](https://segments.ai/account).
+[the account page](https://segments.ai/account?utm_source=hf&utm_medium=blog&utm_campaign=clipseg).
 
 ```python
 !pip install -q segments-ai
@@ -262,7 +268,7 @@ Next, let\'s load an image from a dataset using the Segments client.
 We\'ll use the [a2d2 self-driving
 dataset](https://www.a2d2.audi/a2d2/en.html). You can also create your
 own dataset by following [these
-instructions](https://docs.segments.ai/tutorials/getting-started).
+instructions](https://docs.segments.ai/tutorials/getting-started?utm_source=hf&utm_medium=blog&utm_campaign=clipseg).
 
 ```python
 samples = segments_client.get_samples("admin-tobias/clipseg")
@@ -274,7 +280,7 @@ image
 ```
 
 <figure class="image table text-center m-0 w-9/12">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Colab output" src="assets/123_clipseg-zero-shot/a0ca3accab5a40547f16b2abc05edd4558818bdf.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="A picture of a street with cars from the a2d2 dataset." src="assets/123_clipseg-zero-shot/a0ca3accab5a40547f16b2abc05edd4558818bdf.png"></medium-zoom>
 </figure>
 
 We also need to get the category names from the dataset attributes.
@@ -316,7 +322,7 @@ ax[0].imshow(image)
 ```
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Colab output" src="assets/123_clipseg-zero-shot/7782da300097ce4dcb3891257db7cc97ccf1deb3.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="The masks of the different categories in the street image." src="assets/123_clipseg-zero-shot/7782da300097ce4dcb3891257db7cc97ccf1deb3.png"></medium-zoom>
 </figure>
 
 Now we have to combine the predictions to a single segmentated image.
@@ -344,7 +350,7 @@ plt.imshow(inds)
 ```
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Colab output" src="assets/123_clipseg-zero-shot/b92dc12452108a0b2769ddfc1d7f79909e65144b.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="A combined segmentation label of the street image." src="assets/123_clipseg-zero-shot/b92dc12452108a0b2769ddfc1d7f79909e65144b.png"></medium-zoom>
 </figure>
 
 Lastly, we can upload the prediction to Segments.ai. To do that, we\'ll
@@ -377,7 +383,7 @@ the biggest mistakes, and then you can use the corrected dataset to
 train a better model than CLIPSeg.
 
 <figure class="image table text-center m-0 w-9/12">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Colab output" src="assets/123_clipseg-zero-shot/segments-thumbs.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Thumbnails of the final segmentation labels on Segments.ai." src="assets/123_clipseg-zero-shot/segments-thumbs.png"></medium-zoom>
 </figure>
 
 ## Conclusion
