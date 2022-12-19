@@ -74,19 +74,9 @@ In order to lower barriers to entry for creating model cards, we designed [the m
   <img src="assets/121_model-cards/upload_a_mc.gif" width="800"/>
 </p>
 
+The writing tool encourages those who have yet to write model cards to create them more easily. For those who have previously written model cards, this approach invites them to add to the prompted information -- while centering the ethical components of model documentation..
 
-The writing tool encourages those who have yet to write model cards to create them more easily and those who have previously written them, this approach invites them to add to the prompted information. All while centring the ethical components of model documentation.
-
-
-As ML continues to be more intertwined with different domains, the ability to be part of a collaborative and open-source process that centres accessibility, ethics and technical inclusion is a critical part of the machine learning lifecycle and a stepping stone in ML documentation.
-
-
-This work is a "*snapshot*" of the current state of model cards, informed by a landscape analysis of the many ways ML documentation artefacts have been instantiated.
-
-The model book and these findings represent one perspective amongst multiple about both the current state and more aspirational visions of model cards.
-
-Being part of a collaborative and open-source process that centres accessibility, ethics and technical inclusion, when building tools instead of their inclusion as an afterthought, has been an amazing stepping stone in ML documentation.
-
+As ML continues to be more intertwined with different domains, collaborative and open-source ML processes that center accessibility, ethics and inclusion are a critical part of the machine learning lifecycle and a stepping stone in ML documentation. 
 ## Call to action
 
 Let's look ahead
@@ -94,8 +84,8 @@ Let's look ahead
   <img src="assets/121_model-cards/looking_ahead.png" width="250"/>
 </p>
 
+This work is a "*snapshot*" of the current state of model cards, informed by a landscape analysis of the many ways ML documentation artefacts have been instantiated. The model book and these findings represent one perspective amongst multiple about both the current state and more aspirational visions of model cards.
 
-As model cards continue to grow and evolve within the ML, ethics, policy and further spaces, so will this tool.
 
 * The Hugging Face ecosystem will continue to advance methods that streamline Model Card creation [through code](https://huggingface.co/docs/huggingface_hub/how-to-model-cards) and [user interfaces](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool), including building more features directly into the repos and product. 
 * As we further develop model tools such as [Evaluate on the Hub](https://huggingface.co/blog/eval-on-the-hub), we will integrate their usage within the model card development workflow. For example, as automatically evaluating model performance across disaggregated factors becomes easier, these results will be possible to import into the model card.
