@@ -61,6 +61,7 @@ Since model cards were proposed by [Mitchell et al., (2018)](https://arxiv.org/a
 
 Our work presents a view of where we think model cards stand right now and where they could go in the future. We conducted a broad analysis of the growing landscape of ML documentation tools and conducted user interviews within Hugging Face to supplement our understanding of the diverse opinions about model cards. We also created or updated dozens of model cards for ML models on the Hugging Face Hub, and informed by all of these experiences, we propose a new template for model cards. 
 
+
 ### Standardising Model Card Structure
 Through our background research and user studies, we aimed to establish a standard of "model cards" as understood by the general public. From this research, we found that there is a variance in the content of a model card and the layout of a model card - the presence or absence of some headings and sub-headings - but there was consistency in the different types of headings.
 
