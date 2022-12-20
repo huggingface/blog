@@ -1570,3 +1570,13 @@
   date: Dec 15, 2022
   tags:
     - ethics
+
+- local: sharing-vision-datasets
+  title: "Sharing Large Vision Datasets"
+  author: sayakpaul
+  thumbnail: /blog/assets/sharing-vision-datasets/thumbnail.png
+  date: December 29, 2022
+  tags:
+    - cv
+    - guide
+    
