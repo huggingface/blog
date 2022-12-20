@@ -35,7 +35,7 @@ thumbnail: /blog/assets/121_model-cards/thumbnail.png
 
 <div class="author-card">
     <a href="/Meg"> 
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/90473723?v=4" width=100 title="Gravatar">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/90473723" width=100 title="Gravatar">
         <div class="bfc">
             <code>Margaret Mitchell</code>
             <span class="fullname">Margaret Mitchell</span>
@@ -46,7 +46,7 @@ thumbnail: /blog/assets/121_model-cards/thumbnail.png
 ## Introduction
 Model cards are an important documentation framework for understanding, sharing, and improving machine learning models. When done well, a model card can serve as a _boundary object_, a single artefact that is accessible to people with different backgrounds and goals in understanding models - including developers, students, policymakers, ethicists, and those impacted by machine learning models.
 
-Today, we launch both a [model card creation tool](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) and a model card Guide Book, which details how to fill out model cards, user studies, and the state of the art in ML documentation. This work, building from the work of many other people and organization, is focused on _inclusion_ of people with different backgrounds and roles. We hope it serves as a stepping stone in the path towards improved ML documentation.
+Today, we launch a [model card creation tool](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) and [a model card Guide Book](./model-card-guidebook.md), which details how to fill out model cards, user studies, and state of the art in ML documentation. This work, building from many other people and organizations, focuses on the _inclusion_ of people with different backgrounds and roles. We hope it serves as a stepping stone in the path toward improved ML documentation.
 
 ## Model Cards To-Date
 
