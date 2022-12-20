@@ -35,7 +35,7 @@ thumbnail: /blog/assets/121_model-cards/thumbnail.png
 
 <div class="author-card">
     <a href="/Meg"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626214544196-60c757ea5f9a76ab3f844f12.png?w=200&h=200&f=face" width=100 title="Gravatar">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/90473723" width=100 title="Gravatar">
         <div class="bfc">
             <code>Margaret Mitchell</code>
             <span class="fullname">Margaret Mitchell</span>
