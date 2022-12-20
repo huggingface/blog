@@ -1571,10 +1571,10 @@
   tags:
     - ethics
 
-- local: share-vision-ds
+- local: sharing-vision-datasets
   title: "Sharing Large Vision Datasets"
   author: sayakpaul
-  thumbnail: /blog/assets/share-vision-ds/thumbnail.png
+  thumbnail: /blog/assets/sharing-vision-datasets/thumbnail.png
   date: December 29, 2022
   tags:
     - cv
