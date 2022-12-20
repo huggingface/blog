@@ -61,7 +61,7 @@ Since model cards were proposed by [Mitchell et al., (2018)](https://arxiv.org/a
 Our work presents a view of where we think model cards stand right now and where they could go in the future. We conducted a broad analysis of the growing landscape of ML documentation tools and conducted user interviews within Hugging Face to supplement our understanding of the diverse opinions about model cards. We also created or updated dozens of model cards for ML models on the Hugging Face Hub, and informed by all of these experiences, we propose a new template for model cards. 
 
 ### Standardising Model Card Structure
-Through our background research and user studies, which are discussed further in the guide book **[link to section in guide book]**, we aimed to establish a new standard of "model cards" as understood by the general public. 
+Through our background research and user studies, which are discussed further in the [guide book](https://huggingface.co/docs/hub/model-cards/model-card-landscape-analysis), we aimed to establish a new standard of "model cards" as understood by the general public. 
 
 Informed by these findings, we created a new model card template that not only standardized the structure and content of HF model cards but also provided default prompt text. This text aimed to aide with writing model card sections, with a particular focus on the Bias, Risks and Limitations section.
 
@@ -74,7 +74,7 @@ In order to lower barriers to entry for creating model cards, we designed [the m
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/upload_a_mc.gif" width="800"/>
 </p>
 
-The writing tool encourages those who have yet to write model cards to create them more easily. For those who have previously written model cards, this approach invites them to add to the prompted information -- while centering the ethical components of model documentation..
+The writing tool encourages those who have yet to write model cards to create them more easily. For those who have previously written model cards, this approach invites them to add to the prompted information -- while centering the ethical components of model documentation.
 
 As ML continues to be more intertwined with different domains, collaborative and open-source ML processes that center accessibility, ethics and inclusion are a critical part of the machine learning lifecycle and a stepping stone in ML documentation. 
 ## Call to action
