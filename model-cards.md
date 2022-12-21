@@ -46,7 +46,7 @@ thumbnail: /blog/assets/121_model-cards/thumbnail.png
 ## Introduction
 Model cards are an important documentation framework for understanding, sharing, and improving machine learning models. When done well, a model card can serve as a _boundary object_, a single artefact that is accessible to people with different backgrounds and goals in understanding models - including developers, students, policymakers, ethicists, and those impacted by machine learning models.
 
-Today, we launch a [model card creation tool](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) and [a model card Guide Book](./model-card-guidebook.md), which details how to fill out model cards, user studies, and state of the art in ML documentation. This work, building from many other people and organizations, focuses on the _inclusion_ of people with different backgrounds and roles. We hope it serves as a stepping stone in the path toward improved ML documentation.
+Today, we launch a [model card creation tool](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) and [a model card Guide Book](https://huggingface.co/docs/hub/model-card-guidebook), which details how to fill out model cards, user studies, and state of the art in ML documentation. This work, building from many other people and organizations, focuses on the _inclusion_ of people with different backgrounds and roles. We hope it serves as a stepping stone in the path toward improved ML documentation.
 
 In sum, today we announce the release of:
 
@@ -62,7 +62,7 @@ In sum, today we announce the release of:
 
 ## Model Cards To-Date
 
-Since model cards were proposed by [Mitchell et al., (2018)](https://arxiv.org/abs/1810.03993), inspired by the major documentation framework efforts of Data Statements for Natural Language Processing [(Bender & Friedman, 2018)](https://aclanthology.org/Q18-1041/) and Datasheets for Datasets [(Gebru et al., 2018)](https://www.fatml.org/media/documents/datasheets_for_datasets.pdf), the landscape of machine learning documentation has expanded and evolved. A plethora of documentation tools and templates for data, models, and ML systems have been proposed and developed - reflecting the incredible work of hundreds of researchers, impacted community members, advocates, and other stakeholders. Important discussions about the relationship between ML documentation and theories of change in responsible AI have also shaped these developments in the ML documentation ecosystem.
+Since Model Cards were proposed by [Mitchell et al. (2018)](https://arxiv.org/abs/1810.03993), inspired by the major documentation framework efforts of Data Statements for Natural Language Processing [(Bender & Friedman, 2018)](https://aclanthology.org/Q18-1041/) and Datasheets for Datasets [(Gebru et al., 2018)](https://www.fatml.org/media/documents/datasheets_for_datasets.pdf), the landscape of machine learning documentation has expanded and evolved. A plethora of documentation tools and templates for data, models, and ML systems have been proposed and developed - reflecting the incredible work of hundreds of researchers, impacted community members, advocates, and other stakeholders. Important discussions about the relationship between ML documentation and theories of change in responsible AI have also shaped these developments in the ML documentation ecosystem.
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/MC_landscape.png" width="500"/>
@@ -70,10 +70,10 @@ Since model cards were proposed by [Mitchell et al., (2018)](https://arxiv.org/a
 
 ## Our Work
 
-Our work presents a view of where we think model cards stand right now and where they could go in the future. We conducted a broad analysis of the growing landscape of ML documentation tools and conducted user interviews within Hugging Face to supplement our understanding of the diverse opinions about model cards. We also created or updated dozens of model cards for ML models on the Hugging Face Hub, and informed by all of these experiences, we propose a new template for model cards. 
+Our work presents a view of where model cards stand right now and where they could go in the future. We conducted a broad analysis of the growing landscape of ML documentation tools and conducted user interviews within Hugging Face to supplement our understanding of the diverse opinions about model cards. We also created or updated dozens of model cards for ML models on the Hugging Face Hub, and informed by all of these experiences, we propose a new template for model cards. 
 
 ### Standardising Model Card Structure
-Through our background research and user studies, which are discussed further in the [guide book](https://huggingface.co/docs/hub/model-cards/model-card-landscape-analysis), we aimed to establish a new standard of "model cards" as understood by the general public. 
+Through our background research and user studies, which are discussed further in the [Guide Book](https://huggingface.co/docs/hub/model-card-guidebook), we aimed to establish a new standard of "model cards" as understood by the general public. 
 
 Informed by these findings, we created a new model card template that not only standardized the structure and content of HF model cards but also provided default prompt text. This text aimed to aide with writing model card sections, with a particular focus on the Bias, Risks and Limitations section.
 
