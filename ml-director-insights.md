@@ -215,7 +215,7 @@ Much like in the beginning of the internet, software developers were few and far
 
 **Fun Fact:** Eric adores nachos!
 
-**E Source:** Provides independant market intelligence, consulting, and predictive data science to utilities, major energy users, and other key players in the retail energy marketplace.
+**E Source:** Provides independent market intelligence, consulting, and predictive data science to utilities, major energy users, and other key players in the retail energy marketplace.
 
 #### **1. How has ML made a positive impact on the Energy/Utility industry?**
 Access to business insight. Provided a pre-requisite is great data. Utilities have many data relationships within their data portfolio from customers to devices, more specifically, this speaks to monthly billing amounts and enrollment in energy savings programs. Data like that could be stored in a relational database, whereas device or asset data we can think of as the pieces of machinery that make our grid. Bridging those types of data is non-trivial. 

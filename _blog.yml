@@ -1583,3 +1583,16 @@
     - research
     - ethics
     - guide
+
+  
+- local: clipseg-zero-shot
+  title: "Zero-shot image segmentation with CLIPSeg"
+  author: segments-tobias
+  thumbnail: /blog/assets/123_clipseg-zero-shot/thumb.png
+  date: December 21, 2022
+  tags:
+    - guide
+    - partnerships
+    - cv
+    - clip
+

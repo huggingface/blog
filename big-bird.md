@@ -214,7 +214,7 @@ Let's have a look at how bigbird block sparse attention is implemented. To begin
 
 <img src="assets/18_big_bird/intro.png" width=500 height=250>
 
-Attention scores for \\({q}_{1}, {q}_{2}, {q}_{3:n-2}, {q}_{n-1}, {q}_{n}\\) are calculated seperately as described below:
+Attention scores for \\({q}_{1}, {q}_{2}, {q}_{3:n-2}, {q}_{n-1}, {q}_{n}\\) are calculated separately as described below:
 
 ---
 
