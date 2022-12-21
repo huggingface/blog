@@ -7,7 +7,7 @@ thumbnail: /blog/assets/121_model-cards/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published December 21, 2022</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/Ezi/model-cards/model-cards.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/model-cards.md">
         Update on GitHub
     </a>
 </div>
@@ -67,7 +67,7 @@ Since Model Cards were proposed by [Mitchell et al. (2018)](https://arxiv.org/ab
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/MC_landscape.png" width="500"/>
     <BR/>
-    <span style="font-size:10px"> 
+    <span style="font-size:12px"> 
         Work to-date on documentation within ML has provided for different audiences. We bring many of these ideas together in the work we share today.
     </span>
 </p>
@@ -97,8 +97,8 @@ As ML continues to be more intertwined with different domains, collaborative and
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/vines_idea.jpg" width="400"/>
-<BR/>
-    <span style="font-size:10px"> 
+  <BR/>
+    <span style="font-size:12px"> 
         Today's release sits within a larger ecosystem of ML documentation work: Data and model documentation have been taken up by many tech companies, including Hugging Face 🤗. We've prioritized "Repository Cards" for both dataset cards and model cards, focusing on multidisciplinarity. Continuing in this line of work, the model card creation UI tool
  focuses on inclusivity, providing guidance on formatting and prompting to aid card creation for people with different backgrounds. 
     </span>
@@ -129,3 +129,7 @@ As we strive to incorporate more voices and stakeholders' use cases for model ca
 
 
 We are excited to know your thoughts on model cards, our model card writing GUI, and how AI documentation can empower your domain.🤗
+
+## Acknowledgements
+
+This release would not have been possible without the extensive contributions of Omar Sanseviero, Lucain Pouget, Julien Chaumond, and Nate Raw.
