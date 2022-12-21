@@ -132,4 +132,4 @@ We are excited to know your thoughts on model cards, our model card writing GUI,
 
 ## Acknowledgements
 
-This release would not have been possible without the extensive contributions of Omar Sanseviero, Lucain Pouget, Julien Chaumond, and Nate Raw.
+This release would not have been possible without the extensive contributions of Omar Sanseviero, Lucain Pouget, Julien Chaumond, Nazneen Rajani, and Nate Raw.
