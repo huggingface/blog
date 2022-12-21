@@ -386,6 +386,9 @@ train a better model than CLIPSeg.
 
 ## Conclusion
 
-CLIPSeg is a zero-shot segmentation model that works with both text and image prompts. The model adds a decoder to CLIP and can segment almost anything. However, the output segmentation masks are still very low-res for now, so you’ll probably still want to fine-tune a different segmentation model.
+CLIPSeg is a zero-shot segmentation model that works with both text and image prompts. The model adds a decoder to CLIP and can segment almost anything. However, the output segmentation masks are still very low-res for now, so you’ll probably still want to fine-tune a different segmentation model if accuracy is important. 
 
-If you’re interested in learning how to fine-tune a state-of-the-art segmentation model, check out our previous blog post: [https://huggingface.co/blog/fine-tune-segformer](https://huggingface.co/blog/fine-tune-segformer)
+Note that there's more research on zero-shot segmentation currently being conducted, so you can expect more models to be added in the near future. One example is [GroupViT](https://huggingface.co/docs/transformers/model_doc/groupvit), which is already available in 🤗 Transformers. To stay up to date with the latest news in segmentation research, you can follow us on Twitter: [@TobiasCornille](https://twitter.com/tobiascornille), [@NielsRogge](https://twitter.com/nielsrogge), and [@huggingface](https://twitter.com/huggingface).
+
+
+If you’re interested in learning how to fine-tune a state-of-the-art segmentation model, check out our previous blog post: [https://huggingface.co/blog/fine-tune-segformer](https://huggingface.co/blog/fine-tune-segformer).
