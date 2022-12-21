@@ -242,7 +242,7 @@ the model, we\'ll need labeled data. In this section, we\'ll show you
 how you can use CLIPSeg to create some rough segmentation masks and then
 refine them on
 [Segments.ai](https://segments.ai/?utm_source=hf&utm_medium=blog&utm_campaign=clipseg),
-the best labeling platform for image segmentation.
+a labeling platform with smart labeling tools for image segmentation.
 
 First, create an account at
 [https://segments.ai/join](https://segments.ai/join?utm_source=hf&utm_medium=blog&utm_campaign=clipseg)
