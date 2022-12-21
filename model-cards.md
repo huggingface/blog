@@ -80,7 +80,7 @@ As ML continues to be more intertwined with different domains, collaborative and
 
 
 <p align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/vine_image.jpg" width="250"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/vines_idea.jpg" width="250"/>
 </p>
 
 ## Call to action
