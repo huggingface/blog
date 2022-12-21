@@ -66,6 +66,10 @@ Since Model Cards were proposed by [Mitchell et al. (2018)](https://arxiv.org/ab
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/MC_landscape.png" width="500"/>
+    <BR/>
+    <span style="font-size:10px"> 
+        Work to-date on documentation within ML has provided for different audiences. We bring many of these ideas together in the work we share today.
+    </span>
 </p>
 
 ## Our Work
