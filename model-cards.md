@@ -48,12 +48,24 @@ Model cards are an important documentation framework for understanding, sharing,
 
 Today, we launch a [model card creation tool](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool) and [a model card Guide Book](./model-card-guidebook.md), which details how to fill out model cards, user studies, and state of the art in ML documentation. This work, building from many other people and organizations, focuses on the _inclusion_ of people with different backgrounds and roles. We hope it serves as a stepping stone in the path toward improved ML documentation.
 
+In sum, today we announce the release of:
+
+1) A [Model Card Creator Tool](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool), to ease card creation without needing to program, and to help teams share the work of different sections.
+
+2) An updated model card template, released in [the `huggingface_hub` library](https://github.com/huggingface/huggingface_hub/blob/main/src/huggingface_hub/templates/modelcard_template.md), drawing together model card work in academia and throughout the industry.
+
+3) An [Annotated Model Card Template](https://huggingface.co/docs/hub/model-card-annotated), which details how to fill the card out.
+
+4) A [User Study](https://huggingface.co/docs/hub/model-cards-user-studies) on model card usage at Hugging Face.
+
+5) A [Landscape Analysis and Literature Review](https://huggingface.co/docs/hub/model-card-landscape-analysis) of the state of the art in model documentation.
+
 ## Model Cards To-Date
 
 Since model cards were proposed by [Mitchell et al., (2018)](https://arxiv.org/abs/1810.03993), inspired by the major documentation framework efforts of Data Statements for Natural Language Processing [(Bender & Friedman, 2018)](https://aclanthology.org/Q18-1041/) and Datasheets for Datasets [(Gebru et al., 2018)](https://www.fatml.org/media/documents/datasheets_for_datasets.pdf), the landscape of machine learning documentation has expanded and evolved. A plethora of documentation tools and templates for data, models, and ML systems have been proposed and developed - reflecting the incredible work of hundreds of researchers, impacted community members, advocates, and other stakeholders. Important discussions about the relationship between ML documentation and theories of change in responsible AI have also shaped these developments in the ML documentation ecosystem.
 
 <p align="center">
-  <img src="assets/121_model-cards/MC_landscape.png" width="800"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/MC_landscape.png" width="500"/>
 </p>
 
 ## Our Work
@@ -71,7 +83,7 @@ Informed by these findings, we created a new model card template that not only s
 In order to lower barriers to entry for creating model cards, we designed [the model card writing tool](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool), a tool with a graphical user interface (GUI) to enable people and teams with different skill sets and roles to easily collaborate and create model cards, without needing to code or use markdown. 
 
 <p align="center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/upload_a_mc.gif" width="800"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/upload_a_mc.gif" width="600"/>
 </p>
 
 The writing tool encourages those who have yet to write model cards to create them more easily. For those who have previously written model cards, this approach invites them to add to the prompted information -- while centering the ethical components of model documentation.
@@ -100,7 +112,7 @@ This work is a "*snapshot*" of the current state of model cards, informed by a l
 We continue to learn more about how model cards are created and used, and the effect of cards on model usage. Based on these learnings, we will further update the model card template, instructions, and Hub integrations. 
 
 
-As we strive to incorporate more voices and stakeholders' use cases for model cards, [bookmark our model cards writing tool and give it a try](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool).
+As we strive to incorporate more voices and stakeholders' use cases for model cards, [bookmark our model cards writing tool and give it a try](https://huggingface.co/spaces/huggingface/Model_Cards_Writing_Tool)!
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/like_the_space.gif" width="680"/>
