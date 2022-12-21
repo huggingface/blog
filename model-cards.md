@@ -77,6 +77,12 @@ In order to lower barriers to entry for creating model cards, we designed [the m
 The writing tool encourages those who have yet to write model cards to create them more easily. For those who have previously written model cards, this approach invites them to add to the prompted information -- while centering the ethical components of model documentation.
 
 As ML continues to be more intertwined with different domains, collaborative and open-source ML processes that center accessibility, ethics and inclusion are a critical part of the machine learning lifecycle and a stepping stone in ML documentation. 
+
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/vine_image.png" width="250"/>
+</p>
+
 ## Call to action
 
 Let's look ahead
