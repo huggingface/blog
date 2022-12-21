@@ -200,8 +200,8 @@ the paper, i.e. cropping the image and darkening the background.
 
 ```python
 url = "https://i.imgur.com/mRSORqz.jpg"
-prompt_alt = Image.open(requests.get(url, stream=True).raw)
-prompt_alt
+alternative_prompt = Image.open(requests.get(url, stream=True).raw)
+alternative_prompt
 ```
 
 <figure class="image table text-center m-0 w-6/12">
@@ -209,10 +209,10 @@ prompt_alt
 </figure>
 
 ```python
-encoded_prompt_alt = processor(images=[prompt_alt], return_tensors="pt")
+encoded_alternative_prompt = processor(images=[alternative_prompt], return_tensors="pt")
 # predict
 with torch.no_grad():
-  outputs = model(**encoded_image, conditional_pixel_values=encoded_prompt_alt.pixel_values)
+  outputs = model(**encoded_image, conditional_pixel_values=encoded_alternative_prompt.pixel_values)
 preds = outputs.logits.unsqueeze(1)
 preds = torch.transpose(preds, 0, 1)
 ```
