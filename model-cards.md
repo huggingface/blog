@@ -97,7 +97,12 @@ As ML continues to be more intertwined with different domains, collaborative and
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/121_model-cards/vines_idea.jpg" width="400"/>
-</p>
+<BR/>
+    <span style="font-size:10px"> 
+        Today's release sits within a larger ecosystem of ML documentation work: Data and model documentation have been taken up by many tech companies, including Hugging Face 🤗. We've prioritized "Repository Cards" for both dataset cards and model cards, focusing on multidisciplinarity. Continuing in this line of work, the model card creation UI tool
+ focuses on inclusivity, providing guidance on formatting and prompting to aid card creation for people with different backgrounds. 
+    </span>
+        </p>
 
 ## Call to action
 
