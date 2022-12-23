@@ -323,7 +323,7 @@ ax[0].imshow(image)
   <medium-zoom background="rgba(0,0,0,.7)" alt="The masks of the different categories in the street image." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/123_clipseg-zero-shot/7782da300097ce4dcb3891257db7cc97ccf1deb3.png"></medium-zoom>
 </figure>
 
-Now we have to combine the predictions to a single segmentated image.
+Now we have to combine the predictions to a single segmented image.
 We\'ll simply do this by taking the category with the greatest sigmoid
 value for each patch. We\'ll also make sure that all the values under a
 certain threshold do not count.
