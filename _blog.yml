@@ -1596,3 +1596,11 @@
     - cv
     - clip
 
+- local: intro-graphml
+  title: "Introduction to Graph Machine Learning"
+  author: clefourrier
+  date: December 23, 2022
+  tags:
+    - guide
+    - graphs
+
