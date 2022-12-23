@@ -272,7 +272,7 @@ print(gigaspeech["train"][0])
  }
 ```
 
-Easy! `cast_column` provides an straightforward mechanism for resampling audio datasets as and when required.
+Easy! `cast_column` provides a straightforward mechanism for resampling audio datasets as and when required.
 
 ### 2. Pre-Processing Function
 
@@ -353,7 +353,7 @@ storage space. For most speech researchers, this well exceeds the specifications
 Do we need to fork out and buy additional storage? Or is there a way we can train on these datasets with **no disk space 
 constraints**?
 
-🤗 Datasets allows us to do just this. It is made possible through use of [_streaming_](https://huggingface.co/docs/datasets/stream) 
+🤗 Datasets allow us to do just this. It is made possible through the use of [_streaming_](https://huggingface.co/docs/datasets/stream) 
 mode, depicted graphically in Figure 1. Streaming allows us to load the data progressively as we iterate over the dataset. 
 Rather than downloading the whole dataset at once, we load the dataset sample by sample. We iterate over the dataset, 
 loading and preparing samples _on the fly_ when they are needed. This way, we only ever load the samples that we're using, 
@@ -439,7 +439,7 @@ The following dataset descriptions are largely taken from the [ESB Benchmark](ht
 LibriSpeech is a standard large-scale dataset for evaluating ASR systems. It consists of approximately 1,000 
 hours of narrated audiobooks collected from the [LibriVox](https://librivox.org/) project. LibriSpeech has been 
 instrumental in facilitating researchers to leverage a large body of pre-existing transcribed speech data. As such, it 
-has become the one of the most popular dataset for benchmarking academic speech systems.
+has become one of the most popular datasets for benchmarking academic speech systems.
 
 ```python
 librispeech = load_dataset("librispeech_asr", "all")
@@ -469,10 +469,10 @@ voxpopuli = load_dataset("facebook/voxpopuli", "en")
 ```
 
 #### [TED-LIUM](https://huggingface.co/datasets/LIUM/tedlium)
-TED-LIUM is a dataset is based on English-language TED Talk conference videos. The speaking style is oratory educational 
+TED-LIUM is a dataset based on English-language TED Talk conference videos. The speaking style is oratory educational 
 talks. The transcribed talks cover a range of different cultural, political, and academic topics, resulting in a 
 technical vocabulary. The Release 3 (latest) edition of the dataset contains approximately 450 hours of training data. 
-The validation and test data is from the legacy set, consistent with earlier releases.
+The validation and test data are from the legacy set, consistent with earlier releases.
 
 ```python
 tedlium = load_dataset("LIUM/tedlium", "release3")
@@ -546,7 +546,7 @@ FLEURS (Few-shot Learning Evaluation of Universal Representations of Speech) is 
 systems in 102 languages, including many that are classified as 'low-resource'. The data is derived from the [FLoRes-101](https://arxiv.org/abs/2106.03193) 
 dataset, a machine translation corpus with 3001 sentence translations from English to 101 other languages. Native speakers 
 are recorded narrating the sentence transcriptions in their native language. The recorded audio data is paired with the 
-sentence transcriptions to yield a multilingual speech recognition over all 101 languages. The training sets contain 
+sentence transcriptions to yield multilingual speech recognition over all 101 languages. The training sets contain 
 approximately 10 hours of supervised audio-transcription data per language.
 
 ### Speech Translation
