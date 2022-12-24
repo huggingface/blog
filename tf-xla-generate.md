@@ -9,7 +9,7 @@ thumbnail: /blog/assets/91_tf_xla_generate/thumbnail.png
 
 <div class="blog-metadata">
     <small>Published July 27, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/tf_xla_generate.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/tf-xla-generate.md">
         Update on GitHub
     </a>
 </div>
