@@ -34,7 +34,7 @@ The items of a graph (or network) are called its *nodes* (or vertices), and thei
 Graphs come in varied shapes and flavors.
 A graph with either typed nodes or typed edges is called **heterogeneous** (ex: citation networks with nodes that can be either papers or authors, or XML diagram where relations are typed); it cannot be represented solely through its topology, it needs additional information. (Note: this document focuses on homogeneous networks). A graph can be **directed** (like a follower network, where A follows B does not imply B follows A) or **undirected** (like a molecule, where the relation between atoms goes both ways). Edges can connect different nodes, or one node to iself (self edges); but not all nodes need to be connected.
 
-If you want to use your own data, you must first think about what the best characterisation for it is (homogeneous/heterogeneous, directed/undirected, ?).
+If you want to use your own data, you must first think about what the best characterisation for it is (homogeneous/heterogeneous, directed/undirected, and so on).
 
 ### What are graphs used for?
 
