@@ -52,7 +52,7 @@ At the **edge level**, it's either edge property prediction or missing edge pred
 
 It is also possible to work at the **sub-graph level**, for community detection, used for example by social networks to determine how people are connected, or subgraph property prediction, used in itinerary systems (such as [Google Maps](https://www.deepmind.com/blog/traffic-prediction-with-advanced-graph-neural-networks)) to predict ETAs.
 
-Working on these tasks can be done in two ways. When you want to predict the evolution of a specific graph, you work in a **transductive** setting, where everything (training, validation and testing) is done on the same single graph. *If this is your setup, careful! Creating train/eval/test datasets from a single graph is not trivial.* However, a lot of the work is done using different graphs for train/eval/test, which is called an **inductive** setting.
+Working on these tasks can be done in two ways. When you want to predict the evolution of a specific graph, you work in a **transductive** setting, where everything (training, validation, and testing) is done on the same single graph. *If this is your setup, careful! Creating train/eval/test datasets from a single graph is not trivial.* However, a lot of the work is done using different graphs (separate train/eval/test splits), which is called an **inductive** setting.
 
 ### How do we represent graphs?
 
