@@ -123,7 +123,7 @@ It should:
 
 Typical neural networks, such as RNNs or CNNs are not permutation invariant. A new architecture, the Graph Neural Network, was therefore introduced. 
 
-A GNN is made of successive layers. A GNN layer represents a node as the combination (aggregation) of the representations of its neighbours and itself from the previous layer (message passing) (plus usually an activation to add some non linearity).
+A GNN is made of successive layers. A GNN layer represents a node as the combination (**aggregation**) of the representations of its neighbours and itself from the previous layer (**message passing**) (plus usually an activation to add some nonlinearity).
 
 **Comparison to other models**: A CNN can be seen as a GNN with fixed neighbors sizes (through the sliding window) and ordering (it is not permutation equivariant). A transformer without positional embeddings can be seen as a GNN on a fully connected input graph.
 
