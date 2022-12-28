@@ -129,7 +129,7 @@ A GNN is made of successive layers. A GNN layer represents a node as the combina
 
 ### Aggregation and message passing
 
-There are many ways to aggregate messages from neighbour nodes, from summing/averaging/etc. Example:
+There are many ways to aggregate messages from neighbour nodes, summing, averaging, for example. Some notable works following this idea include:
 
 - [Graph Convolutional Networks](https://tkipf.github.io/graph-convolutional-networks/) averages the normalised representation of the neighbours for a node (most GNNs are actually GCNs);
 - [Graph Attention Networks](https://petar-v.com/GAT/) learn to weigh the different neighbours based on their importance (like transformers);
