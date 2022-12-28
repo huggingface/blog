@@ -59,7 +59,8 @@ Working on these tasks can be done in two ways. When you want to predict the evo
 The common ways to represent a graph to process it and operate on it are either as the set of all its edges (possibly complemented with the set of all its nodes), or as the adjacency matrix between all its nodes. An adjacency matrix is a square matrix (of node size * node size) which indicates which nodes are directly connected to which others (where $A_{ij} = 1$ if $n\_i$ and $n\_j$ are connected, else 0). *Note: most graphs are not densely connected, and therefore have sparse adjacency matrices, which can make computations harder.*
 
 However, though these representations seem familiar, do not be fooled!
-Graphs are very different from typical objects used in ML because their topology is more complex than just "a sequence" (text, audio) or "a ordered grid" (image/video/...): even if they can be represented as lists or matrices, their representation should not be considered an ordered object!
+
+Graphs are very different from typical objects used in ML because their topology is more complex than just "a sequence" (such as text and audio) or "an ordered grid" (images and videos, for example)): even if they can be represented as lists or matrices, their representation should not be considered an ordered object!
 
 But what does this mean? Well, if you have a sentence, and you shuffle its words, or an image, and you shuffle its columns, you create a new sentence or new image. 
 
