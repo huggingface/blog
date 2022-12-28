@@ -46,7 +46,7 @@ At the **graph level**, the main tasks are:
 - graph evolution (given a graph, predict how it will evolve over time), used in physics to predict the evolution of systems
 - graph level prediction (categorization or regression tasks from graphs), such as predicting the toxicity of molecules.
 
-At the **node level**, it's usually a node property prediction. For example, [Alphafold](https://www.deepmind.com/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology) uses node property prediction to predict the 3D coordinates of atoms given the overall graph of the molecule, and therefore predict how molecules get folded in 3D space, a hard bio-chem problem.
+At the **node level**, it's usually a node property prediction. For example, [Alphafold](https://www.deepmind.com/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology) uses node property prediction to predict the 3D coordinates of atoms given the overall graph of the molecule, and therefore predict how molecules get folded in 3D space, a hard bio-chemistry problem.
 
 At the **edge level**, it's either edge property prediction or missing edge prediction. Examples of use include recommendation systems, to predict whether two nodes in a graph are related, or drug side effect prediction, to predict adverse side effects given a pair of drugs.
 
