@@ -1211,8 +1211,6 @@ def process_data_to_model_inputs(batch):
 
   batch["input_ids"] = inputs.input_ids
   batch["attention_mask"] = inputs.attention_mask
-  batch["decoder_input_ids"] = outputs.input_ids
-  batch["decoder_attention_mask"] = outputs.attention_mask
   batch["labels"] = outputs.input_ids.copy()
 
   # because BERT automatically shifts the labels, the labels correspond exactly to `decoder_input_ids`. 
@@ -1266,7 +1264,7 @@ convert the data to PyTorch Tensors to be trained on GPU.
 
 ```python
 train_data.set_format(
-    type="torch", columns=["input_ids", "attention_mask", "decoder_input_ids", "decoder_attention_mask", "labels"],
+    type="torch", columns=["input_ids", "attention_mask", "labels"],
 )
 ```
 
@@ -1301,7 +1299,7 @@ and, finally, the validation data is also converted to PyTorch tensors.
 
 ```python
 val_data.set_format(
-    type="torch", columns=["input_ids", "attention_mask", "decoder_input_ids", "decoder_attention_mask", "labels"],
+    type="torch", columns=["input_ids", "attention_mask", "labels"],
 )
 ```
 
