@@ -98,7 +98,7 @@ Once you have node-level representations, it is possible to obtain edge or graph
 
 #### Simply using engineered features
 
-Pre-neural networks, graphs and their items of interests could be represented as combination of features, in a task specific fashion. (Now, these features are used for data augmentation and semi-supervised learning, and it can be important to find how best to provide them to your network depending on your task.) 
+Pre-neural networks, graphs and their items of interests could be represented as combination of features, in a task specific fashion. Now, these features are still used for data augmentation and [semi-supervised learning](https://arxiv.org/abs/2202.08871), though [more complex feature generation methods](https://arxiv.org/abs/2208.11973) exist; it can be important to find how best to provide them to your network depending on your task. 
 
 **Node-level** features can give information about importance (how important is this node for the graph?) and/or structure based (what is the shape of the graph around the node?), and can be combined.
 
