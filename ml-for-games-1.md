@@ -1,6 +1,6 @@
 ---
 title: "AI for Game Development: Creating a Farming Game in 5 Days. Part 1"
-thumbnail: /blog/assets/124_gamedev_5days_1/thumbnail.png
+thumbnail: /blog/assets/124_ml-for-games/thumbnail.png
 ---
 
 <h1>AI for Game Development: Creating a Farming Game in 5 Days. Part 1</h1>
@@ -60,14 +60,14 @@ git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
 6. Navigate to `localhost://7860` to use the WebUI. If everything is working correctly, it should look something like this:
 
 <figure class="image text-center">
-  <img src="assets/124_gamedev_5days_1/webui.png" alt="Stable Diffusion WebUI">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/webui.png" alt="Stable Diffusion WebUI">
 </figure> 
 
 #### Online <a name="online"></a>
 
 If you don't meet the requirements to run Stable Diffusion locally, or prefer a more streamlined solution, there are many ways to run Stable Diffusion online.
 
-Free solutions include many [spaces](https://huggingface.co/spaces) here on 🤗 Hugging Face, such as the [Stable Diffusion 2.1 Demo](https://huggingface.co/spaces/stabilityai/stable-diffusion) or the [camemduru webui](https://huggingface.co/spaces/camenduru/webui). You can find a list of additional online services [here](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Online-Services).
+Free solutions include many [spaces](https://huggingface.co/spaces) here on 🤗 Hugging Face, such as the [Stable Diffusion 2.1 Demo](https://huggingface.co/spaces/stabilityai/stable-diffusion) or the [camemduru webui](https://huggingface.co/spaces/camenduru/webui). You can find a list of additional online services [here](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Online-Services). You can even use 🤗 [Diffusers](https://huggingface.co/docs/diffusers/index) to write your own free solution! You can find a simple code example to get started [here](https://colab.research.google.com/drive/1HebngGyjKj7nLdXfj6Qi0N1nh7WvD74z?usp=sharing).
 
 *Note:* Parts of this series will use advanced features such as image2image, which may not be available on all online services.
 
@@ -79,7 +79,7 @@ Let's generate some concept art. The steps are simple:
 2. Click generate.
 
 <figure class="image text-center">
-  <img src="assets/124_gamedev_5days_1/sd-demo.png" alt="Stable Diffusion Demo Space">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/sd-demo.png" alt="Stable Diffusion Demo Space">
 </figure> 
 
 But, how do you get the results you actually want? Prompting can be an art by itself, so it's ok if the first images you generate are not great. There are many amazing resources out there to improve your prompting. I made a [20-second video](https://youtube.com/shorts/8PGucf999nI?feature=share) on the topic. You can also find this more extensive [written guide](https://www.reddit.com/r/StableDiffusion/comments/x41n87/how_to_get_images_that_dont_suck_a/).
@@ -93,7 +93,7 @@ The shared point of emphasis of these is to use a source such as [lexica.art](ht
 I settled on the prompt: *isometric render of a farm by a river, simple, solid shapes, james gilleard, atey ghailan*. Here's the result:
 
 <figure class="image text-center">
-  <img src="assets/124_gamedev_5days_1/concept.png" alt="Stable Diffusion Concept Art">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/concept.png" alt="Stable Diffusion Concept Art">
 </figure>
 
 ### Bringing it to Unity
@@ -104,37 +104,37 @@ Now, how do we make this concept art into a game? We'll be using [Unity](https:/
 2. Block out the scene using basic shapes. For example, to add a cube, *Right Click -> 3D Object -> Cube*.
 
 <figure class="image text-center">
-  <img src="assets/124_gamedev_5days_1/gray.png" alt="Gray Scene">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/gray.png" alt="Gray Scene">
 </figure>
 
 3. Set up your [Materials](https://docs.unity3d.com/Manual/Materials.html), using the concept art as a reference. I'm using the basic built-in materials.
 
 <figure class="image text-center">
-  <img src="assets/124_gamedev_5days_1/color.png" alt="Scene with Materials">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/color.png" alt="Scene with Materials">
 </figure>
 
 4. Set up your [Lighting](https://docs.unity3d.com/Manual/Lighting.html). I'm using a warm sun (#FFE08C, intensity 1.25) with soft ambient lighting (#B3AF91).
 
 <figure class="image text-center">
-  <img src="assets/124_gamedev_5days_1/lighting.png" alt="Scene with Lighting">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/lighting.png" alt="Scene with Lighting">
 </figure>
 
 5. Set up your [Camera](https://docs.unity3d.com/ScriptReference/Camera.html) **using an orthographic projection** to match the projection of the concept art.
 
 <figure class="image text-center">
-  <img src="assets/124_gamedev_5days_1/camera.png" alt="Scene with Camera">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/camera.png" alt="Scene with Camera">
 </figure>
 
 6. Add some water. I'm using the [Stylized Water Shader](https://assetstore.unity.com/packages/vfx/shaders/stylized-water-shader-71207) from the Unity asset store.
 
 <figure class="image text-center">
-  <img src="assets/124_gamedev_5days_1/water.png" alt="Scene with Water">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/water.png" alt="Scene with Water">
 </figure>
 
 7. Finally, set up [Post-processing](https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@7.1/manual/integration-with-post-processing.html). I'm using ACES tonemapping and +0.2 exposure.
 
 <figure class="image text-center">
-  <img src="assets/124_gamedev_5days_1/post-processing.png" alt="Final Result">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/post-processing.png" alt="Final Result">
 </figure>
 
 That's it! A simple but appealing scene, made in less than a day! Have questions? Want to get more involved? Join the [Hugging Face Discord](https://t.co/1n75wi976V?amp=1)!

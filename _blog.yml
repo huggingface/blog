@@ -1606,10 +1606,11 @@
     - intel
     - hardware
 
-- local: gamedev-5days-1
+
+- local: ml-for-games-1
   title: "AI for Game Development: Creating a Farming Game in 5 Days #1"
   author: dylanebert
-  thumbnail: /blog/assets/124_gamedev_5days_1/thumbnail.png
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail.png
   date: January 2, 2023
   tags:
     - community
