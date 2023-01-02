@@ -27,7 +27,7 @@ thumbnail: /blog/assets/124_ml-for-games/thumbnail.png
 4. 2D Assets
 5. Story
 
-Want the quick video version? You can watch it [here](https://www.tiktok.com/@individualkex). Otherwise, if you want the technical details, keep reading!
+Want the quick video version? You can watch it [here](https://www.tiktok.com/@individualkex/video/7184106492180630827). Otherwise, if you want the technical details, keep reading!
 
 <!-- TODO: Update above link to video -->
 
