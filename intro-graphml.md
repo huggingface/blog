@@ -98,15 +98,19 @@ Once you have node-level representations, it is possible to obtain edge or graph
 
 #### Simply using engineered features
 
-Pre-neural networks, graphs and their items of interests could be represented as combination of features, in a task specific fashion. (Now, these features are used for data augmentation and semi-supervised learning.) 
+Pre-neural networks, graphs and their items of interests could be represented as combination of features, in a task specific fashion. (Now, these features are used for data augmentation and semi-supervised learning, and it can be important to find how best to provide them to your network depending on your task.) 
 
-Node-level features can give information about importance (how important is this node for the graph?) and/or structure based (what is the shape of the graph around the node?), and can be combined.
+**Node-level** features can give information about importance (how important is this node for the graph?) and/or structure based (what is the shape of the graph around the node?), and can be combined.
 
 The node **centrality** measures the node importance in the graph. It can be computed recursively by summing the centrality of each node’s neighbors until convergence, or through shortest distance measures between nodes, for example. The node **degree** is the quantity of direct neighbors it has. The **clustering coefficient** measures how connected the node neighbours are. **Graphlets degree vectors** count how many different graphlets are rooted at a given node, where graphlets are all the mini graphs you can create with a given number of connected nodes (with 3 connected nodes, you can have a line with 2 edges, or a triangle with 3 edges).
 
 ![Graphlets list for 2 to 5 connected nodes](assets/124_intro-graphml/graphlets.png)
 
 *The 2-to 5-node graphlets (Pržulj, 2007)*
+
+**Edge-level** features complement the representation with more detailed information about the connectedness of the nodes, and include the **shortest distance** between two nodes, their **common neighbors**, and their **Katz index** (which is the number of possible walks of up to a certain length between two nodes - it can be computed directly from the adjacency matrix).
+
+**Graph level features** contain high-level information about graph similiarity and specificities. Total **graphlet counts**, though computationally expensive, provide information about the shape of sub-graphs. **Kernel methods** measure similarity between graphs through different "bag of nodes" method (similar to bag of words).
 
 ### Walk-based approaches
 
