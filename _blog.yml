@@ -1545,6 +1545,7 @@
     - rl
     - guide
 
+
 - local: habana-gaudi-2-benchmark
   title: "Faster Training and Inference: Habana Gaudi®2 vs Nvidia A100 80GB"
   author: regisss
@@ -1564,9 +1565,34 @@
     - audio
 
 - local: ethics-soc-2
-  title: "Ethics and Society Newsletter #2"
+  title: "Ethics and Society Newsletter #2: Let's talk about bias!"
   author: yjernite
   thumbnail: /blog/assets/122_ethics_soc_2/thumbnail-solstice.png
   date: Dec 15, 2022
   tags:
     - ethics
+
+
+- local: model-cards
+  title: "Model Cards: Introducing HF Model documentation tools"
+  author: Ezi
+  thumbnail: /blog/assets/121_model-cards/thumbnail.png
+  date: December 20, 2022
+  tags:
+    - community
+    - research
+    - ethics
+    - guide
+
+  
+- local: clipseg-zero-shot
+  title: "Zero-shot image segmentation with CLIPSeg"
+  author: segments-tobias
+  thumbnail: /blog/assets/123_clipseg-zero-shot/thumb.png
+  date: December 21, 2022
+  tags:
+    - guide
+    - partnerships
+    - cv
+    - clip
+

@@ -422,7 +422,7 @@ Let's see what jobs BERT suggests for a "man":
 unmasker("The man worked as a [MASK].")
 ```
 
-When you run the above code you should see an ouput that looks something like:
+When you run the above code you should see an output that looks something like:
 
 ```python
 [{'score': 0.09747546911239624,
