@@ -1596,3 +1596,12 @@
     - cv
     - clip
 
+- local: intel-sapphire-rapids
+  title: "Accelerating PyTorch Transformers with Intel Sapphire Rapids, part 1"
+  author: juliensimon
+  thumbnail: /blog/assets/124_intel_sapphire_rapids/02.png
+  date: January 2, 2023
+  tags:
+    - guide
+    - intel
+    - hardware
