@@ -1,6 +1,6 @@
 ---
 title: "Accelerating PyTorch Transformers with Intel Sapphire Rapids - part 1"
-thumbnail: /blog/assets/123_intel_sapphire_rapids/02.png
+thumbnail: /blog/assets/124_intel_sapphire_rapids/02.png
 ---
 
 <h1>
@@ -8,7 +8,7 @@ Accelerating PyTorch Transformers with Intel Sapphire Rapids, part 1</h1>
 
 
 <div class="blog-metadata">
-    <small>Published December 15, 2022.</small>
+    <small>Published January 2, 2023.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/juliensimon/blog/blob/main/intel-sapphire-rapids.md">
         Update on GitHub
     </a>
@@ -43,18 +43,11 @@ Finally, cloud users can further reduce the cost of training on Xeon CPUs with s
 Now, let's look at the new instructions in the Sapphire Rapids architecture.
 
 
-## Sapphire Rapids: New Instructions for Deep Learning
+## Advanced Matrix Extensions: New Instructions for Deep Learning
 
-The Sapphire Rapids architecture introduces new instructions to accelerate DL workloads. Using them is as easy as installing the latest version of IPEX. There is no need to change anything in your Hugging Face code.
+The Sapphire Rapids architecture introduces the Intel Advanced Matrix Extensions ([AMX](https://en.wikipedia.org/wiki/Advanced_Matrix_Extensions)) to accelerate DL workloads. Using them is as easy as installing the latest version of IPEX. There is no need to change anything in your Hugging Face code.
 
-### AVX-FP16
-
-[AVX512-FP16](https://en.wikipedia.org/wiki/AVX-512#FP16) brings new instructions dedicated to 16-bit floating point (FP16) data. For example, the VFMADD instruction can multiply two FP16 values and add the result to a third FP16 value, aka 'multiply and add', a common operation used by DL models at inference time.
-
-### AMX
-
-The Intel Advanced Matrix Extensions ([AMX](https://en.wikipedia.org/wiki/Advanced_Matrix_Extensions)) introduced brand new instructions to accelerate matrix multiplication, an operation central to training DL models on data batches. AMX
- supports both Brain Floating Point ([BF16](https://en.wikipedia.org/wiki/Bfloat16_floating-point_format)) and 8-bit integer (INT8) values, enabling acceleration for different training scenarios.
+The AMX instructions accelerate matrix multiplication, an operation central to training DL models on data batches. They support both Brain Floating Point ([BF16](https://en.wikipedia.org/wiki/Bfloat16_floating-point_format)) and 8-bit integer (INT8) values, enabling acceleration for different training scenarios.
  
 AMX introduces new 2-dimensional CPU registers, called tile registers. As these registers need to be saved and restored during context switches, they require kernel support: On Linux, you'll need [v5.16](https://discourse.ubuntu.com/t/kinetic-kudu-release-notes/27976) or newer.
  
@@ -76,7 +69,7 @@ From a networking perspective, we will need the following setup:
 * Allow all network traffic inside the cluster, so that distributed training runs unencumbered. AWS provides a safe and convenient way to do this with [security groups](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html). We just need to create a security group that allows all traffic from instances configured with that same security group and make sure to attach it to all instances in the cluster. Here's how my setup looks.
 
 <kbd>
-  <img src="assets/123_intel_sapphire_rapids/01.png">
+  <img src="assets/124_intel_sapphire_rapids/01.png">
 </kbd>
 
 
@@ -86,10 +79,10 @@ Let's get to work and build the master node of the cluster.
 
 We first create the master node by launching an `r7iz.metal-16xl` instance with an Ubunutu 20.04 AMI (`ami-07cd3e6c4915b2d18`) and the security group we created earlier. This AMI includes Linux v5.15.0, but Intel and AWS have fortunately patched the kernel to add AMX support. Thus, we don't need to upgrade the kernel to v5.16.
 
-Once the instance is running, we ssh to it and check with `lscpu` that AVX512-FP16 and AMX are indeed supported. You should see the following in the flags section:
+Once the instance is running, we ssh to it and check with `lscpu` that AMX are indeed supported. You should see the following in the flags section:
 
 ```
-amx_bf16 avx512_fp16 amx_tile amx_int8
+amx_bf16 amx_tile amx_int8
 ```
 
 Then, we install native and Python dependencies.
@@ -234,7 +227,7 @@ One epoch now takes **7 minutes and 30 seconds**.
 Here's what the job looks like. The master node is at the top, and you can see the two training processes running on each one of the other 3 nodes.
 
 <kbd>
-  <img src="assets/123_intel_sapphire_rapids/02.png">
+  <img src="assets/124_intel_sapphire_rapids/02.png">
 </kbd>
 
 Perfect linear scaling on 4 nodes would be 6 minutes and 30 seconds (26 minutes divided by 4). We're very close to this ideal value, which shows how scalable this approach is.
