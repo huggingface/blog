@@ -110,7 +110,7 @@ The node **centrality** measures the node importance in the graph. It can be com
 
 ### Walk-based approaches
 
-**Walk-based approaches** use the probability of visiting a node j from a node i on a random walk to define similarity metrics; these approaches combine both local and global information. **Node2Vec**, for example, simulates random walks between nodes of a graph, then processes these walks with a skip-gram, much like we would do with words in sentences, to compute embeddings. These approaches can also be used in the **page rank method**, to assign to each node an importance score (based on its connectivity to other nodes for, evaluated as its frequency of visit by random walk, for ex).
+**Walk-based approaches** use the probability of visiting a node j from a node i on a random walk to define similarity metrics; these approaches combine both local and global information. **Node2Vec**, for example, simulates random walks between nodes of a graph, then processes these walks with a skip-gram, much like we would do with words in sentences, to compute embeddings. These approaches can also be used in the **page rank method**, to assign to each node an importance score (based on its connectivity to other nodes, evaluated as its frequency of visit by random walk, for example).
 
 However, these methods have limits: they cannot obtain embeddings for new nodes, do not capture structural similarity between nodes finely, and cannot use added features.
 
