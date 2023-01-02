@@ -89,7 +89,7 @@ This is not the case for a graph: if you shuffle its edge list, or the columns o
 
 ## Graph representations through ML
 
-The usual process to work on graphs with machine learning is to, first, generate a meaningful representation for your items of interest (which can be nodes, edges, or full graphs depending on your task), then, use these to train a predictor for your studied task. We want (as in other modalities) to constrain the mathematical representations of your objects so that similar objects are mathematically close. However, similarity is hard to define strictly in graph ML: for example, are two nodes more similar when they have the same labels or the same neighbors?
+The usual process to work on graphs with machine learning is to, first, generate a meaningful representation for your items of interest (which can be nodes, edges, or full graphs depending on your task), then, use these to train a predictor for your studied task. We want (as in other modalities) to constrain the mathematical representations of your objects so that similar objects are mathematically close. However, similarity is hard to define strictly in graph ML: for example, are two nodes more similar when they have the same labels or the same neighbours?
 
 Note: *In the following sections, we will focus on generating node representations. 
 Once you have node-level representations, it is possible to obtain edge or graph-level information from it. For edge-level information, you can simply concatenate node pair representations or simply do a dot product. For graph-level information, it is possible to do a global pooling (average/sum/...) on the concatenated tensor of all the node-level representations. Still, it will smooth and lose information over the graph -- a recursive hierarchical pooling can make more sense, or to add a virtual node, connected to all other nodes in the graph, and use its representation as the overall graph representation.*
@@ -102,13 +102,13 @@ Pre-neural networks, graphs and their items of interests could be represented as
 
 **Node-level** features can give information about importance (how important is this node for the graph?) and/or structure based (what is the shape of the graph around the node?), and can be combined.
 
-The node **centrality** measures the node importance in the graph. It can be computed recursively by summing the centrality of each node’s neighbors until convergence, or through shortest distance measures between nodes, for example. The node **degree** is the quantity of direct neighbors it has. The **clustering coefficient** measures how connected the node neighbours are. **Graphlets degree vectors** count how many different graphlets are rooted at a given node, where graphlets are all the mini graphs you can create with a given number of connected nodes (with 3 connected nodes, you can have a line with 2 edges, or a triangle with 3 edges).
+The node **centrality** measures the node importance in the graph. It can be computed recursively by summing the centrality of each node’s neighbours until convergence, or through shortest distance measures between nodes, for example. The node **degree** is the quantity of direct neighbours it has. The **clustering coefficient** measures how connected the node neighbours are. **Graphlets degree vectors** count how many different graphlets are rooted at a given node, where graphlets are all the mini graphs you can create with a given number of connected nodes (with 3 connected nodes, you can have a line with 2 edges, or a triangle with 3 edges).
 
 ![Graphlets list for 2 to 5 connected nodes](assets/124_intro-graphml/graphlets.png)
 
 *The 2-to 5-node graphlets (Pržulj, 2007)*
 
-**Edge-level** features complement the representation with more detailed information about the connectedness of the nodes, and include the **shortest distance** between two nodes, their **common neighbors**, and their **Katz index** (which is the number of possible walks of up to a certain length between two nodes - it can be computed directly from the adjacency matrix).
+**Edge-level** features complement the representation with more detailed information about the connectedness of the nodes, and include the **shortest distance** between two nodes, their **common neighbours**, and their **Katz index** (which is the number of possible walks of up to a certain length between two nodes - it can be computed directly from the adjacency matrix).
 
 **Graph level features** contain high-level information about graph similiarity and specificities. Total **graphlet counts**, though computationally expensive, provide information about the shape of sub-graphs. **Kernel methods** measure similarity between graphs through different "bag of nodes" method (similar to bag of words).
 
@@ -135,7 +135,7 @@ Typical neural networks, such as RNNs or CNNs are not permutation invariant. A n
 
 A GNN is made of successive layers. A GNN layer represents a node as the combination (**aggregation**) of the representations of its neighbours and itself from the previous layer (**message passing**), plus usually an activation to add some nonlinearity.
 
-**Comparison to other models**: A CNN can be seen as a GNN with fixed neighbor sizes (through the sliding window) and ordering (it is not permutation equivariant). A [Transformer](https://arxiv.org/abs/1706.03762v3) without positional embeddings can be seen as a GNN on a fully-connected input graph.
+**Comparison to other models**: A CNN can be seen as a GNN with fixed neighbour sizes (through the sliding window) and ordering (it is not permutation equivariant). A [Transformer](https://arxiv.org/abs/1706.03762v3) without positional embeddings can be seen as a GNN on a fully-connected input graph.
 
 ### Aggregation and message passing
 
