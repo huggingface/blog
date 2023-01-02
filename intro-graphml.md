@@ -22,11 +22,16 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
     </a>
 </div>
 
+In this blog post, we cover basics of graph machine learning. 
+
+We first study what graphs are, why they are used, and how best to represent them. We then cover briefly how people learn on graphs, from pre-neural methods (exploring graph features at the same time) to what are commonly called Graph Neural Networks. Lastly, we peek into the world of Transformers for graphs.
+
 ## Graphs
 
 ### What is a graph?
 
 In its essence, a graph is a description of items linked by relations.
+
 Examples of graphs include social networks (Twitter, Mastodon, any citation networks linking papers and authors), molecules, knowledge graphs (such as UML diagrams, encyclopedias, any website with hyperlinks between its pages), sentences expressed as their syntactic trees, any 3D mesh, and more! It is therefore not hyperbolic to say that graphs are everywhere.
 
 The items of a graph (or network) are called its *nodes* (or vertices), and their connections its *edges* (or links). For example, in a social network, nodes are users, and edges their connections; in a molecule, nodes are atoms and edges their molecular bond.
@@ -48,11 +53,13 @@ At the **graph level**, the main tasks are:
 
 At the **node level**, it's usually a node property prediction. For example, [Alphafold](https://www.deepmind.com/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology) uses node property prediction to predict the 3D coordinates of atoms given the overall graph of the molecule, and therefore predict how molecules get folded in 3D space, a hard bio-chemistry problem.
 
-At the **edge level**, it's either edge property prediction or missing edge prediction. Examples of use include recommendation systems, to predict whether two nodes in a graph are related, or drug side effect prediction, to predict adverse side effects given a pair of drugs.
+At the **edge level**, it's either edge property prediction or missing edge prediction. Edge property prediction helps drug side effect prediction predict adverse side effects given a pair of drugs. Missing edge prediction is used in recommendation systems to predict whether two nodes in a graph are related.
 
-It is also possible to work at the **sub-graph level**, for community detection, used for example by social networks to determine how people are connected, or subgraph property prediction, used in itinerary systems (such as [Google Maps](https://www.deepmind.com/blog/traffic-prediction-with-advanced-graph-neural-networks)) to predict ETAs.
+It is also possible to work at the **sub-graph level** on community detection or subgraph property prediction. Community detection is used by social networks to determine how people are connected. Subgraph property prediction can be found in itinerary systems (such as [Google Maps](https://www.deepmind.com/blog/traffic-prediction-with-advanced-graph-neural-networks)) to predict ETAs.
 
-Working on these tasks can be done in two ways. When you want to predict the evolution of a specific graph, you work in a **transductive** setting, where everything (training, validation, and testing) is done on the same single graph. *If this is your setup, careful! Creating train/eval/test datasets from a single graph is not trivial.* However, a lot of the work is done using different graphs (separate train/eval/test splits), which is called an **inductive** setting.
+Working on these tasks can be done in two ways. 
+
+When you want to predict the evolution of a specific graph, you work in a **transductive** setting, where everything (training, validation, and testing) is done on the same single graph. *If this is your setup, careful! Creating train/eval/test datasets from a single graph is not trivial.* However, a lot of the work is done using different graphs (separate train/eval/test splits), which is called an **inductive** setting.
 
 ### How do we represent graphs?
 
@@ -64,29 +71,28 @@ Graphs are very different from typical objects used in ML because their topology
 
 But what does this mean? Well, if you have a sentence, and you shuffle its words, or an image, and you shuffle its columns, you create a new sentence or new image. 
 
-<p float="left">
+<figure class="image table text-center m-0 w-full">
   <img src="/assets/124_intro-graphml/hf_logo.png" width="100" />
   <img src="/assets/124_intro-graphml/hf_logo_shuffled.png" width="100" /> 
-</p>
+  <figcaption>On the right, the Hugging Face logo - on the left, a shuffled Hugging Face, which is quite a different new image.</figcaption>
+</figure>
 
-*On the right, the Hugging Face - on the left, a shuffled Hugging Face, which is quite a different new image.*
 
 This is not the case for a graph: if you shuffle its edge list, or the columns of its adjacency matrix, it is still the same graph. (We explain this more formally a bit lower, look for permutation invariance).
 
-<p float="left">
+<figure class="image table text-center m-0 w-full">
   <img src="/assets/124_intro-graphml/graph.png" width="30%" />
   <img src="/assets/124_intro-graphml/graph_adjacency.png" width="30%" /> 
   <img src="/assets/124_intro-graphml/graph_adjacency_shuffled.png" width="30%" /> 
-</p>
-
-*On the left, a small graph (nodes in yellow, edges in orange). In the center, its adjacency matrix, with columns and row ordered in the alphabetical node order: on the row for node A (first row), we can read that it is connected to E and C. On the right, a shuffled adjacency matrix (the columns are no longer sorted alphabetically), which is also a valid representation of the graph: A is still connected to E and C.*
+  <figcaption>On the left, a small graph (nodes in yellow, edges in orange). In the center, its adjacency matrix, with columns and row ordered in the alphabetical node order: on the row for node A (first row), we can read that it is connected to E and C. On the right, a shuffled adjacency matrix (the columns are no longer sorted alphabetically), which is also a valid representation of the graph: A is still connected to E and C.</figcaption>
+</figure>
 
 ## Graph representations through ML
 
 The usual process to work on graphs with machine learning is to, first, generate a meaningful representation for your items of interest (which can be nodes, edges, or full graphs depending on your task), then, use these to train a predictor for your studied task. We want (as in other modalities) to constrain the mathematical representations of your objects so that similar objects are mathematically close. However, similarity is hard to define strictly in graph ML: for example, are two nodes more similar when they have the same labels or the same neighbors?
 
 Note: *In the following sections, we will focus on generating node representations. 
-Once you have node-level representations, it is possible to obtain edge or graph level information from it. For edge level information, you can simply concatenate node pair representations, or simply do a dot product. For graph level information, it is possible to do a global pooling (average/sum/...), but it will smooth and loose information over the graph -- a recursive hierarchical pooling can make more sense, or to add a virtual node, connected to all other nodes in the graph, and use its representation as the overall graph representation.*
+Once you have node-level representations, it is possible to obtain edge or graph-level information from it. For edge-level information, you can simply concatenate node pair representations or simply do a dot product. For graph-level information, it is possible to do a global pooling (average/sum/...) on the concatenated tensor of all the node-level representations. Still, it will smooth and lose information over the graph -- a recursive hierarchical pooling can make more sense, or to add a virtual node, connected to all other nodes in the graph, and use its representation as the overall graph representation.*
 
 ### Pre-neural approaches
 
@@ -119,7 +125,7 @@ It should:
     - Explanation: the representation of a graph and its permutations should be the same after going through the network)
 - be permutation equivariant
     - Equation: \\(P(f(G))=f(P(G))\\) with f the network, P the permutation function, G the graph
-    - Explanation: permuting the nodes before processing should be equivalent to permuting their representations
+    - Explanation: permuting the nodes before passing them to the network should be equivalent to permuting their representations
 
 Typical neural networks, such as RNNs or CNNs are not permutation invariant. A new architecture, the Graph Neural Network, was therefore introduced. 
 
@@ -142,7 +148,9 @@ There are many ways to aggregate messages from neighbour nodes, summing, averagi
 
 At each new layer, the node representation includes more and more nodes. 
 
-A node through the first layer, is the aggregation of its direct neighbours. Through the second layer, it is still the aggregation of its direct neighbours, but this time, their representations now include their own neighbours (from the first layer)! If your network had too many layers, there is a risk that each node becomes an aggregation of the full graph (and that nodes representations will no longer be different). This is called **the oversmoothing problem**.
+A node, through the first layer, is the aggregation of its direct neighbours. Through the second layer, it is still the aggregation of its direct neighbours, but this time, their representations now include their own neighbours (from the first layer). After n layers, the representation of all nodes becomes an aggregation of all their neighbours at distance n, therefore, of the full graph, if its diameter is smaller than n! 
+
+If your network had too many layers, there is therefore a risk that each node becomes an aggregation of the full graph (and that node representations converge to the same one for all nodes). This is called **the oversmoothing problem**.
 
 This can be solved by :
 
@@ -163,11 +171,9 @@ Here are some interesting methods which got state-of-the-art results or close on
 - *Rethinking Graph Transformers with Spectral Attention* (Kreuzer et al, 2021) introduced Spectral Attention Networks (SANs). These combine node features with learned positional encoding (computed from Laplacian eigenvectors/values), to use as keys and queries in the attention, with attention values being the edge features.
 - *GRPE: Relative Positional Encoding for Graph Transformer* (Park et al, 2021) introduced the Graph Relative Positional Encoding Transformer. It represents a graph by combining a graph-level positional encoding with node information, edge level positional encoding with node information, and combining both in the attention.
 - *Global Self-Attention as a Replacement for Graph Convolution* (Hussain et al, 2021) introduced the Edge Augmented Transformer. This architecture embeds nodes and edges separately, and aggregates them in a modified attention.
-
-My favorites are:
-
 - *Do Transformers Really Perform Badly for Graph Representation* (Ying et al, 2021) introduces Microsoft's **Graphormer**, which won first place on the OGB when it came out. This architecture uses node features as query/key/values in the attention, and sums their representation with a combination of centrality, spatial, and edge encodings in the attention mechanism.
-- *Pure Transformers are Powerful Graph Learners* (Kim et al, 2022) introduced **TokenGT**. This method represents input graphs as a sequence of node and edge embeddings (augmented with orthonormal node identifiers and trainable type identifiers), with no positional embedding, and provides this sequence to Transformers as input. It is extremely simple, yet smart!
+
+The simplest and most recent approach is *Pure Transformers are Powerful Graph Learners* (Kim et al, 2022), which introduced **TokenGT**. This method represents input graphs as a sequence of node and edge embeddings (augmented with orthonormal node identifiers and trainable type identifiers), with no positional embedding, and provides this sequence to Transformers as input. It is extremely simple, yet smart!
 
 A bit different, *Recipe for a General, Powerful, Scalable Graph Transformer* (Rampášek et al, 2022) introduces, not a model, but a framework, called **GraphGPS**. It allows to combine message passing networks with linear (long range) transformers to create hybrid networks easily. This framework also contains several tools to compute positional and structral encodings (node, graph, edge level), feature augmentation, random walks, etc.
 
