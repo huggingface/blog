@@ -14,7 +14,7 @@ thumbnail: /blog/assets/125_intro-to-graphml/thumbnail.png
 
 <div class="author-card">
     <a href="/clefourrier"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1644340617257-noauth.png?w=200&h=200&f=face" title="Gravatar">
+        <img class="avatar avatar-user" src="https://s3.amazonaws.com/moonup/production/uploads/1644340617257-noauth.png?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>clefourrier</code>
             <span class="fullname">Clémentine Fourrier</span>
@@ -75,7 +75,7 @@ Graphs are very different from typical objects used in ML because their topology
 But what does this mean? If you have a sentence and shuffle its words, you create a new sentence. If you have an image and rearrange its columns, you create a new image. 
 
 <figure class="image table text-center m-0 w-full">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/125_intro-to-graphml/assembled_hf.png" width="100" />
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/125_intro-to-graphml/assembled_hf.png" width="500" />
   <figcaption>On the right, the Hugging Face logo - on the left, a shuffled Hugging Face logo, which is quite a different new image.</figcaption>
 </figure>
 
@@ -83,7 +83,7 @@ But what does this mean? If you have a sentence and shuffle its words, you creat
 This is not the case for a graph: if you shuffle its edge list or the columns of its adjacency matrix, it is still the same graph. (We explain this more formally a bit lower, look for permutation invariance).
 
 <figure class="image table text-center m-0 w-full">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/125_intro-to-graphml/assembled_graphs.png" width="100" />
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/125_intro-to-graphml/assembled_graphs.png" width="1000" />
   <figcaption>On the left, a small graph (nodes in yellow, edges in orange). In the centre, its adjacency matrix, with columns and rows ordered in the alphabetical node order: on the row for node A (first row), we can read that it is connected to E and C. On the right, a shuffled adjacency matrix (the columns are no longer sorted alphabetically), which is also a valid representation of the graph: A is still connected to E and C.</figcaption>
 </figure>
 
@@ -106,7 +106,7 @@ The node **centrality** measures the node importance in the graph. It can be com
 
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom alt="Graphlets list for 2 to 5 connected nodes" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/125_intro-to-graphml/graphlets.png"></medium-zoom>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/125_intro-to-graphml/graphlets.png" width="700" />
   <figcaption>The 2-to 5-node graphlets (Pržulj, 2007)</figcaption>
 </figure>
 
@@ -215,5 +215,5 @@ For more datasets, see:
 - [Relational datasets repository](https://relational.fit.cvut.cz/)
 
 
-# External images attribution
+### External images attribution
 Emojis in the thumbnail come from Openmoji (CC-BY-SA 4.0), the Graphlets figure comes from *Biological network comparison using graphlet degree distribution* (Pržulj, 2007). 
