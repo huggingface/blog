@@ -75,18 +75,15 @@ Graphs are very different from typical objects used in ML because their topology
 But what does this mean? If you have a sentence and shuffle its words, you create a new sentence. If you have an image and rearrange its columns, you create a new image. 
 
 <figure class="image table text-center m-0 w-full">
-  <img src="/assets/124_intro-graphml/hf_logo.png" width="100" />
-  <img src="/assets/124_intro-graphml/hf_logo_shuffled.png" width="100" /> 
-  <figcaption>On the right, the Hugging Face logo - on the left, a shuffled Hugging Face, which is quite a different new image.</figcaption>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/125_intro-to-graphml/assembled_hf.png" width="100" />
+  <figcaption>On the right, the Hugging Face logo - on the left, a shuffled Hugging Face logo, which is quite a different new image.</figcaption>
 </figure>
 
 
 This is not the case for a graph: if you shuffle its edge list or the columns of its adjacency matrix, it is still the same graph. (We explain this more formally a bit lower, look for permutation invariance).
 
 <figure class="image table text-center m-0 w-full">
-  <img src="/assets/124_intro-graphml/graph.png" width="30%" />
-  <img src="/assets/124_intro-graphml/graph_adjacency.png" width="30%" /> 
-  <img src="/assets/124_intro-graphml/graph_adjacency_shuffled.png" width="30%" /> 
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/125_intro-to-graphml/assembled_graphs.png" width="100" />
   <figcaption>On the left, a small graph (nodes in yellow, edges in orange). In the centre, its adjacency matrix, with columns and rows ordered in the alphabetical node order: on the row for node A (first row), we can read that it is connected to E and C. On the right, a shuffled adjacency matrix (the columns are no longer sorted alphabetically), which is also a valid representation of the graph: A is still connected to E and C.</figcaption>
 </figure>
 
@@ -107,9 +104,11 @@ Before neural networks, graphs and their items of interest could be represented 
 
 The node **centrality** measures the node importance in the graph. It can be computed recursively by summing the centrality of each node’s neighbours until convergence, or through shortest distance measures between nodes, for example. The node **degree** is the quantity of direct neighbours it has. The **clustering coefficient** measures how connected the node neighbours are. **Graphlets degree vectors** count how many different graphlets are rooted at a given node, where graphlets are all the mini graphs you can create with a given number of connected nodes (with three connected nodes, you can have a line with two edges, or a triangle with three edges).
 
-![Graphlets list for 2 to 5 connected nodes](assets/124_intro-graphml/graphlets.png)
 
-*The 2-to 5-node graphlets (Pržulj, 2007)*
+<figure class="image table text-center m-0 w-full">
+  <medium-zoom alt="Graphlets list for 2 to 5 connected nodes" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/125_intro-to-graphml/graphlets.png"></medium-zoom>
+  <figcaption>The 2-to 5-node graphlets (Pržulj, 2007)</figcaption>
+</figure>
 
 **Edge-level** features complement the representation with more detailed information about the connectedness of the nodes, and include the **shortest distance** between two nodes, their **common neighbours**, and their **Katz index** (which is the number of possible walks of up to a certain length between two nodes - it can be computed directly from the adjacency matrix).
 
