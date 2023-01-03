@@ -39,7 +39,7 @@ The items of a graph (or network) are called its *nodes* (or vertices), and thei
 * A graph with either typed nodes or typed edges is called **heterogeneous** (ex: citation networks with nodes that can be either papers or authors, or XML diagram where relations are typed); it cannot be represented solely through its topology, it needs additional information. This post focuses on homogeneous graphs. 
 * A graph can also be **directed** (like a follower network, where A follows B does not imply B follows A) or **undirected** (like a molecule, where the relation between atoms goes both ways). Edges can connect different nodes or one node to itself (self-edges), but not all nodes need to be connected.
 
-If you want to use your own data, you must first think about what the best characterisation for it is (homogeneous/heterogeneous, directed/undirected, and so on).
+If you want to use your data, you must first consider its best characterization (homogeneous/heterogeneous, directed/undirected, and so on).
 
 ### What are graphs used for?
 
@@ -55,21 +55,24 @@ At the **node level**, it's usually a node property prediction. For example, [Al
 
 At the **edge level**, it's either edge property prediction or missing edge prediction. Edge property prediction helps drug side effect prediction predict adverse side effects given a pair of drugs. Missing edge prediction is used in recommendation systems to predict whether two nodes in a graph are related.
 
-It is also possible to work at the **sub-graph level** on community detection or subgraph property prediction. Community detection is used by social networks to determine how people are connected. Subgraph property prediction can be found in itinerary systems (such as [Google Maps](https://www.deepmind.com/blog/traffic-prediction-with-advanced-graph-neural-networks)) to predict ETAs.
+It is also possible to work at the **sub-graph level** on community detection or subgraph property prediction. Social networks use community detection to determine how people are connected. Subgraph property prediction can be found in itinerary systems (such as [Google Maps](https://www.deepmind.com/blog/traffic-prediction-with-advanced-graph-neural-networks)) to predict ETAs.
 
 Working on these tasks can be done in two ways. 
 
-When you want to predict the evolution of a specific graph, you work in a **transductive** setting, where everything (training, validation, and testing) is done on the same single graph. *If this is your setup, careful! Creating train/eval/test datasets from a single graph is not trivial.* However, a lot of the work is done using different graphs (separate train/eval/test splits), which is called an **inductive** setting.
+When you want to predict the evolution of a specific graph, you work in a **transductive** setting, where everything (training, validation, and testing) is done on the same single graph. *If this is your setup, be careful! Creating train/eval/test datasets from a single graph is not trivial.* However, a lot of the work is done using different graphs (separate train/eval/test splits), which is called an **inductive** setting.
 
 ### How do we represent graphs?
 
-The common ways to represent a graph to process it and operate on it are either as the set of all its edges (possibly complemented with the set of all its nodes), or as the adjacency matrix between all its nodes. An adjacency matrix is a square matrix (of node size * node size) which indicates which nodes are directly connected to which others (where $A_{ij} = 1$ if $n\_i$ and $n\_j$ are connected, else 0). *Note: most graphs are not densely connected, and therefore have sparse adjacency matrices, which can make computations harder.*
+The common ways to represent a graph to process and operate it are either:
+
+* as the set of all its edges (possibly complemented with the set of all its nodes)
+* or as the adjacency matrix between all its nodes. An adjacency matrix is a square matrix (of node size * node size) that indicates which nodes are directly connected to which others (where $A_{ij} = 1$ if $n\_i$ and $n\_j$ are connected, else 0). *Note: most graphs are not densely connected and therefore have sparse adjacency matrices, which can make computations harder.*
 
 However, though these representations seem familiar, do not be fooled!
 
 Graphs are very different from typical objects used in ML because their topology is more complex than just "a sequence" (such as text and audio) or "an ordered grid" (images and videos, for example)): even if they can be represented as lists or matrices, their representation should not be considered an ordered object!
 
-But what does this mean? Well, if you have a sentence, and you shuffle its words, or an image, and you shuffle its columns, you create a new sentence or new image. 
+But what does this mean? If you have a sentence and shuffle its words, you create a new sentence. If you have an image and rearrange its columns, you create a new image. 
 
 <figure class="image table text-center m-0 w-full">
   <img src="/assets/124_intro-graphml/hf_logo.png" width="100" />
@@ -78,13 +81,13 @@ But what does this mean? Well, if you have a sentence, and you shuffle its words
 </figure>
 
 
-This is not the case for a graph: if you shuffle its edge list, or the columns of its adjacency matrix, it is still the same graph. (We explain this more formally a bit lower, look for permutation invariance).
+This is not the case for a graph: if you shuffle its edge list or the columns of its adjacency matrix, it is still the same graph. (We explain this more formally a bit lower, look for permutation invariance).
 
 <figure class="image table text-center m-0 w-full">
   <img src="/assets/124_intro-graphml/graph.png" width="30%" />
   <img src="/assets/124_intro-graphml/graph_adjacency.png" width="30%" /> 
   <img src="/assets/124_intro-graphml/graph_adjacency_shuffled.png" width="30%" /> 
-  <figcaption>On the left, a small graph (nodes in yellow, edges in orange). In the center, its adjacency matrix, with columns and row ordered in the alphabetical node order: on the row for node A (first row), we can read that it is connected to E and C. On the right, a shuffled adjacency matrix (the columns are no longer sorted alphabetically), which is also a valid representation of the graph: A is still connected to E and C.</figcaption>
+  <figcaption>On the left, a small graph (nodes in yellow, edges in orange). In the center, its adjacency matrix, with columns and rows ordered in the alphabetical node order: on the row for node A (first row), we can read that it is connected to E and C. On the right, a shuffled adjacency matrix (the columns are no longer sorted alphabetically), which is also a valid representation of the graph: A is still connected to E and C.</figcaption>
 </figure>
 
 ## Graph representations through ML
@@ -92,7 +95,7 @@ This is not the case for a graph: if you shuffle its edge list, or the columns o
 The usual process to work on graphs with machine learning is to, first, generate a meaningful representation for your items of interest (which can be nodes, edges, or full graphs depending on your task), then, use these to train a predictor for your studied task. We want (as in other modalities) to constrain the mathematical representations of your objects so that similar objects are mathematically close. However, similarity is hard to define strictly in graph ML: for example, are two nodes more similar when they have the same labels or the same neighbours?
 
 Note: *In the following sections, we will focus on generating node representations. 
-Once you have node-level representations, it is possible to obtain edge or graph-level information from it. For edge-level information, you can simply concatenate node pair representations or simply do a dot product. For graph-level information, it is possible to do a global pooling (average/sum/...) on the concatenated tensor of all the node-level representations. Still, it will smooth and lose information over the graph -- a recursive hierarchical pooling can make more sense, or to add a virtual node, connected to all other nodes in the graph, and use its representation as the overall graph representation.*
+Once you have node-level representations, it is possible to obtain edge or graph-level information. For edge-level information, you can concatenate node pair representations or do a dot product. For graph-level information, it is possible to do a global pooling (average, sum, etc.) on the concatenated tensor of all the node-level representations. Still, it will smooth and lose information over the graph -- a recursive hierarchical pooling can make more sense, or add a virtual node, connected to all other nodes in the graph, and use its representation as the overall graph representation.*
 
 ### Pre-neural approaches
 
@@ -110,17 +113,17 @@ The node **centrality** measures the node importance in the graph. It can be com
 
 **Edge-level** features complement the representation with more detailed information about the connectedness of the nodes, and include the **shortest distance** between two nodes, their **common neighbours**, and their **Katz index** (which is the number of possible walks of up to a certain length between two nodes - it can be computed directly from the adjacency matrix).
 
-**Graph level features** contain high-level information about graph similiarity and specificities. Total **graphlet counts**, though computationally expensive, provide information about the shape of sub-graphs. **Kernel methods** measure similarity between graphs through different "bag of nodes" method (similar to bag of words).
+**Graph level features** contain high-level information about graph similarity and specificities. Total **graphlet counts**, though computationally expensive, provide information about the shape of sub-graphs. **Kernel methods** measure similarity between graphs through different "bag of nodes" methods (similar to bag of words).
 
 ### Walk-based approaches
 
-[**Walk-based approaches**](https://en.wikipedia.org/wiki/Random_walk) use the probability of visiting a node j from a node i on a random walk to define similarity metrics; these approaches combine both local and global information. [**Node2Vec**](https://snap.stanford.edu/node2vec/), for example, simulates random walks between nodes of a graph, then processes these walks with a skip-gram, [much like we would do with words in sentences](https://arxiv.org/abs/1301.3781), to compute embeddings. These approaches can also be used to [accelerate computations](https://arxiv.org/abs/1208.3071) of the [**Page Rank method**](http://infolab.stanford.edu/pub/papers/google.pdf), which assign an importance score to each node (based on its connectivity to other nodes, evaluated as its frequency of visit by random walk, for example).
+[**Walk-based approaches**](https://en.wikipedia.org/wiki/Random_walk) use the probability of visiting a node j from a node i on a random walk to define similarity metrics; these approaches combine both local and global information. [**Node2Vec**](https://snap.stanford.edu/node2vec/), for example, simulates random walks between nodes of a graph, then processes these walks with a skip-gram, [much like we would do with words in sentences](https://arxiv.org/abs/1301.3781), to compute embeddings. These approaches can also be used to [accelerate computations](https://arxiv.org/abs/1208.3071) of the [**Page Rank method**](http://infolab.stanford.edu/pub/papers/google.pdf), which assigns an importance score to each node (based on its connectivity to other nodes, evaluated as its frequency of visit by random walk, for example).
 
 However, these methods have limits: they cannot obtain embeddings for new nodes, do not capture structural similarity between nodes finely, and cannot use added features.
 
 ## Graph Neural Networks
 
-Neural networks can (hopefully) generalise to unseen data. What should a good neural network be, to work on graphs, given the representation constraints we evoked earlier?
+Neural networks can generalize to unseen data. Given the representation constraints we evoked earlier, what should a good neural network be to work on graphs?
 
 It should:
 
