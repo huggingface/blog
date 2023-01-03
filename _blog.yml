@@ -1599,7 +1599,8 @@
 - local: intro-graphml
   title: "Introduction to Graph Machine Learning"
   author: clefourrier
-  date: December 23, 2022
+  thumbnail: /blog/assets/125_intro-to-graphml/thumbnail.png
+  date: January 3, 2023
   tags:
     - guide
     - graphs
