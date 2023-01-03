@@ -154,7 +154,7 @@ At each new layer, the node representation includes more and more nodes.
 
 A node, through the first layer, is the aggregation of its direct neighbours. Through the second layer, it is still the aggregation of its direct neighbours, but this time, their representations now include their own neighbours (from the first layer). After n layers, the representation of all nodes becomes an aggregation of all their neighbours at distance n, therefore, of the full graph, if its diameter is smaller than n! 
 
-If your network had too many layers, there is therefore a risk that each node becomes an aggregation of the full graph (and that node representations converge to the same one for all nodes). This is called **the oversmoothing problem**.
+If your network has too many layers, there is a risk that each node becomes an aggregation of the full graph (and that node representations converge to the same one for all nodes). This is called **the oversmoothing problem**
 
 This can be solved by :
 
