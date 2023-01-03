@@ -213,3 +213,7 @@ For more datasets, see:
 - [SNAP datasets: Stanford Large Network Dataset Collection](https://snap.stanford.edu/data/):
 - [MoleculeNet datasets](https://moleculenet.org/datasets-1)
 - [Relational datasets repository](https://relational.fit.cvut.cz/)
+
+
+# External images attribution
+Emojis in the thumbnail come from Openmoji (CC-BY-SA 4.0), the Graphlets figure comes from *Biological network comparison using graphlet degree distribution* (Pržulj, 2007). 
