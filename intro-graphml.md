@@ -32,7 +32,7 @@ We first study what graphs are, why they are used, and how best to represent the
 
 In its essence, a graph is a description of items linked by relations.
 
-Examples of graphs include social networks (Twitter, Mastodon, any citation networks linking papers and authors), molecules, knowledge graphs (such as UML diagrams, encyclopedias, any website with hyperlinks between its pages), sentences expressed as their syntactic trees, any 3D mesh, and more! It is therefore not hyperbolic to say that graphs are everywhere.
+Examples of graphs include social networks (Twitter, Mastodon, any citation networks linking papers and authors), molecules, knowledge graphs (such as UML diagrams, encyclopedias, and any website with hyperlinks between its pages), sentences expressed as their syntactic trees, any 3D mesh, and more! It is, therefore, not hyperbolic to say that graphs are everywhere.
 
 The items of a graph (or network) are called its *nodes* (or vertices), and their connections its *edges* (or links). For example, in a social network, nodes are users, and edges their connections; in a molecule, nodes are atoms and edges their molecular bond.
 
