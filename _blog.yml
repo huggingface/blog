@@ -1616,3 +1616,13 @@
     - stable-diffusion
     - guide
     - game-dev
+
+- local: intro-graphml
+  title: "Introduction to Graph Machine Learning"
+  author: clefourrier
+  thumbnail: /blog/assets/125_intro-to-graphml/thumbnail.png
+  date: January 3, 2023
+  tags:
+    - community
+    - guide
+    - graphs
