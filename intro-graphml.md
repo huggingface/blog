@@ -195,7 +195,7 @@ If you want to delve deeper, you can look at some of these courses:
 - Books
     - [Graph Representation Learning*, Hamilton](https://www.cs.mcgill.ca/~wlh/grl_book/)
 
-Nice librairies to work on graphs are [PyGeometric](https://pytorch-geometric.readthedocs.io/en/latest/) (for graph ML) and [NetworkX](https://networkx.org/) (to manipulate graphs more generally).
+Nice libraries to work on graphs are [PyGeometric](https://pytorch-geometric.readthedocs.io/en/latest/) (for graph ML) and [NetworkX](https://networkx.org/) (to manipulate graphs more generally).
 
 If you need quality benchmarks you can check out:
 
