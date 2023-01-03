@@ -167,7 +167,7 @@ The oversmoothing problem is an important area of study in graph ML, as it preve
 
 ## Graph Transformers
 
-A Transformer without its positional encoding layer is permutation invariant, and Transformers are known to scale well, so recently, people have started looking at adapting Transformers to graphs ([Survey)](https://github.com/ChandlerBang/awesome-graph-transformer). Most methods focus on the best ways to represent graphs, by looking for the best features and best ways to represent positional information, and changing the attention to fit this new data.
+A Transformer without its positional encoding layer is permutation invariant, and Transformers are known to scale well, so recently, people have started looking at adapting Transformers to graphs ([Survey)](https://github.com/ChandlerBang/awesome-graph-transformer). Most methods focus on the best ways to represent graphs by looking for the best features and best ways to represent positional information and changing the attention to fit this new data.
 
 Here are some interesting methods which got state-of-the-art results or close on one of the hardest available benchmarks as of writing, [Stanford's Open Graph Benchmark](https://ogb.stanford.edu/):
 
