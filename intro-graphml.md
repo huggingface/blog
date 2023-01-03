@@ -36,7 +36,7 @@ Examples of graphs include social networks (Twitter, Mastodon, any citation netw
 
 The items of a graph (or network) are called its *nodes* (or vertices), and their connections its *edges* (or links). For example, in a social network, nodes are users and edges their connections; in a molecule, nodes are atoms and edges their molecular bond.
 
-* A graph with either typed nodes or typed edges is called **heterogeneous** (ex: citation networks with nodes that can be either papers or authors, or XML diagram where relations are typed); it cannot be represented solely through its topology, it needs additional information. This post focuses on homogeneous graphs. 
+* A graph with either typed nodes or typed edges is called **heterogeneous** (example: citation networks with items that can be either papers or authors have typed nodes, and XML diagram where relations are typed have typed edges). It cannot be represented solely through its topology, it needs additional information. This post focuses on homogeneous graphs. 
 * A graph can also be **directed** (like a follower network, where A follows B does not imply B follows A) or **undirected** (like a molecule, where the relation between atoms goes both ways). Edges can connect different nodes or one node to itself (self-edges), but not all nodes need to be connected.
 
 If you want to use your data, you must first consider its best characterisation (homogeneous/heterogeneous, directed/undirected, and so on).
