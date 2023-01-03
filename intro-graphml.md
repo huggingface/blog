@@ -66,7 +66,7 @@ When you want to predict the evolution of a specific graph, you work in a **tran
 The common ways to represent a graph to process and operate it are either:
 
 * as the set of all its edges (possibly complemented with the set of all its nodes)
-* or as the adjacency matrix between all its nodes. An adjacency matrix is a square matrix (of node size * node size) that indicates which nodes are directly connected to which others (where $A_{ij} = 1$ if $n\_i$ and $n\_j$ are connected, else 0). *Note: most graphs are not densely connected and therefore have sparse adjacency matrices, which can make computations harder.*
+* or as the adjacency matrix between all its nodes. An adjacency matrix is a square matrix (of node size * node size) that indicates which nodes are directly connected to which others (where \(A_{ij} = 1\) if \(n_i\) and \(n_j\) are connected, else 0). *Note: most graphs are not densely connected and therefore have sparse adjacency matrices, which can make computations harder.*
 
 However, though these representations seem familiar, do not be fooled!
 
@@ -128,7 +128,7 @@ It should:
 
 - be permutation invariant:
     - Equation: \\(f(P(G))=f(G)\\) with f the network, P the permutation function, G the graph
-    - Explanation: the representation of a graph and its permutations should be the same after going through the network)
+    - Explanation: the representation of a graph and its permutations should be the same after going through the network
 - be permutation equivariant
     - Equation: \\(P(f(G))=f(P(G))\\) with f the network, P the permutation function, G the graph
     - Explanation: permuting the nodes before passing them to the network should be equivalent to permuting their representations
