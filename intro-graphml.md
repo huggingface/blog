@@ -22,7 +22,7 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
     </a>
 </div>
 
-In this blog post, we cover basics of graph machine learning. 
+In this blog post, we cover the basics of graph machine learning. 
 
 We first study what graphs are, why they are used, and how best to represent them. We then cover briefly how people learn on graphs, from pre-neural methods (exploring graph features at the same time) to what are commonly called Graph Neural Networks. Lastly, we peek into the world of Transformers for graphs.
 
