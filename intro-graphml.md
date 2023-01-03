@@ -39,7 +39,7 @@ The items of a graph (or network) are called its *nodes* (or vertices), and thei
 * A graph with either typed nodes or typed edges is called **heterogeneous** (ex: citation networks with nodes that can be either papers or authors, or XML diagram where relations are typed); it cannot be represented solely through its topology, it needs additional information. This post focuses on homogeneous graphs. 
 * A graph can also be **directed** (like a follower network, where A follows B does not imply B follows A) or **undirected** (like a molecule, where the relation between atoms goes both ways). Edges can connect different nodes or one node to itself (self-edges), but not all nodes need to be connected.
 
-If you want to use your data, you must first consider its best characterization (homogeneous/heterogeneous, directed/undirected, and so on).
+If you want to use your data, you must first consider its best characterisation (homogeneous/heterogeneous, directed/undirected, and so on).
 
 ### What are graphs used for?
 
@@ -49,13 +49,13 @@ At the **graph level**, the main tasks are:
 
 - graph generation, used in drug discovery to generate new plausible molecules,
 - graph evolution (given a graph, predict how it will evolve over time), used in physics to predict the evolution of systems
-- graph level prediction (categorization or regression tasks from graphs), such as predicting the toxicity of molecules.
+- graph level prediction (categorisation or regression tasks from graphs), such as predicting the toxicity of molecules.
 
 At the **node level**, it's usually a node property prediction. For example, [Alphafold](https://www.deepmind.com/blog/alphafold-a-solution-to-a-50-year-old-grand-challenge-in-biology) uses node property prediction to predict the 3D coordinates of atoms given the overall graph of the molecule, and therefore predict how molecules get folded in 3D space, a hard bio-chemistry problem.
 
 At the **edge level**, it's either edge property prediction or missing edge prediction. Edge property prediction helps drug side effect prediction predict adverse side effects given a pair of drugs. Missing edge prediction is used in recommendation systems to predict whether two nodes in a graph are related.
 
-It is also possible to work at the **sub-graph level** on community detection or subgraph property prediction. Social networks use community detection to determine how people are connected. Subgraph property prediction can be found in itinerary systems (such as [Google Maps](https://www.deepmind.com/blog/traffic-prediction-with-advanced-graph-neural-networks)) to predict ETAs.
+It is also possible to work at the **sub-graph level** on community detection or subgraph property prediction. Social networks use community detection to determine how people are connected. Subgraph property prediction can be found in itinerary systems (such as [Google Maps](https://www.deepmind.com/blog/traffic-prediction-with-advanced-graph-neural-networks)) to predict estimated times of arrival.
 
 Working on these tasks can be done in two ways. 
 
@@ -87,12 +87,12 @@ This is not the case for a graph: if you shuffle its edge list or the columns of
   <img src="/assets/124_intro-graphml/graph.png" width="30%" />
   <img src="/assets/124_intro-graphml/graph_adjacency.png" width="30%" /> 
   <img src="/assets/124_intro-graphml/graph_adjacency_shuffled.png" width="30%" /> 
-  <figcaption>On the left, a small graph (nodes in yellow, edges in orange). In the center, its adjacency matrix, with columns and rows ordered in the alphabetical node order: on the row for node A (first row), we can read that it is connected to E and C. On the right, a shuffled adjacency matrix (the columns are no longer sorted alphabetically), which is also a valid representation of the graph: A is still connected to E and C.</figcaption>
+  <figcaption>On the left, a small graph (nodes in yellow, edges in orange). In the centre, its adjacency matrix, with columns and rows ordered in the alphabetical node order: on the row for node A (first row), we can read that it is connected to E and C. On the right, a shuffled adjacency matrix (the columns are no longer sorted alphabetically), which is also a valid representation of the graph: A is still connected to E and C.</figcaption>
 </figure>
 
 ## Graph representations through ML
 
-The usual process to work on graphs with machine learning is to, first, generate a meaningful representation for your items of interest (which can be nodes, edges, or full graphs depending on your task), then, use these to train a predictor for your studied task. We want (as in other modalities) to constrain the mathematical representations of your objects so that similar objects are mathematically close. However, similarity is hard to define strictly in graph ML: for example, are two nodes more similar when they have the same labels or the same neighbours?
+The usual process to work on graphs with machine learning is first to generate a meaningful representation for your items of interest (nodes, edges, or full graphs depending on your task), then to use these to train a predictor for your target task. We want (as in other modalities) to constrain the mathematical representations of your objects so that similar objects are mathematically close. However, this similarity is hard to define strictly in graph ML: for example, are two nodes more similar when they have the same labels or the same neighbours?
 
 Note: *In the following sections, we will focus on generating node representations. 
 Once you have node-level representations, it is possible to obtain edge or graph-level information. For edge-level information, you can concatenate node pair representations or do a dot product. For graph-level information, it is possible to do a global pooling (average, sum, etc.) on the concatenated tensor of all the node-level representations. Still, it will smooth and lose information over the graph -- a recursive hierarchical pooling can make more sense, or add a virtual node, connected to all other nodes in the graph, and use its representation as the overall graph representation.*
@@ -101,11 +101,11 @@ Once you have node-level representations, it is possible to obtain edge or graph
 
 #### Simply using engineered features
 
-Pre-neural networks, graphs and their items of interests could be represented as combination of features, in a task specific fashion. Now, these features are still used for data augmentation and [semi-supervised learning](https://arxiv.org/abs/2202.08871), though [more complex feature generation methods](https://arxiv.org/abs/2208.11973) exist; it can be important to find how best to provide them to your network depending on your task. 
+Before neural networks, graphs and their items of interest could be represented as combinations of features, in a task-specific fashion. Now, these features are still used for data augmentation and [semi-supervised learning](https://arxiv.org/abs/2202.08871), though [more complex feature generation methods](https://arxiv.org/abs/2208.11973) exist; it can be essential to find how best to provide them to your network depending on your task. 
 
 **Node-level** features can give information about importance (how important is this node for the graph?) and/or structure based (what is the shape of the graph around the node?), and can be combined.
 
-The node **centrality** measures the node importance in the graph. It can be computed recursively by summing the centrality of each node’s neighbours until convergence, or through shortest distance measures between nodes, for example. The node **degree** is the quantity of direct neighbours it has. The **clustering coefficient** measures how connected the node neighbours are. **Graphlets degree vectors** count how many different graphlets are rooted at a given node, where graphlets are all the mini graphs you can create with a given number of connected nodes (with 3 connected nodes, you can have a line with 2 edges, or a triangle with 3 edges).
+The node **centrality** measures the node importance in the graph. It can be computed recursively by summing the centrality of each node’s neighbours until convergence, or through shortest distance measures between nodes, for example. The node **degree** is the quantity of direct neighbours it has. The **clustering coefficient** measures how connected the node neighbours are. **Graphlets degree vectors** count how many different graphlets are rooted at a given node, where graphlets are all the mini graphs you can create with a given number of connected nodes (with three connected nodes, you can have a line with two edges, or a triangle with three edges).
 
 ![Graphlets list for 2 to 5 connected nodes](assets/124_intro-graphml/graphlets.png)
 
@@ -123,7 +123,7 @@ However, these methods have limits: they cannot obtain embeddings for new nodes,
 
 ## Graph Neural Networks
 
-Neural networks can generalize to unseen data. Given the representation constraints we evoked earlier, what should a good neural network be to work on graphs?
+Neural networks can generalise to unseen data. Given the representation constraints we evoked earlier, what should a good neural network be to work on graphs?
 
 It should:
 
@@ -147,7 +147,7 @@ There are many ways to aggregate messages from neighbour nodes, summing, averagi
 - [Graph Convolutional Networks](https://tkipf.github.io/graph-convolutional-networks/) averages the normalised representation of the neighbours for a node (most GNNs are actually GCNs);
 - [Graph Attention Networks](https://petar-v.com/GAT/) learn to weigh the different neighbours based on their importance (like transformers);
 - [GraphSAGE](https://snap.stanford.edu/graphsage/) samples neighbours at different hops before aggregating their information in several steps with max pooling.
-- [Graph Isomorphism Networks](https://arxiv.org/pdf/1810.00826v3.pdf) aggregates representation by applying an MLP to the sum of the neighbours node representations.
+- [Graph Isomorphism Networks](https://arxiv.org/pdf/1810.00826v3.pdf) aggregates representation by applying an MLP to the sum of the neighbours' node representations.
 
 **Choosing an aggregation**: Some aggregation techniques (notably mean/max pooling) can encounter failure cases when creating representations which finely differentiate nodes with different neighbourhoods of similar nodes (ex: through mean pooling, a neighbourhood with 4 nodes, represented as 1,1,-1,-1, averaged as 0, is not going to be different from one with only 3 nodes represented as -1, 0, 1).
 
@@ -155,7 +155,7 @@ There are many ways to aggregate messages from neighbour nodes, summing, averagi
 
 At each new layer, the node representation includes more and more nodes. 
 
-A node, through the first layer, is the aggregation of its direct neighbours. Through the second layer, it is still the aggregation of its direct neighbours, but this time, their representations now include their own neighbours (from the first layer). After n layers, the representation of all nodes becomes an aggregation of all their neighbours at distance n, therefore, of the full graph, if its diameter is smaller than n! 
+A node, through the first layer, is the aggregation of its direct neighbours. Through the second layer, it is still the aggregation of its direct neighbours, but this time, their representations include their own neighbours (from the first layer). After n layers, the representation of all nodes becomes an aggregation of all their neighbours at distance n, therefore, of the full graph if its diameter is smaller than n! 
 
 If your network has too many layers, there is a risk that each node becomes an aggregation of the full graph (and that node representations converge to the same one for all nodes). This is called **the oversmoothing problem**
 
@@ -182,7 +182,7 @@ Here are some interesting methods which got state-of-the-art results or close on
 
 The most recent approach is [*Pure Transformers are Powerful Graph Learners*](https://arxiv.org/abs/2207.02505) (Kim et al, 2022), which introduced **TokenGT**. This method represents input graphs as a sequence of node and edge embeddings (augmented with orthonormal node identifiers and trainable type identifiers), with no positional embedding, and provides this sequence to Transformers as input. It is extremely simple, yet smart!
 
-A bit different, [*Recipe for a General, Powerful, Scalable Graph Transformer*](https://arxiv.org/abs/2205.12454) (Rampášek et al, 2022) introduces, not a model, but a framework, called **GraphGPS**. It allows to combine message passing networks with linear (long range) transformers to create hybrid networks easily. This framework also contains several tools to compute positional and structral encodings (node, graph, edge level), feature augmentation, random walks, etc.
+A bit different, [*Recipe for a General, Powerful, Scalable Graph Transformer*](https://arxiv.org/abs/2205.12454) (Rampášek et al, 2022) introduces, not a model, but a framework, called **GraphGPS**. It allows to combine message passing networks with linear (long range) transformers to create hybrid networks easily. This framework also contains several tools to compute positional and structural encodings (node, graph, edge level), feature augmentation, random walks, etc.
 
 Using transformers for graphs is still very much a field in its infancy, but it looks promising, as it could alleviate several limitations of GNNs, such as scaling to larger/denser graphs, or increasing model size without oversmoothing.
 
@@ -205,7 +205,7 @@ If you need quality benchmarks you can check out:
 - [OGB, the Open Graph Benchmark](https://ogb.stanford.edu/): the reference graph benchmark datasets, for different tasks and data scales.
 - [Benchmarking GNNs](https://github.com/graphdeeplearning/benchmarking-gnns): Library and datasets to benchmark graph ML networks and their expressivity. The associated paper notably studies which datasets are relevant from a statistical standpoint, what graph properties they allow to evaluate, and which datasets should no longer be used as benchmarks.
 - [Long Range Graph Benchmark](https://github.com/vijaydwivedi75/lrgb): recent (Nov2022) benchmark looking at long range graph information
-- [Taxonomy of Benchmarks in Graph Representation Learning](https://openreview.net/pdf?id=EM-Z3QFj8n): paper published at the 2022 Learning on Graphs conference, which analyzes and sort existing benchmarks datasets
+- [Taxonomy of Benchmarks in Graph Representation Learning](https://openreview.net/pdf?id=EM-Z3QFj8n): paper published at the 2022 Learning on Graphs conference, which analyses and sort existing benchmarks datasets
 
 For more datasets, see:
 
