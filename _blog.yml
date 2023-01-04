@@ -1545,6 +1545,7 @@
     - rl
     - guide
 
+
 - local: habana-gaudi-2-benchmark
   title: "Faster Training and Inference: Habana Gaudi®2 vs Nvidia A100 80GB"
   author: regisss
@@ -1564,14 +1565,68 @@
     - audio
 
 - local: ethics-soc-2
-  title: "Ethics and Society Newsletter #2"
+  title: "Ethics and Society Newsletter #2: Let's talk about bias!"
   author: yjernite
   thumbnail: /blog/assets/122_ethics_soc_2/thumbnail-solstice.png
   date: Dec 15, 2022
   tags:
     - ethics
 
-- local: image-similarity
+- local: model-cards
+  title: "Model Cards: Introducing HF Model documentation tools"
+  author: Ezi
+  thumbnail: /blog/assets/121_model-cards/thumbnail.png
+  date: December 20, 2022
+  tags:
+    - community
+    - research
+    - ethics
+    - guide
+
+  
+- local: clipseg-zero-shot
+  title: "Zero-shot image segmentation with CLIPSeg"
+  author: segments-tobias
+  thumbnail: /blog/assets/123_clipseg-zero-shot/thumb.png
+  date: December 21, 2022
+  tags:
+    - guide
+    - partnerships
+    - cv
+    - clip
+
+- local: intel-sapphire-rapids
+  title: "Accelerating PyTorch Transformers with Intel Sapphire Rapids, part 1"
+  author: juliensimon
+  thumbnail: /blog/assets/124_intel_sapphire_rapids/02.png
+  date: January 2, 2023
+  tags:
+    - guide
+    - intel
+    - hardware
+
+- local: ml-for-games-1
+  title: "AI for Game Development: Creating a Farming Game in 5 Days. Part 1"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail.png
+  date: January 2, 2023
+  tags:
+    - community
+    - stable-diffusion
+    - guide
+    - game-dev
+
+- local: intro-graphml
+  title: "Introduction to Graph Machine Learning"
+  author: clefourrier
+  thumbnail: /blog/assets/125_intro-to-graphml/thumbnail.png
+  date: January 3, 2023
+  tags:
+    - community
+    - guide
+    - graphs
+
+- local: intro-graphml
   title: "Building an Image Similarity System with 🤗 Datasets and Transformers"
   author: sayakpaul
   thumbnail: /blog/assets/image_similarity/thumbnail.png

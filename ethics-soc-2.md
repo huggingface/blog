@@ -1,9 +1,9 @@
 ---
-title: "Ethics and Society Newsletter #2" 
+title: "Let's talk about biases in machine learning! Ethics and Society Newsletter #2" 
 thumbnail: /blog/assets/122_ethics_soc_2/thumbnail-solstice.png
 ---
 
-# Ethics and Society Newsletter #2
+# Machine Learning in development: Let's talk about bias!
 
 <div class="blog-metadata">
     <small>Published December 15, 2022.</small>
@@ -21,9 +21,6 @@ thumbnail: /blog/assets/122_ethics_soc_2/thumbnail-solstice.png
         </div>
     </a>
 </div>
-
-
-## Let’s Talk about Bias!
 
 _Bias in ML is ubiquitous, and Bias in ML is complex; so complex in fact that no single technical intervention is likely to meaningfully address the problems it engenders. ML models, as sociotechnical systems, amplify social trends that may exacerbate inequities and harmful biases in ways that depend on their deployment context and are constantly evolving._
 
@@ -290,3 +287,22 @@ Summary of linked tools:
 Thanks for reading! 🤗
 
 ~ Yacine, on behalf of the Ethics and Society regulars
+    
+If you want to cite this blog post, please use the following:
+```
+@inproceedings{hf_ethics_soc_blog_2,
+  author    = {Yacine Jernite and
+               Alexandra Sasha Luccioni and
+               Irene Solaiman and
+               Giada Pistilli and
+               Nathan Lambert and
+               Ezi Ozoani and
+               Brigitte Toussignant and
+               Margaret Mitchell},
+  title     = {Hugging Face Ethics and Society Newsletter 2: Let's Talk about Bias!},
+  booktitle = {Hugging Face Blog},
+  year      = {2022},
+  url       = {https://doi.org/10.57967/hf/0214},
+  doi       = {10.57967/hf/0214}
+}
+```

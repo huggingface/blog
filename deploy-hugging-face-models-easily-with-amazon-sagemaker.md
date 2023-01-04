@@ -280,7 +280,7 @@ You can find the complete [Frequently Asked Questions](https://huggingface.co/do
 _Q: Which models can I deploy for Inference?_
 
 A: You can deploy:
-* any 🤗 Transformers model trained in Amazon SageMaker, or other compatible platforms and that can accomodate the SageMaker Hosting design
+* any 🤗 Transformers model trained in Amazon SageMaker, or other compatible platforms and that can accommodate the SageMaker Hosting design
 * any of the 10,000+ publicly available Transformer models from the Hugging Face[ Model Hub](https://huggingface.co/models), or
 * your private models hosted in your Hugging Face premium account!
 
