@@ -151,41 +151,53 @@ extract_fn = extract_embeddings(model.to(device))
 candidate_subset_emb = candidate_subset.map(extract_fn, batched=True, batch_size=batch_size)
 ```
 
-Next, for convenience, we create a dictionary mapping the identifiers of the candidate images and their embeddings we just computed. This dictionary will come in handy when performing retrievals.
+Next, for convenience, we create a list containing the identifiers of the candidate images.
 
 ```py
-id_embeddings = {}
+candidate_ids = []
 
 for id in tqdm(range(len(candidate_subset_emb))):
-    embeddings, label = (
-        candidate_subset_emb[id]["embeddings"],
-        candidate_subset_emb[id]["labels"],
-    )
+    label = candidate_subset_emb[id]["labels"]
 
     # Create a unique indentifier.
     entry = str(id) + "_" + str(label)
 
-    id_embeddings.update({entry: embeddings})
+    candidate_ids.append(entry)
 ```
 
-We can now code up another utility to fetch the candidates images matching a query image:
+We'll use the matrix of the embeddings of all the candidate images for computing the similarity scores with a query image. We have already computed the candidate image embeddings. In the next cell, we just gather them together in a matrix.
 
 ```py
-def fetch_similar(image: PIL.Image, top_k: int = 5):
-    """Fetches the `top_k` similar images with `image` as the query."""
-    similarity_mapping = {}
+all_candidate_embeddings = np.array(candidate_subset_emb["embeddings"])
+all_candidate_embeddings = torch.from_numpy(all_candidate_embeddings)
+```
 
+We'll use [cosine similarity](https://en.wikipedia.org/wiki/Cosine_similarity) to compute the similarity score in between two embedding vectors. We'll then use it to fetch similar candidate samples given a query sample.
+
+```py
+def compute_scores(emb_one, emb_two):
+    """Computes cosine similarity between two vectors."""
+    scores = torch.nn.functional.cosine_similarity(emb_one, emb_two)
+    return scores.numpy().tolist()
+
+
+def fetch_similar(image, top_k=5):
+    """Fetches the `top_k` similar images with `image` as the query."""
+    # Prepare the input query image for embedding computation.
     image_transformed = transformation_chain(image).unsqueeze(0)
     new_batch = {"pixel_values": image_transformed.to(device)}
 
+    # Comute the embedding.
     with torch.no_grad():
         query_embeddings = model(**new_batch).last_hidden_state[:, 0].cpu()
 
-    for id_entry in id_embeddings:
-        candidate_embeddings = torch.tensor(id_embeddings[id_entry]).unsqueeze(0)
-        sim_score = compute_scores(candidate_embeddings, query_embeddings)
-        similarity_mapping.update({id_entry: sim_score})
-
+    # Compute similarity scores with all the candidate images at one go.
+    # We also create a mapping between the candidate image identifiers
+    # and their similarity scores with the query image.
+    sim_scores = compute_scores(all_candidate_embeddings, query_embeddings)
+    similarity_mapping = dict(zip(candidate_ids, sim_scores))
+ 
+    # Sort the mapping dictionary and return `top_k` candidates.
     similarity_mapping_sorted = dict(
         sorted(similarity_mapping.items(), key=lambda x: x[1], reverse=True)
     )
@@ -195,12 +207,6 @@ def fetch_similar(image: PIL.Image, top_k: int = 5):
     labels = list(map(lambda x: int(x.split("_")[-1]), id_entries))
     return ids, labels
 ```
-
-In the above utility,
-
-* `id_embeddings` is the dictionary we created a little while ago mapping the candidate image identifiers to their
-embeddings. 
-* `compute_scores()` is a utility that computes similarity scores between the two embedding vectors. One use `torch.nn.functional.cosine_similarity()` here. 
 
 ## Perform a query
 
