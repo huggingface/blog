@@ -49,7 +49,7 @@ To build this system, we first need to define how we want to compute the similar
 For this post, we'll be using “embeddings” to represent images in vector space. This gives us a nice way to meaningfully compress the high-dimensional pixel space of images (224 x 224 x 3, for example) to something much lower dimensional (768, for example). The primary advantage of doing this is the reduced computation time in the subsequent steps.
 
 <div align="center">
-<img src="assets/image_similarity/embeddings.png" width=700/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/image_similarity/embeddings.png" width=700/>
 </div>
 
 ## Computing embeddings
@@ -98,7 +98,7 @@ dataset = load_dataset("beans")
 This is how a single sample from the training split looks like:
 
 <div align="center">
-    <img src="assets/image_similarity/beans.png" width=600/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/image_similarity/beans.png" width=600/>
 </div>
 
 The dataset has got three columns / features:
@@ -114,7 +114,7 @@ The dataset has got three columns / features:
 Below, you can find a pictorial overview of the process underlying fetching similar images. 
 
 <div align="center">
-    <img src="assets/image_similarity/fetch-similar-process.png">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/delete/main/blog/image_similarity/fetch-similar-process.png">
 </div>
 
 Breaking down the above figure a bit, we have:
@@ -227,7 +227,7 @@ Top 5 candidate labels: [0, 0, 0, 0, 0]
 Seems like our system got the right set of similar images. When visualized, we'd get:
 
 <div align="center">
-<img src="assets/image_similarity/results_one.png">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/image_similarity/results_one.png">
 </div>
 
 ## Further extensions and conclusions
