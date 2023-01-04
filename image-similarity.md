@@ -8,7 +8,7 @@ thumbnail: /blog/assets/image_similarity/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published December 59, 3047.</small> <!-- TODO -->
+    <small>Published January 12, 2023.</small> 
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/image-similarity.md">
         Update on GitHub
     </a>
@@ -269,4 +269,10 @@ Finally, you can try out the following Space that builds a mini image similarity
 </div>
 </div>
 
-We hope you'll build on top of the several components of similarity systems we discussed in the post today. 
+WIn this post, we ran through a quickstart for building image similarity systems. If you found this post interesting, we highly recommend building on top of the concepts we discussed here so you can get more comfortable with the inner workings.
+
+Still looking to learn more? Here are some additional resources that might be useful for you:
+
+* [Faiss: A library for efficient similarity search](https://engineering.fb.com/2017/03/29/data-infrastructure/faiss-a-library-for-efficient-similarity-search/)
+* [ScaNN: Efficient Vector Similarity Search](http://ai.googleblog.com/2020/07/announcing-scann-efficient-vector.html)
+* [Integrating Image Searchers within Mobile Applications](https://www.tensorflow.org/lite/inference_with_metadata/task_library/image_searcher)
