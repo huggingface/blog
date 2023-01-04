@@ -114,7 +114,7 @@ The dataset has got three columns / features:
 Below, you can find a pictorial overview of the process underlying fetching similar images. 
 
 <div align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/delete/main/blog/image_similarity/fetch-similar-process.png">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/image_similarity/fetch-similar-process.png">
 </div>
 
 Breaking down the above figure a bit, we have:
@@ -255,7 +255,9 @@ dataset_with_embeddings.add_faiss_index(column="embeddings")
 Once the index is built, `dataset_with_embeddings` can be used to retrieve the nearest examples given query embeddings with [`get_nearest_examples()`](https://huggingface.co/docs/datasets/v2.7.1/en/package_reference/main_classes#datasets.Dataset.get_nearest_examples):
 
 ```py
-scores, retrieved_examples = dataset_with_embeddings.get_nearest_examples("embeddings", qi_embedding, k=top_k)
+scores, retrieved_examples = dataset_with_embeddings.get_nearest_examples(
+    "embeddings", qi_embedding, k=top_k
+)
 ```
 
 The method returns scores and corresponding candidate examples. To know more, you can check out the [official documentation](https://huggingface.co/docs/datasets/faiss_es) and [this notebook](https://colab.research.google.com/gist/sayakpaul/5b5b5a9deabd3c5d8cb5ef8c7b4bb536/image_similarity_faiss.ipynb).
