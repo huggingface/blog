@@ -12,15 +12,43 @@ thumbnail: /blog/assets/126_paddlepaddle/thumbnail.png
     </a>
 </div>
 
-We are happy to share an open-source partnership between HuggingFace and [PaddlePaddle](https://www.paddlepaddle.org.cn/en), the most popular Chinese Deep Learning platform in the world’s most populous country!
+We are happy to share an open-source partnership between HuggingFace and [PaddlePaddle](https://www.paddlepaddle.org.cn/en) on a shared mission to advance and democratize AI through open source!
 
-First open-sourced by Baidu in 2016, PaddlePaddle enables developers of all skill levels to adopt and implement Deep Learning at scale. As of Q2 2022, PaddlePaddle is being used by more than 4.77 million developers and 180,000 enterprises, ranking first in terms of market share among Deep Learning platforms in China. 
+First open-sourced by Baidu in 2016, PaddlePaddle enables developers of all skill levels to adopt and implement Deep Learning at scale. As of Q2 2022, PaddlePaddle is being used by more than 4.77 million developers and 180,000 enterprises, ranking first in terms of market share among Deep Learning platforms in China. PaddlePaddle features popular open source repositories such as the [Paddle](https://github.com/PaddlePaddle/Paddle) Deep Learning Framework, model libraries across different modalities (e.g. [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR), [PaddleDetection](https://github.com/PaddlePaddle/PaddleDetection), [PaddleNLP](https://github.com/PaddlePaddle/PaddleNLP), [PaddleSpeech](https://github.com/PaddlePaddle/PaddleSpeech)), [PaddleSlim](https://github.com/PaddlePaddle/PaddleSlim) for model compression, [FastDeploy](https://github.com/PaddlePaddle/FastDeploy) for model deployment and many more.
 
-With [PaddleNLP]()
+With [PaddleNLP](https://huggingface.co/docs/hub/paddlenlp) leading the way, PaddlePaddle libraries will gradually integrate with the HuggingFace Hub. You will soon be able to play with the full suite of awesome pre-trained PaddlePaddle models across Image, Text, Audio, Video and Cross-Modal on the Hub!
+
+## Finding PaddlePaddle Models
+
+Currently, you can find over X models can be found in the [PaddlePaddle](https://huggingface.co/PaddlePaddle) org. On top of this, you can find all PaddlePaddle models on the Model Hub by with the [PaddlePaddle library tag](https://huggingface.co/models?library=paddlepaddle). As an example, you can find our cross-modal multilingual multi-task information extraction model [UIE-X](https://huggingface.co/PaddlePaddle/uie-x-base) and the State-of-the-Art Chinese [ERNIE Tiny 3.0 model series](https://huggingface.co/PaddlePaddle/ernie-3.0-nano-zh) .
+
+## Inference API and Widgets
+
+PaddlePaddle models are available through the [Inference API](https://huggingface.co/docs/hub/models-inference), which you can access through HTTP with cURL, Python’s requests library, or your preferred method for making network requests.
+
+![inference_api](assets/126_paddlepaddle/inference_api.png)
+
+Models that supports a [task](https://huggingface.co/tasks) are equipped with an interactive widget that allows you to play with the modle directly in the browser.
+
+![widget](assets/126_paddlepaddle/widget.png)
 
 
+## Using Existing Models
 
-Hugging Face makes it really easy to share your spaCy pipelines with the community! With a single command, you can upload any pipeline package, with a pretty model card and all required metadata auto-generated for you. The inference API currently supports NER out-of-the-box, and you can try out your pipeline interactively in your browser. You'll also get a live URL for your package that you can `pip install` from anywhere for a smooth path from prototype all the way to production!
-1. PaddlePaddle加入HF生态，共建开源社区. 然后PP简介(大部分人没听过PP)
-2. 由PaddleNLP打头，PP将会逐步融入HF生态。画个饼提一下PP其他比较大的库例如PaddleOCR, PaddleDet, 但是不需要有实质工作.
-3. 当前PaddleNLP兼容HF后的使用体验和介绍，包括Model Hub, Inference API, Space. 再介绍一下Paddle明显模型
+If you want to see how to load a specific model, you can click `Use in paddlenlp` (or other PaddlePaddle libraries in the future) and you will be given a working snippet that you can load it!
+
+![snippet](assets/126_paddlepaddle/snippet.png)
+
+## Sharing Models
+
+Depending on the PaddlePaddle library, you may be able to share your models by pushing to the Hub. For example, you can share PaddleNLP models by using the `save_to_hf_hub` method.
+
+```python
+from paddlenlp.transformers import AutoTokenizer, AutoModelForMaskedLM
+
+tokenizer = AutoTokenizer.from_pretrained("PaddlePaddle/ernie-1.0-base-zh", from_hf_hub=True)
+model = AutoModelForMaskedLM.from_pretrained("PaddlePaddle/ernie-1.0-base-zh", from_hf_hub=True)
+
+tokenizer.save_to_hf_hub(repo_id="<my_org_name>/<my_repo_name>")
+model.save_to_hf_hub(repo_id="<my_org_name>/<my_repo_name>")
+```
