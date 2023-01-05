@@ -280,7 +280,7 @@ The method returns scores and corresponding candidate examples. To know more, yo
 
 Finally, you can try out the following Space that builds a mini image similarity application:
 
-<div class="hidden xl:block">
+<!-- <div class="hidden xl:block">
 <div style="display: flex; flex-direction: column; align-items: center;">
 <iframe
 	src="https://sayakpaul-fetch-similar-images.hf.space"
@@ -291,7 +291,11 @@ Finally, you can try out the following Space that builds a mini image similarity
     sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"
 ></iframe>
 </div>
-</div>
+</div> -->
+
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.12.0/gradio.js"></script>
+
+<gradio-app space="sayakpaul/fetch-similar-images"></gradio-app>
 
 In this post, we ran through a quickstart for building image similarity systems. If you found this post interesting, we highly recommend building on top of the concepts we discussed here so you can get more comfortable with the inner workings.
 
