@@ -277,7 +277,7 @@ Finally, you can try out the following Space that builds a mini image similarity
 </div>
 </div>
 
-WIn this post, we ran through a quickstart for building image similarity systems. If you found this post interesting, we highly recommend building on top of the concepts we discussed here so you can get more comfortable with the inner workings.
+In this post, we ran through a quickstart for building image similarity systems. If you found this post interesting, we highly recommend building on top of the concepts we discussed here so you can get more comfortable with the inner workings.
 
 Still looking to learn more? Here are some additional resources that might be useful for you:
 
