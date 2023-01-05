@@ -1627,7 +1627,7 @@
     - graphs
 
 - local: image-similarity
-  title: "Building an Image Similarity System with 🤗 Datasets and Transformers"
+  title: "Image Similarity with Hugging Face Datasets and Transformers"
   author: sayakpaul
   thumbnail: /blog/assets/image_similarity/thumbnail.png
   date: Jan 12, 2023

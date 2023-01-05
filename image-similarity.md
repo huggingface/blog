@@ -1,10 +1,10 @@
 ---
-title: Building an Image Similarity System with 🤗 Datasets and Transformers
+title: Image Similarity with Hugging Face Datasets and Transformers
 thumbnail: /blog/assets/image_similarity/thumbnail.png
 ---
 
 <h1>
-  Building an Image Similarity System with 🤗 Datasets and Transformers
+  Image Similarity with Hugging Face Datasets and Transformers
 </h1>
 
 <div class="blog-metadata">
