@@ -1626,7 +1626,7 @@
     - guide
     - graphs
 
-- local: intro-graphml
+- local: image-similarity
   title: "Building an Image Similarity System with 🤗 Datasets and Transformers"
   author: sayakpaul
   thumbnail: /blog/assets/image_similarity/thumbnail.png
