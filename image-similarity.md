@@ -103,10 +103,20 @@ This is how a single sample from the training split looks like:
 
 The dataset has three features:
 
-```bash
-{'image_file_path': Value(dtype='string', id=None),
+```py
+dataset["train"].features
+>>> {'image_file_path': Value(dtype='string', id=None),
  'image': Image(decode=True, id=None),
  'labels': ClassLabel(names=['angular_leaf_spot', 'bean_rust', 'healthy'], id=None)}
+```
+
+To demonstrate the image similarity system, we'll use 100 samples from the candidate image dataset to keep
+the overall runtime short.
+
+```py
+num_samples = 100
+seed = 42
+candidate_subset = dataset["train"].shuffle(seed=seed).select(range(num_samples))
 ```
 
 ## The process of finding similar images
@@ -127,12 +137,17 @@ Breaking down the above figure a bit, we have:
 We can write a simple utility and `map()` it to our dataset of candidate images to compute the embeddings efficiently. 
 
 ```py
+import torch 
+
 def extract_embeddings(model: torch.nn.Module):
     """Utility to compute embeddings."""
     device = model.device
 
     def pp(batch):
         images = batch["image"]
+        # `transformation_chain` is a compostion of preprocessing
+        # transformations we apply to the input images to prepare them
+        # for the model. For more details, check out the accompanying Colab Notebook.
         image_batch_transformed = torch.stack(
             [transformation_chain(image) for image in images]
         )
@@ -147,6 +162,7 @@ def extract_embeddings(model: torch.nn.Module):
 And we can map `extract_embeddings()` like so:
 
 ```py
+device = "cuda" if torch.cuda.is_available() else "cpu"
 extract_fn = extract_embeddings(model.to(device))
 candidate_subset_emb = candidate_subset.map(extract_fn, batched=True, batch_size=batch_size)
 ```
