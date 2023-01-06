@@ -25,7 +25,9 @@ First open-sourced by Baidu in 2016, PaddlePaddle enables developers of all skil
 
 You can find all PaddlePaddle models on the Model Hub by with the [PaddlePaddle library tag](https://huggingface.co/models?library=paddlepaddle). 
 
-![paddle_tag](assets/126_paddlepaddle/paddle_tag.png)
+<p align="center">
+  <img src="assets/126_paddlepaddle/paddle_tag.png" alt="PaddlePaddle Tag"/>
+</p>
 
 There is already over 60 PaddlePaddle models on the Hub. As an example, you can find our multi-task Information Extraction model series [UIE](https://huggingface.co/PaddlePaddle/uie-base), State-of-the-Art Chinese Language Model [ERNIE 3.0 model series](https://huggingface.co/PaddlePaddle/ernie-3.0-nano-zh), Document Understanding Model [Ernie-Layout](PaddlePaddle/ernie-layoutx-base-uncased) and so on.
 
