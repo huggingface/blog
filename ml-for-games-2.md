@@ -81,15 +81,11 @@ ChatGPT often sounds very convincing, while being wrong. Here is an [archive of 
   <img src="/blog/assets/124_ml-for-games/quaternion.png" alt="ChatGPT Quaternion Explanation">
 </figure>
 
-If I didn't already know that quaternions are a lot more painfully complicated than this, I would probably think this answer is correct. This is a great example of why ChatGPT, while very useful, probably shouldn't be used as a knowledge base.
+This explanation, while sounding excellent, is completely wrong. This is a great example of why ChatGPT, while very useful, shouldn't be used as a definitive knowledge base.
 
 #### Suggestions
 
-So if ChatGPT fails a lot, should you just not use it? I would argue that it's still extremely useful, just more so as a tool than a replacement.
-
-In the example of Game Design, I could have followed up on ChatGPT's answer, and asked it to implement all of its suggested game mechanics for me. That might work *somewhat*, but maybe not very well. My suggestion is to instead use ChatGPT to help develop ideas, somewhat like brainstorming ideas with someone.
-
-Or just have it make an entire game for you. I won't stop you. And it would probably make a pretty good video.
+If ChatGPT fails a lot, should you use it? I would argue that it's still extremely useful as a tool, rather than as a replacement. In the example of Game Design, I could have followed up on ChatGPT's answer, and asked it to implement all of its suggestions for me. As I mentioned before, [others have done this](https://www.youtube.com/watch?v=YDWvAqKLTLg&ab_channel=AAlex), and it somewhat works. However, I would suggest using ChatGPT more as a tool for brainstorming and acceleration, rather than as a complete replacement for steps in the development process.
 
 In the next part, we'll be using **AI for 3D Assets**.
 
