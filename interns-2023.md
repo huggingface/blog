@@ -52,7 +52,6 @@ The following Science team positions are available:
 * [OCR Internship](https://apply.workable.com/huggingface/j/CFDB7592D8/), incorporating textual information directly into multimodal models.
 * [Video Pretraining Internship](https://apply.workable.com/huggingface/j/16CC3BDDC9/), exploring pretraining for the video modality.
 * [Embodied AI Internship](https://apply.workable.com/huggingface/j/B3CDE6C150/), working with the Embodied AI team on reinforcement learning in simulators.
-* [Distribution Shift Internship](https://apply.workable.com/huggingface/j/B2E24DAAF1/), developing a toolkit for detecting and measuring distribution shift in datasets.
 
 The following other internship positions are available:
 
