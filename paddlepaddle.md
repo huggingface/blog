@@ -41,7 +41,7 @@ You can find all PaddlePaddle models on the Model Hub by with the [PaddlePaddle 
 
 There is already over 60 PaddlePaddle models on the Hub. As an example, you can find our multi-task Information Extraction model series [UIE](https://huggingface.co/PaddlePaddle/uie-base), State-of-the-Art Chinese Language Model [ERNIE 3.0 model series](https://huggingface.co/PaddlePaddle/ernie-3.0-nano-zh), Document Understanding Model [Ernie-Layout](PaddlePaddle/ernie-layoutx-base-uncased) and so on.
 
-You are also welcome to check out the [PaddlePaddle](https://huggingface.co/PaddlePaddle) org on the HuggingFace Hub. In additional to the above-mentioned models, you can also explore our Spaces, including our text-to-image [ERNIE-ViLG](https://huggingface.co/spaces/PaddlePaddle/ERNIE-ViLG), cross-modal Information Extraction engine [UIE-X](https://huggingface.co/spaces/PaddlePaddle/UIE-X) and awesome multilingual OCR toolkit [PaddleOCR](https://huggingface.co/spaces/PaddlePaddle/PaddleOCR).
+You are also welcome to check out the [PaddlePaddle](https://huggingface.co/PaddlePaddle) org on the HuggingFace Hub. In additional to the above-mentioned models, you can also explore our Spaces, including our text-to-image [Ernie-ViLG](https://huggingface.co/spaces/PaddlePaddle/ERNIE-ViLG), cross-modal Information Extraction engine [UIE-X](https://huggingface.co/spaces/PaddlePaddle/UIE-X) and awesome multilingual OCR toolkit [PaddleOCR](https://huggingface.co/spaces/PaddlePaddle/PaddleOCR).
 
 
 ## Inference API and Widgets
