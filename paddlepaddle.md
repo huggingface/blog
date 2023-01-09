@@ -12,6 +12,16 @@ thumbnail: /blog/assets/126_paddlepaddle/thumbnail.png
     </a>
 </div>
 
+<div class="author-card">
+    <a href="/PaddlePaddle">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1654942635336-5f3ff69679c1ba4c353d0c5a.png?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>PaddlePaddle</code>
+            <span class="fullname">PaddlePaddle</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+        </div>
+    </a>
+</div>
 
 We are happy to share an open-source partnership between HuggingFace and [PaddlePaddle](https://www.paddlepaddle.org.cn/en) on a shared mission to advance and democratize AI through open source!
 
@@ -58,8 +68,8 @@ Depending on the PaddlePaddle library, you may be able to share your models by p
 ```python
 from paddlenlp.transformers import AutoTokenizer, AutoModelForMaskedLM
 
-tokenizer = AutoTokenizer.from_pretrained("PaddlePaddle/ernie-1.0-base-zh", from_hf_hub=True)
-model = AutoModelForMaskedLM.from_pretrained("PaddlePaddle/ernie-1.0-base-zh", from_hf_hub=True)
+tokenizer = AutoTokenizer.from_pretrained("PaddlePaddle/ernie-3.0-base-zh", from_hf_hub=True)
+model = AutoModelForMaskedLM.from_pretrained("PaddlePaddle/ernie-3.0-base-zh", from_hf_hub=True)
 
 tokenizer.save_to_hf_hub(repo_id="<my_org_name>/<my_repo_name>")
 model.save_to_hf_hub(repo_id="<my_org_name>/<my_repo_name>")
