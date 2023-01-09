@@ -1,6 +1,6 @@
 ---
 title: "Welcome PaddlePaddle to the Hugging Face Hub" 
-thumbnail: /blog/assets/126_paddlepaddle/thumbnail.png
+thumbnail: /blog/assets/126_paddlepaddle/thumbnail.jpg
 ---
 
 # Welcome PaddlePaddle to the Hugging Face Hub
