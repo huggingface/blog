@@ -1626,3 +1626,13 @@
     - community
     - guide
     - graphs
+
+  - local: ml-for-games-2
+  title: "AI for Game Development: Creating a Farming Game in 5 Days. Part 2"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail2.png
+  date: January 9, 2023
+  tags:
+    - community
+    - guide
+    - game-dev

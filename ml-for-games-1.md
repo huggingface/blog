@@ -29,8 +29,6 @@ thumbnail: /blog/assets/124_ml-for-games/thumbnail.png
 
 Want the quick video version? You can watch it [here](https://www.tiktok.com/@individualkex/video/7184106492180630827). Otherwise, if you want the technical details, keep reading!
 
-<!-- TODO: Update above link to video -->
-
 **Note:** This tutorial is intended for readers who are familiar with Unity development and C#. If you're new to these technologies, check out the [Unity for Beginners](https://www.tiktok.com/@individualkex/video/7086863567412038954?is_from_webapp=1&sender_device=pc&web_id=7043883634428052997) series before continuing.
 
 ## Day 1: Art Style
@@ -139,6 +137,4 @@ Now, how do we make this concept art into a game? We'll be using [Unity](https:/
 
 That's it! A simple but appealing scene, made in less than a day! Have questions? Want to get more involved? Join the [Hugging Face Discord](https://t.co/1n75wi976V?amp=1)!
 
-In the next part, we'll be using **AI for Game Design**.
-
-<!-- TODO: Add sneak peak once second article is available -->
+Click [here](https://huggingface.co/blog/ml-for-games-2) to read Part 2, where we use **AI for Game Design**.
