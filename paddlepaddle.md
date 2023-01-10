@@ -6,7 +6,7 @@ thumbnail: /blog/assets/126_paddlepaddle/thumbnail.jpg
 # Welcome PaddlePaddle to the Hugging Face Hub
 
 <div class="blog-metadata">
-    <small>Published TBD 2023.</small>
+    <small>Published <TBD> 2023.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/paddlepaddle.md">
         Update on GitHub
     </a>
@@ -27,7 +27,7 @@ We are happy to share an open-source partnership between HuggingFace and [Paddle
 
 First open-sourced by Baidu in 2016, PaddlePaddle enables developers of all skill levels to adopt and implement Deep Learning at scale. As of Q2 2022, PaddlePaddle is being used by more than 4.77 million developers and 180,000 enterprises, ranking first in terms of market share among Deep Learning platforms in China. PaddlePaddle features popular open source repositories such as the [Paddle](https://github.com/PaddlePaddle/Paddle) Deep Learning Framework, model libraries across different modalities (e.g. [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR), [PaddleDetection](https://github.com/PaddlePaddle/PaddleDetection), [PaddleNLP](https://github.com/PaddlePaddle/PaddleNLP), [PaddleSpeech](https://github.com/PaddlePaddle/PaddleSpeech)), [PaddleSlim](https://github.com/PaddlePaddle/PaddleSlim) for model compression, [FastDeploy](https://github.com/PaddlePaddle/FastDeploy) for model deployment and many more.
 
-<TBD: 这个里加一个全景图，或者别的介绍Paddle的图片？要不然有点干>
+<TBD: insert a image here about PaddlePaddle, or maybe the thumbnail itself?>
 
 **With [PaddleNLP](https://huggingface.co/docs/hub/paddlenlp) leading the way, PaddlePaddle libraries will gradually integrate with the HuggingFace Hub.** You will soon be able to play with the full suite of awesome pre-trained PaddlePaddle models across text, image, audio, video and multi-modalities on the Hub!
 
