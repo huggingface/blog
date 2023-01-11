@@ -42,19 +42,16 @@ The following internship positions are available in the Open Source team, alongs
 * [Accelerate Internship](https://apply.workable.com/huggingface/j/9B5436D6FA), to lead the integration of new, impactful features in the library.
 * [Skops Internship](https://apply.workable.com/huggingface/j/6E9686A620/), working at the intersection of model serving, persistence, and interpretation as well as model card generation.
 * [Diffusers Internship](https://apply.workable.com/huggingface/j/A298F8F991/), helping on distilling diffusion models for faster sampling.
-* [Evaluate Internship](https://apply.workable.com/huggingface/j/CB14259605/), helping on the backend of the library to improve its performance & focus on integrating with other libraries in the ecosystem.
 * [Speech internship](https://apply.workable.com/huggingface/j/93CDE47063/), working on efficient models for speech recognition.
 
 The following Science team positions are available:
 
 * [Code Generation Internship](https://apply.workable.com/huggingface/j/2D46459B82/), working with the BigCode team on cutting edge large language models for code.
-* [Model Forgetting Internship](https://apply.workable.com/huggingface/j/66E1B763D5/), investigating model forgetting using state of the art “unlearning” methods.
 * [Multimodal AI Internship](https://apply.workable.com/huggingface/j/C6B723A526/), working at the intersection of natural language processing and computer vision for the next generation of large multimodal models.
 * [OCR Internship](https://apply.workable.com/huggingface/j/CFDB7592D8/), incorporating textual information directly into multimodal models.
 * [Video Pretraining Internship](https://apply.workable.com/huggingface/j/16CC3BDDC9/), exploring pretraining for the video modality.
-* [Retrieval Augmentation Internship](https://apply.workable.com/huggingface/j/785DC30840/), investigating “semiparametric” retrieval augmentation methods for more consistent, more interpretable, and more efficient language models.
 * [Embodied AI Internship](https://apply.workable.com/huggingface/j/B3CDE6C150/), working with the Embodied AI team on reinforcement learning in simulators.
-* [Distribution Shift Internship](https://apply.workable.com/huggingface/j/B2E24DAAF1/), developing a toolkit for detecting and measuring distribution shift in datasets.
+* [Fast Distributed Training Framework Internship](https://apply.workable.com/huggingface/j/BEBD24C4C4/), creating a framework for flexible distributed training of large langauge models.
 
 The following other internship positions are available:
 
