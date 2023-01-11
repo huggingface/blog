@@ -76,7 +76,7 @@ But what does this mean? If you have a sentence and shuffle its words, you creat
 
 <figure class="image table text-center m-0 w-full">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/125_intro-to-graphml/assembled_hf.png" width="500" />
-  <figcaption>On the right, the Hugging Face logo - on the left, a shuffled Hugging Face logo, which is quite a different new image.</figcaption>
+  <figcaption>On the left, the Hugging Face logo - on the right, a shuffled Hugging Face logo, which is quite a different new image.</figcaption>
 </figure>
 
 
