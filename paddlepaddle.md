@@ -25,13 +25,13 @@ thumbnail: /blog/assets/126_paddlepaddle/thumbnail.jpg
 
 We are happy to share an open-source partnership between HuggingFace and [PaddlePaddle](https://www.paddlepaddle.org.cn/en) on a shared mission to advance and democratize AI through open source!
 
-First open-sourced by Baidu in 2016, PaddlePaddle enables developers of all skill levels to adopt and implement Deep Learning at scale. As of Q2 2022, PaddlePaddle is being used by more than 4.77 million developers and 180,000 enterprises, ranking first in terms of market share among Deep Learning platforms in China. PaddlePaddle features popular open source repositories such as the [Paddle](https://github.com/PaddlePaddle/Paddle) Deep Learning Framework, model libraries across different modalities (e.g. [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR), [PaddleDetection](https://github.com/PaddlePaddle/PaddleDetection), [PaddleNLP](https://github.com/PaddlePaddle/PaddleNLP), [PaddleSpeech](https://github.com/PaddlePaddle/PaddleSpeech)), [PaddleSlim](https://github.com/PaddlePaddle/PaddleSlim) for model compression, [FastDeploy](https://github.com/PaddlePaddle/FastDeploy) for model deployment and many more.
+First open-sourced by Baidu in 2016, PaddlePaddle enables developers of all skill levels to adopt and implement Deep Learning at scale. As of Q4 2022, PaddlePaddle is being used by more than 5.35 million developers and 200,000 enterprises, ranking first in terms of market share among Deep Learning platforms in China. PaddlePaddle features popular open-source repositories such as the [Paddle](https://github.com/PaddlePaddle/Paddle) Deep Learning Framework, model libraries across different modalities (e.g. [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR), [PaddleDetection](https://github.com/PaddlePaddle/PaddleDetection), [PaddleNLP](https://github.com/PaddlePaddle/PaddleNLP), [PaddleSpeech](https://github.com/PaddlePaddle/PaddleSpeech)), [PaddleSlim](https://github.com/PaddlePaddle/PaddleSlim) for model compression, [FastDeploy](https://github.com/PaddlePaddle/FastDeploy) for model deployment and many more.
 
 <TBD: insert a image here about PaddlePaddle, or maybe the thumbnail itself?>
 
 **With [PaddleNLP](https://huggingface.co/docs/hub/paddlenlp) leading the way, PaddlePaddle libraries will gradually integrate with the HuggingFace Hub.** You will soon be able to play with the full suite of awesome pre-trained PaddlePaddle models across text, image, audio, video and multi-modalities on the Hub!
 
-## Finding PaddlePaddle Models
+## Find PaddlePaddle Models
 
 You can find all PaddlePaddle models on the Model Hub by with the [PaddlePaddle library tag](https://huggingface.co/models?library=paddlepaddle). 
 
@@ -50,18 +50,18 @@ PaddlePaddle models are available through the [Inference API](https://huggingfac
 
 ![inference_api](assets/126_paddlepaddle/inference_api.png)
 
-Models that supports a [task](https://huggingface.co/tasks) are equipped with an interactive widget that allows you to play with the modle directly in the browser.
+Models that support a [task](https://huggingface.co/tasks) are equipped with an interactive widget that allows you to play with the model directly in the browser.
 
 ![widget](assets/126_paddlepaddle/widget.png)
 
 
-## Using Existing Models
+## Use Existing Models
 
-If you want to see how to load a specific model, you can click `Use in paddlenlp` (or other PaddlePaddle libraries in the future) and you will be given a working snippet that you can load it!
+If you want to see how to load a specific model, you can click `Use in paddlenlp` (or other PaddlePaddle libraries in the future) and you will be given a working snippet that to load it!
 
 ![snippet](assets/126_paddlepaddle/snippet.png)
 
-## Sharing Models
+## Share Models
 
 Depending on the PaddlePaddle library, you may be able to share your models by pushing to the Hub. For example, you can share PaddleNLP models by using the `save_to_hf_hub` method.
 
@@ -74,3 +74,7 @@ model = AutoModelForMaskedLM.from_pretrained("PaddlePaddle/ernie-3.0-base-zh", f
 tokenizer.save_to_hf_hub(repo_id="<my_org_name>/<my_repo_name>")
 model.save_to_hf_hub(repo_id="<my_org_name>/<my_repo_name>")
 ```
+
+## Conclusion
+
+PaddlePaddle is an open source Deep Learning platform that originated from industrial practice and has been open-sourcing innovative and industry-grade projects since 2016. We are excited to join the Hub to share our work with the HuggingFace community and you can expect more fun and State-of-the-Art projects from us soon! To stay up to date with the latest news, you can follow us on Twitter at [@PaddlePaddle_](https://twitter.com/PaddlePaddle_).
