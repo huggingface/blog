@@ -8,7 +8,7 @@ thumbnail: /blog/assets/image_similarity/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published January 12, 2023.</small> 
+    <small>Published January 16, 2023.</small> 
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/image-similarity.md">
         Update on GitHub
     </a>
