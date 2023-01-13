@@ -47,9 +47,6 @@ The following internship positions are available in the Open Source team, alongs
 The following Science team positions are available:
 
 * [Code Generation Internship](https://apply.workable.com/huggingface/j/2D46459B82/), working with the BigCode team on cutting edge large language models for code.
-* [Multimodal AI Internship](https://apply.workable.com/huggingface/j/C6B723A526/), working at the intersection of natural language processing and computer vision for the next generation of large multimodal models.
-* [OCR Internship](https://apply.workable.com/huggingface/j/CFDB7592D8/), incorporating textual information directly into multimodal models.
-* [Video Pretraining Internship](https://apply.workable.com/huggingface/j/16CC3BDDC9/), exploring pretraining for the video modality.
 * [Embodied AI Internship](https://apply.workable.com/huggingface/j/B3CDE6C150/), working with the Embodied AI team on reinforcement learning in simulators.
 * [Fast Distributed Training Framework Internship](https://apply.workable.com/huggingface/j/BEBD24C4C4/), creating a framework for flexible distributed training of large language models.
 
