@@ -51,7 +51,7 @@ The following Science team positions are available:
 * [OCR Internship](https://apply.workable.com/huggingface/j/CFDB7592D8/), incorporating textual information directly into multimodal models.
 * [Video Pretraining Internship](https://apply.workable.com/huggingface/j/16CC3BDDC9/), exploring pretraining for the video modality.
 * [Embodied AI Internship](https://apply.workable.com/huggingface/j/B3CDE6C150/), working with the Embodied AI team on reinforcement learning in simulators.
-* [Fast Distributed Training Framework Internship](https://apply.workable.com/huggingface/j/BEBD24C4C4/), creating a framework for flexible distributed training of large langauge models.
+* [Fast Distributed Training Framework Internship](https://apply.workable.com/huggingface/j/BEBD24C4C4/), creating a framework for flexible distributed training of large language models.
 
 The following other internship positions are available:
 
