@@ -62,7 +62,7 @@ As usual, the first step is to install all required libraries. It’s worth ment
 ```
 pip -q uninstall torch -y 
 pip -q install torch==1.11.0+cpu --extra-index-url https://download.pytorch.org/whl/cpu
-pip -q install transformers datasets optimum[intel] evaluate --upgrade
+pip -q install transformers datasets optimum[neural-compressor] evaluate --upgrade
 ```
 
 Then, we prepare an evaluation dataset to assess model performance during quantization. Starting from the dataset we used to fine-tune the original model, we only keep a few thousand reviews and their labels and save them to local storage.
@@ -70,20 +70,23 @@ Then, we prepare an evaluation dataset to assess model performance during quanti
 Next, we load the original model, its tokenizer, and the evaluation dataset from the Hugging Face hub.
 
 ```
-model_name = "juliensimon/distilbert-amazon-shoe-reviews" 
+from datasets import load_dataset
+from transformers import AutoModelForSequenceClassification, AutoTokenizer
+
+model_name = "juliensimon/distilbert-amazon-shoe-reviews"
 model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=5)
-tokenizer = AutoTokenizer.from_pretrained(model_name) 
-eval_dataset = load_from_disk("./data/amazon_shoe_reviews_test")
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+eval_dataset = load_dataset("prashantgrao/amazon-shoe-reviews", split="test").select(range(300))
 ```
 
 Next, we define an evaluation function that computes model metrics on the evaluation dataset. This allows the Optimum Intel library to compare these metrics before and after quantization. For this purpose, the Hugging Face [evaluate](https://github.com/huggingface/evaluate/) library is very convenient!
 
 ```
-from evaluate import evaluator
+import evaluate
 
-def eval_func(model): 
-    eval = evaluator("text-classification") 
-    results = eval.compute(
+def eval_func(model):
+    task_evaluator = evaluate.evaluator("text-classification")
+    results = task_evaluator.compute(
         model_or_pipeline=model,
         tokenizer=tokenizer,
         data=eval_dataset,
@@ -94,46 +97,43 @@ def eval_func(model):
     return results["accuracy"]
 ```
 
-We then set up the quantization job using a [configuration file](https://huggingface.co/juliensimon/distilbert-amazon-shoe-reviews/blob/main/quantize.yml) that we download from the Hugging Face hub. You can find details on this file in the INC [documentation](https://intel.github.io/neural-compressor/docs/tuning_strategies.html). Here, we go for post-training dynamic quantization with an acceptable accuracy drop of 3%.
+We then set up the quantization job using a [configuration]. You can find details on this configuration on the Neural Compressor [documentation](https://github.com/intel/neural-compressor/blob/master/docs/source/quantization.md). Here, we go for post-training dynamic quantization with an acceptable accuracy drop of 5%. If accuracy drops more than the allowed 5%, different part of the model will then be quantized until it an acceptable drop in accuracy or if the maximum number of trials, here set to 10, is reached.
 
 ```
-quantization:
-    approach: post_training_dynamic_quant
-tuning:
-    accuracy_criterion:
-        relative: 0.03               
-```
+from neural_compressor.config import AccuracyCriterion, PostTrainingQuantConfig, TuningCriterion
 
-Next, we create the corresponding quantization objects with the Optimum Intel API.
-
-```
-from optimum.intel.neural_compressor import IncOptimizer, IncQuantizer
-from optimum.intel.neural_compressor.configuration import IncQuantizationConfig
-
-quantization_config = IncQuantizationConfig.from_pretrained(
-    config_name_or_path="juliensimon/distilbert-amazon-shoe-reviews",
-    config_file_name="quantize.yml"
+tuning_criterion = TuningCriterion(max_trials=10)
+accuracy_criterion = AccuracyCriterion(tolerable_loss=0.05)
+# Load the quantization configuration detailing the quantization we wish to apply
+quantization_config = PostTrainingQuantConfig(
+    approach="dynamic",
+    accuracy_criterion=accuracy_criterion,
+    tuning_criterion=tuning_criterion,
 )
-inc_quantizer = IncQuantizer(quantization_config, eval_func=eval_func)
 ```
 
-We can now launch the quantization job.
+We can now launch the quantization job and save the resulting model and its configuration file to local storage.
 
 ```
-inc_optimizer = IncOptimizer(model, quantizer=inc_quantizer)
-inc_model = inc_optimizer.fit()
+from neural_compressor.config import PostTrainingQuantConfig
+from optimum.intel.neural_compressor import INCQuantizer
+
+# The directory where the quantized model will be saved
+save_dir = "./model_inc"
+quantizer = INCQuantizer.from_pretrained(model=model, eval_fn=eval_func)
+quantizer.quantize(quantization_config=quantization_config, save_directory=save_dir)
 ```
 
-The log tells us that Optimum Intel has quantized 38 ```Linear``` operators.
+The log tells us that Optimum Intel has quantized 38 ```Linear``` and 2 ```Embedding``` operators.
 
 ```
-[INFO] |*****Mixed Precision Statistics*****|
-[INFO] +--------------+-----------+---------+
-[INFO] |   Op Type    |   Total   |   INT8  |
-[INFO] +--------------+-----------+---------+
-[INFO] |    Linear    |     38    |    38   |
-[INFO] +--------------+-----------+---------+
-[INFO] Pass quantize model elapsed time: 900.74 ms
+[INFO] |******Mixed Precision Statistics*****|
+[INFO] +----------------+----------+---------+
+[INFO] |    Op Type     |  Total   |   INT8  |
+[INFO] +----------------+----------+---------+
+[INFO] |   Embedding    |    2     |    2    |
+[INFO] |     Linear     |    38    |    38   |
+[INFO] +----------------+----------+---------+
 ```
 
 Comparing the first layer of the original model (```model.distilbert.transformer.layer[0]```) and its quantized version (```inc_model.distilbert.transformer.layer[0]```), we see that ```Linear``` has indeed been replaced by ```DynamicQuantizedLinear```, its quantized equivalent.
@@ -182,35 +182,25 @@ TransformerBlock(
 
 Very well, but how does this impact accuracy and prediction time?
 
-Before and after each quantization step, Optimum Intel runs the evaluation function on the current model. Interestingly, the accuracy of the quantized model is now a bit higher (```0.6906```) than the original model (```0.6893```). Indeed, quantization can make models more robust and less prone to over-fitting, and help increase accuracy. Likewise, we see that the quantized model predicts the evaluation set 13% faster than the original model. Not bad for a few lines of code! 
+Before and after each quantization step, Optimum Intel runs the evaluation function on the current model. The accuracy of the quantized model is now a bit lower  (``` 0.546```) than the original model (```0.574```). We also see that the evaluation step of the quantized model was 1.34x faster than the original model. Not bad for a few lines of code!
 
 ```
-[INFO] |***********************Tune Result Statistics**********************|
-[INFO] +--------------------+-----------+---------------+------------------+
-[INFO] |     Info Type      |  Baseline | Tune 1 result | Best tune result |
-[INFO] +--------------------+-----------+---------------+------------------+
-[INFO] |      Accuracy      |  0.6893   |    0.6906     |     0.6906       |
-[INFO] | Duration (seconds) | 106.3149  |    92.4634    |     92.4634      |
-[INFO] +--------------------+-----------+---------------+------------------+
+[INFO] |**********************Tune Result Statistics**********************|
+[INFO] +--------------------+----------+---------------+------------------+
+[INFO] |     Info Type      | Baseline | Tune 1 result | Best tune result |
+[INFO] +--------------------+----------+---------------+------------------+
+[INFO] |      Accuracy      | 0.5740   |    0.5460     |     0.5460       |
+[INFO] | Duration (seconds) | 13.1534  |    9.7695     |     9.7695       |
+[INFO] +--------------------+----------+---------------+------------------+
 ```
 
-Accuracy didn’t drop, and Optimum Intel stopped the quantization job after the first step. Had accuracy dropped more than the allowed 3%, Optimum Intel would have tried to quantize different parts of the models until it would have reached an acceptable drop, or the maximum number of trials.
+You can find the resulting [model](https://huggingface.co/juliensimon/distilbert-amazon-shoe-reviews-quantized) hosted on the Hugging Face hub. To load a quantized model hosted locally or on the 🤗 hub, you can do as follows :
 
-Finally, we save the model and its configuration file to local storage.
-
-```
-model_dir = "./model_inc"
-inc_optimizer.save_pretrained(model_dir)
-```
-
-Once we’ve created a new [repository](https://huggingface.co/juliensimon/distilbert-amazon-shoe-reviews-quantized) on the Hugging Face hub and pushed the quantized model to it, we can load it in the usual way.
 
 ```
-from optimum.intel.neural_compressor.quantization import IncQuantizedModelForSequenceClassification
+from optimum.intel.neural_compressor import INCModelForSequenceClassification
 
-inc_model = IncQuantizedModelForSequenceClassification.from_pretrained(
-    "juliensimon/distilbert-amazon-shoe-reviews-quantized"
-)
+inc_model = INCModelForSequenceClassification.from_pretrained(save_dir)
 ```
 
 ## We’re only getting started
