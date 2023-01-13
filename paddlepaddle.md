@@ -23,7 +23,7 @@ thumbnail: /blog/assets/126_paddlepaddle/thumbnail.jpg
     </a>
 </div>
 
-We are happy to share an open-source partnership between HuggingFace and [PaddlePaddle](https://www.paddlepaddle.org.cn/en) on a shared mission to advance and democratize AI through open source!
+We are happy to share an open-source collaboration between Hugging Face and [PaddlePaddle](https://www.paddlepaddle.org.cn/en) on a shared mission to advance and democratize AI through open source!
 
 First open-sourced by Baidu in 2016, PaddlePaddle enables developers of all skill levels to adopt and implement Deep Learning at scale. As of Q4 2022, PaddlePaddle is being used by more than 5.35 million developers and 200,000 enterprises, ranking first in terms of market share among Deep Learning platforms in China. PaddlePaddle features popular open-source repositories such as the [Paddle](https://github.com/PaddlePaddle/Paddle) Deep Learning Framework, model libraries across different modalities (e.g. [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR), [PaddleDetection](https://github.com/PaddlePaddle/PaddleDetection), [PaddleNLP](https://github.com/PaddlePaddle/PaddleNLP), [PaddleSpeech](https://github.com/PaddlePaddle/PaddleSpeech)), [PaddleSlim](https://github.com/PaddlePaddle/PaddleSlim) for model compression, [FastDeploy](https://github.com/PaddlePaddle/FastDeploy) for model deployment and many more.
 
@@ -33,7 +33,7 @@ First open-sourced by Baidu in 2016, PaddlePaddle enables developers of all skil
 
 ## Find PaddlePaddle Models
 
-You can find all PaddlePaddle models on the Model Hub by with the [PaddlePaddle library tag](https://huggingface.co/models?library=paddlepaddle). 
+You can find all PaddlePaddle models on the Model Hub by filtering with the [PaddlePaddle library tag](https://huggingface.co/models?library=paddlepaddle). 
 
 <p align="center">
   <img src="assets/126_paddlepaddle/paddle_tag.png" alt="PaddlePaddle Tag"/>
