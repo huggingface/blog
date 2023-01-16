@@ -74,18 +74,21 @@ Graphs are very different from typical objects used in ML because their topology
 
 But what does this mean? If you have a sentence and shuffle its words, you create a new sentence. If you have an image and rearrange its columns, you create a new image. 
 
+<div align="center">
 <figure class="image table text-center m-0 w-full">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/125_intro-to-graphml/assembled_hf.png" width="500" />
-  <figcaption>On the right, the Hugging Face logo - on the left, a shuffled Hugging Face logo, which is quite a different new image.</figcaption>
+  <figcaption>On the left, the Hugging Face logo - on the right, a shuffled Hugging Face logo, which is quite a different new image.</figcaption>
 </figure>
-
+</div>
 
 This is not the case for a graph: if you shuffle its edge list or the columns of its adjacency matrix, it is still the same graph. (We explain this more formally a bit lower, look for permutation invariance).
 
+<div align="center">
 <figure class="image table text-center m-0 w-full">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/125_intro-to-graphml/assembled_graphs.png" width="1000" />
   <figcaption>On the left, a small graph (nodes in yellow, edges in orange). In the centre, its adjacency matrix, with columns and rows ordered in the alphabetical node order: on the row for node A (first row), we can read that it is connected to E and C. On the right, a shuffled adjacency matrix (the columns are no longer sorted alphabetically), which is also a valid representation of the graph: A is still connected to E and C.</figcaption>
 </figure>
+</div>
 
 ## Graph representations through ML
 
@@ -104,11 +107,12 @@ Before neural networks, graphs and their items of interest could be represented 
 
 The node **centrality** measures the node importance in the graph. It can be computed recursively by summing the centrality of each node’s neighbours until convergence, or through shortest distance measures between nodes, for example. The node **degree** is the quantity of direct neighbours it has. The **clustering coefficient** measures how connected the node neighbours are. **Graphlets degree vectors** count how many different graphlets are rooted at a given node, where graphlets are all the mini graphs you can create with a given number of connected nodes (with three connected nodes, you can have a line with two edges, or a triangle with three edges).
 
-
+<div align="center">
 <figure class="image table text-center m-0 w-full">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/125_intro-to-graphml/graphlets.png" width="700" />
   <figcaption>The 2-to 5-node graphlets (Pržulj, 2007)</figcaption>
 </figure>
+</div>
 
 **Edge-level** features complement the representation with more detailed information about the connectedness of the nodes, and include the **shortest distance** between two nodes, their **common neighbours**, and their **Katz index** (which is the number of possible walks of up to a certain length between two nodes - it can be computed directly from the adjacency matrix).
 
@@ -196,8 +200,12 @@ If you want to delve deeper, you can look at some of these courses:
     - [Geometric Deep Learning course](https://www.youtube.com/playlist?list=PLn2-dEmQeTfSLXW8yXP4q_Ii58wFdxb3C)
 - Books
     - [Graph Representation Learning*, Hamilton](https://www.cs.mcgill.ca/~wlh/grl_book/)
+- Surveys
+    - [Graph Neural Networks Study Guide](https://github.com/dair-ai/GNNs-Recipe)
+- Research directions
+    - [GraphML in 2023](https://towardsdatascience.com/graph-ml-in-2023-the-state-of-affairs-1ba920cb9232) summarizes plausible interesting directions for GraphML in 2023.
 
-Nice libraries to work on graphs are [PyGeometric](https://pytorch-geometric.readthedocs.io/en/latest/) (for graph ML) and [NetworkX](https://networkx.org/) (to manipulate graphs more generally).
+Nice libraries to work on graphs are [PyGeometric](https://pytorch-geometric.readthedocs.io/en/latest/) or the [Deep Graph Library](https://www.dgl.ai/) (for graph ML) and [NetworkX](https://networkx.org/) (to manipulate graphs more generally).
 
 If you need quality benchmarks you can check out:
 
