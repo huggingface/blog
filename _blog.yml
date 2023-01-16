@@ -1626,3 +1626,13 @@
     - community
     - guide
     - graphs
+
+- local: graphml-classification
+  title: "Graph Classification with Transformers"
+  author: clefourrier
+  thumbnail: /blog/assets/126_graphml-classification/thumbnail.png
+  date: January 30, 2023
+  tags:
+    - community
+    - guide
+    - graphs
