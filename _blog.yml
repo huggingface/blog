@@ -1626,3 +1626,13 @@
     - community
     - guide
     - graphs
+
+- local: paddlepaddle
+  title: "Welcome PaddlePaddle to the Hugging Face Hub"
+  author: paddlepaddle
+  guest: true
+  thumbnail: /blog/assets/126_paddlepaddle/thumbnail.jpg
+  date: January 17, 2023
+  tags:
+    - open-source-collab
+    - nlp

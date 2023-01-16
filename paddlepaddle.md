@@ -6,7 +6,7 @@ thumbnail: /blog/assets/126_paddlepaddle/thumbnail.jpg
 # Welcome PaddlePaddle to the Hugging Face Hub
 
 <div class="blog-metadata">
-    <small>Published <TBD> 2023.</small>
+    <small>Published January 17, 2023.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/paddlepaddle.md">
         Update on GitHub
     </a>
@@ -29,7 +29,7 @@ First open-sourced by Baidu in 2016, PaddlePaddle enables developers of all skil
 
 ![thumbnail](assets/126_paddlepaddle/thumbnail.jpg)
 
-**With [PaddleNLP](https://huggingface.co/docs/hub/paddlenlp) leading the way, PaddlePaddle libraries will gradually integrate with the HuggingFace Hub.** You will soon be able to play with the full suite of awesome pre-trained PaddlePaddle models across text, image, audio, video and multi-modalities on the Hub!
+**With [PaddleNLP](https://huggingface.co/docs/hub/paddlenlp) leading the way, PaddlePaddle will gradually integrate its libraries with the Hugging Face Hub.** You will soon be able to play with the full suite of awesome pre-trained PaddlePaddle models across text, image, audio, video and multi-modalities on the Hub!
 
 ## Find PaddlePaddle Models
 
