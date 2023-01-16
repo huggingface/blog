@@ -23,9 +23,9 @@ thumbnail: /blog/assets/126_paddlepaddle/thumbnail.jpg
     </a>
 </div>
 
-We are happy to share an open-source collaboration between Hugging Face and [PaddlePaddle](https://www.paddlepaddle.org.cn/en) on a shared mission to advance and democratize AI through open source!
+We are happy to share an open source collaboration between Hugging Face and [PaddlePaddle](https://www.paddlepaddle.org.cn/en) on a shared mission to advance and democratize AI through open source!
 
-First open-sourced by Baidu in 2016, PaddlePaddle enables developers of all skill levels to adopt and implement Deep Learning at scale. As of Q4 2022, PaddlePaddle is being used by more than 5.35 million developers and 200,000 enterprises, ranking first in terms of market share among Deep Learning platforms in China. PaddlePaddle features popular open-source repositories such as the [Paddle](https://github.com/PaddlePaddle/Paddle) Deep Learning Framework, model libraries across different modalities (e.g. [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR), [PaddleDetection](https://github.com/PaddlePaddle/PaddleDetection), [PaddleNLP](https://github.com/PaddlePaddle/PaddleNLP), [PaddleSpeech](https://github.com/PaddlePaddle/PaddleSpeech)), [PaddleSlim](https://github.com/PaddlePaddle/PaddleSlim) for model compression, [FastDeploy](https://github.com/PaddlePaddle/FastDeploy) for model deployment and many more.
+First open sourced by Baidu in 2016, PaddlePaddle enables developers of all skill levels to adopt and implement Deep Learning at scale. As of Q4 2022, PaddlePaddle is being used by more than 5.35 million developers and 200,000 enterprises, ranking first in terms of market share among Deep Learning platforms in China. PaddlePaddle features popular open source repositories such as the [Paddle](https://github.com/PaddlePaddle/Paddle) Deep Learning Framework, model libraries across different modalities (e.g. [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR), [PaddleDetection](https://github.com/PaddlePaddle/PaddleDetection), [PaddleNLP](https://github.com/PaddlePaddle/PaddleNLP), [PaddleSpeech](https://github.com/PaddlePaddle/PaddleSpeech)), [PaddleSlim](https://github.com/PaddlePaddle/PaddleSlim) for model compression, [FastDeploy](https://github.com/PaddlePaddle/FastDeploy) for model deployment and many more.
 
 ![thumbnail](assets/126_paddlepaddle/thumbnail.jpg)
 
@@ -39,7 +39,7 @@ You can find all PaddlePaddle models on the Model Hub by filtering with the [Pad
   <img src="assets/126_paddlepaddle/paddle_tag.png" alt="PaddlePaddle Tag"/>
 </p>
 
-There is already over [Numbers TBD] PaddlePaddle models on the Hub. As an example, you can find our multi-task Information Extraction model series [UIE](https://huggingface.co/PaddlePaddle/uie-base), State-of-the-Art Chinese Language Model [ERNIE 3.0 model series](https://huggingface.co/PaddlePaddle/ernie-3.0-nano-zh), novel document pre-training model [Ernie-Layout](PaddlePaddle/ernie-layoutx-base-uncased) with layout knowledge enhancement in the whole workflow and so on.
+There is already over 75 PaddlePaddle models on the Hub. As an example, you can find our multi-task Information Extraction model series [UIE](https://huggingface.co/PaddlePaddle/uie-base), State-of-the-Art Chinese Language Model [ERNIE 3.0 model series](https://huggingface.co/PaddlePaddle/ernie-3.0-nano-zh), novel document pre-training model [Ernie-Layout](PaddlePaddle/ernie-layoutx-base-uncased) with layout knowledge enhancement in the whole workflow and so on.
 
 You are also welcome to check out the [PaddlePaddle](https://huggingface.co/PaddlePaddle) org on the HuggingFace Hub. In additional to the above-mentioned models, you can also explore our Spaces, including our text-to-image [Ernie-ViLG](https://huggingface.co/spaces/PaddlePaddle/ERNIE-ViLG), cross-modal Information Extraction engine [UIE-X](https://huggingface.co/spaces/PaddlePaddle/UIE-X) and awesome multilingual OCR toolkit [PaddleOCR](https://huggingface.co/spaces/PaddlePaddle/PaddleOCR).
 
