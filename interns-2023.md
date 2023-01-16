@@ -49,7 +49,7 @@ The following Science team positions are available:
 * [Code Generation Internship](https://apply.workable.com/huggingface/j/2D46459B82/), working with the BigCode team on cutting edge large language models for code.
 * [Embodied AI Internship](https://apply.workable.com/huggingface/j/B3CDE6C150/), working with the Embodied AI team on reinforcement learning in simulators.
 * [Fast Distributed Training Framework Internship](https://apply.workable.com/huggingface/j/BEBD24C4C4/), creating a framework for flexible distributed training of large language models.
-* [Datasets for LLMs Internship](https://apply.workable.com/huggingface/j/4A6EA3243C/), building datasets to train the net generation of large language models, and the assorted tools.
+* [Datasets for LLMs Internship](https://apply.workable.com/huggingface/j/4A6EA3243C/), building datasets to train the next generation of large language models, and the assorted tools.
 
 The following other internship positions are available:
 
