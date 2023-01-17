@@ -770,7 +770,7 @@ for item_id, ts in enumerate(test_dataset):
 
 
 ```python
-print(f"MASE: {np.mean(metric)}")
+print(f"MASE: {np.mean(mase_metrics)}")
 
 >>> MASE: 1.361636922541396
 
