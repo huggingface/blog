@@ -7,7 +7,7 @@ thumbnail: /blog/assets/125_intro-to-graphml/thumbnail_classification.png
 
 <div class="blog-metadata">
     <small>Published January 30, 2023.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/intro-graphml.md">
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/graphml-classification.md">
         Update on GitHub
     </a>
 </div>
@@ -22,18 +22,18 @@ thumbnail: /blog/assets/125_intro-to-graphml/thumbnail_classification.png
     </a>
 </div>
 
-In the previous [blog](https://huggingface.co/blog/intro-graphml), we explored some of the theoretical aspects of machine learning on graphs. In this one, we will explore how you can do graph classification using the Transformers library.
+In the previous [blog](https://huggingface.co/blog/intro-graphml), we explored some of the theoretical aspects of machine learning on graphs. This one will explore how you can do graph classification using the Transformers library.
 
-At the moment, the only graph transformer model available in Transformers is Microsoft's Graphormer, so this is the one we will use here. We are looking forward to see what other models people will use and integrate :hugging_face:
+At the moment, the only graph transformer model available in Transformers is Microsoft's Graphormer, so this is the one we will use here. We are looking forward to seeing what other models people will use and integrate :hugging_face:
 
 ## Requirements
 To follow this tutorial, you need to have installed `datasets` and `transformers` (version >= **TODO**).
 
 ## Data
-To use graph data, you can either start from your own datasets, or use [those available on the hub][https://huggingface.co/graphs-datasets). We'll focus on using already available ones, but feel free to add your own datasets!
+To use graph data, you can either start from your own datasets, or use [those available on the Hub][https://huggingface.co/graphs-datasets). We'll focus on using already available ones, but feel free to add your datasets!
 
 ### Format
-On the hub, graph datasets are mostly stored as lists of graphs (using the `jsonl` format). 
+On the Hub, graph datasets are mostly stored as lists of graphs (using the `jsonl` format). 
 
 A single graph is a dictionnary, and here is the expected format for our graph classification datasets:
 - `edge_index` 
@@ -56,7 +56,7 @@ A single graph is a dictionnary, and here is the expected format for our graph c
 	- This contains the available attributes (if present) for each edge of the graph, following the `edge_index` ordering.
 
 ### Loading
-Loading a graph dataset from the hub is very easy. Let's load the `ogbg-mohiv` dataset (a baseline from the Open Graph Benchmark by Stanford), stored in the `graphs-datasets` repository: 
+Loading a graph dataset from the Hub is very easy. Let's load the `ogbg-mohiv` dataset (a baseline from the Open Graph Benchmark by Stanford), stored in the `graphs-datasets` repository: 
 
 ```python
 from datasets import load_dataset
@@ -91,8 +91,8 @@ nx.draw(G)
 ```
 
 ### Preprocessing
-Graph transformer frameworks usually apply specific preprocessing to their datasets, to generate added features and properties which help learning.
-Here, we use the Graphormer's default preprocessing, which generates in/out degree information, shortest path between nodes matrices, and other properties of interest for the model. 
+Graph transformer frameworks usually apply specific preprocessing to their datasets to generate added features and properties which help learning.
+Here, we use Graphormer's default preprocessing, which generates in/out degree information, the shortest path between node matrices, and other properties of interest for the model. 
  
 ```python
 from transformers.models.graphormer.collating_graphormer import preprocess_item, GraphormerDataCollator
@@ -117,10 +117,10 @@ model = GraphormerForGraphClassification.from_pretrained(
 )
 ```
 
-It is also possible to create a new randomly initialized model to train from scratch, either following the known parameters of a given checkpoint, or by manually choosing them.
+It is also possible to create a new randomly initialized model to train from scratch either following the known parameters of a given checkpoint or by manually choosing them.
 
 ### Training or fine-tuning
-For graph datasets, it is particularly important to play around with batch sizes and gradient accumulation steps, to train on enough samples, while avoiding out of memory errors.
+For graph datasets, it is particularly important to play around with batch sizes and gradient accumulation steps to train on enough samples while avoiding out-of-memory errors.
 ```python
 from transformers import TrainingArguments, Trainer
 
@@ -152,4 +152,4 @@ As this model is quite big, it takes about a day to train/fine-tune for 20 epoch
 
 
 ## Ending note
-Now that you know how to use `transformers` to train a graph classification model, we hope you will try to share your favorite graph transformer checkpoints, models and datasets on the hub for the rest of the community to use!
+Now that you know how to use `transformers` to train a graph classification model, we hope you will try to share your favorite graph transformer checkpoints, models, and datasets on the Hub for the rest of the community to use!
