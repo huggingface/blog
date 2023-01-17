@@ -35,7 +35,7 @@ Want the quick video version? You can watch it [here](https://www.tiktok.com/@in
 
 ## Day 2: Game Design
 
-In [Part 1](https://huggingface.co/blog/ml-for-games-1) of this tutorial series, we used **AI for Art Style**. More specifically, we used Stable Diffiusion to generate concept art and develop the visual style of our game.
+In [Part 1](https://huggingface.co/blog/ml-for-games-1) of this tutorial series, we used **AI for Art Style**. More specifically, we used Stable Diffusion to generate concept art and develop the visual style of our game.
 
 In this part, we'll be using AI for Game Design. In [The Short Version](#the-short-version), I'll talk about how I used ChatGPT as a tool to help develop game ideas. But more importantly, what is actually going on here? Keep reading for background on [Language Models](#language-models) and their broader [Uses in Game Development](#uses-in-game-development).
 
