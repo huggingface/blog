@@ -1634,6 +1634,7 @@
     - community
     - guide
     - game-dev
+
 - local: image-similarity
   title: "Image Similarity with Hugging Face Datasets and Transformers"
   author: sayakpaul
@@ -1642,3 +1643,13 @@
   tags:
     - guide
     - cv
+
+- local: paddlepaddle
+  title: "Welcome PaddlePaddle to the Hugging Face Hub"
+  author: paddlepaddle
+  guest: true
+  thumbnail: /blog/assets/126_paddlepaddle/thumbnail.jpg
+  date: January 17, 2023
+  tags:
+    - open-source-collab
+    - nlp
