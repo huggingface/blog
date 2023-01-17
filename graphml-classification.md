@@ -105,7 +105,7 @@ It is also possible to apply this preprocessing on the fly, in the DataCollator'
 ## Training or fine-tuning
 
 ### Creating a model
-Here, we load an existing pretrained model/checkpoint and to fine-tune it on our downstream task, a binary classification task (hence `num_classes = 2`). 
+Here, we load an existing pretrained model/checkpoint and fine-tune it on our downstream task, which is a binary classification task (hence `num_classes = 2`). We could also fine-tune our model on regression tasks (`num_classes = 1`) or on multi-task classification.
 ```python
 from transformers import GraphormerForGraphClassification
 
@@ -117,7 +117,7 @@ model = GraphormerForGraphClassification.from_pretrained(
 )
 ```
 
-It is also possible to create a new randomly initialized model to train from scratch either following the known parameters of a given checkpoint or by manually choosing them.
+It is also possible to create a new randomly initialized model to train from scratch, either following the known parameters of a given checkpoint or by manually choosing them.
 
 ### Training or fine-tuning
 For graph datasets, it is particularly important to play around with batch sizes and gradient accumulation steps to train on enough samples while avoiding out-of-memory errors.
