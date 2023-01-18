@@ -21,7 +21,7 @@ thumbnail: blog/assets/optimum_onnxruntime-training/thumbnail.png
         </div>
     </a>
     <a href="https://techcommunity.microsoft.com/t5/user/viewprofilepage/user-id/1099824#profile">
-        <img class="avatar avatar-user" src="https://techcommunity.microsoft.com/t5/image/serverpage/image-id/367084i9DC70E4E7F5E1ED0/image-dimensions/150x150/image-coordinates/58%2C0%2C726%2C668?v=v2" title="Gravatar">
+        <img class="avatar avatar-user" src="https://techcommunity.microsoft.com/t5/image/serverpage/image-id/367084i9DC70E4E7F5E1ED0/image-dimensions/150x150/image-coordinates/58%2C0%2C726%2C668?v=v2" title="Gravatar" width="200">
         <div class="bfc">
             <code>Kshama</code>
             <span class="fullname">Kshama Pawar</span>
@@ -29,7 +29,7 @@ thumbnail: blog/assets/optimum_onnxruntime-training/thumbnail.png
         </div>
     </a>
     <a href="https://github.com/askhade">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/6475296?v=4" title="Gravatar">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/6475296?v=4" title="Gravatar" width="200">
         <div class="bfc">
             <code>askhade</code>
             <span class="fullname">Ashwini Khade</span>
@@ -120,6 +120,4 @@ We invite you to check out the links below to learn more about, and get started 
 * [Azure Container for PyTorch](https://techcommunity.microsoft.com/t5/ai-machine-learning-blog/enabling-deep-learning-with-azure-container-for-pytorch-in-azure/ba-p/3650489)
 
 
-Thanks for reading! If you are as excited as I am about accelerating Transformers, make them efficient and scale them to billions of requests. You should apply, we are hiring.🚀
-
-If you have any questions, feel free to contact me, through Github, or on the forum. You can also connect with me on Twitter or LinkedIn.
+Thanks for reading! If you have any questions, feel free to reach us through [Github](https://github.com/huggingface/optimum/issues), or on the [🏎forum](https://discuss.huggingface.co/c/optimum/). You can also connect with me on [Twitter](https://twitter.com/Jhuaplin) or [LinkedIn](https://www.linkedin.com/in/jingya-huang-96158b15b/).
