@@ -1583,7 +1583,7 @@
     - ethics
     - guide
 
-  
+
 - local: clipseg-zero-shot
   title: "Zero-shot image segmentation with CLIPSeg"
   author: segments-tobias
@@ -1625,6 +1625,7 @@
     - community
     - guide
     - graphs
+
 - local: ml-for-games-2
   title: "AI for Game Development: Creating a Farming Game in 5 Days. Part 2"
   author: dylanebert
@@ -1653,3 +1654,13 @@
   tags:
     - open-source-collab
     - nlp
+
+- local: optimum-onnxruntime-training
+  title: "Optimum+ONNX Runtime - Easier, Faster training for your Hugging Face models"
+  author: Jingya
+  thumbnail: blog/assets/optimum_onnxruntime-training/thumbnail.png
+  date: January 24, 2023
+  tags:
+    - guide
+    - community
+    - onnxruntime
