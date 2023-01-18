@@ -16,7 +16,7 @@ thumbnail: blog/assets/optimum_onnxruntime-training/thumbnail.png
     <a href="/Jingya">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1674053112022-61a50668cd3eb3043f38e445.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
-            <code>jingya</code>
+            <code>Jingya</code>
             <span class="fullname">Jingya Huang</span>
         </div>
     </a>
@@ -31,7 +31,7 @@ thumbnail: blog/assets/optimum_onnxruntime-training/thumbnail.png
     <a href="https://github.com/askhade">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/6475296?v=4" title="Gravatar" width="200">
         <div class="bfc">
-            <code>askhade</code>
+            <code>Ashwini</code>
             <span class="fullname">Ashwini Khade</span>
             <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
@@ -40,11 +40,11 @@ thumbnail: blog/assets/optimum_onnxruntime-training/thumbnail.png
 
 ## Introduction
 
-Transformer based models in language, vision and speech are getting larger to support complex multi-modal use cases for the end customer. Increasing model sizes directly impact the resources needed to train these models and scale them as the size increases. Hugging Face and Microsoft’s ONNX Runtime team are working together to build advancements in finetuning large Language, Speech and Vision models. Hugging Face’s Optimum library through its integration with ONNX Runtime for training, provides an open solution to improve training times by greater than 35% for many popular Hugging Face models. We present details of both Hugging Face Optimum and the ONNX Runtime Training ecosystem, with performance numbers highlighting the wins of using the Optimum library.
+Transformer based models in language, vision and speech are getting larger to support complex multi-modal use cases for the end customer. Increasing model sizes directly impact the resources needed to train these models and scale them as the size increases. Hugging Face and Microsoft’s ONNX Runtime team are working together to build advancements in finetuning large Language, Speech and Vision models. Hugging Face’s Optimum library through its integration with ONNX Runtime for training, provides an open solution to __improve training times by greater than 35%__ for many popular Hugging Face models. We present details of both Hugging Face Optimum and the ONNX Runtime Training ecosystem, with performance numbers highlighting the wins of using the Optimum library.
 
 ## Performance results
 
-The chart below shows the phenomenal acceleration we get from 39%-130% for Hugging Face models with Optimum when using ONNX Runtime and DeepSpeed ZeRO Stage 1 for training. The performance measurements were done on select Hugging Face models with the PyTorch run as the baseline, only ONNX Runtime for training as the second run and ONNX Runtime + DeepSpeed ZeRO Stage 1 as the final run, showing maximum gains. The Optimizer used for the baseline PyTorch runs is the AdamW optimizer and the ORT Training runs use the Fused Adam Optimizer. The runs were on a single Nvidia A100 node with 8 GPUs.
+The chart below shows the phenomenal acceleration we get __from 39% to 130%__ for Hugging Face models with Optimum when __using ONNX Runtime and DeepSpeed ZeRO Stage 1__ for training. The performance measurements were done on selected Hugging Face models with the PyTorch run as the baseline, only ONNX Runtime for training as the second run and ONNX Runtime + DeepSpeed ZeRO Stage 1 as the final run, showing maximum gains. The Optimizer used for the baseline PyTorch runs is the AdamW optimizer and the ORT Training runs use the Fused Adam Optimizer. The runs were performed on a single Nvidia A100 node with 8 GPUs.
 
 <figure class="image table text-center m-0 w-full">
   <img src="assets/optimum_onnxruntime-training/benchmark.png" alt="Optimum-onnxruntime Training Benchmark"/>
@@ -57,7 +57,7 @@ PyTorch: 1.14.0.dev20221103+cu116; ORT: 1.14.0.dev20221103001+cu116; DeepSpeed: 
 
 ## Optimum Library
 
-Hugging Face is a fast-growing open community and platform aiming to democratize machine learning. As an interactive and community-led company, Hugging Face expands its coverage from NLP to audio and vision and offers various services in the ML ecosystem to meet the community's needs after the success of the [Transformers library](https://huggingface.co/docs/transformers/index). Now on [Hugging Face Hub](https://huggingface.co/models), there are more than 120K model checkpoints on various machine learning tasks, 18K datasets, and 20K ML demo apps. However, scaling transformer models into production is still a difficult industry challenge. Despite the high accuracy, the training and the inference of transformer-based models could be time-consuming and cost-expensive.
+Hugging Face is a fast-growing open community and platform aiming to democratize machine learning. As an interactive and community-led company, we extend our coverage from NLP to audio and vision and offers various services in the ML ecosystem to meet the community's needs after the success of the [Transformers library](https://huggingface.co/docs/transformers/index). Now on [Hugging Face Hub](https://huggingface.co/models), there are more than 120K model checkpoints on various machine learning tasks, 18K datasets, and 20K ML demo apps. However, scaling transformer models into production is still a difficult industry challenge. Despite the high accuracy, the training and the inference of transformer-based models could be time-consuming and cost-expensive.
 
 To target these needs, Hugging Face built two open-sourced libraries: __Accelerate__ and __Optimum__. While [🤗 Accelerate](https://huggingface.co/docs/accelerate/index) focuses on out-of-box distributed training, [🤗 Optimum](https://huggingface.co/docs/optimum/index), as an extension of transformers, accelerates model training and inference by leveraging the maximum efficiency of users’ targeted hardware. Optimum integrated machine learning accelerators like ONNX Runtime and specialized hardware, so users can benefit from considerable speedup in both training and inference. Besides, Optimum seamlessly integrates other Hugging Face’s tools while inheriting the same ease of use as Transformers. Developers can easily adapt their work to achieve lower latency with less computing power.
 
@@ -119,5 +119,6 @@ We invite you to check out the links below to learn more about, and get started 
 * [DeepSpeed](https://www.deepspeed.ai/) and [ZeRO](https://www.deepspeed.ai/tutorials/zero/) Tutorial
 * [Azure Container for PyTorch](https://techcommunity.microsoft.com/t5/ai-machine-learning-blog/enabling-deep-learning-with-azure-container-for-pytorch-in-azure/ba-p/3650489)
 
+---
 
-Thanks for reading! If you have any questions, feel free to reach us through [Github](https://github.com/huggingface/optimum/issues), or on the [🏎forum](https://discuss.huggingface.co/c/optimum/). You can also connect with me on [Twitter](https://twitter.com/Jhuaplin) or [LinkedIn](https://www.linkedin.com/in/jingya-huang-96158b15b/).
+Thanks for reading🏎! If you have any questions, feel free to reach us through [Github](https://github.com/huggingface/optimum/issues), or on the [forum](https://discuss.huggingface.co/c/optimum/). You can also connect with me on [Twitter](https://twitter.com/Jhuaplin) or [LinkedIn](https://www.linkedin.com/in/jingya-huang-96158b15b/).

@@ -1583,7 +1583,6 @@
     - ethics
     - guide
 
-
 - local: clipseg-zero-shot
   title: "Zero-shot image segmentation with CLIPSeg"
   author: segments-tobias
