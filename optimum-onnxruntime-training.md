@@ -3,7 +3,7 @@ title: "Optimum+ONNX Runtime - Easier, Faster training for your Hugging Face mod
 thumbnail: blog/assets/optimum_onnxruntime-training/thumbnail.png
 ---
 
-# Optimum+ONNX Runtime - Easier, Faster training for your Hugging Face models
+# Optimum + ONNX Runtime: Easier, Faster training for your Hugging Face models
 
 <div class="blog-metadata">
     <small>Published January 24, 2023.</small>
