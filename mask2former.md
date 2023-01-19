@@ -8,7 +8,7 @@ thumbnail: /blog/assets/127_mask2former/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published March 17, 2022.</small>
+    <small>Published January 20, 2023.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/mask2former.md">
         Update on GitHub
     </a>
