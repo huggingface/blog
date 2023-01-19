@@ -121,4 +121,4 @@ We invite you to check out the links below to learn more about, and get started 
 
 ---
 
-Thanks for reading🏎! If you have any questions, feel free to reach us through [Github](https://github.com/huggingface/optimum/issues), or on the [forum](https://discuss.huggingface.co/c/optimum/). You can also connect with me on [Twitter](https://twitter.com/Jhuaplin) or [LinkedIn](https://www.linkedin.com/in/jingya-huang-96158b15b/).
+🏎Thanks for reading! If you have any questions, feel free to reach us through [Github](https://github.com/huggingface/optimum/issues), or on the [forum](https://discuss.huggingface.co/c/optimum/). You can also connect with me on [Twitter](https://twitter.com/Jhuaplin) or [LinkedIn](https://www.linkedin.com/in/jingya-huang-96158b15b/).
