@@ -69,7 +69,7 @@ While view synthesis is impressive, the world of 3D runs on meshes, which are no
   <figcaption>NVlabs instant-ngp, which supports NeRF-to-mesh conversion.</figcaption>
 </figure>
 
-The practical use of assets generated using the text-to-NeRF-to-mesh pipeline is limited in a similar way to assets produced using photogrammetry. That is, the resulting mesh is not immediately game-ready, and requires significant work and expertise to become a game-ready asset. In this sense, NeRF-to-mesh may be a useful tool as-is, but doesn't yet reach a transformative potential along the lines of recent text-to-image breakthroughs.
+The practical use of assets generated using the text-to-NeRF-to-mesh pipeline is limited in a similar way to assets produced using photogrammetry. That is, the resulting mesh is not immediately game-ready, and requires significant work and expertise to become a game-ready asset. In this sense, NeRF-to-mesh may be a useful tool as-is, but doesn't yet reach the transformative potential of text-to-3D.
 
 Since NeRF-to-mesh, like photogrammetry, is currently most suited to creating ultra-high-fidelity assets with significant manual post-processing, it doesn't really make sense for creating a farming game in 5 days. In which case, I decided to just use cubes of different colors to represent the crops in the game.
 
@@ -77,18 +77,18 @@ Since NeRF-to-mesh, like photogrammetry, is currently most suited to creating ul
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/cubes.png" alt="Stable Diffusion Demo Space">
 </figure>
 
-Things are changing rapidly in this area, though, and there may be a viable solution in the near future. Next, I'll talk about some of the directions text-to-3D may be going, as it relates to game development.
+Things are changing rapidly in this area, though, and there may be a viable solution in the near future. Next, I'll talk about some of the directions text-to-3D may be going.
 
 ### The Future of Text-to-3D
 
-While text-to-3D has come a long way in recent months, there is still a significant gap between where we are now and what could be a breakthrough along the lines of text-to-image. I can only speculate on how this gap will be closed. There are two possible directions that are most apparent:
+While text-to-3D has come a long way recently, there is still a significant gap between where we are now and what could have an impact along the lines of text-to-image. I can only speculate on how this gap will be closed. There are two possible directions that are most apparent:
 
 1. Improvements in NeRF-to-mesh and mesh generation. Currently, NeRF-to-mesh and direct mesh generation models like [CLIPMatrix](https://arxiv.org/abs/2109.12922) result in meshes that require significant work and expertise to become game-ready assets, similar to photogrammetry, which has been around for a while. While this is useful in some scenarios, like creating realistic high-fidelity assets, it's still more time-consuming than making low-poly assets from scratch, especially if you're like me and use an ultra-low-poly art style.
 2. New rendering techniques that allow NeRFs to be rendered directly in-engine. While there have been no official announcements, one could speculate that [NVIDIA](https://www.nvidia.com/en-us/omniverse/) and [Google](https://dreamfusion3d.github.io/), among others, may be working on this.
 
 Of course, only time will tell. If you want to keep up with advancements as they come, feel free to follow me on [Twitter](https://twitter.com/dylan_ebert_). If there are new developments I've missed, feel free to reach out!
 
-In the next part, we'll be using **AI for 2D Assets**.
+In the next part, we'll be using **AI to Generate 2D Assets**.
 
 <!-- TODO: Add link to next part -->
 
