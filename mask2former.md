@@ -1,10 +1,10 @@
 ---
-title: Towards Universal Image Segmentation with Mask2Former and OneFormer
+title: Universal Image Segmentation with Mask2Former and OneFormer
 thumbnail: /blog/assets/127_mask2former/thumbnail.png
 ---
 
 <h1>
-	Towards Universal Image Segmentation with Mask2Former and OneFormer
+	Universal Image Segmentation with Mask2Former and OneFormer
 </h1>
 
 <div class="blog-metadata">
