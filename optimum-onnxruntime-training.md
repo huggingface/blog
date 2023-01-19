@@ -40,7 +40,7 @@ thumbnail: blog/assets/optimum_onnxruntime-training/thumbnail.png
 
 ## Introduction
 
-Transformer based models in language, vision and speech are getting larger to support complex multi-modal use cases for the end customer. Increasing model sizes directly impact the resources needed to train these models and scale them as the size increases. Hugging Face and Microsoft’s ONNX Runtime team are working together to build advancements in finetuning large Language, Speech and Vision models. Hugging Face’s Optimum library through its integration with ONNX Runtime for training, provides an open solution to __improve training times by greater than 35%__ for many popular Hugging Face models. We present details of both Hugging Face Optimum and the ONNX Runtime Training ecosystem, with performance numbers highlighting the wins of using the Optimum library.
+Transformer based models in language, vision and speech are getting larger to support complex multi-modal use cases for the end customer. Increasing model sizes directly impact the resources needed to train these models and scale them as the size increases. Hugging Face and Microsoft’s ONNX Runtime teams are working together to build advancements in finetuning large Language, Speech and Vision models. Hugging Face’s [Optimum library](https://github.com/huggingface/optimum), through its integration with ONNX Runtime for training, provides an open solution to __improve training times by 35% or more__ for many popular Hugging Face models. We present details of both Hugging Face Optimum and the ONNX Runtime Training ecosystem, with performance numbers highlighting the benefits of using the Optimum library.
 
 ## Performance results
 
