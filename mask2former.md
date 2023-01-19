@@ -74,7 +74,7 @@ Later on, Mask2Former extended this to instance segmentation by further improvin
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/transformers/model_doc/mask2former_architecture.jpg" alt="drawing" width=500>
 </p>
 
-In short, an image is first sent through a backbone (which, in the paper could be either [ResNet](https://huggingface.co/docs/transformers/model_doc/resnet) or [Swin Transformer](https://huggingface.co/docs/transformers/model_doc/swin)) to get a list of low-resolution feature maps. Next, these feature maps are enhanced using a pixel decoder module to get high-resolution features. Finally, a Transformer decoder takes in a set of queries and transforms them into a set of binary mask and class predictions, conditioned on the pixel decoder's features. Note that Mask2Former still needs to be trained on each task separately to obtain state-of-the-art results. This has already been improved by [OneFormer](https://arxiv.org/abs/2211.06220), which obtains state-of-the-art performance on all 3 tasks by only training on a panoptic version of the dataset, by adding a text encoder to condition the model on either "instance", "semantic" or "panoptic" tasks. This model will also become available in [`🤗 transformers`](https://huggingface.co/transformers), but comes with greater latency.
+In short, an image is first sent through a backbone (which, in the paper could be either [ResNet](https://huggingface.co/docs/transformers/model_doc/resnet) or [Swin Transformer](https://huggingface.co/docs/transformers/model_doc/swin)) to get a list of low-resolution feature maps. Next, these feature maps are enhanced using a pixel decoder module to get high-resolution features. Finally, a Transformer decoder takes in a set of queries and transforms them into a set of binary mask and class predictions, conditioned on the pixel decoder's features. Note that Mask2Former still needs to be trained on each task separately to obtain state-of-the-art results. This has already been improved by [OneFormer](https://arxiv.org/abs/2211.06220), which obtains state-of-the-art performance on all 3 tasks by only training on a panoptic version of the dataset, by adding a text encoder to condition the model on either "instance", "semantic" or "panoptic" tasks. This model is also [already available in 🤗 transformers](https://huggingface.co/docs/transformers/main/en/model_doc/oneformer). It's even more accurate than Mask2Former, but comes with greater latency due to the additional text encoder.
 
 ## Inference with Mask2Former in Transformers
 
@@ -150,7 +150,6 @@ def draw_panoptic_segmentation(segmentation, segments_info):
         handles.append(mpatches.Patch(color=color, label=label))
         
     ax.legend(handles=handles)
-    return fig
 
 draw_panoptic_segmentation(**panoptic_segmentation)
 ```
