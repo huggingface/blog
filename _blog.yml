@@ -1654,7 +1654,6 @@
     - open-source-collab
     - nlp
 
-
 - local: mask2former
   title: "Universal Image Segmentation with Mask2Former and OneFormer"
   author: nielsr
