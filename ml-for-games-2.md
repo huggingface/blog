@@ -27,11 +27,9 @@ thumbnail: /blog/assets/124_ml-for-games/thumbnail2.png
 4. 2D Assets
 5. Story
 
-Want the quick video version? You can watch it [here](https://www.tiktok.com/@individualkex/video/7184106492180630827). Otherwise, if you want the technical details, keep reading!
+Want the quick video version? You can watch it [here](https://www.tiktok.com/@individualkex/video/7186551685035085098). Otherwise, if you want the technical details, keep reading!
 
-<!-- TODO: Update above link to video -->
-
-**Note:** This tutorial is intended for readers who are familiar with Unity development and C#. If you're new to these technologies, check out the [Unity for Beginners](https://www.tiktok.com/@individualkex/video/7086863567412038954?is_from_webapp=1&sender_device=pc&web_id=7043883634428052997) series before continuing.
+**Note:** This tutorial is intended for readers who are familiar with Unity development and C#. If you're new to these technologies, check out the [Unity for Beginners](https://www.tiktok.com/@individualkex/video/7086863567412038954) series before continuing.
 
 ## Day 2: Game Design
 
@@ -87,6 +85,4 @@ This explanation, while sounding excellent, is completely wrong. This is a great
 
 If ChatGPT fails a lot, should you use it? I would argue that it's still extremely useful as a tool, rather than as a replacement. In the example of Game Design, I could have followed up on ChatGPT's answer, and asked it to implement all of its suggestions for me. As I mentioned before, [others have done this](https://www.youtube.com/watch?v=YDWvAqKLTLg&ab_channel=AAlex), and it somewhat works. However, I would suggest using ChatGPT more as a tool for brainstorming and acceleration, rather than as a complete replacement for steps in the development process.
 
-In the next part, we'll be using **AI for 3D Assets**.
-
-<!-- TODO: Add link to next part -->
+Click [here](https://huggingface.co/blog/ml-for-games-3) to read Part 3, where we use **AI for 3D Assets**.
