@@ -1,6 +1,6 @@
 ---
 title: Towards Universal Image Segmentation with Mask2Former and OneFormer
-thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
+thumbnail: /blog/assets/127_mask2former/thumbnail.png
 ---
 
 <h1>
