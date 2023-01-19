@@ -25,14 +25,14 @@ thumbnail: /blog/assets/127_mask2former/thumbnail.png
     <a href="/shivi">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/73357305?v=4" width="100" title="Gravatar">
         <div class="bfc">
-            <code>nielsr</code>
+            <code>shivi</code>
             <span class="fullname">Shivalika Singh</span>
         </div>
     </a>
     <a href="/adirik">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8944735?v=4" width="100" title="Gravatar">
         <div class="bfc">
-            <code>nielsr</code>
+            <code>adirik</code>
             <span class="fullname">Alara Dirik</span>
         </div>
     </a>
