@@ -1653,3 +1653,12 @@
   tags:
     - open-source-collab
     - nlp
+
+- local: mask2former
+  title: "Universal Image Segmentation with Mask2Former and OneFormer"
+  author: nielsr
+  thumbnail: /blog/assets/127_mask2former/thumbnail.png
+  date: Jan 19, 2023
+  tags:
+    - cv
+    - guide
