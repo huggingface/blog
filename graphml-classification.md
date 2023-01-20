@@ -56,13 +56,13 @@ A single graph is a dictionnary, and here is the expected format for our graph c
 	- This contains the available attributes (if present) for each edge of the graph, following the `edge_index` ordering.
 
 ### Loading
-Loading a graph dataset from the Hub is very easy. Let's load the `ogbg-mohiv` dataset (a baseline from the Open Graph Benchmark by Stanford), stored in the `graphs-datasets` repository: 
+Loading a graph dataset from the Hub is very easy. Let's load the `ogbg-mohiv` dataset (a baseline from the Open Graph Benchmark by Stanford), stored in the `OGB` repository: 
 
 ```python
 from datasets import load_dataset
 
 # There is only one split on the hub
-dataset = load_dataset("graphs-datasets/ogbg-molhiv")
+dataset = load_dataset("OGB/ogbg-molhiv")
 
 dataset = dataset.shuffle(seed=0)
 ```
