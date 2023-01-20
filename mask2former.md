@@ -8,7 +8,7 @@ thumbnail: /blog/assets/127_mask2former/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published March 17, 2022.</small>
+    <small>Published January 20, 2023.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/mask2former.md">
         Update on GitHub
     </a>
@@ -25,14 +25,14 @@ thumbnail: /blog/assets/127_mask2former/thumbnail.png
     <a href="/shivi">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/73357305?v=4" width="100" title="Gravatar">
         <div class="bfc">
-            <code>nielsr</code>
+            <code>shivi</code>
             <span class="fullname">Shivalika Singh</span>
         </div>
     </a>
     <a href="/adirik">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8944735?v=4" width="100" title="Gravatar">
         <div class="bfc">
-            <code>nielsr</code>
+            <code>adirik</code>
             <span class="fullname">Alara Dirik</span>
         </div>
     </a>
@@ -181,4 +181,4 @@ We hope you enjoyed this post and learned something. Feel free to let us know wh
 If you liked this topic and want to learn more, we recommend the following resources:
 
 - Our demo notebooks for [MaskFormer](https://github.com/NielsRogge/Transformers-Tutorials/blob/master/MaskFormer), [Mask2Former](https://github.com/NielsRogge/Transformers-Tutorials/blob/master/Mask2Former) and [OneFormer](https://github.com/NielsRogge/Transformers-Tutorials/blob/master/OneFormer), which give a broader overview on inference (including visualization) as well as fine-tuning on custom data.
-- The [live demo](https://huggingface.co/spaces/shi-labs/OneFormer) on the Hugging Face Hub which you can use to quickly try out OneFormer on sample inputs of your choice.
+- The [live demo spaces] for [Mask2Former](https://huggingface.co/spaces/shivi/mask2former-demo) and [OneFormer](https://huggingface.co/spaces/shi-labs/OneFormer) available on the Hugging Face Hub which you can use to quickly try out the models on sample inputs of your choice.
