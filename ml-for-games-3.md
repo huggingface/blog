@@ -41,7 +41,7 @@ In this part, we'll talk about how you can use AI to generate 3D Assets. The sho
 
 ### The Current State of Text-to-3D
 
-As discussed in [Part 1](https://huggingface.co/blog/ml-for-games-1), text-to-image tools such as Stable Diffusion that are incredibly useful in the game development workflow. However, what about text-to-3D, or generating 3D models from text descriptions? There have been many very recent developments in this area:
+As discussed in [Part 1](https://huggingface.co/blog/ml-for-games-1), text-to-image tools such as Stable Diffusion are incredibly useful in the game development workflow. However, what about text-to-3D, or generating 3D models from text descriptions? There have been many very recent developments in this area:
 
 - [DreamFusion](https://dreamfusion3d.github.io/) uses 2D diffusion to generate 3D assets.
 - [CLIPMatrix](https://arxiv.org/abs/2109.12922) and [CLIP-Mesh-SMPLX](https://github.com/NasirKhalid24/CLIP-Mesh-SMPLX) generate textured meshes directly.
