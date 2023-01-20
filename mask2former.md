@@ -181,4 +181,4 @@ We hope you enjoyed this post and learned something. Feel free to let us know wh
 If you liked this topic and want to learn more, we recommend the following resources:
 
 - Our demo notebooks for [MaskFormer](https://github.com/NielsRogge/Transformers-Tutorials/blob/master/MaskFormer), [Mask2Former](https://github.com/NielsRogge/Transformers-Tutorials/blob/master/Mask2Former) and [OneFormer](https://github.com/NielsRogge/Transformers-Tutorials/blob/master/OneFormer), which give a broader overview on inference (including visualization) as well as fine-tuning on custom data.
-- The [live demo](https://huggingface.co/spaces/shi-labs/OneFormer) on the Hugging Face Hub which you can use to quickly try out OneFormer on sample inputs of your choice.
+- The [live demo spaces] for [Mask2Former](https://huggingface.co/spaces/shivi/mask2former-demo) and [OneFormer](https://huggingface.co/spaces/shi-labs/OneFormer) available on the Hugging Face Hub which you can use to quickly try out the models on sample inputs of your choice.
