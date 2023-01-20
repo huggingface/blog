@@ -28,11 +28,27 @@ thumbnail: blog/assets/optimum_onnxruntime-training/thumbnail.png
             <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
-    <a href="https://github.com/askhade">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/6475296?v=4" title="Gravatar" width="200">
+    <a href="/askhade">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1674173849155-63c9d0f15fdc575773c7f248.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>Ashwini</code>
             <span class="fullname">Ashwini Khade</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+        </div>
+    </a>
+    <a href="/weicwang">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1674173795005-6360b60cddb991671390e5d8.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>weicwang</code>
+            <span class="fullname">Vincent Wang</span>
+            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
+        </div>
+    </a>
+    <a href="/zhijiang">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1674173425997-63c9d6eabedad7e2bf1a92ff.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>zhijiang</code>
+            <span class="fullname">Zhijiang Xu</span>
             <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
     </a>
