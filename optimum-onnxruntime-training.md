@@ -20,10 +20,10 @@ thumbnail: blog/assets/optimum_onnxruntime-training/thumbnail.png
             <span class="fullname">Jingya Huang</span>
         </div>
     </a>
-    <a href="https://techcommunity.microsoft.com/t5/user/viewprofilepage/user-id/1099824#profile">
-        <img class="avatar avatar-user" src="https://techcommunity.microsoft.com/t5/image/serverpage/image-id/367084i9DC70E4E7F5E1ED0/image-dimensions/150x150/image-coordinates/58%2C0%2C726%2C668?v=v2" title="Gravatar" width="200">
+    <a href="/kshama-msft">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1674177750989-63c9ec74b047b9b12a1f0877.jpeg?w=200&h=200&f=face" title="Gravatar" width="200">
         <div class="bfc">
-            <code>Kshama</code>
+            <code>kshama-msft</code>
             <span class="fullname">Kshama Pawar</span>
             <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
@@ -31,7 +31,7 @@ thumbnail: blog/assets/optimum_onnxruntime-training/thumbnail.png
     <a href="/askhade">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1674173849155-63c9d0f15fdc575773c7f248.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
-            <code>Ashwini</code>
+            <code>askhade</code>
             <span class="fullname">Ashwini Khade</span>
             <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
         </div>
