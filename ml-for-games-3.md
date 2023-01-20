@@ -27,9 +27,7 @@ thumbnail: /blog/assets/124_ml-for-games/thumbnail3.png
 4. 2D Assets
 5. Story
 
-Want the quick video version? You can watch it [here](https://www.tiktok.com/@individualkex/video/7184106492180630827). Otherwise, if you want the technical details, keep reading!
-
-<!-- TODO: Update above link to video -->
+Want the quick video version? You can watch it [here](https://www.tiktok.com/@individualkex/video/7190364745495678254). Otherwise, if you want the technical details, keep reading!
 
 **Note:** This tutorial is intended for readers who are familiar with Unity development and C#. If you're new to these technologies, check out the [Unity for Beginners](https://www.tiktok.com/@individualkex/video/7086863567412038954) series before continuing.
 
@@ -48,6 +46,7 @@ As discussed in [Part 1](https://huggingface.co/blog/ml-for-games-1), text-to-im
 - [CLIP-Forge](https://github.com/autodeskailab/clip-forge) uses language to generate voxel-based models.
 - [CLIP-NeRF](https://github.com/cassiePython/CLIPNeRF) drives NeRFs with text and images.
 - [Point-E](https://huggingface.co/spaces/openai/point-e) and [Pulsar+CLIP](https://colab.research.google.com/drive/1IvV3HGoNjRoyAKIX-aqSWa-t70PW3nPs) use language to generate 3D point clouds.
+- [Dream Textures](https://github.com/carson-katri/dream-textures/releases/tag/0.0.9) uses text-to-image to texture scenes in Blender automatically.
 
 Many of these approaches, excluding CLIPMatrix and CLIP-Mesh-SMPLX, are based on [view synthesis](https://en.wikipedia.org/wiki/View_synthesis), or generating novel views of a subject, as opposed to conventional 3D rendering. This is the idea behind [NeRFs](https://developer.nvidia.com/blog/getting-started-with-nvidia-instant-nerfs/) or Neural Radiance Fields, which use neural networks for view synthesis.
 
