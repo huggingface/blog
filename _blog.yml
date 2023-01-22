@@ -1663,6 +1663,16 @@
     - cv
     - guide
 
+- local: ml-for-games-3
+  title: "3D Asset Generation: AI for Game Development #3"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail3.png
+  date: January 20, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
+
 - local: optimum-onnxruntime-training
   title: "Optimum+ONNX Runtime - Easier, Faster training for your Hugging Face models"
   author: Jingya
