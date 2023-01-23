@@ -179,8 +179,7 @@ Lambert, et al., "Illustrating Reinforcement Learning from Human Feedback (RLHF)
 BibTeX citation:
 ```
 @article{lambert2022illustrating,
-  author = {Lambert, Nathan and Castricato, Louis and von Werra, Leandro and Havrilla, Alex
-},
+  author = {Lambert, Nathan and Castricato, Louis and von Werra, Leandro and Havrilla, Alex},
   title = {Illustrating Reinforcement Learning from Human Feedback (RLHF)},
   journal = {Hugging Face Blog},
   year = {2022},
