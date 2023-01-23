@@ -145,7 +145,7 @@ Generating well-written human text answering specific prompts is very costly, as
 
 With these limitations, huge swaths of unexplored design options could still enable RLHF to take substantial strides. Many of these fall within the domain of improving the RL optimizer. PPO is a relatively old algorithm, but there are no structural reasons that other algorithms could offer benefits and permutations on the existing RLHF workflow. One large cost of the feedback portion of fine-tuning the LM policy is that every generated piece of text from the policy needs to be evaluated on the reward model (as it acts like part of the environment in the standard RL framework). To avoid these costly forward passes of a large model, offline RL could be used as a policy optimizer. Recently, new algorithms have emerged, such as [implicit language Q-learning](https://arxiv.org/abs/2206.11871) (ILQL) [[Talk](https://youtu.be/fGq4np3brbs) on ILQL at CarperAI], that fit particularly well with this type of optimization. Other core trade-offs in the RL process, like exploration-exploitation balance, have also not been documented. Exploring these directions would at least develop a substantial understanding of how RLHF functions and, if not, provide improved performance.
 
-We hosted a lecture on Tuesday 13 December 2022 that expanded. You can watch it [here](https://www.youtube.com/watch?v=2MBJOuVq380&feature=youtu.be)!
+We hosted a lecture on Tuesday 13 December 2022 that expanded on this post; you can watch it [here](https://www.youtube.com/watch?v=2MBJOuVq380&feature=youtu.be)!
 
 ### Further reading
 
