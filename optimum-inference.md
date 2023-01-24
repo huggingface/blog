@@ -28,7 +28,7 @@ thumbnail: /blog/assets/66_optimum_inference/thumbnail.png
 
 The adoption of BERT and Transformers continues to grow. Transformer-based models are now not only achieving state-of-the-art performance in Natural Language Processing but also for Computer Vision, Speech, and Time-Series. 💬 🖼 🎤 ⏳
 
-Companies are now moving from the experimentation and research phase to the production phase in order to use Transformer models for large-scale workloads. But by default BERT and its friends are relatively slow, big, and complex models compared to traditional Machine Learning algorithms. 
+Companies are now moving from the experimentation and research phase to the production phase in order to use Transformer models for large-scale workloads. But by default BERT and its friends are relatively slow, big, and complex models compared to traditional Machine Learning algorithms.
 
 To solve this challenge, we created [Optimum](https://huggingface.co/blog/hardware-partners-program) –  an extension of [Hugging Face Transformers](https://github.com/huggingface/transformers) to accelerate the training and inference of Transformer models like BERT.
 
@@ -88,7 +88,7 @@ In this End-to-End tutorial on accelerating RoBERTa for question-answering, you 
 
 Let’s get started 🚀
 
-*This tutorial was created and run on an `m5.xlarge` AWS EC2 Instance.* 
+*This tutorial was created and run on an `m5.xlarge` AWS EC2 Instance.*
 
 ### 3.1 Install `Optimum` for Onnxruntime
 
@@ -121,7 +121,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_id)
 model.save_pretrained(onnx_path)
 tokenizer.save_pretrained(onnx_path)
 
-# test the model with using transformers pipeline, with handle_impossible_answer for squad_v2 
+# test the model with using transformers pipeline, with handle_impossible_answer for squad_v2
 optimum_qa = pipeline(task, model=model, tokenizer=tokenizer, handle_impossible_answer=True)
 prediction = optimum_qa(question="What's my name?", context="My name is Philipp and I live in Nuremberg.")
 
@@ -135,7 +135,7 @@ If you want to learn more about exporting transformers model check-out the docum
 
 ### 3.3 Use the `ORTOptimizer` to optimize the model
 
-After we saved our onnx checkpoint to `onnx/` we can now use the `ORTOptimizer` to apply graph optimization such as operator fusion and constant folding to accelerate latency and inference. 
+After we saved our onnx checkpoint to `onnx/` we can now use the `ORTOptimizer` to apply graph optimization such as operator fusion and constant folding to accelerate latency and inference.
 
 ```python
 from optimum.onnxruntime import ORTOptimizer
@@ -172,7 +172,7 @@ We will evaluate the performance changes in step [3.6 Evaluate the performance a
 
 ### 3.4 Use the `ORTQuantizer` to apply dynamic quantization
 
-After we have optimized our model we can accelerate it even more by quantizing it using the `ORTQuantizer`. The `ORTOptimizer` can be used to apply dynamic quantization to decrease the size of the model size and accelerate latency and inference. 
+After we have optimized our model we can accelerate it even more by quantizing it using the `ORTQuantizer`. The `ORTOptimizer` can be used to apply dynamic quantization to decrease the size of the model size and accelerate latency and inference.
 
 *We use the `avx512_vnni` since the instance is powered by an intel cascade-lake CPU supporting avx512.*
 
@@ -224,7 +224,7 @@ print(prediction)
 # {'score': 0.9246969819068909, 'start': 11, 'end': 18, 'answer': 'Philipp'}
 ```
 
-Nice! The model predicted the same answer. 
+Nice! The model predicted the same answer.
 
 ### 3.5 Run accelerated inference using Transformers pipelines
 
@@ -263,11 +263,11 @@ print(prediction)
 
 ### 3.6 Evaluate the performance and speed
 
-During this [End-to-End tutorial on accelerating RoBERTa for Question-Answering including quantization and optimization](#3-end-to-end-tutorial-on-accelerating-roberta-for-question-answering-including-quantization-and-optimization), we created 3 different models. A vanilla converted model, an optimized model, and a quantized model. 
+During this [End-to-End tutorial on accelerating RoBERTa for Question-Answering including quantization and optimization](#3-end-to-end-tutorial-on-accelerating-roberta-for-question-answering-including-quantization-and-optimization), we created 3 different models. A vanilla converted model, an optimized model, and a quantized model.
 
-As the last step of the tutorial, we want to take a detailed look at the performance and accuracy of our model. Applying optimization techniques, like graph optimizations or quantization not only impact performance (latency) those also might have an impact on the accuracy of the model. So accelerating your model comes with a trade-off. 
+As the last step of the tutorial, we want to take a detailed look at the performance and accuracy of our model. Applying optimization techniques, like graph optimizations or quantization not only impact performance (latency) those also might have an impact on the accuracy of the model. So accelerating your model comes with a trade-off.
 
-Let's evaluate our models. Our transformers model [deepset/roberta-base-squad2](https://huggingface.co/deepset/roberta-base-squad2) was fine-tuned on the SQUAD2 dataset. This will be the dataset we use to evaluate our models. 
+Let's evaluate our models. Our transformers model [deepset/roberta-base-squad2](https://huggingface.co/deepset/roberta-base-squad2) was fine-tuned on the SQUAD2 dataset. This will be the dataset we use to evaluate our models.
 
 ```python
 from datasets import load_metric,load_dataset
@@ -318,20 +318,20 @@ print(f"quantized model: exact={quantized['exact']}% f1={quantized['f1']}%")
 
 Our optimized & quantized model achieved an exact match of `78.75%` and an f1 score of `81.83%` which is `99.61%` of the original accuracy. Achieving `99%` of the original model is very good especially since we used dynamic quantization.
 
-Okay, let's test the performance (latency) of our optimized and quantized model. 
+Okay, let's test the performance (latency) of our optimized and quantized model.
 
-But first, let’s extend our context and question to a more meaningful sequence length of 128. 
+But first, let’s extend our context and question to a more meaningful sequence length of 128.
 
 ```python
-context="Hello, my name is Philipp and I live in Nuremberg, Germany. Currently I am working as a Technical Lead at Hugging Face to democratize artificial intelligence through open source and open science. In the past I designed and implemented cloud-native machine learning architectures for fin-tech and insurance companies. I found my passion for cloud concepts and machine learning 5 years ago. Since then I never stopped learning. Currently, I am focusing myself in the area NLP and how to leverage models like BERT, Roberta, T5, ViT, and GPT2 to generate business value." 
-question="As what is Philipp working?" 
+context="Hello, my name is Philipp and I live in Nuremberg, Germany. Currently I am working as a Technical Lead at Hugging Face to democratize artificial intelligence through open source and open science. In the past I designed and implemented cloud-native machine learning architectures for fin-tech and insurance companies. I found my passion for cloud concepts and machine learning 5 years ago. Since then I never stopped learning. Currently, I am focusing myself in the area NLP and how to leverage models like BERT, Roberta, T5, ViT, and GPT2 to generate business value."
+question="As what is Philipp working?"
 ```
 
-To keep it simple, we are going to use a python loop and calculate the avg/mean latency for our vanilla model and for the optimized and quantized model. 
+To keep it simple, we are going to use a python loop and calculate the avg/mean latency for our vanilla model and for the optimized and quantized model.
 
 ```python
 from time import perf_counter
-import numpy as np 
+import numpy as np
 
 def measure_latency(pipe):
     latencies = []
@@ -377,7 +377,7 @@ We just started supporting inference in [https://github.com/huggingface/optimum]
 
 You can find a list of all supported tasks in the [documentation](https://huggingface.co/docs/optimum/main/en/pipelines). Currently support pipelines tasks are `feature-extraction`, `text-classification`, `token-classification`, `question-answering`, `zero-shot-classification`, `text-generation`
 
-**Which models are supported?** 
+**Which models are supported?**
 
 Any model that can be exported with [transformers.onnx](https://huggingface.co/docs/transformers/serialization) and has a supported task can be used, this includes among others BERT, ALBERT, GPT2, RoBERTa, XLM-RoBERTa, DistilBERT ....
 
@@ -389,9 +389,9 @@ Currently, ONNX Runtime is supported. We are working on adding more in the futur
 
 You can find an example and instructions in our [documentation](https://huggingface.co/docs/optimum/main/en/pipelines#transformers-pipeline-usage).
 
-**How can I use GPUs?** 
+**How can I use GPUs?**
 
-To be able to use GPUs you simply need to install `optimum[onnxruntine-gpu]` which will install the required GPU providers and use them by default. 
+To be able to use GPUs you simply need to install `optimum[onnxruntine-gpu]` which will install the required GPU providers and use them by default.
 
 **How can I use a quantized and optimized model with pipelines?**
 
