@@ -13,7 +13,6 @@ thumbnail: /blog/assets/dialog-agents/thumbnail.png
         Update on GitHub
     </a>
 </div>
-
 <div class="author-card">
     <a href="/NazneenRajani"> 
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/3278583?v=4?w=200&h=200&f=face" title="Gravatar">
@@ -22,7 +21,6 @@ thumbnail: /blog/assets/dialog-agents/thumbnail.png
             <span class="fullname">Nazneen Rajani</span>
         </div>
     </a>
-
 <div class="author-card">
     <a href="/natolambert"> 
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/10695622?v=4?w=200&h=200&f=face" title="Gravatar">
@@ -30,7 +28,6 @@ thumbnail: /blog/assets/dialog-agents/thumbnail.png
             <code>natolambert</code>
             <span class="fullname">Nathan Lambert</span>
         </div>    </a>
-
 <div class="author-card">
     <a href="/VictorSanh">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1590600248871-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
@@ -40,7 +37,6 @@ thumbnail: /blog/assets/dialog-agents/thumbnail.png
         </div>
     </a>
 </div>
-  
   <div class="author-card">
     <a href="/ThomasWolf"> 
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/7353373?v=4?w=200&h=200&f=face" title="Gravatar">
