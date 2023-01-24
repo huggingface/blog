@@ -21,14 +21,12 @@ thumbnail: /blog/assets/dialog-agents/thumbnail.png
             <span class="fullname">Nazneen Rajani</span>
         </div>
     </a>
-<div class="author-card">
     <a href="/natolambert"> 
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/10695622?v=4?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>natolambert</code>
             <span class="fullname">Nathan Lambert</span>
         </div>    </a>
-<div class="author-card">
     <a href="/VictorSanh">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1590600248871-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
@@ -36,8 +34,6 @@ thumbnail: /blog/assets/dialog-agents/thumbnail.png
             <span class="fullname">Victor Sanh</span>
         </div>
     </a>
-</div>
-  <div class="author-card">
     <a href="/ThomasWolf"> 
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/7353373?v=4?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
@@ -45,7 +41,8 @@ thumbnail: /blog/assets/dialog-agents/thumbnail.png
             <span class="fullname">Thomas Wolf</span>
         </div>
     </a>
-
+ </div>
+ 
 A few weeks ago, ChatGPT emerged and launched the public discourse into a set of obscure acronyms: RLHF, SFT, IFT, CoT, and more, all attributed to the success of ChatGPT. What are these obscure acronyms and why are they so important? We surveyed all the important papers on these topics to categorize these works, summarize takeaways from what has been done, and share what remains to be shown.
 
 Let’s start by looking at the landscape of language model based conversational agents. ChatGPT is not the first, in fact many organizations published their language model dialog agents before OpenAI, including [Meta’s BlenderBot](https://arxiv.org/abs/2208.03188), [Google’s LaMDA](https://arxiv.org/abs/2201.08239), [DeepMind’s Sparrow](https://arxiv.org/abs/2209.14375), and [Anthropic’s Assistant](https://arxiv.org/abs/2204.05862) (a.k.a. Claude). Some groups have also announced their plans to build a open-source chatbot and publicly shared a roadmap ([LAION’s Open Assistant](https://github.com/LAION-AI/Open-Assistant)); others surely are doing so and have not announced it. 
