@@ -69,7 +69,7 @@ The following table compares these AI chatbots based on the details of their pub
 | **RLHF** | ✖️ | ✖️ | ✔ | ✔ | ✔ |
 | **Hand written rules for safety** | ✔ | ✖️ | ✔ | ✖️ | ✔ |
 | **Evaluation criteria** | 1. Quality (sensibleness, specificity, interestingness)<br>2. Safety (includes bias) 3. Groundedness | 1, Quality (engagingness, use of knowledge)<br>2. Safety (toxicity, bias) | 1. Alignment (Helpful, Harmless, Correct)<br>2. Evidence (from web)<br>3. Rule violation<br>4. Bias and stereotypes<br>5. Trustworthiness | 1. Alignment (Helpful, Harmless, Truthfulness)<br>2. Bias | 1. Alignment (Helpful, Harmless, Honesty)<br>2. Bias |
-| Crowdsourcing platform used for data labeling | U.S. based vendor | Amazon MTurk | Unknown | Upwork and Scale AI | Surge AI, Amazon MTurk, and Upwork |
+| **Crowdsourcing platform used for data labeling**| U.S. based vendor | Amazon MTurk | Unknown | Upwork and Scale AI | Surge AI, Amazon MTurk, and Upwork |
 
 We observe that albeit there are many differences in the training data, model, and fine-tuning, there are also some commonalities. One common goal for all the above chatbots is *instru*c*tion following ,* i.e., to follow user-specified instructions. For example, instructing ChatGPT to write a poem on fine-tuning.
 
