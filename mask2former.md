@@ -166,7 +166,7 @@ To perform inference with OneFormer, which has an identical API except that it a
 
 For fine-tuning Mask2Former/OneFormer on a custom dataset for either instance, semantic and panoptic segmentation, check out our [demo notebooks](https://github.com/NielsRogge/Transformers-Tutorials/tree/master/MaskFormer/Fine-tuning). MaskFormer, Mask2Former and OneFormer share a similar API so upgrading from MaskFormer is easy and requires minimal changes.
 
-The demo notebooks make use of `MaskFormerForInstanceSegmentation` to load the model whereas you'll have to switch to using either `Mask2FormerForUniversalSegmentation` or `OneFormerForUniversalSegmentation`. The image preprocessing part would not require any changes for Mask2Former, since MaskFormer and Mask2Former share a common image processor, that is, `MaskFormerImageProcessor`. You can also load the image processor using the `AutoImageProcessor` class which automatically takes care of loading the correct processor corresponding to your model. OneFormer on the other hand requires a `OneFormerProcessor`, which prepares the images, along with a text input, for the model.
+The demo notebooks make use of `MaskFormerForInstanceSegmentation` to load the model whereas you'll have to switch to using either `Mask2FormerForUniversalSegmentation` or `OneFormerForUniversalSegmentation`. In case of image processing for Mask2Former, you'll also have to switch to using `Mask2FormerImageProcessor`. You can also load the image processor using the `AutoImageProcessor` class which automatically takes care of loading the correct processor corresponding to your model. OneFormer on the other hand requires a `OneFormerProcessor`, which prepares the images, along with a text input, for the model.
 
 # Conclusion
 
