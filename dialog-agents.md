@@ -1,8 +1,54 @@
+---
+title: "What Makes a Dialog Agent Useful?" 
+thumbnail: /blog/assets/dialog-agents/thumbnail.png
+---
+
+
 # What Makes a Dialog Agent Useful?
+## The techniques behind ChatGPT: RLHF, IFT, CoT, Read teaming, and more
 
-Iterating on thumbnail [here](https://www.figma.com/file/dGh9IWiCgDWGEMjqXKAfw6/RL-Diagrams?node-id=503%3A112&t=zDBoyhf9ZFsB8VOv-0). 
+<div class="blog-metadata">
+    <small>Published January 24, 2023.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/rlhf.md">
+        Update on GitHub
+    </a>
+</div>
 
-![Untitled](What%20Makes%20a%20Dialog%20Agent%20Useful%20f342746579904a3d9528065fe2f8ad10/Untitled.png)
+<div class="author-card">
+    <a href="/NazneenRajani"> 
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/3278583?v=4?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>NazneenRajani</code>
+            <span class="fullname">Nazneen Rajani</span>
+        </div>
+    </a>
+
+<div class="author-card">
+    <a href="/natolambert"> 
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/10695622?v=4?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>natolambert</code>
+            <span class="fullname">Nathan Lambert</span>
+        </div>    </a>
+
+<div class="author-card">
+    <a href="/VictorSanh">
+        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1590600248871-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>VictorSanh</code>
+            <span class="fullname">Victor Sanh</span>
+        </div>
+    </a>
+</div>
+  
+  <div class="author-card">
+    <a href="/ThomasWolf"> 
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/7353373?v=4?w=200&h=200&f=face" title="Gravatar">
+        <div class="bfc">
+            <code>ThomasWolf</code>
+            <span class="fullname">Thomas Wolf</span>
+        </div>
+    </a>
 
 A few weeks ago, ChatGPT emerged and launched the public discourse into a set of obscure acronyms: RLHF, SFT, IFT, CoT, and more, all attributed to the success of ChatGPT. What are these obscure acronyms and why are they so important? We surveyed all the important papers on these topics to categorize these works, summarize takeaways from what has been done, and share what remains to be shown.
 
@@ -10,47 +56,34 @@ Let’s start by looking at the landscape of language model based conversational
 
 The following table compares these AI chatbots based on the details of their public access, training data, model architecture, and evaluation directions.  ChatGPT is not documented so we instead share details about InstructGPT which is a instruction fine-tuned model from OpenAI that is believed to have served as a foundation of ChatGPT.
 
-|  | LaMDA | BlenderBot 3 | Sparrow | ChatGPT/
-InstructGPT | Assistant/Claude |
+| &nbsp;| LaMDA | BlenderBot 3 |Sparrow | ChatGPT/ InstructGPT | Assistant/Claude|
 | --- | --- | --- | --- | --- | --- |
-| Org | Google | Meta | DeepMind | OpenAI | Anthropic |
-| Access | Closed | Open | Closed | Limited | Closed |
-| Size | 137B | 175B | 70B | 175B | 52B |
-| Pre-trained Base model | Unknown | OPT | Chinchilla | GPT-3.5 | Unknown |
-| Pre-training corpora size (# tokens) | 2.81T | 100B | 1.4T | Unknown | 400B |
-| Model can access the web | ✔ | ✔ | ✔ | ✖️ | ✖️ |
-| Supervised fine-tuning | ✔ | ✔ | ✔ | ✔ | ✔ |
-| Fine-tuning data size | Quality- 6.4K
-Safety - 8K
-Groundedness - 4K
-IR - 49K | 20 NLP datasets ranging from 18K to 1.2M | Unknown | 12.7K (for InstructGPT, likely much more for ChatGPT) | 150K + LM generated data |
-| RLHF | ✖️ | ✖️ | ✔ | ✔ | ✔ |
-| Hand written rules for safety | ✔ | ✖️ | ✔ | ✖️ | ✔ |
-| Evaluation dimensions | 1. Quality (sensibleness, specificity, interestingness)
-2. Safety (includes bias)
-3. Groundedness | 1, Quality (engagingness, use of knowledge)
-2. Safety (toxicity, bias) | 1. Alignment (Helpful, Harmless, Correct)
-2. Evidence (from web)
-3. Rule violation
-4. Bias and stereotypes
-5. Trustworthiness | 1. Alignment (Helpful, Harmless, Truthfulness)
-2. Bias | 1. Alignment (Helpful, Harmless, Honesty)
-2. Bias |
+| **Org** | Google | Meta | DeepMind | OpenAI | Anthropic |
+| **Access**  | Closed | Open | Closed | Limited | Closed |
+| **Size** | 137B | 175B | 70B | 175B | 52B |
+| **Pre-trained<br>Base model** | Unknown | OPT | Chinchilla | GPT-3.5 | Unknown |
+| **Pre-training corpora size** (# tokens) | 2.81T | 100B | 1.4T | Unknown | 400B |
+| **Model can<br>access the web** | ✔ | ✔ | ✔ | ✖️ | ✖️ |
+| **Supervised<br>fine-tuning** | ✔ | ✔ | ✔ | ✔ | ✔ |
+| **Fine-tuning<br>data size** | Quality:6.4K<br>Safety: 8K<br>Groundedness: 4K<br>IR: 49K | 20 NLP datasets ranging from 18K to 1.2M | Unknown | 12.7K (for InstructGPT, likely much more for ChatGPT) | 150K + LM generated data |
+| **RLHF** | ✖️ | ✖️ | ✔ | ✔ | ✔ |
+| **Hand written rules for safety** | ✔ | ✖️ | ✔ | ✖️ | ✔ |
+| **Evaluation criteria** | 1. Quality (sensibleness, specificity, interestingness)<br>2. Safety (includes bias) 3. Groundedness | 1, Quality (engagingness, use of knowledge)<br>2. Safety (toxicity, bias) | 1. Alignment (Helpful, Harmless, Correct)<br>2. Evidence (from web)<br>3. Rule violation<br>4. Bias and stereotypes<br>5. Trustworthiness | 1. Alignment (Helpful, Harmless, Truthfulness)<br>2. Bias | 1. Alignment (Helpful, Harmless, Honesty)<br>2. Bias |
 | Crowdsourcing platform used for data labeling | U.S. based vendor | Amazon MTurk | Unknown | Upwork and Scale AI | Surge AI, Amazon MTurk, and Upwork |
 
 We observe that albeit there are many differences in the training data, model, and fine-tuning, there are also some commonalities. One common goal for all the above chatbots is *instru*c*tion following ,* i.e., to follow user-specified instructions. For example, instructing ChatGPT to write a poem on fine-tuning.
 
-![Screenshot 2023-01-22 at 4.49.36 PM.png](What%20Makes%20a%20Dialog%20Agent%20Useful%20f342746579904a3d9528065fe2f8ad10/Screenshot_2023-01-22_at_4.49.36_PM.png)
+![ChatGPT instruction example](assets/dialog-agents/chatgpt-example.png)
 
 ### **********************************************************************************************From prediction text to following instructions:**********************************************************************************************
 
 Usually, the language-modeling objective of the base model is not sufficient for a model to learn to follow a user’s direction in a helpful way. Model creators use **Instruction Fine-Tuning (IFT)** that involves fine-tuning the base model on demonstrations of written directions on a very diverse set of tasks, in addition to classical NLP tasks of sentiment, text classification, summarization etc. These instruction demonstrations are made up of three main components — the instruction, the inputs and the outputs.  The inputs are optional, some tasks only require instructions such as open-ended generation as in the example above with ChatGPT.  A input and output when present form an *instance*. There can be multiple instances of inputs and outputs for a given instruction. See below for examples (taken from [Wang et al., ‘22]).
 
-![Screenshot 2023-01-22 at 5.31.36 PM.png](What%20Makes%20a%20Dialog%20Agent%20Useful%20f342746579904a3d9528065fe2f8ad10/Screenshot_2023-01-22_at_5.31.36_PM.png)
+![Instruction and instance example](assets/dialog-agents/ift.png)
 
 Data for IFT is usually a collection of human-written instructions and instances of instructions bootstrapped using a language model. For bootstrapping, the LM is prompted (as in the figure above) in a few-shot setting with examples and instructed to generate new  instructions, inputs, and outputs. In each round, the model is prompted with samples chosen from both human-written and model generated.  The amount of human and model contributions to creating the dataset is a spectrum; see figure below. 
 
-![Screenshot 2023-01-23 at 3.48.11 PM.png](What%20Makes%20a%20Dialog%20Agent%20Useful%20f342746579904a3d9528065fe2f8ad10/Screenshot_2023-01-23_at_3.48.11_PM.png)
+![IFT spectrum](assets/dialog-agents/ift-spectrum.png)
 
 On one end is the purely model-generated IFT dataset such as Unnatural Instructions ([Honovich et al., ‘22](https://arxiv.org/abs/2212.09689)) and on the other is a large community effort of hand-crafted instructions as in Super-natural instructions ([Wang et al., ‘22](https://arxiv.org/abs/2204.07705)). In between these two are works on using a small set of high quality seed dataset followed by bootstrapping such as Self-instruct ([Wang et al., 22](https://arxiv.org/pdf/2212.10560.pdf)). Yet another way of collating a dataset for IFT is to take the existing high-quality crowdsourced NLP datasets on various tasks (including prompting) and cast those as instructions using a unified schema or diverse templates. This line of work includes the T0 ([Sanh et al., ‘22](https://arxiv.org/pdf/2110.08207.pdf)), Natural instructions dataset ([Mishra et al., ‘22](https://arxiv.org/pdf/2104.08773.pdf)), the FLAN LM ([Wei et al., ‘22](https://arxiv.org/pdf/2109.01652.pdf)), and the OPT-IML ([Iyer et al.,’22](https://arxiv.org/pdf/2212.12017.pdf)).
 
@@ -60,7 +93,7 @@ Instruction fine-tuned LMs, however, may not always generate responses that are 
 
 SFT and IFT are very closely linked. Instruction tuning can be seen as a subset of supervised fine-tuning. In the recent literature, the SFT phase has often been utilized for safety topics, rather than instruction-specific topics, which is done after IFT. In the future, this taxonomy and delineation should mature into clearer use-cases and methodology.
 
-![Screenshot 2023-01-22 at 9.29.24 PM.png](What%20Makes%20a%20Dialog%20Agent%20Useful%20f342746579904a3d9528065fe2f8ad10/Screenshot_2023-01-22_at_9.29.24_PM.png)
+![Han-written rules for safety](assets/dialog-agents/rules.png)
 
 Google’s LaMDA is also fine-tuned on a dialog dataset with safety annotations based on a set of rules (Appendix A). These rules are usually pre-defined and developed by model creators and encompass a wide set of topics including harm, discrimination, misinformation. 
 
@@ -70,13 +103,13 @@ On the other hand, Open AI’s InstructGPT, DeepMind’s Sparrow, and Anthropic�
 
 **Chain-of-thought (CoT)** prompting ([Wei et al., ‘22](https://arxiv.org/abs/2201.11903)) is a special case of instruction demonstration that generates output by eliciting step-by-step reasoning from the dialog agent. Models fine-tuned with CoT use instruction datasets with human annotations of step-by-step reasoning. It’s the origin of the famous prompt, ***************************[let’s think step by step](https://arxiv.org/abs/2205.11916)***************************. The example below is taken from [Chung et al., ‘22](https://arxiv.org/pdf/2210.11416.pdf). The orange color highlights the instruction, the pink color shows the input and the output, and the blue color is the CoT reasoning.
 
-![Screenshot 2023-01-23 at 8.51.14 AM.png](What%20Makes%20a%20Dialog%20Agent%20Useful%20f342746579904a3d9528065fe2f8ad10/Screenshot_2023-01-23_at_8.51.14_AM.png)
+![Illustration of CoT](assets/dialog-agents/cot.png)
 
 Models fine-tuned with CoT have shown to perform much better on tasks involving commonsense, arithmetic, and symbolic reasoning as in [Chung et al., ‘22](https://arxiv.org/pdf/2210.11416.pdf). 
 
 CoT fine-tuning have also shown to be very effective for harmlessness (sometimes doing better than RLHF) without the model being evasive and generating “Sorry, I cannot respond to this question,” for prompts that are sensitive as shown by [Bai et al.,’22](https://www.anthropic.com/constitutional.pdf). See Appendix D of their paper for more examples.
 
-![Screenshot 2023-01-23 at 9.03.28 AM.png](What%20Makes%20a%20Dialog%20Agent%20Useful%20f342746579904a3d9528065fe2f8ad10/Screenshot_2023-01-23_at_9.03.28_AM.png)
+![Comparing CoT and RLHF](assets/dialog-agents/rlhf.png)
 
 ## Takeaways:
 
@@ -110,5 +143,3 @@ BibTeX citation:
   note = {https://huggingface.co/blog/dialog-agents},
 }
 ```
-
----
