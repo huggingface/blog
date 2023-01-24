@@ -1,6 +1,6 @@
 ---
 title: "Optimum+ONNX Runtime - Easier, Faster training for your Hugging Face models"
-thumbnail: blog/assets/optimum_onnxruntime-training/thumbnail.png
+thumbnail: /blog/assets/optimum_onnxruntime-training/thumbnail.png
 ---
 
 # Optimum + ONNX Runtime: Easier, Faster training for your Hugging Face models
