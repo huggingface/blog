@@ -30,7 +30,7 @@ The adoption of BERT and Transformers continues to grow. Transformer-based model
 
 Companies are now moving from the experimentation and research phase to the production phase in order to use Transformer models for large-scale workloads. But by default BERT and its friends are relatively slow, big, and complex models compared to traditional Machine Learning algorithms.
 
-To solve this challenge, we created [Optimum](https://huggingface.co/blog/hardware-partners-program) –  an extension of [Hugging Face Transformers](https://github.com/huggingface/transformers) to accelerate the training and inference of Transformer models like BERT.
+To solve this challenge, we created [Optimum](https://huggingface.co/blog/hardware-partners-program) –  an extension of [Hugging Face Transformers](https://github.com/huggingface/transformers) to accelerate the training and inference of Transformer models like BERT.
 
 In this blog post, you'll learn:
 
@@ -413,4 +413,4 @@ Some important features on the roadmap for Optimum amongst the [current limitati
 
 Thanks for reading! If you are as excited as I am about accelerating Transformers, make them efficient and scale them to billions of requests. You should apply, [we are hiring](https://apply.workable.com/huggingface/#jobs).🚀
 
-If you have any questions, feel free to contact me, through [Github](https://github.com/huggingface/optimum/issues), or on the [forum](https://discuss.huggingface.co/c/optimum/59). You can also connect with me on [Twitter](https://twitter.com/_philschmid) or [LinkedIn](https://www.linkedin.com/in/philipp-schmid-a6a2bb196/).
+If you have any questions, feel free to contact me, through [Github](https://github.com/huggingface/optimum/issues), or on the [forum](https://discuss.huggingface.co/c/optimum/59). You can also connect with me on [Twitter](https://twitter.com/_philschmid) or [LinkedIn](https://www.linkedin.com/in/philipp-schmid-a6a2bb196/).
