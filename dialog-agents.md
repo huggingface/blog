@@ -5,7 +5,7 @@ thumbnail: /blog/assets/dialog-agents/thumbnail.png
 
 
 # What Makes a Dialog Agent Useful?
-## The techniques behind ChatGPT: RLHF, IFT, CoT, Read teaming, and more
+## The techniques behind ChatGPT: RLHF, IFT, CoT, Red teaming, and more
 
 <div class="blog-metadata">
     <small>Published January 24, 2023.</small>
@@ -34,10 +34,10 @@ thumbnail: /blog/assets/dialog-agents/thumbnail.png
             <span class="fullname">Victor Sanh</span>
         </div>
     </a>
-    <a href="/ThomasWolf"> 
+    <a href="/ThomWolf"> 
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/7353373?v=4?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
-            <code>ThomasWolf</code>
+            <code>ThomWolf</code>
             <span class="fullname">Thomas Wolf</span>
         </div>
     </a>

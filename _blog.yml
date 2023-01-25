@@ -1545,6 +1545,17 @@
     - rl
     - guide
 
+- local: dialog-agents
+  title: "What Makes a Dialog Agent Useful?"
+  author: nazneen
+  thumbnail: /blog/assets/dialog-agents/thumbnail.png
+  date: January 24, 2023
+  tags:
+    - rlhf
+    - ChatGPT
+    - cot
+    - ift
+    - sft
 
 - local: habana-gaudi-2-benchmark
   title: "Faster Training and Inference: Habana Gaudi®2 vs Nvidia A100 80GB"
