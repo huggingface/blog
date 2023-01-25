@@ -67,6 +67,8 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 
 2️⃣ Use [this template](https://github.com/huggingface/blog/blob/main/assets/thumbnail-template.svg) and fill the content part.
 
+➡️ Or select a background you like and follow the instructions in [this Figma template](https://www.figma.com/file/sXrf9VtkkbWI7kCIesMkDY/HF-Blog-Template?node-id=351%3A39).
+
 
 ## Using LaTeX
 
