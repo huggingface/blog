@@ -14,10 +14,10 @@ thumbnail: /blog/assets/dialog-agents/thumbnail.png
     </a>
 </div>
 <div class="author-card">
-    <a href="/NazneenRajani"> 
+    <a href="/nazneen"> 
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/3278583?v=4?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
-            <code>NazneenRajani</code>
+            <code>Nazneen</code>
             <span class="fullname">Nazneen Rajani</span>
         </div>
     </a>
