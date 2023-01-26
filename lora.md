@@ -37,7 +37,7 @@ thumbnail: /blog/assets/lora/thumbnail.png
 
 Even though LoRA was initially proposed for large-language models, the technique can also be applied to other transformer-based models or simply to models that contain transformer blocks. This is the case of Stable Diffusion, which uses transformer blocks to perform cross-attention between the image representation and the prompt that describes it. The details of the following figure (taken from the [Stable Diffusion paper](https://arxiv.org/abs/2112.10752)) are not important, just note that the yellow blocks are the ones in charge of building the relationship between image and text representations.
 
-![Latent Diffusion Architecture](assets/lora/latent_diffusion.png)
+![Latent Diffusion Architecture](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/lora/latent-diffusion.png)
 
 To the best of our knowledge, Simo Ryu ([`@cloneofsimo`](https://github.com/cloneofsimo)) was the first one to come up with a LoRA implementation adapted to Stable Diffusion. Please, do take a look at [their GitHub project](https://github.com/cloneofsimo/lora) to see examples and lots of interesting discussions and insights.
 
@@ -89,7 +89,7 @@ accelerate launch --mixed_precision="fp16"  train_text_to_image_lora.py \
 
 One thing of notice is that the learning rate is `1e-4`, much larger than the usual learning rates for regular fine-tuning (in the order of `~1e-6`, typically). This is a [W&B dashboard](https://wandb.ai/pcuenq/text2image-fine-tune/runs/b4k1w0tn?workspace=user-pcuenq) of the previous run, which took about 5 hours in a 2080 Ti GPU (11 GB of RAM). I did not attempt to optimize the hyperparameters, so feel free to try it out yourself! [Sayak](https://huggingface.co/sayakpaul) did another run on a T4 (16 GB of RAM), here's [his final model](https://huggingface.co/sayakpaul/sd-model-finetuned-lora-t4), and here's [a demo Space that uses it](https://huggingface.co/spaces/pcuenq/lora-pokemon).
 
-![Sample outputs from Sayak's LoRA model](assets/lora/sayak-pokemon-collage.png)
+![Sample outputs from Sayak's LoRA model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/lora/sayak-pokemon-collage.png)
 
 For additional details on LoRA support in diffusers, please refer to [our documentation](https://huggingface.co/docs/diffusers/main/en/training/lora) – it will be always kept up to date with the implementation.
 
