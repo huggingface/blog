@@ -129,7 +129,7 @@ BibTeX citation:
 
 ```
 @article{rajani2023ift,
-  author = {Rajani, Nazneen and Lambert, Nathan and Shah, Victor and Wolf, Thomas},
+  author = {Rajani, Nazneen and Lambert, Nathan and Sanh, Victor and Wolf, Thomas},
   title = {What Makes a Dialog Agent Useful?},
   journal = {Hugging Face Blog},
   year = {2023},
