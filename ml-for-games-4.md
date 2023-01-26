@@ -67,7 +67,7 @@ In this section, I'll walk through how I generated a corn icon for the farming g
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/corn1.png" alt="Corn 1">
 </div>
 
-Next, I used Image2Image to generate some icons, using the following prompt:
+Next, I used Image2Image to generate some icons using the following prompt:
 
 > corn, james gilleard, atey ghailan, pixar concept artists, stardew valley, animal crossing
 
