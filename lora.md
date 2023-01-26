@@ -8,7 +8,7 @@ thumbnail: /blog/assets/lora/thumbnail.png
 </h1>
 
 <div class="blog-metadata">
-    <small>Published January 25, 2023.</small>
+    <small>Published January 26, 2023.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/lora.md">
         Update on GitHub
     </a>
@@ -43,7 +43,7 @@ To the best of our knowledge, Simo Ryu ([`@cloneofsimo`](https://github.com/clon
 
 In order to inject LoRA trainable matrices as deep in the model as in the cross-attention layers, people used to need to hack the source code of [diffusers](https://github.com/huggingface/diffusers) in imaginative (but fragile) ways. If Stable Diffusion has shown us one thing, it is that the community always comes up with ways to bend and adapt the models for creative purposes, and we love that! Providing the flexibility to manipulate the cross-attention layers could be beneficial for many other reasons, such as making it easier to adopt optimization techniques such as [xFormers](https://github.com/facebookresearch/xformers). Other creative projects such as [Prompt-to-Prompt](https://arxiv.org/abs/2208.01626) could do with some easy way to access those layers, so we decided to [provide a general way for users to do it](https://github.com/huggingface/diffusers/pull/1639). We've been testing that _pull request_ since late December, and it's officially launching with our diffusers release today (v0.12).
 
-We've been working with `@cloneofsimo` to provide LoRA training support in diffusers, for both Dreambooth and full fine-tuning methods! These techniques provide the following benefits:
+We've been working with [`@cloneofsimo`](https://github.com/cloneofsimo) to provide LoRA training support in diffusers, for both Dreambooth and full fine-tuning methods! These techniques provide the following benefits:
 
 - Training is much faster, as already discussed.
 - Compute requirements are lower. We could create a full fine-tuned model in a 2080 Ti with 11 GB of VRAM!
@@ -69,7 +69,7 @@ export DATASET_NAME="lambdalabs/pokemon-blip-captions"
 
 accelerate launch --mixed_precision="fp16"  train_text_to_image_lora.py \
   --pretrained_model_name_or_path=$MODEL_NAME \
-  --dataset_name=$dataset_name \
+  --dataset_name=$DATASET_NAME \
   --dataloader_num_workers=8 \
   --resolution=512 --center_crop --random_flip \
   --train_batch_size=1 \
@@ -100,13 +100,13 @@ As we've discussed, one of the major advantages of LoRA is that you get excellen
 First, we'll use the Hub API to automatically determine what was the base model that was used to fine-tune a LoRA model. Starting from [Sayak's model](https://huggingface.co/sayakpaul/sd-model-finetuned-lora-t4), we can use this code:
 
 ```Python
-from huggingface_hub.repocard import RepoCard
+from huggingface_hub import model_info
 
 # LoRA weights ~3 MB
 model_path = "sayakpaul/sd-model-finetuned-lora-t4"
 
-card = RepoCard.load(model_path)
-model_base = card.data.to_dict()["base_model"]
+info = model_info(model_path)
+model_base = info.cardData["base_model"]
 print(model_base)   # CompVis/stable-diffusion-v1-4
 ```
 
@@ -117,6 +117,7 @@ The information about the base model is automatically populated by the fine-tuni
 After we determine the base model we used to fine-tune with LoRA, we load a normal Stable Diffusion pipeline. We'll customize it with the `DPMSolverMultistepScheduler` for very fast inference:
 
 ```Python
+import torch
 from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
 
 pipe = StableDiffusionPipeline.from_pretrained(model_base, torch_dtype=torch.float16)
