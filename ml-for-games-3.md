@@ -87,9 +87,7 @@ While text-to-3D has come a long way recently, there is still a significant gap 
 
 Of course, only time will tell. If you want to keep up with advancements as they come, feel free to follow me on [Twitter](https://twitter.com/dylan_ebert_). If there are new developments I've missed, feel free to reach out!
 
-In the next part, we'll be using **AI to Generate 2D Assets**.
-
-<!-- TODO: Add link to next part -->
+Click [here](https://huggingface.co/blog/ml-for-games-4) to read Part 4, where we use **AI for 2D Assets**.
 
 #### Attribution
 
