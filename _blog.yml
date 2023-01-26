@@ -1693,3 +1693,15 @@
     - cot
     - ift
     - sft
+
+- local: lora
+  title: "Using LoRA for Efficient Stable Diffusion Fine-Tuning"
+  author: pcuenq
+  thumbnail: /blog/assets/lora/thumbnail.png
+  date: January 26, 2023
+  tags:
+    - diffusers
+    - stable-diffusion
+    - dreambooth
+    - fine-tuning
+    - guide
