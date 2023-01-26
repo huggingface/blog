@@ -51,7 +51,7 @@ Requirements:
 
 [Diffusion models](https://en.wikipedia.org/wiki/Diffusion_model) such as Stable Diffusion work by reconstructing images from noise, guided by text. Image2Image uses the same process but starts with real images as input rather than noise. This means that the outputs will, to some extent, resemble the input image.
 
-An important parameter in the Image2Image tab is **denoising strength**. The controls the extent to which the model changes the input. A denoising strength of 0 will reproduce the input image exactly, while a denoising strength of 1 will generate a very different image. Another way to think about denoising strength is **creativity**. The image below demonstrates image-to-image with an input image of a circle and the prompt "moon", at various denoising strengths.
+An important parameter in Image2Image is **denoising strength**. This controls the extent to which the model changes the input. A denoising strength of 0 will reproduce the input image exactly, while a denoising strength of 1 will generate a very different image. Another way to think about denoising strength is **creativity**. The image below demonstrates image-to-image with an input image of a circle and the prompt "moon", at various denoising strengths.
 
 <div align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/moons.png" alt="Denoising Strength Example">
