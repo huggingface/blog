@@ -53,7 +53,7 @@ We are particularly excited about the last point. In order for users to share th
 
 With LoRA, it is now possible to publish [a single 3.29 MB file](https://huggingface.co/sayakpaul/sd-model-finetuned-lora-t4/blob/main/pytorch_lora_weights.bin) to allow others to use your fine-tuned model.
 
-_(h/t to [`@mishig25`](https://github.com/mishig25), the first person I heard use `dreamboothing` as a verb in a normal conversation)._
+_(h/t to [`@mishig25`](https://github.com/mishig25), the first person I heard use **dreamboothing** as a verb in a normal conversation)._
 
 ## LoRA fine-tuning
 
@@ -110,7 +110,7 @@ model_base = info.cardData["base_model"]
 print(model_base)   # CompVis/stable-diffusion-v1-4
 ```
 
-The above snippet will print the model he used for fine-tuning, which is `CompVis/stable-diffusion-v1-4`. In my case, I trained my model starting from version 1.5 of Stable Diffusion, so if you run the same code with [my LoRA model](https://huggingface.co/pcuenq/pokemon-lora) you'll see that the output is `runwayml/stable-diffusion-v1-5`.
+This snippet will print the model he used for fine-tuning, which is `CompVis/stable-diffusion-v1-4`. In my case, I trained my model starting from version 1.5 of Stable Diffusion, so if you run the same code with [my LoRA model](https://huggingface.co/pcuenq/pokemon-lora) you'll see that the output is `runwayml/stable-diffusion-v1-5`.
 
 The information about the base model is automatically populated by the fine-tuning script we saw in the previous section, if you use the `--push_to_hub` option. This is recorded as a metadata tag in the `README` file of the model's repo, as you can see [here](https://huggingface.co/pcuenq/pokemon-lora/blob/main/README.md).
 
