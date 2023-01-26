@@ -1705,3 +1705,13 @@
     - dreambooth
     - fine-tuning
     - guide
+
+- local: ml-for-games-4
+  title: "2D Asset Generation: AI for Game Development #4"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail4.png
+  date: January 26, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
