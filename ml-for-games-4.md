@@ -107,9 +107,11 @@ In many cases, you may need to fight Stable Diffusion a bit to get the result yo
 
 The issue likely lies in the fact that there are way more images online of scythes as *weapons* rather than as *farming tools*. One way around this is prompt engineering, or fiddling with the prompt to try to push it in the right direction, i.e. writing **scythe, scythe tool** in the prompt or **weapon** in the negative prompt. However, this isn't the only solution.
 
-[Dreambooth](https://dreambooth.github.io/) and [textual inversion](https://textual-inversion.github.io/) are techniques for customizing diffusion models, making them capable of producing results much more specific to what you're going for. These are outside the scope of this tutorial, but are worth mentioning, as they're becoming increasingly prominent in the area of 2D Asset generation.
+[Dreambooth](https://dreambooth.github.io/), [textual inversion](https://textual-inversion.github.io/), and [LoRA](https://huggingface.co/blog/lora) are techniques for customizing diffusion models, making them capable of producing results much more specific to what you're going for. These are outside the scope of this tutorial, but are worth mentioning, as they're becoming increasingly prominent in the area of 2D Asset generation.
 
 Generative services such as [layer.ai](https://layer.ai/) and [scenario.gg](https://www.scenario.gg/) are specifically targeted toward game asset generation, likely using techniques such as dreambooth and textual inversion to allow game developers to generate style-consistent assets. However, it remains to be seen which approaches will rise to the top in the emerging generative game development toolkit.
+
+If you're interested in diving deeper into these advanced workflows, check out this [blog post](https://huggingface.co/blog/dreambooth) and [space](https://huggingface.co/spaces/multimodalart/dreambooth-training) on Dreambooth training.
 
 In the next part, we'll be using **AI for Story**.
 
