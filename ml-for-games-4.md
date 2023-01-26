@@ -83,7 +83,7 @@ The image doesn't need to be perfect, just in the direction you're going for, si
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/corn3.png" alt="Corn 3">
 </div>
 
-Notice that I roughly painted over the parts I wanted to change, allowing Stable Diffusion fill in the details. I dropped my modified image back into Image2Image, this time use a lower denoising strength of 0.6, since I don't want to deviate too far from the input. This resulted in an icon I was *almost* happy with.
+Notice that I roughly painted over the parts I wanted to change, allowing Stable Diffusion to fill the details in. I dropped my modified image back into Image2Image, this time using a lower denoising strength of 0.6 since I didn't want to deviate too far from the input. This resulted in an icon I was *almost* happy with.
 
 <div align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/corn4.png" alt="Corn 4">
