@@ -41,7 +41,7 @@ In this part, we'll talk about how you can use AI to generate 2D Assets.
 
 ### Preface
 
-This tutorial describes a collaborative process for generating 2D Assets, where Stable Diffusion is incorporated as a tool in a conventional 2D workflow. This is intended for readers with some knowledge of image editing and 2D asset creation, but may otherwise be useful for beginners and experts alike.
+This tutorial describes a collaborative process for generating 2D Assets, where Stable Diffusion is incorporated as a tool in a conventional 2D workflow. This is intended for readers with some knowledge of image editing and 2D asset creation but may otherwise be helpful for beginners and experts alike.
 
 Requirements:
 - Your preferred image-editing software, such as [Photoshop](https://www.adobe.com/products/photoshop.html) or [GIMP](https://www.gimp.org/) (free).
