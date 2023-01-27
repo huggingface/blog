@@ -473,7 +473,7 @@ def create_instance_splitter(config: PretrainedConfig, mode: str, train_sampler:
 
 ## Create PyTorch DataLoaders
 
-Next, it's time to create PyTorch DataLoaders, which allow us to have batches of (input, output pairs) - or in other words (`past_values`, `future_values`).
+Next, it's time to create PyTorch DataLoaders, which allow us to have batches of (input, output) pairs - or in other words (`past_values`, `future_values`).
 
 
 ```python
@@ -770,7 +770,7 @@ for item_id, ts in enumerate(test_dataset):
 
 
 ```python
-print(f"MASE: {np.mean(metric)}")
+print(f"MASE: {np.mean(mase_metrics)}")
 
 >>> MASE: 1.361636922541396
 

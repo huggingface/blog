@@ -145,7 +145,7 @@ Generating well-written human text answering specific prompts is very costly, as
 
 With these limitations, huge swaths of unexplored design options could still enable RLHF to take substantial strides. Many of these fall within the domain of improving the RL optimizer. PPO is a relatively old algorithm, but there are no structural reasons that other algorithms could offer benefits and permutations on the existing RLHF workflow. One large cost of the feedback portion of fine-tuning the LM policy is that every generated piece of text from the policy needs to be evaluated on the reward model (as it acts like part of the environment in the standard RL framework). To avoid these costly forward passes of a large model, offline RL could be used as a policy optimizer. Recently, new algorithms have emerged, such as [implicit language Q-learning](https://arxiv.org/abs/2206.11871) (ILQL) [[Talk](https://youtu.be/fGq4np3brbs) on ILQL at CarperAI], that fit particularly well with this type of optimization. Other core trade-offs in the RL process, like exploration-exploitation balance, have also not been documented. Exploring these directions would at least develop a substantial understanding of how RLHF functions and, if not, provide improved performance.
 
-We'll be hosting a lecture on next Tuesday 13 December that will expand on this post. You can join [here](https://www.youtube.com/watch?v=2MBJOuVq380&feature=youtu.be) at 830 PST!
+We hosted a lecture on Tuesday 13 December 2022 that expanded on this post; you can watch it [here](https://www.youtube.com/watch?v=2MBJOuVq380&feature=youtu.be)!
 
 ### Further reading
 
@@ -169,5 +169,22 @@ And here is a snapshot of the growing set of papers that show RLHF's performance
 - [Red Teaming Language Models to Reduce Harms: Methods, Scaling Behaviors, and Lessons Learned](https://arxiv.org/abs/2209.07858) (Ganguli et al. 2022): A detailed documentation of efforts to “discover, measure, and attempt to reduce [language models] potentially harmful outputs.”
 - [Dynamic Planning in Open-Ended Dialogue using Reinforcement Learning](https://arxiv.org/abs/2208.02294) (Cohen at al. 2022): Using RL to enhance the conversational skill of an open-ended dialogue agent.
 - [Is Reinforcement Learning (Not) for Natural Language Processing?: Benchmarks, Baselines, and Building Blocks for Natural Language Policy Optimization](https://arxiv.org/abs/2210.01241) (Ramamurthy and Ammanabrolu et al. 2022): Discusses the design space of open-source tools in RLHF and proposes a new algorithm NLPO (Natural Language Policy Optimization) as an alternative to PPO.
+
+**Citation:**
+If you found this useful for your academic work, please consider citing our work, in text:
+```
+Lambert, et al., "Illustrating Reinforcement Learning from Human Feedback (RLHF)", Hugging Face Blog, 2022.
+```
+
+BibTeX citation:
+```
+@article{lambert2022illustrating,
+  author = {Lambert, Nathan and Castricato, Louis and von Werra, Leandro and Havrilla, Alex},
+  title = {Illustrating Reinforcement Learning from Human Feedback (RLHF)},
+  journal = {Hugging Face Blog},
+  year = {2022},
+  note = {https://huggingface.co/blog/rlhf},
+}
+```
 
 *Thanks to [Robert Krik](https://robertkirk.github.io/) for fixing some factual errors regarding specific implementations of RLHF. Thanks to [Peter Stone](https://www.cs.utexas.edu/~pstone/) for helping expand the related works further into history.*

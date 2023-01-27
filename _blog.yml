@@ -1545,7 +1545,6 @@
     - rl
     - guide
 
-
 - local: habana-gaudi-2-benchmark
   title: "Faster Training and Inference: Habana Gaudi®2 vs Nvidia A100 80GB"
   author: regisss
@@ -1572,7 +1571,6 @@
   tags:
     - ethics
 
-
 - local: model-cards
   title: "Model Cards: Introducing HF Model documentation tools"
   author: Ezi
@@ -1584,7 +1582,6 @@
     - ethics
     - guide
 
-  
 - local: clipseg-zero-shot
   title: "Zero-shot image segmentation with CLIPSeg"
   author: segments-tobias
@@ -1626,3 +1623,95 @@
     - community
     - guide
     - graphs
+
+- local: ml-for-games-2
+  title: "AI for Game Development: Creating a Farming Game in 5 Days. Part 2"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail2.png
+  date: January 9, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
+
+- local: image-similarity
+  title: "Image Similarity with Hugging Face Datasets and Transformers"
+  author: sayakpaul
+  thumbnail: /blog/assets/image_similarity/thumbnail.png
+  date: Jan 16, 2023
+  tags:
+    - guide
+    - cv
+
+- local: paddlepaddle
+  title: "Welcome PaddlePaddle to the Hugging Face Hub"
+  author: paddlepaddle
+  guest: true
+  thumbnail: /blog/assets/126_paddlepaddle/thumbnail.jpg
+  date: January 17, 2023
+  tags:
+    - open-source-collab
+    - nlp
+
+- local: mask2former
+  title: "Universal Image Segmentation with Mask2Former and OneFormer"
+  author: nielsr
+  thumbnail: /blog/assets/127_mask2former/thumbnail.png
+  date: Jan 19, 2023
+  tags:
+    - cv
+    - guide
+
+- local: ml-for-games-3
+  title: "3D Asset Generation: AI for Game Development #3"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail3.png
+  date: January 20, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
+
+- local: optimum-onnxruntime-training
+  title: "Optimum+ONNX Runtime - Easier, Faster training for your Hugging Face models"
+  author: Jingya
+  thumbnail: blog/assets/optimum_onnxruntime-training/thumbnail.png
+  date: January 24, 2023
+  tags:
+    - guide
+    - community
+    - onnxruntime
+    
+- local: dialog-agents
+  title: "What Makes a Dialog Agent Useful?"
+  author: nazneen
+  thumbnail: /blog/assets/dialog-agents/thumbnail.png
+  date: January 24, 2023
+  tags:
+    - rlhf
+    - ChatGPT
+    - cot
+    - ift
+    - sft
+
+- local: lora
+  title: "Using LoRA for Efficient Stable Diffusion Fine-Tuning"
+  author: pcuenq
+  thumbnail: /blog/assets/lora/thumbnail.png
+  date: January 26, 2023
+  tags:
+    - diffusers
+    - stable-diffusion
+    - dreambooth
+    - fine-tuning
+    - guide
+
+- local: ml-for-games-4
+  title: "2D Asset Generation: AI for Game Development #4"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail4.png
+  date: January 26, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
