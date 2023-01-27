@@ -6,7 +6,7 @@ thumbnail: /blog//assets/128_vision_language_pretraining/thumbnail.png
 <h1>A Dive into Pretraining Strategies for Vision-Language Models</h1>
 
 <div class="blog-metadata">
-    <small>Published January 27, 2023.</small>
+    <small>Published February 2, 2023.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/vision_language_pretraining.md">
         Update on GitHub
     </a>
@@ -38,19 +38,19 @@ In this blog post, we’ll provide an introduction to joint vision-language mode
 
 # Table of contents
 
-1. [Vision-Language Models: Introduction]
-2. [Vision-Language Models: Learning Strategies]
-    1. [Contrastive Learning]
-    2. [PrefixLM]
-    3. [Multimodal Fusing with Cross Attention]
-    4. [MLM / ITM]
-    5. [No Training]
-3. [Vision-Language Models: Datasets]
-4. [Supporting Vision-Language Models in 🤗 Transformers]
-5. [Emerging Areas of Research]
-6. [Conclusion]
+1. [Vision-Language Models: Introduction](#vision-language-models-introduction)
+2. [Vision-Language Models: Learning Strategies](#vision-language-models-learning-strategies)
+    1. [Contrastive Learning](#contrastive-learning)
+    2. [PrefixLM](#prefixlm)
+    3. [Multimodal Fusing with Cross Attention](#multimodal-fusing-with-cross-attention)
+    4. [MLM / ITM](#masked-language-modeling-image-text-matching)
+    5. [No Training](#no-training)
+3. [Vision-Language Models: Datasets](#vision-language-models-datasets)
+4. [Supporting Vision-Language Models in 🤗 Transformers](#supporting-vision-language-models-in-transformers)
+5. [Emerging Areas of Research](#emerging-areas-of-research)
+6. [Conclusion](#conclusion)
 
-# Vision-Language Models: Introduction]
+# Vision-Language Models: Introduction
 
 What does it mean to call a model a “vision-language” model? A model that combines both the vision and language modalities? But what exactly does that mean? 
 
@@ -75,6 +75,7 @@ But these inputs and outputs can take several forms. Below we give some examples
 
 
 # Vision-Language Models: Learning Strategies
+
 A vision-language model typically consists of 3 key elements: an image encoder, a text encoder, and a strategy to fuse information from the two encoders. These key elements are tightly coupled together as the loss functions are designed around both the model architecture and the learning strategy. While vision-language model research is hardly a new research area, the design of such models has changed tremendously over the years. Whereas earlier research adopted hand-crafted image descriptors and pre-trained word vectors or the frequency-based TF-IDF features, the latest research predominantly adopts image and text encoders with [transformer](https://arxiv.org/abs/1706.03762) architectures to separately or jointly learn image and text features. These models are pre-trained with strategic pre-training objectives that enable various downstream tasks. 
 
 In this section, we’ll discuss some of the typical pre-training objectives and strategies for vision-language models that have been shown to perform well as far as their transfer performance is concerned. We’ll also touch upon additional interesting things that are either specific to these objectives or can be used as general components for pre-training. 
@@ -237,55 +238,40 @@ Let’s go ahead and experiment with some of these models. We will use [ViLT](ht
 Let’s start with ViLT and download a model pre-trained on the VQA dataset. We can do this by simply initializing the corresponding model class and calling the `from_pretrained()` method to download our desired checkpoint.
 
 ```py
-
 from transformers import ViltProcessor, ViltForQuestionAnswering
 
 model = ViltForQuestionAnswering.from_pretrained("dandelin/vilt-b32-finetuned-vqa")
-
 ```
 
 Next, we will download a random image of two cats and preprocess both the image and our  query question to transform them to the input format expected by the model. To do this, we can conveniently use the corresponding preprocessor class (`ViltProcessor`) and initialize it with the pre-processing configuration of the corresponding checkpoint. 
 
 ```py
-
 import requests
-
 from PIL import Image
 
 processor = ViltProcessor.from_pretrained("dandelin/vilt-b32-finetuned-vqa")
 
 # download an input image
-
 url = "http://images.cocodataset.org/val2017/000000039769.jpg"
-
 image = Image.open(requests.get(url, stream=True).raw)
-
 text = "How many cats are there?"
 
 # prepare inputs
-
 inputs = processor(image, text, return_tensors="pt")
-
 ```
 
 Finally, we can perform inference using the pre-processed image and question as input and print the predicted answer. However, an important point to keep in mind is to make sure your text input resembles the question templates used in the training setup. You can refer to [the paper and the dataset](https://arxiv.org/abs/2102.03334) to learn how the questions are formed. 
 
 ```py
-
 import torch
 
 # forward pass
-
 with torch.no_grad():
-
     outputs = model(**inputs)
 
 logits = outputs.logits
-
 idx = logits.argmax(-1).item()
-
 print("Predicted answer:", model.config.id2label[idx])
-
 ```
 
 Straight-forward, right? Let’s do another demonstration with CLIPSeg and see how we can perform zero-shot image segmentation with a few lines of code. 
@@ -296,69 +282,50 @@ Straight-forward, right? Let’s do another demonstration with CLIPSeg and see h
 We will start by initializing `CLIPSegForImageSegmentation` and its corresponding pre-processing class and load our pre-trained model.
 
 ```py
-
 from transformers import CLIPSegProcessor, CLIPSegForImageSegmentation
 
 processor = CLIPSegProcessor.from_pretrained("CIDAS/clipseg-rd64-refined")
-
 model = CLIPSegForImageSegmentation.from_pretrained("CIDAS/clipseg-rd64-refined")
-
 ```
 
 Next, we will use the same input image and query the model with the text descriptions of all objects we want to segment. Similar to other pre-processors, `CLIPSegProcessor` transforms the inputs to the format expected by the model. As we want to segment multiple objects, we input the same image for each text description separately.
 
 ```py
-
 from PIL import Image
-
 import requests
 
 url = "http://images.cocodataset.org/val2017/000000039769.jpg"
-
 image = Image.open(requests.get(url, stream=True).raw)
-
 texts = ["a cat", "a remote", "a blanket"]
 
 inputs = processor(text=texts, images=[image] * len(texts), padding=True, return_tensors="pt")
-
 ```
 
 Similar to ViLT, it’s important to refer to the [original work](https://arxiv.org/abs/2112.10003) to see what kind of text prompts are used to train the model in order to get the best performance during inference. While CLIPSeg is trained on simple object descriptions (e.g., “a car”), its CLIP backbone is pre-trained on engineered text templates (e.g., “an image of a car”, “a photo of a car”) and kept frozen during training. Once the inputs are preprocessed, we can perform inference to get a binary segmentation map of shape (height, width) for each text query.
 
 ```py
-
 import torch
 
 with torch.no_grad():
-
     outputs = model(**inputs)
 
 logits = outputs.logits
-
 print(logits.shape)
-
 >>> torch.Size([3, 352, 352])
-
 ```
 
 Let’s visualize the results to see how well CLIPSeg performed (code is adapted from [this post](https://huggingface.co/blog/clipseg-zero-shot)).
 
 ```py
-
 import matplotlib.pyplot as plt
 
 logits = logits.unsqueeze(1)
 
 _, ax = plt.subplots(1, len(texts) + 1, figsize=(3*(len(texts) + 1), 12))
-
 [a.axis('off') for a in ax.flatten()]
-
 ax[0].imshow(image)
-
 [ax[i+1].imshow(torch.sigmoid(logits[i][0])) for i in range(len(texts))];
-
 [ax[i+1].text(0, -15, prompt) for i, prompt in enumerate(texts)]
-
 ```
 
 <p align="center">
@@ -384,7 +351,7 @@ While robotics research hasn’t leveraged vision-language models on a wide scal
 
 There have been incredible advances in multimodal models in recent years, with vision-language models making the biggest leap both in terms of performance and the variety of use cases and applications. In this blog, we talked about the latest advancements in vision-language models, as well as what multimodal datasets are available and which pre-training strategies we can use to train and fine-tune such models. We also showed how these models are integrated into 🤗 Transformers and how you can use them to perform various tasks with a few lines of code. 
 
-We are continuing to integrate the most impactful computer vision and multimodal models and would love to hear back from you. To stay up to date with the latest news in multimodal research, you can follow us on Twitter: [@adirik](https://twitter.com/adirik), [@NielsRogge](https://twitter.com/NielsRogge), [@apsdehal](https://twitter.com/apsdehal), [@a_e_roberts](https://twitter.com/a_e_roberts),  @RisingSayak](https://mobile.twitter.com/a_e_roberts), and [@huggingface](https://twitter.com/huggingface).
+We are continuing to integrate the most impactful computer vision and multimodal models and would love to hear back from you. To stay up to date with the latest news in multimodal research, you can follow us on Twitter: [@adirik](https://twitter.com/adirik), [@NielsRogge](https://twitter.com/NielsRogge), [@apsdehal](https://twitter.com/apsdehal), [@a_e_roberts](https://twitter.com/a_e_roberts),  [@RisingSayak](https://mobile.twitter.com/a_e_roberts), and [@huggingface](https://twitter.com/huggingface).
 
 *Acknowledgements: We thank Amanpreet Singh and Amy Roberts for their rigorous reviews. Also, thanks to Niels Rogge, Younes Belkada, Suraj Patil among many others from Hugging Face, who laid out the foundations for increasing the use of multimodal models from Transformers.*
 
