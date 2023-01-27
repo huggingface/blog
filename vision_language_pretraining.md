@@ -40,11 +40,11 @@ In this blog post, we’ll provide an introduction to joint vision-language mode
 
 1. [Vision-Language Models: Introduction](#vision-language-models-introduction)
 2. [Vision-Language Models: Learning Strategies](#vision-language-models-learning-strategies)
-    1. [Contrastive Learning]
-    2. [PrefixLM]
-    3. [Multimodal Fusing with Cross Attention]
-    4. [MLM / ITM]
-    5. [No Training]
+    1. [Contrastive Learning](###1-contrastive-learning)
+    2. [PrefixLM](###2-prefixlm)
+    3. [Multimodal Fusing with Cross Attention](###3-multimodal-fusing-with-cross-attention)
+    4. [MLM / ITM](###4-masked-language-modeling-image-text-matching)
+    5. [No Training](###5-no-training)
 3. [Vision-Language Models: Datasets](#vision-language-models-datasets)
 4. [Supporting Vision-Language Models in 🤗 Transformers](#supporting-vision-language-models-in-🤗-transformers)
 5. [Emerging Areas of Research](#emerging-areas-of-research)
@@ -93,7 +93,7 @@ Note that this section is a non-exhaustive list, and there are various other app
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/contrastive_learning.png" alt="Contrastive Learning"><br>
-    <em>Contrastive pre-training and zero-shot image classification as shown [here](https://openai.com/blog/clip/).</em>
+    <em>Contrastive pre-training and zero-shot image classification as shown [here.](https://openai.com/blog/clip/)</em>
 </p>
 
 
@@ -108,7 +108,7 @@ Another work, [LiT](https://arxiv.org/abs/2111.07991), introduces a simple metho
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/prefixlm.png" alt="PrefixLM"><br>
-    <em>A diagram of the PrefixLM pre-training strategy (image taken from [here](https://ai.googleblog.com/2021/10/simvlm-simple-visual-language-model-pre.html)).</em>
+    <em>A diagram of the PrefixLM pre-training strategy (image taken from [here.](https://ai.googleblog.com/2021/10/simvlm-simple-visual-language-model-pre.html))</em>
 </p>
 
 
