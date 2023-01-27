@@ -1,3 +1,37 @@
+---
+title: "A Dive into Pretraining Strategies for Vision-Language Models"
+thumbnail: /blog//assets/128_vision_language_pretraining/thumbnail.png
+---
+
+<h1>A Dive into Pretraining Strategies for Vision-Language Models</h1>
+
+<div class="blog-metadata">
+    <small>Published January 27, 2023.</small>
+    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/vision_language_pretraining.md">
+        Update on GitHub
+    </a>
+</div>
+
+<div class="author-card">
+    <a href="/adirik">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8944735?v=4" width="100" title="Gravatar">
+        <div class="bfc">
+            <code>adirik</code>
+            <span class="fullname">Alara Dirik</span>
+        </div>
+    </a>
+    <a href="/sayakpaul">
+        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/22957388?v=4" width="100" title="Gravatar">
+        <div class="bfc">
+            <code>sayakpaul</code>
+            <span class="fullname">Sayak Paul</span>
+        </div>
+    </a>
+</div>
+
+<script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
+
+
 Human learning is inherently multi-modal as jointly leveraging multiple senses helps us understand and analyze new information better. Unsurprisingly, recent advances in multi-modal learning take inspiration from the effectiveness of this process to create models that can process and link information using various modalities such as image, video, text, audio, body gestures, facial expressions, and physiological signals. 
 
 Since 2021, we’ve seen an increased interest in models that combine vision and language modalities (also called joint vision-language models), such as [OpenAI’s CLIP](https://openai.com/blog/clip/). Joint vision-language models have shown particularly impressive capabilities in very challenging tasks such as image captioning, text-guided image generation and manipulation, and visual question-answering. This field continues to evolve, and so does its effectiveness in improving zero-shot generalization leading to various practical use cases. 
@@ -26,11 +60,10 @@ One particular characteristic that helps define these types of models is their a
 
 Take, for example, the task of zero-shot image classification. We’ll pass an image and a few prompts like so to obtain the most probable prompt for the input image.  
 
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image1.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image1.png "image_tooltip")
-The cat and dog image has been taken from [here](https://www.istockphoto.com/photos/dog-cat-love).
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/example1.png" alt="drawing" width=500>
+    <em>The cat and dog image has been taken from [here.](https://www.istockphoto.com/photos/dog-cat-love)</em>
+</p>
 
 
 To be able to predict something like that, the model needs to understand both the input image and the text prompts. To achieve this understanding, the model would have separate or fused encoders for vision and language. 
@@ -59,15 +92,11 @@ Note that this section is a non-exhaustive list, and there are various other app
 
 ### 1) Contrastive Learning
 
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/contrastive_learning.png" alt="drawing" width=500>
+    <em>Contrastive pre-training and zero-shot image classification as shown [here](https://openai.com/blog/clip/).</em>
+</p>
 
-
-<p id="gdcalert2" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image2.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert3">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image2.png "image_tooltip")
-
-
-Contrastive pre-training and zero-shot image classification as shown [here](https://openai.com/blog/clip/).
 
 Contrastive learning is a commonly used pre-training objective for vision models and has proven to be a highly effective pre-training objective for vision-language models as well. Recent works such as [CLIP](https://arxiv.org/abs/2103.00020), [CLOOB](https://arxiv.org/abs/2110.11316), [ALIGN](https://arxiv.org/abs/2102.05918), and [DeCLIP](https://arxiv.org/abs/2110.05208) bridge the vision and language modalities by learning a text encoder and an image encoder jointly with a contrastive loss, using large datasets consisting of {image, caption} pairs. Contrastive learning aims to map input images and texts to the same feature space such that the distance between the embeddings of image-text pairs is minimized if they match or maximized if they don’t. 
 
@@ -78,15 +107,11 @@ Another work, [LiT](https://arxiv.org/abs/2111.07991), introduces a simple metho
 
 ### 2) PrefixLM
 
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/prefixlm.png" alt="drawing" width=500>
+    <em>A diagram of the PrefixLM pre-training strategy (image taken from [here](https://ai.googleblog.com/2021/10/simvlm-simple-visual-language-model-pre.html)).</em>
+</p>
 
-
-<p id="gdcalert3" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image3.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert4">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image3.png "image_tooltip")
-
-
-A diagram of the PrefixLM pre-training strategy (image taken from [here](https://ai.googleblog.com/2021/10/simvlm-simple-visual-language-model-pre.html)).
 
 Another approach to training vision-language models is using a PrefixLM objective. Models such as [SimVLM](https://arxiv.org/abs/2108.10904) and [VirTex](https://arxiv.org/abs/2006.06666v3) use this pre-training objective and feature a unified multimodal architecture consisting of a transformer encoder and transformer decoder, similar to that of an autoregressive language model.
 
@@ -99,15 +124,11 @@ Models that leverage a unified multimodal architecture to fuse visual informatio
 
 #### Frozen PrefixLM
 
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/frozen_prefixlm.png" alt="drawing" width=500>
+    <em>Frozen PrefixLM pre-training strategy (image taken from [here.](https://lilianweng.github.io/posts/2022-06-09-vlm/))</em>
+</p>
 
-
-<p id="gdcalert4" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image4.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert5">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image4.png "image_tooltip")
-
-
-Frozen PrefixLM pre-training strategy (image taken from [here](https://lilianweng.github.io/posts/2022-06-09-vlm/)).
 
 While fusing visual information into a language model is highly effective, being able to use a pre-trained language model (LM) without the need for fine-tuning would be much more efficient. Hence, another pre-training objective in vision-language models is learning image embeddings that are aligned with a frozen language model. 
 
@@ -120,15 +141,11 @@ A nifty advantage of the Frozen PrefixLM pre-training objective is it enables tr
 
 ### 3) Multimodal Fusing with Cross Attention
 
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/cross_attention_fusing.png" alt="drawing" width=500>
+    <em> Fusing visual information with a cross-attention mechanism as shown [here.](https://www.semanticscholar.org/paper/VisualGPT%3A-Data-efficient-Adaptation-of-Pretrained-Chen-Guo/616e0ed02ca024a8c1d4b86167f7486ea92a13d9)</em>
+</p>
 
-
-<p id="gdcalert5" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image5.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert6">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image5.png "image_tooltip")
-
-
-Fusing visual information with a cross-attention mechanism as shown [here](https://www.semanticscholar.org/paper/VisualGPT%3A-Data-efficient-Adaptation-of-Pretrained-Chen-Guo/616e0ed02ca024a8c1d4b86167f7486ea92a13d9).
 
 Another approach to leveraging pre-trained language models for multimodal tasks is to directly fuse visual information into the layers of a language model decoder using a cross-attention mechanism instead of using images as additional prefixes to the language model. Models such as [VisualGPT](https://arxiv.org/abs/2102.10407), [VC-GPT](https://arxiv.org/abs/2201.12723), and [Flamingo](https://arxiv.org/abs/2204.14198) use this pre-training strategy and are trained on image captioning and visual question-answering tasks. The main goal of such models is to balance the mixture of text generation capacity and visual information efficiently, which is highly important in the absence of large multimodal datasets. 
 
@@ -140,14 +157,10 @@ Models such as VisualGPT use a visual encoder to embed images and feed the visua
 Another line of vision-language models use a combination of Masked-Language Modeling (MLM) and Image-Text Matching (ITM) objectives to align specific parts of images with text and enable various downstream tasks such as visual question answering, visual commonsense reasoning, text-based image retrieval and text-guided object detection. Models that follow this pre-training setup include  [VisualBERT](https://arxiv.org/abs/1908.03557), [FLAVA](https://arxiv.org/abs/2112.04482), [ViLBERT](https://arxiv.org/abs/1908.02265) and [LXMERT](https://arxiv.org/abs/1908.07490).
 
 
-
-<p id="gdcalert6" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image6.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert7">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image6.png "image_tooltip")
-
-
-Aligning parts of images with text, image taken from the [ViLBERT paper.](https://arxiv.org/abs/1908.02265)
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/mlm_itm.png" alt="drawing" width=500>
+    <em> Aligning parts of images with text, image taken from the [ViLBERT paper.](https://arxiv.org/abs/1908.02265)</em>
+</p>
 
 Let’s break down what MLM and ITM objectives mean. Given a partially masked caption, the MLM objective is to predict the masked words based on the corresponding image. Note that the MLM objective requires either using a richly annotated multimodal dataset with bounding boxes or using an object detection model to generate object region proposals for parts of the input text. 
 
@@ -162,15 +175,11 @@ Finally, there are various optimization strategies that aim to bridge image and 
 
 For example, [MaGiC](https://arxiv.org/abs/2205.02655) proposes iterative optimization through a pre-trained autoregressive language model to generate a caption for the input image. To do this, MaGiC computes a CLIP-based “Magic score” using CLIP embeddings of the generated tokens and the input image. 
 
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/asif.png" alt="drawing" width=500>
+    <em> Crafting a similarity search space using pre-trained, frozen unimodal image and text encoders - image taken from [here.](https://luca.moschella.dev/publication/norelli-asif-2022/)</em>
+</p>
 
-
-<p id="gdcalert7" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image7.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert8">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image7.png "image_tooltip")
-
-
-Crafting a similarity search space using pre-trained, frozen unimodal image and text encoders - image taken from [here](https://luca.moschella.dev/publication/norelli-asif-2022/).
 
 [ASIF](https://arxiv.org/abs/2210.01738) proposes a simple method to turn pre-trained uni-modal image and text models into a multimodal model for image captioning using a relatively small multimodal dataset without additional training. The key intuition behind ASIF is that captions of similar images are also similar to each other. Hence we can perform a similarity-based search by crafting a relative representation space using a small dataset of ground-truth multimodal pairs.
 
@@ -199,7 +208,6 @@ Note that vision-language models are used for various classical NLP and computer
 # Supporting Vision-Language Models in 🤗 Transformers
 
 Using Hugging Face Transformers, you can easily download, run and fine-tune various pre-trained vision-language models or mix and match pre-trained vision and language models to create your own recipe. Some of the vision-language models supported by 🤗Transformers  are:
-
 
 
 * [CLIP](https://huggingface.co/docs/transformers/model_doc/clip)
@@ -355,12 +363,9 @@ ax[0].imshow(image)
 
 ```
 
-
-
-<p id="gdcalert8" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image8.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert9">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image8.png "image_tooltip")
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/clipseg_result.png" alt="drawing" width=500>
+</p>
 
 
 Amazing, isn’t it? 
