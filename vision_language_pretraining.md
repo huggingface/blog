@@ -40,13 +40,13 @@ In this blog post, we’ll provide an introduction to joint vision-language mode
 
 1. [Vision-Language Models: Introduction](#vision-language-models-introduction)
 2. [Vision-Language Models: Learning Strategies](#vision-language-models-learning-strategies)
-    1. [Contrastive Learning](#contrastive-learning)
-    2. [PrefixLM](#prefixlm)
-    3. [Multimodal Fusing with Cross Attention](#multimodal-fusing-with-cross-attention)
-    4. [MLM / ITM](#masked-language-modeling-image-text-matching)
-    5. [No Training](#no-training)
+    1. [Contrastive Learning]
+    2. [PrefixLM]
+    3. [Multimodal Fusing with Cross Attention]
+    4. [MLM / ITM]
+    5. [No Training]
 3. [Vision-Language Models: Datasets](#vision-language-models-datasets)
-4. [Supporting Vision-Language Models in 🤗 Transformers](#supporting-vision-language-models-in-transformers)
+4. [Supporting Vision-Language Models in 🤗 Transformers](#supporting-vision-language-models-in-🤗-transformers)
 5. [Emerging Areas of Research](#emerging-areas-of-research)
 6. [Conclusion](#conclusion)
 
