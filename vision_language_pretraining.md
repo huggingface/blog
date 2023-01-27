@@ -59,7 +59,7 @@ One particular characteristic that helps define these types of models is their a
 Take, for example, the task of zero-shot image classification. We’ll pass an image and a few prompts like so to obtain the most probable prompt for the input image.  
 
 <p align="center">
-    <img src="assets/128_vision_language_pretraining/example1.png" alt="drawing" width=500>
+    <img src="assets/128_vision_language_pretraining/example1.png" alt="drawing"><br>
     <em>The cat and dog image has been taken from [here.](https://www.istockphoto.com/photos/dog-cat-love)</em>
 </p>
 
@@ -91,7 +91,7 @@ Note that this section is a non-exhaustive list, and there are various other app
 ### 1) Contrastive Learning
 
 <p align="center">
-    <img src="assets/128_vision_language_pretraining/contrastive_learning.png" alt="drawing" width=500>
+    <img src="assets/128_vision_language_pretraining/contrastive_learning.png" alt="Contrastive Learning"><br>
     <em>Contrastive pre-training and zero-shot image classification as shown [here](https://openai.com/blog/clip/).</em>
 </p>
 
@@ -106,7 +106,7 @@ Another work, [LiT](https://arxiv.org/abs/2111.07991), introduces a simple metho
 ### 2) PrefixLM
 
 <p align="center">
-    <img src="assets/128_vision_language_pretraining/prefixlm.png" alt="drawing" width=500>
+    <img src="assets/128_vision_language_pretraining/prefixlm.png" alt="PrefixLM"><br>
     <em>A diagram of the PrefixLM pre-training strategy (image taken from [here](https://ai.googleblog.com/2021/10/simvlm-simple-visual-language-model-pre.html)).</em>
 </p>
 
@@ -123,7 +123,7 @@ Models that leverage a unified multimodal architecture to fuse visual informatio
 #### Frozen PrefixLM
 
 <p align="center">
-    <img src="assets/128_vision_language_pretraining/frozen_prefixlm.png" alt="drawing" width=500>
+    <img src="assets/128_vision_language_pretraining/frozen_prefixlm.png" alt="Frozen PrefixLM"><br>
     <em>Frozen PrefixLM pre-training strategy (image taken from [here.](https://lilianweng.github.io/posts/2022-06-09-vlm/))</em>
 </p>
 
@@ -140,7 +140,7 @@ A nifty advantage of the Frozen PrefixLM pre-training objective is it enables tr
 ### 3) Multimodal Fusing with Cross Attention
 
 <p align="center">
-    <img src="assets/128_vision_language_pretraining/cross_attention_fusing.png" alt="drawing" width=500>
+    <img src="assets/128_vision_language_pretraining/cross_attention_fusing.png" alt="Cross Attention Fusing" width=500><br>
     <em> Fusing visual information with a cross-attention mechanism as shown [here.](https://www.semanticscholar.org/paper/VisualGPT%3A-Data-efficient-Adaptation-of-Pretrained-Chen-Guo/616e0ed02ca024a8c1d4b86167f7486ea92a13d9)</em>
 </p>
 
@@ -156,7 +156,7 @@ Another line of vision-language models use a combination of Masked-Language Mode
 
 
 <p align="center">
-    <img src="assets/128_vision_language_pretraining/mlm_itm.png" alt="drawing" width=500>
+    <img src="assets/128_vision_language_pretraining/mlm_itm.png" alt="MLM / ITM"><br>
     <em> Aligning parts of images with text, image taken from the [ViLBERT paper.](https://arxiv.org/abs/1908.02265)</em>
 </p>
 
@@ -174,7 +174,7 @@ Finally, there are various optimization strategies that aim to bridge image and 
 For example, [MaGiC](https://arxiv.org/abs/2205.02655) proposes iterative optimization through a pre-trained autoregressive language model to generate a caption for the input image. To do this, MaGiC computes a CLIP-based “Magic score” using CLIP embeddings of the generated tokens and the input image. 
 
 <p align="center">
-    <img src="assets/128_vision_language_pretraining/asif.png" alt="drawing" width=500>
+    <img src="assets/128_vision_language_pretraining/asif.png" alt="ASIF" width=500><br>
     <em> Crafting a similarity search space using pre-trained, frozen unimodal image and text encoders - image taken from [here.](https://luca.moschella.dev/publication/norelli-asif-2022/)</em>
 </p>
 
@@ -362,7 +362,7 @@ ax[0].imshow(image)
 ```
 
 <p align="center">
-    <img src="assets/128_vision_language_pretraining/clipseg_result.png" alt="drawing" width=500>
+    <img src="assets/128_vision_language_pretraining/clipseg_result.png" alt="CLIPSeg results">
 </p>
 
 
