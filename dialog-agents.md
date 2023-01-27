@@ -45,17 +45,17 @@ thumbnail: /blog/assets/dialog-agents/thumbnail.png
 
 A few weeks ago, ChatGPT emerged and launched the public discourse into a set of obscure acronyms: RLHF, SFT, IFT, CoT, and more, all attributed to the success of ChatGPT. What are these obscure acronyms and why are they so important? We surveyed all the important papers on these topics to categorize these works, summarize takeaways from what has been done, and share what remains to be shown.
 
-Let’s start by looking at the landscape of language model based conversational agents. ChatGPT is not the first, in fact many organizations published their language model dialog agents before OpenAI, including [Meta’s BlenderBot](https://arxiv.org/abs/2208.03188), [Google’s LaMDA](https://arxiv.org/abs/2201.08239), [DeepMind’s Sparrow](https://arxiv.org/abs/2209.14375), and [Anthropic’s Assistant](https://arxiv.org/abs/2204.05862) (a.k.a. Claude). Some groups have also announced their plans to build a open-source chatbot and publicly shared a roadmap ([LAION’s Open Assistant](https://github.com/LAION-AI/Open-Assistant)); others surely are doing so and have not announced it. 
+Let’s start by looking at the landscape of language model based conversational agents. ChatGPT is not the first, in fact many organizations published their language model dialog agents before OpenAI, including [Meta’s BlenderBot](https://arxiv.org/abs/2208.03188), [Google’s LaMDA](https://arxiv.org/abs/2201.08239), [DeepMind’s Sparrow](https://arxiv.org/abs/2209.14375), and [Anthropic’s Assistant](https://arxiv.org/abs/2204.05862) (_a continued development of this agent without perfect attribution is also known as Claude_). Some groups have also announced their plans to build a open-source chatbot and publicly shared a roadmap ([LAION’s Open Assistant](https://github.com/LAION-AI/Open-Assistant)); others surely are doing so and have not announced it. 
 
 The following table compares these AI chatbots based on the details of their public access, training data, model architecture, and evaluation directions.  ChatGPT is not documented so we instead share details about InstructGPT which is a instruction fine-tuned model from OpenAI that is believed to have served as a foundation of ChatGPT.
 
-| &nbsp;| LaMDA | BlenderBot 3 |Sparrow | ChatGPT/ InstructGPT | Assistant/Claude|
+| &nbsp;| LaMDA | BlenderBot 3 |Sparrow | ChatGPT/ InstructGPT | Assistant|
 | --- | --- | --- | --- | --- | --- |
 | **Org** | Google | Meta | DeepMind | OpenAI | Anthropic |
 | **Access**  | Closed | Open | Closed | Limited | Closed |
 | **Size** | 137B | 175B | 70B | 175B | 52B |
 | **Pre-trained<br>Base model** | Unknown | OPT | Chinchilla | GPT-3.5 | Unknown |
-| **Pre-training corpora size** (# tokens) | 2.81T | 100B | 1.4T | Unknown | 400B |
+| **Pre-training corpora size** (# tokens) | 2.81T | 180B | 1.4T | Unknown | 400B |
 | **Model can<br>access the web** | ✔ | ✔ | ✔ | ✖️ | ✖️ |
 | **Supervised<br>fine-tuning** | ✔ | ✔ | ✔ | ✔ | ✔ |
 | **Fine-tuning<br>data size** | Quality:6.4K<br>Safety: 8K<br>Groundedness: 4K<br>IR: 49K | 20 NLP datasets ranging from 18K to 1.2M | Unknown | 12.7K (for InstructGPT, likely much more for ChatGPT) | 150K + LM generated data |
