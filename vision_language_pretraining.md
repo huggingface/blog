@@ -60,7 +60,7 @@ Take, for example, the task of zero-shot image classification. We’ll pass an i
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/example1.png" alt="drawing"><br>
-    <em>The cat and dog image has been taken from [here.](https://www.istockphoto.com/photos/dog-cat-love)</em>
+    <em>The cat and dog image has been taken from <a href=https://www.istockphoto.com/photos/dog-cat-love>here</a>.</em>
 </p>
 
 
