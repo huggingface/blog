@@ -1,6 +1,6 @@
 ---
 title: "A Dive into Pretraining Strategies for Vision-Language Models"
-thumbnail: /blog//assets/128_vision_language_pretraining/thumbnail.png
+thumbnail: /blog/assets/128_vision_language_pretraining/thumbnail.png
 ---
 
 <h1>A Dive into Pretraining Strategies for Vision-Language Models</h1>
