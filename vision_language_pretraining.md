@@ -36,7 +36,7 @@ Since 2021, we’ve seen an increased interest in models that combine vision and
 
 In this blog post, we’ll provide an introduction to joint vision-language models focusing especially on how they’re trained. We’ll also show how you can leverage 🤗 Transformers to experiment with the latest advances in this domain.
 
-# Table of contents
+## Table of contents
 
 1. [Vision-Language Models: Introduction](#vision-language-models-introduction)
 2. [Vision-Language Models: Learning Strategies](#vision-language-models-learning-strategies)
@@ -50,7 +50,7 @@ In this blog post, we’ll provide an introduction to joint vision-language mode
 5. [Emerging Areas of Research](#emerging-areas-of-research)
 6. [Conclusion](#conclusion)
 
-# Vision-Language Models: Introduction
+## Vision-Language Models: Introduction
 
 What does it mean to call a model a “vision-language” model? A model that combines both the vision and language modalities? But what exactly does that mean? 
 
@@ -74,7 +74,7 @@ But these inputs and outputs can take several forms. Below we give some examples
 -   Detection of hate speech from social media content involving both images and text modalities.
 
 
-# Vision-Language Models: Learning Strategies
+## Vision-Language Models: Learning Strategies
 
 A vision-language model typically consists of 3 key elements: an image encoder, a text encoder, and a strategy to fuse information from the two encoders. These key elements are tightly coupled together as the loss functions are designed around both the model architecture and the learning strategy. While vision-language model research is hardly a new research area, the design of such models has changed tremendously over the years. Whereas earlier research adopted hand-crafted image descriptors and pre-trained word vectors or the frequency-based TF-IDF features, the latest research predominantly adopts image and text encoders with [transformer](https://arxiv.org/abs/1706.03762) architectures to separately or jointly learn image and text features. These models are pre-trained with strategic pre-training objectives that enable various downstream tasks. 
 
@@ -120,7 +120,6 @@ Visual transformers (ViT) apply the same concept of the prefix to images by divi
 
 Models that leverage a unified multimodal architecture to fuse visual information into a language model (LM) for image-guided tasks show impressive capabilities. However, models that solely use the PrefixLM strategy can be limited in terms of application areas as they are mainly designed for image captioning or visual question-answering downstream tasks. For example, given an image of a group of people, we can query the image to write a description of the image (e.g., “A group of people is standing together in front of a building and smiling”) or query it with questions that require visual reasoning: “How many people are wearing red t-shirts?”. On the other hand, models that learn multimodal representations or adopt hybrid approaches can be adapted for various other downstream tasks, such as object detection and image segmentation.
 
-
 #### Frozen PrefixLM
 
 <p align="center">
@@ -136,8 +135,6 @@ Models such as [Frozen](https://arxiv.org/abs/2106.13884), [MAPL, ](https://arxi
 Finally, [Flamingo](https://arxiv.org/abs/2204.14198) keeps both the pre-trained vision encoder and language model frozen and sets a new state-of-the-art in few-shot learning on a wide range of open-ended vision and language tasks. Flamingo achieves this by adding Perceiver Resampler modules on top of the pre-trained frozen vision model and inserting new cross-attention layers between existing pre-trained and frozen LM layers to condition the LM on visual data.
 
 A nifty advantage of the Frozen PrefixLM pre-training objective is it enables training with limited aligned image-text data, which is particularly useful for domains where aligned multimodal datasets are not available.
-
-
 ### 3) Multimodal Fusing with Cross Attention
 
 <p align="center">
@@ -145,16 +142,12 @@ A nifty advantage of the Frozen PrefixLM pre-training objective is it enables tr
     <em> Fusing visual information with a cross-attention mechanism as shown [here.](https://www.semanticscholar.org/paper/VisualGPT%3A-Data-efficient-Adaptation-of-Pretrained-Chen-Guo/616e0ed02ca024a8c1d4b86167f7486ea92a13d9)</em>
 </p>
 
-
 Another approach to leveraging pre-trained language models for multimodal tasks is to directly fuse visual information into the layers of a language model decoder using a cross-attention mechanism instead of using images as additional prefixes to the language model. Models such as [VisualGPT](https://arxiv.org/abs/2102.10407), [VC-GPT](https://arxiv.org/abs/2201.12723), and [Flamingo](https://arxiv.org/abs/2204.14198) use this pre-training strategy and are trained on image captioning and visual question-answering tasks. The main goal of such models is to balance the mixture of text generation capacity and visual information efficiently, which is highly important in the absence of large multimodal datasets. 
 
 Models such as VisualGPT use a visual encoder to embed images and feed the visual embeddings to the cross-attention layers of a pre-trained language decoder module to generate plausible captions. A more recent work, [FIBER](http://arxiv.org/abs/2206.07643), inserts cross-attention layers with a gating mechanism into both vision and language backbones for more efficient multimodal fusing and enables various other downstream tasks such as image-text retrieval and open vocabulary object detection. 
-
-
 ### 4) Masked-Language Modeling / Image-Text Matching
 
 Another line of vision-language models use a combination of Masked-Language Modeling (MLM) and Image-Text Matching (ITM) objectives to align specific parts of images with text and enable various downstream tasks such as visual question answering, visual commonsense reasoning, text-based image retrieval and text-guided object detection. Models that follow this pre-training setup include  [VisualBERT](https://arxiv.org/abs/1908.03557), [FLAVA](https://arxiv.org/abs/2112.04482), [ViLBERT](https://arxiv.org/abs/1908.02265) and [LXMERT](https://arxiv.org/abs/1908.07490).
-
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/mlm_itm.png" alt="MLM / ITM"><br>
@@ -166,8 +159,6 @@ Let’s break down what MLM and ITM objectives mean. Given a partially masked ca
 For the ITM objective, given an image and caption pair, the task is to predict whether the caption matches the image or not. The negative samples are usually randomly sampled from the dataset itself. The MLM and ITM objectives are often combined during the pre-training of multimodal models. For instance, VisualBERT proposes a BERT-like architecture that uses a pre-trained object detection model, [Faster-RCNN](https://arxiv.org/abs/1506.01497), to detect objects. This model uses a combination of the MLM and ITM objectives during pre-training to implicitly align elements of an input text and regions in an associated input image with self-attention. 
 
 Another work, FLAVA, consists of an image encoder, a text encoder, and a multimodal encoder to fuse and align the image and text representations for multimodal reasoning, all of which are based on transformers. In order to achieve this, FLAVA uses a variety of pre-training objectives: MLM, ITM, as well as Masked-Image Modeling (MIM), and contrastive learning.
-
-
 ### 5) No Training 
 
 Finally, there are various optimization strategies that aim to bridge image and text representations using the pre-trained image and text models or adapt pre-trained multimodal models to new downstream tasks without any additional training. 
@@ -182,22 +173,22 @@ For example, [MaGiC](https://arxiv.org/abs/2205.02655) proposes iterative optimi
 
 [ASIF](https://arxiv.org/abs/2210.01738) proposes a simple method to turn pre-trained uni-modal image and text models into a multimodal model for image captioning using a relatively small multimodal dataset without additional training. The key intuition behind ASIF is that captions of similar images are also similar to each other. Hence we can perform a similarity-based search by crafting a relative representation space using a small dataset of ground-truth multimodal pairs.
 
-# Vision-Language Models: Datasets
+## Vision-Language Models: Datasets
 
 Vision-language models are typically trained on large image and text datasets with different structures based on the pre-training objective. After they are pre-trained, they are further fine-tuned on various downstream tasks using task-specific datasets. In this section, we provide an overview of some popular pre-training and downstream datasets used for training and evaluating vision-language models. 
-## Pre-training datasets
+### Pre-training datasets
 
 Vision-language models are typically pre-trained on large multi-modal datasets harvested from the web in the form of matching image/video and text pairs. The text data in these datasets can be human-generated captions, automatically generated captions, image metadata, or simple object labels. Some examples of such large datasets are [PMD](https://huggingface.co/datasets/facebook/pmd) and [LAION-5B](https://laion.ai/blog/laion-5b/). The PMD dataset combines multiple smaller datasets such as the [Flickr30K](https://www.kaggle.com/datasets/hsankesara/flickr-image-dataset), [COCO](https://cocodataset.org/), and [Conceptual Captions](https://ai.google.com/research/ConceptualCaptions/) datasets. The COCO detection and image captioning (>330K images) datasets consist of image instances paired with the text labels of the objects each image contains, and natural sentence descriptions, respectively. The Conceptual Captions (> 3.3M images) and Flickr30K (> 31K images) datasets are scraped from the web along with their captions - free-form sentences describing the image. 
 
 Note that even image-text datasets that solely consist of human-generated captions such as Flickr30K are inherently noisy as users do not always write descriptive or reflective captions for their images. To overcome this issue, datasets such as the LAION-5B dataset leverage CLIP or other pre-trained multimodal models to filter noisy data and create high-quality multimodal datasets. Furthermore, some vision-language models such as ALIGN, propose further preprocessing steps and create their own high-quality datasets. Other vision-language datasets, such as the [LSVTD](https://davar-lab.github.io/dataset/lsvtd.html) and [WebVid](https://github.com/m-bain/webvid) datasets, consist of video and text modalities, although at a smaller scale.
-## Downstream datasets 
+### Downstream datasets 
 
 Pre-trained vision-language models are often trained on various downstream tasks such as visual question-answering, text-guided object detection, text-guided image inpainting, multi-modal classification, and various stand-alone NLP and computer vision tasks. 
 
 Models finetuned on the question-answering downstream task, such as [ViLT](https://arxiv.org/abs/2102.03334) and [GLIP](https://arxiv.org/abs/2112.03857), most commonly use the [VQA](https://visualqa.org/) (visual question-answering), [VQA v2](https://visualqa.org/), [NLVR2](https://lil.nlp.cornell.edu/nlvr/), [OKVQA](https://okvqa.allenai.org/), [TextVQA](https://huggingface.co/datasets/textvqa), [TextCaps](https://textvqa.org/textcaps/) and [VizWiz](https://vizwiz.org/) datasets. These datasets typically contain images paired with multiple open-ended questions and answers. Furthermore, datasets such as VizWiz and TextCaps can also be used for image segmentation and object localization downstream tasks. Some other interesting multi-modal downstream datasets are [Hateful Memes](https://huggingface.co/datasets/limjiayi/hateful_memes_expanded) for multi-modal classification, [SNLI-VE](https://github.com/necla-ml/SNLI-VE) for visual entailment prediction, and [Winoground](https://huggingface.co/datasets/facebook/winoground) for visio-linguistic compositional reasoning. 
 
 Note that vision-language models are used for various classical NLP and computer vision tasks such as text or image classification, and typically use uni-modal datasets ([SST2](https://huggingface.co/datasets/sst2), [ImageNet-1k](https://huggingface.co/datasets/imagenet-1k), for example) for such downstream tasks. In addition, datasets such as [COCO](https://cocodataset.org/), and [Conceptual Captions](https://ai.google.com/research/ConceptualCaptions/) are commonly used both in the pre-training of models and also for the caption generation downstream task. 
-# Supporting Vision-Language Models in 🤗 Transformers
+## Supporting Vision-Language Models in 🤗 Transformers
 
 Using Hugging Face Transformers, you can easily download, run and fine-tune various pre-trained vision-language models or mix and match pre-trained vision and language models to create your own recipe. Some of the vision-language models supported by 🤗 Transformers  are:
 
@@ -223,7 +214,7 @@ For example, OWL-ViT [enables](https://huggingface.co/spaces/adirik/OWL-ViT) zer
 Unlike other models, the `VisionEncoderDecoderModel` is a cookie-cutter model that can be used to initialize an image-to-text model with any pre-trained Transformer-based vision model as the encoder (e.g. ViT, BEiT, DeiT, Swin) and any pre-trained language model as the decoder (e.g. RoBERTa, GPT2, BERT, DistilBERT). In fact, TrOCR is an instance of this cookie-cutter class.
 
 Let’s go ahead and experiment with some of these models. We will use [ViLT](https://huggingface.co/docs/transformers/model_doc/vilt) for visual question answering and [CLIPSeg](https://huggingface.co/docs/transformers/model_doc/clipseg) for zero-shot image segmentation. First, let’s install 🤗Transformers: `pip install transformers`.
-#### ViLT for VQA
+### ViLT for VQA
 
 Let’s start with ViLT and download a model pre-trained on the VQA dataset. We can do this by simply initializing the corresponding model class and calling the `from_pretrained()` method to download our desired checkpoint.
 
@@ -266,7 +257,7 @@ print("Predicted answer:", model.config.id2label[idx])
 
 Straight-forward, right? Let’s do another demonstration with CLIPSeg and see how we can perform zero-shot image segmentation with a few lines of code. 
 
-#### CLIPSeg for zero-shot image segmentation
+### CLIPSeg for zero-shot image segmentation
 
 We will start by initializing `CLIPSegForImageSegmentation` and its corresponding pre-processing class and load our pre-trained model.
 
@@ -321,18 +312,17 @@ ax[0].imshow(image)
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/clipseg_result.png" alt="CLIPSeg results">
 </p>
 
-
 Amazing, isn’t it? 
 
 Vision-language models enable a plethora of useful and interesting use cases that go beyond just VQA and zero-shot segmentation. We encourage you to try out the different use cases supported by the models mentioned in this section. For sample code, refer to the respective documentation of the models. 
-# Emerging Areas of Research 
+## Emerging Areas of Research 
 
 With the massive advances in vision-language models, we see the emergence of new downstream tasks and application areas, such as medicine and robotics. For example, vision-language models are increasingly getting adopted for medical use cases, resulting in works such as [Clinical-BERT](https://ojs.aaai.org/index.php/AAAI/article/view/20204) for medical diagnosis and report generation from radiographs and [MedFuseNet](https://www.nature.com/articles/s41598-021-98390-1) for visual question answering in the medical domain.
 
 We also see a massive surge of works that leverage joint vision-language representations for image manipulation (e.g., [StyleCLIP](https://arxiv.org/abs/2103.17249), [StyleMC](https://arxiv.org/abs/2112.08493), [DiffusionCLIP](https://arxiv.org/abs/2110.02711)), text-based video retrieval (e.g., [X-CLIP](https://arxiv.org/abs/2207.07285)) and manipulation (e.g., [Text2Live](https://arxiv.org/abs/2204.02491)) and 3D shape and texture manipulation (e.g., [AvatarCLIP](https://arxiv.org/abs/2205.08535), [CLIP-NeRF](https://arxiv.org/abs/2112.05139), [Latent3D](https://arxiv.org/abs/2202.06079), [CLIPFace](https://arxiv.org/abs/2212.01406), [Text2Mesh](https://arxiv.org/abs/2112.03221)). In a similar line of work, [MVT](https://arxiv.org/abs/2204.02174) proposes a joint 3D scene-text representation model, which can be used for various downstream tasks such as 3D scene completion. 
 
 While robotics research hasn’t leveraged vision-language models on a wide scale yet, we see works such as [CLIPort](https://arxiv.org/abs/2109.12098) leveraging joint vision-language representations for end-to-end imitation learning and reporting large improvements over previous SOTA. We also see that large language models are increasingly getting adopted in robotics tasks such as common sense reasoning, navigation, and task planning. For example, [ProgPrompt](https://arxiv.org/abs/2209.11302) proposes a framework to generate situated robot task plans using large language models (LLMs). Similarly, [SayCan](https://say-can.github.io/assets/palm_saycan.pdf) uses LLMs to select the most plausible actions given a visual description of the environment and available objects. While these advances are impressive, robotics research is still confined to limited sets of environments and objects due to the limitation of object detection datasets. With the emergence of open-vocabulary object detection models such as [OWL-ViT](https://arxiv.org/abs/2205.06230) and [GLIP](https://arxiv.org/abs/2112.03857), we can expect a tighter integration of multimodal models with robotic navigation, reasoning, manipulation, and task-planning frameworks. 
-# Conclusion
+## Conclusion
 
 There have been incredible advances in multimodal models in recent years, with vision-language models making the biggest leap both in terms of performance and the variety of use cases and applications. In this blog, we talked about the latest advancements in vision-language models, as well as what multimodal datasets are available and which pre-training strategies we can use to train and fine-tune such models. We also showed how these models are integrated into 🤗 Transformers and how you can use them to perform various tasks with a few lines of code. 
 
