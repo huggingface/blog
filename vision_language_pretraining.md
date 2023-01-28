@@ -1,9 +1,9 @@
 ---
-title: "A Dive into Pretraining Strategies for Vision-Language Models"
+title: "A Dive into Vision-Language Models"
 thumbnail: /blog//assets/128_vision_language_pretraining/thumbnail.png
 ---
 
-<h1>A Dive into Pretraining Strategies for Vision-Language Models</h1>
+<h1>A Dive into Vision-Language Models</h1>
 
 <div class="blog-metadata">
     <small>Published February 3, 2023.</small>
