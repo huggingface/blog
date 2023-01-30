@@ -58,7 +58,7 @@ A single graph is a dictionary, and here is the expected format for our graph cl
     - Example: Our above edges could have, for example, types (like molecular bonds). This could give `edge_attr`=[[0], [1], [1]]
 
 ### Loading
-Loading a graph dataset from the Hub is very easy. Let's load the `ogbg-mohiv` dataset (a baseline from the Open Graph Benchmark by Stanford), stored in the `OGB` repository: 
+Loading a graph dataset from the Hub is very easy. Let's load the `ogbg-mohiv` dataset (a baseline from the [Open Graph Benchmark](https://ogb.stanford.edu/) by Stanford), stored in the `OGB` repository: 
 
 ```python
 from datasets import load_dataset
