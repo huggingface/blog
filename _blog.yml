@@ -1675,7 +1675,7 @@
 - local: optimum-onnxruntime-training
   title: "Optimum+ONNX Runtime - Easier, Faster training for your Hugging Face models"
   author: Jingya
-  thumbnail: blog/assets/optimum_onnxruntime-training/thumbnail.png
+  thumbnail: /blog/assets/optimum_onnxruntime-training/thumbnail.png
   date: January 24, 2023
   tags:
     - guide
