@@ -157,7 +157,7 @@ trainer = Trainer(
 )
 
 ```
-In the `Trainer` for graph classification, it is important to pass the specific data collator for the given graph dataset, which will convert individual graphs to batches for training.
+In the `Trainer` for graph classification, it is important to pass the specific data collator for the given graph dataset, which will convert individual graphs to batches for training. 
 
 ```python
 train_results = trainer.train()
@@ -165,7 +165,7 @@ trainer.push_to_hub()
 ```
 When the model is trained, it can be saved to the hub with all the associated training artefacts using `push_to_hub`.
 
-As this model is quite big, it takes about a day to train/fine-tune for 20 epochs on CPU (IntelCore i7). It can be worth using powerful GPUs and parallelization instead, leveraging `accelerate`.
+As this model is quite big, it takes about a day to train/fine-tune for 20 epochs on CPU (IntelCore i7). To go faster, you could use powerful GPUs and parallelization instead, by launching the code either in a Colab notebook or directly on the cluster of your choice.
 
 
 ## Ending note
