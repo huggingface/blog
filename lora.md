@@ -142,7 +142,9 @@ Dreambooth allows you to "teach" new concepts to a Stable Diffusion model. LoRA 
 - We only need a few images of the subject we want to train (5 or 10 are usually enough).
 - We can tweak the text encoder, if we want, for additional fidelity to the subject.
 
-To train Dreambooth with LoRA you need to use [this diffusers script](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/train_dreambooth_lora.py). Please, take a look at [the README](https://github.com/huggingface/diffusers/tree/main/examples/dreambooth#training-with-low-rank-adaptation-of-large-language-models-lora), [the documentation](https://huggingface.co/docs/diffusers/main/en/training/lora) and [our hyperparameter exploration blog post](https://huggingface.co/blog/dreambooth) for details. 
+To train Dreambooth with LoRA you need to use [this diffusers script](https://github.com/huggingface/diffusers/blob/main/examples/dreambooth/train_dreambooth_lora.py). Please, take a look at [the README](https://github.com/huggingface/diffusers/tree/main/examples/dreambooth#training-with-low-rank-adaptation-of-large-language-models-lora), [the documentation](https://huggingface.co/docs/diffusers/main/en/training/lora) and [our hyperparameter exploration blog post](https://huggingface.co/blog/dreambooth) for details.
+
+For a quick, cheap and easy way to train your Dreambooth models with LoRA, please [check this Space](https://huggingface.co/spaces/lora-library/LoRA-DreamBooth-Training-UI) by [`hysts`](https://twitter.com/hysts12321). You need to duplicate it and assign a GPU so it runs fast. This process will save you from having to set up your own training environment and you'll be able to train your models in minutes!
 
 ## Other Methods
 
