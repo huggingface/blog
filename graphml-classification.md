@@ -35,7 +35,7 @@ To use graph data, you can either start from your own datasets, or use [those av
 ### Format
 On the Hub, graph datasets are mostly stored as lists of graphs (using the `jsonl` format). 
 
-A single graph is a dictionnary, and here is the expected format for our graph classification datasets:
+A single graph is a dictionary, and here is the expected format for our graph classification datasets:
 - `edge_index` 
 	- Type: list of 2 lists of integers.
 	- It contains the indices of nodes in edges, stored as a list containing two parallel lists of edge indices. 
@@ -91,7 +91,7 @@ nx.draw(G)
 ```
 
 ### Preprocessing
-Graph transformer frameworks usually apply specific preprocessing to their datasets to generate added features and properties which help learning.
+Graph transformer frameworks usually apply specific preprocessing to their datasets to generate added features and properties which help the underlying learning task (classification in our case).
 Here, we use Graphormer's default preprocessing, which generates in/out degree information, the shortest path between node matrices, and other properties of interest for the model. 
  
 ```python
