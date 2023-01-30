@@ -24,13 +24,13 @@ thumbnail: /blog/assets/125_intro-to-graphml/thumbnail_classification.png
 
 In the previous [blog](https://huggingface.co/blog/intro-graphml), we explored some of the theoretical aspects of machine learning on graphs. This one will explore how you can do graph classification using the Transformers library.
 
-At the moment, the only graph transformer model available in Transformers is Microsoft's Graphormer, so this is the one we will use here. We are looking forward to seeing what other models people will use and integrate :hugging_face:
+At the moment, the only graph transformer model available in Transformers is Microsoft's [Graphormer](https://arxiv.org/abs/2106.05234), so this is the one we will use here. We are looking forward to seeing what other models people will use and integrate :hugging_face:
 
 ## Requirements
-To follow this tutorial, you need to have installed `datasets` and `transformers` (version >= **TODO**).
+To follow this tutorial, you need to have installed `datasets` and `transformers` (version >= 4.26), which you can do with `pip install -U datasets transformers`.
 
 ## Data
-To use graph data, you can either start from your own datasets, or use [those available on the Hub][https://huggingface.co/graphs-datasets). We'll focus on using already available ones, but feel free to add your datasets!
+To use graph data, you can either start from your own datasets, or use those available on the Hub][https://huggingface.co/graphs-datasets). We'll focus on using already available ones, but feel free to [add your datasets](https://huggingface.co/docs/datasets/upload_dataset)!
 
 ### Format
 On the Hub, graph datasets are mostly stored as lists of graphs (using the `jsonl` format). 
@@ -51,9 +51,11 @@ A single graph is a dictionary, and here is the expected format for our graph cl
 - `node_feat` 
 	- Type: list of lists of integer (Optional) 
 	- This contains the available features (if present) for each node of the graph, ordered by node index.
+    - Example: Our above nodes could have, for example, types (like different atoms in a molecule). This could give `node_feat`=[[1], [0], [1], [1]] 
 - `edge_attr`
 	- Type: list of lists of integers (Optional)
 	- This contains the available attributes (if present) for each edge of the graph, following the `edge_index` ordering.
+    - Example: Our above edges could have, for example, types (like molecular bonds). This could give `edge_attr`=[[0], [1], [1]]
 
 ### Loading
 Loading a graph dataset from the Hub is very easy. Let's load the `ogbg-mohiv` dataset (a baseline from the Open Graph Benchmark by Stanford), stored in the `OGB` repository: 
@@ -102,31 +104,34 @@ dataset_processed = dataset.map(preprocess_item, batched=False)
 
 It is also possible to apply this preprocessing on the fly, in the DataCollator's parameters (by setting `on_the_fly_processing` to True): not all datasets are as small as `ogbg-molhiv`, and for large graphs, it might be too costly to store all the preprocessed data beforehand. 
 
-## Training or fine-tuning
+## Model
 
-### Creating a model
+### Loading
 Here, we load an existing pretrained model/checkpoint and fine-tune it on our downstream task, which is a binary classification task (hence `num_classes = 2`). We could also fine-tune our model on regression tasks (`num_classes = 1`) or on multi-task classification.
 ```python
 from transformers import GraphormerForGraphClassification
 
-# To train from scratch
 model = GraphormerForGraphClassification.from_pretrained(
     "clefourrier/pcqm4mv2_graphormer_base",
     num_classes=2, # num_classes for the downstream task 
     ignore_mismatched_sizes=True,
 )
 ```
+Let's look at this in more detail. 
+
+Calling the `from_pretrained` method on our model downloads and caches the weights for us. As the number of classes (for prediction) is dataset dependent, we pass the new `num_classes` as well as `ignore_mismatched_sizes` alongside the `model_checkpoint`. This makes sure a custom classification head is created, specific to our task, hence likely different from the original decoder head.
 
 It is also possible to create a new randomly initialized model to train from scratch, either following the known parameters of a given checkpoint or by manually choosing them.
 
 ### Training or fine-tuning
-For graph datasets, it is particularly important to play around with batch sizes and gradient accumulation steps to train on enough samples while avoiding out-of-memory errors.
+To train our model simply, we will use a `Trainer`. To instantiate it, we will need to define the training configuration and the evaluation metric. The most important is the `TrainingArguments`, which is a class that contains all the attributes to customize the training. It requires a folder name, which will be used to save the checkpoints of the model.
+
 ```python
 from transformers import TrainingArguments, Trainer
 
 training_args = TrainingArguments(
-    output_dir="tmp",
-    logging_dir="tmp",
+    "graph-classification",
+    logging_dir="graph-classification",
     per_device_train_batch_size=64,
     per_device_eval_batch_size=64,
     auto_find_batch_size=True, # batch size can be changed automatically to prevent OOMs
@@ -135,8 +140,14 @@ training_args = TrainingArguments(
     num_train_epochs=20,
     evaluation_strategy="epoch",
     logging_strategy="epoch",
+    push_to_hub=True,
 )
+```
+For graph datasets, it is particularly important to play around with batch sizes and gradient accumulation steps to train on enough samples while avoiding out-of-memory errors. 
 
+The last argument `push_to_hub` allows the Trainer to push the model to the Hub regularly during training, as each saving step.
+
+```python
 trainer = Trainer(
     model=model,
     args=training_args,
@@ -145,8 +156,14 @@ trainer = Trainer(
     data_collator=GraphormerDataCollator(),
 )
 
-trainer.train() 
 ```
+In the `Trainer` for graph classification, it is important to pass the specific data collator for the given graph dataset, which will convert individual graphs to batches for training.
+
+```python
+train_results = trainer.train()
+trainer.push_to_hub()
+```
+When the model is trained, it can be saved to the hub with all the associated training artefacts using `push_to_hub`.
 
 As this model is quite big, it takes about a day to train/fine-tune for 20 epochs on CPU (IntelCore i7). It can be worth using powerful GPUs and parallelization instead, leveraging `accelerate`.
 
