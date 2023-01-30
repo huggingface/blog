@@ -93,9 +93,10 @@ def query(payload='',parameters=None,options={'use_cache': False}):
       return response.json()[0]['generated_text']
 
 parameters = {
-    'max_new_tokens':25,  # number of generated tokens
-    'temperature': 0.5,   # controlling the randomness of generations
-    'end_sequence': "###" # stopping sequence for generation
+    'max_new_tokens':25,   # number of generated tokens
+    'temperature': 0.5,    # controlling the randomness of generations
+    'end_sequence': "###", # stopping sequence for generation
+    'return_full_text': False # return just the answer
 }
 
 prompt="...."             # few-shot prompt
