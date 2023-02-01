@@ -141,7 +141,7 @@ Models such as VisualGPT use a visual encoder to embed images and feed the visua
 
 ### 4) Masked-Language Modeling / Image-Text Matching
 
-Another line of vision-language models uses a combination of Masked-Language Modeling (MLM) and Image-Text Matching (ITM) objectives to align specific parts of images with text and enable various downstream tasks such as visual question answering, visual commonsense reasoning, text-based image retrieval, and text-guided object detection. Models that follow this pre-training setup include [VisualBERT](https://arxiv.org/abs/1908.03557), [FLAVA](https://arxiv.org/abs/2112.04482), [ViLBERT](https://arxiv.org/abs/1908.02265) and [LXMERT](https://arxiv.org/abs/1908.07490).
+Another line of vision-language models uses a combination of Masked-Language Modeling (MLM) and Image-Text Matching (ITM) objectives to align specific parts of images with text and enable various downstream tasks such as visual question answering, visual commonsense reasoning, text-based image retrieval, and text-guided object detection. Models that follow this pre-training setup include [VisualBERT](https://arxiv.org/abs/1908.03557), [FLAVA](https://arxiv.org/abs/2112.04482), [ViLBERT](https://arxiv.org/abs/1908.02265), [LXMERT](https://arxiv.org/abs/1908.07490) and [BridgeTower](https://arxiv.org/abs/2206.08657).
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/mlm_itm.png" alt="MLM / ITM">
@@ -192,6 +192,7 @@ Using Hugging Face Transformers, you can easily download, run and fine-tune vari
 * [CLIP](https://huggingface.co/docs/transformers/model_doc/clip)
 * [FLAVA](https://huggingface.co/docs/transformers/main/en/model_doc/flava)
 * [GIT](https://huggingface.co/docs/transformers/main/en/model_doc/git)
+* [BridgeTower](https://huggingface.co/docs/transformers/main/en/model_doc/bridgetower)
 * [GroupViT](https://huggingface.co/docs/transformers/v4.25.1/en/model_doc/groupvit)
 * [BLIP](https://huggingface.co/docs/transformers/main/en/model_doc/blip)
 * [OWL-ViT](https://huggingface.co/docs/transformers/main/en/model_doc/owlvit)
@@ -204,7 +205,7 @@ Using Hugging Face Transformers, you can easily download, run and fine-tune vari
 * [`VisionTextDualEncoder`](https://huggingface.co/docs/transformers/main/en/model_doc/vision-text-dual-encoder)
 * [`VisionEncoderDecoderModel`](https://huggingface.co/docs/transformers/main/en/model_doc/vision-encoder-decoder)
 
-While models such as CLIP, FLAVA, BLIP, LiT and `VisionEncoderDecoder` models provide joint image-text embeddings that can be used for downstream tasks such as zero-shot image classification, other models are trained on interesting downstream tasks. In addition, FLAVA is trained with both unimodal and multi-modal pre-training objectives and can be used for both unimodal vision or language tasks and multi-modal tasks.
+While models such as CLIP, FLAVA, BridgeTower, BLIP, LiT and `VisionEncoderDecoder` models provide joint image-text embeddings that can be used for downstream tasks such as zero-shot image classification, other models are trained on interesting downstream tasks. In addition, FLAVA is trained with both unimodal and multi-modal pre-training objectives and can be used for both unimodal vision or language tasks and multi-modal tasks.
 
 For example, OWL-ViT [enables](https://huggingface.co/spaces/adirik/OWL-ViT) zero-shot / text-guided and one-shot / image-guided object detection, CLIPSeg and GroupViT [enable](https://huggingface.co/spaces/nielsr/CLIPSeg) text and image-guided image segmentation, and VisualBERT, GIT and ViLT [enable](https://huggingface.co/spaces/nielsr/vilt-vqa) visual question answering as well as various other tasks. X-CLIP is a multi-modal model trained with video and text modalities and [enables](https://huggingface.co/spaces/fcakyon/zero-shot-video-classification) zero-shot video classification similar to CLIP’s zero-shot image classification capabilities.
 
