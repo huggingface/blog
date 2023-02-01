@@ -1716,6 +1716,16 @@
     - guide
     - game-dev
 
+- local: cv_state
+  title: "The State of Computer Vision at Hugging Face 🤗"
+  author: sayakpaul
+  thumbnail: /blog/assets/cv_state/thumbnail.png
+  date: January 30, 2023
+  tags:
+    - community
+    - guide
+    - cv
+
 - local: vision_language_pretraining
   title: "A Dive into Pretraining Strategies for Vision-Language Models"
   author: adirik
