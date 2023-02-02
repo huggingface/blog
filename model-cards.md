@@ -20,9 +20,6 @@ thumbnail: /blog/assets/121_model-cards/thumbnail.png
             <span class="fullname">Ezinwanne (Ezi) Ozoani</span>
         </div>
     </a>
-</div>
-
-<div class="author-card">
     <a href="/Marissa"> 
         <img class="avatar avatar-user" src="https://pbs.twimg.com/profile_images/1565196941792874497/6lHZyXRD_400x400.jpg" width=100 title="Gravatar">
         <div class="bfc">
@@ -30,10 +27,6 @@ thumbnail: /blog/assets/121_model-cards/thumbnail.png
             <span class="fullname">Marissa Gerchick</span>
         </div>
     </a>
-</div>
-
-
-<div class="author-card">
     <a href="/Meg"> 
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/90473723" width=100 title="Gravatar">
         <div class="bfc">

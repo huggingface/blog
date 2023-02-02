@@ -20,8 +20,6 @@ thumbnail: /blog/assets/97_vision_transformers/thumbnail.png
             <span class=fullname">Julien Simon</span>
         </div>
     </a>
-</div>
-<div class="author-card">
     <a href="https://huggingface.co/internetoftim">
         <img class="avatar avatar-user" src="https://huggingface.co/avatars/94a72281274ff9f1259384af15d73861.svg" title="Tim Santos">
         <div class="bfc">
