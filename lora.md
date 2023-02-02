@@ -22,7 +22,7 @@ thumbnail: /blog/assets/lora/thumbnail.png
             <span class="fullname">Pedro Cuenca</span>
         </div>
     </a>
-    <a href="https://hf.co/sayakpaul">
+    <a href="/sayakpaul">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/22957388?v=4" width="100" title="Gravatar">
         <div class="bfc">
             <code>sayakpaul</code>

@@ -16,7 +16,7 @@ Large Language Models: A New Moore's Law?
 </div>
 
 <div class="author-card">
-    <a href="https://twitter.com/julsimon">
+    <a href="/juliensimon">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
         <div class="bfc">
             <code>juliensimon</code>

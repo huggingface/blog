@@ -15,7 +15,7 @@ thumbnail: /blog/assets/cv_state/thumbnail.png
 </div>
 
 <div class="author-card">
-    <a href="https://hf.co/sayakpaul">
+    <a href="/sayakpaul">
         <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/22957388?v=4" title="Gravatar">
         <div class="bfc">
             <code>sayakpaul</code>
