@@ -1,3 +1,8 @@
+---
+title: "Scaling-up BERT Inference on CPU (Part 1)"
+thumbnail: /blog/assets/21_bert_cpu_scaling_part_1/imgs/numa_set.png
+---
+
 <style>
   .centered {
       display: block;
