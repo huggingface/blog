@@ -17,16 +17,14 @@ For the rest of your files, create a mirrored folder in the HuggingFace Document
 4️⃣ Copy and paste this to your md file and change the elements
 - title
 - thumbnail
-- Published (change the date)
-- Change the author card
-  - href ="/ your huggingface username"
-  - src : your huggingface picture, for that right click to the huggingface picture and copy the link
-  - <span class="fullname"> : your name
-
+- authors
 ```
 ---
 title: "PUT YOUR TITLE HERE" 
 thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+authors:
+- user: your_hf_user
+- user: your_coauthor
 ---
 
 # Train your first Decision Transformer
