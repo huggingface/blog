@@ -7,12 +7,7 @@ authors:
 
 <h1>How to generate text: using different decoding methods for language generation with Transformers</h1>
 
-<div class="blog-metadata">
-    <small>Published March 18, 2020.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/how-to-generate.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

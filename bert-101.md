@@ -7,9 +7,7 @@ authors:
 <html itemscope itemtype="https://schema.org/FAQPage">
 <h1>BERT 101 🤗 State Of The Art NLP Model Explained</h1>
 
-<div class="blog-metadata">
-    <small>Published March 2, 2022.</small>
-</div>
+{blog_metadata}
 
 {authors}
 

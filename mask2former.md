@@ -11,12 +11,7 @@ authors:
 	Universal Image Segmentation with Mask2Former and OneFormer
 </h1>
 
-<div class="blog-metadata">
-    <small>Published January 20, 2023.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/mask2former.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

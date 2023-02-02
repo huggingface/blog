@@ -4,12 +4,11 @@ thumbnail: /blog/assets/100_open_rail/100_open-rail.png
 authors:
 - user: CarlosMF
 ---
-<div class="blog-metadata">
-    <small>Published August 31, 2022.</small>
-   
+
+
 <h1>OpenRAIL: Towards open and responsible AI licensing frameworks</h1>
 
-</div>
+{blog_metadata}
 
 {authors}
   

@@ -9,14 +9,10 @@ authors:
 
 # Deep Learning over the Internet: Training Language Models Collaboratively
 
-<div class="blog-metadata">
-    <small>Published July 15, 2021</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/collaborative-training.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
+
 <small>
 With the additional help of Quentin Lhoest and Sylvain Lesage.
 </small>

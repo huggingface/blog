@@ -9,12 +9,7 @@ authors:
     Introducing new audio and vision documentation in 🤗 Datasets
 </h1>
 
-<div class="blog-metadata">
-    <small>Published July 11, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/datasets-docs-update.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

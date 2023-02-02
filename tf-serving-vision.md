@@ -6,9 +6,7 @@ authors:
   guest: true
 ---
 
-<h1>
-  Deploying TensorFlow Vision Models in Hugging Face with TF Serving
-</h1>
+# Deploying TensorFlow Vision Models in Hugging Face with TF Serving
 
 {blog_metadata}
 
