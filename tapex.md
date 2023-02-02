@@ -16,7 +16,7 @@ thumbnail: /blog/assets/74_tapex/thumbnail.png
 </div>
 
 <div class="author-card">
-    <a href="https://github.com/SivilTaram">
+    <a href="/SivilTaram">
         <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1652435645515-612ee6a7b960e78c6d2319d4.jpeg?w=200&h=200&f=face" title="Gravatar">
         <div class="bfc">
             <code>SivilTaram</code>
