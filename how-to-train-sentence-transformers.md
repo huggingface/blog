@@ -1,6 +1,8 @@
 ---
 title: 'Train and Fine-Tune Sentence Transformers Models'
 thumbnail: /blog/assets/95_training_st_models/thumbnail.png
+authors:
+- user: espejelomar
 ---
 
 <h1>
@@ -14,15 +16,7 @@ thumbnail: /blog/assets/95_training_st_models/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/espejelomar"> 
-        <img class="avatar avatar-user" src="https://bafybeidj6oxo7zm5pejnc2iezy24npw4qbt2jgpo4n6igt7oykc7rbvcxi.ipfs.dweb.link/omar_picture.png" title="Gravatar">
-        <div class="bfc">
-            <code>espejelomar</code>
-            <span class="fullname">Omar Espejel</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 Check out this tutorial with the Notebook Companion:
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/95_Training_Sentence_Transformers.ipynb">

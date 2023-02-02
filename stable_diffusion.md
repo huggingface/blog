@@ -1,6 +1,11 @@
 ---
 title: Stable Diffusion with 🧨 Diffusers
 thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png
+authors:
+- user: valhalla
+- user: pcuenq
+- user: natolambert
+- user: patrickvonplaten
 ---
 
 <h1>
@@ -14,36 +19,7 @@ thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/valhalla">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/27137566?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>valhalla</code>
-            <span class="fullname">Suraj Patil</span>
-        </div>
-    </a>
-	 <a href="/pcuenq">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/1177582?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>pcuenq</code>
-            <span class="fullname">Pedro Cuenca</span>
-        </div>
-    </a>
-	 <a href="/natolambert">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/10695622?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>natolambert</code>
-            <span class="fullname">Nathan Lambert</span>
-        </div>
-    </a>
-    <a href="/patrickvonplaten">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/23423619?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>patrickvonplaten</code>
-            <span class="fullname">Patrick von Platen</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

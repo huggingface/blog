@@ -1,6 +1,8 @@
 ---
 title: "Fine-Tune Wav2Vec2 for English ASR in Hugging Face with 🤗 Transformers"
 thumbnail: /blog/assets/15_fine_tune_wav2vec2/wav2vec2.png
+authors:
+- user: patrickvonplaten
 ---
 
 <h1>
@@ -14,15 +16,7 @@ thumbnail: /blog/assets/15_fine_tune_wav2vec2/wav2vec2.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/patrickvonplaten">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1584435275418-5dfcb1aada6d0311fd3d5448.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>patrickvonplaten</code>
-            <span class="fullname">Patrick von Platen</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Fine_tuning_Wav2Vec2_for_English_ASR.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

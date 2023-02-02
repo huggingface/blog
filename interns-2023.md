@@ -1,6 +1,9 @@
 ---
 title: "We are hiring interns!"
 thumbnail: /blog/assets/interns-2023/thumbnail.png
+authors:
+- user: lysandre
+- user: douwekiela
 ---
 
 <h1>
@@ -14,22 +17,7 @@ thumbnail: /blog/assets/interns-2023/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/lysandre">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1594147310023-5e3aec01f55e2b62848a5217.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>lysandre</code>
-            <span class="fullname">Lysandre Debut</span>
-        </div>
-    </a>
-    <a href="/douwekiela">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1641847245435-61dc997715b47073db1620dc.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>douwekiela</code>
-            <span class="fullname">Douwe Kiela</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 Want to help build the future at -- if we may say so ourselves -- one of the coolest places in AI? Today we’re announcing our internship program for 2023. Together with your Hugging Face mentor(s), we’ll be working on cutting edge problems in AI and machine learning.
 

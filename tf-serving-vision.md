@@ -1,6 +1,9 @@
 ---
 title: Deploying TensorFlow Vision Models in Hugging Face with TF Serving
 thumbnail: /blog/assets/90_tf_serving_vision/thumbnail.png
+authors:
+- user: sayakpaul
+  guest: true
 ---
 
 <h1>
@@ -14,16 +17,7 @@ thumbnail: /blog/assets/90_tf_serving_vision/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/sayakpaul">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/22957388?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>sayakpaul</code>
-            <span class="fullname">Sayak Paul</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/111_tf_serving_vision.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

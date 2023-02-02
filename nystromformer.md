@@ -1,6 +1,9 @@
 ---
 title: "Nyströmformer: Approximating self-attention in linear time and memory via the Nyström method"
 thumbnail: /blog/assets/86_nystromformer/thumbnail.png
+authors:
+- user: asi
+  guest: true
 ---
 
 <h1>Nyströmformer: Approximating self-attention in linear time and memory via the Nyström method</h1>
@@ -12,16 +15,7 @@ thumbnail: /blog/assets/86_nystromformer/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/asi">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1641054384602-61d08096db453feb805ba8ad.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>novice03</code>
-            <span class="fullname">novice03</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 

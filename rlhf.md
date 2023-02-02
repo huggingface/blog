@@ -1,6 +1,11 @@
 ---
 title: "Illustrating Reinforcement Learning from Human Feedback (RLHF)" 
 thumbnail: /blog/assets/120_rlhf/thumbnail.png
+authors:
+- user: natolambert
+  guest: true
+- user: lvwerra
+  guest: true
 ---
 
 # Illustrating Reinforcement Learning from Human Feedback (RLHF)
@@ -12,38 +17,7 @@ thumbnail: /blog/assets/120_rlhf/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/natolambert"> 
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/10695622?v=4?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>natolambert</code>
-            <span class="fullname">Nathan Lambert</span>
-        </div>
-    </a>
-   <a href="https://twitter.com/lcastricato">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/5066878?v=4?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>lcastricato</code>
-            <span class="fullname">Louis Castricato</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-    <a href="/lvwerra">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8264887?v=4?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>lvwerra</code>
-            <span class="fullname">Leandro von Werra</span>
-        </div>
-    </a>
-	 <a href="https://twitter.com/Dahoas1">
-        <img class="avatar avatar-user" src="https://dahoas.github.io/artifacts/alexh.jpg?w=200&h=200&f=face" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>Dahoas1</code>
-            <span class="fullname">Alex Havrilla</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 
 Language models have shown impressive capabilities in the past few years by generating diverse and compelling text from human input prompts. However, what makes a "good" text is inherently hard to define as it is subjective and context dependent. There are many applications such as writing stories where you want creativity, pieces of informative text which should be truthful, or code snippets that we want to be executable. 

@@ -1,6 +1,10 @@
 ---
 title: Universal Image Segmentation with Mask2Former and OneFormer
 thumbnail: /blog/assets/127_mask2former/thumbnail.png
+authors:
+- user: nielsr
+- user: shivi
+- user: adirik
 ---
 
 <h1>
@@ -14,29 +18,7 @@ thumbnail: /blog/assets/127_mask2former/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/nielsr">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/48327001?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>nielsr</code>
-            <span class="fullname">Niels Rogge</span>
-        </div>
-    </a>
-    <a href="/shivi">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/73357305?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>shivi</code>
-            <span class="fullname">Shivalika Singh</span>
-        </div>
-    </a>
-    <a href="/adirik">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8944735?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>adirik</code>
-            <span class="fullname">Alara Dirik</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 

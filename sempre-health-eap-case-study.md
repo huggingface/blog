@@ -1,6 +1,8 @@
 ---
 title: "How Sempre Health is leveraging the Expert Acceleration Program to accelerate their ML roadmap"
 thumbnail: /blog/assets/70_sempre_health/thumbnail.jpg
+authors:
+- user: huggingface
 ---
 
 <h1>How Sempre Health is leveraging the Expert Acceleration Program to accelerate their ML roadmap </h1>
@@ -12,15 +14,7 @@ thumbnail: /blog/assets/70_sempre_health/thumbnail.jpg
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/huggingface">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1624043388143-noauth.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>federicopascual</code>
-            <span class="fullname">Federico Pascual</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 👋 Hello, friends! We recently sat down with [Swaraj Banerjee](https://www.linkedin.com/in/swarajbanerjee/) and [Larry Zhang](https://www.linkedin.com/in/larry-zhang-b58642a3/) from [Sempre Health](https://www.semprehealth.com/), a startup that brings behavior-based, dynamic pricing to Healthcare. They are doing some exciting work with machine learning and are leveraging our [Expert Acceleration Program](https://huggingface.co/support) to accelerate their ML roadmap.
 

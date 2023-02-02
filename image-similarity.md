@@ -1,6 +1,8 @@
 ---
 title: Image Similarity with Hugging Face Datasets and Transformers
 thumbnail: /blog/assets/image_similarity/thumbnail.png
+authors:
+- user: sayakpaul
 ---
 
 <h1>
@@ -14,15 +16,7 @@ thumbnail: /blog/assets/image_similarity/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/sayakpaul">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/22957388?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>sayakpaul</code>
-            <span class="fullname">Sayak Paul</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/image_similarity.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

@@ -1,6 +1,8 @@
 ---
 title: "Gradio 3.0 is Out!"
 thumbnail: /blog/assets/68_gradio_blocks/block-party.png
+authors:
+- user: abidlabs
 ---
 
 <h1>Gradio 3.0 is Out!</h1>
@@ -12,15 +14,7 @@ thumbnail: /blog/assets/68_gradio_blocks/block-party.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/abidlabs">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/1778297?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>abidlabs</code>
-            <span class="fullname">Abubakar Abid, Gradio team lead</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 ### Machine Learning Demos 
 

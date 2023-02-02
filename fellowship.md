@@ -1,6 +1,9 @@
 ---
 title: "Announcing the Hugging Face Fellowship Program"
 thumbnail: /blog/assets/62_fellowship/fellowship-thumbnail.png
+authors:
+- user: merve
+- user: espejelomar
 ---
 
 <h1>
@@ -14,22 +17,7 @@ thumbnail: /blog/assets/62_fellowship/fellowship-thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/merve"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1631694399207-6141a88b3a0ec78603c9e784.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>merve</code>
-            <span class="fullname">Merve Noyan</span>
-        </div>
-    </a>
-    <a href="/espejelomar"> 
-        <img class="avatar avatar-user" src="https://bafybeidj6oxo7zm5pejnc2iezy24npw4qbt2jgpo4n6igt7oykc7rbvcxi.ipfs.dweb.link/omar_picture.png" title="Gravatar">
-        <div class="bfc">
-            <code>espejelomar</code>
-            <span class="fullname">Omar Espejel</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 
 The Fellowship is a network of exceptional people from different backgrounds who contribute to the Machine Learning open-source ecosystem 🚀. The goal of the program is to empower key contributors to enable them to scale their impact while inspiring others to contribute as well.

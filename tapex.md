@@ -2,6 +2,9 @@
 title: "Efficient Table Pre-training without Real Data: An Introduction to TAPEX"
 thumbnail: /blog/assets/74_tapex/thumbnail.png
 
+authors:
+- user: SivilTaram
+  guest: true
 ---
 
 <h1>
@@ -15,16 +18,7 @@ thumbnail: /blog/assets/74_tapex/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/SivilTaram">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1652435645515-612ee6a7b960e78c6d2319d4.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>SivilTaram</code>
-            <span class="fullname">Qian Liu</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 
 In recent years, language model pre-training has achieved great success via leveraging large-scale textual data. By employing pre-training tasks such as [masked language modeling](https://arxiv.org/abs/1810.04805), these models have demonstrated surprising performance on several downstream tasks. However, the dramatic gap between the pre-training task (e.g., language modeling) and the downstream task (e.g., table question answering) makes existing pre-training not efficient enough. In practice, we often need an *extremely large amount* of pre-training data to obtain promising improvement, even for [domain-adaptive pretraining](https://arxiv.org/abs/2004.02349). How might we design a pre-training task to close the gap, and thus accelerate pre-training?

@@ -1,6 +1,8 @@
 ---
 title: "From PyTorch DDP to Accelerate to Trainer, mastery of distributed training with ease"
 thumbnail: /blog/assets/111_pytorch_ddp_accelerate_transformers/thumbnail.png
+authors:
+- user: muellerzr
 ---
 
 # From PyTorch DDP to Accelerate to Trainer, mastery of distributed training with ease
@@ -12,15 +14,7 @@ thumbnail: /blog/assets/111_pytorch_ddp_accelerate_transformers/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/muellerzr">
-        <img class="avatar avatar-user" src="https://walkwithfastai.com/assets/images/portrait.png" title="Gravatar" width="200">
-        <div class="bfc">
-            <code>muellerzr</code>
-            <span class="fullname">Zachary Mueller</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 ## General Overview
 

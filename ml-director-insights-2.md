@@ -1,6 +1,8 @@
 ---
 title: "Director of Machine Learning Insights [Part 2: SaaS Edition]"
 thumbnail: /blog/assets/67_ml_director_insights/thumbnail.png
+authors:
+- user: britneymuller
 ---
 
 <html>
@@ -16,15 +18,7 @@ thumbnail: /blog/assets/67_ml_director_insights/thumbnail.png
     <small>Published May 13, 2022.</small>
 </div>
 
-<div class="author-card">
-    <a href="/britneymuller">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1645809068511-5ef0ce775e979253a010ef4c.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>britneymuller</code>
-            <span class="fullname">Britney Muller</span>
-        </div>
-    </a>
-</div>
+{authors}
 </head>
 <body>
 

@@ -1,6 +1,8 @@
 ---
 title: Block Sparse Matrices for Smaller and Faster Language Models
 thumbnail: /blog/assets/04_pytorch_block_sparse/thumbnail.png
+authors:
+- user: madlag
 ---
 
 <h1>Block Sparse Matrices for Smaller and Faster Language Models</h1>
@@ -12,15 +14,7 @@ thumbnail: /blog/assets/04_pytorch_block_sparse/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/madlag">
-        <img class="avatar avatar-user" src="https://www.gravatar.com/avatar/205c3e49902572f215d99796656526c7?d=retro&size=200" title="Gravatar">
-        <div class="bfc">
-            <code>madlag</code>
-            <span class="fullname">François Lagunas</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 ## Saving space and time, one zero at a time
 

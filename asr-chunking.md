@@ -1,6 +1,8 @@
 ---
 title: "Making automatic speech recognition work on large files with Wav2Vec2 in 🤗 Transformers"
 thumbnail: /blog/assets/49_asr_chunking/thumbnail.png
+authors:
+- user: Narsil
 ---
 
 <h1>
@@ -14,15 +16,7 @@ thumbnail: /blog/assets/49_asr_chunking/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/Narsil">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1608285816082-5e2967b819407e3277369b95.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>narsil</code>
-            <span class="fullname">Nicolas Patry</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 ```
 Tl;dr: This post explains how to use the specificities of the Connectionist

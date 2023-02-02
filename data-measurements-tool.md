@@ -1,6 +1,10 @@
 ---
 title: "Introducing the Data Measurements Tool: an Interactive Tool for Looking at Datasets"
 thumbnail: /blog/assets/37_data-measurements-tool/datametrics.png
+authors:
+- user: sasha
+- user: yjernite
+- user: meg
 ---
 
 # Introducing the 🤗 Data Measurements Tool: an Interactive Tool for Looking at Datasets
@@ -12,29 +16,7 @@ thumbnail: /blog/assets/37_data-measurements-tool/datametrics.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/sasha">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626198087984-60edd0133e2c73a9a21455f5.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sasha</code>
-            <span class="fullname">Sasha Luccioni</span>
-        </div>
-    </a>
-    <a href="/yjernite">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1594144055859-5ee3a7cd2a3eae3cbdad1305.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>yjernite</code>
-            <span class="fullname">Yacine Jernite</span>
-        </div>
-    </a>
-    <a href="/meg">
-        <img class="avatar avatar-user" src="http://www.m-mitchell.com/images/meg_cropped_sidebar2.jpg?w=200&h=200" title="Gravatar">
-        <div class="bfc">
-            <code>meg</code>
-            <span class="fullname">Meg Mitchell</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 
 

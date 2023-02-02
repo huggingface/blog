@@ -1,6 +1,8 @@
 ---
 title: 'Convert Transformers to ONNX with Hugging Face Optimum'
 thumbnail: /blog/assets/81_convert_transformers_to_onnx/thumbnail.png
+authors:
+- user: philschmid
 ---
 <h1>
    Convert Transformers to ONNX with Hugging Face Optimum
@@ -13,15 +15,7 @@ thumbnail: /blog/assets/81_convert_transformers_to_onnx/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/philschmid">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1613142338662-5ff5d596f244529b3ec0fb89.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>philschmid</code>
-            <span class="fullname">Philipp Schmid</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 Hundreds of Transformers experiments and models are uploaded to the [Hugging Face Hub](https://huggingface.co/) every single day. Machine learning engineers and students conducting those experiments use a variety of frameworks like PyTorch, TensorFlow/Keras, or others. These models are already used by thousands of companies and form the foundation of AI-powered products.
 

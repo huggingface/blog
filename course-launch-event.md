@@ -1,21 +1,15 @@
 ---
 title: "Course Launch Community Event"
 thumbnail: /blog/assets/34_course_launch/speakers_day1_thumb.png
+authors:
+- user: sgugger
 ---
 
 <h1>
     Course Launch Community Event
 </h1>
 
-<div class="author-card">
-    <a href="/sgugger">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1593126474392-5ef50182b71947201082a4e5.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sgugger</code>
-            <span class="fullname">Sylvain Gugger</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 We are excited to share that after a lot of work from the Hugging Face team, part 2 of the [Hugging Face Course](https://hf.co/course) will be released on November 15th! Part 1 focused on teaching you how to use a pretrained model, fine-tune it on a text classification task then upload the result to the [Model Hub](https://hf.co/models). Part 2 will focus on all the other common NLP tasks: token classification, language modeling (causal and masked), translation, summarization and question answering. It will also take a deeper dive in the whole Hugging Face ecosystem, in particular [🤗 Datasets](https://github.com/huggingface/datasets) and [🤗 Tokenizers](https://github.com/huggingface/tokenizers).
 

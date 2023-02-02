@@ -1,6 +1,9 @@
 ---
 title: "My Journey to a serverless transformers pipeline on Google Cloud"
 thumbnail: /blog/assets/14_how_to_deploy_a_pipeline_to_google_clouds/thumbnail.png
+authors:
+- user: Maxence
+  guest: true
 ---
 
 # My Journey to a serverless transformers pipeline on <br>Google Cloud
@@ -12,16 +15,7 @@ thumbnail: /blog/assets/14_how_to_deploy_a_pipeline_to_google_clouds/thumbnail.p
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/Maxence">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1613496680893-602bfe18c4f8038e9a1e0a66.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>Maxence</code>
-            <span class="fullname">Maxence Dominici</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 > ##### A guest blog post by community member <a href="/Maxence">Maxence Dominici</a>
 

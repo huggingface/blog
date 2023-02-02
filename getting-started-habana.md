@@ -1,6 +1,8 @@
 ---
 title: Getting Started with Transformers on Habana Gaudi
 thumbnail: /blog/assets/61_getting_started_habana/habana01.png
+authors:
+- user: juliensimon
 ---
 
 <h1>
@@ -15,15 +17,7 @@ Getting Started with Transformers on Habana Gaudi
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/juliensimon">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
-        <div class="bfc">
-            <code>juliensimon</code>
-            <span class=fullname">Julien Simon</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 A couple of weeks ago, we've had the pleasure to [announce](https://huggingface.co/blog/habana) that [Habana Labs](https://habana.ai) and [Hugging Face](https://huggingface.co/) would partner to accelerate Transformer model training.
 

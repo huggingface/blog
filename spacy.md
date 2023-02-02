@@ -2,6 +2,9 @@
 title: "Welcome spaCy to the Hugging Face Hub"
 thumbnail: /blog/assets/23_spacy/thumbnail.png
 
+authors:
+- user: osanseviero
+- user: ines
 ---
 
 <h1>
@@ -15,22 +18,7 @@ thumbnail: /blog/assets/23_spacy/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/osanseviero">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1622621035602-6032802e1f993496bc14d9e3.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>osanseviero</code>
-            <span class="fullname">Omar Sanseviero</span>
-        </div>
-    </a>
-    <a href="/ines">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1621945859267-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>ines</code>
-            <span class="fullname">Ines Montani</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 [spaCy](https://github.com/explosion/spaCy) is a popular library for advanced Natural Language Processing used widely across industry. spaCy makes it easy to use and train pipelines for tasks like named entity recognition, text classification, part of speech tagging and more, and lets you build powerful applications to process and analyze large volumes of text.
 

@@ -1,6 +1,10 @@
 ---
 title: "A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using transformers, accelerate and bitsandbytes"
 thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
+authors:
+- user: ybelkada
+- user: timdettmers
+  guest: true
 ---
 
 # A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using Hugging Face Transformers, Accelerate and bitsandbytes
@@ -12,23 +16,7 @@ thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/ybelkada">
-        <img class="avatar avatar-user" src="/blog/assets/96_hf_bitsandbytes_integration/younes.png" title="Gravatar">
-        <div class="bfc">
-            <code>ybelkada</code>
-            <span class="fullname">Younes Belkada</span>
-        </div>
-    </a>
-    <a href="/timdettmers">
-        <img class="avatar avatar-user" src="/blog/assets/96_hf_bitsandbytes_integration/tim.jpeg" title="Gravatar">
-        <div class="bfc">
-            <code>timdettmers</code>
-            <span class="fullname">Tim Dettmers</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 ![thumbnail](assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png)
 

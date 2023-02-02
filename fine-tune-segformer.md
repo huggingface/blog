@@ -1,6 +1,10 @@
 ---
 title: Fine-Tune a Semantic Segmentation Model with a Custom Dataset
 thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
+authors:
+- user: segments-tobias
+  guest: true
+- user: nielsr
 ---
 
 <h1>
@@ -14,23 +18,7 @@ thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/segments-tobias">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/89590365?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>segments-tobias</code>
-            <span class="fullname">Tobias Cornille</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-    <a href="/nielsr">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/48327001?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>nielsr</code>
-            <span class="fullname">Niels Rogge</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 

@@ -1,6 +1,8 @@
 ---
 title: "Perceiver IO: a scalable, fully-attentional model that works on any modality"
 thumbnail: /blog/assets/41_perceiver/thumbnail.png
+authors:
+- user: nielsr
 ---
 
 <h1>Perceiver IO: a scalable, fully-attentional model that works on any modality</h1>
@@ -12,15 +14,7 @@ thumbnail: /blog/assets/41_perceiver/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/nielsr">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/48327001?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>nielsr</code>
-            <span class="fullname">Niels Rogge</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 ### TLDR
 

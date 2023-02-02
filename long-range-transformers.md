@@ -1,6 +1,8 @@
 ---
 title: "Hugging Face Reads, Feb. 2021 - Long-range Transformers"
 thumbnail: /blog/assets/14_long_range_transformers/EfficientTransformerTaxonomy.png
+authors:
+- user: VictorSanh
 ---
 
 <figure>
@@ -19,15 +21,7 @@ thumbnail: /blog/assets/14_long_range_transformers/EfficientTransformerTaxonomy.
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/VictorSanh">
-        <img class="avatar avatar-user" src="https://pbs.twimg.com/profile_images/1141847999917768704/Wn2vaOMO_400x400.jpg" title="Gravatar">
-        <div class="bfc">
-            <code>VictorSanh</code>
-            <span class="fullname">Victor Sanh</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 Co-written by Teven Le Scao, Patrick Von Platen, Suraj Patil, Yacine Jernite and Victor Sanh.
 

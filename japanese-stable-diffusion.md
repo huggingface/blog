@@ -1,6 +1,11 @@
 ---
 title: "Japanese Stable Diffusion" 
 thumbnail: /blog/assets/106_japanese_stable_diffusion/jsd_thumbnail.png
+authors:
+- user: mshing
+  guest: true
+- user: keisawada
+  guest: true
 ---
 
 # Japanese Stable Diffusion
@@ -12,24 +17,7 @@ thumbnail: /blog/assets/106_japanese_stable_diffusion/jsd_thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/mshing"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1664425658158-60c2e7747a42b2edc5d2ccf7.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>mshing</code>
-            <span class="fullname">Makoto Shing<sup>*</sup></span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-    <a href="/keisawada"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1664421350447-611e435e1f0dcb7bec13d0d7.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>keisawada</code>
-            <span class="fullname">Kei Sawada<sup>*</sup></span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <a target="_blank" href="https://huggingface.co/spaces/rinna/japanese-stable-diffusion" target="_parent"><img src="https://img.shields.io/badge/🤗 Hugging Face-Spaces-blue" alt="Open In Hugging Face Spaces"/></a>
 

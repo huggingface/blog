@@ -1,6 +1,8 @@
 ---
 title: 'Liftoff! How to get started with your first ML project 🚀'
 thumbnail: /blog/assets/84_first_ml_project/thumbnail.png
+authors:
+- user: nimaboscarino
 ---
 
 <h1>
@@ -14,16 +16,7 @@ thumbnail: /blog/assets/84_first_ml_project/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/nimaboscarino"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1647889744246-61e6a54836fa261c76dc3760.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>nimaboscarino</code>
-            <span class="fullname">Nima Boscarino</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">Opinion piece</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 People who are new to the Machine Learning world often run into two recurring stumbling blocks. The first is choosing the right library to learn, which can be daunting when there are so many to pick from. Even once you’ve settled on a library and gone through some tutorials, the next issue is coming up with your first big project and scoping it properly to maximize your learning. If you’ve run into those problems, and if you're looking for a new ML library to add to your toolkit, you're in the right place!
 

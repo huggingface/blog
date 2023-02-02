@@ -1,6 +1,8 @@
 ---
 title: "Scaling-up BERT Inference on CPU (Part 1)"
 thumbnail: /blog/assets/21_bert_cpu_scaling_part_1/imgs/numa_set.png
+authors:
+- user: mfuntowicz
 ---
 
 <style>
@@ -21,15 +23,7 @@ thumbnail: /blog/assets/21_bert_cpu_scaling_part_1/imgs/numa_set.png
     <small>Published April 19, 2021.</small>
 </div>
 
-<div class="author-card">
-    <a href="/mfuntowicz">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1583858935715-5e67c47c100906368940747e.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>mfuntowicz</code>
-            <span class="fullname">Morgan Funtowicz</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 # Scaling up BERT-like model Inference on modern CPU - Part 1
 

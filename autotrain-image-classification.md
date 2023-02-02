@@ -1,6 +1,8 @@
 ---
 title: Image Classification with AutoTrain 
 thumbnail: /blog/assets/105_autotrain-image-classification/thumbnail.png
+authors:
+- user: nimaboscarino
 ---
 
 <h1>
@@ -14,15 +16,7 @@ Image Classification with AutoTrain
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/nimaboscarino">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1647889744246-61e6a54836fa261c76dc3760.jpeg?w=200&h=200&f=face" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>NimaBoscarino</code>
-            <span class="fullname">Nima Boscarino</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 

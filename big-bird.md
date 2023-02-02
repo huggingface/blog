@@ -1,6 +1,8 @@
 ---
 title: "Understanding BigBird's Block Sparse Attention"
 thumbnail: /blog/assets/18_big_bird/attn.png
+authors:
+- user: vasudevgupta
 ---
 
 <h1>
@@ -14,15 +16,7 @@ thumbnail: /blog/assets/18_big_bird/attn.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/vasudevgupta">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1614331954727-5f6b44345e78cc6b0ed31d33.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>vasudevgupta</code>
-            <span class="fullname">Vasudev Gupta</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 ## Introduction
 

@@ -1,6 +1,19 @@
 ---
 title: Fine tuning CLIP with Remote Sensing (Satellite) images and captions
 thumbnail: /blog/assets/30_clip_rsicd/clip_schematic.png
+authors:
+- user: arampacha
+  guest: true
+- user: devv
+  guest: true
+- user: goutham794
+  guest: true
+- user: cataluna84
+  guest: true
+- user: ghosh-r
+  guest: true
+- user: sujitpal
+  guest: true
 ---
 
 <h1>
@@ -14,56 +27,7 @@ Fine tuning CLIP with Remote Sensing (Satellite) images and captions
   </a>
 </div>
 
-<div class="author-card">
-  <a href="/arampacha">
-    <img class="avatar avatar-user" src="https://huggingface.co/avatars/7c30eda560517e96b32bf5350dc57453.svg" title="Arto">
-    <div class="bfc">
-      <code>arampacha</code>
-      <span class=fullname">Artashes Arutiunian</span>
-      <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-    </div>
-  </a>
-  <a href="/devv">
-    <img class="avatar avatar-user" src="https://huggingface.co/avatars/c8d7c94ac637803b8c9e534515d2f1e5.svg" title="Dev Vidhani">
-    <div class="bfc">
-      <code>devv</code>
-      <span class=fullname">Dev Vidhani</span>
-      <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-    </div>
-  </a>
-  <a href="/goutham794">
-    <img class="avatar avatar-user" src="https://huggingface.co/avatars/d9965f83d58057188354f59d4d4bc276.svg" title="Goutham Venkatesh">
-    <div class="bfc">
-      <code>goutham794</code>
-      <span class=fullname">Goutham Venkatesh</span>
-      <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-    </div>
-  </a>
-  <a href="/cataluna84">
-    <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1624676266012-60aef0fbee40717d1a8fa6a5.png?w=100&h=100&f=face" title="Mayank Bhaskar">
-    <div class="bfc">
-      <code>cataluna84</code>
-      <span class=fullname">Mayank Bhaskar</span>
-      <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-    </div>
-  </a>
-  <a href="/ghosh-r">
-    <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1607336845964-noauth.png?w=100&h=100&f=face" title="Ritobrata Ghosh">
-    <div class="bfc">
-      <code>ghosh-r</code>
-      <span class=fullname">Ritobrata Ghosh</span>
-      <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-    </div>
-  </a>
-  <a href="/sujitpal">
-    <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633126314446-60961e8547dc3dbf8a9765f5.jpeg?w=100&h=100&f=face" title="Sujit Pal">
-    <div class="bfc">
-      <code>sujitpal</code>
-      <span class=fullname">Sujit Pal</span>
-      <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-    </div>
-  </a>
-</div>
+{authors}
 
 
 ## Fine tuning CLIP with Remote Sensing (Satellite) images and captions

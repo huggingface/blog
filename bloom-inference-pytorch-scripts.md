@@ -1,6 +1,9 @@
 ---
 title: "Incredibly Fast BLOOM Inference with DeepSpeed and Accelerate"
 thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
+authors:
+- user: stas
+- user: sgugger
 ---
 
 <h1>Incredibly Fast BLOOM Inference with DeepSpeed and Accelerate</h1>
@@ -12,22 +15,7 @@ thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/stas">
-        <img class="avatar avatar-user" src="/blog/assets/bloom-inference-pytorch-scripts/stas-bekman-300x300.jpg">
-        <div class="bfc">
-            <code>stas</code>
-            <span class="fullname">Stas Bekman</span>
-        </div>
-    </a>
-    <a href="/sgugger">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1593126474392-5ef50182b71947201082a4e5.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sgugger</code>
-            <span class="fullname">Sylvain Gugger</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 This article shows how to get an incredibly fast per token throughput when generating with the 176B parameter [BLOOM model](https://huggingface.co/bigscience/bloom).
 

@@ -1,6 +1,8 @@
 ---
 title: "Introducing 🤗 Accelerate"
 thumbnail: /blog/assets/20_accelerate_library/accelerate_diff.png
+authors:
+- user: sgugger
 ---
 
 <h1>
@@ -14,15 +16,7 @@ thumbnail: /blog/assets/20_accelerate_library/accelerate_diff.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/sgugger">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1593126474392-5ef50182b71947201082a4e5.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sgugger</code>
-            <span class="fullname">Sylvain Gugger</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 ## 🤗 Accelerate
 

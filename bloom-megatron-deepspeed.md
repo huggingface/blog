@@ -1,6 +1,8 @@
 ---
 title: "The Technology Behind BLOOM Training"
 thumbnail: /blog/assets/86_bloom_megatron_deepspeed/thumbnail.png
+authors:
+- user: stas
 ---
 
 <h1>The Technology Behind BLOOM Training</h1>
@@ -12,15 +14,7 @@ thumbnail: /blog/assets/86_bloom_megatron_deepspeed/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/stas">
-        <img class="avatar avatar-user" src="/blog/assets/86_bloom_megatron_deepspeed/stas-bekman-300x300.jpg">
-        <div class="bfc">
-            <code>stas</code>
-            <span class="fullname">Stas Bekman</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 
 

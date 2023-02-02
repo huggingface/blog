@@ -1,6 +1,8 @@
 ---
 title: "Deploy GPT-J 6B for inference using  Hugging Face Transformers and Amazon SageMaker"
 thumbnail: /blog/assets/45_gptj_sagemaker/thumbnail.png
+authors:
+- user: philschmid
 ---
 
 <h1>Deploy GPT-J 6B for inference using  Hugging Face Transformers and Amazon SageMaker</h1>
@@ -12,15 +14,7 @@ thumbnail: /blog/assets/45_gptj_sagemaker/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/philschmid">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1624629516652-5ff5d596f244529b3ec0fb89.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>philschmid</code>
-            <span class="fullname">Philipp Schmid</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 

@@ -1,6 +1,8 @@
 ---
 title: "Ethics and Society Newsletter #1" 
 thumbnail: /blog/assets/103_ethics-soc-1/thumbnail.png
+authors:
+- user: meg-huggingface
 ---
 
 # Ethics and Society Newsletter #1
@@ -12,15 +14,7 @@ thumbnail: /blog/assets/103_ethics-soc-1/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/meg-huggingface"> 
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/90473723?v=4" width=100 title="Gravatar">
-        <div class="bfc">
-            <code>meg-huggingface</code>
-            <span class="fullname">Margaret Mitchell</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 
 Hello, world!

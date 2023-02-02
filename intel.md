@@ -1,6 +1,8 @@
 ---
 title: "Intel and Hugging Face Partner to Democratize Machine Learning Hardware Acceleration"
 thumbnail: /blog/assets/80_intel/01.png
+authors:
+- user: juliensimon
 ---
 
 
@@ -16,15 +18,7 @@ thumbnail: /blog/assets/80_intel/01.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/juliensimon">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
-        <div class="bfc">
-            <code>juliensimon</code>
-            <span class=fullname">Julien Simon</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 ![image](assets/80_intel/01.png)
 

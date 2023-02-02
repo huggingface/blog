@@ -1,6 +1,8 @@
 ---
 title: "Deep Dive: Vision Transformers On Hugging Face Optimum Graphcore"
 thumbnail: /blog/assets/97_vision_transformers/thumbnail.png
+authors:
+- user: juliensimon
 ---
 
 <h1>Deep Dive: Vision Transformers On Hugging Face Optimum Graphcore</h1>
@@ -12,22 +14,7 @@ thumbnail: /blog/assets/97_vision_transformers/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/juliensimon">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
-        <div class="bfc">
-            <code>juliensimon</code>
-            <span class=fullname">Julien Simon</span>
-        </div>
-    </a>
-    <a href="https://huggingface.co/internetoftim">
-        <img class="avatar avatar-user" src="https://huggingface.co/avatars/94a72281274ff9f1259384af15d73861.svg" title="Tim Santos">
-        <div class="bfc">
-            <code>Tim Santos (Graphcore)</code>
-            <span class=fullname">Tim Santos</span>
-        </div>
-    </a>
-</div>
+{authors}
 <link rel="canonical" href="https://www.graphcore.ai/posts/deep-dive-vision-transformers-on-hugging-face-optimum-graphcore" />
 
 This blog post will show how easy it is to fine-tune pre-trained Transformer models for your dataset using the Hugging Face Optimum library on Graphcore Intelligence Processing Units (IPUs). As an example, we will show a step-by-step guide and provide a notebook that takes a large, widely-used chest X-ray dataset and trains a vision transformer (ViT) model.

@@ -1,6 +1,9 @@
 ---
 title: Introducing our new pricing
 thumbnail: /blog/assets/114_pricing-update/thumbnail.png
+authors:
+- user: sbrandeis
+- user: pierric
 ---
 
 <h1>Introducing our new pricing</h1>
@@ -12,22 +15,7 @@ thumbnail: /blog/assets/114_pricing-update/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/sbrandeis">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1608146735109-5fcfb7c407408029ba3577e2.png?w=200&h=200&f=face" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>sbrandeis</code>
-            <span class="fullname">Simon Brandeis</span>
-        </div>
-    </a>
-	 <a href="/pierric">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1624630689857-5e67de201009063689407481.jpeg?w=200&h=200&f=face" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>pierric</code>
-            <span class="fullname">Pierric Cistac</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 As you might have noticed, our [pricing page](https://huggingface.co/pricing) has changed a lot recently.
 

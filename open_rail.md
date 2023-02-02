@@ -1,6 +1,8 @@
 ---
 title: "OpenRAIL: Towards open and responsible AI licensing frameworks"
 thumbnail: /blog/assets/100_open_rail/100_open-rail.png
+authors:
+- user: CarlosMF
 ---
 <div class="blog-metadata">
     <small>Published August 31, 2022.</small>
@@ -9,15 +11,7 @@ thumbnail: /blog/assets/100_open_rail/100_open-rail.png
 
 </div>
 
-<div class="author-card">
-    <a href="/CarlosMF">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/111580443?s=40&v=4" title="Gravatar">
-        <div class="bfc">
-            <code>CarlosMF</code>
-            <span class="fullname">Carlos Munoz Ferrandis</span>
-        </div>
-  </a>
-</div>
+{authors}
   
 
 Open & Responsible AI licenses ("OpenRAIL") are AI-specific licenses enabling open access, use and distribution of AI artifacts while requiring a responsible use of the latter. OpenRAIL licenses could be for open and responsible ML what current open software licenses are to code and Creative Commons to general content: **a widespread community licensing tool.**

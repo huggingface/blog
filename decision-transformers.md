@@ -1,6 +1,9 @@
 ---
 title: "Introducing Decision Transformers on Hugging Face 🤗"
 thumbnail: /blog/assets/58_decision-transformers/thumbnail.jpg
+authors:
+- user: edbeeching
+- user: ThomasSimonini
 ---
 
 # Introducing Decision Transformers on Hugging Face 🤗
@@ -12,22 +15,7 @@ thumbnail: /blog/assets/58_decision-transformers/thumbnail.jpg
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/edbeeching"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1644220542819-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>edbeeching</code>
-            <span class="fullname">Edward Beeching</span>
-        </div>
-    </a>
-    <a href="/ThomasSimonini"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1632748593235-60cae820b1c79a3e4b436664.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>ThomasSimonini</code>
-            <span class="fullname">Thomas Simonini</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 At Hugging Face, we are contributing to the ecosystem for Deep Reinforcement Learning researchers and enthusiasts. Recently, we have integrated Deep RL frameworks such as [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3). 
 

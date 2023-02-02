@@ -1,6 +1,8 @@
 ---
 title: "Advantage Actor Critic (A2C)"
 thumbnail: /blog/assets/89_deep_rl_a2c/thumbnail.gif
+authors:
+- user: ThomasSimonini
 ---
 
 <html>
@@ -16,15 +18,7 @@ thumbnail: /blog/assets/89_deep_rl_a2c/thumbnail.gif
 <h1>Advantage Actor Critic (A2C)</h1>
 <h2>Unit 7, of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
-<div class="author-card">
-    <a href="/ThomasSimonini">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1632748593235-60cae820b1c79a3e4b436664.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>ThomasSimonini</code>
-            <span class="fullname">Thomas Simonini</span>
-        </div>
-  </a>
-</div>
+{authors}
 
 </head>
 

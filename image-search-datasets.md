@@ -1,6 +1,9 @@
 ---
 title: "Image search with 🤗 datasets"
 thumbnail: /blog/assets/54_image_search_datasets/spaces_image_search.jpg 
+authors:
+- user: davanstrien
+  guest: true
 ---
 
 <h1> Image search with 🤗 datasets </h1> 
@@ -12,16 +15,7 @@ thumbnail: /blog/assets/54_image_search_datasets/spaces_image_search.jpg
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/davanstrien">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8995957?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>davanstrien</code>
-            <span class="fullname">Daniel van Strien</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <a target="_blank" href="https://colab.research.google.com/gist/davanstrien/e2c29fbbed20dc767e5a74e210f4237b/hf_blog_image_search.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

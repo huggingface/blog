@@ -1,6 +1,8 @@
 ---
 title: Using Stable Diffusion with Core ML on Apple Silicon
 thumbnail: /blog/assets/diffusers_coreml/thumbnail.png
+authors:
+- user: pcuenq
 ---
 
 <h1>
@@ -14,15 +16,7 @@ thumbnail: /blog/assets/diffusers_coreml/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-	 <a href="/pcuenq">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/1177582?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>pcuenq</code>
-            <span class="fullname">Pedro Cuenca</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 Thanks to Apple engineers, you can now run Stable Diffusion on Apple Silicon using Core ML!
 

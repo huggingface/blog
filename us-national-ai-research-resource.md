@@ -1,6 +1,8 @@
 ---
 title: "Comments on U.S. National AI Research Resource Interim Report"
 thumbnail: /blog/assets/92_us_national_ai_research_resource/nairr_thumbnail.png
+authors:
+- user: Irene
 ---
 
 <h1>
@@ -14,15 +16,7 @@ thumbnail: /blog/assets/92_us_national_ai_research_resource/nairr_thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/Irene">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1649698368258-62543749b777cd32720675c2.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>irenesolaiman</code>
-            <span class="fullname">Irene Solaiman</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 In late June 2022, Hugging Face submitted a response to the White House Office of Science and Technology Policy and National Science Foundation’s Request for Information on a roadmap for implementing the National Artificial Intelligence Research Resource (NAIRR) Task Force’s interim report findings. As a platform working to democratize machine learning by empowering all backgrounds to contribute to AI, we strongly support NAIRR’s efforts. 
 

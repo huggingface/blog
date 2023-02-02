@@ -1,6 +1,12 @@
 ---
 title: "Evaluating Language Model Bias with 🤗 Evaluate"
 thumbnail: /blog/assets/112_evaluating-llm-bias/thumbnail.png
+authors:
+- user: sasha
+- user: meg-huggingface
+- user: mathemakitten
+- user: lvwerra
+- user: douwekiela
 ---
 
 # Evaluating Language Model Bias with 🤗 Evaluate
@@ -12,43 +18,7 @@ thumbnail: /blog/assets/112_evaluating-llm-bias/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/sasha">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626198087984-60edd0133e2c73a9a21455f5.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sasha</code>
-            <span class="fullname">Sasha Luccioni</span>
-        </div>
-    </a>
-    <a href="/meg-huggingface">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/90473723?v=4" width=100 title="Gravatar">
-        <div class="bfc">
-            <code>meg-huggingface</code>
-            <span class="fullname">Margaret Mitchell</span>
-        </div>
-    </a>
-    <a href="/mathemakitten">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1658248499901-6079afe2d2cd8c150e6ae05e.jpeg?w=200&h=200&f=face">
-        <div class="bfc">
-            <code>mathemakitten</code>
-            <span class="fullname">Helen Ngo</span>
-        </div>
-    </a>
-    <a href="/lvwerra">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1627890220261-5e48005437cb5b49818287a5.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>lvwerra</code>
-            <span class="fullname">Leandro von Werra</span>
-        </div>
-    </a>
-    <a href="/douwekiela">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1641847245435-61dc997715b47073db1620dc.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>douwekiela</code>
-            <span class="fullname">Douwe Kiela</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 While the size and capabilities of large language models have drastically increased over the past couple of years, so too has the concern around biases imprinted into these models and their training data. In fact, many popular language models have been found to be biased against specific [religions](https://www.nature.com/articles/s42256-021-00359-2?proof=t) and [genders](https://aclanthology.org/2021.nuse-1.5.pdf), which can result in the promotion of discriminatory ideas and the perpetuation of harms against marginalized groups.
 

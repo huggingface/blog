@@ -1,6 +1,9 @@
 ---
 title: "Train your first Decision Transformer"
 thumbnail: /blog/assets/101_train-decision-transformers/thumbnail.gif
+authors:
+- user: edbeeching
+- user: ThomasSimonini
 ---
 
 # Train your first Decision Transformer
@@ -12,22 +15,7 @@ thumbnail: /blog/assets/101_train-decision-transformers/thumbnail.gif
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/edbeeching"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1644220542819-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>edbeeching</code>
-            <span class="fullname">Edward Beeching</span>
-        </div>
-    </a>
-    <a href="/ThomasSimonini"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1632748593235-60cae820b1c79a3e4b436664.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>ThomasSimonini</code>
-            <span class="fullname">Thomas Simonini</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 In a [previous post](https://huggingface.co/blog/decision-transformers), we announced the launch of Decision Transformers in the transformers library. This new technique of **using a Transformer as a Decision-making model** is getting increasingly popular.
 

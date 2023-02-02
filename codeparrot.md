@@ -1,6 +1,8 @@
 ---
 title: Training CodeParrot 🦜 from Scratch
 thumbnail: /blog/assets/40_codeparrot/thumbnail.png
+authors:
+- user: leandro
 ---
 
 <h1>Training CodeParrot 🦜 from Scratch</h1>
@@ -12,15 +14,7 @@ thumbnail: /blog/assets/40_codeparrot/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/leandro">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1627890220261-5e48005437cb5b49818287a5.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>lvwerra</code>
-            <span class="fullname">Leandro von Werra</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 
 In this blog post we'll take a look at what it takes to build the technology behind [GitHub CoPilot](https://copilot.github.com/), an application that provides suggestions to programmers as they code. In this step by step guide, we'll learn how to train a large GPT-2 model called CodeParrot 🦜, entirely from scratch. CodeParrot can auto-complete your Python code - give it a spin [here](https://huggingface.co/spaces/lvwerra/codeparrot-generation). Let's get to building it from scratch!

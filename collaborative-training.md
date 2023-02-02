@@ -1,6 +1,10 @@
 ---
 title: "Deep Learning over the Internet: Training Language Models Collaboratively"
 thumbnail: /blog/assets/24_sahajBERT/thumbnail.png
+authors:
+- user: mryab
+  guest: true
+- user: SaulLu
 ---
 
 # Deep Learning over the Internet: Training Language Models Collaboratively
@@ -12,24 +16,7 @@ thumbnail: /blog/assets/24_sahajBERT/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/mryab">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1625736058289-607d59fb921db717010c7ccc.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>mryab</code>
-            <span class="fullname">Max Ryabinin</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-            <img class="rounded inline" style="margin: 0 !important; ; width: 22px; height: 22px;" src="/blog/assets/24_sahajBERT/yandex_logo.png">
-        </div>
-    </a>
-    <a href="/SaulLu">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1618938489629-60741a2e69a66931a0273f0c.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>SaulLu</code>
-            <span class="fullname">Lucile Saulnier</span>
-        </div>
-    </a>
-</div>
+{authors}
 <small>
 With the additional help of Quentin Lhoest and Sylvain Lesage.
 </small>

@@ -1,6 +1,8 @@
 ---
 title: Simple considerations for simple people building fancy neural networks
 thumbnail: /blog/assets/13_simple-considerations/henry-co-3coKbdfnAFg-unsplash.jpg
+authors:
+- user: VictorSanh
 ---
 
 ![Builders](/blog/assets/13_simple-considerations/henry-co-3coKbdfnAFg-unsplash.jpg)
@@ -16,15 +18,7 @@ thumbnail: /blog/assets/13_simple-considerations/henry-co-3coKbdfnAFg-unsplash.j
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/VictorSanh">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1590600248871-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>VictorSanh</code>
-            <span class="fullname">Victor Sanh</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 As machine learning continues penetrating all aspects of the industry, neural networks have never been so hyped. For instance, models like GPT-3 have been all over social media in the past few weeks and continue to make headlines outside of tech news outlets with fear-mongering titles.
 

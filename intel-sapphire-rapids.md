@@ -1,6 +1,8 @@
 ---
 title: "Accelerating PyTorch Transformers with Intel Sapphire Rapids - part 1"
 thumbnail: /blog/assets/124_intel_sapphire_rapids/02.png
+authors:
+- user: juliensimon
 ---
 
 <h1>
@@ -14,15 +16,7 @@ Accelerating PyTorch Transformers with Intel Sapphire Rapids, part 1</h1>
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/juliensimon">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
-        <div class="bfc">
-            <code>juliensimon</code>
-            <span class=fullname">Julien Simon</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 About a year ago, we [showed you](https://huggingface.co/blog/accelerating-pytorch) how to distribute the training of Hugging Face transformers on a cluster or third-generation [Intel Xeon Scalable](https://www.intel.com/content/www/us/en/products/details/processors/xeon/scalable.html) CPUs (aka Ice Lake). Recently, Intel has launched the fourth generation of Xeon CPUs, code-named Sapphire Rapids, with exciting new instructions that speed up operations commonly found in deep learning models.
 

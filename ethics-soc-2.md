@@ -1,6 +1,8 @@
 ---
 title: "Let's talk about biases in machine learning! Ethics and Society Newsletter #2" 
 thumbnail: /blog/assets/122_ethics_soc_2/thumbnail-solstice.png
+authors:
+- user: yjernite
 ---
 
 # Machine Learning in development: Let's talk about bias!
@@ -12,15 +14,7 @@ thumbnail: /blog/assets/122_ethics_soc_2/thumbnail-solstice.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/yjernite"> 
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/10469459?v=5" width=100 title="Gravatar">
-        <div class="bfc">
-            <code>yjernite</code>
-            <span class="fullname">Yacine Jernite</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 _Bias in ML is ubiquitous, and Bias in ML is complex; so complex in fact that no single technical intervention is likely to meaningfully address the problems it engenders. ML models, as sociotechnical systems, amplify social trends that may exacerbate inequities and harmful biases in ways that depend on their deployment context and are constantly evolving._
 

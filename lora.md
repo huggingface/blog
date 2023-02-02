@@ -1,6 +1,9 @@
 ---
 title: Using LoRA for Efficient Stable Diffusion Fine-Tuning
 thumbnail: /blog/assets/lora/thumbnail.png
+authors:
+- user: pcuenq
+- user: sayakpaul
 ---
 
 <h1>
@@ -14,22 +17,7 @@ thumbnail: /blog/assets/lora/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-	 <a href="/pcuenq">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/1177582?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>pcuenq</code>
-            <span class="fullname">Pedro Cuenca</span>
-        </div>
-    </a>
-    <a href="/sayakpaul">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/22957388?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>sayakpaul</code>
-            <span class="fullname">Sayak Paul</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685) is a novel technique introduced by Microsoft researchers to deal with the problem of fine-tuning large-language models. Powerful models with billions of parameters, such as GPT-3, are prohibitively expensive to fine-tune in order to adapt them to particular tasks or domains. LoRA proposes to freeze pre-trained model weights and inject trainable layers (_rank-decomposition matrices_) in each transformer block. This greatly reduces the number of trainable parameters and GPU memory requirements since gradients don't need to be computed for most model weights. The researchers found that by focusing on the Transformer attention blocks of large-language models, fine-tuning quality with LoRA was on par with full model fine-tuning while being much faster and requiring less compute.
 

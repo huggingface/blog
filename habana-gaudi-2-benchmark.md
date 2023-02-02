@@ -1,6 +1,8 @@
 ---
 title: "Faster Training and Inference: Habana Gaudi®2 vs Nvidia A100 80GB"
 thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
+authors:
+- user: regisss
 ---
 
 # Faster Training and Inference: Habana Gaudi®-2 vs Nvidia A100 80GB
@@ -12,15 +14,7 @@ thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/regisss">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1644920200150-620b7c408f5871b8a1a168a7.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>regisss</code>
-            <span class="fullname">Régis Pierrard</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 In this article, you will learn how to use [Habana® Gaudi®2](https://habana.ai/training/gaudi2/) to accelerate model training and inference, and train bigger models with 🤗 [Optimum Habana](https://huggingface.co/docs/optimum/habana/index). Then, we present several benchmarks including BERT pre-training, Stable Diffusion inference and T5-3B fine-tuning, to assess the performance differences between first generation Gaudi, Gaudi2 and Nvidia A100 80GB. Spoiler alert - Gaudi2 is about twice faster than Nvidia A100 80GB for both training and inference!
 

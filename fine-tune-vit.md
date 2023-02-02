@@ -1,6 +1,8 @@
 ---
 title: "Fine-Tune ViT for Image Classification with 🤗 Transformers"
 thumbnail: /blog/assets/51_fine_tune_vit/vit-thumbnail.jpg
+authors:
+- user: nateraw
 ---
 
 <h1>
@@ -14,15 +16,7 @@ thumbnail: /blog/assets/51_fine_tune_vit/vit-thumbnail.jpg
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/nateraw">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/32437151?s=400&u=4ec59abc8d21d5feea3dab323d23a5860e6996a4&v=4" title="Gravatar">
-        <div class="bfc">
-            <code>nateraw</code>
-            <span class="fullname">Nate Raw</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 

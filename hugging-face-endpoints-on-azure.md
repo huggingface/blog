@@ -1,6 +1,8 @@
 ---
 title: Hugging Face Collaborates with Microsoft to Launch Hugging Face Endpoints on Azure
 thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/01.png
+authors:
+- user: juliensimon
 ---
 
 <h1>
@@ -15,15 +17,7 @@ Hugging Face Collaborates with Microsoft to Launch Hugging Face Endpoints on Azu
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/juliensimon">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
-        <div class="bfc">
-            <code>juliensimon</code>
-            <span class=fullname">Julien Simon, Chief Evangelist, Hugging Face</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 ![Hugging Face Endpoints on Azure](assets/75_hugging_face_endpoints_on_azure/01.png "Hugging Face Endpoints on Azure")
 

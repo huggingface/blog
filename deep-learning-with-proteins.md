@@ -1,6 +1,8 @@
 ---
 title: "Deep Learning with Proteins" 
 thumbnail: /blog/assets/119_deep_learning_with_proteins/folding_example.png
+authors:
+- user: rocketknight1
 ---
 
 # Deep Learning With Proteins
@@ -12,15 +14,7 @@ thumbnail: /blog/assets/119_deep_learning_with_proteins/folding_example.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/rocketknight1">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1660312628256-60ba519750effef3a58beac3.png?w=200&h=200&f=face">
-        <div class="bfc">
-            <code>rocketknight1</code>
-            <span class="fullname">Matthew Carrigan</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 I have two audiences in mind while writing this. One is biologists who are trying to get into machine learning, and the other is machine learners who are trying to get into biology. If you’re not familiar with either biology or machine learning then you’re still welcome to come along, but you might find it a bit confusing at times! And if you’re already familiar with both, then you probably don’t need this post at all - you can just skip straight to our example notebooks to see these models in action:
 

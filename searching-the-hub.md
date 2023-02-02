@@ -1,6 +1,8 @@
 ---
 title: "Supercharged Searching on the 🤗 Hub"
 thumbnail: /blog/assets/48_hubsearch/thumbnail.png
+authors:
+- user: muellerzr
 ---
 
 <h1>
@@ -14,15 +16,7 @@ thumbnail: /blog/assets/48_hubsearch/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/muellerzr">
-        <img class="avatar avatar-user" src="https://walkwithfastai.com/assets/images/portrait.png" title="Gravatar" width="200">
-        <div class="bfc">
-            <code>muellerzr</code>
-            <span class="fullname">Zachary Mueller</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/muellerzr/hf-blog-notebooks/blob/main/Searching-the-Hub.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

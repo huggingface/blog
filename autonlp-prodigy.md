@@ -1,6 +1,8 @@
 ---
 title: "Active Learning with AutoNLP and Prodigy"
 thumbnail: /blog/assets/43_autonlp_prodigy/thumbnail.png
+authors:
+- user: abhishek
 ---
 
 <h1>Active Learning with AutoNLP and Prodigy</h1>
@@ -12,15 +14,7 @@ thumbnail: /blog/assets/43_autonlp_prodigy/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/abhishek">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/1183441?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>abhishek</code>
-            <span class="fullname">Abhishek Thakur</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 Active learning in the context of Machine Learning is a process in which you iteratively add labeled data, retrain a model and serve it to the end user. It is an endless process and requires human interaction for labeling/creating the data. In this article, we will discuss how to use [AutoNLP](https://huggingface.co/autonlp) and [Prodigy](https://prodi.gy/) to build an active learning pipeline.
 

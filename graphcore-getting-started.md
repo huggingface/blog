@@ -1,6 +1,10 @@
 ---
 title: "Getting Started with Hugging Face Transformers for IPUs with Optimum"
 thumbnail: /blog/assets/38_getting_started_graphcore/graphcore_1.png
+authors:
+- user: internetoftim
+  guest: true
+- user: juliensimon
 ---
 
 <h1>
@@ -8,23 +12,7 @@ Getting Started with Hugging Face Transformers for IPUs with Optimum
 </h1>
 
 
-<div class="author-card">
-    <a href="/internetoftim">
-        <img class="avatar avatar-user" src="https://pbs.twimg.com/profile_images/1450180712158666757/ofoCEInk_400x400.jpg" title="Tim Santos">
-        <div class="bfc">
-            <code> internetoftim </code>
-            <span class=fullname">Tim Santos, Director at Graphcore</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-    <a href="/juliensimon">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
-        <div class="bfc">
-            <code> julsimon </code>
-            <span class=fullname">Julien Simon</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 Transformer models have proven to be extremely efficient on a wide range of machine learning tasks, such as natural language processing, audio processing, and computer vision. However, the prediction speed of these large models can make them impractical for latency-sensitive use cases like conversational applications or search. Furthermore, optimizing their performance in the real world requires considerable time, effort and skills that are beyond the reach of many companies and organizations. 
 

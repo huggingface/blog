@@ -1,6 +1,8 @@
 ---
 title: Faster TensorFlow models in Hugging Face Transformers
 thumbnail: /blog/assets/10_tf-serving/thumbnail.png
+authors:
+- user: jplu
 ---
 
 <h1>Faster TensorFlow models in Hugging Face Transformers</h1>
@@ -12,15 +14,7 @@ thumbnail: /blog/assets/10_tf-serving/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/jplu">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1584609257509-5df8987fda6d0311fd3d540d.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>jplu</code>
-            <span class="fullname">Julien Plu</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/10_tf_serving.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">

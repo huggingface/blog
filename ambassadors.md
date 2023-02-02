@@ -1,6 +1,8 @@
 ---
 title: "Student Ambassador Program’s call for applications is open!"
 thumbnail: /blog/assets/67_ambassadors/thumbnail.png
+authors:
+- user: Violette
 ---
 
 <h1>
@@ -14,15 +16,7 @@ thumbnail: /blog/assets/67_ambassadors/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/Violette">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1638698875017-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>Violette</code>
-            <span class="fullname">Violette Lepercq</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 As an open-source company democratizing machine learning, Hugging Face believes it is essential to **[teach](https://huggingface.co/blog/education)** open-source ML to people from all backgrounds worldwide. **We aim to teach machine learning to 5 million people by 2023**.
 

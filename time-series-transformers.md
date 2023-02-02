@@ -1,6 +1,9 @@
 ---
 title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
 thumbnail: /blog/assets/118_time-series-transformers/thumbnail.png
+authors:
+- user: nielsr
+- user: kashif
 ---
 
 <h1>Probabilistic Time Series Forecasting with 🤗 Transformers</h1>
@@ -12,22 +15,7 @@ thumbnail: /blog/assets/118_time-series-transformers/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/nielsr"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1608042047613-5f1158120c833276f61f1a84.jpeg?w=200&h=200&f=face" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>nielsr</code>
-            <span class="fullname">Niels Rogge</span>
-        </div>
-    </a>
-    <a href="/kashif">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8100?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>kashif</code>
-            <span class="fullname">Kashif Rasul</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 

@@ -1,6 +1,8 @@
 ---
 title: "A Complete Guide to Audio Datasets" 
 thumbnail: /blog/assets/116_audio_datasets/thumbnail.jpg
+authors:
+- user: sanchit-gandhi
 ---
 
 # A Complete Guide to Audio Datasets
@@ -12,15 +14,7 @@ thumbnail: /blog/assets/116_audio_datasets/thumbnail.jpg
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/sanchit-gandhi"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1653243468328-61f91cf54a8e5a275b2b3e7c.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sanchit-gandhi</code>
-            <span class="fullname">Sanchit Gandhi</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 <!--- Note to reviewer: comments and TODOs are included in this format. --->
 

@@ -2,6 +2,8 @@
 title: "Hosting your Models and Datasets on Hugging Face Spaces using Streamlit"
 thumbnail: /blog/assets/29_streamlit-spaces/thumbnail.png
 
+authors:
+- user: merve
 ---
 
 <h1>
@@ -15,15 +17,7 @@ thumbnail: /blog/assets/29_streamlit-spaces/thumbnail.png
     </a>
 </div>
 
-<div class="author-card">
-    <a href="/merve">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1631694399207-6141a88b3a0ec78603c9e784.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>merve</code>
-            <span class="fullname">Merve Noyan</span>
-        </div>
-    </a>
-</div>
+{authors}
 
 
 
