@@ -10,7 +10,6 @@ authors:
 # Introducing Skops
 
 {blog_metadata}
-
 {authors}
 
 ## Introducing Skops

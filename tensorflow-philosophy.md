@@ -8,7 +8,6 @@ authors:
 # Hugging Face's TensorFlow Philosophy
 
 {blog_metadata}
-
 {authors}
 
 

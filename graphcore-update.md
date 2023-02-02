@@ -9,7 +9,6 @@ authors:
 # Graphcore and Hugging Face Launch New Lineup of IPU-Ready Transformers
 
 {blog_metadata}
-
 {authors}
 
 [Graphcore](https://huggingface.co/hardware/graphcore/) and Hugging Face have significantly expanded the range of Machine Learning modalities and tasks available in [Hugging Face Optimum](https://github.com/huggingface/optimum), an open-source library for Transformers performance optimization. Developers now have convenient access to a wide range of off-the-shelf Hugging Face Transformer models, optimised to deliver the best possible performance on Graphcore’s IPU.

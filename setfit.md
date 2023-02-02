@@ -13,7 +13,6 @@ authors:
 <h1>SetFit: Efficient Few-Shot Learning Without Prompts</h1>
     
 {blog_metadata}
-
 {authors}
 
 

@@ -11,7 +11,6 @@ authors:
 # Illustrating Reinforcement Learning from Human Feedback (RLHF)
 
 {blog_metadata}
-
 {authors}
 
 

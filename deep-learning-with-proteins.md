@@ -8,7 +8,6 @@ authors:
 # Deep Learning With Proteins
 
 {blog_metadata}
-
 {authors}
 
 I have two audiences in mind while writing this. One is biologists who are trying to get into machine learning, and the other is machine learners who are trying to get into biology. If you’re not familiar with either biology or machine learning then you’re still welcome to come along, but you might find it a bit confusing at times! And if you’re already familiar with both, then you probably don’t need this post at all - you can just skip straight to our example notebooks to see these models in action:

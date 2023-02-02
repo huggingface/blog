@@ -8,7 +8,6 @@ authors:
 <h1>An Overview of Inference Solutions on Hugging Face</h1>
 
 {blog_metadata}
-
 {authors}
 
 

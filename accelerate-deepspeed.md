@@ -9,7 +9,6 @@ authors:
 <h1>Accelerate Large Model Training using DeepSpeed</h1>
 
 {blog_metadata}
-
 {authors}
 
 In this post we will look at how we can leverage the **[Accelerate](https://github.com/huggingface/accelerate)** library for training large models which enables users to leverage the ZeRO features of **[DeeSpeed](https://www.deepspeed.ai)**.

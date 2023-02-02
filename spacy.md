@@ -10,7 +10,6 @@ authors:
 # Welcome spaCy to the Hugging Face Hub
 
 {blog_metadata}
-
 {authors}
 
 [spaCy](https://github.com/explosion/spaCy) is a popular library for advanced Natural Language Processing used widely across industry. spaCy makes it easy to use and train pipelines for tasks like named entity recognition, text classification, part of speech tagging and more, and lets you build powerful applications to process and analyze large volumes of text.

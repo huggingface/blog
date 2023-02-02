@@ -9,7 +9,6 @@ authors:
 <h1> Image search with 🤗 datasets </h1> 
 
 {blog_metadata}
-
 {authors}
 
 <a target="_blank" href="https://colab.research.google.com/gist/davanstrien/e2c29fbbed20dc767e5a74e210f4237b/hf_blog_image_search.ipynb">

@@ -8,7 +8,6 @@ authors:
 # Train and Fine-Tune Sentence Transformers Models
 
 {blog_metadata}
-
 {authors}
 
 Check out this tutorial with the Notebook Companion:

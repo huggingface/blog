@@ -8,7 +8,6 @@ authors:
 # Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models
 
 {blog_metadata}
-
 {authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Leveraging_Pre_trained_Checkpoints_for_Encoder_Decoder_Models.ipynb">

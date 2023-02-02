@@ -9,7 +9,6 @@ authors:
 <h1>OpenRAIL: Towards open and responsible AI licensing frameworks</h1>
 
 {blog_metadata}
-
 {authors}
   
 

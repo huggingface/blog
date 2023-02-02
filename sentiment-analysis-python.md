@@ -8,7 +8,6 @@ authors:
 <h1>Getting Started with Sentiment Analysis using Python</h1>
 
 {blog_metadata}
-
 {authors}
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>

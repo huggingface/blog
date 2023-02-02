@@ -9,7 +9,6 @@ authors:
 
 
 {blog_metadata}
-
 {authors}
 
 A couple of weeks ago, we've had the pleasure to [announce](https://huggingface.co/blog/habana) that [Habana Labs](https://habana.ai) and [Hugging Face](https://huggingface.co/) would partner to accelerate Transformer model training.

@@ -9,7 +9,6 @@ authors:
 # Hyperparameter Search with Transformers and Ray Tune
 
 {blog_metadata}
-
 {authors}
 
 ##### A guest blog post by Richard Liaw from the Anyscale team

@@ -10,7 +10,6 @@ authors:
 <h1>Hugging Face on PyTorch / XLA TPUs: Faster and cheaper training</h1>
 
 {blog_metadata}
-
 {authors}
 
 <a href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/13_pytorch_xla.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>

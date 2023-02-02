@@ -9,7 +9,6 @@ authors:
 # Hosting your Models and Datasets on Hugging Face Spaces using Streamlit
 
 {blog_metadata}
-
 {authors}
 
 

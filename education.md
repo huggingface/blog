@@ -8,7 +8,6 @@ authors:
 # Introducing Hugging Face for Education 🤗
 
 {blog_metadata}
-
 {authors}
 
 Given that machine learning will make up the overwhelming majority of software development and that non-technical people will be exposed to AI systems more and more, one of the main challenges of AI is adapting and enhancing employee skills. It is also becoming necessary to support teaching staff in proactively taking AI's ethical and critical issues into account. 

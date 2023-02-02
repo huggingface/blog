@@ -10,7 +10,6 @@ authors:
 # Efficient Table Pre-training without Real Data: An Introduction to TAPEX
 
 {blog_metadata}
-
 {authors}
 
 

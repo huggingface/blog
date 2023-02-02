@@ -19,7 +19,6 @@ authors:
 <h1>🌸 Introducing The World's Largest Open Multilingual Language Model: BLOOM 🌸</h1>
 
 {blog_metadata}
-
 {authors}
 </head>
 <body>

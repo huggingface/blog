@@ -10,7 +10,6 @@ authors:
 # Fine-Tune a Semantic Segmentation Model with a Custom Dataset
 
 {blog_metadata}
-
 {authors}
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>

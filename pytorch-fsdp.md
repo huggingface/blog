@@ -9,7 +9,6 @@ authors:
 <h1>Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel</h1>
 
 {blog_metadata}
-
 {authors}
 
 In this post we will look at how we can leverage **[Accelerate](https://github.com/huggingface/accelerate)** Library for training large models which enables users to leverage the latest features of **[PyTorch FullyShardedDataParallel (FSDP)](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/)**.

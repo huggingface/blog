@@ -9,7 +9,6 @@ authors:
 <h1>MTEB: Massive Text Embedding Benchmark</h1>
 
 {blog_metadata}
-
 {authors}
 
 

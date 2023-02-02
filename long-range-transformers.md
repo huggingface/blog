@@ -13,7 +13,6 @@ authors:
 # Hugging Face Reads, Feb. 2021 - Long-range Transformers
 
 {blog_metadata}
-
 {authors}
 
 Co-written by Teven Le Scao, Patrick Von Platen, Suraj Patil, Yacine Jernite and Victor Sanh.

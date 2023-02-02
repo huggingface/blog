@@ -8,7 +8,6 @@ authors:
 # Getting Started With Embeddings
 
 {blog_metadata}
-
 {authors}
 
 Check out this tutorial with the Notebook Companion:

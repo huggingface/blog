@@ -10,7 +10,6 @@ authors:
 # Model Cards
 
 {blog_metadata}
-
 {authors}
 
 ## Introduction

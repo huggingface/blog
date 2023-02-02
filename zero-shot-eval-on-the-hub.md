@@ -12,7 +12,6 @@ authors:
 # Very Large Language Models and How to Evaluate Them 
 
 {blog_metadata}
-
 {authors}
 
 Large language models can now be evaluated on zero-shot classification tasks with [Evaluation on the Hub](https://huggingface.co/spaces/autoevaluate/model-evaluator)! 

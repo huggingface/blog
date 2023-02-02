@@ -9,7 +9,6 @@ authors:
 
 
 {blog_metadata}
-
 {authors}
 
 

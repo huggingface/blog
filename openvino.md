@@ -9,7 +9,6 @@ authors:
 <h1>Accelerate your models with 🤗 Optimum Intel and OpenVINO</h1>
 
 {blog_metadata}
-
 {authors}
 
 ![image](assets/113_openvino/thumbnail.png)

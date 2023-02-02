@@ -8,7 +8,6 @@ authors:
 # Image Similarity with Hugging Face Datasets and Transformers
 
 {blog_metadata}
-
 {authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/image_similarity.ipynb">

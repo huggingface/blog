@@ -10,7 +10,6 @@ authors:
 # Deep Learning over the Internet: Training Language Models Collaboratively
 
 {blog_metadata}
-
 {authors}
 
 <small>

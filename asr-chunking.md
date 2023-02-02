@@ -8,7 +8,6 @@ authors:
 # Making automatic speech recognition work on large files with Wav2Vec2 in 🤗 Transformers
 
 {blog_metadata}
-
 {authors}
 
 ```

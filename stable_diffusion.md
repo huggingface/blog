@@ -11,7 +11,6 @@ authors:
 # Stable Diffusion with 🧨 Diffusers
 
 {blog_metadata}
-
 {authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb">

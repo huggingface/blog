@@ -8,7 +8,6 @@ authors:
 <h1>Gradio 3.0 is Out!</h1>
 
 {blog_metadata}
-
 {authors}
 
 ### Machine Learning Demos 

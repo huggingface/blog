@@ -15,7 +15,6 @@ authors:
 # Introducing DOI: the Digital Object Identifier to Datasets and Models
 
 {blog_metadata}
-
 {authors}
 
 Our mission at Hugging Face is to democratize good machine learning. That includes best practices that make ML models and datasets more reproducible, better documented, and easier to use and share.

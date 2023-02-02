@@ -8,7 +8,6 @@ authors:
 # Getting Started with Hugging Face Inference Endpoints
 
 {blog_metadata}
-
 {authors}
 
 Training machine learning models has become quite simple, especially with the rise of pre-trained models and transfer learning. OK, sometimes it's not *that* simple, but at least, training models will never break critical applications, and make customers unhappy about your quality of service. Deploying models, however... Yes, we've all been there.

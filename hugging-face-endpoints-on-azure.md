@@ -9,7 +9,6 @@ authors:
 
 
 {blog_metadata}
-
 {authors}
 
 ![Hugging Face Endpoints on Azure](assets/75_hugging_face_endpoints_on_azure/01.png "Hugging Face Endpoints on Azure")

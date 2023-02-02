@@ -8,7 +8,6 @@ authors:
 # Introducing new audio and vision documentation in 🤗 Datasets
 
 {blog_metadata}
-
 {authors}
 
 Open and reproducible datasets are essential for advancing good machine learning. At the same time, datasets have grown tremendously in size as rocket fuel for large language models. In 2020, Hugging Face launched 🤗 Datasets, a library dedicated to:

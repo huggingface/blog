@@ -12,7 +12,6 @@ authors:
 # Evaluating Language Model Bias with 🤗 Evaluate
 
 {blog_metadata}
-
 {authors}
 
 While the size and capabilities of large language models have drastically increased over the past couple of years, so too has the concern around biases imprinted into these models and their training data. In fact, many popular language models have been found to be biased against specific [religions](https://www.nature.com/articles/s42256-021-00359-2?proof=t) and [genders](https://aclanthology.org/2021.nuse-1.5.pdf), which can result in the promotion of discriminatory ideas and the perpetuation of harms against marginalized groups.

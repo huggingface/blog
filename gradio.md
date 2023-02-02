@@ -10,7 +10,6 @@ authors:
 > ##### Cross-posted from the&nbsp;[Gradio blog](https://gradio.app/blog/using-huggingface-models).
 
 {blog_metadata}
-
 {authors}
 
 

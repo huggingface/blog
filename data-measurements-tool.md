@@ -10,7 +10,6 @@ authors:
 # Introducing the 🤗 Data Measurements Tool: an Interactive Tool for Looking at Datasets
 
 {blog_metadata}
-
 {authors}
 
 

@@ -9,7 +9,6 @@ authors:
 # Opinion Classification with Kili and HuggingFace AutoTrain
 
 {blog_metadata}
-
 {authors}
 
 ## Introduction

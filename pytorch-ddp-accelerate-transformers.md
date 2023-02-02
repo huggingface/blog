@@ -8,7 +8,6 @@ authors:
 # From PyTorch DDP to Accelerate to Trainer, mastery of distributed training with ease
 
 {blog_metadata}
-
 {authors}
 
 ## General Overview

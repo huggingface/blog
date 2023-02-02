@@ -8,7 +8,6 @@ authors:
 # Supercharged Searching on the Hugging Face Hub
 
 {blog_metadata}
-
 {authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/muellerzr/hf-blog-notebooks/blob/main/Searching-the-Hub.ipynb">

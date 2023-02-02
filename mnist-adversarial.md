@@ -8,7 +8,6 @@ authors:
 # How to train your model dynamically using adversarial data
 
 {blog_metadata}
-
 {authors}
 
 ##### What you will learn here

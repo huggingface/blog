@@ -8,7 +8,6 @@ authors:
 # Announcing the 🤗 AI Research Residency Program 🎉 🎉 🎉
 
 {blog_metadata}
-
 {authors}
 
 

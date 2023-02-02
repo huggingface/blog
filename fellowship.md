@@ -9,7 +9,6 @@ authors:
 # Announcing the Hugging Face Fellowship Program
 
 {blog_metadata}
-
 {authors}
 
 

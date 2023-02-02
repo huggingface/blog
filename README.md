@@ -30,7 +30,6 @@ authors:
 # Train your first Decision Transformer
 
 {blog_metadata}
-
 {authors}
 ```
 

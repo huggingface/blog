@@ -9,7 +9,6 @@ authors:
 # The Annotated Diffusion Model
 
 {blog_metadata}
-
 {authors}
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>

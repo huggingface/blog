@@ -11,7 +11,6 @@ authors:
 </h1>
 
 {blog_metadata}
-
 {authors}
 
 ## 🤗 Transformers Design Philosophy

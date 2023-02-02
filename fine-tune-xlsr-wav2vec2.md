@@ -8,7 +8,6 @@ authors:
 # Fine-tuning XLS-R for Multi-Lingual ASR with 🤗 Transformers
 
 {blog_metadata}
-
 {authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Fine_Tune_XLS_R_on_Common_Voice.ipynb">

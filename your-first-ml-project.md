@@ -8,7 +8,6 @@ authors:
 # Liftoff! How to get started with your first ML project 🚀
 
 {blog_metadata}
-
 {authors}
 
 People who are new to the Machine Learning world often run into two recurring stumbling blocks. The first is choosing the right library to learn, which can be daunting when there are so many to pick from. Even once you’ve settled on a library and gone through some tutorials, the next issue is coming up with your first big project and scoping it properly to maximize your learning. If you’ve run into those problems, and if you're looking for a new ML library to add to your toolkit, you're in the right place!

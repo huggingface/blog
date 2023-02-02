@@ -8,7 +8,6 @@ authors:
 <h1>Training CodeParrot 🦜 from Scratch</h1>
 
 {blog_metadata}
-
 {authors}
 
 

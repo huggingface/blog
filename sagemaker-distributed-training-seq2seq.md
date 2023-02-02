@@ -8,7 +8,6 @@ authors:
 # Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker
 
 {blog_metadata}
-
 {authors}
 
 <a target="_blank" href="https://github.com/huggingface/notebooks/blob/master/sagemaker/08_distributed_summarization_bart_t5/sagemaker-notebook.ipynb">

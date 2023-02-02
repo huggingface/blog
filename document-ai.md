@@ -11,7 +11,6 @@ authors:
 # Accelerating Document AI
 
 {blog_metadata}
-
 {authors}
 
 
