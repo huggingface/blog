@@ -40,7 +40,6 @@ Once AutoTrain creates your project, you just need to connect your data. If you 
 
 <div class="grid grid-cols-2 gap-4">
   <figure class="image table text-center m-0 w-full">
-    <medium-zoom background="rgba(0,0,0,.7)" alt="A modal for importing a dataset to the AutoTrain project. A dataset named 'NimaBoscarino/butterflies' has been selected." src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/autotrain-image-classification/import-dataset.png"></medium-zoom>
   </figure>
 
   <figure class="image table text-center m-0 w-full">

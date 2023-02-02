@@ -9,12 +9,7 @@ authors:
     Liftoff! How to get started with your first ML project 🚀
 </h1>
 
-<div class="blog-metadata">
-    <small>Published June 29, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/your-first-ml-project.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 
