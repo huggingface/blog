@@ -9,15 +9,16 @@ authors:
 - user: TimeRobber
 - user: VictorSanh
 - user: aps
-- user: giadilli
+- user: giadap
 - user: sasha
 - user: yjernite
 - user: meg
 - user: douwekiela
 ---
 
-<h1>Putting ethical principles at the core of the research lifecycle</h1>
-<h2>Ethical charter - Multimodal project</h2>
+# Putting ethical principles at the core of the research lifecycle
+
+## Ethical charter - Multimodal project
 
 {blog_metadata}
 {authors}

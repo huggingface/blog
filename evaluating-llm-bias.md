@@ -3,7 +3,7 @@ title: "Evaluating Language Model Bias with 🤗 Evaluate"
 thumbnail: /blog/assets/112_evaluating-llm-bias/thumbnail.png
 authors:
 - user: sasha
-- user: meg-huggingface
+- user: meg
 - user: mathemakitten
 - user: lvwerra
 - user: douwekiela

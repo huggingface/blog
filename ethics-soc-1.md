@@ -2,7 +2,7 @@
 title: "Ethics and Society Newsletter #1" 
 thumbnail: /blog/assets/103_ethics-soc-1/thumbnail.png
 authors:
-- user: meg-huggingface
+- user: meg
 ---
 
 # Ethics and Society Newsletter #1
