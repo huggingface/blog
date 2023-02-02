@@ -8,12 +8,7 @@ authors:
 
 # Introducing Decision Transformers on Hugging Face 🤗
 
-<div class="blog-metadata">
-    <small>Published March 28, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/decision-transformers.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

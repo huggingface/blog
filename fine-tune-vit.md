@@ -9,12 +9,7 @@ authors:
     Fine-Tune ViT for Image Classification with 🤗 Transformers
 </h1>
 
-<div class="blog-metadata">
-    <small>Published February 11, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fine-tune-vit.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

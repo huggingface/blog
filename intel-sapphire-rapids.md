@@ -9,12 +9,7 @@ authors:
 Accelerating PyTorch Transformers with Intel Sapphire Rapids, part 1</h1>
 
 
-<div class="blog-metadata">
-    <small>Published January 2, 2023.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/juliensimon/blog/blob/main/intel-sapphire-rapids.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

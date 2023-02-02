@@ -9,12 +9,7 @@ authors:
     Fine-tuning XLS-R for Multi-Lingual ASR with 🤗 Transformers
 </h1>
 
-<div class="blog-metadata">
-    <small>Updated November 15, 2021. Originally published March 12, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fine-tune-xlsr-wav2vec2.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

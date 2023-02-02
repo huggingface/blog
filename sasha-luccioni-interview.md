@@ -7,9 +7,7 @@ authors:
 
 <h1>Machine Learning Experts - Sasha Luccioni</h1>
 
-<div class="blog-metadata">
-    <small>Published May 17, 2022.</small>
-</div>
+{blog_metadata}
 
 {authors}
 

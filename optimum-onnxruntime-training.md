@@ -15,12 +15,7 @@ authors:
 
 # Optimum + ONNX Runtime: Easier, Faster training for your Hugging Face models
 
-<div class="blog-metadata">
-    <small>Published January 24, 2023.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/optimum-onnxruntime-training.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

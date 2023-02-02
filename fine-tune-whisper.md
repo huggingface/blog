@@ -7,12 +7,7 @@ authors:
 
 # Fine-Tune Whisper For Multilingual ASR with 🤗 Transformers
 
-<div class="blog-metadata">
-    <small>Published 3 November, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fine-tune-whisper.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

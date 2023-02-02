@@ -7,12 +7,7 @@ authors:
 
 # From PyTorch DDP to Accelerate to Trainer, mastery of distributed training with ease
 
-<div class="blog-metadata">
-    <small>Published June 28, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/pytorch-ddp-accelerate-transformers.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

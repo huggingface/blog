@@ -10,12 +10,7 @@ authors:
 	Habana Labs and Hugging Face Partner to Accelerate Transformer Model Training
 </h1>
 
-<div class="blog-metadata">
-    <small>Published April 12, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/habana.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

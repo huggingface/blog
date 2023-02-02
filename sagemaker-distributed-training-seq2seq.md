@@ -9,12 +9,7 @@ authors:
     Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker
 </h1>
 
-<div class="blog-metadata">
-    <small>Published April 8, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/sagemaker-distributed-training-seq2seq.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

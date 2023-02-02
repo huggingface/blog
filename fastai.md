@@ -9,12 +9,7 @@ authors:
     Welcome fastai to the Hugging Face Hub
 </h1>
 
-<div class="blog-metadata">
-    <small>Published May 6, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fastai.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

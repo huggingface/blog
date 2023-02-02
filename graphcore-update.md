@@ -8,12 +8,7 @@ authors:
 
 # Graphcore and Hugging Face Launch New Lineup of IPU-Ready Transformers
 
-<div class="blog-metadata">
-    <small>Published May 26, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/graphcore-update.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

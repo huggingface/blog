@@ -12,12 +12,7 @@ authors:
 # What Makes a Dialog Agent Useful?
 ## The techniques behind ChatGPT: RLHF, IFT, CoT, Red teaming, and more
 
-<div class="blog-metadata">
-    <small>Published January 24, 2023.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/rlhf.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 
 A few weeks ago, ChatGPT emerged and launched the public discourse into a set of obscure acronyms: RLHF, SFT, IFT, CoT, and more, all attributed to the success of ChatGPT. What are these obscure acronyms and why are they so important? We surveyed all the important papers on these topics to categorize these works, summarize takeaways from what has been done, and share what remains to be shown.

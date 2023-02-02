@@ -10,12 +10,7 @@ authors:
   Deploying TensorFlow Vision Models in Hugging Face with TF Serving
 </h1>
 
-<div class="blog-metadata">
-    <small>Published July 25, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/tf-serving-vision.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

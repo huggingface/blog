@@ -8,12 +8,7 @@ authors:
 
 <h1>Visualize proteins on Hugging Face Spaces</h1>
 
-<div class="blog-metadata">
-    <small>Published August 24, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/spaces_3dmoljs.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

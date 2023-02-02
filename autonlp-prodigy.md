@@ -7,12 +7,7 @@ authors:
 
 <h1>Active Learning with AutoNLP and Prodigy</h1>
 
-<div class="blog-metadata">
-    <small>Published Dec 17, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/autonlp-prodigy.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

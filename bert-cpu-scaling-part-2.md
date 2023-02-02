@@ -9,12 +9,7 @@ authors:
 
 # Scaling up BERT-like model Inference on modern CPU  - Part 2
 
-<div class="blog-metadata">
-    <small>Published November 4th, 2021</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/bert-cpu-scaling-part-2.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

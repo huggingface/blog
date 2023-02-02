@@ -20,12 +20,7 @@ authors:
 Fine tuning CLIP with Remote Sensing (Satellite) images and captions
 </h1>
 
-<div class="blog-metadata">
-  <small>Published October 13, 2021</small>
-  <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/sujitpal/blog-1/blob/master/fine-tune-clip-rsicd.md">
-        Update on GitHub
-  </a>
-</div>
+{blog_metadata}
 
 {authors}
 

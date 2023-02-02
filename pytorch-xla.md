@@ -9,12 +9,7 @@ authors:
 
 <h1>Hugging Face on PyTorch / XLA TPUs: Faster and cheaper training</h1>
 
-<div class="blog-metadata">
-    <small>Published February 9, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/pytorch-xla.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

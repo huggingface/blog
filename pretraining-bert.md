@@ -9,16 +9,7 @@ authors:
    Pre-Training BERT with Hugging Face Transformers and Habana Gaudi
 </h1>
 
-<div class="blog-metadata">
-    <small>Published Aug 22, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/prertraining-bert.md">
-        Update on GitHub
-   </a>
-
-<a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/philschmid/deep-learning-habana-huggingface/blob/master/pre-training/pre-training-bert.ipynb">
-    View Code
-</a>
-</div>
+{blog_metadata}
 
 {authors}
 

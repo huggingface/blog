@@ -19,9 +19,7 @@ authors:
   }
 </style>
 
-<div class="blog-metadata">
-    <small>Published April 19, 2021.</small>
-</div>
+{blog_metadata}
 
 {authors}
 

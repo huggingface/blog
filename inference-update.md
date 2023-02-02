@@ -7,12 +7,7 @@ authors:
 
 <h1>An Overview of Inference Solutions on Hugging Face</h1>
 
-<div class="blog-metadata">
-    <small>Published November 21, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/inference-update.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

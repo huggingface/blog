@@ -9,12 +9,7 @@ authors:
     Few-shot learning in practice: GPT-Neo and the 🤗 Accelerated Inference API
 </h1>
 
-<div class="blog-metadata">
-    <small>Published June 3, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/few-shot-learning-gpt-neo-and-inference-api.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

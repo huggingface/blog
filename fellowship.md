@@ -10,12 +10,7 @@ authors:
     Announcing the Hugging Face Fellowship Program
 </h1>
 
-<div class="blog-metadata">
-    <small>Published May 17, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fellowship.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

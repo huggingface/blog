@@ -31,12 +31,7 @@ thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 
 # Train your first Decision Transformer
 
-<div class="blog-metadata">
-    <small>Published September 02, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/decision-transformers-train.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 ```

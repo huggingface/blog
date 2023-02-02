@@ -7,12 +7,7 @@ authors:
 
 <h1>Deploy GPT-J 6B for inference using  Hugging Face Transformers and Amazon SageMaker</h1>
 
-<div class="blog-metadata">
-    <small>Published Jan 11, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/gptj-sagemaker.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

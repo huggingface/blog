@@ -19,12 +19,7 @@ authors:
 <h1>Putting ethical principles at the core of the research lifecycle</h1>
 <h2>Ethical charter - Multimodal project</h2>
 
-<div class="blog-metadata">
-    <small>Published May 19, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ethical-charter-multimodal.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

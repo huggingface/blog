@@ -10,12 +10,7 @@ authors:
     Opinion Classification with Kili and HuggingFace AutoTrain
 </h1>
 
-<div class="blog-metadata">
-    <small>Published April 28, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/opinion-classification-with-kili.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

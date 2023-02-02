@@ -7,9 +7,7 @@ authors:
 
 <h1>Machine Learning Experts - Margaret Mitchell</h1>
 
-<div class="blog-metadata">
-    <small>Published March 23, 2022.</small>
-</div>
+{blog_metadata}
 
 {authors}
 

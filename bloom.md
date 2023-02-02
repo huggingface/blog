@@ -18,9 +18,7 @@ authors:
 </style>
 <h1>🌸 Introducing The World's Largest Open Multilingual Language Model: BLOOM 🌸</h1>
 
-<div class="blog-metadata">
-    <small>Published July 12, 2022.</small>
-</div>
+{blog_metadata}
 
 {authors}
 </head>

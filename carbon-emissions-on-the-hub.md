@@ -9,12 +9,7 @@ authors:
 
 <h1> CO2 Emissions and the 🤗 Hub: Leading the Charge </h1> 
 
-<div class="blog-metadata">
-    <small>Published April 12, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/carbon-emissions-on-the-hub.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

@@ -7,9 +7,7 @@ authors:
 
 <h1>Machine Learning Experts - Lewis Tunstall</h1>
 
-<div class="blog-metadata">
-    <small>Published April 13, 2022.</small>
-</div>
+{blog_metadata}
 
 {authors}
 

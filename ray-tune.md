@@ -10,12 +10,7 @@ authors:
     Hyperparameter Search with Transformers and Ray Tune
 </h1>
 
-<div class="blog-metadata">
-    <small>Published Nov 2, 2020.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ray-tune.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

@@ -14,9 +14,7 @@ authors:
 </style>
 <h1>Director of Machine Learning Insights [Part 2: SaaS Edition]</h1>
 
-<div class="blog-metadata">
-    <small>Published May 13, 2022.</small>
-</div>
+{blog_metadata}
 
 {authors}
 </head>

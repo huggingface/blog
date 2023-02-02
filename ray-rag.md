@@ -8,12 +8,7 @@ authors:
 
 # Retrieval Augmented Generation with Huggingface Transformers and Ray
 
-<div class="blog-metadata">
-    <small>Published Feb 10, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ray-rag.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 

@@ -8,11 +8,7 @@ authors:
 
 # Hugging Face and Graphcore partner for IPU-optimized Transformers
 
-<div class="blog-metadata">
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/graphcore-ipu.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
 
 {authors}
 
