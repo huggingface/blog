@@ -6,9 +6,7 @@ authors:
 - user: douwekiela
 ---
 
-<h1>
-     We are hiring interns!
-</h1>
+# We are hiring interns!
 
 {blog_metadata}
 

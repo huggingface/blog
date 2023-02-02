@@ -5,9 +5,7 @@ authors:
 - user: nreimers
 ---
 
-<h1>
-    Sentence Transformers in the Hugging Face Hub
-</h1>
+# Sentence Transformers in the Hugging Face Hub
 
 {blog_metadata}
 

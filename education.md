@@ -5,9 +5,7 @@ authors:
 - user: Violette
 ---
 
-<h1>
-    Introducing Hugging Face for Education 🤗
-</h1>
+# Introducing Hugging Face for Education 🤗
 
 {blog_metadata}
 

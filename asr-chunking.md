@@ -5,9 +5,7 @@ authors:
 - user: Narsil
 ---
 
-<h1>
-    Making automatic speech recognition work on large files with Wav2Vec2 in 🤗 Transformers
-</h1>
+# Making automatic speech recognition work on large files with Wav2Vec2 in 🤗 Transformers
 
 {blog_metadata}
 

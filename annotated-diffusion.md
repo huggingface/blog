@@ -6,9 +6,7 @@ authors:
 - user: kashif
 ---
 
-<h1>
-	The Annotated Diffusion Model
-</h1>
+# The Annotated Diffusion Model
 
 {blog_metadata}
 

@@ -6,9 +6,7 @@ authors:
   guest: true
 ---
 
-<h1>
-	Habana Labs and Hugging Face Partner to Accelerate Transformer Model Training
-</h1>
+# Habana Labs and Hugging Face Partner to Accelerate Transformer Model Training
 
 {blog_metadata}
 

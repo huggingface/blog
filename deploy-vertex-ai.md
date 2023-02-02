@@ -8,9 +8,7 @@ authors:
   guest: true
 ---
 
-<h1>
-	Deploying 🤗 ViT on Vertex AI
-</h1>
+# Deploying 🤗 ViT on Vertex AI
 
 {blog_metadata}
 

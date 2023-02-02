@@ -7,9 +7,7 @@ authors:
 - user: juliensimon
 ---
 
-<h1>
-Getting Started with Hugging Face Transformers for IPUs with Optimum
-</h1>
+# Getting Started with Hugging Face Transformers for IPUs with Optimum
 
 
 {authors}

@@ -5,9 +5,7 @@ authors:
 - user: philschmid
 ---
 
-<h1>
-    Few-shot learning in practice: GPT-Neo and the 🤗 Accelerated Inference API
-</h1>
+# Few-shot learning in practice: GPT-Neo and the 🤗 Accelerated Inference API
 
 {blog_metadata}
 

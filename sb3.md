@@ -5,9 +5,7 @@ authors:
 - user: ThomasSimonini
 ---
 
-<h1>
-    Welcome Stable-baselines3 to the Hugging Face Hub 🤗
-</h1>
+# Welcome Stable-baselines3 to the Hugging Face Hub 🤗
 
 {blog_metadata}
 

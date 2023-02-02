@@ -5,9 +5,7 @@ authors:
 - user: espejelomar
 ---
 
-<h1>
-    Train and Fine-Tune Sentence Transformers Models
-</h1>
+# Train and Fine-Tune Sentence Transformers Models
 
 {blog_metadata}
 

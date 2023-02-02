@@ -7,9 +7,7 @@ authors:
 - user: BenjaminB
 ---
 
-<h1>
-    Introducing Skops
-</h1>
+# Introducing Skops
 
 {blog_metadata}
 

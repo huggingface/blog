@@ -6,9 +6,7 @@ authors:
   guest: true
 ---
 
-<h1>
-    Opinion Classification with Kili and HuggingFace AutoTrain
-</h1>
+# Opinion Classification with Kili and HuggingFace AutoTrain
 
 {blog_metadata}
 

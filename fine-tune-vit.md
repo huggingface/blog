@@ -5,9 +5,7 @@ authors:
 - user: nateraw
 ---
 
-<h1>
-    Fine-Tune ViT for Image Classification with 🤗 Transformers
-</h1>
+# Fine-Tune ViT for Image Classification with 🤗 Transformers
 
 {blog_metadata}
 

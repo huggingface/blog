@@ -5,9 +5,7 @@ authors:
 - user: espejelomar
 ---
 
-<h1>
-    Getting Started With Embeddings
-</h1>
+# Getting Started With Embeddings
 
 {blog_metadata}
 

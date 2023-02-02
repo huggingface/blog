@@ -5,9 +5,7 @@ authors:
 - user: sgugger
 ---
 
-<h1>
-    Course Launch Community Event
-</h1>
+# Course Launch Community Event
 
 {authors}
 

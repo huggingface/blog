@@ -5,8 +5,7 @@ authors:
 - user: patrickvonplaten
 ---
 
-<h1> Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models
-</h1>
+# Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models
 
 {blog_metadata}
 

@@ -6,9 +6,7 @@ authors:
 - user: merve
 ---
 
-<h1>
-    Hosting your Models and Datasets on Hugging Face Spaces using Streamlit
-</h1>
+# Hosting your Models and Datasets on Hugging Face Spaces using Streamlit
 
 {blog_metadata}
 

@@ -5,9 +5,7 @@ authors:
 - user: espejelomar
 ---
 
-<h1>
-    Welcome fastai to the Hugging Face Hub
-</h1>
+# Welcome fastai to the Hugging Face Hub
 
 {blog_metadata}
 

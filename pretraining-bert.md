@@ -5,9 +5,7 @@ authors:
 - user: philschmid
 ---
 
-<h1>
-   Pre-Training BERT with Hugging Face Transformers and Habana Gaudi
-</h1>
+# Pre-Training BERT with Hugging Face Transformers and Habana Gaudi
 
 {blog_metadata}
 

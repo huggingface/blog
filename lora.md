@@ -6,9 +6,7 @@ authors:
 - user: sayakpaul
 ---
 
-<h1>
-	Using LoRA for Efficient Stable Diffusion Fine-Tuning
-</h1>
+# Using LoRA for Efficient Stable Diffusion Fine-Tuning
 
 {blog_metadata}
 

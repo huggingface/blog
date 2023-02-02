@@ -5,9 +5,7 @@ authors:
 - user: muellerzr
 ---
 
-<h1>
-    Supercharged Searching on the Hugging Face Hub
-</h1>
+# Supercharged Searching on the Hugging Face Hub
 
 {blog_metadata}
 

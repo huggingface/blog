@@ -5,9 +5,7 @@ authors:
 - user: Irene
 ---
 
-<h1>
-    AI Policy @🤗: Comments on U.S. National AI Research Resource Interim Report
-</h1>
+# AI Policy @🤗: Comments on U.S. National AI Research Resource Interim Report
 
 {blog_metadata}
 

@@ -7,9 +7,7 @@ authors:
   guest: true
 ---
 
-<h1>
-    Efficient Table Pre-training without Real Data: An Introduction to TAPEX
-</h1>
+# Efficient Table Pre-training without Real Data: An Introduction to TAPEX
 
 {blog_metadata}
 

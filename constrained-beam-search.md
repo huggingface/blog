@@ -6,9 +6,7 @@ authors:
   guest: true
 ---
 
-<h1>
-	Guiding Text Generation with Constrained Beam Search in 🤗 Transformers
-</h1>
+# Guiding Text Generation with Constrained Beam Search in 🤗 Transformers
 
 {blog_metadata}
 

@@ -5,9 +5,7 @@ authors:
 - user: Violette
 ---
 
-<h1>
-    Student Ambassador Program’s call for applications is open!
-</h1>
+# Student Ambassador Program’s call for applications is open!
 
 {blog_metadata}
 

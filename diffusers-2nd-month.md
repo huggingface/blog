@@ -5,9 +5,7 @@ authors:
 - user: osanseviero
 ---
 
-<h1>
-What's new in Diffusers? 🎨
-</h1>
+# What's new in Diffusers? 🎨
 
 {blog_metadata}
 

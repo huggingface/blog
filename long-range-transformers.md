@@ -10,9 +10,7 @@ authors:
   <figcaption>Efficient Transformers taxonomy from Efficient Transformers: a Survey by Tay et al.</figcaption>
 </figure>
 
-<h1>
-    Hugging Face Reads, Feb. 2021 - Long-range Transformers
-</h1>
+# Hugging Face Reads, Feb. 2021 - Long-range Transformers
 
 {blog_metadata}
 

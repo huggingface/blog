@@ -4,9 +4,7 @@ thumbnail: /blog/assets/81_convert_transformers_to_onnx/thumbnail.png
 authors:
 - user: philschmid
 ---
-<h1>
-   Convert Transformers to ONNX with Hugging Face Optimum
-</h1>
+# Convert Transformers to ONNX with Hugging Face Optimum
 
 {blog_metadata}
 

@@ -5,9 +5,7 @@ authors:
 - user: juliensimon
 ---
 
-<h1>
-Accelerating PyTorch distributed fine-tuning with Intel technologies
-</h1>
+# Accelerating PyTorch distributed fine-tuning with Intel technologies
 
 
 {blog_metadata}

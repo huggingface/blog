@@ -5,9 +5,7 @@ authors:
 - user: sgugger
 ---
 
-<h1>
-    Introducing 🤗 Accelerate
-</h1>
+# Introducing 🤗 Accelerate
 
 {blog_metadata}
 

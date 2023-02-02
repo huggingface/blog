@@ -5,9 +5,7 @@ authors:
 - user: joaogante
 ---
 
-<h1>
-    Faster Text Generation with TensorFlow and XLA
-</h1>
+# Faster Text Generation with TensorFlow and XLA
 
 {blog_metadata}
 

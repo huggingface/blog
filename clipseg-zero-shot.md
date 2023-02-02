@@ -7,9 +7,7 @@ authors:
 - user: nielsr
 ---
 
-<h1>
-	Zero-shot image segmentation with CLIPSeg
-</h1>
+# Zero-shot image segmentation with CLIPSeg
 
 {blog_metadata}
 

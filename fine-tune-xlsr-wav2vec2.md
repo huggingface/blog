@@ -5,9 +5,7 @@ authors:
 - user: patrickvonplaten
 ---
 
-<h1>
-    Fine-tuning XLS-R for Multi-Lingual ASR with 🤗 Transformers
-</h1>
+# Fine-tuning XLS-R for Multi-Lingual ASR with 🤗 Transformers
 
 {blog_metadata}
 

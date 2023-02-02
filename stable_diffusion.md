@@ -8,9 +8,7 @@ authors:
 - user: patrickvonplaten
 ---
 
-<h1>
-	Stable Diffusion with 🧨 Diffusers
-</h1>
+# Stable Diffusion with 🧨 Diffusers
 
 {blog_metadata}
 

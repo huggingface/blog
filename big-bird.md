@@ -5,9 +5,7 @@ authors:
 - user: vasudevgupta
 ---
 
-<h1>
-		Understanding BigBird's Block Sparse Attention
-</h1>
+# Understanding BigBird's Block Sparse Attention
 
 {blog_metadata}
 

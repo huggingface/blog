@@ -5,9 +5,7 @@ authors:
 - user: patrickvonplaten
 ---
 
-<h1>
-  	Supercharged Customer Service with Machine Learning
-</h1>
+# Supercharged Customer Service with Machine Learning
 
 {blog_metadata}
 

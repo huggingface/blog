@@ -6,9 +6,7 @@ authors:
 - user: espejelomar
 ---
 
-<h1>
-    Announcing the Hugging Face Fellowship Program
-</h1>
+# Announcing the Hugging Face Fellowship Program
 
 {blog_metadata}
 

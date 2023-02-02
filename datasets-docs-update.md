@@ -5,9 +5,7 @@ authors:
 - user: stevhliu
 ---
 
-<h1>
-    Introducing new audio and vision documentation in 🤗 Datasets
-</h1>
+# Introducing new audio and vision documentation in 🤗 Datasets
 
 {blog_metadata}
 

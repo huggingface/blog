@@ -5,9 +5,7 @@ authors:
 - user: juliensimon
 ---
 
-<h1>
-The Age of Machine Learning As Code Has Arrived
-</h1>
+# The Age of Machine Learning As Code Has Arrived
 
 
 {blog_metadata}

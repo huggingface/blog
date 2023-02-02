@@ -5,9 +5,7 @@ authors:
 - user: douwekiela
 ---
 
-<h1>
-    Announcing the 🤗 AI Research Residency Program 🎉 🎉 🎉
-</h1>
+# Announcing the 🤗 AI Research Residency Program 🎉 🎉 🎉
 
 {blog_metadata}
 

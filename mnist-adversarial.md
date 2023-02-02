@@ -5,9 +5,7 @@ authors:
 - user: chrisjay
 ---
 
-<h1>
-    How to train your model dynamically using adversarial data
-</h1>
+# How to train your model dynamically using adversarial data
 
 {blog_metadata}
 

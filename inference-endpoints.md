@@ -5,9 +5,7 @@ authors:
 - user: juliensimon
 ---
 
-<h1>
-Getting Started with Hugging Face Inference Endpoints
-</h1>
+# Getting Started with Hugging Face Inference Endpoints
 
 {blog_metadata}
 

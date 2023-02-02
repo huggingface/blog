@@ -5,9 +5,7 @@ authors:
 - user: pcuenq
 ---
 
-<h1>
-	Using Stable Diffusion with Core ML on Apple Silicon
-</h1>
+# Using Stable Diffusion with Core ML on Apple Silicon
 
 {blog_metadata}
 

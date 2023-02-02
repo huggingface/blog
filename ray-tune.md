@@ -6,9 +6,7 @@ authors:
   guest: true
 ---
 
-<h1>
-    Hyperparameter Search with Transformers and Ray Tune
-</h1>
+# Hyperparameter Search with Transformers and Ray Tune
 
 {blog_metadata}
 

@@ -5,9 +5,7 @@ authors:
 - user: juliensimon
 ---
 
-<h1>
-Getting Started with Transformers on Habana Gaudi
-</h1>
+# Getting Started with Transformers on Habana Gaudi
 
 
 {blog_metadata}

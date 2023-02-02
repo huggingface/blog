@@ -7,9 +7,7 @@ authors:
 - user: nielsr
 ---
 
-<h1>
-	Fine-Tune a Semantic Segmentation Model with a Custom Dataset
-</h1>
+# Fine-Tune a Semantic Segmentation Model with a Custom Dataset
 
 {blog_metadata}
 

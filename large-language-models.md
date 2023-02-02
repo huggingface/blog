@@ -5,9 +5,7 @@ authors:
 - user: juliensimon
 ---
 
-<h1>
-Large Language Models: A New Moore's Law?
-</h1>
+# Large Language Models: A New Moore's Law?
 
 
 {blog_metadata}

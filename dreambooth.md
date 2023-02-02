@@ -8,9 +8,7 @@ authors:
   guest: true
 ---
 
-<h1>
-	Training Stable Diffusion with Dreambooth using 🧨 Diffusers
-</h1>
+# Training Stable Diffusion with Dreambooth using 🧨 Diffusers
 
 {blog_metadata}
 

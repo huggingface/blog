@@ -5,9 +5,7 @@ authors:
 - user: nimaboscarino
 ---
 
-<h1>
-    Liftoff! How to get started with your first ML project 🚀
-</h1>
+# Liftoff! How to get started with your first ML project 🚀
 
 {blog_metadata}
 

@@ -6,9 +6,7 @@ authors:
 - user: patrickvonplaten
 ---
 
-<h1>
- 	🧨 Stable Diffusion in JAX / Flax !
-</h1>
+# 🧨 Stable Diffusion in JAX / Flax !
 
 {blog_metadata}
 

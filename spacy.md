@@ -7,9 +7,7 @@ authors:
 - user: ines
 ---
 
-<h1>
-    Welcome spaCy to the Hugging Face Hub
-</h1>
+# Welcome spaCy to the Hugging Face Hub
 
 {blog_metadata}
 

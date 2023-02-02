@@ -6,9 +6,7 @@ authors:
 - user: johnowhitaker
 ---
 
-<h1>
-    Diffusion Models Live Event
-</h1>
+# Diffusion Models Live Event
 
 {blog_metadata}
 

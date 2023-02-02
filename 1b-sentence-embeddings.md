@@ -5,9 +5,7 @@ authors:
   guest: true
 ---
 
-<h1>
-    Train a Sentence Embedding Model with 1 Billion Training Pairs
-</h1>
+# Train a Sentence Embedding Model with 1 Billion Training Pairs
 
 {blog_metadata}
 

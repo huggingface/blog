@@ -5,9 +5,7 @@ authors:
 - user: sayakpaul
 ---
 
-<h1>
-  Image Similarity with Hugging Face Datasets and Transformers
-</h1>
+# Image Similarity with Hugging Face Datasets and Transformers
 
 {blog_metadata}
 

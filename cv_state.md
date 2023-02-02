@@ -5,9 +5,7 @@ authors:
 - user: sayakpaul
 ---
 
-<h1>
-  The State of Computer Vision at Hugging Face 🤗
-</h1>
+# The State of Computer Vision at Hugging Face 🤗
 
 {blog_metadata}
 

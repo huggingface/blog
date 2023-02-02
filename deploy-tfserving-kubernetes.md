@@ -8,9 +8,7 @@ authors:
   guest: true
 ---
 
-<h1>
-	Deploying 🤗 ViT on Kubernetes with TF Serving
-</h1>
+# Deploying 🤗 ViT on Kubernetes with TF Serving
 
 {blog_metadata}
 

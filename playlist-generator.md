@@ -5,9 +5,7 @@ authors:
 - user: nimaboscarino
 ---
 
-<h1>
-    Building a Playlist Generator with Sentence Transformers
-</h1>
+# Building a Playlist Generator with Sentence Transformers
 
 {blog_metadata}
 

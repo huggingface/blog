@@ -5,9 +5,7 @@ authors:
 - user: philschmid
 ---
 
-<h1>
-    Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker
-</h1>
+# Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker
 
 {blog_metadata}
 

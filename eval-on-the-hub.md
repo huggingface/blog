@@ -13,9 +13,7 @@ authors:
 - user: douwekiela
 ---
 
-<h1>
-    Announcing Evaluation on the Hub
-</h1>
+# Announcing Evaluation on the Hub
 
 {blog_metadata}
 

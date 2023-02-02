@@ -5,9 +5,7 @@ authors:
 - user: ThomasSimonini
 ---
 
-<h1>
-    Introducing Snowball Fight ☃️, our First ML-Agents Environment
-</h1>
+# Introducing Snowball Fight ☃️, our First ML-Agents Environment
 
 {blog_metadata}
 

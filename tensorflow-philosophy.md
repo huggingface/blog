@@ -5,9 +5,7 @@ authors:
 - user: rocketknight1
 ---
 
-<h1>
-    Hugging Face's TensorFlow Philosophy
-</h1>
+# Hugging Face's TensorFlow Philosophy
 
 {blog_metadata}
 

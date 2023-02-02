@@ -7,9 +7,7 @@ authors:
 - user: adirik
 ---
 
-<h1>
-	Universal Image Segmentation with Mask2Former and OneFormer
-</h1>
+# Universal Image Segmentation with Mask2Former and OneFormer
 
 {blog_metadata}
 

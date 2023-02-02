@@ -16,9 +16,7 @@ authors:
   guest: true
 ---
 
-<h1>
-Fine tuning CLIP with Remote Sensing (Satellite) images and captions
-</h1>
+# Fine tuning CLIP with Remote Sensing (Satellite) images and captions
 
 {blog_metadata}
 

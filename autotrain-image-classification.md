@@ -5,9 +5,7 @@ authors:
 - user: nimaboscarino
 ---
 
-<h1>
-Image Classification with AutoTrain
-</h1>
+# Image Classification with AutoTrain
 
 {blog_metadata}
 

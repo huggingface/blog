@@ -5,9 +5,7 @@ authors:
 - user: patrickvonplaten
 ---
 
-<h1>
-    Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers
-</h1>
+# Fine-Tune Wav2Vec2 for English ASR with 🤗 Transformers
 
 {blog_metadata}
 

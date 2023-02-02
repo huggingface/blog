@@ -5,9 +5,7 @@ authors:
 - user: juliensimon
 ---
 
-<h1>
-Hugging Face Collaborates with Microsoft to Launch Hugging Face Endpoints on Azure
-</h1>
+# Hugging Face Collaborates with Microsoft to Launch Hugging Face Endpoints on Azure
 
 
 {blog_metadata}

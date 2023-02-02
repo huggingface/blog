@@ -5,9 +5,7 @@ authors:
 - user: patrickvonplaten
 ---
 
-<h1>
-    Boosting Wav2Vec2 with n-grams in 🤗 Transformers
-</h1>
+# Boosting Wav2Vec2 with n-grams in 🤗 Transformers
 
 {blog_metadata}
 

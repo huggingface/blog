@@ -5,9 +5,7 @@ authors:
 - user: philschmid
 ---
 
-<h1>
-   Accelerated Inference with Optimum and Transformers Pipelines
-</h1>
+# Accelerated Inference with Optimum and Transformers Pipelines
 
 {blog_metadata}
 
