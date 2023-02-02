@@ -2,7 +2,6 @@
 title: "Case Study: Millisecond Latency using Hugging Face Infinity and modern CPUs"
 thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
 ---
-
 <h1>Case Study: Millisecond Latency using Hugging Face Infinity and modern CPUs</h1>
 
 <div class="blog-metadata">
@@ -11,7 +10,6 @@ thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
         Update on GitHub
     </a>
 </div>
-
 
 
 <div class="author-card">
@@ -38,8 +36,19 @@ thumbnail: /blog/assets/46_infinity_cpu_performance/thumbnail.png
     </a>
 </div>
 
-
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
+
+<br>
+<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 10px;">
+  December 2022 Update: Infinity is no longer offered by Hugging Face as a commercial inference solution. To deploy and accelerate your models, we recommend the following new solutions:
+
+  * [Inference Endpoints](https://huggingface.co/docs/inference-endpoints/index) to easily deploy models on dedicated infrastructure managed by Hugging Face.
+
+  * Our open-source optimization libraries, [🤗 Optimum Intel](https://huggingface.co/blog/openvino) and [🤗 Optimum ONNX Runtime](https://huggingface.co/docs/optimum/main/en/onnxruntime/overview), to get the highest efficiency out of training and running models for inference.
+
+  * Hugging Face [Expert Acceleration Program](https://huggingface.co/support), a commercial service for Hugging Face experts to work directly with your team to accelerate your Machine Learning roadmap and models.
+</div>
+
 
 ## Introduction 
 

@@ -12,7 +12,7 @@ For instance, if your title is "Introduction to Deep Reinforcement Learning", th
 For the rest of your files, create a mirrored folder in the HuggingFace Documentation Images [repo](https://huggingface.co/datasets/huggingface/documentation-images/tree/main/blog). This is to reduce bloat in the GitHub base repo when cloning and pulling.
 
 🖼️: In terms of images, **try to have small files** to avoid having a slow loading user experience:
-- Use compressed images, you can use this website: https://www.iloveimg.com/compress-image
+- Use compressed images, you can use this website: https://tinypng.com or https://www.iloveimg.com/compress-image
 
 4️⃣ Copy and paste this to your md file and change the elements
 - title
