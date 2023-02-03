@@ -68,7 +68,7 @@ Usually, loss scaling is used to overcome this issue, but it doesn't always work
 A new format, bfloat16 (BF16), was created to avoid these constraints. In BF16, 8 bits are reserved for the exponent (which is the same as in FP32) and 7 bits are reserved for the fraction.
 
 
-This means that in BF16 we can retain the same dynamic range as FP32. But we lose 13 bits of precision. Now there is absolutely no problem with huge numbers, but the precision is worse than FP16 here.
+This means that in BF16 we can retain the same dynamic range as FP32. But we lose 3 bits of precision with respect to FP16. Now there is absolutely no problem with huge numbers, but the precision is worse than FP16 here.
 
 In the Ampere architecture, NVIDIA also introduced [TensorFloat-32](https://blogs.nvidia.com/blog/2020/05/14/tensorfloat-32-precision-format/) (TF32) precision format, combining the dynamic range of BF16 and precision of FP16 to only use 19 bits. It's currently only used internally during certain operations.
 
