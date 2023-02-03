@@ -1725,3 +1725,13 @@
     - community
     - guide
     - cv
+
+- local: vision_language_pretraining
+  title: "A Dive into Pretraining Strategies for Vision-Language Models"
+  author: adirik
+  thumbnail: /blog/assets/128_vision_language_pretraining/thumbnail.png
+  date: February 03, 2023
+  tags:
+    - cv
+    - guide
+    - multimodal
