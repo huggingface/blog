@@ -8,8 +8,8 @@ authors:
 
 # Welcome PaddlePaddle to the Hugging Face Hub
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 We are happy to share an open source collaboration between Hugging Face and [PaddlePaddle](https://www.paddlepaddle.org.cn/en) on a shared mission to advance and democratize AI through open source!
 

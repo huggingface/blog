@@ -7,8 +7,8 @@ authors:
 
 # Sentence Transformers in the Hugging Face Hub
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 Over the past few weeks, we've built collaborations with many Open Source frameworks in the machine learning ecosystem. One that gets us particularly excited is Sentence Transformers.
 

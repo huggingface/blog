@@ -7,8 +7,8 @@ authors:
 
 # How 🤗 Accelerate runs very large models thanks to PyTorch
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ## Load and run large models
 

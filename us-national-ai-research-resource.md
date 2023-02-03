@@ -7,8 +7,8 @@ authors:
 
 # AI Policy @🤗: Comments on U.S. National AI Research Resource Interim Report
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 In late June 2022, Hugging Face submitted a response to the White House Office of Science and Technology Policy and National Science Foundation’s Request for Information on a roadmap for implementing the National Artificial Intelligence Research Resource (NAIRR) Task Force’s interim report findings. As a platform working to democratize machine learning by empowering all backgrounds to contribute to AI, we strongly support NAIRR’s efforts. 
 

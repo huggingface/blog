@@ -7,8 +7,8 @@ authors:
 
 # Announcing the 🤗 AI Research Residency Program 🎉 🎉 🎉
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 
 The 🤗 Research Residency Program is a 9-month opportunity to launch or advance your career in machine learning research 🚀. The goal of the residency is to help you grow into an impactful AI researcher. Residents will work alongside Researchers from our Science Team. Together, you will pick a research problem and then develop new machine learning techniques to solve it in an open & collaborative way, with the hope of ultimately publishing your work and making it visible to a wide audience.

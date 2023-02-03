@@ -7,8 +7,8 @@ authors:
 
 <h1>An Overview of Inference Solutions on Hugging Face</h1>
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 
 Every day, developers and organizations are adopting models hosted on [Hugging Face](https://huggingface.co/models) to turn ideas into proof-of-concept demos, and demos into production-grade applications. For instance, Transformer models have become a popular architecture for a wide range of machine learning (ML) applications, including natural language processing, computer vision, speech, and more. Recently, diffusers have become a popular architecuture for text-to-image or image-to-image generation. Other architectures are popular for other tasks, and we host all of them on the HF Hub!

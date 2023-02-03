@@ -18,8 +18,8 @@ authors:
 
 # Fine tuning CLIP with Remote Sensing (Satellite) images and captions
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 
 ## Fine tuning CLIP with Remote Sensing (Satellite) images and captions

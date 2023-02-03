@@ -7,7 +7,7 @@ authors:
 
 <h1>AI for Game Development: Creating a Farming Game in 5 Days. Part 2</h1>
 
-{authors}
+<!-- {authors} -->
  
 </head>
 

@@ -18,8 +18,8 @@ authors:
 </style>
 <h1>🌸 Introducing The World's Largest Open Multilingual Language Model: BLOOM 🌸</h1>
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 </head>
 <body>
 <a href="https://huggingface.co/bigscience/bloom"><img style="middle" width="950" src="/blog/assets/86_bloom/thumbnail-2.png"></a>  

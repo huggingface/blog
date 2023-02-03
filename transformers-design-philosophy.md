@@ -10,8 +10,8 @@ authors:
 	<h5><i> Designing open-source libraries for modern machine learning </i></h5>
 </h1>
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ## 🤗 Transformers Design Philosophy
 

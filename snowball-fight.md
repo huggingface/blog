@@ -7,8 +7,8 @@ authors:
 
 # Introducing Snowball Fight ☃️, our First ML-Agents Environment
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 
 

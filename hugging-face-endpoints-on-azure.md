@@ -8,8 +8,8 @@ authors:
 # Hugging Face Collaborates with Microsoft to Launch Hugging Face Endpoints on Azure
 
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ![Hugging Face Endpoints on Azure](assets/75_hugging_face_endpoints_on_azure/01.png "Hugging Face Endpoints on Azure")
 

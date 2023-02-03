@@ -7,8 +7,8 @@ authors:
 
 # Getting Started With Embeddings
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 Check out this tutorial with the Notebook Companion:
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/80_getting_started_with_embeddings.ipynb">

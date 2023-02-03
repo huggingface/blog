@@ -7,8 +7,8 @@ authors:
 
 <h1>We Raised $100 Million for Open & Collaborative Machine Learning 🚀</h1>
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 Today we have some exciting news to share! Hugging Face has raised $100 Million in Series C funding 🔥🔥🔥 led by Lux Capital with major participations from Sequoia, Coatue and support of existing investors Addition, a_capital, SV Angel, Betaworks, AIX Ventures, Kevin Durant, Rich Kleiman from Thirty Five Ventures, Olivier Pomel (co-founder & CEO at Datadog) and more.
 

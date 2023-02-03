@@ -8,8 +8,8 @@ authors:
 
 <h1>MTEB: Massive Text Embedding Benchmark</h1>
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 
 MTEB is a massive benchmark for measuring the performance of text embedding models on diverse embedding tasks.

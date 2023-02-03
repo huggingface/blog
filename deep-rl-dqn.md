@@ -18,7 +18,7 @@ authors:
 <h1>Deep Q-Learning with Space Invaders</h1>
 <h2>Unit 3, of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
-{authors}
+<!-- {authors} -->
 
 </head>
 

@@ -18,7 +18,7 @@ authors:
 <h1>An Introduction to Q-Learning Part 2/2</h1>
 <h2>Unit 2, part 2 of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
-{authors}
+<!-- {authors} -->
 
 </head>
 

@@ -7,8 +7,8 @@ authors:
 
 # Introduction to Graph Machine Learning
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 In this blog post, we cover the basics of graph machine learning. 
 

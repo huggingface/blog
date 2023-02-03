@@ -14,8 +14,8 @@ authors:
 </style>
 <h1>Director of Machine Learning Insights [Part 3: Finance Edition]</h1>
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 </head>
 <body>
 

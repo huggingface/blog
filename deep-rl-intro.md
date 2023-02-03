@@ -19,7 +19,7 @@ authors:
 <h1>An Introduction to Deep Reinforcement Learning</h1>
 <h2>Chapter 1 of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
-{authors}
+<!-- {authors} -->
  
 </head>
 

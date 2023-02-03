@@ -7,7 +7,7 @@ authors:
 
 <h1>3D Asset Generation: AI for Game Development #3</h1>
 
-{authors}
+<!-- {authors} -->
  
 </head>
 
