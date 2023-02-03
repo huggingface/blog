@@ -89,7 +89,7 @@ Note that this section is a non-exhaustive list, and there are various other app
 ### 1) Contrastive Learning
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/contrastive_learning.png" alt="Contrastive Learning">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/contrastive_learning.png" alt="Contrastive Learning"><br>
     <em>Contrastive pre-training and zero-shot image classification as shown <a href=https://openai.com/blog/clip>here</a>.</em>
 </p>
 
@@ -102,7 +102,7 @@ Another work, [LiT](https://arxiv.org/abs/2111.07991), introduces a simple metho
 ### 2) PrefixLM
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/prefixlm.png" alt="PrefixLM">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/prefixlm.png" alt="PrefixLM"><br>
     <em>A diagram of the PrefixLM pre-training strategy (<a ahref=https://ai.googleblog.com/2021/10/simvlm-simple-visual-language-model-pre.html>image source<a>)</em>
 </p>
 
@@ -117,7 +117,7 @@ Models that leverage a unified multi-modal architecture to fuse visual informati
 #### Frozen PrefixLM
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/frozen_prefixlm.png" alt="Frozen PrefixLM">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/frozen_prefixlm.png" alt="Frozen PrefixLM"><br>
     <em>Frozen PrefixLM pre-training strategy (<a href=https://lilianweng.github.io/posts/2022-06-09-vlm>image source</a>)</em>
 </p>
 
@@ -131,7 +131,7 @@ A nifty advantage of the Frozen PrefixLM pre-training objective is it enables tr
 ### 3) Multi-modal Fusing with Cross Attention
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/cross_attention_fusing.png" alt="Cross Attention Fusing" width=500>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/cross_attention_fusing.png" alt="Cross Attention Fusing" width=500><br>
     <em> Fusing visual information with a cross-attention mechanism as shown (<a href=https://www.semanticscholar.org/paper/VisualGPT%3A-Data-efficient-Adaptation-of-Pretrained-Chen-Guo/616e0ed02ca024a8c1d4b86167f7486ea92a13d9>image source</a>)</em>
 </p>
 
@@ -144,7 +144,7 @@ Models such as VisualGPT use a visual encoder to embed images and feed the visua
 Another line of vision-language models uses a combination of Masked-Language Modeling (MLM) and Image-Text Matching (ITM) objectives to align specific parts of images with text and enable various downstream tasks such as visual question answering, visual commonsense reasoning, text-based image retrieval, and text-guided object detection. Models that follow this pre-training setup include [VisualBERT](https://arxiv.org/abs/1908.03557), [FLAVA](https://arxiv.org/abs/2112.04482), [ViLBERT](https://arxiv.org/abs/1908.02265), [LXMERT](https://arxiv.org/abs/1908.07490) and [BridgeTower](https://arxiv.org/abs/2206.08657).
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/mlm_itm.png" alt="MLM / ITM">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/mlm_itm.png" alt="MLM / ITM"><br>
     <em> Aligning parts of images with text (<a href=https://arxiv.org/abs/1908.02265>image source</a>)</em>
 </p>
 
@@ -160,7 +160,7 @@ Finally, various optimization strategies aim to bridge image and text representa
 For example, [MaGiC](https://arxiv.org/abs/2205.02655) proposes iterative optimization through a pre-trained autoregressive language model to generate a caption for the input image. To do this, MaGiC computes a CLIP-based “Magic score” using CLIP embeddings of the generated tokens and the input image. 
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/asif.png" alt="ASIF" width=500>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_vision_language_pretraining/asif.png" alt="ASIF" width=500><br>
     <em>Crafting a similarity search space using pre-trained, frozen unimodal image and text encoders (<a href=https://luca.moschella.dev/publication/norelli-asif-2022>image source</a>)</em>
 </p>
 
