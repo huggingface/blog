@@ -8,8 +8,8 @@ authors:
 ---
 <h1>Case Study: Millisecond Latency using Hugging Face Infinity and modern CPUs</h1>
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 

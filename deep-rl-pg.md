@@ -18,7 +18,7 @@ authors:
 <h1>Policy Gradient with PyTorch</h1>
 <h2>Unit 5, of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
-{authors}
+<!-- {authors} -->
 
 </head>
 

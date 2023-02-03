@@ -7,8 +7,8 @@ authors:
 
 # Understanding BigBird's Block Sparse Attention
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ## Introduction
 

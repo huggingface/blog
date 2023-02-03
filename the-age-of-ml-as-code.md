@@ -8,8 +8,8 @@ authors:
 # The Age of Machine Learning As Code Has Arrived
 
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 
 

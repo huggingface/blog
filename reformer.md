@@ -7,8 +7,8 @@ authors:
 
 <h1>The Reformer - Pushing the limits of language modeling</h1>
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a href="https://colab.research.google.com/github/patrickvonplaten/blog/blob/main/notebooks/03_reformer.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 

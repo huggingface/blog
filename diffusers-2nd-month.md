@@ -7,8 +7,8 @@ authors:
 
 # What's new in Diffusers? 🎨
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 A month and a half ago we released `diffusers`, a library that provides a modular toolbox for diffusion models across modalities. A couple of weeks later, we released support for Stable Diffusion, a high quality text-to-image model, with a free demo for anyone to try out. Apart from burning lots of GPUs, in the last three weeks the team has decided to add one or two new features to the library that we hope the community enjoys! This blog post gives a high-level overview of the new features in `diffusers` version 0.3! Remember to give a ⭐ to the [GitHub repository](https://github.com/huggingface/diffusers).
 

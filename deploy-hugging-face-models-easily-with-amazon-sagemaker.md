@@ -5,7 +5,7 @@ thumbnail: /blog/assets/17_the_partnership_amazon_sagemaker_and_hugging_face/thu
 
 <img src="/blog/assets/17_the_partnership_amazon_sagemaker_and_hugging_face/cover.png" alt="hugging-face-and-aws-logo" class="w-full">
 
-{blog_metadata}
+<!-- {blog_metadata} -->
 
 # **Deploy Hugging Face models easily with Amazon SageMaker 🏎**
 

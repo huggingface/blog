@@ -10,8 +10,8 @@ authors:
 
 # Introducing 🤗 Optimum: The Optimization Toolkit for Transformers at Scale
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 This post is the first step of a journey for Hugging Face to democratize
 state-of-the-art **Machine Learning production performance**.

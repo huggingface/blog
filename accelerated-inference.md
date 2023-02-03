@@ -5,7 +5,7 @@ thumbnail: /blog/assets/09_accelerated_inference/thumbnail.png
 
 <h1>How we sped up transformer inference 100x for 🤗 API customers</h1>
 
-{blog_metadata}
+<!-- {blog_metadata} -->
 
 🤗 Transformers has become the default library for data scientists all around the world to explore state of the art NLP models and build new NLP features. With over 5,000 pre-trained and fine-tuned models available, in over 250 languages, it is a rich playground, easily accessible whichever framework you are working in.
 

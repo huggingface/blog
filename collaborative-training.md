@@ -9,8 +9,8 @@ authors:
 
 # Deep Learning over the Internet: Training Language Models Collaboratively
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <small>
 With the additional help of Quentin Lhoest and Sylvain Lesage.

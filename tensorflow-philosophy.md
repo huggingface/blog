@@ -7,8 +7,8 @@ authors:
 
 # Hugging Face's TensorFlow Philosophy
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 
 ### Introduction

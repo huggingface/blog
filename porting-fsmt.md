@@ -8,8 +8,8 @@ authors:
 
 <h1>Porting fairseq wmt19 translation system to transformers</h1>
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ##### A guest blog post by Stas Bekman
 

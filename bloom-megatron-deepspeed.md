@@ -7,8 +7,8 @@ authors:
 
 <h1>The Technology Behind BLOOM Training</h1>
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 
 

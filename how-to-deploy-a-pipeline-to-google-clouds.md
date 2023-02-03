@@ -8,8 +8,8 @@ authors:
 
 # My Journey to a serverless transformers pipeline on <br>Google Cloud
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 > ##### A guest blog post by community member <a href="/Maxence">Maxence Dominici</a>
 

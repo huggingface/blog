@@ -8,8 +8,8 @@ authors:
 
 <h1>Fit More and Train Faster With ZeRO via DeepSpeed and FairScale</h1>
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ##### A guest blog post by Hugging Face fellow Stas Bekman
 

@@ -8,8 +8,8 @@ authors:
 
 # We are hiring interns!
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 Want to help build the future at -- if we may say so ourselves -- one of the coolest places in AI? Today we’re announcing our internship program for 2023. Together with your Hugging Face mentor(s), we’ll be working on cutting edge problems in AI and machine learning.
 

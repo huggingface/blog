@@ -8,8 +8,8 @@ authors:
 
 <h1>Incredibly Fast BLOOM Inference with DeepSpeed and Accelerate</h1>
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 This article shows how to get an incredibly fast per token throughput when generating with the 176B parameter [BLOOM model](https://huggingface.co/bigscience/bloom).
 

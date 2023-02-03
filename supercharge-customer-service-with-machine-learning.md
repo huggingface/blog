@@ -7,8 +7,8 @@ authors:
 
 # Supercharged Customer Service with Machine Learning
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a target="_blank" href="https://github.com/patrickvonplaten/notebooks/blob/master/Using_%F0%9F%A4%97_Transformers_and_%F0%9F%A4%97_Datasets_filter_customer_feedback_filtering.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

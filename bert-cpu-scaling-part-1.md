@@ -19,8 +19,8 @@ authors:
   }
 </style>
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 # Scaling up BERT-like model Inference on modern CPU - Part 1
 

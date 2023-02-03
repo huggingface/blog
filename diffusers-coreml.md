@@ -7,8 +7,8 @@ authors:
 
 # Using Stable Diffusion with Core ML on Apple Silicon
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 Thanks to Apple engineers, you can now run Stable Diffusion on Apple Silicon using Core ML!
 

@@ -7,7 +7,7 @@ authors:
 
 <h1>2D Asset Generation: AI for Game Development #4</h1>
 
-{authors}
+<!-- {authors} -->
  
 </head>
 

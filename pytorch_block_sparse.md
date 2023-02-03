@@ -7,8 +7,8 @@ authors:
 
 <h1>Block Sparse Matrices for Smaller and Faster Language Models</h1>
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ## Saving space and time, one zero at a time
 

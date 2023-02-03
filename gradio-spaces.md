@@ -7,8 +7,8 @@ authors:
 
 # Showcase Your Projects in Spaces using Gradio
 
-{blog_metadata}
-{authors}
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 It's so easy to demonstrate a Machine Learning project thanks to [Gradio](https://gradio.app/). 
 
