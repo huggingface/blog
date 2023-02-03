@@ -1,27 +1,15 @@
 ---
 title: "From GPT2 to Stable Diffusion: Hugging Face arrives to the Elixir community" 
 thumbnail: /blog/assets/120_elixir-bumblebee/thumbnail.png
+authors:
+- user: josevalim
+  guest: true
 ---
 
 # From GPT2 to Stable Diffusion: Hugging Face arrives to the Elixir community
 
-<div class="blog-metadata">
-    <small>Published December 09, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/elixir-bumblebee.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/josevalim"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1670535929608-6363e513287b5ce02ed3afef.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>josevalim</code>
-            <span class="fullname">José Valim</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 The [Elixir](https://elixir-lang.org/) community is glad to announce the arrival of several Neural Networks models, from GPT2 to Stable Diffusion, to Elixir. This is possible thanks to the [just announced Bumblebee library](https://news.livebook.dev/announcing-bumblebee-gpt2-stable-diffusion-and-more-in-elixir-3Op73O), which is an implementation of Hugging Face Transformers in pure Elixir.
 

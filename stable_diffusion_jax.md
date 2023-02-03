@@ -1,35 +1,15 @@
 ---
 title: 🧨 Stable Diffusion  in JAX / Flax !
 thumbnail: /blog/assets/108_stable_diffusion_jax/thumbnail.png
+authors:
+- user: pcuenq
+- user: patrickvonplaten
 ---
 
-<h1>
- 	🧨 Stable Diffusion in JAX / Flax !
-</h1>
+# 🧨 Stable Diffusion in JAX / Flax !
 
-<div class="blog-metadata">
-    <small>Published October 13rd, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/stable_diffusion_jax.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-	 <a href="/pcuenq">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/1177582?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>pcuenq</code>
-            <span class="fullname">Pedro Cuenca</span>
-        </div>
-    </a>
-    <a href="/patrickvonplaten">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/23423619?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>patrickvonplaten</code>
-            <span class="fullname">Patrick von Platen</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion_jax_how_to.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

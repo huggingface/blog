@@ -1,29 +1,15 @@
 ---
 title: "Accelerating PyTorch distributed fine-tuning with Intel technologies"
 thumbnail: /blog/assets/36_accelerating_pytorch/04_four_nodes.png
+authors:
+- user: juliensimon
 ---
 
-<h1>
-Accelerating PyTorch distributed fine-tuning with Intel technologies
-</h1>
+# Accelerating PyTorch distributed fine-tuning with Intel technologies
 
 
-<div class="blog-metadata">
-    <small>Published November 19, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/juliensimon/blog/blob/main/large-language-models.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="https://twitter.com/julsimon">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
-        <div class="bfc">
-            <code>juliensimon</code>
-            <span class=fullname">Julien Simon</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 For all their amazing performance, state of the art deep learning models often take a long time to train. In order to speed up training jobs, engineering teams rely on distributed training, a divide-and-conquer technique where clustered servers each keep a copy of the model, train it on a subset of the training set, and exchange results to converge to a final model.
 

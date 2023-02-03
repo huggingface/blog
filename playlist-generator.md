@@ -1,28 +1,14 @@
 ---
 title: 'Building a Playlist Generator with Sentence Transformers'
 thumbnail: /blog/assets/87_playlist_generator/thumbnail.png
+authors:
+- user: nimaboscarino
 ---
 
-<h1>
-    Building a Playlist Generator with Sentence Transformers
-</h1>
+# Building a Playlist Generator with Sentence Transformers
 
-<div class="blog-metadata">
-    <small>Published July 13, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/playlist-generator.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/nimaboscarino"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1647889744246-61e6a54836fa261c76dc3760.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>nimaboscarino</code>
-            <span class="fullname">Nima Boscarino</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 

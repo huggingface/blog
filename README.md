@@ -17,43 +17,20 @@ For the rest of your files, create a mirrored folder in the HuggingFace Document
 4️⃣ Copy and paste this to your md file and change the elements
 - title
 - thumbnail
-- Published (change the date)
-- Change the author card
-  - href ="/ your huggingface username"
-  - src : your huggingface picture, for that right click to the huggingface picture and copy the link
-  - <span class="fullname"> : your name
-
+- authors
 ```
 ---
 title: "PUT YOUR TITLE HERE" 
 thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+authors:
+- user: your_hf_user
+- user: your_coauthor
 ---
 
 # Train your first Decision Transformer
 
-<div class="blog-metadata">
-    <small>Published September 02, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/decision-transformers-train.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/edbeeching"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1644220542819-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>edbeeching</code>
-            <span class="fullname">Edward Beeching</span>
-        </div>
-    </a>
-    <a href="/ThomasSimonini"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1632748593235-60cae820b1c79a3e4b436664.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>ThomasSimonini</code>
-            <span class="fullname">Thomas Simonini</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 ```
 
 5️⃣ Then, you can add your content. It's markdown system so if you wrote your text on notion just control shift v to copy/paste as markdown.

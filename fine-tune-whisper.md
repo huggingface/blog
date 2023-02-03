@@ -1,26 +1,14 @@
 ---
 title: "Fine-Tune Whisper For Multilingual ASR with 🤗 Transformers" 
 thumbnail: /blog/assets/111_fine_tune_whisper/thumbnail.jpg
+authors:
+- user: sanchit-gandhi
 ---
 
 # Fine-Tune Whisper For Multilingual ASR with 🤗 Transformers
 
-<div class="blog-metadata">
-    <small>Published 3 November, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fine-tune-whisper.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/sanchit-gandhi"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1653243468328-61f91cf54a8e5a275b2b3e7c.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sanchit-gandhi</code>
-            <span class="fullname">Sanchit Gandhi</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/fine_tune_whisper.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

@@ -1,27 +1,15 @@
 ---
 title: "Sentiment Analysis on Encrypted Data with Homomorphic Encryption"
 thumbnail: /blog/assets/sentiment-analysis-fhe/thumbnail.png
+authors:
+- user: jfrery-zama
+  guest: true
 ---
 
 # Sentiment Analysis on Encrypted Data with Homomorphic Encryption
 
-<div class="blog-metadata">
-    <small>Published November 17, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/sentiment-analysis-fhe.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/jfrery-zama">
-        <img class="avatar avatar-user" src="https://huggingface.co/avatars/81a6dd1b89dd988827a2eb944f233000.svg" title="Gravatar">
-        <div class="bfc">
-            <code>jfrery-zama</code>
-            <span class="fullname">Jordan Frery</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 It is well-known that a sentiment analysis model determines whether a text is positive, negative, or neutral. However, this process typically requires access to unencrypted text, which can pose privacy concerns.
 

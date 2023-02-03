@@ -1,23 +1,14 @@
 ---
 title: "Machine Learning Experts - Margaret Mitchell"
 thumbnail: /blog/assets/57_meg_mitchell_interview/thumbnail.png
+authors:
+- user: britneymuller
 ---
 
 <h1>Machine Learning Experts - Margaret Mitchell</h1>
 
-<div class="blog-metadata">
-    <small>Published March 23, 2022.</small>
-</div>
-
-<div class="author-card">
-    <a href="/britneymuller">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1645809068511-5ef0ce775e979253a010ef4c.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>britneymuller</code>
-            <span class="fullname">Britney Muller</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 Hey friends! Welcome to Machine Learning Experts. I'm your host, Britney Muller and today’s guest is none other than [Margaret Mitchell](https://twitter.com/mmitchell_ai) (Meg for short). Meg founded & co-led Google’s Ethical AI Group, is a pioneer in the field of Machine Learning, has published over 50 papers, and is a leading researcher in Ethical AI.
 

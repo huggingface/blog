@@ -1,28 +1,14 @@
 ---
 title: "Announcing the 🤗 AI Research Residency Program"
 thumbnail: /blog/assets/57_ai_residency/residency-thumbnail.jpg
+authors:
+- user: douwekiela
 ---
 
-<h1>
-    Announcing the 🤗 AI Research Residency Program 🎉 🎉 🎉
-</h1>
+# Announcing the 🤗 AI Research Residency Program 🎉 🎉 🎉
 
-<div class="blog-metadata">
-    <small>Published March 22, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ai-residency.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/douwekiela">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1641847245435-61dc997715b47073db1620dc.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>douwekiela</code>
-            <span class="fullname">Douwe Kiela</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 
 The 🤗 Research Residency Program is a 9-month opportunity to launch or advance your career in machine learning research 🚀. The goal of the residency is to help you grow into an impactful AI researcher. Residents will work alongside Researchers from our Science Team. Together, you will pick a research problem and then develop new machine learning techniques to solve it in an open & collaborative way, with the hope of ultimately publishing your work and making it visible to a wide audience.

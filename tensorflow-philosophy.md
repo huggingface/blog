@@ -1,28 +1,14 @@
 ---
 title: "Hugging Face's TensorFlow Philosophy"
 thumbnail: /blog/assets/96_tensorflow_philosophy/thumbnail.png
+authors:
+- user: rocketknight1
 ---
 
-<h1>
-    Hugging Face's TensorFlow Philosophy
-</h1>
+# Hugging Face's TensorFlow Philosophy
 
-<div class="blog-metadata">
-    <small>Published Aug 12, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/tensorflow-philosophy.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/rocketknight1">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1660312628256-60ba519750effef3a58beac3.png?w=200&h=200&f=face">
-        <div class="bfc">
-            <code>rocketknight1</code>
-            <span class="fullname">Matthew Carrigan</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 
 ### Introduction

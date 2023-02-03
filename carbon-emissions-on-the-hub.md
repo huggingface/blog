@@ -1,40 +1,16 @@
 ---
 title: "CO2 Emissions and the 🤗 Hub: Leading the Charge"
 thumbnail: /blog/assets/60_carbon_emissions_on_the_hub/thumbnail.jpg 
+authors:
+- user: sasha
+- user: muellerzr
+- user: nateraw
 ---
 
 <h1> CO2 Emissions and the 🤗 Hub: Leading the Charge </h1> 
 
-<div class="blog-metadata">
-    <small>Published April 12, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/carbon-emissions-on-the-hub.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/sasha">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626198087984-60edd0133e2c73a9a21455f5.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sasha</code>
-            <span class="fullname">Sasha Luccioni</span>
-        </div>
-    </a>
-    <a href="/muellerzr">
-        <img class="avatar avatar-user" src="https://walkwithfastai.com/assets/images/portrait.png" title="Gravatar" width="200">
-        <div class="bfc">
-            <code>muellerzr</code>
-            <span class="fullname">Zachary Mueller</span>
-        </div>
-    </a>
-    <a href="/nateraw">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/32437151?s=400&u=4ec59abc8d21d5feea3dab323d23a5860e6996a4&v=4" title="Gravatar">
-        <div class="bfc">
-            <code>nateraw</code>
-            <span class="fullname">Nate Raw</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 ## What are CO2 Emissions and why are they important?
 

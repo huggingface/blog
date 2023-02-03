@@ -1,28 +1,14 @@
 ---
 title: "How to train your model dynamically using adversarial data"
 thumbnail: /blog/assets/88_mnist_adversarial/mnist-adversarial.png
+authors:
+- user: chrisjay
 ---
 
-<h1>
-    How to train your model dynamically using adversarial data
-</h1>
+# How to train your model dynamically using adversarial data
 
-<div class="blog-metadata">
-    <small>Published July 16, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/mnist-adversarial.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/chrisjay">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1634562259269-5fbfa21ec153e968e63deb56.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>chrisjay</code>
-            <span class="fullname">Chris Emezue</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 ##### What you will learn here
 - 💡the basic idea of dynamic adversarial data collection and why it is important.

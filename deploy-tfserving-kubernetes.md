@@ -1,38 +1,17 @@
 ---
 title: Deploying 🤗 ViT on Kubernetes with TF Serving
 thumbnail: /blog/assets/94_tf_serving_kubernetes/thumb.png
+authors:
+- user: chansung
+  guest: true
+- user: sayakpaul
+  guest: true
 ---
 
-<h1>
-	Deploying 🤗 ViT on Kubernetes with TF Serving
-</h1>
+# Deploying 🤗 ViT on Kubernetes with TF Serving
 
-<div class="blog-metadata">
-    <small>Published August 11, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/deploy-tfserving-kubernetes.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/chansung">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/26025527?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>chansung</code>
-            <span class="fullname">Chansung Park<sup>*</sup></span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-    <a href="/sayakpaul">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/22957388?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>sayakpaul</code>
-            <span class="fullname">Sayak Paul<sup>*</sup></span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-    
-</div>
+{blog_metadata}
+{authors}
 
 # Introduction
 

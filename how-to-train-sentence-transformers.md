@@ -1,28 +1,14 @@
 ---
 title: 'Train and Fine-Tune Sentence Transformers Models'
 thumbnail: /blog/assets/95_training_st_models/thumbnail.png
+authors:
+- user: espejelomar
 ---
 
-<h1>
-    Train and Fine-Tune Sentence Transformers Models
-</h1>
+# Train and Fine-Tune Sentence Transformers Models
 
-<div class="blog-metadata">
-    <small>Published August 10, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/train-and-fine-tune-sentence-transformers-models.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/espejelomar"> 
-        <img class="avatar avatar-user" src="https://bafybeidj6oxo7zm5pejnc2iezy24npw4qbt2jgpo4n6igt7oykc7rbvcxi.ipfs.dweb.link/omar_picture.png" title="Gravatar">
-        <div class="bfc">
-            <code>espejelomar</code>
-            <span class="fullname">Omar Espejel</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 Check out this tutorial with the Notebook Companion:
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/95_Training_Sentence_Transformers.ipynb">

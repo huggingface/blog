@@ -1,6 +1,8 @@
 ---
 title: "Hugging Face Reads, Feb. 2021 - Long-range Transformers"
 thumbnail: /blog/assets/14_long_range_transformers/EfficientTransformerTaxonomy.png
+authors:
+- user: VictorSanh
 ---
 
 <figure>
@@ -8,26 +10,10 @@ thumbnail: /blog/assets/14_long_range_transformers/EfficientTransformerTaxonomy.
   <figcaption>Efficient Transformers taxonomy from Efficient Transformers: a Survey by Tay et al.</figcaption>
 </figure>
 
-<h1>
-    Hugging Face Reads, Feb. 2021 - Long-range Transformers
-</h1>
+# Hugging Face Reads, Feb. 2021 - Long-range Transformers
 
-<div class="blog-metadata">
-    <small>Published March 09, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/long-range-transformers.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/VictorSanh">
-        <img class="avatar avatar-user" src="https://pbs.twimg.com/profile_images/1141847999917768704/Wn2vaOMO_400x400.jpg" title="Gravatar">
-        <div class="bfc">
-            <code>VictorSanh</code>
-            <span class="fullname">Victor Sanh</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 Co-written by Teven Le Scao, Patrick Von Platen, Suraj Patil, Yacine Jernite and Victor Sanh.
 

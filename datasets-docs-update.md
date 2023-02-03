@@ -1,28 +1,14 @@
 ---
 title: "Introducing new audio and vision documentation in 🤗 Datasets"
 thumbnail: /blog/assets/87_datasets-docs-update/thumbnail.gif
+authors:
+- user: stevhliu
 ---
 
-<h1>
-    Introducing new audio and vision documentation in 🤗 Datasets
-</h1>
+# Introducing new audio and vision documentation in 🤗 Datasets
 
-<div class="blog-metadata">
-    <small>Published July 11, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/datasets-docs-update.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/stevhliu"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1599079986463-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>stevhliu</code>
-            <span class="fullname">Steven Liu</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 Open and reproducible datasets are essential for advancing good machine learning. At the same time, datasets have grown tremendously in size as rocket fuel for large language models. In 2020, Hugging Face launched 🤗 Datasets, a library dedicated to:
 

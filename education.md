@@ -1,28 +1,14 @@
 ---
 title: "Introducing Hugging Face for Education 🤗"
 thumbnail: /blog/assets/61_education/thumbnail.png
+authors:
+- user: Violette
 ---
 
-<h1>
-    Introducing Hugging Face for Education 🤗
-</h1>
+# Introducing Hugging Face for Education 🤗
 
-<div class="blog-metadata">
-    <small>Published April 25, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ambassadors-program.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/Violette">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1638698875017-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>Violette</code>
-            <span class="fullname">Violette Lepercq</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 Given that machine learning will make up the overwhelming majority of software development and that non-technical people will be exposed to AI systems more and more, one of the main challenges of AI is adapting and enhancing employee skills. It is also becoming necessary to support teaching staff in proactively taking AI's ethical and critical issues into account. 
 

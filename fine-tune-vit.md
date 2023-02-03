@@ -1,28 +1,14 @@
 ---
 title: "Fine-Tune ViT for Image Classification with 🤗 Transformers"
 thumbnail: /blog/assets/51_fine_tune_vit/vit-thumbnail.jpg
+authors:
+- user: nateraw
 ---
 
-<h1>
-    Fine-Tune ViT for Image Classification with 🤗 Transformers
-</h1>
+# Fine-Tune ViT for Image Classification with 🤗 Transformers
 
-<div class="blog-metadata">
-    <small>Published February 11, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fine-tune-vit.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/nateraw">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/32437151?s=400&u=4ec59abc8d21d5feea3dab323d23a5860e6996a4&v=4" title="Gravatar">
-        <div class="bfc">
-            <code>nateraw</code>
-            <span class="fullname">Nate Raw</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 

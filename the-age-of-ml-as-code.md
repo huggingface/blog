@@ -1,29 +1,15 @@
 ---
 title: The Age of Machine Learning As Code Has Arrived
 thumbnail: /blog/assets/31_age_of_ml_as_code/05_vision_transformer.png
+authors:
+- user: juliensimon
 ---
 
-<h1>
-The Age of Machine Learning As Code Has Arrived
-</h1>
+# The Age of Machine Learning As Code Has Arrived
 
 
-<div class="blog-metadata">
-    <small>Published October 20, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/the-age-of-ml-as-code.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="https://twitter.com/julsimon">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
-        <div class="bfc">
-            <code>juliensimon</code>
-            <span class=fullname">Julien Simon</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 
 

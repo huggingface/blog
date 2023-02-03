@@ -1,26 +1,14 @@
 ---
 title: "VQ-Diffusion" 
 thumbnail: /blog/assets/117_vq_diffusion/thumbnail.png
+authors:
+- user: williamberman
 ---
 
 # VQ-Diffusion
 
-<div class="blog-metadata">
-    <small>Published November 30, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/vq-diffusion.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/williamberman"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1668468846504-63407fadb78ed99eab00203d.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>williamberman</code>
-            <span class="fullname">Will Berman</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 Vector Quantized Diffusion (VQ-Diffusion) is a conditional latent diffusion model developed by the University of Science and Technology of China and Microsoft. Unlike most commonly studied diffusion models, VQ-Diffusion's noising and denoising processes operate on a quantized latent space, i.e., the latent space is composed of a discrete set of vectors. Discrete diffusion models are less explored than their continuous counterparts and offer an interesting point of comparison with autoregressive (AR) models.
 

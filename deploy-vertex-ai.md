@@ -1,37 +1,17 @@
 ---
 title: Deploying 🤗 ViT on Vertex AI
 thumbnail: /blog/assets/97_vertex_ai/image1.png
+authors:
+- user: sayakpaul
+  guest: true
+- user: chansung
+  guest: true
 ---
 
-<h1>
-	Deploying 🤗 ViT on Vertex AI
-</h1>
+# Deploying 🤗 ViT on Vertex AI
 
-<div class="blog-metadata">
-    <small>Published August 19, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/deploy-vertex-ai.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/sayakpaul">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/22957388?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>sayakpaul</code>
-            <span class="fullname">Sayak Paul<sup>*</sup></span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-    <a href="/chansung">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/26025527?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>chansung</code>
-            <span class="fullname">Chansung Park<sup>*</sup></span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/112_vertex_ai_vision.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

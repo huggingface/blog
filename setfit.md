@@ -1,66 +1,19 @@
 ---
 title: "SetFit: Efficient Few-Shot Learning Without Prompts"
 thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
+authors:
+- user: Unso
+- user: lewtun
+- user: luketheduke
+- user: dkorat
+- user: orenpereg
+- user: moshew
 ---
    
 <h1>SetFit: Efficient Few-Shot Learning Without Prompts</h1>
     
-<div class="blog-metadata">
-    <small>Published September 26, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/setfit.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/Unso">
-        <img class="avatar avatar-user" src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=-I2EZeEAAAAJ&citpid=8" title="Gravatar">
-        <div class="bfc">
-            <code>Unso</code>
-            <span class="fullname">Unso Eun Seo Jo</span>
-        </div>
-    </a>
-
-<a href="/lewtun">
-    <img class="avatar avatar-user" src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=Hc6MI0QAAAAJ&citpid=2&authuser=1" title="Gravatar">
-    <div class="bfc">
-        <code>lewtun</code>
-        <span class="fullname">Lewis Tunstall</span>
-    </div>
-</a>
-
-<a href="/luketheduke">
-    <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1664191170841-61bed873b8b525b3c1a2c92b.jpeg?w=200&h=200&f=face" title="Gravatar">
-    <div class="bfc">
-        <code>luketheduke</code>
-        <span class="fullname">Luke Bates</span>
-    </div>
-</a>
-
-    
-<a href="/dkorat">
-    <img class="avatar avatar-user" src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=vOrCEQgAAAAJ&citpid=2" title="Gravatar">
-    <div class="bfc">
-        <code>dkorat</code>
-        <span class="fullname">Daniel Korat</span>
-    </div>
-</a>
- 
-<a href="/orenpereg">
-    <img class="avatar avatar-user" src="https://scholar.googleusercontent.com/citations?view_op=view_photo&user=ZPaGFOIAAAAJ&citpid=1" title="Gravatar">   <div class="bfc">
-        <code>orenpereg</code>
-        <span class="fullname">Oren Pereg</span>
-    </div>
- </a>
-<a href="/moshew">
-    <img class="avatar avatar-user" src="https://www.nlpsummit.org/wp-content/uploads/2020/06/Moshe-Wasserblat.jpeg" title="Gravatar">
-    <div class="bfc">
-        <code>moshew</code>
-        <span class="fullname">Moshe Wasserblat</span>
-    </div>
-</a>   
-    
-</div>
+{blog_metadata}
+{authors}
 
 
 

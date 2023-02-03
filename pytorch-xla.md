@@ -1,35 +1,16 @@
 ---
 title: "Hugging Face on PyTorch / XLA TPUs"
 thumbnail: /blog/assets/13_pytorch_xla/pytorch_xla_thumbnail.png
+authors:
+- user: jysohn23
+  guest: true
+- user: lysandre
 ---
 
 <h1>Hugging Face on PyTorch / XLA TPUs: Faster and cheaper training</h1>
 
-<div class="blog-metadata">
-    <small>Published February 9, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/pytorch-xla.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/jysohn23">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1611966458638-6014a341fbdeb2968693b1ff.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>jysohn23</code>
-            <span class="fullname">Daniel JinYoung Sohn</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-            <img class="rounded inline" style="margin: 0 !important; margin-right: 8px !important; width: 22px; height: 22px;" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1584056834195-5dd96eb166059660ed1ee413.png?w=200&amp;h=200&amp;f=face">
-        </div>
-    </a>
-    <a href="/lysandre">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1594147310023-5e3aec01f55e2b62848a5217.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>lysandre</code>
-            <span class="fullname">Lysandre Debut</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 <a href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/13_pytorch_xla.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a>
 

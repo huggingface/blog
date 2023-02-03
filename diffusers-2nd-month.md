@@ -1,28 +1,14 @@
 ---
 title: What's new in Diffusers? 🎨
 thumbnail: /blog/assets/102_diffusers_2nd_month/inpainting.png
+authors:
+- user: osanseviero
 ---
 
-<h1>
-What's new in Diffusers? 🎨
-</h1>
+# What's new in Diffusers? 🎨
 
-<div class="blog-metadata">
-    <small>Published Sep 12th, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/diffusers-2nd-month.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/osanseviero">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1647857934921-6032802e1f993496bc14d9e3.jpeg" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>osanseviero</code>
-            <span class="fullname">Omar Sanseviero</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 A month and a half ago we released `diffusers`, a library that provides a modular toolbox for diffusion models across modalities. A couple of weeks later, we released support for Stable Diffusion, a high quality text-to-image model, with a free demo for anyone to try out. Apart from burning lots of GPUs, in the last three weeks the team has decided to add one or two new features to the library that we hope the community enjoys! This blog post gives a high-level overview of the new features in `diffusers` version 0.3! Remember to give a ⭐ to the [GitHub repository](https://github.com/huggingface/diffusers).
 

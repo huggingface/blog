@@ -1,28 +1,14 @@
 ---
 title: 'Getting Started With Embeddings'
 thumbnail: /blog/assets/80_getting_started_with_embeddings/thumbnail.png
+authors:
+- user: espejelomar
 ---
 
-<h1>
-    Getting Started With Embeddings
-</h1>
+# Getting Started With Embeddings
 
-<div class="blog-metadata">
-    <small>Published June 23, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/getting-started-with-embeddings.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/espejelomar"> 
-        <img class="avatar avatar-user" src="https://bafybeidj6oxo7zm5pejnc2iezy24npw4qbt2jgpo4n6igt7oykc7rbvcxi.ipfs.dweb.link/omar_picture.png" title="Gravatar">
-        <div class="bfc">
-            <code>espejelomar</code>
-            <span class="fullname">Omar Espejel</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 Check out this tutorial with the Notebook Companion:
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/80_getting_started_with_embeddings.ipynb">

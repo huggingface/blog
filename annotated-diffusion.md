@@ -1,36 +1,15 @@
 ---
 title: The Annotated Diffusion Model
 thumbnail: /blog/assets/78_annotated-diffusion/thumbnail.png
+authors:
+- user: nielsr
+- user: kashif
 ---
 
-<h1>
-	The Annotated Diffusion Model
-</h1>
+# The Annotated Diffusion Model
 
-<div class="blog-metadata">
-    <small>Published June 7th, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/annotated-diffusion.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/nielsr">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/48327001?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>nielsr</code>
-            <span class="fullname">Niels Rogge</span>
-        </div>
-    </a>
-    <a href="/kashif">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8100?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>kashif</code>
-            <span class="fullname">Kashif Rasul</span>
-        </div>
-    </a>
-    
-</div>
+{blog_metadata}
+{authors}
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 

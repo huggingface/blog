@@ -1,23 +1,14 @@
 ---
 title: "BERT 101 - State Of The Art NLP Model Explained"
 thumbnail: /blog/assets/52_bert_101/thumbnail.jpg
+authors:
+- user: britneymuller
 ---
 <html itemscope itemtype="https://schema.org/FAQPage">
 <h1>BERT 101 🤗 State Of The Art NLP Model Explained</h1>
 
-<div class="blog-metadata">
-    <small>Published March 2, 2022.</small>
-</div>
-
-<div class="author-card">
-    <a href="/britneymuller">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1645809068511-5ef0ce775e979253a010ef4c.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>britneymuller</code>
-            <span class="fullname">Britney Muller</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 

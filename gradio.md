@@ -1,27 +1,16 @@
 ---
 title: "Using & Mixing Hugging Face Models with Gradio 2.0"
 thumbnail: /blog/assets/22_gradio/gradio.png
+authors:
+- user: abidlabs
 ---
 
 # Using & Mixing Hugging Face Models with Gradio 2.0
 
 > ##### Cross-posted from the&nbsp;[Gradio blog](https://gradio.app/blog/using-huggingface-models).
 
-<div class="blog-metadata">
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/gradio.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/abidlabs">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1621947938344-noauth.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>abidlabs</code>
-            <span class="fullname">Abubakar Abid</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 
 The **[Hugging Face Model Hub](https://huggingface.co/models)** has more than 10,000 machine learning models submitted by users. You’ll find all kinds of natural language processing models that, for example, translate between Finnish and English or recognize Chinese speech. More recently, the Hub has expanded to even include models for image classification and audio processing. 

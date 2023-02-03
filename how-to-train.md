@@ -1,16 +1,14 @@
 ---
 title: How to train a new language model from scratch using Transformers and Tokenizers
 thumbnail: /blog/assets/01_how-to-train/how-to-train_blogpost.png
+authors:
+- user: julien-c
 ---
 
 <h1>How to train a new language model from scratch using Transformers and Tokenizers</h1>
 
-<div class="blog-metadata">
-    <small>Published Feb 14, 2020. Last update May 15.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/how-to-train.md">
-        Update on GitHub
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/01_how_to_train.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab">

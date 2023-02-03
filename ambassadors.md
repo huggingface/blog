@@ -1,28 +1,14 @@
 ---
 title: "Student Ambassador Program’s call for applications is open!"
 thumbnail: /blog/assets/67_ambassadors/thumbnail.png
+authors:
+- user: Violette
 ---
 
-<h1>
-    Student Ambassador Program’s call for applications is open!
-</h1>
+# Student Ambassador Program’s call for applications is open!
 
-<div class="blog-metadata">
-    <small>Published May 13, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ambassadors-program.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/Violette">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1638698875017-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>Violette</code>
-            <span class="fullname">Violette Lepercq</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 As an open-source company democratizing machine learning, Hugging Face believes it is essential to **[teach](https://huggingface.co/blog/education)** open-source ML to people from all backgrounds worldwide. **We aim to teach machine learning to 5 million people by 2023**.
 

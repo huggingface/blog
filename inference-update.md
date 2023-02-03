@@ -1,26 +1,14 @@
 ---
 title: "An overview of inference solutions on Hugging Face"
 thumbnail: /blog/assets/116_inference_update/widget.png
+authors:
+- user: juliensimon
 ---
 
 <h1>An Overview of Inference Solutions on Hugging Face</h1>
 
-<div class="blog-metadata">
-    <small>Published November 21, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/inference-update.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-        <a href="https://twitter.com/julsimon">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
-        <div class="bfc">
-            <code>juliensimon</code>
-            <span class=fullname">Julien Simon</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 
 Every day, developers and organizations are adopting models hosted on [Hugging Face](https://huggingface.co/models) to turn ideas into proof-of-concept demos, and demos into production-grade applications. For instance, Transformer models have become a popular architecture for a wide range of machine learning (ML) applications, including natural language processing, computer vision, speech, and more. Recently, diffusers have become a popular architecuture for text-to-image or image-to-image generation. Other architectures are popular for other tasks, and we host all of them on the HF Hub!

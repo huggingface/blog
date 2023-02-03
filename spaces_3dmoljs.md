@@ -1,27 +1,15 @@
 ---
 title: "Visualize proteins on Hugging Face Spaces"
 thumbnail: /blog/assets/98_spaces_3dmoljs/thumbnail.png
+authors:
+- user: simonduerr
+  guest: true
 ---
 
 <h1>Visualize proteins on Hugging Face Spaces</h1>
 
-<div class="blog-metadata">
-    <small>Published August 24, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/spaces_3dmoljs.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/simonduerr">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/16979577?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>duerrsimon</code>
-            <span class="fullname">Simon Dürr</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 In this post we will look at how we can visualize proteins on Hugging Face Spaces.
 

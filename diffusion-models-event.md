@@ -1,35 +1,15 @@
 ---
 title: "Diffusion Models Live Event"
 thumbnail: /blog/assets/diffusion-models-event/thumbnail.png
+authors:
+- user: lewtun
+- user: johnowhitaker
 ---
 
-<h1>
-    Diffusion Models Live Event
-</h1>
+# Diffusion Models Live Event
 
-<div class="blog-metadata">
-    <small>Published November 25, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/diffusion-models-event.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/lewtun">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1594651707950-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>lewtun</code>
-            <span class="fullname">Lewis Tunstall</span>
-        </div>
-    </a>
-    <a href="/johnowhitaker">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1636442017289-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>johnowhitaker</code>
-            <span class="fullname">Jonathan Whitaker</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 We are excited to share that the [Diffusion Models Class](https://github.com/huggingface/diffusion-models-class) with Hugging Face and Jonathan Whitaker will be **released on November 28th** 🥳! In this free course, you will learn all about the theory and application of diffusion models -- one of the most exciting developments in deep learning this year. If you've never heard of diffusion models, here's a demo to give you a taste of what they can do:
 

@@ -1,46 +1,16 @@
 ---
 title: "Scaling up BERT-like model Inference on modern CPU  - Part 2"
+authors:
+- user: echarlaix
+- user: jeffboudier
+- user: mfuntowicz
+- user: michaelbenayoun
 ---
 
 # Scaling up BERT-like model Inference on modern CPU  - Part 2
 
-<div class="blog-metadata">
-    <small>Published November 4th, 2021</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/bert-cpu-scaling-part-2.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/echarlaix">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1615915889033-6050eb5aeb94f56898c08e57.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>echarlaix</code>
-            <span class="fullname">Ella Charlaix</span>
-        </div>
-    </a>
-    <a href="/jeffboudier">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1605114051380-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>jeffboudier</code>
-            <span class="fullname">Jeff Boudier</span>
-        </div>
-    </a>
-    <a href="/mfuntowicz">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1583858935715-5e67c47c100906368940747e.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>mfuntowicz</code>
-            <span class="fullname">Morgan Funtowicz</span>
-        </div>
-    </a>
-    <a href="/michaelbenayoun">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1615890856777-6047a3315da6ba4b1dfb9e18.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>michaelbenayoun</code>
-            <span class="fullname">Michael Benayoun</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 

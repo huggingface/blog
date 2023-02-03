@@ -1,84 +1,22 @@
 ---
 title: "Announcing Evaluation on the Hub"
 thumbnail: /blog/assets/82_eval_on_the_hub/thumbnail.png
+authors:
+- user: lewtun
+- user: abhishek
+- user: Tristan
+- user: sasha
+- user: lvwerra
+- user: nazneen
+- user: ola13
+- user: osanseviero
+- user: douwekiela
 ---
 
-<h1>
-    Announcing Evaluation on the Hub
-</h1>
+# Announcing Evaluation on the Hub
 
-<div class="blog-metadata">
-    <small>Published June 28, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/eval-on-the-hub.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/lewtun">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1594651707950-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>lewtun</code>
-            <span class="fullname">Lewis Tunstall</span>
-        </div>
-    </a>
-    <a href="/abhishek">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1604427578240-noauth.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>abhishek</code>
-            <span class="fullname">Abhishek Thakur</span>
-        </div>
-    </a>
-    <a href="/Tristan">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1648247133961-61e9e3d4e2a95338e04c9f33.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>Tristan</code>
-            <span class="fullname">Tristan Thrush</span>
-        </div>
-    </a>
-    <a href="/sasha">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626198087984-60edd0133e2c73a9a21455f5.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sasha</code>
-            <span class="fullname">Sasha Luccioni</span>
-        </div>
-    </a>
-    <a href="/lvwerra">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1627890220261-5e48005437cb5b49818287a5.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>lvwerra</code>
-            <span class="fullname">Leandro von Werra</span>
-        </div>
-    </a>
-    <a href="/nazneen">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1648508910554-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>nazneen</code>
-            <span class="fullname">Nazneen Rajani</span>
-        </div>
-    </a>
-    <a href="/ola13">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1600081648206-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>ola13</code>
-            <span class="fullname">Ola Piktus</span>
-        </div>
-    </a>
-    <a href="/osanseviero">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1647857934921-6032802e1f993496bc14d9e3.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>osanseviero</code>
-            <span class="fullname">Omar Sanseviero</span>
-        </div>
-    </a>
-    <a href="/douwekiela">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1641847245435-61dc997715b47073db1620dc.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>douwekiela</code>
-            <span class="fullname">Douwe Kiela</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 <em>TL;DR</em>: Today we introduce [Evaluation on the Hub](https://huggingface.co/spaces/autoevaluate/model-evaluator), a new tool powered by [AutoTrain](https://huggingface.co/autotrain) that lets you evaluate any model on any dataset on the Hub without writing a single line of code!
 

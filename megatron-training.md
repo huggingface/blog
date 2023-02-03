@@ -1,26 +1,14 @@
 ---
 title: How to train a Language Model with Megatron-LM
 thumbnail: /blog/assets/100_megatron_training/thumbnail.png
+authors:
+- user: loubnabnl
 ---
 
 <h1>How to train a Language Model with Megatron-LM</h1>
 
-<div class="blog-metadata">
-    <small>Published August 26, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/megatron-training.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/loubnabnl">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/44069155?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>loubnabnl</code>
-            <span class="fullname">Loubna Ben Allal</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 Training large language models in Pytorch requires more than a simple training loop. It is usually distributed across multiple devices, with many optimization techniques for a stable and efficient training. Hugging Face 🤗 [Accelerate](https://huggingface.co/docs/accelerate/index) library was created to support distributed training across GPUs and TPUs with very easy integration into the training loops. 🤗 [Transformers](https://huggingface.co/docs/transformers/index) also support distributed training through the [Trainer](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.Trainer) API, which provides feature-complete training in PyTorch, without even needing to implement a training loop. 
 

@@ -1,54 +1,18 @@
 ---
 title: "Very Large Language Models and How to Evaluate Them" 
 thumbnail: /blog/assets/106_zero_shot_eval_on_the_hub/thumbnail.png
+authors:
+- user: mathemakitten
+- user: Tristan
+- user: abhishek
+- user: lewtun
+- user: douwekiela
 ---
 
 # Very Large Language Models and How to Evaluate Them 
 
-<div class="blog-metadata">
-    <small>Published October 3, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/zero-shot-eval-on-the-hub.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/mathemakitten">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1658248499901-6079afe2d2cd8c150e6ae05e.jpeg?w=200&h=200&f=face">
-        <div class="bfc">
-            <code>mathemakitten</code>
-            <span class="fullname">Helen Ngo</span>
-        </div>
-    </a>
-    <a href="/Tristan">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1648247133961-61e9e3d4e2a95338e04c9f33.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>Tristan</code>
-            <span class="fullname">Tristan Thrush</span>
-        </div>
-    </a>
-    <a href="/abhishek">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1604427578240-noauth.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>abhishek</code>
-            <span class="fullname">Abhishek Thakur</span>
-        </div>
-    </a>
-    <a href="/lewtun">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1594651707950-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>lewtun</code>
-            <span class="fullname">Lewis Tunstall</span>
-        </div>
-    </a>
-    <a href="/douwekiela">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1641847245435-61dc997715b47073db1620dc.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>douwekiela</code>
-            <span class="fullname">Douwe Kiela</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 Large language models can now be evaluated on zero-shot classification tasks with [Evaluation on the Hub](https://huggingface.co/spaces/autoevaluate/model-evaluator)! 
 

@@ -1,34 +1,14 @@
 ---
 title: "Sentence Transformers in the Hugging Face Hub"
+authors:
+- user: osanseviero
+- user: nreimers
 ---
 
-<h1>
-    Sentence Transformers in the Hugging Face Hub
-</h1>
+# Sentence Transformers in the Hugging Face Hub
 
-<div class="blog-metadata">
-    <small>Published June 28, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/sentence-transformers-in-the-hub.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/osanseviero">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1622621035602-6032802e1f993496bc14d9e3.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>osanseviero</code>
-            <span class="fullname">Omar Sanseviero</span>
-        </div>
-    </a>
-    <a href="/nreimers">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://aeiljuispo.cloudimg.io/v7/https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1596792577829-5eff4688ff69163f6f59e66c.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>nreimers</code>
-            <span class="fullname">Nils Reimers</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 Over the past few weeks, we've built collaborations with many Open Source frameworks in the machine learning ecosystem. One that gets us particularly excited is Sentence Transformers.
 

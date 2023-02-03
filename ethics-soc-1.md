@@ -1,26 +1,14 @@
 ---
 title: "Ethics and Society Newsletter #1" 
 thumbnail: /blog/assets/103_ethics-soc-1/thumbnail.png
+authors:
+- user: meg
 ---
 
 # Ethics and Society Newsletter #1
 
-<div class="blog-metadata">
-    <small>Published September 22, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ethics-soc-1.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/meg-huggingface"> 
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/90473723?v=4" width=100 title="Gravatar">
-        <div class="bfc">
-            <code>meg-huggingface</code>
-            <span class="fullname">Margaret Mitchell</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 
 Hello, world!

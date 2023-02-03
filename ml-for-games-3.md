@@ -1,19 +1,13 @@
 ---
 title: "3D Asset Generation: AI for Game Development #3"
 thumbnail: /blog/assets/124_ml-for-games/thumbnail3.png
+authors:
+- user: dylanebert
 ---
 
 <h1>3D Asset Generation: AI for Game Development #3</h1>
 
-<div class="author-card">
-    <a href="/dylanebert">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1672164046414-624b4a964056e2a6914a05c5.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>dylanebert</code>
-            <span class="fullname">Dylan Ebert</span>
-        </div>
-  </a>
-</div>
+{authors}
  
 </head>
 

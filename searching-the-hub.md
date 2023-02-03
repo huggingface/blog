@@ -1,28 +1,14 @@
 ---
 title: "Supercharged Searching on the 🤗 Hub"
 thumbnail: /blog/assets/48_hubsearch/thumbnail.png
+authors:
+- user: muellerzr
 ---
 
-<h1>
-    Supercharged Searching on the Hugging Face Hub
-</h1>
+# Supercharged Searching on the Hugging Face Hub
 
-<div class="blog-metadata">
-    <small>Published January 25, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/searching-the-hub.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/muellerzr">
-        <img class="avatar avatar-user" src="https://walkwithfastai.com/assets/images/portrait.png" title="Gravatar" width="200">
-        <div class="bfc">
-            <code>muellerzr</code>
-            <span class="fullname">Zachary Mueller</span>
-        </div>
-    </a>
-</div>
+{blog_metadata}
+{authors}
 
 <a target="_blank" href="https://colab.research.google.com/github/muellerzr/hf-blog-notebooks/blob/main/Searching-the-Hub.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
