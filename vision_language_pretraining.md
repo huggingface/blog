@@ -2,8 +2,8 @@
 title: "A Dive into Vision-Language Models"
 thumbnail: /blog//assets/128_vision_language_pretraining/thumbnail.png
 authors:
-- adirik
-- sayakpaul
+- user: adirik
+- user: sayakpaul
 ---
 
 # A Dive into Vision-Language Models
