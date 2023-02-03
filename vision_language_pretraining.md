@@ -1,34 +1,15 @@
 ---
 title: "A Dive into Vision-Language Models"
 thumbnail: /blog//assets/128_vision_language_pretraining/thumbnail.png
+authors:
+- adirik
+- sayakpaul
 ---
 
-<h1>A Dive into Vision-Language Models</h1>
+# A Dive into Vision-Language Models
 
-<div class="blog-metadata">
-    <small>Published February 3, 2023.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/vision_language_pretraining.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/adirik">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8944735?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>adirik</code>
-            <span class="fullname">Alara Dirik</span>
-        </div>
-    </a>
-    <a href="/sayakpaul">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/22957388?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>sayakpaul</code>
-            <span class="fullname">Sayak Paul</span>
-        </div>
-    </a>
-</div>
-
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 Human learning is inherently multi-modal as jointly leveraging multiple senses helps us understand and analyze new information better. Unsurprisingly, recent advances in multi-modal learning take inspiration from the effectiveness of this process to create models that can process and link information using various modalities such as image, video, text, audio, body gestures, facial expressions, and physiological signals. 
 
