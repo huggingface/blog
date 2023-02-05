@@ -46,8 +46,7 @@ The environment used was made by the [Unity ML-Agents team](https://github.com/U
 
 In addition to the leaderboard, we created a Space demo where people can choose two teams and visualize them playing 👉[https://huggingface.co/spaces/unity/SoccerTwos](https://huggingface.co/spaces/unity/SoccerTwos)
 
-This experimentation is going well since we already have 48 models on the leaderboard: [ADD link leaderboard]
-
+This experimentation is going well since we already have 48 models on the [leaderboard](https://huggingface.co/spaces/huggingface-projects/AIvsAI-SoccerTwos)
 ![Leaderboard](assets/ai-vs-ai/leaderboard.png)
 
 We also [created a discord channel called ai-vs-ai-competition](http://hf.co/discord/join) so that people can exchange with others and share advice.
