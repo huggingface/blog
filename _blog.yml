@@ -1735,3 +1735,11 @@
     - cv
     - guide
     - multimodal
+
+- local: aivsai
+  title: "Introducing ⚔️ AI vs. AI ⚔️ a deep reinforcement learning multi-agents competition system"
+  author: CarlCochet
+  thumbnail: /blog/assets/128_aivsai/thumbnail.png
+  date: February 07, 2023
+  tags:
+    - rl
