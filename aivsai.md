@@ -8,7 +8,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-![Thumbnail](assets/128_ai-vs-ai/thumbnail.png)
+![Thumbnail](assets/128_aivsai/thumbnail.png)
 
 We’re excited to introduce a new tool we created: **⚔️ AI vs. AI ⚔️, a deep reinforcement learning multi-agents competition system**.
 
@@ -24,7 +24,7 @@ In addition to being a useful tool for hosting multi-agent competitions, we thin
 
 Let’s see how it works with our first competition host: SoccerTwos Challenge.
 
-![SoccerTwos example](assets/128_ai-vs-ai/soccertwos.gif)
+![SoccerTwos example](assets/128_aivsai/soccertwos.gif)
 
 ## How does AI vs. AI works?
 
@@ -42,12 +42,12 @@ In this Unit, readers learned the basics of multi-agent reinforcement learning (
 
 The environment used was made by the [Unity ML-Agents team](https://github.com/Unity-Technologies/ml-agents). The goal is simple: your team needs to score a goal: to do that, they need to beat the opponent team and collaborate with their teammate.
 
-![SoccerTwos example](assets/128_ai-vs-ai/soccertwos.gif)
+![SoccerTwos example](assets/128_aivsai/soccertwos.gif)
 
 In addition to the leaderboard, we created a Space demo where people can choose two teams and visualize them playing 👉[https://huggingface.co/spaces/unity/SoccerTwos](https://huggingface.co/spaces/unity/SoccerTwos)
 
 This experimentation is going well since we already have 48 models on the [leaderboard](https://huggingface.co/spaces/huggingface-projects/AIvsAI-SoccerTwos)
-![Leaderboard](assets/128_ai-vs-ai/leaderboard.png)
+![Leaderboard](assets/128_aivsai/leaderboard.png)
 
 We also [created a discord channel called ai-vs-ai-competition](http://hf.co/discord/join) so that people can exchange with others and share advice.
 
