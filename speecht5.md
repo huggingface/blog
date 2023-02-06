@@ -1,27 +1,14 @@
 ---
 title: "Speech Synthesis, Recognition, and More With SpeechT5"
 thumbnail: /blog/assets/speecht5/thumbnail.png
+authors:
+- user: Matthijs
 ---
 
 # Speech Synthesis, Recognition, and More With SpeechT5
 
-<div class="blog-metadata">
-    <small>Published TODO.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/speecht5.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="https://hf.co/Matthijs">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/346853?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>Matthijs</code>
-            <span class="fullname">Matthijs Hollemans</span>
-        </div>
-    </a>
-</div>
-
+{blog_metadata}
+{authors}
 
 We’re happy to announce that SpeechT5 is now available in 🤗 Transformers, an open-source library that offers easy-to-use implementations of state-of-the-art machine learning models.
 
@@ -71,7 +58,7 @@ SpeechT5 is the **first text-to-speech model** we’ve added to 🤗 Transformer
 
 For the TTS task, the model uses the following pre-nets and post-nets:
 
-- **Text encoder pre-net.** This is a simple network that uses an embedding layer to map text tokens to the hidden representations that the encoder expects.
+- **Text encoder pre-net.** This is a simple network that uses an embedding layer to map text tokens to the hidden representations that the encoder expects. Similar to what happens in an NLP model such as BERT.
 
 - **Speech decoder pre-net.** This takes as input a log mel spectrogram and uses a sequence of linear layers to compress the spectrogram into hidden representations. This design is taken from Tacotron 2.
 
