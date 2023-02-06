@@ -61,6 +61,8 @@ To run this matchmaking process continuously, we use **free Hugging Face Spaces 
 
 The Spaces is also used to fetch the ELO ratings of each models that have already been played and, from it display [a leaderboard](https://huggingface.co/spaces/huggingface-projects/AIvsAI-SoccerTwos) **from which everyone can check the progress of the models**.
 
+![Leaderboard](assets/128_aivsai/leaderboard.png)
+
 The process generally uses several Hugging Face Datasets to provide data persistence (here, matches history and model ratings).
 
 Since the process also saves the matches' history, it is possible to see precisely the results of any given model. This can, for instance, allow you to check why your model struggles with another one, most notably using another demo Space to visualize matches such as https://huggingface.co/spaces/unity/ML-Agents-SoccerTwos.
