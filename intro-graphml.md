@@ -1,26 +1,14 @@
 ---
 title: "Introduction to Graph Machine Learning" 
 thumbnail: /blog/assets/125_intro-to-graphml/thumbnail.png
+authors:
+- user: clefourrier
 ---
 
 # Introduction to Graph Machine Learning
 
-<div class="blog-metadata">
-    <small>Published January 3, 2023.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/intro-graphml.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/clefourrier"> 
-        <img class="avatar avatar-user" src="https://s3.amazonaws.com/moonup/production/uploads/1644340617257-noauth.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>clefourrier</code>
-            <span class="fullname">Clémentine Fourrier</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 In this blog post, we cover the basics of graph machine learning. 
 

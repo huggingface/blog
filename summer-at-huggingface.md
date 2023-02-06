@@ -2,26 +2,14 @@
 title: "Summer at Hugging Face"
 thumbnail: /blog/assets/27_summer_at_huggingface/summer_intro.gif
 
+authors:
+- user: huggingface
 ---
 
 # Summer At Hugging Face 😎
 
-<div class="blog-metadata">
-    <small>Published September 24, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/summer-at-huggingface.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/huggingface">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1583856921041-5dd96eb166059660ed1ee413.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>huggingface</code>
-            <span class="fullname">Hugging Face</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 Summer is now officially over and these last few months have been quite busy at Hugging Face. From new features in the Hub to research and Open Source development, our team has been working hard to empower the community through open and collaborative technology. 
 

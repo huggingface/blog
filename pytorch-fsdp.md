@@ -1,33 +1,15 @@
 ---
 title: "Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel"
 thumbnail: /blog/assets/62_pytorch_fsdp/fsdp-thumbnail.png
+authors:
+- user: smangrul
+- user: sgugger
 ---
 
 <h1>Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel</h1>
 
-<div class="blog-metadata">
-    <small>Published May 2, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/pytorch-fsdp.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/smangrul">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1638132956881-5fca176d1d7a08cb34d79d5d.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>smangrul</code>
-            <span class="fullname">Sourab Mangrulkar</span>
-        </div>
-    </a>
-    <a href="/sgugger">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1593126474392-5ef50182b71947201082a4e5.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sgugger</code>
-            <span class="fullname">Sylvain Gugger</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 In this post we will look at how we can leverage **[Accelerate](https://github.com/huggingface/accelerate)** Library for training large models which enables users to leverage the latest features of **[PyTorch FullyShardedDataParallel (FSDP)](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/)**.
 

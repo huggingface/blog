@@ -1,47 +1,16 @@
 ---
 title: "Model Cards" 
 thumbnail: /blog/assets/121_model-cards/thumbnail.png
+authors:
+- user: Ezi
+- user: Marissa
+- user: Meg
 ---
 
 # Model Cards
 
-<div class="blog-metadata">
-    <small>Published December 21, 2022</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/model-cards.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/Ezi"> 
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/25269943?v=4" width=100 title="Gravatar">
-        <div class="bfc">
-            <code>Ezinwanne (Ezi) Ozoani</code>
-            <span class="fullname">Ezinwanne (Ezi) Ozoani</span>
-        </div>
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/Marissa"> 
-        <img class="avatar avatar-user" src="https://pbs.twimg.com/profile_images/1565196941792874497/6lHZyXRD_400x400.jpg" width=100 title="Gravatar">
-        <div class="bfc">
-            <code>Marissa Gerchick</code>
-            <span class="fullname">Marissa Gerchick</span>
-        </div>
-    </a>
-</div>
-
-
-<div class="author-card">
-    <a href="/Meg"> 
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/90473723" width=100 title="Gravatar">
-        <div class="bfc">
-            <code>Margaret Mitchell</code>
-            <span class="fullname">Margaret Mitchell</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ## Introduction
 Model cards are an important documentation framework for understanding, sharing, and improving machine learning models. When done well, a model card can serve as a _boundary object_, a single artefact that is accessible to people with different backgrounds and goals in understanding models - including developers, students, policymakers, ethicists, and those impacted by machine learning models.

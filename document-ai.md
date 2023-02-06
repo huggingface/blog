@@ -1,47 +1,17 @@
 ---
 title: "Accelerating Document AI" 
 thumbnail: /blog/assets/112_document-ai/thumbnail.png
+authors:
+- user: rajistics
+- user: nielsr
+- user: florentgbelidji
+- user: nbroad
 ---
 
 # Accelerating Document AI
 
-<div class="blog-metadata">
-    <small>Published November 21, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/document-ai.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/rajistics"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1652986473945-60f2e74cadf471cbdf8bb663.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>rajistics</code>
-            <span class="fullname">Rajiv Shah</span>
-        </div>
-    </a>
-    <a href="/nielsr"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1608042047613-5f1158120c833276f61f1a84.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>nielsr</code>
-            <span class="fullname">Niels Rogge</span>
-        </div>
-    </a>
-        <a href="/florentgbelidji"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1644853115901-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>florentgbelidji</code>
-            <span class="fullname">Florent Gbelidji</span>
-        </div>
-    </a>
-        <a href="/nbroad"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1639773384591-5f353bb37e58354338621655.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>nbroad</code>
-            <span class="fullname">Nicholas Broad</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 
 Enterprises are full of documents containing knowledge that isn't accessible by digital workflows. These documents can vary from letters, invoices, forms, reports, to receipts. With the improvements in text, vision, and multimodal AI, it's now possible to unlock that information. This post shows you how your teams can use open-source models to build custom solutions for free!

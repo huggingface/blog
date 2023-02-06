@@ -1239,7 +1239,7 @@
 
 - local: ethics-soc-1
   title: "Ethics and Society Newsletter #1"
-  author: meg-huggingface
+  author: meg
   thumbnail: /blog/assets/103_ethics-soc-1/thumbnail.png
   date: Sep 22, 2022
   tags:
@@ -1675,7 +1675,7 @@
 - local: optimum-onnxruntime-training
   title: "Optimum+ONNX Runtime - Easier, Faster training for your Hugging Face models"
   author: Jingya
-  thumbnail: blog/assets/optimum_onnxruntime-training/thumbnail.png
+  thumbnail: /blog/assets/optimum_onnxruntime-training/thumbnail.png
   date: January 24, 2023
   tags:
     - guide
@@ -1725,3 +1725,13 @@
     - community
     - guide
     - cv
+
+- local: vision_language_pretraining
+  title: "A Dive into Pretraining Strategies for Vision-Language Models"
+  author: adirik
+  thumbnail: /blog/assets/128_vision_language_pretraining/thumbnail.png
+  date: February 03, 2023
+  tags:
+    - cv
+    - guide
+    - multimodal

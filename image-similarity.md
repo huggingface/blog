@@ -1,28 +1,14 @@
 ---
 title: Image Similarity with Hugging Face Datasets and Transformers
 thumbnail: /blog/assets/image_similarity/thumbnail.png
+authors:
+- user: sayakpaul
 ---
 
-<h1>
-  Image Similarity with Hugging Face Datasets and Transformers
-</h1>
+# Image Similarity with Hugging Face Datasets and Transformers
 
-<div class="blog-metadata">
-    <small>Published January 16, 2023.</small> 
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/image-similarity.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="https://hf.co/sayakpaul">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/22957388?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>sayakpaul</code>
-            <span class="fullname">Sayak Paul</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/image_similarity.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

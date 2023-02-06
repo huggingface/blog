@@ -1,34 +1,16 @@
 ---
 title: "A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using transformers, accelerate and bitsandbytes"
 thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
+authors:
+- user: ybelkada
+- user: timdettmers
+  guest: true
 ---
 
 # A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using Hugging Face Transformers, Accelerate and bitsandbytes
 
-<div class="blog-metadata">
-    <small>Published August 18, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/hf-bitsandbytes-integration.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/ybelkada">
-        <img class="avatar avatar-user" src="/blog/assets/96_hf_bitsandbytes_integration/younes.png" title="Gravatar">
-        <div class="bfc">
-            <code>ybelkada</code>
-            <span class="fullname">Younes Belkada</span>
-        </div>
-    </a>
-    <a href="/timdettmers">
-        <img class="avatar avatar-user" src="/blog/assets/96_hf_bitsandbytes_integration/tim.jpeg" title="Gravatar">
-        <div class="bfc">
-            <code>timdettmers</code>
-            <span class="fullname">Tim Dettmers</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ![thumbnail](assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png)
 
@@ -62,13 +44,13 @@ Float32 (FP32) stands for the standardized IEEE 32-bit floating point representa
 In the float16 (FP16) data type, 5 bits are reserved for the exponent and 10 bits are reserved for the mantissa. This makes the representable range of FP16 numbers much lower than FP32. This exposes FP16 numbers to the risk of overflowing (trying to represent a number that is very large) and underflowing (representing a number that is very small).
 
 
-For example, if you do `10k * 10k` you end up with `100k` which is not possible to represent in FP16, as the largest number possible is `64k`. And thus you'd end up with `NaN` (Not a Number) result and if you have sequential computation like in neural networks, all the prior work is destroyed.
+For example, if you do `10k * 10k` you end up with `100M` which is not possible to represent in FP16, as the largest number possible is `64k`. And thus you'd end up with `NaN` (Not a Number) result and if you have sequential computation like in neural networks, all the prior work is destroyed.
 Usually, loss scaling is used to overcome this issue, but it doesn't always work well.
 
 A new format, bfloat16 (BF16), was created to avoid these constraints. In BF16, 8 bits are reserved for the exponent (which is the same as in FP32) and 7 bits are reserved for the fraction.
 
 
-This means that in BF16 we can retain the same dynamic range as FP32. But we lose 3 bits of precision. Now there is absolutely no problem with huge numbers, but the precision is worse than FP16 here.
+This means that in BF16 we can retain the same dynamic range as FP32. But we lose 3 bits of precision with respect to FP16. Now there is absolutely no problem with huge numbers, but the precision is worse than FP16 here.
 
 In the Ampere architecture, NVIDIA also introduced [TensorFloat-32](https://blogs.nvidia.com/blog/2020/05/14/tensorfloat-32-precision-format/) (TF32) precision format, combining the dynamic range of BF16 and precision of FP16 to only use 19 bits. It's currently only used internally during certain operations.
 

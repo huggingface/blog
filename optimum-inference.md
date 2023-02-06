@@ -1,28 +1,14 @@
 ---
 title: 'Accelerated Inference with Optimum and Transformers Pipelines'
 thumbnail: /blog/assets/66_optimum_inference/thumbnail.png
+authors:
+- user: philschmid
 ---
 
-<h1>
-   Accelerated Inference with Optimum and Transformers Pipelines
-</h1>
+# Accelerated Inference with Optimum and Transformers Pipelines
 
-<div class="blog-metadata">
-    <small>Published May 10, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/optimum-inference.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/philschmid">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1613142338662-5ff5d596f244529b3ec0fb89.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>philschmid</code>
-            <span class="fullname">Philipp Schmid</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 > Inference has landed in Optimum with support for Hugging Face Transformers pipelines, including text-generation using ONNX Runtime.
 

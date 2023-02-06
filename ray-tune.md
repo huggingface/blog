@@ -1,29 +1,15 @@
 ---
 title: Hyperparameter Search with Transformers and Ray Tune
 thumbnail: /blog/assets/06_ray_tune/ray-hf.jpg
+authors:
+- user: ray-project
+  guest: true
 ---
 
-<h1>
-    Hyperparameter Search with Transformers and Ray Tune
-</h1>
+# Hyperparameter Search with Transformers and Ray Tune
 
-<div class="blog-metadata">
-    <small>Published Nov 2, 2020.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ray-tune.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/ray-project">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1603836776822-5f989a3b777efc07d7f1e290.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>ray-project</code>
-            <span class="fullname">Ray Project (Anyscale)</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ##### A guest blog post by Richard Liaw from the Anyscale team
 

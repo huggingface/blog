@@ -1,30 +1,15 @@
 ---
 title: "Large Language Models: A New Moore's Law?"
 thumbnail: /blog/assets/33_large_language_models/01_model_size.jpg
+authors:
+- user: juliensimon
 ---
 
-<h1>
-Large Language Models: A New Moore's Law?
-</h1>
+# Large Language Models: A New Moore's Law?
 
 
-<div class="blog-metadata">
-    <small>Published October 26, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/juliensimon/blog/blob/main/large-language-models.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="https://twitter.com/julsimon">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1633343465505-noauth.jpeg?w=128&h=128&f=face" title="Julien Simon">
-        <div class="bfc">
-            <code>juliensimon</code>
-            <span class=fullname">Julien Simon</span>
-            <span class="bg-gray-100 rounded px-1 text-gray-600 text-sm font-mono">Opinion piece</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 A few days ago, Microsoft and NVIDIA [introduced](https://www.microsoft.com/en-us/research/blog/using-deepspeed-and-megatron-to-train-megatron-turing-nlg-530b-the-worlds-largest-and-most-powerful-generative-language-model/) Megatron-Turing NLG 530B, a Transformer-based model hailed as "*the world’s largest and most powerful generative language model*."
  

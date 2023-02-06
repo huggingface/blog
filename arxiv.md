@@ -1,40 +1,16 @@
 ---
 title: "Hugging Face Machine Learning Demos on arXiv" 
 thumbnail: /blog/assets/arxiv/thumbnail.png
+authors:
+- user: abidlabs
+- user: osanseviero
+- user: pcuenq
 ---
 
 # Hugging Face Machine Learning Demos on arXiv
 
-<div class="blog-metadata">
-    <small>Published November 17, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/arxiv-integration.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/abidlabs"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1621947938344-noauth.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>abidlabs</code>
-            <span class="fullname">abidlabs</span>
-        </div>
-    </a>
-   <a href="/osanseviero">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1622621035602-6032802e1f993496bc14d9e3.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>osanseviero</code>
-            <span class="fullname">Omar Sanseviero</span>
-        </div>
-    </a>
-	 <a href="/pcuenq">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/1177582?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>pcuenq</code>
-            <span class="fullname">Pedro Cuenca</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 We’re very excited to announce that Hugging Face has collaborated with arXiv to make papers more accessible, discoverable, and fun! Starting today, [Hugging Face Spaces](https://huggingface.co/spaces) is integrated with arXivLabs through a Demo tab that includes links to demos created by the community or the authors themselves. By going to the Demos tab of your favorite paper, you can find links to open-source demos and try them out immediately 🔥
 

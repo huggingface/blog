@@ -12,9 +12,7 @@ thumbnail: /blog/assets/78_ml_director_insights/part4.png
 </style>
 <h1>Director of Machine Learning Insights [Part 4]</h1>
 
-<div class="blog-metadata">
-    <small>Published November 23, 2022.</small>
-</div>
+<!-- {blog_metadata} -->
 </head>
 <body>
 

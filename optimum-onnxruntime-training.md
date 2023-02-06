@@ -1,58 +1,22 @@
 ---
 title: "Optimum+ONNX Runtime - Easier, Faster training for your Hugging Face models"
 thumbnail: /blog/assets/optimum_onnxruntime-training/thumbnail.png
+authors:
+- user: Jingya
+- user: kshama-msft
+  guest: true
+- user: askhade
+  guest: true
+- user: weicwang
+  guest: true
+- user: zhijiang
+  guest: true
 ---
 
 # Optimum + ONNX Runtime: Easier, Faster training for your Hugging Face models
 
-<div class="blog-metadata">
-    <small>Published January 24, 2023.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/optimum-onnxruntime-training.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/Jingya">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1674053112022-61a50668cd3eb3043f38e445.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>Jingya</code>
-            <span class="fullname">Jingya Huang</span>
-        </div>
-    </a>
-    <a href="/kshama-msft">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1674177750989-63c9ec74b047b9b12a1f0877.jpeg?w=200&h=200&f=face" title="Gravatar" width="200">
-        <div class="bfc">
-            <code>kshama-msft</code>
-            <span class="fullname">Kshama Pawar</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-    <a href="/askhade">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1674173849155-63c9d0f15fdc575773c7f248.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>askhade</code>
-            <span class="fullname">Ashwini Khade</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-    <a href="/weicwang">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1674173795005-6360b60cddb991671390e5d8.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>weicwang</code>
-            <span class="fullname">Vincent Wang</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-    <a href="/zhijiang">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1674173425997-63c9d6eabedad7e2bf1a92ff.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>zhijiang</code>
-            <span class="fullname">Zhijiang Xu</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ## Introduction
 

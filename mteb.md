@@ -1,27 +1,15 @@
 ---
 title: "MTEB: Massive Text Embedding Benchmark" 
 thumbnail: /blog/assets/110_mteb/thumbnail.png
+authors:
+- user: Muennighoff
 ---
 
 
 <h1>MTEB: Massive Text Embedding Benchmark</h1>
 
-<div class="blog-metadata">
-    <small>Published October 19, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/mteb.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/Muennighoff">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1659799717718-5f1eb362eec0ad2a071ad6e2.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>Muennighoff</code>
-            <span class="fullname">Niklas Muennighoff</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 
 MTEB is a massive benchmark for measuring the performance of text embedding models on diverse embedding tasks.

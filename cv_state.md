@@ -1,28 +1,14 @@
 ---
 title: The State of Computer Vision at Hugging Face 🤗
 thumbnail: /blog/assets/cv_state/thumbnail.png
+authors:
+- user: sayakpaul
 ---
 
-<h1>
-  The State of Computer Vision at Hugging Face 🤗
-</h1>
+# The State of Computer Vision at Hugging Face 🤗
 
-<div class="blog-metadata">
-    <small>Published January 30, 2023.</small> 
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/cv_state.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="https://hf.co/sayakpaul">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/22957388?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>sayakpaul</code>
-            <span class="fullname">Sayak Paul</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 At Hugging Face, we pride ourselves on democratizing the field of artificial intelligence together with the community. As a part of that mission, we began focusing our efforts on computer vision over the last year. What started as a [PR for having Vision Transformers (ViT) in 🤗 Transformers](https://github.com/huggingface/transformers/pull/10950) has now grown into something much bigger – 8 core vision tasks, over 3000 models, and over 100 datasets on the Hugging Face Hub.
 

@@ -1,26 +1,14 @@
 ---
 title: "Perceiver IO: a scalable, fully-attentional model that works on any modality"
 thumbnail: /blog/assets/41_perceiver/thumbnail.png
+authors:
+- user: nielsr
 ---
 
 <h1>Perceiver IO: a scalable, fully-attentional model that works on any modality</h1>
 
-<div class="blog-metadata">
-    <small>Published December 15, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/perceiver.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/nielsr">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/48327001?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>nielsr</code>
-            <span class="fullname">Niels Rogge</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ### TLDR
 

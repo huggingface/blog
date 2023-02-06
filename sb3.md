@@ -1,28 +1,14 @@
 ---
 title: 'Welcome Stable-baselines3 to the Hugging Face Hub 🤗'
 thumbnail: /blog/assets/47_sb3/thumbnail.png
+authors:
+- user: ThomasSimonini
 ---
 
-<h1>
-    Welcome Stable-baselines3 to the Hugging Face Hub 🤗
-</h1>
+# Welcome Stable-baselines3 to the Hugging Face Hub 🤗
 
-<div class="blog-metadata">
-    <small>Published January 21, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/sb3.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/ThomasSimonini"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1632748593235-60cae820b1c79a3e4b436664.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>ThomasSimonini</code>
-            <span class="fullname">Thomas Simonini</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 At Hugging Face, we are contributing to the ecosystem for Deep Reinforcement Learning researchers and enthusiasts. That’s why we’re happy to announce that we integrated [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3) to the Hugging Face Hub.
 

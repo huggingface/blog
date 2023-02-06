@@ -1,29 +1,15 @@
 ---
 title: Guiding Text Generation with Constrained Beam Search in 🤗 Transformers
 thumbnail: /blog/assets/53_constrained_beam_search/thumbnail.png
+authors:
+- user: cwkeam
+  guest: true
 ---
 
-<h1>
-	Guiding Text Generation with Constrained Beam Search in 🤗 Transformers
-</h1>
+# Guiding Text Generation with Constrained Beam Search in 🤗 Transformers
 
-<div class="blog-metadata">
-    <small>Published March 11, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/constrained-beam-search.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/cwkeam">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8522953?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>cwkeam</code>
-            <span class="fullname">Chan Woo Kim</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/53_constrained_beam_search.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

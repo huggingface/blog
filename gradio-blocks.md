@@ -1,26 +1,14 @@
 ---
 title: "Gradio 3.0 is Out!"
 thumbnail: /blog/assets/68_gradio_blocks/block-party.png
+authors:
+- user: abidlabs
 ---
 
 <h1>Gradio 3.0 is Out!</h1>
 
-<div class="blog-metadata">
-    <small>Published May 16, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/gradio-blocks.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/abidlabs">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/1778297?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>abidlabs</code>
-            <span class="fullname">Abubakar Abid, Gradio team lead</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ### Machine Learning Demos 
 
