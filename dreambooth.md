@@ -4,7 +4,7 @@ thumbnail: /blog/assets/sd_dreambooth_training/thumbnail.jpg
 authors:
 - user: valhalla
 - user: pcuenq
-- user: NineOfNein
+- user: 9of9
   guest: true
 ---
 
