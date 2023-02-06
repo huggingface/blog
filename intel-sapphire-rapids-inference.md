@@ -1,6 +1,6 @@
 ---
 title: "Accelerating PyTorch Transformers with Intel Sapphire Rapids - part 2"
-thumbnail: /blog/assets/128_intel_sapphire_rapids_inference/01.png
+thumbnail: /blog/assets/129_intel_sapphire_rapids_inference/01.png
 ---
 
 <h1>
@@ -8,7 +8,7 @@ Accelerating PyTorch Transformers with Intel Sapphire Rapids, part 2</h1>
 
 
 <div class="blog-metadata">
-    <small>Published February 2nd, 2023.</small>
+    <small>Published February 6, 2023.</small>
     <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/juliensimon/blog/blob/main/intel-sapphire-rapids.md">
         Update on GitHub
     </a>
@@ -159,7 +159,7 @@ On the r7iz (Sapphire Rapids) instance, we use both a vanilla pipeline and an Op
 For the sake of brevity, we'll just look at the p99 results for [distilbert-base-uncased](https://huggingface.co/distilbert-base-uncased). You'll find all the other results at the end of the post. 
 
 <kbd>
-  <img src="assets/128_intel_sapphire_rapids_inference/01.png">
+  <img src="assets/129_intel_sapphire_rapids_inference/01.png">
 </kbd>
 
 As you can see in the graph above, single predictions run **60-65%** faster compared to the previous generation of Xeon CPUs. In other words, thanks to the combination of Intel Sapphire Rapids and Hugging Face Optimum, you can accelerate your predictions 3x with only tiny changes to your code.
@@ -185,7 +185,7 @@ Thanks for reading!
 
 
 <kbd>
-  <img src="assets/128_intel_sapphire_rapids_inference/02.png">
+  <img src="assets/129_intel_sapphire_rapids_inference/02.png">
 </kbd>
 
 *Ubuntu 22.04 with libtcmalloc, Linux 5.15.0 patched for Intel AMX support, PyTorch 1.13 with Intel Extension for PyTorch, Transformers 4.25.1, Optimum 1.6.1, Optimum Intel 1.7.0.dev0*

@@ -1735,3 +1735,13 @@
     - cv
     - guide
     - multimodal
+
+- local: intel-sapphire-rapids-inference
+  title: "Accelerating PyTorch Transformers with Intel Sapphire Rapids, part 2"
+  author: juliensimon
+  thumbnail: /blog/assets/129_intel_sapphire_rapids_inference/01.png
+  date: February 6, 2023
+  tags:
+    - guide
+    - intel
+    - hardware
