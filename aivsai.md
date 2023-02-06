@@ -24,7 +24,7 @@ In addition to being a useful tool for hosting multi-agent competitions, we thin
 
 Let’s see how it works with our first competition host: SoccerTwos Challenge.
 
-![SoccerTwos example](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128__aivsai/soccertwos.gif)
+![SoccerTwos example](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/soccertwos.gif)
 
 ## How does AI vs. AI works?
 
