@@ -108,7 +108,7 @@ Citation: If you found this useful for your academic work, please consider citin
 BibTeX citation:
 
 ```
-@article{cochet-simonini2023ift,
+@article{cochet-simonini2023,
   author = {Cochet, Carl and Simonini, Thomas},
   title = {Introducing AI vs. AI a deep reinforcement learning multi-agents competition system},
   journal = {Hugging Face Blog},
