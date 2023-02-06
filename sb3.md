@@ -103,7 +103,7 @@ model.save("ppo-CartPole-v1")
 ## filename: the name of the file == "name" inside model.save("ppo-CartPole-v1")
 push_to_hub(
     repo_id="ThomasSimonini/demo-hf-CartPole-v1",
-    filename="ppo-CartPole-v1",
+    filename="ppo-CartPole-v1.zip",
     commit_message="Added Cartpole-v1 model trained with PPO",
 )
 ``````
