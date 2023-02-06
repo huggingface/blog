@@ -12,7 +12,7 @@ authors:
 
 We’re happy to announce that SpeechT5 is now available in 🤗 Transformers, an open-source library that offers easy-to-use implementations of state-of-the-art machine learning models.
 
-SpeechT5 was originally described in the paper [SpeechT5: Unified-Modal Encoder-Decoder Pre-Training for Spoken Language Processing](https://arxiv.org/abs/2110.07205) by Microsoft Research Asia. Our checkpoints use the [original weights](https://github.com/microsoft/SpeechT5) published by the paper's authors.
+SpeechT5 was originally described in the paper [SpeechT5: Unified-Modal Encoder-Decoder Pre-Training for Spoken Language Processing](https://arxiv.org/abs/2110.07205) by Microsoft Research Asia. Our checkpoints use the [original weights](https://github.com/microsoft/SpeechT5) published by the paper’s authors.
 
 ## Introduction
 
@@ -24,9 +24,9 @@ It can do:
 - **text-to-speech** to synthesize audio, and
 - **speech-to-speech** for converting between different voices or performing speech enhancement.
 
-Inspired by [T5](https://huggingface.co/docs/transformers/model_doc/t5), an NLP model that was pre-trained by treating all text processing problems as sequence-to-sequence tasks, SpeechT5 pre-trains a single model on a mixture of text-to-speech, speech-to-text, text-to-text, and speech-to-speech data.
+Inspired by [T5](https://huggingface.co/docs/transformers/model_doc/t5), an NLP model that was pre-trained by treating all text processing problems as sequence-to-sequence tasks, SpeechT5 pre-trains a single seq2seq model on a mixture of text-to-speech, speech-to-text, text-to-text, and speech-to-speech data.
 
-This way, the model learns from text and speech at the same time. The result of this pre-training approach is a model that has learned a **unified space** of hidden representations that is shared by both text and speech data.
+This way, the model learns from text and speech at the same time. The result of this pre-training approach is a model that has constructed a **unified space** of hidden representations that is shared by both text and speech data.
 
 <!-- SpeechT5 extends the idea behind [T5](https://huggingface.co/docs/transformers/model_doc/t5) to speech. T5 is an NLP model that was pre-trained by treating all text processing problems as sequence-to-sequence tasks. This makes it very straightforward to fine-tune the same model for a diverse set of tasks, simply by choosing a different dataset.
 
@@ -40,7 +40,7 @@ At the heart of SpeechT5 is a regular **Transformer encoder-decoder** model. Jus
 
 To make it possible for the same Transformer to deal with both text and speech data, so-called **pre-nets** and **post-nets** were added. It is the job of the pre-net to convert the input text or speech into the hidden representations used by the Transformer. The post-net takes the outputs from the Transformer and turns them into text or speech again.
 
-A figure illustrating SpeechT5's architecture is depicted below (taken from the [original paper](https://arxiv.org/abs/2110.07205)).
+A figure illustrating SpeechT5’s architecture is depicted below (taken from the [original paper](https://arxiv.org/abs/2110.07205)).
 
 <div align="center">
     <img alt="SpeechT5 architecture diagram" src="assets/speecht5/architecture.jpg"/>
@@ -50,7 +50,7 @@ The pre-nets and post-nets are specific to the data, meaning the pre-net for spe
 
 During pre-training, all of the pre-nets and post-nets are used simultaneously. Fine-tuned models, however, only use the pre-nets and post-nets that are specific to the given task. For example, to use SpeechT5 for speech synthesis, you’d swap in the text encoder pre-net, the speech decoder pre-net, and the speech decoder post-net.
 
-After pre-training, the entire encoder-decoder backbone is fine-tuned on a single task. Even though the fine-tuned models start out using the same set of weights from the shared pre-trained model, the final versions are all quite different in the end. You can’t take a fine-tuned ASR model and swap out the pre-nets and post-nets to get a working TTS model, for example. SpeechT5 is flexible, but not *that* flexible.
+After pre-training, the entire encoder-decoder backbone is fine-tuned on a single task. Even though the fine-tuned models start out using the same set of weights from the shared pre-trained model, the final versions are all quite different in the end. You can’t take a fine-tuned ASR model and swap out the pre-nets and post-net to get a working TTS model, for example. SpeechT5 is flexible, but not *that* flexible.
 
 ## Text-to-speech for speech synthesis
 
@@ -60,7 +60,7 @@ For the TTS task, the model uses the following pre-nets and post-nets:
 
 - **Text encoder pre-net.** This is a simple network that uses an embedding layer to map text tokens to the hidden representations that the encoder expects. Similar to what happens in an NLP model such as BERT.
 
-- **Speech decoder pre-net.** This takes as input a log mel spectrogram and uses a sequence of linear layers to compress the spectrogram into hidden representations. This design is taken from Tacotron 2.
+- **Speech decoder pre-net.** This takes as input a log mel spectrogram and uses a sequence of linear layers to compress the spectrogram into hidden representations. This design is taken from the Tacotron 2 TTS model.
 
 - **Speech decoder post-net.** This predicts a residual to add to the output spectrogram and is used to refine the results, also from Tacotron 2.
 
@@ -76,7 +76,7 @@ In a way, the SpeechT5 TTS model combines the [BART](https://huggingface.co/docs
 
 Here is a complete example of how to use the SpeechT5 text-to-speech model to synthesize new speech.
 
-First we load the [trained model](https://huggingface.co/microsoft/speecht5_tts) from the hub, along with the processor object that is used for tokenization and feature extraction. The class we'll use is `SpeechT5ForTextToSpeech`.
+First we load the [trained model](https://huggingface.co/microsoft/speecht5_tts) from the hub, along with the processor object that is used for tokenization and feature extraction. The class we’ll use is `SpeechT5ForTextToSpeech`.
 
 ```python
 from transformers import SpeechT5Processor, SpeechT5ForTextToSpeech
@@ -194,7 +194,7 @@ speaker_embeddings = np.load("cmu_us_slt_arctic-wav-arctic_a0508.npy")
 speaker_embeddings = torch.tensor(speaker_embeddings).unsqueeze(0)
 ```
 
-We also need to load the vocoder to turn the generated spectrograms into an audio waveform. We’ll use the same vocoder as with the TTS model.
+We also need to load the vocoder to turn the generated spectrograms into an audio waveform. Let’s use the same vocoder as with the TTS model.
 
 ```python
 from transformers import SpeechT5HifiGan
@@ -226,9 +226,9 @@ The converted voice ([download](TODO/speech_converted.wav)):
 Your browser does not support the audio element.
 </audio>
 
-Note that the converted audio in this example cuts off before the end of the sentence. This might be due to the pause between the two sentences that causes SpeechT5 to (wrongly) predict that the end of the sequence has been reached. Try it with another example, you’ll find that often the conversion is correct but sometimes it stops prematurely.
+Note that the converted audio in this example cuts off before the end of the sentence. This might be due to the pause between the two sentences, causing SpeechT5 to (wrongly) predict that the end of the sequence has been reached. Try it with another example, you’ll find that often the conversion is correct but sometimes it stops prematurely.
 
-You can play with an [interactive demo here](https://huggingface.co/spaces/Matthijs/speecht5-vc-demo).
+You can play with an [interactive demo here](https://huggingface.co/spaces/Matthijs/speecht5-vc-demo). 🔥
 
 ## Speech-to-text for automatic speech recognition
 
@@ -236,7 +236,7 @@ The ASR model uses the following pre-nets and post-net:
 
 - **Speech encoder pre-net.** This is the same pre-net as was used by the speech-to-speech model, and consists of the CNN feature encoder layers from wav2vec 2.0.
 
-- **Text decoder pre-net.** Similar to the encoder pre-net used by the TTS model, this maps text tokens into the hidden representations using an embedding layer. (During pre-training, these embeddings are shared between the encoder and decoder pre-nets.)
+- **Text decoder pre-net.** Similar to the encoder pre-net used by the TTS model, this maps text tokens into the hidden representations using an embedding layer. (During pre-training, these embeddings are shared between the text encoder and decoder pre-nets.)
 
 - **Text decoder post-net.** This is the simplest of them all and consists of a single linear layer that projects the hidden representations to probabilities over the vocabulary.
 
@@ -303,6 +303,6 @@ Play with an interactive demo for the [speech-to-text task](https://huggingface.
 
 ## Conclusion
 
-SpeechT5 is an interesting model because, unlike most other models, it allows you to perform multiple tasks with the same architecture. Only the pre-nets and post-nets change. By pre-training the model on these combined tasks, it becomes more capable at doing each of the individual tasks when fine-tuned.
+SpeechT5 is an interesting model because — unlike most other models — it allows you to perform multiple tasks with the same architecture. Only the pre-nets and post-nets change. By pre-training the model on these combined tasks, it becomes more capable at doing each of the individual tasks when fine-tuned.
 
 We have only included checkpoints for the speech recognition (ASR), speech synthesis (TTS), and voice conversion tasks but the paper also mentions the model was successfully used for speech translation, speech enhancement, and speaker identification. It’s very versatile!
