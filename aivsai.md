@@ -8,7 +8,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-![Thumbnail](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128__aivsai/thumbnail.png)
+![Thumbnail](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/thumbnail.png)
 
 We’re excited to introduce a new tool we created: **⚔️ AI vs. AI ⚔️, a deep reinforcement learning multi-agents competition system**.
 
@@ -46,7 +46,7 @@ If you want to learn more about ELO and see some calculation example, we wrote a
 
 Using this rating, it is possible **to generate matches between models with comparable strengths automatically**. There are several ways you can go about creating a matchmaking system, but here we decided to keep it fairly simple while guaranteeing a minimum amount of diversity in the matchups and also keeping most matches with fairly close opposing ratings.
 
-![AI vs AI Process](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128__aivsai/aivsai.png)
+![AI vs AI Process](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/aivsai.png)
 
 Here's how works the algorithm:
 1. Gather all the available models on the Hub. New models get a starting rating of 1200, while others keep the rating they have gained/lost through their previous matches.
