@@ -1,6 +1,6 @@
 ---
 title: "Introducing ⚔️ AI vs. AI ⚔️ a deep reinforcement learning multi-agents competition system"
-thumbnail: /blog/assets/128_aivsai/thumbnail.png
+thumbnail: /blog/https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/thumbnail.png
 authors:
 - user: CarlCochet
 - user: ThomasSimonini
@@ -8,7 +8,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-![Thumbnail](assets/128_aivsai/thumbnail.png)
+![Thumbnail](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128__aivsai/thumbnail.png)
 
 We’re excited to introduce a new tool we created: **⚔️ AI vs. AI ⚔️, a deep reinforcement learning multi-agents competition system**.
 
@@ -24,7 +24,7 @@ In addition to being a useful tool for hosting multi-agent competitions, we thin
 
 Let’s see how it works with our first competition host: SoccerTwos Challenge.
 
-![SoccerTwos example](assets/128_aivsai/soccertwos.gif)
+![SoccerTwos example](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128__aivsai/soccertwos.gif)
 
 ## How does AI vs. AI works?
 
@@ -46,7 +46,7 @@ If you want to learn more about ELO and see some calculation example, we wrote a
 
 Using this rating, it is possible **to generate matches between models with comparable strengths automatically**. There are several ways you can go about creating a matchmaking system, but here we decided to keep it fairly simple while guaranteeing a minimum amount of diversity in the matchups and also keeping most matches with fairly close opposing ratings.
 
-![AI vs AI Process](assets/128_aivsai/aivsai.png)
+![AI vs AI Process](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128__aivsai/aivsai.png)
 
 Here's how works the algorithm:
 1. Gather all the available models on the Hub. New models get a starting rating of 1200, while others keep the rating they have gained/lost through their previous matches.
@@ -61,7 +61,7 @@ To run this matchmaking process continuously, we use **free Hugging Face Spaces 
 
 The Spaces is also used to fetch the ELO ratings of each models that have already been played and, from it display [a leaderboard](https://huggingface.co/spaces/huggingface-projects/AIvsAI-SoccerTwos) **from which everyone can check the progress of the models**.
 
-![Leaderboard](assets/128_aivsai/leaderboard.png)
+![Leaderboard](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/leaderboard.png)
 
 The process generally uses several Hugging Face Datasets to provide data persistence (here, matches history and model ratings).
 
@@ -82,12 +82,12 @@ In this Unit, readers learned the basics of multi-agent reinforcement learning (
 
 The environment used was made by the [Unity ML-Agents team](https://github.com/Unity-Technologies/ml-agents). The goal is simple: your team needs to score a goal: to do that, they need to beat the opponent team and collaborate with their teammate.
 
-![SoccerTwos example](assets/128_aivsai/soccertwos.gif)
+![SoccerTwos example](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/soccertwos.gif)
 
 In addition to the leaderboard, we created a Space demo where people can choose two teams and visualize them playing 👉[https://huggingface.co/spaces/unity/SoccerTwos](https://huggingface.co/spaces/unity/SoccerTwos)
 
 This experimentation is going well since we already have 48 models on the [leaderboard](https://huggingface.co/spaces/huggingface-projects/AIvsAI-SoccerTwos)
-![Leaderboard](assets/128_aivsai/leaderboard.png)
+![Leaderboard](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/leaderboard.png)
 
 We also [created a discord channel called ai-vs-ai-competition](http://hf.co/discord/join) so that people can exchange with others and share advice.
 
