@@ -19,9 +19,7 @@ authors:
 4. 2D Assets
 5. Story
 
-Want the quick video version? You can watch it [here](https://www.tiktok.com/@individualkex/video/7190364745495678254). Otherwise, if you want the technical details, keep reading!
-
-<!-- TODO: Update video link -->
+Want the quick video version? You can watch it [here](https://www.tiktok.com/@individualkex/video/7197505390353960235). Otherwise, if you want the technical details, keep reading!
 
 **Note:** This post makes several references to [Part 2](https://huggingface.co/blog/ml-for-games-2), where we used ChatGPT for Game Design. Read Part 2 for additional context on how ChatGPT works, including a brief overview of language models and their limitations.
 
