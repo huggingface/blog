@@ -45,7 +45,7 @@ To make it possible for the same Transformer to deal with both text and speech d
 A figure illustrating SpeechT5’s architecture is depicted below (taken from the [original paper](https://arxiv.org/abs/2110.07205)).
 
 <div align="center">
-    <img alt="SpeechT5 architecture diagram" src="assets/speecht5/architecture.jpg"/>
+    <img alt="SpeechT5 architecture diagram" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/architecture.jpg"/>
 </div>
 
 The pre-nets and post-nets are specific to the data, meaning the pre-net for speech is different from the pre-net for text, and likewise the post-net for speech is different from the post-net for text. You can think of them as adapters that embed a particular type of data into the unified representation space.  In addition, the pre-nets for the encoder are different from those for the decoder.
@@ -69,7 +69,7 @@ For the TTS task, the model uses the following pre-nets and post-nets:
 The architecture of the fine-tuned model looks like the following.
 
 <div align="center">
-    <img alt="SpeechT5 architecture for text-to-speech" src="assets/speecht5/tts.jpg"/>
+    <img alt="SpeechT5 architecture for text-to-speech" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/tts.jpg"/>
 </div>
 
 <!--
@@ -102,7 +102,7 @@ speaker_embeddings = np.load("cmu_us_slt_arctic-wav-arctic_a0508.npy")
 speaker_embeddings = torch.tensor(speaker_embeddings).unsqueeze(0)
 ```
 
-The speaker embedding is a tensor of shape (1, 512). If you want to follow along with this example, you can [download the speaker embedding file](TODO/cmu_us_slt_arctic-wav-arctic_a0508.npy). It describes a female voice. For a male voice, [download this embedding](TODO/cmu_us_bdl_arctic-wav-arctic_a0009.npy). These particular embeddings were obtained from the [CMU ARCTIC](http://www.festvox.org/cmu_arctic/) dataset using [this script](https://huggingface.co/mechanicalsea/speecht5-vc/blob/main/manifest/utils/prep_cmu_arctic_spkemb.py), but any X-Vector embedding should work.
+The speaker embedding is a tensor of shape (1, 512). If you want to follow along with this example, you can [download the speaker embedding file](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/cmu_us_slt_arctic-wav-arctic_a0508.npy). It describes a female voice. For a male voice, [download this embedding](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/cmu_us_bdl_arctic-wav-arctic_a0009.npy). These particular embeddings were obtained from the [CMU ARCTIC](http://www.festvox.org/cmu_arctic/) dataset using [this script](https://huggingface.co/mechanicalsea/speecht5-vc/blob/main/manifest/utils/prep_cmu_arctic_spkemb.py), but any X-Vector embedding should work.
 
 Now we can tell the model to generate the speech, given the input tokens and the speaker embedding.
 
@@ -141,10 +141,10 @@ import soundfile as sf
 sf.write("tts_example.wav", speech.numpy(), samplerate=16000)
 ```
 
-The output sounds like this ([download audio](TODO/tts_example.wav)):
+The output sounds like this ([download audio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/tts_example.wav)):
 
 <audio controls>
-  <source src="assets/speecht5/tts_example.wav" type="audio/wav">
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/tts_example.wav" type="audio/wav">
 Your browser does not support the audio element.
 </audio>
 
@@ -157,7 +157,7 @@ You can play with an [interactive demo](https://huggingface.co/spaces/Matthijs/s
 Conceptually, doing speech-to-speech modeling with SpeechT5 is the same as text-to-speech. Simply swap out the text encoder pre-net for the speech encoder pre-net. The rest of the model stays the same.
 
 <div align="center">
-    <img alt="SpeechT5 architecture for speech-to-speech" src="assets/speecht5/s2s.jpg"/>
+    <img alt="SpeechT5 architecture for speech-to-speech" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/s2s.jpg"/>
 </div>
 
 The **speech encoder pre-net** is the same as the feature encoding module from [wav2vec 2.0](https://huggingface.co/docs/transformers/model_doc/wav2vec2). It consists of convolution layers that downsample the input waveform into a sequence of audio frame representations.
@@ -214,17 +214,17 @@ sf.write("speech_converted.wav", speech.numpy(), samplerate=16000)
 
 Changing to a different voice is as easy as loading a new speaker embedding. You could even make an embedding from your own voice!
 
-The original input ([download](TODO/speech_original.wav)):
+The original input ([download](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/speech_original.wav)):
 
 <audio controls>
-  <source src="assets/speecht5/speech_original.wav" type="audio/wav">
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/speech_original.wav" type="audio/wav">
 Your browser does not support the audio element.
 </audio>
 
-The converted voice ([download](TODO/speech_converted.wav)):
+The converted voice ([download](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/speech_converted.wav)):
 
 <audio controls>
-  <source src="assets/speecht5/speech_converted.wav" type="audio/wav">
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/speech_converted.wav" type="audio/wav">
 Your browser does not support the audio element.
 </audio>
 
@@ -245,7 +245,7 @@ The ASR model uses the following pre-nets and post-net:
 The architecture of the fine-tuned model looks like the following.
 
 <div align="center">
-    <img alt="SpeechT5 architecture for speech-to-text" src="assets/speecht5/asr.jpg"/>
+    <img alt="SpeechT5 architecture for speech-to-text" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/asr.jpg"/>
 </div>
 
 If you’ve tried any of the other 🤗 Transformers speech recognition models before, you’ll find SpeechT5 just as easy to use. The quickest way to get started is by using a pipeline.
