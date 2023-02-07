@@ -76,7 +76,7 @@ I'm happy with this result. So, should I use it directly? Maybe. Since this is a
 Some potential unintended ramifications of using outputs directly are as follows:
 - <u>Legal:</u> The legal landscape surrounding Generative AI is currently very unclear, with several ongoing lawsuits.
 - <u>Ethical:</u> Language models can produce plagiarized or biased outputs. For more information, check out the [Ethics and Society Newsletter](https://huggingface.co/blog/ethics-soc-2).
-- <u>Commercial:</u> [Some](https://www.searchenginejournal.com/google-says-ai-generated-content-is-against-guidelines/444916/) sources have stated that AI-generated content may be deprioritized by search engines. This [may not](https://seo.ai/blog/google-is-not-against-ai-content) be the case for most non-spam content, but is worth considering. Tools such as [AI Content Detector](https://writer.com/ai-content-detector/) can be used to check whether content may be detected as AI-generated.
+- <u>Commercial:</u> [Some](https://www.searchenginejournal.com/google-says-ai-generated-content-is-against-guidelines/444916/) sources have stated that AI-generated content may be deprioritized by search engines. This [may not](https://seo.ai/blog/google-is-not-against-ai-content) be the case for most non-spam content, but is worth considering. Tools such as [AI Content Detector](https://writer.com/ai-content-detector/) can be used to check whether content may be detected as AI-generated. There is ongoing research on language model [watermarking](https://arxiv.org/abs/2301.10226) which may mark text as AI-generated.
 
 Given these limitations, the safest approach may be to use language models like ChatGPT for brainstorming, but write the final content by hand.
 
