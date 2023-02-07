@@ -64,10 +64,6 @@ The architecture of the fine-tuned model looks like the following.
     <img alt="SpeechT5 architecture for text-to-speech" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/tts.jpg"/>
 </div>
 
-<!--
-In a way, the SpeechT5 TTS model combines the [BART](https://huggingface.co/docs/transformers/model_doc/bart) encoder with a Tacotron2 decoder. However, as mentioned in the introduction, the Transformer layers were trained on all the tasks at once. When the model was fine-tuned for TTS, the other pre- and post-nets were removed from the pre-trained model, and the encoder-decoder was fine-tuned on a TTS dataset (in this case, LibriTTS).
--->
-
 Here is a complete example of how to use the SpeechT5 text-to-speech model to synthesize speech.
 
 First we load the [fine-tuned model](https://huggingface.co/microsoft/speecht5_tts) from the hub, along with the processor object that is used for tokenization and feature extraction. The class we’ll use is `SpeechT5ForTextToSpeech`.
