@@ -7,11 +7,9 @@ authors:
 
 <h1>Generating Stories: AI for Game Development #5</h1>
 
+<!-- {blog_metadata} -->
 <!-- {authors} -->
  
-</head>
-
-<body>
 
 **Welcome to AI for Game Development!** In this series, we'll be using AI tools to create a fully functional farming game in just 5 days. By the end of this series, you will have learned how you can incorporate a variety of AI tools into your game development workflow. I will show you how you can use AI tools for:
 
