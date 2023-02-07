@@ -95,6 +95,10 @@ We also [created a discord channel called ai-vs-ai-competition](http://hf.co/dis
 
 Since the tool we developed **is environment agnostic**, we want to host more challenges in the future with [PettingZoo](https://pettingzoo.farama.org/) and other multi-agents environments. If you have some environments or challenges you want to do, <a href="mailto:thomas.simonini@huggingface.co">don’t hesitate to reach us</a>.
 
+In the future, we will host multiple multi-agent competitions with this tool and environments we created, such as SnowballFight.
+
+![Snowballfight gif](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/snowballfight.gif)
+
 In addition to being a useful tool for hosting multi-agent competitions, we think that this tool can also be **a robust evaluation technique in multi-agent settings: by playing against a lot of policies, your agents are evaluated against a wide range of behaviors, and you’ll get a good idea of the quality of your policy.**
 
 The best way to keep in touch is to [join our discord server](http://hf.co/discord/join) to exchange with us and with the community.
