@@ -21,9 +21,7 @@ authors:
 4. 2D Assets
 5. Story
 
-Want the quick video version? You can watch it [here](https://www.tiktok.com/@individualkex/video/7190364745495678254). Otherwise, if you want the technical details, keep reading!
-
-<!-- TODO: Update video link -->
+Want the quick video version? You can watch it [here](https://www.tiktok.com/@individualkex/video/7192994527312137518). Otherwise, if you want the technical details, keep reading!
 
 **Note:** This tutorial is intended for readers who are familiar with Unity development and C#. If you're new to these technologies, check out the [Unity for Beginners](https://www.tiktok.com/@individualkex/video/7086863567412038954) series before continuing.
 
@@ -107,6 +105,4 @@ Generative services such as [layer.ai](https://layer.ai/) and [scenario.gg](http
 
 If you're interested in diving deeper into these advanced workflows, check out this [blog post](https://huggingface.co/blog/dreambooth) and [space](https://huggingface.co/spaces/multimodalart/dreambooth-training) on Dreambooth training.
 
-In the next part, we'll be using **AI for Story**.
-
-<!-- TODO: Add link to next part -->
+Click [here](https://huggingface.co/blog/ml-for-games-5) to read Part 5, where we use **AI for Story**.

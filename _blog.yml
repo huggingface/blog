@@ -1753,3 +1753,13 @@
   date: February 07, 2023
   tags:
     - rl
+
+- local: ml-for-games-5
+  title: "Generating Stories: AI for Game Development #5"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail5.png
+  date: February 8, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
