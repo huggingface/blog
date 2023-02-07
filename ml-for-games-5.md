@@ -53,7 +53,7 @@ This highlights the importance of using language models as a tool, rather than a
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/chatgpt2.png" alt="ChatGPT for Story #2">
 </div>
 
-This is already much better. I continue to refine the result, such as asking to remove elements of magic, since the game doesn't contain magic. After a few rounds of back-and-forth, I reach a description I'm happy with. Then, it's a matter of generating the actual content that tells this story.
+This is already much better. I continue to refine the result, such as asking to remove elements of magic since the game doesn't contain magic. After a few rounds of back-and-forth, I reach a description I'm happy with. Then, it's a matter of generating the actual content that tells this story.
 
 3. **Write the content.** Once I'm happy with the story summary, I ask ChatGPT to write the in-game story content. In the case of this farming game, the only written content is the description of the game, and the description of the items in the shop.
 
