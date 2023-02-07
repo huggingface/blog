@@ -85,16 +85,17 @@ Next, tokenize the input text.
 inputs = processor(text="Don't count the days, make the days count.", return_tensors="pt")
 ```
 
-The SpeechT5 TTS model is not limited to creating speech for a single speaker. Instead, it uses so-called **speaker embeddings** that capture the characteristics of a particular speaker’s voice. We’ll load such a speaker embedding from a file.
+The SpeechT5 TTS model is not limited to creating speech for a single speaker. Instead, it uses so-called **speaker embeddings** that capture the characteristics of a particular speaker’s voice. We’ll load such a speaker embedding from a dataset on the 🤗 Hub.
 
 ```python
-import numpy as np
+from datasets import load_dataset
+embeddings_dataset = load_dataset("Matthijs/cmu-arctic-xvectors", split="validation")
+
 import torch
-speaker_embeddings = np.load("cmu_us_slt_arctic-wav-arctic_a0508.npy")
-speaker_embeddings = torch.tensor(speaker_embeddings).unsqueeze(0)
+speaker_embeddings = torch.tensor(embeddings_dataset[7306]["xvector"]).unsqueeze(0)
 ```
 
-The speaker embedding is a tensor of shape (1, 512). If you want to follow along with this example, you can [download the speaker embedding file](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/cmu_us_slt_arctic-wav-arctic_a0508.npy). It describes a female voice. For a male voice, [download this embedding](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/cmu_us_bdl_arctic-wav-arctic_a0009.npy). These particular embeddings were obtained from the [CMU ARCTIC](http://www.festvox.org/cmu_arctic/) dataset using [this script](https://huggingface.co/mechanicalsea/speecht5-vc/blob/main/manifest/utils/prep_cmu_arctic_spkemb.py), but any X-Vector embedding should work.
+The speaker embedding is a tensor of shape (1, 512). This particular speaker embedding describes a female voice. The embeddings were obtained from the [CMU ARCTIC](http://www.festvox.org/cmu_arctic/) dataset using [this script](https://huggingface.co/mechanicalsea/speecht5-vc/blob/main/manifest/utils/prep_cmu_arctic_spkemb.py), but any X-Vector embedding should work.
 
 Now we can tell the model to generate the speech, given the input tokens and the speaker embedding.
 
@@ -182,10 +183,9 @@ inputs = processor(audio=example["audio"]["array"], sampling_rate=sampling_rate,
 As with the TTS model, we’ll need speaker embeddings. These describe what the target voice sounds like.
 
 ```python
-import numpy as np
 import torch
-speaker_embeddings = np.load("cmu_us_slt_arctic-wav-arctic_a0508.npy")
-speaker_embeddings = torch.tensor(speaker_embeddings).unsqueeze(0)
+embeddings_dataset = load_dataset("Matthijs/cmu-arctic-xvectors", split="validation")
+speaker_embeddings = torch.tensor(embeddings_dataset[7306]["xvector"]).unsqueeze(0)
 ```
 
 We also need to load the vocoder to turn the generated spectrograms into an audio waveform. Let’s use the same vocoder as with the TTS model.
