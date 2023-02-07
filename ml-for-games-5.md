@@ -43,9 +43,11 @@ In this final part, we'll be using AI for Story. First, I'll walk through my [pr
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/chatgpt1.png" alt="ChatGPT for Story #1">
 </div>
 
-ChatGPT then responds with a story summary that is extremely similar to the story of the game [Stardew Valley](https://www.stardewvalley.net/). This highlights the importance of using language models as a tool, rather than as a replacement for human creativity. In this case, relying solely on ChatGPT would result in a very unoriginal story.
+ChatGPT then responds with a story summary that is extremely similar to the story of the game [Stardew Valley](https://www.stardewvalley.net/). 
 
 > :warning: **Limitation:** Language models are susceptible to reproducing existing stories.
+
+This highlights the importance of using language models as a tool, rather than as a replacement for human creativity. In this case, relying solely on ChatGPT would result in a very unoriginal story.
 
 2. **Refine the results.** As with Image2Image in [Part 4](https://huggingface.co/blog/ml-for-games-4), the real power of these tools comes from back-and-forth collaboration. So, I ask ChatGPT directly to be more original.
 
@@ -73,6 +75,7 @@ I'm happy with this result. So, should I use it directly? Maybe. Since this is a
 
 > :warning: **Limitation:** Using outputs from language models directly may have unintended legal, ethical, and commercial ramifications.
 
+Some potential unintended ramifications of using outputs directly are as follows:
 - <u>Legal:</u> The legal landscape surrounding Generative AI is currently very unclear, with several ongoing lawsuits.
 - <u>Ethical:</u> Language models can produce plagiarized or biased outputs. For more information, check out the [Ethics and Society Newsletter](https://huggingface.co/blog/ethics-soc-2).
 - <u>Commercial:</u> [Some](https://www.searchenginejournal.com/google-says-ai-generated-content-is-against-guidelines/444916/) sources have stated that AI-generated content may be deprioritized by search engines. This [may not](https://seo.ai/blog/google-is-not-against-ai-content) be the case for most non-spam content, but is worth considering. Tools such as [AI Content Detector](https://writer.com/ai-content-detector/) can be used to check whether content may be detected as AI-generated.
