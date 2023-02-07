@@ -8,7 +8,9 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-![Thumbnail](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/thumbnail.png)
+<div align="center"> 
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/thumbnail.png" alt="Thumbnail"> 
+</div>
 
 We’re excited to introduce a new tool we created: **⚔️ AI vs. AI ⚔️, a deep reinforcement learning multi-agents competition system**.
 
@@ -24,7 +26,9 @@ In addition to being a useful tool for hosting multi-agent competitions, we thin
 
 Let’s see how it works with our first competition host: SoccerTwos Challenge.
 
-![SoccerTwos example](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/soccertwos.gif)
+<div align="center"> 
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/soccertwos.gif" alt="SoccerTwos example"> 
+</div>
 
 ## How does AI vs. AI works?
 
@@ -46,7 +50,9 @@ If you want to learn more about ELO and see some calculation example, we wrote a
 
 Using this rating, it is possible **to generate matches between models with comparable strengths automatically**. There are several ways you can go about creating a matchmaking system, but here we decided to keep it fairly simple while guaranteeing a minimum amount of diversity in the matchups and also keeping most matches with fairly close opposing ratings.
 
-![AI vs AI Process](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/aivsai.png)
+<div align="center"> 
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/aivsai.png" alt="AI vs AI Process"> 
+</div>
 
 Here's how works the algorithm:
 1. Gather all the available models on the Hub. New models get a starting rating of 1200, while others keep the rating they have gained/lost through their previous matches.
@@ -61,7 +67,9 @@ To run this matchmaking process continuously, we use **free Hugging Face Spaces 
 
 The Spaces is also used to fetch the ELO ratings of each models that have already been played and, from it display [a leaderboard](https://huggingface.co/spaces/huggingface-projects/AIvsAI-SoccerTwos) **from which everyone can check the progress of the models**.
 
-![Leaderboard](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/leaderboard.png)
+<div align="center"> 
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/leaderboard.png" alt="Leaderboard"> 
+</div>
 
 The process generally uses several Hugging Face Datasets to provide data persistence (here, matches history and model ratings).
 
@@ -82,7 +90,9 @@ In this Unit, readers learned the basics of multi-agent reinforcement learning (
 
 The environment used was made by the [Unity ML-Agents team](https://github.com/Unity-Technologies/ml-agents). The goal is simple: your team needs to score a goal. To do that, they need to beat the opponent's team and collaborate with their teammate.
 
-![SoccerTwos example](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/soccertwos.gif)
+<div align="center"> 
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/soccertwos.gif" alt="SoccerTwos example"> 
+</div>
 
 In addition to the leaderboard, we created a Space demo where people can choose two teams and visualize them playing 👉[https://huggingface.co/spaces/unity/SoccerTwos](https://huggingface.co/spaces/unity/SoccerTwos)
 
@@ -97,7 +107,10 @@ Since the tool we developed **is environment agnostic**, we want to host more ch
 
 In the future, we will host multiple multi-agent competitions with this tool and environments we created, such as SnowballFight.
 
-![Snowballfight gif](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/snowballfight.gif)
+<div align="center"> 
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/snowballfight.gif" alt="Snowballfight gif"> 
+</div>
+
 
 In addition to being a useful tool for hosting multi-agent competitions, we think that this tool can also be **a robust evaluation technique in multi-agent settings: by playing against a lot of policies, your agents are evaluated against a wide range of behaviors, and you’ll get a good idea of the quality of your policy.**
 
