@@ -16,9 +16,9 @@ SpeechT5 was originally described in the paper [SpeechT5: Unified-Modal Encoder-
 
 If you want to jump right in, here are some demos on 🤗 Spaces:
 
-- [Automatic Speech Recognition](https://huggingface.co/spaces/Matthijs/speecht5-asr-demo)
-- [Speech Synthesis](https://huggingface.co/spaces/Matthijs/speecht5-tts-demo)
+- [Speech Synthesis (TTS)](https://huggingface.co/spaces/Matthijs/speecht5-tts-demo)
 - [Voice Conversion](https://huggingface.co/spaces/Matthijs/speecht5-vc-demo)
+- [Automatic Speech Recognition](https://huggingface.co/spaces/Matthijs/speecht5-asr-demo)
 
 ## Introduction
 
@@ -30,13 +30,7 @@ It can do:
 - **text-to-speech** to synthesize audio, and
 - **speech-to-speech** for converting between different voices or performing speech enhancement.
 
-Inspired by [T5](https://huggingface.co/docs/transformers/model_doc/t5), an NLP model that was pre-trained by treating all text processing problems as sequence-to-sequence tasks, SpeechT5 pre-trains a single seq2seq model on a mixture of text-to-speech, speech-to-text, text-to-text, and speech-to-speech data.
-
-This way, the model learns from text and speech at the same time. The result of this pre-training approach is a model that has a **unified space** of hidden representations shared by both text and speech data.
-
-The same pre-trained model can then be fine-tuned for many different tasks, such as automatic speech recognition, text-to-speech synthesis, voice conversion, speech translation, speech enhancement, and speaker identification. We’ll demonstrate some of these tasks in this blog post.
-
-## The architecture
+The main idea behind SpeechT5 is to pre-train a single model on a mixture of text-to-speech, speech-to-text, text-to-text, and speech-to-speech data. This way, the model learns from text and speech at the same time. The result of this pre-training approach is a model that has a **unified space** of hidden representations shared by both text and speech.
 
 At the heart of SpeechT5 is a regular **Transformer encoder-decoder** model. Just like any other Transformer, the encoder-decoder network models a sequence-to-sequence transformation using hidden representations. This Transformer backbone is the same for all SpeechT5 tasks.
 
@@ -48,11 +42,9 @@ A figure illustrating SpeechT5’s architecture is depicted below (taken from th
     <img alt="SpeechT5 architecture diagram" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/architecture.jpg"/>
 </div>
 
-The pre-nets and post-nets are specific to the data, meaning the pre-net for speech is different from the pre-net for text, and likewise the post-net for speech is different from the post-net for text. You can think of them as adapters that embed a particular type of data into the unified representation space.  In addition, the pre-nets for the encoder are different from those for the decoder.
+During pre-training, all of the pre-nets and post-nets are used simultaneously. After pre-training, the entire encoder-decoder backbone is fine-tuned on a single task. Such a fine-tuned model only use the pre-nets and post-nets that are specific to the given task. For example, to use SpeechT5 for text-to-speech, you’d swap in the text encoder pre-net for the text inputs, and the speech decoder pre and post-nets for the speech outputs.
 
-During pre-training, all of the pre-nets and post-nets are used simultaneously. Fine-tuned models, however, only use the pre-nets and post-nets that are specific to the given task. For example, to use SpeechT5 for text-to-speech, you’d swap in the text encoder pre-net for the text inputs, and the speech decoder pre and post-nets for the speech outputs.
-
-After pre-training, the entire encoder-decoder backbone is fine-tuned on a single task. Even though the fine-tuned models start out using the same set of weights from the shared pre-trained model, the final versions are all quite different in the end. You can’t take a fine-tuned ASR model and swap out the pre-nets and post-net to get a working TTS model, for example. SpeechT5 is flexible, but not *that* flexible.
+Note: Even though the fine-tuned models start out using the same set of weights from the shared pre-trained model, the final versions are all quite different in the end. You can’t take a fine-tuned ASR model and swap out the pre-nets and post-net to get a working TTS model, for example. SpeechT5 is flexible, but not *that* flexible.
 
 ## Text-to-speech
 
