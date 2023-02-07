@@ -109,7 +109,7 @@ While many prevalent contenders are closed-source, there are also open-source di
 
 Just as the open-source release of Stable Diffusion has rapidly risen to a wide variety of innovations that have inspired this series, the open-source community will be key to exciting language-centric applications in game development that are yet to be seen. To keep up with these developments, feel free to follow me on [Twitter](https://twitter.com/dylan_ebert_). In the meantime, let's discuss some of these potential developments.
 
-#### In Game Development
+#### In-Game Development
 
 **NPCs:** Aside from the clear uses of language models and dialog agents in the game development workflow, there is an exciting in-game potential for this technology that has not yet been realized. The most clear case of this is AI-powered NPCs. There are already startups built around the idea. Personally, I don't quite see how language models, as they currently are, can be applied to create compelling NPCs. However, I definitely don't think it's far off. I'll let you know.
 
