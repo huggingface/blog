@@ -91,7 +91,7 @@ For my simple farming game, this may be an effective approach to producing all t
 > :warning: **Limitation:** Language models are susceptible to repetition.
 
 To wrap up this section, here are some tips from my own experience that may help with using AI for Story:
-- **Ask for outlines.** As mentioned, quality may deteriorite with long-form content. Developing high-level story outlines tends to work much better.
+- **Ask for outlines.** As mentioned, quality may deteriorate with long-form content. Developing high-level story outlines tends to work much better.
 - **Brainstorm small ideas.** Use language models to help flesh out ideas that don't require the full story context. For example, describe a character and use the AI to help brainstorm details about that character.
 - **Refine content.** Write your actual story content, and ask for suggestions on ways to improve that content. Even if you don't use the result, it may give you ideas on how to improve the content.
 
