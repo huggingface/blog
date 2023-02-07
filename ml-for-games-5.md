@@ -123,4 +123,4 @@ Want to play the final farming game? Check it out [here](https://individualkex.i
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/game.png" alt="Final Farming Game">
 </div>
 
-Thank you for reading the AI for Game Development series! This series is only the beginning of AI for Game Development at Hugging Face, with more to come. Have questions? Want to get more involved? Join the [Hugging Face Discord](https://t.co/1n75wi976V?amp=1)!
+Thank you for reading the AI for Game Development series! This series is only the beginning of AI for Game Development at Hugging Face, with more to come. Have questions? Want to get more involved? Join the [Hugging Face Discord](https://hf.co/join/discord)!
