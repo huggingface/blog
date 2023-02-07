@@ -107,7 +107,7 @@ There are many other models which are not yet publicly accessible. Check out [th
 
 While many prevalent contenders are closed-source, there are also open-source dialog agent efforts, such as [LAION's OpenAssistant](https://github.com/LAION-AI/Open-Assistant), reported efforts from [CarperAI](https://carper.ai), and the open source release of [Google's FLAN-T5 XXL](https://huggingface.co/google/flan-t5-xxl). These can be combined with open-source tools like [LangChain](https://github.com/hwchase17/langchain), which allow language model inputs and outputs to be chained, helping to work toward open dialog agents.
 
-Just as the open source release of Stable Diffusion has given rapid rise to a wide variety of innovations that have inspired this series, the open source community will be key to exciting language-centric applications in game development that are yet to be seen. To keep up with these developments, feel free to follow me on [Twitter](https://twitter.com/dylan_ebert_). In the meantime, let's talk about what some of these potential developments are.
+Just as the open-source release of Stable Diffusion has rapidly risen to a wide variety of innovations that have inspired this series, the open-source community will be key to exciting language-centric applications in game development that are yet to be seen. To keep up with these developments, feel free to follow me on [Twitter](https://twitter.com/dylan_ebert_). In the meantime, let's discuss some of these potential developments.
 
 #### In Game Development
 
