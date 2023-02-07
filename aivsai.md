@@ -5,6 +5,8 @@ authors:
 - user: CarlCochet
 - user: ThomasSimonini
 ---
+
+# Introducing ⚔️ AI vs. AI ⚔️ a deep reinforcement learning multi-agents competition system 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
