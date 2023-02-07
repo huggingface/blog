@@ -1735,7 +1735,7 @@
     - cv
     - guide
     - multimodal
-
+    
 - local: intel-sapphire-rapids-inference
   title: "Accelerating PyTorch Transformers with Intel Sapphire Rapids, part 2"
   author: juliensimon
@@ -1745,3 +1745,11 @@
     - guide
     - intel
     - hardware
+    
+- local: aivsai
+  title: "Introducing ⚔️ AI vs. AI ⚔️ a deep reinforcement learning multi-agents competition system"
+  author: CarlCochet
+  thumbnail: /blog/assets/128_aivsai/thumbnail.png
+  date: February 07, 2023
+  tags:
+    - rl
