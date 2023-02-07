@@ -34,7 +34,7 @@ Let’s see how it works with our first competition host: SoccerTwos Challenge.
 
 AI vs. AI is an open-source tool developed at Hugging Face **to rank the strength of reinforcement learning models in a multi-agent setting**.
 
-The idea is to get a **relative measure of skill rather than an objective one** by making the models play against each other continuously and use the matches results to assess their performance compared to all the other models and consequently get a view of the quality of their policy without requiring specific metrics.
+The idea is to get a **relative measure of skill rather than an objective one** by making the models play against each other continuously and use the matches results to assess their performance compared to all the other models and consequently get a view of the quality of their policy without requiring classic metrics.
 
 The more agents are submitted for a given task or environment, **the more representative the rating becomes**.
 
