@@ -65,4 +65,4 @@ model.save_to_hf_hub(repo_id="<my_org_name>/<my_repo_name>")
 
 ## Conclusion
 
-PaddlePaddle is an open source Deep Learning platform that originated from industrial practice and has been open-sourcing innovative and industry-grade projects since 2016. We are excited to join the Hub to share our work with the HuggingFace community and you can expect more fun and State-of-the-Art projects from us soon! To stay up to date with the latest news, you can follow us on Twitter at [@PaddlePaddle_](https://twitter.com/PaddlePaddle_).
+PaddlePaddle is an open source Deep Learning platform that originated from industrial practice and has been open-sourcing innovative and industry-grade projects since 2016. We are excited to join the Hub to share our work with the HuggingFace community and you can expect more fun and State-of-the-Art projects from us soon! To stay up to date with the latest news, you can follow us on Twitter at [@PaddlePaddle](https://twitter.com/PaddlePaddle).
