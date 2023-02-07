@@ -103,7 +103,11 @@ Despite the limitations I've discussed, dialog agents are an incredibly useful t
 
 My [process](#process) focused on how ChatGPT can be used for story. However, ChatGPT isn't the only solution available. [Character.AI](https://beta.character.ai/) provides access to dialog agents that are customized to characters with different personalities, including an [agent](https://beta.character.ai/chat?char=9ZSDyg3OuPbFgDqGwy3RpsXqJblE4S1fKA_oU3yvfTM) that is specialized for creative writing.
 
-There are many other models which are not yet publicly accessible. Check out [this](https://huggingface.co/blog/dialog-agents) recent blog post on dialog agents, including a comparison with other existing models such as [Google's LaMDA](https://arxiv.org/abs/2201.08239) and [Bard](https://blog.google/technology/ai/bard-google-ai-search-updates/), [Meta's BlenderBot](https://arxiv.org/abs/2208.03188), [DeepMind's Sparrow](https://arxiv.org/abs/2209.14375), and [Anthropic's Assistant](https://arxiv.org/abs/2204.05862). It remains to be seen how these models will compete and play out in the near future.
+There are many other models which are not yet publicly accessible. Check out [this](https://huggingface.co/blog/dialog-agents) recent blog post on dialog agents, including a comparison with other existing models. These include: 
+- [Google's LaMDA](https://arxiv.org/abs/2201.08239) and [Bard](https://blog.google/technology/ai/bard-google-ai-search-updates/)
+- [Meta's BlenderBot](https://arxiv.org/abs/2208.03188)
+- [DeepMind's Sparrow](https://arxiv.org/abs/2209.14375) 
+- [Anthropic's Assistant](https://arxiv.org/abs/2204.05862).
 
 While many prevalent contenders are closed-source, there are also open-source dialog agent efforts, such as [LAION's OpenAssistant](https://github.com/LAION-AI/Open-Assistant), reported efforts from [CarperAI](https://carper.ai), and the open source release of [Google's FLAN-T5 XXL](https://huggingface.co/google/flan-t5-xxl). These can be combined with open-source tools like [LangChain](https://github.com/hwchase17/langchain), which allow language model inputs and outputs to be chained, helping to work toward open dialog agents.
 
