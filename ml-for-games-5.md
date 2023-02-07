@@ -121,9 +121,7 @@ Just as the open-source release of Stable Diffusion has rapidly risen to a wide 
 
 ### Conclusion
 
-Want to play the final farming game? Check it out [here](https://individualkex.itch.io/).
-
-<!-- TODO: Update link to game in spaces -->
+Want to play the final farming game? Check it out [here](https://huggingface.co/spaces/dylanebert/FarmingGame) or on [itch.io](https://individualkex.itch.io/farming-game).
 
 <div align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/game.png" alt="Final Farming Game">
