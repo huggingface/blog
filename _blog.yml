@@ -1767,8 +1767,8 @@
 - local: speecht5
   title: "Speech Synthesis, Recognition, and More With SpeechT5"
   author: Matthijs
-  thumbnail: /blog/assets/speecht5/speecht5.png
-  date: TODO
+  thumbnail: /blog/assets/speecht5/thumbnail.png
+  date: February 8, 2023
   tags:
     - guide
     - audio
