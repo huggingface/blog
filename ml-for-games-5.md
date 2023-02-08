@@ -27,7 +27,7 @@ Want the quick video version? You can watch it [here](https://www.tiktok.com/@in
 
 In [Part 4](https://huggingface.co/blog/ml-for-games-4) of this tutorial series, we talked about how you can use Stable Diffusion and Image2Image as a tool in your 2D Asset workflow.
 
-In this final part, we'll be using AI for Story. First, I'll walk through my [process](#process) for the farming game, calling attention to :warning: **Limitations** to watch out for. Then, I'll talk about relevant technologies and [where we're headed](#where-were-headed) in the context of game development. Finally, I'll [conclude](#conclusion) with the final game.
+In this final part, we'll be using AI for Story. First, I'll walk through my [process](#process) for the farming game, calling attention to ⚠️ **Limitations** to watch out for. Then, I'll talk about relevant technologies and [where we're headed](#where-were-headed) in the context of game development. Finally, I'll [conclude](#conclusion) with the final game.
 
 ### Process
 
@@ -41,7 +41,7 @@ In this final part, we'll be using AI for Story. First, I'll walk through my [pr
 
 ChatGPT then responds with a story summary that is extremely similar to the story of the game [Stardew Valley](https://www.stardewvalley.net/). 
 
-> :warning: **Limitation:** Language models are susceptible to reproducing existing stories.
+> ⚠️ **Limitation:** Language models are susceptible to reproducing existing stories.
 
 This highlights the importance of using language models as a tool, rather than as a replacement for human creativity. In this case, relying solely on ChatGPT would result in a very unoriginal story.
 
@@ -69,7 +69,7 @@ Not bad. However, there is definitely no help from experienced farmers in the ga
 
 I'm happy with this result. So, should I use it directly? Maybe. Since this is a free game being developed for an AI tutorial, probably. However, it may not be straightforward for commercial products, having potential unintended legal, ethical, and commercial ramifications.
 
-> :warning: **Limitation:** Using outputs from language models directly may have unintended legal, ethical, and commercial ramifications.
+> ⚠️ **Limitation:** Using outputs from language models directly may have unintended legal, ethical, and commercial ramifications.
 
 Some potential unintended ramifications of using outputs directly are as follows:
 - <u>Legal:</u> The legal landscape surrounding Generative AI is currently very unclear, with several ongoing lawsuits.
@@ -86,7 +86,7 @@ Given these limitations, the safest approach may be to use language models like 
 
 For my simple farming game, this may be an effective approach to producing all the story content for the game. However, this may quickly run into scaling limitations. ChatGPT isn't well-suited to very long cohesive storytelling. Even after generating a few item descriptions for the farming game, the results begin to drift in quality and fall into repetition.
 
-> :warning: **Limitation:** Language models are susceptible to repetition.
+> ⚠️ **Limitation:** Language models are susceptible to repetition.
 
 To wrap up this section, here are some tips from my own experience that may help with using AI for Story:
 - **Ask for outlines.** As mentioned, quality may deteriorate with long-form content. Developing high-level story outlines tends to work much better.
