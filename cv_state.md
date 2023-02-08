@@ -73,10 +73,10 @@ The interface remains the same even for tasks like visual question-answering:
 from transformers import pipeline
 
 oracle = pipeline(model="dandelin/vilt-b32-finetuned-vqa")
-image_url = "https://huggingface.co/datasets/Narsil/image_dummy/raw/main/lena.png"
+image_url = "https://huggingface.co/datasets/mishig/sample_images/resolve/main/tiger.jpg"
 
-oracle(question="What is she wearing?", image=image_url, top_k=1)
-# [{'score': 0.948, 'answer': 'hat'}]
+oracle(question="What's the animal doing?", image=image_url, top_k=1)
+# [{'score': 0.778620, 'answer': 'laying down'}]
 ```
 
 ## Training your own models
