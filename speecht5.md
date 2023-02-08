@@ -64,7 +64,14 @@ The architecture of the fine-tuned model looks like the following.
     <img alt="SpeechT5 architecture for text-to-speech" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/speecht5/tts.jpg"/>
 </div>
 
-Here is a complete example of how to use the SpeechT5 text-to-speech model to synthesize speech.
+Here is a complete example of how to use the SpeechT5 text-to-speech model to synthesize speech. You can also follow along in [this interactive Colab notebook](https://colab.research.google.com/drive/1XnOnCsmEmA3lHmzlNRNxRMcu80YZQzYf?usp=sharing).
+
+SpeechT5 is not available in the latest release of Transformers yet, so you'll have to install it from GitHub. Also install the additional dependency sentencepiece and then restart your runtime.
+
+```python
+pip install git+https://github.com/huggingface/transformers.git
+pip install sentencepiece
+```
 
 First, we load the [fine-tuned model](https://huggingface.co/microsoft/speecht5_tts) from the Hub, along with the processor object used for tokenization and feature extraction. The class we’ll use is `SpeechT5ForTextToSpeech`.
 
@@ -81,7 +88,7 @@ Next, tokenize the input text.
 inputs = processor(text="Don't count the days, make the days count.", return_tensors="pt")
 ```
 
-The SpeechT5 TTS model is not limited to creating speech for a single speaker. Instead, it uses so-called **speaker embeddings** that capture the characteristics of a particular speaker’s voice. We’ll load such a speaker embedding from a dataset on the 🤗 Hub.
+The SpeechT5 TTS model is not limited to creating speech for a single speaker. Instead, it uses so-called **speaker embeddings** that capture a particular speaker’s voice characteristics. We’ll load such a speaker embedding from a dataset on the Hub.
 
 ```python
 from datasets import load_dataset
