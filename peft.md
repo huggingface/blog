@@ -11,6 +11,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
+
 # Motivation
 Large Language Models (LLMs) based on the transformer architecture, like GPT, T5, and BERT have achieved state-of-the-art results in various Natural Language Processing (NLP) tasks. They have also started foraying into other domains, such as Computer Vision (CV) (VIT, Stable Diffusion, LayoutLM) and Audio (Whisper, XLS-R). The conventional paradigm is large-scale pretraining on generic web-scale data, followed by fine-tuning to downstream tasks. Fine-tuning these pretrained LLMs on downstream datasets results in huge performance gains when compared to using the pretrained LLMs out-of-the-box (zero-shot inference, for example).
 
@@ -36,7 +37,7 @@ We explore many interesting use cases [here](https://github.com/huggingface/peft
 
 1. Using 🤗 PEFT LoRA for tuning `bigscience/T0_3B` model (3 Billion parameters) on consumer hardware with 11GB of RAM, such as Nvidia GeForce RTX 2080 Ti, Nvidia GeForce RTX 3080, etc using 🤗 Accelerate's DeepSpeed integration: [peft_lora_seq2seq_accelerate_ds_zero3_offload.py](https://github.com/huggingface/peft/blob/main/examples/conditional_generation/peft_lora_seq2seq_accelerate_ds_zero3_offload.py). This means you can tune such large LLMs in Google Colab.
 
-2. Taking the previous example a notch up by enabling INT8 tuning of the `OPT-6.7b` model (6.7 Billion parameters) in Colab using 🤗 PEFT LoRA and [bitsandbytes](https://github.com/TimDettmers/bitsandbytes): [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1jCkpikz0J2o20FBQmYmAGdiKmJGOMo-o?usp=sharing)
+2. Taking the previous example a notch up by enabling INT8 tuning of the `OPT-6.7b` model (6.7 Billion parameters) in Google Colab using 🤗 PEFT LoRA and [bitsandbytes](https://github.com/TimDettmers/bitsandbytes): [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1jCkpikz0J2o20FBQmYmAGdiKmJGOMo-o?usp=sharing)
 
 3. Stable Diffusion Dreambooth training using 🤗 PEFT on consumer hardware with 11GB of RAM, such as Nvidia GeForce RTX 2080 Ti, Nvidia GeForce RTX 3080, etc. Try out the Space demo, which should run seamlessly on a T4 instance (16GB GPU): [smangrul/peft-lora-sd-dreambooth](https://huggingface.co/spaces/smangrul/peft-lora-sd-dreambooth). 
 
