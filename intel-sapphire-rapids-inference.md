@@ -142,7 +142,7 @@ On the r7iz (Sapphire Rapids) instance, we use both a vanilla pipeline and an Op
 	    print(f"Optimum pipeline, long sentence array: {result}")
 ```
 
-For the sake of brevity, we'll just look at the p99 results for [distilbert-base-uncased](https://huggingface.co/distilbert-base-uncased). You'll find all the other results at the end of the post. 
+For the sake of brevity, we'll just look at the p99 results for [distilbert-base-uncased](https://huggingface.co/distilbert-base-uncased). All times are in milliseconds. You'll find full results at the end of the post. 
 
 <kbd>
   <img src="assets/129_intel_sapphire_rapids_inference/01.png">
