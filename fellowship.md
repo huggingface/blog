@@ -69,11 +69,11 @@ It depends on your interests. Here are some ideas of areas where you can contrib
 - Translate the [Hugging Face Course](https://github.com/huggingface/course#-languages-and-translations), the [Transformers documentation](https://github.com/huggingface/transformers/blob/main/docs/TRANSLATING.md) or the [Educational Toolkit](https://github.com/huggingface/education-toolkit/blob/main/TRANSLATING.md).
 - [Doc with specific projects](https://docs.google.com/document/d/11mh36a4fgBlj8sh3_KoP2TckuPcnD-_S_UAtsEWgs50/edit) where contributions would be valuable. The Hugging Face team will frequently update the doc with new projects.
 
-Please share in the #looking-for-contributors channel on the [Hugging Face Discord](hf.co/join/discord) if you want to work on a particular project.
+Please share in the #looking-for-contributors channel on the [Hugging Face Discord](https://hf.co/join/discord) if you want to work on a particular project.
 
 * **Will I be an employee of Hugging Face?**
   
-No, the Fellowship does not mean you are an employee of Hugging Face. However, feel free to mention in any forum, including LinkedIn, that you are a Hugging Face Fellow. Hugging Face is growing and this could be a good path for a bigger relationship in the future 😎. Check the [Hugging Face job board](hf.co/jobs) for updated opportunities. 
+No, the Fellowship does not mean you are an employee of Hugging Face. However, feel free to mention in any forum, including LinkedIn, that you are a Hugging Face Fellow. Hugging Face is growing and this could be a good path for a bigger relationship in the future 😎. Check the [Hugging Face job board](https://hf.co/jobs) for updated opportunities. 
 
 * **Will I receive benefits during the Fellowship?**
   
