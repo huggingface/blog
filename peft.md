@@ -23,7 +23,7 @@ It also helps in portability wherein users can tune models using PEFT methods to
 
 **In short, PEFT approaches enable you to get performance comparable to full fine-tuning while only having a small number of trainable parameters.**
 
-Today, we are excited to introduce the 🤗 PEFT library, which provides the latest Parameter-Efficient Fine-tuning techniques seamlessly integrated with 🤗 Transformers and 🤗 Accelerate. This enables using the most popular and performant models from 🤗 Transformers coupled with the simplicity and scalability of 🤗 Accelerate. Below are the currently supported PEFT methods, with more coming soon:
+Today, we are excited to introduce the [🤗 PEFT](https://github.com/huggingface/peft) library, which provides the latest Parameter-Efficient Fine-tuning techniques seamlessly integrated with 🤗 Transformers and 🤗 Accelerate. This enables using the most popular and performant models from 🤗 Transformers coupled with the simplicity and scalability of 🤗 Accelerate. Below are the currently supported PEFT methods, with more coming soon:
 
 1. LoRA: [LORA: LOW-RANK ADAPTATION OF LARGE LANGUAGE MODELS](https://arxiv.org/pdf/2106.09685.pdf)
 2. Prefix Tuning: [P-Tuning v2: Prompt Tuning Can Be Comparable to Fine-tuning Universally Across Scales and Tasks](https://arxiv.org/pdf/2110.07602.pdf)
@@ -37,7 +37,7 @@ We explore many interesting use cases [here](https://github.com/huggingface/peft
 1. Using 🤗 PEFT LoRA for tuning `bigscience/T0_3B` model (3 Billion parameters) on consumer hardware with 11GB of RAM, such as Nvidia GeForce RTX 2080 Ti, Nvidia GeForce RTX 3080, etc using 🤗 Accelerate's DeepSpeed integration: [peft_lora_seq2seq_accelerate_ds_zero3_offload.py](https://github.com/huggingface/peft/blob/main/examples/conditional_generation/peft_lora_seq2seq_accelerate_ds_zero3_offload.py). This means you can tune such large LLMs in Google Colab.
 
 2. Taking the previous example a notch up by enabling INT8 tuning of the `OPT-6.7b` model (6.7 Billion parameters) in Google Colab
-using 🤗 PEFT LoRA and [bitsandbytes](https://github.com/TimDettmers/bitsandbytes): [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1jCkpikz0J2o20FBQmYmAGdiKmJGOMo-o?usp=sharing). Here's a nice blog on INT8 computation for running transformer models at scale: [A Gentle Introduction to 8-bit Matrix Multiplication for transformers at scale using Hugging Face Transformers, Accelerate and bitsandbytes](https://huggingface.co/blog/hf-bitsandbytes-integration) 
+using 🤗 PEFT LoRA and [bitsandbytes](https://github.com/TimDettmers/bitsandbytes): [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1jCkpikz0J2o20FBQmYmAGdiKmJGOMo-o?usp=sharing).
 
 3. Stable Diffusion Dreambooth training using 🤗 PEFT on consumer hardware with 11GB of RAM, such as Nvidia GeForce RTX 2080 Ti, Nvidia GeForce RTX 3080, etc. Try out the Space demo, which should run seamlessly on a T4 instance (16GB GPU): [smangrul/peft-lora-sd-dreambooth](https://huggingface.co/spaces/smangrul/peft-lora-sd-dreambooth). 
 
