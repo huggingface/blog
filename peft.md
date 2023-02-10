@@ -24,7 +24,7 @@ It also helps in portability wherein users can tune models using PEFT methods to
 
 **In short, PEFT approaches enable you to get performance comparable to full fine-tuning while only having a small number of trainable parameters.**
 
-Today, we are excited to introduce the [🤗 PEFT](https://github.com/huggingface/peft) library, which provides the latest Parameter-Efficient Fine-tuning techniques seamlessly integrated with 🤗 Transformers and 🤗 Accelerate. This enables using the most popular and performant models from 🤗 Transformers coupled with the simplicity and scalability of 🤗 Accelerate. Below are the currently supported PEFT methods, with more coming soon:
+Today, we are excited to introduce the [🤗 PEFT](https://github.com/huggingface/peft) library, which provides the latest Parameter-Efficient Fine-tuning techniques seamlessly integrated with 🤗 Transformers and 🤗 Accelerate. This enables using the most popular and performant models from Transformers coupled with the simplicity and scalability of Accelerate. Below are the currently supported PEFT methods, with more coming soon:
 
 1. LoRA: [LORA: LOW-RANK ADAPTATION OF LARGE LANGUAGE MODELS](https://arxiv.org/pdf/2106.09685.pdf)
 2. Prefix Tuning: [P-Tuning v2: Prompt Tuning Can Be Comparable to Fine-tuning Universally Across Scales and Tasks](https://arxiv.org/pdf/2110.07602.pdf)
