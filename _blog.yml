@@ -1776,7 +1776,7 @@
 - local: peft
   title: "🤗 PEFT: Parameter-Efficient Fine-Tuning of Billion-Scale Models on Low-Resource Hardware"
   author: smangrul
-  thumbnail: blog/assets/130_peft/thumbnail.png
+  thumbnail: /blog/assets/130_peft/thumbnail.png
   date: February 10, 2023
   tags:
     - guide
