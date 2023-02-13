@@ -2,6 +2,12 @@
 # "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
 
+
+- name: How Witty Works leverages Hugging Face to scale inclusive language?
+  link: https://www.eventbrite.com/e/how-witty-works-leverages-hugging-face-to-scale-inclusive-language-tickets-503429429977
+  date: Feb 16, 2023
+  description: This webinar will teach you how Witty Works leverages Hugging Face for text classification use cases.
+
 - name: NLP with Transformers Reading Group
   link: https://discord.gg/fabCGvFq?event=1050810825335644243
   date: Dec 15, 2022
