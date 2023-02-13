@@ -163,7 +163,7 @@ Let’s see step by step how to deploy and use a BERT model for sentiment classi
 
 ### Step 1
 
-Create a SavedModel. To create a SavedModel, the Transformers library lets you load a PyTorch model called `nateraw/bert-base-uncased-imdb` trained on the IMBD dataset and convert it to a TensorFlow Keras model for you:
+Create a SavedModel. To create a SavedModel, the Transformers library lets you load a PyTorch model called `nateraw/bert-base-uncased-imdb` trained on the IMDB dataset and convert it to a TensorFlow Keras model for you:
 
 ```python
 from transformers import TFBertForSequenceClassification
