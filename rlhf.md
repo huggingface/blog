@@ -3,10 +3,10 @@ title: "Illustrating Reinforcement Learning from Human Feedback (RLHF)"
 thumbnail: /blog/assets/120_rlhf/thumbnail.png
 authors:
 - user: natolambert
+- user: LouisCastricato
+  guest: true
 - user: lvwerra
 - user: Dahoas
-  guest: true
-- user: LouisCastricato
   guest: true
 ---
 
