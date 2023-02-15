@@ -15,6 +15,20 @@ This guide introduces [BLIP-2](https://huggingface.co/docs/transformers/main/en/
 that enables a suite of state-of-the-art visual-language models that are now available in [🤗 Transformers](https://huggingface.co/transformers). 
 We'll show you how to use it for image captioning, prompted image captioning, visual question-answering, and chat-based prompting.
 
+## Table of contents
+
+1. [Introduction](#introduction)
+2. [What's under the hood in BLIP-2?](#whats-under-the-hood-in-blip-2)
+3. [Using BLIP-2 with Hugging Face Transformers](#using-blip-2-with-hugging-face-transformers)
+    1. [Image Captioning](#image-captioning)
+    2. [Prompted image captioning](#prompted-image-captioning)
+    3. [Visual question answering](#visual-question-answering)
+    4. [Chat-based prompting](#chat-based-prompting)
+4. [Conclusion](#conclusion)
+5. [Acknowledgments](#acknowledgments) 
+
+## Introduction
+
 Recent years have seen rapid advancements in computer vision and natural language processing. Still, many real-world 
 problems are inherently multimodal - they involve several distinct forms of data, such as images and text. 
 Visual-language models face the challenge of combining modalities so that they can open the door to a wide range of 
@@ -169,7 +183,7 @@ print(generated_text)
 "having a good time"
 ```
 
-### Visual question answering (VQA)
+### Visual question answering
 
 For visual question answering the prompt has to follow a specific format: 
 "Question: {} Answer:"
