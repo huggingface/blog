@@ -1,6 +1,6 @@
 ---
 title: "Zero-shot image-to-text generation with BLIP-2" 
-thumbnail: /blog/assets/blip-2/thumbnail.gif
+thumbnail: /blog/assets/blip-2/thumbnail.png
 authors:
 - user: MariaK
 - user: JunnanLi
