@@ -1786,3 +1786,14 @@
     - fine-tuning
     - community
     - dreambooth
+
+- local: blip-2
+  title: "Zero-shot image-to-text generation with BLIP-2"
+  author: MariaK
+  thumbnail: /blog/assets/blip-2/thumbnail.png
+  date: February 15, 2023
+  tags:
+    - guide
+    - nlp
+    - cv
+    - multimodal
