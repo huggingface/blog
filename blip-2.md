@@ -105,7 +105,7 @@ display(image.resize((596, 437)))
 ```
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/blip-2/cartoon.png" alt="New Yorker Cartoon" width=500>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/blip-2/cartoon.jpeg" alt="New Yorker Cartoon" width=500>
 </p>
 
 We have an input image. Now we need a pre-trained BLIP-2 model and corresponding preprocessor to prepare the inputs. You 
