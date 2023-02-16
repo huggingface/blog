@@ -1,6 +1,6 @@
 ---
 title: "Hugging Face and AWS start a new collaboration to make AI more accessible" 
-thumbnail: blog/assets/131_aws-partnership/aws-partnership-thumbnail.png
+thumbnail: /blog/assets/131_aws-partnership/aws-partnership-thumbnail.png
 authors:
 - user: jeffboudier
 - user: juliensimon
