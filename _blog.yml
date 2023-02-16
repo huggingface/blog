@@ -191,6 +191,7 @@
   date: March 23, 2021
   tags:
     - partnerships
+    - aws
 
 - local: big-bird
   title: "Understanding BigBird's Block Sparse Attention"
@@ -1797,3 +1798,14 @@
     - nlp
     - cv
     - multimodal
+
+- local: aws-partnership
+  title: "Hugging Face and AWS start a new collaboration to make AI more accessible"
+  author: jeffboudier
+  thumbnail: /blog/assets/131_aws-partnership/aws-partnership-thumbnail.png
+  date: February 16, 2023
+  tags:
+    - partnerships
+    - aws
+    - nlp
+    - cv
