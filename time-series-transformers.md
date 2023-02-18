@@ -308,7 +308,11 @@ Again, we'll use the GluonTS library for this. We define a `Chain` of transforma
 
 
 ```python
-from gluonts.time_feature import time_features_from_frequency_str, TimeFeature, get_lags_for_frequency
+from gluonts.time_feature import (
+    time_features_from_frequency_str,
+    TimeFeature,
+    get_lags_for_frequency,
+)
 from gluonts.dataset.field_names import FieldName
 from gluonts.transform import (
     AddAgeFeature,
@@ -584,16 +588,16 @@ def create_test_dataloader(
 
 ```python
 train_dataloader = create_train_dataloader(
-    config=config, 
-    freq=freq, 
-    data=train_dataset, 
-    batch_size=256, 
+    config=config,
+    freq=freq,
+    data=train_dataset,
+    batch_size=256,
     num_batches_per_epoch=100,
 )
 
 test_dataloader = create_test_dataloader(
-    config=config, 
-    freq=freq, 
+    config=config,
+    freq=freq,
     data=test_dataset,
     batch_size=64,
 )
