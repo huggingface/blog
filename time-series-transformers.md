@@ -160,7 +160,9 @@ However, this example has `prediction_length=24` additional values compared to t
 freq = "1M"
 prediction_length = 24
 
-assert len(train_example['target']) + prediction_length == len(validation_example['target'])
+assert len(train_example["target"]) + prediction_length == len(
+    validation_example["target"]
+)
 ```
 
 Let's visualize this:
@@ -170,8 +172,8 @@ Let's visualize this:
 import matplotlib.pyplot as plt
 
 figure, axes = plt.subplots()
-axes.plot(train_example['target'], color="blue") 
-axes.plot(validation_example['target'], color="red", alpha=0.5)
+axes.plot(train_example["target"], color="blue")
+axes.plot(validation_example["target"], color="red", alpha=0.5)
 
 plt.show()
 ```
