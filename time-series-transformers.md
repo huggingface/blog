@@ -229,7 +229,7 @@ We specify a couple of additional parameters to the model:
 - the number of time features: in our case, this will be `2` as we'll add `MonthOfYear` and `Age` features;
 - the number of static categorical features: in our case, this will be just `1` as we'll add a single "time series ID" feature;
 - the cardinality: the number of values of each static categorical feature, as a list which for our case will be `[366]` as we have 366 different time series
-- the embedding dimension: the embedding dimension for each static categorical feature, as a list, for example `[3]` meaning the model will learn an embedding vector of size `3` for each of the `366` time series (regions).
+- the embedding dimension: the embedding dimension for each static categorical feature, as a list, for example `[3]` means the model will learn an embedding vector of size `3` for each of the `366` time series (regions).
 
 
 Let's use the default lags provided by GluonTS for the given frequency ("monthly"):
@@ -247,7 +247,7 @@ print(lags_sequence)
 
 This means that we'll look back up to 37 months for each time step, as additional features.
 
-Let's also check the default time features which GluonTS provides us:
+Let's also check the default time features that GluonTS provides us:
 
 
 ```python
@@ -402,8 +402,8 @@ def create_transformation(freq: str, config: PretrainedConfig) -> Transformation
                 pred_length=config.prediction_length,
             ),
             # step 5: add another temporal feature (just a single number)
-            # tells the model where in the life the value of the time series is
-            # sort of running counter
+            # tells the model where in its life the value of the time series is,
+            # sort of a running counter
             AddAgeFeature(
                 target_field=FieldName.TARGET,
                 output_field=FieldName.FEAT_AGE,
@@ -438,7 +438,7 @@ def create_transformation(freq: str, config: PretrainedConfig) -> Transformation
 
 For training/validation/testing we next create an `InstanceSplitter` which is used to sample windows from the dataset (as, remember, we can't pass the entire history of values to the Transformer due to time- and memory constraints).
 
-The instance splitter samples random `context_length` sized and subsequent `prediction_length` sized windows from the data, and appends a `past_` or `future_` key to any temporal keys for the respective windows. This makes sure that the `values` will be split into `past_values` and subsequent `future_values` keys, which will serve as the encoder and decoder inputs respectively. The same happens for any keys in the `time_series_fields` argument:
+The instance splitter samples random `context_length` sized and subsequent `prediction_length` sized windows from the data and appends a `past_` or `future_` key to any temporal keys for the respective windows. This makes sure that the `values` will be split into `past_values` and subsequent `future_values` keys, which will serve as the encoder and decoder inputs respectively. The same happens for any keys in the `time_series_fields` argument:
 
 
 ```python
@@ -660,7 +660,7 @@ print("Loss:", outputs.loss.item())
 
 Note that the model is returning a loss. This is possible as the decoder automatically shifts the `future_values` one position to the right in order to have the labels. This allows computing a loss between the predicted values and the labels.
 
-Also note that the decoder uses a causal mask to not look into the future as the values it needs to predict are in the `future_values` tensor.
+Also, note that the decoder uses a causal mask to not look into the future as the values it needs to predict are in the `future_values` tensor.
 
 ## Train the Model
 
@@ -882,7 +882,7 @@ We would encourage the readers to try out the [notebook](https://colab.research.
 
 As time series researchers will know, there has been a lot of interest in applying Transformer based models to the time series problem. The vanilla Transformer is just one of many attention-based models and so there is a need to add more models to the library.
 
-At the moment there is nothing stopping us from modeling multivariate time series, however for that one would need to instantiate the model with a multivariate distribution head. Currently, diagonal independent distributions are supported, and other multivariate distributions will be added. Stay tuned for a future blog post which will include a tutorial.
+At the moment nothing is stopping us from modeling multivariate time series, however for that one would need to instantiate the model with a multivariate distribution head. Currently, diagonal independent distributions are supported, and other multivariate distributions will be added. Stay tuned for a future blog post that will include a tutorial.
 
 Another thing on the roadmap is time series classification. This entails adding a time series model with a classification head to the library, for the anomaly detection task for example. 
 
