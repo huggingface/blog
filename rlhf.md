@@ -140,7 +140,7 @@ And here is a snapshot of the growing set of "key" papers that show RLHF's perfo
 - [Dynamic Planning in Open-Ended Dialogue using Reinforcement Learning](https://arxiv.org/abs/2208.02294) (Cohen at al. 2022): Using RL to enhance the conversational skill of an open-ended dialogue agent.
 - [Is Reinforcement Learning (Not) for Natural Language Processing?: Benchmarks, Baselines, and Building Blocks for Natural Language Policy Optimization](https://arxiv.org/abs/2210.01241) (Ramamurthy and Ammanabrolu et al. 2022): Discusses the design space of open-source tools in RLHF and proposes a new algorithm NLPO (Natural Language Policy Optimization) as an alternative to PPO.
 
-The field is the convergence of multiple fields, so you can also find resource in other areas:
+The field is the convergence of multiple fields, so you can also find resources in other areas:
 * Continual learning of instructions ([Kojima et al. 2021](https://arxiv.org/abs/2108.04812), [Suhr and Artzi 2022](https://arxiv.org/abs/2212.09710)) or bandit learning from user feedback ([Sokolov et al. 2016](https://arxiv.org/abs/1601.04468), [Gao et al. 2022](https://arxiv.org/abs/2203.10079))
 * Earlier history on using other RL algorithms for text generation (not all with human preferences), such as with recurrent neural networks ([Ranzato et al. 2015](https://arxiv.org/abs/1511.06732)), an actor-critic algorithm for text prediction ([Bahdanau et al. 2016](https://arxiv.org/abs/1607.07086)), or an early work adding human preferences to this framework ([Nguyen et al. 2017](https://arxiv.org/abs/1707.07402)).
 
