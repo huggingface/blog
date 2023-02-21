@@ -20,13 +20,10 @@ Applicants from all backgrounds are welcome! Ideally, you have some relevant exp
 The following internship positions are available in the Open Source team, alongside maintainers of the respective libraries:
 
 * [Accelerate Internship](https://apply.workable.com/huggingface/j/9B5436D6FA), to lead the integration of new, impactful features in the library.
-* [Skops Internship](https://apply.workable.com/huggingface/j/6E9686A620/), working at the intersection of model serving, persistence, and interpretation as well as model card generation.
-* [Diffusers Internship](https://apply.workable.com/huggingface/j/A298F8F991/), helping on distilling diffusion models for faster sampling.
-* [Speech internship](https://apply.workable.com/huggingface/j/93CDE47063/), working on efficient models for speech recognition.
+* [Text to Speech Internship](https://apply.workable.com/huggingface/j/93CDE47063/), working on text-to-speech reproduction.
 
 The following Science team positions are available:
 
-* [Code Generation Internship](https://apply.workable.com/huggingface/j/2D46459B82/), working with the BigCode team on cutting edge large language models for code.
 * [Embodied AI Internship](https://apply.workable.com/huggingface/j/B3CDE6C150/), working with the Embodied AI team on reinforcement learning in simulators.
 * [Fast Distributed Training Framework Internship](https://apply.workable.com/huggingface/j/BEBD24C4C4/), creating a framework for flexible distributed training of large language models.
 * [Datasets for LLMs Internship](https://apply.workable.com/huggingface/j/4A6EA3243C/), building datasets to train the next generation of large language models, and the assorted tools.
@@ -34,8 +31,6 @@ The following Science team positions are available:
 The following other internship positions are available:
 
 * [Social Impact Evaluation Internship](https://apply.workable.com/huggingface/j/648A916AAB/), developing a technical framework for assessing the overall social impact of generative ML models.
-* [Gradio Internship](https://apply.workable.com/huggingface/j/52828853BD/), working with the Gradio team on expanding the ecosystem.
-* [Benchmarking Transformers Internship](https://apply.workable.com/huggingface/j/3E921EDD1D/), deploying and benchmarking transformer models for both training and inference.
 * [AI Art Tooling Internship](https://apply.workable.com/huggingface/j/BCCB4CAF82/), bridging the AI and art worlds by building tooling to empower artists.
 
 Locations vary on a case-by-case basis and if the internship host has a location preference, this will be indicated on the job listing.
