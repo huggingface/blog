@@ -67,7 +67,7 @@ Here's how works the algorithm:
 
 To run this matchmaking process continuously, we use **free Hugging Face Spaces hardware with a Scheduler** to keep running the matchmaking process as a background task.
 
-The Spaces is also used to fetch the ELO ratings of each models that have already been played and, from it display [a leaderboard](https://huggingface.co/spaces/huggingface-projects/AIvsAI-SoccerTwos) **from which everyone can check the progress of the models**.
+The Spaces is also used to fetch the ELO ratings of each model that have already been played and, from it display [a leaderboard](https://huggingface.co/spaces/huggingface-projects/AIvsAI-SoccerTwos) **from which everyone can check the progress of the models**.
 
 <div align="center"> 
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/leaderboard.png" alt="Leaderboard"> 
@@ -105,7 +105,7 @@ We also [created a discord channel called ai-vs-ai-competition](http://hf.co/dis
 
 ### Conclusion and what’s next?
 
-Since the tool we developed **is environment agnostic**, we want to host more challenges in the future with [PettingZoo](https://pettingzoo.farama.org/) and other multi-agents environments. If you have some environments or challenges you want to do, <a href="mailto:thomas.simonini@huggingface.co">don’t hesitate to reach out to us</a>.
+Since the tool we developed **is environment agnostic**, we want to host more challenges in the future with [PettingZoo](https://pettingzoo.farama.org/) and other multi-agent environments. If you have some environments or challenges you want to do, <a href="mailto:thomas.simonini@huggingface.co">don’t hesitate to reach out to us</a>.
 
 In the future, we will host multiple multi-agent competitions with this tool and environments we created, such as SnowballFight.
 
