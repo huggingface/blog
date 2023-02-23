@@ -17,7 +17,7 @@ authors:
 }
 </style>
 <h1>Leveraging Hugging Face for complex text classification use cases </h1>
-<h2>The Success Story of Witty Works with the Hugging Face [Expert Acceleration Program](https://huggingface.co/support) Customer.</h2>
+<h2>The Success Story of Witty Works with the Hugging Face Expert Acceleration Program Customer.</h2>
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 </head>
