@@ -1,19 +1,13 @@
 ---
 title: "3D Asset Generation: AI for Game Development #3"
 thumbnail: /blog/assets/124_ml-for-games/thumbnail3.png
+authors:
+- user: dylanebert
 ---
 
 <h1>3D Asset Generation: AI for Game Development #3</h1>
 
-<div class="author-card">
-    <a href="/dylanebert">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1672164046414-624b4a964056e2a6914a05c5.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>dylanebert</code>
-            <span class="fullname">Dylan Ebert</span>
-        </div>
-  </a>
-</div>
+<!-- {authors} -->
  
 </head>
 
@@ -87,9 +81,7 @@ While text-to-3D has come a long way recently, there is still a significant gap 
 
 Of course, only time will tell. If you want to keep up with advancements as they come, feel free to follow me on [Twitter](https://twitter.com/dylan_ebert_). If there are new developments I've missed, feel free to reach out!
 
-In the next part, we'll be using **AI to Generate 2D Assets**.
-
-<!-- TODO: Add link to next part -->
+Click [here](https://huggingface.co/blog/ml-for-games-4) to read Part 4, where we use **AI for 2D Assets**.
 
 #### Attribution
 

@@ -1,27 +1,15 @@
 ---
 title: "Welcome PaddlePaddle to the Hugging Face Hub" 
 thumbnail: /blog/assets/126_paddlepaddle/thumbnail.jpg
+authors:
+- user: PaddlePaddle
+  guest: true
 ---
 
 # Welcome PaddlePaddle to the Hugging Face Hub
 
-<div class="blog-metadata">
-    <small>Published January 17, 2023.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/paddlepaddle.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/PaddlePaddle">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1654942635336-5f3ff69679c1ba4c353d0c5a.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>PaddlePaddle</code>
-            <span class="fullname">PaddlePaddle</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 We are happy to share an open source collaboration between Hugging Face and [PaddlePaddle](https://www.paddlepaddle.org.cn/en) on a shared mission to advance and democratize AI through open source!
 
@@ -77,4 +65,4 @@ model.save_to_hf_hub(repo_id="<my_org_name>/<my_repo_name>")
 
 ## Conclusion
 
-PaddlePaddle is an open source Deep Learning platform that originated from industrial practice and has been open-sourcing innovative and industry-grade projects since 2016. We are excited to join the Hub to share our work with the HuggingFace community and you can expect more fun and State-of-the-Art projects from us soon! To stay up to date with the latest news, you can follow us on Twitter at [@PaddlePaddle_](https://twitter.com/PaddlePaddle_).
+PaddlePaddle is an open source Deep Learning platform that originated from industrial practice and has been open-sourcing innovative and industry-grade projects since 2016. We are excited to join the Hub to share our work with the HuggingFace community and you can expect more fun and State-of-the-Art projects from us soon! To stay up to date with the latest news, you can follow us on Twitter at [@PaddlePaddle](https://twitter.com/PaddlePaddle).

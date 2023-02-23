@@ -1,29 +1,15 @@
 ---
 title: "Habana Labs and Hugging Face Partner to Accelerate Transformer Model Training"
 thumbnail: /blog/assets/60_habana/habana.png
+authors:
+- user: susanlansing
+  guest: true
 ---
 
-<h1>
-	Habana Labs and Hugging Face Partner to Accelerate Transformer Model Training
-</h1>
+# Habana Labs and Hugging Face Partner to Accelerate Transformer Model Training
 
-<div class="blog-metadata">
-    <small>Published April 12, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/habana.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/susanlansing">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1649707267873-62546cf4fafb0a895443e8b1.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>susanlansing</code>
-            <span class="fullname">Susan Lansing</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 *Santa Clara and San Francisco, CA, April 12th, 2022*
 

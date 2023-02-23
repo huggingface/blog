@@ -1,42 +1,16 @@
 ---
 title: Universal Image Segmentation with Mask2Former and OneFormer
 thumbnail: /blog/assets/127_mask2former/thumbnail.png
+authors:
+- user: nielsr
+- user: shivi
+- user: adirik
 ---
 
-<h1>
-	Universal Image Segmentation with Mask2Former and OneFormer
-</h1>
+# Universal Image Segmentation with Mask2Former and OneFormer
 
-<div class="blog-metadata">
-    <small>Published January 20, 2023.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/mask2former.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/nielsr">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/48327001?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>nielsr</code>
-            <span class="fullname">Niels Rogge</span>
-        </div>
-    </a>
-    <a href="/shivi">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/73357305?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>shivi</code>
-            <span class="fullname">Shivalika Singh</span>
-        </div>
-    </a>
-    <a href="/adirik">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8944735?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>adirik</code>
-            <span class="fullname">Alara Dirik</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
@@ -166,7 +140,7 @@ To perform inference with OneFormer, which has an identical API except that it a
 
 For fine-tuning Mask2Former/OneFormer on a custom dataset for either instance, semantic and panoptic segmentation, check out our [demo notebooks](https://github.com/NielsRogge/Transformers-Tutorials/tree/master/MaskFormer/Fine-tuning). MaskFormer, Mask2Former and OneFormer share a similar API so upgrading from MaskFormer is easy and requires minimal changes.
 
-The demo notebooks make use of `MaskFormerForInstanceSegmentation` to load the model whereas you'll have to switch to using either `Mask2FormerForUniversalSegmentation` or `OneFormerForUniversalSegmentation`. The image preprocessing part would not require any changes for Mask2Former, since MaskFormer and Mask2Former share a common image processor, that is, `MaskFormerImageProcessor`. You can also load the image processor using the `AutoImageProcessor` class which automatically takes care of loading the correct processor corresponding to your model. OneFormer on the other hand requires a `OneFormerProcessor`, which prepares the images, along with a text input, for the model.
+The demo notebooks make use of `MaskFormerForInstanceSegmentation` to load the model whereas you'll have to switch to using either `Mask2FormerForUniversalSegmentation` or `OneFormerForUniversalSegmentation`. In case of image processing for Mask2Former, you'll also have to switch to using `Mask2FormerImageProcessor`. You can also load the image processor using the `AutoImageProcessor` class which automatically takes care of loading the correct processor corresponding to your model. OneFormer on the other hand requires a `OneFormerProcessor`, which prepares the images, along with a text input, for the model.
 
 # Conclusion
 

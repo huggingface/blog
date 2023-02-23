@@ -1,104 +1,27 @@
 ---
 title: "Putting ethical principles at the core of the research lifecycle"
 thumbnail: /blog/assets/71_ethical-charter/thumbnail.jpg
+authors:
+- user: SaulLu
+- user: skaramcheti
+- user: HugoLaurencon
+- user: Leyo
+- user: TimeRobber
+- user: VictorSanh
+- user: aps
+- user: giadap
+- user: sasha
+- user: yjernite
+- user: meg
+- user: douwekiela
 ---
 
-<h1>Putting ethical principles at the core of the research lifecycle</h1>
-<h2>Ethical charter - Multimodal project</h2>
+# Putting ethical principles at the core of the research lifecycle
 
-<div class="blog-metadata">
-    <small>Published May 19, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/ethical-charter-multimodal.md">
-        Update on GitHub
-    </a>
-</div>
+## Ethical charter - Multimodal project
 
-<div class="author-card">
-    <a href="/SaulLu">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1618938489629-60741a2e69a66931a0273f0c.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>SaulLu</code>
-            <span class="fullname">Lucile Saulnier</span>
-        </div>
-    </a>
-    <a href="/skaramcheti">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1634666324094-6150b090d84cf0532aa1764b.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>skaramcheti</code>
-            <span class="fullname">Siddharth Karamcheti</span>
-        </div>
-    </a>
-    <a href="/HugoLaurencon">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1635201569275-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>HugoLaurencon</code>
-            <span class="fullname">Hugo Laurençon</span>
-        </div>
-    </a>
-    <a href="/Leyo">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1652185658647-6244866a456803e9500d0f6a.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>Leyo</code>
-            <span class="fullname">Léo Tronchon</span>
-        </div>
-    </a>
-    <a href="/TimeRobber">
-        <img class="avatar avatar-user" src="https://huggingface.co/avatars/06bb346411f4950ab6d88620ca970990.svg" title="Gravatar">
-        <div class="bfc">
-            <code>TimeRobber</code>
-            <span class="fullname">Thomas Wang</span>
-        </div>
-    </a>
-    <a href="/VictorSanh">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1619623771844-5ecea265968f6028e0559fa5.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>VictorSanh</code>
-            <span class="fullname">Victor Sanh</span>
-        </div>
-    </a>
-    <a href="/aps">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1652253065548-6230c6ecfd8b720a5648f6c4.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>aps</code>
-            <span class="fullname">Amanpreet Singh</span>
-        </div>
-    </a>
-    <a href="/giadilli">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1635413464273-6051e59531c5be7f3dd5ebc9.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>giadilli</code>
-            <span class="fullname">Giada Pistilli</span>
-        </div>
-    </a>
-    <a href="/sasha">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626198087984-60edd0133e2c73a9a21455f5.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sasha</code>
-            <span class="fullname">Sasha Luccioni</span>
-        </div>
-    </a>
-    <a href="/yjernite">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1594144055859-5ee3a7cd2a3eae3cbdad1305.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>yjernite</code>
-            <span class="fullname">Yacine Jernite</span>
-        </div>
-    </a>
-    <a href="/meg">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626214544196-60c757ea5f9a76ab3f844f12.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>meg</code>
-            <span class="fullname">Margaret Mitchell</span>
-        </div>
-    </a>
-    <a href="/douwekiela">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1641847245435-61dc997715b47073db1620dc.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>douwekiela</code>
-            <span class="fullname">Douwe Kiela</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ## Purpose of the ethical charter
 

@@ -1,42 +1,16 @@
 ---
 title: "Introducing Skops"
 thumbnail: /blog/assets/94_skops/introducing_skops.png
+authors:
+- user: merve
+- user: adrin
+- user: BenjaminB
 ---
 
-<h1>
-    Introducing Skops
-</h1>
+# Introducing Skops
 
-<div class="blog-metadata">
-    <small>Published August 12, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/skops.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/merve">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1631694399207-6141a88b3a0ec78603c9e784.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>merve</code>
-            <span class="fullname">Merve Noyan</span>
-        </div>
-    </a>
-    <a href="/adrin">
-        <img class="avatar avatar-user" src="https://huggingface.co/avatars/f40271d9ff5ac148aab4c512f8ae6402.svg" title="Gravatar">
-        <div class="bfc">
-            <code>adrin</code>
-            <span class="fullname">Adrin Jalali</span>
-        </div>
-    </a>
-    <a href="/BenjaminB">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1656685953025-62bf03d1e80cec527083cd66.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>BenjaminB</code>
-            <span class="fullname">Benjamin Bossan</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ## Introducing Skops
 

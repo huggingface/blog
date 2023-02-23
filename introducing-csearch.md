@@ -1,26 +1,14 @@
 ---
 title: "Generating Human-level Text with Contrastive Search in Transformers 🤗"
 thumbnail: /blog/assets/115_introducing_contrastive_search/thumbnail.png
+authors:
+- user: GMFTBY
 ---
 
 <h1>Generating Human-level Text with Contrastive Search in Transformers 🤗</h1>
 
-<div class="blog-metadata">
-    <small>Published November 08, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/introducing-csearch.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/GMFTBY">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1652335660508-noauth.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>gmftbyGMFTBY</code>
-            <span class="fullname">Tian Lan</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ****
 

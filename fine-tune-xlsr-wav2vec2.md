@@ -1,28 +1,14 @@
 ---
 title: "Fine-Tune XLSR-Wav2Vec2 for low-resource ASR with 🤗 Transformers"
 thumbnail: /blog/assets/xlsr_wav2vec2.png
+authors:
+- user: patrickvonplaten
 ---
 
-<h1>
-    Fine-tuning XLS-R for Multi-Lingual ASR with 🤗 Transformers
-</h1>
+# Fine-tuning XLS-R for Multi-Lingual ASR with 🤗 Transformers
 
-<div class="blog-metadata">
-    <small>Updated November 15, 2021. Originally published March 12, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fine-tune-xlsr-wav2vec2.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/patrickvonplaten">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1584435275418-5dfcb1aada6d0311fd3d5448.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>patrickvonplaten</code>
-            <span class="fullname">Patrick von Platen</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Fine_Tune_XLS_R_on_Common_Voice.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

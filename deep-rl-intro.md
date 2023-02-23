@@ -1,6 +1,9 @@
 ---
 title: "An Introduction to Deep Reinforcement Learning"
 thumbnail: /blog/assets/63_deep_rl_intro/thumbnail.png
+authors:
+- user: ThomasSimonini
+- user: osanseviero
 ---
 
 <html>
@@ -16,22 +19,7 @@ thumbnail: /blog/assets/63_deep_rl_intro/thumbnail.png
 <h1>An Introduction to Deep Reinforcement Learning</h1>
 <h2>Chapter 1 of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
-<div class="author-card">
-    <a href="/ThomasSimonini">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1632748593235-60cae820b1c79a3e4b436664.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>ThomasSimonini</code>
-            <span class="fullname">Thomas Simonini</span>
-        </div>
-  </a>
-   <a href="/osanseviero">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1622621035602-6032802e1f993496bc14d9e3.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>osanseviero</code>
-            <span class="fullname">Omar Sanseviero</span>
-        </div>
-    </a>
-</div>
+<!-- {authors} -->
  
 </head>
 

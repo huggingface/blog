@@ -1,28 +1,14 @@
 ---
 title: 'Welcome fastai to the Hugging Face Hub'
 thumbnail: /blog/assets/64_fastai/fastai_hf_blog.png
+authors:
+- user: espejelomar
 ---
 
-<h1>
-    Welcome fastai to the Hugging Face Hub
-</h1>
+# Welcome fastai to the Hugging Face Hub
 
-<div class="blog-metadata">
-    <small>Published May 6, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fastai.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/espejelomar"> 
-        <img class="avatar avatar-user" src="https://bafybeidj6oxo7zm5pejnc2iezy24npw4qbt2jgpo4n6igt7oykc7rbvcxi.ipfs.dweb.link/omar_picture.png" title="Gravatar">
-        <div class="bfc">
-            <code>espejelomar</code>
-            <span class="fullname">Omar Espejel</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ## Making neural nets uncool again... and sharing them
 

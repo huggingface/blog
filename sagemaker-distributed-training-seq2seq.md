@@ -1,28 +1,14 @@
 ---
 title: 'Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker'
 thumbnail: /blog/assets/19_sagemaker_distributed_training_seq2seq/thumbnail.png
+authors:
+- user: philschmid
 ---
 
-<h1>
-    Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker
-</h1>
+# Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker
 
-<div class="blog-metadata">
-    <small>Published April 8, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/sagemaker-distributed-training-seq2seq.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/philschmid">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1613142338662-5ff5d596f244529b3ec0fb89.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>philschmid</code>
-            <span class="fullname">Philipp Schmid</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a target="_blank" href="https://github.com/huggingface/notebooks/blob/master/sagemaker/08_distributed_summarization_bart_t5/sagemaker-notebook.ipynb">
     <img src="https://badgen.net/badge/Github/Open/black?icon=github" alt="Open on Github"/>
