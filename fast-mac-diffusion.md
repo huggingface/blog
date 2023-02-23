@@ -11,7 +11,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Diffusers for Mac is a native app to generate images from a text description of what you want. It uses state-of-the-art diffusion models, like Stable Diffusion, contributed by the community to the Hugging Face Hub, and converted to Core ML for maximum performance. We have just released version 1.1 of the app in the Mac App Store, with significant performance improvements, a lot of UI tweaks and some bug fixes. We think it's a solid foundation on which to build new features. And it's [fully open source](https://github.com/huggingface/swift-coreml-diffusers) with a [permissive license](https://github.com/huggingface/swift-coreml-diffusers/blob/main/LICENSE), so you can build on it too!
+Transform your text into stunning images with ease using Diffusers for Mac, a native app powered by state-of-the-art diffusion models. It leverages a bouquet of SoTA Text-to-Image models contributed by the community to the Hugging Face Hub, and converted to Core ML for blazingly fast performance. Our latest version, 1.1, is now available on the Mac App Store with significant performance upgrades and user-friendly interface tweaks. It's a solid foundation for future feature updates. Plus, the app is fully open source with a permissive license, so you can build on it too! Check out our GitHub repository at https://github.com/huggingface/swift-coreml-diffusers for more information.
 
 **TODO**: screenshot of the new UI
 
