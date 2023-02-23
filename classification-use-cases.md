@@ -2,11 +2,11 @@
 title: "Leveraging Hugging Face for complex text classification use cases"
 thumbnail:
 authors:
-- user: violettelepercq
+- user: VioletteLepercq
 - user: juliensimon
-- user: florent
-- user: Elena
-- user: Luckas
+- user: florentgbelidji
+- user: lnazarenko
+- user: lsmith77
 
 ---
 <html>
