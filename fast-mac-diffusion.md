@@ -29,19 +29,19 @@ Why would you want to run a native Mac app then? There are many reasons:
 
 **TL;DR:** Generation is up to **twice as fast** on Diffusers 1.1, depending on the computer you use. Benchmark and details follow.
 
-The first version of the app we released a few days ago runs models on a combination of CPU and GPU, and does not use the Neural Engine. This is because it produced very good results on our test systems (i.e., my iMac and my laptop), it's most compatible, and requires less downloads. Use of the Neural Engine, or ANE, requires a different version of the Core ML model.
+We've done a lot of testing on our own systems and on Macs we rented from cloud services to determine the best combinations of compute devices that yield optimum performance. For some computers it's best to use the GPU, while others work better when the Neural Engine, or ANE, is engaged.
 
-Since we released we've done a lot more testing on our personal systems, and on additional Macs we rented from cloud services. These are the results of our benchmark:
+These are the results of our benchmark. All combinations use the CPU in addition to either the GPU or the ANE.
 
 **TODO** Table.
 
-The amount of memory does not seem to play a big factor on performance, but the CPU performance (i.e., the number of _performance cores_ in the system) does. My M1 Max laptop is a lot faster using the GPU than it is with the ANE. However, standard M1 processors found in Mac Minis are **twice as fast** using ANE than GPU. Interestingly, using _both_ the GPU and ANE accelerators does not improve performance with respect to the best results obtained with just one of them.
+The amount of memory does not seem to play a big factor on performance, but the number of CPU and GPU cores does. My M1 Max laptop is a lot faster using the GPU than it is with the ANE. That's probably because it has 4 times the number of GPU cores (and twice as many CPU performance cores) than the standard M1 processor, for the same amount of neural engine cores. Conversely, standard M1 processors found in Mac Minis are **twice as fast** using ANE than GPU. Interestingly, we tested the use of _both_ the GPU and ANE accelerators together, but found that it does not improve performance with respect to the best results obtained with just one of them. The cut point seems to be around the hardware characteristics of the M1 Pro chip (8 performance cores, 14 or 16 GPU cores), which we don't have access to.
 
-So for version 1.1 we are now automatically selecting the best accelerator based on the computer where the app runs. However, we don't have access to many other Mac models because they are not offered by any cloud services. For example, we haven't been able to test performance on any of the "Pro" Macbook Pro variants. If you'd like to help us gather data to keep improving the app, read on!
+Diffusers version 1.1 automatically selects the best accelerator based on the computer where the app runs, using the information from the data we know. Some models, like the "Pro" variants, are not offered by any cloud services we know of, so our heuristics could be improved for them. If you'd like to help us gather data to keep improving the out-of-the-box experience of our app, read on!
 
 ## Community Call for Benchmark Data
 
-We are interested to run performance benchmarks on Mac models we don't have access to. If you'd like to help, we've created [this GitHub issue](todo: create with instructions and a results template) where you can post your results. We'll use them to optimize performance on an upcoming version of the app. We are particularly interested on M1 Pro, M2 Pro and M2 Mac architectures :)
+We are interested to run performance benchmarks on Mac models we don't have access to. If you'd like to help, we've created [this GitHub issue](todo: create with instructions and a results template) where you can post your results. We'll use them to optimize performance on an upcoming version of the app. We are particularly interested in M1 Pro, M2 Pro and M2 Max architectures :)
 
 **TODO**: screenshot with a crop of the compute units selector.
 
