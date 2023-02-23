@@ -1,10 +1,14 @@
 ---
-title: "Director of Machine Learning Insights"
-thumbnail: /blog/assets/61_ml_director_insights/thumbnail.png
+title: "Leveraging Hugging Face for complex text classification use cases"
+thumbnail:
 authors:
-- user: britneymuller
----
+- user: violettelepercq
+- user: juliensimon
+- user: florent
+- user: Elena
+- user: Luckas
 
+---
 <html>
 <head>
 <style>
@@ -12,8 +16,8 @@ authors:
   margin: 25px;
 }
 </style>
-<h1>Director of Machine Learning Insights [Part 1]</h1>
-
+<h1>Leveraging Hugging Face for complex text classification use cases </h1>
+<h2>The Success Story of Witty Works with the Hugging Face Expert Acceleration Program Customer.</h2>
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 </head>
