@@ -41,7 +41,7 @@ Diffusers version 1.1 automatically selects the best accelerator based on the co
 
 ## Community Call for Benchmark Data
 
-We are interested to run performance benchmarks on Mac models we don't have access to. If you'd like to help, we've created [this GitHub issue](todo: create with instructions and a results template) where you can post your results. We'll use them to optimize performance on an upcoming version of the app. We are particularly interested in M1 Pro, M2 Pro and M2 Max architectures :)
+We are interested to run performance benchmarks on Mac models we don't have access to. If you'd like to help, we've created [this GitHub issue](https://github.com/huggingface/swift-coreml-diffusers/issues/31) where you can post your results. We'll use them to optimize performance on an upcoming version of the app. We are particularly interested in M1 Pro, M2 Pro and M2 Max architectures :)
 
 **TODO**: screenshot with a crop of the compute units selector.
 
