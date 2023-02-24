@@ -17,7 +17,7 @@ Transform your text into stunning images with ease using Diffusers for Mac, a na
 
 ## What exactly is 🧨Diffusers for Mac anyway?
 
-The 🧨Diffusers app ([App Store](https://apps.apple.com/app/diffusers/id1666309574), [source code](https://github.com/huggingface/swift-coreml-diffusers)) is the Mac counterpart to our [🧨`diffusers` library](https://github.com/huggingface/diffusers). This library is written in Python with PyTorch, and uses a modular design to train and run diffusion models. 🧨`diffusers` supports many different models and tasks, and are highly configurable and well optimized. It runs on Mac, too, using PyTorch's [`mps` accelerator](https://huggingface.co/docs/diffusers/optimization/mps), which is an alternative to `cuda` on Apple Silicon.
+The 🧨Diffusers app ([App Store](https://apps.apple.com/app/diffusers/id1666309574), [source code](https://github.com/huggingface/swift-coreml-diffusers)) is the Mac counterpart to our [🧨`diffusers` library](https://github.com/huggingface/diffusers). This library is written in Python with PyTorch, and uses a modular design to train and run diffusion models. 🧨`diffusers` supports many different models and tasks, and is highly configurable and well optimized. It runs on Mac, too, using PyTorch's [`mps` accelerator](https://huggingface.co/docs/diffusers/optimization/mps), which is an alternative to `cuda` on Apple Silicon.
 
 Why would you want to run a native Mac app then? There are many reasons:
 - It uses Core ML models, instead of the original PyTorch ones. This is important because they allow for [additional optimizations](https://machinelearning.apple.com/research/stable-diffusion-coreml-apple-silicon) relevant to the specifics of Apple hardware, and because Core ML models can run on all the compute devices in your system: the CPU, the GPU and the Neural Engine, _at once_ – the Core ML framework will decide what portions of your model to run on each device to make it as fast as possible. PyTorch's `mps` device cannot use the Neural Engine.
@@ -29,9 +29,9 @@ Why would you want to run a native Mac app then? There are many reasons:
 
 **TL;DR:** Depending on your computer Text-to-Image Generation can be up to **twice as fast** on Diffusers 1.1. ⚡️
 
-We've done a lot of testing on Macs to determine the best combinations of compute devices that yield optimum performance. For some computers it's best to use the GPU, while others work better when the Neural Engine, or ANE, is engaged.
+We've done a lot of testing on several Macs to determine the best combinations of compute devices that yield optimum performance. For some computers it's best to use the GPU, while others work better when the Neural Engine, or ANE, is engaged.
 
-Come checkout out our benchmarks. All the combinations use the CPU in addition to either the GPU or the ANE.
+Come check out our benchmarks. All the combinations use the CPU in addition to either the GPU or the ANE.
 
 |             Model name            | Benchmark | M1 8 GB | M1 16 GB  | M2 24 GB | M1 Max 64 GB |
 |:---------------------------------:|-----------|:-------:|:---------:|:--------:|:------------:|
@@ -61,9 +61,9 @@ We are interested in running more comprehensive performance benchmarks on Mac mo
 
 ## Other Improvements in Version 1.1
 
-In addition to the performance optimization and fixing a few bugs, we have focused on adding new features while trying to keep the UI as simple and clean as possible. Most of them are obvious (guidance scale, optionally disable the safety checker, allow generations to be canceled). My favorite ones are the model download indicators, and a shortcut to reuse the seed from a previous generation in order to tweak the generation parameters:
+In addition to the performance optimization and fixing a few bugs, we have focused on adding new features while trying to keep the UI as simple and clean as possible. Most of them are obvious (guidance scale, optionally disable the safety checker, allow generations to be canceled). Our favorite ones are the model download indicators, and a shortcut to reuse the seed from a previous generation in order to tweak the generation parameters.
 
-Version 1.1 also includes additional information about what the different generation settings do. We want Diffusers for Mac to make image generation as approachable as possible to all Mac users, not just technologists.
+Version 1.1 also includes additional information about what the different generation settings do. We want 🧨Diffusers for Mac to make image generation as approachable as possible to all Mac users, not just technologists.
 
 ## Next Steps
 
