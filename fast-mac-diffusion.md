@@ -1,12 +1,12 @@
 ---
-title: Fast Stable Diffusion on Mac using Swift Diffusers
+title: Swift 🧨Diffusers - Fast Stable Diffusion for Mac
 thumbnail: /blog/assets/fast-mac-diffusers/thumbnail.png
 authors:
 - user: pcuenq
 - user: reach-vb
 ---
 
-# Fast Stable Diffusion on Mac using Swift Diffusers
+# Swift 🧨Diffusers: Fast Stable Diffusion for Mac
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
