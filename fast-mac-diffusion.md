@@ -37,7 +37,7 @@ These are the results of our benchmark. All combinations use the CPU in addition
 |:---------------------------------:|-----------|:-------:|:---------:|:--------:|:------------:|
 | Cores (performance/GPU/ANE)       |           |  4/8/16 |   4/8/16  |  4/8/16  |    8/32/16   |
 | Stable Diffusion 1.5              |           |         |           |          |              |
-|                                   | CPU + GPU |   32.9  |    32.8   |          |       9      |
+|                                   | CPU + GPU |   32.9  |    32.8   | 21.9     |       9      |
 |                                   | CPU + ANE |   18.8  |    18.7   | 13.1     |     20.4     |
 | Stable Diffusion 2 Base           |           |         |           |          |              |
 |                                   | CPU + GPU |   30.2  |    30.2   | 19.4     |      8.3     |
