@@ -13,7 +13,7 @@ authors:
 
 Transform your text into stunning images with ease using Diffusers for Mac, a native app powered by state-of-the-art diffusion models. It leverages a bouquet of SoTA Text-to-Image models contributed by the community to the Hugging Face Hub, and converted to Core ML for blazingly fast performance. Our latest version, 1.1, is now available on the Mac App Store with significant performance upgrades and user-friendly interface tweaks. It's a solid foundation for future feature updates. Plus, the app is fully open source with a permissive license, so you can build on it too! Check out our GitHub repository at https://github.com/huggingface/swift-coreml-diffusers for more information.
 
-**TODO**: screenshot of the new UI
+![Screenshot showing Diffusers for Mac UI](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fast-mac-diffusers/UI.png)
 
 ## What exactly is Diffusers for Mac anyway?
 
@@ -43,13 +43,11 @@ Diffusers version 1.1 automatically selects the best accelerator based on the co
 
 We are interested to run performance benchmarks on Mac models we don't have access to. If you'd like to help, we've created [this GitHub issue](https://github.com/huggingface/swift-coreml-diffusers/issues/31) where you can post your results. We'll use them to optimize performance on an upcoming version of the app. We are particularly interested in M1 Pro, M2 Pro and M2 Max architectures :)
 
-**TODO**: screenshot with a crop of the compute units selector.
+![Screenshot showing the Advanced Compute Units picker](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fast-mac-diffusers/Advanced.png)
 
 ## Other Improvements in Version 1.1
 
 In addition to the performance optimization and fixing a few bugs, we have focused on adding new features while trying to keep the UI as simple and clean as possible. Most of them are obvious (guidance scale, optionally disable the safety checker, allow generations to be canceled). My favorite ones are the model download indicators, and a shortcut to reuse the seed from a previous generation in order to tweak the generation parameters:
-
-**TODO** gif
 
 Version 1.1 also includes additional information about what the different generation settings do. We want Diffusers for Mac to make image generation as approachable as possible to all Mac users, not just technologists.
 
