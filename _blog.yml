@@ -1821,7 +1821,7 @@
     - nlp
     - cv
 
-- local: fast-mac-diffusion
+- local: fast-mac-diffusers
   title: "Swift Diffusers: Fast Stable Diffusion for Mac"
   author: pcuenq
   thumbnail: /blog/assets/fast-mac-diffusers/thumbnail.png
