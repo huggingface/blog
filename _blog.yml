@@ -1822,7 +1822,7 @@
     - cv
 
 - local: fast-mac-diffusion
-  title: "Fast Stable Diffusion on your Mac with Swift Diffusers"
+  title: "Swift Diffusers: Fast Stable Diffusion for Mac"
   author: pcuenq
   thumbnail: /blog/assets/fast-mac-diffusers/thumbnail.png
   date: February 24, 2023
