@@ -11,7 +11,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Transform your text into stunning images with ease using Diffusers for Mac, a native app powered by state-of-the-art diffusion models. It leverages a bouquet of SoTA Text-to-Image models contributed by the community to the Hugging Face Hub, and converted to Core ML for blazingly fast performance. Our latest version, 1.1, is now available on the Mac App Store with significant performance upgrades and user-friendly interface tweaks. It's a solid foundation for future feature updates. Plus, the app is fully open source with a permissive license, so you can build on it too! Check out our GitHub repository at https://github.com/huggingface/swift-coreml-diffusers for more information.
+Transform your text into stunning images with ease using Diffusers for Mac, a native app powered by state-of-the-art diffusion models. It leverages a bouquet of SoTA Text-to-Image models contributed by the community to the 🤗 Hub, and converted to Core ML for blazingly fast performance. Our latest version, 1.1, is now available on the [Mac App Store](https://apps.apple.com/app/diffusers/id1666309574) with significant performance upgrades and user-friendly interface tweaks. It's a solid foundation for future feature updates. Plus, the app is fully open source with a permissive [license](https://github.com/huggingface/swift-coreml-diffusers/blob/main/LICENSE), so you can build on it too! Check out our GitHub repository at https://github.com/huggingface/swift-coreml-diffusers for more information.
 
 <img style="border:none;" alt="Screenshot showing Diffusers for Mac UI" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fast-mac-diffusers/UI.png" />
 
