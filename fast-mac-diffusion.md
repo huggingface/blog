@@ -1,12 +1,12 @@
 ---
-title: Fast Stable Diffusion on Mac using Swift Diffusers
+title: Swift 🧨Diffusers - Fast Stable Diffusion for Mac
 thumbnail: /blog/assets/fast-mac-diffusers/thumbnail.png
 authors:
 - user: pcuenq
 - user: reach-vb
 ---
 
-# Fast Stable Diffusion on Mac using Swift Diffusers
+# Swift 🧨Diffusers: Fast Stable Diffusion for Mac
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -37,17 +37,17 @@ These are the results of our benchmark. All combinations use the CPU in addition
 |:---------------------------------:|-----------|:-------:|:---------:|:--------:|:------------:|
 | Cores (performance/GPU/ANE)       |           |  4/8/16 |   4/8/16  |  4/8/16  |    8/32/16   |
 | Stable Diffusion 1.5              |           |         |           |          |              |
-|                                   | CPU + GPU |   32.9  |    32.8   |          |       9      |
-|                                   | CPU + ANE |   18.8  |    18.7   | 13.1     |     20.4     |
+|                                   | GPU       |   32.9  |    32.8   | 21.9     |       9      |
+|                                   | ANE       |   18.8  |    18.7   | 13.1     |     20.4     |
 | Stable Diffusion 2 Base           |           |         |           |          |              |
-|                                   | CPU + GPU |   30.2  |    30.2   | 19.4     |      8.3     |
-|                                   | CPU + ANE |   14.5  |    14.4   | 10.5     |     15.3     |
+|                                   | GPU       |   30.2  |    30.2   | 19.4     |      8.3     |
+|                                   | ANE       |   14.5  |    14.4   | 10.5     |     15.3     |
 | Stable Diffusion 2.1 Base         |           |         |           |          |              |
-|                                   | CPU + GPU |   29.6  |    29.4   |          |      8.3     |
-|                                   | CPU + ANE |   14.3  |    14.3   | 10.5     |     15.3     |
+|                                   | GPU       |   29.6  |    29.4   | 19.5     |      8.3     |
+|                                   | ANE       |   14.3  |    14.3   | 10.5     |     15.3     |
 | OFA-Sys/small-stable-diffusion-v0 |           |         |           |          |              |
-|                                   | CPU + GPU |   22.1  |    22.5   |          |      6.3     |
-|                                   | CPU + ANE |   12.3  |    12.7   | 9.1      |     13.2     |
+|                                   | GPU       |   22.1  |    22.5   | 14.5     |      6.3     |
+|                                   | ANE       |   12.3  |    12.7   | 9.1      |     13.2     |
 
 The amount of memory does not seem to play a big factor on performance, but the number of CPU and GPU cores does. My M1 Max laptop is a lot faster using the GPU than it is with the ANE. That's probably because it has 4 times the number of GPU cores (and twice as many CPU performance cores) than the standard M1 processor, for the same amount of neural engine cores. Conversely, standard M1 processors found in Mac Minis are **twice as fast** using ANE than GPU. Interestingly, we tested the use of _both_ the GPU and ANE accelerators together, but found that it does not improve performance with respect to the best results obtained with just one of them. The cut point seems to be around the hardware characteristics of the M1 Pro chip (8 performance cores, 14 or 16 GPU cores), which we don't have access to.
 
