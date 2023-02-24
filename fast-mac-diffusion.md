@@ -55,7 +55,7 @@ We found that the amount of memory does not seem to play a big factor on perform
 
 ## Community Call for Benchmark Data
 
-We are interested to run performance benchmarks on Mac models we don't have access to. If you'd like to help, we've created [this GitHub issue](https://github.com/huggingface/swift-coreml-diffusers/issues/31) where you can post your results. We'll use them to optimize performance on an upcoming version of the app. We are particularly interested in M1 Pro, M2 Pro and M2 Max architectures :)
+We are interested in running more comprehensive performance benchmarks on Mac models. If you'd like to help, we've created [this GitHub issue](https://github.com/huggingface/swift-coreml-diffusers/issues/31) where you can post your results. We'll use them to optimize performance on an upcoming version of the app. We are particularly interested in M1 Pro, M2 Pro and M2 Max architectures 🤗
 
 <img style="border:none;display:block;margin-left:auto;margin-right:auto;" alt="Screenshot showing the Advanced Compute Units picker" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fast-mac-diffusers/Advanced.png" />
 
