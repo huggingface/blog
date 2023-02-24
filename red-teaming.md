@@ -14,7 +14,7 @@ Large language models (LLMs) trained on an enormous amount of text data are very
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/gpt3.png"/>
 </p>
 
-Once we uncover such undesirable values in a LLM, we can develop strategies to steer it away from them, as in [Generative Discriminator Guided Sequence Generation (GeDi)](https://arxiv.org/pdf/2009.06367.pdf) or [Plug and Play Language Models (PPLM)](https://arxiv.org/pdf/1912.02164.pdf) for guiding generation in GPT3. Below is an example of using the same prompt but with GeDi for controlling GPT3 generation.
+Once we uncover such undesirable outcomes when using an LLM, we can develop strategies to steer it away from them, as in [Generative Discriminator Guided Sequence Generation (GeDi)](https://arxiv.org/pdf/2009.06367.pdf) or [Plug and Play Language Models (PPLM)](https://arxiv.org/pdf/1912.02164.pdf) for guiding generation in GPT3. Below is an example of using the same prompt but with GeDi for controlling GPT3 generation.
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/gedi.png"/>
