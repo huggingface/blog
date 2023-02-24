@@ -33,7 +33,25 @@ We've done a lot of testing on our own systems and on Macs we rented from cloud 
 
 These are the results of our benchmark. All combinations use the CPU in addition to either the GPU or the ANE.
 
-**TODO** Table.
+|             Model name            | Benchmark       | M1 8 GB | M1 16 GB  | M2 24 GB | M1 Max 64 GB |
+|:---------------------------------:|-----------------|:-------:|:---------:|:--------:|:------------:|
+| Cores (performance/GPU/ANE)       |                 |  4/8/16 |   4/8/16  |  4/8/16  |    8/32/16   |
+| Stable Diffusion 1.5              |                 |         |           |          |              |
+|                                   | CPU + GPU       |         |           |          |              |
+|                                   | CPU + ANE       |         |           |          |              |
+|                                   | CPU + GPU + ANE |         |           |          |              |
+| Stable Diffusion 2 Base           |                 |         |           |          |              |
+|                                   | CPU + GPU       |         |           |          |              |
+|                                   | CPU + ANE       |         |           |          |              |
+|                                   | CPU + GPU + ANE |         |           |          |              |
+| Stable Diffusion 2.1 Base         |                 |         |           |          |              |
+|                                   | CPU + GPU       |         |           |          |              |
+|                                   | CPU + ANE       |         |           |          |              |
+|                                   | CPU + GPU + ANE |         |           |          |              |
+| OFA-Sys/small-stable-diffusion-v0 |                 |         |           |          |              |
+|                                   | CPU + GPU       |         |           |          |              |
+|                                   | CPU + ANE       |         |           |          |              |
+|                                   | CPU + GPU + ANE |         |           |          |              |
 
 The amount of memory does not seem to play a big factor on performance, but the number of CPU and GPU cores does. My M1 Max laptop is a lot faster using the GPU than it is with the ANE. That's probably because it has 4 times the number of GPU cores (and twice as many CPU performance cores) than the standard M1 processor, for the same amount of neural engine cores. Conversely, standard M1 processors found in Mac Minis are **twice as fast** using ANE than GPU. Interestingly, we tested the use of _both_ the GPU and ANE accelerators together, but found that it does not improve performance with respect to the best results obtained with just one of them. The cut point seems to be around the hardware characteristics of the M1 Pro chip (8 performance cores, 14 or 16 GPU cores), which we don't have access to.
 
