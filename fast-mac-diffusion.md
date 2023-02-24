@@ -1,12 +1,12 @@
 ---
-title: Fast Stable Diffusion on your Mac using Swift Diffusers
+title: Fast Stable Diffusion on Mac using Swift Diffusers
 thumbnail: /blog/assets/fast-mac-diffusion/thumbnail.png
 authors:
 - user: pcuenq
 - user: reach-vb
 ---
 
-# Fast Stable Diffusion with Diffusers for Mac
+# Fast Stable Diffusion on Mac using Swift Diffusers
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -40,7 +40,7 @@ These are the results of our benchmark. All combinations use the CPU in addition
 |                                   | CPU + GPU |   32.9  |    32.8   |          |       9      |
 |                                   | CPU + ANE |   18.8  |    18.7   | 13.1     |     20.4     |
 | Stable Diffusion 2 Base           |           |         |           |          |              |
-|                                   | CPU + GPU |   30.2  |    30.2   |          |      8.3     |
+|                                   | CPU + GPU |   30.2  |    30.2   | 19.4     |      8.3     |
 |                                   | CPU + ANE |   14.5  |    14.4   | 10.5     |     15.3     |
 | Stable Diffusion 2.1 Base         |           |         |           |          |              |
 |                                   | CPU + GPU |   29.6  |    29.4   |          |      8.3     |
