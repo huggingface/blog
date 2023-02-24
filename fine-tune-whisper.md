@@ -135,13 +135,6 @@ strong performance in this language.
 
 ### Prepare Environment
 
-First, we need to update the Unix package `ffmpeg` to version 4:
-```bash
-!add-apt-repository -y ppa:jonathonf/ffmpeg-4
-!apt update
-!apt install -y ffmpeg
-```
-
 We'll employ several popular Python packages to fine-tune the Whisper model.
 We'll use `datasets` to download and prepare our training data and 
 `transformers` to load and train our Whisper model. We'll also require
