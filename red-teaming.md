@@ -10,11 +10,15 @@ authors:
 
 Large language models (LLMs) trained on an enormous amount of text data are very good at generating realistic text. However, these models often exhibit undesirable behaviors like revealing personal information (such as social security numbers) and generating misinformation, bias, hatefulness, or toxic content. For example, earlier versions of GPT3 were known to be sexist (see below) and [biased against Muslims](https://dl.acm.org/doi/abs/10.1145/3461702.3462624),
 
-![GPT3](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/gpt3.png)
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/gpt3.png"/>
+</p>
 
 Once we uncover such undesirable values in the LLM, we can develop strategies to steer it away from them, as in [Generative Discriminator Guided Sequence Generation (GeDi)](https://arxiv.org/pdf/2009.06367.pdf) or [Plug and Play Language Models (PPLM)](https://arxiv.org/pdf/1912.02164.pdf) for guiding generation in GPT3. Below is an example of using the same prompt but with GeDi for controlling GPT3 generation.
 
-![GeDi](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/gedi.png)
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/gedi.png"/>
+</p>
 
 **Red-teaming** *is a form of evaluation that elicits model vulnerabilities that might lead to undesirable behaviors.* Jailbreaking is another term for red-teaming wherein the LLM is manipulated to break away from its guardrails. [Microsoft’s Chatbot Tay](https://blogs.microsoft.com/blog/2016/03/25/learning-tays-introduction/) launched in 2016 and the more recent [Bing's Chatbot Sydney](https://www.nytimes.com/2023/02/16/technology/bing-chatbot-transcript.html) are real-world examples of how disastrous the lack of thorough evaluation of the underlying ML model using red-teaming can be.
 
@@ -25,15 +29,27 @@ Red-teaming can reveal model limitations that can cause offensive and upsetting 
 Since red-teaming requires creative thinking of possible model failures, it is a problem with large search space making it resource intensive. A workaround would be to augment the LLM with a classifier trained to predict whether a given prompt contains topics or phrases that can possibly lead to offensive generations and if the classifier predicts the prompt would lead to a potentially offensive text, generate a canned response. Such a strategy would err on the side of caution. But that would be very restrictive and cause the model to be frequently evasive. So, there is tension between the model being *helpful* (by following instructions) and being *harmless* (not generating offensive text). This is where red-teaming can be very useful.
 
 The red team can be a human-in-the-loop or an LM that is testing another LM for harmful outputs. Coming up with red-teaming prompts for models that are fine-tuned for safety and alignment (such as via RLHF or SFT) requires creative thinking in the form of *roleplay attacks* wherein the LLM is instructed to behave as a malicious character [as in Ganguli et al., ‘22](https://arxiv.org/pdf/2209.07858.pdf). Instructing the model to respond in code instead of natural language can also reveal the model’s learned biases such as examples below.
-![jb0](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/jb0.png)
-![jb1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/jb1.png)
-![jb2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/jb2.png)
-![jb3](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/jb3.png)
+
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/jb1.png"/>
+</p>
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/jb0.png"/>
+</p>
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/jb2.png"/>
+</p>
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/jb3.png"/>
+</p>
+
 See [this](https://twitter.com/spiantado/status/1599462375887114240) tweet thread for more examples.
 
 Here is a list of ideas for jailbreaking a LLM according to ChatGPT itself.
 
-![jailbreak](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/jailbreak.png)
+<p align="center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/jailbreak.png"/>
+</p>
 
 Red-teaming LLMs is still a nascent research area and the aforementioned strategies could still work in jailbreaking these models, or they have aided the deployment of at-scale machine learning products. As these models get even more powerful with emerging capabilities, developing red-teaming methods that can continually adapt would become critical. Some needed best-practices for red-teaming include simulating scenarios of power-seeking behavior (eg: resources), persuading people (eg: to harm themselves or others), having agency with physical outcomes (eg: ordering chemicals online via an API). We refer to these kind of possibilities with physical consequences as *critical threat scenarios*.
 
