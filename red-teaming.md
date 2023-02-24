@@ -75,7 +75,7 @@ A structured process for sharing information can enable smaller entities releasi
 
 1. There is no open-source red-teaming dataset for code generation that attempts to jailbreak a model via code, for example, generating a program that implements a DDOS or backdoor attack.
 2. Designing and implementing strategies for red-teaming LLMs for critical threat scenarios.
-3. Red-teaming can be resource intensive, both compute and human resource.
+3. Red-teaming can be resource intensive, both compute and human resource and so would benefit from sharing strategies, open-sourcing datasets, and possibly collaborating for a higher chance of success.
 
 These limitations and future directions make it clear that red-teaming is an under-explored and crucial component of the modern LLM workflow.
 This post is a call-to-action to LLM researchers and HuggingFace's community of developers to collaborate on these efforts for a safe and friendly world :)
