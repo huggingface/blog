@@ -13,7 +13,7 @@ authors:
 
 Transform your text into stunning images with ease using Diffusers for Mac, a native app powered by state-of-the-art diffusion models. It leverages a bouquet of SoTA Text-to-Image models contributed by the community to the Hugging Face Hub, and converted to Core ML for blazingly fast performance. Our latest version, 1.1, is now available on the Mac App Store with significant performance upgrades and user-friendly interface tweaks. It's a solid foundation for future feature updates. Plus, the app is fully open source with a permissive license, so you can build on it too! Check out our GitHub repository at https://github.com/huggingface/swift-coreml-diffusers for more information.
 
-![Screenshot showing Diffusers for Mac UI](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fast-mac-diffusers/UI.png)
+<img style="border:none;" alt="Screenshot showing Diffusers for Mac UI" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fast-mac-diffusers/UI.png" />
 
 ## What exactly is Diffusers for Mac anyway?
 
@@ -57,7 +57,7 @@ Diffusers version 1.1 automatically selects the best accelerator based on the co
 
 We are interested to run performance benchmarks on Mac models we don't have access to. If you'd like to help, we've created [this GitHub issue](https://github.com/huggingface/swift-coreml-diffusers/issues/31) where you can post your results. We'll use them to optimize performance on an upcoming version of the app. We are particularly interested in M1 Pro, M2 Pro and M2 Max architectures :)
 
-![Screenshot showing the Advanced Compute Units picker](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fast-mac-diffusers/Advanced.png)
+<img style="border:none;display:block;margin-left:auto;margin-right:auto;" alt="Screenshot showing the Advanced Compute Units picker" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fast-mac-diffusers/Advanced.png" />
 
 ## Other Improvements in Version 1.1
 
