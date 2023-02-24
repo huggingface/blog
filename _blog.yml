@@ -1825,7 +1825,7 @@
   title: "Fast Stable Diffusion on your Mac with Swift Diffusers"
   author: pcuenq
   thumbnail: /blog/assets/fast-mac-diffusion/thumbnail.png
-  date: February 23, 2023
+  date: February 24, 2023
   tags:
     - coreml
     - diffusers
