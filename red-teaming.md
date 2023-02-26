@@ -9,6 +9,10 @@ authors:
 
 # Red-Teaming Large Language Models
 
+<!-- {blog_metadata} -->
+<!-- {authors} -->
+
+
 Large language models (LLMs) trained on an enormous amount of text data are very good at generating realistic text. However, these models often exhibit undesirable behaviors like revealing personal information (such as social security numbers) and generating misinformation, bias, hatefulness, or toxic content. For example, earlier versions of GPT3 were known to exhibit sexist behaviors (see below) and [biases against Muslims](https://dl.acm.org/doi/abs/10.1145/3461702.3462624),
 
 <p align="center">
@@ -85,9 +89,11 @@ A structured process for sharing information can enable smaller entities releasi
 4. Evaluating the tradeoffs between evasiveness and helpfulness.
 5. Enumerate the choices based on the above tradeoff and explore the pareto front for red-teaming (similar to [Anthropic's Constitutional AI](https://arxiv.org/pdf/2212.08073.pdf) work)
 
+
 These limitations and future directions make it clear that red-teaming is an under-explored and crucial component of the modern LLM workflow.
 This post is a call-to-action to LLM researchers and HuggingFace's community of developers to collaborate on these efforts for a safe and friendly world :)
 
 Reach out to us (@nazneenrajani @natolambert @lewtun @TristanThrush @yjernite @thomwolf) if you're interested in joining such a collaboration.
 
 *Acknowledgement:* We'd like to thank [Yacine Jernite](https://huggingface.co/yjernite) for his helpful suggestions on correct usage of terms in this blogpost.
+
