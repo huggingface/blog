@@ -12,6 +12,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
+*Warning: This article is about red-teaming and as such contains examples of model generation that may be offensive or upsetting.*
 
 Large language models (LLMs) trained on an enormous amount of text data are very good at generating realistic text. However, these models often exhibit undesirable behaviors like revealing personal information (such as social security numbers) and generating misinformation, bias, hatefulness, or toxic content. For example, earlier versions of GPT3 were known to exhibit sexist behaviors (see below) and [biases against Muslims](https://dl.acm.org/doi/abs/10.1145/3461702.3462624),
 
