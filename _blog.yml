@@ -1857,3 +1857,13 @@
     - chatgpt
     - safety
     - alignment
+
+- local: ml-disaster
+  title: "Using Machine Learning to Aid Survivors and Race through Time"
+  author: merve
+  thumbnail: /blog/assets/using-ml-for-disasters/thumbnail.png
+  date: February 27, 2023
+  tags:
+    - nlp
+    - transformers
+    - object-detection
