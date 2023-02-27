@@ -23,10 +23,10 @@ authors:
 </head>
 <body>
 
-_If you're interested in building ML solutions faster visit the [Expert Acceleration Program](https://huggingface.co/support) landing page and contact us [here](https://huggingface.co/support#form)!
+_If you're interested in building ML solutions faster visit the [Expert Acceleration Program](https://huggingface.co/support) landing page and contact us [here](https://huggingface.co/support#form)!_
 
 ### Business Context
-As IT continues to evolve and reshape our world, creating a more diverse and inclusive environment within the industry is imperative. [Witty Works](https://www.witty.works/) was built in 2018 to address this challenge. Starting as a consulting company advising organizations on how to become more diverse, Witty Works first helped them write job ads using inclusive language. To scale this effort, in 2019 they built a web app to assist users in writing inclusive job ads in English, French and German. They enlarged the scope rapidly with a writing assistant working as a browser extension which automatically fixes and explains potential bias in emails, Linkedin posts, job ads, etc. The aim was to offer a solution for both internal and external communication that fosters a cultural change by also providing micro-learning bites that explain the underlying bias of highlighted words and phrases.
+As IT continues to evolve and reshape our world, creating a more diverse and inclusive environment within the industry is imperative. [Witty Works](https://www.witty.works/) was built in 2018 to address this challenge. Starting as a consulting company advising organizations on how to become more diverse, Witty Works first helped them write job ads using inclusive language. To scale this effort, in 2019 they built a web app to assist users in writing inclusive job ads in English, French and German. They enlarged the scope rapidly with a writing assistant working as a browser extension which automatically fixes and explains potential bias in emails, Linkedin posts, job ads, etc. The aim was to offer a solution for internal and external communication that fosters a cultural change by providing micro-learning bites that explain the underlying bias of highlighted words and phrases.
 
 <p align="center">
     <img src="blog/assets/78_ml_director_insights/wittyworks.png"><br>
@@ -34,11 +34,17 @@ As IT continues to evolve and reshape our world, creating a more diverse and inc
 </p>
 
 ### First experiments 
-Witty Works first chose a basic machine learning approach to build their assistant from scratch. Using transfer learning with pre-trained spaCy models, the assistant analyzed text and transformed words to lemmas, performed linguistic analysis, and extracted the linguistic features from the text (plural and singular forms, gender), part-of-speech tags (pronouns, verbs, nouns, adjectives, etc), word dependencies labels, as well as named entity recognition, etc. By detecting and filtering words according to a specific knowledge base using linguistic features, the assistant could highlight non-inclusive words and suggest alternatives in real time.  
+Witty Works first chose a basic machine learning approach to build their assistant from scratch. Using transfer learning with pre-trained spaCy models, the assistant was able to: 
+- Analyze text and transform words into lemmas, 
+- Perform a linguistic analysis,  
+- Extract the linguistic features from the text (plural and singular forms, gender), part-of-speech tags (pronouns, verbs, nouns, adjectives, etc.), word dependencies labels, named entity recognition, etc. 
 
-### Challenge
+By detecting and filtering words according to a specific knowledge base using linguistic features, the assistant could highlight non-inclusive words and suggest alternatives in real-time.
+
+  ### Challenge
 The vocabulary had around 2300 non-inclusive words and idioms in German and English correspondingly. And the above described basic approach worked very well for 85% of the vocabulary, but it failed for context-dependent words. Therefore the task was to build a context-dependent classifier of non-inclusive words. The requirements of understanding the context rather than recognizing linguistic features led to the use of Hugging Face transformers.
-```diff
+
+  ```diff
 Example of context dependent non-inclusive words: 
   Fossil fuels are not renewable resources. Vs He is an old fossil
   You will have a flexible schedule. Vs You should keep your schedule flexible.
