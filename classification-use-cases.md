@@ -42,8 +42,8 @@ Witty Works first chose a basic machine learning approach to build their assista
 By detecting and filtering words according to a specific knowledge base using linguistic features, the assistant could highlight non-inclusive words and suggest alternatives in real-time.
 
   ### Challenge
-The vocabulary had around 2300 non-inclusive words and idioms in German and English correspondingly. And the above described basic approach worked very well for 85% of the vocabulary, but it failed for context-dependent words. Therefore the task was to build a context-dependent classifier of non-inclusive words. The requirements of understanding the context rather than recognizing linguistic features led to the use of Hugging Face transformers.
-
+The vocabulary had around 2300 non-inclusive words and idioms in German and English correspondingly. And the above described basic approach worked well for 85% of the vocabulary but failed for context-dependent words. Therefore the task was to build a context-dependent classifier of non-inclusive words. Such requirements (understanding the context rather than recognizing linguistic features) led to using Hugging Face transformers.
+  
   ```diff
 Example of context dependent non-inclusive words: 
   Fossil fuels are not renewable resources. Vs He is an old fossil
@@ -59,10 +59,10 @@ The initial approach of Witty Works was based on vanilla transformers that are u
 Elena Nazarenko, Lead Data Scientist at Witty Works: “We generate contextualized embedding vectors for every word depending on its sentence (BERT embedding). Then, we keep only the embedding for the “problem” word’s token, and calculate the smallest angle (cosine similarity).” 
 ```
 
-To fine-tune a vanilla transformers-based classifier, such as a simple BERT model, Witty Works would have needed a substantial amount of annotated data. hundreds of samples for each category of flagged words would have been necessary. However, such an annotation process would have been costly and time-consuming, which Witty Works couldn’t afford. 
+To fine-tune a vanilla transformers-based classifier, such as a simple BERT model, Witty Works would have needed a substantial amount of annotated data. Hundreds of samples for each category of flagged words would have been necessary. However, such an annotation process would have been costly and time-consuming, which Witty Works couldn’t afford. 
 
 - #### **Get guidance on selecting the right ML library.**
-The Hugging Face Expert suggested using the Sentence Transformers Fine-tuning library (aka [SetFit](https://github.com/huggingface/setfit)), an efficient framework for few-shot fine-tuning of Sentence Transformers models. Combining contrastive learning and sentence semantic similarity, SetFit achieves high accuracy on text classification tasks with very little labeled data.
+The Hugging Face Expert suggested using the Sentence Transformers Fine-tuning library (aka [SetFit](https://github.com/huggingface/setfit)), an efficient framework for few-shot fine-tuning of Sentence Transformers models. Combining contrastive learning and semantic sentence similarity, SetFit achieves high accuracy on text classification tasks with very little labeled data.
 
 ```diff
 Julien Simon, Chief Evangelist at Hugging Face: “SetFit for text classification tasks is a great tool to add to the ML toolbox.” 
