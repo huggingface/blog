@@ -61,7 +61,7 @@ We’ve realized that if it wasn’t for Hugging Face Hub and the ecosystem, we 
 
 ![mlops](assets/using-ml-for-disasters/pipeline.png)
 
-There’s tens of people behind this application and its individual components, who worked with no sleep to get these out in short time. 
+There are tens of people behind this application and its individual components, who worked with no sleep to get these out in such a short time. 
 
 ## Remote Sensing Applications
 
