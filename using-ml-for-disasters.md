@@ -37,7 +37,7 @@ The model was later used in `afetharita` to parse the addresses. The parsed addr
 
 Later on, we were asked to create an intent classification model to extract the needs of the survivors or rescue them. We were given data with multiple labels for multiple needs in a given tweet, and these needs could be shelter, food, or logistics, as it was freezing cold over there. We’ve started experimenting first with zero-shot experimentations with open-source NLI models on Hugging Face Hub and few-shot experimentations with closed-source generative model endpoints. NLI models were particularly useful as we could directly infer with candidate labels and change the labels as data drift occurs, whereas generative models could have made up labels and  cause mismatches when giving responses to the backend. We initially didn’t have labeled data so anything would work.
 
-In the end, we decided to fine-tune our own model as it would take roughly three minutes to fine-tune BERT’s text classification head on GPU. We had a separate labelling effort to develop our own model. We noted down our experiments in model card’s metadata so we could later come up with a leaderboard to keep track of which model should be deployed to production. 
+In the end, we decided to fine-tune our own model as it would take roughly three minutes to fine-tune BERT’s text classification head on a single GPU. We had a separate labeling effort to develop our own model. We logged our experiments in the model card’s metadata so we could later come up with a leaderboard to keep track of which model should be deployed to production. 
 
 ![intent_model](assets/using-ml-for-disasters/model-repo.png)
 
