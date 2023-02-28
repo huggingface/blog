@@ -45,7 +45,7 @@ Considering the task in hand and the imbalance of our data classes, we focused o
 
 ![leaderboard](assets/using-ml-for-disasters/leaderboard.png)
 
-We wanted our NER model to be evaluated and crowd-source the effort because the data labelers were working to give us better and updated intent datasets. To evaluate the NER model, we’ve setup a labelling interface using `Argilla` and `Gradio`, where people could input a tweet and flag the output as correct/incorrect/ambiguous.
+We wanted our NER model to be evaluated and crowd-source the effort because the data labelers were working to give us better and updated intent datasets. To evaluate the NER model, we’ve set up a labeling interface using `Argilla` and `Gradio`, where people could input a tweet and flag the output as correct/incorrect/ambiguous.
 
 ![active_learning](assets/using-ml-for-disasters/active-learning.png)
 
