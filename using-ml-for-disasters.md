@@ -75,7 +75,7 @@ Our initial approach was to rapidly label satellite images for object detection 
 
 ![app](assets/using-ml-for-disasters/app.png)
 
-Once again, dozens of people worked on labeling, preparing data and training models. In addition to individual volunteers, companies like [Co-One](https://co-one.co/) volunteered to label satellite data with more detailed annotations for buildings and infrastructure, including *no damage, destroyed, damaged, damaged facility,* and *undamaged facility* labels*.* Our current objective is to release an extensive open-source dataset that can expedite search and rescue operations worldwide in the future.
+Once again, dozens of people worked on labeling, preparing data, and training models. In addition to individual volunteers, companies like [Co-One](https://co-one.co/) volunteered to label satellite data with more detailed annotations for buildings and infrastructure, including *no damage*, *destroyed*, *damaged*, *damaged facility,* and *undamaged facility* labels. Our current objective is to release an extensive open-source dataset that can expedite search and rescue operations worldwide in the future.
 
 ![output_satellite](assets/using-ml-for-disasters/output_satellite.png)
 
