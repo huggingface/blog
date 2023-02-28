@@ -11,7 +11,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-On February 6, 2023, earthquakes measuring 7.7 and 7.6 hit the South Eastern Turkey, affecting 10 cities and resulting in more than 42.000 deaths and 120.000 injuries as of February 21.
+On February 6, 2023, earthquakes measuring 7.7 and 7.6 hit South Eastern Turkey, affecting 10 cities and resulting in more than 42.000 deaths and 120.000 injuries as of February 21.
 
 In few hours after the earthquake, a group of programmers started a Discord server to roll out an application called *afetharita*, literally meaning, *disaster map*. This application would serve search and rescue teams, and volunteers to find people and bring them their needs. The need for such app arose from how people posted Instagram screenshots of texts where they posted their address and what they need (including rescue). They also posted tweets of such screenshots or just tweeting what they need so other people knew they are alive. Having the need to extract information from these tweets, we developed various applications to turn them into structured data and race against time in developing and deploying these apps. 
 
