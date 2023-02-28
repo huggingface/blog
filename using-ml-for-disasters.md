@@ -19,7 +19,7 @@ When I got invited to the discord server, there was quite a lot of chaos regardi
 
 ![organization](assets/using-ml-for-disasters/org.png)
 
-On the first day, people were in need of an application to post screenshots, extract information from these and write the structured information to the database, so we started developing an application that would take a given image, extract a name, telephone number and address and would write it to a database that would be handed to authorities. After experimenting with various open-source OCR tools, we started using `easyocr` and `Gradio` to develop this application and opened endpoints from the interface so that any team could’ve benefit from OCR as this was the specific need. As of now, the addresses are parsed using transformers-based fine-tuned NER model. 
+On the first day, people need an application to post screenshots, extract information from these and write the structured information to the database, so we started developing an application that would take a given image, extract a name, telephone number, and address and would write it to a database that would be handed to authorities. After experimenting with various open-source OCR tools, we started using `easyocr` and `Gradio` to develop this application and opened endpoints from the interface so that any team could benefit from OCR as this was the specific need. As of now, the addresses are parsed using transformers-based fine-tuned NER model. 
 
 ![OCR](assets/using-ml-for-disasters/ocr-app.png)
 
