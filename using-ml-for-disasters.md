@@ -15,7 +15,7 @@ On February 6, 2023, earthquakes measuring 7.7 and 7.6 hit South Eastern Turkey,
 
 In few hours after the earthquake, a group of programmers started a Discord server to roll out an application called *afetharita*, literally meaning, *disaster map*. This application would serve search and rescue teams, and volunteers to find people and bring them their needs. The need for such an app arose from how people posted Instagram screenshots of texts where they posted their addresses and what they needed (including rescue). They also posted tweets of such screenshots or just tweeted what they need so other people knew they are alive. Needing to extract information from these tweets, we developed various applications to turn them into structured data and raced against time in developing and deploying these apps. 
 
-When I got invited to discord server, there was quite a lot of chaos on how we would operate and what we would do. The soundest thing would be to open a Hugging Face organization account and collaborate through pull requests as we’ve decided we’d like to build ML based applications to receive and process information and also we needed an open registry for models and datasets. 
+When I got invited to the discord server, there was quite a lot of chaos regarding how we would operate and what we would do. The soundest thing would be to open a Hugging Face organization account and collaborate through pull requests as we’ve decided we’d like to build ML-based applications to receive and process information and also we needed an open registry for models and datasets. 
 
 ![organization](assets/using-ml-for-disasters/org.png)
 
