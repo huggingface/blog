@@ -65,7 +65,7 @@ There’s tens of people behind this application and its individual components, 
 
 ## Remote Sensing Applications
 
-Other teams worked on remote sensing applications to assess the damage to buildings and infrastructure in an effort to direct search and rescue operations. The lack of electricity and stabile mobile networks during the first 48 hours of the earthquake, combined with collapsed roads, made it extremely difficult to assess the extent of the damage and where help was needed. The search and rescue operations were also heavily effected by false reports of collapsed and damaged buildings due to the difficulties in communication and transportation.
+Other teams worked on remote sensing applications to assess the damage to buildings and infrastructure in an effort to direct search and rescue operations. The lack of electricity and stable mobile networks during the first 48 hours of the earthquake, combined with collapsed roads, made it extremely difficult to assess the extent of the damage and where help was needed. The search and rescue operations were also heavily affected by false reports of collapsed and damaged buildings due to the difficulties in communication and transportation.
 
 In an effort to address these issues and create open source tools that can be leveraged in the future, we started by collecting pre and post-earthquake satellite images of the affected zones from Planet Labs, Maxar and Copernicus Open Access Hub. 
 
