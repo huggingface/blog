@@ -1,45 +1,18 @@
 ---
 title: "New and Open-Source ViT and ALIGN from Kakao Brain" 
-thumbnail: /blog/assets/120_vit_align/thumbnail.png
+thumbnail: /blog//assets/130_vit_align/thumbnail.png
+authors:
+- user: Unso
+- user: dylan-m
+- user: jun-untitled
+- user: adirik
 ---
-
-# New and Open-Source ViT and ALIGN from Kakao Brain
-
-<div class="blog-metadata">
-    <small>Published Dec 05, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/vit-align.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="https://huggingface.co/Unso"> 
-        <img class="avatar avatar-user" src="https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=-I2EZeEAAAAJ&citpid=8" title="Gravatar">
-        <div class="bfc">
-            <code>unso</code>
-            <span class="fullname">Unso Jo</span>
-        </div>
-    </a>
-    <a href="https://huggingface.co/dylan-m">
-        <img class="avatar avatar-user" src="https://secure.gravatar.com/userimage/229112619/c7541f610d6f1b90ebc59b1ce24734b5?size=420" title="Gravatar">
-        <div class="bfc">
-            <code>dylan-m</code>
-            <span class="fullname">Minwoo Byeon</span>
-        </div>
-    </a>
-    <a href="https://huggingface.co/jun-untitled">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/18109378?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>jun-untitled</code>
-            <span class="fullname">Sungjun Lee</span>
-        </div>
-    </a>
-
-</div>
-
 
 
 # Kakao Brain’s Open Source ViT, ALIGN, and the new COYO text-image dataset
+
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 Kakao Brain and Hugging Face are excited to release a new open-source image-text dataset [COYO](https://github.com/kakaobrain/coyo-dataset) of 700 million pairs and two new visual language models trained on it, [ViT](https://github.com/kakaobrain/coyo-vit) and [ALIGN](https://github.com/kakaobrain/coyo-align). This is the first time ever the ALIGN model is made public for free and open-source use and the first release of ViT and ALIGN models that come with the train dataset.  
 
@@ -59,7 +32,7 @@ Kakao Brain's released ViT and ALIGN models perform on par and sometimes better 
 
 <p>
 <center>
-<img src="assets/120_vit_align/align.png" alt="align performance" width="430"/><img src="assets/120_vit_align/vit.png" alt="vit performance" width="430"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/130_vit_align/align.png" alt="align performance" width="430"/><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/130_vit_align/vit.png" alt="vit performance" width="430"/>
 </center>
 </p>
 
@@ -124,7 +97,89 @@ It is a new approach to vision, distinct from convolutional neural nets (CNNs) t
 To use the `COYO` dataset, refer to the [COYO github page](https://github.com/kakaobrain/coyo-dataset/tree/main/download).
 
 ## How to use ViT and ALIGN from the Hub
+Let’s go ahead and experiment with the new ViT and ALIGN models. First, let’s install 🤗Transformers: `pip install transformers` and get started with ViT for image classification by importing the modules and libraries we will use.
 
+```
+import requests
+from PIL import Image
+import torch
+from transformers import ViTImageProcessor, ViTForImageClassification
+```
+
+Next, we will download a random image of two cats from the COCO dataset and preprocess the image to transform it to the input format expected by the model. To do this, we can conveniently use the corresponding preprocessor class (`ViTProcessor`). To initialize the model and the preprocessor, we will use one of the [Kakao Brain ViT repos](https://huggingface.co/models?search=kakaobrain/vit) on the hub. Note that initializing the preprocessor from a repository ensures that the preprocessed image is in the expected format required by that specific pretrained model.
+
+```
+url = 'http://images.cocodataset.org/val2017/000000039769.jpg'
+image = Image.open(requests.get(url, stream=True).raw)
+
+processor = ViTImageProcessor.from_pretrained('kakaobrain/vit-large-patch16-384')
+model = ViTForImageClassification.from_pretrained('kakaobrain/vit-large-patch16-384')
+```
+
+The rest is simple, we will forward preprocess the image and use it as input to the model to retrive the class logits. The Kakao Brain ViT image classification models are trained on ImageNet labels and outputs logits of shape (batch_size, 1000).
+```
+# preprocess image or list of images
+inputs = processor(images=image, return_tensors="pt")
+
+# inference
+with torch.no_grad():
+    outputs = model(**inputs)
+
+# apply SoftMax to logits to compute the probability of each class
+preds = torch.nn.functional.softmax(outputs.logits)
+
+# print the top 5 class predictions and their probabilities
+top_class_preds = torch.argsort(preds, descending=True)[:5]
+
+for c in top_class_preds:
+    print(f"{model.config.id2label[c.item()]} with probability {round(preds[c.item()].item(), 4)}")
+
+>>> remote control, remote with probability 0.8224
+>>> tabby, tabby cat with probability 0.0658
+>>> tiger cat with probability 0.0656
+>>> Egyptian cat with probability 0.0389
+>>> lynx, catamount with probability 0.0011
+```
+
+And we are done! If you want to experiment more with the Kakao Brain ViT model, head over to its [Space](https://huggingface.co/spaces/adirik/kakao-brain-vit) on the 🤗 Hub.
 <center>
-<img src="assets/120_vit_align/vit_demo.png" alt="vit performance" width="900"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/130_vit_align/vit_demo.png" alt="vit performance" width="900"/>
 </center>
+
+Let's move on to experimenting with ALIGN, which can be used to retrieve multi-modal embeddings of texts or images or to perform zero-shot image classification. ALIGN's transformers implementation and usage is similar to [CLIP](https://huggingface.co/docs/transformers/main/en/model_doc/clip). To get started, we will first download the pretrained model and its processor, which can preprocess both the images and texts such that they are in the expected format to be fed into the vision and text encoders of ALIGN. Once again, let's import the modules we will use and initialize the preprocessor and the model.
+
+```
+import requests
+from PIL import Image
+import torch
+from transformers import AlignProcessor, AlignModel
+
+
+url = 'http://images.cocodataset.org/val2017/000000039769.jpg'
+image = Image.open(requests.get(url, stream=True).raw)
+
+processor = AlignProcessor.from_pretrained('kakaobrain/align-base')
+model = AlignModel.from_pretrained('kakaobrain/align-base')
+```
+
+We will start with zero-shot image classification first. To do this, we will suppy candidate labels (free-form text) and use AlignModel to find out which description better describes the image. We will first preprocess both the image and text inputs and feed the preprocessed input to the AlignModel.
+
+```
+candidate_labels = ['an image of a cat', 'an image of a dog']
+
+inputs = processor(images=image, text=candidate_labels, return_tensors="pt")
+
+with torch.no_grad():
+    outputs = model(**inputs)
+
+# this is the image-text similarity score
+logits_per_image = outputs.logits_per_image  
+
+# we can take the softmax to get the label probabilities
+probs = logits_per_image.softmax(dim=1)  
+print(probs)
+```
+
+Done, easy as that. We can also use the vision and text encoders of ALIGN separately to retrieve multi-modal embeddings. These embeddings can then be used to train models for various downstream tasks such as object detection, image segmentation and image captioning. Let's see how we can retrieve these embeddings using `AlignTextModel` and `AlignVisionModel`.
+
+
