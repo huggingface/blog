@@ -49,7 +49,7 @@ We wanted our NER model to be evaluated and crowd-source the effort because the 
 
 ![active_learning](assets/using-ml-for-disasters/active-learning.png)
 
-Later, the dataset were deduplicated and we decided to use the dataset to benchmark our further experiments. 
+Later, the dataset was deduplicated and used to benchmark our further experiments. 
 
 Another team under machine learning has worked with generative models (behind a gated API) to get the specific needs (as labels were too broad) as free text and pass the text as an additional context to each posting. For this, they’ve done prompt engineering and wrapped the API endpoints as a separate API and deployed on cloud. Using few-shot prompting with LLMs help adjust in fine-grained needs to prevent fast developing data drift, as the only thing we need to adjust is to adjust the prompt and we do not need any labelled data for this.
 
