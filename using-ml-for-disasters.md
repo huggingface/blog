@@ -57,7 +57,7 @@ These models are currently being used in production to create the points in belo
 
 ![afetharita](assets/using-ml-for-disasters/afetharita.png)
 
-We’ve realized that if it wasn’t for Hugging Face Hub and the ecosystem, we wouldn’t be able to collaborate, prototype and deploy this fast. Below is our MLOps pipeline for address recognition and intent classification models. 
+We’ve realized that if it wasn’t for Hugging Face Hub and the ecosystem, we wouldn’t be able to collaborate, prototype, and deploy this fast. Below is our MLOps pipeline for address recognition and intent classification models. 
 
 ![mlops](assets/using-ml-for-disasters/pipeline.png)
 
