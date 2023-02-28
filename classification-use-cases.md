@@ -42,7 +42,7 @@ Witty Works first chose a basic machine learning approach to build their assista
 By detecting and filtering words according to a specific knowledge base using linguistic features, the assistant could highlight non-inclusive words and suggest alternatives in real-time.
 
   ### Challenge
-The vocabulary had around 2300 non-inclusive words and idioms in German and English correspondingly. And the above described basic approach worked well for 85% of the vocabulary but failed for context-dependent words. Therefore the task was to build a context-dependent classifier of non-inclusive words. Such requirements (understanding the context rather than recognizing linguistic features) led to using Hugging Face transformers.
+The vocabulary had around 2300 non-inclusive words and idioms in German and English correspondingly. And the above described basic approach worked well for 85% of the vocabulary but failed for context-dependent words. Therefore the task was to build a context-dependent classifier of non-inclusive words. Such a challenge (understanding the context rather than recognizing linguistic features) led to using Hugging Face transformers.
   
   ```diff
 Example of context dependent non-inclusive words: 
@@ -53,7 +53,13 @@ Example of context dependent non-inclusive words:
 ### Solutions provided by the [Hugging Face Experts](https://huggingface.co/support)
 
 - #### **Get guidance for deciding on the right ML approach.**
-The initial approach of Witty Works was based on vanilla transformers that are used to extract token embeddings of specific non-inclusive words. The Hugging Face Expert recommended that Witty Work switch from using contextualized word embeddings to contextualized sentence embeddings. In this approach, the representation of each word in a sentence depends on its surrounding context. Hugging Face Experts suggested the use of a [Sentence Transformers](https://www.sbert.net/) architecture. This architecture generates embeddings for sentences as a whole; the distance between pairs of semantically similar sentences is minimized and the distance between sentence pairs that are semantically distant is maximized. In this approach Sentence Transformers use Siamese networks and triplet network structures to modify the pre-trained transformer models to generate “semantically meaningful” sentence embeddings. The resulting sentence embedding serves as input for a classical classifier based on KNN or logistic regression to build a context-dependent classifier of non-inclusive words.
+The initial chosen approach was vanilla transformers (used to extract token embeddings of specific non-inclusive words). The Hugging Face Expert recommended switching from contextualized word embeddings to contextualized sentence embeddings. In this approach, the representation of each word in a sentence depends on its surrounding context. 
+
+Hugging Face Experts suggested the use of a [Sentence Transformers](https://www.sbert.net/) architecture. This architecture generates embeddings for sentences as a whole. The distance between semantically similar sentences is minimized and maximized for distant sentences. 
+
+In this approach, Sentence Transformers use Siamese networks and triplet network structures to modify the pre-trained transformer models to generate “semantically meaningful” sentence embeddings. 
+
+The resulting sentence embedding serves as input for a classical classifier based on KNN or logistic regression to build a context-dependent classifier of non-inclusive words.
 
 ```diff
 Elena Nazarenko, Lead Data Scientist at Witty Works: “We generate contextualized embedding vectors for every word depending on its sentence (BERT embedding). Then, we keep only the embedding for the “problem” word’s token, and calculate the smallest angle (cosine similarity).” 
@@ -68,16 +74,16 @@ The Hugging Face Expert suggested using the Sentence Transformers Fine-tuning li
 Julien Simon, Chief Evangelist at Hugging Face: “SetFit for text classification tasks is a great tool to add to the ML toolbox.” 
 ```
 
-The Witty Works team found the performance was more than adequate with as little as 15-20  labeled sentences per specific word.
+The Witty Works team found the performance was adequate with as little as 15-20  labeled sentences per specific word.
 
 ```diff
 Elena Nazarenko, Lead Data Scientist at Witty Works: “At the end of the day, we saved time and money by not creating this large data set.”
 ```
 
-Reducing the number of sentences was important to ensure that model training remained fast and running the model is efficient. However, it is also important for another reason: Witty explicitly takes a highly supervised/rule based approach in order to [actively manage bias](https://www.witty.works/en/blog/is-chatgpt-able-to-generate-inclusive-language). This means reducing the number of sentences was also very important to reduce the effort in manually reviewing the training sentences.
+Reducing the number of sentences was essential to ensure that model training remained fast and that running the model was efficient. However, it was also necessary for another reason: Witty explicitly takes a highly supervised/rule-based approach to [actively manage bias](https://www.witty.works/en/blog/is-chatgpt-able-to-generate-inclusive-language). Reducing the number of sentences is very important to reduce the effort in manually reviewing the training sentences.
 
 - #### **Get guidance on selecting the right ML models.**
-One major challenge for Witty Works was to deploy a model with very low latency. No one is expecting to wait for 3 minutes to get suggestions to improve one’s text! Both Hugging Face and Witty Works experimented with a few sentence transformers models and settled for [mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) combined with logistic regression and KNN. 
+One major challenge for Witty Works was deploying a model with low latency. No one expects to wait 3 minutes to get suggestions to improve one’s text! Both Hugging Face and Witty Works experimented with a few sentence transformers models and settled for [mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) combined with logistic regression and KNN. 
 
 After a first test on Google Colab, the Hugging Face experts guided Witty Works on deploying the model on Azure. No optimization was necessary as the model was fast enough.
 
