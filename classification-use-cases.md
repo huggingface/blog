@@ -23,10 +23,10 @@ authors:
 </head>
 <body>
 
-_If you're interested in building ML solutions faster visit the [Expert Acceleration Program](https://huggingface.co/support) landing page and contact us [here](https://huggingface.co/support#form)!_
+_If you're interested in building ML solutions faster, visit the [Expert Acceleration Program](https://huggingface.co/support) landing page and contact us [here](https://huggingface.co/support#form)!_
 
 ### Business Context
-As IT continues to evolve and reshape our world, creating a more diverse and inclusive environment within the industry is imperative. [Witty Works](https://www.witty.works/) was built in 2018 to address this challenge. Starting as a consulting company advising organizations on how to become more diverse, Witty Works first helped them write job ads using inclusive language. To scale this effort, in 2019 they built a web app to assist users in writing inclusive job ads in English, French and German. They enlarged the scope rapidly with a writing assistant working as a browser extension which automatically fixes and explains potential bias in emails, Linkedin posts, job ads, etc. The aim was to offer a solution for internal and external communication that fosters a cultural change by providing micro-learning bites that explain the underlying bias of highlighted words and phrases.
+As IT continues to evolve and reshape our world, creating a more diverse and inclusive environment within the industry is imperative. [Witty Works](https://www.witty.works/) was built in 2018 to address this challenge. Starting as a consulting company advising organizations on becoming more diverse, Witty Works first helped them write job ads using inclusive language. To scale this effort, in 2019, they built a web app to assist users in writing inclusive job ads in English, French and German. They enlarged the scope rapidly with a writing assistant working as a browser extension that automatically fixes and explains potential bias in emails, Linkedin posts, job ads, etc. The aim was to offer a solution for internal and external communication that fosters a cultural change by providing micro-learning bites that explain the underlying bias of highlighted words and phrases.
 
 <p align="center">
     <img src="blog/assets/78_ml_director_insights/wittyworks.png"><br>
@@ -62,7 +62,7 @@ In this approach, Sentence Transformers use Siamese networks and triplet network
 The resulting sentence embedding serves as input for a classical classifier based on KNN or logistic regression to build a context-dependent classifier of non-inclusive words.
 
 ```diff
-Elena Nazarenko, Lead Data Scientist at Witty Works: “We generate contextualized embedding vectors for every word depending on its sentence (BERT embedding). Then, we keep only the embedding for the “problem” word’s token, and calculate the smallest angle (cosine similarity).” 
+Elena Nazarenko, Lead Data Scientist at Witty Works: “We generate contextualized embedding vectors for every word depending on its sentence (BERT embedding). Then, we keep only the embedding for the “problem” word’s token, and calculate the smallest angle (cosine similarity)”.  
 ```
 
 To fine-tune a vanilla transformers-based classifier, such as a simple BERT model, Witty Works would have needed a substantial amount of annotated data. Hundreds of samples for each category of flagged words would have been necessary. However, such an annotation process would have been costly and time-consuming, which Witty Works couldn’t afford. 
