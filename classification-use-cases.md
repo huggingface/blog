@@ -23,7 +23,7 @@ authors:
 </head>
 <body>
 
-_If you're interested in building ML solutions faster, visit the [Expert Acceleration Program](https://huggingface.co/support) landing page and contact us [here](https://huggingface.co/support#form)!_
+_If you're interested in building ML solutions faster, visit the [Expert Acceleration Program](hhttps://huggingface.co/support?utm_source=blog-post&utm_medium=blog-post&utm_campaign=blog-post-classification-use-case) landing page and contact us [here](https://huggingface.co/support?utm_source=blog-post&utm_medium=blog-post&utm_campaign=blog-post-classification-use-case#form)!_
 
 ### Business Context
 As IT continues to evolve and reshape our world, creating a more diverse and inclusive environment within the industry is imperative. [Witty Works](https://www.witty.works/) was built in 2018 to address this challenge. Starting as a consulting company advising organizations on becoming more diverse, Witty Works first helped them write job ads using inclusive language. To scale this effort, in 2019, they built a web app to assist users in writing inclusive job ads in English, French and German. They enlarged the scope rapidly with a writing assistant working as a browser extension that automatically fixes and explains potential bias in emails, Linkedin posts, job ads, etc. The aim was to offer a solution for internal and external communication that fosters a cultural change by providing micro-learning bites that explain the underlying bias of highlighted words and phrases.
@@ -50,7 +50,7 @@ Example of context dependent non-inclusive words:
   You will have a flexible schedule. Vs You should keep your schedule flexible.
 ```
 
-### Solutions provided by the [Hugging Face Experts](https://huggingface.co/support)
+### Solutions provided by the [Hugging Face Experts](https://huggingface.co/support?utm_source=blog-post&utm_medium=blog-post&utm_campaign=blog-post-classification-use-case)
 
 - #### **Get guidance for deciding on the right ML approach.**
 The initial chosen approach was vanilla transformers (used to extract token embeddings of specific non-inclusive words). The Hugging Face Expert recommended switching from contextualized word embeddings to contextualized sentence embeddings. In this approach, the representation of each word in a sentence depends on its surrounding context. 
@@ -105,7 +105,7 @@ Julien Simon, Chief Evangelist at Hugging Face: “The Hugging way to build work
 ```
 ---
 
-🤗   If you or your team are interested in accelerating your ML roadmap with Hugging Face Experts, please visit [hf.co/support](https://huggingface.co/support) to learn more.
+🤗   If you or your team are interested in accelerating your ML roadmap with Hugging Face Experts, please visit [hf.co/support](https://huggingface.co/support?utm_source=blog-post&utm_medium=blog-post&utm_campaign=blog-post-classification-use-case) to learn more.
 
 </body>
 </html>
