@@ -180,6 +180,73 @@ probs = logits_per_image.softmax(dim=1)
 print(probs)
 ```
 
-Done, easy as that. We can also use the vision and text encoders of ALIGN separately to retrieve multi-modal embeddings. These embeddings can then be used to train models for various downstream tasks such as object detection, image segmentation and image captioning. Let's see how we can retrieve these embeddings using `AlignTextModel` and `AlignVisionModel`.
+Done, easy as that. Note that, the output of `AlignModel` includes `text_embeds` and `image_embeds` (see the [documentation](https://huggingface.co/docs/transformers/main/en/model_doc/align) of ALIGN). If we don't need to compute the per-image and per-text logits for zero-shot classification, we can retrieve the vision and text embeddings using the convenient `get_image_features()` and `get_text_features()` methods of AlignModel. 
+
+```
+text_embeds = model.get_text_features(
+    input_ids=inputs['input_ids'],
+    attention_mask=inputs['attention_masks],
+    token_type_ids=inputs['token_type_ids'],
+)
+image_embeds = model.get_image_features(
+    pixel_values=inputs['pixel_values'],
+)
+```
+
+Alternatively, we can use the stand-along vision and text encoders of ALIGN to retrieve multi-modal embeddings. These embeddings can then be used to train models for various downstream tasks such as object detection, image segmentation and image captioning. Let's see how we can retrieve these embeddings using `AlignTextModel` and `AlignVisionModel`. Note that we can use the convenient AlignProcessor class to preprocess texts and images separately.
+
+```
+from transformers import AlignTextModel
 
 
+processor = AlignProcessor.from_pretrained('kakaobrain/align-base')
+model = AlignTextModel.from_pretrained('kakaobrain/align-base')
+
+# get embeddings of two text queries
+inputs = processor(['an image of a cat', 'an image of a dog'], return_tensors="pt")
+
+with torch.no_grad():
+    outputs = model(**inputs)
+
+# print the last hidden state and the final pooled output 
+last_hidden_state = outputs.last_hidden_state
+pooled_output = outputs.pooler_output
+```
+
+We can also opt to return all hidden states and attention values by setting the output_hidden_states and output_attentions arguments to True during inference.
+
+```
+with torch.no_grad():
+    outputs = model(**inputs, output_hidden_states=True, output_attentions=True)
+
+# print what information is returned
+for key, value in outputs.items():
+    print(key)
+```
+
+Let's do the same with `AlignVisionModel` and retrieve the multi-modal embedding of an image.
+```
+from transformers import AlignVisionModel
+
+
+processor = AlignProcessor.from_pretrained('kakaobrain/align-base')
+model = AlignVisionModel.from_pretrained('kakaobrain/align-base')
+
+url = 'http://images.cocodataset.org/val2017/000000039769.jpg'
+image = Image.open(requests.get(url, stream=True).raw)
+
+inputs = processor(images=image, return_tensors="pt")
+
+with torch.no_grad():
+    outputs = model(**inputs)
+
+# print the last hidden state and the final pooled output 
+last_hidden_state = outputs.last_hidden_state
+pooled_output = outputs.pooler_output
+```
+
+## Conclusion
+
+There have been incredible advances in multi-modal models in recent years, with models such as CLIP and ALIGN unlocking various downstream tasks such as image captioning and open vocabulary object detection. In this blog, we talked about the latest open source ViT and ALIGN models contributed to the Hub by Kakao Brain, as well as the new COYO text-image dataset. We also showed how you can use these models to perform various tasks with a few lines of code. 
+
+We are continuing to integrate the most impactful computer vision and multi-modal models and would love to hear back from you. To stay up to date with the latest news in computer vision and multi-modal research, you can follow us on Twitter: [@adirik](https://twitter.com/https://twitter.com/alaradirik), [@a_e_roberts](https://twitter.com/a_e_roberts), [@RisingSayak](https://mobile.twitter.com/a_e_roberts), and [@huggingface](https://twitter.com/huggingface).
