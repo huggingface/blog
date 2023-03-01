@@ -5,8 +5,8 @@ authors:
 - user: juliensimon
 - user: VioletteLepercq
 - user: florentgbelidji
-- user: lnazarenko
-- user: lsmith77
+- user: oknerazan
+- user: lsmith
 ---
 <html>
 <head>
