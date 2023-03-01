@@ -62,7 +62,9 @@ In this approach, Sentence Transformers use Siamese networks and triplet network
 The resulting sentence embedding serves as input for a classical classifier based on KNN or logistic regression to build a context-dependent classifier of non-inclusive words.
 
 ```diff
-Elena Nazarenko, Lead Data Scientist at Witty Works: “We generate contextualized embedding vectors for every word depending on its sentence (BERT embedding). Then, we keep only the embedding for the “problem” word’s token, and calculate the smallest angle (cosine similarity)”.  
+Elena Nazarenko, Lead Data Scientist at Witty Works: 
+“We generate contextualized embedding vectors for every word depending on its sentence (BERT embedding). 
+Then, we keep only the embedding for the “problem” word’s token, and calculate the smallest angle (cosine similarity)”.  
 ```
 
 To fine-tune a vanilla transformers-based classifier, such as a simple BERT model, Witty Works would have needed a substantial amount of annotated data. Hundreds of samples for each category of flagged words would have been necessary. However, such an annotation process would have been costly and time-consuming, which Witty Works couldn’t afford. 
@@ -71,13 +73,15 @@ To fine-tune a vanilla transformers-based classifier, such as a simple BERT mode
 The Hugging Face Expert suggested using the Sentence Transformers Fine-tuning library (aka [SetFit](https://github.com/huggingface/setfit)), an efficient framework for few-shot fine-tuning of Sentence Transformers models. Combining contrastive learning and semantic sentence similarity, SetFit achieves high accuracy on text classification tasks with very little labeled data.
 
 ```diff
-Julien Simon, Chief Evangelist at Hugging Face: “SetFit for text classification tasks is a great tool to add to the ML toolbox.” 
+Julien Simon, Chief Evangelist at Hugging Face: 
+“SetFit for text classification tasks is a great tool to add to the ML toolbox.” 
 ```
 
 The Witty Works team found the performance was adequate with as little as 15-20  labeled sentences per specific word.
 
 ```diff
-Elena Nazarenko, Lead Data Scientist at Witty Works: “At the end of the day, we saved time and money by not creating this large data set.”
+Elena Nazarenko, Lead Data Scientist at Witty Works: 
+“At the end of the day, we saved time and money by not creating this large data set.”
 ```
 
 Reducing the number of sentences was essential to ensure that model training remained fast and that running the model was efficient. However, it was also necessary for another reason: Witty explicitly takes a highly supervised/rule-based approach to [actively manage bias](https://www.witty.works/en/blog/is-chatgpt-able-to-generate-inclusive-language). Reducing the number of sentences is very important to reduce the effort in manually reviewing the training sentences.
@@ -88,20 +92,29 @@ One major challenge for Witty Works was deploying a model with low latency. No o
 After a first test on Google Colab, the Hugging Face experts guided Witty Works on deploying the model on Azure. No optimization was necessary as the model was fast enough.
 
 ```diff
-Elena Nazarenko, Lead Data Scientist at Witty Works: “Working with Hugging Face saved us a lot of time and money. One can feel lost when implementing complex text classification use cases. As it is one of the most popular tasks, there are a lot of models on the Hub. The Hugging Face experts guided me through the massive amount of transformer-based models to choose the best possible approach. Plus, I felt very well supported during the model deployment.”
+Elena Nazarenko, Lead Data Scientist at Witty Works: 
+“Working with Hugging Face saved us a lot of time and money. 
+One can feel lost when implementing complex text classification use cases. 
+As it is one of the most popular tasks, there are a lot of models on the Hub. 
+The Hugging Face experts guided me through the massive amount of transformer-based models to choose 
+the best possible approach. Plus, I felt very well supported during the model deployment.”
 ```
   
 - #### **Results and conclusion.**
 The number of training sentences dropped from 100-200 per word to 15-20 per word. Witty Works achieved an accuracy of 0.92 and successfully deployed a custom model on Azure with minimal DevOps effort!
 
 ```diff
-Lukas Kahwe Smith CTO & Co-founder of Witty Works: “Working on an IT project by oneself can be challenging and even if the EAP is a significant investment for a startup, it is the cheaper and most meaningful way to get a sparring partner.“
+Lukas Kahwe Smith CTO & Co-founder of Witty Works: 
+“Working on an IT project by oneself can be challenging and even if the EAP is a significant investment for a startup, 
+it is the cheaper and most meaningful way to get a sparring partner.“
 ```
 
 With the guidance of the Hugging Face experts, Witty Works saved time and money by implementing a new ML workflow in the Hugging Face way.
 
 ```diff
-Julien Simon, Chief Evangelist at Hugging Face: “The Hugging way to build workflows: find open-source pre-trained models, evaluate them right away, see what works, see what does not. By iterating, you start learning  things immediately.” 
+Julien Simon, Chief Evangelist at Hugging Face: 
+“The Hugging way to build workflows: find open-source pre-trained models, evaluate them right away, 
+see what works, see what does not. By iterating, you start learning  things immediately.” 
 ```
 ---
 
