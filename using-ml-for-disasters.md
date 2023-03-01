@@ -51,7 +51,7 @@ We wanted our NER model to be evaluated and crowd-sourced the effort because the
 
 Later, the dataset was deduplicated and used to benchmark our further experiments. 
 
-Another team under machine learning has worked with generative models (behind a gated API) to get the specific needs (as labels were too broad) as free text and pass the text as an additional context to each posting. For this, they’ve done prompt engineering and wrapped the API endpoints as a separate API, and deployed on the cloud. We found that using few-shot prompting with LLMs helps adjusting to fine-grained needs in the presence of rapidly developing data drift, as the only thing we need to adjust is the prompt and we do not need any labeled data for this.
+Another team under machine learning has worked with generative models (behind a gated API) to get the specific needs (as labels were too broad) as free text and pass the text as an additional context to each posting. For this, they’ve done prompt engineering and wrapped the API endpoints as a separate API, and deployed them on the cloud. We found that using few-shot prompting with LLMs helps adjust to fine-grained needs in the presence of rapidly developing data drift, as the only thing we need to adjust is the prompt and we do not need any labeled data for this.
 
 These models are currently being used in production to create the points in the heat map below so that volunteers and search and rescue teams can bring the needs to survivors. 
 
