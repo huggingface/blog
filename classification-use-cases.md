@@ -3,7 +3,7 @@ title: "Leveraging Hugging Face for complex text classification use cases"
 thumbnail: blog/assets/78_ml_director_insights/blogthumbnail.png
 authors:
 - user: juliensimon
-- user: VioletteLepercq
+- user: Violette
 - user: florentgbelidji
 - user: oknerazan
 - user: lsmith
