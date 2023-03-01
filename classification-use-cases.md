@@ -81,7 +81,7 @@ The Witty Works team found the performance was adequate with as little as 15-20 
 
 ```diff
 Elena Nazarenko, Lead Data Scientist at Witty Works: 
-  “At the end of the day, we saved time and money by not creating this large data set”
+“At the end of the day, we saved time and money by not creating this large data set”
 ```
 
 Reducing the number of sentences was essential to ensure that model training remained fast and that running the model was efficient. However, it was also necessary for another reason: Witty explicitly takes a highly supervised/rule-based approach to [actively manage bias](https://www.witty.works/en/blog/is-chatgpt-able-to-generate-inclusive-language). Reducing the number of sentences is very important to reduce the effort in manually reviewing the training sentences.
@@ -96,8 +96,8 @@ Elena Nazarenko, Lead Data Scientist at Witty Works:
 “Working with Hugging Face saved us a lot of time and money. 
 One can feel lost when implementing complex text classification use cases. 
 As it is one of the most popular tasks, there are a lot of models on the Hub. 
-The Hugging Face experts guided me through the massive amount of transformer-based models 
-to choose the best possible approach. 
+The Hugging Face experts guided me through the massive amount of transformer-based 
+models to choose the best possible approach. 
 Plus, I felt very well supported during the model deployment”
 ```
   
