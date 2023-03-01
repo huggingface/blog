@@ -17,37 +17,37 @@ In few hours after the earthquake, a group of programmers started a Discord serv
 
 When I got invited to the discord server, there was quite a lot of chaos regarding how we would operate and what we would do.   We've decided that we would collaboratively train models so we needed a model and dataset registry. We opened a Hugging Face organization account and collaborate through pull requests as we’ve decided we’d like to build ML-based applications to receive and process information. 
 
-![organization](assets/using-ml-for-disasters/org.png)
+![organization](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/org.png)
 
 We've been told by volunteers in other teams that there's a need for an application to post screenshots, extract information from the screenshots, structure it and write the structured information to the database. We started developing an application that would take a given image, extract the text first, and from text, extract a name, telephone number, and address and write these informations to a database that would be handed to authorities. After experimenting with various open-source OCR tools, we started using `easyocr` for OCR part and `Gradio` for building an interface for this application. We were asked to build a standalone application for OCR as well so we opened endpoints from the interface. The text output from OCR is parsed using transformers-based fine-tuned NER model. 
 
-![OCR](assets/using-ml-for-disasters/ocr-app.png)
+![OCR](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/ocr-app.png)
 
 To collaborate and improve the application, we hosted it on Hugging Face Spaces and we've received a GPU grant to keep the application up and running. Hugging Face Hub team has set us up a CI bot for us to have an ephemeral environment, so we could see how a pull request would effect the Space, and it helped us during pull request reviews. 
 
-![CI-bot](assets/using-ml-for-disasters/ci-bot.png)
+![CI-bot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/ci-bot.png)
 
 Later on, we were given labeled content from various channels (e.g. twitter, discord) with raw tweets of people's calls for help, along with the addresses and personal information extracted from them. We started experimenting both with few-shot prompting of closed-source models and fine-tuning our own token classification model from transformers. We’ve used `dbmdz/bert-base-turkish-cased` as a base model for token classification and came up with the first address extraction model. 
 
-![NER](assets/using-ml-for-disasters/deprem-ner.png)
+![NER](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/deprem-ner.png)
 
 The model was later used in `afetharita` to extract addresses. The parsed addresses would be sent to a geocoding API to obtain longitude and latitude, and the geolocation would then be displayed on the front-end map. Using Inference API for this has saved us from pulling the model, writing an app, building a docker image, setting up CI/CD, and deploying the model to a cloud instance, where it would be extra overhead work for the DevOps and cloud teams as well. Hugging Face teams have provided us with more replicas so that there would be no downtime and the application would be robust against a lot of traffic.
 
-![backend_pipeline](assets/using-ml-for-disasters/production_pipeline.png)
+![backend_pipeline](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/production_pipeline.png)
 
 Later on, we were asked if we could extract what earthquake survivors need from a given tweet. We were given data with multiple labels for multiple needs in a given tweet, and these needs could be shelter, food, or logistics, as it was freezing cold over there. We’ve started experimenting first with zero-shot experimentations with open-source NLI models on Hugging Face Hub and few-shot experimentations with closed-source generative model endpoints. We have tried `joeddav/xlm-roberta-large-xnli`and `emrecan/convbert-base-turkish-mc4-cased-allnli_tr`. NLI models were particularly useful as we could directly infer with candidate labels and change the labels as data drift occurs, whereas generative models could have made up labels and cause mismatches when giving responses to the backend. We initially didn’t have labeled data so anything would work.
 
 In the end, we decided to fine-tune our own model as it would take roughly three minutes to fine-tune BERT’s text classification head on a single GPU. We had a labelling effort to develop the dataset to train this model. We logged our experiments in the model card’s metadata so we could later come up with a leaderboard to keep track of which model should be deployed to production. 
 
-![intent_model](assets/using-ml-for-disasters/model-repo.png)
+![intent_model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/model-repo.png)
 
 Considering the task in hand and the imbalance of our data classes, we focused on eliminating false negatives and and created a Space to benchmark the recall and F1-scores of all models. To do this, we added the metadata tag `deprem-clf-v1` to all relevant model repos and used this tag to automatically retrieve the logged F1 and recall scores and rank models. We had a separate benchmark set to avoid leakage to the train set and consistently benchmark our models. We’ve also benchmarked each model to identify the best threshold per label for deployment.
 
-![leaderboard](assets/using-ml-for-disasters/leaderboard.png)
+![leaderboard](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/leaderboard.png)
 
 We wanted our NER model to be evaluated and crowd-sourced the effort because the data labelers were working to give us better and updated intent datasets. To evaluate the NER model, we’ve set up a labeling interface using `Argilla` and `Gradio`, where people could input a tweet and flag the output as correct/incorrect/ambiguous.
 
-![active_learning](assets/using-ml-for-disasters/active-learning.png)
+![active_learning](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/active-learning.png)
 
 Later, the dataset was deduplicated and used to benchmark our further experiments. 
 
@@ -55,11 +55,11 @@ Another team under machine learning has worked with generative models (behind a 
 
 These models are currently being used in production to create the points in the heat map below so that volunteers and search and rescue teams can bring the needs to survivors. 
 
-![afetharita](assets/using-ml-for-disasters/afetharita.png)
+![afetharita](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/afetharita.png)
 
 We’ve realized that if it wasn’t for Hugging Face Hub and the ecosystem, we wouldn’t be able to collaborate, prototype, and deploy this fast. Below is our MLOps pipeline for address recognition and intent classification models. 
 
-![mlops](assets/using-ml-for-disasters/pipeline.png)
+![mlops](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/pipeline.png)
 
 There are tens of people behind this application and its individual components, who worked with no sleep to get these out in such a short time. 
 
@@ -69,15 +69,15 @@ Other teams worked on remote sensing applications to assess the damage to buildi
 
 To address these issues and create open source tools that can be leveraged in the future, we started by collecting pre and post-earthquake satellite images of the affected zones from Planet Labs, Maxar and Copernicus Open Access Hub. 
 
-![input_satellite](assets/using-ml-for-disasters/input_satellite.jpeg)
+![input_satellite](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/output_satellite.jpeg)
 
 Our initial approach was to rapidly label satellite images for object detection and instance segmentation, with a single category for "buildings". The aim was to evaluate the extent of damage by comparing the number of surviving buildings in pre- and post-earthquake images collected from the same area. In order to make it easier to train models, we started by cropping 1080x1080 satellite images into smaller 640x640 chunks. Next, we fine-tuned  [YOLOv5](https://huggingface.co/spaces/deprem-ml/deprem_satellite_test), YOLOv8 and EfficientNet models for building detection and a [SegFormer](https://huggingface.co/spaces/deprem-ml/deprem_satellite_semantic_whu) model for semantic segmentation of buildings, and deployed these apps as Hugging Face Spaces. 
 
-![app](assets/using-ml-for-disasters/app.png)
+![app](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/app.png)
 
 Once again, dozens of people worked on labeling, preparing data, and training models. In addition to individual volunteers, companies like [Co-One](https://co-one.co/) volunteered to label satellite data with more detailed annotations for buildings and infrastructure, including *no damage*, *destroyed*, *damaged*, *damaged facility,* and *undamaged facility* labels. Our current objective is to release an extensive open-source dataset that can expedite search and rescue operations worldwide in the future.
 
-![output_satellite](assets/using-ml-for-disasters/output_satellite.png)
+![output_satellite](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/processed_satellite.png)
 ## Wrapping Up
 
 For this extreme use case, we had to move fast and optimize over classification metrics where even one percent improvement mattered. There were many ethical discussions in the progress, as even picking the metric to optimize over was an ethical question. We have seen how open-source machine learning and democratization enables individuals to build life-saving applications. 
