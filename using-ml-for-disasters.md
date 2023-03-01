@@ -31,7 +31,7 @@ Later on, we were given labelled content from various channels that included add
 
 ![NER](assets/using-ml-for-disasters/deprem-ner.png)
 
-The model was later used in `afetharita` to parse the addresses. The parsed addresses would be sent to the geocoding API to parse the longitude and latitude, and the parsed geolocation would then be displayed on the front-end map. Using Inference API for this has saved us from pulling the model, writing an app, building a docker image, setting up CI/CD, and deploying the model to a cloud instance, where it would be extra overhead work for the DevOps and cloud teams as well. Hugging Face teams have provided us with more replicas so that there would be no downtime and the application would be robust against a lot of traffic.
+The model was later used in `afetharita` to extract addresses. The parsed addresses would be sent to a geocoding API to obtain longitude and latitude, and the geolocation would then be displayed on the front-end map. Using Inference API for this has saved us from pulling the model, writing an app, building a docker image, setting up CI/CD, and deploying the model to a cloud instance, where it would be extra overhead work for the DevOps and cloud teams as well. Hugging Face teams have provided us with more replicas so that there would be no downtime and the application would be robust against a lot of traffic.
 
 ![backend_pipeline](assets/using-ml-for-disasters/production_pipeline.png)
 
