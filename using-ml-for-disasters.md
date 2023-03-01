@@ -6,7 +6,7 @@ authors:
 - user: adirik
 ---
 
-## Using Machine Learning to Aid Survivors and Race through Time
+# Using Machine Learning to Aid Survivors and Race through Time
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
