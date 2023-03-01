@@ -11,7 +11,7 @@ authors:
 <html>
 <head>
 <h1>Leveraging Hugging Face for complex text classification use cases </h1>
-<h2>The Success Story of Witty Works with the Hugging Face Expert Acceleration Program Customer.</h2>
+<h2>The Success Story of Witty Works with the Hugging Face Expert Acceleration Program.</h2>
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 </head>
@@ -96,7 +96,7 @@ models to choose the best possible approach.
 Plus, I felt very well supported during the model deployment”
 ```
   
-### **Results and conclusion.**
+### **Results and conclusion**
 The number of training sentences dropped from 100-200 per word to 15-20 per word. Witty Works achieved an accuracy of 0.92 and successfully deployed a custom model on Azure with minimal DevOps effort!
 
 ```diff
