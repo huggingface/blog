@@ -1857,3 +1857,11 @@
     - chatgpt
     - safety
     - alignment
+    
+- local: classification-use-cases
+  title: "Leveraging Hugging Face for complex text classification use cases"
+  author: VioletteLepercq
+  thumbnail: /blog/assets/78_ml_director_insights/blogthumbnail.png
+  date: March 1, 2023
+  tags:
+    - nlp
