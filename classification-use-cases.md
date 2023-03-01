@@ -7,7 +7,6 @@ authors:
 - user: florentgbelidji
 - user: lnazarenko
 - user: lsmith77
-
 ---
 <html>
 <head>
@@ -23,7 +22,7 @@ authors:
 </head>
 <body>
 
-_If you're interested in building ML solutions faster, visit the [Expert Acceleration Program](hhttps://huggingface.co/support?utm_source=blog-post&utm_medium=blog-post&utm_campaign=blog-post-classification-use-case) landing page and contact us [here](https://huggingface.co/support?utm_source=blog-post&utm_medium=blog-post&utm_campaign=blog-post-classification-use-case#form)!_
+_If you're interested in building ML solutions faster, visit the [Expert Acceleration Program](https://huggingface.co/support?utm_source=blog-post&utm_medium=blog-post&utm_campaign=blog-post-classification-use-case) landing page and contact us [here](https://huggingface.co/support?utm_source=blog-post&utm_medium=blog-post&utm_campaign=blog-post-classification-use-case#form)!_
 
 ### Business Context
 As IT continues to evolve and reshape our world, creating a more diverse and inclusive environment within the industry is imperative. [Witty Works](https://www.witty.works/) was built in 2018 to address this challenge. Starting as a consulting company advising organizations on becoming more diverse, Witty Works first helped them write job ads using inclusive language. To scale this effort, in 2019, they built a web app to assist users in writing inclusive job ads in English, French and German. They enlarged the scope rapidly with a writing assistant working as a browser extension that automatically fixes and explains potential bias in emails, Linkedin posts, job ads, etc. The aim was to offer a solution for internal and external communication that fosters a cultural change by providing micro-learning bites that explain the underlying bias of highlighted words and phrases.
