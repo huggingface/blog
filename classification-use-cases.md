@@ -2,8 +2,8 @@
 title: "Leveraging Hugging Face for complex text classification use cases"
 thumbnail: blog/assets/78_ml_director_insights/blogthumbnail.png
 authors:
-- user: VioletteLepercq
 - user: juliensimon
+- user: VioletteLepercq
 - user: florentgbelidji
 - user: lnazarenko
 - user: lsmith77
@@ -29,7 +29,7 @@ _If you're interested in building ML solutions faster, visit the [Expert Acceler
 As IT continues to evolve and reshape our world, creating a more diverse and inclusive environment within the industry is imperative. [Witty Works](https://www.witty.works/) was built in 2018 to address this challenge. Starting as a consulting company advising organizations on becoming more diverse, Witty Works first helped them write job ads using inclusive language. To scale this effort, in 2019, they built a web app to assist users in writing inclusive job ads in English, French and German. They enlarged the scope rapidly with a writing assistant working as a browser extension that automatically fixes and explains potential bias in emails, Linkedin posts, job ads, etc. The aim was to offer a solution for internal and external communication that fosters a cultural change by providing micro-learning bites that explain the underlying bias of highlighted words and phrases.
 
 <p align="center">
-    <img src="blog/assets/78_ml_director_insights/wittyworks.png"><br>
+    <img src="/blog/assets/78_ml_director_insights/wittyworks.png"><br>
     <em>Example of suggestions by the writing assistant</em>
 </p>
 
