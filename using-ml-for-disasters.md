@@ -13,9 +13,9 @@ authors:
 
 On February 6, 2023, earthquakes measuring 7.7 and 7.6 hit South Eastern Turkey, affecting 10 cities and resulting in more than 42,000 deaths and 120,000 injured as of February 21.
 
-In few hours after the earthquake, a group of programmers started a Discord server to roll out an application called *afetharita*, literally meaning, *disaster map*. This application would serve search & rescue teams and volunteers to find people and bring them help. The need for such an app arose when people posted screenshots of texts with their addresses and what they needed (including rescue) on social media. Some people also tweeted what they needed so other people knew they were alive. Needing to extract information from these tweets, we developed various applications to turn them into structured data and raced against time in developing and deploying these apps. 
+In few hours after the earthquake, a group of programmers started a Discord server to roll out an application called *afetharita*, literally meaning, *disaster map*. This application would serve search & rescue teams and volunteers to find survivors and bring them help. The need for such an app arose when survivors posted screenshots of texts with their addresses and what they needed (including rescue) on social media. Some survivors also tweeted what they needed so their relatives knew they were alive and that they need rescue. Needing to extract information from these tweets, we developed various applications to turn them into structured data and raced against time in developing and deploying these apps. 
 
-When I got invited to the discord server, there was quite a lot of chaos regarding how we would operate and what we would do.   We've decided that we would collaboratively train models so we needed a model and dataset registry. We opened a Hugging Face organization account and collaborate through pull requests as we’ve decided we’d like to build ML-based applications to receive and process information. 
+When I got invited to the discord server, there was quite a lot of chaos regarding how we (volunteers) would operate and what we would do. We've decided that we would collaboratively train models so we needed a model and dataset registry. We opened a Hugging Face organization account and collaborate through pull requests as we’ve decided we’d like to build ML-based applications to receive and process information. 
 
 ![organization](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/org.png)
 
@@ -27,7 +27,7 @@ To collaborate and improve the application, we hosted it on Hugging Face Spaces 
 
 ![CI-bot](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/ci-bot.png)
 
-Later on, we were given labeled content from various channels (e.g. twitter, discord) with raw tweets of people's calls for help, along with the addresses and personal information extracted from them. We started experimenting both with few-shot prompting of closed-source models and fine-tuning our own token classification model from transformers. We’ve used `dbmdz/bert-base-turkish-cased` as a base model for token classification and came up with the first address extraction model. 
+Later on, we were given labeled content from various channels (e.g. twitter, discord) with raw tweets of survivors' calls for help, along with the addresses and personal information extracted from them. We started experimenting both with few-shot prompting of closed-source models and fine-tuning our own token classification model from transformers. We’ve used `dbmdz/bert-base-turkish-cased` as a base model for token classification and came up with the first address extraction model. 
 
 ![NER](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/deprem-ner.png)
 
@@ -61,7 +61,7 @@ We’ve realized that if it wasn’t for Hugging Face Hub and the ecosystem, we 
 
 ![mlops](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/pipeline.png)
 
-There are tens of people behind this application and its individual components, who worked with no sleep to get these out in such a short time. 
+There are tens of volunteers behind this application and its individual components, who worked with no sleep to get these out in such a short time. 
 
 ## Remote Sensing Applications
 
@@ -75,7 +75,7 @@ Our initial approach was to rapidly label satellite images for object detection 
 
 ![app](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/app.png)
 
-Once again, dozens of people worked on labeling, preparing data, and training models. In addition to individual volunteers, companies like [Co-One](https://co-one.co/) volunteered to label satellite data with more detailed annotations for buildings and infrastructure, including *no damage*, *destroyed*, *damaged*, *damaged facility,* and *undamaged facility* labels. Our current objective is to release an extensive open-source dataset that can expedite search and rescue operations worldwide in the future.
+Once again, dozens of volunteers worked on labeling, preparing data, and training models. In addition to individual volunteers, companies like [Co-One](https://co-one.co/) volunteered to label satellite data with more detailed annotations for buildings and infrastructure, including *no damage*, *destroyed*, *damaged*, *damaged facility,* and *undamaged facility* labels. Our current objective is to release an extensive open-source dataset that can expedite search and rescue operations worldwide in the future.
 
 ![output_satellite](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/processed_satellite.png)
 ## Wrapping Up
