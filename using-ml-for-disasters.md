@@ -41,7 +41,7 @@ In the end, we decided to fine-tune our own model as it would take roughly three
 
 ![intent_model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/model-repo.png)
 
-Considering the task in hand and the imbalance of our data classes, we focused on eliminating false negatives and and created a Space to benchmark the recall and F1-scores of all models. To do this, we added the metadata tag `deprem-clf-v1` to all relevant model repos and used this tag to automatically retrieve the logged F1 and recall scores and rank models. We had a separate benchmark set to avoid leakage to the train set and consistently benchmark our models. We’ve also benchmarked each model to identify the best threshold per label for deployment.
+Considering the task at hand and the imbalance of our data classes, we focused on eliminating false negatives and created a Space to benchmark the recall and F1-scores of all models. To do this, we added the metadata tag `deprem-clf-v1` to all relevant model repos and used this tag to automatically retrieve the logged F1 and recall scores and rank models. We had a separate benchmark set to avoid leakage to the train set and consistently benchmark our models. We also benchmarked each model to identify the best threshold per label for deployment.
 
 ![leaderboard](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/leaderboard.png)
 
