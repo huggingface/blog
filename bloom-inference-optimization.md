@@ -1,25 +1,13 @@
 ---
 title: "Optimization story: Bloom inference"
 thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
+authors:
+- user: Narsil
 ---
 
 <h1>Optimization story: Bloom inference</h1>
-<div class="blog-metadata">
-    <small></small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/bloom-inference-optimization.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/Narsil">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1608285816082-5e2967b819407e3277369b95.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>narsil</code>
-            <span class="fullname">Nicolas Patry</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 This article gives you the behind-the-scenes of how we made an efficient inference server that powers bloom.
 inference server that powers [https://huggingface.co/bigscience/bloom]().

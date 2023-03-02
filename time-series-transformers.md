@@ -1,33 +1,15 @@
 ---
 title: "Probabilistic Time Series Forecasting with 🤗 Transformers"
 thumbnail: /blog/assets/118_time-series-transformers/thumbnail.png
+authors:
+- user: nielsr
+- user: kashif
 ---
 
 <h1>Probabilistic Time Series Forecasting with 🤗 Transformers</h1>
 
-<div class="blog-metadata">
-    <small>Published December 1, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/time-series-transformers.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/nielsr"> 
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1608042047613-5f1158120c833276f61f1a84.jpeg?w=200&h=200&f=face" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>nielsr</code>
-            <span class="fullname">Niels Rogge</span>
-        </div>
-    </a>
-    <a href="/kashif">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8100?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>kashif</code>
-            <span class="fullname">Kashif Rasul</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
@@ -473,7 +455,7 @@ def create_instance_splitter(config: PretrainedConfig, mode: str, train_sampler:
 
 ## Create PyTorch DataLoaders
 
-Next, it's time to create PyTorch DataLoaders, which allow us to have batches of (input, output pairs) - or in other words (`past_values`, `future_values`).
+Next, it's time to create PyTorch DataLoaders, which allow us to have batches of (input, output) pairs - or in other words (`past_values`, `future_values`).
 
 
 ```python
@@ -770,7 +752,7 @@ for item_id, ts in enumerate(test_dataset):
 
 
 ```python
-print(f"MASE: {np.mean(metric)}")
+print(f"MASE: {np.mean(mase_metrics)}")
 
 >>> MASE: 1.361636922541396
 

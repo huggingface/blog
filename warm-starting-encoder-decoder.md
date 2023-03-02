@@ -1,27 +1,14 @@
 ---
 title: "Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models"
 thumbnail: /blog/assets/08_warm_starting_encoder_decoder/thumbnail.png
+authors:
+- user: patrickvonplaten
 ---
 
-<h1> Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models
-</h1>
+# Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models
 
-<div class="blog-metadata">
-    <small>Published November 09, 2020.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/warm-starting-encoder-decoder.md">
-      Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/patrickvonplaten">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1584435275418-5dfcb1aada6d0311fd3d5448.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>patrickvonplaten</code>
-            <span class="fullname">Patrick von Platen</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Leveraging_Pre_trained_Checkpoints_for_Encoder_Decoder_Models.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
@@ -1211,8 +1198,6 @@ def process_data_to_model_inputs(batch):
 
   batch["input_ids"] = inputs.input_ids
   batch["attention_mask"] = inputs.attention_mask
-  batch["decoder_input_ids"] = outputs.input_ids
-  batch["decoder_attention_mask"] = outputs.attention_mask
   batch["labels"] = outputs.input_ids.copy()
 
   # because BERT automatically shifts the labels, the labels correspond exactly to `decoder_input_ids`. 
@@ -1266,7 +1251,7 @@ convert the data to PyTorch Tensors to be trained on GPU.
 
 ```python
 train_data.set_format(
-    type="torch", columns=["input_ids", "attention_mask", "decoder_input_ids", "decoder_attention_mask", "labels"],
+    type="torch", columns=["input_ids", "attention_mask", "labels"],
 )
 ```
 
@@ -1301,7 +1286,7 @@ and, finally, the validation data is also converted to PyTorch tensors.
 
 ```python
 val_data.set_format(
-    type="torch", columns=["input_ids", "attention_mask", "decoder_input_ids", "decoder_attention_mask", "labels"],
+    type="torch", columns=["input_ids", "attention_mask", "labels"],
 )
 ```
 

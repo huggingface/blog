@@ -1,26 +1,14 @@
 ---
 title: "Faster Training and Inference: Habana Gaudi®2 vs Nvidia A100 80GB"
 thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
+authors:
+- user: regisss
 ---
 
 # Faster Training and Inference: Habana Gaudi®-2 vs Nvidia A100 80GB
 
-<div class="blog-metadata">
-    <small>Published December 14, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/habana-gaudi-2-benchmark.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/regisss">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1644920200150-620b7c408f5871b8a1a168a7.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>regisss</code>
-            <span class="fullname">Régis Pierrard</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 In this article, you will learn how to use [Habana® Gaudi®2](https://habana.ai/training/gaudi2/) to accelerate model training and inference, and train bigger models with 🤗 [Optimum Habana](https://huggingface.co/docs/optimum/habana/index). Then, we present several benchmarks including BERT pre-training, Stable Diffusion inference and T5-3B fine-tuning, to assess the performance differences between first generation Gaudi, Gaudi2 and Nvidia A100 80GB. Spoiler alert - Gaudi2 is about twice faster than Nvidia A100 80GB for both training and inference!
 
@@ -74,7 +62,7 @@ We re-ran the same script with the same hyperparameters on Gaudi2 and got a tota
 Since Gaudi2 has roughly 3 times more memory per device compared to first-gen Gaudi, it is possible to leverage this greater capacity to have bigger batches. This will give HPUs more work to do and will also enable developers to try a range of hyperparameter values that was not reachable with first-gen Gaudi. With a batch size of 64 samples per device (512 in total), we got with 20k steps a similar loss convergence to the 65k steps of the previous runs. That makes a total training time of 1 hour and 33 minutes (see the logs [here](https://huggingface.co/regisss/bert-pretraining-gaudi-2-batch-size-64/tensorboard?scroll=1#scalars)). The throughput is x1.16 higher with this configuration, while this new batch size strongly accelerates convergence.
 **Overall, with Gaudi2, the total training time is reduced by a 5.75 factor and the throughput is x3.53 higher compared to first-gen Gaudi**.
 
-**Gaudi2 also offers a speedup over A100**: 1580.2 samples/s versus 981.6 for a batch size of 32 and 1835.8 samples/s versus 1082.6 for a batch size of 64, which is consistent with the x1.8 speedup [annouced by Habana](https://habana.ai/training/gaudi2/) on the phase 1 of BERT pre-training with a batch size of 64.
+**Gaudi2 also offers a speedup over A100**: 1580.2 samples/s versus 981.6 for a batch size of 32 and 1835.8 samples/s versus 1082.6 for a batch size of 64, which is consistent with the x1.8 speedup [announced by Habana](https://habana.ai/training/gaudi2/) on the phase 1 of BERT pre-training with a batch size of 64.
 
 The following table displays the throughputs we got for first-gen Gaudi, Gaudi2 and Nvidia A100 80GB GPUs:
 

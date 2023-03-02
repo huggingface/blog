@@ -1,6 +1,8 @@
 ---
 title: "Introducing The World's Largest Open Multilingual Language Model: BLOOM"
 thumbnail: /blog/assets/86_bloom/thumbnail.png
+authors:
+- user: bigscience
 ---
 
 <html>
@@ -16,19 +18,8 @@ thumbnail: /blog/assets/86_bloom/thumbnail.png
 </style>
 <h1>🌸 Introducing The World's Largest Open Multilingual Language Model: BLOOM 🌸</h1>
 
-<div class="blog-metadata">
-    <small>Published July 12, 2022.</small>
-</div>
-
-<div class="author-card">
-    <a href="/bigscience">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1634806038075-5df7e9e5da6d0311fd3d53f9.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>bigscience</code>
-            <span class="fullname">BigScience</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 </head>
 <body>
 <a href="https://huggingface.co/bigscience/bloom"><img style="middle" width="950" src="/blog/assets/86_bloom/thumbnail-2.png"></a>  

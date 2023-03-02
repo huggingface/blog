@@ -1,51 +1,21 @@
 ---
 title: "Introducing DOI: the Digital Object Identifier to Datasets and Models"
 thumbnail: /blog/assets/107_launching_doi/thumbnail.jpeg
+authors:
+- user: sasha
+- user: Sylvestre
+- user: cakiki
+  guest: true
+- user: aleroy
+  guest: true
 ---
 
   
 
 # Introducing DOI: the Digital Object Identifier to Datasets and Models
 
-<div class="blog-metadata">
-    <small>Published October 7, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/introducing-doi.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-   <a href="/sasha">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1626198087984-60edd0133e2c73a9a21455f5.png?w=200&amp;h=200&amp;f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sasha</code>
-            <span class="fullname">Sasha Luccioni</span>
-        </div>
-    </a>
-    <a href="/Sylvestre">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1665137450767-6258561f4d4291e8e63d8ae6.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>sylvestre</code>
-            <span class="fullname">Sylvestre Bouchot</span>
-        </div>
-    </a>
-    <a href="/cakiki">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1646492542174-5e70f6048ce3c604d78fe133.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>cakiki</code>
-            <span class="fullname">Christopher Akiki</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-   </a>
-   <a href="/aleroy">
-        <img class="avatar avatar-user" src="https://huggingface.co/avatars/3bb88bfd42ade1206834e3be7795eeba.svg" title="Gravatar">
-        <div class="bfc">
-            <code>aleroy</code>
-            <span class="fullname">Alix Leroy</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-   </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 Our mission at Hugging Face is to democratize good machine learning. That includes best practices that make ML models and datasets more reproducible, better documented, and easier to use and share.
 

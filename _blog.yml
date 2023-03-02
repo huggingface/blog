@@ -191,6 +191,7 @@
   date: March 23, 2021
   tags:
     - partnerships
+    - aws
 
 - local: big-bird
   title: "Understanding BigBird's Block Sparse Attention"
@@ -219,6 +220,7 @@
   tags:
     - guide
     - partnerships
+    - aws
     - nlp
 
 - local: accelerate-library
@@ -237,6 +239,8 @@
   tags:
     - guide
     - nlp
+    - partnerships
+    - intel
 
 - local: gradio
   title: "Using & Mixing Hugging Face Models with Gradio 2.0"
@@ -272,6 +276,7 @@
   tags:
     - guide
     - partnerships
+    - aws
 
 - local: spacy
   title: "Welcome spaCy to the 🤗 Hub"
@@ -386,6 +391,8 @@
   thumbnail: /blog/assets/35_bert_cpu_scaling_part_2/openmp.png
   date: November 4, 2021
   tags:
+    - partnerships
+    - intel
     - guide
     - nlp
 
@@ -421,6 +428,7 @@
   thumbnail: /blog/assets/38_getting_started_graphcore/graphcore_1.png
   date: November 30, 2021
   tags:
+    - partnerships
     - graphcore
     - guide
 
@@ -481,6 +489,7 @@
   date: January 11, 2022
   tags:
     - partnerships
+    - aws
     - guide
     - nlp
 
@@ -582,6 +591,7 @@
   date: March 16, 2022
   tags:
     - partnerships
+    - aws
     - guide
     - nlp
 
@@ -1239,7 +1249,7 @@
 
 - local: ethics-soc-1
   title: "Ethics and Society Newsletter #1"
-  author: meg-huggingface
+  author: meg
   thumbnail: /blog/assets/103_ethics-soc-1/thumbnail.png
   date: Sep 22, 2022
   tags:
@@ -1564,7 +1574,7 @@
     - audio
 
 - local: ethics-soc-2
-  title: "Ethics and Society Newsletter #2"
+  title: "Ethics and Society Newsletter #2: Let's talk about bias!"
   author: yjernite
   thumbnail: /blog/assets/122_ethics_soc_2/thumbnail-solstice.png
   date: Dec 15, 2022
@@ -1580,3 +1590,297 @@
     - nlp
     - research
     - community
+    
+- local: model-cards
+  title: "Model Cards: Introducing HF Model documentation tools"
+  author: Ezi
+  thumbnail: /blog/assets/121_model-cards/thumbnail.png
+  date: December 20, 2022
+  tags:
+    - community
+    - research
+    - ethics
+    - guide
+
+- local: clipseg-zero-shot
+  title: "Zero-shot image segmentation with CLIPSeg"
+  author: segments-tobias
+  thumbnail: /blog/assets/123_clipseg-zero-shot/thumb.png
+  date: December 21, 2022
+  tags:
+    - guide
+    - partnerships
+    - cv
+    - clip
+
+- local: intel-sapphire-rapids
+  title: "Accelerating PyTorch Transformers with Intel Sapphire Rapids, part 1"
+  author: juliensimon
+  thumbnail: /blog/assets/124_intel_sapphire_rapids/02.png
+  date: January 2, 2023
+  tags:
+    - guide
+    - intel
+    - hardware
+    - partnerships
+
+- local: ml-for-games-1
+  title: "AI for Game Development: Creating a Farming Game in 5 Days. Part 1"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail.png
+  date: January 2, 2023
+  tags:
+    - community
+    - stable-diffusion
+    - guide
+    - game-dev
+
+- local: intro-graphml
+  title: "Introduction to Graph Machine Learning"
+  author: clefourrier
+  thumbnail: /blog/assets/125_intro-to-graphml/thumbnail.png
+  date: January 3, 2023
+  tags:
+    - community
+    - guide
+    - graphs
+
+- local: ml-for-games-2
+  title: "AI for Game Development: Creating a Farming Game in 5 Days. Part 2"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail2.png
+  date: January 9, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
+
+- local: image-similarity
+  title: "Image Similarity with Hugging Face Datasets and Transformers"
+  author: sayakpaul
+  thumbnail: /blog/assets/image_similarity/thumbnail.png
+  date: Jan 16, 2023
+  tags:
+    - guide
+    - cv
+
+- local: paddlepaddle
+  title: "Welcome PaddlePaddle to the Hugging Face Hub"
+  author: paddlepaddle
+  guest: true
+  thumbnail: /blog/assets/126_paddlepaddle/thumbnail.jpg
+  date: January 17, 2023
+  tags:
+    - open-source-collab
+    - nlp
+
+- local: mask2former
+  title: "Universal Image Segmentation with Mask2Former and OneFormer"
+  author: nielsr
+  thumbnail: /blog/assets/127_mask2former/thumbnail.png
+  date: Jan 19, 2023
+  tags:
+    - cv
+    - guide
+
+- local: ml-for-games-3
+  title: "3D Asset Generation: AI for Game Development #3"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail3.png
+  date: January 20, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
+
+- local: red-teaming
+  title: "Red-Teaming Large Language Models"
+  author: nazneen
+  thumbnail: /blog/assets/red-teaming/thumbnail.png
+  date: February 22, 2023
+  tags:
+    - llms
+    - rlhf
+    - red-teaming
+    - chatgpt
+    - safety
+    - alignment
+
+- local: optimum-onnxruntime-training
+  title: "Optimum+ONNX Runtime - Easier, Faster training for your Hugging Face models"
+  author: Jingya
+  thumbnail: /blog/assets/optimum_onnxruntime-training/thumbnail.png
+  date: January 24, 2023
+  tags:
+    - guide
+    - community
+    - onnxruntime
+
+- local: dialog-agents
+  title: "What Makes a Dialog Agent Useful?"
+  author: nazneen
+  thumbnail: /blog/assets/dialog-agents/thumbnail.png
+  date: January 24, 2023
+  tags:
+    - rlhf
+    - ChatGPT
+    - cot
+    - ift
+    - sft
+
+- local: lora
+  title: "Using LoRA for Efficient Stable Diffusion Fine-Tuning"
+  author: pcuenq
+  thumbnail: /blog/assets/lora/thumbnail.png
+  date: January 26, 2023
+  tags:
+    - diffusers
+    - stable-diffusion
+    - dreambooth
+    - fine-tuning
+    - guide
+
+- local: ml-for-games-4
+  title: "2D Asset Generation: AI for Game Development #4"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail4.png
+  date: January 26, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
+
+- local: cv_state
+  title: "The State of Computer Vision at Hugging Face 🤗"
+  author: sayakpaul
+  thumbnail: /blog/assets/cv_state/thumbnail.png
+  date: January 30, 2023
+  tags:
+    - community
+    - guide
+    - cv
+
+- local: vision_language_pretraining
+  title: "A Dive into Pretraining Strategies for Vision-Language Models"
+  author: adirik
+  thumbnail: /blog/assets/128_vision_language_pretraining/thumbnail.png
+  date: February 03, 2023
+  tags:
+    - cv
+    - guide
+    - multimodal
+
+- local: intel-sapphire-rapids-inference
+  title: "Accelerating PyTorch Transformers with Intel Sapphire Rapids, part 2"
+  author: juliensimon
+  thumbnail: /blog/assets/129_intel_sapphire_rapids_inference/01.png
+  date: February 6, 2023
+  tags:
+    - guide
+    - intel
+    - hardware
+    - partnerships
+
+- local: aivsai
+  title: "Introducing ⚔️ AI vs. AI ⚔️ a deep reinforcement learning multi-agents competition system"
+  author: CarlCochet
+  thumbnail: /blog/assets/128_aivsai/thumbnail.png
+  date: February 07, 2023
+  tags:
+    - rl
+
+- local: ml-for-games-5
+  title: "Generating Stories: AI for Game Development #5"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail5.png
+  date: February 07, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
+
+- local: speecht5
+  title: "Speech Synthesis, Recognition, and More With SpeechT5"
+  author: Matthijs
+  thumbnail: /blog/assets/speecht5/thumbnail.png
+  date: February 8, 2023
+  tags:
+    - guide
+    - audio
+
+- local: peft
+  title: "🤗 PEFT: Parameter-Efficient Fine-Tuning of Billion-Scale Models on Low-Resource Hardware"
+  author: smangrul
+  thumbnail: /blog/assets/130_peft/thumbnail.png
+  date: February 10, 2023
+  tags:
+    - guide
+    - nlp
+    - cv
+    - multimodal
+    - fine-tuning
+    - community
+    - dreambooth
+
+- local: blip-2
+  title: "Zero-shot image-to-text generation with BLIP-2"
+  author: MariaK
+  thumbnail: /blog/assets/blip-2/thumbnail.png
+  date: February 15, 2023
+  tags:
+    - guide
+    - nlp
+    - cv
+    - multimodal
+
+- local: aws-partnership
+  title: "Hugging Face and AWS partner to make AI more accessible"
+  author: jeffboudier
+  thumbnail: /blog/assets/131_aws-partnership/aws-partnership-thumbnail.png
+  date: February 21, 2023
+  tags:
+    - partnerships
+    - aws
+    - nlp
+    - cv
+
+- local: fast-mac-diffusers
+  title: "Swift Diffusers: Fast Stable Diffusion for Mac"
+  author: pcuenq
+  thumbnail: /blog/assets/fast-mac-diffusers/thumbnail.png
+  date: February 24, 2023
+  tags:
+    - coreml
+    - diffusers
+    - stable-diffusion
+    - diffusion
+
+- local: red-teaming
+  title: "Red-Teaming Large Language Models"
+  author: nazneen
+  thumbnail: /blog/assets/red-teaming/thumbnail.png
+  date: February 24, 2023
+  tags:
+    - llms
+    - rlhf
+    - red-teaming
+    - chatgpt
+    - safety
+    - alignment
+    
+- local: classification-use-cases
+  title: "Leveraging Hugging Face for complex text classification use cases"
+  author: VioletteLepercq
+  thumbnail: /blog/assets/78_ml_director_insights/blogthumbnail.png
+  date: March 1, 2023
+  tags:
+    - nlp
+    
+- local: ethics-diffusers
+  title: "Ethical guidelines for developing the Diffusers library"
+  author: giadap
+  thumbnail: /blog/assets/ethics-diffusers/thumbnail.png
+  date: March 2, 2023
+  tags:
+    - ethics
+    - diffusers

@@ -1,26 +1,14 @@
 ---
 title: "The Technology Behind BLOOM Training"
 thumbnail: /blog/assets/86_bloom_megatron_deepspeed/thumbnail.png
+authors:
+- user: stas
 ---
 
 <h1>The Technology Behind BLOOM Training</h1>
 
-<div class="blog-metadata">
-    <small>Published July 14, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/bloom-megatron-deepspeed.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/stas">
-        <img class="avatar avatar-user" src="/blog/assets/86_bloom_megatron_deepspeed/stas-bekman-300x300.jpg">
-        <div class="bfc">
-            <code>stas</code>
-            <span class="fullname">Stas Bekman</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 
 

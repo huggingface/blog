@@ -5,12 +5,7 @@ thumbnail: /blog/assets/17_the_partnership_amazon_sagemaker_and_hugging_face/thu
 
 <img src="/blog/assets/17_the_partnership_amazon_sagemaker_and_hugging_face/cover.png" alt="hugging-face-and-aws-logo" class="w-full">
 
-<div class="blog-metadata">
-    <small>Published July 8, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/deploy-hugging-face-models-easily-with-amazon-sagemaker.md">
-        Update on GitHub
-    </a>
-</div>
+<!-- {blog_metadata} -->
 
 # **Deploy Hugging Face models easily with Amazon SageMaker 🏎**
 
@@ -280,7 +275,7 @@ You can find the complete [Frequently Asked Questions](https://huggingface.co/do
 _Q: Which models can I deploy for Inference?_
 
 A: You can deploy:
-* any 🤗 Transformers model trained in Amazon SageMaker, or other compatible platforms and that can accomodate the SageMaker Hosting design
+* any 🤗 Transformers model trained in Amazon SageMaker, or other compatible platforms and that can accommodate the SageMaker Hosting design
 * any of the 10,000+ publicly available Transformer models from the Hugging Face[ Model Hub](https://huggingface.co/models), or
 * your private models hosted in your Hugging Face premium account!
 

@@ -1,6 +1,8 @@
 ---
 title: "Director of Machine Learning Insights"
 thumbnail: /blog/assets/61_ml_director_insights/thumbnail.png
+authors:
+- user: britneymuller
 ---
 
 <html>
@@ -12,19 +14,8 @@ thumbnail: /blog/assets/61_ml_director_insights/thumbnail.png
 </style>
 <h1>Director of Machine Learning Insights [Part 1]</h1>
 
-<div class="blog-metadata">
-    <small>Published April 27, 2022.</small>
-</div>
-
-<div class="author-card">
-    <a href="/britneymuller">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1645809068511-5ef0ce775e979253a010ef4c.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>britneymuller</code>
-            <span class="fullname">Britney Muller</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 </head>
 <body>
 
@@ -215,7 +206,7 @@ Much like in the beginning of the internet, software developers were few and far
 
 **Fun Fact:** Eric adores nachos!
 
-**E Source:** Provides independant market intelligence, consulting, and predictive data science to utilities, major energy users, and other key players in the retail energy marketplace.
+**E Source:** Provides independent market intelligence, consulting, and predictive data science to utilities, major energy users, and other key players in the retail energy marketplace.
 
 #### **1. How has ML made a positive impact on the Energy/Utility industry?**
 Access to business insight. Provided a pre-requisite is great data. Utilities have many data relationships within their data portfolio from customers to devices, more specifically, this speaks to monthly billing amounts and enrollment in energy savings programs. Data like that could be stored in a relational database, whereas device or asset data we can think of as the pieces of machinery that make our grid. Bridging those types of data is non-trivial. 

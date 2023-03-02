@@ -1,50 +1,21 @@
 ---
 title: "Illustrating Reinforcement Learning from Human Feedback (RLHF)" 
 thumbnail: /blog/assets/120_rlhf/thumbnail.png
+authors:
+- user: natolambert
+- user: LouisCastricato
+  guest: true
+- user: lvwerra
+- user: Dahoas
+  guest: true
 ---
 
 # Illustrating Reinforcement Learning from Human Feedback (RLHF)
 
-<div class="blog-metadata">
-    <small>Published December 9, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/rlhf.md">
-        Update on GitHub
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
-<div class="author-card">
-    <a href="/natolambert"> 
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/10695622?v=4?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>natolambert</code>
-            <span class="fullname">Nathan Lambert</span>
-        </div>
-    </a>
-   <a href="https://twitter.com/lcastricato">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/5066878?v=4?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>lcastricato</code>
-            <span class="fullname">Louis Castricato</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-    <a href="/lvwerra">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/8264887?v=4?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>lvwerra</code>
-            <span class="fullname">Leandro von Werra</span>
-        </div>
-    </a>
-	 <a href="https://twitter.com/Dahoas1">
-        <img class="avatar avatar-user" src="https://dahoas.github.io/artifacts/alexh.jpg?w=200&h=200&f=face" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>Dahoas1</code>
-            <span class="fullname">Alex Havrilla</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
-
+_This article has been translated to Chinese  [简体中文](https://mp.weixin.qq.com/s/TLQ3TdrB5gLb697AFmjEYQ). Interested in translating to another language? Contact nathan at huggingface.co_. 
 
 Language models have shown impressive capabilities in the past few years by generating diverse and compelling text from human input prompts. However, what makes a "good" text is inherently hard to define as it is subjective and context dependent. There are many applications such as writing stories where you want creativity, pieces of informative text which should be truthful, or code snippets that we want to be executable. 
 
@@ -145,7 +116,7 @@ Generating well-written human text answering specific prompts is very costly, as
 
 With these limitations, huge swaths of unexplored design options could still enable RLHF to take substantial strides. Many of these fall within the domain of improving the RL optimizer. PPO is a relatively old algorithm, but there are no structural reasons that other algorithms could offer benefits and permutations on the existing RLHF workflow. One large cost of the feedback portion of fine-tuning the LM policy is that every generated piece of text from the policy needs to be evaluated on the reward model (as it acts like part of the environment in the standard RL framework). To avoid these costly forward passes of a large model, offline RL could be used as a policy optimizer. Recently, new algorithms have emerged, such as [implicit language Q-learning](https://arxiv.org/abs/2206.11871) (ILQL) [[Talk](https://youtu.be/fGq4np3brbs) on ILQL at CarperAI], that fit particularly well with this type of optimization. Other core trade-offs in the RL process, like exploration-exploitation balance, have also not been documented. Exploring these directions would at least develop a substantial understanding of how RLHF functions and, if not, provide improved performance.
 
-We'll be hosting a lecture on next Tuesday 13 December that will expand on this post. You can join [here](https://www.youtube.com/watch?v=2MBJOuVq380&feature=youtu.be) at 830 PST!
+We hosted a lecture on Tuesday 13 December 2022 that expanded on this post; you can watch it [here](https://www.youtube.com/watch?v=2MBJOuVq380&feature=youtu.be)!
 
 ### Further reading
 
@@ -156,7 +127,7 @@ Here are some papers on RLHF that pre-date the LM focus:
 - [Deep Reinforcement Learning from Human Preferences](https://proceedings.neurips.cc/paper/2017/hash/d5e2c0adad503c91f91df240d0cd4e49-Abstract.html) (Christiano et al. 2017): RLHF applied on preferences between Atari trajectories.
 - [Deep TAMER: Interactive Agent Shaping in High-Dimensional State Spaces](https://ojs.aaai.org/index.php/AAAI/article/view/11485) (Warnell et al. 2018): Extends the TAMER framework where a deep neural network is used to model the reward prediction.
 
-And here is a snapshot of the growing set of papers that show RLHF's performance for LMs:
+And here is a snapshot of the growing set of "key" papers that show RLHF's performance for LMs:
 - [Fine-Tuning Language Models from Human Preferences](https://arxiv.org/abs/1909.08593) (Zieglar et al. 2019): An early paper that studies the impact of reward learning on four specific tasks.
 - [Learning to summarize with human feedback](https://proceedings.neurips.cc/paper/2020/hash/1f89885d556929e98d3ef9b86448f951-Abstract.html) (Stiennon et al., 2020): RLHF applied to the task of summarizing text. Also, [Recursively Summarizing Books with Human Feedback](https://arxiv.org/abs/2109.10862) (OpenAI Alignment Team 2021), follow on work summarizing books.
 - [WebGPT: Browser-assisted question-answering with human feedback](https://arxiv.org/abs/2112.09332) (OpenAI, 2021): Using RLHF to train an agent to navigate the web.
@@ -170,4 +141,25 @@ And here is a snapshot of the growing set of papers that show RLHF's performance
 - [Dynamic Planning in Open-Ended Dialogue using Reinforcement Learning](https://arxiv.org/abs/2208.02294) (Cohen at al. 2022): Using RL to enhance the conversational skill of an open-ended dialogue agent.
 - [Is Reinforcement Learning (Not) for Natural Language Processing?: Benchmarks, Baselines, and Building Blocks for Natural Language Policy Optimization](https://arxiv.org/abs/2210.01241) (Ramamurthy and Ammanabrolu et al. 2022): Discusses the design space of open-source tools in RLHF and proposes a new algorithm NLPO (Natural Language Policy Optimization) as an alternative to PPO.
 
-*Thanks to [Robert Krik](https://robertkirk.github.io/) for fixing some factual errors regarding specific implementations of RLHF. Thanks to [Peter Stone](https://www.cs.utexas.edu/~pstone/) for helping expand the related works further into history.*
+The field is the convergence of multiple fields, so you can also find resources in other areas:
+* Continual learning of instructions ([Kojima et al. 2021](https://arxiv.org/abs/2108.04812), [Suhr and Artzi 2022](https://arxiv.org/abs/2212.09710)) or bandit learning from user feedback ([Sokolov et al. 2016](https://arxiv.org/abs/1601.04468), [Gao et al. 2022](https://arxiv.org/abs/2203.10079))
+* Earlier history on using other RL algorithms for text generation (not all with human preferences), such as with recurrent neural networks ([Ranzato et al. 2015](https://arxiv.org/abs/1511.06732)), an actor-critic algorithm for text prediction ([Bahdanau et al. 2016](https://arxiv.org/abs/1607.07086)), or an early work adding human preferences to this framework ([Nguyen et al. 2017](https://arxiv.org/abs/1707.07402)).
+
+**Citation:**
+If you found this useful for your academic work, please consider citing our work, in text:
+```
+Lambert, et al., "Illustrating Reinforcement Learning from Human Feedback (RLHF)", Hugging Face Blog, 2022.
+```
+
+BibTeX citation:
+```
+@article{lambert2022illustrating,
+  author = {Lambert, Nathan and Castricato, Louis and von Werra, Leandro and Havrilla, Alex},
+  title = {Illustrating Reinforcement Learning from Human Feedback (RLHF)},
+  journal = {Hugging Face Blog},
+  year = {2022},
+  note = {https://huggingface.co/blog/rlhf},
+}
+```
+
+*Thanks to [Robert Krik](https://robertkirk.github.io/) for fixing some factual errors regarding specific implementations of RLHF. Thanks to [Peter Stone](https://www.cs.utexas.edu/~pstone/), [Khanh X. Nguyen](https://machineslearner.com/) and [Yoav Artzi](https://yoavartzi.com/) for helping expand the related works further into history.*

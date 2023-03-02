@@ -1,49 +1,17 @@
 ---
 title: Stable Diffusion with 🧨 Diffusers
 thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png
+authors:
+- user: valhalla
+- user: pcuenq
+- user: natolambert
+- user: patrickvonplaten
 ---
 
-<h1>
-	Stable Diffusion with 🧨 Diffusers
-</h1>
+# Stable Diffusion with 🧨 Diffusers
 
-<div class="blog-metadata">
-    <small>Published August 22nd, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/stable_diffusion.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/valhalla">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/27137566?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>valhalla</code>
-            <span class="fullname">Suraj Patil</span>
-        </div>
-    </a>
-	 <a href="/pcuenq">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/1177582?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>pcuenq</code>
-            <span class="fullname">Pedro Cuenca</span>
-        </div>
-    </a>
-	 <a href="/natolambert">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/10695622?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>natolambert</code>
-            <span class="fullname">Nathan Lambert</span>
-        </div>
-    </a>
-    <a href="/patrickvonplaten">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/23423619?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>patrickvonplaten</code>
-            <span class="fullname">Patrick von Platen</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
@@ -70,7 +38,7 @@ Now, let's get started by generating some images 🎨.
 
 ### License
 
-Before using the model, you need to accept the model [license](https://huggingface.co/spaces/CompVis/stable-diffusion-license) in order to download and use the weights.  
+Before using the model, you need to accept the model [license](https://huggingface.co/spaces/CompVis/stable-diffusion-license) in order to download and use the weights. **Note: the license does not need to be explicitly accepted through the UI anymore**.
 
 The license is designed to mitigate the potential harmful effects of such a powerful machine learning system. 
 We request users to **read the license entirely and carefully**. Here we offer a summary:
@@ -80,20 +48,13 @@ We request users to **read the license entirely and carefully**. Here we offer a
 
 ### Usage
 
-First, you should install `diffusers==0.4.0` to run the following code snippets:
+First, you should install `diffusers==0.10.2` to run the following code snippets:
 
 ```bash
-pip install diffusers==0.4.0 transformers scipy ftfy
+pip install diffusers==0.10.2 transformers scipy ftfy accelerate
 ```
 
-In this post we'll use model version `v1-4`, so you'll need to  visit [its card](https://huggingface.co/CompVis/stable-diffusion-v1-4), read the license and tick the checkbox if you agree. You have to be a registered user in 🤗 Hugging Face Hub, and you'll also need to use an access token for the code to work. For more information on access tokens, please refer to [this section of the documentation](https://huggingface.co/docs/hub/security-tokens).
-Once you have requested access, make sure to pass your user token as:
-
-```py
-YOUR_TOKEN="/your/huggingface/hub/token"
-```
-
-After that one-time setup out of the way, we can proceed with Stable Diffusion inference.
+In this post we'll use model version [`v1-4`](https://huggingface.co/CompVis/stable-diffusion-v1-4), but you can also use other versions of the model such as 1.5, 2, and 2.1 with minimal code changes.
 
 The Stable Diffusion model can be run in inference with just a couple of lines using the [`StableDiffusionPipeline`](https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion.py) pipeline. The pipeline sets up everything you need to generate images from text with 
 a simple `from_pretrained` function call.
@@ -101,8 +62,7 @@ a simple `from_pretrained` function call.
 ```python
 from diffusers import StableDiffusionPipeline
 
-# get your token at https://huggingface.co/settings/tokens
-pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", use_auth_token=YOUR_TOKEN)
+pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4")
 ```
 
 If a GPU is available, let's move it to one!
@@ -114,6 +74,7 @@ pipe.to("cuda")
 **Note**: If you are limited by GPU memory and have less than 10GB of GPU RAM available, please
 make sure to load the `StableDiffusionPipeline` in float16 precision instead of the default
 float32 precision as done above.
+
 You can do so by loading the weights from the `fp16` branch and by telling `diffusers` to expect the 
 weights to be in float16 precision:
 
@@ -121,8 +82,7 @@ weights to be in float16 precision:
 import torch
 from diffusers import StableDiffusionPipeline
 
-# get your token at https://huggingface.co/settings/tokens
-pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", revision="fp16", torch_dtype=torch.float16, use_auth_token=YOUR_TOKEN)
+pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", revision="fp16", torch_dtype=torch.float16)
 ```
 
 To run the pipeline, simply define the prompt and call `pipe`.
@@ -130,7 +90,7 @@ To run the pipeline, simply define the prompt and call `pipe`.
 ```python
 prompt = "a photograph of an astronaut riding a horse"
 
-image = pipe(prompt)["sample"][0]
+image = pipe(prompt).images[0]
 
 # you can save the image with
 # image.save(f"astronaut_rides_horse.png")
@@ -153,7 +113,7 @@ print(result)
 
 ```json
 {
-    'sample': [<PIL.Image.Image image mode=RGB size=512x512>],
+    'images': [<PIL.Image.Image image mode=RGB size=512x512>],
     'nsfw_content_detected': [False]
 }
 ```
@@ -362,14 +322,14 @@ from transformers import CLIPTextModel, CLIPTokenizer
 from diffusers import AutoencoderKL, UNet2DConditionModel, PNDMScheduler
 
 # 1. Load the autoencoder model which will be used to decode the latents into image space. 
-vae = AutoencoderKL.from_pretrained("CompVis/stable-diffusion-v1-4", subfolder="vae", use_auth_token=YOUR_TOKEN)
+vae = AutoencoderKL.from_pretrained("CompVis/stable-diffusion-v1-4", subfolder="vae")
 
 # 2. Load the tokenizer and text encoder to tokenize and encode the text. 
 tokenizer = CLIPTokenizer.from_pretrained("openai/clip-vit-large-patch14")
 text_encoder = CLIPTextModel.from_pretrained("openai/clip-vit-large-patch14")
 
 # 3. The UNet model for generating the latents.
-unet = UNet2DConditionModel.from_pretrained("CompVis/stable-diffusion-v1-4", subfolder="unet", use_auth_token=YOUR_TOKEN)
+unet = UNet2DConditionModel.from_pretrained("CompVis/stable-diffusion-v1-4", subfolder="unet")
 ```
 
 Now instead of loading the pre-defined scheduler, we load the [K-LMS scheduler](https://github.com/huggingface/diffusers/blob/71ba8aec55b52a7ba5a1ff1db1265ffdd3c65ea2/src/diffusers/schedulers/scheduling_lms_discrete.py#L26) with some fitting parameters.
@@ -476,7 +436,7 @@ for t in tqdm(scheduler.timesteps):
     # expand the latents if we are doing classifier-free guidance to avoid doing two forward passes.
     latent_model_input = torch.cat([latents] * 2)
 
-    latent_model_input = scheduler.scale_model_input(latent_model_input)
+    latent_model_input = scheduler.scale_model_input(latent_model_input, timestep=t)
 
     # predict the noise residual
     with torch.no_grad():
@@ -496,7 +456,8 @@ We now use the `vae` to decode the generated `latents` back into the image.
 ```python
 # scale and decode the image latents with vae
 latents = 1 / 0.18215 * latents
-image = vae.decode(latents).sample
+with torch.no_grad():
+    image = vae.decode(latents).sample
 ```
 
 And finally, let's convert the image to PIL so we can display or save it.

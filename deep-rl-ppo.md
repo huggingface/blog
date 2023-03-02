@@ -1,6 +1,8 @@
 ---
 title: "Proximal Policy Optimization (PPO)"
 thumbnail: /blog/assets/93_deep_rl_ppo/thumbnail.png
+authors:
+- user: ThomasSimonini
 ---
 
 <html>
@@ -16,25 +18,23 @@ thumbnail: /blog/assets/93_deep_rl_ppo/thumbnail.png
 <h1>Proximal Policy Optimization (PPO)</h1>
 <h2>Unit 8, of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
-<div class="author-card">
-    <a href="/ThomasSimonini">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1632748593235-60cae820b1c79a3e4b436664.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>ThomasSimonini</code>
-            <span class="fullname">Thomas Simonini</span>
-        </div>
-  </a>
-</div>
+<!-- {authors} -->
 
 </head>
 
 <body>
 
-*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
+⚠️ A **new updated version of this article is available here** 👉 [https://huggingface.co/deep-rl-course/unit1/introduction](https://huggingface.co/deep-rl-course/unit8/introduction)
 
+*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://huggingface.co/deep-rl-course/unit0/introduction)*
 <img src="assets/93_deep_rl_ppo/thumbnail.png" alt="Thumbnail"/>  
 
 ---
+
+⚠️ A **new updated version of this article is available here** 👉 [https://huggingface.co/deep-rl-course/unit1/introduction](https://huggingface.co/deep-rl-course/unit8/introduction)
+
+*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://huggingface.co/deep-rl-course/unit0/introduction)*
+  
 **[In the last Unit](https://huggingface.co/blog/deep-rl-a2c)**, we learned about Advantage Actor Critic (A2C), a hybrid architecture combining value-based and policy-based methods that help to stabilize the training by reducing the variance with:
 
 - *An Actor* that controls **how our agent behaves** (policy-based method).

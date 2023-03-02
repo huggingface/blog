@@ -1,6 +1,8 @@
 ---
 title: "An Introduction to Q-Learning Part 2/2"
 thumbnail: /blog/assets/73_deep_rl_q_part2/thumbnail.gif
+authors:
+- user: ThomasSimonini
 ---
 
 <html>
@@ -16,25 +18,23 @@ thumbnail: /blog/assets/73_deep_rl_q_part2/thumbnail.gif
 <h1>An Introduction to Q-Learning Part 2/2</h1>
 <h2>Unit 2, part 2 of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
-<div class="author-card">
-    <a href="/ThomasSimonini">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1632748593235-60cae820b1c79a3e4b436664.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>ThomasSimonini</code>
-            <span class="fullname">Thomas Simonini</span>
-        </div>
-  </a>
-</div>
+<!-- {authors} -->
 
 </head>
 
 <body>
 
-*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
-  
+⚠️ A **new updated version of this article is available here** 👉 [https://huggingface.co/deep-rl-course/unit1/introduction](https://huggingface.co/deep-rl-course/unit2/q-learning)
+
+*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://huggingface.co/deep-rl-course/unit0/introduction)*
+
 <img src="assets/73_deep_rl_q_part2/thumbnail.gif" alt="Thumbnail"/>
   
 ---
+
+⚠️ A **new updated version of this article is available here** 👉 [https://huggingface.co/deep-rl-course/unit1/introduction](https://huggingface.co/deep-rl-course/unit2/q-learning)
+
+*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://huggingface.co/deep-rl-course/unit0/introduction)*
 
 [In the first part of this unit](https://huggingface.co/blog/deep-rl-q-part1), **we learned about the value-based methods and the difference between Monte Carlo and Temporal Difference Learning**.
 
