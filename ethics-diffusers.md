@@ -23,7 +23,7 @@ We see ethics as a process that leverages guiding values, concrete actions, and 
 * **Consistency**: we are committed to guaranteeing our users the same level of attention in project management, keeping it technically stable and consistent.
 * **Simplicity**: with a desire to make it easy to use and exploit the Diffusers library, we are committed to keeping the project’s goals lean and coherent.
 * **Accessibility**: the Diffusers project helps lower the entry bar for contributors who can help run it even without technical expertise. Doing so makes research artifacts more accessible to the community.
-* **Reproducibility: **we aim to be transparent about the reproducibility of upstream code, models, and datasets when made available through the Diffusers library.
+* **Reproducibility**: we aim to be transparent about the reproducibility of upstream code, models, and datasets when made available through the Diffusers library.
 * **Responsibility**: as a community and through teamwork, we hold a collective responsibility to our users by anticipating and mitigating this technology’s potential risks and dangers.
 
 # Safety features and mechanisms
