@@ -23,7 +23,7 @@ Today we’re thrilled to announce that Diffusers now officially supports Contro
 
 The amount of controlled generation the original Stable Diffusion models offer has been far from desired. For example, you won’t be able to generate images conditioned on a semantic segmentation map along with the input text prompt. ControlNet provides a minimal interface to tackle this problem allowing users to customize the generation process up to a great extent. With ControlNet, users can easily condition the generation with different spatial contexts such as a depth map, a segmentation map, a scribble, keypoints, and so on! 
 
-In this blog post, we first introduce the `StableDiffusionControlNetPipeline` and then show how it can suit various controlled outputs. 
+In this blog post, we first introduce the [`StableDiffusionControlNetPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet) and then show how it can suit various controlled outputs. 
 
 Let’s get controlling! 
 
