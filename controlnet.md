@@ -75,8 +75,7 @@ Similarly, if we were to condition ControlNet with semantic segmentation maps, a
 ## The `StableDiffusionControlNetPipeline`
 
 To experiment with ControlNet, we expose `StableDiffusionControlNetPipeline` similar to
-the [other pipelines](https://huggingface.co/docs/diffusers/api/pipelines/overview) we offer from Diffusers. Central to the `StableDiffusionControlNetPipeline` is the `controlnet` parameter which lets you provide a particular `ControlNet` instance trained
-on specific spatial contexts as conditioning. 
+the [other pipelines](https://huggingface.co/docs/diffusers/api/pipelines/overview) we offer from Diffusers. Central to the `StableDiffusionControlNetPipeline` is the `controlnet` parameter which lets you provide a particular [`ControlNetModel`](https://huggingface.co/docs/diffusers/main/en/api/models#diffusers.ControlNetModel) instance trained on specific spatial contexts as conditioning. 
 
 We will explore different use cases with the `StableDiffusionControlNetPipeline` in this blog post, but for starters, let’s load a `StableDiffusionControlNetPipeline` that can generate images conditioned on edge maps. First, we obtain an edge map using OpenCV:
 
