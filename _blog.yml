@@ -1866,7 +1866,7 @@
   tags:
     - nlp
     
-    - local: ethics-diffusers
+- local: ethics-diffusers
   title: "Ethical guidelines for developing the Diffusers library"
   author: giadap
   thumbnail: /blog/assets/ethics-diffusers/thumbnail.png
