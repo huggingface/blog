@@ -39,58 +39,63 @@ thumbnail: /blog/assets/119_switch_transformers/thumbnail.png
 </a>
 
 
-# Mixture of Experts (MoE) based models make their way to the Hugging Face ecosystem
+# MoEs make their way to the Hugging Face ecosystem
 
 If you are following the recent advances in NLP, you have probably heard about the sparse architecture called Mixture of Experts (MoE) models. Research on MoEs has been around for a few years, but the advance of huge clusters allowed the democratization of the architecture.
 
-In terms of software adoption, we have seen several MoE implementations, for example, in MetaAI’s [`fairseq`](https://github.com/facebookresearch/fairseq/tree/main/examples/moe_lm) library and Microsoft’s [`DeepSpeed`](https://arxiv.org/pdf/2201.05596.pdf) library.
-
-With the publication of several research papers and the adoption of Mixture of Experts in increasingly more tasks, this now efficient architecture has gained popularity in the recent months.
-
-Google open-sourced the largest MoE models last year in the paper [“Switch Transformers: Scaling to Trillion Parameters models with simple and efficient sparsity”](https://arxiv.org/abs/2101.03961). The paper released a trillion parameter model, Switch-c-2048 (3.1 Terabytes !).
-The model is now publicly available on [Hugging Face Hub](https://huggingface.co/models?search=switch), making it the biggest model available.
+In terms of software adoption, we have seen several MoE implementations, for example, in MetaAI’s [`fairseq`](https://github.com/facebookresearch/fairseq/tree/main/examples/moe_lm) library and Microsoft’s [`DeepSpeed`](https://arxiv.org/abs/2201.05596) library.
 
 
-In an effort to democratize its usage, as well as centralize the research efforts around common implementation, we are providing a base implementation of the `SwitchTransformer`, with the top-1 routing mechanism. The community will be able to build upon it and easily share their results.
+With the publication of several research papers and the adoption of MoEs in increasingly more tasks, this architecture has gained popularity in recent months.
+
+Google open-sourced the largest MoE-based models last year in the paper [Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity](https://arxiv.org/abs/2101.03961). The paper released a trillion parameter model, Switch-c-2048 (3.1 Terabytes!).
+The model is now publicly available on [Hugging Face Hub](https://huggingface.co/models?search=switch), making it the biggest model on the platform.
 
 
-Let’s dive into the technical specifications of this architecture and how to train and evaluate your first MoE model using 🤗  `transformers`! Let’s get started ! 🤗  🥳 
+In an effort to democratize its usage and centralize the research efforts around common implementations, we are providing a base implementation of `SwitchTransformer` with the top-1 routing mechanism. We hope that the community will be able to build upon it and easily share their results.
+
+
+In this post, we aim to provide an overview of the technical specifications of the Switch Transformer architecture. We will also show you how to train and evaluate your first Switch Transformer model using  🤗 Transformers.
+
+Let's get started! 
 
 ## Mixture of Experts (MoE) models in a few words
 
-Mixture of Experts (MoE) have been widely democratized by Shazeer et al. in the paper ["Outrageously Large Neural Networks: the Sparsely-Gated Mixture of Experts Layer"](https://openreview.net/pdf?id=B1ckMDqlg) - the main motivation behind the creation of these layers is the need to increase the number of parameters (therefore the model's capacity) with minor losses in computational efficiency. In the paper, authors claim to obtain greater than 1000x improvements in model capacity while observing a small loss in computational efficiency. 
+MoEs have been widely democratized by Shazeer et al. in the paper [Outrageously Large Neural Networks: the Sparsely-Gated Mixture of Experts Layer](https://openreview.net/pdf?id=B1ckMDqlg). The primary motivation behind the creation of these layers is the need to increase the number of parameters (thereby model capacity) to improve predictive performance. In the paper, the authors obtain more than 1000x improvements in model capacity with a small loss in computational efficiency. 
 
-The basic idea is to replace a single model that can take `N` inputs by `nb_expert` models, and chose for each input, which model will process it. This way, you are still only using `N` weights, but the number of weights that you can be using is `N x nb_experts` instead of `N`. 
+The core idea is to replace a single model block (such as the [transformer](https://arxiv.org/abs/1706.03762) block) that can take $N$ inputs by the so-called "expert" blocks, and select which expert block gets to process what inputs. This way, you are still only using $N$ weights, but the number of weights that you can be using is `N x num_experts` instead of `N`.
 
 | ![MoE figure](/assets/119_switch_transformers/moe.png) | 
 |:--:|
 | <b> The first MoE layer as defined by Shazeer et al. from the paper ["Outrageously Large Neural Networks: the Sparsely-Gated Mixture of Experts Layer"](https://openreview.net/pdf?id=B1ckMDqlg) | Image source: https://openreview.net/pdf?id=B1ckMDqlg </b>|
 
-In more details, a MoE layer conists of a set of `n` "experts networks" and a "gating network" (in case of Switch Transformers this layer is called the router). The gating network selects a sparse combination of the experts to process each input. Although training a MoE-based model will result in having a larger model, experiments detailed in the section 5 of the paper showed that it is possible to drastically increasing the output model's performance for the same computational budget. 
+Expanding more, an MoE layer consists of a set of $n$ "expert networks" and a "gating network" (Switch Transformers refer this layer as the "router"). The gating network selects a sparse combination of experts to process each input. Although training an MoE-based model will result in a larger model (more parameters), [experiments in Switch Transformers](https://arxiv.org/abs/2101.03961) showed that it is possible to drastically improve model performance for a given computational budget.
 
 [Switch Transformers](https://arxiv.org/pdf/2101.03961.pdf), based on MoE layers, we trained with up to 7x speedup in pre-training with the identical computational resources to train a T5-base and T5-large model.
 
 ## Switch Transformers in a nutshell
 
-Switch Transformers follows the T5 architecture, and the implementation is heavily based on our T5 code, with the exception of the `DenseActDense`, which can be replaced with `SparseMLP`.
+Switch Transformers follow the [T5 architecture](https://arxiv.org/abs/1910.10683). Our implementation closely follows that of [T5](https://github.com/huggingface/transformers/blob/main/src/transformers/models/t5/modeling_t5.py), with the following exception. The [`DenseActDense` layer](https://github.com/huggingface/transformers/blob/8fb4d0e4b46282d96386c229b9fb18bf7c80c25a/src/transformers/models/t5/modeling_t5.py#L281) is replaced with a [`SparseMLP` layer](https://github.com/huggingface/transformers/blob/8fb4d0e4b46282d96386c229b9fb18bf7c80c25a/src/transformers/models/switch_transformers/modeling_switch_transformers.py#L300).
 
-In Switch Transformers, the `SwitchTransformersDenseActDense` layer in the attention mechanism is replaced with a `SwitchTransformersSparseMLP` layer. The `SparseMLP` layer is composed of a router, and a list of `experts`, where each expert is as `DenseActDense` module. Instead of passing each token to the single `DensActDense`, the tokens go through the router which decides which `DenseActDense` (or expert) from the list of experts, should process the token. The routing mechanism is called `top-1` in `SwitchTransformers` as a token is only routed to a single expert, with the highest probability. One hyperparameter is the `expert_capacity` which defines the maximum number of tokens that can be processed by a single expert. Once the capacity is reached on an expert, any new tokens that are routed will be ignored and will reach the next hidden states via only the residual connection. The following figures will present the various cases.
+In Switch Transformers, the [`SwitchTransformersDenseActDense` layer](https://github.com/huggingface/transformers/blob/8fb4d0e4b46282d96386c229b9fb18bf7c80c25a/src/transformers/models/switch_transformers/modeling_switch_transformers.py#L265) in the attention mechanism is replaced with a [`SwitchTransformersSparseMLP` layer](https://github.com/huggingface/transformers/blob/main/src/transformers/models/switch_transformers/modeling_switch_transformers.py#L300). The `SparseMLP` layer is composed of a router, and a list of `experts`, where each `expert` is a [`DenseActDense` module](https://github.com/huggingface/transformers/blob/8fb4d0e4b46282d96386c229b9fb18bf7c80c25a/src/transformers/models/switch_transformers/modeling_switch_transformers.py#L265). Instead of passing each token to the single `DenseActDense`, the tokens go through the router which decides which `DenseActDense` (or expert) from the list of experts, should process the token. The routing mechanism is called `top-1` in `SwitchTransformers` as a token is only routed to a single expert, with the highest probability. 
+
+One hyperparameter here is the `expert_capacity`, which defines the maximum number of tokens that can be processed by a single expert. Once the capacity is reached on an expert, any new tokens that are routed will be ignored and will reach the next hidden states via only the residual connection. The following figure will present the various cases regarding this idea of expert capacity.
 
 | ![MoE figure](/assets/119_switch_transformers/routing.png) | 
 |:--:|
 | <b>Image source: https://arxiv.org/abs/2101.03961 </b>|
 
-As seen in the figure above, Expert 1 will ignore the blue token as it has already reached its maximum capacity (even though the token was router there).  This will result in using the hidden state in the next stage as it is.
+As seen in the figure above, Expert 1 will ignore the blue token as it has already reached its maximum capacity (even though the token was routed there).  This will result in using the hidden state in the next stage as it is.
 
-How can we ensure the diversity of the routing mechanism? I.e, make sure that the distribution of routed experts is uniform. Some recent studies have shown that learning such a routing mechanism encourages token clustering around expert centroids. A poor expert routing strategy can cause certain experts to be under-trained, leading to an expert being under or over-specialized.
+This phenomenon leads to an important question. **How can we ensure the diversity of the routing mechanism?** That is to make sure that the distribution of routed experts is uniform. Some recent studies have shown that learning such a routing mechanism encourages token clustering around expert centroids. A poor expert routing strategy can cause certain experts to be under-trained, leading to an individual expert being under or over-specialized.
 
-Therefore, it is important to revisit the routing algorithm to tackle this issue. Recently, Google developed the so-called Expert Choice (EC) algorithm. The top-k tokens are assigned the experts with a predetermined buffer capacity rather than having tokens choose the top-k experts. This approach significantly improves training efficiency and downstream performance while guaranteeing even load balancing and allowing a variable number of experts for each token. In an 8B/64E (8 billion activated parameters, 64 experts) model, EC routing accelerates training convergence more than two times compared to the top-1 and top-2 gating mechanisms. Read more about the method in the [original blog post](https://ai.googleblog.com/2022/11/mixture-of-experts-with-expert-choice.html)
+Therefore, it is important to revisit the routing algorithm to tackle this issue. Recently, Google developed the so-called "Expert Choice (EC)" algorithm. The top-k tokens are assigned to the experts with a pre-determined buffer capacity rather than having tokens chosen for the top-k experts. This approach significantly improves training efficiency and downstream performance. Besides, it even guarantees load-balancing and allows for a variable number of experts for each token. In an 8B/64E (8 billion activated parameters, 64 experts) model, EC routing accelerates training convergence more than two times compared to the top-1 and top-2 gating mechanisms. Read more about the method in the [original blog post](https://ai.googleblog.com/2022/11/mixture-of-experts-with-expert-choice.html).
 
 Microsoft introduced X-MoE, which consists of routers that use a learnable temperature, by estimating the routing scores on a low-dimensional hypersphere.
 
 ## How good are these models?
 
-The models that have been publicly released are pre-trained on C4 dataset, on masked language modeling task. Therefore they are not ready to use as Flan-T5 for instance. One needs to fine-tune the models to any task before using it. However, authors published some results of the fine-tuned checkpoints and the results seem to be better than classic T5 models.
+Switch Transformer checkpoints that have been publicly released were pre-trained on the [C4 dataset](https://huggingface.co/datasets/c4), with [masked language modeling](https://huggingface.co/tasks/fill-mask). Therefore they are not ready to use in a sequence-to-sequence formulation such as [Flan-T5](https://huggingface.co/docs/transformers/model_doc/flan-t5), for instance. One needs to fine-tune the models to a task of preference before using it. However, the authors published some results of the fine-tuned checkpoints and the results seem to be better than classic T5 models.
 
 | Model | GLUE | SQuAD | SuperGLUE | Winogrande (XL) |
 | :---: | :---: | :---: | :---: | :---: |
@@ -116,8 +121,7 @@ The models that have been publicly released are pre-trained on C4 dataset, on ma
 
 ## How to use it in Hugging Face ecosystem
 
-With the introduction of Switch Transformers in the Hugging Face ecosystem, we let users and practitioners train and deploy their first MoE models! Let’s see how to do so with a few lines of code.
-Together with the Trillion parameter model, google has released a set of smaller models so that anyone can experiment with this architecture, check them out here: https://huggingface.co/models?sort=downloads&search=google%2Fswitch- 
+With the introduction of Switch Transformers in the Hugging Face ecosystem, users and practitioners can train and deploy their MoE models with just a few lines of code! 
 
 ```python
 # pip install accelerate
@@ -134,7 +138,7 @@ print(tokenizer.decode(outputs[0]))
 >>> <pad> <extra_id_0> man<extra_id_1> beer<extra_id_2> a<extra_id_3> salt<extra_id_4>.</s>
 ```
 
-If you are interested in training your first MoE, please checkout the [fine tuning google colab script](https://colab.research.google.com/drive/1aGGVHZmtKmcNBbAwa9hbu58DDpIuB5O4#scrollTo=xsgNPx4FrtH_) and share your first fine-tuned MoE on the Hub!
+If you are interested in training your first MoE-based model, please check out this [Colab Notebook](https://colab.research.google.com/drive/1aGGVHZmtKmcNBbAwa9hbu58DDpIuB5O4#scrollTo=xsgNPx4FrtH_). It shows you how to fine-tune a Switch Transformer model for summarization and how you can easily share the fine-tuned model on the Hugging Face Hub.
 
 ## Further reading
 
