@@ -13,6 +13,12 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
+<script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
+
+<a target="_blank" href="https://colab.research.google.com/github/nateraw/huggingface-hub-examples/blob/main/vit_image_classification_explained.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a> <!-- Update the Colab Notebook link-->
+
 Today we’re thrilled to announce that Diffusers now officially supports ControlNet!
 
 The amount of controlled generation the original Stable Diffusion models offer has been far from desired. For example, you won’t be able to generate images conditioned on a semantic segmentation map along with the input text prompt. ControlNet provides a minimal interface to tackle this problem allowing users to customize the generation process up to a great extent. With ControlNet, users can easily condition the generation with different spatial contexts such as a depth map, a segmentation map, a scribble, keypoints, and so on! 
@@ -52,7 +58,9 @@ canny = Image.fromarray(np.concatenate([canny] * 3, axis=-1))
 
 Figure 1 shows an example edge map of an input image extracted using the above code:
 
-![Untitled](Welcoming%20ControlNet%20to%20Diffusers%20%F0%9F%A7%A8%2017940f83b8574c60b30cbb47888ae3f0/Untitled.png)
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/input_canny.png" width="500" />
+</p>
 
 Next, we load the `StableDiffusionControlNetPipeline` with a `ControlNet` model that was specifically trained to generate images conditioned on edge maps like above:
 
@@ -80,11 +88,15 @@ generator = torch.manual_seed(0)
 image = pipe(prompt, canny, generator=generator, height=768, width=512).images[0]
 ```
 
-![Untitled](Welcoming%20ControlNet%20to%20Diffusers%20%F0%9F%A7%A8%2017940f83b8574c60b30cbb47888ae3f0/Untitled%201.png)
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/bird_of_my_life.png" width="500" />
+</p>
 
 And some more 🦅 🕊️
 
-![Untitled](Welcoming%20ControlNet%20to%20Diffusers%20%F0%9F%A7%A8%2017940f83b8574c60b30cbb47888ae3f0/Untitled%202.png)
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/birds_of_my_life.png" width="500" />
+</p>
 
 ## Support Multiple Use Cases with `StableDiffusionControlNetPipeline`
 
