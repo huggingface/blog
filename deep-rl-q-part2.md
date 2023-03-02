@@ -24,11 +24,17 @@ authors:
 
 <body>
 
-*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
-  
+⚠️ A **new updated version of this article is available here** 👉 [https://huggingface.co/deep-rl-course/unit1/introduction](https://huggingface.co/deep-rl-course/unit2/q-learning)
+
+*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://huggingface.co/deep-rl-course/unit0/introduction)*
+
 <img src="assets/73_deep_rl_q_part2/thumbnail.gif" alt="Thumbnail"/>
   
 ---
+
+⚠️ A **new updated version of this article is available here** 👉 [https://huggingface.co/deep-rl-course/unit1/introduction](https://huggingface.co/deep-rl-course/unit2/q-learning)
+
+*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://huggingface.co/deep-rl-course/unit0/introduction)*
 
 [In the first part of this unit](https://huggingface.co/blog/deep-rl-q-part1), **we learned about the value-based methods and the difference between Monte Carlo and Temporal Difference Learning**.
 
