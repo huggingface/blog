@@ -8,6 +8,11 @@
   date: Mar 23, 2023
   description: Free workshop hosted by DeepLearning.AI for developers learn how to build with ML without the Ops.
 
+- name: (IRL San Francisco) Building Generative AI Products with AWS and HuggingFace
+  link: https://aws-startup-lofts.com/amer/loft/san-francisco/e/c77d4/ml-startup-tech-talk-building-generative-ai-products
+  date: Mar 8, 2023
+  description: Free event in downtown SF hosted by AWS to learn how to use Hugging Face with SageMaker
+
 - name: How Witty Works leverages Hugging Face to scale inclusive language?
   link: https://www.eventbrite.com/e/how-witty-works-leverages-hugging-face-to-scale-inclusive-language-tickets-503429429977
   date: Feb 16, 2023
