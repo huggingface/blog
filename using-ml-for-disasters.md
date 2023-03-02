@@ -69,7 +69,7 @@ Other teams worked on remote sensing applications to assess the damage to buildi
 
 To address these issues and create open source tools that can be leveraged in the future, we started by collecting pre and post-earthquake satellite images of the affected zones from Planet Labs, Maxar and Copernicus Open Access Hub. 
 
-![input_satellite](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/output_satellite.jpeg)
+![input_satellite](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/output_satellite.png)
 
 Our initial approach was to rapidly label satellite images for object detection and instance segmentation, with a single category for "buildings". The aim was to evaluate the extent of damage by comparing the number of surviving buildings in pre- and post-earthquake images collected from the same area. In order to make it easier to train models, we started by cropping 1080x1080 satellite images into smaller 640x640 chunks. Next, we fine-tuned  [YOLOv5](https://huggingface.co/spaces/deprem-ml/deprem_satellite_test), YOLOv8 and EfficientNet models for building detection and a [SegFormer](https://huggingface.co/spaces/deprem-ml/deprem_satellite_semantic_whu) model for semantic segmentation of buildings, and deployed these apps as Hugging Face Spaces. 
 
@@ -77,7 +77,7 @@ Our initial approach was to rapidly label satellite images for object detection 
 
 Once again, dozens of volunteers worked on labeling, preparing data, and training models. In addition to individual volunteers, companies like [Co-One](https://co-one.co/) volunteered to label satellite data with more detailed annotations for buildings and infrastructure, including *no damage*, *destroyed*, *damaged*, *damaged facility,* and *undamaged facility* labels. Our current objective is to release an extensive open-source dataset that can expedite search and rescue operations worldwide in the future.
 
-![output_satellite](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/processed_satellite.png)
+![output_satellite](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/disaster-assets/processed_satellite.jpeg)
 ## Wrapping Up
 
 For this extreme use case, we had to move fast and optimize over classification metrics where even one percent improvement mattered. There were many ethical discussions in the progress, as even picking the metric to optimize over was an ethical question. We have seen how open-source machine learning and democratization enables individuals to build life-saving applications. 
