@@ -1877,7 +1877,7 @@
     - diffusers
 
 
-- local: ml-disaster
+- local: using-ml-for-disasters
   title: "Using Machine Learning to Aid Survivors and Race through Time"
   author: merve
   thumbnail: /blog/assets/using-ml-for-disasters/thumbnail.png
