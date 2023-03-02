@@ -7,6 +7,8 @@ authors:
 
 # Ethical guidelines for developing the Diffusers library
 
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 We are on a journey to make our libraries more responsible, one commit at a time! 
 
 As part of the [Diffusers](https://huggingface.co/docs/diffusers/main/en/index) library documentation, we are proud to announce the publication of an [ethical framework](https://huggingface.co/docs/diffusers/main/en/conceptual/ethical_guidelines). 
