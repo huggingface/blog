@@ -25,11 +25,19 @@ authors:
 
 <body>
   
-*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
+⚠️ A **new updated version of this article is available here** 👉 [https://huggingface.co/deep-rl-course/unit1/introduction](https://huggingface.co/deep-rl-course/unit1/introduction)
+
+*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://huggingface.co/deep-rl-course/unit0/introduction)*
 
 <img src="assets/63_deep_rl_intro/thumbnail.png" alt="Thumbnail"/>  
 
 ---
+
+
+⚠️ A **new updated version of this article is available here** 👉 [https://huggingface.co/deep-rl-course/unit1/introduction](https://huggingface.co/deep-rl-course/unit1/introduction)
+
+*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://huggingface.co/deep-rl-course/unit0/introduction)*
+
 
 Welcome to the most fascinating topic in Artificial Intelligence: **Deep Reinforcement Learning.**
 
