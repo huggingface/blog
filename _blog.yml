@@ -1874,3 +1874,12 @@
   tags:
     - ethics
     - diffusers
+
+
+- local: controlnet
+  title: "Welcoming ControlNet to Diffusers 🧨"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/controlnet/thumbnail.png
+  date: March 3, 2023
+  tags:
+    - diffusers
