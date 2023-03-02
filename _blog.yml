@@ -1865,3 +1865,12 @@
   date: March 1, 2023
   tags:
     - nlp
+    
+    - local: ethics-diffusers
+  title: "Ethical guidelines for developing the Diffusers library"
+  author: giadap
+  thumbnail: /blog/assets/ethics-diffusers/thumbnail.png
+  date: March 2, 2023
+  tags:
+    - ethics
+    - diffusers
