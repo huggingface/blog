@@ -11,7 +11,7 @@ authors:
 <!-- {authors} -->
 We are on a journey to make our libraries more responsible, one commit at a time! 
 
-As part of the [Diffusers](https://huggingface.co/docs/diffusers/main/en/index) library documentation, we are proud to announce the publication of an [ethical framework](https://huggingface.co/docs/diffusers/main/en/conceptual/ethical_guidelines). 
+As part of the [Diffusers library documentation](https://huggingface.co/docs/diffusers/main/en/index), we are proud to announce the publication of an [ethical framework](https://huggingface.co/docs/diffusers/main/en/conceptual/ethical_guidelines). 
 
 Given diffusion models' real case applications in the world and potential negative impacts on society, this initiative aims to guide the technical decisions of the Diffusers library maintainers about community contributions. We wish to be transparent in how we make decisions, and above all, we aim to clarify what values guide those decisions.
 
