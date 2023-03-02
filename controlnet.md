@@ -27,7 +27,9 @@ In this blog post, we first introduce the [`StableDiffusionControlNetPipeline`](
 
 Let’s get controlling! 
 
-***[Include a collage of cool examples?]***
+<p align="center">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/collage.png" width=600/>
+</p>
 
 ## ControlNet: TL;DR
 
