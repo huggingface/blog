@@ -1857,6 +1857,7 @@
     - chatgpt
     - safety
     - alignment
+
     
 - local: classification-use-cases
   title: "Leveraging Hugging Face for complex text classification use cases"
@@ -1874,3 +1875,14 @@
   tags:
     - ethics
     - diffusers
+
+
+- local: ml-disaster
+  title: "Using Machine Learning to Aid Survivors and Race through Time"
+  author: merve
+  thumbnail: /blog/assets/using-ml-for-disasters/thumbnail.png
+  date: March 3, 2023
+  tags:
+    - nlp
+    - transformers
+    - object-detection
