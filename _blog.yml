@@ -1858,11 +1858,30 @@
     - safety
     - alignment
 
+    
+- local: classification-use-cases
+  title: "Leveraging Hugging Face for complex text classification use cases"
+  author: VioletteLepercq
+  thumbnail: /blog/assets/78_ml_director_insights/blogthumbnail.png
+  date: March 1, 2023
+  tags:
+    - nlp
+    
+- local: ethics-diffusers
+  title: "Ethical guidelines for developing the Diffusers library"
+  author: giadap
+  thumbnail: /blog/assets/ethics-diffusers/thumbnail.png
+  date: March 2, 2023
+  tags:
+    - ethics
+    - diffusers
+
+
 - local: ml-disaster
   title: "Using Machine Learning to Aid Survivors and Race through Time"
   author: merve
   thumbnail: /blog/assets/using-ml-for-disasters/thumbnail.png
-  date: February 27, 2023
+  date: March 3, 2023
   tags:
     - nlp
     - transformers
