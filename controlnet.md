@@ -2,7 +2,10 @@
 title: "Welcoming ControlNet to Diffusers 🧨" 
 thumbnail: /blog/assets/controlnet/thumbnail.png <!-- UPDATE -->
 authors:
+- user: takuma104
+  guest: true
 - user: patrickvonplaten
+- user: YiYiXu
 ---
 
 # Welcoming ControlNet to Diffusers 🧨
@@ -42,7 +45,7 @@ import cv2
 low_threshold = 100
 high_threshold = 200
 canny = cv2.Canny(
-		np.asarray(your_image), low_threshold, high_threshold
+    np.asarray(your_image), low_threshold, high_threshold
 )[:,:,None]
 canny = Image.fromarray(np.concatenate([canny] * 3, axis=-1))
 ```
