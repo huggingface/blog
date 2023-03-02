@@ -34,7 +34,7 @@ In addition, we provide a non-exhaustive - and hopefully continuously expanding!
 
 * **Tag feature**: authors of a repository can tag their content as being “Not For All Eyes”
 
-* **Bias exploration and evaluation**: the Hugging Face team provides a [space](https://huggingface.co/spaces/society-ethics/DiffusionBiasExplorer) to demonstrate the biases in Stable Diffusion and DALL-E interactively. In this sense, we support and encourage bias explorers and evaluations.
+* **Bias exploration and evaluation**: the Hugging Face team provides a [Space](https://huggingface.co/spaces/society-ethics/DiffusionBiasExplorer) to demonstrate the biases in Stable Diffusion and DALL-E interactively. In this sense, we support and encourage bias explorers and evaluations.
 
 * **Encouraging safety in deployment**
     * **[Safe Stable Diffusion](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion_safe)**: It mitigates the well-known issue that models, like Stable Diffusion, that are trained on unfiltered, web-crawled datasets tend to suffer from inappropriate degeneration. Related paper: [Safe Latent Diffusion: Mitigating Inappropriate Degeneration in Diffusion Models](https://arxiv.org/abs/2211.05105).
