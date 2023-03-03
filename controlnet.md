@@ -279,7 +279,7 @@ generator = [torch.Generator(device="cpu").manual_seed(2) for i in range(len(pro
 
 Finally, we can run the pipeline and display the image!
 
-```
+```py
 output = pipe(
     prompt,
     canny_image,
@@ -312,6 +312,7 @@ pipe = StableDiffusionControlNetPipeline.from_pretrained(
 )
 pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 pipe.enable_model_cpu_offload()
+pipe.enable_xformers_memory_efficient_attention()
 ```
 
 Now let's make Mr Potato posing for [Johannes Vermeer](https://en.wikipedia.org/wiki/Johannes_Vermeer)!
@@ -384,6 +385,7 @@ pipe = StableDiffusionControlNetPipeline.from_pretrained(
 )
 pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 pipe.enable_model_cpu_offload()
+pipe.enable_xformers_memory_efficient_attention()
 ```
 
 Now it's yoga time! 
@@ -425,5 +427,5 @@ We also showed some techniques to make the generation process faster and memory-
 We have been playing a lot with [`StableDiffusionControlNetPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet), and our experience has been fun so far! We’re excited to see what the community builds on top of this pipeline. If you want to check out other pipelines and techniques supported in Diffusers that allow for controlled generation, check out our [official documentation](https://huggingface.co/docs/diffusers/main/en/using-diffusers/controlling_generation).
 
 If you cannot wait to try out ControlNet directly, we got you covered as well! Simply click on one of the following spaces to play around with ControlNet:
-- [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/diffusers/controlnet-canny)
-- [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/diffusers/controlnet-openpose)
+- [![Canny ControlNet Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/diffusers/controlnet-canny)
+- [![OpenPose ControlNet Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/diffusers/controlnet-openpose)
