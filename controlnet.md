@@ -7,7 +7,7 @@ authors:
 - user: patrickvonplaten
 ---
 
-# ControlNet in 🧨 Diffusers
+# Ultra fast ControlNet with 🧨 Diffusers
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
