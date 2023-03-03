@@ -285,7 +285,7 @@ output = pipe(
     prompt,
     canny_image,
     negative_prompt=["monochrome, lowres, bad anatomy, worst quality, low quality"] * 4,
-	num_inference_steps=20,
+    num_inference_steps=20,
     generator=generator,
 )
 
@@ -325,7 +325,7 @@ output = pipe(
     prompt,
     canny_image,
     negative_prompt="monochrome, lowres, bad anatomy, worst quality, low quality",
-	num_inference_steps=20,
+    num_inference_steps=20,
     generator=generator,
 )
 output.images[0]
@@ -397,6 +397,7 @@ output = pipe(
     poses,
     negative_prompt=["monochrome, lowres, bad anatomy, worst quality, low quality"] * 4,
     generator=generator,
+    num_inference_steps=20,
 )
 image_grid(output.images, 2, 2)
 ```
