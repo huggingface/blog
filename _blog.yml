@@ -1878,7 +1878,7 @@
 
 - local: controlnet
   title: "ControlNet in Diffusers 🧨"
-  author: takuma104
+  author: sayakpaul
   thumbnail: /blog/assets/controlnet/thumbnail.png
   date: March 3, 2023
   tags:

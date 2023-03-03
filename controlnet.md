@@ -2,9 +2,8 @@
 title: "ControlNet in Diffusers 🧨" 
 thumbnail: /blog/assets/controlnet/thumbnail.png 
 authors:
-- user: takuma104
-  guest: true
-- user: diffusers
+- user: sayakpaul
+- user: yiyixu
 ---
 
 # ControlNet in Diffusers 🧨
@@ -80,11 +79,12 @@ Also, make some of the famous logos coming to life.
 With ControlNet, sky is the limit 🌠 
 
 In this blog post, we first introduce the [`StableDiffusionControlNetPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet) and then show how it can suit various controlled outputs. Let’s get controlling! 
+
 ## ControlNet: TL;DR
 
 ControlNet was introduced in [Adding Conditional Control to Text-to-Image Diffusion Models](https://arxiv.org/abs/2302.05543) by Lvmin Zhang and Maneesh Agrawala. It introduces a framework that allows for supporting various spatial contexts that can serve as additional conditionings to Diffusion models such as Stable Diffusion. It is comprised of the following steps:
 
-1. Cloning the pre-trained parameters of a Diffusion model such as Stable Diffusion (referred to as “trainable copy”) while also maintaining the pre-trained parameters separately (”locked copy”). It is done so that the locked parameter copy can preserve the vast knowledge learned from a large dataset, whereas the trainable copy is employed to learn task-specific aspects. 
+1. Cloning the pre-trained parameters of a Diffusion model such as Stable Diffusion's latent UNet (referred to as “trainable copy”) while also maintaining the pre-trained parameters separately (”locked copy”). It is done so that the locked parameter copy can preserve the vast knowledge learned from a large dataset, whereas the trainable copy is employed to learn task-specific aspects. 
 2. The trainable and locked copies of the parameters are connected via “zero convolution” layers which are optimized as a part of the ControlNet framework. This is a training trick to preserve the semantics already learned by frozen model as the new conditions are trained.
 
 Pictorially, it looks like so:
@@ -209,8 +209,7 @@ from diffusers import UniPCMultistepScheduler
 
 pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 
-# This command loads the individual model components on GPU on-demand. So, we don't
-# need to explicitly call pipe.to("cuda").
+# This command loads the individual model components only when required.
 pipe.enable_model_cpu_offload()
 ```
 
@@ -234,7 +233,7 @@ def image_grid(imgs, rows, cols):
 
 prompt = ", best quality, extremely detailed"
 prompt = [t + prompt for t in ["Sandra Oh", "Kim Kardashian", "rihanna", "taylor swift"]]
-generator = [torch.Generator(device="cpu").manual_seed(2) for i in range(4)]
+generator = torch.manual_seed(2)
 
 output = pipe(
     prompt,
@@ -341,7 +340,7 @@ pipe.enable_model_cpu_offload()
 Now it's yoga time! 
 
 ```python
-generator = [torch.Generator(device="cpu").manual_seed(2) for i in range(4)]
+generator = torch.manual_seed(2)
 prompt = " best quality, extremely detailed"
 output = pipe(
     [prompt] * 4,
