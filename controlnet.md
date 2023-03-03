@@ -116,7 +116,7 @@ Similarly, if we were to condition ControlNet with semantic segmentation maps, a
 <tr style="text-align: center;">
     <td>"big house"</td>
     <td style="text-align: center;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/original_house.png" width=300/></td>
-    <td style="text-align: center;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/segmentation_map.png" width=250/></td>
+    <td style="text-align: center;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/segmentation_map.png" width=300/></td>
 </tr>
 </table>
 
