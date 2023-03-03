@@ -4,10 +4,7 @@ thumbnail: /blog/assets/controlnet/thumbnail.png
 authors:
 - user: takuma104
   guest: true
-- user: williamberman
-- user: patrickvonplaten
-- user: YiYiXu
-- user: sayakpaul
+- user: diffusers
 ---
 
 # ControlNet in Diffusers 🧨
