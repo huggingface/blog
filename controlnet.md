@@ -30,7 +30,7 @@ We can turn a cartoon drawing into a realistic photo with incredible coherence.
     <th>Realistic Lofi Girl</th>
 </tr>
 <tr style="text-align: center;">
-    <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/lofi.jpg" width=300/></td>
+    <td style="text-align: center;"><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/lofi.jpg" width=300/></td>
 </tr>
 </table>
 
@@ -94,14 +94,14 @@ A sample from the training set for ControlNet-like training looks like this (add
 
 <table>
 <tr style="text-align: center;">
+    <th>Prompt</th>
     <th>Original Image</th>
     <th>Conditioning</th>
-    <th>Prompt</th>
 </tr>
 <tr style="text-align: center;">
-    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/original_bird.png" width=200/></td>
-    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/canny_map.png" width=180/></td>
-    <td>"bird"</td>
+     <td>"bird"</td>
+    <td style="text-align: center;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/original_bird.png" width=200/></td>
+    <td style="text-align: center;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/canny_map.png" width=200/></td>
 </tr>
 </table>
 
@@ -109,14 +109,14 @@ Similarly, if we were to condition ControlNet with semantic segmentation maps, a
 
 <table>
 <tr style="text-align: center;">
+    <th>Prompt</th>
     <th>Original Image</th>
     <th>Conditioning</th>
-    <th>Prompt</th>
 </tr>
 <tr style="text-align: center;">
-    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/original_house.png" width=300/></td>
-    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/segmentation_map.png" width=235/></td>
     <td>"big house"</td>
+    <td style="text-align: center;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/original_house.png" width=300/></td>
+    <td style="text-align: center;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/segmentation_map.png" width=250/></td>
 </tr>
 </table>
 
