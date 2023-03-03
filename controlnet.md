@@ -1,12 +1,12 @@
 ---
-title: "ControlNet in Diffusers 🧨" 
+title: "ControlNet in 🧨 Diffusers" 
 thumbnail: /blog/assets/controlnet/thumbnail.png 
 authors:
 - user: sayakpaul
 - user: yiyixu
 ---
 
-# ControlNet in Diffusers 🧨
+# ControlNet in 🧨 Diffusers
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -24,7 +24,7 @@ authors:
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a> 
 
-Ever since Stable Diffusion took the world by storm, people have been looking for ways to have more control over the results of the generation process. ControlNet provides a minimal interface allowing users to customize the generation process up to a great extent. With ControlNet, users can easily condition the generation with different spatial contexts such as a depth map, a segmentation map, a scribble, keypoints, and so on!
+Ever since Stable Diffusion took the world by storm, people have been looking for ways to have more control over the results of the generation process. ControlNet provides a minimal interface allowing users to customize the generation process up to a great extent. With [ControlNet](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet), users can easily condition the generation with different spatial contexts such as a depth map, a segmentation map, a scribble, keypoints, and so on!
 
 We can turn a cartoon drawing into a realistic photo with incredible coherence.
 
@@ -76,18 +76,21 @@ Also, make some of the famous logos coming to life.
 </tr>
 </table>
 
-With ControlNet, sky is the limit 🌠 
+With ControlNet, the sky is the limit 🌠 
 
-In this blog post, we first introduce the [`StableDiffusionControlNetPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet) and then show how it can suit various controlled outputs. Let’s get controlling! 
+In this blog post, we first introduce the [`StableDiffusionControlNetPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet) and then show how it can be applied for various control conditionings. Let’s get controlling! 
 
 ## ControlNet: TL;DR
 
-ControlNet was introduced in [Adding Conditional Control to Text-to-Image Diffusion Models](https://arxiv.org/abs/2302.05543) by Lvmin Zhang and Maneesh Agrawala. It introduces a framework that allows for supporting various spatial contexts that can serve as additional conditionings to Diffusion models such as Stable Diffusion. It is comprised of the following steps:
+ControlNet was introduced in [Adding Conditional Control to Text-to-Image Diffusion Models](https://arxiv.org/abs/2302.05543) by Lvmin Zhang and Maneesh Agrawala. 
+It introduces a framework that allows for supporting various spatial contexts that can serve as additional conditionings to Diffusion models such as Stable Diffusion. 
 
-1. Cloning the pre-trained parameters of a Diffusion model such as Stable Diffusion's latent UNet (referred to as “trainable copy”) while also maintaining the pre-trained parameters separately (”locked copy”). It is done so that the locked parameter copy can preserve the vast knowledge learned from a large dataset, whereas the trainable copy is employed to learn task-specific aspects. 
-2. The trainable and locked copies of the parameters are connected via “zero convolution” layers which are optimized as a part of the ControlNet framework. This is a training trick to preserve the semantics already learned by frozen model as the new conditions are trained.
+Training ControlNet is comprised of the following steps:
 
-Pictorially, it looks like so:
+1. Cloning the pre-trained parameters of a Diffusion model, such as Stable Diffusion's latent UNet, (referred to as “trainable copy”) while also maintaining the pre-trained parameters separately (”locked copy”). It is done so that the locked parameter copy can preserve the vast knowledge learned from a large dataset, whereas the trainable copy is employed to learn task-specific aspects. 
+2. The trainable and locked copies of the parameters are connected via “zero convolution” layers (see [here](https://github.com/lllyasviel/ControlNet#controlnet) for more information) which are optimized as a part of the ControlNet framework. This is a training trick to preserve the semantics already learned by frozen model as the new conditions are trained.
+
+Pictorially, training a ControlNet looks like so:
 
 <p align="center">
     <img src="https://github.com/lllyasviel/ControlNet/raw/main/github_page/sd.png" alt="controlnet-structure"><br>
@@ -124,25 +127,34 @@ Similarly, if we were to condition ControlNet with semantic segmentation maps, a
 </tr>
 </table>
 
-Every new type of conditioning requires training a new copy of ControlNet weights. The paper proposed 8 different conditioning models that are all [supported](https://huggingface.co/lllyasviel?search=controlnet) in Diffusers! Trained ControlNet models are chosen during inference, as we will see below.
+Every new type of conditioning requires training a new copy of ControlNet weights. 
+The paper proposed 8 different conditioning models that are all [supported](https://huggingface.co/lllyasviel?search=controlnet) in Diffusers! 
+
+For inference, both the pre-trained diffusion models weights as well as the trained ControlNet weights are needed. For example, using [Stable Diffusion v1-5](https://huggingface.co/runwayml/stable-diffusion-v1-5) 
+with a ControlNet checkpoint require roughly 700 million more parameters compared to just using the original Stable Diffusion model, which makes ControlNet a bit more memory-expensive for inference.
+
+Because the pre-trained diffusion models are looked during training, one only needs to switch out the ControlNet parameters when using a different conditioning. This makes it fairly simple 
+to deploy multiple ControlNet weights in one application as we will see below.
 
 ## The `StableDiffusionControlNetPipeline`
 
-To experiment with ControlNet, we expose [`StableDiffusionControlNetPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet) similar to
-the [other pipelines](https://huggingface.co/docs/diffusers/api/pipelines/overview) we offer from Diffusers. Central to the `StableDiffusionControlNetPipeline` is the `controlnet` argument which lets us provide a particular [`ControlNetModel`](https://huggingface.co/docs/diffusers/main/en/api/models#diffusers.ControlNetModel) instance trained on specific spatial contexts as conditioning. 
+To experiment with ControlNet, Diffusers exposes the [`StableDiffusionControlNetPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet) similar to
+the [other Diffusers pipelines](https://huggingface.co/docs/diffusers/api/pipelines/overview). Central to the [`StableDiffusionControlNetPipeline`] is the `controlnet` argument which lets us provide a particular trained [`ControlNetModel`](https://huggingface.co/docs/diffusers/main/en/api/models#diffusers.ControlNetModel) instance while keeping the pre-trained diffusion model weights the same.
 
-We will explore different use cases with the `StableDiffusionControlNetPipeline` in this blog post. The first ControlNet model we are going to walk through is the Canny model - this is one of the most popular models that generated some of the most amazing images you will see on the internet.
+We will explore different use cases with the `StableDiffusionControlNetPipeline` in this blog post. The first ControlNet model we are going to walk through is the [Canny model](https://huggingface.co/runwayml/stable-diffusion-v1-5) - this is one of the most popular models that generated some of the amazing images you are libely seeing on the internet.
 
 We welcome you to run the code snippets shown in the sections below with [this Colab Notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/controlnet.ipynb).
 
 Before we begin, let's make sure we have all the necessary libraries installed:
 
 ```bash
-pip install -qqq git+https://github.com/huggingface/diffusers.git transformers
-pip install -q git+https://github.com/huggingface/accelerate
+pip install diffusers==0.14.0 transformers accelerate
 ```
 
-We will also to install OpenCV and `controlnet-aux`:
+To process different conditionings depending on the chosen ControlNet, we also need to install some 
+additional dependencies:
+- [OpenCV](https://opencv.org/)
+- [controlnet-aux](https://github.com/patrickvonplaten/controlnet_aux#controlnet-auxiliary-models) - a simple collection of pre-processing models for ControlNet
 
 ```bash
 pip install opencv-contrib-python
@@ -190,7 +202,8 @@ As we can see, it is essentially edge detection:
 <img src="https://huggingface.co/datasets/YiYiXu/test-doc-assets/resolve/main/blog_post_cell_10_output_0.jpeg" width=600/>
 </p>
 
-Now, we load the official Stable Diffusion 1.5 Model as well as the ControlNet model for canny edges.
+Now, we load [runwaylml/stable-diffusion-v1-5](https://huggingface.co/runwayml/stable-diffusion-v1-5) as well as the [ControlNet model for canny edges](https://huggingface.co/lllyasviel/sd-controlnet-canny).
+The models are loaded in half-precision (`torch.dtype`) to allow for fast and memory-efficient inference.
 
 ```python
 from diffusers import StableDiffusionControlNetPipeline, ControlNetModel
@@ -202,14 +215,28 @@ pipe = StableDiffusionControlNetPipeline.from_pretrained(
 )
 ```
 
-To speed things up and reduce memory, let’s use the fast [UniPCMultistepScheduler](https://huggingface.co/docs/diffusers/main/en/api/schedulers/unipc) and enable model offloading.
+Instead of using Stable Diffusion's default [PNDMScheduler](https://huggingface.co/docs/diffusers/main/en/api/schedulers/pndm), we use one of the currently fastest 
+diffusion model schedulers, called [UniPCMultistepScheduler](https://huggingface.co/docs/diffusers/main/en/api/schedulers/unipc).
+Choosing an improved scheduler can drastically reduce inference time - in our case we are able to reduce the number of inference steps from 50 to 20 while more or less 
+keeping the same image generation quality. More information regarding schedulers can be found [here](https://huggingface.co/docs/diffusers/main/en/using-diffusers/schedulers).
 
 ```python
 from diffusers import UniPCMultistepScheduler
 
 pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
+```
 
-# This command loads the individual model components only when required.
+Instead of loading our pipeline directly to GPU, we instead enable smart CPU offloading which 
+can be achieved with the [`enable_model_cpu_offload` function](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet#diffusers.StableDiffusionControlNetPipeline.enable_model_cpu_offload).
+
+Remember that during inference diffusion models, such as Stable Diffusion require not just one but multiple model components that are run sequentially.
+In the case of Stable Diffusion with ControlNet, we first use the CLIP text encoder, then the diffusion model unet and control net, then the VAE decoder and finally run a safety checker.
+Most components are only run once during the diffusion process and are thus not required to occupy GPU memory all the time. By enabling smart model offloading, we make sure 
+that each component is only loaded into GPU when it's needed so that we can significantly save memory consumption without significantly slowing down infenence.
+
+**Note**: When running `enable_model_cpu_offload`, do not manually move the pipeline to GPU with `.to("cuda")` - once CPU offloading is enabled, the pipeline automatically takes care of GPU memory management.
+
+```py
 pipe.enable_model_cpu_offload()
 ```
 
@@ -254,6 +281,8 @@ We can effortlessly combine ControlNet combines with fine-tuning too! For exampl
 In this post, we are going to use our beloved Mr Potato Head as an example to show how to use ControlNet with DreamBooth.
 
 We can use the same ContrlNet, however instead of using the Stable Diffusion 1.5, we are going to load the [Mr Potato Head model](https://huggingface.co/sd-dreambooth-library/mr-potato-head) into our pipeline - Mr Potato Head is a Stable Diffusion model fine-tuned with Mr Potato Head concept using Dreambooth 🥔
+
+Let's run the above commands again, keeping the same controlnet though!
 
 ```python
 model_id = "sd-dreambooth-library/mr-potato-head"
@@ -305,7 +334,7 @@ image_grid(imgs, 2, 2)
     <img src="https://huggingface.co/datasets/YiYiXu/test-doc-assets/resolve/main/blog_post_cell_25_output_0.jpeg" width=600/>
 </p>
 
-Now let's extract yoga poses using the OpenPose pre-processors:
+Now let's extract yoga poses using the OpenPose pre-processors that are handily available via `controlnet_aux`.
 
 ```python
 from controlnet_aux import OpenposeDetector
