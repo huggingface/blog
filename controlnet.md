@@ -296,7 +296,7 @@ image_grid(output.images, 2, 2)
 <img src="https://huggingface.co/datasets/YiYiXu/test-doc-assets/resolve/main/blog_post_cell_16_output_1.jpeg" width=600/>
 </p>
 
-We can effortlessly combine ControlNet combines with fine-tuning too! For example, we can fine-tune a model with [DreamBooth](https://huggingface.co/docs/diffusers/main/en/training/dreambooth), and use it to render ourselves into different scenes.
+We can effortlessly combine ControlNet with fine-tuning too! For example, we can fine-tune a model with [DreamBooth](https://huggingface.co/docs/diffusers/main/en/training/dreambooth), and use it to render ourselves into different scenes.
 
 In this post, we are going to use our beloved Mr Potato Head as an example to show how to use ControlNet with DreamBooth.
 
@@ -331,7 +331,7 @@ output = pipe(
 output.images[0]
 ```
 
-It is noticeable that Mr Potato Head is not the best candidate but he tried his best and did a pretty good job in capture some of the essence 🍟
+It is noticeable that Mr Potato Head is not the best candidate but he tried his best and did a pretty good job in capturing some of the essence 🍟
 
 <p align="center">
 <img src="https://huggingface.co/datasets/YiYiXu/test-doc-assets/resolve/main/blog_post_cell_22_output_0.jpeg" width=600/>
@@ -419,7 +419,7 @@ Throughout the examples, we explored multiple facets of the [`StableDiffusionCon
 
 We welcome you to combine these different elements and share your results with [@diffuserslib](https://twitter.com/diffuserslib). Be sure to check out [the Colab Notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/controlnet.ipynb) to take some of the above examples for a spin!
 
-We also showed some techniques to make the generation process faster and memory-friendly by using a fast scheduler, smart model offloading and `xformers`. With these techniques combined the generation process should take only ~3 seconds on a V100 GPU and consumes just ~4 GBs of VRAM for a single image ⚡️
+We also showed some techniques to make the generation process faster and memory-friendly by using a fast scheduler, smart model offloading and `xformers`. With these techniques combined the generation process takes only ~3 seconds on a V100 GPU and consumes just ~4 GBs of VRAM for a single image ⚡️ On free services like Google Colab, generation takes about 5s on the default GPU (T4), whereas the original implementation requires 17s to create the same result! Combining all the pieces in the `diffusers` toolbox is a real superpower 💪
 
 ## Conclusion
 
