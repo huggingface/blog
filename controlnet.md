@@ -14,6 +14,13 @@ authors:
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
+<style>
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+</style>
+
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/controlnet.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a> 
@@ -26,8 +33,8 @@ We can turn a cartoon drawing into a realistic photo with incredible coherence.
 <tr style="text-align: center;">
     <th>Realistic Lofi Girl</th>
 </tr>
-<tr style="text-align: center;">
-    <td style="text-align: center;"><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/lofi.jpg" width=300/></td>
+<tr>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/lofi.jpg" width=300 /></td>
 </tr>
 </table>
 
@@ -38,9 +45,9 @@ Or even  use it as your interior designer.
     <th>Before</th>
     <th>After</th>
 </tr>
-<tr style="text-align: center;">
-    <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/house_depth.png" width=300/></td>
-    <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/house_after.jpeg" width=300/></td>
+<tr>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/house_depth.png" width=300/></td>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/house_after.jpeg" width=300/></td>
 </tr>
 </table>
 
@@ -51,9 +58,9 @@ You can turn your sketch scribble into an artistic drawing.
     <th>Before</th>
     <th>After</th>
 </tr>
-<tr style="text-align: center;">
-    <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/drawing_before.png" width=300/></td>
-    <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/drawing_after.jpeg" width=300/></td>
+<tr>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/drawing_before.png" width=300/></td>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/drawing_after.jpeg" width=300/></td>
 </tr>
 </table>
 
@@ -64,9 +71,9 @@ Also, make some of the famous logos coming to life.
     <th>Before</th>
     <th>After</th>
 </tr>
-<tr style="text-align: center;">
-    <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/starbucks_logo.jpeg" width=300/></td>
-    <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/starbucks_after.png" width=300/></td>
+<tr>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/starbucks_logo.jpeg" width=300/></td>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/starbucks_after.png" width=300/></td>
 </tr>
 </table>
 
@@ -96,9 +103,9 @@ A sample from the training set for ControlNet-like training looks like this (add
     <th>Conditioning</th>
 </tr>
 <tr style="text-align: center;">
-     <td>"bird"</td>
-    <td style="text-align: center;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/original_bird.png" width=200/></td>
-    <td style="text-align: center;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/canny_map.png" width=200/></td>
+     <td style="vertical-align: middle">"bird"</td>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/original_bird.png" width=200/></td>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/canny_map.png" width=200/></td>
 </tr>
 </table>
 
@@ -111,9 +118,9 @@ Similarly, if we were to condition ControlNet with semantic segmentation maps, a
     <th>Conditioning</th>
 </tr>
 <tr style="text-align: center;">
-    <td>"big house"</td>
-    <td style="text-align: center;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/original_house.png" width=300/></td>
-    <td style="text-align: center;"><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/segmentation_map.png" width=300/></td>
+    <td style="vertical-align: middle">"big house"</td>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/original_house.png" width=300/></td>
+    <td><img class="mx-auto" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/segmentation_map.png" width=300/></td>
 </tr>
 </table>
 
