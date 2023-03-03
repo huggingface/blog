@@ -1,6 +1,6 @@
 ---
 title: "ControlNet in Diffusers 🧨" 
-thumbnail: /blog/assets/controlnet/thumbnail.png <!-- UPDATE -->
+thumbnail: /blog/assets/controlnet/thumbnail.png 
 authors:
 - user: takuma104
   guest: true
@@ -25,61 +25,53 @@ Ever since Stable Diffusion took the world by storm, people have been looking fo
 
 We can turn a cartoon drawing into a realistic photo with incredible coherence.
 
-<div align="center">
-    <table>
-    <tr>
-        <th>Realistic Lofi Girl</th>
-    </tr>
-    <tr>
-        <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/lofi.jpg" width=300/></td>
-   </tr>
-    </table>
-</div>
+<table>
+<tr style="text-align: center;">
+    <th>Realistic Lofi Girl</th>
+</tr>
+<tr style="text-align: center;">
+    <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/lofi.jpg" width=300/></td>
+</tr>
+</table>
 
 Or even  use it as your interior designer.
 
-<div align="center">
-    <table>
-    <tr>
-        <th>Before</th>
-        <th>After</th>
-    </tr>
-    <tr>
-        <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/house_depth.png" width=300/></td>
-        <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/house_after.jpeg" width=300/></td>
-    </tr>
-    </table>
-</div>
+<table>
+<tr style="text-align: center;">
+    <th>Before</th>
+    <th>After</th>
+</tr>
+<tr style="text-align: center;">
+    <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/house_depth.png" width=300/></td>
+    <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/house_after.jpeg" width=300/></td>
+</tr>
+</table>
 
 You can turn your sketch scribble into an artistic drawing.
 
-<div align="center">
-    <table>
-    <tr>
-        <th>Before</th>
-        <th>After</th>
-    </tr>
-    <tr>
-        <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/drawing_before.png" width=300/></td>
-        <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/drawing_after.jpeg" width=300/></td>
-    </tr>
-    </table>
-</div>
+<table>
+<tr style="text-align: center;">
+    <th>Before</th>
+    <th>After</th>
+</tr>
+<tr style="text-align: center;">
+    <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/drawing_before.png" width=300/></td>
+    <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/drawing_after.jpeg" width=300/></td>
+</tr>
+</table>
 
 Also, make some of the famous logos coming to life.
 
-<div align="center">
-    <table>
-    <tr>
-        <th>Before</th>
-        <th>After</th>
-    </tr>
-    <tr>
-        <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/starbucks_logo.jpeg" width=300/></td>
-        <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/starbucks_after.png" width=300/></td>
-    </tr>
-    </table>
-</div>
+<table>
+<tr style="text-align: center;">
+    <th>Before</th>
+    <th>After</th>
+</tr>
+<tr style="text-align: center;">
+    <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/starbucks_logo.jpeg" width=300/></td>
+    <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/starbucks_after.png" width=300/></td>
+</tr>
+</table>
 
 With ControlNet, sky is the limit 🌠 
 
@@ -100,37 +92,33 @@ Pictorially, it looks like so:
 
 A sample from the training set for ControlNet-like training looks like this (additional conditioning is via edge maps):
 
-<div align="center">
-    <table>
-    <tr>
-        <th>Original Image</th>
-        <th>Conditioning</th>
-        <th>Prompt</th>
-    </tr>
-    <tr>
-        <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/original_bird.png" width=200/></td>
-        <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/canny_map.png" width=200/></td>
-        <td>"bird"</td>
-    </tr>
-    </table>
-</div>
+<table>
+<tr style="text-align: center;">
+    <th>Original Image</th>
+    <th>Conditioning</th>
+    <th>Prompt</th>
+</tr>
+<tr style="text-align: center;">
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/original_bird.png" width=200/></td>
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/canny_map.png" width=180/></td>
+    <td>"bird"</td>
+</tr>
+</table>
 
 Similarly, if we were to condition ControlNet with semantic segmentation maps, a training sample would be like so:
 
-<div align="center">
-    <table>
-    <tr>
-        <th>Original Image</th>
-        <th>Conditioning</th>
-        <th>Prompt</th>
-    </tr>
-    <tr>
-        <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/original_house.png" width=300/></td>
-        <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/segmentation_map.png" width=300/></td>
-        <td>"big house"</td>
-    </tr>
-    </table>
-</div>
+<table>
+<tr style="text-align: center;">
+    <th>Original Image</th>
+    <th>Conditioning</th>
+    <th>Prompt</th>
+</tr>
+<tr style="text-align: center;">
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/original_house.png" width=300/></td>
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/segmentation_map.png" width=235/></td>
+    <td>"big house"</td>
+</tr>
+</table>
 
 Every new type of conditioning requires training a new copy of ControlNet weights. The paper proposed 8 different conditioning models that are all [supported](https://huggingface.co/lllyasviel?search=controlnet) in Diffusers! Trained ControlNet models are chosen during inference, as we will see below.
 
