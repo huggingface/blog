@@ -4,6 +4,7 @@ thumbnail: /blog/assets/controlnet/thumbnail.png
 authors:
 - user: sayakpaul
 - user: yiyixu
+- user: patrickvonplaten
 ---
 
 # ControlNet in 🧨 Diffusers
@@ -141,7 +142,7 @@ to deploy multiple ControlNet weights in one application as we will see below.
 Before we begin, we want to give a huge shout-out to the community contributor [Takuma Mori](https://github.com/takuma104) for having led the integration of ControlNet into Diffusers ❤️ .
 
 To experiment with ControlNet, Diffusers exposes the [`StableDiffusionControlNetPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet) similar to
-the [other Diffusers pipelines](https://huggingface.co/docs/diffusers/api/pipelines/overview). Central to the [`StableDiffusionControlNetPipeline`] is the `controlnet` argument which lets us provide a particular trained [`ControlNetModel`](https://huggingface.co/docs/diffusers/main/en/api/models#diffusers.ControlNetModel) instance while keeping the pre-trained diffusion model weights the same.
+the [other Diffusers pipelines](https://huggingface.co/docs/diffusers/api/pipelines/overview). Central to the `StableDiffusionControlNetPipeline` is the `controlnet` argument which lets us provide a particular trained [`ControlNetModel`](https://huggingface.co/docs/diffusers/main/en/api/models#diffusers.ControlNetModel) instance while keeping the pre-trained diffusion model weights the same.
 
 We will explore different use cases with the `StableDiffusionControlNetPipeline` in this blog post. The first ControlNet model we are going to walk through is the [Canny model](https://huggingface.co/runwayml/stable-diffusion-v1-5) - this is one of the most popular models that generated some of the amazing images you are libely seeing on the internet.
 
@@ -299,7 +300,7 @@ We can effortlessly combine ControlNet combines with fine-tuning too! For exampl
 
 In this post, we are going to use our beloved Mr Potato Head as an example to show how to use ControlNet with DreamBooth.
 
-We can use the same ControlNet, however instead of using the Stable Diffusion 1.5, we are going to load the [Mr Potato Head model](https://huggingface.co/sd-dreambooth-library/mr-potato-head) into our pipeline - Mr Potato Head is a Stable Diffusion model fine-tuned with Mr Potato Head concept using Dreambooth 🥔
+We can use the same ControlNet. However, instead of using the Stable Diffusion 1.5, we are going to load the [Mr Potato Head model](https://huggingface.co/sd-dreambooth-library/mr-potato-head) into our pipeline - Mr Potato Head is a Stable Diffusion model fine-tuned with Mr Potato Head concept using Dreambooth 🥔
 
 Let's run the above commands again, keeping the same controlnet though!
 
