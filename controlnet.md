@@ -164,7 +164,6 @@ pip install controlnet_aux
 We will use the famous painting ["Girl With A Pearl"](https://en.wikipedia.org/wiki/Girl_with_a_Pearl_Earring) for this example. So, let's download the image and take a look:
 
 ```python
-from diffusers import StableDiffusionControlNetPipeline
 from diffusers.utils import load_image
 
 image = load_image(
@@ -280,7 +279,7 @@ We can effortlessly combine ControlNet combines with fine-tuning too! For exampl
 
 In this post, we are going to use our beloved Mr Potato Head as an example to show how to use ControlNet with DreamBooth.
 
-We can use the same ContrlNet, however instead of using the Stable Diffusion 1.5, we are going to load the [Mr Potato Head model](https://huggingface.co/sd-dreambooth-library/mr-potato-head) into our pipeline - Mr Potato Head is a Stable Diffusion model fine-tuned with Mr Potato Head concept using Dreambooth 🥔
+We can use the same ControlNet, however instead of using the Stable Diffusion 1.5, we are going to load the [Mr Potato Head model](https://huggingface.co/sd-dreambooth-library/mr-potato-head) into our pipeline - Mr Potato Head is a Stable Diffusion model fine-tuned with Mr Potato Head concept using Dreambooth 🥔
 
 Let's run the above commands again, keeping the same controlnet though!
 
