@@ -337,8 +337,7 @@ It is noticeable that Mr Potato Head is not the best candidate but he tried his 
 <img src="https://huggingface.co/datasets/YiYiXu/test-doc-assets/resolve/main/blog_post_cell_22_output_0.jpeg" width=600/>
 </p>
 
-Another exclusive application of ControlNet is that we can take a pose from one image and reuse it to generate a different image with the exact same pose. So in this next example, we are going to teach a cute anime girl how to do yoga using [Open Pose ControlNet](https://huggingface.co/lllyasviel/sd-controlnet-openpose)!
-
+Another exclusive application of ControlNet is that we can take a pose from one image and reuse it to generate a different image with the exact same pose. So in this next example, we are going to teach superheroes  how to do yoga using [Open Pose ControlNet](https://huggingface.co/lllyasviel/sd-controlnet-openpose)!
 
 First, we will need to get some images of people doing yoga:
 
@@ -371,14 +370,14 @@ image_grid(poses, 2, 2)
     <img src="https://huggingface.co/datasets/YiYiXu/test-doc-assets/resolve/main/blog_post_cell_28_output_0.jpeg" width=600/>
 </p>
 
-To use these yoga poses to generate new images, let's create a [Open Pose ControlNet](https://huggingface.co/lllyasviel/sd-controlnet-openpose). We are going to get our cute anime girl from [the Anything-V4 model](https://huggingface.co/andite/anything-v4.0). Let's go 🚀
+To use these yoga poses to generate new images, let's create a [Open Pose ControlNet](https://huggingface.co/lllyasviel/sd-controlnet-openpose). We will generate some super-hero images but in the yoga poses shown above. Let's go 🚀
 
 ```python
 controlnet = ControlNetModel.from_pretrained(
     "fusing/stable-diffusion-v1-5-controlnet-openpose", torch_dtype=torch.float16
 )
 
-model_id = "andite/anything-v4.0"
+model_id = "runwayml/stable-diffusion-v1-5"
 pipe = StableDiffusionControlNetPipeline.from_pretrained(
     model_id,
     controlnet=controlnet,
@@ -386,26 +385,24 @@ pipe = StableDiffusionControlNetPipeline.from_pretrained(
 )
 pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 pipe.enable_model_cpu_offload()
-pipe.enable_xformers_memory_efficient_attention()
 ```
 
 Now it's yoga time! 
 
 ```python
-prompt = [" best quality, extremely detailed"] * 4
-generator = [torch.Generator(device="cpu").manual_seed(2) for i in range(len(prompt))]
+generator = [torch.Generator(device="cpu").manual_seed(2) for i in range(4)]
+prompt = "super-hero character, best quality, extremely detailed"
 output = pipe(
-    prompt,
+    [prompt] * 4,
     poses,
     negative_prompt=["monochrome, lowres, bad anatomy, worst quality, low quality"] * 4,
     generator=generator,
-	num_inference_steps=20,
 )
 image_grid(output.images, 2, 2)
 ```
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/YiYiXu/test-doc-assets/resolve/main/blog_post_cell_33_output_0.jpeg"/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/anime_do_yoga.png" width=600/>
 </p>
 
 Throughout the examples, we explored multiple facets of the [`StableDiffusionControlNetPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet) to show how easy and intuitive it is play around with ControlNet via Diffusers. However, we didn't cover all types of conditionings supported by ControlNet. To know more about those, we encourage you to check out the respective model documentation pages:
