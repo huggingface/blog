@@ -21,12 +21,64 @@ authors:
 
 Today we’re thrilled to announce that Diffusers now officially supports ControlNet!
 
-The amount of controlled generation the original Stable Diffusion models offer has been far from desired. For example, you won’t be able to generate images conditioned on a semantic segmentation map along with the input text prompt. ControlNet provides a minimal interface to tackle this problem allowing users to customize the generation process up to a great extent. With ControlNet, users can easily condition the generation with different spatial contexts such as a depth map, a segmentation map, a scribble, keypoints, and so on! Sky is the limit 
+The amount of controlled generation the original Stable Diffusion models offer has been far from desired. For example, you won’t be able to generate images conditioned on a semantic segmentation map along with the input text prompt. ControlNet provides a minimal interface to tackle this problem allowing users to customize the generation process up to a great extent. With ControlNet, users can easily condition the generation with different spatial contexts such as a depth map, a segmentation map, a scribble, keypoints, and so on!
 
-You can make your favorite commic character coming into life 
+You can turn a cartoon drawing into a realistic photo with incredible coherence.
 
+<div align="center">
+    <table>
+    <tr>
+        <th>Realistic Lofi Girl</th>
+    </tr>
+    <tr>
+        <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/lofi.jpg" width=300/></td>
+   </tr>
+    </table>
+</div>
 
-In this blog post, we first introduce the [`StableDiffusionControlNetPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet) and then show how it can suit various controlled outputs. 
+or use it as your interior designer.
+<div align="center">
+    <table>
+    <tr>
+        <th>Before</th>
+        <th>After</th>
+    </tr>
+    <tr>
+        <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/house_depth.png" width=300/></td>
+        <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/house_after.jpeg" width=300/></td>
+    </tr>
+    </table>
+</div>
+
+You can turn your sketch into an awesome drawing.
+<div align="center">
+    <table>
+    <tr>
+        <th>Before</th>
+        <th>After</th>
+    </tr>
+    <tr>
+        <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/drawing_before.png" width=300/></td>
+        <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/drawing_after.jpeg" width=300/></td>
+    </tr>
+    </table>
+</div>
+
+and make some of the famous logos coming to life 
+<div align="center">
+    <table>
+    <tr>
+        <th>Before</th>
+        <th>After</th>
+    </tr>
+    <tr>
+        <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/starbucks_logo.jpeg" width=300/></td>
+        <td><img src="https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/starbucks_after.png" width=300/></td>
+    </tr>
+    </table>
+</div>
+
+With ControlNet, Sky is the limit. In this blog post, we first introduce the [`StableDiffusionControlNetPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet) and then show how it can suit various controlled outputs. 
 
 Let’s get controlling! 
 
