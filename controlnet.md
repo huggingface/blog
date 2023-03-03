@@ -138,6 +138,8 @@ to deploy multiple ControlNet weights in one application as we will see below.
 
 ## The `StableDiffusionControlNetPipeline`
 
+Before we begin, we want to give a huge shout-out to the community contributor [Takuma Mori](https://github.com/takuma104) for having led the integration of ControlNet into Diffusers ❤️ .
+
 To experiment with ControlNet, Diffusers exposes the [`StableDiffusionControlNetPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet) similar to
 the [other Diffusers pipelines](https://huggingface.co/docs/diffusers/api/pipelines/overview). Central to the [`StableDiffusionControlNetPipeline`] is the `controlnet` argument which lets us provide a particular trained [`ControlNetModel`](https://huggingface.co/docs/diffusers/main/en/api/models#diffusers.ControlNetModel) instance while keeping the pre-trained diffusion model weights the same.
 
@@ -148,7 +150,7 @@ We welcome you to run the code snippets shown in the sections below with [this C
 Before we begin, let's make sure we have all the necessary libraries installed:
 
 ```bash
-pip install diffusers==0.14.0 transformers accelerate
+pip install diffusers==0.14.0 transformers xformers git+https://github.com/huggingface/accelerate.git
 ```
 
 To process different conditionings depending on the chosen ControlNet, we also need to install some 
@@ -239,11 +241,20 @@ that each component is only loaded into GPU when it's needed so that we can sign
 pipe.enable_model_cpu_offload()
 ```
 
+Finally, we want to take full advantage of the amazing [FlashAttention/xformers](https://github.com/facebookresearch/xformers) attention layer acceleration, so let's enable this! If this command does not work for you, you might not have `xformers` correctly installed.
+In this case, you can just skip the following line of code.
+
+```py
+pipe.enable_xformers_memory_efficient_attention()
+```
+
 Now we are ready to run the ControlNet pipeline!
 
 We still provide a prompt to guide the image generation process, just like what we would normally do with a Stable Diffusion image-to-image pipeline. However, ControlNet will allow a lot more control over the generated image because we will be able to control the exact composition in generated image with the canny edge image we just created.
 
 It will be fun to see some images where contemporary celebrities posing for this exact same painting from the 17th century. And it's really easy to do that with ControlNet, all we have to do is to include the names of these celebrities in the prompt!
+
+Let's first create a simple helper function to display images as a grid.
 
 ```python
 def image_grid(imgs, rows, cols):
@@ -256,15 +267,24 @@ def image_grid(imgs, rows, cols):
     for i, img in enumerate(imgs):
         grid.paste(img, box=(i % cols * w, i // cols * h))
     return grid
+```
 
+Next, we define the input prompts and set a seed for reproducability.
+
+```py
 prompt = ", best quality, extremely detailed"
 prompt = [t + prompt for t in ["Sandra Oh", "Kim Kardashian", "rihanna", "taylor swift"]]
-generator = torch.manual_seed(2)
+generator = [torch.Generator(device="cpu").manual_seed(2) for i in range(len(prompt))]
+```
 
+Finally, we can run the pipeline and display the image!
+
+```
 output = pipe(
     prompt,
     canny_image,
     negative_prompt=["monochrome, lowres, bad anatomy, worst quality, low quality"] * 4,
+	num_inference_steps=20,
     generator=generator,
 )
 
@@ -303,6 +323,7 @@ output = pipe(
     prompt,
     canny_image,
     negative_prompt="monochrome, lowres, bad anatomy, worst quality, low quality",
+	num_inference_steps=20,
     generator=generator,
 )
 output.images[0]
@@ -368,13 +389,14 @@ pipe.enable_model_cpu_offload()
 Now it's yoga time! 
 
 ```python
-generator = torch.manual_seed(2)
-prompt = " best quality, extremely detailed"
+prompt = [" best quality, extremely detailed"] * 4
+generator = [torch.Generator(device="cpu").manual_seed(2) for i in range(len(prompt))]
 output = pipe(
-    [prompt] * 4,
+    prompt,
     poses,
     negative_prompt=["monochrome, lowres, bad anatomy, worst quality, low quality"] * 4,
     generator=generator,
+	num_inference_steps=20,
 )
 image_grid(output.images, 2, 2)
 ```
@@ -396,8 +418,12 @@ Throughout the examples, we explored multiple facets of the [`StableDiffusionCon
 
 We welcome you to combine these different elements and share your results with [@diffuserslib](https://twitter.com/diffuserslib). Be sure to check out [the Colab Notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/controlnet.ipynb) to take some of the above examples for a spin!
 
-We also showed some techniques to make the generation process faster and memory-friendly by using a faster scheduler and smart model offloading. With these techniques combined the generation process takes just ~3 seconds in a V100 GPU and consumes just ~4 GBs of VRAM ⚡️
+We also showed some techniques to make the generation process faster and memory-friendly by using a fast scheduler, smart model offloading and `xformers`. With these techniques combined the generation process should take only ~3 seconds on a V100 GPU and consumes just ~4 GBs of VRAM for a single image ⚡️
 
 ## Conclusion
 
 We have been playing a lot with [`StableDiffusionControlNetPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet), and our experience has been fun so far! We’re excited to see what the community builds on top of this pipeline. If you want to check out other pipelines and techniques supported in Diffusers that allow for controlled generation, check out our [official documentation](https://huggingface.co/docs/diffusers/main/en/using-diffusers/controlling_generation).
+
+If you cannot wait to try out ControlNet directly, we got you covered as well! Simply click on one of the following spaces to play around with ControlNet:
+- [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/diffusers/controlnet-canny)
+- [![Hugging Face Spaces](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue)](https://huggingface.co/spaces/diffusers/controlnet-openpose)
