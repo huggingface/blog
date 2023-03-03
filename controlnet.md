@@ -17,7 +17,7 @@ authors:
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
-<a target="_blank" href="https://colab.research.google.com/github/nateraw/huggingface-hub-examples/blob/main/vit_image_classification_explained.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/controlnet.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a> 
 
@@ -108,8 +108,8 @@ A sample from the training set for ControlNet-like training looks like this (add
         <th>Prompt</th>
     </tr>
     <tr>
-        <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/original_bird.png" width=300/></td>
-        <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/input_canny.png" width=300/></td>
+        <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/original_bird.png" width=200/></td>
+        <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/canny_map.png" width=200/></td>
         <td>"bird"</td>
     </tr>
     </table>
@@ -141,7 +141,7 @@ the [other pipelines](https://huggingface.co/docs/diffusers/api/pipelines/overvi
 
 We will explore different use cases with the `StableDiffusionControlNetPipeline` in this blog post. The first ControlNet model we are going to walk through is the Canny model - this is one of the most popular models that generated some of the most amazing images you will see on the internet.
 
-We welcome you to run the code snippets shown in the sections below with this Colab Notebook.
+We welcome you to run the code snippets shown in the sections below with [this Colab Notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/controlnet.ipynb).
 
 Before we begin, let's make sure we have all the necessary libraries installed:
 
@@ -150,14 +150,14 @@ pip install -qqq git+https://github.com/huggingface/diffusers.git transformers
 pip install -q git+https://github.com/huggingface/accelerate
 ```
 
-We will also to install OpenCV and `controlnet-aux`
+We will also to install OpenCV and `controlnet-aux`:
 
 ```bash
 pip install opencv-contrib-python
 pip install controlnet_aux
 ```
 
-We will use the famous painting ["Girl With A Pearl"](https://en.wikipedia.org/wiki/Girl_with_a_Pearl_Earring) for this example. So, let's download the image and take a look
+We will use the famous painting ["Girl With A Pearl"](https://en.wikipedia.org/wiki/Girl_with_a_Pearl_Earring) for this example. So, let's download the image and take a look:
 
 ```python
 from diffusers import StableDiffusionControlNetPipeline
@@ -210,7 +210,7 @@ pipe = StableDiffusionControlNetPipeline.from_pretrained(
 )
 ```
 
-To speed things up and reduce memory, let’s also enable model offloading and use the fast [UniPCMultistepScheduler](https://huggingface.co/docs/diffusers/main/en/api/schedulers/unipc).
+To speed things up and reduce memory, let’s use the fast [UniPCMultistepScheduler](https://huggingface.co/docs/diffusers/main/en/api/schedulers/unipc) and enable model offloading.
 
 ```python
 from diffusers import UniPCMultistepScheduler
@@ -258,7 +258,7 @@ image_grid(output.images, 2, 2)
 <img src="https://huggingface.co/datasets/YiYiXu/test-doc-assets/resolve/main/blog_post_cell_16_output_1.jpeg" width=600/>
 </p>
 
-You can effortlessly combine ControlNet combines with fine-tuning too! For example, you can fine-tune a model with [DreamBooth](https://huggingface.co/docs/diffusers/main/en/training/dreambooth), and use it to render yourself into different scenes.
+We can effortlessly combine ControlNet combines with fine-tuning too! For example, we can fine-tune a model with [DreamBooth](https://huggingface.co/docs/diffusers/main/en/training/dreambooth), and use it to render ourselves into different scenes.
 
 In this post, we are going to use our beloved Mr Potato Head as an example to show how to use ControlNet with DreamBooth.
 
@@ -275,7 +275,7 @@ pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 pipe.enable_model_cpu_offload()
 ```
 
-Now let's make Mr Potato posing for Johannes Vermeer!
+Now let's make Mr Potato posing for [Johannes Vermeer](https://en.wikipedia.org/wiki/Johannes_Vermeer)!
 
 ```python
 generator = torch.manual_seed(2)
@@ -286,13 +286,10 @@ output = pipe(
     negative_prompt="monochrome, lowres, bad anatomy, worst quality, low quality",
     generator=generator,
 )
+output.images[0]
 ```
 
 It is noticeable that Mr Potato Head is not the best candidate but he tried his best and did a pretty good job in capture some of the essence 🍟
-
-```python
-output.images[0]
-```
 
 <p align="center">
 <img src="https://huggingface.co/datasets/YiYiXu/test-doc-assets/resolve/main/blog_post_cell_22_output_0.jpeg" width=600/>
@@ -301,11 +298,14 @@ output.images[0]
 Another exclusive application of ControlNet is that we can take a pose from one image and reuse it to generate a different image with the exact same pose. So in this next example, we are going to teach a cute anime girl how to do yoga using [Open Pose ControlNet](https://huggingface.co/lllyasviel/sd-controlnet-openpose)!
 
 
-First, we will need to get some images of people doing yoga
+First, we will need to get some images of people doing yoga:
 
 ```python
 urls = "yoga1.jpeg", "yoga2.jpeg", "yoga3.jpeg", "yoga4.jpeg"
-imgs = [load_image("https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/" + url) for url in urls]
+imgs = [
+    load_image("https://huggingface.co/datasets/YiYiXu/controlnet-testing/resolve/main/" + url) 
+    for url in urls
+]
 
 image_grid(imgs, 2, 2)
 ```
@@ -314,7 +314,7 @@ image_grid(imgs, 2, 2)
     <img src="https://huggingface.co/datasets/YiYiXu/test-doc-assets/resolve/main/blog_post_cell_25_output_0.jpeg" width=600/>
 </p>
 
-Now let's extract yoga poses using the OpenPose pre-processors
+Now let's extract yoga poses using the OpenPose pre-processors:
 
 ```python
 from controlnet_aux import OpenposeDetector
@@ -375,7 +375,7 @@ Throughout the examples, we explored multiple facets of the [`StableDiffusionCon
 * [lllyasviel/sd-controlnet-mlsd](https://huggingface.co/lllyasviel/sd-controlnet-mlsd)
 * [lllyasviel/sd-controlnet-mlsd](https://huggingface.co/lllyasviel/sd-controlnet-canny)
 
-We welcome you to combine these different elements and share your results with [@diffuserslib](https://twitter.com/diffuserslib). Be sure to check out the Colab Notebook to take some of the above examples for a spin!
+We welcome you to combine these different elements and share your results with [@diffuserslib](https://twitter.com/diffuserslib). Be sure to check out [the Colab Notebook](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/controlnet.ipynb) to take some of the above examples for a spin!
 
 We also showed some techniques to make the generation process faster and memory-friendly by using a faster scheduler and smart model offloading. With these techniques combined the generation process takes just ~3 seconds in a V100 GPU and consumes just ~4 GBs of VRAM ⚡️
 
