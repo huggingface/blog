@@ -218,7 +218,7 @@ pipe.enable_model_cpu_offload()
 Now we are ready to run the ControlNet pipeline!
 
 
-You should provide a prompt to guide the image generation process, just like what you would normally do with your Stable Diffusion img2img Pipeline. However, ControlNet will give you a lot more control over the generated image because you will be able to control the exact composition generated image with the canny edge image we just created.
+You should provide a prompt to guide the image generation process, just like what you would normally do with your Stable Diffusion img2img Pipeline. However, ControlNet will give you a lot more control over the generated image because you will be able to control the exact composition in generated image with the canny edge image we just created.
 
 
 It will be fun to see some images where contemporary celebrities posing for this exact same painting from the 17th century. And it's really easy to do that with ControlNet, all we have to do is to include the names of these celebrities in the prompt!
@@ -287,7 +287,7 @@ output = pipe(
 )
 ```
 
-I think we can all agree that Mr Potato Head is not the best candidate but he tried his best and did a pretty good job in capture some of the essence! 
+We can all agree that Mr Potato Head is not the best candidate but he tried his best and did a pretty good job in capture some of the essence! 
 
 ```python
 output.images[0]
