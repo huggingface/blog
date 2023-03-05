@@ -134,7 +134,7 @@ The paper proposed 8 different conditioning models that are all [supported](http
 For inference, both the pre-trained diffusion models weights as well as the trained ControlNet weights are needed. For example, using [Stable Diffusion v1-5](https://huggingface.co/runwayml/stable-diffusion-v1-5) 
 with a ControlNet checkpoint require roughly 700 million more parameters compared to just using the original Stable Diffusion model, which makes ControlNet a bit more memory-expensive for inference.
 
-Because the pre-trained diffusion models are looked during training, one only needs to switch out the ControlNet parameters when using a different conditioning. This makes it fairly simple 
+Because the pre-trained diffusion models are locked during training, one only needs to switch out the ControlNet parameters when using a different conditioning. This makes it fairly simple 
 to deploy multiple ControlNet weights in one application as we will see below.
 
 ## The `StableDiffusionControlNetPipeline`
