@@ -138,7 +138,7 @@ provide any text prompt to the model, only the preprocessed input image. Without
 generating text from the BOS (beginning-of-sequence) token thus creating a caption. 
 
 ```
-inputs = processor(image, return_tensors="pt")
+inputs = processor(image, return_tensors="pt").to(device, torch.float16)
 
 generated_ids = model.generate(**inputs, max_new_tokens=20)
 generated_text = processor.batch_decode(generated_ids, skip_special_tokens=True)[0].strip()
