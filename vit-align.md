@@ -32,7 +32,7 @@ Kakao Brain's released ViT and ALIGN models perform on par and sometimes better 
 
 <p>
 <center>
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/132_vit_align/align.png" alt="align performance" width="430"/><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/132_vit_align/vit.png" alt="vit performance" width="430"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/132_vit_align/vit-align-performance.png" alt="ViT and ALIGN performance"/>
 </center>
 </p>
 
@@ -40,7 +40,7 @@ Kakao Brain's released ViT and ALIGN models perform on par and sometimes better 
 
 <p>
 <center>
-<img src="https://cdn.shopify.com/s/files/1/0190/8574/products/Art_Riley-Monterey_Fishing_Fleet_1_grande.jpg?v=1479962684" width="290" /><img src="https://api.time.com/wp-content/uploads/2015/03/168951187.jpg" width="330" /><img src="https://s.yimg.com/ny/api/res/1.2/mOZe9uKtwugmPrqeXBlxFg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTYzMA--/https://s.yimg.com/uu/api/res/1.2/JuTSVK74cI8II09Q75uzGA--~B/aD01MjU7dz04MDA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/reuters.com/15941d3b47960da80f8033f4ddf9da64" width="330" />
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/132_vit_align/coyo-samples.png" alt="COYO samples"/>
 </center>
 </p>
 
@@ -69,7 +69,7 @@ It is a new approach to vision, distinct from convolutional neural nets (CNNs) t
 
 <p>
 <center>
-<img src="https://1.bp.blogspot.com/-_mnVfmzvJWc/X8gMzhZ7SkI/AAAAAAAAG24/8gW2AHEoqUQrBwOqjhYB37A7OOjNyKuNgCLcBGAsYHQ/s1600/image1.gif" width="700" />
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/132_vit_align/vit-architecture.gif" alt="ViT architecture" width="700"/>
 </center>
 </p>
 <p>
@@ -82,7 +82,7 @@ It is a new approach to vision, distinct from convolutional neural nets (CNNs) t
 
 <p>
 <center>
-<img src="https://1.bp.blogspot.com/-M5VbNqegBqM/YJqTsnf1JzI/AAAAAAAAHlk/UKkhs1XFelQ8gnKPINyD7z8H4wg3J9EzACLcBGAsYHQ/s1449/image4.png" width="700" />
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/132_vit_align/align-architecture.png" width="700" />
 </center>
 </p>
 <p>
