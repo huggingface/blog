@@ -2,8 +2,8 @@ name: YAML schema validator
 on: 
   push:
     paths: 
-      - "{_events,_tags_blog}.yml"
-      - "schemas/{_events,_tags_blog}.schema.yml"
+      - "{_events,_tags,_blog}.yml"
+      - "schemas/{_events,_tags,_blog}.schema.yml"
 
 jobs:
   yaml-schema-validation:
