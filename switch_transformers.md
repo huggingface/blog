@@ -34,7 +34,7 @@ thumbnail: /blog/assets/119_switch_transformers/thumbnail.png
     </a>
 </div>
 
-<a target="_blank" href="https://colab.research.google.com/drive/1aGGVHZmtKmcNBbAwa9hbu58DDpIuB5O4#scrollTo=xsgNPx4FrtH_">
+<a target="_blank" href="https://colab.research.google.com/drive/1aGGVHZmtKmcNBbAwa9hbu58DDpIuB5O4?usp=sharing_">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -49,7 +49,7 @@ In terms of software adoption, we have seen several MoE implementations, for exa
 With the publication of several research papers and the adoption of MoEs in increasingly more tasks, this architecture has gained popularity in recent months.
 
 Google open-sourced the largest MoE-based models last year in the paper [Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity](https://arxiv.org/abs/2101.03961). The paper released a trillion parameter model, Switch-c-2048 (3.1 Terabytes!).
-The model is now publicly available on [Hugging Face Hub](https://huggingface.co/models?search=switch), making it the biggest model on the platform.
+The model is now publicly available on [HuggingFace Hub](https://huggingface.co/models?search=switch), making it the biggest model on the platform.
 
 
 In an effort to democratize its usage and centralize the research efforts around common implementations, we are providing a base implementation of `SwitchTransformer` with the top-1 routing mechanism. We hope that the community will be able to build upon it and easily share their results.
@@ -71,7 +71,7 @@ The core idea is to replace a single model block (such as the [transformer](http
 
 Expanding more, an MoE layer consists of a set of $n$ "expert networks" and a "gating network" (Switch Transformers refer this layer as the "router"). The gating network selects a sparse combination of experts to process each input. Although training an MoE-based model will result in a larger model (more parameters), [experiments in Switch Transformers](https://arxiv.org/abs/2101.03961) showed that it is possible to drastically improve model performance for a given computational budget.
 
-[Switch Transformers](https://arxiv.org/pdf/2101.03961.pdf), based on MoE layers, we trained with up to 7x speedup in pre-training with the identical computational resources to train a T5-base and T5-large model.
+According to the authors, the [Switch Transformers](https://arxiv.org/pdf/2101.03961.pdf) was trained with up to 7x speedup in pre-training with the identical computational resources needed to train a T5-base and T5-large model.
 
 ## Switch Transformers in a nutshell
 
@@ -91,11 +91,10 @@ This phenomenon leads to an important question. **How can we ensure the diversit
 
 Therefore, it is important to revisit the routing algorithm to tackle this issue. Recently, Google developed the so-called "Expert Choice (EC)" algorithm. The top-k tokens are assigned to the experts with a pre-determined buffer capacity rather than having tokens chosen for the top-k experts. This approach significantly improves training efficiency and downstream performance. Besides, it even guarantees load-balancing and allows for a variable number of experts for each token. In an 8B/64E (8 billion activated parameters, 64 experts) model, EC routing accelerates training convergence more than two times compared to the top-1 and top-2 gating mechanisms. Read more about the method in the [original blog post](https://ai.googleblog.com/2022/11/mixture-of-experts-with-expert-choice.html).
 
-Microsoft introduced X-MoE, which consists of routers that use a learnable temperature, by estimating the routing scores on a low-dimensional hypersphere.
 
 ## How good are these models?
 
-Switch Transformer checkpoints that have been publicly released were pre-trained on the [C4 dataset](https://huggingface.co/datasets/c4), with [masked language modeling](https://huggingface.co/tasks/fill-mask). Therefore they are not ready to use in a sequence-to-sequence formulation such as [Flan-T5](https://huggingface.co/docs/transformers/model_doc/flan-t5), for instance. One needs to fine-tune the models to a task of preference before using it. However, the authors published some results of the fine-tuned checkpoints and the results seem to be better than classic T5 models.
+Switch Transformer checkpoints that have been publicly released were pre-trained on the [C4 dataset](https://huggingface.co/datasets/c4), with [masked language modeling](https://huggingface.co/tasks/fill-mask). Therefore they are not ready to use in a sequence-to-sequence formulation such as [Flan-T5](https://huggingface.co/docs/transformers/model_doc/flan-t5), for instance. One needs to fine-tune the models to a task of preference before using it. However, the authors published some results of the fine-tuned checkpoints and the results seem to be better than classic T5 models. The following results were all taken from the original [Switch Transformers](https://arxiv.org/pdf/2101.03961.pdf) paper.
 
 | Model | GLUE | SQuAD | SuperGLUE | Winogrande (XL) |
 | :---: | :---: | :---: | :---: | :---: |
@@ -123,6 +122,8 @@ Switch Transformer checkpoints that have been publicly released were pre-trained
 
 With the introduction of Switch Transformers in the Hugging Face ecosystem, users and practitioners can train and deploy their MoE models with just a few lines of code! 
 
+TIP: In order to use big models on low ressource machines, make sure to install `accelerate`, it will take care of balancing the load on GPU and CPU, which is very convenient as `MoE` models are very heavy! 
+
 ```python
 # pip install accelerate
 from transformers import AutoTokenizer, SwitchTransformersForConditionalGeneration
@@ -140,7 +141,10 @@ print(tokenizer.decode(outputs[0]))
 
 If you are interested in training your first MoE-based model, please check out this [Colab Notebook](https://colab.research.google.com/drive/1aGGVHZmtKmcNBbAwa9hbu58DDpIuB5O4#scrollTo=xsgNPx4FrtH_). It shows you how to fine-tune a Switch Transformer model for summarization and how you can easily share the fine-tuned model on the Hugging Face Hub.
 
-## Further reading
+## Conclusion
+
+
+### Further reading
 
 - Review of MoE models in Deep Learning: https://arxiv.org/pdf/2209.01667.pdf
 - Switch Transformers paper: https://arxiv.org/pdf/2101.03961.pdf
