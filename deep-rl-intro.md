@@ -6,24 +6,13 @@ authors:
 - user: osanseviero
 ---
 
-<html>
-<head>
-<style>
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-</style>
+
 <h1>An Introduction to Deep Reinforcement Learning</h1>
 <h2>Chapter 1 of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
 <!-- {authors} -->
  
-</head>
 
-<body>
   
 ⚠️ A **new updated version of this article is available here** 👉 [https://huggingface.co/deep-rl-course/unit1/introduction](https://huggingface.co/deep-rl-course/unit1/introduction)
 
@@ -564,5 +553,3 @@ And don't forget to share with your friends who want to learn 🤗 !
 Finally, we want **to improve and update the course iteratively with your feedback**. If you have some, please fill this form 👉 https://forms.gle/3HgA7bEHwAmmLfwh9
 
 ### Keep learning, stay awesome,
-</body>
-</html>
