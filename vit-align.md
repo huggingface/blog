@@ -1,11 +1,11 @@
 ---
 title: "New and Open-Source ViT and ALIGN from Kakao Brain" 
-thumbnail: /blog//assets/130_vit_align/thumbnail.png
+thumbnail: /blog//assets/132_vit_align/thumbnail.png
 authors:
 - user: Unso
+- user: adirik
 - user: dylan-m
 - user: jun-untitled
-- user: adirik
 ---
 
 
@@ -32,7 +32,7 @@ Kakao Brain's released ViT and ALIGN models perform on par and sometimes better 
 
 <p>
 <center>
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/130_vit_align/align.png" alt="align performance" width="430"/><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/130_vit_align/vit.png" alt="vit performance" width="430"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/132_vit_align/align.png" alt="align performance" width="430"/><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/132_vit_align/vit.png" alt="vit performance" width="430"/>
 </center>
 </p>
 
@@ -99,7 +99,7 @@ To use the `COYO` dataset, refer to the [COYO github page](https://github.com/ka
 ## How to use ViT and ALIGN from the Hub
 Let’s go ahead and experiment with the new ViT and ALIGN models. First, let’s install 🤗Transformers: `pip install transformers` and get started with ViT for image classification by importing the modules and libraries we will use.
 
-```
+```py
 import requests
 from PIL import Image
 import torch
@@ -108,7 +108,7 @@ from transformers import ViTImageProcessor, ViTForImageClassification
 
 Next, we will download a random image of two cats from the COCO dataset and preprocess the image to transform it to the input format expected by the model. To do this, we can conveniently use the corresponding preprocessor class (`ViTProcessor`). To initialize the model and the preprocessor, we will use one of the [Kakao Brain ViT repos](https://huggingface.co/models?search=kakaobrain/vit) on the hub. Note that initializing the preprocessor from a repository ensures that the preprocessed image is in the expected format required by that specific pretrained model.
 
-```
+```py
 url = 'http://images.cocodataset.org/val2017/000000039769.jpg'
 image = Image.open(requests.get(url, stream=True).raw)
 
@@ -116,8 +116,8 @@ processor = ViTImageProcessor.from_pretrained('kakaobrain/vit-large-patch16-384'
 model = ViTForImageClassification.from_pretrained('kakaobrain/vit-large-patch16-384')
 ```
 
-The rest is simple, we will forward preprocess the image and use it as input to the model to retrive the class logits. The Kakao Brain ViT image classification models are trained on ImageNet labels and outputs logits of shape (batch_size, 1000).
-```
+The rest is simple, we will forward preprocess the image and use it as input to the model to retrive the class logits. The Kakao Brain ViT image classification models are trained on ImageNet labels and output logits of shape (batch_size, 1000).
+```py
 # preprocess image or list of images
 inputs = processor(images=image, return_tensors="pt")
 
@@ -126,29 +126,33 @@ with torch.no_grad():
     outputs = model(**inputs)
 
 # apply SoftMax to logits to compute the probability of each class
-preds = torch.nn.functional.softmax(outputs.logits)
+preds = torch.nn.functional.softmax(outputs.logits, dim=-1)
 
 # print the top 5 class predictions and their probabilities
-top_class_preds = torch.argsort(preds, descending=True)[:5]
+top_class_preds = torch.argsort(preds, descending=True)[0, :5]
 
 for c in top_class_preds:
-    print(f"{model.config.id2label[c.item()]} with probability {round(preds[c.item()].item(), 4)}")
-
->>> remote control, remote with probability 0.8224
->>> tabby, tabby cat with probability 0.0658
->>> tiger cat with probability 0.0656
->>> Egyptian cat with probability 0.0389
->>> lynx, catamount with probability 0.0011
+    print(f"{model.config.id2label[c.item()]} with probability {round(preds[0, c.item()].item(), 4)}")
 ```
 
-And we are done! If you want to experiment more with the Kakao Brain ViT model, head over to its [Space](https://huggingface.co/spaces/adirik/kakao-brain-vit) on the 🤗 Hub.
+And we are done! To make things even easier and shorter, we can also use the convenient image classification [pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ImageClassificationPipeline) and pass the Kakao Brain ViT repo name as our target model to initialize the pipeline. We can then pass in a URL or a local path to an image or a Pillow image and optionally use the `top_k` argument to only return the top k predictions. Let's go ahead and get the top 5 predictions for our image of cats and remotes.
+
+```py
+>>> from transformers import pipeline
+
+>>> classifier = pipeline(task='image-classification', model='kakaobrain/vit-large-patch16-384')
+>>> classifier('http://images.cocodataset.org/val2017/000000039769.jpg', top_k=5)
+[{'score': 0.8223727941513062, 'label': 'remote control, remote'}, {'score': 0.06580372154712677, 'label': 'tabby, tabby cat'}, {'score': 0.0655883178114891, 'label': 'tiger cat'}, {'score': 0.0388941615819931, 'label': 'Egyptian cat'}, {'score': 0.0011215205304324627, 'label': 'lynx, catamount'}]
+```
+
+If you want to experiment more with the Kakao Brain ViT model, head over to its [Space](https://huggingface.co/spaces/adirik/kakao-brain-vit) on the 🤗 Hub. 
 <center>
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/130_vit_align/vit_demo.png" alt="vit performance" width="900"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/132_vit_align/vit_demo.png" alt="vit performance" width="900"/>
 </center>
 
 Let's move on to experimenting with ALIGN, which can be used to retrieve multi-modal embeddings of texts or images or to perform zero-shot image classification. ALIGN's transformers implementation and usage is similar to [CLIP](https://huggingface.co/docs/transformers/main/en/model_doc/clip). To get started, we will first download the pretrained model and its processor, which can preprocess both the images and texts such that they are in the expected format to be fed into the vision and text encoders of ALIGN. Once again, let's import the modules we will use and initialize the preprocessor and the model.
 
-```
+```py
 import requests
 from PIL import Image
 import torch
@@ -164,10 +168,10 @@ model = AlignModel.from_pretrained('kakaobrain/align-base')
 
 We will start with zero-shot image classification first. To do this, we will suppy candidate labels (free-form text) and use AlignModel to find out which description better describes the image. We will first preprocess both the image and text inputs and feed the preprocessed input to the AlignModel.
 
-```
+```py
 candidate_labels = ['an image of a cat', 'an image of a dog']
 
-inputs = processor(images=image, text=candidate_labels, return_tensors="pt")
+inputs = processor(images=image, text=candidate_labels, return_tensors='pt')
 
 with torch.no_grad():
     outputs = model(**inputs)
@@ -180,12 +184,12 @@ probs = logits_per_image.softmax(dim=1)
 print(probs)
 ```
 
-Done, easy as that. Note that, the output of `AlignModel` includes `text_embeds` and `image_embeds` (see the [documentation](https://huggingface.co/docs/transformers/main/en/model_doc/align) of ALIGN). If we don't need to compute the per-image and per-text logits for zero-shot classification, we can retrieve the vision and text embeddings using the convenient `get_image_features()` and `get_text_features()` methods of AlignModel. 
+Done, easy as that. Note that, the output of `AlignModel` includes `text_embeds` and `image_embeds` (see the [documentation](https://huggingface.co/docs/transformers/main/en/model_doc/align) of ALIGN). If we don't need to compute the per-image and per-text logits for zero-shot classification, we can retrieve the vision and text embeddings using the convenient `get_image_features()` and `get_text_features()` methods of the `AlignModel` class. 
 
-```
+```py
 text_embeds = model.get_text_features(
     input_ids=inputs['input_ids'],
-    attention_mask=inputs['attention_masks],
+    attention_mask=inputs['attention_mask'],
     token_type_ids=inputs['token_type_ids'],
 )
 image_embeds = model.get_image_features(
@@ -195,7 +199,7 @@ image_embeds = model.get_image_features(
 
 Alternatively, we can use the stand-along vision and text encoders of ALIGN to retrieve multi-modal embeddings. These embeddings can then be used to train models for various downstream tasks such as object detection, image segmentation and image captioning. Let's see how we can retrieve these embeddings using `AlignTextModel` and `AlignVisionModel`. Note that we can use the convenient AlignProcessor class to preprocess texts and images separately.
 
-```
+```py
 from transformers import AlignTextModel
 
 
@@ -203,19 +207,19 @@ processor = AlignProcessor.from_pretrained('kakaobrain/align-base')
 model = AlignTextModel.from_pretrained('kakaobrain/align-base')
 
 # get embeddings of two text queries
-inputs = processor(['an image of a cat', 'an image of a dog'], return_tensors="pt")
+inputs = processor(['an image of a cat', 'an image of a dog'], return_tensors='pt')
 
 with torch.no_grad():
     outputs = model(**inputs)
 
-# print the last hidden state and the final pooled output 
+# get the last hidden state and the final pooled output 
 last_hidden_state = outputs.last_hidden_state
 pooled_output = outputs.pooler_output
 ```
 
 We can also opt to return all hidden states and attention values by setting the output_hidden_states and output_attentions arguments to True during inference.
 
-```
+```py
 with torch.no_grad():
     outputs = model(**inputs, output_hidden_states=True, output_attentions=True)
 
@@ -225,7 +229,8 @@ for key, value in outputs.items():
 ```
 
 Let's do the same with `AlignVisionModel` and retrieve the multi-modal embedding of an image.
-```
+
+```py
 from transformers import AlignVisionModel
 
 
@@ -235,7 +240,7 @@ model = AlignVisionModel.from_pretrained('kakaobrain/align-base')
 url = 'http://images.cocodataset.org/val2017/000000039769.jpg'
 image = Image.open(requests.get(url, stream=True).raw)
 
-inputs = processor(images=image, return_tensors="pt")
+inputs = processor(images=image, return_tensors='pt')
 
 with torch.no_grad():
     outputs = model(**inputs)
@@ -243,6 +248,25 @@ with torch.no_grad():
 # print the last hidden state and the final pooled output 
 last_hidden_state = outputs.last_hidden_state
 pooled_output = outputs.pooler_output
+```
+
+Similar to ViT, we can use the zero-shot image classification [pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ZeroShotImageClassificationPipeline) to make our work even easier. Let's see how we can use this pipeline to perform image classification in the wild using free-form text candidate labels.
+
+```py
+>>> from transformers import pipeline
+
+>>> classifier = pipeline(task='zero-shot-image-classification', model='kakaobrain/align-base')
+>>> classifier(
+...     'https://huggingface.co/datasets/Narsil/image_dummy/raw/main/parrots.png',
+...     candidate_labels=['animals', 'humans', 'landscape'],
+... )
+[{'score': 0.9263709783554077, 'label': 'animals'}, {'score': 0.07163811475038528, 'label': 'humans'}, {'score': 0.0019908479880541563, 'label': 'landscape'}]
+
+>>> classifier(
+...    'https://huggingface.co/datasets/Narsil/image_dummy/raw/main/parrots.png',
+...    candidate_labels=['black and white', 'photorealist', 'painting'],
+... )
+[{'score': 0.9735308885574341, 'label': 'black and white'}, {'score': 0.025493400171399117, 'label': 'photorealist'}, {'score': 0.0009757201769389212, 'label': 'painting'}]
 ```
 
 ## Conclusion
