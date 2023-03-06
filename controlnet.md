@@ -12,14 +12,6 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-<script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
-
-<style>
-.mx-auto {
-    margin-left: auto;
-    margin-right: auto;
-}
-</style>
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/controlnet.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
