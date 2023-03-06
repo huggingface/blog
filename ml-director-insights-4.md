@@ -3,18 +3,10 @@ title: "Director of Machine Learning Insights [Part 4]"
 thumbnail: /blog/assets/78_ml_director_insights/part4.png
 ---
 
-<html>
-<head>
-<style>
-.grandmahugs {
-  margin: 25px;
-}
-</style>
+
 <h1>Director of Machine Learning Insights [Part 4]</h1>
 
 <!-- {blog_metadata} -->
-</head>
-<body>
 
 _If you're interested in building ML solutions faster visit: [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_3) today!_
 
@@ -29,7 +21,7 @@ _If you're interested in building ML solutions faster visit: [hf.co/support](htt
 
 _Disclaimer: All views are from individuals and not from any past or current employers._
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Javier.png"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Javier.png"></a>  
 
 ### [Javier Mansilla](https://www.linkedin.com/in/javimansilla/?originalSubdomain=ar) - Director of Machine Learning, Marketing Science at [Mercado Libre](https://mercadolibre.com/)
 
@@ -74,7 +66,7 @@ But we are getting better at incorporating mature tools and practices that will 
   
   
   
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Shaun.png"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Shaun.png"></a>  
 
 ### [Shaun Gittens](https://www.linkedin.com/in/shaungittens/) - Director of Machine Learning at [MasterPeace Solutions](https://www.masterpeaceltd.com/)
 
@@ -112,7 +104,7 @@ Also, not setting up an effective CI/CD (continuous integration/ continuous depl
 The future of ML continues to be exciting and seemingly every month there are advances reported in the field that even wow the experts to this day.  As 1) ML techniques improve and become more accessible to established practitioners and novices alike, 2) everyday hardware becomes faster,  3) power consumption becomes less problematic for miniaturized edge devices, and 4) memory limitations diminish over time, the ceiling for ML in Engineering will be bright for years to come.
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Samuel.png
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/Samuel.png
 "></a>  
 
 ### [Samuel Franklin](https://www.linkedin.com/in/samuelcfranklin/) - Senior Director of Data Science & ML Engineering at [Pluralsight](https://www.pluralsight.com/)
@@ -141,7 +133,7 @@ There are two critical mistakes that I’ve seen organizations of all sizes make
 I’m excited about the opportunity to mentor the next generation of ML leaders.  My career began when cloud computing platforms were just getting started and ML tooling was much less mature than it is now.  It was exciting to explore different engineering patterns for ML experimentation and deployment, since established best practices were rare.  But, that exploration included learning too many technical and people leadership lessons the hard way.  Sharing those lessons with the next generation of ML leaders will help empower them to advance the field farther and faster than what we’ve seen over the past 10+ years.
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/evan.png"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/78_ml_director_insights/evan.png"></a>  
 
 ### [Evan Castle](https://www.linkedin.com/in/evan-castle-ai/) - Director of ML, Product Marketing, Elastic Stack at [Elastic](www.elastic.co)
 
@@ -179,5 +171,3 @@ Big thanks to Javier Mansilla, Shaun Gittens, Samuel Franklin, and Evan Castle f
 If you're' interested in accelerating your ML roadmap with Hugging Face Experts please visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_3) to learn more. 
 
 
-</body>
-</html>

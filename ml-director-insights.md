@@ -5,19 +5,10 @@ authors:
 - user: britneymuller
 ---
 
-<html>
-<head>
-<style>
-.grandmahugs {
-  margin: 25px;
-}
-</style>
 <h1>Director of Machine Learning Insights [Part 1]</h1>
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
-</head>
-<body>
 
 Few seats at the Machine Learning table span both technical skills, problem solving and business acumen like Directors of Machine Learning
 
@@ -34,7 +25,7 @@ In this first installment, you’ll hear from a researcher (who’s using ground
 
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" src="/blog/assets/61_ml_director_insights/Archi-Mitra.jpeg"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" src="/blog/assets/61_ml_director_insights/Archi-Mitra.jpeg"></a>  
 
 ### [Archi Mitra](https://www.linkedin.com/in/archimitra/) - Director of Machine Learning at [Buzzfeed](https://www.buzzfeed.com/)
 
@@ -62,7 +53,7 @@ Hopefully, small data-driven general-purpose multi-modal multi-task real-time ML
 
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/61_ml_director_insights/Li-Tan.jpeg"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/61_ml_director_insights/Li-Tan.jpeg"></a>  
 
 ### [Li Tan](http://linkedin.com/in/iamtanli/) - Director of Machine Learning & AI at [Johnson & Johnson](https://www.jnj.com/)
 
@@ -94,7 +85,7 @@ The intersections between AI/ML and other hard sciences and technologies. I’m 
 
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/61_ml_director_insights/Alina-Zare.jpeg"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/61_ml_director_insights/Alina-Zare.jpeg"></a>  
 
 ### [Alina Zare](https://www.linkedin.com/in/alina-zare/) - Director of the Machine Learning & Sensing Laboratory at the [University of Florida](https://faculty.eng.ufl.edu/machine-learning/people/faculty/)
 
@@ -121,7 +112,7 @@ An example may be understanding how likely two species are to co-occur in an are
 
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/61_ml_director_insights/Nathan-Cahill.jpeg"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/61_ml_director_insights/Nathan-Cahill.jpeg"></a>  
 
 ### [Nathan Cahill](https://www.linkedin.com/in/nathan-m-cahill/) Ph.D. - Director of Machine Learning at [Xpress Technologies](https://xpresstechfreight.com/)
 
@@ -156,7 +147,7 @@ I think the thing that excites me most about ML is the opportunity to make peopl
 As ML begins to be ubiquitous in business, it will be able to help speed up decisions and automate redundant work. This will accelerate the pace of innovation and create immense economic value. I can’t wait to see what problems we solve in the next 10 years aided by data science and ML!
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/61_ml_director_insights/Nicolas-Bertagnolli.png"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/61_ml_director_insights/Nicolas-Bertagnolli.png"></a>  
 
 ### [Nicolas Bertagnolli](https://www.linkedin.com/in/nicolas-bertagnolli-058aba81/) - Director of Machine Learning at [BEN](https://ben.productplacement.com/)
 
@@ -198,7 +189,7 @@ Much like in the beginning of the internet, software developers were few and far
 
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/61_ml_director_insights/Eric-Golinko.jpeg"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/61_ml_director_insights/Eric-Golinko.jpeg"></a>  
 
 ### [Eric Golinko](https://www.linkedin.com/in/eric-golinko/) - Director of Machine Learning at [E Source](https://www.esource.com/)
 
@@ -231,8 +222,3 @@ Big thanks to Eric Golinko, Nicolas Bertagnolli, Nathan Cahill, Alina Zare, Li T
 Lastly, if you or your team are interested in accelerating your ML roadmap with Hugging Face Experts please visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_1) to learn more. 
 
 
-
-
-
-</body>
-</html>

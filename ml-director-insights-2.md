@@ -5,19 +5,10 @@ authors:
 - user: britneymuller
 ---
 
-<html>
-<head>
-<style>
-.grandmahugs {
-  margin: 25px;
-}
-</style>
 <h1>Director of Machine Learning Insights [Part 2: SaaS Edition]</h1>
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
-</head>
-<body>
 
 _If you or your team are interested in building ML solutions faster visit [hf.co/support](https://huggingface.co/support?utm_source=article&utm_medium=blog&utm_campaign=ml_director_insights_2) today!_
 
@@ -32,7 +23,7 @@ In this second SaaS focused installment, you’ll hear from a deep learning for 
 
 🚀  Let’s meet some top Machine Learning Directors in SaaS and hear what they have to say about Machine Learning:
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/67_ml_director_insights/Omar-Rahman.jpeg"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/67_ml_director_insights/Omar-Rahman.jpeg"></a>  
 
 ### [Omar Rahman](https://www.linkedin.com/in/omar-rahman-4739713a/) - Director of Machine Learning at [Salesforce](https://www.salesforce.com/)
 
@@ -66,7 +57,7 @@ Generalized artificial intelligence capabilities, if built and managed well, hav
 
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/67_ml_director_insights/Cao-Danica-Xiao.jpeg"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/67_ml_director_insights/Cao-Danica-Xiao.jpeg"></a>  
 
 ### [Cao (Danica) Xiao](https://www.linkedin.com/in/caoxiao/) - Senior Director of Machine Learning at [Amplitude](https://amplitude.com/)
 
@@ -96,7 +87,7 @@ More ML technologies will be applied to solve business or customer needs. For ex
 
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/67_ml_director_insights/Raphael-Cohen.jpeg"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/67_ml_director_insights/Raphael-Cohen.jpeg"></a>  
 
 ### [Raphael Cohen](https://www.linkedin.com/in/raphael-cohen-63a87779/) - Director of the Machine Learning at [ZoomInfo](https://www.zoominfo.com/)
 
@@ -154,7 +145,7 @@ Another thing I’m really excited about is generating models! We recently worke
  
 
 
-<img class="grandmahugs" style="float: left;" padding="5px" width="200" src="/blog/assets/67_ml_director_insights/Martin-Ostrovsky.jpeg"></a>  
+<img class="mx-auto" style="float: left;" padding="5px" width="200" src="/blog/assets/67_ml_director_insights/Martin-Ostrovsky.jpeg"></a>  
 
 ### [Martin Ostrovsky](https://www.linkedin.com/in/martinostrovsky/) Founder/CEO & Machine Learning Director at [Repustate Inc.](https://www.repustate.com/)
 
@@ -206,5 +197,3 @@ If you or your team are interested in accelerating your ML roadmap with Hugging 
 
 
 
-</body>
-</html>
