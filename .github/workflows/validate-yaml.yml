@@ -1,20 +1,27 @@
 name: YAML schema validator
-on: [push]
+on: 
+  push:
+    paths: 
+      - "{_events,_tags_blog}.yml"
+      - "schemas/{_events,_tags_blog}.schema.yml"
 
 jobs:
   yaml-schema-validation:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: nrkno/yaml-schema-validator-github-action@v4
+    - name: "Validate _events.yml"
+      uses: nrkno/yaml-schema-validator-github-action@v4
       with:
         schema: schemas/_events.schema.yml
         target: _events.yml
-    - uses: nrkno/yaml-schema-validator-github-action@v4
+    - name: "Validate _blog.yml"
+      uses: nrkno/yaml-schema-validator-github-action@v4
       with:
         schema: schemas/_blog.schema.yml
         target: _blog.yml
-    - uses: nrkno/yaml-schema-validator-github-action@v4
+    - name: "Validate _tags.yml"
+      uses: nrkno/yaml-schema-validator-github-action@v4
       with:
         schema: schemas/_tags.schema.yml
         target: _tags.yml
