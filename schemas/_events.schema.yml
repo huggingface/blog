@@ -1,0 +1,7 @@
+list(include('event'))
+---
+event:
+  name: str()
+  link: str()
+  date: str()
+  description: str()
