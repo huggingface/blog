@@ -5,7 +5,7 @@ blog:
   local: str(required=False)
   external: str(required=False)
   title: str()
-  thumbnail: str()
+  thumbnail: str(required=False)
   author: str()
   guest: bool(required=False)
   date: str()
