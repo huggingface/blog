@@ -2,7 +2,6 @@
 # "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
 
-
 - name: How to build Machine Learning apps with Hugging Face
   link: https://www.eventbrite.com/e/building-machine-learning-apps-with-hugging-facellms-to-diffusion-modeling-tickets-565837343727?aff=HF
   date: Mar 23, 2023
@@ -12,6 +11,11 @@
   link: https://aws-startup-lofts.com/amer/loft/san-francisco/e/c77d4/ml-startup-tech-talk-building-generative-ai-products
   date: Mar 8, 2023
   description: Free event in downtown SF hosted by AWS to learn how to use Hugging Face with SageMaker
+  
+- name: Keras Dreambooth Event Kick-off Session with talks on diffusers & KerasCV
+  link: https://www.youtube.com/watch?v=Njt8BuSW-TQ&ab_channel=HuggingFace
+  date: Mar 5, 2023
+  description: Free talks with Francois Chollet, Nataniel Ruiz, Apolinario Passos and Merve Noyan.
 
 - name: How Witty Works leverages Hugging Face to scale inclusive language?
   link: https://www.eventbrite.com/e/how-witty-works-leverages-hugging-face-to-scale-inclusive-language-tickets-503429429977
