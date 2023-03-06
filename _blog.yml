@@ -1893,3 +1893,14 @@
     - nlp
     - transformers
     - object-detection
+    
+- local: vit-align
+  title: "New ViT and ALIGN Models From Kakao Brain"
+  author: adirik
+  thumbnail: /blog/assets/132_vit_align/thumbnail.png
+  date: March 6, 2023
+  tags:
+    - cv
+    - guide
+    - partnerships
+    - multimodal
