@@ -6,7 +6,9 @@ authors:
 - user: Violette
 - user: florentgbelidji
 - user: oknerazan
+  guest: true
 - user: lsmith
+  guest: true
 ---
 <html>
 <head>
