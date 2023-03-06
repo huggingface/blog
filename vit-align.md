@@ -94,7 +94,7 @@ It is a new approach to vision, distinct from convolutional neural nets (CNNs) t
 
 
 ## How to use the COYO dataset
-You can conveniently download the `COYO` dataset with a single line of code using the 🤗 Datasets library. To preview the `COYO` dataset and learn more about data curation process and the meta attributes included, head over to the dataset page on the [hub](https://huggingface.co/datasets/kakaobrain/coyo-700m). To get started, let's install the 🤗 Datasets library: `pip install datasets` and download the dataset.
+We can conveniently download the `COYO` dataset with a single line of code using the 🤗 Datasets library. To preview the `COYO` dataset and learn more about data curation process and the meta attributes included, head over to the dataset page on the [hub](https://huggingface.co/datasets/kakaobrain/coyo-700m). To get started, let's install the 🤗 Datasets library: `pip install datasets` and download the dataset.
 
 ```shell
 >>> from datasets import load_dataset
@@ -103,7 +103,7 @@ You can conveniently download the `COYO` dataset with a single line of code usin
 >>> dataset
 ```
 
-the Note that the `COYO` dataset is massive with 747M image-text pairs and it might not be possible to download the whole dataset on your local. Alternatively, you might need to download and use only a subset of the dataset. To do this, you can simply pass in the `streaming=True` argument to the `load_dataset()` method to create an iterable dataset and download data instances as you go.
+Since the `COYO` dataset is massive with 747M image-text pairs and it might not be possible to download the whole dataset on your local. Alternatively, you might need to download and use only a subset of the dataset. To do this, we can simply pass in the `streaming=True` argument to the `load_dataset()` method to create an iterable dataset and download data instances as we go.
 
 ```shell
 >>> from datasets import load_dataset
@@ -114,7 +114,7 @@ the Note that the `COYO` dataset is massive with 747M image-text pairs and it mi
 ```
 
 ## How to use ViT and ALIGN from the Hub
-Let’s go ahead and experiment with the new ViT and ALIGN models. First, let’s install 🤗 Transformers: `pip install transformers` and get started with ViT for image classification by importing the modules and libraries we will use.
+Let’s go ahead and experiment with the new ViT and ALIGN models. As ALIGN is newly added to 🤗 Transformers, let’s install the latest version of the library: `pip install -q git+https://github.com/huggingface/transformers.git` and get started with ViT for image classification by importing the modules and libraries we will use. Note that the newly added ALIGN model will be a part of the PyPI package in the next release of the library. 
 
 ```py
 import requests
@@ -123,7 +123,7 @@ import torch
 from transformers import ViTImageProcessor, ViTForImageClassification
 ```
 
-Next, we will download a random image of two cats from the COCO dataset and preprocess the image to transform it to the input format expected by the model. To do this, we can conveniently use the corresponding preprocessor class (`ViTProcessor`). To initialize the model and the preprocessor, we will use one of the [Kakao Brain ViT repos](https://huggingface.co/models?search=kakaobrain/vit) on the hub. Note that initializing the preprocessor from a repository ensures that the preprocessed image is in the expected format required by that specific pretrained model.
+Next, we will download a random image of two cats and remote controls on a couch from the COCO dataset and preprocess the image to transform it to the input format expected by the model. To do this, we can conveniently use the corresponding preprocessor class (`ViTProcessor`). To initialize the model and the preprocessor, we will use one of the [Kakao Brain ViT repos](https://huggingface.co/models?search=kakaobrain/vit) on the hub. Note that initializing the preprocessor from a repository ensures that the preprocessed image is in the expected format required by that specific pretrained model.
 
 ```py
 url = 'http://images.cocodataset.org/val2017/000000039769.jpg'
