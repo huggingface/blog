@@ -97,7 +97,7 @@ It is a new approach to vision, distinct from convolutional neural nets (CNNs) t
 To use the `COYO` dataset, refer to the [COYO github page](https://github.com/kakaobrain/coyo-dataset/tree/main/download).
 
 ## How to use ViT and ALIGN from the Hub
-Let’s go ahead and experiment with the new ViT and ALIGN models. First, let’s install 🤗Transformers: `pip install transformers` and get started with ViT for image classification by importing the modules and libraries we will use.
+Let’s go ahead and experiment with the new ViT and ALIGN models. First, let’s install 🤗 Transformers: `pip install transformers` and get started with ViT for image classification by importing the modules and libraries we will use.
 
 ```py
 import requests
@@ -271,6 +271,6 @@ Similar to ViT, we can use the zero-shot image classification [pipeline](https:/
 
 ## Conclusion
 
-There have been incredible advances in multi-modal models in recent years, with models such as CLIP and ALIGN unlocking various downstream tasks such as image captioning and open vocabulary object detection. In this blog, we talked about the latest open source ViT and ALIGN models contributed to the Hub by Kakao Brain, as well as the new COYO text-image dataset. We also showed how you can use these models to perform various tasks with a few lines of code. 
+There have been incredible advances in multi-modal models in recent years, with models such as CLIP and ALIGN unlocking various downstream tasks such as image captioning and open vocabulary object detection. In this blog, we talked about the latest open source ViT and ALIGN models contributed to the Hub by Kakao Brain, as well as the new COYO text-image dataset. We also showed how you can use these models to perform various tasks with a few lines of code both on their own or as a part of 🤗 Transformers pipelines. 
 
-We are continuing to integrate the most impactful computer vision and multi-modal models and would love to hear back from you. To stay up to date with the latest news in computer vision and multi-modal research, you can follow us on Twitter: [@adirik](https://twitter.com/https://twitter.com/alaradirik), [@a_e_roberts](https://twitter.com/a_e_roberts), [@RisingSayak](https://mobile.twitter.com/a_e_roberts), and [@huggingface](https://twitter.com/huggingface).
+That was it! We are continuing to integrate the most impactful computer vision and multi-modal models and would love to hear back from you. To stay up to date with the latest news in computer vision and multi-modal research, you can follow us on Twitter: [@adirik](https://twitter.com/https://twitter.com/alaradirik), [@a_e_roberts](https://twitter.com/a_e_roberts), [@NielsRogge](https://twitter.com/NielsRogge), [@RisingSayak](https://twitter.com/RisingSayak), and [@huggingface](https://twitter.com/huggingface).
