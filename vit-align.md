@@ -1,15 +1,15 @@
 ---
-title: "New and Open-Source ViT and ALIGN from Kakao Brain" 
+title: "New and Open Source ViT and ALIGN from Kakao Brain" 
 thumbnail: /blog//assets/132_vit_align/thumbnail.png
 authors:
-- user: Unso
 - user: adirik
+- user: Unso
 - user: dylan-m
 - user: jun-untitled
 ---
 
 
-# Kakao Brain’s Open Source ViT, ALIGN, and the new COYO text-image dataset
+# Kakao Brain’s Open Source ViT, ALIGN, and the New COYO Text-Image Dataset
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -94,7 +94,24 @@ It is a new approach to vision, distinct from convolutional neural nets (CNNs) t
 
 
 ## How to use the COYO dataset
-To use the `COYO` dataset, refer to the [COYO github page](https://github.com/kakaobrain/coyo-dataset/tree/main/download).
+You can conveniently download the `COYO` dataset with a single line of code using the 🤗 Datasets library. Head over to the `COYO` dataset page on the [hub](https://huggingface.co/datasets/kakaobrain/coyo-700m) to preview the dataset and learn more about data curation process and details about the meta attributes included. To get started, let's install the 🤗 Datasets library: `pip install datasets` and download the dataset.
+
+```shell
+>>> from datasets import load_dataset
+
+>>> dataset = load_dataset('kakaobrain/coyo-700m')
+>>> dataset
+```
+
+the Note that the `COYO` dataset is massive with 747M image-text pairs and it might not be possible to download the whole dataset on your local. Alternatively, you might need to download and use only a subset of the dataset. To do this, you can simply pass in the `streaming=True` argument to the `load_dataset()` method to create an iterable dataset and download data instances as you go.
+
+```shell
+>>> from datasets import load_dataset
+
+>>> dataset = load_dataset('kakaobrain/coyo-700m', streaming=True)
+>>> print(next(iter(dataset['train'])))
+{'id': 2680060225205, 'url': 'https://cdn.shopify.com/s/files/1/0286/3900/2698/products/TVN_Huile-olive-infuse-et-s-227x300_e9a90ffd-b6d2-4118-95a1-29a5c7a05a49_800x.jpg?v=1616684087', 'text': 'Olive oil infused with Tuscany herbs', 'width': 227, 'height': 300, 'image_phash': '9f91e133b1924e4e', 'text_length': 36, 'word_count': 6, 'num_tokens_bert': 6, 'num_tokens_gpt': 9, 'num_faces': 0, 'clip_similarity_vitb32': 0.19921875, 'clip_similarity_vitl14': 0.147216796875, 'nsfw_score_opennsfw2': 0.0058441162109375, 'nsfw_score_gantman': 0.018961310386657715, 'watermark_score': 0.11015450954437256, 'aesthetic_score_laion_v2': 4.871710777282715}
+```
 
 ## How to use ViT and ALIGN from the Hub
 Let’s go ahead and experiment with the new ViT and ALIGN models. First, let’s install 🤗 Transformers: `pip install transformers` and get started with ViT for image classification by importing the modules and libraries we will use.
@@ -137,7 +154,7 @@ for c in top_class_preds:
 
 And we are done! To make things even easier and shorter, we can also use the convenient image classification [pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ImageClassificationPipeline) and pass the Kakao Brain ViT repo name as our target model to initialize the pipeline. We can then pass in a URL or a local path to an image or a Pillow image and optionally use the `top_k` argument to only return the top k predictions. Let's go ahead and get the top 5 predictions for our image of cats and remotes.
 
-```py
+```shell
 >>> from transformers import pipeline
 
 >>> classifier = pipeline(task='image-classification', model='kakaobrain/vit-large-patch16-384')
@@ -252,7 +269,7 @@ pooled_output = outputs.pooler_output
 
 Similar to ViT, we can use the zero-shot image classification [pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ZeroShotImageClassificationPipeline) to make our work even easier. Let's see how we can use this pipeline to perform image classification in the wild using free-form text candidate labels.
 
-```py
+```shell
 >>> from transformers import pipeline
 
 >>> classifier = pipeline(task='zero-shot-image-classification', model='kakaobrain/align-base')
