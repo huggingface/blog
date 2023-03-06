@@ -1,5 +1,5 @@
 ---
-title: "New ViT and ALIGN models From Kakao Brain" 
+title: "New ViT and ALIGN Models From Kakao Brain" 
 thumbnail: /blog//assets/132_vit_align/thumbnail.png
 authors:
 - user: adirik
