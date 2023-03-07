@@ -1,0 +1,268 @@
+- author: juliensimon
+  date: October 26, 2021
+  local: large-language-models
+  tags:
+  - analysis
+  - nlp
+  thumbnail: /blog/assets/33_large_language_models/01_model_size.jpg
+  title: 大语言模型：新的摩尔定律？
+- author: stas
+  date: Sep 16, 2022
+  local: bloom-inference-pytorch-scripts
+  tags:
+  - nlp
+  - llm
+  - bloom
+  - inference
+  thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
+  title: 使用 DeepSpeed 和 Accelerate 进行超快 BLOOM 模型推理
+- author: Unso
+  date: September 26, 2022
+  local: setfit
+  tags:
+  - research
+  - nlp
+  thumbnail: /blog/assets/103_setfit/intel_hf_logo.png
+  title: SetFit 如何工作？
+- author: muellerzr
+  date: October 21, 2022
+  local: pytorch-ddp-accelerate-transformers
+  tags:
+  - guide
+  - research
+  - open-source-collab
+  thumbnail: /blog/assets/111_pytorch_ddp_accelerate_transformers/thumbnail.png
+  title: 从PyTorch DDP 到 Accelerate 到 Trainer，轻松掌握分布式训练
+- author: valhalla
+  date: November 7, 2022
+  local: dreambooth
+  tags:
+  - diffusers
+  - stable-diffusion
+  - dreambooth
+  - fine-tuning
+  - guide
+  thumbnail: /blog/assets/sd_dreambooth_training/thumbnail.jpg
+  title: 使用 Diffusers 通过 Dreambooth 技术来训练 Stable Diffusion
+- author: nielsr
+  date: December 1, 2022
+  local: time-series-transformers
+  tags:
+  - research
+  thumbnail: /blog/assets/118_time-series-transformers/thumbnail.png
+  title: 介绍
+- author: josevalim
+  date: December 9, 2022
+  local: elixir-bumblebee
+  tags:
+  - elixir
+  - transformers
+  - stable-diffusion
+  - nlp
+  - open-source-collab
+  thumbnail: /blog/assets/120_elixir-bumblebee/thumbnail.png
+  title: 从 GPT2 到 Stable Diffusion：Elixir 社区迎来了 Hugging Face
+- author: juliensimon
+  date: January 2, 2023
+  local: intel-sapphire-rapids
+  tags:
+  - guide
+  - intel
+  - hardware
+  - partnerships
+  thumbnail: /blog/assets/124_intel_sapphire_rapids/02.png
+  title: 使用英特尔 Sapphire Rapids 加速 PyTorch Transformers 模型（第一部分）
+- author: dylanebert
+  date: January 2, 2023
+  local: ml-for-games-1
+  tags:
+  - community
+  - stable-diffusion
+  - guide
+  - game-dev
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail.png
+  title: 基于AI进行游戏开发：5天！创建一个农场游戏！第1部分
+- author: clefourrier
+  date: January 3, 2023
+  local: intro-graphml
+  tags:
+  - community
+  - guide
+  - graphs
+  thumbnail: /blog/assets/125_intro-to-graphml/thumbnail.png
+  title: 图机器学习入门
+- author: dylanebert
+  date: January 9, 2023
+  local: ml-for-games-2
+  tags:
+  - community
+  - guide
+  - game-dev
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail2.png
+  title: 基于AI进行游戏开发：5天！创建一个农场游戏！第2部分
+- author: sayakpaul
+  date: Jan 16, 2023
+  local: image-similarity
+  tags:
+  - guide
+  - cv
+  thumbnail: /blog/assets/image_similarity/thumbnail.png
+  title: 我们如何定义相似性？
+- author: nielsr
+  date: Jan 19, 2023
+  local: mask2former
+  tags:
+  - cv
+  - guide
+  thumbnail: /blog/assets/127_mask2former/thumbnail.png
+  title: 通用图像分割：使用 Mask2Former 和 OneFormer
+- author: dylanebert
+  date: January 20, 2023
+  local: ml-for-games-3
+  tags:
+  - community
+  - guide
+  - game-dev
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail3.png
+  title: 语言的读者。如果您不熟悉这些技术，请先查看 [Unity for Beginners](https://www.tiktok.com/@individualkex/video/7086863567412038954)
+    系列后再继续阅读。
+- author: nazneen
+  date: February 22, 2023
+  local: red-teaming
+  tags:
+  - llms
+  - rlhf
+  - red-teaming
+  - chatgpt
+  - safety
+  - alignment
+  thumbnail: /blog/assets/red-teaming/thumbnail.png
+  title: 红队（ red-teaming )大语言模型
+- author: Jingya
+  date: January 24, 2023
+  local: optimum-onnxruntime-training
+  tags:
+  - guide
+  - community
+  - onnxruntime
+  thumbnail: /blog/assets/optimum_onnxruntime-training/thumbnail.png
+  title: 'Optimum + ONNX Runtime: Easier, Faster training for your Hugging Face models'
+- author: nazneen
+  date: January 24, 2023
+  local: dialog-agents
+  tags:
+  - rlhf
+  - ChatGPT
+  - cot
+  - ift
+  - sft
+  thumbnail: /blog/assets/dialog-agents/thumbnail.png
+  title: 是什么让对话代理有用？
+- author: pcuenq
+  date: January 26, 2023
+  local: lora
+  tags:
+  - diffusers
+  - stable-diffusion
+  - dreambooth
+  - fine-tuning
+  - guide
+  thumbnail: /blog/assets/lora/thumbnail.png
+  title: 使用 LoRA 进行 Stable Diffusion 的高效参数微调
+- author: dylanebert
+  date: January 26, 2023
+  local: ml-for-games-4
+  tags:
+  - community
+  - guide
+  - game-dev
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail4.png
+  title: 语言的读者。如果您不熟悉这些技术，请先查看 [Unity for Beginners](https://www.tiktok.com/@individualkex/video/7086863567412038954)
+    系列后再继续阅读。
+- author: sayakpaul
+  date: January 30, 2023
+  local: cv_state
+  tags:
+  - community
+  - guide
+  - cv
+  thumbnail: /blog/assets/cv_state/thumbnail.png
+  title: Hugging Face 中计算机视觉的现状
+- author: adirik
+  date: February 03, 2023
+  local: vision_language_pretraining
+  tags:
+  - cv
+  - guide
+  - multimodal
+  thumbnail: /blog/assets/128_vision_language_pretraining/thumbnail.png
+  title: 深入了解视觉语言模型
+- author: juliensimon
+  date: February 6, 2023
+  local: intel-sapphire-rapids-inference
+  tags:
+  - guide
+  - intel
+  - hardware
+  - partnerships
+  thumbnail: /blog/assets/129_intel_sapphire_rapids_inference/01.png
+  title: 使用英特尔 Sapphire Rapids 加速 PyTorch Transformers，第 2 部分
+- author: dylanebert
+  date: February 07, 2023
+  local: ml-for-games-5
+  tags:
+  - community
+  - guide
+  - game-dev
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail5.png
+  title: 第 5 天：剧情
+- author: Matthijs
+  date: February 8, 2023
+  local: speecht5
+  tags:
+  - guide
+  - audio
+  thumbnail: /blog/assets/speecht5/thumbnail.png
+  title: 使用 SpeechT5 进行语音合成、识别和更多功能
+- author: smangrul
+  date: February 10, 2023
+  local: peft
+  tags:
+  - guide
+  - nlp
+  - cv
+  - multimodal
+  - fine-tuning
+  - community
+  - dreambooth
+  thumbnail: /blog/assets/130_peft/thumbnail.png
+  title: 🤗 PEFT：在低资源硬件上对十亿规模模型进行参数高效微调
+- author: MariaK
+  date: February 15, 2023
+  local: blip-2
+  tags:
+  - guide
+  - nlp
+  - cv
+  - multimodal
+  thumbnail: /blog/assets/blip-2/thumbnail.png
+  title: 使用 BLIP-2 零样本“图生文”
+- author: nazneen
+  date: February 24, 2023
+  local: red-teaming
+  tags:
+  - llms
+  - rlhf
+  - red-teaming
+  - chatgpt
+  - safety
+  - alignment
+  thumbnail: /blog/assets/red-teaming/thumbnail.png
+  title: 红队（ red-teaming )大语言模型
+- author: sayakpaul
+  date: March 3, 2023
+  local: controlnet
+  tags:
+  - diffusers
+  thumbnail: /blog/assets/controlnet/thumbnail.png
+  title: 使用 🧨 Diffusers 实现 ControlNet 高速推理
