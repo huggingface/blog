@@ -23,7 +23,7 @@ This blog will introduce the new [COYO](https://github.com/kakaobrain/coyo-datas
 * First open-source ALIGN model ever! 
 * First open ViT and ALIGN models that have been trained on an open-source dataset [COYO](https://github.com/kakaobrain/coyo-dataset)
 * Kakao Brain's ViT and ALIGN models perform on-par with the Google versions
-* ViT demo is available on HF! You can play with the ViT demo online with image samples of your own choice!
+* ViT and ALIGN demos are available on HF! You can play with the ViT and ALIGN demos online with image samples of your own choice!
 
 
 ## Performance Comparison
@@ -78,7 +78,7 @@ It is a new approach to vision, distinct from convolutional neural nets (CNNs) t
 </center>
 </p>
 
- [Google then introduced ALIGN](https://ai.googleblog.com/2021/05/align-scaling-up-visual-and-vision.html) -- a Large-scale Image and Noisy Text Embedding model in 2021 -- a visual-language model trained on "noisy" text-image data for various vision and cross-modal tasks such as text-image retrieval. ALIGN has a simple dual-encoder architecture trained on image and text pairs, learned via a contrastive loss function. ALIGN's "noisy" training corpus is notable for balancing scale and robustness. Previously, visual language representational learning had been trained on large-scale datasets with manual labels, which require extensive preprocessing. ALIGN's corpus uses the image alt-text data, text that appears when the image fails to load, as the caption to the image -- resulting in an inevitably noisy, but much larger (1.8 billion pair) dataset that allows ALIGN to perform at SoTA levels on various tasks. Kakao Brain's ALIGN is the first open-source version of this model, trained on the `COYO` dataset and performs better than Google's reported results.
+[Google then introduced ALIGN](https://ai.googleblog.com/2021/05/align-scaling-up-visual-and-vision.html) -- a Large-scale Image and Noisy Text Embedding model in 2021 -- a visual-language model trained on "noisy" text-image data for various vision and cross-modal tasks such as text-image retrieval. ALIGN has a simple dual-encoder architecture trained on image and text pairs, learned via a contrastive loss function. ALIGN's "noisy" training corpus is notable for balancing scale and robustness. Previously, visual language representational learning had been trained on large-scale datasets with manual labels, which require extensive preprocessing. ALIGN's corpus uses the image alt-text data, text that appears when the image fails to load, as the caption to the image -- resulting in an inevitably noisy, but much larger (1.8 billion pair) dataset that allows ALIGN to perform at SoTA levels on various tasks. Kakao Brain's ALIGN is the first open-source version of this model, trained on the `COYO` dataset and performs better than Google's reported results.
 
 <p>
 <center>
@@ -94,7 +94,7 @@ It is a new approach to vision, distinct from convolutional neural nets (CNNs) t
 
 
 ## How to use the COYO dataset
-We can conveniently download the `COYO` dataset with a single line of code using the 🤗 Datasets library. To preview the `COYO` dataset and learn more about the data curation process and the meta attributes included, head over to the dataset page on the [hub](https://huggingface.co/datasets/kakaobrain/coyo-700m). To get started, let's install the 🤗 Datasets library: `pip install datasets` and download the dataset.
+We can conveniently download the `COYO` dataset with a single line of code using the 🤗 Datasets library. To preview the `COYO` dataset and learn more about the data curation process and the meta attributes included, head over to the dataset page on the [hub](https://huggingface.co/datasets/kakaobrain/coyo-700m). To get started, let's install the 🤗 Datasets library: `pip install datasets` and download it.
 
 ```shell
 >>> from datasets import load_dataset
@@ -103,7 +103,7 @@ We can conveniently download the `COYO` dataset with a single line of code using
 >>> dataset
 ```
 
-Since the `COYO` dataset is massive with 747M image-text pairs and it might not be possible to download the whole dataset on your local. Alternatively, you might need to download and use only a subset of the dataset. To do this, we can simply pass in the `streaming=True` argument to the `load_dataset()` method to create an iterable dataset and download data instances as we go.
+While it is significantly smaller than the `LAION` dataset, the `COYO` dataset is still massive with 747M image-text pairs and it might be unfeasible to download the whole dataset to your local. In order to download only a subset of the dataset, we can simply pass in the `streaming=True` argument to the `load_dataset()` method to create an iterable dataset and download data instances as we go.
 
 ```shell
 >>> from datasets import load_dataset
@@ -114,7 +114,7 @@ Since the `COYO` dataset is massive with 747M image-text pairs and it might not 
 ```
 
 ## How to use ViT and ALIGN from the Hub
-Let’s go ahead and experiment with the new ViT and ALIGN models. As ALIGN is newly added to 🤗 Transformers, let’s install the latest version of the library: `pip install -q git+https://github.com/huggingface/transformers.git` and get started with ViT for image classification by importing the modules and libraries we will use. Note that the newly added ALIGN model will be a part of the PyPI package in the next release of the library. 
+Let’s go ahead and experiment with the new ViT and ALIGN models. As ALIGN is newly added to 🤗 Transformers, we will install the latest version of the library: `pip install -q git+https://github.com/huggingface/transformers.git` and get started with ViT for image classification by importing the modules and libraries we will use. Note that the newly added ALIGN model will be a part of the PyPI package in the next release of the library. 
 
 ```py
 import requests
@@ -152,7 +152,7 @@ for c in top_class_preds:
     print(f"{model.config.id2label[c.item()]} with probability {round(preds[0, c.item()].item(), 4)}")
 ```
 
-And we are done! To make things even easier and shorter, we can also use the convenient image classification [pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ImageClassificationPipeline) and pass the Kakao Brain ViT repo name as our target model to initialize the pipeline. We can then pass in a URL or a local path to an image or a Pillow image and optionally use the `top_k` argument to only return the top k predictions. Let's go ahead and get the top 5 predictions for our image of cats and remotes.
+And we are done! To make things even easier and shorter, we can also use the convenient image classification [pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ImageClassificationPipeline) and pass the Kakao Brain ViT repo name as our target model to initialize the pipeline. We can then pass in a URL or a local path to an image or a Pillow image and optionally use the `top_k` argument to return the top k predictions. Let's go ahead and get the top 5 predictions for our image of cats and remotes.
 
 ```shell
 >>> from transformers import pipeline
