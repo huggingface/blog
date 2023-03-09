@@ -76,12 +76,13 @@ In a nutshell, you can reduce the size of a full-precision model by 4 (thus, by 
 
 ### Low rank adaptation and peft
 
-In 2021, a paper called LoRA: Low-Rank Adaption of Large Language Models demonstrated that fine tuning of large language models can be performed by freezing the pretrained weights and creating low rank versions of the query and value layers attention matrices. These low rank matrices have far fewer parameters than the original model, enabling fine-tuning with far less GPU memory. The authors demonstrate that fine-tuning of low-rank adapters achieved comparable results to fine tuning the full pretrained model.
+In 2021, a paper called LoRA: Low-Rank Adaption of Large Language Models demonstrated that fine tuning of large language models can be performed by freezing the pretrained weights and creating low rank versions of the query and value layers attention matrices. These low rank matrices have far fewer parameters than the original model, enabling fine-tuning with far less GPU memory. The authors demonstrate that fine-tuning of low-rank adapters achieved comparable results to fine-tuning the full pretrained model.
 
 | ![lora-gif](assets/133_trl_peft/lora-animated.gif) |
 |:--:|
-| <b>Animated diagram explaining LoRA (Low Rank Adapters). The input hidden states (`x`) are passed through the original pretrained weights as well as through the adapters. The resulting hidden states is obtained by summing both output.</b>|
+| <b>The output activations original (frozen) pretrained weights (right) are augmented by a low rank adapter comprised of weight matrics A and B.</b>|
 
+This technique allows the fine tuning of LLMs using a fraction of the memory requirements. There are, however, some downsides. The forward and backwards take approximately twice as low, due to the additional matrix multiplications in the adapter layers.
 
 ### What is `peft` ?
 
@@ -91,7 +92,7 @@ You can also easily share your adapters with the community using this library, t
 
 ## Summary 
 
-Let us go through the entire pipeline step by step, and explain with figures how we managed to fine-tune 20B parameter LLM with RL using the tools mentioned above!
+Now that the prerequisites are out of the way, let us go through the entire pipeline step by step, and explain with figures how you can fine-tune a 20B parameter LLM with RL using the tools mentioned above on a single 24GB GPU!
 
 ### Step 1: Load your active model in 8-bit precision
 
