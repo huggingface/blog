@@ -86,9 +86,20 @@ This technique allows the fine tuning of LLMs using a fraction of the memory req
 
 ### What is `peft` ?
 
-🤗 [`peft` library](https://github.com/huggingface/peft), provides the latest Parameter-Efficient Fine-tuning techniques seamlessly integrated with 🤗 Transformers and 🤗 Accelerate. This enables using the most popular and performant models from Transformers coupled with the simplicity and scalability of Accelerate. 
-Among many other examples, you can fine-tune large models including many modalities such as `flan-t5-xxl`, `opt`, etc. Some notable examples being the ability the fine-tune opt-6.7B (15GB in float16) in a single GPU on Google Colab (16GB) using `peft` library together with `bitsandbytes` library.
-You can also easily share your adapters with the community using this library, therefore avoiding sharing your entire model weights. We belive that integrating `peft` with `trl` will enable the community to fine-tune large models in a consumer-type device using RLHF.
+[Parameter-Efficient Fine-Tuning (PEFT)](https://github.com/huggingface/peft), is a Hugging Face library, created to support the creation and fine tuning of adapter layers on LLMs. Peft is seamlessly integrated with 🤗 Accelerate for large scale models leveraging DeepSpeed and Big Model Inference.
+
+The library suppord many state of the art models and has an extensive set of examples, including:
+
+- Causal language modeling
+- Conditional generation
+- Image classification
+- 8-bit int training
+- Low Rank adaption of Dreambooth models
+- Semantic segmentation
+- Sequence classification
+- Token classification
+
+The library is still under extensive and active development, with many upcoming features to be annouced in the coming months.
 
 ## Summary 
 
