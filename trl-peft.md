@@ -5,6 +5,7 @@ authors:
 - edbeeching
 - ybelkada
 - lvwerra
+- smangrul
 ---
 
 <h1>
@@ -137,7 +138,7 @@ The second step is to load adapters inside the model and make these adapters tra
 As adapters can be deactivated, we can use the same model to get the reference and active logits for PPO, without having to create two copies of the same model! This leverages a feature in `peft` library, which is the disable_adapters context manager. 
 
 
-## Fine-tuning GPT-neox-20B
+## Step by step in code
 
 TODO
 
