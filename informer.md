@@ -26,8 +26,7 @@ Modeling the full joint conditional distribution of  high dimensional data can g
 Based on the vanilla Transformer ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)), Informer employs two major improvements. To understand these improvements, let's recall the drawbacks of the vanilla Transformer:
 
 1. **Quadratic computation of canonical self-attention:** The vanilla Transformer has computational complexity of $O(T^2 D)$ where $T$ is the time series length and $D$ is the dimension of the hidden states. For long sequence time-series forecasting (also known as the _LSTF problem_), this might be really computationally expensive. To solve this problem, Informer employs a new self-attention mechanism called _ProbSparse_ attention, which has $O(T \log T)$ time and space complexity.
-
-2. **Memory bottleneck when stacking layers:** When stacking $N$ encoder/decoder layers, the vanilla Transformer has  memory usage of $O(N T^2)$, which limits the model's capacity for long sequences. Informer uses a _Distilling_ operation, for reducing the input size between layers into its half slice. By doing so, it reduces the whole memory usage to be $O(N\cdot T \log T)$.
+1. **Memory bottleneck when stacking layers:** When stacking $N$ encoder/decoder layers, the vanilla Transformer has  memory usage of $O(N T^2)$, which limits the model's capacity for long sequences. Informer uses a _Distilling_ operation, for reducing the input size between layers into its half slice. By doing so, it reduces the whole memory usage to be $O(N\cdot T \log T)$.
 
 As you can see, the motivation for the Informer is similar to Longformer ([Beltagy et el., 2020](https://arxiv.org/abs/2004.05150)), Sparse Transformer ([Child et al., 2019](https://arxiv.org/abs/1904.10509)) and other NLP papers for reducing the quadratic complexity of the self-attention **when the input sequence is long**. Now, let's dive into _ProbSparse_ attention and the _Distilling_ operation with code examples. 
 
@@ -346,8 +345,7 @@ print('mv_train_example["target"].shape =', mv_train_example["target"].shape)
 >>> mv_train_example["target"].shape = (862, 17448)
 ```
 
-## Define the model
-
+## Define the Model
 
 Next, let's instantiate a model. The model will be trained from scratch, hence we won't use the `from_pretrained` method here, but rather randomly initialize the model from a [`config`](https://huggingface.co/docs/transformers/main/en/model_doc/informer#transformers.InformerConfig).
 
@@ -366,7 +364,8 @@ from gluonts.time_feature import get_lags_for_frequency
 lags_sequence = get_lags_for_frequency(freq)
 print(lags_sequence)
 
->>> [1, 2, 3, 4, 5, 6, 7, 23, 24, 25, 47, 48, 49, 71, 72, 73, 95, 96, 97, 119, 120, 121, 143, 144, 145, 167, 168, 169, 335, 336, 337, 503, 504, 505, 671, 672, 673, 719, 720, 721]
+>>> [1, 2, 3, 4, 5, 6, 7, 23, 24, 25, 47, 48, 49, 71, 72, 73, 95, 96, 97, 119, 120, 
+     121, 143, 144, 145, 167, 168, 169, 335, 336, 337, 503, 504, 505, 671, 672, 673, 719, 720, 721]
 ```
 
 This means that we'll look back up to 721 hours (~30 days) for each time step, as additional features. However, the resulting feature vector will end up being `len(lags_sequence)*num_of_variates` which for our case will be 34480! This is not going to work so we will use our own sensible lags.
@@ -380,7 +379,7 @@ from gluonts.time_feature import time_features_from_frequency_str
 time_features = time_features_from_frequency_str(freq)
 print(time_features)
 
->>>    [<function hour_of_day at 0x7f3809539240>, <function day_of_week at 0x7f3809539360>, <function day_of_month at 0x7f3809539480>, <function day_of_year at 0x7f38095395a0>]
+>>> [<function hour_of_day at 0x7f3809539240>, <function day_of_week at 0x7f3809539360>, <function day_of_month at 0x7f3809539480>, <function day_of_year at 0x7f38095395a0>]
 ```
 
 In this case, there are four additional features, namely "hour of day", "day of week", "day of month" and "day of year". This means that for each time step, we'll add these features as a scalar values. For example, consider the timestamp `2015-01-01 01:00:01`. The four additional features will be:
@@ -438,7 +437,6 @@ model.config.distribution_output
 
 >>> 'student_t'
 ```
-
 
 ## Define Transformations
 
@@ -768,7 +766,7 @@ The decoder inputs consist of `future_values`, `future_observed_mask` and `futur
 
 We refer to the [docs](https://huggingface.co/docs/transformers/model_doc/time_series_transformer#transformers.TimeSeriesTransformerForPrediction.forward.past_values) for a detailed explanation for each of them.
 
-## Forward pass
+## Forward Pass
 
 Let's perform a single forward pass with the batch we just created:
 
@@ -880,7 +878,6 @@ plt.show()
 ![png](output_62_0.png)
     
 
-
 ## Inference
 
 At inference time, it's recommended to use the `generate()` method for autoregressive generation, similar to NLP models.
@@ -921,7 +918,6 @@ forecasts_[0].shape
 
 >>> (1, 100, 48, 862)
 ```
-
 
 We'll stack them vertically, to get forecasts for all time-series in the test dataset (just in case there are more time series in the test set):
 
@@ -987,12 +983,8 @@ plt.ylabel("sMAPE")
 plt.show()
 ```
 
-
-    
 ![png](output_73_0.png)
     
-
-
 To plot the prediction for any time series variate with respect the ground truth test data we define the following helper:
 
 
@@ -1043,8 +1035,6 @@ For example:
 plot(0, 344)
 ```
 
-
-    
 ![png](output_77_0.png)
     
 
