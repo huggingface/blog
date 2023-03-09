@@ -1,6 +1,12 @@
 name: YAML schema validator
 on: 
   push:
+    branches:
+      - main
+    paths: 
+      - "_*.yml"
+      - "schemas/_*.schema.yml"
+  pull_request:
     paths: 
       - "_*.yml"
       - "schemas/_*.schema.yml"
