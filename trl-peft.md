@@ -14,14 +14,14 @@ authors:
 	<h5><i> Fine-tuning 20B LLMs with RLHF on a 24GB consumer GPU </i></h5>
 </h1>
 
-We are excited to officially release the integration of `trl` with `peft` to make LLM fine-tuning with Reinforcement Learning more accessible to anyone! In this post, we explain why this is a competitive alternative to existing fine-tuning approaches in this article. 
+We are excited to officially release the integration of `trl` with `peft` to make Large Language Model (LLM) fine-tuning with Reinforcement Learning more accessible to anyone! In this post, we explain why this is a competitive alternative to existing fine-tuning approaches in this article. 
 
-Note peft is a general tool that can be applied to many ML use-cases but it’s particularly interesting for RLHF as this method is especially memory-hungry!
+Note `peft` is a general tool that can be applied to many ML use-cases but it’s particularly interesting for RLHF as this method is especially memory-hungry!
 ## Introduction
 
 ### LLMs & RLHF
 
-Large Language Models combined with RLHF (Reinforcement Learning with Human Feedback) seems to be the next go-to approach for building very powerful AI systems such as ChatGPT.
+LLMs combined with RLHF (Reinforcement Learning with Human Feedback) seems to be the next go-to approach for building very powerful AI systems such as ChatGPT.
 
 Training a language model with RLHF typically involves the following three steps:
 
@@ -29,21 +29,20 @@ Training a language model with RLHF typically involves the following three steps
 
 2- Collect a human annotated dataset and train a reward model
 
-3- Fine-tune the LLM with the reward model and this dataset using RL (e.g. PPO)
+3- Further fine-tune the LLM from step 1 with the reward model and this dataset using RL (e.g. PPO)
 
 | ![openai_diagram](assets/133_trl_peft/openai-diagram.png) |
 |:--:|
-| <b>Overview of ChatGPT training protocol, from the data collection to the RL part</b>|
+| <b>Overview of OpenAI's InstructGPT training protocol, from the data collection to the RL part. It is generally believed that a similar training protocol underlies ChatGPT as well.</b>|
 
-The choice of the base LLM is quite crucial here. At this time of writing, the “best” open-source LLM that can be used “out-of-the-box” for many tasks are instruction finetuned LLMs. Notable models being:  bloomz , flan-t5 , flan-ul2 opt-iml llama-i (Upon non commercial license). The downside of these models is their model size. To get a decent model, you need at least to play with 10B+ scale models which would require up to 40GB GPU memory in full precision, just to fit the model on a single GPU device without doing any training at all!
+The choice of the base LLM is quite crucial here. At this time of writing, the “best” open-source LLM that can be used “out-of-the-box” for many tasks are instruction finetuned LLMs. Notable models being:  [BLOOMZ](https://huggingface.co/bigscience/bloomz), [Flan-T5](https://huggingface.co/google/flan-t5-xxl), [Flan-UL2](https://huggingface.co/google/flan-ul2), and  [OPT-IML](https://huggingface.co/facebook/opt-iml-max-30b). The downside of these models is their model size. To get a decent model, you need at least to play with 10B+ scale models which would require up to 40GB GPU memory in full precision, just to fit the model on a single GPU device without doing any training at all!
 
-### What is `trl`?
+### What is TRL?
 
-The `trl` library aims at making the RL step much easier and more flexible so that anyone can fine-tune their Language Model using RL on their custom dataset and training setup. Among many other application, you can use this algorithm to fine-tune a model to generate [positive movie reviews](https://huggingface.co/docs/trl/sentiment_tuning), do [controlled generation](https://github.com/lvwerra/trl/blob/main/examples/sentiment/notebooks/gpt2-sentiment-control.ipynb) or [making the model less toxic](https://huggingface.co/docs/trl/detoxifying_a_lm). 
+The `trl` library aims at making the RL step much easier and more flexible so that anyone can fine-tune their LM using RL on their custom dataset and training setup. Among many other application, you can use this algorithm to fine-tune a model to generate [positive movie reviews](https://huggingface.co/docs/trl/sentiment_tuning), do [controlled generation](https://github.com/lvwerra/trl/blob/main/examples/sentiment/notebooks/gpt2-sentiment-control.ipynb) or [make the model less toxic](https://huggingface.co/docs/trl/detoxifying_a_lm). 
 
-The `trl` library aims to make the RL step much easier and more flexible so that anyone can fine-tune their Language Model using RL on their custom dataset and training setup. Among many other applications, you can use this algorithm to fine-tune a model to generate [positive movie reviews](https://huggingface.co/docs/trl/sentiment_tuning), do [controlled generation](https://github.com/lvwerra/trl/blob/main/examples/sentiment/notebooks/gpt2-sentiment-control.ipynb) or [make the model less toxic](https://huggingface.co/docs/trl/detoxifying_a_lm). 
 
-Using `trl` you can run one of the most popular Deep RL algorithms, PPO, in a distributed manner or on a single device! We leverage `accelerate` from the Hugging Face ecosystem to make this possible, so that any user can scale up the experiments up to an interesting scale.
+Using `trl` you can run one of the most popular Deep RL algorithms, [PPO](https://huggingface.co/deep-rl-course/unit8/introduction?fw=pt), in a distributed manner or on a single device! We leverage `accelerate` from the Hugging Face ecosystem to make this possible, so that any user can scale up the experiments up to an interesting scale.
 
 Fine-tuning a language model with RL follows roughly the protocol detailed below. This requires having 2 copies of the original model; to avoid the active model deviating too much from its original behavior / distribution you need to compute the logits of the reference model at each optimization step. This adds a hard constraint on the optimization process as you need always at least two copies of the model per GPU device. If the model grows in size, it becomes more and more tricky to fit the setup on a single GPU.
 
@@ -51,7 +50,7 @@ Fine-tuning a language model with RL follows roughly the protocol detailed below
 |:--:|
 | <b>Overview of the PPO training setup in TRL.</b>|
 
-In trl you can also use shared layers between reference and active models to avoid entire copies. A concrete example of this feature is showcased in the detoxification example.
+In `trl` you can also use shared layers between reference and active models to avoid entire copies. A concrete example of this feature is showcased in the detoxification example.
 
 ### Training at scale
 
@@ -87,11 +86,11 @@ In 2021, a paper called LoRA: Low-Rank Adaption of Large Language Models demonst
 |:--:|
 | <b>The output activations original (frozen) pretrained weights (right) are augmented by a low rank adapter comprised of weight matrics A and B. </b>|
 
-This technique allows the fine tuning of LLMs using a fraction of the memory requirements. There are, however, some downsides. The forward and backwards take approximately twice as low, due to the additional matrix multiplications in the adapter layers.
+This technique allows the fine tuning of LLMs using a fraction of the memory requirements. There are, however, some downsides. The forward and backwards take approximately twice as slow, due to the additional matrix multiplications in the adapter layers.
 
-### What is `peft` ?
+### What is PEFT?
 
-[Parameter-Efficient Fine-Tuning (PEFT)](https://github.com/huggingface/peft), is a Hugging Face library, created to support the creation and fine tuning of adapter layers on LLMs. Peft is seamlessly integrated with 🤗 Accelerate for large scale models leveraging DeepSpeed and Big Model Inference.
+[Parameter-Efficient Fine-Tuning (PEFT)](https://github.com/huggingface/peft), is a Hugging Face library, created to support the creation and fine tuning of adapter layers on LLMs.`peft` is seamlessly integrated with 🤗 Accelerate for large scale models leveraging DeepSpeed and Big Model Inference.
 
 The library suppord many state of the art models and has an extensive set of examples, including:
 
