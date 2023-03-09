@@ -42,7 +42,7 @@ Using `trl` you can run PPO algorithm, one popular RL method, in a distributed m
 Fine-tuning a language model with RL follows roughly the protocol detailed below. This requires having 2 copies of the original model; to avoid the active model to deviate too much from its original behavior / distribution you need to compute the logits of the reference model at each optimization step. This adds a hard constraint on the optimization process as you need always at least two copies of the model per GPU device. If the model grows in size, it becomes more and more tricky to fit the setup on a single GPU.
 
 <figure>
-  <img src="https://huggingface.co/datasets/trl-internal-testing/example-images/blob/main/images/trl_overview.png" alt="Trulli" style="width:80%">
+  <img src="https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/images/trl_overview.png" alt="Trulli" style="width:80%">
   <figcaption>verview of the PPO training setup in TRL.</figcaption>
 </figure>
 
