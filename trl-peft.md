@@ -19,6 +19,9 @@ authors:
 We are excited to officially release the integration of `trl` with `peft` to make Large Language Model (LLM) fine-tuning with Reinforcement Learning more accessible to anyone! In this post, we explain why this is a competitive alternative to existing fine-tuning approaches. 
 
 Note `peft` is a general tool that can be applied to many ML use-cases but it’s particularly interesting for RLHF as this method is especially memory-hungry!
+
+If you want to directly deep dive into the code, check out the example scripts directly on the [documentation page of TRL](https://huggingface.co/docs/trl/main/en/sentiment_tuning_peft).
+
 ## Introduction
 
 ### LLMs & RLHF
