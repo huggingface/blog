@@ -39,7 +39,7 @@ The choice of the base LLM is quite crucial here. At this time of writing, the �
 
 ### What is TRL?
 
-The `trl` library aims at making the RL step much easier and more flexible so that anyone can fine-tune their LM using RL on their custom dataset and training setup. Among many other application, you can use this algorithm to fine-tune a model to generate [positive movie reviews](https://huggingface.co/docs/trl/sentiment_tuning), do [controlled generation](https://github.com/lvwerra/trl/blob/main/examples/sentiment/notebooks/gpt2-sentiment-control.ipynb) or [make the model less toxic](https://huggingface.co/docs/trl/detoxifying_a_lm). 
+The `trl` library aims at making the RL step much easier and more flexible so that anyone can fine-tune their LM using RL on their custom dataset and training setup. Among many other applications, you can use this algorithm to fine-tune a model to generate [positive movie reviews](https://huggingface.co/docs/trl/sentiment_tuning), do [controlled generation](https://github.com/lvwerra/trl/blob/main/examples/sentiment/notebooks/gpt2-sentiment-control.ipynb) or [make the model less toxic](https://huggingface.co/docs/trl/detoxifying_a_lm). 
 
 
 Using `trl` you can run one of the most popular Deep RL algorithms, [PPO](https://huggingface.co/deep-rl-course/unit8/introduction?fw=pt), in a distributed manner or on a single device! We leverage `accelerate` from the Hugging Face ecosystem to make this possible, so that any user can scale up the experiments up to an interesting scale.
@@ -54,11 +54,11 @@ In `trl` you can also use shared layers between reference and active models to a
 
 ### Training at scale
 
-Training at scale can be challenging. The first challenge is fitting the model and its optimizer states on the available GPU devices. The amount of GPU memory a single parameter takes in the memory depends on its “precision” (or more specifically `dtype`). The most common `dtype` being `float32` (32-bit), `float16`, and `bfloat16` (16-bit). More recently “exotic” precisions are supported out-of-the-box for training and inference (with certain conditions and constraints) such as `int8` (8-bit). In a nutshell, to load a model on a GPU device each billion parameter costs 4GB in float32 precision, 2GB in float16 and 1GB in int8. If you would like to learn more about this topic, have a look at this blogpost which dives deeper: [https://huggingface.co/blog/hf-bitsandbytes-integration](https://huggingface.co/blog/hf-bitsandbytes-integration).
+Training at scale can be challenging. The first challenge is fitting the model and its optimizer states on the available GPU devices. The amount of GPU memory a single parameter takes depends on its “precision” (or more specifically `dtype`). The most common `dtype` being `float32` (32-bit), `float16`, and `bfloat16` (16-bit). More recently “exotic” precisions are supported out-of-the-box for training and inference (with certain conditions and constraints) such as `int8` (8-bit). In a nutshell, to load a model on a GPU device each billion parameters costs 4GB in float32 precision, 2GB in float16, and 1GB in int8. If you would like to learn more about this topic, have a look at this blogpost which dives deeper: [https://huggingface.co/blog/hf-bitsandbytes-integration](https://huggingface.co/blog/hf-bitsandbytes-integration).
 
 If you use an Adam optimizer (which is the most popular optimizer as we are writing this blogpost), each parameter needs 3 times its allocated memory (e.g. if your model needs 1GB GPU memory, the full Adam optimizer of the model would require 3GB GPU memory).
 
-Many techniques have been adopted to tackle these challenges at scale. Most familiar paradigms being Pipeline Parallelism, Tensor Parallelism and Data Parallelism.
+Many techniques have been adopted to tackle these challenges at scale. The most familiar paradigms are Pipeline Parallelism, Tensor Parallelism, and Data Parallelism.
 
 | ![model-parallelism](assets/133_trl_peft/model-parallelism.png) |
 |:--:|
@@ -66,7 +66,7 @@ Many techniques have been adopted to tackle these challenges at scale. Most fami
 
 With data parallelism the same model is hosted in parallel on several machines and each instance is fed a different data batch. This is the most straight forward parallelism strategy essentially replicating the single-GPU case and is already supported by `trl`. With Pipeline and Tensor Parallelism the model itself is distributed across machines: in Pipeline Parallelism the model is split layer-wise, whereas Tensor Parallelism splits tensor operations across GPUs (e.g. matrix multiplications). With these Model Parallelism strategies, you need to shard the model weights across many devices which requires you to define a communication protocol of the activations and gradients across processes. This is not trivial to implement and might need the adoption of some frameworks such as [`Megatron-DeepSpeed`](https://github.com/microsoft/Megatron-DeepSpeed) or [`Nemo`](https://github.com/NVIDIA/NeMo) .  It is also important to highlight other tools that are essential for scaling LLM training such as Adaptive activation checkpointing and fused kernels. Further reading about parallelism paradigms can be found [here](https://huggingface.co/docs/transformers/v4.17.0/en/parallelism).
 
-Therefore, we asked ourselves the following question: how far can we go with just data parallelism? Can we use existing tools to fit super-large training processes (including active model, reference model and optimizer states) in a single device? The answers appears to be yes. The main ingredients being: adapters and 8bit matrix multiplication! Let us cover these topics in the next sections:
+Therefore, we asked ourselves the following question: how far can we go with just data parallelism? Can we use existing tools to fit super-large training processes (including active model, reference model and optimizer states) in a single device? The answer appears to be yes. The main ingredients are: adapters and 8bit matrix multiplication! Let us cover these topics in the following sections:
 
 ### 8-bit matrix multiplication
 
@@ -78,7 +78,7 @@ Efficient 8-bit matrix multiplication is a method that has been first introduced
 
 In a nutshell, you can reduce the size of a full-precision model by 4 (thus, by 2 for half-precision models) if you use 8-bit matrix multiplication. 
 
-### Low rank adaptation and peft
+### Low rank adaptation and PEFT
 
 In 2021, a paper called LoRA: Low-Rank Adaption of Large Language Models demonstrated that fine tuning of large language models can be performed by freezing the pretrained weights and creating low rank versions of the query and value layers attention matrices. These low rank matrices have far fewer parameters than the original model, enabling fine-tuning with far less GPU memory. The authors demonstrate that fine-tuning of low-rank adapters achieved comparable results to fine-tuning the full pretrained model.
 
@@ -86,7 +86,7 @@ In 2021, a paper called LoRA: Low-Rank Adaption of Large Language Models demonst
 |:--:|
 | <b>The output activations original (frozen) pretrained weights (right) are augmented by a low rank adapter comprised of weight matrics A and B. </b>|
 
-This technique allows the fine tuning of LLMs using a fraction of the memory requirements. There are, however, some downsides. The forward and backwards take approximately twice as slow, due to the additional matrix multiplications in the adapter layers.
+This technique allows the fine tuning of LLMs using a fraction of the memory requirements. There are, however, some downsides. The forward and backward pass is approximately twice as slow, due to the additional matrix multiplications in the adapter layers.
 
 ### What is PEFT?
 
@@ -103,7 +103,7 @@ The library suppord many state of the art models and has an extensive set of exa
 - Sequence classification
 - Token classification
 
-The library is still under extensive and active development, with many upcoming features to be annouced in the coming months.
+The library is still under extensive and active development, with many upcoming features to be announced in the coming months.
 
 ## Fine-tuning 20B parameter models with Low Rank Adapters 
 
@@ -117,7 +117,7 @@ Now that the prerequisites are out of the way, let us go through the entire pipe
 
 A “free-lunch” memory reduction of a LLM using `transformers` is to load your model in 8-bit precision using the method described in LLM.int8. This can be performed by simply adding the flag `load_in_8bit=True` when calling the `from_pretrained` method (you can read more about that [here](https://huggingface.co/docs/transformers/main/en/main_classes/quantization)).
 
-As stated in the previous section, a “hack” to compute the amount of GPU memory you should need to load your model is to think in terms of “billions of parameters”. As one byte needs 8 bits, you need 4GB per billion parameter for a full-precision model (32bit = 4bytes), 2GB per billion parameter for a half-precision model and 1GB per billion parameter for an int8 model.
+As stated in the previous section, a “hack” to compute the amount of GPU memory you should need to load your model is to think in terms of “billions of parameters”. As one byte needs 8 bits, you need 4GB per billion parameters for a full-precision model (32bit = 4bytes), 2GB per billion parameters for a half-precision model, and 1GB per billion parameters for an int8 model.
 
 So in the first place, let’s just load the active model in 8-bit. Let’s see what we need to do for the second step!
 
@@ -125,9 +125,9 @@ So in the first place, let’s just load the active model in 8-bit. Let’s see 
 
 | ![step2](assets/133_trl_peft/step2.png) |
 |:--:|
-| <b> You easily add adapters on a frozen 8-bit model thus reduce the memory requirements of the optimizer states, byt training a small fraction of parameters</b>|
+| <b> You easily add adapters on a frozen 8-bit model thus reducing the memory requirements of the optimizer states, by training a small fraction of parameters</b>|
 
-The second step is to load adapters inside the model and make these adapters trainable. This enables a drastic reduction of the amount of trainable weights that are needed for the active model. This step leverages peft library and can be performed with a few lines of code. Note that once the adapters are trained, you can easily push them to the Hub to use them later.
+The second step is to load adapters inside the model and make these adapters trainable. This enables a drastic reduction of the number of trainable weights that are needed for the active model. This step leverages `peft` library and can be performed with a few lines of code. Note that once the adapters are trained, you can easily push them to the Hub to use them later.
 
 ### Step 3: Use the same model to get the reference and active logits
 
@@ -136,7 +136,7 @@ The second step is to load adapters inside the model and make these adapters tra
 | <b> You can easily disable and enable adapters using the `peft` API.</b>|
 
 
-Since adapters can be deactivated, we can use the same model to get the reference and active logits for PPO, without having to create two copies of the same model! This leverages a feature in peft library, which is the disable_adapters context manager. 
+Since adapters can be deactivated, we can use the same model to get the reference and active logits for PPO, without having to create two copies of the same model! This leverages a feature in `peft` library, which is the `disable_adapters` context manager. 
 
 
 ### Overview of the training scripts:
@@ -151,14 +151,14 @@ Overall there were three key steps and training scripts:
 
 We tested these steps on a 24GB NVIDIA 4090 GPU. While it is possible to perform the entire training run on a 24 GB GPU, the full training runs were untaken on a single A100 on the 🤗 reseach cluster.
 
-The first step in the training process was fine-tuning on the pretrained model. Typically this would require several high-end 80GB A100 GPUs, so we chose to training a low rank adapter. We treated this a Causal Language modeling setting and trained for one epoch of examples from the [imdb](https://huggingface.co/datasets/imdb) dataset, which features movie reviews and labels indicating whether they are of positive of negative sentiment.
+The first step in the training process was fine-tuning on the pretrained model. Typically this would require several high-end 80GB A100 GPUs, so we chose to train a low rank adapter. We treated this as a Causal Language modeling setting and trained for one epoch of examples from the [imdb](https://huggingface.co/datasets/imdb) dataset, which features movie reviews and labels indicating whether they are of positive or negative sentiment.
 
 
 | ![loss-20b](assets/133_trl_peft/loss-20b.png) |
 |:--:|
 | <b> Training loss during one epoch of training of a gpt-neox-20b model for one epoch on the imdb dataset</b>|
 
-In order to take the adapted model and perform further finetuning with RL, we first needed to combine the adapted weights, this was achieved by loading the pretrained model and adapter in 16-bit floating point and summary with weight matrices (with the appropirate scaling applied).
+In order to take the adapted model and perform further finetuning with RL, we first needed to combine the adapted weights, this was achieved by loading the pretrained model and adapter in 16-bit floating point and summary with weight matrices (with the appropriate scaling applied).
 
 Finally, we could then fine-tune another low-rank adapter, on top of the frozen imdb-finetuned model. We use an [imdb sentiment classifier](https://huggingface.co/lvwerra/distilbert-imdb) to provide the rewards for the RL algorithm.
 
@@ -174,7 +174,7 @@ We have implemented a new functionality in `trl` that allows users to fine-tune 
 
 We have identified some interesting directions for the next steps to push the limits of this integration
 
-- *How this will scale in multi-GPU setting?* We’ll mainly explore how this integration will scale with respect to the number of GPUs, whether it is possible to apply Data Parallelism out-of-the-box or if it’ll require some new feature adoption on any of the involved libraries.
+- *How this will scale in the multi-GPU setting?* We’ll mainly explore how this integration will scale with respect to the number of GPUs, whether it is possible to apply Data Parallelism out-of-the-box or if it’ll require some new feature adoption on any of the involved libraries.
 - *What tools can we leverage to increase training speed?* We have observed that the main downside of this integration is the overall training speed. In the future we would be keen to explore the possible directions to make the training much faster.
 
 ## References
