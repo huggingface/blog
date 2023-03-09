@@ -2,12 +2,12 @@
 title: "Fine-tuning 20B LLMs with RLHF on a 24GB consumer GPU" 
 thumbnail: assets/133_trl_peft/thumbnail.png
 authors:
-- edbeeching
-- ybelkada
-- lvwerra
-- smangrul
-- lewtun
-- kashif
+- user: edbeeching
+- user: ybelkada
+- user: lvwerra
+- user: smangrul
+- user: lewtun
+- user: kashif
 ---
 
 <h1>
