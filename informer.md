@@ -33,7 +33,7 @@ As you can see, the motivation for the Informer is similar to Longformer ([Belta
 
 ### ProbSparse Attention
 
-The main idea of ProbSparse is that the canonical self-attention scores form a long-tail distribution, where the "active" queries lie in the "head" scores and "lazy" queries lie in the "tail" area. By "active" query we mean a query $q_i$ such that the dot-product $<q_i,k_i>$ **contributes** to the major attention, whereas a "lazy" query forms a dot-product which generates  **trivial** attention. Here, $q_i$ and $k_i$ are the $i$-th rows in $Q$ and $K$ attention matrices respectively. 
+The main idea of ProbSparse is that the canonical self-attention scores form a long-tail distribution, where the "active" queries lie in the "head" scores and "lazy" queries lie in the "tail" area. By "active" query we mean a query $q_i$ such that the dot-product $\langle q_i,k_i \rangle$ **contributes** to the major attention, whereas a "lazy" query forms a dot-product which generates  **trivial** attention. Here, $q_i$ and $k_i$ are the $i$-th rows in $Q$ and $K$ attention matrices respectively. 
 
 ![informer_full_vs_sparse_attention](images/informer_full_vs_sparse_attention.png)
 vanilla self attention vs ProbSparse attention (todo source + caption)
@@ -57,7 +57,7 @@ where the $Q_{reduce}$ matrix only selects the Top-$u$ "active" quries. Here, $u
 This is good! but how can we select the $u$ "active" queries to create $Q_{reduce}$?  let's define the _Query Sparsity Measurement_.
 
 #### Query Sparsity Measurement
-Query Sparsity Measurement $M(q_i, K)$ is used for selecting the $u$ "active" queries $q_i$ in $Q$ to create $Q_{reduce}$. In theory, the dominant $<q_i,k_i>$ pairs encourage the "active" $q_i$'s  probability distribution **away** from the uniform distribution as can be seen in the figure below. Hence, the [KL divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) between the actual queries distribution and the uniform distribution is used to define the sparsity measurement. 
+Query Sparsity Measurement $M(q_i, K)$ is used for selecting the $u$ "active" queries $q_i$ in $Q$ to create $Q_{reduce}$. In theory, the dominant $\langle q_i,k_i \rangle$ pairs encourage the "active" $q_i$'s  probability distribution **away** from the uniform distribution as can be seen in the figure below. Hence, the [KL divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) between the actual queries distribution and the uniform distribution is used to define the sparsity measurement. 
 
 ![informer_probsparse](images/informer_probsparse.png)
 
@@ -71,7 +71,7 @@ $$
 
 The important thing to understand here is when $M(q_i, K)$ is larger, the query $q_i$ should be in $Q_{reduce}$ and vice versa.
 
-But how can we calculate the term $q_ik_j^T$ in non-quadratic time? Recall that most of the dot-product $<q_i, k_i>$ generate either way the trivial attention (i.e. long-tail distribution property), so it enough to randomly sample subset of keys from $K$, which will be called in the code `K_sample`.
+But how can we calculate the term $q_ik_j^T$ in non-quadratic time? Recall that most of the dot-product $\langle q_i,k_i \rangle$ generate either way the trivial attention (i.e. long-tail distribution property), so it enough to randomly sample subset of keys from $K$, which will be called in the code `K_sample`.
 
 Now, we are ready to see the code of `probsparse_attention`:
     
