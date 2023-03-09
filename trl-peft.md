@@ -27,7 +27,11 @@ Training a language model with RLHF typically involves the following three steps
 
 3- Fine-tune the LLM with the reward model and this dataset using RL (e.g. PPO)
 
-The choice of the LLM is quite crucial here, it is known that Chat-GPT uses an instruction-finetuned model (instruct-GPT3) as a base model before applying the RL step. At this time of writing, the “best” open-source instruction finetuned LLMs are, `bloomz` , `flan-t5` , `flan-ul2` `opt-iml` `llama-i` (Upon non commercial license). The downside of these models is their model size. To get a decent model, you need at least to play with 10B+ scale models which would require up to 40GB GPU memory in full precision, just to fit the model on a single GPU device without doing any training at all!
+| ![openai_diagrap](/blog/assets/133_trl_peft/openai-diagram.png) |
+|:--:|
+| <b>Overview of ChatGPT training protocol, from the data collection to the RL part</b>|
+
+The choice of the base LLM is quite crucial here. At this time of writing, the “best” open-source LLM that can be used “out-of-the-box” for many tasks are instruction finetuned LLMs. Notable models being:  bloomz , flan-t5 , flan-ul2 opt-iml llama-i (Upon non commercial license). The downside of these models is their model size. To get a decent model, you need at least to play with 10B+ scale models which would require up to 40GB GPU memory in full precision, just to fit the model on a single GPU device without doing any training at all!
 
 ### What is `trl`?
 
@@ -56,7 +60,7 @@ Many techniques have been adopted to tackle these challenges at scale. Most fami
 |:--:|
 | <b>Image Credits to <a href="https://towardsdatascience.com/distributed-parallel-training-data-parallelism-and-model-parallelism-ec2d234e3214 " rel="noopener" target="_blank" >this blogpost</a> </b>|
 
-With data parallelism the same model is hosted in parallel on several machines and each instance is fed a different data batch. This is the most straight forward parallelism strategy essentially replicating the single-GPU case and is already supported by `trl`. With Pipeline and Tensor Parallelism the model itself if distributed across machines: in Pipeline Parallelism this model is split layer wise whereas Tensor Parallelism splits tensor operations across GPUs (e.g. matrix multiplications). With these Model Parallelism strategies you need to shard the model weights across many devices which requires you to define a communication protocol of the activations and gradients across process. This is not trivial to implement and might need the adoption of some frameworks such as `[DeepSpeed](https://github.com/microsoft/DeepSpeed)` or `[Nemo](https://github.com/NVIDIA/NeMo)` . Further reading about parallelism paradigms can be found [here](https://huggingface.co/docs/transformers/v4.17.0/en/parallelism).
+With data parallelism the same model is hosted in parallel on several machines and each instance is fed a different data batch. This is the most straight forward parallelism strategy essentially replicating the single-GPU case and is already supported by `trl`. With Pipeline and Tensor Parallelism the model itself is distributed across machines: in Pipeline Parallelism this model is split layer-wise whereas Tensor Parallelism splits tensor operations across GPUs (e.g. matrix multiplications). With these Model Parallelism strategies, you need to shard the model weights across many devices which requires you to define a communication protocol of the activations and gradients across processes. This is not trivial to implement and might need the adoption of some frameworks such as [Megatron-DeepSpeed](https://github.com/microsoft/Megatron-DeepSpeed) or `[Nemo](https://github.com/NVIDIA/NeMo)` .  It is also important to highlight other tools that are essential for scaling LLM training such as Adaptive activation checkpointing and fused kernels. Further reading about parallelism paradigms can be found [here](https://huggingface.co/docs/transformers/v4.17.0/en/parallelism).
 
 Therefore, we asked ourselves the following question: how far can we go with the just data parallelism? Can we use existing tools to fit super-large training processes (including active model, reference model and optimizer states) in a single device? The answers appears to be yes. The main ingredients being: adapters and 8bit matrix multiplication! Let us cover these topics in the next sections:
 
@@ -72,11 +76,18 @@ In a nutshell, you can reduce the size of a full-precision model by 4 (thus, by 
 
 ### Low rank adaptation and peft
 
-TODO
+In 2021, a paper called LoRA: Low-Rank Adaption of Large Language Models demonstrated that fine tuning of large language models can be performed by freezing the pretrained weights and creating low rank versions of the query and value layers attention matrices. These low rank matrices have far fewer parameters than the original model, enabling fine-tuning with far less GPU memory. The authors demonstrate that fine-tuning of low-rank adapters achieved comparable results to fine tuning the full pretrained model.
+
+| ![lora-gif](/blog/assets/133_trl_peft/lora-animated.gif) |
+|:--:|
+| <b>Animated diagram explaining LoRA (Low Rank Adapters). The input hidden states (`x`) are passed through the original pretrained weights as well as through the adapters. The resulting hidden states is obtained by summing both output.</b>|
+
 
 ### What is `peft` ?
 
-TODO
+🤗 [`peft` library](https://github.com/huggingface/peft), provides the latest Parameter-Efficient Fine-tuning techniques seamlessly integrated with 🤗 Transformers and 🤗 Accelerate. This enables using the most popular and performant models from Transformers coupled with the simplicity and scalability of Accelerate. 
+Among many other examples, you can fine-tune large models including many modalities such as `flan-t5-xxl`, `opt`, etc. Some notable examples being the ability the fine-tune opt-6.7B (15GB in float16) in a single GPU on Google Colab (16GB) using `peft` library together with `bitsandbytes` library.
+You can also easily share your adapters with the community using this library, therefore avoiding sharing your entire model weights. We belive that integrating `peft` with `trl` will enable the community to fine-tune large models in a consumer-type device using RLHF.
 
 ## Summary 
 
