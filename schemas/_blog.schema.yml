@@ -1,6 +1,6 @@
 list(include('blog'))
 ---
-# It's possible to use regex to validate dates like June 8, 2020 or a whole lot of other things, if needed
+# It's possible to use regex to validate dates like "June 8, 2020" or a whole lot of other things, if needed
 blog:
   local: str(required=False)
   external: str(required=False)
