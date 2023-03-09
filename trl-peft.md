@@ -31,7 +31,7 @@ Training a language model with RLHF typically involves the following three steps
 
 3- Further fine-tune the LLM from step 1 with the reward model and this dataset using RL (e.g. PPO)
 
-| ![openai_diagram](assets/133_trl_peft/openai-diagram.png) |
+| ![openai_diagram](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/openai-diagram.png) |
 |:--:|
 | <b>Overview of OpenAI's InstructGPT training protocol, from the data collection to the RL part. It is generally believed that a similar training protocol underlies ChatGPT as well.</b>|
 
@@ -60,7 +60,7 @@ If you use an AdamW optimizer each parameter needs 8 bytes (e.g. if your model h
 
 Many techniques have been adopted to tackle these challenges at scale. The most familiar paradigms are Pipeline Parallelism, Tensor Parallelism, and Data Parallelism.
 
-| ![model-parallelism](assets/133_trl_peft/model-parallelism.png) |
+| ![model-parallelism](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/model-parallelism.png) |
 |:--:|
 | <b>Image Credits to <a href="https://towardsdatascience.com/distributed-parallel-training-data-parallelism-and-model-parallelism-ec2d234e3214 " rel="noopener" target="_blank" >this blogpost</a> </b>|
 
@@ -72,7 +72,7 @@ Therefore, we asked ourselves the following question: how far can we go with jus
 
 Efficient 8-bit matrix multiplication is a method that has been first introduced in the paper LLM.int8() and aims to solve the performance degradation issue when quantizing large-scale models. The proposed method  breaks down the matrix multiplications that are applied under the hood in Linear layers in two stages: the outlier hidden states part that is going to be performed in float16 & the “non-outlier” part that is performed in int8. 
 
-| ![8bit-matmul](assets/133_trl_peft/8bit-matmul.png) |
+| ![8bit-matmul](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/8bit-matmul.png) |
 |:--:|
 | <b>Efficient 8-bit matrix multiplication is a method that has been first introduced in the paper LLM.int8() and aims to solve the performance degradation issue when quantizing large-scale models. The proposed method  breaks down the matrix multiplications that are applied under the hood in Linear layers in two stages: the outlier hidden states part that is going to be performed in float16 & the “non-outlier” part that is performed in int8. </b>|
 
@@ -82,7 +82,7 @@ In a nutshell, you can reduce the size of a full-precision model by 4 (thus, by 
 
 In 2021, a paper called LoRA: Low-Rank Adaption of Large Language Models demonstrated that fine tuning of large language models can be performed by freezing the pretrained weights and creating low rank versions of the query and value layers attention matrices. These low rank matrices have far fewer parameters than the original model, enabling fine-tuning with far less GPU memory. The authors demonstrate that fine-tuning of low-rank adapters achieved comparable results to fine-tuning the full pretrained model.
 
-| ![lora-gif](assets/133_trl_peft/lora-animated.gif) |
+| ![lora-gif](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/lora-animated.gif) |
 |:--:|
 | <b>The output activations original (frozen) pretrained weights (right) are augmented by a low rank adapter comprised of weight matrics A and B. </b>|
 
@@ -111,7 +111,7 @@ Now that the prerequisites are out of the way, let us go through the entire pipe
 
 ### Step 1: Load your active model in 8-bit precision
 
-| ![step1](assets/133_trl_peft/step1.png) |
+| ![step1](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/step1.png) |
 |:--:|
 | <b> Loading a model in 8-bit precision can save up to 4x memory compared to full precision model</b>|
 
@@ -123,7 +123,7 @@ So in the first place, let’s just load the active model in 8-bit. Let’s see 
 
 ### Step 2: Add extra trainable adapters using `peft`
 
-| ![step2](assets/133_trl_peft/step2.png) |
+| ![step2](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/step2.png) |
 |:--:|
 | <b> You easily add adapters on a frozen 8-bit model thus reducing the memory requirements of the optimizer states, by training a small fraction of parameters</b>|
 
@@ -131,7 +131,7 @@ The second step is to load adapters inside the model and make these adapters tra
 
 ### Step 3: Use the same model to get the reference and active logits
 
-| ![step3](assets/133_trl_peft/step3.png) |
+| ![step3](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/step3.png) |
 |:--:|
 | <b> You can easily disable and enable adapters using the `peft` API.</b>|
 
@@ -154,7 +154,7 @@ We tested these steps on a 24GB NVIDIA 4090 GPU. While it is possible to perform
 The first step in the training process was fine-tuning on the pretrained model. Typically this would require several high-end 80GB A100 GPUs, so we chose to train a low rank adapter. We treated this as a Causal Language modeling setting and trained for one epoch of examples from the [imdb](https://huggingface.co/datasets/imdb) dataset, which features movie reviews and labels indicating whether they are of positive or negative sentiment.
 
 
-| ![loss-20b](assets/133_trl_peft/loss-20b.png) |
+| ![loss-20b](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/loss-20b.png) |
 |:--:|
 | <b> Training loss during one epoch of training of a gpt-neox-20b model for one epoch on the imdb dataset</b>|
 
@@ -162,7 +162,7 @@ In order to take the adapted model and perform further finetuning with RL, we fi
 
 Finally, we could then fine-tune another low-rank adapter, on top of the frozen imdb-finetuned model. We use an [imdb sentiment classifier](https://huggingface.co/lvwerra/distilbert-imdb) to provide the rewards for the RL algorithm.
 
-| ![reward-20b](assets/133_trl_peft/reward-20b.png) |
+| ![reward-20b](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/reward-20b.png) |
 |:--:|
 | <b> Mean of rewards when RL fine-tuning of a peft adapted 20B parameter model to generate positive movie reviews.</b>|
 
