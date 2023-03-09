@@ -1904,3 +1904,12 @@
     - guide
     - partnerships
     - multimodal
+
+- local: trl-peft
+  title: "Fine-tuning 20B LLMs with RLHF on a 24GB consumer GPU"
+  author: edbeeching
+  thumbnail: /blog/assets/133_trl_peft/thumbnail.png
+  date: March 9, 2023
+  tags:
+    - rl
+    - nlp
