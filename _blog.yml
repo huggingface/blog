@@ -1913,3 +1913,16 @@
   tags:
     - rl
     - nlp
+
+- local: fl-with-flower
+  title: "Federated Learning using Hugging Face and Flower"
+  author: charlesbvll
+  thumbnail: /blog/assets/fl-with-flower/thumbnail.gif
+  date: March 10, 2023
+  tags:
+    - nlp
+    - transformers
+    - guide
+    - flower
+    - federated-learning
+    - fl
