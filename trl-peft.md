@@ -144,7 +144,12 @@ TODO
 
 ## Conclusion
 
-TODO
+We have implemented a new functionality in `trl` that allows users to fine-tune large language models using RLHF at a reasonable cost by leveraging the `peft` and `bitsandbytes` libraries. We demonstrated that fine-tuning `gpt-neo-x`  (40GB in `bfloat16`!) in a 24GB consumer GPU is doable, and we expect that this integration will be widely used by the community to fine-tune larger models utilizing RLHF and share great artifacts.
+
+We identified some interesting directions for the next steps to push the limits of this integration
+
+- *How this will scale in multi-GPU setting?* We’ll mainly explore how this integration will scale with respect to the number of GPUs, whether it is possible to apply Data Parallelism out-of-the-box or if it’ll require some new feature adoption on any of the involved libraries.
+- *What tool can we leverage to increase training speed?* We have observed that the main downside of this integration is the overall training speed. In the future we would be keen to explore the possible directions to make the training much faster.
 
 ## References
 
