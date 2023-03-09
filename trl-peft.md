@@ -1,6 +1,6 @@
 ---
 title: "Fine-tuning 20B LLMs with RLHF on a 24GB consumer GPU" 
-thumbnail: /blog/assets/133_trl_peft/thumbnail.png
+thumbnail: assets/133_trl_peft/thumbnail.png
 authors:
 - edbeeching
 ---
@@ -27,7 +27,7 @@ Training a language model with RLHF typically involves the following three steps
 
 3- Fine-tune the LLM with the reward model and this dataset using RL (e.g. PPO)
 
-| ![openai_diagrap](/blog/assets/133_trl_peft/openai-diagram.png) |
+| ![openai_diagram](assets/133_trl_peft/openai-diagram.png) |
 |:--:|
 | <b>Overview of ChatGPT training protocol, from the data collection to the RL part</b>|
 
@@ -56,7 +56,7 @@ If you use an Adam optimizer (which is the most popular optimizer as we are writ
 Many techniques have been adopted to tackle these challenges at scale. Most familiar paradigms being Pipeline Parallelism, Tensor Parallelism and Data Parallelism.
 
 
-| ![model-parallelism](/blog/assets/133_trl_peft/model-parallelism.png) |
+| ![model-parallelism](assets/133_trl_peft/model-parallelism.png) |
 |:--:|
 | <b>Image Credits to <a href="https://towardsdatascience.com/distributed-parallel-training-data-parallelism-and-model-parallelism-ec2d234e3214 " rel="noopener" target="_blank" >this blogpost</a> </b>|
 
@@ -68,7 +68,7 @@ Therefore, we asked ourselves the following question: how far can we go with the
 
 Efficient 8-bit matrix multiplication is a method that has been first introduced in the paper [LLM.int8()](https://arxiv.org/abs/2208.07339) and aims to solve the performance degradation issue when quantizing large-scale models. The proposed method  breaks down the matrix multiplications that are applied under the hood in Linear layers in two stages: the outlier hidden states part that is going to be performed in float16 & the “non-outlier” part that is performed in int8. 
 
-| ![8bit-matmul](/blog/assets/133_trl_peft/8bit-matmul.png) |
+| ![8bit-matmul](assets/133_trl_peft/8bit-matmul.png) |
 |:--:|
 | <b>Efficient 8-bit matrix multiplication is a method that has been first introduced in the paper [LLM.int8()](https://arxiv.org/abs/2208.07339) and aims to solve the performance degradation issue when quantizing large-scale models. The proposed method  breaks down the matrix multiplications that are applied under the hood in Linear layers in two stages: the outlier hidden states part that is going to be performed in float16 & the “non-outlier” part that is performed in int8.</b>|
 
@@ -78,7 +78,7 @@ In a nutshell, you can reduce the size of a full-precision model by 4 (thus, by 
 
 In 2021, a paper called LoRA: Low-Rank Adaption of Large Language Models demonstrated that fine tuning of large language models can be performed by freezing the pretrained weights and creating low rank versions of the query and value layers attention matrices. These low rank matrices have far fewer parameters than the original model, enabling fine-tuning with far less GPU memory. The authors demonstrate that fine-tuning of low-rank adapters achieved comparable results to fine tuning the full pretrained model.
 
-| ![lora-gif](/blog/assets/133_trl_peft/lora-animated.gif) |
+| ![lora-gif](assets/133_trl_peft/lora-animated.gif) |
 |:--:|
 | <b>Animated diagram explaining LoRA (Low Rank Adapters). The input hidden states (`x`) are passed through the original pretrained weights as well as through the adapters. The resulting hidden states is obtained by summing both output.</b>|
 
@@ -95,7 +95,7 @@ Let us go through the entire pipeline step by step, and explain with figures how
 
 ### Step 1: Load your active model in 8-bit precision
 
-| ![step1](/blog/assets/133_trl_peft/step1.png) |
+| ![step1](assets/133_trl_peft/step1.png) |
 |:--:|
 | <b> Loading a model in 8-bit precision can save up to 4x memory compared to full precision model</b>|
 
@@ -107,7 +107,7 @@ So in the first place, let’s just load the active model in 8-bit. Let’s see 
 
 ### Step 2: Add extra trainable adapters using `peft`
 
-| ![step2](/blog/assets/133_trl_peft/step2.png) |
+| ![step2](assets/133_trl_peft/step2.png) |
 |:--:|
 | <b> You easily add adapters on a frozen 8-bit model thus reduce the memory requirements of the optimizer states, byt training a small fraction of parameters</b>|
 
@@ -115,7 +115,7 @@ The second step is to load adapters inside the model and make these adapters tra
 
 ### Step 3: Use the same model to get the reference and active logits
 
-| ![step3](/blog/assets/133_trl_peft/step3.png) |
+| ![step3](assets/133_trl_peft/step3.png) |
 |:--:|
 | <b> You can easily disable and enable adapters using the `peft` API.</b>|
 
