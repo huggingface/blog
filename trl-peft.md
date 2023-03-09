@@ -10,11 +10,13 @@ authors:
 - user: kashif
 ---
 
-<h1>
-	<h5><i> Fine-tuning 20B LLMs with RLHF on a 24GB consumer GPU </i></h5>
-</h1>
+# Fine-tuning 20B LLMs with RLHF on a 24GB consumer GPU 
 
-We are excited to officially release the integration of `trl` with `peft` to make Large Language Model (LLM) fine-tuning with Reinforcement Learning more accessible to anyone! In this post, we explain why this is a competitive alternative to existing fine-tuning approaches in this article. 
+<!-- {blog_metadata} -->
+<!-- {authors} -->
+
+
+We are excited to officially release the integration of `trl` with `peft` to make Large Language Model (LLM) fine-tuning with Reinforcement Learning more accessible to anyone! In this post, we explain why this is a competitive alternative to existing fine-tuning approaches. 
 
 Note `peft` is a general tool that can be applied to many ML use-cases but it’s particularly interesting for RLHF as this method is especially memory-hungry!
 ## Introduction
@@ -33,9 +35,9 @@ Training a language model with RLHF typically involves the following three steps
 
 | ![openai_diagram](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/openai-diagram.png) |
 |:--:|
-| <b>Overview of OpenAI's InstructGPT training protocol, from the data collection to the RL part. It is generally believed that a similar training protocol underlies ChatGPT as well.</b>|
+| <b>Overview of ChatGPT's training protocol, from the data collection to the RL part. Source: <a href="https://openai.com/blog/chatgpt" rel="noopener" target="_blank" >OpenAI's ChatGPT blogpost</a>  </b>|
 
-The choice of the base LLM is quite crucial here. At this time of writing, the “best” open-source LLM that can be used “out-of-the-box” for many tasks are instruction finetuned LLMs. Notable models being:  [BLOOMZ](https://huggingface.co/bigscience/bloomz), [Flan-T5](https://huggingface.co/google/flan-t5-xxl), [Flan-UL2](https://huggingface.co/google/flan-ul2), and  [OPT-IML](https://huggingface.co/facebook/opt-iml-max-30b). The downside of these models is their model size. To get a decent model, you need at least to play with 10B+ scale models which would require up to 40GB GPU memory in full precision, just to fit the model on a single GPU device without doing any training at all!
+The choice of the base LLM is quite crucial here. At this time of writing, the “best” open-source LLM that can be used “out-of-the-box” for many tasks are instruction finetuned LLMs. Notable models being:  [BLOOMZ](https://huggingface.co/bigscience/bloomz), [Flan-T5](https://huggingface.co/google/flan-t5-xxl), [Flan-UL2](https://huggingface.co/google/flan-ul2), and  [OPT-IML](https://huggingface.co/facebook/opt-iml-max-30b). The downside of these models is their size. To get a decent model, you need at least to play with 10B+ scale models which would require up to 40GB GPU memory in full precision, just to fit the model on a single GPU device without doing any training at all!
 
 ### What is TRL?
 
@@ -62,9 +64,9 @@ Many techniques have been adopted to tackle these challenges at scale. The most 
 
 | ![model-parallelism](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/model-parallelism.png) |
 |:--:|
-| <b>Image Credits to <a href="https://towardsdatascience.com/distributed-parallel-training-data-parallelism-and-model-parallelism-ec2d234e3214 " rel="noopener" target="_blank" >this blogpost</a> </b>|
+| <b>Image Credits to <a href="https://towardsdatascience.com/distributed-parallel-training-data-parallelism-and-model-parallelism-ec2d234e3214" rel="noopener" target="_blank" >this blogpost</a> </b>|
 
-With data parallelism the same model is hosted in parallel on several machines and each instance is fed a different data batch. This is the most straight forward parallelism strategy essentially replicating the single-GPU case and is already supported by `trl`. With Pipeline and Tensor Parallelism the model itself is distributed across machines: in Pipeline Parallelism the model is split layer-wise, whereas Tensor Parallelism splits tensor operations across GPUs (e.g. matrix multiplications). With these Model Parallelism strategies, you need to shard the model weights across many devices which requires you to define a communication protocol of the activations and gradients across processes. This is not trivial to implement and might need the adoption of some frameworks such as [`Megatron-DeepSpeed`](https://github.com/microsoft/Megatron-DeepSpeed) or [`Nemo`](https://github.com/NVIDIA/NeMo) .  It is also important to highlight other tools that are essential for scaling LLM training such as Adaptive activation checkpointing and fused kernels. Further reading about parallelism paradigms can be found [here](https://huggingface.co/docs/transformers/v4.17.0/en/parallelism).
+With data parallelism the same model is hosted in parallel on several machines and each instance is fed a different data batch. This is the most straight forward parallelism strategy essentially replicating the single-GPU case and is already supported by `trl`. With Pipeline and Tensor Parallelism the model itself is distributed across machines: in Pipeline Parallelism the model is split layer-wise, whereas Tensor Parallelism splits tensor operations across GPUs (e.g. matrix multiplications). With these Model Parallelism strategies, you need to shard the model weights across many devices which requires you to define a communication protocol of the activations and gradients across processes. This is not trivial to implement and might need the adoption of some frameworks such as [`Megatron-DeepSpeed`](https://github.com/microsoft/Megatron-DeepSpeed) or [`Nemo`](https://github.com/NVIDIA/NeMo). It is also important to highlight other tools that are essential for scaling LLM training such as Adaptive activation checkpointing and fused kernels. Further reading about parallelism paradigms can be found [here](https://huggingface.co/docs/transformers/v4.17.0/en/parallelism).
 
 Therefore, we asked ourselves the following question: how far can we go with just data parallelism? Can we use existing tools to fit super-large training processes (including active model, reference model and optimizer states) in a single device? The answer appears to be yes. The main ingredients are: adapters and 8bit matrix multiplication! Let us cover these topics in the following sections:
 
@@ -74,7 +76,7 @@ Efficient 8-bit matrix multiplication is a method that has been first introduced
 
 | ![8bit-matmul](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/8bit-matmul.png) |
 |:--:|
-| <b>Efficient 8-bit matrix multiplication is a method that has been first introduced in the paper LLM.int8() and aims to solve the performance degradation issue when quantizing large-scale models. The proposed method  breaks down the matrix multiplications that are applied under the hood in Linear layers in two stages: the outlier hidden states part that is going to be performed in float16 & the “non-outlier” part that is performed in int8. </b>|
+| <b>Efficient 8-bit matrix multiplication is a method that has been first introduced in the paper [LLM.int8()](https://arxiv.org/abs/2208.07339) and aims to solve the performance degradation issue when quantizing large-scale models. The proposed method  breaks down the matrix multiplications that are applied under the hood in Linear layers in two stages: the outlier hidden states part that is going to be performed in float16 & the “non-outlier” part that is performed in int8. </b>|
 
 In a nutshell, you can reduce the size of a full-precision model by 4 (thus, by 2 for half-precision models) if you use 8-bit matrix multiplication. 
 
@@ -84,7 +86,7 @@ In 2021, a paper called LoRA: Low-Rank Adaption of Large Language Models demonst
 
 | ![lora-gif](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/lora-animated.gif) |
 |:--:|
-| <b>The output activations original (frozen) pretrained weights (right) are augmented by a low rank adapter comprised of weight matrics A and B. </b>|
+| <b>The output activations original (frozen) pretrained weights (left) are augmented by a low rank adapter comprised of weight matrics A and B (right). </b>|
 
 This technique allows the fine tuning of LLMs using a fraction of the memory requirements. There are, however, some downsides. The forward and backward pass is approximately twice as slow, due to the additional matrix multiplications in the adapter layers.
 
@@ -97,7 +99,7 @@ The library suppord many state of the art models and has an extensive set of exa
 - Causal language modeling
 - Conditional generation
 - Image classification
-- 8-bit int training
+- 8-bit int8 training
 - Low Rank adaption of Dreambooth models
 - Semantic segmentation
 - Sequence classification
