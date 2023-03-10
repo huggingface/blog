@@ -130,7 +130,7 @@ def probsparse_attention(query_states, key_states, value_states, sampling_factor
     return attn_output, attn_scores
 ```
     
-We did it! please be aware that this is only a partial implementation of the `probsparse_attention`, and the full implementation can be found in 🤗 Transformers.
+We did it! Please be aware that this is only a partial implementation of the `probsparse_attention`, and the full implementation can be found in 🤗 Transformers.
 
 ### Distilling
 
