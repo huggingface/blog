@@ -175,7 +175,7 @@ The Informer model in [now available](https://huggingface.co/docs/transformers/m
 
 ## Set-up Environment
 
-First, let's install the necessary libraries: 🤗 Transformers, 🤗 Datasets, 🤗 Evaluate,  🤗 Accelerate and [GluonTS](https://github.com/awslabs/gluonts).
+First, let's install the necessary libraries: 🤗 Transformers, 🤗 Datasets, 🤗 Evaluate, 🤗 Accelerate and [GluonTS](https://github.com/awslabs/gluonts).
 
 As we will show, GluonTS will be used for transforming the data to create features as well as for creating appropriate training, validation and test batches.
 
