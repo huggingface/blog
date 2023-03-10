@@ -46,7 +46,7 @@ The main idea of ProbSparse is that the canonical self-attention scores form a l
 
 Given the idea of "active" and "lazy" queries, the ProbSparse attention selects the "active" queries, and creates a reduced query matrix $Q_{reduced}$ which is used to calculate the attention weights in $O(T \log T)$. Let's see this more in detail with a code example. 
     
-Recall the canonical self attention formula:
+Recall the canonical self-attention formula:
 
 $$
 \textrm{Attention}(Q, K, V) = \textrm{softmax}(\frac{QK^T}{\sqrt{d_k}} )V
