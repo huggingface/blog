@@ -361,7 +361,7 @@ Next, let's instantiate a model. The model will be trained from scratch, hence w
 We specify a couple of additional parameters to the model:
 - `prediction_length` (in our case, `48` hours): this is the horizon that the decoder of the Informer will learn to predict for;
 - `context_length`: the model will set the `context_length` (input of the encoder) equal to the `prediction_length`, if no `context_length` is specified;
-- `lags` for a given frequency: these specify efficient "look back" mechanism, where we concatenate values from the past to the current values as additional features, e.g. for a `Daily` frequency we might consider a look back of `[1, 7, 30, ...]` or for `Minute` data we might consider `[1, 30, 60, 60*24, ...]` etc.;
+- `lags` for a given frequency: these specify an efficient "look back" mechanism, where we concatenate values from the past to the current values as additional features, e.g. for a `Daily` frequency we might consider a look back of `[1, 7, 30, ...]` or for `Minute` data we might consider `[1, 30, 60, 60*24, ...]` etc.;
 - the number of time features: in our case, this will be `5` as we'll add `HourOfDay`, `DayOfWeek`, ..., and `Age` features.
 
 Let us check the default lags provided by GluonTS for the given frequency ("hourly"):
