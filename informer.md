@@ -33,20 +33,20 @@ Modeling the full joint conditional distribution of high dimensional data can ge
 
 Based on the vanilla Transformer ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)), Informer employs two major improvements. To understand these improvements, let's recall the drawbacks of the vanilla Transformer:
 
-1. **Quadratic computation of canonical self-attention:** The vanilla Transformer has a computational complexity of $O(T^2 D)$ where $T$ is the time series length and $D$ is the dimension of the hidden states. For long sequence time-series forecasting (also known as the _LSTF problem_), this might be really computationally expensive. To solve this problem, Informer employs a new self-attention mechanism called _ProbSparse_ attention, which has $O(T \log T)$ time and space complexity.
-1. **Memory bottleneck when stacking layers:** When stacking $N$ encoder/decoder layers, the vanilla Transformer has a memory usage of $O(N T^2)$, which limits the model's capacity for long sequences. Informer uses a _Distilling_ operation, for reducing the input size between layers into its half slice. By doing so, it reduces the whole memory usage to be $O(N\cdot T \log T)$.
+1. **Quadratic computation of canonical self-attention:** The vanilla Transformer has a computational complexity of \\(O(T^2 D)\\) where \\(T\\) is the time series length and \\(D\\) is the dimension of the hidden states. For long sequence time-series forecasting (also known as the _LSTF problem_), this might be really computationally expensive. To solve this problem, Informer employs a new self-attention mechanism called _ProbSparse_ attention, which has \\(O(T \log T)\\) time and space complexity.
+1. **Memory bottleneck when stacking layers:** When stacking \\(N\\) encoder/decoder layers, the vanilla Transformer has a memory usage of \\(O(N T^2)\\), which limits the model's capacity for long sequences. Informer uses a _Distilling_ operation, for reducing the input size between layers into its half slice. By doing so, it reduces the whole memory usage to be \\(O(N\cdot T \log T)\\).
 
 As you can see, the motivation for the Informer model is similar to Longformer ([Beltagy et el., 2020](https://arxiv.org/abs/2004.05150)), Sparse Transformer ([Child et al., 2019](https://arxiv.org/abs/1904.10509)) and other NLP papers for reducing the quadratic complexity of the self-attention mechanism **when the input sequence is long**. Now, let's dive into _ProbSparse_ attention and the _Distilling_ operation with code examples. 
 
 ### ProbSparse Attention
 
-The main idea of ProbSparse is that the canonical self-attention scores form a long-tail distribution, where the "active" queries lie in the "head" scores and "lazy" queries lie in the "tail" area. By "active" query we mean a query $q_i$ such that the dot-product $\langle q_i,k_i \rangle$ **contributes** to the major attention, whereas a "lazy" query forms a dot-product which generates **trivial** attention. Here, $q_i$ and $k_i$ are the $i$-th rows in $Q$ and $K$ attention matrices respectively. 
+The main idea of ProbSparse is that the canonical self-attention scores form a long-tail distribution, where the "active" queries lie in the "head" scores and "lazy" queries lie in the "tail" area. By "active" query we mean a query \\(q_i\\) such that the dot-product \\(\langle q_i,k_i \rangle\\) **contributes** to the major attention, whereas a "lazy" query forms a dot-product which generates **trivial** attention. Here, \\(q_i\\) and \\(k_i\\) are the \\(i\\)-th rows in \\(Q\\) and \\(K\\) attention matrices respectively. 
 
 | ![informer_full_vs_sparse_attention](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/informer/informer_full_vs_sparse_attention.png) |
 |:--:|
 | Vanilla self attention vs ProbSparse attention from [Autoformer](https://wuhaixu2016.github.io/pdf/NeurIPS2021_Autoformer.pdf) |
 
-Given the idea of "active" and "lazy" queries, the ProbSparse attention selects the "active" queries, and creates a reduced query matrix $Q_{reduced}$ which is used to calculate the attention weights in $O(T \log T)$. Let's see this more in detail with a code example. 
+Given the idea of "active" and "lazy" queries, the ProbSparse attention selects the "active" queries, and creates a reduced query matrix \\(Q_{reduced}\\) which is used to calculate the attention weights in \\(O(T \log T)\\). Let's see this more in detail with a code example. 
     
 Recall the canonical self-attention formula:
 
@@ -54,18 +54,18 @@ $$
 \textrm{Attention}(Q, K, V) = \textrm{softmax}(\frac{QK^T}{\sqrt{d_k}} )V
 $$
 
-Where $Q\in \mathbb{R}^{L_Q \times d}, K\in \mathbb{R}^{L_K \times d}, V\in \mathbb{R}^{L_V \times d}$. Note that in practice, the input length of queries and keys are typically equivalent in the self-attention computation, i.e. $L_Q = L_K = T$ where $T$ is the time series length. Therefore, the $QK^T$ multiplication takes $O(T^2 \cdot d)$ computational complexity. In ProbSparse attention, our goal is to create a new $Q_{reduce}$ matrix and define:
+Where \\(Q\in \mathbb{R}^{L_Q \times d}\\), \\(K\in \mathbb{R}^{L_K \times d}\\) and \\(V\in \mathbb{R}^{L_V \times d}\\). Note that in practice, the input length of queries and keys are typically equivalent in the self-attention computation, i.e. \\(L_Q = L_K = T\\) where \\(T\\) is the time series length. Therefore, the \\(QK^T\\) multiplication takes \\(O(T^2 \cdot d)\\) computational complexity. In ProbSparse attention, our goal is to create a new \\(Q_{reduce}\\) matrix and define:
 
 $$
 \textrm{ProbSparseAttention}(Q, K, V) = \textrm{softmax}(\frac{Q_{reduce}K^T}{\sqrt{d_k}} )V
 $$
 
-where the $Q_{reduce}$ matrix only selects the Top-$u$ "active" queries. Here, $u = c \cdot \log L_Q$ and $c$ called the _sampling factor_ hyperparameter for the ProbSparse attention. Since $Q_{reduce}$ selects only the Top-$u$ queries, it's size is $c\cdot \log L_Q \times d$, so the multiplication $Q_{reduce}K^T$ takes only $O(L_K \log L_Q) = O(T \log T)$.
+where the \\(Q_{reduce}\\) matrix only selects the Top-\\(u\\) "active" queries. Here, \\(u = c \cdot \log L_Q\\) and \\(c\\) called the _sampling factor_ hyperparameter for the ProbSparse attention. Since \\(Q_{reduce}\\) selects only the Top-\\(u\\) queries, it's size is \\(c\cdot \log L_Q \times d\\), so the multiplication \\(Q_{reduce}K^T\\) takes only \\(O(L_K \log L_Q) = O(T \log T)\\).
 
-This is good! But how can we select the $u$ "active" queries to create $Q_{reduce}$? Let's define the _Query Sparsity Measurement_.
+This is good! But how can we select the \\(u\\) "active" queries to create \\(Q_{reduce}\\)? Let's define the _Query Sparsity Measurement_.
 
 #### Query Sparsity Measurement
-Query Sparsity Measurement $M(q_i, K)$ is used for selecting the $u$ "active" queries $q_i$ in $Q$ to create $Q_{reduce}$. In theory, the dominant $\langle q_i,k_i \rangle$ pairs encourage the "active" $q_i$'s probability distribution **away** from the uniform distribution as can be seen in the figure below. Hence, the [KL divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) between the actual queries distribution and the uniform distribution is used to define the sparsity measurement. 
+Query Sparsity Measurement \\(M(q_i, K)\\) is used for selecting the \\(u\\) "active" queries \\(q_i\\) in \\(Q\\) to create \\(Q_{reduce}\\). In theory, the dominant \\(\langle q_i,k_i \rangle\\) pairs encourage the "active" \\(q_i\\)'s probability distribution **away** from the uniform distribution as can be seen in the figure below. Hence, the [KL divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) between the actual queries distribution and the uniform distribution is used to define the sparsity measurement. 
 
 | ![informer_probsparse](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/informer/informer_probsparse.png) | 
 |:--:|
@@ -79,9 +79,9 @@ M(q_i, K) = \max_j \frac{q_ik_j^T}{\sqrt{d}}-\frac{1}{L_k} \sum_{j=1}^{L_k}\frac
 $$
 
 
-The important thing to understand here is when $M(q_i, K)$ is larger, the query $q_i$ should be in $Q_{reduce}$ and vice versa.
+The important thing to understand here is when \\(M(q_i, K)\\) is larger, the query \\(q_i\\) should be in \\(Q_{reduce}\\) and vice versa.
 
-But how can we calculate the term $q_ik_j^T$ in non-quadratic time? Recall that most of the dot-product $\langle q_i,k_i \rangle$ generate either way the trivial attention (i.e. long-tail distribution property), so it is enough to randomly sample a subset of keys from $K$, which will be called `K_sample` in the code.
+But how can we calculate the term \\(q_ik_j^T\\) in non-quadratic time? Recall that most of the dot-product \\(\langle q_i,k_i \rangle\\) generate either way the trivial attention (i.e. long-tail distribution property), so it is enough to randomly sample a subset of keys from \\(K\\), which will be called `K_sample` in the code.
 
 Now, we are ready to see the code of `probsparse_attention`:
     
@@ -137,7 +137,7 @@ We did it! Please be aware that this is only a partial implementation of the `pr
 ### Distilling
 
 Because of the ProbSparse self-attention, the encoder’s feature map has some redundancy that can be removed. Therefore,
-the distilling operation is used to reduce the input size between encoder layers into its half slice, thus in theory removing this redundancy. In practice, Informer's "distilling" operation just adds 1D convolution layers with max pooling between each of the encoder layers. Let $X_n$ be the output of the $n$-th encoder layer, the distilling operation is then defined as:
+the distilling operation is used to reduce the input size between encoder layers into its half slice, thus in theory removing this redundancy. In practice, Informer's "distilling" operation just adds 1D convolution layers with max pooling between each of the encoder layers. Let \\(X_n\\) be the output of the \\(n\\)-th encoder layer, the distilling operation is then defined as:
 
 
 $$
@@ -168,7 +168,7 @@ def informer_encoder_forward(x_input, num_encoder_layers=3, distil=True):
     return output
 ```
     
-By reducing the input of each layer by two, we get a memory usage of $O(N\cdot T \log T)$ instead of $O(N\cdot T^2)$ where $N$ is the number of encoder/decoder layers. This is what we wanted!
+By reducing the input of each layer by two, we get a memory usage of \\(O(N\cdot T \log T)\\) instead of \\(O(N\cdot T^2)\\) where \\(N\\) is the number of encoder/decoder layers. This is what we wanted!
     
 The Informer model in [now available](https://huggingface.co/docs/transformers/main/en/model_doc/informer) in the 🤗 Transformers library, and simply called `InformerModel`. In the sections below, we will show how to train this model on a custom multivariate time-series dataset.
 
