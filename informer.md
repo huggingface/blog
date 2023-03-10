@@ -1,6 +1,6 @@
 ---
 title: "Multivariate Probabilistic Time Series Forecasting with Informer" 
-thumbnail: assets/134_informer/thumbnail.png
+thumbnail: /blog/assets/134_informer/thumbnail.png
 authors:
 - user: elisim
 - user: kashif
@@ -34,8 +34,9 @@ As you can see, the motivation for the Informer is similar to Longformer ([Belta
 
 The main idea of ProbSparse is that the canonical self-attention scores form a long-tail distribution, where the "active" queries lie in the "head" scores and "lazy" queries lie in the "tail" area. By "active" query we mean a query $q_i$ such that the dot-product $\langle q_i,k_i \rangle$ **contributes** to the major attention, whereas a "lazy" query forms a dot-product which generates  **trivial** attention. Here, $q_i$ and $k_i$ are the $i$-th rows in $Q$ and $K$ attention matrices respectively. 
 
-![informer_full_vs_sparse_attention](images/informer_full_vs_sparse_attention.png)
-vanilla self attention vs ProbSparse attention (todo source + caption)
+| ![informer_full_vs_sparse_attention](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/informer/informer_full_vs_sparse_attention.png) |
+|:--:|
+| Vanilla self attention vs ProbSparse attention from [Autoformer](https://wuhaixu2016.github.io/pdf/NeurIPS2021_Autoformer.pdf) |
 
 Given the idea of "active" and "lazy" queries, the ProbSparse attention selects the "active" queries, and creates a reduced query matrix $Q_{reduced}$ which is used to calculate the attention weights in $O(T \log T)$. Let's see this more in detail with a code example. 
     
@@ -51,14 +52,16 @@ $$
 \textrm{ProbSparseAttention}(Q, K, V) = \textrm{softmax}(\frac{Q_{reduce}K^T}{\sqrt{d_k}} )V
 $$
 
-where the $Q_{reduce}$ matrix only selects the Top-$u$ "active" quries. Here, $u = c \cdot \log L_Q$ and $c$ called the _sampling factor_ hyperparameter for the ProbSparse attention. Since $Q_{reduce}$ selects only the Top-$u$ queries, it's size is $c\cdot \log L_Q \times d$, so the multiplication $Q_{reduce}K^T$ takes only $O(L_K \log L_Q) = O(T \log T)$.
+where the $Q_{reduce}$ matrix only selects the Top-$u$ "active" queries. Here, $u = c \cdot \log L_Q$ and $c$ called the _sampling factor_ hyperparameter for the ProbSparse attention. Since $Q_{reduce}$ selects only the Top-$u$ queries, it's size is $c\cdot \log L_Q \times d$, so the multiplication $Q_{reduce}K^T$ takes only $O(L_K \log L_Q) = O(T \log T)$.
 
 This is good! but how can we select the $u$ "active" queries to create $Q_{reduce}$?  let's define the _Query Sparsity Measurement_.
 
 #### Query Sparsity Measurement
 Query Sparsity Measurement $M(q_i, K)$ is used for selecting the $u$ "active" queries $q_i$ in $Q$ to create $Q_{reduce}$. In theory, the dominant $\langle q_i,k_i \rangle$ pairs encourage the "active" $q_i$'s  probability distribution **away** from the uniform distribution as can be seen in the figure below. Hence, the [KL divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) between the actual queries distribution and the uniform distribution is used to define the sparsity measurement. 
 
-![informer_probsparse](images/informer_probsparse.png)
+| ![informer_probsparse](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/informer/informer_probsparse.png) | 
+|:--:|
+| The illustration of ProbSparse Attention from official [repository](https://github.com/zhouhaoyi/Informer2020)|
 
 
 In practice, the measurement is defined as:
@@ -274,7 +277,7 @@ axes.plot(
 plt.show()
 ```
     
-![png](output_22_0.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/informer/output_22_0.png)
     
 
 Let's split up the data:
@@ -860,7 +863,6 @@ for epoch in range(epochs):
     -2877.723876953125
 ```
 
-
 ```python
 # view training
 loss_history = np.array(loss_history).reshape(-1)
@@ -874,8 +876,7 @@ plt.ylabel("nll")
 plt.show()
 ```
 
-    
-![png](output_62_0.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/informer/output_62_0.png)
     
 
 ## Inference
@@ -983,7 +984,7 @@ plt.ylabel("sMAPE")
 plt.show()
 ```
 
-![png](output_73_0.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/informer/output_73_0.png)
     
 To plot the prediction for any time series variate with respect the ground truth test data we define the following helper:
 
@@ -1035,7 +1036,7 @@ For example:
 plot(0, 344)
 ```
 
-![png](output_77_0.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/informer/output_77_0.png)
     
 
 ## Conclusion
