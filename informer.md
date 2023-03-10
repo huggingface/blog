@@ -775,7 +775,7 @@ As can be seen, we don't feed `input_ids` and `attention_mask` to the encoder (a
 
 The decoder inputs consist of `future_values`, `future_observed_mask` and `future_time_features`. The `future_values` can be seen as the equivalent of `decoder_input_ids` in NLP.
 
-We refer to the [docs](https://huggingface.co/docs/transformers/model_doc/time_series_transformer#transformers.TimeSeriesTransformerForPrediction.forward.past_values) for a detailed explanation for each of them.
+We refer to the [docs](https://huggingface.co/docs/transformers/main/en/model_doc/informer#transformers.InformerModel.forward.past_values) for a detailed explanation for each of them.
 
 ## Forward Pass
 
