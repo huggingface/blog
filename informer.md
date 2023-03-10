@@ -344,7 +344,7 @@ mv_train_dataset = train_grouper(train_dataset)
 mv_test_dataset = test_grouper(test_dataset)
 ```
 
-Note that now the target is 2 dimensional, where the first dim is the number of variates (number of time-series) and the second is the time-series values (time dimension): 
+Note that the target is now 2-dimensional, where the first dimension is the number of variates (number of time series) and the second is the time series values (time dimension): 
 
 
 ```python
