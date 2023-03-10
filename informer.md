@@ -135,7 +135,7 @@ We did it! please be aware that this is only a partial implementation of the `pr
 ### Distilling
 
 Because of the ProbSparse self-attention, the encoder’s feature map has some redundancy that can be removed. Therefore,
-the distilling operation is used to reduce the input size between encoder layers into its half slice, thus in theory removing this redundancy. In practice, Informer's "distilling" operation just adds 1D convolution layers with max pooling between each encoder layers. Let $X_n$ be the output of the $n$-th encoder layer, the distilling operation defined as:
+the distilling operation is used to reduce the input size between encoder layers into its half slice, thus in theory removing this redundancy. In practice, Informer's "distilling" operation just adds 1D convolution layers with max pooling between each of the encoder layers. Let $X_n$ be the output of the $n$-th encoder layer, the distilling operation is then defined as:
 
 
 $$
