@@ -3,7 +3,7 @@ title: "Multivariate Probabilistic Time Series Forecasting with Informer"
 thumbnail: /blog/assets/134_informer/thumbnail.png
 authors:
 - user: elisim
-   guest: true
+  guest: true
 - user: nielsr
 - user: kashif
 ---
