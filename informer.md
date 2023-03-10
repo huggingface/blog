@@ -410,7 +410,8 @@ print(dict(additional_features))
 >>> {'hour_of_day': array([-0.45652174]), 'day_of_week': array([0.]), 'day_of_month': array([-0.5]), 'day_of_year': array([-0.5])}
 ```
 
-Note that hours and days are encoded as values between `[-0.5, 0.5]` from GluonTS. For more information about `time_features`, please see [this](https://github.com/awslabs/gluonts/blob/dev/src/gluonts/time_feature/_base.py).
+Note that hours and days are encoded as values between `[-0.5, 0.5]` from GluonTS. For more information about `time_features`, please see [this](https://github.com/awslabs/gluonts/blob/dev/src/gluonts/time_feature/_base.py). Besides those 4 features, we'll also add an "age" feature as we'll see later on in the data transformations.
+
 We now have everything to define the model:
 
 
