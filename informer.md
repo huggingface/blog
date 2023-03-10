@@ -340,8 +340,8 @@ test_grouper = MultivariateGrouper(
     num_test_dates=len(test_dataset) // len(train_dataset), # number of rolling test windows
 )
 
-mv_train_dataset = train_grouper(train_dataset)
-mv_test_dataset = test_grouper(test_dataset)
+multi_variate_train_dataset = train_grouper(train_dataset)
+multi_variate_test_dataset = test_grouper(test_dataset)
 ```
 
 Note that the target is now 2-dimensional, where the first dimension is the number of variates (number of time series) and the second is the time series values (time dimension): 
@@ -739,7 +739,7 @@ def create_test_dataloader(
 train_dataloader = create_train_dataloader(
     config=config,
     freq=freq,
-    data=mv_train_dataset,
+    data=multi_variate_train_dataset,
     batch_size=256,
     num_batches_per_epoch=100,
     num_workers=2,
@@ -748,7 +748,7 @@ train_dataloader = create_train_dataloader(
 test_dataloader = create_test_dataloader(
     config=config,
     freq=freq,
-    data=mv_test_dataset,
+    data=multi_variate_test_dataset,
     batch_size=32,
 )
 ```
@@ -1003,16 +1003,16 @@ def plot(ts_index, mv_index):
     fig, ax = plt.subplots()
 
     index = pd.period_range(
-        start=mv_test_dataset[ts_index][FieldName.START],
-        periods=len(mv_test_dataset[ts_index][FieldName.TARGET]),
-        freq=mv_test_dataset[ts_index][FieldName.START].freq,
+        start=multi_variate_test_dataset[ts_index][FieldName.START],
+        periods=len(multi_variate_test_dataset[ts_index][FieldName.TARGET]),
+        freq=multi_variate_test_dataset[ts_index][FieldName.START].freq,
     ).to_timestamp()
 
     ax.xaxis.set_minor_locator(mdates.HourLocator())
 
     ax.plot(
         index[-2 * prediction_length :],
-        mv_test_dataset[ts_index]["target"][mv_index, -2 * prediction_length :],
+        multi_variate_test_dataset[ts_index]["target"][mv_index, -2 * prediction_length :],
         label="actual",
     )
 
