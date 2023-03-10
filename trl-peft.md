@@ -150,9 +150,9 @@ We will now describe how we trained a 20B parameter [gpt-neox model](https://hug
 
 Overall there were three key steps and training scripts:
 
-1. **[Script](https://github.com/lvwerra/trl/blob/peft-gpt-neox-20b/examples/sentiment/scripts/gpt-neox-20b_peft/s01_cm_finetune_peft_imdb.py)** - Fine tuning a Low Rank Adapter on a frozen 8-bit model for text generation on the imdb dataset.
-2. **[Script](https://github.com/lvwerra/trl/blob/peft-gpt-neox-20b/examples/sentiment/scripts/gpt-neox-20b_peft/s02_merge_peft_adapter.py)** - Merging of the adapter layers into the base model’s weights and storing these on the hub.
-3. **[Script](https://github.com/lvwerra/trl/blob/peft-gpt-neox-20b/examples/sentiment/scripts/gpt-neox-20b_peft/s03_gpt-neo-20b_sentiment_peft.py)** - Sentiment fine-tuning of a Low Rank Adapter to create positive reviews.
+1. **[Script](https://github.com/lvwerra/trl/blob/main/examples/sentiment/scripts/gpt-neox-20b_peft/clm_finetune_peft_imdb.py)** - Fine tuning a Low Rank Adapter on a frozen 8-bit model for text generation on the imdb dataset.
+2. **[Script](https://github.com/lvwerra/trl/blob/main/examples/sentiment/scripts/gpt-neox-20b_peft/merge_peft_adapter.py)** - Merging of the adapter layers into the base model’s weights and storing these on the hub.
+3. **[Script](https://github.com/lvwerra/trl/blob/main/examples/sentiment/scripts/gpt-neox-20b_peft/gpt-neo-20b_sentiment_peft.py)** - Sentiment fine-tuning of a Low Rank Adapter to create positive reviews.
 
 We tested these steps on a 24GB NVIDIA 4090 GPU. While it is possible to perform the entire training run on a 24 GB GPU, the full training runs were untaken on a single A100 on the 🤗 reseach cluster.
 
