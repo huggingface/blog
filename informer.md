@@ -377,7 +377,7 @@ print(lags_sequence)
      121, 143, 144, 145, 167, 168, 169, 335, 336, 337, 503, 504, 505, 671, 672, 673, 719, 720, 721]
 ```
 
-This means that we'll look back up to 721 hours (~30 days) for each time step, as additional features. However, the resulting feature vector will end up being `len(lags_sequence)*num_of_variates` which for our case will be 34480! This is not going to work so we will use our own sensible lags.
+This means that this would look back up to 721 hours (~30 days) for each time step, as additional features. However, the resulting feature vector would end up being of size `len(lags_sequence)*num_of_variates` which for our case will be 34480! This is not going to work so we will use our own sensible lags.
 
 Let us also check the default time features which GluonTS provides us:
 
