@@ -348,10 +348,10 @@ Note that the target is now 2-dimensional, where the first dimension is the numb
 
 
 ```python
-mv_train_example = mv_train_dataset[0]
-print('mv_train_example["target"].shape =', mv_train_example["target"].shape)
+multi_variate_train_example = multi_variate_train_dataset[0]
+print('multi_variate_train_example["target"].shape =', multi_variate_train_example["target"].shape)
 
->>> mv_train_example["target"].shape = (862, 17448)
+>>> multi_variate_train_example["target"].shape = (862, 17448)
 ```
 
 ## Define the Model
