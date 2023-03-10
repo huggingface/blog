@@ -326,7 +326,7 @@ train_dataset.set_transform(partial(transform_start_field, freq=freq))
 test_dataset.set_transform(partial(transform_start_field, freq=freq))
 ```
 
-Now, let's convert the dataset into multivariate time series using `MultivariateGrouper` from GluonTS:
+Now, let's convert the dataset into a multivariate time series using the `MultivariateGrouper` from GluonTS. This grouper will convert the individual 1-dimensional time series into a single 2D matrix.
 
 
 ```python
