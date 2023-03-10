@@ -63,7 +63,7 @@ where the $Q_{reduce}$ matrix only selects the Top-$u$ "active" queries. Here, $
 This is good! But how can we select the $u$ "active" queries to create $Q_{reduce}$? Let's define the _Query Sparsity Measurement_.
 
 #### Query Sparsity Measurement
-Query Sparsity Measurement $M(q_i, K)$ is used for selecting the $u$ "active" queries $q_i$ in $Q$ to create $Q_{reduce}$. In theory, the dominant $\langle q_i,k_i \rangle$ pairs encourage the "active" $q_i$'s  probability distribution **away** from the uniform distribution as can be seen in the figure below. Hence, the [KL divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) between the actual queries distribution and the uniform distribution is used to define the sparsity measurement. 
+Query Sparsity Measurement $M(q_i, K)$ is used for selecting the $u$ "active" queries $q_i$ in $Q$ to create $Q_{reduce}$. In theory, the dominant $\langle q_i,k_i \rangle$ pairs encourage the "active" $q_i$'s probability distribution **away** from the uniform distribution as can be seen in the figure below. Hence, the [KL divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) between the actual queries distribution and the uniform distribution is used to define the sparsity measurement. 
 
 | ![informer_probsparse](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/informer/informer_probsparse.png) | 
 |:--:|
