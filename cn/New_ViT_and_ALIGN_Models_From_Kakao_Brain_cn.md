@@ -53,7 +53,7 @@ Kakao Brain 发布的 ViT 和 ALIGN 模型与 Google 的模型表现相当，某
 
 ViT—Vision Transformer 是谷歌于 2020 年提出的一种视觉模型，类似于文本Transformer架构。这是一种与卷积神经网络不同的视觉方法(AlexNet自2012年以来一直主导视觉任务）。同样表现下，它的计算效率比CNN高达四倍，且具有域不可知性（domain agnostic）。ViT将输入的图像分解成一系列图像块（patch），就像文本 Transformer 输入文本序列一样，然后为每个块提供位置嵌入以学习图像结构。ViT 的性能尤其在于具有出色的性能-计算权衡。谷歌的一些ViT模型是开源的，但其训练使用的JFT-300百万图像-标签对数据集尚未公开发布。Kakao Brain的训练模型是基于公开发布的COYO-Labeled-300M进行训练，对应的ViT模型在各种任务上具有相似表现，其代码、模型和训练数据（COYO-Labeled-300M）完全公开，以便能够进行复现和科学研究。
 
-![New%20ViT%20and%20ALIGN%20Models%20From%20Kakao%20Brain%2096dc66c155824d38814f76b7e882ad2f/vit-architecture.gif](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/132_vit_align/vit-architecture.gif)
+![vit-architecture.gif](https://s3.amazonaws.com/moonup/production/uploads/1678324155638-640816c18dca6cec91cacc42.gif)
 
 谷歌在2021年推出了 ALIGN，它是一种基于“嘈杂”文本–图像数据训练的视觉语言模型，可用于各种视觉和跨模态任务，如文本-图像检索。ALIGN 采用简单的双编码器架构，通过对比损失函数学习图像和文本对，ALIGN 的“嘈杂”训练语料特点包括用语料规模弥补其噪音以及强大的鲁棒性。之前的视觉语言表示学习都是在手动标注的大规模数据集上进行训练，这就需要大量的预先处理和成本。ALIGN 的语料库使用HTML文本(alt-text)数据作为图像的描述，导致数据集不可避免地嘈杂，但更大的数据量（18亿对）使ALIGN能够在各种任务上表现出SoTA水平。Kakao Brain的模型是第一个ALIGN开源版本，它在 COYO 数据集上训练，表现比谷歌的结果更好。
 
