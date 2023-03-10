@@ -1062,4 +1062,4 @@ So the vanilla Transformer still performs best here! In the future, we hope to b
 
 ## Resources
 
-We recommend to check out the [Informer docs](https://huggingface.co/docs/transformers/main/en/model_doc/informer) and the example notebook linked at the top of this blog post.
+We recommend to check out the [Informer docs](https://huggingface.co/docs/transformers/main/en/model_doc/informer) and the [example notebook](https://github.com/huggingface/notebooks/blob/main/examples/multivariate_informer.ipynb) linked at the top of this blog post.
