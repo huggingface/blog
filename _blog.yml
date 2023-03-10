@@ -1914,7 +1914,7 @@
     - rl
     - nlp
 
-- local: time-series-transformers
+- local: informer
   title: "Multivariate Probabilistic Time Series Forecasting with Informer"
   author: elisim
   thumbnail: /blog/assets/134_informer/thumbnail.png
