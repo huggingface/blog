@@ -168,7 +168,7 @@ def informer_encoder_forward(x_input, num_encoder_layers=3, distil=True):
     
 By reducing the input of each layer by two, we get a memory usage for of $O(N\cdot T \log T)$ instead of $O(N\cdot T^2)$ where $N$ is the number of encoder/decoder layers. This is what we wanted!
     
-The Informer model in now available in the 🤗 Transformers library, which simply called `InformerModel`. In the sections below, we will show how to train this model on a custom multivariate time-series dataset.
+The Informer model in now available in the 🤗 Transformers library, and simply called `InformerModel`. In the sections below, we will show how to train this model on a custom multivariate time-series dataset.
 
 
 ## Set-up Environment
