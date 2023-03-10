@@ -40,7 +40,7 @@ As you can see, the motivation for the Informer model is similar to Longformer (
 
 ### ProbSparse Attention
 
-The main idea of ProbSparse is that the canonical self-attention scores form a long-tail distribution, where the "active" queries lie in the "head" scores and "lazy" queries lie in the "tail" area. By "active" query we mean a query $q_i$ such that the dot-product $\langle q_i,k_i \rangle$ **contributes** to the major attention, whereas a "lazy" query forms a dot-product which generates  **trivial** attention. Here, $q_i$ and $k_i$ are the $i$-th rows in $Q$ and $K$ attention matrices respectively. 
+The main idea of ProbSparse is that the canonical self-attention scores form a long-tail distribution, where the "active" queries lie in the "head" scores and "lazy" queries lie in the "tail" area. By "active" query we mean a query $q_i$ such that the dot-product $\langle q_i,k_i \rangle$ **contributes** to the major attention, whereas a "lazy" query forms a dot-product which generates **trivial** attention. Here, $q_i$ and $k_i$ are the $i$-th rows in $Q$ and $K$ attention matrices respectively. 
 
 | ![informer_full_vs_sparse_attention](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/informer/informer_full_vs_sparse_attention.png) |
 |:--:|
