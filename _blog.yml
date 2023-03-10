@@ -1913,3 +1913,12 @@
   tags:
     - rl
     - nlp
+
+- local: time-series-transformers
+  title: "Multivariate Probabilistic Time Series Forecasting with Informer"
+  author: elisim
+  thumbnail: /blog/assets/134_informer/thumbnail.png
+  date: March 10, 2023
+  tags:
+    - guide
+    - research
