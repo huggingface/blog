@@ -809,7 +809,7 @@ print("Loss:", outputs.loss.item())
 >>> Loss: -1071.5718994140625
 ```
 
-Note that the model is returning a loss. This is possible as the decoder automatically shifts the `future_values` one position to the right in order to have the labels. This allows computing a loss between the predicted values and the labels.
+Note that the model is returning a loss. This is possible as the decoder automatically shifts the `future_values` one position to the right in order to have the labels. This allows computing a loss between the predicted values and the labels. The loss is the negative log-likelihood of the predicted distribution with respect to the ground truth values and tends to negative infinity.
 
 Also note that the decoder uses a causal mask to not look into the future as the values it needs to predict are in the `future_values` tensor.
 
