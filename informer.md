@@ -81,7 +81,7 @@ $$
 
 The important thing to understand here is when $M(q_i, K)$ is larger, the query $q_i$ should be in $Q_{reduce}$ and vice versa.
 
-But how can we calculate the term $q_ik_j^T$ in non-quadratic time? Recall that most of the dot-product $\langle q_i,k_i \rangle$ generate either way the trivial attention (i.e. long-tail distribution property), so it enough to randomly sample a subset of keys from $K$, which will be called `K_sample` in the code.
+But how can we calculate the term $q_ik_j^T$ in non-quadratic time? Recall that most of the dot-product $\langle q_i,k_i \rangle$ generate either way the trivial attention (i.e. long-tail distribution property), so it is enough to randomly sample a subset of keys from $K$, which will be called `K_sample` in the code.
 
 Now, we are ready to see the code of `probsparse_attention`:
     
