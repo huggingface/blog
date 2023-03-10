@@ -1,6 +1,6 @@
 ---
 title: "Federated Learning using Hugging Face and Flower" 
-thumbnail: /blog/assets/fl-with-flower/thumbnail.gif
+thumbnail: /blog/assets/fl-with-flower/thumbnail.png
 authors:
 - user: charlesbvll
 ---
