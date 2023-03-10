@@ -1047,5 +1047,4 @@ How do we compare against other models? The [Monash Time Series Repository](http
 |:------------------:|:-----------------:|:--:|:--:|:--:|:--:|:--:|:--:|:---:|:---:|:--:|:--:|:--:|:--:|
 |Traffic Hourly | 1.922	| 1.922	| 2.482 |	2.294|	2.535|	1.281|	1.571	|0.892|	0.825	|1.100|	1.066	| **0.821** | 1.191 |
 
-As can be seen, and perhaps surprising to some, the multivariate forecasts are typically _worst_ than the univariate ones, the reason being the difficulty in estimating the cross-series correlations/relationships. The additional variance added by the estimates often harms the resulting forecasts or the model learns spurious correlations. Multivariate models tend to work well when trained on a lot of data. 
-
+As can be seen, and perhaps surprising to some, the multivariate forecasts are typically _worst_ than the univariate ones, the reason being the difficulty in estimating the cross-series correlations/relationships. The additional variance added by the estimates often harms the resulting forecasts or the model learns spurious correlations. We refer to [this paper](https://openreview.net/forum?id=GpW327gxLTF) for further reading. Multivariate models tend to work well when trained on a lot of data.
