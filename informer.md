@@ -920,7 +920,7 @@ for batch in [next(iter(test_dataloader))]:
 
 The model outputs a tensor of shape (`batch_size`, `number of samples`, `prediction length`, `input_size`). 
 
-In this case, we get `100` possible values for the next `48` hours (for each example in the batch which is of size `1` since we only have a single multivariate time series):
+In this case, we get `100` possible values for the next `48` hours for each of the `862` time series (for each example in the batch which is of size `1` since we only have a single multivariate time series):
 
 
 ```python
