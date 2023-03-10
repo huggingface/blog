@@ -11,6 +11,12 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
+<script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
+
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/multivariate_informer.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
 ## Introduction
 
 Few months ago we introduced the [Time Series Transformer](https://huggingface.co/blog/time-series-transformers), which is the vanilla Transformer ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)), and showed an example for the **univariate** probabilistic forecasting task (i.e. predicting each time series' 1-d distribution individually). In this post we introduce the _Informer_ model ([Zhou, Haoyi, et al., 2021](https://arxiv.org/abs/2012.07436)), AAAI21 best paper which is now available in 🤗 Transformers. We will show how to use the Informer model for the **multivariate** probabilistic forecasting task, i.e., predicting the distribution of a future **vector** of time-series target values.
