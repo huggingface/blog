@@ -60,7 +60,7 @@ $$
 
 where the $Q_{reduce}$ matrix only selects the Top-$u$ "active" queries. Here, $u = c \cdot \log L_Q$ and $c$ called the _sampling factor_ hyperparameter for the ProbSparse attention. Since $Q_{reduce}$ selects only the Top-$u$ queries, it's size is $c\cdot \log L_Q \times d$, so the multiplication $Q_{reduce}K^T$ takes only $O(L_K \log L_Q) = O(T \log T)$.
 
-This is good! but how can we select the $u$ "active" queries to create $Q_{reduce}$?  let's define the _Query Sparsity Measurement_.
+This is good! But how can we select the $u$ "active" queries to create $Q_{reduce}$? Let's define the _Query Sparsity Measurement_.
 
 #### Query Sparsity Measurement
 Query Sparsity Measurement $M(q_i, K)$ is used for selecting the $u$ "active" queries $q_i$ in $Q$ to create $Q_{reduce}$. In theory, the dominant $\langle q_i,k_i \rangle$ pairs encourage the "active" $q_i$'s  probability distribution **away** from the uniform distribution as can be seen in the figure below. Hence, the [KL divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) between the actual queries distribution and the uniform distribution is used to define the sparsity measurement. 
