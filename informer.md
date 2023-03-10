@@ -422,7 +422,7 @@ config = InformerConfig(
     prediction_length=prediction_length,
     # context length:
     context_length=prediction_length * 2,
-    # lags value copied from 1 week past:
+    # lags value copied from 1 week before:
     lags_sequence=[1, 24 * 7],
     # we'll add 5 time features ("hour_of_day", ..., and "age"):
     num_time_features=len(time_features) + 1,
