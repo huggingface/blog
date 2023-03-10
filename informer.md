@@ -252,7 +252,7 @@ validation_example.keys()
 >>> dict_keys(['start', 'target', 'feat_static_cat', 'feat_dynamic_real', 'item_id'])
 ```
 
-The initial values are exactly the same as the corresponding training example. However, this example has `prediction_length=48` additional values compared to the training example. Let us verify it.
+The initial values are exactly the same as the corresponding training example. However, this example has `prediction_length=48` (48 hours, or 2 days) additional values compared to the training example. Let us verify it.
 
 
 ```python
