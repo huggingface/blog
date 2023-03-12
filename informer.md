@@ -672,7 +672,7 @@ def create_train_dataloader(
     )
 
     # the instance splitter will sample a window of
-    # context length + lags + prediction length (from the 366 possible transformed time series)
+    # context length + lags + prediction length (from the 862 possible transformed time series)
     # randomly from within the target time series and return an iterator.
     training_instances = instance_splitter.apply(
         Cyclic(transformed_data)
