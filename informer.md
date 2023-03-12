@@ -44,7 +44,7 @@ The main idea of ProbSparse is that the canonical self-attention scores form a l
 
 | ![informer_full_vs_sparse_attention](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/informer/informer_full_vs_sparse_attention.png) |
 |:--:|
-| Vanilla self attention vs ProbSparse attention from [Autoformer (Wu, Haixu, et al., 2021)](https://wuhaixu2016.github.io/pdf/NeurIPS2021_Autoformer.pdf)
+| Vanilla self attention vs ProbSparse attention from [Autoformer (Wu, Haixu, et al., 2021)](https://wuhaixu2016.github.io/pdf/NeurIPS2021_Autoformer.pdf) |
 
 Given the idea of "active" and "lazy" queries, the ProbSparse attention selects the "active" queries, and creates a reduced query matrix \\(Q_{reduced}\\) which is used to calculate the attention weights in \\(O(T \log T)\\). Let's see this more in detail with a code example. 
     
