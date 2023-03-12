@@ -339,7 +339,7 @@ num_of_variates = len(train_dataset)
 train_grouper = MultivariateGrouper(max_target_dim=num_of_variates)
 test_grouper = MultivariateGrouper(
     max_target_dim=num_of_variates,
-    num_test_dates=len(test_dataset) // len(train_dataset), # number of rolling test windows
+    num_test_dates=len(test_dataset) // num_of_variates, # number of rolling test windows
 )
 
 multi_variate_train_dataset = train_grouper(train_dataset)
