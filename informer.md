@@ -27,7 +27,7 @@ A few months ago we introduced the [Time Series Transformer](https://huggingface
 
 As far as the modeling aspect of probabilistic forecasting is concerned, the Transformer/Informer will require no change when dealing with multivariate time series. In both the univariate and multivariate setting, the model will receive a sequence of vectors and thus the only change is on the output or emission side.
 
-Modeling the full joint conditional distribution of high dimensional data can get computationally expensive and thus methods resort to some approximation of the distribution, the easiest being to model the data as an independent distribution from the same family, or some low-rank approximation to the full covariance, etc. Here we will just resort to the independent (or diagonal) emissions which is supported for the families of distributions we have implemented. 
+Modeling the full joint conditional distribution of high dimensional data can get computationally expensive and thus methods resort to some approximation of the distribution, the easiest being to model the data as an independent distribution from the same family, or some low-rank approximation to the full covariance, etc. Here we will just resort to the independent (or diagonal) emissions which is supported for the families of distributions we have implemented [here](https://huggingface.co/docs/transformers/main/en/internal/time_series_utils.
 
 ## Informer - Under The Hood
 
@@ -44,7 +44,7 @@ The main idea of ProbSparse is that the canonical self-attention scores form a l
 
 | ![informer_full_vs_sparse_attention](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/informer/informer_full_vs_sparse_attention.png) |
 |:--:|
-| Vanilla self attention vs ProbSparse attention from [Autoformer](https://wuhaixu2016.github.io/pdf/NeurIPS2021_Autoformer.pdf) |
+| Vanilla self attention vs ProbSparse attention from [Autoformer (Wu, Haixu, et al., 2021)](https://wuhaixu2016.github.io/pdf/NeurIPS2021_Autoformer.pdf)
 
 Given the idea of "active" and "lazy" queries, the ProbSparse attention selects the "active" queries, and creates a reduced query matrix \\(Q_{reduced}\\) which is used to calculate the attention weights in \\(O(T \log T)\\). Let's see this more in detail with a code example. 
     
@@ -60,9 +60,9 @@ $$
 \textrm{ProbSparseAttention}(Q, K, V) = \textrm{softmax}(\frac{Q_{reduce}K^T}{\sqrt{d_k}} )V
 $$
 
-where the \\(Q_{reduce}\\) matrix only selects the Top-\\(u\\) "active" queries. Here, \\(u = c \cdot \log L_Q\\) and \\(c\\) called the _sampling factor_ hyperparameter for the ProbSparse attention. Since \\(Q_{reduce}\\) selects only the Top-\\(u\\) queries, it's size is \\(c\cdot \log L_Q \times d\\), so the multiplication \\(Q_{reduce}K^T\\) takes only \\(O(L_K \log L_Q) = O(T \log T)\\).
+where the \\(Q_{reduce}\\) matrix only selects the Top u "active" queries. Here, \\(u = c \cdot \log L_Q\\) and \\(c\\) called the _sampling factor_ hyperparameter for the ProbSparse attention. Since \\(Q_{reduce}\\) selects only the Top u queries, it's size is \\(c\cdot \log L_Q \times d\\), so the multiplication \\(Q_{reduce}K^T\\) takes only \\(O(L_K \log L_Q) = O(T \log T)\\).
 
-This is good! But how can we select the \\(u\\) "active" queries to create \\(Q_{reduce}\\)? Let's define the _Query Sparsity Measurement_.
+This is good! But how can we select the u "active" queries to create \\(Q_{reduce}\\)? Let's define the _Query Sparsity Measurement_.
 
 #### Query Sparsity Measurement
 Query Sparsity Measurement \\(M(q_i, K)\\) is used for selecting the \\(u\\) "active" queries \\(q_i\\) in \\(Q\\) to create \\(Q_{reduce}\\). In theory, the dominant \\(\langle q_i,k_i \rangle\\) pairs encourage the "active" \\(q_i\\)'s probability distribution **away** from the uniform distribution as can be seen in the figure below. Hence, the [KL divergence](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence) between the actual queries distribution and the uniform distribution is used to define the sparsity measurement. 
