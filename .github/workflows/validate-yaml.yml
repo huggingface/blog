@@ -4,11 +4,11 @@ on:
     branches:
       - main
     paths: 
-      - "_*.yml"
+      - "**/_*.yml"
       - "schemas/_*.schema.yml"
   pull_request:
     paths: 
-      - "_*.yml"
+      - "**/_*.yml"
       - "schemas/_*.schema.yml"
 
 jobs:
