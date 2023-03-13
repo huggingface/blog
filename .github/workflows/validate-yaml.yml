@@ -31,3 +31,19 @@ jobs:
       with:
         schema: schemas/_tags.schema.yml
         target: _tags.yml
+    # Chinese translation of blog
+    - name: "Validate _events.yml (chinese translation)"
+      uses: nrkno/yaml-schema-validator-github-action@v4
+      with:
+        schema: schemas/_events.schema.yml
+        target: cn/_events.yml
+    - name: "Validate _blog.yml (chinese translation)"
+      uses: nrkno/yaml-schema-validator-github-action@v4
+      with:
+        schema: schemas/_blog.schema.yml
+        target: cn/_blog.yml
+    - name: "Validate _tags.yml (chinese translation)"
+      uses: nrkno/yaml-schema-validator-github-action@v4
+      with:
+        schema: schemas/_tags.schema.yml
+        target: cn/_tags.yml
