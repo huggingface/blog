@@ -1512,6 +1512,7 @@
   date: December 1, 2022
   tags:
     - research
+    - time-series
 
 - local: diffusers-coreml
   title: "Using Stable Diffusion with Core ML on Apple Silicon"
@@ -1913,6 +1914,16 @@
   tags:
     - rl
     - nlp
+
+- local: informer
+  title: "Multivariate Probabilistic Time Series Forecasting with Informer"
+  author: elisim
+  thumbnail: /blog/assets/134_informer/thumbnail.png
+  date: March 10, 2023
+  tags:
+    - guide
+    - research
+    - time-series
 
 - local: fl-with-flower
   title: "Federated Learning using Hugging Face and Flower"

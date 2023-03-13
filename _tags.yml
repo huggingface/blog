@@ -36,3 +36,6 @@
 
 - value: game-dev
   label: Game Development
+
+- value: time-series
+  label: Time Series
