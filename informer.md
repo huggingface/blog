@@ -27,7 +27,7 @@ A few months ago we introduced the [Time Series Transformer](https://huggingface
 
 As far as the modeling aspect of probabilistic forecasting is concerned, the Transformer/Informer will require no change when dealing with multivariate time series. In both the univariate and multivariate setting, the model will receive a sequence of vectors and thus the only change is on the output or emission side.
 
-Modeling the full joint conditional distribution of high dimensional data can get computationally expensive and thus methods resort to some approximation of the distribution, the easiest being to model the data as an independent distribution from the same family, or some low-rank approximation to the full covariance, etc. Here we will just resort to the independent (or diagonal) emissions which is supported for the families of distributions we have implemented [here](https://huggingface.co/docs/transformers/main/en/internal/time_series_utils.
+Modeling the full joint conditional distribution of high dimensional data can get computationally expensive and thus methods resort to some approximation of the distribution, the easiest being to model the data as an independent distribution from the same family, or some low-rank approximation to the full covariance, etc. Here we will just resort to the independent (or diagonal) emissions which are supported for the families of distributions we have implemented [here](https://huggingface.co/docs/transformers/main/en/internal/time_series_utils).
 
 ## Informer - Under The Hood
 
