@@ -402,8 +402,7 @@ image_grid(output.images, 2, 2)
 
 Multiple ControlNet conditionings can be combined for a single image generation. Pass a list of ControlNets to the pipeline's constructor and a corresponding list of conditionings to `__call__`.
 
-When combinding conditionings, it is helpful to mask conditionings such that they do not overlap. In the example, we mask the middle of the canny map where the pose
-conditioning is located.
+When combining conditionings, it is helpful to mask conditionings such that they do not overlap. In the example, we mask the middle of the canny map where the pose conditioning is located.
 
 It can also be helpful to vary the `controlnet_conditioning_scale`s to emphasize one conditioning over the other.
 
