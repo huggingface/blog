@@ -75,8 +75,9 @@ In this blog post, we first introduce the [`StableDiffusionControlNetPipeline`](
 
 ## ControlNet: TL;DR
 
-ControlNet was introduced in [Adding Conditional Control to Text-to-Image Diffusion Models](https://arxiv.org/abs/2302.05543) by Lvmin Zhang and Maneesh Agrawala. 
-It introduces a framework that allows for supporting various spatial contexts that can serve as additional conditionings to Diffusion models such as Stable Diffusion. 
+ControlNet was introduced in [Adding Conditional Control to Text-to-Image Diffusion Models](https://arxiv.org/abs/2302.05543) by Lvmin Zhang and Maneesh Agrawala.
+It introduces a framework that allows for supporting various spatial contexts that can serve as additional conditionings to Diffusion models such as Stable Diffusion.
+The diffusers implementation is adapted from the original [source code](https://github.com/lllyasviel/ControlNet/).
 
 Training ControlNet is comprised of the following steps:
 
