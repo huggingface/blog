@@ -407,36 +407,22 @@ conditioning is located.
 
 It can also be helpful to vary the `controlnet_conditioning_scale`s to emphasize one conditioning over the other.
 
-#### Landscape
+#### Canny conditioning
+
+The original image
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/landscape.png" width=600/>
 </p>
 
-
-#### Person
-
-<p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/person.png" width=600/>
-</p>
-
-#### Output
-
-<p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/multi_controlnet_output.png" width=600/>
-</p>
+Prepare the conditioning
 
 ```python
-from diffusers import StableDiffusionControlNetPipeline, ControlNetModel, UniPCMultistepScheduler
 from diffusers.utils import load_image
-import torch
 from PIL import Image
 import cv2
 import numpy as np
 from diffusers.utils import load_image
-from controlnet_aux import OpenposeDetector
-
-# canny image
 
 canny_image = load_image(
     "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/landscape.png"
@@ -456,9 +442,25 @@ canny_image[:, zero_start:zero_end] = 0
 canny_image = canny_image[:, :, None]
 canny_image = np.concatenate([canny_image, canny_image, canny_image], axis=2)
 canny_image = Image.fromarray(canny_image)
+```
 
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/landscape_canny_masked.png" width=600/>
+</p>
 
-# openpose image
+#### Openpose conditioning
+
+The original image
+
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/person.png" width=600/>
+</p>
+
+Prepare the conditioning
+
+```python
+from controlnet_aux import OpenposeDetector
+from diffusers.utils import load_image
 
 openpose = OpenposeDetector.from_pretrained("lllyasviel/ControlNet")
 
@@ -466,10 +468,17 @@ openpose_image = load_image(
     "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/person.png"
 )
 openpose_image = openpose(openpose_image)
+```
 
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/person_pose.png" width=600/>
+</p>
 
+#### Running ControlNet with multiple conditionings
 
-# create pipeline
+```python
+from diffusers import StableDiffusionControlNetPipeline, ControlNetModel, UniPCMultistepScheduler
+import torch
 
 controlnet = [
     ControlNetModel.from_pretrained("lllyasviel/sd-controlnet-openpose", torch_dtype=torch.float16),
@@ -483,9 +492,6 @@ pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
 
 pipe.enable_xformers_memory_efficient_attention()
 pipe.enable_model_cpu_offload()
-
-
-# run inference
 
 prompt = "a giant standing in a fantasy landscape, best quality"
 negative_prompt = "monochrome, lowres, bad anatomy, worst quality, low quality"
@@ -506,16 +512,8 @@ image = pipe(
 image.save("./multi_controlnet_output.png")
 ```
 
-#### Person pose conditioning
-
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/person_pose.png" width=600/>
-</p>
-
-#### Masked Landscape Conditioning
-
-<p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/landscape_canny_masked.png" width=600/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/multi_controlnet_output.png" width=600/>
 </p>
 
 
