@@ -470,7 +470,6 @@ openpose_image = openpose(openpose_image)
 
 
 # create pipeline
-
 controlnet = [
     ControlNetModel.from_pretrained("lllyasviel/sd-controlnet-openpose", torch_dtype=torch.float16),
     ControlNetModel.from_pretrained("lllyasviel/sd-controlnet-canny", torch_dtype=torch.float16),
