@@ -398,6 +398,127 @@ image_grid(output.images, 2, 2)
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/anime_do_yoga.png" width=600/>
 </p>
 
+### Combining multiple conditionings
+
+Multiple controlnet conditionings can be conbined for a single image generation. Pass a list of controlnets to the pipeline's constructor and a corresponding list of conditionings to `__call__`.
+
+When combinding conditionings, it is helpful to mask conditionings such that they do not overlap. In the example, we mask the middle of the canny map where the pose
+conditioning is located.
+
+It can also be helpful to vary the `controlnet_conditioning_scale`s to emphasize one conditioning over the other.
+
+#### Landscape
+
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/landscape.png" width=600/>
+</p>
+
+
+#### Person
+
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/person.png" width=600/>
+</p>
+
+#### Output
+
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/multi_controlnet_output.png" width=600/>
+</p>
+
+```python
+from diffusers import StableDiffusionControlNetPipeline, ControlNetModel, UniPCMultistepScheduler
+from diffusers.utils import load_image
+import torch
+from PIL import Image
+import cv2
+import numpy as np
+from diffusers.utils import load_image
+from controlnet_aux import OpenposeDetector
+
+# canny image
+
+canny_image = load_image(
+    "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/landscape.png"
+)
+canny_image = np.array(canny_image)
+
+low_threshold = 100
+high_threshold = 200
+
+canny_image = cv2.Canny(canny_image, low_threshold, high_threshold)
+
+# zero out middle columns of image where pose will be overlayed
+zero_start = canny_image.shape[1] // 4
+zero_end = zero_start + canny_image.shape[1] // 2
+canny_image[:, zero_start:zero_end] = 0
+
+canny_image = canny_image[:, :, None]
+canny_image = np.concatenate([canny_image, canny_image, canny_image], axis=2)
+canny_image = Image.fromarray(canny_image)
+
+
+# openpose image
+
+openpose = OpenposeDetector.from_pretrained("lllyasviel/ControlNet")
+
+openpose_image = load_image(
+    "https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/person.png"
+)
+openpose_image = openpose(openpose_image)
+
+
+
+# create pipeline
+
+controlnet = [
+    ControlNetModel.from_pretrained("lllyasviel/sd-controlnet-openpose", torch_dtype=torch.float16),
+    ControlNetModel.from_pretrained("lllyasviel/sd-controlnet-canny", torch_dtype=torch.float16),
+]
+
+pipe = StableDiffusionControlNetPipeline.from_pretrained(
+    "runwayml/stable-diffusion-v1-5", controlnet=controlnet, torch_dtype=torch.float16
+)
+pipe.scheduler = UniPCMultistepScheduler.from_config(pipe.scheduler.config)
+
+pipe.enable_xformers_memory_efficient_attention()
+pipe.enable_model_cpu_offload()
+
+
+# run inference
+
+prompt = "a giant standing in a fantasy landscape, best quality"
+negative_prompt = "monochrome, lowres, bad anatomy, worst quality, low quality"
+
+generator = torch.Generator(device="cpu").manual_seed(1)
+
+images = [openpose_image, canny_image]
+
+image = pipe(
+    prompt,
+    images,
+    num_inference_steps=20,
+    generator=generator,
+    negative_prompt=negative_prompt,
+    controlnet_conditioning_scale=[1.0, 0.8],
+).images[0]
+
+image.save("./multi_controlnet_output.png")
+```
+
+#### Person pose conditioning
+
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/person_pose.png" width=600/>
+</p>
+
+#### Masked Landscape Conditioning
+
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/controlnet/landscape_canny_masked.png" width=600/>
+</p>
+
+
 Throughout the examples, we explored multiple facets of the [`StableDiffusionControlNetPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet) to show how easy and intuitive it is play around with ControlNet via Diffusers. However, we didn't cover all types of conditionings supported by ControlNet. To know more about those, we encourage you to check out the respective model documentation pages:
 
 * [lllyasviel/sd-controlnet-depth](https://huggingface.co/lllyasviel/sd-controlnet-depth)
