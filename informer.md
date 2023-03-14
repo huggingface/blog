@@ -351,7 +351,7 @@ Note that the target is now 2-dimensional, where the first dimension is the numb
 
 ```python
 multi_variate_train_example = multi_variate_train_dataset[0]
-print('multi_variate_train_example["target"].shape =', multi_variate_train_example["target"].shape)
+print("multi_variate_train_example["target"].shape =", multi_variate_train_example["target"].shape)
 
 >>> multi_variate_train_example["target"].shape = (862, 17448)
 ```
@@ -902,7 +902,7 @@ model.eval()
 
 forecasts_ = []
 
-for batch in [next(iter(test_dataloader))]:
+for batch in test_dataloader:
     outputs = model.generate(
         static_categorical_features=batch["static_categorical_features"].to(device)
         if config.num_static_categorical_features > 0
