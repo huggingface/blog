@@ -160,7 +160,9 @@ However, this example has `prediction_length=24` additional values compared to t
 freq = "1M"
 prediction_length = 24
 
-assert len(train_example['target']) + prediction_length == len(validation_example['target'])
+assert len(train_example["target"]) + prediction_length == len(
+    validation_example["target"]
+)
 ```
 
 Let's visualize this:
@@ -170,8 +172,8 @@ Let's visualize this:
 import matplotlib.pyplot as plt
 
 figure, axes = plt.subplots()
-axes.plot(train_example['target'], color="blue") 
-axes.plot(validation_example['target'], color="red", alpha=0.5)
+axes.plot(train_example["target"], color="blue")
+axes.plot(validation_example["target"], color="red", alpha=0.5)
 
 plt.show()
 ```
@@ -227,7 +229,7 @@ We specify a couple of additional parameters to the model:
 - the number of time features: in our case, this will be `2` as we'll add `MonthOfYear` and `Age` features;
 - the number of static categorical features: in our case, this will be just `1` as we'll add a single "time series ID" feature;
 - the cardinality: the number of values of each static categorical feature, as a list which for our case will be `[366]` as we have 366 different time series
-- the embedding dimension: the embedding dimension for each static categorical feature, as a list, for example `[3]` meaning the model will learn an embedding vector of size `3` for each of the `366` time series (regions).
+- the embedding dimension: the embedding dimension for each static categorical feature, as a list, for example `[3]` means the model will learn an embedding vector of size `3` for each of the `366` time series (regions).
 
 
 Let's use the default lags provided by GluonTS for the given frequency ("monthly"):
@@ -245,7 +247,7 @@ print(lags_sequence)
 
 This means that we'll look back up to 37 months for each time step, as additional features.
 
-Let's also check the default time features which GluonTS provides us:
+Let's also check the default time features that GluonTS provides us:
 
 
 ```python
@@ -268,14 +270,23 @@ from transformers import TimeSeriesTransformerConfig, TimeSeriesTransformerForPr
 
 config = TimeSeriesTransformerConfig(
     prediction_length=prediction_length,
-    context_length=prediction_length*3, # context length
+    # context length:
+    context_length=prediction_length * 2,
+    # lags coming from helper given the freq:
     lags_sequence=lags_sequence,
-    num_time_features=len(time_features) + 1, # we'll add 2 time features ("month of year" and "age", see further)
-    num_static_categorical_features=1, # we have a single static categorical feature, namely time series ID
-    cardinality=[len(train_dataset)], # it has 366 possible values
-    embedding_dimension=[2], # the model will learn an embedding of size 2 for each of the 366 possible values
-    encoder_layers=4, 
+    # we'll add 2 time features ("month of year" and "age", see further):
+    num_time_features=len(time_features) + 1,
+    # we have a single static categorical feature, namely time series ID:
+    num_static_categorical_features=1,
+    # it has 366 possible values:
+    cardinality=[len(train_dataset)],
+    # the model will learn an embedding of size 2 for each of the 366 possible values:
+    embedding_dimension=[2],
+    
+    # transformer params:
+    encoder_layers=4,
     decoder_layers=4,
+    d_model=32,
 )
 
 model = TimeSeriesTransformerForPrediction(config)
@@ -299,7 +310,11 @@ Again, we'll use the GluonTS library for this. We define a `Chain` of transforma
 
 
 ```python
-from gluonts.time_feature import time_features_from_frequency_str, TimeFeature, get_lags_for_frequency
+from gluonts.time_feature import (
+    time_features_from_frequency_str,
+    TimeFeature,
+    get_lags_for_frequency,
+)
 from gluonts.dataset.field_names import FieldName
 from gluonts.transform import (
     AddAgeFeature,
@@ -332,39 +347,42 @@ def create_transformation(freq: str, config: PretrainedConfig) -> Transformation
         remove_field_names.append(FieldName.FEAT_STATIC_REAL)
     if config.num_dynamic_real_features == 0:
         remove_field_names.append(FieldName.FEAT_DYNAMIC_REAL)
+    if config.num_static_categorical_features == 0:
+        remove_field_names.append(FieldName.FEAT_STATIC_CAT)
 
     # a bit like torchvision.transforms.Compose
     return Chain(
         # step 1: remove static/dynamic fields if not specified
         [RemoveFields(field_names=remove_field_names)]
-        # step 2: use static features if available, if not add dummy values
+        # step 2: convert the data to NumPy (potentially not needed)
         + (
-            [SetField(output_field=FieldName.FEAT_STATIC_CAT, value=[0])]
-            if not config.num_static_categorical_features > 0
+            [
+                AsNumpyArray(
+                    field=FieldName.FEAT_STATIC_CAT,
+                    expected_ndim=1,
+                    dtype=int,
+                )
+            ]
+            if config.num_static_categorical_features > 0
             else []
         )
         + (
-            [SetField(output_field=FieldName.FEAT_STATIC_REAL, value=[0.0])]
-            if not config.num_static_real_features > 0
+            [
+                AsNumpyArray(
+                    field=FieldName.FEAT_STATIC_REAL,
+                    expected_ndim=1,
+                )
+            ]
+            if config.num_static_real_features > 0
             else []
         )
-        # step 3: convert the data to NumPy (potentially not needed)
         + [
             AsNumpyArray(
-                field=FieldName.FEAT_STATIC_CAT,
-                expected_ndim=1,
-                dtype=int,
-            ),
-            AsNumpyArray(
-                field=FieldName.FEAT_STATIC_REAL,
-                expected_ndim=1,
-            ),
-            AsNumpyArray(
                 field=FieldName.TARGET,
-                # in the following line, we add 1 for the time dimension
-                expected_ndim=1 if config.input_size==1 else 2,
+                # we expect an extra dim for the multivariate case:
+                expected_ndim=1 if config.input_size == 1 else 2,
             ),
-            # step 4: handle the NaN's by filling in the target with zero
+            # step 3: handle the NaN's by filling in the target with zero
             # and return the mask (which is in the observed values)
             # true for observed values, false for nan's
             # the decoder uses this mask (no loss is incurred for unobserved values)
@@ -373,8 +391,8 @@ def create_transformation(freq: str, config: PretrainedConfig) -> Transformation
                 target_field=FieldName.TARGET,
                 output_field=FieldName.OBSERVED_VALUES,
             ),
-            # step 5: add temporal features based on freq of the dataset
-            # month of year in this case
+            # step 4: add temporal features based on freq of the dataset
+            # month of year in the case when freq="M"
             # these serve as positional encodings
             AddTimeFeatures(
                 start_field=FieldName.START,
@@ -383,22 +401,26 @@ def create_transformation(freq: str, config: PretrainedConfig) -> Transformation
                 time_features=time_features_from_frequency_str(freq),
                 pred_length=config.prediction_length,
             ),
-            # step 6: add another temporal feature (just a single number)
-            # tells the model where in the life the value of the time series is
-            # sort of running counter
+            # step 5: add another temporal feature (just a single number)
+            # tells the model where in its life the value of the time series is,
+            # sort of a running counter
             AddAgeFeature(
                 target_field=FieldName.TARGET,
                 output_field=FieldName.FEAT_AGE,
                 pred_length=config.prediction_length,
                 log_scale=True,
             ),
-            # step 7: vertically stack all the temporal features
+            # step 6: vertically stack all the temporal features into the key FEAT_TIME
             VstackFeatures(
                 output_field=FieldName.FEAT_TIME,
                 input_fields=[FieldName.FEAT_TIME, FieldName.FEAT_AGE]
-                + ([FieldName.FEAT_DYNAMIC_REAL] if config.num_dynamic_real_features > 0 else []),
+                + (
+                    [FieldName.FEAT_DYNAMIC_REAL]
+                    if config.num_dynamic_real_features > 0
+                    else []
+                ),
             ),
-            # step 8: rename to match HuggingFace names
+            # step 7: rename to match HuggingFace names
             RenameFields(
                 mapping={
                     FieldName.FEAT_STATIC_CAT: "static_categorical_features",
@@ -410,31 +432,34 @@ def create_transformation(freq: str, config: PretrainedConfig) -> Transformation
             ),
         ]
     )
-
 ```
 
 ## Define `InstanceSplitter`
 
 For training/validation/testing we next create an `InstanceSplitter` which is used to sample windows from the dataset (as, remember, we can't pass the entire history of values to the Transformer due to time- and memory constraints).
 
-The instance splitter samples random `context_length` sized and subsequent `prediction_length` sized windows from the data, and appends a `past_` or `future_` key to any temporal keys for the respective windows. This makes sure that the `values` will be split into `past_values` and subsequent `future_values` keys, which will serve as the encoder and decoder inputs respectively. The same happens for any keys in the `time_series_fields` argument:
+The instance splitter samples random `context_length` sized and subsequent `prediction_length` sized windows from the data and appends a `past_` or `future_` key to any temporal keys for the respective windows. This makes sure that the `values` will be split into `past_values` and subsequent `future_values` keys, which will serve as the encoder and decoder inputs respectively. The same happens for any keys in the `time_series_fields` argument:
 
 
 ```python
 from gluonts.transform.sampler import InstanceSampler
 from typing import Optional
 
-def create_instance_splitter(config: PretrainedConfig, mode: str, train_sampler: Optional[InstanceSampler] = None,
-    validation_sampler: Optional[InstanceSampler] = None,) -> Transformation:
+def create_instance_splitter(
+    config: PretrainedConfig,
+    mode: str,
+    train_sampler: Optional[InstanceSampler] = None,
+    validation_sampler: Optional[InstanceSampler] = None,
+) -> Transformation:
     assert mode in ["train", "validation", "test"]
 
     instance_sampler = {
-        "train": train_sampler or ExpectedNumInstanceSampler(
+        "train": train_sampler
+        or ExpectedNumInstanceSampler(
             num_instances=1.0, min_future=config.prediction_length
         ),
-        "validation":  validation_sampler or ValidationSplitSampler(
-            min_future=config.prediction_length
-        ),
+        "validation": validation_sampler
+        or ValidationSplitSampler(min_future=config.prediction_length),
         "test": TestSplitSampler(),
     }[mode]
 
@@ -446,10 +471,7 @@ def create_instance_splitter(config: PretrainedConfig, mode: str, train_sampler:
         instance_sampler=instance_sampler,
         past_length=config.context_length + max(config.lags_sequence),
         future_length=config.prediction_length,
-        time_series_fields=[
-            "time_features",
-            "observed_mask",
-        ],
+        time_series_fields=["time_features", "observed_mask"],
     )
 ```
 
@@ -475,41 +497,43 @@ def create_train_dataloader(
     **kwargs,
 ) -> Iterable:
     PREDICTION_INPUT_NAMES = [
-        "static_categorical_features",
-        "static_real_features",
         "past_time_features",
         "past_values",
         "past_observed_mask",
         "future_time_features",
-        ]
+    ]
+    if config.num_static_categorical_features > 0:
+        PREDICTION_INPUT_NAMES.append("static_categorical_features")
+
+    if config.num_static_real_features > 0:
+        PREDICTION_INPUT_NAMES.append("static_real_features")
 
     TRAINING_INPUT_NAMES = PREDICTION_INPUT_NAMES + [
         "future_values",
         "future_observed_mask",
-        ]
-    
+    ]
+
     transformation = create_transformation(freq, config)
     transformed_data = transformation.apply(data, is_train=True)
-    
+
     # we initialize a Training instance
-    instance_splitter = create_instance_splitter(
-        config, "train"
-    ) + SelectFields(TRAINING_INPUT_NAMES)
+    instance_splitter = create_instance_splitter(config, "train") + SelectFields(
+        TRAINING_INPUT_NAMES
+    )
 
-
-    # the instance splitter will sample a window of 
+    # the instance splitter will sample a window of
     # context length + lags + prediction length (from the 366 possible transformed time series)
     # randomly from within the target time series and return an iterator.
     training_instances = instance_splitter.apply(
         Cyclic(transformed_data)
         if shuffle_buffer_length is None
         else PseudoShuffled(
-            Cyclic(transformed_data), 
+            Cyclic(transformed_data),
             shuffle_buffer_length=shuffle_buffer_length,
         )
     )
 
-    # from the training instances iterator we now return a Dataloader which will 
+    # from the training instances iterator we now return a Dataloader which will
     # continue to sample random windows for as long as it is called
     # to return batch_size of the appropriate tensors ready for training!
     return IterableSlice(
@@ -534,43 +558,48 @@ def create_test_dataloader(
     **kwargs,
 ):
     PREDICTION_INPUT_NAMES = [
-        "static_categorical_features",
-        "static_real_features",
         "past_time_features",
         "past_values",
         "past_observed_mask",
         "future_time_features",
-        ]
-    
+    ]
+    if config.num_static_categorical_features > 0:
+        PREDICTION_INPUT_NAMES.append("static_categorical_features")
+
+    if config.num_static_real_features > 0:
+        PREDICTION_INPUT_NAMES.append("static_real_features")
+
     transformation = create_transformation(freq, config)
     transformed_data = transformation.apply(data, is_train=False)
-    
-    # we create a Test Instance splitter which will sample the very last 
+
+    # we create a Test Instance splitter which will sample the very last
     # context window seen during training only for the encoder.
-    instance_splitter = create_instance_splitter(
-        config, "test"
-    ) + SelectFields(PREDICTION_INPUT_NAMES)
-    
+    instance_sampler = create_instance_splitter(config, "test") + SelectFields(
+        PREDICTION_INPUT_NAMES
+    )
+
     # we apply the transformations in test mode
-    testing_instances = instance_splitter.apply(transformed_data, is_train=False)
-    
+    testing_instances = instance_sampler.apply(transformed_data, is_train=False)
+
     # This returns a Dataloader which will go over the dataset once.
-    return DataLoader(IterableDataset(testing_instances), batch_size=batch_size, **kwargs)
+    return DataLoader(
+        IterableDataset(testing_instances), batch_size=batch_size, **kwargs
+    )
 ```
 
 
 ```python
 train_dataloader = create_train_dataloader(
-    config=config, 
-    freq=freq, 
-    data=train_dataset, 
-    batch_size=256, 
+    config=config,
+    freq=freq,
+    data=train_dataset,
+    batch_size=256,
     num_batches_per_epoch=100,
 )
 
 test_dataloader = create_test_dataloader(
-    config=config, 
-    freq=freq, 
+    config=config,
+    freq=freq,
     data=test_dataset,
     batch_size=64,
 )
@@ -581,21 +610,20 @@ Let's check the first batch:
 
 ```python
 batch = next(iter(train_dataloader))
-for k,v in batch.items():
-  print(k,v.shape, v.type())
+for k, v in batch.items():
+    print(k, v.shape, v.type())
 
->>> static_categorical_features torch.Size([256, 1]) torch.LongTensor
-    static_real_features torch.Size([256, 1]) torch.FloatTensor
-    past_time_features torch.Size([256, 181, 2]) torch.FloatTensor
-    past_values torch.Size([256, 181]) torch.FloatTensor
-    past_observed_mask torch.Size([256, 181]) torch.FloatTensor
+>>> past_time_features torch.Size([256, 85, 2]) torch.FloatTensor
+    past_values torch.Size([256, 85]) torch.FloatTensor
+    past_observed_mask torch.Size([256, 85]) torch.FloatTensor
     future_time_features torch.Size([256, 24, 2]) torch.FloatTensor
+    static_categorical_features torch.Size([256, 1]) torch.LongTensor
     future_values torch.Size([256, 24]) torch.FloatTensor
     future_observed_mask torch.Size([256, 24]) torch.FloatTensor
 ```
 
 
-As can be seen, we don't feed `input_ids` and `attention_mask` to the encoder (as would be the case for NLP models), but rather `past_values`, along with `past_observed_mask`, `past_time_features`, `static_categorical_features` and `static_real_features`.
+As can be seen, we don't feed `input_ids` and `attention_mask` to the encoder (as would be the case for NLP models), but rather `past_values`, along with `past_observed_mask`, `past_time_features`, and `static_categorical_features`.
 
 The decoder inputs consist of `future_values`, `future_observed_mask` and `future_time_features`. The `future_values` can be seen as the equivalent of `decoder_input_ids` in NLP.
 
@@ -611,24 +639,28 @@ outputs = model(
     past_values=batch["past_values"],
     past_time_features=batch["past_time_features"],
     past_observed_mask=batch["past_observed_mask"],
-    static_categorical_features=batch["static_categorical_features"],
-    static_real_features=batch["static_real_features"],
+    static_categorical_features=batch["static_categorical_features"]
+    if config.num_static_categorical_features > 0
+    else None,
+    static_real_features=batch["static_real_features"]
+    if config.num_static_real_features > 0
+    else None,
     future_values=batch["future_values"],
     future_time_features=batch["future_time_features"],
     future_observed_mask=batch["future_observed_mask"],
-    output_hidden_states=True
+    output_hidden_states=True,
 )
 ```
 
 ```python
 print("Loss:", outputs.loss.item())
 
->>> Loss: 9.141253471374512
+>>> Loss: 9.069628715515137
 ```
 
 Note that the model is returning a loss. This is possible as the decoder automatically shifts the `future_values` one position to the right in order to have the labels. This allows computing a loss between the predicted values and the labels.
 
-Also note that the decoder uses a causal mask to not look into the future as the values it needs to predict are in the `future_values` tensor.
+Also, note that the decoder uses a causal mask to not look into the future as the values it needs to predict are in the `future_values` tensor.
 
 ## Train the Model
 
@@ -639,25 +671,31 @@ We will use the 🤗 [Accelerate](https://huggingface.co/docs/accelerate/index) 
 
 ```python
 from accelerate import Accelerator
-from torch.optim import Adam
+from torch.optim import AdamW
 
 accelerator = Accelerator()
 device = accelerator.device
 
 model.to(device)
-optimizer = Adam(model.parameters(), lr=1e-3)
- 
+optimizer = AdamW(model.parameters(), lr=6e-4, betas=(0.9, 0.95), weight_decay=1e-1)
+
 model, optimizer, train_dataloader = accelerator.prepare(
-    model, optimizer, train_dataloader, 
+    model,
+    optimizer,
+    train_dataloader,
 )
 
+model.train()
 for epoch in range(40):
-    model.train()
-    for batch in train_dataloader:
+    for idx, batch in enumerate(train_dataloader):
         optimizer.zero_grad()
         outputs = model(
-            static_categorical_features=batch["static_categorical_features"].to(device),
-            static_real_features=batch["static_real_features"].to(device),
+            static_categorical_features=batch["static_categorical_features"].to(device)
+            if config.num_static_categorical_features > 0
+            else None,
+            static_real_features=batch["static_real_features"].to(device)
+            if config.num_static_real_features > 0
+            else None,
             past_time_features=batch["past_time_features"].to(device),
             past_values=batch["past_values"].to(device),
             future_time_features=batch["future_time_features"].to(device),
@@ -671,7 +709,8 @@ for epoch in range(40):
         accelerator.backward(loss)
         optimizer.step()
 
-        print(loss.item())
+        if idx % 100 == 0:
+            print(loss.item())
 ```
 
 
@@ -690,8 +729,12 @@ forecasts = []
 
 for batch in test_dataloader:
     outputs = model.generate(
-        static_categorical_features=batch["static_categorical_features"].to(device),
-        static_real_features=batch["static_real_features"].to(device),
+        static_categorical_features=batch["static_categorical_features"].to(device)
+        if config.num_static_categorical_features > 0
+        else None,
+        static_real_features=batch["static_real_features"].to(device)
+        if config.num_static_real_features > 0
+        else None,
         past_time_features=batch["past_time_features"].to(device),
         past_values=batch["past_values"].to(device),
         future_time_features=batch["future_time_features"].to(device),
@@ -754,11 +797,11 @@ for item_id, ts in enumerate(test_dataset):
 ```python
 print(f"MASE: {np.mean(mase_metrics)}")
 
->>> MASE: 1.361636922541396
+>>> MASE: 1.2564196892177717
 
 print(f"sMAPE: {np.mean(smape_metrics)}")
 
->>> sMAPE: 0.17457818831512306
+>>> sMAPE: 0.1609541520852549
 ```
 
 We can also plot the individual metrics of each time series in the dataset and observe that a handful of time series contribute a lot to the final test metric:
@@ -826,7 +869,7 @@ How do we compare against other models? The [Monash Time Series Repository](http
 
 |Dataset | 	SES| 	Theta | 	TBATS| 	ETS	| (DHR-)ARIMA| 	PR|	CatBoost |	FFNN	| DeepAR | 	N-BEATS | 	WaveNet| 	**Transformer** (Our) |
 |:------------------:|:-----------------:|:--:|:--:|:--:|:--:|:--:|:--:|:---:|:---:|:--:|:--:|:--:|
-|Tourism Monthly | 	3.306 |	1.649 |	1.751 |	1.526|	1.589|	1.678	|1.699|	1.582	| 1.409	| 1.574|	1.482	|  **1.361**|
+|Tourism Monthly | 	3.306 |	1.649 |	1.751 |	1.526|	1.589|	1.678	|1.699|	1.582	| 1.409	| 1.574|	1.482	|  **1.256**|
 
 Note that, with our model, we are beating all other models reported (see also table 2 in the corresponding [paper](https://openreview.net/pdf?id=wEc1mgAjU-)), and we didn't do any hyperparameter tuning. We just trained the Transformer for 40 epochs. 
 
@@ -839,7 +882,7 @@ We would encourage the readers to try out the [notebook](https://colab.research.
 
 As time series researchers will know, there has been a lot of interest in applying Transformer based models to the time series problem. The vanilla Transformer is just one of many attention-based models and so there is a need to add more models to the library.
 
-At the moment there is nothing stopping us from modeling multivariate time series, however for that one would need to instantiate the model with a multivariate distribution head. Currently, diagonal independent distributions are supported, and other multivariate distributions will be added. Stay tuned for a future blog post which will include a tutorial.
+At the moment nothing is stopping us from modeling multivariate time series, however for that one would need to instantiate the model with a multivariate distribution head. Currently, diagonal independent distributions are supported, and other multivariate distributions will be added. Stay tuned for a future blog post that will include a tutorial.
 
 Another thing on the roadmap is time series classification. This entails adding a time series model with a classification head to the library, for the anomaly detection task for example. 
 
