@@ -94,7 +94,7 @@ It is a new approach to vision, distinct from convolutional neural nets (CNNs) t
 
 
 ## How to use the COYO dataset
-We can conveniently download the `COYO` dataset with a single line of code using the 🤗 Datasets library. To preview the `COYO` dataset and learn more about the data curation process and the meta attributes included, head over to the dataset page on the [hub](https://huggingface.co/datasets/kakaobrain/coyo-700m). To get started, let's install the 🤗 Datasets library: `pip install datasets` and download it.
+We can conveniently download the `COYO` dataset with a single line of code using the 🤗 Datasets library. To preview the `COYO` dataset and learn more about the data curation process and the meta attributes included, head over to the dataset page on the [hub](https://huggingface.co/datasets/kakaobrain/coyo-700m) or the original Git [repository](https://github.com/kakaobrain/coyo-dataset). To get started, let's install the 🤗 Datasets library: `pip install datasets` and download it.
 
 ```shell
 >>> from datasets import load_dataset
