@@ -168,6 +168,11 @@ pipe = StableDiffusionPipeline.from_pretrained(model_id, scheduler=dpm).to("cpu"
 
 With this final version, inference latency is now down to **6 seconds**. Compared to our initial baseline, this is more than 5x faster (5.4x to be precise).
 
+<kbd>
+  <img src="assets/xxx_stable_diffusion_inference_intel/01.png">
+</kbd>
+
+
 
 ## Conclusion
 
