@@ -1,6 +1,6 @@
 ---
 title: "Accelerating Stable Diffusion Inference on Intel CPUs"
-thumbnail: /blog/assets/xxx/xxx.png
+thumbnail: /blog/assets/xxx/01.png
 authors:
 - user: juliensimon
 - user: ellacharlaix
@@ -89,22 +89,20 @@ If not, or if you can't use OpenVINO, the rest of this post will show you a seri
 
 ## Memory allocation
 
-Diffuser models are large multi-gigabyte models, and image generation is a memory-intensive operation. By installing a high-performance memory allocation library, we should be able to speed up memory operations and parallelize them across the Xeon cores.  [jemalloc](https://jemalloc.net/) and [tcmalloc](https://github.com/gperftools/gperftools) are equally interesting. I'm using the former as my tests showed a slight performance edge over the latter.
+Diffuser models are large multi-gigabyte models, and image generation is a memory-intensive operation. By installing a high-performance memory allocation library, we should be able to speed up memory operations and parallelize them across the Xeon cores.    Please note that this will change the default memory allocation library on your system. Of course, you can go back to the default library by uninstalling the new one.
 
-Please note that this will change the default memory allocation library on your system. Of course, you can go back to the default library by uninstalling the new one.
+[jemalloc](https://jemalloc.net/) and [tcmalloc](https://github.com/gperftools/gperftools) are equally interesting. Here, I'm installing `jemalloc` as my tests give it a slight performance edge. Jemalloc can also be tweaked for a particular workload, for example to maximize CPU utilization. You can refer to the [tuning guide](https://github.com/jemalloc/jemalloc/blob/dev/TUNING.md) for details.
 
 ```
 # Option 1: jemalloc
 sudo apt-get install -y libjemalloc-dev
 export LD_PRELOAD=$LD_PRELOAD:/usr/lib/x86_64-linux-gnu/libjemalloc.so
-export MALLOC_CONF="oversize_threshold:1,background_thread:true,metadata_thp:auto,dirty_decay_ms:9000000000,muzzy_decay_ms:9000000000"
+export MALLOC_CONF="oversize_threshold:1,background_thread:true,metadata_thp:auto,dirty_decay_ms: 30000,muzzy_decay_ms:30000"
 
 # Option 2: tcmalloc
 sudo apt-get install -y google-perftools
 export LD_PRELOAD=$LD_PRELOAD:/usr/lib/x86_64-linux-gnu/libtcmalloc.so
 ```
-
-**XXX explain MALLOC_CONF, this line has a huge impact**
 
 Running our original Diffusers code, the average latency drops from 32.6 seconds to **11.9 seconds**. That's almost 3x faster, without any code change. Jemalloc is certainly working great on our 32-core Xeon.
 
