@@ -57,7 +57,7 @@ from diffusers import StableDiffusionPipeline
 prompt = "sailing ship in storm by Rembrandt"
 model_id = "runwayml/stable-diffusion-v1-5"
 
-pipe = StableDiffusionPipeline.from_pretrained(model_id).to("cpu")
+pipe = StableDiffusionPipeline.from_pretrained(model_id)
 latency = elapsed_time(pipe, prompt)
 print(latency)
 ```
