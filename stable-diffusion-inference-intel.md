@@ -49,7 +49,7 @@ def elapsed_time(pipeline, prompt, nb_pass=10, num_inference_steps=20):
 
 Now, let's build a `StableDiffusionPipeline` with the default `float32` data type, and measure its inference latency.
 
-```
+```python
 import torch
 from diffusers import StableDiffusionPipeline
 
@@ -81,7 +81,7 @@ pip install optimum[openvino]
 
 Starting from the code above, we only need to replace `StableDiffusionPipeline` with `OVStableDiffusionPipeline`.
 
-```
+```python
 from optimum.intel.openvino import OVStableDiffusionPipeline
 ...
 ov_pipe = OVStableDiffusionPipeline.from_pretrained(model_id, export=True)
@@ -94,7 +94,7 @@ OpenVINO automatically optimizes the model for the `bfloat16` format. Thanks to 
 
 The pipeline above support dynamic input shapes, with no restriction on the number of images or their resolution. If your application can support a static input shape (say, always generate a single 512x512 image), you can unlock significant acceleration by reshaping the pipeline.
 
-```
+```python
 ov_pipe_static = OVStableDiffusionPipeline.from_pretrained(model_id, export=True)
 ov_pipe_static.reshape(batch_size=1, height=512, width=512, num_images_per_prompt=1)
 
@@ -141,7 +141,7 @@ pip install intel_extension_for_pytorch
 
 We then update our code to optimize each pipeline element with IPEX (you can list them by printing the `pipe` object). This requires converting them to the channels-last format.
 
-```
+```python
 import intel_extension_for_pytorch as ipex
 ...
 pipe = StableDiffusionPipeline.from_pretrained(model_id)
@@ -160,7 +160,7 @@ pipe.safety_checker = ipex.optimize(pipe.safety_checker.eval(), dtype=torch.bflo
 
 We also enable the `bloat16` data format to leverage the AMX tile matrix multiply unit (TMMU) accelerator present on Sapphire Rapids CPUs.
 
-```
+```python
 with torch.cpu.amp.autocast(enabled=True, dtype=torch.bfloat16):
     latency = elapsed_time(pipe, prompt)
     print(latency)
@@ -178,7 +178,7 @@ According to the documentation: "*At the time of writing this doc DPMSolverMulti
 
 Let's try it.
 
-```
+```python
 from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
 ...
 dpm = DPMSolverMultistepScheduler.from_pretrained(model_id, subfolder="scheduler")
