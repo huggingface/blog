@@ -1928,8 +1928,9 @@
 - local: fl-with-flower
   title: "Federated Learning using Hugging Face and Flower"
   author: charlesbvll
+  guest: true
   thumbnail: /blog/assets/fl-with-flower/thumbnail.png
-  date: March 13, 2023
+  date: March 22, 2023
   tags:
     - nlp
     - transformers
