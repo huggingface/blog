@@ -1,6 +1,20 @@
 # "date" attribute should be end date of an event in `Mon DD, YYYY` format (e.g. Feb 3, 2014)
 # "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
+- name: JAX Diffusers Sprint
+  link: 
+  date: Apr 17 to May 8, 2023
+  description: Diffusers and JAX are partnering up to help you train models - free access to TPUv4 is given to each team! 
+
+- name: Scikit-learn Documentation Sprint
+  link: 
+  date: Apr 14 to May 1, 2023
+  description: This is a community event to develop applications for examples in scikit-learn documentation using Gradio.
+
+- name: Keras DreamBooth Community Sprint
+  link: https://huggingface.co/keras-dreambooth
+  date: Mar 6 to Apr 1, 2023
+  description: A community sprint on fine-tuning Stable Diffusion using DreamBooth technique on Keras library.
 
 - name: How to build Machine Learning apps with Hugging Face
   link: https://www.eventbrite.com/e/building-machine-learning-apps-with-hugging-facellms-to-diffusion-modeling-tickets-565837343727?aff=HF
