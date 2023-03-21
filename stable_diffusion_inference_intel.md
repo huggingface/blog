@@ -163,7 +163,7 @@ We also enable the `bloat16` data format to leverage the AMX tile matrix multipl
 
 ```
 with torch.cpu.amp.autocast(enabled=True, dtype=torch.bfloat16):
-    latency = elapsed_time(pipe, nb_pass=nb_pass)
+    latency = elapsed_time(pipe, prompt)
     print(latency)
 ```
 
