@@ -70,9 +70,17 @@ Now, let's accelerate!
 
 ## Optimum Intel and OpenVINO
 
-[Optimum Intel](https://huggingface.co/docs/optimum/intel/index) accelerates end-to-end pipelines on Intel architectures. Its API is extremely similar to the vanilla [Transformers](https://huggingface.co/docs/transformers/index) API, making it trivial to adapt existing code.
+[Optimum Intel](https://huggingface.co/docs/optimum/intel/index) accelerates end-to-end pipelines on Intel architectures. Its API is extremely similar to the vanilla [Diffusers](https://huggingface.co/docs/diffusers/index) API, making it trivial to adapt existing code.
 
-Optimum Intel supports [OpenVINO](https://docs.openvino.ai/latest/index.html), an Intel open-source toolkit for high-performance inference. Let's update the code above: we only need to replace `StableDiffusionPipeline` with `OVStableDiffusionPipeline.
+Optimum Intel supports [OpenVINO](https://docs.openvino.ai/latest/index.html), an Intel open-source toolkit for high-performance inference. 
+
+Optimum Intel and OpenVINO can be installed as follows:
+
+```
+pip install optimum[openvino]
+```
+
+Starting from the code above, we only need to replace `StableDiffusionPipeline` with `OVStableDiffusionPipeline`.
 
 ```
 from optimum.intel.openvino import OVStableDiffusionPipeline
@@ -83,7 +91,7 @@ latency = elapsed_time(ov_pipe, prompt)
 print(latency)
 ```
 
-OpenVINO automatically optimizes the model for the `bfloat16` format. Thanks to this, the average latency is now **16.7 seconds**, a sweet 2x speedup.
+OpenVINO automatically optimizes the model for the `bfloat16` format. Thanks to this, the average latency is now **16.7 seconds**, a sweet 2x speedup.q
 
 The pipeline above support dynamic input shapes, with no restriction on the number of images or their resolution. If your application can support a static input shape (say, always generate a single 512x512 image), you can unlock significant acceleration by reshaping the pipeline.
 
@@ -137,7 +145,7 @@ We then update our code to optimize each pipeline element with IPEX (you can lis
 ```
 import intel_extension_for_pytorch as ipex
 ...
-pipe = StableDiffusionPipeline.from_pretrained(model_id).to("cpu")
+pipe = StableDiffusionPipeline.from_pretrained(model_id)
 # to channels last
 pipe.unet = pipe.unet.to(memory_format=torch.channels_last)
 pipe.vae = pipe.vae.to(memory_format=torch.channels_last)
@@ -175,7 +183,7 @@ Let's try it.
 from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
 ...
 dpm = DPMSolverMultistepScheduler.from_pretrained(model_id, subfolder="scheduler")
-pipe = StableDiffusionPipeline.from_pretrained(model_id, scheduler=dpm).to("cpu")
+pipe = StableDiffusionPipeline.from_pretrained(model_id, scheduler=dpm)
 ```
 
 With this final version, inference latency is now down to **6 seconds**. Compared to our initial baseline, this is more than 5x faster (5.4x to be precise).
