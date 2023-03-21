@@ -23,7 +23,7 @@ Let's get started!
 
 ## The Diffusers library
 
-The [Diffusers](https://huggingface.co/docs/diffusers/index) library makes it extremely simple to generate images with Stable Diffusion. If you're not familiar with these models, here's a great [illustrated introduction](https://jalammar.github.io/illustrated-stable-diffusion/).
+The [Diffusers](https://huggingface.co/docs/diffusers/index) library makes it extremely simple to generate images with Stable Diffusion models. If you're not familiar with these models, here's a great [illustrated introduction](https://jalammar.github.io/illustrated-stable-diffusion/).
 
 First, let's create a virtual environment with the required libraries: Transformers, Diffusers, Accelerate, and PyTorch.
 
