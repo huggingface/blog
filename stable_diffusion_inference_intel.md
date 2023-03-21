@@ -34,7 +34,7 @@ pip install transformers diffusers accelerate torch==1.13.1
 
 Then, we write a simple benchmarking function that repeatedly runs inference, and returns the average latency for a single-image generation.
 
-```
+```python
 import time
 
 def elapsed_time(pipeline, prompt, nb_pass=10, num_inference_steps=20):
