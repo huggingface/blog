@@ -6,8 +6,7 @@ authors:
 - user: ellacharlaix
 ---
 
-<h1>
-Accelerating Stable Diffusion Inference on Intel CPUs</h1>
+# Accelerating Stable Diffusion Inference on Intel CPUs
 
 
 <!-- {blog_metadata} -->
