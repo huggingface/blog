@@ -72,18 +72,18 @@ Now, let's accelerate!
 
 [Optimum Intel](https://huggingface.co/docs/optimum/intel/index) accelerates end-to-end pipelines on Intel architectures. Its API is extremely similar to the vanilla [Transformers](https://huggingface.co/docs/transformers/index) API, making it trivial to adapt existing code.
 
-Optimum Intel supports [OpenVINO](https://docs.openvino.ai/latest/index.html), an Intel open-source toolkit for high-performance inference. Let's update the code above: we only need to replace `StableDiffusionPipeline` with `OVStableDiffusionPipeline`:
+Optimum Intel supports [OpenVINO](https://docs.openvino.ai/latest/index.html), an Intel open-source toolkit for high-performance inference. Let's update the code above: we only need to replace `StableDiffusionPipeline` with `OVStableDiffusionPipeline.
 
 ```
 from optimum.intel.openvino import OVStableDiffusionPipeline
 ...
-ov_pipe = OVStableDiffusionPipeline.from_pretrained(model_id, export=True).to("cpu")
+ov_pipe = OVStableDiffusionPipeline.from_pretrained(model_id, export=True)
 
 latency = elapsed_time(ov_pipe, prompt)
 print(latency)
 ```
 
-Thanks to OpenVINO optimization, the average latency is **16.7 seconds**, a sweet 2x speedup. If that's fast enough for you, then you can stop reading and go back to building cool things with Diffusers :)
+OpenVINO automatically optimizes the model for the `bfloat16` format. Thanks to this, its average latency is now **16.7 seconds**, a sweet 2x speedup. If that's fast enough for you, then you can stop reading and go back to building cool things with Diffusers :)
 
 If not, or if you can't use OpenVINO, the rest of this post will show you a series of increasingly advanced optimization techniques. Fasten your seatbelt!
 
