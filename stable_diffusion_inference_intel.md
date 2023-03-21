@@ -83,9 +83,23 @@ latency = elapsed_time(ov_pipe, prompt)
 print(latency)
 ```
 
-OpenVINO automatically optimizes the model for the `bfloat16` format. Thanks to this, its average latency is now **16.7 seconds**, a sweet 2x speedup. If that's fast enough for you, then you can stop reading and go back to building cool things with Diffusers :)
+OpenVINO automatically optimizes the model for the `bfloat16` format. Thanks to this, the average latency is now **16.7 seconds**, a sweet 2x speedup.
 
-If not, or if you can't use OpenVINO, the rest of this post will show you a series of increasingly advanced optimization techniques. Fasten your seatbelt!
+The pipeline above support dynamic input shapes, with no restriction on the number of images or their resolution. If your application can support a static input shape (say, always generate a single 512x512 image), you can unlock significant acceleration by reshaping the pipeline.
+
+```
+ov_pipe_static = OVStableDiffusionPipeline.from_pretrained(model_id, export=True)
+ov_pipe_static.reshape(batch_size=1, height=512, width=512, num_images_per_prompt=1)
+
+latency = elapsed_time(ov_pipe_static, prompt)
+print(latency)
+```
+
+With a static shape, average latency is slashed to **4.7 seconds**, an additional 3.5x speedup. 
+
+As you can see, OpenVINO is a simple and efficient way to accelerate Stable Diffusion inference. When combined with a Sapphire Rapids CPU, it delivers almost 10x speedup compared to vanilla inference on Ice Lake Xeons.
+
+If you can't or don't want to use OpenVINO, the rest of this post will show you a series of other optimization techniques. Fasten your seatbelt!
 
 ## Memory allocation
 
