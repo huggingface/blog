@@ -18,7 +18,7 @@ In this post, we're going to show you different techniques to accelerate Stable 
 
 At the time of writing, the simplest way to get your hands on a Sapphire Rapids server is to use the Amazon EC2 [R7iz](https://aws.amazon.com/ec2/instance-types/r7iz/) instance family. As it's still in preview, you have to [sign up](https://pages.awscloud.com/R7iz-Preview.html) to get access. Like in previous posts, I'm using an `r7iz.metal-16xl` instance (64 vCPU, 512GB RAM) with an Ubunutu 20.04 AMI (`ami-07cd3e6c4915b2d18`).
 
-Let's get started!
+Let's get started! Code samples are available on [Gitlab](https://gitlab.com/juliensimon/huggingface-demos/-/tree/main/optimum/stable_diffusion_intel).
 
 ## The Diffusers library
 
@@ -90,16 +90,13 @@ latency = elapsed_time(ov_pipe, prompt)
 print(latency)
 ```
 
-OpenVINO automatically optimizes the model for the `bfloat16` format. Thanks to this, the average latency is now **16.7 seconds**, a sweet 2x speedup.q
+OpenVINO automatically optimizes the model for the `bfloat16` format. Thanks to this, the average latency is now **16.7 seconds**, a sweet 2x speedup.
 
 The pipeline above support dynamic input shapes, with no restriction on the number of images or their resolution. If your application can support a static input shape (say, always generate a single 512x512 image), you can unlock significant acceleration by reshaping the pipeline.
 
 ```python
-ov_pipe_static = OVStableDiffusionPipeline.from_pretrained(model_id, export=True)
-ov_pipe_static.reshape(batch_size=1, height=512, width=512, num_images_per_prompt=1)
-
-latency = elapsed_time(ov_pipe_static, prompt)
-print(latency)
+ov_pipe.reshape(batch_size=1, height=512, width=512, num_images_per_prompt=1)
+latency = elapsed_time(ov_pipe, prompt)
 ```
 
 With a static shape, average latency is slashed to **4.7 seconds**, an additional 3.5x speedup. 
