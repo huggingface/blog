@@ -133,7 +133,7 @@ class IMDBClient(fl.client.NumPyClient):
             return float(loss), len(testloader), {"accuracy": float(accuracy)}
 ```
 
-The `get_parameters` function allows the server to get the client's parameters, inversely, the `set_parameters` function allows the server to send its parameters to the client. Finally the `fit` function is to train the model locally for the client and the `evaluate` function is to test the model locally and return the relevant metrics. 
+The `get_parameters` function lets the server get the client's parameters. Inversely, the `set_parameters` function allows the server to send its parameters to the client. Finally, the `fit` function trains the model locally for the client, and the `evaluate` function tests the model locally and returns the relevant metrics. 
 
 We can now start client instances using:
 
