@@ -104,7 +104,7 @@ net = AutoModelForSequenceClassification.from_pretrained(
 
 ## Federating the example
 
-The idea behind Federated Learning is to train a model between multiple clients and a server, without having to share any data. This is done by letting each client train the model locally on its data and send its parameters back to the server which then aggregates all the clients’ parameters together using a predefined strategy. This process is made very simple by using the [Flower](https://github.com/adap/flower) framework. If you want a more complete overview, be sure to check out this guide: [What is Federated Learning?](https://flower.dev/docs/tutorial/Flower-0-What-is-FL.html)
+The idea behind Federated Learning is to train a model between multiple clients and a server without having to share any data. This is done by letting each client train the model locally on its data and send its parameters back to the server, which then aggregates all the clients’ parameters together using a predefined strategy. This process is made very simple by using the [Flower](https://github.com/adap/flower) framework. If you want a more complete overview, be sure to check out this guide: [What is Federated Learning?](https://flower.dev/docs/tutorial/Flower-0-What-is-FL.html)
 
 ### Creating the IMDBClient
 
