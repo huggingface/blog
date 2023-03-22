@@ -144,7 +144,7 @@ flwr.client.start_numpy_client(server_address="127.0.0.1:8080",
 
 ### Starting the server
 
-Once we have a way to instantiate clients, we need to create our server in order to aggregate the results. Using Flower, this can be done very easily, by first choosing a strategy and then using the `flwr.server.start_server` function:
+Once we have a way to instantiate clients, we need to create our server in order to aggregate the results. Using Flower, this can be done very easily by first choosing a strategy and then using the `flwr.server.start_server` function:
 
 ```python
 # Define strategy
