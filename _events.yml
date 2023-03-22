@@ -1,6 +1,15 @@
 # "date" attribute should be end date of an event in `Mon DD, YYYY` format (e.g. Feb 3, 2014)
 # "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
+- name: Scikit-learn Documentation Sprint
+  link: https://github.com/huggingface/community-events/blob/main/sklearn-sprint/guidelines.md
+  date: Apr 14 to May 1, 2023
+  description: This is a community event to develop applications for examples in scikit-learn documentation using Gradio.
+
+- name: Keras DreamBooth Community Sprint
+  link: https://huggingface.co/keras-dreambooth
+  date: Mar 6 to Apr 1, 2023
+  description: A community sprint on fine-tuning Stable Diffusion using DreamBooth technique on Keras library.
 
 - name: Meet-up on Generative AI
   link: https://sites.google.com/huggingface.co/generative-ai-meetup
