@@ -21,7 +21,7 @@ In this blog post we will go over each step in detail on how we trained the [Unc
 [TODO: Embed Spaces for running the model] 
 
 ## Getting started with training your ControlNet for Stable Diffusion
-Training your own ControlNet training requires 3 steps: 
+Training your own ControlNet requires 3 steps: 
 1. **Planning your condition**: ControlNet is flexible enough to tame Stable Diffusion towards many tasks. The pre-trained models showcase a wide-range of conditions, and the community has built others, such as conditioning on [pixelated color pallets](https://huggingface.co/thibaud/controlnet-sd21-color-diffusers).
 
 2. **Building your dataset**: Once a condition is decided, it is time to build your dataset. For that, you can either construct a dataset from scratch, or use a sub-set of an existing dataset. You need three columns on your dataset to train the model: a ground truth `image`, a `conditioning_image` and a `prompt`. 
