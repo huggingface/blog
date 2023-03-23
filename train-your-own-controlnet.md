@@ -142,6 +142,8 @@ pip install bitsandbytes
 --use_8bit_adam
 ```
 
+The combination of a batch size of 1 with 4 gradient accumulation steps is equivalent to using the original batch size of 4 we used in our example. In addition, we enabled gradient checkpointing and 8-bit Adam for additional memory savings.
+
 ### Fitting on a 12GB VRAM GPU
 ```shell
 --gradient_accumulation_steps=4 \
