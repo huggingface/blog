@@ -9,7 +9,8 @@ authors:
 
 <h1> Jupyter X Hugging Face </h1>
 
-Co-written by Vaibhav Srivastav, Merve Noyan and Daniel van Strien
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 **We’re excited to announce improved support for Jupyter notebooks hosted on the Hugging Face Hub!**
 
