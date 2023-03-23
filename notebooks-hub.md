@@ -17,7 +17,7 @@ Hugging Face is a collaborative Machine Learning platform in which the community
 
 ## What have we changed? 
 
-Under the hood, Jupyter notebook files (usually shared with an ipynb extension) are JSON files. Whilst viewing these files directly is possible, it’s not a format intended to be read by humans. We have now added rendering support for notebooks hosted on the Hub. This means that notebooks will now be displayed in a human-readable format. 
+Under the hood, Jupyter notebook files (usually shared with an `ipynb` extension) are JSON files. While viewing these files directly is possible, it's not a format intended to be read by humans. We have now added rendering support for notebooks hosted on the Hub. This means that notebooks will now be displayed in a human-readable format. 
 
 <figure>
   <img src="/blog/assets/135_notebooks-hub/before_afternotebook renderıng.png" alt="A side-by-side comparison showing a screenshot of a notebook that hasn’t been rendered on the left and a rendered version on the right.  The non-rendered image shows part of a JSON file containing notebook cells that are difficult to read. The rendered version shows a notebook hosted on the Hugging Face hub showing the notebook rendered in a human-readable format. The screenshot shows some of the context of the Hugging Face Hub hosting, such as the branch and a window showing the rendered notebook. The rendered notebook has some example Markdown and code snippets showing the notebook output. "/>
