@@ -24,7 +24,7 @@ Under the hood, Jupyter notebook files (usually shared with an `ipynb` extension
   <figcaption>Before and after rendering of notebooks hosted on the hub.</figcaption>
 </figure>
 
-## Why are we excited to host more notebooks on the hub? 
+## Why are we excited to host more notebooks on the Hub? 
 
 - Notebooks help document how people can use your models and datasets; sharing notebooks in the same place as your models and datasets makes it easier for others to use the resources you have created and shared on the hub. 
 - Many people use the 🤗 Hub to develop a Machine Learning portfolio already. You can now supplement this portfolio with Jupyter Notebooks too. 
