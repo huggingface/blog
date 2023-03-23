@@ -29,6 +29,7 @@ First, let's create a virtual environment with the required libraries: Transform
 ```
 virtualenv sd_inference
 source sd_inference/bin/activate
+pip install pip --upgrade
 pip install transformers diffusers accelerate torch==1.13.1
 ```
 
@@ -92,7 +93,7 @@ print(latency)
 
 OpenVINO automatically optimizes the model for the `bfloat16` format. Thanks to this, the average latency is now **16.7 seconds**, a sweet 2x speedup.
 
-The pipeline above support dynamic input shapes, with no restriction on the number of images or their resolution. If your application can support a static input shape (say, always generate a single 512x512 image), you can unlock significant acceleration by reshaping the pipeline.
+The pipeline above support dynamic input shapes, with no restriction on the number of images or their resolution. With Stable Diffusion, your application is usually restricted to one (or a few) different output resolutions, such as 512x512, or 256x256. Thus, it makes a lot of sense to unlock significant acceleration by reshaping the pipeline to a fixed resolution. If you need more than one output resolution, you can simply maintain a few pipeline instances, one for each resolution.
 
 ```python
 ov_pipe.reshape(batch_size=1, height=512, width=512, num_images_per_prompt=1)
@@ -105,24 +106,33 @@ As you can see, OpenVINO is a simple and efficient way to accelerate Stable Diff
 
 If you can't or don't want to use OpenVINO, the rest of this post will show you a series of other optimization techniques. Fasten your seatbelt!
 
-## Memory allocation
+## System-level optimization
 
 Diffuser models are large multi-gigabyte models, and image generation is a memory-intensive operation. By installing a high-performance memory allocation library, we should be able to speed up memory operations and parallelize them across the Xeon cores.    Please note that this will change the default memory allocation library on your system. Of course, you can go back to the default library by uninstalling the new one.
 
-[jemalloc](https://jemalloc.net/) and [tcmalloc](https://github.com/gperftools/gperftools) are equally interesting. Here, I'm installing `jemalloc` as my tests give it a slight performance edge. Jemalloc can also be tweaked for a particular workload, for example to maximize CPU utilization. You can refer to the [tuning guide](https://github.com/jemalloc/jemalloc/blob/dev/TUNING.md) for details.
+[jemalloc](https://jemalloc.net/) and [tcmalloc](https://github.com/gperftools/gperftools) are equally interesting. Here, I'm installing `jemalloc` as my tests give it a slight performance edge. It can also be tweaked for a particular workload, for example to maximize CPU utilization. You can refer to the [tuning guide](https://github.com/jemalloc/jemalloc/blob/dev/TUNING.md) for details.
 
 ```
-# Option 1: jemalloc
 sudo apt-get install -y libjemalloc-dev
 export LD_PRELOAD=$LD_PRELOAD:/usr/lib/x86_64-linux-gnu/libjemalloc.so
-export MALLOC_CONF="oversize_threshold:1,background_thread:true,metadata_thp:auto,dirty_decay_ms: 30000,muzzy_decay_ms:30000"
-
-# Option 2: tcmalloc
-sudo apt-get install -y google-perftools
-export LD_PRELOAD=$LD_PRELOAD:/usr/lib/x86_64-linux-gnu/libtcmalloc.so
+export MALLOC_CONF="oversize_threshold:1,background_thread:true,metadata_thp:auto,dirty_decay_ms: 60000,muzzy_decay_ms:60000"
 ```
 
-Running our original Diffusers code, the average latency drops from 32.6 seconds to **11.9 seconds**. That's almost 3x faster, without any code change. Jemalloc is certainly working great on our 32-core Xeon.
+Next, we install the `libiomp' library to optimize parallel processing. It's part of [Intel OpenMP* Runtime](https://www.intel.com/content/www/us/en/docs/cpp-compiler/developer-guide-reference/2021-8/openmp-run-time-library-routines.html).
+
+```
+sudo apt-get install intel-mkl
+export LD_PRELOAD=$LD_PRELOAD:/usr/lib/x86_64-linux-gnu/libiomp5.so
+export OMP_NUM_THREADS=32
+```
+
+Finally, we install the [numactl](https://github.com/numactl/numactl) command line tool. This lets us pin our Python process to specific cores, and avoid some of the overhead related to context switching. 
+
+```
+numactl -C 0-31 python sd_blog_1.py
+```
+
+Thanks to these optimizations, our original Diffusers code now predicts in **11.9 seconds**. That's almost 3x faster, without any code change. These tools are certainly working great on our 32-core Xeon.
 
 We're far from done. Let's add the Intel Extension for PyTorch to the mix.
 
@@ -133,7 +143,7 @@ The [Intel Extension for Pytorch](https://intel.github.io/intel-extension-for-py
 Let's install it.
 
 ```
-pip install intel_extension_for_pytorch
+pip install intel_extension_for_pytorch==1.13.100
 ```
 
 We then update our code to optimize each pipeline element with IPEX (you can list them by printing the `pipe` object). This requires converting them to the channels-last format.
@@ -142,14 +152,21 @@ We then update our code to optimize each pipeline element with IPEX (you can lis
 import intel_extension_for_pytorch as ipex
 ...
 pipe = StableDiffusionPipeline.from_pretrained(model_id)
+
 # to channels last
 pipe.unet = pipe.unet.to(memory_format=torch.channels_last)
 pipe.vae = pipe.vae.to(memory_format=torch.channels_last)
 pipe.text_encoder = pipe.text_encoder.to(memory_format=torch.channels_last)
 pipe.safety_checker = pipe.safety_checker.to(memory_format=torch.channels_last)
 
-# optimize with ipex
-pipe.unet = ipex.optimize(pipe.unet.eval(), dtype=torch.bfloat16, inplace=True)
+# Create random input to enable JIT compilation
+sample = torch.randn(2,4,64,64)
+timestep = torch.rand(1)*999
+encoder_hidden_status = torch.randn(2,77,768)
+input_example = (sample, timestep, encoder_hidden_status)
+
+# optimize with IPEX
+pipe.unet = ipex.optimize(pipe.unet.eval(), dtype=torch.bfloat16, inplace=True, sample_input=input_example)
 pipe.vae = ipex.optimize(pipe.vae.eval(), dtype=torch.bfloat16, inplace=True)
 pipe.text_encoder = ipex.optimize(pipe.text_encoder.eval(), dtype=torch.bfloat16, inplace=True)
 pipe.safety_checker = ipex.optimize(pipe.safety_checker.eval(), dtype=torch.bfloat16, inplace=True)
@@ -163,7 +180,7 @@ with torch.cpu.amp.autocast(enabled=True, dtype=torch.bfloat16):
     print(latency)
 ```
 
-With this updated version, inference latency is further reduced from 11.9 seconds to **6.3 seconds**. That's almost an extra 2x acceleration thanks to IPEX and AMX.
+With this updated version, inference latency is further reduced from 11.9 seconds to **5.05 seconds**. That's almost an extra 2x acceleration thanks to IPEX and AMX.
 
 Can we extract a bit more performance? Yes, with schedulers!
 
@@ -187,6 +204,7 @@ With this final version, inference latency is now down to **6 seconds**. Compare
 <kbd>
   <img src="assets/xxx_stable_diffusion_inference_intel/01.png">
 </kbd>
+*Environment: Amazon EC2 r7iz.metal-16xl, Ubuntu 20.04, Linux 5.15.0-1031-aws, libjemalloc-dev 5.2.1-1, intel-mkl 2020.0.166-1, PyTorch 1.13.1, Intel Extension for PyTorch 1.13.1, transformers 4.27.2, diffusers 0.14, accelerate 0.17.1, openvino 2023.0.0.dev20230217, optimum 1.7.1, optimum-intel 1.7*
 
 
 
