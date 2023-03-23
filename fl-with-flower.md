@@ -11,7 +11,19 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/fl-with-flower.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
 This tutorial will show how to leverage Hugging Face to federate the training of language models over multiple clients using [Flower](https://flower.dev/). More specifically, we will fine-tune a pre-trained Transformer model (distilBERT) for sequence classification over a dataset of IMDB ratings. The end goal is to detect if a movie rating is positive or negative.
+
+## Dependencies
+
+To follow along this tutorial you will need to install the following packages: `datasets`, `flwr`, `torch`, and `transformers`. This can be done using `pip`:
+
+```sh
+pip install datasets flwr torch transformers
+```
 
 ## Standard Hugging Face workflow
 
@@ -20,6 +32,17 @@ This tutorial will show how to leverage Hugging Face to federate the training of
 To fetch the IMDB dataset, we will use Hugging Face's `datasets` library. We then need to tokenize the data and create `PyTorch` dataloaders, this is all done in the `load_data` function:
 
 ```python
+import random
+
+import torch
+from datasets import load_dataset
+from torch.utils.data import DataLoader
+from transformers import AutoTokenizer, DataCollatorWithPadding
+
+
+DEVICE = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+CHECKPOINT = "distilbert-base-uncased"
+
 def load_data():
     """Load IMDB data (training and eval)"""
     raw_datasets = load_dataset("imdb")
@@ -63,6 +86,11 @@ def load_data():
 Once we have a way of creating our trainloader and testloader, we can take care of the training and testing. This is very similar to any `PyTorch` training or testing loop:
 
 ```python
+import torch
+from datasets import load_metric
+from transformers import AdamW
+
+
 def train(net, trainloader, epochs):
     optimizer = AdamW(net.parameters(), lr=5e-5)
     net.train()
@@ -94,12 +122,15 @@ def test(net, testloader):
 
 ### Creating the model itself
 
-To create the model itself, we will just load the pre-trained distillBERT model using the Hugging Face’s `AutoModelForSequenceClassification` :
+To create the model itself, we will just load the pre-trained distillBERT model using Hugging Face’s `AutoModelForSequenceClassification` :
 
 ```python
+from transformers import AutoModelForSequenceClassification 
+
+
 net = AutoModelForSequenceClassification.from_pretrained(
-        "distilbert-base-uncased", num_labels=2
-    ).to(torch.device("cuda:0" if torch.cuda.is_available() else "cpu"))
+        CHECKPOINT, num_labels=2
+    ).to(DEVICE)
 ```
 
 ## Federating the example
@@ -111,6 +142,12 @@ The idea behind Federated Learning is to train a model between multiple clients 
 To federate our example to multiple clients, we first need to write our Flower client class (inheriting from `flwr.client.NumPyClient`). This is very easy, as our model is a standard `PyTorch` model:
 
 ```python
+from collections import OrderedDict
+
+import flwr as fl
+import torch
+
+
 class IMDBClient(fl.client.NumPyClient):
         def get_parameters(self, config):
             return [val.cpu().numpy() for _, val in net.state_dict().items()]
@@ -138,19 +175,32 @@ The `get_parameters` function lets the server get the client's parameters. Inver
 We can now start client instances using:
 
 ```python
-flwr.client.start_numpy_client(server_address="127.0.0.1:8080", 
+import flwr as fl
+
+
+fl.client.start_numpy_client(server_address="127.0.0.1:8080", 
 															 client=IMDBClient())
 ```
 
 ### Starting the server
 
-Once we have a way to instantiate clients, we need to create our server in order to aggregate the results. Using Flower, this can be done very easily by first choosing a strategy and then using the `flwr.server.start_server` function:
+Now that we have a way to instantiate clients, we need to create our server in order to aggregate the results. Using Flower, this can be done very easily by first choosing a strategy (here, we are using `FedAvg`, which will define the global weights as the average of all the clients' weights at each round) and then using the `flwr.server.start_server` function:
 
 ```python
+import flwr as fl
+
+
+def weighted_average(metrics):
+    accuracies = [num_examples * m["accuracy"] for num_examples, m in metrics]
+    losses = [num_examples * m["loss"] for num_examples, m in metrics]
+    examples = [num_examples for num_examples, _ in metrics]
+    return {"accuracy": sum(accuracies) / sum(examples), "loss": sum(losses) / sum(examples)}
+
 # Define strategy
 strategy = fl.server.strategy.FedAvg(
     fraction_fit=1.0,
     fraction_evaluate=1.0,
+    evaluate_metrics_aggregation_fn=weighted_average,
 )
 
 # Start server
@@ -161,9 +211,13 @@ fl.server.start_server(
 )
 ```
 
+The `weighted_average` function is there to provide a way to aggregate the metrics distributed amongst the clients (basically this allows us to display a nice average accuracy and loss for every round).
+
 ## Putting everything together
 
 If you want to check out everything put together, you should check out the code example we wrote for the Flower repo: [https://github.com/adap/flower/tree/main/examples/quickstart_huggingface](https://github.com/adap/flower/tree/main/examples/quickstart_huggingface). 
+
+A notebook is also available here: [https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/fl-with-flower.ipynb](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/fl-with-flower.ipynb) but instead of running on multiple separate clients it utilizes the simulation functionality of Flower in order to emulate a federated setting inside Google Colab (this also means that instead of calling `start_server` we will call `start_simulation`, and that a few other modifications are needed).
 
 Of course, this is a very basic example, and a lot can be added or modified, it was just to showcase how simply we could federate a Hugging Face workflow using Flower.
 
