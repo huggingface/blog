@@ -7,9 +7,6 @@ authors:
 - user: merve
 ---
 
-<!-- {blog_metadata} -->
-<!-- {authors} -->
-
 Co-written by Vaibhav Srivastav, Merve Noyan and Daniel van Strien
 
 **We’re excited to announce improved support for Jupyter notebooks hosted on the Hugging Face Hub!**
