@@ -3,7 +3,8 @@ title: "Jupyter notebooks X Hugging Face"
 thumbnail: /blog/assets/135_notebooks-hub/before_afternotebook renderıng.png
 authors:
 - user: davanstrien
-- user: your_coauthor #TODO add these
+- user: reach-vb 
+- user: merve
 ---
 
 <!-- {blog_metadata} -->
