@@ -318,7 +318,7 @@ While some of these tasks may seem irrelevant and banal, it’s important to not
 Attaining performance of this caliber isn’t without consequences. Next up, let’s learn about Machine Learning's impact on the environment.
 
 
-## 5. Enviornmental impact of deep learning
+## 5. Environmental impact of deep learning
 
 Large Machine Learning models require massive amounts of data which is expensive in both time and compute resources.
 
