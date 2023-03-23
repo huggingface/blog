@@ -30,7 +30,7 @@ Under the hood, Jupyter notebook files (usually shared with an ipynb extension) 
 ## Why are we excited to host more notebooks on the hub? 
 
 - Notebooks help document how people can use your models and datasets; sharing notebooks in the same place as your models and datasets makes it easier for others to use the resources you have created and shared on the hub. 
-- Many people are using the Hugging Face Hub to develop a portfolio of their machine learning work. Now you can easily add notebooks to this portfolio. 
+- Many people use the 🤗 Hub to develop a Machine Learning portfolio already. You can now supplement this portfolio with Jupyter Notebooks too. 
 - Support for one-click direct opening notebooks hosted on the hub in Google Colab, making notebooks on the Hub an even more powerful experience. Look out for future announcements! 
 
 
