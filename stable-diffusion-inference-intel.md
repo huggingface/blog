@@ -62,7 +62,7 @@ latency = elapsed_time(pipe, prompt)
 print(latency)
 ```
 
-The average latency is **32.6 seconds**. As demonstrated by this [Intel Space](https://huggingface.co/spaces/Intel/Stable-Diffusion-Side-by-Side), the same code runs on a previous generation Intel Xeon (code name Ice Lake) in about 45 seconds. 
+The average latency is **32.3 seconds**. As demonstrated by this [Intel Space](https://huggingface.co/spaces/Intel/Stable-Diffusion-Side-by-Side), the same code runs on a previous generation Intel Xeon (code name Ice Lake) in about 45 seconds. 
 
 Out of the box, we can see that Sapphire Rapids CPUs are quite faster without any code change!
 
@@ -199,7 +199,7 @@ dpm = DPMSolverMultistepScheduler.from_pretrained(model_id, subfolder="scheduler
 pipe = StableDiffusionPipeline.from_pretrained(model_id, scheduler=dpm)
 ```
 
-With this final version, inference latency is now down to **5.05 seconds**. Compared to our initial Sapphire Rapids baseline (32.6 seconds), this is almost 6.5x faster!
+With this final version, inference latency is now down to **5.05 seconds**. Compared to our initial Sapphire Rapids baseline (32.3 seconds), this is almost 6.5x faster!
 
 <kbd>
   <img src="assets/xxx_stable_diffusion_inference_intel/01.png">
