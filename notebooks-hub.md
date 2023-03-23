@@ -1,5 +1,5 @@
 ---
-title: "Jupyter notebooks X Hugging Face" 
+title: "Jupyter X Hugging Face" 
 thumbnail: /blog/assets/135_notebooks-hub/before_afternotebook renderıng.png
 authors:
 - user: davanstrien
