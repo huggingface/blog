@@ -137,6 +137,7 @@ But reducing the `train_batch_size` from `4` to `1` may not be enough for the tr
 ```shell 
 pip install bitsandbytes
 
+--train_batch_size=1 \
 --gradient_accumulation_steps=4 \
 --gradient_checkpointing \
 --use_8bit_adam
