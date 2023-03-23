@@ -16,7 +16,7 @@ ControlNet is a neural network structure that allows a fine-grained control of d
 
 [TODO: Some cool image of a condition]
 
-In this blog post we will go over each step in detail on how we trained the [Uncanny Faces model](#) - a model on face poses based on 3D synethetic faces (the uncanny faces was an unintended consequence actually, stay tunned to see how it came through).
+In this blog post we will go over each step in detail on how we trained the [_Uncanny_ Faces model](#) - a model on face poses based on 3D synthetic faces (the uncanny faces was an unintended consequence actually, stay tuned to see how it came through).
 
 [TODO: Embed Spaces for running the model] 
 
