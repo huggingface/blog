@@ -118,7 +118,7 @@ export LD_PRELOAD=$LD_PRELOAD:/usr/lib/x86_64-linux-gnu/libjemalloc.so
 export MALLOC_CONF="oversize_threshold:1,background_thread:true,metadata_thp:auto,dirty_decay_ms: 60000,muzzy_decay_ms:60000"
 ```
 
-Next, we install the `libiomp' library to optimize parallel processing. It's part of [Intel OpenMP* Runtime](https://www.intel.com/content/www/us/en/docs/cpp-compiler/developer-guide-reference/2021-8/openmp-run-time-library-routines.html).
+Next, we install the `libiomp` library to optimize parallel processing. It's part of [Intel OpenMP* Runtime](https://www.intel.com/content/www/us/en/docs/cpp-compiler/developer-guide-reference/2021-8/openmp-run-time-library-routines.html).
 
 ```
 sudo apt-get install intel-mkl
@@ -132,7 +132,7 @@ Finally, we install the [numactl](https://github.com/numactl/numactl) command li
 numactl -C 0-31 python sd_blog_1.py
 ```
 
-Thanks to these optimizations, our original Diffusers code now predicts in **11.9 seconds**. That's almost 3x faster, without any code change. These tools are certainly working great on our 32-core Xeon.
+Thanks to these optimizations, our original Diffusers code now predicts in **11.8 seconds**. That's almost 3x faster, without any code change. These tools are certainly working great on our 32-core Xeon.
 
 We're far from done. Let's add the Intel Extension for PyTorch to the mix.
 
@@ -180,7 +180,7 @@ with torch.cpu.amp.autocast(enabled=True, dtype=torch.bfloat16):
     print(latency)
 ```
 
-With this updated version, inference latency is further reduced from 11.9 seconds to **5.05 seconds**. That's almost an extra 2x acceleration thanks to IPEX and AMX.
+With this updated version, inference latency is further reduced from 11.9 seconds to **5.4 seconds**. That's more than 2x acceleration thanks to IPEX and AMX.
 
 Can we extract a bit more performance? Yes, with schedulers!
 
@@ -199,7 +199,7 @@ dpm = DPMSolverMultistepScheduler.from_pretrained(model_id, subfolder="scheduler
 pipe = StableDiffusionPipeline.from_pretrained(model_id, scheduler=dpm)
 ```
 
-With this final version, inference latency is now down to **6 seconds**. Compared to our initial baseline, this is more than 5x faster (5.4x to be precise).
+With this final version, inference latency is now down to **5.05 seconds**. Compared to our initial Sapphire Rapids baseline (32.6 seconds), this is almost 6.5x faster!
 
 <kbd>
   <img src="assets/xxx_stable_diffusion_inference_intel/01.png">
