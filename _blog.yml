@@ -1928,7 +1928,7 @@
 - local: notebooks-hub
   title: "Jupyter X Hugging Face"
   author: davanstrien
-  thumbnail: /blog/assets/135_notebooks-hub/before_afternotebook_rendering.png
+  thumbnail: /blog/assets/135_notebooks-hub/before_after_notebook_rendering.png
   date: March 23, 2023
   tags:
     - partnerships
