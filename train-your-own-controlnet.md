@@ -12,13 +12,18 @@ authors:
 <!-- {authors} -->
 
 ## Introduction
-ControlNet is a neural network structure that allows a fine-grained control of diffusion models by adding extra conditions. The technique debuted with the paper [Adding Conditional Control to Text-to-Image Diffusion Models](https://huggingface.co/papers/2302.05543), and quickly took over the open source diffusion community with the open source release by the author of 8 different conditions to control Stable Diffusion v1-5, including pose estimations, depth maps, canny edges, sketches [and more](https://huggingface.co/lllyasviel).
+[ControlNet](https://huggingface.co/blog/controlnet) is a neural network structure that allows a fine-grained control of diffusion models by adding extra conditions. The technique debuted with the paper [Adding Conditional Control to Text-to-Image Diffusion Models](https://huggingface.co/papers/2302.05543), and quickly took over the open source diffusion community with the open source release by the author of 8 different conditions to control Stable Diffusion v1-5, including pose estimations, depth maps, canny edges, sketches [and more](https://huggingface.co/lllyasviel).
 
-[TODO: Some cool image of a condition]
+![ControlNet pose examples](/blog/assets/136_train-your-own-controlnet/pose_image_1.png "ControlNet pose examples")
 
 In this blog post we will go over each step in detail on how we trained the [_Uncanny_ Faces model](#) - a model on face poses based on 3D synthetic faces (the uncanny faces was an unintended consequence actually, stay tuned to see how it came through).
 
-[TODO: Embed Spaces for running the model] 
+<iframe
+	src="https://pcuenq-uncanny-faces.hf.space"
+	frameborder="0"
+	width="850"
+	height="450"
+></iframe>
 
 ## Getting started with training your ControlNet for Stable Diffusion
 Training your own ControlNet requires 3 steps: 
@@ -28,8 +33,6 @@ Training your own ControlNet requires 3 steps:
 
 3. **Training the model**: Once your dataset is ready, it is time to train the model. This is the easiest part thanks to the [diffusers training script](https://github.com/huggingface/diffusers/tree/main/examples/controlnet). You'll need a GPU with at least 8GB of VRAM.
 
-[TODO: an image of our model with a condition and a generation]
-
 ## 1. Planning your condition
 To plan your condition, it is useful to think of two questions: 
 1. What kind of conditioning do I want to use?
@@ -37,7 +40,7 @@ To plan your condition, it is useful to think of two questions:
 
 For our example, we thought about using a facial landmarks conditioning. Our reasoning was: 1. the general landmarks conditioned ControlNet works well. 2. Facial landmarks are a widespread enough technique, and there are multiple models that calculate facial landmarks on regular pictures 3. Could be fun to tame Stable Diffusion to follow a certain facial landmark or imitate your own facial expression.
 
-[TODO: an image grid with different facial landmarks]
+![ControlNet pose examples](/blog/assets/136_train-your-own-controlnet/pose_image_1.png "ControlNet pose examples")
 
 ## 2. Building your dataset
 Okay! So we decided to do a facial landmarks Stable Diffusion conditioning. So, to prepare the dataset we need: 
@@ -47,15 +50,15 @@ Okay! So we decided to do a facial landmarks Stable Diffusion conditioning. So, 
 
 For this project, we decided to go with the `FaceSynthetics` dataset by Microsoft: it is a dataset that contains 100K synthetic faces. Other face research datasets with real faces such as `Celeb-A HQ`, `FFHQ` - but we decided to go with synthetic faces for this project.
 
-[Image example of the `FaceSynthetics` dataset]
+![Face synthetics example dataset](/blog/assets/136_train-your-own-controlnet/face_synethtics_example.jpeg "Face synthetics example dataset")
 
 The `FaceSynthetics` dataset sounded like a great start: it contains ground truth images of faces, and facial landmarks annotated in the iBUG 68-facial landmarks format, and a segmented image of the face. 
 
-[TODO - Image that contains a face in the dataset, a representation of the landmarks, and a representation of the final segmentation]
+![Face synthetics descriptions](/blog/assets/136_train-your-own-controlnet/segmentation_sequence.png "Face synthetics descriptions")
 
 Perfect. Right? Unfortunately, not really. Remember the second question in the "planning your condition" step - that we should have models that convert regular images to the conditioning? Turns out there was is no known model that can turn faces into the annotated landmark format of this dataset.
 
-[TODO - Image that contains an X in an arrow pointing from the face to the landmark]
+![No known segmentation model](/blog/assets/136_train-your-own-controlnet/segmentation_no_known.png "No known segmentation model")
 
 So we decided to follow another path:
 - Use the ground truths `image` of faces of the `FaceSynthetics` datase
@@ -69,7 +72,7 @@ Now, with the ground truth `image` and the `conditioning_image` on the dataset, 
 
 With that, we arrived to our final dataset! The [Face Synthetics SPIGA with captions](https://huggingface.co/datasets/multimodalart/facesyntheticsspigacaptioned) contains a ground truth image, segmentation and a caption for the 100K images of the `FaceSynthetics` dataset. We are ready to train the model!
 
-[Insert an image that contains side by side a GT Image, the conditioning image and the caption]
+![New dataset](/blog/assets/136_train-your-own-controlnet/new_dataset.png "New dataset")
 
 ## 3. Training the model
 With our [dataset ready](https://huggingface.co/datasets/multimodalart/facesyntheticsspigacaptioned), it is time to train the model! Even though this was supposed to be the hardest part of the process, with the diffusers training script, it turned out to be the easiest. We used a single A100 rented for US$1.10/h on [LambdaLabs](https://lambdalabs.com). 
@@ -80,6 +83,7 @@ We trained the model for 3 epochs (this means that the batch of 100K images were
 With just 1 epoch (so after the model "saw" 100K images), it already converged to following the poses and not overfit. So it worked, but... as we used the face synthetics dataset, the model ended up learning uncanny 3D-looking faces, instead of realistic faces. This makes sense given that we used a synthetic face dataset as opposed to real ones, and can be used for fun/memetic purposes. Here is the [uncannyfaces_25K](https://huggingface.co/multimodalart/uncannyfaces_25K) model. 
 
 <iframe src="https://wandb.ai/apolinario/controlnet/reports/ControlNet-Uncanny-Faces-Training--VmlldzozODcxNDY0" style="border:none;height:512px;width:100%">
+
 In this interactive table you can play with the dial below to go over how many training steps the model went through and how it affects the training process. At around 15K steps, it already started learning the poses. And it matured around 25K steps. Here 
 
 ### How did we do the training
