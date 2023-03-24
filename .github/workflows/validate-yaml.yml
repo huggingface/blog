@@ -36,14 +36,14 @@ jobs:
       uses: nrkno/yaml-schema-validator-github-action@v4
       with:
         schema: schemas/_events.schema.yml
-        target: cn/_events.yml
+        target: zh/_events.yml
     - name: "Validate _blog.yml (chinese translation)"
       uses: nrkno/yaml-schema-validator-github-action@v4
       with:
         schema: schemas/_blog.schema.yml
-        target: cn/_blog.yml
+        target: zh/_blog.yml
     - name: "Validate _tags.yml (chinese translation)"
       uses: nrkno/yaml-schema-validator-github-action@v4
       with:
         schema: schemas/_tags.schema.yml
-        target: cn/_tags.yml
+        target: zh/_tags.yml
