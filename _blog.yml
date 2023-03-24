@@ -1924,6 +1924,15 @@
     - guide
     - research
     - time-series
+    
+- local: notebooks-hub
+  title: "Jupyter X Hugging Face"
+  author: davanstrien
+  thumbnail: /blog/assets/135_notebooks-hub/before_afternotebook renderıng.png
+  date: March 23, 2023
+  tags:
+    - partnerships
+    - announcement
 
 - local: train-your-controlnet
   title: "Train your ControlNet with diffusers"
