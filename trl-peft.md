@@ -97,7 +97,7 @@ This technique allows the fine tuning of LLMs using a fraction of the memory req
 
 [Parameter-Efficient Fine-Tuning (PEFT)](https://github.com/huggingface/peft), is a Hugging Face library, created to support the creation and fine tuning of adapter layers on LLMs.`peft` is seamlessly integrated with 🤗 Accelerate for large scale models leveraging DeepSpeed and Big Model Inference.
 
-The library suppord many state of the art models and has an extensive set of examples, including:
+The library supports many state of the art models and has an extensive set of examples, including:
 
 - Causal language modeling
 - Conditional generation
