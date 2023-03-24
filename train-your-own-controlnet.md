@@ -130,7 +130,7 @@ Let's break down some of the settings, and also let's go over some optimisation 
 - `validation_image`: This is for you to take a sneak peak during training! The validation images will be ran for every amount of `validation_steps` so you can see how your training is going. Insert here a local path to an arbitrary number of conditioning images
 - `validation_prompt`: A prompt to be ran togehter with your validation image. Can be anything that can test if your model is training well
 - `train_batch_size`: This is the size of the training batch to fit the GPU. We can afford `4` due to having an A100, but if you have a GPU with lower VRAM we recommend bringing this value down to `1`.
-- `num_train_epochs`: Each epoch corresponds to how many times the images in the training set will be "seen" by the model. We experimented with 3 epochs, but turns out the best results required just a bit more than 1 epoch, with 3 epochs our model overfit.
+- `num_train_epochs`: Each epoch corresponds to how many times the images in the training set will be "seen" by the model. We experimented with 3 epochs, but it turns out the best results required just a bit more than 1 epoch; with 3 epochs, our model overfits.
 - `checkpointing_steps`: Save an intermediary checkpoint every `x` steps (in our case `5000`). So from the total `75000` steps that the 3 epochs were used, a checkpoint was saved. 
 - `validation_steps`: Every `x` steps the `validaton_prompt` and the `validation_image` are ran. 
 - `report_to` where to report your training to. Here we used Weights and Biases, which gave us [this nice report]().
