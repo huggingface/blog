@@ -1,5 +1,5 @@
 ---
-title: "Train your ControlNet with diffusers "
+title: "Train yourx ControlNet with diffusers "
 thumbnail: /blog/assets/136_train-your-controlnet/thumbnail.png
 authors:
 - user: multimodalart
@@ -17,13 +17,6 @@ authors:
 ![ControlNet pose examples](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/136_train-your-controlnet/pose_image_1-min.png "ControlNet pose examples")
 
 In this blog post we will go over each step in detail on how we trained the [_Uncanny_ Faces model](#) - a model on face poses based on 3D synthetic faces (the uncanny faces was an unintended consequence actually, stay tuned to see how it came through).
-
-<iframe
-	src="https://pcuenq-uncanny-faces.hf.space"
-	frameborder="0"
-	width="850"
-	height="450"
-></iframe>
 
 ## Getting started with training your ControlNet for Stable Diffusion
 Training your own ControlNet requires 3 steps: 
@@ -82,7 +75,7 @@ We trained the model for 3 epochs (this means that the batch of 100K images were
 
 With just 1 epoch (so after the model "saw" 100K images), it already converged to following the poses and not overfit. So it worked, but... as we used the face synthetics dataset, the model ended up learning uncanny 3D-looking faces, instead of realistic faces. This makes sense given that we used a synthetic face dataset as opposed to real ones, and can be used for fun/memetic purposes. Here is the [uncannyfaces_25K](https://huggingface.co/multimodalart/uncannyfaces_25K) model. 
 
-<iframe src="https://wandb.ai/apolinario/controlnet/reports/ControlNet-Uncanny-Faces-Training--VmlldzozODcxNDY0" style="border:none;height:512px;width:100%">
+<iframe src="https://wandb.ai/apolinario/controlnet/reports/ControlNet-Uncanny-Faces-Training--VmlldzozODcxNDY0" style="border:none;height:512px;width:100%"></iframe>
 
 In this interactive table you can play with the dial below to go over how many training steps the model went through and how it affects the training process. At around 15K steps, it already started learning the poses. And it matured around 25K steps. Here 
 
@@ -162,6 +155,15 @@ Please follow [our guide here](https://github.com/huggingface/diffusers/tree/mai
 
 ## 4. Conclusion!
 This experience of training a ControlNet was a lot of fun. We succesfully trained a model that can follow real face poses - however it learned to make uncanny 3D faces instead of real 3D faces because this was the dataset it was trained on, which has its own charm and flare. 
+
+Try out our Hugging Face Space: 
+<iframe
+	src="https://pcuenq-uncanny-faces.hf.space"
+	frameborder="0"
+	width="100%"
+	height="1150"
+	style="border:0"
+></iframe>
 
 As for next steps for us - in order to create realistically looking faces, while still not using a real face dataset, one idea is running the entire `FaceSynthetics` dataset through Stable Diffusion Image2Imaage, converting the 3D-looking faces into realistically looking ones, and then trainign another ControlNet.
 
