@@ -127,7 +127,7 @@ Let's break down some of the settings, and also let's go over some optimisation 
 - `caption_column`: The name of the column in your dataset that contains the caption of tha image (in our case `image_caption`)
 - `resolution`: The resolution of both the conditioning and ground truth images (in our case `512x512`)
 - `learning_rate`: The learing rate. We found out that `1e-5` worked well for these examples, but you may experiment with different values ranging between `1e-4` and `2e-6`, for example.
-- `validation_image`: This is for you to take a sneak peak during training! The validation images will be ran for every amount of `validation_steps` so you can see how your training is going. Insert here a local path to an arbitrary number of conditioning images
+- `validation_image`: This is for you to take a sneak peek during training! The validation images will be run for every amount of `validation_steps` so you can see how your training is going. Insert here a local path to an arbitrary number of conditioning images
 - `validation_prompt`: A prompt to be ran togehter with your validation image. Can be anything that can test if your model is training well
 - `train_batch_size`: This is the size of the training batch to fit the GPU. We can afford `4` due to having an A100, but if you have a GPU with lower VRAM we recommend bringing this value down to `1`.
 - `num_train_epochs`: Each epoch corresponds to how many times the images in the training set will be "seen" by the model. We experimented with 3 epochs, but it turns out the best results required just a bit more than 1 epoch; with 3 epochs, our model overfits.
