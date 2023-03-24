@@ -14,7 +14,7 @@ authors:
 ## Introduction
 [ControlNet](https://huggingface.co/blog/controlnet) is a neural network structure that allows fine-grained control of diffusion models by adding extra conditions. The technique debuted with the paper [Adding Conditional Control to Text-to-Image Diffusion Models](https://huggingface.co/papers/2302.05543), and quickly took over the open-source diffusion community author's release of 8 different conditions to control Stable Diffusion v1-5, including pose estimations, depth maps, canny edges, sketches, [and more](https://huggingface.co/lllyasviel).
 
-![ControlNet pose examples](/blog/assets/136_train-your-controlnet/pose_image_1.png "ControlNet pose examples")
+![ControlNet pose examples](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/136_train-your-controlnet/pose_image_1-min.png "ControlNet pose examples")
 
 In this blog post we will go over each step in detail on how we trained the [_Uncanny_ Faces model](#) - a model on face poses based on 3D synthetic faces (the uncanny faces was an unintended consequence actually, stay tuned to see how it came through).
 
@@ -40,7 +40,7 @@ To plan your condition, it is useful to think of two questions:
 
 For our example, we thought about using a facial landmarks conditioning. Our reasoning was: 1. the general landmarks conditioned ControlNet works well. 2. Facial landmarks are a widespread enough technique, and there are multiple models that calculate facial landmarks on regular pictures 3. Could be fun to tame Stable Diffusion to follow a certain facial landmark or imitate your own facial expression.
 
-![ControlNet pose examples](/blog/assets/136_train-your-controlnet/pose_image_1.png "ControlNet pose examples")
+![Example of face landmarks](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/136_train-your-controlnet/segmentation_examples.png "Example of face landmarks")
 
 ## 2. Building your dataset
 Okay! So we decided to do a facial landmarks Stable Diffusion conditioning. So, to prepare the dataset we need: 
@@ -50,15 +50,15 @@ Okay! So we decided to do a facial landmarks Stable Diffusion conditioning. So, 
 
 For this project, we decided to go with the `FaceSynthetics` dataset by Microsoft: it is a dataset that contains 100K synthetic faces. Other face research datasets with real faces such as `Celeb-A HQ`, `FFHQ` - but we decided to go with synthetic faces for this project.
 
-![Face synthetics example dataset](/blog/assets/136_train-your-controlnet/face_synethtics_example.jpeg "Face synthetics example dataset")
+![Face synthetics example dataset](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/136_train-your-controlnet/face_synethtics_example.jpeg "Face synthetics example dataset")
 
 The `FaceSynthetics` dataset sounded like a great start: it contains ground truth images of faces, and facial landmarks annotated in the iBUG 68-facial landmarks format, and a segmented image of the face. 
 
-![Face synthetics descriptions](/blog/assets/136_train-your-controlnet/segmentation_sequence.png "Face synthetics descriptions")
+![Face synthetics descriptions](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/136_train-your-controlnet/segmentation_sequence.png "Face synthetics descriptions")
 
 Perfect. Right? Unfortunately, not really. Remember the second question in the "planning your condition" step - that we should have models that convert regular images to the conditioning? Turns out there was is no known model that can turn faces into the annotated landmark format of this dataset.
 
-![No known segmentation model](/blog/assets/136_train-your-controlnet/segmentation_no_known.png "No known segmentation model")
+![No known segmentation model](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/136_train-your-controlnet/segmentation_no_known.png "No known segmentation model")
 
 So we decided to follow another path:
 - Use the ground truths `image` of faces of the `FaceSynthetics` datase
@@ -72,7 +72,7 @@ Now, with the ground truth `image` and the `conditioning_image` on the dataset, 
 
 With that, we arrived to our final dataset! The [Face Synthetics SPIGA with captions](https://huggingface.co/datasets/multimodalart/facesyntheticsspigacaptioned) contains a ground truth image, segmentation and a caption for the 100K images of the `FaceSynthetics` dataset. We are ready to train the model!
 
-![New dataset](/blog/assets/136_train-your-controlnet/new_dataset.png "New dataset")
+![New dataset](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/136_train-your-controlnet/new_dataset.png "New dataset")
 
 ## 3. Training the model
 With our [dataset ready](https://huggingface.co/datasets/multimodalart/facesyntheticsspigacaptioned), it is time to train the model! Even though this was supposed to be the hardest part of the process, with the diffusers training script, it turned out to be the easiest. We used a single A100 rented for US$1.10/h on [LambdaLabs](https://lambdalabs.com). 
