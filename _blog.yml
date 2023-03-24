@@ -1924,3 +1924,15 @@
     - guide
     - research
     - time-series
+
+- local: train-your-controlnet
+  title: "Train your ControlNet with diffusers"
+  author: multimodalart
+  thumbnail: /blog/assets/136_train-your-controlnet/thumbnail.png
+  date: March 24, 2023
+  tags:
+    - stable-diffusion
+    - diffusion
+    - controlnet
+    - diffusers
+    - guide
