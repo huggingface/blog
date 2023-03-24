@@ -281,7 +281,7 @@ This is still relatively short training time for pretraining but we can already 
 
 Note that we trained CodeParrot on roughly 25-30B tokens whereas GPT-neo was trained on 300B tokens and Codex on 300B (GPT-3 checkpoint) + 100B (code) tokens. So you definitely get a good bang for your buck here.
 
-But what is this _pass@k_ metric exactly? Simply put it measures the probability of at least one program passing the unittest of a programming problem given _k_ candidate generations from the model. Naturally, the metric increases with k as more candidates can potentially solve the coding challenge. You can use the metric with `datasets`:
+But what is this _pass@k_ metric exactly? Simply put it measures the probability of at least one program passing the test cases of a programming problem given _k_ candidate generations from the model. Naturally, the metric increases with k as more candidates can potentially solve the coding challenge. You can use the metric with `datasets`:
 
 ```Python
 from datasets import load_metric
@@ -330,7 +330,7 @@ def get_files_size(filename):
     return os.path.getsize(filepath)
 ```
 
-So far so good, but let's take this a step further and try something a bit more interesting. One of the less exciting aspects of building production ready code is writing unittest. Let's see if we can use CodeParrot to do this for us!
+So far so good, but let's take this a step further and try something a bit more interesting. One of the less exciting aspects of building production ready code is writing unit tests. Let's see if we can use CodeParrot to do this for us!
 
 **Prompt:**
 ```Python
