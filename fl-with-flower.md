@@ -17,6 +17,8 @@ authors:
 
 This tutorial will show how to leverage Hugging Face to federate the training of language models over multiple clients using [Flower](https://flower.dev/). More specifically, we will fine-tune a pre-trained Transformer model (distilBERT) for sequence classification over a dataset of IMDB ratings. The end goal is to detect if a movie rating is positive or negative.
 
+A notebook is also available [here](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/fl-with-flower.ipynb) but instead of running on multiple separate clients it utilizes the simulation functionality of Flower (using `flwr['simulation']`) in order to emulate a federated setting inside Google Colab (this also means that instead of calling `start_server` we will call `start_simulation`, and that a few other modifications are needed).
+
 ## Dependencies
 
 To follow along this tutorial you will need to install the following packages: `datasets`, `flwr`, `torch`, and `transformers`. This can be done using `pip`:
@@ -56,13 +58,13 @@ def load_data():
     def tokenize_function(examples):
         return tokenizer(examples["text"], truncation=True)
 
-    # random 100 samples
-    population = random.sample(range(len(raw_datasets["train"])), 100)
+    # We will take a small sample in order to reduce the compute time, this is optional
+    train_population = random.sample(range(len(raw_datasets["train"])), 100)
+    test_population = random.sample(range(len(raw_datasets["test"])), 100)
 
     tokenized_datasets = raw_datasets.map(tokenize_function, batched=True)
-    tokenized_datasets["train"] = tokenized_datasets["train"].select(population)
-    tokenized_datasets["test"] = tokenized_datasets["test"].select(population)
-
+    tokenized_datasets["train"] = tokenized_datasets["train"].select(train_population)
+    tokenized_datasets["test"] = tokenized_datasets["test"].select(test_population)
     tokenized_datasets = tokenized_datasets.remove_columns("text")
     tokenized_datasets = tokenized_datasets.rename_column("label", "labels")
 
@@ -86,8 +88,7 @@ def load_data():
 Once we have a way of creating our trainloader and testloader, we can take care of the training and testing. This is very similar to any `PyTorch` training or testing loop:
 
 ```python
-import torch
-from datasets import load_metric
+from evaluate import load as load_metric
 from transformers import AdamW
 
 
@@ -145,7 +146,6 @@ To federate our example to multiple clients, we first need to write our Flower c
 from collections import OrderedDict
 
 import flwr as fl
-import torch
 
 
 class IMDBClient(fl.client.NumPyClient):
@@ -175,9 +175,6 @@ The `get_parameters` function lets the server get the client's parameters. Inver
 We can now start client instances using:
 
 ```python
-import flwr as fl
-
-
 fl.client.start_numpy_client(server_address="127.0.0.1:8080", 
 															 client=IMDBClient())
 ```
@@ -187,9 +184,6 @@ fl.client.start_numpy_client(server_address="127.0.0.1:8080",
 Now that we have a way to instantiate clients, we need to create our server in order to aggregate the results. Using Flower, this can be done very easily by first choosing a strategy (here, we are using `FedAvg`, which will define the global weights as the average of all the clients' weights at each round) and then using the `flwr.server.start_server` function:
 
 ```python
-import flwr as fl
-
-
 def weighted_average(metrics):
     accuracies = [num_examples * m["accuracy"] for num_examples, m in metrics]
     losses = [num_examples * m["loss"] for num_examples, m in metrics]
@@ -216,8 +210,6 @@ The `weighted_average` function is there to provide a way to aggregate the metri
 ## Putting everything together
 
 If you want to check out everything put together, you should check out the code example we wrote for the Flower repo: [https://github.com/adap/flower/tree/main/examples/quickstart_huggingface](https://github.com/adap/flower/tree/main/examples/quickstart_huggingface). 
-
-A notebook is also available here: [https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/fl-with-flower.ipynb](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/fl-with-flower.ipynb) but instead of running on multiple separate clients it utilizes the simulation functionality of Flower in order to emulate a federated setting inside Google Colab (this also means that instead of calling `start_server` we will call `start_simulation`, and that a few other modifications are needed).
 
 Of course, this is a very basic example, and a lot can be added or modified, it was just to showcase how simply we could federate a Hugging Face workflow using Flower.
 
