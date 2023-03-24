@@ -1,5 +1,5 @@
 ---
-title: "Train your ControlNet with diffusers "
+title: "Train your ControlNet with diffusers"
 thumbnail: /blog/assets/136_train-your-controlnet/thumbnail.png
 authors:
 - user: multimodalart
@@ -156,7 +156,7 @@ Please follow [our guide here](https://github.com/huggingface/diffusers/tree/mai
 ## 4. Conclusion!
 This experience of training a ControlNet was a lot of fun. We succesfully trained a model that can follow real face poses - however it learned to make uncanny 3D faces instead of real 3D faces because this was the dataset it was trained on, which has its own charm and flare. 
 
-Try out our Hugging Face Space: 
+Try out our [Hugging Face Space](https://huggingface.co/spaces/pcuenq/uncanny-faces): 
 <iframe
 	src="https://pcuenq-uncanny-faces.hf.space"
 	frameborder="0"
