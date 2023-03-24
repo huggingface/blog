@@ -1,6 +1,6 @@
 ---
 title: "Accelerating Stable Diffusion Inference on Intel CPUs"
-thumbnail: /blog/assets/xxx/01.png
+thumbnail: /blog/assets/136_stable_diffusion_inference_intel/01.png
 authors:
 - user: juliensimon
 - user: ellacharlaix
@@ -16,7 +16,7 @@ Recently, we introduced the latest generation of [Intel Xeon](https://www.intel.
 
 In this post, we're going to show you different techniques to accelerate Stable Diffusion models on Sapphire Rapids CPUs. A follow-up post will do the same for distributed fine-tuning.
 
-At the time of writing, the simplest way to get your hands on a Sapphire Rapids server is to use the Amazon EC2 [R7iz](https://aws.amazon.com/ec2/instance-types/r7iz/) instance family. As it's still in preview, you have to [sign up](https://pages.awscloud.com/R7iz-Preview.html) to get access. Like in previous posts, I'm using an `r7iz.metal-16xl` instance (64 vCPU, 512GB RAM) with an Ubunutu 20.04 AMI (`ami-07cd3e6c4915b2d18`).
+At the time of writing, the simplest way to get your hands on a Sapphire Rapids server is to use the Amazon EC2 [R7iz](https://aws.amazon.com/ec2/instance-types/r7iz/) instance family. As it's still in preview, you have to [sign up](https://pages.awscloud.com/R7iz-Preview.html) to get access. Like in previous posts, I'm using an `r7iz.metal-16xl` instance (64 vCPU, 512GB RAM) with an Ubuntu 20.04 AMI (`ami-07cd3e6c4915b2d18`).
 
 Let's get started! Code samples are available on [Gitlab](https://gitlab.com/juliensimon/huggingface-demos/-/tree/main/optimum/stable_diffusion_intel).
 
@@ -202,7 +202,7 @@ pipe = StableDiffusionPipeline.from_pretrained(model_id, scheduler=dpm)
 With this final version, inference latency is now down to **5.05 seconds**. Compared to our initial Sapphire Rapids baseline (32.3 seconds), this is almost 6.5x faster!
 
 <kbd>
-  <img src="assets/xxx_stable_diffusion_inference_intel/01.png">
+  <img src="assets/136_stable_diffusion_inference_intel/01.png">
 </kbd>
 *Environment: Amazon EC2 r7iz.metal-16xl, Ubuntu 20.04, Linux 5.15.0-1031-aws, libjemalloc-dev 5.2.1-1, intel-mkl 2020.0.166-1, PyTorch 1.13.1, Intel Extension for PyTorch 1.13.1, transformers 4.27.2, diffusers 0.14, accelerate 0.17.1, openvino 2023.0.0.dev20230217, optimum 1.7.1, optimum-intel 1.7*
 

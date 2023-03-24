@@ -1934,3 +1934,12 @@
     - partnerships
     - announcement
 
+- local: intel
+  title: "Accelerating Stable Diffusion Inference on Intel CPUs"
+  author: juliensimon
+  thumbnail: /blog/assets/80_intel/01.png
+  date: March 24, 2023
+  tags:
+    - hardware
+    - intel
+    - guide
