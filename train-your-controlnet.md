@@ -1,5 +1,5 @@
 ---
-title: "Train your ControlNet with diffusers "
+title: "Train your ControlNet with diffusers"
 thumbnail: /blog/assets/136_train-your-controlnet/thumbnail.png
 authors:
 - user: multimodalart
