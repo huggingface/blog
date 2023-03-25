@@ -1,6 +1,6 @@
 ---
 title: "Jupyter X Hugging Face" 
-thumbnail: /blog/assets/135_notebooks-hub/before_afternotebook renderıng.png
+thumbnail: /blog/assets/135_notebooks-hub/before_after_notebook_rendering.png
 authors:
 - user: davanstrien
 - user: reach-vb 
@@ -23,7 +23,7 @@ Hugging Face is a collaborative Machine Learning platform in which the community
 Under the hood, Jupyter notebook files (usually shared with an `ipynb` extension) are JSON files. While viewing these files directly is possible, it's not a format intended to be read by humans. We have now added rendering support for notebooks hosted on the Hub. This means that notebooks will now be displayed in a human-readable format. 
 
 <figure>
-  <img src="/blog/assets/135_notebooks-hub/before_afternotebook renderıng.png" alt="A side-by-side comparison showing a screenshot of a notebook that hasn’t been rendered on the left and a rendered version on the right.  The non-rendered image shows part of a JSON file containing notebook cells that are difficult to read. The rendered version shows a notebook hosted on the Hugging Face hub showing the notebook rendered in a human-readable format. The screenshot shows some of the context of the Hugging Face Hub hosting, such as the branch and a window showing the rendered notebook. The rendered notebook has some example Markdown and code snippets showing the notebook output. "/>
+  <img src="/blog/assets/135_notebooks-hub/before_after_notebook_rendering.png" alt="A side-by-side comparison showing a screenshot of a notebook that hasn’t been rendered on the left and a rendered version on the right.  The non-rendered image shows part of a JSON file containing notebook cells that are difficult to read. The rendered version shows a notebook hosted on the Hugging Face hub showing the notebook rendered in a human-readable format. The screenshot shows some of the context of the Hugging Face Hub hosting, such as the branch and a window showing the rendered notebook. The rendered notebook has some example Markdown and code snippets showing the notebook output. "/>
   <figcaption>Before and after rendering of notebooks hosted on the hub.</figcaption>
 </figure>
 

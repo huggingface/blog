@@ -1928,9 +1928,18 @@
 - local: notebooks-hub
   title: "Jupyter X Hugging Face"
   author: davanstrien
-  thumbnail: /blog/assets/135_notebooks-hub/before_afternotebook renderıng.png
+  thumbnail: /blog/assets/135_notebooks-hub/before_after_notebook_rendering.png
   date: March 23, 2023
   tags:
     - partnerships
     - announcement
 
+- local: train-your-controlnet
+  title: "Train your ControlNet with diffusers"
+  author: multimodalart
+  thumbnail: /blog/assets/136_train-your-controlnet/thumbnail.png
+  date: March 24, 2023
+  tags:
+    - guide
+    - diffusion
+    - stable-diffusion
