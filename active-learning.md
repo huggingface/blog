@@ -21,9 +21,7 @@ Active Learning helps prioritize what data to label in order to maximize the per
 Here I consider a binary text classification task: predicting whether a specific phrase is polite or impolite. Compared to random selection of which examples to collect an additional annotation for, active learning with ActiveLab consistently produces much better Transformer models at each round (around **50%** of the error-rate), no matter the total labeling budget! 
 
 The rest of this article walks through the open-source code you can use to achieve these results. You can run all of the code to reproduce my active learning experiments here:
-
-<TODO:link notebook>
-
+[Colab Notebook](https://colab.research.google.com/github/cmauck10/active-learning/blob/master/active-learning.ipynb)
 ## Classifying the Politeness of Text
 
 The dataset I consider here is a variant of the [Stanford Politeness Corpus](https://convokit.cornell.edu/documentation/wiki_politeness.html). It is structured as a binary text classification task, to classify whether each phrase is polite or impolite. Human annotators are given a selected text phrase and they provide an (imperfect) annotation regarding its politeness: 0 for impolite and 1 for polite. 
