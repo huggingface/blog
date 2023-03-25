@@ -140,7 +140,7 @@ We see in this article that **Habana Gaudi2 performs BLOOMZ inference faster tha
 
 We also presented the results achieved with first-generation Gaudi. For smaller models, it can perform on par with or even better than A100 for almost a third of its price. It is a good alternative option to using GPUs for running inference with such a big model like BLOOMZ.
 
-If you are interested in accelerating your Machine Learning training and inference workflows using the latest AI hardware accelerators and software libraries, check out our [Expert Acceleration Program](https://huggingface.co/support). To learn more about Habana solutions, [read about our partnership here](https://huggingface.co/hardware/habana) and [contact them](https://habana.ai/contact-us/). To learn more about Hugging Face efforts to make AI hardware accelerators easy to use, check out our [Hardware Partner Program](https://huggingface.co/hardware).
+If you are interested in accelerating your Machine Learning training and inference workflows using the latest AI hardware accelerators and software libraries, check out our [Expert Acceleration Program](https://huggingface.co/support). To learn more about Habana solutions, [read about our partnership and contact them here](https://huggingface.co/hardware/habana). To learn more about Hugging Face efforts to make AI hardware accelerators easy to use, check out our [Hardware Partner Program](https://huggingface.co/hardware).
 
 
 ### Related Topics
