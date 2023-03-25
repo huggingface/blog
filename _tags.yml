@@ -39,3 +39,6 @@
 
 - value: time-series
   label: Time Series
+
+- value: active-learning
+  label: Active Learning

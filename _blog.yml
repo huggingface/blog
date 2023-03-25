@@ -1943,3 +1943,14 @@
     - guide
     - diffusion
     - stable-diffusion
+
+- local: active-learning
+  title: "Effectively Annotate Text Data for Transformers via Active Learning + Re-labeling" 
+  author: cmauck10
+  thumbnail: /blog/assets/active-learning/thumbnail.png
+  date: March 24, 2023
+  tags:
+    - guide
+    - open-source-colab
+    - fine-tuning
+    - active-learning
