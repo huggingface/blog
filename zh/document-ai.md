@@ -6,206 +6,162 @@ authors:
 - user: nielsr
 - user: florentgbelidji
 - user: nbroad
+translators:
+- user: Johnson817
 ---
 
-# Accelerating Document AI
+# 加速 Document AI (文档智能) 发展
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
+在企业的数字工作流中充满了各种文档，包括信件、发票、表格、报告、收据等，我们无法自动提取它们的知识。如今随着文本、视觉和多模态人工智能的进步，我们有可能解锁这些知识，这篇文章向你展示了你的团队该如何使用开源模型来构建免费的定制化解决方案。
 
-Enterprises are full of documents containing knowledge that isn't accessible by digital workflows. These documents can vary from letters, invoices, forms, reports, to receipts. With the improvements in text, vision, and multimodal AI, it's now possible to unlock that information. This post shows you how your teams can use open-source models to build custom solutions for free!
+Document AI 包括了许多数据科学的任务，包括 [图像分类](https://huggingface.co/tasks/image-classification)、[图像转文本](https://huggingface.co/tasks/image-to-text) (image to text)、[文档回答](https://huggingface.co/tasks/document-question-answering) (document question answering) 、[表格回答](https://huggingface.co/tasks/table-question-answering) (table question answering) 以及 [视觉回答](https://huggingface.co/tasks/visual-question-answering) (visual question answering) 。
 
-Document AI includes many data science tasks from [image classification](https://huggingface.co/tasks/image-classification), [image to text](https://huggingface.co/tasks/image-to-text), [document question answering](https://huggingface.co/tasks/document-question-answering), [table question answering](https://huggingface.co/tasks/table-question-answering), and [visual question answering](https://huggingface.co/tasks/visual-question-answering). This post starts with a taxonomy of use cases within Document AI and the best open-source models for those use cases. Next, the post focuses on licensing, data preparation, and modeling. Throughout this post, there are links to web demos, documentation, and models. 
+本文将向大家介绍 Document AI 中的六种不同使用场景，以及它们的最佳开源模型，之后重点分三个方面介绍了许可、数据准备和建模问题，在文章中，有一些 Web 演示、文档和模型的链接。
 
-### Use Cases
+## 六大使用场景
 
-There are at least six general use cases for building document AI solutions. These use cases differ in the kind of document inputs and outputs. A combination of approaches is often necessary when solving enterprise Document AI problems.
+构建 Document AI 解决方案至少有六个使用场景，这些使用场景在文档输入和输出的数据结构上有所不同，在解决具体的企业 Document AI 问题时，往往需要综合各种方法。
 
-<html itemscope itemtype="https://schema.org/FAQPage">
-  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-    <a id="1-what-is-ocr"><strong itemprop="name"> What is Optical Character Recognition (OCR)?</strong></a>
-    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-      <div itemprop="text">
+### 1. 光学字符识别 (OCR)
 
-Turning typed, handwritten, or printed text into machine-encoded text is known as Optical Character Recognition (OCR). It's a widely studied problem with many well-established open-source and commercial offerings. The figure shows an example of converting handwriting into text.
+将打字、手写或打印的文本变成机器编码的文本，这一过程被称为光学字符识别 (OCR)。这是一个被广泛研究的问题，有许多成熟的开源和商业产品，图中展示了一个将手写文字转换为文本的案例：
 
-![png](assets/112_document-ai/ocr.png)
+![png](../assets/112_document-ai/ocr.png)
 
-OCR is a backbone of Document AI use cases as it's essential to transform the text into something readable by a computer. Some widely available OCR models that operate at the document level are [EasyOCR](https://huggingface.co/spaces/tomofi/EasyOCR) or [PaddleOCR](https://huggingface.co/spaces/PaddlePaddle/PaddleOCR). There are also models like [TrOCR: Transformer-based Optical Character Recognition with Pre-trained Models](https://huggingface.co/docs/transformers/model_doc/trocr), which runs on single-text line images. This model works with a text detection model like CRAFT which first identifies the individual "pieces" of text in a document in the form of bounding boxes. The relevant metrics for OCR are Character Error Rate (CER) and word-level precision, recall, and F1. Check out [this Space](https://huggingface.co/spaces/tomofi/CRAFT-TrOCR) to see a demonstration of CRAFT and TrOCR.  
-</div>
-    </div>
-        </div>
+OCR 是 Document AI 使用场景的支柱，它对于将文本转化为计算机可读的东西至关重要，一些广泛使用的模型是 [EasyOCR](https://huggingface.co/spaces/tomofi/EasyOCR) 或 [PaddleOCR](https://huggingface.co/spaces/PaddlePaddle/PaddleOCR) ，它们在文档层面上运行。还有一些模型在单行文本图像上运行，比如 [TrOCR：基于转化器的光学字符识别与预训练模型](https://huggingface.co/docs/transformers/model_doc/trocr)，这个模型与 CRAFT 这样的文本检测模型一起工作，它首先以边界框的形式识别文档中的单个文本「片断」。
 
- <html itemscope itemtype="https://schema.org/FAQPage">
-  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-    <a id="2-what-is-doc_class"><strong itemprop="name"> What is Document Image Classification?</strong></a>
-    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-      <div itemprop="text">         
-    
-Classifying documents into the appropriate category, such as forms, invoices, or letters, is known as document image classification. Classification may use either one or both of the document's image and text. The recent addition of multimodal models that use the visual structure and the underlying text has dramatically increased classifier performance.
+OCR 的相关指标是字符错误率 ( CER ) 和 word-level 精度、召回率和 F1。在 [这个空间](https://huggingface.co/spaces/tomofi/CRAFT-TrOCR) 可以看到 CRAFT 和 TrOCR 的演示。       
+ 
+### 2. 文档图像分类
 
-A basic approach is applying OCR on a document image, after which a [BERT](https://huggingface.co/docs/transformers/model_doc/bert)-like model is used for classification. However, relying on only a BERT model doesn't take any layout or visual information into account. The figure from the [RVL-CDIP](https://huggingface.co/datasets/rvl_cdip) dataset shows how visual structure differs by different document types.
+将文档归入适当的类别，如表格、发票或信件，被称为文档图像分类。
 
-![png](assets/112_document-ai/doc_class.png)
+分类的对象可以选择文档的图像和文本中的一种或两种，最近，出现了一些更为先进的采用视觉结构和底层文本的多模态模型，它们的加入极大地提高了分类器的性能。
 
-That's where models like [LayoutLM](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) and [Donut](https://huggingface.co/docs/transformers/model_doc/donut) come into play. By incorporating not only text but also visual information, these models can dramatically increase accuracy. For comparison, on [RVL-CDIP](https://huggingface.co/datasets/rvl_cdip), an important benchmark for document image classification, a BERT-base model achieves 89% accuracy by using the text. A [DiT](https://huggingface.co/docs/transformers/main/en/model_doc/dit) (Document Image Transformer) is a pure vision model (i.e., it does not take text as input) and can reach 92% accuracy. But models like [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3) and [Donut](https://huggingface.co/docs/transformers/model_doc/donut), which use the text and visual information together using a multimodal Transformer, can achieve 95% accuracy! These multimodal models are changing how practitioners solve Document AI use cases.
-</div>
-    </div>
-        </div>
+一个基本的方法是在文档图像上应用 OCR，然后使用类似 BERT 的模型进行分类，然而，[BERT](https://huggingface.co/docs/transformers/model_doc/bert) 模型并不能考虑到任何布局或视觉信息，同时参考 [RVL-CDIP](https://huggingface.co/datasets/rvl_cdip) 数据集的图，我们可以看到不同文档类型的视觉结构是不同的：
 
-<html itemscope itemtype="https://schema.org/FAQPage">
-  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-    <a id="2-what-is-doc-layout"><strong itemprop="name"> What is Document layout analysis?</strong></a>
-    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-      <div itemprop="text">         
+![png](../assets/112_document-ai/doc_class.png)
 
+这就是 [LayoutLM](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) 和 [Donut](https://huggingface.co/docs/transformers/model_doc/donut) 等多模态模型发挥作用的地方，由于同时纳入了文本和视觉信息，这些模型可以极大地提高准确性，在 [RVL-CDIP](https://huggingface.co/datasets/rvl_cdip) (文档图像分类的一个重要基准数据集) 上：
 
-Document layout analysis is the task of determining the physical structure of a document, i.e., identifying the individual building blocks that make up a document, like text segments, headers, and tables. This task is often solved by framing it as an image segmentation/object detection problem. The model outputs a set of segmentation masks/bounding boxes, along with class names.
+* 基于 BERT 的模型仅使用文本，实现了 89% 的准确率；
+* [DiT](https://huggingface.co/docs/transformers/main/en/model_doc/dit) (Document image Transformer) 仅使用视觉，可以达到 92% 的准确率；
+* 而像 LayoutLMv3 和 Donut 这样使用多模态 Transformer 将文本和视觉信息结合起来的模型，可以达到 95% 的准确率，它们正在改变从业者解决 Document AI 问题的方法。
+
+### 3. 文档布局分析 (Document layout analysis)
+
+文档布局分析是确定文档物理结构的任务，即确定构成文档的各个组成部分，如文本段落、标题和表格
 
 Models that are currently state-of-the-art for document layout analysis are [LayoutLMv3](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) and [DiT](https://huggingface.co/docs/transformers/model_doc/dit) (Document Image Transformer). Both models use the classic [Mask R-CNN](https://arxiv.org/abs/1703.06870) framework for object detection as a backbone. This [document layout analysis](https://huggingface.co/spaces/nielsr/dit-document-layout-analysis) Space illustrates how DiT can be used to identify text segments, titles, and tables in documents. An example using [DiT](https://github.com/microsoft/unilm/tree/master/dit) detecting different parts of a document is shown here.
-</div>
-    </div>
-        </div>
 
-![png](assets/112_document-ai/DIT.png)
+这项任务通常是通过将其作为一个图像分割 (image segmentation) 、物体检测 (object detection)  问题来解决，该模型的输出为一组分割掩码 / 边界框，以及类别名称。
+
+目前最先进的文档布局分析模型是 [LayoutLMv3](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) 和 [DiT](https://huggingface.co/docs/transformers/model_doc/dit) (Document image Transformer) 。这两种模型都使用经典的 [Mask R-CNN](https://arxiv.org/abs/1703.06870) 框架作为对象检测的骨架。这个 [文档布局分析](https://huggingface.co/spaces/nielsr/dit-document-layout-analysis) 空间说明了 [DiT](https://github.com/microsoft/unilm/tree/master/dit) 模型如何被用来识别文档中的文本段、标题和表格。这里展示了一个使用 DiT 检测文档不同部分的例子：
+
+![用 DiT 进行文档布局分析](../assets/112_document-ai/DIT.png)
 
 Document layout analysis with DiT.
 
 Document layout analysis typically uses the mAP (mean average-precision) metric, often used for evaluating object detection models. An important benchmark for layout analysis is the [PubLayNet](https://github.com/ibm-aur-nlp/PubLayNet) dataset. [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3), the state-of-the-art at the time of writing, achieves an overall mAP score of 0.951 ([source](https://paperswithcode.com/sota/document-layout-analysis-on-publaynet-val)).
 
-<html itemscope itemtype="https://schema.org/FAQPage">
-  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-    <a id="4-what-is-doc-parsing"><strong itemprop="name"> What is Document parsing?</strong></a>
-    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-      <div itemprop="text">
+文档布局分析通常使用 mAP (平均精度) 指标来评估对象检测模型，使用 [PubLayNet](https://github.com/ibm-aur-nlp/PubLayNet) 数据集作为重要基准，截至本文写作，最先进的模型是 LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3)，其总体 mAP 得分为 0.951 ([点击](https://paperswithcode.com/sota/document-layout-analysis-on-publaynet-val) 查看各模型精度对比) 。
 
-A step beyond layout analysis is document parsing. Document parsing is identifying and extracting key information from a document, such as names, items, and totals from an invoice form. This [LayoutLMv2 Space](https://huggingface.co/spaces/nielsr/LayoutLMv2-FUNSD) shows to parse a document to recognize questions, answers, and headers.
+### 4. 文档解析
 
-The first version of LayoutLM (now known as LayoutLMv1) was released in 2020 and dramatically improved over existing benchmarks, and it's still one of the most popular models on the Hugging Face Hub for Document AI. [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) and [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3) incorporate visual features during pre-training, which provides an improvement. The LayoutLM family produced a step change in Document AI performance. For example, on the [FUNSD](https://guillaumejaume.github.io/FUNSD/) benchmark dataset, a BERT model has an F1 score of 60%, but with LayoutLM, it is possible to get to 90%! 
+比布局分析更进一步的是文档解析，文档解析的目标是识别和提取文档中的关键信息，比如识别发票表格中的名称、项目和总数，点击 [LayoutLMv2 Space](https://huggingface.co/spaces/nielsr/LayoutLMv2-FUNSD) Space 可以了解如何解析文档，识别问题、答案和标题。
 
-LayoutLMv1 now has many successors. [Donut](https://huggingface.co/docs/transformers/model_doc/donut) builds on LayoutLM but can take the image as input, so it doesn't require a separate OCR engine. [ERNIE-Layout](https://arxiv.org/abs/2210.06155) was recently released with promising results, see the [Space](https://huggingface.co/spaces/PaddlePaddle/ERNIE-Layout). For multilingual use cases, there are multilingual variants of LayoutLM, like [LayoutXLM](https://huggingface.co/docs/transformers/model_doc/layoutxlm) and [LiLT](https://huggingface.co/docs/transformers/main/en/model_doc/lilt). This figure from the LayoutLM paper shows LayoutLM analyzing some different documents.
+LayoutLM 的第一个版本 (现在称为 LayoutLMv1) 于 2020 年发布，显著提高了当时存在的基准，如今它仍然是 Hugging Face Hub 上最受欢迎的模型之一，用于 Document AI。[LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) 和 [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3) 在预训练期间纳入了视觉特征，相比于第一代提供了一个改进。LayoutLM 系列让 Document AI 的性能方面产生了阶梯式的变化。例如，在 [FUNSD](https://guillaumejaume.github.io/FUNSD/) 基准数据集上，BERT 模型的 F1 指标层面得分是 60%，但使用 LayoutLM，就有可能达到 90%!
 
-![png](assets/112_document-ai/layoutlm.png)
+LayoutLMv1 现在有许多继承者：
 
-Data scientists are finding document layout analysis and extraction as key use cases for enterprises. The existing commercial solutions typically cannot handle the diversity of most enterprise data, in content and structure. Consequently, data science teams can often surpass commercial tools by fine-tuning their own models.
-</div>
-    </div>
-        </div>
+* Donut 建立在 LayoutLM 的基础上，但可以把图像作为输入，所以它不需要一个单独的 OCR 引擎；
+* [ERNIE-Layout](https://arxiv.org/abs/2210.06155) 最近被发布了，并取得了令人鼓舞的成果，请看 [Space](https://huggingface.co/spaces/PaddlePaddle/ERNIE-Layout)
 
+对于多语言的使用情况，LayoutLM 有一些多语言的变种，比如 [LayoutXLM](https://huggingface.co/docs/transformers/model_doc/layoutxlm) 和 [LiLT](https://huggingface.co/docs/transformers/main/en/model_doc/lilt)，这张来自 LayoutLM 论文的图展示了 LayoutLM 对一些不同文档的分析：
 
-<html itemscope itemtype="https://schema.org/FAQPage">
-  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-    <a id="5-what-is-table"><strong itemprop="name"> What is Table detection, extraction, and table structure recognition?</strong></a>
-    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-      <div itemprop="text">
+![png](../assets/112_document-ai/layoutlm.png)
 
-Documents often contain tables, and most OCR tools don't work incredibly well out-of-the-box on tabular data. Table detection is the task of identifying where tables are located, and table extraction creates a structured representation of that information. Table structure recognition is the task of identifying the individual pieces that make up a table, like rows, columns, and cells. Table functional analysis (FA) is the task of recognizing the keys and values of the table. The figure from the [Table transformer](https://github.com/microsoft/table-transformer) illustrates the difference between the various subtasks.
+虽然数据科学家发现文档布局分析和提取是企业的关键使用场景，但由于大多数企业数据在内容和结构上的多样性，现有的通用商业解决方案通常无法处理。因此，数据科学团队通常可以微调自己的模型来超越现有的商业工具。
 
-![jpeg](assets/112_document-ai/table.jpeg)
+### 5. 表格检测、内容提取和结构识别
 
-The approach for table detection and structure recognition is similar to document layout analysis in using object detection models that output a set of bounding boxes and corresponding classes.
+文档通常包含表格，而大多数 OCR 工具在表格数据上的工作效果并不十分理想，无法做到开箱即用，这就需要表格的检测，内容提取和结构识别工作。
 
-The latest approaches, like [Table Transformer](https://huggingface.co/docs/transformers/main/en/model_doc/table-transformer), can enable table detection and table structure recognition with the same model. The Table Transformer is a [DETR](https://huggingface.co/docs/transformers/model_doc/detr)-like object detection model, trained on [PubTables-1M](https://arxiv.org/abs/2110.00061) (a dataset comprising one million tables). Evaluation for table detection and structure recognition typically uses the average precision (AP) metric. The Table Transformer performance is reported as having an AP of 0.966 for table detection and an AP of 0.912 for table structure recognition + functional analysis on PubTables-1M.
+检测的任务是识别表格的位置，提取则是对该信息进行结构化表示，结构识别是识别构成表格的各个部分的任务，如行、列和单元。更进一步表格功能分析 (Functional Analysis) 是识别表的键 (key) 和值 (value) 的任务，下图 [Table transformer](https://github.com/microsoft/table-transformer) 的图说明了各个子任务之间的区别。
 
-Table detection and extraction is an exciting approach, but the results may be different on your data. In our experience, the quality and formatting of tables vary widely and can affect how well the models perform. Additional fine-tuning on some custom data will greatly improve the performance.
+![jpeg](../assets/112_document-ai/table.jpeg)
 
-</div>
-    </div>
-        </div>
+表格检测和结构识别的方法与文档布局分析类似，使用对象检测模型，输出为一组边界框和相应的类。最新的方法，如 Table Transformer ，可以用同一个模型实现表的检测和表的结构识别。
 
-<html itemscope itemtype="https://schema.org/FAQPage">
-  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-    <a id="6-what-is-docvqa"><strong itemprop="name"> What is Document question answering (DocVQA)?</strong></a>
-    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-      <div itemprop="text">
-          
-Question answering on documents has dramatically changed how people interact with AI. Recent advancements have made it possible to ask models to answer questions about an image - this is known as document visual question answering, or DocVQA for short. After being given a question, the model analyzes the image and responds with an answer. An example from the [DocVQA dataset](https://rrc.cvc.uab.es/?ch=17) is shown in the figure below. The user asks, "Mention the ZIP code written?" and the model responds with the answer.
+[Table Transformer](https://huggingface.co/docs/transformers/main/en/model_doc/table-transformer) 是一个类似 [DETR](https://huggingface.co/docs/transformers/model_doc/detr) 的对象检测模型，在 PubTables-1M  (由一百万张表组成的数据集) 上进行训练。表的检测和识别的评估通常采用平均精度 (AP) 指标。据报告，在 [PubTables-1M](https://arxiv.org/abs/2110.00061) 数据集上， Table Transformer 的性能在表检测方面的 AP 为 0.966，在表结构识别 + 功能分析方面的 AP 为 0.912。
+
+虽然表格检测和提取有了一个令人兴奋的方法，但在你的数据上，结果可能是不同的，根据我们的经验，不同表格的质量和格式差别很大，这会影响模型的表现，所以在一些自定义的数据上进行额外的微调将大大改善性能。
+
+### 6. 文档回答 (DocVQA)
+
+文档上的问题回答 ( Question Answering) 已经极大地改变了人们与人工智能的交互方式，最近的进展使得要求模型回答关于图像的问题成为可能 —— 这被称为文档视觉回答，或简称 [DocVQA dataset](https://rrc.cvc.uab.es/?ch=17) 。
+
+在得到一个问题后，模型会分析图像，并回答一个答案，下图是 DocVQA 数据集 的一个例子：
+
+* 用户问道："提到写的邮政编码吗？"
+* 模型回答说：" 是的。
 
 ![png](assets/112_document-ai/vqa.png)
 
-In the past, building a DocVQA system would often require multiple models working together. There could be separate models for analyzing the document layout, performing OCR, extracting entities, and then answering a question. The latest DocVQA models enable question-answering in an end-to-end manner, comprising only a single (multimodal) model.
+在过去，建立一个 DocVQA 系统往往需要多个模型一起工作，比如用单独的模型来分析文档布局、执行 OCR 、提取实体，然后再使用一个模型回答问题。而最新的 DocVQA 模型能够以端到端的方式进行问题回答，只需要一个 (多模态) 模型。
 
-DocVQA is typically evaluated using the Average Normalized Levenshtein Similarity (ANLS) metric. For more details regarding this metric, we refer to [this guide](https://rrc.cvc.uab.es/?ch=11&com=tasks). The current state-of-the-art on the DocVQA benchmark that is open-source is [LayoutLMv3](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) which achieves an ANLS score of 83.37. However, this model consists of a pipeline of OCR + multimodal Transformer. [Donut](https://huggingface.co/docs/transformers/model_doc/donut) solves the task in an end-to-end manner using a single encoder-decoder Transformer, not relying on OCR. Donut doesn't provide state-of-the-art accuracy but shows the great potential of the end-to-end approach using a generative T5-like model. Impira hosts an [exciting Space](https://huggingface.co/spaces/impira/docquery) that illustrates LayoutLM and Donut for DocVQA.
+DocVQA 通常使用平均归一化列文斯坦相似度 ( ANLS ) 指标进行评估，关于这个指标的更多细节，我们可以参考 [这个指南](https://rrc.cvc.uab.es/?ch=11&com=tasks)。
 
-Visual question answering is compelling; however, there are many considerations for successfully using it. Having accurate training data, evaluation metrics, and post-processing is vital. For teams taking on this use case, be aware that DocVQA can be challenging to work properly. In some cases, responses can be unpredictable, and the model can “hallucinate” by giving an answer that doesn't appear within the document. Visual question answering models can inherit biases in data raising ethical issues. Ensuring proper model setup and post-processing is integral to building a successful DocVQA solution.
-</div>
-    </div>
-        </div>
+在 DocVQA 基准上，目前最先进的是 [LayoutLMv3](https://huggingface.co/docs/transformers/model_doc/layoutlmv3)，这个模型由 OCR + 多模态 Transformer 组成，它的 ANLS 得分达到了 83.37；
+而使用单一的编码器 - 解码器 Transformer 以端到端的方式解决任务的 [Donut](https://huggingface.co/docs/transformers/model_doc/donut) 模型没有提供最先进的准确性，只是展示了使用类似 T5 的生成模型的端到端方法的巨大潜力；
 
-<html itemscope itemtype="https://schema.org/FAQPage">
-  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-    <a id="7-what-is-licensing"><h3 itemprop="name"> What are Licensing Issues in Document AI?</h3></a>
-    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-      <div itemprop="text">          
+Impira 开发了一个令人兴奋的 [space](https://huggingface.co/spaces/impira/docquery)，说明了 DocVQA 的 LayoutLM 和 Donut。
 
-Industry and academia make enormous contributions to advancing Document AI. There are a wide assortment of models and datasets available for data scientists to use. However, licensing can be a non-starter for building an enterprise solution. Some well-known models have restrictive licenses that forbid the model from being used for commercial purposes. Most notably, Microsoft's [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) and [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3) checkpoints cannot be used commercially. When you start a project, we advise carefully evaluating the license of prospective models. Knowing which models you want to use is essential at the outset, since that may affect data collection and annotation. A table of the popular models with their licensing license information is at the end of this post. 
-</div>
-    </div>
-        </div>
+虽然视觉回答是是可信的，但若要成功地使用它，有许多注意事项，需要团队拥有准确的训练数据、评估指标和后处理过程。
 
+还要注意 DocVQA 的正常工作也可能出问题：在某些情况下，回答可能是不可预测的，模型可能会出现 "幻觉"，给出一个不在文档中出现的答案，以及视觉回答模型可以继承数据中的偏见，从而引发道德问题，所以要建立一个成功的 DocVQA 解决方案，确保正确的模型设置和后处理十分必要。
 
-<html itemscope itemtype="https://schema.org/FAQPage">
-  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-    <a id="8-what-are-dataprep"><h3 itemprop="name"> What are Data Prep Issues in Document AI?</h3></a>
-    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-      <div itemprop="text">       
+## Document AI 中的许可 (License) 问题
 
-Data preparation for Document AI is critical and challenging. It's crucial to have properly annotated data. Here are some lessons we have learned along with the way around data preparation.
+工业界和学术界为推进 Document AI 做出了巨大贡献，有各种各样的模型和数据集可供数据科学家使用。然而，对于建立一个企业解决方案来说，许可证可能是一个不小的问题，一些著名的模型会有限制性许可，它们无法商用，比如最值得警惕的：微软的 [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) 和 [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3)  的 checkpoints。
 
-First, machine learning depends on the scale and quality of your data. If the image quality of your documents is poor, you can't expect AI to be able to read these documents magically. Similarly, if your training data is small with many classes, your performance may be poor. Document AI is like other problems in machine learning where larger data will generally provide greater performance.
+当你开始一个项目时，应该仔细评估潜在的模型的许可证情况，在一开始就知道你想使用哪些模型，因为这会影响数据的收集和注释，本文末尾有一个流行模型的表格，其中有它们的许可授权相关信息。
 
-Second, be flexible in your approaches. You may need to test several different methodologies to find the best solution. A great example is OCR, in which you can use an open-source product like Tesseract, a commercial solution like Cloud Vision API, or the OCR capability inside an open-source multimodal model like [Donut](https://huggingface.co/docs/transformers/model_doc/donut).
+## Document AI 中的数据准备问题    
 
-Third, start small with annotating data and pick your tools wisely. In our experience, you can get good results with several hundred documents. So start small and carefully evaluate your performance. Once you have narrowed your overall approach, you can begin to scale up the data to maximize your predictive accuracy. When annotating, remember that some tasks like layout identification and document extraction require identifying a specific region within a document. You will want to ensure your annotation tool supports bounding boxes.
+Document AI 的数据准备很关键，并具有一定挑战性，需要有正确注释的数据，以下是我们在数据准备方面学到的一些经验和方法：
 
-</div>
-    </div>
-        </div>
+1. 机器学习取决于你的数据规模和质量，如果你文档里面的图像质量很差，你不能指望人工智能能够神奇地阅读这些文档，同样地，如果你的训练数据很小，且有很多不同数据类型，模型的表现可能会很差，Document AI 就像机器学习中的其他问题一样，数据越大，性能越好。
+2. 在方法上要灵活，你可能需要测试几种不同的方法来找到最佳解决方案。一个很好的例子是 OCR ，你可以使用像 Tesseract 这样的开源产品、像 Cloud Vision API 这样的商业解决方案，或者像 [Donut](https://huggingface.co/docs/transformers/model_doc/donut) 这样的开源多模态模型内部的 OCR 能力。
+3. 从小处开始，仔细评估你的表现。根据我们的经验，你可以通过几百个文档获得良好的结果，所以先注释少量数据 (annotating data) ，并明智地选择模型工具。缩小了整体方法，就可以开始扩大数据的规模，最大限度地提高你的预测准确性。在注释时，记住一些任务，如布局识别和文档提取，需要识别文档中的特定区域，要确保注释工具支持它的边界框 (bounding boxes) 。
 
+## Document AI 中的模型构建   
 
-<html itemscope itemtype="https://schema.org/FAQPage">
-  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-    <a id="9-what-is-modeling"><h3 itemprop="name"> What are Modeling Issues in Document AI?</h3></a>
-    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-      <div itemprop="text">   
+构建模型的灵活性为数据科学家带来了许多选择，我们强烈建议团队从预训练的开源模型开始，根据你的具体文档微调模型，这通常是获得好模型的最快途径。对于考虑建立自己的预训练模型的团队，请注意这可能涉及到数百万的文档，并且很容易耗费几周的时间来训练一个模型。建立一个预训练的模型需要很大的努力，不建议大多数数据科学团队使用。
 
-The flexibility of building your models leads to many options for data scientists. Our strong recommendation for teams is to start with the pre-trained open-source models. These models can be fine-tuned to your specific documents, and this is generally the quickest way to a good model.
+如果选择从微调一个模型开始，首先要问自己这些问题：
 
-For teams considering building their own pre-trained model, be aware this can involve millions of documents and can easily take several weeks to train a model. Building a pre-trained model requires significant effort and is not recommended for most data science teams. Instead, start with fine-tuning one, but ask yourself these questions first.
+1. 你想让模型来处理 OCR 吗？例如，Donut 不需要对文档进行 OCR 处理，直接在全分辨率的图像上工作，所以在建模之前不需要 OCR 。当然，根据你的问题设置，单独获取 OCR 可能更简单。
+2. 你应该使用更高分辨率的图像吗？当使用 [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) 的图像时，它将图像缩减为 224 乘 224，而 [Donut]() 则使用完整的高分辨率图像。然而，使用完整的高分辨率图像会极大地增加训练和推理所需的内存。
+3. 你是如何评估这个模型的？注意错位的边界框，确保 OCR 引擎提供的边界框与模型处理器相一致。其次，让你的项目要求指导你的评估指标。例如，在一些任务中，如标记分类或问题回答，100% 的匹配可能不是最好的衡量标准，像部分匹配这样的指标可以让更多的潜在标记得到考虑，比如 "Acme" 和 "internal Acme" 可以作为匹配。最后，在评估过程中要考虑道德问题，因为这些模型可能是在使用有偏见的数据，或提供不稳定的结果，可能对某些人群有偏见。
 
-Do you want the model to handle the OCR? For example, [Donut](https://huggingface.co/docs/transformers/model_doc/donut) doesn't require the document to be OCRed and directly works on full-resolution images, so there is no need for OCR before modeling. However, depending on your problem setup, it may be simpler to get OCR separately.
+### 接下来的步骤
 
-Should you use higher-resolution images? When using images with [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2), it downscales them to 224 by 224, whereas [Donut](https://huggingface.co/docs/transformers/model_doc/donut) uses the full high-resolution image. However, using the full high-resolution image dramatically increases the memory required for training and inference.
+你是否看到了 Document AI 的无限可能性？我们每天都在利用最先进的视觉和语言模型释放有价值的数据帮助企业，我们在这篇文章中包含了各种 demo 的链接，所以可以把它们作为一个起点。这篇文章的最后一节包含了开始编写你自己的模型的资源，例如视觉回答模型，一旦你准备好开始建立你的解决方案，[Hugging Face 模型中心](https://huggingface.co/models) 是一个不错的起点，它托管了大量的 Document AI 模型。
 
-How are you evaluating the model? Watch out for misaligned bounding boxes. You should ensure bounding boxes provided by the OCR engine of your choice align with the model processor. Verifying this can save you from unexpectedly poor results. Second, let your project requirements guide your evaluation metrics. For example, in some tasks like token classification or question answering, a 100% match may not be the best metric. A metric like partial match could allow for many more potential tokens to be considered, such as “Acme” and “inside Acme” as a match. Finally, consider ethical issues during your evaluation as these models may be working with biased data or provide unstable outcomes that could biased against certain groups of people.
+如果你想加速 Document AI 工作，Hugging Face 可以帮助你：通过我们的 [企业加速计划](https://huggingface.co/support)，我们与企业合作，为人工智能使用场景提供指导，对于 Document AI ，我们会帮助您建立一个预训练模型，提高微调任务的准确性，或为你的第一个 Document AI 案例提供总体指导。我们还可以提供计算积分，以便您大规模地使用我们的训练 (AutoTrain) 或推理 (Spaces 或 Inference Endpoints) 产品。
 
-</div>
-    </div>
-        </div>
+### 资源
 
+许多 Document AI 模型的笔记本和教程可以在以下网站找到。
 
-### Next Steps
-
-Are you seeing the possibilities of Document AI? Every day we work with enterprises to unlock valuable data using state-of-the-art vision and language models. We included links to various demos throughout this post, so use them as a starting point. The last section of the post contains resources for starting to code up your own models, such as visual question answering. Once you are ready to start building your solutions, the [Hugging Face public hub](https://huggingface.co/models) is a great starting point. It hosts a vast array of Document AI models.
-
-If you want to accelerate your Document AI efforts, Hugging Face can help. Through our [Enterprise Acceleration Program](https://huggingface.co/support) we partner with enterprises to provide guidance on AI use cases. For Document AI, this could involve helping build a pre-train model, improving accuracy on a fine-tuning task, or providing overall guidance on tackling your first Document AI use case.
-
-We can also provide bundles of compute credits to use our training (AutoTrain) or inference (Spaces or Inference Endpoints) products at scale.
-
-### Resources
-
-Notebooks and tutorials for many Document AI models can be found at: 
 - Niels' [Transformers-Tutorials](https://github.com/NielsRogge/Transformers-Tutorials)
 - Philipp's [Document AI with Hugging Face Transformers](https://github.com/philschmid/document-ai-transformers) 
 
-<html itemscope itemtype="https://schema.org/FAQPage">
-  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-    <a id="10-what-are-models"><h3 itemprop="name"> What are Popular Open-Source Models for Document AI?</h3></a>
-    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-      <div itemprop="text">   
-
-A table of the currently available Transformers models achieving state-of-the-art performance on Document AI tasks. This was last updated in November 2022.
+我们还整理了 Document AI 最流行的开源模型以及其指标：
 
 | model | paper | license | checkpoints |
 | --- | --- | --- | --- |
@@ -219,17 +175,7 @@ A table of the currently available Transformers models achieving state-of-the-ar
 | [Table Transformer](https://huggingface.co/docs/transformers/main/en/model_doc/table-transformer) | [arxiv](https://arxiv.org/abs/2110.00061) | [MIT](https://github.com/microsoft/table-transformer/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=table-transformer) |
 | [LiLT](https://huggingface.co/docs/transformers/main/en/model_doc/lilt) | [arxiv](https://arxiv.org/abs/2202.13669) | [MIT](https://github.com/jpWang/LiLT/blob/main/LICENSE) | [huggingface](https://huggingface.co/models?other=lilt) |
 
-</div>
-    </div>
-        </div>
-
-<html itemscope itemtype="https://schema.org/FAQPage">
-  <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-    <a id="11-what-are-metrics"><h3 itemprop="name"> What are Metrics and Datasets for Document AI?</h3></a>
-    <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-      <div itemprop="text">             
-
-A table of the common metrics and datasets for command Document AI tasks. This was last updated in November 2022.
+以及基准数据集：
 
 | task | typical metrics | benchmark datasets |
 | --- | --- | --- |
@@ -239,9 +185,3 @@ A table of the common metrics and datasets for command Document AI tasks. This w
 | Document parsing | Accuracy, F1 | [FUNSD](https://guillaumejaume.github.io/FUNSD/), [SROIE](https://huggingface.co/datasets/darentang/sroie/), [CORD](https://github.com/clovaai/cord) |
 | Table Detection and Extraction | mAP (mean average precision) | [PubTables-1M](https://arxiv.org/abs/2110.00061) |
 | Document visual question answering | Average Normalized Levenshtein Similarity (ANLS) | [DocVQA](https://rrc.cvc.uab.es/?ch=17) |
-
-</div>
-    </div>
-        </div>
-
- </html>
