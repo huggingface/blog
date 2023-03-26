@@ -55,19 +55,13 @@ OCR 的相关指标是字符错误率 ( CER ) 和 word-level 精度、召回率�
 
 文档布局分析是确定文档物理结构的任务，即确定构成文档的各个组成部分，如文本段落、标题和表格
 
-Models that are currently state-of-the-art for document layout analysis are [LayoutLMv3](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) and [DiT](https://huggingface.co/docs/transformers/model_doc/dit) (Document Image Transformer). Both models use the classic [Mask R-CNN](https://arxiv.org/abs/1703.06870) framework for object detection as a backbone. This [document layout analysis](https://huggingface.co/spaces/nielsr/dit-document-layout-analysis) Space illustrates how DiT can be used to identify text segments, titles, and tables in documents. An example using [DiT](https://github.com/microsoft/unilm/tree/master/dit) detecting different parts of a document is shown here.
-
 这项任务通常是通过将其作为一个图像分割 (image segmentation) 、物体检测 (object detection)  问题来解决，该模型的输出为一组分割掩码 / 边界框，以及类别名称。
 
 目前最先进的文档布局分析模型是 [LayoutLMv3](https://huggingface.co/docs/transformers/model_doc/layoutlmv3) 和 [DiT](https://huggingface.co/docs/transformers/model_doc/dit) (Document image Transformer) 。这两种模型都使用经典的 [Mask R-CNN](https://arxiv.org/abs/1703.06870) 框架作为对象检测的骨架。这个 [文档布局分析](https://huggingface.co/spaces/nielsr/dit-document-layout-analysis) 空间说明了 [DiT](https://github.com/microsoft/unilm/tree/master/dit) 模型如何被用来识别文档中的文本段、标题和表格。这里展示了一个使用 DiT 检测文档不同部分的例子：
 
 ![用 DiT 进行文档布局分析](../assets/112_document-ai/DIT.png)
 
-Document layout analysis with DiT.
-
-Document layout analysis typically uses the mAP (mean average-precision) metric, often used for evaluating object detection models. An important benchmark for layout analysis is the [PubLayNet](https://github.com/ibm-aur-nlp/PubLayNet) dataset. [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3), the state-of-the-art at the time of writing, achieves an overall mAP score of 0.951 ([source](https://paperswithcode.com/sota/document-layout-analysis-on-publaynet-val)).
-
-文档布局分析通常使用 mAP (平均精度) 指标来评估对象检测模型，使用 [PubLayNet](https://github.com/ibm-aur-nlp/PubLayNet) 数据集作为重要基准，截至本文写作，最先进的模型是 LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3)，其总体 mAP 得分为 0.951 ([点击](https://paperswithcode.com/sota/document-layout-analysis-on-publaynet-val) 查看各模型精度对比) 。
+文档布局分析通常使用 mAP (平均精度) 指标来评估对象检测模型，使用 [PubLayNet](https://github.com/ibm-aur-nlp/PubLayNet) 数据集作为重要基准，截至本文写作，最先进的模型是 [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3)，其总体 mAP 得分为 0.951 ([点击](https://paperswithcode.com/sota/document-layout-analysis-on-publaynet-val) 查看各模型精度对比) 。
 
 ### 4. 文档解析
 
