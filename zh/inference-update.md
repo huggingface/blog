@@ -7,7 +7,7 @@ translators:
 - user: Johnson817
 ---
 
-<h1>Hugging Face 提供的推理（Inference）解决方案/h1>
+<h1>Hugging Face 提供的推理（Inference）解决方案</h1>
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
