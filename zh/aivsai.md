@@ -1,12 +1,14 @@
 ---
 title: "AI 大战 AI，一个深度强化学习多智能体竞赛系统"
-thumbnail: /blog/https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/thumbnail.png
+thumbnail: https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/thumbnail.png
 authors:
 - user: CarlCochet
 - user: ThomasSimonini
+translators:
+- user: AIboy1993
 ---
 
-# Introducing ⚔️ AI vs. AI ⚔️ a deep reinforcement learning multi-agents competition system 
+# AI 大战 AI，一个深度强化学习多智能体竞赛系统 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
@@ -14,117 +16,119 @@ authors:
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/thumbnail.png" alt="Thumbnail"> 
 </div>
 
-We’re excited to introduce a new tool we created: **⚔️ AI vs. AI ⚔️, a deep reinforcement learning multi-agents competition system**.
+小伙伴们快看过来！这是一款全新打造的 **⚔️ AI vs. AI ⚔️——深度强化学习多智能体竞赛系统**。
 
-This tool, hosted on [Spaces](https://hf.co/spaces), allows us **to create multi-agent competitions**. It is composed of three elements:
+这个工具托管在 [Space](https://hf.co/spaces) 上，允许我们 **创建多智能体竞赛**。它包含三个元素:
 
-- A *Space* with a matchmaking algorithm that **runs the model fights using a background task**.
-- A *Dataset* **containing the results**.
-- A *Leaderboard* that gets the **match history results and displays the models’ ELO**.
+* 一个带匹配算法的 **Space**，使用后台任务运行模型战斗。
+* 一个包含结果的 **Dataset**。
+* 一个获取匹配历史结果和显示模型 LEO 的 **Leaderboard**。
 
-Then, when a user pushes a trained model to the Hub, **it gets evaluated and ranked against others**. Thanks to that, we can evaluate your agents against other’s agents in a multi-agent setting.
+然后，当用户将一个训练好的模型推到 Hub 时，它会获取评估和排名。得益于此，我们可以在多智能体环境中对你的智能体与其他智能体进行评估。
 
-In addition to being a useful tool for hosting multi-agent competitions, we think this tool can also be a **robust evaluation technique in multi-agent settings.** By playing against a lot of policies, your agents are evaluated against a wide range of behaviors. This should give you a good idea of the quality of your policy.
+除了作为一个托管多智能体竞赛的有用工具，我们认为这个工具在多智能体设置中可以成为一个 健壮的评估技术。通过与许多策略对抗，你的智能体将根据广泛的行为进行评估。这应该能让你很好地了解你的策略的质量。
 
-Let’s see how it works with our first competition host: SoccerTwos Challenge.
+让我们看看它在我们的第一个竞赛托管: SoccerTwos Challenge 上是如何工作的。
 
 <div align="center"> 
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/soccertwos.gif" alt="SoccerTwos example"> 
 </div>
 
-## How does AI vs. AI works?
+## AI vs. AI是怎么工作的？
 
-AI vs. AI is an open-source tool developed at Hugging Face **to rank the strength of reinforcement learning models in a multi-agent setting**.
+AI vs. AI 是一个在 Hugging Face 上开发的开源工具，对多智能体环境下强化学习模型的强度进行排名。
 
-The idea is to get a **relative measure of skill rather than an objective one** by making the models play against each other continuously and use the matches results to assess their performance compared to all the other models and consequently get a view of the quality of their policy without requiring classic metrics.
+其思想是通过让模型之间持续比赛，并使用比赛结果来评估它们与所有其他模型相比的表现，从而在不需要经典指标的情况下了解它们的策略质量，从而获得 对技能的相对衡量，而不是客观衡量。
 
-The more agents are submitted for a given task or environment, **the more representative the rating becomes**.
+对于一个给定的任务或环境，提交的智能体越多，评分就越有代表性。
 
 To generate a rating based on match results in a competitive environment, we decided to base the rankings on the [ELO rating system](https://en.wikipedia.org/wiki/Elo_rating_system).
 
-The core concept is that after a match ends, the rating of both players are updated based on the result and the ratings they had before the game. When a user with a high rating beats one with a low ranking, they won't get many points. Likewise, the loser would not lose many points in this case.
+为了在一个竞争的环境里基于比赛结果获得评分，我们决定根据 [ELO 评分系统](https://en.wikipedia.org/wiki/Elo_rating_system) 进行排名。
 
-Conversely, if a low-rated player wins in an upset against a high-rated player, it will cause a more significant effect on both of their ratings.
+游戏的核心理念是，在比赛结束后，双方玩家的评分都会根据比赛结果和他们在比赛前的评分进行更新。当一个拥有高评分的用户打败一个拥有低排名的用户时，他们便不会获得太多分数。同样，在这种情况下，输家也不会损失很多分。
 
-In our context, we **kept the system as simple as possible by not adding any alteration to the quantities gained or lost based on the starting ratings of the player**. As such, gain and loss will always be the perfect opposite (+10 / -10, for instance), and the average ELO rating will stay constant at the starting rating. The choice of a 1200 ELO rating start is entirely arbitrary.
+相反地，如果一个低评级的玩家击败了一个高评级的玩家，这将对他们的评级产生更显著的影响。
 
-If you want to learn more about ELO and see some calculation example, we wrote an explanation in our Deep Reinforcement Learning Course [here](https://huggingface.co/deep-rl-course/unit7/self-play?fw=pt#the-elo-score-to-evaluate-our-agent)
+在我们的环境中，我们尽量保持系统的简单性，不根据玩家的初始评分来改变获得或失去的数量。因此，收益和损失总是完全相反的 (例如+10 / -10)，平均 ELO 评分将保持在初始评分不变。选择一个1200 ELO 评分启动完全是任意的。
 
-Using this rating, it is possible **to generate matches between models with comparable strengths automatically**. There are several ways you can go about creating a matchmaking system, but here we decided to keep it fairly simple while guaranteeing a minimum amount of diversity in the matchups and also keeping most matches with fairly close opposing ratings.
+如果你想了解更多关于 ELO 的信息并且查看一些计算示例，我们在深度强化学习 [课程](https://huggingface.co/deep-rl-course/unit7/self-play?fw=pt#the-elo-score-to-evaluate-our-agent) 里写了一个解释。
+
+使用此评级，可以 自动在具有可对比强度的模型之间进行匹配。你可以有多种方法来创建匹配系统，但在这里我们决定保持它相当简单，同时保证比赛的多样性最小，并保持大多数比赛的对手评分相当接近。
 
 <div align="center"> 
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/aivsai.png" alt="AI vs AI Process"> 
 </div>
 
-Here's how works the algorithm:
-1. Gather all the available models on the Hub. New models get a starting rating of 1200, while others keep the rating they have gained/lost through their previous matches.
-2. Create a queue from all these models.
-3. Pop the first element (model) from the queue, and then pop another random model in this queue from the n models with the closest ratings to the first model.
-4. Simulate this match by loading both models in the environment (a Unity executable, for instance) and gathering the results. For this implementation, we sent the results to a Hugging Face Dataset on the Hub.
-5. Compute the new rating of both models based on the received result and the ELO formula.
-6. Continue popping models two by two and simulating the matches until only one or zero models are in the queue.
-7. Save the resulting ratings and go back to step 1
+以下是该算法的工作原理:
 
-To run this matchmaking process continuously, we use **free Hugging Face Spaces hardware with a Scheduler** to keep running the matchmaking process as a background task.
+1. 从 Hub 上收集所有可用的模型。新模型获得初始 1200 的评分，其他的模型保持在以前比赛中得到或失去的评分。
+1. 从所有这些模型创建一个队列。
+1. 从队列中弹出第一个元素 (模型)，然后从 n 个模型中随机抽取另一个与第一个模型评级最接近的模型。
+1. 通过在环境中 (例如一个 Unity 可执行文件) 加载这两个模型来模拟这个比赛，并收集结果。对于这个实现，我们将结果发送到 Hub上的 Hug Face Dataset。
+1. 根据收到的结果和 ELO 公式计算两个模型的新评分。
+1. 继续两个两个地弹出模型并模拟比赛，直到队列中只有一个或零个模型。
+1. 保存结果评分，回到步骤 1。
 
-The Spaces is also used to fetch the ELO ratings of each model that have already been played and, from it display [a leaderboard](https://huggingface.co/spaces/huggingface-projects/AIvsAI-SoccerTwos) **from which everyone can check the progress of the models**.
+为了持续运行这个配对过程，我们使用 [免费的 Hug Face Spaces 硬件](https://huggingface.co/spaces/huggingface-projects/AIvsAI-SoccerTwos) 和一个 Scheduler 来作为后台任务持续运行这个配对过程。
+
+Space 还用于获取每个以及比赛过的模型的 ELO 评分，并显示一个排行榜，每个人都可以检查模型的进度。
 
 <div align="center"> 
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/leaderboard.png" alt="Leaderboard"> 
 </div>
 
-The process generally uses several Hugging Face Datasets to provide data persistence (here, matches history and model ratings).
+该过程通常使用几个 Hugging Face Datasets 来提供数据持久性 (这里是匹配历史和模型评分)。
 
-Since the process also saves the matches' history, it is possible to see precisely the results of any given model. This can, for instance, allow you to check why your model struggles with another one, most notably using another demo Space to visualize matches like [this one](https://huggingface.co/spaces/unity/ML-Agents-SoccerTwos.).
+因为这个过程也保存了比赛的历史，因此可以精确地看到任意给定模型的结果。例如，这可以让你检查为什么你的模型与另一个模型搏斗，最显著的是使用另一个演示 [Space](https://huggingface.co/spaces/unity/ML-Agents-SoccerTwos) 来可视化匹配，就像这个。
 
-For now, **this experiment is running with the MLAgent environment SoccerTwos for the Hugging Face Deep RL Course**, however, the process and implementation, in general, are very much **environment agnostic and could be used to evaluate for free a wide range of adversarial multi-agent settings**.
+目前，这个实验是在 MLAgent 环境 SoccerTwos 下进行的，用于 Hugging Face 深度强化学习课程，然而，这个过程和实现通常是 环境无关的，可以用来免费评估广泛的对抗性多智能体设置。
 
-Of course, it is important to remind again that this evaluation is a relative rating between the strengths of the submitted agents, and the ratings by themselves **have no objective meaning contrary to other metrics**. It only represents how good or bad a model performs compared to the other models in the pool. Still, given a large and varied enough pool of models (and enough matches played), this evaluation becomes a very solid way to represent the general performance of a model.
+当然，需要再次提醒的是，此评估是提交的智能体实力之间的相对评分，评分本身 与其他指标相比没有客观意义。它只表示一个模型与模型池中其他模型相对的好坏。尽管如此，如果有足够大且多样化的模型池 (以及足够多的比赛)，这种评估将成为表示模型一般性能的可靠方法。
 
+## 我们的第一个 AI vs. AI 挑战实验: SoccerTwos Challenge ⚽
 
-## Our first AI vs. AI challenge experimentation: SoccerTwos Challenge ⚽
+这个挑战是我们 [免费的深度强化学习课程](https://huggingface.co/deep-rl-course/unit0/introduction) 的第 7 单元。它开始于 2 月 1 日，计划于 4 月 30 日结束。
 
-This challenge is Unit 7 of our [free Deep Reinforcement Learning Course](https://huggingface.co/deep-rl-course/unit0/introduction). It started on February 1st and will end on April 30th.
+如果你感兴趣，你不必参加课程就可以加入这个比赛。你可以 [点击这里](https://huggingface.co/deep-rl-course/unit7/introduction) 开始:。
 
-If you’re interested, **you don’t need to participate in the course to be able to participate in the competition. You can start here** 👉 https://huggingface.co/deep-rl-course/unit7/introduction
+在这个单元，读者通过训练一个 2 vs 2 足球队 学习多智能体强化学习 (MARL) 的基础。
 
-In this Unit, readers learned the basics of multi-agent reinforcement learning (MARL)by training a **2vs2 soccer team.** ⚽ 
-
-The environment used was made by the [Unity ML-Agents team](https://github.com/Unity-Technologies/ml-agents). The goal is simple: your team needs to score a goal. To do that, they need to beat the opponent's team and collaborate with their teammate.
+用到的环境是 [Unity ML-Agents](https://github.com/Unity-Technologies/ml-agents) 团队制作的。这个比赛的目标是简单的: 你的队伍需要进一个球。要做到这一点，他们需要击败对手的团队，并与队友合作。
 
 <div align="center"> 
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/soccertwos.gif" alt="SoccerTwos example"> 
 </div>
 
-In addition to the leaderboard, we created a Space demo where people can choose two teams and visualize them playing 👉[https://huggingface.co/spaces/unity/SoccerTwos](https://huggingface.co/spaces/unity/SoccerTwos)
+除了排行榜，我们创建了一个 [Space](https://huggingface.co/spaces/unity/SoccerTwos) 演示，人们可以选择两个队伍并可视化它们的比赛。
 
-This experimentation is going well since we already have 48 models on the [leaderboard](https://huggingface.co/spaces/huggingface-projects/AIvsAI-SoccerTwos)
+这个实验进展顺利，因为我们已经在 [排行榜](https://hf.co/spaces/huggingface-projects/AIvsAI-SoccerTwos) 上有 48 个模型了。
+
 ![Leaderboard](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/leaderboard.png)
 
-We also [created a discord channel called ai-vs-ai-competition](http://hf.co/discord/join) so that people can exchange with others and share advice.
+我们也创造了一个叫做 [ai-vs-ai-competition 的 Discord 频道](http://hf.co/discord/join)，人们可以与他人交流并分享建议。
 
-### Conclusion and what’s next?
+### 结论，以及下一步
 
-Since the tool we developed **is environment agnostic**, we want to host more challenges in the future with [PettingZoo](https://pettingzoo.farama.org/) and other multi-agent environments. If you have some environments or challenges you want to do, <a href="mailto:thomas.simonini@huggingface.co">don’t hesitate to reach out to us</a>.
+因为我们开发的这个工具是 环境无关的，在未来我们想用 PettingZoo 举办更多的挑战赛和多智能体环境。如果你有一些想做的环境或者挑战赛，不要犹豫，与我们 [联系](mailto:thomas.simonini@huggingface.co)。
 
-In the future, we will host multiple multi-agent competitions with this tool and environments we created, such as SnowballFight.
+在未来，我们将用我们创造的工具和环境来举办多个多智能体比赛，例如 SnowballFight。
 
 <div align="center"> 
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/snowballfight.gif" alt="Snowballfight gif"> 
 </div>
 
+除了称为一个举办多智能体比赛的有用工具，我们考虑这个工具也可以在多智能体设置中成为 一项健壮的评估技术: 通过与许多策略对抗，你的智能体将根据广泛的行为进行评估，并且你将很好地了解你的策略的质量。
 
-In addition to being a useful tool for hosting multi-agent competitions, we think that this tool can also be **a robust evaluation technique in multi-agent settings: by playing against a lot of policies, your agents are evaluated against a wide range of behaviors, and you’ll get a good idea of the quality of your policy.**
+保持联系的最佳方式是加入我们的 [Discord](http://hf.co/discord/join) 与我们和社区进行交流。
 
-The best way to keep in touch is to [join our discord server](http://hf.co/discord/join) to exchange with us and with the community.
+引用
 
-****************Citation****************
-
-Citation: If you found this useful for your academic work, please consider citing our work, in text:
+引用: 如果你发现这对你的学术工作是有用的，请考虑引用我们的工作:
 
 `Cochet, Simonini, "Introducing AI vs. AI a deep reinforcement learning multi-agents competition system", Hugging Face Blog, 2023.`
 
-BibTeX citation:
+BibTeX 引用:
 
 ```
 @article{cochet-simonini2023,
