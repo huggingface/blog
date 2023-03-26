@@ -51,7 +51,7 @@ OCR 的相关指标是字符错误率 ( CER ) 和 word-level 精度、召回率�
 * [DiT](https://huggingface.co/docs/transformers/main/en/model_doc/dit) (Document image Transformer) 仅使用视觉，可以达到 92% 的准确率；
 * 而像 LayoutLMv3 和 Donut 这样使用多模态 Transformer 将文本和视觉信息结合起来的模型，可以达到 95% 的准确率，它们正在改变从业者解决 Document AI 问题的方法。
 
-### 3. 文档布局分析 (Document layout analysis)
+### 3. 文档布局分析 (Document layout analysis)    
 
 文档布局分析是确定文档物理结构的任务，即确定构成文档的各个组成部分，如文本段落、标题和表格
 
@@ -118,7 +118,7 @@ Impira 开发了一个令人兴奋的 [space](https://huggingface.co/spaces/impi
 
 还要注意 DocVQA 的正常工作也可能出问题：在某些情况下，回答可能是不可预测的，模型可能会出现 "幻觉"，给出一个不在文档中出现的答案，以及视觉回答模型可以继承数据中的偏见，从而引发道德问题，所以要建立一个成功的 DocVQA 解决方案，确保正确的模型设置和后处理十分必要。
 
-## Document AI 中的许可 (License) 问题
+## Document AI 中的许可 (License) 问题          
 
 工业界和学术界为推进 Document AI 做出了巨大贡献，有各种各样的模型和数据集可供数据科学家使用。然而，对于建立一个企业解决方案来说，许可证可能是一个不小的问题，一些著名的模型会有限制性许可，它们无法商用，比如最值得警惕的：微软的 [LayoutLMv2](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv2) 和 [LayoutLMv3](https://huggingface.co/docs/transformers/main/en/model_doc/layoutlmv3)  的 checkpoints。
 
