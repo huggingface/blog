@@ -12,7 +12,7 @@ translators:
 - user: hell0w0r1d
 ---
 
-# Illustrating Reinforcement Learning from Human Feedback (RLHF)
+# ChatGPT 背后的“功臣”——RLHF 技术详解
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
