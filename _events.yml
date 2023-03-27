@@ -1,25 +1,27 @@
 # "date" attribute should be end date of an event in `Mon DD, YYYY` format (e.g. Feb 3, 2014)
 # "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
-- name: Scikit-learn Documentation Sprint
-  link: https://github.com/huggingface/community-events/blob/main/sklearn-sprint/guidelines.md
-  date: Apr 14 to May 1, 2023
-  description: This is a community event to develop applications for examples in scikit-learn documentation using Gradio.
 
 - name: (IRL San Francisco) Open Source AI meetup with 🤗 CEO
   link: https://partiful.com/e/fE0XH0PrSOZB9ezYuFbW
   date: Mar 31, 2023
   description: 🤗 CEO Clement Delangue & team members are heading to San Francisco to celebrate the open-source AI community. 
 
-- name: Keras DreamBooth Community Sprint
-  link: https://huggingface.co/keras-dreambooth
-  date: Mar 6 to Apr 1, 2023
-  description: A community sprint on fine-tuning Stable Diffusion using DreamBooth technique on Keras library.
+- name: Scikit-learn Documentation Sprint
+  link: https://github.com/huggingface/community-events/blob/main/sklearn-sprint/guidelines.md
+  date: Apr 14 to May 1, 2023
+  description: This is a community event to develop applications for examples in scikit-learn documentation using Gradio.
 
 - name: Meet-up on Generative AI
   link: https://sites.google.com/huggingface.co/generative-ai-meetup
   date: Apr 29, 2023
   description: Free meet-up in collaboration with NVIDIA to discuss the bleeding egde from the world of Generative AI. 
+
+- name: Keras DreamBooth Community Sprint
+  link: https://huggingface.co/keras-dreambooth
+  date: Mar 6 to Apr 1, 2023
+  description: A community sprint on fine-tuning Stable Diffusion using DreamBooth technique on Keras library.
+
 - name: How to build Machine Learning apps with Hugging Face
   link: https://www.eventbrite.com/e/building-machine-learning-apps-with-hugging-facellms-to-diffusion-modeling-tickets-565837343727?aff=HF
   date: Mar 23, 2023

@@ -48,7 +48,9 @@ The blog_metadata and authors HTML comments are meant to mark where in the file 
 
 7️⃣ When your article is ready, **open a pull request**.
 
-8️⃣ The article will be **published automatically when you merge your pull request**.
+8️⃣ To check how your blog will look like before merging it, check out the [CodeSpace instructions](https://github.com/huggingface/moon-landing/tree/main#codespace) (internal for HF team)
+
+9️⃣ The article will be **published automatically when you merge your pull request**.
 
 ## How to get a nice responsive thumbnail?
 1️⃣ Create a `1300x650` image 

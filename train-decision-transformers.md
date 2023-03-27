@@ -65,7 +65,7 @@ Now that we understand the theory behind Offline Decision Transformers, **let’
 
 In the previous post, we demonstrated how to use a transformers Decision Transformer model and load pretrained weights from the 🤗 hub. 
 
-In this part we will use 🤗 Trainer and a custom Data Collator to train a Decision Transformer model from scratch, using an Offline RL Dataset hosted on the 🤗 hub. You can find code for this tutorial in [this colab notebook](https://github.com/huggingface/blog/blob/main/notebooks/101_train-decision-transformers.ipynb)
+In this part we will use 🤗 Trainer and a custom Data Collator to train a Decision Transformer model from scratch, using an Offline RL Dataset hosted on the 🤗 hub. You can find code for this tutorial in [this Colab notebook](https://github.com/huggingface/blog/blob/main/notebooks/101_train-decision-transformers.ipynb).
 
 We will be performing offline RL to learn the following behavior in the [mujoco halfcheetah environment](https://www.gymlibrary.dev/environments/mujoco/half_cheetah/).
 
@@ -235,7 +235,7 @@ class TrainableDT(DecisionTransformerModel):
         return super().forward(**kwargs)
 ```
 
-The transformers Trainer class required a number of arguments, defined in the TrainingArguments class. We use the same hyperparameters are in the authors original implementation, but train for fewer iterations. This takes around 40 minutes to train in a colab notebook, so grab a coffee or read the 🤗 [Annotated Diffusion](https://huggingface.co/blog/annotated-diffusion) blogpost while you wait. The authors train for around 3 hours, so the results we get here will not be quite as good as theirs.
+The transformers Trainer class required a number of arguments, defined in the TrainingArguments class. We use the same hyperparameters are in the authors original implementation, but train for fewer iterations. This takes around 40 minutes to train in a Colab notebook, so grab a coffee or read the 🤗 [Annotated Diffusion](https://huggingface.co/blog/annotated-diffusion) blog post while you wait. The authors train for around 3 hours, so the results we get here will not be quite as good as theirs.
 
 ```python
 training_args = TrainingArguments(
@@ -261,7 +261,7 @@ trainer.train()
 ```
 
 Now that we explained the theory behind Decision Transformer, the Trainer, and how to train it. **You're ready to train your first offline Decision Transformer model from scratch to make a half-cheetah run** 👉 https://github.com/huggingface/blog/blob/main/notebooks/101_train-decision-transformers.ipynb
-The colab includes visualizations of the trained model, as well as how to save your model on the 🤗 hub.
+The Colab includes visualizations of the trained model, as well as how to save your model on the 🤗 hub.
 
 
 ## Conclusion
