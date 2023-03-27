@@ -3,168 +3,170 @@ title: "千亿参数开源大模型 BLOOM 背后的技术"
 thumbnail: /blog/assets/86_bloom_megatron_deepspeed/thumbnail.png
 authors:
 - user: stas
+translators:
+- user: MatrixYao
+  proofreader: true
+- user: inferjay
 ---
 
-<h1>The Technology Behind BLOOM Training</h1>
+<h1>千亿参数开源大模型 BLOOM 背后的技术</h1>
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
+> 假设你现在有了数据，也搞到了预算，一切就绪，准备开始训练一个大模型，一显身手了，“一朝看尽长安花”似乎近在眼前 …… 且慢！训练可不仅仅像这两个字的发音那么简单，看看 BLOOM 的训练或许对你有帮助。
 
+近年来，语言模型越训越大已成为常态。大家通常会诟病这些大模型本身的信息未被公开以供研究，但很少关注大模型训练技术这种背后的知识。本文旨在以 1760 亿参数的语言模型 [BLOOM](https://hf.co/bigscience/bloom) 为例，阐明训练此类模型背后的软硬件工程和技术要点，以促进大家对大模型训练技术的讨论。
 
-In recent years, training ever larger language models has become the norm. While the issues of those models' not being released for further study is frequently discussed, the hidden knowledge about how to train such models rarely gets any attention. This article aims to change this by shedding some light on the technology and engineering behind training such models both in terms of hardware and software on the example of the 176B parameter language model [BLOOM](https://huggingface.co/bigscience/bloom).
+首先，我们要感谢促成或赞助我们这个小组最终完成了训练 1760 亿参数模型这一惊人壮举的公司、个人和团体。
 
-But first we would like to thank the companies and key people and groups that made the amazing feat of training a 176 Billion parameter model by a small group of dedicated people possible.
+然后，我们开始讨论硬件配置和主要技术组件。
 
-Then the hardware setup and main technological components will be discussed.
+![BLOOM](../assets/86_bloom_megatron_deepspeed/bloom-banner.png)
 
-![BLOOM](assets/86_bloom_megatron_deepspeed/bloom-banner.png)
-
-Here's a quick summary of project:
+以下是对本项目的简要总结:
 
 |               |                             |
 | :-----        | :-------------              |
-| Hardware      | 384 80GB A100 GPUs          |
-| Software      | Megatron-DeepSpeed          |
-| Architecture  | GPT3 w/ extras              |
-| Dataset       | 350B tokens of 59 Languages |
-| Training time | 3.5 months                  |
+| 硬件      | 384 张 80GB A100 GPU         |
+| 软件      | Megatron-DeepSpeed          |
+| 模型架构  | 基于 GPT3            |
+| 数据集       | 含 59 种语言，共 3500 亿词元 |
+| 训练时长 | 3.5 3.5 个月                  |
 
-## People
+## 人员组成
 
-The project was conceived by Thomas Wolf (co-founder and CSO - Hugging Face), who dared to compete with the huge corporations not only to train one of the largest multilingual models, but also to make the final result accessible to all people, thus making what was but a dream to most people a reality.
+该项目由 Thomas Wolf (Hugging Face 联合创始人兼 CSO) 发想，他敢于与大公司竞争，提出不仅要训练出立于世界上最大的多语言模型之林的模型，还要让所有人都可以公开访问训练结果，圆了大多数人的梦想
 
-This article focuses specifically on the engineering side of the training of the model. The most important part of the technology behind BLOOM were the people and companies who shared their expertise and helped us with coding and training.
+本文主要关注模型训练的工程方面。BLOOM 背后的技术中最重要的部分是分享专业知识并帮助我们进行编码和训练的人员和公司。
 
-There are 6 main groups of people to thank:
+我们主要需要感谢 6 个群体:
 
-1. The HuggingFace's BigScience team who dedicated more than half a dozen full time employees to figure out and run the training from inception to the finishing line and provided and paid for all the infrastructure beyond the Jean Zay's compute.
-2. The Microsoft DeepSpeed team, who developed DeepSpeed and later integrated it with Megatron-LM, and whose developers spent many weeks working on the needs of the project and provided lots of awesome practical experiential advice before and during the training.
-3. The NVIDIA Megatron-LM team, who developed Megatron-LM and who were super helpful answering our numerous questions and providing first class experiential advice.
-4. The IDRIS / GENCI team managing the Jean Zay supercomputer, who donated to the project an insane amount of compute and great system administration support.
-5. The PyTorch team who created a super powerful framework, on which the rest of the software was based, and who were very supportive to us during the preparation for the training, fixing multiple bugs and improving the usability of the PyTorch components we relied on during the training.
-6. The volunteers in the BigScience Engineering workgroup
+1. HuggingFace 的 BigScience 团队投入了六名以上的全职员工全程参与了训练的研究和运行，他们还提供或报销了 Jean Zay 计算机之外的所有基础设施。
+2. Microsoft DeepSpeed 团队，开发了 DeepSpeed，后来将其与 Megatron-LM 集成，其开发人员花费数周时间研究项目需求，并在训练前和训练期间提供了许多很棒的实用经验建议。
+3. NVIDIA Megatron-LM 团队开发了 Megatron-LM，他们非常乐于回答我们的大量问题并提供一流的使用建议。
+4. IDRIS / GENCI 团队管理着 Jean Zay 超级计算机，他们为该项目捐赠了大量的算力和强大的系统管理支持。
+5. PyTorch 团队创建了一个超强的框架，其余软件都基于该框架，并且在准备训练期间非常支持我们，修复了多个 bug 并提高了我们所依赖的 PyTorch 组件的训练可用性。
+6. BigScience 工程工作组志愿者 很难说出所有为该项目的工程方面做出贡献的杰出人物的名字，所以我只列举 Hugging Face 之外的几个关键人物，他们在过去 14 个月中为该项目奠定了工程基础:
 
-It'd be very difficult to name all the amazing people who contributed to the engineering side of the project, so I will just name a few key people outside of Hugging Face who were the engineering foundation of this project for the last 14 months:
+Olatunji Ruwase、Deepak Narayanan、Jeff Rasley、Jared Casper、Samyam Rajbhandari 和 Rémi Lacroix
 
-Olatunji Ruwase, Deepak Narayanan, Jeff Rasley, Jared Casper, Samyam Rajbhandari and Rémi Lacroix
+我们也感谢所有允许其员工为该项目做出贡献的公司。
 
-Also we are grateful to all the companies who allowed their employees to contribute to this project.
+## 概述
 
-## Overview
+BLOOM 的模型架构与 [GPT3](https://en.wikipedia.org/wiki/GPT-3) 非常相似，只是增加了一些改进，本文稍后将对此进行讨论。
 
-BLOOM's architecture is very similar to [GPT3](https://en.wikipedia.org/wiki/GPT-3) with a few added improvements as will be discussed later in this article.
+该模型是在 [Jean Zay](http://www.idris.fr/eng/jean-zay/jean-zay-presentation-eng.html) 上训练的，Jean Zay 是由 GENCI 管理的法国政府资助的超级计算机，安装在法国国家科学研究中心 (CNRS) 的国家计算中心 [IDRIS](http://www.idris.fr/)。训练所需的算力由 GENCI 慷慨捐赠给本项目 (捐赠号 2021-A0101012475)。
 
-The model was trained on [Jean Zay](http://www.idris.fr/eng/jean-zay/jean-zay-presentation-eng.html), the French government-funded super computer that is managed by GENCI and installed at [IDRIS](http://www.idris.fr/), the national computing center for the French National Center for Scientific Research (CNRS). The compute was generously donated to the project by GENCI (grant 2021-A0101012475).
+训练硬件:
 
-The following hardware was used during the training:
-
-- GPUs: 384 NVIDIA A100 80GB GPUs (48 nodes) + 32 spare gpus
-- 8 GPUs per node Using NVLink 4 inter-gpu connects, 4 OmniPath links
-- CPU: AMD EPYC 7543 32-Core Processor
-- CPU memory: 512GB per node
-- GPU memory: 640GB per node
-- Inter-node connect: Omni-Path Architecture (OPA) w/ non-blocking fat tree
-- NCCL-communications network: a fully dedicated subnet
-- Disc IO network: GPFS shared with other nodes and users
+- GPU: 384 张 NVIDIA A100 80GB GPU (48 个节点) + 32 张备用 GPU
+- 每个节点 8 张 GPU，4 条 NVLink 卡间互联，4 条 OmniPath 链路
+- CPU: AMD EPYC 7543 32 核处理器
+- CPU 内存: 每个节点 512GB
+- GPU 显存: 每个节点 640GB
+- 节点间连接: 使用 Omni-Path Architecture (OPA) 网卡，网络拓扑为无阻塞胖树
+- NCCL - 通信网络: 一个完全专用的子网
+- 磁盘 IO 网络: GPFS 与其他节点和用户共享
 
 Checkpoints:
 
-- [main checkpoints](https://huggingface.co/bigscience/bloom)
-- each checkpoint with fp32 optim states and bf16+fp32 weights is 2.3TB - just the bf16 weights are 329GB.
+- [主 checkpoints](https://huggingface.co/bigscience/bloom)
+- 每个 checkpoint 含精度为 fp32 的优化器状态和精度为 bf16+fp32 的权重，占用存储空间为 2.3TB。如只保存 bf16 的权重，则仅占用 329GB 的存储空间。
 
-Datasets:
+数据集:
 
-- 46 Languages in 1.5TB of deduplicated massively cleaned up text, converted into 350B unique tokens
-- Vocabulary size of the model is 250,680 tokens
-- For full details please see [The BigScience Corpus A 1.6TB Composite Multilingual Dataset](https://openreview.net/forum?id=UoEw6KigkUn)
+- 41.5TB 经过大量去重和清洗的文本，包含 46 种语言，最终转换为 350B 个词元
+- 模型的词汇表含 250,680 个词元
+- 更详细信息，请参阅 [The BigScience Corpus A 1.6TB Composite Multilingual Dataset](https://openreview.net/forum?id=UoEw6KigkUn)
 
-The training of the 176B BLOOM model occurred over Mar-Jul 2022 and took about 3.5 months to complete (approximately 1M compute hours).
+176B BLOOM 模型的训练于 2022 年 3 月至 7 月期间，耗时约 3.5 个月完成 (约 100 万计算时)。
 
 ## Megatron-DeepSpeed
 
-The 176B BLOOM model has been trained using [Megatron-DeepSpeed](https://github.com/bigscience-workshop/Megatron-DeepSpeed), which is a combination of 2 main technologies:
+176B BLOOM 模型使用 [Megatron-DeepSpeed](https://github.com/bigscience-workshop/Megatron-DeepSpeed) 进行训练，它结合了两种主要技术:
 
-* [DeepSpeed](https://github.com/microsoft/DeepSpeed) is a deep learning optimization library that makes distributed training easy, efficient, and effective.
-* [Megatron-LM](https://github.com/NVIDIA/Megatron-LM) is a large, powerful transformer model framework developed by the Applied Deep Learning Research team at NVIDIA.
+* [DeepSpeed](https://github.com/microsoft/DeepSpeed) 是一个深度学习优化库，让分布式训练变得简单、高效且有效。
+* [Megatron-LM](https://github.com/NVIDIA/Megatron-LM) 是由 NVIDIA 的应用深度学习研究团队开发的大型、强大的 transformer 模型框架。
 
+DeepSpeed 团队通过将 DeepSpeed 库中的 ZeRO 分片和流水线并行 (Pipeline Parallelism) 与 Megatron-LM 中的张量并行 (Tensor Parallelism) 相结合，开发了一种基于 3D 并行的方案。有关每个组件的更多详细信息，请参见下表。
 
-The DeepSpeed team developed a 3D parallelism based implementation by combining ZeRO sharding and pipeline parallelism from the DeepSpeed library with Tensor Parallelism from Megatron-LM. More details about each component can be seen in the table below.
+请注意，BigScience 的 [Megatron-DeepSpeed](https://github.com/bigscience-workshop/Megatron-DeepSpeed) 是基于原始 [Megatron-DeepSpeed](https://github.com/microsoft/Megatron-DeepSpeed) 代码库，我们还在其上添加了不少代码。
 
-Please note that the BigScience's [Megatron-DeepSpeed](https://github.com/bigscience-workshop/Megatron-DeepSpeed) is a fork of the original [Megatron-DeepSpeed](https://github.com/microsoft/Megatron-DeepSpeed) repository, to which we added multiple additions.
+下表列出了我们在训练 BLOOM 时各采用了两个框架的哪些组件
 
-Here is a table of which components were provided by which framework to train BLOOM:
-
-| Component                                       | DeepSpeed | Megatron-LM |
+| 组件                                       | DeepSpeed | Megatron-LM |
 | :----                                           | :----     | :----       |
-| [ZeRO Data Parallelism](#zero-data-parallelism) | V         |             |
-| [Tensor Parallelism](#tensor-parallelism)       |           | V           |
-| [Pipeline Parallelism](#pipeline-parallelism)   | V         |             |
-| [BF16Optimizer](#bf16optimizer)                 | V         |             |
-| [Fused CUDA Kernels](#fused-cuda-kernels)       |           | V           |
-| [DataLoader](#datasets)                         |           | V           |
+| [ZeRO 数据并行](#zero-data-parallelism) | 是         |             |
+| [张量并行](#tensor-parallelism)       |           | 是           |
+| [流水线并行](#pipeline-parallelism)   | 是         |             |
+| [BF16 优化器](#bf16optimizer)                 | 是         |             |
+| [CUDA 融合核函数](#fused-cuda-kernels)       |           | 是           |
+| [DataLoader](#datasets)                         |           | 是           |
 
-Please note that both Megatron-LM and DeepSpeed have Pipeline Parallelism and BF16 Optimizer implementations, but we used the ones from DeepSpeed as they are integrated with ZeRO.
+请注意，Megatron-LM 和 DeepSpeed 都有流水线并行和 BF16 优化器实现，但我们使用 DeepSpeed 的实现，因为它们集成进了 ZeRO。
 
-Megatron-DeepSpeed implements 3D Parallelism to allow huge models to train in a very efficient way. Let’s briefly discuss the 3D components.
+Megatron-DeepSpeed 实现了 3D 并行以允许大模型以非常有效的方式进行训练。我们简要讨论一下有哪些 3D 组件。
 
-1. **DataParallel (DP)** - the same setup is replicated multiple times, and each being fed a slice of the data. The processing is done in parallel and all setups are synchronized at the end of each training step.
-2. **TensorParallel (TP)** - each tensor is split up into multiple chunks, so instead of having the whole tensor reside on a single GPU, each shard of the tensor resides on its designated GPU. During processing each shard gets processed separately and in parallel on different GPUs and the results are synced at the end of the step. This is what one may call horizontal parallelism, as the splitting happens on a horizontal level.
-3. **PipelineParallel (PP)** - the model is split up vertically (layer-level) across multiple GPUs, so that only one or several layers of the model are placed on a single GPU. Each GPU processes in parallel different stages of the pipeline and works on a small chunk of the batch.
-4. **Zero Redundancy Optimizer (ZeRO)** - also performs sharding of the tensors somewhat similar to TP, except the whole tensor gets reconstructed in time for a forward or backward computation, therefore the model doesn't need to be modified. It also supports various offloading techniques to compensate for limited GPU memory.
+1. 数据并行 (Data Parallelism，DP) - 相同的设置和模型被复制多份，每份每次都被馈送不同的一份数据。处理是并行完成的，所有份在每个训练步结束时同步。
+2. 张量并行 (Tensor Parallelism，TP) - 每个张量都被分成多个块，因此张量的每个分片都位于其指定的 GPU 上，而不是让整个张量驻留在单个 GPU 上。在处理过程中，每个分片在不同的 GPU 上分别并行处理，结果在步骤结束时同步。这就是所谓的水平并行，因为是做的水平拆分。
+3. 流水线并行 (Pipeline Parallelism，PP) - 模型在多个 GPU 上垂直 (即按层) 拆分，因此只有一个或多个模型层放置在单个 GPU 上。每个 GPU 并行处理流水线的不同阶段，并处理 batch 的一部分数据。
+4. 零冗余优化器 (Zero Redundancy Optimizer，ZeRO) - 也执行与 TP 相类似的张量分片，但整个张量会及时重建以进行前向或反向计算，因此不需要修改模型。它还支持各种卸载技术以补偿有限的 GPU 内存。
 
+## 数据并行
 
+大多数只有几张 GPU 的用户可能比较熟悉 `DistributedDataParallel`(DDP)，这是相应的  [PyTorch 文档](https://pytorch.org/docs/master/generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel)。在该方法中，模型被完全复制到每个 GPU，然后在每次迭代后所有模型相互同步各自的状态。这种方法可以通过投入更多 GPU 资源的方式加快训练速度，解决问题。但它有个限制，即只有当模型能够放进单个 GPU 时才有效。
 
+### ZeRO 数据并行
 
+下图很好地描述了 ZeRO 数据并行 (来自这篇 [博文](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/))。
 
-## Data Parallelism
-
-Most users with just a few GPUs are likely to be familiar with `DistributedDataParallel` (DDP)  [PyTorch documentation](https://pytorch.org/docs/master/generated/torch.nn.parallel.DistributedDataParallel.html#torch.nn.parallel.DistributedDataParallel). In this method the model is fully replicated to each GPU and then after each iteration all the models synchronize their states with each other. This approach allows training speed up but throwing more resources at the problem, but it only works if the model can fit onto a single GPU.
-
-
-### ZeRO Data Parallelism
-
-ZeRO-powered data parallelism (ZeRO-DP) is described on the following diagram from this [blog post](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/)
 ![DeepSpeed-Image-1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-zero.png)
 
-It can be difficult to wrap one's head around it, but in reality, the concept is quite simple. This is just the usual DDP, except, instead of replicating the full model params, gradients and optimizer states, each GPU stores only a slice of it.  And then at run-time when the full layer params are needed just for the given layer, all GPUs synchronize to give each other parts that they miss - this is it.
+看上去比较高大上，可能让你很难专心去理解，但实际上，这个概念非常简单。这只是通常的 DDP，只是没有每个 GPU 都复制完整的模型参数、梯度和优化器状态，而是每个 GPU 只存储其中的一部分。在随后的运行过程中，当需要给定层的完整层参数时，所有 GPU 同步以相互提供它们缺失的部分 —— 仅此而已。
 
-This component is implemented by DeepSpeed.
+该组件由 DeepSpeed 实现。
 
-## Tensor Parallelism
+## 张量并行
 
-In Tensor Parallelism (TP) each GPU processes only a slice of a tensor and only aggregates the full tensor for operations that require the whole thing.
+在张量并行 (TP) 中，每个 GPU 仅处理张量的一部分，并且仅当某些算子需要完整的张量时才触发聚合操作。
 
-In this section we use concepts and diagrams from the [Megatron-LM](https://github.com/NVIDIA/Megatron-LM) paper: [Efficient Large-Scale Language Model Training on GPU Clusters](https://arxiv.org/abs/2104.04473).
+在本节中，我们使用 [Megatron-LM](https://github.com/NVIDIA/Megatron-LM) 论文: [Efficient Large-Scale Language Model Training on GPU Clusters](https://arxiv.org/abs/2104.04473)。
 
-The main building block of any transformer is a fully connected `nn.Linear` followed by a nonlinear activation `GeLU`.
+Transformer 类模型的主要模块为: 一个全连接层 `nn.Linear`，后面跟一个非线性激活层 `GeLU`。
 
-Following the Megatron paper's notation, we can write the dot-product part of it as `Y = GeLU(XA)`, where `X` and `Y` are the input and output vectors, and `A` is the weight matrix.
+沿用 Megatron 论文的符号，我们可以将其点积部分写为 `Y = GeLU (XA)`，其中 `X` 和 `Y` 是输入和输出向量， `A` 是权重矩阵。
 
-If we look at the computation in matrix form, it's easy to see how the matrix multiplication can be split between multiple GPUs:
-![Parallel GEMM](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-parallel_gemm.png)
+如果以矩阵形式表示的话，很容易看出矩阵乘法可以如何在多个 GPU 之间拆分:
 
-If we split the weight matrix `A` column-wise across `N` GPUs and perform matrix multiplications `XA_1` through `XA_n` in parallel, then we will end up with `N` output vectors `Y_1, Y_2, ..., Y_n` which can be fed into `GeLU` independently:
-![independent GeLU](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-independent-gelu.png). Notice with the Y matrix split along the columns, we can split the second GEMM along its rows so that it takes the output of the GeLU directly without any extra communication.
+![并行 GEMM](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-parallel_gemm.png)
 
-Using this principle, we can update an MLP of arbitrary depth, while synchronizing the GPUs after each row-column sequence. The Megatron-LM paper authors provide a helpful illustration for that:
-![parallel shard processing](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-parallel_shard_processing.png)
+如果我们将权重矩阵 `A` 按列拆分到 `N` 个 GPU 上，然后并行执行矩阵乘法 `XA_1` 到  `XA_n`，那么我们最终将得到 `N` 个输出向量 `Y_1、Y_2、…… 、 Y_n` ，它们可以独立输入 `GeLU`:
 
-Here `f` is an identity operator in the forward pass and all reduce in the backward pass while `g` is an all reduce in the forward pass and identity in the backward pass.
+![independent GeLU](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-independent-gelu.png)
 
-Parallelizing the multi-headed attention layers is even simpler, since they are already inherently parallel, due to having multiple independent heads!
-![parallel self-attention](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-parallel_self_attention.png)
+注意因为 `Y` 矩阵是按列拆分的，因此随后的 GEMM 我们可以选择按行拆分方案，这样它就可以直接获取前面层的 GeLU 的输出，而无需任何额外的通信。
 
-Special considerations: Due to the two all reduces per layer in both the forward and backward passes, TP requires a very fast interconnect between devices. Therefore it's not advisable to do TP across more than one node, unless you have a very fast network. In our case the inter-node was much slower than PCIe. Practically, if a node has 4 GPUs, the highest TP degree is therefore 4. If you need a TP degree of 8, you need to use nodes that have at least 8 GPUs.
+使用该原理，我们可以更新任意深度的 MLP，只需在每个 `拆列 - 拆行` 序列之后同步 GPU。Megatron-LM 论文作者为此提供了一个不错的图示:
 
-This component is implemented by Megatron-LM. Megatron-LM has recently expanded tensor parallelism to include sequence parallelism that splits the operations that cannot be split as above, such as LayerNorm, along the sequence dimension. The paper [Reducing Activation Recomputation in Large Transformer Models](https://arxiv.org/abs/2205.05198) provides details for this technique. Sequence parallelism was developed after BLOOM was trained so not used in the BLOOM training.
+![并行分片处理](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-parallel_shard_processing.png)
 
+这里 `f` 是前向传播中的恒等运算符，后向传播中的 all reduce，而 `g` 是前向传播中的 all reduce 和后向传播中的恒等式。
 
-## Pipeline Parallelism
+并行化多头注意力层甚至更简单，因为它们本来就是并行的，因为有多个独立的头！
 
-Naive Pipeline Parallelism (naive PP) is where one spreads groups of model layers across multiple GPUs and simply moves data along from GPU to GPU as if it were one large composite GPU. The mechanism is relatively simple - switch the desired layers `.to()` the desired devices and now whenever the data goes in and out those layers switch the data to the same device as the layer and leave the rest unmodified.
+![并行自注意力](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-tp-parallel_self_attention.png)
 
-This performs a vertical model parallelism, because if you remember how most models are drawn, we slice the layers vertically. For example, if the following diagram shows an 8-layer model:
+需要特别考虑的是: 由于前向和后向传播中每层都有两个 all reduce，因此 TP 需要设备间有非常快速的互联。因此，除非你有一个非常快的网络，否则不建议跨多个节点进行 TP。我们训练 BLOOM 的硬件配置中，节点间的速度比 PCIe 慢很多。实际上，如果节点有 4 个 GPU，则最高 TP 度设为 4 比较好。如果需要 TP 度为 8，则需要使用至少有 8 个 GPU 的节点。
+
+该组件由 Megatron-LM 实现。Megatron-LM 最近扩展了张量并行能力，新增了序列并行的能力，用于难以使用前述切分算法的算子，如 LayerNorm。[Reducing Activation Recomputation in Large Transformer Models](https://arxiv.org/abs/2205.05198) 论文提供了此技术的详细信息。序列并行是在训练 BLOOM 之后开发的，所以 BLOOM 训练时并未采用此技术。
+
+## 流水线并行
+
+朴素流水线并行 (naive PP) 是将模型各层分组分布在多个 GPU 上，并简单地将数据从 GPU 移动到 GPU，就好像它是一个大型复合 GPU 一样。该机制相对简单 - 将所需层用 `.to()` 方法绑到相应设备，现在只要数据进出这些层，这些层就会将数据切换到与该层相同的设备，其余部分保持不变。
+
+这其实就是垂直模型并行，因为如果你还记得我们是怎么画大多数模型的拓扑图的，我们其实是垂直切分模型各层的。例如，如果下图显示一个 8 层模型:
 
 ```
 ===================  ===================
@@ -172,179 +174,172 @@ This performs a vertical model parallelism, because if you remember how most mod
 ===================  ===================
         GPU0                 GPU1
 ```
-we just sliced it in 2 vertically, placing layers 0-3 onto GPU0 and 4-7 to GPU1.
+我们将它垂直切成 2 部分，将层 0-3 放置在 GPU0 上，将层 4-7 放置在 GPU1 上。
 
-Now while data travels from layer 0 to 1, 1 to 2 and 2 to 3 this is just like the forward pass of a normal model on a single GPU. But when data needs to pass from layer 3 to layer 4 it needs to travel from GPU0 to GPU1 which introduces a communication overhead. If the participating GPUs are on the same compute node (e.g. same physical machine) this copying is pretty fast, but if the GPUs are located on different compute nodes (e.g. multiple machines) the communication overhead could be significantly larger.
+现在，当数据从第 0 层传到第 1 层、第 1 层传到第 2 层以及第 2 层传到第 3 层时，这就跟单 GPU 上的普通前向传播一样。但是当数据需要从第 3 层传到第 4 层时，它需要从 GPU0 传输到 GPU1，这会引入通信开销。如果参与的 GPU 位于同一计算节点 (例如同一台物理机器) 上，则传输非常快，但如果 GPU 位于不同的计算节点 (例如多台机器) 上，通信开销可能会大得多。
 
-Then layers 4 to 5 to 6 to 7 are as a normal model would have and when the 7th layer completes we often need to send the data back to layer 0 where the labels are (or alternatively send the labels to the last layer). Now the loss can be computed and the optimizer can do its work.
+然后第 4 到 5 到 6 到 7 层又像普通模型一样，当第 7 层完成时，我们通常需要将数据发送回标签所在的第 0 层 (或者将标签发送到最后一层)。现在可以计算损失，然后使用优化器来进行更新参数了。
 
-Problems:
-- the main deficiency and why this one is called "naive" PP, is that all but one GPU is idle at any given moment. So if 4 GPUs are used, it's almost identical to quadrupling the amount of memory of a single GPU, and ignoring the rest of the hardware. Plus there is the overhead of copying the data between devices. So 4x 6GB cards will be able to accommodate the same size as 1x 24GB card using naive PP, except the latter will complete the training faster, since it doesn't have the data copying overhead. But, say, if you have 40GB cards and need to fit a 45GB model you can with 4x 40GB cards (but barely because of the gradient and optimizer states).
-- shared embeddings may need to get copied back and forth between GPUs.
+问题:
 
-Pipeline Parallelism (PP) is almost identical to a naive PP described above, but it solves the GPU idling problem, by chunking the incoming batch into micro-batches and artificially creating a pipeline, which allows different GPUs to concurrently participate in the computation process.
+- 该方法为什么被称为 朴素 流水线并行呢，它又有什么缺陷呢？主要是因为该方案在任意给定时刻除了一个 GPU 之外的其他所有 GPU 都是空闲的。因此，如果使用 4 个 GPU，则几乎等同于将单个 GPU 的内存量翻两番，而其他资源 (如计算) 相当于没用上。另外还需要加上在设备之间复制数据的开销。所以 4 张 使用朴素流水线并行的 6GB 卡将能够容纳与 1 张 24GB 卡相同大小的模型，而后者训练得更快，因为它没有数据传输开销。但是，比如说，如果你有 40GB 卡，但需要跑 45GB 模型，你可以使用 4x 40GB 卡 (也就刚刚够用，因为还有梯度和优化器状态需要显存)。
 
-The following illustration from the [GPipe paper](https://ai.googleblog.com/2019/03/introducing-gpipe-open-source-library.html) shows the naive PP on the top, and PP on the bottom:
+- 共享嵌入可能需要在 GPU 之间来回复制。我们使用的流水线并行 (PP) 与上述朴素 PP 几乎相同，但它解决了 GPU 闲置问题，方法是将传入的 batch 分块为 micros batch 并人工创建流水线，从而允许不同的 GPU 同时参与计算过程。
+
+下图来自于 [GPipe 论文](https://ai.googleblog.com/2019/03/introducing-gpipe-open-source-library.html)，其上半部分表示朴素 PP 方案，下半部分是 PP 方法:
 
 ![mp-pp](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-gpipe-bubble.png)
 
-It's easy to see from the bottom diagram how PP has fewer dead zones, where GPUs are idle. The idle parts are referred to as the "bubble".
+从图的下半部分很容易看出 PP 的死区 (指 GPU 处于空闲状态) 更少，即 “气泡” 更少。
 
-Both parts of the diagram show parallelism that is of degree 4. That is 4 GPUs are participating in the pipeline. So there is the forward path of 4 pipe stages F0, F1, F2 and F3 and then the return reverse order backward path of B3, B2, B1 and B0.
+图上两种方案的并行度均为 4 ，即由 4 张 GPU 组成流水线。于是就有了 F0、F1、F2、F3 这 4 个管级的前向路径，然后是 B3、B2、B1、B0 的逆序后向路径。
 
-PP introduces a new hyper-parameter to tune that is called `chunks`. It defines how many chunks of data are sent in a sequence through the same pipe stage. For example, in the bottom diagram, you can see that `chunks=4`. GPU0 performs the same forward path on chunk 0, 1, 2 and 3 (F0,0, F0,1, F0,2, F0,3) and then it waits for other GPUs to do their work and only when their work is starting to be complete, does GPU0 start to work again doing the backward path for chunks 3, 2, 1 and 0 (B0,3, B0,2, B0,1, B0,0).
+PP 引入了一个新的超参数来调整，称为 `块 (chunks)`。它定义了通过同一管级按顺序发送多少数据块。例如，在图的下半部分，你可以看到 `chunks = 4`。GPU0 在 chunk 0、1、2 和 3 (F0,0、F0,1、F0,2、F0,3) 上执行相同的前向路径，然后等待，等其他 GPU 完成工作后，GPU0 会再次开始工作，为块 3、2、1 和 0 (B0,3、B0,2、B0,1、B0,0) 执行后向路径。
 
-Note that conceptually this is the same concept as gradient accumulation steps (GAS). PyTorch uses `chunks`, whereas DeepSpeed refers to the same hyper-parameter as GAS.
+请注意，从概念上讲，这与梯度累积 (gradient accumulation steps，GAS) 的意思相同。PyTorch 叫它 `块`，而 DeepSpeed 叫它 `GAS`。
 
-Because of the chunks, PP introduces the concept of micro-batches (MBS). DP splits the global data batch size into mini-batches, so if you have a DP degree of 4, a global batch size of 1024 gets split up into 4 mini-batches of 256 each (1024/4). And if the number of `chunks` (or GAS) is 32 we end up with a micro-batch size of 8 (256/32). Each Pipeline stage works with a single micro-batch at a time.
+因为 `块`，PP 引入了 micro-batches (MBS) 的概念。DP 将全局 batch size 拆分为小 batch size，因此如果 DP 度为 4，则全局 batch size 1024 将拆分为 4 个小 batch size，每个小 batch size 为 256 (1024/4)。而如果 `块` (或 GAS) 的数量为 32，我们最终得到的 micro batch size 为 8 (256/32)。每个管级一次处理一个 micro batch。
 
-To calculate the global batch size of the DP + PP setup we then do: `mbs*chunks*dp_degree` (`8*32*4=1024`).
+计算 DP + PP 设置的全局批量大小的公式为: `mbs*chunks*dp_degree` (`8*32*4=1024`).
 
-Let's go back to the diagram.
+我们回过头再看一下图。
 
-With `chunks=1` you end up with the naive PP, which is very inefficient. With a very large `chunks` value you end up with tiny micro-batch sizes which could be not very efficient either. So one has to experiment to find the value that leads to the highest efficient utilization of the GPUs.
+使用 `chunks=1` 你最终得到的是朴素 PP，这是非常低效的。而使用非常大的 `块` 数，你最终会得到很小的微批量大小，这很可能也不是很有效。因此，必须通过实验来找到能最有效地利用 GPU 的 `块` 数。
 
-While the diagram shows that there is a bubble of "dead" time that can't be parallelized because the last `forward` stage has to wait for `backward` to complete the pipeline, the purpose of finding the best value for `chunks` is to enable a high concurrent GPU utilization across all participating GPUs which translates to minimizing the size of the bubble.
+该图显示存在无法并行化的 “死” 时间气泡，因为最后一个 `forward` 阶段必须等待 `backward` 完成流水。那么，找到最佳的 `块` 数，从而使所有参与的 GPU 达到高的并发利用率，这一问题其实就转化为最小化气泡数了。
 
-This scheduling mechanism is known as `all forward all backward`. Some other alternatives are [one forward one backward](https://www.microsoft.com/en-us/research/publication/pipedream-generalized-pipeline-parallelism-for-dnn-training/) and [interleaved one forward one backward](https://arxiv.org/abs/2104.04473).
+这种调度机制被称为 `全前全后`。其他一些可选方案有 [一前一后](https://www.microsoft.com/en-us/research/publication/pipedream-generalized-pipeline-parallelism-for-dnn-training/) 和 [交错一前一后](https://arxiv.org/abs/2104.04473)。
 
-While both Megatron-LM and DeepSpeed have their own implementation of the PP protocol, Megatron-DeepSpeed uses the DeepSpeed implementation as it's integrated with other aspects of DeepSpeed.
+虽然 Megatron-LM 和 DeepSpeed 都有自己的 PP 协议实现，但 Megatron-DeepSpeed 使用的是 DeepSpeed 实现，因为它与 DeepSpeed 的其他功能集成在一起。
 
-One other important issue here is the size of the word embedding matrix. While normally a word embedding matrix consumes less memory than the transformer block, in our case with a huge 250k vocabulary, the embedding layer needed 7.2GB in bf16 weights and the transformer block is just 4.9GB. Therefore, we had to instruct Megatron-Deepspeed to consider the embedding layer as a transformer block. So we had a pipeline of 72 layers, 2 of which were dedicated to the embedding (first and last). This allowed to balance out the GPU memory consumption. If we didn't do it, we would have had the first and the last stages consume most of the GPU memory, and 95% of GPUs would be using much less memory and thus the training would be far from being efficient.
-
-
+这里的另一个重要问题是词嵌入矩阵的大小。虽然通常词嵌入矩阵比 transfomer 块所需的内存更少，但在 BLOOM 有 250k 词汇表的情况下，嵌入层需要 7.2GB 的 bf16 权重，而变换器块仅为 4.9GB。因此，我们不得不让 Megatron-Deepspeed 将嵌入层视为一个转换器块。所以我们有一个 72 级的流水线，其中 2 个是专门用于嵌入的 (第一个和最后一个)。这使得我们可以平衡 GPU 的内存消耗。如果我们不这样做，我们就会让第一级和最后一级消耗很大的 GPU 内存，而 95% 的 GPU 内存使用会很少，因此训练将很不高效。
 
 ## DP+PP
 
-The following diagram from the DeepSpeed [pipeline tutorial](https://www.deepspeed.ai/tutorials/pipeline/) demonstrates how one combines DP with PP.
+DeepSpeed 流水线 [并行教程](https://www.deepspeed.ai/tutorials/pipeline/) 中有一张图演示了如何将 DP 与 PP 结合起来，如下所示。
 
 ![dp-pp-2d](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-zero-dp-pp.png)
 
-Here it's important to see how DP rank 0 doesn't see GPU2 and DP rank 1 doesn't see GPU3. To DP there are just GPUs 0 and 1 where it feeds data as if there were just 2 GPUs. GPU0 "secretly" offloads some of its load to GPU2 using PP. And GPU1 does the same by enlisting GPU3 to its aid.
+这里重要的是要了解 DP rank 0 是看不见 GPU2 的， DP rank 1 是看不到 GPU3 的。对于 DP 而言，只有 GPU 0 和 1，并向它们馈送数据。GPU0 使用 PP “秘密地” 将它的一些负载卸载到 GPU2。同样地， GPU1 也会得到 GPU3 的帮助。
 
-Since each dimension requires at least 2 GPUs, here you'd need at least 4 GPUs.
+由于每个维度至少需要 2 个 GPU，因此这儿至少需要 4 个 GPU。
 
 ## DP+PP+TP
 
-To get an even more efficient training PP is combined with TP and DP which is called 3D parallelism. This can be seen in the following diagram.
+为了更高效地训练，可以将 PP、TP 和 DP 相结合，称为 3D 并行，如下图所示。
 
 ![dp-pp-tp-3d](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/parallelism-deepspeed-3d.png)
 
-This diagram is from a blog post [3D parallelism: Scaling to trillion-parameter models](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/), which is a good read as well.
+此图来自博文《[3D 并行: 扩展到万亿参数模型](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/)》), 这也是一篇好文章。
 
-Since each dimension requires at least 2 GPUs, here you'd need at least 8 GPUs for full 3D parallelism.
+由于每个维度至少需要 2 个 GPU，因此在这里你至少需要 8 个 GPU 才能实现完整的 3D 并行。
 
 ## ZeRO DP+PP+TP
 
-One of the main features of DeepSpeed is ZeRO, which is a super-scalable extension of DP. It has already been discussed in [ZeRO Data Parallelism](#zero-data-parallelism). Normally it's a standalone feature that doesn't require PP or TP. But it can be combined with PP and TP.
+DeepSpeed 的主要功能之一是 ZeRO，它是 DP 的超级可伸缩增强版，我们在 [ZeRO 数据并行](#ZeRO-数据并行) 一节中已经讨论过了。通常它是一个独立的功能，不需要 PP 或 TP。但它也可以与 PP、TP 结合使用。
 
-When ZeRO-DP is combined with PP (and optionally TP) it typically enables only ZeRO stage 1, which shards only optimizer states. ZeRO stage 2 additionally shards gradients, and stage 3 also shards the model weights.
+当 ZeRO-DP 与 PP (以及 TP) 结合时，它通常只启用 ZeRO 阶段 1，它只对优化器状态进行分片。ZeRO 阶段 2 还会对梯度进行分片，阶段 3 也对模型权重进行分片。
 
-While it's theoretically possible to use ZeRO stage 2 with Pipeline Parallelism, it will have bad performance impacts. There would need to be an additional reduce-scatter collective for every micro-batch to aggregate the gradients before sharding, which adds a potentially significant communication overhead. By nature of Pipeline Parallelism, small micro-batches are used and instead the focus is on trying to balance arithmetic intensity (micro-batch size) with minimizing the Pipeline bubble (number of micro-batches). Therefore those communication costs are going to hurt.
+虽然理论上可以将 ZeRO 阶段 2 与 流水线并行 一起使用，但它会对性能产生不良影响。每个 micro batch 都需要一个额外的 reduce-scatter 通信来在分片之前聚合梯度，这会增加潜在的显著通信开销。根据流水线并行的性质，我们会使用小的 micro batch ，并把重点放在算术强度 (micro batch size) 与最小化流水线气泡 (micro batch 的数量) 两者间折衷。因此，增加的通信开销会损害流水线并行。
 
-In addition, there are already fewer layers than normal due to PP and so the memory savings won't be huge. PP already reduces gradient size by ``1/PP``, and so gradient sharding savings on top of that are less significant than pure DP.
+此外，由于 PP，层数已经比正常情况下少，因此并不会节省很多内存。PP 已经将梯度大小减少了 `1/PP`，因此在此基础之上的梯度分片和纯 DP 相比节省不了多少内存。
 
-ZeRO stage 3 can also be used to train models at this scale, however, it requires more communication than the DeepSpeed 3D parallel implementation. After careful evaluation in our environment which happened a year ago we found Megatron-DeepSpeed 3D parallelism performed best. Since then ZeRO stage 3 performance has dramatically improved and if we were to evaluate it today perhaps we would have chosen stage 3 instead.
-
+ZeRO 阶段 3 也可用于训练这种规模的模型，但是，它需要的通信量比 DeepSpeed 3D 并行更多。一年前，在对我们的环境进行仔细评估后，我们发现 Megatron-DeepSpeed 3D 并行性表现最佳。此后，ZeRO 阶段 3 的性能有了显著提高，如果我们今天要对其进行重新评估，也许我们会选择阶段 3。
 
 ## BF16Optimizer
 
-Training huge LLM models in FP16 is a no-no.
+用 FP16 训练巨型 LLM 模型是一个禁忌。
 
-We have proved it to ourselves by spending several months [training a 104B model](https://github.com/bigscience-workshop/bigscience/tree/master/train/tr8-104B-wide) which as you can tell from the [tensorboard](https://huggingface.co/bigscience/tr8-104B-logs/tensorboard) was but a complete failure. We learned a lot of things while fighting the ever diverging lm-loss:
+我们已经通过花费几个月的时间 [训练 104B 模型](https://github.com/bigscience-workshop/bigscience/tree/master/train/tr8-104B-wide) 自证了这一点，你可以从 [Tensorboard](https://huggingface.co/bigscience/tr8-104B-logs/tensorboard) 发现，彻头彻尾地失败了。在与不断发散的 lm-loss 作斗争的过程中，我们学到了很多:
 
 ![104B-fail](assets/86_bloom_megatron_deepspeed/104b-lm-loss.png)
 
-and we also got the same advice from the Megatron-LM and DeepSpeed teams after they trained the [530B model](https://arxiv.org/abs/2201.11990). The recent release of [OPT-175B](https://arxiv.org/abs/2205.01068) too reported that they had a very difficult time training in FP16.
+我们也从 Megatron-LM 和 DeepSpeed 团队那里得到了相同的建议，在他们训得 [530B 模型](https://arxiv.org/abs/2201.11990) 后。最近发布的 [OPT-175B](https://arxiv.org/abs/2205.01068) 也报告说他们在 FP16 上训练得非常艰难。
 
-So back in January as we knew we would be training on A100s which support the BF16 format Olatunji Ruwase developed a `BF16Optimizer` which we used to train BLOOM.
+所以早在一月份，我们就知道我们要在支持 BF16 格式的 A100 上进行训练。Olatunji Ruwase 开发了一个用来训练 BLOOM 的 `BF16Optimizer`。
 
-If you are not familiar with this data format, please have a look [at the bits layout]( https://en.wikipedia.org/wiki/Bfloat16_floating-point_format#bfloat16_floating-point_format). The key to BF16 format is that it has the same exponent as FP32 and thus doesn't suffer from overflow FP16 suffers from a lot! With FP16, which has a max numerical range of 64k, you can only multiply small numbers. e.g. you can do `250*250=62500`, but if you were to try `255*255=65025` you got yourself an overflow, which is what causes the main problems during training. This means your weights have to remain tiny. A technique called loss scaling can help with this problem, but the limited range of FP16 is still an issue when models become very large.
+如果您不熟悉这种数据格式，请查看它的 [位布局](https://en.wikipedia.org/wiki/Bfloat16_floating-point_format#bfloat16_floating-point_format)。BF16 格式的关键是它的指数位数与 FP32 相同，因此不会溢出，但 FP16 经常溢出！FP16 的最大数值范围为 64k，您只能进行较小数的乘法。例如你可以做 `250*250=62500`，但如果你尝试 `255*255=65025`，你就会溢出，这是导致训练出现问题的主要原因。这意味着你的权重必须保持很小。一种称为损失缩放 (loss scaling) 的技术有助于缓解这个问题，但是当模型变得非常大时，FP16 较小的数值范围仍然是一个问题。
 
-BF16 has no such problem, you can easily do `10_000*10_000=100_000_000` and it's no problem.
+BF16 没有这个问题，你可以很容易地做 `10_000*10_000=100_000_000`, 完全没问题。
 
-Of course, since BF16 and FP16 have the same size of 2 bytes, one doesn't get a free lunch and one pays with really bad precision when using BF16. However, if you remember the training using stochastic gradient descent and its variations is a sort of stumbling walk, so if you don't get the perfect direction immediately it's no problem, you will correct yourself in the next steps.
+当然，由于 BF16 和 FP16 的大小相同，均为 2 个字节，因此，没有免费的午餐，当使用 BF16 时，代价就是它的精度非常差。然而，你应该还记得我们在训练时采用的随机梯度下降法及其变体，该方法有点像蹒跚而行，如果你这步没有找到完美的方向其实没关系，你会在接下来的步骤中纠正自己。
 
-Regardless of whether one uses BF16 or FP16 there is also a copy of weights which is always in FP32 - this is what gets updated by the optimizer. So the 16-bit formats are only used for the computation, the optimizer updates the FP32 weights with full precision and then casts them into the 16-bit format for the next iteration.
+无论使用 BF16 还是 FP16，都有一个权重副本始终在 FP32 中  —— 这是由优化器更新的内容。因此 16 位格式仅用于计算，优化器以全精度更新 FP32 权重，然后将它们转换为 16 位格式以用于下一次迭代。
 
-All PyTorch components have been updated to ensure that they perform any accumulation in FP32, so no loss happening there.
+所有 PyTorch 组件都已更新，以确保它们在 FP32 中执行任何累加，因此不会发生精度损失。
 
-One crucial issue is gradient accumulation, and it's one of the main features of pipeline parallelism as the gradients from each microbatch processing get accumulated. It's crucial to implement gradient accumulation in FP32 to keep the training precise, and this is what `BF16Optimizer` does.
+一个关键问题是梯度累积，它是流水线并行的主要特征之一，因为每个 micro batch 处理的梯度都会累积。在 FP32 中实现梯度累积以保证训练的精确性至关重要，这正是 `BF16Optimizer` 所做的。
 
-Besides other improvements we believe that using BF16 mixed precision training turned a potential nightmare into a relatively smooth process which can be observed from the following lm loss graph:
+除了其他改进之外，我们认为使用 BF16 混合精度训练将潜在的噩梦变成了一个相对平稳的过程，这可以从以下 lm 损失图中看出:
 
-![176B-fail](assets/86_bloom_megatron_deepspeed/176b-lm-loss.png)
+![176B - 损失](assets/86_bloom_megatron_deepspeed/176b-lm-loss.png)
 
-## Fused CUDA Kernels
+## CUDA 融合核函数
 
-The GPU performs two things. It can copy data to/from memory and perform computations on that data. While the GPU is busy copying the GPU's computations units idle. If we want to efficiently utilize the GPU we want to minimize the idle time.
+GPU 主要做两件事。它可以将数据写到显存或从显存读数据，并对这些数据执行计算。当 GPU 忙于读写数据时， GPU 的计算单元就会空闲。如果我们想有效地利用 GPU，我们希望将空闲时间降至最低。
 
-A kernel is a set of instructions that implements a specific PyTorch operation. For example, when you call `torch.add`, it goes through a [PyTorch dispatcher](http://blog.ezyang.com/2020/09/lets-talk-about-the-pytorch-dispatcher/) which looks at the input tensor(s) and various other things and decides which code it should run, and then runs it. A CUDA kernel is a specific implementation that uses the CUDA API library and can only run on NVIDIA GPUs.
+核函数是一组实现特定 PyTorch 操作的指令。例如，当你调用 `torch.add` 时，它会通过一个 [PyTorch 调度器](http://blog.ezyang.com/2020/09/lets-talk-about-the-pytorch-dispatcher/)，它会根据输入张量及其他变量的取值来决定它应该运行哪些代码，最后运行它。CUDA 核函数使用 CUDA 来实现这些代码，因此只能在 NVIDIA GPU 上运行。
 
-Now, when instructing the GPU to compute `c = torch.add(a, b); e = torch.max([c,d])`, a naive approach, and what PyTorch will do unless instructed otherwise, is to launch two separate kernels, one to perform the addition of `a` and `b` and another to find the maximum value between `c` and `d`. In this case, the GPU fetches from its memory `a` and `b`, performs the addition, and then copies the result back into the memory. It then fetches `c` and `d` and performs the `max` operation and again copies the result back into the memory.
+现在，当使用 GPU 计算 `c = torch.add (a, b); e = torch.max ([c,d])` 时，一般情况下，PyTorch 将执行的操作是启动两个单独的核函数，一个执行 `a` 和  `b` 的加法，另一个执行取 `c` 和 `d` 两者的最大值。在这种情况下，GPU 从其显存中获取 `a` 和 `b`，执行加法运算，然后将结果写回显存。然后它获取 `c` 和 `d` 并执行 max 操作，然后再次将结果写回显存。
 
-If we were to fuse these two operations, i.e. put them into a single "fused kernel", and just launch that one kernel we won't copy the intermediary result `c` to the memory, but leave it in the GPU registers and only need to fetch `d` to complete the last computation. This saves a lot of overhead and prevents GPU idling and makes the whole operation much more efficient.
+如果我们要融合这两个操作，即将它们放入一个 “融合核函数” 中，然后启动那个内核，我们不会将中间结果 `c` 写到显存中，而是将其保留在 GPU 寄存器中，并且仅需要获取 `d` 来完成最后的计算。这节省了大量开销并防止 GPU 空闲，因此整个操作会更加高效。
 
-Fused kernels are just that. Primarily they replace multiple discrete computations and data movements to/from memory into fused computations that have very few memory movements. Additionally, some fused kernels rewrite the math so that certain groups of computations can be performed faster.
+融合核函数就是这样。它们主要将多个离散的计算和进出显存的数据移动替换为有很少数据移动的融合计算。此外，一些融合核函数会对操作进行数学变换，以便可以更快地执行某些计算组合。
 
-To train BLOOM fast and efficiently it was necessary to use several custom fused CUDA kernels provided by Megatron-LM. In particular there is an optimized kernel to perform LayerNorm as well as kernels to fuse various combinations of the scaling, masking, and softmax operations. The addition of a bias term is also fused with the GeLU operation using PyTorch's JIT functionality. These operations are all memory bound, so it is important to fuse them to maximize the amount of computation done once a value has been retrieved from memory. So, for example, adding the bias term while already doing the memory bound GeLU operation adds no additional time. These kernels are all available in the [Megatron-LM repository](https://github.com/NVIDIA/Megatron-LM).
+为了快速高效地训练 BLOOM，有必要使用 Megatron-LM 提供的几个自定义 CUDA 融合核函数。特别地，有一个 LayerNorm 的融合核函数以及用于融合缩放、掩码和 softmax 这些操作的各种组合的核函数。Bias Add 也通过 PyTorch 的 JIT 功能与 GeLU 融合。这些操作都是瓶颈在内存的，因此将它们融合在一起以达到最大化每次显存读取后的计算量非常重要。因此，例如，在执行瓶颈在内存的 GeLU 操作时同时执行 Bias Add，运行时间并不会增加。这些核函数都可以在 [Megatron-LM repository](https://github.com/NVIDIA/Megatron-LM) 代码库 中找到。
 
+## 数据集
 
-## Datasets
+Megatron-LM 的另一个重要特性是高效的数据加载器。在首次训练启动前，每个数据集中的每个样本都被分成固定序列长度 (BLOOM 为 2048) 的样本，并创建索引以对每个样本进行编号。基于训练超参，我们会确定每个数据集所需要参与的 epoch 数，并基于此创建一个有序的样本索引列表，然后打乱它。举个例子，如果一个数据集中有 10 个样本并应参与 2 个 epoch 的训练，则系统首先按 `[0, ..., 9, 0, ..., 9]` 顺序排好样本索引，然后打乱该顺序为数据集创建最终的全局顺序。请注意，这意味着训练不会简单地遍历整个数据集然后重复，你有可能在看到另一个样本之前看到同一个样本两次，但在训练结束时模型将只看到每个样本两次。这有助于确保整个训练过程中的训练曲线平滑。这些索引，包括每个样本在原始数据集中的偏移量，被保存到一个文件中，以避免每次开始训练时都重新计算它们。最后，可以将其中几个数据集以不同的权重混合到训练最终使用的数据中。
 
-Another important feature from Megatron-LM is the efficient data loader. During start up of the initial training each data set is split into samples of the requested sequence length (2048 for BLOOM) and index is created to number each sample. Based on the training parameters the number of epochs for a dataset is calculated and an ordering for that many epochs is created and then shuffled. For example, if a dataset has 10 samples and should be gone through twice, the system first lays out the samples indices in order `[0, ..., 9, 0, ..., 9]` and then shuffles that order to create the final global order for the dataset. Notice that this means that training will not simply go through the entire dataset and then repeat, it is possible to see the same sample twice before seeing another sample at all, but at the end of training the model will have seen each sample twice. This helps ensure a smooth training curve through the entire training process. These indices, including the offsets into the base dataset of each sample, are saved to a file to avoid recomputing them each time a training process is started. Several of these datasets can then be blended with varying weights into the final data seen by the training process.
+## 嵌入 LayerNorm
 
-## Embedding LayerNorm
+在我们努力阻止 104B 模型发散的过程中，我们发现在第一个层词嵌入层之后添加一个额外的 LayerNorm 可以使训练更加稳定。
 
-While we were fighting with trying to stop 104B from diverging we discovered that adding an additional LayerNorm right after the first word embedding made the training much more stable.
+该洞察来自对 bitsandbytes 的实验，[bitsandbytes](https://github.com/facebookresearch/bitsandbytes) 有一个 `StableEmbedding` 操作，它是一个带有 LayerNorm 的普通嵌入，其使用均匀 xavier 函数来初始化。
 
-This insight came from experimenting with [bitsandbytes](https://github.com/facebookresearch/bitsandbytes) which contains a `StableEmbedding` which is a normal Embedding with layernorm and it uses a uniform xavier initialization.
+## 位置编码
 
-## Positional Encoding
+基于论文 [Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation](https://arxiv.org/abs/2108.12409)，我们还用 AliBi 替换了普通的位置嵌入，它允许外推比训练模型的输入序列更长的输入序列。因此，即使我们训练时使用长度为 2048 的序列，模型也可以在推理过程中处理更长的序列。
 
-We also replaced the usual positional embedding with an AliBi - based on the paper: [Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation](https://arxiv.org/abs/2108.12409), which allows to extrapolate for longer input sequences than the ones the model was trained on. So even though we train on sequences with length 2048 the model can also deal with much longer sequences during inference.
+## 训练中的困难
 
+随着架构、硬件和软件的就位，我们得以在 2022 年 3 月上旬开始训练。然而，从那时起，事情其实并非一帆风顺。在本节中，我们将讨论我们遇到的一些主要障碍。
 
-## Training Difficulties
+在训练开始之前，有很多问题需要弄清楚。特别是，我们发现了几个问题，这些问题只有在我们开始在 48 个节点上进行训练后才会出现，而不会在小规模时出现。例如，需要设 `CUDA_LAUNCH_BLOCKING=1` 来防止框架挂起，我们需要将优化器组分成更小的组，否则框架会再次挂起。你可以在 [训前编年史](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles-prequel.md) 中详细了解这些内容。
 
-With the architecture, hardware and software in place we were able to start training in early March 2022. However, it was not just smooth sailing from there. In this section we discuss some of the main hurdles we encountered.
+训练期间遇到的主要问题类型是硬件故障。由于这是一个拥有大约 400 个 GPU 的新集群，平均每周我们会遇到 1-2 个 GPU 故障。我们每 3 小时 (100 次迭代) 保存一个检查点。因此，我们每周因硬件崩溃平均损失 1.5 小时的训练成果。Jean Zay 系统管理员随后将更换有故障的 GPU 并恢复节点。与此同时，我们有备用节点可供使用。
 
-There were a lot of issues to figure out before the training started. In particular we found several issues that manifested themselves only once we started training on 48 nodes, and won't appear at small scale. E.g., `CUDA_LAUNCH_BLOCKING=1` was needed to prevent the framework from hanging, and we needed to split the optimizer groups into smaller groups, otherwise the framework would again hang. You can read about those in detail in the [training prequel chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles-prequel.md).
+我们还遇到过多次导致 5-10 小时停机的各种其他问题，其中一些与 PyTorch 中的死锁错误有关，另一些则是由于磁盘空间不足。如果您对具体细节有兴趣，请参阅 [训练编年史](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md)。
 
-The main type of issue encountered during training were hardware failures. As this was a new cluster with about 400 GPUs, on average we were getting 1-2 GPU failures a week. We were saving a checkpoint every 3h (100 iterations) so on average we would lose 1.5h of training on hardware crash. The Jean Zay sysadmins would then replace the faulty GPUs and bring the node back up. Meanwhile we had backup nodes to use instead.
+在对训练这个模型进行可行性分析时，所有这些停机时间都被计划在内了，我们也据此选择了合适的模型大小和我们希望模型消耗的数据量。因此，即使存在这些停机问题，我们还是成功地在预计时间内完成了训练。如前所述，它需要大约 100 万个计算时才能完成。
 
-We have run into a variety of other problems that led to 5-10h downtime several times, some related to a deadlock bug in PyTorch, others due to running out of disk space. If you are curious about specific details please see [training chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md).
+另一个问题是 SLURM 并非设计为供一组人使用。SLURM 作业由单个用户拥有，如果他们不在身边，则该组的其他成员无法对正在运行的作业执行任何操作。我们制定了一个终止方案，允许组中的其他用户终止当前进程，而不需要启动该进程的用户在场。这在 90% 的问题上都很有效。如果 SLURM 设计者读到这篇文章，请添加一个 Unix 组的概念，这样一个 SLURM 作业就可以由一个组拥有。
 
-We were planning for all these downtimes when deciding on the feasibility of training this model - we chose the size of the model to match that feasibility and the amount of data we wanted the model to consume. With all the downtimes we managed to finish the training in our estimated time. As mentioned earlier it took about 1M compute hours to complete.
+由于训练是全天候 24/7 进行的，我们需要有人随叫随到 - 但由于我们在欧洲和加拿大西海岸都有人，因此不需要有人携带传呼机，我们能很好地互相备份。当然，周末的训练也得有人看着。我们自动化了大部分事情，包括自动从硬件崩溃中恢复，但有时仍需要人工干预。
 
-One other issue was that SLURM wasn't designed to be used by a team of people. A SLURM job is owned by a single user and if they aren't around, the other members of the group can't do anything to the running job. We developed a kill-switch workaround that allowed other users in the group to kill the current process without requiring the user who started the process to be present. This worked well in 90% of the issues. If SLURM designers read this - please add a concept of Unix groups, so that a SLURM job can be owned by a group.
+## 结论
 
-As the training was happening 24/7 we needed someone to be on call - but since we had people both in Europe and West Coast Canada overall there was no need for someone to carry a pager, we would just overlap nicely. Of course, someone had to watch the training on the weekends as well. We automated most things, including recovery from hardware crashes, but sometimes a human intervention was needed as well.
+训练中最困难和最紧张的部分是训练开始前的 2 个月。我们承受着尽快开始训练的巨大压力，因为资源分配的时间有限，我们直到最后一刻才接触到 A100。所以这是一个非常困难的时期，考虑到 `BF16Optimizer` 是在最后一刻编写出来的，我们需要调试它并修复各种 bug。正如上一节所述，我们发现了新问题，这些问题只有在我们开始在 48 个节点上进行训练后才会出现，并且不会在小规模时出现。
 
+但是一旦我们把这些整理完，训练本身出奇的顺利，没有出现大的问题。大多数时候，我们只有一个人看着，只有少数几个人参与故障排除。我们得到了 Jean Zay 管理部门的大力支持，他们迅速解决了训练期间出现的大部分需求。
 
-## Conclusion
+总的来说，这是一次超级紧张但回报颇丰的经历。
 
-The most difficult and intense part of the training was the 2 months leading to the start of the training. We were under a lot of pressure to start training ASAP, since the resources allocation was limited in time and we didn't have access to A100s until the very last moment. So it was a very difficult time, considering that the `BF16Optimizer` was written in the last moment and we needed to debug it and fix various bugs. And as explained in the previous section we discovered new problems that manifested themselves only once we started training on 48 nodes, and won't appear at small scale.
+训练大型语言模型仍然是一项具有挑战性的任务，但我们希望通过公开构建和共享这项技术，其他人可以借鉴我们的经验。
 
-But once we sorted those out, the training itself was surprisingly smooth and without major problems. Most of the time we had one person monitoring the training and only a few times several people were involved to troubleshoot. We enjoyed great support from Jean Zay's administration who quickly addressed most needs that emerged during the training.
+## 资源
 
-Overall it was a super-intense but very rewarding experience.
+### 重要链接
 
-Training large language models is still a challenging task, but we hope by building and sharing this technology in the open others can build on top of our experience.
+- [主训练文档](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/README.md)
+- [Tensorboard](https://huggingface.co/bigscience/tr11-176B-ml-logs/tensorboard)
+- [训练用的 slurm 脚本](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/tr11-176B-ml.slurm)
+- [训练记录](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md)
 
-## Resources
+### 论文与文章
 
-### Important links
-
-- [main training document](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/README.md)
-- [tensorboard](https://huggingface.co/bigscience/tr11-176B-ml-logs/tensorboard)
-- [training slurm script](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/tr11-176B-ml.slurm)
-- [training chronicles](https://github.com/bigscience-workshop/bigscience/blob/master/train/tr11-176B-ml/chronicles.md)
-
-
-### Papers and Articles
-
-We couldn't have possibly explained everything in detail in this article, so if the technology presented here piqued your curiosity and you'd like to know more here are the papers to read:
+我们不可能在本文中详细解释所有内容，因此如果此处介绍的技术激起你的好奇心，使你想了解更多信息，请阅读以下论文:
 
 Megatron-LM:
 
@@ -358,30 +353,31 @@ DeepSpeed:
 - [ZeRO-Infinity: Breaking the GPU Memory Wall for Extreme Scale Deep Learning](https://arxiv.org/abs/2104.07857)
 - [DeepSpeed: Extreme-scale model training for everyone](https://www.microsoft.com/en-us/research/blog/deepspeed-extreme-scale-model-training-for-everyone/)
 
-Joint Megatron-LM and Deepspeeed:
+Megatron-LM 和 Deepspeeed 联合:
 
 - [Using DeepSpeed and Megatron to Train Megatron-Turing NLG 530B, A Large-Scale Generative Language Model](https://arxiv.org/abs/2201.11990).
 
 ALiBi:
 
 -  [Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation](https://arxiv.org/abs/2108.12409)
-- [What Language Model to Train if You Have One Million GPU Hours?](https://openreview.net/forum?id=rI7BL3fHIZq) - there you will find the experiments that lead to us choosing ALiBi.
+- [What Language Model to Train if You Have One Million GPU Hours?](https://openreview.net/forum?id=rI7BL3fHIZq) - 你会在那里找到最终使得我们选择 ALiBi 的实验。
 
 BitsNBytes:
 
-- [8-bit Optimizers via Block-wise Quantization](https://arxiv.org/abs/2110.02861) (in the context of Embedding LayerNorm but the rest of the paper and the technology is amazing - the only reason were weren't using the 8-bit optimizer is because we were already saving the optimizer memory with DeepSpeed-ZeRO).
+- [8-bit Optimizers via Block-wise Quantization](https://arxiv.org/abs/2110.02861) (我们使用了该论文中的嵌入 LaynerNorm，但是论文的其他部分及其技术也很妙，我们没用 8 位优化器的唯一原因是我们已经使用 DeepSpeed-ZeRO 节省了优化器内存)。
 
-## Blog credits
+## 博文致谢
 
-Huge thanks to the following kind folks who asked good questions and helped improve the readability of the article (listed in alphabetical order):
-Britney Muller,
-Douwe Kiela,
-Jared Casper,
-Jeff Rasley,
-Julien Launay,
-Leandro von Werra,
-Omar Sanseviero,
-Stefan Schweter and
-Thomas Wang.
+非常感谢以下这些人，他们提出了很好的问题并帮助提高了文章的可读性 (按字母序):
 
-The main graphics was created by Chunte Lee.
+* Britney Muller,
+* Douwe Kiela,
+* Jared Casper,
+* Jeff Rasley,
+* Julien Launay,
+* Leandro von Werra,
+* Omar Sanseviero,
+* Stefan Schweter and
+* Thomas Wang.
+
+本文图表主要由 Chunte Lee 创作。
