@@ -248,7 +248,7 @@
     - dreambooth
 
 - local: blip-2
-  title: "使用 BLIP-2 零样本“图生文”
+  title: 使用 BLIP-2 零样本"图生文”
   author: MariaK
   thumbnail: /blog/assets/blip-2/thumbnail.png
   date: February 15, 2023
