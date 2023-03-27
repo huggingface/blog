@@ -3,6 +3,8 @@ title: "优化故事: BLOOM 模型推理"
 thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
 authors:
 - user: Narsil
+translators:
+- user: MatrixYao
 ---
 
 <h1>优化故事: BLOOM 模型推理</h1>
@@ -354,6 +356,3 @@ TensorFlow 有 [RaggedTensor](https://www.tensorflow.org/guide/ragged_tensor) �
 [@Jeff (Microsoft)](https://github.com/jeffra) [@Reza](https://github.com/RezaYazdaniAminabadi)
 以及 [BigScience](https://huggingface.co/bigscience) 项目中的所有人。
 
-> 英文原文: <url> https://huggingface.co/blog/bloom-inference-optimization </url>
-> 原文作者：Nicolas Patry
-> 译者: Matrix Yao (姚伟峰)，英特尔深度学习工程师，工作方向为 transformer-family 模型在各模态数据上的应用及大规模模型的训练推理。
