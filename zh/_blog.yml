@@ -50,7 +50,7 @@
     - guide
 
 - local: time-series-transformers
-  title: 介绍
+  title: 使用 🤗 Transformers 进行概率时间序列预测
   author: nielsr
   thumbnail: /blog/assets/118_time-series-transformers/thumbnail.png
   date: December 1, 2022
@@ -130,8 +130,7 @@
     - guide
 
 - local: ml-for-games-3
-  title: 语言的读者。如果您不熟悉这些技术，请先查看 [Unity for Beginners](https://www.tiktok.com/@individualkex/video/7086863567412038954)
-    系列后再继续阅读。
+  title: AI 制作 3D 素材：基于 AI 进行游戏开发！第 3 天
   author: dylanebert
   thumbnail: /blog/assets/124_ml-for-games/thumbnail3.png
   date: January 20, 2023
@@ -141,7 +140,7 @@
     - game-dev
 
 - local: red-teaming
-  title: 红队（ red-teaming )大语言模型
+  title: 红队（red-teaming)大语言模型
   author: nazneen
   thumbnail: /blog/assets/red-teaming/thumbnail.png
   date: February 22, 2023
@@ -154,7 +153,7 @@
     - alignment
 
 - local: optimum-onnxruntime-training
-  title: 'Optimum + ONNX Runtime: Easier, Faster training for your Hugging Face models'
+  title: Optimum + ONNX Runtime: 更容易、更快地训练你的Hugging Face模型
   author: Jingya
   thumbnail: /blog/assets/optimum_onnxruntime-training/thumbnail.png
   date: January 24, 2023
@@ -188,8 +187,7 @@
     - guide
 
 - local: ml-for-games-4
-  title: 语言的读者。如果您不熟悉这些技术，请先查看 [Unity for Beginners](https://www.tiktok.com/@individualkex/video/7086863567412038954) 
-    系列后再继续阅读。
+  title: AI 制作 2D 素材：基于 AI 进行游戏开发！第 4 天
   author: dylanebert
   thumbnail: /blog/assets/124_ml-for-games/thumbnail4.png
   date: January 26, 2023
@@ -230,7 +228,7 @@
     - partnerships
 
 - local: ml-for-games-5
-  title: 第 5 天：剧情
+  title: AI 设计游戏剧情：基于 AI 进行游戏开发！第 5 天
   author: dylanebert
   thumbnail: /blog/assets/124_ml-for-games/thumbnail5.png
   date: February 07, 2023
@@ -274,7 +272,7 @@
     - multimodal
 
 - local: red-teaming
-  title: 红队（ red-teaming )大语言模型
+  title: 红队（red-teaming)大语言模型
   author: nazneen
   thumbnail: /blog/assets/red-teaming/thumbnail.png
   date: February 24, 2023
