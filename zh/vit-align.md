@@ -6,29 +6,32 @@ authors:
 - user: Unso
 - user: dylan-m
 - user: jun-untitled
+translators:
+- conyzhang
 ---
 
 
-# Kakao Brain’s Open Source ViT, ALIGN, and the New COYO Text-Image Dataset
+# Kakao Brain 的开源 ViT、ALIGN 和 COYO 文字
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Kakao Brain and Hugging Face are excited to release a new open-source image-text dataset [COYO](https://github.com/kakaobrain/coyo-dataset) of 700 million pairs and two new visual language models trained on it, [ViT](https://github.com/kakaobrain/coyo-vit) and [ALIGN](https://github.com/kakaobrain/coyo-align). This is the first time ever the ALIGN model is made public for free and open-source use and the first release of ViT and ALIGN models that come with the train dataset.  
+最近 Kakao Brain 在 Hugging Face 发布了一个全新的开源图像文本数据集 [COYO](https://github.com/kakaobrain/coyo-dataset)，包含 7 亿对图像和文本，并训练了两个新的视觉语言模型 [ViT](https://github.com/kakaobrain/coyo-vit) 和 [ALIGN](https://github.com/kakaobrain/coyo-align)。
 
-Kakao Brain’s ViT and ALIGN models follow the same architecture and hyperparameters as provided in the original respective Google models but are trained on the open source [COYO](https://github.com/kakaobrain/coyo-dataset) dataset. Google’s [ViT](https://ai.googleblog.com/2020/12/transformers-for-image-recognition-at.html) and [ALIGN](https://ai.googleblog.com/2021/05/align-scaling-up-visual-and-vision.html) models, while trained on huge datasets (ViT trained on 300 million images and ALIGN trained on 1.8 billion image-text pairs respectively), cannot be replicated because the datasets are not public. This contribution is particularly valuable to researchers who want to reproduce visual language modeling with access to the data as well. More detailed information on the Kakao ViT and ALIGN models can be found [here](https://huggingface.co/kakaobrain).  
+这是 ALIGN 模型首次公开发布供开源使用，同时 ViT 和 ALIGN 模型的发布都附带有训练数据集。
 
-This blog will introduce the new [COYO](https://github.com/kakaobrain/coyo-dataset) dataset, Kakao Brain's ViT and ALIGN models, and how to use them! Here are the main takeaways:
+Google 的 [ViT](https://ai.googleblog.com/2020/12/transformers-for-image-recognition-at.html) 和 [ALIGN](https://ai.googleblog.com/2021/05/align-scaling-up-visual-and-vision.html) 模型都使用了巨大的数据集 (ViT 训练于 3 亿张图像，ALIGN 训练于 18 亿个图像 - 文本对) 进行训练，因为数据集不公开导致无法复现。[Kakao Brain](https://hf.co/kakaobrain) 的 ViT 和 ALIGN 模型采用与 Google 原始模型相同的架构和超参数，不同的是其在开源  [COYO 数据集](https://github.com/kakaobrain/coyo-dataset) 上进行训练。对于想要拥有数据并复现视觉语言模型的研究人员有很大的价值。
 
-* First open-source ALIGN model ever! 
-* First open ViT and ALIGN models that have been trained on an open-source dataset [COYO](https://github.com/kakaobrain/coyo-dataset)
-* Kakao Brain's ViT and ALIGN models perform on-par with the Google versions
-* ViT and ALIGN demos are available on HF! You can play with the ViT and ALIGN demos online with image samples of your own choice!
+这篇博客将介绍新的 [COYO](https://github.com/kakaobrain/coyo-dataset) 数据集、Kakao Brain 的 ViT 和 ALIGN 模型，以及如何使用它们！以下是主要要点:
 
+* 第一个开源的 ALIGN 模型！
+* 第一个在开源数据集 [COYO](https://github.com/kakaobrain/coyo-dataset) 上训练的开源 ViT 和 ALIGN 模型。
+* Kakao Brain 的 ViT 和 ALIGN 模型表现与 Google 版本相当。
+* ViT 模型在 HF 上可演示！您可以使用自己的图像样本在线体验 ViT！
 
-## Performance Comparison
+## 性能比较
 
-Kakao Brain's released ViT and ALIGN models perform on par and sometimes better than what Google has reported about their implementation. Kakao Brain's `ALIGN-B7-Base` model, while trained on a much fewer pairs (700 million pairs vs 1.8 billion), performs on par with Google's `ALIGN-B7-Base` on the Image KNN classification task and better on MS-COCO retrieval image-to-text, text-to-image tasks. Kakao Brain's `ViT-L/16` performs similarly to Google's `ViT-L/16` when evaluated on ImageNet and ImageNet-ReaL at model resolutions 384 and 512. This means the community can use Kakao Brain's ViT and ALIGN models to replicate Google's ViT and ALIGN releases especially when users require access to the training data. We are excited to see open-source and transparent releases of these model that perform on par with the state of the art!
+Kakao Brain 发布的 ViT 和 ALIGN 模型与 Google 的模型表现相当，某些方面甚至更好。Kakao Brain 的 `ALIGN-B7-Base` 模型虽然训练的数据对少得多 ( 7 亿 VS 1.8 亿)，但在图像 KNN 分类任务上表现与 Google 的 `ALIGN-B7-Base` 相当，在 MS-COCO 图像 - 文本检索、文本 - 图像检索任务上表现更好。Kakao Brain 的 `ViT-L/16` 在 384×512 的 ImageNet 和 ImageNet-ReaL 数据上的表现与 Google 的 `ViT-L/16` 相当。这意味着同行可以使用 Kakao Brain 的 ViT 和 ALIGN 模型来复现 Google 的 ViT 和 ALIGN ，尤其是当用户需要训练数据时。所以我们很高兴开源这些与现有技术相当的模型！
 
 <p>
 <center>
@@ -36,7 +39,7 @@ Kakao Brain's released ViT and ALIGN models perform on par and sometimes better 
 </center>
 </p>
 
-## COYO DATASET
+## COYO 数据集
 
 <p>
 <center>
@@ -44,7 +47,7 @@ Kakao Brain's released ViT and ALIGN models perform on par and sometimes better 
 </center>
 </p>
 
-What's special about these model releases is that the models are trained on the free and accessible COYO dataset. [COYO](https://github.com/kakaobrain/coyo-dataset#dataset-preview) is an image-text dataset of 700 million pairs similar to Google's `ALIGN 1.8B` image-text dataset which is a collection of "noisy" alt-text and image pairs from webpages, but open-source. `COYO-700M` and `ALIGN 1.8B` are "noisy" because minimal filtering was applied. `COYO` is similar to the other open-source image-text dataset, `LAION` but with the following differences. While `LAION` 2B is a much larger dataset of 2 billion English pairs, compared to `COYO`’s 700 million pairs, `COYO` pairs come with more metadata that give users more flexibility and finer-grained control over usage. The following table shows the differences: `COYO` comes equipped with aesthetic scores for all pairs, more robust watermark scores, and face count data. 
+本次发布的模型特别之处在于都是基于开源的 COYO 数据集训练的。[COYO](https://github.com/kakaobrain/coyo-dataset#dataset-preview) 数据集包含 7 亿图像 - 文本对，类似于 Google 的 ALIGN 1.8B 图像 - 文本数据集，是从网页上收集的“嘈杂”的 html 文本 (alt-text) 和图像对。COYO-700M 和 ALIGN 1.8B都是“嘈杂”的，只使用了适当的清洗处理。COYO 类似于另一个开源的图像–文本数据集 `LAION`，但有一些区别。尽管 `LAION` 2B 是一个更大的数据集，包含 20 亿个英语配对，但 `COYO` 的附带有更多元数据，为用户提供更多灵活性和更细粒度的使用。以下表格显示了它们之间的区别: `COYO` 所有数据对都提供了美感评分，更健壮的水印评分和面部计数信息 (face count data)。
 
 
 | COYO | LAION 2B| ALIGN 1.8B |
@@ -60,12 +63,11 @@ What's special about these model releases is that the models are trained on the 
 | English | English | English? | 
                                                                                                   
 
-## How ViT and ALIGN work
+## ViT 和 ALIGN 是如何工作的
 
-So what do these models do? Let's breifly discuss how the ViT and ALIGN models work.
+这些模型是干什么的？让我们简要讨论一下 ViT 和 ALIGN 模型的工作原理。
 
-ViT -- Vision Transformer -- is a vision model [proposed by Google in 2020](https://ai.googleblog.com/2020/12/transformers-for-image-recognition-at.html) that resembles the text Transformer architecture. 
-It is a new approach to vision, distinct from convolutional neural nets (CNNs) that have dominated vision tasks since 2012's AlexNet. It is upto four times more computationally efficient than similarly performing CNNs and domain agnostic. ViT takes as input an image which is broken up into a sequence of image patches - just as the text Transformer takes as input a sequence of text -  and given position embeddings to each patch to learn the image structure. ViT performance is notable in particular for having an excellent performance-compute trade-off. While some of Google's ViT models are open-source, the JFT-300 million image-label pair dataset they were trained on has not been released publicly. While Kakao Brain's trained on [COYO-Labeled-300M](https://github.com/kakaobrain/coyo-dataset/tree/main/subset/COYO-Labeled-300M), which has been released publicly, and released ViT model performs similarly on various tasks, its code, model, and training data(COYO-Labeled-300M) are made entirely public for reproducibility and open science.
+ViT——Vision Transformer 是 [谷歌于 2020 年提出的一种视觉模型](https://ai.googleblog.com/2020/12/transformers-for-image-recognition-at.html)，类似于文本 Transformer 架构。这是一种与卷积神经网络不同的视觉方法 (AlexNet 自 2012 年以来一直主导视觉任务)。同样表现下，它的计算效率比 CNN 高达四倍，且具有域不可知性 (domain agnostic)。ViT 将输入的图像分解成一系列图像块 (patch)，就像文本 Transformer 输入文本序列一样，然后为每个块提供位置嵌入以学习图像结构。ViT 的性能尤其在于具有出色的性能 - 计算权衡。谷歌的一些 ViT 模型是开源的，但其训练使用的 JFT-300 百万图像 - 标签对数据集尚未公开发布。Kakao Brain 的训练模型是基于公开发布的 [COYO-Labeled-300M](https://github.com/kakaobrain/coyo-dataset/tree/main/subset/COYO-Labeled-300M) 进行训练，对应的 ViT 模型在各种任务上具有相似表现，其代码、模型和训练数据 (COYO-Labeled-300M) 完全公开，以便能够进行复现和科学研究。
 
 <p>
 <center>
@@ -78,7 +80,7 @@ It is a new approach to vision, distinct from convolutional neural nets (CNNs) t
 </center>
 </p>
 
-[Google then introduced ALIGN](https://ai.googleblog.com/2021/05/align-scaling-up-visual-and-vision.html) -- a Large-scale Image and Noisy Text Embedding model in 2021 -- a visual-language model trained on "noisy" text-image data for various vision and cross-modal tasks such as text-image retrieval. ALIGN has a simple dual-encoder architecture trained on image and text pairs, learned via a contrastive loss function. ALIGN's "noisy" training corpus is notable for balancing scale and robustness. Previously, visual language representational learning had been trained on large-scale datasets with manual labels, which require extensive preprocessing. ALIGN's corpus uses the image alt-text data, text that appears when the image fails to load, as the caption to the image -- resulting in an inevitably noisy, but much larger (1.8 billion pair) dataset that allows ALIGN to perform at SoTA levels on various tasks. Kakao Brain's ALIGN is the first open-source version of this model, trained on the `COYO` dataset and performs better than Google's reported results.
+[谷歌在 2021 年推出了 ALIGN](https://ai.googleblog.com/2021/05/align-scaling-up-visual-and-vision.html)，它是一种基于“嘈杂”文本–图像数据训练的视觉语言模型，可用于各种视觉和跨模态任务，如文本 - 图像检索。ALIGN 采用简单的双编码器架构，通过对比损失函数学习图像和文本对，ALIGN 的“嘈杂”训练语料特点包括用语料规模弥补其噪音以及强大的鲁棒性。之前的视觉语言表示学习都是在手动标注的大规模数据集上进行训练，这就需要大量的预先处理和成本。ALIGN 的语料库使用 HTML 文本 (alt-text) 数据作为图像的描述，导致数据集不可避免地嘈杂，但更大的数据量 (18 亿对) 使 ALIGN 能够在各种任务上表现出 SoTA 水平。Kakao Brain 的模型是第一个 ALIGN 开源版本，它在 `COYO` 数据集上训练，表现比谷歌的结果更好。
 
 <p>
 <center>
@@ -93,8 +95,11 @@ It is a new approach to vision, distinct from convolutional neural nets (CNNs) t
 <p>
 
 
-## How to use the COYO dataset
-We can conveniently download the `COYO` dataset with a single line of code using the 🤗 Datasets library. To preview the `COYO` dataset and learn more about the data curation process and the meta attributes included, head over to the dataset page on the [hub](https://huggingface.co/datasets/kakaobrain/coyo-700m) or the original Git [repository](https://github.com/kakaobrain/coyo-dataset). To get started, let's install the 🤗 Datasets library: `pip install datasets` and download it.
+## 如何使用 COYO 数据集
+
+我们可以使用 Hugging Face 🤗 数据集库的一行代码方便地下载 COYO 数据集。要预览 COYO 数据集并了解数据处理过程和包含的元属性，请前往 [hub](https://huggingface.co/datasets/kakaobrain/coyo-700m) 数据集页面。
+
+开始前，请安装 Hugging Face 🤗 数据集库: pip install datasets，然后下载数据集。
 
 ```shell
 >>> from datasets import load_dataset
@@ -103,7 +108,8 @@ We can conveniently download the `COYO` dataset with a single line of code using
 >>> dataset
 ```
 
-While it is significantly smaller than the `LAION` dataset, the `COYO` dataset is still massive with 747M image-text pairs and it might be unfeasible to download the whole dataset to your local. In order to download only a subset of the dataset, we can simply pass in the `streaming=True` argument to the `load_dataset()` method to create an iterable dataset and download data instances as we go.
+由于 `COYO` 数据集非常庞大，包含 747M 个图像 - 文本对，您可能无法在本地下载整个数据集。或者可能只需要下载和使用数据集的子集。为此，可以简单地将 `streaming=True` 参数传递给 `load_dataset()` 方法，以创建可迭代数据集，并在需要时下载数据实例。
+
 
 ```shell
 >>> from datasets import load_dataset
@@ -113,8 +119,9 @@ While it is significantly smaller than the `LAION` dataset, the `COYO` dataset i
 {'id': 2680060225205, 'url': 'https://cdn.shopify.com/s/files/1/0286/3900/2698/products/TVN_Huile-olive-infuse-et-s-227x300_e9a90ffd-b6d2-4118-95a1-29a5c7a05a49_800x.jpg?v=1616684087', 'text': 'Olive oil infused with Tuscany herbs', 'width': 227, 'height': 300, 'image_phash': '9f91e133b1924e4e', 'text_length': 36, 'word_count': 6, 'num_tokens_bert': 6, 'num_tokens_gpt': 9, 'num_faces': 0, 'clip_similarity_vitb32': 0.19921875, 'clip_similarity_vitl14': 0.147216796875, 'nsfw_score_opennsfw2': 0.0058441162109375, 'nsfw_score_gantman': 0.018961310386657715, 'watermark_score': 0.11015450954437256, 'aesthetic_score_laion_v2': 4.871710777282715}
 ```
 
-## How to use ViT and ALIGN from the Hub
-Let’s go ahead and experiment with the new ViT and ALIGN models. As ALIGN is newly added to 🤗 Transformers, we will install the latest version of the library: `pip install -q git+https://github.com/huggingface/transformers.git` and get started with ViT for image classification by importing the modules and libraries we will use. Note that the newly added ALIGN model will be a part of the PyPI package in the next release of the library. 
+## 如何使用 Hub 中的 ViT 和 ALIGN
+
+让我们尝试一下新的 ViT 和 ALIGN 模型。由于 ALIGN 是新加入 Hugging Face 🤗 Transformers 的，我们先安装最新版本的库: `pip install -q git+https://github.com/huggingface/transformers.git` 然后导入我们将要使用的模块和库，开始使用 ViT 进行图像分类。请注意，新添加的 ALIGN 模型将会包含到下一版 PyPI 包。
 
 ```py
 import requests
@@ -123,7 +130,7 @@ import torch
 from transformers import ViTImageProcessor, ViTForImageClassification
 ```
 
-Next, we will download a random image of two cats and remote controls on a couch from the COCO dataset and preprocess the image to transform it to the input format expected by the model. To do this, we can conveniently use the corresponding preprocessor class (`ViTProcessor`). To initialize the model and the preprocessor, we will use one of the [Kakao Brain ViT repos](https://huggingface.co/models?search=kakaobrain/vit) on the hub. Note that initializing the preprocessor from a repository ensures that the preprocessed image is in the expected format required by that specific pretrained model.
+接下来，我们将从 COCO 数据集中随机下载一张有沙发图像，上边有两只猫和一个遥控器，并对图像进行预处理为模型所期望的输入格式，我们可以方便地使用相应的预处理器类 (`ViTProcessor`) 实现这一步。初始化模型和预处理器，可以使用 Hub 中 [Kakao Brain ViT repos](https://huggingface.co/models?search=kakaobrain/vit) 之一。请注意使用 Hub 中的库预处理器，确保预处理后的图像符合特定预训练模型所需的格式。
 
 ```py
 url = 'http://images.cocodataset.org/val2017/000000039769.jpg'
@@ -133,7 +140,8 @@ processor = ViTImageProcessor.from_pretrained('kakaobrain/vit-large-patch16-384'
 model = ViTForImageClassification.from_pretrained('kakaobrain/vit-large-patch16-384')
 ```
 
-The rest is simple, we will forward preprocess the image and use it as input to the model to retrive the class logits. The Kakao Brain ViT image classification models are trained on ImageNet labels and output logits of shape (batch_size, 1000).
+接下来将图像预处理并将其输入到模型，实现检索类别标签。Kakao Brain ViT 图像分类模型是在 ImageNet 标签上训练的，输出形状为 batch_size×1000 维度的类别 (logits)。
+  
 ```py
 # preprocess image or list of images
 inputs = processor(images=image, return_tensors="pt")
@@ -152,7 +160,7 @@ for c in top_class_preds:
     print(f"{model.config.id2label[c.item()]} with probability {round(preds[0, c.item()].item(), 4)}")
 ```
 
-And we are done! To make things even easier and shorter, we can also use the convenient image classification [pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ImageClassificationPipeline) and pass the Kakao Brain ViT repo name as our target model to initialize the pipeline. We can then pass in a URL or a local path to an image or a Pillow image and optionally use the `top_k` argument to return the top k predictions. Let's go ahead and get the top 5 predictions for our image of cats and remotes.
+到这里就完成了！为了更加简单和简洁，还可以使用图像分类管道 ([pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ImageClassificationPipeline)) 并将 Kakao Brain ViT 仓库名称作为目标模型传递给初始化管道。然后，我们可以传入图像的 URL 或本地路径，或 Pillow 图像，可选“top_k”参数表述返回前 k 个预测。让我们继续对猫和遥控器图片获取前 5 个预测结果。
 
 ```shell
 >>> from transformers import pipeline
@@ -162,12 +170,13 @@ And we are done! To make things even easier and shorter, we can also use the con
 [{'score': 0.8223727941513062, 'label': 'remote control, remote'}, {'score': 0.06580372154712677, 'label': 'tabby, tabby cat'}, {'score': 0.0655883178114891, 'label': 'tiger cat'}, {'score': 0.0388941615819931, 'label': 'Egyptian cat'}, {'score': 0.0011215205304324627, 'label': 'lynx, catamount'}]
 ```
 
-If you want to experiment more with the Kakao Brain ViT model, head over to its [Space](https://huggingface.co/spaces/adirik/kakao-brain-vit) on the 🤗 Hub. 
+如果您想更多地尝试 Kakao Brain ViT 模型，请前往 🤗 Hub 中心的项目 [空间](https://huggingface.co/spaces/adirik/kakao-brain-vit)。
+
 <center>
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/132_vit_align/vit_demo.png" alt="vit performance" width="900"/>
 </center>
 
-Let's move on to experimenting with ALIGN, which can be used to retrieve multi-modal embeddings of texts or images or to perform zero-shot image classification. ALIGN's transformers implementation and usage is similar to [CLIP](https://huggingface.co/docs/transformers/main/en/model_doc/clip). To get started, we will first download the pretrained model and its processor, which can preprocess both the images and texts such that they are in the expected format to be fed into the vision and text encoders of ALIGN. Once again, let's import the modules we will use and initialize the preprocessor and the model.
+我们开始实验 ALIGN，它可用于检索文本或图像的多模态嵌入或执行零样本图像分类。ALIGN 的 Transformer 实现和用法类似于 [CLIP](https://huggingface.co/docs/transformers/main/en/model_doc/clip)。首先，下载预训练模型和其处理器 (processor)，处理器预处理图像和文本，使它们符合 ALIGN 的预期格式，以便将其输入到视觉和文本编码器中。这步导入了我们将要使用的模块并初始化预处理器和模型。
 
 ```py
 import requests
@@ -183,7 +192,7 @@ processor = AlignProcessor.from_pretrained('kakaobrain/align-base')
 model = AlignModel.from_pretrained('kakaobrain/align-base')
 ```
 
-We will start with zero-shot image classification first. To do this, we will suppy candidate labels (free-form text) and use AlignModel to find out which description better describes the image. We will first preprocess both the image and text inputs and feed the preprocessed input to the AlignModel.
+先从零样本图像分类开始。为此，我们将提供候选标签 (自由格式文本)，并使用 AlignModel 找出更好地描述图像的表述。我们将首先预处理图像和文本输入，并将预处理后的输入送到 AlignModel 中。
 
 ```py
 candidate_labels = ['an image of a cat', 'an image of a dog']
@@ -201,7 +210,7 @@ probs = logits_per_image.softmax(dim=1)
 print(probs)
 ```
 
-Done, easy as that. To experiment more with the Kakao Brain ALIGN model for zero-shot image classification, simply head over to its [demo](https://huggingface.co/spaces/adirik/ALIGN-zero-shot-image-classification) on the 🤗 Hub. Note that, the output of `AlignModel` includes `text_embeds` and `image_embeds` (see the [documentation](https://huggingface.co/docs/transformers/main/en/model_doc/align) of ALIGN). If we don't need to compute the per-image and per-text logits for zero-shot classification, we can retrieve the vision and text embeddings using the convenient `get_image_features()` and `get_text_features()` methods of the `AlignModel` class. 
+完成了，就这么简单。要进一步尝试 Kakao Brain ALIGN 模型进行零样本图像分类，只需前往 Hugging Face 🤗 Hub 上的 [demo](https://huggingface.co/spaces/adirik/ALIGN-zero-shot-image-classification) 演示。请注意， `AlignModel` 的输出包括 `text_embeds` 和  `image_embeds` (参阅 ALIGN 的 [文档](https://huggingface.co/docs/transformers/main/en/model_doc/align))。如果不需要计算用于零样本分类的每个图像和每个文本的逻辑 (logits)，可以使用 `AlignModel` 类中的 `get_image_features()` 和  `get_text_features()` 方法便捷地检索视觉和文本嵌入。
 
 ```py
 text_embeds = model.get_text_features(
@@ -214,7 +223,7 @@ image_embeds = model.get_image_features(
 )
 ```
 
-Alternatively, we can use the stand-along vision and text encoders of ALIGN to retrieve multi-modal embeddings. These embeddings can then be used to train models for various downstream tasks such as object detection, image segmentation and image captioning. Let's see how we can retrieve these embeddings using `AlignTextModel` and `AlignVisionModel`. Note that we can use the convenient AlignProcessor class to preprocess texts and images separately.
+或者，我们可以使用 ALIGN 的独立视觉和文本编码器获取多模态嵌入。然后可以使用这些嵌入用于各种下游任务的模型训练，例如目标检测、图像分割和图像字幕生成。让我们看看如何使用 `AlignTextModel` 和  `AlignVisionModel` 获取这些嵌入。请注意，我们可以使用便捷的 AlignProcessor 类分别对文本和图像进行预处理。
 
 ```py
 from transformers import AlignTextModel
@@ -234,7 +243,7 @@ last_hidden_state = outputs.last_hidden_state
 pooled_output = outputs.pooler_output
 ```
 
-We can also opt to return all hidden states and attention values by setting the output_hidden_states and output_attentions arguments to True during inference.
+我们也可以在推理过程中设置 output_hidden_states 和 output_attentions 参数为 True，以返回所有隐藏状态和注意力值。
 
 ```py
 with torch.no_grad():
@@ -245,7 +254,7 @@ for key, value in outputs.items():
     print(key)
 ```
 
-Let's do the same with `AlignVisionModel` and retrieve the multi-modal embedding of an image.
+在 `AlignVisionModel` 中执行相同的操作，获取图像的多模态嵌入。
 
 ```py
 from transformers import AlignVisionModel
@@ -267,7 +276,7 @@ last_hidden_state = outputs.last_hidden_state
 pooled_output = outputs.pooler_output
 ```
 
-Similar to ViT, we can use the zero-shot image classification [pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ZeroShotImageClassificationPipeline) to make our work even easier. Let's see how we can use this pipeline to perform image classification in the wild using free-form text candidate labels.
+与 ViT 类似，使用零样本图像分类管道 ([pipeline](https://huggingface.co/docs/transformers/main_classes/pipelines#transformers.ZeroShotImageClassificationPipeline)) 可以让过程更加轻松。以下实现了如何使用此流程使用自由文本候选标签在野外执行图像分类。
 
 ```shell
 >>> from transformers import pipeline
@@ -286,8 +295,8 @@ Similar to ViT, we can use the zero-shot image classification [pipeline](https:/
 [{'score': 0.9735308885574341, 'label': 'black and white'}, {'score': 0.025493400171399117, 'label': 'photorealist'}, {'score': 0.0009757201769389212, 'label': 'painting'}]
 ```
 
-## Conclusion
+## 结论
 
-There have been incredible advances in multi-modal models in recent years, with models such as CLIP and ALIGN unlocking various downstream tasks such as image captioning, zero-shot image classification, and open vocabulary object detection. In this blog, we talked about the latest open source ViT and ALIGN models contributed to the Hub by Kakao Brain, as well as the new COYO text-image dataset. We also showed how you can use these models to perform various tasks with a few lines of code both on their own or as a part of 🤗 Transformers pipelines. 
+近年来，多模态取得了令人难以置信的进展，例如 CLIP 和 ALIGN 等模型赋能了各种下游任务，例如图像描述、零样本图像分类和开放世界目标检测。本博客，我们介绍了由 Kakao Brain 贡献的最新开源代码 ViT 和 ALIGN 模型，以及新的 COYO 文本 - 图像数据集。展示了如何使用这些模型执行各种任务，只需几行代码即可单独使用或作为 🤗 Transformers pipeline 的一部分使用。
 
-That was it! We are continuing to integrate the most impactful computer vision and multi-modal models and would love to hear back from you. To stay up to date with the latest news in computer vision and multi-modal research, you can follow us on Twitter: [@adirik](https://twitter.com/https://twitter.com/alaradirik), [@a_e_roberts](https://twitter.com/a_e_roberts), [@NielsRogge](https://twitter.com/NielsRogge), [@RisingSayak](https://twitter.com/RisingSayak), and [@huggingface](https://twitter.com/huggingface).
+我们正在继续整合最有影响力的计算机视觉和多模型模型，并乐于听取您的反馈。要了解计算机视觉和多模态研究的最新消息，作者及 Twitter:[@adirik](https://twitter.com/https://twitter.com/alaradirik), [@a_e_roberts](https://twitter.com/a_e_roberts), [@NielsRogge](https://twitter.com/NielsRogge), [@RisingSayak](https://twitter.com/RisingSayak), and [@huggingface](https://twitter.com/huggingface).
