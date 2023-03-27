@@ -7,7 +7,7 @@ authors:
 - user: dylan-m
 - user: jun-untitled
 translators:
-- conyzhang
+- user: conyzhang
 ---
 
 
