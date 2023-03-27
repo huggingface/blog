@@ -1,5 +1,5 @@
 ---
-title: "Optimum + ONNX Runtime: 更容易、更快地训练你的Hugging Face模型“
+title: "Optimum + ONNX Runtime: 更容易、更快地训练你的Hugging Face模型"
 thumbnail: /blog/assets/optimum_onnxruntime-training/thumbnail.png
 authors:
 - user: Jingya
@@ -15,6 +15,9 @@ authors:
 
 
 # Optimum + ONNX Runtime: 更容易、更快地训练你的Hugging Face模型
+
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ## 介绍
 
