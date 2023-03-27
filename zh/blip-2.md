@@ -4,6 +4,8 @@ thumbnail: /blog/assets/blip-2/thumbnail.png
 authors:
 - user: MariaK
 - user: JunnanLi
+translators:
+- user: MatrixYao
 ---
 
 # 使用 BLIP-2 零样本“图生文”
