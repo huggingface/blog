@@ -139,19 +139,6 @@
     - guide
     - game-dev
 
-- local: red-teaming
-  title: 红队（red-teaming)大语言模型
-  author: nazneen
-  thumbnail: /blog/assets/red-teaming/thumbnail.png
-  date: February 22, 2023
-  tags:
-    - llms
-    - rlhf
-    - red-teaming
-    - chatgpt
-    - safety
-    - alignment
-
 - local: optimum-onnxruntime-training
   title: Optimum + ONNX Runtime: 更容易、更快地训练你的Hugging Face模型
   author: Jingya
