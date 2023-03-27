@@ -10,6 +10,8 @@ authors:
   guest: true
 translators:
 - user: hell0w0r1d
+  proofreader: true
+- user: inferjay
 ---
 
 # ChatGPT 背后的“功臣”——RLHF 技术详解
