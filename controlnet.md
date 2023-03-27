@@ -225,7 +225,7 @@ Instead of loading our pipeline directly to GPU, we instead enable smart CPU off
 can be achieved with the [`enable_model_cpu_offload` function](https://huggingface.co/docs/diffusers/main/en/api/pipelines/stable_diffusion/controlnet#diffusers.StableDiffusionControlNetPipeline.enable_model_cpu_offload).
 
 Remember that during inference diffusion models, such as Stable Diffusion require not just one but multiple model components that are run sequentially.
-In the case of Stable Diffusion with ControlNet, we first use the CLIP text encoder, then the diffusion model unet and control net, then the VAE decoder and finally run a safety checker.
+In the case of Stable Diffusion with ControlNet, we first use the CLIP text encoder, then the diffusion model unet and control net, then the VAE decoder and finally run a NSFW checker.
 Most components are only run once during the diffusion process and are thus not required to occupy GPU memory all the time. By enabling smart model offloading, we make sure 
 that each component is only loaded into GPU when it's needed so that we can significantly save memory consumption without significantly slowing down infenence.
 
