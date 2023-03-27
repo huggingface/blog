@@ -21,10 +21,10 @@ A notebook is also available [here](https://colab.research.google.com/github/hug
 
 ## Dependencies
 
-To follow along this tutorial you will need to install the following packages: `datasets`, `flwr`, `torch`, and `transformers`. This can be done using `pip`:
+To follow along this tutorial you will need to install the following packages: `datasets`, `evaluate`, `flwr`, `torch`, and `transformers`. This can be done using `pip`:
 
 ```sh
-pip install datasets flwr torch transformers
+pip install datasets evaluate flwr torch transformers
 ```
 
 ## Standard Hugging Face workflow
