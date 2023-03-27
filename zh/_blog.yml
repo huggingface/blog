@@ -259,7 +259,7 @@
     - multimodal
 
 - local: red-teaming
-  title: "红队（red-teaming)大语言模型"
+  title: "红队（red-teaming) 大语言模型"
   author: nazneen
   thumbnail: /blog/assets/red-teaming/thumbnail.png
   date: February 24, 2023
