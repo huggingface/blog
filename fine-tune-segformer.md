@@ -14,7 +14,7 @@ authors:
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
-<a target="_blank" href="https://colab.research.google.com/drive/1MdkavsjGHYcuGyjmsf9wmeAK3WvtYLty?usp=sharing">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/56_fine_tune_segformer.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -68,7 +68,7 @@ To obtain segmentation labels, we need to indicate the classes of all the region
 ### Set up the labeling task on Segments.ai
 
 First, create an account at [https://segments.ai/join](https://segments.ai/join?utm_source=hf&utm_medium=colab&utm_campaign=sem_seg). 
-Next, create a new dataset and upload your images. You can either do this from the web interface or via the Python SDK (see the [notebook](https://colab.research.google.com/drive/1BImTyBjW3KtvHGVcjGpYYFZdRGXzM3-j?usp=sharing)).
+Next, create a new dataset and upload your images. You can either do this from the web interface or via the Python SDK (see the [notebook](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/56_fine_tune_segformer.ipynb)).
 
 
 ### Label the images
@@ -92,7 +92,7 @@ When you're done labeling, create a new dataset release containing the labeled d
 
 Note that creating the release can take a few seconds. You can check the releases tab on Segments.ai to check if your release is still being created.
 
-Now, we'll convert the release to a [Hugging Face dataset](https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset) via the Segments.ai Python SDK. If you haven't set up the Segments Python client yet, follow the instructions in the "Set up the labeling task on Segments.ai" section of the [notebook](https://colab.research.google.com/drive/1BImTyBjW3KtvHGVcjGpYYFZdRGXzM3-j#scrollTo=9T2Jr9t9y4HD). 
+Now, we'll convert the release to a [Hugging Face dataset](https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset) via the Segments.ai Python SDK. If you haven't set up the Segments Python client yet, follow the instructions in the "Set up the labeling task on Segments.ai" section of the [notebook](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/56_fine_tune_segformer.ipynb#scrollTo=9T2Jr9t9y4HD). 
 
 *Note that the conversion can take a while, depending on the size of your dataset.*
 
@@ -192,7 +192,7 @@ repo_id = f"datasets/{hf_dataset_identifier}"
 filename = "id2label.json"
 id2label = json.load(open(hf_hub_download(repo_id=hf_dataset_identifier, filename=filename, repo_type="dataset"), "r"))
 id2label = {int(k): v for k, v in id2label.items()}
-label2id = {v: k for k, v in id2label.items()
+label2id = {v: k for k, v in id2label.items()}
 
 num_labels = len(id2label)
 ```
@@ -324,7 +324,7 @@ def compute_metrics(eval_pred):
             references=labels,
             num_labels=len(id2label),
             ignore_index=0,
-            reduce_labels=feature_extractor.reduce_labels,
+            reduce_labels=feature_extractor.do_reduce_labels,
         )
     
     # add per category metrics as individual key-value pairs
