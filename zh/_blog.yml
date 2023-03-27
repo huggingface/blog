@@ -293,3 +293,13 @@
   date: March 3, 2023
   tags:
     - diffusers
+
+- local: bloom-inference-optimization
+  title: 优化故事: BLOOM 模型推理
+  author: Narsil
+  thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
+  date: Oct 12, 2022
+  tags:
+    - open-source-collab
+    - community
+    - research
