@@ -3,7 +3,7 @@ title: "Accelerating Stable Diffusion Inference on Intel CPUs"
 thumbnail: /blog/assets/136_stable_diffusion_inference_intel/01.png
 authors:
 - user: juliensimon
-- user: ellacharlaix
+- user: echarlaix
 ---
 
 # Accelerating Stable Diffusion Inference on Intel CPUs
