@@ -1958,3 +1958,13 @@
     - federated-learning
     - fl
     - open-source-collab
+
+- local: intel
+  title: "Accelerating Stable Diffusion Inference on Intel CPUs"
+  author: juliensimon
+  thumbnail: /blog/assets/136_stable_diffusion_inference_intel/01.png
+  date: March 28, 2023
+  tags:
+    - hardware
+    - intel
+    - guide
