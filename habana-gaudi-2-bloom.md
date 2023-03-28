@@ -71,39 +71,28 @@ We expect the Habana team will optimize the performance of these models in the u
 
 The script we wrote enables using your model to complete sentences over a whole dataset. This is useful to try BLOOMZ inference on Gaudi2 on your own data.
 
-Here is an example with the [*tldr_news*](https://huggingface.co/datasets/JulesBelveze/tldr_news/viewer/all/test) dataset. It contains both the headline and content of several articles (you can visualize it on the Hugging Face Hub). The first few samples look like:
+Here is an example with the [*tldr_news*](https://huggingface.co/datasets/JulesBelveze/tldr_news/viewer/all/test) dataset. It contains both the headline and content of several articles (you can visualize it on the Hugging Face Hub). We kept only the *content* column and truncated each sample to the first 16 tokens so that the model generates the rest of the sequence with 50 new tokens. The first five samples look like:
 
 ```
-Input: 'Businesses Will Not Be Able to Hide': Spy Satellites May Give Edge From Above ;
-Output:  'Businesses Will Not Be Able to Hide': Spy Satellites to Track Illegal Logging in Indonesia
-The Indonesian government has announced that it will use spy satellites to track illegal logging in the country. The move comes after a
-
-Input: Alphabet and SoftBank’s solar-powered drone provides first LTE connection ;
-Output:  Alphabet and SoftBank’s solar-powered drone provides first LTE connection ・・・
-・・・The drone, which is about the size of a small car, is equipped with a solar panel and can fly for up to
-
-Input: SQLFlow (GitHub Repo);
-Output:  SQLFlow (GitHub Repo):
-https://github.com/davidfowl/SQLFlow
-The code is written in Java and is available on GitHub. It is a simple, lightweight
-
-Input: Secret to keeping ice cream creamy (not crunchy);
-Output:  Secret to keeping ice cream creamy (not crunchy) is to freeze it in a container that is airtight. I use a plastic container with a lid. I also use a plastic bag to cover the container
-
-Input: Tesla's giant battery saved $40 million during its first year, report says ;
-Output:  Tesla's giant battery saved $40 million during its first year, report says
-Tesla's giant battery saved $40 million during its first year, report says
-Tesla's giant battery saved $40 million during its first year,
-
-Input: Python 3.9: Cool New Features for You to Try (28 minute read);
-Output:  Python 3.9: Cool New Features for You to Try (28 minute read): This is a great article for those who are new to Python and want to learn about the new features in Python 3.9. It covers a lot of
-
-Input: A company aims to power the world for millions of years by digging the deepest holes ever ;
-Output:  A company aims to power the world for millions of years by digging the deepest hole ever made in the ground. The company, called Deep Underground Science and Technology (DUST), is planning to dig a hole in the ground that is
-
-Input: In Nevada desert, a technology firm aims to be a government ;
-Output:  In Nevada desert, a technology firm aims to be a government Introduction
-The use of the Internet has become a common practice in the daily life of people. The Internet has become a part of the daily life of people
+Batch n°1
+Input: ['Facebook has released a report that shows what content was most widely viewed by Americans between']
+Output: ['Facebook has released a report that shows what content was most widely viewed by Americans between January and June of this year. The report, which is based on data from the company’s mobile advertising platform, shows that the most popular content on Facebook was news, followed by sports, entertainment, and politics. The report also shows that the most']
+--------------------------------------------------------------------------------------------------
+Batch n°2
+Input: ['A quantum effect called superabsorption allows a collection of molecules to absorb light more']
+Output: ['A quantum effect called superabsorption allows a collection of molecules to absorb light more strongly than the sum of the individual absorptions of the molecules. This effect is due to the coherent interaction of the molecules with the electromagnetic field. The superabsorption effect has been observed in a number of systems, including liquid crystals, liquid crystals in']
+--------------------------------------------------------------------------------------------------
+Batch n°3
+Input: ['A SpaceX Starship rocket prototype has exploded during a pressure test. It was']
+Output: ['A SpaceX Starship rocket prototype has exploded during a pressure test. It was the first time a Starship prototype had been tested in the air. The explosion occurred at the SpaceX facility in Boca Chica, Texas. The Starship prototype was being tested for its ability to withstand the pressure of flight. The explosion occurred at']
+--------------------------------------------------------------------------------------------------
+Batch n°4
+Input: ['Scalene is a high-performance CPU and memory profiler for Python.']
+Output: ['Scalene is a high-performance CPU and memory profiler for Python. It is designed to be a lightweight, portable, and easy-to-use profiler. Scalene is a Python package that can be installed on any platform that supports Python. Scalene is a lightweight, portable, and easy-to-use profiler']
+--------------------------------------------------------------------------------------------------
+Batch n°5
+Input: ['With the rise of cheap small "Cube Satellites", startups are now']
+Output: ['With the rise of cheap small "Cube Satellites", startups are now able to launch their own satellites for a fraction of the cost of a traditional launch. This has led to a proliferation of small satellites, which are now being used for a wide range of applications. The most common use of small satellites is for communications,']
 ```
 
 In the next section, we explain how to use the script we wrote to perform this benchmark or to apply it on any dataset you like from the Hugging Face Hub!
