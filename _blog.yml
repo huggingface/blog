@@ -1959,7 +1959,7 @@
     - fl
     - open-source-collab
 
-- local: intel
+- local: stable-diffusion-inference-intel
   title: "Accelerating Stable Diffusion Inference on Intel CPUs"
   author: juliensimon
   thumbnail: /blog/assets/136_stable_diffusion_inference_intel/01.png
