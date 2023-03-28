@@ -1934,11 +1934,36 @@
     - partnerships
     - announcement
 
+- local: train-your-controlnet
+  title: "Train your ControlNet with diffusers"
+  author: multimodalart
+  thumbnail: /blog/assets/136_train-your-controlnet/thumbnail.png
+  date: March 24, 2023
+  tags:
+    - guide
+    - diffusion
+    - stable-diffusion
+
+- local: fl-with-flower
+  title: "Federated Learning using Hugging Face and Flower"
+  author: charlesbvll
+  guest: true
+  thumbnail: /blog/assets/fl-with-flower/thumbnail.png
+  date: March 27, 2023
+  tags:
+    - nlp
+    - transformers
+    - guide
+    - flower
+    - federated-learning
+    - fl
+    - open-source-collab
+
 - local: intel
   title: "Accelerating Stable Diffusion Inference on Intel CPUs"
   author: juliensimon
-  thumbnail: /blog/assets/80_intel/01.png
-  date: March 24, 2023
+  thumbnail: /blog/assets/136_stable_diffusion_inference_intel/01.png
+  date: March 28, 2023
   tags:
     - hardware
     - intel
