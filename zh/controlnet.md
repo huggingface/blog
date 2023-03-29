@@ -514,7 +514,7 @@ image.save("./multi_controlnet_output.png")
 * [lllyasviel/sd-controlnet-seg](https://huggingface.co/lllyasviel/sd-controlnet-scribble)
 * [lllyasviel/sd-controlnet-openpose](https://huggingface.co/lllyasviel/sd-controlnet-openpose)
 * [lllyasviel/sd-controlnet-mlsd](https://huggingface.co/lllyasviel/sd-controlnet-mlsd)
-* [lllyasviel/sd-controlnet-mlsd](https://huggingface.co/lllyasviel/sd-controlnet-canny)
+* [lllyasviel/sd-controlnet-canny](https://huggingface.co/lllyasviel/sd-controlnet-canny)
 
 我们非常欢迎您尝试组合不同的控制组件来生成精美的图像，并在 Twitter 上与 [@diffuserslib](https://twitter.com/diffuserslib) 分享您的作品。如果您还没有运行上述代码段，这里再次建议您查看刚才提到的 [Colab 笔记本](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/controlnet.ipynb)，亲自运行代码体验示例的效果！
 
