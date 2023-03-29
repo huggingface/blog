@@ -51,13 +51,11 @@ def elapsed_time(pipeline, prompt, nb_pass=10, num_inference_steps=20):
 Now, let's build a `StableDiffusionPipeline` with the default `float32` data type, and measure its inference latency.
 
 ```python
-import torch
 from diffusers import StableDiffusionPipeline
 
-prompt = "sailing ship in storm by Rembrandt"
 model_id = "runwayml/stable-diffusion-v1-5"
-
 pipe = StableDiffusionPipeline.from_pretrained(model_id)
+prompt = "sailing ship in storm by Rembrandt"
 latency = elapsed_time(pipe, prompt)
 print(latency)
 ```
@@ -80,15 +78,17 @@ Optimum Intel and OpenVINO can be installed as follows:
 pip install optimum[openvino]
 ```
 
-Starting from the code above, we only need to replace `StableDiffusionPipeline` with `OVStableDiffusionPipeline`.
+Starting from the code above, we only need to replace `StableDiffusionPipeline` with `OVStableDiffusionPipeline`. To load a PyTorch model and convert it to the OpenVINO format on-the-fly, you can set `export=True` when loading your model.
 
 ```python
 from optimum.intel.openvino import OVStableDiffusionPipeline
 ...
 ov_pipe = OVStableDiffusionPipeline.from_pretrained(model_id, export=True)
-
 latency = elapsed_time(ov_pipe, prompt)
 print(latency)
+
+# Don't forget to save the exported model
+ov_pipe.save_pretrained("./openvino")
 ```
 
 OpenVINO automatically optimizes the model for the `bfloat16` format. Thanks to this, the average latency is now **16.7 seconds**, a sweet 2x speedup.
@@ -149,6 +149,7 @@ pip install intel_extension_for_pytorch==1.13.100
 We then update our code to optimize each pipeline element with IPEX (you can list them by printing the `pipe` object). This requires converting them to the channels-last format.
 
 ```python
+import torch
 import intel_extension_for_pytorch as ipex
 ...
 pipe = StableDiffusionPipeline.from_pretrained(model_id)
@@ -214,7 +215,8 @@ The ability to generate high-quality images in seconds should work well for a lo
 
 Here are some resources to help you get started:
 
-* Diffusers [documentation](https://huggingface.co/docs/diffusers),
+* Diffusers [documentation](https://huggingface.co/docs/diffusers)
+* Optimum Intel [documentation](https://huggingface.co/docs/optimum/main/en/intel/inference)
 * [Intel IPEX](https://github.com/intel/intel-extension-for-pytorch) on GitHub
 * [Developer resources](https://www.intel.com/content/www/us/en/developer/partner/hugging-face.html) from Intel and Hugging Face. 
 
