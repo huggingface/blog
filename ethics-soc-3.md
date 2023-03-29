@@ -1,11 +1,11 @@
 ---
 title: "Ethics and Society Newsletter #3: Ethical Openness at Hugging Face" 
-thumbnail: https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_3/ethics_3_thumbnail.png
+thumbnail: /blog/assets/137_ethics-soc-3/ethics_3_thumbnail.png
 authors:
-- user: irene
-- user: giada
-- user: nima
-- user: yacine
+- user: irenesolaiman
+- user: giadap
+- user: NimaBoscarino
+- user: yjernite
 - user: meg
 ---
 

@@ -1982,3 +1982,11 @@
     - llm
     - bloom
     - inference
+
+- local: ethics-soc-3
+  title: "Ethics and Society Newsletter #3: Ethical Openness at Hugging Face"
+  author: irenesolaiman
+  thumbnail: /blog/assets/137_ethics_soc_3/ethics_3_thumbnail.png
+  date: Mar 30, 2023
+  tags:
+    - ethics
