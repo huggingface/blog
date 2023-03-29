@@ -7,6 +7,8 @@ authors:
 - user: NimaBoscarino
 - user: yjernite
 - user: meg
+- user: allendorf
+
 ---
 
 # Ethics and Society Newsletter #3: Ethical Openness at Hugging Face
@@ -46,7 +48,7 @@ We engage directly with contributors and have addressed pressing issues. To brin
 - launched a [flagging feature](https://twitter.com/GiadaPistilli/status/1571865167092396033) for our community to determine whether ML artifacts or community content (model, dataset, space, or discussion) violate our [content guidelines](https://huggingface.co/content-guidelines),
 - monitor our community discussion boards to ensure Hub users abide by the [code of conduct](https://huggingface.co/code-of-conduct),
 - robustly document our most-downloaded models with model cards that detail social impacts, biases, and intended and out-of-scope use cases,
-- create audience-guiding tags, such as the “Not For All Eyes” tag that can be added to the repository’s card metadata to avoid un-requested violent and sexual content,
+- create audience-guiding tags, such as the “Not For All Audiences” tag that can be added to the repository’s card metadata to avoid un-requested violent and sexual content,
 - promote use of [Open Responsible AI Licenses (RAIL)](https://huggingface.co/blog/open_rail) for [models](https://www.licenses.ai/blog/2022/8/26/bigscience-open-rail-m-license), such as with LLMs ([BLOOM](https://huggingface.co/spaces/bigscience/license), [BigCode](https://huggingface.co/spaces/bigcode/license)),
 - conduct research that [analyzes](https://arxiv.org/abs/2302.04844) which models and datasets have the highest potential for, or track record of, misuse and malicious use.
 
@@ -54,13 +56,13 @@ We engage directly with contributors and have addressed pressing issues. To brin
 Click on the flag icon on any Model, Dataset, Space, or Discussion:
 <p align="center">
  <br>
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_3/flag1.jpg" alt="screenshot pointing to the flag icon to Report this model" />
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_3/flag2.jpg" alt="screenshot pointing to the flag icon to Report this model" />
 </p>
 
 Share why you flagged this item:
 <p align="center">
  <br>
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_3/flag2.jpg" alt="screenshot showing the text window where you describe why you flagged this item" />
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_3/flag1.jpg" alt="screenshot showing the text window where you describe why you flagged this item" />
 </p>
 
 In prioritizing open science, we examine potential harm on a case-by-case basis. When users flag a system, developers can directly and transparently respond to concerns. Moderators are able to disengage from discussions should behavior become hateful and/or abusive (see [code of conduct](https://huggingface.co/code-of-conduct)).
@@ -72,13 +74,29 @@ Should a specific model be flagged as high risk by our community, we consider:
 - Gating access to ML artifacts (see documentation for [models](https://huggingface.co/docs/hub/models-gated) and [datasets](https://huggingface.co/docs/hub/datasets-gated)),
 - Disabling access.
 
-**How to add the “Not For All Eyes” tag:**
+**How to add the “Not For All Audiences” tag:**
 
-Edit the model/data card → add “not_for_all_eyes” in the tags section → open the PR and wait for the authors to merge it.
+Edit the model/data card → add `not-for-all-audiences` in the tags section → open the PR and wait for the authors to merge it. Once merged, the following tag will be displayed on the repository:
+
 <p align="center">
  <br>
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_3/nfae.jpg" alt="screenshot showing where to add tags" />
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_3/nfaa_tag.png" alt="screenshot showing where to add tags" />
 </p>
+
+Any repository tagged `not-for-all-audiences` will display the following popup when visited:
+
+<p align="center">
+ <br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_3/nfaa2.png" alt="screenshot showing where to add tags" />
+</p>
+
+Clicking "View Content" will allow you to view the repository as normal. If you wish to always view `not-for-all-audiences`-tagged repositories without the popup, this setting can be changed in a user's [Content Preferences](https://huggingface.co/settings/content-preferences)
+
+<p align="center">
+ <br>
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_3/nfaa1.png" alt="screenshot showing where to add tags" />
+</p>
+
 
 Open science requires safeguards, and one of our goals is to create an environment informed by tradeoffs with different values. Hosting and providing access to models in addition to cultivating community and discussion empowers diverse groups to assess social implications and guide what is good machine learning. 
 
@@ -94,7 +112,7 @@ Here are some recent demos and tools from researchers in the Hugging Face commun
 
 Thanks for reading! 🤗
 
-~ Irene, Nima, Giada, Yacine, and Meg, on behalf of the Ethics and Society regulars
+~ Irene, Nima, Giada, Yacine, and Elizabeth, on behalf of the Ethics and Society regulars
 
 If you want to cite this blog post, please use the following:
 ```
@@ -103,8 +121,8 @@ If you want to cite this blog post, please use the following:
                Giada Pistilli and
                Nima Boscarino and
                Yacine Jernite and
-               Margaret Mitchell and
                Elizabeth Allendorf and
+               Margaret Mitchell and
                Carlos Muñoz Ferrandis and
                Nathan Lambert and
                Alexandra Sasha Luccioni
