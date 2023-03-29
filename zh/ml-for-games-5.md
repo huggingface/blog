@@ -20,7 +20,7 @@ translators:
 4. 2D 素材
 5. 剧情
 
-视频的版本？你可以在 [这里](https://www.tiktok.com/@individualkex/video/7197505390353960235) 观看。不过如果你想要了解技术细节，请继续阅读吧！
+想快速观看视频的版本？你可以在 [这里](https://www.tiktok.com/@individualkex/video/7197505390353960235) 观看。不过如果你想要了解技术细节，请继续阅读吧！
 
 **注意:** 此篇文章多次引用 第 2 部分 相关内容。简单来说，[第 2 部分](https://huggingface.co/blog/zh/ml-for-games-2) 使用了 ChatGPT 进行游戏设计; 更具体地，介绍了 ChatGPT 的工作原理、语言模型及其局限性。如果您还没有阅读过，可以跳转阅读更多信息。
 
