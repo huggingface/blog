@@ -1,5 +1,5 @@
 ---
-title: "AI 制作 2D 素材：基于 AI 进行游戏开发！第 4 天"
+title: "制作 2D 素材｜基于 AI 5 天创建一个农场游戏，第 4 天"
 thumbnail: /blog/assets/124_ml-for-games/thumbnail4.png
 authors:
 - user: dylanebert
@@ -9,7 +9,7 @@ translators:
   proofreader: true
 ---
 
-<h1>AI 制作 2D 素材：基于 AI 进行游戏开发！第 4 天</h1>
+<h1>制作 2D 素材｜基于 AI 5 天创建一个农场游戏，第 4 天</h1>
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
