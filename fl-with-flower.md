@@ -81,6 +81,8 @@ def load_data():
     )
 
     return trainloader, testloader
+    
+trainloader, testloader = load_data()
 ```
 
 ### Training and testing the model
