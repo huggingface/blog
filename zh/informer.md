@@ -6,6 +6,8 @@ authors:
   guest: true
 - user: nielsr
 - user: kashif
+translators:
+- user: innovation64
 ---
 
 # 使用 Informer 进行多元概率时间序列预测
