@@ -1,5 +1,5 @@
 ---
-title: "Multivariate Probabilistic Time Series Forecasting with Informer" 
+title: "使用 Informer 进行多元概率时间序列预测" 
 thumbnail: /blog/assets/134_informer/thumbnail.png
 authors:
 - user: elisim
