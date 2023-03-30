@@ -6,7 +6,6 @@ authors:
 - user: giadap
 - user: NimaBoscarino
 - user: yjernite
-- user: meg
 - user: allendorf
 
 ---
