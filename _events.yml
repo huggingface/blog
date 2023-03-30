@@ -2,25 +2,25 @@
 # "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
 
+- name: Meet-up on Generative AI
+  link: https://sites.google.com/huggingface.co/generative-ai-meetup
+  date: Apr 29, 2023
+  description: Free meet-up in collaboration with NVIDIA to discuss the bleeding egde from the world of Generative AI. 
+
 - name: Diffusers/JAX Community Sprint
   link: https://github.com/huggingface/community-events/tree/main/jax-controlnet-sprint
   date: Mar 29 to May 8, 2023
   description: This is a community event to develop applications with 🧨 diffusers and JAX using TPUs.
 
-- name: (IRL San Francisco) Open Source AI meetup with 🤗 CEO
-  link: https://partiful.com/e/fE0XH0PrSOZB9ezYuFbW
-  date: Mar 31, 2023
-  description: 🤗 CEO Clement Delangue & team members are heading to San Francisco to celebrate the open-source AI community. 
-
 - name: Scikit-learn Documentation Sprint
   link: https://github.com/huggingface/community-events/blob/main/sklearn-sprint/guidelines.md
   date: Apr 14 to May 1, 2023
   description: This is a community event to develop applications for examples in scikit-learn documentation using Gradio.
-
-- name: Meet-up on Generative AI
-  link: https://sites.google.com/huggingface.co/generative-ai-meetup
-  date: Apr 29, 2023
-  description: Free meet-up in collaboration with NVIDIA to discuss the bleeding egde from the world of Generative AI. 
+  
+- name: (IRL San Francisco) Open Source AI meetup with 🤗 CEO
+  link: https://partiful.com/e/fE0XH0PrSOZB9ezYuFbW
+  date: Mar 31, 2023
+  description: 🤗 CEO Clement Delangue & team members are heading to San Francisco to celebrate the open-source AI community. 
 
 - name: Keras DreamBooth Community Sprint
   link: https://huggingface.co/keras-dreambooth
