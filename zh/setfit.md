@@ -76,7 +76,7 @@ SetFit 利用 Sentence Transformer 的能力去生成基于句对 (paired senten
 在其他的数据集上，SeiFit 在各种各样的任务中也展示出了鲁棒的性能。如下图所示，每类仅需 8 个样本，其典型性能就超越了 PERFECT、ADAPET 以及微调后的原始 transformer 模型。SetFit 还取得了与 T-Few 3B 相当的结果，尽管它无需提示且模型小了 27 倍。
 
 <p align="center">
-    <img src="assets/103_setfit/three-tasks.png" width=700>
+    <img src="../assets/103_setfit/three-tasks.png" width=700>
 </p>
 <p align="center">
     <em>在 3 个分类数据集上比较 SetFit 与其他方法的性能。</em>
@@ -85,7 +85,7 @@ SetFit 利用 Sentence Transformer 的能力去生成基于句对 (paired senten
 ## 快速训练与推理
 
 <p align="center">
-    <img src="assets/103_setfit/bars.png" width=400>
+    <img src="../assets/103_setfit/bars.png" width=400>
 </p>
 <p align="center">在每类 8 个标注样本的条件下，比较 T-Few 3B 和 SetFit (MPNet) 的训练成本和平均性能。</p>
 
