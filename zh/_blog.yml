@@ -279,6 +279,15 @@
   tags:
     - diffusers
 
+
+- local: train-your-controlnet
+  title: "使用 diffusers 训练你自己的 ControlNet 🧨"
+  author: multimodalart
+  thumbnail: /blog/assets/136_train-your-controlnet/thumbnail.png
+  date: March 28, 2023
+  tags:
+    - diffusers
+
 - local: bloom-inference-optimization
   title: "优化故事: BLOOM 模型推理"
   author: Narsil
@@ -312,3 +321,4 @@
     - llm
     - bloom
     - inference
+
