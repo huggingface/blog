@@ -1,3 +1,13 @@
+- local: informer
+  title: "使用 Informer 进行多元概率时间序列预测" 
+  author: elisim
+  thumbnail: /blog/assets/134_informer/thumbnail.png
+  date: March 10, 2023
+  tags:
+    - guide
+    - research
+    - time-series
+
 - local: large-language-models
   title: "大语言模型：新的摩尔定律？"
   author: juliensimon
@@ -278,3 +288,47 @@
   date: March 3, 2023
   tags:
     - diffusers
+
+
+- local: train-your-controlnet
+  title: "使用 diffusers 训练你自己的 ControlNet 🧨"
+  author: multimodalart
+  thumbnail: /blog/assets/136_train-your-controlnet/thumbnail.png
+  date: March 28, 2023
+  tags:
+    - diffusers
+
+- local: bloom-inference-optimization
+  title: "优化故事: BLOOM 模型推理"
+  author: Narsil
+  thumbnail: /blog/assets/bloom-inference-pytorch-scripts/thumbnail.png
+  date: Oct 12, 2022
+  tags:
+    - open-source-collab
+    - community
+    - research
+
+- local: stable-diffusion-inference-intel
+  title: "在英特尔 CPU 上加速 Stable Diffusion 推理"
+  author: juliensimon
+  thumbnail: /blog/assets/136_stable_diffusion_inference_intel/01.png
+  date: March 28, 2023
+  tags:
+    - hardware
+    - intel
+    - guide
+
+- local: habana-gaudi-2-bloom
+  title: "大语言模型快速推理：在 Habana Gaudi2 上推理 BLOOMZ"
+  author: regisss
+  thumbnail: /blog/assets/habana-gaudi-2-bloom/thumbnail.png
+  date: March 28, 2023
+  tags:
+    - habana
+    - partnerships
+    - hardware
+    - nlp
+    - llm
+    - bloom
+    - inference
+
