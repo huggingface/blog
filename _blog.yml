@@ -1859,7 +1859,7 @@
     - safety
     - alignment
 
-    
+
 - local: classification-use-cases
   title: "Leveraging Hugging Face for complex text classification use cases"
   author: VioletteLepercq
@@ -1867,7 +1867,7 @@
   date: March 1, 2023
   tags:
     - nlp
-    
+
 - local: ethics-diffusers
   title: "Ethical guidelines for developing the Diffusers library"
   author: giadap
@@ -1894,7 +1894,7 @@
     - nlp
     - transformers
     - object-detection
-    
+
 - local: vit-align
   title: "New ViT and ALIGN Models From Kakao Brain"
   author: adirik
@@ -1924,7 +1924,7 @@
     - guide
     - research
     - time-series
-    
+
 - local: notebooks-hub
   title: "Jupyter X Hugging Face"
   author: davanstrien
@@ -1958,3 +1958,27 @@
     - federated-learning
     - fl
     - open-source-collab
+
+- local: stable-diffusion-inference-intel
+  title: "Accelerating Stable Diffusion Inference on Intel CPUs"
+  author: juliensimon
+  thumbnail: /blog/assets/136_stable_diffusion_inference_intel/01.png
+  date: March 28, 2023
+  tags:
+    - hardware
+    - intel
+    - guide
+
+- local: habana-gaudi-2-bloom
+  title: "Fast Inference on Large Language Models: BLOOMZ on Habana Gaudi2 Accelerator"
+  author: regisss
+  thumbnail: /blog/assets/habana-gaudi-2-bloom/thumbnail.png
+  date: March 28, 2023
+  tags:
+    - habana
+    - partnerships
+    - hardware
+    - nlp
+    - llm
+    - bloom
+    - inference
