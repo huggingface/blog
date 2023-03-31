@@ -131,7 +131,7 @@ def probsparse_attention(query_states, key_states, value_states, sampling_factor
 
     return attn_output, attn_scores
 ```
-Note that in the implementation, `U_part` contain `L_Q` in the calculation, for stability issues (see [this disccusion]([url](https://discuss.huggingface.co/t/probsparse-attention-in-informer/34428)) for more information).
+Note that in the implementation, `U_part` contain `L_Q` in the calculation, for stability issues (see [this disccusion](https://discuss.huggingface.co/t/probsparse-attention-in-informer/34428) for more information).
 
 We did it! Please be aware that this is only a partial implementation of the `probsparse_attention`, and the full implementation can be found in 🤗 Transformers.
 
