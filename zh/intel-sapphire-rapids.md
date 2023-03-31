@@ -3,6 +3,10 @@ title: "使用英特尔 Sapphire Rapids 加速 PyTorch Transformers 模型（第
 thumbnail: /blog/assets/124_intel_sapphire_rapids/02.png
 authors:
 - user: juliensimon
+translators:
+- user: MatrixYao
+  proofreader: true
+- user: inferjay
 ---
 
 # 使用英特尔 Sapphire Rapids 加速 PyTorch Transformers 模型（第一部分）
@@ -51,12 +55,13 @@ AMX 指令引入了新的 2 维 CPU 寄存器，称作 tile 寄存器。因为�
 * 允许集群内的所有网络通信，使得分布式训练可以不受阻碍地运行。AWS 提供了 [安全组](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html) 这一安全便捷的方式支持这个功能。我们只需创建一个安全组，确保所有集群内的实例属于同一安全组，并允许同一安全组内的所有网络通信即可，以下是我使用的设置:
 
 <kbd>
-  <img src="assets/124_intel_sapphire_rapids/01.png">
+  <img src="../assets/124_intel_sapphire_rapids/01.png">
 </kbd>
 
 让我们开始创建集群的主节点。
 
 ## 设置主节点
+
 我们首先启动一个安装了 Ubuntu 20.04 AMI（`ami-07cd3e6c4915b2d18`）并加入了我们之前创建的安全组的 `r7iz.metal-16xl` 实例，用于创建主节点。该 AMI 虽然只包含了 Linux v5.15.0，但是幸运的是英特尔和 AWS 已经为这个内核版本打上了 AMX 支持的补丁。因此，我们不需要升级内核至 v5.16。
 
 一旦实例运行起来后，我们 ssh 登录上它并通过 `lscpu` 命令检查 AMX 是否确实已被支持。你应该会在 flags 部分看到如下内容：
@@ -99,6 +104,7 @@ git checkout v4.24.0
 最后，我们用该实例创建一个 [新的 AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html)。
 
 ## 设置集群
+
 一旦 AMI 准备就绪，我们用它启动另外 3 个 `r7iz.16xlarge-metal` 实例，不要忘了把他们加入之前创建的安全组中。
 
 当这些实例启动的时候，我们 ssh 登录进主节点并完成网络设置。首先，我们编辑位于 `~/.ssh/config` 的 ssh 配置文件，使其支持从主节点到其他节点的免密连接，这里我们只需使用它们各自的私有 IP 及之前创建的密钥对即可。以下是我的配置文件。
@@ -121,18 +127,22 @@ Host node3
     User ubuntu
     IdentityFile ~/.ssh/cluster
 ```
+
 到此为止，我们可以使用 `ssh node [1-3]` 去免密连接任何节点。
 
 在主节点侧，我们创建一个 `~/hosts` 文件，并填入集群中所有节点的名称，这些名称已在上面的 ssh 配置文件中定义。我们用 `localhost` 代表主节点，因为我们会在该节点启动训练脚本。我的文件如下所示。
+
 ```
 localhost
 node1
 node2
 node3
 ```
+
 集群现已准备就绪。让我们开始训练吧！
 
 ## 启动一个分布式训练任务
+
 在本例中，我们将在 [SQUAD](https://huggingface.co/datasets/squad) 数据集上微调一个用于问答的 [DistilBERT](https://huggingface.co/distilbert-base-uncased) 模型。如果你想试试别的示例的话，尽管去做吧。
 
 ```
@@ -140,7 +150,9 @@ source ~/cluster_env/bin/activate
 cd ~/transformers/examples/pytorch/question-answering
 pip3 install -r requirements.txt
 ```
+
 我们首先冒个烟，启动一个单实例训练任务。请注意如下几个重要的标志变量：
+
 * `no_cuda` 确保使用 CPU 进行训练，忽略 GPU
 * `use_ipex` 使能 IPEX 库，确保 AMX 和 AVX 指令的使用
 * `bf16` 使能 BF16 训练
@@ -169,7 +181,9 @@ export CCL_WORKER_COUNT=2
 export CCL_WORKER_AFFINITY=auto
 export KMP_HW_SUBSET=1T
 ```
+
 现在，我们启动分布式训练任务。
+
 ```
 # Launch distributed training
 mpirun -f ~/hosts \
@@ -189,11 +203,13 @@ mpirun -f ~/hosts \
  --xpu_backend ccl \
  --bf16
 ```
+
 现在，一个 epoch 仅需 **7 分 30 秒**。
 
 任务如下图所示。图的上半部分是主节点，同时你也可以看到其他 3 个节点每个均有 2 个训练进程在运行。
+
 <kbd>
-  <img src="assets/124_intel_sapphire_rapids/02.png">
+  <img src="../assets/124_intel_sapphire_rapids/02.png">
 </kbd>
 
 4 节点的完美线性扩展需要 6 分 30 秒的训练时间（26 分钟除以 4）。我们非常接近于这个理想值，这充分展现了该方法很高的扩展性。
@@ -210,9 +226,3 @@ mpirun -f ~/hosts \
 如你有任何问题或反馈，请通过 Hugging Face 论坛告诉我们。
 
 感谢阅读！
-
-<hr>
-
->>>> 英文原文: <url> https://huggingface.co/blog/intel-sapphire-rapids </url>
->>>>
->>>> 译者: Matrix Yao (姚伟峰)
