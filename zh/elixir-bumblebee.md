@@ -6,6 +6,8 @@ authors:
   guest: true
 translators:
 - user: Slinae
+- user: chenglu
+  proofreader: true
 ---
 
 # 从 GPT2 到 Stable Diffusion：Elixir 社区迎来了 Hugging Face
