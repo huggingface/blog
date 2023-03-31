@@ -298,3 +298,17 @@
     - hardware
     - intel
     - guide
+
+- local: habana-gaudi-2-bloom
+  title: "大语言模型快速推理：在 Habana Gaudi2 上推理 BLOOMZ"
+  author: regisss
+  thumbnail: /blog/assets/habana-gaudi-2-bloom/thumbnail.png
+  date: March 28, 2023
+  tags:
+    - habana
+    - partnerships
+    - hardware
+    - nlp
+    - llm
+    - bloom
+    - inference
