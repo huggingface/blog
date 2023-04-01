@@ -4,6 +4,8 @@ thumbnail: /blog/assets/136_train-your-controlnet/thumbnail.png
 authors:
 - user: multimodalart
 - user: pcuenq
+translators:
+- user: hoi2022
 ---
 
 # 使用 diffusers 训练你自己的 ControlNet 🧨
@@ -12,7 +14,7 @@ authors:
 <!-- {authors} -->
 
 ## 简介
-[ControlNet](https://huggingface.co/blog/controlnet) 这个神经网络模型使得用户可以通过施加额外条件，细粒度地控制扩散模型的生成过程。这一技术最初由 [Adding Conditional Control to Text-to-Image Diffusion Models](https://huggingface.co/papers/2302.05543) 这篇论文提出，并很快地风靡了扩散模型的开源社区。作者开源了 8 个不同的模型，使得用户可以用 8 种条件去控制 Stable Diffusion 模型（包括版本 1 到 5 ）。这 8 种条件包括姿态估计、深度图、边缘图、素描图[等等](https://huggingface.co/lllyasviel)。
+[ControlNet](https://huggingface.co/blog/controlnet) 这个神经网络模型使得用户可以通过施加额外条件，细粒度地控制扩散模型的生成过程。这一技术最初由 [Adding Conditional Control to Text-to-Image Diffusion Models](https://huggingface.co/papers/2302.05543) 这篇论文提出，并很快地风靡了扩散模型的开源社区。作者开源了 8 个不同的模型，使得用户可以用 8 种条件去控制 Stable Diffusion 模型（包括版本 1 到 5 ）。这 8 种条件包括姿态估计、深度图、边缘图、素描图 [等等](https://huggingface.co/lllyasviel)。
 
 ![ControlNet pose examples](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/136_train-your-controlnet/pose_image_1-min.png "ControlNet pose examples")
 
@@ -20,11 +22,11 @@ authors:
 
 ## 开始着手用 Stable Diffusion 训练你的 ControlNet
 训练你自己的 ControlNet 需要 3 个步骤：
-1. **设计你想要的生成条件**：使用 ControlNet 可以灵活地驯服 Stable Diffusion，使它朝着你想的方向生成。预训练的模型已经展示出了大量可用的生成条件，此外开源社区也已经开发出了很多其它条件，比如这里[像素化的色彩板](https://huggingface.co/thibaud/controlnet-sd21-color-diffusers)。
+1. **设计你想要的生成条件**：使用 ControlNet 可以灵活地“驯服” Stable Diffusion，使它朝着你想的方向生成。预训练的模型已经展示出了大量可用的生成条件，此外开源社区也已经开发出了很多其它条件，比如这里 [像素化的色彩板](https://huggingface.co/thibaud/controlnet-sd21-color-diffusers)。
 
 2. **构建你自己的数据集**：当生成条件确定好后，就该构建数据集了。你既可以从头构建一个数据集，也可以使用现有数据集中的数据。为了训练模型，这个数据集需要有三个维度的信息：图片、作为条件的图片，以及语言提示。
 
-3. **训练模型**：一旦数据集建好了，就可以训练模型了。如果你使用[这个基于 diffusers 的训练脚本](https://github.com/huggingface/diffusers/tree/main/examples/controlnet)，训练其实是最简单的。这里你需要一个至少 8G 显存的 GPU。
+3. **训练模型**：一旦数据集建好了，就可以训练模型了。如果你使用 [这个基于 diffusers 的训练脚本](https://github.com/huggingface/diffusers/tree/main/examples/controlnet)，训练其实是最简单的。这里你需要一个至少 8G 显存的 GPU。
 
 ## 1. 设计你想要的生成条件
 在设计你自己的生成条件前，有必要考虑一下两个问题：
@@ -59,7 +61,7 @@ authors:
 - 使用自己的代码把人脸关键点转换为人脸分割图，以此作为“条件图片”
 - 把这些数据保存到 [Hugging Face Dataset](https://huggingface.co/docs/datasets/indexx)
 
-[这里](https://huggingface.co/datasets/pcuenq/face_synthetics_spiga)是将真实图片转换到分割图的代码，以及将数据保存到 Hugging Face Dataset 的代码。
+[这里](https://huggingface.co/datasets/pcuenq/face_synthetics_spiga) 是将真实图片转换到分割图的代码，以及将数据保存到 Hugging Face Dataset 的代码。
 
 现在我们准备好了 ground truth 图片和“条件图片”，我们还缺少说明文字。我们强烈推荐你把说明文字加进去，但你也可以试试使用空的说明文字来看看效果。因为 `FaceSynthetics` 并没有自带说明文字，我们使用 [BLIP captioning](https://huggingface.co/docs/transformers/model_doc/blip) 去给图片加上文字（代码在[这里](https://huggingface.co/datasets/multimodalart/facesyntheticsspigacaptioned)）。
 
@@ -68,7 +70,7 @@ authors:
 ![New dataset](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/136_train-your-controlnet/new_dataset.png "New dataset")
 
 ## 3. 模型训练
-有了 [数据](https://huggingface.co/datasets/multimodalart/facesyntheticsspigacaptioned)，我们就可以开始训练模型了。即使这部分很难，但使用[这个脚本](https://github.com/huggingface/diffusers/tree/main/examples/controlnet)，这个过程其实是最简单的。我们用了一个 A100 GPU去训练（在 [LambdaLabs](https://lambdalabs.com) 每小时 1.1 美元租的）。
+有了 [数据](https://huggingface.co/datasets/multimodalart/facesyntheticsspigacaptioned)，我们就可以开始训练模型了。即使这部分很难，但使用 [这个脚本](https://github.com/huggingface/diffusers/tree/main/examples/controlnet)，这个过程其实是最简单的。我们用了一个 A100 GPU去训练（在 [LambdaLabs](https://lambdalabs.com) 每小时 1.1 美元租的）。
 
 ### 我们的训练经验
 我们设置 batch size 为 4，训练了 3 个 epoch。但这似乎有点过量，过拟合有所显现。模型有点忘记人脸的概念了，即使提示语中包含“怪物史莱克”或“一只猫”，模型也只会生成人脸而不是“史莱克”或猫；同时模型也对各种风格变得不敏感。
@@ -168,4 +170,4 @@ pip install bitsandbytes
 
 下一步，为了生成真实的人脸图片，同时还不使用真实人脸数据集，我们可以用 Stable Diffusion Image2Imaage 跑一遍所有的 `FaceSynthetics` 图片，把看起来很 3D 的人脸转换成真实人脸图片，然后再训练 ControlNet。
 
-请继续关注我们，接下来我们将举办 ControlNet 训练赛事。请在 [Twitter](https://twitter.com/huggingface) 关注 Hugging Face，或者加入我们的 [Discord]( http://hf.co/join/discord) 以便接收最新消息！
+请继续关注我们，接下来我们将举办 ControlNet 训练赛事。请在 [Twitter](https://twitter.com/huggingface) 关注 Hugging Face，或者加入我们的 [Discord](http://hf.co/join/discord) 以便接收最新消息！

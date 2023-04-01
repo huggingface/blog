@@ -111,7 +111,7 @@ latency = elapsed_time(ov_pipe, prompt)
 
 扩散模型是数 GB 的大模型，图像生成是一种内存密集型操作。通过安装高性能内存分配库，我们能够加速内存操作并使之能在 CPU 核之间并行处理。请注意，这将更改系统的默认内存分配库。你可以通过卸载新库来返回默认库。
 
-[jemalloc](https://jemalloc.net/) 和 [tcmalloc](https://github.com/gperftools/gperftools) 是两个很有意思的内存优化库。这里，我们使用 `jemalloc`，因为我们测试下来，它的性能比 `tcmalloc` 略好。`jemalloc` 还可以用于针对特定工作负载进行调优，如最大化 CPU 利用率。详情可参考[`jemalloc` 调优指南](https://github.com/jemalloc/jemalloc/blob/dev/TUNING.md)。
+[jemalloc](https://jemalloc.net/) 和 [tcmalloc](https://github.com/gperftools/gperftools) 是两个很有意思的内存优化库。这里，我们使用 `jemalloc`，因为我们测试下来，它的性能比 `tcmalloc` 略好。`jemalloc` 还可以用于针对特定工作负载进行调优，如最大化 CPU 利用率。详情可参考 [`jemalloc` 调优指南](https://github.com/jemalloc/jemalloc/blob/dev/TUNING.md)。
 
 ```
 sudo apt-get install -y libjemalloc-dev
@@ -188,7 +188,7 @@ with torch.cpu.amp.autocast(enabled=True, dtype=torch.bfloat16):
 
 ## 调度器 
 
-Diffusers 库支持为每个Stable Diffusion pipiline 配置[调度器(scheduler)](https://huggingface.co/docs/diffusers/using-diffusers/schedulers)，用于在去噪速度和去噪质量之间找到最佳折衷。
+Diffusers 库支持为每个Stable Diffusion pipiline 配置 [调度器(scheduler)](https://huggingface.co/docs/diffusers/using-diffusers/schedulers)，用于在去噪速度和去噪质量之间找到最佳折衷。
 
 根据文档所述：“*截至本文档撰写时，DPMSolverMultistepScheduler 能实现最佳的速度/质量权衡，只需 20 步即可运行。*” 我们可以试一下 `DPMSolverMultistepScheduler`。
 
@@ -216,12 +216,8 @@ pipe = StableDiffusionPipeline.from_pretrained(model_id, scheduler=dpm)
 * Diffusers [文档](https://huggingface.co/docs/diffusers)
 * Optimum Intel [文档](https://huggingface.co/docs/optimum/main/en/intel/inference)
 * [英特尔 IPEX](https://github.com/intel/intel-extension-for-pytorch) on GitHub
-* [英特尔和Hugging Face联合出品的开发者资源网站](https://www.intel.com/content/www/us/en/developer/partner/hugging-face.html) 
+* [英特尔和 Hugging Face联合出品的开发者资源网站](https://www.intel.com/content/www/us/en/developer/partner/hugging-face.html) 
 
 如果你有任何问题或反馈，请通过 [Hugging Face 论坛](https://discuss.huggingface.co/) 告诉我们。
 
 感谢垂阅！
-
-> 英文原文: <url> https://huggingface.co/blog/stable-diffusion-inference-intel </url>
-> 原文作者：Julien Simon，Ella Charlaix
-> 译者: Matrix Yao (姚伟峰)，英特尔深度学习工程师，工作方向为 transformer-family 模型在各模态数据上的应用及大规模模型的训练推理。 

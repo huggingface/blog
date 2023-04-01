@@ -8,8 +8,8 @@ authors:
   guest: true
 translators:
 - user: innovation64
-  proofreader: true
 - user: inferjay
+  proofreader: true
 ---
 
 # 使用 Diffusers 通过 Dreambooth 技术来训练 Stable Diffusion

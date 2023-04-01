@@ -21,7 +21,7 @@ translators:
 </a>
 
 ## 介绍
-几个月前，我们介绍了 [Time Series Transformer](https://huggingface.co/blog/time-series-transformers)，它是 Vanilla Transformer ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)) 应用于预测的模型，并展示了**单变量**概率预测任务的示例（即单独预测每个时间序列的 1-d 分布）。在这篇文章中，我们介绍了 _Informer_ 模型 ([Zhou, Haoyi, et al., 2021](https://arxiv.org/abs/2012.07436))，AAAI21最佳论文，现在在🤗 Transformers 中[可用](https://huggingface.co/docs/transformers/main/en/model_doc/informer)。我们将展示如何使用 Informer 模型进行**多元**概率时间序列预测任务，即预测未来时间序列目标值的**向量**的分布。请注意，这也适用于原始时间序列 Transformer 模型。
+几个月前，我们介绍了 [Time Series Transformer](https://huggingface.co/blog/time-series-transformers)，它是 Vanilla Transformer ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)) 应用于预测的模型，并展示了**单变量**概率预测任务的示例（即单独预测每个时间序列的 1-d 分布）。在这篇文章中，我们介绍了 _Informer_ 模型 ([Zhou, Haoyi, et al., 2021](https://arxiv.org/abs/2012.07436))，AAAI21最佳论文，现在在🤗 Transformers 中 [可用](https://huggingface.co/docs/transformers/main/en/model_doc/informer)。我们将展示如何使用 Informer 模型进行 **多元** 概率时间序列预测任务，即预测未来时间序列目标值的 **向量** 的分布。请注意，这也适用于原始时间序列 Transformer 模型。
 
 ##  多元概率时间序列预测
 
@@ -1059,6 +1059,3 @@ plot(0, 344)
 ## 资源
 
 我们建议查看 [Informer 文档](https://huggingface.co/docs/transformers/main/en/model_doc/informer) 和 [示例 notebook](https://github.com/huggingface/notebooks/blob/main/examples/multivariate_informer.ipynb) 链接在此博客文章的顶部。
-
->译者：innovation64(李洋)  
->原文：https://huggingface.co/blog/informer
