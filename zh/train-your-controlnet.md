@@ -1,11 +1,11 @@
 ---
-title: "Train your ControlNet with diffusers"
+title: "使用 diffusers 训练你自己的 ControlNet 🧨"
 thumbnail: /blog/assets/136_train-your-controlnet/thumbnail.png
 authors:
 - user: multimodalart
 - user: pcuenq
 translators:
-- user: hoi2022
+- user: hugging-hoi2022
 ---
 
 # 使用 diffusers 训练你自己的 ControlNet 🧨
