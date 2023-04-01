@@ -5,8 +5,8 @@ authors:
 - user: juliensimon
 translators:
 - user: MatrixYao
-  proofreader: true
 - user: inferjay
+  proofreader: true
 ---
 
 # 使用英特尔 Sapphire Rapids 加速 PyTorch Transformers 模型（第一部分）

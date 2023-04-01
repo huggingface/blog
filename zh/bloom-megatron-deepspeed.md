@@ -5,8 +5,8 @@ authors:
 - user: stas
 translators:
 - user: MatrixYao
-  proofreader: true
 - user: inferjay
+  proofreader: true
 ---
 
 <h1>千亿参数开源大模型 BLOOM 背后的技术</h1>

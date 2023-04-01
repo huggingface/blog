@@ -3,11 +3,10 @@ title: "基于AI进行游戏开发：5天！创建一个农场游戏！第1部�
 thumbnail: /blog/assets/124_ml-for-games/thumbnail.png
 authors:
 - user: dylanebert
-
 translators:
 - user: SuSung-boy
-  proofreader: true
 - user: inferjay
+  proofreader: true
 ---
 
 # 基于AI进行游戏开发：5天！创建一个农场游戏！第1部分

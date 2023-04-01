@@ -12,7 +12,7 @@ translators:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-本文将展示如何在 [Habana® Gaudi®2](https://habana.ai/training/gaudi2/) 上使用 🤗 [Optimum Habana](https://huggingface.co/docs/optimum/habana/index)。Optimum Habana 是 Gaudi2 和 🤗 Transformers 库之间的桥梁。本文设计并实现了一个大模型推理基准测试，证明了通过使用 Optimum Habana 你将能够在 Gaudi2 上获得**比目前市面上任何可用的 GPU 都快的推理速度**。
+本文将展示如何在 [Habana® Gaudi®2](https://habana.ai/training/gaudi2/) 上使用 🤗 [Optimum Habana](https://huggingface.co/docs/optimum/habana/index)。Optimum Habana 是 Gaudi2 和 🤗 Transformers 库之间的桥梁。本文设计并实现了一个大模型推理基准测试，证明了通过使用 Optimum Habana 你将能够在 Gaudi2 上获得 **比目前市面上任何可用的 GPU 都快的推理速度**。
 
 随着模型越来越大，将它们部署到生产环境中以用于推理也变得越来越具有挑战性。硬件和软件都需要很多创新来应对这些挑战，让我们来深入了解 Optimum Habana 是如何有效地克服这些挑战的！
 
@@ -20,7 +20,7 @@ translators:
 
 [BLOOM](https://arxiv.org/abs/2211.05100) 是一个 1760 亿参数的自回归模型，经训练后可用于文本生成。它可以处理 46 种不同的语言以及 13 种编程语言。作为 [BigScience](https://bigscience.huggingface.co/) 计划的一部分，BLOOM 作为一个开放科学项目，来自全球的大量的研究人员和工程师参与了模型的设计和训练。最近，我们又发布了架构与 BLOOM 完全相同的模型：[BLOOMZ](https://arxiv.org/abs/2211.01786)，它是 BLOOM 在多个任务上的微调版本，具有更好的泛化和零样本[^1] 能力。
 
-如此大的模型在[训练](https://huggingface.co/blog/bloom-megatron-deepspeed) 和[推理](https://huggingface.co/blog/bloom-inference-optimization) 两个场景下都对内存和速度提出了新的挑战。即使是使用 16 位精度，一个模型也需要 352 GB 的内存！目前你可能很难找到一个具有如此大内存的设备，但像 Habana Gaudi2 这样先进的硬件已能让低延迟 BLOOM 和 BLOOMZ 模型推理变得可能。
+如此大的模型在 [训练](https://huggingface.co/blog/bloom-megatron-deepspeed) 和 [推理](https://huggingface.co/blog/bloom-inference-optimization) 两个场景下都对内存和速度提出了新的挑战。即使是使用 16 位精度，一个模型也需要 352 GB 的内存！目前你可能很难找到一个具有如此大内存的设备，但像 Habana Gaudi2 这样先进的硬件已能让低延迟 BLOOM 和 BLOOMZ 模型推理变得可能。
 
 ## Habana Gaudi2
 
@@ -30,7 +30,7 @@ Habana 的 SDK SynapseAI™ 支持 PyTorch 和 DeepSpeed 以加速 LLM 训练和
 
 此外，最近 SynapseAI 还引入了 [HPU graphs](https://docs.habana.ai/en/latest/PyTorch/Inference_on_PyTorch/Inference_Using_HPU_Graphs.html) 和 [DeepSpeed-inference](https://docs.habana.ai/en/latest/PyTorch/DeepSpeed/Inference_Using_DeepSpeed.html) 的支持，这两者非常适合延迟敏感型的应用，下面的基准测试结果即很好地说明了这一点。
 
-以上所有功能都集成进了 🤗 [Optimum Habana](https://github.com/huggingface/optimum-habana) 库，因此在 Gaudi 上部署模型非常简单。你可以阅读[此处](https://huggingface.co/docs/optimum/habana/quickstart)快速起步。
+以上所有功能都集成进了 🤗 [Optimum Habana](https://github.com/huggingface/optimum-habana) 库，因此在 Gaudi 上部署模型非常简单。你可以阅读 [此处](https://huggingface.co/docs/optimum/habana/quickstart)快速起步。
 
 如果你想试试 Gaudi2，请登录 [英特尔开发者云（Intel Developer Cloud）](https://www.intel.com/content/www/us/en/secure/developer/devcloud/cloud-launchpad.html) 并按照[本指南](https://huggingface.co/blog/habana-gaudi-2-benchmark#how-to-get-access-to-gaudi2)申请。
 
@@ -44,7 +44,7 @@ Habana 的 SDK SynapseAI™ 支持 PyTorch 和 DeepSpeed 以加速 LLM 训练和
 - [1760 亿](https://huggingface.co/bigscience/bloomz) 参数
 - [70 亿](https://huggingface.co/bigscience/bloomz-7b1) 参数
 
-我们使用 DeepSpeed-inference 以 16 位精度在8 张卡上运行推理，同时我们开启了 [key-value 缓存](https://huggingface.co/docs/transformers/v4.27.1/en/model_doc/bloom#transformers.BloomForCausalLM.forward.use_cache)优化。请注意，尽管 [CUDA graphs](https://developer.nvidia.com/blog/cuda-graphs/) 当前与 DeepSpeed 中的模型并行不兼容（DeepSpeed v0.8.2，请参见 [此处](https://github.com/microsoft/DeepSpeed/blob/v0.8.2/deepspeed/inference/engine.py#L158))，但Habana 的 DeepSpeed 分支是支持 HPU graphs 的。所有基准测试都使用[贪心搜索](https://huggingface.co/blog/how-to-generate#greedy-search)生成 100 个词元。输入提示为：
+我们使用 DeepSpeed-inference 以 16 位精度在8 张卡上运行推理，同时我们开启了 [key-value 缓存](https://huggingface.co/docs/transformers/v4.27.1/en/model_doc/bloom#transformers.BloomForCausalLM.forward.use_cache) 优化。请注意，尽管 [CUDA graphs](https://developer.nvidia.com/blog/cuda-graphs/) 当前与 DeepSpeed 中的模型并行不兼容（DeepSpeed v0.8.2，请参见 [此处](https://github.com/microsoft/DeepSpeed/blob/v0.8.2/deepspeed/inference/engine.py#L158)，但 Habana 的 DeepSpeed 分支是支持 HPU graphs 的。所有基准测试都使用 [贪心搜索](https://huggingface.co/blog/how-to-generate#greedy-search)生成 100 个词元。输入提示为：
 > "DeepSpeed is a machine learning framework"
 该提示会被 BLOOM 分词器分成 7 个词元。
 
@@ -108,7 +108,7 @@ pip install git+https://github.com/HabanaAI/DeepSpeed.git@1.8.0
 python ../gaudi_spawn.py --use_deepspeed --world_size 8 run_generation.py --model_name_or_path bigscience/bloomz --use_hpu_graphs --use_kv_cache --max_new_tokens 100
 ```
 
-对于多节点推理，你可以遵循 Optimum Habana 文档中的[这个指南](https://huggingface.co/docs/optimum/habana/usage_guides/multi_node_training)。
+对于多节点推理，你可以遵循 Optimum Habana 文档中的 [这个指南](https://huggingface.co/docs/optimum/habana/usage_guides/multi_node_training)。
 
 你还可以从 Hugging Face Hub 加载任何数据集作为文本生成任务的提示，只需使用参数`--dataset_name my_dataset_name`。
 
@@ -123,7 +123,7 @@ python ../gaudi_spawn.py --use_deepspeed --world_size 8 run_generation.py --mode
 
 我们还介绍了在第一代 Gaudi 上的结果。对于更小的模型，它的性能与 A100 比肩，甚至更好，而价格仅为 A100 的近三分之一。对于像 BLOOMZ 这样的大模型，它是替代 GPU 推理的一个不错的选择。
 
-如果你有兴趣使用最新的 AI 硬件加速器和软件库来加速你的机器学习训练和推理工作流，请查看我们的 [专家加速计划](https://huggingface.co/support)。要了解有关 Habana 解决方案的更多信息，可以[从此处了解我们双方的相关合作并联系他们](https://huggingface.co/hardware/habana)。要详细了解 Hugging Face 为使 AI 硬件加速器易于使用所做的工作，请查看我们的[硬件合作伙伴计划](https://huggingface.co/hardware)。
+如果你有兴趣使用最新的 AI 硬件加速器和软件库来加速你的机器学习训练和推理工作流，请查看我们的 [专家加速计划](https://huggingface.co/support)。要了解有关 Habana 解决方案的更多信息，可以 [从此处了解我们双方的相关合作并联系他们](https://huggingface.co/hardware/habana)。要详细了解 Hugging Face 为使 AI 硬件加速器易于使用所做的工作，请查看我们的 [硬件合作伙伴计划](https://huggingface.co/hardware)。
 
 ### 相关话题
 
@@ -132,6 +132,6 @@ python ../gaudi_spawn.py --use_deepspeed --world_size 8 run_generation.py --mode
 
 ---
 
-感谢阅读！如果你有任何问题，请随时通过 [Github](https://github.com/huggingface/optimum-habana) 或[论坛](https://discuss.huggingface.co/c/optimum/59)与我联系。你也可以在 [LinkedIn](https://www.linkedin.com/in/regispierrard/) 上找到我。
+感谢阅读！如果你有任何问题，请随时通过 [Github](https://github.com/huggingface/optimum-habana) 或 [论坛](https://discuss.huggingface.co/c/optimum/59) 与我联系。你也可以在 [LinkedIn](https://www.linkedin.com/in/regispierrard/) 上找到我。
 
 [^1]：“零样本”是指模型在新的或未见过的输入数据上完成任务的能力，即训练数据中完全不含此类数据。我们输给模型提示和以自然语言描述的指令（即我们希望模型做什么）。零样本分类不提供任何与正在完成的任务相关的任何示例。这区别于单样本或少样本分类，因为这些任务还是需要提供有关当前任务的一个或几个示例的。

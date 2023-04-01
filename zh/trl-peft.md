@@ -10,8 +10,8 @@ authors:
 - user: kashif
 translators:
 - user: AIBoy1993
-  proofreader: true
 - user: inferjay
+  proofreader: true
 ---
 
 # 在一张 24 GB 的消费级显卡上用 RLHF 微调 20B LLMs 
