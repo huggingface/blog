@@ -57,15 +57,12 @@ Click on the flag icon on any Model, Dataset, Space, or Discussion:
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_3/flag2.jpg" alt="screenshot pointing to the flag icon to Report this model" />
   <em> While logged in, you can click on the "three dots" button to bring up the ability to report (or flag) a repository. This will open a conversation in the repository's community tab. </em>
-  <em> While logged in, you can click on the "three dots" button to bring up the ability to report (or flag) a repository. This will open a conversation in the repository's community tab. </em>
-  <em> While logged in, you can click on the "three dots" button to bring up the ability to report (or flag) a repository. This will open a conversation in the repository's community tab. </em>
 </p>
 
 Share why you flagged this item:
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_3/flag1.jpg" alt="screenshot showing the text window where you describe why you flagged this item" />
-  <em> Please add as much relevant context as possible in your report! This will make it much easier for the repo owner and HF team to start taking action. </em>
   <em> Please add as much relevant context as possible in your report! This will make it much easier for the repo owner and HF team to start taking action. </em>
 </p>
 
