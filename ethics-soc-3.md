@@ -56,6 +56,7 @@ Click on the flag icon on any Model, Dataset, Space, or Discussion:
 <p align="center">
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_3/flag2.jpg" alt="screenshot pointing to the flag icon to Report this model" />
+  <em> While logged in, you can click on the "three dots" button to bring up the ability to report (or flag) a repository. This will open a conversation in the repository's community tab. </em>
 </p>
 
 Share why you flagged this item:
