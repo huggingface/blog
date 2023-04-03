@@ -66,6 +66,7 @@ Share why you flagged this item:
  <br>
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ethics_soc_3/flag1.jpg" alt="screenshot showing the text window where you describe why you flagged this item" />
   <em> Please add as much relevant context as possible in your report! This will make it much easier for the repo owner and HF team to start taking action. </em>
+  <em> Please add as much relevant context as possible in your report! This will make it much easier for the repo owner and HF team to start taking action. </em>
 </p>
 
 In prioritizing open science, we examine potential harm on a case-by-case basis. When users flag a system, developers can directly and transparently respond to concerns. Moderators are able to disengage from discussions should behavior become hateful and/or abusive (see [code of conduct](https://huggingface.co/code-of-conduct)).
