@@ -74,8 +74,8 @@ In prioritizing open science, we examine potential harm on a case-by-case basis.
 
 Should a specific model be flagged as high risk by our community, we consider:
 - Downgrading the ML artifact’s visibility across the Hub in the trending tab and in feeds,
+- Requesting that the gating feature be enabled to manage access to ML artifacts (see documentation for [models](https://huggingface.co/docs/hub/models-gated) and [datasets](https://huggingface.co/docs/hub/datasets-gated)),
 - Requesting that the models be made private,
-- Gating access to ML artifacts (see documentation for [models](https://huggingface.co/docs/hub/models-gated) and [datasets](https://huggingface.co/docs/hub/datasets-gated)),
 - Disabling access.
 
 **How to add the “Not For All Audiences” tag:**
