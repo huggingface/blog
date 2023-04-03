@@ -113,7 +113,7 @@ Thanks for reading! 🤗
 
 ~ Irene, Nima, Giada, Yacine, and Elizabeth, on behalf of the Ethics and Society regulars
 
-If you want to cite this blog post, please use the following:
+If you want to cite this blog post, please use the following (in descending order of contribution):
 ```
 @misc{hf_ethics_soc_blog_3,
   author    = {Irene Solaiman and
