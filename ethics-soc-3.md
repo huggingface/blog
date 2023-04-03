@@ -69,7 +69,11 @@ Share why you flagged this item:
   <em> Please add as much relevant context as possible in your report! This will make it much easier for the repo owner and HF team to start taking action. </em>
 </p>
 
-In prioritizing open science, we examine potential harm on a case-by-case basis. When users flag a system, developers can directly and transparently respond to concerns. Moderators are able to disengage from discussions should behavior become hateful and/or abusive (see [code of conduct](https://huggingface.co/code-of-conduct)).
+In prioritizing open science, we examine potential harm on a case-by-case basis and provide an opportunity for collaborative learning and shared responsibility.
+When users flag a system, developers can directly and transparently respond to concerns.
+In this spirit, we ask that repository owners make reasonable efforts to address reports, especially when reporters take the time to provide a description of the issue.
+We also stress that the reports and discussions are subject to the same communication norms as the rest of the platform.
+Moderators are able to disengage from or close discussions should behavior become hateful and/or abusive (see [code of conduct](https://huggingface.co/code-of-conduct)).
 
 
 Should a specific model be flagged as high risk by our community, we consider:
