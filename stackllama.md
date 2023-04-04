@@ -44,7 +44,7 @@ We follow the approach described in [Askell et al. 2021]([https://arxiv.org/abs/
 For the reward model we will always need two answers per question which we can compare as we’ll see later. Some questions have dozens of answers which leads to a lot of possible pairs. To limit the number of data points per question we sample at most 10 answer pairs per question. Finally, we cleanup formatting by converting HTML to Markdown to make the model’s outputs more readable. You can find the dataset as well as the processing notebook [here]([https://huggingface.co/datasets/lvwerra/stack-exchange-paired](https://huggingface.co/datasets/lvwerra/stack-exchange-paired)).
 
 
-## Efficient Training Strategies
+## Efficient training strategies
 
 Even training the smallest LlaMa model requires an enormous amount of memory. Some quick math: in fp32 every parameter uses 2 bytes in addition to 8 bytes used e.g. in the Adam optimizer (see the [performance docs]([https://huggingface.co/docs/transformers/perf_train_gpu_one#optimizer](https://huggingface.co/docs/transformers/perf_train_gpu_one#optimizer)) in Transformers for more info). So a 7B parameter model would use `(2+8)*7B=70GB` just to fit in memory and would likely need more when you compute intermediate values such as attention scores. So you couldn’t train the model even on a single 80GB A100 like that. You can use some tricks, like more efficient optimizers of half precision training, to squeeze a bit more into memory but sooner or later you’ll run out.
 
