@@ -1990,3 +1990,12 @@
   date: Mar 30, 2023
   tags:
     - ethics
+
+- local: stackllama
+  title: "StackLlama: A hands-on guide to train LlaMa with RLHF"
+  author: edbeeching
+  thumbnail: /blog/assets/120_rlhf/thumbnail.png <-UPDATE!
+  date: April 5, 2023
+  tags:
+    - rl
+    - nlp
