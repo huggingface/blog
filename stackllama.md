@@ -207,13 +207,38 @@ for epoch, batch in tqdm(enumerate(ppo_trainer.dataloader)):
 We train for 30 hours on 8 A100-80GB GPUs, using the 🤗 research cluster. All the training statistics of the training run are available on [Weights & Biases](https://wandb.ai/edbeeching/trl/runs/5xgr1ifp?workspace=user-edbeeching).
 
 ![Per batch reward at each step during training. The model’s performance plateaus after around 1000 steps.](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/wandb_reward.png)
-*_Per batch reward at each step during training. The model’s performance plateaus after around 1000 steps.*
+*Per batch reward at each step during training. The model’s performance plateaus after around 1000 steps.*
 
-## Interactive demo
+## Challenges, instabilities and workarounds
 
-In addition to hosting the StackLlama adapter weights on the Hub, we share a Space where you can try out the model for yourself.
+Training LLMs with RL is not always plain sailing. The model we demo today is the result of many experiments, failed runs and hyper-parameter sweeps. Even then, the model is far from perfect. Here we will share a few of the observations and headaches we encountered on the way to making this example.
 
-[LEWIS’S DEMO]
+### Higher reward means better performance, right?
+
+![Wow this run must be great, look at that sweet, sweet, reward!](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/logs_high_reward.png)
+*Wow this run must be great, look at that sweet, sweet, reward!*
+
+In general in RL, you want to achieve the highest reward. In RLHF we use a Reward Model, which is imperfect and given the chance, the PPO algorithm will exploit these imperfections. This can manifest itself as sudden increases in reward, however when we look at the text generations from the policy, they mostly contain repetitions of the string ```, as the reward model found the stack exchange answers containing blocks of code usually rank higher than ones without it. Fortunately we this issue was observed fairly rarely and in general the KL penalty should counteract such exploits.
+
+### KL is always a positive value, isn’t it?
+
+As we previously mentioned, a KL penalty term is used in order to push the model’s outputs remain close to that of the base policy. In general, KL divergence measures the distances between two distributions and is always a positive quantity. However, in `trl` we use an estimate of the KL which in expectation is equal to the real KL divergence.
+
+\\( KL_{pen}(x,y) = \log \left(\pi_\phi^{\mathrm{RL}}(y \mid x) / \pi^{\mathrm{SFT}}(y \mid x)\right) \\)
+
+Clearly, when a token is sampled from the policy which has a lower probability than the SFT model, this will lead to a negative KL penalty, but on average it will be positive otherwise you wouldn't be properly sampling from the policy. However, some generation strategies can force some tokens to be generated or some tokens can supressed. For example when generating in batches finished sequences are padded and when setting a minimum length the EOS token is supressed. The model can assign very high or low probabilities to those tokens which leads to negative KL. As the PPO algorithm optimizes for reward, it will chase after these negative penalties, leading to instabilities.
+
+![Negative KL](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/logs_neg_kl.png)
+
+One needs to be careful when generating the responses and we suggest to always use a simple sampling strategy first before resorting to more sophisticated generation methods.
+
+### Ongoing issues
+
+There are still a number of issues that we need to better understand and resolve. For example, there are occassionally spikes in the loss, which can lead to further instabilities. 
+
+![Loss spikes](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/logs_loss_spikes.png)
+
+As we identify and resolve these issues, we will upstream the changes `trl`, to ensure the community can benefit.
 
 ## Conclusion
 
