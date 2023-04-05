@@ -50,7 +50,7 @@ For the reward model, we will always need two answers per question to compare, a
 
 ## Efficient training strategies
 
-Even training the smallest LLaMA model requires an enormous amount of memory. Some quick math: in fp32, every parameter uses 2 bytes in addition to 8 bytes used, e.g., in the Adam optimizer (see the [performance docs](https://huggingface.co/docs/transformers/perf_train_gpu_one#optimizer) in Transformers for more info). So a 7B parameter model would use `(2+8)*7B=70GB` just to fit in memory and would likely need more when you compute intermediate values such as attention scores. So you couldn’t train the model even on a single 80GB A100 like that. You can use some tricks, like more efficient optimizers of half-precision training, to squeeze a bit more into memory, but you’ll run out sooner or later.
+Even training the smallest LLaMA model requires an enormous amount of memory. Some quick math: in bf16, every parameter uses 2 bytes (in fp32 4 bytes) in addition to 8 bytes used, e.g., in the Adam optimizer (see the [performance docs](https://huggingface.co/docs/transformers/perf_train_gpu_one#optimizer) in Transformers for more info). So a 7B parameter model would use `(2+8)*7B=70GB` just to fit in memory and would likely need more when you compute intermediate values such as attention scores. So you couldn’t train the model even on a single 80GB A100 like that. You can use some tricks, like more efficient optimizers of half-precision training, to squeeze a bit more into memory, but you’ll run out sooner or later.
 
 Another option is to use Parameter-Efficient Fine-Tuning (PEFT) techniques, such as the [`peft`](https://github.com/huggingface/peft) library, which can perform low-rank adaption (LoRA) on a model loaded in 8-bit. 
 
@@ -83,6 +83,8 @@ Before we start training reward models and tuning our model with RL, it helps if
 There is nothing special about fine-tuning the model before doing RLHF - it’s just the causal language modeling objective from pretraining that we apply here. To use the data efficiently, we use a technique called packing: instead of having one text per sample in the batch and then padding to either the longest text or the maximal context of the model, we concatenate a lot of texts with a EOS token in between and cut chunks of the context size to fill the batch without any padding.
 
 ![chapter10_preprocessing-clm.png](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/chapter10_preprocessing-clm.png)
+
+With this approach the training is much more efficient as each token that is passed through the model is also trained in contrast to padding tokens which are usually masked from the loss. If you don't have much data and are more concerned about occassionally cutting off some tokens that are overflowing the context you can also use a classical data loader.
 
 The packing is handled by the `ConstantLengthDataset` and we can then use the `Trainer` after loading the model with `peft`. First, we load the model in int8, prepare it for training, and then add the LoRA adapters.
 
@@ -179,7 +181,7 @@ A common issue with training the language model with RL is that the model can le
 
 where \\( r \\) is the reward from the reward model and  \\( \operatorname{KL}(x,y) \\) is the KL-divergence between the current  policy and the reference model. 
 
-Once more, we utilize `peft` for memory-efficient training, which offers an extra advantage in the RLHF context. Here, the reference model and policy share the same base, which we load in 8-bit and freeze during training. We exclusively optimize the policy's LoRA weights using PPO while sharing the base model's weights.
+Once more, we utilize `peft` for memory-efficient training, which offers an extra advantage in the RLHF context. Here, the reference model and policy share the same base, the SFT model, which we load in 8-bit and freeze during training. We exclusively optimize the policy's LoRA weights using PPO while sharing the base model's weights.
 
 ```python
 for epoch, batch in tqdm(enumerate(ppo_trainer.dataloader)):
@@ -205,10 +207,16 @@ for epoch, batch in tqdm(enumerate(ppo_trainer.dataloader)):
     ppo_trainer.log_stats(stats, batch, rewards)
 ```
 
-We train for 30 hours on 8 A100-80GB GPUs, using the 🤗 research cluster. All the training statistics of the training run are available on [Weights & Biases](https://wandb.ai/edbeeching/trl/runs/5xgr1ifp?workspace=user-edbeeching).
+We train for 20 hours on 3x8 A100-80GB GPUs, using the 🤗 research cluster, but you can also get decent results much quicker (e.g. after ~20h on 8 A100 GPUs). All the training statistics of the training run are available on [Weights & Biases](https://wandb.ai/lvwerra/trl/runs/ie2h4q8p).
 
 ![Per batch reward at each step during training. The model’s performance plateaus after around 1000 steps.](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/wandb_reward.png)
 *Per batch reward at each step during training. The model’s performance plateaus after around 1000 steps.*
+
+So what can the model do after training? Let's have a look!
+
+![llama prompt](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/llama_prompt.png)
+
+Although we shouldn't trust its advice on Llama matters just, yet, the answer looks coherent and even provides a Google link. Let's have a look and some of the training challenges next.
 
 ## Challenges, instabilities and workarounds
 
@@ -255,6 +263,4 @@ We are actively improving TRL to make all steps involved in RLHF more accessible
 
 ## Acknowledgements
 
-We thank Philipp Schmid for sharing his wonderful [demo](https://huggingface.co/spaces/philschmid/igel-playground) of streaming text generation upon which our demo was based. We also thank Omar Sanseviero for giving valuable and detailed feedback on the draft of the blog post.
-
-
+We thank Philipp Schmid for sharing his wonderful [demo](https://huggingface.co/spaces/philschmid/igel-playground) of streaming text generation upon which our demo was based. We also thank Omar Sanseviero and Louis Castricato for giving valuable and detailed feedback on the draft of the blog post.
