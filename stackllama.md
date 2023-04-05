@@ -27,8 +27,6 @@ In this blog post, we show all the steps involved in training a LlaMa model to a
 ![](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/instructGPT.png)
 *From InstructGPT paper: Ouyang, Long, et al. "Training language models to follow instructions with human feedback." arXiv preprint arXiv:2203.02155 (2022).*
 
-**TODO: add figure and reference**
-
 By combining these approaches, we are releasing the StackLlama model. The model is available on the [🤗 Hub](https://huggingface.co/trl-lib/llama-se-rl-peft) and [the entire training pipeline](https://huggingface.co/docs/trl/index) is available as part of the TRL library. To give you a taste of what the model can do, try out the demo below!
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.6/gradio.js "></script>
@@ -71,9 +69,12 @@ Now we can fit very large models into a single GPU, but the training might still
 
 ![chapter10_ddp.png](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/chapter10_ddp.png)
 
-We use either the `transformers.Trainer` or `accelerate`, which both support data parallelism without any code changes, by simply passing arguments when calling the scripts with `torchrun` or `accelerate launch`.
+We use either the `transformers.Trainer` or `accelerate`, which both support data parallelism without any code changes, by simply passing arguments when calling the scripts with `torchrun` or `accelerate launch`. The following runs a training script with 8 GPUs on a single machine with `accelerate` and `torchrun`, respectively.
 
- [MAYBE ADD EXAMPLES HERE?]
+```bash
+accelerate launch --multi_gpu --num_machines 1  --num_processes 8 my_accelerate_script.py
+torchrun --nnodes 1  --nproc_per_node 8 my_torch_script.py
+```
 
 ## Supervised Fine-tuning
 
