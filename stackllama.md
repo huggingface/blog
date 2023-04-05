@@ -229,9 +229,6 @@ We are actively improving TRL to make all steps involved in RLHF more accessible
 
 ## Acknowledgements
 
-We thank Philipp Schmid for sharing his wonderful [demo](https://huggingface.co/spaces/philschmid/igel-playground) of streaming text generation upon which our demo was based. 
-
-
-
+We thank Philipp Schmid for sharing his wonderful [demo](https://huggingface.co/spaces/philschmid/igel-playground) of streaming text generation upon which our demo was based. We also thank Omar Sanseviero for giving valuable and detailed feedback on the draft of the blog post.
 
 
