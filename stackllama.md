@@ -125,6 +125,7 @@ A trick that works well instead of direct feedback is training a reward model on
 
 This can be translated into the following loss function:
 
+
 \\( \operatorname{loss}(\theta)=- E_{\left(x, y_j, y_k\right) \sim D}\left[\log \left(\sigma\left(r_\theta\left(x, y_j\right)-r_\theta\left(x, y_k\right)\right)\right)\right] \\)
 
 where \\( r \\) is the model’s score and \\( y_j \\) is the preferred candidate.
@@ -178,6 +179,7 @@ Answer: <Response>
 The same template was used for SFT, RM and RLHF stages.
 
 A common issue with training the language model with RL is that the model can learn to exploit the reward model by generating complete gibberish, which causes the reward model to assign high rewards. To balance this, we add a penalty to the reward: we keep a reference of the model that we don’t train and compare the new model’s generation to the reference one by computing the KL-divergence:
+
 
 \\( \operatorname{R}(x, y)=\operatorname{r}(x, y)- \beta \operatorname{KL}(x, y) \\)
 
@@ -234,6 +236,7 @@ In general in RL, you want to achieve the highest reward. In RLHF we use a Rewar
 ### KL is always a positive value, isn’t it?
 
 As we previously mentioned, a KL penalty term is used in order to push the model’s outputs remain close to that of the base policy. In general, KL divergence measures the distances between two distributions and is always a positive quantity. However, in `trl` we use an estimate of the KL which in expectation is equal to the real KL divergence.
+
 
 \\( KL_{pen}(x,y) = \log \left(\pi_\phi^{\mathrm{RL}}(y \mid x) / \pi^{\mathrm{SFT}}(y \mid x)\right) \\)
 
