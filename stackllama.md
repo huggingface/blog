@@ -136,7 +136,7 @@ class RewardTrainer(Trainer):
             return loss, {"rewards_j": rewards_j, "rewards_k": rewards_k}
         return loss
 
-We utilize a subset of a 100,000 pair of candidates and evaluate on a held-out set of 50,000. With a modest training batch size of 4 we train the Llama model using the LoRA `peft` adapter for a single epoch using the Adam optimizer with BF16 precision. Our LoRA configuration is:
+We utilize a subset of a 100,000 pair of candidates and evaluate on a held-out set of 50,000. With a modest training batch size of 4, we train the Llama model using the LoRA `peft` adapter for a single epoch using the Adam optimizer with BF16 precision. Our LoRA configuration is:
 
 ```python
 peft_config = LoraConfig(
