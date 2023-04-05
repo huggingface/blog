@@ -1,6 +1,6 @@
 ---
 title: "StackLlama: A hands-on guide to train LlaMa with RLHF" 
-thumbnail: /blog/assets/120_rlhf/thumbnail.png <-UPDATE!
+thumbnail: /blog/assets/138_stackllama/thumbnail.png
 authors:
 - user: edbeeching
 - user: kashif

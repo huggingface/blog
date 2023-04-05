@@ -1994,7 +1994,7 @@
 - local: stackllama
   title: "StackLlama: A hands-on guide to train LLaMa with RLHF"
   author: edbeeching
-  thumbnail: /blog/assets/120_rlhf/thumbnail.png <-UPDATE!
+  thumbnail: /blog/assets/138_stackllama/thumbnail.png
   date: April 5, 2023
   tags:
     - rl
