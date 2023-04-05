@@ -4,7 +4,7 @@ thumbnail: /blog/assets/138_stackllama/thumbnail.png
 authors:
 - user: edbeeching
 - user: kashif
-- user: younesbelkada
+- user: ybelkada
 - user: lewtun
 - user: lvwerra
 - user: nazneen
