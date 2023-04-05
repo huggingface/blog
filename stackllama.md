@@ -29,9 +29,11 @@ In this blog post, we show all the steps involved in training a LlaMa model to a
 
 By combining these approaches, we are releasing the StackLlama model. The model is available on the [🤗 Hub](https://huggingface.co/trl-lib/llama-se-rl-peft) and [the entire training pipeline](https://huggingface.co/docs/trl/index) is available as part of the TRL library. To give you a taste of what the model can do, try out the demo below!
 
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.6/gradio.js "></script>
+<script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/3.23.0/gradio.js"></script>
 
-<gradio-app space="trl-lib/stack-llama"></gradio-app>
+<gradio-app src="https://trl-lib-stack-llama.hf.space"></gradio-app>
 
 ## The LLaMA model
 
