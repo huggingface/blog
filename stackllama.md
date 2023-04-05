@@ -38,6 +38,7 @@ By combining these approaches, we are releasing the StackLlama model. The model 
 ## The LLaMA model
 
 When doing RLHF, it is important to start with a capable model: the RLHF step is only a fine-tuning step to align the model with how we want to interact with it and how we expect it to respond.  Therefore, we choose to use the recently introduced and performant [LLaMA models](https://arxiv.org/abs/2302.13971). The LLaMA models are the latest large language models developed by Meta AI. They come in sizes ranging from 7B to 65B parameters and were trained on between 1T and 1.4T tokens, making them very capable. We use the 7B model as the base for all the following steps!
+To access the model, use the [form](https://docs.google.com/forms/d/e/1FAIpQLSfqNECQnMkycAp2jP4Z9TFX0cGR4uf7b_fBxjY_OjhJILlKGA/viewform) from Meta AI.
 
 ## Stack Exchange dataset
 
@@ -78,7 +79,7 @@ accelerate launch --multi_gpu --num_machines 1  --num_processes 8 my_accelerate_
 torchrun --nnodes 1  --nproc_per_node 8 my_torch_script.py
 ```
 
-## Supervised Fine-tuning
+## Supervised fine-tuning
 
 Before we start training reward models and tuning our model with RL, it helps if the model is already good in the domain we are interested in. In our case, we want it to answer questions, while for other use cases, we might want it to follow instructions, in which case instruction tuning is a great idea. The easiest way to achieve this is by continuing to train the language model with the language modeling objective on texts from the domain or task. The [StackExchange dataset](https://huggingface.co/datasets/HuggingFaceH4/stack-exchange-preferences) is enormous (over 10 million instructions), so we can easily train the language model on a subset of it.
 
