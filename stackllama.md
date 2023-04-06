@@ -18,7 +18,7 @@ authors:
 
 Models such as [ChatGPT]([https://openai.com/blog/chatgpt](https://openai.com/blog/chatgpt)), [GPT-4]([https://openai.com/research/gpt-4](https://openai.com/research/gpt-4)), and [Claude]([https://www.anthropic.com/index/introducing-claude](https://www.anthropic.com/index/introducing-claude)) are powerful language models that have been fine-tuned using a method called Reinforcement Learning from Human Feedback (RLHF) to be better aligned with how we expect them to behave and would like to use them.
 
-In this blog post, we show all the steps involved in training a LlaMa model to answer questions on [Stack Exchange](https://stackexchange.com) with RLHF through a combination of:
+In this blog post, we show all the steps involved in training a [LlaMa model](https://ai.facebook.com/blog/large-language-model-llama-meta-ai) to answer questions on [Stack Exchange](https://stackexchange.com) with RLHF through a combination of:
 
 - Supervised Fine Tuning (SFT)
 - Reward / preference modeling (RM)
@@ -27,7 +27,7 @@ In this blog post, we show all the steps involved in training a LlaMa model to a
 ![](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/instructGPT.png)
 *From InstructGPT paper: Ouyang, Long, et al. "Training language models to follow instructions with human feedback." arXiv preprint arXiv:2203.02155 (2022).*
 
-By combining these approaches, we are releasing the StackLlama model. The model is available on the [🤗 Hub](https://huggingface.co/trl-lib/llama-se-rl-peft) and [the entire training pipeline](https://huggingface.co/docs/trl/index) is available as part of the TRL library. To give you a taste of what the model can do, try out the demo below!
+By combining these approaches, we are releasing the StackLlama model. This model is available on the [🤗 Hub](https://huggingface.co/trl-lib/llama-se-rl-peft) (see [META's LLaMA release](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/) for the original LLaMA model) and [the entire training pipeline](https://huggingface.co/docs/trl/index) is available as part of the Hugging Face TRL library. To give you a taste of what the model can do, try out the demo below!
 
 <script
 	type="module"
