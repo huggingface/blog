@@ -1993,7 +1993,7 @@
     - ethics
 
 - local: stackllama
-  title: "StackLlama: A hands-on guide to train LLaMa with RLHF"
+  title: "StackLLaMA: A hands-on guide to train LLaMA with RLHF"
   author: edbeeching
   thumbnail: /blog/assets/138_stackllama/thumbnail.png
   date: April 5, 2023
