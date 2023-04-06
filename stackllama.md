@@ -1,5 +1,5 @@
 ---
-title: "StackLlama: A hands-on guide to train LlaMa with RLHF" 
+title: "StackLLaMA: A hands-on guide to train LLaMA with RLHF" 
 thumbnail: /blog/assets/138_stackllama/thumbnail.png
 authors:
 - user: edbeeching
@@ -20,7 +20,7 @@ Models such as [ChatGPT]([https://openai.com/blog/chatgpt](https://openai.com/bl
 
 In this blog post, we show all the steps involved in training a [LlaMa model](https://ai.facebook.com/blog/large-language-model-llama-meta-ai) to answer questions on [Stack Exchange](https://stackexchange.com) with RLHF through a combination of:
 
-- Supervised Fine Tuning (SFT)
+- Supervised Fine-tuning (SFT)
 - Reward / preference modeling (RM)
 - Reinforcement Learning from Human Feedback (RLHF)
 
@@ -55,10 +55,10 @@ For the reward model, we will always need two answers per question to compare, a
 
 Even training the smallest LLaMA model requires an enormous amount of memory. Some quick math: in bf16, every parameter uses 2 bytes (in fp32 4 bytes) in addition to 8 bytes used, e.g., in the Adam optimizer (see the [performance docs](https://huggingface.co/docs/transformers/perf_train_gpu_one#optimizer) in Transformers for more info). So a 7B parameter model would use `(2+8)*7B=70GB` just to fit in memory and would likely need more when you compute intermediate values such as attention scores. So you couldn’t train the model even on a single 80GB A100 like that. You can use some tricks, like more efficient optimizers of half-precision training, to squeeze a bit more into memory, but you’ll run out sooner or later.
 
-Another option is to use Parameter-Efficient Fine-Tuning (PEFT) techniques, such as the [`peft`](https://github.com/huggingface/peft) library, which can perform low-rank adaption (LoRA) on a model loaded in 8-bit. 
+Another option is to use Parameter-Efficient Fine-Tuning (PEFT) techniques, such as the [`peft`](https://github.com/huggingface/peft) library, which can perform low-rank adaptation (LoRA) on a model loaded in 8-bit. 
 
 ![](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/lora-animated.gif)   
-*Low-Rank adaption of linear layers: extra parameters (in orange) are added next to the frozen layer (in blue), and the resulting encoded hidden states are added together with the hidden states of the frozen layer.*
+*Low-Rank adaptation of linear layers: extra parameters (in orange) are added next to the frozen layer (in blue), and the resulting encoded hidden states are added together with the hidden states of the frozen layer.*
 
 Loading the model in 8bit reduces the memory footprint drastically since you only need one byte per parameter for the weights (e.g. 7B LlaMa is 7GB in memory). Instead of training the original weights directly, LoRA adds small adapter layers on top of some specific layers (usually the attention layers); thus, the number of trainable parameters is drastically reduced.
 
@@ -85,7 +85,7 @@ There is nothing special about fine-tuning the model before doing RLHF - it’s 
 
 ![chapter10_preprocessing-clm.png](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/chapter10_preprocessing-clm.png)
 
-With this approach the training is much more efficient as each token that is passed through the model is also trained in contrast to padding tokens which are usually masked from the loss. If you don't have much data and are more concerned about occassionally cutting off some tokens that are overflowing the context you can also use a classical data loader.
+With this approach the training is much more efficient as each token that is passed through the model is also trained in contrast to padding tokens which are usually masked from the loss. If you don't have much data and are more concerned about occasionally cutting off some tokens that are overflowing the context you can also use a classical data loader.
 
 The packing is handled by the `ConstantLengthDataset` and we can then use the `Trainer` after loading the model with `peft`. First, we load the model in int8, prepare it for training, and then add the LoRA adapters.
 
@@ -191,7 +191,7 @@ Once more, we utilize `peft` for memory-efficient training, which offers an extr
 for epoch, batch in tqdm(enumerate(ppo_trainer.dataloader)):
     question_tensors = batch["input_ids"]
 		
-		# sample from the policy and to generate reponses
+	# sample from the policy and to generate responses
     response_tensors = ppo_trainer.generate(
         question_tensors,
         return_prompt=False,
@@ -207,7 +207,7 @@ for epoch, batch in tqdm(enumerate(ppo_trainer.dataloader)):
 
     # Run PPO step
     stats = ppo_trainer.step(question_tensors, response_tensors, rewards)
-		# Log stats to Wandb
+	# Log stats to Wandb
     ppo_trainer.log_stats(stats, batch, rewards)
 ```
 
@@ -231,7 +231,7 @@ Training LLMs with RL is not always plain sailing. The model we demo today is th
 ![Wow this run must be great, look at that sweet, sweet, reward!](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/logs_high_reward.png)
 *Wow this run must be great, look at that sweet, sweet, reward!*
 
-In general in RL, you want to achieve the highest reward. In RLHF we use a Reward Model, which is imperfect and given the chance, the PPO algorithm will exploit these imperfections. This can manifest itself as sudden increases in reward, however when we look at the text generations from the policy, they mostly contain repetitions of the string ```, as the reward model found the stack exchange answers containing blocks of code usually rank higher than ones without it. Fortunately we this issue was observed fairly rarely and in general the KL penalty should counteract such exploits.
+In general in RL, you want to achieve the highest reward. In RLHF we use a Reward Model, which is imperfect and given the chance, the PPO algorithm will exploit these imperfections. This can manifest itself as sudden increases in reward, however when we look at the text generations from the policy, they mostly contain repetitions of the string ```, as the reward model found the stack exchange answers containing blocks of code usually rank higher than ones without it. Fortunately this issue was observed fairly rarely and in general the KL penalty should counteract such exploits.
 
 ### KL is always a positive value, isn’t it?
 
@@ -240,7 +240,7 @@ As we previously mentioned, a KL penalty term is used in order to push the model
 
 \\( KL_{pen}(x,y) = \log \left(\pi_\phi^{\mathrm{RL}}(y \mid x) / \pi^{\mathrm{SFT}}(y \mid x)\right) \\)
 
-Clearly, when a token is sampled from the policy which has a lower probability than the SFT model, this will lead to a negative KL penalty, but on average it will be positive otherwise you wouldn't be properly sampling from the policy. However, some generation strategies can force some tokens to be generated or some tokens can supressed. For example when generating in batches finished sequences are padded and when setting a minimum length the EOS token is supressed. The model can assign very high or low probabilities to those tokens which leads to negative KL. As the PPO algorithm optimizes for reward, it will chase after these negative penalties, leading to instabilities.
+Clearly, when a token is sampled from the policy which has a lower probability than the SFT model, this will lead to a negative KL penalty, but on average it will be positive otherwise you wouldn't be properly sampling from the policy. However, some generation strategies can force some tokens to be generated or some tokens can suppressed. For example when generating in batches finished sequences are padded and when setting a minimum length the EOS token is suppressed. The model can assign very high or low probabilities to those tokens which leads to negative KL. As the PPO algorithm optimizes for reward, it will chase after these negative penalties, leading to instabilities.
 
 ![Negative KL](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/logs_neg_kl.png)
 
@@ -265,6 +265,27 @@ For a real use case, this is just the first step! Once you have a trained model,
 Once you add the evaluation step, the fun begins: you can start iterating on your dataset and model training setup to see if there are ways to improve the model. You could add other datasets to the mix or apply better filters to the existing one. On the other hand, you could try different model sizes and architecture for the reward model or train for longer.
 
 We are actively improving TRL to make all steps involved in RLHF more accessible and are excited to see the things people build with it! Check out the [issues on GitHub](https://github.com/lvwerra/trl/issues) if you're interested in contributing.
+
+
+## Citation
+
+```bibtex
+@misc {beeching2023stackllama,
+    author       = { Edward Beeching and
+                     Younes Belkada and
+                     Kashif Rasul and
+                     Lewis Tunstall and
+                     Leandro von Werra and
+                     Nazneen Rajani and
+                     Nathan Lambert
+                   },
+    title        = { StackLLaMa: An RL Fine-tuned LLaMa Model for Stack Exchange Question and Answering },
+    year         = 2023,
+    url          = { https://huggingface.co/trl-lib/llama-7b-se-rl-peft },
+    doi          = { 10.57967/hf/0513 },
+    publisher    = { Hugging Face Blog }
+}
+```
 
 ## Acknowledgements
 
