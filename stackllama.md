@@ -27,7 +27,7 @@ In this blog post, we show all the steps involved in training a [LlaMa model](ht
 ![](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/instructGPT.png)
 *From InstructGPT paper: Ouyang, Long, et al. "Training language models to follow instructions with human feedback." arXiv preprint arXiv:2203.02155 (2022).*
 
-By combining these approaches, we are releasing the StackLlama model. This model is available on the [🤗 Hub](https://huggingface.co/trl-lib/llama-se-rl-peft) (see [META's LLaMA release](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/) for the original LLaMA model) and [the entire training pipeline](https://huggingface.co/docs/trl/index) is available as part of the Hugging Face TRL library. To give you a taste of what the model can do, try out the demo below!
+By combining these approaches, we are releasing the StackLlama model. This model is available on the [🤗 Hub](https://huggingface.co/trl-lib/llama-se-rl-peft) (see [Meta's LLaMA release](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/) for the original LLaMA model) and [the entire training pipeline](https://huggingface.co/docs/trl/index) is available as part of the Hugging Face TRL library. To give you a taste of what the model can do, try out the demo below!
 
 <script
 	type="module"
