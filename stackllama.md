@@ -281,7 +281,7 @@ We are actively improving TRL to make all steps involved in RLHF more accessible
                    },
     title        = { StackLLaMa: An RL Fine-tuned LLaMa Model for Stack Exchange Question and Answering },
     year         = 2023,
-    url          = { https://huggingface.co/trl-lib/llama-7b-se-rl-peft },
+    url          = { https://huggingface.co/blog/stackllama },
     doi          = { 10.57967/hf/0513 },
     publisher    = { Hugging Face Blog }
 }
