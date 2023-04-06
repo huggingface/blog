@@ -11,7 +11,7 @@ authors:
 - user: natolambert
 ---
 
-# StackLlama: A hands-on guide to train LlaMa with RLHF
+# StackLLaMA: A hands-on guide to train LLaMA with RLHF
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -27,7 +27,7 @@ In this blog post, we show all the steps involved in training a [LlaMa model](ht
 ![](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/instructGPT.png)
 *From InstructGPT paper: Ouyang, Long, et al. "Training language models to follow instructions with human feedback." arXiv preprint arXiv:2203.02155 (2022).*
 
-By combining these approaches, we are releasing the StackLlama model. This model is available on the [🤗 Hub](https://huggingface.co/trl-lib/llama-se-rl-peft) (see [Meta's LLaMA release](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/) for the original LLaMA model) and [the entire training pipeline](https://huggingface.co/docs/trl/index) is available as part of the Hugging Face TRL library. To give you a taste of what the model can do, try out the demo below!
+By combining these approaches, we are releasing the StackLLaMA model. This model is available on the [🤗 Hub](https://huggingface.co/trl-lib/llama-se-rl-peft) (see [Meta's LLaMA release](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/) for the original LLaMA model) and [the entire training pipeline](https://huggingface.co/docs/trl/index) is available as part of the Hugging Face TRL library. To give you a taste of what the model can do, try out the demo below!
 
 <script
 	type="module"
@@ -142,7 +142,7 @@ class RewardTrainer(Trainer):
         return loss
 ```
 
-We utilize a subset of a 100,000 pair of candidates and evaluate on a held-out set of 50,000. With a modest training batch size of 4, we train the Llama model using the LoRA `peft` adapter for a single epoch using the Adam optimizer with BF16 precision. Our LoRA configuration is:
+We utilize a subset of a 100,000 pair of candidates and evaluate on a held-out set of 50,000. With a modest training batch size of 4, we train the LLaMA model using the LoRA `peft` adapter for a single epoch using the Adam optimizer with BF16 precision. Our LoRA configuration is:
 
 ```python
 peft_config = LoraConfig(
@@ -220,7 +220,7 @@ So what can the model do after training? Let's have a look!
 
 ![llama prompt](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/llama_prompt.png)
 
-Although we shouldn't trust its advice on Llama matters just, yet, the answer looks coherent and even provides a Google link. Let's have a look and some of the training challenges next.
+Although we shouldn't trust its advice on LLaMA matters just, yet, the answer looks coherent and even provides a Google link. Let's have a look and some of the training challenges next.
 
 ## Challenges, instabilities and workarounds
 
