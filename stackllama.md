@@ -55,10 +55,10 @@ For the reward model, we will always need two answers per question to compare, a
 
 Even training the smallest LLaMA model requires an enormous amount of memory. Some quick math: in bf16, every parameter uses 2 bytes (in fp32 4 bytes) in addition to 8 bytes used, e.g., in the Adam optimizer (see the [performance docs](https://huggingface.co/docs/transformers/perf_train_gpu_one#optimizer) in Transformers for more info). So a 7B parameter model would use `(2+8)*7B=70GB` just to fit in memory and would likely need more when you compute intermediate values such as attention scores. So you couldn’t train the model even on a single 80GB A100 like that. You can use some tricks, like more efficient optimizers of half-precision training, to squeeze a bit more into memory, but you’ll run out sooner or later.
 
-Another option is to use Parameter-Efficient Fine-Tuning (PEFT) techniques, such as the [`peft`](https://github.com/huggingface/peft) library, which can perform low-rank adaptation (LoRA) on a model loaded in 8-bit. 
+Another option is to use Parameter-Efficient Fine-Tuning (PEFT) techniques, such as the [`peft`](https://github.com/huggingface/peft) library, which can perform Low-Rank Adaptation (LoRA) on a model loaded in 8-bit. 
 
 ![](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/stackllama/lora-animated.gif)   
-*Low-Rank adaptation of linear layers: extra parameters (in orange) are added next to the frozen layer (in blue), and the resulting encoded hidden states are added together with the hidden states of the frozen layer.*
+*Low-Rank Adaptation of linear layers: extra parameters (in orange) are added next to the frozen layer (in blue), and the resulting encoded hidden states are added together with the hidden states of the frozen layer.*
 
 Loading the model in 8bit reduces the memory footprint drastically since you only need one byte per parameter for the weights (e.g. 7B LlaMa is 7GB in memory). Instead of training the original weights directly, LoRA adds small adapter layers on top of some specific layers (usually the attention layers); thus, the number of trainable parameters is drastically reduced.
 
@@ -191,7 +191,7 @@ Once more, we utilize `peft` for memory-efficient training, which offers an extr
 for epoch, batch in tqdm(enumerate(ppo_trainer.dataloader)):
     question_tensors = batch["input_ids"]
 		
-	# sample from the policy and to generate responses
+	# sample from the policy and generate responses
     response_tensors = ppo_trainer.generate(
         question_tensors,
         return_prompt=False,
@@ -207,7 +207,7 @@ for epoch, batch in tqdm(enumerate(ppo_trainer.dataloader)):
 
     # Run PPO step
     stats = ppo_trainer.step(question_tensors, response_tensors, rewards)
-	# Log stats to Wandb
+	# Log stats to WandB
     ppo_trainer.log_stats(stats, batch, rewards)
 ```
 
@@ -279,7 +279,7 @@ We are actively improving TRL to make all steps involved in RLHF more accessible
                      Nazneen Rajani and
                      Nathan Lambert
                    },
-    title        = { StackLLaMa: An RL Fine-tuned LLaMa Model for Stack Exchange Question and Answering },
+    title        = { StackLLaMA: An RL Fine-tuned LLaMA Model for Stack Exchange Question and Answering },
     year         = 2023,
     url          = { https://huggingface.co/blog/stackllama },
     doi          = { 10.57967/hf/0513 },
