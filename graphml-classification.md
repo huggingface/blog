@@ -22,12 +22,12 @@ thumbnail: /blog/assets/125_intro-to-graphml/thumbnail_classification.png
     </a>
 </div>
 
-In the previous [blog](https://huggingface.co/blog/intro-graphml), we explored some of the theoretical aspects of machine learning on graphs. This one will explore how you can do graph classification using the Transformers library.
+In the previous [blog](https://huggingface.co/blog/intro-graphml), we explored some of the theoretical aspects of machine learning on graphs. This one will explore how you can do graph classification using the Transformers library. (You can also follow along with a demo notebook!)
 
 At the moment, the only graph transformer model available in Transformers is Microsoft's [Graphormer](https://arxiv.org/abs/2106.05234), so this is the one we will use here. We are looking forward to seeing what other models people will use and integrate :hugging_face:
 
 ## Requirements
-To follow this tutorial, you need to have installed `datasets` and `transformers` (version >= 4.26), which you can do with `pip install -U datasets transformers`.
+To follow this tutorial, you need to have installed `datasets` and `transformers` (version >= 4.27.2), which you can do with `pip install -U datasets transformers`.
 
 ## Data
 To use graph data, you can either start from your own datasets, or use those available on the Hub][https://huggingface.co/graphs-datasets). We'll focus on using already available ones, but feel free to [add your datasets](https://huggingface.co/docs/datasets/upload_dataset)!
@@ -140,7 +140,7 @@ training_args = TrainingArguments(
     num_train_epochs=20,
     evaluation_strategy="epoch",
     logging_strategy="epoch",
-    push_to_hub=True,
+    push_to_hub=False,
 )
 ```
 For graph datasets, it is particularly important to play around with batch sizes and gradient accumulation steps to train on enough samples while avoiding out-of-memory errors. 
