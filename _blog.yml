@@ -2001,3 +2001,13 @@
     - rl
     - rlhf
     - nlp
+
+- local: graphml-classification
+  title: "Graph Classification with Transformers"
+  author: clefourrier
+  thumbnail: /blog/assets/125_intro-to-graphml/thumbnail_classification.png
+  date: April 12, 2023
+  tags:
+    - community
+    - guide
+    - graphs
