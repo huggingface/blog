@@ -1,11 +1,12 @@
 ---
 title: "Creating Privacy Preserving AI with Substra" 
-thumbnail: /blog/assets/139_owkin-substra/thumbnail.png
+thumbnail: /blog/assets/139_substra/thumbnail.png
 authors:
 - user: EazyAl
 - user: katielink
 - user: NimaBoscarino
 - user: ThibaultFy
+  guest: true
 ---
 
 # Creating Privacy Preserving AI with Substra
@@ -25,7 +26,7 @@ Federated learning (FL) is a decentralized machine learning technique that allow
 
 As the data never leaves its source, federated learning is naturally a privacy-first approach. Not only does this technique improve data security and privacy, it also enables data scientists to build better models using data from different sources - increasing robustness and providing better representation as compared to models trained on data from a single source. This is valuable not only due to the increase in the quantity of data, but also to reduce the risk of bias due to variations of the underlying dataset, for example minor differences caused by the data capture techniques and equipment, or differences in demographic distributions of the patient population. With multiple sources of data, we can build more generalizable models that ultimately perform better in real world settings. For more information on federated learning, we recommend checking out this explanatory [comic](https://federated.withgoogle.com/) by Google.
 
-![Substra quote](assets/139_owkin-substra/quote.jpeg)
+![Substra quote](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/139_substra/quote.jpeg)
 
 **Substra** is an open source federated learning framework built for real world production environments. Although federated learning is a relatively new field and has only taken hold in the last decade, it has already enabled machine learning research to progress in ways previously unimaginable. For example, 10 competing biopharma companies that would traditionally never share data with each other set up a collaboration in the [MELLODDY](https://www.melloddy.eu/) project by sharing the world’s largest collection of small molecules with known biochemical or cellular activity. This ultimately enabled all of the companies involved to build more accurate predictive models for drug discovery, a huge milestone in medical research. 
 
@@ -33,7 +34,7 @@ As the data never leaves its source, federated learning is naturally a privacy-f
 
 Research on the capabilities of federated learning is growing rapidly but the majority of recent work has been limited to simulated environments. Real world examples and implementations still remain limited due to the difficulty of deploying and architecting federated networks., As the leading open-source platform for federated learning deployment, Substra has been battle tested in many complex security environments and IT infrastructures, and has enabled [medical breakthroughs in breast cancer research](https://www.nature.com/articles/s41591-022-02155-w).
 
-![Substra diagram](assets/139_owkin-substra/diagram.jpg)
+![Substra diagram](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/139_substra/diagram.jpg)
 
 Hugging Face collaborated with the folks managing Substra to create this space, which is meant to give you an idea of the real world challenges that researchers and scientists face - mainly, a lack of centralized, high quality data that is ‘ready for AI’. As you can control the distribution of these samples, you’ll be able to see how a simple model reacts to changes in data. You can then examine how a model trained with federated learning almost always performs better on validation data compared with models trained on data from a single source. 
 
