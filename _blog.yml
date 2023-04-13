@@ -2002,7 +2002,7 @@
     - rlhf
     - nlp
 
-- local: substra
+- local: owkin-substra
   title: "Creating Privacy Preserving AI with Substra"
   author: EazyAl
   thumbnail: /blog/assets/139_substra/thumbnail.png
