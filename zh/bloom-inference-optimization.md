@@ -33,7 +33,7 @@ translators:
 
 有几点需要注意，我们后面还会提到：
 
-小版的模型，如 [bigscience/bigscience-small-testing](https://huggingface.co/bigscience/bigscience-small-testing) 和 [bigscience/bloom-560m](https://huggingface.co/bigscience/bloom-560m）非常重要。因为模型结构与大版的一样但尺寸更小，所以在它们上面一切工作（如调试、测试等）都更快。
+小版的模型，如 [bigscience/bigscience-small-testing](https://huggingface.co/bigscience/bigscience-small-testing) 和 [bigscience/bloom-560m](https://huggingface.co/bigscience/bloom-560m) 非常重要。因为模型结构与大版的一样但尺寸更小，所以在它们上面一切工作（如调试、测试等）都更快。
 
 首先，你必须放弃那种最终你会得到比特级一致的 `logits` 结果的幻想。不同的 PyTorch 版本间的算子核函数更改都会引入细微差别，更不用说不同的硬件可能会因为体系架构不同而产生不同的结果（而出于成本原因，你可能并不能一直在 A100 GPU 上开发）。
 
