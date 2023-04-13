@@ -2001,3 +2001,14 @@
     - rl
     - rlhf
     - nlp
+
+- local: owkin-substra
+  title: "Creating Privacy Preserving AI with Substra"
+  author: EazyAl
+  thumbnail: /blog/assets/139_owkin-substra/thumbnail.png
+  date: April 12, 2023
+  tags:
+    - cv
+    - federated-learning
+    - fl
+    - open-source-collab
