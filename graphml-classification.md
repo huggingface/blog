@@ -22,7 +22,7 @@ thumbnail: /blog/assets/125_intro-to-graphml/thumbnail_classification.png
     </a>
 </div>
 
-In the previous [blog](https://huggingface.co/blog/intro-graphml), we explored some of the theoretical aspects of machine learning on graphs. This one will explore how you can do graph classification using the Transformers library. (You can also follow along with a demo notebook!)
+In the previous [blog](https://huggingface.co/blog/intro-graphml), we explored some of the theoretical aspects of machine learning on graphs. This one will explore how you can do graph classification using the Transformers library. (You can also follow along by downloading the demo notebook [here](https://github.com/huggingface/blog/blob/main/notebooks/graphml-classification.ipynb)!)
 
 At the moment, the only graph transformer model available in Transformers is Microsoft's [Graphormer](https://arxiv.org/abs/2106.05234), so this is the one we will use here. We are looking forward to seeing what other models people will use and integrate :hugging_face:
 
@@ -30,32 +30,7 @@ At the moment, the only graph transformer model available in Transformers is Mic
 To follow this tutorial, you need to have installed `datasets` and `transformers` (version >= 4.27.2), which you can do with `pip install -U datasets transformers`.
 
 ## Data
-To use graph data, you can either start from your own datasets, or use those available on the Hub][https://huggingface.co/graphs-datasets). We'll focus on using already available ones, but feel free to [add your datasets](https://huggingface.co/docs/datasets/upload_dataset)!
-
-### Format
-On the Hub, graph datasets are mostly stored as lists of graphs (using the `jsonl` format). 
-
-A single graph is a dictionary, and here is the expected format for our graph classification datasets:
-- `edge_index` 
-	- Type: list of 2 lists of integers.
-	- It contains the indices of nodes in edges, stored as a list containing two parallel lists of edge indices. 
-	- Example: a graph containing four nodes (0, 1, 2 and 3) and where connections are 1->2, 1->3 and 3->1* will have `edge_index`=[[1, 1, 3], [2, 3, 1]]. You might notice here that node 0 is not present here, as it is not part of an edge per se. This is why the next attribute is important.
-- `num_nodes` 
-	- Type: integer 
-	- It indicates the total number of nodes available in the graph (by default, it is assumed that nodes are numbered sequentially). 
-	- Example: In our above example, `num_nodes` = 4.
-- `y`
-	- Type: list of either integers (for multi-class classification), floats (for regression), or lists of ones and zeroes (for binary multi-task classification)
-	- It maps each graph to what we want to predict from it (be it a class, a property value, or several binary label for different tasks).
-	- Example: We could predict if the graph is small sized (0), medium sized (1) or big. Here, `y` = [0].
-- `node_feat` 
-	- Type: list of lists of integer (Optional) 
-	- This contains the available features (if present) for each node of the graph, ordered by node index.
-    - Example: Our above nodes could have, for example, types (like different atoms in a molecule). This could give `node_feat`=[[1], [0], [1], [1]] 
-- `edge_attr`
-	- Type: list of lists of integers (Optional)
-	- This contains the available attributes (if present) for each edge of the graph, following the `edge_index` ordering.
-    - Example: Our above edges could have, for example, types (like molecular bonds). This could give `edge_attr`=[[0], [1], [1]]
+To use graph data, you can either start from your own datasets, or use [those available on the Hub](https://huggingface.co/graphs-datasets). We'll focus on using already available ones, but feel free to [add your datasets](https://huggingface.co/docs/datasets/upload_dataset)!
 
 ### Loading
 Loading a graph dataset from the Hub is very easy. Let's load the `ogbg-mohiv` dataset (a baseline from the [Open Graph Benchmark](https://ogb.stanford.edu/) by Stanford), stored in the `OGB` repository: 
@@ -91,6 +66,31 @@ G.add_edges_from([(edges[0][i], edges[1][i]) for i in range(num_edges)])
 # Plot
 nx.draw(G)
 ```
+
+### Format
+On the Hub, graph datasets are mostly stored as lists of graphs (using the `jsonl` format). 
+
+A single graph is a dictionary, and here is the expected format for our graph classification datasets:
+- `edge_index` 
+    - Contains the indices of nodes in edges, stored as a list containing two parallel lists of edge indices. 
+    - **Type**: list of 2 lists of integers.
+    - **Example**: a graph containing four nodes (0, 1, 2 and 3) and where connections are 1->2, 1->3 and 3->1* will have `edge_index`=[[1, 1, 3], [2, 3, 1]]. You might notice here that node 0 is not present here, as it is not part of an edge per se. This is why the next attribute is important.
+- `num_nodes` 
+    - Indicates the total number of nodes available in the graph (by default, it is assumed that nodes are numbered sequentially). 
+    - **Type**: integer 
+    - **Example**: In our above example, `num_nodes` = 4.
+- `y`
+    - Maps each graph to what we want to predict from it (be it a class, a property value, or several binary label for different tasks).
+    - **Type**: list of either integers (for multi-class classification), floats (for regression), or lists of ones and zeroes (for binary multi-task classification)
+    - **Example**: We could predict if the graph is small sized (0), medium sized (1) or big. Here, `y` = [0].
+- `node_feat` 
+    - Contains the available features (if present) for each node of the graph, ordered by node index.
+    - **Type**: list of lists of integer (Optional) 
+    - **Example**: Our above nodes could have, for example, types (like different atoms in a molecule). This could give `node_feat`=[[1], [0], [1], [1]] 
+- `edge_attr`
+    - Contains the available attributes (if present) for each edge of the graph, following the `edge_index` ordering.
+    - **Type**: list of lists of integers (Optional)
+    - **Example**: Our above edges could have, for example, types (like molecular bonds). This could give `edge_attr`=[[0], [1], [1]]
 
 ### Preprocessing
 Graph transformer frameworks usually apply specific preprocessing to their datasets to generate added features and properties which help the underlying learning task (classification in our case).
