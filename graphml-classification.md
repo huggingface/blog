@@ -24,7 +24,7 @@ thumbnail: /blog/assets/125_intro-to-graphml/thumbnail_classification.png
 
 In the previous [blog](https://huggingface.co/blog/intro-graphml), we explored some of the theoretical aspects of machine learning on graphs. This one will explore how you can do graph classification using the Transformers library. (You can also follow along by downloading the demo notebook [here](https://github.com/huggingface/blog/blob/main/notebooks/graphml-classification.ipynb)!)
 
-At the moment, the only graph transformer model available in Transformers is Microsoft's [Graphormer](https://arxiv.org/abs/2106.05234), so this is the one we will use here. We are looking forward to seeing what other models people will use and integrate :hugging_face:
+At the moment, the only graph transformer model available in Transformers is Microsoft's [Graphormer](https://arxiv.org/abs/2106.05234), so this is the one we will use here. We are looking forward to seeing what other models people will use and integrate 🤗!
 
 ## Requirements
 To follow this tutorial, you need to have installed `datasets` and `transformers` (version >= 4.27.2), which you can do with `pip install -U datasets transformers`.
