@@ -1913,6 +1913,7 @@
   date: March 9, 2023
   tags:
     - rl
+    - rlhf
     - nlp
 
 - local: informer
@@ -1990,6 +1991,37 @@
   date: Mar 30, 2023
   tags:
     - ethics
+
+- local: stackllama
+  title: "StackLLaMA: A hands-on guide to train LLaMA with RLHF"
+  author: edbeeching
+  thumbnail: /blog/assets/138_stackllama/thumbnail.png
+  date: April 5, 2023
+  tags:
+    - rl
+    - rlhf
+    - nlp
+
+- local: owkin-substra
+  title: "Creating Privacy Preserving AI with Substra"
+  author: EazyAl
+  thumbnail: /blog/assets/139_owkin-substra/thumbnail.png
+  date: April 12, 2023
+  tags:
+    - cv
+    - federated-learning
+    - fl
+    - open-source-collab
+
+- local: graphml-classification
+  title: "Graph Classification with Transformers"
+  author: clefourrier
+  thumbnail: /blog/assets/125_intro-to-graphml/thumbnail_classification.png
+  date: April 14, 2023
+  tags:
+    - community
+    - guide
+    - graphs
 
 - local: dedup
   title: "Large-scale Near-deduplication Behind BigCode"
