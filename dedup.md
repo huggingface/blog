@@ -1,8 +1,8 @@
 ---
-title: "Large-scale Near-deduplication Behind BigCode" 
+title: "Large-scale Near-deduplication Behind BigCode"
 thumbnail: /blog/assets/dedup/thumbnail.png
 authors:
-- user: chenghao
+  - user: chenghao
 ---
 
 # Large-scale Near-deduplication Behind BigCode
@@ -16,11 +16,11 @@ People who are interested in document-level near-deduplication at a large scale,
 
 ## Motivations
 
-It is important to take care of our data before feeding it to the model, as the old saying goes, garbage in, garbage out. Even though it's increasingly difficult to do so with headline-grabbing models (or should I say APIs) creating an illusion that data quality matters less.
+It is important to take care of our data before feeding it to the model, as the old saying goes, garbage in, garbage out. Even though it's increasingly difficult to do so with headline-grabbing models (or should we say APIs) creating an illusion that data quality matters less.
 
 One of the problems we face in both BigScience and BigCode for data quality is duplication, including possible benchmark contamination. It has been shown that models tend to output training data verbatim when there are many duplicates[[1]](#1) (though it is less clear in some other domains[[2]](#2)), and it also makes the model vulnerable to privacy attacks[[1]](#1). Additionally, some typical advantages of deduplication also include:
 
-1. Efficient training: You can achieve the same performance with less training steps[[3]](#3) [[4]](#4).
+1. Efficient training: You can achieve the same, and sometimes better, performance with less training steps[[3]](#3) [[4]](#4).
 2. Prevent possible data leakage and benchmark contamination: Non-zero duplicates discredit your evaluations and potentially make so-called improvement a false claim.
 3. Accessibility. Most of us cannot afford to download or transfer thousands of gigabytes of text repeatedly, not to mention training a model with it. Deduplication, for a fix-sized dataset, makes it easier to study, transfer and collaborate with.
 
@@ -34,34 +34,35 @@ It was fun and challenging at the same time. It is challenging in a sense that I
 
 Moving forward, one year later, I am putting what I have learned back into BigCode, working on even bigger datasets. In addition to LLMs that are trained for English[[3]](#3), we have confirmed that deduplication improves code models too[[4]](#4), while using a much smaller dataset. And now, I am sharing what I have learned with you, my dear reader, and hopefully, you can also get a sense of what is happening behind the scene of BigCode through the lens of deduplication.
 
-In case you are interested, here is an updated version of the deduplication comparison that I started in BigScience:
+In case you are interested, here is an updated version of the deduplication comparison that we started in BigScience:
 
-| Dataset                         | Input Size                       | Output Size or Deduction                                        | Level                 | Method                                        | Parameters                                                      | Language     | Time                |
-| ------------------------------- | -------------------------------- | --------------------------------------------------------------- | --------------------- | --------------------------------------------- | --------------------------------------------------------------- | ------------ | ------------------- |
-| OpenWebText2[[5]](#5)                | After URL dedup: 193.89 GB (69M) | After MinHashLSH: 65.86 GB (17M)                                | URL + Document        | URL(Exact) + Document(MinHash LSH)            | \\( (10, 0.5, ?, ?, ?) \\)                                            | English      |                     |
-| Pile-CC[[5]](#5)                     | *~306 GB*                        | *227.12 GiB (~55M)*                                             | Document              | Document(MinHash LSH)                         | \\( (10, 0.5, ?, ?, ?) \\)                                            | English      | "several days"      |
-| BNE5[[6]](#6)                        | 2TB                              | 570 GB                                                          | Document              | Onion                                         | 5-gram                                                          | Spanish      |                     |
-| MassiveText[[7]](#7)                 |                                  | 0.001 TB ~ 2.1 TB                                               | Document              | Document(Exact + MinHash LSH)                 | \\( (?, 0.8, 13, ?, ?) \\)                                            | English      |                     |
-| CC100-XL[[8]](#8)                   |                                  | 0.01 GiB ~ 3324.45 GiB                                          | URL + Paragraph       | URL(Exact) + Paragraph(Exact)                 | SHA-1                                                           | Multilingual |                     |
-| C4[[3]](#3)                         | 806.92 GB (364M)                 | 3.04% ~ 7.18% **↓** (train)                                     | Substring or Document | Substring(Suffix Array) or Document(MinHash)  | Suffix Array: 50-token, MinHash: \\( (9000, 0.8, 5, 20, 450) \\)      | English      |                     |
-| Real News[[3]](#3)                  | ~120 GiB                         | 13.63% ~ 19.4% **↓** (train)                                    | Same as **C4**        | Same as **C4**                                | Same as **C4**                                                  | English      |                     |
-| LM1B[[3]](#3)                       | ~4.40 GiB (30M)                  | 0.76% ~ 4.86% **↓** (train)                                     | Same as **C4**        | Same as **C4**                                | Same as **C4**                                                  | English      |                     |
-| WIKI40B[[3]](#3)                    | ~2.9M                            | 0.39% ~ 2.76% **↓** (train)                                     | Same as **C4**        | Same as **C4**                                | Same as **C4**                                                  | English      |                     |
-| The BigScience ROOTS Corpus[[9]](#9) |                                  | 0.07% ~ 2.7% **↓** (document) + 10.61%~32.30% **↓** (substring) | Document + Substring  | Document (SimHash) + Substring (Suffix Array) | SimHash: 6-grams, hamming distance of 4, Suffix Array: 50-token | Multilingual | 12 hours ~ few days |
+| Dataset                              | Input Size                       | Output Size or Deduction                                        | Level                 | Method                                        | Parameters                                                       | Language     | Time                |
+| ------------------------------------ | -------------------------------- | --------------------------------------------------------------- | --------------------- | --------------------------------------------- | ---------------------------------------------------------------- | ------------ | ------------------- |
+| OpenWebText2[[5]](#5)                | After URL dedup: 193.89 GB (69M) | After MinHashLSH: 65.86 GB (17M)                                | URL + Document        | URL(Exact) + Document(MinHash LSH)            | \\( (10, 0.5, ?, ?, ?) \\)                                       | English      |                     |
+| Pile-CC[[5]](#5)                     | _~306 GB_                        | _227.12 GiB (~55M)_                                             | Document              | Document(MinHash LSH)                         | \\( (10, 0.5, ?, ?, ?) \\)                                       | English      | "several days"      |
+| BNE5[[6]](#6)                        | 2TB                              | 570 GB                                                          | Document              | Onion                                         | 5-gram                                                           | Spanish      |                     |
+| MassiveText[[7]](#7)                 |                                  | 0.001 TB ~ 2.1 TB                                               | Document              | Document(Exact + MinHash LSH)                 | \\( (?, 0.8, 13, ?, ?) \\)                                       | English      |                     |
+| CC100-XL[[8]](#8)                    |                                  | 0.01 GiB ~ 3324.45 GiB                                          | URL + Paragraph       | URL(Exact) + Paragraph(Exact)                 | SHA-1                                                            | Multilingual |                     |
+| C4[[3]](#3)                          | 806.92 GB (364M)                 | 3.04% ~ 7.18% **↓** (train)                                     | Substring or Document | Substring(Suffix Array) or Document(MinHash)  | Suffix Array: 50-token, MinHash: \\( (9000, 0.8, 5, 20, 450) \\) | English      |                     |
+| Real News[[3]](#3)                   | ~120 GiB                         | 13.63% ~ 19.4% **↓** (train)                                    | Same as **C4**        | Same as **C4**                                | Same as **C4**                                                   | English      |                     |
+| LM1B[[3]](#3)                        | ~4.40 GiB (30M)                  | 0.76% ~ 4.86% **↓** (train)                                     | Same as **C4**        | Same as **C4**                                | Same as **C4**                                                   | English      |                     |
+| WIKI40B[[3]](#3)                     | ~2.9M                            | 0.39% ~ 2.76% **↓** (train)                                     | Same as **C4**        | Same as **C4**                                | Same as **C4**                                                   | English      |                     |
+| The BigScience ROOTS Corpus[[9]](#9) |                                  | 0.07% ~ 2.7% **↓** (document) + 10.61%~32.30% **↓** (substring) | Document + Substring  | Document (SimHash) + Substring (Suffix Array) | SimHash: 6-grams, hamming distance of 4, Suffix Array: 50-token  | Multilingual | 12 hours ~ few days |
 
-This is the one for code datasets I created for BigCode as well. Model names are used when the dataset name isn't available.
+This is the one for code datasets we created for BigCode as well. Model names are used when the dataset name isn't available.
 
-| Model           | Method               | Parameters                             | Level    |
-| --------------- | -------------------- | -------------------------------------- | -------- |
+| Model                 | Method               | Parameters                             | Level    |
+| --------------------- | -------------------- | -------------------------------------- | -------- |
 | InCoder[[10]](#10)    | Exact                | Alphanumeric tokens/md5 + Bloom filter | Document |
 | CodeGen[[11]](#11)    | Exact                | SHA256                                 | Document |
 | AlphaCode[[12]](#12)  | Exact                | ignore whiespaces                      | Document |
 | PolyCode[[13]](#13)   | Exact                | SHA256                                 | Document |
 | PaLM Coder[[14]](#14) | Levenshtein distance |                                        | Document |
-| CodeParrot[[15]](#15) | MinHash + LSH        | \\( (256, 0.8, 1) \\)                        | Document |
-| The Stack[[16]](#16)  | MinHash + LSH        | \\( (256, 0.7, 5) \\)                        | Document |
+| CodeParrot[[15]](#15) | MinHash + LSH        | \\( (256, 0.8, 1) \\)                  | Document |
+| The Stack[[16]](#16)  | MinHash + LSH        | \\( (256, 0.7, 5) \\)                  | Document |
 
 MinHash + LSH parameters \\( (P, T, K, B, R) \\):
+
 1. \\( P \\) number of permutations/hashes
 2. \\( T \\) Jaccard similarity threshold
 3. \\( K \\) n-gram/shingle size
@@ -70,15 +71,22 @@ MinHash + LSH parameters \\( (P, T, K, B, R) \\):
 
 To get a sense of how those parameters might impact your results, here is a simple demo to illustrate the computation mathematically: [MinHash Math Demo](https://huggingface.co/spaces/bigcode/near-deduplication).
 
+
 ## MinHash Walkthrough
 
 In this section, we will cover each step of MinHash, the one used in BigCode, and potential scaling issues and solutions. We will demonstrate the workflow via one example of three documents in English:
 
-| doc_id | content                                |
-| ------ | -------------------------------------- |
-| 0      | Deduplication is so much fun!          |
-| 1      | Deduplication is so much fun and easy! |
-| 2      | I wish spider dog[[17]](#17) is a thing.      |
+| doc_id | content                                  |
+| ------ | ---------------------------------------- |
+| 0      | Deduplication is so much fun!            |
+| 1      | Deduplication is so much fun and easy!   |
+| 2      | I wish spider dog[[17]](#17) is a thing. |
+
+The typical workflow of MinHash is as follows:
+
+1. Shingling (tokenization) and fingerprinting (MinHashing), where we map each document into a set of hashes.
+2. Locality-sensitive hashing (LSH). This step is to reduce the number of comparisons by grouping documents with similar bands together.
+3. Duplicate removal. This step is where we decide which duplicated documents to keep or remove.
 
 ### Shingles
 
@@ -90,11 +98,11 @@ Like in most applications involving text, we need to begin with tokenization. N-
 | 1      | {'so much fun', 'fun and easy', 'Deduplication is so', 'is so much'}            |
 | 2      | {'dog is a', 'is a thing', 'wish spider dog', 'spider dog is', 'I wish spider'} |
 
-This operation has a time complexity of \\( \mathcal{O}(NM) \\) where \\( N \\) is the number of documents and \\( M \\) is the length of the document. This step can be easily scaled by parallelization by multiprocessing or distributed computation.
+This operation has a time complexity of \\( \mathcal{O}(NM) \\) where \\( N \\) is the number of documents and \\( M \\) is the length of the document. In other words, it is linearly dependent on the size of the dataset. This step can be easily scaled by parallelization by multiprocessing or distributed computation.
 
 ### Fingerprint Computation
 
-In MinHash, each shingle will typically either be 1) hashed multiple times, or 2) permuted multiple times using one hash. Here, we choose to permute each hash 5 times.
+In MinHash, each shingle will typically either be 1) hashed multiple times with different hash functions, or 2) permuted multiple times using one hash function. Here, we choose to permute each hash 5 times. More variants of MinHash can be found in [MinHash - Wikipedia](https://en.wikipedia.org/wiki/MinHash?useskin=vector).
 
 | shingle             | permuted hashes                                             |
 | ------------------- | ----------------------------------------------------------- |
@@ -102,13 +110,15 @@ In MinHash, each shingle will typically either be 1) hashed multiple times, or 2
 | is so much          | [3594692244, 3595617149, 1564558780, 2888962350, 432993166] |
 | so much fun         | [1556191985, 840529008, 1008110251, 3095214118, 3194813501] |
 
-Taking the minimum value of each column within each document, we arrive at the final MinHash for this document:
+Taking the minimum value of each column within each document — the "Min" part of the "MinHash", we arrive at the final MinHash for this document:
 
 | doc_id | minhash                                                    |
 | ------ | ---------------------------------------------------------- |
 | 0      | [403996643, 840529008, 1008110251, 2888962350, 432993166]  |
 | 1      | [403996643, 840529008, 1008110251, 1998729813, 432993166]  |
 | 2      | [166417565, 213933364, 1129612544, 1419614622, 1370935710] |
+
+Technically, we don't have to use the minimum value of each column, but the minimum value is the most common choice. Other order statistics such as maximum, kth smallest, or kth largest can be used as well[[21]](#21).
 
 In implementation, you can easily vectorize these steps with `numpy` and expect to have a time complexity of \\( \mathcal{O}(NMK) \\) where \\( K \\) is your number of permutations. Code modified based on [Datasketch](https://github.com/ekzhu/datasketch).
 
@@ -157,37 +167,48 @@ embedded = ds.map(
 
 After the fingerprint calculation, one particular document is mapped to one array of integer values. To figure out what documents are similar to each other, we need to group them based on such fingerprints. Entering the stage, **Locality Sensitive Hashing (LSH)**.
 
-LSH breaks the fingerprint array into bands, each band containing the same number of rows. If two documents share the same hashes in a band, they will be clustered into the same bucket and will be considered as candidates. Let's use \\( b=2 \\) bands and \\( r=2 \\) rows to group those documents. (Notice that the last value of the MinHash is ignored)
+### Locality Sensitive Hashing
 
-| band offset | band value               | doc_ids |
-| ----------- | ------------------------ | ------- |
-| (0, 2)      | [403996643, 840529008]   | 0, 1    |
-| (2, 4)      | [1008110251, 2888962350] | 0, 1    |
-| (0, 2)      | [166417565, 213933364]   | 2       |
-| (2, 4)      | [1129612544, 1419614622] | 2       |
+LSH breaks the fingerprint array into bands, each band containing the same number of rows. If there is any hash values left, it will be ignored. Let's use \\( b=2 \\) bands and \\( r=2 \\) rows to group those documents:
 
-For each row in the `doc_ids` column, we can generate candidate pairs by paring every two of them. From the above table, we can infer two pairs, even though they are the same:
+| doc_id | minhash                                                    | bands                                                  |
+| ------ | ---------------------------------------------------------- | ------------------------------------------------------ |
+| 0      | [403996643, 840529008, 1008110251, 2888962350, 432993166]  | [0:[403996643, 840529008], 1:[1008110251, 2888962350]] |
+| 1      | [403996643, 840529008, 1008110251, 1998729813, 432993166]  | [0:[403996643, 840529008], 1:[1008110251, 1998729813]] |
+| 2      | [166417565, 213933364, 1129612544, 1419614622, 1370935710] | [0:[166417565, 213933364], 1:[1129612544, 1419614622]] |
 
-| x   | y   |
-| --- | --- |
-| 0   | 1   |
-| 0   | 1   |
+If two documents share the same hashes in a band at a particular location (band index), they will be clustered into the same bucket and will be considered as candidates.
+
+| band index | band value               | doc_ids |
+| ---------- | ------------------------ | ------- |
+| 0          | [403996643, 840529008]   | 0, 1    |
+| 1          | [1008110251, 2888962350] | 0       |
+| 1          | [1008110251, 1998729813] | 1       |
+| 0          | [166417565, 213933364]   | 2       |
+| 1          | [1129612544, 1419614622] | 2       |
+
+For each row in the `doc_ids` column, we can generate candidate pairs by pairing every two of them. From the above table, we can generate one candidate pair: `(0, 1)`.
 
 ### Beyond Duplicate Pairs
 
 This is where many deduplication descriptions in papers or tutorials stop. We are still left with the question of what to do with them. Generally, we can proceed with two options:
-1. Double-check their Jaccard similarities by calculating their shingle overlap, which now becomes much more doable than computing all-pair similarities. This is also what we did at BigCode at the beginning, which worked reasonably well.
-2. Treat them as true positives. You probably already noticed the issue here: the Jaccard similarity isn't transitive, meaning \\( A \\) is similar to \\( B \\) and \\( B \\) is similar to \\( C \\), but \\( A \\) and \\( C \\) do not necessary share the similarity. However, our experiments from The Stack show that treating all of them as duplicates improves the downstream model's performance the best. And now we gradually moved towards this method instead, and it saves time as well. But to apply this to your dataset, I still suggest going over your dataset and looking at your duplicates, and then making a data-driven decision.
 
-From such pairs, whether they are validated or not, we can now construct a graph with those pairs as edges, and duplicates will be clustered into communities or connected components. In terms of implementation, unfortunately, this is where `datasets` couldn't help much because now we need something like a `groupby` where we can cluster documents based on their *band offset* and *band values*. Here are some options we have tried:
+1. Double-check their actual Jaccard similarities by calculating their shingle overlap, due to the estimation nature of MinHash. The Jaccard Similarity of two sets is defined as the size of the intersection divided by the size of the union. And now it becomes much more doable than computing all-pair similarities, because we can focus only for documents within a cluster. This is also what we initially did for BigCode, which worked reasonably well.
+2. Treat them as true positives. You probably already noticed the issue here: the Jaccard similarity isn't transitive, meaning \\( A \\) is similar to \\( B \\) and \\( B \\) is similar to \\( C \\), but \\( A \\) and \\( C \\) do not necessary share the similarity. However, our experiments from The Stack show that treating all of them as duplicates improves the downstream model's performance the best. And now we gradually moved towards this method instead, and it saves time as well. But to apply this to your dataset, we still recommend going over your dataset and looking at your duplicates, and then making a data-driven decision.
+
+From such pairs, whether they are validated or not, we can now construct a graph with those pairs as edges, and duplicates will be clustered into communities or connected components. In terms of implementation, unfortunately, this is where `datasets` couldn't help much because now we need something like a `groupby` where we can cluster documents based on their _band offset_ and _band values_. Here are some options we have tried:
 
 **Option 1: Iterate the datasets the old-fashioned way and collect edges. Then use a graph library to do community detection or connected component detection.**
 
-This did not scale well in my test, and the reasons are multifold. First, iterating the whole dataset is slow and memory consuming at a large scale. Second, popular graph libraries like `graphtool` or `networkx` have a lot of overhead for graph creation.
+This did not scale well in our tests, and the reasons are multifold. First, iterating the whole dataset is slow and memory consuming at a large scale. Second, popular graph libraries like `graphtool` or `networkx` have a lot of overhead for graph creation.
 
-**Option 2: Popular python frameworks such as `dask` to allow more efficient `groupby` operations**, but then you still have problems of slow iteration and slow graph creation.
+**Option 2: Use popular python frameworks such as `dask` to allow more efficient `groupby` operations**.
 
-So, we ended up with a simple iteration + union find algorithm combo that works relatively well for medium datasets.
+But then you still have problems of slow iteration and slow graph creation.
+
+**Option 3: Iterate the dataset, but use a union find data structure to cluster documents.**
+
+This adds negligible overhead to the iteration, and it works relatively well for medium datasets.
 
 ```python
 for table in tqdm(HASH_TABLES, dynamic_ncols=True, desc="Clustering..."):
@@ -199,7 +220,7 @@ for table in tqdm(HASH_TABLES, dynamic_ncols=True, desc="Clustering..."):
 			uf.union(x, idx)
 ```
 
-For large datasets, our current best option is Spark.
+**Option 4: For large datasets, use Spark.**
 
 We already know that steps up to the LSH part can be parallelized, which is also achievable in Spark. In addition to that, Spark supports distributed `groupBy` out of the box, and it is also straightforward to implement algorithms like [[18]](#18) for connected component detection. If you are wondering why we didn't use Spark's implementation of MinHash, the answer is that all our experiments so far stemmed from [Datasketch](https://github.com/ekzhu/datasketch), which uses an entirely different implementation than Spark, and we want to ensure that we carry on the lessons and insights learned from that without going into another rabbit hole of ablation experiments.
 
@@ -236,7 +257,7 @@ while True:
 results = a.collect()
 ```
 
-Additionally, thanks to cloud providers like GCP, we can set up Spark clusters like a breeze with services like DataProc. In the end, we can comfortably run the program to deduplicate 1.4 TB of data in just under 4 hours with a budget of $15 an hour.
+Additionally, thanks to cloud providers, we can set up Spark clusters like a breeze with services like GCP DataProc. **In the end, we can comfortably run the program to deduplicate 1.4 TB of data in just under 4 hours with a budget of $15 an hour.**
 
 ## Quality Matters
 
@@ -246,12 +267,12 @@ Early on, our parameters were largely inherited from the CodeParrot experiments,
 
 1. Near-deduplication improves the model's downstream performance with a much smaller dataset (6 TB VS. 3 TB)
 2. We haven't figured out the limit yet, but a more aggressive deduplication (6 TB VS. 2.4 TB) can improve the performance even more:
-	1. Lower the similarity threshold
-	2. Increase the shingle size (unigram → 5-gram)
-	3. Ditch false positive checking because we can afford to lose a small percentage of false positives
+   1. Lower the similarity threshold
+   2. Increase the shingle size (unigram → 5-gram)
+   3. Ditch false positive checking because we can afford to lose a small percentage of false positives
 
-![A violin chart showing unigram impact in different settings](assets/dedup/violin_chart_1.png)
-![A violin chart showing unigram impact in different settings](assets/dedup/violin_chart_2.png)
+![A violin chart showing unigram impact in different settings](https://huggingface.co/datasets/chenghao/dedup_blog_assets/resolve/main/data/violin_chart_1.png)
+![A violin chart showing unigram impact in different settings](https://huggingface.co/datasets/chenghao/dedup_blog_assets/resolve/main/data/violin_chart_2.png)
 
 <center>
 Image: Two graphs showing the impact of similarity threshold and shingle size, the first one is using unigram and the second one 5-gram. The red dash line shows the similarity cutoff: any documents below would be considered as false positives — their similarities with other documents within a cluster are lower than the threshold.
@@ -263,11 +284,11 @@ Additional experiments also showed that lowering the threshold removes more docu
 
 ## Scaling
 
-![Scaling results for dataset size and deduplication time](assets/dedup/scale.png)
+![Scaling results for dataset size and deduplication time](https://huggingface.co/datasets/chenghao/dedup_blog_assets/resolve/main/data/scale.png)
 
 <center>Image: Deduplication time versus raw dataset size. This is achieved with 15 worker c2d-standard-16 machines on GCP, and each costed around $0.7 per hour. </center>
 
-![CPU usage screenshot for the cluster during processing JSON dataset](assets/dedup/usage.png)
+![CPU usage screenshot for the cluster during processing JSON dataset](https://huggingface.co/datasets/chenghao/dedup_blog_assets/resolve/main/data/usage.png)
 
 <center>Image: CPU usage screenshot for the cluster during processing JSON dataset.</center>
 
@@ -275,7 +296,9 @@ This isn't the most rigorous scaling proof you can find, but the deduplication t
 
 ## Proceed with Caution
 
-Deduplication doesn't exempt you from thorough data exploration and analysis. These discoveries hold true for The Stack, but it does not mean it is appliable to other datasets or languages. We still encourage you to perform similar analysis on your datasets before training. For example, it might not be very helpful to do deduplication if you have tight time and compute budget: [@geiping_2022](http://arxiv.org/abs/2212.14034) mentions that substring deduplication didn't improve their model's downstream performance. Existing datasets might also require thorough examination before use, for example, [@gao_2020](http://arxiv.org/abs/2101.00027) states that they only made sure the Pile itself, along with its splits, are deduplicated, and they won't proactively deduplicating for any downstream benchmarks and leave that decision to readers.
+Deduplication doesn't exempt you from thorough data exploration and analysis. In addition, these deduplication discoveries hold true for the Stack, but it does not mean it is readily applicable to other datasets or languages. It is a good first step towards building a better dataset, and further investigations such as data quality filtering (e.g., vulnerability, toxicity, bias, generated templates, PII) are still much needed. 
+
+We still encourage you to perform similar analysis on your datasets before training. For example, it might not be very helpful to do deduplication if you have tight time and compute budget: [@geiping_2022](http://arxiv.org/abs/2212.14034) mentions that substring deduplication didn't improve their model's downstream performance. Existing datasets might also require thorough examination before use, for example, [@gao_2020](http://arxiv.org/abs/2101.00027) states that they only made sure the Pile itself, along with its splits, are deduplicated, and they won't proactively deduplicating for any downstream benchmarks and leave that decision to readers.
 
 In terms of data leakage and benchmark contamination, there is still much to explore. We had to retrain our code models because HumanEval was published in one of the GitHub repos in Python. Early near-deduplication results also suggest that MBPP[[19]](#19), one of the most popular benchmarks for coding, shares a lot of similarity with many Leetcode problems (e.g., task 601 in MBPP is basically Leetcode 646, task 604 ≃ Leetcode 151.). And we all know GitHub is no short of those coding challenges and solutions. It will be even more difficult if someone with bad intentions upload all the benchmarks in the form of python scripts, or other less obvious ways, and pollute all your training data.
 
@@ -291,7 +314,7 @@ In terms of data leakage and benchmark contamination, there is still much to exp
 
 The banner image contains emojis (hugging face, Santa, document, wizard, and wand) from Noto Emoji (Apache 2.0). This blog post is proudly written without any generative APIs.
 
-Huge thanks to Huu Nguyen and Hugo Laurençon for the collaboration in BigScience and everyone at BigCode for the help along the way! If you ever find any error, feel free to contact me: mouchenghao at gmail dot com.
+Huge thanks to Huu Nguyen @Huu and Hugo Laurençon @HugoLaurencon for the collaboration in BigScience and everyone at BigCode for the help along the way! If you ever find any error, feel free to contact me: mouchenghao at gmail dot com.
 
 ## Supporting Resources
 
@@ -324,3 +347,4 @@ Huge thanks to Huu Nguyen and Hugo Laurençon for the collaboration in BigScienc
 - <a id="18">[18]</a> : Raimondas Kiveris, Silvio Lattanzi, et al., [Connected Components in MapReduce and Beyond](https://doi.org/10.1145/2670979.2670997), 2014
 - <a id="19">[19]</a> : Jacob Austin, Augustus Odena, et al., [Program Synthesis with Large Language Models](http://arxiv.org/abs/2108.07732), 2021
 - <a id="20">[20]</a>: Amro Abbas, Kushal Tirumala, et al., [SemDeDup: Data-efficient learning at web-scale through semantic deduplication](http://arxiv.org/abs/2303.09540), 2023
+- <a id="21">[21]</a>: Edith Cohen, [MinHash Sketches : A Brief Survey](http://www.cohenwang.com/edith/Surveys/minhash.pdf), 2016
