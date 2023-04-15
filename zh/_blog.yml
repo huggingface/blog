@@ -118,7 +118,7 @@
     - open-source-collab
 
 - local: intel-sapphire-rapids
-  title: "Accelerating PyTorch Transformers with Intel Sapphire Rapids, part 1"
+  title: "使用英特尔 Sapphire Rapids 加速 PyTorch Transformers 模型（第一部分）"
   author: juliensimon
   thumbnail: /blog/assets/124_intel_sapphire_rapids/02.png
   date: January 2, 2023
@@ -140,7 +140,7 @@
     - game-dev
 
 - local: intro-graphml
-  title: "Introduction to Graph Machine Learning"
+  title: "一文带你入门图机器学习"
   author: clefourrier
   thumbnail: /blog/assets/125_intro-to-graphml/thumbnail.png
   date: January 3, 2023
@@ -160,7 +160,7 @@
     - game-dev
 
 - local: image-similarity
-  title: "Image Similarity with Hugging Face Datasets and Transformers"
+  title: "基于 Hugging Face Datasets 和 Transformers 的图像相似性搜索"
   author: sayakpaul
   thumbnail: /blog/assets/image_similarity/thumbnail.png
   date: Jan 16, 2023
