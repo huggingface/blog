@@ -13,6 +13,11 @@
   date: Apr 29, 2023
   description: Free meet-up in collaboration with NVIDIA to discuss the bleeding egde from the world of Generative AI. 
 
+- name: "Hugging Cast v1 - Live AI News and Demos"
+  link: https://streamyard.com/watch/zWBsznmYH5fP
+  date: Apr 27, 2023
+  description: "Join us for the premiere of Hugging Cast, our new live show about open source AI!"
+
 - name: Diffusers/JAX Community Sprint
   link: https://github.com/huggingface/community-events/tree/main/jax-controlnet-sprint
   date: Mar 29 to May 8, 2023
