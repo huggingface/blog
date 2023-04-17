@@ -42,7 +42,7 @@ The first benchmark compares the performance of Inferentia, Inferentia 2, and GP
 * Inferentia2 - [inf2.xlarge](https://aws.amazon.com/ec2/instance-types/inf2/?nc1=h_ls) powered by a single Inferentia2 chip.
 * GPU - [g5.2xlarge](https://aws.amazon.com/ec2/instance-types/g5/) powered by a single NVIDIA A10G GPU.
 
-Note that we did not optimize the model for the GPU environment, the models were evaluated in fp32. 
+_Note: that we did not optimize the model for the GPU environment, the models were evaluated in fp32._
 
 When it comes to benchmarking Transformer models, there are two metrics that are most adopted:
 * **Latency**: the time it takes for the model to perform a single prediction (pre-process, prediction, post-process).
