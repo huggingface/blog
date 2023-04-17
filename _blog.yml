@@ -2022,3 +2022,14 @@
     - community
     - guide
     - graphs
+
+- local: accelerate-transformers-with-inferentia2
+  title: "Accelerating Hugging Face Transformers with AWS Inferentia2"
+  author: philschmid
+  thumbnail: /blog/assets/140_accelerate_transformers_with_inferentia2/thumbnail.png
+  date: April 17, 2023
+  tags:
+    - partnerships
+    - aws
+    - nlp
+    - cv
