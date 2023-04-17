@@ -373,3 +373,13 @@
   date: March 28, 2023
   tags:
     - diffusers
+
+- local: graphml-classification
+  title: "使用 Transformers 进行图分类"
+  author: clefourrier
+  thumbnail: /blog/assets/125_intro-to-graphml/thumbnail_classification.png
+  date: April 14, 2023
+  tags:
+    - community
+    - guide
+    - graphs
