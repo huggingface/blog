@@ -9,6 +9,8 @@ authors:
 - user: allendorf
 translators:
 - user: innovation64
+- user: zhongdongy
+  proofreader: true
 
 ---
 
@@ -36,8 +38,8 @@ translators:
 - 自愿工作[支持](https://www.consentfultech.io/)使用这些技术和受这些技术影响的人的自主决定。
 - 具有社会意识的工作向我们展示了技术如何支持社会、环境和科学工作。
 - 可持续工作着重介绍并探索使机器学习在生态上可持续发展的技术。
-- 包容性工作扩大了谁在机器学习世界中构建和受益的范围。
-- 好奇的工作揭示了不平等和权力结构，这些不平等和权力结构挑战了社区并让其重新思考自身与技术的关系。
+- 包容性工作扩大了在机器学习世界中构建和受益的对象范围。
+- 追根问底的工作揭示了不平等和权力结构，这些不平等和权力结构挑战了社区并让其重新思考自身与技术的关系。
 
 在 https://huggingface.co/ethics 上阅读更多内容
 
@@ -74,7 +76,7 @@ translators:
 
 
 如果我们的社区将特定模型标记为高风险，我们会考虑：
-- 在趋势选项卡和提要中降低 ML 工件在 Hub 中的可见性，
+- 在趋势选项卡和 Feed 中降低 ML 工件在 Hub 中的可见性，
 - 请求启用门控功能以管理对 ML 工件的访问（请参阅[模型](https://huggingface.co/docs/hub/models-gated)和[数据集](https://huggingface.co/docs/hub/datasets-gated)文档）
 - 要求将模型设为私有，
 - 禁用访问。
@@ -119,6 +121,7 @@ Hugging Face 最重要的部分是我们的社区。如果你是一名研究人�
 ~ Irene, Nima, Giada, Yacine, 和 Elizabeth, 代表道德和社会常规人员
 
 如果你想引用这篇博客，请使用以下内容（按贡献降序排列）：
+
 ```
 @misc{hf_ethics_soc_blog_3,
   author    = {Irene Solaiman and
