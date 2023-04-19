@@ -373,3 +373,11 @@
   date: March 28, 2023
   tags:
     - diffusers
+
+- local: ethics-soc-3
+  title: "道德与社会问题简报 #3: Hugging Face 上的道德开放性"
+  author: irenesolaiman
+  thumbnail: /blog/assets/137_ethics_soc_3/ethics_3_thumbnail.png
+  date: Mar 30, 2023
+  tags:
+    - ethics
