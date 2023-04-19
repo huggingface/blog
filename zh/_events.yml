@@ -2,6 +2,12 @@
 # "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
 
+- name: Hugging Face JAX/Diffusers 社区冲刺活动北京见面会
+  link: https://services.google.cn/fb/forms/huggingfaceevent/?channel=hfblog
+  date: Apr 20, 2023
+  date_formatted: Apr 18 to Apr 20, 2023
+  description: 参与我们在谷歌北京办公室举办的参赛者线下见面会。
+
 - name: 造个 🤖️ 去瀛海威广场聚会啦！
   link: https://mp.weixin.qq.com/s/M5vjicNG1uBdCQzQtQU9yw
   date: Mar 19, 2023
