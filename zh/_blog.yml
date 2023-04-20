@@ -391,3 +391,12 @@
   date: Mar 30, 2023
   tags:
     - ethics
+
+- local: how-to-generate
+  title: "如何生成文本：通过 Transformers 用不同的解码方法生成文本"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/02_how-to-generate/thumbnail.png
+  date: March, 2020
+  tags:
+    - guide
+    - nlp
