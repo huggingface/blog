@@ -11,7 +11,7 @@ authors:
 <!-- {authors} --> 
 
 
-Did you know you can host a Unity game in a space? No? Well, you can.
+Did you know you can host a Unity game in a Hugging Face Space? No? Well, you can!
 
 Here are some examples:
 - [Farming Game](https://huggingface.co/spaces/dylanebert/FarmingGame) 
