@@ -13,7 +13,9 @@ authors:
 
 Did you know you can host a Unity game in a Hugging Face Space? No? Well, you can!
 
-Here are some examples:
+Hugging Face Spaces are an easy way to build, host, and share demos. While they are typically used for Machine Learning demos, 
+they can also host playable Unity games. Here are some examples:
+- [Huggy](https://huggingface.co/spaces/ThomasSimonini/Huggy)
 - [Farming Game](https://huggingface.co/spaces/dylanebert/FarmingGame) 
 - [Unity API Demo](https://huggingface.co/spaces/dylanebert/UnityDemo)
 
@@ -21,7 +23,7 @@ Here's how you can host your own Unity game in a Space.
 
 ## Step 1: Create a Space using the Static HTML template
 
-First, navigate to [Hugging Face Spaces](https://huggingface.co/spaces) and sign into your account. Click the "New Space" button.
+First, navigate to [Hugging Face Spaces](https://huggingface.co/new-space) to create a space.
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/games-in-spaces/1.png">
@@ -67,7 +69,7 @@ In the Build Settings window, click the "Player Settings" button to open the Pla
 
 ## Step 6: Optionally, Download the Hugging Face Unity WebGL Template
 
-You can enhance your game's appearance in a Space by downloading the Hugging Face Unity WebGL template, available [here](https://github.com/simoninithomas/Unity-WebGL-template-for-Hugging-Face-Spaces). Just download the repository and drop it in your project files.
+You can enhance your game's appearance in a Space by downloading the Hugging Face Unity WebGL template, available [here](https://github.com/huggingface/Unity-WebGL-template-for-Hugging-Face-Spaces). Just download the repository and drop it in your project files.
 
 Then, in the Player Settings panel, switch the WebGL template to Hugging Face. To do so, in Player Settings, click "Resolution and Presentation", then select the Hugging Face WebGL template.
 
