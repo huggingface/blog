@@ -119,6 +119,6 @@ git push
 
 ## Done!
 
-Congratulations! Refresh your space. You should now be able to play your game in a Hugging Face Space.
+Congratulations! Refresh your Space. You should now be able to play your game in a Hugging Face Space.
 
 We hope you found this tutorial helpful. If you have any questions or would like to get more involved in using Hugging Face for Games, join the [Hugging Face Discord](https://hf.co/join/discord)!
