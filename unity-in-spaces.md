@@ -59,7 +59,7 @@ Navigate to `File > Build Settings` and switch the Build Target to WebGL.
 
 ## Step 5: Open Player Settings
 
-In the Build Settings window. click the "Player Settings" button to open the Player Settings panel.
+In the Build Settings window, click the "Player Settings" button to open the Player Settings panel.
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/games-in-spaces/5.png">
