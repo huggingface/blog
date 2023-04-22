@@ -2033,3 +2033,14 @@
     - aws
     - nlp
     - cv
+
+- local: tf_tpu
+  title: "Training a language model with 🤗 Transformers using TensorFlow and TPUs"
+  author: philschmid
+  thumbnail: /blog/assets/tf_tpu_training/thumbnail.png
+  date: April 25, 2023
+  tags:
+    - nlp
+    - guide
+    - tensorflow
+    - tpu
