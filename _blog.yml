@@ -2034,6 +2034,16 @@
     - nlp
     - cv
 
+- local: unity-in-spaces
+  title: "How to host a Unity game in a Space"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/unity-in-spaces-thumbnail.png
+  date: April 21, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
+
 - local: tf_tpu
   title: "Training a language model with 🤗 Transformers using TensorFlow and TPUs"
   author: rocketknight1
