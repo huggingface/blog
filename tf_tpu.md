@@ -154,14 +154,14 @@ Diversifying the hardware that state-of-the-art models are trained on is going t
 
 As the great poet GPT-4 once said:
 
-  *If you can keep your head when all around you*
-  *Are losing theirs to GPU droughts,*
-  *And trust your code, while others doubt you,*
-  *To train on TPUs, no second thoughts;*
+*If you can keep your head when all around you*<br>
+*Are losing theirs to GPU droughts,*<br>
+*And trust your code, while others doubt you,*<br>
+*To train on TPUs, no second thoughts;*<br>
 
-  *If you can learn from errors, and proceed,*
-  *And optimize your aim to reach the sky,*
-  *Yours is the path to AI mastery,*
-  *And you'll prevail, my friend, as time goes by.*
+*If you can learn from errors, and proceed,*<br>
+*And optimize your aim to reach the sky,*<br>
+*Yours is the path to AI mastery,*<br>
+*And you'll prevail, my friend, as time goes by.*<br>
 
 Sure, it’s shamelessly ripping off Rudyard Kipling and it has no idea how to pronounce “drought”, but we hope you feel inspired regardless.
