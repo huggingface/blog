@@ -2033,3 +2033,12 @@
     - aws
     - nlp
     - cv
+
+- local: chinese-blog
+  title: "Introducing HuggingFace blog for Chinese speakers: Fostering Collaboration with the Chinese AI community"
+  author: xianbao
+  thumbnail: /blog/assets/140_accelerate_transformers_with_inferentia2/thumbnail.png
+  date: April 24, 2023
+  tags:
+    - partnerships
+    - community
