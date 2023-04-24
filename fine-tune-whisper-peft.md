@@ -53,3 +53,133 @@ Don't worry, we got ya! We ran multiple experiments to compare a full fine-tunin
 To make things even better, all of this comes with minimal changes to the existing 🤗 transformers Whisper inference codebase.
 
 Curious to test this out for yourself? Follow along!
+
+## Fine-tuning Whisper in a Google Colab
+
+### Prepare Environment
+
+We'll employ several popular Python packages to fine-tune the Whisper model.
+We'll use `datasets` to download and prepare our training data and 
+`transformers` to load and train our Whisper model. We'll also require
+the `librosa` package to pre-process audio files, `evaluate` and `jiwer` to
+assess the performance of our model. Finally, we'll
+use `PEFT`, `bitsandbytes`, `accelerate` to prepare and fine-tune the model with LoRA.
+
+```python
+!pip install -q transformers datasets librosa evaluate jiwer gradio bitsandbytes==0.37 accelerate 
+!pip install -q git+https://github.com/huggingface/peft.git@main
+```
+
+We strongly advise you to upload model checkpoints directly the [Hugging Face Hub](https://huggingface.co/) 
+whilst training. The Hub provides:
+- Integrated version control: you can be sure that no model checkpoint is lost during training.
+- Tensorboard logs: track important metrics over the course of training.
+- Model cards: document what a model does and its intended use cases.
+- Community: an easy way to share and collaborate with the community!
+
+Linking the notebook to the Hub is straightforward - it simply requires entering your Hub authentication token when prompted. Find your Hub authentication token [here](https://huggingface.co/settings/tokens):
+
+```python
+from huggingface_hub import notebook_login
+
+notebook_login()
+```
+
+# Load Dataset
+
+Using 🤗 Datasets, downloading and preparing data is extremely simple. 
+We can download and prepare the Common Voice splits in just one line of code. 
+
+First, ensure you have accepted the terms of use on the Hugging Face Hub: [mozilla-foundation/common_voice_13_0](https://huggingface.co/datasets/mozilla-foundation/common_voice_13_0). Once you have accepted the terms, you will have full access to the dataset and be able to download the data locally.
+
+Since Hindi is very low-resource, we'll combine the `train` and `validation` 
+splits to give approximately 12 hours of training data. We'll use the 6 hours 
+of `test` data as our held-out test set:
+
+```python
+from datasets import load_dataset, DatasetDict
+
+common_voice = DatasetDict()
+
+common_voice["train"] = load_dataset(dataset_name, language_abbr, split="train+validation", use_auth_token=True)
+common_voice["test"] = load_dataset(dataset_name, language_abbr, split="test", use_auth_token=True)
+
+print(common_voice)
+```
+
+**Print output:**
+
+```
+DatasetDict({
+    train: Dataset({
+        features: ['client_id', 'path', 'audio', 'sentence', 'up_votes', 'down_votes', 'age', 'gender', 'accent', 'locale', 'segment', 'variant'],
+        num_rows: 6760
+    })
+    test: Dataset({
+        features: ['client_id', 'path', 'audio', 'sentence', 'up_votes', 'down_votes', 'age', 'gender', 'accent', 'locale', 'segment', 'variant'],
+        num_rows: 2947
+    })
+})
+```
+
+Most ASR datasets only provide input audio samples (`audio`) and the 
+corresponding transcribed text (`sentence`). Common Voice contains additional 
+metadata information, such as `accent` and `locale`, which we can disregard for ASR.
+Keeping the notebook as general as possible, we only consider the input audio and
+transcribed text for fine-tuning, discarding the additional metadata information:
+
+```python
+common_voice = common_voice.remove_columns(
+    ["accent", "age", "client_id", "down_votes", "gender", "locale", "path", "segment", "up_votes", "variant"]
+)
+
+print(common_voice)
+```
+
+**Print output:**
+```
+DatasetDict({
+    train: Dataset({
+        features: ['audio', 'sentence'],
+        num_rows: 6760
+    })
+    test: Dataset({
+        features: ['audio', 'sentence'],
+        num_rows: 2947
+    })
+})
+```
+
+### Prepare Feature Extractor, Tokenizer and Data
+
+The ASR pipeline can be de-composed into three stages: 
+1. A feature extractor which pre-processes the raw audio-inputs
+2. The model which performs the sequence-to-sequence mapping 
+3. A tokenizer which post-processes the model outputs to text format
+
+In 🤗 Transformers, the Whisper model has an associated feature extractor and tokenizer, 
+called [WhisperFeatureExtractor](https://huggingface.co/docs/transformers/main/model_doc/whisper#transformers.WhisperFeatureExtractor)
+and [WhisperTokenizer](https://huggingface.co/docs/transformers/main/model_doc/whisper#transformers.WhisperTokenizer) 
+respectively.
+
+```python
+from transformers import WhisperFeatureExtractor
+
+feature_extractor = WhisperFeatureExtractor.from_pretrained(model_name_or_path)
+```
+
+```python
+from transformers import WhisperTokenizer
+
+tokenizer = WhisperTokenizer.from_pretrained(model_name_or_path, language=language, task=task)
+```
+
+To simplify using the feature extractor and tokenizer, we can _wrap_ both into a single `WhisperProcessor` class. This processor object can be used on the audio inputs and model predictions as required. 
+In doing so, we only need to keep track of two objects during training: 
+the `processor` and the `model`:
+
+```python
+from transformers import WhisperProcessor
+
+processor = WhisperProcessor.from_pretrained(model_name_or_path, language=language, task=task)
+```
