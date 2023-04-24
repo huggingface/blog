@@ -2,9 +2,9 @@
 title: "Introducing HuggingFace blog for Chinese speakers: Fostering Collaboration with the Chinese AI community"
 authors:
 - user: xianbao
+- user: adinayakefu
 - user: chenglu
   guest: true
-- user: adinayakefu
 ---
 
 <h1>Introducing HuggingFace blog for Chinese speakers: Fostering Collaboration with the Chinese AI community</h1>
