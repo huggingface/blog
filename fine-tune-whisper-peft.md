@@ -10,7 +10,21 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-A one size fits all notebook, to fine-tune Whisper (large) on a consumer GPU with less than 8GB GPU VRAM, all with comparable performance to full-finetuning. ⚡️
+<a target="_blank" href="https://colab.research.google.com/github/Vaibhavs10/notebooks/blob/main/Whisper_w_PEFT.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
+A one size fits all walkthrough, to fine-tune Whisper (large) **5x faster** on a consumer GPU with **less than 8GB GPU VRAM**, all with comparable performance to full-finetuning. ⚡️
+
+## Table of Contents
+
+1. [Why Parameter Efficient Fine Tuning?](#introduction)
+2. [Fine-tuning Whisper in a Google Colab](#fine-tuning-whisper-in-a-google-colab)
+    1. [Prepare Environment](#prepare-environment)
+    2. [Load Dataset](#load-dataset)
+    3. [Prepare Feature Extractor, Tokenizer and Data](#prepare-feature-extractor-tokenizer-and-data)
+    4. [Training and Evaluation](#training-and-evaluation)
+3. [Closing Remarks](#closing-remarks)
 
 We present a step-by-step guide on how to fine-tune Whisper with Common Voice 13.0 dataset using 🤗 Transformers and PEFT. In this Colab, we leverage `PEFT` and `bitsandbytes` to train a `whisper-large-v2` checkpoint seamlessly with a free T4 GPU (16 GB VRAM).
 
@@ -38,4 +52,4 @@ Don't worry, we got ya! We ran multiple experiments to compare a full fine-tunin
 
 To make things even better, all of this comes with minimal changes to the existing 🤗 transformers Whisper inference codebase.
 
-### Curious to test this out for yourself? Follow along!
+Curious to test this out for yourself? Follow along!
