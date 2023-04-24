@@ -28,7 +28,7 @@ Why are we writing this guide now? After all, 🤗 Transformers has had support 
 - Many models weren’t XLA-compatible
 - Data collators didn’t use native TF operations
 
-We think XLA is the future: It’s the core compiler for JAX, it has first-class support in TensorFlow, and you can even use it from PyTorch [link]. As such, we’ve made a [big push](https://blog.tensorflow.org/2022/11/how-hugging-face-improved-text-generation-performance-with-xla.html) to make our codebase XLA compatible and to remove any other roadblocks standing in the way of XLA and TPU compatibility. This means users should be able to train most of our TensorFlow models on TPUs without hassle.
+We think XLA is the future: It’s the core compiler for JAX, it has first-class support in TensorFlow, and you can even use it from [PyTorch](https://github.com/pytorch/xla). As such, we’ve made a [big push](https://blog.tensorflow.org/2022/11/how-hugging-face-improved-text-generation-performance-with-xla.html) to make our codebase XLA compatible and to remove any other roadblocks standing in the way of XLA and TPU compatibility. This means users should be able to train most of our TensorFlow models on TPUs without hassle.
 
 There’s also another important reason to care about TPU training right now: Due to the ongoing orgy of hype and venture capital that followed in the wake of GPT-4’s release, it’s become incredibly hard for most people to get access to state-of-the-art GPUs. Knowing how to train on TPU gives you another path to access ultra-high-performance compute hardware, which is much more dignified than losing a bidding war for the last H100 on eBay and then ugly crying at your desk. You deserve better. And speaking from experience: Once you get comfortable with training on TPU, you might not want to go back.
 
@@ -96,9 +96,9 @@ strategy = tf.distribute.TPUStrategy(tpu)
 
 with strategy.scope():
     tokenizer = AutoTokenizer.from_pretrained("tf-tpu/unigram-tokenizer-wikitext")
-		config = AutoConfig.from_pretrained("roberta-base")
-		config.vocab_size = tokenizer.vocab_size
-		model = TFAutoModelForMaskedLM.from_config(config) 
+    config = AutoConfig.from_pretrained("roberta-base")
+    config.vocab_size = tokenizer.vocab_size
+    model = TFAutoModelForMaskedLM.from_config(config) 
 ```
 
 Similarly, the optimizer also needs to be initialized under the same strategy scope with which the model is going to be further compiled. Going over the full training code isn’t something we want to do in this post, so we welcome you to read it [here](https://github.com/huggingface/transformers/blob/main/examples/tensorflow/language-modeling-tpu/run_mlm.py). Instead, let’s discuss another key point of — a TensorFlow-native data collator — [`DataCollatorForLanguageModeling`](https://huggingface.co/docs/transformers/main_classes/data_collator#transformers.DataCollatorForLanguageModeling). 
