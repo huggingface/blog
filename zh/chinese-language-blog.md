@@ -2,8 +2,9 @@
 title: "Hugging Face 中文博客正式发布！"
 authors:
 - user: xianbao
-- user: chenglu
 - user: adinayakefu
+- user: chenglu
+  guest: true
 ---
 
 <h1>Hugging Face 中文博客正式发布！</h1>
