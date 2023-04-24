@@ -400,3 +400,12 @@
   tags:
     - guide
     - nlp
+
+- local: chinese-language-blog
+  title: "Hugging Face 中文博客正式发布！"
+  author: xianbao
+  thumbnail: /blog/assets/02_how-to-generate/thumbnail.png
+  date: April 24, 2023
+  tags:
+    - partnerships
+    - community
