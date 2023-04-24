@@ -3,6 +3,7 @@ title: "Introducing HuggingFace blog for Chinese speakers: Fostering Collaborati
 authors:
 - user: xianbao
 - user: chenglu
+  guest: true
 - user: adinayakefu
 ---
 
