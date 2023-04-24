@@ -29,11 +29,9 @@ We are proud of our collaborative history with our Chinese collaborators, having
 
 - [Online ChatGPT course, in collaboration with DataWhale (ongoing)](https://mp.weixin.qq.com/s/byR2n-5QJmy34Jq0W3ECDg)
 - [First offline meetup in Beijing for JAX/Diffusers community sprint](https://twitter.com/huggingface/status/1648986159580876800)
-- [Fine-tuning stable diffusion models in an event with HeyWhale](https://www.heywhale.com/home/competition/63bbfb98de6c0e9cdb0d9dd5)
-- [Fine-tuning Lora models in collaboration with PaddlePaddle](https://aistudio.baidu.com/aistudio/competition/detail/860/0/introduction)
 - [Organizing a Prompt engineering hackathon alongside Baixing AI](https://mp.weixin.qq.com/s/M5vjicNG1uBdCQzQtQU9yw)
-
-
+- [Fine-tuning Lora models in collaboration with PaddlePaddle](https://aistudio.baidu.com/aistudio/competition/detail/860/0/introduction)
+- [Fine-tuning stable diffusion models in an event with HeyWhale](https://www.heywhale.com/home/competition/63bbfb98de6c0e9cdb0d9dd5)
 
 We are excited to announce that we will continue to strengthen our ties with the Chinese AI community by fostering more collaborations and joint efforts. These initiatives will create opportunities for knowledge sharing and expertise exchange, promoting collaborative open-source machine learning across our communities, and tackling the challenges and opportunities in the field of cooperative OS ML.
 
