@@ -401,7 +401,6 @@
     - guide
     - nlp
 
-
 - local: hf-bitsandbytes-integration
   title: "大规模 Transformer 模型 8 比特矩阵乘简介 - 基于 Hugging Face Transformers、Accelerate 以及 bitsandbytes"
   author: ybelkada
