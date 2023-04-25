@@ -18,7 +18,7 @@ to image models **IF** on a free-tier Google Colab with 🧨 diffusers.*
 
 <p align="center">
     <img src="assets/if/nabla.jpg" alt="if-collage"><br>
-    <em>Image taken from official <a href="https://github.com/deep-floyd/IF/blob/release/pics/nabla.jpg">IF GitHub repo</a>.</em>
+    <em>Image compressed from official <a href="https://github.com/deep-floyd/IF/blob/release/pics/nabla.jpg">IF GitHub repo</a>.</em>
 </p>
 
 ## Introduction
@@ -63,6 +63,10 @@ speed here to make it possible to run IF in a free-tier Google Colab. If
 you have access to high-end GPUs such as a A100, we recommend to simply
 leave all model components on GPU for maximum speed as done in the
 [official IF demo](https://huggingface.co/spaces/DeepFloyd/IF).
+
+💡 **Note**: Some of the larger images have been compressed to load faster 
+in the blog format. When using the official model, they should be even
+better quality!
 
 Let\'s dive in 🚀!
 
