@@ -13,8 +13,8 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-***TL;DR**: We show how to run one of the most powerful open-source text
-to image models **IF** on a free-tier Google Colab with 🧨 diffusers.*
+**TL;DR**: We show how to run one of the most powerful open-source text
+to image models **IF** on a free-tier Google Colab with 🧨 diffusers.
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/nabla.jpg" alt="if-collage"><br>
