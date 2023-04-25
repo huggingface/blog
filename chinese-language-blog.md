@@ -1,5 +1,6 @@
 ---
 title: "Introducing HuggingFace blog for Chinese speakers: Fostering Collaboration with the Chinese AI community"
+thumbnail: /blog/assets/chinese-language-blog/thumbnail.png
 authors:
 - user: xianbao
 - user: adinayakefu
