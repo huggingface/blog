@@ -45,5 +45,11 @@ Join us on this exciting journey, and stay tuned for more updates on our blog ab
 
 
 You may also find us here: 
+
+<figure class="image text-center">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/chinese-language-blog/wechat.jpg">
+</figure> 
+
+
 [BAAI](https://hub.baai.ac.cn/users/45017), [Bilibili](https://space.bilibili.com/1740664937/), [CNBlogs](https://www.cnblogs.com/huggingface), [CSDN](https://huggingface.blog.csdn.net/), [Juejin](https://juejin.cn/user/611789528634712), [OS China](https://my.oschina.net/HuggingFace), [SegmentFault](https://segmentfault.com/u/huggingface), [Zhihu](https://www.zhihu.com/org/huggingface)
 
