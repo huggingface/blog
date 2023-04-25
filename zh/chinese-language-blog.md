@@ -1,5 +1,6 @@
 ---
 title: "Hugging Face 中文博客正式发布！"
+thumbnail: /blog/assets/chinese-language-blog/thumbnail.png
 authors:
 - user: xianbao
 - user: adinayakefu
