@@ -17,7 +17,7 @@ authors:
 to image models **IF** on a free-tier Google Colab with 🧨 diffusers.*
 
 <p align="center">
-    <img src="assets/if/nabla.jpg" alt="if-collage"><br>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/nabla.jpg" alt="if-collage"><br>
     <em>Image compressed from official <a href="https://github.com/deep-floyd/IF/blob/release/pics/nabla.jpg">IF GitHub repo</a>.</em>
 </p>
 
@@ -71,7 +71,7 @@ better quality!
 Let\'s dive in 🚀!
 
 <p align="center">
-    <img src="assets/if/meme.png"><br>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/meme.png"><br>
     <em>IF's text generation capabilities</em>
 </p>
 
@@ -137,7 +137,7 @@ the pipeline to avoid exhausting the available CPU RAM and GPU VRAM.
 
 Let\'s give it a try 🚀
 
-![t2i_64](assets/if/t2i_64.png)
+![t2i_64](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/t2i_64.png)
 
 ## Available resources
 
@@ -372,7 +372,7 @@ pipe.watermarker.apply_watermark(pil_image, pipe.unet.config.sample_size)
 pil_image[0]
 ```
 
-![t2i_64](assets/if/t2i_64.png)
+![t2i_64](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/t2i_64.png)
 
 And again, we remove the Python pointer and free CPU and GPU memory:
 
@@ -425,7 +425,7 @@ pipe.watermarker.apply_watermark(pil_image, pipe.unet.config.sample_size)
 pil_image[0]
 ```
 
-![t2i_upscaled](assets/if/t2i_upscaled.png)
+![t2i_upscaled](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/t2i_upscaled.png)
 
 And again, we delete the Python pointer and free memory
 
@@ -483,7 +483,7 @@ View output image
 pil_image[0]
 ```
 
-![t2i_upscaled_2](assets/if/t2i_upscaled_2.png)
+![t2i_upscaled_2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/t2i_upscaled_2.png)
 
 Et voila! A beautiful 1024x1024 image in a free-tier Google Colab.
 
@@ -543,7 +543,7 @@ original_image = original_image.resize((768, 512))
 original_image
 ```
 
-![iv_sample](assets/if/iv_sample.png)
+![iv_sample](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/iv_sample.png)
 
 The image variation pipeline take both PIL images and raw tensors. View
 the docstrings for more indepth documentation on expected inputs (TODO
@@ -655,7 +655,7 @@ pipe.watermarker.apply_watermark(pil_image, pipe.unet.config.sample_size)
 pil_image[0]
 ```
 
-![iv_sample_1](assets/if/iv_sample_1.png)
+![iv_sample_1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/iv_sample_1.png)
 
 Looks good, we can free the memory and upscale the image again.
 
@@ -697,7 +697,7 @@ image = pipe(
 image
 ```
 
-![iv_sample_2](assets/if/iv_sample_2.png)
+![iv_sample_2](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/iv_sample_2.png)
 
 Nice! Let\'s free the memory and look at the final inpainting pipelines.
 
@@ -736,7 +736,7 @@ original_image = original_image.resize((512, 768))
 original_image
 ```
 
-![inpatining_sample](assets/if/inpainting_sample.png)
+![inpainting_sample](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/inpainting_sample.png)
 
 We will mask the sign so we can replace its text.
 
@@ -754,7 +754,7 @@ mask_image = Image.open(mask_image)
 mask_image
 ```
 
-![masking_sample](assets/if/masking_sample.png)
+![masking_sample](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/masking_sample.png)
 
 💡 **Note**: You can create masks yourself by manually creating a
 greyscale image.
@@ -778,7 +778,7 @@ example_mask = Image.fromarray(example_mask, mode='L')
 example_mask
 ```
 
-![masking_by_hand](assets/if/masking_by_hand.png)
+![masking_by_hand](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/masking_by_hand.png)
 
 Now we can start inpainting 🎨🖌
 
@@ -869,7 +869,7 @@ pipe.watermarker.apply_watermark(pil_image, pipe.unet.config.sample_size)
 pil_image[0]
 ```
 
-![inpainted_output](assets/if/inpainted_output.png)
+![inpainted_output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/inpainted_output.png)
 
 Looks good! The text is pretty consistent!
 
@@ -914,7 +914,7 @@ image = pipe(
 image
 ```
 
-![inpainted_final_output](assets/if/inpainted_final_output.png)
+![inpainted_final_output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/inpainted_final_output.png)
 
 Nice, the model managed to generate text without making a single
 spelling error!
