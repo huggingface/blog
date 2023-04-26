@@ -92,9 +92,9 @@ Let\'s dive in 🚀!
 * [Optimizing IF to run on memory constrained hardware](#optimizing-if-to-run-on-memory-constrained-hardware)
 * [Available resources](#available-resources)
 * [Install dependencies](#install-dependencies)
-* [Text-to-image generation](#1-text-to-image-generation-1-text-to-image-generation) 
-* [Image variation](#2-image-variation-2-image-variation)
-* [Inpainting](#3-inpainting-3-inpainting)
+* [Text-to-image generation](#1-text-to-image-generation)
+* [Image variation](#2-image-variation)
+* [Inpainting](#3-inpainting)
 
 ## Accepting the license
 
