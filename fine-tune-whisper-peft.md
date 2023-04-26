@@ -34,7 +34,7 @@ For more details on Whisper fine-tuning, datasets and metrics, refer to Sanchit 
 
 As model sizes continue to increase, fine-tuning a model has become both computationally expensive and storage heavy. For example, a `Whisper-large-v2` model requires ~24GB of GPU VRAM for full fine-tuning and requires ~7 GB of storage for each fine-tuned checkpoint. For low-resource environments this becomes quite a bottleneck and often near impossible to get meaningful results.
 
-Cue, PEFT, with PEFT you can tackle this bottleneck head on. PEFT approaches (like Low Rank Adaptation) only fine-tune a small number of (extra) model parameters while freezing most parameters of the pretrained model, thereby greatly decreasing the computational and storage costs. We've observed that it also overcomes the issues of catastrophic forgetting, a behaviour observed during the full finetuning of large models.
+Cue: PEFT! With PEFT you can tackle this bottleneck head-on. Like Low Rank Adaptation (LoRA), PEFT only fine-tunes a small number of (extra) model parameters while freezing most parameters of the pretrained model, thereby greatly decreasing the computational and storage costs.
 
 ### Aha! So wait, what's this LoRA thing?
 
