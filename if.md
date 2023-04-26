@@ -34,13 +34,13 @@ to image models **IF** on a free-tier Google Colab with 🧨 diffusers.
 
 IF is a pixel-based text-to-image generation model and was [released in
 late April 2023 by DeepFloyd](https://github.com/deep-floyd/IF). The
-model architecture is strongly inspired by [Google\'s closed-sourced
+model architecture is strongly inspired by [Google's closed-sourced
 Imagen](https://imagen.research.google/).
 
 IF has two distinct advantages compared to existing text-to-image models
 like Stable Diffusion:
 
-- The model operates directly in \"pixel space\" (*i.e.,* on
+- The model operates directly in "pixel space" (*i.e.,* on
 uncompressed images) instead of running the denoising process in the
 latent space such as [Stable Diffusion](http://hf.co/blog/stable_diffusion).
 - The model is trained on outputs of
@@ -49,28 +49,28 @@ text encoder than [CLIP](https://openai.com/research/clip), used by
 Stable Diffusion as the text encoder.
 
 As a result, IF is better at generating images with high-frequency
-details (*e.g.,* human faces, and hands) and is the first open-source
+details (*e.g.,* human faces and hands) and is the first open-source
 image generation model that can reliably generate images with text.
 
 The downside of operating in pixel space and using a more powerful text
 encoder is that IF has a significantly higher amount of parameters. T5,
 IF\'s text-to-image UNet, and IF\'s upscaler UNet have 4.5B, 4.3B, and
-1.2B parameters respectively. Compared this to [Stable Diffusion
+1.2B parameters respectively. Compared to [Stable Diffusion
 2.1](https://huggingface.co/stabilityai/stable-diffusion-2-1)\'s text
-encoder and UNet having just 400M and 900M parameters respectively.
+encoder and UNet having just 400M and 900M parameters, respectively.
 
 Nevertheless, it is possible to run IF on consumer hardware if one
 optimizes the model for low-memory usage. We will show you can do this
 with 🧨 diffusers in this blog post.
 
-In 1.), we explain how to use IF for text-to-image generation and in 2.)
-and 3.) we go over IF\'s image variation and image inpainting
+In 1.), we explain how to use IF for text-to-image generation, and in 2.)
+and 3.), we go over IF's image variation and image inpainting
 capabilities.
 
-💡 **Note**: To a big part we are trading gains in memory by gains in
+💡 **Note**: We are trading gains in memory by gains in
 speed here to make it possible to run IF in a free-tier Google Colab. If
-you have access to high-end GPUs such as a A100, we recommend to simply
-leave all model components on GPU for maximum speed as done in the
+you have access to high-end GPUs such as an A100, we recommend leaving
+all model components on GPU for maximum speed, as done in the
 [official IF demo](https://huggingface.co/spaces/DeepFloyd/IF).
 
 💡 **Note**: Some of the larger images have been compressed to load faster 
@@ -127,15 +127,15 @@ resource intensive models on consumer hardware:
 
 - [🤗 accelerate](https://github.com/huggingface/accelerate) provides
 utilities for working with [large models](https://huggingface.co/docs/accelerate/usage_guides/big_modeling).
-- [bitsandbytes](https://github.com/TimDettmers/bitsandbytes) makes [8bit quantization](https://github.com/TimDettmers/bitsandbytes#features) available to all PyTorch models.
+- [bitsandbytes](https://github.com/TimDettmers/bitsandbytes) makes [8-bit quantization](https://github.com/TimDettmers/bitsandbytes#features) available to all PyTorch models.
 - [🤗 safetensors](https://github.com/huggingface/safetensors) not only ensures that save code is executed but also significantly speeds up the loading time of large models.
 
 Diffusers seemlessly integrates the above libraries to allow for a
 simple API when optimizing large models.
 
 The free-tier Google Colab is both CPU RAM constrained (13 GB RAM) as
-well as GPU VRAM constrained (15 GB RAM for T4) which makes running the
-whole \>10B IF model challenging!
+well as GPU VRAM constrained (15 GB RAM for T4), which makes running the
+whole >10B IF model challenging!
 
 Let\'s map out the size of IF\'s model components in full float32
 precision:
@@ -148,22 +148,22 @@ precision:
 There is no way we can run the model in float32 as the T5 and Stage 1
 UNet weights are each larger than the available CPU RAM.
 
-In float16, the component sizes are 11GB, 8.6GB and 1.25GB for T5,
-Stage1 and Stage2 UNets respectively which is doable for the GPU, but
-we\'re still running into CPU memory overflow errors when loading the T5
+In float16, the component sizes are 11GB, 8.6GB, and 1.25GB for T5,
+Stage1 and Stage2 UNets, respectively, which is doable for the GPU, but
+we're still running into CPU memory overflow errors when loading the T5
 (some CPU is occupied by other processes).
 
 Therefore, we lower the precision of T5 even more by using
-`bitsandbytes` 8bit quantization which allows to save the T5 checkpoint
+`bitsandbytes` 8bit quantization, which allows saving the T5 checkpoint
 with as little as [8
 GB](https://huggingface.co/DeepFloyd/IF-I-IF-v1.0/blob/main/text_encoder/model.8bit.safetensors).
 
-Now that each components fits individually into both CPU and GPU memory,
+Now that each component fits individually into both CPU and GPU memory,
 we need to make sure that components have all the CPU and GPU memory for
 themselves when needed.
 
 Diffusers supports modularly loading individual components i.e. we can
-load the text encoder without loading the unet. This modular loading
+load the text encoder without loading the UNet. This modular loading
 will ensure that we only load the component we need at a given step in
 the pipeline to avoid exhausting the available CPU RAM and GPU VRAM.
 
@@ -247,7 +247,7 @@ The flag `variant="8bit"` will download pre-quantized weights.
 
 We also use the `device_map` flag to allow `transformers` to offload
 model layers to the CPU or disk. Transformers big modeling supports
-arbitrary device maps which can be used to separately load model
+arbitrary device maps, which can be used to separately load model
 parameters directly to available devices. Passing `"auto"` will
 automatically create a device map. See the `transformers`
 [docs](https://huggingface.co/docs/accelerate/usage_guides/big_modeling#designing-a-device-map)
@@ -273,7 +273,7 @@ The Diffusers API for accessing diffusion models is the
 for running diffusion networks. We can override the models it uses by
 passing alternative instances as keyword arguments to `from_pretrained`.
 
-In this case, we pass `None` for the `unet` argument so no UNet will be
+In this case, we pass `None` for the `unet` argument, so no UNet will be
 loaded. This allows us to run the text embedding portion of the
 diffusion process without loading the UNet into memory.
 
@@ -289,18 +289,18 @@ pipe = DiffusionPipeline.from_pretrained(
 ```
 
 IF also comes with a super resolution pipeline. We will save the prompt
-embeddings so that we can later directly pass them to the super
+embeddings so we can later directly pass them to the super
 resolution pipeline. This will allow the super resolution pipeline to be
 loaded **without** a text encoder.
 
 Instead of [an astronaut just riding a
-horse](https://huggingface.co/blog/stable_diffusion), let\'s hand him a
+horse](https://huggingface.co/blog/stable_diffusion), let\'s hand them a
 sign as well!
 
 Let\'s define a fitting prompt:
 
 ``` python
-prompt = 'a photograph of an astronaut riding a horse holding a sign that says "Pixel\'s in space"'
+prompt = "a photograph of an astronaut riding a horse holding a sign that says Pixel's in space"
 ```
 
 and run it through the 8bit quantized T5 model:
@@ -315,10 +315,10 @@ Once the prompt embeddings have been created. We do not need the text
 encoder anymore. However, it is still in memory on the GPU. We need to
 remove it so that we can load the UNet.
 
-It\'s non-trivial to free PyTorch memory. We must garbage collect the
+It's non-trivial to free PyTorch memory. We must garbage-collect the
 Python objects which point to the actual memory allocated on the GPU.
 
-First, use the python keyword `del` to delete all python objects
+First, use the Python keyword `del` to delete all Python objects
 referencing allocated GPU memory
 
 ``` python
@@ -326,13 +326,13 @@ del text_encoder
 del pipe
 ```
 
-The deletion of the python object is not enough to free the GPU memory.
+Deleting the python object is not enough to free the GPU memory.
 Garbage collection is when the actual GPU memory is freed.
 
 Additionally, we will call `torch.cuda.empty_cache()`. This method
 isn\'t strictly necessary as the cached cuda memory will be immediately
 available for further allocations. Emptying the cache allows us to
-verify in the colab UI that the memory is available.
+verify in the Colab UI that the memory is available.
 
 We\'ll use a helper function `flush()` to flush memory.
 
@@ -377,7 +377,7 @@ instead.
 
 IF also comes with a super resolution diffusion process. Setting
 `output_type="pt"` will return raw PyTorch tensors instead of a PIL
-image. This way we can keep the Pytorch tensors on GPU and pass them
+image. This way, we can keep the PyTorch tensors on GPU and pass them
 directly to the stage 2 super resolution pipeline.
 
 Let\'s define a random generator and run the stage 1 diffusion process.
@@ -520,7 +520,7 @@ pil_image[0]
 Et voila! A beautiful 1024x1024 image in a free-tier Google Colab.
 
 We have shown how 🧨 diffusers makes it easy to decompose and modularly
-load resource intensive diffusion models.
+load resource-intensive diffusion models.
 
 💡 **Note**: We don\'t recommend using the above setup in production.
 8bit quantization, manual de-allocation of model weights, and disk
@@ -533,7 +533,7 @@ demo**](https://huggingface.co/spaces/DeepFloyd/IF).
 ## 2. Image variation
 
 The same IF checkpoints can also be used for text guided image variation
-and inpainting. The core diffusion process is the same as text to image
+and inpainting. The core diffusion process is the same as text-to-image
 generation except the initial noised image is created from the image to
 be varied or inpainted.
 
@@ -631,7 +631,7 @@ prompt_embeds, negative_embeds = pipe.encode_prompt(prompt)
 
 and free GPU and CPU memory.
 
-First remove the Python pointers
+First, remove the Python pointers
 
 ``` python
 del text_encoder
@@ -688,7 +688,7 @@ pil_image[0]
 
 ![iv_sample_1](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/iv_sample_1.png)
 
-Looks good, we can free the memory and upscale the image again.
+Looks good! We can free the memory and upscale the image again.
 
 ``` python
 del pipe
@@ -739,10 +739,10 @@ flush()
 
 ## 3. Inpainting
 
-The IF inpainting pipeline is the same as the image variation except
+The IF inpainting pipeline is the same as the image variation, except
 only a select area of the image is denoised.
 
-We specify the area to inpatint with an image mask.
+We specify the area to inpaint with an image mask.
 
 Let\'s show off IF\'s amazing \"letter generation\" capabilities. We can
 replace this sign text with different slogan.
@@ -855,7 +855,7 @@ Having defined the prompt, we can create the prompt embeddings
 prompt_embeds, negative_embeds = pipe.encode_prompt(prompt)
 ```
 
-Just like before we free the memory
+Just like before, we free the memory
 
 ``` python
 del text_encoder
@@ -865,7 +865,7 @@ flush()
 
 ### 3.2 Stage 1: The main diffusion process 
 
-Just like before we now load the stage 1 pipeline with only the UNet.
+Just like before, we now load the stage 1 pipeline with only the UNet.
 
 ``` python
 pipe = IFInpaintingPipeline.from_pretrained(
@@ -947,12 +947,12 @@ image
 
 ![inpainted_final_output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/inpainted_final_output.png)
 
-Nice, the model managed to generate text without making a single
+Nice, the model generated text without making a single
 spelling error!
 
 ## Conclusion
 
-IF in 32 bit floating point precision uses 40 GB of weights in total. We
+IF in 32-bit floating point precision uses 40 GB of weights in total. We
 showed how using only open source models and libraries, IF can be ran on
 a free-tier Google Colab instance.
 
