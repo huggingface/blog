@@ -21,6 +21,8 @@ authors:
 **TL;DR**: We show how to run one of the most powerful open-source text
 to image models **IF** on a free-tier Google Colab with 🧨 diffusers.
 
+You can also explore the capabilities of the model directly in the [Hugging Face Space](https://huggingface.co/spaces/DeepFloyd/IF).
+
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/nabla.jpg" alt="if-collage"><br>
     <em>Image compressed from official <a href="https://github.com/deep-floyd/IF/blob/release/pics/nabla.jpg">IF GitHub repo</a>.</em>
