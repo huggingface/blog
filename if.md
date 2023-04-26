@@ -100,8 +100,8 @@ Let\'s dive in 🚀!
 
 Before you can use IF, you need to accept its usage conditions. To do so:
 
-- 1. Make sure to have a [Hugging Face account](https://huggingface.co/join) and be loggin in
-- 2. Accept the license on the model card of [DeepFloyd/IF-I-IF-v1.0](https://huggingface.co/DeepFloyd/IF-I-IF-v1.0) and [DeepFloyd/IF-II-L-v1.0](https://huggingface.co/DeepFloyd/IF-II-L-v1.0)
+- 1. Make sure to have a [Hugging Face account](https://huggingface.co/join) and be logged in
+- 2. Accept the license on the model card of [DeepFloyd/IF-I-IF-v1.0](https://huggingface.co/DeepFloyd/IF-I-IF-v1.0). Accepting the license on the stage I model card will auto accept for the other IF models.
 - 3. Make sure to login locally. Install `huggingface_hub`
 
 ```sh
