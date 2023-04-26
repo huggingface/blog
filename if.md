@@ -2,10 +2,15 @@
 title: "Running IF with 🧨 diffusers on a Free Tier Google Colab"
 thumbnail: /blog/assets/if/thumbnail.jpg
 authors:
-- user: DeepFloyd 
+- user: shonenkov
+  guest: true
+- user: Gugutse
+  guest: true
+- user: ZeroShot-AI
   guest: true
 - user: williamberman
 - user: patrickvonplaten
+- user: multimodalart
 ---
 
 # Running IF with 🧨 diffusers on a Free Tier Google Colab {#running-if-with--diffusers-on-a-free-tier-google-colab}
@@ -20,6 +25,10 @@ to image models **IF** on a free-tier Google Colab with 🧨 diffusers.
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/nabla.jpg" alt="if-collage"><br>
     <em>Image compressed from official <a href="https://github.com/deep-floyd/IF/blob/release/pics/nabla.jpg">IF GitHub repo</a>.</em>
 </p>
+
+<a target="_blank" href="https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/diffusers/deepfloyd_if_free_tier_google_colab..ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 
 ## Introduction
 
@@ -77,12 +86,35 @@ Let\'s dive in 🚀!
 
 ## Table of contents
 
+* [Accepting the license](#accepting-the-license)
 * [Optimizing IF to run on memory constrained hardware](#optimizing-if-to-run-on-memory-constrained-hardware)
 * [Available resources](#available-resources)
 * [Install dependencies](#install-dependencies)
 * [Text-to-image generation](#1-text-to-image-generation-1-text-to-image-generation) 
 * [Image variation](#2-image-variation-2-image-variation)
 * [Inpainting](#3-inpainting-3-inpainting)
+
+## Accepting the license
+
+Before you can use IF, you need to accept its usage conditions. To do so:
+
+- 1. Make sure to have a [Hugging Face account](https://huggingface.co/join) and be loggin in
+- 2. Accept the license on the model card of [DeepFloyd/IF-I-IF-v1.0](https://huggingface.co/DeepFloyd/IF-I-IF-v1.0) and [DeepFloyd/IF-II-L-v1.0](https://huggingface.co/DeepFloyd/IF-II-L-v1.0)
+- 3. Make sure to login locally. Install `huggingface_hub`
+
+```sh
+pip install huggingface_hub --upgrade
+```
+
+run the login function in a Python shell
+
+```py
+from huggingface_hub import login
+
+login()
+```
+
+and enter your [Hugging Face Hub access token](https://huggingface.co/docs/hub/security-tokens#what-are-user-access-tokens).
 
 ## Optimizing IF to run on memory constrained hardware
 
@@ -546,8 +578,7 @@ original_image
 ![iv_sample](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/iv_sample.png)
 
 The image variation pipeline take both PIL images and raw tensors. View
-the docstrings for more indepth documentation on expected inputs (TODO
-link to docstring)
+the docstrings for more indepth documentation on expected inputs, [here](https://huggingface.co/docs/diffusers/v0.16.0/en/api/pipelines/if#diffusers.IFImg2ImgPipeline.__call__).
 
 ### 2.1 Text Encoder
 
@@ -569,10 +600,10 @@ text_encoder = T5EncoderModel.from_pretrained(
 ```
 
 For image variation, we load the checkpoint with
-[`IFImg2ImgPipeline(TODO <link>)`](). When using
+[`IFImg2ImgPipeline`](https://huggingface.co/docs/diffusers/v0.16.0/en/api/pipelines/if#diffusers.IFImg2ImgPipeline). When using
 `DiffusionPipeline.from_pretrained(...)`, checkpoints are loaded into
 their default pipeline. The default pipeline for the IF is the
-text-to-image [`IFPipeline(TODO <link>`](). When loading checkpoints
+text-to-image [`IFPipeline`](https://huggingface.co/docs/diffusers/v0.16.0/en/api/pipelines/if#diffusers.IFPipeline). When loading checkpoints
 with a non-default pipeline, the pipeline must be explicitly specified.
 
 ``` python
@@ -927,7 +958,7 @@ a free-tier Google Colab instance.
 
 The ML ecosystem benefits deeply from the sharing of open tools and open
 models. This notebook alone used models from DeepFloyd, StabilityAI, and
-LAION. The libraries used \-- Diffusers, Transformers, Accelerate, and
+[Google](https://huggingface.co/google). The libraries used \-- Diffusers, Transformers, Accelerate, and
 bitsandbytes \-- all benefit from countless contributors from different
 organizations.
 
