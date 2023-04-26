@@ -48,7 +48,7 @@ Don't worry, we got ya! We ran multiple experiments to compare a full fine-tunin
 
 1. We were able to fine-tune a 1.6B parameter model with less than 8GB GPU VRAM. 🤯
 2. With significantly less number of traininable parameters, we were able to fit almost **5x** more batch size. 📈
-3. The resultant checkpoint were less than 1% the size of the original model, ~60MB (i.e. 1% the size of orignal model) 🚀
+3. The resulting checkpoints were less than 1% the size of the original model, ~60MB. 🚀
 
 To make things even better, all of this comes with minimal changes to the existing 🤗 transformers Whisper inference codebase.
 
