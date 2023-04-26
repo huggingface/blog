@@ -15,7 +15,7 @@ authors:
 This tutorial assumes you have a basic understanding of PyTorch and how to train a simple model. It will showcase training on multiple GPUs through a process called Distributed Data Parallelism (DDP) through three different levels of increasing abstraction:
 
 - Native PyTorch DDP through the `pytorch.distributed` module
-- Utilizing 🤗 Accelerate's light wrapper around `pytorch.distributed` that also helps ensure the code can be run on a single GPU and TPUs with zero code changes and miminimal code changes to the original code
+- Utilizing 🤗 Accelerate's light wrapper around `pytorch.distributed` that also helps ensure the code can be run on a single GPU and TPUs with zero code changes and minimal code changes to the original code
 - Utilizing 🤗 Transformer's high-level Trainer API which abstracts all the boilerplate code and supports various devices and distributed scenarios
 
 ## What is "Distributed" training and why does it matter?
@@ -178,7 +178,7 @@ torchrun --nproc_per_nodes=2 --nnodes=1 example_script.py
 
 The above will run the training script on two GPUs that live on a single machine and this is the barebones for performing only distributed training with PyTorch.
 
-Now let's talk about Accelerate, a library aimed to make this process more seameless and also help with a few best practices
+Now let's talk about Accelerate, a library aimed to make this process more seamless and also help with a few best practices
 
 ## 🤗 Accelerate
 
