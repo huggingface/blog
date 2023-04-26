@@ -44,7 +44,7 @@ LoRA performs on-par or better than fine-tuning in model quality despite having 
 
 ### That's all cool, but show me the numbers?
 
-Don't worry, we got ya! We ran multiple experiments to compare a full fine-tuning of Whisper-large-v2 checkpoint and that with PEFT, here's what we found:
+Don't worry, we got ya! We ran multiple experiments to compare a full fine-tuning of the Whisper-large-v2 checkpoint and with PEFT fine-tuning. Here's what we found:
 
 1. We were able to fine-tune a 1.6B parameter model with less than 8GB GPU VRAM. 🤯
 2. With significantly less number of traininable parameters, we were able to fit almost **5x** more batch size. 📈
