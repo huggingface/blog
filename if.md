@@ -13,7 +13,11 @@ authors:
 - user: multimodalart
 ---
 
-# Running IF with 🧨 diffusers on a Free Tier Google Colab {#running-if-with--diffusers-on-a-free-tier-google-colab}
+# Running IF with 🧨 diffusers on a Free Tier Google Colab
+
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/deepfloyd_if_free_tier_google_colab.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -21,14 +25,12 @@ authors:
 **TL;DR**: We show how to run one of the most powerful open-source text
 to image models **IF** on a free-tier Google Colab with 🧨 diffusers.
 
+You can also explore the capabilities of the model directly in the [Hugging Face Space](https://huggingface.co/spaces/DeepFloyd/IF).
+
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/if/nabla.jpg" alt="if-collage"><br>
     <em>Image compressed from official <a href="https://github.com/deep-floyd/IF/blob/release/pics/nabla.jpg">IF GitHub repo</a>.</em>
 </p>
-
-<a target="_blank" href="https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/diffusers/deepfloyd_if_free_tier_google_colab..ipynb">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>
 
 ## Introduction
 
@@ -90,9 +92,9 @@ Let\'s dive in 🚀!
 * [Optimizing IF to run on memory constrained hardware](#optimizing-if-to-run-on-memory-constrained-hardware)
 * [Available resources](#available-resources)
 * [Install dependencies](#install-dependencies)
-* [Text-to-image generation](#1-text-to-image-generation-1-text-to-image-generation) 
-* [Image variation](#2-image-variation-2-image-variation)
-* [Inpainting](#3-inpainting-3-inpainting)
+* [Text-to-image generation](#1-text-to-image-generation)
+* [Image variation](#2-image-variation)
+* [Inpainting](#3-inpainting)
 
 ## Accepting the license
 
