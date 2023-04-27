@@ -2048,7 +2048,7 @@
   title: "Training a language model with 🤗 Transformers using TensorFlow and TPUs"
   author: rocketknight1
   thumbnail: /blog/assets/tf_tpu_training/thumbnail.png
-  date: April 25, 2023
+  date: April 27, 2023
   tags:
     - nlp
     - guide
