@@ -324,7 +324,7 @@
     - multimodal
 
 - local: red-teaming
-  title: "Red-Teaming Large Language Models"
+  title: "为大语言模型建立红队对抗"
   author: nazneen
   thumbnail: /blog/assets/red-teaming/thumbnail.png
   date: February 22, 2023
