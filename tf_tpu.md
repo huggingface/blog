@@ -39,7 +39,7 @@ We’re going to train a [RoBERTa](https://huggingface.co/docs/transformers/mode
 Many of the ideas here were also mentioned in our [Colab example](https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/tpu_training-tf.ipynb), but we wanted to show users a full end-to-end example that puts it all together and shows it in action, rather than just covering concepts at a high level. The following diagram gives you a pictorial overview of the steps involved in training a language model with 🤗 Transformers using TensorFlow and TPUs:
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tf_tpu/tf_tpu_steps.png" alt="tf-tpu-training-steps"><br>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tf_tpu/tf_tpu_steps.png" alt="tf-tpu-training-steps"/><br>
 </p>
 
 ## Getting the data and training a tokenizer
@@ -47,7 +47,7 @@ Many of the ideas here were also mentioned in our [Colab example](https://colab.
 As mentioned, we used the [WikiText dataset (v1)](https://huggingface.co/datasets/wikitext). You can head over to the [dataset page on the Hugging Face Hub](https://huggingface.co/datasets/wikitext) to explore the dataset. 
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tf_tpu/wikitext_explore.png" alt="dataset-explore"><br>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/tf_tpu/wikitext_explore.png" alt="dataset-explore"/><br>
 </p>
 
 Since the dataset is already available on the Hub in a compatible format, we can easily load and interact with it using 🤗 datasets. However, for this example, since we’re also training a tokenizer from scratch, here’s what we did:
