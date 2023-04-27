@@ -6,7 +6,9 @@ authors:
 - user: natolambert
 - user: lewtun
 translators:
+- user: innovation64
 - user: zhongdongy
+  proofreader: true
 ---
 
 # 为大语言模型建立红队对抗
