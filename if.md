@@ -101,7 +101,7 @@ Let\'s dive in 🚀!
 Before you can use IF, you need to accept its usage conditions. To do so:
 
 - 1. Make sure to have a [Hugging Face account](https://huggingface.co/join) and be logged in
-- 2. Accept the license on the model card of [DeepFloyd/IF-I-IF-v1.0](https://huggingface.co/DeepFloyd/IF-I-IF-v1.0). Accepting the license on the stage I model card will auto accept for the other IF models.
+- 2. Accept the license on the model card of [DeepFloyd/IF-I-XL-v1.0](https://huggingface.co/DeepFloyd/IF-I-XL-v1.0). Accepting the license on the stage I model card will auto accept for the other IF models.
 - 3. Make sure to login locally. Install `huggingface_hub`
 
 ```sh
@@ -142,8 +142,8 @@ whole >10B IF model challenging!
 Let\'s map out the size of IF\'s model components in full float32
 precision:
 
-- [T5-XXL Text Encoder](https://huggingface.co/DeepFloyd/IF-I-IF-v1.0/tree/main/text_encoder): 20GB
-- [Stage 1 UNet](https://huggingface.co/DeepFloyd/IF-I-IF-v1.0/tree/main/unet): 17.2 GB
+- [T5-XXL Text Encoder](https://huggingface.co/DeepFloyd/IF-I-XL-v1.0/tree/main/text_encoder): 20GB
+- [Stage 1 UNet](https://huggingface.co/DeepFloyd/IF-I-XL-v1.0/tree/main/unet): 17.2 GB
 - [Stage 2 Super Resolution UNet](https://huggingface.co/DeepFloyd/IF-II-L-v1.0/blob/main/pytorch_model.bin): 2.5 GB
 - [Stage 3 Super Resolution Model](https://huggingface.co/stabilityai/stable-diffusion-x4-upscaler): 3.4 GB
 
@@ -158,7 +158,7 @@ we're still running into CPU memory overflow errors when loading the T5
 Therefore, we lower the precision of T5 even more by using
 `bitsandbytes` 8bit quantization, which allows saving the T5 checkpoint
 with as little as [8
-GB](https://huggingface.co/DeepFloyd/IF-I-IF-v1.0/blob/main/text_encoder/model.8bit.safetensors).
+GB](https://huggingface.co/DeepFloyd/IF-I-XL-v1.0/blob/main/text_encoder/model.8bit.safetensors).
 
 Now that each component fits individually into both CPU and GPU memory,
 we need to make sure that components have all the CPU and GPU memory for
@@ -259,7 +259,7 @@ for more information.
 from transformers import T5EncoderModel
 
 text_encoder = T5EncoderModel.from_pretrained(
-    "DeepFloyd/IF-I-IF-v1.0",
+    "DeepFloyd/IF-I-XL-v1.0",
     subfolder="text_encoder", 
     device_map="auto", 
     load_in_8bit=True, 
@@ -283,7 +283,7 @@ diffusion process without loading the UNet into memory.
 from diffusers import DiffusionPipeline
 
 pipe = DiffusionPipeline.from_pretrained(
-    "DeepFloyd/IF-I-IF-v1.0", 
+    "DeepFloyd/IF-I-XL-v1.0", 
     text_encoder=text_encoder, # pass the previously instantiated 8bit text encoder
     unet=None, 
     device_map="auto"
@@ -365,7 +365,7 @@ and load the weights in 16 bit floating point format.
 
 ``` python
 pipe = DiffusionPipeline.from_pretrained(
-    "DeepFloyd/IF-I-IF-v1.0", 
+    "DeepFloyd/IF-I-XL-v1.0", 
     text_encoder=None, 
     variant="fp16", 
     torch_dtype=torch.float16, 
@@ -507,7 +507,7 @@ We can instead manually apply the watermark.
 ``` python
 from diffusers.pipelines.deepfloyd_if import IFWatermarker
 
-watermarker = IFWatermarker.from_pretrained("DeepFloyd/IF-I-IF-v1.0", subfolder="watermarker")
+watermarker = IFWatermarker.from_pretrained("DeepFloyd/IF-I-XL-v1.0", subfolder="watermarker")
 watermarker.apply_watermark(pil_image, pipe.unet.config.sample_size)
 ```
 
@@ -593,7 +593,7 @@ Again we load the text encoder into 8bit precision.
 from transformers import T5EncoderModel
 
 text_encoder = T5EncoderModel.from_pretrained(
-    "DeepFloyd/IF-I-IF-v1.0",
+    "DeepFloyd/IF-I-XL-v1.0",
     subfolder="text_encoder", 
     device_map="auto", 
     load_in_8bit=True, 
@@ -612,7 +612,7 @@ with a non-default pipeline, the pipeline must be explicitly specified.
 from diffusers import IFImg2ImgPipeline
 
 pipe = IFImg2ImgPipeline.from_pretrained(
-    "DeepFloyd/IF-I-IF-v1.0", 
+    "DeepFloyd/IF-I-XL-v1.0", 
     text_encoder=text_encoder, 
     unet=None, 
     device_map="auto"
@@ -653,7 +653,7 @@ just like we did in the previous section.
 
 ``` python
 pipe = IFImg2ImgPipeline.from_pretrained(
-    "DeepFloyd/IF-I-IF-v1.0", 
+    "DeepFloyd/IF-I-XL-v1.0", 
     text_encoder=None, 
     variant="fp16", 
     torch_dtype=torch.float16, 
@@ -823,7 +823,7 @@ Again, we load the text encoder first
 from transformers import T5EncoderModel
 
 text_encoder = T5EncoderModel.from_pretrained(
-    "DeepFloyd/IF-I-IF-v1.0",
+    "DeepFloyd/IF-I-XL-v1.0",
     subfolder="text_encoder", 
     device_map="auto", 
     load_in_8bit=True, 
@@ -838,7 +838,7 @@ with the text encoder weights.
 from diffusers import IFInpaintingPipeline
 
 pipe = IFInpaintingPipeline.from_pretrained(
-    "DeepFloyd/IF-I-IF-v1.0", 
+    "DeepFloyd/IF-I-XL-v1.0", 
     text_encoder=text_encoder, 
     unet=None, 
     device_map="auto"
@@ -871,7 +871,7 @@ Just like before, we now load the stage 1 pipeline with only the UNet.
 
 ``` python
 pipe = IFInpaintingPipeline.from_pretrained(
-    "DeepFloyd/IF-I-IF-v1.0", 
+    "DeepFloyd/IF-I-XL-v1.0", 
     text_encoder=None, 
     variant="fp16", 
     torch_dtype=torch.float16, 
