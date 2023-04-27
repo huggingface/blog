@@ -1,3 +1,12 @@
+- local: how-to-generate
+  title: "如何生成文本：通过 Transformers 用不同的解码方法生成文本"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/02_how-to-generate/thumbnail.png
+  date: March 1, 2020
+  tags:
+    - guide
+    - nlp
+
 - local: large-language-models
   title: "大语言模型: 新的摩尔定律？"
   author: juliensimon
@@ -15,6 +24,16 @@
   tags:
     - nlp
     - llm
+
+- local: hf-bitsandbytes-integration
+  title: "大规模 Transformer 模型 8 比特矩阵乘简介 - 基于 Hugging Face Transformers、Accelerate 以及 bitsandbytes"
+  author: ybelkada
+  thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
+  date: August 17, 2022
+  tags:
+    - nlp
+    - llm
+    - quantization
 
 - local: bloom-inference-pytorch-scripts
   title: "使用 DeepSpeed 和 Accelerate 进行超快 BLOOM 模型推理"
@@ -47,7 +66,7 @@
     - research
 
 - local: pytorch-ddp-accelerate-transformers
-  title: "From PyTorch DDP to 🤗 Accelerate to 🤗 Trainer, mastery of distributed training with ease"
+  title: "从 PyTorch DDP 到 Accelerate 到 Trainer，轻松掌握分布式训练"
   author: muellerzr
   thumbnail: /blog/assets/111_pytorch_ddp_accelerate_transformers/thumbnail.png
   date: October 21, 2022
@@ -57,7 +76,7 @@
     - open-source-collab
 
 - local: dreambooth
-  title: "Training Stable Diffusion with Dreambooth using 🧨 Diffusers"
+  title: "使用 🧨 Diffusers 通过 Dreambooth 技术来训练 Stable Diffusion"
   author: valhalla
   thumbnail: /blog/assets/sd_dreambooth_training/thumbnail.jpg
   date: November 7, 2022
@@ -69,7 +88,7 @@
     - guide
 
 - local: inference-update
-  title: "An Overview of Inference Solutions on Hugging Face"
+  title: "Hugging Face 提供的推理 (Inference) 解决方案"
   author: julsimon
   thumbnail: /blog/assets/116_inference_update/widget.png
   date: Nov 21, 2022
@@ -96,7 +115,7 @@
     - time-series
 
 - local: rlhf
-  title: "Illustrating Reinforcement Learning from Human Feedback (RLHF)"
+  title: "ChatGPT 背后的「功臣」——RLHF 技术详解"
   author: natolambert
   thumbnail: /blog/assets/120_rlhf/thumbnail.png
   date: December 9, 2022
@@ -106,7 +125,7 @@
     - guide
 
 - local: elixir-bumblebee
-  title: "From GPT2 to Stable Diffusion: Hugging Face arrives to the Elixir community"
+  title: "从 GPT2 到 Stable Diffusion：Elixir 社区迎来了 Hugging Face"
   author: josevalim
   thumbnail: /blog/assets/120_elixir-bumblebee/thumbnail.png
   date: December 9, 2022
@@ -150,7 +169,7 @@
     - graphs
 
 - local: ml-for-games-2
-  title: "AI for Game Development: Creating a Farming Game in 5 Days. Part 2"
+  title: "使用 ChatGPT 启发游戏创意：基于 AI 5 天创建一个农场游戏，第 2 天"
   author: dylanebert
   thumbnail: /blog/assets/124_ml-for-games/thumbnail2.png
   date: January 9, 2023
@@ -169,7 +188,7 @@
     - cv
 
 - local: mask2former
-  title: "Universal Image Segmentation with Mask2Former and OneFormer"
+  title: "通用图像分割任务: 使用 Mask2Former 和 OneFormer"
   author: nielsr
   thumbnail: /blog/assets/127_mask2former/thumbnail.png
   date: Jan 19, 2023
@@ -374,6 +393,14 @@
   tags:
     - diffusers
 
+- local: ethics-soc-3
+  title: "道德与社会问题简报 #3: Hugging Face 上的道德开放性"
+  author: irenesolaiman
+  thumbnail: /blog/assets/137_ethics_soc_3/ethics_3_thumbnail.png
+  date: Mar 30, 2023
+  tags:
+    - ethics
+
 - local: graphml-classification
   title: "使用 Transformers 进行图分类"
   author: clefourrier
@@ -384,29 +411,11 @@
     - guide
     - graphs
 
-- local: ethics-soc-3
-  title: "道德与社会问题简报 #3: Hugging Face 上的道德开放性"
-  author: irenesolaiman
-  thumbnail: /blog/assets/137_ethics_soc_3/ethics_3_thumbnail.png
-  date: Mar 30, 2023
+- local: chinese-language-blog
+  title: "Hugging Face 中文博客正式发布！"
+  author: xianbao
+  thumbnail: /blog/assets/chinese-language-blog/thumbnail.png
+  date: April 24, 2023
   tags:
-    - ethics
-
-- local: how-to-generate
-  title: "如何生成文本：通过 Transformers 用不同的解码方法生成文本"
-  author: patrickvonplaten
-  thumbnail: /blog/assets/02_how-to-generate/thumbnail.png
-  date: March, 2020
-  tags:
-    - guide
-    - nlp
-
-- local: hf-bitsandbytes-integration
-  title: "大规模 Transformer 模型 8 比特矩阵乘简介 - 基于 Hugging Face Transformers、Accelerate 以及 bitsandbytes"
-  author: ybelkada
-  thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
-  date: August 17, 2022
-  tags:
-    - nlp
-    - llm
-    - quantization
+    - partnerships
+    - community
