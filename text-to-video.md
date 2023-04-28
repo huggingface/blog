@@ -1,0 +1,84 @@
+---
+title: "A Dive into Text-to-Video Models"
+thumbnail: /blog/assets/140_text-to-video/thumbnail.png
+authors:
+- user: adirik
+---
+
+<h1>Text-to-Video: The Task, Challenges and the Current State</h1>
+
+<!-- {blog_metadata} -->
+<!-- {authors} -->
+
+Text-to-video is a fairly new computer vision task that involves generating a sequence of images from text descriptions that are both temporally and spatially consistent. There are several impressive text-to-video models available, such as ModelScope’s Text-to-Video, Text2Video-Zero, and NÜWA XL, among others. With so many models popping up one after another, it can be easy to lose track of what these models do and why there has been so much progress over such a short time. 
+
+In this blog post, we will discuss the differences between text-to-video and text-to-image tasks, as well as the unique challenges of unconditional and text-conditioned video generation. Additionally, we will cover the most recent developments in text-to-video models, exploring how these methods work and their potential use cases. Finally, we will talk about what we are working on at Hugging Face to facilitate the integration and use of these models, and share some cool demos on the Hub to get started.
+
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/140_text-to-video/example1.png" alt="drawing"><br>
+    <em>The cat and dog image has been taken from <a href=https://www.istockphoto.com/photos/dog-cat-love>here</a>.</em>
+</p>
+
+## Text-to-Video vs. Text-to-Image
+With so many developments happening in such a short time, it may be difficult to keep up with the current state of text-to-image generative models. Let's do a quick recap first.
+
+Only two years ago, the first open-vocabulary, high-quality text-to-image generative models emerged. The first wave of text-to-image models, including VQGAN-CLIP, XMC-GAN, and GauGAN2, all had GAN architectures. They were quickly followed by OpenAI's DALL-E, a transformer-based model released in early 2021 that achieved huge success. DALL-E was followed by DALL-E 2 in April 2022, along with a new wave of diffusion models pioneered by Stable Diffusion and Imagen. The huge success of Stable Diffusion led to many productionized diffusion models, such as Midjourney and RunwayML GEN1.
+
+Despite the impressive capabilities of diffusion models in text-to-image generation, these models are typically trained on very short clips, meaning they require a computationally expensive and slow sliding window approach to generate long videos. As a result, text-to-video models not only are notoriously difficult to deploy and scale but also remain limited in context and length. 
+
+The text-to-video task faces unique challenges on multiple fronts. Some of these main challenges can be listed as follows:  
+
+- Computational challenges: Ensuring spatial and temporal consistency across frames creates long-term dependencies that come with a high computation cost, making training such models unaffordable for most researchers.
+- Lack of high-quality datasets: Multi-modal datasets for text-to-video generation are scarce and often sparsely annotated, making it difficult to learn complex movement semantics.
+- Vagueness around video captioning: Describing videos in a way that makes them easier for models to learn from is an open question. A single short text prompt is not sufficient to provide a complete description of a video. A generated video must be conditioned on a sequence of prompts or a story that narrates what happens over time.
+
+In the next section, we will discuss the timeline of developments in the text-to-video domain and the various methods proposed to address these challenges separately. On a higher level, text-to-video works either propose (i) new, higher quality datasets that are easier to learn from, (ii) methods to train such models without paired text-video data, or (iii) more computationally efficient methods to generate longer and higher resolution videos.
+
+## How to Generate Videos from Text?
+Let's take a look at how text-to-video generation works and the latest developments in this field. We will explore how text-to-video models have evolved, following a similar path to text-to-image research, and how the specific challenges of text-to-video generation have been tackled so far.
+
+Like the text-to-image task, early work on text-to-video generation only dates back a few years and started as proof-of-concept projects. The initial works predominantly use GAN and VAE-based approaches to auto-regressively generate frames given a caption (see [[1]](https://huggingface.co/papers/1710.00421), [[2]](https://huggingface.co/papers/1804.08264)). While these works provided the foundation for a new computer vision task, they are limited to low resolutions, short range, and singular, isolated motions.
+
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/140_text-to-video/example2.png" alt="drawing"><br>
+    <em>The cat and dog image has been taken from <a href=https://www.istockphoto.com/photos/dog-cat-love>here</a>.</em>
+</p>
+
+Taking inspiration from the success of large-scale pretrained transformer models in text (GPT-3) and image (DALL-E), the next surge of text-to-video generation research adopted transformer architectures. [Phenaki](https://arxiv.org/abs/2210.02399), [Make-A-Video](https://arxiv.org/abs/2209.14792), [NUWA](https://arxiv.org/abs/2111.12417), [VideoGPT](https://arxiv.org/abs/2104.10157) and [CogVideo](https://arxiv.org/abs/2205.15868) all propose transformer-based frameworks, while works such as [TATS](https://arxiv.org/abs/2204.03638) propose hybrid methods that combine VQGAN for image generation and a time-sensitive transformer module for sequential generation of frames. Out of these second wave of works, Phenaki is particularly interesting as it enables generating arbitrary long videos conditioned on a sequence of prompts, in other words, a story line. Similarly, [NUWA-Infinity](https://arxiv.org/abs/2207.09814) proposes an autoregressive over autoregressive generation mechanism for infinite image and video synthesis from text inputs, enabling the generation of long, HD quality videos. However, neither Phenaki or NUWA models are publicly available.
+
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/140_text-to-video/example3.png" alt="drawing"><br>
+    <em>The cat and dog image has been taken from <a href=https://www.istockphoto.com/photos/dog-cat-love>here</a>.</em>
+</p>
+
+The third and current wave of text-to-video models feature predominantly diffusion-based architectures. The remarkable success of diffusion models in diverse, hyper-realistic and contextually rich image generation has led to an interest to generalize diffusion modal to other domains such as audio, 3D, and more recently video. This wave of models is pioneered by [Video Diffusion Models](https://arxiv.org/pdf/2204.03458.pdf) (VDM) which extend diffusion models to the video domain, and [MagicVideo](https://arxiv.org/abs/2211.11018), which proposes a framework to generate video clips in a low-dimensional latent space and reports huge efficiency gains over VDM. Another notable mention is [Tune-a-Video](https://arxiv.org/abs/2212.11565), which fine tunes a pretrained text-to-image model with a single text-video pair and enables changing the video content while preserving the motion. The continuously expanding list of text-to-video diffusion models that followed include [Video LDM](https://arxiv.org/abs/2304.08818), [Text2Video-Zero](https://arxiv.org/abs/2303.13439), [Runway Gen1 and Gen2](https://arxiv.org/abs/2302.03011), and [NUWA-XL](https://arxiv.org/abs/2303.12346).
+
+Text2Video-Zero works in a fashion similar to ControlNet, such that it enables text-to-video generating and enables inputting combining text prompts with pose or edge data to guide the generation, as well as text-based editing of videos. As implied by its name, Text2Video-Zero is a zero-shot model that combines a trainable motion dynamics module with a pre-trained text-to-image Stable Diffusion model without using any paired text-video data. Similarly to Text2Video-Zero, Runway’s Gen-1 and Gen-2 models enable synthesizing videos guided by content described through text or images. Most of these works are trained on short video clips and rely on autoregressive generation with a sliding window to generate longer videos, inevitably resulting in a context gap. NUWA-XL addresses this exact issue and propose a “diffusion over diffusion” method to train models on 3376 frames. Finally, there are open source, unpublished text-to-video models and frameworks such as AliBaba / DAMO Vision Intelligence Lab’s ModelScope and Tencel’s VideoCrafter.
+
+## Datasets
+Like other vision-language models, text-to-video models are typically trained on large paired datasets videos and text descriptions. The videos in these datasets are typically split into short, fixed-length chunks and often limited to isolated actions with a few objects. While this is partly due to computational limitations and partly due to the difficulty of describing video content in a meaningful way, we see that developments in multimodal video-text datasets and text-to-video models are often entwined. While some work focus on coming up with better, more generalizable datasets that are easier to learn from, works such as [Phenaki](https://phenaki.video/?mc_cid=9fee7eeb9d#) explore alternative solutions such as combine text-image pairs with text-video pairs for the text-to-video task. Make-a-Video takes this even further by proposing using only text-image pairs to learn what the looks like and unimodal video data to learn spatio-temporal dependencies in an unsupervised fashion.
+
+Needless to say, these large datasets suffer from similar problems of that of text-image datasets. The most commonly used text-video dataset, [WebVid](https://m-bain.github.io/webvid-dataset/), consists of 10.7 million pairs of text-video pairs (52K video hours) and contains a fair amount of noisy samples with irrelevant video descriptions. Other datasets try to overcome this issue by focusing on specific tasks or domains. For example, the [Howto100M](https://www.di.ens.fr/willow/research/howto100m/) dataset consists of 136M video clips with captions that describe how to perform complex tasks such as cooking, hand crafting, gardening and fitness step by step. Similarly, the [QuerYD](https://www.robots.ox.ac.uk/~vgg/data/queryd/) dataset focuses on the event localization task such that the captions of videos describe the relative location of objects and actions in detail. ********[CelebV-Text](https://celebv-text.github.io/) is a large-scale facial text-video dataset of over 70K videos in an effort to generate videos with realistic faces, emotions and gestures.
+
+## Text-to-Video at Hugging Face
+Using Hugging Face Diffusers, you can easily download, run and fine-tune various pre-trained text-to-video models by Alibaba / DAMO Vision Intelligence Lab. See a full list of models over here. Note that we are currently working on integrating other exciting works to Diffusers and 🤗 Transformers.
+
+### Hugging Face Demos
+At Hugging Face, our goal is to make it easier to use and build upon state-of-the-art research. Head over to our hub to see and play around with Spaces demos contributed the 🤗 team, countless community contributors and research authors. At the moment, we host demos for [VideoGPT](https://huggingface.co/spaces/akhaliq/VideoGPT), [CogVideo](https://huggingface.co/spaces/THUDM/CogVideo), [ModelScope Text-to-Video](https://huggingface.co/spaces/damo-vilab/modelscope-text-to-video-synthesis), and [Text2Video Zero](https://huggingface.co/spaces/PAIR/Text2Video-Zero) with many more to come. Apart from using demos to experiment with pretrained text-to-video models, you can also use the [Tune-a-Video training demo](https://huggingface.co/spaces/Tune-A-Video-library/Tune-A-Video-Training-UI) to fine-tune an existing text-to-image model with your own text-video pair. 
+
+Keep in mind that all Spaces on the 🤗 Hub is a Git repo that you can clone and run on your local or desired settings. Let’s clone the ModelScope demo, install the requirements and run it locally.
+
+```
+git clone https://huggingface.co/spaces/damo-vilab/modelscope-text-to-video-synthesis
+cd modelscope-text-to-video-synthesis
+pip install -r requirements.txt
+python app.py
+```
+
+### Community Contributions and Open Source Text-to-Video Projects
+Finally, there are various open source projects and models that are not on the hub. Some notable mentions are Phil Wang’s (aka lucidrains) unofficial implementations of [Imagen](https://github.com/lucidrains/imagen-pytorch), [Phenaki](https://github.com/lucidrains/phenaki-pytorch), [NUWA](https://github.com/lucidrains/nuwa-pytorch), [Make-a-Video](https://github.com/lucidrains/make-a-video-pytorch) and [Video Diffusion Models](https://github.com/lucidrains/video-diffusion-pytorch). Another exciting project by [ExponentialML](https://github.com/ExponentialML/Text-To-Video-Finetuning) builds on top of 🤗 diffusers to finetune ModelScope Text-to-Video.
+
+## Conclusion
+Text-to-video models are next in line in the long list of incredible advances in multi-modal models. In this blog post, we covered the constraints, unique challenges and the current state of text-to-video generation models. We also saw how architectural paradigms originally designed for other tasks enables giant leaps in the text-to-video generation task and what this means for future research. While the developments are impressive, the text-to-video task still has a long way to go compared to text-to-image models. Finally, we also showed how you can use these models to perform various tasks using the demos available on the Hub or as a part of 🤗 Diffusers pipelines.
+
+That was it! We are continuing to integrate the most impactful computer vision and multi-modal models and would love to hear back from you. To stay up to date with the latest news in computer vision and multi-modal research, you can follow us on Twitter: **[@adirik](https://twitter.com/https://twitter.com/alaradirik)**, **[@a_e_roberts](https://twitter.com/a_e_roberts)**, [@osanseviero](https://twitter.com/NielsRogge), [@risingsayak](https://twitter.com/risingsayak) and **[@huggingface](https://twitter.com/huggingface)**.
