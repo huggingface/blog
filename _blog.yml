@@ -2067,7 +2067,7 @@
 - local: if
   title: "Running IF with 🧨 diffusers on a Free Tier Google Colab"
   author: williamberman
-  thumbnail: /blog/assets/if/thumbnail.png
+  thumbnail: /blog/assets/if/thumbnail.jpg
   date: April 26, 2023
   tags:
     - guide
