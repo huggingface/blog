@@ -22,7 +22,7 @@ translators:
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/gpt3.png"/>
 </p>
 
-一旦我们在使用大语言模型时发现了这种不良结果，我们就可以制定一些策略来远离它们，像 [生成歧视者指导序列生成 (GEDI)](https://arxiv.org/pdf/2009.06367.pdf) 或 [插入和播放语言模型 (PPLM)](https://arxiv.org/pdf/1912.02164.pdf) 都是用来指导 GPT3 生成的。以下是使用相同提示 (Prompt) 的示例，但使用 GEDI 控制 GPT3 生成。
+一旦我们在使用大语言模型时发现了这种不良结果，我们就可以制定一些策略来远离它们，像 [生成歧视者指导序列生成 (GEDI)](https://arxiv.org/pdf/2009.06367.pdf) 或 [即插即用语言模型 (PPLM)](https://arxiv.org/pdf/1912.02164.pdf) 都是用来指导 GPT3 生成的。以下是使用相同提示 (Prompt) 的示例，但使用 GEDI 控制 GPT3 生成。
 
 <p align="center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/red-teaming/gedi.png"/>
