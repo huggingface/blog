@@ -30,7 +30,35 @@ At the moment, you have three main avenues you can explore to get the most out o
 
 Second, when you know you’ll get concurrent text generation requests, you can batch the inputs and massively increase the throughput with a small latency penalty. The model layer weights loaded into the device are now used on several input rows in parallel, which means that you’ll get more tokens out for approximately the same memory bandwidth burden. The catch with batching is that you need additional device memory (or to offload the memory somewhere) – at the end of this spectrum, you can see projects like [FlexGen](https://github.com/FMInference/FlexGen) which optimize throughput at the expense of latency.
 
-<!-- [CODE EXAMPLE WITH TIME AND BATCHING] -->
+```python
+# Example showcasing the impact of batched generation. Measured on a RTX3090
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import time
+
+tok = AutoTokenizer.from_pretrained("distilgpt2")
+model = AutoModelForCausalLM.from_pretrained("distilgpt2").to("cuda")
+inputs = tok(["Hello world"], return_tensors="pt").to("cuda")
+
+def print_tokens_per_second(batch_size):
+    new_tokens = 100
+    cumulative_time = 0
+
+    # warmup
+    model.generate(
+        **inputs, do_sample=True, max_new_tokens=new_tokens, num_return_sequences=batch_size
+    )
+
+    for _ in range(10):
+        start = time.time()
+        model.generate(
+            **inputs, do_sample=True, max_new_tokens=new_tokens, num_return_sequences=batch_size
+        )
+        cumulative_time += time.time() - start
+    print(f"Tokens per second: {new_tokens * batch_size * 10 / cumulative_time:.1f}")
+
+print_tokens_per_second(1)   # Tokens per second: 418.3
+print_tokens_per_second(64)  # Tokens per second: 16266.2 (39x more tokens per second)
+```
 
 Finally, if you have multiple devices available to you, you can distribute the workload using [Tensor Parallelism](https://huggingface.co/docs/transformers/main/en/perf_train_gpu_many#tensor-parallelism) and obtain lower latency. With Tensor Parallelism, you split the memory bandwidth burden across multiple devices, but you now have to consider inter-device communication bottlenecks in addition to the monetary cost of running multiple devices. The benefits depend largely on the model size: models that easily fit on a single consumer device see very limited benefits. Taking the results from this [DeepSpeed blog post](https://www.microsoft.com/en-us/research/blog/deepspeed-accelerating-large-scale-model-inference-and-training-via-system-optimizations-and-compression/), you see that you can spread a 17B parameter model across 4 GPUs to reduce the latency by 1.5x (Figure 7).
 
@@ -41,7 +69,20 @@ These three types of improvements can be used in tandem, resulting in [high thro
 You’ve read above that each model forward pass yields the logits for the next token, but that’s actually an incomplete description. During text generation, the typical iteration consists in the model receiving as input the latest generated token plus cached internal computations for all other previous inputs, returning the next token logits. Caching is used to avoid redundant computations, resulting in slightly faster forward passes, but it’s not mandatory. When caching is disabled, the input contains the entire sequence of tokens generated so far and the output contains the logits corresponding to the next token for *all positions* in the sequence! The logits at position N correspond to the distribution for the next token if the input consisted in the first N tokens, ignoring all subsequent tokens in the sequence. In the particular case of greedy decoding, if you pass the generated sequence as input and apply the argmax operator to the resulting logits, you will obtain the generated sequence back.
 
 
-<!-- [CODE WITH EXAMPLE] -->
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+tok = AutoTokenizer.from_pretrained("distilgpt2")
+model = AutoModelForCausalLM.from_pretrained("distilgpt2")
+
+inputs = tok(["The"], return_tensors="pt")
+generated = model.generate(**inputs, do_sample=False, max_new_tokens=10)
+forward_confirmation = model(generated).logits.argmax(-1)
+
+# We exclude the opposing tips from each sequence: the forward pass returns
+# the logits for the next token, so it is shifted by one position.
+print(generated[:-1].tolist() == forward_confirmation[1:].tolist())  # True
+```
 
 
 This means that you can use a model forward pass for a different purpose: in addition to feeding some tokens to predict the next one, you can also pass a sequence to the model and double-check whether the model would generate that same sequence (or part of it).
@@ -77,13 +118,30 @@ Wrapping all up, here’s our original implementation of the assisted generation
 We’ve designed the API in 🤗 transformers such that this process is hassle-free for you. All you need to do is to pass the assistant model under the new `assistant_model` keyword argument and reap the latency gains! At the time of the release of this blog post, assisted generation is limited to a batch size of 1.
 
 
-<!-- [CODE EXAMPLE WITH ASSISTED GENERATION] -->
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
+
+prompt = "Alice and Bob"
+checkpoint = "EleutherAI/pythia-1.4b-deduped"
+assistant_checkpoint = "EleutherAI/pythia-160m-deduped"
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+inputs = tokenizer(prompt, return_tensors="pt").to(device)
+
+model = AutoModelForCausalLM.from_pretrained(checkpoint).to(device)
+assistant_model = AutoModelForCausalLM.from_pretrained(assistant_checkpoint).to(device)
+outputs = model.generate(**inputs, assistant_model=assistant_model)
+print(tokenizer.batch_decode(outputs, skip_special_tokens=True))
+# ['Alice and Bob are sitting in a bar. Alice is drinking a beer and Bob is drinking a']
+```
 
 
-Is the additional complexity worth it? Let’s have a look at the latency numbers for the greedy decoding case (results for sampling are in the next section), considering a batch size of 1. These results were pulled directly out of 🤗  transformers without any additional optimizations, so you should be able to reproduce them in your setup.
+Is the additional internal complexity worth it? Let’s have a look at the latency numbers for the greedy decoding case (results for sampling are in the next section), considering a batch size of 1. These results were pulled directly out of 🤗  transformers without any additional optimizations, so you should be able to reproduce them in your setup.
 
 
-<!-- [GRADIO WITH GREEDY DECODING PERFORMANCE NUMBERS] -->
+<!-- [SPACE WITH GREEDY DECODING PERFORMANCE NUMBERS] -->
 
 
 Glancing at the collected numbers, we see that assisted generation can deliver significant latency reductions in diverse settings, but it is not a silver bullet – you should benchmark it before applying it to your use case. We can conclude that assisted generation:
@@ -99,7 +157,7 @@ Greedy decoding is suited for input-grounded tasks (automatic speech recognition
 Drawing samples from a probability distribution for the next token will cause our greedy assistant to fail more often, reducing its latency benefits. However, we can control how sharp the probability distribution for the next tokens is, using the temperature coefficient that’s present in most sampling-based applications. At one extreme, with temperatures close to 0, sampling will approximate greedy decoding, favoring the most likely token. At the other extreme, with the temperature set to values much larger than 1, sampling will be chaotic, drawing from a uniform distribution. Low temperatures are, therefore, more favorable to your assistant model, retaining most of the latency benefits from assisted generation, as we can see below.
 
 
-<!-- [TEMPERATURE RESULTS] -->
+<!-- [TEMPERATURE RESULTS, SHOW THAT LATENCY INCREASES STEADILY WITH TEMP] -->
 
 
 Why do you see it for yourself, so get a feeling of assisted generation?
