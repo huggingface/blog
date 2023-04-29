@@ -13,6 +13,9 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
+This article is also available in Chinese [简体中文](https://huggingface.co/blog/zh/chinese-language-blog).
+
+
 ## Welcome to our blog for Chinese speakers!
 
 We are delighted to introduce Hugging Face’s new blog for Chinese speakers: [hf.co/blog/zh](https://huggingface.co/blog/zh)! A committed group of volunteers has made this possible by translating our invaluable resources, including blog posts and comprehensive courses on transformers, diffusion, and reinforcement learning. This step aims to make our content accessible to the ever-growing Chinese AI community, fostering mutual learning and collaboration.
