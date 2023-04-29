@@ -1,6 +1,5 @@
 ---
-title: "Exploring Vicuna: How to Run a Chatgpt-like Chatbot on a Single AMD GPU
-with ROCm" 
+title: "Run a Chatgpt-like Chatbot on a Single AMD GPU with ROCm" 
 thumbnail: /blog/assets/chatbot-amd-gpu/thumbnail.gif
 authors:
 - user: andyll7772
@@ -8,8 +7,7 @@ authors:
 ---
 
 <h1>
-Exploring Vicuna: How to Run a Chatgpt-like Chatbot on a Single AMD GPU
-with ROCm</h1>
+Run a Chatgpt-like Chatbot on a Single AMD GPU with ROCm</h1>
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -49,9 +47,9 @@ conversations collected from ShareGPT.com via public APIs. According to
 initial assessments where GPT-4 is used as a reference, Vicuna-13B has
 achieved over 90%\* quality compared to OpenAI ChatGPT and Google Bard.
 
-<img src="./media/image1.png" style="width:5.2971in;height:2.45783in" />
-
-Source: Vicuna papar
+<p align="center">
+  <img src="assets/chatbot-amd-gpu/01.png" style="width: 60%; height: auto;">
+</p>
 
 It was released on [Github](https://github.com/lm-sys/FastChat) on Apr
 11, just a few weeks ago. It is worth mentioning that the data set,
@@ -73,9 +71,10 @@ bit precision. As illustrated below, for models with parameters larger
 than 10B, the 4-bit or 3-bit GPTQ can achieve the comparable accuracy
 with fp16.
 
-<img src="./media/image2.png" style="width:6.5in;height:2.75833in"
-alt="Chart, line chart Description automatically generated" />
-
+<p align="center">
+  <img src="assets/chatbot-amd-gpu/02.png" style="width: 70%; height: auto;">
+</p>
+  
 Moreover, large parameters of these models also have a severely negative
 effect on GPT latency because GPT token generation is more limited by
 DDR bandwidth (GB/s) than computation (TFLOPs or TOPs) itself. For this
@@ -87,9 +86,10 @@ Refer to the GPTQ quantization papers and github repo:
 By leveraging this technique, several 4-bit quantized Vicuna models are
 available from Hugging Face as follows,
 
-<img src="./media/image3.png" style="width:4.30729in;height:1.94288in"
-alt="Graphical user interface, text, application Description automatically generated" />
-
+<p align="center">
+  <img src="assets/chatbot-amd-gpu/03.png" style="width: 50%; height: auto;">
+</p>
+  
 ## Running Vicuna 13B Model on AMD GPU with ROCm
 
 To run the Vicuna 13B model on an AMD GPU, we need to leverage the power
@@ -226,27 +226,31 @@ space in fp16 datatype. The latency penalty and accuracy penalty are
 also very minimal and the related metrics are provided at the end of
 this article.
 
-<img src="./media/image4.png" style="width:5.27778in;height:0.82465in"
-alt="Text Description automatically generated" />
+<p align="center">
+  <img src="assets/chatbot-amd-gpu/04.png" style="width: 60%; height: auto;">
+</p>
 
 **Test the quantized Vicuna model in the Web API server**
 
 Let us give it a try. First, let us use fp16 Vicuna model for language
 translation.
 
-<img src="./media/image5.png" style="width:6.5in;height:1.87569in" />
+<p align="center">
+  <img src="assets/chatbot-amd-gpu/05.png" style="width: 80%; height: auto;">
+</p>
 
-It does a better job than me.
+It does a better job than me. Next, let us ask something about the soccer. The answer looks good to me.
 
-Next, let us ask something about the soccer. The answer looks good to
-me.
-
-<img src="./media/image6.png" style="width:6.5in;height:2.29306in" />
-
+<p align="center">
+  <img src="assets/chatbot-amd-gpu/06.png" style="width: 80%; height: auto;">
+</p>
+  
 When we switch to the 4-bit model, for the same question, the answer is
 a bit different. There is a duplicated “Lionel Messi” in it.
 
-<img src="./media/image7.png" style="width:6.5in;height:2.40764in" />
+<p align="center">
+  <img src="assets/chatbot-amd-gpu/07.png" style="width: 80%; height: auto;">
+</p>
 
 **Vicuna fp16 and 4bit quantized model comparison**
 
@@ -266,6 +270,10 @@ Test environment:
   actual DDR size consumption is larger than model itself due to caching
   for Input and output token spaces.
 
+<p align="center">
+  <img src="assets/chatbot-amd-gpu/08.png" style="width: 70%; height: auto;">
+</p>
+
 **Metrics – Accuracy (PPL: Perplexity)**
 
 - Measured on 2048 examples of C4
@@ -277,6 +285,10 @@ Test environment:
 
 - Vicuna 13b – quant (4bit/fp16): 4bits datatype parameter, fp16 Matmul
 
+<p align="center">
+  <img src="assets/chatbot-amd-gpu/09.png" style="width: 70%; height: auto;">
+</p>
+
 **Metrics – Latency (Token generation latency, ms)**
 
 - Measured during token generation phases.
@@ -287,12 +299,15 @@ Test environment:
 
 - Vicuna 13b – quant (4bit/fp16): 4bits datatype parameter, fp16 Matmul
 
+<p align="center">
+  <img src="assets/chatbot-amd-gpu/10.png" style="width: 70%; height: auto;">
+</p>
+
 **Kernels in fp16 and 4bit quantization**
 
 1\. Vicuna 13b – baseline (fp16)
 
-<img src="./media/image8.png"
-style="width:5.90551in;height:2.23917in" />
+<img src="assets/chatbot-amd-gpu/11.png">
 
 - Latency: 1.1ms/layer, measured on MI210
 
@@ -303,8 +318,7 @@ style="width:5.90551in;height:2.23917in" />
 
 2\. Vicuna 13b – quant (4bit quantization)
 
-<img src="./media/image9.png"
-style="width:5.90551in;height:2.62057in" />
+<img src="assets/chatbot-amd-gpu/12.png">
 
 - Latency: 1.4ms/layer, measured on MI210
 
@@ -343,9 +357,9 @@ Vicuna delta parameters from Huggingface individually. Currently, 7b and
 
 <https://huggingface.co/models?sort=downloads&search=lmsys>
 
-<img src="./media/image10.png" style="width:2.57703in;height:2.14222in"
-alt="Graphical user interface, text, application, email Description automatically generated" /><img src="./media/image11.png" style="width:2.64544in;height:2.01903in"
-alt="Graphical user interface, text, application, email Description automatically generated" />
+<p align="center">
+  <img src="assets/chatbot-amd-gpu/13.png" style="width: 60%; height: auto;">
+</p>
 
 **b. Convert LLaMA to Vicuna by using Vicuna-delta model**
 ```
@@ -392,10 +406,9 @@ Now the model is ready and saved as
 The more optimized kernel implementation in
 <https://github.com/oobabooga/GPTQ-for-LLaMa/blob/57a26292ed583528d9941e79915824c5af012279/quant_cuda_kernel.cu#L891>
 
-is targeting at A100 GPUs and not compatible with ROCM5.4.3 HIPIFY
+targets at A100 GPU and not compatible with ROCM5.4.3 HIPIFY
 toolkits. Please modify the kernel codes as follows. Do the same for
 VecQuant2MatMulKernelFaster, VecQuant3MatMulKernelFaster,
 VecQuant4MatMulKernelFaster kernels.
 
-<img src="./media/image12.png" style="width:6.93838in;height:1.81838in"
-alt="A screenshot of a computer Description automatically generated with medium confidence" />
+<img src="assets/chatbot-amd-gpu/14.png" style="width: 100%; height: auto;">
