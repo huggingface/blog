@@ -3,7 +3,7 @@ title: "Run a Chatgpt-like Chatbot on a Single AMD GPU with ROCm"
 thumbnail: /blog/assets/chatbot-amd-gpu/thumbnail.png
 authors:
 - user: andyll7772
-- user: your_coauthor
+- user: seungrok81
 ---
 
 <h1>
