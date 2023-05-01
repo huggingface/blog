@@ -17,17 +17,17 @@ In the last five years, Transformer models [[1](https://arxiv.org/abs/1706.03762
 
 However, for all their greatness, Transformers can be challenging to deploy in production. On top of the infrastructure plumbing typically associated with model deployment, which we largely solved with our [Inference Endpoints](https://huggingface.co/inference-endpoints) service, Transformers are large models which routinely exceed the multi-gigabyte mark. Large language models (LLMs) like [GPT-J-6B](https://huggingface.co/EleutherAI/gpt-j-6B), [Flan-T5](https://huggingface.co/google/flan-t5-xxl), or [Opt-30B](https://huggingface.co/facebook/opt-30b) are in the tens of gigabytes, not to mention behemoths like [BLOOM](https://huggingface.co/bigscience/bloom), our very own LLM, which clocks in at 350 gigabytes. 
 
-Fitting these models on a single GPU can be quite difficult, let alone getting the high throughput and low inference latency that applications require, like conversational applications and search. So far, ML experts have designed complex manual techniques to slice large models, distribute them on a cluster of GPUs, and optimize their latency. Unfortunately, this work is extremely difficult, time-consuming, and completely out of reach for many ML practitioners. 
+Fitting these models on a single accelerator can be quite difficult, let alone getting the high throughput and low inference latency that applications require, like conversational applications and search. So far, ML experts have designed complex manual techniques to slice large models, distribute them on a cluster of accelerators, and optimize their latency. Unfortunately, this work is extremely difficult, time-consuming, and completely out of reach for many ML practitioners. 
 
-At Hugging Face, we're democratizing ML and always looking to partner with companies who also believe that every developer and organization should benefit from state-of-the-art models. For this purpose, we're excited to partner with Amazon Web Services to optimize Hugging Face Transformers for AWS [Inferentia 2](https://aws.amazon.com/machine-learning/inferentia/)! It’s a new custom inference accelerator that delivers unprecedented levels of throughput, latency, performance per watt, and scalability.
+At Hugging Face, we're democratizing ML and always looking to partner with companies who also believe that every developer and organization should benefit from state-of-the-art models. For this purpose, we're excited to partner with Amazon Web Services to optimize Hugging Face Transformers for AWS [Inferentia 2](https://aws.amazon.com/machine-learning/inferentia/)! It’s a new purpose-built inference accelerator that delivers unprecedented levels of throughput, latency, performance per watt, and scalability.
 
-## Introducing AWS Inferentia 2
+## Introducing AWS Inferentia2
 
-AWS Inferentia 2 is the successor to Inferentia launched in 2019. Powered by Inferentia, Amazon EC2 Inf1 instances delivered 25% higher throughput and 70% lower cost than comparable G5 instances based on NVIDIA A10G GPU, and with Inferentia 2, AWS is pushing the envelope again. 
+AWS Inferentia2 is the next generation to Inferentia1 launched in 2019. Powered by Inferentia1, Amazon EC2 Inf1 instances delivered 25% higher throughput and 70% lower cost than comparable G5 instances based on NVIDIA A10G GPU, and with Inferentia2, AWS is pushing the envelope again. 
 
 The new Inferentia2 chip delivers a 4x throughput increase and a 10x latency reduction compared to Inferentia. Likewise, the new [Amazon EC2 Inf2](https://aws.amazon.com/de/ec2/instance-types/inf2/) instances have up to 2.6x better throughput, 8.1x lower latency, and 50% better performance per watt than comparable G5 instances. Inferentia 2 gives you the best of both worlds: cost-per-inference optimization thanks to high throughput and response time for your application thanks to low inference latency.
 
-Inf2 instances are available in multiple sizes, which are equipped with between 1 to 12 Inferentia 2 chips. When several chips are present, they are interconnected by a blazing-fast ring topology for distributed inference on large models. For example, the largest instance size, inf2.48xlarge, has 12 chips and enough memory to load a 175-billion parameter model like GPT-3 or BLOOM.
+Inf2 instances are available in multiple sizes, which are equipped with between 1 to 12 Inferentia 2 chips. When several chips are present, they are interconnected by a blazing-fast direct Inferentia2 to Inferentia2 connectivity for distributed inference on large models. For example, the largest instance size, inf2.48xlarge, has 12 chips and enough memory to load a 175-billion parameter model like GPT-3 or BLOOM.
 
 Thankfully none of this comes at the expense of development complexity. With [optimum neuron](https://github.com/huggingface/optimum-neuron), you don't need to slice or modify your model. Because of the native integration in [AWS Neuron SDK](https://github.com/aws-neuron/aws-neuron-sdk), all it takes is a single line of code to compile your model for Inferentia 2. You can experiment in minutes! Test the performance your model could reach on Inferentia 2 and see for yourself.
 
@@ -38,7 +38,7 @@ Speaking of, let’s show you how several Hugging Face models run on Inferentia 
 We evaluated some of the most popular NLP models from the [Hugging Face Hub](https://huggingface.co/models) including BERT, RoBERTa, DistilBERT, and vision models like Vision Transformers.  
 
 The first benchmark compares the performance of Inferentia, Inferentia 2, and GPUs. We ran all experiments on AWS with the following instance types: 
-* Inferentia - [inf1.2xlarge](https://aws.amazon.com/ec2/instance-types/inf1/?nc1=h_ls) powered by a single Inferentia chip.
+* Inferentia1 - [inf1.2xlarge](https://aws.amazon.com/ec2/instance-types/inf1/?nc1=h_ls) powered by a single Inferentia chip.
 * Inferentia2 - [inf2.xlarge](https://aws.amazon.com/ec2/instance-types/inf2/?nc1=h_ls) powered by a single Inferentia2 chip.
 * GPU - [g5.2xlarge](https://aws.amazon.com/ec2/instance-types/g5/) powered by a single NVIDIA A10G GPU.
 

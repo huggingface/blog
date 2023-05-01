@@ -120,7 +120,7 @@ You can also load any dataset from the Hugging Face Hub to get prompts that will
 
 This benchmark was performed with Transformers v4.27.1, SynapseAI v1.8.0 and an install from source of Optimum Habana.
 
-For GPUs, [this repo](https://github.com/huggingface/transformers-bloom-inference/tree/main/bloom-inference-scripts) contains the script that led to the results that were previously presented in [this blog post](https://huggingface.co/blog/bloom-inference-pytorch-scripts). To use CUDA graphs, static shapes are necessary and this is not supported in 🤗 Transformers. You can use [this repo](https://github.com/HabanaAI/Model-References/tree/1.8.0/PyTorch/nlp/bloom) written by the Habana team to enable them.
+For GPUs, [here](https://github.com/huggingface/transformers-bloom-inference/blob/main/bloom-inference-scripts/bloom-ds-inference.py) is the script that led to the results that were previously presented in [this blog post](https://huggingface.co/blog/bloom-inference-pytorch-scripts) (and [here](https://github.com/huggingface/transformers-bloom-inference/tree/main/bloom-inference-scripts#deepspeed-inference) are the instructions to use it). To use CUDA graphs, static shapes are necessary and this is not supported in 🤗 Transformers. You can use [this repo](https://github.com/HabanaAI/Model-References/tree/1.8.0/PyTorch/nlp/bloom) written by the Habana team to enable them.
 
 
 ## Conclusion

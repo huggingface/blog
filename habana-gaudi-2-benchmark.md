@@ -85,18 +85,18 @@ One of the main new features of 🤗 Optimum Habana release 1.3 is [the support 
 [This script](https://github.com/huggingface/optimum-habana/tree/main/examples/stable-diffusion) was run for a batch size of 8 samples. It uses the [`Habana/stable-diffusion`](https://huggingface.co/Habana/stable-diffusion) Gaudi configuration.
 
 The results we got, which are consistent with the numbers published by Habana [here](https://developer.habana.ai/resources/habana-models-performance/), are displayed in the table below.
-**Gaudi2 showcases latencies that are x3.18 faster than first-gen Gaudi (3.53s versus 1.11s) and x2.37 faster than Nvidia A100 (2.63s versus 1.11s).** It can also support bigger batch sizes.
+**Gaudi2 showcases latencies that are x3.19 faster than first-gen Gaudi (3.45s versus 1.08s) and x2.44 faster than Nvidia A100 (2.63s versus 1.08s).** It can also support bigger batch sizes.
 
 <center>
 
-|   | First-gen Gaudi (BS=8) | Gaudi2 (BS=8) | A100 (BS=1) |
-|:-:|:----------------:|:----------------:|:-----------:|
-| Latency (s/img) | 3.53 | 1.11 | 2.63 |
-| Speedup | x1.0 | x3.18 | x1.34 |
+|                 | First-gen Gaudi (BS=8) | Gaudi2 (BS=8) | A100 (BS=1) |
+|:---------------:|:----------------------:|:-------------:|:-----------:|
+| Latency (s/img) | 3.45                   | 1.08          | 2.63        |
+| Speedup         | x1.0                   | x3.19         | x1.31       |
 
 </center>
 
-*Update: the figures above were updated as SynapseAI 1.8 and Optimum Habana 1.4 bring an additional speedup on first-gen Gaudi and Gaudi2.*
+*Update: the figures above were updated as SynapseAI 1.9 and Optimum Habana 1.5 bring an additional speedup on first-gen Gaudi and Gaudi2.*
 
 *BS* is the batch size.
 The Gaudi runs were performed in mixed precision (bf16/fp32) and the A100 runs in fp16 (more information [here](https://huggingface.co/docs/diffusers/optimization/fp16)). All runs were *single-device* runs.
