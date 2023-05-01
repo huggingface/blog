@@ -24,7 +24,7 @@ With so many developments happening in such a short time, it may be difficult to
 
 Only two years ago, the first open-vocabulary, high-quality text-to-image generative models emerged. The first wave of text-to-image models, including VQGAN-CLIP, XMC-GAN, and GauGAN2, all had GAN architectures. They were quickly followed by OpenAI's DALL-E, a transformer-based model released in early 2021 that achieved huge success. DALL-E was followed by DALL-E 2 in April 2022, along with a new wave of diffusion models pioneered by Stable Diffusion and Imagen. The huge success of Stable Diffusion led to many productionized diffusion models, such as Midjourney and RunwayML GEN-1.
 
-Despite the impressive capabilities of diffusion models in text-to-image generation, these models are typically trained on very short clips, meaning they require a computationally expensive and slow sliding window approach to generate long videos. As a result, text-to-video models not only are notoriously difficult to deploy and scale but also remain limited in context and length. 
+Despite the impressive capabilities of diffusion models in text-to-image generation, these models are typically trained on very short clips, meaning they require a computationally expensive and slow sliding window approach to generate long videos. As a result, text-to-video models are notoriously difficult to deploy and scale and remain limited in context and length.
 
 The text-to-video task faces unique challenges on multiple fronts. Some of these main challenges can be listed as follows:  
 
