@@ -442,3 +442,12 @@
   tags:
     - partnerships
     - community
+
+- local: deep-learning-with-proteins
+  title: "蛋白质深度学习"
+  author: rocketknight1
+  thumbnail: /blog/assets/119_deep_learning_with_proteins/folding_example.png
+  date: December 2, 2022
+  tags:
+    - guide
+    - fine-tuning
