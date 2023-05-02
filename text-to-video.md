@@ -22,7 +22,7 @@ In this blog post, we will discuss the past, present, and future of text-to-vide
 ## Text-to-Video vs. Text-to-Image
 With so many developments happening in such a short time, it may be difficult to keep up with the current state of text-to-image generative models. Let's do a quick recap first.
 
-Only two years ago, the first open-vocabulary, high-quality text-to-image generative models emerged. The first wave of text-to-image models, including VQGAN-CLIP, XMC-GAN, and GauGAN2, all had GAN architectures. They were quickly followed by OpenAI's DALL-E, a transformer-based model released in early 2021 that achieved huge success. DALL-E was followed by DALL-E 2 in April 2022, along with a new wave of diffusion models pioneered by Stable Diffusion and Imagen. The huge success of Stable Diffusion led to many productionized diffusion models, such as Midjourney and RunwayML GEN-1.
+Only two years ago, the first open-vocabulary, high-quality text-to-image generative models emerged. The first wave of text-to-image models, including VQGAN-CLIP, XMC-GAN, and GauGAN2, all had GAN architectures. They were quickly followed by OpenAI's DALL-E, a transformer-based model released in early 2021 that achieved huge success. DALL-E was followed by DALL-E 2 in April 2022, along with a new wave of diffusion models pioneered by Stable Diffusion and Imagen. The huge success of Stable Diffusion led to many productionized diffusion models, such as DreamStudio and RunwayML GEN-1, and integration with existing products such as Midjourney.
 
 Despite the impressive capabilities of diffusion models in text-to-image generation, these models are typically trained on very short clips, meaning they require a computationally expensive and slow sliding window approach to generate long videos. As a result, text-to-video models are notoriously difficult to deploy and scale and remain limited in context and length.
 
@@ -61,16 +61,30 @@ Like other vision-language models, text-to-video models are typically trained on
 These large datasets suffer from similar problems of that of text-image datasets. The most commonly used text-video dataset, [WebVid](https://m-bain.github.io/webvid-dataset/), consists of 10.7 million pairs of text-video pairs (52K video hours) and contains a fair amount of noisy samples with irrelevant video descriptions. Other datasets try to overcome this issue by focusing on specific tasks or domains. For example, the [Howto100M](https://www.di.ens.fr/willow/research/howto100m/) dataset consists of 136M video clips with captions that describe how to perform complex tasks such as cooking, handcrafting, gardening, and fitness step-by-step. Similarly, the [QuerYD](https://www.robots.ox.ac.uk/~vgg/data/queryd/) dataset focuses on the event localization task such that the captions of videos describe the relative location of objects and actions in detail. [CelebV-Text](https://celebv-text.github.io/) is a large-scale facial text-video dataset of over 70K videos to generate videos with realistic faces, emotions, and gestures.
 
 ## Text-to-Video at Hugging Face
-Using Hugging Face Diffusers, you can easily download, run and fine-tune various pre-trained text-to-video models by Alibaba / DAMO Vision Intelligence Lab. See a full list of models over here. Note that we are currently working on integrating other exciting works to Diffusers and 🤗 Transformers.
+Using Hugging Face Diffusers, you can easily download, run and fine-tune various pre-trained text-to-video models by Alibaba / DAMO Vision Intelligence Lab. See a full list of models over [here](https://huggingface.co/damo-vilab). Note that we are currently working on integrating other exciting works to Diffusers and 🤗 Transformers.
 
 ### Hugging Face Demos
-At Hugging Face, our goal is to make it easier to use and build upon state-of-the-art research. Head over to our hub to see and play around with Spaces demos contributed the 🤗 team, countless community contributors and research authors. At the moment, we host demos for [VideoGPT](https://huggingface.co/spaces/akhaliq/VideoGPT), [CogVideo](https://huggingface.co/spaces/THUDM/CogVideo), [ModelScope Text-to-Video](https://huggingface.co/spaces/damo-vilab/modelscope-text-to-video-synthesis), and [Text2Video Zero](https://huggingface.co/spaces/PAIR/Text2Video-Zero) with many more to come. Apart from using demos to experiment with pretrained text-to-video models, you can also use the [Tune-a-Video training demo](https://huggingface.co/spaces/Tune-A-Video-library/Tune-A-Video-Training-UI) to fine-tune an existing text-to-image model with your own text-video pair. 
+At Hugging Face, our goal is to make it easier to use and build upon state-of-the-art research. Head over to our hub to see and play around with Spaces demos contributed the 🤗 team, countless community contributors and research authors. At the moment, we host demos for [VideoGPT](https://huggingface.co/spaces/akhaliq/VideoGPT), [CogVideo](https://huggingface.co/spaces/THUDM/CogVideo), [ModelScope Text-to-Video](https://huggingface.co/spaces/damo-vilab/modelscope-text-to-video-synthesis), and [Text2Video-Zero](https://huggingface.co/spaces/PAIR/Text2Video-Zero) with many more to come. To see what we can do with these models, let's take a look at the Text2Video-Zero demo. This demo not only illustrates text-to-video generation but also enables multiple other generation modes for text-guided video editing and joint conditional video generation using pose, depth and edge inputs along with text prompts.
 
-<p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/140_text-to-video/tune-a-video-demo.png" alt="spaces-demo"><br>
-</p>
+<iframe
+	src="https://pair-text2video-zero.hf.space"
+	frameborder="0"
+	width="850"
+	height="450"
+></iframe>
 
-Keep in mind that all Spaces on the 🤗 Hub is a Git repo that you can clone and run on your local or desired settings. Let’s clone the ModelScope demo, install the requirements and run it locally.
+
+Apart from using demos to experiment with pretrained text-to-video models, you can also use the [Tune-a-Video training demo](https://huggingface.co/spaces/Tune-A-Video-library/Tune-A-Video-Training-UI) to fine-tune an existing text-to-image model with your own text-video pair. To try it out, upload a video of your choosing and enter a text prompt that describes the video. Once the training is done, you can upload it to the Hub under  Tune-a-Video community or your own username either publicly or privately. Once the training is done, simply head over to the *Run* tab of the demo to generate videos from any text prompt. 
+
+<iframe
+	src="https://tune-a-video-library-tune-a-video-training-ui.hf.space"
+	frameborder="0"
+	width="850"
+	height="450"
+></iframe>
+
+
+Keep in mind that all Spaces on the 🤗 Hub is a Git repo that you can clone and run on your local or deployment environment. Let’s clone the ModelScope demo, install the requirements and run it locally.
 
 ```
 git clone https://huggingface.co/spaces/damo-vilab/modelscope-text-to-video-synthesis
@@ -78,6 +92,8 @@ cd modelscope-text-to-video-synthesis
 pip install -r requirements.txt
 python app.py
 ```
+
+And that's it! The Modelscope demo is now running locally on your computer. 
 
 ### Community Contributions and Open Source Text-to-Video Projects
 Finally, there are various open source projects and models that are not on the hub. Some notable mentions are Phil Wang’s (aka lucidrains) unofficial implementations of [Imagen](https://github.com/lucidrains/imagen-pytorch), [Phenaki](https://github.com/lucidrains/phenaki-pytorch), [NUWA](https://github.com/lucidrains/nuwa-pytorch), [Make-a-Video](https://github.com/lucidrains/make-a-video-pytorch) and [Video Diffusion Models](https://github.com/lucidrains/video-diffusion-pytorch). Another exciting project by [ExponentialML](https://github.com/ExponentialML/Text-To-Video-Finetuning) builds on top of 🤗 diffusers to finetune ModelScope Text-to-Video.
