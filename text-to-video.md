@@ -66,22 +66,32 @@ Using Hugging Face Diffusers, you can easily download, run and fine-tune various
 ### Hugging Face Demos
 At Hugging Face, our goal is to make it easier to use and build upon state-of-the-art research. Head over to our hub to see and play around with Spaces demos contributed the 🤗 team, countless community contributors and research authors. At the moment, we host demos for [VideoGPT](https://huggingface.co/spaces/akhaliq/VideoGPT), [CogVideo](https://huggingface.co/spaces/THUDM/CogVideo), [ModelScope Text-to-Video](https://huggingface.co/spaces/damo-vilab/modelscope-text-to-video-synthesis), and [Text2Video-Zero](https://huggingface.co/spaces/PAIR/Text2Video-Zero) with many more to come. To see what we can do with these models, let's take a look at the Text2Video-Zero demo. This demo not only illustrates text-to-video generation but also enables multiple other generation modes for text-guided video editing and joint conditional video generation using pose, depth and edge inputs along with text prompts.
 
+<div class="hidden xl:block">
+<div style="display: flex; flex-direction: column; align-items: center;">
 <iframe
 	src="https://pair-text2video-zero.hf.space"
 	frameborder="0"
 	width="850"
 	height="450"
+    class="p-0 flex-grow space-iframe"
 ></iframe>
+</div>
+</div>
 
 
 Apart from using demos to experiment with pretrained text-to-video models, you can also use the [Tune-a-Video training demo](https://huggingface.co/spaces/Tune-A-Video-library/Tune-A-Video-Training-UI) to fine-tune an existing text-to-image model with your own text-video pair. To try it out, upload a video of your choosing and enter a text prompt that describes the video. Once the training is done, you can upload it to the Hub under  Tune-a-Video community or your own username either publicly or privately. Once the training is done, simply head over to the *Run* tab of the demo to generate videos from any text prompt. 
 
+<div class="hidden xl:block">
+<div style="display: flex; flex-direction: column; align-items: center;">
 <iframe
 	src="https://tune-a-video-library-tune-a-video-training-ui.hf.space"
 	frameborder="0"
 	width="850"
 	height="450"
+    class="p-0 flex-grow space-iframe"
 ></iframe>
+</div>
+</div>
 
 
 Keep in mind that all Spaces on the 🤗 Hub is a Git repo that you can clone and run on your local or deployment environment. Let’s clone the ModelScope demo, install the requirements and run it locally.

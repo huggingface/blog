@@ -2063,3 +2063,15 @@
     - guide
     - tensorflow
     - tpu
+
+- local: text-to-video
+  title: "A Dive into Text-to-Video Models"
+  author: adirik
+  thumbnail: /blog/assets/140_text-to-video/thumbnail.png
+  date: May 5, 2023
+  tags:
+    - multi-modal
+    - guide
+    - diffusion
+    - text-to-image
+    - text-to-video
