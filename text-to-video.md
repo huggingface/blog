@@ -32,7 +32,10 @@ The text-to-video task faces unique challenges on multiple fronts. Some of these
 - Lack of high-quality datasets: Multi-modal datasets for text-to-video generation are scarce and often sparsely annotated, making it difficult to learn complex movement semantics.
 - Vagueness around video captioning: Describing videos in a way that makes them easier for models to learn from is an open question. More than a single short text prompt is required to provide a complete video description. A generated video must be conditioned on a sequence of prompts or a story that narrates what happens over time.
 
-In the next section, we will discuss the timeline of developments in the text-to-video domain and the various methods proposed to address these challenges separately. On a higher level, text-to-video works either propose (i) new, higher quality datasets that are easier to learn from, (ii) methods to train such models without paired text-video data, or (iii) more computationally efficient methods to generate longer and higher resolution videos.
+In the next section, we will discuss the timeline of developments in the text-to-video domain and the various methods proposed to address these challenges separately. On a higher level, text-to-video works propose one of these:
+1. New, higher-quality datasets that are easier to learn from.
+2. Methods to train such models without paired text-video data.
+3. More computationally efficient methods to generate longer and higher resolution videos.
 
 ## How to Generate Videos from Text?
 Let's take a look at how text-to-video generation works and the latest developments in this field. We will explore how text-to-video models have evolved, following a similar path to text-to-image research, and how the specific challenges of text-to-video generation have been tackled so far.
