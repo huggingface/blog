@@ -132,7 +132,7 @@ utilities for working with [large models](https://huggingface.co/docs/accelerate
 - [bitsandbytes](https://github.com/TimDettmers/bitsandbytes) makes [8-bit quantization](https://github.com/TimDettmers/bitsandbytes#features) available to all PyTorch models.
 - [🤗 safetensors](https://github.com/huggingface/safetensors) not only ensures that save code is executed but also significantly speeds up the loading time of large models.
 
-Diffusers seemlessly integrates the above libraries to allow for a
+Diffusers seamlessly integrates the above libraries to allow for a
 simple API when optimizing large models.
 
 The free-tier Google Colab is both CPU RAM constrained (13 GB RAM) as
