@@ -97,7 +97,7 @@ Apart from using demos to experiment with pretrained text-to-video models, you c
 </div>
 
 
-Keep in mind that all Spaces on the 🤗 Hub is a Git repo that you can clone and run on your local or deployment environment. Let’s clone the ModelScope demo, install the requirements and run it locally.
+All Spaces on the 🤗 Hub are Git repos you can clone and run on your local or deployment environment. Let’s clone the ModelScope demo, install the requirements, and run it locally.
 
 ```
 git clone https://huggingface.co/spaces/damo-vilab/modelscope-text-to-video-synthesis
