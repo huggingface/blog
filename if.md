@@ -394,7 +394,7 @@ image = pipe(
 ).images
 ```
 
-Let\'s manually convert the raw tensors to PIL and have a sneak peak at
+Let\'s manually convert the raw tensors to PIL and have a sneak peek at
 the final result. The output of stage 1 is a 64x64 image.
 
 ``` python
@@ -955,7 +955,7 @@ spelling error!
 ## Conclusion
 
 IF in 32-bit floating point precision uses 40 GB of weights in total. We
-showed how using only open source models and libraries, IF can be ran on
+showed how using only open source models and libraries, IF can be run on
 a free-tier Google Colab instance.
 
 The ML ecosystem benefits deeply from the sharing of open tools and open
