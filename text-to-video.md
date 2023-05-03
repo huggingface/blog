@@ -82,7 +82,7 @@ At Hugging Face, our goal is to make it easier to use and build upon state-of-th
 </div>
 
 
-Apart from using demos to experiment with pretrained text-to-video models, you can also use the [Tune-a-Video training demo](https://huggingface.co/spaces/Tune-A-Video-library/Tune-A-Video-Training-UI) to fine-tune an existing text-to-image model with your own text-video pair. To try it out, upload a video of your choosing and enter a text prompt that describes the video. Once the training is done, you can upload it to the Hub under  Tune-a-Video community or your own username either publicly or privately. Once the training is done, simply head over to the *Run* tab of the demo to generate videos from any text prompt. 
+Apart from using demos to experiment with pretrained text-to-video models, you can also use the [Tune-a-Video training demo](https://huggingface.co/spaces/Tune-A-Video-library/Tune-A-Video-Training-UI) to fine-tune an existing text-to-image model with your own text-video pair. To try it out, upload a video and enter a text prompt that describes the video. Once the training is done, you can upload it to the Hub under the Tune-a-Video community or your own username, publicly or privately. Once the training is done, simply head over to the *Run* tab of the demo to generate videos from any text prompt. 
 
 <div class="hidden xl:block">
 <div style="display: flex; flex-direction: column; align-items: center;">
