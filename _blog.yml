@@ -2082,3 +2082,13 @@
     - community
     - guide
     - game-dev
+
+- local: starcoder
+   title: "StarCoder: A State-of-the-Art LLM for Code"
+   author: lvwerra
+   thumbnail: /blog/assets/141_starcoder/starcoder_thumbnail.png
+   date: May 4, 2023
+   tags:
+     - nlp
+     - community
+     - research 
