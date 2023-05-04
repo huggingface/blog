@@ -18,7 +18,7 @@ translators:
 Hugging Face Space 是一个能够以简单的方式来构建、托管和分享项目或应用样例的平台。虽然通常更多地是应用在机器学习样例中，不过实际上 Space 还可以用来托管 Unity 游戏，并且支持点击即玩。这里有一些游戏的 Space 示例： 
 
 - [Huggy](https://huggingface.co/spaces/ThomasSimonini/Huggy)。Huggy 是一个基于强化学习构建的简易游戏，玩家可以点击鼠标扔出小木棍，来教宠物狗把木棍捡回来
-- [农场游戏](https://huggingface.co/spaces/dylanebert/FarmingGame)。农场游戏是我们在 <五天创建一个农场游戏> 系列中完成的游戏，玩家可以通过种植、收获和升级农作物来打造一个自己的繁荣农场
+- [农场游戏](https://huggingface.co/spaces/dylanebert/FarmingGame)。农场游戏是我们在 [<五天创建一个农场游戏>](https://huggingface.co/blog/zh/ml-for-games-1) 系列中完成的游戏，玩家可以通过种植、收获和升级农作物来打造一个自己的繁荣农场
 - [Unity API Demo](https://huggingface.co/spaces/dylanebert/UnityDemo)。一个 Unity 样例
 
 本文将详细介绍如何在 🤗 Space 上托管自己的 Unity 游戏。
