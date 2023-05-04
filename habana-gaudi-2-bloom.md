@@ -50,17 +50,19 @@ Runs were performed with DeepSpeed-inference in 16-bit precision with 8 devices 
 
 > "DeepSpeed is a machine learning framework"
 
-which consists in 7 tokens with BLOOM's tokenizer.
+which consists of 7 tokens with BLOOM's tokenizer.
 
 The results for inference latency are displayed in the table below (the unit is *seconds*).
 
 | Model       | Number of devices | Gaudi2 latency (seconds) | A100-80GB latency (seconds) | First-gen Gaudi latency (seconds) |
 |:-----------:|:-----------------:|:-------------------------:|:-----------------:|:----------------------------------:|
-| BLOOMZ | 8 | 3.717 | 4.402 | / |
-| BLOOMZ-7B | 8 | 0.737 | 2.417 | 3.029 |
-| BLOOMZ-7B | 1 | 1.066 | 2.119 | 2.865 |
+| BLOOMZ | 8 | 3.573 | 4.402 | / |
+| BLOOMZ-7B | 8 | 0.885 | 2.417 | 3.159 |
+| BLOOMZ-7B | 1 | 1.057 | 2.119 | 2.842 |
 
-The Habana team recently introduced support for DeepSpeed-inference in SynapseAI 1.8, and thereby quickly enabled inference for 100+ billon parameter models. **For the 176-billion-parameter checkpoint, Gaudi2 is 1.2x faster than A100 80GB**. Smaller checkpoints present interesting results too. **Gaudi2 is 3x faster than A100 for BLOOMZ-7B!** It is also interesting to note that it manages to benefit from model parallelism whereas A100 is faster on a single device.
+*Update: the numbers above were updated with the release of SynapseAI 1.9.*
+
+The Habana team recently introduced support for DeepSpeed-inference in SynapseAI 1.8, and thereby quickly enabled inference for 100+ billion parameter models. **For the 176-billion-parameter checkpoint, Gaudi2 is 1.23x faster than A100 80GB**. Smaller checkpoints present interesting results too. **Gaudi2 is 2.38x faster than A100 for BLOOMZ-7B!** It is also interesting to note that it manages to benefit from model parallelism whereas A100 is faster on a single device.
 
 We also ran these models on first-gen Gaudi. While it is slower than Gaudi2, it is interesting from a price perspective as a DL1 instance on AWS costs approximately 13\$ per hour. Latency for BLOOMZ-7B on first-gen Gaudi is 2.865 seconds. Thus, **first-gen Gaudi offers for the 7-billion checkpoint a better price-performance ratio than A100** which costs more than 30\$ per hour!
 
@@ -106,7 +108,7 @@ Then, run the following:
 ```bash
 git clone https://github.com/huggingface/optimum-habana.git
 cd optimum-habana && pip install . && cd examples/text-generation
-pip install git+https://github.com/HabanaAI/DeepSpeed.git@1.8.0
+pip install git+https://github.com/HabanaAI/DeepSpeed.git@1.9.0
 ```
 
 Finally, you can launch the script as follows:
@@ -118,7 +120,7 @@ For multi-node inference, you can follow [this guide](https://huggingface.co/doc
 
 You can also load any dataset from the Hugging Face Hub to get prompts that will be used for generation using the argument `--dataset_name my_dataset_name`.
 
-This benchmark was performed with Transformers v4.27.1, SynapseAI v1.8.0 and an install from source of Optimum Habana.
+This benchmark was performed with Transformers v4.28.1, SynapseAI v1.9.0 and Optimum Habana v1.5.0.
 
 For GPUs, [here](https://github.com/huggingface/transformers-bloom-inference/blob/main/bloom-inference-scripts/bloom-ds-inference.py) is the script that led to the results that were previously presented in [this blog post](https://huggingface.co/blog/bloom-inference-pytorch-scripts) (and [here](https://github.com/huggingface/transformers-bloom-inference/tree/main/bloom-inference-scripts#deepspeed-inference) are the instructions to use it). To use CUDA graphs, static shapes are necessary and this is not supported in 🤗 Transformers. You can use [this repo](https://github.com/HabanaAI/Model-References/tree/1.8.0/PyTorch/nlp/bloom) written by the Habana team to enable them.
 
