@@ -17,15 +17,15 @@ BigCode is an open scientific collaboration led jointly by Hugging Face and Serv
 
 ## Introducing StarCoder
 
-StarCoder and StarCoderBase are Large Language Models for Code (Code LLMs) trained on permissively licensed data from GitHub, including from 80+ programming languages, git commits, GitHub issues, and Jupyter notebooks. Similar to LLaMA, we trained a ~15B parameter model for 1 trillion tokens. We fine-tuned StarCoderBase model for 35B Python tokens, resulting in a new model that we call StarCoder.  
+StarCoder and StarCoderBase are Large Language Models for Code (Code LLMs) trained on permissively licensed data from GitHub, including from 80+ programming languages, Git commits, GitHub issues, and Jupyter notebooks. Similar to LLaMA, we trained a ~15B parameter model for 1 trillion tokens. We fine-tuned StarCoderBase model for 35B Python tokens, resulting in a new model that we call StarCoder.  
 
-We found that StarCoderBase outperforms existing open Code LLMs on popular programming benchmarks and matches or surpasses closed models such as `code-cushman-001` from OpenAI. With a context length of over 8,000 tokens, the StarCoder models can process more input than any other open LLM, enabling a wide range of interesting applications. For example, by providing long prompts of example conversations to the StarCoder models, we enabled the model to act as a technical assistant. In addition, the model can be used to autocomplete code, make modifications to code via instructions, and explain a code snippet in natural language. 
+We found that StarCoderBase outperforms existing open Code LLMs on popular programming benchmarks and matches or surpasses closed models such as `code-cushman-001` from OpenAI (the original Codex model that powered early versions of GitHub Copilot). With a context length of over 8,000 tokens, the StarCoder models can process more input than any other open LLM, enabling a wide range of interesting applications. For example, by prompting the StarCoder models with a series of dialogues, we enabled them to act as a technical assistant. In addition, the models can be used to autocomplete code, make modifications to code via instructions, and explain a code snippet in natural language. 
 We take several important steps towards a safe open model release, including an improved PII redaction pipeline, a novel attribution tracing tool, and make StarCoder publicly available
 under an improved version of the OpenRAIL license. The updated license simplifies the process for companies to integrate the model into their products. We believe that with its strong performance, the StarCoder models will serve as a solid foundation for the community to use and adapt it to their use-cases and products. 
 
 ## Evaluation
 
-We thoroughly evaluated StarCoder and several similar models and a variety of benchmarks. A popular Python benchmark is HumanEval which tests if the model can complete functions based on their signature and docstring. We found that a failure case of the model was that it would produce `# Solution here` code, probably because that type of code is usually part of exercise. To force the model the generate an actual solution we added the prompt `<filename>solutions/solution_1.py\n# Here is the correct implementation of the code exercise`. This helped bump the HumanEval score a lot. We also tried it for CodeGen and StarCoderBase but didn't observe much difference.
+We thoroughly evaluated StarCoder and several similar models and a variety of benchmarks. A popular Python benchmark is HumanEval which tests if the model can complete functions based on their signature and docstring. We found that a failure case of the model was that it would produce `# Solution here` code, probably because that type of code is usually part of exercise. To force the model the generate an actual solution we added the prompt `<filename>solutions/solution_1.py\n# Here is the correct implementation of the code exercise`. This significantly increased the HumanEval score from 34% to over 40%, setting a new state-of-the-art result for open models. We also tried this prompt for CodeGen and StarCoderBase but didn't observe much difference.
 
 | **Model**          | **HumanEval** | **MBPP** |
 |--------------------|--------------|----------|
@@ -43,7 +43,7 @@ We thoroughly evaluated StarCoder and several similar models and a variety of be
 | StarCoder          | 33.6         | **52.7** |
 | StarCoder-Prompted | **40.8**     | 49.5     |
 
-An interesting aspect of StarCoder is that it's multilingual and thus we evaluated it on MultiPL-E which extends HumanEval to many other languages. We observed that StarCoder matches or outperforms `code-cushman-001` (the model behind early CoPilot) on many languages. On a data science benchmark called DS-1000 it clearly beats it as well as all other open-access models. But let's see what else the model can do besides code completion!
+An interesting aspect of StarCoder is that it's multilingual and thus we evaluated it on MultiPL-E which extends HumanEval to many other languages. We observed that StarCoder matches or outperforms `code-cushman-001` on many languages. On a data science benchmark called DS-1000 it clearly beats it as well as all other open-access models. But let's see what else the model can do besides code completion!
 
 ## Tech Assistant
 
