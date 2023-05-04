@@ -77,11 +77,10 @@ with fp16.
   
 Moreover, large parameters of these models also have a severely negative
 effect on GPT latency because GPT token generation is more limited by
-DDR bandwidth (GB/s) than computation (TFLOPs or TOPs) itself. For this
-reason, a quantized model in the compressed format does not degrade
+memory bandwidth (GB/s) than computation (TFLOPs or TOPs) itself. For this
+reason, a quantized model does not degrade
 token generation latency when the GPU is under a memory bound situation.
-Refer to the GPTQ quantization papers and github repo:
-<https://arxiv.org/abs/2210.17323>, <https://github.com/IST-DASLab/gptq>
+Refer to [the GPTQ quantization papers](<https://arxiv.org/abs/2210.17323>) and [github repo](<https://github.com/IST-DASLab/gptq>).
 
 By leveraging this technique, several 4-bit quantized Vicuna models are
 available from Hugging Face as follows,
@@ -303,28 +302,6 @@ Test environment:
   <img src="assets/chatbot-amd-gpu/10.png" style="width: 70%; height: auto;">
 </p>
 
-**Kernels in fp16 and 4bit quantization**
-
-1\. Vicuna 13b – baseline (fp16)
-
-<img src="assets/chatbot-amd-gpu/11.png">
-
-- Latency: 1.1ms/layer, measured on MI210
-
-<!-- -->
-
-- Major Kernels: ROCblas GEMM:
-  Cijk_Alik_Bljk_HHS_BH_MT128x64x64_MI32x32x8x1
-
-2\. Vicuna 13b – quant (4bit quantization)
-
-<img src="assets/chatbot-amd-gpu/12.png">
-
-- Latency: 1.4ms/layer, measured on MI210
-
-<!-- -->
-
-- Major Kernel: VecQuant4MatMulKernel (dequant + MatMul)
 
 ## Conclusion
 
