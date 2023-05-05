@@ -92,7 +92,7 @@ Most adopted RWKV models range from ~170M parameters to 14B parameters. Accordin
 
 Bo has also trained a “chat” version of the RWKV architecture, the RWKV-4 Raven model. It is a RWKV-4 pile (RWKV model pretrained on The Pile dataset) model fine-tuned on ALPACA, CodeAlpaca, Guanaco, GPT4All, ShareGPT and more. The model is available in multiple versions, with models trained on different languages (English only, English + Chinese + Japanese, English + Japanese, etc.) and different sizes (1.5B parameters, 7B parameters, 14B parameters). 
 
-All these models are available on Hugging Face Hub.
+All the HF converted models are available on Hugging Face Hub, in the [`RWKV` organization](https://huggingface.co/RWKV).
 
 ## 🤗 Transformers integration
 
@@ -161,13 +161,11 @@ Any user could easily convert the original RWKV weights to the HF format by simp
 python convert_rwkv_checkpoint_to_hf.py --repo_id RAW_HUB_REPO --checkpoint_file RAW_FILE --output_dir OUTPUT_DIR
 ```
 
-If you want to push the converted model on the Hub (let's say, under `dummy_user/converted-rwkv`), run:
+If you want to push the converted model on the Hub (let's say, under `dummy_user/converted-rwkv`), first forget to log in with `huggingface-cli login` before pushing the model, then run:
 
 ```bash
 python convert_rwkv_checkpoint_to_hf.py --repo_id RAW_HUB_REPO --checkpoint_file RAW_FILE --output_dir OUTPUT_DIR --push_to_hub --model_name dummy_user/converted-rwkv
 ```
-
-Of course, don't forget to log in with `huggingface-cli login` before pushing the model.
 
 ## Future work
 
