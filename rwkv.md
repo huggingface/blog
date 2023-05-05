@@ -81,7 +81,7 @@ To gain a more comprehensive understanding of the attention layer, we recommend 
 
 #### Pure language models: RWKV-4 models
 
-Most adopted RWKV models range from ~170M parameters to 14B parameters. According to the RWKV overview blogpost: https://johanwind.github.io/2023/03/23/rwkv_overview.html these models have been trained on the Pile dataset and evaluated against other SoTA models on different benchmarks and seems to performing quite well, with very comparable results against them.
+Most adopted RWKV models range from ~170M parameters to 14B parameters. According to the RWKV overview [blog post](https://johanwind.github.io/2023/03/23/rwkv_overview.html), these models have been trained on the Pile dataset and evaluated against other SoTA models on different benchmarks, and they seem to perform quite well, with very comparable results against them.
 
 | ![rwkv_loss](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/142_rwkv/RWKV-eval.png) |
 |:--:|
