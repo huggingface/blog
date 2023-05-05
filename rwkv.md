@@ -115,7 +115,7 @@ tokenizer = AutoTokenizer.from_pretrained("RWKV/rwkv-4-169m-pile")
 
 prompt = "\nIn a shocking finding, scientist discovered a herd of dragons living in a remote, previously unexplored valley, in Tibet. Even more surprising to the researchers was the fact that the dragons spoke perfect Chinese."
 
-inputs = tokenizer(prompt, return_tensors="pt").to(0)
+inputs = tokenizer(prompt, return_tensors="pt")
 output = model.generate(inputs["input_ids"], max_new_tokens=400, top_p=0.8, do_sample=True)
 print(tokenizer.decode(output[0].tolist()))
 ```
