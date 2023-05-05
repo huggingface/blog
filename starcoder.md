@@ -75,7 +75,7 @@ Along with the model, we are releasing a list of resources and demos:
 - [StarPii](https://huggingface.co/bigcode/starpii): StarEncoder based PII detector.
 
 ### Tools & Demos
-- [StarCoder Chat](hf.co/chat/starcoder): Chat with StarCoder!
+- [StarCoder Chat](https://huggingface.co/chat?model=bigcode/starcoder): Chat with StarCoder!
 - [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode): Code with StarCoder!
 - [StarCoder Playground](https://huggingface.co/spaces/bigcode/bigcode-playground): Write with StarCoder!
 - [StarCoder Editor](https://huggingface.co/spaces/bigcode/bigcode-playground): Edit with StarCoder!
