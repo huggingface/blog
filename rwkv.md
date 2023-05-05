@@ -13,8 +13,6 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-## Introduction
-
 ChatGPT and chatbot-powered applications have taken over the recent AI hype around Natural Language Processing (NLP) models (i.e. text models). The community is constantly seeking strong, reliable and open-source models for their applications and use cases. 
 The emergence of these powerful models is a logical consequence of the democratization of transformer-based models, firstly introduced in 2017 by [Vaswani et al.](https://arxiv.org/abs/1706.03762), that has drastically outperformed previous SoTA models for NLP tasks, based on Recurrent Neural Networks (RNNs), that the scientific community believed were dead after that paper. 
 Through this blogpost, we will introduce the integration of a new architecture, RWKV, that combines the advantages of both RNNs and transformers, and that has been recently integrated into the HuggingFace [transformers](https://github.com/huggingface/transformers) library.
