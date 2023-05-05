@@ -75,7 +75,7 @@ By combining both these advantages into a single architecture, the hope is that 
 
 The model architecture is very similar to classic transformer-based models (i.e. an embedding layer, multiple identical layers, layer normalization, and a Causal Language Modeling head to predict the next token). The only difference is on the attention layer, which is completely different from the traditional transformer-based models.
 
-For more details, we suggest reader to deeply read the formulation of the attention layer that is explained in details in [this blogpost](https://johanwind.github.io/2023/03/23/rwkv_details.html).
+To gain a more comprehensive understanding of the attention layer, we recommend to delve into the detailed explanation provided in [a blog post by Johan Sokrates Wind](https://johanwind.github.io/2023/03/23/rwkv_details.html).
 
 ### Existing checkpoints
 
