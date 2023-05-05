@@ -90,17 +90,17 @@ Most adopted RWKV models range from ~170M parameters to 14B parameters. Accordin
 
 #### Instruction fine-tuned / chat version: RWKV-4 raven
 
-Bo has also trained a “chat” version of the RWKV architecture, the rwkv-4-raven model, is a RWKV-4 pile model fine-tuned on  Alpaca, CodeAlpaca, Guanaco, GPT4All, ShareGPT and more. The model is available in multiple versions, with models trained on different languages (english only, english + chinese + japanese, english + japanese, etc.) and different sizes (1.5B parameters, 7B parameters, 14B parameters). 
+Bo has also trained a “chat” version of the RWKV architecture, the RWKV-4 Raven model. It is a RWKV-4 pile model fine-tuned on ALPACA, CodeAlpaca, Guanaco, GPT4All, ShareGPT and more. The model is available in multiple versions, with models trained on different languages (English only, English + Chinese + Japanese, English + Japanese, etc.) and different sizes (1.5B parameters, 7B parameters, 14B parameters). 
 
 All these models are available on Hugging Face Hub.
 
-## `transformers` integration
+## 🤗 Transformers integration
 
-The architecture have been added into `transformers` library thanks to [this Pull Request](https://github.com/huggingface/transformers/pull/22797). At this time of writing, you can use the architecture by installing `transformers` from source, or by using the `main` branch of the library. The architecture is tightly integrated with the library, and you can use it as you would use any other architecture.
+The architecture has been added to the `transformers` library thanks to [this Pull Request](https://github.com/huggingface/transformers/pull/22797). As of the time of writing, you can use it by installing `transformers` from source, or by using the `main` branch of the library. The architecture is tightly integrated with the library, and you can use it as you would any other architecture.
 
-Let us walk through some examples below:
+Let us walk through some examples below.
 
-### Text generation example
+### Text Generation Example
 
 To generate text given an input prompt, you can run the snippet below:
 
@@ -161,7 +161,7 @@ Any user could easily convert the original RWKV weights to the HF format by simp
 python convert_rwkv_checkpoint_to_hf.py --repo_id RAW_HUB_REPO --checkpoint_file RAW_FILE --output_dir OUTPUT_DIR
 ```
 
-If you want to push the converted model on the Hub (let's say under `dummy_user/converted-rwkv`), run:
+If you want to push the converted model on the Hub (let's say, under `dummy_user/converted-rwkv`), run:
 
 ```bash
 python convert_rwkv_checkpoint_to_hf.py --repo_id RAW_HUB_REPO --checkpoint_file RAW_FILE --output_dir OUTPUT_DIR --push_to_hub --model_name dummy_user/converted-rwkv
@@ -180,14 +180,13 @@ Bo is currently building a multilingual corpus to train RWKV models on. Recently
 The RWKV community is very active and working on several follow up directions, a list of cool projects can be find in a [dedicated channel on discord](https://discord.com/channels/992359628979568762/1068563033510653992). 
 There is also a channel dedicated to research around this architecure, feel free to join and contribute!
 
-### Model compression and acceleration
+### Model Compression and Acceleration
 
 Due to only needing matrix-vector operations, RWKV is an ideal candidate for non-standard and experimental computing hardware, such as photonic processors/accelerators.
 
-Therefore, the architecture can also naturally benefit from classic acceleration and compression techniques ([ONNX](https://github.com/harrisonvanderbyl/rwkv-onnx), 4-bit/8-bit quantization, etc.), and we hope this will be democratized for developers and practitioners together with the transformers integration of the architecture.
+Therefore, the architecture can also naturally benefit from classic acceleration and compression techniques (such as [ONNX](https://github.com/harrisonvanderbyl/rwkv-onnx), 4-bit/8-bit quantization, etc.), and we hope this will be democratized for developers and practitioners together with the transformers integration of the architecture.
 
 RWKV can also benefit from the acceleration techniques proposed by [`optimum`](https://github.com/huggingface/optimum) library in the near future.
-
 Some of these techniques are highlighted in the [`rwkv.cpp` repository](https://github.com/saharNooby/rwkv.cpp) or [`rwkv-cpp-cuda` repository](https://github.com/harrisonvanderbyl/rwkv-cpp-cuda).
 
 ## Acknowledgements
