@@ -51,17 +51,17 @@ During inference, RNNs have some advantages in speed and memory efficiency. Thes
 ## The RWKV architecture
 
 RWKV is inspired by [Apple’s Attention Free Transformer](https://machinelearning.apple.com/research/attention-free-transformer). The architecture has been carefully simplified and optimized such that it can be transformed into an RNN. In addition, a number of tricks has been added (Without which the model won’t be performant) such as TokenShift & SmallInitEmb (the list of tricks is listed in [this link](https://github.com/BlinkDL/RWKV-LM/blob/main/README.md#how-it-works)) to boost its performance to match GPT. 
-For training, there is an infrastructure to scale the training up to 14B parameters as of now, and some issues have been iteratively fixedn such as numerical instability (fixed in RWKV-4, the newest version of RWKV as of today).
+For training, there is an infrastructure to scale the training up to 14B parameters as of now, and some issues have been iteratively fixed in RWKV-4 (latest version as of today), such as numerical instability.
 
 ### RWKV as a combination of RNNs and transformers
 
-How to combine the best from transformers and RNNs? The main drawback of transformer-based models is that it can become challenging to run a model with a context window that is larger than a certain value, as the attention scores are computed simultaneously for the entire sequence. 
+How to combine the best of transformers and RNNs? The main drawback of transformer-based models is that it can become challenging to run a model with a context window that is larger than a certain value, as the attention scores are computed simultaneously for the entire sequence. 
 
-RNNs natively supports very long context lengths - only limited by the context length seen in training, but this can be extended to millions of tokens with careful coding. Currently there are RWKV models trained on a context length of 8192 (`ctx8192`) and they are as fast as `ctx1024` models and consume same amt of VRAM.
+RNNs natively support very long context lengths - only limited by the context length seen in training, but this can be extended to millions of tokens with careful coding. Currently, there are RWKV models trained on a context length of 8192 (`ctx8192`) and they are as fast as `ctx1024` models and consume the same amount of VRAM.
 
 The major drawbacks of traditional RNN models and how RWKV is different:
 
-1- Traditional RNN models are unable to utilize very long context (LSTM can only manage ~100 tokens when used as a LM, as shown in some paper). However RWKV can utilize thousands of tokens and beyond, as shown below: 
+1. Traditional RNN models are unable to utilize very long contexts (LSTM can only manage ~100 tokens when used as a LM). However, RWKV can utilize thousands of tokens and beyond, as shown below: 
 
 | ![rwkv_loss](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/142_rwkv/RWKV-loss.png) |
 |:--:|
@@ -73,7 +73,7 @@ By combining both these advantages into a single architecture, the hope is that 
 
 ### RWKV attention formulation
 
-The model architecture is totally similar to the classic transformer based models (i.e. an embedding layer, multiple identical layers, layer normalization, and a Language Modeling head to predict the next token). The only difference is on the attention layer, which is totally different from the traditional transformer-based models.
+The model architecture is very similar to classic transformer-based models (i.e. an embedding layer, multiple identical layers, layer normalization, and a Causal Language Modeling head to predict the next token). The only difference is on the attention layer, which is completely different from the traditional transformer-based models.
 
 For more details, we suggest reader to deeply read the formulation of the attention layer that is explained in details in [this blogpost](https://johanwind.github.io/2023/03/23/rwkv_details.html).
 
