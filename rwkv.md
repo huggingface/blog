@@ -178,7 +178,7 @@ python convert_rwkv_checkpoint_to_hf.py --repo_id RAW_HUB_REPO --checkpoint_file
 
 ### Multi-lingual RWKV
 
-Bo is currently working on a multilingual corpus to train RWKV models. Recently a new multilingual tokenizer has been released as shown [here](https://twitter.com/BlinkDL_AI/status/1649839897208045573).
+Bo is currently working on a multilingual corpus to train RWKV models. Recently a new multilingual tokenizer [has been released](https://twitter.com/BlinkDL_AI/status/1649839897208045573).
 
 ### Community-oriented and research projects 
 
