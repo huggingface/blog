@@ -143,7 +143,7 @@ model = AutoModelForCausalLM.from_pretrained(model_id).to(0)
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 question = "Tell me about ravens"
-prompt = "### Instruction: {question}\n### Response:"
+prompt = f"### Instruction: {question}\n### Response:"
 
 inputs = tokenizer(prompt, return_tensors="pt").to(0)
 output = model.generate(inputs["input_ids"], max_new_tokens=100)
