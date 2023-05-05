@@ -175,7 +175,7 @@ Bo is currently working on a multilingual corpus to train RWKV models. Recently 
 
 ### Community-oriented and research projects 
 
-The RWKV community is very active and working on several follow up directions, a list of cool projects can be find in a [dedicated channel on discord](https://discord.com/channels/992359628979568762/1068563033510653992). 
+The RWKV community is very active and working on several follow-up directions, a list of cool projects can be found in a [dedicated channel on discord](https://discord.com/channels/992359628979568762/1068563033510653992). 
 There is also a channel dedicated to research around this architecure, feel free to join and contribute!
 
 ### Model Compression and Acceleration
