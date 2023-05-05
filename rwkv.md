@@ -67,7 +67,7 @@ The major drawbacks of traditional RNN models and how RWKV is different:
 |:--:|
 | <b>LM loss with respect to different context lengths and model sizes. Source: <a href="https://raw.githubusercontent.com/BlinkDL/RWKV-LM/main/RWKV-ctxlen.png" rel="noopener" target="_blank" >RWKV original repository</a>  </b>|
 
-2- Traditional RNN models cannot be parallelized when training. RWKV is similar to a “linearized GPT” and it trains faster than GPT.
+2. Traditional RNN models cannot be parallelized when training. RWKV is similar to a “linearized GPT” and it trains faster than GPT.
 
 By combining both these advantages into a single architecture, the hope is that RWKV can grow to become more than the sum of its parts.
 
@@ -88,7 +88,7 @@ Most adopted RWKV models range from ~170M parameters to 14B parameters. Accordin
 | <b>RWKV-4 compared to other common architectures. Source: <a href="https://johanwind.github.io/2023/03/23/rwkv_overview.html" rel="noopener" target="_blank" >Johan Wind's blogpost</a>  </b>|
 
 
-#### Instruction fine-tuned / chat version: RWKV-4 raven
+#### Instruction Fine-tuned/Chat Version: RWKV-4 Raven
 
 Bo has also trained a “chat” version of the RWKV architecture, the RWKV-4 Raven model. It is a RWKV-4 pile (RWKV model pretrained on The Pile dataset) model fine-tuned on ALPACA, CodeAlpaca, Guanaco, GPT4All, ShareGPT and more. The model is available in multiple versions, with models trained on different languages (English only, English + Chinese + Japanese, English + Japanese, etc.) and different sizes (1.5B parameters, 7B parameters, 14B parameters). 
 
