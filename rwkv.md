@@ -151,7 +151,10 @@ print(tokenizer.decode(output[0].tolist(), skip_special_tokens=True))
 ### Response: RAVENS are a type of bird that is native to the Middle East and North Africa. They are known for their intelligence, adaptability, and their ability to live in a variety of environments. RAVENS are known for their intelligence, adaptability, and their ability to live in a variety of environments. They are known for their intelligence, adaptability, and their ability to live in a variety of environments.
 ```
 
-According to Bo, better instruction techniques are detailed in [this discord message](https://discord.com/channels/992359628979568762/1083107245971226685/1098533896355848283)
+According to Bo, better instruction techniques are detailed in [this discord message (make sure to join the channel before clicking)](https://discord.com/channels/992359628979568762/1083107245971226685/1098533896355848283)
+
+
+| ![discord_message](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/142_rwkv/RWKV%20instructions.png) |
 
 ### Weights conversion
 
@@ -175,7 +178,7 @@ Bo is currently working on a multilingual corpus to train RWKV models. Recently 
 
 ### Community-oriented and research projects 
 
-The RWKV community is very active and working on several follow up directions, a list of cool projects can be find in a [dedicated channel on discord](https://discord.com/channels/992359628979568762/1068563033510653992). 
+The RWKV community is very active and working on several follow up directions, a list of cool projects can be find in a [dedicated channel on discord (make sure to join the channel before clicking the link)](https://discord.com/channels/992359628979568762/1068563033510653992). 
 There is also a channel dedicated to research around this architecure, feel free to join and contribute!
 
 ### Model Compression and Acceleration
