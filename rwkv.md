@@ -26,13 +26,13 @@ Learn more about that by joining the [official discord channel](https://discorda
 ### Transformer Architecture vs RNNs
 
 The RNN architecture is one of the first widely used Neural Network architectures for processing a sequence of data, contrary to classic architectures that take a fixed size input. It takes as input the current “token” (i.e. current data point of the datastream), the previous “state”, and computes the predicted next token, and the predicted next state. The new state is then used to compute the prediction of the next token, and so on.
-A RNN can be also used in different “modes”, therefore enabling the possibility of applying RNNs on different scenarios, as denoted by [Andrej Karpathy’s blogpost](https://karpathy.github.io/2015/05/21/rnn-effectiveness/).
+A RNN can be also used in different “modes”, therefore enabling the possibility of applying RNNs on different scenarios, as denoted by [Andrej Karpathy’s blogpost](https://karpathy.github.io/2015/05/21/rnn-effectiveness/), such as one-to-one (image-classification), one-to-many (image captioning), many-to-one (sequence classification), many-to-many (sequence generation), etc.
 
 | ![rnn_diagram](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/142_rwkv/RNN-scheme.png) |
 |:--:|
 | <b>Overview of possible configurations of using RNNs. Source: <a href="https://karpathy.github.io/2015/05/21/rnn-effectiveness/" rel="noopener" target="_blank" >Andrej Karpathy's blogpost</a>  </b>|
 
-As the same weights are used to compute the predictions at each step, RNNs naturally lack for memorizing information for long-range sequences - due to vanishing gradient issue. Some attempts have been made to mitigate this, by introducing new architectures such as LSTMs or GRUs, but the architecture that has been proved to be the most powerful so far is the transformer architecture.
+Because RNNs use the same weights to compute predictions at every step, they struggle to memorize information for long-range sequences due to the vanishing gradient issue. Efforts have been made to address this limitation by introducing new architectures such as LSTMs or GRUs. However, the transformer architecture proved to be the most effective thus far in resolving this issue.
 
 In the transformer architecture, the input tokens are processed in the self-attention module simultaneously due to the design of that module. The tokens are first linearly projected into different spaces using the query, key and value weights - then the resulting matrices are directly used to compute the attention scores (softmax term below), then multiplied by the value hidden states to obtain the final hidden states. This design enables the architecture to effectively mitigate the long-range sequence issue, and also perform faster inference and training compared to RNN models. 
 
