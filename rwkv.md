@@ -34,7 +34,7 @@ A RNN can be also used in different “modes”, therefore enabling the possibil
 
 Because RNNs use the same weights to compute predictions at every step, they struggle to memorize information for long-range sequences due to the vanishing gradient issue. Efforts have been made to address this limitation by introducing new architectures such as LSTMs or GRUs. However, the transformer architecture proved to be the most effective thus far in resolving this issue.
 
-In the transformer architecture, the input tokens are processed in the self-attention module simultaneously due to the design of that module. The tokens are first linearly projected into different spaces using the query, key and value weights - then the resulting matrices are directly used to compute the attention scores (softmax term below), then multiplied by the value hidden states to obtain the final hidden states. This design enables the architecture to effectively mitigate the long-range sequence issue, and also perform faster inference and training compared to RNN models. 
+In the transformer architecture, the input tokens are processed in the self-attention module simultaneously. The tokens are first linearly projected into different spaces using the query, key and value weights. The resulting matrices are directly used to compute the attention scores (through softmax, as shown below), then multiplied by the value hidden states to obtain the final hidden states. This design enables the architecture to effectively mitigate the long-range sequence issue, and also perform faster inference and training compared to RNN models. 
 
 | ![transformer_diagram](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/142_rwkv/transformer-scheme.png) |
 |:--:|
@@ -46,7 +46,7 @@ In the transformer architecture, the input tokens are processed in the self-atte
 
 During training, Transformer architecture has several advantages over traditional RNNs and CNNs. One of the most significant advantages is its ability to learn contextual representations. Unlike the RNNs and CNNs, which process input sequences one word at a time, Transformer architecture processes input sequences as a whole. This allows it to capture long-range dependencies between words in the sequence, which is particularly useful for tasks such as language translation and question answering.
 
-During inference, RNNs have some advantages in speed and memory efficiency. These advantages include simplicity, due to needing only matrix-vector operations, and memory efficiency, as the memory requirements do not grow during inference. Furthermore, due to computations only acting on the current token and state, the computation speed does not decrease with context window length.
+During inference, RNNs have some advantages in speed and memory efficiency. These advantages include simplicity, due to needing only matrix-vector operations, and memory efficiency, as the memory requirements do not grow during inference. Furthermore, the computation speed remains the same with context window length due to how computations only act on the current token and the state.
 
 ## The RWKV architecture
 
