@@ -153,7 +153,6 @@ print(tokenizer.decode(output[0].tolist(), skip_special_tokens=True))
 
 According to Bo, better instruction techniques are detailed in [this discord message (make sure to join the channel before clicking)](https://discord.com/channels/992359628979568762/1083107245971226685/1098533896355848283)
 
-
 | ![discord_message](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/142_rwkv/RWKV%20instructions.png) |
 
 ### Weights conversion
