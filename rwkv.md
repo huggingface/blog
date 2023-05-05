@@ -42,6 +42,10 @@ In the transformer architecture, the input tokens are processed in the self-atte
 |:--:|
 | <b>Formulation of attention scores in transformer models. Source: <a href="https://jalammar.github.io/illustrated-transformer/" rel="noopener" target="_blank" >Jay Alammar's blogpost</a>  </b>|
 
+| ![rwkv_attention_formula](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/142_rwkv/RWKV-formula.png)|
+|:--:|
+| <b>Formulation of attention scores in RWKV models. Source: <a href="https://raw.githubusercontent.com/BlinkDL/RWKV-LM/main/RWKV-formula.png" rel="noopener" target="_blank" >RWKV blogpost</a>  </b>|
+
 During training, Transformer architecture has several advantages over traditional RNNs and CNNs. One of the most significant advantages is its ability to learn contextual representations. Unlike the RNNs and CNNs, which process input sequences one word at a time, Transformer architecture processes input sequences as a whole. This allows it to capture long-range dependencies between words in the sequence, which is particularly useful for tasks such as language translation and question answering. (14B v10 response)
 
 During inference, RNNs have some advantages in speed and memory efficiency. These advantages include simplicity, due to needing only matrix-vector operations, and memory efficiency, as the memory requirements do not grow during inference. Furthermore, due to computations only acting on the current token and state, the computation speed does not decrease with context window length.
