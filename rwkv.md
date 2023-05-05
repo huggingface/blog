@@ -5,7 +5,7 @@ authors:
 - user: BLinkDL
 - user: Hazzzardous
 - user: sgugger
-- user: ybelkada
+- user: RWKV
 ---
 
 # Introducing RWKV - An RNN with the advantages of a transformer
@@ -110,8 +110,8 @@ To generate text given an input prompt, you can run the snippet below:
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-model = AutoModelForCausalLM.from_pretrained("ybelkada/rwkv-4-169m-pile")
-tokenizer = AutoTokenizer.from_pretrained("ybelkada/rwkv-4-169m-pile")
+model = AutoModelForCausalLM.from_pretrained("RWKV/rwkv-4-169m-pile")
+tokenizer = AutoTokenizer.from_pretrained("RWKV/rwkv-4-169m-pile")
 
 prompt = "\nIn a shocking finding, scientist discovered a herd of dragons living in a remote, previously unexplored valley, in Tibet. Even more surprising to the researchers was the fact that the dragons spoke perfect Chinese."
 
@@ -125,7 +125,7 @@ You can also use `pipeline` to generate text:
 ```python
 from transformers import pipeline
 
-model_id = "ybelkada/rwkv-4-169m-pile"
+model_id = "RWKV/rwkv-4-169m-pile"
 pipe = pipeline("text-generation", model=model_id)
 print(pipe(prompt, max_length=10))
 ```
@@ -137,7 +137,7 @@ You can prompt the chat model in the alpaca style, here is an example below:
 ```python
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 
-model_id = "ybelkada/rwkv-raven-1b5"
+model_id = "RWKV/rwkv-raven-1b5"
 
 model = AutoModelForCausalLM.from_pretrained(model_id).to(0)
 tokenizer = AutoTokenizer.from_pretrained(model_id)
