@@ -46,7 +46,7 @@ In the transformer architecture, the input tokens are processed in the self-atte
 |:--:|
 | <b>Formulation of attention scores in RWKV models. Source: <a href="https://raw.githubusercontent.com/BlinkDL/RWKV-LM/main/RWKV-formula.png" rel="noopener" target="_blank" >RWKV blogpost</a>  </b>|
 
-During training, Transformer architecture has several advantages over traditional RNNs and CNNs. One of the most significant advantages is its ability to learn contextual representations. Unlike the RNNs and CNNs, which process input sequences one word at a time, Transformer architecture processes input sequences as a whole. This allows it to capture long-range dependencies between words in the sequence, which is particularly useful for tasks such as language translation and question answering. (14B v10 response)
+During training, Transformer architecture has several advantages over traditional RNNs and CNNs. One of the most significant advantages is its ability to learn contextual representations. Unlike the RNNs and CNNs, which process input sequences one word at a time, Transformer architecture processes input sequences as a whole. This allows it to capture long-range dependencies between words in the sequence, which is particularly useful for tasks such as language translation and question answering.
 
 During inference, RNNs have some advantages in speed and memory efficiency. These advantages include simplicity, due to needing only matrix-vector operations, and memory efficiency, as the memory requirements do not grow during inference. Furthermore, due to computations only acting on the current token and state, the computation speed does not decrease with context window length.
 
@@ -130,6 +130,31 @@ pipe = pipeline("text-generation", model=model_id)
 print(pipe(prompt, max_length=10))
 ```
 
+### Use the raven models (chat models)
+
+You can prompt the chat model in the alpaca style, here is an example below:
+
+```python
+from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
+
+model_id = "ybelkada/rwkv-raven-1b5"
+
+model = AutoModelForCausalLM.from_pretrained(model_id).to(0)
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+
+question = "Tell me about ravens"
+prompt = "### Instruction: {question}\n### Response:"
+
+inputs = tokenizer(prompt, return_tensors="pt").to(0)
+output = model.generate(inputs["input_ids"], max_new_tokens=100)
+
+print(tokenizer.decode(output[0].tolist(), skip_special_tokens=True))
+>>> ### Instruction: Tell me about ravens
+### Response: RAVENS are a type of bird that is native to the Middle East and North Africa. They are known for their intelligence, adaptability, and their ability to live in a variety of environments. RAVENS are known for their intelligence, adaptability, and their ability to live in a variety of environments. They are known for their intelligence, adaptability, and their ability to live in a variety of environments.
+```
+
+According to Bo, better instruction techniques are detailed in [this discord message](https://discord.com/channels/992359628979568762/1083107245971226685/1098533896355848283)
+
 ### Weights conversion
 
 Any user could easily convert the original RWKV weights to the HF format by simply running the conversion script provided in `transformers` library. First, push the "raw" weights on the Hugging Face Hub (let's denote that repo as `RAW_HUB_REPO`, and the raw file `RAW_FILE`), then run the conversion script:
@@ -161,7 +186,9 @@ There is also a channel dedicated to research around this architecure, feel free
 
 Due to only needing matrix-vector operations, RWKV is an ideal candidate for non-standard and experimental computing hardware, such as photonic processors/accelerators.
 
-Therefore, the architecture can also naturally benefit from classic acceleration and compression techniques (ONNX, 4-bit/8-bit quantization, etc.), and we hope this will be democratized for developers and practitioners together with the transformers integration of the architecture.
+Therefore, the architecture can also naturally benefit from classic acceleration and compression techniques ([ONNX](https://github.com/harrisonvanderbyl/rwkv-onnx), 4-bit/8-bit quantization, etc.), and we hope this will be democratized for developers and practitioners together with the transformers integration of the architecture.
+
+RWKV can also benefit from the acceleration techniques proposed by [`optimum`](https://github.com/huggingface/optimum) library in the near future.
 
 Some of these techniques are highlighted in the [`rwkv.cpp` repository](https://github.com/saharNooby/rwkv.cpp) or [`rwkv-cpp-cuda` repository](https://github.com/harrisonvanderbyl/rwkv-cpp-cuda).
 
