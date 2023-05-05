@@ -16,18 +16,18 @@ authors:
 ## Introduction
 
 ChatGPT and chatbot-powered applications have taken over the recent AI hype around Natural Language Processing (NLP) models (i.e. text models). The community is constantly seeking strong, reliable and open-source models for their applications and use cases. 
-The emergence of these powerful models is a logical after of the democratization of transformer-based models, firstly introduced in 2017 by [Vaswani et al.](https://arxiv.org/abs/1706.03762), that has drastically outperformed previous SoTA models for NLP tasks, based on Recurrent Neural Networks, (RNNs), that the scientific community believed were dead after that paper. 
+The emergence of these powerful models is a logical consequence of the democratization of transformer-based models, firstly introduced in 2017 by [Vaswani et al.](https://arxiv.org/abs/1706.03762), that has drastically outperformed previous SoTA models for NLP tasks, based on Recurrent Neural Networks (RNNs), that the scientific community believed were dead after that paper. 
 Through this blogpost, we will introduce the integration of a new architecture, RWKV, that combines the advantages of both RNNs and transformers, and that has been recently integrated into the HuggingFace [transformers](https://github.com/huggingface/transformers) library.
 
 ### Overview of the RWKV project
 
-The RWKV project has been kicked-off and led by [Bo Peng](https://github.com/BlinkDL), who is actively contributing and maintaining the project. There is a community that is constantly enhancing the project’s artifacts in the official discord channel on various topics such as performance (RWKV.cpp, quantization, etc.), scalability (dataset processing & scrapping) and research (chat-fine tuning, multi-modal finetuning, etc.). The GPU access for training RWKV models are donated by Stability AI.
+The RWKV project has been kicked-off and led by [Bo Peng](https://github.com/BlinkDL), who is actively contributing and maintaining the project. There is a community that is constantly enhancing the project’s artifacts in the official discord channel on various topics such as performance (rwkv.cpp, quantization, etc.), scalability (dataset processing & scrapping) and research (chat-fine tuning, multi-modal finetuning, etc.). The GPU access for training RWKV models is donated by Stability AI.
 
 Learn more about that by joining the [official discord channel](https://discordapp.com/users/468093332535640064) and learn more about the general ideas behind RWKV in these two blogposts: https://johanwind.github.io/2023/03/23/rwkv_overview.html / https://johanwind.github.io/2023/03/23/rwkv_details.html 
 
-### transformer architecture vs RNNs
+### Transformer Architecture vs RNNs
 
-The RNN architecture is one of the first widely used Neural Network architectures for processing a sequence of data, contrary to classic architectures that take a fixed size input. It takes as input the current “token” (i.e. current data point of the datastream), the previous “state”, and computes the predicted next token, as well as the predicted next state. The new state is then used to compute the prediction of the next token, and so on.
+The RNN architecture is one of the first widely used Neural Network architectures for processing a sequence of data, contrary to classic architectures that take a fixed size input. It takes as input the current “token” (i.e. current data point of the datastream), the previous “state”, and computes the predicted next token, and the predicted next state. The new state is then used to compute the prediction of the next token, and so on.
 A RNN can be also used in different “modes”, therefore enabling the possibility of applying RNNs on different scenarios, as denoted by [Andrej Karpathy’s blogpost](https://karpathy.github.io/2015/05/21/rnn-effectiveness/).
 
 | ![rnn_diagram](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/142_rwkv/RNN-scheme.png) |
