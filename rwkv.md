@@ -44,11 +44,11 @@ In the transformer architecture, the input tokens are processed in the self-atte
 
 During training, Transformer architecture has several advantages over traditional RNNs and CNNs. One of the most significant advantages is its ability to learn contextual representations. Unlike the RNNs and CNNs, which process input sequences one word at a time, Transformer architecture processes input sequences as a whole. This allows it to capture long-range dependencies between words in the sequence, which is particularly useful for tasks such as language translation and question answering. (14B v10 response)
 
-During inference, RNNs have some small advantages in speed and memory efficiency. These advantages include simplicity, due to needing only matrix-vector operations, and memory efficiency, as the memory requirements do not grow during inference. Furthermore, due to computations only acting on the current token and state, the computation speed does not decrease with context window length.
+During inference, RNNs have some advantages in speed and memory efficiency. These advantages include simplicity, due to needing only matrix-vector operations, and memory efficiency, as the memory requirements do not grow during inference. Furthermore, due to computations only acting on the current token and state, the computation speed does not decrease with context window length.
 
 ## The RWKV architecture
 
-RWKV is inspired by [Apple’s Attention Free Transformer](https://machinelearning.apple.com/research/attention-free-transformer). The architecture has been  simplified and optimized it such that it can be transformed into an RNN. In addition, a number of tricks has been added (Without which the model won’t be performant) such as TokenShift & SmallInitEmb (the list of tricks is listed in [this link](https://github.com/BlinkDL/RWKV-LM/blob/main/README.md#how-it-works)) to boost its performance to match GPT. 
+RWKV is inspired by [Apple’s Attention Free Transformer](https://machinelearning.apple.com/research/attention-free-transformer). The architecture has been carefully simplified and optimized such that it can be transformed into an RNN. In addition, a number of tricks has been added (Without which the model won’t be performant) such as TokenShift & SmallInitEmb (the list of tricks is listed in [this link](https://github.com/BlinkDL/RWKV-LM/blob/main/README.md#how-it-works)) to boost its performance to match GPT. 
 For training, there is an infrastructure to scale the training up to 14B parameters as of now, and some issues have been iteratively fixedn such as numerical instability (fixed in RWKV-4, the newest version of RWKV as of today).
 
 ### RWKV as a combination of RNNs and transformers
