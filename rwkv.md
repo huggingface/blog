@@ -199,3 +199,4 @@ Some of these techniques are highlighted in the [`rwkv.cpp` repository](https://
 The Hugging Face team would like to thank Bo and RWKV community for their time and for answering our questions about the architecture. We would also like to thank them for their help and support and we look forward to see more adoption of RWKV models in the HF ecosystem.
 We also would like to acknowledge the work of [Johan Wind](https://twitter.com/johanwind) for his blogpost on RWKV, which helped us a lot to understand the architecture and its potential.
 And finally, we would like to highlight anf acknowledge the work of [ArEnSc](https://github.com/ArEnSc) for starting over the initial `transformers` PR.
+Also big kudos to [Merve Noyan](https://huggingface.co/merve) and [Maria Khalusova](https://huggingface.co/MariaK) for kindly reviwing this blogpost to make it much better!
