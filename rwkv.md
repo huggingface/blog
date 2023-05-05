@@ -102,7 +102,21 @@ Let us walk through some examples below.
 
 ### Text Generation Example
 
-To generate text given an input prompt, you can run the snippet below:
+To generate text given an input prompt you can use `pipeline` to generate text:
+
+```python
+from transformers import pipeline
+
+model_id = "RWKV/rwkv-4-169m-pile"
+
+prompt = "\nIn a shocking finding, scientist discovered a herd of dragons living in a remote, previously unexplored valley, in Tibet. Even more surprising to the researchers was the fact that the dragons spoke perfect Chinese."
+
+pipe = pipeline("text-generation", model=model_id)
+print(pipe(prompt, max_new_tokens=20))
+>>> [{'generated_text': '\nIn a shocking finding, scientist discovered a herd of dragons living in a remote, previously unexplored valley, in Tibet. Even more surprising to the researchers was the fact that the dragons spoke perfect Chinese.\n\nThe researchers found that the dragons were able to communicate with each other, and that they were'}]
+```
+
+Or you can run and start from the snippet below:
 
 ```python
 import torch
@@ -114,18 +128,9 @@ tokenizer = AutoTokenizer.from_pretrained("RWKV/rwkv-4-169m-pile")
 prompt = "\nIn a shocking finding, scientist discovered a herd of dragons living in a remote, previously unexplored valley, in Tibet. Even more surprising to the researchers was the fact that the dragons spoke perfect Chinese."
 
 inputs = tokenizer(prompt, return_tensors="pt")
-output = model.generate(inputs["input_ids"], max_new_tokens=400, top_p=0.8, do_sample=True)
+output = model.generate(inputs["input_ids"], max_new_tokens=20)
 print(tokenizer.decode(output[0].tolist()))
-```
-
-You can also use `pipeline` to generate text:
-
-```python
-from transformers import pipeline
-
-model_id = "RWKV/rwkv-4-169m-pile"
-pipe = pipeline("text-generation", model=model_id)
-print(pipe(prompt, max_length=10))
+>>> In a shocking finding, scientist discovered a herd of dragons living in a remote, previously unexplored valley, in Tibet. Even more surprising to the researchers was the fact that the dragons spoke perfect Chinese.\n\nThe researchers found that the dragons were able to communicate with each other, and that they were
 ```
 
 ### Use the raven models (chat models)
@@ -133,7 +138,7 @@ print(pipe(prompt, max_length=10))
 You can prompt the chat model in the alpaca style, here is an example below:
 
 ```python
-from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 model_id = "RWKV/rwkv-raven-1b5"
 
