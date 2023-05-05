@@ -50,7 +50,7 @@ During inference, RNNs have some advantages in speed and memory efficiency. Thes
 
 ## The RWKV architecture
 
-RWKV is inspired by [Apple’s Attention Free Transformer](https://machinelearning.apple.com/research/attention-free-transformer). The architecture has been carefully simplified and optimized such that it can be transformed into an RNN. In addition, a number of tricks has been added such as `TokenShift` & `SmallInitEmb` (the list of tricks is listed in [this link](https://github.com/BlinkDL/RWKV-LM/blob/main/README.md#how-it-works)) to boost its performance to match GPT. Without these, the model wouldn't be as performant.
+RWKV is inspired by [Apple’s Attention Free Transformer](https://machinelearning.apple.com/research/attention-free-transformer). The architecture has been carefully simplified and optimized such that it can be transformed into an RNN. In addition, a number of tricks has been added such as `TokenShift` & `SmallInitEmb` (the list of tricks is listed in [the README of the official GitHub repository](https://github.com/BlinkDL/RWKV-LM/blob/main/README.md#how-it-works)) to boost its performance to match GPT. Without these, the model wouldn't be as performant.
 For training, there is an infrastructure to scale the training up to 14B parameters as of now, and some issues have been iteratively fixed in RWKV-4 (latest version as of today), such as numerical instability.
 
 ### RWKV as a combination of RNNs and transformers
