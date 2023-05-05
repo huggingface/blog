@@ -78,7 +78,7 @@ Along with the model, we are releasing a list of resources and demos:
 - [StarCoder Chat](https://huggingface.co/chat?model=bigcode/starcoder): Chat with StarCoder!
 - [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode): Code with StarCoder!
 - [StarCoder Playground](https://huggingface.co/spaces/bigcode/bigcode-playground): Write with StarCoder!
-- [StarCoder Editor](https://huggingface.co/spaces/bigcode/bigcode-playground): Edit with StarCoder!
+- [StarCoder Editor](https://huggingface.co/spaces/bigcode/bigcode-editor): Edit with StarCoder!
 
 ### Data & Governance
 - [StarCoderData](https://huggingface.co/datasets/bigcode/starcoderdata): Pretraining dataset of StarCoder.
@@ -86,8 +86,8 @@ Along with the model, we are releasing a list of resources and demos:
 - [Governance Card](): A card outlining the governance of the model.
 - [StarCoder License Agreement](https://huggingface.co/spaces/bigcode/bigcode-model-license-agreement): The model is licensed under the BigCode OpenRAIL-M v1 license agreement.
 - [StarCoder Search](https://huggingface.co/spaces/bigcode/search): Full-text search code in the pretraining dataset.
-- [StarCoder Membership Test](stack.dataportraits.org): Blazing fast test if code was present in pretraining dataset.
+- [StarCoder Membership Test](https://stack.dataportraits.org): Blazing fast test if code was present in pretraining dataset.
 
 
 
-You can find all the resources and links at [www.hf.co/bigcode](www.hf.co/bigcode)!
+You can find all the resources and links at [huggingface.co/bigcode](https://huggingface.co/bigcode)!
