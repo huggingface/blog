@@ -2123,7 +2123,7 @@
     - research 
 
 - local: chatbot-amd-gpu
-  title: "Run a Chatgpt-like Chatbot on a Single AMD GPU with ROCm"
+  title: "Run a Chatgpt-like Chatbot on a Single GPU with ROCm"
   thumbnail: /blog/assets/chatbot-amd-gpu/thumbnail.png
   author: andyll7772
   date: May 15, 2023
@@ -2131,6 +2131,5 @@
     - guide
     - llm
     - nlp
-    - amd
     - inference
     - rocm
