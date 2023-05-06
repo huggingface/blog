@@ -1,13 +1,12 @@
 ---
-title: "Run a Chatgpt-like Chatbot on a Single AMD GPU with ROCm" 
+title: "Run a Chatgpt-like Chatbot on a Single GPU with ROCm" 
 thumbnail: /blog/assets/chatbot-amd-gpu/thumbnail.png
 authors:
 - user: andyll7772
-- user: seungrok81
 ---
 
 <h1>
-Run a Chatgpt-like Chatbot on a Single AMD GPU with ROCm</h1>
+Run a Chatgpt-like Chatbot on a Single GPU with ROCm</h1>
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -19,17 +18,11 @@ influential force in the realm of artificial intelligence, paving the
 way for a multitude of AI applications across diverse sectors. With its
 staggering ability to comprehend and generate human-like text, ChatGPT
 has transformed industries, from customer support to creative writing,
-and has even served as an invaluable research tool. However, the model's
-immense size, based on the GPT-4 architecture, presents a considerable
-challenge when it comes to training or deploying it on a single GPU.
+and has even served as an invaluable research tool. 
 
-Consequently, this creates an accessibility barrier for smaller
-organizations and individual developers who may lack the requisite
-infrastructure to harness the full potential of the model.
-
-To overcome this obstacle, various efforts have been made to provide
-open-source large language models which demonstrate similar capabilities
-but in much smaller sizes, such as
+Various efforts have been made to provide
+open-source large language models which demonstrate great capabilities
+but in smaller sizes, such as
 [OPT](https://huggingface.co/docs/transformers/model_doc/opt),
 [LLAMA](https://github.com/facebookresearch/llama),
 [Alpaca](https://github.com/tatsu-lab/stanford_alpaca) and
@@ -45,7 +38,7 @@ by a team from UC Berkeley, CMU, Stanford, and UC San Diego. To create
 Vicuna, a LLAMA base model was fine-tuned using about 70K user-shared
 conversations collected from ShareGPT.com via public APIs. According to
 initial assessments where GPT-4 is used as a reference, Vicuna-13B has
-achieved over 90%\* quality compared to OpenAI ChatGPT and Google Bard.
+achieved over 90%\* quality compared to OpenAI ChatGPT.
 
 <p align="center">
   <img src="assets/chatbot-amd-gpu/01.png" style="width: 60%; height: auto;">
@@ -53,17 +46,15 @@ achieved over 90%\* quality compared to OpenAI ChatGPT and Google Bard.
 
 It was released on [Github](https://github.com/lm-sys/FastChat) on Apr
 11, just a few weeks ago. It is worth mentioning that the data set,
-training code, evaluation metrics, training cost are known for Vicuna
-but are not known for Bard or ChatGPT. Its total training cost was just
-around \$300, making it a cost-effective solution for chatbot
-development to the general public.
+training code, evaluation metrics, training cost are known for Vicuna. Its total training cost was just
+around \$300, making it a cost-effective solution for the general public.
 
 For more details about Vicuna, please check out
 <https://vicuna.lmsys.org>.
 
 **Why do we need a quantized GPT model?**
 
-Running LLaMA/Vicuna-13B model in fp16 requires around 28GB GPU RAM. To
+Running Vicuna-13B model in fp16 requires around 28GB GPU RAM. To
 further reduce the memory footprint, optimization techniques are
 required. There is a recent research paper GPTQ published, which
 proposed accurate post-training quantization for GPT models with lower
@@ -115,7 +106,7 @@ meets the following requirements:
 
 For more information, please check out <https://docs.amd.com/bundle/ROCm-Installation-Guide-v5.4.3/page/Prerequisites.html>.
 
-We have tested this example on [**Instinct
+This example has been tested on [**Instinct
 MI210**](https://www.amd.com/en/products/server-accelerators/amd-instinct-mi210)
 and [**Radeon
 RX6900XT**](https://www.amd.com/en/products/graphics/amd-radeon-rx-6900-xt)
@@ -307,13 +298,12 @@ Test environment:
 
 Large language models (LLMs) have made significant advancements in
 chatbot systems, as seen in OpenAI’s ChatGPT. Vicuna-13B, an open-source
-chatbot has been developed and demonstrated comparable quality compared
-to OpenAI ChatGPT and Google Bard.
+LLM model has been developed and demonstrated excellent capability and quality.
 
 By following this guide, you should now have a better understanding of
 how to set up and run the Vicuna 13B model on an AMD GPU with ROCm. This
 will enable you to unlock the full potential of this cutting-edge
-language model for your research, development, and personal projects.
+language model for your research and personal projects.
 
 Thanks for reading!
 
@@ -384,8 +374,12 @@ The more optimized kernel implementation in
 <https://github.com/oobabooga/GPTQ-for-LLaMa/blob/57a26292ed583528d9941e79915824c5af012279/quant_cuda_kernel.cu#L891>
 
 targets at A100 GPU and not compatible with ROCM5.4.3 HIPIFY
-toolkits. Please modify the kernel codes as follows. Do the same for
+toolkits. It nees to be modified as follows. The same for
 VecQuant2MatMulKernelFaster, VecQuant3MatMulKernelFaster,
 VecQuant4MatMulKernelFaster kernels.
 
 <img src="assets/chatbot-amd-gpu/14.png" style="width: 100%; height: auto;">
+
+For convenience, All the modified codes are available in [Github Gist](https://gist.github.com/seungrokjung/110943b70503732c4a398607e1cbdd6c).
+
+
