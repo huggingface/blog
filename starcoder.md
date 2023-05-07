@@ -67,7 +67,7 @@ Along with the model, we are releasing a list of resources and demos:
 ## Links
 
 ### Models
-- [Paper](): A technical report about StarCoder.
+- [Paper](https://drive.google.com/file/d/1cN-b9GnWtHzQRoE7M7gAEyivY0kl4BYs/view): A technical report about StarCoder.
 - [GitHub](https://github.com/bigcode-project/starcoder/tree/main): All you need to know about using or fine-tuning StarCoder.
 - [StarCoder](https://huggingface.co/bigcode/starcoder): StarCoderBase further trained on Python.
 - [StarCoderBase](https://huggingface.co/bigcode/starcoderbase): Trained on 80+ languages from The Stack.
