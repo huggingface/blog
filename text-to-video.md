@@ -25,7 +25,7 @@ In this blog post, we will discuss the past, present, and future of text-to-vide
 </p>
 
 ## Text-to-Video vs. Text-to-Image
-With so many developments happening in such a short time, it may be difficult to keep up with the current state of text-to-image generative models. Let's do a quick recap first.
+With so many recent developments, it can be difficult to keep up with the current state of text-to-image generative models. Let's do a quick recap first.
 
 Only two years ago, the first open-vocabulary, high-quality text-to-image generative models emerged. The first wave of text-to-image models, including VQGAN-CLIP, XMC-GAN, and GauGAN2, all had GAN architectures. They were quickly followed by OpenAI's DALL-E, a transformer-based model released in early 2021 that achieved huge success. DALL-E was followed by DALL-E 2 in April 2022, along with a new wave of diffusion models pioneered by Stable Diffusion and Imagen. The huge success of Stable Diffusion led to many productionized diffusion models, such as DreamStudio and RunwayML GEN-1, and integration with existing products such as Midjourney.
 
