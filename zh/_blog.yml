@@ -442,3 +442,13 @@
   tags:
     - partnerships
     - community
+
+- local: starcoder
+  title: "StarCoder：最先进的代码大模型"
+  author: lvwerra
+  thumbnail: /blog/assets/141_starcoder/starcoder_thumbnail.png
+  date: May 4, 2023
+  tags:
+    - nlp
+    - community
+    - research 
