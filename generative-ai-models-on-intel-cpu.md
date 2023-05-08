@@ -86,7 +86,7 @@ Together with Intel, we've hosted on Spaces a new exciting demo called [Q8-Chat]
   <img src="assets/142_q8chat/pic4.png">
 </kbd>
 
-##Next steps
+## Next steps
 
 We’re currently working on integrating these amazing new quantization techniques into the Hugging Face [Optimum Intel](https://huggingface.co/docs/optimum/intel/index) library. Once we’re done, you’ll be able to replicate these demos with just a few lines of code.
 
