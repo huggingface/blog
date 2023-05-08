@@ -82,7 +82,6 @@ StarCoder 的一个有趣方面是它是多语言的，因此我们在 MultiPL-E
 - [StarPii](https://huggingface.co/bigcode/starpii): 基于 StarEncoder 的 PII 检测器。
 
 ### 工具和应用演示
-
 - [StarCoder Chat](https://huggingface.co/chat?model=bigcode/starcoder): 和 StarCoder 聊天！
 - [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode): 使用 StarCoder 补全代码的 VSCode 插件！
 - [StarCoder Playground](https://huggingface.co/spaces/bigcode/bigcode-playground): 用 StarCoder 写代码！
