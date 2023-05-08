@@ -1684,19 +1684,6 @@
     - guide
     - game-dev
 
-- local: red-teaming
-  title: "Red-Teaming Large Language Models"
-  author: nazneen
-  thumbnail: /blog/assets/red-teaming/thumbnail.png
-  date: February 22, 2023
-  tags:
-    - llms
-    - rlhf
-    - red-teaming
-    - chatgpt
-    - safety
-    - alignment
-
 - local: optimum-onnxruntime-training
   title: "Optimum+ONNX Runtime - Easier, Faster training for your Hugging Face models"
   author: Jingya
@@ -2082,3 +2069,13 @@
     - community
     - guide
     - game-dev
+
+- local: starcoder
+  title: "StarCoder: A State-of-the-Art LLM for Code"
+  author: lvwerra
+  thumbnail: /blog/assets/141_starcoder/starcoder_thumbnail.png
+  date: May 4, 2023
+  tags:
+    - nlp
+    - community
+    - research 
