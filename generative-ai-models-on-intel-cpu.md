@@ -55,7 +55,7 @@ Now, let’s see how SmoothQuant works when applied to popular LLMs.
 
 Our friends at Intel have quantized several LLMs with SmoothQuant-O3: OPT [2.7B](https://huggingface.co/facebook/opt-2.7b) and [6.7B](https://huggingface.co/facebook/opt-6.7b) [[5]](https://arxiv.org/pdf/2205.01068.pdf), LLaMA [7B](https://huggingface.co/decapoda-research/llama-7b-hf) [[6]](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/), Alpaca [7B](https://huggingface.co/tatsu-lab/alpaca-7b-wdiff) [[7]](https://crfm.stanford.edu/2023/03/13/alpaca.html), Vicuna [7B](https://huggingface.co/lmsys/vicuna-7b-delta-v1.1) [[8]](https://vicuna.lmsys.org/), BloomZ [7.1B](https://huggingface.co/bigscience/bloomz-7b1) [[9]](https://huggingface.co/bigscience/bloomz). They also evaluated the accuracy of the quantized models using the [Language Model Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness).
 
-The table below presents a summary of their findings. The second column shows the ratio of benchmarks that have improved post-quantization. The third column contain the mean average degradation (a negative value indicates that the benchmark has improved). You can find the detailed results at the end of this post.
+The table below presents a summary of their findings. The second column shows the ratio of benchmarks that have improved post-quantization. The third column contain the mean average degradation (_* a negative value indicates that the benchmark has improved_). You can find the detailed results at the end of this post.
 
 <kbd>
   <img src="assets/142_q8chat/table0.png">
