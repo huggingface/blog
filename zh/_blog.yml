@@ -443,11 +443,12 @@
     - partnerships
     - community
 
-- local: deep-learning-with-proteins
-  title: "蛋白质深度学习"
-  author: rocketknight1
-  thumbnail: /blog/assets/119_deep_learning_with_proteins/folding_example.png
-  date: December 2, 2022
+- local: starcoder
+  title: "StarCoder：最先进的代码大模型"
+  author: lvwerra
+  thumbnail: /blog/assets/141_starcoder/starcoder_thumbnail.png
+  date: May 4, 2023
   tags:
-    - guide
-    - fine-tuning
+    - nlp
+    - community
+    - research 
