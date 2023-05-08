@@ -414,6 +414,16 @@
   tags:
     - ethics
 
+- local: stackllama
+  title: "“StackLLaMA”: 用 RLHF 训练 LLaMA 的手把手教程"
+  author: edbeeching
+  thumbnail: /blog/assets/138_stackllama/thumbnail.png
+  date: April 5, 2023
+  tags:
+    - rl
+    - rlhf
+    - nlp
+
 - local: graphml-classification
   title: "使用 Transformers 进行图分类"
   author: clefourrier
