@@ -3,9 +3,6 @@ title: "Smaller is better: Q8-Chat, an efficient generative AI experience on Xeo
 thumbnail: /blog/assets/142_q8chat/pic3.png
 authors:
 - user: juliensimon
-- user: moshew
-- user: ofirzaf
-- user: guybd
 ---
 
 # Smaller is better: Q8-Chat, an efficient generative AI experience on Xeon
@@ -96,6 +93,11 @@ We’re currently working on integrating these amazing new quantization techniqu
 Stay tuned. The future is 8-bit!
 
 *This post is guaranteed 100% ChatGPT-free.*
+
+## Acknowledgment
+
+This blog was made in conjunction with Ofir Zafrir, Igor Margulis, Guy Boudoukh and Moshe Wasserblat from Intel Labs.
+Special thanks to them for their great comments and collaboration.
 
 
 ## Appendix: detailed results
