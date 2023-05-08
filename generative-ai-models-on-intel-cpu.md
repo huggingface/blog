@@ -65,7 +65,7 @@ As you can see, OPT models are great candidates for SmoothQuant quantization. Mo
 
 The picture is a little more contrasted for LLaMA 7B and BloomZ 7.1B. Models are compressed by a factor of ~2x, with about half the task seeing metric improvements. Again, the other half is only marginally impacted, with a single task seeing more than 3% relative degradation.
 
-The obvious benefit of working with smaller models is a significant reduction in inference latency. Here’s a [video](https://drive.google.com/file/d/19PrWwJo-laXYppRzUZyR7s3M1zd_2Yfe/view?usp=share_link) demonstrating real-time text generation with the Vicuna-7b model, on a single socket Intel Sapphire Rapids CPU with 32 cores and a batch size of 1.
+The obvious benefit of working with smaller models is a significant reduction in inference latency. Here’s a [video](https://drive.google.com/file/d/1h8C2I4xn1c0HdrzfMqBaYECJyqo5kcJL/view?usp=sharing) demonstrating real-time text generation with the Vicuna-7b model, on a single socket Intel Sapphire Rapids CPU with 32 cores and a batch size of 1.
 
 In this example, we ask the model: “*What is the role of Hugging Face in democratizing NLP?*”. This sends the following prompt to the model:
 "*A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: What is the role of Hugging Face in democratizing NLP? ASSISTANT:*"
