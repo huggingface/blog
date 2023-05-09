@@ -380,7 +380,7 @@ The final step is to launch the training! If you’re lucky enough to have 8 x A
 torchrun --nproc_per_node=8 train.py config.yaml --deepspeed=deepspeed_z3_config_bf16.json
 ```
 
-Your trained model will then be available on the Hub!
+Here the `config.yaml` file specifies all the parameters associated with the dataset, model, and training - you can configure it [here](https://github.com/bigcode-project/starcoder/chat/) to adapt the training to a new dataset. Your trained model will then be available on the Hub!
 
 ## StarCoder as a coding assistant
 
