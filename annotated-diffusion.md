@@ -595,7 +595,7 @@ from PIL import Image
 import requests
 
 url = 'http://images.cocodataset.org/val2017/000000039769.jpg'
-image = Image.open(requests.get(url, stream=True).raw)
+image = Image.open(requests.get(url, stream=True).raw) # PIL image of shape HWC
 image
 ```
 <img src="assets/78_annotated-diffusion/output_cats.jpeg" width="400" />
@@ -616,7 +616,7 @@ image_size = 128
 transform = Compose([
     Resize(image_size),
     CenterCrop(image_size),
-    ToTensor(), # turn into Numpy array of shape HWC, divide by 255
+    ToTensor(), # turn into torch Tensor of shape CHW, divide by 255
     Lambda(lambda t: (t * 2) - 1),
     
 ])
