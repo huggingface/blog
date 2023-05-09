@@ -652,7 +652,7 @@ We thank Nicolas Patry and Olivier Dehaene for their help with deploying StarCha
 
 ## Links
 
-- Code: [https://github.com/bigcode-project/starcoder](https://github.com/bigcode-project/starcoder)
+- Code: [https://github.com/bigcode-project/starcoder/tree/main/chat](https://github.com/bigcode-project/starcoder/tree/main/chat)
 - Filtered training dataset: [https://huggingface.co/datasets/HuggingFaceH4/oasst1_en](https://huggingface.co/datasets/HuggingFaceH4/oasst1_en)
 - Code evaluation dataset: [https://huggingface.co/datasets/HuggingFaceH4/code_evaluation_prompts](https://huggingface.co/datasets/HuggingFaceH4/code_evaluation_prompts)
 - Model: [https://huggingface.co/HuggingFaceH4/starchat-alpha](https://huggingface.co/HuggingFaceH4/starchat-alpha)
