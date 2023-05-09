@@ -18,13 +18,13 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-If you’re a software developer, chances are high you’ve used GitHub Copilot or ChatGPT to solve programming tasks such as translating code from one language to another or generating a full implementation from a natural language query like *“Write a Python program to find the Nth Fibonacci number”*. Although impressive in their capabilities, these proprietary systems typically come with several drawbacks, including a lack of transparency on the public data used to train them and the inability to adapt them to your domain or codebase.
+If you’re a software developer, chances are that you’ve used GitHub Copilot or ChatGPT to solve programming tasks such as translating code from one language to another or generating a full implementation from a natural language query like *“Write a Python program to find the Nth Fibonacci number”*. Although impressive in their capabilities, these proprietary systems typically come with several drawbacks, including a lack of transparency on the public data used to train them and the inability to adapt them to your domain or codebase.
 
 Fortunately, there are now several high-quality open-source alternatives! These include SalesForce’s [CodeGen Mono 16B](https://huggingface.co/Salesforce/codegen-16B-mono) for Python, or [Replit’s 3B parameter model](https://huggingface.co/replit/replit-code-v1-3b)trained on 20 programming languages.
 
 The new kid on the block is [BigCode’s `StarCoder`](https://huggingface.co/bigcode/starcoder), a 16B parameter model trained on one trillion tokens sourced from 80+ programming languages, GitHub issues, Git commits, and Jupyter notebooks (all permissively licensed). With an enterprise-friendly license, 8,192 token context length, and fast large-batch inference via [multi-query attention](https://arxiv.org/abs/1911.02150), `StarCoder` is currently the best open-source choice for code-based applications.
 
-In this blog post, we’ll show you how to fine-tune `StarCoder` for chat so you can create your very own coding assistant! Dubbed `StarChat`, we’ll explore several technical details that arise when using LLMs as coding assistants, including:
+In this blog post, we’ll show how `StarCoder` can be fine-tuned for chat to create a personalised coding assistant! Dubbed `StarChat`, we’ll explore several technical details that arise when using LLMs as coding assistants, including:
 
 - How LLMs can be prompted to act like conversational agents.
 - OpenAI’s [Chat Markup Language](https://github.com/openai/openai-python/blob/main/chatml.md) (or ChatML for short), which provides a structured format for conversational messages between human users and AI assistants.
@@ -32,13 +32,19 @@ In this blog post, we’ll show you how to fine-tune `StarCoder` for chat so you
 
 As a teaser of the end result, try asking `StarChat` a few programming questions in the demo below!
 
-**[insert starchat playground here]**
+<script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/3.28.2/gradio.js"
+></script>
+
+<gradio-app src="https://huggingfaceh4-starchat-playgroun.hf.space"></gradio-app>
+
 
 You can also find the code, dataset, and model used to produce the demo at the following links:
 
 - Code: [https://github.com/bigcode-project/starcoder](https://github.com/bigcode-project/starcoder)
 - Dataset: [https://huggingface.co/datasets/HuggingFaceH4/oasst1_en](https://huggingface.co/datasets/HuggingFaceH4/oasst1_en)
-- Model: [https://huggingface.co/HuggingFaceH4/starchat-alpha](https://huggingface.co/HuggingFaceH4/starcoderbase-finetuned-oasst1)
+- Model: [https://huggingface.co/HuggingFaceH4/starchat-alpha](https://huggingface.co/HuggingFaceH4/starchat-alpha)
 
 To get started, let’s take a look at how language models can be turned into conversational agents without any fine-tuning at all.
 
@@ -100,30 +106,25 @@ Human: Write a function that takes two lists and returns a list that has alterna
 
 Assistant: Sure. Here is a function that does that.
 
-```python
 def alternating(list1, list2):
    results = []
    for i in range(len(list1)):
        results.append(list1[i])
        results.append(list2[i])
    return results
-```
 
 Human: Can you write some test cases for this function?
 
 Assistant: Sure, here are some tests.
 
-```python
 assert alternating([10, 20, 30], [1, 2, 3]) == [10, 1, 20, 2, 30, 3]
 assert alternating([True, False], [4, 5]) == [True, 4, False, 5]
 assert alternating([], []) == []
-```
 
 Human: Modify the function so that it returns all input elements when the lists have uneven length. The elements from the longer list should be at the end.
 
 Assistant: Here is the modified function.
 
-```python
 def alternating(list1, list2):
    results = []
    for i in range(min(len(list1), len(list2))):
@@ -134,7 +135,6 @@ def alternating(list1, list2):
    else:
        results.extend(list2[i+1:])
    return results
-```
 
 -----
 ```
@@ -226,10 +226,7 @@ Human: Yeah, but laws are complicated ..
 <EOS>
 ```
 
-Although this works fine for training, it isn’t ideal for inference because:
-
-- Depending on the tokenizer, the `Human:` and `Assistant:` prefixes may be tokenized into subwords, which is wasteful (especially in a long dialogue)
-- The model will naturally generate unwanted turns until it produces an `<EOS>` token, and some post-processing or additional logic is typically required to prevent this.
+Although this works fine for training, it isn’t ideal for inference because the model will naturally generate unwanted turns until it produces an `<EOS>` token, and some post-processing or additional logic is typically required to prevent this.
 
 A more appealing approach is to use a structured format like [ChatML](https://github.com/openai/openai-python/blob/main/chatml.md), which wraps each turn with a set of *special tokens* that indicate the role of the query or response.
 
@@ -277,7 +274,7 @@ You are correct ...<|end|>
 Yeah, but laws are complicated ...<|end|>
 ```
 
-OK, this looks like what we need! The next step is to include these special tokens in the tokenizer’s vocabulary, so let’s download the StarCoderBase tokenizer and add them:
+OK, this looks like what we need! The next step is to include these special tokens in the tokenizer’s vocabulary, so let’s download the `StarCoder` tokenizer and add them:
 
 ```python
 from transformers import AutoTokenizer
@@ -335,11 +332,11 @@ labels
 [-100, -100, -100, -100, -100, -100, -100, -100, -100, -100, -100, 49153, 203, 69, 513, 30, 2769, 883, 439, 745, 436, 844, 49, 49155, 203]
 ```
 
-These special tokens have embeddings that will need to be learned during the fine-tuning process. Let’s take a look at what’s involved.
+OK, we can see that all the user input IDs have been masked in the labels as desired. These special tokens have embeddings that will need to be learned during the fine-tuning process. Let’s take a look at what’s involved.
 
 ## Fine-tuning StarCoder with DeepSpeed ZeRO-3
 
-The StarCoder and StarCoderBase models contain 16B parameters, which means we’ll need a lot of GPU vRAM to fine-tune them — for instance, simply loading the model weights in full FP32 precision requires around 60GB vRAM! Fortunately, there are a few options available to deal with large models like this:
+The `StarCoder` and `StarCoderBase` models contain 16B parameters, which means we’ll need a lot of GPU vRAM to fine-tune them — for instance, simply loading the model weights in full FP32 precision requires around 60GB vRAM! Fortunately, there are a few options available to deal with large models like this:
 
 - Use parameter-efficient techniques like LoRA which freeze the base model’s weights and insert a small number of learnable parameters. You can find many of these techniques in the [🤗 PEFT](https://github.com/huggingface/peft) library.
 - Shard the model weights, optimizer states, and gradients across multiple devices using methods like [DeepSpeed ZeRO-3](https://huggingface.co/docs/transformers/main_classes/deepspeed) or [FSDP](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/).
@@ -380,7 +377,7 @@ The final step is to launch the training! If you’re lucky enough to have 8 x A
 torchrun --nproc_per_node=8 train.py config.yaml --deepspeed=deepspeed_z3_config_bf16.json
 ```
 
-You trained model will then be available on the Hub!
+Your trained model will then be available on the Hub!
 
 ## StarCoder as a coding assistant
 
@@ -531,7 +528,7 @@ The results are shown in the table below, where we can see the fine-tuned model 
 So what can be done instead of relying on automatic metrics on benchmarks? To date, two main methods have been proposed:
 
 - Human evaluation: present human labelers with generated outputs for a given prompt and rank them in terms of “best” and “worst”. This is the current gold standard used to create systems like InstructGPT.
-- AI evaluation: present a capable language model like GPT-4 with generated outputs and a prompt that conditions the model to judge them in terms of quality. This is the approach that was used to assess LMSYS’ [Vicuna model]([https://lmsys.org/blog/2023-03-30-vicuna/](https://lmsys.org/blog/2023-03-30-vicuna/))
+- AI evaluation: present a capable language model like GPT-4 with generated outputs and a prompt that conditions the model to judge them in terms of quality. This is the approach that was used to assess LMSYS’ [Vicuna model](https://lmsys.org/blog/2023-03-30-vicuna/)
 
 As a simple experiment, we used ChatGPT to test our StarCoder models on several programming languages. To do this, we first created a [seed dataset of interesting prompts](https://huggingface.co/datasets/HuggingFaceH4/code_evaluation_prompts) for evaluation. We used ChatGPT to initiate this process, asking it things such as:
 
@@ -555,13 +552,21 @@ At one point, there was a bug with our tokenization (the prompt was too long), s
 
 ## Limitations and biases
 
+Like many other language models, this alpha version of `StarChat` has various limitations, including a tendency to hallucinate facts and produce problematic content (especially when prompted to). In particular, the model hasn't been aligned to human preferences with techniques like RLHF. For more details on the model’s limitations in terms of factuality and biases, see the [model card](https://huggingface.co/HuggingFaceH4/starchat-alpha#bias-risks-and-limitations).
+
 ## Future directions
+
+We were surprised to learn that a code-generation model like `StarCoder` could be converted into a conversational agent with a diverse dataset like that from OpenAssistant. One possible explanation is that `StarCoder` has been trained on both code _and_ GitHub issues, the latter providing a rich signal of natural language content. We're exctited to see where the community will take `StarCoder` - perhaps it will power the next wave of open-source assistants 🤗.
 
 ## Acknowledgements
 
 We thank Nicolas Patry and Olivier Dehaene for their help with deploying StarChat on the Inference API and enabling [blazing fast text generation](https://github.com/huggingface/text-generation-inference). We also thank Omar Sanseviero for advice on data collection and his many valuable suggestions to improve the demo. Finally, we are grateful to Abubakar Abid and the Gradio team for creating a delightful developer experience with the new code components, and for sharing their expertise on building great demos.
 
 ## Links
+
+- Code: [https://github.com/bigcode-project/starcoder](https://github.com/bigcode-project/starcoder)
+- Dataset: [https://huggingface.co/datasets/HuggingFaceH4/oasst1_en](https://huggingface.co/datasets/HuggingFaceH4/oasst1_en)
+- Model: [https://huggingface.co/HuggingFaceH4/starchat-alpha](https://huggingface.co/HuggingFaceH4/starchat-alpha)
 
 ## Citation
 
