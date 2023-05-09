@@ -20,17 +20,17 @@ authors:
 
 If you’re a software developer, chances are that you’ve used GitHub Copilot or ChatGPT to solve programming tasks such as translating code from one language to another or generating a full implementation from a natural language query like *“Write a Python program to find the Nth Fibonacci number”*. Although impressive in their capabilities, these proprietary systems typically come with several drawbacks, including a lack of transparency on the public data used to train them and the inability to adapt them to your domain or codebase.
 
-Fortunately, there are now several high-quality open-source alternatives! These include SalesForce’s [CodeGen Mono 16B](https://huggingface.co/Salesforce/codegen-16B-mono) for Python, or [Replit’s 3B parameter model](https://huggingface.co/replit/replit-code-v1-3b)trained on 20 programming languages.
+Fortunately, there are now several high-quality open-source alternatives! These include SalesForce’s [CodeGen Mono 16B](https://huggingface.co/Salesforce/codegen-16B-mono) for Python, or [Replit’s 3B parameter model](https://huggingface.co/replit/replit-code-v1-3b) trained on 20 programming languages.
 
-The new kid on the block is [BigCode’s `StarCoder`](https://huggingface.co/bigcode/starcoder), a 16B parameter model trained on one trillion tokens sourced from 80+ programming languages, GitHub issues, Git commits, and Jupyter notebooks (all permissively licensed). With an enterprise-friendly license, 8,192 token context length, and fast large-batch inference via [multi-query attention](https://arxiv.org/abs/1911.02150), `StarCoder` is currently the best open-source choice for code-based applications.
+The new kid on the block is [BigCode’s StarCoder](https://huggingface.co/bigcode/starcoder), a 16B parameter model trained on one trillion tokens sourced from 80+ programming languages, GitHub issues, Git commits, and Jupyter notebooks (all permissively licensed). With an enterprise-friendly license, 8,192 token context length, and fast large-batch inference via [multi-query attention](https://arxiv.org/abs/1911.02150), StarCoder is currently the best open-source choice for code-based applications.
 
-In this blog post, we’ll show how `StarCoder` can be fine-tuned for chat to create a personalised coding assistant! Dubbed `StarChat`, we’ll explore several technical details that arise when using LLMs as coding assistants, including:
+In this blog post, we’ll show how StarCoder can be fine-tuned for chat to create a personalised coding assistant! Dubbed StarChat, we’ll explore several technical details that arise when using large language models (LLMs) as coding assistants, including:
 
 - How LLMs can be prompted to act like conversational agents.
 - OpenAI’s [Chat Markup Language](https://github.com/openai/openai-python/blob/main/chatml.md) (or ChatML for short), which provides a structured format for conversational messages between human users and AI assistants.
 - How to fine-tune a large model on a diverse corpus of dialogues with 🤗 Transformers and DeepSpeed ZeRO-3.
 
-As a teaser of the end result, try asking `StarChat` a few programming questions in the demo below!
+As a teaser of the end result, try asking StarChat a few programming questions in the demo below!
 
 <script
 	type="module"
@@ -86,9 +86,9 @@ Human: {USER QUERY}
 Assistant:
 ```
 
-As we can see, the first part of the prompt “Below are a series...” specifies that the assistant should have characteristics like “helpfulness” and “politeness”, while the dialogue examples condition the model to follow the multi-turn format of a conversation. When a user asks a question, the whole prompt is fed to the model and it generates an answer after the `Assistant:` prefix. The answer is then concatenated to the prompt and the process repeated at every turn.
+As we can see, the first part of the prompt “Below are a series...” corresponds to the system message and specifies that the assistant should have characteristics like “helpfulness” and “politeness”. The dialogue examples then condition the model to follow the multi-turn format of a conversation. When a user asks a question, the whole prompt is fed to the model and it generates an answer after the `Assistant:` prefix. The answer is then concatenated to the prompt and the process repeated at every turn.
 
-Somewhat surprisingly, this technique also works for `StarCoder`! This is enabled by the model’s 8k token context length, which allows one to include a wide variety of programming examples and covert the model into a coding assistant. Here’s an excerpt of the `StarCoder` prompt:
+Somewhat surprisingly, this technique also works for StarCoder! This is enabled by the model’s 8k token context length, which allows one to include a wide variety of programming examples and covert the model into a coding assistant. Here’s an excerpt of the StarCoder prompt:
 
 ```
 Below are a series of dialogues between various people and an AI technical assistant.
@@ -139,7 +139,7 @@ def alternating(list1, list2):
 -----
 ```
 
-Here we can see how a well crafted prompt can induce coding behaviour similar to that observed in ChatGPT. You can find the full prompt [here](https://huggingface.co/datasets/bigcode/ta-prompt/blob/main/TA_prompt_v1.txt) and chat with the prompted `StarCoder` on [HuggingChat](https://hf.co/chat/?model=bigcode/starcoder)
+Here we can see how a well crafted prompt can induce coding behaviour similar to that observed in ChatGPT. You can find the full prompt [here](https://huggingface.co/datasets/bigcode/ta-prompt/blob/main/TA_prompt_v1.txt) and chat with the prompted StarCoder on [HuggingChat](https://hf.co/chat/?model=bigcode/starcoder)
 
 One major drawback with dialogue-prompting is that inference can be very costly: every turn of the conversation involves thousands of tokens which will quickly burn a hole in your wallet!
 
@@ -152,7 +152,7 @@ The open-source community is rapidly creating diverse and powerful datasets for 
 - [OpenAssistant’s dataset](https://huggingface.co/datasets/OpenAssistant/oasst1), which consists of over 40,000 conversations, where members of the community take turns mimicking the roles of a user or AI assistant.
 - [The ShareGPT dataset](https://huggingface.co/datasets/RyokoAI/ShareGPT52K), which contains approximately 90,000 conversations between human users and ChatGPT.
 
-For the purposes of this blog post, we’ll use the OpenAssistant dataset to fine-tune `StarCoder`.
+For the purposes of this blog post, we’ll use the OpenAssistant dataset to fine-tune StarCoder since it has a permissive license and was produced entirely by humans.
 
 The raw dataset is formatted as a collection of conversation trees, so we’ve preprocessed it so that each row corresponds to a single dialogue between the user and assistant. To avoid deviating too far from the data that StarCoder was pretrained on, we’ve also filtered it for English dialogues.
 
@@ -178,7 +178,7 @@ DatasetDict({
 })
 ```
 
-As we can see, the dataset contains around 21,000 conversations. Let’s take a look at one of the training examples. Take the first example,
+As we can see, the dataset contains around 21,000 English conversations. Let’s take a look at one of the training examples. Take the first example,
 
 ```python
 sample = dataset["train"][0]
@@ -188,7 +188,10 @@ print(sample)
 ```
 {
     "messages": [
-        {"content": "Is it possible to imagine a society without law?", "role": "user"},
+        {
+            "content": "Is it possible to imagine a society without law?", 
+            "role": "user",
+        },
         {
             "content": "It is difficult to imagine a society that is able to be maintained without any semblance of Law. Laws exists for the purpose of maintaining society and past human behavior suggests that there would people that have no interest in promoting social cohesion and norms so it's unlikely that complex social and economic systems could develop without a legal system.",
             "role": "assistant",
@@ -274,7 +277,7 @@ You are correct ...<|end|>
 Yeah, but laws are complicated ...<|end|>
 ```
 
-OK, this looks like what we need! The next step is to include these special tokens in the tokenizer’s vocabulary, so let’s download the `StarCoder` tokenizer and add them:
+OK, this looks like what we need! The next step is to include these special tokens in the tokenizer’s vocabulary, so let’s download the StarCoder tokenizer and add them:
 
 ```python
 from transformers import AutoTokenizer
@@ -336,12 +339,12 @@ OK, we can see that all the user input IDs have been masked in the labels as des
 
 ## Fine-tuning StarCoder with DeepSpeed ZeRO-3
 
-The `StarCoder` and `StarCoderBase` models contain 16B parameters, which means we’ll need a lot of GPU vRAM to fine-tune them — for instance, simply loading the model weights in full FP32 precision requires around 60GB vRAM! Fortunately, there are a few options available to deal with large models like this:
+The StarCoder and StarCoderBase models contain 16B parameters, which means we’ll need a lot of GPU vRAM to fine-tune them — for instance, simply loading the model weights in full FP32 precision requires around 60GB vRAM! Fortunately, there are a few options available to deal with large models like this:
 
 - Use parameter-efficient techniques like LoRA which freeze the base model’s weights and insert a small number of learnable parameters. You can find many of these techniques in the [🤗 PEFT](https://github.com/huggingface/peft) library.
 - Shard the model weights, optimizer states, and gradients across multiple devices using methods like [DeepSpeed ZeRO-3](https://huggingface.co/docs/transformers/main_classes/deepspeed) or [FSDP](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/).
 
-Since DeepSpeed is tightly integrated in 🤗 Transformers, we’ll use it to train our model. To get started, first clone BigCode’s `starcoder` repo from GitHub and navigate to the `chat` directory:
+Since DeepSpeed is tightly integrated in 🤗 Transformers, we’ll use it to train our model. To get started, first clone BigCode’s StarCoder repo from GitHub and navigate to the `chat` directory:
 
 ```shell
 git clone https://github.com/bigcode-project/starcoder.git
@@ -389,7 +392,9 @@ We wanted to see how our model could do with basic visualization tasks, followin
 
 Prompt:
 
-> Give the following data {'Name':['Tom', 'Brad', 'Kyle', 'Jerry'], 'Age':[20, 21, 19, 18], 'Height' : [6.1, 5.9, 6.0, 6.1]}. Can you plot one graph with two subplots as columns. The first is a bar graph showing the height of each person. The second is a bargraph showing the age of each person? Draw the graph in seaborn talk mode.
+```
+Give the following data {'Name':['Tom', 'Brad', 'Kyle', 'Jerry'], 'Age':[20, 21, 19, 18], 'Height' : [6.1, 5.9, 6.0, 6.1]}. Can you plot one graph with two subplots as columns. The first is a bar graph showing the height of each person. The second is a bargraph showing the age of each person? Draw the graph in seaborn talk mode.
+```
 
 Response:
 
@@ -429,7 +434,9 @@ plt.show()
 
 Prompt:
 
-> Draw me a map of the world using geopandas. Make it so that only Germany and Spain are colored red.
+```
+Draw me a map of the world using geopandas. Make it so that only Germany and Spain are colored red.
+```
 
 Response:
 
@@ -468,7 +475,9 @@ plt.show()
 
 Prompt:
 
-> There was a basketball game with the following stats. player, points, rebounds and assists: J. Harden 42 8 9 J. Embiid 34 13 4 T. Maxey 14 8 1 T. Harris 9 7 2 P. Tucker 6 3 1. Can you draw a scatter plot graph in Seaborn talk mode for each player where the y-axis is number of points and the x-axis is number of rebounds. Make sure the marker is 'o'. Put the name of the player over each point. The title should be "Sixers Players".
+```
+There was a basketball game with the following stats. player, points, rebounds and assists: J. Harden 42 8 9 J. Embiid 34 13 4 T. Maxey 14 8 1 T. Harris 9 7 2 P. Tucker 6 3 1. Can you draw a scatter plot graph in Seaborn talk mode for each player where the y-axis is number of points and the x-axis is number of rebounds. Make sure the marker is 'o'. Put the name of the player over each point. The title should be "Sixers Players".
+```
 
 Response:
 
@@ -552,11 +561,11 @@ At one point, there was a bug with our tokenization (the prompt was too long), s
 
 ## Limitations and biases
 
-Like many other language models, this alpha version of `StarChat` has various limitations, including a tendency to hallucinate facts and produce problematic content (especially when prompted to). In particular, the model hasn't been aligned to human preferences with techniques like RLHF. For more details on the model’s limitations in terms of factuality and biases, see the [model card](https://huggingface.co/HuggingFaceH4/starchat-alpha#bias-risks-and-limitations).
+Like many other language models, this alpha version of StarChat has various limitations, including a tendency to hallucinate facts and produce problematic content (especially when prompted to). In particular, the model hasn't been aligned to human preferences with techniques like RLHF. For more details on the model’s limitations in terms of factuality and biases, see the [model card](https://huggingface.co/HuggingFaceH4/starchat-alpha#bias-risks-and-limitations).
 
 ## Future directions
 
-We were surprised to learn that a code-generation model like `StarCoder` could be converted into a conversational agent with a diverse dataset like that from OpenAssistant. One possible explanation is that `StarCoder` has been trained on both code _and_ GitHub issues, the latter providing a rich signal of natural language content. We're exctited to see where the community will take `StarCoder` - perhaps it will power the next wave of open-source assistants 🤗.
+We were surprised to learn that a code-generation model like StarCoder could be converted into a conversational agent with a diverse dataset like that from OpenAssistant. One possible explanation is that StarCoder has been trained on both code _and_ GitHub issues, the latter providing a rich signal of natural language content. We're exctited to see where the community will take StarCoder - perhaps it will power the next wave of open-source assistants 🤗.
 
 ## Acknowledgements
 
