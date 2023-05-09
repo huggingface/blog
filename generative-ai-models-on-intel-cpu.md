@@ -14,7 +14,7 @@ authors:
 
 Large language models (LLMs) are taking the machine learning world by storm. Thanks to their [Transformer](https://arxiv.org/abs/1706.03762) architecture, LLMs have an uncanny ability to learn from vast amounts of unstructured data, like text, images, video, or audio. They perform very well on many [task types](https://huggingface.co/tasks), either extractive like text classification or generative like text summarization and text-to-image generation. 
 
-As their name implies, LLMs are *large* models that often exceed the 10-billion parameter mark. Some, like the [BLOOM](https://huggingface.co/bigscience/bloom) model, have more than 100 billion parameters. Accordingly, LLMs require lots of computing power, typically found in high-end GPUs, to predict fast enough for low-latency use cases like search or conversational applications. Unfortunately, for many organizations, the associated costs can be prohibitive and make it difficult to use state-of-the-art LLMs in their applications.
+As their name implies, LLMs are *large* models that often exceed the 10-billion parameter mark. Some have more than 100 billion parameters, like the [BLOOM](https://huggingface.co/bigscience/bloom) model. LLMs require lots of computing power, typically found in high-end GPUs, to predict fast enough for low-latency use cases like search or conversational applications. Unfortunately, for many organizations, the associated costs can be prohibitive and make it difficult to use state-of-the-art LLMs in their applications.
 
 In this post, we will discuss optimization techniques that help reduce LLM size and inference latency, helping them run efficiently on Intel CPUs.  
 
@@ -53,9 +53,9 @@ Now, let’s see how SmoothQuant works when applied to popular LLMs.
 
 ## Quantizing LLMs with SmoothQuant
 
-Our friends at Intel have quantized several LLMs with SmoothQuant-O3: OPT [2.7B](https://huggingface.co/facebook/opt-2.7b) and [6.7B](https://huggingface.co/facebook/opt-6.7b) [[5]](https://arxiv.org/pdf/2205.01068.pdf), LLaMA [7B](https://huggingface.co/decapoda-research/llama-7b-hf) [[6]](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/), Alpaca [7B](https://huggingface.co/tatsu-lab/alpaca-7b-wdiff) [[7]](https://crfm.stanford.edu/2023/03/13/alpaca.html), Vicuna [7B](https://huggingface.co/lmsys/vicuna-7b-delta-v1.1) [[8]](https://vicuna.lmsys.org/), BloomZ [7.1B](https://huggingface.co/bigscience/bloomz-7b1) [[9]](https://huggingface.co/bigscience/bloomz). They also evaluated the accuracy of the quantized models using the [Language Model Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness).
+Our friends at Intel have quantized several LLMs with SmoothQuant-O3: OPT [2.7B](https://huggingface.co/facebook/opt-2.7b) and [6.7B](https://huggingface.co/facebook/opt-6.7b) [[5]](https://arxiv.org/pdf/2205.01068.pdf), LLaMA [7B](https://huggingface.co/decapoda-research/llama-7b-hf) [[6]](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/), Alpaca [7B](https://huggingface.co/tatsu-lab/alpaca-7b-wdiff) [[7]](https://crfm.stanford.edu/2023/03/13/alpaca.html), Vicuna [7B](https://huggingface.co/lmsys/vicuna-7b-delta-v1.1) [[8]](https://vicuna.lmsys.org/), BloomZ [7.1B](https://huggingface.co/bigscience/bloomz-7b1) [[9]](https://huggingface.co/bigscience/bloomz). They also evaluated the accuracy of the quantized models, using [Language Model Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness).
 
-The table below presents a summary of their findings. The second column shows the ratio of benchmarks that have improved post-quantization. The third column contain the mean average degradation (_* a negative value indicates that the benchmark has improved_). You can find the detailed results at the end of this post.
+The table below presents a summary of their findings. The second column shows the ratio of benchmarks that have improved post-quantization. The third column contains the mean average degradation (_* a negative value indicates that the benchmark has improved_). You can find the detailed results at the end of this post.
 
 <kbd>
   <img src="assets/142_q8chat/table0.png">
@@ -65,7 +65,7 @@ As you can see, OPT models are great candidates for SmoothQuant quantization. Mo
 
 The picture is a little more contrasted for LLaMA 7B and BloomZ 7.1B. Models are compressed by a factor of ~2x, with about half the task seeing metric improvements. Again, the other half is only marginally impacted, with a single task seeing more than 3% relative degradation.
 
-The obvious benefit of working with smaller models is a significant reduction in inference latency. Here’s a [video](https://drive.google.com/file/d/1h8C2I4xn1c0HdrzfMqBaYECJyqo5kcJL/view?usp=sharing) demonstrating real-time text generation with the Vicuna-7b model, on a single socket Intel Sapphire Rapids CPU with 32 cores and a batch size of 1.
+The obvious benefit of working with smaller models is a significant reduction in inference latency. Here’s a [video](https://drive.google.com/file/d/1h8C2I4xn1c0HdrzfMqBaYECJyqo5kcJL/view?usp=sharing) demonstrating real-time text generation with the Vicuna-7b model on a single socket Intel Sapphire Rapids CPU with 32 cores and a batch size of 1.
 
 In this example, we ask the model: “*What is the role of Hugging Face in democratizing NLP?*”. This sends the following prompt to the model:
 "*A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: What is the role of Hugging Face in democratizing NLP? ASSISTANT:*"
@@ -74,13 +74,13 @@ In this example, we ask the model: “*What is the role of Hugging Face in democ
   [<img src="assets/142_q8chat/pic3.png">](assets/142_q8chat/vicuna-7b-int8-hf-role.mov)
 </kbd>
 
-It only takes ~80 milliseconds to generate the first token. The mean generation time for the next tokens is an amazing ~40 milliseconds. This level of performance definitely makes it possible to to run LLMs on CPU platforms, giving customers more IT flexibility and better cost-performance than ever before.
+It only takes ~80 milliseconds to generate the first token. The mean generation time for the next tokens is an amazing ~40 milliseconds. This level of performance definitely makes it possible to run LLMs on CPU platforms, giving customers more IT flexibility and better cost-performance than ever before.
 
 ## Chat experience on Xeon
 
-Recently, Clement, the CEO of HuggingFace, said: “*More companies would be better served focusing on smaller, specific models that are cheaper to train and run.*” The emergence of relatively smaller models like Alpaca, BloomZ and Vicuna, open a new opportunity for enterprise to lower the cost of fine-tuning and inference in production. As demonstrated above, high-quality quantization brings high-quality chat experiences to Intel CPU platforms, without the need of running mammoth LLMs and complex AI accelerators. 
+Recently, Clement, the CEO of HuggingFace, recently said: “*More companies would be better served focusing on smaller, specific models that are cheaper to train and run.*” The emergence of relatively smaller models like Alpaca, BloomZ and Vicuna, open a new opportunity for enterprises to lower the cost of fine-tuning and inference in production. As demonstrated above, high-quality quantization brings high-quality chat experiences to Intel CPU platforms, without the need of running mammoth LLMs and complex AI accelerators. 
 
-Together with Intel, we've hosted on Spaces a new exciting demo called [Q8-Chat](https://huggingface.co/spaces/Intel/Q8-Chat) (pronounced "Cute chat"). Q8-Chat offers you a ChatGPT-like chat experience, while only running on a single socket Intel Sapphire Rapids CPU with 32 cores and a batch size of 1.
+Together with Intel, we're hosting a new exciting demo in Spaces called [Q8-Chat](https://huggingface.co/spaces/Intel/Q8-Chat) (pronounced "Cute chat"). Q8-Chat offers you a ChatGPT-like chat experience, while only running on a single socket Intel Sapphire Rapids CPU with 32 cores and a batch size of 1.
 
 <kbd>
   <img src="assets/142_q8chat/pic4.png">
