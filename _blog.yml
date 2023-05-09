@@ -2041,7 +2041,7 @@
     - community
 
 - local: tf_tpu
-  title: "Training a language model with 🤗 Transformers using TensorFlow and TPUs"
+  title: "Training a language model with 🤗 Transformers using TensorFlow and TPUs"
   author: rocketknight1
   thumbnail: /blog/assets/tf_tpu_training/thumbnail.png
   date: April 27, 2023
@@ -2079,7 +2079,20 @@
     - nlp
     - community
     - research 
-  
+
+- local: text-to-video
+  title: "A Dive into Text-to-Video Models"
+  author: adirik
+  thumbnail: /blog/assets/140_text-to-video/thumbnail.png
+  date: May 8, 2023
+  tags:
+    - multi-modal
+    - cv
+    - guide
+    - diffusion
+    - text-to-image
+    - text-to-video
+
 - local: rwkv
   title: "Introducing RWKV — An RNN with the advantages of a transformer"
   author: BlinkDL
