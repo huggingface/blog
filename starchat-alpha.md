@@ -139,7 +139,7 @@ def alternating(list1, list2):
 -----
 ```
 
-Here we can see how a well crafted prompt can induce coding behaviour similar to that observed in ChatGPT. You can find the full prompt [here](https://huggingface.co/datasets/bigcode/ta-prompt/blob/main/TA_prompt_v1.txt) and chat with the prompted StarCoder on [HuggingChat](https://hf.co/chat/?model=bigcode/starcoder)
+Here we can see how a well crafted prompt can induce coding behaviour similar to that observed in ChatGPT. You can find the full prompt [here](https://huggingface.co/datasets/bigcode/ta-prompt/blob/main/TA_prompt_v1.txt) and chat with the prompted StarCoder on [HuggingChat](https://hf.co/chat/?model=bigcode/starcoder).
 
 One major drawback with dialogue-prompting is that inference can be very costly: every turn of the conversation involves thousands of tokens which will quickly burn a hole in your wallet!
 
@@ -380,7 +380,7 @@ The final step is to launch the training! If you’re lucky enough to have 8 x A
 torchrun --nproc_per_node=8 train.py config.yaml --deepspeed=deepspeed_z3_config_bf16.json
 ```
 
-Here the `config.yaml` file specifies all the parameters associated with the dataset, model, and training - you can configure it [here](https://github.com/bigcode-project/starcoder/chat/) to adapt the training to a new dataset. Your trained model will then be available on the Hub!
+Here the `config.yaml` file specifies all the parameters associated with the dataset, model, and training - you can configure it [here](https://github.com/bigcode-project/starcoder/tree/main/chat) to adapt the training to a new dataset. Your trained model will then be available on the Hub!
 
 ## StarCoder as a coding assistant
 
@@ -537,7 +537,7 @@ The results are shown in the table below, where we can see the fine-tuned model 
 So what can be done instead of relying on automatic metrics on benchmarks? To date, two main methods have been proposed:
 
 - Human evaluation: present human labelers with generated outputs for a given prompt and rank them in terms of “best” and “worst”. This is the current gold standard used to create systems like InstructGPT.
-- AI evaluation: present a capable language model like GPT-4 with generated outputs and a prompt that conditions the model to judge them in terms of quality. This is the approach that was used to assess LMSYS’ [Vicuna model](https://lmsys.org/blog/2023-03-30-vicuna/)
+- AI evaluation: present a capable language model like GPT-4 with generated outputs and a prompt that conditions the model to judge them in terms of quality. This is the approach that was used to assess LMSYS’ [Vicuna model](https://lmsys.org/blog/2023-03-30-vicuna/).
 
 As a simple experiment, we used ChatGPT to test our StarCoder models on several programming languages. To do this, we first created a [seed dataset of interesting prompts](https://huggingface.co/datasets/HuggingFaceH4/code_evaluation_prompts) for evaluation. We used ChatGPT to initiate this process, asking it things such as:
 
@@ -653,7 +653,8 @@ We thank Nicolas Patry and Olivier Dehaene for their help with deploying StarCha
 ## Links
 
 - Code: [https://github.com/bigcode-project/starcoder](https://github.com/bigcode-project/starcoder)
-- Dataset: [https://huggingface.co/datasets/HuggingFaceH4/oasst1_en](https://huggingface.co/datasets/HuggingFaceH4/oasst1_en)
+- Filtered training dataset: [https://huggingface.co/datasets/HuggingFaceH4/oasst1_en](https://huggingface.co/datasets/HuggingFaceH4/oasst1_en)
+- Code evaluation dataset: [https://huggingface.co/datasets/HuggingFaceH4/code_evaluation_prompts](https://huggingface.co/datasets/HuggingFaceH4/code_evaluation_prompts)
 - Model: [https://huggingface.co/HuggingFaceH4/starchat-alpha](https://huggingface.co/HuggingFaceH4/starchat-alpha)
 
 ## Citation
