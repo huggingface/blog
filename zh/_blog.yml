@@ -434,6 +434,16 @@
     - guide
     - graphs
 
+- local: unity-in-spaces
+  title: "如何在 🤗 Space 上托管 Unity 游戏"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/unity-in-spaces-thumbnail.png
+  date: April 21, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
+
 - local: chinese-language-blog
   title: "Hugging Face 中文博客正式发布！"
   author: xianbao
