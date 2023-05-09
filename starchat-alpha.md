@@ -37,7 +37,7 @@ As a teaser of the end result, try asking `StarChat` a few programming questions
 	src="https://gradio.s3-us-west-2.amazonaws.com/3.28.2/gradio.js"
 ></script>
 
-<gradio-app src="https://huggingfaceh4-starchat-playgroun.hf.space"></gradio-app>
+<gradio-app src="https://huggingfaceh4-starchat-playground.hf.space"></gradio-app>
 
 
 You can also find the code, dataset, and model used to produce the demo at the following links:
