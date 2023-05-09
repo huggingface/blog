@@ -10,9 +10,9 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Billions of dollars are being poured into large language models and related technologies. We have been finding that larger models show emergent behavior and can solve a wider array of tasks. However, as humans with ever-decreasing attention spawns, we also dislike their slow response times. Latency is critical for a good user experience, and smaller models are often used despite their lower quality (e.g. in [code completion](https://ai.googleblog.com/2022/07/ml-enhanced-code-completion-improves.html)).
+Large language models are all the rage these days, with many companies investing significant resources to scale them up and unlock new capabilities. However, as humans with ever-decreasing attention spawns, we also dislike their slow response times. Latency is critical for a good user experience, and smaller models are often used despite their lower quality (e.g. in [code completion](https://ai.googleblog.com/2022/07/ml-enhanced-code-completion-improves.html)).
 
-Why is text generation so slow? What’s preventing you from deploying low-latency large language models without going bankrupt? In this blog post, we will revisit the bottlenecks for autoregressive text generation and introduce a new decoding method to tackle the latency problem. You’ll see that using our new method, assisted generation, you can reduce latency up to 10x in commodity hardware!
+Why is text generation so slow? What’s preventing you from deploying low-latency large language models without going bankrupt? In this blog post, we will revisit the bottlenecks for autoregressive text generation and introduce a new decoding method to tackle the latency problem. You’ll see that by using our new method, assisted generation, you can reduce latency up to 10x in commodity hardware!
 
 ## Understanding text generation latency
 
@@ -20,24 +20,24 @@ The core of modern text generation is straightforward to understand. Let’s loo
 
 <!-- [GIF 1 -- FWD PASS] -->
 
-A model forward pass gets you the logits for the next token, which you can freely manipulate (e.g. set the probability of undesirable words or sequences to 0). The following step in text generation is to select the next token from these logits. Common strategies include picking the most likely token, known as greedy decoding, or sampling from this distribution, also called multinomial sampling. Chaining model forward passes with next token selection iteratively gets you text generation. This explanation is the tip of the iceberg, please refer to [our blog post on text generation](https://huggingface.co/blog/how-to-generate) for an in-depth exploration.
+A model forward pass gets you the logits for the next token, which you can freely manipulate (e.g. set the probability of undesirable words or sequences to 0). The following step in text generation is to select the next token from these logits. Common strategies include picking the most likely token, known as greedy decoding, or sampling from this distribution, also called multinomial sampling. Chaining model forward passes with next token selection iteratively gets you text generation. This explanation is the tip of the iceberg when it comes to decoding methods; please refer to [our blog post on text generation](https://huggingface.co/blog/how-to-generate) for an in-depth exploration.
 
 <!-- [GIF 2 -- TEXT GENERATION] -->
 
-From the description above, the latency bottleneck in text generation is clear: running a model forward pass for large models is slow, and you may need to do hundreds of them in a sequence. But let’s dive deeper: why are forward passes slow? Forward passes are typically dominated by matrix multiplications and, after a quick visit to the [corresponding wikipedia section](https://en.wikipedia.org/wiki/Matrix_multiplication_algorithm#Communication-avoiding_and_distributed_algorithms), you call tell that memory bandwidth is the limitation in this operation. In other words, *the bottleneck in the forward pass comes from loading the model layer weights into the computation cores of your device, not from performing the computations themselves*.
+From the description above, the latency bottleneck in text generation is clear: running a model forward pass for large models is slow, and you may need to do hundreds of them in a sequence. But let’s dive deeper: why are forward passes slow? Forward passes are typically dominated by matrix multiplications and, after a quick visit to the [corresponding wikipedia section](https://en.wikipedia.org/wiki/Matrix_multiplication_algorithm#Communication-avoiding_and_distributed_algorithms), you call tell that memory bandwidth is the limitation in this operation (e.g. from the GPU RAM to the GPU compute cores). In other words, *the bottleneck in the forward pass comes from loading the model layer weights into the computation cores of your device, not from performing the computations themselves*.
 
 At the moment, you have three main avenues you can explore to get the most out of text generation, all tackling the performance of the model forward pass. First, you have the hardware-specific model optimizations. For instance, your device may be compatible with [Flash Attention](https://github.com/HazyResearch/flash-attention), which speeds up the attention layer through a reorder of the operations, or [INT8 quantization](https://huggingface.co/blog/hf-bitsandbytes-integration), which reduces the size of the model weights.
 
 Second, when you know you’ll get concurrent text generation requests, you can batch the inputs and massively increase the throughput with a small latency penalty. The model layer weights loaded into the device are now used on several input rows in parallel, which means that you’ll get more tokens out for approximately the same memory bandwidth burden. The catch with batching is that you need additional device memory (or to offload the memory somewhere) – at the end of this spectrum, you can see projects like [FlexGen](https://github.com/FMInference/FlexGen) which optimize throughput at the expense of latency.
 
 ```python
-# Example showcasing the impact of batched generation. Measured on a RTX3090
+# Example showcasing the impact of batched generation. Measurement device: RTX3090
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import time
 
-tok = AutoTokenizer.from_pretrained("distilgpt2")
+tokenizer = AutoTokenizer.from_pretrained("distilgpt2")
 model = AutoModelForCausalLM.from_pretrained("distilgpt2").to("cuda")
-inputs = tok(["Hello world"], return_tensors="pt").to("cuda")
+inputs = tokenizer(["Hello world"], return_tensors="pt").to("cuda")
 
 def print_tokens_per_second(batch_size):
     new_tokens = 100
@@ -57,16 +57,16 @@ def print_tokens_per_second(batch_size):
     print(f"Tokens per second: {new_tokens * batch_size * 10 / cumulative_time:.1f}")
 
 print_tokens_per_second(1)   # Tokens per second: 418.3
-print_tokens_per_second(64)  # Tokens per second: 16266.2 (39x more tokens per second)
+print_tokens_per_second(64)  # Tokens per second: 16266.2 (~39x more tokens per second)
 ```
 
 Finally, if you have multiple devices available to you, you can distribute the workload using [Tensor Parallelism](https://huggingface.co/docs/transformers/main/en/perf_train_gpu_many#tensor-parallelism) and obtain lower latency. With Tensor Parallelism, you split the memory bandwidth burden across multiple devices, but you now have to consider inter-device communication bottlenecks in addition to the monetary cost of running multiple devices. The benefits depend largely on the model size: models that easily fit on a single consumer device see very limited benefits. Taking the results from this [DeepSpeed blog post](https://www.microsoft.com/en-us/research/blog/deepspeed-accelerating-large-scale-model-inference-and-training-via-system-optimizations-and-compression/), you see that you can spread a 17B parameter model across 4 GPUs to reduce the latency by 1.5x (Figure 7).
 
-These three types of improvements can be used in tandem, resulting in [high throughput solutions](https://huggingface.co/blog/bloom-inference-pytorch-scripts). However, after applying hardware-specific optimizations, there are limited options to reduce latency – and the existing options are expensive. Let’s fix that!
+These three types of improvements can be used in tandem, resulting in [high throughput solutions](https://github.com/huggingface/text-generation-inference). However, after applying hardware-specific optimizations, there are limited options to reduce latency – and the existing options are expensive. Let’s fix that!
 
 ## Language decoder forward pass, revisited
 
-You’ve read above that each model forward pass yields the logits for the next token, but that’s actually an incomplete description. During text generation, the typical iteration consists in the model receiving as input the latest generated token plus cached internal computations for all other previous inputs, returning the next token logits. Caching is used to avoid redundant computations, resulting in faster forward passes, but it’s not mandatory (and can be used partially). When caching is disabled, the input contains the entire sequence of tokens generated so far and the output contains the logits corresponding to the next token for *all positions* in the sequence! The logits at position N correspond to the distribution for the next token if the input consisted in the first N tokens, ignoring all subsequent tokens in the sequence. In the particular case of greedy decoding, if you pass the generated sequence as input and apply the argmax operator to the resulting logits, you will obtain the generated sequence back.
+You’ve read above that each model forward pass yields the logits for the next token, but that’s actually an incomplete description. During text generation, the typical iteration consists in the model receiving as input the latest generated token, plus cached internal computations for all other previous inputs, returning the next token logits. Caching is used to avoid redundant computations, resulting in faster forward passes, but it’s not mandatory (and can be used partially). When caching is disabled, the input contains the entire sequence of tokens generated so far and the output contains the logits corresponding to the next token for *all positions* in the sequence! The logits at position N correspond to the distribution for the next token if the input consisted in the first N tokens, ignoring all subsequent tokens in the sequence. In the particular case of greedy decoding, if you pass the generated sequence as input and apply the argmax operator to the resulting logits, you will obtain the generated sequence back.
 
 
 ```python
@@ -91,11 +91,11 @@ This means that you can use a model forward pass for a different purpose: in add
 <!-- [GIF 3 -- FWD CONFIRMATION] -->
 
 
-Let’s consider for a second that you have access to a magical latency-free oracle model that generates the same sequence as your model, for any given input. For argument’s sake, it can’t be used directly, it’s limited to being an assistant to your generation procedure. Using the property described above, you could use this assistant model to get candidate output tokens followed by a forward pass with your model to confirm that they are indeed correct. In this utopian scenario, the latency of text generation would be reduced from `O(n)` to `O(1)`, `n` being the number of generated tokens. For long generations, we're talking about several orders of magnitude.
+Let’s consider for a second that you have access to a magical latency-free oracle model that generates the same sequence as your model, for any given input. For argument’s sake, it can’t be used directly, it’s limited to being an assistant to your generation procedure. Using the property described above, you could use this assistant model to get candidate output tokens followed by a forward pass with your model to confirm that they are indeed correct. In this utopian scenario, the latency of text generation would be reduced from `O(n)` to `O(1)`, with `n` being the number of generated tokens. For long generations, we're talking about several orders of magnitude.
 
-Walking a step towards reality, the assistant model lost its oracle properties. Now it’s a latency-free model that gets some of the candidate tokens wrong, according to your model. Due to the autoregressive nature of the task, as soon as the assistant gets a token wrong, all subsequent candidates must be invalidated. However, that does not prevent you from querying the assistant again, after correcting the wrong token with your model, and repeating this process iteratively. Even if the assistant fails a few tokens, text generation would have an order of magnitude less latency than in its original form.
+Walking a step towards reality, let's assume the assistant model has lost its oracle properties. Now it’s a latency-free model that gets some of the candidate tokens wrong, according to your model. Due to the autoregressive nature of the task, as soon as the assistant gets a token wrong, all subsequent candidates must be invalidated. However, that does not prevent you from querying the assistant again, after correcting the wrong token with your model, and repeating this process iteratively. Even if the assistant fails a few tokens, text generation would have an order of magnitude less latency than in its original form.
 
-Obviously, there are no latency-free assistant models. Nevertheless, it is relatively easy to find a model that approximates some other model’s text generation outputs – smaller versions of the same architecture trained similarly often fit this property. Moreover, when the difference in model sizes becomes significant, the cost of using the smaller model as an assistant becomes an afterthought after factoring in the benefits of skipping a few forward passes! You now understand the core of assisted generation.
+Obviously, there are no latency-free assistant models. Nevertheless, it is relatively easy to find a model that approximates some other model’s text generation outputs – smaller versions of the same architecture trained similarly often fit this property. Moreover, when the difference in model sizes becomes significant, the cost of using the smaller model as an assistant becomes an afterthought after factoring in the benefits of skipping a few forward passes! You now understand the core of _assisted generation_.
 
 ## Greedy decoding with assisted generation
 
@@ -115,7 +115,7 @@ Wrapping all up, here’s our original implementation of the assisted generation
 
 <!-- [GIF 4 -- ASSISTED GENERATION] -->
 
-We’ve designed the API in 🤗 transformers such that this process is hassle-free for you. All you need to do is to pass the assistant model under the new `assistant_model` keyword argument and reap the latency gains! At the time of the release of this blog post, assisted generation is limited to a batch size of 1.
+We’ve designed the API in 🤗 Transformers such that this process is hassle-free for you. All you need to do is to pass the assistant model under the new `assistant_model` keyword argument and reap the latency gains! At the time of the release of this blog post, assisted generation is limited to a batch size of 1.
 
 
 ```python
@@ -138,10 +138,13 @@ print(tokenizer.batch_decode(outputs, skip_special_tokens=True))
 ```
 
 
-Is the additional internal complexity worth it? Let’s have a look at the latency numbers for the greedy decoding case (results for sampling are in the next section), considering a batch size of 1. These results were pulled directly out of 🤗  transformers without any additional optimizations, so you should be able to reproduce them in your setup.
+Is the additional internal complexity worth it? Let’s have a look at the latency numbers for the greedy decoding case (results for sampling are in the next section), considering a batch size of 1. These results were pulled directly out of 🤗 Transformers without any additional optimizations, so you should be able to reproduce them in your setup.
 
 
 <!-- [SPACE WITH GREEDY DECODING PERFORMANCE NUMBERS] -->
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.23.0/gradio.js"></script>
+
+<gradio-app src="https://huggingface.co/spaces/joaogante/assisted_generation_benchmarks"></gradio-app>
 
 
 Glancing at the collected numbers, we see that assisted generation can deliver significant latency reductions in diverse settings, but it is not a silver bullet – you should benchmark it before applying it to your use case. We can conclude that assisted generation:
@@ -164,14 +167,21 @@ Why do you see it for yourself, so get a feeling of assisted generation?
 
 
 <!-- [DEMO] -->
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.23.0/gradio.js"></script>
+
+<gradio-app src="https://huggingface.co/spaces/joaogante/assisted_generation_demo"></gradio-app>
 
 
 ## Future directions
 
 Assisted generation shows that modern text generation strategies are ripe for optimization. Understanding that it is currently a memory-bound problem, not a compute-bound problem, allows us to apply simple heuristics to get the most out of the available memory bandwidth, alleviating the bottleneck. We believe that further refinement of the use of assistant models will get us even bigger latency reductions - for instance, we may be able to skip a few more forward passes if we request the assistant to generate several candidate continuations. Naturally, releasing high-quality small models to be used as assistants will be critical to realizing and amplifying the benefits.
 
-Initially released under our 🤗 transformers library, to be used with the `.generate()` function, we expect to offer it throughout the Hugging Face universe. Its implementation is also completely open-source so, if you’re working on text generation and not using our tools, feel free to use it as a reference.
+Initially released under our 🤗 Transformers library, to be used with the `.generate()` function, we expect to offer it throughout the Hugging Face universe. Its implementation is also completely open-source so, if you’re working on text generation and not using our tools, feel free to use it as a reference.
 
 Finally, assisted generation resurfaces a crucial question in text generation. The field has been evolving with the constraint where all new tokens are the result of a fixed amount of compute, for a given model. One token per homogeneous forward pass, in pure autoregressive fashion. This blog post reinforces the idea that it shouldn’t be the case: large subsections of the generated output can also be equally generated by models that are a fraction of the size. For that, we’ll need new model architectures and decoding methods – we’re excited to see what the future holds!
 
-<!-- [ADD REVIEWER ACKNOWLEDGEMENTS AND CITATION INFO] -->
+## Acknowledgements
+
+We'd like to thank Sylvain Gugger, Nicolas Patry, and Lewis Tunstall for sharing many valuable suggestions to improve this blog post. Finally, kudos to Chunte Lee for designing the gorgeous cover you can see in our web page.
+
+<!-- [ADD CITATION INFO] -->
