@@ -2096,7 +2096,7 @@
 - local: starchat-alpha
   title: "Creating a Coding Assistant with StarCoder"
   author: lewtun
-  thumbnail: /blog/assets/142_starchat_alpha/starcoder_thumbnail.png
+  thumbnail: /blog/assets/starchat_alpha/thumbnail.png
   date: May 9, 2023
   tags:
     - nlp
