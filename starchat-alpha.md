@@ -636,8 +636,9 @@ This shows us that while there is extremely valuable signal in AI evaluations, w
 
 ## Limitations and biases
 
-Like many other language models, this alpha version of StarChat has various limitations, including a tendency to hallucinate facts and produce problematic content (especially when prompted to). 
-In particular, the model hasn't been aligned to human preferences with techniques like RLHF. 
+Like many other language models, this alpha version of StarChat has strong to-be-addressed limitations, including a tendency to hallucinate facts and produce problematic content (especially when prompted to). 
+In particular, the model hasn't been aligned to human preferences with techniques like RLHF or deployed with in-the-loop filtering of responses like ChatGPT. 
+Models trained primarily on code data will also have a more skewed demographic bias commensurate with the demographics of the GitHub community, for more on this see the [StarCoder dataset](https://huggingface.co/datasets/bigcode/starcoderdata).
 For more details on the model’s limitations in terms of factuality and biases, see the [model card](https://huggingface.co/HuggingFaceH4/starchat-alpha#bias-risks-and-limitations).
 
 ## Future directions
