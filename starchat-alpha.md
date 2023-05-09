@@ -18,7 +18,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-If you’re a software developer, chances are you’ve used GitHub Copilot or ChatGPT to solve  programming tasks such as translating code from one language to another, or generating a full implementation from a natural language query like *“Write a Python program to find the Nth Fibonacci number”*. Although impressive in their capabilities, these proprietary systems typically come with several drawbacks, including a lack of transparency on the public data used to train them and the inability to adapt them to your own domain or codebase.
+If you’re a software developer, chances are high you’ve used GitHub Copilot or ChatGPT to solve programming tasks such as translating code from one language to another or generating a full implementation from a natural language query like *“Write a Python program to find the Nth Fibonacci number”*. Although impressive in their capabilities, these proprietary systems typically come with several drawbacks, including a lack of transparency on the public data used to train them and the inability to adapt them to your domain or codebase.
 
 Fortunately, there are now several high-quality open-source alternatives! These include SalesForce’s [CodeGen Mono 16B](https://huggingface.co/Salesforce/codegen-16B-mono) for Python, or [Replit’s 3B parameter model](https://huggingface.co/replit/replit-code-v1-3b)trained on 20 programming languages.
 
@@ -162,7 +162,7 @@ Let’s start by downloading the processed dataset from the Hub:
 from datasets import load_dataset
 
 dataset = load_dataset("HuggingFaceH4/oasst1_en")
-dataset
+print(dataset)
 ```
 
 ```
@@ -339,7 +339,7 @@ These special tokens have embeddings that will need to be learned during the fin
 
 ## Fine-tuning StarCoder with DeepSpeed ZeRO-3
 
-The StarCoder and StarCoderBase models contain 16B parameters, which naively means we’ll need quite a lot of GPU vRAM to fine-tune them — for instance, simply loading the model weights in full FP32 precision requires around 60GB vRAM! Fortunately, there are a few options available to deal with large models like this:
+The StarCoder and StarCoderBase models contain 16B parameters, which means we’ll need a lot of GPU vRAM to fine-tune them — for instance, simply loading the model weights in full FP32 precision requires around 60GB vRAM! Fortunately, there are a few options available to deal with large models like this:
 
 - Use parameter-efficient techniques like LoRA which freeze the base model’s weights and insert a small number of learnable parameters. You can find many of these techniques in the [🤗 PEFT](https://github.com/huggingface/peft) library.
 - Shard the model weights, optimizer states, and gradients across multiple devices using methods like [DeepSpeed ZeRO-3](https://huggingface.co/docs/transformers/main_classes/deepspeed) or [FSDP](https://pytorch.org/blog/introducing-pytorch-fully-sharded-data-parallel-api/).
@@ -357,17 +357,16 @@ Next, create a Python virtual environment using e.g. Conda:
 conda create -n starchat python=3.10 && conda activate starchat
 ```
 
-Next, install PyTorch v1.13.1. Since this hardware-dependent, we direct you to the PyTorch Installation Page for this step. Once you've installed it, install the rest of the project dependencies:
+Next, we install PyTorch v1.13.1. Since this hardware-dependent, we direct you to the PyTorch Installation Page for this step. Once you've installed it, install the rest of the project dependencies:
 
 ```shell
 pip install -r requirements.txt
 ```
 
-You'll also need to be logged into both your Hugging Face and Weights and Biases accounts. To do so, run:
+We need to be logged into both Hugging Face. To do so, run:
 
 ```shell
 huggingface-cli login
-wandb login
 ```
 
 Finally, install Git LFS with:
