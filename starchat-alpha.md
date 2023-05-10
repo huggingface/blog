@@ -88,7 +88,7 @@ Assistant:
 
 As we can see, the first part of the prompt “Below are a series...” corresponds to the system message and specifies that the assistant should have characteristics like “helpfulness” and “politeness”. The dialogue examples then condition the model to follow the multi-turn format of a conversation. When a user asks a question, the whole prompt is fed to the model and it generates an answer after the `Assistant:` prefix. The answer is then concatenated to the prompt and the process repeated at every turn.
 
-Somewhat surprisingly, this technique also works for StarCoder! This is enabled by the model’s 8k token context length, which allows one to include a wide variety of programming examples and covert the model into a coding assistant. Here’s an excerpt of the StarCoder prompt:
+Somewhat surprisingly, this technique also works for StarCoder! This is enabled by the model’s 8k token context length, which allows one to include a wide variety of programming examples and convert the model into a coding assistant. Here’s an excerpt of the StarCoder prompt:
 
 ```
 Below are a series of dialogues between various people and an AI technical assistant.
@@ -154,7 +154,7 @@ The open-source community is rapidly creating diverse and powerful datasets for 
 
 For the purposes of this blog post, we’ll use the OpenAssistant dataset to fine-tune StarCoder since it has a permissive license and was produced entirely by humans.
 
-The raw dataset is formatted as a collection of conversation trees, so we’ve preprocessed it so that each row corresponds to a single dialogue between the user and assistant. To avoid deviating too far from the data that StarCoder was pretrained on, we’ve also filtered it for English dialogues.
+The raw dataset is formatted as a collection of conversation trees, so we’ve preprocessed it so that each row corresponds to a single dialogue between the user and the assistant. To avoid deviating too far from the data that StarCoder was pretrained on, we’ve also filtered it for English dialogues.
 
 Let’s start by downloading the processed dataset from the Hub:
 
@@ -193,11 +193,11 @@ print(sample)
             "role": "user",
         },
         {
-            "content": "It is difficult to imagine a society that is able to be maintained without any semblance of Law. Laws exists for the purpose of maintaining society and past human behavior suggests that there would people that have no interest in promoting social cohesion and norms so it's unlikely that complex social and economic systems could develop without a legal system.",
+            "content": "It is difficult to imagine a society that is able to be maintained without any semblance of Law. Laws exist for the purpose of maintaining society and past human behavior suggests that there would be people that have no interest in promoting social cohesion and norms so it's unlikely that complex social and economic systems could develop without a legal system.",
             "role": "assistant",
         },
         {
-            "content": 'It seems like you consider the absence of law equal to the absence of anything that could guide the behaviour of the individual, however there are many other such things, like religion, conscience, tradition to mention few important patterns which are known to have crucial influence on society even today, but also we could imagine more, like universal love if everyone suddenly became "awaken" in some spiritual sense, or simply just having an omnipotent leader who maintains a certain order without ever codifying the principles in law. Is it still difficult to imagine?',
+            "content": 'It seems like you consider the absence of law equal to the absence of anything that could guide the behaviour of the individual, however there are many other such things, like religion, conscience, tradition to mention a few important patterns which are known to have crucial influence on society even today, but also we could imagine more, like universal love if everyone suddenly became "awaken" in some spiritual sense, or simply just having an omnipotent leader who maintains a certain order without ever codifying the principles in law. Is it still difficult to imagine?',
             "role": "user",
         },
         {
@@ -231,13 +231,13 @@ Human: Yeah, but laws are complicated ..
 
 Although this works fine for training, it isn’t ideal for inference because the model will naturally generate unwanted turns until it produces an `<EOS>` token, and some post-processing or additional logic is typically required to prevent this.
 
-A more appealing approach is to use a structured format like [ChatML](https://github.com/openai/openai-python/blob/main/chatml.md), which wraps each turn with a set of *special tokens* that indicate the role of the query or response.
+A more appealing approach is to use a structured format like [ChatML](https://github.com/openai/openai-python/blob/main/chatml.md), which wraps each turn with a set of *special tokens* that indicates the role of the query or response.
 
 In this format, we have the following special tokens:
 
 - `<|system|>`: indicates which part of the dialogue contains the system message to condition the character of the assistant.
 - `<|user|>`: indicates the message comes from the human user
-- `<|assistant|>`: indicates the messages comes from the AI assistant
+- `<|assistant|>`: indicates the messages come from the AI assistant
 - `<|end|>`: indicates the end of a turn or system message
 
 Let’s write a function that wraps our running example with these tokens to see what it looks like:
@@ -357,7 +357,7 @@ Next, create a Python virtual environment using e.g. Conda:
 conda create -n starchat python=3.10 && conda activate starchat
 ```
 
-Next, we install PyTorch v1.13.1. Since this hardware-dependent, we direct you to the PyTorch Installation Page for this step. Once you've installed it, install the rest of the project dependencies:
+Next, we install PyTorch v1.13.1. Since this is hardware-dependent, we direct you to the PyTorch Installation Page for this step. Once you've installed it, install the rest of the project dependencies:
 
 ```shell
 pip install -r requirements.txt
