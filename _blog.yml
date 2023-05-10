@@ -2076,8 +2076,8 @@
 - local: assisted-generation
   title: "Assisted Generation: a new direction toward low-latency text generation"
   author: joaogante
-  thumbnail: /blog/assets/assisted-generation/thumbnail.png  # TODO
-  date: May 8, 2023  # exact date TBD
+  thumbnail: /blog/assets/assisted-generation/thumbnail.png
+  date: May 11, 2023
   tags:
     - nlp
     - research

@@ -1,6 +1,6 @@
 ---
 title: "Assisted Generation: a new direction toward low-latency text generation"
-thumbnail: /blog/assets/assisted-generation/thumbnail.png  # TODO
+thumbnail: /blog/assets/assisted-generation/thumbnail.png
 authors:
 - user: joaogante
 ---
