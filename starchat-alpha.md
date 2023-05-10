@@ -243,7 +243,7 @@ In this format, we have the following special tokens:
 Let’s write a function that wraps our running example with these tokens to see what it looks like:
 
 ```python
-system_token = "<|assistant|>"
+system_token = "<|system|>"
 user_token = "<|user|>"
 assistant_token = "<|assistant|>"
 end_token = "<|end|>"
