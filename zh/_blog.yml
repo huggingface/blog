@@ -414,6 +414,16 @@
   tags:
     - ethics
 
+- local: stackllama
+  title: "“StackLLaMA”: 用 RLHF 训练 LLaMA 的手把手教程"
+  author: edbeeching
+  thumbnail: /blog/assets/138_stackllama/thumbnail.png
+  date: April 5, 2023
+  tags:
+    - rl
+    - rlhf
+    - nlp
+
 - local: graphml-classification
   title: "使用 Transformers 进行图分类"
   author: clefourrier
@@ -424,6 +434,16 @@
     - guide
     - graphs
 
+- local: unity-in-spaces
+  title: "如何在 🤗 Space 上托管 Unity 游戏"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/unity-in-spaces-thumbnail.png
+  date: April 21, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
+
 - local: chinese-language-blog
   title: "Hugging Face 中文博客正式发布！"
   author: xianbao
@@ -432,3 +452,13 @@
   tags:
     - partnerships
     - community
+
+- local: starcoder
+  title: "StarCoder：最先进的代码大模型"
+  author: lvwerra
+  thumbnail: /blog/assets/141_starcoder/starcoder_thumbnail.png
+  date: May 4, 2023
+  tags:
+    - nlp
+    - community
+    - research 

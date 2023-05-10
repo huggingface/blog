@@ -132,7 +132,7 @@ utilities for working with [large models](https://huggingface.co/docs/accelerate
 - [bitsandbytes](https://github.com/TimDettmers/bitsandbytes) makes [8-bit quantization](https://github.com/TimDettmers/bitsandbytes#features) available to all PyTorch models.
 - [🤗 safetensors](https://github.com/huggingface/safetensors) not only ensures that save code is executed but also significantly speeds up the loading time of large models.
 
-Diffusers seemlessly integrates the above libraries to allow for a
+Diffusers seamlessly integrates the above libraries to allow for a
 simple API when optimizing large models.
 
 The free-tier Google Colab is both CPU RAM constrained (13 GB RAM) as
@@ -394,7 +394,7 @@ image = pipe(
 ).images
 ```
 
-Let\'s manually convert the raw tensors to PIL and have a sneak peak at
+Let\'s manually convert the raw tensors to PIL and have a sneak peek at
 the final result. The output of stage 1 is a 64x64 image.
 
 ``` python
@@ -955,7 +955,7 @@ spelling error!
 ## Conclusion
 
 IF in 32-bit floating point precision uses 40 GB of weights in total. We
-showed how using only open source models and libraries, IF can be ran on
+showed how using only open source models and libraries, IF can be run on
 a free-tier Google Colab instance.
 
 The ML ecosystem benefits deeply from the sharing of open tools and open
