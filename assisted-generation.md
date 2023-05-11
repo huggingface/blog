@@ -19,12 +19,12 @@ Why is text generation so slow? What’s preventing you from deploying low-laten
 The core of modern text generation is straightforward to understand. Let’s look at the central piece, the ML model. Its input contains a text sequence, which includes the text generated so far, and potentially other model-specific components (for instance, Whisper also has an audio input). The model takes the input and runs a forward pass: the input is fed to the model and passed sequentially along its layers until the unnormalized log probabilities for the next token are predicted (also known as logits). A token may consist in entire words, sub-words, or even individual characters, depending on the model. The [illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/) is a great reference if you’d like to dive deeper into this part of text generation.
 
 <!-- [GIF 1 -- FWD PASS] -->
-<video autoplay loop muted playsinline src="/blog/assets/assisted-generation/gif_1_1080p.mov"></video>
+<video autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/assisted-generation/gif_1_1080p.mov"></video>
 
 A model forward pass gets you the logits for the next token, which you can freely manipulate (e.g. set the probability of undesirable words or sequences to 0). The following step in text generation is to select the next token from these logits. Common strategies include picking the most likely token, known as greedy decoding, or sampling from this distribution, also called multinomial sampling. Chaining model forward passes with next token selection iteratively gets you text generation. This explanation is the tip of the iceberg when it comes to decoding methods; please refer to [our blog post on text generation](https://huggingface.co/blog/how-to-generate) for an in-depth exploration.
 
 <!-- [GIF 2 -- TEXT GENERATION] -->
-<video autoplay loop muted playsinline src="/blog/assets/assisted-generation/gif_2_1080p.mov"></video>
+<video autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/assisted-generation/gif_2_1080p.mov"></video>
 
 From the description above, the latency bottleneck in text generation is clear: running a model forward pass for large models is slow, and you may need to do hundreds of them in a sequence. But let’s dive deeper: why are forward passes slow? Forward passes are typically dominated by matrix multiplications and, after a quick visit to the [corresponding wikipedia section](https://en.wikipedia.org/wiki/Matrix_multiplication_algorithm#Communication-avoiding_and_distributed_algorithms), you call tell that memory bandwidth is the limitation in this operation (e.g. from the GPU RAM to the GPU compute cores). In other words, *the bottleneck in the forward pass comes from loading the model layer weights into the computation cores of your device, not from performing the computations themselves*.
 
@@ -91,7 +91,7 @@ This means that you can use a model forward pass for a different purpose: in add
 
 
 <!-- [GIF 3 -- FWD CONFIRMATION] -->
-<video autoplay loop muted playsinline src="/blog/assets/assisted-generation/gif_3_1080p.mov"></video>
+<video autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/assisted-generation/gif_3_1080p.mov"></video>
 
 
 Let’s consider for a second that you have access to a magical latency-free oracle model that generates the same sequence as your model, for any given input. For argument’s sake, it can’t be used directly, it’s limited to being an assistant to your generation procedure. Using the property described above, you could use this assistant model to get candidate output tokens followed by a forward pass with your model to confirm that they are indeed correct. In this utopian scenario, the latency of text generation would be reduced from `O(n)` to `O(1)`, with `n` being the number of generated tokens. For long generations, we're talking about several orders of magnitude.
@@ -117,7 +117,7 @@ Wrapping all up, here’s our original implementation of the assisted generation
 6. Adjust the number of candidate tokens to be produced in the next iteration — our original heuristic increases it by `2` if ALL tokens match and decreases it by `1` otherwise.
 
 <!-- [GIF 4 -- ASSISTED GENERATION] -->
-<video autoplay loop muted playsinline src="/blog/assets/assisted-generation/gif_4_1080p.mov"></video>
+<video autoplay loop muted playsinline src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/assisted-generation/gif_4_1080p.mov"></video>
 
 We’ve designed the API in 🤗 Transformers such that this process is hassle-free for you. All you need to do is to pass the assistant model under the new `assistant_model` keyword argument and reap the latency gains! At the time of the release of this blog post, assisted generation is limited to a batch size of 1.
 
@@ -166,7 +166,7 @@ Drawing samples from a probability distribution for the next token will cause ou
 
 <!-- [TEMPERATURE RESULTS, SHOW THAT LATENCY INCREASES STEADILY WITH TEMP] -->
 <div align="center">
-    <img src="/blog/assets/assisted-generation/temperature.png"/>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/assisted-generation/temperature.png"/>
 </div>
 
 
