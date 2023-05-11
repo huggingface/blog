@@ -1,6 +1,6 @@
 # Announcing our new Community Guidelines and Policy
 
-As a community-driven platform that aims to advance Open, Collaborative, and Responsible Machine Learning, we are thrilled support and maintain a welcoming space for our entire community! In support of this goal, we've updated our [Content Guidelines and Policy](https://huggingface.co/content-guidelines).
+As a community-driven platform that aims to advance Open, Collaborative, and Responsible Machine Learning, we are thrilled to support and maintain a welcoming space for our entire community! In support of this goal, we've updated our [Content Guidelines and Policy](https://huggingface.co/content-guidelines).
 
 We encourage you to familiarize yourself with the complete document to fully understand what it entails. Meanwhile, this blog post serves to provide an overview, outline the rationale, and highlight the values driving the update of our Guidelines. By delving into both resources, you'll gain a comprehensive understanding of the expectations and goals for content on our platform.
 
