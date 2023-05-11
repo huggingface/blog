@@ -12,7 +12,7 @@ Furthermore, as the field of AI and machine learning continues to expand, the va
 
 ## Consent as a Core Value
 
-As we prioritize respecting users and peoples' rights throughout the use of Machine Learning systems, we take a forward-looking view to accounting for developments in the technology affect those rights. While existing regulations do protect people's agency over their work, their image, and their privacy, we see that new ways of processing information enabled by Machine Learning are posing entirely new questions with respect to how these rights should be operationalized - which is the focus of ongoing regulatory work around the world.
+As we prioritize respecting users and peoples' rights throughout the use of Machine Learning systems, we take a forward-looking view to accounting for developments in how technology affects those rights. While existing regulations do protect people's agency over their work, their image, and their privacy, we see that new ways of processing information enabled by Machine Learning are posing entirely new questions with respect to how these rights should be operationalized - which is the focus of ongoing regulatory work around the world.
 
 In this evolving legal landscape, it becomes increasingly important to emphasize the intrinsic value of "consent" to avoid enabling harm. By doing so, we focus on the individual's agency and subjective experiences. This approach not only supports forethought and a more empathetic understanding of consent but also encourages proactive measures to address cultural and contextual factors. In particular, our Content Guidelines aim to address consent related to what users see, and to how people's identities and expressions are represented.
 
