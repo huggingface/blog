@@ -21,7 +21,7 @@ The core of modern text generation is straightforward to understand. Let’s loo
 <!-- [GIF 1 -- FWD PASS] -->
 <figure class="image table text-center m-0 w-full">
     <video
-        style="max-width: 70%; margin: auto;"
+        style="padding-top: 65%; margin: auto;"
         autoplay loop muted playsinline
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/assisted-generation/gif_1_1080p.mov"
     ></video>
