@@ -2102,3 +2102,11 @@
     - nlp
     - community
     - research
+
+- local: content-guidelines
+  title: "Announcing our new Content Guidelines and Policy"
+  author: giadap
+  date: May 11, 2023
+  tags:
+    - content-policy
+    - guidelines
