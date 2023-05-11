@@ -21,7 +21,7 @@ The core of modern text generation is straightforward to understand. Let’s loo
 <!-- [GIF 1 -- FWD PASS] -->
 <figure class="image table text-center m-0 w-full">
     <video
-        style="padding-top: 65%; margin: auto;"
+        style="max-width: 90%; margin: auto;"
         autoplay loop muted playsinline
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/assisted-generation/gif_1_1080p.mov"
     ></video>
@@ -32,7 +32,7 @@ A model forward pass gets you the logits for the next token, which you can freel
 <!-- [GIF 2 -- TEXT GENERATION] -->
 <figure class="image table text-center m-0 w-full">
     <video
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 90%; margin: auto;"
         autoplay loop muted playsinline
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/assisted-generation/gif_2_1080p.mov"
     ></video>
@@ -105,7 +105,7 @@ This means that you can use a model forward pass for a different purpose: in add
 <!-- [GIF 3 -- FWD CONFIRMATION] -->
 <figure class="image table text-center m-0 w-full">
     <video
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 90%; margin: auto;"
         autoplay loop muted playsinline
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/assisted-generation/gif_3_1080p.mov"
     ></video>
@@ -137,7 +137,7 @@ Wrapping all up, here’s our original implementation of the assisted generation
 <!-- [GIF 4 -- ASSISTED GENERATION] -->
 <figure class="image table text-center m-0 w-full">
     <video
-        style="max-width: 70%; margin: auto;"
+        style="max-width: 90%; margin: auto;"
         autoplay loop muted playsinline
         src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/assisted-generation/gif_4_1080p.mov"
     ></video>
