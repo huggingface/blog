@@ -11,10 +11,6 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-## About BigCode
-
-BigCode is an open scientific collaboration led jointly by Hugging Face and ServiceNow that works on the responsible development of large language models for code.
-
 ## Introducing StarCoder
 
 StarCoder and StarCoderBase are Large Language Models for Code (Code LLMs) trained on permissively licensed data from GitHub, including from 80+ programming languages, Git commits, GitHub issues, and Jupyter notebooks. Similar to LLaMA, we trained a ~15B parameter model for 1 trillion tokens. We fine-tuned StarCoderBase model for 35B Python tokens, resulting in a new model that we call StarCoder.  
@@ -53,7 +49,11 @@ With the exhaustive evaluations we found that StarCoder is very capable at writi
 
 ## Training data
 
-The model was trained on a subset of The Stack 1.2. The dataset only consists of permissively licensed code and includes an opt-out process such that code contributors can remove their data from the dataset (see Am I in The Stack). In addition, we removed Personal Identifiable Information from the training data such as Names, Passwords, and Email addresses.
+The model was trained on a subset of The Stack 1.2. The dataset only consists of permissively licensed code and includes an opt-out process such that code contributors can remove their data from the dataset (see Am I in The Stack). In collaboration with [Toloka](https://toloka.ai/blog/bigcode-project/), we removed Personal Identifiable Information from the training data such as Names, Passwords, and Email addresses.
+
+## About BigCode
+
+BigCode is an open scientific collaboration led jointly by Hugging Face and ServiceNow that works on the responsible development of large language models for code.
 
 ## Additional releases
 Along with the model, we are releasing a list of resources and demos:
@@ -67,7 +67,7 @@ Along with the model, we are releasing a list of resources and demos:
 ## Links
 
 ### Models
-- [Paper](https://drive.google.com/file/d/1cN-b9GnWtHzQRoE7M7gAEyivY0kl4BYs/view): A technical report about StarCoder.
+- [Paper](https://arxiv.org/abs/2305.06161): A technical report about StarCoder.
 - [GitHub](https://github.com/bigcode-project/starcoder/tree/main): All you need to know about using or fine-tuning StarCoder.
 - [StarCoder](https://huggingface.co/bigcode/starcoder): StarCoderBase further trained on Python.
 - [StarCoderBase](https://huggingface.co/bigcode/starcoderbase): Trained on 80+ languages from The Stack.
