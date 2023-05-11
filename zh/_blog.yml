@@ -336,6 +336,15 @@
     - safety
     - alignment
 
+- local: ethics-diffusers
+  title: "开发 Diffusers 库的道德行为指南"
+  author: giadap
+  thumbnail: /blog/assets/ethics-diffusers/thumbnail.png
+  date: March 2, 2023
+  tags:
+    - ethics
+    - diffusers
+
 - local: controlnet
   title: "使用 🧨 Diffusers 实现 ControlNet 高速推理"
   author: sayakpaul
