@@ -14,14 +14,14 @@ authors:
 <!-- {authors} -->
 
 ChatGPT and chatbot-powered applications have captured significant attention in the Natural Language Processing (NLP) domain. The community is constantly seeking strong, reliable and open-source models for their applications and use cases. 
-The emergence of these powerful models is a logical consequence of the democratization of transformer-based models, firstly introduced in 2017 by [Vaswani et al.](https://arxiv.org/abs/1706.03762), that has drastically outperformed previous SoTA models for NLP tasks, based on Recurrent Neural Networks (RNNs), that the scientific community believed were dead after that paper. 
-Through this blogpost, we will introduce the integration of a new architecture, RWKV, that combines the advantages of both RNNs and transformers, and that has been recently integrated into the HuggingFace [transformers](https://github.com/huggingface/transformers) library.
+The rise of these powerful models stems from the democratization and widespread adoption of transformer-based models, first introduced by Vaswani et al. in 2017. These models significantly outperformed previous SoTA NLP models based on Recurrent Neural Networks (RNNs), which were considered dead after that paper.
+Through this blogpost, we will introduce the integration of a new architecture, RWKV, that combines the advantages of both RNNs and transformers, and that has been recently integrated into the Hugging Face [transformers](https://github.com/huggingface/transformers) library.
 
 ### Overview of the RWKV project
 
-The RWKV project has been kicked off and led by [Bo Peng](https://github.com/BlinkDL), who is actively contributing and maintaining the project. There is a community that is constantly enhancing the project’s artifacts in the official discord channel on various topics such as performance (RWKV.cpp, quantization, etc.), scalability (dataset processing & scrapping) and research (chat-fine tuning, multi-modal finetuning, etc.). The GPU access for training RWKV models are donated by Stability AI.
+The RWKV project was kicked off and is being led by [Bo Peng](https://github.com/BlinkDL), who is actively contributing and maintaining the project. The community, organized in the official discord channel, is constantly enhancing the project’s artifacts on various topics such as performance (RWKV.cpp, quantization, etc.), scalability (dataset processing & scrapping) and research (chat-fine tuning, multi-modal finetuning, etc.). The GPUs for training RWKV models are donated by Stability AI.
 
-Learn more about that by joining the [official discord channel](https://discordapp.com/users/468093332535640064) and learn more about the general ideas behind RWKV in these two blogposts: https://johanwind.github.io/2023/03/23/rwkv_overview.html / https://johanwind.github.io/2023/03/23/rwkv_details.html 
+You can get involved by joining the [official discord channel](https://discordapp.com/users/468093332535640064) and learn more about the general ideas behind RWKV in these two blogposts: https://johanwind.github.io/2023/03/23/rwkv_overview.html / https://johanwind.github.io/2023/03/23/rwkv_details.html 
 
 ### Transformer Architecture vs RNNs
 
@@ -34,7 +34,7 @@ A RNN can be also used in different “modes”, therefore enabling the possibil
 
 Because RNNs use the same weights to compute predictions at every step, they struggle to memorize information for long-range sequences due to the vanishing gradient issue. Efforts have been made to address this limitation by introducing new architectures such as LSTMs or GRUs. However, the transformer architecture proved to be the most effective thus far in resolving this issue.
 
-In the transformer architecture, the input tokens are processed in the self-attention module simultaneously. The tokens are first linearly projected into different spaces using the query, key and value weights. The resulting matrices are directly used to compute the attention scores (through softmax, as shown below), then multiplied by the value hidden states to obtain the final hidden states. This design enables the architecture to effectively mitigate the long-range sequence issue, and also perform faster inference and training compared to RNN models. 
+In the transformer architecture, the input tokens are processed simultaneously in the self-attention module. The tokens are first linearly projected into different spaces using the query, key and value weights. The resulting matrices are directly used to compute the attention scores (through softmax, as shown below), then multiplied by the value hidden states to obtain the final hidden states. This design enables the architecture to effectively mitigate the long-range sequence issue, and also perform faster inference and training compared to RNN models. 
 
 | ![transformer_diagram](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/142_rwkv/transformer-scheme.png) |
 |:--:|
@@ -57,7 +57,7 @@ For training, there is an infrastructure to scale the training up to 14B paramet
 
 How to combine the best of transformers and RNNs? The main drawback of transformer-based models is that it can become challenging to run a model with a context window that is larger than a certain value, as the attention scores are computed simultaneously for the entire sequence. 
 
-RNNs natively support very long context lengths - only limited by the context length seen in training, but this can be extended to millions of tokens with careful coding. Currently, there are RWKV models trained on a context length of 8192 (`ctx8192`) and they are as fast as `ctx1024` models and consume the same amount of VRAM.
+RNNs natively support very long context lengths - only limited by the context length seen in training, but this can be extended to millions of tokens with careful coding. Currently, there are RWKV models trained on a context length of 8192 (`ctx8192`) and they are as fast as `ctx1024` models and require the same amount of RAM.
 
 The major drawbacks of traditional RNN models and how RWKV is different:
 
@@ -69,7 +69,7 @@ The major drawbacks of traditional RNN models and how RWKV is different:
 
 2. Traditional RNN models cannot be parallelized when training. RWKV is similar to a “linearized GPT” and it trains faster than GPT.
 
-By combining both these advantages into a single architecture, the hope is that RWKV can grow to become more than the sum of its parts.
+By combining both advantages into a single architecture, the hope is that RWKV can grow to become more than the sum of its parts.
 
 ### RWKV attention formulation
 
@@ -162,7 +162,7 @@ According to Bo, better instruction techniques are detailed in [this discord mes
 
 ### Weights conversion
 
-Any user could easily convert the original RWKV weights to the HF format by simply running the conversion script provided in `transformers` library. First, push the "raw" weights on the Hugging Face Hub (let's denote that repo as `RAW_HUB_REPO`, and the raw file `RAW_FILE`), then run the conversion script:
+Any user could easily convert the original RWKV weights to the HF format by simply running the conversion script provided in the `transformers` library. First, push the "raw" weights to the Hugging Face Hub (let's denote that repo as `RAW_HUB_REPO`, and the raw file `RAW_FILE`), then run the conversion script:
 
 ```bash
 python convert_rwkv_checkpoint_to_hf.py --repo_id RAW_HUB_REPO --checkpoint_file RAW_FILE --output_dir OUTPUT_DIR
