@@ -143,7 +143,7 @@ Wrapping all up, here’s our original implementation of the assisted generation
     ></video>
 </figure>
 
-We’ve designed the API in 🤗 Transformers such that this process is hassle-free for you. All you need to do is to pass the assistant model under the new `assistant_model` keyword argument and reap the latency gains! At the time of the release of this blog post, assisted generation is limited to a batch size of 1.
+We’ve designed the API in 🤗 Transformers such that this process is hassle-free for you. All you need to do is to pass the assistant model under the new `assistant_model` keyword argument and reap the latency gains! At the time of the release of this blog post, assisted generation is limited to a batch size of `1`.
 
 
 ```python
@@ -166,7 +166,7 @@ print(tokenizer.batch_decode(outputs, skip_special_tokens=True))
 ```
 
 
-Is the additional internal complexity worth it? Let’s have a look at the latency numbers for the greedy decoding case (results for sampling are in the next section), considering a batch size of 1. These results were pulled directly out of 🤗 Transformers without any additional optimizations, so you should be able to reproduce them in your setup.
+Is the additional internal complexity worth it? Let’s have a look at the latency numbers for the greedy decoding case (results for sampling are in the next section), considering a batch size of `1`. These results were pulled directly out of 🤗 Transformers without any additional optimizations, so you should be able to reproduce them in your setup.
 
 
 <!-- [SPACE WITH GREEDY DECODING PERFORMANCE NUMBERS] -->
@@ -197,7 +197,7 @@ Drawing samples from a probability distribution for the next token will cause ou
 </div>
 
 
-Why do you see it for yourself, so get a feeling of assisted generation?
+Why don't you see it for yourself, so get a feeling of assisted generation?
 
 
 <!-- [DEMO] -->
