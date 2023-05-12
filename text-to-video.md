@@ -74,7 +74,7 @@ Using Hugging Face Diffusers, you can easily download, run and fine-tune various
 ### Hugging Face Demos
 At Hugging Face, our goal is to make it easier to use and build upon state-of-the-art research. Head over to our hub to see and play around with Spaces demos contributed by the 🤗 team, countless community contributors and research authors. At the moment, we host demos for [VideoGPT](https://huggingface.co/spaces/akhaliq/VideoGPT), [CogVideo](https://huggingface.co/spaces/THUDM/CogVideo), [ModelScope Text-to-Video](https://huggingface.co/spaces/damo-vilab/modelscope-text-to-video-synthesis), and [Text2Video-Zero](https://huggingface.co/spaces/PAIR/Text2Video-Zero) with many more to come. To see what we can do with these models, let's take a look at the Text2Video-Zero demo. This demo not only illustrates text-to-video generation but also enables multiple other generation modes for text-guided video editing and joint conditional video generation using pose, depth and edge inputs along with text prompts.
 
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.1.7/gradio.js"></script>
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.23.0/gradio.js"></script>
 
 <gradio-app space="PAIR/Text2Video-Zero"></gradio-app>
 

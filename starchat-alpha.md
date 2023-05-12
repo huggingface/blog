@@ -243,7 +243,7 @@ In this format, we have the following special tokens:
 Let’s write a function that wraps our running example with these tokens to see what it looks like:
 
 ```python
-system_token = "<|assistant|>"
+system_token = "<|system|>"
 user_token = "<|user|>"
 assistant_token = "<|assistant|>"
 end_token = "<|end|>"
@@ -357,7 +357,7 @@ Next, create a Python virtual environment using e.g. Conda:
 conda create -n starchat python=3.10 && conda activate starchat
 ```
 
-Next, we install PyTorch v1.13.1. Since this is hardware-dependent, we direct you to the PyTorch Installation Page for this step. Once you've installed it, install the rest of the project dependencies:
+Next, we install PyTorch v1.13.1. Since this is hardware-dependent, we direct you to the [PyTorch Installation Page](https://pytorch.org/get-started/locally/) for this step. Once you've installed it, install the rest of the project dependencies:
 
 ```shell
 pip install -r requirements.txt
