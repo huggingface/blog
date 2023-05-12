@@ -2050,7 +2050,7 @@
     - guide
     - tensorflow
     - tpu
-    
+
 - local: if
   title: "Running IF with 🧨 diffusers on a Free Tier Google Colab"
   author: williamberman
@@ -2103,10 +2103,20 @@
     - community
     - research
 
+- local: assisted-generation
+  title: "Assisted Generation: a new direction toward low-latency text generation"
+  author: joaogante
+  thumbnail: /blog/assets/assisted-generation/thumbnail.png
+  date: May 11, 2023
+  tags:
+    - nlp
+    - research
+
 - local: content-guidelines-update
   title: "Announcing our new Content Guidelines and Policy"
   author: giadap
-  date: May 11, 2023
+  date: May 15, 2023
   tags:
     - content-policy
     - guidelines
+    
