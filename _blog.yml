@@ -2050,7 +2050,7 @@
     - guide
     - tensorflow
     - tpu
-    
+
 - local: if
   title: "Running IF with 🧨 diffusers on a Free Tier Google Colab"
   author: williamberman
@@ -2093,11 +2093,30 @@
     - text-to-image
     - text-to-video
 
+- local: starchat-alpha
+  title: "Creating a Coding Assistant with StarCoder"
+  author: lewtun
+  thumbnail: /blog/assets/starchat_alpha/thumbnail.png
+  date: May 9, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    
+- local: assisted-generation
+  title: "Assisted Generation: a new direction toward low-latency text generation"
+  author: joaogante
+  thumbnail: /blog/assets/assisted-generation/thumbnail.png
+  date: May 11, 2023
+  tags:
+    - nlp
+    - research
+
 - local: rwkv
   title: "Introducing RWKV — An RNN with the advantages of a transformer"
   author: BlinkDL
   thumbnail: /blog/assets/142_rwkv/rwkv_thumbnail.png
-  date: May 10, 2023
+  date: May 13, 2023
   tags:
     - nlp
     - community
