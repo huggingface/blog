@@ -132,7 +132,7 @@ As for `safetensors` itself, we're looking into adding more advanced features fo
 which have their own set of issues with current formats. This shouldn't impact
 using the files.
 
-Also, we're looking to release a `1.0` after a few months after being a `transformers`
+Finally, we are looking to release a `1.0` after it being a `transformers`
 core lib. We are considering that it would be enough to be super largely tested
 because of the large user base, and it would be much easier to commit to a 1.0.
 The format and the lib have had very few modifications since their inception
