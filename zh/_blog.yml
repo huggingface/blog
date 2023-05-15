@@ -470,4 +470,27 @@
   tags:
     - nlp
     - community
-    - research 
+    - research
+
+- local: text-to-video
+  title: "深入理解文生视频模型"
+  author: adirik
+  thumbnail: /blog/assets/140_text-to-video/thumbnail.png
+  date: May 8, 2023
+  tags:
+    - multi-modal
+    - cv
+    - guide
+    - diffusion
+    - text-to-image
+    - text-to-video
+
+- local: introducing-csearch
+  title: "在 Transformers 中使用对比搜索生成可媲美人类水平的文本🤗"
+  author: yxuansu
+  thumbnail: /blog/assets/115_introducing_contrastive_search/thumbnail.png
+  date: Nov 8, 2022
+  tags:
+    - nlp
+    - text generation
+    - research
