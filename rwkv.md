@@ -5,7 +5,7 @@ authors:
 - user: BLinkDL
 - user: Hazzzardous
 - user: sgugger
-- user: RWKV
+- user: ybelkada
 ---
 
 # Introducing RWKV - An RNN with the advantages of a transformer
