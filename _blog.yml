@@ -1684,19 +1684,6 @@
     - guide
     - game-dev
 
-- local: red-teaming
-  title: "Red-Teaming Large Language Models"
-  author: nazneen
-  thumbnail: /blog/assets/red-teaming/thumbnail.png
-  date: February 22, 2023
-  tags:
-    - llms
-    - rlhf
-    - red-teaming
-    - chatgpt
-    - safety
-    - alignment
-
 - local: optimum-onnxruntime-training
   title: "Optimum+ONNX Runtime - Easier, Faster training for your Hugging Face models"
   author: Jingya
@@ -2023,11 +2010,135 @@
     - guide
     - graphs
 
+- local: accelerate-transformers-with-inferentia2
+  title: "Accelerating Hugging Face Transformers with AWS Inferentia2"
+  author: philschmid
+  thumbnail: /blog/assets/140_accelerate_transformers_with_inferentia2/thumbnail.png
+  date: April 17, 2023
+  tags:
+    - partnerships
+    - aws
+    - nlp
+    - cv
+
+- local: unity-in-spaces
+  title: "How to host a Unity game in a Space"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/unity-in-spaces-thumbnail.png
+  date: April 21, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
+
+- local: chinese-language-blog
+  title: "Introducing HuggingFace blog for Chinese speakers: Fostering Collaboration with the Chinese AI community"
+  author: xianbao
+  thumbnail: /blog/assets/chinese-language-blog/thumbnail.png
+  date: April 24, 2023
+  tags:
+    - partnerships
+    - community
+
+- local: tf_tpu
+  title: "Training a language model with 🤗 Transformers using TensorFlow and TPUs"
+  author: rocketknight1
+  thumbnail: /blog/assets/tf_tpu_training/thumbnail.png
+  date: April 27, 2023
+  tags:
+    - nlp
+    - guide
+    - tensorflow
+    - tpu
+
+- local: if
+  title: "Running IF with 🧨 diffusers on a Free Tier Google Colab"
+  author: williamberman
+  thumbnail: /blog/assets/if/thumbnail.jpg
+  date: April 26, 2023
+  tags:
+    - guide
+    - diffusion
+
+- local: unity-api
+  title: "How to Install and Use the Hugging Face Unity API"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/unity-api-thumbnail.png
+  date: May 1, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
+
+- local: starcoder
+  title: "StarCoder: A State-of-the-Art LLM for Code"
+  author: lvwerra
+  thumbnail: /blog/assets/141_starcoder/starcoder_thumbnail.png
+  date: May 4, 2023
+  tags:
+    - nlp
+    - community
+    - research 
+
+- local: text-to-video
+  title: "A Dive into Text-to-Video Models"
+  author: adirik
+  thumbnail: /blog/assets/140_text-to-video/thumbnail.png
+  date: May 8, 2023
+  tags:
+    - multi-modal
+    - cv
+    - guide
+    - diffusion
+    - text-to-image
+    - text-to-video
+
+- local: starchat-alpha
+  title: "Creating a Coding Assistant with StarCoder"
+  author: lewtun
+  thumbnail: /blog/assets/starchat_alpha/thumbnail.png
+  date: May 9, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    
+- local: assisted-generation
+  title: "Assisted Generation: a new direction toward low-latency text generation"
+  author: joaogante
+  thumbnail: /blog/assets/assisted-generation/thumbnail.png
+  date: May 11, 2023
+  tags:
+    - nlp
+    - research
+
+- local: rwkv
+  title: "Introducing RWKV — An RNN with the advantages of a transformer"
+  author: BlinkDL
+  thumbnail: /blog/assets/142_rwkv/rwkv_thumbnail.png
+  date: May 15, 2023
+  tags:
+    - nlp
+    - community
+    - research 
+
+- local: chatbot-amd-gpu
+  title: "Run a Chatgpt-like Chatbot on a Single GPU with ROCm"
+  thumbnail: /blog/assets/chatbot-amd-gpu/thumbnail.png
+  author: andyll7772
+  date: May 15, 2023
+  tags:
+    - guide
+    - llm
+    - nlp
+    - inference
+    - rocm
+
 - local: dedup
   title: "Large-scale Near-deduplication Behind BigCode"
   author: chenghao
   thumbnail: /blog/assets/dedup/thumbnail.png
-  date: April 5, 2023
+  date: May 16, 2023
   tags:
     - bigcode
     - deduplication

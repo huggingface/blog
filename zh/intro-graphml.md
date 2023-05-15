@@ -5,8 +5,8 @@ authors:
 - user: clefourrier
 translators:
 - user: MatrixYao
-  proofreader: true
 - user: inferjay
+  proofreader: true
 ---
 
 # 一文带你入门图机器学习
