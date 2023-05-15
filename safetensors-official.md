@@ -120,13 +120,13 @@ is indeed safe to use.
 
 For `transformers` (and HuggingFace at large, it includes all major projects) the master plan is as follows:
 
-- ~Create `safetensors`~. Done
+- [x] Create `safetensors`
 - [x] Verify it works and can deliver on all promises (lazy load for llms, single file for all frameworks, faster loads)
-- ~Verify it's safe (today's announcement)~. Done
-- ~Make `safetensors` a core dependency (already done, or soon to come).~. Done
-- Make `safetensors` the default saving format. Will happen in a few months when we have enough feedback
+- [x] Verify it's safe (today's announcement)
+- [x] Make `safetensors` a core dependency (already done, or soon to come)
+- [ ] Make `safetensors` the default saving format; this will happen in a few months when we have enough feedback
   to make sure it will cause as little disruption as possible, and enough users already have the library
-  to be able to load new models even on relatively old `transformers` versions. **Next step**
+  to be able to load new models even on relatively old `transformers` versions
 
 As for `safetensors` itself, we're looking into adding more advanced features for LLM training
 which have their own set of issues with current formats. This shouldn't impact
