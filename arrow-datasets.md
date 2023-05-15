@@ -12,8 +12,6 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Your content here [...]
-
 Hugging Face Datasets is a library that was designed to complement machine learning training workflows. It enables users to share, download, process, and format datasets to get them ready for training with any of the major machine learning frameworks, across all data modalities: audio, video, text, and tabular. The 🤗 `datasets` library is typically the first entrypoint of any machine learning project, and 
 
 | ![HF Libraries](./assets/arrow-datasets/hf-libraries.png) |
