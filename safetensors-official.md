@@ -108,9 +108,9 @@ fully public:
 [Full report](/blog/assets/safetensors-official/full-report.pdf)
 
 
-One major kudos is that because the library is written in Rust, a potential
-flaw in the TensorIndexer which might have been a potential Arbitrary
-Code Execution kind of flaws, results just in an unwarranted panic, so perfectly safe.
+One import thing to note is that because the library is written in Rust, a major
+flaw was avoided. In the TensorIndexer there was a lack of bound checks. In C or C++ this might
+have lead to an Arbitrary Code Execution, but since `safetensors` is written in Rust, it simply results in a panic, so perfectly safe.
 
 Note: This report doesn't mean that there is no flaw because it's impossible to 
 prove the absence of flaws, however, it's a major step in giving reassurance that it
