@@ -38,7 +38,7 @@ weights2 = load_file("model.safetensors")
 ```
 
 And that's pretty much it.
-It has many [cool features](https://github.com/huggingface/safetensors#yet-another-format-) compared to other formats, most notably that files are _safe_ as we'll see later. 
+It has many [cool features](https://github.com/huggingface/safetensors#yet-another-format-) compared to other formats, most notably that loading files is _safe_ as we'll see later. 
 
 When you're using `transformers`, if `safetensors` is installed, then those files will already
 be used preferentially to prevent issues. Which means doing:
@@ -121,7 +121,7 @@ is indeed safe to use.
 For `transformers` (and HuggingFace at large, it includes all major projects) the master plan is as follows:
 
 - ~Create `safetensors`~. Done
-- ~Verify it works and can deliver on all promises (lazy load for llms, single file for all frameworks, faster loads)~. Done
+- [x] Verify it works and can deliver on all promises (lazy load for llms, single file for all frameworks, faster loads)
 - ~Verify it's safe (today's announcement)~. Done
 - ~Make `safetensors` a core dependency (already done, or soon to come).~. Done
 - Make `safetensors` the default saving format. Will happen in a few months when we have enough feedback
