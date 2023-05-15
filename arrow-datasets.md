@@ -4,7 +4,7 @@ thumbnail: /blog/assets/arrow-datasets/bla.png
 authors:
 - user: cakiki
 - user: lhoestq
-- user: 
+- user: mariosasko
 ---
 
 # Data Analytics with Apache Arrow and Hugging Face Datasets
@@ -18,8 +18,7 @@ Hugging Face Datasets is a library that was designed to complement machine learn
 |:--:|
 | <i>Hugging Face libraries mapped to the steps of a typical machine learning workflow. Source: <a href="https://github.com/nlp-with-transformers" rel="noopener" target="_blank" >Natural Language Processing with Transformers</a></i>|
 
-One of the remarkable features of 🤗 `datasets` is its ability to [quickly and efficiently](https://huggingface.co/docs/datasets/about_arrow) handle data that does not fit into system memory. This is made possible by using Apache Arrow as an underlying memory model. This post will demonstrate the synergies between the two projects, and how using the Arrow ecosystem can supercharge your library, giving you access to more features than you bargained for. We will show you how you can use 🤗 `datasets` for out-of-core data analytics to better understand your data, ahead of using it to train a model.
-
+One of the most remarkable features of 🤗 `datasets` is its ability to [quickly and efficiently](https://huggingface.co/docs/datasets/about_arrow) handle data that does not fit into system memory. This is made possible by using Apache Arrow as an underlying memory model. This post will demonstrate the synergies between the two projects, and how using the Arrow ecosystem can supercharge your library, giving you access to more features than you bargained for. We will show you how you can use 🤗 `datasets` for out-of-core data analytics to better understand your data, ahead of using it to train a model.
 
 ## Apache Arrow and Arrow Tables
 
@@ -30,7 +29,7 @@ from datasets import load_dataset
 dset = load_dataset("bigcode/the-stack-dedup", data_dir="data/python", split="train")
 print(dset.num_rows, " rows")
 print(dset.dataset_size / 1024**3, " GB")
->>> 12962249 rows
+>>> 12,962,249 rows
 >>> 66.9516989979893 GB
 ```
 ## The Arrow Compute API
