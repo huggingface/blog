@@ -1,6 +1,6 @@
 ---
 title: "🐶Safetensors audited as really safe and becoming the default"
-thumbnail: /blog/assets/104_accelerate-large-models/thumbnail.png
+thumbnail: /blog/assets/142_safetensors_official/thumbnail.png
 authors:
 - user: Narsil
 - user: stellaathena
