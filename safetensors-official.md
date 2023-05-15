@@ -11,7 +11,7 @@ authors:
 
 <h1>🐶Safetensors audited as really safe and becoming the default</h1>
 
-HuggingFace, in close collaboration with EleutherAI and StabilityAI, has ordered
+Hugging Face, in close collaboration with EleutherAI and StabilityAI, has ordered
 an external security audit of the `safetensors` library, whose conclusions allow
 all 3 organizations to move forward into making the library the default format
 for saved models.
@@ -25,7 +25,7 @@ and the next steps
 # What is safetensors?
 
 🐶[Safetensors](https://github.com/huggingface/safetensors) is a library
-for saving and loading tensors in the most common frameworks (PyTorch, Tensorflow, jax, paddlepaddle, numpy..)
+  for saving and loading tensors in the most common frameworks (PyTorch, Tensorflow, Jax, PaddlePaddle, NumPy..)
 
 Let's see an example in PyTorch:
 ```python
@@ -69,9 +69,9 @@ the hood, which is inherently `unsafe`. [1](https://huggingface.co/docs/hub/secu
 that a user could download and use a model, and without their knowledge attackers
 could gain full control of the computer and steal all their bitcoins 😓.
 
-This is perfectly acknowledged by Pytorch [doc](https://pytorch.org/docs/stable/generated/torch.load.html).
+This is perfectly acknowledged by PyTorch [docs](https://pytorch.org/docs/stable/generated/torch.load.html).
 
-Since HuggingFace is now a hub where anyone can upload and share models, we need to work toward making
+Since the Hugging Face Hub is a platform where anyone can upload and share models, we need to work toward making
 sure that users cannot get infected by loading malicious models.
 
 We are also taking steps in making sure the existing PyTorch files are not malicious but the best we can do is flag suspicious-looking files. We cannot be sure they are malicious, nor be sure they are safe.
@@ -86,13 +86,13 @@ This particular feature enables arbitrary sharding with efficient inference libr
 and exploit them with the maximum efficiency.
 
 Another benefit is that because it loads so fast, and is framework agnostic we can use the format
-to load models from the same file in PyTorch or Tensorflow.
+to load models from the same file in PyTorch or TensorFlow.
 
 
 # The security audit
 
 Since `safetensors` main asset is providing safety guarantees, we wanted to make sure
-it delivered. That's why HuggingFace, EleutherAI, and StabilityAI teamed up to get an external
+it delivered. That's why Hugging Face, EleutherAI, and StabilityAI teamed up to get an external
 security audit to confirm it.
 
 Important findings:
@@ -105,7 +105,7 @@ Important findings:
 In the name of openness and transparency, all companies agreed to make the report
 fully public:
 
-[Full report](/blog/assets/safetensors-official/full-report.pdf)
+[Full report](https://huggingface.co/datasets/safetensors/trail_of_bits_audit_repot/resolve/main/SOW-TrailofBits-EleutherAI_HuggingFace-v1.2.pdf)
 
 
 One import thing to note is that because the library is written in Rust, a major
