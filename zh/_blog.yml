@@ -87,6 +87,16 @@
     - fine-tuning
     - guide
 
+- local: introducing-csearch
+  title: "在 Transformers 中使用对比搜索生成可媲美人类水平的文本🤗"
+  author: yxuansu
+  thumbnail: /blog/assets/115_introducing_contrastive_search/thumbnail.png
+  date: Nov 8, 2022
+  tags:
+    - nlp
+    - text generation
+    - research
+
 - local: inference-update
   title: "Hugging Face 提供的推理 (Inference) 解决方案"
   author: julsimon
@@ -336,6 +346,15 @@
     - safety
     - alignment
 
+- local: ethics-diffusers
+  title: "开发 Diffusers 库的道德行为指南"
+  author: giadap
+  thumbnail: /blog/assets/ethics-diffusers/thumbnail.png
+  date: March 2, 2023
+  tags:
+    - ethics
+    - diffusers
+
 - local: controlnet
   title: "使用 🧨 Diffusers 实现 ControlNet 高速推理"
   author: sayakpaul
@@ -461,4 +480,17 @@
   tags:
     - nlp
     - community
-    - research 
+    - research
+
+- local: text-to-video
+  title: "深入理解文生视频模型"
+  author: adirik
+  thumbnail: /blog/assets/140_text-to-video/thumbnail.png
+  date: May 8, 2023
+  tags:
+    - multi-modal
+    - cv
+    - guide
+    - diffusion
+    - text-to-image
+    - text-to-video
