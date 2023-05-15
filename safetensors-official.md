@@ -129,8 +129,7 @@ For `transformers` (and HuggingFace at large, it includes all major projects) th
   to be able to load new models even on relatively old `transformers` versions
 
 As for `safetensors` itself, we're looking into adding more advanced features for LLM training
-which have their own set of issues with current formats. This shouldn't impact
-using the files.
+which have their own set of issues with current formats.
 
 Finally, we are looking to release a `1.0` after it being a `transformers`
 core lib. We are considering that it would be enough to be super largely tested
