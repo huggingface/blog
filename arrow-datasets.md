@@ -1,5 +1,5 @@
 ---
-title: "Leveraging the Power of Apache Arrow with Hugging Face Datasets" 
+title: "Data Analytics with Apache Arrow and Hugging Face Datasets" 
 thumbnail: /blog/assets/arrow-datasets/bla.png
 authors:
 - user: cakiki
@@ -7,18 +7,17 @@ authors:
 - user: 
 ---
 
-# Leveraging the Power of Apache Arrow with Hugging Face Datasets OR Data Analytics with Apache Arrow and Hugging Face Datasets
+# Data Analytics with Apache Arrow and Hugging Face Datasets
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
 Your content here [...]
 
-Hugging Face Datasets is a library that was designed to complement machine learning training workflows. It enables users to share, download, preprocess, and format datasets for model training. 
+Hugging Face Datasets is a library that was designed to complement machine learning training workflows. It enables users to share, download, process, and format datasets to get them ready for training with any of the major machine learning frameworks, across all data modalities: audio, video, text, and tabular.
 
-One of the remarkable features of `datasets` is its ability to efficiently handle data that is larger than memory. This is made possible by using Apache Arrow as an underlying memory model. This post will explore the synergies between the two projects, and how using the Arrow ecosystem can supercharge your library, giving you access to more features than you bargained for.
+One of the remarkable features of `datasets` is its ability to [quickly and efficiently](https://huggingface.co/docs/datasets/about_arrow) handle data that does not fit into system memory. This is made possible by using Apache Arrow as an underlying memory model. This post will demonstrate the synergies between the two projects, and how using the Arrow ecosystem can supercharge your library, giving you access to more features than you bargained for. We will show you how you can use 🤗 `datasets` for out-of-core data analytics to better understand your data before using it to train a model.
 
-synergy between the two libraries. success story of arrow. Come for the memory model / mmapping, stay for the data analytics.
 
 ## Apache Arrow and Arrow Tables
 
@@ -35,3 +34,5 @@ print(dset.dataset_size / 1024**3, " GB")
 ## The Arrow Compute API
 
 ## Mapping Compute Primitives
+
+Scratchpad: synergy between the two libraries. success story of arrow. Come for the memory model / mmapping, stay for the data analytics.
