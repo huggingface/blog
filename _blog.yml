@@ -2116,7 +2116,7 @@
   title: "Introducing RWKV — An RNN with the advantages of a transformer"
   author: BlinkDL
   thumbnail: /blog/assets/142_rwkv/rwkv_thumbnail.png
-  date: May 13, 2023
+  date: May 15, 2023
   tags:
     - nlp
     - community
