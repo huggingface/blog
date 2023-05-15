@@ -99,7 +99,7 @@ Important findings:
 
 - No critical security flaw leading to arbitrary code execution was found.
 - Some imprecisions in the spec format were detected. (Fixed) 
-- Some missing validation allowed polyglot files. (Fixed)
+- Some missing validation allowed [polyglot files](https://en.wikipedia.org/wiki/Polyglot_(computing)). (Fixed)
 - Lots of proposed improvements in the test suite. (Done)
 
 In the name of openness and transparency, all companies agreed to make the report
