@@ -87,6 +87,16 @@
     - fine-tuning
     - guide
 
+- local: introducing-csearch
+  title: "在 Transformers 中使用对比搜索生成可媲美人类水平的文本🤗"
+  author: yxuansu
+  thumbnail: /blog/assets/115_introducing_contrastive_search/thumbnail.png
+  date: Nov 8, 2022
+  tags:
+    - nlp
+    - text generation
+    - research
+
 - local: inference-update
   title: "Hugging Face 提供的推理 (Inference) 解决方案"
   author: julsimon
@@ -484,13 +494,3 @@
     - diffusion
     - text-to-image
     - text-to-video
-
-- local: introducing-csearch
-  title: "在 Transformers 中使用对比搜索生成可媲美人类水平的文本🤗"
-  author: yxuansu
-  thumbnail: /blog/assets/115_introducing_contrastive_search/thumbnail.png
-  date: Nov 8, 2022
-  tags:
-    - nlp
-    - text generation
-    - research
