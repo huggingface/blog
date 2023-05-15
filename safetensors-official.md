@@ -134,8 +134,8 @@ using the files.
 
 Also, we're looking to release a `1.0` after a few months after being a `transformers`
 core lib. We are considering that it would be enough to be super largely tested
-because of the large user base, and it would be much easier to commit.
+because of the large user base, and it would be much easier to commit to a 1.0.
 The format and the lib have had very few modifications since their inception
-which is a good sign of stability for us.
+which is a good sign of stability.
 
 We're glad we can make ML one step closer to being safe and efficient for all!
