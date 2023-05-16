@@ -5,14 +5,6 @@ authors:
 - user: juliensimon
 ---
 
-<table style="margin-left: auto; margin-right: auto">
-  <tr>
-    <td><img src="assets/142_q8chat/hf.png" alt="1" height=105px ></td>
-    <td><img src="assets/142_q8chat/IntalAI.png" alt="2" width = 256px></td>
-    <td><img src="assets/142_q8chat/MPT.png" alt="3" width = 256px></td>
-  </tr>
-</table>
-
 # Smaller is better: Q8-Chat, an efficient generative AI experience on Xeon
 
 
