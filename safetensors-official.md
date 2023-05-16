@@ -11,7 +11,7 @@ authors:
 
 <h1>🐶Safetensors audited as really safe and becoming the default</h1>
 
-Hugging Face, in close collaboration with EleutherAI and StabilityAI, has ordered
+[Hugging Face](https://huggingface.co/), in close collaboration with [EleutherAI](https://www.eleuther.ai/) and [StabilityAI](https://stability.ai/), has ordered
 an external security audit of the `safetensors` library, whose conclusions allow
 all 3 organizations to move forward into making the library the default format
 for saved models.
@@ -52,7 +52,7 @@ is likely to be the only thing needed to run safetensors files safely.
 Going forward and thanks to the validation of the library, `safetensors` will now be installed by
 default. The next step is saving models directly in `safetensors` by default.
 
-We also would like to acknowledge the usage of `safetensors` in the wider ML ecosystem
+We are thrilled to see that the safetensors library is already seeing use in the ML ecosystem, including:
 
 - [CivitAI](https://civitai.com/)
 - [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
@@ -118,7 +118,11 @@ is indeed safe to use.
 
 # Going forward
 
-For `transformers` (and HuggingFace at large, it includes all major projects) the master plan is as follows:
+For Hugging Face, EleutherAI and StabilityAI the master plan is to embrace this format by default.
+
+EleutherAI is planning on adding support for converting models trained with GPT-NeoX to `safetensors`.
+
+For instance within `transformers` library we are doing the following:
 
 - [x] Create `safetensors`
 - [x] Verify it works and can deliver on all promises (lazy load for llms, single file for all frameworks, faster loads)
