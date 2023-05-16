@@ -16,7 +16,7 @@ People who are interested in document-level near-deduplication at a large scale,
 
 ## Motivations
 
-It is important to take care of our data before feeding it to the model, as the old saying goes, garbage in, garbage out. Even though it's increasingly difficult to do so with headline-grabbing models (or should we say APIs) creating an illusion that data quality matters less.
+It is important to take care of our data before feeding it to the model, at least Large Language Model in our case, as the old saying goes, garbage in, garbage out. Even though it's increasingly difficult to do so with headline-grabbing models (or should we say APIs) creating an illusion that data quality matters less.
 
 One of the problems we face in both BigScience and BigCode for data quality is duplication, including possible benchmark contamination. It has been shown that models tend to output training data verbatim when there are many duplicates[[1]](#1) (though it is less clear in some other domains[[2]](#2)), and it also makes the model vulnerable to privacy attacks[[1]](#1). Additionally, some typical advantages of deduplication also include:
 
@@ -28,11 +28,11 @@ One of the problems we face in both BigScience and BigCode for data quality is d
 
 Allow me to share a story first on how I jumped on this near-deduplication quest, how the results have progressed, and what lessons I have learned along the way.
 
-It all started with a conversation on LinkedIn when BigScience had already started for a couple of months. Huu Nguyen approached me when he noticed my pet project on GitHub, asking me if I were interested in working on deduplication for BigScience. Of course, my answer was a yes, completely ignorant of just how much effort will be required alone due to the sheer mount of the data.
+It all started with a conversation on LinkedIn when [BigScience](https://bigscience.huggingface.co/) had already started for a couple of months. Huu Nguyen approached me when he noticed my pet project on GitHub, asking me if I were interested in working on deduplication for BigScience. Of course, my answer was a yes, completely ignorant of just how much effort will be required alone due to the sheer mount of the data.
 
-It was fun and challenging at the same time. It is challenging in a sense that I didn't really have much research experience with that sheer scale of data, and everyone was still welcoming and trusting you with thousands of dollars of cloud compute budget. Yes, I had to wake up from my sleep to double-check that I had turned off those machines several times. As a result, I had to learn on the job through all the trials and errors, which in the end opened me to a new perspective that I don't think I would ever have if it weren't BigScience.
+It was fun and challenging at the same time. It is challenging in a sense that I didn't really have much research experience with that sheer scale of data, and everyone was still welcoming and trusting you with thousands of dollars of cloud compute budget. Yes, I had to wake up from my sleep to double-check that I had turned off those machines several times. As a result, I had to learn on the job through all the trials and errors, which in the end opened me to a new perspective that I don't think I would ever have if it weren't for BigScience.
 
-Moving forward, one year later, I am putting what I have learned back into BigCode, working on even bigger datasets. In addition to LLMs that are trained for English[[3]](#3), we have confirmed that deduplication improves code models too[[4]](#4), while using a much smaller dataset. And now, I am sharing what I have learned with you, my dear reader, and hopefully, you can also get a sense of what is happening behind the scene of BigCode through the lens of deduplication.
+Moving forward, one year later, I am putting what I have learned back into [BigCode](https://www.bigcode-project.org/), working on even bigger datasets. In addition to LLMs that are trained for English[[3]](#3), we have confirmed that deduplication improves code models too[[4]](#4), while using a much smaller dataset. And now, I am sharing what I have learned with you, my dear reader, and hopefully, you can also get a sense of what is happening behind the scene of BigCode through the lens of deduplication.
 
 In case you are interested, here is an updated version of the deduplication comparison that we started in BigScience:
 
