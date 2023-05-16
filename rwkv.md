@@ -21,7 +21,7 @@ Through this blogpost, we will introduce the integration of a new architecture, 
 
 The RWKV project was kicked off and is being led by [Bo Peng](https://github.com/BlinkDL), who is actively contributing and maintaining the project. The community, organized in the official discord channel, is constantly enhancing the project’s artifacts on various topics such as performance (RWKV.cpp, quantization, etc.), scalability (dataset processing & scrapping) and research (chat-fine tuning, multi-modal finetuning, etc.). The GPUs for training RWKV models are donated by Stability AI.
 
-You can get involved by joining the [official discord channel](https://discordapp.com/users/468093332535640064) and learn more about the general ideas behind RWKV in these two blogposts: https://johanwind.github.io/2023/03/23/rwkv_overview.html / https://johanwind.github.io/2023/03/23/rwkv_details.html 
+You can get involved by joining the [official discord channel](https://discord.gg/qt9egFA7ve) and learn more about the general ideas behind RWKV in these two blogposts: https://johanwind.github.io/2023/03/23/rwkv_overview.html / https://johanwind.github.io/2023/03/23/rwkv_details.html 
 
 ### Transformer Architecture vs RNNs
 
