@@ -88,7 +88,8 @@ Together with Intel, we're hosting a new exciting demo in Spaces called [Q8-Chat
 
 ## Next steps
 
-We’re currently working on integrating these amazing new quantization techniques into the Hugging Face [Optimum Intel](https://huggingface.co/docs/optimum/intel/index) library. Once we’re done, you’ll be able to replicate these demos with just a few lines of code.
+We’re currently working on integrating these new quantization techniques into the Hugging Face [Optimum Intel](https://huggingface.co/docs/optimum/intel/index) library through [Intel Neural Compressor](https://github.com/intel/neural-compressor). 
+Once we’re done, you’ll be able to replicate these demos with just a few lines of code.
 
 Stay tuned. The future is 8-bit!
 
