@@ -74,7 +74,7 @@ In this example, we ask the model: “*What is the role of Hugging Face in democ
   [<img src="assets/142_q8chat/pic3.png">](assets/142_q8chat/vicuna-7b-int8-hf-role.mov)
 </kbd>
 
-It only takes ~80 milliseconds to generate the first token. The mean generation time for the next tokens is an amazing ~40 milliseconds. This level of performance definitely makes it possible to run LLMs on CPU platforms, giving customers more IT flexibility and better cost-performance than ever before.
+The example shows the additional benefits you can get from 8bit quantization coupled with 4th Gen Xeon resulting in very low generation time for each token. This level of performance definitely makes it possible to run LLMs on CPU platforms, giving customers more IT flexibility and better cost-performance than ever before.
 
 ## Chat experience on Xeon
 
