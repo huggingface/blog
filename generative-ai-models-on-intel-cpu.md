@@ -71,7 +71,7 @@ In this example, we ask the model: “*What is the role of Hugging Face in democ
 "*A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: What is the role of Hugging Face in democratizing NLP? ASSISTANT:*"
 
 <kbd>
-  [<img src="assets/143_q8chat/pic3.png">](assets/142_q8chat/vicuna-7b-int8-hf-role.mov)
+  <img src="assets/143_q8chat/pic3.png">
 </kbd>
 
 The example shows the additional benefits you can get from 8bit quantization coupled with 4th Gen Xeon resulting in very low generation time for each token. This level of performance definitely makes it possible to run LLMs on CPU platforms, giving customers more IT flexibility and better cost-performance than ever before.
