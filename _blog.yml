@@ -2145,3 +2145,12 @@
     - inference
     - intel
     - quantization
+
+- local: dedup
+  title: "Large-scale Near-deduplication Behind BigCode"
+  author: chenghao
+  thumbnail: /blog/assets/dedup/thumbnail.png
+  date: May 16, 2023
+  tags:
+    - bigcode
+    - deduplication
