@@ -2133,3 +2133,15 @@
     - nlp
     - inference
     - rocm
+
+- local: generative-ai-models-on-intel-cpu
+  title: "Smaller is better: Q8-Chat, an efficient generative AI experience on Xeon"
+  thumbnail: /blog/assets/143_q8chat/pic4.png
+  author: andyll7772
+  date: May 16, 2023
+  tags:
+    - llm
+    - nlp
+    - inference
+    - intel
+    - quantization
