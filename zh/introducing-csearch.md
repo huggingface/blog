@@ -93,7 +93,6 @@ DeepMind's research is also used by the UK government to develop new technologie
 DeepMind's research is also used by the UK government to develop new technologies
 ----------------------------------------------------------------------------------------------------
 ```
-
 </details>
 
 **[备注]** 我们可以看到，贪心搜索生成的结果中有明显的重复。
@@ -158,7 +157,6 @@ One example? Given the details of today
 #### 5.1. 解码目标
 
 给定前缀文本 $x_{< t}$，我们按如下公式选择输出词元 $x_{t}$:
-
 <center class="half">
     <img src="/blog/assets/115_introducing_contrastive_search/formulation.png" width="750"/>
 </center>
@@ -313,7 +311,6 @@ The researchers believe that the unicorns are descendants of the ancient Incas, 
 The researchers believe that the unicorns are descendants of the ancient Incas, who lived in the area around 2,000 years ago
 ----------------------------------------------------------------------------------------------------
 ```
-
 </details>
 
 <span id='gpt2_nucleus_example_one'/>
@@ -484,7 +481,6 @@ Output:
 Deeper neural networks are more difficult to train. We present a residual learning framework to ease the training of networks that are substantially deeper than those used previously. The theory focuses on several aspects of learning, including the dynamics of replicative and non-replicative aspects of learning. This framework emphasizes learning by entropy. New randomized algorithms enable training networks with residual learning, so that deep networks can be deployed as reliably and as efficiently as their more conventional counterparts.
 ----------------------------------------------------------------------------------------------------
 ```
-
 </details>
 
 <span id='opt_contrastive_example_two'/>
@@ -561,7 +557,6 @@ We show that MBRL outperforms other methods for deep reinforcement learning (RL)
 <span id='references'/>
 
 ## 参考文献
-
 > [1] Su et al., 2022 ["A Contrastive Framework for Neural Text Generation"](https://arxiv.org/abs/2202.06417), NeurIPS 2022
 
 > [2] Su and Collier, 2022 ["Contrastive Search Is What You Need For Neural Text Generation"](https://arxiv.org/abs/2210.14140), Arxiv 2022
