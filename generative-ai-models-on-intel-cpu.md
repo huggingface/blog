@@ -70,9 +70,15 @@ The obvious benefit of working with smaller models is a significant reduction in
 In this example, we ask the model: “*What is the role of Hugging Face in democratizing NLP?*”. This sends the following prompt to the model:
 "*A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: What is the role of Hugging Face in democratizing NLP? ASSISTANT:*"
 
-<kbd>
-  <iframe src="https://drive.google.com/file/d/1Iv5_aV8mKrropr9HeOLIBT_7_oYPmgNl/preview" width="640" height="480" allow="autoplay"></iframe>
-</kbd>
+<figure class="image table text-center m-0 w-full">
+    <video 
+        alt="MPT-7B Demo"
+        style="max-width: 70%; margin: auto;"
+        autoplay loop autobuffer muted playsinline
+    >
+      <source src="assets/143_q8chat/mpt-7b-int8-hf-role.mov" type="video/mp4">
+  </video>
+</figure>
 
 The example shows the additional benefits you can get from 8bit quantization coupled with 4th Gen Xeon resulting in very low generation time for each token. This level of performance definitely makes it possible to run LLMs on CPU platforms, giving customers more IT flexibility and better cost-performance than ever before.
 
@@ -82,7 +88,7 @@ Recently, Clement, the CEO of HuggingFace, recently said: “*More companies wou
 
 Together with Intel, we're hosting a new exciting demo in Spaces called [Q8-Chat](https://huggingface.co/spaces/Intel/Q8-Chat) (pronounced "Cute chat"). Q8-Chat offers you a ChatGPT-like chat experience, while only running on a single socket Intel Sapphire Rapids CPU with 32 cores and a batch size of 1.
 
-<iframe src="https://intel-q8-chat.hf.space" frameborder="0" width="100%" height="1200"></iframe>
+<iframe src="https://intel-q8-chat.hf.space" frameborder="0" width="100%" height="1600"></iframe>
 
 ## Next steps
 
