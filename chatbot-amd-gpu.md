@@ -59,7 +59,7 @@ further reduce the memory footprint, optimization techniques are
 required. There is a recent research paper GPTQ published, which
 proposed accurate post-training quantization for GPT models with lower
 bit precision. As illustrated below, for models with parameters larger
-than 10B, the 4-bit or 3-bit GPTQ can achieve the comparable accuracy
+than 10B, the 4-bit or 3-bit GPTQ can achieve comparable accuracy
 with fp16.
 
 <p align="center">
@@ -138,7 +138,7 @@ sudo rocminfo
 ```
 **1.3 Docker image pull and run a Docker container**
 
-The following uses Pytorch2.0 on ROCm5.4.2. Please use
+The following uses Pytorch2.0 on ROCm5.4.2. Please use the
 appropriate docker image according to your target ROCm and Pytorch
 version: <https://hub.docker.com/r/rocm/pytorch/tags>
 ```
@@ -187,7 +187,7 @@ python llama_inference.py ../../models/vicuna-13b --wbits 4 --load \
 ```
 Now that you have everything set up, it's time to run the Vicuna 13B
 model on your AMD GPU. Use the commands above to run the model. Replace
-*"Your input text here"* with the text you want to use as an input for
+*"Your input text here"* with the text you want to use as input for
 the model. If everything is set up correctly, you should see the model
 generating output text based on your input.
 
@@ -229,7 +229,7 @@ translation.
   <img src="assets/chatbot-amd-gpu/05.png" style="width: 80%; height: auto;">
 </p>
 
-It does a better job than me. Next, let us ask something about the soccer. The answer looks good to me.
+It does a better job than me. Next, let us ask something about soccer. The answer looks good to me.
 
 <p align="center">
   <img src="assets/chatbot-amd-gpu/06.png" style="width: 80%; height: auto;">
@@ -374,7 +374,7 @@ The more optimized kernel implementation in
 <https://github.com/oobabooga/GPTQ-for-LLaMa/blob/57a26292ed583528d9941e79915824c5af012279/quant_cuda_kernel.cu#L891>
 
 targets at A100 GPU and not compatible with ROCM5.4.3 HIPIFY
-toolkits. It nees to be modified as follows. The same for
+toolkits. It needs to be modified as follows. The same for
 VecQuant2MatMulKernelFaster, VecQuant3MatMulKernelFaster,
 VecQuant4MatMulKernelFaster kernels.
 
