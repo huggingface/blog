@@ -35,7 +35,7 @@ Different quantization tools are available. For example, PyTorch has built-in su
 Recent studies [[1]](https://arxiv.org/abs/2206.01861)[[2]](https://arxiv.org/abs/2211.10438) show that current quantization techniques don’t work well with LLMs. In particular, LLMs exhibit large-magnitude outliers in specific activation channels across all layers and tokens. Here’s an example with the OPT-13B model. You can see that one of the activation channels has much larger values than all others across all tokens. This phenomenon is visible in all the Transformer layers of the model.
 
 <kbd>
-  <img src="assets/142_q8chat/pic1.png">
+  <img src="assets/143_q8chat/pic1.png">
 </kbd>
 <br>*Source: SmoothQuant*
 
@@ -45,7 +45,7 @@ The best quantization techniques to date quantize activations token-wise, causin
 SmoothQuant [[3]](https://arxiv.org/abs/2211.10438)[[4]](https://github.com/mit-han-lab/smoothquant) is a new quantization technique that solves this problem. It applies a joint mathematical transformation to weights and activations, which reduces the ratio between outlier and non-outlier values for activations at the cost of increasing the ratio for weights. This transformation makes the layers of the Transformer "quantization-friendly" and enables 8-bit quantization without hurting model quality. As a consequence, SmoothQuant produces smaller, faster models that run well on Intel CPU platforms.
 
 <kbd>
-  <img src="assets/142_q8chat/pic2.png">
+  <img src="assets/143_q8chat/pic2.png">
 </kbd>
 <br>*Source: SmoothQuant*
 
@@ -58,7 +58,7 @@ Our friends at Intel have quantized several LLMs with SmoothQuant-O3: OPT [2.7B]
 The table below presents a summary of their findings. The second column shows the ratio of benchmarks that have improved post-quantization. The third column contains the mean average degradation (_* a negative value indicates that the benchmark has improved_). You can find the detailed results at the end of this post.
 
 <kbd>
-  <img src="assets/142_q8chat/table0.png">
+  <img src="assets/143_q8chat/table0.png">
 </kbd>
 
 As you can see, OPT models are great candidates for SmoothQuant quantization. Models are ~2x smaller compared to pretrained 16-bit models. Most of the metrics improve, and those who don’t are only marginally penalized. 
@@ -71,7 +71,7 @@ In this example, we ask the model: “*What is the role of Hugging Face in democ
 "*A chat between a curious user and an artificial intelligence assistant. The assistant gives helpful, detailed, and polite answers to the user's questions. USER: What is the role of Hugging Face in democratizing NLP? ASSISTANT:*"
 
 <kbd>
-  [<img src="assets/142_q8chat/pic3.png">](assets/142_q8chat/vicuna-7b-int8-hf-role.mov)
+  [<img src="assets/143_q8chat/pic3.png">](assets/142_q8chat/vicuna-7b-int8-hf-role.mov)
 </kbd>
 
 The example shows the additional benefits you can get from 8bit quantization coupled with 4th Gen Xeon resulting in very low generation time for each token. This level of performance definitely makes it possible to run LLMs on CPU platforms, giving customers more IT flexibility and better cost-performance than ever before.
@@ -83,7 +83,7 @@ Recently, Clement, the CEO of HuggingFace, recently said: “*More companies wou
 Together with Intel, we're hosting a new exciting demo in Spaces called [Q8-Chat](https://huggingface.co/spaces/Intel/Q8-Chat) (pronounced "Cute chat"). Q8-Chat offers you a ChatGPT-like chat experience, while only running on a single socket Intel Sapphire Rapids CPU with 32 cores and a batch size of 1.
 
 <kbd>
-  <img src="assets/142_q8chat/pic4.png">
+  <img src="assets/143_q8chat/pic4.png">
 </kbd>
 
 ## Next steps
@@ -106,17 +106,17 @@ Special thanks to them for their great comments and collaboration.
 A negative value indicates that the benchmark has improved.
 
 <kbd>
-  <img src="assets/142_q8chat/table1.png">
+  <img src="assets/143_q8chat/table1.png">
 </kbd>
 
 <kbd>
-  <img src="assets/142_q8chat/table2.png">
+  <img src="assets/143_q8chat/table2.png">
 </kbd>
 
 <kbd>
-  <img src="assets/142_q8chat/table3.png">
+  <img src="assets/143_q8chat/table3.png">
 </kbd>
 
 <kbd>
-  <img src="assets/142_q8chat/table4.png">
+  <img src="assets/143_q8chat/table4.png">
 </kbd>
