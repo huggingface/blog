@@ -74,7 +74,7 @@ While this vulnerability in pickle is widely known in the computer security worl
 Since the Hugging Face Hub is a platform where anyone can upload and share models, we need to work toward making
 sure that users cannot get infected by loading malicious models.
 
-We are also taking steps in making sure the existing PyTorch files are not malicious but the best we can do is flag suspicious-looking files. We cannot be sure they are malicious, nor be sure they are safe.
+We are also taking steps in making sure the existing PyTorch files are not malicious but the best we can do is flag suspicious-looking files.
 
 Of course, there are other file formats out there, and the reason to create something
 new is that none seemed to fully comply with the [ideal set of requirements](https://github.com/huggingface/safetensors#yet-another-format-).
