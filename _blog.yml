@@ -2149,6 +2149,7 @@
 - local: dedup
   title: "Large-scale Near-deduplication Behind BigCode"
   author: chenghao
+  guest: true
   thumbnail: /blog/assets/dedup/thumbnail.png
   date: May 16, 2023
   tags:
