@@ -3,6 +3,7 @@ title: "Run a Chatgpt-like Chatbot on a Single GPU with ROCm"
 thumbnail: /blog/assets/chatbot-amd-gpu/thumbnail.png
 authors:
 - user: andyll7772
+  guest: true
 ---
 
 <h1>
@@ -41,7 +42,7 @@ initial assessments where GPT-4 is used as a reference, Vicuna-13B has
 achieved over 90%\* quality compared to OpenAI ChatGPT.
 
 <p align="center">
-  <img src="assets/chatbot-amd-gpu/01.png" style="width: 60%; height: auto;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/chatbot-amd-gpu/01.png" style="width: 60%; height: auto;">
 </p>
 
 It was released on [Github](https://github.com/lm-sys/FastChat) on Apr
@@ -63,7 +64,7 @@ than 10B, the 4-bit or 3-bit GPTQ can achieve comparable accuracy
 with fp16.
 
 <p align="center">
-  <img src="assets/chatbot-amd-gpu/02.png" style="width: 70%; height: auto;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/chatbot-amd-gpu/02.png" style="width: 70%; height: auto;">
 </p>
   
 Moreover, large parameters of these models also have a severely negative
@@ -77,7 +78,7 @@ By leveraging this technique, several 4-bit quantized Vicuna models are
 available from Hugging Face as follows,
 
 <p align="center">
-  <img src="assets/chatbot-amd-gpu/03.png" style="width: 50%; height: auto;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/chatbot-amd-gpu/03.png" style="width: 50%; height: auto;">
 </p>
   
 ## Running Vicuna 13B Model on AMD GPU with ROCm
@@ -217,7 +218,7 @@ also very minimal and the related metrics are provided at the end of
 this article.
 
 <p align="center">
-  <img src="assets/chatbot-amd-gpu/04.png" style="width: 60%; height: auto;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/chatbot-amd-gpu/04.png" style="width: 60%; height: auto;">
 </p>
 
 **Test the quantized Vicuna model in the Web API server**
@@ -226,20 +227,20 @@ Let us give it a try. First, let us use fp16 Vicuna model for language
 translation.
 
 <p align="center">
-  <img src="assets/chatbot-amd-gpu/05.png" style="width: 80%; height: auto;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/chatbot-amd-gpu/05.png" style="width: 80%; height: auto;">
 </p>
 
 It does a better job than me. Next, let us ask something about soccer. The answer looks good to me.
 
 <p align="center">
-  <img src="assets/chatbot-amd-gpu/06.png" style="width: 80%; height: auto;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/chatbot-amd-gpu/06.png" style="width: 80%; height: auto;">
 </p>
   
 When we switch to the 4-bit model, for the same question, the answer is
 a bit different. There is a duplicated “Lionel Messi” in it.
 
 <p align="center">
-  <img src="assets/chatbot-amd-gpu/07.png" style="width: 80%; height: auto;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/chatbot-amd-gpu/07.png" style="width: 80%; height: auto;">
 </p>
 
 **Vicuna fp16 and 4bit quantized model comparison**
@@ -261,7 +262,7 @@ Test environment:
   for Input and output token spaces.
 
 <p align="center">
-  <img src="assets/chatbot-amd-gpu/08.png" style="width: 70%; height: auto;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/chatbot-amd-gpu/08.png" style="width: 70%; height: auto;">
 </p>
 
 **Metrics – Accuracy (PPL: Perplexity)**
@@ -276,7 +277,7 @@ Test environment:
 - Vicuna 13b – quant (4bit/fp16): 4bits datatype parameter, fp16 Matmul
 
 <p align="center">
-  <img src="assets/chatbot-amd-gpu/09.png" style="width: 70%; height: auto;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/chatbot-amd-gpu/09.png" style="width: 70%; height: auto;">
 </p>
 
 **Metrics – Latency (Token generation latency, ms)**
@@ -290,7 +291,7 @@ Test environment:
 - Vicuna 13b – quant (4bit/fp16): 4bits datatype parameter, fp16 Matmul
 
 <p align="center">
-  <img src="assets/chatbot-amd-gpu/10.png" style="width: 70%; height: auto;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/chatbot-amd-gpu/10.png" style="width: 70%; height: auto;">
 </p>
 
 
@@ -325,7 +326,7 @@ Vicuna delta parameters from Huggingface individually. Currently, 7b and
 <https://huggingface.co/models?sort=downloads&search=lmsys>
 
 <p align="center">
-  <img src="assets/chatbot-amd-gpu/13.png" style="width: 60%; height: auto;">
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/chatbot-amd-gpu/13.png" style="width: 60%; height: auto;">
 </p>
 
 **b. Convert LLaMA to Vicuna by using Vicuna-delta model**
@@ -378,7 +379,7 @@ toolkits. It needs to be modified as follows. The same for
 VecQuant2MatMulKernelFaster, VecQuant3MatMulKernelFaster,
 VecQuant4MatMulKernelFaster kernels.
 
-<img src="assets/chatbot-amd-gpu/14.png" style="width: 100%; height: auto;">
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/chatbot-amd-gpu/14.png" style="width: 100%; height: auto;">
 
 For convenience, All the modified codes are available in [Github Gist](https://gist.github.com/seungrokjung/110943b70503732c4a398607e1cbdd6c).
 
