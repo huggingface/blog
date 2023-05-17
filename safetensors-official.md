@@ -50,7 +50,7 @@ pip install safetensors
 is likely to be the only thing needed to run safetensors files safely.
 
 Going forward and thanks to the validation of the library, `safetensors` will now be installed by
-default. The next step is saving models directly in `safetensors` by default.
+default in `transformers`. The next step is saving models directly in `safetensors` by default.
 
 We are thrilled to see that the safetensors library is already seeing use in the ML ecosystem, including:
 
