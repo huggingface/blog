@@ -2078,7 +2078,7 @@
   tags:
     - nlp
     - community
-    - research 
+    - research
 
 - local: text-to-video
   title: "A Dive into Text-to-Video Models"
@@ -2102,7 +2102,7 @@
     - nlp
     - community
     - research
-    
+
 - local: assisted-generation
   title: "Assisted Generation: a new direction toward low-latency text generation"
   author: joaogante
@@ -2120,7 +2120,7 @@
   tags:
     - nlp
     - community
-    - research 
+    - research
 
 - local: chatbot-amd-gpu
   title: "Run a Chatgpt-like Chatbot on a Single GPU with ROCm"
@@ -2155,3 +2155,15 @@
   tags:
     - bigcode
     - deduplication
+
+- local: bridgetower
+  title: "Fast bf16 training and inference: BridgeTower on Gaudi2"
+  author: regisss
+  thumbnail: /blog/assets/bridgetower/thumbnail.png
+  date: June XX, 2023
+  tags:
+    - partnerships
+    - multimodal
+    - nlp
+    - cv
+    - hardware
