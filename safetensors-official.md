@@ -69,7 +69,7 @@ the hood, which is inherently `unsafe`. [1](https://huggingface.co/docs/hub/secu
 that a user could download and use a model, and without their knowledge attackers
 could gain full control of the computer and steal all their bitcoins 😓.
 
-This is perfectly acknowledged by PyTorch [docs](https://pytorch.org/docs/stable/generated/torch.load.html).
+While this vulnerability in pickle is widely known in the computer security world (and acknowledged in the PyTorch [docs](https://pytorch.org/docs/stable/generated/torch.load.html)), it’s generally not known by the broader ML community.
 
 Since the Hugging Face Hub is a platform where anyone can upload and share models, we need to work toward making
 sure that users cannot get infected by loading malicious models.
@@ -108,9 +108,9 @@ fully public:
 [Full report](https://huggingface.co/datasets/safetensors/trail_of_bits_audit_repot/resolve/main/SOW-TrailofBits-EleutherAI_HuggingFace-v1.2.pdf)
 
 
-One import thing to note is that because the library is written in Rust, a major
-flaw was avoided. In the TensorIndexer there was a lack of bound checks. In C or C++ this might
-have lead to an Arbitrary Code Execution, but since `safetensors` is written in Rust, it simply results in a panic, so perfectly safe.
+One import thing to note is that the library is written in Rust. This adds
+an extra layer of [security](https://doc.rust-lang.org/rustc/exploit-mitigations.html)
+coming directly from the language itself.
 
 Note: This report doesn't mean that there is no flaw because it's impossible to 
 prove the absence of flaws, however, it's a major step in giving reassurance that it
@@ -120,7 +120,7 @@ is indeed safe to use.
 
 For Hugging Face, EleutherAI and StabilityAI the master plan is to embrace this format by default.
 
-EleutherAI is planning on adding support for converting models trained with GPT-NeoX to `safetensors`.
+EleutherAI has added support for evaluating models stored as SafeTensors in their LM Evaluation Harness and is working on supporting the format in their GPT-NeoX distributed training library.
 
 For instance within `transformers` library we are doing the following:
 
