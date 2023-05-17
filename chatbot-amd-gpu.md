@@ -3,6 +3,7 @@ title: "Run a Chatgpt-like Chatbot on a Single GPU with ROCm"
 thumbnail: /blog/https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/chatbot-amd-gpu/thumbnail.png
 authors:
 - user: andyll7772
+  guest: true
 ---
 
 <h1>
