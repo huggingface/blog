@@ -146,7 +146,7 @@ def embed_func(
 
 If you are familiar with [Datasketch](https://github.com/ekzhu/datasketch), you might ask, why do we bother to strip all the nice high-level functions the library provides? It is not because we want to avoid adding dependencies, but because we intend to squeeze as much CPU computation as possible during parallelization. Fusing few steps into one function call enables us to utilize our compute resources better.
 
-Since one document's calculation is not dependent on anything else. A good parallelizatin choice would be using the `map` function from the `datasets` library:
+Since one document's calculation is not dependent on anything else. A good parallelization choice would be using the `map` function from the `datasets` library:
 
 ```python
 embedded = ds.map(
@@ -280,7 +280,7 @@ Image: Two graphs showing the impact of similarity threshold and shingle size, t
 
 These graphs can help us understand why it was necessary to double-check the false positives for CodeParrot and early version of the Stack: using unigram creates many false positives; They also demonstrate that by increasing the shingle size to 5-gram, the percentage of false positives decreases significantly. A smaller threshold is desired if we want to keep the deduplication aggressiveness.
 
-Additional experiments also showed that lowering the threshold removes more documents that have high similarities pairs, meaning an increased recall in the segment we actually would like to remove the most.
+Additional experiments also showed that lowering the threshold removes more documents that have high similarity pairs, meaning an increased recall in the segment we actually would like to remove the most.
 
 ## Scaling
 
