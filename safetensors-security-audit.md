@@ -135,9 +135,9 @@ For instance within `transformers` library we are doing the following:
 As for `safetensors` itself, we're looking into adding more advanced features for LLM training
 which have their own set of issues with current formats.
 
-Finally, we are looking to release a `1.0` after it being a `transformers`
-core lib. We are considering that it would be enough to be super largely tested
-because of the large user base, and it would be much easier to commit to a 1.0.
+
+
+Finally, we are planning to release a `1.0` in the near future, with the large userbase of `transformers` providing the final testing step.
 The format and the lib have had very few modifications since their inception
 which is a good sign of stability.
 
