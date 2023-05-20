@@ -12,7 +12,7 @@ authors:
 
 This post explores instruction-tuning to teach [Stable Diffusion](https://huggingface.co/blog/stable_diffusion) to follow instructions to translate or process input images. With this method, we can prompt Stable Diffusion using an input image and an “instruction”, such as - *Apply a cartoon filter to the natural image*.
 
-| ![schematic](Instruction-tuning%20Stable%20Diffusion%20with%20InstructP%208062a8ef65164a609ed56da5f448ddb3/schematic.png) | 
+| ![schematic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/schematic.png) | 
 |:--:|
 | **Figure 1**: We explore the instruction-tuning capabilities of Stable Diffusion. In this figure, we prompt an instruction-tuned Stable Diffusion system with prompts involving different transformations and input images.  The tuned system seems to be able to learn these transformations stated in the input prompts. Figure best viewed in color and zoomed in. |
 
@@ -33,7 +33,7 @@ Instruction-tuning is a supervised way of teaching language models to follow ins
 
 The figure below shows a formulation of instruction-tuning (also called “instruction-finetuning”). In the [FLAN V2 paper](https://arxiv.org/abs/2210.11416), the authors take a pre-trained language model ([T5](https://huggingface.co/docs/transformers/model_doc/t5), for example) and fine-tune it on a dataset of exemplars, as shown in the figure below. 
 
-| ![flan_schematic](Instruction-tuning%20Stable%20Diffusion%20with%20InstructP%208062a8ef65164a609ed56da5f448ddb3/flan_schematic.png) |
+| ![flan_schematic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/flan_schematic.png) |
 |:--:|
 | **Figure 2**: FLAN V2 schematic (figure taken from the FLAN V2 paper). |
 
@@ -48,7 +48,7 @@ With this approach, one can create exemplars covering many different tasks, whic
 
 Using a similar philosophy, the authors of FLAN V2 conduct instruction-tuning on a mixture of thousands of tasks and achieve zero-shot generalization to unseen tasks:
 
-| ![flan_dataset_overview](Instruction-tuning%20Stable%20Diffusion%20with%20InstructP%208062a8ef65164a609ed56da5f448ddb3/flan_dataset_overview.png) | 
+| ![flan_dataset_overview](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/flan_dataset_overview.png) | 
 |:--:|
 | **Figure 3**: FLAN V2 training and test task mixtures (figure taken from the FLAN V2 paper). |
 
@@ -56,7 +56,7 @@ Our motivation behind this work comes partly from the FLAN line of work and part
 
 The [pre-trained InstructPix2Pix models](https://huggingface.co/timbrooks/instruct-pix2pix) are good at following general instructions, but they may fall short of following instructions involving specific transformations:
 
-| ![cartoonization_results](Instruction-tuning%20Stable%20Diffusion%20with%20InstructP%208062a8ef65164a609ed56da5f448ddb3/cartoonization_results.png) |
+| ![cartoonization_results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/cartoonization_results.png) |
 |:--:|
 | **Figure 4**: We observe that for the input images (left column), our models (right column) more faithfully perform “cartoonization” compared to the pre-trained InstructPix2Pix models (middle column). It is interesting to note the results of the first row where the pre-trained InstructPix2Pix models almost fail significantly. Figure best viewed in color and zoomed in. See original [here](https://huggingface.co/datasets/sayakpaul/sample-datasets/resolve/main/Instruction-tuning-sd/cartoonization_results.png). |
 
@@ -77,7 +77,7 @@ As hinted in the previous section, we wanted to benefit from both worlds:
 
 We started by creating an instruction-prompted dataset for the task of cartoonization. Figure 5 presents our dataset creation pipeline: 
 
-| ![itsd_data_wheel](Instruction-tuning%20Stable%20Diffusion%20with%20InstructP%208062a8ef65164a609ed56da5f448ddb3/itsd_data_wheel.png) |
+| ![itsd_data_wheel](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/itsd_data_wheel.png) |
 |:--:|
 | **Figure 5**: A depiction of our dataset creation pipeline for cartoonization (best viewed in color and zoomed in). |
 
@@ -87,7 +87,7 @@ In particular, we:
 2. We then use a random sub-set (5000 samples) of the [Imagenette dataset](https://github.com/fastai/imagenette) and leverage a pre-trained [Whitebox CartoonGAN](https://github.com/SystemErrorWang/White-box-Cartoonization) model to produce the cartoonized renditions of those images. The cartoonized renditions are the labels we want our model to learn from. So, in a way, this corresponds to transferring the biases learned by the Whitebox CartoonGAN model to our model.  
 3. Then we create our exemplars in the following format:
 
-| ![cartoonization_dataset_overview](Instruction-tuning%20Stable%20Diffusion%20with%20InstructP%208062a8ef65164a609ed56da5f448ddb3/cartoonization_dataset_overview.png) |
+| ![cartoonization_dataset_overview](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/cartoonization_dataset_overview.png) |
 |:--:|
 | **Figure 6**: Samples from the final cartoonization dataset (best viewed in color and zoomed in). |
 
@@ -110,7 +110,7 @@ We took different number of samples from the following datasets for each task an
 
 Datasets mentioned above typically come as input-output pairs, so we do not have to worry about the ground-truth. Our final dataset is available [here](https://huggingface.co/datasets/instruction-tuning-vision/instruct-tuned-image-processing). The final dataset looks like so:
 
-| ![low_level_img_proc_dataset_overview](Instruction-tuning%20Stable%20Diffusion%20with%20InstructP%208062a8ef65164a609ed56da5f448ddb3/low_level_img_proc_dataset_overview.png) |
+| ![low_level_img_proc_dataset_overview](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/low_level_img_proc_dataset_overview.png) |
 |:--:|
 | **Figure 7**: Samples from the final low-level image processing dataset (best viewed in color and zoomed in). |
 
@@ -136,7 +136,7 @@ For more details on the training and hyperparameters, we encourage you to check 
 
 For testing the [instruction-tuned cartoonization model](https://huggingface.co/instruction-tuning-sd/cartoonizer), we compared the outputs as follows:
 
-| ![cartoonization_full_results](Instruction-tuning%20Stable%20Diffusion%20with%20InstructP%208062a8ef65164a609ed56da5f448ddb3/cartoonization_full_results.png) |
+| ![cartoonization_full_results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/cartoonization_full_results.png) |
 |:--:|
 | **Figure 8**: We compare the results of our instruction-tuned cartoonization model (last column) with that of a [CartoonGAN](https://github.com/SystemErrorWang/White-box-Cartoonization) model (column two) and the pre-trained InstructPix2Pix model (column three). It’s evident that the instruction-tuned model can more faithfully match the outputs of the CartoonGAN model. Figure best viewed in color and zoomed in. See original [here](https://huggingface.co/datasets/sayakpaul/sample-datasets/resolve/main/Instruction-tuning-sd/cartoonization_full_results.png). |
 
@@ -156,19 +156,19 @@ For low-level image processing ([our model](https://huggingface.co/instruction-t
 
 For deraining, our model provides compelling results when compared to the ground-truth and the output of the pre-trained InstructPix2Pix model:
 
-![deraining_results](Instruction-tuning%20Stable%20Diffusion%20with%20InstructP%208062a8ef65164a609ed56da5f448ddb3/deraining_results.png)
+![deraining_results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/deraining_results.png)
 |:--:|
 | **Figure 9**: Deraining results (best viewed in color and zoomed in). Inference prompt: “derain the image” (same as the training set). See original [here](https://huggingface.co/datasets/sayakpaul/sample-datasets/resolve/main/Instruction-tuning-sd/deraining_results.png). |
 
 However, for low-light image enhancement, it leaves a lot to be desired: 
 
-![image_enhancement_results](Instruction-tuning%20Stable%20Diffusion%20with%20InstructP%208062a8ef65164a609ed56da5f448ddb3/image_enhancement_results.png)
+![image_enhancement_results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/image_enhancement_results.png)
 |:--:|
 | **Figure 10**: Low-light image enhancement results (best viewed in color and zoomed in). Inference prompt: “enhance the low-light image” (same as the training set). See original [here](https://huggingface.co/datasets/sayakpaul/sample-datasets/resolve/main/Instruction-tuning-sd/image_enhancement_results.png). |
 
 This failure, perhaps, can be attributed to our model not seeing enough exemplars for the task and possibly from better training. We notice similar findings for deblurring as well: 
 
-![deblurring_results](Instruction-tuning%20Stable%20Diffusion%20with%20InstructP%208062a8ef65164a609ed56da5f448ddb3/deblurring_results.png)
+![deblurring_results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/deblurring_results.png)
 |:--:|
 | **Figure 11**: Deblurring results (best viewed in color and zoomed in). Inference prompt: “deblur the image” (same as the training set). See original [here](https://huggingface.co/datasets/sayakpaul/sample-datasets/resolve/main/Instruction-tuning-sd/deblurring_results.png). |
 
