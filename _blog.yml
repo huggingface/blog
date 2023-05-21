@@ -2156,7 +2156,7 @@
     - bigcode
     - deduplication
 
-- local: instruction-tuning-md
+- local: instruction-tuning-sd
   title: "Instruction-tuning Stable Diffusion with InstructPix2Pix"
   author: sayakpaul
   thumbnail: /blog/assets/instruction_tuning_sd/thumbnail.png
