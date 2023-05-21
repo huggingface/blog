@@ -2159,7 +2159,6 @@
 - local: instruction-tuning-md
   title: "Instruction-tuning Stable Diffusion with InstructPix2Pix"
   author: sayakpaul
-  guest: true
   thumbnail: /blog/assets/instruction_tuning_sd/thumbnail.png
   date: May 23, 2023
   tags:
