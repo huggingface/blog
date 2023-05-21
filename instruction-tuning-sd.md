@@ -45,6 +45,7 @@ With this approach, one can create exemplars covering many different tasks, whic
 | Please answer the following<br>question. <br>What is the boiling point of<br>Nitrogen? | 320.4F | Question answering |
 | Translate the following<br>English sentence into German: “I have<br>a cat.” | Ich habe eine Katze. | Machine translation |
 | … | … | … |
+| | | | |
 
 Using a similar philosophy, the authors of FLAN V2 conduct instruction-tuning on a mixture of thousands of tasks and achieve zero-shot generalization to unseen tasks:
 
@@ -107,6 +108,7 @@ We took different number of samples from the following datasets for each task an
 | Deraining | “derain the image” | [Rain13k](https://github.com/megvii-model/HINet#image-restoration-tasks) | 686 |
 | Denoising | “denoise the noisy image” | [SIDD](https://www.eecs.yorku.ca/~kamel/sidd/) | 8 |
 | Low-light<br>image enhancement | "enhance the low-light image” | [LOL](https://paperswithcode.com/dataset/lol) | 23 |
+| | | | |
 
 Datasets mentioned above typically come as input-output pairs, so we do not have to worry about the ground-truth. Our final dataset is available [here](https://huggingface.co/datasets/instruction-tuning-vision/instruct-tuned-image-processing). The final dataset looks like so:
 
@@ -156,19 +158,19 @@ For low-level image processing ([our model](https://huggingface.co/instruction-t
 
 For deraining, our model provides compelling results when compared to the ground-truth and the output of the pre-trained InstructPix2Pix model:
 
-![deraining_results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/deraining_results.png)
+| ![deraining_results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/deraining_results.png) |
 |:--:|
 | **Figure 9**: Deraining results (best viewed in color and zoomed in). Inference prompt: “derain the image” (same as the training set). See original [here](https://huggingface.co/datasets/sayakpaul/sample-datasets/resolve/main/Instruction-tuning-sd/deraining_results.png). |
 
 However, for low-light image enhancement, it leaves a lot to be desired: 
 
-![image_enhancement_results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/image_enhancement_results.png)
+| ![image_enhancement_results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/image_enhancement_results.png) |
 |:--:|
 | **Figure 10**: Low-light image enhancement results (best viewed in color and zoomed in). Inference prompt: “enhance the low-light image” (same as the training set). See original [here](https://huggingface.co/datasets/sayakpaul/sample-datasets/resolve/main/Instruction-tuning-sd/image_enhancement_results.png). |
 
 This failure, perhaps, can be attributed to our model not seeing enough exemplars for the task and possibly from better training. We notice similar findings for deblurring as well: 
 
-![deblurring_results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/deblurring_results.png)
+| ![deblurring_results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/deblurring_results.png) |
 |:--:|
 | **Figure 11**: Deblurring results (best viewed in color and zoomed in). Inference prompt: “deblur the image” (same as the training set). See original [here](https://huggingface.co/datasets/sayakpaul/sample-datasets/resolve/main/Instruction-tuning-sd/deblurring_results.png). |
 
@@ -176,7 +178,7 @@ We believe there is an opportunity for the community to explore how much the tas
 
 You can try out the interactive demo below to make Stable Diffusion follow specific instructions:
 
-<script type="module" src="[https://gradio.s3-us-west-2.amazonaws.com/3.29.0/gradio.js](https://gradio.s3-us-west-2.amazonaws.com/3.29.0/gradio.js)"></script>
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.29.0/gradio.js"></script>
 
 <gradio-app src="[https://instruction-tuning-sd-instruction-tuned-sd.hf.space](https://instruction-tuning-sd-instruction-tuned-sd.hf.space/)"></gradio-app>
 
