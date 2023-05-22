@@ -12,24 +12,28 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Hugging Face aims to make high-quality machine learning accessible to everyone. They achieve this in various ways, including developing open-source code libraries such as the widely-used Transformers library, offering [free courses](https://huggingface.co/learn), and providing the Hugging Face Hub. 
+Hugging Face aims to make high-quality machine learning accessible to everyone. This goal is pursued in various ways, including developing open-source code libraries such as the widely-used Transformers library, offering [free courses](https://huggingface.co/learn), and providing the Hugging Face Hub. 
 
 ## What is the Hugging Face Hub?
 
-The [Hugging Face Hub](https://huggingface.co/) is a central repository where people can share and access machine learning models, datasets and demos. The Hub hosts over 190,000 machine learning models, 33,000 datasets and over 100,000 machine learning applications and demos. These models cover a wide range of tasks from pre-trained language models, text, image and audio classification models, object detection models, and a wide range of generative models. The models, datasets and demos hosted on the Hub span a wide range of domains and languages, with regular community efforts to expand the scope of what is available via the Hub. This blog post intends to offer people working in or with the galleries, libraries, archives and museums sector to understand how they can use &mdash; and contribute to &mdash; the Hugging Face Hub.
+The [Hugging Face Hub](https://huggingface.co/) is a central repository where people can share and access machine learning models, datasets and demos. The Hub hosts over 190,000 machine learning models, 33,000 datasets and over 100,000 machine learning applications and demos. These models cover a wide range of tasks from pre-trained language models, text, image and audio classification models, object detection models, and a wide range of generative models. 
+
+The models, datasets and demos hosted on the Hub span a wide range of domains and languages, with regular community efforts to expand the scope of what is available via the Hub. This blog post intends to offer people working in or with the galleries, libraries, archives and museums (GLAM) sector to understand how they can use &mdash; and contribute to &mdash; the Hugging Face Hub.
 
 ## What can you find on the Hugging Face Hub?
 
-### Models 
+#### Models 
 
 The Hugging Face Hub provides access to machine learning models covering various tasks and domains. Many machine learning libraries have integrations with the Hugging Face Hub, allowing you to directly use or share models to the Hub via these libraries.
 
-### Datasets
+#### Datasets
 The Hugging Face hub hosts over 30,000 datasets. These datasets cover a range of domains and modalities, including text, image, audio and multi-modal datasets. These datasets are valuable for training and evaluating machine learning models.
 
-### Spaces
+#### Spaces
 
-Hugging Face [Spaces](https://huggingface.co/docs/hub/spaces) is a platform that allows you to host machine learning demos and applications. These Spaces range from simple demos allowing you to explore the predictions made by a machine learning model to more involved applications. Spaces make hosting and making your application accessible for others to use much more straightforward. You can use Spaces to host [Gradio](gradio.app/) and [Streamlit](https://streamlit.io/) applications, or you can use Spaces to [custom docker images](https://huggingface.co/docs/hub/spaces-sdks-docker). Using Gradio and Spaces in combination often means you can have an application created and hosted with access for others to use within minutes. You can use Spaces to host a Docker image if you want complete control over your application. There are also Docker templates that can give you quick access to a hosted version of many popular tools, including the [Argailla](https://argilla.io/) and [Label Studio](https://labelstud.io/) annotations tools.
+Hugging Face [Spaces](https://huggingface.co/docs/hub/spaces) is a platform that allows you to host machine learning demos and applications. These Spaces range from simple demos allowing you to explore the predictions made by a machine learning model to more involved applications. 
+
+Spaces make hosting and making your application accessible for others to use much more straightforward. You can use Spaces to host [Gradio](gradio.app/) and [Streamlit](https://streamlit.io/) applications, or you can use Spaces to [custom docker images](https://huggingface.co/docs/hub/spaces-sdks-docker). Using Gradio and Spaces in combination often means you can have an application created and hosted with access for others to use within minutes. You can use Spaces to host a Docker image if you want complete control over your application. There are also Docker templates that can give you quick access to a hosted version of many popular tools, including the [Argailla](https://argilla.io/) and [Label Studio](https://labelstud.io/) annotations tools.
 
 ### How can you use the Hugging Face Hub: finding relevant models on the Hub
 
@@ -55,11 +59,6 @@ If you prefer to use a model via an API, clicking the
 A similar approach can also be used to find relevant models and datasets
 on the Hugging Face Hub.
 
-## Contributing to the Hub
-
-There are various ways in which GLAM institutions can contribute to the
-Hugging Face Hub, including sharing models, datasets and demos.
-
 ### Why might Galleries, Libraries, Archives and Museums want to use the Hugging Face hub?
 
 There are many different reasons why institutions want to contribute to
@@ -76,8 +75,8 @@ the Hugging Face Hub:
 ### Example uses of the Hugging Face Hub
 Individuals and organizations are already using the Hugging Face hub to share machine learning models, datasets and demos related to the GLAM sector.
 
-#### BigLAM 
-[BigLAM](https://huggingface.co/biglam), an initiative developed out of the BigScience project, is focused on making datasets from GLAM with relevance to machine learning are made more accessible. BigLAM has so far made over 30 datasets related to GLAM available via the Hugging Face hub.
+#### [BigLAM](https://huggingface.co/biglam)
+An initiative developed out of the [BigScience project](https://bigscience.huggingface.co/), is focused on making datasets from GLAM with relevance to machine learning are made more accessible. BigLAM has so far made over 30 datasets related to GLAM available via the Hugging Face hub.
 
 #### [Nasjonalbiblioteket AI Lab](https://huggingface.co/NbAiLab) 
 The AI lab at the National Library of Norway is a very active user of the Hugging Face hub, with ~120 models, 23 datasets and six machine learning demos shared publicly. These models include language models trained on Norwegian texts from the National Library of Norway and Whisper (speech-to-text) models trained on Sámi languages.
@@ -98,7 +97,7 @@ The Smithsonian shared an application hosted on Hugging Face Spaces, demonstrati
 [Source](https://huggingface.co/Smithsonian)
 
 
-### Hub features for GLAM.
+### Hub features for Galleries, Libraries, Archives and Museums
 
 The Hub supports many features which help make machine learning more accessible. Some features which may be particularly helpful for GLAM institutions include:
 
