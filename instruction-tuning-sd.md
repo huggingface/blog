@@ -16,7 +16,7 @@ This post explores instruction-tuning to teach [Stable Diffusion](https://huggin
 |:--:|
 | **Figure 1**: We explore the instruction-tuning capabilities of Stable Diffusion. In this figure, we prompt an instruction-tuned Stable Diffusion system with prompts involving different transformations and input images.  The tuned system seems to be able to learn these transformations stated in the input prompts. Figure best viewed in color and zoomed in. |
 
-This idea of teaching Stable Diffusion to follow user instructions to perform **edits** on input images was introduced in [InstructPix2Pix: Learning to Follow Image Editing Instructions](https://arxiv.org/abs/2211.09800). We discuss how to extend the InstructPix2Pix training strategy to follow more specific instructions related to tasks in image translation (such as cartoonization) and low-level image processing (such as image deraining). We cover:
+This idea of teaching Stable Diffusion to follow user instructions to perform **edits** on input images was introduced in [InstructPix2Pix: Learning to Follow Image Editing Instructions](https://huggingface.co/papers/2211.09800). We discuss how to extend the InstructPix2Pix training strategy to follow more specific instructions related to tasks in image translation (such as cartoonization) and low-level image processing (such as image deraining). We cover:
 
 - [Introduction to instruction-tuning](#introduction-and-motivation)
 - [The motivation behind this work](#introduction-and-motivation)
@@ -29,9 +29,9 @@ Our code, pre-trained models, and datasets can be found [here](https://github.co
 
 ## Introduction and motivation
 
-Instruction-tuning is a supervised way of teaching language models to follow instructions to solve a task. It was introduced in [Fine-tuned Language Models Are Zero-Shot Learners](https://arxiv.org/abs/2109.01652) (FLAN) by Google. From recent times, you might recall works like [Alpaca](https://crfm.stanford.edu/2023/03/13/alpaca.html) and [FLAN V2](https://arxiv.org/abs/2210.11416), which are good examples of how beneficial instruction-tuning can be for various tasks. 
+Instruction-tuning is a supervised way of teaching language models to follow instructions to solve a task. It was introduced in [Fine-tuned Language Models Are Zero-Shot Learners](https://huggingface.co/papers/2109.01652) (FLAN) by Google. From recent times, you might recall works like [Alpaca](https://crfm.stanford.edu/2023/03/13/alpaca.html) and [FLAN V2](https://huggingface.co/papers/2210.11416), which are good examples of how beneficial instruction-tuning can be for various tasks. 
 
-The figure below shows a formulation of instruction-tuning (also called “instruction-finetuning”). In the [FLAN V2 paper](https://arxiv.org/abs/2210.11416), the authors take a pre-trained language model ([T5](https://huggingface.co/docs/transformers/model_doc/t5), for example) and fine-tune it on a dataset of exemplars, as shown in the figure below. 
+The figure below shows a formulation of instruction-tuning (also called “instruction-finetuning”). In the [FLAN V2 paper](https://huggingface.co/papers/2210.11416), the authors take a pre-trained language model ([T5](https://huggingface.co/docs/transformers/model_doc/t5), for example) and fine-tune it on a dataset of exemplars, as shown in the figure below. 
 
 | ![flan_schematic](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/instruction-tuning-sd/flan_schematic.png) |
 |:--:|
@@ -98,7 +98,7 @@ We then proceeded to see if we could generalize this approach to low-level image
 
 ### Low-level image processing
 
-We focus on the common low-level image processing tasks explored in [MAXIM](https://arxiv.org/abs/2201.02973). In particular, we conduct our experiments for the following tasks: deraining, denoising, low-light image enhancement, and deblurring. 
+We focus on the common low-level image processing tasks explored in [MAXIM](https://huggingface.co/papers/2201.02973). In particular, we conduct our experiments for the following tasks: deraining, denoising, low-light image enhancement, and deblurring. 
 
 We took different number of samples from the following datasets for each task and constructed a single dataset with prompts added like so:
 
@@ -202,7 +202,7 @@ We acknowledge that our experiments are preliminary. We did not go deep into abl
     
   For low-level image processing, we used fixed instructions. What happens when we follow a similar methodology of using synonymous instructions for each task and input image?  
     
-- ***What happens when we use ControlNet training setup, instead?***  [ControlNet](https://arxiv.org/abs/2302.05543) also allows adapting a pre-trained text-to-image diffusion model to be conditioned on additional images (such as semantic segmentation maps, canny edge maps, etc.). If you’re interested, then you can use the datasets presented in this post and perform ControlNet training referring to [this post](https://huggingface.co/blog/train-your-controlnet).
+- ***What happens when we use ControlNet training setup, instead?***  [ControlNet](https://huggingface.co/papers/2302.05543) also allows adapting a pre-trained text-to-image diffusion model to be conditioned on additional images (such as semantic segmentation maps, canny edge maps, etc.). If you’re interested, then you can use the datasets presented in this post and perform ControlNet training referring to [this post](https://huggingface.co/blog/train-your-controlnet).
 
 ## Conclusion
 
