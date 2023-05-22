@@ -37,11 +37,10 @@ save_file(weights, "model.safetensors")
 weights2 = load_file("model.safetensors")
 ```
 
-And that's pretty much it.
-It has many [cool features](https://github.com/huggingface/safetensors#yet-another-format-) compared to other formats, most notably that loading files is _safe_ as we'll see later. 
+It also has a number of [cool features](https://github.com/huggingface/safetensors#yet-another-format-) compared to other formats, most notably that loading files is _safe_, as we'll see later. 
 
 When you're using `transformers`, if `safetensors` is installed, then those files will already
-be used preferentially to prevent issues. Which means doing:
+be used preferentially in order to prevent issues, which means that
 
 ```
 pip install safetensors
@@ -81,7 +80,7 @@ none seemed to meet the full set of [ideal requirements](https://github.com/hugg
 
 In addition to being safe, `safetensors` allows lazy loading and generally faster loads (around 100x faster on CPU).
 
-Lazy loading means the ability to load only part of a tensor efficiently.
+Lazy loading means loading only part of a tensor in an efficient manner.
 This particular feature enables arbitrary sharding with efficient inference libraries, such as [text-generation-inference](https://github.com/huggingface/text-generation-inference), to load LLMs (such as LLaMA, StarCoder, etc.) on various types of hardware
 with maximum efficiency.
 
@@ -118,16 +117,16 @@ is indeed safe to use.
 
 # Going forward
 
-For Hugging Face, EleutherAI and StabilityAI the master plan is to embrace this format by default.
+For Hugging Face, EleutherAI, and Stability AI, the master plan is to shift to using this format by default.
 
 EleutherAI has added support for evaluating models stored as SafeTensors in their LM Evaluation Harness and is working on supporting the format in their GPT-NeoX distributed training library.
 
-For instance within `transformers` library we are doing the following:
+Within the `transformers` library we are doing the following:
 
-- [x] Create `safetensors`
+- [x] Create `safetensors`.
 - [x] Verify it works and can deliver on all promises (lazy load for LLMs, single file for all frameworks, faster loads).
-- [x] Verify it's safe (today's announcement)
-- [x] Make `safetensors` a core dependency (already done, or soon to come)
+- [x] Verify it's safe. (This is today's announcement.)
+- [x] Make `safetensors` a core dependency. (This is already done or soon to come.)
 - [ ] Make `safetensors` the default saving format. This will happen in a few months when we have enough feedback
   to make sure it will cause as little disruption as possible and enough users already have the library
   to be able to load new models even on relatively old `transformers` versions.
@@ -137,7 +136,7 @@ which has its own set of issues with current formats.
 
 
 
-Finally, we are planning to release a `1.0` in the near future, with the large userbase of `transformers` providing the final testing step.
+Finally, we plan to release a `1.0` in the near future, with the large user base of `transformers` providing the final testing step.
 The format and the lib have had very few modifications since their inception
 which is a good sign of stability.
 
