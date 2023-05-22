@@ -1,6 +1,6 @@
 ---
 title: "The Hugging Face Hub for Galleries, Libraries, Archives and Museums"
-thumbnail: TODO
+thumbnail: /blog/assets/144_hf_hub_glam_guide/thumbnail.png
 authors:
 - user: davanstrien
   guest: false
