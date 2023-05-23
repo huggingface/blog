@@ -1,53 +1,50 @@
 ---
-title: Hugging Face Collaborates with Microsoft to Launch Hugging Face Endpoints on Azure
+title: Hugging Face Collaborates with Microsoft to launch Hugging Face Model Catalog on Azure
 thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/01.png
 authors:
+- user: jeffboudier
+- user: philschmid
 - user: juliensimon
 ---
 
-# Hugging Face Collaborates with Microsoft to Launch Hugging Face Endpoints on Azure
-
+# Hugging Face Collaborates with Microsoft to launch Hugging Face Model Catalog on Azure
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-![Hugging Face Endpoints on Azure](assets/75_hugging_face_endpoints_on_azure/01.png "Hugging Face Endpoints on Azure")
+![Hugging Face Endpoints on Azure](assets/75_hugging_face_endpoints_on_azure/01.jpg "Hugging Face Endpoints on Azure")
 
-Today, we’re thrilled to announce that Hugging Face has collaborated with Microsoft to build Hugging Face Endpoints, a new Machine Learning (ML) inference service powered by Azure ML Managed Endpoints. Hugging Face Endpoints let you securely deploy and scale tens of thousands of state-of-the-art Transformer models on Microsoft Azure with just a few clicks. If you can’t wait to test it, you can jump now to the Azure Marketplace.
+Today, we are thrilled to announce that Hugging Face expands its collaboration with Microsoft to bring open-source models from the Hugging Face Hub to Azure Machine Learning. Together we built a new Hugging Face Hub Model Catalog available directly within Azure Machine Learning Studio, filled with thousands of the most popular Transformers models from the [Hugging Face Hub](https://huggingface.co/models). With this new integration, you can now deploy Hugging Face models in just a few clicks on managed endpoints, running onto secure and scalable Azure infrastructure.
 
-In recent years, [Transformer](https://github.com/huggingface/transformers) models have proven to be exceptionally efficient over a wide range of ML tasks, including Natural Language Processing (NLP), Computer Vision, and Speech. For example, finance companies use Transformers to extract high-quality insights from stock market filings, analyst reports, or earnings calls. Life sciences and healthcare organizations do the same on research articles, patient files, and medical images. E-commerce companies leverage Transformers to build search engines that help customers find the best product in milliseconds. And the list goes on!
-
-[Hosting over 40,000 models](https://huggingface.co/models) and serving over 1 million downloads a day, Hugging Face is the go-to destination for all things Transformers. True to its mission to democratize good ML, Hugging Face is always looking for innovative ways to help everyone solve complex challenges with Transformers quickly, easily, and regardless of ML expertise.
-
-One of the main problems that developers and organizations face is how difficult it is to deploy and scale production-grade inference APIs. Of course, an easy option is to rely on cloud-based AI services. Although they’re extremely simple to use, these services are usually powered by a limited set of models that may not support the [task type](https://huggingface.co/tasks) you need, and that cannot be deeply customized, if at all. Alternatively, cloud-based ML services or in-house platforms give you full control, but at the expense of more time, complexity and cost. In addition, many companies have strict security, compliance, and privacy requirements mandating that they only deploy models on infrastructure over which they have administrative control.
-
-Accordingly, Hugging Face saw a growing interest in a simple solution that would give you complete freedom to deploy any Transformer model–off the shelf or your own–on infrastructure that you control. As 95% of Fortune 500 companies trust Azure with their business, it made perfect sense for Hugging Face and Microsoft to tackle this problem together. The result is Hugging Face Endpoints on Azure, a simple, scalable, and secure solution that allows you to deploy a model from the [Hugging Face Hub](https://huggingface.co/models) on Azure infrastructure in minutes and with just a few clicks. 
-
-Says Eric Boyd, Corporate Vice President, Microsoft AI Platform: *“Hugging Face has been on a mission to democratize good machine learning. With their Transformers open source library and the Hugging Face Hub, they are enabling the global AI community to build state-of-the-art machine learning models and applications in an open and collaborative way. Every day, over 100,000 people all over the world download more than 1 million models and datasets to solve real business problems with AI. I’m excited we’re bringing together the best of Hugging Face and the Azure platform and to offer to our customers new integrated experiences that build on the secure, compliant, and responsible AI foundation we have in AzureML, our MLops platform."*
-
-Clément Delangue, Co-Founder and Chief Executive Officer at Hugging Face, echoes: *“The mission of Hugging Face is to democratize good machine learning. We’re striving to help every developer and organization build high-quality, ML-powered applications that have a positive impact on society and businesses. With Hugging Face Endpoints, we’ve made it simpler than ever to deploy state-of-the-art models, and we can’t wait to see what Azure customers will build with them!”*
-
-As of today, Hugging Face Endpoints on Azure support:
-
-* All NLP tasks available in the Hugging Face [pipeline API](https://huggingface.co/docs/transformers/main_classes/pipelines): classification, summarization, translation, named entity recognition, etc. Image and audio task types will be available later.
-* All corresponding public PyTorch models from the [Hugging Face Hub](https://huggingface.co/models). 
-* Inference on a wide range of CPU and GPU Azure instance types.
-* Optionally, automatic scaling with Azure Autoscale.
-* Azure security and compliance.
-
-All you have to do is pick a model and a task type, select an Azure instance type and create the endpoint.
+![Hugging Face Model Catalog](assets/75_hugging_face_endpoints_on_azure/02.jpg "Hugging Face Model Catalog")
 
 
-![Creating a Hugging Face Endpoint on Azure](assets/75_hugging_face_endpoints_on_azure/02.png "Creating a Hugging Face Endpoint on Azure")
+This new experience expands upon the strategic partnership we announced last year when we launched Azure Machine Learning Endpoints as a new managed app in Azure Marketplace, to simplify the experience of deploying large language models on Azure. Although our previous marketplace solution was a promising initial step, it had some limitations we could only overcome through a native integration within Azure Machine Learning. To address these challenges and enhance customers experience, we collaborated with Microsoft to offer a fully integrated experience for  Hugging Face users within Azure Machine Learning Studio.
+
+[Hosting over 200,000 open-source models](https://huggingface.co/models), and serving over 1 million model downloads a day, Hugging Face is the go-to destination for all of Machine Learning. But deploying Transformers to production remains a challenge today.
+
+One of the main problems developers and organizations face is how difficult it is to deploy and scale production-grade inference APIs. Of course, an easy option is to rely on cloud-based AI services. Although they’re extremely simple to use, these services are usually powered by a limited set of models that may not support the [task type](https://huggingface.co/tasks) you need, and that cannot be deeply customized, if at all. Alternatively, cloud-based ML services or in-house platforms give you full control, but at the expense of more time, complexity and cost. In addition, many companies have strict security, compliance, and privacy requirements mandating that they only deploy models on infrastructure over which they have administrative control.
+
+_“With the new Hugging Face Hub model catalog, natively integrated within Azure Machine Learning, we are opening a new page in our partnership with Microsoft, offering a super easy way for enterprise customers to deploy Hugging Face models for real-time inference, all within their secure Azure environment.” _said Julien Simon, Chief Evangelist at Hugging Face. 
+
+_"The integration of Hugging Face's open-source models into Azure Machine Learning represents our commitment to empowering developers with industry-leading AI tools,"_ said John Montgomery, Corporate Vice President, Azure AI Platform at Microsoft. _"This collaboration not only simplifies the deployment process of large language models but also provides a secure and scalable environment for real-time inferencing. It's an exciting milestone in our mission to accelerate AI initiatives and bring innovative solutions to the market swiftly and securely."_
+
+Deploying Hugging Face models on Azure Machine Learning has never been easier:
+* Open the Hugging Face registry in Azure Machine Learning Studio. 
+* Click on the Hugging Face Model Catalog. 
+* Filter by task or license and search the models. 
+* Click the model tile to open the model page and choose the real-time deployment option to deploy the model. 
+* Select an Azure instance type and click deploy.
+
+
+![Creating a Hugging Face Endpoint on Azure](assets/75_hugging_face_endpoints_on_azure/03.jpg "Creating a Hugging Face Endpoint on Azure")
 
 Within minutes, you can test your endpoint and add its inference API to your application. It’s never been easier! 
 
-![Predicting with a Hugging Face Endpoint on Azure](assets/75_hugging_face_endpoints_on_azure/03.png "Predicting with a Hugging Face Endpoint on Azure")
-
-Azure customers are already using Hugging Face Endpoints. [Mabu Manaileng](https://www.linkedin.com/in/manailengmj/), a Principal AI Engineer at [Standard Bank Group](https://www.standardbank.com/) is one of them, and here's what he told us: *“Hugging Face Endpoints take care of the most pressing issues when it comes to model deployment. With just a few clicks or a few lines of Azure SDK code, you select a model and a task type, and you can start predicting in minutes. For the first time, I don’t have to worry about infrastructure, or about scaling up and down. This brings a huge opportunity both for testing and production, and it becomes very easy to iterate quickly.”*
+![Predicting with a Hugging Face Endpoint on Azure](assets/75_hugging_face_endpoints_on_azure/04.jpg "Predicting with a Hugging Face Endpoint on Azure")
 
 If you'd like to see the service in action, you can click on the image below to launch a video walkthrough.
 
-[![Video walkthrough of Hugging Face Endpoints](assets/75_hugging_face_endpoints_on_azure/04.png)](https://youtu.be/MlWyhdrgBwg "Video walkthrough of Hugging Face Endpoints")
+[![Video walkthrough of Hugging Face Endpoints](assets/75_hugging_face_endpoints_on_azure/05.jpg)](https://youtu.be/cjXYjN2mNVM "Video walkthrough of Hugging Face Endpoints")
 
-Hugging Face Endpoints on Azure is available today in public beta in all Azure Regions where Azure ML is available. Give the service a try and let us know what you think!
+Hugging Face Model Catalog on Azure Machine Learning is available today in public preview in all Azure Regions where Azure Machine Learning is available. Give the service a try and [let us know your feedback and questions in the forum](https://discuss.huggingface.co/c/azureml/68)!
