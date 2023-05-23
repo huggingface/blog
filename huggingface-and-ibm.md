@@ -36,7 +36,7 @@ IBM decided that open source should be at the core of watsonx.ai. We couldn't ag
 
 Under the hood, watsonx.ai also integrates many Hugging Face open-source libraries, such as [transformers](https://github.com/huggingface/transformers) (100k+ GitHub stars!), [accelerate](https://github.com/huggingface/accelerate), [peft](https://github.com/huggingface/peft) and our [Text Generation Inference](https://github.com/huggingface/text-generation-inference) server, to name a few. We're happy to partner with IBM and to collaborate on the watsonx AI and data platform so that Hugging Face customers can work natively with their Hugging Face models and datasets to multiply the impact of AI across businesses.
 
-IBM also developed its slate of Large Language Models, and we will work with their team to open-source them and make them easily available in Hugging Face.
+In addition, IBM has also developed its own collection of Large Language Models, and we will work with their team to open-source them and make them easily available in the Hugging Face Hub.
 
 To learn more, watch Dr. Darío Gil, SVP and Director of IBM Research, and our CEO Clem Delangue, [announce our collaboration](https://youtu.be/FrDnPTPgEmk?t=1077), [walk through the watsonx platform](https://youtu.be/FrDnPTPgEmk?t=283), and present IBM’s [suite of Large Language Models](https://youtu.be/FrDnPTPgEmk?t=586) in an IBM THINK 2023 keynote.
 
