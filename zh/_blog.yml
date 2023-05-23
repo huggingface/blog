@@ -494,3 +494,15 @@
     - diffusion
     - text-to-image
     - text-to-video
+
+- local: generative-ai-models-on-intel-cpu
+  title: "越小越好：Q8-Chat，在英特尔至强 CPU 上体验高效的生成式 AI"
+  thumbnail: /blog/assets/143_q8chat/thumbnail.png
+  author: andyll7772
+  date: May 16, 2023
+  tags:
+    - llm
+    - nlp
+    - inference
+    - intel
+    - quantization
