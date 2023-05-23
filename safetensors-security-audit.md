@@ -65,7 +65,7 @@ The creation of this library was driven by the fact that PyTorch uses `pickle` u
 the hood, which is inherently unsafe. (Sources: [1](https://huggingface.co/docs/hub/security-pickle), [2, video](https://www.youtube.com/watch?v=2ethDz9KnLk), [3](https://github.com/pytorch/pytorch/issues/52596))
 
 With pickle, it is possible to write a malicious file posing as a model 
-that gives full control of a user's computer to an attacker without the user's knowledge.
+that gives full control of a user's computer to an attacker without the user's knowledge,
 could gain full control of the computer and steal all their bitcoins 😓.
 
 While this vulnerability in pickle is widely known in the computer security world (and is acknowledged in the PyTorch [docs](https://pytorch.org/docs/stable/generated/torch.load.html)), it’s not common knowledge in the broader ML community.
