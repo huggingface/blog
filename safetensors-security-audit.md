@@ -9,7 +9,7 @@ authors:
   guest: true
 ---
 
-<h1>Audit shows that safetensors is safe and ready to become the default</h1>
+# Audit shows that safetensors is safe and ready to become the default
 
 [Hugging Face](https://huggingface.co/), in close collaboration with [EleutherAI](https://www.eleuther.ai/) and [Stability AI](https://stability.ai/), has ordered
 an external security audit of the `safetensors` library, the results of which allow
@@ -22,7 +22,7 @@ can be found here: [Report](https://huggingface.co/datasets/safetensors/trail_of
 The following blog post explains the origins of the library, why these audit results are important,
 and the next steps.
 
-# What is safetensors?
+## What is safetensors?
 
 🐶[Safetensors](https://github.com/huggingface/safetensors) is a library
   for saving and loading tensors in the most common frameworks (including PyTorch, TensorFlow, JAX, PaddlePaddle, and NumPy).
@@ -59,7 +59,7 @@ We are thrilled to see that the `safetensors` library is already seeing use in t
 - [LLaMA.cpp](https://github.com/ggerganov/llama.cpp/blob/e6a46b0ed1884c77267dc70693183e3b7164e0e0/convert.py#L537)
 
 
-# Why create something new?
+## Why create something new?
 
 The creation of this library was driven by the fact that PyTorch uses `pickle` under
 the hood, which is inherently unsafe. (Sources: [1](https://huggingface.co/docs/hub/security-pickle), [2, video](https://www.youtube.com/watch?v=2ethDz9KnLk), [3](https://github.com/pytorch/pytorch/issues/52596))
@@ -88,7 +88,7 @@ Because it loads so fast and is framework agnostic, we can even use the format
 to load models from the same file in PyTorch or TensorFlow.
 
 
-# The security audit
+## The security audit
 
 Since `safetensors` main asset is providing safety guarantees, we wanted to make sure
 it actually delivered. That's why Hugging Face, EleutherAI, and Stability AI teamed up to get an external
@@ -115,7 +115,7 @@ While it is impossible to
 prove the absence of flaws, this is a major step in giving reassurance that `safetensors`
 is indeed safe to use.
 
-# Going forward
+## Going forward
 
 For Hugging Face, EleutherAI, and Stability AI, the master plan is to shift to using this format by default.
 
