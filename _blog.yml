@@ -2167,3 +2167,14 @@
     - instruction-tuning
     - research
     - guide
+
+- local: safetensors-official
+  title: 🐶Safetensors is really safe and becoming the default
+  author: Narsil
+  thumbnail: /blog/assets/09_accelerated_inference/thumbnail.png
+  date: May 23, 2023
+  tags:
+    - pickle
+    - serialization
+    - load times
+
