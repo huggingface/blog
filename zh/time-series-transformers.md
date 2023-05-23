@@ -466,7 +466,7 @@ def create_instance_splitter(
 from typing import Iterable
 
 import torch
-from gluonts.itertools import Cyclic
+from gluonts.itertools import Cached, Cyclic
 from gluonts.dataset.loader import as_stacked_batches
 
 
@@ -477,6 +477,7 @@ def create_train_dataloader(
     batch_size: int,
     num_batches_per_epoch: int,
     shuffle_buffer_length: Optional[int] = None,
+    cache_data: bool = True,
     **kwargs,
 ) -> Iterable:
     PREDICTION_INPUT_NAMES = [
@@ -498,6 +499,8 @@ def create_train_dataloader(
 
     transformation = create_transformation(freq, config)
     transformed_data = transformation.apply(data, is_train=True)
+    if cache_data:
+        transformed_data = Cached(transformed_data)
 
     # we initialize a Training instance
     instance_splitter = create_instance_splitter(config, "train")
