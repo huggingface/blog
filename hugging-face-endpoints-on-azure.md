@@ -1,6 +1,6 @@
 ---
 title: Hugging Face Collaborates with Microsoft to launch Hugging Face Model Catalog on Azure
-thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/01.png
+thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/01.jpg
 authors:
 - user: jeffboudier
 - user: philschmid

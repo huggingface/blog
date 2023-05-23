@@ -2172,7 +2172,7 @@
 - local: huggingface-and-ibm
   title: "Hugging Face and IBM partner on watsonx.ai, the next-generation enterprise studio for AI builders"
   author: juliensimon
-  thumbnail: /blog/assets/144_ibm/01.png
+  thumbnail: /blog/assets/144_ibm/01.jpg
   date: May 23, 2023
   tags:
     - cloud
