@@ -17,7 +17,7 @@ authors:
 
 All hype aside, it's hard to deny the profound impact that AI is having on society and businesses. From startups to enterprises to the public sector, every customer we talk to is busy experimenting with large language models and generative AI, identifying the most promising use cases, and gradually bringing them to production. 
 
-The #1 thing that customers tell us is that no single model will rule them all. They now understand the value of building the best model for each use case to maximize its relevance on company data while optimizing the compute budget. Of course, privacy and intellectual property are also top concerns, and customers want to ensure they maintain complete control.
+The #1 comment we get from customers is that no single model will rule them all. They understand the value of building the best model for each use case to maximize its relevance on company data while optimizing the compute budget. Of course, privacy and intellectual property are also top concerns, and customers want to ensure they maintain complete control.
 
 As AI finds its way into every department and business unit, customers also realize the need to train and deploy many different models. In a large multinational organization, this could mean running hundreds, even thousands, of models at any time. Given the pace of AI innovation, newer and higher-performance model architectures will also lead customers to replace their models quicker than expected, reinforcing the need to train and deploy new models in production quickly and seamlessly.
 
