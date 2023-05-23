@@ -123,11 +123,11 @@ EleutherAI has added support for evaluating models stored as `safetensors` in th
 
 Within the `transformers` library we are doing the following:
 
-- [x] Create `safetensors`.
-- [x] Verify it works and can deliver on all promises (lazy load for LLMs, single file for all frameworks, faster loads).
-- [x] Verify it's safe. (This is today's announcement.)
-- [x] Make `safetensors` a core dependency. (This is already done or soon to come.)
-- [ ] Make `safetensors` the default saving format. This will happen in a few months when we have enough feedback
+- Create `safetensors`.
+- Verify it works and can deliver on all promises (lazy load for LLMs, single file for all frameworks, faster loads).
+- Verify it's safe. (This is today's announcement.)
+- Make `safetensors` a core dependency. (This is already done or soon to come.)
+- Make `safetensors` the default saving format. This will happen in a few months when we have enough feedback
   to make sure it will cause as little disruption as possible and enough users already have the library
   to be able to load new models even on relatively old `transformers` versions.
 
