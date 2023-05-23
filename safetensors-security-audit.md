@@ -66,7 +66,7 @@ the hood, which is inherently unsafe. (Sources: [1](https://huggingface.co/docs/
 
 With pickle, it is possible to write a malicious file posing as a model 
 that gives full control of a user's computer to an attacker without the user's knowledge,
-could gain full control of the computer and steal all their bitcoins 😓.
+allowing to steal all their bitcoins 😓.
 
 While this vulnerability in pickle is widely known in the computer security world (and is acknowledged in the PyTorch [docs](https://pytorch.org/docs/stable/generated/torch.load.html)), it’s not common knowledge in the broader ML community.
 
@@ -119,7 +119,7 @@ is indeed safe to use.
 
 For Hugging Face, EleutherAI, and Stability AI, the master plan is to shift to using this format by default.
 
-EleutherAI has added support for evaluating models stored as SafeTensors in their LM Evaluation Harness and is working on supporting the format in their GPT-NeoX distributed training library.
+EleutherAI has added support for evaluating models stored as safetensors in their LM Evaluation Harness and is working on supporting the format in their GPT-NeoX distributed training library.
 
 Within the `transformers` library we are doing the following:
 
