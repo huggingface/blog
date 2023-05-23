@@ -2168,15 +2168,7 @@
     - serialization
     - load times
 
-- local: hugging-face-endpoints-on-azure
-  title: "Hugging Face Collaborates with Microsoft to Launch Hugging Face Model Catalog on Azure"
-  author: philschmid
-  thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/01.png
-  date: May 23, 2023
-  tags:
-    - launch
-    - cloud
-    - azure
+
 - local: huggingface-and-ibm
   title: "Hugging Face and IBM partner on watsonx.ai, the next-generation enterprise studio for AI builders"
   author: juliensimon
@@ -2193,6 +2185,6 @@
   thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/01.png
   date: May 23, 2023
   tags:
-    - launch
     - cloud
     - azure
+    - partnership
