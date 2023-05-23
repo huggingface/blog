@@ -46,12 +46,12 @@ be used preferentially in order to prevent issues, which means that
 pip install safetensors
 ```
 
-is likely to be the only thing needed to run safetensors files safely.
+is likely to be the only thing needed to run `safetensors` files safely.
 
 Going forward and thanks to the validation of the library, `safetensors` will now be installed in `transformers` by
 default. The next step is saving models in `safetensors` by default.
 
-We are thrilled to see that the safetensors library is already seeing use in the ML ecosystem, including:
+We are thrilled to see that the `safetensors` library is already seeing use in the ML ecosystem, including:
 
 - [Civitai](https://civitai.com/)
 - [Stable Diffusion Web UI](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
@@ -66,7 +66,7 @@ the hood, which is inherently unsafe. (Sources: [1](https://huggingface.co/docs/
 
 With pickle, it is possible to write a malicious file posing as a model 
 that gives full control of a user's computer to an attacker without the user's knowledge,
-allowing to steal all their bitcoins 😓.
+allowing the attacker to steal all their bitcoins 😓.
 
 While this vulnerability in pickle is widely known in the computer security world (and is acknowledged in the PyTorch [docs](https://pytorch.org/docs/stable/generated/torch.load.html)), it’s not common knowledge in the broader ML community.
 
@@ -112,14 +112,14 @@ an extra layer of [security](https://doc.rust-lang.org/rustc/exploit-mitigations
 coming directly from the language itself.
 
 While it is impossible to 
-prove the absence of flaws, this is a major step in giving reassurance that safetensors
+prove the absence of flaws, this is a major step in giving reassurance that `safetensors`
 is indeed safe to use.
 
 # Going forward
 
 For Hugging Face, EleutherAI, and Stability AI, the master plan is to shift to using this format by default.
 
-EleutherAI has added support for evaluating models stored as safetensors in their LM Evaluation Harness and is working on supporting the format in their GPT-NeoX distributed training library.
+EleutherAI has added support for evaluating models stored as `safetensors` in their LM Evaluation Harness and is working on supporting the format in their GPT-NeoX distributed training library.
 
 Within the `transformers` library we are doing the following:
 
@@ -137,7 +137,7 @@ which has its own set of issues with current formats.
 
 
 Finally, we plan to release a `1.0` in the near future, with the large user base of `transformers` providing the final testing step.
-The format and the lib have had very few modifications since their inception
+The format and the lib have had very few modifications since their inception,
 which is a good sign of stability.
 
 We're glad we can bring ML one step closer to being safe and efficient for all!
