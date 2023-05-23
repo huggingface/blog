@@ -2133,3 +2133,37 @@
     - nlp
     - inference
     - rocm
+
+- local: generative-ai-models-on-intel-cpu
+  title: "Smaller is better: Q8-Chat, an efficient generative AI experience on Xeon"
+  thumbnail: /blog/assets/143_q8chat/thumbnail.png
+  author: andyll7772
+  date: May 16, 2023
+  tags:
+    - llm
+    - nlp
+    - inference
+    - intel
+    - quantization
+
+- local: dedup
+  title: "Large-scale Near-deduplication Behind BigCode"
+  author: chenghao
+  guest: true
+  thumbnail: /blog/assets/dedup/thumbnail.png
+  date: May 16, 2023
+  tags:
+    - bigcode
+    - deduplication
+
+- local: instruction-tuning-sd
+  title: "Instruction-tuning Stable Diffusion with InstructPix2Pix"
+  author: sayakpaul
+  thumbnail: /blog/assets/instruction_tuning_sd/thumbnail.png
+  date: May 23, 2023
+  tags:
+    - diffusers
+    - diffusion
+    - instruction-tuning
+    - research
+    - guide
