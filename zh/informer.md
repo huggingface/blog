@@ -625,10 +625,9 @@ def create_instance_splitter(
 ```python
 from typing import Iterable
 
-from torch.utils.data import DataLoader
-
-from gluonts.itertools import Cached, Cyclic, IterableSlice, PseudoShuffled
-from gluonts.torch.util import IterableDataset
+import torch
+from gluonts.itertools import Cached, Cyclic
+from gluonts.dataset.loader import as_stacked_batches
 
 
 def create_train_dataloader(
@@ -664,34 +663,23 @@ def create_train_dataloader(
         transformed_data = Cached(transformed_data)
 
     # we initialize a Training instance
-    instance_splitter = create_instance_splitter(config, "train") + SelectFields(
-        TRAINING_INPUT_NAMES
-    )
+    instance_splitter = create_instance_splitter(config, "train")
 
     # the instance splitter will sample a window of
     # context length + lags + prediction length (from all the possible transformed time series, 1 in our case)
     # randomly from within the target time series and return an iterator.
+    stream = Cyclic(transformed_data).stream()
     training_instances = instance_splitter.apply(
-        Cyclic(transformed_data)
-        if shuffle_buffer_length is None
-        else PseudoShuffled(
-            Cyclic(transformed_data),
-            shuffle_buffer_length=shuffle_buffer_length,
-        )
+        stream, is_train=True
     )
-
-    # from the training instances iterator we now return a Dataloader which will
-    # continue to sample random windows for as long as it is called
-    # to return batch_size of the appropriate tensors ready for training!
-    return IterableSlice(
-        iter(
-            DataLoader(
-                IterableDataset(training_instances),
-                batch_size=batch_size,
-                **kwargs,
-            )
-        ),
-        num_batches_per_epoch,
+    
+    return as_stacked_batches(
+        training_instances,
+        batch_size=batch_size,
+        shuffle_buffer_length=shuffle_buffer_length,
+        field_names=TRAINING_INPUT_NAMES,
+        output_type=torch.tensor,
+        num_batches_per_epoch=num_batches_per_epoch,
     )
 ```
 
@@ -721,16 +709,16 @@ def create_test_dataloader(
 
     # we create a Test Instance splitter which will sample the very last
     # context window seen during training only for the encoder.
-    instance_sampler = create_instance_splitter(config, "test") + SelectFields(
-        PREDICTION_INPUT_NAMES
-    )
+    instance_sampler = create_instance_splitter(config, "test")
 
     # we apply the transformations in test mode
     testing_instances = instance_sampler.apply(transformed_data, is_train=False)
-
-    # This returns a Dataloader which will go over the dataset once.
-    return DataLoader(
-        IterableDataset(testing_instances), batch_size=batch_size, **kwargs
+    
+    return as_stacked_batches(
+        testing_instances,
+        batch_size=batch_size,
+        output_type=torch.tensor,
+        field_names=PREDICTION_INPUT_NAMES,
     )
 ```
 

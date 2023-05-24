@@ -2168,9 +2168,29 @@
     - research
     - guide
 
+- local: safetensors-security-audit
+  title: "Safetensors audited as really safe and becoming the default"
+  author: Narsil
+  thumbnail: /blog/assets/142_safetensors_official/thumbnail.png
+  date: May 23, 2023
+  tags:
+    - pickle
+    - serialization
+    - load times
+
+- local: huggingface-and-ibm
+  title: "Hugging Face and IBM partner on watsonx.ai, the next-generation enterprise studio for AI builders"
+  author: juliensimon
+  thumbnail: /blog/assets/144_ibm/01.png
+  date: May 23, 2023
+  tags:
+    - cloud
+    - ibm
+    - partnership
+
 - local: train-optimize-sd-intel
   title: "Optimizing Stable Diffusion for Intel CPUs with NNCF and 🤗 Optimum"
-  author: sayakpaul
+  author: AlexKoff88
   thumbnail: /blog/assets/train_optimize_sd_intel/thumbnail.png
   date: May 26, 2023
   tags:
