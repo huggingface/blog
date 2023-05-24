@@ -29,6 +29,7 @@ This blogpost and release comes also with several resources that users can refer
 - [Original paper](https://arxiv.org/abs/2305.14314)
 - [Basic usage Google Colab notebook](https://colab.research.google.com/drive/1ge2F1QSK8Q7h0hn3YKuBCOAS0bK8E0wf?usp=sharing) - This notebook shows how to use the 4bit models in inference with all its variants and how to run GPT-neo-X 20B on a Google Colab.
 - [Fine tuning Google Colab notebook](https://colab.research.google.com/drive/1VoYNfYDKcKRQRor98Zbf2-9VQTtGJ24k?usp=sharing) - This notebook shows how to fine-tune a 4bit model on a downstream task using the Hugging Face ecosystem, we should that it is possible to fine tune GPT-neo-X 20B on a Google Colab.
+- [Original repository for replicating paper's results](https://github.com/artidoro/qlora)
 
 
 ## Introduction
