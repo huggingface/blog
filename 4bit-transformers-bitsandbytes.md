@@ -229,4 +229,4 @@ We have used the recent `SFTTrainer` from TRL library, and the benchmarking scri
 
 The HF team would like to acknowledge all the people involved in this project from University of Washington, and for making this available to the community. 
 
-The authors would also like to thank [Pedro Cuenca](https://huggingface.co/pcuenq) for kindly reviewing the blogpost, [Olivier Dehaene](https://huggingface.co/olivierdehaene) and [Omar Sanseviero](https://huggingface.co/osanseviero) for their quick and strong support for the integration of the paper's artifact in the HF Hub.
+The authors would also like to thank [Pedro Cuenca](https://huggingface.co/pcuenq) for kindly reviewing the blogpost, [Olivier Dehaene](https://huggingface.co/olivierdehaene) and [Omar Sanseviero](https://huggingface.co/osanseviero) for their quick and strong support for the integration of the paper's artifacts on the HF Hub.
