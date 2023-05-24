@@ -16,31 +16,31 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-LLMs are known to be large, and running or training them in a consumer-type hardware is always the biggest challenge for users and accessibility. 
-We introduced in the [LLM.int8 blogpost](https://huggingface.co/blog/hf-bitsandbytes-integration) how Hugging Face transformers have integrated the [LLM.int8 paper](https://arxiv.org/abs/2208.07339) that is packaged inside bitsandbytes.
-As we strive to make these models even more accessible to anyone, we decided to collaborate once again with bitsandbytes, and offer users the possibility to run a vast majority of HF models, in any modality (text, vision, multi-modal, etc.), this time in 4bit precision. We also offer users the possibility to train adapters on top of 4bit models leveraging tools from the Hugging Face ecosystem. This new method is introduced in the recent paper QLoRA from Dettmers et al. and the abstract of the paper is as follows:
+LLMs are known to be large, and running or training them in consumer hardware is a huge challenge for users and accessibility. 
+Our [LLM.int8 blogpost](https://huggingface.co/blog/hf-bitsandbytes-integration) showed how the techniques in the [LLM.int8 paper](https://arxiv.org/abs/2208.07339) were integrated in transformers using the `bitsandbytes` library.
+As we strive to make models even more accessible to anyone, we decided to collaborate with bitsandbytes again to allow users to run models in 4-bit precision. This includes a large majority of HF models, in any modality (text, vision, multi-modal, etc.). Users can also train adapters on top of 4bit models leveraging tools from the Hugging Face ecosystem. This is a new method introduced today in the QLoRA paper by Dettmers et al. The abstract of the paper is as follows:
 
 > We present QLoRA, an efficient finetuning approach that reduces memory usage enough to finetune a 65B parameter model on a single 48GB GPU while preserving full 16-bit finetuning task performance. QLoRA backpropagates gradients through a frozen, 4-bit quantized pretrained language model into Low Rank Adapters~(LoRA). Our best model family, which we name Guanaco, outperforms all previous openly released models on the Vicuna benchmark, reaching 99.3% of the performance level of ChatGPT while only requiring 24 hours of finetuning on a single GPU. QLoRA introduces a number of innovations to save memory without sacrificing performance: (a) 4-bit NormalFloat (NF4), a new data type that is information theoretically optimal for normally distributed weights (b) double quantization to reduce the average memory footprint by quantizing the quantization constants, and (c) paged optimziers to manage memory spikes. We use QLoRA to finetune more than 1,000 models, providing a detailed analysis of instruction following and chatbot performance across 8 instruction datasets, multiple model types (LLaMA, T5), and model scales that would be infeasible to run with regular finetuning (e.g. 33B and 65B parameter models). Our results show that QLoRA finetuning on a small high-quality dataset leads to state-of-the-art results, even when using smaller models than the previous SoTA. We provide a detailed analysis of chatbot performance based on both human and GPT-4 evaluations showing that GPT-4 evaluations are a cheap and reasonable alternative to human evaluation. Furthermore, we find that current chatbot benchmarks are not trustworthy to accurately evaluate the performance levels of chatbots. A lemon-picked analysis demonstrates where Guanaco fails compared to ChatGPT. We release all of our models and code, including CUDA kernels for 4-bit training.
 
 ## Resources
 
-This blogpost and release comes also with several resources that users can refer to in order to get started with 4bit models and QLoRA:
+This blogpost and release come with several resources to get started with 4bit models and QLoRA:
 
 - [Original paper](https://arxiv.org/abs/2305.14314)
-- [Basic usage Google Colab notebook](https://colab.research.google.com/drive/1ge2F1QSK8Q7h0hn3YKuBCOAS0bK8E0wf?usp=sharing) - This notebook shows how to use the 4bit models in inference with all its variants and how to run GPT-neo-X 20B on a Google Colab.
-- [Fine tuning Google Colab notebook](https://colab.research.google.com/drive/1VoYNfYDKcKRQRor98Zbf2-9VQTtGJ24k?usp=sharing) - This notebook shows how to fine-tune a 4bit model on a downstream task using the Hugging Face ecosystem, we should that it is possible to fine tune GPT-neo-X 20B on a Google Colab.
-- [Original repository for replicating paper's results](https://github.com/artidoro/qlora)
+- [Basic usage Google Colab notebook](https://colab.research.google.com/drive/1ge2F1QSK8Q7h0hn3YKuBCOAS0bK8E0wf?usp=sharing) - This notebook shows how to use 4bit models in inference with all their variants, and how to run GPT-neo-X (a 20B parameter model) on a free Google Colab instance 🤯 
+- [Fine tuning Google Colab notebook](https://colab.research.google.com/drive/1VoYNfYDKcKRQRor98Zbf2-9VQTtGJ24k?usp=sharing) - This notebook shows how to fine-tune a 4bit model on a downstream task using the Hugging Face ecosystem. We show that it is possible to fine tune GPT-neo-X 20B on a Google Colab instance!
+- [Original repository for replicating the paper's results](https://github.com/artidoro/qlora)
 
 
 ## Introduction
 
-If you are not familiar with model precisions and most common data types (float16, float32, bfloat16, int8), we advise you to carefully read the introduction of [our first blogpost](https://huggingface.co/blog/hf-bitsandbytes-integration) that goes over the details of these notions in simple terms with visualizations. 
+If you are not familiar with model precisions and the most common data types (float16, float32, bfloat16, int8), we advise you to carefully read the introduction in [our first blogpost](https://huggingface.co/blog/hf-bitsandbytes-integration) that goes over the details of these concepts in simple terms with visualizations. 
 
 The recent QLoRA paper explores different data types, 4-bit Float and 4-bit NormalFloat. We will discuss here the 4-bit Float data type since it is easier to understand. 
 
 For more information we  recommend reading the fundamentals of floating point representation through [this wikibook document](https://en.wikibooks.org/wiki/A-level_Computing/AQA/Paper_2/Fundamentals_of_data_representation/Floating_point_numbers#:~:text=In%20decimal%2C%20very%20large%20numbers,be%20used%20for%20binary%20numbers.). 
 
-FP8 and FP4 respectively stands for Floating Point 8-bit and 4-bit precision, and is part of the minifloats family of floating point values (among other precisions, the minifloats also includes bfloat16, float16, and fp8).
+FP8 and FP4 stand for Floating Point 8-bit and 4-bit precision, respectively. They are part of the minifloats family of floating point values (among other precisions, the minifloats family also includes bfloat16 and float16).
 
 Let’s first have a look at how to represent floating point values in FP8 format, then understand how the FP4 format looks like.
 
@@ -60,7 +60,7 @@ It has been empirically proven that the E4M3 is best suited for the forward pass
 
 ### FP4 precision in few words
 
-The sign bit represents the sign (+/-), the exponent bits a base two to the power of the integer represented by the bits (e.g. `2^{010} = 2^{2} = 4`), and the fraction or mantissa is the sum of powers of negative two which are “active” for each bit that is “1”. If a bit is “0” the fraction remains unchanged for that power of `2^-i` where i is the position of the bit in the bit-sequence. For example, for 1010 we have `(0 + 2^-1 + 0 + 2^-3) = (0.5 + 0.125) = 0.625`. To get a value, we add “1” to the fraction and multiple all results together, for example, with 2 exponent bits and one mantissa bit the representations 1101 would be:
+The sign bit represents the sign (+/-), the exponent bits a base two to the power of the integer represented by the bits (e.g. `2^{010} = 2^{2} = 4`), and the fraction or mantissa is the sum of powers of negative two which are “active” for each bit that is “1”. If a bit is “0” the fraction remains unchanged for that power of `2^-i` where i is the position of the bit in the bit-sequence. For example, for mantissa bits 1010 we have `(0 + 2^-1 + 0 + 2^-3) = (0.5 + 0.125) = 0.625`. To get a value, we add “1” to the fraction and multiply all results together, for example, with 2 exponent bits and one mantissa bit the representations 1101 would be:
 
 `-1 * 2^(2) * (1 + 2^-1) = -1 * 4 * 1.5 = -6`
 
@@ -70,11 +70,11 @@ In few words, QLoRA reduces the memory usage of LLM finetuning without performan
 
 More specifically, QLoRA uses 4-bit quantization to compress a pretrained langauge model. The LM parameters are then frozen and a relatively small number of trainable parameters are added to the model in the form of Low-Rank Adapters. During finetuning, QLoRA backpropagates gradients through the frozen 4-bit quantized pretrained langauge model into the Low-Rank Adapters. The LoRA layers are the only parameters being updated during training.
 
-QLoRA has one storage data type (usually 4-bit NormalFloat) for the base model weights and a computation data type (16-bit BrainFloat) used to perform computations. QLoRA dequantize weights from the storage data type to the computation data type to perform the forward and backward pass, but only computes weight gradients for the LoRA parameters which use 16-bit BrainFloat.
+QLoRA has one storage data type (usually 4-bit NormalFloat) for the base model weights and a computation data type (16-bit BrainFloat) used to perform computations. QLoRA dequantizes weights from the storage data type to the computation data type to perform the forward and backward passes, but only computes weight gradients for the LoRA parameters which use 16-bit BrainFloat.
 
 QLoRA tuning is shown to match 16-bit finetuning methods in a wide range of experiments. In addition, the Guanaco models, which use QLoRA finetunng for LLaMA models on the OpenAssistant dataset (OASST1), are state-of-the-art chatbot systems and are competitive with ChatGPT on the Vicuna benchmark. This is an additional demonstration of the power of QLoRA tuning.
 
-For a more detailed reading, we recommend you to read the [QLoRA paper](https://arxiv.org/abs/2305.14314).
+For a more detailed reading, we recommend you read the [QLoRA paper](https://arxiv.org/abs/2305.14314).
 
 ## How to use it in transformers?
 
@@ -82,7 +82,7 @@ In this section let us introduce the transformers integration of this method, ho
 
 ### Getting started
 
-As a quickstart, load a model in 4bit by (at this time of writing) downloading accelerate, and transformers from source, and make sure you have installed the latest version of bitsandbytes library (0.39.0).
+As a quickstart, load a model in 4bit by (at the time of this writing) installing accelerate and transformers from source, and make sure you have installed the latest version of bitsandbytes library (0.39.0).
 
 ```bash
 pip install -q -U bitsandbytes
@@ -93,12 +93,12 @@ pip install -q -U git+https://github.com/huggingface/accelerate.git
 
 ### Quickstart
 
-The basic way to load a model in 4bit is to pass the argument `load_in_4bit=True` when calling the `from_pretrained` method by providing together a device map (pass “auto” to get a device map that will be automatically inferred).
+The basic way to load a model in 4bit is to pass the argument `load_in_4bit=True` when calling the `from_pretrained` method by providing a device map (pass “auto” to get a device map that will be automatically inferred).
 
 ```python
 from transformers import AutoModelForCausalLM
 
-model = AutoModelForCausalLM.from_pretrained("facebook/opt-350m", load_in_4bit=True, device_map=”auto”)
+model = AutoModelForCausalLM.from_pretrained("facebook/opt-350m", load_in_4bit=True, device_map="auto")
 ...
 ```
 That's all you need!
@@ -164,14 +164,14 @@ And of course, as mentioned in the beginning of the section, all of these compon
 
 In this section, we will also address some common questions anyone could have regarding this integration.
 
-#### Does the FP4 quantization have any hardware requirements? 
+#### Does FP4 quantization have any hardware requirements? 
 
 Note that this method is only compatible with GPUs, hence it is not possible to quantize models in 4bit on a CPU. Among GPUs, there should not be any hardware requirement about this method, therefore any GPU could be used to run the 4bit quantization. 
 Keep also in mind that the computation is not done in 4bit, the weights and activations are compressed to that format and the computation is still kept in the desired or native dtype.
 
 #### What are the supported models?
 
-Similarly as the integration of LLM.int8 presented in [this blogpost](https://huggingface.co/blog/hf-bitsandbytes-integration) the integration heavily relies on accelerate library. Therefore, any model that supports accelerate loading (i.e. the `device_map` argument when calling `from_pretrained`) should be quantizable in 4bit. Note also that this is totally agnostic to modalities, as long as the models can be loaded with the `device_map` argument, it is possible to quantize them. 
+Similarly as the integration of LLM.int8 presented in [this blogpost](https://huggingface.co/blog/hf-bitsandbytes-integration) the integration heavily relies on the `accelerate` library. Therefore, any model that supports accelerate loading (i.e. the `device_map` argument when calling `from_pretrained`) should be quantizable in 4bit. Note also that this is totally agnostic to modalities, as long as the models can be loaded with the `device_map` argument, it is possible to quantize them. 
 
 For text models, at this time of writing, this would include most used architectures such as Llama, OPT, GPT-Neo, GPT-NeoX for text models, Blip2 for multimodal models, and so on. 
 
@@ -185,11 +185,11 @@ At this time of writing, the models that support accelerate are:
     't5', 'vilt', 'vit', 'vit_hybrid', 'whisper', 'xglm', 'xlm_roberta'
 ]  
 ```
-Note that if your favorite model is not there, you can open an issue or a Pull Request or raise an issue on transformers to add the support of accelerate loading for that architecture.
+Note that if your favorite model is not there, you can open a Pull Request or raise an issue in transformers to add the support of accelerate loading for that architecture.
 
-#### Can we train the 4bit/8bit models?
+#### Can we train 4bit/8bit models?
 
-It is not possible to perform pure 4bit training on these models. However, you can train these models by leveraging parameter efficient fine tuning methods (PEFT) and train for example adapters on top of them. That is what is done in the paper and is officially supported in PEFT library from Hugging Face. We also provide a [training notebook](https://colab.research.google.com/drive/1VoYNfYDKcKRQRor98Zbf2-9VQTtGJ24k?usp=sharing) and recommend users to check the [qlora repository](https://github.com/artidoro/qlora) if they are intested in replicating the results from the paper.
+It is not possible to perform pure 4bit training on these models. However, you can train these models by leveraging parameter efficient fine tuning methods (PEFT) and train for example adapters on top of them. That is what is done in the paper and is officially supported by the PEFT library from Hugging Face. We also provide a [training notebook](https://colab.research.google.com/drive/1VoYNfYDKcKRQRor98Zbf2-9VQTtGJ24k?usp=sharing) and recommend users to check the [QLoRA repository](https://github.com/artidoro/qlora) if they are interested in replicating the results from the paper.
 
 | ![lora-gif](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/lora-animated.gif) |
 |:--:|
@@ -200,7 +200,7 @@ It is not possible to perform pure 4bit training on these models. However, you c
 This integration can open up several positive consequences to the community and AI research as it can affect multiple use cases and possible applications. 
 In RLHF (Reinforcement Learning with Human Feedback) it is possible to load a single base model, in 4bit and train multiple adapters on top of it, one for the reward modeling, and another for the value policy training. A more detailed blogpost and announcement will be made soon about this use case.
 
-We have also made some benchmarks on the impact of this quantization method on training large models on a consumer type hardward. We have run several experiments on finetuning 2 different architectures, Llama 7B (15GB in fp16) and Llama 13B (27GB in fp16) on a NVIDIA T4 (16GB) and here are the results
+We have also made some benchmarks on the impact of this quantization method on training large models on  consumer hardware. We have run several experiments on finetuning 2 different architectures, Llama 7B (15GB in fp16) and Llama 13B (27GB in fp16) on a NVIDIA T4 (16GB) and here are the results
 
 | Model name                          | Half precision model size (in GB) | Hardware type / total VRAM | quantization method (CD=compute dtype / GC=gradient checkpointing / NQ=nested quantization) | batch_size | gradient accumulation steps | optimizer         | seq_len | Result |
 | ----------------------------------- | --------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------- | ---------- | --------------------------- | ----------------- | ------- | ------ |
