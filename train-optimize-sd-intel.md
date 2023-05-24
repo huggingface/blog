@@ -4,6 +4,10 @@ thumbnail: /blog/assets/train_optimize_sd_intel/thumbnail.png
 authors:
 - user: AlexKoff88
   guest: true
+- user: MrOpenVINO
+  guest: true
+- user: helenai
+  guest: true
 - user: sayakpaul
 - user: echarlaix
 ---
