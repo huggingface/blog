@@ -2194,6 +2194,7 @@
   thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
   date: May 24, 2023
   tags:
-    - cloud
-    - ibm
-    - partnership
+    - transformers
+    - quantization
+    - bitsandbytes
+    - 4bit
