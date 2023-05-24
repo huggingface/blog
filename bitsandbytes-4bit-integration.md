@@ -68,6 +68,14 @@ The sign bit represents the sign (+/-), the exponent bits a base two to the powe
 
 In few words, QLoRA reduces the memory usage of LLM finetuning without performance tradeoffs compared to standard 16-bit model finetuning. This method enables 33B model finetuning on a single 24GB GPU and 65B model finetuning on a single 46GB GPU.
 
+More specifically, QLoRA uses 4-bit quantization to compress a pretrained langauge model. The LM parameters are then frozen and a relatively small number of trainable parameters are added to the model in the form of Low-Rank Adapters. During finetuning, QLoRA backpropagates gradients through the frozen 4-bit quantized pretrained langauge model into the Low-Rank Adapters. The LoRA layers are the only parameters being updated during training.
+
+QLoRA has one storage data type (usually 4-bit NormalFloat) for the base model weights and a computation data type (16-bit BrainFloat) used to perform computations. QLoRA dequantize weights from the storage data type to the computation data type to perform the forward and backward pass, but only computes weight gradients for the LoRA parameters which use 16-bit BrainFloat.
+
+QLoRA tuning is shown to match 16-bit finetuning methods in a wide range of experiments. In addition, the Guanaco models, which use QLoRA finetunng for LLaMA models on the OpenAssistant dataset (OASST1), are state-of-the-art chatbot systems and are competitive with ChatGPT on the Vicuna benchmark. This is an additional demonstration of the power of QLoRA tuning.
+
+For a more detailed reading, we recommend you to read the [QLoRA paper](https://arxiv.org/abs/2305.14314).
+
 ## How to use it in transformers?
 
 In this section let us introduce the transformers integration of this method, how to use it and which models can be effectively quantized. 
