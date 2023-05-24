@@ -2188,7 +2188,7 @@
     - ibm
     - partnership
 
-- local: bitsandbytes-4bit-integration
+- local: 4bit-transformers-bitsandbytes
   title: "Making LLMs even more accessible with bitsandbytes, 4-bit quantization and QLoRA"
   author: ybelkada
   thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
