@@ -5,8 +5,6 @@ authors:
 - user: Narsil
 - user: stellaathena
   guest: true
-- user: Takyon236
-  guest: true
 ---
 
 # Audit shows that safetensors is safe and ready to become the default
