@@ -1,4 +1,21 @@
-## Introduction
+---
+title: Optimizing Stable Diffusion for Intel CPUs with NNCF and 🤗 Optimum
+thumbnail: /blog/assets/train_optimize_sd_intel/thumbnail.png
+authors:
+- user: AlexKoff88
+  guest: true
+- user: Yury
+  guest: true
+- user: Helena
+  guest: true
+- user: sayakpaul
+- user: echarlaix
+---
+
+# Optimizing Stable Diffusion for Intel CPUs with NNCF and 🤗 Optimum
+
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 [**Latent Diffusion models**](https://arxiv.org/abs/2112.10752) are game changers when it comes to solving text-to-image generation problems. [**Stable Diffusion**](https://stability.ai/blog/stable-diffusion-public-release) is one of the most famous examples that got wide adoption in the community and industry. The idea behind the Stable Diffusion model is simple and compelling: you generate an image from a noise vector in multiple small steps refining the noise to a latent image representation.
 
@@ -32,21 +49,45 @@ Recently, Facebook Research introduced a [Token Merging](https://arxiv.org/abs/2
  
 We modified the Token Merging method to be compliant with OpenVINO and stacked it with 8-bit quantization when applied to the Attention UNet model. This also includes all the mentioned techniques including Knowledge Distillation, etc. As for quantization, it requires fine-tuning to be applied to restore the accuracy. We also start optimization and fine-tuning from the [model](https://huggingface.co/svjack/Stable-Diffusion-Pokemon-en) trained on the [Pokemons dataset](https://huggingface.co/datasets/lambdalabs/pokemon-blip-captions). The figure below shows an overall optimization workflow.
 
-![Shape1](RackMultipart20230523-1-itg5ls_html_90d2c88001de90eb.gif)
+![overview](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-optimize-sd-intel/overview.png)
 
 The resultant model is highly beneficial when running inference on devices with limited computational resources, such as client or edge CPUs. As it was mentioned, stacking Token Merging with quantization leads to an additional reduction in the inference latency.
 
-**PyTorch FP32: 230.5 sec. OpenVINO FP32: 120 sec. (1.9x)**![](RackMultipart20230523-1-itg5ls_html_87d3078884c3701d.jpg)
- ![](RackMultipart20230523-1-itg5ls_html_13b74a78146091f3.png)
-
-**UNet Footprint: 3.44 GB UNet Footprint: 3.44 GB**
-
-![](RackMultipart20230523-1-itg5ls_html_b0bd26cfd998f75b.png)
- ![](RackMultipart20230523-1-itg5ls_html_7f5510a3a79683c7.png)
-
-**OpenVINO 8-bit: 59 sec. (3.9x) OpenVINO ToMe + 8-bit: 44.6 sec. (5.1x)**
-
-**UNet Footprint: 0.86 GB (0.25x) UNet Footprint: 0.86 GB (0.25x)**
+<div align="center">
+<table>
+  <tr>
+    <th>Image</th>
+    <th>Setting</th>
+    <th>Inference Speed</th>
+    <th>Memory Footprint</th>
+  </tr>
+  <tr>
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-optimize-sd-intel/image_torch.png"/></td>
+    <td>PyTorch FP32</td>
+    <td>230.5 seconds</td>
+    <td>3.44 GB</td>
+  </tr>
+  <tr>
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-optimize-sd-intel/image_fp32.png"/></td>
+    <td>OpenVINO FP32</td>
+    <td>120 seconds <p style="color:green;">(1.9x)</p></td>
+    <td>3.44 GB</td>
+  </tr>  
+  <tr>
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-optimize-sd-intel/image_quantized.png"/></td>
+    <td>OpenVINO 8-bit</td>
+    <td>59 seconds <p style="color:green;">(3.9x)</td>
+    <td>0.86 GB <p style="color:green;">(0.25x)</p></td>
+  </tr>
+  <tr>
+    <td><img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-optimize-sd-intel/image_tome_quantized.png"/></td>
+    <td>OpenVINO ToMe + 8-bit</td>
+    <td>44.6 seconds <p style="color:green;">(5.1x)</td>
+    <td>0.86 GB <p style="color:green;">(0.25x)</p></td>
+  </tr>
+</table>
+<sub>Results of image generation <a href="https://huggingface.co/spaces/AlexKoff88/stable_diffusion">demo</a> using different optimized models. Input prompt  is “cartoon bird”, seed is 42. The models are with OpenVINO 2022.3 in <a href="https://huggingface.co/spaces/AlexKoff88/stable_diffusion">Hugging Face Spaces</a> using a “CPU upgrade” instance which utilizes 3rd Generation Intel® Xeon® Scalable Processors with Intel® Deep Learning Boost technology.</sub> 
+</div>
 
 Results of image generation [demo](https://huggingface.co/spaces/AlexKoff88/stable_diffusion) using different optimized models. Input prompt is "cartoon bird", seed is 42. The models are with OpenVINO 2022.3 in [Hugging Face Spaces](https://huggingface.co/spaces/AlexKoff88/stable_diffusion) using a "CPU upgrade" instance which utilizes 3rd Generation Intel® Xeon® Scalable Processors with Intel® Deep Learning Boost technology.
 

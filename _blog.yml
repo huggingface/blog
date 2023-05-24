@@ -2167,3 +2167,14 @@
     - instruction-tuning
     - research
     - guide
+
+- local: train-optimize-sd-intel
+  title: "Optimizing Stable Diffusion for Intel CPUs with NNCF and 🤗 Optimum"
+  author: sayakpaul
+  thumbnail: /blog/assets/train_optimize_sd_intel/thumbnail.png
+  date: May 26, 2023
+  tags:
+    - diffusers
+    - cpu
+    - intel
+    - guide
