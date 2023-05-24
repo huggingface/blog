@@ -54,7 +54,8 @@ The FP8 (floating point 8) format has been first introduced in the paper [“FP8
 |:--:|
 | <b>Overview of Floating Point 8 (FP8) format.  Source: Original content from [`sgugger`](https://huggingface.co/sgugger) </b>|
 
-Although the precision is substantially reduced by reducing the number of bits from 32 to 8, both versions can be used in a variety of situations. 
+Although the precision is substantially reduced by reducing the number of bits from 32 to 8, both versions can be used in a variety of situations. Currently one could use [Transformer Engine library](https://github.com/NVIDIA/TransformerEngine) that is also integrated with HF ecosystem through accelerate.
+
 The potential floating points that can be represented in the E4M3 format are in the range -448 to 448, whereas in the E5M2 format, as the number of bits of the exponent increases, the range increases to -57344 to 57344 - but with a loss of precision because the number of possible representations remains constant.
 It has been empirically proven that the E4M3 is best suited for the forward pass, and the second version is best suited for the backward computation
 
