@@ -844,16 +844,6 @@
     - nlp
     - community
 
-- local: hugging-face-endpoints-on-azure
-  title: "Hugging Face Collaborates with Microsoft to Launch Hugging Face Endpoints on Azure"
-  author: juliensimon
-  thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/01.png
-  date: May 24, 2022
-  tags:
-    - launch
-    - cloud
-    - azure
-
 - local: community-update
   title: "Introducing Pull Requests and Discussions 🥳"
   author: victor
@@ -2178,6 +2168,7 @@
     - serialization
     - load times
 
+
 - local: huggingface-and-ibm
   title: "Hugging Face and IBM partner on watsonx.ai, the next-generation enterprise studio for AI builders"
   author: juliensimon
@@ -2186,6 +2177,16 @@
   tags:
     - cloud
     - ibm
+    - partnership
+
+- local: hugging-face-endpoints-on-azure
+  title: "Hugging Face Collaborates with Microsoft to Launch Hugging Face Model Catalog on Azure"
+  author: philschmid
+  thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/01.jpg
+  date: May 24, 2023
+  tags:
+    - cloud
+    - azure
     - partnership
 
 - local: train-optimize-sd-intel
