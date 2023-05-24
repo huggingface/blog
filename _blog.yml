@@ -2188,3 +2188,14 @@
     - cloud
     - azure
     - partnership
+
+- local: 4bit-transformers-bitsandbytes
+  title: "Making LLMs even more accessible with bitsandbytes, 4-bit quantization and QLoRA"
+  author: ybelkada
+  thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
+  date: May 24, 2023
+  tags:
+    - transformers
+    - quantization
+    - bitsandbytes
+    - 4bit
