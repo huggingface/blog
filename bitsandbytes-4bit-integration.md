@@ -98,7 +98,7 @@ The basic way to load a model in 4bit is to pass the argument `load_in_4bit=True
 ```python
 from transformers import AutoModelForCausalLM
 
-model = AutoModelForCausalLM.from_pretrained(“facebook/opt-350m”, load_in_4bit=True, device_map=”auto”)
+model = AutoModelForCausalLM.from_pretrained("facebook/opt-350m", load_in_4bit=True, device_map=”auto”)
 ...
 ```
 That's all you need!
