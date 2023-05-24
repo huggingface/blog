@@ -65,6 +65,8 @@ The sign bit represents the sign (+/-), the exponent bits a base two to the powe
 
 `-1 * 2^(2) * (1 + 2^-1) = -1 * 4 * 1.5 = -6`
 
+For FP4 there is no fixed format and as such one can try combinations of different mantissa/exponent combinations. In general, 3 exponent bits do a bit better in most cases. But sometimes 2 exponent bits and a mantissa bit yield better performance.
+
 ## QLoRA paper, a new way of democratizing quantized large transformer models
 
 In few words, QLoRA reduces the memory usage of LLM finetuning without performance tradeoffs compared to standard 16-bit model finetuning. This method enables 33B model finetuning on a single 24GB GPU and 65B model finetuning on a single 46GB GPU.
