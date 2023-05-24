@@ -93,7 +93,7 @@ pip install -q -U git+https://github.com/huggingface/accelerate.git
 
 ### Quickstart
 
-The basic way to load a model in 4bit is to pass the argument `load_in_4bit=True` when calling the `from_pretrained` method by providing a device map (pass “auto” to get a device map that will be automatically inferred).
+The basic way to load a model in 4bit is to pass the argument `load_in_4bit=True` when calling the `from_pretrained` method by providing a device map (pass `"auto"` to get a device map that will be automatically inferred).
 
 ```python
 from transformers import AutoModelForCausalLM
