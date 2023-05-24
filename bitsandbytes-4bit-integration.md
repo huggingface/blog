@@ -158,7 +158,7 @@ double_quant_config = BitsAndBytesConfig(
 model_double_quant = AutoModelForCausalLM.from_pretrained(model_id, quantization_config=double_quant_config)
 ```
 
-And of course, as mentioned in the beginning of the section, all of these components are composable. You can combine all these parameters together to find the optimial usecase for you. A rule of thum is: use double quant if you have problems with memory, use NF4 for higher precision, and use a 16-bit dtype for faster finetuning. For instance in the inference demo, we use nested quantization, bfloat16 compute dtype and NF4 quantization to fit gpt-neo-x-20b (40GB) entirely in 4bit in a single 16GB GPU.
+And of course, as mentioned in the beginning of the section, all of these components are composable. You can combine all these parameters together to find the optimial usecase for you. A rule of thum is: use double quant if you have problems with memory, use NF4 for higher precision, and use a 16-bit dtype for faster finetuning. For instance in the [inference demo](https://colab.research.google.com/drive/1ge2F1QSK8Q7h0hn3YKuBCOAS0bK8E0wf?usp=sharing), we use nested quantization, bfloat16 compute dtype and NF4 quantization to fit gpt-neo-x-20b (40GB) entirely in 4bit in a single 16GB GPU.
 
 ### Common questions
 
