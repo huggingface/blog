@@ -224,3 +224,9 @@ We have also made some benchmarks on the impact of this quantization method on t
 | decapoda-research/llama-13b-hf      | 27GB                              | 1xNVIDIA-T4 / 16GB         | 4bit + NF4 + fp16 CD + GC + NQ                                                              | 1          | 4                           | AdamW             | 1024    | **No OOM** |
 
 We have used the recent `SFTTrainer` from TRL library, and the benchmarking script can be found [here](https://gist.github.com/younesbelkada/f48af54c74ba6a39a7ae4fd777e72fe8)
+
+## Acknowledgements
+
+The HF team would like to acknowledge all the people involved in this project from University of Washington, and for making this available to the community. 
+
+The authors would also like to thank [Pedro Cuenca](https://huggingface.co/pcuenq) for kindly reviewing the blogpost, [Olivier Dehaene](https://huggingface.co/olivierdehaene) and [Omar Sanseviero](https://huggingface.co/osanseviero) for their quick and strong support for the integration of the paper's artifact in the HF Hub.
