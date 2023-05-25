@@ -2204,7 +2204,7 @@
   title: "Optimizing Stable Diffusion for Intel CPUs with NNCF and 🤗 Optimum"
   author: AlexKoff88
   thumbnail: /blog/assets/train_optimize_sd_intel/thumbnail.png
-  date: May 26, 2023
+  date: May 25, 2023
   tags:
     - diffusers
     - cpu
