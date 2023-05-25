@@ -2178,7 +2178,7 @@
     - cloud
     - ibm
     - partnership
-    
+
 - local: hugging-face-endpoints-on-azure
   title: "Hugging Face Collaborates with Microsoft to Launch Hugging Face Model Catalog on Azure"
   author: philschmid
@@ -2199,3 +2199,14 @@
     - quantization
     - bitsandbytes
     - 4bit
+
+- local: train-optimize-sd-intel
+  title: "Optimizing Stable Diffusion for Intel CPUs with NNCF and 🤗 Optimum"
+  author: AlexKoff88
+  thumbnail: /blog/assets/train_optimize_sd_intel/thumbnail.png
+  date: May 25, 2023
+  tags:
+    - diffusers
+    - cpu
+    - intel
+    - guide
