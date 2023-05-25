@@ -30,6 +30,7 @@ This blogpost and release come with several resources to get started with 4bit m
 - [Basic usage Google Colab notebook](https://colab.research.google.com/drive/1ge2F1QSK8Q7h0hn3YKuBCOAS0bK8E0wf?usp=sharing) - This notebook shows how to use 4bit models in inference with all their variants, and how to run GPT-neo-X (a 20B parameter model) on a free Google Colab instance 🤯 
 - [Fine tuning Google Colab notebook](https://colab.research.google.com/drive/1VoYNfYDKcKRQRor98Zbf2-9VQTtGJ24k?usp=sharing) - This notebook shows how to fine-tune a 4bit model on a downstream task using the Hugging Face ecosystem. We show that it is possible to fine tune GPT-neo-X 20B on a Google Colab instance!
 - [Original repository for replicating the paper's results](https://github.com/artidoro/qlora)
+- [Guanaco 33b playground](https://huggingface.co/spaces/uwnlp/guanaco-playground-tgi)
 
 
 ## Introduction
