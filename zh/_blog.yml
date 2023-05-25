@@ -504,6 +504,15 @@
     - nlp
     - community
     - research
+    
+- local: assisted-generation
+  title: "辅助生成：低延迟文本生成的新方向"
+  author: joaogante
+  thumbnail: /blog/assets/assisted-generation/thumbnail.png
+  date: May 11, 2023
+  tags:
+    - nlp
+    - research
 
 - local: generative-ai-models-on-intel-cpu
   title: "越小越好：Q8-Chat，在英特尔至强 CPU 上体验高效的生成式 AI"
