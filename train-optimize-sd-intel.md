@@ -37,7 +37,7 @@ However, it turns out that the traditional model optimization methods, such as p
 
 We usually start the optimization of a model after it's trained. Here, we start from a [model](https://huggingface.co/svjack/Stable-Diffusion-Pokemon-en) fine-tuned on the [Pokemons dataset](https://huggingface.co/datasets/lambdalabs/pokemon-blip-captions) containing images of Pokemons and their text descriptions.
 
-We used the [text-to-image fine-tuning example](https://huggingface.co/docs/diffusers/training/text2image) for Stable Diffusion from the Diffusers and integrated QAT from NNCF into the training script. We also changed the loss function to incorporate knowledge distillation from the source model that acts as a teacher in this process while the actual model being trained acts as a student. This approach is different from the classical knowledge distillation method, where the trained teacher model is distilled into a smaller student model. In our case, knowledge distillation is used as an auxiliary method that helps improve the final accuracy of the optimizing model. We also use the Exponential Moving Average (EMA) method for model parameters excluding quantizers which allows us to make the training process more stable. We tune the model for 4096 iterations only.
+We used the [text-to-image fine-tuning example](https://huggingface.co/docs/diffusers/training/text2image) for Stable Diffusion from the Diffusers and integrated QAT from NNCF into the following training [script](https://github.com/huggingface/optimum-intel/tree/main/examples/openvino/stable-diffusion). We also changed the loss function to incorporate knowledge distillation from the source model that acts as a teacher in this process while the actual model being trained acts as a student. This approach is different from the classical knowledge distillation method, where the trained teacher model is distilled into a smaller student model. In our case, knowledge distillation is used as an auxiliary method that helps improve the final accuracy of the optimizing model. We also use the Exponential Moving Average (EMA) method for model parameters excluding quantizers which allows us to make the training process more stable. We tune the model for 4096 iterations only.
 
 With some tricks, such as gradient checkpointing and [keeping the EMA model](https://github.com/huggingface/optimum-intel/blob/bbbe7ff0e81938802dbc1d234c3dcdf58ef56984/examples/openvino/stable-diffusion/train_text_to_image_qat.py#L941) in RAM instead of VRAM, we can run the optimization process using one GPU with 24 GB of VRAM. The whole optimization takes less than a day using one GPU!
 
@@ -60,7 +60,7 @@ The resultant model is highly beneficial when running inference on devices with 
 | ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-optimize-sd-intel/image_quantized.png) | OpenVINO 8-bit | 59 seconds<br>**(3.9x)** | 0.86 GB<br>**(0.25x)** |
 | ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-optimize-sd-intel/image_tome_quantized.png) | OpenVINO ToMe + 8-bit | 44.6 seconds<br>**(5.1x)** | 0.86 GB<br>**(0.25x)** |
 
-Results of image generation [demo](https://huggingface.co/spaces/AlexKoff88/stable_diffusion) using different optimized models. Input prompt  is “cartoon bird”, seed is 42. The models are with OpenVINO 2022.3 in [Hugging Face Spaces](https://huggingface.co/spaces/AlexKoff88/stable_diffusion) using a “CPU upgrade” instance which utilizes 3rd Generation Intel® Xeon® Scalable Processors with Intel® Deep Learning Boost technology.
+Results of image generation [demo](https://huggingface.co/spaces/AlexKoff88/stable_diffusion) using different optimized models. Input prompt is “cartoon bird”, seed is 42. The models are with OpenVINO 2022.3 in [Hugging Face Spaces](https://huggingface.co/docs/hub/spaces-overview) using a “CPU upgrade” instance which utilizes 3rd Generation Intel® Xeon® Scalable Processors with Intel® Deep Learning Boost technology.
 
 ## Results
 
@@ -72,7 +72,6 @@ Below we show to perform inference with the final pipeline optimized to run on I
 
 ```python
 from optimum.intel.openvino import OVStableDiffusionPipeline
-from diffusers import DDPMScheduler, StableDiffusionPipeline
 
 # Load and compile the pipeline for performance.
 name = "OpenVINO/stable-diffusion-pokemons-tome-quantized-aggressive"
@@ -83,10 +82,10 @@ pipe.compile()
 # Generate an image.
 prompt = "a drawing of a green pokemon with red eyes"
 output = pipe(prompt, num_inference_steps=50, output_type="pil").images[0]
-output.save("image.png") 
+output.save("image.png")
 ```
 
-You can find the training and quantization [code](https://github.com/huggingface/optimum-intel/tree/main/examples/openvino/stable-diffusion) in the Hugging Face Optimum-Intel library. The notebook that demonstrates the difference between optimized and original models is available [here](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/stable_diffusion_optimization.ipynb). You can also find a bunch of models in our [group](https://huggingface.co/OpenVINO) on the Hugging Face Hub. In addition, we have created a [demo](https://huggingface.co/spaces/AlexKoff88/stable_diffusion) on Hugging Face Spaces that is being run on r6id.2xlarge instance with 3rd Generation Intel Xeon Scalable processor.
+You can find the training and quantization [code](https://github.com/huggingface/optimum-intel/tree/main/examples/openvino/stable-diffusion) in the Hugging Face [Optimum Intel](https://huggingface.co/docs/optimum/main/en/intel/index) library. The notebook that demonstrates the difference between optimized and original models is available [here](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/stable_diffusion_optimization.ipynb). You can also find [many models](https://huggingface.co/models?library=openvino&sort=downloads) on the Hugging Face Hub under the [OpenVINO organization](https://huggingface.co/OpenVINO). In addition, we have created a [demo](https://huggingface.co/spaces/AlexKoff88/stable_diffusion) on Hugging Face Spaces that is being run on r6id.2xlarge instance with 3rd Generation Intel Xeon Scalable processor.
 
 ## What about the general-purpose Stable Diffusion model?
 
