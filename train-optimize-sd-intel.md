@@ -53,12 +53,26 @@ We modified the Token Merging method to be compliant with OpenVINO and stacked i
 
 The resultant model is highly beneficial when running inference on devices with limited computational resources, such as client or edge CPUs. As it was mentioned, stacking Token Merging with quantization leads to an additional reduction in the inference latency.
 
-| **Image** | **Setting** | **Inference <br>Speed** | **Memory <br>Footprint** |
-|:---:|:---:|:---:|:---:|
-| ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-optimize-sd-intel/image_torch.png) | PyTorch FP32 | 230.5 seconds | 3.44 GB |
-| ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-optimize-sd-intel/image_fp32.png) | OpenVINO FP32 | 120 seconds <br>**(1.9x)** | 3.44 GB |
-| ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-optimize-sd-intel/image_quantized.png) | OpenVINO 8-bit | 59 seconds<br>**(3.9x)** | 0.86 GB<br>**(0.25x)** |
-| ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-optimize-sd-intel/image_tome_quantized.png) | OpenVINO ToMe + 8-bit | 44.6 seconds<br>**(5.1x)** | 0.86 GB<br>**(0.25x)** |
+<div class="flex flex-row">
+<div class="grid grid-cols-2 gap-4">
+<figure>
+<img class="max-w-full rounded-xl border-2 border-solid border-gray-600" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-optimize-sd-intel/image_torch.png" alt="Image 1" />
+<figcaption class="mt-2 text-center text-sm text-gray-500">PyTorch FP32, Inference Speed: 230.5 seconds, Memory Footprint: 3.44 GB</figcaption>
+</figure>
+<figure>
+<img class="max-w-full rounded-xl border-2 border-solid border-gray-600" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-optimize-sd-intel/image_fp32.png" alt="Image 2" />
+<figcaption class="mt-2 text-center text-sm text-gray-500">OpenVINO FP32, Inference Speed: 120 seconds (<b>1.9x</b>), Memory Footprint: 3.44 GB</figcaption>
+</figure>
+<figure>
+<img class="max-w-full rounded-xl border-2 border-solid border-gray-600" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-optimize-sd-intel/image_quantized.png" alt="Image 3" />
+<figcaption class="mt-2 text-center text-sm text-gray-500">OpenVINO 8-bit, Inference Speed: 59 seconds (<b>3.9x</b>), Memory Footprint: 0.86 GB (<b>0.25x</b>)</figcaption>
+</figure>
+<figure>
+<img class="max-w-full rounded-xl border-2 border-solid border-gray-600" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/train-optimize-sd-intel/image_tome_quantized.png" alt="Image 4" />
+<figcaption class="mt-2 text-center text-sm text-gray-500">ToMe + OpenVINO 8-bit, Inference Speed: 44.6 seconds (<b>5.1x</b>), Memory Footprint: 0.86 GB (<b>0.25x</b>)</figcaption>
+</figure>
+</div>
+</div>
 
 Results of image generation [demo](https://huggingface.co/spaces/AlexKoff88/stable_diffusion) using different optimized models. Input prompt  is “cartoon bird”, seed is 42. The models are with OpenVINO 2022.3 in [Hugging Face Spaces](https://huggingface.co/spaces/AlexKoff88/stable_diffusion) using a “CPU upgrade” instance which utilizes 3rd Generation Intel® Xeon® Scalable Processors with Intel® Deep Learning Boost technology.
 
