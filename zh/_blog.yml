@@ -35,6 +35,15 @@
     - llm
     - quantization
 
+- local: megatron-training
+  title: "如何使用 Megatron-LM 训练语言模型"
+  author: loubnabnl
+  thumbnail: /blog/assets/100_megatron_training/thumbnail.png
+  date: September 7, 2022
+  tags:
+    - guide
+    - nlp
+
 - local: bloom-inference-pytorch-scripts
   title: "使用 DeepSpeed 和 Accelerate 进行超快 BLOOM 模型推理"
   author: stas
