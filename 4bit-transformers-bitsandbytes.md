@@ -30,7 +30,7 @@ This blogpost and release come with several resources to get started with 4bit m
 - [Basic usage Google Colab notebook](https://colab.research.google.com/drive/1ge2F1QSK8Q7h0hn3YKuBCOAS0bK8E0wf?usp=sharing) - This notebook shows how to use 4bit models in inference with all their variants, and how to run GPT-neo-X (a 20B parameter model) on a free Google Colab instance 🤯 
 - [Fine tuning Google Colab notebook](https://colab.research.google.com/drive/1VoYNfYDKcKRQRor98Zbf2-9VQTtGJ24k?usp=sharing) - This notebook shows how to fine-tune a 4bit model on a downstream task using the Hugging Face ecosystem. We show that it is possible to fine tune GPT-neo-X 20B on a Google Colab instance!
 - [Original repository for replicating the paper's results](https://github.com/artidoro/qlora)
-- [Guanaco 33b playground](https://huggingface.co/spaces/uwnlp/guanaco-playground-tgi)
+- [Guanaco 33b playground](https://huggingface.co/spaces/uwnlp/guanaco-playground-tgi) - or check the playground section below
 
 
 ## Introduction
@@ -228,6 +228,18 @@ We have also made some benchmarks on the impact of this quantization method on t
 | decapoda-research/llama-13b-hf      | 27GB                              | 1xNVIDIA-T4 / 16GB         | 4bit + NF4 + fp16 CD + GC + NQ                                                              | 1          | 4                           | AdamW             | 1024    | **No OOM** |
 
 We have used the recent `SFTTrainer` from TRL library, and the benchmarking script can be found [here](https://gist.github.com/younesbelkada/f48af54c74ba6a39a7ae4fd777e72fe8)
+
+## Playground
+
+Try out the Guananco model cited on the paper on [the playground](https://huggingface.co/spaces/uwnlp/guanaco-playground-tgi) or directly below
+
+<!-- [SPACE WITH GREEDY DECODING PERFORMANCE NUMBERS] -->
+<script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/3.32.0/gradio.js"
+></script>
+
+<gradio-app space="uwnlp/guanaco-playground-tgi"></gradio-app>
 
 ## Acknowledgements
 
