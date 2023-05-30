@@ -214,7 +214,7 @@ dolly_docs = dataset['train']['response']
 dolly_topics, dolly_probs = topic_model.transform(dolly_docs)
 ```
 
-We can then compare the distribution of topics across both datasets. We cna see here that there seems to be a broader distribution across topics in the dolly dataset according to our BERTopic model. This might be a result of the different approaches to creating both datasets. 
+We can then compare the distribution of topics across both datasets. We can see here that there seems to be a broader distribution across topics in the dolly dataset according to our BERTopic model. This might be a result of the different approaches to creating both datasets. 
 
 TODO update distribution.png
 
