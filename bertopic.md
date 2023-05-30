@@ -35,7 +35,8 @@ BERTopic is a state-of-the-art Python library that simplifies the topic modellin
 
 *An overview of the BERTopic library*
 
-BERTopic supports guided, supervised, semi-supervised, manual, long-document, hierarchical, class-based, dynamic, online, multimodal, and multi-aspect topic modeling. It even supports visualizations similar to LDAvis!
+Whilst BERTopic is easy to get started with, it also supports a range of advanced approaches to topic modelling including 
+[guided](https://maartengr.github.io/BERTopic/getting_started/guided/guided.html), [supervised](https://maartengr.github.io/BERTopic/getting_started/supervised/supervised.html), [semi-supervised](https://maartengr.github.io/BERTopic/getting_started/semisupervised/semisupervised.html) and [manual](https://maartengr.github.io/BERTopic/getting_started/manual/manual.html) topic modelling. More recently BERTopic has added support for multi-modal topic models. BERTopic also have a rich set of tools for producing visualizations. 
 
 BERTopic provides a powerful tool for users to uncover significant topics within text collections, thereby gaining valuable insights. With BERTopic, users can analyze customer reviews, explore research papers, or categorize news articles with ease, making it an essential tool for anyone looking to extract meaningful information from their text data.
 
