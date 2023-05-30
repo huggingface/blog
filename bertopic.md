@@ -44,6 +44,23 @@ BERTopic provides a powerful tool for users to uncover significant topics within
 
 With the latest integration, BERTopic users can seamlessly push and pull their trained topic models to and from the Hugging Face Hub. This integration marks a significant milestone in simplifying the deployment and management of BERTopic models across different environments.
 
+The process of training and pushing a BERTopic model to the Hub can be done in a few lines
+
+```python
+from bertopic import BERTopic
+
+topic_model = BERTopic("english")
+topics, probs = topic_model.fit_transform(docs)
+topic_model.push_to_hf_hub('davanstrien/transformers_issues_topics')
+```
+You can then load this model in two lines and use it to predict against new data.
+
+```python
+from bertopic import BERTopic
+topic_model = BERTopic.load("davanstrien/transformers_issues_topics")
+```
+
+
 By leveraging the power of the Hugging Face Hub, BERTopic users can effortlessly share, version, and collaborate on their topic models. The Hub acts as a central repository, allowing users to store and organize their models, making it easier to deploy models in production, share them with colleagues, or even showcase them to the broader NLP community. 
 
 Once you have a trained topic model, you can push it to the Hugging Face Hub in one line. Pushing your model to the Hub will automatically create an initial model card for your model, including an overview of the topics created. Below you can see an example of the topics resulting from a [model trained on ArXiv data](https://huggingface.co/MaartenGr/BERTopic_ArXiv). 
