@@ -34,7 +34,7 @@ RNN 架构是最早广泛用于处理序列数据的神经网络架构之一。�
 
 | ![rnn_diagram](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/142_rwkv/RNN-scheme.png) |
 | :-: |
-| <b><a href="https://karpathy.github.io/2015/05/21/rnn-effectiveness/" rel="noopener" target="_blank"></a></b> |
+| <b>RNN 在不同场景下 RNN 的网络配置简图。图片来源：<a href="https://karpathy.github.io/2015/05/21/rnn-effectiveness/" rel="noopener" target="_blank">Andrej Karpathy 的博文</a></b> |
 
 由于 RNN 在计算每一时刻的预测值时使用的都是同一组网络权重，因此 RNN 很难解决长距离序列信息的记忆问题，这一定程度上也是训练过程中梯度消失导致的。为解决这个问题，相继有新的网络架构被提出，如 LSTM 或者 GRU，其中 transformer 是已被证实最有效的架构。
 
@@ -42,11 +42,11 @@ RNN 架构是最早广泛用于处理序列数据的神经网络架构之一。�
 
 | ![transformer_diagram](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/142_rwkv/transformer-scheme.png) |
 | :-: |
-| <b><a href="https://jalammar.github.io/illustrated-transformer/" rel="noopener" target="_blank" ></a></b> |
+| <b>transformer 模型中的注意力分数计算公式。图片来源：<a href="https://jalammar.github.io/illustrated-transformer/" rel="noopener" target="_blank" >Jay Alammar 的博文</a></b> |
 
 | ![rwkv_attention_formula](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/142_rwkv/RWKV-formula.png) |
 | :-: |
-| <b><a href="https://raw.githubusercontent.com/BlinkDL/RWKV-LM/main/RWKV-formula.png" rel="noopener" target="_blank" ></a></b> |
+| <b>RWKV 模型中的注意力分数计算公式。来源：<a href="https://raw.githubusercontent.com/BlinkDL/RWKV-LM/main/RWKV-formula.png" rel="noopener" target="_blank" >RWKV 博文</a></b> |
 
 在训练过程中，Transformer 架构相比于传统的 RNN 和 CNN 有多个优势，最突出的优势是它能够学到上下文特征表达。不同于每次仅处理输入序列中一个 token 的 RNN 和 CNN，transformer 可以单次处理整个输入序列，这种特性也使得 transformer 可以很好地应对长距离序列 token 依赖问题，因此 transformer 在语言翻译和问答等多种任务中表现非常亮眼。
 
@@ -68,7 +68,7 @@ RNN 本身支持非常长的上下文长度。即使在训练时接收的上下�
 
 | ![rwkv_loss](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/142_rwkv/RWKV-loss.png) |
 | :-: |
-| <b><a href="https://raw.githubusercontent.com/BlinkDL/RWKV-LM/main/RWKV-ctxlen.png" rel="noopener" target="_blank"></a></b> |
+| <b>LM Loss 在不同上下文长度和模型大小的曲线。图片来源：<a href="https://raw.githubusercontent.com/BlinkDL/RWKV-LM/main/RWKV-ctxlen.png" rel="noopener" target="_blank">RWKV 原始仓库</a></b> |
 
 1. 传统的 RNN 模型无法并行训练，而 RWKV 更像一个 “线性 GPT”，因此比 GPT 训练得更快。
 
@@ -88,7 +88,7 @@ RWKV 模型架构与经典的 transformer 模型架构非常相似 (例如也包
 
 | ![rwkv_loss](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/142_rwkv/RWKV-eval.png) |
 | :-: |
-| <b><a href="https://johanwind.github.io/2023/03/23/rwkv_overview.html" rel="noopener" target="_blank" ></a></b> |
+| <b>RWKV-4 与其他常见架构的性能对比。图片来源：<a href="https://johanwind.github.io/2023/03/23/rwkv_overview.html" rel="noopener" target="_blank" >Johan Wind 的博文</a></b> |
 
 #### 指令微调/Chat 版: RWKV-4 Raven
 
