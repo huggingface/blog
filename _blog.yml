@@ -2211,3 +2211,12 @@
     - intel
     - guide
     - quantization
+
+- local: game-jam
+  title: "Announcing our first AI Game Jam 🎮"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/145_gamejam/thumbnail.png
+  date: May 31, 2023
+  tags:
+    - community
+    - game-dev
