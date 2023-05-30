@@ -5,7 +5,6 @@ authors:
 - user: MaartenGr
   guest: true
 - user: davanstrien
-  guest: false
 ---
 
 <h1> Introducing BERTopic Integration with Hugging Face Hub"</h1> 
