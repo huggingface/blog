@@ -12,6 +12,8 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg 'open in colab')](https://colab.research.google.com/#fileId=https://huggingface.co/spaces/davanstrien/blog_notebooks/blob/main/BERTopic_hub_starter.ipynb)
+
 We are thrilled to announce a significant update to the [BERTopic](https://maartengr.github.io/BERTopic) Python library, expanding its capabilities and further streamlining the workflow for topic modelling enthusiasts and practitioners. BERTopic now supports pushing and pulling trained topic models directly to and from the Hugging Face Hub. This new integration opens up exciting possibilities for leveraging the power of BERTopic in production use cases with ease.
 
 ## What is Topic Modelling?
@@ -247,7 +249,11 @@ We can potentially use topic models in a production setting to monitor whether t
 
 You can visit the official documentation for a [quick start guide](https://maartengr.github.io/BERTopic/getting_started/quickstart/quickstart.html) to get help using BERTopic. 
 
-You can find a starter [Colab notebook](https://colab.research.google.com/drive/1JgNfcztTxZP8UEW6qtEyriTcgQfSdzZh?usp=sharing) that shows how you can train a BERTopic model and push it to the Hub.  
+You can find a starter Colab notebook [here](https://colab.research.google.com/#fileId=https%3A//huggingface.co/spaces/davanstrien/blog_notebooks/blob/main/BERTopic_hub_starter.ipynb)
+
+
+
+[() that shows how you can train a BERTopic model and push it to the Hub.  
 
 Some example of BERTopic models already on the hub:
 - [MaartenGr/BERTopic_ArXiv](https://huggingface.co/MaartenGr/BERTopic_ArXiv): a model trained on ~30000 ArXiv Computation and Language articles (cs.CL) after 1991.
