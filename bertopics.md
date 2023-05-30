@@ -99,6 +99,8 @@ We can then compare the distribution of topics across both datasets. We cna see 
 
 TODO update distribution.png
 
+We can potentially use topic models in a production setting to monitor whether topics drift to far from an expected distribution. This can serve as a signal that there has been drift between your original training data and the types of conversations you are seeing in production. 
+
 ## Get Started with BERTopic and Hugging Face Hub
 
 You can visit the official documentation for a [quick start guide](https://maartengr.github.io/BERTopic/getting_started/quickstart/quickstart.html) to get help using BERTopic. 
