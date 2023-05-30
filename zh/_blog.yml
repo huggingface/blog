@@ -523,6 +523,16 @@
     - nlp
     - research
 
+- local: rwkv
+  title: "RWKV——transformer 与 RNN 的强强联合"
+  author: BlinkDL
+  thumbnail: /blog/assets/142_rwkv/rwkv_thumbnail.png
+  date: May 15, 2023
+  tags:
+    - nlp
+    - community
+    - research 
+
 - local: generative-ai-models-on-intel-cpu
   title: "越小越好：Q8-Chat，在英特尔至强 CPU 上体验高效的生成式 AI"
   thumbnail: /blog/assets/143_q8chat/thumbnail.png
