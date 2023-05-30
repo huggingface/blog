@@ -24,7 +24,7 @@ BERTopic is a state-of-the-art Python library that simplifies the topic modellin
         style="max-width: 70%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
-      <source src="assets/145_bertopic/bertopic_overview.mp4" type="video/mp4">
+      <source src="https://user-images.githubusercontent.com/25746895/218420473-4b2bb539-9dbe-407a-9674-a8317c7fb3bf.mp4" type="video/mp4">
   </video>
 </figure>
 
