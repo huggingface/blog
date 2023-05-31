@@ -184,12 +184,6 @@ The `OpenAssistant/pythia-12b-sft-v8-7k-steps` is a conversational chat model me
 lets give it a first try and ask about some cool ideas to do in the summer:
 
 ```python
-from sagemaker.huggingface import HuggingFacePredictor
-
-llm = HuggingFacePredictor(endpoint_name="huggingface-pytorch-tgi-inference-2023-05-31-10-06-01-153")
-```
-
-```python
 chat = llm.predict({
 	"inputs": """<|prompter|>What are some cool ideas to do in the summer?<|endoftext|><|assistant|>"""
 })
