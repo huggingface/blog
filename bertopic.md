@@ -48,6 +48,8 @@ BERTopic provides a powerful tool for users to uncover significant topics within
 
 With the latest integration, BERTopic users can seamlessly push and pull their trained topic models to and from the Hugging Face Hub. This integration marks a significant milestone in simplifying the deployment and management of BERTopic models across different environments.
 
+![BERTopic usage snippet](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/BERTopic/use-from-bertopic-snippet.png)
+
 The process of training and pushing a BERTopic model to the Hub can be done in a few lines
 
 ```python
@@ -64,10 +66,13 @@ from bertopic import BERTopic
 topic_model = BERTopic.load("davanstrien/transformers_issues_topics")
 ```
 
-
 By leveraging the power of the Hugging Face Hub, BERTopic users can effortlessly share, version, and collaborate on their topic models. The Hub acts as a central repository, allowing users to store and organize their models, making it easier to deploy models in production, share them with colleagues, or even showcase them to the broader NLP community. 
 
-You can use the `libraries` filter on the hub to find BERTopic models. Once you have found a BERTopic model you are interested in you can use the Hub inference widget to try out the model and see if it might be a good fit for your use case.
+You can use the `libraries` filter on the hub to find BERTopic models. 
+
+![BERTopic hub filter](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/BERTopic/bertopic-lib-filter.png)
+
+Once you have found a BERTopic model you are interested in you can use the Hub inference widget to try out the model and see if it might be a good fit for your use case.
 
 Once you have a trained topic model, you can push it to the Hugging Face Hub in one line. Pushing your model to the Hub will automatically create an initial model card for your model, including an overview of the topics created. Below you can see an example of the topics resulting from a [model trained on ArXiv data](https://huggingface.co/MaartenGr/BERTopic_ArXiv). 
 
