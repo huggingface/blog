@@ -2221,7 +2221,7 @@
     - guide
     - open-source-collab
     - community
-    
+
 - local: sagemaker-huggingface-llm
   title: "Introducing the Hugging Face LLM Inference Container for Amazon SageMaker"
   author: philschmid
@@ -2232,3 +2232,11 @@
     - aws
     - partnership
     - guide
+
+- local: cnil-accompanument
+  title: "Hugging Face Selected for the French Data Protection Agency Enhanced Support Program"
+  author: yjernite
+  thumbnail: /blog/assets/146_cnil-accompaniment/logo.png
+  date: May 15, 2023
+  tags:
+    - ethics
