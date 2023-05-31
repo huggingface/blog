@@ -2221,3 +2221,14 @@
     - guide
     - open-source-collab
     - community
+    
+- local: sagemaker-huggingface-llm
+  title: "Introducing the Hugging Face LLM Inference Container for Amazon SageMaker"
+  author: philschmid
+  thumbnail: /blog/assets/145_sagemaker-huggingface-llm/thumbnail.jpg
+  date: May 31, 2023
+  tags:
+    - cloud
+    - aws
+    - partnership
+    - guide
