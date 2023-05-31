@@ -31,7 +31,7 @@ BERTopic is a state-of-the-art Python library that simplifies the topic modellin
         style="max-width: 70%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
-      <source src="https://user-images.githubusercontent.com/25746895/218420473-4b2bb539-9dbe-407a-9674-a8317c7fb3bf.mp4" type="video/mp4">
+      <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/2d1113254a370972470d42e122df150f3551cc07/blog/BERTopic/bertopic_overview.mp4" type="video/mp4">
   </video>
 </figure>
 
@@ -184,10 +184,7 @@ Once you have a trained topic model, you can push it to the Hugging Face Hub in 
 
 Due to the improved saving procedure, training on large datasets generates small model sizes. In the example below, a BERTopic model was trained on 100,000 documents, resulting in a ~50MB model keeping all of the original’s model functionality. For inference, the model can be further reduced to only ~3MB!
 
-TODO update image
-
-![](https://raw.githubusercontent.com/MaartenGr/BERTopic/d58b5a41cfbc032cf6919697b133c840825bcc37/docs/getting_started/serialization/serialization.png) #TODO update 
-
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/2d1113254a370972470d42e122df150f3551cc07/blog/BERTopic/serialization.png) 
 The benefits of this integration are particularly notable for production use cases. Users can now effortlessly deploy BERTopic models into their existing applications or systems, ensuring seamless integration within their data pipelines. This streamlined workflow enables faster iteration and efficient model updates and ensures consistency across different environments.
 
 ### safetensors: Ensuring Secure Model Management
@@ -203,6 +200,8 @@ The last year has seen several datasets for Reinforcement Learning with Human Fe
 BERTopic offers one way of getting a better understanding of the topics in this dataset. In this case, we train a model on the English assistant responses part of the datasets. Resulting in a [topic model](https://huggingface.co/davanstrien/chat_topics) with 75 topics. 
 
 BERTopic gives us various ways of visualizing a dataset. We can see the top 8 topics and their associated words below. We can see that the second most frequent topic consists mainly of ‘response words’, which we often see frequently from chat models, i.e. responses which aim to be ‘polite’ and ‘helpful’. We can also see a large number of topics related to programming or computing topics as well as physics, recipes and pets. 
+
+![Words associated with top 8 topics](https://huggingface.co/datasets/huggingface/documentation-images/resolve/2d1113254a370972470d42e122df150f3551cc07/blog/BERTopic/topic_word_scores.png)
 
 [databricks/databricks-dolly-15k](https://huggingface.co/datasets/databricks/databricks-dolly-15k) is another dataset that can be used to train an RLFH model. The approach taken to creating this dataset was quite different from the OpenAssistant Conversations dataset since it was created by employees of Databricks instead of being crowd sourced via volunteers. Perhaps we can use our trained BERTopic model to compare the topics across these two datasets?
 
@@ -239,9 +238,11 @@ dolly_docs = dataset['train']['response']
 dolly_topics, dolly_probs = topic_model.transform(dolly_docs)
 ```
 
-We can then compare the distribution of topics across both datasets. We can see here that there seems to be a broader distribution across topics in the dolly dataset according to our BERTopic model. This might be a result of the different approaches to creating both datasets. 
+We can then compare the distribution of topics across both datasets. We can see here that there seems to be a broader distribution across topics in the dolly dataset according to our BERTopic model. This might be a result of the different approaches to creating both datasets (we likely want to retrain a BERTopic across both datasets to ensure we are not missing topics to confirm this). 
 
-TODO update distribution.png
+![Topic distribution comparison](https://huggingface.co/datasets/huggingface/documentation-images/resolve/2d1113254a370972470d42e122df150f3551cc07/blog/BERTopic/distribution.png)
+
+*Comparison of the distribution of topics between the two datasets*
 
 We can potentially use topic models in a production setting to monitor whether topics drift to far from an expected distribution. This can serve as a signal that there has been drift between your original training data and the types of conversations you are seeing in production. You may also decide to use a topic modelling as you are collecting training data to ensure you are getting examples for topics you may particularly care about. 
 
@@ -249,11 +250,7 @@ We can potentially use topic models in a production setting to monitor whether t
 
 You can visit the official documentation for a [quick start guide](https://maartengr.github.io/BERTopic/getting_started/quickstart/quickstart.html) to get help using BERTopic. 
 
-You can find a starter Colab notebook [here](https://colab.research.google.com/#fileId=https%3A//huggingface.co/spaces/davanstrien/blog_notebooks/blob/main/BERTopic_hub_starter.ipynb)
-
-
-
-[() that shows how you can train a BERTopic model and push it to the Hub.  
+You can find a starter Colab notebook [here](https://colab.research.google.com/#fileId=https%3A//huggingface.co/spaces/davanstrien/blog_notebooks/blob/main/BERTopic_hub_starter.ipynb) that shows how you can train a BERTopic model and push it to the Hub.  
 
 Some example of BERTopic models already on the hub:
 - [MaartenGr/BERTopic_ArXiv](https://huggingface.co/MaartenGr/BERTopic_ArXiv): a model trained on ~30000 ArXiv Computation and Language articles (cs.CL) after 1991.
