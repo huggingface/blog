@@ -24,7 +24,7 @@ Each document usually covers multiple topics in different proportions. By examin
 
 ## What is BERTopic?
 
-BERTopic is a state-of-the-art Python library that simplifies the topic modelling process using various embedding techniques and c-TF-IDF to create dense clusters allowing for easily interpretable topics whilst keeping important words in the topic descriptions.
+BERTopic is a state-of-the-art Python library that simplifies the topic modelling process using various embedding techniques and [c-TF-IDF](https://maartengr.github.io/BERTopic/api/ctfidf.html) to create dense clusters allowing for easily interpretable topics whilst keeping important words in the topic descriptions.
 
 
 <figure class="image table text-center m-0 w-full">
@@ -39,7 +39,7 @@ BERTopic is a state-of-the-art Python library that simplifies the topic modellin
 
 *An overview of the BERTopic library*
 
-Whilst BERTopic is easy to get started with, it also supports a range of advanced approaches to topic modelling including 
+Whilst BERTopic is easy to get started with, it supports a range of advanced approaches to topic modelling including 
 [guided](https://maartengr.github.io/BERTopic/getting_started/guided/guided.html), [supervised](https://maartengr.github.io/BERTopic/getting_started/supervised/supervised.html), [semi-supervised](https://maartengr.github.io/BERTopic/getting_started/semisupervised/semisupervised.html) and [manual](https://maartengr.github.io/BERTopic/getting_started/manual/manual.html) topic modelling. More recently BERTopic has added support for multi-modal topic models. BERTopic also have a rich set of tools for producing visualizations. 
 
 BERTopic provides a powerful tool for users to uncover significant topics within text collections, thereby gaining valuable insights. With BERTopic, users can analyze customer reviews, explore research papers, or categorize news articles with ease, making it an essential tool for anyone looking to extract meaningful information from their text data.
@@ -67,7 +67,7 @@ topic_model = BERTopic.load("davanstrien/transformers_issues_topics")
 
 By leveraging the power of the Hugging Face Hub, BERTopic users can effortlessly share, version, and collaborate on their topic models. The Hub acts as a central repository, allowing users to store and organize their models, making it easier to deploy models in production, share them with colleagues, or even showcase them to the broader NLP community. 
 
-You can use the `libraries` filter on the hub to find BERTopic models and once you have found a BERTopic model you are interested in you can use the Hub inference widget to try out the model and see if it might be a good fit for your use case.
+You can use the `libraries` filter on the hub to find BERTopic models. Once you have found a BERTopic model you are interested in you can use the Hub inference widget to try out the model and see if it might be a good fit for your use case.
 
 Once you have a trained topic model, you can push it to the Hugging Face Hub in one line. Pushing your model to the Hub will automatically create an initial model card for your model, including an overview of the topics created. Below you can see an example of the topics resulting from a [model trained on ArXiv data](https://huggingface.co/MaartenGr/BERTopic_ArXiv). 
 
@@ -193,13 +193,14 @@ The benefits of this integration are particularly notable for production use cas
 
 ### safetensors: Ensuring Secure Model Management
 
-In addition to the Hugging Face Hub integration, BERTopic now supports serialization using the [safetensors library](https://huggingface.co/docs/safetensors/). Safetensors is a new simple format for storing tensors safely (instead of pickle), which is still fast (zero-copy). We’re excited to see more and more libraries leveraging safetensors for storing embeddings. You can read more about a recent audit of the library in this [blog post](https://huggingface.co/blog/safetensors-security-audit).
+In addition to the Hugging Face Hub integration, BERTopic now supports serialization using the [safetensors library](https://huggingface.co/docs/safetensors/). Safetensors is a new simple format for storing tensors safely (instead of pickle), which is still fast (zero-copy). We’re excited to see more and more libraries leveraging safetensors for safe serialization. You can read more about a recent audit of the library in this [blog post](https://huggingface.co/blog/safetensors-security-audit).
+
 
 ### An example of using BERTopic to explore RLFH datasets
 
 To illustrate some of the power of BERTopic lets look at an example of how it can be used to monitor changes in topics in datasets used to train chat models. 
 
-The last year has seen several datasets for Reinforcement Learning with Human Feedback released. One of these datasets is the [OpenAssistant Conversations dataset](https://huggingface.co/datasets/OpenAssistant/oasst1). This dataset was produced via a worldwide crowd-sourcing effort involving over 13,500 volunteers. Whilst this dataset already has some scores for toxicity, quality, humour etc., we want to get a better understanding of what types of conversations are represented in this dataset. 
+The last year has seen several datasets for Reinforcement Learning with Human Feedback released. One of these datasets is the [OpenAssistant Conversations dataset](https://huggingface.co/datasets/OpenAssistant/oasst1). This dataset was produced via a worldwide crowd-sourcing effort involving over 13,500 volunteers. Whilst this dataset already has some scores for toxicity, quality, humour etc., we may want to get a better understanding of what types of conversations are represented in this dataset. 
 
 BERTopic offers one way of getting a better understanding of the topics in this dataset. In this case, we train a model on the English assistant responses part of the datasets. Resulting in a [topic model](https://huggingface.co/davanstrien/chat_topics) with 75 topics. 
 
