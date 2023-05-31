@@ -7,6 +7,15 @@
     - guide
     - nlp
 
+- local: encoder-decoder
+  title: "基于 Transformers 的编码器-解码器模型"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/05_encoder_decoder/thumbnail.png
+  date: October 10, 2020
+  tags:
+    - research
+    - nlp
+
 - local: large-language-models
   title: "大语言模型: 新的摩尔定律？"
   author: juliensimon
