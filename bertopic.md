@@ -1,5 +1,5 @@
 ---
-title: "Introducing BERTopic Integration with Hugging Face Hub"
+title: "Introducing BERTopic Integration with the Hugging Face Hub"
 thumbnail: /blog/assets/145_bertopic/logo.png
 authors:
 - user: MaartenGr
@@ -7,7 +7,7 @@ authors:
 - user: davanstrien
 ---
 
-<h1> Introducing BERTopic Integration with Hugging Face Hub</h1> 
+<h1> Introducing BERTopic Integration with the Hugging Face Hub</h1> 
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
