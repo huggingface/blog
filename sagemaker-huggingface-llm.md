@@ -21,6 +21,8 @@ The example covers:
 4. [Run inference and chat with our model](#4-run-inference-and-chat-with-our-model)
 5. [Create Gradio Chatbot backed by Amazon SageMaker](#5-create-gradio-chatbot-backed-by-amazon-sagemaker)
 
+You can find the code for the example also in the [notebooks repository](https://github.com/huggingface/notebooks/blob/main/sagemaker/27_deploy_large_language_models/sagemaker-notebook.ipynb).
+
 ## What is Hugging Face LLM Inference DLC?
 
 Hugging Face LLM DLC is a new purpose-built Inference Container to easily deploy LLMs in a secure and managed environment. The DLC is powered by [Text Generation Inference (TGI)](https://github.com/huggingface/text-generation-inference), an open-source, purpose-built solution for deploying and serving Large Language Models (LLMs). TGI enables high-performance text generation using Tensor Parallelism and dynamic batching for the most popular open-source LLMs, including StarCoder, BLOOM, GPT-NeoX, Llama, and T5.
