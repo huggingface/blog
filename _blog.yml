@@ -2211,3 +2211,14 @@
     - intel
     - guide
     - quantization
+
+- local: sagemaker-huggingface-llm
+  title: "Introducing the Hugging Face LLM Inference Container for Amazon SageMaker"
+  author: philschmid
+  thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/thumbnail.jpg
+  date: May 31, 2023
+  tags:
+    - cloud
+    - aws
+    - partnership
+    - guide
