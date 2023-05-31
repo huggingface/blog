@@ -7,7 +7,7 @@ authors:
 - user: davanstrien
 ---
 
-<h1> Introducing BERTopic Integration with Hugging Face Hub"</h1> 
+<h1> Introducing BERTopic Integration with Hugging Face Hub</h1> 
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
