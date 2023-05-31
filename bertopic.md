@@ -48,8 +48,6 @@ BERTopic provides a powerful tool for users to uncover significant topics within
 
 With the latest integration, BERTopic users can seamlessly push and pull their trained topic models to and from the Hugging Face Hub. This integration marks a significant milestone in simplifying the deployment and management of BERTopic models across different environments.
 
-![BERTopic usage snippet](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/BERTopic/use-from-bertopic-snippet.png)
-
 The process of training and pushing a BERTopic model to the Hub can be done in a few lines
 
 ```python
@@ -266,6 +264,8 @@ Some example of BERTopic models already on the hub:
 - [MaartenGr/BERTopic_ArXiv](https://huggingface.co/MaartenGr/BERTopic_ArXiv): a model trained on ~30000 ArXiv Computation and Language articles (cs.CL) after 1991.
 - [MaartenGr/BERTopic_Wikipedia](https://huggingface.co/MaartenGr/BERTopic_Wikipedia): a model trained on 1000000 English Wikipedia pages.
 - [davanstrien/imdb_bertopic](https://huggingface.co/davanstrien/imdb_bertopic): a model trained on the unsupervised split of the IMDB dataset
+
+You can find a full overview of BERTopic models on the hub using the [libraries filter](https://huggingface.co/models?library=bertopic&sort=downloads)
 
 We invite you to explore the possibilities of this new integration and share your trained models on the hub! 
 
