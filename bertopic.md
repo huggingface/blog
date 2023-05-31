@@ -18,7 +18,9 @@ We are thrilled to announce a significant update to the [BERTopic](https://maart
 
 ## What is Topic Modelling?
 
-Topic modelling is a method that can help uncover hidden themes or "topics" within a group of documents. By analyzing the words in the documents, we can find patterns and connections that reveal these underlying topics. For example, a document about machine learning is more likely to use words like "gradient" and "embedding" compared to a document about baking bread. Each document usually covers multiple topics in different proportions. By examining the word statistics, we can identify clusters of related words that represent these topics. This allows us to analyze a set of documents and determine the topics they discuss, as well as the balance of topics within each document. More recently, new approaches to topic modelling have moved beyond using words to using more rich representations such as those offered through Transformer based models.  
+Topic modelling is a method that can help uncover hidden themes or "topics" within a group of documents. By analyzing the words in the documents, we can find patterns and connections that reveal these underlying topics. For example, a document about machine learning is more likely to use words like "gradient" and "embedding" compared to a document about baking bread. 
+
+Each document usually covers multiple topics in different proportions. By examining the word statistics, we can identify clusters of related words that represent these topics. This allows us to analyze a set of documents and determine the topics they discuss, as well as the balance of topics within each document. More recently, new approaches to topic modelling have moved beyond using words to using more rich representations such as those offered through Transformer based models.  
 
 ## What is BERTopic?
 
