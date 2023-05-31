@@ -2248,4 +2248,13 @@
   date: June 1, 2023
   tags:
     - community
+  
+- local: unity-asr
+  title: "AI Speech Recognition in Unity"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/unity-asr-thumbnail.png
+  date: June 1, 2023
+  tags:
+    - community
+    - guide
     - game-dev
