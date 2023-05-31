@@ -1,5 +1,5 @@
 ---
-title: "Hugging Face Selected for the French Data Protection Agency Enhance Support Program"
+title: "Hugging Face Selected for the French Data Protection Agency Enhanced Support Program"
 thumbnail: /blog/assets/146_cnil-accompaniment/logo.png
 authors:
 - user: yjernite
@@ -7,7 +7,7 @@ authors:
 - user: annatrdj
 ---
 
-<h1> Hugging Face Selected for the French Data Protection Agency Accompaniment Program</h1> 
+<h1> Hugging Face Selected for the French Data Protection Agency Enhanced Support Program</h1> 
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
