@@ -2212,6 +2212,16 @@
     - guide
     - quantization
 
+- local: bertopic
+  title: "Introducing BERTopic Integration with Hugging Face Hub"
+  author: davanstrien
+  thumbnail: /blog/assets/145_bertopic/logo.png
+  date: May 31, 2023
+  tags:
+    - guide
+    - open-source-collab
+    - community
+    
 - local: sagemaker-huggingface-llm
   title: "Introducing the Hugging Face LLM Inference Container for Amazon SageMaker"
   author: philschmid
