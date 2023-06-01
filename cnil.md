@@ -5,6 +5,7 @@ authors:
 - user: yjernite
 - user: julien-c
 - user: annatrdj
+- user: Ima1
 ---
 
 <h1> Hugging Face Selected for the French Data Protection Agency Enhanced Support Program</h1> 
