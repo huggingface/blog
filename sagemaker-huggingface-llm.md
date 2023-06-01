@@ -11,7 +11,7 @@ authors:
 <!-- {authors} -->
 
 This is an example on how to deploy the open-source LLMs, like [BLOOM](bigscience/bloom) to Amazon SageMaker for inference using the new Hugging Face LLM Inference Container.
-We will deploy the 12B [Pythia Open Assistant Model](OpenAssistant/pythia-12b-sft-v8-7k-steps) an open-source Chat LLM trained by the Open Assistant dataset.
+We will deploy the 12B [Pythia Open Assistant Model](OpenAssistant/pythia-12b-sft-v8-7k-steps), an open-source Chat LLM trained with the Open Assistant dataset.
 
 The example covers:
 
@@ -52,7 +52,7 @@ Officially supported model architectures are currently:
 
 With the new Hugging Face LLM Inference DLCs on Amazon SageMaker, AWS customers can benefit from the same technologies that power highly concurrent, low latency LLM experiences like [HuggingChat](https://hf.co/chat), [OpenAssistant](https://open-assistant.io/), and Inference API for LLM models on the Hugging Face Hub.
 
-Lets get started!
+Let's get started!
 
 ## 1. Setup development environment
 
@@ -65,7 +65,7 @@ We are going to use the `sagemaker` python SDK to deploy BLOOM to Amazon SageMak
 #!pip install sagemaker --upgrade --quiet
 ```
 
-If you are going to use Sagemaker in a local environment. You need access to an IAM Role with the required permissions for Sagemaker. You can find [here](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html) more about it.
+If you are going to use Sagemaker in a local environment, you need access to an IAM Role with the required permissions for Sagemaker. You can find [here](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html) more about it.
 
 ```python
 import sagemaker
@@ -93,7 +93,7 @@ print(f"sagemaker session region: {sess.boto_region_name}")
 
 ## 2. Retrieve the new Hugging Face LLM DLC
 
-Compared to deploying regular Hugging Face models we first need to retrieve the container uri and provide it to our `HuggingFaceModel` model class with a `image_uri` pointing to the image. To retrieve the new Hugging Face LLM DLC in Amazon SageMaker, we can use the `get_huggingface_llm_image_uri` method provided by the `sagemaker` SDK. This method allows us to retrieve the URI for the desired Hugging Face LLM DLC based on the specified `backend`, `session`, `region`, and `version`. You can find the available versions [here](https://github.com/aws/deep-learning-containers/blob/master/available_images.md#huggingface-text-generation-inference-containers)
+Compared to deploying regular Hugging Face models, we first need to retrieve the container uri and provide it to our `HuggingFaceModel` model class with a `image_uri` pointing to the image. To retrieve the new Hugging Face LLM DLC in Amazon SageMaker, we can use the `get_huggingface_llm_image_uri` method provided by the `sagemaker` SDK. This method allows us to retrieve the URI for the desired Hugging Face LLM DLC based on the specified `backend`, `session`, `region`, and `version`. You can find the available versions [here](https://github.com/aws/deep-learning-containers/blob/master/available_images.md#huggingface-text-generation-inference-containers)
 
 ```python
 from sagemaker.huggingface import get_huggingface_llm_image_uri
@@ -108,7 +108,7 @@ llm_image = get_huggingface_llm_image_uri(
 print(f"llm image uri: {llm_image}")
 ```
 
-## 3. Deploy Deploy Open Assistant 12B to Amazon SageMaker
+## 3. Deploy Open Assistant 12B to Amazon SageMaker
 
 To deploy [Open Assistant Model](OpenAssistant/pythia-12b-sft-v8-7k-steps) to Amazon SageMaker we create a `HuggingFaceModel` model class and define our endpoint configuration including the `hf_model_id`, `instance_type` etc. We will use a `g5.12xlarge` instance type, which has 4 NVIDIA A10G GPUs and 96GB of GPU memory.
 
@@ -151,11 +151,11 @@ llm = llm_model.deploy(
 
 ```
 
-SageMaker will now create our endpoint and deploy the model to it. This can takes a 5-10 minutes.
+SageMaker will now create our endpoint and deploy the model to it. This can take 5-10 minutes.
 
 ## 4. Run inference and chat with our model
 
-After our endpoint is deployed we can run inference on it. We will use the `predict` method from the `predictor` to run inference on our endpoint. We can inference with different parameters to impact the generation. Parameters can be defined as in the `parameters` attribute of the payload. As of today the TGI supports the following parameters:
+After our endpoint is deployed we can run inference on it using the `predict` method from the `predictor`. We can use different parameters to control the generation, defining them in the `parameters` attribute of the payload. As of today TGI supports the following parameters:
 
 - `temperature`: Controls randomness in the model. Lower values will make the model more deterministic and higher values will make the model more random. Default value is 1.0.
 - `max_new_tokens`: The maximum number of tokens to generate. Default value is 20, max value is 512.
@@ -164,7 +164,7 @@ After our endpoint is deployed we can run inference on it. We will use the `pred
 - `stop`: A list of tokens to stop the generation. The generation will stop when one of the tokens is generated.
 - `top_k`: The number of highest probability vocabulary tokens to keep for top-k-filtering. Default value is `null`, which disables top-k-filtering.
 - `top_p`: The cumulative probability of parameter highest probability vocabulary tokens to keep for nucleus sampling, default to `null`
-- `do_sample`: Whether or not to use sampling ; use greedy decoding otherwise. Default value is `false`.
+- `do_sample`: Whether or not to use sampling; use greedy decoding otherwise. Default value is `false`.
 - `best_of`: Generate best_of sequences and return the one if the highest token logprobs, default to `null`.
 - `details`: Whether or not to return details about the generation. Default value is `false`.
 - `return_full_text`: Whether or not to return the full text or only the generated part. Default value is `false`.
@@ -172,7 +172,7 @@ After our endpoint is deployed we can run inference on it. We will use the `pred
 - `typical_p`: The typical probability of a token. Default value is `null`.
 - `watermark`: The watermark to use for the generation. Default value is `false`.
 
-You can find the open api specification of the TGI in the [swagger documentation](https://huggingface.github.io/text-generation-inference/)
+You can find the open api specification of TGI in the [swagger documentation](https://huggingface.github.io/text-generation-inference/)
 
 The `OpenAssistant/pythia-12b-sft-v8-7k-steps` is a conversational chat model meaning we can chat with it using the following prompt:
 
@@ -192,7 +192,7 @@ print(chat[0]["generated_text"])
 #     <|prompter|>What are some cool ideas to do in the summer?<|endoftext|><|assistant|>There are many fun and exciting things you can do in the summer. Here are some ideas:
 ```
 
-Now we will run inference with different parameters to impact the generation. Parameters can be defined as in the `parameters` attribute of the payload. This can be used to have the model stop the generation after the turn of the `bot`.
+Now we will show how to use generation parameters in the `parameters` attribute of the paylod. In addition to setting custom `temperature`, `top_p`, etc, we also stop generation after the turn of the `bot`.
 
 ```python
 # define payload
@@ -279,7 +279,7 @@ demo.launch(share=True)
 
 Awesome! 🚀 We have successfully deployed Open Assistant Model to Amazon SageMaker and run inference on it. Additionally, we have built a quick gradio application to chat with our model.
 
-Now, its time for you to try it out yourself and build Generation AI applications with the new Hugging Face LLM DLC on Amazon SageMaker.
+Now, it's time for you to try it out yourself and build Generation AI applications with the new Hugging Face LLM DLC on Amazon SageMaker.
 
 To clean up, we can delete the model and endpoint.
 
@@ -290,7 +290,7 @@ llm.delete_endpoint()
 
 ## Conclusion
 
-In conclusion, the new Hugging Face LLM Inference DLC enables customers to easily and securely deploy open-source LLMs on Amazon SageMaker. The easy-to-use API and deployment process allows customers to build scalable AI chatbots and virtual assistants with state-of-the-art models like Open Assistant. Overall, this new DLC is going to empower developers and businesses to leverage the latest advances in natural language generation.
+The new Hugging Face LLM Inference DLC enables customers to easily and securely deploy open-source LLMs on Amazon SageMaker. The easy-to-use API and deployment process allows customers to build scalable AI chatbots and virtual assistants with state-of-the-art models like Open Assistant. Overall, this new DLC is going to empower developers and businesses to leverage the latest advances in natural language generation.
 
 ---
 
