@@ -2240,3 +2240,12 @@
   date: May 15, 2023
   tags:
     - ethics
+
+- local: game-jam
+  title: "Announcing the Open Source AI Game Jam 🎮"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/145_gamejam/thumbnail.png
+  date: June 1, 2023
+  tags:
+    - community
+    - game-dev
