@@ -138,16 +138,6 @@ With the Private Hub, data scientists can seamlessly work with [Transformers](ht
 - [Inference API](https://huggingface.co/inference-api): every private model created on the Private Hub is deployed for inference in your own infrastructure via simple API calls.
 - [PRs and Discussions](https://huggingface.co/blog/community-update): support peer reviews on models, datasets, and spaces to improve collaboration across teams.
 
-From research to production, your data never leaves your servers. The Private Hub runs in your own compliant server. It provides enterprise security features like security scans, audit trail, SSO, and control access to keep your models and data secure.
-
-We provide flexible options for deploying your Private Hub in your private, compliant environment, including:
-
-- **Managed Private Hub (SaaS)**: runs in segregated virtual private servers (VPCs) owned by Hugging Face. You can enjoy the full Hugging Face experience on your own private Hub without having to manage any infrastructure.
-
-- **On-cloud Private Hub**: runs in a cloud account on AWS, Azure or GCP owned by the customer. This deployment option gives you full administrative control of the underlying cloud infrastructure and lets you achieve stronger security and compliance.
-
-- **On-prem Private Hub**: on-premise deployment of the Hugging Face Hub on your own infrastructure. For customers with strict compliance rules and/or workloads where they don't want or are not allowed to run on a public cloud.
-
 Now that we have covered the basics of what the Private Hub is, let's go over how companies are using it to accelerate their ML development. 
 
 ## 3. How Are Companies Using the Private Hub to Accelerate Their ML Roadmap?
