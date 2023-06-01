@@ -23,7 +23,7 @@ From texture generation to lifelike NPCs and realistic text-to-speech, the optio
 
 <h2>Why Are We Organizing This?</h2>
 
-In a time when some popular game jams restrict the use of AI tools, we believe it's crucial to **provide a platform specifically dedicated to showcasing the incredible possibilities AI offers game developers**.
+In a time when some popular game jams restrict the use of AI tools, we believe it's crucial to **provide a platform specifically dedicated to showcasing the incredible possibilities AI offers game developers**. Especially when those tools are **open, transparent, and accessible**.
 
 We want to see these jams thrive and empower indie developers with the tools they need to boost productivity and unlock their full potential.
 
