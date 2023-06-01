@@ -844,16 +844,6 @@
     - nlp
     - community
 
-- local: hugging-face-endpoints-on-azure
-  title: "Hugging Face Collaborates with Microsoft to Launch Hugging Face Endpoints on Azure"
-  author: juliensimon
-  thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/01.png
-  date: May 24, 2022
-  tags:
-    - launch
-    - cloud
-    - azure
-
 - local: community-update
   title: "Introducing Pull Requests and Discussions 🥳"
   author: victor
@@ -2155,6 +2145,110 @@
   tags:
     - bigcode
     - deduplication
+
+- local: instruction-tuning-sd
+  title: "Instruction-tuning Stable Diffusion with InstructPix2Pix"
+  author: sayakpaul
+  thumbnail: /blog/assets/instruction_tuning_sd/thumbnail.png
+  date: May 23, 2023
+  tags:
+    - diffusers
+    - diffusion
+    - instruction-tuning
+    - research
+    - guide
+
+- local: safetensors-security-audit
+  title: "Safetensors audited as really safe and becoming the default"
+  author: Narsil
+  thumbnail: /blog/assets/142_safetensors_official/thumbnail.png
+  date: May 23, 2023
+  tags:
+    - pickle
+    - serialization
+    - load times
+
+
+- local: huggingface-and-ibm
+  title: "Hugging Face and IBM partner on watsonx.ai, the next-generation enterprise studio for AI builders"
+  author: juliensimon
+  thumbnail: /blog/assets/144_ibm/01.png
+  date: May 23, 2023
+  tags:
+    - cloud
+    - ibm
+    - partnership
+
+- local: hugging-face-endpoints-on-azure
+  title: "Hugging Face Collaborates with Microsoft to Launch Hugging Face Model Catalog on Azure"
+  author: philschmid
+  thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/01.jpg
+  date: May 24, 2023
+  tags:
+    - cloud
+    - azure
+    - partnership
+
+- local: 4bit-transformers-bitsandbytes
+  title: "Making LLMs even more accessible with bitsandbytes, 4-bit quantization and QLoRA"
+  author: ybelkada
+  thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
+  date: May 24, 2023
+  tags:
+    - transformers
+    - quantization
+    - bitsandbytes
+    - 4bit
+
+- local: train-optimize-sd-intel
+  title: "Optimizing Stable Diffusion for Intel CPUs with NNCF and 🤗 Optimum"
+  author: AlexKoff88
+  thumbnail: /blog/assets/train_optimize_sd_intel/thumbnail.png
+  date: May 25, 2023
+  tags:
+    - diffusers
+    - cpu
+    - intel
+    - guide
+    - quantization
+
+- local: bertopic
+  title: "Introducing BERTopic Integration with Hugging Face Hub"
+  author: davanstrien
+  thumbnail: /blog/assets/145_bertopic/logo.png
+  date: May 31, 2023
+  tags:
+    - guide
+    - open-source-collab
+    - community
+
+- local: sagemaker-huggingface-llm
+  title: "Introducing the Hugging Face LLM Inference Container for Amazon SageMaker"
+  author: philschmid
+  thumbnail: /blog/assets/145_sagemaker-huggingface-llm/thumbnail.jpg
+  date: May 31, 2023
+  tags:
+    - cloud
+    - aws
+    - partnership
+    - guide
+
+- local: cnil
+  title: "Hugging Face Selected for the French Data Protection Agency Enhanced Support Program"
+  author: yjernite
+  thumbnail: /blog/assets/146_cnil-accompaniment/logo.png
+  date: May 15, 2023
+  tags:
+    - ethics
+
+- local: game-jam
+  title: "Announcing the Open Source AI Game Jam 🎮"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/145_gamejam/thumbnail.png
+  date: June 1, 2023
+  tags:
+    - community
+    - game-dev
 
 - local: bridgetower
   title: "Fast bf16 training and inference: BridgeTower on Gaudi2"
