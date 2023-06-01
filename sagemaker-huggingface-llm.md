@@ -10,8 +10,8 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-This is an example on how to deploy the open-source LLMs, like [BLOOM](bigscience/bloom) to Amazon SageMaker for inference using the new Hugging Face LLM Inference Container.
-We will deploy the 12B [Pythia Open Assistant Model](OpenAssistant/pythia-12b-sft-v8-7k-steps) an open-source Chat LLM trained by the Open Assistant dataset.
+This is an example on how to deploy the open-source LLMs, like [BLOOM](https://huggingface.co/bigscience/bloom) to Amazon SageMaker for inference using the new Hugging Face LLM Inference Container.
+We will deploy the 12B [Pythia Open Assistant Model](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-7k-steps) an open-source Chat LLM trained by the Open Assistant dataset.
 
 The example covers:
 
