@@ -10,7 +10,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-[![Open Source AI Game Jam](/blog/assets/124_ml-for-games/gamejamthumbnail.png)](https://itch.io/jam/open-source-ai-game-jam)
+[![Open Source AI Game Jam](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/gamejambanner.png)](https://itch.io/jam/open-source-ai-game-jam)
 
 ## Introduction
 
