@@ -59,10 +59,7 @@ Let's get started!
 We are going to use the `sagemaker` python SDK to deploy BLOOM to Amazon SageMaker. We need to make sure to have an AWS account configured and the `sagemaker` python SDK installed.
 
 ```python
-# TODO: once PR is merged: https://github.com/aws/sagemaker-python-sdk/pull/3837/files
-!pip install git+https://github.com/xyang16/sagemaker-python-sdk.git@hf --upgrade
-
-#!pip install sagemaker --upgrade --quiet
+!pip install sagemaker==2.161.0 --upgrade --quiet
 ```
 
 If you are going to use Sagemaker in a local environment, you need access to an IAM Role with the required permissions for Sagemaker. You can find [here](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html) more about it.
