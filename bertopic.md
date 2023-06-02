@@ -201,7 +201,7 @@ In addition to the Hugging Face Hub integration, BERTopic now supports serializa
 
 ### An example of using BERTopic to explore RLFH datasets
 
-To illustrate some of the power of BERTopic lets look at an example of how it can be used to monitor changes in topics in datasets used to train chat models. 
+To illustrate some of the power of BERTopic let's look at an example of how it can be used to monitor changes in topics in datasets used to train chat models. 
 
 The last year has seen several datasets for Reinforcement Learning with Human Feedback released. One of these datasets is the [OpenAssistant Conversations dataset](https://huggingface.co/datasets/OpenAssistant/oasst1). This dataset was produced via a worldwide crowd-sourcing effort involving over 13,500 volunteers. Whilst this dataset already has some scores for toxicity, quality, humour etc., we may want to get a better understanding of what types of conversations are represented in this dataset. 
 
@@ -236,7 +236,7 @@ topic_model.get_topic_info(topic)
 |---:|--------:|:--------------------------------------|:----------------------------------------------------------------------------------------------------|
 |  0 |     240 | 22_chess_chessboard_practice_strategy | ['chess', 'chessboard', 'practice', 'strategy', 'learn', 'pawn', 'board', 'pawns', 'play', 'decks'] |
 
-We can see here the topics predicted seems to make sense. We may want to extend this to compare the topics predicted for the whole dataset. 
+We can see here the topics predicted seem to make sense. We may want to extend this to compare the topics predicted for the whole dataset. 
 
 ```python
 from datasets import load_dataset
@@ -260,7 +260,7 @@ You can visit the official documentation for a [quick start guide](https://maart
 
 You can find a starter Colab notebook [here](https://colab.research.google.com/#fileId=https%3A//huggingface.co/spaces/davanstrien/blog_notebooks/blob/main/BERTopic_hub_starter.ipynb) that shows how you can train a BERTopic model and push it to the Hub.  
 
-Some example of BERTopic models already on the hub:
+Some examples of BERTopic models already on the hub:
 - [MaartenGr/BERTopic_ArXiv](https://huggingface.co/MaartenGr/BERTopic_ArXiv): a model trained on ~30000 ArXiv Computation and Language articles (cs.CL) after 1991.
 - [MaartenGr/BERTopic_Wikipedia](https://huggingface.co/MaartenGr/BERTopic_Wikipedia): a model trained on 1000000 English Wikipedia pages.
 - [davanstrien/imdb_bertopic](https://huggingface.co/davanstrien/imdb_bertopic): a model trained on the unsupervised split of the IMDB dataset
