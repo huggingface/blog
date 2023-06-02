@@ -9,7 +9,9 @@ authors:
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
- 
+
+[![Open Source AI Game Jam](/blog/assets/124_ml-for-games/gamejamthumbnail.png)](https://itch.io/jam/open-source-ai-game-jam)
+
 ## Introduction
 
 This tutorial guides you through the process of implementing state-of-the-art Speech Recognition in your Unity game using the Hugging Face Unity API. This feature can be used for giving commands, speaking to an NPC, improving accessibility, or any other functionality where converting spoken words to text may be useful.
