@@ -117,7 +117,7 @@ from sagemaker.huggingface import HuggingFaceModel
 
 # Define Model and Endpoint configuration parameter
 hf_model_id = "OpenAssistant/pythia-12b-sft-v8-7k-steps" # model id from huggingface.co/models
-use_quantization = False # wether to use quantization or not
+use_quantization = False # whether to use quantization or not
 instance_type = "ml.g5.12xlarge" # instance type to use for deployment
 number_of_gpu = 4 # number of gpus to use for inference and tensor parallelism
 health_check_timeout = 300 # Increase the timeout for the health check to 5 minutes for downloading the model
@@ -189,7 +189,7 @@ print(chat[0]["generated_text"])
 #     <|prompter|>What are some cool ideas to do in the summer?<|endoftext|><|assistant|>There are many fun and exciting things you can do in the summer. Here are some ideas:
 ```
 
-Now we will show how to use generation parameters in the `parameters` attribute of the paylod. In addition to setting custom `temperature`, `top_p`, etc, we also stop generation after the turn of the `bot`.
+Now we will show how to use generation parameters in the `parameters` attribute of the payload. In addition to setting custom `temperature`, `top_p`, etc, we also stop generation after the turn of the `bot`.
 
 ```python
 # define payload
