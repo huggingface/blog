@@ -18,10 +18,10 @@ Hugging Face Datasets is a library that was designed to complement machine learn
 |:--:|
 | <i>Hugging Face libraries mapped to the steps of a typical machine learning workflow. Source: <a href="https://github.com/nlp-with-transformers" rel="noopener" target="_blank" >Natural Language Processing with Transformers</a></i>|
 
-One of the most remarkable features of 🤗 `datasets` is its ability to [quickly and efficiently](https://huggingface.co/docs/datasets/about_arrow) handle data that does not fit into system memory. This is made possible by using Apache Arrow as an underlying memory model. This post will demonstrate the synergies between the two projects, and how using the Arrow ecosystem can supercharge your library, giving you access to more features than you bargained for. We will show you how you can use 🤗 `datasets` for out-of-core data analytics to better understand your data, ahead of using it to train a model.
+One of the many strengths of 🤗 `datasets` is its ability to [quickly and efficiently](https://huggingface.co/docs/datasets/about_arrow) handle data that is too large fit into system memory. This is made possible by using Apache Arrow as its underlying memory model. This post will showcase the synergies between the two projects, and how using the Arrow ecosystem can supercharge your library, giving you access to more features than you initially bargained for. We will show you how you can use 🤗 `datasets` for out-of-core data analytics to better understand your data, ahead of using it to train a model.
 
 ## Apache Arrow
-According to the [official website](https://arrow.apache.org/), Apache Arrow is a standardized colum-oriented memory **format**, a set of **libraries** that implement said format and various utilities around it, and an **ecosystem** of projects using them. 🤗 `datasets` is one project of this ecosystem and leverages `pyarrow`: the official Python API of Apache Arrow.
+According to the [official website](https://arrow.apache.org/), Apache Arrow is a standardized colum-oriented **memory format**, a set of **libraries** that implement said format and various utilities around it, and an **ecosystem** of projects using them. 🤗 `datasets` is one of many projects of this ecosystem and leverage the Arrow memory format through the use of the `pyarrow` library: the official Python API of Apache Arrow.
 
 ### Arrow Tables
 
