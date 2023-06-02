@@ -31,7 +31,6 @@ Let's unpack this:
 - **efficient analytic operations**: the data is formatted in such a way that allows vectorized operations like [SIMD](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data).
 - **zero-copy reads with serialization overhead**: once data is in memory, moving it between different libraries (e.g. from `pandas` to `polars`), threads, or even different languages (e.g. from `python` to `rust`) is free.
 
-
 Arrow also allows A standardized memory format means that libraries can leverage, but https://arrow.apache.org/docs/format/Columnar.html
 
 <!-- | ![Serialization](https://arrow.apache.org/img/copy.png) | ![Standardization](https://arrow.apache.org/img/shared.png)
