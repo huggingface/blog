@@ -21,16 +21,24 @@ Hugging Face Datasets is a library that was designed to complement machine learn
 One of the many strengths of 🤗 `datasets` is its ability to [quickly and efficiently](https://huggingface.co/docs/datasets/about_arrow) handle data that is too large fit into system memory. This is made possible by using Apache Arrow as its underlying memory model. This post will showcase the synergies between the two projects, and how using the Arrow ecosystem can supercharge your library, giving you access to more features than you initially bargained for. This post will show you how you can use 🤗 `datasets` for out-of-core data analytics to better understand your data, ahead of using it to train a model.
 
 ## Apache Arrow
-According to the [official website](https://arrow.apache.org/), Apache Arrow is: (1) a colum-oriented **standardized memory format**, (2) a set of **libraries** that implement said format and various utilities around it, and (3) an **ecosystem** of projects using them. 🤗 `datasets` is one of many projects of this ecosystem and leverages the Arrow memory format through the use of the `pyarrow` library: the official Python API of Apache Arrow.
+According to the [official website](https://arrow.apache.org/), Apache Arrow is: (1) a column-oriented **standardized memory format**, (2) a set of **libraries** that implement said format and various utilities around it, and (3) an **ecosystem** of projects using them. 🤗 `datasets` is one of many projects of this ecosystem and leverages the Arrow memory format through the use of the [`PyArrow` library ](https://arrow.apache.org/docs/python/index.html): the official Python API of Apache Arrow.
 
-The exact details of this memory format are beyond the scope of this post, but https://arrow.apache.org/docs/format/Columnar.html
+> Apache Arrow defines a language-independent columnar memory format for flat and hierarchical data, organized for efficient analytic operations on modern hardware like CPUs and GPUs. The Arrow memory format also supports zero-copy reads for lightning-fast data access without serialization overhead.
+
+- *language indepedent*: 
+- *columnar*:
+- *efficient analytic operations*:
+- *zero-copy reads with serialization overhead*:
+
+
+A standardized memory format means that libraries can leverage, but https://arrow.apache.org/docs/format/Columnar.html
 
 | ![Serialization](https://arrow.apache.org/img/copy.png) | ![Standardization](https://arrow.apache.org/img/shared.png)
 |:--:|:--:|
 |<i>TODO</i>|<i>TODO</i>|
 <div align="center"> Source: <a href="https://arrow.apache.org/overview/" rel="noopener" target="_blank" >Apache Arrow Overview</a></div>
 
-### Arrow Tables
+### Hugging Face Datasets
 
 ### The Arrow Compute API
 
