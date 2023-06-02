@@ -26,7 +26,8 @@ According to the [official website](https://arrow.apache.org/), Apache Arrow is 
 | ![Serialization](https://arrow.apache.org/img/copy.png) | ![Standardization](https://arrow.apache.org/img/shared.png)
 |:--:|:--:|
 |<i>TODO</i>|<i>TODO</i>|
-<center>Source: <a href="https://arrow.apache.org/overview/" rel="noopener" target="_blank" >Apache Arrow Overview</a></center>
+<h1 align="center"> Source: <a href="https://arrow.apache.org/overview/" rel="noopener" target="_blank" >Apache Arrow Overview</a></div>
+
 ### Arrow Tables
 
 ### The Arrow Compute API
