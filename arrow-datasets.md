@@ -32,7 +32,7 @@ Let's unpack this:
 - **zero-copy reads with serialization overhead**: once data is in memory, moving it between different libraries (e.g. from `pandas` to `polars`), threads, or even different languages (e.g. from `python` to `rust`) is free.
 TODO, add: constant time random access + memmaping
 
-As a user, you typically won't want to interact with Arrow directly, but rather use on [libaries which use Arrow](https://arrow.apache.org/powered_by/) to represent tabular data in memory. 
+As a user, you typically won't need interact with Arrow directly, but rather use [libaries which use Arrow](https://arrow.apache.org/powered_by/) to represent tabular data in memory.
 
 <!-- | ![Serialization](https://arrow.apache.org/img/copy.png) | ![Standardization](https://arrow.apache.org/img/shared.png)
 |:--:|:--:|
@@ -40,6 +40,7 @@ As a user, you typically won't want to interact with Arrow directly, but rather 
 <div align="center"> Source: <a href="https://arrow.apache.org/overview/" rel="noopener" target="_blank" >Apache Arrow Overview</a></div> -->
 
 ### Hugging Face Datasets
+A Hugging Face Dataset is at its core an Arrow Table: a 2-dimensional data structure with a schema and named columns. When you load a dataset for the first time, it is downloaded locally, then serialized into 
 
 ### The Arrow Compute API
 
