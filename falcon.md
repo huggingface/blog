@@ -222,3 +222,4 @@ Check out the [original qlora repository](https://github.com/artidoro/qlora/) fo
 
 ## Conclusion
 
+Falcon is an exciting new large language model which can be used for commercial applications. In this blog post we showed it's capabilities, how to run it in your own environment and how easy to fine-tune on custom data within in the Hugging Face ecosystem. We are excited to see what the community will build with it!
