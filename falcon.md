@@ -71,9 +71,9 @@ You can easily try the Big Falcon Model (40 billion parameters!) in [this Space]
 
 Under the hood, this playground uses 🤗 `text-generation-inference` ([repo](https://github.com/huggingface/text-generation-inference)), a scalable Rust, Python, and gRPC server for fast & efficient text generation. It's the same technology that powers [HuggingChat](https://huggingface.co/chat/).
 
-We've also built a Core ML version of the 7B instruct model, and this is how it runs on an M1 Macbook Pro:
+We've also built a Core ML version of the 7B instruct model, and this is how it runs on an M1 MacBook Pro:
 
-[TODO: embed video]
+[![Video that shows the Core ML version of falcon-7b-instruct running on a MacBook Pro](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/147_falcon/falcon-video-poster.jpg)](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/147_falcon/falcon-7b.mp4 "Falcon 7B Instruct running on an M1 MacBook Pro with Core ML")
 
 The video shows a lightweight app that leverages a Swift library for the heavy lifting: model loading, tokenization, input preparation, generation, and decoding. We are busy building this library to empower developers to integrate powerful LLMs in all types of applications without having to reinvent the wheel. It's still a bit rough, but we can't wait to share it with you. Meanwhile, you can download the [Core ML weights](https://huggingface.co/tiiuae/falcon-7b-instruct/tree/main/coreml/text-generation) from the repo and explore them yourself!
 
