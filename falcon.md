@@ -185,7 +185,7 @@ Its main features are:
 - Production ready logging, monitoring and tracing with Prometheus and Open Telemetry
 
 Since v0.8.2, Text Generation Inference supports Falcon 7b and 40b models natively without relying on the Transformers
-"trust remote code" feature, allowing for airtight deployments and security audits. In addition, the custom Falcon 
+"trust remote code" feature, allowing for airtight deployments and security audits. In addition, the Falcon 
 implementation includes custom CUDA kernels to significantly decrease end-to-end latency.
 
 | ![tgi-hfe-screenshot.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/147_falcon/tgi-hfe.png) |
@@ -199,7 +199,7 @@ the [model page](https://huggingface.co/tiiuae/falcon-7b-instruct) and click on 
 For 7B models, we advise you to select "GPU [medium] - 1x Nvidia A10G". 
 
 For 40B models, you will need to deploy on "GPU [xlarge] - 1x Nvidia A100" and activate quantization: 
-Advanced configuration -> Serving Container -> Int-8 Quantization. _Note: You might need to request quota at via email to api-enterprise@huggingface.co_
+Advanced configuration -> Serving Container -> Int-8 Quantization. _Note: You might need to request a quota upgrade via email to api-enterprise@huggingface.co_
 
 
 ## Evaluation
@@ -243,23 +243,23 @@ Training 10B+ sized models can be technically and computationally challenging. I
 
 Let's see how we can train Falcon on the [Guanaco dataset](https://huggingface.co/datasets/timdettmers/openassistant-guanaco) a high-quality subset of the [Open Assistant dataset](https://huggingface.co/datasets/OpenAssistant/oasst1) consisting of around 10,000 dialogues. With the [PEFT library](https://github.com/huggingface/peft) we can use the recent [QLoRA](https://arxiv.org/abs/2305.14314) approach to fine-tune adapters that are placed on top of the frozen 4-bit model. You can learn more about the integration of 4-bit quantized models [in this blog post](https://huggingface.co/blog/4bit-transformers-bitsandbytes).
 
-Only a tiny fraction of the model is trainable when using Low Rank Adapters (LoRA) such that the number of learned parameters as well as the size of the trained artifact is dramatically reduced. As shown in the screenshot below, the saved model has only 65MB for the 7B parameters model (15GB in float16).
+Because just a tiny fraction of the model is trainable when using Low Rank Adapters (LoRA), both the number of learned parameters and the size of the trained artifact are dramatically reduced. As shown in the screenshot below, the saved model has only 65MB for the 7B parameters model (15GB in float16).
 
 | ![repo-screenshot.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/147_falcon/adapter-screenshot.png) |
 |:--:|
 | <b>The final repository has only 65MB of weights - compared to the original model that has approximately 15GB in half precision </b>|
 
-More specifically, after selecting the target modules to adapt (in practice the query / key layers of the attention module), little trainable linear layers are attached close to these modules as illustrated below). The hidden states produced by these modules are then added to the original states to get the final hidden state.
+More specifically, after selecting the target modules to adapt (in practice the query / key layers of the attention module), small trainable linear layers are attached close to these modules as illustrated below). The hidden states produced by the adapters are then added to the original states to get the final hidden state.
 
 | ![lora-gif](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/lora-animated.gif) |
 |:--:|
 | <b>The output activations original (frozen) pretrained weights (left) are augmented by a low rank adapter comprised of weight matrics A and B (right). </b>|
 
-Once trained, there is no need to save the entire model as the base model is kept frozen. Also it is possible to keep the model in any arbitrary dtype (int8, fp4, fp16, etc.) as long as the output hidden states from these modules are casted to the same dtype as the ones from the adapters - this is the case for bitsandbytes modules (`Linear8bitLt` and `Linear4bit` ) that returns hidden states with the same dtype as the original unquantized module.
+Once trained, there is no need to save the entire model as the base model was kept frozen. In addition, it is possible to keep the model in any arbitrary dtype (int8, fp4, fp16, etc.) as long as the output hidden states from these modules are casted to the same dtype as the ones from the adapters - this is the case for bitsandbytes modules (`Linear8bitLt` and `Linear4bit` ) that return hidden states with the same dtype as the original unquantized module.
 
-We fine-tuned the two variants of Falcon model (7B and 40B) on the Guanaco dataset. For the 7b model, we fine-tuned the model on a single NVIDIA-T4 16GB and we fine-tuned the 40B model on a single NVIDIA A100 80GB. We used 4bit quantized base models and QLoRA method, as well as [the recent `SFTTrainer` from TRL library.](https://huggingface.co/docs/trl/main/en/sft_trainer) 
+We fine-tuned the two variants of the Falcon models (7B and 40B) on the Guanaco dataset. We fine-tuned the 7B model on a single NVIDIA-T4 16GB, and the 40B model on a single NVIDIA A100 80GB. We used 4bit quantized base models and the QLoRA method, as well as [the recent `SFTTrainer` from the TRL library.](https://huggingface.co/docs/trl/main/en/sft_trainer) 
 
-The full script to reproduce our experiments using PEFT is available [here](https://gist.github.com/pacman100/1731b41f7a90a87b457e8c5415ff1c14), but only few lines of code are required to quickly run the `SFTTrainer` (without PEFT for simplicity):
+The full script to reproduce our experiments using PEFT is available [here](https://gist.github.com/pacman100/1731b41f7a90a87b457e8c5415ff1c14), but only a few lines of code are required to quickly run the `SFTTrainer` (without PEFT for simplicity):
 
 ```python
 from datasets import load_dataset
@@ -283,7 +283,7 @@ trainer = SFTTrainer(
 trainer.train()
 ```
 
-Check out the [original qlora repository](https://github.com/artidoro/qlora/) for further work about evaluating the trained models.
+Check out the [original qlora repository](https://github.com/artidoro/qlora/) for additional details about evaluating the trained models.
 
 ### Fine-tuning Resources
 - **[Colab notebook to fine-tune Falcon-7B on Guanaco dataset using 4bit and PEFT](https://colab.research.google.com/drive/1BiQiw31DT7-cDp1-0ySXvvhzqomTdI-o?usp=sharing)** 
@@ -293,4 +293,4 @@ Check out the [original qlora repository](https://github.com/artidoro/qlora/) fo
 
 ## Conclusion
 
-Falcon is an exciting new large language model which can be used for commercial applications. In this blog post we showed it's capabilities, how to run it in your own environment and how easy to fine-tune on custom data within in the Hugging Face ecosystem. We are excited to see what the community will build with it!
+Falcon is an exciting new large language model which can be used for commercial applications. In this blog post we showed its capabilities, how to run it in your own environment and how easy to fine-tune on custom data within in the Hugging Face ecosystem. We are excited to see what the community will build with it!
