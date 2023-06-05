@@ -1,9 +1,9 @@
 ---
 title: "Welcome fastText to the Hugging Face Hub"
 thumbnail: /blog/assets/147_fasttext/thumbnail.png
-
 authors:
 - user: sheonhan
+- user: juanpino
 ---
 
 # Welcome fastText to the Hugging Face Hub
