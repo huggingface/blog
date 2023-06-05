@@ -171,6 +171,35 @@ There's also the possibility to use [4-bit loading](https://huggingface.co/blog/
 
 ### Text Generation Inference
 
+[Text Generation Inference](https://github.com/huggingface/text-generation-inference) is a production ready inference 
+container developed by Hugging Face to enable easy deployment of large language models. 
+
+Its main features are:
+
+- Continuous batching
+- Token streaming using Server-Sent Events (SSE)
+- Tensor Parallelism for faster inference on multiple GPUs
+- Optimized transformers code using custom CUDA kernels
+- Production ready logging, monitoring and tracing with Prometheus and Open Telemetry
+
+Since v0.8.2, Text Generation Inference supports Falcon 7b and 40b models natively without relying on the Transformers
+"trust remote code" feature, allowing for airtight deployments and security audits. In addition, the custom Falcon 
+implementation includes custom CUDA kernels to significantly decrease end-to-end latency.
+
+| ![tgi-hfe-screenshot.png](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/blog/147_falcon/tgi-hfe.png) |
+|:--:|
+| <b>Inference Endpoints now supports Text Generation Inference. Deploy the Falcon 40B Instruct model easily on 1xA100 with Int-8 quantization</b>|
+
+Text Generation Inference is now integrated inside Hugging Face's Inference Endpoints. To deploy a Falcon model, go to 
+the [model page](https://huggingface.co/tiiuae/falcon-7b-instruct) and click on the 
+[Deploy -> Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=tiiuae/falcon-7b-instruct) widget.
+
+For 7B models, we advise you to select "GPU [medium] - 1x Nvidia A10G". 
+
+For 40B models, you will need to deploy on "GPU [xlarge] - 1x Nvidia A100" and activate quantization: 
+Advanced configuration -> Serving Container -> Int-8 Quantization.
+
+
 ## Evaluation
 
 ## Fine-tuning with PEFT
