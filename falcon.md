@@ -195,7 +195,7 @@ the [model page](https://huggingface.co/tiiuae/falcon-7b-instruct) and click on 
 For 7B models, we advise you to select "GPU [medium] - 1x Nvidia A10G". 
 
 For 40B models, you will need to deploy on "GPU [xlarge] - 1x Nvidia A100" and activate quantization: 
-Advanced configuration -> Serving Container -> Int-8 Quantization.
+Advanced configuration -> Serving Container -> Int-8 Quantization. _Note: You might need to request quota at via email to api-enterprise@huggingface.co_
 
 
 ## Evaluation
