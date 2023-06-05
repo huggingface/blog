@@ -46,7 +46,7 @@ Another interesting feature of the Falcon models is their use of [**multiquery a
 
 | ![mqa](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/147_falcon/multi-query-attention.png) |
 |:--:|
-| <b>Mutli-Query Attention shares keys and value embeddings across attention heads. Courtesy Harm de Vries. </b>|
+| <b>Multi-Query Attention shares keys and value embeddings across attention heads. Courtesy Harm de Vries. </b>|
 
 This trick doesn’t significantly influence pretraining, but it greatly [improves the scalability of inference](https://arxiv.org/abs/2211.05102): indeed, **the K,V-cache kept during autoregressive decoding is now significantly smaller** (10-100 times depending on the specific of the architecture), reducing memory costs and enabling novel optimizations such as statefulness.
 
