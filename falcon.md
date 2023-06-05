@@ -189,7 +189,7 @@ implementation includes custom CUDA kernels to significantly decrease end-to-end
 
 | ![tgi-hfe-screenshot.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/147_falcon/tgi-hfe.png) |
 |:--:|
-| <b>Inference Endpoints now supports Text Generation Inference. Deploy the Falcon 40B Instruct model easily on 1xA100 with Int-8 quantization</b>|
+| <b>Inference Endpoints now support Text Generation Inference. Deploy the Falcon 40B Instruct model easily on 1xA100 with Int-8 quantization</b>|
 
 Text Generation Inference is now integrated inside Hugging Face's [Inference Endpoints](https://huggingface.co/inference-endpoints). To deploy a Falcon model, go to 
 the [model page](https://huggingface.co/tiiuae/falcon-7b-instruct) and click on the 
@@ -252,7 +252,7 @@ More specifically, after selecting the target modules to adapt (in practice the 
 
 | ![lora-gif](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/lora-animated.gif) |
 |:--:|
-| <b>The output activations original (frozen) pretrained weights (left) are augmented by a low rank adapter comprised of weight matrics A and B (right). </b>|
+| <b>The output activations original (frozen) pretrained weights (left) are augmented by a low rank adapter comprised of weight matrices A and B (right). </b>|
 
 Once trained, there is no need to save the entire model as the base model was kept frozen. In addition, it is possible to keep the model in any arbitrary dtype (int8, fp4, fp16, etc.) as long as the output hidden states from these modules are casted to the same dtype as the ones from the adapters - this is the case for bitsandbytes modules (`Linear8bitLt` and `Linear4bit` ) that return hidden states with the same dtype as the original unquantized module.
 
