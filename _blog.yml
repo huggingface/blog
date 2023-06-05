@@ -2258,3 +2258,14 @@
     - community
     - guide
     - game-dev
+
+
+- local: falcon
+  title: "The Falcon has landed in the Hugging Face ecosystem"
+  author: lvwerra
+  thumbnail: /blog/assets/147_falcon/falcon_thumbnail.jpg
+  date: June 5, 2023
+  tags:
+    - nlp
+    - community
+    - research
