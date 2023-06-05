@@ -39,13 +39,13 @@ Falcon-40B requires ~90GB of GPU memory — that’s a lot, but still less than 
 
 TII has also made available so-called instruct versions of the models, [Falcon-7B-Instruct](https://huggingface.co/tiiuae/falcon-7b-instruct) and [Falcon-40B-Instruct](https://huggingface.co/tiiuae/falcon-40b-instruct). These experimental variants have been further finetuned on instructions and conversational data; they thus lend better to popular assistant-style tasks. **If you are just looking to quickly play with the models they are your best shot.** It’s also possible to build your own custom instruct version, based on the plethora of datasets built by the community—keep reading for a step-by-step tutorial! 
 
-Falcon-7B and Falcon-40B have been trained on 1.5 trillion and 1 trillion tokens respectively, in line with modern models optimising for inference. **The key ingredient for the high quality of the Falcon models is their training data, predominantly based (>80%) on [RefinedWeb](https://arxiv.org/abs/2306.01116) — a novel massive web dataset based on CommonCrawl**. Instead of gathering scattered curated sources, TII has focused on scaling and improving the quality of web data, leveraging large-scale deduplication and strict filtering to match the quality of other corpora. The Falcon models still include some curated sources in their training (such as conversational data from Reddit), but significantly less so than has been common for state-of-the-art LLMs like GPT-3 or PaLM. The best part? TII has publicly released a 600 billion tokens extract of [RefinedWeb](https://huggingface.co/datasets/tiiuae/falcon-refinedweb) for the community to use in their own LLMs!   
+Falcon-7B and Falcon-40B have been trained on 1.5 trillion and 1 trillion tokens respectively, in line with modern models optimising for inference. **The key ingredient for the high quality of the Falcon models is their training data, predominantly based (>80%) on [RefinedWeb](https://arxiv.org/abs/2306.01116) — a novel massive web dataset based on CommonCrawl**. Instead of gathering scattered curated sources, TII has focused on scaling and improving the quality of web data, leveraging large-scale deduplication and strict filtering to match the quality of other corpora. The Falcon models still include some curated sources in their training (such as conversational data from Reddit), but significantly less so than has been common for state-of-the-art LLMs like GPT-3 or PaLM. The best part? TII has publicly released a 600 billion tokens extract of [RefinedWeb](https://huggingface.co/datasets/tiiuae/falcon-refinedweb) for the community to use in their own LLMs!
 
 Another interesting feature of the Falcon models is their use of [**multiquery attention**](https://arxiv.org/abs/1911.02150). The vanilla multihead attention scheme has one query, key, and value per head; multiquery instead shares one key and value across all heads.
 
 | ![mqa](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/147_falcon/multi-query-attention.png) |
 |:--:|
-| <b>Mutli-Query Attention shares keys and value embeddings across attention heads. </b>|
+| <b>Mutli-Query Attention shares keys and value embeddings across attention heads. Courtesy Harm de Vries. </b>|
 
 This trick doesn’t significantly influence pretraining, but it greatly [improves the scalability of inference](https://arxiv.org/abs/2211.05102): indeed, **the K,V-cache kept during autoregressive decoding is now significantly smaller** (10-100 times depending on the specific of the architecture), reducing memory costs and enabling novel optimizations such as statefulness.
 
@@ -65,8 +65,6 @@ This trick doesn’t significantly influence pretraining, but it greatly [improv
 # Demo
 
 You can easily try the Big Falcon Model (40 billion parameters!) in [this Space](https://huggingface.co/spaces/HuggingFaceH4/falcon-chat) or in the playground embedded below:
-
-[TODO: verify this actually works:]
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.32.0/gradio.js"> </script>
 <gradio-app space="HuggingFaceH4/falcon-chat"></gradio-app>
@@ -224,16 +222,23 @@ Once trained, there is no need to save the entire model as the base model is kep
 
 We fine-tuned the two variants of Falcon model (7B and 40B) on the Guanaco dataset. For the 7b model, we fine-tuned the model on a single NVIDIA-T4 16GB and we fine-tuned the 40B model on a single NVIDIA A100 80GB. We used 4bit quantized base models and QLoRA method, as well as [the recent `SFTTrainer` from TRL library.](https://huggingface.co/docs/trl/main/en/sft_trainer) 
 
-The full script to reproduce our experiments is available [here](https://gist.github.com/pacman100/1731b41f7a90a87b457e8c5415ff1c14), but only few lines of code are required to quickly run the `SFTTrainer`
+The full script to reproduce our experiments using PEFT is available [here](https://gist.github.com/pacman100/1731b41f7a90a87b457e8c5415ff1c14), but only few lines of code are required to quickly run the `SFTTrainer` (without PEFT for simplicity):
 
 ```python
 from datasets import load_dataset
 from trl import SFTTrainer
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 dataset = load_dataset("imdb", split="train")
 
+model_id = "tiiuae/falcon-7b"
+
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForCausalLM.from_pretrained(model_id, trust_remote_code=True)
+
 trainer = SFTTrainer(
-    "facebook/opt-350m",
+    model,
+    tokenizer=tokenizer
     train_dataset=dataset,
     dataset_text_field="text",
     max_seq_length=512,
