@@ -70,7 +70,7 @@ You can easily try the Big Falcon Model (40 billion parameters!) in [this Space]
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.32.0/gradio.js"> </script>
 <gradio-app space="HuggingFaceH4/falcon-chat-demo-for-blog"></gradio-app>
 
-Under the hood, this playground uses 🤗 `text-generation-inference` ([repo](https://github.com/huggingface/text-generation-inference)), a scalable Rust, Python, and gRPC server for fast & efficient text generation. It's the same technology that powers [HuggingChat](https://huggingface.co/chat/).
+Under the hood, this playground uses Hugging Face's [Text Generation Inference](https://github.com/huggingface/text-generation-inference)), a scalable Rust, Python, and gRPC server for fast & efficient text generation. It's the same technology that powers [HuggingChat](https://huggingface.co/chat/).
 
 We've also built a Core ML version of the 7B instruct model, and this is how it runs on an M1 MacBook Pro:
 
