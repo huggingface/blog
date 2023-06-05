@@ -14,7 +14,7 @@ authors:
 
 ## Introduction
 
-Falcon is a new family of state-of-the-art large language models created by the [Technology Innovation Institute](https://www.tii.ae/) in Abu Dhabi, released under the Apache 2.0 license. **Notably, [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) is the first “truly open” model with capabilities rivaling many current closed-source models**. This is fantastic news for practitioners, enthusiasts, and industry, as it opens the door for many exciting use cases.
+Falcon is a new family of state-of-the-art language models created by the [Technology Innovation Institute](https://www.tii.ae/) in Abu Dhabi, and released under the Apache 2.0 license. **Notably, [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) is the first “truly open” model with capabilities rivaling many current closed-source models**. This is fantastic news for practitioners, enthusiasts, and industry, as it opens the door for many exciting use cases.
 
 In this blog, we will be taking a deep dive into the Falcon models: first discussing what makes them unique and then **showcasing how easy it is to build on top of them (inference, quantization, finetuning, and more) with tools from the 🤗 Hugging Face ecosystem**. 
 
@@ -31,11 +31,11 @@ In this blog, we will be taking a deep dive into the Falcon models: first discus
 
 The Falcon family is composed of two base models: [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) and its little brother [Falcon-7B](https://huggingface.co/tiiuae/falcon-7b). **The 40B parameters model currently tops the charts of the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard), while the 7B model is the best in its weight class**.
 
-Falcon-40B requires ~90GB of GPU memory —that’s a lot, but still less than the requirements for LLaMA-65B, which Falcon outperforms. On the other hand, Falcon-7B only needs ~15GB, making inference and finetuning accessible even on consumer hardware. *(Later in this blog, we will discuss how we can leverage quantization to make Falcon-40B accessible even on cheaper GPUs!)* 
+Falcon-40B requires ~90GB of GPU memory — that’s a lot, but still less than LLaMA-65B, which Falcon outperforms. On the other hand, Falcon-7B only needs ~15GB, making inference and finetuning accessible even on consumer hardware. *(Later in this blog, we will discuss how we can leverage quantization to make Falcon-40B accessible even on cheaper GPUs!)* 
 
-TII has also made available so-called instruct versions of the two models, [Falcon-7B-Instruct](https://huggingface.co/tiiuae/falcon-7b-instruct) and [Falcon-40B-Instruct](https://huggingface.co/tiiuae/falcon-40b-instruct). These experimental variants have been further finetuned on instructions and conversational data; they thus lend better to popular assistant-style tasks. If you are just looking to quickly play with the models they are your best shot. It’s also possible to build your own custom instruct version, based on the plethora of datasets built by the community—keep reading for a step-by-step tutorial! 
+TII has also made available so-called instruct versions of the models, [Falcon-7B-Instruct](https://huggingface.co/tiiuae/falcon-7b-instruct) and [Falcon-40B-Instruct](https://huggingface.co/tiiuae/falcon-40b-instruct). These experimental variants have been further finetuned on instructions and conversational data; they thus lend better to popular assistant-style tasks. **If you are just looking to quickly play with the models they are your best shot.** It’s also possible to build your own custom instruct version, based on the plethora of datasets built by the community—keep reading for a step-by-step tutorial! 
 
-Falcon-7B and Falcon-40B have been trained on 1.5 trillion and 1 trillion tokens respectively, in line with modern models optimising for inference. **The key ingredient for the high quality of the Falcon models is their training data, predominantly based (>80%) on [RefinedWeb](https://huggingface.co/datasets/tiiuae/falcon-refinedweb)—a novel massive web dataset based on CommonCrawl**. Instead of gathering scattered curated sources, TII has focused on scaling and improving the quality of web data, leveraging large-scale deduplication and strict filtering to match the quality of other corpora. The Falcon models still include some curated sources in their training (such as conversational data from Reddit), but significantly less so than has been common for state-of-the-art LLMs like GPT-3 or PaLM. The best part? TII has publicly released a 600 billion tokens extract of [RefinedWeb](https://huggingface.co/datasets/tiiuae/falcon-refinedweb) for the community to use in their own LLMs!   
+Falcon-7B and Falcon-40B have been trained on 1.5 trillion and 1 trillion tokens respectively, in line with modern models optimising for inference. **The key ingredient for the high quality of the Falcon models is their training data, predominantly based (>80%) on [RefinedWeb](https://arxiv.org/abs/2306.01116) — a novel massive web dataset based on CommonCrawl**. Instead of gathering scattered curated sources, TII has focused on scaling and improving the quality of web data, leveraging large-scale deduplication and strict filtering to match the quality of other corpora. The Falcon models still include some curated sources in their training (such as conversational data from Reddit), but significantly less so than has been common for state-of-the-art LLMs like GPT-3 or PaLM. The best part? TII has publicly released a 600 billion tokens extract of [RefinedWeb](https://huggingface.co/datasets/tiiuae/falcon-refinedweb) for the community to use in their own LLMs!   
 
 Another interesting feature of the Falcon models is their use of [**multiquery attention**](https://arxiv.org/abs/1911.02150). The vanilla multihead attention scheme has one query, key, and value per head; multiquery instead shares one key and value across all heads. This trick doesn’t significantly influence pretraining, but it greatly [improves the scalability of inference](https://arxiv.org/abs/2211.05102): indeed, **the K,V-cache kept during autoregressive decoding is now significantly smaller** (10-100 times depending on the specific of the architecture), reducing memory costs and enabling novel optimizations such as statefulness.
 
@@ -54,14 +54,14 @@ Another interesting feature of the Falcon models is their use of [**multiquery a
 
 # Demo
 
-You can easily try the Big Falcon Model (40 billion parameters!) in [this Space](https://huggingface.co/spaces/tiiuae/falcon-chat) or in the playground embedded below:
+You can easily try the Big Falcon Model (40 billion parameters!) in [this Space](https://huggingface.co/spaces/HuggingFaceH4/falcon-chat) or in the playground embedded below:
 
 [TODO: verify this actually works:]
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.32.0/gradio.js"> </script>
-<gradio-app space="tiiuae/falcon-chat"></gradio-app>
+<gradio-app space="HuggingFaceH4/falcon-chat"></gradio-app>
 
-Under the hood, this playground uses 🤗 `text-generation-inference` ([repo](https://github.com/huggingface/text-generation-inference)), a scalable Rust, Python, and gRPC server for text generation. It's the same technology that powers [HuggingChat](https://huggingface.co/chat/).
+Under the hood, this playground uses 🤗 `text-generation-inference` ([repo](https://github.com/huggingface/text-generation-inference)), a scalable Rust, Python, and gRPC server for fast & efficient text generation. It's the same technology that powers [HuggingChat](https://huggingface.co/chat/).
 
 We've also built a Core ML version of the 7B instruct model, and this is how it runs on an M1 Macbook Pro:
 
@@ -102,7 +102,7 @@ And then, you'd run text generation using code like the following:
 
 ```python
 sequences = pipeline(
-   "Has humankind ever set foot on the Moon?",
+   "Write a poem about Valencia.",
     max_length=200,
     do_sample=True,
     top_k=10,
