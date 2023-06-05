@@ -37,7 +37,13 @@ TII has also made available so-called instruct versions of the models, [Falcon-7
 
 Falcon-7B and Falcon-40B have been trained on 1.5 trillion and 1 trillion tokens respectively, in line with modern models optimising for inference. **The key ingredient for the high quality of the Falcon models is their training data, predominantly based (>80%) on [RefinedWeb](https://arxiv.org/abs/2306.01116) — a novel massive web dataset based on CommonCrawl**. Instead of gathering scattered curated sources, TII has focused on scaling and improving the quality of web data, leveraging large-scale deduplication and strict filtering to match the quality of other corpora. The Falcon models still include some curated sources in their training (such as conversational data from Reddit), but significantly less so than has been common for state-of-the-art LLMs like GPT-3 or PaLM. The best part? TII has publicly released a 600 billion tokens extract of [RefinedWeb](https://huggingface.co/datasets/tiiuae/falcon-refinedweb) for the community to use in their own LLMs!   
 
-Another interesting feature of the Falcon models is their use of [**multiquery attention**](https://arxiv.org/abs/1911.02150). The vanilla multihead attention scheme has one query, key, and value per head; multiquery instead shares one key and value across all heads. This trick doesn’t significantly influence pretraining, but it greatly [improves the scalability of inference](https://arxiv.org/abs/2211.05102): indeed, **the K,V-cache kept during autoregressive decoding is now significantly smaller** (10-100 times depending on the specific of the architecture), reducing memory costs and enabling novel optimizations such as statefulness.
+Another interesting feature of the Falcon models is their use of [**multiquery attention**](https://arxiv.org/abs/1911.02150). The vanilla multihead attention scheme has one query, key, and value per head; multiquery instead shares one key and value across all heads.
+
+| ![mqa](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/147_falcon/multi-query-attention.png) |
+|:--:|
+| <b>Mutli-Query Attention shares keys and value embeddings across attention heads. </b>|
+
+This trick doesn’t significantly influence pretraining, but it greatly [improves the scalability of inference](https://arxiv.org/abs/2211.05102): indeed, **the K,V-cache kept during autoregressive decoding is now significantly smaller** (10-100 times depending on the specific of the architecture), reducing memory costs and enabling novel optimizations such as statefulness.
 
 | Model | License | Commercial use? | Pretraining length [tokens] | Pretraining compute [PF-days] | Leaderboard score | K,V-cache size for a 2.048 context |
 | --- | --- | --- | --- | --- | --- | --- |
