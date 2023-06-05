@@ -4,6 +4,7 @@ thumbnail: /blog/assets/147_fasttext/thumbnail.png
 authors:
 - user: sheonhan
 - user: juanpino
+  guest: true
 ---
 
 # Welcome fastText to the Hugging Face Hub
