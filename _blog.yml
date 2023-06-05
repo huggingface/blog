@@ -2211,3 +2211,50 @@
     - intel
     - guide
     - quantization
+
+- local: bertopic
+  title: "Introducing BERTopic Integration with Hugging Face Hub"
+  author: davanstrien
+  thumbnail: /blog/assets/145_bertopic/logo.png
+  date: May 31, 2023
+  tags:
+    - guide
+    - open-source-collab
+    - community
+
+- local: sagemaker-huggingface-llm
+  title: "Introducing the Hugging Face LLM Inference Container for Amazon SageMaker"
+  author: philschmid
+  thumbnail: /blog/assets/145_sagemaker-huggingface-llm/thumbnail.jpg
+  date: May 31, 2023
+  tags:
+    - cloud
+    - aws
+    - partnership
+    - guide
+
+- local: cnil
+  title: "Hugging Face Selected for the French Data Protection Agency Enhanced Support Program"
+  author: yjernite
+  thumbnail: /blog/assets/146_cnil-accompaniment/logo.png
+  date: May 15, 2023
+  tags:
+    - ethics
+
+- local: game-jam
+  title: "Announcing the Open Source AI Game Jam 🎮"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/145_gamejam/thumbnail.png
+  date: June 1, 2023
+  tags:
+    - community
+  
+- local: unity-asr
+  title: "AI Speech Recognition in Unity"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/unity-asr-thumbnail.png
+  date: June 2, 2023
+  tags:
+    - community
+    - guide
+    - game-dev

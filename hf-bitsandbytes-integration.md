@@ -291,7 +291,7 @@ Which is close enough to the original FP16 values (2 print outs up)!
 6. Now you can safely infer using your model by making sure your input is on the correct GPU and is in FP16:
 
 ```py
-input_ = torch.randn(64, dtype=torch.float16)
+input_ = torch.randn((1, 64), dtype=torch.float16)
 hidden_states = int8_model(input_.to(torch.device('cuda', 0)))
 ```
 
