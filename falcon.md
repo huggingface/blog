@@ -23,7 +23,7 @@ Falcon is a new family of state-of-the-art language models created by the [Techn
 
 In this blog, we will be taking a deep dive into the Falcon models: first discussing what makes them unique and then **showcasing how easy it is to build on top of them (inference, quantization, finetuning, and more) with tools from the Hugging Face ecosystem**. 
 
-## Table of Content
+## Table of Contents
 
 - [The Falcon models](#the-falcon-models)
 - [Demo](#demo)
