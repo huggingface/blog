@@ -165,17 +165,21 @@ There's also the possibility to use [4-bit loading](https://huggingface.co/blog/
 
 ## Fine-tuning with PEFT
 
-Training 10B+ sized models can be technically and computationally challenging. In this section we look at the tools available in the Hugging Face ecosystem to efficiently train extremely large models on simple hardware and show how to fine-tune the Falcon-7b on a single NVIDIA T4 (16GB - Google Colab)..
+Training 10B+ sized models can be technically and computationally challenging. In this section we look at the tools available in the Hugging Face ecosystem to efficiently train extremely large models on simple hardware and show how to fine-tune the Falcon-7b on a single NVIDIA T4 (16GB - Google Colab).
 
 Let's see how we can train Falcon on the [Guanaco dataset](https://huggingface.co/datasets/timdettmers/openassistant-guanaco) a filtered subset of the [Open Assistant dataset](https://huggingface.co/datasets/OpenAssistant/oasst1). With the [PEFT library](https://github.com/huggingface/peft) we can use the recent [QLoRA](https://arxiv.org/abs/2305.14314) approach to fine-tune adapters that are placed on top of the frozen 4-bit model. You can learn more about the integration of 4-bit quantized models [in this blog post](https://huggingface.co/blog/4bit-transformers-bitsandbytes).
 
 Only a tiny fraction of the model is trainable when using Low Rank Adapters (LoRA) such that the number of learned parameters as well as the size of the trained artifact is dramatically reduced. As shown in the screenshot below, the saved model has only 65MB for the 7B parameters model (15GB in float16).
 
-![repo-screenshot.png]()
+| ![repo-screenshot.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/147_falcon/adapter-screenshot.png) |
+|:--:|
+| <b>The final repository has only 65MB of weights - compared to the original model that has approximately 15GB in half precision </b>|
 
 More specifically, after selecting the target modules to adapt (in practice the query / key layers of the attention module), little trainable linear layers are attached close to these modules as illustrated below). The hidden states produced by these modules are then added to the original states to get the final hidden state.
 
-![lora-animated.gif]()
+| ![lora-gif](https://huggingface.co/datasets/trl-internal-testing/example-images/resolve/main/blog/133_trl_peft/lora-animated.gif) |
+|:--:|
+| <b>The output activations original (frozen) pretrained weights (left) are augmented by a low rank adapter comprised of weight matrics A and B (right). </b>|
 
 Once trained, there is no need to save the entire model as the base model is kept frozen. Also it is possible to keep the model in any arbitrary dtype (int8, fp4, fp16, etc.) as long as the output hidden states from these modules are casted to the same dtype as the ones from the adapters - this is the case for bitsandbytes modules (`Linear8bitLt` and `Linear4bit` ) that returns hidden states with the same dtype as the original unquantized module.
 
@@ -198,7 +202,7 @@ trainer = SFTTrainer(
 trainer.train()
 ```
 
-Check out the original qlora repository: https://github.com/artidoro/qlora/blob/main/qlora.py for further work about evaluating the trained models.
+Check out the [original qlora repository](https://github.com/artidoro/qlora/) for further work about evaluating the trained models.
 
 ### Fine-tuning Resources
 - **[Colab notebook to fine-tune Falcon-7B on Guanaco dataset using 4bit and PEFT](https://colab.research.google.com/drive/1BiQiw31DT7-cDp1-0ySXvvhzqomTdI-o?usp=sharing)** 
