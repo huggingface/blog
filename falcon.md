@@ -200,6 +200,39 @@ Advanced configuration -> Serving Container -> Int-8 Quantization. _Note: You mi
 
 ## Evaluation
 
+So how good are the Falcon models? An in-depth evaluation from the Falcon authors will be released soon, so in the meantime we ran both the base and instruct models through our [open LLM benchmark](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard). This benchmark measures both the reasoning capabilities of LLMs and their ability to provide truthful answers across the following domains:
+
+* [AI2 Reasoning Challenge](https://allenai.org/data/arc) (ARC): Grade-school multiple choice science questions.
+* [HellaSwag](https://arxiv.org/abs/1905.07830): Commonsense reasoning around everyday events.
+* [MMLU](https://github.com/hendrycks/test): Multiple-choice questions in 57 subjects (professional & academic).
+* [TruthfulQA](https://arxiv.org/abs/2109.07958): Tests the model’s ability to separate fact from an adversarially-selected set of incorrect statements.
+
+The results show that the 40B base and instruct models are very strong, and currently rank 1st and 2nd on the [LLM leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) 🏆!
+
+![leaderboard.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/147_falcon/leaderboard.png)
+
+As noted by [Thomas Wolf](https://www.linkedin.com/posts/thom-wolf_open-llm-leaderboard-a-hugging-face-space-activity-7070334210116329472-x6ek?utm_source=share&utm_medium=member_desktop), one surprisingly insight here is that the 40B models were pretrained on around half the compute needed for LLaMa 65B (2800 vs 6300 petaflop days), which suggests we haven't quite hit the limits of what's "optimal" for LLM pretraining.
+
+For the 7B models, we see that the base model is better than `llama-7b` and edges out MosaicML's `mpt-7b` to become the current best pretrained LLM at this scale. A shortlist of popular models from the leaderboard is reproduced below for comparison:
+
+| Model | Type | Average leaderboard score |
+| :---: | :---: | :---: |
+| [tiiuae/falcon-40b-instruct](https://huggingface.co/tiiuae/falcon-40b-instruct) | instruct | 63.2 |
+| [tiiuae/falcon-40b](https://huggingface.co/tiiuae/falcon-40b) | base | 60.4 |
+| [llama-65b](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/) | base | 58.3 |
+| [TheBloke/dromedary-65b-lora-HF](https://huggingface.co/TheBloke/dromedary-65b-lora-HF) | instruct | 57 |
+| [stable-vicuna-13b](https://huggingface.co/CarperAI/stable-vicuna-13b-delta) | rlhf | 52.4 |
+| [llama-13b](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/) | base | 51.8 |
+| [TheBloke/wizardLM-7B-HF](https://huggingface.co/TheBloke/wizardLM-7B-HF) | instruct | 50.1 |
+| [tiiuae/falcon-7b](https://huggingface.co/tiiuae/falcon-7b) | base | 48.8 |
+| [mosaicml/mpt-7b](https://huggingface.co/mosaicml/mpt-7b) | base | 48.6 |
+| [tiiuae/falcon-7b-instruct](https://huggingface.co/tiiuae/falcon-7b-instruct) | instruct | 48.4 |
+| [llama-7b](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/) | base | 47.6 |
+
+Although the open LLM leaderboard doesn't measure chat capabilities (where human evaluation is the gold standard), these preliminary results for the Falcon models are very encouraging!
+
+Let's now take a look at how you can fine-tune your very own Falcon models - perhaps one of yours will end up on top of the leaderboard 🤗.
+
 ## Fine-tuning with PEFT
 
 Training 10B+ sized models can be technically and computationally challenging. In this section we look at the tools available in the Hugging Face ecosystem to efficiently train extremely large models on simple hardware and show how to fine-tune the Falcon-7b on a single NVIDIA T4 (16GB - Google Colab).
