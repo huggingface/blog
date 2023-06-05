@@ -187,7 +187,7 @@ Since v0.8.2, Text Generation Inference supports Falcon 7b and 40b models native
 "trust remote code" feature, allowing for airtight deployments and security audits. In addition, the custom Falcon 
 implementation includes custom CUDA kernels to significantly decrease end-to-end latency.
 
-| ![tgi-hfe-screenshot.png](https://huggingface.co/datasets/huggingface/documentation-images/blob/main/blog/147_falcon/tgi-hfe.png) |
+| ![tgi-hfe-screenshot.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/147_falcon/tgi-hfe.png) |
 |:--:|
 | <b>Inference Endpoints now supports Text Generation Inference. Deploy the Falcon 40B Instruct model easily on 1xA100 with Int-8 quantization</b>|
 
