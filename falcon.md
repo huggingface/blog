@@ -34,7 +34,7 @@ In this blog, we will be taking a deep dive into the Falcon models: first discus
 
 ## The Falcon models
 
-The Falcon family is composed of two base models: [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) and its little brother [Falcon-7B](https://huggingface.co/tiiuae/falcon-7b). **The 40B parameters model currently tops the charts of the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard), while the 7B model is the best in its weight class**.
+The Falcon family is composed of two base models: [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) and its little brother [Falcon-7B](https://huggingface.co/tiiuae/falcon-7b). **The 40B parameter model currently tops the charts of the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard), while the 7B model is the best in its weight class**.
 
 Falcon-40B requires ~90GB of GPU memory — that’s a lot, but still less than LLaMA-65B, which Falcon outperforms. On the other hand, Falcon-7B only needs ~15GB, making inference and finetuning accessible even on consumer hardware. *(Later in this blog, we will discuss how we can leverage quantization to make Falcon-40B accessible even on cheaper GPUs!)* 
 
