@@ -1,8 +1,7 @@
 ---
 title: "The Falcon has landed in the Hugging Face ecosystem" 
-thumbnail: /blog/assets/147_falcon/falcon_thumbnail.png
+thumbnail: /blog/assets/147_falcon/falcon_thumbnail.jpg
 authors:
-- user: slippylolo
 - user: lvwerra
 - user: ybelkada
 - user: smangrul
