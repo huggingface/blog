@@ -4,7 +4,11 @@ thumbnail: /blog/assets/147_falcon/falcon_thumbnail.png
 authors:
 - user: slippylolo
 - user: lvwerra
-- user: TODO
+- user: ybelkada
+- user: smangrul
+- user: lewtun
+- user: olivierdehaene
+- user: pcuenq
 ---
 
 # The Falcon has landed in the Hugging Face ecosystem
