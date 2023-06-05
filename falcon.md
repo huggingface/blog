@@ -192,7 +192,7 @@ implementation includes custom CUDA kernels to significantly decrease end-to-end
 |:--:|
 | <b>Inference Endpoints now supports Text Generation Inference. Deploy the Falcon 40B Instruct model easily on 1xA100 with Int-8 quantization</b>|
 
-Text Generation Inference is now integrated inside Hugging Face's Inference Endpoints. To deploy a Falcon model, go to 
+Text Generation Inference is now integrated inside Hugging Face's [Inference Endpoints](https://huggingface.co/inference-endpoints). To deploy a Falcon model, go to 
 the [model page](https://huggingface.co/tiiuae/falcon-7b-instruct) and click on the 
 [Deploy -> Inference Endpoints](https://ui.endpoints.huggingface.co/new?repository=tiiuae/falcon-7b-instruct) widget.
 
