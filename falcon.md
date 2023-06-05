@@ -9,6 +9,7 @@ authors:
 - user: lewtun
 - user: olivierdehaene
 - user: pcuenq
+- user: philschmid
 ---
 
 # The Falcon has landed in the Hugging Face ecosystem
