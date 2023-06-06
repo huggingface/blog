@@ -5,7 +5,6 @@ authors:
 - user: sheonhan
 - user: juanpino
   guest: true
-  guest: true
 ---
 
 # Welcome fastText to the Hugging Face Hub
