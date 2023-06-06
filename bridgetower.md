@@ -55,8 +55,8 @@ Several runs were performed:
 
 | Device     | MP-0            | MP-1 | MP-16 | MP-* |
 |:----------:|:---------------:|:----:|:-----:|:----:|
-| Gaudi2 HPU | 678.6 samples/s |      |       |      |
-| A100 GPU   | 249.6 samples/s |      |       |      |
+| Gaudi2 HPU |  | 678.6 samples/s     |       |      |
+| A100 GPU   |  | 249.6 samples/s     |       |      |
 
 Talk a bit about the importance of data loading for such use cases
 
