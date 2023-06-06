@@ -287,7 +287,7 @@ Check out the [original qlora repository](https://github.com/artidoro/qlora/) fo
 ### Fine-tuning Resources
 - **[Colab notebook to fine-tune Falcon-7B on Guanaco dataset using 4bit and PEFT](https://colab.research.google.com/drive/1BiQiw31DT7-cDp1-0ySXvvhzqomTdI-o?usp=sharing)** 
 - **[Training code](https://gist.github.com/pacman100/1731b41f7a90a87b457e8c5415ff1c14)** 
-- **[40B model adatpers](https://huggingface.co/smangrul/falcon-40B-int4-peft-lora-sfttrainer)** ([logs](https://wandb.ai/smangrul/huggingface/runs/3hpqq08s/workspace?workspace=user-younesbelkada))
+- **[40B model adapters](https://huggingface.co/smangrul/falcon-40B-int4-peft-lora-sfttrainer)** ([logs](https://wandb.ai/smangrul/huggingface/runs/3hpqq08s/workspace?workspace=user-younesbelkada))
 - **[7B model adapters](https://huggingface.co/ybelkada/falcon-7b-guanaco-lora)** ([logs](https://wandb.ai/younesbelkada/huggingface/runs/2x4zi72j?workspace=user-younesbelkada)) 
 
 ## Conclusion
