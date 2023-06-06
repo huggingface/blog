@@ -1,6 +1,6 @@
 ---
 title: "DuckDB: analyze 50,000+ datasets stored on the Hugging Face Hub" 
-thumbnail: /blog/assets/hub_duckdb/hub_duckdb.jpg
+thumbnail: /blog/assets/hub_duckdb/hub_duckdb.png
 authors:
 - user: stevhliu
 ---
