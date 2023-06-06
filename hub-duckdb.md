@@ -5,7 +5,7 @@ authors:
 - user: stevhliu
 ---
 
-# DuckDB: analyze 50,000+ datasets stored on the Hugging Face Hub
+# DuckDB: run SQL queries on 50,000+ datasets on the Hugging Face Hub
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -65,7 +65,7 @@ To learn more, check out the [documentation](https://huggingface.co/docs/dataset
 
 ## Analyze with DuckDB
 
-DuckDB offers super impressive performance for running complex analytical queries. It is able to execute a SQL query directly on a Parquet file without any overhead. With the [`httpfs`](https://duckdb.org/docs/extensions/httpfs) extension, DuckDB is able to query remote files such as datasets stored on the Hub using the URL provided from the `/parquet` endpoint. DuckDB also supports querying multiple Parquet files which is really convenient because Datasets Server shards big datasets into smaller 1GB chunks.
+DuckDB offers super impressive performance for running complex analytical queries. It is able to execute a SQL query directly on a Parquet file without any overhead. With the [`httpfs`](https://duckdb.org/docs/extensions/httpfs) extension, DuckDB is able to query remote files such as datasets stored on the Hub using the URL provided from the `/parquet` endpoint. DuckDB also supports querying multiple Parquet files which is really convenient because Datasets Server shards big datasets into smaller 500MB chunks.
 
 ## Looking forward
 
