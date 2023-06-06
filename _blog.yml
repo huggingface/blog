@@ -2248,7 +2248,36 @@
   date: June 1, 2023
   tags:
     - community
+
+- local: unity-asr
+  title: "AI Speech Recognition in Unity"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/unity-asr-thumbnail.png
+  date: June 2, 2023
+  tags:
+    - community
+    - guide
     - game-dev
+
+- local: falcon
+  title: "The Falcon has landed in the Hugging Face ecosystem"
+  author: lvwerra
+  thumbnail: /blog/assets/147_falcon/falcon_thumbnail.jpg
+  date: June 5, 2023
+  tags:
+    - nlp
+    - community
+    - research
+
+- local: fasttext
+  title: "Welcome fastText to the 🤗 Hub"
+  author: sheonhan
+  thumbnail: /blog/assets/147_fasttext/thumbnail.png
+  date: June 6, 2023
+  tags:
+    - open-source-collab
+    - nlp
+    - partnerships
 
 - local: bridgetower
   title: "Fast bf16 training and inference: BridgeTower on Gaudi2"
@@ -2261,3 +2290,4 @@
     - nlp
     - cv
     - hardware
+

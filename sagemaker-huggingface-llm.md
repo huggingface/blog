@@ -10,8 +10,8 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-This is an example on how to deploy the open-source LLMs, like [BLOOM](bigscience/bloom) to Amazon SageMaker for inference using the new Hugging Face LLM Inference Container.
-We will deploy the 12B [Pythia Open Assistant Model](OpenAssistant/pythia-12b-sft-v8-7k-steps), an open-source Chat LLM trained with the Open Assistant dataset.
+This is an example on how to deploy the open-source LLMs, like [BLOOM](https://huggingface.co/bigscience/bloom) to Amazon SageMaker for inference using the new Hugging Face LLM Inference Container.
+We will deploy the 12B [Pythia Open Assistant Model](https://huggingface.co/OpenAssistant/pythia-12b-sft-v8-7k-steps), an open-source Chat LLM trained with the Open Assistant dataset.
 
 The example covers:
 
@@ -59,10 +59,7 @@ Let's get started!
 We are going to use the `sagemaker` python SDK to deploy BLOOM to Amazon SageMaker. We need to make sure to have an AWS account configured and the `sagemaker` python SDK installed.
 
 ```python
-# TODO: once PR is merged: https://github.com/aws/sagemaker-python-sdk/pull/3837/files
-!pip install git+https://github.com/xyang16/sagemaker-python-sdk.git@hf --upgrade
-
-#!pip install sagemaker --upgrade --quiet
+!pip install "sagemaker==2.161.0" --upgrade --quiet
 ```
 
 If you are going to use Sagemaker in a local environment, you need access to an IAM Role with the required permissions for Sagemaker. You can find [here](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html) more about it.
@@ -120,7 +117,7 @@ from sagemaker.huggingface import HuggingFaceModel
 
 # Define Model and Endpoint configuration parameter
 hf_model_id = "OpenAssistant/pythia-12b-sft-v8-7k-steps" # model id from huggingface.co/models
-use_quantization = False # wether to use quantization or not
+use_quantization = False # whether to use quantization or not
 instance_type = "ml.g5.12xlarge" # instance type to use for deployment
 number_of_gpu = 4 # number of gpus to use for inference and tensor parallelism
 health_check_timeout = 300 # Increase the timeout for the health check to 5 minutes for downloading the model
@@ -192,7 +189,7 @@ print(chat[0]["generated_text"])
 #     <|prompter|>What are some cool ideas to do in the summer?<|endoftext|><|assistant|>There are many fun and exciting things you can do in the summer. Here are some ideas:
 ```
 
-Now we will show how to use generation parameters in the `parameters` attribute of the paylod. In addition to setting custom `temperature`, `top_p`, etc, we also stop generation after the turn of the `bot`.
+Now we will show how to use generation parameters in the `parameters` attribute of the payload. In addition to setting custom `temperature`, `top_p`, etc, we also stop generation after the turn of the `bot`.
 
 ```python
 # define payload
