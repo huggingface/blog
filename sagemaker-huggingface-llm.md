@@ -107,9 +107,12 @@ print(f"llm image uri: {llm_image}")
 
 ## 3. Deploy Open Assistant 12B to Amazon SageMaker
 
+_Note: Quotas for Amazon SageMaker can vary between accounts. If you receive an error indicating you've exceeded your quota, you can increase them through the [Service Quotas console](https://console.aws.amazon.com/servicequotas/home/services/sagemaker/quotas)._
+
 To deploy [Open Assistant Model](OpenAssistant/pythia-12b-sft-v8-7k-steps) to Amazon SageMaker we create a `HuggingFaceModel` model class and define our endpoint configuration including the `hf_model_id`, `instance_type` etc. We will use a `g5.12xlarge` instance type, which has 4 NVIDIA A10G GPUs and 96GB of GPU memory.
 
 _Note: We could also optimize the deployment for cost and use `g5.2xlarge` instance type and enable int-8 quantization._
+
 
 ```python
 import json
