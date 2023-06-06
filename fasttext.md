@@ -24,7 +24,7 @@ Word vectors for 157 languages and the language identification model can be foun
 
 
 ### Widgets
-This integration includes support for text classification and feature extraction widgets. Try out the language identifcation widget [here](https://huggingface.co/facebook/fasttext-language-identification) and feature extraction widget [here](https://huggingface.co/facebook/fasttext-en-vectors)!
+This integration includes support for text classification and feature extraction widgets. Try out the language identification widget [here](https://huggingface.co/facebook/fasttext-language-identification) and feature extraction widget [here](https://huggingface.co/facebook/fasttext-en-vectors)!
 
 ![text_classification_widget](assets/147_fasttext/fasttext_text_classification_widget.png)
 ![feature_extraction_widget](assets/147_fasttext/fasttext_feature_extraction_widget.png)
