@@ -2259,7 +2259,6 @@
     - guide
     - game-dev
 
-
 - local: falcon
   title: "The Falcon has landed in the Hugging Face ecosystem"
   author: lvwerra
@@ -2269,3 +2268,14 @@
     - nlp
     - community
     - research
+
+- local: fasttext
+  title: "Welcome fastText to the 🤗 Hub"
+  author: sheonhan
+  thumbnail: /blog/assets/147_fasttext/thumbnail.png
+  date: June 5, 2023
+  tags:
+    - open-source-collab
+    - nlp
+    - partnerships
+
