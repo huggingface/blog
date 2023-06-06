@@ -1,6 +1,7 @@
 ---
 title: "Introducing HuggingFace blog for Chinese speakers: Fostering Collaboration with the Chinese AI community"
 thumbnail: /blog/assets/chinese-language-blog/thumbnail.png
+forceLinkToOtherLanguage: on
 authors:
 - user: xianbao
 - user: adinayakefu
@@ -12,9 +13,6 @@ authors:
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
-
-This article is also available in Chinese [简体中文](https://huggingface.co/blog/zh/chinese-language-blog).
-
 
 ## Welcome to our blog for Chinese speakers!
 
