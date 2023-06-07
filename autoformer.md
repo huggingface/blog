@@ -1,4 +1,18 @@
+---
+title: "Yes, Transformers are Effective for Time Series Forecasting" 
+thumbnail: /blog/assets/134_informer/thumbnail.png
+authors:
+- user: kashif
+- user: elisim
+  guest: true
+- user: nielsr
+---
+
 # Yes, Transformers are Effective for Time Series Forecasting
+
+<!-- {blog_metadata} -->
+<!-- {authors} -->
+
 
 ## Introduction
 
@@ -8,7 +22,7 @@ We will begin by explaining the Autoformer model, including its novel _Decomposi
 
 ## Autoformer - Under The Hood
 
-The Autoformer builds upon the traditional method of decomposing time series into seasonality and trend-cycle components. This is achieved through the incorporation of a _Decomposition Layer_, which enhances the model's ability to capture these components accurately. Moreover, the Autoformer introduces an innovative auto-correlation mechanism that replaces the standard self-attention used in the vanilla transformer. This mechanism enables the model to utilize period-based dependencies in the attention, thus improving the overall performence. 
+The Autoformer builds upon the traditional method of decomposing time series into seasonality and trend-cycle components. This is achieved through the incorporation of a _Decomposition Layer_, which enhances the model's ability to capture these components accurately. Moreover, the Autoformer introduces an innovative auto-correlation mechanism that replaces the standard self-attention used in the vanilla transformer. This mechanism enables the model to utilize period-based dependencies in the attention, thus improving the overall performance. 
 
 In the upcoming sections, we will delve into the two key contributions of the Autoformer: the _Decomposition Layer_ and the _Attention (Autocorrelation) Mechanism_. We will also provide code examples to illustrate how these components function within the Autoformer architecture.
 
@@ -180,7 +194,7 @@ def time_delay_aggregation(attn_weights, value_states, autocorrelation_factor=2)
    
 We did it! The Autoformer model in [now available](https://huggingface.co/docs/transformers/main/en/model_doc/autoformer) in the 🤗 Transformers library, and simply called `AutoformerModel`.
 
-Our strategy with this model is to show the performance of the univariate transformer models in comparison to the DLinear model which is inheriently univariate. We will also present the results from _two_ multivariate transformers models trained on the same data.
+Our strategy with this model is to show the performance of the univariate transformer models in comparison to the DLinear model which is inherently univariate. We will also present the results from _two_ multivariate transformers models trained on the same data.
 
 ## DLinear 
 
@@ -198,7 +212,7 @@ class SeriesDecomp(nn.Module):
         return res, moving_mean
 ```
 
-Then two linear layers are deployed which in the point forecasting case project the context length array to a prediction length array for the seosonal and trend part and the resulting output is added together as the final prediction. In the probabilistic setting one can project the context length arrays to a `prediction-length * hidden` dim and then the resulting outputs are reshaped to `(prediction_length, hidden)`. Then a probabilistic head maps the latent representations of size `hidden` to the parameters of some distribution.
+Then two linear layers are deployed which in the point forecasting case project the context length array to a prediction length array for the seasonal and trend part and the resulting output is added together as the final prediction. In the probabilistic setting one can project the context length arrays to a `prediction-length * hidden` dim and then the resulting outputs are reshaped to `(prediction_length, hidden)`. Then a probabilistic head maps the latent representations of size `hidden` to the parameters of some distribution.
 
 For our benchmark, we will use the implementation of DLinear from GluonTS.
 
@@ -827,55 +841,7 @@ predictor = estimator.train(
     Training: 0it [00:00, ?it/s]
 
 
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 0, global step 100: 'train_loss' reached -2.16697 (best -2.16697), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=0-step=100.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 1, global step 200: 'train_loss' reached -2.64898 (best -2.64898), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=1-step=200.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 2, global step 300: 'train_loss' reached -2.75313 (best -2.75313), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=2-step=300.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 3, global step 400: 'train_loss' reached -2.81704 (best -2.81704), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=3-step=400.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 4, global step 500: 'train_loss' reached -2.85049 (best -2.85049), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=4-step=500.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 5, global step 600: 'train_loss' reached -2.87444 (best -2.87444), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=5-step=600.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 6, global step 700: 'train_loss' reached -2.89263 (best -2.89263), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=6-step=700.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 7, global step 800: 'train_loss' reached -2.92327 (best -2.92327), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=7-step=800.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 8, global step 900: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 9, global step 1000: 'train_loss' reached -2.93947 (best -2.93947), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=9-step=1000.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 10, global step 1100: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 11, global step 1200: 'train_loss' reached -2.96101 (best -2.96101), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=11-step=1200.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 12, global step 1300: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 13, global step 1400: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 14, global step 1500: 'train_loss' reached -2.97131 (best -2.97131), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=14-step=1500.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 15, global step 1600: 'train_loss' reached -2.97166 (best -2.97166), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=15-step=1600.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 16, global step 1700: 'train_loss' reached -2.97278 (best -2.97278), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=16-step=1700.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 17, global step 1800: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 18, global step 1900: 'train_loss' reached -2.97937 (best -2.97937), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=18-step=1900.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 19, global step 2000: 'train_loss' reached -2.98658 (best -2.98658), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=19-step=2000.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 20, global step 2100: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 21, global step 2200: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 22, global step 2300: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 23, global step 2400: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 24, global step 2500: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 25, global step 2600: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 26, global step 2700: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 27, global step 2800: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 28, global step 2900: 'train_loss' reached -2.99042 (best -2.99042), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=28-step=2900.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 29, global step 3000: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 30, global step 3100: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 31, global step 3200: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 32, global step 3300: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 33, global step 3400: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 34, global step 3500: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 35, global step 3600: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 36, global step 3700: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 37, global step 3800: 'train_loss' reached -2.99978 (best -2.99978), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=37-step=3800.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 38, global step 3900: 'train_loss' reached -3.00832 (best -3.00832), saving model to '/mnt/scratch/kashif/notebooks/examples/lightning_logs/version_1/checkpoints/epoch=38-step=3900.ckpt' as top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 39, global step 4000: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 40, global step 4100: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 41, global step 4200: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 42, global step 4300: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 43, global step 4400: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 44, global step 4500: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 45, global step 4600: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 46, global step 4700: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 47, global step 4800: 'train_loss' was not in top 1
-    INFO:pytorch_lightning.utilities.rank_zero:Epoch 48, global step 4900: 'train_loss' was not in top 1
+    ...
     INFO:pytorch_lightning.utilities.rank_zero:Epoch 49, global step 5000: 'train_loss' was not in top 1
     INFO:pytorch_lightning.utilities.rank_zero:`Trainer.fit` stopped: `max_epochs=50` reached.
 
@@ -960,8 +926,3 @@ How do transformer based models comapre against the above linear baseline? The t
 As one can observe, the multivariate forecasts are typically _worse_ than the univariate ones, the reason being the difficulty in estimating the cross-series correlations/relationships. The additional variance added by the estimates often harms the resulting forecasts or the model learns spurious correlations. We refer to [this paper](https://openreview.net/forum?id=GpW327gxLTF) for further reading. Multivariate models tend to work well when trained on a lot of data. However, when one compares  univariate models with multivariate models, especially on smaller open datasets, the univariate models give better metrics. By comparing the linear model with equivalent-sized univariate transformers or in fact any other neural univariate model, one will typically get better performance.
 
 We also observe that the vanilla Univariate Transformer still performs best here.
-
-
-```python
-
-```
