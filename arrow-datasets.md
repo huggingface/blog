@@ -26,13 +26,16 @@ According to the [official website](https://arrow.apache.org/), Apache Arrow is:
 > language-independent columnar memory format for flat and hierarchical data, organized for efficient analytic operations on modern hardware like CPUs and GPUs. The Arrow memory format also supports zero-copy reads for lightning-fast data access without serialization overhead.
 
 Let's unpack this:
-- **language indepedent**: the data representation in memory is the same, no matter the language or implementation.
+- **language indepedent**: the data representation in memory is the same, no matter the programming language or library.
 - **columnar**: data is contiguous in memory and grouped by column, as opposed to by row.
 - **efficient analytic operations**: the data is formatted in such a way that allows vectorized operations like [SIMD](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data).
 - **zero-copy reads with serialization overhead**: once data is in memory, moving it between different libraries (e.g. from `pandas` to `polars`), threads, or even different languages (e.g. from `python` to `rust`) is free.
-TODO, add: constant time random access + memmaping
 
-As a user, you typically won't need interact with Arrow directly, but rather use [libaries which use Arrow](https://arrow.apache.org/powered_by/) to represent tabular data in memory.
+Further features of Arrow that make it especially useful in machine learning worflows include:
+- **Constant-time random access**: indexing into a specific row is a constant time operation
+- **Efficient sequential scans**: the columnar memory layout makes for efficient iterating over the dataset
+- **Data can be memory-mapped**: larger-than-memory datasets can be serialized onto disk and memory-mapped from there.
+As a user, you typically won't need interact with Arrow directly, but rather use [libaries which use Arrow](https://arrow.apache.org/powered_by/) to represent tabular data in memory. However, as we'll see later in this post, even if the Arrow internals are abstracted away, being aware of them can give users access to more functionality than afforded by a given library.
 
 <!-- | ![Serialization](https://arrow.apache.org/img/copy.png) | ![Standardization](https://arrow.apache.org/img/shared.png)
 |:--:|:--:|
@@ -40,9 +43,8 @@ As a user, you typically won't need interact with Arrow directly, but rather use
 <div align="center"> Source: <a href="https://arrow.apache.org/overview/" rel="noopener" target="_blank" >Apache Arrow Overview</a></div> -->
 
 ### Hugging Face Datasets
-A Hugging Face Dataset is at its core an Arrow Table: a 2-dimensional data structure with a schema and named columns. When you load a dataset for the first time, it is downloaded locally, then serialized into 
+A Hugging Face `datasets.Dataset` object is at its core an Arrow Table: a 2-dimensional data structure (think dataframe) with a schema and named columns. When you load a dataset for the first time, it is downloaded locally, then serialized into one ore more `.arrow` memory files in your cache directory, then finally mmapped from those files. You can 
 
-### The Arrow Compute API
 
 ### Hugging Face Dataset Formats
 
