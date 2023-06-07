@@ -2279,3 +2279,12 @@
     - nlp
     - partnerships
 
+- local: autoformer
+  title: "Yes, Transformers are Effective for Time Series Forecasting"
+  author: kashif
+  thumbnail: /blog/assets/148_autoformer/thumbnail.png
+  date: June 10, 2023
+  tags:
+    - guide
+    - research
+    - time-series
