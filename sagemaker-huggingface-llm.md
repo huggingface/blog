@@ -15,11 +15,14 @@ We will deploy the 12B [Pythia Open Assistant Model](https://huggingface.co/Open
 
 The example covers:
 
-1. [Setup development environment](#1-setup-development-environment)
-2. [Retrieve the new Hugging Face LLM DLC](#2-retrieve-the-new-hugging-face-llm-dlc)
-3. [Deploy Open Assistant 12B to Amazon SageMaker](#3-deploy-deploy-open-assistant-12b-to-amazon-sagemaker)
-4. [Run inference and chat with our model](#4-run-inference-and-chat-with-our-model)
-5. [Create Gradio Chatbot backed by Amazon SageMaker](#5-create-gradio-chatbot-backed-by-amazon-sagemaker)
+- [Introducing the Hugging Face LLM Inference Container for Amazon SageMaker](#introducing-the-hugging-face-llm-inference-container-for-amazon-sagemaker)
+  - [What is Hugging Face LLM Inference DLC?](#what-is-hugging-face-llm-inference-dlc)
+  - [1. Setup development environment](#1-setup-development-environment)
+  - [2. Retrieve the new Hugging Face LLM DLC](#2-retrieve-the-new-hugging-face-llm-dlc)
+  - [3. Deploy Open Assistant 12B to Amazon SageMaker](#3-deploy-open-assistant-12b-to-amazon-sagemaker)
+  - [4. Run inference and chat with our model](#4-run-inference-and-chat-with-our-model)
+  - [5. Create Gradio Chatbot backed by Amazon SageMaker](#5-create-gradio-chatbot-backed-by-amazon-sagemaker)
+  - [Conclusion](#conclusion)
 
 You can find the code for the example also in the [notebooks repository](https://github.com/huggingface/notebooks/blob/main/sagemaker/27_deploy_large_language_models/sagemaker-notebook.ipynb).
 
@@ -130,7 +133,7 @@ llm_model = HuggingFaceModel(
   image_uri=llm_image,
   env={
     'HF_MODEL_ID': hf_model_id,
-    'HF_MODEL_QUANTIZE': json.dumps(use_quantization),
+    'SM_NUM_GPUS': json.dumps(number_of_gpu)
     # 'HF_MODEL_QUANTIZE': "bitsandbytes", # comment in to use quantization
   }
 )
