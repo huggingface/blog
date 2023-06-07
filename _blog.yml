@@ -2279,3 +2279,10 @@
     - nlp
     - partnerships
 
+- local: hub-duckdb
+  title: "DuckDB: analyze 50,000+ datasets stored on the Hugging Face Hub"
+  author: stevhliu
+  thumbnail: /blog/assets/hub_duckdb/hub_duckdb.png
+  date: June 6, 2023
+  tags:
+    - guide
