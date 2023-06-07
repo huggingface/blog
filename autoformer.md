@@ -234,7 +234,7 @@ Instead of showing how to train a model using `Autoformer` one can just replace 
 
 ## Set-up Environment
 
-First, let's install the necessary libraries: 🤗 Transformers, 🤗 Datasets, 🤗 Evaluate, 🤗 Accelerate and [GluonTS](https://github.com/awslabs/gluonts).
+First, let's install the necessary libraries: 🤗 Transformers, 🤗 Datasets, 🤗 Evaluate, 🤗 Accelerate and GluonTS.
 
 As we will show, GluonTS will be used for transforming the data to create features as well as for creating appropriate training, validation and test batches.
 
