@@ -21,7 +21,7 @@ We are happy to share that we recently added another feature to help you analyze
 
 ## TLDR
 
-[Datasets Server](https://huggingface.co/docs/datasets-server/index) automatically converts datasets on the Hub to Parquet files and returns a URL to the dataset which can be accessed with a simple HTTP call.
+[Datasets Server](https://huggingface.co/docs/datasets-server/index) automatically converts datasets on the Hub to Parquet files, that you can see by clicking on the "Auto-converted to Parquet" button at the top of a dataset page. You can also access the list of the Parquet files URLs with a simple HTTP call.
 
 ```py
 r = requests.get("https://datasets-server.huggingface.co/parquet?dataset=blog_authorship_corpus")
