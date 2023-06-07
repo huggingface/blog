@@ -35,7 +35,7 @@ The trend component represents the long-term direction of the time series, which
 
 Two main types of decomposition are additive and multiplicative decomposition, which are implemented in the [great statsmodels library](https://www.statsmodels.org/dev/generated/statsmodels.tsa.seasonal.seasonal_decompose.html). By decomposing a time series into these components, we can better understand and model the underlying patterns in the data. 
 
-But how can we incorporate decomposition into the transformer architecture? Let's see how Autoformer does it.
+But how can we incorporate decomposition into the Transformer architecture? Let's see how Autoformer does it.
 
 #### Decomposition in Autoformer
 
