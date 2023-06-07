@@ -47,7 +47,7 @@ Autoformer incorporates a decomposition block as an inner operation of the model
 
 Now, let's define the decomposition layer formally:
 
-For an input series $\mathcal{X} \in \mathbb{R}^{L \times d}$ with length $L$, the decomposition layer returns $\mathcal{X}_\textrm{trend}, \mathcal{X}_\textrm{seasonal}$ defined as:
+For an input series \\(\mathcal{X} \in \mathbb{R}^{L \times d}\\) with length \\(L\\), the decomposition layer returns \\(\mathcal{X}_\textrm{trend}, \mathcal{X}_\textrm{seasonal}\\) defined as:
 
 $$
 \mathcal{X}_\textrm{trend} = \textrm{AvgPool(Padding(} \mathcal{X} \textrm{))} \\
@@ -101,15 +101,15 @@ In the following sections, we will dive into these topics in detail and explain 
 |:--:|
 | Attention weights computation in frequency domain using FFT, from [the paper](https://arxiv.org/abs/2106.13008) |
 
-In theory, given a time lag $\tau$, _autocorrelation_ for a single discrete variable $y$ is used to measure the "relationship" (pearson correlation) between the variable's current value at time $t$ to its past value at time $t-\tau$:
+In theory, given a time lag \\(\tau\\), _autocorrelation_ for a single discrete variable \\(y\\) is used to measure the "relationship" (pearson correlation) between the variable's current value at time \\(t\\) to its past value at time \\(t-\tau\\):
 
 $$
 \textrm{Autocorrelation}(\tau) = \textrm{Corr}(y_t, y_{t-\tau})
 $$
 
-Using autocorrelation, Autoformer extracts frequency-based dependencies from the queries and keys, instead of the standard dot-product between them. You can think about it as a replacement for the $QK^T$ term in the self-attention.
+Using autocorrelation, Autoformer extracts frequency-based dependencies from the queries and keys, instead of the standard dot-product between them. You can think about it as a replacement for the \\(QK^T\\) term in the self-attention.
 
-In practice, autocorrelation of the queries and keys for **all lags** is calculated at once by FFT. By doing so, the autocorrelation mechanism achives $O(L \log L)$ time complexity ($L$ is the input time length), similar to [Informer's ProbSparse attention](https://huggingface.co/blog/informer#probsparse-attention). Note that the theory behind computing autocorrelation using FFT is based on the [Wiener–Khinchin theorem](https://en.wikipedia.org/wiki/Wiener%E2%80%93Khinchin_theorem), which is outside the scope of this blog post.
+In practice, autocorrelation of the queries and keys for **all lags** is calculated at once by FFT. By doing so, the autocorrelation mechanism achives \\(O(L \log L)\\) time complexity (\\(L\\) is the input time length), similar to [Informer's ProbSparse attention](https://huggingface.co/blog/informer#probsparse-attention). Note that the theory behind computing autocorrelation using FFT is based on the [Wiener–Khinchin theorem](https://en.wikipedia.org/wiki/Wiener%E2%80%93Khinchin_theorem), which is outside the scope of this blog post.
 
 Now, we are ready to see the code in PyTorch: 
 
@@ -140,7 +140,7 @@ Next, we will see how to aggregate our `attn_weights` with the values by time de
 |:--:|
 | Aggregation by time delay, from [the paper](https://arxiv.org/abs/2106.13008) |
 
-Let's consider the autocorrelations (referred to as `attn_weights`) as $\mathcal{R_{Q,K}}$. The question arises: how do we aggregate these $\mathcal{R_{Q,K}}(\tau_1), \mathcal{R_{Q,K}}(\tau_2), ..., \mathcal{R_{Q,K}}(\tau_k)$ with $\mathcal{V}$? In the standard self-attention mechanism, this aggregation is accomplished through dot-product. However, in Autoformer, we employ a different approach. Firstly, we align $\mathcal{V}$ by calculating its value for each time delay $\tau_1, \tau_2, ... \tau_k$, which is also known as _Rolling_. Subsequently, we conduct element-wise multiplication between the aligned $\mathcal{V}$ and the autocorrelations. In the provided figure, you can observe the left side showcasing the rolling of $\mathcal{V}$ by time delay, while the right side illustrates the element-wise multiplication with the autocorrelations.
+Let's consider the autocorrelations (referred to as `attn_weights`) as \\(\mathcal{R_{Q,K}}\\). The question arises: how do we aggregate these \\(\mathcal{R_{Q,K}}(\tau_1), \mathcal{R_{Q,K}}(\tau_2), ..., \mathcal{R_{Q,K}}(\tau_k)\\) with \\(\mathcal{V}\\)? In the standard self-attention mechanism, this aggregation is accomplished through dot-product. However, in Autoformer, we employ a different approach. Firstly, we align \\(\mathcal{V}\\) by calculating its value for each time delay \\(\tau_1, \tau_2, ... \tau_k\\), which is also known as _Rolling_. Subsequently, we conduct element-wise multiplication between the aligned \\(\mathcal{V}\\) and the autocorrelations. In the provided figure, you can observe the left side showcasing the rolling of \\(\mathcal{V}\\) by time delay, while the right side illustrates the element-wise multiplication with the autocorrelations.
 
 It can be summarized with the following equations:
 
@@ -150,7 +150,7 @@ $$
 \textrm{Autocorrelation-Attention} = \sum_{i=1}^k \textrm{Roll}(\mathcal{V}, \tau_i) \cdot \hat{\mathcal{R}}\mathcal{_{Q,K}}(\tau _i)
 $$
 
-And that's it! Note that $k$ is controlled by a hyperparameter called `autocorrelation_factor` (similar to `sampling_factor` in [Informer](https://huggingface.co/blog/informer)), and softmax is applied to the autocorrelations before the multiplication.
+And that's it! Note that \\(k\\) is controlled by a hyperparameter called `autocorrelation_factor` (similar to `sampling_factor` in [Informer](https://huggingface.co/blog/informer)), and softmax is applied to the autocorrelations before the multiplication.
 
 Now, we are ready to see the final code:
 
@@ -254,7 +254,7 @@ send_example_telemetry("autoformer_notebook", framework="pytorch")
 
 ## Load Dataset
 
-In this blog post, we'll use the `traffic` dataset. This dataset contains the San Francisco Traffic dataset used by [Lai et al. (2017)](https://arxiv.org/abs/1703.07015). It contains 862 hourly time series showing the road occupancy rates in the range $[0, 1]$ on the San Francisco Bay area freeways from 2015 to 2016.
+In this blog post, we'll use the `traffic` dataset. This dataset contains the San Francisco Traffic dataset used by [Lai et al. (2017)](https://arxiv.org/abs/1703.07015). It contains 862 hourly time series showing the road occupancy rates in the range \\([0, 1]\\) on the San Francisco Bay area freeways from 2015 to 2016.
 
 
 ```python
