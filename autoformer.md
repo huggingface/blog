@@ -861,7 +861,7 @@ The `traffic` dataset has a distributional shift in the sensor patterns between 
 
 ## Conclusion
 
-How do transformer based models comapre against the above linear baseline? The test set MASE metrics from the different models we have are below:
+How do Transformer based models compare against the above linear baseline? The test set MASE metrics from the different models we have are below:
 
 |Dataset | 	 Transformer (uni.) |   	 Transformer (mv.)  | Informer (uni.)| Informer (mv.) | Autoformer (uni.) | DLinear |
 |:--:|:--:| :--:| :--:| :--:|  :--:|  :--:| 
