@@ -214,7 +214,7 @@ class SeriesDecomp(nn.Module):
 
 Then two linear layers are deployed which in the point forecasting case project the context length array to a prediction length array for the seasonal and trend part and the resulting output is added together as the final prediction. In the probabilistic setting one can project the context length arrays to a `prediction-length * hidden` dim and then the resulting outputs are reshaped to `(prediction_length, hidden)`. Then a probabilistic head maps the latent representations of size `hidden` to the parameters of some distribution.
 
-For our benchmark, we will use the implementation of DLinear from GluonTS.
+For our benchmark, we will use the implementation of DLinear from GluonTS](https://github.com/awslabs/gluonts).
 
 ## Benchmarking - Transformers vs. DLinear
 
