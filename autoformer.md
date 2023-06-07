@@ -268,14 +268,10 @@ As can be seen, the dataset contains the correct number of time series and has t
 
 ```python
 dataset.metadata
+
+>>> MetaData(freq='H', target=None, feat_static_cat=[CategoricalFeatureInfo(name='feat_static_cat_0', cardinality='862')], feat_static_real=[], feat_dynamic_real=[], feat_dynamic_cat=[], prediction_length=24)
+
 ```
-
-
-
-
-    MetaData(freq='H', target=None, feat_static_cat=[CategoricalFeatureInfo(name='feat_static_cat_0', cardinality='862')], feat_static_real=[], feat_dynamic_real=[], feat_dynamic_cat=[], prediction_length=24)
-
-
 
 
 ```python
@@ -289,13 +285,6 @@ Let's visualize a time series in the dataset and plot the train/test split:
 ```python
 train_example = next(iter(dataset.train))
 test_example = next(iter(dataset.test))
-```
-
-
-```python
-assert len(train_example["target"]) + prediction_length == len(
-    test_example["target"]
-)
 ```
 
 
@@ -315,8 +304,6 @@ axes.plot(
 plt.show()
 ```
 
-
-    
 ![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/output_15_0.png)
     
 
@@ -617,10 +604,6 @@ config = AutoformerConfig.from_pretrained("kashif/autoformer-traffic-hourly")
 ```
 
 
-    Downloading (…)lve/main/config.json:   0%|          | 0.00/1.41k [00:00<?, ?B/s]
-
-
-
 ```python
 test_dataloader = create_test_dataloader(
     config=config,
@@ -638,10 +621,6 @@ At inference time, we will use the model's  `generate()` method for predicting `
 ```python
 model = AutoformerForPrediction.from_pretrained("kashif/autoformer-traffic-hourly")
 ```
-
-
-    Downloading pytorch_model.bin:   0%|          | 0.00/116k [00:00<?, ?B/s]
-
 
 
 ```python
@@ -678,13 +657,9 @@ In this case, we get `100` possible values for the next `24` hours for each of t
 
 ```python
 forecasts_[0].shape
+
+>>> (64, 100, 24)
 ```
-
-
-
-
-    (64, 100, 24)
-
 
 
 We'll stack them vertically, to get forecasts for all time-series in the test dataset: We have `7` rolling windows in the test set which is why we end up with a total of `7 * 862 = 6034` predictions:   
@@ -695,10 +670,9 @@ import numpy as np
 
 forecasts = np.vstack(forecasts_)
 print(forecasts.shape)
+
+>>> (6034, 100, 24)
 ```
-
-    (6034, 100, 24)
-
 
 We can evaluate the resulting forecast with respect to the ground truth out of sample values present in the test set. For that, we'll use the 🤗 [Evaluate](https://huggingface.co/docs/evaluate/index) library, which includes the [MASE](https://huggingface.co/spaces/evaluate-metric/mase) metrics.
 
@@ -727,15 +701,13 @@ for item_id, ts in enumerate(tqdm(test_dataset)):
 ```
 
 
-      0%|          | 0/6034 [00:00<?, ?it/s]
-
 
 
 ```python
 print(f"MASE: {np.mean(mase_metrics)}")
-```
 
-    MASE: 0.9092493026949344
+>>> MASE: 0.9092493026949344
+```
 
 
 To plot the prediction for any time series with respect to the ground truth test data we define the following helper:
@@ -779,8 +751,6 @@ For example:
 ```python
 plot(4)
 ```
-
-
     
 ![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/output_44_0.png)
     
@@ -806,16 +776,14 @@ estimator = DLinearEstimator(
 )
 ```
 
-
 ```python
 predictor = estimator.train(
     training_data=train_dataset, 
     cache_data=True, 
     shuffle_buffer_length=1024
 )
-```
 
-    Authorization required, but no authorization protocol specified
+>>> Authorization required, but no authorization protocol specified
     Authorization required, but no authorization protocol specified
     Authorization required, but no authorization protocol specified
     INFO:pytorch_lightning.utilities.rank_zero:GPU available: True (cuda), used: False
@@ -836,16 +804,11 @@ predictor = estimator.train(
     4.7 K     Total params
     0.019     Total estimated model params size (MB)
 
-
-
     Training: 0it [00:00, ?it/s]
-
-
     ...
     INFO:pytorch_lightning.utilities.rank_zero:Epoch 49, global step 5000: 'train_loss' was not in top 1
     INFO:pytorch_lightning.utilities.rank_zero:`Trainer.fit` stopped: `max_epochs=50` reached.
-
-
+```
 
 ```python
 from gluonts.evaluation import make_evaluation_predictions, Evaluator
@@ -869,26 +832,11 @@ evaluator = Evaluator()
 agg_metrics, _ = evaluator(iter(d_linear_tss), iter(d_linear_forecasts))
 ```
 
-    Running evaluation: 6034it [00:00, 70109.56it/s]
-    /home/kashif/gluon-ts-PR/src/gluonts/evaluation/_base.py:422: RuntimeWarning: divide by zero encountered in scalar divide
-      metrics["ND"] = cast(float, metrics["abs_error"]) / cast(
-    /home/kashif/gluon-ts-PR/src/gluonts/evaluation/_base.py:422: RuntimeWarning: divide by zero encountered in scalar divide
-      metrics["ND"] = cast(float, metrics["abs_error"]) / cast(
-    /home/kashif/gluon-ts-PR/src/gluonts/evaluation/_base.py:422: RuntimeWarning: divide by zero encountered in scalar divide
-      metrics["ND"] = cast(float, metrics["abs_error"]) / cast(
-    /home/kashif/gluon-ts-PR/src/gluonts/evaluation/_base.py:422: RuntimeWarning: divide by zero encountered in scalar divide
-      metrics["ND"] = cast(float, metrics["abs_error"]) / cast(
-    /home/kashif/.env/pytorch/lib/python3.10/site-packages/pandas/core/dtypes/astype.py:138: UserWarning: Warning: converting a masked element to nan.
-      return arr.astype(dtype, copy=True)
-
-
-
 ```python
 print(agg_metrics["MASE"])
+
+>>> 0.9693592730002069
 ```
-
-    0.9693592730002069
-
 
 We can also plot the predictions from our trained DLinear model via this helper:
 
@@ -902,16 +850,12 @@ def plot_gluonts(index):
     plt.show()
 ```
 
-
 ```python
 plot_gluonts(4)
 ```
 
-
-    
 ![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/output_54_0.png)
     
-
 
 The `traffic` dataset has a distributional shift in the sensor patterns between weekdays and weekends. So what is going on here? Since the DLinear model has no capacity to incorporate covariates, in particular any date-time features, the context window we give it does not have enough information to figure out if the prediction is for the weekend or weekday. Thus the model will predict the more common of the patterns, namely the weekdays leading to poorer performance on weekends. Of course, by giving it a larger context window a linear model will figure out the weekly pattern but perhaps there is a monthly or quaterly pattern in the data which would require bigger and bigger contexts.
 
