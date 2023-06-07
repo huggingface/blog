@@ -194,7 +194,7 @@ def time_delay_aggregation(attn_weights, value_states, autocorrelation_factor=2)
    
 We did it! The Autoformer model in [now available](https://huggingface.co/docs/transformers/main/en/model_doc/autoformer) in the 🤗 Transformers library, and simply called `AutoformerModel`.
 
-Our strategy with this model is to show the performance of the univariate transformer models in comparison to the DLinear model which is inherently univariate. We will also present the results from _two_ multivariate transformers models trained on the same data.
+Our strategy with this model is to show the performance of the univariate Transformer models in comparison to the DLinear model which is inherently univariate. We will also present the results from _two_ multivariate Transformer models trained on the same data.
 
 ## DLinear 
 
