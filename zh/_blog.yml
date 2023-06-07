@@ -25,6 +25,16 @@
     - analysis
     - nlp
 
+- local: constrained-beam-search
+  title: "在 🤗 Transformers 中使用约束波束搜索引导文本生成"
+  author: cwkeam
+  guest: true
+  thumbnail: /blog/assets/53_constrained_beam_search/thumbnail.png
+  date: March 11, 2022
+  tags:
+    - guide
+    - nlp
+
 - local: bloom-megatron-deepspeed
   title: "BLOOM 训练背后的技术"
   author: stas
