@@ -1,6 +1,6 @@
 ---
 title: "Yes, Transformers are Effective for Time Series Forecasting" 
-thumbnail: /blog/assets/134_informer/thumbnail.png
+thumbnail: /blog/assets/148_autoformer/thumbnail.png
 authors:
 - user: kashif
 - user: elisim
@@ -39,7 +39,7 @@ But how can we incorporate decomposition into the transformer architecture? Let'
 
 #### Decomposition in Autoformer
 
-| ![autoformer_architecture](images/autoformer_architecture.png) |
+| ![autoformer_architecture](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/autoformer_architecture.png) |
 |:--:|
 | Autoformer architecture from [the paper](https://arxiv.org/abs/2106.13008) |
 
@@ -87,7 +87,7 @@ As you can see, the implementation is quite simple and can be used in other mode
 
 ### Attention (Autocorrelation) Mechanism
 
-| ![autoformer_autocorrelation_vs_full_attention](images/autoformer_autocorrelation_vs_full_attention.png) |
+| ![autoformer_autocorrelation_vs_full_attention](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/autoformer_autocorrelation_vs_full_attention.png) |
 |:--:|
 |  Vanilla self attention vs Autocorrelation mechanism, from [the paper](https://arxiv.org/abs/2106.13008) |
 
@@ -97,7 +97,7 @@ In the following sections, we will dive into these topics in detail and explain 
 
 ####  Frequency Domain Attention 
 
-| ![autoformer_autocorrelation_only_attention](images/autoformer_autocorrelation_only_attention.png) |
+| ![autoformer_autocorrelation_only_attention](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/autoformer_autocorrelation_only_attention.png) |
 |:--:|
 | Attention weights computation in frequency domain using FFT, from [the paper](https://arxiv.org/abs/2106.13008) |
 
@@ -136,7 +136,7 @@ Quite simple! 😎 Please be aware that this is only a partial implementation of
 Next, we will see how to aggregate our `attn_weights` with the values by time delay, which are termed as _Time Delay Aggregation_.
 
 #### Time Delay Aggregation
-| ![autoformer_autocorrelation_only_aggregation](images/autoformer_autocorrelation_only_aggregation.png) |
+| ![autoformer_autocorrelation_only_aggregation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/autoformer_autocorrelation_only_aggregation.png) |
 |:--:|
 | Aggregation by time delay, from [the paper](https://arxiv.org/abs/2106.13008) |
 
@@ -317,7 +317,7 @@ plt.show()
 
 
     
-![png](output_15_0.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/output_15_0.png)
     
 
 
@@ -782,7 +782,7 @@ plot(4)
 
 
     
-![png](output_44_0.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/output_44_0.png)
     
 
 
@@ -909,7 +909,7 @@ plot_gluonts(4)
 
 
     
-![png](output_54_0.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/output_54_0.png)
     
 
 
