@@ -130,8 +130,8 @@ llm_model = HuggingFaceModel(
   image_uri=llm_image,
   env={
     'HF_MODEL_ID': hf_model_id,
-    'HF_MODEL_QUANTIZE': json.dumps(use_quantization),
-    # 'HF_MODEL_QUANTIZE': "bitsandbytes", # comment in to use quantization
+    'SM_NUM_GPUS': json.dumps(number_of_gpu)
+    #'HF_MODEL_QUANTIZE': "bitsandbytes", # comment in to use quantization
   }
 )
 ```
