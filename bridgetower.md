@@ -44,7 +44,7 @@ Compare perf before/after fine-tuning
 
 To benchmark training, we are going to fine-tune BridgeTower Large using [this checkpoint](https://huggingface.co/BridgeTower/bridgetower-large-itm-mlm-itc). It contains 955M parameters and was pretrained on English language using masked language modeling, image-text matching and image-text contrastive loss on [Conceptual Captions](https://huggingface.co/datasets/conceptual_captions), [SBU Captions](https://huggingface.co/datasets/sbu_captions), [MSCOCO Captions](https://huggingface.co/datasets/HuggingFaceM4/COCO) and [Visual Genome](https://huggingface.co/datasets/visual_genome).
 
-This checkpoint will be fine-tuned on the [New Yorker Caption Contest] dataset + hyperparams
+This checkpoint is fine-tuned on the [New Yorker Caption Contest dataset](https://nextml.github.io/caption-contest-data) which consists of cartoons from The New Yorker and the most voted captions.
 
 Several runs were performed:
 - a mixed-precision (*bfloat16*/*float*) run (MP-0)
