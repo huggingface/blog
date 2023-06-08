@@ -49,13 +49,13 @@ con.execute("LOAD httpfs;")
 Once you’re connected, you can start writing SQL queries!
 
 ```sql
-con.sql(f"SELECT horoscope, 
+con.sql(f"""SELECT horoscope, 
 	count(*), 
 	AVG(LENGTH(text)) AS avg_blog_length 
 	FROM '{url}' 
 	GROUP BY horoscope 
 	ORDER BY avg_blog_length 
-	DESC LIMIT(5)"
+	DESC LIMIT(5)"""
 )
 ```
 
