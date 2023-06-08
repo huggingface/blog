@@ -14,15 +14,18 @@ Thanks to Apple engineers, you can now run Stable Diffusion on Apple Silicon usi
 
 [This Apple repo](https://github.com/apple/ml-stable-diffusion) provides conversion scripts and inference code based on [🧨 Diffusers](https://github.com/huggingface/diffusers), and we love it! To make it as easy as possible for you, we converted the weights ourselves and put the Core ML versions of the models in [the Hugging Face Hub](https://hf.co/apple).
 
-This post guides you on how to use the converted weights.
+**Update**: some weeks after this post was written we created a native Swift app that you can use to run Stable Diffusion effortlessly on your own hardware. We released [an app in the Mac App Store](https://apps.apple.com/app/diffusers/id1666309574) as well as [the source code to allow other projects to use it](https://github.com/huggingface/swift-coreml-diffusers).
+
+The rest of this post guides you on how to use the converted weights in your own code or convert additional weights yourself.
 
 ## Available Checkpoints
 
-The checkpoints that are already converted and ready for use are the ones for these models:
+The official Stable Diffusion checkpoints are already converted and ready for use:
 
 - Stable Diffusion v1.4: [converted](https://hf.co/apple/coreml-stable-diffusion-v1-4) [original](https://hf.co/CompVis/stable-diffusion-v1-4)
 - Stable Diffusion v1.5: [converted](https://hf.co/apple/coreml-stable-diffusion-v1-5) [original](https://hf.co/runwayml/stable-diffusion-v1-5)
 - Stable Diffusion v2 base: [converted](https://hf.co/apple/coreml-stable-diffusion-2-base) [original](https://huggingface.co/stabilityai/stable-diffusion-2-base)
+- Stable Diffusion v2.1 base: [converted](https://hf.co/apple/coreml-stable-diffusion-2-1-base) [original](https://huggingface.co/stabilityai/stable-diffusion-2-1-base)
 
 Core ML supports all the compute units available in your device: CPU, GPU and Apple's Neural Engine (NE). It's also possible for Core ML to run different portions of the model in different devices to maximize performance.
 
@@ -45,7 +48,7 @@ With these, it took 18s to generate one image with the Core ML version of Stable
 
 > **⚠️ Note**
 >
-> Several improvements to Core ML have been introduced in the beta version of macOS Ventura 13.1, and they are required by Apple's implementation. You may get black images –and much slower times– if you use the current release version of macOS Ventura (13.0.1). If you can't or won't install the beta, please wait until macOS Ventura 13.1 is officially released.
+> Several improvements to Core ML were introduced in macOS Ventura 13.1, and they are required by Apple's implementation. You may get black images –and much slower times– if you use previous versions of macOS.
 
 
 Each model repo is organized in a tree structure that provides these different variants:
@@ -80,33 +83,17 @@ This is how you'd download the `original` attention variant from the Hub:
 
 ```Python
 from huggingface_hub import snapshot_download
-from huggingface_hub.file_download import repo_folder_name
 from pathlib import Path
-import shutil
 
 repo_id = "apple/coreml-stable-diffusion-v1-4"
 variant = "original/packages"
 
-def download_model(repo_id, variant, output_dir):
-    destination = Path(output_dir) / (repo_id.split("/")[-1] + "_" + variant.replace("/", "_"))
-    if destination.exists():
-        raise Exception(f"Model already exists at {destination}")
-    
-    # Download and copy without symlinks
-    downloaded = snapshot_download(repo_id, allow_patterns=f"{variant}/*", cache_dir=output_dir)
-    downloaded_bundle = Path(downloaded) / variant
-    shutil.copytree(downloaded_bundle, destination)
-
-    # Remove all downloaded files
-    cache_folder = Path(output_dir) / repo_folder_name(repo_id=repo_id, repo_type="model")
-    shutil.rmtree(cache_folder)
-    return destination
-
-model_path = download_model(repo_id, variant, output_dir="./models")
+model_path = Path("./models") / (repo_id.split("/")[-1] + "_" + variant.replace("/", "_"))
+snapshot_download(repo_id, allow_patterns=f"{variant}/*", local_dir=model_path, local_dir_use_symlinks=False)
 print(f"Model downloaded at {model_path}")
 ```
 
-The code above will place the downloaded model snapshot inside the directory you specify (`models`, in this case).
+The code above will place the downloaded model snapshot inside a directory called `models`.
 
 ### Inference
 
@@ -142,29 +129,13 @@ To run inference in Swift on your Mac, you need one of the `compiled` checkpoint
 
 ```Python
 from huggingface_hub import snapshot_download
-from huggingface_hub.file_download import repo_folder_name
 from pathlib import Path
-import shutil
 
 repo_id = "apple/coreml-stable-diffusion-v1-4"
 variant = "original/compiled"
 
-def download_model(repo_id, variant, output_dir):
-    destination = Path(output_dir) / (repo_id.split("/")[-1] + "_" + variant.replace("/", "_"))
-    if destination.exists():
-        raise Exception(f"Model already exists at {destination}")
-    
-    # Download and copy without symlinks
-    downloaded = snapshot_download(repo_id, allow_patterns=f"{variant}/*", cache_dir=output_dir)
-    downloaded_bundle = Path(downloaded) / variant
-    shutil.copytree(downloaded_bundle, destination)
-
-    # Remove all downloaded files
-    cache_folder = Path(output_dir) / repo_folder_name(repo_id=repo_id, repo_type="model")
-    shutil.rmtree(cache_folder)
-    return destination
-
-model_path = download_model(repo_id, variant, output_dir="./models")
+model_path = Path("./models") / (repo_id.split("/")[-1] + "_" + variant.replace("/", "_"))
+snapshot_download(repo_id, allow_patterns=f"{variant}/*", local_dir=model_path, local_dir_use_symlinks=False)
 print(f"Model downloaded at {model_path}")
 ```
 

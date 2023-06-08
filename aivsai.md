@@ -1,6 +1,6 @@
 ---
 title: "Introducing ⚔️ AI vs. AI ⚔️ a deep reinforcement learning multi-agents competition system"
-thumbnail: /blog/https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/thumbnail.png
+thumbnail: /blog/assets/128_aivsai/thumbnail.png
 authors:
 - user: CarlCochet
 - user: ThomasSimonini

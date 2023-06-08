@@ -478,3 +478,14 @@ We've gone from the basic use of Stable Diffusion using 🤗 Hugging Face Diffus
 - The [Getting Started with Diffusers](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/diffusers_intro.ipynb) notebook, that gives a broader overview on Diffusion systems.
 - The [Annotated Diffusion Model](https://huggingface.co/blog/annotated-diffusion) blog post.
 - Our [code in GitHub](https://github.com/huggingface/diffusers) where we'd be more than happy if you leave a ⭐ if `diffusers` is useful to you!
+
+### Citation:
+```
+@article{patil2022stable,
+  author = {Patil, Suraj and Cuenca, Pedro and Lambert, Nathan and von Platen, Patrick},
+  title = {Stable Diffusion with 🧨 Diffusers},
+  journal = {Hugging Face Blog},
+  year = {2022},
+  note = {[https://huggingface.co/blog/rlhf](https://huggingface.co/blog/stable_diffusion)},
+}
+```

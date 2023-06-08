@@ -5,30 +5,25 @@ authors:
 - user: ThomasSimonini
 ---
 
-<html>
-<head>
-<style>
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-</style>
+
 <h1>An Introduction to Q-Learning Part 2/2</h1>
 <h2>Unit 2, part 2 of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
 <!-- {authors} -->
 
-</head>
 
-<body>
 
-*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
-  
+⚠️ A **new updated version of this article is available here** 👉 [https://huggingface.co/deep-rl-course/unit1/introduction](https://huggingface.co/deep-rl-course/unit2/q-learning)
+
+*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://huggingface.co/deep-rl-course/unit0/introduction)*
+
 <img src="assets/73_deep_rl_q_part2/thumbnail.gif" alt="Thumbnail"/>
   
 ---
+
+⚠️ A **new updated version of this article is available here** 👉 [https://huggingface.co/deep-rl-course/unit1/introduction](https://huggingface.co/deep-rl-course/unit2/q-learning)
+
+*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://huggingface.co/deep-rl-course/unit0/introduction)*
 
 [In the first part of this unit](https://huggingface.co/blog/deep-rl-q-part1), **we learned about the value-based methods and the difference between Monte Carlo and Temporal Difference Learning**.
 
@@ -364,6 +359,4 @@ And don't forget to share with your friends who want to learn 🤗 !
 Finally, we want **to improve and update the course iteratively with your feedback**. If you have some, please fill this form 👉 https://forms.gle/3HgA7bEHwAmmLfwh9
 
 ### Keep learning, stay awesome,
-</body>
-</html>
   

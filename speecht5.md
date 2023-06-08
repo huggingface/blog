@@ -148,6 +148,8 @@ That’s it for the TTS model! The key to making this sound good is to use the r
 
 You can play with an [interactive demo](https://huggingface.co/spaces/Matthijs/speecht5-tts-demo) on Spaces.
 
+💡 Interested in learning how to **fine-tune** SpeechT5 TTS on your own dataset or language? Check out [this Colab notebook](https://colab.research.google.com/drive/1i7I5pzBcU3WDFarDnzweIj4-sVVoIUFJ) with a detailed walk-through of the process.
+
 ## Speech-to-speech for voice conversion
 
 Conceptually, doing speech-to-speech modeling with SpeechT5 is the same as text-to-speech. Simply swap out the text encoder pre-net for the speech encoder pre-net. The rest of the model stays the same.

@@ -2,7 +2,7 @@
 title: "Comments on U.S. National AI Research Resource Interim Report"
 thumbnail: /blog/assets/92_us_national_ai_research_resource/nairr_thumbnail.png
 authors:
-- user: Irene
+- user: irenesolaiman
 ---
 
 # AI Policy @🤗: Comments on U.S. National AI Research Resource Interim Report

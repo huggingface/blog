@@ -1,7 +1,77 @@
 # "date" attribute should be end date of an event in `Mon DD, YYYY` format (e.g. Feb 3, 2014)
 # "date_formatted" attribute is optional if you want to control the format/look of "date" on hf.co
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
+# pro tip: put strings e.g. name or description in "quotes" or do not include special characters incl. ':' '[' 
 
+- name: "Deploying Generative AI Models"
+  link: https://lu.ma/ijcugt4n
+  date: June 10, 2023
+  description: "This meetup caters to all AI enthusiasts, from beginners in model training to deployment experts and researchers."
+
+- name: "Hugging Cast v2 - Live AI News and Demos"
+  link: https://streamyard.com/watch/GJkVxAWR76k2
+  date: May 26, 2023
+  description: "Join our live show - we'll discuss StarCoder, Transformer Agents and our latest benchmarks!"
+
+- name: "Free Panel – The Linux Moment of AI: Open Sourced AI Stack"
+  link: https://future.snorkel.ai/agenda/
+  date: June 7, 2023
+  description: "In this virtual panel, experts, including Hugging Face Chief Evangelist, will delve into how open-source models and tools can revolutionize AI."
+  
+- name: "Free Workshop: Save money with Inferentia2"
+  link: https://aws-startup-lofts.com/amer/loft/san-francisco/e/c1621/ml-startup-workshop-deploying-text-summarization-and-image-generation-applications-with-hugging-face-and-aws-inferentia2
+  date: May 11, 2023
+  description: "[San Francisco] Learn how to save money deploying text and image Generative AI models on AWS Inferentia2!"
+
+- name: Meet-up on Generative AI
+  link: https://sites.google.com/huggingface.co/generative-ai-meetup
+  date: Apr 29, 2023
+  description: Free meet-up in collaboration with NVIDIA to discuss the bleeding egde from the world of Generative AI. 
+
+- name: "Hugging Cast v1 - Live AI News and Demos"
+  link: https://streamyard.com/watch/zWBsznmYH5fP
+  date: Apr 27, 2023
+  description: "Join us for the premiere of Hugging Cast, our new live show about open source AI!"
+
+- name: Diffusers/JAX Community Sprint
+  link: https://github.com/huggingface/community-events/tree/main/jax-controlnet-sprint
+  date: Mar 29 to May 8, 2023
+  description: This is a community event to develop applications with 🧨 diffusers and JAX using TPUs.
+
+- name: Scikit-learn Documentation Sprint
+  link: https://github.com/huggingface/community-events/blob/main/sklearn-sprint/guidelines.md
+  date: Apr 14 to May 1, 2023
+  description: This is a community event to develop applications for examples in scikit-learn documentation using Gradio.
+  
+- name: (IRL San Francisco) Open Source AI meetup with 🤗 CEO
+  link: https://partiful.com/e/fE0XH0PrSOZB9ezYuFbW
+  date: Mar 31, 2023
+  description: 🤗 CEO Clement Delangue & team members are heading to San Francisco to celebrate the open-source AI community. 
+
+- name: Keras DreamBooth Community Sprint
+  link: https://huggingface.co/keras-dreambooth
+  date: Mar 6 to Apr 1, 2023
+  description: A community sprint on fine-tuning Stable Diffusion using DreamBooth technique on Keras library.
+
+- name: How to build Machine Learning apps with Hugging Face
+  link: https://www.eventbrite.com/e/building-machine-learning-apps-with-hugging-facellms-to-diffusion-modeling-tickets-565837343727?aff=HF
+  date: Mar 23, 2023
+  description: Free workshop hosted by DeepLearning.AI for developers learn how to build with ML without the Ops.
+
+- name: "Ethics & Society: Making Intellicence – Ethical Values in ML Benchmarks"
+  link: https://hf.co/ethics
+  date: Mar 13, 2023
+  description: A Discord Q&A with Leif Hancox-Li, PhD and Borhane Blili-Hamelin, PhD!
+
+- name: (IRL San Francisco) Building Generative AI Products with AWS and HuggingFace
+  link: https://aws-startup-lofts.com/amer/loft/san-francisco/e/c77d4/ml-startup-tech-talk-building-generative-ai-products
+  date: Mar 8, 2023
+  description: Free event in downtown SF hosted by AWS to learn how to use Hugging Face with SageMaker
+  
+- name: Keras Dreambooth Event Kick-off Session with talks on diffusers & KerasCV
+  link: https://www.youtube.com/watch?v=Njt8BuSW-TQ&ab_channel=HuggingFace
+  date: Mar 5, 2023
+  description: Free talks with Francois Chollet, Nataniel Ruiz, Apolinario Passos and Merve Noyan.
 
 - name: How Witty Works leverages Hugging Face to scale inclusive language?
   link: https://www.eventbrite.com/e/how-witty-works-leverages-hugging-face-to-scale-inclusive-language-tickets-503429429977
