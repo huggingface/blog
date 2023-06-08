@@ -18,13 +18,13 @@ authors:
 
 A few months ago, we introduced the [Informer](https://huggingface.co/blog/informer) model ([Zhou, Haoyi, et al., 2021](https://arxiv.org/abs/2012.07436)), which is a Time Series Transformer that won the AAAI 2021 best paper award. We also provided an example for multivariate probabilistic forecasting with Informer. In this post, we introduce the _Autoformer_ model ([Wu, Haixu, et al., 2021](https://arxiv.org/abs/2106.13008)), which was published in NeurIPS 2021 after the Informer model. The Autoformer model is [now available](https://huggingface.co/docs/transformers/main/en/model_doc/autoformer) in 🤗 Transformers.
 
-We will begin by explaining the Autoformer model, including its novel _Decomposition Layer_ and _Attention (Autocorrelation) Mechanism_. Next, we will present the _DLinear_ model, which is a simple feedforward network that uses the decomposition layer from Autoformer. The DLinear model was first introduced in [Are Transformers Effective for Time Series Forecasting?](https://arxiv.org/abs/2205.13504) which published recently in AAAI 2023. Finally, we will provide empirical evidence that **Transformers are indeed Effective for Time Series Forecasting**. Our comparison shows that a simple linear model is not better than Transformers, as claimed. When compared against equivalent sized models in the same setting as the the linear models, the Transformer based models perform better on the test set metrics we consider.
+We will begin by explaining the Autoformer model, including its novel _Decomposition Layer_ and _Attention (Autocorrelation) Mechanism_. Next, we will present the _DLinear_ model, which is a simple feedforward network that uses the decomposition layer from Autoformer. The DLinear model was first introduced in [Are Transformers Effective for Time Series Forecasting?](https://arxiv.org/abs/2205.13504) which published recently in AAAI 2023. Finally, we will provide empirical evidence that **Transformers are indeed Effective for Time Series Forecasting**. Our comparison shows that a simple linear model is not better than Transformers, as claimed. When compared against equivalent sized models in the same setting as the linear models, the Transformer based models perform better on the test set metrics we consider.
 
 ## Autoformer - Under The Hood
 
-The Autoformer builds upon the traditional method of decomposing time series into seasonality and trend-cycle components. This is achieved through the incorporation of a _Decomposition Layer_, which enhances the model's ability to capture these components accurately. Moreover, the Autoformer introduces an innovative auto-correlation mechanism that replaces the standard self-attention used in the vanilla transformer. This mechanism enables the model to utilize period-based dependencies in the attention, thus improving the overall performance. 
+Autoformer builds upon the traditional method of decomposing time series into seasonality and trend-cycle components. This is achieved through the incorporation of a _Decomposition Layer_, which enhances the model's ability to capture these components accurately. Moreover, Autoformer introduces an innovative auto-correlation mechanism that replaces the standard self-attention used in the vanilla transformer. This mechanism enables the model to utilize period-based dependencies in the attention, thus improving the overall performance. 
 
-In the upcoming sections, we will delve into the two key contributions of the Autoformer: the _Decomposition Layer_ and the _Attention (Autocorrelation) Mechanism_. We will also provide code examples to illustrate how these components function within the Autoformer architecture.
+In the upcoming sections, we will delve into the two key contributions of Autoformer: the _Decomposition Layer_ and the _Attention (Autocorrelation) Mechanism_. We will also provide code examples to illustrate how these components function within the Autoformer architecture.
 
 ### Decomposition Layer
 Decomposition has long been a popular method in time series analysis, but it had not been extensively incorporated into deep learning models until the introduction of the Autoformer paper. In the upcoming sections, we will introduce the general decomposition concept in time series analysis. Following that, we will demonstrate how this idea is applied in Autoformer using PyTorch code.
@@ -33,9 +33,9 @@ Decomposition has long been a popular method in time series analysis, but it had
 In time series analysis, [decomposition](https://en.wikipedia.org/wiki/Decomposition_of_time_series) is a method of breaking down a time series into three systematic components, including trend-cycle, seasonal variation, and random fluctuations.
 The trend component represents the long-term direction of the time series, which can be increasing, decreasing, or stable over time. The seasonal component represents the recurring patterns that occur within the time series, such as yearly or quarterly cycles. Finally, the random (sometimes called "irregular") component represents the random noise in the data that cannot be explained by the trend or seasonal components. 
 
-Two main types of decomposition are additive and multiplicative decomposition, which implemented in the [great statsmodels library](https://www.statsmodels.org/dev/generated/statsmodels.tsa.seasonal.seasonal_decompose.html). By decomposing a time series into these components, we can better understand and model the underlying patterns in the data. 
+Two main types of decomposition are additive and multiplicative decomposition, which are implemented in the [great statsmodels library](https://www.statsmodels.org/dev/generated/statsmodels.tsa.seasonal.seasonal_decompose.html). By decomposing a time series into these components, we can better understand and model the underlying patterns in the data. 
 
-But how can we incorporate decomposition into the transformer architecture? Let's see how Autoformer does it.
+But how can we incorporate decomposition into the Transformer architecture? Let's see how Autoformer does it.
 
 #### Decomposition in Autoformer
 
@@ -91,7 +91,7 @@ As you can see, the implementation is quite simple and can be used in other mode
 |:--:|
 |  Vanilla self attention vs Autocorrelation mechanism, from [the paper](https://arxiv.org/abs/2106.13008) |
 
-In addition to the decomposition layer, Autoformer employs a novel auto-correlation mechanism which replaces the self-attention seamlessly. In the [vanilla time series transformer](https://huggingface.co/docs/transformers/model_doc/time_series_transformer), attention weights are computed in the time domain and point-wise aggregated. On the other hand, as can be seen in the figure above, in the auto-correlation mechanism they are computed in the frequency domain (using [fast fourier transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform)) and aggregated by time delay. 
+In addition to the decomposition layer, Autoformer employs a novel auto-correlation mechanism which replaces the self-attention seamlessly. In the [vanilla Time Series Transformer](https://huggingface.co/docs/transformers/model_doc/time_series_transformer), attention weights are computed in the time domain and point-wise aggregated. On the other hand, as can be seen in the figure above, Autoformer computes them in the frequency domain (using [fast fourier transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform)) and aggregates them by time delay.
 
 In the following sections, we will dive into these topics in detail and explain them with code examples.
 
@@ -194,7 +194,7 @@ def time_delay_aggregation(attn_weights, value_states, autocorrelation_factor=2)
    
 We did it! The Autoformer model in [now available](https://huggingface.co/docs/transformers/main/en/model_doc/autoformer) in the 🤗 Transformers library, and simply called `AutoformerModel`.
 
-Our strategy with this model is to show the performance of the univariate transformer models in comparison to the DLinear model which is inherently univariate. We will also present the results from _two_ multivariate transformers models trained on the same data.
+Our strategy with this model is to show the performance of the univariate Transformer models in comparison to the DLinear model which is inherently univariate. We will also present the results from _two_ multivariate Transformer models trained on the same data.
 
 ## DLinear 
 
@@ -214,7 +214,7 @@ class SeriesDecomp(nn.Module):
 
 Then two linear layers are deployed which in the point forecasting case project the context length array to a prediction length array for the seasonal and trend part and the resulting output is added together as the final prediction. In the probabilistic setting one can project the context length arrays to a `prediction-length * hidden` dim and then the resulting outputs are reshaped to `(prediction_length, hidden)`. Then a probabilistic head maps the latent representations of size `hidden` to the parameters of some distribution.
 
-For our benchmark, we will use the implementation of DLinear from GluonTS.
+For our benchmark, we will use the implementation of DLinear from GluonTS](https://github.com/awslabs/gluonts).
 
 ## Benchmarking - Transformers vs. DLinear
 
@@ -234,7 +234,7 @@ Instead of showing how to train a model using `Autoformer` one can just replace 
 
 ## Set-up Environment
 
-First, let's install the necessary libraries: 🤗 Transformers, 🤗 Datasets, 🤗 Evaluate, 🤗 Accelerate and [GluonTS](https://github.com/awslabs/gluonts).
+First, let's install the necessary libraries: 🤗 Transformers, 🤗 Datasets, 🤗 Evaluate, 🤗 Accelerate and GluonTS.
 
 As we will show, GluonTS will be used for transforming the data to create features as well as for creating appropriate training, validation and test batches.
 
@@ -861,12 +861,12 @@ The `traffic` dataset has a distributional shift in the sensor patterns between 
 
 ## Conclusion
 
-How do transformer based models comapre against the above linear baseline? The test set MASE metrics from the different models we have are below:
+How do Transformer based models compare against the above linear baseline? The test set MASE metrics from the different models we have are below:
 
 |Dataset | 	 Transformer (uni.) |   	 Transformer (mv.)  | Informer (uni.)| Informer (mv.) | Autoformer (uni.) | DLinear |
 |:--:|:--:| :--:| :--:| :--:|  :--:|  :--:| 
 |`Traffic` 	| **0.876** | 1.046 | 0.924 | 1.131  | 0.910 | 0.969 |
 
-As one can observe, the multivariate forecasts are typically _worse_ than the univariate ones, the reason being the difficulty in estimating the cross-series correlations/relationships. The additional variance added by the estimates often harms the resulting forecasts or the model learns spurious correlations. We refer to [this paper](https://openreview.net/forum?id=GpW327gxLTF) for further reading. Multivariate models tend to work well when trained on a lot of data. However, when one compares  univariate models with multivariate models, especially on smaller open datasets, the univariate models give better metrics. By comparing the linear model with equivalent-sized univariate transformers or in fact any other neural univariate model, one will typically get better performance.
+As one can observe, the [vanilla Transformer](https://huggingface.co/docs/transformers/model_doc/time_series_transformer) which we introduced last year gets the best results. Secondly, multivariate forecasts are typically _worse_ than the univariate ones, the reason being the difficulty in estimating the cross-series correlations/relationships. The additional variance added by the estimates often harms the resulting forecasts or the model learns spurious correlations. We refer to [this paper](https://openreview.net/forum?id=GpW327gxLTF) for further reading. Multivariate models tend to work well when trained on a lot of data. However, when one compares univariate models with multivariate models, especially on smaller open datasets, the univariate models give better metrics. By comparing the linear model with equivalent-sized univariate transformers or in fact any other neural univariate model, one will typically get better performance.
 
 We also observe that the vanilla Univariate Transformer still performs best here.

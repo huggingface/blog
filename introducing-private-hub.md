@@ -16,9 +16,9 @@ authors:
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 10px;">
   June 2023 Update:
   
-  We have announced the newer iteration of Private Hub called <b>Enterprise Hub</b>.
+  The Private Hub is now called <b>Enterprise Hub</b>.
   
-  The Enterprise Hub is a hosted solution that combines the best of Cloud Managed services (SaaS) and Enterprise security. It lets customers deploy specific services like <b>Inference Endpoints</b> on a wide scope of compute options, from on-cloud to on-prem.
+  The Enterprise Hub is a hosted solution that combines the best of Cloud Managed services (SaaS) and Enterprise security. It lets customers deploy specific services like <b>Inference Endpoints</b> on a wide scope of compute options, from on-cloud to on-prem. It offers advanced user administration and access controls through SSO.
   
   Get in touch with our [Enterprise team](/support) to find the best solution for your company.
 </div>
