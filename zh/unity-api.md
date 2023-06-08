@@ -5,12 +5,14 @@ authors:
 - user: dylanebert
 translators:
 - user: SuSung-boy
+- user: zhongdongy
+  proofreader: true
 ---
 
-<h1>如何安装和使用 Hugging Face Unity API</h1>
+<h1> 如何安装和使用 Hugging Face Unity API</h1>
 
 <!-- {blog_metadata} -->
-<!-- {authors} --> 
+<!-- {authors} -->
 
 [Hugging Face Unity API](https://github.com/huggingface/unity-api) 提供了一个简单易用的接口，允许开发者在自己的 Unity 项目中方便地访问和使用 Hugging Face AI 模型，已集成到 [Hugging Face Inference API](https://huggingface.co/inference-api) 中。本文将详细介绍 API 的安装步骤和使用方法。
 
@@ -24,19 +26,19 @@ translators:
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/packagemanager.gif">
-</figure> 
+</figure>
 
-6. 在向导窗口输入您的 API 密钥。密钥可以在您的 [Hugging Face 帐户设置](https://huggingface.co/settings/tokens) 中找到或创建
-7. 输入完成后可以点击 `Test API key` 测试 API 密钥是否正常
-8. 如需替换使用模型，可以通过更改模型端点实现。您可以访问 Hugging Face 网站，找到支持 Inference API 的任意模型端点，在对应页面点击 `Deploy` -> `Inference API`，复制 `API_URL` 字段的 url 地址
-9. 如需配置高级设置，可以访问 unity 项目仓库页面 `https://github.com/huggingface/unity-api` 查看最新信息
-10. 如需查看 API 使用示例，可以点击 `Install Examples`。现在，您可以关闭 API 向导了。
+1. 在向导窗口输入您的 API 密钥。密钥可以在您的 [Hugging Face 帐户设置](https://huggingface.co/settings/tokens) 中找到或创建
+2. 输入完成后可以点击 `Test API key` 测试 API 密钥是否正常
+3. 如需替换使用模型，可以通过更改模型端点实现。您可以访问 Hugging Face 网站，找到支持 Inference API 的任意模型端点，在对应页面点击 `Deploy` -> `Inference API`，复制 `API_URL` 字段的 url 地址
+4. 如需配置高级设置，可以访问 unity 项目仓库页面 `https://github.com/huggingface/unity-api` 查看最新信息
+5. 如需查看 API 使用示例，可以点击 `Install Examples`。现在，您可以关闭 API 向导了。
 
 <figure class="image text-center">
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/apiwizard.png">
-</figure> 
+</figure>
 
-API 设置完成后，您就可以从脚本中调用 API 了。让我们来尝试一个计算文本句子相似度的例子，脚本代码如下所示：
+API 设置完成后，您就可以从脚本中调用 API 了。让我们来尝试一个计算文本句子相似度的例子，脚本代码如下所示:
 
 ```
 using HuggingFace.API;
@@ -71,7 +73,7 @@ void OnError(string error) {
 
 ## 支持的任务类型和自定义模型
 
-Hugging Face Unity API 目前同样支持以下任务类型：
+Hugging Face Unity API 目前同样支持以下任务类型:
 
 - [对话 (Conversation)](https://huggingface.co/tasks/conversational)
 - [文本生成 (Text Generation)](https://huggingface.co/tasks/text-generation)
@@ -93,4 +95,4 @@ Hugging Face Unity API 目前同样支持以下任务类型：
 
 ## 结语
 
-Hugging Face Unity API 提供了一种简单的方式，可以将 AI 模型集成到 Unity 项目中。我们希望本教程对您有所帮助。如果您有任何疑问，或想更多地参与 Hugging Face for Games 系列，可以来加入 [Hugging Face Discord](https://hf.co/join/discord) 频道！
+Hugging Face Unity API 提供了一种简单的方式，可以将 AI 模型集成到 Unity 项目中。我们希望本教程对您有所帮助。如果您有任何疑问，或想更多地参与 Hugging Face for Games 系列，可以加入 [Hugging Face Discord](https://hf.co/join/discord) 频道！
