@@ -243,15 +243,6 @@ As we will show, GluonTS will be used for transforming the data to create featur
 %pip install -q git+https://github.com/huggingface/transformers.git datasets evaluate accelerate "gluonts[pro,torch]" ujson tqdm
 ```
 
-We also quickly upload some telemetry - this tells us which examples and software versions are getting used so we know where to prioritize our maintenance efforts. We don't collect (or care about) any personally identifiable information, but if you'd prefer not to be counted, feel free to skip this step or delete this cell entirely.
-
-
-```python
-from transformers.utils import send_example_telemetry
-
-send_example_telemetry("autoformer_notebook", framework="pytorch")
-```
-
 ## Load Dataset
 
 In this blog post, we'll use the `traffic` dataset. This dataset contains the San Francisco Traffic dataset used by [Lai et al. (2017)](https://arxiv.org/abs/1703.07015). It contains 862 hourly time series showing the road occupancy rates in the range \\([0, 1]\\) on the San Francisco Bay area freeways from 2015 to 2016.
