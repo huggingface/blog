@@ -198,21 +198,17 @@ Our strategy with this model is to show the performance of the univariate Transf
 
 ## DLinear 
 
-The DLinear model first calculates the moving average (or trend) of the incoming signal using a certain kernel size and decomposes the signal into the residual (the seasonality) and trend via:
+The DLinear model uses the above `DecompositionLayer` to  decomposes the input time series into the residual (the seasonality) and trend part.  In the forward then each part is passed through its own linear layer which projects the signal to an appropriate `prediction_length` sized output. The final output is the sum of the two corresponding outputs in the point-forecasting model:
 
 ```python
-class SeriesDecomp(nn.Module):
-    def __init__(self, kernel_size):
-        super().__init__()
-        self.moving_avg = MovingAvg(kernel_size, stride=1)
-
-    def forward(self, x):
-        moving_mean = self.moving_avg(x)
-        res = x - moving_mean
-        return res, moving_mean
+def forward(self, context):
+    res, trend = self.decomposition(context)
+    seasonal_output = self.linear_seasonal(res)
+    trend_output = self.linear_trend(trend)
+    return seasonal_output + trend_output
 ```
 
-Then two linear layers are deployed which in the point forecasting case project the context length array to a prediction length array for the seasonal and trend part and the resulting output is added together as the final prediction. In the probabilistic setting one can project the context length arrays to a `prediction-length * hidden` dim and then the resulting outputs are reshaped to `(prediction_length, hidden)`. Then a probabilistic head maps the latent representations of size `hidden` to the parameters of some distribution.
+In the probabilistic setting one can project the context length arrays to  `prediction-length * hidden` dimensions via the `linear_seasonal` and `linear_trend` layers.  The resulting outputs are added and reshaped to `(prediction_length, hidden)`. Finally, a probabilistic head maps the latent representations of size `hidden` to the parameters of some distribution.
 
 For our benchmark, we will use the implementation of DLinear from GluonTS](https://github.com/awslabs/gluonts).
 
