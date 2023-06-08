@@ -12,6 +12,23 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
+- [The Hugging Face Hub for Galleries, Libraries, Archives and Museums](#the-hugging-face-hub-for-galleries-libraries-archives-and-museums)
+- [What is the Hugging Face Hub?](#what-is-the-hugging-face-hub)
+- [What can you find on the Hugging Face Hub?](#what-can-you-find-on-the-hugging-face-hub)
+		- [Models](#models)
+		- [Datasets](#datasets)
+		- [Spaces](#spaces)
+	- [How can you use the Hugging Face Hub: finding relevant models on the Hub](#how-can-you-use-the-hugging-face-hub-finding-relevant-models-on-the-hub)
+	- [Walkthrough: Adding a GLAM dataset to the Hub?](#walkthrough-adding-a-glam-dataset-to-the-hub)
+	- [Why might Galleries, Libraries, Archives and Museums want to use the Hugging Face hub?](#why-might-galleries-libraries-archives-and-museums-want-to-use-the-hugging-face-hub)
+	- [Example uses of the Hugging Face Hub](#example-uses-of-the-hugging-face-hub)
+		- [BigLAM](#biglam)
+		- [Nasjonalbiblioteket AI Lab](#nasjonalbiblioteket-ai-lab)
+		- [Smithsonian Institution](#smithsonian-institution)
+	- [Hub features for Galleries, Libraries, Archives and Museums](#hub-features-for-galleries-libraries-archives-and-museums)
+	- [How can I get help using the Hub?](#how-can-i-get-help-using-the-hub)
+
+
 Hugging Face aims to make high-quality machine learning accessible to everyone. This goal is pursued in various ways, including developing open-source code libraries such as the widely-used Transformers library, offering [free courses](https://huggingface.co/learn), and providing the Hugging Face Hub. 
 
 ## What is the Hugging Face Hub?
@@ -58,6 +75,26 @@ If you prefer to use a model via an API, clicking the
 
 A similar approach can also be used to find relevant models and datasets
 on the Hugging Face Hub.
+
+### Walkthrough: Adding a GLAM dataset to the Hub?
+
+There are various ways in which we can make datasets available via the Hugging Face hub. I'll walkthrough an example of adding a CSV dataset to the Hugging Face hub. 
+
+
+<figure class="image table text-center m-0 w-full">
+    <video 
+        alt="Uploading a file to the Hugging Face Hub"
+        style="max-width: 70%; margin: auto;"
+        autoplay loop autobuffer muted playsinline
+    >
+      <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-hub-glam-guide/Upload%20dataset%20to%20hub.mp4" type="video/mp4">
+  </video>
+</figure>
+
+*Overview of the process of uploading a dataset to the Hub via the browser interface*
+
+
+
 
 ### Why might Galleries, Libraries, Archives and Museums want to use the Hugging Face hub?
 
