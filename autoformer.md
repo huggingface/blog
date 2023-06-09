@@ -133,7 +133,7 @@ def autocorrelation(query_states, key_states):
 
 Quite simple! 😎 Please be aware that this is only a partial implementation of `autocorrelation(Q,K)`, and the full implementation can be found in 🤗 Transformers.
 
-Next, we will see how to aggregate our `attn_weights` with the values by time delay, which are termed as _Time Delay Aggregation_.
+Next, we will see how to aggregate our `attn_weights` with the values by time delay, process which is termed as _Time Delay Aggregation_.
 
 #### Time Delay Aggregation
 | ![autoformer_autocorrelation_only_aggregation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/autoformer_autocorrelation_only_aggregation.png) |
