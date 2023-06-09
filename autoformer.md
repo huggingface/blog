@@ -236,7 +236,7 @@ As we will show, GluonTS will be used for transforming the data to create featur
 
 
 ```python
-%pip install -q git+https://github.com/huggingface/transformers.git datasets evaluate accelerate "gluonts[pro,torch]" ujson tqdm
+%pip install -q transformers datasets evaluate accelerate "gluonts[pro,torch]" ujson tqdm
 ```
 
 ## Load Dataset
