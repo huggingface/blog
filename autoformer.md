@@ -138,7 +138,7 @@ Next, we will see how to aggregate our `attn_weights` with the values by time de
 #### Time Delay Aggregation
 | ![autoformer_autocorrelation_only_aggregation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/autoformer_autocorrelation_only_aggregation.png) |
 |:--:|
-| Aggregation by time delay, from [the paper](https://arxiv.org/abs/2106.13008) |
+| Aggregation by time delay, from [the Autoformer paper](https://arxiv.org/abs/2106.13008) |
 
 Let's consider the autocorrelations (referred to as `attn_weights`) as \\(\mathcal{R_{Q,K}}\\). The question arises: how do we aggregate these \\(\mathcal{R_{Q,K}}(\tau_1), \mathcal{R_{Q,K}}(\tau_2), ..., \mathcal{R_{Q,K}}(\tau_k)\\) with \\(\mathcal{V}\\)? In the standard self-attention mechanism, this aggregation is accomplished through dot-product. However, in Autoformer, we employ a different approach. Firstly, we align \\(\mathcal{V}\\) by calculating its value for each time delay \\(\tau_1, \tau_2, ... \tau_k\\), which is also known as _Rolling_. Subsequently, we conduct element-wise multiplication between the aligned \\(\mathcal{V}\\) and the autocorrelations. In the provided figure, you can observe the left side showcasing the rolling of \\(\mathcal{V}\\) by time delay, while the right side illustrates the element-wise multiplication with the autocorrelations.
 
