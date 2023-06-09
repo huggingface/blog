@@ -198,7 +198,7 @@ Our strategy with this model is to show the performance of the univariate Transf
 
 ## DLinear 
 
-The DLinear model uses the above `DecompositionLayer` to  decomposes the input time series into the residual (the seasonality) and trend part.  In the forward then each part is passed through its own linear layer which projects the signal to an appropriate `prediction_length` sized output. The final output is the sum of the two corresponding outputs in the point-forecasting model:
+The DLinear model uses the above `DecompositionLayer` to  decompose the input time series into the residual (the seasonality) and trend part. In the forward pass each part is passed through its own linear layer, which projects the signal to an appropriate `prediction_length`-sized output. The final output is the sum of the two corresponding outputs in the point-forecasting model:
 
 ```python
 def forward(self, context):
