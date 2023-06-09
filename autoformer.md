@@ -202,8 +202,8 @@ The DLinear model uses the above `DecompositionLayer` to  decompose the input ti
 
 ```python
 def forward(self, context):
-    res, trend = self.decomposition(context)
-    seasonal_output = self.linear_seasonal(res)
+    seasonal, trend = self.decomposition(context)
+    seasonal_output = self.linear_seasonal(seasonal)
     trend_output = self.linear_trend(trend)
     return seasonal_output + trend_output
 ```
