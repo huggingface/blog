@@ -1546,6 +1546,16 @@
     - rl
     - guide
 
+- local: rlhf-fr
+  title: "[en français] Illustrating Reinforcement Learning from Human Feedback (RLHF)"
+  author: natolambert
+  thumbnail: /blog/assets/120_rlhf/thumbnail.png
+  date: December 9, 2022
+  tags:
+    - rlhf
+    - rl
+    - guide
+
 - local: habana-gaudi-2-benchmark
   title: "Faster Training and Inference: Habana Gaudi®2 vs Nvidia A100 80GB"
   author: regisss
