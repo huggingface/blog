@@ -226,7 +226,7 @@ The transformers models are all relatively small  with:
 * `decoder_layers=2`
 * `d_model=16`
 
-Instead of showing how to train a model using `Autoformer` one can just replace the model in the previous two blog posts with the new `Autoformer` model and train it on the `traffic` dataset. In order to not repeat ourself, we  have done train the models already and pushed them to the Hugging Face Hub. In the following we will use the already saved models for just the evaluations.
+Instead of showing how to train a model using `Autoformer` one can just replace the model in the previous two blog posts with the new `Autoformer` model and train it on the `traffic` dataset. In order to not repeat ourselves, we  have already trained the models and pushed them to the Hugging Face Hub. We will use those models for evaluation.
 
 ## Set-up Environment
 
