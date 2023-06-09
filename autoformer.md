@@ -745,7 +745,7 @@ plot(4)
 
 ## DLinear
 
-A probablistic DLinear is implemented in `glounts` and thus we can train and evaluate it relatively quickly here:
+A probablistic DLinear is implemented in `gluonts` and thus we can train and evaluate it relatively quickly here:
 
 
 ```python
