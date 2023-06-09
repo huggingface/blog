@@ -198,7 +198,7 @@ Our strategy with this model is to show the performance of the univariate Transf
 
 ## DLinear 
 
-The DLinear model uses the above `DecompositionLayer` to  decompose the input time series into the residual (the seasonality) and trend part. In the forward pass each part is passed through its own linear layer, which projects the signal to an appropriate `prediction_length`-sized output. The final output is the sum of the two corresponding outputs in the point-forecasting model:
+The DLinear model uses the above `DecompositionLayer` to decompose the input time series into the residual (the seasonality) and trend part. In the forward pass each part is passed through its own linear layer, which projects the signal to an appropriate `prediction_length`-sized output. The final output is the sum of the two corresponding outputs in the point-forecasting model:
 
 ```python
 def forward(self, context):
@@ -226,7 +226,7 @@ The transformers models are all relatively small  with:
 * `decoder_layers=2`
 * `d_model=16`
 
-Instead of showing how to train a model using `Autoformer` one can just replace the model in the previous two blog posts with the new `Autoformer` model and train it on the `traffic` dataset. In order to not repeat ourselves, we  have already trained the models and pushed them to the Hugging Face Hub. We will use those models for evaluation.
+Instead of showing how to train a model using `Autoformer` one can just replace the model in the previous two blog posts ([TimeSeriesTransformer](https://huggingface.co/blog/time-series-transformers) and [Informer](https://huggingface.co/blog/informer)) with the new `Autoformer` model and train it on the `traffic` dataset. In order to not repeat ourselves, we have already trained the models and pushed them to the HuggingFace Hub. We will use those models for evaluation.
 
 ## Set-up Environment
 
