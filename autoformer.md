@@ -210,7 +210,7 @@ def forward(self, context):
 
 In the probabilistic setting one can project the context length arrays to  `prediction-length * hidden` dimensions via the `linear_seasonal` and `linear_trend` layers.  The resulting outputs are added and reshaped to `(prediction_length, hidden)`. Finally, a probabilistic head maps the latent representations of size `hidden` to the parameters of some distribution.
 
-For our benchmark, we will use the implementation of DLinear from GluonTS](https://github.com/awslabs/gluonts).
+For our benchmark, we will use the implementation of DLinear from [GluonTS](https://github.com/awslabs/gluonts).
 
 ## Benchmarking - Transformers vs. DLinear
 
