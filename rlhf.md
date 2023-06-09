@@ -88,6 +88,7 @@ Finally, the **update rule** is the parameter update from PPO that maximizes the
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/rlhf/rlhf.png" width="650" />
 </p>
+_Minor technical detail note: The above diagram makes it look like both models generate text, but what really happens is that the RL policy generates text and that text is fed into the original model to generate its relative probabilities for the KL penalty._
 
 Optionally, RLHF can continue from this point by iteratively updating the reward model and the policy together. As the RL policy updates, users can continue ranking these outputs versus the model's earlier versions. Most papers have yet to discuss implementing this operation, as the deployment mode needed to collect this type of data only works for dialogue agents with access to an engaged user base. Anthropic discusses this option as *Iterated Online RLHF* (see the original [paper](https://arxiv.org/abs/2204.05862)), where iterations of the policy are included in the ELO ranking system across models. This introduces complex dynamics of the policy and reward model evolving, which represents a complex and open research question.
 
@@ -163,4 +164,4 @@ BibTeX citation:
 ```
 
 *Thanks to [Robert Kirk](https://robertkirk.github.io/) for fixing some factual errors regarding specific implementations of RLHF. Thanks to [Peter Stone](https://www.cs.utexas.edu/~pstone/), [Khanh X. Nguyen](https://machineslearner.com/) and [Yoav Artzi](https://yoavartzi.com/) for helping expand the related works further into history. *
-*Thanks to Stas Bekman for fixing some typos or confusing phrases.* 
+*Thanks to Stas Bekman for fixing some typos or confusing phrases. Thanks to [Igor Kotenkov](https://twitter.com/stalkermustang) for pointing out a technical inconsistency in the RLHF feedback diagram.* 
