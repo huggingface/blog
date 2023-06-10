@@ -1,14 +1,10 @@
-
 ---
 title: 大模型训练，有卡就行！bitsandbytes、4 位量化和 QLoRA 技术原理与应用
-
-thumbnail: /blog/assets/148_llm-bitsandbytes-qlora
+thumbnail: /blog/assets/148_llm-bitsandbytes-qlora/thumbnail.png
 authors:
 - user: Younes Belkada
 - user: Tim Dettmers
-  guest: true
 - user: Artidoro Pagnoni
-  guest: true
 - user: Sylvain Gugger
 - user: Sourab Mangrulkar
 translators:
@@ -16,7 +12,6 @@ translators:
 - user: zhongdongy
   proofreader: true
 ---
-
 
 # 大模型训练，有卡就行！bitsandbytes、4 位量化和 QLoRA 技术原理与应用
 
