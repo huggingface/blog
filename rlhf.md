@@ -165,4 +165,4 @@ BibTeX citation:
 
 *Thanks to [Robert Kirk](https://robertkirk.github.io/) for fixing some factual errors regarding specific implementations of RLHF. Thanks to [Peter Stone](https://www.cs.utexas.edu/~pstone/), [Khanh X. Nguyen](https://machineslearner.com/) and [Yoav Artzi](https://yoavartzi.com/) for helping expand the related works further into history. *
 *Thanks to Stas Bekman for fixing some typos or confusing phrases.*
-*Thanks to [Igor Kotenkov](https://www.linkedin.com/in/seeall/) for pointing out a technical inconsistency in the KL-penalty term of the RLHF procedure, its diagram, and textual description.*
+*Thanks to [Igor Kotenkov](https://www.linkedin.com/in/seeall/) for pointing out a technical error in the KL-penalty term of the RLHF procedure, its diagram, and textual description.*
