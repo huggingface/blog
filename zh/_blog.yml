@@ -1,3 +1,12 @@
+- local: llm-bitsandbytes-qlora
+  title: "大模型训练，有卡就行！bitsandbytes、4 位量化和 QLoRA 技术原理与应用"
+  author: Younes Belkada
+  thumbnail: /blog/assets/148_llm-bitsandbytes-qlora
+  date: March 1, 2020
+  tags:
+    - llm
+    - qlora
+
 - local: how-to-generate
   title: "如何生成文本：通过 Transformers 用不同的解码方法生成文本"
   author: patrickvonplaten
