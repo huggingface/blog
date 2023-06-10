@@ -209,9 +209,10 @@ We did it! The Autoformer model is [now available](https://huggingface.co/docs/t
 
 Our strategy with this model is to show the performance of the univariate Transformer models in comparison to the DLinear model which is inherently univariate as will shown next. We will also present the results from _two_ multivariate Transformer models trained on the same data.
 
-## DLinear 
+## DLinear - Under The Hood
 
-The DLinear model uses the above `DecompositionLayer` to decompose the input time series into the residual (the seasonality) and trend part. In the forward pass each part is passed through its own linear layer, which projects the signal to an appropriate `prediction_length`-sized output. The final output is the sum of the two corresponding outputs in the point-forecasting model:
+Actually, there is no real "Hood" here because DLinear it's just a simple fully connected with the Autoformer's `DecompositionLayer`.
+It uses the above `DecompositionLayer` to decompose the input time series into the residual (the seasonality) and trend part. In the forward pass each part is passed through its own linear layer, which projects the signal to an appropriate `prediction_length`-sized output. The final output is the sum of the two corresponding outputs in the point-forecasting model:
 
 ```python
 def forward(self, context):
@@ -223,9 +224,9 @@ def forward(self, context):
 
 In the probabilistic setting one can project the context length arrays to  `prediction-length * hidden` dimensions via the `linear_seasonal` and `linear_trend` layers.  The resulting outputs are added and reshaped to `(prediction_length, hidden)`. Finally, a probabilistic head maps the latent representations of size `hidden` to the parameters of some distribution.
 
-For our benchmark, we will use the implementation of DLinear from [GluonTS](https://github.com/awslabs/gluonts).
+In our benchmark, we use the implementation of DLinear from [GluonTS](https://github.com/awslabs/gluonts).
 
-## Analysis of Multivariate Dataset - Traffic
+## Example: Traffic Dataset
 
 We want to show empirically the performance of Transformer based models, by benchmarking on the `traffic` dataset, a multivariate dataset with 862 covariates, in the univariate setting (kashif - maybe we can explain here the univariate setting in terms of target). We will keep the following hyper-parameters fixed for all the models:
 * `context_length = prediction_length*2`
@@ -241,17 +242,15 @@ The transformers models are all relatively small  with:
 
 Instead of showing how to train a model using `Autoformer` one can just replace the model in the previous two blog posts ([TimeSeriesTransformer](https://huggingface.co/blog/time-series-transformers) and [Informer](https://huggingface.co/blog/informer)) with the new `Autoformer` model and train it on the `traffic` dataset. In order to not repeat ourselves, we have already trained the models and pushed them to the HuggingFace Hub. We will use those models for evaluation.
 
-## Set-up Environment
+## Load Dataset
 
-First, let's install the necessary libraries: 🤗 Transformers, 🤗 Datasets, 🤗 Evaluate, 🤗 Accelerate and GluonTS.
+Let's first install the necessary libraries:
 
 ```python
 %pip install -q transformers datasets evaluate accelerate "gluonts[pro,torch]" ujson tqdm
 ```
 
-## Load Dataset
-
-In this blog post, we'll use the `traffic` dataset. This dataset contains the San Francisco Traffic dataset used by [Lai et al. (2017)](https://arxiv.org/abs/1703.07015). It contains 862 hourly time series showing the road occupancy rates in the range \\([0, 1]\\) on the San Francisco Bay area freeways from 2015 to 2016.
+The `traffic` dataset, used by [Lai et al. (2017)](https://arxiv.org/abs/1703.07015), contains the San Francisco Traffic. It contains 862 hourly time series showing the road occupancy rates in the range \\([0, 1]\\) on the San Francisco Bay area freeways from 2015 to 2016.
 
 ```python
 from gluonts.dataset.repository.datasets import get_dataset
@@ -608,8 +607,6 @@ test_dataloader = create_test_dataloader(
 )
 ```
 
-## Inference
-
 At inference time, we will use the model's  `generate()` method for predicting `predection_length` into the future from the very last context window of each time series in the training set.  
 
 
@@ -751,7 +748,7 @@ plot(4)
     
 
 
-## DLinear
+## Evaluate on DLinear
 
 A probablistic DLinear is implemented in `gluonts` and thus we can train and evaluate it relatively quickly here:
 
