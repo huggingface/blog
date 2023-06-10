@@ -93,7 +93,7 @@ As you can see, the implementation is quite simple and can be used in other mode
 |:--:|
 |  Vanilla self attention vs Autocorrelation mechanism, from [the paper](https://arxiv.org/abs/2106.13008) |
 
-In addition to the decomposition layer, Autoformer employs a novel auto-correlation mechanism which replaces the self-attention seamlessly. In the [vanilla Time Series Transformer](https://huggingface.co/docs/transformers/model_doc/time_series_transformer), attention weights are computed in the time domain and point-wise aggregated. On the other hand, as can be seen in the figure above, Autoformer computes them in the frequency domain (using [fast fourier transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform)) and aggregates them by time delay.
+In addition to the decomposition layer, Autoformer employs a novel auto-correlation mechanism which replaces the self-attention seamlessly. In the [vanilla Time Series Transformer](https://huggingface.co/docs/transformers/model_doc/time_series_transformer), attention weights are computed in the time domain and point-wise aggregated. On the other hand, as can be seen in the figure above, Autoformer computes them in the frequency domain (using [fast fourier transform](https://en.wikipedia.org/wiki/Fast_Fourier_transform)) and aggregates them by time delay. 
 
 In the following sections, we will dive into these topics in detail and explain them with code examples.
 
@@ -196,7 +196,7 @@ def time_delay_aggregation(attn_weights, value_states, autocorrelation_factor=2)
    
 We did it! The Autoformer model is [now available](https://huggingface.co/docs/transformers/main/en/model_doc/autoformer) in the 🤗 Transformers library, and simply called `AutoformerModel`.
 
-Our strategy with this model is to show the performance of the univariate Transformer models in comparison to the DLinear model which is inherently univariate. We will also present the results from _two_ multivariate Transformer models trained on the same data.
+Our strategy with this model is to show the performance of the univariate Transformer models in comparison to the DLinear model which is inherently univariate as will shown next. We will also present the results from _two_ multivariate Transformer models trained on the same data.
 
 ## DLinear 
 
@@ -228,14 +228,11 @@ The transformers models are all relatively small  with:
 * `decoder_layers=2`
 * `d_model=16`
 
-Instead of showing how to train a model using `Autoformer` one can just replace the model in the previous two blog posts ([TimeSeriesTransformer](https://huggingface.co/blog/time-series-transformers) and [Informer](https://huggingface.co/blog/informer)) with the new `Autoformer` model and train it on the `traffic` dataset. In order to not repeat ourselves, we have already trained the models and pushed them to the HuggingFace Hub. We will use those models for evaluation.
+Instead of showing how to train a model using `Autoformer` one can just replace the model in the previous two blog posts ([TimeSeriesTransformer](https://huggingface.co/blog/time-series-transformers) and [Informer](https://huggingface.co/blog/informer)) with the new `Autoformer` model and train it on the `traffic` dataset - a multivariate dataset with 862 covariates. In order to not repeat ourselves, we have already trained the models and pushed them to the HuggingFace Hub. We will use those models for evaluation.
 
 ## Set-up Environment
 
 First, let's install the necessary libraries: 🤗 Transformers, 🤗 Datasets, 🤗 Evaluate, 🤗 Accelerate and GluonTS.
-
-As we will show, GluonTS will be used for transforming the data to create features as well as for creating appropriate training, validation and test batches.
-
 
 ```python
 %pip install -q transformers datasets evaluate accelerate "gluonts[pro,torch]" ujson tqdm
@@ -244,7 +241,6 @@ As we will show, GluonTS will be used for transforming the data to create featur
 ## Load Dataset
 
 In this blog post, we'll use the `traffic` dataset. This dataset contains the San Francisco Traffic dataset used by [Lai et al. (2017)](https://arxiv.org/abs/1703.07015). It contains 862 hourly time series showing the road occupancy rates in the range \\([0, 1]\\) on the San Francisco Bay area freeways from 2015 to 2016.
-
 
 ```python
 from gluonts.dataset.repository.datasets import get_dataset
@@ -295,7 +291,6 @@ plt.show()
 
 ![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/output_15_0.png)
     
-
 
 Let's make a variable for the train/test split:
 
@@ -435,7 +430,7 @@ def create_transformation(freq: str, config: PretrainedConfig) -> Transformation
 
 ## Define `InstanceSplitter`
 
-For training/validation/testing we next create an `InstanceSplitter` which is used to sample windows from the dataset (as, remember, we can't pass the entire history of values to the model due to time- and memory constraints).
+For training/validation/testing we next create an `InstanceSplitter` which is used to sample windows from the dataset (as, remember, we can't pass the entire history of values to the model due to time and memory constraints).
 
 The instance splitter samples random `context_length` sized and subsequent `prediction_length` sized windows from the data, and appends a `past_` or `future_` key to any temporal keys for the respective windows. This makes sure that the `values` will be split into `past_values` and subsequent `future_values` keys, which will serve as the encoder and decoder inputs respectively. The same happens for any keys in the `time_series_fields` argument:
 
@@ -856,6 +851,7 @@ How do Transformer based models compare against the above linear baseline? The t
 |:--:|:--:| :--:| :--:| :--:|  :--:|  :--:| 
 |`Traffic` 	| **0.876** | 1.046 | 0.924 | 1.131  | 0.910 | 0.969 |
 
-As one can observe, the [vanilla Transformer](https://huggingface.co/docs/transformers/model_doc/time_series_transformer) which we introduced last year gets the best results. Secondly, multivariate forecasts are typically _worse_ than the univariate ones, the reason being the difficulty in estimating the cross-series correlations/relationships. The additional variance added by the estimates often harms the resulting forecasts or the model learns spurious correlations. We refer to [this paper](https://openreview.net/forum?id=GpW327gxLTF) for further reading. Multivariate models tend to work well when trained on a lot of data. However, when one compares univariate models with multivariate models, especially on smaller open datasets, the univariate models give better metrics. By comparing the linear model with equivalent-sized univariate transformers or in fact any other neural univariate model, one will typically get better performance.
+As one can observe, the [vanilla Transformer](https://huggingface.co/docs/transformers/model_doc/time_series_transformer) which we introduced last year gets the best results. Secondly, multivariate forecasts are typically _worse_ than the univariate ones, the reason being the difficulty in estimating the cross-series correlations/relationships. The additional variance added by the estimates often harms the resulting forecasts or the model learns spurious correlations. Recent papers like (CrossFormer)[https://openreview.net/forum?id=vSVLM2j9eie] (ICLR 23) and (CARD)[https://arxiv.org/abs/2305.12095] try to address this problem Transformer models.
+Multivariate models tend to work well when trained on a lot of data. However, when one compares univariate models with multivariate models, especially on smaller open datasets, the univariate models give better metrics. By comparing the linear model with equivalent-sized univariate transformers or in fact any other neural univariate model, one will typically get better performance.
 
-We also observe that the vanilla Univariate Transformer still performs best here.
+We also observe that the vanilla univariate Transformer still performs best here.
