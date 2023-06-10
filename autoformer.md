@@ -21,6 +21,17 @@ A few months ago, we introduced the [Informer](https://huggingface.co/blog/infor
 Firstly, we will provide an empirical evidence that **Transformers are indeed Effective for Time Series Forecasting**. Our comparison shows that a simple linear model, known as DLinear, is not better than Transformers as claimed. When compared against equivalent sized models in the same setting as the linear models, the Transformer based models perform better on the test set metrics we consider.
 Afterwards, we will dive into the comparison we made, and will introduce the _Autoformer_ model ([Wu, Haixu, et al., 2021](https://arxiv.org/abs/2106.13008)), which was published in NeurIPS 2021 after the Informer model. The Autoformer model is [now available](https://huggingface.co/docs/transformers/main/en/model_doc/autoformer) in 🤗 Transformers. Finally, we will discuss the _DLinear_ model, which is a simple feedforward network that uses the decomposition layer from Autoformer. The DLinear model was first introduced in [Are Transformers Effective for Time Series Forecasting?](https://arxiv.org/abs/2205.13504) and claimed to outperform Transformer-based models in time-series forecasting.
 
+let's go!
+
+
+## Benchmarking - Transformers vs. DLinear
+
+TODO: Results on Traffic, electricity and exchange, weather 
+
+
+Next, we will present the new Autoformer model along with the DLinear model. We will showcase how to compare them on the traffic dataset from the table above.
+
+
 
 ## Autoformer - Under The Hood
 
@@ -214,9 +225,9 @@ In the probabilistic setting one can project the context length arrays to  `pred
 
 For our benchmark, we will use the implementation of DLinear from [GluonTS](https://github.com/awslabs/gluonts).
 
-## Benchmarking - Transformers vs. DLinear
+## Analysis of Multivariate Dataset - Traffic
 
-We want to show empirically the performance of Transformer based models, by benchmarking on the `traffic` dataset, in the univariate setting. We will keep the following hyper-parameters fixed for all the models:
+We want to show empirically the performance of Transformer based models, by benchmarking on the `traffic` dataset, a multivariate dataset with 862 covariates, in the univariate setting (kashif - maybe we can explain here the univariate setting in terms of target). We will keep the following hyper-parameters fixed for all the models:
 * `context_length = prediction_length*2`
 * `batch_size = 128`
 * `num_batches_per_epoch = 100`
@@ -228,7 +239,7 @@ The transformers models are all relatively small  with:
 * `decoder_layers=2`
 * `d_model=16`
 
-Instead of showing how to train a model using `Autoformer` one can just replace the model in the previous two blog posts ([TimeSeriesTransformer](https://huggingface.co/blog/time-series-transformers) and [Informer](https://huggingface.co/blog/informer)) with the new `Autoformer` model and train it on the `traffic` dataset - a multivariate dataset with 862 covariates. In order to not repeat ourselves, we have already trained the models and pushed them to the HuggingFace Hub. We will use those models for evaluation.
+Instead of showing how to train a model using `Autoformer` one can just replace the model in the previous two blog posts ([TimeSeriesTransformer](https://huggingface.co/blog/time-series-transformers) and [Informer](https://huggingface.co/blog/informer)) with the new `Autoformer` model and train it on the `traffic` dataset. In order to not repeat ourselves, we have already trained the models and pushed them to the HuggingFace Hub. We will use those models for evaluation.
 
 ## Set-up Environment
 
@@ -851,7 +862,7 @@ How do Transformer based models compare against the above linear baseline? The t
 |:--:|:--:| :--:| :--:| :--:|  :--:|  :--:| 
 |`Traffic` 	| **0.876** | 1.046 | 0.924 | 1.131  | 0.910 | 0.969 |
 
-As one can observe, the [vanilla Transformer](https://huggingface.co/docs/transformers/model_doc/time_series_transformer) which we introduced last year gets the best results. Secondly, multivariate forecasts are typically _worse_ than the univariate ones, the reason being the difficulty in estimating the cross-series correlations/relationships. The additional variance added by the estimates often harms the resulting forecasts or the model learns spurious correlations. Recent papers like (CrossFormer)[https://openreview.net/forum?id=vSVLM2j9eie] (ICLR 23) and (CARD)[https://arxiv.org/abs/2305.12095] try to address this problem Transformer models.
-Multivariate models tend to work well when trained on a lot of data. However, when one compares univariate models with multivariate models, especially on smaller open datasets, the univariate models give better metrics. By comparing the linear model with equivalent-sized univariate transformers or in fact any other neural univariate model, one will typically get better performance.
+As one can observe, the [vanilla Transformer](https://huggingface.co/docs/transformers/model_doc/time_series_transformer) which we introduced last year gets the best results. Secondly, multivariate forecasts are typically _worse_ than the univariate ones, the reason being the difficulty in estimating the cross-series correlations/relationships. The additional variance added by the estimates often harms the resulting forecasts or the model learns spurious correlations. Recent papers like (CrossFormer)[https://openreview.net/forum?id=vSVLM2j9eie] (ICLR 23) and (CARD)[https://arxiv.org/abs/2305.12095] try to address this problem in Transformer models.
+Multivariate models usually perform well when trained on large amounts of data. However, when compared to univariate models, especially on smaller open datasets, the univariate models tend to provide better metrics. By comparing the linear model with equivalent-sized univariate transformers or in fact any other neural univariate model, one will typically get better performance.
 
 We also observe that the vanilla univariate Transformer still performs best here.
