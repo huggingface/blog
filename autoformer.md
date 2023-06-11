@@ -204,7 +204,7 @@ def time_delay_aggregation(attn_weights, value_states, autocorrelation_factor=2)
     attn_output = delays_agg.contiguous()
     return attn_output
 ```
-   
+
 We did it! The Autoformer model is [now available](https://huggingface.co/docs/transformers/main/en/model_doc/autoformer) in the 🤗 Transformers library, and simply called `AutoformerModel`.
 
 Our strategy with this model is to show the performance of the univariate Transformer models in comparison to the DLinear model which is inherently univariate as will shown next. We will also present the results from _two_ multivariate Transformer models trained on the same data.
@@ -247,7 +247,7 @@ Instead of showing how to train a model using `Autoformer` one can just replace 
 Let's first install the necessary libraries:
 
 ```python
-%pip install -q transformers datasets evaluate accelerate "gluonts[pro,torch]" ujson tqdm
+!pip install -q transformers datasets evaluate accelerate "gluonts[pro,torch]" ujson tqdm
 ```
 
 The `traffic` dataset, used by [Lai et al. (2017)](https://arxiv.org/abs/1703.07015), contains the San Francisco Traffic. It contains 862 hourly time series showing the road occupancy rates in the range \\([0, 1]\\) on the San Francisco Bay area freeways from 2015 to 2016.
@@ -300,7 +300,7 @@ plt.show()
 ```
 
 ![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/output_15_0.png)
-    
+
 
 Let's make a variable for the train/test split:
 
@@ -743,7 +743,7 @@ For example:
 ```python
 plot(4)
 ```
-    
+
 ![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/output_44_0.png)
     
 
@@ -847,7 +847,7 @@ plot_gluonts(4)
 ```
 
 ![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/output_54_0.png)
-    
+
 
 The `traffic` dataset has a distributional shift in the sensor patterns between weekdays and weekends. So what is going on here? Since the DLinear model has no capacity to incorporate covariates, in particular any date-time features, the context window we give it does not have enough information to figure out if the prediction is for the weekend or weekday. Thus the model will predict the more common of the patterns, namely the weekdays leading to poorer performance on weekends. Of course, by giving it a larger context window a linear model will figure out the weekly pattern but perhaps there is a monthly or quaterly pattern in the data which would require bigger and bigger contexts.
 
