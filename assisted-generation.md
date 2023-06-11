@@ -95,7 +95,7 @@ forward_confirmation = model(generated).logits.argmax(-1)
 
 # We exclude the opposing tips from each sequence: the forward pass returns
 # the logits for the next token, so it is shifted by one position.
-print(generated[:-1].tolist() == forward_confirmation[1:].tolist())  # True
+print(generated[0, 1:].tolist() == forward_confirmation[0, :-1].tolist())  # True
 ```
 
 
