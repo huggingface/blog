@@ -11,6 +11,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
+### What is the Hugging Face Hub?
 
 Hugging Face aims to make high-quality machine learning accessible to everyone. This goal is pursued in various ways, including developing open-source code libraries such as the widely-used Transformers library, offering [free courses](https://huggingface.co/learn), and providing the Hugging Face Hub. 
 
