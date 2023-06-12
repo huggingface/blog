@@ -30,7 +30,7 @@ First, let's create a virtual environment with the required libraries: Transform
 virtualenv sd_inference
 source sd_inference/bin/activate
 pip install pip --upgrade
-pip install transformers diffusers accelerate torch==1.13.1
+pip install transformers diffusers accelerate torch==2.0.1
 ```
 
 Then, we write a simple benchmarking function that repeatedly runs inference, and returns the average latency for a single-image generation.
@@ -143,45 +143,29 @@ The [Intel Extension for Pytorch](https://intel.github.io/intel-extension-for-py
 Let's install it.
 
 ```
-pip install intel_extension_for_pytorch==1.13.100
+pip install intel_extension_for_pytorch==2.0.0
 ```
 
-We then update our code to optimize each pipeline element with IPEX (you can list them by printing the `pipe` object). This requires converting them to the channels-last format.
+Now, let's build a custom_pipeline named  [`stable_diffusion_ipex`](https://github.com/huggingface/diffusers/blob/main/examples/community/README.md#stable-diffusion-on-ipex) 
 
 ```python
 import torch
 import intel_extension_for_pytorch as ipex
+from diffusers import DiffusionPipeline
 ...
-pipe = StableDiffusionPipeline.from_pretrained(model_id)
-
-# to channels last
-pipe.unet = pipe.unet.to(memory_format=torch.channels_last)
-pipe.vae = pipe.vae.to(memory_format=torch.channels_last)
-pipe.text_encoder = pipe.text_encoder.to(memory_format=torch.channels_last)
-pipe.safety_checker = pipe.safety_checker.to(memory_format=torch.channels_last)
-
-# Create random input to enable JIT compilation
-sample = torch.randn(2,4,64,64)
-timestep = torch.rand(1)*999
-encoder_hidden_status = torch.randn(2,77,768)
-input_example = (sample, timestep, encoder_hidden_status)
-
-# optimize with IPEX
-pipe.unet = ipex.optimize(pipe.unet.eval(), dtype=torch.bfloat16, inplace=True, sample_input=input_example)
-pipe.vae = ipex.optimize(pipe.vae.eval(), dtype=torch.bfloat16, inplace=True)
-pipe.text_encoder = ipex.optimize(pipe.text_encoder.eval(), dtype=torch.bfloat16, inplace=True)
-pipe.safety_checker = ipex.optimize(pipe.safety_checker.eval(), dtype=torch.bfloat16, inplace=True)
+pipe = DiffusionPipeline.from_pretrained(model_id, custom_pipeline="stable_diffusion_ipex")
 ```
 
-We also enable the `bloat16` data format to leverage the AMX tile matrix multiply unit (TMMU) accelerator present on Sapphire Rapids CPUs.
+After pipeline initialization, prepare_for_ipex() should be called to enable IPEX accelaration. We also enable the `bfloat16` data format to leverage the AMX tile matrix multiply unit (TMMU) accelerator present on Sapphire Rapids CPUs.
 
 ```python
+pipe.prepare_for_ipex(prompt, dtype=torch.bfloat16, height=512, width=512) #value of image height/width should be consistent with the pipeline inference
 with torch.cpu.amp.autocast(enabled=True, dtype=torch.bfloat16):
     latency = elapsed_time(pipe, prompt)
     print(latency)
 ```
 
-With this updated version, inference latency is further reduced from 11.9 seconds to **5.4 seconds**. That's more than 2x acceleration thanks to IPEX and AMX.
+With this updated version, inference latency is further reduced from 11.9 seconds to ** ()seconds**. That's more than ()x acceleration thanks to IPEX and AMX.
 
 Can we extract a bit more performance? Yes, with schedulers!
 
@@ -205,7 +189,7 @@ With this final version, inference latency is now down to **5.05 seconds**. Comp
 <kbd>
   <img src="assets/136_stable_diffusion_inference_intel/01.png">
 </kbd>
-*Environment: Amazon EC2 r7iz.metal-16xl, Ubuntu 20.04, Linux 5.15.0-1031-aws, libjemalloc-dev 5.2.1-1, intel-mkl 2020.0.166-1, PyTorch 1.13.1, Intel Extension for PyTorch 1.13.1, transformers 4.27.2, diffusers 0.14, accelerate 0.17.1, openvino 2023.0.0.dev20230217, optimum 1.7.1, optimum-intel 1.7*
+*Environment: Amazon EC2 r7iz.metal-16xl, Ubuntu 20.04, Linux 5.15.0-1031-aws, libjemalloc-dev 5.2.1-1, intel-mkl 2020.0.166-1, PyTorch 2.0.1, Intel Extension for PyTorch 2.0.0, transformers 4.27.2, diffusers 0.17, accelerate 0.17.1, openvino 2023.0.0.dev20230217, optimum 1.7.1, optimum-intel 1.7*
 
 
 
@@ -218,6 +202,7 @@ Here are some resources to help you get started:
 * Diffusers [documentation](https://huggingface.co/docs/diffusers)
 * Optimum Intel [documentation](https://huggingface.co/docs/optimum/main/en/intel/inference)
 * [Intel IPEX](https://github.com/intel/intel-extension-for-pytorch) on GitHub
+* [IPEX optimized pipeline](https://github.com/huggingface/diffusers/blob/main/examples/community/README.md#stable-diffusion-on-ipex)
 * [Developer resources](https://www.intel.com/content/www/us/en/developer/partner/hugging-face.html) from Intel and Hugging Face. 
 
 If you have questions or feedback, we'd love to read them on the [Hugging Face forum](https://discuss.huggingface.co/).
