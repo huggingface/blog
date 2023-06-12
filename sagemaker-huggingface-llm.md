@@ -59,7 +59,7 @@ Let's get started!
 We are going to use the `sagemaker` python SDK to deploy BLOOM to Amazon SageMaker. We need to make sure to have an AWS account configured and the `sagemaker` python SDK installed.
 
 ```python
-!pip install "sagemaker==2.161.0" --upgrade --quiet
+!pip install "sagemaker==2.163.0" --upgrade --quiet
 ```
 
 If you are going to use Sagemaker in a local environment, you need access to an IAM Role with the required permissions for Sagemaker. You can find [here](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html) more about it.
@@ -118,21 +118,25 @@ _Note: We could also optimize the deployment for cost and use `g5.2xlarge` insta
 import json
 from sagemaker.huggingface import HuggingFaceModel
 
+# sagemaker config
+instance_type = "ml.g5.12xlarge"
+number_of_gpu = 4
+health_check_timeout = 300
+
 # Define Model and Endpoint configuration parameter
-hf_model_id = "OpenAssistant/pythia-12b-sft-v8-7k-steps" # model id from huggingface.co/models
-instance_type = "ml.g5.12xlarge" # instance type to use for deployment
-number_of_gpu = 4 # number of gpus to use for inference and tensor parallelism
-health_check_timeout = 300 # Increase the timeout for the health check to 5 minutes for downloading the model
+config = {
+  'HF_MODEL_ID': "OpenAssistant/pythia-12b-sft-v8-7k-steps", # model_id from hf.co/models
+  'SM_NUM_GPUS': json.dumps(number_of_gpu), # Number of GPU used per replica
+  'MAX_INPUT_LENGTH': json.dumps(1024),  # Max length of input text
+  'MAX_TOTAL_TOKENS': json.dumps(2048),  # Max length of the generation (including input text)
+  # 'HF_MODEL_QUANTIZE': "bitsandbytes", # comment in to quantize
+}
 
 # create HuggingFaceModel with the image uri
 llm_model = HuggingFaceModel(
   role=role,
   image_uri=llm_image,
-  env={
-    'HF_MODEL_ID': hf_model_id,
-    'SM_NUM_GPUS': json.dumps(number_of_gpu)
-    #'HF_MODEL_QUANTIZE': "bitsandbytes", # comment in to use quantization
-  }
+  env=config
 )
 ```
 

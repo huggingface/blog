@@ -2287,11 +2287,20 @@
   tags:
     - guide
 
+- local: hf-hub-glam-guide
+  title: "The Hugging Face Hub for Galleries, Libraries, Archives and Museums"
+  author: davanstrien
+  thumbnail: /blog/assets/144_hf_hub_glam_guide/thumbnail.png
+  date: June 12, 2023
+  tags:
+    - community
+    - guide
+
 - local: llm-leaderboard
   title: "Can foundation models label data like humans?"
   author: nazneen
   thumbnail: /blog/assets/llm-leaderboard/leaderboard-thumbnail.png
-  date: June 8, 2023
+  date: June 12, 2023
   tags:
     - nlp
     - evaluation
