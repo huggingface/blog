@@ -18,14 +18,21 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Since the advent of ChatGPT, we have seen unprecedented growth in the development of Large Language Models (LLMs), and particularly chatty models that are fine-tuned to follow instructions given in the form of prompts. 
+Since the advent of ChatGPT, we have seen unprecedented growth in the development of Large Language Models (LLMs), and particularly chatty models that are fine-tuned to follow instructions given in the form of prompts.
 However, how these models compare is unclear due to the lack of benchmarks designed to test their performance rigorously. 
-Evaluating instruction and chatty models is intrinsically difficult because a large part of user preference is centered around qualitative style while in the past NLP evaluation was far more defined. 
+Evaluating instruction and chatty models is intrinsically difficult because a large part of user preference is centered around qualitative style while in the past NLP evaluation was far more defined.
 
 In this line, it’s a common story that a new large language model (LLM) is released to the tune of “our model is preferred to ChatGPT N% of the time,” and what is omitted from that sentence is that the model is preferred in some type of GPT-4-based evaluation scheme. 
 What these points are trying to show is a proxy for a different measurement: scores provided by human labelers. 
 The process of training models with reinforcement learning from human feedback (RLHF) has proliferated interfaces for and data of comparing two model completions to each other. 
 This data is used in the RLHF process to train a reward model that predicts a preferred text, but the idea of rating and ranking model outputs has grown to be a more general tool in evaluation.
+
+Here is an example from each of the `instruct` and `code-instruct` splits of our blind test set.
+
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/test-prompt-instruct.png)
+
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/test-prompt-codeinstruct.png)
+
 
 In terms of iteration speed, using a language model to evaluate model outputs is highly efficient, but there’s a sizable missing piece: **investigating if the downstream tool-shortcut is calibrated with the original form of measurement.** 
 In this blog post, we’ll zoom in on where you can and cannot trust the data labels you get from the LLM of your choice by expanding the Open LLM Leaderboard evaluation suite.
@@ -87,30 +94,35 @@ Here is an example snapshot of the instructions and the interface Scale provided
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/label-interface.png)
 
 With this data, we created bootstrapped Elo estimates based on the win probabilities between the two models. 
-For more on the Elo process, see LMSYS’s [notebook](https://colab.research.google.com/drive/17L9uCiAivzWfzOxo2Tb9RMauT7vS6nVU?usp=sharing). 
-Because these Elo estimates are bootstrapped, they come with an error estimate based on the number of samples, which we include throughout the blog.
+For more on the Elo process, see LMSYS’s [notebook](https://colab.research.google.com/drive/17L9uCiAivzWfzOxo2Tb9RMauT7vS6nVU?usp=sharing). The Elo scores on our blind test data are reported on our [leaderboard]().
 
-*********************************************************todo add human elos*********************************************************
+In this blog, we show the bootstrapped Elo estimates along with error estimates. Here are the rankings using human annotators on our blind test set.
+
+****************Elo rankings without ties (bootstrapped from 1000 rounds of sampling games)****************
 
 | Model | Elo ranking (median) | 5th and 95th percentiles |
 | --- | --- | --- |
-|  |  |  |
-|  |  |  |
+| Vicuna-13B | 1140 | 1061 ↔ 1219 |
+| Koala-13B | 1073 | 999 ↔ 1147 |
+| Oasst-12B | 986 | 913 ↔ 1061 |
+| Dolly-12B | 802 | 730 ↔ 878 |
 
 Given the Likert scale, it is also debatable whether a score of 4 or 5 should constitute a win, so we also compute the Elo rankings where a score of 4 or 5 indicates a tie. 
 In this case, and throughout the article, we saw few changes to the ranking of the models relative to eachother with this change. 
-The tie counts (out of 327 comparisons per model pair) and the new Elo scores are below:
+The tie counts (out of 327 comparisons per model pair) and the new Elo scores are below. The number in each cell indicates the number of ties for the models in the intersecting row and column. E.g., Koala-13B and Vicuna-13B have the highest number of ties, 96, so they are likely very close in performance.
 
 *Note, read this plot by selecting a row, e.g. `oasst-12b` and then reading across horizontally to see how many ties it had with each other model.*
 
 ![tie_counts.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/tie_counts.png)
 
-************************************************todo add human elos with ties************************************************
+****************Elo rankings w/ ties (bootstrapped from 1000 rounds of sampling games)****************
 
 | Model | Elo ranking (median) | 5th and 95th percentiles |
 | --- | --- | --- |
-|  |  |  |
-|  |  |  |
+| Vicuna-13B | 1130 | 1066 ↔ 1192 |
+| Koala-13B | 1061 | 998 ↔ 1128 |
+| Oasst-12B | 988 | 918 ↔ 1051 |
+| Dolly-12B | 820 | 760 ↔ 890 |
 
 Below is the histogram of ratings from the Scale AI taskforce.
 
@@ -380,6 +392,8 @@ In a recent [podcast](https://thegradientpub.substack.com/p/riley-goodside-the-a
 
 - More information on our labeling instructions can be found [here](https://docs.google.com/document/d/1c5-96Lj-UH4lzKjLvJ_MRQaVMjtoEXTYA4dvoAYVCHc/edit?usp=sharing).
 
+Have a model that you want GPT-4 or human annotators to evaluate? Drop us a note on [the leaderboard discussions](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard_internal/discussions).
+
 ```
 @article{rajani2023llm_labels,
   author = {Rajani, Nazneen, and Lambert, Nathan and Han, Sheon and Wang, Jean and Nitski, Osvald and Beeching, Edward and Tunstall, Lewis},
@@ -390,4 +404,3 @@ In a recent [podcast](https://thegradientpub.substack.com/p/riley-goodside-the-a
 }
 ```
 
-Have a model that you want GPT-4 to evaluate? Drop us a note on [the leaderboard discussions!]
