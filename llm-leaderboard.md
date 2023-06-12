@@ -94,7 +94,7 @@ Here is an example snapshot of the instructions and the interface Scale provided
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/label-interface.png)
 
 With this data, we created bootstrapped Elo estimates based on the win probabilities between the two models. 
-For more on the Elo process, see LMSYS’s [notebook](https://colab.research.google.com/drive/17L9uCiAivzWfzOxo2Tb9RMauT7vS6nVU?usp=sharing). The Elo scores on our blind test data are reported on our [leaderboard]().
+For more on the Elo process, see LMSYS’s [notebook](https://colab.research.google.com/drive/17L9uCiAivzWfzOxo2Tb9RMauT7vS6nVU?usp=sharing). The Elo scores on our blind test data are reported on our [leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard_internal).
 
 In this blog, we show the bootstrapped Elo estimates along with error estimates. Here are the rankings using human annotators on our blind test set.
 
@@ -250,9 +250,9 @@ Write a LinkedIn post to announce that you have accepted a new job offer.\n Inpu
 
 **Model response (koala)**:
 
-Exciting news! I am thrilled to announce that I have officially accepted an exciting new job opportunity as \\[Job Title\\] at \\[Company Name\\]. This role will allow me to leverage my skills and experience in \\[industry/field of expertise\\], while also providing opportunities for personal and professional growth.\n\nI want to take this moment to express my gratitude to everyone who has supported me throughout the hiring process, including \\[previous employer name(s) or individuals who provided guidance/advice/references\\]. Your support means the world to me and I couldn't be more grateful for your help.
+Exciting news! I am thrilled to announce that I have officially accepted an exciting new job opportunity as [Job Title] at [Company Name]. This role will allow me to leverage my skills and experience in [industry/field of expertise], while also providing opportunities for personal and professional growth.\n\nI want to take this moment to express my gratitude to everyone who has supported me throughout the hiring process, including [previous employer name(s) or individuals who provided guidance/advice/references]. Your support means the world to me and I couldn't be more grateful for your help.
 
-I am excited about what lies ahead and can\'t wait to join the team at \\[Company Name\\]. Thank you again for all your support!
+I am excited about what lies ahead and can't wait to join the team at [Company Name]. Thank you again for all your support!
 
 **Human response:**
 
