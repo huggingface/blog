@@ -18,12 +18,16 @@ authors:
 
 A few months ago, we introduced the [Informer](https://huggingface.co/blog/informer) model ([Zhou, Haoyi, et al., 2021](https://arxiv.org/abs/2012.07436)), which is a Time Series Transformer that won the AAAI 2021 best paper award. We also provided an example for multivariate probabilistic forecasting with Informer. In this post, we discuss the question: [Are Transformers Effective for Time Series Forecasting?](https://arxiv.org/abs/2205.13504) (AAAI 2023). As we will see, they are. 
 
-Firstly, we will provide an empirical evidence that **Transformers are indeed Effective for Time Series Forecasting**. Our comparison shows that a simple linear model, known as DLinear, is not better than Transformers as claimed. When compared against equivalent sized models in the same setting as the linear models, the Transformer based models perform better on the test set metrics we consider.
+Firstly, we will provide an empirical evidence that **Transformers are indeed Effective for Time Series Forecasting**. Our comparison shows that a simple linear model, known as _DLinear_, is not better than Transformers as claimed. When compared against equivalent sized models in the same setting as the linear models, the Transformer based models perform better on the test set metrics we consider.
 Afterwards, we will dive into the comparison we made, and will introduce the _Autoformer_ model ([Wu, Haixu, et al., 2021](https://arxiv.org/abs/2106.13008)), which was published in NeurIPS 2021 after the Informer model. The Autoformer model is [now available](https://huggingface.co/docs/transformers/main/en/model_doc/autoformer) in 🤗 Transformers. Finally, we will discuss the _DLinear_ model, which is a simple feedforward network that uses the decomposition layer from Autoformer. The DLinear model was first introduced in [Are Transformers Effective for Time Series Forecasting?](https://arxiv.org/abs/2205.13504) and claimed to outperform Transformer-based models in time-series forecasting.
 
 let's go!
 
 ## Benchmarking - Transformers vs. DLinear
+In the paper [Are Transformers Effective for Time Series Forecasting?](https://arxiv.org/abs/2205.13504), published recently in AAAI 2023,
+the authors claim that Transformers are not effective for time series forecasting. They compare the Transformer-based models against a simple linear model, which they call _DLinear_. 
+The DLinear model uses the decomposition layer from the Autoformer model, which we will introduce later in this post. The authors claim that the DLinear model outperforms the Transformer-based models in time-series forecasting.
+Is that so? Let's find out.
 
 |      Dataset      | Autoformer (uni.) | DLinear |
 |:-----------------:|:-----------------:|:-------:| 
@@ -31,10 +35,10 @@ let's go!
 | `Exchange-Rate` 	 |       1.492       |  1.674  |
 |  `Electricity` 	  |        FOO        |   FOO   |
 
+The table above shows the results of the comparison between the Autoformer and DLinear models on the three datasets used in the paper.  
+The results show that the Autoformer model outperforms the DLinear model on all three datasets.
 
-Next, we will present the new Autoformer model along with the DLinear model. We will showcase how to compare them on the traffic dataset from the table above.
-
-
+Next, we will present the new Autoformer model along with the DLinear model. We will showcase how to compare them on the Traffic dataset from the table above, and provide explanations for the results we obtained.
 
 ## Autoformer - Under The Hood
 
