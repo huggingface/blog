@@ -6,9 +6,9 @@ authors:
 - user: natolambert
 - user: sheonhan
 - user: JeanWang
-- guest: true
+  guest: true
 - user: OsvaldN97
-- guest: true
+  guest: true
 - user: edbeeching
 - user: lewtun
 
