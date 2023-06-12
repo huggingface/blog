@@ -55,7 +55,7 @@ While training our models, we started seeing interesting things, so we wanted to
 
 To do this, we curated a held-out set of instruction prompts and completions from a popular set of open-source models: [Koala 13b](https://huggingface.co/young-geng/koala), [Vicuna 13b](https://huggingface.co/lmsys/vicuna-13b-delta-v1.1), [OpenAssistant](https://huggingface.co/OpenAssistant/oasst-sft-1-pythia-12b) 12b, and [Dolly 12b](https://huggingface.co/databricks/dolly-v2-12b).  
 
-![Untitled](Can%20language%20models%20label%20data%20like%20humans%20c1330e52ed1d4598a4fe5fdd56745b47/Untitled%201.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/model-logos.png)
 
 We collected a set of high-quality, human-written prompts from [Self-Instruct](https://arxiv.org/abs/2212.10560) evaluation set and early discussions with data vendors for diverse task categories, including generation, brainstorming, question answering, summarization, commonsense, and coding-related. 
 The dataset has 327 prompts across these categories, and 25 are coding-related.
@@ -84,7 +84,7 @@ We requested annotators to rate responses for helpfulness and truthfulness in a 
 We generated \\( n \choose 2 \\) combinations for each prompt, where \\(n\\) is the number of models we evaluate. 
 Here is an example snapshot of the instructions and the interface Scale provided for our evaluations.
 
-![Screenshot 2023-06-02 at 3.58.34 PM.png](Can%20language%20models%20label%20data%20like%20humans%20c1330e52ed1d4598a4fe5fdd56745b47/Screenshot_2023-06-02_at_3.58.34_PM.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/label-interface.png)
 
 With this data, we created bootstrapped Elo estimates based on the win probabilities between the two models. 
 For more on the Elo process, see LMSYS’s [notebook](https://colab.research.google.com/drive/17L9uCiAivzWfzOxo2Tb9RMauT7vS6nVU?usp=sharing). 
@@ -103,7 +103,7 @@ The tie counts (out of 327 comparisons per model pair) and the new Elo scores ar
 
 *Note, read this plot by selecting a row, e.g. `oasst-12b` and then reading across horizontally to see how many ties it had with each other model.*
 
-![tie_counts.png](Can%20language%20models%20label%20data%20like%20humans%20c1330e52ed1d4598a4fe5fdd56745b47/tie_counts.png)
+![tie_counts.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/tie_counts.png)
 
 ************************************************todo add human elos with ties************************************************
 
@@ -114,7 +114,7 @@ The tie counts (out of 327 comparisons per model pair) and the new Elo scores ar
 
 Below is the histogram of ratings from the Scale AI taskforce.
 
-![human-hist.png](Can%20language%20models%20label%20data%20like%20humans%20c1330e52ed1d4598a4fe5fdd56745b47/human-hist.png)
+![human-hist.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/human-hist.png)
 
 For the rest of this post, you will see similar analyses with different data generation criteria.
 
@@ -168,7 +168,7 @@ In the subsequent line, please provide a brief explanation of your evaluation, a
 The histogram of responses from GPT-4 starts to show a clear issue with LLM based evaluation: **positional bias**. 
 This score distribution is with fully randomized ordering of which model is included in `answer_1` above.
 
-![Untitled](Can%20language%20models%20label%20data%20like%20humans%20c1330e52ed1d4598a4fe5fdd56745b47/Untitled%202.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/gpt4-hist.png)
 
 Given the uncertainty of GPT-4 evaluations, we decided to add another benchmark to our rankings: completions made by highly trained humans. 
 We wanted to answer the question of: what would be the Elo ranking of humans, if evaluated by GPT-4 as well.
@@ -197,12 +197,12 @@ The most striking paper in this regard *[How Far Can Camels Go?](https://arxiv.o
 These correlations are striking, as it rewards models to be verbose, even if the task may not call for it. 
 Below is the figure where the authors correlate the win-rate with the token quantity.
 
-![Screenshot 2023-06-10 at 7.35.40 AM.png](Can%20language%20models%20label%20data%20like%20humans%20c1330e52ed1d4598a4fe5fdd56745b47/Screenshot_2023-06-10_at_7.35.40_AM.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/camel-fig.png)
 
 The other popular and recent paper is *[The False Promise of Imitating Proprietary LLMs](https://arxiv.org/abs/2305.15717)* from Berkeley, where the authors show that training on more data actually lowers comparison results. 
 With the scale the authors were operating at, more investigation is needed to fully understand the results, but it points in a clear direction: be wary when training on and evaluating with another LLM. The figure from the paper showcasing this is below:
 
-![Screenshot 2023-06-10 at 7.42.40 AM.png](Can%20language%20models%20label%20data%20like%20humans%20c1330e52ed1d4598a4fe5fdd56745b47/Screenshot_2023-06-10_at_7.42.40_AM.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/false-promise.png)
 
 ## GPT-4 evaluation examples
 
@@ -320,7 +320,7 @@ Using rankings showed a substantial decrease in the positional bias of the promp
 | human | 958 |
 | dolly-12b | 862 |
 
-![Untitled](Can%20language%20models%20label%20data%20like%20humans%20c1330e52ed1d4598a4fe5fdd56745b47/Untitled%203.png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/gpt4-score-hist.png)
 
 **GPT-4 Elo with asking to de-bias**
 
@@ -353,7 +353,7 @@ This is an experiment where the ordering of models changes substantially when ti
 | human | 923 |
 | dolly-12b | 804 |
 
-![image (30).png](Can%20language%20models%20label%20data%20like%20humans%20c1330e52ed1d4598a4fe5fdd56745b47/image_(30).png)
+![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/gpt4-debias-hist.png)
 
 ## Takeaways and discussion
 
