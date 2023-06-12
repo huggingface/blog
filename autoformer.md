@@ -765,12 +765,12 @@ from gluonts.torch.model.d_linear.estimator import DLinearEstimator
 estimator = DLinearEstimator(
     prediction_length=dataset.metadata.prediction_length,
     context_length=dataset.metadata.prediction_length*2,
-    scaling="std",
+    scaling=scaling,
     hidden_dimension=2,
     
-    batch_size=128,
-    num_batches_per_epoch=100,
-    trainer_kwargs=dict(max_epochs=50)
+    batch_size=batch_size,
+    num_batches_per_epoch=num_batches_per_epoch,
+    trainer_kwargs=dict(max_epochs=epochs)
 )
 ```
 
