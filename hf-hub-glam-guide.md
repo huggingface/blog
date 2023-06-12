@@ -82,7 +82,7 @@ We can make datasets available via the Hugging Face hub in various ways. I'll wa
 *Overview of the process of uploading a dataset to the Hub via the browser interface*
 
 For our example, we'll work on making the [On the Books Training Set
-](https://cdr.lib.unc.edu/concern/data_sets/6q182v788?locale=en) available via the Hub. This dataset is made up of a CSV file which contains data that can be used to train a text classification model. Since CSV data is one of the [supported formats](https://huggingface.co/docs/datasets/upload_dataset#upload-dataset) for uploading data to the Hugging Face hub we can share this dataset directly on the Hub without needing to write any  code. 
+](https://cdr.lib.unc.edu/concern/data_sets/6q182v788?locale=en) available via the Hub. This dataset comprises a CSV file containing data that can be used to train a text classification model. Since CSV data is one of the [supported formats](https://huggingface.co/docs/datasets/upload_dataset#upload-dataset) for uploading data to the Hugging Face Hub, we can share this dataset directly on the Hub without needing to write any code. 
 
 ### Create a new dataset repository 
 
@@ -105,32 +105,32 @@ You can now select the data you wish to upload to the Hub.
 
 ![Adding files to the Hub](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-hub-glam-guide/file-upload.png)
 
-You can upload a single file or multiple files using the upload interface. Once you have uploaded your file you commit your changes to finalize the upload. 
+You can upload a single file or multiple files using the upload interface. Once you have uploaded your file, you commit your changes to finalize the upload. 
 
 ![Commit your new files](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-hub-glam-guide/commit.png)
 
 
 ### Adding metadata
 
-In order to make your dataset more discoverable and useful for others it is important to add metadata to your dataset repository. This will make it possible for others to find your dataset and understand what it contains. 
+It is important to add metadata to your dataset repository to make your dataset more discoverable and helpful for others. This will allow others to find your dataset and understand what it contains. 
 
-You can edit metadata using the `Metadata UI` editor. This allows you to specify the license, language, tags etc. for the dataset. 
+You can edit metadata using the `Metadata UI` editor. This allows you to specify the license, language, tags etc., for the dataset. 
 
 ![Example metadata](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-hub-glam-guide/add-metadata.png)
 
-It is also very helpful to outline in more detail what your dataset is, how and why it was constructed and it's strength and weaknesses. This can be done in a dataset repository by filling out the `README.md` file. This file will serve as a [dataset card](https://huggingface.co/docs/datasets/dataset_card) for your dataset. A dataset card is a semi-structured form of documentation for machine learning datasets that aims to ensure datasets are sufficiently well documented. When you edit the `README.md` file you will be given the option to import a template dataset card. This template will give you helpful prompts for what is useful to include in a dataset card. 
+It is also very helpful to outline in more detail what your dataset is, how and why it was constructed, and it's strengths and weaknesses. This can be done in a dataset repository by filling out the `README.md` file. This file will serve as a [dataset card](https://huggingface.co/docs/datasets/dataset_card) for your dataset. A dataset card is a semi-structured form of documentation for machine learning datasets that aims to ensure datasets are sufficiently well documented. When you edit the `README.md` file you will be given the option to import a template dataset card. This template will give you helpful prompts for what is useful to include in a dataset card. 
 
-*Tip: Writing a good dataset card can be a lot of work. However, you do not need to necessarily do all of this work in one go and because people can ask questions or make suggestions for datasets hosted on the Hub these process of documenting datasets can be a collective activity.*
+*Tip: Writing a good dataset card can be a lot of work. However, you do not need to do all of this work in one go necessarily, and because people can ask questions or make suggestions for datasets hosted on the Hub the processes of documenting datasets can be a collective activity.*
 
 ### Datasets preview
 
-Once we've uploaded our dataset to the Hub we'll get a preview of the dataset. This can be an incredibly useful way of getting a better understanding of the dataset. 
+Once we've uploaded our dataset to the Hub, we'll get a preview of the dataset. The dataset preview can be a beneficial way of better understanding the dataset. 
 
 ![Dataset server preview](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-hub-glam-guide/server-view.png)
 
 ### Other ways of sharing datasets
 
-There are many other approaches you can use for sharing datasets on the Hub. The datasets [documentation](https://huggingface.co/docs/datasets/share) will help you better understand what is likely to work best for your particular use case. 
+You can use many other approaches for sharing datasets on the Hub. The datasets [documentation](https://huggingface.co/docs/datasets/share) will help you better understand what will likely work best for your particular use case. 
 
 ## Why might Galleries, Libraries, Archives and Museums want to use the Hugging Face hub?
 
