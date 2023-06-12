@@ -25,6 +25,16 @@
     - analysis
     - nlp
 
+- local: constrained-beam-search
+  title: "在 🤗 Transformers 中使用约束波束搜索引导文本生成"
+  author: cwkeam
+  guest: true
+  thumbnail: /blog/assets/53_constrained_beam_search/thumbnail.png
+  date: March 11, 2022
+  tags:
+    - guide
+    - nlp
+
 - local: bloom-megatron-deepspeed
   title: "BLOOM 训练背后的技术"
   author: stas
@@ -490,6 +500,16 @@
     - partnerships
     - community
 
+- local: unity-api
+  title: "如何安装和使用 Hugging Face Unity API"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/unity-api-thumbnail.png
+  date: May 1, 2023
+  tags: 
+    - community
+    - guide
+    - game-dev
+
 - local: starcoder
   title: "StarCoder：最先进的代码大模型"
   author: lvwerra
@@ -553,3 +573,14 @@
     - inference
     - intel
     - quantization
+
+- local: unity-asr
+  title: "如何在 Unity 游戏中集成 AI 语音识别？"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/unity-asr-thumbnail.png
+  date: June 2, 2023
+  tags: 
+    - community
+    - guide
+    - game-dev
+    - speech-recognition

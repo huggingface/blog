@@ -1,6 +1,6 @@
 ---
 title: "AI 大战 AI，一个深度强化学习多智能体竞赛系统"
-thumbnail: https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/128_aivsai/thumbnail.png
+thumbnail: /blog/assets/128_aivsai/thumbnail.png
 authors:
 - user: CarlCochet
 - user: ThomasSimonini

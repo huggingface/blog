@@ -35,7 +35,7 @@ translators:
 
 ## LLaMA 模型
 
-在实践 RLHF 时，选取一个合适的模型很重要: RLHF 只是一个让模型满足我们交互形式的需求的微调过程 。所以我们选取了最近上线的 [LLaMA](https://arxiv.org/abs/2302.13971) 模型。LLaMA 模型是 Mata AI 最近推出的大语言模型。其参数量大小涵盖 7B 到 65B，以及训练在 1T 和 1.4T 的 token 上，这让其很实用。我们这里采用 7B 的模型。(请填写 Meta AI 的这份 [表单](https://docs.google.com/forms/d/e/1FAIpQLSfqNECQnMkycAp2jP4Z9TFX0cGR4uf7b_fBxjY_OjhJILlKGA/viewform) 来下载模型)。
+在实践 RLHF 时，选取一个合适的模型很重要: RLHF 只是一个让模型满足我们交互形式的需求的微调过程 。所以我们选取了最近上线的 [LLaMA](https://arxiv.org/abs/2302.13971) 模型。LLaMA 模型是 Meta AI 最近推出的大语言模型。其参数量大小涵盖 7B 到 65B，以及训练在 1T 和 1.4T 的 token 上，这让其很实用。我们这里采用 7B 的模型。(请填写 Meta AI 的这份 [表单](https://docs.google.com/forms/d/e/1FAIpQLSfqNECQnMkycAp2jP4Z9TFX0cGR4uf7b_fBxjY_OjhJILlKGA/viewform) 来下载模型)。
 
 ## Stack Exchange 数据集
 

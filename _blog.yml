@@ -2279,6 +2279,14 @@
     - nlp
     - partnerships
 
+- local: hub-duckdb
+  title: "DuckDB: run SQL queries on 50,000+ datasets on the Hugging Face Hub"
+  author: stevhliu
+  thumbnail: /blog/assets/hub_duckdb/hub_duckdb.png
+  date: June 7, 2023
+  tags:
+    - guide
+
 - local: bridgetower
   title: "Accelerating vison-language training and inference: BridgeTower on Gaudi2"
   author: regisss
@@ -2290,4 +2298,3 @@
     - nlp
     - cv
     - hardware
-

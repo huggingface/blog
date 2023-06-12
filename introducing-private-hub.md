@@ -12,6 +12,17 @@ authors:
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
+<br>
+<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 10px;">
+  June 2023 Update:
+  
+  The Private Hub is now called <b>Enterprise Hub</b>.
+  
+  The Enterprise Hub is a hosted solution that combines the best of Cloud Managed services (SaaS) and Enterprise security. It lets customers deploy specific services like <b>Inference Endpoints</b> on a wide scope of compute options, from on-cloud to on-prem. It offers advanced user administration and access controls through SSO.
+  
+  Get in touch with our [Enterprise team](/support) to find the best solution for your company.
+</div>
+
 Machine learning is changing how companies are building technology. From powering a new generation of disruptive products to enabling smarter features in well-known applications we all use and love, ML is at the core of the development process.
 
 But with every technology shift comes new challenges. 
