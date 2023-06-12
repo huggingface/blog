@@ -19,12 +19,12 @@ The [Hugging Face Hub](https://huggingface.co/) is a central repository where pe
 
 The models, datasets and demos hosted on the Hub span a wide range of domains and languages, with regular community efforts to expand the scope of what is available via the Hub. This blog post intends to offer people working in or with the galleries, libraries, archives and museums (GLAM) sector to understand how they can use &mdash; and contribute to &mdash; the Hugging Face Hub.
 
-You can read the whole post or jump to the sections most relevant to you! 
+You can read the whole post or jump to the most relevant sections! 
 
-- If you don't know what the hub is start with: [What is the Hugging Face Hub?](#what-is-the-hugging-face-hub)
-- If you want to know how you can find machine learning models on the hub start with: [How can you use the Hugging Face Hub: finding relevant models on the Hub](#how-can-you-use-the-hugging-face-hub-finding-relevant-models-on-the-hub)
-- If you want to know how you can share GLAM datasets on the hub start with: [Walkthrough: Adding a GLAM dataset to the Hub?](#walkthrough-adding-a-glam-dataset-to-the-hub)
-- If you want to see some examples checkout: [Example uses of the Hugging Face Hub](#example-uses-of-the-hugging-face-hub)
+- If you don't know what the Hub is, start with: [What is the Hugging Face Hub?](#what-is-the-hugging-face-hub)
+- If you want to know how you can find machine learning models on the Hub, start with: [How can you use the Hugging Face Hub: finding relevant models on the Hub](#how-can-you-use-the-hugging-face-hub-finding-relevant-models-on-the-hub)
+- If you want to know how you can share GLAM datasets on the Hub, start with [Walkthrough: Adding a GLAM dataset to the Hub?](#walkthrough-adding-a-glam-dataset-to-the-hub)
+- If you want to see some examples, check out: [Example uses of the Hugging Face Hub](#example-uses-of-the-hugging-face-hub)
 
 ## What can you find on the Hugging Face Hub?
 
@@ -82,7 +82,7 @@ We can make datasets available via the Hugging Face hub in various ways. I'll wa
 *Overview of the process of uploading a dataset to the Hub via the browser interface*
 
 For our example, we'll work on making the [On the Books Training Set
-](https://cdr.lib.unc.edu/concern/data_sets/6q182v788?locale=en) available via the Hub. This dataset is made up of a CSV file which contains data that can be used to train a text classification model. Since CSV data is one of the [supported formats](https://huggingface.co/docs/datasets/upload_dataset#upload-dataset) for uploading data to the Hugging Face hub we can share this dataset directly on the hub without needing to write any  code. 
+](https://cdr.lib.unc.edu/concern/data_sets/6q182v788?locale=en) available via the Hub. This dataset is made up of a CSV file which contains data that can be used to train a text classification model. Since CSV data is one of the [supported formats](https://huggingface.co/docs/datasets/upload_dataset#upload-dataset) for uploading data to the Hugging Face hub we can share this dataset directly on the Hub without needing to write any  code. 
 
 ### Create a new dataset repository 
 
