@@ -1,5 +1,5 @@
 ---
-title: "Fast bf16 training and inference: BridgeTower on Gaudi2"
+title: "Accelerating vison-language training and inference: BridgeTower on Gaudi2"
 thumbnail: /blog/assets/bridgetower/thumbnail.png
 authors:
 - user: regisss
@@ -7,7 +7,7 @@ authors:
   guest: true
 ---
 
-# Fast bf16 training and inference: BridgeTower on Gaudi2
+# Accelerating vison-language model training and inference: BridgeTower on Gaudi2
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -35,26 +35,35 @@ Gaudi2 is the second-generation AI hardware accelerator designed by Habana Labs.
 ## Training
 
 Dataset, hyperparameters, link to Tensorboard logs
-Benchmark throughputs
 Compare perf before/after fine-tuning
 
 To benchmark training, we are going to fine-tune BridgeTower Large using [this checkpoint](https://huggingface.co/BridgeTower/bridgetower-large-itm-mlm-itc). It contains 955M parameters and was pretrained on English language using masked language modeling, image-text matching and image-text contrastive loss on [Conceptual Captions](https://huggingface.co/datasets/conceptual_captions), [SBU Captions](https://huggingface.co/datasets/sbu_captions), [MSCOCO Captions](https://huggingface.co/datasets/HuggingFaceM4/COCO) and [Visual Genome](https://huggingface.co/datasets/visual_genome).
 
-This checkpoint is fine-tuned on the [New Yorker Caption Contest dataset](https://nextml.github.io/caption-contest-data) which consists of cartoons from The New Yorker and the most voted captions.
+This checkpoint is fine-tuned on the [New Yorker Caption Contest dataset](https://huggingface.co/datasets/jmhessel/newyorker_caption_contest) which consists of cartoons from The New Yorker and the most voted captions.
 
-Several runs were performed:
-- a mixed-precision (*bfloat16*/*float*) run (MP-0)
-- a mixed-precision (*bfloat16*/*float*) run with 1 dedicated subprocess for data loading (MP-1)
-- a mixed-precision (*bfloat16*/*float*) run with 16 dedicated subprocesses for data loading (MP-16)
-- (on Gaudi2 only) a mixed-precision (*bfloat16*/*float*) run with a dataloader relying on Habana's media pipeline and HPU graphs enabled (MP-*)
+Hyperparameters are all the same for both accelerators, except the batch size. We managed to fit 48 samples on Gaudi2 against 32 on A100. All runs
+
+We first started with two runs:
+- a mixed-precision (*bfloat16*/*float*) run distributed on 8 devices where data loading is performed by the same process as everything else (MP-0)
+- a mixed-precision (*bfloat16*/*float*) run distributed on 8 devices with 1 dedicated subprocess for data loading (MP-1)
+
+| Device     | MP-0            | MP-1            |
+|:----------:|:---------------:|:---------------:|
+| Gaudi2 HPU | 581.5 samples/s | 678.6 samples/s |
+| A100 GPU   |                 | 249.6 samples/s |
+
+**Gaudi2 is x2.72 faster than A100**, which is even better than [the speedups we previously reported](https://huggingface.co/blog/habana-gaudi-2-benchmark)!
+
+Besides, we see that **allocating more resources for data loading can lead to easy speedups**: x1.17 on Gaudi2 and x1.xx on A100. This is because our dataset contains images and thus data loading is a much heavier task than with text.
+
+We also ran experiments with several dedicated subprocesses for data loading but performance was not better than with 1.
+
+To improve this even more, we can try to move as many operations (image decoding and augmentations) as possible from CPU to the accelerator devices. This can be done on Gaudi2 using Habana's media pipe.
 
 
-| Device     | MP-0            | MP-1 | MP-16 | MP-* |
-|:----------:|:---------------:|:----:|:-----:|:----:|
-| Gaudi2 HPU |  | 678.6 samples/s     |       |      |
-| A100 GPU   |  | 249.6 samples/s     |       |      |
-
-Talk a bit about the importance of data loading for such use cases
+Finally, we are going to use two new features of Optimum Habana v1.6.0 to get an additional speedup:
+- HPU graphs for training, which enables to reduce the CPU overhead
+- Fast DDP, which is a lighter and faster implementation of Torch DDP
 
 
 ## Inference

@@ -2280,7 +2280,7 @@
     - partnerships
 
 - local: bridgetower
-  title: "Fast bf16 training and inference: BridgeTower on Gaudi2"
+  title: "Accelerating vison-language training and inference: BridgeTower on Gaudi2"
   author: regisss
   thumbnail: /blog/assets/bridgetower/thumbnail.png
   date: June XX, 2023
