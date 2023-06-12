@@ -333,7 +333,6 @@ from gluonts.transform import (
     AsNumpyArray,
     Chain,
     ExpectedNumInstanceSampler,
-    InstanceSplitter,
     RemoveFields,
     SelectFields,
     SetField,
@@ -452,6 +451,7 @@ The instance splitter samples random `context_length` sized and subsequent `pred
 
 
 ```python
+from gluonts.transform import InstanceSplitter
 from gluonts.transform.sampler import InstanceSampler
 from typing import Optional
 
