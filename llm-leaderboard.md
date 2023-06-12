@@ -113,7 +113,9 @@ The tie counts (out of 327 comparisons per model pair) and the new Elo scores ar
 
 *Note, read this plot by selecting a row, e.g. `oasst-12b` and then reading across horizontally to see how many ties it had with each other model.*
 
-![tie_counts.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/tie_counts.png)
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/tie_counts.png" width="600" />
+</p>
 
 ****************Elo rankings w/ ties (bootstrapped from 1000 rounds of sampling games)****************
 
@@ -126,7 +128,9 @@ The tie counts (out of 327 comparisons per model pair) and the new Elo scores ar
 
 Below is the histogram of ratings from the Scale AI taskforce.
 
-![human-hist.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/human-hist.png)
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/human-hist.png" width="600" />
+</p>
 
 For the rest of this post, you will see similar analyses with different data generation criteria.
 
@@ -180,7 +184,9 @@ In the subsequent line, please provide a brief explanation of your evaluation, a
 The histogram of responses from GPT-4 starts to show a clear issue with LLM based evaluation: **positional bias**. 
 This score distribution is with fully randomized ordering of which model is included in `answer_1` above.
 
-![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/gpt4-hist.png)
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/gpt4-hist.png" width="600" />
+</p>
 
 Given the uncertainty of GPT-4 evaluations, we decided to add another benchmark to our rankings: completions made by highly trained humans. 
 We wanted to answer the question of: what would be the Elo ranking of humans, if evaluated by GPT-4 as well.
@@ -209,12 +215,16 @@ The most striking paper in this regard *[How Far Can Camels Go?](https://arxiv.o
 These correlations are striking, as it rewards models to be verbose, even if the task may not call for it. 
 Below is the figure where the authors correlate the win-rate with the token quantity.
 
-![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/camel-fig.png)
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/camel-fig.png" width="600" />
+</p>
 
 The other popular and recent paper is *[The False Promise of Imitating Proprietary LLMs](https://arxiv.org/abs/2305.15717)* from Berkeley, where the authors show that training on more data actually lowers comparison results. 
 With the scale the authors were operating at, more investigation is needed to fully understand the results, but it points in a clear direction: be wary when training on and evaluating with another LLM. The figure from the paper showcasing this is below:
 
-![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/false-promise-fig.png)
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/false-promise-fig.png" width="600" />
+</p>
 
 ## GPT-4 evaluation examples
 
@@ -332,7 +342,9 @@ Using rankings showed a substantial decrease in the positional bias of the promp
 | human | 958 |
 | dolly-12b | 862 |
 
-![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/gpt4-score-hist.png)
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/gpt4-score-hist.png" width="600" />
+</p>
 
 **GPT-4 Elo with asking to de-bias**
 
@@ -365,7 +377,9 @@ This is an experiment where the ordering of models changes substantially when ti
 | human | 923 |
 | dolly-12b | 804 |
 
-![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/gpt4-debias-hist.png)
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/gpt4-debias-hist.png" width="600" />
+</p>
 
 ## Takeaways and discussion
 
