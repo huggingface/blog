@@ -2295,3 +2295,13 @@
   tags:
     - community
     - guide
+
+- local: llm-leaderboard
+  title: "Can foundation models label data like humans?"
+  author: nazneen
+  thumbnail: /blog/assets/llm-leaderboard/leaderboard-thumbnail.png
+  date: June 12, 2023
+  tags:
+    - nlp
+    - evaluation
+    - leaderboard
