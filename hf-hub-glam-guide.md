@@ -65,7 +65,7 @@ If you prefer to use a model via an API, clicking the
 A similar approach can also be used to find relevant models and datasets
 on the Hugging Face Hub.
 
-## Walkthrough: Adding a GLAM dataset to the Hub?
+## Walkthrough: how can you add a GLAM dataset to the Hub?
 
 We can make datasets available via the Hugging Face hub in various ways. I'll walk through an example of adding a CSV dataset to the Hugging Face hub. 
 
