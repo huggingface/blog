@@ -229,16 +229,22 @@ In our benchmark, we use the implementation of DLinear from [GluonTS](https://gi
 ## Example: Traffic Dataset
 
 We want to show empirically the performance of Transformer based models, by benchmarking on the `traffic` dataset, a multivariate dataset with 862 covariates, in the univariate setting (kashif - maybe we can explain here the univariate setting in terms of target). We will keep the following hyper-parameters fixed for all the models:
-* `context_length = prediction_length*2`
-* `batch_size = 128`
-* `num_batches_per_epoch = 100`
-* `epochs = 50`
-* `scaling = "std"`
+
+```python
+context_length = prediction_length*2
+batch_size = 128
+num_batches_per_epoch = 100
+epochs = 50
+scaling = "std"
+```
 
 The transformers models are all relatively small  with:
-* `encoder_layers=2`
-* `decoder_layers=2`
-* `d_model=16`
+
+```python
+encoder_layers=2
+decoder_layers=2
+d_model=16
+```
 
 Instead of showing how to train a model using `Autoformer` one can just replace the model in the previous two blog posts ([TimeSeriesTransformer](https://huggingface.co/blog/time-series-transformers) and [Informer](https://huggingface.co/blog/informer)) with the new `Autoformer` model and train it on the `traffic` dataset. In order to not repeat ourselves, we have already trained the models and pushed them to the HuggingFace Hub. We will use those models for evaluation.
 
@@ -696,7 +702,7 @@ for item_id, ts in enumerate(tqdm(test_dataset)):
 
 
 ```python
-print(f"MASE: {np.mean(mase_metrics)}")
+print(f"Autoformer univariate MASE: {np.mean(mase_metrics):.3f}")
 
 >>> MASE: 0.9092493026949344
 ```
@@ -825,7 +831,8 @@ agg_metrics, _ = evaluator(iter(d_linear_tss), iter(d_linear_forecasts))
 ```
 
 ```python
-print(agg_metrics["MASE"])
+dlinear_mase = agg_metrics["MASE"]
+print(f"DLinear MASE: {dlinear_mase:.3f}")
 
 >>> 0.9693592730002069
 ```
