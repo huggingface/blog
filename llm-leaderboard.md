@@ -5,7 +5,7 @@ authors:
 - user: nazneen
 - user: natolambert
 - user: sheonhan
-- user: JeanWang
+- user: wangjean
   guest: true
 - user: OsvaldN97
   guest: true
