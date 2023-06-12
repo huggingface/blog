@@ -11,6 +11,8 @@ authors:
   guest: true
 - user: edbeeching
 - user: lewtun
+- user: slippylolo
+- user: thomwolf
 
 ---
 # Can foundation models label data like humans?
@@ -260,9 +262,10 @@ Write a LinkedIn post to announce that you have accepted a new job offer.\n Inpu
 
 **Model response (koala)**:
 
-Exciting news! I am thrilled to announce that I have officially accepted an exciting new job opportunity as \\[Job Title\\] at \\[Company Name\\]. This role will allow me to leverage my skills and experience in \\[industry/field of expertise\\], while also providing opportunities for personal and professional growth.\n\nI want to take this moment to express my gratitude to everyone who has supported me throughout the hiring process, including \\[previous employer name(s) or individuals who provided guidance/advice/references\\]. Your support means the world to me and I couldn't be more grateful for your help.
+Exciting news! I am thrilled to announce that I have officially accepted an exciting new job opportunity as [Job Title] at [Company Name]. This role will allow me to leverage my skills and experience in [industry/field of expertise], while also providing opportunities for personal and professional growth.
+I want to take this moment to express my gratitude to everyone who has supported me throughout the hiring process, including [previous employer name(s) or individuals who provided guidance/advice/references]. Your support means the world to me and I couldn't be more grateful for your help.
 
-I am excited about what lies ahead and can\'t wait to join the team at \\[Company Name\\]. Thank you again for all your support!
+I am excited about what lies ahead and can't wait to join the team at [Company Name]. Thank you again for all your support!
 
 **Human response:**
 
