@@ -11,7 +11,8 @@ authors:
   guest: true
 - user: edbeeching
 - user: lewtun
-
+- user: slippylolo
+- user: thomwolf
 ---
 # Can foundation models label data like humans?
 
