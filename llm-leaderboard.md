@@ -5,9 +5,9 @@ authors:
 - user: nazneen
 - user: natolambert
 - user: sheonhan
-- user: JeanWang 
+- user: JeanWang
   guest: true
-- user: OsvaldN97 
+- user: OsvaldN97
   guest: true
 - user: edbeeching
 - user: lewtun
