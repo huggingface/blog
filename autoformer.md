@@ -40,6 +40,9 @@ The results show that the Autoformer model outperforms the DLinear model on all 
 
 Next, we will present the new Autoformer model along with the DLinear model. We will showcase how to compare them on the Traffic dataset from the table above, and provide explanations for the results we obtained.
 
+**TL;DR:** A simple linear model, while advantageous in certain cases, has no capacity to incorporate covariates compared to more complex models like transformers. 
+
+
 ## Autoformer - Under The Hood
 
 Autoformer builds upon the traditional method of decomposing time series into seasonality and trend-cycle components. This is achieved through the incorporation of a _Decomposition Layer_, which enhances the model's ability to capture these components accurately. Moreover, Autoformer introduces an innovative auto-correlation mechanism that replaces the standard self-attention used in the vanilla transformer. This mechanism enables the model to utilize period-based dependencies in the attention, thus improving the overall performance. 
@@ -260,10 +263,10 @@ Instead of showing how to train a model using `Autoformer` one can just replace 
 Let's first install the necessary libraries:
 
 ```python
-!pip install -q transformers datasets evaluate accelerate "gluonts[pro,torch]" ujson tqdm
+!pip install -q transformers datasets evaluate accelerate "gluonts[torch]" ujson tqdm
 ```
 
-The `traffic` dataset, used by [Lai et al. (2017)](https://arxiv.org/abs/1703.07015), contains the San Francisco Traffic. It contains 862 hourly time series showing the road occupancy rates in the range \\([0, 1]\\) on the San Francisco Bay area freeways from 2015 to 2016.
+The `traffic` dataset, used by [Lai et al. (2017)](https://arxiv.org/abs/1703.07015), contains the San Francisco Traffic. It contains 862 hourly time series showing the road occupancy rates in the range \\([0, 1]\\) on the San Francisco Bay Area freeways from 2015 to 2016.
 
 ```python
 from gluonts.dataset.repository.datasets import get_dataset
@@ -313,7 +316,6 @@ plt.show()
 ```
 
 ![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/output_15_0.png)
-
 
 Let's make a variable for the train/test split:
 
@@ -598,7 +600,7 @@ def create_test_dataloader(
 
 ## Evaluate on Autoformer
 
-We have already pre-trained an Autoformer model on this dataset so we can just fetch the model and evaluate it on the test set:
+We have already pre-trained an Autoformer model on this dataset, so we can just fetch the model and evaluate it on the test set:
 
 
 ```python
@@ -620,7 +622,7 @@ test_dataloader = create_test_dataloader(
 )
 ```
 
-At inference time, we will use the model's  `generate()` method for predicting `predection_length` into the future from the very last context window of each time series in the training set.  
+At inference time, we will use the model's `generate()` method for predicting `predection_length` into the future from the very last context window of each time series in the training set.  
 
 
 ```python
@@ -763,7 +765,7 @@ plot(4)
 
 ## Evaluate on DLinear
 
-A probablistic DLinear is implemented in `gluonts` and thus we can train and evaluate it relatively quickly here:
+A probabilistic DLinear is implemented in `gluonts` and thus we can train and evaluate it relatively quickly here:
 
 
 ```python
@@ -863,7 +865,7 @@ plot_gluonts(4)
 ![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/output_54_0.png)
 
 
-The `traffic` dataset has a distributional shift in the sensor patterns between weekdays and weekends. So what is going on here? Since the DLinear model has no capacity to incorporate covariates, in particular any date-time features, the context window we give it does not have enough information to figure out if the prediction is for the weekend or weekday. Thus the model will predict the more common of the patterns, namely the weekdays leading to poorer performance on weekends. Of course, by giving it a larger context window a linear model will figure out the weekly pattern but perhaps there is a monthly or quaterly pattern in the data which would require bigger and bigger contexts.
+The `traffic` dataset has a distributional shift in the sensor patterns between weekdays and weekends. So what is going on here? Since the DLinear model has no capacity to incorporate covariates, in particular any date-time features, the context window we give it does not have enough information to figure out if the prediction is for the weekend or weekday. Thus, the model will predict the more common of the patterns, namely the weekdays leading to poorer performance on weekends. Of course, by giving it a larger context window a linear model will figure out the weekly pattern but perhaps there is a monthly or quarterly pattern in the data which would require bigger and bigger contexts.
 
 ## Conclusion
 
