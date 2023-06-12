@@ -3,7 +3,6 @@ title: "The Hugging Face Hub for Galleries, Libraries, Archives and Museums"
 thumbnail: /blog/assets/144_hf_hub_glam_guide/thumbnail.png
 authors:
 - user: davanstrien
-  guest: false
 ---
 
 ## The Hugging Face Hub for Galleries, Libraries, Archives and Museums 
@@ -11,22 +10,6 @@ authors:
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
-
-- [The Hugging Face Hub for Galleries, Libraries, Archives and Museums](#the-hugging-face-hub-for-galleries-libraries-archives-and-museums)
-- [What is the Hugging Face Hub?](#what-is-the-hugging-face-hub)
-- [What can you find on the Hugging Face Hub?](#what-can-you-find-on-the-hugging-face-hub)
-		- [Models](#models)
-		- [Datasets](#datasets)
-		- [Spaces](#spaces)
-	- [How can you use the Hugging Face Hub: finding relevant models on the Hub](#how-can-you-use-the-hugging-face-hub-finding-relevant-models-on-the-hub)
-	- [Walkthrough: Adding a GLAM dataset to the Hub?](#walkthrough-adding-a-glam-dataset-to-the-hub)
-	- [Why might Galleries, Libraries, Archives and Museums want to use the Hugging Face hub?](#why-might-galleries-libraries-archives-and-museums-want-to-use-the-hugging-face-hub)
-	- [Example uses of the Hugging Face Hub](#example-uses-of-the-hugging-face-hub)
-		- [BigLAM](#biglam)
-		- [Nasjonalbiblioteket AI Lab](#nasjonalbiblioteket-ai-lab)
-		- [Smithsonian Institution](#smithsonian-institution)
-	- [Hub features for Galleries, Libraries, Archives and Museums](#hub-features-for-galleries-libraries-archives-and-museums)
-	- [How can I get help using the Hub?](#how-can-i-get-help-using-the-hub)
 
 
 Hugging Face aims to make high-quality machine learning accessible to everyone. This goal is pursued in various ways, including developing open-source code libraries such as the widely-used Transformers library, offering [free courses](https://huggingface.co/learn), and providing the Hugging Face Hub. 
@@ -37,26 +20,33 @@ The [Hugging Face Hub](https://huggingface.co/) is a central repository where pe
 
 The models, datasets and demos hosted on the Hub span a wide range of domains and languages, with regular community efforts to expand the scope of what is available via the Hub. This blog post intends to offer people working in or with the galleries, libraries, archives and museums (GLAM) sector to understand how they can use &mdash; and contribute to &mdash; the Hugging Face Hub.
 
+You can read the whole post or jump to the sections most relevant to you! 
+
+- If you don't know what the hub is start with: [What is the Hugging Face Hub?](#what-is-the-hugging-face-hub)
+- If you want to know how you can find machine learning models on the hub start with: [How can you use the Hugging Face Hub: finding relevant models on the Hub](#how-can-you-use-the-hugging-face-hub-finding-relevant-models-on-the-hub)
+- If you want to know how you can share GLAM datasets on the hub start with: [Walkthrough: Adding a GLAM dataset to the Hub?](#walkthrough-adding-a-glam-dataset-to-the-hub)
+- If you want to see some examples checkout: [Example uses of the Hugging Face Hub](#example-uses-of-the-hugging-face-hub)
+
 ## What can you find on the Hugging Face Hub?
 
-#### Models 
+### Models 
 
 The Hugging Face Hub provides access to machine learning models covering various tasks and domains. Many machine learning libraries have integrations with the Hugging Face Hub, allowing you to directly use or share models to the Hub via these libraries.
 
-#### Datasets
+### Datasets
 The Hugging Face hub hosts over 30,000 datasets. These datasets cover a range of domains and modalities, including text, image, audio and multi-modal datasets. These datasets are valuable for training and evaluating machine learning models.
 
-#### Spaces
+### Spaces
 
 Hugging Face [Spaces](https://huggingface.co/docs/hub/spaces) is a platform that allows you to host machine learning demos and applications. These Spaces range from simple demos allowing you to explore the predictions made by a machine learning model to more involved applications. 
 
 Spaces make hosting and making your application accessible for others to use much more straightforward. You can use Spaces to host [Gradio](gradio.app/) and [Streamlit](https://streamlit.io/) applications, or you can use Spaces to [custom docker images](https://huggingface.co/docs/hub/spaces-sdks-docker). Using Gradio and Spaces in combination often means you can have an application created and hosted with access for others to use within minutes. You can use Spaces to host a Docker image if you want complete control over your application. There are also Docker templates that can give you quick access to a hosted version of many popular tools, including the [Argailla](https://argilla.io/) and [Label Studio](https://labelstud.io/) annotations tools.
 
-### How can you use the Hugging Face Hub: finding relevant models on the Hub
+## How can you use the Hugging Face Hub: finding relevant models on the Hub
 
 There are many potential use cases in the GLAM sector where machine learning models can be helpful. Whilst some institutions may have the resources required to train machine learning models from scratch, you can use the Hub to find openly shared models that either already do what you want or are very close to your goal.
 
-As an example, if you are working with a collection of digitized Norwegian documents with minimal metadata. One way of getting a better understanding of what's in the collection is to use a Named Entity Recognition (NER) model. This model extracts entities from a text, for example, identifying the locations mentioned in a text. Knowing which entities are contained in a text can be a valuable way of better understanding what a document is about.
+As an example, if you are working with a collection of digitized Norwegian documents with minimal metadata. One way to better understand what's in the collection is to use a Named Entity Recognition (NER) model. This model extracts entities from a text, for example, identifying the locations mentioned in a text. Knowing which entities are contained in a text can be a valuable way of better understanding what a document is about.
 
 We can find NER models on the Hub by filtering models by task. In this case, we choose `token-classification`, which is the task which includes named entity recognition models. [This filter](https://huggingface.co/datasets?task_categories=task_categories:token-classification) returns models labelled as doing `token-classification`. Since we are working with Norwegian documents, we may also want to [filter by language](https://huggingface.co/models?pipeline_tag=token-classification&language=no&sort=downloads); this gets us to a smaller set of models we want to explore. Many of these models will also contain a [model widget](https://huggingface.co/saattrupdan/nbailab-base-ner-scandi), allowing us to test the model. 
 
@@ -76,10 +66,9 @@ If you prefer to use a model via an API, clicking the
 A similar approach can also be used to find relevant models and datasets
 on the Hugging Face Hub.
 
-### Walkthrough: Adding a GLAM dataset to the Hub?
+## Walkthrough: Adding a GLAM dataset to the Hub?
 
-There are various ways in which we can make datasets available via the Hugging Face hub. I'll walkthrough an example of adding a CSV dataset to the Hugging Face hub. 
-
+We can make datasets available via the Hugging Face hub in various ways. I'll walk through an example of adding a CSV dataset to the Hugging Face hub. 
 
 <figure class="image table text-center m-0 w-full">
     <video 
@@ -93,10 +82,58 @@ There are various ways in which we can make datasets available via the Hugging F
 
 *Overview of the process of uploading a dataset to the Hub via the browser interface*
 
+For our example, we'll work on making the [On the Books Training Set
+](https://cdr.lib.unc.edu/concern/data_sets/6q182v788?locale=en) available via the Hub. This dataset is made up of a CSV file which contains data that can be used to train a text classification model. Since CSV data is one of the [supported formats](https://huggingface.co/docs/datasets/upload_dataset#upload-dataset) for uploading data to the Hugging Face hub we can share this dataset directly on the hub without needing to write any  code. 
+
+### Create a new dataset repository 
+
+The first step to uploading a dataset to the Hub is to create a new dataset repository. This can be done by clicking the `New Dataset` button on the dropdown menu in the top right-hand corner of the Hugging Face hub.
+
+![Creating a new dataset repository](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-hub-glam-guide/create_dataset.png)
+
+Once you have done this you can choose a name for your new dataset repository. You can also create the dataset under a different owner i.e. an organization, and optionally specify a license. 
+
+![Choosing a name](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-hub-glam-guide/new_repository.png)
 
 
+### Upload files
 
-### Why might Galleries, Libraries, Archives and Museums want to use the Hugging Face hub?
+Once you have created a dataset repository you will need to upload the data files. You can do this by clicking on `Add file` under the `Files` tab on the dataset repository. 
+
+![Add files button](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-hub-glam-guide/add-files.png)
+
+You can now select the data you wish to upload to the Hub. 
+
+![Adding files to the Hub](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-hub-glam-guide/file-upload.png)
+
+You can upload a single file or multiple files using the upload interface. Once you have uploaded your file you commit your changes to finalize the upload. 
+
+![Commit your new files](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-hub-glam-guide/commit.png)
+
+
+### Adding metadata
+
+In order to make your dataset more discoverable and useful for others it is important to add metadata to your dataset repository. This will make it possible for others to find your dataset and understand what it contains. 
+
+You can edit metadata using the `Metadata UI` editor. This allows you to specify the license, language, tags etc. for the dataset. 
+
+![Example metadata](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-hub-glam-guide/add-metadata.png)
+
+It is also very helpful to outline in more detail what your dataset is, how and why it was constructed and it's strength and weaknesses. This can be done in a dataset repository by filling out the `README.md` file. This file will serve as a [dataset card](https://huggingface.co/docs/datasets/dataset_card) for your dataset. A dataset card is a semi-structured form of documentation for machine learning datasets that aims to ensure datasets are sufficiently well documented. When you edit the `README.md` file you will be given the option to import a template dataset card. This template will give you helpful prompts for what is useful to include in a dataset card. 
+
+*Tip: Writing a good dataset card can be a lot of work. However, you do not need to necessarily do all of this work in one go and because people can ask questions or make suggestions for datasets hosted on the Hub these process of documenting datasets can be a collective activity.*
+
+### Datasets preview
+
+Once we've uploaded our dataset to the Hub we'll get a preview of the dataset. This can be an incredibly useful way of getting a better understanding of the dataset. 
+
+![Dataset server preview](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/hf-hub-glam-guide/server-view.png)
+
+### Other ways of sharing datasets
+
+There are many other approaches you can use for sharing datasets on the Hub. The datasets [documentation](https://huggingface.co/docs/datasets/share) will help you better understand what is likely to work best for your particular use case. 
+
+## Why might Galleries, Libraries, Archives and Museums want to use the Hugging Face hub?
 
 There are many different reasons why institutions want to contribute to
 the Hugging Face Hub:
@@ -105,22 +142,22 @@ the Hugging Face Hub:
 
 - **Community:** The Hub has many community-oriented features, allowing users and potential users of your material to ask questions and engage with materials you share via the Hub. Sharing trained models and machine learning datasets also allows people to build on each other's work and lowers the barrier to using machine learning in the sector.
 
-- **Diversity of training data:** One of the barriers to the GLAM using machine learning is the availability of relevant data for training and evaluation of machine learning models. Machine learning models that work well on benchmark datasets may not work as well on the types of data used by GLAM organizations. Building a community to share domain-specific datasets will ensure machine learning can be more effectively pursued in the GLAM sector.
+- **Diversity of training data:** One of the barriers to the GLAM using machine learning is the availability of relevant data for training and evaluation of machine learning models. Machine learning models that work well on benchmark datasets may not work as well on GLAM organizations' data. Building a community to share domain-specific datasets will ensure machine learning can be more effectively pursued in the GLAM sector.
 
 - **Climate change:** Training machine learning models produces a carbon footprint. The size of this footprint depends on various factors. One way we can collectively reduce this footprint is to share trained models with the community so that people aren't duplicating the same models (and generating more carbon emissions in the process).
 
-### Example uses of the Hugging Face Hub
-Individuals and organizations are already using the Hugging Face hub to share machine learning models, datasets and demos related to the GLAM sector.
+## Example uses of the Hugging Face Hub
+Individuals and organizations already use the Hugging Face hub to share machine learning models, datasets and demos related to the GLAM sector.
 
-#### [BigLAM](https://huggingface.co/biglam)
-An initiative developed out of the [BigScience project](https://bigscience.huggingface.co/), is focused on making datasets from GLAM with relevance to machine learning are made more accessible. BigLAM has so far made over 30 datasets related to GLAM available via the Hugging Face hub.
+### [BigLAM](https://huggingface.co/biglam)
+An initiative developed out of the [BigScience project](https://bigscience.huggingface.co/) is focused on making datasets from GLAM with relevance to machine learning are made more accessible. BigLAM has so far made over 30 datasets related to GLAM available via the Hugging Face hub.
 
-#### [Nasjonalbiblioteket AI Lab](https://huggingface.co/NbAiLab) 
+### [Nasjonalbiblioteket AI Lab](https://huggingface.co/NbAiLab) 
 The AI lab at the National Library of Norway is a very active user of the Hugging Face hub, with ~120 models, 23 datasets and six machine learning demos shared publicly. These models include language models trained on Norwegian texts from the National Library of Norway and Whisper (speech-to-text) models trained on Sámi languages.
 
-#### [Smithsonian Institution](https://huggingface.co/Smithsonian)
+### [Smithsonian Institution](https://huggingface.co/Smithsonian)
 
-The Smithsonian shared an application hosted on Hugging Face Spaces, demonstrating two machine learning models trained to identify Amazon fish species. This project aims to empower communities with tools that will allow for more accurate measurement of fish species numbers in the Amazon. Making tools such as this available via a Spaces demo further lowers the barrier for people wanting to use these tools.
+The Smithsonian shared an application hosted on Hugging Face Spaces, demonstrating two machine learning models trained to identify Amazon fish species. This project aims to empower communities with tools that will allow more accurate measurement of fish species numbers in the Amazon. Making tools such as this available via a Spaces demo further lowers the barrier for people wanting to use these tools.
 
 <html>
 <iframe
@@ -134,7 +171,7 @@ The Smithsonian shared an application hosted on Hugging Face Spaces, demonstrati
 [Source](https://huggingface.co/Smithsonian)
 
 
-### Hub features for Galleries, Libraries, Archives and Museums
+## Hub features for Galleries, Libraries, Archives and Museums
 
 The Hub supports many features which help make machine learning more accessible. Some features which may be particularly helpful for GLAM institutions include:
 
@@ -144,7 +181,7 @@ The Hub supports many features which help make machine learning more accessible.
 - **Script-based dataset sharing**: if you already have dataset hosted somewhere, you can still provide access to them via the Hugging Face hub using a [dataset loading script](https://huggingface.co/docs/datasets/dataset_script).
 - **Model and dataset gating**: there are circumstances where you want more control over who is accessing models and datasets. The Hugging Face hub supports model and dataset gating, allowing you to add access controls.
 
-### How can I get help using the Hub?
+## How can I get help using the Hub?
 
 The Hub [docs](https://huggingface.co/docs/hub/index) go into more detail about the various features of the Hugging Face Hub. You can also find more information about [sharing datasets on the Hub](https://huggingface.co/docs/datasets/upload_dataset) and information about [sharing Transformers models to the Hub](https://huggingface.co/docs/transformers/model_sharing).
 
