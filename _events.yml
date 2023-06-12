@@ -3,6 +3,16 @@
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
 # pro tip: put strings e.g. name or description in "quotes" or do not include special characters incl. ':' '[' 
 
+- name: "Deploying Generative AI Models"
+  link: https://lu.ma/ijcugt4n
+  date: June 10, 2023
+  description: "This meetup caters to all AI enthusiasts, from beginners in model training to deployment experts and researchers."
+
+- name: "Hugging Cast v2 - Live AI News and Demos"
+  link: https://streamyard.com/watch/GJkVxAWR76k2
+  date: May 26, 2023
+  description: "Join our live show - we'll discuss StarCoder, Transformer Agents and our latest benchmarks!"
+
 - name: "Free Panel – The Linux Moment of AI: Open Sourced AI Stack"
   link: https://future.snorkel.ai/agenda/
   date: June 7, 2023

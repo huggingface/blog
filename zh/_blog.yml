@@ -7,6 +7,15 @@
     - guide
     - nlp
 
+- local: encoder-decoder
+  title: "基于 Transformers 的编码器-解码器模型"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/05_encoder_decoder/thumbnail.png
+  date: October 10, 2020
+  tags:
+    - research
+    - nlp
+
 - local: large-language-models
   title: "大语言模型: 新的摩尔定律？"
   author: juliensimon
@@ -14,6 +23,16 @@
   date: October 26, 2021
   tags:
     - analysis
+    - nlp
+
+- local: constrained-beam-search
+  title: "在 🤗 Transformers 中使用约束波束搜索引导文本生成"
+  author: cwkeam
+  guest: true
+  thumbnail: /blog/assets/53_constrained_beam_search/thumbnail.png
+  date: March 11, 2022
+  tags:
+    - guide
     - nlp
 
 - local: bloom-megatron-deepspeed
@@ -34,6 +53,15 @@
     - nlp
     - llm
     - quantization
+
+- local: megatron-training
+  title: "如何使用 Megatron-LM 训练语言模型"
+  author: loubnabnl
+  thumbnail: /blog/assets/100_megatron_training/thumbnail.png
+  date: September 7, 2022
+  tags:
+    - guide
+    - nlp
 
 - local: bloom-inference-pytorch-scripts
   title: "使用 DeepSpeed 和 Accelerate 进行超快 BLOOM 模型推理"
@@ -472,6 +500,16 @@
     - partnerships
     - community
 
+- local: unity-api
+  title: "如何安装和使用 Hugging Face Unity API"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/unity-api-thumbnail.png
+  date: May 1, 2023
+  tags: 
+    - community
+    - guide
+    - game-dev
+
 - local: starcoder
   title: "StarCoder：最先进的代码大模型"
   author: lvwerra
@@ -494,3 +532,55 @@
     - diffusion
     - text-to-image
     - text-to-video
+
+- local: starchat-alpha
+  title: "使用 StarCoder 创建一个编程助手"
+  author: lewtun
+  thumbnail: /blog/assets/starchat_alpha/thumbnail.png
+  date: May 9, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    
+- local: assisted-generation
+  title: "辅助生成：低延迟文本生成的新方向"
+  author: joaogante
+  thumbnail: /blog/assets/assisted-generation/thumbnail.png
+  date: May 11, 2023
+  tags:
+    - nlp
+    - research
+
+- local: rwkv
+  title: "RWKV——transformer 与 RNN 的强强联合"
+  author: BlinkDL
+  thumbnail: /blog/assets/142_rwkv/rwkv_thumbnail.png
+  date: May 15, 2023
+  tags:
+    - nlp
+    - community
+    - research 
+
+- local: generative-ai-models-on-intel-cpu
+  title: "越小越好：Q8-Chat，在英特尔至强 CPU 上体验高效的生成式 AI"
+  thumbnail: /blog/assets/143_q8chat/thumbnail.png
+  author: andyll7772
+  date: May 16, 2023
+  tags:
+    - llm
+    - nlp
+    - inference
+    - intel
+    - quantization
+
+- local: unity-asr
+  title: "如何在 Unity 游戏中集成 AI 语音识别？"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/unity-asr-thumbnail.png
+  date: June 2, 2023
+  tags: 
+    - community
+    - guide
+    - game-dev
+    - speech-recognition
