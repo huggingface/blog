@@ -23,10 +23,13 @@ Afterwards, we will dive into the comparison we made, and will introduce the _Au
 
 let's go!
 
-
 ## Benchmarking - Transformers vs. DLinear
 
-TODO: Results on Traffic, electricity and exchange, weather 
+|      Dataset      | Autoformer (uni.) | DLinear |
+|:-----------------:|:-----------------:|:-------:| 
+|    `Traffic` 	    |       0.910       |  0.969  |
+| `Exchange-Rate` 	 |       1.492       |  1.674  |
+|  `Electricity` 	  |        FOO        |   FOO   |
 
 
 Next, we will present the new Autoformer model along with the DLinear model. We will showcase how to compare them on the traffic dataset from the table above.
