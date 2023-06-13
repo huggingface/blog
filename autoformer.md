@@ -18,8 +18,8 @@ authors:
 
 A few months ago, we introduced the [Informer](https://huggingface.co/blog/informer) model ([Zhou, Haoyi, et al., 2021](https://arxiv.org/abs/2012.07436)), which is a Time Series Transformer that won the AAAI 2021 best paper award. We also provided an example for multivariate probabilistic forecasting with Informer. In this post, we discuss the question: [Are Transformers Effective for Time Series Forecasting?](https://arxiv.org/abs/2205.13504) (AAAI 2023). As we will see, they are. 
 
-Firstly, we will provide an empirical evidence that **Transformers are indeed Effective for Time Series Forecasting**. Our comparison shows that a simple linear model, known as _DLinear_, is not better than Transformers as claimed. When compared against equivalent sized models in the same setting as the linear models, the Transformer based models perform better on the test set metrics we consider.
-Afterwards, we will dive into the comparison we made, and will introduce the _Autoformer_ model ([Wu, Haixu, et al., 2021](https://arxiv.org/abs/2106.13008)), which was published in NeurIPS 2021 after the Informer model. The Autoformer model is [now available](https://huggingface.co/docs/transformers/main/en/model_doc/autoformer) in 🤗 Transformers. Finally, we will discuss the _DLinear_ model, which is a simple feedforward network that uses the decomposition layer from Autoformer. The DLinear model was first introduced in [Are Transformers Effective for Time Series Forecasting?](https://arxiv.org/abs/2205.13504) and claimed to outperform Transformer-based models in time-series forecasting.
+Firstly, we will provide an empirical evidence that **Transformers are indeed Effective for Time Series Forecasting**. Our comparison shows that the simple linear model, known as _DLinear_, is not better than Transformers as claimed. When compared against equivalent sized models in the same setting as the linear models, the Transformer based models perform better on the test set metrics we consider.
+Afterwards,  we will introduce the _Autoformer_ model ([Wu, Haixu, et al., 2021](https://arxiv.org/abs/2106.13008)), which was published in NeurIPS 2021 after the Informer model. The Autoformer model is [now available](https://huggingface.co/docs/transformers/main/en/model_doc/autoformer) in 🤗 Transformers. Finally, we will discuss the _DLinear_ model, which is a simple feedforward network that uses the decomposition layer from Autoformer. The DLinear model was first introduced in [Are Transformers Effective for Time Series Forecasting?](https://arxiv.org/abs/2205.13504) and claimed to outperform Transformer-based models in time-series forecasting.
 
 let's go!
 
@@ -29,18 +29,17 @@ the authors claim that Transformers are not effective for time series forecastin
 The DLinear model uses the decomposition layer from the Autoformer model, which we will introduce later in this post. The authors claim that the DLinear model outperforms the Transformer-based models in time-series forecasting.
 Is that so? Let's find out.
 
-|      Dataset      | Autoformer (uni.) | DLinear |
+|      Dataset      | Autoformer (uni.) MASE | DLinear  MASE  |
 |:-----------------:|:-----------------:|:-------:| 
 |    `Traffic` 	    |       0.910       |  0.969  |
 | `Exchange-Rate` 	 |       1.492       |  1.674  |
-|  `Electricity` 	  |        FOO        |   FOO   |
 
 The table above shows the results of the comparison between the Autoformer and DLinear models on the three datasets used in the paper.  
 The results show that the Autoformer model outperforms the DLinear model on all three datasets.
 
 Next, we will present the new Autoformer model along with the DLinear model. We will showcase how to compare them on the Traffic dataset from the table above, and provide explanations for the results we obtained.
 
-**TL;DR:** A simple linear model, while advantageous in certain cases, has no capacity to incorporate covariates compared to more complex models like transformers. 
+**TL;DR:** A simple linear model, while advantageous in certain cases, has no capacity to incorporate covariates compared to more complex models like transformers in the univariate setting. 
 
 
 ## Autoformer - Under The Hood
@@ -238,7 +237,7 @@ In our benchmark, we use the implementation of DLinear from [GluonTS](https://gi
 
 ## Example: Traffic Dataset
 
-We want to show empirically the performance of Transformer based models, by benchmarking on the `traffic` dataset, a multivariate dataset with 862 covariates, in the univariate setting (kashif - maybe we can explain here the univariate setting in terms of target). We will keep the following hyper-parameters fixed for all the models:
+We want to show empirically the performance of Transformer based models, by benchmarking on the `traffic` dataset, a  dataset with 862 time series, in the univariate setting. Each time series represents the occupancy value of a sensor and is in the range [0, 1]. We will keep the following hyper-parameters fixed for all the models:
 
 ```python
 context_length = prediction_length*2
@@ -790,18 +789,7 @@ predictor = estimator.train(
     shuffle_buffer_length=1024
 )
 
->>> Authorization required, but no authorization protocol specified
-    Authorization required, but no authorization protocol specified
-    Authorization required, but no authorization protocol specified
-    INFO:pytorch_lightning.utilities.rank_zero:GPU available: True (cuda), used: False
-    INFO:pytorch_lightning.utilities.rank_zero:TPU available: False, using: 0 TPU cores
-    INFO:pytorch_lightning.utilities.rank_zero:IPU available: False, using: 0 IPUs
-    INFO:pytorch_lightning.utilities.rank_zero:HPU available: False, using: 0 HPUs
-    /home/kashif/.env/pytorch/lib/python3.10/site-packages/pytorch_lightning/trainer/setup.py:176: PossibleUserWarning: GPU available but not used. Set `accelerator` and `devices` using `Trainer(accelerator='gpu', devices=1)`.
-      rank_zero_warn(
-    /home/kashif/.env/pytorch/lib/python3.10/site-packages/pytorch_lightning/trainer/configuration_validator.py:72: PossibleUserWarning: You defined a `validation_step` but have no `val_dataloader`. Skipping val loop.
-      rank_zero_warn(
-    INFO:pytorch_lightning.callbacks.model_summary:
+>>> INFO:pytorch_lightning.callbacks.model_summary:
       | Name  | Type         | Params
     ---------------------------------------
     0 | model | DLinearModel | 4.7 K 
