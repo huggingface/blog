@@ -593,3 +593,13 @@
     - guide
     - game-dev
     - speech-recognition
+
+- local: falcon
+  title: "Falcon 登陆 Hugging Face 生态"
+  author: lvwerra
+  thumbnail: /blog/assets/147_falcon/falcon_thumbnail.jpg
+  date: June 5, 2023
+  tags:
+    - nlp
+    - community
+    - research
