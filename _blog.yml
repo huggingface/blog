@@ -844,16 +844,6 @@
     - nlp
     - community
 
-- local: hugging-face-endpoints-on-azure
-  title: "Hugging Face Collaborates with Microsoft to Launch Hugging Face Endpoints on Azure"
-  author: juliensimon
-  thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/01.png
-  date: May 24, 2022
-  tags:
-    - launch
-    - cloud
-    - azure
-
 - local: community-update
   title: "Introducing Pull Requests and Discussions 🥳"
   author: victor
@@ -2122,3 +2112,206 @@
     - guidelines
     - ethics
     
+- local: rwkv
+  title: "Introducing RWKV — An RNN with the advantages of a transformer"
+  author: BlinkDL
+  thumbnail: /blog/assets/142_rwkv/rwkv_thumbnail.png
+  date: May 15, 2023
+  tags:
+    - nlp
+    - community
+    - research 
+
+- local: chatbot-amd-gpu
+  title: "Run a Chatgpt-like Chatbot on a Single GPU with ROCm"
+  thumbnail: /blog/assets/chatbot-amd-gpu/thumbnail.png
+  author: andyll7772
+  date: May 15, 2023
+  tags:
+    - guide
+    - llm
+    - nlp
+    - inference
+    - rocm
+
+- local: generative-ai-models-on-intel-cpu
+  title: "Smaller is better: Q8-Chat, an efficient generative AI experience on Xeon"
+  thumbnail: /blog/assets/143_q8chat/thumbnail.png
+  author: andyll7772
+  date: May 16, 2023
+  tags:
+    - llm
+    - nlp
+    - inference
+    - intel
+    - quantization
+
+- local: dedup
+  title: "Large-scale Near-deduplication Behind BigCode"
+  author: chenghao
+  guest: true
+  thumbnail: /blog/assets/dedup/thumbnail.png
+  date: May 16, 2023
+  tags:
+    - bigcode
+    - deduplication
+
+- local: instruction-tuning-sd
+  title: "Instruction-tuning Stable Diffusion with InstructPix2Pix"
+  author: sayakpaul
+  thumbnail: /blog/assets/instruction_tuning_sd/thumbnail.png
+  date: May 23, 2023
+  tags:
+    - diffusers
+    - diffusion
+    - instruction-tuning
+    - research
+    - guide
+
+- local: safetensors-security-audit
+  title: "Safetensors audited as really safe and becoming the default"
+  author: Narsil
+  thumbnail: /blog/assets/142_safetensors_official/thumbnail.png
+  date: May 23, 2023
+  tags:
+    - pickle
+    - serialization
+    - load times
+
+
+- local: huggingface-and-ibm
+  title: "Hugging Face and IBM partner on watsonx.ai, the next-generation enterprise studio for AI builders"
+  author: juliensimon
+  thumbnail: /blog/assets/144_ibm/01.png
+  date: May 23, 2023
+  tags:
+    - cloud
+    - ibm
+    - partnership
+
+- local: hugging-face-endpoints-on-azure
+  title: "Hugging Face Collaborates with Microsoft to Launch Hugging Face Model Catalog on Azure"
+  author: philschmid
+  thumbnail: /blog/assets/75_hugging_face_endpoints_on_azure/01.jpg
+  date: May 24, 2023
+  tags:
+    - cloud
+    - azure
+    - partnership
+
+- local: 4bit-transformers-bitsandbytes
+  title: "Making LLMs even more accessible with bitsandbytes, 4-bit quantization and QLoRA"
+  author: ybelkada
+  thumbnail: /blog/assets/96_hf_bitsandbytes_integration/Thumbnail_blue.png
+  date: May 24, 2023
+  tags:
+    - transformers
+    - quantization
+    - bitsandbytes
+    - 4bit
+
+- local: train-optimize-sd-intel
+  title: "Optimizing Stable Diffusion for Intel CPUs with NNCF and 🤗 Optimum"
+  author: AlexKoff88
+  thumbnail: /blog/assets/train_optimize_sd_intel/thumbnail.png
+  date: May 25, 2023
+  tags:
+    - diffusers
+    - cpu
+    - intel
+    - guide
+    - quantization
+
+- local: bertopic
+  title: "Introducing BERTopic Integration with Hugging Face Hub"
+  author: davanstrien
+  thumbnail: /blog/assets/145_bertopic/logo.png
+  date: May 31, 2023
+  tags:
+    - guide
+    - open-source-collab
+    - community
+
+- local: sagemaker-huggingface-llm
+  title: "Introducing the Hugging Face LLM Inference Container for Amazon SageMaker"
+  author: philschmid
+  thumbnail: /blog/assets/145_sagemaker-huggingface-llm/thumbnail.jpg
+  date: May 31, 2023
+  tags:
+    - cloud
+    - aws
+    - partnership
+    - guide
+
+- local: cnil
+  title: "Hugging Face Selected for the French Data Protection Agency Enhanced Support Program"
+  author: yjernite
+  thumbnail: /blog/assets/146_cnil-accompaniment/logo.png
+  date: May 15, 2023
+  tags:
+    - ethics
+
+- local: game-jam
+  title: "Announcing the Open Source AI Game Jam 🎮"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/145_gamejam/thumbnail.png
+  date: June 1, 2023
+  tags:
+    - community
+  
+- local: unity-asr
+  title: "AI Speech Recognition in Unity"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/unity-asr-thumbnail.png
+  date: June 2, 2023
+  tags:
+    - community
+    - guide
+    - game-dev
+
+- local: falcon
+  title: "The Falcon has landed in the Hugging Face ecosystem"
+  author: lvwerra
+  thumbnail: /blog/assets/147_falcon/falcon_thumbnail.jpg
+  date: June 5, 2023
+  tags:
+    - nlp
+    - community
+    - research
+
+- local: fasttext
+  title: "Welcome fastText to the 🤗 Hub"
+  author: sheonhan
+  thumbnail: /blog/assets/147_fasttext/thumbnail.png
+  date: June 6, 2023
+  tags:
+    - open-source-collab
+    - nlp
+    - partnerships
+
+- local: hub-duckdb
+  title: "DuckDB: run SQL queries on 50,000+ datasets on the Hugging Face Hub"
+  author: stevhliu
+  thumbnail: /blog/assets/hub_duckdb/hub_duckdb.png
+  date: June 7, 2023
+  tags:
+    - guide
+
+- local: hf-hub-glam-guide
+  title: "The Hugging Face Hub for Galleries, Libraries, Archives and Museums"
+  author: davanstrien
+  thumbnail: /blog/assets/144_hf_hub_glam_guide/thumbnail.png
+  date: June 12, 2023
+  tags:
+    - community
+    - guide
+
+- local: llm-leaderboard
+  title: "Can foundation models label data like humans?"
+  author: nazneen
+  thumbnail: /blog/assets/llm-leaderboard/leaderboard-thumbnail.png
+  date: June 12, 2023
+  tags:
+    - nlp
+    - evaluation
+    - leaderboard

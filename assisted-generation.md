@@ -16,7 +16,7 @@ Why is text generation so slow? What’s preventing you from deploying low-laten
 
 ## Understanding text generation latency
 
-The core of modern text generation is straightforward to understand. Let’s look at the central piece, the ML model. Its input contains a text sequence, which includes the text generated so far, and potentially other model-specific components (for instance, Whisper also has an audio input). The model takes the input and runs a forward pass: the input is fed to the model and passed sequentially along its layers until the unnormalized log probabilities for the next token are predicted (also known as logits). A token may consist in entire words, sub-words, or even individual characters, depending on the model. The [illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/) is a great reference if you’d like to dive deeper into this part of text generation.
+The core of modern text generation is straightforward to understand. Let’s look at the central piece, the ML model. Its input contains a text sequence, which includes the text generated so far, and potentially other model-specific components (for instance, Whisper also has an audio input). The model takes the input and runs a forward pass: the input is fed to the model and passed sequentially along its layers until the unnormalized log probabilities for the next token are predicted (also known as logits). A token may consist of entire words, sub-words, or even individual characters, depending on the model. The [illustrated GPT-2](https://jalammar.github.io/illustrated-gpt2/) is a great reference if you’d like to dive deeper into this part of text generation.
 
 <!-- [GIF 1 -- FWD PASS] -->
 <figure class="image table text-center m-0 w-full">
@@ -27,7 +27,7 @@ The core of modern text generation is straightforward to understand. Let’s loo
     ></video>
 </figure>
 
-A model forward pass gets you the logits for the next token, which you can freely manipulate (e.g. set the probability of undesirable words or sequences to 0). The following step in text generation is to select the next token from these logits. Common strategies include picking the most likely token, known as greedy decoding, or sampling from this distribution, also called multinomial sampling. Chaining model forward passes with next token selection iteratively gets you text generation. This explanation is the tip of the iceberg when it comes to decoding methods; please refer to [our blog post on text generation](https://huggingface.co/blog/how-to-generate) for an in-depth exploration.
+A model forward pass gets you the logits for the next token, which you can freely manipulate (e.g. set the probability of undesirable words or sequences to 0). The following step in text generation is to select the next token from these logits. Common strategies include picking the most likely token, known as greedy decoding, or sampling from their distribution, also called multinomial sampling. Chaining model forward passes with next token selection iteratively gets you text generation. This explanation is the tip of the iceberg when it comes to decoding methods; please refer to [our blog post on text generation](https://huggingface.co/blog/how-to-generate) for an in-depth exploration.
 
 <!-- [GIF 2 -- TEXT GENERATION] -->
 <figure class="image table text-center m-0 w-full">
@@ -38,7 +38,7 @@ A model forward pass gets you the logits for the next token, which you can freel
     ></video>
 </figure>
 
-From the description above, the latency bottleneck in text generation is clear: running a model forward pass for large models is slow, and you may need to do hundreds of them in a sequence. But let’s dive deeper: why are forward passes slow? Forward passes are typically dominated by matrix multiplications and, after a quick visit to the [corresponding wikipedia section](https://en.wikipedia.org/wiki/Matrix_multiplication_algorithm#Communication-avoiding_and_distributed_algorithms), you call tell that memory bandwidth is the limitation in this operation (e.g. from the GPU RAM to the GPU compute cores). In other words, *the bottleneck in the forward pass comes from loading the model layer weights into the computation cores of your device, not from performing the computations themselves*.
+From the description above, the latency bottleneck in text generation is clear: running a model forward pass for large models is slow, and you may need to do hundreds of them in a sequence. But let’s dive deeper: why are forward passes slow? Forward passes are typically dominated by matrix multiplications and, after a quick visit to the [corresponding wikipedia section](https://en.wikipedia.org/wiki/Matrix_multiplication_algorithm#Communication-avoiding_and_distributed_algorithms), you can tell that memory bandwidth is the limitation in this operation (e.g. from the GPU RAM to the GPU compute cores). In other words, *the bottleneck in the forward pass comes from loading the model layer weights into the computation cores of your device, not from performing the computations themselves*.
 
 At the moment, you have three main avenues you can explore to get the most out of text generation, all tackling the performance of the model forward pass. First, you have the hardware-specific model optimizations. For instance, your device may be compatible with [Flash Attention](https://github.com/HazyResearch/flash-attention), which speeds up the attention layer through a reorder of the operations, or [INT8 quantization](https://huggingface.co/blog/hf-bitsandbytes-integration), which reduces the size of the model weights.
 
@@ -80,7 +80,7 @@ These three types of improvements can be used in tandem, resulting in [high thro
 
 ## Language decoder forward pass, revisited
 
-You’ve read above that each model forward pass yields the logits for the next token, but that’s actually an incomplete description. During text generation, the typical iteration consists in the model receiving as input the latest generated token, plus cached internal computations for all other previous inputs, returning the next token logits. Caching is used to avoid redundant computations, resulting in faster forward passes, but it’s not mandatory (and can be used partially). When caching is disabled, the input contains the entire sequence of tokens generated so far and the output contains the logits corresponding to the next token for *all positions* in the sequence! The logits at position N correspond to the distribution for the next token if the input consisted in the first N tokens, ignoring all subsequent tokens in the sequence. In the particular case of greedy decoding, if you pass the generated sequence as input and apply the argmax operator to the resulting logits, you will obtain the generated sequence back.
+You’ve read above that each model forward pass yields the logits for the next token, but that’s actually an incomplete description. During text generation, the typical iteration consists in the model receiving as input the latest generated token, plus cached internal computations for all other previous inputs, returning the next token logits. Caching is used to avoid redundant computations, resulting in faster forward passes, but it’s not mandatory (and can be used partially). When caching is disabled, the input contains the entire sequence of tokens generated so far and the output contains the logits corresponding to the next token for *all positions* in the sequence! The logits at position N correspond to the distribution for the next token if the input consisted of the first N tokens, ignoring all subsequent tokens in the sequence. In the particular case of greedy decoding, if you pass the generated sequence as input and apply the argmax operator to the resulting logits, you will obtain the generated sequence back.
 
 
 ```python
@@ -95,7 +95,7 @@ forward_confirmation = model(generated).logits.argmax(-1)
 
 # We exclude the opposing tips from each sequence: the forward pass returns
 # the logits for the next token, so it is shifted by one position.
-print(generated[:-1].tolist() == forward_confirmation[1:].tolist())  # True
+print(generated[0, 1:].tolist() == forward_confirmation[0, :-1].tolist())  # True
 ```
 
 
@@ -211,6 +211,13 @@ Assisted generation shows that modern text generation strategies are ripe for op
 Initially released under our 🤗 Transformers library, to be used with the `.generate()` function, we expect to offer it throughout the Hugging Face universe. Its implementation is also completely open-source so, if you’re working on text generation and not using our tools, feel free to use it as a reference.
 
 Finally, assisted generation resurfaces a crucial question in text generation. The field has been evolving with the constraint where all new tokens are the result of a fixed amount of compute, for a given model. One token per homogeneous forward pass, in pure autoregressive fashion. This blog post reinforces the idea that it shouldn’t be the case: large subsections of the generated output can also be equally generated by models that are a fraction of the size. For that, we’ll need new model architectures and decoding methods – we’re excited to see what the future holds!
+
+
+## Related Work
+
+After the original release of this blog post, it came to my attention that other works have explored the same core principle (use a forward pass to validate longer continuations). In particular, have a look at the following works:
+- [Blockwise Parallel Decoding](https://proceedings.neurips.cc/paper/2018/file/c4127b9194fe8562c64dc0f5bf2c93bc-Paper.pdf), by Google Brain
+- [Speculative Sampling](https://arxiv.org/abs/2302.01318), by DeepMind
 
 
 ## Citation
