@@ -41,7 +41,7 @@ In this blog post, we’ll zoom in on where you can and cannot trust the data la
 
 Leaderboards have begun to emerge, such as the [LMSYS](https://leaderboard.lmsys.org/), [nomic / GPT4All](https://gpt4all.io/index.html), to compare some aspects of these models, but there needs to be a complete source comparing model capabilities. 
 Some use existing NLP benchmarks that can show question and answering capabilities and some are crowdsourced rankings from open-ended chatting. 
-In order to present a more general picture of evaluations the [Hugging Face Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) has been expanded, including automated academic benchmarks, professional human labels, and GPT-4 evals. 
+In order to present a more general picture of evaluations the [Hugging Face Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard?tab=evaluation) has been expanded, including automated academic benchmarks, professional human labels, and GPT-4 evals. 
 
 ---
 
