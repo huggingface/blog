@@ -119,11 +119,27 @@ Wall time: 1.35 s
 
 ```python
 reduced_result = mapped_result.map(lambda table: table.group_by("lang").aggregate([("size_mean", "mean"),("max_stars_count_mean", "mean")]), batched=True, batch_size=None)
-print(reduced_result.to_pandas().sort_values("size_mean_mean", ascending=False).head(10))
+print(reduced_result.to_pandas().sort_values("size_mean_mean", ascending=False).head(15))
 >>>
 ```
 
-'|    |   size_mean_mean |   max_stars_count_mean_mean | lang        |\n|---:|-----------------:|----------------------------:|:------------|\n| 30 |          63950.9 |                     62.9083 | Mathematica |\n| 82 |          38485.2 |                   2032.26   | Matlab      |\n| 86 |          19765.3 |                    173.915  | JSON        |\n| 80 |          18590.4 |                     28.0008 | VHDL        |\n|  9 |          17811.9 |                     33.3281 | Isabelle    |\n| 68 |          16470.2 |                    118.346  | Common Lisp |\n| 83 |          15776.3 |                     55.9424 | Yacc        |\n| 71 |          15283.2 |                    294.813  | HTML        |\n| 17 |          14399.4 |                     60.4394 | Pascal      |\n| 22 |          13275   |                     22.6699 | SAS         |'
+|    |   size_mean_mean |   max_stars_count_mean_mean | lang        |
+|---:|-----------------:|----------------------------:|:------------|
+| 30 |          63950.9 |                     62.9083 | Mathematica |
+| 82 |          38485.2 |                   2032.26   | Matlab      |
+| 86 |          19765.3 |                    173.915  | JSON        |
+| 80 |          18590.4 |                     28.0008 | VHDL        |
+|  9 |          17811.9 |                     33.3281 | Isabelle    |
+| 68 |          16470.2 |                    118.346  | Common Lisp |
+| 83 |          15776.3 |                     55.9424 | Yacc        |
+| 71 |          15283.2 |                    294.813  | HTML        |
+| 17 |          14399.4 |                     60.4394 | Pascal      |
+| 22 |          13275   |                     22.6699 | SAS         |
+| 85 |          13040.5 |                    170.301  | XSLT        |
+| 55 |          13016.3 |                     34.9036 | Stata       |
+| 62 |          12458.2 |                    339.297  | SQL         |
+| 29 |          11677.5 |                    112.621  | Maple       |
+| 84 |          11385.5 |                    349.611  | Zig         |
 
 ```python
 python = dset.map(lambda table: table.filter(pc.field("lang") == "Python"), batched=True, batch_size=500_000, num_proc=10)
