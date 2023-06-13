@@ -77,8 +77,8 @@ Here are the stats on the prompt and demonstration length.
 | length (mean ± std. dev.) in tokens | 24 ± 38 | 69 ± 79 |
 | min. length | 3 | 1 |
 | 25% percentile length | 10 | 18 |
-| 25% percentile length | 15 | 42 |
-| 25% percentile length | 23 | 83 |
+| 50% percentile length | 15 | 42 |
+| 75% percentile length | 23 | 83 |
 | max  | 381 | 546 |
 
 With these completions, we set off to evaluate the quality of the models with Scale AI and GPT-4. 
@@ -420,4 +420,6 @@ Have a model that you want GPT-4 or human annotators to evaluate? Drop us a note
   note = {https://huggingface.co/blog/llm-v-human-data},
 }
 ```
+
+_Thanks to [Joao](https://twitter.com/_joaogui1) for pointing out a typo in a table._
 
