@@ -62,27 +62,74 @@ print(len(dset.cache_files), "cache files")
 >>> 144 cache files
 ```
 
-Caching onto disk is not limited to loading data, but also transforming it. Indeed, as we'll see in a second, when you operate on a dataset, be it through filtering, mapping, or structural transformations, these are also cached to disk and only need to run once. Before we move on to the next section, let's inspect the code dataset we just loaded:
+Caching onto disk is not limited to loading data, but also transforming it. Indeed, as we'll see in a second, when you operate on a dataset, be it through filtering, mapping, or structural transformations, these operations are also cached to disk and only need to run once. Before we move on to the next section, let's quickly inspect the code dataset we just loaded:
 
 ```python
 print(f'{dset.num_rows:,}', "rows")
 print(dset.num_columns, "columns")
 print(dset.dataset_size / 1024**3, " GB")
+print(dset[1200000])
 print(dset[:4])
 >>> 11,658,586 rows
 >>> 29 columns
 >>> 73.18686429131776 GB
+>>> {'hexsha': '7a4d22966630185a027c6ee50494472b3c1b3fa4', 'size': 10253, 'ext': 'jl', 'lang': 'Julia', 'max_stars_repo_path': 'src/cwv.jl' ...} # Indexing into a dataset returns the correspdonding row as a dictionary.
 >>> {'hexsha': ['0a84ade1a79baf9000df6f66818fc3a568c24173', '0a84b588e484c6829ab1a6706db302acd8514288', '0a89bca33bdfce1f07390d394915f18e0d901651', '0a96a3eeaa089f8582180f803252e3739ab2661d'], 'size': [10354, 999, 43147, 597], 'ext': ['css', 'css', 'css', 'css'], 'lang': ['CSS', 'CSS', 'CSS', 'CSS'], ...} # By default, slicing a dataset returns a dictionary of the columns as lists of regular python objects. Makes sense since arrow is a columnar format. (Output trimmed)
 ```
 
 ### Hugging Face Dataset Formats
 
+As you just saw, accessing data by slicing returns a dictionary where each column is a list of python objects, and accessing a single row returns a dictionary of the corresponding row. This dictionary format is the default way data is returned when accessing data  in the datasets library. This allows users to write pure Python `.map()` and `.filter()` operations that operate on python objects. 
 
 ## Mapping Compute Primitives
 
-Scratchpad: synergy between the two libraries. success story of arrow. Come for the memory model / mmapping, stay for the data analytics.
+```python
+dset.set_format("arrow")
+print(dset[:4])
+>>> 
+pyarrow.Table
+hexsha: string
+size: int64
+...
+----
+hexsha: [["0a84ade1a79baf9000df6f66818fc3a568c24173","0a84b588e484c6829ab1a6706db302acd8514288","0a89bca33bdfce1f07390d394915f18e0d901651","0a96a3eeaa089f8582180f803252e3739ab2661d"]]
+size: [[10354,999,43147,597]]
+ext: [["css","css","css","css"]]
+lang: [["CSS","CSS","CSS","CSS"]]
+...
+```
+
+```python
+print(pc.unique(dset['lang']).to_pylist())
+>>> ['CSS', 'Prolog', 'C', 'FORTRAN', 'Solidity', 'Kotlin', 'Literate Agda', 'Julia', 'Java Server Pages', 'Isabelle', 'Idris', 'Lean', 'PowerShell', 'Go', 'Erlang', 'F#', 'Ada', 'Pascal', 'Perl', 'R', 'Protocol Buffer', 'CMake', 'SAS', 'Ruby', 'Rust', 'RMarkdown', 'C#', 'Smalltalk', 'Haskell', 'Maple', 'Mathematica', 'OCaml', 'Makefile', 'Lua', 'Literate CoffeeScript', 'Literate Haskell', 'reStructuredText', 'Racket', 'Standard ML', 'SystemVerilog', 'TeX', 'Awk', 'Assembly', 'Alloy', 'Agda', 'Emacs Lisp', 'Dart', 'Cuda', 'Bluespec', 'Augeas', 'Batchfile', 'Tcsh', 'Stan', 'Scala', 'Tcl', 'Stata', 'AppleScript', 'Shell', 'Clojure', 'Scheme', 'ANTLR', 'SPARQL', 'SQL', 'GLSL', 'Elm', 'Dockerfile', 'C++', 'CoffeeScript', 'Common Lisp', 'Elixir', 'Groovy', 'HTML', 'Java', 'JavaScript', 'Markdown', 'PHP', 'Python', 'TypeScript', 'Verilog', 'Visual Basic', 'VHDL', 'Thrift', 'Matlab', 'Yacc', 'Zig', 'XSLT', 'JSON', 'YAML']
+CPU times: user 137 ms, sys: 1.65 ms, total: 138 ms
+Wall time: 136 ms
+```
+
+```python
+mapped_result = dset.map(lambda table: table.group_by("lang").aggregate([("size", "mean"),("max_stars_count", "mean")]), batched=True, batch_size=100_000, num_proc=10)
+print(mapped_result)
+>>> Dataset({
+    features: ['size_mean', 'max_stars_count_mean', 'lang'],
+    num_rows: 207
+})
+CPU times: user 765 ms, sys: 237 ms, total: 1 s
+Wall time: 1.35 s
+```
+
+```python
+reduced_result = mapped_result.map(lambda table: table.group_by("lang").aggregate([("size_mean", "mean"),("max_stars_count_mean", "mean")]), batched=True, batch_size=None)
+print(reduced_result.to_pandas().sort_values("size_mean_mean", ascending=False).head(10))
+>>>
+'|    |   size_mean_mean |   max_stars_count_mean_mean | lang        |\n|---:|-----------------:|----------------------------:|:------------|\n| 30 |          63950.9 |                     62.9083 | Mathematica |\n| 82 |          38485.2 |                   2032.26   | Matlab      |\n| 86 |          19765.3 |                    173.915  | JSON        |\n| 80 |          18590.4 |                     28.0008 | VHDL        |\n|  9 |          17811.9 |                     33.3281 | Isabelle    |\n| 68 |          16470.2 |                    118.346  | Common Lisp |\n| 83 |          15776.3 |                     55.9424 | Yacc        |\n| 71 |          15283.2 |                    294.813  | HTML        |\n| 17 |          14399.4 |                     60.4394 | Pascal      |\n| 22 |          13275   |                     22.6699 | SAS         |'
+```
+
+```python
+python = dset.map(lambda table: table.filter(pc.field("lang") == "Python"), batched=True, batch_size=500_000, num_proc=10)
+print(f'{python.num_rows:,}', "rows")
+>>> 250,000 rows
+CPU times: user 818 ms, sys: 255 ms, total: 1.07 s
+Wall time: 3.46 s
+```
 
 ## Further Resources
-
-- 
-- 
