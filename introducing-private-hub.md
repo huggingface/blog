@@ -1,6 +1,6 @@
 ---
 title: "Introducing the Private Hub: A New Way to Build With Machine Learning"
-thumbnail: blog/assets/92_introducing_private_hub/thumbnail.png
+thumbnail: /blog/assets/92_introducing_private_hub/thumbnail.png
 authors:
 - user: federicopascual
 ---
