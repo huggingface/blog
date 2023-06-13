@@ -121,8 +121,9 @@ Wall time: 1.35 s
 reduced_result = mapped_result.map(lambda table: table.group_by("lang").aggregate([("size_mean", "mean"),("max_stars_count_mean", "mean")]), batched=True, batch_size=None)
 print(reduced_result.to_pandas().sort_values("size_mean_mean", ascending=False).head(10))
 >>>
-'|    |   size_mean_mean |   max_stars_count_mean_mean | lang        |\n|---:|-----------------:|----------------------------:|:------------|\n| 30 |          63950.9 |                     62.9083 | Mathematica |\n| 82 |          38485.2 |                   2032.26   | Matlab      |\n| 86 |          19765.3 |                    173.915  | JSON        |\n| 80 |          18590.4 |                     28.0008 | VHDL        |\n|  9 |          17811.9 |                     33.3281 | Isabelle    |\n| 68 |          16470.2 |                    118.346  | Common Lisp |\n| 83 |          15776.3 |                     55.9424 | Yacc        |\n| 71 |          15283.2 |                    294.813  | HTML        |\n| 17 |          14399.4 |                     60.4394 | Pascal      |\n| 22 |          13275   |                     22.6699 | SAS         |'
 ```
+
+'|    |   size_mean_mean |   max_stars_count_mean_mean | lang        |\n|---:|-----------------:|----------------------------:|:------------|\n| 30 |          63950.9 |                     62.9083 | Mathematica |\n| 82 |          38485.2 |                   2032.26   | Matlab      |\n| 86 |          19765.3 |                    173.915  | JSON        |\n| 80 |          18590.4 |                     28.0008 | VHDL        |\n|  9 |          17811.9 |                     33.3281 | Isabelle    |\n| 68 |          16470.2 |                    118.346  | Common Lisp |\n| 83 |          15776.3 |                     55.9424 | Yacc        |\n| 71 |          15283.2 |                    294.813  | HTML        |\n| 17 |          14399.4 |                     60.4394 | Pascal      |\n| 22 |          13275   |                     22.6699 | SAS         |'
 
 ```python
 python = dset.map(lambda table: table.filter(pc.field("lang") == "Python"), batched=True, batch_size=500_000, num_proc=10)
