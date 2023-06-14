@@ -58,7 +58,7 @@ In order to present a more general picture of evaluations the [Hugging Face Open
 
 Any point in a training process where humans are needed to curate the data is inherently expensive. 
 To date, there are only a few human labeled preference datasets available **for training** these models, such as [Anthropic’s HHH data](https://huggingface.co/datasets/Anthropic/hh-rlhf), [OpenAssistant’s dialogue rankings](https://huggingface.co/datasets/OpenAssistant/oasst1), or OpenAI’s [Learning to Summarize](https://huggingface.co/datasets/openai/summarize_from_feedback) / [WebGPT](https://huggingface.co/datasets/openai/webgpt_comparisons) datasets. 
-The same preference labels can be generated on **model outputs to create a relative Elo ranking between models** ([Elo rankings](https://en.wikipedia.org/wiki/Elo_rating_system), popularized in chess and used in video games, are method to construct a global ranking tier our of only pairwise comparisons — higher is better). When the source of text given to labelers is generated from a model of interest, the data becomes doubly interesting. 
+The same preference labels can be generated on **model outputs to create a relative Elo ranking between models** ([Elo rankings](https://en.wikipedia.org/wiki/Elo_rating_system), popularized in chess and used in video games, are method to construct a global ranking tier out of only pairwise comparisons — higher is better). When the source of text given to labelers is generated from a model of interest, the data becomes doubly interesting. 
 
 While training our models, we started seeing interesting things, so we wanted to do a more controlled study of existing open-source models and how that preference collection process would translate and compare to the currently popular GPT-4/ChatGPT evaluations of preferences.
 
@@ -77,8 +77,8 @@ Here are the stats on the prompt and demonstration length.
 | length (mean ± std. dev.) in tokens | 24 ± 38 | 69 ± 79 |
 | min. length | 3 | 1 |
 | 25% percentile length | 10 | 18 |
-| 25% percentile length | 15 | 42 |
-| 25% percentile length | 23 | 83 |
+| 50% percentile length | 15 | 42 |
+| 75% percentile length | 23 | 83 |
 | max  | 381 | 546 |
 
 With these completions, we set off to evaluate the quality of the models with Scale AI and GPT-4. 
@@ -420,4 +420,6 @@ Have a model that you want GPT-4 or human annotators to evaluate? Drop us a note
   note = {https://huggingface.co/blog/llm-v-human-data},
 }
 ```
+
+_Thanks to [Joao](https://twitter.com/_joaogui1) for pointing out a typo in a table._
 

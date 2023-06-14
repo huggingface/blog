@@ -2305,3 +2305,13 @@
     - nlp
     - evaluation
     - leaderboard
+
+- local: huggingface-and-amd
+  title: "Hugging Face and AMD partner on accelerating state-of-the-art models for CPU and GPU platforms"
+  author: juliensimon
+  thumbnail: /blog/assets/148_huggingface_amd/01.png
+  date: June 13, 2023
+  tags:
+    - hardware
+    - amd
+    - partnership
