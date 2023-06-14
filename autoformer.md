@@ -1,5 +1,5 @@
 ---
-title: "Yes, Transformers are Effective for Time Series Forecasting" 
+title: "Yes, Transformers are Effective for Time Series Forecasting (+ Autoformer)"
 thumbnail: /blog/assets/148_autoformer/thumbnail.png
 authors:
 - user: elisim
@@ -8,7 +8,7 @@ authors:
 - user: kashif
 ---
 
-# Yes, Transformers are Effective for Time Series Forecasting
+# Yes, Transformers are Effective for Time Series Forecasting (+ Autoformer)
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -31,7 +31,7 @@ Is that so? Let's find out.
 
 |      Dataset      | Autoformer (uni.) MASE | DLinear  MASE |
 |:-----------------:|:----------------------:|:-------------:| 
-|    `Traffic` 	    |          TODO          |     TODO      |
+|  `Traffic` 	      |          0.910          |     0.969      |
 | `Exchange-Rate` 	 |         1.087          |     1.690     |
 |  `Electricity` 	  |         0.751          |     0.831     |
 
