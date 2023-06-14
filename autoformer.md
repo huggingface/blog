@@ -29,10 +29,11 @@ the authors claim that Transformers are not effective for time series forecastin
 The DLinear model uses the decomposition layer from the Autoformer model, which we will introduce later in this post. The authors claim that the DLinear model outperforms the Transformer-based models in time-series forecasting.
 Is that so? Let's find out.
 
-|      Dataset      | Autoformer (uni.) MASE | DLinear  MASE  |
-|:-----------------:|:-----------------:|:-------:| 
-|    `Traffic` 	    |       0.910       |  0.969  |
-| `Exchange-Rate` 	 |       1.492       |  1.674  |
+|      Dataset      | Autoformer (uni.) MASE | DLinear  MASE |
+|:-----------------:|:----------------------:|:-------------:| 
+|    `Traffic` 	    |          TODO          |     TODO      |
+| `Exchange-Rate` 	 |         1.087          |     1.690     |
+|  `Electricity` 	  |         0.751          |     0.831     |
 
 The table above shows the results of the comparison between the Autoformer and DLinear models on the three datasets used in the paper.  
 The results show that the Autoformer model outperforms the DLinear model on all three datasets.
