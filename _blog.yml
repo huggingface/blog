@@ -2315,3 +2315,15 @@
     - hardware
     - amd
     - partnership
+
+- local: fast-diffusers-coreml
+  title: "Faster Stable Diffusion with Core ML on iPhone, iPad, and Mac"
+  author: pcuenq
+  thumbnail: /blog/assets/149_fast_diffusers_coreml/thumbnail.png
+  date: June 15, 2023
+  tags:
+    - coreml
+    - diffusers
+    - stable-diffusion
+    - diffusion
+    - quantization
