@@ -2315,3 +2315,14 @@
     - hardware
     - amd
     - partnership
+
+- local: livebook-app-deployment
+  title: "Deploy Livebook notebooks as apps to Hugging Face Spaces"
+  author: josevalim
+  thumbnail: /blog/assets/120_elixir-bumblebee/thumbnail.png
+  date: Jun 15, 2023
+  tags:
+    - elixir
+    - notebooks
+    - spaces
+    - whisper
