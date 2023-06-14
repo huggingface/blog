@@ -2280,20 +2280,48 @@
     - partnerships
     
 - local: hub-duckdb
-  title: "DuckDB: analyze 50,000+ datasets stored on the Hugging Face Hub"
+  title: "DuckDB: run SQL queries on 50,000+ datasets on the Hugging Face Hub"
   author: stevhliu
   thumbnail: /blog/assets/hub_duckdb/hub_duckdb.png
   date: June 7, 2023
   tags:
     - guide
 
+- local: hf-hub-glam-guide
+  title: "The Hugging Face Hub for Galleries, Libraries, Archives and Museums"
+  author: davanstrien
+  thumbnail: /blog/assets/144_hf_hub_glam_guide/thumbnail.png
+  date: June 12, 2023
+  tags:
+    - community
+    - guide
+
+- local: llm-leaderboard
+  title: "Can foundation models label data like humans?"
+  author: nazneen
+  thumbnail: /blog/assets/llm-leaderboard/leaderboard-thumbnail.png
+  date: June 12, 2023
+  tags:
+    - nlp
+    - evaluation
+    - leaderboard
+
+- local: huggingface-and-amd
+  title: "Hugging Face and AMD partner on accelerating state-of-the-art models for CPU and GPU platforms"
+  author: juliensimon
+  thumbnail: /blog/assets/148_huggingface_amd/01.png
+  date: June 13, 2023
+  tags:
+    - hardware
+    - amd
+    - partnership
+
 - local: autoformer
   title: "Yes, Transformers are Effective for Time Series Forecasting"
   author: kashif
-  thumbnail: /blog/assets/148_autoformer/thumbnail.png
+  thumbnail: /blog/assets/149_autoformer/thumbnail.png
   date: June 10, 2023
   tags:
     - guide
     - research
     - time-series
-
