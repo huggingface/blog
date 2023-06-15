@@ -4,8 +4,8 @@ thumbnail: /blog/assets/148_autoformer/thumbnail.png
 authors:
 - user: elisim
   guest: true
-- user: nielsr
 - user: kashif
+- user: nielsr
 ---
 
 # Yes, Transformers are Effective for Time Series Forecasting (+ Autoformer)
@@ -18,8 +18,8 @@ authors:
 
 A few months ago, we introduced the [Informer](https://huggingface.co/blog/informer) model ([Zhou, Haoyi, et al., 2021](https://arxiv.org/abs/2012.07436)), which is a Time Series Transformer that won the AAAI 2021 best paper award. We also provided an example for multivariate probabilistic forecasting with Informer. In this post, we discuss the question: [Are Transformers Effective for Time Series Forecasting?](https://arxiv.org/abs/2205.13504) (AAAI 2023). As we will see, they are. 
 
-Firstly, we will provide an empirical evidence that **Transformers are indeed Effective for Time Series Forecasting**. Our comparison shows that the simple linear model, known as _DLinear_, is not better than Transformers as claimed. When compared against equivalent sized models in the same setting as the linear models, the Transformer based models perform better on the test set metrics we consider.
-Afterwards,  we will introduce the _Autoformer_ model ([Wu, Haixu, et al., 2021](https://arxiv.org/abs/2106.13008)), which was published in NeurIPS 2021 after the Informer model. The Autoformer model is [now available](https://huggingface.co/docs/transformers/main/en/model_doc/autoformer) in 🤗 Transformers. Finally, we will discuss the _DLinear_ model, which is a simple feedforward network that uses the decomposition layer from Autoformer. The DLinear model was first introduced in [Are Transformers Effective for Time Series Forecasting?](https://arxiv.org/abs/2205.13504) and claimed to outperform Transformer-based models in time-series forecasting.
+Firstly, we will provide empirical evidence that **Transformers are indeed Effective for Time Series Forecasting**. Our comparison shows that the simple linear model, known as _DLinear_, is not better than Transformers as claimed. When compared against equivalent sized models in the same setting as the linear models, the Transformer-based models perform better on the test set metrics we consider.
+Afterwards, we will introduce the _Autoformer_ model ([Wu, Haixu, et al., 2021](https://arxiv.org/abs/2106.13008)), which was published in NeurIPS 2021 after the Informer model. The Autoformer model is [now available](https://huggingface.co/docs/transformers/main/en/model_doc/autoformer) in 🤗 Transformers. Finally, we will discuss the _DLinear_ model, which is a simple feedforward network that uses the decomposition layer from Autoformer. The DLinear model was first introduced in [Are Transformers Effective for Time Series Forecasting?](https://arxiv.org/abs/2205.13504) and claimed to outperform Transformer-based models in time-series forecasting.
 
 let's go!
 
@@ -31,7 +31,7 @@ Is that so? Let's find out.
 
 |      Dataset      | Autoformer (uni.) MASE | DLinear  MASE |
 |:-----------------:|:----------------------:|:-------------:| 
-|  `Traffic` 	      |          0.910          |     0.969      |
+|    `Traffic` 	    |         0.910          |     0.969     |
 | `Exchange-Rate` 	 |         1.087          |     1.690     |
 |  `Electricity` 	  |         0.751          |     0.831     |
 
@@ -41,7 +41,6 @@ The results show that the Autoformer model outperforms the DLinear model on all 
 Next, we will present the new Autoformer model along with the DLinear model. We will showcase how to compare them on the Traffic dataset from the table above, and provide explanations for the results we obtained.
 
 **TL;DR:** A simple linear model, while advantageous in certain cases, has no capacity to incorporate covariates compared to more complex models like transformers in the univariate setting. 
-
 
 ## Autoformer - Under The Hood
 
@@ -221,8 +220,8 @@ Our strategy with this model is to show the performance of the univariate Transf
 
 ## DLinear - Under The Hood
 
-Actually, there is no real "Hood" here because DLinear it's just a simple fully connected with the Autoformer's `DecompositionLayer`.
-It uses the above `DecompositionLayer` to decompose the input time series into the residual (the seasonality) and trend part. In the forward pass each part is passed through its own linear layer, which projects the signal to an appropriate `prediction_length`-sized output. The final output is the sum of the two corresponding outputs in the point-forecasting model:
+Actually, DLinear is conceptually simple: it's just a fully connected with the Autoformer's `DecompositionLayer`.
+It uses the `DecompositionLayer` above to decompose the input time series into the residual (the seasonality) and trend part. In the forward pass each part is passed through its own linear layer, which projects the signal to an appropriate `prediction_length`-sized output. The final output is the sum of the two corresponding outputs in the point-forecasting model:
 
 ```python
 def forward(self, context):
@@ -238,7 +237,8 @@ In our benchmark, we use the implementation of DLinear from [GluonTS](https://gi
 
 ## Example: Traffic Dataset
 
-We want to show empirically the performance of Transformer based models, by benchmarking on the `traffic` dataset, a  dataset with 862 time series, in the univariate setting. Each time series represents the occupancy value of a sensor and is in the range [0, 1]. We will keep the following hyper-parameters fixed for all the models:
+We want to show empirically the performance of Transformer-based models in the library, by benchmarking on the `traffic` dataset, a dataset with 862 time series. We will train a shared model on each of the individual time series (i.e. univariate setting).
+Each time series represents the occupancy value of a sensor and is in the range [0, 1]. We will keep the following hyperparameters fixed for all the models:
 
 ```python
 context_length = prediction_length*2
@@ -248,7 +248,7 @@ epochs = 50
 scaling = "std"
 ```
 
-The transformers models are all relatively small  with:
+The transformers models are all relatively small with:
 
 ```python
 encoder_layers=2
@@ -256,7 +256,7 @@ decoder_layers=2
 d_model=16
 ```
 
-Instead of showing how to train a model using `Autoformer` one can just replace the model in the previous two blog posts ([TimeSeriesTransformer](https://huggingface.co/blog/time-series-transformers) and [Informer](https://huggingface.co/blog/informer)) with the new `Autoformer` model and train it on the `traffic` dataset. In order to not repeat ourselves, we have already trained the models and pushed them to the HuggingFace Hub. We will use those models for evaluation.
+Instead of showing how to train a model using `Autoformer`, one can just replace the model in the previous two blog posts ([TimeSeriesTransformer](https://huggingface.co/blog/time-series-transformers) and [Informer](https://huggingface.co/blog/informer)) with the new `Autoformer` model and train it on the `traffic` dataset. In order to not repeat ourselves, we have already trained the models and pushed them to the HuggingFace Hub. We will use those models for evaluation.
 
 ## Load Dataset
 
@@ -272,35 +272,17 @@ The `traffic` dataset, used by [Lai et al. (2017)](https://arxiv.org/abs/1703.07
 from gluonts.dataset.repository.datasets import get_dataset
 
 dataset = get_dataset("traffic")
-```
-
-As can be seen, the dataset contains the correct number of time series and has the `freq='H'` and `prediction_length=24`:
-
-
-```python
-dataset.metadata
-
->>> MetaData(freq='H', target=None, feat_static_cat=[CategoricalFeatureInfo(name='feat_static_cat_0', cardinality='862')], feat_static_real=[], feat_dynamic_real=[], feat_dynamic_cat=[], prediction_length=24)
-
-```
-
-
-```python
 freq = dataset.metadata.freq
 prediction_length = dataset.metadata.prediction_length
 ```
 
 Let's visualize a time series in the dataset and plot the train/test split:
 
-
-```python
-train_example = next(iter(dataset.train))
-test_example = next(iter(dataset.test))
-```
-
-
 ```python
 import matplotlib.pyplot as plt
+
+train_example = next(iter(dataset.train))
+test_example = next(iter(dataset.test))
 
 num_of_samples = 4*prediction_length
 
@@ -317,8 +299,7 @@ plt.show()
 
 ![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/output_15_0.png)
 
-Let's make a variable for the train/test split:
-
+Let's define the train/test splits:
 
 ```python
 train_dataset = dataset.train
@@ -329,11 +310,15 @@ test_dataset = dataset.test
 
 Next, we define the transformations for the data, in particular for the creation of the time features (based on the dataset or universal ones).
 
-Again, we'll use the GluonTS library for this. We define a `Chain` of transformations (which is a bit comparable to `torchvision.transforms.Compose` for images). It allows us to combine several transformations into a single pipeline.
+We define a `Chain` of transformations from GluonTS (which is a bit comparable to `torchvision.transforms.Compose` for images). It allows us to combine several transformations into a single pipeline.
+
+The transformations below are annotated with comments to explain what they do. At a high level, we will iterate over the individual time series of our dataset and add/remove fields or features:
 
 
 ```python
-from gluonts.time_feature import TimeFeature
+from transformers import PretrainedConfig
+from gluonts.time_feature import time_features_from_frequency_str
+
 from gluonts.dataset.field_names import FieldName
 from gluonts.transform import (
     AddAgeFeature,
@@ -351,17 +336,9 @@ from gluonts.transform import (
     VstackFeatures,
     RenameFields,
 )
-```
-
-The transformations below are annotated with comments, to explain what they do. At a high level, we will iterate over the individual time series of our dataset and add/remove fields or features:
-
-
-```python
-from transformers import PretrainedConfig
-from gluonts.time_feature import time_features_from_frequency_str
 
 def create_transformation(freq: str, config: PretrainedConfig) -> Transformation:
-    # create list of fields to remove later
+    # create a list of fields to remove later
     remove_field_names = []
     if config.num_static_real_features == 0:
         remove_field_names.append(FieldName.FEAT_STATIC_REAL)
@@ -605,15 +582,10 @@ We have already pre-trained an Autoformer model on this dataset, so we can just 
 
 ```python
 from transformers import AutoformerConfig, AutoformerForPrediction
-```
 
-
-```python
 config = AutoformerConfig.from_pretrained("kashif/autoformer-traffic-hourly")
-```
+model = AutoformerForPrediction.from_pretrained("kashif/autoformer-traffic-hourly")
 
-
-```python
 test_dataloader = create_test_dataloader(
     config=config,
     freq=freq,
@@ -624,23 +596,15 @@ test_dataloader = create_test_dataloader(
 
 At inference time, we will use the model's `generate()` method for predicting `prediction_length` steps into the future from the very last context window of each time series in the training set.  
 
-
-```python
-model = AutoformerForPrediction.from_pretrained("kashif/autoformer-traffic-hourly")
-```
-
-
 ```python
 from accelerate import Accelerator
 
 accelerator = Accelerator()
 device = accelerator.device
 model.to(device)
-
 model.eval()
 
 forecasts_ = []
-
 for batch in test_dataloader:
     outputs = model.generate(
         static_categorical_features=batch["static_categorical_features"].to(device)
@@ -668,7 +632,6 @@ forecasts_[0].shape
 >>> (64, 100, 24)
 ```
 
-
 We'll stack them vertically, to get forecasts for all time-series in the test dataset: We have `7` rolling windows in the test set which is why we end up with a total of `7 * 862 = 6034` predictions:   
 
 
@@ -684,7 +647,6 @@ print(forecasts.shape)
 We can evaluate the resulting forecast with respect to the ground truth out of sample values present in the test set. For that, we'll use the 🤗 [Evaluate](https://huggingface.co/docs/evaluate/index) library, which includes the [MASE](https://huggingface.co/spaces/evaluate-metric/mase) metrics.
 
 We calculate the metric for each time series in the dataset and return the average:
-
 
 ```python
 from tqdm.autonotebook import tqdm
@@ -707,8 +669,7 @@ for item_id, ts in enumerate(tqdm(test_dataset)):
     mase_metrics.append(mase["mase"])
 ```
 
-
-
+So the result for the Autoformer model is:
 
 ```python
 print(f"Autoformer univariate MASE: {np.mean(mase_metrics):.3f}")
@@ -716,8 +677,7 @@ print(f"Autoformer univariate MASE: {np.mean(mase_metrics):.3f}")
 >>> MASE: 0.9092493026949344
 ```
 
-
-To plot the prediction for any time series with respect to the ground truth test data we define the following helper:
+To plot the prediction for any time series with respect to the ground truth test data, we define the following helper:
 
 
 ```python
@@ -752,8 +712,7 @@ def plot(ts_index):
     plt.show()
 ```
 
-For example:
-
+For example, for time-series in the test set with index `4`:
 
 ```python
 plot(4)
@@ -761,7 +720,6 @@ plot(4)
 
 ![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/output_44_0.png)
     
-
 
 ## Evaluate on DLinear
 
@@ -771,6 +729,7 @@ A probabilistic DLinear is implemented in `gluonts` and thus we can train and ev
 ```python
 from gluonts.torch.model.d_linear.estimator import DLinearEstimator
 
+# Define the DLinear model with the same parameters as the Autoformer model
 estimator = DLinearEstimator(
     prediction_length=dataset.metadata.prediction_length,
     context_length=dataset.metadata.prediction_length*2,
@@ -782,6 +741,8 @@ estimator = DLinearEstimator(
     trainer_kwargs=dict(max_epochs=epochs)
 )
 ```
+
+Train the model:
 
 ```python
 predictor = estimator.train(
@@ -806,6 +767,8 @@ predictor = estimator.train(
     INFO:pytorch_lightning.utilities.rank_zero:`Trainer.fit` stopped: `max_epochs=50` reached.
 ```
 
+And evaluate it on the test set:
+
 ```python
 from gluonts.evaluation import make_evaluation_predictions, Evaluator
 
@@ -813,20 +776,16 @@ forecast_it, ts_it = make_evaluation_predictions(
     dataset=dataset.test,
     predictor=predictor,
 )
-```
 
-
-```python
 d_linear_forecasts = list(forecast_it)
 d_linear_tss = list(ts_it)
-```
 
-
-```python
 evaluator = Evaluator()
 
 agg_metrics, _ = evaluator(iter(d_linear_tss), iter(d_linear_forecasts))
 ```
+
+So the result for the DLinear model is:
 
 ```python
 dlinear_mase = agg_metrics["MASE"]
@@ -835,8 +794,7 @@ print(f"DLinear MASE: {dlinear_mase:.3f}")
 >>> 0.9693592730002069
 ```
 
-We can also plot the predictions from our trained DLinear model via this helper:
-
+As before, we plot the predictions from our trained DLinear model via this helper:
 
 ```python
 def plot_gluonts(index):
@@ -854,16 +812,32 @@ plot_gluonts(4)
 ![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/148_autoformer/output_54_0.png)
 
 
-The `traffic` dataset has a distributional shift in the sensor patterns between weekdays and weekends. So what is going on here? Since the DLinear model has no capacity to incorporate covariates, in particular any date-time features, the context window we give it does not have enough information to figure out if the prediction is for the weekend or weekday. Thus, the model will predict the more common of the patterns, namely the weekdays leading to poorer performance on weekends. Of course, by giving it a larger context window a linear model will figure out the weekly pattern but perhaps there is a monthly or quarterly pattern in the data which would require bigger and bigger contexts.
+The `traffic` dataset has a distributional shift in the sensor patterns between weekdays and weekends. So what is going on here? Since the DLinear model has no capacity to incorporate covariates, in particular any date-time features, the context window we give it does not have enough information to figure out if the prediction is for the weekend or weekday. Thus, the model will predict the more common of the patterns, namely the weekdays leading to poorer performance on weekends. Of course, by giving it a larger context window, a linear model will figure out the weekly pattern, but perhaps there is a monthly or quarterly pattern in the data which would require bigger and bigger contexts.
 
 ## Conclusion
 
-How do Transformer based models compare against the above linear baseline? The test set MASE metrics from the different models we have are below:
+How do Transformer-based models compare against the above linear baseline? The test set MASE metrics from the different models we have are below:
 
 |Dataset | 	 Transformer (uni.) |   	 Transformer (mv.)  | Informer (uni.)| Informer (mv.) | Autoformer (uni.) | DLinear |
 |:--:|:--:| :--:| :--:| :--:|  :--:|  :--:| 
 |`Traffic` 	| **0.876** | 1.046 | 0.924 | 1.131  | 0.910 | 0.969 |
 
-As one can observe, the [vanilla Transformer](https://huggingface.co/docs/transformers/model_doc/time_series_transformer) which we introduced last year gets the best results. Secondly, multivariate models are typically _worse_ than the univariate ones, the reason being the difficulty in estimating the cross-series correlations/relationships. The additional variance added by the estimates often harms the resulting forecasts or the model learns spurious correlations. Recent papers like [CrossFormer](https://openreview.net/forum?id=vSVLM2j9eie) (ICLR 23) and [CARD](https://arxiv.org/abs/2305.12095) try to address this problem in Transformer models.
+As one can observe, the [vanilla Transformer](https://huggingface.co/docs/transformers/model_doc/time_series_transformer) which we introduced last year gets the best results here. Secondly, multivariate models are typically _worse_ than the univariate ones, the reason being the difficulty in estimating the cross-series correlations/relationships. The additional variance added by the estimates often harms the resulting forecasts or the model learns spurious correlations. Recent papers like [CrossFormer](https://openreview.net/forum?id=vSVLM2j9eie) (ICLR 23) and [CARD](https://arxiv.org/abs/2305.12095) try to address this problem in Transformer models.
 Multivariate models usually perform well when trained on large amounts of data. However, when compared to univariate models, especially on smaller open datasets, the univariate models tend to provide better metrics. By comparing the linear model with equivalent-sized univariate transformers or in fact any other neural univariate model, one will typically get better performance.
+
+To summarize, Transformers are definitely far from being outdated when it comes to time-series forcasting! 
+Yet the availability of large-scale datasets is crucial for maximizing their potential. 
+Unlike in CV and NLP, the field of time series lacks publicly accessible large-scale datasets. 
+Most existing pre-trained models for time series are trained on small sample sizes from archives like [UCR and UEA](https://www.timeseriesclassification.com/), 
+which contain only a few thousands or even hundreds of samples. 
+Although these benchmark datasets have been instrumental in the progress of the time series community, 
+their limited sample sizes and lack of generality pose challenges for pre-training deep learning models.
+
+Therefore, the development of large-scale, generic time series datasets (like ImageNet in CV) is of the utmost importance. 
+Creating such datasets will greatly facilitate further research on pre-trained models specifically designed for time series analysis. 
+and will improve the applicability of pre-trained models in time series forecasting.
+
+## Acknowledgements
+We express our appreciation to [Lysandre Debut](https://github.com/LysandreJik) and [Pedro Cuenca](https://github.com/pcuenca)
+their insightful comments and help during this project ❤️.
 
