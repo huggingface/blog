@@ -1,5 +1,5 @@
 ---
-title: Announcing our new Content Guidelines and Policy
+title: "Announcing our new Content Guidelines and Policy"
 thumbnail: /blog/assets/content-guidelines-blogpost/thumbnail.png
 authors:
 - user: giadap
