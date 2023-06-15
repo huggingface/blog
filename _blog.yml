@@ -2317,7 +2317,7 @@
     - partnership
 
 - local: autoformer
-  title: "Yes, Transformers are Effective for Time Series Forecasting"
+  title: "Yes, Transformers are Effective for Time Series Forecasting (+ Autoformer)"
   author: kashif
   thumbnail: /blog/assets/149_autoformer/thumbnail.png
   date: June 16, 2023
