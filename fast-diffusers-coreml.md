@@ -59,7 +59,7 @@ In order to use 6-bit models, you need the development versions of iOS/iPadOS 17
 
 </Tip>
 
-Note that each variant is available in Core ML format and also as a `zip` archive. Zip files are ideal for native apps, such as our [open-source demo app](https://github.com/huggingface/swift-coreml-diffusers) and other [third party tools](https://github.com/godly-devotion/MochiDiffusion). If you just want to run the models on your own hardware, the easiest way is to use our demo app and select the quantized model you want to test. You need to compile the app using Xcode, but an update will be available for download in the App Store soon.
+Note that each variant is available in Core ML format and also as a `zip` archive. Zip files are ideal for native apps, such as our [open-source demo app](https://github.com/huggingface/swift-coreml-diffusers) and other [third party tools](https://github.com/godly-devotion/MochiDiffusion). If you just want to run the models on your own hardware, the easiest way is to use our demo app and select the quantized model you want to test. You need to compile the app using Xcode, but an update will be available for download in the App Store soon. For more details, check [our previous post](https://huggingface.co/blog/fast-mac-diffusers).
 
 <img style="border:none;" alt="Running 6-bit stable-diffusion-2-1-base model in demo app" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fast-diffusers-coreml/diffusers_mac_screenshot.png" />
 
