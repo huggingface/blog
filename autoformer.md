@@ -838,8 +838,8 @@ Although these benchmark datasets have been instrumental in the progress of the 
 their limited sample sizes and lack of generality pose challenges for pre-training deep learning models.
 
 Therefore, the development of large-scale, generic time series datasets (like ImageNet in CV) is of the utmost importance. 
-Creating such datasets will greatly facilitate further research on pre-trained models specifically designed for time series analysis. 
-and will improve the applicability of pre-trained models in time series forecasting.
+Creating such datasets will greatly facilitate further research on pre-trained models specifically designed for time series analysis,
+and it will improve the applicability of pre-trained models in time series forecasting.
 
 ## Acknowledgements
 We express our appreciation to [Lysandre Debut](https://github.com/LysandreJik) and [Pedro Cuenca](https://github.com/pcuenca)
