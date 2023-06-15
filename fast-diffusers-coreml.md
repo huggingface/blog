@@ -46,7 +46,12 @@ The compressed 6-bit _weights_ cannot be used for computation, because they are 
 
 In order to make it easy for everyone to take advantage of these improvements, we have converted the four official Stable Diffusion models and pushed them to the [Hub](https://huggingface.co/apple). These are all the variants:
 
-[TODO: table with Hub URLs, explaining when to use ORIGINAL vs SPLIT_EINSUM_V2 attention]
+| Model                     | Uncompressed      | Palettized                |
+|---------------------------|-------------------|---------------------------|
+| Stable Diffusion 1.4      | [Core ML, `float16`](https://huggingface.co/apple/coreml-stable-diffusion-v1-4) | [Core ML, 6-bit palettized](https://huggingface.co/apple/coreml-stable-diffusion-1-4-palettized) |
+| Stable Diffusion 1.5      | [Core ML, `float16`](https://huggingface.co/apple/coreml-stable-diffusion-v1-5) | [Core ML, 6-bit palettized](https://huggingface.co/apple/coreml-stable-diffusion-v1-5-palettized) |
+| Stable Diffusion 2 base   | [Core ML, `float16`](https://huggingface.co/apple/coreml-stable-diffusion-2-base) | [Core ML, 6-bit palettized](https://huggingface.co/apple/coreml-stable-diffusion-2-base-palettized) |
+| Stable Diffusion 2.1 base | [Core ML, `float16`](https://huggingface.co/apple/coreml-stable-diffusion-2-1-base) | [Core ML, 6-bit palettized](https://huggingface.co/apple/coreml-stable-diffusion-2-1-base-palettized) |
 
 <Tip warning=”true”>
 
