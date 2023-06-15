@@ -10,7 +10,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-WWDC’23 (Apple Worldwide Developers Conference) was held last week. A lot of the news focused on the Vision Pro announcement during the keynote, but there’s much more to it. Like every year, WWDC week is packed with more than 200 technical sessions that dive deep inside the upcoming features across Apple operating systems and frameworks. This year we are particularly excited about changes in Core ML devoted to compression and optimization techniques. These changes make running models such as Stable Diffusion faster and with less memory use! As a taste, consider the following results I measured on my phone and Mac and comparing against the [initial port of Stable Diffusion to Core ML we discussed back in December](https://huggingface.co/blog/diffusers-coreml):
+WWDC’23 (Apple Worldwide Developers Conference) was held last week. A lot of the news focused on the Vision Pro announcement during the keynote, but there’s much more to it. Like every year, WWDC week is packed with more than 200 technical sessions that dive deep inside the upcoming features across Apple operating systems and frameworks. This year we are particularly excited about changes in Core ML devoted to compression and optimization techniques. These changes make running [models](https://huggingface.co/apple) such as Stable Diffusion faster and with less memory use! As a taste, consider the following results I measured on my phone and Mac and comparing against the [initial port of Stable Diffusion to Core ML we discussed back in December](https://huggingface.co/blog/diffusers-coreml):
 
 [TODO: table with numbers]
 
@@ -43,7 +43,7 @@ The compressed 6-bit _weights_ cannot be used for computation, because they are 
 * Quantization is supported using `--quantize-nbits` during conversion. You can quantize to 8, 6, 4, or even 2 bits! For best results, we recommend using 6-bit quantization, as the precision loss is small while achieving fast inference and significant memory savings. If you want to go lower than that, please check [this section](#using-less-than-6-bits) for advanced techniques.
 * Additional optimizations of the attention layers that achieve even better performance on the Neural Engine! The trick is to split the query sequences into chunks of 512 to avoid the creation of large intermediate tensors. This method is called `SPLIT_EINSUM_V2` in the code and can improve performance between 10% to 30%.
 
-In order to make it easy for everyone to take advantage of these improvements, we have converted the four official Stable Diffusion models and pushed them to the Hub. These are all the variants:
+In order to make it easy for everyone to take advantage of these improvements, we have converted the four official Stable Diffusion models and pushed them to the [Hub](https://huggingface.co/apple). These are all the variants:
 
 [TODO: table with Hub URLs, explaining when to use ORIGINAL vs SPLIT_EINSUM_V2 attention]
 
