@@ -20,6 +20,7 @@ WWDC’23 (Apple Worldwide Developers Conference) was held last week. A lot of t
 * [Using Quantized and Optimized Stable Diffusion Models](#using-quantized-and-optimized-stable-diffusion-models)
 * [Converting and Optimizing Custom Models](#converting-and-optimizing-custom-models)
 * [Using Less than 6 bits](#using-less-than-6-bits)
+* [Conclusion](#conclusion)
 
 ## New Core ML Optimizations
 
@@ -146,3 +147,7 @@ If you don’t use the `--quantize-nbits` option, weights will be represented as
 The beta version of `coremltools` released last week also includes _training-time_ compression methods. The idea here is that you can fine-tune a pre-trained Stable Diffusion model and perform the weights compression while fine-tuning is taking place. This allows you to use 4- or even 2-bit compression while minimizing the loss in quality. The reason this works is because weight clustering is performed using a differentiable algorithm, and therefore we can apply the usual training optimizers to find the quantization table while minimizing model loss.
 
 We have plans to evaluate this method soon, and can’t wait to see how 4-bit optimized models work and how fast they run. If you beat us to it, please drop us a note and we’ll be happy to check 🙂
+
+## Conclusion
+
+Quantization methods can be used to reduce the size of Stable Diffusion models, make them run faster on-device and consume less resources. The latest versions of Core ML and `coremltools` support techniques like 6-bit palettization that are easy to apply and that have a minimal impact on quality. We have added 6-bit palettized [models to the Hub](https://huggingface.co/apple), which are small enough to run on both iOS and macOS. We've also shown how you can convert fine-tuned models yourself, and can't wait to see what you do with these tools and techniques!
