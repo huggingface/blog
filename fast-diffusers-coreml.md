@@ -13,6 +13,7 @@ authors:
 WWDC’23 (Apple Worldwide Developers Conference) was held last week. A lot of the news focused on the Vision Pro announcement during the keynote, but there’s much more to it. Like every year, WWDC week is packed with more than 200 technical sessions that dive deep inside the upcoming features across Apple operating systems and frameworks. This year we are particularly excited about changes in Core ML devoted to compression and optimization techniques. These changes make running [models](https://huggingface.co/apple) such as Stable Diffusion faster and with less memory use! As a taste, consider the following test I ran on my [iPhone 13 back in December](https://huggingface.co/blog/diffusers-coreml), compared with the current speed using 6-bit palettization:
 
 <img style="border:none;" alt="Stable Diffusion on iPhone, back in December and now using 6-bit palettization" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fast-diffusers-coreml/before-after-1600.jpg" />
+<small>Stable Diffusion on iPhone, back in December and now with 6-bit palettization</small>
 
 ## Contents
 
@@ -34,6 +35,7 @@ The Core ML optimization changes encompass two different (but complementary) sof
 `coremltools` now includes a new submodule called `coremltools.optimize` with all the compression and optimization tools. For full details on this package, please take a look at [this WWDC session](https://developer.apple.com/wwdc23/10047). In the case of Stable Diffusion, we’ll be using _6-bit palettization_, a type of quantization that compresses model weights from a 16-bit floating-point representation to just 6 bits per parameter. The name “palettization” refers to a technique similar to the one used in computer graphics to work with a limited set of colors: the color table (or “palette”) contains a fixed number of colors, and the colors in the image are replaced with the indexes of the closest colors available in the palette. This immediately provides the benefit of drastically reducing storage size, and thus reducing download time and on-device disk use.
 
 <img style="border:none;" alt="Illustration of 2-bit palettization. Image credit: Apple WWDC’23 Session 'Use Core ML Tools for machine learning model compression'" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fast-diffusers-coreml/palettization_illustration.png" />
+<small>Illustration of 2-bit palettization. Image credit: Apple WWDC’23 Session <i><a href="https://developer.apple.com/wwdc23/10047">Use Core ML Tools for machine learning model compression</a></i>.</small>
 
 The compressed 6-bit _weights_ cannot be used for computation, because they are just indices into a table and no longer represent the magnitude of the original weights. Therefore, Core ML needs to uncompress the palletized weights before use. In previous versions of Core ML, uncompression took place when the model was first loaded from disk, so the amount of memory used was equal to the uncompressed model size. With the new improvements, weights are kept as 6-bit numbers and converted on the fly as inference progresses from layer to layer. This might seem slow – an inference run requires a lot of uncompressing operations –, but it’s typically more efficient than preparing all the weights in 16-bit mode! The reason is that memory transfers are in the critical path of execution, and transferring less memory is faster than transferring uncompressed data. 
 
@@ -65,6 +67,7 @@ In order to use 6-bit models, you need the development versions of iOS/iPadOS 17
 Note that each variant is available in Core ML format and also as a `zip` archive. Zip files are ideal for native apps, such as our [open-source demo app](https://github.com/huggingface/swift-coreml-diffusers) and other [third party tools](https://github.com/godly-devotion/MochiDiffusion). If you just want to run the models on your own hardware, the easiest way is to use our demo app and select the quantized model you want to test. You need to compile the app using Xcode, but an update will be available for download in the App Store soon. For more details, check [our previous post](https://huggingface.co/blog/fast-mac-diffusers).
 
 <img style="border:none;" alt="Running 6-bit stable-diffusion-2-1-base model in demo app" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fast-diffusers-coreml/diffusers_mac_screenshot.png" />
+<small>Running 6-bit stable-diffusion-2-1-base model in demo app</small>
 
 If you want to download a particular Core ML package to integrate it in your own Xcode project, you can clone the repos or just download the version of interest using code like the following.
 
