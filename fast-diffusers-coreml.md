@@ -10,9 +10,9 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-WWDC’23 (Apple Worldwide Developers Conference) was held last week. A lot of the news focused on the Vision Pro announcement during the keynote, but there’s much more to it. Like every year, WWDC week is packed with more than 200 technical sessions that dive deep inside the upcoming features across Apple operating systems and frameworks. This year we are particularly excited about changes in Core ML devoted to compression and optimization techniques. These changes make running [models](https://huggingface.co/apple) such as Stable Diffusion faster and with less memory use! As a taste, consider the following results I measured on my phone and Mac and comparing against the [initial port of Stable Diffusion to Core ML we discussed back in December](https://huggingface.co/blog/diffusers-coreml):
+WWDC’23 (Apple Worldwide Developers Conference) was held last week. A lot of the news focused on the Vision Pro announcement during the keynote, but there’s much more to it. Like every year, WWDC week is packed with more than 200 technical sessions that dive deep inside the upcoming features across Apple operating systems and frameworks. This year we are particularly excited about changes in Core ML devoted to compression and optimization techniques. These changes make running [models](https://huggingface.co/apple) such as Stable Diffusion faster and with less memory use! As a taste, consider the following test I ran on my [iPhone 13 back in December](https://huggingface.co/blog/diffusers-coreml), compared with the current speed using 6-bit palettization:
 
-[TODO: table with numbers]
+<img style="border:none;" alt="Stable Diffusion on iPhone, back in December and now using 6-bit palettization" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/fast-diffusers-coreml/before-after-1600.jpg" />
 
 ## Contents
 
