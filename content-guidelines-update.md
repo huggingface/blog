@@ -1,4 +1,14 @@
+---
+title: Announcing our new Content Guidelines and Policy
+thumbnail: /blog/assets/content-guidelines-blogpost/thumbnail.png
+authors:
+- user: giadap
+---
+
 # Announcing our new Community Policy
+
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 As a community-driven platform that aims to advance Open, Collaborative, and Responsible Machine Learning, we are thrilled to support and maintain a welcoming space for our entire community! In support of this goal, we've updated our [Content Policy](https://huggingface.co/content-guidelines).
 
