@@ -29,7 +29,7 @@ If you don't know Livebook yet, it is an open-source tool for writing interactiv
 
 The Elixir community leverages the Hugging Face platform and its open source projects throughout its machine learning landscape. Here are some examples.
 
-The first positive impact Hugging Face had was in the [Bumblebee library](https://github.com/elixir-nx/bumblebee), which brought pre-trained neural network models from Hugging Face to the Elixir community and was inspired by [Hugging Face Transformers](https://huggingface.co/docs/transformers/index). Besides the inspiration, Bumblebee also uses Hugging Face Models to download training parameters for its models.
+The first positive impact Hugging Face had was in the [Bumblebee library](https://github.com/elixir-nx/bumblebee), which brought pre-trained neural network models from Hugging Face to the Elixir community and was inspired by [Hugging Face Transformers](https://huggingface.co/docs/transformers/index). Besides the inspiration, Bumblebee also uses the Hugging Face Hub to download parameters for its models.
 
 Another example is the [tokenizers library](https://github.com/elixir-nx/tokenizers), which is an Elixir binding for [Hugging Face Tokenizers](https://github.com/huggingface/tokenizers).
 
