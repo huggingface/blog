@@ -30,8 +30,8 @@ The DLinear model uses the decomposition layer from the Autoformer model, which 
 Is that so? Let's find out.
 
 |      Dataset      | Autoformer (uni.) MASE | DLinear  MASE |
-|:-----------------:|:----------------------:|:-------------:| 
-|    `Traffic` 	    |         0.910          |     0.969     |
+|:-----------------:|:----------------------:|:-------------:|
+|    `Traffic` 	    |         0.910          |     0.965     |
 | `Exchange-Rate` 	 |         1.087          |     1.690     |
 |  `Electricity` 	  |         0.751          |     0.831     |
 
@@ -678,7 +678,7 @@ So the result for the Autoformer model is:
 ```python
 print(f"Autoformer univariate MASE: {np.mean(mase_metrics):.3f}")
 
->>> MASE: 0.9092493026949344
+>>> Autoformer univariate MASE: 0.910
 ```
 
 To plot the prediction for any time series with respect to the ground truth test data, we define the following helper:
@@ -795,7 +795,7 @@ So the result for the DLinear model is:
 dlinear_mase = agg_metrics["MASE"]
 print(f"DLinear MASE: {dlinear_mase:.3f}")
 
->>> 0.9693592730002069
+>>> DLinear MASE: 0.965
 ```
 
 As before, we plot the predictions from our trained DLinear model via this helper:
@@ -823,8 +823,8 @@ The `traffic` dataset has a distributional shift in the sensor patterns between 
 How do Transformer-based models compare against the above linear baseline? The test set MASE metrics from the different models we have are below:
 
 |Dataset | 	 Transformer (uni.) |   	 Transformer (mv.)  | Informer (uni.)| Informer (mv.) | Autoformer (uni.) | DLinear |
-|:--:|:--:| :--:| :--:| :--:|  :--:|  :--:| 
-|`Traffic` 	| **0.876** | 1.046 | 0.924 | 1.131  | 0.910 | 0.969 |
+|:--:|:--:| :--:| :--:| :--:|  :--:|:-------:| 
+|`Traffic` 	| **0.876** | 1.046 | 0.924 | 1.131  | 0.910 |  0.965  |
 
 As one can observe, the [vanilla Transformer](https://huggingface.co/docs/transformers/model_doc/time_series_transformer) which we introduced last year gets the best results here. Secondly, multivariate models are typically _worse_ than the univariate ones, the reason being the difficulty in estimating the cross-series correlations/relationships. The additional variance added by the estimates often harms the resulting forecasts or the model learns spurious correlations. Recent papers like [CrossFormer](https://openreview.net/forum?id=vSVLM2j9eie) (ICLR 23) and [CARD](https://arxiv.org/abs/2305.12095) try to address this problem in Transformer models.
 Multivariate models usually perform well when trained on large amounts of data. However, when compared to univariate models, especially on smaller open datasets, the univariate models tend to provide better metrics. By comparing the linear model with equivalent-sized univariate transformers or in fact any other neural univariate model, one will typically get better performance.
