@@ -2092,7 +2092,7 @@
     - nlp
     - community
     - research
-    
+
 - local: assisted-generation
   title: "Assisted Generation: a new direction toward low-latency text generation"
   author: joaogante
@@ -2102,6 +2102,16 @@
     - nlp
     - research
 
+- local: content-guidelines-update
+  title: "Announcing our new Content Guidelines and Policy"
+  author: giadap
+  thumbnail: /blog/assets/content-guidelines-blogpost/thumbnail.png
+  date: May 15, 2023
+  tags:
+    - content-policy
+    - guidelines
+    - ethics
+    
 - local: rwkv
   title: "Introducing RWKV — An RNN with the advantages of a transformer"
   author: BlinkDL
@@ -2315,6 +2325,17 @@
     - hardware
     - amd
     - partnership
+
+- local: livebook-app-deployment
+  title: "Deploy Livebook notebooks as apps to Hugging Face Spaces"
+  author: josevalim
+  thumbnail: /blog/assets/120_elixir-bumblebee/thumbnail.png
+  date: Jun 15, 2023
+  tags:
+    - elixir
+    - notebooks
+    - spaces
+    - whisper
 
 - local: fast-diffusers-coreml
   title: "Faster Stable Diffusion with Core ML on iPhone, iPad, and Mac"
