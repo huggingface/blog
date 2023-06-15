@@ -53,11 +53,14 @@ In order to make it easy for everyone to take advantage of these improvements, w
 | Stable Diffusion 2 base   | [Core ML, `float16`](https://huggingface.co/apple/coreml-stable-diffusion-2-base) | [Core ML, 6-bit palettized](https://huggingface.co/apple/coreml-stable-diffusion-2-base-palettized) |
 | Stable Diffusion 2.1 base | [Core ML, `float16`](https://huggingface.co/apple/coreml-stable-diffusion-2-1-base) | [Core ML, 6-bit palettized](https://huggingface.co/apple/coreml-stable-diffusion-2-1-base-palettized) |
 
-<Tip warning=”true”>
+
+<br>
+<div style="background-color: #f0fcf0; padding: 16px 16px 4px; outline: 1px solid; border-radius: 10px;">
 
 In order to use 6-bit models, you need the development versions of iOS/iPadOS 17 or macOS 14 (Sonoma) because those are the ones that contain the latest Core ML framework. You can download them from the [Apple developer site](https://developer.apple.com) if you are a registered developer, or you can sign up for the public beta that will be released in a few weeks.
 
-</Tip>
+</div>
+<br>
 
 Note that each variant is available in Core ML format and also as a `zip` archive. Zip files are ideal for native apps, such as our [open-source demo app](https://github.com/huggingface/swift-coreml-diffusers) and other [third party tools](https://github.com/godly-devotion/MochiDiffusion). If you just want to run the models on your own hardware, the easiest way is to use our demo app and select the quantized model you want to test. You need to compile the app using Xcode, but an update will be available for download in the App Store soon. For more details, check [our previous post](https://huggingface.co/blog/fast-mac-diffusers).
 
@@ -81,14 +84,16 @@ print(f"Model downloaded at {model_path}")
 
 If you want to use a personalized Stable Diffusion model (for example, if you have fine-tuned or dreamboothed your own models), you can use Apple’s ml-stable-diffusion repo to do the conversion yourself. This is a brief summary of how you’d go about it, but we recommend you read [the documentation details](https://github.com/apple/ml-stable-diffusion#-converting-models-to-core-ml).
 
-<Tip warning=”True”>
+<br>
+<div style="background-color: #f0fcf0; padding: 16px 16px 4px; outline: 1px solid; border-radius: 10px;">
 
 If you want to apply quantization, you need the latest versions of `coremltools`, `apple/ml-stable-diffusion` and Xcode in order to do the conversion.
 * Download `coremltools` 7.0 beta from [the releases page in GitHub](https://github.com/apple/coremltools/releases).
 * Download Xcode 15.0 beta from [Apple developer site](https://developer.apple.com/).
 * Download `apple/ml-stable-diffusion` [from the repo](https://github.com/apple/ml-stable-diffusion) and follow the installation instructions.
 
-</Tip>
+</div>
+<br>
 
 1. Select the model you want to convert. You can train your own or choose one from the [Hugging Face Diffusers Models Gallery](https://huggingface.co/spaces/huggingface-projects/diffusers-gallery). For example, let’s convert [`prompthero/openjourney-v4`](https://huggingface.co/prompthero/openjourney-v4).
 2. Install `apple/ml-stable-diffusion` and run a first conversion using the `ORIGINAL` attention implementation like this:
@@ -109,12 +114,13 @@ python -m python_coreml_stable_diffusion.torch2coreml \
     -o models/original/openjourney-6-bit
 ```
 
-<Tip>
+<br>
+<div style="background-color: #f0fcf0; padding: 16px 16px 4px; outline: 1px solid; border-radius: 10px;">
 
 * Use `--convert-vae-encoder` if you want to use image-to-image tasks.
 * Do _not_ use `--chunk-unet` with `--quantized-nbits 6` (or less), as the quantized model is small enough to work fine on both iOS and macOS.
-
-</Tip>
+</div>
+<br>
 
 3. Repeat the conversion for the `SPLIT_EINSUM_V2` attention implementation:
 
@@ -139,11 +145,14 @@ python -m python_coreml_stable_diffusion.torch2coreml \
     * If you are going to distribute the model inside the app, use the `.mlpackage` files. Note that this will increase the size of your app binary.
     * Otherwise, you can use the compiled `Resources` to download them dynamically when your app starts.
 
-<Tip>
+
+<br>
+<div style="background-color: #f0fcf0; padding: 16px 16px 4px; outline: 1px solid; border-radius: 10px;">
 
 If you don’t use the `--quantize-nbits` option, weights will be represented as 16-bit floats. This is compatible with the current version of Core ML so you won’t need to install the betas of iOS, macOS or Xcode.
 
-</Tip>
+</div>
+<br>
 
 ## Using Less than 6 bits
 
