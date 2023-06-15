@@ -241,6 +241,10 @@ We want to show empirically the performance of Transformer-based models in the l
 Each time series represents the occupancy value of a sensor and is in the range [0, 1]. We will keep the following hyperparameters fixed for all the models:
 
 ```python
+# Traffic prediction_length is 24. Reference:
+# https://github.com/awslabs/gluonts/blob/6605ab1278b6bf92d5e47343efcf0d22bc50b2ec/src/gluonts/dataset/repository/_lstnet.py#L105
+
+prediction_length = 24
 context_length = prediction_length*2
 batch_size = 128
 num_batches_per_epoch = 100
