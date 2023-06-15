@@ -2101,15 +2101,6 @@
   tags:
     - nlp
     - research
-
-- local: content-guidelines-update
-  title: "Announcing our new Content Guidelines and Policy"
-  author: giadap
-  thumbnail: /blog/assets/content-guidelines-blogpost/thumbnail.png
-  date: June 15, 2023
-  tags:
-    - community
-    - ethics
     
 - local: rwkv
   title: "Introducing RWKV — An RNN with the advantages of a transformer"
@@ -2324,6 +2315,15 @@
     - hardware
     - amd
     - partnership
+
+- local: content-guidelines-update
+  title: "Announcing our new Content Guidelines and Policy"
+  author: giadap
+  thumbnail: /blog/assets/content-guidelines-blogpost/thumbnail.png
+  date: June 15, 2023
+  tags:
+    - community
+    - ethics
 
 - local: livebook-app-deployment
   title: "Deploy Livebook notebooks as apps to Hugging Face Spaces"
