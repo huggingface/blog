@@ -55,7 +55,7 @@ In order to make it easy for everyone to take advantage of these improvements, w
 
 
 <br>
-<div style="background-color: #f0fcf0; padding: 16px 16px 4px; outline: 1px solid; border-radius: 10px;">
+<div style="background-color: #f0fcf0; padding: 8px 32px 1px; outline: 1px solid; border-radius: 10px;">
 
 In order to use 6-bit models, you need the development versions of iOS/iPadOS 17 or macOS 14 (Sonoma) because those are the ones that contain the latest Core ML framework. You can download them from the [Apple developer site](https://developer.apple.com) if you are a registered developer, or you can sign up for the public beta that will be released in a few weeks.
 
@@ -85,7 +85,7 @@ print(f"Model downloaded at {model_path}")
 If you want to use a personalized Stable Diffusion model (for example, if you have fine-tuned or dreamboothed your own models), you can use Apple’s ml-stable-diffusion repo to do the conversion yourself. This is a brief summary of how you’d go about it, but we recommend you read [the documentation details](https://github.com/apple/ml-stable-diffusion#-converting-models-to-core-ml).
 
 <br>
-<div style="background-color: #f0fcf0; padding: 16px 16px 4px; outline: 1px solid; border-radius: 10px;">
+<div style="background-color: #f0fcf0; padding: 8px 32px 1px; outline: 1px solid; border-radius: 10px;">
 
 If you want to apply quantization, you need the latest versions of `coremltools`, `apple/ml-stable-diffusion` and Xcode in order to do the conversion.
 * Download `coremltools` 7.0 beta from [the releases page in GitHub](https://github.com/apple/coremltools/releases).
@@ -115,7 +115,7 @@ python -m python_coreml_stable_diffusion.torch2coreml \
 ```
 
 <br>
-<div style="background-color: #f0fcf0; padding: 16px 16px 4px; outline: 1px solid; border-radius: 10px;">
+<div style="background-color: #f0fcf0; padding: 8px 32px 1px; outline: 1px solid; border-radius: 10px;">
 
 * Use `--convert-vae-encoder` if you want to use image-to-image tasks.
 * Do _not_ use `--chunk-unet` with `--quantized-nbits 6` (or less), as the quantized model is small enough to work fine on both iOS and macOS.
@@ -147,7 +147,7 @@ python -m python_coreml_stable_diffusion.torch2coreml \
 
 
 <br>
-<div style="background-color: #f0fcf0; padding: 16px 16px 4px; outline: 1px solid; border-radius: 10px;">
+<div style="background-color: #f0fcf0; padding: 8px 32px 1px; outline: 1px solid; border-radius: 10px;">
 
 If you don’t use the `--quantize-nbits` option, weights will be represented as 16-bit floats. This is compatible with the current version of Core ML so you won’t need to install the betas of iOS, macOS or Xcode.
 
