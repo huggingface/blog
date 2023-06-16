@@ -538,10 +538,7 @@ def create_train_dataloader(
         output_type=torch.tensor,
         num_batches_per_epoch=num_batches_per_epoch,
     )
-```
 
-
-```python
 def create_test_dataloader(
     config: PretrainedConfig,
     freq,
