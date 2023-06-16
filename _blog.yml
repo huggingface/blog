@@ -2350,7 +2350,7 @@
 
 - local: autoformer
   title: "Yes, Transformers are Effective for Time Series Forecasting (+ Autoformer)"
-  author: kashif
+  author: elisim
   thumbnail: /blog/assets/150_autoformer/thumbnail.png
   date: June 16, 2023
   tags:
