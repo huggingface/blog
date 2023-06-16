@@ -2278,7 +2278,7 @@
     - open-source-collab
     - nlp
     - partnerships
-    
+
 - local: hub-duckdb
   title: "DuckDB: run SQL queries on 50,000+ datasets on the Hugging Face Hub"
   author: stevhliu
