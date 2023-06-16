@@ -62,7 +62,7 @@ The same preference labels can be generated on **model outputs to create a relat
 
 While training our models, we started seeing interesting things, so we wanted to do a more controlled study of existing open-source models and how that preference collection process would translate and compare to the currently popular GPT-4/ChatGPT evaluations of preferences.
 
-To do this, we curated a held-out set of instruction prompts and completions from a popular set of open-source models: [Koala 13b](https://huggingface.co/young-geng/koala), [Vicuna 13b](https://huggingface.co/lmsys/vicuna-13b-delta-v1.1), [OpenAssistant](https://huggingface.co/OpenAssistant/oasst-sft-1-pythia-12b) 12b, and [Dolly 12b](https://huggingface.co/databricks/dolly-v2-12b).  
+To do this, we curated a held-out set of instruction prompts and completions from a popular set of open-source models: [Koala 13b](https://huggingface.co/young-geng/koala), [Vicuna 13b](https://huggingface.co/lmsys/vicuna-13b-delta-v1.1), [OpenAssistant](https://huggingface.co/OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5) 12b, and [Dolly 12b](https://huggingface.co/databricks/dolly-v2-12b).  
 
 ![](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/model-logos.png)
 
