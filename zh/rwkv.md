@@ -23,7 +23,7 @@ translators:
 
 RWKV 项目已经启动，由 [Bo Peng](https://github.com/BlinkDL) 主导、贡献和维护。同时项目成员在官方 Discord 也开设了不同主题的讨论频道: 如性能 (RWKV.cpp、量化等)，扩展性 (数据集收集和处理)，相关研究 (chat 微调、多模态微调等)。该项目中训练 RWKV 模型所需的 GPU 资源由 Stability AI 提供。
 
-读者可以加入 [官方 discord 频道](https://discordapp.com/users/468093332535640064) 了解详情或者参与讨论。如想了解 RWKV 背后的思想，可以参考这两篇博文:
+读者可以加入 [官方 discord 频道](https://discord.gg/qt9egFA7ve) 了解详情或者参与讨论。如想了解 RWKV 背后的思想，可以参考这两篇博文:
 
 - https://johanwind.github.io/2023/03/23/rwkv_overview.html
 - https://johanwind.github.io/2023/03/23/rwkv_details.html
