@@ -1,6 +1,6 @@
 ---
 title: "Yes, Transformers are Effective for Time Series Forecasting (+ Autoformer)"
-thumbnail: /blog/assets/148_autoformer/thumbnail.png
+thumbnail: /blog/assets/150_autoformer/thumbnail.png
 authors:
 - user: elisim
   guest: true
