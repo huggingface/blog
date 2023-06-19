@@ -16,22 +16,22 @@ authors:
 
 ***New (06/2023)***: *This blog post is strongly inspired by ["Fine-tuning XLS-R on Multi-Lingual ASR"](https://huggingface.co/blog/fine-tune-xlsr-wav2vec2)* and can be seen as an improved version of it.
 
-**Wav2Vec2** is a pretrained model for Automatic Speech Recognition (ASR) and was released in [September 2020](https://ai.facebook.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) by *Alexei Baevski, Michael Auli, and Alex Conneau*. Soon after the superior performance of Wav2Vec2 was demonstrated on one of the most popular English datasets for ASR, called [LibriSpeech](https://huggingface.co/datasets/librispeech_asr), *Facebook AI* presented a multi-lingual version of Wav2Vec2, called [XLSR](https://arxiv.org/abs/2006.13979) and [XLS-R](https://ai.facebook.com/blog/-xlm-r-state-of-the-art-cross-lingual-understanding-through-self-supervision/). XLSR stands for *cross-lingual speech representations* and refers to model's ability to learn speech representations that are useful across multiple languages.
+**Wav2Vec2** is a pretrained model for Automatic Speech Recognition (ASR) and was released in [September 2020](https://ai.facebook.com/blog/wav2vec-20-learning-the-structure-of-speech-from-raw-audio/) by *Alexei Baevski, Michael Auli, and Alex Conneau*. Soon after the strong performance of Wav2Vec2 was demonstrated on one of the most popular English datasets for ASR, called [LibriSpeech](https://huggingface.co/datasets/librispeech_asr), *Facebook AI* presented two multi-lingual versions of Wav2Vec2, called [XLSR](https://arxiv.org/abs/2006.13979) and [XLS-R](https://ai.facebook.com/blog/-xlm-r-state-of-the-art-cross-lingual-understanding-through-self-supervision/), capable of recognising speech in up to 128 languages. XLSR stands for *cross-lingual speech representations* and refers to model's ability to learn speech representations that are useful across multiple languages.
 
-MetaAI's most recent release, the [**Massive Multilingual Speech (MMS)**](https://ai.facebook.com/blog/multilingual-model-speech-recognition/) by *Vineel Pratap, Andros Tjandra, Bowen Shi, et al.* takes multi-lingual speech representations to a new level. Over 1000 spoken languages can be identified, transcribed and generated with the [ASR, LID and TTS checkpoints that were released](https://huggingface.co/models?other=mms).
+Meta AI's most recent release, [**Massive Multilingual Speech (MMS)**](https://ai.facebook.com/blog/multilingual-model-speech-recognition/) by *Vineel Pratap, Andros Tjandra, Bowen Shi, et al.* takes multi-lingual speech representations to a new level. Over 1000 spoken languages can be identified, transcribed and generated with the [language identification, speech recognition, and text-to-speech checkpoints that were released](https://huggingface.co/models?other=mms).
 
 ![wav2vec2_structure](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/mms_map.png)
 
-**MMS** unsupervised checkpoints were pre-trained on more than **half a million** hour of audio in over **1400** languages ranging from 300 million to one billion parameters.
+**MMS** unsupervised checkpoints were pre-trained on more than **half a million** hours of audio in over **1400** languages, ranging from 300 million to one billion parameters.
 
-You can find the pretrained-only checkpoints on the 🤗 Hub:
+You can find the pretrained-only checkpoints on the 🤗 Hub for model sizes of 300 million parameters (300M) and one billion parameters (1B):
 
 -   [**MMS-300M**](https://huggingface.co/facebook/mms-300m)
 -   [**MMS-1B**](https://huggingface.co/facebook/mms-1b)
 
-Similar to [BERT's masked language modeling objective](http://jalammar.github.io/illustrated-bert/), XLS-R learns contextualized speech representations by randomly masking feature vectors before passing them to a transformer network during self-supervised pre-training (*i.e.* diagram on the left below).
+Similar to [BERT's masked language modeling objective](http://jalammar.github.io/illustrated-bert/), XLS-R learns contextualized speech representations by randomly masking feature vectors before passing them to a transformer network during self-supervised pre-training.
 
-For Automatic Speech Recognitino (ASR), the pretrained `MMS-1B` checkpoint was further fine-tuned in supervised fasion on 1000+ languages with a joint vocabulary output layer. As a final step, the joint vocabulary output layer was then thrown away and **only** ca. 2.5M adapter weights are trained on specific languages. The adapter weights hereby include small linear projection layers for each attention block as well as a language-specific vocabulary output layer.
+For ASR, the pretrained `MMS-1B` checkpoint was further fine-tuned in supervised fashion on 1000+ languages with a joint vocabulary output layer. As a final step, the joint vocabulary output layer was then thrown away and **only** ca. 2.5M adapter weights trained on specific languages. The adapter weights hereby include small linear projection layers for each attention block as well as a language-specific vocabulary output layer.
 
 **MMS**'s released three checkpoints fine-tuned for speech recognition (ASR) that have 102, 1107, and 1162 adapter weights respectively (one for each language):
 
@@ -47,11 +47,11 @@ The Hugging Face docs explain very well how such checkpoints can be used for inf
 
 In machine learning, adapters are a method used to fine-tune pre-trained models while keeping the original model parameters unchanged. They do this by inserting small, trainable modules, called adapter layers, between the pre-existing layers of the model, which then adapt the model to a specific task without requiring extensive retraining.
 
-Adapters have a long history in speech recognition and especially **speaker recognition**. In speaker recognition, adapters have been effectively used to tweak pre-existing models to recognize individual speaker idiosyncrasies, as highlighted in [Gales and Woodland's (1996)](https://www.isca-speech.org/archive_v0/archive_papers/icslp_1996/i96_1832.pdf) and [Miao et al.'s (2014)](https://www.cs.cmu.edu/~ymiao/pub/tasl_sat.pdf) work. This approach not only greatly reduces computational requirements compared to full model, but also allows for better and more flexible speaker-specific adjustments.
+Adapters have a long history in speech recognition and especially **speaker recognition**. In speaker recognition, adapters have been effectively used to tweak pre-existing models to recognize individual speaker idiosyncrasies, as highlighted in [Gales and Woodland's (1996)](https://www.isca-speech.org/archive_v0/archive_papers/icslp_1996/i96_1832.pdf) and [Miao et al.'s (2014)](https://www.cs.cmu.edu/~ymiao/pub/tasl_sat.pdf) work. This approach not only greatly reduces computational requirements compared to training the full model, but also allows for better and more flexible speaker-specific adjustments.
 
-The work done in **MMS** leverages this idea of adapters for speech recognition across different languages. Adapter weights a fine-tuned to grasp unique phonetic and grammatical traits of each target language. Thereby, MMS enables a single large base model (*e.g.*, the [**MMS-1B-ALL**](https://huggingface.co/facebook/mms-1b-all) checkpoint) and 1000+ small adapter layers (2.5M weights each for **MMS-1B-ALL**) to comprehend and transcribe multiple languages. This dramatically reduces the computational demand of developing distinct models for each language.
+The work done in **MMS** leverages this idea of adapters for speech recognition across different languages. A small number of adapter weights are fine-tuned to grasp unique phonetic and grammatical traits of each target language. Thereby, MMS enables a single large base model (*e.g.*, the [**MMS-1B-ALL**](https://huggingface.co/facebook/mms-1b-all) checkpoint) and 1000+ small adapter layers (2.5M weights each for **MMS-1B-ALL**) to comprehend and transcribe multiple languages. This dramatically reduces the computational demand of developing distinct models for each language.
 
-Great! Now that we understood the motivation and theory, let's look into fine-tuning a couple adapter weights for **MMS-1B-ALL** 🔥
+Great! Now that we understood the motivation and theory, let's look into fine-tuning adapter weights for **MMS-1B-ALL** 🔥
 
 ## Notebook Setup
 
@@ -59,12 +59,13 @@ As done previously in the ["Fine-tuning XLS-R on Multi-Lingual ASR"](https://hug
 
 Just like Wav2Vec2 or XLS-R, MMS is fine-tuned using Connectionist Temporal Classification (CTC), which is an algorithm that is used to train neural networks for sequence-to-sequence problems, such as ASR and handwriting recognition.
 
-I highly recommend reading the well-written blog post [*Sequence Modeling with CTC (2017)*](https://distill.pub/2017/ctc/) by Awni Hannun.
+For more details on the CTC algorithm, I highly recommend reading the well-written blog post [*Sequence Modeling with CTC (2017)*](https://distill.pub/2017/ctc/) by Awni Hannun.
 
 Before we start, let's install `datasets` and `transformers`. Also, we need the `torchaudio` to load audio files and `jiwer` to evaluate our fine-tuned model using the [word error rate (WER)](https://huggingface.co/metrics/wer) metric \(( {}^1 \)).
 
 ```bash
 %%capture
+!pip install --upgrade pip 
 !pip install datasets[audio]
 !pip install evaluate
 !pip install git+https://github.com/huggingface/transformers.git
@@ -87,7 +88,7 @@ notebook_login()
 
 ASR models transcribe speech to text, which means that we both need a feature extractor that processes the speech signal to the model's input format, *e.g.* a feature vector, and a tokenizer that processes the model's output format to text.
 
-In 🤗 Transformers, the MMS model is thus accompanied by both a tokenizer, called [Wav2Vec2CTCTokenizer](https://huggingface.co/transformers/master/model_doc/wav2vec2.html#wav2vec2ctctokenizer), and a feature extractor, called [Wav2Vec2FeatureExtractor](https://huggingface.co/transformers/master/model_doc/wav2vec2.html#wav2vec2featureextractor).
+In 🤗 Transformers, the MMS model is thus accompanied by both a feature extractor, called [Wav2Vec2FeatureExtractor](https://huggingface.co/transformers/master/model_doc/wav2vec2.html#wav2vec2featureextractor), and a tokenizer, called [Wav2Vec2CTCTokenizer](https://huggingface.co/transformers/master/model_doc/wav2vec2.html#wav2vec2ctctokenizer).
 
 Let's start by creating the tokenizer to decode the predicted output classes to the output transcription.
 
@@ -290,9 +291,7 @@ vocab_dict
      '̇': 34}
 ```
 
-Cool, we see that all letters of the alphabet occur in the dataset (which is not really surprising) and we also extracted the special characters `""` and `'`. Note that we did not exclude those special characters because:
-
-The model has to learn to predict when a word is finished or else the model prediction would always be a sequence of chars which would make it impossible to separate words from each other.
+Cool, we see that all letters of the alphabet occur in the dataset (which is not really surprising) and we also extracted the special characters `""` and `'`. Note that we did not exclude those special characters because the model has to learn to predict when a word is finished, or else the model's prediction would always be a sequence of chars which would make it impossible to separate words from each other.
 
 One should always keep in mind that pre-processing is a very important step before training your model. E.g., we don't want our model to differentiate between `a` and `A` just because we forgot to normalize the data. The difference between `a` and `A` does not depend on the "sound" of the letter at all, but more on grammatical rules - *e.g.* use a capitalized letter at the beginning of the sentence. So it is sensible to remove the difference between capitalized and non-capitalized letters so that the model has an easier time learning to transcribe speech.
 
@@ -317,7 +316,7 @@ len(vocab_dict)
 
 Cool, now our vocabulary is complete and consists of 37 tokens, which means that the linear layer that we will add on top of the pretrained MMS checkpoint as part of the adapter weights will have an output dimension of 37.
 
-Since a single MMS checkpoint can provide customized weights for multiple languages, the tokenizer can also consist of multiple vocabularies. Therefore, we need nest our `vocab_dict` to potentially add more languages to the vocabulary in the future. The dictionary should be nested with the name that is used for the adapter weights and that is saved in the tokenizer config under the name [`target_lang`](https://huggingface.co/docs/transformers/model_doc/wav2vec2#transformers.Wav2Vec2CTCTokenizer.target_lang).
+Since a single MMS checkpoint can provide customized weights for multiple languages, the tokenizer can also consist of multiple vocabularies. Therefore, we need to nest our `vocab_dict` to potentially add more languages to the vocabulary in the future. The dictionary should be nested with the name that is used for the adapter weights and that is saved in the tokenizer config under the name [`target_lang`](https://huggingface.co/docs/transformers/model_doc/wav2vec2#transformers.Wav2Vec2CTCTokenizer.target_lang).
 
 Let's use the ISO-639-3 language codes as is used for the original [**MMS-1B-ALL**](https://huggingface.co/facebook/mms-1b-all) checkpoint.
 
@@ -331,7 +330,7 @@ Let's define an empty dictionary to which we can append the just created vocabul
 new_vocab_dict = {target_lang: vocab_dict}
 ```
 
-**Note**: In case you want to use this notebook to add a new adapter layer to *an existing model repo* use make sure to **not** create an empty, new vocab dict, but instead re-use one that already exists. To do so you should uncomment the following cells and replace `mms_adapter_repo` with a model repo id to which you want to add your adapter weights.
+**Note**: In case you want to use this notebook to add a new adapter layer to *an existing model repo* use make sure to **not** create an empty, new vocab dict, but instead re-use one that already exists. To do so you should uncomment the following cells and replace `"patrickvonplaten/wav2vec2-large-mms-1b-turkish-colab"` with a model repo id to which you want to add your adapter weights.
 
 ```python
 # from transformers import Wav2Vec2CTCTokenizer
@@ -387,8 +386,6 @@ Speech is a continuous signal and to be treated by computers, it first has to be
 A pretrained checkpoint expects its input data to have been sampled more or less from the same distribution as the data it was trained on. The same speech signals sampled at two different rates have a very different distribution, *e.g.*, doubling the sampling rate results in data points being twice as long. Thus,
 before fine-tuning a pretrained checkpoint of an ASR model, it is crucial to verify that the sampling rate of the data that was used to pretrain the model matches the sampling rate of the dataset used to fine-tune the model.
 
-MMS was pre-trained at a sampling rate of 16kHz. Common Voice, in its original form, has a sampling rate of 48kHz, thus we will have to downsample the fine-tuning data to 16kHz in the following.
-
 A `Wav2Vec2FeatureExtractor` object requires the following parameters to be instantiated:
 
 -   `feature_size`: Speech models take a sequence of feature vectors as an input. While the length of this sequence obviously varies, the feature size should not. In the case of Wav2Vec2, the feature size is 1 because the model was trained on the raw speech signal \(( {}^2 \)).
@@ -432,8 +429,6 @@ common_voice_train[0]["audio"]
      'sampling_rate': 48000}
 ```
 
-Great, we can see that the audio file has automatically been loaded. This is thanks to the new [`"Audio"` feature](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=audio#datasets.Audio) introduced in `datasets == 4.13.3`, which loads and resamples audio files on-the-fly upon calling.
-
 In the example above we can see that the audio data is loaded with a sampling rate of 48kHz whereas 16kHz are expected by the model. We can set the audio feature to the correct sampling rate by making use of [`cast_column`](https://huggingface.co/docs/datasets/package_reference/main_classes.html?highlight=cast_column#datasets.DatasetDict.cast_column):
 
 
@@ -455,10 +450,7 @@ common_voice_train[0]["audio"]
      'sampling_rate': 16000}
 
 
-This seemed to have worked! Let's listen to a couple of audio files to better understand the dataset and verify that the audio was correctly loaded.
-It looks like the data is now correctly loaded and resampled.
-
-Let's do a final check that the data is correctly prepared, by printing the shape of the speech input, its transcription, and the corresponding sampling rate.
+This seemed to have worked! Let's do a final check that the data is correctly prepared, by printing the shape of the speech input, its transcription, and the corresponding sampling rate.
 
 ```python
 rand_int = random.randint(0, len(common_voice_train)-1)
