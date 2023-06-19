@@ -2360,7 +2360,7 @@
     - time-series
 
 - local: policy-ntia-rfc
-  title: "AI Policy @🤗: Response to the U.S. NTIA's Request for Comment on AI Accountability Policy"
+  title: "AI Policy @🤗: Response to the U.S. NTIA's Request for Comment on AI Accountability"
   author: yjernite
   thumbnail: /blog/assets/151_policy_ntia_rfc/us_policy_thumbnail.png
   date: June 20, 2023
