@@ -730,7 +730,7 @@ Training should take less than 30 minutes depending on the GPU used.
 trainer.train()
 ```
 
-| Training Loss | Validation Loss | Wer    |
+| Training Loss | Training Steps | Validation Loss | Wer    |
 |:-------------:|:----:|:---------------:|:------:|
 | 4.905 |  100  | 0.215| 0.280 |
 | 0.290 |  200  | 0.167 | 0.232 |
@@ -811,6 +811,8 @@ print("\nReference:")
 print(common_voice_test_tr[0]["sentence"].lower())
 ```
 
+**Output**:
+
 ```bash
     Prediction:
     pekçoğuda roman toplumundan geliyor
@@ -849,6 +851,8 @@ print(processor.decode(pred_ids))
 print("\nReference:")
 print(common_voice_test_swe[0]["sentence"].lower())
 ```
+
+**Output**:
 
 ```bash
     Prediction:
