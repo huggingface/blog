@@ -1062,6 +1062,7 @@
   date: August 1, 2022
   tags:
     - community
+    - ethics
 
 - local: nystromformer
   title: "Nyströmformer, Approximating self-attention in linear time and memory via the Nyström method"
@@ -2357,3 +2358,12 @@
     - guide
     - research
     - time-series
+
+- local: policy-ntia-rfc
+  title: "AI Policy @🤗: Response to the U.S. NTIA's Request for Comment on AI Accountability Policy"
+  author: yjernite
+  thumbnail: /blog/assets/151_policy_ntia_rfc/us_policy_thumbnail.png
+  date: June 20, 2023
+  tags:
+    - community
+    - ethics
