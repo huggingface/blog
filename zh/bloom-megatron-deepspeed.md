@@ -32,7 +32,7 @@ translators:
 | 软件      | Megatron-DeepSpeed          |
 | 模型架构  | 基于 GPT3            |
 | 数据集       | 含 59 种语言，共 3500 亿词元 |
-| 训练时长 | 3.5 3.5 个月                  |
+| 训练时长 | 3.5 个月                  |
 
 ## 人员组成
 
@@ -252,7 +252,7 @@ ZeRO 阶段 3 也可用于训练这种规模的模型，但是，它需要的通
 
 我们已经通过花费几个月的时间 [训练 104B 模型](https://github.com/bigscience-workshop/bigscience/tree/master/train/tr8-104B-wide) 自证了这一点，你可以从 [Tensorboard](https://huggingface.co/bigscience/tr8-104B-logs/tensorboard) 发现，彻头彻尾地失败了。在与不断发散的 lm-loss 作斗争的过程中，我们学到了很多:
 
-![104B-fail](assets/86_bloom_megatron_deepspeed/104b-lm-loss.png)
+![104B-fail](https://huggingface.co/blog/assets/86_bloom_megatron_deepspeed/104b-lm-loss.png)
 
 我们也从 Megatron-LM 和 DeepSpeed 团队那里得到了相同的建议，在他们训得 [530B 模型](https://arxiv.org/abs/2201.11990) 后。最近发布的 [OPT-175B](https://arxiv.org/abs/2205.01068) 也报告说他们在 FP16 上训练得非常艰难。
 
@@ -272,7 +272,7 @@ BF16 没有这个问题，你可以很容易地做 `10_000*10_000=100_000_000`, 
 
 除了其他改进之外，我们认为使用 BF16 混合精度训练将潜在的噩梦变成了一个相对平稳的过程，这可以从以下 lm 损失图中看出:
 
-![176B - 损失](assets/86_bloom_megatron_deepspeed/176b-lm-loss.png)
+![176B - 损失](https://huggingface.co/blog/assets/86_bloom_megatron_deepspeed/176b-lm-loss.png)
 
 ## CUDA 融合核函数
 
