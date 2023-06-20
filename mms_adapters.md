@@ -26,8 +26,10 @@ Meta AI's most recent release, [**Massive Multilingual Speech (MMS)**](https://a
 
 You can find the pretrained-only checkpoints on the 🤗 Hub for model sizes of 300 million parameters (300M) and one billion parameters (1B):
 
--   [**MMS-300M**](https://huggingface.co/facebook/mms-300m)
--   [**MMS-1B**](https://huggingface.co/facebook/mms-1b)
+-   [**`mms-300m`**](https://huggingface.co/facebook/mms-300m)
+-   [**`mms-1b`**](https://huggingface.co/facebook/mms-1b)
+
+*Note*: If you want to fine-tune the base models, you can do so in the exact same way as shown in ["Fine-tuning XLS-R on Multi-Lingual ASR"](https://huggingface.co/blog/fine-tune-xlsr-wav2vec2).
 
 Similar to [BERT's masked language modeling objective](http://jalammar.github.io/illustrated-bert/), MMS learns contextualized speech representations by randomly masking feature vectors before passing them to a transformer network during self-supervised pre-training.
 
@@ -35,9 +37,9 @@ For ASR, the pretrained [`MMS-1B` checkpoint](https://huggingface.co/facebook/mm
 
 Three **MMS** checkpoints fine-tuned for speech recognition (ASR) have been released. They include 102, 1107, and 1162 adapter weights respectively (one for each language):
 
--   [**MMS-1B-FL102**](https://huggingface.co/facebook/mms-1b-fl102)
--   [**MMS-1B-L1107**](https://huggingface.co/facebook/mms-1b-l1107)
--   [**MMS-1B-ALL**](https://huggingface.co/facebook/mms-1b-all)
+-   [**`mms-1b-fl102`**](https://huggingface.co/facebook/mms-1b-fl102)
+-   [**`mms-1b-l1107`**](https://huggingface.co/facebook/mms-1b-l1107)
+-   [**`mms-1b-all`**](https://huggingface.co/facebook/mms-1b-all)
 
 You can see that the base models are saved (as usual) as a [`model.safetensors` file](https://huggingface.co/facebook/mms-1b-all/blob/main/model.safetensors), but in addition these repositories have many adapter weights stored in the repository, *e.g.* under the name [`adapter.fra.safetensors`](https://huggingface.co/facebook/mms-1b-all/blob/main/adapter.fra.safetensors) for French.
 
@@ -49,9 +51,9 @@ In machine learning, adapters are a method used to fine-tune pre-trained models 
 
 Adapters have a long history in speech recognition and especially **speaker recognition**. In speaker recognition, adapters have been effectively used to tweak pre-existing models to recognize individual speaker idiosyncrasies, as highlighted in [Gales and Woodland's (1996)](https://www.isca-speech.org/archive_v0/archive_papers/icslp_1996/i96_1832.pdf) and [Miao et al.'s (2014)](https://www.cs.cmu.edu/~ymiao/pub/tasl_sat.pdf) work. This approach not only greatly reduces computational requirements compared to training the full model, but also allows for better and more flexible speaker-specific adjustments.
 
-The work done in **MMS** leverages this idea of adapters for speech recognition across different languages. A small number of adapter weights are fine-tuned to grasp unique phonetic and grammatical traits of each target language. Thereby, MMS enables a single large base model (*e.g.*, the [**MMS-1B-ALL**](https://huggingface.co/facebook/mms-1b-all) checkpoint) and 1000+ small adapter layers (2.5M weights each for **MMS-1B-ALL**) to comprehend and transcribe multiple languages. This dramatically reduces the computational demand of developing distinct models for each language.
+The work done in **MMS** leverages this idea of adapters for speech recognition across different languages. A small number of adapter weights are fine-tuned to grasp unique phonetic and grammatical traits of each target language. Thereby, MMS enables a single large base model (*e.g.*, the [**`mms-1b-all`**](https://huggingface.co/facebook/mms-1b-all) checkpoint) and 1000+ small adapter layers (2.5M weights each for **`mms-1b-all`**) to comprehend and transcribe multiple languages. This dramatically reduces the computational demand of developing distinct models for each language.
 
-Great! Now that we understood the motivation and theory, let's look into fine-tuning adapter weights for **MMS-1B-ALL** 🔥
+Great! Now that we understood the motivation and theory, let's look into fine-tuning adapter weights for **`mms-1b-all`** 🔥
 
 ## Notebook Setup
 
@@ -95,7 +97,7 @@ Let's start by creating the tokenizer to decode the predicted output classes to 
 
 ### Create `Wav2Vec2CTCTokenizer`
 
-Fine-tuned MMS models, such as [**MMS-1B-ALL**](https://huggingface.co/facebook/mms-1b-all) already have a [tokenizer](https://huggingface.co/facebook/mms-1b-all/blob/main/tokenizer_config.json) accompanying the model checkpoint. However since we want to fine-tune the model on specific low-resource data of a certain language, it is recommended to fully remove the tokenizer and vocabulary output layer, and simply create new ones based on the training data itself.
+Fine-tuned MMS models, such as [**`mms-1b-all`**](https://huggingface.co/facebook/mms-1b-all) already have a [tokenizer](https://huggingface.co/facebook/mms-1b-all/blob/main/tokenizer_config.json) accompanying the model checkpoint. However since we want to fine-tune the model on specific low-resource data of a certain language, it is recommended to fully remove the tokenizer and vocabulary output layer, and simply create new ones based on the training data itself.
 
 Wav2Vec2-like models fine-tuned on CTC transcribe an audio file with a single forward pass by first processing the audio input into a sequence of processed context representations and then using the final vocabulary output layer to classify each context representation to a character that represents the transcription.
 
@@ -318,7 +320,7 @@ Cool, now our vocabulary is complete and consists of 37 tokens, which means that
 
 Since a single MMS checkpoint can provide customized weights for multiple languages, the tokenizer can also consist of multiple vocabularies. Therefore, we need to nest our `vocab_dict` to potentially add more languages to the vocabulary in the future. The dictionary should be nested with the name that is used for the adapter weights and that is saved in the tokenizer config under the name [`target_lang`](https://huggingface.co/docs/transformers/model_doc/wav2vec2#transformers.Wav2Vec2CTCTokenizer.target_lang).
 
-Let's use the ISO-639-3 language codes like the original [**MMS-1B-ALL**](https://huggingface.co/facebook/mms-1b-all) checkpoint.
+Let's use the ISO-639-3 language codes like the original [**`mms-1b-all`**](https://huggingface.co/facebook/mms-1b-all) checkpoint.
 
 ```python
 target_lang = "tur"
@@ -485,8 +487,7 @@ def prepare_dataset(batch):
     batch["input_values"] = processor(audio["array"], sampling_rate=audio["sampling_rate"]).input_values[0]
     batch["input_length"] = len(batch["input_values"])
 
-    with processor.as_target_processor():
-        batch["labels"] = processor(batch["sentence"]).input_ids
+    batch["labels"] = processor(text=batch["sentence"]).input_ids
     return batch
 ```
 
@@ -561,12 +562,12 @@ class DataCollatorCTCWithPadding:
             padding=self.padding,
             return_tensors="pt",
         )
-        with self.processor.as_target_processor():
-            labels_batch = self.processor.pad(
-                label_features,
-                padding=self.padding,
-                return_tensors="pt",
-            )
+
+        labels_batch = self.processor.pad(
+            labels=label_features,
+            padding=self.padding,
+            return_tensors="pt",
+        )
 
         # replace padding with -100 to ignore loss correctly
         labels = labels_batch["input_ids"].masked_fill(labels_batch.attention_mask.ne(1), -100)
@@ -638,6 +639,8 @@ model = Wav2Vec2ForCTC.from_pretrained(
     - lm_head.weight: found shape torch.Size([154, 1280]) in the checkpoint and torch.Size([39, 1280]) in the model instantiated
     You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
 ```
+
+**Note**: It is expected that some weights are newly initialized. Those weights correspond to the newly initialized vocabulary output layer.
 
 We now want to make sure that only the adapter weights will be trained and that the rest of the model stays frozen.
 
@@ -730,7 +733,10 @@ trainer.train()
 | 0.2398 |  400  | 0.156 | 0.223 |
 
 The training loss and validation WER go down nicely.
-**Note:** Fine-tuning adapter layers of `mms-1b-all` for just 100 steps outperforms fine-tuning the whole `xls-r-300m` checkpoint shown [here](https://huggingface.co/blog/fine-tune-xlsr-wav2vec2#training-1) already by a large margin.
+
+We see that fine-tuning adapter layers of `mms-1b-all` for just 100 steps outperforms fine-tuning the whole `xls-r-300m` checkpoint shown [here](https://huggingface.co/blog/fine-tune-xlsr-wav2vec2#training-1) already by a large margin.
+
+From the [official paper](https://scontent-cdg4-3.xx.fbcdn.net/v/t39.8562-6/348827959_6967534189927933_6819186233244071998_n.pdf?_nc_cat=104&ccb=1-7&_nc_sid=ad8a9d&_nc_ohc=fSo3qQ7uxr0AX8EWnWl&_nc_ht=scontent-cdg4-3.xx&oh=00_AfBL34K0MAAPb0CgnthjbHfiB6pSnnwbn5esj9DZVPvyoA&oe=6495E802) and this quick comparison it becomes clear that `mms-1b-all` has a much higher capability of transfering knowledge to a low-resource language and should be preferred over `xls-r-300m`. In addition, training is also more memory-efficient as only a small subset of layers are trained.
 
 The adapter weights will be uploaded as part of the model checkpoint, but we also want to make sure to save them seperately so that they can easily be off- and onloaded.
 
