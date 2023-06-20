@@ -2358,11 +2358,11 @@
     - research
     - time-series
 
-- local: mms_adapters
-  title: "Fine-tuning MMS Adapter Models for Multi-Lingual ASR"
-  author: patrickvonplaten
-  thumbnail: /blog/assets/151_mms/mms_map.png
-  date: June 19, 2023
-  tags:
-    - audio
-    - research
+# - local: mms_adapters
+#   title: "Fine-tuning MMS Adapter Models for Multi-Lingual ASR"
+#   author: patrickvonplaten
+#   thumbnail: /blog/assets/151_mms/mms_map.png
+#   date: June 19, 2023
+#   tags:
+#     - audio
+#     - research
