@@ -560,7 +560,19 @@
   tags:
     - nlp
     - community
-    - research 
+    - research
+
+- local: instruction-tuning-sd
+  title: "使用 InstructPix2Pix 对 Stable Diffusion 进行指令微调"
+  author: sayakpaul
+  thumbnail: /blog/assets/instruction_tuning_sd/thumbnail.png
+  date: May 23, 2023
+  tags:
+    - diffusers
+    - diffusion
+    - instruction-tuning
+    - research
+    - guide 
 
 - local: generative-ai-models-on-intel-cpu
   title: "越小越好：Q8-Chat，在英特尔至强 CPU 上体验高效的生成式 AI"
