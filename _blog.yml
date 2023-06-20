@@ -1062,6 +1062,7 @@
   date: August 1, 2022
   tags:
     - community
+    - ethics
 
 - local: nystromformer
   title: "Nyströmformer, Approximating self-attention in linear time and memory via the Nyström method"
@@ -2358,11 +2359,20 @@
     - research
     - time-series
 
-# - local: mms_adapters
-#   title: "Fine-tuning MMS Adapter Models for Multi-Lingual ASR"
-#   author: patrickvonplaten
-#   thumbnail: /blog/assets/151_mms/mms_map.png
-#   date: June 19, 2023
-#   tags:
-#     - audio
-#     - research
+- local: policy-ntia-rfc
+  title: "AI Policy @🤗: Response to the U.S. NTIA's Request for Comment on AI Accountability"
+  author: yjernite
+  thumbnail: /blog/assets/151_policy_ntia_rfc/us_policy_thumbnail.png
+  date: June 20, 2023
+  tags:
+    - community
+    - ethics
+
+- local: mms_adapters
+  title: "Fine-tuning MMS Adapter Models for Multi-Lingual ASR"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/151_mms/mms_map.png
+  date: June 19, 2023
+  tags:
+    - audio
+    - research
