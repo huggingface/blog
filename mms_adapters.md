@@ -20,7 +20,26 @@ authors:
 
 Meta AI's most recent release, [**Massive Multilingual Speech (MMS)**](https://ai.facebook.com/blog/multilingual-model-speech-recognition/) by *Vineel Pratap, Andros Tjandra, Bowen Shi, et al.* takes multi-lingual speech representations to a new level. Over 1,100 spoken languages can be identified, transcribed and generated with the various [language identification, speech recognition, and text-to-speech checkpoints released](https://huggingface.co/models?other=mms).
 
+In this blog post, we show how MMS's Adapter training achieves astonishingly low word error rates after just 10-20 minutes of fine-tuning. 
+
+For low-resource languages, we **strongly** recommend using MMS' Adapter training as opposed to fine-tuning the whole model as is done in ["Fine-tuning XLS-R on Multi-Lingual ASR"](https://huggingface.co/blog/fine-tune-xlsr-wav2vec2). 
+
+In our experiments, MMS' Adapter training is both more memory efficient, more robust and yields better performance for low-resource languages. For medium to high resource languages it can still be advantegous to fine-tune the whole checkpoint instead of using Adapter layers though.
+
 ![wav2vec2_structure](/blog/assets/151_mms/mms_map.png)
+
+## **Preserving the world's language diversity**
+
+According to https://www.ethnologue.com/ around 3000, or 40% of all "living" languages, are endangered due to fewer and fewer native speakers.
+This trend will only continue in an increasingly globalized world. 
+
+**MMS** is capable of transcribing many languages which are endangered, such as *Ari* or *Kaivi*. In the future, MMS can play a vital role in keeping languages alive by helping the remaining speakers to create written records and communicating in their native tongue.
+
+To adapt to 1000+ different vocabularies, **MMS** uses of Adapters - a training method where only a small fraction of model weights are trained.
+
+Adapter layers act like linguistic bridges, enabling the model to leverage knowledge from one language when deciphering another.
+
+## **Fine-tuning MMS**
 
 **MMS** unsupervised checkpoints were pre-trained on more than **half a million** hours of audio in over **1,400** languages, ranging from 300 million to one billion parameters.
 
@@ -854,12 +873,20 @@ print(common_voice_test_swe[0]["sentence"].lower())
 
 ```bash
     Prediction:
-    jag lemnade grovyobbet ot honom
+    jag lämnade grovjobbet åt honom
 
     Reference:
     jag lämnade grovjobbet åt honom.
 ```
 
-Great, this looks like an almost perfect transcription!
+Great, this looks like a perfect transcription!
 
 We've shown in this blog post how MMS Adapter Weights fine-tuning not only gives state-of-the-art performance on low-resource languages, but also significantly speeds up training time and allows to easily build a collection of customized adapter weights.
+
+*Related posts and additional links are listed here:*
+- [**Official paper**](https://huggingface.co/papers/2305.13516)
+- [**Original cobebase**](https://github.com/facebookresearch/fairseq/tree/main/examples/mms/asr)
+- [**Official demo**](https://huggingface.co/spaces/facebook/MMS)
+- [**Transformers Docs**](https://huggingface.co/docs/transformers/index)
+- [**Related XLS-R blog post**](https://huggingface.co/blog/fine-tune-xlsr-wav2vec2)
+- [**Models on the Hub**](https://huggingface.co/models?other=mms)
