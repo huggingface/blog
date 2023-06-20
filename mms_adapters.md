@@ -82,7 +82,7 @@ Just like Wav2Vec2 or XLS-R, MMS is fine-tuned using Connectionist Temporal Clas
 
 For more details on the CTC algorithm, I highly recommend reading the well-written blog post [*Sequence Modeling with CTC (2017)*](https://distill.pub/2017/ctc/) by Awni Hannun.
 
-Before we start, let's install `datasets` and `transformers`. Also, we need `torchaudio` to load audio files and `jiwer` to evaluate our fine-tuned model using the [word error rate (WER)](https://huggingface.co/metrics/wer) metric \(( {}^1 \)).
+Before we start, let's install `datasets` and `transformers`. Also, we need `torchaudio` to load audio files and `jiwer` to evaluate our fine-tuned model using the [word error rate (WER)](https://huggingface.co/metrics/wer) metric \\( {}^1 \\).
 
 ```bash
 %%capture
@@ -409,7 +409,7 @@ before fine-tuning a pretrained checkpoint of an ASR model, it is crucial to ver
 
 A `Wav2Vec2FeatureExtractor` object requires the following parameters to be instantiated:
 
--   `feature_size`: Speech models take a sequence of feature vectors as an input. While the length of this sequence obviously varies, the feature size should not. In the case of Wav2Vec2, the feature size is 1 because the model was trained on the raw speech signal \(( {}^2 \)).
+-   `feature_size`: Speech models take a sequence of feature vectors as an input. While the length of this sequence obviously varies, the feature size should not. In the case of Wav2Vec2, the feature size is 1 because the model was trained on the raw speech signal \\( {}^2 \\).
 -   `sampling_rate`: The sampling rate at which the model is trained on.
 -   `padding_value`: For batched inference, shorter inputs need to be padded with a specific value
 -   `do_normalize`: Whether the input should be *zero-mean-unit-variance* normalized or not. Usually, speech models perform better when normalizing the input
@@ -610,9 +610,9 @@ wer_metric = load("wer")
 ```
 
 The model will return a sequence of logit vectors:
- \(( \mathbf{y}_1, \ldots, \mathbf{y}_m \)) with \(( \mathbf{y}_1 = f_{\theta}(x_1, \ldots, x_n)[0] \)) and \(( n >> m \)).
+ \\( \mathbf{y}_1, \ldots, \mathbf{y}_m \\) with \\( \mathbf{y}_1 = f_{\theta}(x_1, \ldots, x_n)[0] \\) and \\( n >> m \\).
 
-A logit vector \(( \mathbf{y}_1 \)) contains the log-odds for each word in the vocabulary we defined earlier, thus \(( \text{len}(\mathbf{y}_i) = \)) `config.vocab_size`. We are interested in the most likely prediction of the model and thus take the `argmax(...)` of the logits. Also, we transform the encoded labels back to the original string by replacing `-100` with the `pad_token_id` and decoding the ids while making sure that consecutive tokens are **not** grouped to the same token in CTC style \(( {}^1 \)).
+A logit vector \\( \mathbf{y}_1 \\) contains the log-odds for each word in the vocabulary we defined earlier, thus \\( \text{len}(\mathbf{y}_i) = \\) `config.vocab_size`. We are interested in the most likely prediction of the model and thus take the `argmax(...)` of the logits. Also, we transform the encoded labels back to the original string by replacing `-100` with the `pad_token_id` and decoding the ids while making sure that consecutive tokens are **not** grouped to the same token in CTC style \\( {}^1 \\).
 
 ```python
 def compute_metrics(pred):
@@ -630,7 +630,7 @@ def compute_metrics(pred):
     return {"wer": wer}
 ```
 
-Now, we can load the pretrained checkpoint of [`mms-1b-all`](https://huggingface.co/facebook/mms-1b-all). The tokenizer's `pad_token_id` must be to define the model's `pad_token_id` or in the case of `Wav2Vec2ForCTC` also CTC's *blank token* \(( {}^2 \)).
+Now, we can load the pretrained checkpoint of [`mms-1b-all`](https://huggingface.co/facebook/mms-1b-all). The tokenizer's `pad_token_id` must be to define the model's `pad_token_id` or in the case of `Wav2Vec2ForCTC` also CTC's *blank token* \\( {}^2 \\).
 
 Since, we're only training a small subset of weights, the model is not prone to overfitting. Therefore, we make sure to disable all dropout layers.
 
@@ -731,9 +731,9 @@ trainer = Trainer(
 
 ------------------------------------------------------------------------
 
-\(( {}^1 \)) To allow models to become independent of the speaker rate, in CTC, consecutive tokens that are identical are simply grouped as a single token. However, the encoded labels should not be grouped when decoding since they don't correspond to the predicted tokens of the model, which is why the `group_tokens=False` parameter has to be passed. If we wouldn't pass this parameter a word like `"hello"` would incorrectly be encoded, and decoded as `"helo"`.
+\\( {}^1 \\) To allow models to become independent of the speaker rate, in CTC, consecutive tokens that are identical are simply grouped as a single token. However, the encoded labels should not be grouped when decoding since they don't correspond to the predicted tokens of the model, which is why the `group_tokens=False` parameter has to be passed. If we wouldn't pass this parameter a word like `"hello"` would incorrectly be encoded, and decoded as `"helo"`.
 
-\(( {}^2 \)) The blank token allows the model to predict a word, such as `"hello"` by forcing it to insert the blank token between the two l's. A CTC-conform prediction of `"hello"` of our model would be `[PAD] [PAD] "h" "e" "e" "l" "l" [PAD] "l" "o" "o" [PAD]`.
+\\( {}^2 \\) The blank token allows the model to predict a word, such as `"hello"` by forcing it to insert the blank token between the two l's. A CTC-conform prediction of `"hello"` of our model would be `[PAD] [PAD] "h" "e" "e" "l" "l" [PAD] "l" "o" "o" [PAD]`.
 
 
 ### Training
