@@ -2376,3 +2376,15 @@
   tags:
     - audio
     - research
+
+- local: panel-on-hugging-face
+  title: "Panel on Hugging Face"
+  author: philippjfr, sophiamyang
+  thumbnail: /blog/assets/panel-on-hugging-face/thumbnail.png
+  date: June 22, 2023
+  tags:
+    - panel
+    - deployment
+    - spaces
+    - visualization
+    - apps
