@@ -1062,6 +1062,7 @@
   date: August 1, 2022
   tags:
     - community
+    - ethics
 
 - local: nystromformer
   title: "Nyströmformer, Approximating self-attention in linear time and memory via the Nyström method"
@@ -2286,6 +2287,95 @@
   date: June 7, 2023
   tags:
     - guide
+
+- local: hf-hub-glam-guide
+  title: "The Hugging Face Hub for Galleries, Libraries, Archives and Museums"
+  author: davanstrien
+  thumbnail: /blog/assets/144_hf_hub_glam_guide/thumbnail.png
+  date: June 12, 2023
+  tags:
+    - community
+    - guide
+
+- local: llm-leaderboard
+  title: "Can foundation models label data like humans?"
+  author: nazneen
+  thumbnail: /blog/assets/llm-leaderboard/leaderboard-thumbnail.png
+  date: June 12, 2023
+  tags:
+    - nlp
+    - evaluation
+    - leaderboard
+
+- local: huggingface-and-amd
+  title: "Hugging Face and AMD partner on accelerating state-of-the-art models for CPU and GPU platforms"
+  author: juliensimon
+  thumbnail: /blog/assets/148_huggingface_amd/01.png
+  date: June 13, 2023
+  tags:
+    - hardware
+    - amd
+    - partnership
+
+- local: content-guidelines-update
+  title: "Announcing our new Content Guidelines and Policy"
+  author: giadap
+  thumbnail: /blog/assets/content-guidelines-blogpost/thumbnail.png
+  date: June 15, 2023
+  tags:
+    - community
+    - ethics
+
+- local: livebook-app-deployment
+  title: "Deploy Livebook notebooks as apps to Hugging Face Spaces"
+  author: josevalim
+  thumbnail: /blog/assets/120_elixir-bumblebee/thumbnail.png
+  date: Jun 15, 2023
+  tags:
+    - elixir
+    - notebooks
+    - spaces
+    - whisper
+
+- local: fast-diffusers-coreml
+  title: "Faster Stable Diffusion with Core ML on iPhone, iPad, and Mac"
+  author: pcuenq
+  thumbnail: /blog/assets/149_fast_diffusers_coreml/thumbnail.png
+  date: June 15, 2023
+  tags:
+    - coreml
+    - diffusers
+    - stable-diffusion
+    - diffusion
+    - quantization
+
+- local: autoformer
+  title: "Yes, Transformers are Effective for Time Series Forecasting (+ Autoformer)"
+  author: elisim
+  thumbnail: /blog/assets/150_autoformer/thumbnail.png
+  date: June 16, 2023
+  tags:
+    - guide
+    - research
+    - time-series
+
+- local: policy-ntia-rfc
+  title: "AI Policy @🤗: Response to the U.S. NTIA's Request for Comment on AI Accountability"
+  author: yjernite
+  thumbnail: /blog/assets/151_policy_ntia_rfc/us_policy_thumbnail.png
+  date: June 20, 2023
+  tags:
+    - community
+    - ethics
+
+- local: mms_adapters
+  title: "Fine-tuning MMS Adapter Models for Multi-Lingual ASR"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/151_mms/mms_map.png
+  date: June 19, 2023
+  tags:
+    - audio
+    - research
 
 - local: bridgetower
   title: "Accelerating vison-language training and inference: BridgeTower on Gaudi2"

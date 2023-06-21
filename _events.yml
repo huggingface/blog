@@ -3,6 +3,11 @@
 #                                             (e.g. specifying event date range like Jan 24 to Feb 7, 2022)
 # pro tip: put strings e.g. name or description in "quotes" or do not include special characters incl. ':' '[' 
 
+- name: "Hugging Cast v3 - Live AI News and Demos"
+  link: https://streamyard.com/watch/6k35DN7h5n64
+  date: June 29, 2023
+  description: "Join our live show - we'll discuss Falcon, and demo how to deploy it on SageMaker"
+
 - name: "Deploying Generative AI Models"
   link: https://lu.ma/ijcugt4n
   date: June 10, 2023
