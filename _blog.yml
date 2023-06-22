@@ -2376,3 +2376,16 @@
   tags:
     - audio
     - research
+
+- local: panel-on-hugging-face
+  title: "Panel on Hugging Face"
+  author: sophiamyang
+  thumbnail: /blog/assets/panel-on-hugging-face/thumbnail.jpeg
+  date: June 22, 2023
+  tags:
+    - open-source-collab
+    - panel
+    - deployment
+    - spaces
+    - visualization
+    - apps
