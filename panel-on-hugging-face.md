@@ -1,6 +1,6 @@
 ---
 title: "Panel on Hugging Face" 
-thumbnail: /blog/assets/panel-on-hugging-face/thumbnail.png
+thumbnail: /blog/assets/panel-on-hugging-face/thumbnail.jpeg
 authors:
 - user: philippjfr
   guest: true
