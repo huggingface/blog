@@ -2378,7 +2378,7 @@
     - research
 
 - local: bridgetower
-  title: "Accelerating vison-language training and inference: BridgeTower on Gaudi2"
+  title: "Accelerating Vision and Vison-Language Models: BridgeTower on Gaudi2"
   author: regisss
   thumbnail: /blog/assets/bridgetower/thumbnail.png
   date: June XX, 2023
