@@ -2380,7 +2380,7 @@
 - local: panel-on-hugging-face
   title: "Panel on Hugging Face"
   author: sophiamyang
-  thumbnail: /blog/assets/panel-on-hugging-face/thumbnail.jpeg
+  thumbnail: /blog/assets/panel-on-hugging-face/thumbnail.png
   date: June 22, 2023
   tags:
     - open-source-collab
