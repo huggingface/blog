@@ -20,7 +20,7 @@ We are thrilled to announce the collaboration between Panel and Hugging Face! �
 
 ## What does Panel offer? 
 
-[Panel](https://panel.holoviz.org/) is an open-source Python library that lets you easily build powerful tools, dashboards and complex applications entirely in Python. It has a batteries-included philosophy, putting the PyData ecosystem, powerful data tables and much more at your fingertips. High-level reactive APIs and lower-level callback based APIs ensure you can quickly build exploratory applications, but you aren’t limited if you build complex, multi-page apps with rich interactivity. Panel is a member of the [HoloViz](https://holoviz.org/) ecosystem, your gateway into a connected ecosystem of data exploration tools. Panel and the other HoloViz tools is a NumFocus-sponsored project, with support from Anaconda and Blackstone.
+[Panel](https://panel.holoviz.org/) is an open-source Python library that lets you easily build powerful tools, dashboards and complex applications entirely in Python. It has a batteries-included philosophy, putting the PyData ecosystem, powerful data tables and much more at your fingertips. High-level reactive APIs and lower-level callback based APIs ensure you can quickly build exploratory applications, but you aren’t limited if you build complex, multi-page apps with rich interactivity. Panel is a member of the [HoloViz](https://holoviz.org/) ecosystem, your gateway into a connected ecosystem of data exploration tools. Panel, like the other HoloViz tools, is a NumFocus-sponsored project, with support from Anaconda and Blackstone.
 
 Here are some notable features of Panel that our users find valuable. 
 
