@@ -243,9 +243,29 @@ We’ve seen all the benchmarks! Now let’s compare the model scores on these t
 
 So have we found the ultimate method yet here?
 
-By taking a look at this table, you might be thinking “Hmm for all multiple choice questions,  the log likelihood seems to give the highest overall scores”
+By taking a look at this table, you might be thinking “Hmm for all multiple choice questions, the log likelihood seems to give the highest overall scores so maybe it's the best way to uncover model's skills”
 
 Well, if you’re still reading and are ready to be even more puzzled, let’s take a very brief final look at another evaluation on the leaderboard: the [AllenAI Reasoning Challenge, so called ARC](https://allenai.org/data/arc).
 
 # The ARC challenge
+
+The [AI2 Reasoning Challenge](https://allenai.org/data/arc) (short ARC) is another one of the four evaluations selected on the Open LLM Leaderboard. Like MMLU,it’s also a multiple choice benchmark.
+
+While MMLU attempts to capture knowledge across many categories, ARC is focused on reasoning questions from science exams as you can see on this example from the dataset (that you can find at https://huggingface.co/datasets/ai2_arc/viewer/ARC-Challenge/validation?row=6)
+
+```
+Question: How are the particles in a block of iron affected when the block is melted?
+
+Choices:
+A. The particles gain mass.
+B. The particles contain less energy.
+C. The particles move more rapidly.
+D. The particles increase in volume.
+
+Gold answer: C
+```
+
+Note: you can very easily explore more of this dataset in the dataset viewer at https://huggingface.co/datasets/ai2_arc/viewer/ARC-Challenge/validation
+
+At first sight this dataset looks quite similar to our MMLU dataset, right? So we would expect our MMLU learnings to transfer to ARC. Let’s explore all the ways we’ve seen these multiple choice evaluation being implemented and test them on this dataset:
 
