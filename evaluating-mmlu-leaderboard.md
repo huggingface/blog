@@ -57,7 +57,7 @@ You can find the full evaluation numbers at the end of the post.
 
 These different implementations of the same benchmark give widely different numbers and even change the ranking order of the models on the leaderboard!
 
-Let’s try to understand where this discrepancy comes from 🕵️cBut first let’s briefly understand how we can automatically evaluate behaviors in modern LLMs.
+Let’s try to understand where this discrepancy comes from 🕵️But first, let’s briefly understand how we can automatically evaluate behaviors in modern LLMs.
 
 ## How we automatically evaluate a model in today’s LLM world
 
