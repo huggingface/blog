@@ -8,6 +8,8 @@ authors:
 - user: thomwolf
 ---
 
+# What's going on with the Open LLM Leaderboard?
+
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
