@@ -1,6 +1,6 @@
 ---
-title: "What is going on with the Open LLM Leaderboard"
-thumbnail: /blog/assets/142_safetensors_official/thumbnail.png
+title: "What was going on with the Open LLM Leaderboard?"
+thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
 authors:
 - user: clefourier
 - user: SaylorTwift
@@ -51,7 +51,7 @@ To settle the case, we decided to run these three possible implementations of th
 
 The results are surprising:
 
-![Leaderboard rankings](./assets/evaluating-mmlu-leaderboard/LLM-01-bis-01.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/evaluating-mmlu-leaderboard/LLM-01-bis-01.png)
 
 You can find the full evaluation numbers at the end of the post.
 
@@ -85,7 +85,7 @@ Large language models are simple models in the AI model zoo. They take a *string
 
 We can use these probabilities to choose a token, for instance the most probable (or we can introduce some slight noise with a sampling to avoid having “too mechanical” answers). Adding our selected token to the prompt and feeding it back to the model allows to generate another token and so on until whole sentences are created as continuations of the input prompt:
 
-![Probabilities one token](./assets/evaluating-mmlu-leaderboard/llm-01.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/evaluating-mmlu-leaderboard/LLM-01.png)
 
 This is how ChatGPT or Hugging Chat generate answers.
 
@@ -147,11 +147,11 @@ The differences between them can seem minute, did you spot them all? Here they a
 
 Let’s start with how the [original MMLU implementation](https://github.com/hendrycks/test/pull/13) extracts the predictions of the model. In the original implementation we compare the probabilities predicted by the model, on the four answers only:
 
-![Probabilities four answers only](./assets/evaluating-mmlu-leaderboard/llm-02.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/evaluating-mmlu-leaderboard/LLM-02.png)
 
 This can be beneficial for the model in some case, for instance, as you can see here:
 
-![Probabilities four answers only wrong proba](./assets/evaluating-mmlu-leaderboard/llm-03.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/evaluating-mmlu-leaderboard/LLM-03.png)
 
 In this case, the model got a +1 score for ranking the correct answer highest among the 4 options. But if we take a look at the full vocabulary it would have rather generated a word outside of our four options: the word “Zygote” (this is more of an example than a real use case 🙂)
 
@@ -159,7 +159,7 @@ How can we make sure that the model does as few as possible of these types of er
 
 We can use a “**few shots**” approach in which we provide the model with one or several examples in the prompt, with their expected answers as well. Here is how it looks:
 
-![Probabilities four answers only wrong proba few shot](./assets/evaluating-mmlu-leaderboard/llm-04.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/evaluating-mmlu-leaderboard/LLM-04.png)
 
 Here, the model has one example of the expected behavior and is thus less likely to predict answers outside of the expected range of answers.
 
@@ -167,17 +167,17 @@ Since this improves performance, MMLU is typically evaluated in 5 shots (prepend
 
 **HELM:** Let’s now turn to the [HELM implementation](https://github.com/stanford-crfm/helm/tree/cab5d89fadbff86190f29ddfa497301958eaf2ec). While the few-shot prompt is generally similar, the way the model is evaluated is quite different from the original implementation we’ve just seen: we use the next token output probabilities from the model to select a text generation and we compare it to the text of the expected answer as displayed here:
 
-![helm-generation](./assets/evaluating-mmlu-leaderboard/llm-05.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/evaluating-mmlu-leaderboard/LLM-05.png)
 
 In this case, if our "Zygote" token was instead the highest probability one (as we’ve seen above), the model answer ("Zygote") would be wrong and the model would not score any point for this question:
 
-![helm-wrong-generation](./assets/evaluating-mmlu-leaderboard/llm-06.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/evaluating-mmlu-leaderboard/LLM-06.png)
 
 **Harness:** Now we finally turn to the - [EleutherAI Harness implementation as of January 2023](https://github.com/EleutherAI/lm-evaluation-harness/tree/e47e01beea79cfe87421e2dac49e64d499c240b4) which was used to compute the first numbers for the leaderboard. As we will see, we’ve got here yet another way to compute a score for the model on the very same evaluation dataset (note that this implementation has been recently updated - more in this at the end).
 
 In this case, we are using the probabilities again but this time the probabilities of the full answer sequence, with the letter followed by the text of the answer, for instance “C. The second pharyngeal arch”. To compute the probability for a full answer we get the probability for each token (like we saw above) and gather them. For numerical stability we gather them by summing the logarithm of the probabilities and we can decide (or not) to compute a normalization in which we divide the sum by the number of tokens to avoid advantaging too much longer answers (more on this later). Here is how it looks like:
 
-![harness-generations](./assets/evaluating-mmlu-leaderboard/llm-07.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/evaluating-mmlu-leaderboard/LLM-07.png)
 
 Here is a table summary of the answers provided and generated by the model to summarize what we’ve seen up to now:
 
