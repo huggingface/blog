@@ -233,7 +233,7 @@ Now let’s compare the model scores on these three possible ways to evaluate th
 
 We can see that for the same dataset, both absolute scores and model rankings (see the first figure) are very sensitive to the evaluation method we decide to use.
 
-Let's say you trained yourself a perfect reproduction of the LLaMA 65B model and evaluated it with the harness (score 0.488, see above). You now comparing it to the published number (evaluated on the original MMLU implementation so with a score 0.637). With such a 30% difference in score you're probably thinking: "Oh gpsh, I have completly messed up my training 😱". But nothing could be further from the truth, these are just numbers which are not at all comparable even if they're both labelled as "MMLU score" (and evaluated on the very same MMLU dataset).
+Let's say you've trained yourself a perfect reproduction of the LLaMA 65B model and evaluated it with the harness (score 0.488, see above). You're now comparing it to the published number (evaluated on the original MMLU implementation so with a score 0.637). With such a 30% difference in score you're probably thinking: "Oh gosh, I have completly messed up my training 😱". But nothing could be further from the truth, these are just numbers which are not at all comparable even if they're both labelled as "MMLU score" (and evaluated on the very same MMLU dataset).
 
 Now, is there a "best way" to evaluate a model among all the ones we've seen? It's a tricky question. Different models may far differently when evaluated one way or another as we see above when the rankings change. To keep some fairness, one may be tempted to select an implementation where the average score for all tested models is the highest so that we "unlock" as much capabilities as possible from the models, in our case the loglikelihood option of the original implmentation. But as we saw above, using the loglikelihood is also giving some indications to the model in some way by restricting the scope of possible answers and thus is helping the less powerful models maybe too much.
 
@@ -241,7 +241,7 @@ And you, reader, what do you think? This blog post is already long so it's time 
 
 ## Conclusion
 
-A key lesson to takeaway from our journey is that evaluations are strongly tied to their implementations–down to minute details such as prompts and tokenization. The mere indication of "MMLU results" give you little to no information about how you can compare these numbers to other you evaluated on another library.
+A key takeaway lesson from our journey is that evaluations are strongly tied to their implementations–down to minute details such as prompts and tokenization. The mere indication of "MMLU results" give you little to no information about how you can compare these numbers to other you evaluated on another library.
 
 This is why open, standardized, and reproducible benchmarks such as the [EleutherAI Eval Harness](https://github.com/EleutherAI/lm-evaluation-harness/) or [Stanford HELM](https://github.com/stanford-crfm/helm/) are invaluable to the community. Without them, comparing results across models and papers would be impossible, stifling research on improving LLMs.
   
@@ -251,9 +251,11 @@ This is why open, standardized, and reproducible benchmarks such as the [Eleuthe
 We are currently updating the full leaderboard with the updated version of the [EleutherAI Eval Harness](https://github.com/EleutherAI/lm-evaluation-harness/), so expect to see scores coming from the Eleuther Harness v2 coming up in the next few weeks! (Running all the models again will take some time, stay tuned :hugs:)
 
 ## Acknowledgements:
-We are very grateful to Xavier Martinet, Aurélien 
+We are very grateful to Xavier Martinet, Aurélien Rodriguez and Sharan Narang from the LLaMA team for helpful suggestion in this blog post as well as having answered all our questions. 
 
 ## Reproducibility hashes:
+Here are the commit hashes of the various code implementation used in this blog post.
+
 - EleutherAI LM harness implementation commit e47e01b: https://github.com/EleutherAI/lm-evaluation-harness/tree/e47e01beea79cfe87421e2dac49e64d499c240b4
 - HELM implementation commit cab5d89: https://github.com/stanford-crfm/helm/tree/cab5d89fadbff86190f29ddfa497301958eaf2ec
 - Original MMLU implementation (with Hugging Face integration by the amazing [@olmer](https://huggingface.co/olmer)): https://github.com/hendrycks/test/pull/13
