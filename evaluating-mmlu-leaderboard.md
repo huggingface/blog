@@ -246,7 +246,7 @@ A key takeaway lesson from our journey is that evaluations are strongly tied to 
 This is why open, standardized, and reproducible benchmarks such as the [EleutherAI Eval Harness](https://github.com/EleutherAI/lm-evaluation-harness/) or [Stanford HELM](https://github.com/stanford-crfm/helm/) are invaluable to the community. Without them, comparing results across models and papers would be impossible, stifling research on improving LLMs.
   
 **Post scriptum**: In the case of the Open LLM Leaderboard we’ve decided to stick to using community maintained evaluation libraries. Thankfully during the writing of this blog post, the amazing community around the EleutherAI Harness, and in particular [ollmer](https://github.com/EleutherAI/lm-evaluation-harness/issues/475)
- who has done an amazing work updating the evaluation of MMLU in the harness to make it similar to the original implementation and match these numbers.
+have done an amazing work updating the evaluation of MMLU in the harness to make it similar to the original implementation and match these numbers.
 
 We are currently updating the full leaderboard with the updated version of the [EleutherAI Eval Harness](https://github.com/EleutherAI/lm-evaluation-harness/), so expect to see scores coming from the Eleuther Harness v2 coming up in the next few weeks! (Running all the models again will take some time, stay tuned :hugs:)
 
