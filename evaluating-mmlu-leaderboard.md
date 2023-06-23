@@ -241,31 +241,22 @@ We’ve seen all the benchmarks! Now let’s compare the model scores on these t
 | tiiuae/falcon-7b                          |       0.278 |          0.35  |           0.254 |
 | togethercomputer/RedPajama-INCITE-7B-Base |       0.275 |          0.34  |           0.269 |
 
-So have we found the ultimate method yet here?
+We can see that for the same dataset, both absolute scores (see the first table) and model rankings are super sensitive to the evaluation method we decide to use.
 
-By taking a look at this table, you might be thinking “Hmm for all multiple choice questions, the log likelihood seems to give the highest overall scores so maybe it's the best way to uncover model's skills”
+# Conclusion
 
-Well, if you’re still reading and are ready to be even more puzzled, let’s take a very brief final look at another evaluation on the leaderboard: the [AllenAI Reasoning Challenge, so called ARC](https://allenai.org/data/arc).
+This blog post is already starting to be quite long so we’ll stop our investigation on this surprising finding. Please feel free to comment in the discussion page associated to this blog: [ link to a discussionon the leaderboard]
 
-# The ARC challenge
+A key lesson to takeaway is that evaluations are strongly tied to their implementations–down to minute details such as prompts and tokenization. This is why open, standardized, and reproducible benchmarks such as the EleutherAI Eval Harness or Stanford HELM are invaluable to the community. Without them, comparing results across models and papers would be impossible, stifling research on improving LLMs.
+  
+Post scriptum: In the case of the Open LLM Leaderboard we’ve decided to stick to using community maintained evaluation libraries. Thankfully during the writing of this blog post, the amazing community around the EleutherAI Harness, and in particular [ollmer](https://github.com/EleutherAI/lm-evaluation-harness/issues/475)
+ who has done an amazing work updating the evaluation of MMLU in the harness to make it similar to the original implementation and match these numbers.
 
-The [AI2 Reasoning Challenge](https://allenai.org/data/arc) (short ARC) is another one of the four evaluations selected on the Open LLM Leaderboard. Like MMLU,it’s also a multiple choice benchmark.
+We are updating the leaderboard with the relevant numbers for MMLU, so expect to see scores coming from the Eleuther Harness v2 coming up in the next few weeks! (Running all the models again will take some time, stay tuned :hugs:)
 
-While MMLU attempts to capture knowledge across many categories, ARC is focused on reasoning questions from science exams as you can see on this example from the dataset (that you can find at https://huggingface.co/datasets/ai2_arc/viewer/ARC-Challenge/validation?row=6)
 
-```
-Question: How are the particles in a block of iron affected when the block is melted?
-
-Choices:
-A. The particles gain mass.
-B. The particles contain less energy.
-C. The particles move more rapidly.
-D. The particles increase in volume.
-
-Gold answer: C
-```
-
-Note: you can very easily explore more of this dataset in the dataset viewer at https://huggingface.co/datasets/ai2_arc/viewer/ARC-Challenge/validation
-
-At first sight this dataset looks quite similar to our MMLU dataset, right? So we would expect our MMLU learnings to transfer to ARC. Let’s explore all the ways we’ve seen these multiple choice evaluation being implemented and test them on this dataset:
+# Reproducibility:
+- EleutherAI LM harness implementation commit e47e01b at https://github.com/EleutherAI/lm-evaluation-harness/tree/e47e01beea79cfe87421e2dac49e64d499c240b4
+- HELM implementation commit cab5d89 at https://github.com/stanford-crfm/helm/tree/cab5d89fadbff86190f29ddfa497301958eaf2ec
+- Original MMLU implementation (with Hugging Face integration by the amazing https://huggingface.co/olmer) at https://github.com/hendrycks/test/pull/13
 
