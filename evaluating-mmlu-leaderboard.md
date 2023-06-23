@@ -139,7 +139,7 @@ Answer:
 </div>
 
 The differences between them can seem small, did you spot them all? Here they are:
-- First sentence, instruction, and topic: Few differences. HELM add an extra space and the Eleuther LM Harness does not include the topic line
+- First sentence, instruction, and topic: Few differences. HELM adds an extra space, and the Eleuther LM Harness does not include the topic line
 - Question: HELM and the LM Harness add a “Question:” prefix
 - Choices: Eleuther LM Harness prepends them with the keyword “Choice”
 
