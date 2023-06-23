@@ -2,7 +2,7 @@
 title: "What's going on with the Open LLM Leaderboard?"
 thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
 authors:
-- user: clefourier
+- user: clefourrier
 - user: SaylorTwift
 - user: thomwolf
 ---

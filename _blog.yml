@@ -2392,7 +2392,7 @@
 
 - local: evaluating-mmlu-leaderboard
   title: "What's going on with the Open LLM Leaderboard?"
-  author: clefourier
+  author: clefourrier
   thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
   date: June 23, 2023
   tags:
