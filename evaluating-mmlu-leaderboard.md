@@ -3,28 +3,32 @@ title: "What is going on with the Open LLM Leaderboard"
 thumbnail: /blog/assets/142_safetensors_official/thumbnail.png
 authors:
 - user: clefourier
+- user: SaylorTwift
+- user: thomwolf
 ---
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Recently an interesting discussion arose on Twitter following the release of **Falcon 🦅** and its addition to the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard), a public leaderboard comparing open access large language models.
+Recently an interesting discussion arose on Twitter following the release of [**Falcon 🦅**](https://huggingface.co/tiiuae/falcon-40b) and its addition to the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard), a public leaderboard comparing open access large language models.
 
-The discussion centered around [MMLU](https://arxiv.org/abs/2009.03300), one of the four displayed evaluations, a benchmark for measuring Massive Multitask Language Understanding.
+The discussion centered around one of the four evaluations displayed on the leaderboard: a benchmark for measuring [Massive Multitask Language Understanding](https://arxiv.org/abs/2009.03300) (shortname: MMLU).
 
-The community was surprised that MMLU evaluation numbers of the current top model on the leaderboard, the **LLaMA model 🦙**, were significantly lower than the numbers in the published LLaMa paper.
+The community was surprised that MMLU evaluation numbers of the current top model on the leaderboard, the [**LLaMA model 🦙**](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/), were significantly lower than the numbers in the [published LLaMa paper](https://arxiv.org/abs/2302.13971).
 
-Community members questioned the numbers, so we decided to dive in a rabbit hole to understand what was going on and how to fix it.
+So we decided to dive in a rabbit hole to understand what was going on and how to fix it 🕳🐇
 
-In our quest, we were joined by members from both the LLaMA and the Falcon teams so this blog post is actually written by 6 hands between HuggingFace, Falcon and LLaMa team members. Isn’t that super cool?
+In our quest, we discussed with the great [@javier-m](https://huggingface.co/javier-m) who collaborated on the evaluations of LLaMA as well as the no-less amazing [@slippylolo](https://huggingface.co/slippylolo) from the Falcon team. This being said, all the errors in the below should be attributed to us rather than them of course!
 
-Along this journey with us you’ll learn a lot about the ways you can evaluate a model on a single evaluation and whether or not to believe the numbers you see online (or in papers) .
+Along this journey with us you’ll learn a lot about the ways you can evaluate a model on a single evaluation and whether or not to believe the numbers you see online and in papers.
 
-Ready? Then buckle up, we’re starting our trip 🚀.
+Ready? Then buckle up, we’re taking off 🚀.
 
 # What's the Open LLM Leaderboard?
 
-First, note that the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) is actually just a wrapper running the open-source benchmarking library [Eleuther AI LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) created by the EleutherAI collective of AI hackers famous for creating The Pile and training GPT-J, GPT-Neo-X 20B, and Pythia serious team in the AI space! The [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) wrapper runs evaluations using the Eleuther AI harness on the spare cycles of Hugging Face’s compute cluster, and stores the results in a dataset while displaying the resulting numbers and rankings in the Spaces powering the leaderboard.
+First, note that the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) is actually just a wrapper running the open-source benchmarking library [Eleuther AI LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) created by the [EleutherAI non-profit AI research lab](https://www.eleuther.ai/) famous for creating [The Pile](https://pile.eleuther.ai/) and training [GPT-J](https://huggingface.co/EleutherAI/gpt-j-6b), [GPT-Neo-X 20B](https://huggingface.co/EleutherAI/gpt-neox-20b), and [Pythia](https://github.com/EleutherAI/pythia). A team with serious credentials in the AI space!
+
+The [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) wrapper runs evaluations using the Eleuther AI harness on the spare cycles of Hugging Face’s compute cluster, and stores the results in a dataset while displaying the resulting numbers and rankings in the Spaces powering the leaderboard.
 
 For the LLaMA models, the MMLU numbers obtained with the [Eleuther AI LM Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) significantly differ from the MMLU numbers reported in the LLaMa paper.
 
@@ -241,22 +245,22 @@ We’ve seen all the benchmarks! Now let’s compare the model scores on these t
 | tiiuae/falcon-7b                          |       0.278 |          0.35  |           0.254 |
 | togethercomputer/RedPajama-INCITE-7B-Base |       0.275 |          0.34  |           0.269 |
 
-We can see that for the same dataset, both absolute scores (see the first table) and model rankings are super sensitive to the evaluation method we decide to use.
+We can see that for the same dataset, both absolute scores and model rankings (see the figure) are super sensitive to the evaluation method we decide to use.
 
 # Conclusion
 
-This blog post is already starting to be quite long so we’ll stop our investigation on this surprising finding. Please feel free to comment in the discussion page associated to this blog: [ link to a discussionon the leaderboard]
-
 A key lesson to takeaway is that evaluations are strongly tied to their implementations–down to minute details such as prompts and tokenization. This is why open, standardized, and reproducible benchmarks such as the EleutherAI Eval Harness or Stanford HELM are invaluable to the community. Without them, comparing results across models and papers would be impossible, stifling research on improving LLMs.
+
+If you take a results for a paper in a MMLU
   
-Post scriptum: In the case of the Open LLM Leaderboard we’ve decided to stick to using community maintained evaluation libraries. Thankfully during the writing of this blog post, the amazing community around the EleutherAI Harness, and in particular [ollmer](https://github.com/EleutherAI/lm-evaluation-harness/issues/475)
+**Post scriptum**: In the case of the Open LLM Leaderboard we’ve decided to stick to using community maintained evaluation libraries. Thankfully during the writing of this blog post, the amazing community around the EleutherAI Harness, and in particular [ollmer](https://github.com/EleutherAI/lm-evaluation-harness/issues/475)
  who has done an amazing work updating the evaluation of MMLU in the harness to make it similar to the original implementation and match these numbers.
 
 We are updating the leaderboard with the relevant numbers for MMLU, so expect to see scores coming from the Eleuther Harness v2 coming up in the next few weeks! (Running all the models again will take some time, stay tuned :hugs:)
 
 
 # Reproducibility:
-- EleutherAI LM harness implementation commit e47e01b at https://github.com/EleutherAI/lm-evaluation-harness/tree/e47e01beea79cfe87421e2dac49e64d499c240b4
-- HELM implementation commit cab5d89 at https://github.com/stanford-crfm/helm/tree/cab5d89fadbff86190f29ddfa497301958eaf2ec
-- Original MMLU implementation (with Hugging Face integration by the amazing https://huggingface.co/olmer) at https://github.com/hendrycks/test/pull/13
+- EleutherAI LM harness implementation commit e47e01b: https://github.com/EleutherAI/lm-evaluation-harness/tree/e47e01beea79cfe87421e2dac49e64d499c240b4
+- HELM implementation commit cab5d89: https://github.com/stanford-crfm/helm/tree/cab5d89fadbff86190f29ddfa497301958eaf2ec
+- Original MMLU implementation (with Hugging Face integration by the amazing [@olmer](https://huggingface.co/olmer)): https://github.com/hendrycks/test/pull/13
 
