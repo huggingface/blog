@@ -4,6 +4,7 @@ thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
 authors:
 - user: clefourrier
 - user: SaylorTwift
+- user: slippylolo
 - user: thomwolf
 ---
 
