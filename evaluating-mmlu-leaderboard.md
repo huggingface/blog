@@ -47,15 +47,19 @@ To settle the case, we decided to run these three possible implementations of th
 - the HELM implementation ([commit cab5d89](https://github.com/stanford-crfm/helm/tree/cab5d89fadbff86190f29ddfa497301958eaf2ec))
 - the Original implementation (with Hugging Face integration by the amazing [@olmer](https://huggingface.co/olmer) at https://github.com/hendrycks/test/pull/13)
 
-The results are quite surprising (see the full numbers at the end of the post):
+(Note that the Harness implementation has been recently updated - more in this at the end of our post)
+
+The results are surprising:
 
 ![Leaderboard rankings](./assets/evaluating-mmlu-leaderboard/LLM-01-bis-01.png)
+
+You can find the full evaluation numbers at the end of the post.
 
 These different implementations of the same benchmark give widely different numbers and, even change the ranking order of the models on the leaderboard!
 
 Let’s try to understand where this discrepancy comes from 🕵️cBut first let’s briefly understand how we can automatically evaluate behaviors in modern LLMs.
 
-# How we automatically evaluate a model in today’s LLM world
+## How we automatically evaluate a model in today’s LLM world
 
 MMLU is a multiple choice question test, so a rather simple benchmark (versus open-ended questions) but as we’ll see, this still leaves a lot of room for implementation details and differences. The benchmark consists of questions with four possible answers covering 57 general knowledge domains grouped in coarse grained categories: “Humanities”, “Social Sciences”, “STEM”, etc
 
@@ -91,7 +95,7 @@ In summary, we have two main ways to get information out of a model to evaluate 
 
 Armed with this knowledge, let's dive into our three implementations of MMLU, to find out what input is sent to models, what is expected as outputs, and how these outputs are compared.
 
-# MMLU comes in all shapes and sizes: Looking at the prompts
+## MMLU comes in all shapes and sizes: Looking at the prompts
 
 Let’s compare an example of prompt each benchmark sends to the models by each implmentation for the same MMLU dataset example:
 
@@ -139,9 +143,9 @@ The differences between them can seem minute, did you spot them all? Here they a
 - Question: HELM and the LM Harness add a “Question:” prefix
 - Choices: Eleuther LM Harness prepends them with the keyword “Choice”
 
-# Now how do we evaluate the model from these prompts?
+## Now how do we evaluate the model from these prompts?
 
-Let’s start with how the original MMLU implementation extracts the predictions of the model. In the original implementation we compare the probabilities predicted by the model, on the four answers only:
+Let’s start with how the [original MMLU implementation](https://github.com/hendrycks/test/pull/13) extracts the predictions of the model. In the original implementation we compare the probabilities predicted by the model, on the four answers only:
 
 ![Probabilities four answers only](./assets/evaluating-mmlu-leaderboard/llm-02.png)
 
@@ -161,17 +165,17 @@ Here, the model has one example of the expected behavior and is thus less likely
 
 Since this improves performance, MMLU is typically evaluated in 5 shots (prepending 5 examples to each prompt) in all our evaluations: the original implementation, EleutherAI LM Harness and HELM. (Note: Across benchmarks, though the same 5 examples are used, their order of introduction to the model can vary, which is also a possible source of difference, that we will not investigate here. You also obviously have to pay attention to avoid leaking some answers in the few shot examples you use…)
 
-Let’s now turn to the HELM implementation. While the few-shot prompt is generally similar, the way the model is evaluated is quite different from the original implementation we’ve just seen: we use the next token output probabilities from the model to select a text generation and we compare it to the text of the expected answer as displayed here:
+**HELM:** Let’s now turn to the [HELM implementation](https://github.com/stanford-crfm/helm/tree/cab5d89fadbff86190f29ddfa497301958eaf2ec). While the few-shot prompt is generally similar, the way the model is evaluated is quite different from the original implementation we’ve just seen: we use the next token output probabilities from the model to select a text generation and we compare it to the text of the expected answer as displayed here:
 
 ![helm-generation](./assets/evaluating-mmlu-leaderboard/llm-05.png)
 
-In this case, if our Zygote token was instead the highest probability one (as we’ve seen above), the model answer (“Zygote”) would be wrong and the model would not score any point for this question:
+In this case, if our "Zygote" token was instead the highest probability one (as we’ve seen above), the model answer ("Zygote") would be wrong and the model would not score any point for this question:
 
 ![helm-wrong-generation](./assets/evaluating-mmlu-leaderboard/llm-06.png)
 
-Now we finally turn to the - EleutherAI Harness implementation as of January 2023 (updated in June 2023) which was used to compute the first numbers for the leaderboard. As we will see, we’ve got here yet another way to compute a score for the model on the very same evaluation dataset.
+**Harness:** Now we finally turn to the - [EleutherAI Harness implementation as of January 2023](https://github.com/EleutherAI/lm-evaluation-harness/tree/e47e01beea79cfe87421e2dac49e64d499c240b4) which was used to compute the first numbers for the leaderboard. As we will see, we’ve got here yet another way to compute a score for the model on the very same evaluation dataset (note that this implementation has been recently updated - more in this at the end).
 
-In the case of the EleutherAI LM Harness, we are using the probabilities again but this time the probabilities of the full answer sequence, with the letter followed by the text of the answer, for instance “C. The second pharyngeal arch”. To compute the probability for a full answer we get the probability for each token (like we saw above) and gather them. For numerical stability we gather them by summing the logarithm of the probabilities and we can decide (or not) to compute a normalization in which we divide the sum by the number of tokens to avoid advantaging too much longer answers (more on this later). Here is how it looks like:
+In this case, we are using the probabilities again but this time the probabilities of the full answer sequence, with the letter followed by the text of the answer, for instance “C. The second pharyngeal arch”. To compute the probability for a full answer we get the probability for each token (like we saw above) and gather them. For numerical stability we gather them by summing the logarithm of the probabilities and we can decide (or not) to compute a normalization in which we divide the sum by the number of tokens to avoid advantaging too much longer answers (more on this later). Here is how it looks like:
 
 ![harness-generations](./assets/evaluating-mmlu-leaderboard/llm-07.png)
 
@@ -194,16 +198,16 @@ Here is a table summary of the answers provided and generated by the model to su
 </td>
   </tr>
   <tr style=" vertical-align: top;">
-    <td>  A
- B
- C
+    <td>  A <br>
+ B <br>
+ C <br>
  D
 </td>
     <td>A
 </td>
-    <td> A. It damaged support for the US model of political economy and capitalism
- B. It created anger at the United States for exaggerating the crisis
- C. It increased support for American global leadership under President Obama
+    <td> A. It damaged support for the US model of political economy and capitalism <br>
+ B. It created anger at the United States for exaggerating the crisis <br>
+ C. It increased support for American global leadership under President Obama <br>
  D. It reduced global use of the US dollar
 </td>
   </tr>
@@ -211,7 +215,9 @@ Here is a table summary of the answers provided and generated by the model to su
 </table><p>
 </div>
 
-We’ve seen all the benchmarks! Now let’s compare the model scores on these three possible  ways to evaluate the models:
+We’ve covered them all!
+
+Now let’s compare the model scores on these three possible ways to evaluate the models:
 
 
 |                                           | MMLU (HELM) | MMLU (Harness) | MMLU (Original) |
@@ -225,13 +231,13 @@ We’ve seen all the benchmarks! Now let’s compare the model scores on these t
 | tiiuae/falcon-7b                          |       0.278 |          0.35  |           0.254 |
 | togethercomputer/RedPajama-INCITE-7B-Base |       0.275 |          0.34  |           0.269 |
 
-We can see that for the same dataset, both absolute scores and model rankings (see the figure) are super sensitive to the evaluation method we decide to use.
+We can see that for the same dataset, both absolute scores and model rankings (see the first figure) are quite sensitive to the evaluation method we decide to use.
+
+Is there a "best way" to evaluate a model among all these? It's a difficult question. Models may far better one way or another as we see above. To keep some faireness, one may be tempted to select the way where the average score for all tested models is the highest so that we see as much capabilities of the models as possible. But we should note that, as we saw above, using the loglikelihood is helping the model in some way by restricting the 
 
 # Conclusion
 
 A key lesson to takeaway is that evaluations are strongly tied to their implementations–down to minute details such as prompts and tokenization. This is why open, standardized, and reproducible benchmarks such as the EleutherAI Eval Harness or Stanford HELM are invaluable to the community. Without them, comparing results across models and papers would be impossible, stifling research on improving LLMs.
-
-If you take a results for a paper in a MMLU
   
 **Post scriptum**: In the case of the Open LLM Leaderboard we’ve decided to stick to using community maintained evaluation libraries. Thankfully during the writing of this blog post, the amazing community around the EleutherAI Harness, and in particular [ollmer](https://github.com/EleutherAI/lm-evaluation-harness/issues/475)
  who has done an amazing work updating the evaluation of MMLU in the harness to make it similar to the original implementation and match these numbers.
