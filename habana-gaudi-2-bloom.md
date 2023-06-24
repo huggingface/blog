@@ -60,13 +60,13 @@ The results for inference latency are displayed in the table below (the unit is 
 | BLOOMZ-7B | 8 | 0.734 | 2.417 | 3.321 |
 | BLOOMZ-7B | 1 | 0.772 | 2.119 | 2.387 |
 
-*Update: the numbers above were updated with the releases of Optimum Habana 1.6 and SynapseAI 1.10, leading to a x1.42 speedup on BLOOMZ with Gaudi2 compared to A100.*
+*Update: the numbers above were updated with the releases of Optimum Habana 1.6 and SynapseAI 1.10, leading to a *x*1.42 speedup on BLOOMZ with Gaudi2 compared to A100.*
 
-The Habana team recently introduced support for DeepSpeed-inference in SynapseAI 1.8, and thereby quickly enabled inference for 100+ billion parameter models. **For the 176-billion-parameter checkpoint, Gaudi2 is 1.23x faster than A100 80GB**. Smaller checkpoints present interesting results too. **Gaudi2 is 2.38x faster than A100 for BLOOMZ-7B!** It is also interesting to note that it manages to benefit from model parallelism whereas A100 is faster on a single device.
+The Habana team recently introduced support for DeepSpeed-inference in SynapseAI 1.8, and thereby quickly enabled inference for 100+ billion parameter models. **For the 176-billion-parameter checkpoint, Gaudi2 is 1.42x faster than A100 80GB**. Smaller checkpoints present interesting results too. **Gaudi2 is 2.89x faster than A100 for BLOOMZ-7B!** It is also interesting to note that it manages to benefit from model parallelism whereas A100 is faster on a single device.
 
-We also ran these models on first-gen Gaudi. While it is slower than Gaudi2, it is interesting from a price perspective as a DL1 instance on AWS costs approximately 13\$ per hour. Latency for BLOOMZ-7B on first-gen Gaudi is 2.865 seconds. Thus, **first-gen Gaudi offers for the 7-billion checkpoint a better price-performance ratio than A100** which costs more than 30\$ per hour!
+We also ran these models on first-gen Gaudi. While it is slower than Gaudi2, it is interesting from a price perspective as a DL1 instance on AWS costs approximately 13\$ per hour. Latency for BLOOMZ-7B on first-gen Gaudi is 2.387 seconds. Thus, **first-gen Gaudi offers for the 7-billion checkpoint a better price-performance ratio than A100** which costs more than 30\$ per hour!
 
-We expect the Habana team will optimize the performance of these models in the upcoming SynapseAI releases. For example, in our last benchmark, we saw that [Gaudi2 performs Stable Diffusion inference 2.2x faster than A100](https://huggingface.co/blog/habana-gaudi-2-benchmark#generating-images-from-text-with-stable-diffusion) and this has since been improved further to 2.37x with the latest optimizations provided by Habana. With the pre-release version of SynapseAI 1.9, we saw the inference latency for BLOOMZ-176B was improved to 3.5 seconds. We will update these numbers as new versions of SynapseAI are released and integrated within Optimum Habana.
+We expect the Habana team will optimize the performance of these models in the upcoming SynapseAI releases. For example, in our last benchmark, we saw that [Gaudi2 performs Stable Diffusion inference 2.2x faster than A100](https://huggingface.co/blog/habana-gaudi-2-benchmark#generating-images-from-text-with-stable-diffusion) and this has since been improved further to 2.37x with the latest optimizations provided by Habana. We will update these numbers as new versions of SynapseAI are released and integrated within Optimum Habana.
 
 
 ### Running inference on a complete dataset
