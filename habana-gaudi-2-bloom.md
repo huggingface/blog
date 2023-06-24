@@ -60,7 +60,7 @@ The results for inference latency are displayed in the table below (the unit is 
 | BLOOMZ-7B | 8 | 0.734 | 2.417 | 3.321 |
 | BLOOMZ-7B | 1 | 0.772 | 2.119 | 2.387 |
 
-*Update: the numbers above were updated with the releases of Optimum Habana 1.6 and SynapseAI 1.10, leading to a *x*1.42 speedup on BLOOMZ with Gaudi2 compared to A100.*
+*Update: the numbers above were updated with the releases of Optimum Habana 1.6 and SynapseAI 1.10, leading to a* x*1.42 speedup on BLOOMZ with Gaudi2 compared to A100.*
 
 The Habana team recently introduced support for DeepSpeed-inference in SynapseAI 1.8, and thereby quickly enabled inference for 100+ billion parameter models. **For the 176-billion-parameter checkpoint, Gaudi2 is 1.42x faster than A100 80GB**. Smaller checkpoints present interesting results too. **Gaudi2 is 2.89x faster than A100 for BLOOMZ-7B!** It is also interesting to note that it manages to benefit from model parallelism whereas A100 is faster on a single device.
 
