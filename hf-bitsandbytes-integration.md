@@ -415,7 +415,7 @@ We've found several areas for improvement that can be worked on in the future to
 
 ### Faster inference speed for smaller models
 
-As we have seen in the [the benchmarking section](#is-it-faster-than-native-models?), we could improve the runtime speed for small model (<=6B parameters) by a factor of almost 2x. However, while the inference speed is robust for large models like BLOOM-176B there are still improvements to be had for small models. We already identified the issues and likely recover same performance as fp16, or get small speedups. You will see these changes being integrated within the next couple of weeks.
+As we have seen in the [the benchmarking section](#is-it-faster-than-native-models), we could improve the runtime speed for small model (<=6B parameters) by a factor of almost 2x. However, while the inference speed is robust for large models like BLOOM-176B there are still improvements to be had for small models. We already identified the issues and likely recover same performance as fp16, or get small speedups. You will see these changes being integrated within the next couple of weeks.
 
 ### Support for Kepler GPUs (GTX 1080 etc)
 
