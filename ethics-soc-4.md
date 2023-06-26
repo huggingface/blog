@@ -100,7 +100,7 @@ Also, as we have mentioned in a [previous newsletter](https://huggingface.co/blo
 We are also continuing work on other fronts of ethics and society, including:
 
 - **Content moderation:**
-  - We made a major update to our [Content Policy](https://huggingface.co/content-guidelines). It has been almost a year since our last update and the Hugging Face community has grown massively since then, so we felt it was time. In this update we emphasize consent as one of Hugging Face's core values–to read more about our thought process, check out the [announcement blog](https://huggingface.co/blog/content-guidelines-update) **.**
+  - We made a major update to our [Content Policy](https://huggingface.co/content-guidelines). It has been almost a year since our last update and the Hugging Face community has grown massively since then, so we felt it was time. In this update we emphasize consent as one of Hugging Face's core values. To read more about our thought process, check out the [announcement blog](https://huggingface.co/blog/content-guidelines-update) **.**
 - **AI Accountability Policy:**
   - We submitted a response to the NTIA request for comments on [AI accountability policy](https://ntia.gov/issues/artificial-intelligence/request-for-comments), where we stressed the importance of documentation and transparency mechanisms, as well as the necessity of leveraging open collaboration and promoting access to external stakeholders. You can find a summary of our response and a link to the full document [in our blog post](https://huggingface.co/blog/policy-ntia-rfc)!
 
