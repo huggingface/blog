@@ -23,7 +23,7 @@ authors:
 
 ## Introduction
 
-Multimodal AI models (like [text-to-image](https://huggingface.co/models?pipeline_tag=text-to-image&sort=downloads) and [text-to-video](https://huggingface.co/models?pipeline_tag=text-to-video&sort=downloads)) are all the rage these days, and thousands of them are being uploaded to the Hugging Face Hub. Each modality is potentially susceptible to separate sources of bias, which begs the question: how do we uncover biases in multimodal models? In the current blog post, we will share our thoughts on sources of bias in multimodal systems and tools and potential solutions to address them, showcasing both our own projects and those from the broader community.
+[Text-to-image (TTI) generation](https://huggingface.co/models?pipeline_tag=text-to-image&sort=downloads) is all the rage these days, and thousands of TTI models are being uploaded to the Hugging Face Hub. Each modality is potentially susceptible to separate sources of bias, which begs the question: how do we uncover biases in these models? In the current blog post, we will share our thoughts on sources of bias in TTI systems and tools and potential solutions to address them, showcasing both our own projects and those from the broader community.
 
 ## Values and bias encoded in generations
 
