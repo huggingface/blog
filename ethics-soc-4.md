@@ -83,7 +83,7 @@ Other tools, like the[Face Clustering tool](https://hf.co/spaces/society-ethics/
 
 ## Values and Bias
 
-All of the approaches listed above are part of detecting and understanding the biases embedded in multimodal generative models. But how do we actively engage with them?
+All of the approaches listed above are part of detecting and understanding the biases embedded in those generative models. But how do we actively engage with them?
 
 One approach is to develop new models that represent society as we wish it to be. This suggests creating AI systems that don't just mimic the patterns in our data (and thus, our world), but actively promote more equitable and fair perspectives. However, this approach raises a crucial question: whose values are we programming into these models? Values differ across cultures, societies, and individuals, making it a complex task to define what an "ideal" society should look like within an AI model. The question is indeed complex and multifaceted. If we avoid reproducing existing societal biases in our AI models, we're faced with the challenge of defining an "ideal" representation of society. Society is not a static entity, but a dynamic and ever-changing construct. Should AI models, then, adapt to the changes in societal norms and values over time? If so, how do we ensure that these shifts genuinely represent all groups within society, especially those often underrepresented?
 
