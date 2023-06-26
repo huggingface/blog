@@ -67,7 +67,7 @@ Most of the issues that we describe above cannot be solved with a single solutio
 
 We present some of these approaches below:
 
-**Tools for exploring bias:** As part of the [Stable Bias project](https://huggingface.co/spaces/society-ethics/StableBias), we created a series of tools to explore and compare the visual manifestation of biases in different text-to-image models. For instance, the [Average Diffusion Faces](https://huggingface.co/spaces/society-ethics/Average_diffusion_faces) tool lets you compare the average representations for different professions and different models – like for 'janitor', shown below, for Stable Diffusion v 1.4, v 2, and Dall-E 2:
+**Tools for exploring bias:** As part of the [Stable Bias project](https://huggingface.co/spaces/society-ethics/StableBias), we created a series of tools to explore and compare the visual manifestation of biases in different text-to-image models. For instance, the [Average Diffusion Faces](https://huggingface.co/spaces/society-ethics/Average_diffusion_faces) tool lets you compare the average representations for different professions and different models – like for 'janitor', shown below, for Stable Diffusion v1.4, v2, and Dall-E 2:
 
 <p align="center">
  <br>
