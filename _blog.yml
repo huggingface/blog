@@ -2401,3 +2401,12 @@
     - nlp
     - evaluation
     - leaderboard
+    
+
+- local: ethics-soc-4
+  title: "Ethics and Society Newsletter #4: Bias in Text-to-Image Models"
+  author:  sasha
+  thumbnail: /blog/assets/152_ethics_soc_4/ethics_4_thumbnail.png
+  date: June 26, 2023
+  tags:
+    - ethics
