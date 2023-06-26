@@ -25,7 +25,7 @@ authors:
 
 [Text-to-image (TTI) generation](https://huggingface.co/models?pipeline_tag=text-to-image&sort=downloads) is all the rage these days, and thousands of TTI models are being uploaded to the Hugging Face Hub. Each modality is potentially susceptible to separate sources of bias, which begs the question: how do we uncover biases in these models? In the current blog post, we will share our thoughts on sources of bias in TTI systems and tools and potential solutions to address them, showcasing both our own projects and those from the broader community.
 
-## Values and bias encoded in generations
+## Values and bias encoded in image generations
 
 There is a very close relationship between [bias and values](https://www.sciencedirect.com/science/article/abs/pii/B9780080885797500119), particularly when these are embedded in the language or images used to train and query a given [text-to-image model](https://dl.acm.org/doi/abs/10.1145/3593013.3594095); this phenomenon heavily influences the outputs we see in the generated images. Although this relationship is known in the broader AI research field and considerable efforts are underway to address it, the complexity of trying to represent the evolving nature of a given population's values in a single model still persists. This presents an enduring ethical challenge to uncover and address adequately.
 
