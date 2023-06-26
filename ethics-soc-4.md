@@ -71,7 +71,7 @@ We present some of these approaches below:
 
 <p align="center">
  <br>
- <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/152_ethics_soc_4/average.png" alt="Fair Diffusion generations of firefighters." />
+ <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/152_ethics_soc_4/average.png" alt="Average faces for the 'janitor' profession, computed based on the outputs of different text to image models." />
 </p>
 
 
