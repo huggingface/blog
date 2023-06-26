@@ -63,7 +63,7 @@ Recent years have seen much important research on bias detection in AI systems w
 
 ## Detecting Bias
 
-Most of the issues that we describe above cannot be solved with a single solution – indeed, [bias is a complex topic](https://huggingface.co/blog/ethics-soc-2) that cannot be meaningfully addressed with technology alone. Bias is deeply intertwined with the broader social, cultural, and historical context in which it exists. Therefore, addressing bias in AI systems is not only a technological challenge but also a socio-technical one that demands multidisciplinary attention. However, together, a combination of approaches including tools, red-teaming and evaluations can help glean important insights that can inform both model creators and downstream users about the biases contained in TTI and other multimodal models.
+Most of the issues that we describe above cannot be solved with a single solution – indeed, [bias is a complex topic](https://huggingface.co/blog/ethics-soc-2) that cannot be meaningfully addressed with technology alone. Bias is deeply intertwined with the broader social, cultural, and historical context in which it exists. Therefore, addressing bias in AI systems is not only a technological challenge but also a socio-technical one that demands multidisciplinary attention. However, a combination of approaches including tools, red-teaming and evaluations can help glean important insights that can inform both model creators and downstream users about the biases contained in TTI and other multimodal models.
 
 We present some of these approaches below:
 
