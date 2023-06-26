@@ -18,7 +18,7 @@ authors:
 <!-- {authors} -->
 
 
-**TL;DR - we need better ways of evaluating bias in text-to-image models**
+**TL;DR: We need better ways of evaluating bias in text-to-image models**
 
 
 ## Introduction
@@ -27,7 +27,7 @@ Multimodal AI models (like [text-to-image](https://huggingface.co/models?pipelin
 
 ## Values and bias encoded in generations
 
-There is a very close correlation between [bias, stereotypes, and values](https://www.sciencedirect.com/science/article/abs/pii/B9780080885797500119), particularly when these are embedded in the language used to train and query a given [tex-to-image model](https://dl.acm.org/doi/abs/10.1145/3593013.3594095); this phenomenon heavily influences the outputs we see in the generated images.
+There is a very close relationship between [bias and values](https://www.sciencedirect.com/science/article/abs/pii/B9780080885797500119), particularly when these are embedded in the language used to train and query a given [tex-to-image model](https://dl.acm.org/doi/abs/10.1145/3593013.3594095); this phenomenon heavily influences the outputs we see in the generated images.
 
 Although this ethical challenge is known in the research field and considerable efforts are underway to address it, what is often properly considered is the complexity of trying to represent in a single text-to-image model the evolving nature of a given population's values. For example, if the training data are mainly in English, conveying rather Western values, we will get as a result a stereotypical representation of a different and distant culture. This phenomenon appears noticeable when we compare the results of ERNIE ViLG (left) and Stable Diffusion v 2.1 (right) for the same prompt, "a house in Beijing":
 
