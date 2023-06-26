@@ -36,7 +36,7 @@ For example, if the training data are mainly in English, conveying rather Wester
  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/152_ethics_soc_4/ernie-sd.png" alt="results of ERNIE ViLG (left) and Stable Diffusion v 2.1 (right) for the same prompt, a house in Beijing" />
 </p>
 
-## Sources of Bias in ML-enabled Multimodal Models
+## Sources of Bias
 
 Recent years have seen much important research on bias detection in AI systems with single modalities in both Natural Language Processing ([Abid et al., 2021](https://dl.acm.org/doi/abs/10.1145/3461702.3462624)) as well as Computer Vision ([Buolamwini and Gebru, 2018](http://proceedings.mlr.press/v81/buolamwini18a/buolamwini18a.pdf)). To the extent that ML models are constructed by people, biases are present in all ML models (and, indeed, technology in general). This can manifest itself by an over- and under-representation of certain visual characteristics in images (e.g. all images of office workers having ties), or the presence of cultural and geographical stereotypes (e.g. all images of brides wearing white dresses and veils, which is a predominantly Christian tradition, as opposed to outfits from other cultures). Given that text-to-image (TTI) systems are deployed in sociotechnical contexts that are becoming widely deployed in different sectors and tools (e.g. [Firefly](https://www.adobe.com/sensei/generative-ai/firefly.html), [Shutterstock](https://www.shutterstock.com/ai-image-generator)), they are particularly likely to amplify existing societal biases and inequities. We aim to provide a non-exhaustive list of bias sources below:
 
