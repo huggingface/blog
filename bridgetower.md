@@ -1,5 +1,5 @@
 ---
-title: "Accelerating Vision and Vison-Language Models: BridgeTower on Gaudi2"
+title: "Accelerating Vision-Language Models: BridgeTower on Habana Gaudi2"
 thumbnail: /blog/assets/bridgetower/thumbnail.png
 authors:
 - user: regisss
@@ -7,14 +7,14 @@ authors:
   guest: true
 ---
 
-# Accelerating Vision and Vison-Language Models: BridgeTower on Habana Gaudi2
+# Accelerating Vision-Language Models: BridgeTower on Habana Gaudi2
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-In this blog post, you will learn how to accelerate vision and vision-language models using Optimum Habana 1.6 and the example of BridgeTower, a multimodal SOTA model.
+In this blog post, you will learn how to accelerate vision-language models using Optimum Habana 1.6 and the example of BridgeTower, a multimodal SOTA model. *Note that all the optimizations applied in this post are not exclusive to vision-language models and apply to vision models too.*
 
-We are going to benchmark Bridgetower training and inference on two AI hardware accelerators: Habana Gaudi2 and Nvidia A100 80GB. We explain how data loading can be a bottleneck when using images in your workflows and how you can use features of Transformers and Optimum Habana to solve it. In particular, we present some new advanced features of [Optimum Habana](https://github.com/huggingface/optimum-habana/tree/main), such as on-device data loading and our new fast DDP implementation, that will enable you to reach **more than x3 speedups compared to A100!**
+We are going to benchmark Bridgetower training on two AI hardware accelerators: Habana Gaudi2 and Nvidia A100 80GB. We explain how data loading can be a bottleneck when using images in your workflows and how you can use features of Transformers and Optimum Habana to solve it. In particular, we present some new advanced features of [Optimum Habana](https://github.com/huggingface/optimum-habana/tree/main) v1.6, such as on-device data loading and our new fast DDP implementation, that will enable you to reach **more than x3 speedups compared to A100!**
 
 
 ## BridgeTower
@@ -28,16 +28,16 @@ Pre-trained with only 4M images, BridgeTower achieves state-of-the-art performan
 
 [Nvidia A100 Tensor Core GPU](https://www.nvidia.com/en-us/data-center/a100/) includes the 3rd generation of the [Tensor Core technology](https://www.nvidia.com/en-us/data-center/tensor-cores/). Although a newer generation got released recently (H100), this is still the fastest GPU that you will find at most cloud providers. We use here the 80GB-memory variant which also offers faster memory bandwidth than the 40GB one.
 
-[Habana Gaudi2](https://habana.ai/products/gaudi2/) is the second-generation AI hardware accelerator designed by Habana Labs. A single server contains 8 accelerator devices with 96GB of memory each. Check out [this previous blog post](https://huggingface.co/blog/habana-gaudi-2-bloom#habana-gaudi2) for a more in-depth presentation and a guide showing how to access it through the [Intel Developer Cloud](https://www.intel.com/content/www/us/en/secure/developer/devcloud/cloud-launchpad.html). Furthermore, unlike many AI accelerators on the market, using advanced features to make the most of Gaudi2 is very easy with [Optimum Habana](https://huggingface.co/docs/optimum/habana/index), which enables users to port Transformers-compatible scripts to Gaudi with just a 2-line change.
+[Habana Gaudi2](https://habana.ai/products/gaudi2/) is the second-generation AI hardware accelerator designed by Habana Labs. A single server contains 8 accelerator devices called HPUs with 96GB of memory each. Check out [this previous blog post](https://huggingface.co/blog/habana-gaudi-2-bloom#habana-gaudi2) for a more in-depth presentation and a guide showing how to access it through the [Intel Developer Cloud](https://www.intel.com/content/www/us/en/secure/developer/devcloud/cloud-launchpad.html). Furthermore, unlike many AI accelerators on the market, using advanced features to make the most of Gaudi2 is very easy with [Optimum Habana](https://huggingface.co/docs/optimum/habana/index), which enables users to port Transformers-compatible scripts to Gaudi with just a 2-line change.
 
 
-## Training Benchmark
+## Benchmark
 
-To benchmark training, we are going to fine-tune BridgeTower Large using [this checkpoint](https://huggingface.co/BridgeTower/bridgetower-large-itm-mlm-itc). It contains 955M parameters and was pretrained on English language using masked language modeling, image-text matching and image-text contrastive loss on [Conceptual Captions](https://huggingface.co/datasets/conceptual_captions), [SBU Captions](https://huggingface.co/datasets/sbu_captions), [MSCOCO Captions](https://huggingface.co/datasets/HuggingFaceM4/COCO) and [Visual Genome](https://huggingface.co/datasets/visual_genome).
+To benchmark training, we are going to fine-tune BridgeTower Large using [this checkpoint](https://huggingface.co/BridgeTower/bridgetower-large-itm-mlm-itc), which contains 955M parameters with all its pretraining heads. It was pretrained on English language using masked language modeling, image-text matching and image-text contrastive loss on [Conceptual Captions](https://huggingface.co/datasets/conceptual_captions), [SBU Captions](https://huggingface.co/datasets/sbu_captions), [MSCOCO Captions](https://huggingface.co/datasets/HuggingFaceM4/COCO) and [Visual Genome](https://huggingface.co/datasets/visual_genome).
 
 This checkpoint is fine-tuned on the [New Yorker Caption Contest dataset](https://huggingface.co/datasets/jmhessel/newyorker_caption_contest) which consists of cartoons from The New Yorker and the most voted captions.
 
-Hyperparameters are all the same for both accelerators, except the batch size: we managed to fit 48 samples on Gaudi2 against 32 on A100. You can check them out [here](https://huggingface.co/regisss/bridgetower-newyorker-gaudi2-8x#training-hyperparameters) for Gaudi2 and [there](https://huggingface.co/regisss/bridgetower-newyorker-a100-8x#training-hyperparameters) for A100.
+Hyperparameters are all the same for both accelerators, except the batch size: we managed to fit 40 samples on Gaudi2 against 32 on A100. You can check them out [here](https://huggingface.co/regisss/bridgetower-newyorker-gaudi2-8x#training-hyperparameters) for Gaudi2 and [there](https://huggingface.co/regisss/bridgetower-newyorker-a100-8x#training-hyperparameters) for A100.
 
 **When dealing with datasets involving images, data loading is a usual bottleneck** because many costly operations are computed on CPU (image decoding, image augmentations) and then full images are sent to devices. Ideally, *we would like to send only raw bytes to devices and then perform decoding and various image transformations on device*. But let's see first how to *easily* allocate more resources to data loading for accelerating your runs.
 
@@ -56,12 +56,12 @@ Here are the throughputs we got on Gaudi2 and A100:
 
 | Device     | `dataloader_num_workers=0` | `dataloader_num_workers=1` |
 |:----------:|:--------------------------:|:--------------------------:|
-| Gaudi2 HPU | 581.5 samples/s            | 678.6 samples/s            |
+| Gaudi2 HPU | 532.4 samples/s            | 639.7 samples/s            |
 | A100 GPU   | 188.6 samples/s            | 254.7 samples/s            |
 
-We first see that **Gaudi2 is x2.66 faster than A100** with `dataloader_num_workers=1` and x3.08 faster with `dataloader_num_workers=0`, which is even better than [the speedups we previously reported](https://huggingface.co/blog/habana-gaudi-2-benchmark)!
+We first see that **Gaudi2 is x2.51 faster than A100** with `dataloader_num_workers=1` and x2.82 faster with `dataloader_num_workers=0`, which is even better than [the speedups we previously reported](https://huggingface.co/blog/habana-gaudi-2-benchmark)!
 
-Second, we see that **allocating more resources for data loading can lead to easy speedups**: x1.17 on Gaudi2 and x1.35 on A100.
+Second, we see that **allocating more resources for data loading can lead to easy speedups**: x1.20 on Gaudi2 and x1.35 on A100.
 
 We also ran experiments with several dedicated subprocesses for data loading but performance was not better than with `dataloader_num_workers=1`.
 Thus, **using `dataloader_num_workers=1` is usually a good first way of accelerating your runs involving images!**
@@ -77,12 +77,12 @@ Before delving into how to perform most of data loading on device, let's look at
 
 Optimum Habana's fast DDP does not split parameter gradients into buckets as [DDP does](https://pytorch.org/docs/stable/notes/ddp.html#internal-design). It also uses [HPU graphs](https://docs.habana.ai/en/latest/PyTorch/Inference_on_PyTorch/Inference_Using_HPU_Graphs.html?highlight=hpu%20graphs) to collect gradients in all processes and then update them (after the [all_reduce](https://pytorch.org/docs/stable/distributed.html#torch.distributed.all_reduce) operation is performed) with minimal host overhead. You can check this implementation out [here](https://github.com/huggingface/optimum-habana/blob/main/optimum/habana/distributed/fast_ddp.py).
 
-Simply using `distribution_strategy="fast_ddp"` (and keeping `dataloader_num_workers=1`) on Gaudi2 gives us 770.8 samples/s. **This is x1.14 faster than with DDP and x3.03 faster than A100!**
+Simply using `distribution_strategy="fast_ddp"` (and keeping `dataloader_num_workers=1`) on Gaudi2 gives us 705.9 samples/s. **This is x1.10 faster than with DDP and x2.77 faster than A100!**
 
 So adding just two training arguments (`dataloader_num_workers=1` and `distribution_strategy="fast_ddp"`) led to a x1.33 speedup on Gaudi2.
 
 
-### Data loading on device with Optimum Habana
+### Hardware-accelerated data loading with Optimum Habana
 
 To speed runs up even more, we are now going to move as many data loading operations as possible from the CPU to the accelerator devices. This can be done on Gaudi2 using Habana's [media pipeline](https://docs.habana.ai/en/latest/Media_Pipeline/index.html).
 
@@ -121,11 +121,11 @@ We are now going to benchmark a run with `dataloader_num_workers=1`, `distributi
 
 | Device     | `dataloader_num_workers=0` | `dataloader_num_workers=1` | `dataloader_num_workers=1` + `distribution_strategy="fast_ddp"` | `dataloader_num_workers=1` + `distribution_strategy="fast_ddp"` + `mediapipe_dataloader` |
 |:----------:|:--------------------------:|:--------------------------:|:---------------:|:---------------:|
-| Gaudi2 HPU | 581.5 samples/s            | 678.6 samples/s            | 770.8 samples/s | 843.9 samples/s |
+| Gaudi2 HPU | 532.4 samples/s            | 639.7 samples/s            | 705.9 samples/s | 802.1 samples/s |
 | A100 GPU   | 188.6 samples/s            | 254.7 samples/s            | /               | /               |
 
-We got an additional x1.09 speedup compared to the previous run with `dataloader_num_workers=1` and `distribution_strategy="fast_ddp"`.
-This final run is thus *x1.45 faster than our base run on Gaudi2 simply adding 3 ready-to-use training arguments*. It is also **x3.31 faster than A100 with `dataloader_num_workers=1`!**
+We got an additional x1.14 speedup compared to the previous run with `dataloader_num_workers=1` and `distribution_strategy="fast_ddp"`.
+This final run is thus *x1.51 faster than our base run on Gaudi2 simply adding 3 ready-to-use training arguments*. It is also **x3.15 faster than A100 with `dataloader_num_workers=1`!**
 
 
 ### Reproducing this benchmark
@@ -150,7 +150,7 @@ python ../gaudi_spawn.py --use_mpi --world_size 8 run_bridgetower.py \
 --image_column image --caption_column image_description \
 --remove_unused_columns=False \
 --do_train --do_eval --do_predict \
---per_device_train_batch_size="48" --per_device_eval_batch_size="16" \
+--per_device_train_batch_size="40" --per_device_eval_batch_size="16" \
 --num_train_epochs 5 \
 --learning_rate="1e-5" \
 --push_to_hub --report_to tensorboard --hub_model_id bridgetower\
@@ -169,19 +169,18 @@ which corresponds to the case `--dataloader_num_workers 0`. You can then add `--
 For A100, you can use the same `run_bridgetower.py` script with a couple of small changes:
 - Replace `GaudiTrainer` and `GaudiTrainingArguments` with `Trainer` and `TrainingArguments` from Transformers
 - Remove references to `GaudiConfig` and `gaudi_config`
+- Import `set_seed` directly from Transformers: `from transformers import set_seed`
 
 Note that `--distribution_strategy fast_ddp` and `--mediapipe_dataloader` are compatible with Gaudi2 only and will not work with A100.
 
 
-## Inference Benchmark
-
-Benchmark latencies
-Compare BridgeTower vs CLIP on Winoground
-
-
 ## Conclusion
 
-We will release a second part of this blog where we present how to easily perform *bfloat16* inference on Intel Sapphire Rapids CPUs.
+When dealing with images, we presented two solutions to speed your training workflows up: allocating more resources to the dataloader, and decoding and transforming images on devices rather than on CPU.
+We showed that it leads to dramatic speedups when training a SOTA vision-language model like BridgeTower: **Habana Gaudi2 with Optimum Habana is more than 3x faster than Nvidia A100 80GB with Transformers!**
+And this is super easy to use as you just need to provide a few additional training arguments.
+
+To go further, we are looking forward to using HPU graphs for training models even faster and to presenting how to use DeepSpeed ZeRO-3 on Gaudi2 to accelerate the training of your LLMs. Stay tuned!
 
 If you are interested in accelerating your Machine Learning training and inference workflows using the latest AI hardware accelerators and software libraries, check out our [Expert Acceleration Program](https://huggingface.co/support). To learn more about Habana solutions, [read about our partnership and contact them here](https://huggingface.co/hardware/habana). To learn more about Hugging Face efforts to make AI hardware accelerators easy to use, check out our [Hardware Partner Program](https://huggingface.co/hardware).
 

@@ -2412,10 +2412,10 @@
     - ethics
 
 - local: bridgetower
-  title: "Accelerating Vision and Vison-Language Models: BridgeTower on Gaudi2"
+  title: "Accelerating Vision-Language Models: BridgeTower on Habana Gaudi2"
   author: regisss
   thumbnail: /blog/assets/bridgetower/thumbnail.png
-  date: June XX, 2023
+  date: June 29, 2023
   tags:
     - partnerships
     - multimodal
