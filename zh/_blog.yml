@@ -103,6 +103,15 @@
     - research
     - open-source-collab
 
+- local: fine-tune-whisper
+  title: "使用 🤗 Transformers 微调 Whisper 模型"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/111_fine_tune_whisper/thumbnail.jpg
+  date: Nov 3, 2022
+  tags:
+    - guide
+    - audio
+
 - local: dreambooth
   title: "使用 🧨 Diffusers 通过 Dreambooth 技术来训练 Stable Diffusion"
   author: valhalla
