@@ -1062,6 +1062,7 @@
   date: August 1, 2022
   tags:
     - community
+    - ethics
 
 - local: nystromformer
   title: "Nyströmformer, Approximating self-attention in linear time and memory via the Nyström method"
@@ -2357,3 +2358,55 @@
     - guide
     - research
     - time-series
+
+- local: policy-ntia-rfc
+  title: "AI Policy @🤗: Response to the U.S. NTIA's Request for Comment on AI Accountability"
+  author: yjernite
+  thumbnail: /blog/assets/151_policy_ntia_rfc/us_policy_thumbnail.png
+  date: June 20, 2023
+  tags:
+    - community
+    - ethics
+
+- local: mms_adapters
+  title: "Fine-tuning MMS Adapter Models for Multi-Lingual ASR"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/151_mms/mms_map.png
+  date: June 19, 2023
+  tags:
+    - audio
+    - research
+
+- local: panel-on-hugging-face
+  title: "Panel on Hugging Face"
+  author: sophiamyang
+  thumbnail: /blog/assets/panel-on-hugging-face/thumbnail.png
+  date: June 22, 2023
+  tags:
+    - open-source-collab
+    - panel
+    - deployment
+    - spaces
+    - visualization
+    - apps
+
+- local: evaluating-mmlu-leaderboard
+  title: "What's going on with the Open LLM Leaderboard?"
+  author: clefourrier
+  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
+  date: June 23, 2023
+  tags:
+    - community
+    - research
+    - nlp
+    - evaluation
+    - leaderboard
+    
+
+- local: ethics-soc-4
+  title: "Ethics and Society Newsletter #4: Bias in Text-to-Image Models"
+  author:  sasha
+  thumbnail: /blog/assets/152_ethics_soc_4/ethics_4_thumbnail.png
+  date: June 26, 2023
+  tags:
+    - ethics
