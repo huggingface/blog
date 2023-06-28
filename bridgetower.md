@@ -14,7 +14,7 @@ authors:
 
 In this blog post, you will learn how to accelerate vision-language models using Optimum Habana 1.6 and the example of BridgeTower, a multimodal SOTA model. *Note that all the optimizations applied in this post are not exclusive to vision-language models and apply to vision models too.*
 
-We are going to benchmark Bridgetower training on two AI hardware accelerators: Habana Gaudi2 and Nvidia A100 80GB. We explain how data loading can be a bottleneck when using images in your workflows and how you can use features of Transformers and Optimum Habana to solve it. In particular, we present some new advanced features of [Optimum Habana](https://github.com/huggingface/optimum-habana/tree/main) v1.6, such as on-device data loading and our new fast DDP implementation, that will enable you to reach **more than x3 speedups compared to A100!**
+We are going to benchmark Bridgetower training on two AI hardware accelerators: Habana Gaudi2 and Nvidia A100 80GB. We explain how data loading can be a bottleneck when using images in your workflows and how you can use features of Transformers and Optimum Habana to solve it. In particular, we present some new advanced features of [Optimum Habana](https://github.com/huggingface/optimum-habana/tree/main) v1.6, such as hardware-accelerated data loading and our new fast DDP implementation, that will enable you to reach **more than x3 speedups compared to A100!**
 
 
 ## BridgeTower
@@ -71,7 +71,7 @@ Thus, **using `dataloader_num_workers=1` is usually a good first way of accelera
 
 ### Optimum Habana's fast DDP
 
-Before delving into how to perform most of data loading on device, let's look at another very easy way of speeding your distributed runs up on Gaudi. The new release of Optimum Habana, version 1.6.0, introduced a new feature that allows users to choose the distribution strategy to use when executing a distributed run:
+Before delving into how to perform hardware-accelerated data loading, let's look at another very easy way of speeding your distributed runs up on Gaudi. The new release of Optimum Habana, version 1.6.0, introduced a new feature that allows users to choose the distribution strategy to use when executing a distributed run:
 - `distribution_strategy="ddp"` to use Torch [`DistributedDataParallel`](https://pytorch.org/docs/stable/generated/torch.nn.parallel.DistributedDataParallel.html) (DDP)
 - `distribution_strategy="fast_ddp"` to use a lighter and usually faster implementation
 
@@ -94,7 +94,7 @@ Given a dataset, most dataloaders follow the following recipe:
 4. The CPU applies image transformations to augment images
 5. Finally, images are sent to devices (although this is usually not done by the dataloader itself)
 
-Instead of doing the whole process on CPU and send ready-to-train data on devices, a more efficient workflow would be to send encoded images to devices first and then perform image decoding and augmentations:
+Instead of doing the whole process on CPU and send ready-to-train data to devices, a more efficient workflow would be to send encoded images to devices first and then perform image decoding and augmentations:
 
 1. Same as before
 2. Same as before
@@ -176,7 +176,7 @@ Note that `--distribution_strategy fast_ddp` and `--mediapipe_dataloader` are co
 
 ## Conclusion
 
-When dealing with images, we presented two solutions to speed your training workflows up: allocating more resources to the dataloader, and decoding and transforming images on devices rather than on CPU.
+When dealing with images, we presented two solutions to speed your training workflows up: allocating more resources to the dataloader, and decoding and transforming images directly on devices rather than on CPU.
 We showed that it leads to dramatic speedups when training a SOTA vision-language model like BridgeTower: **Habana Gaudi2 with Optimum Habana is more than 3x faster than Nvidia A100 80GB with Transformers!**
 And this is super easy to use as you just need to provide a few additional training arguments.
 
