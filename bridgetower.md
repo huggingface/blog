@@ -171,6 +171,8 @@ For A100, you can use the same `run_bridgetower.py` script with a couple of smal
 - Remove references to `GaudiConfig` and `gaudi_config`
 - Import `set_seed` directly from Transformers: `from transformers import set_seed`
 
+The results displayed in this benchmark were obtained with a Nvidia A100 80GB GCP instance with 8 GPUS.
+
 Note that `--distribution_strategy fast_ddp` and `--mediapipe_dataloader` are compatible with Gaudi2 only and will not work with A100.
 
 
