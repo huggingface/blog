@@ -2422,3 +2422,17 @@
     - nlp
     - cv
     - hardware
+
+- local: confidential-code-generation
+  title: "AI-assisted code generation with privacy guarantees: Securely deploy SantaCoder with BlindBox on Azure"
+  author: mithril-security
+  thumbnail: /blog/assets/153_confidential_code_generation/confidential-code.png
+  date: June 29, 2023
+  tags:
+    - BlindBox
+    - AI
+    - azure
+    - Privacy
+    - Coding Assistant
+    - Confidential inference
+    - LLMs
