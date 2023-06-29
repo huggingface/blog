@@ -2422,3 +2422,13 @@
     - nlp
     - cv
     - hardware
+
+- local: text-to-app
+  title: "Using AI to generate web apps"
+  author: jbilcke-hf
+  thumbnail: /blog/assets/153_text_to_webapp/thumbnail.jpg
+  date: June 30, 2023
+  tags:
+    - guide
+    - llm
+    - apps
