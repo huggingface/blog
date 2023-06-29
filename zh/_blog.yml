@@ -616,3 +616,20 @@
     - community
     - research
 
+- local: mms_adapters
+  title: "微调用于多语言 ASR 的 MMS 适配器模型"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/151_mms/mms_map.png
+  date: June 19, 2023
+  tags:
+    - audio
+    - research
+
+# - local: policy-ntia-rfc
+#   title: "人工智能政策@🤗：回应美国国家电信和信息管理局（ NTIA ）关于人工智能问责制的评论请求"
+#   author: yjernite
+#   thumbnail: /blog/assets/151_policy_ntia_rfc/us_policy_thumbnail.png
+#   date: June 20, 2023
+#   tags:
+#     - community
+#     - ethics
