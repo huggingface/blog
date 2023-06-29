@@ -66,7 +66,7 @@ Second, we see that **allocating more resources for data loading can lead to eas
 We also ran experiments with several dedicated subprocesses for data loading but performance was not better than with `dataloader_num_workers=1` for both Gaudi2 and A100.
 Thus, **using `dataloader_num_workers=1` is usually a good first way of accelerating your runs involving images!**
 
-> Tensorboard logs can be visualized [here](https://huggingface.co/regisss/bridgetower-newyorker-gaudi2-8x/tensorboard) for Gaudi2 and [there](https://huggingface.co/regisss/bridgetower-newyorker-a100-8x/tensorboard) for A100.
+Tensorboard logs can be visualized [here](https://huggingface.co/regisss/bridgetower-newyorker-gaudi2-8x/tensorboard) for Gaudi2 and [there](https://huggingface.co/regisss/bridgetower-newyorker-a100-8x/tensorboard) for A100.
 
 
 ### Optimum Habana's fast DDP
@@ -103,10 +103,9 @@ Instead of doing the whole process on CPU and send ready-to-train data to device
 5. Devices apply image transformations to augment images
 
 That way we can benefit from the computing power of our devices to speed image decoding and transformations up.
-
-> Note that there are two caveats to be aware of when doing this:
-> - Device memory consumption will increase, so you may have to reduce your batch size if there is not enough free memory. This may mitigate the speedup brought by this approach.
-> - If devices are intensively used (100% or close to it) when doing data loading on CPU, don't expect any speedup when doing it on devices as they already have their hands full.
+Note that there are two caveats to be aware of when doing this:
+- Device memory consumption will increase, so you may have to reduce your batch size if there is not enough free memory. This may mitigate the speedup brought by this approach.
+- If devices are intensively used (100% or close to it) when doing data loading on CPU, don't expect any speedup when doing it on devices as they already have their hands full.
 
 <!-- To achieve this on Gaudi2, Habana's media pipeline enables us to:
 - Initialize a media pipeline with all the operators it needs (see [here](https://docs.habana.ai/en/latest/Media_Pipeline/Operators.html#media-operators) the list of all supported operators) and define a graph so that we can specify in which order operations should be performed (e.g. reading data &rarr; decoding &rarr; cropping).
@@ -114,8 +113,7 @@ That way we can benefit from the computing power of our devices to speed image d
 
 To implement this on Gaudi2, we have got you covered: the [contrastive image-text example](https://github.com/huggingface/optimum-habana/tree/main/examples/contrastive-image-text) in Optimum Habana now provides a ready-to-use media pipeline that you can use with COCO-like datasets that contain text and images! You will just have to add `--mediapipe_dataloader` to your command to use it.
 
-> For interested readers, a lower-level overview is given in the documentation of Gaudi: https://docs.habana.ai/en/latest/Media_Pipeline/index.html
-> The list of all supported operators is available here: https://docs.habana.ai/en/latest/Media_Pipeline/Operators.html
+For interested readers, a lower-level overview is given in the documentation of Gaudi [here](https://docs.habana.ai/en/latest/Media_Pipeline/index.html) and the list of all supported operators is available [there](https://docs.habana.ai/en/latest/Media_Pipeline/Operators.html).
 
 We are now going to benchmark a run with `dataloader_num_workers=1`, `distribution_strategy="fast_ddp"` and `mediapipe_dataloader` since all these optimizations are compatible with each other:
 
@@ -125,7 +123,7 @@ We are now going to benchmark a run with `dataloader_num_workers=1`, `distributi
 | A100 GPU   | 188.6 samples/s            | 254.7 samples/s            | /               | /               |
 
 We got an additional x1.14 speedup compared to the previous run with `dataloader_num_workers=1` and `distribution_strategy="fast_ddp"`.
-This final run is thus *x1.51 faster than our base run on Gaudi2 simply adding 3 ready-to-use training arguments*. It is also **x3.15 faster than A100 with `dataloader_num_workers=1`!**
+This final run is thus x1.51 faster than our base run on Gaudi2 **simply adding 3 ready-to-use training arguments.** It is also **x3.15 faster than A100 with `dataloader_num_workers=1`!**
 
 
 ### Reproducing this benchmark
@@ -161,10 +159,10 @@ python ../gaudi_spawn.py --use_mpi --world_size 8 run_bridgetower.py \
 ```
 which corresponds to the case `--dataloader_num_workers 0`. You can then add `--dataloader_num_workers 1`, `--distribution_strategy fast_ddp` and `--mediapipe_dataloader` to test other configurations.
 
-> To push your model and Tensorboard logs to the Hugging Face Hub, you will have to log in to your account beforehand with:
-> ```bash
-> huggingface-cli login
-> ```
+To push your model and Tensorboard logs to the Hugging Face Hub, you will have to log in to your account beforehand with:
+```bash
+huggingface-cli login
+```
 
 For A100, you can use the same `run_bridgetower.py` script with a couple of small changes:
 - Replace `GaudiTrainer` and `GaudiTrainingArguments` with `Trainer` and `TrainingArguments` from Transformers
