@@ -2069,7 +2069,7 @@
   tags:
     - nlp
     - community
-    - research 
+    - research
 
 - local: text-to-video
   title: "A Dive into Text-to-Video Models"
@@ -2102,7 +2102,7 @@
   tags:
     - nlp
     - research
-    
+
 - local: rwkv
   title: "Introducing RWKV — An RNN with the advantages of a transformer"
   author: BlinkDL
@@ -2111,7 +2111,7 @@
   tags:
     - nlp
     - community
-    - research 
+    - research
 
 - local: chatbot-amd-gpu
   title: "Run a Chatgpt-like Chatbot on a Single GPU with ROCm"
@@ -2249,7 +2249,7 @@
   date: June 1, 2023
   tags:
     - community
-  
+
 - local: unity-asr
   title: "AI Speech Recognition in Unity"
   author: dylanebert
@@ -2401,7 +2401,7 @@
     - nlp
     - evaluation
     - leaderboard
-    
+
 
 - local: ethics-soc-4
   title: "Ethics and Society Newsletter #4: Bias in Text-to-Image Models"
@@ -2410,3 +2410,15 @@
   date: June 26, 2023
   tags:
     - ethics
+
+- local: bridgetower
+  title: "Accelerating Vision-Language Models: BridgeTower on Habana Gaudi2"
+  author: regisss
+  thumbnail: /blog/assets/bridgetower/thumbnail.png
+  date: June 29, 2023
+  tags:
+    - partnerships
+    - multimodal
+    - nlp
+    - cv
+    - hardware
