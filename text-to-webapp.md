@@ -12,7 +12,7 @@ authors:
 
 As more code generation models become publicly available, it is now possible to do text-to-web and even text-to-app in ways that we couldn't imagine before.
 
- This tutorial presents a direct approach to AI web content generation by streaming and rendering the content all in one go.
+This tutorial presents a direct approach to AI web content generation by streaming and rendering the content all in one go.
 
 **Try the live demo here!** →  **[Webapp Factory](https://huggingface.co/spaces/jbilcke-hf/webapp-factory-wizardcoder)**
 
@@ -20,30 +20,31 @@ As more code generation models become publicly available, it is now possible to 
 
 ## Using LLM in Node apps
 
-While we usually think of Python for everything related to AI and ML, the web development community relies heavily on Javascript and Node is a popular platform to create web apps.
+While we usually think of Python for everything related to AI and ML, the web development community relies heavily on JavaScript and Node.
 
 Here are some ways you can use large language models on this platform.
 
 ### By running a model locally
 
-There exist various approaches to running LLM in Javascript, from using onnx with wasm to calling external processes. Some possibilities are:
+Various approaches exist to running LLM in Javascript, from using [ONNX](https://www.npmjs.com/package/onnxruntime-node) to converting code to [WASM](https://blog.mithrilsecurity.io/porting-tokenizers-to-wasm/) and calling external processes written in other languages.
+
+Some of those techniques are now used in ready-to-use NPM libraries:
 
 - Using AI/ML libraries such as [transformers.js](https://huggingface.co/docs/transformers.js/index) (which supports [code generation](https://huggingface.co/docs/transformers.js/api/models#codegenmodelgenerateargs-codepromiseampltanyampgtcode))
 - Using dedicated LLM libraries such as [llama-node](https://github.com/Atome-FE/llama-node) (or [web-llm](https://github.com/mlc-ai/web-llm) for the browser)
 - Using Python libraries through a bridge such as [Pythonia](https://www.npmjs.com/package/pythonia)
 
-However running large language models in such environment can be pretty resource-intensive, especially if you are not able to use hardware acceleration.
+However, running large language models in such an environment can be pretty resource-intensive, especially if you are not able to use hardware acceleration.
 
 ### By using an API
 
-Today various cloud providers propose commercial APIs to use language models.
+Today, various cloud providers propose commercial APIs to use language models.
 
-At Hugging Face we offer a free [Hosted Inference API](https://huggingface.co/docs/api-inference/index) to allow anyone to use small to and medium-sized models from the community.
+Hugging Face offers a free [Inference API](https://huggingface.co/docs/api-inference/index) to allow anyone to use small to medium-sized models from the community.
 
-We also have an [Inference Endpoints API](https://huggingface.co/inference-endpoints) for those who require larger models or custom models.
+We also have an [Inference Endpoints API](https://huggingface.co/inference-endpoints) for those who require larger models or custom inference code.
 
 These two APIs can be used from Node using the [Hugging Face Inference API library](https://www.npmjs.com/package/@huggingface/inference) on NPM.
-
 
 💡 Top performing models generally require a lot of memory (32 Gb, 64 Gb or more) and hardware acceleration to get good latency (see [the benchmarks](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)). But we are also seeing a trend of models shrinking in size while keeping relatively good results on some tasks, with requirements as low as 16 Gb or even 8 Gb of memory.
 
@@ -51,7 +52,7 @@ These two APIs can be used from Node using the [Hugging Face Inference API libra
 
 We are going to use NodeJS to create our generative AI web server.
 
-The model will be [WizardCoder-15B](https://huggingface.co/WizardLM/WizardCoder-15B-V1.0) running on the Inference endpoints API, but feel free to try with another model and stack.
+The model will be [WizardCoder-15B](https://huggingface.co/WizardLM/WizardCoder-15B-V1.0) running on the Inference Endpoints API, but feel free to try with another model and stack.
 
 If you are interested in other solutions, here are some pointers to alternative implementations:
 
@@ -61,7 +62,7 @@ If you are interested in other solutions, here are some pointers to alternative 
 
 ## Initializing the project
 
-First we need to setup a new Node project (you can clone [this template](https://github.com/jbilcke-hf/template-node-express/generate) if you want to).
+First, we need to setup a new Node project (you can clone [this template](https://github.com/jbilcke-hf/template-node-express/generate) if you want to).
 
 ```html
 git clone https://github.com/jbilcke-hf/template-node-express tutorial
@@ -70,7 +71,7 @@ nvm use
 npm install
 ```
 
-Then we can install the Hugging Face Inference client:
+Then, we can install the Hugging Face Inference client:
 
 ```html
 npm install @huggingface/inference
@@ -99,17 +100,17 @@ You will have to select `WizardCoder` in the **Model Repository** dropdown and m
 
 ![new_endpoint.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/153_text_to_webapp/new_endpoint.jpg)
 
-Once your endpoint is created you can copy the URL from [this page](https://ui.endpoints.huggingface.co):
+Once your endpoint is created, you can copy the URL from [this page](https://ui.endpoints.huggingface.co):
 
 ![deployed_endpoints.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/153_text_to_webapp/deployed_endpoints.jpg)
 
-An configure the client to use it:
+Configure the client to use it:
 
 ```javascript
 const hf = hfi.endpoint('** URL TO YOUR ENDPOINT **')
 ```
 
-can now tell the inference client to use our private endpoint, and call our model:
+You can now tell the inference client to use our private endpoint and call our model:
 
 ```javascript
 const { generated_text } = await hf.textGeneration({
@@ -119,9 +120,9 @@ const { generated_text } = await hf.textGeneration({
 
 ## Generating the HTML stream
 
-It is now time to return some HTML to the web client when then visit a url, say `/app`
+t is now time to return some HTML to the web client when they visit a URL, say `/app`
 
-To achieve this we are going to use Express.js and create and endpoint, in which we are going to stream the results from the Hugging Face Inference API.
+To achieve this, we will use Express.js and create an endpoint in which we will stream the results from the Hugging Face Inference API.
 
 
 ```javascript
@@ -178,7 +179,7 @@ and open `https://localhost:3000?prompt=some%20prompt`. You should see some prim
 
 ## Tuning the prompt
 
-Each language model reacts differently to prompting. For WizardCoder simple instructions often work the best:
+Each language model reacts differently to prompting. For WizardCoder, simple instructions often work the best:
 
 ```javascript
 const inputs = `# Task
@@ -192,11 +193,11 @@ Use a central layout to wrap everything in a <div class='flex flex-col items-cen
 
 ### Using Tailwind
 
-Tailwind is a popular CSS framework for styling content and luckily WizardCoder is pretty good at it out of the box.
+Tailwind is a popular CSS framework for styling content, and WizardCoder is good at it out of the box.
 
-This allows code generation to create style on the go, without the need to generate a stylesheet at the beginning or the end of the page (which would make the page feel like it’s stuck).
+This allows code generation to create style on the go without generating a stylesheet at the beginning or the end of the page (which would make the page feel stuck).
 
-To improve results we can also guide the model by showing the way (`<body class="p-4 md:p-8">`).
+To improve results, we can also guide the model by showing the way (`<body class="p-4 md:p-8">`).
 
 ```javascript
 const inputs = `# Task
