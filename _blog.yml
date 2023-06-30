@@ -2423,7 +2423,7 @@
     - cv
     - hardware
 
-- local: text-to-app
+- local: text-to-webapp
   title: "Using AI to generate web apps"
   author: jbilcke-hf
   thumbnail: /blog/assets/153_text_to_webapp/thumbnail.jpg
