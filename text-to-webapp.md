@@ -214,7 +214,7 @@ Use a central layout to wrap everything in a <div class='flex flex-col items-cen
 
 It can be difficult to reliably prevent hallucinations and failures (such as parroting back the whole instructions, or writing “lorem ipsum” placeholder text) on light models dedicated to code generation, compared to larger general-purpose models, but we can try to mitigate it.
 
-You can try to use an imperative tone and repeat the instructions, an efficient way can also be to show the way by giving a part of the output in English:
+You can try to use an imperative tone and repeat the instructions. An efficient way can also be to show the way by giving a part of the output in English:
 
 ```javascript
 const inputs = `# Task
