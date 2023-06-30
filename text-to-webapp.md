@@ -1,6 +1,6 @@
 ---
 title: "Using AI to generate web apps"
-thumbnail: /blog/assets/152_text_to_webapp/thumbnail.jpg
+thumbnail: /blog/assets/153_text_to_webapp/thumbnail.jpg
 authors:
 - user: jbilcke-hf
 ---
@@ -12,11 +12,11 @@ authors:
 
 As more code generation models become publicly available, it is now possible to do text-to-web and even text-to-app in ways that we couldn't imagine before.
 
- This tutorial presents a direct approach to AI web content generation by generating, streaming and rendering the content all in one go.
+ This tutorial presents a direct approach to AI web content generation by streaming and rendering the content all in one go.
 
 **Try the live demo here!** →  **[Webapp Factory](https://huggingface.co/spaces/jbilcke-hf/webapp-factory-wizardcoder)**
 
-![main_demo.gif](assets/153_text_to_webapp/main_demo.gif)
+![main_demo.gif](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/153_text_to_webapp/main_demo.gif)
 
 ## Using LLM in Node apps
 
@@ -97,11 +97,11 @@ To deploy a new endpoint you can go to the [endpoint creation page](https://ui.e
 
 You will have to select `WizardCoder` in the **Model Repository** dropdown and make sure that a GPU instance large enough is selected:
 
-![new_endpoint.jpg](assets/153_text_to_webapp/new_endpoint.jpg)
+![new_endpoint.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/153_text_to_webapp/new_endpoint.jpg)
 
 Once your endpoint is created you can copy the URL from [this page](https://ui.endpoints.huggingface.co):
 
-![deployed_endpoints.jpg](assets/153_text_to_webapp/deployed_endpoints.jpg)
+![deployed_endpoints.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/153_text_to_webapp/deployed_endpoints.jpg)
 
 An configure the client to use it:
 
@@ -261,7 +261,7 @@ But you can try to ask for more specific ways of prompting images:
 Only generate a few images and use descriptive photo captions with at least 10 words!
 ```
 
-![preview_image.jpg](assets/153_text_to_webapp/preview_image.jpg)
+![preview_image.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/153_text_to_webapp/preview_image.jpg)
 
 ## Adding some UI
 
@@ -315,4 +315,4 @@ Look at the space repository for [more complete exemple](https://huggingface.co/
 
 this final space makes use of Daisy UI to improve HTML generation, by trying to use a more compact representation of design system classes (eg. `<button class="btn" />`).
 
-![main_demo.jpg](assets/153_text_to_webapp/main_demo.jpg)
+![main_demo.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/153_text_to_webapp/main_demo.jpg)
