@@ -616,6 +616,26 @@
     - community
     - research
 
+- local: llm-leaderboard
+  title: "基础大模型能像人类一样标注数据吗？"
+  author: nazneen
+  thumbnail: /blog/assets/llm-leaderboard/leaderboard-thumbnail.png
+  date: June 12, 2023
+  tags:
+    - nlp
+    - evaluation
+    - leaderboard
+
+- local: autoformer
+  title: "Transformer 模型能够有效地进行时间序列预测 (使用 Autoformer)"
+  author: elisim
+  thumbnail: /blog/assets/150_autoformer/thumbnail.png
+  date: June 16, 2023
+  tags:
+    - guide
+    - research
+    - time-series
+
 - local: mms_adapters
   title: "微调用于多语言 ASR 的 MMS 适配器模型"
   author: patrickvonplaten
