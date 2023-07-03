@@ -21,7 +21,7 @@ The community was surprised that MMLU evaluation numbers of the current top mode
 
 So we decided to dive in a rabbit hole to understand what was going on and how to fix it 🕳🐇
 
-In our quest, we discussed with the great [@javier-m](https://huggingface.co/javier-m) who collaborated on the evaluations of LLaMA as well as the no-less amazing [@slippylolo](https://huggingface.co/slippylolo) from the Falcon team. This being said, all the errors in the below should be attributed to us rather than them of course!
+In our quest, we discussed with both the great [@javier-m](https://huggingface.co/javier-m) who collaborated on the evaluations of LLaMA and the amazing [@slippylolo](https://huggingface.co/slippylolo) from the Falcon team. This being said, all the errors in the below should be attributed to us rather than them of course!
 
 Along this journey with us you’ll learn a lot about the ways you can evaluate a model on a single evaluation and whether or not to believe the numbers you see online and in papers.
 
@@ -54,7 +54,7 @@ To settle the case, we decided to run these three possible implementations of th
 
 The results are surprising:
 
-![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/evaluating-mmlu-leaderboard/LLM-01-bis-01.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/evaluating-mmlu-leaderboard/LLM-01-ter-01.png)
 
 You can find the full evaluation numbers at the end of the post.
 
@@ -225,12 +225,12 @@ Now let’s compare the model scores on these three possible ways to evaluate th
 
 |                                           | MMLU (HELM) | MMLU (Harness) | MMLU (Original) |
 |:------------------------------------------|------------:|---------------:|----------------:|
-| huggingface/llama-65b                     |       **0.637** |          0.488 |           **0.636** |
+| llama-65b                     |       **0.637** |          0.488 |           **0.636** |
 | tiiuae/falcon-40b                         |       0.571 |          **0.527** |           0.558 |
-| huggingface/llama-30b                     |       0.583 |          0.457 |           0.584 |
+| llama-30b                     |       0.583 |          0.457 |           0.584 |
 | EleutherAI/gpt-neox-20b                   |       0.256 |          0.333 |           0.262 |
-| huggingface/llama-13b                     |       0.471 |          0.377 |           0.47  |
-| huggingface/llama-7b                      |       0.339 |          0.342 |           0.351 |
+| llama-13b                     |       0.471 |          0.377 |           0.47  |
+| llama-7b                      |       0.339 |          0.342 |           0.351 |
 | tiiuae/falcon-7b                          |       0.278 |          0.35  |           0.254 |
 | togethercomputer/RedPajama-INCITE-7B-Base |       0.275 |          0.34  |           0.269 |
 
