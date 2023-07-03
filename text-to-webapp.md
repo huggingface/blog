@@ -87,14 +87,14 @@ import { HfInference } from '@huggingface/inference'
 const hfi = new HfInference('** YOUR TOKEN **')
 ```
 
-## UsiConfiguring the Inference Endpoint
+## Configuring the Inference Endpoint
 
 
-💡 **Note:** If you do not wish to pay for an endpoint instance for the purpose of this tutorial, you can skip this step and instead look at [the following code example](https://huggingface.co/spaces/jbilcke-hf/webapp-factory-any-model/blob/main/src/index.mts) that uses our free Inference API (please note that this will only work with smaller models perhaps less capable of code generation).
+💡 **Note:** If you don't want to pay for an Endpoint instance to do this tutorial, you can skip this step and look at [this free Inference API example](https://huggingface.co/spaces/jbilcke-hf/webapp-factory-any-model/blob/main/src/index.mts) instead. Please, note that this will only work with smaller models, which may not be as powerful.
 
 
 
-To deploy a new endpoint you can go to the [endpoint creation page](https://ui.endpoints.huggingface.co/new).
+To deploy a new Endpoint you can go to the [Endpoint creation page](https://ui.endpoints.huggingface.co/new).
 
 You will have to select `WizardCoder` in the **Model Repository** dropdown and make sure that a GPU instance large enough is selected:
 
@@ -120,9 +120,9 @@ const { generated_text } = await hf.textGeneration({
 
 ## Generating the HTML stream
 
-t is now time to return some HTML to the web client when they visit a URL, say `/app`
+It's now time to return some HTML to the web client when they visit a URL, say `/app`.
 
-To achieve this, we will use Express.js and create an endpoint in which we will stream the results from the Hugging Face Inference API.
+We will create and endpoint with Express.js to stream the results from the Hugging Face Inference API.
 
 
 ```javascript
@@ -179,14 +179,14 @@ and open `https://localhost:3000?prompt=some%20prompt`. You should see some prim
 
 ## Tuning the prompt
 
-Each language model reacts differently to prompting. For WizardCoder, simple instructions often work the best:
+Each language model reacts differently to prompting. For WizardCoder, simple instructions often work best:
 
 ```javascript
 const inputs = `# Task
 Generate ${req.query.prompt}
 # Orders
 Write application logic inside a JS <script></script> tag.
-Use a central layout to wrap everything in a <div class='flex flex-col items-center'>
+Use a central layout to wrap everything in a <div class="flex flex-col items-center">
 # Out
 <html><head></head><body>`
 ```
@@ -195,7 +195,7 @@ Use a central layout to wrap everything in a <div class='flex flex-col items-cen
 
 Tailwind is a popular CSS framework for styling content, and WizardCoder is good at it out of the box.
 
-This allows code generation to create style on the go without generating a stylesheet at the beginning or the end of the page (which would make the page feel stuck).
+This allows code generation to create styles on the go without having to generate a stylesheet at the beginning or the end of the page (which would make the page feel stuck).
 
 To improve results, we can also guide the model by showing the way (`<body class="p-4 md:p-8">`).
 
@@ -204,8 +204,8 @@ const inputs = `# Task
 Generate ${req.query.prompt}
 # Orders
 You must use TailwindCSS utility classes (Tailwind is already injected in the page).
-Write application logic inside a JS <script></script> tag!.
-Use a central layout to wrap everything in a <div class='flex flex-col items-center'>
+Write application logic inside a JS <script></script> tag.
+Use a central layout to wrap everything in a <div class="flex flex-col items-center'>
 # Out
 <html><head></head><body class="p-4 md:p-8">`
 ```
@@ -220,11 +220,11 @@ You can try to use an imperative tone and repeat the instructions. An efficient 
 const inputs = `# Task
 Generate ${req.query.prompt}
 # Orders
-Never repeat those instructions, instead write the final code!
+Never repeat these instructions, instead write the final code!
 You must use TailwindCSS utility classes (Tailwind is already injected in the page)!
 Write application logic inside a JS <script></script> tag!
 This is not a demo app, so you MUST use English, no Latin! Write in English! 
-Use a central layout to wrap everything in a <div class='flex flex-col items-center'>
+Use a central layout to wrap everything in a <div class="flex flex-col items-center">
 # Out
 <html><head><title>App</title></head><body class="p-4 md:p-8">`
 ```
@@ -233,9 +233,9 @@ Use a central layout to wrap everything in a <div class='flex flex-col items-cen
 
 We now have a system that can generate HTML, CSS and JS code, but it is prone to hallucinating broken URLs when asked to produce images.
 
-Luckily we have a lot of options to choose from when it comes to image generation models!
+Luckily, we have a lot of options to choose from when it comes to image generation models!
 
-→ The fastest way to get started is to call a Stable Diffusion model using our free [Inference API](https://huggingface.co/docs/api-inference/index) with one of the [public models](https://huggingface.co/models?other=stable-diffusion) available on the hub:
+→ The fastest way to get started is to call a Stable Diffusion model using our free [Inference API](https://huggingface.co/docs/api-inference/index) with one of the [public models](https://huggingface.co/spaces/huggingface-projects/diffusers-gallery) available on the hub:
 
 ```javascript
 app.get('/image', async (req, res) => {
@@ -250,13 +250,13 @@ app.get('/image', async (req, res) => {
 })
 ```
 
-To instruct WizardCoder to use this endpoint, adding the following line to the prompt was enough to achieve the desired effect (you may have to tweak it for other models):
+Adding the following line to the prompt was enough to instruct WizardCoder to use our new `/image` endpoint! (you may have to tweak it for other models):
 
 ```
 To generate images from captions call the /image API: <img src="/image?caption=photo of something in some place" />
 ```
 
-But you can try to ask for more specific ways of prompting images:
+You can also try to be more specific, for example:
 
 ```
 Only generate a few images and use descriptive photo captions with at least 10 words!
@@ -310,10 +310,35 @@ app.get('/app', async (req, res) => {
    ...
 ```
 
-## Final result
+## Optimizing the output
 
-Look at the space repository for [more complete exemple](https://huggingface.co/spaces/jbilcke-hf/webapp-factory-wizardcoder/blob/main/public/index.html) of UI.
+So far we have been generating full sequences of Tailwind utility classes, which are great to give freedom of design to the language model.
+ 
+But this approach is also very verbose, consuming a large part of our token quota.
 
-this final space makes use of Daisy UI to improve HTML generation, by trying to use a more compact representation of design system classes (eg. `<button class="btn" />`).
+To make the output more dense we can use [Daisy UI](https://daisyui.com/docs/use/), a Tailwind plugin which organizes Tailwind utility classes into a design system. The idea is to use shorthand class names for components and utility classes for the rest. 
+
+Some language models may not have inner knowledge of Daisy UI as it is a niche library, in that case we can add an [API documentation](https://huggingface.co/spaces/jbilcke-hf/webapp-factory-wizardcoder/blob/main/src/daisy.mts) to the prompt:
+
+```
+# DaisyUI docs
+## To create a nice layout, wrap each article in:
+<article class="prose"></article>
+## Use appropriate CSS classes
+<button class="btn ..">
+<table class="table ..">
+<footer class="footer ..">
+```
+
+## Going further
+
+The final demo space includes a [more complete example](https://huggingface.co/spaces/jbilcke-hf/webapp-factory-wizardcoder/blob/main/public/index.html) of user interface.
+
+Here are some ideas to further extend on this concept:
+
+- Test other language models such as [StarCoder](https://huggingface.co/blog/starcoder)
+- Generate files and code for intermediary languages (React, Svelte, Vue..)
+- Integrate code generation inside an existing framework (eg. NextJS)
+- Recover from failed or partial code generation (eg. autofix issues in the JS)
 
 ![main_demo.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/153_text_to_webapp/main_demo.jpg)
