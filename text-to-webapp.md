@@ -340,5 +340,6 @@ Here are some ideas to further extend on this concept:
 - Generate files and code for intermediary languages (React, Svelte, Vue..)
 - Integrate code generation inside an existing framework (eg. NextJS)
 - Recover from failed or partial code generation (eg. autofix issues in the JS)
+- Connect it to a chatbot plugin (eg. embed tiny webapp iframes in a chat discussion) 
 
 ![main_demo.jpg](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/153_text_to_webapp/main_demo.jpg)
