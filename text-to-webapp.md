@@ -1,5 +1,5 @@
 ---
-title: "Using AI to generate web apps"
+title: "Making a web app generator with open ML models"
 thumbnail: /blog/assets/153_text_to_webapp/thumbnail.jpg
 authors:
 - user: jbilcke-hf
@@ -26,9 +26,9 @@ Here are some ways you can use large language models on this platform.
 
 ### By running a model locally
 
-Various approaches exist to running LLM in Javascript, from using [ONNX](https://www.npmjs.com/package/onnxruntime-node) to converting code to [WASM](https://blog.mithrilsecurity.io/porting-tokenizers-to-wasm/) and calling external processes written in other languages.
+Various approaches exist to run LLMs in Javascript, from using [ONNX](https://www.npmjs.com/package/onnxruntime-node) to converting code to [WASM](https://blog.mithrilsecurity.io/porting-tokenizers-to-wasm/) and calling external processes written in other languages.
 
-Some of those techniques are now used in ready-to-use NPM libraries:
+Some of those techniques are now available as ready-to-use NPM libraries:
 
 - Using AI/ML libraries such as [transformers.js](https://huggingface.co/docs/transformers.js/index) (which supports [code generation](https://huggingface.co/docs/transformers.js/api/models#codegenmodelgenerateargs-codepromiseampltanyampgtcode))
 - Using dedicated LLM libraries such as [llama-node](https://github.com/Atome-FE/llama-node) (or [web-llm](https://github.com/mlc-ai/web-llm) for the browser)
@@ -38,11 +38,11 @@ However, running large language models in such an environment can be pretty reso
 
 ### By using an API
 
-Today, various cloud providers propose commercial APIs to use language models.
+Today, various cloud providers propose commercial APIs to use language models. Here is the current Hugging Face offering:
 
-Hugging Face offers a free [Inference API](https://huggingface.co/docs/api-inference/index) to allow anyone to use small to medium-sized models from the community.
+The free [Inference API](https://huggingface.co/docs/api-inference/index) to allow anyone to use small to medium-sized models from the community.
 
-We also have an [Inference Endpoints API](https://huggingface.co/inference-endpoints) for those who require larger models or custom inference code.
+The more advanced and production-ready [Inference Endpoints API](https://huggingface.co/inference-endpoints) for those who require larger models or custom inference code.
 
 These two APIs can be used from Node using the [Hugging Face Inference API library](https://www.npmjs.com/package/@huggingface/inference) on NPM.
 
@@ -332,7 +332,7 @@ Some language models may not have inner knowledge of Daisy UI as it is a niche l
 
 ## Going further
 
-The final demo space includes a [more complete example](https://huggingface.co/spaces/jbilcke-hf/webapp-factory-wizardcoder/blob/main/public/index.html) of user interface.
+The final demo Space includes a [more complete example](https://huggingface.co/spaces/jbilcke-hf/webapp-factory-wizardcoder/blob/main/public/index.html) of user interface.
 
 Here are some ideas to further extend on this concept:
 

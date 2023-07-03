@@ -2424,10 +2424,10 @@
     - hardware
 
 - local: text-to-webapp
-  title: "Using AI to generate web apps"
+  title: "Making a web app generator with open ML models"
   author: jbilcke-hf
   thumbnail: /blog/assets/153_text_to_webapp/thumbnail.jpg
-  date: June 30, 2023
+  date: July 4, 2023
   tags:
     - guide
     - llm
