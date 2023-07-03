@@ -2432,3 +2432,14 @@
     - guide
     - llm
     - apps
+
+- local: gen-ai-enterprise
+  title: "Using Generative AI in the Enterprise"
+  author: sasha
+  thumbnail: /blog/assets/153_gen-ai-enterprise/thumbnail.png
+  date: July 4, 2023
+  tags:
+    - generative
+    - llm
+    - research
+    - enterprise
