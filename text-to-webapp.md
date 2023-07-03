@@ -5,7 +5,7 @@ authors:
 - user: jbilcke-hf
 ---
 
-# Using AI to generate web apps
+# Making a web app generator with open ML models
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
