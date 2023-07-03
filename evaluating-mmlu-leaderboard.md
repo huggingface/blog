@@ -54,7 +54,7 @@ To settle the case, we decided to run these three possible implementations of th
 
 The results are surprising:
 
-![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/evaluating-mmlu-leaderboard/LLM-01-bis-01.png)
+![png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/evaluating-mmlu-leaderboard/LLM-01-ter-01.png)
 
 You can find the full evaluation numbers at the end of the post.
 
