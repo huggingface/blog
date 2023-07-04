@@ -66,7 +66,7 @@ curl https://j4xhm53fxl9ussm8.us-east-1.aws.endpoints.huggingface.cloud \
 -H "Content-Type: application/json"
 ```
 
-You can use different parameters to control the generation, defining them in the `parameters` attribute of the payload. As of the following parameters are supported:
+You can use different parameters to control the generation, defining them in the `parameters` attribute of the payload. As of today, the following parameters are supported:
 
 - `temperature`: Controls randomness in the model. Lower values will make the model more deterministic and higher values will make the model more random. Default value is 1.0.
 - `max_new_tokens`: The maximum number of tokens to generate. Default value is 20, max value is 512.
