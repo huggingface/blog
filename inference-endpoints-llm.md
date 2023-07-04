@@ -100,7 +100,7 @@ We can create a `Client` providing our endpoint URL and credential alongside the
 ```python
 from text_generation import Client
 
-# HF Inference endpoints parameter
+# HF Inference Endpoints parameter
 endpoint_url = "https://YOUR_ENDPOINT.endpoints.huggingface.cloud"
 hf_token = "hf_YOUR_TOKEN"
 
