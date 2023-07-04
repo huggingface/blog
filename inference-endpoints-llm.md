@@ -185,7 +185,7 @@ Replace the `process.stdout` call with the `yield` or with a function you want t
 
 ## Conclusion
 
-In this blog post, we showed you how to deploy open-source LLMs to Hugging Face inference Endpoints, and how to stream responses and test the performance of our endpoints. By using Hugging Face Inference Endpoints you can deploy models as production-ready APIs with just a few clicks, benefit from automatic scale to zero capability, and deploy models in secure offline endpoints backed by SOC2 Type 2 certification. Additionally, we showed you how to stream responses using Python and JavaScript to improve the user experience by streaming tokens as they are generated.
+In this blog post, we showed you how to deploy open-source LLMs using Hugging Face Inference Endpoints, how to control the text generation with advanced parameters, and how to stream responses to a Python or JavaScript client to improve the user experience. By using Hugging Face Inference Endpoints you can deploy models as production-ready APIs with just a few clicks, reduce your costs with automatic scale to zero, and deploy models into secure offline endpoints backed by SOC2 Type 2 certification.
 ---
 
 Thanks for reading! If you have any questions, feel free to contact me on [Twitter](https://twitter.com/_philschmid) or [LinkedIn](https://www.linkedin.com/in/philipp-schmid-a6a2bb196/).
