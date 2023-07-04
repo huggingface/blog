@@ -52,7 +52,7 @@ You can then deploy our model by clicking “Create Endpoint”. After 10 minute
 
 ## 2. Test the LLM endpoint
 
-The Endpoint overview provides access to the Inference Widget, which can be used to send requests. This allows you to quickly test your Endpoint with different inputs and share it with team members. Those Widgets don’t support parameters, which results, in this case, a “short” generation. 
+The Endpoint overview provides access to the Inference Widget, which can be used to manually send requests. This allows you to quickly test your Endpoint with different inputs and share it with team members. Those Widgets do not support parameters - in this case this results to a “short” generation. 
 
 ![Test Inference Widget](assets/assets/155_inference_endpoints_llm/widget.png "Test Inference Widget")
 
