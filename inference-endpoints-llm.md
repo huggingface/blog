@@ -32,7 +32,7 @@ Here are some of the most important features for LLM deployment:
 4. [LLM Optimization](https://huggingface.co/text-generation-inference): Optimized for LLMs, enabling high throughput with Paged Attention and low latency through custom transformers code and Flash Attention power by Text Generation Inference
 5. [Comprehensive Task Support](https://huggingface.co/docs/inference-endpoints/supported_tasks): Out of the box support for 🤗 Transformers, Sentence-Transformers, and Diffusers tasks and models, and easy customization to enable advanced tasks like speaker diarization or any Machine Learning task and library.
 
-You can get started with inference endpoints at: [https://ui.endpoints.huggingface.co/](https://ui.endpoints.huggingface.co/)
+You can get started with Inference Endpoints at: [https://ui.endpoints.huggingface.co/](https://ui.endpoints.huggingface.co/)
 
 ## 1. How to deploy Falcon 40B instruct
 
