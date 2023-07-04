@@ -22,7 +22,9 @@ Before we start, let's refresh our knowledge about Inference Endpoints.
 
 ## What is Hugging Face Inference Endpoints
 
-[Hugging Face Inference Endpoints](https://ui.endpoints.huggingface.co/) offers a comprehensive and user-friendly way to deploy Machine Learning models in a production environment. By simplifying the deployment process cost-effectively (scale to zero) and guaranteeing enterprise-grade security. Inference Endpoints empower developers and data scientists to create AI applications without the hassle of infrastructure management. Inference Endpoints offers 
+[Hugging Face Inference Endpoints](https://ui.endpoints.huggingface.co/) offers an easy and secure way to deploy Machine Learning models for use in production. Inference Endpoints empower developers and data scientists alike to create AI applications without managing infrastructure: simplifying the deployment process to a few clicks, including handling large volumes of requests with autoscaling, reducing infrastructure costs with scale-to-zero, and offering advanced security. 
+
+Here are some of the most important features for LLM deployment:
 
 1. [Easy Deployment](https://huggingface.co/docs/inference-endpoints/index): Deploy models as production-ready APIs with just a few clicks, eliminating the need to handle infrastructure or MLOps.
 2. [Cost Efficiency](https://huggingface.co/docs/inference-endpoints/autoscaling): Benefit from automatic scale to zero capability, reducing costs by scaling down the infrastructure when the endpoint is not in use, while paying based on the uptime of the endpoint, ensuring cost-effectiveness.
