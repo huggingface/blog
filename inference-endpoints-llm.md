@@ -36,10 +36,7 @@ You can get started with Inference Endpoints at: [https://ui.endpoints.huggingfa
 
 ## 1. How to deploy Falcon 40B instruct
 
-Before you can get started, make sure to meet all of the following requirements:
-
-1. An Organization/User with an active credit card. (Add billing **[here](https://huggingface.co/settings/billing)**)
-2. You can access the UI at: **[https://ui.endpoints.huggingface.co](https://ui.endpoints.huggingface.co/endpoints)**
+To get started, you need to be logged in with a User or Organization account with a payment method on file (you can add one **[here](https://huggingface.co/settings/billing)**), then access Inference Endpoints at **[https://ui.endpoints.huggingface.co](https://ui.endpoints.huggingface.co/endpoints)**
 
 Once you are logged in, you can click on “New endpoint”. Select the repository, the cloud, and the region, adjust the instance and security settings, and deploy in our case `tiiuae/falcon-40b-instruct`.
 
