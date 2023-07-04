@@ -14,7 +14,7 @@ Open-source LLMs like [Falcon](https://huggingface.co/tiiuae/falcon-40b), [(Open
 
 In this blog post, we will show you how to deploy open-source LLMs to [Hugging Face Inference Endpoints](https://ui.endpoints.huggingface.co/), our managed SaaS solution that makes it easy to deploy models. Additionally, we will teach you how to stream responses and test the performance of our endpoints. So let's get started!
 
-1. [How to deploy Falcon 40B instruct](1#how-to-deploy-falcon-40b-instruct)
+1. [How to deploy Falcon 40B instruct](#1-how-to-deploy-falcon-40b-instruct)
 2. [Test the LLM endpoint](#2-test-the-llm-endpoint)
 3. [Stream responses in Javascript and Python](#3-stream-responses-in-javascript-and-python)
 
@@ -40,13 +40,13 @@ To get started, you need to be logged in with a User or Organization account wit
 
 Then, click on “New endpoint”. Select the repository, the cloud, and the region, adjust the instance and security settings, and deploy in our case `tiiuae/falcon-40b-instruct`.
 
-![Select Hugging Face Repository](assets/assets/155_inference_endpoints_llm/repository.png "Select Hugging Face Repository")
+![Select Hugging Face Repository](assets/155_inference_endpoints_llm/repository.png "Select Hugging Face Repository")
 
 Inference Endpoints suggest an instance type based on the model size, which should be big enough to run the model. Here `4x NVIDIA T4` GPUs. To get the best performance for the LLM, change the instance to `GPU [xlarge] · 1x Nvidia A100`.
 
 *Note: If the instance type cannot be selected, you need to [contact us](mailto:api-enterprise@huggingface.co?subject=Quota%20increase%20HF%20Endpoints&body=Hello,%0D%0A%0D%0AI%20would%20like%20to%20request%20access/quota%20increase%20for%20{INSTANCE%20TYPE}%20for%20the%20following%20account%20{HF%20ACCOUNT}.) and request an instance quota.*
 
-![Select Instance Type](assets/assets/155_inference_endpoints_llm/instance-selection.png "Select Instance Type")
+![Select Instance Type](assets/155_inference_endpoints_llm/instance-selection.png "Select Instance Type")
 
 You can then deploy your model with a click on “Create Endpoint”. After 10 minutes, the Endpoint should be online and available to serve requests. 
 
@@ -54,7 +54,7 @@ You can then deploy your model with a click on “Create Endpoint”. After 10 m
 
 The Endpoint overview provides access to the Inference Widget, which can be used to manually send requests. This allows you to quickly test your Endpoint with different inputs and share it with team members. Those Widgets do not support parameters - in this case this results to a “short” generation. 
 
-![Test Inference Widget](assets/assets/155_inference_endpoints_llm/widget.png "Test Inference Widget")
+![Test Inference Widget](assets/155_inference_endpoints_llm/widget.png "Test Inference Widget")
 
 The widget also generates a cURL command you can use. Just add your `hf_xxx` and test. 
 
@@ -135,7 +135,7 @@ for r in stream:
 
 Replace the `print` command with the `yield` or with a function you want to stream the tokens to. 
 
-![Python Streaming](assets/assets/155_inference_endpoints_llm/python-stream.gif "Python Streaming")
+![Python Streaming](assets/155_inference_endpoints_llm/python-stream.gif "Python Streaming")
 
 ### Streaming requests with JavaScript
 
@@ -181,11 +181,12 @@ for await (const r of stream) {
 
 Replace the `process.stdout` call with the `yield` or with a function you want to stream the tokens to. 
 
-![Javascript Streaming](assets/assets/155_inference_endpoints_llm/js-stream.gif "Javascript Streaming")
+![Javascript Streaming](assets/155_inference_endpoints_llm/js-stream.gif "Javascript Streaming")
 
 ## Conclusion
 
 In this blog post, we showed you how to deploy open-source LLMs using Hugging Face Inference Endpoints, how to control the text generation with advanced parameters, and how to stream responses to a Python or JavaScript client to improve the user experience. By using Hugging Face Inference Endpoints you can deploy models as production-ready APIs with just a few clicks, reduce your costs with automatic scale to zero, and deploy models into secure offline endpoints backed by SOC2 Type 2 certification.
+
 ---
 
 Thanks for reading! If you have any questions, feel free to contact me on [Twitter](https://twitter.com/_philschmid) or [LinkedIn](https://www.linkedin.com/in/philipp-schmid-a6a2bb196/).
