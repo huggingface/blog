@@ -30,7 +30,7 @@ Here are some of the most important features for LLM deployment:
 2. [Cost Efficiency](https://huggingface.co/docs/inference-endpoints/autoscaling): Benefit from automatic scale to zero capability, reducing costs by scaling down the infrastructure when the endpoint is not in use, while paying based on the uptime of the endpoint, ensuring cost-effectiveness.
 3. [Enterprise Security](https://huggingface.co/docs/inference-endpoints/security): Deploy models in secure offline endpoints accessible only through direct VPC connections, backed by SOC2 Type 2 certification, and offering BAA and GDPR data processing agreements for enhanced data security and compliance.
 4. [LLM Optimization](https://huggingface.co/text-generation-inference): Optimized for LLMs, enabling high throughput with Paged Attention and low latency through custom transformers code and Flash Attention power by Text Generation Inference
-5. [Wide Task Support](https://huggingface.co/docs/inference-endpoints/supported_tasks): Support for 🤗 Transformers, Sentence-Transformers, Diffusion tasks, and custom tasks like speaker diarization, expanding deployment possibilities.
+5. [Comprehensive Task Support](https://huggingface.co/docs/inference-endpoints/supported_tasks): Out of the box support for 🤗 Transformers, Sentence-Transformers, and Diffusers tasks and models, and easy customization to enable advanced tasks like speaker diarization or any Machine Learning task and library.
 
 You can get started with inference endpoints at: [https://ui.endpoints.huggingface.co/](https://ui.endpoints.huggingface.co/)
 
