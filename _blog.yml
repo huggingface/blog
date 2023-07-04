@@ -2436,3 +2436,13 @@
     - Coding Assistant
     - Confidential inference
     - LLMs
+
+- local: text-to-webapp
+  title: "Making a web app generator with open ML models"
+  author: jbilcke-hf
+  thumbnail: /blog/assets/153_text_to_webapp/thumbnail.jpg
+  date: July 3, 2023
+  tags:
+    - guide
+    - llm
+    - apps

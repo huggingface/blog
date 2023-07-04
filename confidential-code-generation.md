@@ -1,14 +1,15 @@
 ---
 title: 'AI-assisted code generation with privacy guarantees: Securely deploy SantaCoder with BlindBox on Azure'
-thumbnail: /blog/assets/153_confidential_code_generation/confidential-code.png
+thumbnail: /blog/assets/154_confidential_code_generation/confidential-code.png
 authors:
 - user: dhuynh95
- guest: true
+  guest: true
 - user: lauro1
   guest: true
 - user: mithril-security
   guest: true
 ---
+
 # AI-assisted code generation with privacy guarantees: Securely deploy SantaCoder with BlindBox on Azure
 
 <!-- {blog_metadata} -->
