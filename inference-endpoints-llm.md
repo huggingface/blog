@@ -38,7 +38,7 @@ You can get started with Inference Endpoints at: [https://ui.endpoints.huggingfa
 
 To get started, you need to be logged in with a User or Organization account with a payment method on file (you can add one **[here](https://huggingface.co/settings/billing)**), then access Inference Endpoints at **[https://ui.endpoints.huggingface.co](https://ui.endpoints.huggingface.co/endpoints)**
 
-Once you are logged in, you can click on “New endpoint”. Select the repository, the cloud, and the region, adjust the instance and security settings, and deploy in our case `tiiuae/falcon-40b-instruct`.
+Then, click on “New endpoint”. Select the repository, the cloud, and the region, adjust the instance and security settings, and deploy in our case `tiiuae/falcon-40b-instruct`.
 
 ![Select Hugging Face Repository](assets/assets/155_inference_endpoints_llm/repository.png "Select Hugging Face Repository")
 
