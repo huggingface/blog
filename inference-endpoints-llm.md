@@ -48,7 +48,7 @@ Inference Endpoints suggest an instance type based on the model size, which shou
 
 ![Select Instance Type](assets/assets/155_inference_endpoints_llm/instance-selection.png "Select Instance Type")
 
-You can then deploy our model by clicking “Create Endpoint”. After 10 minutes, the Endpoint should be online and available to serve requests. 
+You can then deploy your model with a click on “Create Endpoint”. After 10 minutes, the Endpoint should be online and available to serve requests. 
 
 ## 2. Test the LLM endpoint
 
