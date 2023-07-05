@@ -116,7 +116,6 @@ _注意这张表的读法: 选取一行，如 `oasst-12b` ，然后横向看这�
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llm-leaderboard/human-hist.png" width="600" />
 </p>
-
 在本文接下来内容中，你还会看到基于不同数据生成准测的相似分析流程。
 
 ### GPT-4 的 Elo 结果
