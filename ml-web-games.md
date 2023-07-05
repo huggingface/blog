@@ -45,7 +45,7 @@ We'll be training our model using a [subset](https://huggingface.co/datasets/Xen
 
 ### Model architecture
 
-We'll be finetuning [`apple/mobilevit-small`](https://huggingface.co/apple/mobilevit-small), a lightweight and mobile-friendly Vision Transformer. It has only 5.6M parameters (~20 MB file size), a perfect candidate for running in-browser! For more information, check out the [MobileViT](https://arxiv.org/abs/2110.02178) paper and the model architecture below.
+We'll be finetuning [`apple/mobilevit-small`](https://huggingface.co/apple/mobilevit-small), a lightweight and mobile-friendly Vision Transformer that has been pre-trained on [ImageNet-1k](https://huggingface.co/datasets/imagenet-1k). It has only 5.6M parameters (~20 MB file size), a perfect candidate for running in-browser! For more information, check out the [MobileViT](https://arxiv.org/abs/2110.02178) paper and the model architecture below.
 
 ![MobileViT archtecture](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ml-web-games/mobilevit.png)
 
