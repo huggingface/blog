@@ -53,7 +53,7 @@ We'll be finetuning [`apple/mobilevit-small`](https://huggingface.co/apple/mobil
 
 ### Finetuning
 
-<a target="_blank" href="https://colab.research.google.com/github/xenova/doodle-dash/blob/main/training.ipynb">
+<a target="_blank" href="https://colab.research.google.com/github/xenova/doodle-dash/blob/main/blog/training.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
