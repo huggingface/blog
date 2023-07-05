@@ -83,7 +83,7 @@ Behind the scenes, Transformers.js uses [ONNX Runtime](https://onnxruntime.ai/),
 
 ### Converting our model to ONNX
 
-Fortunately, the [🤗 Optimum](https://huggingface.co/docs/optimum) library makes it super simple to convert your pretrained model to ONNX! The easiest (and recommended way) is to:
+Fortunately, the [🤗 Optimum](https://huggingface.co/docs/optimum) library makes it super simple to convert your finetuned model to ONNX! The easiest (and recommended way) is to:
 
 1. Clone the [Transformers.js repository](https://github.com/xenova/transformers.js) and install the necessary dependencies:
 
