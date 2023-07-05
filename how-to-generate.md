@@ -14,18 +14,18 @@ authors:
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-### Introduction
+**Note**: Edited on July 2023 with up-to-date references and examples.
+
+## Introduction
 
 In recent years, there has been an increasing interest in open-ended
 language generation thanks to the rise of large transformer-based
-language models trained on millions of webpages, such as OpenAI's famous
-[GPT2 model](https://openai.com/blog/better-language-models/). The
-results on conditioned open-ended language generation are impressive,
-e.g. [GPT2 on
-unicorns](https://openai.com/blog/better-language-models/#samples),
-[XLNet](https://medium.com/@amanrusia/xlnet-speaks-comparison-to-gpt-2-ea1a4e9ba39e),
-[Controlled language with
-CTRL](https://blog.einstein.ai/introducing-a-conditional-transformer-language-model-for-controllable-generation/).
+language models trained on millions of webpages, from as OpenAI's
+[GPT2 model](https://openai.com/blog/better-language-models/) to [ChatGPT](https://openai.com/blog/chatgpt).
+The results on conditioned open-ended language generation are impressive,
+[being able to comment on imaginary events](https://openai.com/blog/better-language-models/#samples),
+[generalize to unseed tasks](https://ai.googleblog.com/2021/10/introducing-flan-more-generalizable.html),
+or [take non-text data as input](https://openai.com/research/whisper).
 Besides the improved transformer architecture and massive unsupervised
 training data, **better decoding methods** have also played an important
 role.
@@ -47,40 +47,35 @@ and \\(W_0\\) being the initial *context* word sequence. The length \\(T\\)
 of the word sequence is usually determined *on-the-fly* and corresponds
 to the timestep \\(t=T\\) the EOS token is generated from \\(P(w_{t} | w_{1: t-1}, W_{0})\\).
 
-Auto-regressive language generation is now available for `GPT2`,
-`XLNet`, `OpenAi-GPT`, `CTRL`, `TransfoXL`, `XLM`, `Bart`, `T5` in both
-PyTorch and Tensorflow \>= 2.0\!
-
 We will give a tour of the currently most prominent decoding methods,
-mainly *Greedy search*, *Beam search*, *Top-K sampling* and *Top-p
-sampling*.
-
+mainly *Greedy search*, *Beam search*, and *Sampling*.
 
 Let's quickly install transformers and load the model. We will use GPT2
-in Tensorflow 2.1 for demonstration, but the API is 1-to-1 the same for
-PyTorch.
+in PyTorch for demonstration, but the API is 1-to-1 the same for
+TensorFlow and JAX.
 
 
 ``` python
-!pip install -q git+https://github.com/huggingface/transformers.git
-!pip install -q tensorflow==2.1
+!pip install -q transformers
 ```
 
 ``` python
-import tensorflow as tf
-from transformers import TFGPT2LMHeadModel, GPT2Tokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
 
+torch_device = "cuda" if torch.cuda.is_available() else "cpu"
 
-tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+tokenizer = AutoTokenizer.from_pretrained("gpt2")
 
 # add the EOS token as PAD token to avoid warnings
-model = TFGPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_token_id)
+model = AutoModelForCausalLM.from_pretrained("gpt2", pad_token_id=tokenizer.eos_token_id).to(torch_device)
 ```
 
 
-### Greedy Search
+## Greedy Search
 
-Greedy search simply selects the word with the highest probability as
+Greedy search is the simplest decoding method, and the default decoding strategy in `transformers`.
+It selects the word with the highest probability as
 its next word: \\(w_t = argmax_{w}P(w | w_{1:t-1})\\) at each timestep
  \\(t\\). The following sketch shows greedy search.
 
@@ -89,7 +84,7 @@ its next word: \\(w_t = argmax_{w}P(w | w_{1:t-1})\\) at each timestep
 
 Starting from the word \\(\text{"The"},\\) the algorithm greedily chooses
 the next word of highest probability \\(\text{"nice"}\\) and so on, so
-that the final generated word sequence is \\((\text{"The"}, \text{"nice"}, \text{"woman"})\\) 
+that the final generated word sequence is \\((\text{"The"}, \text{"nice"}, \text{"woman"})\\)
 having an overall probability of \\(0.5 \times 0.4 = 0.2\\) .
 
 In the following we will generate word sequences using GPT2 on the
@@ -100,10 +95,10 @@ see how greedy search can be used in `transformers`:
 
 ``` python
 # encode context the generation is conditioned on
-input_ids = tokenizer.encode('I enjoy walking with my cute dog', return_tensors='tf')
+model_inputs = tokenizer('I enjoy walking with my cute dog', return_tensors='pt').to(torch_device)
 
-# generate text until the output length (which includes the context length) reaches 50
-greedy_output = model.generate(input_ids, max_length=50)
+# generate 40 new tokens
+greedy_output = model.generate(**model_inputs, max_new_tokens=40)
 
 print("Output:\n" + 100 * '-')
 print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
@@ -114,8 +109,8 @@ print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
     Output:
     ----------------------------------------------------------------------------------------------------
     I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with my dog. I'm not sure if I'll ever be able to walk with my dog.
-    
-    I'm not sure if I'll
+
+    I'm not sure
 
 </div>
 
@@ -133,8 +128,8 @@ The major drawback of greedy search though is that it misses high
 probability words hidden behind a low probability word as can be seen in
 our sketch above:
 
-The word \\(\text{"has"}\\) 
-with its high conditional probability of \\(0.9\\) 
+The word \\(\text{"has"}\\)
+with its high conditional probability of \\(0.9\\)
 is hidden behind the word \\(\text{"dog"}\\), which has only the
 second-highest conditional probability, so that greedy search misses the
 word sequence \\(\text{"The"}, \text{"dog"}, \text{"has"}\\) .
@@ -143,7 +138,7 @@ Thankfully, we have beam search to alleviate this problem\!
 
 
 
-### Beam search
+## Beam search
 
 Beam search reduces the risk of missing hidden high probability word
 sequences by keeping the most likely `num_beams` of hypotheses at each
@@ -154,9 +149,9 @@ highest probability. Let's illustrate with `num_beams=2`:
 
 At time step 1, besides the most likely hypothesis \\((\text{"The"}, \text{"nice"})\\),
 beam search also keeps track of the second
-most likely one \\((\text{"The"}, \text{"dog"})\\). 
-At time step 2, beam search finds that the word sequence \\((\text{"The"}, \text{"dog"}, \text{"has"})\\), 
-has with \\(0.36\\) 
+most likely one \\((\text{"The"}, \text{"dog"})\\).
+At time step 2, beam search finds that the word sequence \\((\text{"The"}, \text{"dog"}, \text{"has"})\\),
+has with \\(0.36\\)
 a higher probability than \\((\text{"The"}, \text{"nice"}, \text{"woman"})\\),
 which has \\(0.2\\) . Great, it has found the most likely word sequence in
 our toy example\!
@@ -174,9 +169,9 @@ when all beam hypotheses reached the EOS token.
 ``` python
 # activate beam search and early_stopping
 beam_output = model.generate(
-    input_ids, 
-    max_length=50, 
-    num_beams=5, 
+    **model_inputs,
+    max_new_tokens=40,
+    num_beams=5,
     early_stopping=True
 )
 
@@ -189,14 +184,14 @@ print(tokenizer.decode(beam_output[0], skip_special_tokens=True))
     Output:
     ----------------------------------------------------------------------------------------------------
     I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
-    
-    I'm not sure if I'll ever be able to walk with him again. I'm not sure if I'll
+
+    I'm not sure if I'll ever be able to walk with him again. I'm not sure
 
 </div>
 
 
 While the result is arguably more fluent, the output still includes
-repetitions of the same word sequences.  
+repetitions of the same word sequences.
 A simple remedy is to introduce *n-grams* (*a.k.a* word sequences of
 n words) penalties as introduced by [Paulus et al.
 (2017)](https://arxiv.org/abs/1705.04304) and [Klein et al.
@@ -212,10 +207,10 @@ appears twice:
 ``` python
 # set no_repeat_ngram_size to 2
 beam_output = model.generate(
-    input_ids, 
-    max_length=50, 
-    num_beams=5, 
-    no_repeat_ngram_size=2, 
+    **model_inputs,
+    max_new_tokens=40,
+    num_beams=5,
+    no_repeat_ngram_size=2,
     early_stopping=True
 )
 
@@ -228,8 +223,8 @@ print(tokenizer.decode(beam_output[0], skip_special_tokens=True))
     Output:
     ----------------------------------------------------------------------------------------------------
     I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
-    
-    I've been thinking about this for a while now, and I think it's time for me to take a break
+
+    I've been thinking about this for a while now, and I think it's time for me to
 
 </div>
 
@@ -254,11 +249,11 @@ though that `num_return_sequences <= num_beams`\!
 ``` python
 # set return_num_sequences > 1
 beam_outputs = model.generate(
-    input_ids, 
-    max_length=50, 
-    num_beams=5, 
-    no_repeat_ngram_size=2, 
-    num_return_sequences=5, 
+    **model_inputs,
+    max_new_tokens=40,
+    num_beams=5,
+    no_repeat_ngram_size=2,
+    num_return_sequences=5,
     early_stopping=True
 )
 
@@ -273,20 +268,20 @@ for i, beam_output in enumerate(beam_outputs):
     Output:
     ----------------------------------------------------------------------------------------------------
     0: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
-    
-    I've been thinking about this for a while now, and I think it's time for me to take a break
-    1: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
-    
-    I've been thinking about this for a while now, and I think it's time for me to get back to
-    2: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with her again.
-    
-    I've been thinking about this for a while now, and I think it's time for me to take a break
-    3: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with her again.
-    
-    I've been thinking about this for a while now, and I think it's time for me to get back to
+
+    I've been thinking about this for a while now, and I think it's time for me to
+    1: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with her again.
+
+    I've been thinking about this for a while now, and I think it's time for me to
+    2: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
+
+    I've been thinking about this for a while now, and I think it's a good idea to
+    3: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
+
+    I've been thinking about this for a while now, and I think it's time to take a
     4: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
-    
-    I've been thinking about this for a while now, and I think it's time for me to take a step
+
+    I've been thinking about this for a while now, and I think it's a good idea.
 
 </div>
 
@@ -327,7 +322,7 @@ So let's stop being boring and introduce some randomness 🤪.
 
 
 
-### Sampling
+## Sampling
 
 In its most basic form, sampling means randomly picking the next word \\(w_t\\) according to its conditional probability distribution:
 
@@ -353,13 +348,14 @@ fix `random_seed=0` for illustration purposes. Feel free to change the
 
 ``` python
 # set seed to reproduce results. Feel free to change the seed though to get different results
-tf.random.set_seed(0)
+from transformers import set_seed
+set_seed(42)
 
 # activate sampling and deactivate top_k by setting top_k sampling to 0
 sample_output = model.generate(
-    input_ids, 
-    do_sample=True, 
-    max_length=50, 
+    **model_inputs,
+    max_new_tokens=40,
+    do_sample=True,
     top_k=0
 )
 
@@ -371,19 +367,14 @@ print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 
     Output:
     ----------------------------------------------------------------------------------------------------
-    I enjoy walking with my cute dog. He just gave me a whole new hand sense."
-    
-    But it seems that the dogs have learned a lot from teasing at the local batte harness once they take on the outside.
-    
-    "I take
+    I enjoy walking with my cute dog for the rest of the day, but this had me staying in an unusual room and not going on nights out with friends (which will always be wondered for a mere minute or so at this point).
 
 </div>
 
 
 
 Interesting\! The text seems alright - but when taking a closer look, it
-is not very coherent. the *3-grams* *new hand sense* and *local batte
-harness* are very weird and don't sound like they were written by a
+is not very coherent and doesn't sound like it was written by a
 human. That is the big problem when sampling word sequences: The models
 often generate incoherent gibberish, *cf.* [Ari Holtzman et al.
 (2019)](https://arxiv.org/abs/1904.09751).
@@ -404,21 +395,21 @@ sharper leaving almost no chance for word \\((\text{"car"})\\) to be
 selected.
 
 Let's see how we can cool down the distribution in the library by
-setting `temperature=0.7`:
+setting `temperature=0.6`:
 
 
 
 ``` python
 # set seed to reproduce results. Feel free to change the seed though to get different results
-tf.random.set_seed(0)
+set_seed(42)
 
 # use temperature to decrease the sensitivity to low probability candidates
 sample_output = model.generate(
-    input_ids, 
-    do_sample=True, 
-    max_length=50, 
-    top_k=0, 
-    temperature=0.7
+    **model_inputs,
+    max_new_tokens=40,
+    do_sample=True,
+    top_k=0,
+    temperature=0.6,
 )
 
 print("Output:\n" + 100 * '-')
@@ -429,7 +420,9 @@ print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 
     Output:
     ----------------------------------------------------------------------------------------------------
-    I enjoy walking with my cute dog, but I don't like to be at home too much. I also find it a bit weird when I'm out shopping. I am always away from my house a lot, but I do have a few friends
+    I enjoy walking with my cute dog, but I don't like to chew on it. I like to eat it and not chew on it. I like to be able to walk with my dog."
+
+    So how did you decide
 
 </div>
 
@@ -470,13 +463,13 @@ Let's see how *Top-K* can be used in the library by setting `top_k=50`:
 
 ``` python
 # set seed to reproduce results. Feel free to change the seed though to get different results
-tf.random.set_seed(0)
+set_seed(42)
 
 # set top_k to 50
 sample_output = model.generate(
-    input_ids, 
-    do_sample=True, 
-    max_length=50, 
+    **model_inputs,
+    max_new_tokens=40,
+    do_sample=True,
     top_k=50
 )
 
@@ -488,11 +481,7 @@ print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 
     Output:
     ----------------------------------------------------------------------------------------------------
-    I enjoy walking with my cute dog. It's so good to have an environment where your dog is available to share with you and we'll be taking care of you.
-    
-    We hope you'll find this story interesting!
-    
-    I am from
+    I enjoy walking with my cute dog for the rest of the day, but this time it was hard for me to figure out what to do with it. (One reason I asked this for a few months back is that I had a
 
 </div>
 
@@ -552,10 +541,10 @@ tf.random.set_seed(0)
 
 # deactivate top_k sampling and sample only from 92% most likely words
 sample_output = model.generate(
-    input_ids, 
-    do_sample=True, 
-    max_length=50, 
-    top_p=0.92, 
+    input_ids,
+    do_sample=True,
+    max_length=50,
+    top_p=0.92,
     top_k=0
 )
 
@@ -563,7 +552,7 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 ```
 
-``` 
+```
 Output:
 ----------------------------------------------------------------------------------------------------
 I enjoy walking with my cute dog. He will never be the same. I watch him play.
@@ -597,10 +586,10 @@ tf.random.set_seed(0)
 # set top_k = 50 and set top_p = 0.95 and num_return_sequences = 3
 sample_outputs = model.generate(
     input_ids,
-    do_sample=True, 
-    max_length=50, 
-    top_k=50, 
-    top_p=0.95, 
+    do_sample=True,
+    max_length=50,
+    top_k=50,
+    top_p=0.95,
     num_return_sequences=3
 )
 
@@ -610,7 +599,7 @@ for i, sample_output in enumerate(sample_outputs):
 ```
 
 
-``` 
+```
 Output:
 ----------------------------------------------------------------------------------------------------
 0: I enjoy walking with my cute dog. It's so good to have the chance to walk with a dog. But I have this problem with the dog and how he's always looking at us and always trying to make me see that I can do something
@@ -629,7 +618,7 @@ stories with `transformers`!
 
 
 
-### Conclusion
+## Conclusion
 
 As *ad-hoc* decoding methods, *top-p* and *top-K* sampling seem to
 produce more fluent text than traditional *greedy* - and *beam* search
@@ -668,7 +657,7 @@ Thanks to everybody, who has contributed to the blog post: Alexander Rush, Julie
 
 
 
-### Appendix
+## Appendix
 
 There are a couple of additional parameters for the `generate` method
 that were not mentioned above. We will explain them here briefly!
@@ -696,4 +685,3 @@ that were not mentioned above. We will explain them here briefly!
 
 For more information please also look into the `generate` function
 [docstring](https://huggingface.co/transformers/main_classes/model.html?highlight=generate#transformers.TFPreTrainedModel.generate).
-
