@@ -93,7 +93,7 @@ Fortunately, the [🤗 Optimum](https://huggingface.co/docs/optimum) library mak
     pip install -r scripts/requirements.txt
     ```
 
-2. Run the conversion script:
+2. Run the conversion script (it uses `Optimum` under the hood):
 
     ```bash
     python -m scripts.convert --quantize --model_id <model_id>
