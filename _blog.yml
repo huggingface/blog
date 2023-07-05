@@ -2443,3 +2443,15 @@
     - llm
     - apps
     - inference
+
+- local: ml-web-games
+  title: "Making ML-powered web games with Transformers.js"
+  author: Xenova
+  thumbnail: /blog/assets/ml-web-games/thumbnail.png
+  date: July 5, 2023
+  tags:
+    - game-dev
+    - guide
+    - web
+    - javascript
+    - transformers.js
