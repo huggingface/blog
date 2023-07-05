@@ -12,7 +12,7 @@ authors:
 <!-- {authors} -->
 
 
-In this blog post, I'll show you how I made [**Doodle Dash**](https://huggingface.co/spaces/Xenova/doodle-dash), a real-time ML-powered web game which runs completely in your browser (thanks to [Transformers.js](https://github.com/xenova/transformers.js)). The goal of this tutorial is to show you how easy it is to make your own ML-powered web game... just in time for the upcoming Open Source AI Game Jam (7-9 July, 2023). [Join](https://itch.io/jam/open-source-ai-game-jam) the game jam if you haven't already!
+In this blog post, I'll show you how I made [**Doodle Dash**](https://huggingface.co/spaces/Xenova/doodle-dash), a real-time ML-powered web game that runs completely in your browser (thanks to [Transformers.js](https://github.com/xenova/transformers.js)). The goal of this tutorial is to show you how easy it is to make your own ML-powered web game... just in time for the upcoming Open Source AI Game Jam (7-9 July 2023). [Join](https://itch.io/jam/open-source-ai-game-jam) the game jam if you haven't already!
 
 <video src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ml-web-games/demo.mp4" alt="Demo video"></video>
 
@@ -27,7 +27,7 @@ In this blog post, I'll show you how I made [**Doodle Dash**](https://huggingfac
 
 Before we start, let's talk about what we'll be creating. The game is inspired by Google's [Quick, Draw!](https://quickdraw.withgoogle.com/) game, where you're given a word and a neural network has 20 seconds to guess what you're drawing (repeated 6 times). In fact, we'll be using their [training data](#training-data) to train our own sketch detection model! Don't you just love open source? 😍
 
-In our version, you'll have one minute to draw as many items as you can, one prompt at a time. If the model predicts the correct label, the canvas will be cleared and you'll be given a new word. Keep doing this until the timer runs out! Since the game runs locally in your browser, we don't have to worry about server latency at all. In fact, the model is able to make real-time predictions as you draw, to the tune of over 60 predictions a second... 🤯 WOW!
+In our version, you'll have one minute to draw as many items as you can, one prompt at a time. If the model predicts the correct label, the canvas will be cleared and you'll be given a new word. Keep doing this until the timer runs out! Since the game runs locally in your browser, we don't have to worry about server latency at all. The model is able to make real-time predictions as you draw, to the tune of over 60 predictions a second... 🤯 WOW!
 
 This tutorial is split into 3 sections:
 1. [Training the neural network](#1-training-the-neural-network)
@@ -45,7 +45,7 @@ We'll be training our model using a [subset](https://huggingface.co/datasets/Xen
 
 ### Model architecture
 
-We'll be finetuning [`apple/mobilevit-small`](https://huggingface.co/apple/mobilevit-small), a light-weight and mobile-friendly Vision Transformer. It has only 5.6M parameters (~20 MB file size), a perfect candidate for running in-browser! For more information, check out the [MobileViT](https://arxiv.org/abs/2110.02178) paper and the model architecture below.
+We'll be finetuning [`apple/mobilevit-small`](https://huggingface.co/apple/mobilevit-small), a lightweight and mobile-friendly Vision Transformer. It has only 5.6M parameters (~20 MB file size), a perfect candidate for running in-browser! For more information, check out the [MobileViT](https://arxiv.org/abs/2110.02178) paper and the model architecture below.
 
 ![MobileViT archtecture](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ml-web-games/mobilevit.png)
 
@@ -55,14 +55,14 @@ We'll be finetuning [`apple/mobilevit-small`](https://huggingface.co/apple/mobil
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-To keep the blog post (relatively) short, we've prepared a Colab notebook which will show you the exact steps we took to finetune the pretrained `apple/mobilevit-small` model with the "Quick, Draw!" dataset. At a high level, this involves:
+To keep the blog post (relatively) short, we've prepared a Colab notebook which will show you the exact steps we took to finetune the pre-trained `apple/mobilevit-small` model with the "Quick, Draw!" dataset. At a high level, this involves:
 1. Loading the [dataset](https://huggingface.co/datasets/Xenova/quickdraw-small).
 
 2. Transforming the dataset using a [`MobileViTImageProcessor`](https://huggingface.co/docs/transformers/model_doc/mobilevit#transformers.MobileViTImageProcessor).
 
 3. Defining our [collate function](https://huggingface.co/docs/transformers/main_classes/data_collator) and [evaluation metric](https://huggingface.co/docs/evaluate/types_of_evaluations#metrics).
 
-4. Loading the [MobileVIT pretrained model](https://huggingface.co/apple/mobilevit-small) using [`MobileViTForImageClassification.from_pretrained`](https://huggingface.co/docs/transformers/model_doc/mobilevit#transformers.MobileViTForImageClassification).
+4. Loading the [pre-trained MobileVIT model](https://huggingface.co/apple/mobilevit-small) using [`MobileViTForImageClassification.from_pretrained`](https://huggingface.co/docs/transformers/model_doc/mobilevit#transformers.MobileViTForImageClassification).
 
 5. Training the model using the [`Trainer`](https://huggingface.co/docs/transformers/main_classes/trainer) and [`TrainingArguments`](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments) helper classes.
 
@@ -74,7 +74,7 @@ To keep the blog post (relatively) short, we've prepared a Colab notebook which 
 
 ### What is Transformers.js?
 
-[Transformers.js](https://huggingface.co/docs/transformers.js) is a JavaScript library which allows you to run [🤗 Transformers](https://huggingface.co/docs/transformers) directly in your browser (no need for a server)! It's designed to be functionally equivalent to the python library, meaning you can run the same pretrained models using a very similar API. 
+[Transformers.js](https://huggingface.co/docs/transformers.js) is a JavaScript library that allows you to run [🤗 Transformers](https://huggingface.co/docs/transformers) directly in your browser (no need for a server)! It's designed to be functionally equivalent to the Python library, meaning you can run the same pre-trained models using a very similar API. 
 
 
 Behind the scenes, Transformers.js uses [ONNX Runtime](https://onnxruntime.ai/), so we need to convert our finetuned PyTorch model to ONNX.
@@ -150,7 +150,7 @@ function App() {
     // Create a reference to the worker object.
     const worker = useRef(null);
 
-    // We use the `useEffect` hook to setup the worker as soon as the `App` component is mounted.
+    // We use the `useEffect` hook to set up the worker as soon as the `App` component is mounted.
     useEffect(() => {
         if (!worker.current) {
             // Create the worker if it does not yet exist.
@@ -178,7 +178,7 @@ You can test that everything is working by running the development server (with 
 [{ label: "skateboard", score: 0.9980043172836304 }]
 ```
 
-*Woohoo!* 🥳 Althought the above code is just a small part of the [final product](https://github.com/xenova/doodle-dash), it shows how simple the machine learning side of it is! The rest is just making it look nice and adding some game logic.
+*Woohoo!* 🥳 Although the above code is just a small part of the [final product](https://github.com/xenova/doodle-dash), it shows how simple the machine-learning side of it is! The rest is just making it look nice and adding some game logic.
 
 
 ## 3. Game Design
@@ -187,7 +187,7 @@ In this section, I'll briefly discuss the game design process. As a reminder, yo
 
 ### Taking advantage of real-time performance
 
-One of the main advantages of performing in-browser inference is that we can make predictions in real-time (over 60 times a second). In the original [Quick, Draw!](https://quickdraw.withgoogle.com/) game, the model only makes a new prediction every couple of seconds. We could do the same in our game, but it would be much less impressive! So, I decided to redesign the main game loop:
+One of the main advantages of performing in-browser inference is that we can make predictions in real time (over 60 times a second). In the original [Quick, Draw!](https://quickdraw.withgoogle.com/) game, the model only makes a new prediction every couple of seconds. We could do the same in our game, but it would be much less impressive! So, I decided to redesign the main game loop:
 - Instead of six 20-second rounds (where each round corresponds to a new word), our version tasks the player with correctly drawing as many doodles as they can in 60 seconds.
 - If you come across a word you are unable to draw, you can skip it (but this will cost you 3 seconds of your remaining time).
 - In the original game, since the model would make a guess every few seconds, it could slowly cross labels off the list until it eventually guessed correctly. In our version, however, we can't do the same thing since we would fly through the list in a couple of seconds. To solve this problem, we slowly decrease the model's scores for the first `n` incorrect predictions, with `n` increasing over time as the user continues drawing. After adjusting the scores, we renormalize them to obtain a probability distribution over the labels (i.e., they sum to 1).
