@@ -206,7 +206,7 @@ After filtering, we were still left with over 300 different classes!
 
 ### BONUS: Coming up with the name
 
-In the spirit of open-source development, I decided to ask [Hugging Chat](https://huggingface.co/chat/) (Hugging Face's open-source version of ChatGPT) for some game name ideas... and needless to say, it did not disappoint!
+In the spirit of open-source development, I decided to ask [Hugging Chat](https://huggingface.co/chat/) for some game name ideas... and needless to say, it did not disappoint!
 
 ![MobileViT archtecture](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ml-web-games/huggingchat.png)
 
