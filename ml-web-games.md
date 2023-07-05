@@ -37,8 +37,6 @@ This tutorial is split into 3 sections:
 
 ## 1. Training the neural network
 
-*NOTE:* If you want to skip this section, you can download the pretrained model from [here](https://huggingface.co/Xenova/quickdraw-mobilevit-small).
-
 ### Training data
 
 We'll be training our model using a [subset](https://huggingface.co/datasets/Xenova/quickdraw-small) of Google's [Quick, Draw!](https://quickdraw.withgoogle.com/data) dataset, which contains over 5 million drawings across 345 categories. Here are some samples from the dataset:
@@ -70,6 +68,7 @@ To keep the blog post (relatively) short, we've prepared a Colab notebook which 
 
 6. Evaluating the model using [🤗 Evaluate](https://huggingface.co/docs/evaluate).
 
+*NOTE:* You can find our finetuned model [here](https://huggingface.co/Xenova/quickdraw-mobilevit-small) on the Hugging Face Hub.
 
 ## 2. Running in the browser with Transformers.js
 
