@@ -126,7 +126,7 @@ npm run dev
 
 ### Running the model in the browser
 
-Since running machine learning models can be quite computationally intensive, it's important that we perform inference in a separate thread (so that we don't block the main thread, which is used for rendering the UI). Fortunately, the [Web Workers API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API) makes this super simple!
+Running machine learning models is computationally intensive, so it's important to perform inference in a separate thread. This way we won't block the main thread, which is used for rendering the UI and reacting to your drawing gestures :) The [Web Workers API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API) makes this super simple!
 
 Create a new file (e.g., `worker.js`) in the `src` directory and add the following code:
 
