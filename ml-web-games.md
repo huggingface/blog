@@ -37,7 +37,7 @@ This tutorial is split into 3 sections:
 
 ## 1. Training the neural network
 
-*NOTE:* If you want to skip this section, you can download the pretrained model from the [here](https://huggingface.co/Xenova/quickdraw-mobilevit-small).
+*NOTE:* If you want to skip this section, you can download the pretrained model from [here](https://huggingface.co/Xenova/quickdraw-mobilevit-small).
 
 ### Training data
 
