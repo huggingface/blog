@@ -29,10 +29,10 @@ Before we start, let's talk about what we'll be creating. The game is inspired b
 
 In our version, you'll have one minute to draw as many items as you can, one prompt at a time. If the model predicts the correct label, the canvas will be cleared and you'll be given a new word. Keep doing this until the timer runs out! Since the game runs locally in your browser, we don't have to worry about server latency at all. In fact, the model is able to make real-time predictions as you draw, to the tune of over 60 predictions a second... 🤯 WOW!
 
-This tutorial is split into 3 sections:
-1. Training the neural network
-2. Running in the browser with Transformers.js
-3. Game Design
+The rest of this tutorial is split into 3 sections:
+1. [Training the neural network](#1-training-the-neural-network)
+2. [Running in the browser with Transformers.js](#2-running-in-the-browser-with-transformersjs)
+3. [Game Design](#3-game-design)
 
 
 ## 1. Training the neural network
