@@ -78,7 +78,7 @@ To keep the blog post (relatively) short, we've prepared a Colab notebook which 
 [Transformers.js](https://huggingface.co/docs/transformers.js) is a JavaScript library which allows you to run [🤗 Transformers](https://huggingface.co/docs/transformers) directly in your browser (no need for a server)! It's designed to be functionally equivalent to the python library, meaning you can run the same pretrained models using a very similar API. 
 
 
-Behind the scenes, Transformers.js uses [ONNX Runtime](https://onnxruntime.ai/), so, we'll first need to convert our pretrained PyTorch, TensorFlow, or JAX model to ONNX.
+Behind the scenes, Transformers.js uses [ONNX Runtime](https://onnxruntime.ai/), so we need to convert our finetuned PyTorch model to ONNX.
 
 
 ### Converting our model to ONNX
