@@ -64,7 +64,7 @@ To keep the blog post (relatively) short, we've prepared a Colab notebook which 
 
 3. Defining our [collate function](https://huggingface.co/docs/transformers/main_classes/data_collator) and [evaluation metric](https://huggingface.co/docs/evaluate/types_of_evaluations#metrics).
 
-4. Loading a [pretrained model](https://huggingface.co/apple/mobilevit-small) using [`MobileViTForImageClassification.from_pretrained`](https://huggingface.co/docs/transformers/model_doc/mobilevit#transformers.MobileViTForImageClassification).
+4. Loading the [MobileVIT pretrained model](https://huggingface.co/apple/mobilevit-small) using [`MobileViTForImageClassification.from_pretrained`](https://huggingface.co/docs/transformers/model_doc/mobilevit#transformers.MobileViTForImageClassification).
 
 5. Training the model using the [`Trainer`](https://huggingface.co/docs/transformers/main_classes/trainer) and [`TrainingArguments`](https://huggingface.co/docs/transformers/main_classes/trainer#transformers.TrainingArguments) helper classes.
 
