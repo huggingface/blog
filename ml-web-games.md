@@ -208,7 +208,7 @@ After filtering, we were still left with over 300 different classes!
 
 In the spirit of open-source development, I decided to ask [Hugging Chat](https://huggingface.co/chat/) for some game name ideas... and needless to say, it did not disappoint!
 
-![MobileViT archtecture](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ml-web-games/huggingchat.png)
+![Game name suggestions by Hugging Chat](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ml-web-games/huggingchat.png)
 
 I liked the alliteration of "Doodle Dash" (suggestion #4), so I decided to go with that. Thanks Hugging Chat! 🤗
 
