@@ -96,7 +96,7 @@ Fortunately, the [🤗 Optimum](https://huggingface.co/docs/optimum) library mak
 2. Run the conversion script (it uses `Optimum` under the hood):
 
     ```bash
-    python -m scripts.convert --quantize --model_id <model_id>
+    python -m scripts.convert --model_id <model_id>
     ```
 
     where `<model_id>` is the name of the model you want to convert (e.g. `Xenova/quickdraw-mobilevit-small`).
