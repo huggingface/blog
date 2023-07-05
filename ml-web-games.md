@@ -213,6 +213,6 @@ I liked the alliteration of "Doodle Dash" (suggestion #4), so I decided to go wi
 
 ---
 
-I hope you enjoyed building this game with me! If you have any questions or suggestions, you can find me on [Twitter](https://twitter.com/xenovacom) or [GitHub](https://github.com/xenova/doodle-dash). Also, if you want to improve the game (game modes? power-ups? animations? sound effects?), feel free to [fork](https://github.com/xenova/doodle-dash/fork) the project and submit a pull request! I'd love to see what you come up with!
+I hope you enjoyed building this game with me! If you have any questions or suggestions, you can find me on [Twitter](https://twitter.com/xenovacom), [GitHub](https://github.com/xenova/doodle-dash), or the [🤗 Hub](https://hf.co/xenova). Also, if you want to improve the game (game modes? power-ups? animations? sound effects?), feel free to [fork](https://github.com/xenova/doodle-dash/fork) the project and submit a pull request! I'd love to see what you come up with!
 
 **PS**: Don't forget to join the [Open Source AI Game Jam](https://itch.io/jam/open-source-ai-game-jam)! Hopefully this blog post inspires you to build your own web game with Transformers.js! 😉 See you at the Game Jam! 🚀
