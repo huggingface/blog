@@ -2422,3 +2422,24 @@
     - nlp
     - cv
     - hardware
+
+- local: text-to-webapp
+  title: "Making a web app generator with open ML models"
+  author: jbilcke-hf
+  thumbnail: /blog/assets/153_text_to_webapp/thumbnail.jpg
+  date: July 3, 2023
+  tags:
+    - guide
+    - llm
+    - apps
+
+- local: inference-endpoints-llm
+  title: "Deploy LLMs with Hugging Face Inference Endpoints"
+  author: philschmid
+  thumbnail: /blog/assets/155_inference_endpoints_llm/thumbnail.jpg
+  date: July 4, 2023
+  tags:
+    - guide
+    - llm
+    - apps
+    - inference
