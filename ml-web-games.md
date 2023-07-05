@@ -199,7 +199,7 @@ The original dataset contains 345 different classes, and since our model is rela
 - Too similar to other labels (e.g., "barn" vs. "house")
 - Too difficult to understand (e.g., "animal migration")
 - Too difficult to draw in sufficient detail (e.g., "brain")
-- Ambigious (e.g., "bat")
+- Ambiguous (e.g., "bat")
 
 After filtering, we were still left with over 300 different classes!
 
