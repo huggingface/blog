@@ -60,7 +60,7 @@ We'll be finetuning [`apple/mobilevit-small`](https://huggingface.co/apple/mobil
 To keep the blog post (relatively) short, we've prepared a Colab notebook which will show you the exact steps we took to finetune the pretrained `apple/mobilevit-small` model with the "Quick, Draw!" dataset. At a high level, this involves:
 1. Loading the [dataset](https://huggingface.co/datasets/Xenova/quickdraw-small).
 
-2. Transforming the dataset using a custom [`MobileViTImageProcessor`](https://huggingface.co/docs/transformers/model_doc/mobilevit#transformers.MobileViTImageProcessor).
+2. Transforming the dataset using a [`MobileViTImageProcessor`](https://huggingface.co/docs/transformers/model_doc/mobilevit#transformers.MobileViTImageProcessor).
 
 3. Defining our [collate function](https://huggingface.co/docs/transformers/main_classes/data_collator) and [evaluation metric](https://huggingface.co/docs/evaluate/types_of_evaluations#metrics).
 
