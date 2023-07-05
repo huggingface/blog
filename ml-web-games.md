@@ -41,7 +41,7 @@ The rest of this tutorial is split into 3 sections:
 
 ### Training data
 
-We'll be training our model using a [subset](https://huggingface.co/datasets/Xenova/quickdraw) of Google's [Quick, Draw!](https://quickdraw.withgoogle.com/data) dataset, which contains over 5 million drawings across 345 categories. Here are some samples from the dataset:
+We'll be training our model using a [subset](https://huggingface.co/datasets/Xenova/quickdraw-small) of Google's [Quick, Draw!](https://quickdraw.withgoogle.com/data) dataset, which contains over 5 million drawings across 345 categories. Here are some samples from the dataset:
 
 ![Quick, Draw! dataset](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ml-web-games/quickdraw-dataset.png)
 
