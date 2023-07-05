@@ -27,7 +27,7 @@ In this blog post, I'll show you how I made **Doodle Dash**: a real-time ML-powe
 
 Before we start, let's talk about what we'll be creating. The game is inspired by Google's [Quick, Draw!](https://quickdraw.withgoogle.com/) game, where you're given a word and a neural network has 20 seconds to guess what you're drawing (repeated 6 times). In fact, we'll be using their [training data](#training-data) to train our own sketch detection model! Don't you just love open source? 😍
 
-In our version, you'll have one minute to draw as many items as you can. If the model predicts the correct label, the canvas will be cleared and you'll be given a new word. Keep doing this until the timer runs out! Also, since the game will be running completely locally, we don't have to worry about latency to and from a server. This means that the model will be able to make real-time predictions (over 60 predictions a seconds)... 🤯 WOW!
+In our version, you'll have one minute to draw as many items as you can, one prompt at a time. If the model predicts the correct label, the canvas will be cleared and you'll be given a new word. Keep doing this until the timer runs out! Since the game runs locally in your browser, we don't have to worry about server latency at all. In fact, the model is able to make real-time predictions as you draw, to the tune of over 60 predictions a second... 🤯 WOW!
 
 The rest of this tutorial is split into 3 sections:
 1. Training the neural network
