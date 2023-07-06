@@ -89,23 +89,23 @@ Requesting and generating text with LLMs can be a time-consuming and iterative p
 
 ### Streaming requests with Python
 
-First, you need to install the `text-generation` client
+First, you need to install the `huggingface_hub` library:
 
 ```python
-pip install text-generation
+pip install -U huggingface_hub
 ```
 
-We can create a `Client` providing our endpoint URL and credential alongside the hyperparameter we want to use
+We can create a `InferenceClient` providing our endpoint URL and credential alongside the hyperparameters we want to use
 
 ```python
-from text_generation import Client
+from huggingface_hub import InferenceClient
 
 # HF Inference Endpoints parameter
 endpoint_url = "https://YOUR_ENDPOINT.endpoints.huggingface.cloud"
 hf_token = "hf_YOUR_TOKEN"
 
 # Streaming Client
-client = Client(endpoint_url, headers={"Authorization": f"Bearer {hf_token}"})
+client = InferenceClient(endpoint_url, token=hf_token)
 
 # generation parameter
 gen_kwargs = dict(
@@ -119,7 +119,8 @@ gen_kwargs = dict(
 # prompt
 prompt = "What can you do in Nuremberg, Germany? Give me 3 Tips"
 
-stream = client.generate_stream(prompt, **gen_kwargs)
+stream = client.text_generation(prompt, stream=True, details=True, **gen_kwargs)
+
 # yield each generated token
 for r in stream:
     # skip special tokens
