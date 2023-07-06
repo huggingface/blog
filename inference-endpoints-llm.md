@@ -95,7 +95,7 @@ First, you need to install the `huggingface_hub` library:
 pip install -U huggingface_hub
 ```
 
-We can create a `InferenceClient` providing our endpoint URL and credential alongside the hyperparameter we want to use
+We can create a `InferenceClient` providing our endpoint URL and credential alongside the hyperparameters we want to use
 
 ```python
 from huggingface_hub import InferenceClient
