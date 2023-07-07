@@ -131,7 +131,7 @@ Here's a screenshot for the primary node. On the other nodes, you need to set th
   <img src="assets/stable-diffusion-finetuning-intel/screen01.png">
 </kbd>
 
-Finally, we need to set the environment on the primary node. It will be propagated to other nodes as the fine-tuning job starts. The first line sets the name of the network interface connected to the local network where all nodes run. You may need to adapt this: `ifconfig` will show you the appropriate information.
+Finally, we need to set the environment on the primary node. It will be propagated to other nodes as the fine-tuning job starts. The first line sets the name of the network interface connected to the local network where all nodes run. You may need to adapt this using`ifconfig` to get the appropriate information.
 
 ```
 export I_MPI_HYDRA_IFACE=ens786f1
