@@ -69,7 +69,7 @@ pip3 install intel_extension_for_pytorch
 conda install gperftools -c conda-forge -y
 ```
 
-Next, we clone the [diffusers](https://github.com/huggingface/diffusers/) repository on each node and install it from the source.
+Next, we clone the [diffusers](https://github.com/huggingface/diffusers/) repository on each node and install it from source.
 
 ```
 git clone https://github.com/huggingface/diffusers.git
