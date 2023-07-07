@@ -130,7 +130,7 @@ This final run is thus x1.51 faster than our base run on Gaudi2 **simply adding 
 
 To reproduce this benchmark, you first need to get access to Gaudi2 through the [Intel Developer Cloud](https://www.intel.com/content/www/us/en/secure/developer/devcloud/cloud-launchpad.html) (see [this guide](https://huggingface.co/blog/habana-gaudi-2-benchmark#how-to-get-access-to-gaudi2) for more information).
 
-Then, you need to install the latest version of Optimum Habana and run `run_bridgetower.py`` that you can find [here](https://github.com/huggingface/optimum-habana/blob/main/examples/contrastive-image-text/run_bridgetower.py). Here is how to do it:
+Then, you need to install the latest version of Optimum Habana and run `run_bridgetower.py` that you can find [here](https://github.com/huggingface/optimum-habana/blob/main/examples/contrastive-image-text/run_bridgetower.py). Here is how to do it:
 
 ```bash
 pip install optimum[habana]
