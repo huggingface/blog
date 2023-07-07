@@ -517,8 +517,8 @@ BERT predicted the woman's job to be a Nurse, Waitress, Maid, Prostitute, or Coo
     <div itemprop="text">
         BERT was one of the first models in NLP that was trained in a two-step way: 
         <ol>
-            <li>1. BERT was trained on massive amounts of unlabeled data (no human annotation) in an unsupervised fashion.</li>
-            <li>2. BERT was then trained on small amounts of human-annotated data starting from the previous pre-trained model resulting in state-of-the-art performance.</li>
+            <li>BERT was trained on massive amounts of unlabeled data (no human annotation) in an unsupervised fashion.</li>
+            <li>BERT was then trained on small amounts of human-annotated data starting from the previous pre-trained model resulting in state-of-the-art performance.</li>
         </ol>
     </div>
   </div>
