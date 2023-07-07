@@ -112,11 +112,11 @@ wget https://huggingface.co/sd-concepts-library/dicoo/resolve/main/concept_image
 
 Here are the images:
 
-<img src="assets/stable-diffusion-finetuning-intel/0.jpeg" height="256">
-<img src="assets/stable-diffusion-finetuning-intel/1.jpeg" height="256">
-<img src="assets/stable-diffusion-finetuning-intel/2.jpeg" height="256">
-<img src="assets/stable-diffusion-finetuning-intel/3.jpeg" height="256">
-<img src="assets/stable-diffusion-finetuning-intel/4.jpeg" height="256">
+<img src="https://huggingface.co/sd-concepts-library/dicoo/resolve/main/concept_images/0.jpeg" height="256">
+<img src="https://huggingface.co/sd-concepts-library/dicoo/resolve/main/concept_images/1.jpeg" height="256">
+<img src="https://huggingface.co/sd-concepts-library/dicoo/resolve/main/concept_images/2.jpeg" height="256">
+<img src="https://huggingface.co/sd-concepts-library/dicoo/resolve/main/concept_images/3.jpeg" height="256">
+<img src="https://huggingface.co/sd-concepts-library/dicoo/resolve/main/concept_images/4.jpeg" height="256">
 
 
 The system setup is now complete. Let's configure the training job.
