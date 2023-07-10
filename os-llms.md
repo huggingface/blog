@@ -44,7 +44,9 @@ Snippets to use these models are given in either the model repository, or the do
 
 ## Licensing
 
-Most of the available text generation models are either closed-source or the license limits commercial use. As of now, [MPT-30B](https://huggingface.co/mosaicml/mpt-30b) and [Falcon](https://huggingface.co/tiiuae/falcon-40b) models are fully open-source, and have open-source friendly licenses (Apache 2.0) that allow commercial use. These models are causal language models. There are versions fine-tuned on various instruction datasets on Hugging Face Hub that come in various sizes depending on your needs.
+Many text generation models are either closed-source or the license limits commercial use. Fortunately, open source alternatives are starting to appear and being embraced by the community as building blocks for further development, fine-tuning or integration with other projects. Some notable fully open-source models include [MPT-30B](https://huggingface.co/mosaicml/mpt-30b) and [Falcon](https://huggingface.co/tiiuae/falcon-40b). They both are causal language models distributed with the permissive Apache 2.0 license, that allows commercial use.
+
+The Hugging Face Hub also hosts various models fine-tuned for instruction or chat use. They come in various styles and sizes depending on your needs:
 
 [MPT-30B-Chat](https://huggingface.co/mosaicml/mpt-30b-chat), by Mosaic ML, uses the CC-BY-NC-SA license, which does not allow commercial use. However, [MPT-30B-Instruct](https://huggingface.co/mosaicml/mpt-30b-instruct) uses CC-BY-SA 3.0, which can be used commercially.
 
