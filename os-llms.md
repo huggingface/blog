@@ -1,16 +1,16 @@
 ---
-title: "Open-Source Text Generation & LLM Ecosystem in Hugging Face"
+title: "Open-Source Text Generation & LLM Ecosystem at Hugging Face"
 thumbnail: /blog/assets/os_llms/thumbnail.png
 authors:
 - user: merve
 ---
 
-<h1>Open-Source Text Generation & LLM Ecosystem in Hugging Face</h1>
+<h1>Open-Source Text Generation & LLM Ecosystem at Hugging Face</h1>
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-![image](assets/os_llms/thumbnail.png)
+
 
 
 Text generation and conversational technologies have been around for ages. However, services like ChatGPT have recently put the spotlight on powerful models like GPT-4, and caused a explosion of open-source alternatives to go mainstream. We think these technologies will be around for a long time, and become more and more integrated into everyday products. In this post, we will go through a brief background on how they work, the types of text generation models that exist, and the Hugging Face tools you can use to incorporate open-source LLMs to your products.
@@ -54,11 +54,11 @@ The Hugging Face Hub also hosts various models fine-tuned for instruction or cha
 
 Finally, the instruction-tuned [XGen model](https://huggingface.co/Salesforce/xgen-7b-8k-inst) only allows research use.
 
-Some of the existing instruction datasets are either crowd-sourced or use outputs of existing models (e.g., the models behind ChatGPT). ALPACA dataset created by Stanford is created through the outputs of models behind ChatGPT, which OpenAI prohibits using for training models. Moreover, there are various crowd-sourced instruction datasets with open-source licenses, like [oasst1](https://huggingface.co/datasets/OpenAssistant/oasst1) (created by thousands of people voluntarily!) or [databricks/databricks-dolly-15k](https://huggingface.co/datasets/databricks/databricks-dolly-15k). Models fine-tuned on these datasets can be distributed.
+If you're looking to fine-tune a model on an existing instruction dataset, you need to know how a dataset was compiled. Some of the existing instruction datasets are either crowd-sourced or use outputs of existing models (e.g., the models behind ChatGPT). ALPACA dataset created by Stanford is created through the outputs of models behind ChatGPT, which OpenAI prohibits using for training models. Moreover, there are various crowd-sourced instruction datasets with open-source licenses, like [oasst1](https://huggingface.co/datasets/OpenAssistant/oasst1) (created by thousands of people voluntarily!) or [databricks/databricks-dolly-15k](https://huggingface.co/datasets/databricks/databricks-dolly-15k). If you'd like to create a dataset yourself, you can check out [the dataset card of Dolly](https://huggingface.co/datasets/databricks/databricks-dolly-15k#sources) on how to create an instruction dataset. Models fine-tuned on these datasets can be distributed. 
 
-### How can you use these models?
+### How can you serve these models?
 
-Response time and latency for concurrent users are a big challenge for serving these large models. To tackle this problem, Hugging Face has released [text-generation-inference](https://github.com/huggingface/text-generation-inference) (TGI), an open-source serving solution for large language models, built on Rust, Python and gRPc.
+Response time and latency for concurrent users are a big challenge for serving these large models. To tackle this problem, Hugging Face has released [text-generation-inference](https://github.com/huggingface/text-generation-inference) (TGI), an open-source serving solution for large language models, built on Rust, Python and gRPc. TGI is integrated into inference solutions of Hugging Face, [Inference Endpoints](https://huggingface.co/inference-endpoints) and [Inference API](https://huggingface.co/inference-api), so you can directly create an endpoint with optimized inference with few clicks, or simply send a request to Hugging Face's Inference API to benefit from it, instead of integrating TGI to your own platform. 
 
 ![Screenshot from HuggingChat](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/huggingchat_ui.png)
 
@@ -74,13 +74,13 @@ Hugging Face hosts an LLM leaderboard [here](https://huggingface.co/spaces/Huggi
 
 ### Models created with love by Hugging Face with BigScience and BigCode
 
-Hugging Face has two main large language models, [BLOOM](https://huggingface.co/bigscience/bloom) 🌸 and [StarCoder](https://huggingface.co/bigcode/starcoder) 🌟. StarCoder is a causal language model trained on code from GitHub (with 80+ programming languages 🤯), it’s not fine-tuned on instructions and thus, it serves more as a coding assistant to complete a given code, e.g., translate Python to C++, explain concepts (what’s recursion) or act as a terminal. You can try all of the StarCoder checkpoints [in this application](https://huggingface.co/spaces/bigcode/bigcode-playground). It also comes with a [VSCode extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode).
+Hugging Face has lead two science initiatives, BigScience and BigCode. As a result of them, two large models were created, [BLOOM](https://huggingface.co/bigscience/bloom) 🌸 and [StarCoder](https://huggingface.co/bigcode/starcoder) 🌟. StarCoder is a causal language model trained on code from GitHub (with 80+ programming languages 🤯), it’s not fine-tuned on instructions and thus, it serves more as a coding assistant to complete a given code, e.g., translate Python to C++, explain concepts (what’s recursion) or act as a terminal. You can try all of the StarCoder checkpoints [in this application](https://huggingface.co/spaces/bigcode/bigcode-playground). It also comes with a [VSCode extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode).
 
 BLOOM is a causal language model trained on 46 languages and 13 programming languages. It is the first open-source model to have more parameters than GPT-3. You can find available checkpoints in [BLOOM documentation](https://huggingface.co/docs/transformers/model_doc/bloom).
 
 ### Parameter Efficient Fine Tuning (PEFT)
 
-If you’d like to fine-tune one of the existing large models on your own instruction dataset, it is nearly impossible to do so on consumer hardware and later deploy them (since the instruction models are same size as original checkpoints that are used for fine-tuning). [PEFT](https://github.com/huggingface/peft) is a library that allows you to fine-tune smaller part of the parameters for more efficiency. With PEFT, you can do low rank adaptation (LoRA), prefix tuning, prompt tuning and p-tuning.
+If you’d like to fine-tune one of the existing large models on your own instruction dataset, it is nearly impossible to do so on consumer hardware and later deploy them (since the instruction models are same size as original checkpoints that are used for fine-tuning). [PEFT](https://huggingface.co/docs/peft/index) is a library that allows you to fine-tune smaller part of the parameters for more efficiency. With PEFT, you can do low rank adaptation (LoRA), prefix tuning, prompt tuning and p-tuning.
 
 You can check out further resources for more information on text generation.
 
@@ -88,3 +88,4 @@ You can check out further resources for more information on text generation.
 - AWS has released TGI based LLM deployment deep learning containers called LLM Inference Containers, read about them [here](https://aws.amazon.com/tr/blogs/machine-learning/announcing-the-launch-of-new-hugging-face-llm-inference-containers-on-amazon-sagemaker/).
 - [Text Generation task page](https://huggingface.co/tasks/text-generation) to find out more about the task itself.
 - PEFT announcement [blog post](https://huggingface.co/blog/peft).
+- Read about how Inference Endpoints utilizes TGI [here](https://huggingface.co/blog/inference-endpoints-llm).
