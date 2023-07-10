@@ -56,7 +56,7 @@ Response times and handling concurrent users remain a challenge for serving thes
 
 ![Screenshot from HuggingChat](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/huggingchat_ui.png)
 
-TGI currently powers [HuggingChat](https://huggingface.co/chat/). HuggingChat is the chat UI for large language models. Currently, it has OpenAssistant on backend. You can chat as much as you want with HuggingChat, and enable the search feature for validated responses. You can also give feedback to each response for model authors to train better models. The UI of HuggingChat is also [open-sourced](https://github.com/huggingface/chat-ui) and we are working on more features for HuggingChat to allow more functions, like generating images inside the chat.
+TGI currently powers [HuggingChat](https://huggingface.co/chat/), Hugging FAce's chat UI for large language models. This service currently uses OpenAssistant as the backend model. You can chat as much as you want with HuggingChat, and enable the search feature for validated responses. You can also give feedback to each response for model authors to train better models. The UI of HuggingChat is also [open-sourced](https://github.com/huggingface/chat-ui), and we are working on more features for HuggingChat to allow more functions, like generating images inside the chat.
 
 ![HuggingChat Search](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/huggingchat_web.png)
 
