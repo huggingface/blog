@@ -15,7 +15,7 @@ authors:
 
 Text generation and conversational technologies have been around for ages. With the recent boom of text generation models like GPT-4 and open-source alternatives going mainstream, these technologies will be around, and integrated into everyday products. In this post, we will go through a brief background on how they work, the types of text generation models and the tools in Hugging Face ecosystem that enable building products using open-source LLMs, challenges, questions and how we respond to them.
 
-## Small Background on Text Generation
+## Brief Background on Text Generation
 
 Text generation models are essentially trained with the objective of completing text. Earlier challenges in working with these models were controlling both the coherence and diversity of the text through inference parameters and discriminative biases. More coherent outputs were less creative and closer to the original training data and sounded less human. Recent developments overcame these challenges, and user-friendly UIs enabled everyone to try these models out.
 
