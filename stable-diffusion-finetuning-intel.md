@@ -13,7 +13,7 @@ authors:
 
 Diffusion models helped popularize generative AI thanks to their uncanny ability to generate photorealistic images from text prompts. These models have now found their way into enterprise use cases like synthetic data generation or content creation. The Hugging Face hub includes over 5,000 pre-trained text-to-image [models](https://huggingface.co/models?pipeline_tag=text-to-image&sort=trending). Combining them with the [Diffusers library](https://huggingface.co/docs/diffusers/index), it's never been easier to start experimenting and building image generation workflows.
 
-Like Transformer models, you can fine-tune Diffusion models to help them generate content that matches your business needs. Initially, fine-tuning was only possible on GPU infrastructure, but things are changing! A few months ago, Intel launched the fourth generation of Xeon CPUs, code-named Sapphire Rapids. Sapphire Rapids introduces the Intel Advanced Matrix Extensions (AMX), a new hardware accelerator for deep learning workloads. We've already demonstrated the benefits of AMX in several blog posts: [fine-tuning NLP Transformers](https://huggingface.co/blog/intel-sapphire-rapids), [inference with NLP Transformers](https://huggingface.co/blog/intel-sapphire-rapids-inference), and [inference with Stable Diffusion models](https://huggingface.co/blog/intel-sapphire-rapids-inference). 
+Like Transformer models, you can fine-tune Diffusion models to help them generate content that matches your business needs. Initially, fine-tuning was only possible on GPU infrastructure, but things are changing! A few months ago, Intel [launched](https://www.intel.com/content/www/us/en/newsroom/news/4th-gen-xeon-scalable-processors-max-series-cpus-gpus.html#gs.2d6cd7) the fourth generation of Xeon CPUs, code-named Sapphire Rapids. Sapphire Rapids introduces the Intel Advanced Matrix Extensions (AMX), a new hardware accelerator for deep learning workloads. We've already demonstrated the benefits of AMX in several blog posts: [fine-tuning NLP Transformers](https://huggingface.co/blog/intel-sapphire-rapids), [inference with NLP Transformers](https://huggingface.co/blog/intel-sapphire-rapids-inference), and [inference with Stable Diffusion models](https://huggingface.co/blog/intel-sapphire-rapids-inference). 
 
 This post will show you how to fine-tune a Stable Diffusion model on an Intel Sapphire Rapids CPU cluster. We will use [textual inversion](https://huggingface.co/docs/diffusers/training/text_inversion), a technique that only requires a small number of example images. We'll use only five!
 
@@ -21,7 +21,9 @@ Let's get started.
 
 ## Setting up the cluster
 
-Our friends at [Intel](https://huggingface.co/intel) provided four servers hosted on the [Intel Developer Cloud](https://www.intel.com/content/www/us/en/developer/tools/devcloud/services.html) (IDC). Each server is powered by two Intel Sapphire Rapids CPUs with 56 physical cores and 112 threads. Here's the output of `lscpu`:
+Our friends at [Intel](https://huggingface.co/intel) provided four servers hosted on the [Intel Developer Cloud](https://www.intel.com/content/www/us/en/developer/tools/devcloud/services.html) (IDC), a service platform for developing and running workloads in Intel®-optimized deployment environments with the latest Intel processors and performance-optimized software stacks. 
+
+Each server is powered by two Intel Sapphire Rapids CPUs with 56 physical cores and 112 threads. Here's the output of `lscpu`:
 
 ```
 Architecture:            x86_64
@@ -73,7 +75,6 @@ Next, we clone the [diffusers](https://github.com/huggingface/diffusers/) reposi
 
 ```
 git clone https://github.com/huggingface/diffusers.git
-git checkout v0.17.1
 cd diffusers
 pip install .
 ```
@@ -152,15 +153,14 @@ We can now launch the fine-tuning job.
 
 We launch the fine-tuning job with `mpirun`, which sets up distributed communication across the nodes listed in `nodefile`. We'll run 16 tasks (`-n`) with four tasks per node (`-ppn`). `Accelerate` automatically sets up distributed training across all tasks.
 
-Here, we train for 3,000 steps, which should take about an hour. If you'd like a quick taste, 200 steps should run in about 5 minutes.
-
+Here, we train for 200 steps, which should take about five minutes.
 ```
 mpirun -f nodefile -n 16 -ppn 4                                                         \
 accelerate launch diffusers/examples/textual_inversion/textual_inversion.py             \
 --pretrained_model_name_or_path=$MODEL_NAME --train_data_dir=$DATA_DIR                  \
 --learnable_property="object"   --placeholder_token="<dicoo>" --initializer_token="toy" \
 --resolution=512  --train_batch_size=1  --seed=7  --gradient_accumulation_steps=1       \
---max_train_steps=3000 --learning_rate=2.0e-03 --scale_lr --lr_scheduler="constant"     \
+--max_train_steps=200 --learning_rate=2.0e-03 --scale_lr --lr_scheduler="constant"     \
 --lr_warmup_steps=0 --output_dir=./textual_inversion_output --mixed_precision bf16      \
 --save_as_full_pipeline
 ```
@@ -182,7 +182,7 @@ python diffusers/examples/textual_inversion/textual_inversion.py                
 --pretrained_model_name_or_path=$MODEL_NAME --train_data_dir=$DATA_DIR                  \
 --learnable_property="object"   --placeholder_token="<dicoo>" --initializer_token="toy" \
 --resolution=512  --train_batch_size=1  --seed=7  --gradient_accumulation_steps=1       \
---max_train_steps=3000 --learning_rate=2.0e-03 --scale_lr --lr_scheduler="constant"     \
+--max_train_steps=200 --learning_rate=2.0e-03 --scale_lr --lr_scheduler="constant"     \
 --lr_warmup_steps=0 --output_dir=./textual_inversion_output --mixed_precision bf16      \
 --save_as_full_pipeline
 ```
@@ -191,7 +191,7 @@ If training starts successfully, stop it and move to the next node. If training 
 
 ## Generating images with the fine-tuned model
 
-After an hour or so of training, the model is saved locally. We could load it with a vanilla `diffusers` pipeline and predict. Instead, let's use [Optimum Intel and OpenVINO](https://huggingface.co/docs/optimum/intel/inference) to optimize the model. As discussed in a [previous post](https://huggingface.co/blog/intel-sapphire-rapids-inference), this lets you generate an image on a single CPU in less than 5 seconds!
+After 5 minutes training, the model is saved locally. We could load it with a vanilla `diffusers` pipeline and predict. Instead, let's use [Optimum Intel and OpenVINO](https://huggingface.co/docs/optimum/intel/inference) to optimize the model. As discussed in a [previous post](https://huggingface.co/blog/intel-sapphire-rapids-inference), this lets you generate an image on a single CPU in less than 5 seconds!
 
 ```
 pip install optimum[openvino]
@@ -224,7 +224,13 @@ for idx,img in enumerate(images):
     img.save(f"image{idx}.png")
 ```
 
-Here's a rather lovely example. It is impressive that the model only needed five images to learn that dicoos have glasses!
+Here's a generated image. It is impressive that the model only needed five images to learn that dicoos have glasses!
+
+<kbd>
+  <img src="assets/stable-diffusion-finetuning-intel/dicoo_image_200.png">
+</kbd>
+
+If you'd like, you can fine-tune the model some more. Here's a lovely example generated by a 3,000-step model (about an hour of training). 
 
 <kbd>
   <img src="assets/stable-diffusion-finetuning-intel/dicoo_image.png">
@@ -239,7 +245,8 @@ Here are some resources to help you get started:
 * Diffusers [documentation](https://huggingface.co/docs/diffusers)
 * Optimum Intel [documentation](https://huggingface.co/docs/optimum/main/en/intel/inference)
 * [Intel IPEX](https://github.com/intel/intel-extension-for-pytorch) on GitHub
-* [Developer resources](https://www.intel.com/content/www/us/en/developer/partner/hugging-face.html) from Intel and Hugging Face. 
+* [Developer resources](https://www.intel.com/content/www/us/en/developer/partner/hugging-face.html) from Intel and Hugging Face.
+* Sapphire Rapids servers on [Intel Developer Cloud](https://www.intel.com/content/www/us/en/developer/tools/devcloud/services.html), [AWS](https://aws.amazon.com/about-aws/whats-new/2022/11/introducing-amazon-ec2-r7iz-instances/?nc1=h_ls) and [GCP](https://cloud.google.com/blog/products/compute/c3-machine-series-on-intel-sapphire-rapids-now-ga).
 
 If you have questions or feedback, we'd love to read them on the [Hugging Face forum](https://discuss.huggingface.co/).
 
