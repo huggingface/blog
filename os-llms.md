@@ -52,7 +52,7 @@ Some of the existing instruction datasets are either crowd-sourced or use output
 
 ### How can you use these models?
 
-Response times and handling concurrent users remain a challenge for serving these models. For this, Hugging Face has released [text-generation-inference](https://github.com/huggingface/text-generation-inference) (TGI) it’s an open-source serving solution for large language models, built with Rust, Python and gRPc.
+Response time and latency for concurrent users are a big challenge for serving these large models. To tackle this problem, Hugging Face has released [text-generation-inference](https://github.com/huggingface/text-generation-inference) (TGI), an open-source serving solution for large language models, built on Rust, Python and gRPc.
 
 ![Screenshot from HuggingChat](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/huggingchat_ui.png)
 
