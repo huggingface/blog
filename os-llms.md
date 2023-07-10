@@ -13,7 +13,7 @@ authors:
 ![image](assets/os_llms/thumbnail.png)
 
 
-Text generation and conversational technologies have been around for ages. With the recent boom of text generation models like GPT-4 and open-source alternatives going mainstream, these technologies will be around, and integrated into everyday products. In this post, we will go through a brief background on how they work, the types of text generation models and the tools in Hugging Face ecosystem that enable building products using open-source LLMs, challenges, questions and how we respond to them.
+Text generation and conversational technologies have been around for ages. However, services like ChatGPT have recently put the spotlight on powerful models like GPT-4, and caused a explosion of open-source alternatives to go mainstream. We think these technologies will be around for a long time, and become more and more integrated into everyday products. In this post, we will go through a brief background on how they work, the types of text generation models that exist, and the Hugging Face tools you can use to incorporate open-source LLMs to your products.
 
 ## Brief Background on Text Generation
 
