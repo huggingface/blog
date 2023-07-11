@@ -3,7 +3,7 @@ title: "Towards Encrypted Large Language Models with FHE"
 thumbnail: /blog/assets/encrypted-llm/thumbnail.png
 authors:
 - user: RomanBredehoft
-- user: jfrery
+- user: jfrery-zama
 ---
 
 # Towards Encrypted Large Language Models with FHE
@@ -25,8 +25,7 @@ Zama believes you can get the best of both worlds: our ambition is to protect bo
 
 Zama’s solution to the challenges of LLM deployment is to use Fully Homomorphic Encryption (FHE) which enables the execution of functions on encrypted data. It is possible to achieve the goal of protecting the model owner’s IP while still maintaining the privacy of the user's data. This demo shows that an LLM model implemented in FHE maintains the quality of the original model’s predictions. To do this, it’s necessary to adapt the [GPT2](https://huggingface.co/gpt2) implementation from the Hugging Face [transformer library](https://github.com/huggingface/transformers), reworking sections of the inference using Concrete-Python, which enables the conversion of Python functions into their FHE equivalents.
 
-![Figure 1. GPT2 Architecture. Source: https://en.wikipedia.org/wiki/GPT-2
-](https://github.com/zama-ai/concrete-ml/assets/7602572/0d1b6f32-f4a4-46bd-890d-0fd4b22216ec)
+![Figure 1. GPT2 Architecture. Source: https://en.wikipedia.org/wiki/GPT-2](assets/encrypted-llm/gpt2_architecture.png)
 
 Figure 1 shows the GPT2 architecture which has a repeating structure: a series of multi-head attention (MHA) layers applied successively. Each MHA layer projects the inputs using the model weights, computes the attention mechanism, and re-projects the output of the attention into a new tensor.
 
@@ -42,7 +41,7 @@ First, in order to perform the model inference on encrypted values, the weights 
 
 To evaluate the impact of quantization, run the full GPT2 model with a single LLM Head operating over encrypted data. Then, evaluate the accuracy obtained when varying the number of quantization bits for both weights and activations.
 
-![](https://github.com/zama-ai/concrete-ml/assets/7602572/9dee66f5-03c4-4041-8d88-b918810b3879)
+![Single Quantized Head Attention Average Top-k Accuracy](/assets/encrypted-llm/qattention_accuracy.png)
 
 This graph shows that 4-bit quantization maintains 96% of the original accuracy. The experiment is done using a data-set of ~80 sentences. The metrics are computed by comparing the logits prediction from the original model against the model with the quantized head model.
 
