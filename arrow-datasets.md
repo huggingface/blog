@@ -50,16 +50,16 @@ As a user, you typically won't need interact with Arrow directly, but rather use
 A Hugging Face `datasets.Dataset` object is at its core a dataframe-like structure called an Arrow Table: a 2-dimensional data structure with a schema and named columns. When you load a dataset for the first time, it is serialized in batches into one ore more `.arrow` memory files in your cache directory, then finally mmapped from those files on disk. To peek behind the scenes of this process let's begin by downloading the dataset we'll be using, a subset of [the Stack](https://huggingface.co/datasets/bigcode/the-stack-dedup), a dataset that was used to train the [StarCoder](https://huggingface.co/bigcode/starcoder) family of code large language models.
 
 ```python
-from datasets import load_dataset
-dset = load_dataset("cakiki/stack-smol-xxl", split="train") # ~107GB of disk space required to run this
-print(type(dset))
-print(type(dset.data.table)) # dset.data.table is the underlying Arrow Table
-print([shard["filename"].split("/")[-1] for shard in dset.cache_files])
-print(len(dset.cache_files), "cache files")
->>> <class 'datasets.arrow_dataset.Dataset'> 
->>> <class 'pyarrow.lib.Table'>
->>> ['parquet-train-00000-of-00144.arrow', 'parquet-train-00001-of-00144.arrow', ... ] # These are the serialized files on disk. (Output trimmed) 
->>> 144 cache files
+>>> from datasets import load_dataset
+>>> dset = load_dataset("cakiki/stack-smol-xxl", split="train") # ~107GB of disk space required to run this
+>>> type(dset)
+<class 'datasets.arrow_dataset.Dataset'> 
+>>> type(dset.data.table) # dset.data.table is the underlying Arrow Table
+<class 'pyarrow.lib.Table'>
+>>> [shard["filename"].split("/")[-1] for shard in dset.cache_files]
+['parquet-train-00000-of-00144.arrow', 'parquet-train-00001-of-00144.arrow', ... ] # These are the serialized files on disk. (Output trimmed) 
+>>> print(len(dset.cache_files), "cache files")
+144 cache files
 ```
 
 Caching onto disk is not limited to loading data, but also transforming it. Indeed, as we'll see in a second, when you operate on a dataset, be it through filtering, mapping, or structural transformations, these operations are also cached to disk and only need to run once. Before we move on to the next section, let's quickly inspect the code dataset we just loaded:
