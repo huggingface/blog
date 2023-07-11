@@ -654,6 +654,18 @@
 #     - community
 #     - ethics
 
+- local: evaluating-mmlu-leaderboard
+  title: "Open LLM 排行榜近况"
+  author: clefourrier
+  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
+  date: June 23, 2023
+  tags:
+    - community
+    - research
+    - nlp
+    - evaluation
+    - leaderboard
+
 - local: ethics-soc-4
   title: "道德与社会问题简报 #4：文生图模型中的偏见"
   author:  sasha
