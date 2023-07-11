@@ -33,7 +33,7 @@ The second type of text generation model is commonly referred to as the text-to-
 
 Having more variation of open-source text generation models enables companies to keep privacy with their data, ability to adapt models to their domains quicker, and cut costs for inference instead of relying on closed paid APIs. All open-source causal language models on Hugging Face Hub can be found [here](https://huggingface.co/models?pipeline_tag=text-generation) and text-to-text generation models can be found [here](https://huggingface.co/models?pipeline_tag=text2text-generation&sort=trending).
 
-Snippets to use these models are given in either the model repository, or the documentation page of that model type in Hugging Face.
+Snippets to use these models are given in either the model repository or the documentation page of that model type in Hugging Face.
 
 ## Licensing
 
