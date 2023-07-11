@@ -55,11 +55,11 @@ We’ve already seen that many of the datasets on the Hugging Face Hub haven’t
 
 #### Getting the data 
 
-One way we could access some examples from a dataset is by using the datasets library to download the datasets. 
-
-from datasets import load_dataset
+One way we could access some examples from a dataset is by using the datasets library to download the datasets i.e. 
 
 ```python
+from datasets import load_dataset
+
 dataset = load_dataset("biglam/on_the_books")
 ```
 
