@@ -2457,7 +2457,7 @@
     - transformers.js
 
 - local: huggylingo
-  title: "Using Machine Learning to Improve Language Metadata on the Hugging Face Hub"
+  title: "Huggy Lingo: Using Machine Learning to Improve Language Metadata on the Hugging Face Hub"
   author: davanstrien
   thumbnail: # TODO 
   date: July 12, 2023

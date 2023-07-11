@@ -1,5 +1,5 @@
 ---
-title: "Using Machine Learning to Improve Language Metadata on the Hugging Face Hub"
+title: "Huggy Lingo: Using Machine Learning to Improve Language Metadata on the Hugging Face Hub"
 thumbnail: 
 authors:
 - user: davanstrien
