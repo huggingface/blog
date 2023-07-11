@@ -57,7 +57,7 @@ TGI currently powers [HuggingChat](https://huggingface.co/chat/), Hugging FAce's
 
 ### How to find the best model?
 
-Hugging Face hosts an LLM leaderboard [here](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard). This leaderboard is created by people uploading models, and metrics that evaluate text generation tasks are calculated on Hugging Face’s clusters and later added to the leaderboard. If you can’t find the language or domain you’re looking for, you can filter them [here](https://huggingface.co/models?pipeline_tag=text-generation&sort=downloads).
+Hugging Face hosts an LLM leaderboard [here](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard). This leaderboard is created by evaluating community-submitted models on text generation benchmarks on Hugging Face’s clusters. If you can’t find the language or domain you’re looking for, you can filter them [here](https://huggingface.co/models?pipeline_tag=text-generation&sort=downloads).
 
 ![Open LLM Leaderboard](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/LLM_leaderboard.png)
 
