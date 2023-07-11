@@ -84,9 +84,8 @@ As you just saw, accessing data by slicing returns a dictionary where each colum
 ## Mapping Compute Primitives
 
 ```python
-dset.set_format("arrow")
-print(dset[:4])
->>> 
+>>> dset.set_format("arrow")
+>>> print(dset[:4])
 pyarrow.Table
 hexsha: string
 size: int64
