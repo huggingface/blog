@@ -11,15 +11,21 @@ authors:
 <!-- {authors} -->
 
 
-Text generation and conversational technologies have been around for ages. Earlier challenges in working with these technologies were controlling both the coherence and diversity of the text through inference parameters and discriminative biases. More coherent outputs were less creative and closer to the original training data and sounded less human. Recent developments overcame these challenges, and user-friendly UIs enabled everyone to try these models out. Services like ChatGPT have recently put the spotlight on powerful models like GPT-4 and caused an explosion of open-source alternatives like LLaMA to go mainstream. We think these technologies will be around for a long time and become more and more integrated into everyday products. In this post, we will go through a brief background on how they work, the types of text generation models that exist, and the Hugging Face tools you can use to incorporate open-source LLMs into your products.
+Text generation and conversational technologies have been around for ages. Earlier challenges in working with these technologies were controlling both the coherence and diversity of the text through inference parameters and discriminative biases. More coherent outputs were less creative and closer to the original training data and sounded less human. Recent developments overcame these challenges, and user-friendly UIs enabled everyone to try these models out. Services like ChatGPT have recently put the spotlight on powerful models like GPT-4 and caused an explosion of open-source alternatives like LLaMA to go mainstream. We think these technologies will be around for a long time and become more and more integrated into everyday products. 
+
+This post is divided into the following sections:
+1. Brief background on text generation,
+2. Types of text generation models
+3. Licenses
+4. Tools in Hugging Face Ecosystem
 
 ## Brief Background on Text Generation
 
-Text generation models are essentially trained with the objective of completing an incomplete text or generating text in the form of a response to a given instruction or question. Models that complete incomplete text are called Causal Language Models, and famous examples are GPT-3 by OpenAI and LLaMa by Meta AI. 
+Text generation models are essentially trained with the objective of completing an incomplete text or generating text from scratch as a response to a given instruction or question. Models that complete incomplete text are called Causal Language Models, and famous examples are GPT-3 by OpenAI and LLaMa by Meta AI. 
 
 ![Causal LM Output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/text_generation.png)
 
-Causal language models are optimized using a process called reinforcement learning from human feedback (RLHF). This optimization is mainly made over how natural and coherent the text sounds rather than the validity of the answer. Explaining how RLHF works is outside the scope of this blog post, but you can find more information about this process [here](https://huggingface.co/blog/rlhf).
+Causal language models are adapted using a process called reinforcement learning from human feedback (RLHF). This optimization is mainly made over how natural and coherent the text sounds rather than the validity of the answer. Explaining how RLHF works is outside the scope of this blog post, but you can find more information about this process [here](https://huggingface.co/blog/rlhf).
 
 One concept you need to know before we move on is fine-tuning. This is the process of taking a very large model and transferring the knowledge contained in this base model to the use case: a downstream task. These tasks can come in the form of instructions. As the model size grows, the models can generalize better to the instructions that do not exist in the pre-training data.
 
@@ -31,23 +37,46 @@ The second type of text generation model is commonly referred to as the text-to-
 
 ![FLAN-T5 Illustration](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/flan_t5.png)
 
-Having more variation of open-source text generation models enables companies to keep privacy with their data, ability to adapt models to their domains quicker, and cut costs for inference instead of relying on closed paid APIs. All open-source causal language models on Hugging Face Hub can be found [here](https://huggingface.co/models?pipeline_tag=text-generation) and text-to-text generation models can be found [here](https://huggingface.co/models?pipeline_tag=text2text-generation&sort=trending).
+Having more variation of open-source text generation models enables companies to keep privacy with their data, ability to adapt models to their domains quicker, and cut costs for inference instead of relying on closed paid APIs. All open-source causal language models on Hugging Face Hub can be found [here](https://huggingface.co/models?pipeline_tag=text-generation), and text-to-text generation models can be found [here](https://huggingface.co/models?pipeline_tag=text2text-generation&sort=trending).
 
 Snippets to use these models are given in either the model repository or the documentation page of that model type in Hugging Face.
 
 ## Licensing
 
-Many text generation models are either closed-source or the license limits commercial use. Fortunately, open-source alternatives are starting to appear and being embraced by the community as building blocks for further development, fine-tuning, or integration with other projects. Some notable fully open-source models include [MPT-30B](https://huggingface.co/mosaicml/mpt-30b) and [Falcon](https://huggingface.co/tiiuae/falcon-40b). They both are causal language models distributed with the permissive Apache 2.0 license that allows commercial use.
+Many text generation models are either closed-source or the license limits commercial use. Fortunately, open-source alternatives are starting to appear and being embraced by the community as building blocks for further development, fine-tuning, or integration with other projects. Below you can find a list of some of the large causal language models with fully open-source licenses:
+- [Falcon 40B](https://huggingface.co/tiiuae/falcon-40b)
+- [XGen](https://huggingface.co/tiiuae/falcon-40b)
+- [MPT-30B](https://huggingface.co/mosaicml/mpt-30b)
+- [Pythia-12B](https://huggingface.co/EleutherAI/pythia-12b)
+- [RedPajama-INCITE-7B](https://huggingface.co/togethercomputer/RedPajama-INCITE-7B-Base)
+- [OpenAssistant](https://huggingface.co/OpenAssistant/falcon-40b-sft-mix-1226)
 
-The Hugging Face Hub also hosts various models fine-tuned for instruction or chat use. They come in various styles and sizes depending on your needs:
+There are two code generation models, [StarCoder by BigCode](https://huggingface.co/models?sort=trending&search=bigcode%2Fstarcoder) and [Codegen by Salesforce](https://huggingface.co/models?sort=trending&search=salesforce%2Fcodegen). There are model checkpoints in different sizes and open-source licenses for both, except for [Codegen fine-tuned on instruction](https://huggingface.co/Salesforce/codegen25-7b-instruct).
+ 
+The Hugging Face Hub also hosts various models fine-tuned for instruction or chat use. They come in various styles and sizes depending on your needs.
+[MPT-30B-Chat](https://huggingface.co/mosaicml/mpt-30b-chat), by Mosaic ML, uses the CC-BY-NC-SA license, which does not allow commercial use. However, [MPT-30B-Instruct](https://huggingface.co/mosaicml/mpt-30b-instruct) uses CC-BY-SA 3.0, which can be used commercially. [Falcon-40B-Instruct](https://huggingface.co/tiiuae/falcon-40b-instruct) and  [Falcon-7B-Instruct](https://huggingface.co/tiiuae/falcon-7b-instruct) both use the Apache 2.0 license, so commercial use is also permitted. Another popular model is OpenAssistant, built on Meta's LLaMA model using a custom instruction-tuning dataset. Since the original LLaMA model can only be used for research, the OpenAssistant checkpoints built on LLaMA don’t have full open-source licenses. However, there are OpenAssistant models built on open-source models like [Falcon](https://huggingface.co/models?search=openassistant/falcon) or [pythia](https://huggingface.co/models?search=openassistant/pythia) that use permissive licenses. [StarChat Beta](https://huggingface.co/HuggingFaceH4/starchat-beta) is the instruction fine-tuned version of StarCoder, and has BigCode Open RAIL-M v1 license, which allows commercial use. Finally, the instruction-tuned [XGen model](https://huggingface.co/Salesforce/xgen-7b-8k-inst) only allows research use.
 
-[MPT-30B-Chat](https://huggingface.co/mosaicml/mpt-30b-chat), by Mosaic ML, uses the CC-BY-NC-SA license, which does not allow commercial use. However, [MPT-30B-Instruct](https://huggingface.co/mosaicml/mpt-30b-instruct) uses CC-BY-SA 3.0, which can be used commercially.
-
-[Falcon-40B-Instruct](https://huggingface.co/tiiuae/falcon-40b-instruct) and  [Falcon-7B-Instruct](https://huggingface.co/tiiuae/falcon-7b-instruct) both use the Apache 2.0 license, so commercial use is also permitted. Another popular model is OpenAssistant, built on Meta's LLaMa model using a custom instruction-tuning dataset. Since the original LLaMa model can only be used for research, the OpenAssistant checkpoints built on LLaMa don’t have full open-source licenses. However, there are OpenAssistant models built on open-source models like [Falcon](https://huggingface.co/models?search=openassistant/falcon) or [pythia](https://huggingface.co/models?search=openassistant/pythia) that use permissive licenses.
-
-Finally, the instruction-tuned [XGen model](https://huggingface.co/Salesforce/xgen-7b-8k-inst) only allows research use.
 
 If you're looking to fine-tune a model on an existing instruction dataset, you need to know how a dataset was compiled. Some of the existing instruction datasets are either crowd-sourced or use outputs of existing models (e.g., the models behind ChatGPT). ALPACA dataset created by Stanford is created through the outputs of models behind ChatGPT, which OpenAI prohibits using for training models. Moreover, there are various crowd-sourced instruction datasets with open-source licenses, like [oasst1](https://huggingface.co/datasets/OpenAssistant/oasst1) (created by thousands of people voluntarily!) or [databricks/databricks-dolly-15k](https://huggingface.co/datasets/databricks/databricks-dolly-15k). If you'd like to create a dataset yourself, you can check out [the dataset card of Dolly](https://huggingface.co/datasets/databricks/databricks-dolly-15k#sources) on how to create an instruction dataset. Models fine-tuned on these datasets can be distributed. 
+
+You can find comprehensive table of all open-source models below. 
+
+| Model                                                                                    | Dataset                                                                                                                                                                                           | License            | Use                     |
+|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|-------------------------|
+| [Falcon 40B](https://huggingface.co/tiiuae/falcon-40b)                                   | [Falcon RefinedWeb](https://huggingface.co/datasets/tiiuae/falcon-refinedweb)                                                                                                                     | Apache-2.0         | Text Generation         |
+| [SalesForce XGen 7B](https://huggingface.co/Salesforce/xgen-7b-8k-base)                  | Mix of C4, RedPajama and more                                                                                                                                                                     | Apache-2.0         | Text Generation         |
+| [MPT-30B](https://huggingface.co/mosaicml/mpt-30b)                                       | Mix of C4, RedPajama and more                                                                                                                                                                     | Apache-2.0         | Text Generation         |
+| [Pythia-12B](https://huggingface.co/EleutherAI/pythia-12b)                               | [Pile](https://huggingface.co/datasets/EleutherAI/pile)                                                                                                                                           | Apache-2.0         | Text Generation         |
+| [RedPajama INCITE 7B](https://huggingface.co/togethercomputer/RedPajama-INCITE-7B-Base)  | [RedPajama](https://huggingface.co/togethercomputer/RedPajama-INCITE-7B-Base)                                                                                                                     | Apache-2.0         | Text Generation         |
+| [OpenAssistant Falcon 40B](https://huggingface.co/OpenAssistant/falcon-40b-sft-mix-1226) | [oasst1](https://huggingface.co/datasets/OpenAssistant/oasst1) and [Dolly](https://huggingface.co/datasets/databricks/databricks-dolly-15k)                                                       | Apache-2.0         | Text Generation         |
+| [StarCoder](https://huggingface.co/bigcode/starcoder)                                    | [The Stack](https://huggingface.co/datasets/bigcode/the-stack-dedup)                                                                                                                              | BigCode OpenRAIL-M | Code Generation         |
+| [Salesforce CodeGen](https://huggingface.co/Salesforce/codegen25-7b-multi)               | [Starcoder Data](https://huggingface.co/datasets/bigcode/starcoderdata)                                                                                                                           | Apache-2.0         | Code Generation         |
+| [FLAN-T5-XXL](https://huggingface.co/google/flan-t5-xxl)                                 | [gsm8k](https://huggingface.co/datasets/gsm8k), [lambada](https://huggingface.co/datasets/lambada), and [esnli](https://huggingface.co/datasets/esnli)                                            | Apache-2.0         | Text-to-text Generation |
+| [MPT-30B Chat](https://huggingface.co/mosaicml/mpt-30b-chat)                             | [ShareGPT-Vicuna](https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered), [OpenAssistant Guanaco](https://huggingface.co/datasets/timdettmers/openassistant-guanaco) and more | CC-By-NC-SA-4.0    | Chat                    |
+| [MPT-30B Instruct](https://huggingface.co/mosaicml/mpt-30b-instruct)                     | [duorc](https://huggingface.co/datasets/duorc), [competition_math](https://huggingface.co/datasets/competition_math), [dolly_hhrlhf](https://huggingface.co/datasets/mosaicml/dolly_hhrlhf)       | CC-By-SA-3.0       | Instruction             |
+| [Falcon 40B Instruct](https://huggingface.co/tiiuae/falcon-40b-instruct)                 | [baize](https://github.com/project-baize/baize-chatbot)                                                                                                                                           | Apache-2.0         | Instruction             |
+| [Dolly v2](https://huggingface.co/databricks/dolly-v2-12b)                               | [Dolly](https://huggingface.co/datasets/databricks/databricks-dolly-15k)                                                                                                                          | MIT                | Text Generation         |
+| [StarCoder Beta](https://huggingface.co/HuggingFaceH4/starchat-beta)                     | [OpenAssistant Guanaco](https://huggingface.co/datasets/timdettmers/openassistant-guanaco)                                                                                                        | BigCode OpenRAIL-M | Code Instruction        |
 
 ### How can you serve these models?
 
@@ -55,15 +84,21 @@ Response time and latency for concurrent users are a big challenge for serving t
 
 ![Screenshot from HuggingChat](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/huggingchat_ui.png)
 
-TGI currently powers [HuggingChat](https://huggingface.co/chat/), Hugging Face's open-source chat UI for LLMs. This service currently uses OpenAssistant as the backend model. You can chat as much as you want with HuggingChat and enable the search feature for validated responses. You can also give feedback to each response for model authors to train better models. The UI of HuggingChat is also [open-sourced](https://github.com/huggingface/chat-ui), and we are working on more features for HuggingChat to allow more functions, like generating images inside the chat.
+TGI currently powers [HuggingChat](https://huggingface.co/chat/), Hugging Face's open-source chat UI for LLMs. This service currently uses OpenAssistant as the backend model. You can chat as much as you want with HuggingChat and enable the search feature for validated responses. You can also give feedback to each response for model authors to train better models. The UI of HuggingChat is also [open-sourced](https://github.com/huggingface/chat-ui), and we are working on more features for HuggingChat to allow more functions, like generating images inside the chat. 
 
 ![HuggingChat Search](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/huggingchat_web.png)
+
+Recently, a Docker template for HuggingChat was released. This allows anyone to deploy their own instance based on a large language model with only a few clicks.
+
+![HuggingChat Space](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/docker_chat.png)
 
 ### How to find the best model?
 
 Hugging Face hosts an LLM leaderboard [here](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard). This leaderboard is created by evaluating community-submitted models on text generation benchmarks on Hugging Face’s clusters. If you can’t find the language or domain you’re looking for, you can filter them [here](https://huggingface.co/models?pipeline_tag=text-generation&sort=downloads).
 
 ![Open LLM Leaderboard](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/LLM_leaderboard.png)
+
+You can also check out [LLM Performance leaderboard](https://huggingface.co/spaces/optimum/llm-perf-leaderboard) which aims to evaluate the latency and throughput of large language models available on Hugging Face Hub.
 
 ### Models created with love by Hugging Face with BigScience and BigCode
 
@@ -74,6 +109,7 @@ BLOOM is a causal language model trained on 46 languages and 13 programming lang
 ### Parameter Efficient Fine Tuning (PEFT)
 
 If you’d like to fine-tune one of the existing large models on your own instruction dataset, it is nearly impossible to do so on consumer hardware and later deploy them (since the instruction models are the same size as the original checkpoints that are used for fine-tuning). [PEFT](https://huggingface.co/docs/peft/index) is a library that allows you to do parameter-efficient fine-tuning techniques. This means that rather than training the whole model, you can train a very small number of additional parameters, enabling much faster training with very little performance degradation. With PEFT, you can do low-rank adaptation (LoRA), prefix tuning, prompt tuning, and p-tuning.
+
 
 You can check out further resources for more information on text generation.
 
