@@ -14,7 +14,7 @@ authors:
 Text generation and conversational technologies have been around for ages. Earlier challenges in working with these technologies were controlling both the coherence and diversity of the text through inference parameters and discriminative biases. More coherent outputs were less creative and closer to the original training data and sounded less human. Recent developments overcame these challenges, and user-friendly UIs enabled everyone to try these models out. Services like ChatGPT have recently put the spotlight on powerful models like GPT-4 and caused an explosion of open-source alternatives like LLaMA to go mainstream. We think these technologies will be around for a long time and become more and more integrated into everyday products. 
 
 This post is divided into the following sections:
-1. Brief background on text generation,
+1. Brief background on text generation
 2. Types of text generation models
 3. Licenses
 4. Tools in Hugging Face Ecosystem
@@ -29,11 +29,11 @@ Causal language models are adapted using a process called reinforcement learning
 
 One concept you need to know before we move on is fine-tuning. This is the process of taking a very large model and transferring the knowledge contained in this base model to the use case: a downstream task. These tasks can come in the form of instructions. As the model size grows, the models can generalize better to the instructions that do not exist in the pre-training data.
 
-For example, the base model GPT-3 is a base causal language model, and the models in the backend of the ChatGPT (which is the UI for GPT-series models) are fine-tuned on prompts that can consist of conversations or instructions through RLHF. It’s an important distinction to make between these models. 
+For example, the base model GPT-3 is a causal language model, and the models in the backend of the ChatGPT (which is the UI for GPT-series models) are fine-tuned on prompts that can consist of conversations or instructions through RLHF. It’s an important distinction to make between these models. 
 
 On Hugging Face Hub, you can find both causal language models and causal language models fine-tuned on instruction (which we’ll give links to later in this blog post). LLaMA is one of the first open-source LLMs to outperform closed-source ones. A research group led by Together has created a reproduction of LLaMA's dataset, called Red Pajama, and trained LLMs and instruction fine-tuned models on it. You can read more about it [here](https://www.together.xyz/blog/redpajama) and find [the model checkpoints on Hugging Face Hub](https://huggingface.co/models?sort=trending&search=togethercomputer%2Fredpajama). By the time this blog post is written, three of the largest causal language models with open-source licenses are [MPT-30B by MosaicML](https://huggingface.co/mosaicml/mpt-30b), [XGen by Salesforce](https://huggingface.co/Salesforce/xgen-7b-8k-base) and [Falcon by TII UAE](https://huggingface.co/tiiuae/falcon-40b), available completely open on Hugging Face Hub.
 
-The second type of text generation model is commonly referred to as the text-to-text generation model. These models are trained on text pairs, which can be questions and answers or instructions and responses. The most popular ones are T5 and BART (which, as of now, aren’t state-of-the-art). Google has recently released the FLAN-T5 series of models. FLAN is a recent technique developed for instruction fine-tuning, and FLAN-T5 is essentially T5 fine-tuned using FLAN. As of now, the FLAN-T5 series of models are state-of-the-art and open-source, available on [Hugging Face Hub](https://huggingface.co/models?search=google/flan). Below you can see an illustration of how these models work.
+The second type of text generation model is commonly referred to as the text-to-text generation model. These models are trained on text pairs, which can be questions and answers or instructions and responses. The most popular ones are T5 and BART (which, as of now, aren’t state-of-the-art). Google has recently released the FLAN-T5 series of models. FLAN is a recent technique developed for instruction fine-tuning, and FLAN-T5 is essentially T5 fine-tuned using FLAN. As of now, the FLAN-T5 series of models are state-of-the-art and open-source, available on [Hugging Face Hub](https://huggingface.co/models?search=google/flan). Note that these are different from instruction-tuned causal language models, although the input-output format might seem similar. Below you can see an illustration of how these models work.
 
 ![FLAN-T5 Illustration](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/flan_t5.png)
 
@@ -44,6 +44,7 @@ Snippets to use these models are given in either the model repository or the doc
 ## Licensing
 
 Many text generation models are either closed-source or the license limits commercial use. Fortunately, open-source alternatives are starting to appear and being embraced by the community as building blocks for further development, fine-tuning, or integration with other projects. Below you can find a list of some of the large causal language models with fully open-source licenses:
+
 - [Falcon 40B](https://huggingface.co/tiiuae/falcon-40b)
 - [XGen](https://huggingface.co/tiiuae/falcon-40b)
 - [MPT-30B](https://huggingface.co/mosaicml/mpt-30b)
@@ -59,7 +60,7 @@ The Hugging Face Hub also hosts various models fine-tuned for instruction or cha
 
 If you're looking to fine-tune a model on an existing instruction dataset, you need to know how a dataset was compiled. Some of the existing instruction datasets are either crowd-sourced or use outputs of existing models (e.g., the models behind ChatGPT). ALPACA dataset created by Stanford is created through the outputs of models behind ChatGPT, which OpenAI prohibits using for training models. Moreover, there are various crowd-sourced instruction datasets with open-source licenses, like [oasst1](https://huggingface.co/datasets/OpenAssistant/oasst1) (created by thousands of people voluntarily!) or [databricks/databricks-dolly-15k](https://huggingface.co/datasets/databricks/databricks-dolly-15k). If you'd like to create a dataset yourself, you can check out [the dataset card of Dolly](https://huggingface.co/datasets/databricks/databricks-dolly-15k#sources) on how to create an instruction dataset. Models fine-tuned on these datasets can be distributed. 
 
-You can find comprehensive table of all open-source models below. 
+You can find a comprehensive table of all open-source models below. 
 
 | Model                                                                                    | Dataset                                                                                                                                                                                           | License            | Use                     |
 |------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------|-------------------------|
@@ -88,7 +89,7 @@ TGI currently powers [HuggingChat](https://huggingface.co/chat/), Hugging Face's
 
 ![HuggingChat Search](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/huggingchat_web.png)
 
-Recently, a Docker template for HuggingChat was released. This allows anyone to deploy their own instance based on a large language model with only a few clicks.
+Recently, a Docker template for HuggingChat was released for Hugging Face Spaces. This allows anyone to deploy their own instance based on a large language model with only a few clicks.
 
 ![HuggingChat Space](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/docker_chat.png)
 
