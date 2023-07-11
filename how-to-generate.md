@@ -23,8 +23,8 @@ language generation thanks to the rise of large transformer-based
 language models trained on millions of webpages, from as OpenAI's
 [GPT2 model](https://openai.com/blog/better-language-models/) to [ChatGPT](https://openai.com/blog/chatgpt).
 The results on conditioned open-ended language generation are impressive,
-[being able to comment on imaginary events](https://openai.com/blog/better-language-models/#samples),
-[generalize to unseed tasks](https://ai.googleblog.com/2021/10/introducing-flan-more-generalizable.html),
+[being able to comment on fictitious events](https://openai.com/blog/better-language-models/#samples),
+[generalize to new tasks](https://ai.googleblog.com/2021/10/introducing-flan-more-generalizable.html),
 or [take non-text data as input](https://openai.com/research/whisper).
 Besides the improved transformer architecture and massive unsupervised
 training data, **better decoding methods** have also played an important
@@ -104,15 +104,13 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(greedy_output[0], skip_special_tokens=True))
 ```
 
-<div class="output stream stdout">
+```
+Output:
+----------------------------------------------------------------------------------------------------
+I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with my dog. I'm not sure if I'll ever be able to walk with my dog.
 
-    Output:
-    ----------------------------------------------------------------------------------------------------
-    I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with my dog. I'm not sure if I'll ever be able to walk with my dog.
-
-    I'm not sure
-
-</div>
+I'm not sure
+```
 
 
 
@@ -179,20 +177,18 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(beam_output[0], skip_special_tokens=True))
 ```
 
-<div class="output stream stdout">
+```
+Output:
+----------------------------------------------------------------------------------------------------
+I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
 
-    Output:
-    ----------------------------------------------------------------------------------------------------
-    I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
-
-    I'm not sure if I'll ever be able to walk with him again. I'm not sure
-
-</div>
+I'm not sure if I'll ever be able to walk with him again. I'm not sure
+```
 
 
 While the result is arguably more fluent, the output still includes
 repetitions of the same word sequences.
-A simple remedy is to introduce *n-grams* (*a.k.a* word sequences of
+One of the available remedies is to introduce *n-grams* (*a.k.a* word sequences of
 n words) penalties as introduced by [Paulus et al.
 (2017)](https://arxiv.org/abs/1705.04304) and [Klein et al.
 (2017)](https://arxiv.org/abs/1701.02810). The most common *n-grams*
@@ -218,15 +214,13 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(beam_output[0], skip_special_tokens=True))
 ```
 
-<div class="output stream stdout">
+```
+Output:
+----------------------------------------------------------------------------------------------------
+I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
 
-    Output:
-    ----------------------------------------------------------------------------------------------------
-    I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
-
-    I've been thinking about this for a while now, and I think it's time for me to
-
-</div>
+I've been thinking about this for a while now, and I think it's time for me to
+```
 
 
 
@@ -263,34 +257,32 @@ for i, beam_output in enumerate(beam_outputs):
   print("{}: {}".format(i, tokenizer.decode(beam_output, skip_special_tokens=True)))
 ```
 
-<div class="output stream stdout">
+```
+Output:
+----------------------------------------------------------------------------------------------------
+0: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
 
-    Output:
-    ----------------------------------------------------------------------------------------------------
-    0: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
+I've been thinking about this for a while now, and I think it's time for me to
+1: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with her again.
 
-    I've been thinking about this for a while now, and I think it's time for me to
-    1: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with her again.
+I've been thinking about this for a while now, and I think it's time for me to
+2: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
 
-    I've been thinking about this for a while now, and I think it's time for me to
-    2: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
+I've been thinking about this for a while now, and I think it's a good idea to
+3: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
 
-    I've been thinking about this for a while now, and I think it's a good idea to
-    3: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
+I've been thinking about this for a while now, and I think it's time to take a
+4: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
 
-    I've been thinking about this for a while now, and I think it's time to take a
-    4: I enjoy walking with my cute dog, but I'm not sure if I'll ever be able to walk with him again.
-
-    I've been thinking about this for a while now, and I think it's a good idea.
-
-</div>
+I've been thinking about this for a while now, and I think it's a good idea.
+```
 
 
 As can be seen, the five beam hypotheses are only marginally different
 to each other - which should not be too surprising when using only 5
 beams.
 
-In open-ended generation, a couple of reasons have recently been brought
+In open-ended generation, a couple of reasons have been brought
 forward why beam search might not be the best possible option:
 
   - Beam search can work very well in tasks where the length of the
@@ -304,7 +296,7 @@ forward why beam search might not be the best possible option:
   - We have seen that beam search heavily suffers from repetitive
     generation. This is especially hard to control with *n-gram*- or
     other penalties in story generation since finding a good trade-off
-    between forced "no-repetition" and repeating cycles of identical
+    between inhibiting repetition and repeating cycles of identical
     *n-grams* requires a lot of finetuning.
 
   - As argued in [Ari Holtzman et al.
@@ -341,8 +333,8 @@ by sampling \\((\text{"drives"})\\) from
 
 In `transformers`, we set `do_sample=True` and deactivate *Top-K*
 sampling (more on this later) via `top_k=0`. In the following, we will
-fix `random_seed=0` for illustration purposes. Feel free to change the
-`random_seed` to play around with the model.
+fix the random seed for illustration purposes. Feel free to change the
+`set_seed` argument to obtain different results, or to remove it for non-determinism.
 
 
 
@@ -363,13 +355,11 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 ```
 
-<div class="output stream stdout">
-
-    Output:
-    ----------------------------------------------------------------------------------------------------
-    I enjoy walking with my cute dog for the rest of the day, but this had me staying in an unusual room and not going on nights out with friends (which will always be wondered for a mere minute or so at this point).
-
-</div>
+```
+Output:
+----------------------------------------------------------------------------------------------------
+I enjoy walking with my cute dog for the rest of the day, but this had me staying in an unusual room and not going on nights out with friends (which will always be wondered for a mere minute or so at this point).
+```
 
 
 
@@ -416,15 +406,13 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 ```
 
-<div class="output stream stdout">
+```
+Output:
+----------------------------------------------------------------------------------------------------
+I enjoy walking with my cute dog, but I don't like to chew on it. I like to eat it and not chew on it. I like to be able to walk with my dog."
 
-    Output:
-    ----------------------------------------------------------------------------------------------------
-    I enjoy walking with my cute dog, but I don't like to chew on it. I like to eat it and not chew on it. I like to be able to walk with my dog."
-
-    So how did you decide
-
-</div>
+So how did you decide
+```
 
 
 
@@ -477,13 +465,11 @@ print("Output:\n" + 100 * '-')
 print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 ```
 
-<div class="output stream stdout">
-
-    Output:
-    ----------------------------------------------------------------------------------------------------
-    I enjoy walking with my cute dog for the rest of the day, but this time it was hard for me to figure out what to do with it. (One reason I asked this for a few months back is that I had a
-
-</div>
+```
+Output:
+----------------------------------------------------------------------------------------------------
+I enjoy walking with my cute dog for the rest of the day, but this time it was hard for me to figure out what to do with it. (One reason I asked this for a few months back is that I had a
+```
 
 
 
@@ -537,13 +523,13 @@ sampling by setting `0 < top_p < 1`:
 
 ``` python
 # set seed to reproduce results. Feel free to change the seed though to get different results
-tf.random.set_seed(0)
+set_seed(42)
 
-# deactivate top_k sampling and sample only from 92% most likely words
+# set top_k to 50
 sample_output = model.generate(
-    input_ids,
+    **model_inputs,
+    max_new_tokens=40,
     do_sample=True,
-    max_length=50,
     top_p=0.92,
     top_k=0
 )
@@ -555,13 +541,7 @@ print(tokenizer.decode(sample_output[0], skip_special_tokens=True))
 ```
 Output:
 ----------------------------------------------------------------------------------------------------
-I enjoy walking with my cute dog. He will never be the same. I watch him play.
-
-
-Guys, my dog needs a name. Especially if he is found with wings.
-
-
-What was that? I had a lot o
+I enjoy walking with my cute dog for the rest of the day, but this had me staying in an unusual room and not going on nights out with friends (which will always be my yearning for such a spacious screen on my desk
 ```
 
 
@@ -581,16 +561,16 @@ set the parameter `num_return_sequences > 1`:
 
 ``` python
 # set seed to reproduce results. Feel free to change the seed though to get different results
-tf.random.set_seed(0)
+set_seed(42)
 
 # set top_k = 50 and set top_p = 0.95 and num_return_sequences = 3
 sample_outputs = model.generate(
-    input_ids,
+    **model_inputs,
+    max_new_tokens=40,
     do_sample=True,
-    max_length=50,
     top_k=50,
     top_p=0.95,
-    num_return_sequences=3
+    num_return_sequences=3,
 )
 
 print("Output:\n" + 100 * '-')
@@ -602,15 +582,10 @@ for i, sample_output in enumerate(sample_outputs):
 ```
 Output:
 ----------------------------------------------------------------------------------------------------
-0: I enjoy walking with my cute dog. It's so good to have the chance to walk with a dog. But I have this problem with the dog and how he's always looking at us and always trying to make me see that I can do something
-1: I enjoy walking with my cute dog, she loves taking trips to different places on the planet, even in the desert! The world isn't big enough for us to travel by the bus with our beloved pup, but that's where I find my love
-2: I enjoy walking with my cute dog and playing with our kids," said David J. Smith, director of the Humane Society of the US.
-
-"So as a result, I've got more work in my time," he said.
-
-
+0: I enjoy walking with my cute dog for the rest of the day, but this time it was hard for me to figure out what to do with it. When I finally looked at this for a few moments, I immediately thought, "
+1: I enjoy walking with my cute dog. The only time I felt like walking was when I was working, so it was awesome for me. I didn't want to walk for days. I am really curious how she can walk with me
+2: I enjoy walking with my cute dog (Chama-I-I-I-I-I), and I really enjoy running. I play in a little game I play with my brother in which I take pictures of our houses.
 ```
-
 
 
 Cool, now you should have all the tools to let your model write your
@@ -622,8 +597,8 @@ stories with `transformers`!
 
 As *ad-hoc* decoding methods, *top-p* and *top-K* sampling seem to
 produce more fluent text than traditional *greedy* - and *beam* search
-on open-ended language generation. Recently, there has been more
-evidence though that the apparent flaws of *greedy* and *beam* search -
+on open-ended language generation. There is
+evidence that the apparent flaws of *greedy* and *beam* search -
 mainly generating repetitive word sequences - are caused by the model
 (especially the way the model is trained), rather than the decoding
 method, *cf.* [Welleck et al.
@@ -641,47 +616,25 @@ Open-ended language generation is a rapidly evolving field of research
 and as it is often the case there is no one-size-fits-all method here,
 so one has to see what works best in one's specific use case.
 
-Good thing, that *you* can try out all the different decoding methods in
-`transfomers` 🤗.
-
-That was a short introduction on how to use different decoding methods
-in `transformers` and recent trends in open-ended language generation.
+Furtunately, *you* can try out all the different decoding methods in
+`transfomers` 🤗 -- you can have an overview of the available methods
+[here](https://huggingface.co/docs/transformers/generation_strategies#decoding-strategies).
 
 Feedback and questions are very welcome on the [Github
 repository](https://github.com/huggingface/transformers).
 
-For more fun generating stories, please take a look at [Writing with Transformers](https://transformer.huggingface.co/)
-
 Thanks to everybody, who has contributed to the blog post: Alexander Rush, Julien Chaumand, Thomas Wolf, Victor Sanh, Sam Shleifer, Clément Delangue, Yacine Jernite, Oliver Åstrand and John de Wasseige.
-
-
 
 
 ## Appendix
 
-There are a couple of additional parameters for the `generate` method
-that were not mentioned above. We will explain them here briefly!
+`generate` has evolved into a highly composable method, with flags to manipulate the resulting text in many
+directions that were not covered in this blog post. Here are a few helpful pages to guide you:
 
-  - `min_length` can be used to force the model to not produce an EOS
-    token (= not finish the sentence) before `min_length` is reached.
-    This is used quite frequently in summarization, but can be useful in
-    general if the user wants to have longer outputs.
+  - [How to parameterize `generate`](https://huggingface.co/docs/transformers/generation_strategies#default-text-generation-configuration)
 
-  - `repetition_penalty` can be used to penalize words that were already
-    generated or belong to the context. It was first introduced by
-    [Keskar et al. (2019)](https://arxiv.org/abs/1909.05858) and is also
-    used in the training objective in [Welleck et al.
-    (2019)](https://arxiv.org/pdf/1908.04319.pdf). It can be quite
-    effective at preventing repetitions, but seems to be very sensitive
-    to different models and use cases, *e.g.* see this
-    [discussion](https://github.com/huggingface/transformers/pull/2303)
-    on Github.
+  - [How to stream the output](https://huggingface.co/docs/transformers/generation_strategies#streaming)
 
-  - `attention_mask` can be used to mask padded tokens
+  - [Full list of decoding options](https://huggingface.co/docs/transformers/en/main_classes/text_generation#transformers.GenerationConfig)
 
-  - `pad_token_id`, `bos_token_id`, `eos_token_id`: If the model does
-    not have those tokens by default, the user can manually choose other
-    token ids to represent them.
-
-For more information please also look into the `generate` function
-[docstring](https://huggingface.co/transformers/main_classes/model.html?highlight=generate#transformers.TFPreTrainedModel.generate).
+  - [`generate` API reference](https://huggingface.co/docs/transformers/en/main_classes/text_generation#transformers.GenerationMixin.generate)
