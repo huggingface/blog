@@ -13,7 +13,7 @@ authors:
 
 ## Introduction
 
-The Hugging Face Hub is a centralized repository for sharing models, datasets, and machine learning applications. It is a great way to share resources with the community, but as the number of datasets shared on the hub grows, metadata becomes increasingly important as a tool for finding the right model or dataset for your use case.  
+The Hugging Face Hub become the repository used by the community to share machine learning models, datasets, and applications. It is a great way to share resources with the community, but as the number of datasets shared on the hub grows, metadata becomes increasingly important as a tool for finding the right model or dataset for your use case.  
 
 In this blog post, I'm excited to share some early experiments which seek to use machine learning to improve the metadata for datasets hosted on the Hugging Face Hub.
 
