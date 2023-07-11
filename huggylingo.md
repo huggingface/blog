@@ -65,16 +65,15 @@ dataset = load_dataset("biglam/on_the_books")
 
 However, for some of the datasets on the Hub, we might be keen not to download the whole dataset. We could instead try to load a sample of the dataset. However, depending on how the dataset was created, we might still end up downloading more data than we’d need onto the machine we’re working on. 
 
-Luckily, many datasets on the Hugging Face hub are available via the datasets server. The datasets server is an API that allows us to access datasets hosted on the Hub without downloading the dataset locally. The datasets server powers the Datasets Viewer preview you will see for many datasets hosted on the Hub. 
+Luckily, many datasets on the Hub are available via the [datasets server](https://huggingface.co/docs/datasets-server/index). The datasets server is an API that allows us to access datasets hosted on the Hub without downloading the dataset locally. The Datasets Server powers the Datasets Viewer preview you will see for many datasets hosted on the Hub. 
 
-For this first experiment with predicting language for datasets, we define a list of column names and data types likely to contain textual content i.e. `text` or `prompt` column names and `string` features are likely to be relevant `image` is not. This means we can avoid predicting the language for datasets where language information is less relevant, for example, image classification datasets. We use the datasets server to get 20 rows of text data to pass to a machine learning model (we could modify this to take more or fewer examples from the dataset). 
+For this first experiment with predicting language for datasets, we define a list of column names and data types likely to contain textual content i.e. `text` or `prompt` column names and `string` features are likely to be relevant `image` is not. This means we can avoid predicting the language for datasets where language information is less relevant, for example, image classification datasets. We use the Datasets Server to get 20 rows of text data to pass to a machine learning model (we could modify this to take more or fewer examples from the dataset). 
 
 This approach means that for the majority of datasets on the Hub we can quickly request the contents of likely text columns for the first 20 rows in a dataset. 
 
-
 #### Predicting the language of a dataset 
 
-Once we have some examples of text from a dataset, we need to predict the language. There are various options here, but for this work, we used the [facebook/fasttext-language-identification model](https://huggingface.co/facebook/fasttext-language-identification) a `fasttext` model created by Meta as part of [No Language Left Behind](https://ai.facebook.com/research/no-language-left-behind/). This model can detect 217 languages which will likely represent the majority of languages for datasets hosted on the Hub. 
+Once we have some examples of text from a dataset, we need to predict the language. There are various options here, but for this work, we used the [facebook/fasttext-language-identification](https://huggingface.co/facebook/fasttext-language-identification) fastText model created by [Meta](https://huggingface.co/facebook) as part of the [No Language Left Behind](https://ai.facebook.com/research/no-language-left-behind/) work. This model can detect 217 languages which will likely represent the majority of languages for datasets hosted on the Hub. 
 
 We pass 20 examples to the model representing rows from a dataset. This results in 20 individual language predictions for each dataset (one for each row we pass to the model).  
 
@@ -82,11 +81,11 @@ Once we have these predictions, we do some additional filtering on the predictio
 
 - Grouping the predictions for each dataset by language: some datasets return predictions for multiple languages. We group these predictions by the language predicted i.e. if a dataset returns predictions for English and Dutch, we group the English and Dutch predictions together. 
 - For datasets with multiple languages predicted, we count how many predictions we have for each language. If a language is predicted less than 20% of the time, we discard this prediction. i.e. if we have 18 predictions for English and only 2 for Dutch we discard the Dutch predictions. 
-- We calculate the mean score for all predictions for a language. If the score associated with a languages prediction is below 80% we discard this prediction. 
+- We calculate the mean score for all predictions for a language. If the mean score associated with a languages prediction is below 80% we discard this prediction. 
 
-Once we’ve done this filtering, we have a further step. The fasttext language prediction model returns predictions as an [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) code (an international standard for language codes) along with a script type. i.e. `kor_Hang` is the ISO 693-3 language code for Korean (kor) + Hangul script (Hang) a [ISO 15924](https://en.wikipedia.org/wiki/ISO_15924) code representing the script of a language.
+Once we’ve done this filtering, we have a further step of deciding how to use these predictions. The fastText language prediction model returns predictions as an [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) code (an international standard for language codes) along with a script type. i.e. `kor_Hang` is the ISO 693-3 language code for Korean (kor) + Hangul script (Hang) a [ISO 15924](https://en.wikipedia.org/wiki/ISO_15924) code representing the script of a language.
 
-We discard the script information since this isn't currently captured consistently as metadata on the Hub and, where possible, we convert the language prediction returned by the model from [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) to [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) language codes. This is largely done because these language codes have better support in the dataset UI. 
+We discard the script information since this isn't currently captured consistently as metadata on the Hub and, where possible, we convert the language prediction returned by the model from [ISO 639-3](https://en.wikipedia.org/wiki/ISO_639-3) to [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) language codes. This is largely done because these language codes have better support in the Hub UI for navigating datasets. 
 
 For some ISO 639-3 codes, there is no ISO 639-1 equivalent. For these cases we manually specify a mapping if we deem it to make sense, for example Standard Arabic (`arb`) is mapped to Arabic (`ar`). Where a more obvious mapping is not possible we currently don't suggest metadata for this dataset. In future iterations of this work we may take a different approach. It is important to recognise this approach does come with downsides since it reduces the diversity of languages which might be suggested and also relies on subjective judgments about what languages can be mapped to others. 
 
@@ -99,11 +98,11 @@ To ensure this valuable language metadata is incorporated back into the Hub, we 
 
 This automated system not only updates the datasets with language information, but also does it swiftly and efficiently, without requiring manual work from humans. Once these pull requests are approved and merged, the language metadata becomes available for all users, significantly enhancing the usability of the Hugging Face Hub. You can keep track of what the librarian-bot is doing [here](https://huggingface.co/librarian-bot/activity/community)! 
 
-#### Conclusion 
+#### Next steps 
 
 As the number of datasets on the Hub grows, metadata becomes increasingly important. Language metadata, in particular, can be incredibly valuable for identifying the correct dataset for your use case.
 
-With the assistance of the Datasets Server and the Librarian-Bot, we can update our dataset metadata at a scale that wouldn't be possible manually. As a result, we're enriching the Hub and making it an even more powerful tool for data scientists, linguists, and AI enthusiasts around the world. 
+With the assistance of the Datasets Server and the [Librarian-Bot](https://huggingface.co/librarian-bots), we can update our dataset metadata at a scale that wouldn't be possible manually. As a result, we're enriching the Hub and making it an even more powerful tool for data scientists, linguists, and AI enthusiasts around the world. 
 
 As the machine learning librarian at Hugging Face, I continue exploring opportunities for automatic metadata enrichment for machine learning artifacts hosted on the Hub. Feel free to reach out (daniel at thiswebsite dot co) if you have ideas or want to collaborate on this effort! 
 
