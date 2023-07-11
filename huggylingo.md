@@ -17,11 +17,13 @@ In this blog post, I'm excited to share some early experiments which seek to use
 
 ### Language metadata for datasets on the Hub
 
-There are currently 47,213 datasets on the Hugging Face Hub. These datasets specify  1,716 unique languages in their metadata. **note** some of this number will be the result of languages being specified in different ways i.e. `en` vs `eng` vs `english` vs `English`. 
+There are currently 47,213 datasets on the Hugging Face Hub. These datasets specify  1,716 unique languages in their metadata. **Note:** some of this number will be the result of languages being specified in different ways i.e. `en` vs `eng` vs `english` vs `English`. 
 
-It is perhaps unsurprising that English is by far the most common language for datasets on the Hub, with around 19% of datasets on the Hub listing their language as "en" (this isn't including variations of `en` that might be used on the Hub so the actual percentage of English datasets is likely to be much higher).
+It is perhaps unsurprising that English is by far the most common language for datasets on the Hub, with around 19% of datasets on the Hub listing their language as `en` (this isn't including variations of `en` that might be used on the Hub so the actual percentage of English datasets is likely to be much higher).
 
-![](https://d3e0luujhwn38u.cloudfront.net/resized/VK5SsjlOD8Rt1fpHr5fx9go18KUquikUq0ZrN4RbUCE/s:1200/plain/s3://typefully-user-uploads/img/original/47136/2e1ffabe-e428-48aa-902f-c2071bad51ad.png)
+![The frequency and percentage frequency for datasets on the Hugging Face Hub](https://d3e0luujhwn38u.cloudfront.net/resized/VK5SsjlOD8Rt1fpHr5fx9go18KUquikUq0ZrN4RbUCE/s:1200/plain/s3://typefully-user-uploads/img/original/47136/2e1ffabe-e428-48aa-902f-c2071bad51ad.png)
+
+*The frequency and percentage frequency for datasets on the Hugging Face Hub*  
 
 What does the distribution of languages look like if we exclude English? We can see that there is a grouping of a few dominant languages and after that there is a pretty smooth fall in the frequencies at which languages appear. 
 
@@ -30,7 +32,7 @@ What does the distribution of languages look like if we exclude English? We can 
 However, there is a major caveat to this. Most datasets (around 87%) do not specify the language used; only approximately 13% of datasets include language information in their metadata.
 
 
-![](https://d3e0luujhwn38u.cloudfront.net/resized/WlLTLVoyddSCGehYiu4TD-K5SJ6NrqfSZJ6sVPLRKYE/s:1200/plain/s3://typefully-user-uploads/img/original/47136/c4259fa0-f96e-4f40-8148-3d7ab748e14f.png)
+![The percent of datasets which have language metadata. True indicates language metadata is specified, False means no language data is listed. No card data means that there isn't any metadata or it couldn't be loaded by the `huggingface_hub` Python library.](https://d3e0luujhwn38u.cloudfront.net/resized/WlLTLVoyddSCGehYiu4TD-K5SJ6NrqfSZJ6sVPLRKYE/s:1200/plain/s3://typefully-user-uploads/img/original/47136/c4259fa0-f96e-4f40-8148-3d7ab748e14f.png)
 
 *The percent of datasets which have language metadata. True indicates language metadata is specified, False means no language data is listed. No card data means that there isn't any metadata or it couldn't be loaded by the `huggingface_hub` Python library.*
 
