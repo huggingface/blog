@@ -69,7 +69,7 @@ BLOOM is a causal language model trained on 46 languages and 13 programming lang
 
 ### Parameter Efficient Fine Tuning (PEFT)
 
-If you’d like to fine-tune one of the existing large models on your own instruction dataset, it is nearly impossible to do so on consumer hardware and later deploy them (since the instruction models are the same size as the original checkpoints that are used for fine-tuning). [PEFT](https://huggingface.co/docs/peft/index) is a library that allows you to fine-tune smaller parts of the parameters for more efficiency. With PEFT, you can do low-rank adaptation (LoRA), prefix tuning, prompt tuning, and p-tuning.
+If you’d like to fine-tune one of the existing large models on your own instruction dataset, it is nearly impossible to do so on consumer hardware and later deploy them (since the instruction models are the same size as the original checkpoints that are used for fine-tuning). [PEFT](https://huggingface.co/docs/peft/index) is a library that allows you to do parameter-efficient fine-tuning techniques. This means that rather than training the whole model, you can train a very small number of additional parameters, enabling much faster training with very little performance degradation. With PEFT, you can do low-rank adaptation (LoRA), prefix tuning, prompt tuning, and p-tuning.
 
 You can check out further resources for more information on text generation.
 
