@@ -28,7 +28,7 @@ According to the [official website](https://arrow.apache.org/), Apache Arrow is:
 
 Let's unpack this:
 
-- **language indepedent**: the data representation in memory is the same, no matter the programming language or library.
+- **language independent**: the data representation in memory is the same, no matter the programming language or library.
 - **columnar**: data is contiguous in memory and grouped by column, as opposed to by row.
 - **efficient analytic operations**: the data is formatted in such a way that allows vectorized operations like [SIMD](https://en.wikipedia.org/wiki/Single_instruction,_multiple_data).
 - **zero-copy reads with serialization overhead**: once data is in memory, moving it between different libraries (e.g. from `pandas` to `polars`), threads, or even different languages (e.g. from `python` to `rust`) is free.
