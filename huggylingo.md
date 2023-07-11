@@ -11,13 +11,11 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-## Introduction
-
 The Hugging Face Hub become the repository used by the community to share machine learning models, datasets, and applications. It is a great way to share resources with the community, but as the number of datasets shared on the hub grows, metadata becomes increasingly important as a tool for finding the right model or dataset for your use case.  
 
 In this blog post, I'm excited to share some early experiments which seek to use machine learning to improve the metadata for datasets hosted on the Hugging Face Hub.
 
-## Language metadata for datasets on the Hub
+### Language metadata for datasets on the Hub
 
 There are currently 47,213 datasets on the Hugging Face Hub. These datasets specify  1,716 unique languages in their metadata. **note** some of this number will be the result of languages being specified in different ways i.e. `en` vs `eng` vs `english` vs `English`. 
 
@@ -37,7 +35,7 @@ However, there is a major caveat to this. Most datasets (around 87%) do not spec
 *The percent of datasets which have language metadata. True indicates language metadata is specified, False means no language data is listed. No card data means that there isn't any metadata or it couldn't be loaded by the `huggingface_hub` Python library.*
 
 
-### Why is language metadata important?
+#### Why is language metadata important?
 
 Language metadata can be a vital tool for finding relevant datasets. The Hugging Face Hub allows you to filter datasets by language. For example, if we want to find datasets with Dutch language we can use [a filter](https://huggingface.co/datasets?language=language:nl&sort=trending) on the Hub to include only datasets with Dutch data. 
 
@@ -51,11 +49,11 @@ If we switch to the task of finding relevant machine learning models, knowing wh
 
 Finally, knowing what languages are represented on the Hub (and which are not), helps us understand the language biases of the Hub and helps inform community efforts to address gaps in particular languages. 
 
-## Predicting the languages of datasets using machine learning
+### Predicting the languages of datasets using machine learning
 
 We’ve already seen that many of the datasets on the Hugging Face Hub haven’t included metadata for the language used. However, since these datasets are already shared openly, perhaps we can look at the dataset and try to identify the language using machine learning.
 
-### Getting the data 
+#### Getting the data 
 
 One way we could access some examples from a dataset is by using the datasets library to download the datasets. 
 
@@ -74,7 +72,7 @@ For this first experiment with predicting language for datasets, we define a lis
 This approach means that for the majority of datasets on the Hub we can quickly request the contents of likely text columns for the first 20 rows in a dataset. 
 
 
-### Predicting the language of a dataset 
+#### Predicting the language of a dataset 
 
 Once we have some examples of text from a dataset, we need to predict the language. There are various options here, but for this work, we used the [facebook/fasttext-language-identification model](https://huggingface.co/facebook/fasttext-language-identification) a `fasttext` model created by Meta as part of [No Language Left Behind](https://ai.facebook.com/research/no-language-left-behind/). This model can detect 217 languages which will likely represent the majority of languages for datasets hosted on the Hub. 
 
@@ -101,7 +99,7 @@ To ensure this valuable language metadata is incorporated back into the Hub, we 
 
 This automated system not only updates the datasets with language information, but also does it swiftly and efficiently, without requiring manual work from humans. Once these pull requests are approved and merged, the language metadata becomes available for all users, significantly enhancing the usability of the Hugging Face Hub. You can keep track of what the librarian-bot is doing [here](https://huggingface.co/librarian-bot/activity/community)! 
 
-### Conclusion 
+#### Conclusion 
 
 As the number of datasets on the Hub grows, metadata becomes increasingly important. Language metadata, in particular, can be incredibly valuable for identifying the correct dataset for your use case.
 
