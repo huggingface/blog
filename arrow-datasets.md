@@ -117,9 +117,8 @@ Dataset({
 ```
 
 ```python
-reduced_result = mapped_result.map(lambda table: table.group_by("lang").aggregate([("size_mean", "mean"),("max_stars_count_mean", "mean")]), batched=True, batch_size=None)
-print(reduced_result.to_pandas().sort_values("size_mean_mean", ascending=False).head(15))
->>>
+>>> reduced_result = mapped_result.map(lambda table: table.group_by("lang").aggregate([("size_mean", "mean"),("max_stars_count_mean", "mean")]), batched=True, batch_size=None)
+>>> reduced_result.to_pandas().sort_values("size_mean_mean", ascending=False).head(15)
 ```
 
 |    |   size_mean_mean |   max_stars_count_mean_mean | lang        |
