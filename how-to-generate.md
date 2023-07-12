@@ -74,7 +74,7 @@ model = AutoModelForCausalLM.from_pretrained("gpt2", pad_token_id=tokenizer.eos_
 
 ## Greedy Search
 
-Greedy search is the simplest decoding method, and the default decoding strategy in `transformers`.
+Greedy search is the simplest decoding method.
 It selects the word with the highest probability as
 its next word: \\(w_t = argmax_{w}P(w | w_{1:t-1})\\) at each timestep
  \\(t\\). The following sketch shows greedy search.
