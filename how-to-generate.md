@@ -616,7 +616,7 @@ Open-ended language generation is a rapidly evolving field of research
 and as it is often the case there is no one-size-fits-all method here,
 so one has to see what works best in one's specific use case.
 
-Furtunately, *you* can try out all the different decoding methods in
+Fortunately, *you* can try out all the different decoding methods in
 `transfomers` 🤗 -- you can have an overview of the available methods
 [here](https://huggingface.co/docs/transformers/generation_strategies#decoding-strategies).
 
