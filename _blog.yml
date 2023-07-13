@@ -2455,3 +2455,13 @@
     - web
     - javascript
     - transformers.js
+
+- local: os-llms
+  title: "Open-Source Text Generation & LLM Ecosystem at Hugging Face"
+  author: merve
+  thumbnail: /blog/assets/os-llms/thumbnail.png
+  date: July 14, 2023
+  tags:
+    - LLM
+    - inference
+    - nlp
