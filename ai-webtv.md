@@ -173,7 +173,7 @@ The first thing we notice is that applying the second pass of Zeroscope XL defin
       alt="demo4.mp4"
       autoplay loop autobuffer muted playsinline
     >
-    <source src=https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/156_ai_webtv/demo4.mp4" type="video/mp4">
+    <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/156_ai_webtv/demo4.mp4" type="video/mp4">
   </video>
   <figcaption>Prompt: <i>Photorealistic movie of a <strong>llama acting as a programmer, wearing glasses and a hoodie</strong>, intensely <strong>staring at a screen</strong> with lines of code, in a cozy, <strong>dimly lit room</strong>, Canon EOS, ambient lighting, high details, cinematic, trending on artstation</i></figcaption>
 </figure>
