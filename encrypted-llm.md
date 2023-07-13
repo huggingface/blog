@@ -21,7 +21,7 @@ One possible solution to this conundrum is on-premise deployment, where the LLM 
 
 Zama believes you can get the best of both worlds: our ambition is to protect both the privacy of the user and the IP of the model. In this blog, you’ll see how to leverage the Hugging Face transformers library and have parts of these models run on encrypted data.
 
-## Fully Homomorphic Encryption (FHE) can solve LLM privacy challenges
+## Fully Homomorphic Encryption (FHE) Can Solve LLM Privacy Challenges
 
 Zama’s solution to the challenges of LLM deployment is to use Fully Homomorphic Encryption (FHE) which enables the execution of functions on encrypted data. It is possible to achieve the goal of protecting the model owner’s IP while still maintaining the privacy of the user's data. This demo shows that an LLM model implemented in FHE maintains the quality of the original model’s predictions. To do this, it’s necessary to adapt the [GPT2](https://huggingface.co/gpt2) implementation from the Hugging Face [transformer library](https://github.com/huggingface/transformers), reworking sections of the inference using Concrete-Python, which enables the conversion of Python functions into their FHE equivalents.
 
@@ -29,7 +29,7 @@ Zama’s solution to the challenges of LLM deployment is to use Fully Homomorphi
 
 Figure 1 shows the GPT2 architecture which has a repeating structure: a series of multi-head attention (MHA) layers applied successively. Each MHA layer projects the inputs using the model weights, computes the attention mechanism, and re-projects the output of the attention into a new tensor.
 
-In TFHE, model weights and activations are represented with integers. Nonlinear functions must be implemented with a Programmable Bootstrapping (PBS) operation. PBS implements a table lookup (TLU) operation on encrypted data while also refreshing ciphertexts to allow [arbitrary computation](https://whitepaper.zama.ai/). On the downside, the computation time of PBS dominates the one of linear operations. Leveraging these two types of  operations, you can express any sub-part of, or, even the full LLM computation, in FHE.
+In [TFHE](https://www.zama.ai/post/tfhe-deep-dive-part-1), model weights and activations are represented with integers. Nonlinear functions must be implemented with a Programmable Bootstrapping (PBS) operation. PBS implements a table lookup (TLU) operation on encrypted data while also refreshing ciphertexts to allow [arbitrary computation](https://whitepaper.zama.ai/). On the downside, the computation time of PBS dominates the one of linear operations. Leveraging these two types of  operations, you can express any sub-part of, or, even the full LLM computation, in FHE.
 
 ## Implementation of a LLM layer with FHE
 
@@ -65,8 +65,8 @@ class SingleHeadAttention(QGPT2):
         # Convert the input to a DualArray instance
         q_x = DualArray(
             float_array=self.x_calib, 
-int_array=q_hidden_states, 
-quantizer=self.quantizer
+i           nt_array=q_hidden_states, 
+            quantizer=self.quantizer
         )
 
         # Extract the attention base module name
@@ -75,7 +75,7 @@ quantizer=self.quantizer
         # Extract the query, key and value weight and bias values using the proper indices
         head_0_indices = [
             list(range(i * self.n_embd, i * self.n_embd + self.head_dim)) 
-for i in range(3)
+            for i in range(3)
         ]
         q_qkv_weights = ...
         q_qkv_bias = ...
@@ -90,9 +90,9 @@ for i in range(3)
         # Extract the queries, keys and vales
         q_qkv = q_qkv.expand_dims(axis=1, key=f"unsqueeze_{self.layer}")
         q_q, q_k, q_v = q_qkv.enc_split(
-3, 
-axis=-1, 
-key=f"qkv_split_layer_{self.layer}"
+        3, 
+        axis=-1, 
+        key=f"qkv_split_layer_{self.layer}"
         )
 
         # Compute attention mechanism
