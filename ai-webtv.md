@@ -340,12 +340,12 @@ If you plan to create sequences of multiple videos, you will want to make sure y
 
 Frame interpolation is a powerful tool which can repair small rendering errors and turn many defects into features, especially in scenes with a lot of animation, or where a cartoon effect is acceptable. The [FILM algorithm](https://film-net.github.io/) will smoothen out elements of a frame with previous and following events in the video clip.
 
-This works great to displace the background when the camera is panning or rotating, and will also give you creative freedom but letting you control the number of frames after the generation.
+This works great to displace the background when the camera is panning or rotating, and will also give you creative freedom, such as control over the number of frames after the generation, to make slow-motion effects.
 
 # To go further
 
 We hope you enjoyed watching the AI WebTV stream and that it will inspire your to build more in this space.
 
-As this was a first trial, a lot of things were not the focus of the tech demo, such generating longer and more varied sequences, adding audio (sound effects, dialogue), generating and orchestrating complex scenarios, or letting a language model agent having more control over all those steps.
+As this was a first trial, a lot of things were not the focus of the tech demo: generating longer and more varied sequences, adding audio (sound effects, dialogue), generating and orchestrating complex scenarios, or letting a language model agent having more control over the pipeline.
 
-Some of those ideas should make their way in further updates to the AI WebTV, but we also can’t wait to see what the community of researchers, engineers and builders will come up with!
+Some of those ideas may make their way in further updates to the AI WebTV, but we also can’t wait to see what the community of researchers, engineers and builders will come up with!
