@@ -15,9 +15,9 @@ Text generation and conversational technologies have been around for ages. Earli
 
 This post is divided into the following sections:
 1. Brief background on text generation
-2. Types of text generation models
-3. Licenses
-4. Tools in Hugging Face Ecosystem
+2. Licenses
+3. Tools in Hugging Face Ecosystem for LLM Serving
+4. Parameter Efficient Fine Tuning (PEFT)
 
 ## Brief Background on Text Generation
 
@@ -79,7 +79,7 @@ You can find a comprehensive table of some open-source models below.
 | [Dolly v2](https://huggingface.co/databricks/dolly-v2-12b)                               | [Dolly](https://huggingface.co/datasets/databricks/databricks-dolly-15k)                                                                                                                          | MIT                | Text Generation         |
 | [StarCoder Beta](https://huggingface.co/HuggingFaceH4/starchat-beta)                     | [OpenAssistant Guanaco](https://huggingface.co/datasets/timdettmers/openassistant-guanaco)                                                                                                        | BigCode OpenRAIL-M | Code Instruction        |
 
-### How can you serve these models?
+## Tools in Hugging Face Ecosystem for LLM Serving
 
 Response time and latency for concurrent users are a big challenge for serving these large models. To tackle this problem, Hugging Face has released [text-generation-inference](https://github.com/huggingface/text-generation-inference) (TGI), an open-source serving solution for large language models built on Rust, Python, and gRPc. TGI is integrated into inference solutions of Hugging Face, [Inference Endpoints](https://huggingface.co/inference-endpoints), and [Inference API](https://huggingface.co/inference-api), so you can directly create an endpoint with optimized inference with few clicks, or simply send a request to Hugging Face's Inference API to benefit from it, instead of integrating TGI to your own platform. 
 
@@ -107,7 +107,7 @@ Hugging Face has co-led two science initiatives, BigScience and BigCode. As a re
 
 BLOOM is a causal language model trained on 46 languages and 13 programming languages. It is the first open-source model to have more parameters than GPT-3. You can find available checkpoints in [BLOOM documentation](https://huggingface.co/docs/transformers/model_doc/bloom).
 
-### Parameter Efficient Fine Tuning (PEFT)
+## Parameter Efficient Fine Tuning (PEFT)
 
 If you’d like to fine-tune one of the existing large models on your own instruction dataset, it is nearly impossible to do so on consumer hardware and later deploy them (since the instruction models are the same size as the original checkpoints that are used for fine-tuning). [PEFT](https://huggingface.co/docs/peft/index) is a library that allows you to do parameter-efficient fine-tuning techniques. This means that rather than training the whole model, you can train a very small number of additional parameters, enabling much faster training with very little performance degradation. With PEFT, you can do low-rank adaptation (LoRA), prefix tuning, prompt tuning, and p-tuning.
 
