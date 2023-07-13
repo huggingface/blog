@@ -33,7 +33,7 @@ The individual video sequences are purposely made to be short, meaning the WebTV
 
 The AI WebTV works by taking a sequence of [video shot](https://en.wikipedia.org/wiki/Shot_(filmmaking)) prompts and passing them to a [text-to-video model](https://huggingface.co/tasks/text-to-video) to generate a sequence of [takes](https://en.wikipedia.org/wiki/Take). 
 
-For the WebTV a base theme and idea (written by a human) is passed through a LLM (in this case, ChatGPT), in order to generate a variety of individual prompts for each video clip.
+Additionally, a base theme and idea (written by a human) is passed through a LLM (in this case, ChatGPT), in order to generate a variety of individual prompts for each video clip.
 
 Here's a diagram of the current architecture of the AI WebTV:
 
