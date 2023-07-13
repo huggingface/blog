@@ -307,7 +307,9 @@ Text-to-video models have to synthesize animated sequences, and consequently try
 </figure>
 
 
-**Text inserted into the image:** the model sometimes inject words form the prompt into the scene, such as “imax”. Here we can notice that word "llama" seems to be present twice in the image, in the form of burning words.
+**Text or objects inserted into the image:** the model sometimes inject words from the prompt into the scene, such as "IMAX". Mentioning "Canon EOS" or "Drone footage" in the prompt can also make those objects appear in the video.
+
+In the following example, we notice the word "llama" inserts a llama but also two occurrences of the word llama in flames.
 
 <figure class="image flex items-center text-center m-0 w-full">
    <video
