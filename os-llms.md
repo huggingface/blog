@@ -21,7 +21,7 @@ This post is divided into the following sections:
 
 ## Brief Background on Text Generation
 
-Text generation models are essentially trained with the objective of completing an incomplete text or generating text from scratch as a response to a given instruction or question. Models that complete incomplete text are called Causal Language Models, and famous examples are GPT-3 by OpenAI and LLaMA by Meta AI. 
+Text generation models are essentially trained with the objective of completing an incomplete text or generating text from scratch as a response to a given instruction or question. Models that complete incomplete text are called Causal Language Models, and famous examples are GPT-3 by OpenAI and [LLaMA](https://ai.meta.com/blog/large-language-model-llama-meta-ai/) by Meta AI. 
 
 ![Causal LM Output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/text_generation.png)
 
@@ -39,7 +39,13 @@ The second type of text generation model is commonly referred to as the text-to-
 
 Having more variation of open-source text generation models enables companies to keep privacy with their data, ability to adapt models to their domains quicker, and cut costs for inference instead of relying on closed paid APIs. All open-source causal language models on Hugging Face Hub can be found [here](https://huggingface.co/models?pipeline_tag=text-generation), and text-to-text generation models can be found [here](https://huggingface.co/models?pipeline_tag=text2text-generation&sort=trending).
 
-Snippets to use these models are given in either the model repository or the documentation page of that model type in Hugging Face.
+### Models created with love by Hugging Face with BigScience and BigCode
+
+Hugging Face has co-led two science initiatives, BigScience and BigCode. As a result of them, two large language models were created, [BLOOM](https://huggingface.co/bigscience/bloom) 🌸 and [StarCoder](https://huggingface.co/bigcode/starcoder) 🌟. 
+BLOOM is a causal language model trained on 46 languages and 13 programming languages. It is the first open-source model to have more parameters than GPT-3. You can find available checkpoints in [BLOOM documentation](https://huggingface.co/docs/transformers/model_doc/bloom).
+StarCoder is a language model trained on code from GitHub (with 80+ programming languages 🤯) with Fill-in-the-Middle objective. It’s not fine-tuned on instructions, and thus, it serves more as a coding assistant to complete a given code, e.g., translate Python to C++, explain concepts (what’s recursion), or act as a terminal. You can try all of the StarCoder checkpoints [in this application](https://huggingface.co/spaces/bigcode/bigcode-playground). It also comes with a [VSCode extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode).
+
+Snippets to use all models mentioned in this blog post are given in either the model repository or the documentation page of that model type in Hugging Face.
 
 ## Licensing
 
@@ -58,7 +64,7 @@ The Hugging Face Hub also hosts various models fine-tuned for instruction or cha
 [MPT-30B-Chat](https://huggingface.co/mosaicml/mpt-30b-chat), by Mosaic ML, uses the CC-BY-NC-SA license, which does not allow commercial use. However, [MPT-30B-Instruct](https://huggingface.co/mosaicml/mpt-30b-instruct) uses CC-BY-SA 3.0, which can be used commercially. [Falcon-40B-Instruct](https://huggingface.co/tiiuae/falcon-40b-instruct) and  [Falcon-7B-Instruct](https://huggingface.co/tiiuae/falcon-7b-instruct) both use the Apache 2.0 license, so commercial use is also permitted. Another popular model is OpenAssistant, built on Meta's LLaMA model using a custom instruction-tuning dataset. Since the original LLaMA model can only be used for research, the OpenAssistant checkpoints built on LLaMA don’t have full open-source licenses. However, there are OpenAssistant models built on open-source models like [Falcon](https://huggingface.co/models?search=openassistant/falcon) or [pythia](https://huggingface.co/models?search=openassistant/pythia) that use permissive licenses. [StarChat Beta](https://huggingface.co/HuggingFaceH4/starchat-beta) is the instruction fine-tuned version of StarCoder, and has BigCode Open RAIL-M v1 license, which allows commercial use. Finally, the instruction-tuned [XGen model](https://huggingface.co/Salesforce/xgen-7b-8k-inst) only allows research use.
 
 
-If you're looking to fine-tune a model on an existing instruction dataset, you need to know how a dataset was compiled. Some of the existing instruction datasets are either crowd-sourced or use outputs of existing models (e.g., the models behind ChatGPT). ALPACA dataset created by Stanford is created through the outputs of models behind ChatGPT, which OpenAI prohibits using for training models. Moreover, there are various crowd-sourced instruction datasets with open-source licenses, like [oasst1](https://huggingface.co/datasets/OpenAssistant/oasst1) (created by thousands of people voluntarily!) or [databricks/databricks-dolly-15k](https://huggingface.co/datasets/databricks/databricks-dolly-15k). If you'd like to create a dataset yourself, you can check out [the dataset card of Dolly](https://huggingface.co/datasets/databricks/databricks-dolly-15k#sources) on how to create an instruction dataset. Models fine-tuned on these datasets can be distributed. 
+If you're looking to fine-tune a model on an existing instruction dataset, you need to know how a dataset was compiled. Some of the existing instruction datasets are either crowd-sourced or use outputs of existing models (e.g., the models behind ChatGPT). [ALPACA](https://crfm.stanford.edu/2023/03/13/alpaca.html) dataset created by Stanford is created through the outputs of models behind ChatGPT, which OpenAI prohibits using for training models. Moreover, there are various crowd-sourced instruction datasets with open-source licenses, like [oasst1](https://huggingface.co/datasets/OpenAssistant/oasst1) (created by thousands of people voluntarily!) or [databricks/databricks-dolly-15k](https://huggingface.co/datasets/databricks/databricks-dolly-15k). If you'd like to create a dataset yourself, you can check out [the dataset card of Dolly](https://huggingface.co/datasets/databricks/databricks-dolly-15k#sources) on how to create an instruction dataset. Models fine-tuned on these datasets can be distributed. 
 
 You can find a comprehensive table of some open-source models below. 
 
@@ -81,6 +87,8 @@ You can find a comprehensive table of some open-source models below.
 
 ## Tools in Hugging Face Ecosystem for LLM Serving
 
+### Text Generation Inference
+
 Response time and latency for concurrent users are a big challenge for serving these large models. To tackle this problem, Hugging Face has released [text-generation-inference](https://github.com/huggingface/text-generation-inference) (TGI), an open-source serving solution for large language models built on Rust, Python, and gRPc. TGI is integrated into inference solutions of Hugging Face, [Inference Endpoints](https://huggingface.co/inference-endpoints), and [Inference API](https://huggingface.co/inference-api), so you can directly create an endpoint with optimized inference with few clicks, or simply send a request to Hugging Face's Inference API to benefit from it, instead of integrating TGI to your own platform. 
 
 ![Screenshot from HuggingChat](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/huggingchat_ui.png)
@@ -89,7 +97,7 @@ TGI currently powers [HuggingChat](https://huggingface.co/chat/), Hugging Face's
 
 ![HuggingChat Search](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/huggingchat_web.png)
 
-Recently, a Docker template for HuggingChat was released for Hugging Face Spaces. This allows anyone to deploy their own instance based on a large language model with only a few clicks.
+Recently, a Docker template for HuggingChat was released for Hugging Face Spaces. This allows anyone to deploy their own instance based on a large language model with only a few clicks and customize it. You can create your large language model instance [here](https://huggingface.co/new-space?template=huggingchat/chat-ui-template).
 
 ![HuggingChat Space](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/docker_chat.png)
 
@@ -101,11 +109,6 @@ Hugging Face hosts an LLM leaderboard [here](https://huggingface.co/spaces/Huggi
 
 You can also check out [LLM Performance leaderboard](https://huggingface.co/spaces/optimum/llm-perf-leaderboard) which aims to evaluate the latency and throughput of large language models available on Hugging Face Hub.
 
-### Models created with love by Hugging Face with BigScience and BigCode
-
-Hugging Face has co-led two science initiatives, BigScience and BigCode. As a result of them, two large models were created, [BLOOM](https://huggingface.co/bigscience/bloom) 🌸 and [StarCoder](https://huggingface.co/bigcode/starcoder) 🌟. StarCoder is a causal language model trained on code from GitHub (with 80+ programming languages 🤯). It’s not fine-tuned on instructions, and thus, it serves more as a coding assistant to complete a given code, e.g., translate Python to C++, explain concepts (what’s recursion), or act as a terminal. You can try all of the StarCoder checkpoints [in this application](https://huggingface.co/spaces/bigcode/bigcode-playground). It also comes with a [VSCode extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode).
-
-BLOOM is a causal language model trained on 46 languages and 13 programming languages. It is the first open-source model to have more parameters than GPT-3. You can find available checkpoints in [BLOOM documentation](https://huggingface.co/docs/transformers/model_doc/bloom).
 
 ## Parameter Efficient Fine Tuning (PEFT)
 
