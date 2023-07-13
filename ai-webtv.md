@@ -10,7 +10,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-The AI WebTV is an experimental demo to showcase the latest advancements regarding automatic video and music synthesis.
+The AI WebTV is an experimental demo to showcase the latest advancements in automatic video and music synthesis.
 
 👉 Watch the stream now by going to the [AI WebTV Space](https://huggingface.co/spaces/jbilcke-hf/AI-WebTV).
 
