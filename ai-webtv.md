@@ -102,7 +102,7 @@ Once an individual take (a video clip) is upscaled, it is then passed to FILM, a
 - Model on Hugging Face: [/frame-interpolation-film-style](https://huggingface.co/akhaliq/frame-interpolation-film-style)
 - A Hugging Face Space you can duplicate: [video_frame_interpolation](https://huggingface.co/spaces/fffiloni/video_frame_interpolation/blob/main/app.py) by @fffiloni
 
-During post-processing we also add music generated with MusicGen:
+During post-processing, we also add music generated with MusicGen:
 
 - Original links: [website](https://ai.honu.io/papers/musicgen/), [source code](https://github.com/facebookresearch/audiocraft)
 - Hugging Face Space you can duplicate: [MusicGen](https://huggingface.co/spaces/facebook/MusicGen)
