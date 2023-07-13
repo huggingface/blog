@@ -202,7 +202,7 @@ The first thing we notice is that applying the second pass of Zeroscope XL signi
 
 Something truly fascinating about text-to-video models is their ability to emulate real-life phenomenons on which they have been trained on.
 
-We’ve witnessed it with large language models and their ability to synthetize convincing content that mimics human responses, but this takes a whole new dimension when applied to video.
+We’ve witnessed it with large language models and their ability to synthesize convincing content that mimics human responses, but this takes a whole new dimension when applied to video.
 
 Text-to-video models have to synthesize animated sequences, and consequently try to emulate and simulate all the physics and entity behaviors we see in the scene. This works well when asking for realistic content, but it can work with unseen scenes as well.
 
