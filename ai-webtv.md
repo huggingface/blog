@@ -112,7 +112,7 @@ During post-processing, we also add music generated with MusicGen:
 
 Note: there are multiple tools you can use to create a video stream. The AI WebTV currently uses [FFmpeg](https://ffmpeg.org/documentation.html) to read a playlist made of mp4 videos files and m4a audio files.
 
-Here is an example of creating such playlist:
+Here is an example of creating such a playlist:
 
 ```typescript
 import { promises as fs } from "fs"
