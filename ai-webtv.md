@@ -47,7 +47,7 @@ The WebTV is implemented in NodeJS and TypeScript, and uses various services hos
 
 The central video model is Zeroscope V2, a model based on [ModelScope](https://huggingface.co/damo-vilab/modelscope-damo-text-to-video-synthesis).
 
-Zeroscope is comprised of two parts than can be chained together:
+Zeroscope is comprised of two parts that can be chained together:
 
 - A first pass with [zeroscope_v2_576](https://huggingface.co/cerspense/zeroscope_v2_576w), to generate a 576x320 video clip
 - An optional second pass with [zeroscope_v2_XL](https://huggingface.co/cerspense/zeroscope_v2_XL) to upscale the video to 1024x576
