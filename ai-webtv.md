@@ -288,7 +288,7 @@ Text-to-video models have to synthesize animated sequences, and consequently try
     >
     <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/156_ai_webtv/fail1.mp4" type="video/mp4">
   </video>
-  <figcaption>Prompt: <i>Movie showing a <strong>green pumpkin</strong> falling into a bed of nails, slow-mo explosion with chunks flying all over, ambient fog adding to the dramatic lighting, filmed with IMAX camera, 8k ultra high dhefinition, high quality, trending on artstation.</i>
+  <figcaption>Prompt: <i>Movie showing a <strong>green pumpkin</strong> falling into a bed of nails, slow-mo explosion with chunks flying all over, ambient fog adding to the dramatic lighting, filmed with IMAX camera, 8k ultra high definition, high quality, trending on artstation.</i>
 </figcaption>
 </figure>
 
