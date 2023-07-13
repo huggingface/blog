@@ -25,9 +25,9 @@ Text generation models are essentially trained with the objective of completing 
 
 ![Causal LM Output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/text_generation.png)
 
-Causal language models are adapted using a process called reinforcement learning from human feedback (RLHF). This optimization is mainly made over how natural and coherent the text sounds rather than the validity of the answer. Explaining how RLHF works is outside the scope of this blog post, but you can find more information about this process [here](https://huggingface.co/blog/rlhf).
-
 One concept you need to know before we move on is fine-tuning. This is the process of taking a very large model and transferring the knowledge contained in this base model to the use case: a downstream task. These tasks can come in the form of instructions. As the model size grows, the models can generalize better to the instructions that do not exist in the pre-training data.
+
+Causal language models are adapted using a process called reinforcement learning from human feedback (RLHF). This optimization is mainly made over how natural and coherent the text sounds rather than the validity of the answer. Explaining how RLHF works is outside the scope of this blog post, but you can find more information about this process [here](https://huggingface.co/blog/rlhf).
 
 For example, the base model GPT-3 is a causal language model, and the models in the backend of the ChatGPT (which is the UI for GPT-series models) are fine-tuned on prompts that can consist of conversations or instructions through RLHF. It’s an important distinction to make between these models. 
 
