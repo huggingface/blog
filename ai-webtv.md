@@ -344,7 +344,7 @@ Frame interpolation is a powerful tool which can repair small rendering errors a
 
 This works great to displace the background when the camera is panning or rotating, and will also give you creative freedom, such as control over the number of frames after the generation, to make slow-motion effects.
 
-# To go further
+# Future work
 
 We hope you enjoyed watching the AI WebTV stream and that it will inspire your to build more in this space.
 
