@@ -27,7 +27,7 @@ You can find those open-source models on the Hugging Face hub:
 - For video: [zeroscope_v2_576](https://huggingface.co/cerspense/zeroscope_v2_576w) and [zeroscope_v2_XL](https://huggingface.co/cerspense/zeroscope_v2_XL)
 - For music: [musicgen-melody](https://huggingface.co/facebook/musicgen-melody)
 
-The videos sequences being purposely short, the WebTV should be seen as a tech demo showreel rather than an actual show (with an art direction or programmation).
+The individual video sequences are purposely made to be short, meaning the WebTV should be seen as a tech demo/showreel rather than an actual show (with an art direction or programming).
 
 # Architecture
 
