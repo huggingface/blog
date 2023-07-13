@@ -279,7 +279,7 @@ Text-to-video models have to synthesize animated sequences, and consequently try
 
 ## Failure cases
 
-**Wrong direction:** the model sometimes have trouble with movement and direction. For instance here the seems to be played in reverse. Also the modifier keyword ***green*** was not taken into account.
+**Wrong direction:** the model sometimes has trouble with movement and direction. For instance here the clip seems to be played in reverse. Also the modifier keyword ***green*** was not taken into account.
 
 <figure class="image flex items-center text-center m-0 w-full">
    <video
