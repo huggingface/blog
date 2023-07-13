@@ -115,7 +115,7 @@ If you’d like to fine-tune one of the existing large models on your own instru
 You can check out further resources for more information on text generation.
 
 **Further Resources**
-- AWS has released TGI-based LLM deployment deep learning containers called LLM Inference Containers. Read about them [here](https://aws.amazon.com/tr/blogs/machine-learning/announcing-the-launch-of-new-hugging-face-llm-inference-containers-on-amazon-sagemaker/).
+- Together with AWS we released TGI-based LLM deployment deep learning containers called LLM Inference Containers. Read about them [here](https://aws.amazon.com/tr/blogs/machine-learning/announcing-the-launch-of-new-hugging-face-llm-inference-containers-on-amazon-sagemaker/).
 - [Text Generation task page](https://huggingface.co/tasks/text-generation) to find out more about the task itself.
 - PEFT announcement [blog post](https://huggingface.co/blog/peft).
 - Read about how Inference Endpoints utilizes TGI [here](https://huggingface.co/blog/inference-endpoints-llm).
