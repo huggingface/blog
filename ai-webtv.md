@@ -200,7 +200,7 @@ The first thing we notice is that applying the second pass of Zeroscope XL signi
 
 ## Simulation of dynamic scenes
 
-Something truly fascinating about text-to-video models is their ability to emulate real-life phenomenons on which they have been trained on.
+Something truly fascinating about text-to-video models is their ability to emulate real-life phenomena on which they have been trained.
 
 We’ve witnessed it with large language models and their ability to synthesize convincing content that mimics human responses, but this takes a whole new dimension when applied to video.
 
