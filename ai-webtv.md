@@ -158,7 +158,7 @@ For the RTMP server, you can find [open-source implementations on GitHub](https:
 
 The AI WebTV itself uses [node-media-server](https://github.com/illuspas/Node-Media-Server).
 
-💡 You can also directly stream to [one of the Twitch RTMP entrypoints](https://help.twitch.tv/s/twitch-ingest-recommendation?language=en_US). Checkout the Twitch documentation for more details.
+💡 You can also directly stream to [one of the Twitch RTMP entrypoints](https://help.twitch.tv/s/twitch-ingest-recommendation?language=en_US). Check out the Twitch documentation for more details.
 
 # Observations and examples
 
