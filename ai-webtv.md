@@ -164,7 +164,7 @@ The AI WebTV itself uses [node-media-server](https://github.com/illuspas/Node-Me
 
 Here are some examples of the generated content.
 
-The first thing we notice is that applying the second pass of Zeroscope XL definitely improves the quality of the image. The impact of frame interpolation is also clearly visible.
+The first thing we notice is that applying the second pass of Zeroscope XL significantly improves the quality of the image. The impact of frame interpolation is also clearly visible.
 
 ## Characters and scene composition
 
