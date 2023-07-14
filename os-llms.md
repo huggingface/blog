@@ -37,7 +37,7 @@ The second type of text generation model is commonly referred to as the text-to-
 
 ![FLAN-T5 Illustration](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/flan_t5.png)
 
-Having more variation of open-source text generation models enables companies to keep privacy with their data, ability to adapt models to their domains quicker, and cut costs for inference instead of relying on closed paid APIs. All open-source causal language models on Hugging Face Hub can be found [here](https://huggingface.co/models?pipeline_tag=text-generation), and text-to-text generation models can be found [here](https://huggingface.co/models?pipeline_tag=text2text-generation&sort=trending).
+Having more variation of open-source text generation models enables companies to keep their data private, to adapt models to their domains faster, and to cut costs for inference instead of relying on closed paid APIs. All open-source causal language models on Hugging Face Hub can be found [here](https://huggingface.co/models?pipeline_tag=text-generation), and text-to-text generation models can be found [here](https://huggingface.co/models?pipeline_tag=text2text-generation&sort=trending).
 
 ### Models created with love by Hugging Face with BigScience and BigCode
 
