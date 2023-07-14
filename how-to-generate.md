@@ -20,8 +20,8 @@ authors:
 
 In recent years, there has been an increasing interest in open-ended
 language generation thanks to the rise of large transformer-based
-language models trained on millions of webpages, from as OpenAI's
-[GPT2 model](https://openai.com/blog/better-language-models/) to [ChatGPT](https://openai.com/blog/chatgpt).
+language models trained on millions of webpages, including OpenAI's [ChatGPT](https://openai.com/blog/chatgpt)
+and Meta's [LLaMA](https://ai.meta.com/blog/large-language-model-llama-meta-ai/).
 The results on conditioned open-ended language generation are impressive,
 [being able to comment on fictitious events](https://openai.com/blog/better-language-models/#samples),
 [generalize to new tasks](https://ai.googleblog.com/2021/10/introducing-flan-more-generalizable.html),
@@ -620,9 +620,6 @@ Fortunately, *you* can try out all the different decoding methods in
 `transfomers` 🤗 -- you can have an overview of the available methods
 [here](https://huggingface.co/docs/transformers/generation_strategies#decoding-strategies).
 
-Feedback and questions are very welcome on the [Github
-repository](https://github.com/huggingface/transformers).
-
 Thanks to everybody, who has contributed to the blog post: Alexander Rush, Julien Chaumand, Thomas Wolf, Victor Sanh, Sam Shleifer, Clément Delangue, Yacine Jernite, Oliver Åstrand and John de Wasseige.
 
 
@@ -638,3 +635,7 @@ directions that were not covered in this blog post. Here are a few helpful pages
   - [Full list of decoding options](https://huggingface.co/docs/transformers/en/main_classes/text_generation#transformers.GenerationConfig)
 
   - [`generate` API reference](https://huggingface.co/docs/transformers/en/main_classes/text_generation#transformers.GenerationMixin.generate)
+
+  - [LLM score leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
+
+If you find that navigating our docs is challenging and you can't easily find what you're looking for, drop us a message in [this GitHub issue](https://github.com/huggingface/transformers/issues/24575). Your feedback is critical to set our future direction! 🤗
