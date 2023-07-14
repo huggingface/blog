@@ -22,9 +22,9 @@ In recent years, there has been an increasing interest in open-ended
 language generation thanks to the rise of large transformer-based
 language models trained on millions of webpages, including OpenAI's [ChatGPT](https://openai.com/blog/chatgpt)
 and Meta's [LLaMA](https://ai.meta.com/blog/large-language-model-llama-meta-ai/).
-The results on conditioned open-ended language generation are impressive,
-[being able to comment on fictitious events](https://openai.com/blog/better-language-models/#samples),
+The results on conditioned open-ended language generation are impressive, having shown to
 [generalize to new tasks](https://ai.googleblog.com/2021/10/introducing-flan-more-generalizable.html),
+[handle code](https://huggingface.co/blog/starcoder),
 or [take non-text data as input](https://openai.com/research/whisper).
 Besides the improved transformer architecture and massive unsupervised
 training data, **better decoding methods** have also played an important
