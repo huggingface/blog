@@ -571,6 +571,18 @@
     - community
     - research
 
+- local: generative-ai-models-on-intel-cpu
+  title: "越小越好：Q8-Chat，在英特尔至强 CPU 上体验高效的生成式 AI"
+  thumbnail: /blog/assets/143_q8chat/thumbnail.png
+  author: andyll7772
+  date: May 16, 2023
+  tags:
+    - llm
+    - nlp
+    - inference
+    - intel
+    - quantization
+
 - local: instruction-tuning-sd
   title: "使用 InstructPix2Pix 对 Stable Diffusion 进行指令微调"
   author: sayakpaul
@@ -583,17 +595,17 @@
     - research
     - guide 
 
-- local: generative-ai-models-on-intel-cpu
-  title: "越小越好：Q8-Chat，在英特尔至强 CPU 上体验高效的生成式 AI"
-  thumbnail: /blog/assets/143_q8chat/thumbnail.png
-  author: andyll7772
-  date: May 16, 2023
+- local: train-optimize-sd-intel
+  title: "基于 NNCF 和 🤗 Optimum 面向 Intel CPU 对 Stable Diffusion 优化"
+  author: AlexKoff88
+  thumbnail: /blog/assets/train_optimize_sd_intel/thumbnail.png
+  date: May 25, 2023
   tags:
-    - llm
-    - nlp
-    - inference
+    - diffusers
+    - cpu
     - intel
-    - quantization
+    - guide
+      - quantization
 
 - local: unity-asr
   title: "如何在 Unity 游戏中集成 AI 语音识别？"
@@ -616,6 +628,26 @@
     - community
     - research
 
+- local: llm-leaderboard
+  title: "基础大模型能像人类一样标注数据吗？"
+  author: nazneen
+  thumbnail: /blog/assets/llm-leaderboard/leaderboard-thumbnail.png
+  date: June 12, 2023
+  tags:
+    - nlp
+    - evaluation
+    - leaderboard
+
+- local: autoformer
+  title: "Transformer 模型能够有效地进行时间序列预测 (使用 Autoformer)"
+  author: elisim
+  thumbnail: /blog/assets/150_autoformer/thumbnail.png
+  date: June 16, 2023
+  tags:
+    - guide
+    - research
+    - time-series
+
 - local: mms_adapters
   title: "微调用于多语言 ASR 的 MMS 适配器模型"
   author: patrickvonplaten
@@ -633,3 +665,23 @@
 #   tags:
 #     - community
 #     - ethics
+
+- local: evaluating-mmlu-leaderboard
+  title: "Open LLM 排行榜近况"
+  author: clefourrier
+  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
+  date: June 23, 2023
+  tags:
+    - community
+    - research
+    - nlp
+    - evaluation
+    - leaderboard
+
+- local: ethics-soc-4
+  title: "道德与社会问题简报 #4：文生图模型中的偏见"
+  author:  sasha
+  thumbnail: /blog/assets/152_ethics_soc_4/ethics_4_thumbnail.png
+  date: June 26, 2023
+  tags:
+    - ethics
