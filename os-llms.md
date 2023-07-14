@@ -93,7 +93,7 @@ Response time and latency for concurrent users are a big challenge for serving t
 
 ![Screenshot from HuggingChat](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/huggingchat_ui.png)
 
-TGI currently powers [HuggingChat](https://huggingface.co/chat/), Hugging Face's open-source chat UI for LLMs. This service currently uses OpenAssistant as the backend model. You can chat as much as you want with HuggingChat and enable the search feature for validated responses. You can also give feedback to each response for model authors to train better models. The UI of HuggingChat is also [open-sourced](https://github.com/huggingface/chat-ui), and we are working on more features for HuggingChat to allow more functions, like generating images inside the chat. 
+TGI currently powers [HuggingChat](https://huggingface.co/chat/), Hugging Face's open-source chat UI for LLMs. This service currently uses one of OpenAssistant's models as the backend model. You can chat as much as you want with HuggingChat and enable the Web search feature for responses that use elements from current Web pages. You can also give feedback to each response for model authors to train better models. The UI of HuggingChat is also [open-sourced](https://github.com/huggingface/chat-ui), and we are working on more features for HuggingChat to allow more functions, like generating images inside the chat. 
 
 ![HuggingChat Search](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/huggingchat_web.png)
 
