@@ -12,7 +12,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Hugging Face Datasets is a library that was designed to complement machine learning training workflows. It enables users to share, download, process, and format datasets to get them ready for training with any of the major machine learning frameworks, across all data modalities: audio, image, text, and tabular. In the Hugging Face ecosystem, the 🤗 `datasets` library is typically the first entry point of a machine learning project: it is therefore especially crucial it be performant and efficient.
+Hugging Face Datasets is a library that was designed to power machine learning training workflows. It enables users to share, download, process, and format datasets to get them ready for training with any of the major machine learning frameworks, across all data modalities: audio, image, text, and tabular. In the Hugging Face ecosystem, the 🤗 `datasets` library is typically the first entry point of a machine learning project: it is therefore especially crucial it be performant and efficient.
 
 | ![HF Libraries](./assets/arrow-datasets/hf-libraries.png) |
 |:--:|
@@ -74,16 +74,22 @@ Caching onto disk is not limited to loading data, but also transforming it. Inde
 >>> dset[1200000]
 'hexsha': '7a4d22966630185a027c6ee50494472b3c1b3fa4', 'size': 10253, 'ext': 'jl', 'lang': 'Julia', 'max_stars_repo_path': 'src/cwv.jl' ...} # Indexing into a dataset returns the correspdonding row as a dictionary.
 >>> dset[:4]
-{'hexsha': ['0a84ade1a79baf9000df6f66818fc3a568c24173', '0a84b588e484c6829ab1a6706db302acd8514288', '0a89bca33bdfce1f07390d394915f18e0d901651', '0a96a3eeaa089f8582180f803252e3739ab2661d'], 'size': [10354, 999, 43147, 597], 'ext': ['css', 'css', 'css', 'css'], 'lang': ['CSS', 'CSS', 'CSS', 'CSS'], ...} # By default, slicing a dataset returns a dictionary of the columns as lists of regular python objects. Makes sense since arrow is a columnar format. (Output trimmed)
+{'hexsha': ['0a84ade1a79baf9000df6f66818fc3a568c24173', '0a84b588e484c6829ab1a6706db302acd8514288', '0a89bca33bdfce1f07390d394915f18e0d901651', '0a96a3eeaa089f8582180f803252e3739ab2661d'], 'size': [10354, 999, 43147, 597], 'ext': ['css', 'css', 'css', 'css'], 'lang': ['CSS', 'CSS', 'CSS', 'CSS'], ...} # By default, slicing a dataset returns a dictionary of the columns as lists of standard Python objects. Makes sense since arrow is a columnar format. (Output trimmed)
 ```
 
 ### Hugging Face Dataset Formats
 
-As you just saw, accessing data by slicing returns a dictionary where each column is a list of python objects, and accessing a single row returns a dictionary of the corresponding row. This dictionary format is the default way data is returned when accessing data  in the datasets library. This allows users to write pure Python `.map()` and `.filter()` operations that operate on python objects. 
+As you just saw, accessing data by slicing returns a dictionary where each column is a list of Python objects, and accessing a single row returns a dictionary of the corresponding row. This dictionary format is the default way data is returned when accessing data  in the datasets library. This allows users to write pure Python `.map()` and `.filter()` operations that operate on Python objects. 
 
-## Mapping Compute Primitives
+We are however not limited to Python objects, and can choose to have our `datasets.Dataset` object to return any of the formats supported by the `PyArrow` bindings, and those include `pandas` dataframes, `NumPy` arrays, tensors, and even Arrow Tables.
 
 ```python
+>>> dset.set_format("numpy")
+>>> print(dset[:4])
+
+>>> dset.set_format("pandas")
+>>> print(dset[:4])
+
 >>> dset.set_format("arrow")
 >>> print(dset[:4])
 pyarrow.Table
@@ -96,16 +102,37 @@ size: [[10354,999,43147,597]]
 ext: [["css","css","css","css"]]
 lang: [["CSS","CSS","CSS","CSS"]]
 ...
+>>> dset.set_format(None)
 ```
+Changing the format of a dataset also changes the behavior of the `.map()` operation in batched mode. Since each batch is effectively a slice of the dataset, you can now define your mapping functions to operate on any of the formats we just mentioned. This means you can leverage functions that operate on `NumPy` arrays, `pandas` Dataframes, and Arrow Tables.
 
+## Mapping Compute Primitives
+Beyond providing an efficient memory format and ways to serialize your data into this format, Apache Arrow also provides ways to peform computation on that data through a series of highly performant C++ primitives unified under the **Arrow Compute API**. These include aggregations, grouped aggregations, scalar functions, vector functions, and selections—to name a few. A full list of available functions can be found [here](https://arrow.apache.org/docs/python/compute.html).
+
+More practically, this means we can use any of these functions with our `.map()` operations, so long as we make sure we're operating on Arrow Tables, so let's start by making sure of that:
 ```python
->>> pc.unique(dset['lang']).to_pylist()
+>>> dset.set_format("arrow")
+```
+Let's now import the Compute API:
+```python
+import pyarrow.compute as pc
+```
+We can start by seeing what programming languages are included in our dataset:
+```python
+>>> %time pc.unique(dset["lang"]).to_pylist()
 ['CSS', 'Prolog', 'C', 'FORTRAN', 'Solidity', 'Kotlin', 'Literate Agda', 'Julia', 'Java Server Pages', 'Isabelle', 'Idris', 'Lean', 'PowerShell', 'Go', 'Erlang', 'F#', 'Ada', 'Pascal', 'Perl', 'R', 'Protocol Buffer', 'CMake', 'SAS', 'Ruby', 'Rust', 'RMarkdown', 'C#', 'Smalltalk', 'Haskell', 'Maple', 'Mathematica', 'OCaml', 'Makefile', 'Lua', 'Literate CoffeeScript', 'Literate Haskell', 'reStructuredText', 'Racket', 'Standard ML', 'SystemVerilog', 'TeX', 'Awk', 'Assembly', 'Alloy', 'Agda', 'Emacs Lisp', 'Dart', 'Cuda', 'Bluespec', 'Augeas', 'Batchfile', 'Tcsh', 'Stan', 'Scala', 'Tcl', 'Stata', 'AppleScript', 'Shell', 'Clojure', 'Scheme', 'ANTLR', 'SPARQL', 'SQL', 'GLSL', 'Elm', 'Dockerfile', 'C++', 'CoffeeScript', 'Common Lisp', 'Elixir', 'Groovy', 'HTML', 'Java', 'JavaScript', 'Markdown', 'PHP', 'Python', 'TypeScript', 'Verilog', 'Visual Basic', 'VHDL', 'Thrift', 'Matlab', 'Yacc', 'Zig', 'XSLT', 'JSON', 'YAML']
 CPU times: user 137 ms, sys: 1.65 ms, total: 138 ms
 Wall time: 136 ms
 ```
-
+Compare that to using a standard Python `set()` to achieve the same result which now is much slower, and has to load the entire column into memory:
 ```python
+>>> dset.set_format(None)
+>>> %time set(dset["lang"])
+TODO
+```
+Mapping these compute primitives can enable [MapReduce](https://en.wikipedia.org/wiki/MapReduce)-like operations that can be especially useful for processing large datasets. For example, in an effort to better understand the structure of our dataset, we can map a `group_by` operation that groups on the `lang` column and computes the average file size and number of GitHub stars per progamming language.
+```python
+>>> dset.set_format("arrow")
 >>> %time mapped_result = dset.map(lambda table: table.group_by("lang").aggregate([("size", "mean"),("max_stars_count", "mean")]), batched=True, batch_size=100_000, num_proc=10)
 CPU times: user 765 ms, sys: 237 ms, total: 1 s
 Wall time: 1.35 s
@@ -115,7 +142,9 @@ Dataset({
     num_rows: 207
 })
 ```
+The previous computation would also be possible in `pandas`, provided you have enough memory to materialize the entire table into RAM. Machine learning datasets are typically too big for that, and you would have to use parallel computation frameworks such as [`Dask`](https://docs.dask.org/en/stable/) or [`Spark`](https://huggingface.co/docs/datasets/use_with_spark) to run the same computation.
 
+But for now, let's go ahead and reduce the results of the map operation by calling `group_by` once more with the same aggregations, this time specifying a batch size of `None`: this will take the entire dataset (all 207 rows output by the map operation) and treat them as one batch. The advantage in doing this instead of just calling the `group_by` operation on the underlying Arrow Table, is that the `.map()` operation caches its computations to disk. This means that you only ever have to run any operation once. Any subsequent calls to the same operation will be mmapped from disk. 
 ```python
 >>> reduced_result = mapped_result.map(lambda table: table.group_by("lang").aggregate([("size_mean", "mean"),("max_stars_count_mean", "mean")]), batched=True, batch_size=None)
 >>> reduced_result.to_pandas().sort_values("size_mean_mean", ascending=False).head(15)
@@ -146,5 +175,14 @@ print(f'{python.num_rows:,}', "rows")
 CPU times: user 818 ms, sys: 255 ms, total: 1.07 s
 Wall time: 3.46 s
 ```
+Compare that to using the native `.filter()` operation in batched mode:
+```python
+>>> dset.set_format(None)
+>>> %time python = dset.filter(lambda batch: [language == "Python" for language in batched["row"]], batched=True, batch_size==500_000, num_proc=10)
 
+```
 ## Further Resources
+
+- https://blog.djnavarro.net/posts/2022-05-25_arrays-and-tables-in-arrow/
+- https://arrow.apache.org/cookbook/
+- https://github.com/PacktPublishing/In-Memory-Analytics-with-Apache-Arrow-
