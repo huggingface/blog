@@ -107,7 +107,7 @@ Hugging Face hosts an [LLM leaderboard](https://huggingface.co/spaces/HuggingFac
 
 ![Open LLM Leaderboard](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/LLM_leaderboard.png)
 
-You can also check out [LLM Performance leaderboard](https://huggingface.co/spaces/optimum/llm-perf-leaderboard) which aims to evaluate the latency and throughput of large language models available on Hugging Face Hub.
+You can also check out the [LLM Performance leaderboard](https://huggingface.co/spaces/optimum/llm-perf-leaderboard), which aims to evaluate the latency and throughput of large language models available on Hugging Face Hub.
 
 
 ## Parameter Efficient Fine Tuning (PEFT)
