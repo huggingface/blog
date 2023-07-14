@@ -56,7 +56,7 @@ Many text generation models are either closed-source or the license limits comme
 - [MPT-30B](https://huggingface.co/mosaicml/mpt-30b)
 - [Pythia-12B](https://huggingface.co/EleutherAI/pythia-12b)
 - [RedPajama-INCITE-7B](https://huggingface.co/togethercomputer/RedPajama-INCITE-7B-Base)
-- [OpenAssistant](https://huggingface.co/OpenAssistant/falcon-40b-sft-mix-1226)
+- [OpenAssistant (Falcon variant)](https://huggingface.co/OpenAssistant/falcon-40b-sft-mix-1226)
 
 There are two code generation models, [StarCoder by BigCode](https://huggingface.co/models?sort=trending&search=bigcode%2Fstarcoder) and [Codegen by Salesforce](https://huggingface.co/models?sort=trending&search=salesforce%2Fcodegen). There are model checkpoints in different sizes and open-source or [open RAIL](https://huggingface.co/blog/open_rail) licenses for both, except for [Codegen fine-tuned on instruction](https://huggingface.co/Salesforce/codegen25-7b-instruct).
  
