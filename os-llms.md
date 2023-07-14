@@ -16,7 +16,7 @@ Text generation and conversational technologies have been around for ages. Earli
 This post is divided into the following sections:
 1. Brief background on text generation
 2. Licenses
-3. Tools in Hugging Face Ecosystem for LLM Serving
+3. Tools in the Hugging Face Ecosystem for LLM Serving
 4. Parameter Efficient Fine Tuning (PEFT)
 
 ## Brief Background on Text Generation
