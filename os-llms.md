@@ -85,7 +85,7 @@ You can find a comprehensive table of some open-source models below.
 | [Dolly v2](https://huggingface.co/databricks/dolly-v2-12b)                               | [Dolly](https://huggingface.co/datasets/databricks/databricks-dolly-15k)                                                                                                                          | MIT                | Text Generation         |
 | [StarChat-β](https://huggingface.co/HuggingFaceH4/starchat-beta)                     | [OpenAssistant Guanaco](https://huggingface.co/datasets/timdettmers/openassistant-guanaco)                                                                                                        | BigCode OpenRAIL-M | Code Instruction        |
 
-## Tools in Hugging Face Ecosystem for LLM Serving
+## Tools in the Hugging Face Ecosystem for LLM Serving
 
 ### Text Generation Inference
 
