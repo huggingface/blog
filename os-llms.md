@@ -97,7 +97,7 @@ TGI currently powers [HuggingChat](https://huggingface.co/chat/), Hugging Face's
 
 ![HuggingChat Search](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/huggingchat_web.png)
 
-Recently, a Docker template for HuggingChat was released for Hugging Face Spaces. This allows anyone to deploy their own instance based on a large language model with only a few clicks and customize it. You can create your large language model instance [here](https://huggingface.co/new-space?template=huggingchat/chat-ui-template).
+Recently, a Docker template for HuggingChat was released for Hugging Face Spaces. This allows anyone to deploy their instance based on a large language model with only a few clicks and customize it. You can create your large language model instance [here](https://huggingface.co/new-space?template=huggingchat/chat-ui-template).
 
 ![HuggingChat Space](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/docker_chat.png)
 
