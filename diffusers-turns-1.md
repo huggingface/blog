@@ -20,7 +20,7 @@ As 🤗 Diffusers turns 1, here’s a review of some of the most notable feature
 
 ## Safety
 
-While generative models are cool, they also have the ability to produce harmful and NSFW content. To help users interact with these models responsibly and safely, we’ve added a `[safety_checker](https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/safety_checker.py)` component that flags inappropriate content generated during inference. This gives model creators the choice to incorporate this component into their models if they want. 
+While generative models are cool, they also have the ability to produce harmful and NSFW content. To help users interact with these models responsibly and safely, we’ve added a [`safety_checker`](https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/safety_checker.py) component that flags inappropriate content generated during inference. This gives model creators the choice to incorporate this component into their models if they want. 
 
 As generative quality continues to increase (have you seen Balenciaga Pope!?), it is more important than ever to be able to distinguish what’s real and what’s generated. That’s why we’ve added an invisible watermark feature for the Stable Diffusion XL (SDXL) model and any other upcoming models that choose to use it. This gives us a way to determine whether an image is real or not.
 
@@ -28,11 +28,11 @@ The development of these safety features is guided by our [ethical charter](http
 
 ## Support for LoRA
 
-Fine-tuning diffusion models is expensive and out of reach for most consumer GPUs. We added the Low-rank adaptation ([LoRA](https://huggingface.co/papers/2106.09685)) technique to close this gap. With LoRA, which is a type of parameter-efficient fine-tuning (PEFT), you can fine-tune large diffusion models faster and consume less memory. The resulting model weights are also very lightweight compared to the original model, so you can easily share your custom models. If you’re interested in learning more, we published a [blog post](https://huggingface.co/blog/lora) about fine-tuning Stable Diffusion with LoRA.
+Fine-tuning diffusion models is expensive and out of reach for most consumer GPUs. We added the Low-rank adaptation ([LoRA](https://huggingface.co/papers/2106.09685)) technique to close this gap. With LoRA, which is a method for parameter-efficient fine-tuning, you can fine-tune large diffusion models faster and consume less memory. The resulting model weights are also very lightweight compared to the original model, so you can easily share your custom models. If you’re interested in learning more, we published a [blog post](https://huggingface.co/blog/lora) about fine-tuning Stable Diffusion with LoRA.
 
 <Tip>
 
-In addition to LoRA, we support other training techniques for more personalized generation, such as DreamBooth, textual inversion, and more!
+In addition to LoRA, we support other training techniques for more personalized generation, such as DreamBooth, textual inversion, custom diffusion, and more!
 
 </Tip>
 
@@ -60,7 +60,7 @@ video_path = export_to_video(video_frames)
 ```
 
 <div class="flex justify-center">
-  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/darthvader_cerpense.gif" alt="Generated video of Darth Vader surfing"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/darthvader_cerpense.gif" alt="Generated video of Darth Vader surfing."/>
 </div>
 
 We expect text-to-video to go through a revolution during 🤗 Diffusers second year, and we are excited to see what the community builds on top of these to push the boundaries of video generation from language!
@@ -69,13 +69,13 @@ We expect text-to-video to go through a revolution during 🤗 Diffusers second
 
 Image editing is one of the most practical use-cases in fashion, material design, and photography. With diffusion models, the possibilities of image editing continue to expand. 
 
-We have many pipelines in 🤗 Diffusers to support image editing. There are image editing pipelines that allow you to describe your desired edit as a prompt, removing concepts from an image, and even a pipeline that unifies multiple generation methods to create high-quality images like panoramas. With 🤗 Diffusers, you can experiment with the future of photo editing now!
+We [have many pipelines](https://huggingface.co/docs/diffusers/main/en/using-diffusers/controlling_generation) in 🤗 Diffusers to support image editing. There are image editing pipelines that allow you to describe your desired edit as a prompt, removing concepts from an image, and even a pipeline that unifies multiple generation methods to create high-quality images like panoramas. With 🤗 Diffusers, you can experiment with the future of photo editing now!
 
 ## Faster diffusion models
 
-Diffusion models are known to be time-intensive because of their iterative steps. With OpenAI’s [Consistency Models](https://arxiv.org/pdf/2303.01469.pdf), the image generation process is significantly faster. Generating a single 256x256 resolution image only takes 3/4 of a second on a modern CPU! You can try this out in 🤗 Diffusers with the `[ConsistencyModelPipeline](https://huggingface.co/docs/diffusers/main/en/api/pipelines/consistency_models)`.
+Diffusion models are known to be time-intensive because of their iterative steps. With OpenAI’s [Consistency Models](https://arxiv.org/pdf/2303.01469.pdf), the image generation process is significantly faster. Generating a single 256x256 resolution image only takes 3/4 of a second on a modern CPU! You can try this out in 🤗 Diffusers with the [`ConsistencyModelPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/consistency_models).
 
-On top of speedier diffusion models, we also offer many optimization techniques for faster inference like PyTorch 2.0’s `scaled_dot_product_attention` (SDPA), `torch.compile`, sliced attention, VAE tiling, CPU and model offloading, and more. These optimizations save memory, which translates to faster inference. We also support working with specific hardware or formats like ONNX, Apple’s CoreML and M1/M2 devices. When you distribute a model with 🤗 Diffusers, all of these optimizations are immediately supported.
+On top of speedier diffusion models, we also offer many optimization techniques for faster inference like PyTorch 2.0’s `scaled_dot_product_attention()` (SDPA), `torch.compile()`, sliced attention, feed-forward chunking, VAE tiling, CPU and model offloading, and more. These optimizations save memory, which translates to faster inference. We also support working with specific hardware or formats like ONNX, Apple’s CoreML and M1/M2 devices. When you distribute a model with 🤗 Diffusers, all of these optimizations are immediately supported.
 
 To learn more about how we optimize inference with 🤗 Diffusers, check out the [docs](https://huggingface.co/docs/diffusers/optimization/opt_overview)!
 
@@ -83,7 +83,11 @@ To learn more about how we optimize inference with 🤗 Diffusers, check out th
 
 In addition to text-to-video, we also have text-to-3D image generation now thanks to OpenAI’s [Shap-E](https://arxiv.org/abs/2305.02463) model. Shap-E is trained by encoding a large dataset of 3D-text pairs, and a diffusion model is conditioned on the encoder’s outputs. You can design 3D assets for video games, interior design, and architecture. 
 
-Try it out today with the `[ShapEPipeline](https://huggingface.co/docs/diffusers/main/en/api/pipelines/shap_e#diffusers.ShapEPipeline)` and `[ShapEImg2ImgPipeline](https://huggingface.co/docs/diffusers/main/en/api/pipelines/shap_e#diffusers.ShapEImg2ImgPipeline)`.
+Try it out today with the [`ShapEPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/shap_e#diffusers.ShapEPipeline) and [`ShapEImg2ImgPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/shap_e#diffusers.ShapEImg2ImgPipeline).
+
+<div class="flex justify-center">
+  <img src="https://huggingface.co/datasets/hf-internal-testing/diffusers-images/resolve/main/shap_e/cake_out.gif" alt="3D render of a birthday cupcake generated using SHAP-E."/>
+</div>
 
 ## Striving for photorealism
 
@@ -96,7 +100,7 @@ Stable Diffusion is probably the most well-known diffusion model, but don’t sl
 [SDXL](https://stability.ai/blog/sdxl-09-stable-diffusion) - The latest Stable Diffusion model from Stability AI with significantly more parameters than its predecessor Stable Diffusion 2, allowing it to generate hyper-realistic images. SDXL generates an image with a base model, and a refiner model adds even more details to the image.
 
 <div class="flex justify-center">
-  <img src="https://huggingface.co/datasets/hf-internal-testing/diffusers-images/resolve/main/kandinskyv22/%20blue%20eyes.png" alt="Generated image of a women with blue eyes in cinematic style"/>
+  <img src="https://huggingface.co/datasets/hf-internal-testing/diffusers-images/resolve/main/kandinskyv22/%20blue%20eyes.png" alt="Generated image of a women with blue eyes in cinematic style."/>
 </div>
 
 With so many cool features, we’re happy to announce that we’ll be presenting a demo of 🤗 Diffusers at ICCV 2023. We sincerely thank our contributors for helping us achieve this feat, and if you’re attending, let’s hang out! 🤗
@@ -268,7 +272,7 @@ These are just a few of our community members, and we’re so happy that we’ve
 
 ## Building products with 🤗 Diffusers
 
-Over the last year, we also saw many companies choosing to build their products on top of 🤗Diffusers. Here are a couple of products that have caught our attention:
+Over the last year, we also saw many companies choosing to build their products on top of 🤗 Diffusers. Here are a couple of products that have caught our attention:
 
 - [PlaiDay](http://plailabs.com/): “PlaiDay is a Generative AI experience where people collaborate, create, and connect. Our platform unlocks the limitless creativity of the human mind, and provides a safe, fun social canvas for expression.”
 - [Previs One](https://previs.framer.wiki/): “Previs One is a diffuser pipeline for cinematic storyboarding and previsualization—it understands film and television compositional rules just as a director would speak them.”
