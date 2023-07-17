@@ -96,7 +96,7 @@ export const generateVideo = async (prompt: string) => {
 
 ## Post-processing
 
-Once an individual take (a video clip) is upscaled, it is then passed to FILM, a frame interpolation algorithm:
+Once an individual take (a video clip) is upscaled, it is then passed to FILM (Frame Interpolation for Large Motion), a frame interpolation algorithm:
 
 - Original links: [website](https://film-net.github.io/), [source code](https://github.com/google-research/frame-interpolation)
 - Model on Hugging Face: [/frame-interpolation-film-style](https://huggingface.co/akhaliq/frame-interpolation-film-style)
