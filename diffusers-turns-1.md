@@ -14,37 +14,25 @@ authors:
 
 🤗 Diffusers is happy to celebrate its first anniversary! It has been an exciting year, and we're proud and grateful for how far we've come thanks to our community and open-source contributors. Last year, text-to-image models like DALL-E 2, Imagen, and Stable Diffusion captured the world's attention with their ability to generate stunningly photorealistic images from text, sparking a massive surge of interest and development in generative AI. But access to these powerful models was limited.
 
-At Hugging Face, our mission is to democratize good machine learning by collaborating and helping each other build an open and ethical AI future together. Our mission motivated us to create the 🤗 Diffusers library so *everyone* can experiment or play with text-to-image models. That’s why we designed the library as a modular toolbox, so you can customize a diffusion model’s components or simply start using it out-of-the-box.
+At Hugging Face, our mission is to democratize good machine learning by collaborating and helping each other build an open and ethical AI future together. Our mission motivated us to create the 🤗 Diffusers library so *everyone* can experiment, research, or simply play with text-to-image models. That’s why we designed the library as a modular toolbox, so you can customize a diffusion model’s components or just start using it out-of-the-box.
 
 As 🤗 Diffusers turns 1, here’s an overview of some of the most notable features we’ve added to the library with the help of our community to promote accessible usage and push diffusion models beyond just text-to-image generation.
 
-## Safety
+## Striving for photorealism
 
-While generative models are cool, they also have the ability to produce harmful and NSFW content. To help users interact with these models responsibly and safely, we’ve added a [`safety_checker`](https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/safety_checker.py) component that flags inappropriate content generated during inference. This gives model creators the choice to incorporate this component into their models if they want. 
+Generative AI models are known for creating photorealistic images, but if you look closely, you may notice certain things that don't look right, like generating extra fingers on a hand. This year, the DeepFloyd IF and Stability AI SDXL models made a splash by improving the quality of generated images to be even more photorealistic.
 
-As generative quality continues to increase (have you seen Balenciaga Pope!?), it is more important than ever to be able to distinguish what’s real and what’s generated. That’s why we’ve added an invisible watermark feature for the Stable Diffusion XL (SDXL) model and any other upcoming models that choose to use it. This gives us a way to determine whether an image is AI-generated or not.
+[DeepFloyd IF](https://stability.ai/blog/deepfloyd-if-text-to-image-model) - A modular diffusion model that includes different processes for generating an image (for example, an image is upscaled 3x to produce a higher resolution image). The IF model works directly on the pixel level, and it uses a large language model to encode text.
 
-The development of these safety features is guided by our [ethical charter](https://huggingface.co/docs/diffusers/main/en/conceptual/ethical_guidelines), which you can find in our documentation.
+[SDXL](https://stability.ai/blog/sdxl-09-stable-diffusion) - The latest Stable Diffusion model from Stability AI with significantly more parameters than its predecessor Stable Diffusion 2, allowing it to generate hyper-realistic images. SDXL generates an image with a base model, and a refiner model adds even more details to the image.
 
-## Support for LoRA
-
-Fine-tuning diffusion models is expensive and out of reach for most consumer GPUs. We added the Low-Rank Adaptation ([LoRA](https://huggingface.co/papers/2106.09685)) technique to close this gap. With LoRA, which is a method for parameter-efficient fine-tuning, you can fine-tune large diffusion models faster and consume less memory. The resulting model weights are also very lightweight compared to the original model, so you can easily share your custom models. If you’re interested in learning more, we published a [blog post](https://huggingface.co/blog/lora) about fine-tuning Stable Diffusion with LoRA.
-
-<Tip>
-
-In addition to LoRA, we support other training techniques for more personalized generation, such as DreamBooth, textual inversion, custom diffusion, and more!
-
-</Tip>
-
-## Torch 2.0 optimizations
-
-PyTorch 2.0 [introduced support](https://pytorch.org/get-started/pytorch-2.0/#pytorch-2x-faster-more-pythonic-and-as-dynamic-as-ever) for `torch.compile()`and `scaled_dot_product_attention()`, a more efficient implementation of the attention mechanism. 🤗 Diffusers [provides first-class support](https://huggingface.co/docs/diffusers/optimization/torch2.0) for these features resulting in massive speedups in inference latency, which can sometimes be more than 100%!
+Head over to the DeepFloyd IF [docs](https://huggingface.co/docs/diffusers/v0.18.2/en/api/pipelines/if#texttoimage-generation) and the SDXL [docs](https://huggingface.co/docs/diffusers/v0.18.2/en/api/pipelines/stable_diffusion/stable_diffusion_xl) today to learn how to start generating your own images!
 
 ## Video pipelines
 
 Text-to-image pipelines are cool, but text-to-video is even cooler! We currently support two text-to-video pipelines, [VideoFusion](https://huggingface.co/docs/diffusers/main/en/api/pipelines/text_to_video) and [Text2Video-Zero](https://huggingface.co/docs/diffusers/main/en/api/pipelines/text_to_video_zero).
 
-If you’re already familiar with using a text-to-image pipeline, using a text-to-video pipeline is more or less the same:
+If you’re already familiar with using a text-to-image pipeline, using a text-to-video pipeline is very similar:
 
 ```py
 import torch
@@ -63,22 +51,6 @@ video_path = export_to_video(video_frames)
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/darthvader_cerpense.gif" alt="Generated video of Darth Vader surfing."/>
 </div>
 
-We expect text-to-video to go through a revolution during 🤗 Diffusers second year, and we are excited to see what the community builds on top of these to push the boundaries of video generation from language!
-
-## Image editing pipelines
-
-Image editing is one of the most practical use-cases in fashion, material design, and photography. With diffusion models, the possibilities of image editing continue to expand. 
-
-We [have many pipelines](https://huggingface.co/docs/diffusers/main/en/using-diffusers/controlling_generation) in 🤗 Diffusers to support image editing. There are image editing pipelines that allow you to describe your desired edit as a prompt, removing concepts from an image, and even a pipeline that unifies multiple generation methods to create high-quality images like panoramas. With 🤗 Diffusers, you can experiment with the future of photo editing now!
-
-## Faster diffusion models
-
-Diffusion models are known to be time-intensive because of their iterative steps. With OpenAI’s [Consistency Models](https://huggingface.co/papers/2303.01469), the image generation process is significantly faster. Generating a single 256x256 resolution image only takes 3/4 of a second on a modern CPU! You can try this out in 🤗 Diffusers with the [`ConsistencyModelPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/consistency_models).
-
-On top of speedier diffusion models, we also offer many optimization techniques for faster inference like PyTorch 2.0’s `scaled_dot_product_attention()` (SDPA), `torch.compile()`, sliced attention, feed-forward chunking, VAE tiling, CPU and model offloading, and more. These optimizations save memory, which translates to faster inference. We also support working with specific hardware or formats like ONNX, Apple’s CoreML and M1/M2 devices. When you distribute a model with 🤗 Diffusers, all of these optimizations are immediately supported.
-
-To learn more about how we optimize inference with 🤗 Diffusers, check out the [docs](https://huggingface.co/docs/diffusers/optimization/opt_overview)!
-
 ## Text-to-3D image models
 
 In addition to text-to-video, we also have text-to-3D image generation now thanks to OpenAI’s [Shap-E](https://hf.co/papers/2305.02463) model. Shap-E is trained by encoding a large dataset of 3D-text pairs, and a diffusion model is conditioned on the encoder’s outputs. You can design 3D assets for video games, interior design, and architecture. 
@@ -89,21 +61,39 @@ Try it out today with the [`ShapEPipeline`](https://huggingface.co/docs/diffuser
   <img src="https://huggingface.co/datasets/hf-internal-testing/diffusers-images/resolve/main/shap_e/cake_out.gif" alt="3D render of a birthday cupcake generated using SHAP-E."/>
 </div>
 
-## Striving for photorealism
+## Image editing pipelines
 
-Stable Diffusion is probably the most well-known diffusion model, but don’t sleep on DeepFloyd’s IF model and the Kandinsky model. Both models made a splash this year by generating high-quality photorealistic images.
+Image editing is one of the most practical use cases in fashion, material design, and photography. With diffusion models, the possibilities of image editing continue to expand.
 
-[DeepFloyd IF](https://stability.ai/blog/deepfloyd-if-text-to-image-model) - A modular diffusion model that includes different processes for generating an image (for example, an image is upscaled 3x to produce a higher resolution image). The IF model works directly on the pixel level, and it uses a large language model to encode text.
+We have many [pipelines](https://huggingface.co/docs/diffusers/main/en/using-diffusers/controlling_generation) in 🤗 Diffusers to support image editing. There are image editing pipelines that allow you to describe your desired edit as a prompt, removing concepts from an image, and even a pipeline that unifies multiple generation methods to create high-quality images like panoramas. With 🤗 Diffusers, you can experiment with the future of photo editing now!
 
-[Kandinsky 2.1](https://habr.com/ru/companies/sberbank/articles/725282/) - A multilingual diffusion model that incorporates a *diffusion mapping* of the CLIP encoded text-image pair during diffusion to boost image quality.
+## Faster diffusion models
 
-[SDXL](https://stability.ai/blog/sdxl-09-stable-diffusion) - The latest Stable Diffusion model from Stability AI with significantly more parameters than its predecessor Stable Diffusion 2, allowing it to generate hyper-realistic images. SDXL generates an image with a base model, and a refiner model adds even more details to the image.
+Diffusion models are known to be time-intensive because of their iterative steps. With OpenAI’s [Consistency Models](https://huggingface.co/papers/2303.01469), the image generation process is significantly faster. Generating a single 256x256 resolution image only takes 3/4 of a second on a modern CPU! You can try this out in 🤗 Diffusers with the [`ConsistencyModelPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/consistency_models).
 
-<div class="flex justify-center">
-  <img src="https://huggingface.co/datasets/hf-internal-testing/diffusers-images/resolve/main/kandinskyv22/%20blue%20eyes.png" alt="Generated image of a women with blue eyes in cinematic style."/>
-</div>
+On top of speedier diffusion models, we also offer many optimization techniques for faster inference like PyTorch 2.0’s `scaled_dot_product_attention()` (SDPA), `torch.compile()`, sliced attention, feed-forward chunking, VAE tiling, CPU and model offloading, and more. These optimizations save memory, which translates to faster inference and allow you to run inference on consumer GPUs. We also support working with specific hardware or formats like ONNX, Apple’s CoreML and M1/M2 devices. When you distribute a model with 🤗 Diffusers, all of these optimizations are immediately supported.
 
-With so many cool features, we’re happy to announce that we’ll be presenting a demo of 🤗 Diffusers at ICCV 2023. We sincerely thank our contributors for helping us achieve this feat, and if you’re attending, let’s hang out! 🤗
+To learn more about how we optimize inference with 🤗 Diffusers, check out the [docs](https://huggingface.co/docs/diffusers/optimization/opt_overview)!
+
+## Ethics and safety
+
+Generative models are cool, but they also have the ability to produce harmful and NSFW content. To help users interact with these models responsibly and ethically, we’ve added a [`safety_checker`](https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/safety_checker.py) component that flags inappropriate content generated during inference. Model creators can choose to incorporate this component into their models if they want.
+
+In addition, generative models can also be used to produce disinformation. Earlier this year, the [Balenciaga Pope](https://www.theverge.com/2023/3/27/23657927/ai-pope-image-fake-midjourney-computer-generated-aesthetic) went viral for how realistic the image was despite it being fake. This underscores the importance and need for a mechanism to distinguish between generated and human content. That’s why we’ve added an invisible watermark for images generated by the SDXL model. It helps users make the distinction between real and generated images so they can be better informed.
+
+The development of these features is guided by our [ethical charter](https://huggingface.co/docs/diffusers/main/en/conceptual/ethical_guidelines), which you can find in our documentation.
+
+## Support for LoRA
+
+Fine-tuning diffusion models is expensive and out of reach for most consumer GPUs. We added the Low-Rank Adaptation ([LoRA](https://huggingface.co/papers/2106.09685)) technique to close this gap. With LoRA, which is a method for parameter-efficient fine-tuning, you can fine-tune large diffusion models faster and consume less memory. The resulting model weights are also very lightweight compared to the original model, so you can easily share your custom models. If you want to learn more, we published a [blog post](https://huggingface.co/blog/lora) about fine-tuning Stable Diffusion with LoRA.
+
+In addition to LoRA, we support other [training techniques](https://huggingface.co/docs/diffusers/main/en/training/overview) for more personalized generation, such as DreamBooth, textual inversion, custom diffusion, and more!
+
+## Torch 2.0 optimizations
+
+PyTorch 2.0 [introduced support](https://pytorch.org/get-started/pytorch-2.0/#pytorch-2x-faster-more-pythonic-and-as-dynamic-as-ever) for `torch.compile()`and `scaled_dot_product_attention()`, a more efficient implementation of the attention mechanism. 🤗 Diffusers [provides first-class support](https://huggingface.co/docs/diffusers/optimization/torch2.0) for these features resulting in massive speedups in inference latency, which can sometimes be more than 100%!
+
+We expect text-to-video to go through a revolution during 🤗 Diffusers second year, and we are excited to see what the community builds on top of these to push the boundaries of video generation from language!
 
 ## Community highlights
 
@@ -261,14 +251,12 @@ We also collaborated with Google Cloud (who generously provided the compute) to 
   <img src="https://github.com/mfidabel/JAX_SPRINT_2023/blob/8632f0fde7388d7a4fc57225c96ef3b8411b3648/EX_1.gif?raw=true" alt="ControlNet and SegmentAnything demo of a hot air balloon in various styles">
 </div>
 
-Finally, we were delighted the community directly contributed to our codebase, which allowed us to collaborate together in the most open way possible:
+Finally, we were delighted to receive contributions to our codebase from over 300 contributors, which allowed us to collaborate together in the most open way possible. Here are just a few of the contributions from our community:
 
 - [Model editing](https://github.com/huggingface/diffusers/pull/2721) by [@bahjat-kawar](https://github.com/bahjat-kawar), a pipeline for editing a model’s implicit assumptions
 - [LDM3D](https://github.com/huggingface/diffusers/pull/3668) by [@estelleafl](https://github.com/estelleafl), a diffusion model for 3D images
 - [DPMSolver](https://github.com/huggingface/diffusers/pull/3314) by [@LuChengTHU](https://github.com/LuChengTHU), improvements for significantly improving inference speed
 - [Custom Diffusion](https://github.com/huggingface/diffusers/pull/3031) by [@nupurkmr9](https://github.com/nupurkmr9), a technique for generating personalized images with only a few images of a subject
-
-These are just a few of our community members, and we’re so happy that we’ve received contributions from 379 different contributors.
 
 ## Building products with 🤗 Diffusers
 
@@ -285,6 +273,10 @@ If you’re building products on top of 🤗 Diffusers, we’d love to chat to 
 
 ## Looking forward
 
-As we celebrate our first anniversary, we're grateful for our community and open-source contributors who have helped us come so far in such a short time. We'll continue to develop and improve our library, making it easier for everyone to use. We're also excited to see what the community will create next with our tools and resources. Thank you for being a part of our journey so far, and we look forward to continuing to democratize good machine learning together! 🥳
+As we celebrate our first anniversary, we're grateful to our community and open-source contributors who have helped us come so far in such a short time. We're happy to share that we'll be presenting a demo 🤗 Diffusers at ICCV 2023 this fall, and if you're attending, come see us! We'll continue to develop and improve our library, making it easier for everyone to use. We're also excited to see what the community will create next with our tools and resources. Thank you for being a part of our journey so far, and we look forward to continuing to democratize good machine learning together! 🥳
 
-- ❤️ Diffusers team
+❤️ Diffusers team
+
+---
+
+**Acknowledgements**: Thank you to Pedro Cuenca, Omar Sanseviero, Patrick von Platen, Giada Pistilli for their reviews, and Chunte Lee for designing the thumbnail.
