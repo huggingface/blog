@@ -350,4 +350,4 @@ We hope you enjoyed watching the AI WebTV stream and that it will inspire you to
 
 As this was a first trial, a lot of things were not the focus of the tech demo: generating longer and more varied sequences, adding audio (sound effects, dialogue), generating and orchestrating complex scenarios, or letting a language model agent have more control over the pipeline.
 
-Some of those ideas may make their way in further updates to the AI WebTV, but we also can’t wait to see what the community of researchers, engineers and builders will come up with!
+Some of these ideas may make their way into future updates to the AI WebTV, but we also can’t wait to see what the community of researchers, engineers and builders will come up with!
