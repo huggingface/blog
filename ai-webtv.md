@@ -67,7 +67,7 @@ Other spaces deployed by the community can also be found if you [search for Zero
 
 ## Using a model hosted on a Space
 
-Spaces based on Gradio have the ability to [expose a REST API](https://www.gradio.app/guides/sharing-your-app#api-page), which can then be call from Node using the [@gradio/client module](https://www.npmjs.com/package/@gradio/client).
+Spaces using Gradio have the ability to [expose a REST API](https://www.gradio.app/guides/sharing-your-app#api-page), which can then be called from Node using the [@gradio/client](https://www.npmjs.com/package/@gradio/client) module.
 
 Here is an example:
 
