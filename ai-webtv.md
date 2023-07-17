@@ -200,11 +200,11 @@ The first thing we notice is that applying the second pass of Zeroscope XL signi
 
 ## Simulation of dynamic scenes
 
-Something truly fascinating about text-to-video models is their ability to emulate real-life phenomena on which they have been trained.
+Something truly fascinating about text-to-video models is their ability to emulate real-life phenomena they have been trained on.
 
-We’ve witnessed it with large language models and their ability to synthesize convincing content that mimics human responses, but this takes a whole new dimension when applied to video.
+We've seen it with large language models and their ability to synthesize convincing content that mimics human responses, but this takes things to a whole new dimension when applied to video.
 
-Text-to-video models have to synthesize animated sequences, and consequently try to emulate and simulate all the physics and entity behaviors we see in the scene. This works well when asking for realistic content, but it can work with unseen scenes as well.
+A video model predicts the next frames of a scene, which might include objects in motion such as fluids, people, animals, or vehicles. Today, this emulation isn't perfect, but it will be interesting to evaluate future models (trained on larger or specialized datasets, such as animal locomotion) for their accuracy when reproducing physical phenomena, and also their ability to simulate the behavior of agents.
 
 <figure class="image flex items-center text-center m-0 w-full">
    <video
