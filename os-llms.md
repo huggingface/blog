@@ -14,10 +14,10 @@ authors:
 Text generation and conversational technologies have been around for ages. Earlier challenges in working with these technologies were controlling both the coherence and diversity of the text through inference parameters and discriminative biases. More coherent outputs were less creative and closer to the original training data and sounded less human. Recent developments overcame these challenges, and user-friendly UIs enabled everyone to try these models out. Services like ChatGPT have recently put the spotlight on powerful models like GPT-4 and caused an explosion of open-source alternatives like LLaMA to go mainstream. We think these technologies will be around for a long time and become more and more integrated into everyday products. 
 
 This post is divided into the following sections:
-1. [Brief background on text generation](#Brief-Background-on-Text-Generation)
-2. [Licenses](#licenses)
-3. [Tools in the Hugging Face Ecosystem for LLM Serving](#Tools-in-the-Hugging-Face-Ecosystem-for-LLM-Serving)
-4. [Parameter Efficient Fine Tuning (PEFT)](#Parameter-Efficient-Fine-Tuning-(PEFT))
+1. [Brief background on text generation](#brief-background-on-text-generation)
+2. [Licensing](#licensing)
+3. [Tools in the Hugging Face Ecosystem for LLM Serving](#tools-in-the-hugging-face-ecosystem-for-llm-serving)
+4. [Parameter Efficient Fine Tuning (PEFT)](#parameter-efficient-fine-tuning-peft)
 
 ## Brief Background on Text Generation
 
