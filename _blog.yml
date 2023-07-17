@@ -2481,7 +2481,7 @@
 - local: ai-webtv
   title: "Building an AI WebTV"
   author: jbilcke-hf
-  thumbnail: /blog/assets/156_ai_webtv/thumbnail.jpg
+  thumbnail: /blog/assets/156_ai_webtv/thumbnail.gif
   date: July 17, 2023
   tags:
     - text-to-video

@@ -1,6 +1,6 @@
 ---
 title: "Building an AI WebTV"
-thumbnail: /blog/assets/156_ai_webtv/thumbnail.jpg
+thumbnail: /blog/assets/156_ai_webtv/thumbnail.gif
 authors:
 - user: jbilcke-hf
 ---
