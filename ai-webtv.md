@@ -139,7 +139,7 @@ file 'video2.mp4'
 ...
 ```
 
-FFmpeg is then used again to read this playlist and sent a [FLV stream](https://en.wikipedia.org/wiki/Flash_Video) to a [RTMP server](https://en.wikipedia.org/wiki/Real-Time_Messaging_Protocol). FLV is an old format but still popular in the world of real-time streaming as it is low latency.
+FFmpeg is then used again to read this playlist and send a [FLV stream](https://en.wikipedia.org/wiki/Flash_Video) to a [RTMP server](https://en.wikipedia.org/wiki/Real-Time_Messaging_Protocol). FLV is an old format but still popular in the world of real-time streaming due to its low latency.
 
 ```bash
 ffmpeg -y -nostdin \
