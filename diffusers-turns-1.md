@@ -73,7 +73,7 @@ We [have many pipelines](https://huggingface.co/docs/diffusers/main/en/using-dif
 
 ## Faster diffusion models
 
-Diffusion models are known to be time-intensive because of their iterative steps. With OpenAI’s [Consistency Models](https://arxiv.org/pdf/2303.01469.pdf), the image generation process is significantly faster. Generating a single 256x256 resolution image only takes 3/4 of a second on a modern CPU! You can try this out in 🤗 Diffusers with the [`ConsistencyModelPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/consistency_models).
+Diffusion models are known to be time-intensive because of their iterative steps. With OpenAI’s [Consistency Models](https://huggingface.co/papers/2303.01469), the image generation process is significantly faster. Generating a single 256x256 resolution image only takes 3/4 of a second on a modern CPU! You can try this out in 🤗 Diffusers with the [`ConsistencyModelPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/consistency_models).
 
 On top of speedier diffusion models, we also offer many optimization techniques for faster inference like PyTorch 2.0’s `scaled_dot_product_attention()` (SDPA), `torch.compile()`, sliced attention, feed-forward chunking, VAE tiling, CPU and model offloading, and more. These optimizations save memory, which translates to faster inference. We also support working with specific hardware or formats like ONNX, Apple’s CoreML and M1/M2 devices. When you distribute a model with 🤗 Diffusers, all of these optimizations are immediately supported.
 
@@ -81,7 +81,7 @@ To learn more about how we optimize inference with 🤗 Diffusers, check out th
 
 ## Text-to-3D image models
 
-In addition to text-to-video, we also have text-to-3D image generation now thanks to OpenAI’s [Shap-E](https://arxiv.org/abs/2305.02463) model. Shap-E is trained by encoding a large dataset of 3D-text pairs, and a diffusion model is conditioned on the encoder’s outputs. You can design 3D assets for video games, interior design, and architecture. 
+In addition to text-to-video, we also have text-to-3D image generation now thanks to OpenAI’s [Shap-E](https://hf.co/papers/2305.02463) model. Shap-E is trained by encoding a large dataset of 3D-text pairs, and a diffusion model is conditioned on the encoder’s outputs. You can design 3D assets for video games, interior design, and architecture. 
 
 Try it out today with the [`ShapEPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/shap_e#diffusers.ShapEPipeline) and [`ShapEImg2ImgPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/shap_e#diffusers.ShapEImg2ImgPipeline).
 
