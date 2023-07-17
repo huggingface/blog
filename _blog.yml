@@ -2471,7 +2471,7 @@
 - local: os-llms
   title: "Open-Source Text Generation & LLM Ecosystem at Hugging Face"
   author: merve
-  thumbnail: /blog/assets/os-llms/thumbnail.png
+  thumbnail: /blog/assets/os_llms/thumbnail.png
   date: July 17, 2023
   tags:
     - LLM
