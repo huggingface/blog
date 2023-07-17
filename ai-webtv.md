@@ -293,7 +293,7 @@ A video model predicts the next frames of a scene, which might include objects i
 </figure>
 
 
-**Rendering errors on realistic scenes:** sometimes we can see artifacts such as moving vertical lines or waves. The cause is unclear yet, this might be caused by the combination of keywords used.
+**Rendering errors on realistic scenes:** sometimes we can see artifacts such as moving vertical lines or waves. It is unclear what causes this, but it may be due to the combination of keywords used.
 
 <figure class="image flex items-center text-center m-0 w-full">
    <video
