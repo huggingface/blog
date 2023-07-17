@@ -56,7 +56,7 @@ Zeroscope is comprised of two parts that can be chained together:
 
 ## Calling the video chain
 
-To make a quick prototype, the WebTV runs Zeroscope from two duplicated Hugging Face Spaces running [Gradio](https://github.com/gradio-app/gradio/), which are called using the [@gradio/client](https://www.npmjs.com/package/@gradio/client). You can find the original spaces here:
+To make a quick prototype, the WebTV runs Zeroscope from two duplicated Hugging Face Spaces running [Gradio](https://github.com/gradio-app/gradio/), which are called using the [@gradio/client](https://www.npmjs.com/package/@gradio/client) NPM package. You can find the original spaces here:
 
 - [zeroscope-v2](https://huggingface.co/spaces/hysts/zeroscope-v2/tree/main) by @hysts
 - [Zeroscope XL](https://huggingface.co/spaces/fffiloni/zeroscope-XL) by @fffiloni
