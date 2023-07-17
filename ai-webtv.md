@@ -236,7 +236,7 @@ A video model predicts the next frames of a scene, which might include objects i
   <figcaption>Prompt: <i>Aerial footage of a quiet morning at the coast of California, with <strong>waves gently crashing against the rocky shore</strong>. A startling sunrise illuminates the coast with vibrant colors, captured beautifully with a DJI Phantom 4 Pro. Colors and textures of the landscape come alive under the soft morning light. Film grain, cinematic, imax, movie</i></figcaption>
 </figure>
 
-💡 It will be interesting to see more explorations of those capabilities in the future, for instance by training video models on larger video datasets covering more phenomenons.
+💡 It will be interesting to see these capabilities explored more in the future, for instance by training video models on larger video datasets covering more phenomena.
 
 ## Styling and effects
 
