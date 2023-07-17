@@ -168,7 +168,7 @@ The first thing we notice is that applying the second pass of Zeroscope XL signi
 
 ## Characters and scene composition
 
-<figure class="image flex items-center text-center m-0 w-full">
+<figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
       alt="demo4.mp4"
       autoplay loop autobuffer muted playsinline
@@ -178,7 +178,7 @@ The first thing we notice is that applying the second pass of Zeroscope XL signi
   <figcaption>Prompt: <i>Photorealistic movie of a <strong>llama acting as a programmer, wearing glasses and a hoodie</strong>, intensely <strong>staring at a screen</strong> with lines of code, in a cozy, <strong>dimly lit room</strong>, Canon EOS, ambient lighting, high details, cinematic, trending on artstation</i></figcaption>
 </figure>
 
-<figure class="image flex items-center text-center m-0 w-full">
+<figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
       alt="demo5.mp4"
       autoplay loop autobuffer muted playsinline
@@ -188,7 +188,7 @@ The first thing we notice is that applying the second pass of Zeroscope XL signi
   <figcaption>Prompt: <i>3D rendered animation showing a group of food characters <strong>forming a pyramid</strong>, with a <strong>banana</strong> standing triumphantly on top. In a city with <strong>cotton candy clouds</strong> and <strong>chocolate road</strong>, Pixar's style, CGI, ambient lighting, direct sunlight, rich color scheme, ultra realistic, cinematic, photorealistic.</i></figcaption>
 </figure>
 
-<figure class="image flex items-center text-center m-0 w-full">
+<figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
       alt="demo7.mp4"
       autoplay loop autobuffer muted playsinline
@@ -206,7 +206,7 @@ We've seen it with large language models and their ability to synthesize convinc
 
 A video model predicts the next frames of a scene, which might include objects in motion such as fluids, people, animals, or vehicles. Today, this emulation isn't perfect, but it will be interesting to evaluate future models (trained on larger or specialized datasets, such as animal locomotion) for their accuracy when reproducing physical phenomena, and also their ability to simulate the behavior of agents.
 
-<figure class="image flex items-center text-center m-0 w-full">
+<figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
       alt="demo17.mp4"
       autoplay loop autobuffer muted playsinline
@@ -216,7 +216,7 @@ A video model predicts the next frames of a scene, which might include objects i
   <figcaption>Prompt: <i>Cinematic movie shot of <strong>bees energetically buzzing around a flower</strong>, sun rays illuminating the scene, captured in 4k IMAX with a soft bokeh background.</i></figcaption>
 </figure>
 
-<figure class="image flex items-center text-center m-0 w-full">
+<figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
       alt="demo8.mp4"
       autoplay loop autobuffer muted playsinline
@@ -226,7 +226,7 @@ A video model predicts the next frames of a scene, which might include objects i
   <figcaption>Prompt: <i><strong>Dynamic footage of a grizzly bear catching a salmon in a rushing river</strong>, ambient lighting highlighting the splashing water, low angle, IMAX camera, 4K movie quality, golden hour, film grain.</i></figcaption>
 </figure>
 
-<figure class="image flex items-center text-center m-0 w-full">
+<figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
       alt="demo18.mp4"
       autoplay loop autobuffer muted playsinline
@@ -241,7 +241,7 @@ A video model predicts the next frames of a scene, which might include objects i
 ## Styling and effects
 
 
-<figure class="image flex items-center text-center m-0 w-full">
+<figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
       alt="demo0.mp4"
       autoplay loop autobuffer muted playsinline
@@ -253,7 +253,7 @@ A video model predicts the next frames of a scene, which might include objects i
 </figcaption>
 </figure>
 
-<figure class="image flex items-center text-center m-0 w-full">
+<figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
       alt="demo2.mp4"
       autoplay loop autobuffer muted playsinline
@@ -264,7 +264,7 @@ A video model predicts the next frames of a scene, which might include objects i
 </figcaption>
 </figure>
 
-<figure class="image flex items-center text-center m-0 w-full">
+<figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
       alt="demo1.mp4"
       autoplay loop autobuffer muted playsinline
@@ -281,7 +281,7 @@ A video model predicts the next frames of a scene, which might include objects i
 
 **Wrong direction:** the model sometimes has trouble with movement and direction. For instance, here the clip seems to be played in reverse. Also the modifier keyword ***green*** was not taken into account.
 
-<figure class="image flex items-center text-center m-0 w-full">
+<figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
       alt="fail1.mp4"
       autoplay loop autobuffer muted playsinline
@@ -295,7 +295,7 @@ A video model predicts the next frames of a scene, which might include objects i
 
 **Rendering errors on realistic scenes:** sometimes we can see artifacts such as moving vertical lines or waves. It is unclear what causes this, but it may be due to the combination of keywords used.
 
-<figure class="image flex items-center text-center m-0 w-full">
+<figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
       alt="fail2.mp4"
       autoplay loop autobuffer muted playsinline
@@ -311,7 +311,7 @@ A video model predicts the next frames of a scene, which might include objects i
 
 In the following example, we notice the word "llama" inserts a llama but also two occurrences of the word llama in flames.
 
-<figure class="image flex items-center text-center m-0 w-full">
+<figure class="image flex flex-col items-center text-center m-0 w-full">
    <video
       alt="fail3.mp4"
       autoplay loop autobuffer muted playsinline
