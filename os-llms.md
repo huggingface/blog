@@ -43,7 +43,8 @@ Having more variation of open-source text generation models enables companies to
 
 Hugging Face has co-led two science initiatives, BigScience and BigCode. As a result of them, two large language models were created, [BLOOM](https://huggingface.co/bigscience/bloom) 🌸 and [StarCoder](https://huggingface.co/bigcode/starcoder) 🌟. 
 BLOOM is a causal language model trained on 46 languages and 13 programming languages. It is the first open-source model to have more parameters than GPT-3. You can find all the available checkpoints in the [BLOOM documentation](https://huggingface.co/docs/transformers/model_doc/bloom).
-StarCoder is a language model trained on code from GitHub (with 80+ programming languages 🤯) with Fill-in-the-Middle objective. It’s not fine-tuned on instructions, and thus, it serves more as a coding assistant to complete a given code, e.g., translate Python to C++, explain concepts (what’s recursion), or act as a terminal. You can try all of the StarCoder checkpoints [in this application](https://huggingface.co/spaces/bigcode/bigcode-playground). It also comes with a [VSCode extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode).
+
+StarCoder is a language model trained on permissive code from GitHub (with 80+ programming languages 🤯) with a Fill-in-the-Middle objective. It’s not fine-tuned on instructions, and thus, it serves more as a coding assistant to complete a given code, e.g., translate Python to C++, explain concepts (what’s recursion), or act as a terminal. You can try all of the StarCoder checkpoints [in this application](https://huggingface.co/spaces/bigcode/bigcode-playground). It also comes with a [VSCode extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode).
 
 Snippets to use all models mentioned in this blog post are given in either the model repository or the documentation page of that model type in Hugging Face.
 
