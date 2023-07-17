@@ -279,7 +279,7 @@ A video model predicts the next frames of a scene, which might include objects i
 
 ## Failure cases
 
-**Wrong direction:** the model sometimes has trouble with movement and direction. For instance here the clip seems to be played in reverse. Also the modifier keyword ***green*** was not taken into account.
+**Wrong direction:** the model sometimes has trouble with movement and direction. For instance, here the clip seems to be played in reverse. Also the modifier keyword ***green*** was not taken into account.
 
 <figure class="image flex items-center text-center m-0 w-full">
    <video
@@ -307,7 +307,7 @@ A video model predicts the next frames of a scene, which might include objects i
 </figure>
 
 
-**Text or objects inserted into the image:** the model sometimes inject words from the prompt into the scene, such as "IMAX". Mentioning "Canon EOS" or "Drone footage" in the prompt can also make those objects appear in the video.
+**Text or objects inserted into the image:** the model sometimes injects words from the prompt into the scene, such as "IMAX". Mentioning "Canon EOS" or "Drone footage" in the prompt can also make those objects appear in the video.
 
 In the following example, we notice the word "llama" inserts a llama but also two occurrences of the word llama in flames.
 
