@@ -338,7 +338,7 @@ If you plan to create sequences of multiple videos, you will want to make sure y
 
 💡 This will also improve the quality of the image since the prompt is used for the upscaling part with Zeroscope XL.
 
-## Leverage the frame interpolation
+## Leverage frame interpolation
 
 Frame interpolation is a powerful tool which can repair small rendering errors and turn many defects into features, especially in scenes with a lot of animation, or where a cartoon effect is acceptable. The [FILM algorithm](https://film-net.github.io/) will smoothen out elements of a frame with previous and following events in the video clip.
 
