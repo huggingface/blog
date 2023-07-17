@@ -16,19 +16,19 @@ authors:
 
 At Hugging Face, our mission is to democratize good machine learning by collaborating and helping each other build an open and ethical AI future together. Our mission motivated us to create the 🤗 Diffusers library so *everyone* can experiment or play with text-to-image models. That’s why we designed the library as a modular toolbox, so you can customize a diffusion model’s components or simply start using it out-of-the-box.
 
-As 🤗 Diffusers turns 1, here’s a review of some of the most notable features we’ve added to the library with the help of our community to promote accessible usage and push diffusion models beyond just text-to-image generation.
+As 🤗 Diffusers turns 1, here’s an overview of some of the most notable features we’ve added to the library with the help of our community to promote accessible usage and push diffusion models beyond just text-to-image generation.
 
 ## Safety
 
 While generative models are cool, they also have the ability to produce harmful and NSFW content. To help users interact with these models responsibly and safely, we’ve added a [`safety_checker`](https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/safety_checker.py) component that flags inappropriate content generated during inference. This gives model creators the choice to incorporate this component into their models if they want. 
 
-As generative quality continues to increase (have you seen Balenciaga Pope!?), it is more important than ever to be able to distinguish what’s real and what’s generated. That’s why we’ve added an invisible watermark feature for the Stable Diffusion XL (SDXL) model and any other upcoming models that choose to use it. This gives us a way to determine whether an image is real or not.
+As generative quality continues to increase (have you seen Balenciaga Pope!?), it is more important than ever to be able to distinguish what’s real and what’s generated. That’s why we’ve added an invisible watermark feature for the Stable Diffusion XL (SDXL) model and any other upcoming models that choose to use it. This gives us a way to determine whether an image is AI-generated or not.
 
 The development of these safety features is guided by our [ethical charter](https://huggingface.co/docs/diffusers/main/en/conceptual/ethical_guidelines), which you can find in our documentation.
 
 ## Support for LoRA
 
-Fine-tuning diffusion models is expensive and out of reach for most consumer GPUs. We added the Low-rank adaptation ([LoRA](https://huggingface.co/papers/2106.09685)) technique to close this gap. With LoRA, which is a method for parameter-efficient fine-tuning, you can fine-tune large diffusion models faster and consume less memory. The resulting model weights are also very lightweight compared to the original model, so you can easily share your custom models. If you’re interested in learning more, we published a [blog post](https://huggingface.co/blog/lora) about fine-tuning Stable Diffusion with LoRA.
+Fine-tuning diffusion models is expensive and out of reach for most consumer GPUs. We added the Low-Rank Adaptation ([LoRA](https://huggingface.co/papers/2106.09685)) technique to close this gap. With LoRA, which is a method for parameter-efficient fine-tuning, you can fine-tune large diffusion models faster and consume less memory. The resulting model weights are also very lightweight compared to the original model, so you can easily share your custom models. If you’re interested in learning more, we published a [blog post](https://huggingface.co/blog/lora) about fine-tuning Stable Diffusion with LoRA.
 
 <Tip>
 
