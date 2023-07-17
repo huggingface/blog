@@ -334,7 +334,7 @@ The same is true for video models: you will want to be specific about things. Ex
 
 ## Maintaining consistency between scenes
 
-If you plan to create sequences of multiple videos, you will want to make sure you add as much details possible in each prompt, otherwise you may lose important details from one sequence to another, such as the color.
+If you plan to create sequences of multiple videos, you will want to make sure you add as many details as possible in each prompt, otherwise you may lose important details from one sequence to another, such as the color.
 
 💡 This will also improve the quality of the image since the prompt is used for the upscaling part with Zeroscope XL.
 
