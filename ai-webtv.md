@@ -348,6 +348,6 @@ This works great to displace the background when the camera is panning or rotati
 
 We hope you enjoyed watching the AI WebTV stream and that it will inspire you to build more in this space.
 
-As this was a first trial, a lot of things were not the focus of the tech demo: generating longer and more varied sequences, adding audio (sound effects, dialogue), generating and orchestrating complex scenarios, or letting a language model agent having more control over the pipeline.
+As this was a first trial, a lot of things were not the focus of the tech demo: generating longer and more varied sequences, adding audio (sound effects, dialogue), generating and orchestrating complex scenarios, or letting a language model agent have more control over the pipeline.
 
 Some of those ideas may make their way in further updates to the AI WebTV, but we also can’t wait to see what the community of researchers, engineers and builders will come up with!
