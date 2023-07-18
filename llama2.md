@@ -49,7 +49,6 @@ _image from [Llama 2: Open Foundation and Fine-Tuned Chat Models](https://sconte
 
 If you’ve been waiting for an open alternative to closed-source chatbots, Llama 2-Chat is likely your best choice today!
 
-TODO: add links to models 
 
 | Model | License | Commercial use? | Pretraining length [tokens] | Leaderboard score |
 | --- | --- | --- | --- | --- |
@@ -154,13 +153,11 @@ _Note: You might need to request a quota upgrade via email to **[api-enterprise@
 
 You can learn more on how to [Deploy LLMs with Hugging Face Inference Endpoints in our blog](https://huggingface.co/blog/inference-endpoints-llm). The [blog](https://huggingface.co/blog/inference-endpoints-llm) includes information about supported hyperparameters and how to stream your response using Python and Javascript.
 
-### Using Hugging Face Spaces (stretch)
-
 ## Fine-tuning with PEFT
 
 Training LLMs can be technically and computationally challenging. In this section, we look at the tools available in the Hugging Face ecosystem to efficiently train Llama 2 on simple hardware and show how to fine-tune the 7B version of Llama 2 on a single NVIDIA T4 (16GB - Google Colab). You can learn more about it in the [Making LLMs even more accessible blog](https://huggingface.co/blog/4bit-transformers-bitsandbytes).
 
-We created a [script](https://gist.github.com/younesbelkada/9f7f75c94bdc1981c8ca5cc937d4a4da) to instruction-tune Llama 2 using QLoRA and the `SFTTrainer` from `trl`. The full script can be found [here](https://gist.github.com/younesbelkada/9f7f75c94bdc1981c8ca5cc937d4a4da). 
+We created a [script](https://gist.github.com/younesbelkada/9f7f75c94bdc1981c8ca5cc937d4a4da) to instruction-tune Llama 2 using QLoRA and the `SFTTrainer` from `trl`. 
 
 An example command for fine-tuning Llama 2 7B on the `timdettmers/openassistant-guanaco` can be found below. The script can merge the LoRA weights into the model weights and save them as `safetensor` weights by providing the `merge_and_push` argument. This allows us to deploy our fine-tuned model after training using text-generation-inference and inference endpoints.
 
@@ -177,8 +174,8 @@ python finetune_llama_v2.py \
 - [Models on the Hub](https://huggingface.co/meta-llama)
 - [Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
 - [Meta Examples and recipes for Llama model](https://github.com/facebookresearch/llama-recipes/tree/main)
-- [Paper Page](TODO: add)
-
 
 
 ## Conclusion
+
+We're very excited about Llama 2 being out! In the incoming days, be ready to learn more about ways to run your own fine-tuning, execute the smallest models on-device, and many other exciting updates we're prepating for you!
