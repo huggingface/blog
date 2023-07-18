@@ -583,6 +583,16 @@
     - intel
     - quantization
 
+- local: dedup
+  title: "BigCode 背后的大规模数据去重"
+  author: chenghao
+  guest: true
+  thumbnail: /blog/assets/dedup/thumbnail.png
+  date: May 16, 2023
+  tags:
+    - bigcode
+    - deduplication
+
 - local: instruction-tuning-sd
   title: "使用 InstructPix2Pix 对 Stable Diffusion 进行指令微调"
   author: sayakpaul
@@ -685,3 +695,15 @@
   date: June 26, 2023
   tags:
     - ethics
+
+- local: stable-diffusion-finetuning-intel
+  title: "在英特尔 CPU 上微调 Stable Diffusion 模型"
+  author: juliensimon
+  thumbnail: /blog/assets/stable-diffusion-finetuning-intel/dicoo_image.png
+  date: July 14, 2023
+  tags:
+    - guide
+    - intel
+    - hardware
+    - partnerships
+
