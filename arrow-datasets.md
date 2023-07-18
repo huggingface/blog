@@ -41,10 +41,10 @@ Further features of Arrow that make it especially useful in machine learning wor
 
 As a user, you typically won't need interact with Arrow directly, but rather use [libaries which use Arrow](https://arrow.apache.org/powered_by/)—such as Hugging Face Datasets—to represent tabular data in memory. However, as we'll see later in this post, even if the Arrow internals are abstracted away, being aware of them can give users access to more functionality than afforded by a given library.
 
-<!-- | ![Serialization](https://arrow.apache.org/img/copy.png) | ![Standardization](https://arrow.apache.org/img/shared.png)
+| ![Copy](./assets/arrow-datasets/copy.png) | ![Standardization](./assets/arrow-datasets/shared.png)
 |:--:|:--:|
-|<i>TODO</i>|<i>TODO</i>|
-<div align="center"> Source: <a href="https://arrow.apache.org/overview/" rel="noopener" target="_blank" >Apache Arrow Overview</a></div> -->
+|<i>In the absence of a standard, considerable overhead goes into moving, copying, and serializing data between languages and frameworks</i>|<i>Loading data into memory is standardized by the Arrow format</i>|
+<center><i>Inspired by the visuals of the <a href="https://arrow.apache.org/overview/" rel="noopener" target="_blank" >Apache Arrow Overview</a></i></center>
 
 ### Hugging Face Datasets
 
@@ -155,8 +155,6 @@ But for now, let's go ahead and reduce the results of the map operation by calli
 |    |   size_mean_mean |   max_stars_count_mean_mean | lang        |
 |---:|-----------------:|----------------------------:|:------------|
 | 30 |          63950.9 |                     62.9083 | Mathematica |
-| 82 |          38485.2 |                   2032.26   | Matlab      |
-| 86 |          19765.3 |                    173.915  | JSON        |
 | 80 |          18590.4 |                     28.0008 | VHDL        |
 |  9 |          17811.9 |                     33.3281 | Isabelle    |
 | 68 |          16470.2 |                    118.346  | Common Lisp |
