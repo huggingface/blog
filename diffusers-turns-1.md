@@ -1,6 +1,6 @@
 ---
 title: "Happy 1st anniversary 🤗 Diffusers!" 
-thumbnail:
+thumbnail: /blog/assets/diffusers-turns-1/diffusers-turns-1.png
 authors:
 - user: stevhliu
 - user: sayakpaul
