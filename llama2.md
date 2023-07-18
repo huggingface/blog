@@ -17,7 +17,7 @@ authors:
 
 Llama 2 is a family of state-of-the-art open-access large language models released by Meta today, and we’re excited to fully support the launch with comprehensive integration in Hugging Face. Llama 2 is being released with a very permissive community license and is available for commercial use. The code, pretrained models, and fine-tuned models are all being released today 🔥
 
-We’ve collaborated with Meta to ensure smooth integration into the Hugging Face ecosystem. You can find the 12 open-sourced models (3 base models & 3 fine-tuned ones with the original Meta checkpoints, plus their corresponding `transformers` models) on the Hub. Among the features and integrations being released, we have:
+We’ve collaborated with Meta to ensure smooth integration into the Hugging Face ecosystem. You can find the 12 open-access models (3 base models & 3 fine-tuned ones with the original Meta checkpoints, plus their corresponding `transformers` models) on the Hub. Among the features and integrations being released, we have:
 
 - [Models on the Hub](https://huggingface.co/meta-llama) with their model cards and license.
 - [Transformers integration](https://github.com/huggingface/transformers/releases/tag/v4.31.0)
