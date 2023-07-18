@@ -1,6 +1,6 @@
 ---
 title: "Llama 2 is here - get it on Hugging Face" 
-thumbnail: /blog/assets/llama2/thumbnail.png
+thumbnail: /blog/assets/llama2/thumbnail.jpg
 authors:
 - user: philschmid
 - user: osanseviero
