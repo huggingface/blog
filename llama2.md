@@ -20,7 +20,7 @@ Llama 2 is a family of state-of-the-art open-access large language models releas
 We’ve collaborated with Meta to ensure smooth integration into the Hugging Face ecosystem. You can find the 12 open-sourced models (3 base models & 3 fine-tuned ones with the original Meta checkpoints, plus their corresponding `transformers` models) on the Hub. Among the features and integrations being released, we have:
 
 - [Models on the Hub](https://huggingface.co/meta-llama) with their model cards and license.
-- [Transformers integration](TODO: add link)
+- [Transformers integration](https://github.com/huggingface/transformers/releases/tag/v4.31.0)
 - Examples to fine-tune the small variants of the model with a single GPU
 - Integration with [Text Generation Inference](https://github.com/huggingface/text-generation-inference) for fast and efficient production-ready inference
 - Integration with Inference Endpoints
@@ -79,11 +79,13 @@ Under the hood, this playground uses Hugging Face's [Text Generation Inference](
 
 
 ## Inference
-In this section, we’ll go through different approaches to running inference of the Llama2 models.
+In this section, we’ll go through different approaches to running inference of the Llama2 models. Before using these models, make sure you have requested access to one of the models in the official [Meta Llama 2](https://huggingface.co/meta-llama) repositories. 
+
+**Note: Make sure to also fill the official Meta form. Users are provided access to the repository once both forms are filled after few hours.**
 
 ### Using transformers
 
-With transformers release 4.31, one can already use Llama 2 and leverage all the tools within the HF ecosystem, such as:
+With transformers [release 4.31](https://github.com/huggingface/transformers/releases/tag/v4.31.0), one can already use Llama 2 and leverage all the tools within the HF ecosystem, such as:
 
 - training and inference scripts and examples
 - safe file format (`safetensors`)
@@ -91,10 +93,15 @@ With transformers release 4.31, one can already use Llama 2 and leverage all the
 - utilities and helpers to run generation with the model
 - mechanisms to export the models to deploy
 
+Make sure to be using the latest `transformers` release and be logged into your Hugging Face account.
+
+```
+pip install transformers
+huggingface-cli login
+```
+
 In the following code snippet, we show how to run inference with transformers
 
-
-# TODO: should we change the example to use system prompt/etc?
 ```python
 from transformers import AutoTokenizer
 import transformers
