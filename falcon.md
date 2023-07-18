@@ -107,7 +107,6 @@ pipeline = transformers.pipeline(
     trust_remote_code=True,
     device_map="auto",
 )
-
 ```
 
 And then, you'd run text generation using code like the following:
@@ -123,19 +122,17 @@ sequences = pipeline(
 )
 for seq in sequences:
     print(f"Result: {seq['generated_text']}")
-
 ```
 
 And you may get something like the following:
 
-```
+```bash
 Valencia, city of the sun
 The city that glitters like a star
 A city of a thousand colors
 Where the night is illuminated by stars
 Valencia, the city of my heart
 Where the past is kept in a golden chest
-
 ```
 
 ### Inference of Falcon 40B
