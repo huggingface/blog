@@ -2486,14 +2486,3 @@
   tags:
     - text-to-video
     - guide
-
-- local: llama2
-  title: "TBD"
-  author: philschmid
-  thumbnail: /blog/assets/llama2/thumbnail.png
-  date: July 18, 2023
-  tags:
-    - nlp
-    - community
-    - research
-    - LLM
