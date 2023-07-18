@@ -2455,3 +2455,34 @@
     - web
     - javascript
     - transformers.js
+
+
+- local: stable-diffusion-finetuning-intel
+  title: "Fine-tuning Stable Diffusion models on Intel CPUs"
+  author: juliensimon
+  thumbnail: /blog/assets/stable-diffusion-finetuning-intel/dicoo_image.png
+  date: July 14, 2023
+  tags:
+    - guide
+    - intel
+    - hardware
+    - partnerships
+
+- local: os-llms
+  title: "Open-Source Text Generation & LLM Ecosystem at Hugging Face"
+  author: merve
+  thumbnail: /blog/assets/os_llms/thumbnail.png
+  date: July 17, 2023
+  tags:
+    - LLM
+    - inference
+    - nlp
+
+- local: ai-webtv
+  title: "Building an AI WebTV"
+  author: jbilcke-hf
+  thumbnail: /blog/assets/156_ai_webtv/thumbnail.gif
+  date: July 17, 2023
+  tags:
+    - text-to-video
+    - guide

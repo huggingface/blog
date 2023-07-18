@@ -17,11 +17,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-[**Latent Diffusion models**](https://arxiv.org/abs/2112.10752) are game changers when it comes to solving text-to-image generation problems. [**Stable Diffusion**](https://stability.ai/blog/stable-diffusion-public-release) is one of the most famous examples that got wide adoption in the community and industry. The idea behind the Stable Diffusion model is simple and compelling: you generate an image from a noise vector in multiple small steps refining the noise to a latent image representation.
-
-However, such an approach inevitably increases the overall inference time and causes a poor user experience when deployed on a client machine. One can note that powerful GPUs can help here as usual, and this is true, but the cost of this increases dramatically. As a reference, in H1'23, the [price](https://aws.amazon.com/ec2/pricing/on-demand/) of a powerful CPU [r6i.2xlarge](https://aws.amazon.com/ec2/instance-types/r6i/) instance with 8 vCPUs and 64 GB RAM is $0.504 per hour, while a similar [g4dn.2xlarge](https://aws.amazon.com/ec2/instance-types/g4/) instance with NVIDIA T4 with 16 GB VRAM costs $0.75 per hour, which is **1.5x more**..
-
-This makes image-generation services quite expensive to their owners and users. The problem is even more acute in the client applications that run on the user's side. There can be no GPU at all! This makes the deployment of the Stable Diffusion pipeline a challenging problem.
+[**Latent Diffusion models**](https://arxiv.org/abs/2112.10752) are game changers when it comes to solving text-to-image generation problems. [**Stable Diffusion**](https://stability.ai/blog/stable-diffusion-public-release) is one of the most famous examples that got wide adoption in the community and industry. The idea behind the Stable Diffusion model is simple and compelling: you generate an image from a noise vector in multiple small steps refining the noise to a latent image representation. This approach works very well, but it can take a long time to generate an image if you do not have access to powerful GPUs. 
 
 Through the past five years, [OpenVINO Toolkit](https://docs.openvino.ai/) encapsulated many features for high-performance inference. Initially designed for Computer Vision models, it still dominates in this domain showing best-in-class inference performance for many contemporary models, including [Stable Diffusion](https://huggingface.co/blog/stable-diffusion-inference-intel). However, optimizing Stable Diffusion models for resource-constraint applications requires going far beyond just runtime optimizations. And this is where model optimization capabilities from OpenVINO [Neural Network Compression Framework](https://github.com/openvinotoolkit/nncf) (NNCF) come into play.
 
@@ -82,7 +78,9 @@ We used the disclosed optimization workflows to get two types of optimized model
 
 The picture above shows the results of image generation and some model characteristics. As you can see, just conversion to OpenVINO brings a significant decrease in the inference latency ( **1.9x** ). Applying 8-bit quantization boosts inference speed further leading to **3.9x** speedup compared to PyTorch. Another benefit of quantization is a significant reduction of model footprint, **0.25x** of PyTorch checkpoint, which also improves the model load time. Applying Token Merging (ToME) (with a **merging ratio of 0.4** ) on top of quantization brings **5.1x** performance speedup while keeping the footprint at the same level. We didn't provide a thorough analysis of the visual quality of the optimized models, but, as you can see, the results are quite solid.
 
-Below we show to perform inference with the final pipeline optimized to run on Intel CPUs:
+For the results shown in this blog, we used the default number of 50 inference steps. With fewer inference steps, inference speed will be faster, but this has an effect on the quality of the resulting image. How large this effect is depends on the model and the [scheduler](https://huggingface.co/docs/diffusers/using-diffusers/schedulers). We recommend experimenting with different number of steps and schedulers and find what works best for your use case.
+
+Below we show how to perform inference with the final pipeline optimized to run on Intel CPUs:
 
 ```python
 from optimum.intel import OVStableDiffusionPipeline
@@ -99,7 +97,7 @@ output = pipe(prompt, num_inference_steps=50, output_type="pil").images[0]
 output.save("image.png")
 ```
 
-You can find the training and quantization [code](https://github.com/huggingface/optimum-intel/tree/main/examples/openvino/stable-diffusion) in the Hugging Face [Optimum Intel](https://huggingface.co/docs/optimum/main/en/intel/index) library. The notebook that demonstrates the difference between optimized and original models is available [here](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/stable_diffusion_optimization.ipynb). You can also find [many models](https://huggingface.co/models?library=openvino&sort=downloads) on the Hugging Face Hub under the [OpenVINO organization](https://huggingface.co/OpenVINO). In addition, we have created a [demo](https://huggingface.co/spaces/AlexKoff88/stable_diffusion) on Hugging Face Spaces that is being run on r6id.2xlarge instance with 3rd Generation Intel Xeon Scalable processor.
+You can find the training and quantization [code](https://github.com/huggingface/optimum-intel/tree/main/examples/openvino/stable-diffusion) in the Hugging Face [Optimum Intel](https://huggingface.co/docs/optimum/main/en/intel/index) library. The notebook that demonstrates the difference between optimized and original models is available [here](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/stable_diffusion_optimization.ipynb). You can also find [many models](https://huggingface.co/models?library=openvino&sort=downloads) on the Hugging Face Hub under the [OpenVINO organization](https://huggingface.co/OpenVINO). In addition, we have created a [demo](https://huggingface.co/spaces/AlexKoff88/stable_diffusion) on Hugging Face Spaces that is being run on a 3rd Generation Intel Xeon Scalable processor.
 
 ## What about the general-purpose Stable Diffusion model?
 
