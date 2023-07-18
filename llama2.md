@@ -91,23 +91,10 @@ With transformers release 4.31, one can already use Llama 2 and leverage all the
 - utilities and helpers to run generation with the model
 - mechanisms to export the models to deploy
 
-In the following code snippet, we show how to run  inference with transformers
+In the following code snippet, we show how to run inference with transformers
 
-```python
-TO Update to minimal example + link to colab
-from transformers import ConversationalPipeline, Conversation, LlamaTokenizer, LlamaForCausalLM
-from transformers import AutoTokenizer, LlamaForCausalLM
 
-model_id = "meta-llama/Llama-2-7b-chat-hf"
-pipeline = transformers.pipeline(
-    "text-generation",
-    model=model_id,
-    device_map="auto",
-)
-
-# add call
-```
-
+# TODO: should we change the example to use system prompt/etc?
 ```python
 from transformers import AutoTokenizer
 import transformers
@@ -144,7 +131,7 @@ Of course! If you enjoyed "Breaking Bad" and "Band of Brothers," here are some o
 3. "Mad Men" - Set in the 1960s, this AMC series follows the lives of advertising executives on Madison Avenue, expl
 ```
 
-- Add something about ROPE - https://twitter.com/joao_gante/status/1679775399172251648/photo/1
+And although the model has *only* 4k tokens of context, you can use techniques supported in `transformers` such as rotary position embeddings ([tweet](https://twitter.com/joao_gante/status/1679775399172251648)) to push it further!
 
 ### Using text-generation-inference and Inference Endpoints
 
