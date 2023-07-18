@@ -149,7 +149,6 @@
   description: Learn from Hugging Face experts how to use Graphcore IPUs, Habana Gaudi AI Hardware Accelerators with Optimum!  
   
 - name: fastai X Hugging Face Group 2022
-  link: https://huggingface.co/hugginglearners
   date: Jul 15, 2022
   date_formatted: Jun 15 to Jul 15, 2022
   description: Share Vision and Text pre-trained fastai Learners with the community.
