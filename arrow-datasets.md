@@ -38,7 +38,8 @@ Further features of Arrow that make it especially useful in machine learning wor
 - **Constant-time random access**: indexing into a specific row is a constant time operation
 - **Efficient sequential scans**: the columnar memory layout makes for efficient iterating over the dataset
 - **Data can be memory-mapped**: larger-than-memory datasets can be serialized onto disk and memory-mapped from there.
-As a user, you typically won't need interact with Arrow directly, but rather use [libaries which use Arrow](https://arrow.apache.org/powered_by/) to represent tabular data in memory. However, as we'll see later in this post, even if the Arrow internals are abstracted away, being aware of them can give users access to more functionality than afforded by a given library.
+
+As a user, you typically won't need interact with Arrow directly, but rather use [libaries which use Arrow](https://arrow.apache.org/powered_by/)—such as Hugging Face Datasets—to represent tabular data in memory. However, as we'll see later in this post, even if the Arrow internals are abstracted away, being aware of them can give users access to more functionality than afforded by a given library.
 
 <!-- | ![Serialization](https://arrow.apache.org/img/copy.png) | ![Standardization](https://arrow.apache.org/img/shared.png)
 |:--:|:--:|
@@ -47,7 +48,7 @@ As a user, you typically won't need interact with Arrow directly, but rather use
 
 ### Hugging Face Datasets
 
-A Hugging Face `datasets.Dataset` object is at its core a dataframe-like structure called an Arrow Table: a 2-dimensional data structure with a schema and named columns. When you load a dataset for the first time, it is serialized in batches into one ore more `.arrow` memory files in your cache directory, then finally mmapped from those files on disk. To peek behind the scenes of this process let's begin by downloading the dataset we'll be using, a subset of [the Stack](https://huggingface.co/datasets/bigcode/the-stack-dedup), a dataset that was used to train the [StarCoder](https://huggingface.co/bigcode/starcoder) family of code large language models.
+A Hugging Face `datasets.Dataset` object is at its core a dataframe-like structure called an Arrow Table: a 2-dimensional data structure with a schema and named columns. When you load a dataset for the first time, it is serialized in batches into one ore more `.arrow` memory files in your cache directory, then finally mmapped from those files on disk. To peek behind the scenes of this process let's begin by downloading the dataset we'll be using, a subset of [the Stack](https://huggingface.co/datasets/bigcode/the-stack-dedup), a dataset that was used to train the [StarCoder](https://huggingface.co/bigcode/starcoder) family of code large language models. Each row of this dataset corresponds to one text file from GitHub, along with the corresponding metadata—programming language, license, number of stars, and file size to name a few.
 
 ```python
 >>> from datasets import load_dataset
@@ -61,8 +62,9 @@ A Hugging Face `datasets.Dataset` object is at its core a dataframe-like structu
 >>> print(len(dset.cache_files), "cache files")
 144 cache files
 ```
+One might pause here and duly wonder whether this makes arrow a disk format. The data is after all sharded and saved on disk, and the answer is no. Seeing as the data is saved in the same format it exists in memory, the data columns aren't compressed which makes the format less suited for long term disk storage than its sister project: [**Apache Parquet**](https://parquet.apache.org/). Parquet is also a columnar data format, that focuses on efficient disk storage and retrieval, and it achieves this through efficiently compression each data column. Serializing from Parquet to Arrow and vice-versa is very easy, and the two projects are generally very closely related, so much so for example, that the C++ implementation of Parquet is now part of the Arrow project; but enough of this short interlude, and let's go back to our cached dataset.
 
-Caching onto disk is not limited to loading data, but also transforming it. Indeed, as we'll see in a second, when you operate on a dataset, be it through filtering, mapping, or structural transformations, these operations are also cached to disk and only need to run once. Before we move on to the next section, let's quickly inspect the code dataset we just loaded:
+Caching datasets onto disk is not limited to loading data, but also transforming it. Indeed, as we'll see later in this post, when you operate on a 🤗 dataset—be it through filtering, mapping, or structural transformations—these operations are also cached to disk and only need to run once. Before we move on to the next section, let's quickly inspect the code dataset we just loaded:
 
 ```python
 >>> print(f'{dset.num_rows:,}', "rows")
