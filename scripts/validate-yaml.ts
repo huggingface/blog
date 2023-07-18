@@ -14,7 +14,7 @@ for (const lang of ["", "zh/"]) {
       date: z.string(),
       date_formatted: z.string().optional(),
       description: z.string(),
-    })).parse(parse(Deno.readTextFileSync(relativePath)));
+    })).parse(parse(Deno.readTextFileSync("../" + relativePath)));
   }
 
   {
@@ -30,7 +30,7 @@ for (const lang of ["", "zh/"]) {
       guest: z.boolean().optional(),
       date: z.string(),
       tags: z.array(z.string()),
-    })).parse(parse(Deno.readTextFileSync(relativePath)));
+    })).parse(parse(Deno.readTextFileSync("../" + relativePath)));
   }
 
   {
@@ -40,6 +40,6 @@ for (const lang of ["", "zh/"]) {
     z.array(z.object({
       value: z.string(),
       label: z.string(),
-    })).parse(parse(Deno.readTextFileSync(relativePath)));
+    })).parse(parse(Deno.readTextFileSync("../" + relativePath)));
   }
 }
