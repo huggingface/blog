@@ -1,8 +1,0 @@
-list(include('event'))
----
-event:
-  name: str()
-  link: str()
-  date: str()
-  date_formatted: str(required=False)
-  description: str()
