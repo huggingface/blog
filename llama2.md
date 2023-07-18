@@ -27,7 +27,7 @@ We’ve collaborated with Meta to ensure smooth integration into the Hugging Fac
 
 ## Table of Contents
 
-- [Whu Llama 2?](#why-llama-2)
+- [Why Llama 2?](#why-llama-2)
 - [Demo](#demo)
 - [Inference](#inference)
     - [With Transformers](#with-transformers)
@@ -43,7 +43,7 @@ The Llama 2 release introduces a family of pretrained and fine-tuned LLMs, rangi
 
 However, the most exciting part of this release is the fine-tuned models (Llama 2-Chat), which have been optimized for dialogue applications using [Reinforcement Learning from Human Feedback (RLHF)](https://huggingface.co/blog/rlhf). Across a wide range of helpfulness and safety benchmarks, the Llama 2-Chat models perform better than most open models and achieve comparable performance to ChatGPT according to human evaluations.
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9f92820d-1a3e-46dd-bba0-94cf27c16249/Untitled.png)
+| ![mqa](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama-rlhf.png) |
 
 *****************************TODO: add paper link to an image*****************************
 
@@ -53,28 +53,33 @@ TODO: add links to models
 
 | Model | License | Commercial use? | Pretraining length [tokens] | Leaderboard score |
 | --- | --- | --- | --- | --- |
-| Falcon-7B | Apache 2.0 | ✅ | 1,500B | 47.01 |
-| MPT-7B | Apache 2.0 | ✅ | 1,000B | 48.7 |
+| [Falcon-7B](https://huggingface.co/tiiuae/falcon-7b) | Apache 2.0 | ✅ | 1,500B | 47.01 |
+| [MPT-7B](https://huggingface.co/mosaicml/mpt-7b) | Apache 2.0 | ✅ | 1,000B | 48.7 |
 | Llama-7B | Llama license | ❌ | 1,000B | 49.71 |
-| Llama-2-7B | Llama 2 license | ✅ | 2,000B | 54.32 |
+| [Llama-2-7B](https://huggingface.co/meta-llama/Llama-2-7b-hf) | Llama 2 license | ✅ | 2,000B | 54.32 |
 | Llama-33B | Llama license | ❌ | 1,500B | * |
-| Llama-2-13B | Llama 2 license | ✅ | 2,000B | 58.67 |
-| mpt-30B | Apache 2.0 | ✅ | 1,000B | 55.7 |
-| Falcon-40B | Apache 2.0 | ✅ | 1,000B | 61.5 |
+| [Llama-2-13B](https://huggingface.co/meta-llama/Llama-2-13b-hf) | Llama 2 license | ✅ | 2,000B | 58.67 |
+| [mpt-30B](https://huggingface.co/mosaicml/mpt-30b) | Apache 2.0 | ✅ | 1,000B | 55.7 |
+| [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) | Apache 2.0 | ✅ | 1,000B | 61.5 |
 | Llama-65B | Llama license | ❌ | 1,500B | 62.1 |
-| Llama-2-70B | Llama 2 license | ✅ | 2,000B | * |
-| Llama-2-70B-chat* | Llama 2 license | ✅ | 2,000B | 66.8 |
+| [Llama-2-70B](https://huggingface.co/meta-llama/Llama-2-70b-hf) | Llama 2 license | ✅ | 2,000B | * |
+| [Llama-2-70B-chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf)* | Llama 2 license | ✅ | 2,000B | 66.8 |
 
 *we’re currently running evaluation of the Llama 2 70B (non chatty version). This table will be updated with the results.
 
 
 ## Demo
 
-TODO
+You can easily try the Big Llama 2 Model (70 billion parameters!) in [this Space](https://huggingface.co/spaces/ysharma/Explore_llamav2_with_TGI) or in the playground embedded below:
+
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.37.0/gradio.js"> </script>
+<gradio-app space="ysharma/Explore_llamav2_with_TGI"></gradio-app>
+
+Under the hood, this playground uses Hugging Face's [Text Generation Inference](https://github.com/huggingface/text-generation-inference), the same technology that powers [HuggingChat](https://huggingface.co/chat/), and which we'll share more in the following sections.
 
 
 ## Inference
-In this section, we’ll go through different mechanisms to run inference of the Llama2 models.
+In this section, we’ll go through different approaches to running inference of the Llama2 models.
 
 ### Using transformers
 
