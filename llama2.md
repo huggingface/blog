@@ -45,7 +45,7 @@ However, the most exciting part of this release is the fine-tuned models (Llama 
 
 | ![mqa](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama-rlhf.png) |
 
-*****************************TODO: add paper link to an image*****************************
+_image from [Llama 2: Open Foundation and Fine-Tuned Chat Models](https://scontent-fra3-2.xx.fbcdn.net/v/t39.2365-6/10000000_6495670187160042_4742060979571156424_n.pdf?_nc_cat=104&ccb=1-7&_nc_sid=3c67a6&_nc_ohc=GK8Rh1tm_4IAX8b5yo4&_nc_ht=scontent-fra3-2.xx&oh=00_AfDtg_PRrV6tpy9UmiikeMRuQgk6Rej7bCPOkXZQVmUKAg&oe=64BBD830)_
 
 If you’ve been waiting for an open alternative to closed-source chatbots, Llama 2-Chat is likely your best choice today!
 
@@ -150,7 +150,7 @@ You can try out Text Generation Inference on your own infrastructure, or you can
 - For 13B models, we advise you to select "GPU [xlarge] - 1x Nvidia A100".
 - For 70B models, we advise you to select "GPU [xxlarge] - 8x Nvidia A100".
 
-*Note: You might need to request a quota upgrade via email to **[api-enterprise@huggingface.co](mailto:api-enterprise@huggingface.co)** to access A100s*
+_Note: You might need to request a quota upgrade via email to **[api-enterprise@huggingface.co](mailto:api-enterprise@huggingface.co)** to access A100s_
 
 You can learn more on how to [Deploy LLMs with Hugging Face Inference Endpoints in our blog](https://huggingface.co/blog/inference-endpoints-llm). The [blog](https://huggingface.co/blog/inference-endpoints-llm) includes information about supported hyperparameters and how to stream your response using Python and Javascript.
 

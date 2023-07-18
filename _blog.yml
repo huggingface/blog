@@ -2489,7 +2489,7 @@
 
 - local: llama2
   title: "Llama 2 is here - get it on Hugging Face"
-  author: philschmid
+  author: osanseviero
   thumbnail: /blog/assets/llama2/thumbnail.jpg
   date: July 18, 2023
   tags:
