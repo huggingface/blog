@@ -30,9 +30,8 @@ We’ve collaborated with Meta to ensure smooth integration into the Hugging Fac
 - [Why Llama 2?](#why-llama-2)
 - [Demo](#demo)
 - [Inference](#inference)
-    - [With Transformers](#with-transformers)
+    - [With Transformers](#using-transformers)
     - [With Inference Endpoints](#using-text-generation-inference-and-inference-endpoints)
-    - [With Spaces](#with-spaces)
 - [Fine-tuning with PEFT](#fine-tuning-with-peft)
 - [Additional Resources](#additional-resources)
 - [Conclusion](#conclusion)
@@ -43,7 +42,7 @@ The Llama 2 release introduces a family of pretrained and fine-tuned LLMs, rangi
 
 However, the most exciting part of this release is the fine-tuned models (Llama 2-Chat), which have been optimized for dialogue applications using [Reinforcement Learning from Human Feedback (RLHF)](https://huggingface.co/blog/rlhf). Across a wide range of helpfulness and safety benchmarks, the Llama 2-Chat models perform better than most open models and achieve comparable performance to ChatGPT according to human evaluations.
 
-| ![mqa](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama-rlhf.png) |
+![mqa](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama-rlhf.png)
 
 _image from [Llama 2: Open Foundation and Fine-Tuned Chat Models](https://scontent-fra3-2.xx.fbcdn.net/v/t39.2365-6/10000000_6495670187160042_4742060979571156424_n.pdf?_nc_cat=104&ccb=1-7&_nc_sid=3c67a6&_nc_ohc=GK8Rh1tm_4IAX8b5yo4&_nc_ht=scontent-fra3-2.xx&oh=00_AfDtg_PRrV6tpy9UmiikeMRuQgk6Rej7bCPOkXZQVmUKAg&oe=64BBD830)_
 
