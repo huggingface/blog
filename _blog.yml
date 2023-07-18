@@ -2466,3 +2466,13 @@
     - intel
     - hardware
     - partnerships
+
+- local: diffusers-turns-1
+  title: "Happy 1st anniversary 🤗 Diffusers!"
+  author: stevhliu
+  thumbnail: /blog/assets/diffusers-turns-1/diffusers-turns-1.png
+  date: July 18, 2023
+  tags:
+    - community
+    - open-source-collab
+    - diffusion
