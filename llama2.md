@@ -137,7 +137,7 @@ Of course! If you enjoyed "Breaking Bad" and "Band of Brothers," here are some o
 3. "Mad Men" - Set in the 1960s, this AMC series follows the lives of advertising executives on Madison Avenue, expl
 ```
 
-And although the model has *only* 4k tokens of context, you can use techniques supported in `transformers` such as rotary position embeddings ([tweet](https://twitter.com/joao_gante/status/1679775399172251648)) to push it further!
+And although the model has *only* 4k tokens of context, you can use techniques supported in `transformers` such as rotary position embedding scaling ([tweet](https://twitter.com/joao_gante/status/1679775399172251648)) to push it further!
 
 ### Using text-generation-inference and Inference Endpoints
 
