@@ -105,7 +105,7 @@ from transformers import AutoTokenizer
 import transformers
 import torch
 
-model = "llamaste/Llama-2-7b-chat-hf"
+model = "meta-llama/Llama-2-7b-chat-hf"
 
 tokenizer = AutoTokenizer.from_pretrained(model)
 pipeline = transformers.pipeline(
@@ -162,7 +162,7 @@ An example command for fine-tuning Llama 2 7B on the `timdettmers/openassistant-
 
 ```python
 python finetune_llama_v2.py \
---model_name llamaste/Llama-2-7b-hf \
+--model_name meta-llama/Llama-2-7b-hf \
 --dataset_name timdettmers/openassistant-guanaco \
 --use_4bit \
 --merge_and_push
