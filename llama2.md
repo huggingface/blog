@@ -146,7 +146,7 @@ You can try out Text Generation Inference on your own infrastructure, or you can
 
 - For 7B models, we advise you to select "GPU [medium] - 1x Nvidia A10G".
 - For 13B models, we advise you to select "GPU [xlarge] - 1x Nvidia A100".
-- For 70B models, we advise you to select "GPU [xxlarge] - 8x Nvidia A100".
+- For 70B models, we advise you to select "GPU [xxxlarge] - 8x Nvidia A100".
 
 _Note: You might need to request a quota upgrade via email to **[api-enterprise@huggingface.co](mailto:api-enterprise@huggingface.co)** to access A100s_
 
