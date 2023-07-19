@@ -2497,3 +2497,14 @@
     - community
     - research
     - LLM
+
+- local: deploy-deepfloydif-using-bentoml
+  title: "Deploying Hugging Face Models with BentoML: DeepFloyd IF in Action"
+  author: Sherlockk
+  thumbnail: /blog/assets/deploy-deepfloydif-using-bentoml/thumbnail.png
+  date: July 19, 2023
+  tags:
+    - deployment
+    - open-source-collab
+    - bentoml
+    - guide
