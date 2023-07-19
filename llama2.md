@@ -40,7 +40,7 @@ We’ve collaborated with Meta to ensure smooth integration into the Hugging Fac
 
 The Llama 2 release introduces a family of pretrained and fine-tuned LLMs, ranging in scale from 7B to 70B parameters (7B, 13B, 70B). The pretrained models come with significant improvements over the Llama 1 models, including being trained on 40% more tokens, having a much longer context length (4k tokens 🤯), and using grouped-query attention for fast inference of the 70B model🔥!
 
-However, the most exciting part of this release is the fine-tuned models (Llama 2-Chat), which have been optimized for dialogue applications using [Reinforcement Learning from Human Feedback (RLHF)](https://huggingface.co/blog/rlhf). Across a wide range of helpfulness and safety benchmarks, the Llama 2-Chat models perform better than most open models and achieve comparable performance to ChatGPT according to human evaluations.
+However, the most exciting part of this release is the fine-tuned models (Llama 2-Chat), which have been optimized for dialogue applications using [Reinforcement Learning from Human Feedback (RLHF)](https://huggingface.co/blog/rlhf). Across a wide range of helpfulness and safety benchmarks, the Llama 2-Chat models perform better than most open models and achieve comparable performance to ChatGPT according to human evaluations. You can read the paper [here](https://huggingface.co/papers/2307.09288).
 
 ![mqa](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/llama-rlhf.png)
 
@@ -170,6 +170,7 @@ python finetune_llama_v2.py \
 
 ## Additional Resources
 
+- [Paper Page](https://huggingface.co/papers/2307.09288)
 - [Models on the Hub](https://huggingface.co/meta-llama)
 - [Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
 - [Meta Examples and recipes for Llama model](https://github.com/facebookresearch/llama-recipes/tree/main)
