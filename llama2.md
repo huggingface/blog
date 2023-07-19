@@ -156,16 +156,25 @@ You can learn more on how to [Deploy LLMs with Hugging Face Inference Endpoints 
 
 Training LLMs can be technically and computationally challenging. In this section, we look at the tools available in the Hugging Face ecosystem to efficiently train Llama 2 on simple hardware and show how to fine-tune the 7B version of Llama 2 on a single NVIDIA T4 (16GB - Google Colab). You can learn more about it in the [Making LLMs even more accessible blog](https://huggingface.co/blog/4bit-transformers-bitsandbytes).
 
-We created a [script](https://gist.github.com/younesbelkada/9f7f75c94bdc1981c8ca5cc937d4a4da) to instruction-tune Llama 2 using QLoRA and the `SFTTrainer` from `trl`. 
+We created a [script](https://github.com/lvwerra/trl/blob/main/examples/scripts/sft_trainer.py) to instruction-tune Llama 2 using QLoRA and the [`SFTTrainer`](https://huggingface.co/docs/trl/v0.4.7/en/sft_trainer) from [`trl`](https://github.com/lvwerra/trl). 
 
 An example command for fine-tuning Llama 2 7B on the `timdettmers/openassistant-guanaco` can be found below. The script can merge the LoRA weights into the model weights and save them as `safetensor` weights by providing the `merge_and_push` argument. This allows us to deploy our fine-tuned model after training using text-generation-inference and inference endpoints.
 
+First pip install `trl` and clone the script:
+```bash
+pip install trl
+git clone https://github.com/lvwerra/trl
+```
+
+Then you can run the script:
 ```python
-python finetune_llama_v2.py \
---model_name meta-llama/Llama-2-7b-hf \
---dataset_name timdettmers/openassistant-guanaco \
---use_4bit \
---merge_and_push
+python trl/examples/scripts/sft_trainer.py \
+    --model_name meta-llama/Llama-2-7b-hf \
+    --dataset_name timdettmers/openassistant-guanaco \
+    --load_in_4bit \
+    --use_peft \
+    --batch_size 4 \
+    --gradient_accumulation_steps 2
 ```
 
 ## Additional Resources
