@@ -167,7 +167,7 @@ git clone https://github.com/lvwerra/trl
 ```
 
 Then you can run the script:
-```python
+```bash
 python trl/examples/scripts/sft_trainer.py \
     --model_name meta-llama/Llama-2-7b-hf \
     --dataset_name timdettmers/openassistant-guanaco \
