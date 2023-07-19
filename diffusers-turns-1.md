@@ -51,6 +51,7 @@ video_path = export_to_video(video_frames)
   <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/darthvader_cerpense.gif" alt="Generated video of Darth Vader surfing."/>
 </div>
 
+We expect text-to-video to go through a revolution during 🤗 Diffusers second year, and we are excited to see what the community builds on top of these to push the boundaries of video generation from language!
 ## Text-to-3D image models
 
 In addition to text-to-video, we also have text-to-3D image generation now thanks to OpenAI’s [Shap-E](https://hf.co/papers/2305.02463) model. Shap-E is trained by encoding a large dataset of 3D-text pairs, and a diffusion model is conditioned on the encoder’s outputs. You can design 3D assets for video games, interior design, and architecture. 
@@ -85,7 +86,7 @@ The development of these features is guided by our [ethical charter](https://hug
 
 ## Support for LoRA
 
-Fine-tuning diffusion models is expensive and out of reach for most consumer GPUs. We added the Low-Rank Adaptation ([LoRA](https://huggingface.co/papers/2106.09685)) technique to close this gap. With LoRA, which is a method for parameter-efficient fine-tuning, you can fine-tune large diffusion models faster and consume less memory. The resulting model weights are also very lightweight compared to the original model, so you can easily share your custom models. If you want to learn more, we published a [blog post](https://huggingface.co/blog/lora) about fine-tuning Stable Diffusion with LoRA.
+Fine-tuning diffusion models is expensive and out of reach for most consumer GPUs. We added the Low-Rank Adaptation ([LoRA](https://huggingface.co/papers/2106.09685)) technique to close this gap. With LoRA, which is a method for parameter-efficient fine-tuning, you can fine-tune large diffusion models faster and consume less memory. The resulting model weights are also very lightweight compared to the original model, so you can easily share your custom models. If you want to learn more, our documentation is available [here](https://huggingface.co/docs/diffusers/main/en/training/lora) that shows how to perform fine-tuning and inference on Stable Diffusion with LoRA.
 
 In addition to LoRA, we support other [training techniques](https://huggingface.co/docs/diffusers/main/en/training/overview) for more personalized generation, such as DreamBooth, textual inversion, custom diffusion, and more!
 
