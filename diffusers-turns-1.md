@@ -105,7 +105,7 @@ The development of these features is guided by our [ethical charter](https://hug
 
 Fine-tuning diffusion models is expensive and out of reach for most consumer GPUs. We added the Low-Rank Adaptation ([LoRA](https://huggingface.co/papers/2106.09685)) technique to close this gap. With LoRA, which is a method for parameter-efficient fine-tuning, you can fine-tune large diffusion models faster and consume less memory. The resulting model weights are also very lightweight compared to the original model, so you can easily share your custom models. If you want to learn more, [our documentation](https://huggingface.co/docs/diffusers/main/en/training/lora) shows how to perform fine-tuning and inference on Stable Diffusion with LoRA.
 
-In addition to LoRA, we support other [training techniques](https://huggingface.co/docs/diffusers/main/en/training/overview) for more personalized generation, such as DreamBooth, textual inversion, custom diffusion, and more!
+In addition to LoRA, we support other [training techniques](https://huggingface.co/docs/diffusers/main/en/training/overview) for personalized generation, including DreamBooth, textual inversion, custom diffusion, and more!
 
 ## Torch 2.0 optimizations
 
