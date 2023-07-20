@@ -52,6 +52,7 @@ video_path = export_to_video(video_frames)
 </div>
 
 We expect text-to-video to go through a revolution during 🤗 Diffusers second year, and we are excited to see what the community builds on top of these to push the boundaries of video generation from language!
+
 ## Text-to-3D image models
 
 In addition to text-to-video, we also have text-to-3D image generation now thanks to OpenAI’s [Shap-E](https://hf.co/papers/2305.02463) model. Shap-E is trained by encoding a large dataset of 3D-text pairs, and a diffusion model is conditioned on the encoder’s outputs. You can design 3D assets for video games, interior design, and architecture. 
