@@ -193,6 +193,8 @@ The prompt template for the first turn looks like this:
 {{ user_message }} [/INST]
 ```
 
+This template follows the model's training procedure. We can use any `system_prompt` we want, but it's important that the format matches the one used during training.
+
 To spell it out in full clarity, this is what is actually sent to the language model when the user enters some text (`There's a llama in my garden 😱 What should I do?`) to initiate a chat:
 
 ```b
@@ -204,7 +206,7 @@ If a question does not make any sense, or is not factually coherent, explain why
 There's a llama in my garden 😱 What should I do? [/INST]
 ```
 
-As you can see, the instructions between the special `<<SYS>>` tokens provide context for the model so it knows how we expect it to respond. This works because these tokens were used during training with a wide variety of combinations for different tasks.
+As you can see, the instructions between the special `<<SYS>>` tokens provide context for the model so it knows how we expect it to respond. This works because exactly the same format was used during training with a wide variety of system prompts intended for different tasks.
 
 As the conversation progresses, _all_ the conversation between the human and the "bot" are appended to the previous prompt, enclosed between `[INST]` delimiters. The template used during multi-turn conversations follows this structure:
 
