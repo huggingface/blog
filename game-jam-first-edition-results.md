@@ -128,3 +128,49 @@ In this game, you embark on an interstellar journey as a spaceship captain, pitt
 🤖 Scenario - Image generator
 🎮👉 https://blastergames.itch.io/galactic-domination
 
+### #9: Apocalypse Expansion
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/appocalypse.jpg" alt="Appocalypse"/>
+
+In this game, you'll step into the decaying shoes of a zombie, driven by an insatiable hunger for human flesh. Your objective? To build the largest horde of zombies ever seen, while evading the relentless pursuit of the determined police force.
+
+🤖 Used Stable Diffusion to generate the images.
+🤖 Used MusicGen (melody 1.5B) for the music.
+🎮👉 https://mad25.itch.io/apocalypse-expansion
+
+
+### #10: Galactic Bride: Bullet Ballet
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/bride.jpg" alt="Bride"/>
+
+In this game, you dive into an exhilarating bullet-hell journey to become the Star Prince's bride and fulfill your wishes.
+
+🎮👉 https://n30hrtgdv.itch.io/galactic-bride-bullet-ballet
+
+### #11: Galactic Bride: Bullet Ballet
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/singularity.gif" alt="Singularity"/>
+
+This demo is a conceptual demonstration of what could soon be the generation of experiences/games in the near future.
+
+🤖 Used Stable Diffusion.
+🎮👉 https://ilumine-ai.itch.io/dreamlike-hugging-face-open-source-ai-game-jam
+
+In addition to this top 10, don't hesitate to check the other amazing games (Ghost In Smoke, Outopolis, Dungeons and Decoders...). You can fine the whole list here 👉 https://itch.io/jam/open-source-ai-game-jam/entries
+
+---
+
+The first-ever Open Source AI Game Jam proved to be an astounding success, exceeding our expectations in terms of community engagement and the quality of games produced. The overwhelming response has **reinforced our belief in the potential of open-source AI tools to revolutionize the gaming industry.**
+
+We are eager to continue this initiative and plan to host more sessions in the future, providing game developers with an opportunity to showcase their skills and explore the power of AI in game development.
+
+For those interested in AI for games, we have compiled a list of valuable resources, including AI tools for game development and tutorials on integrating AI into game engines like Unity:
+
+- **[Compilation of AI tools for Game Dev](https://github.com/simoninithomas/awesome-ai-tools-for-game-dev)**
+- How to install the Unity Hugging Face API: **https://huggingface.co/blog/unity-api**
+- AI Speech Recognition in Unity: **https://huggingface.co/blog/unity-asr**
+- Making ML-powered web games with Transformers.js: **https://huggingface.co/blog/ml-web-games**
+- Building a smart Robot AI using Hugging Face 🤗 and Unity: **https://thomassimonini.substack.com/p/building-a-smart-robot-ai-using-hugging**
+
+To stay connected and stay updated on future events, feel free to drop by our Discord server, where you can find channels dedicated to exchanging ideas about AI for games.
+
+Join our Discord Server 👉 **https://hf.co/join/discord**
+
+Thank you to all the participants, contributors, and supporters who made this event a memorable success!
