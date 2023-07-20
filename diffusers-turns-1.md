@@ -18,6 +18,20 @@ At Hugging Face, our mission is to democratize good machine learning by collabor
 
 As 🤗 Diffusers turns 1, here’s an overview of some of the most notable features we’ve added to the library with the help of our community to promote accessible usage and push diffusion models beyond just text-to-image generation.
 
+**Table of Contents**
+
+* [Striving for photorealism](#striving-for-photorealism)
+* [Video pipelines](#video-pipelines)
+* [Text-to-3D models](#text-to-3d-models)
+* [Image editing pipelines](#image-editing-pipelines)
+* [Faster diffusion models](#faster-diffusion-models)
+* [Ethics and safety](#ethics-and-safety)
+* [Support for LoRA](#support-for-lora)
+* [Torch 2.0 optimizations](#torch-20-optimizations)
+* [Community highlights](#community-highlights)
+* [Building products with 🤗 Diffusers](#building-products-with-🤗-diffusers)
+* [Looking forward](#looking-forward)
+
 ## Striving for photorealism
 
 Generative AI models are known for creating photorealistic images, but if you look closely, you may notice certain things that don't look right, like generating extra fingers on a hand. This year, the DeepFloyd IF and Stability AI SDXL models made a splash by improving the quality of generated images to be even more photorealistic.
@@ -53,9 +67,9 @@ video_path = export_to_video(video_frames)
 
 We expect text-to-video to go through a revolution during 🤗 Diffusers second year, and we are excited to see what the community builds on top of these to push the boundaries of video generation from language!
 
-## Text-to-3D image models
+## Text-to-3D models
 
-In addition to text-to-video, we also have text-to-3D image generation now thanks to OpenAI’s [Shap-E](https://hf.co/papers/2305.02463) model. Shap-E is trained by encoding a large dataset of 3D-text pairs, and a diffusion model is conditioned on the encoder’s outputs. You can design 3D assets for video games, interior design, and architecture. 
+In addition to text-to-video, we also have text-to-3D generation now thanks to OpenAI’s [Shap-E](https://hf.co/papers/2305.02463) model. Shap-E is trained by encoding a large dataset of 3D-text pairs, and a diffusion model is conditioned on the encoder’s outputs. You can design 3D assets for video games, interior design, and architecture. 
 
 Try it out today with the [`ShapEPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/shap_e#diffusers.ShapEPipeline) and [`ShapEImg2ImgPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/shap_e#diffusers.ShapEImg2ImgPipeline).
 
@@ -95,7 +109,7 @@ In addition to LoRA, we support other [training techniques](https://huggingface.
 
 PyTorch 2.0 [introduced support](https://pytorch.org/get-started/pytorch-2.0/#pytorch-2x-faster-more-pythonic-and-as-dynamic-as-ever) for `torch.compile()`and `scaled_dot_product_attention()`, a more efficient implementation of the attention mechanism. 🤗 Diffusers [provides first-class support](https://huggingface.co/docs/diffusers/optimization/torch2.0) for these features resulting in massive speedups in inference latency, which can sometimes be more than 100%!
 
-We expect text-to-video to go through a revolution during 🤗 Diffusers second year, and we are excited to see what the community builds on top of these to push the boundaries of video generation from language!
+In addition to visual content (images, videos, 3D assets, etc.), we also added support for audio! Check out [the documentation](https://huggingface.co/docs/diffusers/using-diffusers/audio) to learn more.
 
 ## Community highlights
 
