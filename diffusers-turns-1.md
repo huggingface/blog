@@ -16,7 +16,7 @@ authors:
 
 At Hugging Face, our mission is to democratize good machine learning by collaborating and helping each other build an open and ethical AI future together. Our mission motivated us to create the 🤗 Diffusers library so *everyone* can experiment, research, or simply play with text-to-image models. That’s why we designed the library as a modular toolbox, so you can customize a diffusion model’s components or just start using it out-of-the-box.
 
-As 🤗 Diffusers turns 1, here’s an overview of some of the most notable features we’ve added to the library with the help of our community to promote accessible usage and push diffusion models beyond just text-to-image generation.
+As 🤗 Diffusers turns 1, here’s an overview of some of the most notable features we’ve added to the library with the help of our community. We are proud and immensely grateful for being part of an engaged community that promotes accessible usage, pushes diffusion models beyond just text-to-image generation, and is an all-around inspiration.
 
 **Table of Contents**
 
