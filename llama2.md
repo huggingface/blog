@@ -187,7 +187,7 @@ If you take a close look at the source code of our Llama 2 70B demo, you can see
 The prompt template for the first turn looks like this:
 
 ```
-[INST] <<SYS>>
+<s>[INST] <<SYS>>
 {{ system_prompt }}
 <</SYS>>
 {{ user_message }} [/INST]
@@ -196,12 +196,12 @@ The prompt template for the first turn looks like this:
 To spell it out in full clarity, this is what is actually sent to the language model when the user enters some text (`There's a llama in my garden 😱 What should I do?`) to initiate a chat:
 
 ```b
-[INST] <<SYS>>
+<s>[INST] <<SYS>>
 You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.
 
 If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.
 <</SYS>>
-There's a llama in my garden 😱 What should I do?[/INST]
+There's a llama in my garden 😱 What should I do? [/INST]
 ```
 
 As you can see, the instructions between the special `<<SYS>>` tokens provide context for the model so it knows how we expect it to respond. This works because these tokens were used during training with a wide variety of combinations for different tasks.
@@ -209,11 +209,12 @@ As you can see, the instructions between the special `<<SYS>>` tokens provide co
 As the conversation progresses, _all_ the conversation between the human and the "bot" are appended to the previous prompt, enclosed between `[INST]` delimiters. The template used during multi-turn conversations follows this structure:
 
 ```b
-[INST] <<SYS>>
+<s>[INST] <<SYS>>
 {{ system_prompt }}
 <</SYS>>
-
-{{ user_msg_1 }} [/INST] {{ assistant_response_1 }}</s><s>[INST] {{ user_msg_2 }} [/INST]
+{{ user_msg_1 }} [/INST] {{ model_answer_1 }} </s>
+<s>[INST] {{ user_msg_2 }} [/INST] {{ model_answer_2 }} </s>
+<s>[INST] {{ user_msg_3 }} [/INST]
 ```
 
 The model is stateless and does not "remember" previous fragments of the conversation, we must always supply it with all the context so the conversation can continue. This is the reason why **context length** is a very important parameter to maximize, as it allows for longer conversations and larger amounts of information to be used. 
