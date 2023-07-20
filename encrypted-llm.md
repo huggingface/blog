@@ -35,6 +35,10 @@ In [TFHE](https://www.zama.ai/post/tfhe-deep-dive-part-1), model weights and act
 
 Next, you’ll see how to encrypt a single attention head of the multi-head attention (MHA) block. You can also find an example for the full MHA block in this [use case example](https://github.com/zama-ai/concrete-ml/tree/17779ca571d20b001caff5792eb11e76fe2c19ba/use_case_examples/llm).
 
+![Figure 2. Running parts of a Large Language Model in FHE.](assets/encrypted-llm/Hybrid%20Model%20GPT2%20Visualisation.svg)
+
+Figure 2. shows a simplified overview of the underlying implementation. A client starts the inference locally up to the first layer which has been removed from the shared model. The user encrypts the intermediate operations and sends them to the server. The server applies part of the attention mechanism and the results are then returned to the client who can decrypt them and continue the local inference.
+
 ### Quantization
 
 First, in order to perform the model inference on encrypted values, the weights and activations of the model must be quantized and converted to integers. The ideal is to use [post-training quantization](https://docs.zama.ai/concrete-ml/advanced-topics/quantization) which does not require re-training the model. The process is to implement an FHE compatible attention mechanism, use integers and PBS, and then examine the impact on LLM accuracy.
@@ -136,7 +140,7 @@ Running this, you will see the following print out: “Circuit compiled with 8 b
 
 In transformer models, the most computationally intensive operation is the attention mechanism which multiplies the queries, keys, and values. In FHE, the cost is compounded by the specificity of multiplications in the encrypted domain. Furthermore, as the sequence length increases, the number of these challenging multiplications increases quadratically.
 
-For the encrypted head, a sequence of length 6 requires 11,622 PBS operations. This is a first experiment that has not been optimized for performance. While it can run in a matter of seconds, it would require quite a lot of computing power. Fortunately, there is an exponential increase in the performance of FHE. You can expect hybrid cleartext-FHE LLMs such, as the one discussed here, to achieve sub-second inference times within 18 months and full FHE LLMs, like ChatGPT, to reach such low latencies within 5 years. For more information about these projections, see [this blog post](https://www.zama.ai/post/chatgpt-privacy-with-homomorphic-encryption).
+For the encrypted head, a sequence of length 6 requires 11,622 PBS operations. This is a first experiment that has not been optimized for performance. While it can run in a matter of seconds, it would require quite a lot of computing power. Fortunately, hardware will improve latency by 1000x to 10000x, making things go from several minutes on CPU to < 100ms on ASIC once they are available in a few years. For more information about these projections, see [this blog post](https://www.zama.ai/post/chatgpt-privacy-with-homomorphic-encryption).
 
 ## Conclusion
 
