@@ -70,7 +70,7 @@ The resultant model is highly beneficial when running inference on devices with 
 </div>
 </div>
 
-Results of image generation [demo](https://huggingface.co/spaces/AlexKoff88/stable_diffusion) using different optimized models. Input prompt is “cartoon bird”, seed is 42. The models are with OpenVINO 2022.3 in [Hugging Face Spaces](https://huggingface.co/docs/hub/spaces-overview) using a “CPU upgrade” instance which utilizes 3rd Generation Intel® Xeon® Scalable Processors with Intel® Deep Learning Boost technology.
+Results of image generation [demo](https://huggingface.co/spaces/helenai/stable_diffusion) using different optimized models. Input prompt is “cartoon bird”, seed is 42. The models are with OpenVINO 2022.3 in [Hugging Face Spaces](https://huggingface.co/docs/hub/spaces-overview) using a “CPU upgrade” instance which utilizes 3rd Generation Intel® Xeon® Scalable Processors with Intel® Deep Learning Boost technology.
 
 ## Results
 
@@ -97,7 +97,7 @@ output = pipe(prompt, num_inference_steps=50, output_type="pil").images[0]
 output.save("image.png")
 ```
 
-You can find the training and quantization [code](https://github.com/huggingface/optimum-intel/tree/main/examples/openvino/stable-diffusion) in the Hugging Face [Optimum Intel](https://huggingface.co/docs/optimum/main/en/intel/index) library. The notebook that demonstrates the difference between optimized and original models is available [here](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/stable_diffusion_optimization.ipynb). You can also find [many models](https://huggingface.co/models?library=openvino&sort=downloads) on the Hugging Face Hub under the [OpenVINO organization](https://huggingface.co/OpenVINO). In addition, we have created a [demo](https://huggingface.co/spaces/AlexKoff88/stable_diffusion) on Hugging Face Spaces that is being run on a 3rd Generation Intel Xeon Scalable processor.
+You can find the training and quantization [code](https://github.com/huggingface/optimum-intel/tree/main/examples/openvino/stable-diffusion) in the Hugging Face [Optimum Intel](https://huggingface.co/docs/optimum/main/en/intel/index) library. The notebook that demonstrates the difference between optimized and original models is available [here](https://github.com/huggingface/optimum-intel/blob/main/notebooks/openvino/stable_diffusion_optimization.ipynb). You can also find [many models](https://huggingface.co/models?library=openvino&sort=downloads) on the Hugging Face Hub under the [OpenVINO organization](https://huggingface.co/OpenVINO). In addition, we have created a [demo](https://huggingface.co/spaces/helenai/stable_diffusion) on Hugging Face Spaces that is being run on a 3rd Generation Intel Xeon Scalable processor.
 
 ## What about the general-purpose Stable Diffusion model?
 
