@@ -4,7 +4,7 @@ thumbnail: /blog/assets/diffusers-turns-1/diffusers-turns-1.png
 authors:
 - user: stevhliu
 - user: sayakpaul
-- user: pcuenca
+- user: pcuenq
 ---
 
 # Happy 1st anniversary 🤗 Diffusers!
@@ -36,9 +36,9 @@ As 🤗 Diffusers turns 1, here’s an overview of some of the most notable feat
 
 Generative AI models are known for creating photorealistic images, but if you look closely, you may notice certain things that don't look right, like generating extra fingers on a hand. This year, the DeepFloyd IF and Stability AI SDXL models made a splash by improving the quality of generated images to be even more photorealistic.
 
-[DeepFloyd IF](https://stability.ai/blog/deepfloyd-if-text-to-image-model) - A modular diffusion model that includes different processes for generating an image (for example, an image is upscaled 3x to produce a higher resolution image). The IF model works directly on the pixel level, and it uses a large language model to encode text.
+[DeepFloyd IF](https://stability.ai/blog/deepfloyd-if-text-to-image-model) - A modular diffusion model that includes different processes for generating an image (for example, an image is upscaled 3x to produce a higher resolution image). Unlike Stable Diffusion, the IF model works directly on the pixel level, and it uses a large language model to encode text.
 
-[SDXL](https://stability.ai/blog/sdxl-09-stable-diffusion) - The latest Stable Diffusion model from Stability AI with significantly more parameters than its predecessor Stable Diffusion 2, allowing it to generate hyper-realistic images. SDXL generates an image with a base model, and a refiner model adds even more details to the image.
+[Stable Diffusion XL (SDXL)](https://stability.ai/blog/sdxl-09-stable-diffusion) - The latest Stable Diffusion model from Stability AI, with significantly more parameters than its predecessor Stable Diffusion 2. It generates hyper-realistic images, leveraging a base model for close adherence to the prompt, and a refiner model specialized in the fine details and high-frequency content.
 
 Head over to the DeepFloyd IF [docs](https://huggingface.co/docs/diffusers/v0.18.2/en/api/pipelines/if#texttoimage-generation) and the SDXL [docs](https://huggingface.co/docs/diffusers/v0.18.2/en/api/pipelines/stable_diffusion/stable_diffusion_xl) today to learn how to start generating your own images!
 
@@ -46,7 +46,7 @@ Head over to the DeepFloyd IF [docs](https://huggingface.co/docs/diffusers/v0.18
 
 Text-to-image pipelines are cool, but text-to-video is even cooler! We currently support two text-to-video pipelines, [VideoFusion](https://huggingface.co/docs/diffusers/main/en/api/pipelines/text_to_video) and [Text2Video-Zero](https://huggingface.co/docs/diffusers/main/en/api/pipelines/text_to_video_zero).
 
-If you’re already familiar with using a text-to-image pipeline, using a text-to-video pipeline is very similar:
+If you’re already familiar with text-to-image pipelines, using a text-to-video pipeline is very similar:
 
 ```py
 import torch
@@ -87,7 +87,9 @@ We have many [pipelines](https://huggingface.co/docs/diffusers/main/en/using-dif
 
 Diffusion models are known to be time-intensive because of their iterative steps. With OpenAI’s [Consistency Models](https://huggingface.co/papers/2303.01469), the image generation process is significantly faster. Generating a single 256x256 resolution image only takes 3/4 of a second on a modern CPU! You can try this out in 🤗 Diffusers with the [`ConsistencyModelPipeline`](https://huggingface.co/docs/diffusers/main/en/api/pipelines/consistency_models).
 
-On top of speedier diffusion models, we also offer many optimization techniques for faster inference like PyTorch 2.0’s `scaled_dot_product_attention()` (SDPA), `torch.compile()`, sliced attention, feed-forward chunking, VAE tiling, CPU and model offloading, and more. These optimizations save memory, which translates to faster inference and allow you to run inference on consumer GPUs. We also support working with specific hardware or formats like ONNX, Apple’s CoreML and M1/M2 devices. When you distribute a model with 🤗 Diffusers, all of these optimizations are immediately supported.
+On top of speedier diffusion models, we also offer many optimization techniques for faster inference like [PyTorch 2.0’s `scaled_dot_product_attention()` (SDPA) and `torch.compile()`](https://pytorch.org/blog/accelerated-diffusers-pt-20), sliced attention, feed-forward chunking, VAE tiling, CPU and model offloading, and more. These optimizations save memory, which translates to faster generation, and allow you to run inference on consumer GPUs. When you distribute a model with 🤗 Diffusers, all of these optimizations are immediately supported!
+
+In addition to that, we also support specific hardware and formats like ONNX, the `mps` PyTorch device for Apple Silicon computers, Core ML, and others.
 
 To learn more about how we optimize inference with 🤗 Diffusers, check out the [docs](https://huggingface.co/docs/diffusers/optimization/opt_overview)!
 
@@ -101,160 +103,129 @@ The development of these features is guided by our [ethical charter](https://hug
 
 ## Support for LoRA
 
-Fine-tuning diffusion models is expensive and out of reach for most consumer GPUs. We added the Low-Rank Adaptation ([LoRA](https://huggingface.co/papers/2106.09685)) technique to close this gap. With LoRA, which is a method for parameter-efficient fine-tuning, you can fine-tune large diffusion models faster and consume less memory. The resulting model weights are also very lightweight compared to the original model, so you can easily share your custom models. If you want to learn more, our documentation is available [here](https://huggingface.co/docs/diffusers/main/en/training/lora) that shows how to perform fine-tuning and inference on Stable Diffusion with LoRA.
+Fine-tuning diffusion models is expensive and out of reach for most consumer GPUs. We added the Low-Rank Adaptation ([LoRA](https://huggingface.co/papers/2106.09685)) technique to close this gap. With LoRA, which is a method for parameter-efficient fine-tuning, you can fine-tune large diffusion models faster and consume less memory. The resulting model weights are also very lightweight compared to the original model, so you can easily share your custom models. If you want to learn more, [our documentation](https://huggingface.co/docs/diffusers/main/en/training/lora) shows how to perform fine-tuning and inference on Stable Diffusion with LoRA.
 
 In addition to LoRA, we support other [training techniques](https://huggingface.co/docs/diffusers/main/en/training/overview) for more personalized generation, such as DreamBooth, textual inversion, custom diffusion, and more!
 
 ## Torch 2.0 optimizations
 
-PyTorch 2.0 [introduced support](https://pytorch.org/get-started/pytorch-2.0/#pytorch-2x-faster-more-pythonic-and-as-dynamic-as-ever) for `torch.compile()`and `scaled_dot_product_attention()`, a more efficient implementation of the attention mechanism. 🤗 Diffusers [provides first-class support](https://huggingface.co/docs/diffusers/optimization/torch2.0) for these features resulting in massive speedups in inference latency, which can sometimes be more than 100%!
+PyTorch 2.0 [introduced support](https://pytorch.org/get-started/pytorch-2.0/#pytorch-2x-faster-more-pythonic-and-as-dynamic-as-ever) for `torch.compile()`and `scaled_dot_product_attention()`, a more efficient implementation of the attention mechanism. 🤗 Diffusers [provides first-class support](https://huggingface.co/docs/diffusers/optimization/torch2.0) for these features resulting in massive speedups in inference latency, which can sometimes be more than twice as fast!
 
 In addition to visual content (images, videos, 3D assets, etc.), we also added support for audio! Check out [the documentation](https://huggingface.co/docs/diffusers/using-diffusers/audio) to learn more.
 
 ## Community highlights
 
-One of the most gratifying experiences of the past year has been seeing how the community is incorporating 🤗 Diffusers into their projects. From adapting Low-rank adaptation (LoRA) for faster training of text-to-image models to building a state-of-the-art inpainting tool to erase and replace things in images, here are a few of our favorite projects:
+One of the most gratifying experiences of the past year has been seeing how the community is incorporating 🤗 Diffusers into their projects. From adapting Low-rank adaptation (LoRA) for faster training of text-to-image models to building a state-of-the-art inpainting tool, here are a few of our favorite projects:
 
 
-<div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
-  <div class="[column-fill:_balance] sm:columns-2 sm:gap-6 lg:columns-3 lg:gap-8">
-    <div class="mb-8 sm:break-inside-avoid">
-      <blockquote class="rounded-xl bg-gray-50 p-6 shadow">
-        <p class="leading-relaxed text-gray-700">We built Core ML Stable Diffusion to make it easier for developers to add state-of-the-art generative AI capabilities in their iOS, iPadOS and macOS apps with the highest efficiency on Apple Silicon. We built on top of 🤗 Diffusers instead of from scratch as 🤗 Diffusers consistently stays on top of a rapidly evolving field and promotes much needed interoperability of new and old ideas.</p>
-      </blockquote>
-
-      <div class="mt-4 flex items-center gap-4">
-        <img src="https://avatars.githubusercontent.com/u/10639145?s=200&v=4" class="h-12 w-12 rounded-full object-cover" />
-
-        <div class="text-sm">
-          <p class="font-medium">Atila Orhon</p>
-        </div>
+<div class="mx-auto max-w-screen-xl py-8">
+  <div class="mb-8 sm:break-inside-avoid">
+    <blockquote class="rounded-xl !mb-0 bg-gray-50 p-6 shadow dark:bg-gray-800">
+      <p class="leading-relaxed text-gray-700">We built Core ML Stable Diffusion to make it easier for developers to add state-of-the-art generative AI capabilities in their iOS, iPadOS and macOS apps with the highest efficiency on Apple Silicon. We built on top of 🤗 Diffusers instead of from scratch as 🤗 Diffusers consistently stays on top of a rapidly evolving field and promotes much needed interoperability of new and old ideas.</p>
+    </blockquote>
+    <div class="flex items-center gap-4">
+      <img src="https://avatars.githubusercontent.com/u/10639145?s=200&v=4" class="h-12 w-12 rounded-full object-cover" />
+      <div class="text-sm">
+        <p class="font-medium">Atila Orhon</p>
       </div>
     </div>
-
-    <div class="mb-8 sm:break-inside-avoid">
-      <blockquote class="rounded-xl bg-gray-50 p-6 shadow">
-        <p class="leading-relaxed text-gray-700">🤗 Diffusers has been absolutely developer-friendly for me to dive right into stable diffusion models. Main differentiating factor clearly being that 🤗 Diffusers implementation is often not some code from research lab, that are mostly focused on high velocity driven. While research codes are often poorly written and difficult to understand (lack of typing, assertions, inconsistent design patterns and conventions), 🤗 Diffusers was a breeze to use for me to hack my ideas within couple of hours. Without it, I would have needed to invest significantly more amount of time to start hacking. Well-written documentations and examples are extremely helpful as well.</p>
-      </blockquote>
-
-      <div class="mt-4 flex items-center gap-4">
-        <img src="https://avatars.githubusercontent.com/u/35953539?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
-
-        <div class="text-sm">
-          <p class="font-medium">Simo</p>
-        </div>
+  </div>
+  <div class="mb-8 sm:break-inside-avoid">
+    <blockquote class="rounded-xl !mb-0 bg-gray-50 p-6 shadow dark:bg-gray-800">
+      <p class="leading-relaxed text-gray-700">🤗 Diffusers has been absolutely developer-friendly for me to dive right into stable diffusion models. Main differentiating factor clearly being that 🤗 Diffusers implementation is often not some code from research lab, that are mostly focused on high velocity driven. While research codes are often poorly written and difficult to understand (lack of typing, assertions, inconsistent design patterns and conventions), 🤗 Diffusers was a breeze to use for me to hack my ideas within couple of hours. Without it, I would have needed to invest significantly more amount of time to start hacking. Well-written documentations and examples are extremely helpful as well.</p>
+    </blockquote>
+    <div class="flex items-center gap-4">
+      <img src="https://avatars.githubusercontent.com/u/35953539?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
+      <div class="text-sm">
+        <p class="font-medium">Simo</p>
       </div>
     </div>
-
-    <div class="mb-8 sm:break-inside-avoid">
-      <blockquote class="rounded-xl bg-gray-50 p-6 shadow">
-        <p class="leading-relaxed text-gray-700">BentoML is the unified framework for for building, shipping, and scaling production-ready AI applications incorporating traditional ML, pre-trained AI models, Generative and Large Language Models. All Hugging Face Diffuser models and pipelines can be seamlessly integrated into BentoML applications, enabling the running of models on the most suitable hardware and independent scaling based on usage.</p>
-      </blockquote>
-
-      <div class="mt-4 flex items-center gap-4">
-        <img src="https://avatars.githubusercontent.com/u/49176046?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
-
-        <div class="text-sm">
-          <p class="font-medium">BentoML</p>
-        </div>
+  </div>
+  <div class="mb-8 sm:break-inside-avoid">
+    <blockquote class="rounded-xl !mb-0 bg-gray-50 p-6 shadow dark:bg-gray-800">
+      <p class="leading-relaxed text-gray-700">BentoML is the unified framework for for building, shipping, and scaling production-ready AI applications incorporating traditional ML, pre-trained AI models, Generative and Large Language Models. All Hugging Face Diffuser models and pipelines can be seamlessly integrated into BentoML applications, enabling the running of models on the most suitable hardware and independent scaling based on usage.</p>
+    </blockquote>
+    <div class="flex items-center gap-4">
+      <img src="https://avatars.githubusercontent.com/u/49176046?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
+      <div class="text-sm">
+        <p class="font-medium">BentoML</p>
       </div>
     </div>
-
-    <div class="mb-8 sm:break-inside-avoid">
-      <blockquote class="rounded-xl bg-gray-50 p-6 shadow">
-        <p class="leading-relaxed text-gray-700">Invoke AI is an open-source Generative AI tool built to empower professional creatives, from game designers and photographers to architects and product designers. Invoke recently launched their hosted offering at invoke.ai, allowing users to generate assets from any computer, powered by the latest research in open-source.</p>
-      </blockquote>
-
-      <div class="mt-4 flex items-center gap-4">
-        <img src="https://avatars.githubusercontent.com/u/113954515?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
-
-        <div class="text-sm">
-          <p class="font-medium">InvokeAI</p>
-        </div>
+  </div>
+  <div class="mb-8 sm:break-inside-avoid">
+    <blockquote class="rounded-xl !mb-0 bg-gray-50 p-6 shadow dark:bg-gray-800">
+      <p class="leading-relaxed text-gray-700">Invoke AI is an open-source Generative AI tool built to empower professional creatives, from game designers and photographers to architects and product designers. Invoke recently launched their hosted offering at invoke.ai, allowing users to generate assets from any computer, powered by the latest research in open-source.</p>
+    </blockquote>
+    <div class="flex items-center gap-4">
+      <img src="https://avatars.githubusercontent.com/u/113954515?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
+      <div class="text-sm">
+        <p class="font-medium">InvokeAI</p>
       </div>
     </div>
-
-    <div class="mb-8 sm:break-inside-avoid">
-      <blockquote class="rounded-xl bg-gray-50 p-6 shadow">
-        <p class="leading-relaxed text-gray-700">TaskMatrix connects Large Language Model and a series of Visual Models to enable sending and receiving images during chatting.</p>
-      </blockquote>
-
-      <div class="mt-4 flex items-center gap-4">
-        <img src="https://avatars.githubusercontent.com/u/6154722?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
-
-        <div class="text-sm">
-          <p class="font-medium">Chenfei Wu</p>
-        </div>
+  </div>
+  <div class="mb-8 sm:break-inside-avoid">
+    <blockquote class="rounded-xl !mb-0 bg-gray-50 p-6 shadow dark:bg-gray-800">
+      <p class="leading-relaxed text-gray-700">TaskMatrix connects Large Language Model and a series of Visual Models to enable sending and receiving images during chatting.</p>
+    </blockquote>
+    <div class="flex items-center gap-4">
+      <img src="https://avatars.githubusercontent.com/u/6154722?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
+      <div class="text-sm">
+        <p class="font-medium">Chenfei Wu</p>
       </div>
     </div>
-
-    <div class="mb-8 sm:break-inside-avoid">
-      <blockquote class="rounded-xl bg-gray-50 p-6 shadow">
-        <p class="leading-relaxed text-gray-700">Lama Cleaner is a powerful image inpainting tool that uses Stable Diffusion technology to remove unwanted objects, defects, or people from your pictures. It can also erase and replace anything in your images with ease.</p>
-      </blockquote>
-
-      <div class="mt-4 flex items-center gap-4">
-        <img src="https://github.com/Sanster/lama-cleaner/raw/main/assets/logo.png" class="h-12 w-12 rounded-full object-cover" />
-
-        <div class="text-sm">
-          <p class="font-medium">Qing</p>
-        </div>
+  </div>
+  <div class="mb-8 sm:break-inside-avoid">
+    <blockquote class="rounded-xl !mb-0 bg-gray-50 p-6 shadow dark:bg-gray-800">
+      <p class="leading-relaxed text-gray-700">Lama Cleaner is a powerful image inpainting tool that uses Stable Diffusion technology to remove unwanted objects, defects, or people from your pictures. It can also erase and replace anything in your images with ease.</p>
+    </blockquote>
+    <div class="flex items-center gap-4">
+      <img src="https://github.com/Sanster/lama-cleaner/raw/main/assets/logo.png" class="h-12 w-12 rounded-full object-cover" />
+      <div class="text-sm">
+        <p class="font-medium">Qing</p>
       </div>
     </div>
-
-    <div class="mb-8 sm:break-inside-avoid">
-      <blockquote class="rounded-xl bg-gray-50 p-6 shadow">
-        <p class="leading-relaxed text-gray-700">Grounded-SAM combines a powerful Zero-Shot detector Grounding-DINO and Segment-Anything-Model (SAM) to build a strong pipeline to detect and segment everything with text inputs. When combined with 🤗 Diffusers inpainting models, Grounded-SAM can do highly controllable image editing tasks, including replacing specific objects, inpainting the background, etc.</p>
-      </blockquote>
-
-      <div class="mt-4 flex items-center gap-4">
-        <img src="https://avatars.githubusercontent.com/u/113572103?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
-
-        <div class="text-sm">
-          <p class="font-medium">Tianhe Ren</p>
-        </div>
+  </div>
+  <div class="mb-8 sm:break-inside-avoid">
+    <blockquote class="rounded-xl !mb-0 bg-gray-50 p-6 shadow dark:bg-gray-800">
+      <p class="leading-relaxed text-gray-700">Grounded-SAM combines a powerful Zero-Shot detector Grounding-DINO and Segment-Anything-Model (SAM) to build a strong pipeline to detect and segment everything with text inputs. When combined with 🤗 Diffusers inpainting models, Grounded-SAM can do highly controllable image editing tasks, including replacing specific objects, inpainting the background, etc.</p>
+    </blockquote>
+    <div class="flex items-center gap-4">
+      <img src="https://avatars.githubusercontent.com/u/113572103?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
+      <div class="text-sm">
+        <p class="font-medium">Tianhe Ren</p>
       </div>
     </div>
-
-    <div class="mb-8 sm:break-inside-avoid">
-      <blockquote class="rounded-xl bg-gray-50 p-6 shadow">
-        <p class="leading-relaxed text-gray-700">Stable-Dreamfusion leverages the convenient implementations of 2D diffusion models in 🤗 Diffusers to replicate recent text-to-3D and image-to-3D methods.</p>
-      </blockquote>
-
-      <div class="mt-4 flex items-center gap-4">
-        <img src="https://avatars.githubusercontent.com/u/25863658?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
-
-        <div class="text-sm">
-          <p class="font-medium">kiui</p>
-        </div>
+  </div>
+  <div class="mb-8 sm:break-inside-avoid">
+    <blockquote class="rounded-xl !mb-0 bg-gray-50 p-6 shadow dark:bg-gray-800">
+      <p class="leading-relaxed text-gray-700">Stable-Dreamfusion leverages the convenient implementations of 2D diffusion models in 🤗 Diffusers to replicate recent text-to-3D and image-to-3D methods.</p>
+    </blockquote>
+    <div class="flex items-center gap-4">
+      <img src="https://avatars.githubusercontent.com/u/25863658?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
+      <div class="text-sm">
+        <p class="font-medium">kiui</p>
       </div>
     </div>
-
-    <div class="mb-8 sm:break-inside-avoid">
-      <blockquote class="rounded-xl bg-gray-50 p-6 shadow">
-        <p class="leading-relaxed text-gray-700">MMagic (Multimodal Advanced, Generative, and Intelligent Creation) is an advanced and comprehensive Generative AI toolbox that provides state-of-the-art AI models (e.g., diffusion models powered by 🤗 Diffusers and GAN) to synthesize, edit and enhance images and videos. In MMagic, users can use rich components to customize their own models like playing with Legos and manage the training loop easily.</p>
-      </blockquote>
-
-      <div class="mt-4 flex items-center gap-4">
-        <img src="https://avatars.githubusercontent.com/u/10245193?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
-
-        <div class="text-sm">
-          <p class="font-medium">mmagic</p>
-        </div>
+  </div>
+  <div class="mb-8 sm:break-inside-avoid">
+    <blockquote class="rounded-xl !mb-0 bg-gray-50 p-6 shadow dark:bg-gray-800">
+      <p class="leading-relaxed text-gray-700">MMagic (Multimodal Advanced, Generative, and Intelligent Creation) is an advanced and comprehensive Generative AI toolbox that provides state-of-the-art AI models (e.g., diffusion models powered by 🤗 Diffusers and GAN) to synthesize, edit and enhance images and videos. In MMagic, users can use rich components to customize their own models like playing with Legos and manage the training loop easily.</p>
+    </blockquote>
+    <div class="flex items-center gap-4">
+      <img src="https://avatars.githubusercontent.com/u/10245193?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
+      <div class="text-sm">
+        <p class="font-medium">mmagic</p>
       </div>
     </div>
-
-    <div class="mb-8 sm:break-inside-avoid">
-      <blockquote class="rounded-xl bg-gray-50 p-6 shadow">
-        <p class="leading-relaxed text-gray-700">Tune-A-Video, developed by Jay Zhangjie Wu and his team at Show Lab, is the first to fine-tune a pre-trained text-to-image diffusion model using a single text-video pair and enables changing video content while preserving motion.</p>
-      </blockquote>
-
-      <div class="mt-4 flex items-center gap-4">
-        <img src="https://avatars.githubusercontent.com/u/101181824?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
-
-        <div class="text-sm">
-          <p class="font-medium">Jay Zhangjie Wu</p>
-        </div>
+  </div>
+  <div class="mb-8 sm:break-inside-avoid">
+    <blockquote class="rounded-xl !mb-0 bg-gray-50 p-6 shadow dark:bg-gray-800">
+      <p class="leading-relaxed text-gray-700">Tune-A-Video, developed by Jay Zhangjie Wu and his team at Show Lab, is the first to fine-tune a pre-trained text-to-image diffusion model using a single text-video pair and enables changing video content while preserving motion.</p>
+    </blockquote>
+    <div class="flex items-center gap-4">
+      <img src="https://avatars.githubusercontent.com/u/101181824?s=48&v=4" class="h-12 w-12 rounded-full object-cover" />
+      <div class="text-sm">
+        <p class="font-medium">Jay Zhangjie Wu</p>
       </div>
     </div>
   </div>
@@ -293,20 +264,20 @@ Besides these, a heartfelt shoutout to the following contributors who helped us 
 Over the last year, we also saw many companies choosing to build their products on top of 🤗 Diffusers. Here are a couple of products that have caught our attention:
 
 - [PlaiDay](http://plailabs.com/): “PlaiDay is a Generative AI experience where people collaborate, create, and connect. Our platform unlocks the limitless creativity of the human mind, and provides a safe, fun social canvas for expression.”
-- [Previs One](https://previs.framer.wiki/): “Previs One is a diffuser pipeline for cinematic storyboarding and previsualization—it understands film and television compositional rules just as a director would speak them.”
+- [Previs One](https://previs.framer.wiki/): “Previs One is a diffuser pipeline for cinematic storyboarding and previsualization — it understands film and television compositional rules just as a director would speak them.”
 - [Zust.AI](https://zust.ai/): “We leverage Generative AI to create studio-quality product photos for brands and marketing agencies.”
 - [Dashtoon](https://dashtoon.com/): “Dashtoon is building a platform to create and consume visual content. We have multiple pipelines that load multiple LORAs, multiple control-nets and even multiple models powered by diffusers. Diffusers has made the gap between a product engineer and a ML engineer super low allowing dashtoon to ship user value faster and better.”
 - [Virtual Staging AI](https://www.virtualstagingai.app/): "Filling empty rooms with beautiful furniture using generative models.”
 - [Hexo.AI](https://www.hexo.ai/): “Hexo AI helps brands get higher ROI on marketing spends through Personalized Marketing at Scale. Hexo is building a proprietary campaign generation engine which ingests customer data and generates brand compliant personalized creatives.”
 
-If you’re building products on top of 🤗 Diffusers, we’d love to chat to understand how we can make the library better and more useful for you! Feel free to reach out to patrick@hf.co or sayak@hf.co.
+If you’re building products on top of 🤗 Diffusers, we’d love to chat to understand how we can make the library better together! Feel free to reach out to patrick@hf.co or sayak@hf.co.
 
 ## Looking forward
 
-As we celebrate our first anniversary, we're grateful to our community and open-source contributors who have helped us come so far in such a short time. We're happy to share that we'll be presenting a demo 🤗 Diffusers at ICCV 2023 this fall, and if you're attending, come see us! We'll continue to develop and improve our library, making it easier for everyone to use. We're also excited to see what the community will create next with our tools and resources. Thank you for being a part of our journey so far, and we look forward to continuing to democratize good machine learning together! 🥳
+As we celebrate our first anniversary, we're grateful to our community and open-source contributors who have helped us come so far in such a short time. We're happy to share that we'll be presenting a 🤗 Diffusers demo at ICCV 2023 this fall – if you're attending, do come and see us! We'll continue to develop and improve our library, making it easier for everyone to use. We're also excited to see what the community will create next with our tools and resources. Thank you for being a part of our journey so far, and we look forward to continuing to democratize good machine learning together! 🥳
 
 ❤️ Diffusers team
 
 ---
 
-**Acknowledgements**: Thank you to Pedro Cuenca, Omar Sanseviero, Patrick von Platen, Giada Pistilli for their reviews, and Chunte Lee for designing the thumbnail.
+**Acknowledgements**: Thank you to [Omar Sanseviero](https://huggingface.co/osanseviero), [Patrick von Platen](https://huggingface.co/patrickvonplaten), [Giada Pistilli](https://huggingface.co/giadap) for their reviews, and [Chunte Lee](https://huggingface.co/Chunte) for designing the thumbnail.
