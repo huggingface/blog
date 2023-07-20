@@ -180,7 +180,7 @@ python trl/examples/scripts/sft_trainer.py \
 
 ## How to Prompt Llama 2
 
-One of the unsung advantages of open-access models is that you have full control over the _system prompt_ in chat applications. This is essential to specify the behaviour of your chat assistant –and even imbue it with some personality–, but it's unreachable in models served behind APIs.
+One of the unsung advantages of open-access models is that you have full control over the `system` prompt in chat applications. This is essential to specify the behavior of your chat assistant –and even imbue it with some personality–, but it's unreachable in models served behind APIs.
 
 If you take a close look at the source code of our Llama 2 70B demo, you can see [how the system prompt is formatted](https://huggingface.co/spaces/ysharma/Explore_llamav2_with_TGI/blob/dc2b3191cca384687bbed001fcb6baedaf8d732b/app.py#L38-L42) with delimiters around the [instructions given to the system](https://huggingface.co/spaces/ysharma/Explore_llamav2_with_TGI/blob/main/app.py#L12) and the text entered by the user.
 
