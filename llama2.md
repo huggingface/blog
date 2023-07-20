@@ -233,8 +233,9 @@ In our [`13B`](https://huggingface.co/spaces/huggingface-projects/llama-2-13b-ch
 - [Models on the Hub](https://huggingface.co/meta-llama)
 - [Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
 - [Meta Examples and recipes for Llama model](https://github.com/facebookresearch/llama-recipes/tree/main)
-- [`Chat demo (13B)`](https://huggingface.co/spaces/huggingface-projects/llama-2-13b-chat)
-- [`Chat demo (7B)`](https://huggingface.co/spaces/huggingface-projects/llama-2-7b-chat)
+- [Chat demo (7B)](https://huggingface.co/spaces/huggingface-projects/llama-2-7b-chat)
+- [Chat demo (13B)](https://huggingface.co/spaces/huggingface-projects/llama-2-13b-chat)
+- [Chat demo (70B) on TGI](https://huggingface.co/spaces/ysharma/Explore_llamav2_with_TGI)
 
 
 ## Conclusion
