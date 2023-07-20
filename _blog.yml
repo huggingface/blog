@@ -2456,6 +2456,7 @@
     - javascript
     - transformers.js
 
+
 - local: stable-diffusion-finetuning-intel
   title: "Fine-tuning Stable Diffusion models on Intel CPUs"
   author: juliensimon
@@ -2466,6 +2467,36 @@
     - intel
     - hardware
     - partnerships
+
+- local: os-llms
+  title: "Open-Source Text Generation & LLM Ecosystem at Hugging Face"
+  author: merve
+  thumbnail: /blog/assets/os_llms/thumbnail.png
+  date: July 17, 2023
+  tags:
+    - LLM
+    - inference
+    - nlp
+
+- local: ai-webtv
+  title: "Building an AI WebTV"
+  author: jbilcke-hf
+  thumbnail: /blog/assets/156_ai_webtv/thumbnail.gif
+  date: July 17, 2023
+  tags:
+    - text-to-video
+    - guide
+
+- local: llama2
+  title: "Llama 2 is here - get it on Hugging Face"
+  author: osanseviero
+  thumbnail: /blog/assets/llama2/thumbnail.jpg
+  date: July 18, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
 
 - local: diffusers-turns-1
   title: "Happy 1st anniversary 🤗 Diffusers!"
