@@ -254,13 +254,3 @@ for idx,img in enumerate(images):
 如果你有任何疑问或反馈，欢迎到 [Hugging Face 论坛](https://discuss.huggingface.co/) 留言。
 
 感谢垂阅！
-
----
-
->>>> 英文原文: <url>https://huggingface.co/blog/stable-diffusion-finetuning-intel</url>
->>>>
->>>> 原文作者: Julien Simon
->>>>
->>>> 译者: Matrix Yao (姚伟峰)，英特尔深度学习工程师，工作方向为 transformer-family 模型在各模态数据上的应用及大规模模型的训练推理。
->>>>
->>>> 审校/排版: zhongdongy (阿东)
