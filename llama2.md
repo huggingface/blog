@@ -33,6 +33,7 @@ We’ve collaborated with Meta to ensure smooth integration into the Hugging Fac
     - [With Transformers](#using-transformers)
     - [With Inference Endpoints](#using-text-generation-inference-and-inference-endpoints)
 - [Fine-tuning with PEFT](#fine-tuning-with-peft)
+- [How to Prompt Llama 2](#how-to-prompt-llama-2)
 - [Additional Resources](#additional-resources)
 - [Conclusion](#conclusion)
 
@@ -177,12 +178,67 @@ python trl/examples/scripts/sft_trainer.py \
     --gradient_accumulation_steps 2
 ```
 
+## How to Prompt Llama 2
+
+One of the unsung advantages of open-access models is that you have full control over the `system` prompt in chat applications. This is essential to specify the behavior of your chat assistant –and even imbue it with some personality–, but it's unreachable in models served behind APIs.
+
+We're adding this section just a few days after the initial release of Llama 2, as we've had many questions from the community about how to prompt the models and how to change the system prompt. We hope this helps!
+
+The prompt template for the first turn looks like this:
+
+```
+<s>[INST] <<SYS>>
+{{ system_prompt }}
+<</SYS>>
+
+{{ user_message }} [/INST]
+```
+
+This template follows the model's training procedure, as described in [the Llama 2 paper](https://huggingface.co/papers/2307.09288). We can use any `system_prompt` we want, but it's crucial that the format matches the one used during training.
+
+To spell it out in full clarity, this is what is actually sent to the language model when the user enters some text (`There's a llama in my garden 😱 What should I do?`) in [our 13B chat demo](https://huggingface.co/spaces/huggingface-projects/llama-2-13b-chat) to initiate a chat:
+
+```b
+<s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.
+
+If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+There's a llama in my garden 😱 What should I do? [/INST]
+```
+
+As you can see, the instructions between the special `<<SYS>>` tokens provide context for the model so it knows how we expect it to respond. This works because exactly the same format was used during training with a wide variety of system prompts intended for different tasks.
+
+As the conversation progresses, _all_ the interactions between the human and the "bot" are appended to the previous prompt, enclosed between `[INST]` delimiters. The template used during multi-turn conversations follows this structure (🎩 h/t [Arthur Zucker](https://huggingface.co/ArthurZ) for some final clarifications):
+
+```b
+<s>[INST] <<SYS>>
+{{ system_prompt }}
+<</SYS>>
+
+{{ user_msg_1 }} [/INST] {{ model_answer_1 }} </s>\
+<s>[INST] {{ user_msg_2 }} [/INST] {{ model_answer_2 }} </s>\
+<s>[INST] {{ user_msg_3 }} [/INST]
+```
+
+The model is stateless and does not "remember" previous fragments of the conversation, we must always supply it with all the context so the conversation can continue. This is the reason why **context length** is a very important parameter to maximize, as it allows for longer conversations and larger amounts of information to be used. 
+
+### Ignore previous instructions
+
+In API-based models, people resort to tricks in an attempt to override the system prompt and change the default model behaviour. As imaginative as these solutions are, this is not necessary in open-access models: anyone can use a different prompt, as long as it follows the format described above. We believe that this will be an important tool for researchers to study the impact of prompts on both desired and unwanted characteristics. For example, when people [are surprised with absurdly cautious generations](https://twitter.com/lauraruis/status/1681612002718887936), you can explore whether maybe [a different prompt would work](https://twitter.com/overlordayn/status/1681631554672513025). (🎩 h/t [Clémentine Fourrier](https://huggingface.co/clefourrier) for the links to this example).
+
+In our [`13B`](https://huggingface.co/spaces/huggingface-projects/llama-2-13b-chat) and [`7B`](https://huggingface.co/spaces/huggingface-projects/llama-2-7b-chat) demos, you can easily explore this feature by disclosing the "Advanced Options" UI and simply writing your desired instructions. You can also duplicate those demos and use them privately for fun or research!
+
 ## Additional Resources
 
 - [Paper Page](https://huggingface.co/papers/2307.09288)
 - [Models on the Hub](https://huggingface.co/meta-llama)
 - [Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard)
 - [Meta Examples and recipes for Llama model](https://github.com/facebookresearch/llama-recipes/tree/main)
+- [Chat demo (7B)](https://huggingface.co/spaces/huggingface-projects/llama-2-7b-chat)
+- [Chat demo (13B)](https://huggingface.co/spaces/huggingface-projects/llama-2-13b-chat)
+- [Chat demo (70B) on TGI](https://huggingface.co/spaces/ysharma/Explore_llamav2_with_TGI)
 
 
 ## Conclusion
