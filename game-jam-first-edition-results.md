@@ -23,7 +23,7 @@ The response to our initiative was beyond our expectations, with over 1300 signu
 
 **You can try them here** 👉 https://itch.io/jam/open-source-ai-game-jam/entries
 
-[ADD VIDEO]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/UG9-gOAs2-4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## The Theme: Expanding
 
