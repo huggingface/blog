@@ -194,7 +194,7 @@ The prompt template for the first turn looks like this:
 {{ user_message }} [/INST]
 ```
 
-This template follows the model's training procedure. We can use any `system_prompt` we want, but it's important that the format matches the one used during training.
+This template (🎩 h/t [Arthur Zucker](https://huggingface.co/ArthurZ)) follows the model's training procedure. We can use any `system_prompt` we want, but it's crucial that the format matches the one used during training.
 
 To spell it out in full clarity, this is what is actually sent to the language model when the user enters some text (`There's a llama in my garden 😱 What should I do?`) to initiate a chat:
 
