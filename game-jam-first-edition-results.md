@@ -1,6 +1,6 @@
 ---
 
-title: "Open Source AI Game Jam: Expanding Boundaries of Game Development"
+title: "Results of the Open Source AI Game Jam"
 thumbnail: /blog/assets/game-jam-first-edition-results/thumbnail.jpg
 authors:
 
