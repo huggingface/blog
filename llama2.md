@@ -190,6 +190,7 @@ The prompt template for the first turn looks like this:
 <s>[INST] <<SYS>>
 {{ system_prompt }}
 <</SYS>>
+
 {{ user_message }} [/INST]
 ```
 
@@ -203,6 +204,7 @@ You are a helpful, respectful and honest assistant. Always answer as helpfully a
 
 If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.
 <</SYS>>
+
 There's a llama in my garden 😱 What should I do? [/INST]
 ```
 
@@ -214,8 +216,9 @@ As the conversation progresses, _all_ the conversation between the human and the
 <s>[INST] <<SYS>>
 {{ system_prompt }}
 <</SYS>>
-{{ user_msg_1 }} [/INST] {{ model_answer_1 }} </s>
-<s>[INST] {{ user_msg_2 }} [/INST] {{ model_answer_2 }} </s>
+
+{{ user_msg_1 }} [/INST] {{ model_answer_1 }} </s>\
+<s>[INST] {{ user_msg_2 }} [/INST] {{ model_answer_2 }} </s>\
 <s>[INST] {{ user_msg_3 }} [/INST]
 ```
 
