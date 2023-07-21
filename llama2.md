@@ -182,7 +182,7 @@ python trl/examples/scripts/sft_trainer.py \
 
 One of the unsung advantages of open-access models is that you have full control over the `system` prompt in chat applications. This is essential to specify the behavior of your chat assistant –and even imbue it with some personality–, but it's unreachable in models served behind APIs.
 
-If you take a close look at the source code of our Llama 2 70B demo, you can see [how the system prompt is formatted](https://huggingface.co/spaces/ysharma/Explore_llamav2_with_TGI/blob/dc2b3191cca384687bbed001fcb6baedaf8d732b/app.py#L38-L42) with delimiters around the [instructions given to the system](https://huggingface.co/spaces/ysharma/Explore_llamav2_with_TGI/blob/main/app.py#L12) and the text entered by the user.
+We're adding this section just a few days after the initial release of Llama 2, as we've had many questions from the community about how to prompt the models and how to change the system prompt. We hope this helps!
 
 The prompt template for the first turn looks like this:
 
@@ -194,9 +194,9 @@ The prompt template for the first turn looks like this:
 {{ user_message }} [/INST]
 ```
 
-This template (🎩 h/t [Arthur Zucker](https://huggingface.co/ArthurZ)) follows the model's training procedure. We can use any `system_prompt` we want, but it's crucial that the format matches the one used during training.
+This template follows the model's training procedure, as described in [the Llama 2 paper](https://huggingface.co/papers/2307.09288). We can use any `system_prompt` we want, but it's crucial that the format matches the one used during training.
 
-To spell it out in full clarity, this is what is actually sent to the language model when the user enters some text (`There's a llama in my garden 😱 What should I do?`) to initiate a chat:
+To spell it out in full clarity, this is what is actually sent to the language model when the user enters some text (`There's a llama in my garden 😱 What should I do?`) in [our 13B chat demo](https://huggingface.co/spaces/huggingface-projects/llama-2-13b-chat) to initiate a chat:
 
 ```b
 <s>[INST] <<SYS>>
@@ -210,7 +210,7 @@ There's a llama in my garden 😱 What should I do? [/INST]
 
 As you can see, the instructions between the special `<<SYS>>` tokens provide context for the model so it knows how we expect it to respond. This works because exactly the same format was used during training with a wide variety of system prompts intended for different tasks.
 
-As the conversation progresses, _all_ the conversation between the human and the "bot" are appended to the previous prompt, enclosed between `[INST]` delimiters. The template used during multi-turn conversations follows this structure:
+As the conversation progresses, _all_ the interactions between the human and the "bot" are appended to the previous prompt, enclosed between `[INST]` delimiters. The template used during multi-turn conversations follows this structure (🎩 h/t [Arthur Zucker](https://huggingface.co/ArthurZ) for some final clarifications):
 
 ```b
 <s>[INST] <<SYS>>
