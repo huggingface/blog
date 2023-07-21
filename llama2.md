@@ -228,7 +228,7 @@ The model is stateless and does not "remember" previous fragments of the convers
 
 In API-based models, people resort to tricks in an attempt to override the system prompt and change the default model behaviour. As imaginative as these solutions are, this is not necessary in open-access models: anyone can use a different prompt, as long as it follows the format described above. We believe that this will be an important tool for researchers to study the impact of prompts on both desired and unwanted characteristics. For example, when people [are surprised with absurdly cautious generations](https://twitter.com/lauraruis/status/1681612002718887936), you can explore whether maybe [a different prompt would work](https://twitter.com/overlordayn/status/1681631554672513025). (🎩 h/t [Clémentine Fourrier](https://huggingface.co/clefourrier) for the links to this example).
 
-In our [`13B`](https://huggingface.co/spaces/huggingface-projects/llama-2-13b-chat) and [`7B`](https://huggingface.co/spaces/huggingface-projects/llama-2-7b-chat) demos you can easily explore this feature by disclosing the "Advanced Options" UI and simply writing your desired instructions. You can also duplicate those demos and use them privately for fun or research!
+In our [`13B`](https://huggingface.co/spaces/huggingface-projects/llama-2-13b-chat) and [`7B`](https://huggingface.co/spaces/huggingface-projects/llama-2-7b-chat) demos, you can easily explore this feature by disclosing the "Advanced Options" UI and simply writing your desired instructions. You can also duplicate those demos and use them privately for fun or research!
 
 ## Additional Resources
 
