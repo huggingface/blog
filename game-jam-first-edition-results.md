@@ -4,7 +4,7 @@ title: "Results of the Open Source AI Game Jam"
 thumbnail: /blog/assets/game-jam-first-edition-results/thumbnail.jpg
 authors:
 
-- user: simoninithomas
+- user: ThomasSimonini
 - user: dylanebert
 - user: osanseviero
 
