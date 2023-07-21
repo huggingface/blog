@@ -1,17 +1,17 @@
----
-title: "Open Source AI Game Jam: Expanding Boundaries of Game Development" 
+title: "Open Source AI Game Jam: Expanding Boundaries of Game Development"
 thumbnail: /blog/assets/game-jam-first-edition-results/thumbnail.jpg
 authors:
+
 - user: simoninithomas
 - user: dylanebert
 - user: osanseviero
+
 ---
 
-# The Open Source AI Game Jam: Expanding Boundaries of Game Development
+# Results of the Open Source AI Game Jam
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
-
 
 From July 7th to July 11th, **we hosted our [first Open Source AI Game Jam](https://itch.io/jam/open-source-ai-game-jam)**, an exciting event that challenged game developers to create innovative games within a tight 48-hour window using AI.
 
@@ -29,15 +29,15 @@ To inspire creativity, **we decided on the theme of "EXPANDING."** We left it op
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/theme.jpeg" alt="Game Jam Theme"/>
 
-The games were evaluated by their peers and contributors based on three key criteria: **fun, creativity, and adherence to the theme**. 
+The games were evaluated by their peers and contributors based on three key criteria: **fun, creativity, and adherence to the theme**.
 
 The top 10 games were then presented to three judges ([Dylan Ebert](https://twitter.com/dylan_ebert_), [Thomas Simonini](https://twitter.com/ThomasSimonini) and [Omar Sanseviero](https://twitter.com/osanseviero)), **who selected the best game**.
 
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/jury.jpg" alt="Game Jam Jury"/>
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/jury.jpg" alt="Game Jam Judges"/>
 
 ## The Winner 🏆🥇
 
-After careful deliberation, the judges **crowned one outstanding game as the Big Winner of the Open Source AI Game Jam**. 
+After careful deliberation, the judges **crowned one outstanding game as the Winner of the Open Source AI Game Jam**.
 
 It's [Snip It](https://ohmlet.itch.io/snip-it) by [ohmlet](https://itch.io/profile/ohmlet) 👏👏👏.
 
@@ -51,7 +51,7 @@ In this AI-generated game, you visit a museum where the paintings come to life. 
 
 You can play it here 👉 https://ohmlet.itch.io/snip-it
 
-## Participants Selection: Top 11 🥈🥉🏅
+## Participants Selection: Top 10 🥈🥉🏅
 
 Out of the 88 fantastic submissions, these impressive games emerged as the Top 11 finalists.
 
@@ -91,41 +91,44 @@ In this game, you take control of a fish-shaped robot named Fein, who is abandon
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/everchanging.jpg" alt="Everchanging Quest"/>
 
-In this game, you are the village's last hope. Arm yourself before embarking on your adventure and don't hesitate to ask the locals for guidance. The world beyond the portal will never be the same, so be prepared. Defeat your enemies to collect points and find your way to the end.
+In this game, you are the village's last hope. Arm yourself before embarking on your adventure, and don't hesitate to ask the locals for guidance. The world beyond the portal will never be the same, so be prepared. Defeat your enemies to collect points and find your way to the end.
 
-🤖 Used GPT-4 to place the tiles and objects (propertary) but also Starcoder to code (open source).
+🤖 Used GPT-4 to place the tiles and objects (proprietary) but also Starcoder to code (open source).
 
 🎮👉 https://jofthomas.itch.io/everchanging-quest
 
 ### #5: Word Conquest
+
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/word.gif" alt="Word"/>
 
-In this game, you need to write as many unrelated words as you can to conquer the map. The more unrelated the farther away and the more score you get.
+In this game, you need to write as many unrelated words as you can to conquer the map. The more unrelated, the farther away and the more score you get.
 
 🤖 Used embeddings from all-MiniLM-L6-v2 model and GloVe to generate the map.
 
 🎮👉 https://danielquelali.itch.io/wordconquest
 
 ### #6: Expanding Universe
+
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/universe.jpg" alt="Universe"/>
 
 In this sandbox gravity game, you create an expanding universe and try to complete the challenges.
 
-🤖 Used Dream Textures Blender (Stable Diffusion) add-on to create textures for all of the planets and stars and a LLM model to generate descriptions of the stars and planets.
+🤖 Used Dream Textures Blender (Stable Diffusion) add-on to create textures for all of the planets and stars and an LLM model to generate descriptions of the stars and planets.
 
 🎮👉 https://carsonkatri.itch.io/expanding-universe
 
 ### #7: Hexagon Tactics: The Expanding Arena
+
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/hexagon.gif" alt="Hexagon"/>
 
-In this game, you are dropped into an arena battle. Defeat your opponents, then upgrade your deck and the arena expands.  
+In this game, you are dropped into an arena battle. Defeat your opponents, then upgrade your deck and the arena expands.
 
 🤖 Stable Diffusion 1.5 to generate your own character (executable version of the game).
 
 🎮👉 https://dgeisert.itch.io/hextactics
 
-
 ### #8: Galactic Domination
+
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/galactic.gif" alt="Galactic"/>
 
 In this game, you embark on an interstellar journey as a spaceship captain, pitted against formidable spaceships in a battle for dominance. Your goal is to be the first to construct a powerful space station that will expand your influence and secure your supremacy in the vast expanse of the cosmos. As you navigate the treacherous battlefield, you must gather essential resources to fuel the growth of your space station. It's a construction race!
@@ -136,14 +139,15 @@ In this game, you embark on an interstellar journey as a spaceship captain, pitt
 
 🤖 Soundful - Music generator
 
-🤖 Elevenlabs - Voice generator 
+🤖 Elevenlabs - Voice generator
 
 🤖 Scenario - Image generator
 
 🎮👉 https://blastergames.itch.io/galactic-domination
 
 ### #9: Apocalypse Expansion
-<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/appocalypse.jpg" alt="Appocalypse"/>
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/appocalypse.jpg" alt="Apocalypse"/>
 
 In this game, you'll step into the decaying shoes of a zombie, driven by an insatiable hunger for human flesh. Your objective? To build the largest horde of zombies ever seen, while evading the relentless pursuit of the determined police force.
 
@@ -153,15 +157,16 @@ In this game, you'll step into the decaying shoes of a zombie, driven by an insa
 
 🎮👉 https://mad25.itch.io/apocalypse-expansion
 
-
 ### #10: Galactic Bride: Bullet Ballet
+
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/bride.jpg" alt="Bride"/>
 
 In this game, you dive into an exhilarating bullet-hell journey to become the Star Prince's bride and fulfill your wishes.
 
 🎮👉 https://n30hrtgdv.itch.io/galactic-bride-bullet-ballet
 
-### #11: Galactic Bride: Bullet Ballet
+### #10: Singularity
+
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/singularity.gif" alt="Singularity"/>
 
 This demo is a conceptual demonstration of what could soon be the generation of experiences/games in the near future.
