@@ -696,6 +696,17 @@
   tags:
     - ethics
 
+- local: inference-endpoints-llm
+  title: "用 Hugging Face 推理端点部署 LLM"
+  author: philschmid
+  thumbnail: /blog/assets/155_inference_endpoints_llm/thumbnail.jpg
+  date: July 4, 2023
+  tags:
+    - guide
+    - llm
+    - apps
+    - inference
+
 - local: stable-diffusion-finetuning-intel
   title: "在英特尔 CPU 上微调 Stable Diffusion 模型"
   author: juliensimon
