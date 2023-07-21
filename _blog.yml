@@ -2511,7 +2511,7 @@
 
 - local: game-jam-first-edition-results
   title: "Results of the Open Source AI Game Jam"
-  author: simoninithomas
+  author: ThomasSimonini
   thumbnail: /blog/assets/game-jam-first-edition-results/thumbnail.jpg
   date: July 21, 2023
   tags:
