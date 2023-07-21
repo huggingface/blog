@@ -2497,7 +2497,18 @@
     - community
     - research
     - LLM
-    
+
+- local: diffusers-turns-1
+  title: "Happy 1st anniversary 🤗 Diffusers!"
+  author: stevhliu
+  thumbnail: /blog/assets/diffusers-turns-1/diffusers-turns-1.png
+  date: July 20, 2023
+  tags:
+    - community
+    - open-source-collab
+    - diffusion
+    - diffusers
+
 - local: game-jam-first-edition-results
   title: "Results of the Open Source AI Game Jam"
   author: simoninithomas
