@@ -68,8 +68,8 @@ class SingleHeadAttention(QGPT2):
 
         # Convert the input to a DualArray instance
         q_x = DualArray(
-            float_array=self.x_calib, 
-i           nt_array=q_hidden_states, 
+            float_array=self.x_calib,
+            int_array=q_hidden_states,
             quantizer=self.quantizer
         )
 
