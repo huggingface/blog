@@ -271,8 +271,7 @@ scores, retrieved_examples = dataset_with_embeddings.get_nearest_examples(
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.12.0/gradio.js"></script>
 
-<gradio-app theme_mode="light"
- space="sayakpaul/fetch-similar-images"></gradio-app>
+<gradio-app theme_mode="light" space="sayakpaul/fetch-similar-images"></gradio-app>
 
 在本文中，我们快速入门并构建了一个图像相似度系统。如果你觉得这篇文章很有趣，我们强烈建议你基于我们讨论的概念继续构建你的系统，这样你就可以更加熟悉内部工作原理。
 

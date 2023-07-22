@@ -85,13 +85,11 @@ Text2Video-Zero 是一个文本引导的视频生成和处理框架，其工作�
 在 Hugging Face，我们的目标是使 Hugging Face 库更易于使用并包含最先进的研究。你可以前往 Hub 查看和体验由 🤗 团队、无数社区贡献者和研究者贡献的 Spaces 演示。目前，上面有 [VideoGPT](https://huggingface.co/spaces/akhaliq/VideoGPT)、[CogVideo](https://huggingface.co/spaces/THUDM/CogVideo)、[ModelScope 文生视频](https://huggingface.co/spaces/damo-vilab/modelscope-text-to-video-synthesis) 以及 [Text2Video-Zero](https://huggingface.co/spaces/PAIR/Text2Video-Zero) 的应用演示，后面还会越来越多，敬请期待。要了解这些模型能用来做什么，我们可以看一下 Text2Video-Zero 的应用演示。该演示不仅展示了文生视频应用，而且还包含多种其他生成模式，如文本引导的视频编辑，以及基于姿势、深度、边缘输入结合文本提示进行联合条件下的视频生成。
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.1.7/gradio.js"></script>
-<gradio-app theme_mode="light"
- space="PAIR/Text2Video-Zero"></gradio-app>
+<gradio-app theme_mode="light" space="PAIR/Text2Video-Zero"></gradio-app>
 
 除了使用应用演示来尝试预训练文生视频模型外，你还可以使用 [Tune-a-Video 训练演示](https://huggingface.co/spaces/Tune-A-Video-library/Tune-A-Video-Training-UI) 使用你自己的 `文本 - 视频对`微调现有的文生图模型。仅需上传视频并输入描述该视频的文本提示即就可以了。你可以将训得的模型上传到公开的 Tune-a-Video 社区的 Hub 或你私人用户名下的 Hub。训练完成后，只需转到演示的 _Run_ 选项卡即可根据任何文本提示生成视频。
 
-<gradio-app theme_mode="light"
- space="Tune-A-Video-library/Tune-A-Video-Training-UI"></gradio-app>
+<gradio-app theme_mode="light" space="Tune-A-Video-library/Tune-A-Video-Training-UI"></gradio-app>
 
 🤗 Hub 上的所有 Space 其实都是 Git 存储库，你可以在本地或部署环境中克隆和运行它们。下面克隆一下 ModelScope 演示，安装环境，并在本地运行它。
 

@@ -40,8 +40,7 @@ We will build a simple demo app that can accept either a 4-digit PDB code or a P
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.1.7/gradio.js"></script>
 
-<gradio-app theme_mode="light"
- space="simonduerr/3dmol.js"></gradio-app>
+<gradio-app theme_mode="light" space="simonduerr/3dmol.js"></gradio-app>
 
 ```python
 import gradio as gr
@@ -150,8 +149,7 @@ You can check the [source code](https://huggingface.co/spaces/simonduerr/3dmol.j
 
 For a production example, you can check the [ProteinMPNN](https://hf.space/simonduerr/ProteinMPNN) space where a user can upload a backbone, the inverse folding model ProteinMPNN predicts new optimal sequences and then one can run AlphaFold2 on all predicted sequences to verify whether they adopt the initial input backbone. Successful redesigns that qualitiatively adopt the same structure as predicted by AlphaFold2 with high pLDDT score should be tested in the lab. 
 
-<gradio-app theme_mode="light"
- space="simonduerr/ProteinMPNN"></gradio-app>
+<gradio-app theme_mode="light" space="simonduerr/ProteinMPNN"></gradio-app>
 
 # Issues
 

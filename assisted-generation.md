@@ -175,8 +175,7 @@ Is the additional internal complexity worth it? Let’s have a look at the laten
 	src="https://gradio.s3-us-west-2.amazonaws.com/3.28.2/gradio.js"
 ></script>
 
-<gradio-app theme_mode="light"
- space="joaogante/assisted_generation_benchmarks"></gradio-app>
+<gradio-app theme_mode="light" space="joaogante/assisted_generation_benchmarks"></gradio-app>
 
 
 Glancing at the collected numbers, we see that assisted generation can deliver significant latency reductions in diverse settings, but it is not a silver bullet – you should benchmark it before applying it to your use case. We can conclude that assisted generation:
@@ -202,8 +201,7 @@ Why don't you see it for yourself, so get a feeling of assisted generation?
 
 
 <!-- [DEMO] -->
-<gradio-app theme_mode="light"
- space="joaogante/assisted_generation_demo"></gradio-app>
+<gradio-app theme_mode="light" space="joaogante/assisted_generation_demo"></gradio-app>
 
 
 ## Future directions

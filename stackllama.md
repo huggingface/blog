@@ -33,8 +33,7 @@ By combining these approaches, we are releasing the StackLLaMA model. This model
 	type="module"
 	src="https://gradio.s3-us-west-2.amazonaws.com/3.23.0/gradio.js"></script>
 
-<gradio-app theme_mode="light"
- src="https://trl-lib-stack-llama.hf.space"></gradio-app>
+<gradio-app theme_mode="light" src="https://trl-lib-stack-llama.hf.space"></gradio-app>
 
 ## The LLaMA model
 
