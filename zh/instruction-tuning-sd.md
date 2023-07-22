@@ -184,7 +184,8 @@ translators:
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.29.0/gradio.js"></script>
 
-<gradio-app src="https://instruction-tuning-sd-instruction-tuned-sd.hf.space"></gradio-app>
+<gradio-app theme_mode="light"
+ src="https://instruction-tuning-sd-instruction-tuned-sd.hf.space"></gradio-app>
 
 ## 潜在的应用及其限制
 

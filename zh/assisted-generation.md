@@ -172,7 +172,8 @@ print(tokenizer.batch_decode(outputs, skip_special_tokens=True))
 	src="https://gradio.s3-us-west-2.amazonaws.com/3.28.2/gradio.js"
 ></script>
 
-<gradio-app space="joaogante/assisted_generation_benchmarks"></gradio-app>
+<gradio-app theme_mode="light"
+ space="joaogante/assisted_generation_benchmarks"></gradio-app>
 
 通过观察收集到的数据，我们发现辅助生成可以在不同的设置中显著减少延迟，但这不是灵丹妙药——你应该在应用之前对其进行系统的评估以清晰使用该方法的代价。对于辅助生成方法，我们可以得出结论:
 
@@ -195,7 +196,8 @@ print(tokenizer.batch_decode(outputs, skip_special_tokens=True))
 不妨亲眼看一看，感受一下辅助生成的魅力？
 
 <!-- [DEMO] -->
-<gradio-app space="joaogante/assisted_generation_demo"></gradio-app>
+<gradio-app theme_mode="light"
+ space="joaogante/assisted_generation_demo"></gradio-app>
 
 ## 未来发展方向
 

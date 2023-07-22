@@ -15,7 +15,8 @@ We are excited to share that the [Diffusion Models Class](https://github.com/hug
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.6/gradio.js "></script>
 
-<gradio-app space="runwayml/stable-diffusion-v1-5"></gradio-app>
+<gradio-app theme_mode="light"
+ space="runwayml/stable-diffusion-v1-5"></gradio-app>
 
 To go with this release, we are organising a **live community event on November 30th** to which you are invited! The program includes exciting talks from the creators of Stable Diffusion, researchers at Stability AI and Meta, and more!
 

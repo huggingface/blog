@@ -239,7 +239,8 @@ Try out the Guananco model cited on the paper on [the playground](https://huggin
 	src="https://gradio.s3-us-west-2.amazonaws.com/3.32.0/gradio.js"
 ></script>
 
-<gradio-app space="uwnlp/guanaco-playground-tgi"></gradio-app>
+<gradio-app theme_mode="light"
+ space="uwnlp/guanaco-playground-tgi"></gradio-app>
 
 ## Acknowledgements
 

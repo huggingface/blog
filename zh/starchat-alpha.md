@@ -41,7 +41,8 @@ translators:
 	src="https://gradio.s3-us-west-2.amazonaws.com/3.28.2/gradio.js"
 ></script>
 
-<gradio-app src="https://huggingfaceh4-starchat-playground.hf.space"></gradio-app>
+<gradio-app theme_mode="light"
+ src="https://huggingfaceh4-starchat-playground.hf.space"></gradio-app>
 
 你也可以查看生成上面演示所使用的代码、数据集和模型:
 
