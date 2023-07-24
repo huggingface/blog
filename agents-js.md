@@ -79,7 +79,7 @@ const messages = await agent.run(
 
 ### Usage warning
 
-Currently using this library will mean evaluating arbitrary code in the browser. This is a security risk and should not be done in an untrusted environment. We recommend that you use `generateCode` and `evaluateCode` instead of `run` in order to check what code you are running.
+Currently using this library will mean evaluating arbitrary code in the browser (or in Node). This is a security risk and should not be done in an untrusted environment. We recommend that you use `generateCode` and `evaluateCode` instead of `run` in order to check what code you are running.
 
 ## Custom LLMs 💬
 
