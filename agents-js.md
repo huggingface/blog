@@ -5,7 +5,7 @@ authors:
   - user: nsarrazin
 ---
 
-# Give tools to your LLMs directly from javascript with @hugginface/agents 🤖
+# Introducing Agents.js: Give your LLMs tools using javascript.
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
