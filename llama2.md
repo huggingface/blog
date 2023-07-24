@@ -72,7 +72,7 @@ If you’ve been waiting for an open alternative to closed-source chatbots, Llam
 You can easily try the Big Llama 2 Model (70 billion parameters!) in [this Space](https://huggingface.co/spaces/ysharma/Explore_llamav2_with_TGI) or in the playground embedded below:
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.37.0/gradio.js"> </script>
-<gradio-app space="ysharma/Explore_llamav2_with_TGI"></gradio-app>
+<gradio-app theme_mode="light" space="ysharma/Explore_llamav2_with_TGI"></gradio-app>
 
 Under the hood, this playground uses Hugging Face's [Text Generation Inference](https://github.com/huggingface/text-generation-inference), the same technology that powers [HuggingChat](https://huggingface.co/chat/), and which we'll share more in the following sections.
 
