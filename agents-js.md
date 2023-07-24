@@ -195,4 +195,4 @@ async function generate(image) {
 
 ## Demo 🎉
 
-We've been working on a demo for Agents.js that you can try out [here](https://nsarrazin-poc-agents-js.hf.space/). Currently for best result you should pass an OpenAI API key to use as your LLM. We are currently working on adding Llama 2 to this demo to hopefully demonstrate the full power of open source. 🚀
+We've been working on a demo for Agents.js that you can try out [here](https://nsarrazin-poc-agents-js.hf.space/). Currently for best result you should pass an OpenAI API key to use as your LLM. We are currently working on adding better open LLMs to this demo to hopefully demonstrate the full power of open source. 🚀
