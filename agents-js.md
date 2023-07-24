@@ -173,7 +173,7 @@ Then you can do:
 
 ```ts
 const agent = new HfAgent(HF_ACCESS_TOKEN);
-const file = document.getElementById("fileItem").files; // FileList type
+const files = document.getElementById("fileItem").files; // FileList type
 const code = agent.generateCode(
   "Caption the image and then read the text out loud.",
   files
