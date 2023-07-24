@@ -108,7 +108,7 @@ const agent = new HfAgent(HF_ACCESS_TOKEN, llmOpenAI);
 
 ## Custom Tools 🛠️
 
-Agents was designed to be easily expanded with custom tools & examples. For example if you wanted to add a tool that would translate text from English to German you could do it like this:
+Agents.js was designed to be easily expanded with custom tools & examples. For example if you wanted to add a tool that would translate text from English to German you could do it like this:
 
 ```ts
 import type { Tool } from "@huggingface/agents/src/types";
