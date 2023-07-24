@@ -1,16 +1,16 @@
 ---
-title: "Introducing Agents.js: Give your LLMs tools using javascript"
+title: "Introducing Agents.js: Give your LLMs tools using JavaScript"
 thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 authors:
   - user: nsarrazin
 ---
 
-# Introducing Agents.js: Give your LLMs tools using javascript
+# Introducing Agents.js: Give your LLMs tools using JavaScript
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-We have recently been working on Agents.js over at [huggingface.js](https://github.com/huggingface/huggingface.js). It's a new library for giving tool access to LLMs from javascript in either the browser or the server. It ships with a few multi-modal tools out of the box and can easily be extended with your own tools and language models.
+We have recently been working on Agents.js over at [huggingface.js](https://github.com/huggingface/huggingface.js). It's a new library for giving tool access to LLMs from JavaScript in either the browser or the server. It ships with a few multi-modal tools out of the box and can easily be extended with your own tools and language models.
 
 ## Installation
 

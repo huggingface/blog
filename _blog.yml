@@ -2518,7 +2518,7 @@
     - game-dev
 
 - local: agents-js
-  title: "Introducing Agents.js: Give your LLMs tools using javascript"
+  title: "Introducing Agents.js: Give your LLMs tools using JavaScript"
   author: nsarrazin
   thumbnail: /blog/assets/agents-js/thumbnail.png
   date: July 24, 2023
