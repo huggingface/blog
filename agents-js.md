@@ -25,7 +25,7 @@ npm install @huggingface/agents
 The library exposes the `HfAgent` object which is the entry point to the library. You can instantiate it as such:
 
 ```ts
-import { HfAgent, LLMFromHub } from "@huggingface/agents";
+import { HfAgent } from "@huggingface/agents";
 
 const HF_ACCESS_TOKEN = "hf_...";
 
