@@ -10,7 +10,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-We have recently been working on agents over at [huggingface.js](https://github.com/huggingface/huggingface.js). It's a new library for giving tool access to LLMs from javascript in the browser. It ships with a few multi-modal tools out of the box and can easily be extended with your own tools and language models.
+We have recently been working on agents over at [huggingface.js](https://github.com/huggingface/huggingface.js). It's a new library for giving tool access to LLMs from javascript in either the browser or the server. It ships with a few multi-modal tools out of the box and can easily be extended with your own tools and language models.
 
 ## Installation
 
