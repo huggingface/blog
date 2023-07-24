@@ -5,7 +5,7 @@ authors:
   - user: nsarrazin
 ---
 
-# Introducing Agents.js: Give your LLMs tools using javascript.
+# Introducing Agents.js: Give your LLMs tools using javascript
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
