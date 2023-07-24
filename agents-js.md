@@ -22,17 +22,17 @@ npm install @huggingface/agents
 
 ## Usage
 
-The library exposes the `HfAgent` object which is the entry point to the library. You can instantiate it as such:
+The library exposes the `HfAgent` object which is the entry point to the library. You can instantiate it like this:
 
 ```ts
 import { HfAgent } from "@huggingface/agents";
 
-const HF_ACCESS_TOKEN = "hf_...";
+const HF_ACCESS_TOKEN = "hf_..."; // get your token at https://huggingface.co/settings/tokens
 
 const agent = new HfAgent(HF_ACCESS_TOKEN);
 ```
 
-Afterwards using the agent is easy, you give it a plain-text command and it will return some messages.
+Afterward, using the agent is easy. You give it a plain-text command and it will return some messages.
 
 ```ts
 const code = await agent.generateCode(
