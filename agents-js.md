@@ -83,6 +83,8 @@ Currently using this library will mean evaluating arbitrary code in the browser 
 
 ## Custom LLMs 💬
 
+By default `HfAgent` will use [OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5](https://huggingface.co/OpenAssistant/oasst-sft-4-pythia-12b-epoch-3.5) as the LLM. This can be customized however.
+
 When instancing your `HfAgent` you can pass a custom LLM. A LLM in this context is any async function that takes a string input and returns a promise for a string. For example if you have an OpenAI API key you could make use of it like this:
 
 ```ts
