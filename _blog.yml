@@ -2518,7 +2518,7 @@
     - game-dev
 
 - local: agents-js
-  title: "Give tools to your LLMs directly from javascript with @hugginface/agents 🤖"
+  title: "Give tools to your LLMs directly from javascript with @huggingface/agents 🤖"
   author: nsarrazin
   thumbnail: /blog/assets/agents-js/thumbnail.jpg
   date: July 24, 2023
