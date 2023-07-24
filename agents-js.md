@@ -10,7 +10,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-We have recently been working on agents over at [huggingface.js](https://github.com/huggingface/huggingface.js). It's a new library for giving tool access to LLMs from javascript in either the browser or the server. It ships with a few multi-modal tools out of the box and can easily be extended with your own tools and language models.
+We have recently been working on Agents.js over at [huggingface.js](https://github.com/huggingface/huggingface.js). It's a new library for giving tool access to LLMs from javascript in either the browser or the server. It ships with a few multi-modal tools out of the box and can easily be extended with your own tools and language models.
 
 ## Installation
 
@@ -193,4 +193,4 @@ async function generate(image) {
 
 ## Demo 🎉
 
-We've been working on a demo for agents that you can try out [here](https://nsarrazin-poc-agents-js.hf.space/). Currently for best result you should pass an OpenAI API key to use as your LLM. We are currently working on adding Llama 2 to this demo to hopefully demonstrate the full power of open source. 🚀
+We've been working on a demo for Agents.js that you can try out [here](https://nsarrazin-poc-agents-js.hf.space/). Currently for best result you should pass an OpenAI API key to use as your LLM. We are currently working on adding Llama 2 to this demo to hopefully demonstrate the full power of open source. 🚀
