@@ -1,5 +1,5 @@
 ---
-title: "Give tools to your LLMs directly from javascript with @hugginface/agents 🤖"
+title: "Introducing Agents.js: Give your LLMs tools using javascript"
 thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 authors:
   - user: nsarrazin
