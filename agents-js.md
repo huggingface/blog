@@ -1,11 +1,11 @@
 ---
-title: "Introducing Agents.js: Give your LLMs tools using JavaScript"
+title: "Introducing Agents.js: Give tools to your LLMs using JavaScript"
 thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
 authors:
   - user: nsarrazin
 ---
 
-# Introducing Agents.js: Give your LLMs tools using JavaScript
+# Introducing Agents.js: Give tools to your LLMs using JavaScript
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
