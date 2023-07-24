@@ -99,7 +99,7 @@ pip install transformers
 huggingface-cli login
 ```
 
-In the following code snippet, we show how to run inference with transformers
+In the following code snippet, we show how to run inference with transformers. It runs on the free tier of Colab, as long as you select a GPU runtime.
 
 ```python
 from transformers import AutoTokenizer
