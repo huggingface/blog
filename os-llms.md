@@ -10,10 +10,10 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-[Updated on July 24, 2023: Added LLaMa 2 and FreeWilly series of models.]
+[Updated on July 24, 2023: Added Llama 2 and FreeWilly series of models.]
 
 
-Text generation and conversational technologies have been around for ages. Earlier challenges in working with these technologies were controlling both the coherence and diversity of the text through inference parameters and discriminative biases. More coherent outputs were less creative and closer to the original training data and sounded less human. Recent developments overcame these challenges, and user-friendly UIs enabled everyone to try these models out. Services like ChatGPT have recently put the spotlight on powerful models like GPT-4 and caused an explosion of open-source alternatives like LLaMA to go mainstream. We think these technologies will be around for a long time and become more and more integrated into everyday products. 
+Text generation and conversational technologies have been around for ages. Earlier challenges in working with these technologies were controlling both the coherence and diversity of the text through inference parameters and discriminative biases. More coherent outputs were less creative and closer to the original training data and sounded less human. Recent developments overcame these challenges, and user-friendly UIs enabled everyone to try these models out. Services like ChatGPT have recently put the spotlight on powerful models like GPT-4 and caused an explosion of open-source alternatives like Llama to go mainstream. We think these technologies will be around for a long time and become more and more integrated into everyday products. 
 
 This post is divided into the following sections:
 1. [Brief background on text generation](#brief-background-on-text-generation)
@@ -24,7 +24,7 @@ This post is divided into the following sections:
 
 ## Brief Background on Text Generation
 
-Text generation models are essentially trained with the objective of completing an incomplete text or generating text from scratch as a response to a given instruction or question. Models that complete incomplete text are called Causal Language Models, and famous examples are GPT-3 by OpenAI and [LLaMA](https://ai.meta.com/blog/large-language-model-llama-meta-ai/) by Meta AI. 
+Text generation models are essentially trained with the objective of completing an incomplete text or generating text from scratch as a response to a given instruction or question. Models that complete incomplete text are called Causal Language Models, and famous examples are GPT-3 by OpenAI and [Llama](https://ai.meta.com/blog/large-language-model-Llama-meta-ai/) by Meta AI. 
 
 ![Causal LM Output](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/text_generation.png)
 
@@ -34,8 +34,8 @@ Causal language models are adapted using a process called reinforcement learning
 
 For example, GPT-3 is a causal language _base_ model, while the models in the backend of ChatGPT (which is the UI for GPT-series models) are fine-tuned through RLHF on prompts that can consist of conversations or instructions. It’s an important distinction to make between these models. 
 
-On the Hugging Face Hub, you can find both causal language models and causal language models fine-tuned on instructions (which we’ll give links to later in this blog post). LLaMA is one of the first open-source LLMs to have outperformed/matched closed-source ones. A research group led by Together has created a reproduction of LLaMA's dataset, called Red Pajama, and trained LLMs and instruction fine-tuned models on it. You can read more about it [here](https://www.together.xyz/blog/redpajama) and find [the model checkpoints on Hugging Face Hub](https://huggingface.co/models?sort=trending&search=togethercomputer%2Fredpajama). By the time this blog post is written, three of the largest causal language models with open-source licenses are [MPT-30B by MosaicML](https://huggingface.co/mosaicml/mpt-30b), [XGen by Salesforce](https://huggingface.co/Salesforce/xgen-7b-8k-base) and [Falcon by TII UAE](https://huggingface.co/tiiuae/falcon-40b), available completely open on Hugging Face Hub.
-Recently, Meta released [LLaMa 2](https://ai.meta.com/llama/), an open-access model with a license that allows commercial use. As of now, LLaMa 2 outperforms all of the other open-source large language models on different benchmarks. [LLaMa 2 checkpoints on Hugging Face Hub](https://huggingface.co/meta-llama) are compatible with transformers, and the largest checkpoint is available for everyone to try at [HuggingChat](https://huggingface.co/chat/). You can read more about how to fine-tune, deploy and prompt with LLaMa 2 in [this blog post](https://huggingface.co/blog/llama2).
+On the Hugging Face Hub, you can find both causal language models and causal language models fine-tuned on instructions (which we’ll give links to later in this blog post). Llama is one of the first open-source LLMs to have outperformed/matched closed-source ones. A research group led by Together has created a reproduction of Llama's dataset, called Red Pajama, and trained LLMs and instruction fine-tuned models on it. You can read more about it [here](https://www.together.xyz/blog/redpajama) and find [the model checkpoints on Hugging Face Hub](https://huggingface.co/models?sort=trending&search=togethercomputer%2Fredpajama). By the time this blog post is written, three of the largest causal language models with open-source licenses are [MPT-30B by MosaicML](https://huggingface.co/mosaicml/mpt-30b), [XGen by Salesforce](https://huggingface.co/Salesforce/xgen-7b-8k-base) and [Falcon by TII UAE](https://huggingface.co/tiiuae/falcon-40b), available completely open on Hugging Face Hub.
+Recently, Meta released [Llama 2](https://ai.meta.com/Llama/), an open-access model with a license that allows commercial use. As of now, Llama 2 outperforms all of the other open-source large language models on different benchmarks. [Llama 2 checkpoints on Hugging Face Hub](https://huggingface.co/meta-Llama) are compatible with transformers, and the largest checkpoint is available for everyone to try at [HuggingChat](https://huggingface.co/chat/). You can read more about how to fine-tune, deploy and prompt with Llama 2 in [this blog post](https://huggingface.co/blog/Llama2).
 Another open-access model introduced later is [FreeWilly by Stability AI](https://huggingface.co/stabilityai/FreeWilly1-Delta-SafeTensor) which provides open-access weights with a license for research only use (CC BY-NC 4.0) only.
 
 The second type of text generation model is commonly referred to as the text-to-text generation model. These models are trained on text pairs, which can be questions and answers or instructions and responses. The most popular ones are T5 and BART (which, as of now, aren’t state-of-the-art). Google has recently released the FLAN-T5 series of models. FLAN is a recent technique developed for instruction fine-tuning, and FLAN-T5 is essentially T5 fine-tuned using FLAN. As of now, the FLAN-T5 series of models are state-of-the-art and open-source, available on the [Hugging Face Hub](https://huggingface.co/models?search=google/flan). Note that these are different from instruction-tuned causal language models, although the input-output format might seem similar. Below you can see an illustration of how these models work.
@@ -69,7 +69,7 @@ There are two code generation models, [StarCoder by BigCode](https://huggingface
 The Hugging Face Hub also hosts various models fine-tuned for instruction or chat use. They come in various styles and sizes depending on your needs.
 - [MPT-30B-Chat](https://huggingface.co/mosaicml/mpt-30b-chat), by Mosaic ML, uses the CC-BY-NC-SA license, which does not allow commercial use. However, [MPT-30B-Instruct](https://huggingface.co/mosaicml/mpt-30b-instruct) uses CC-BY-SA 3.0, which can be used commercially.
 - [Falcon-40B-Instruct](https://huggingface.co/tiiuae/falcon-40b-instruct) and [Falcon-7B-Instruct](https://huggingface.co/tiiuae/falcon-7b-instruct) both use the Apache 2.0 license, so commercial use is also permitted.
-- Another popular family of models is OpenAssistant, some of which are built on Meta's LLaMA model using a custom instruction-tuning dataset. Since the original LLaMA model can only be used for research, the OpenAssistant checkpoints built on LLaMA don’t have full open-source licenses. However, there are OpenAssistant models built on open-source models like [Falcon](https://huggingface.co/models?search=openassistant/falcon) or [pythia](https://huggingface.co/models?search=openassistant/pythia) that use permissive licenses.
+- Another popular family of models is OpenAssistant, some of which are built on Meta's Llama model using a custom instruction-tuning dataset. Since the original Llama model can only be used for research, the OpenAssistant checkpoints built on Llama don’t have full open-source licenses. However, there are OpenAssistant models built on open-source models like [Falcon](https://huggingface.co/models?search=openassistant/falcon) or [pythia](https://huggingface.co/models?search=openassistant/pythia) that use permissive licenses.
 - [StarChat Beta](https://huggingface.co/HuggingFaceH4/starchat-beta) is the instruction fine-tuned version of StarCoder, and has BigCode Open RAIL-M v1 license, which allows commercial use. Instruction-tuned coding model of Salesforce, [XGen model](https://huggingface.co/Salesforce/xgen-7b-8k-inst), only allows research use.
 
 
@@ -93,7 +93,7 @@ You can find a comprehensive table of some open-source/open-access models below.
 | [Falcon 40B Instruct](https://huggingface.co/tiiuae/falcon-40b-instruct)                 | [baize](https://github.com/project-baize/baize-chatbot)                                                                                                                                           | Apache-2.0         | Instruction             |
 | [Dolly v2](https://huggingface.co/databricks/dolly-v2-12b)                               | [Dolly](https://huggingface.co/datasets/databricks/databricks-dolly-15k)                                                                                                                          | MIT                | Text Generation         |
 | [StarChat-β](https://huggingface.co/HuggingFaceH4/starchat-beta)                     | [OpenAssistant Guanaco](https://huggingface.co/datasets/timdettmers/openassistant-guanaco)                                                                                                        | BigCode OpenRAIL-M | Code Instruction        |
-| [LLaMa 2](https://huggingface.co/meta-llama/Llama-2-70b-hf)                     | Undisclosed dataset                                                                                                   | Custom Meta License (Allows commercial use) | Text Generation        |
+| [Llama 2](https://huggingface.co/meta-Llama/Llama-2-70b-hf)                     | Undisclosed dataset                                                                                                   | Custom Meta License (Allows commercial use) | Text Generation        |
 ## Tools in the Hugging Face Ecosystem for LLM Serving
 
 ### Text Generation Inference
@@ -106,7 +106,7 @@ TGI currently powers [HuggingChat](https://huggingface.co/chat/), Hugging Face's
 
 ![HuggingChat Search](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/huggingchat_web.png)
 
-Recently, a Docker template for HuggingChat was released for Hugging Face Spaces. This allows anyone to deploy their instance based on a large language model with only a few clicks and customize it. You can create your large language model instance [here](https://huggingface.co/new-space?template=huggingchat/chat-ui-template) based on various LLMs, including LLaMA 2.
+Recently, a Docker template for HuggingChat was released for Hugging Face Spaces. This allows anyone to deploy their instance based on a large language model with only a few clicks and customize it. You can create your large language model instance [here](https://huggingface.co/new-space?template=huggingchat/chat-ui-template) based on various LLMs, including Llama 2.
 
 ![HuggingChat Space](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/os_llms/docker_chat.png)
 
@@ -131,4 +131,4 @@ You can check out further resources for more information on text generation.
 - [Text Generation task page](https://huggingface.co/tasks/text-generation) to find out more about the task itself.
 - PEFT announcement [blog post](https://huggingface.co/blog/peft).
 - Read about how Inference Endpoints use TGI [here](https://huggingface.co/blog/inference-endpoints-llm).
-- Read about how to fine-tune LLaMA 2 transformers and PEFT, and prompt [here](https://huggingface.co/blog/llama2).
+- Read about how to fine-tune Llama 2 transformers and PEFT, and prompt [here](https://huggingface.co/blog/Llama2).
