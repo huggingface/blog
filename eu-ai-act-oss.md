@@ -11,7 +11,6 @@ Like everyone else in Machine Learning, we’ve been following the EU AI Act clo
 It’s a ground-breaking piece of legislation that is poised to shape how democratic inputs interact with AI technology development around the world.
 It’s also the outcome of extensive work and negotiations between organizations representing many different components of society –
 a process we’re particularly sensitive to as a community-driven company.
-
 In the present <a href="/blog/assets/eu_ai_act_oss/supporting_OS_in_the_AIAct.pdf">position paper</a> written in coalition with [Creative Commons](https://creativecommons.org/),
 [Eleuther AI](https://www.eleuther.ai/), [GitHub](https://github.com/), [LAION](https://laion.ai/), and [Open Future](http://openfuture.eu/),
 we aim to contribute to this process by sharing our experience of the necessary role of open ML development
