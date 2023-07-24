@@ -24,10 +24,9 @@ and reliably work with full visibility into their entire stack.
 We’re also acutely aware of the necessary role of transparency in supporting more accountability and inclusivity of the technology –
 which we’ve worked on fostering through better documentation and accessibility of ML artifacts, education efforts,
 and hosting large-scale multidisciplinary collaborations, among others.
-Thus, as the EU AI Act moves towards its final phase, we believe accounting for the specific needs and strengths of open-source
-and open development of ML systems will be instrumental to supporting its long-term goals.
-
-As a result, along with our co-signed partner organizations, we make the following five recommendations:
+Thus, as the EU AI Act moves toward its final phase, we believe accounting for the specific needs and strengths of open-source
+and open development of ML systems will be instrumental in supporting its long-term goals.
+Along with our co-signed partner organizations, we make the following five recommendations to that end:
 1. Define AI components clearly,
 2. Clarify that collaborative development of open source AI components and making them available in public repositories does not subject developers to the requirements in the AI Act, building on and improving the Parliament text’s Recitals 12a-c and Article 2(5e),
 3. Support the AI Office’s coordination and inclusive governance with the open source ecosystem, building on the Parliament’s text,
