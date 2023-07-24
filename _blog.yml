@@ -2516,3 +2516,11 @@
   date: July 21, 2023
   tags:
     - game-dev
+
+- local: agents-js
+  title: "Give tools to your LLMs directly from javascript with @hugginface/agents 🤖"
+  author: nsarrazin
+  thumbnail: /blog/assets/agents-js/thumbnail.jpg
+  date: July 24, 2023
+  tags:
+    - agents
