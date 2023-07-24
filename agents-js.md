@@ -1,6 +1,6 @@
 ---
 title: "Introducing Agents.js: Give tools to your LLMs using JavaScript"
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+thumbnail: /blog/assets/agents-js/thumbnail.png
 authors:
   - user: nsarrazin
 ---
