@@ -718,3 +718,13 @@
     - hardware
     - partnerships
 
+- local: llama2
+  title: "Llama 2 来袭 - 在 Hugging Face 上玩转它"
+  author: osanseviero
+  thumbnail: /blog/assets/llama2/thumbnail.jpg
+  date: July 18, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
