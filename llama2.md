@@ -217,9 +217,7 @@ As the conversation progresses, _all_ the interactions between the human and the
 {{ system_prompt }}
 <</SYS>>
 
-{{ user_msg_1 }} [/INST] {{ model_answer_1 }} </s>\
-<s>[INST] {{ user_msg_2 }} [/INST] {{ model_answer_2 }} </s>\
-<s>[INST] {{ user_msg_3 }} [/INST]
+{{ user_msg_1 }} [/INST] {{ model_answer_1 }} </s><s>[INST] {{ user_msg_2 }} [/INST]
 ```
 
 The model is stateless and does not "remember" previous fragments of the conversation, we must always supply it with all the context so the conversation can continue. This is the reason why **context length** is a very important parameter to maximize, as it allows for longer conversations and larger amounts of information to be used. 
