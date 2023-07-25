@@ -2508,3 +2508,21 @@
     - open-source-collab
     - diffusion
     - diffusers
+
+- local: game-jam-first-edition-results
+  title: "Results of the Open Source AI Game Jam"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/game-jam-first-edition-results/thumbnail.jpg
+  date: July 21, 2023
+  tags:
+    - game-dev
+
+- local: agents-js
+  title: "Introducing Agents.js: Give tools to your LLMs using JavaScript"
+  author: nsarrazin
+  thumbnail: /blog/assets/agents-js/thumbnail.png
+  date: July 24, 2023
+  tags:
+    - agents
+    - javascript
+    - web
