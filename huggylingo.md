@@ -17,7 +17,15 @@ In this blog post, I'm excited to share some early experiments which seek to use
 
 ### Language metadata for datasets on the Hub
 
-There are currently 47,213 datasets on the Hugging Face Hub. These datasets specify  1,716 unique languages in their metadata. **Note:** some of this number will be the result of languages being specified in different ways i.e. `en` vs `eng` vs `english` vs `English`. 
+There are currently 47,213 datasets on the Hugging Face Hub. Datasets shared on the Hub can add metadata about what language they use in a [YAML](https://en.wikipedia.org/wiki/YAML) field at the top of the [dataset card](https://huggingface.co/docs/datasets/upload_dataset#create-a-dataset-card) for the dataset. 
+
+These datasets specify 1,716 unique languages via a language tag in their metadata. **Note:** some of this number will be the result of languages being specified in different ways i.e. `en` vs `eng` vs `english` vs `English`. 
+
+For example the [IMDB dataset](https://huggingface.co/datasets/imdb) specifies `en` in the YAML metadata (indicating English):
+
+![Screenshot of YAML metadata](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/huggy_lingo/lang_metadata.png)
+
+* Section of the YAML metadata for the IMDB dataset*
 
 It is perhaps unsurprising that English is by far the most common language for datasets on the Hub, with around 19% of datasets on the Hub listing their language as `en` (this isn't including variations of `en` that might be used on the Hub so the actual percentage of English datasets is likely to be much higher).
 
