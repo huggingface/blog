@@ -1,4 +1,4 @@
-```
+---
 title: 🤗 Diffusers 一岁啦 !
 thumbnail: /blog/assets/diffusers-turns-1/diffusers-turns-1.png
 authors:
@@ -9,7 +9,7 @@ translators:
 - user: vermillion
 - user: zhongdongy
   proofreader: true
-```
+---
 
 # 🤗 Diffusers 一岁啦 !
 

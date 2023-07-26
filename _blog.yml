@@ -2526,3 +2526,11 @@
     - agents
     - javascript
     - web
+
+- local: eu-ai-act-oss
+  title: "AI Policy @🤗: Open ML Considerations in the EU AI Act"
+  author: yjernite
+  thumbnail: /blog/assets/eu_ai_act_oss/thumbnailEU.png
+  date: July 24, 2023
+  tags:
+    - ethics
