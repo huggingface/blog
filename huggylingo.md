@@ -11,7 +11,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-**tl:dr**: We're using machine learning to predict the language of datasets hosted on the hub with missing language metadata and using [librarian-bot](https://huggingface.co/librarian-bot) to make pull requests to add this metadata. 
+**tl:dr**: We're using machine learning to predict the language of datasets hosted on the hub with missing language metadata and using [librarian-bot](https://huggingface.co/librarian-bots) to make pull requests to add this metadata. 
 
 The Hugging Face Hub become the repository used by the community to share machine learning models, datasets, and applications. It is a great way to share resources with the community, but as the number of datasets shared on the hub grows, metadata becomes increasingly important as a tool for finding the right model or dataset for your use case.  
 
