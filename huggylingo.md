@@ -1,6 +1,6 @@
 ---
 title: "Huggy Lingo: Using Machine Learning to Improve Language Metadata on the Hugging Face Hub"
-thumbnail: 
+thumbnail: blog/assets/156_huggylingo/Huggy_Lingo.png 
 authors:
 - user: davanstrien
 ---
