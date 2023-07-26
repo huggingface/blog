@@ -739,3 +739,13 @@
     - open-source-collab
     - diffusion
     - diffusers
+
+- local: game-jam-first-edition-results
+  title: "首届开源 AI 游戏挑战赛事结果"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/game-jam-first-edition-results/thumbnail.jpg
+  date: July 21, 2023
+  tags:
+    - ai-for-games
+    - game-dev
+
