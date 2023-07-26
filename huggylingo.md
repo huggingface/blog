@@ -27,7 +27,9 @@ It is perhaps unsurprising that English is by far the most common language for d
 
 What does the distribution of languages look like if we exclude English? We can see that there is a grouping of a few dominant languages and after that there is a pretty smooth fall in the frequencies at which languages appear. 
 
-![Distribution of language tags for datasets on the hub excluding English](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/huggy_lingo/lang_freq_distribution.png) 
+![Distribution of language tags for datasets on the hub excluding English](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/huggy_lingo/lang_freq_distribution.png)
+
+*Distribution of language tags for datasets on the hub excluding English*
 
 However, there is a major caveat to this. Most datasets (around 87%) do not specify the language used; only approximately 13% of datasets include language information in their metadata.
 
