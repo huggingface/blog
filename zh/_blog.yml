@@ -571,6 +571,28 @@
     - community
     - research
 
+- local: generative-ai-models-on-intel-cpu
+  title: "越小越好：Q8-Chat，在英特尔至强 CPU 上体验高效的生成式 AI"
+  thumbnail: /blog/assets/143_q8chat/thumbnail.png
+  author: andyll7772
+  date: May 16, 2023
+  tags:
+    - llm
+    - nlp
+    - inference
+    - intel
+    - quantization
+
+- local: dedup
+  title: "BigCode 背后的大规模数据去重"
+  author: chenghao
+  guest: true
+  thumbnail: /blog/assets/dedup/thumbnail.png
+  date: May 16, 2023
+  tags:
+    - bigcode
+    - deduplication
+
 - local: instruction-tuning-sd
   title: "使用 InstructPix2Pix 对 Stable Diffusion 进行指令微调"
   author: sayakpaul
@@ -583,17 +605,17 @@
     - research
     - guide 
 
-- local: generative-ai-models-on-intel-cpu
-  title: "越小越好：Q8-Chat，在英特尔至强 CPU 上体验高效的生成式 AI"
-  thumbnail: /blog/assets/143_q8chat/thumbnail.png
-  author: andyll7772
-  date: May 16, 2023
+- local: train-optimize-sd-intel
+  title: "基于 NNCF 和 🤗 Optimum 面向 Intel CPU 对 Stable Diffusion 优化"
+  author: AlexKoff88
+  thumbnail: /blog/assets/train_optimize_sd_intel/thumbnail.png
+  date: May 25, 2023
   tags:
-    - llm
-    - nlp
-    - inference
+    - diffusers
+    - cpu
     - intel
-    - quantization
+    - guide
+      - quantization
 
 - local: unity-asr
   title: "如何在 Unity 游戏中集成 AI 语音识别？"
@@ -673,3 +695,47 @@
   date: June 26, 2023
   tags:
     - ethics
+
+- local: inference-endpoints-llm
+  title: "用 Hugging Face 推理端点部署 LLM"
+  author: philschmid
+  thumbnail: /blog/assets/155_inference_endpoints_llm/thumbnail.jpg
+  date: July 4, 2023
+  tags:
+    - guide
+    - llm
+    - apps
+    - inference
+
+- local: stable-diffusion-finetuning-intel
+  title: "在英特尔 CPU 上微调 Stable Diffusion 模型"
+  author: juliensimon
+  thumbnail: /blog/assets/stable-diffusion-finetuning-intel/dicoo_image.png
+  date: July 14, 2023
+  tags:
+    - guide
+    - intel
+    - hardware
+    - partnerships
+
+- local: llama2
+  title: "Llama 2 来袭 - 在 Hugging Face 上玩转它"
+  author: osanseviero
+  thumbnail: /blog/assets/llama2/thumbnail.jpg
+  date: July 18, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: diffusers-turns-1
+  title: "🤗 Diffusers 一岁啦!"
+  author: stevhliu
+  thumbnail: /blog/assets/diffusers-turns-1/diffusers-turns-1.png
+  date: July 20, 2023
+  tags:
+    - community
+    - open-source-collab
+    - diffusion
+    - diffusers

@@ -69,7 +69,7 @@ Falcon 模型的另一个有趣的特性是其使用了 [**多查询注意力 (m
 通过 [这个 Space](https://huggingface.co/spaces/HuggingFaceH4/falcon-chat) 或下面的应用，你可以很轻松地试用一下大的 Falcon 模型 (400 亿参数！):
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.32.0/gradio.js"> </script>
-<gradio-app space="HuggingFaceH4/falcon-chat-demo-for-blog"></gradio-app>
+<gradio-app theme_mode="light" space="HuggingFaceH4/falcon-chat-demo-for-blog"></gradio-app>
 
 上面的应用使用了 Hugging Face 的 [Text Generation Inference](https://github.com/huggingface/text-generation-inference) 技术，它是一个可扩展的、快速高效的文本生成服务，使用了 Rust、Python 以及 gRPC 等技术。[HuggingChat](https://huggingface.co/chat/) 也使用了相同的技术。
 

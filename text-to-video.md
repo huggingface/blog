@@ -76,11 +76,11 @@ At Hugging Face, our goal is to make it easier to use and build upon state-of-th
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.23.0/gradio.js"></script>
 
-<gradio-app space="PAIR/Text2Video-Zero"></gradio-app>
+<gradio-app theme_mode="light" space="PAIR/Text2Video-Zero"></gradio-app>
 
 Apart from using demos to experiment with pretrained text-to-video models, you can also use the [Tune-a-Video training demo](https://huggingface.co/spaces/Tune-A-Video-library/Tune-A-Video-Training-UI) to fine-tune an existing text-to-image model with your own text-video pair. To try it out, upload a video and enter a text prompt that describes the video. Once the training is done, you can upload it to the Hub under the Tune-a-Video community or your own username, publicly or privately. Once the training is done, simply head over to the *Run* tab of the demo to generate videos from any text prompt. 
 
-<gradio-app space="Tune-A-Video-library/Tune-A-Video-Training-UI"></gradio-app>
+<gradio-app theme_mode="light" space="Tune-A-Video-library/Tune-A-Video-Training-UI"></gradio-app>
 
 
 All Spaces on the 🤗 Hub are Git repos you can clone and run on your local or deployment environment. Let’s clone the ModelScope demo, install the requirements, and run it locally.

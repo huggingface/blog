@@ -68,7 +68,7 @@ This trick doesn’t significantly influence pretraining, but it greatly [improv
 You can easily try the Big Falcon Model (40 billion parameters!) in [this Space](https://huggingface.co/spaces/HuggingFaceH4/falcon-chat) or in the playground embedded below:
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.32.0/gradio.js"> </script>
-<gradio-app space="HuggingFaceH4/falcon-chat-demo-for-blog"></gradio-app>
+<gradio-app theme_mode="light" space="HuggingFaceH4/falcon-chat-demo-for-blog"></gradio-app>
 
 Under the hood, this playground uses Hugging Face's [Text Generation Inference](https://github.com/huggingface/text-generation-inference), a scalable Rust, Python, and gRPC server for fast & efficient text generation. It's the same technology that powers [HuggingChat](https://huggingface.co/chat/).
 
@@ -107,7 +107,6 @@ pipeline = transformers.pipeline(
     trust_remote_code=True,
     device_map="auto",
 )
-
 ```
 
 And then, you'd run text generation using code like the following:
@@ -123,19 +122,17 @@ sequences = pipeline(
 )
 for seq in sequences:
     print(f"Result: {seq['generated_text']}")
-
 ```
 
 And you may get something like the following:
 
-```
+```bash
 Valencia, city of the sun
 The city that glitters like a star
 A city of a thousand colors
 Where the night is illuminated by stars
 Valencia, the city of my heart
 Where the past is kept in a golden chest
-
 ```
 
 ### Inference of Falcon 40B
