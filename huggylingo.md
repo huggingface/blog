@@ -1,6 +1,6 @@
 ---
 title: "Huggy Lingo: Using Machine Learning to Improve Language Metadata on the Hugging Face Hub"
-thumbnail: blog/assets/156_huggylingo/Huggy_Lingo.png 
+thumbnail: blog/assets/156_huggylingo/Huggy_Lingo.png
 authors:
 - user: davanstrien
 ---
@@ -21,18 +21,18 @@ There are currently 47,213 datasets on the Hugging Face Hub. These datasets spec
 
 It is perhaps unsurprising that English is by far the most common language for datasets on the Hub, with around 19% of datasets on the Hub listing their language as `en` (this isn't including variations of `en` that might be used on the Hub so the actual percentage of English datasets is likely to be much higher).
 
-![The frequency and percentage frequency for datasets on the Hugging Face Hub](https://d3e0luujhwn38u.cloudfront.net/resized/VK5SsjlOD8Rt1fpHr5fx9go18KUquikUq0ZrN4RbUCE/s:1200/plain/s3://typefully-user-uploads/img/original/47136/2e1ffabe-e428-48aa-902f-c2071bad51ad.png)
+![The frequency and percentage frequency for datasets on the Hugging Face Hub](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/huggy_lingo/lang_freq.png)
 
 *The frequency and percentage frequency for datasets on the Hugging Face Hub*  
 
 What does the distribution of languages look like if we exclude English? We can see that there is a grouping of a few dominant languages and after that there is a pretty smooth fall in the frequencies at which languages appear. 
 
-![Distribution of language tags for datasets on the hub excluding English](https://d3e0luujhwn38u.cloudfront.net/resized/3G9nyXyW32NiZKHTo_AEfYp5AqgVFiE87vcpwIGTnT0/s:3200/plain/s3://typefully-user-uploads/img/original/47136/d5ed49ad-57f9-48c2-96ff-afd56c3dac0b.png) 
+![Distribution of language tags for datasets on the hub excluding English](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/huggy_lingo/lang_freq_distribution.png) 
 
 However, there is a major caveat to this. Most datasets (around 87%) do not specify the language used; only approximately 13% of datasets include language information in their metadata.
 
 
-![The percent of datasets which have language metadata. True indicates language metadata is specified, False means no language data is listed. No card data means that there isn't any metadata or it couldn't be loaded by the `huggingface_hub` Python library.](https://d3e0luujhwn38u.cloudfront.net/resized/WlLTLVoyddSCGehYiu4TD-K5SJ6NrqfSZJ6sVPLRKYE/s:1200/plain/s3://typefully-user-uploads/img/original/47136/c4259fa0-f96e-4f40-8148-3d7ab748e14f.png)
+![The percent of datasets which have language metadata. True indicates language metadata is specified, False means no language data is listed. No card data means that there isn't any metadata or it couldn't be loaded by the `huggingface_hub` Python library.](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/huggy_lingo/has_lang_info_bar.png)
 
 *The percent of datasets which have language metadata. True indicates language metadata is specified, False means no language data is listed. No card data means that there isn't any metadata or it couldn't be loaded by the `huggingface_hub` Python library.*
 
