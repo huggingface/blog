@@ -51,9 +51,10 @@ For reference, these are the performance figures we got on a few computers:
 
 |        Device         | `--compute-unit`| `--attention-implementation` | End-to-End Latency (s) | Diffusion Speed (iter/s) |
 | --------------------- | --------------- | ---------------------------- | ---------------------- | ------------------------ |
-| Mac Studio (M2 Ultra) | `CPU_AND_GPU`   |      `ORIGINAL`              |      47                |        1.11              |
-| Mac Studio (M1 Ultra) | `CPU_AND_GPU`   |      `ORIGINAL`              |      58                |        0.89              |
-| MacBook Pro (M1 Max)  | `CPU_AND_GPU`   |      `ORIGINAL`              |     113                |        0.46              |
+| MacBook Pro (M1 Max)  | `CPU_AND_GPU`   |      `ORIGINAL`              |      46                |        0.46              |
+| MacBook Pro (M2 Max)  | `CPU_AND_GPU`   |      `ORIGINAL`              |      37                |        0.57              |
+| Mac Studio (M1 Ultra) | `CPU_AND_GPU`   |      `ORIGINAL`              |      25                |        0.89              |
+| Mac Studio (M2 Ultra) | `CPU_AND_GPU`   |      `ORIGINAL`              |      20                |        1.11              |
 
 ## What is Mixed-Bit Palettization?
 
