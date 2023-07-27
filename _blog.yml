@@ -824,6 +824,7 @@
   tags:
     - expert-acceleration-program
     - case-study
+    - case-studies
 
 - local: deep-rl-q-part2
   title: "An Introduction to Q-Learning Part 2"
@@ -1463,6 +1464,7 @@
   tags:
     - guide
     - expert-acceleration-program
+    - case-studies
 
 - local: diffusion-models-event
   title: "Diffusion Models Live Event"
@@ -1845,6 +1847,7 @@
   date: March 1, 2023
   tags:
     - nlp
+    - case-studies
 
 - local: ethics-diffusers
   title: "Ethical guidelines for developing the Diffusers library"
