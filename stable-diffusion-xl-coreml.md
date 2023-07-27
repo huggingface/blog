@@ -12,7 +12,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-[Stable Diffusion XL](https://stability.ai/stablediffusion) was released yesterday and it’s awesome. It can generate large (1024x1024) high quality images, adherence to prompts has been improved with some new tricks, it can effortlessly produce very dark or very bright images thanks to the latest research on noise schedulers, and it’s open source!
+[Stable Diffusion XL](https://stability.ai/stablediffusion) was released yesterday and it’s awesome. It can generate large (1024x1024) high quality images; adherence to prompts has been improved with some new tricks; it can effortlessly produce very dark or very bright images thanks to the latest research on noise schedulers; and it’s open source!
 
 The downside is that the model is much bigger, and hence slower and harder to run on consumer hardware. Using the [latest release of the Hugging Face diffusers library](https://github.com/huggingface/diffusers/releases/tag/v0.19.0), you can run Stable Diffusion XL on CUDA hardware in 16 GB of GPU RAM, making it possible to use it on Colab’s free tier.
 
@@ -82,7 +82,7 @@ To illustrate the method, let’s consider the following quantization “recipes
 }
 ```
 
-What this tells us is that the original model quality, as measured by PSNR in float16, is of about 82 dB. Performing a naïve 8-bit linear quantization drops it to 66 dB. But then we have a recipe that compresses to 6.55 bits per parameter, on average, while keeping PSNR at 80 dB. The second and third recipes further reduce the model size, while still sustaining a PSNR larger than that from the 8-bit linear quantization.
+What this tells us is that the original model quality, as measured by PSNR in float16, is about 82 dB. Performing a naïve 8-bit linear quantization drops it to 66 dB. But then we have a recipe that compresses to 6.55 bits per parameter, on average, while keeping PSNR at 80 dB. The second and third recipes further reduce the model size, while still sustaining a PSNR larger than that of the 8-bit linear quantization.
 
 For visual examples, these are the results on prompt `a high quality photo of a surfing dog` running each one of the three recipes with the same seed:
 
