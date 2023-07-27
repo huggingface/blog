@@ -14,7 +14,7 @@ authors:
 
 [Stable Diffusion XL](https://stability.ai/stablediffusion) was released yesterday and it’s awesome. It can generate large (1024x1024) high quality images; adherence to prompts has been improved with some new tricks; it can effortlessly produce very dark or very bright images thanks to the latest research on noise schedulers; and it’s open source!
 
-The downside is that the model is much bigger, and hence slower and harder to run on consumer hardware. Using the [latest release of the Hugging Face diffusers library](https://github.com/huggingface/diffusers/releases/tag/v0.19.0), you can run Stable Diffusion XL on CUDA hardware in 16 GB of GPU RAM, making it possible to use it on Colab’s free tier.
+The downside is that the model is much bigger, and therefore slower and more difficult to run on consumer hardware. Using the [latest release of the Hugging Face diffusers library](https://github.com/huggingface/diffusers/releases/tag/v0.19.0), you can run Stable Diffusion XL on CUDA hardware in 16 GB of GPU RAM, making it possible to use it on Colab’s free tier.
 
 The past few months have shown that people are very clearly interested in running ML models locally for a variety of reasons, including privacy, convenience, easier experimentation, or unmetered use. We’ve been working hard at both Apple and Hugging Face to explore this space. We’ve shown [how to run Stable Diffusion on Apple Silicon](https://machinelearning.apple.com/research/stable-diffusion-coreml-apple-silicon), or how to leverage the [latest advancements in Core ML to improve size and performance with 6-bit palettization](https://huggingface.co/blog/fast-diffusers-coreml).
 
