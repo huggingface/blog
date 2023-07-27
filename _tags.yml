@@ -39,3 +39,6 @@
 
 - value: rlhf
   label: RLHF
+
+- value: case-studies
+  label: Case Studies
