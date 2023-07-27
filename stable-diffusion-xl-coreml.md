@@ -48,7 +48,7 @@ As with previous Stable Diffusion releases, we expect the community to come up w
 
 Stable Diffusion XL works on Apple Silicon Macs running the public beta of macOS 14. It currently uses the `ORIGINAL` attention implementation, which is intended for CPU + GPU compute units. Note that the refiner stage has not been ported yet.
 
-For reference, these are the performance figures we got on a few computers:
+For reference, these are the performance figures we achieved on different devices:
 
 |        Device         | `--compute-unit`| `--attention-implementation` | End-to-End Latency (s) | Diffusion Speed (iter/s) |
 | --------------------- | --------------- | ---------------------------- | ---------------------- | ------------------------ |
