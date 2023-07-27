@@ -2459,6 +2459,7 @@
     - javascript
     - transformers.js
 
+
 - local: stable-diffusion-finetuning-intel
   title: "Fine-tuning Stable Diffusion models on Intel CPUs"
   author: juliensimon
