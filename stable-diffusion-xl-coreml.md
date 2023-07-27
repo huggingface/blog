@@ -32,7 +32,7 @@ Everything is open source and available today, let’s get on with it.
 - [What is Mixed-Bit Palettization?](#what-is-mixed-bit-palettization)
 - [How are Mixed-Bit Recipes Created?](#how-are-mixed-bit-recipes-created)
 - [Converting Fine-Tuned Models](#converting-fine-tuned-models)
-- [Resources](#resources)
+- [Published Resources](#published-resources)
 
 ## Using SD XL Models from the Hugging Face Hub
 
@@ -137,9 +137,13 @@ In addition, we also applied the three best recipes from the Stable Diffusion XL
 
 Finally, as mentioned in the introduction, we created a [complete Stable Diffusion XL Core ML pipeline](https://huggingface.co/apple/coreml-stable-diffusion-mixed-bit-palettization) that uses a `4.5-bit` recipe.
 
-### Resources
+### Published Resources
 
-
-
-
-
+* [`apple/ml-stable-diffusion`](https://github.com/apple/ml-stable-diffusion), by Apple. Conversion and inference library for Swift (and Python).
+* [`huggingface/swift-coreml-diffusers`](https://github.com/huggingface/swift-coreml-diffusers). Hugging Face demo app, built on top of Apple's package.
+* [Stable Diffusion XL 1.0 base (Core ML version)](https://huggingface.co/apple/coreml-stable-diffusion-xl-base). Model ready to run using the repos above and other third-party apps.
+* [Stable Diffusion XL 1.0 base, with mixed-bit palettization (Core ML)](https://huggingface.co/apple/coreml-stable-diffusion-mixed-bit-palettization/blob/main/coreml-stable-diffusion-mixed-bit-palettization_original_compiled.zip). Same model as above, with UNet quantized with an effective palettization of 4.5 bits (on average).
+* [Additional UNets with mixed-bit palettizaton](https://huggingface.co/apple/coreml-stable-diffusion-mixed-bit-palettization/tree/main/unet-mbp-sdxl-1-base).
+* [Mixed-bit palettization recipes](https://huggingface.co/apple/coreml-stable-diffusion-mixed-bit-palettization/tree/main/recipes), pre-computed for popular models and ready to use.
+* [`mixed_bit_compression_pre_analysis.py`](https://github.com/apple/ml-stable-diffusion/python_coreml_stable_diffusion/mixed_bit_compression_pre_analysis.py). Script to run mixed-bit analysis and recipe generation.
+* [`mixed_bit_compression_apply.py`](https://github.com/apple/ml-stable-diffusion/python_coreml_stable_diffusion/mixed_bit_compression_apply.py). Script to apply recipes computed during the analysis phase.
