@@ -12,17 +12,17 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Stable Diffusion XL was released yesterday and it’s awesome. It can generate large (1024x1024) high quality images, adherence to the prompt has been improved with some new tricks, it can effortlessly produce very dark or very bright images thanks to the latest research on noise schedulers, and it’s open source!
+[Stable Diffusion XL](https://stability.ai/stablediffusion) was released yesterday and it’s awesome. It can generate large (1024x1024) high quality images, adherence to prompts has been improved with some new tricks, it can effortlessly produce very dark or very bright images thanks to the latest research on noise schedulers, and it’s open source!
 
-The downside is that the model is much bigger, and hence slower and harder to run on consumer hardware. Using the latest release of the Hugging Face diffusers library, you can run Stable Diffusion XL on CUDA hardware in 16 GB of GPU RAM, making it possible to use it on Colab’s free tier.
+The downside is that the model is much bigger, and hence slower and harder to run on consumer hardware. Using the [latest release of the Hugging Face diffusers library](https://github.com/huggingface/diffusers/releases/tag/v0.19.0), you can run Stable Diffusion XL on CUDA hardware in 16 GB of GPU RAM, making it possible to use it on Colab’s free tier.
 
-The past few months have shown that people are very clearly interested in running ML models locally for a variety of reasons, including privacy, convenience, easier experimentation, or unmetered use. We’ve been working hard at both Apple and Hugging Face to explore this space. We’ve shown how to run Stable Diffusion on Apple Silicon, or how to leverage the latest advancements in Core ML to improve size and performance with 6-bit palettization.
+The past few months have shown that people are very clearly interested in running ML models locally for a variety of reasons, including privacy, convenience, easier experimentation, or unmetered use. We’ve been working hard at both Apple and Hugging Face to explore this space. We’ve shown [how to run Stable Diffusion on Apple Silicon](https://machinelearning.apple.com/research/stable-diffusion-coreml-apple-silicon), or how to leverage the [latest advancements in Core ML to improve size and performance with 6-bit palettization](https://huggingface.co/blog/fast-diffusers-coreml).
 
 For Stable Diffusion XL we’ve done a few things:
-* Ported the base model to Core ML so you can use it in your native Swift apps.
-Updated Apple’s conversion and inference repo so you can convert the models yourself, including any fine-tunes you’re interested in.
-* Updated Hugging Face’s demo app to show how to use the new Core ML Stable Diffusion XL models downloaded from the Hub.
-* Explored mixed-bit palettization, an advanced compression technique that achieves important size reductions while minimizing and controlling the quality loss you incur. You can apply the same technique to your own models too!
+* Ported the [base model to Core ML](https://huggingface.co/apple/coreml-stable-diffusion-xl-base) so you can use it in your native Swift apps.
+* Updated [Apple’s conversion and inference repo](https://github.com/apple/ml-stable-diffusion) so you can convert the models yourself, including any fine-tunes you’re interested in.
+* Updated [Hugging Face’s demo app](https://github.com/huggingface/swift-coreml-diffusers) to show how to use the new Core ML Stable Diffusion XL models downloaded from the Hub.
+* Explored [mixed-bit palettization](https://github.com/apple/ml-stable-diffusion#-mbp-post-training-mixed-bit-palettization), an advanced compression technique that achieves important size reductions while minimizing and controlling the quality loss you incur. You can apply the same technique to your own models too!
 
 Everything is open source and available today, let’s get on with it.
 
@@ -40,12 +40,13 @@ As part of this release, we published two different versions of Stable Diffusion
 - [`apple/coreml-stable-diffusion-xl-base`](https://huggingface.co/apple/coreml-stable-diffusion-xl-base) is a complete pipeline, without any quantization.
 - [`apple/coreml-stable-diffusion-mixed-bit-palettization`](https://huggingface.co/apple/coreml-stable-diffusion-mixed-bit-palettization) contains (among other artifacts) a complete pipeline where the UNet has been replaced with a mixed-bit palettization _recipe_ that achieves a compression equivalent to 4.5 bits per parameter. Size went down from 4.8 to 1.4 GB, a 71% reduction, and in our opinion quality is still great.
 
-Either model can be tested using Apple’s [Swift command-line inference app](https://github.com/apple/ml-stable-diffusion#inference), or Hugging Face’s [demo app](https://github.com/huggingface/swift-coreml-diffusers). This is an example of the latter using the mixed-bit pipeline:
+Either model can be tested using Apple’s [Swift command-line inference app](https://github.com/apple/ml-stable-diffusion#inference), or Hugging Face’s [demo app](https://github.com/huggingface/swift-coreml-diffusers). This is an example of the latter using the new Stable Diffusion XL pipeline:
 
-[screenshot]
+![Screenshot of Stable Diffusion XL running on Mac](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/stable-diffusion-xl-coreml/sdxl-swift-screenshot.png)
 
-As with previous Stable Diffusion releases, we expect the community to come up with novel fine-tuned versions for different domains, and many of them will be converted to Core ML. You can keep an eye on [this filter in the Hub]() to explore!
-Stable Diffusion XL works on Apple Silicon Macs running the public beta of macOS 14. It uses the `ORIGINAL` attention implementation, which is intended for CPU + GPU compute units. Note that the refiner stage has not been ported yet.
+As with previous Stable Diffusion releases, we expect the community to come up with novel fine-tuned versions for different domains, and many of them will be converted to Core ML. You can keep an eye on [this filter in the Hub](https://huggingface.co/models?pipeline_tag=text-to-image&library=coreml&sort=trending) to explore!
+
+Stable Diffusion XL works on Apple Silicon Macs running the public beta of macOS 14. It currently uses the `ORIGINAL` attention implementation, which is intended for CPU + GPU compute units. Note that the refiner stage has not been ported yet.
 
 For reference, these are the performance figures we got on a few computers:
 
@@ -65,7 +66,7 @@ We explored a different alternative instead: **mixed-bit palettization**. Instea
 
 Using this method, we can achieve effective quantizations of, for example, 2.8 bits on average, and we measure the impact on degradation for every combination we try. This allows us to be better informed about the best quantization to use for our target quality and size budgets.
 
-To illustrate the method, let’s consider the following alternative quantization “recipes” (we’ll see later how they were generated):
+To illustrate the method, let’s consider the following quantization “recipes” that we got from an analysis run (we’ll explain later ow they were generated):
 
 ```json
 {
@@ -80,13 +81,13 @@ To illustrate the method, let’s consider the following alternative quantizatio
 }
 ```
 
-What this tells us is that the original model quality, as measured by PSNR in float16, is of about 82 dB. Performing a naïve 8-bit linear quantization drops it to 66 dB. But then we have a recipe that achieves 6.55 bits per parameter, on average, while keeping PSNR at 80 dB. The second and third recipes further reduce the model size, while still sustaining a PSNR larger than that from the 8-bit linear quantization.
+What this tells us is that the original model quality, as measured by PSNR in float16, is of about 82 dB. Performing a naïve 8-bit linear quantization drops it to 66 dB. But then we have a recipe that compresses to 6.55 bits per parameter, on average, while keeping PSNR at 80 dB. The second and third recipes further reduce the model size, while still sustaining a PSNR larger than that from the 8-bit linear quantization.
 
 For visual examples, these are the results on prompt `a high quality photo of a surfing dog` running each one of the three recipes with the same seed:
 
 | 3.41-bit | 4.50-bit | 6.55-bit | 16-bit (original) |
 | :-------:| :-------:| :-------:| :----------------:|
-| ![3.41](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/stable-diffusion-xl-coreml/a_high_quality_photo_of_a_surfing_dog.7667.final_3.41-bits.jpg) | ![4.50](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/stable-diffusion-xl-coreml/a_high_quality_photo_of_a_surfing_dog.7667.final_4.50-bits.jpg) | ![6.55](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/stable-diffusion-xl-coreml/a_high_quality_photo_of_a_surfing_dog.7667.final_6.55-bits.jpg) | ![16-bit](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/stable-diffusion-xl-coreml/a_high_quality_photo_of_a_surfing_dog.7667.final_original.jpg) |
+| ![3.41](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/stable-diffusion-xl-coreml/a_high_quality_photo_of_a_surfing_dog.7667.final_3.41-bits.jpg) | ![4.50](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/stable-diffusion-xl-coreml/a_high_quality_photo_of_a_surfing_dog.7667.final_4.50-bits.jpg) | ![6.55](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/stable-diffusion-xl-coreml/a_high_quality_photo_of_a_surfing_dog.7667.final_6.55-bits.jpg) | ![16-bit](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/stable-diffusion-xl-coreml/a_high_quality_photo_of_a_surfing_dog.7667.final_float16_original.jpg) |
 
 Some initial conclusions:
 - In our opinion, all the images have good quality in terms of how realistic they look. The 6.55 and 4.50 versions are close to the 16-bit version in this aspect.
@@ -103,7 +104,7 @@ The following plot shows the signal strength (PSNR in dB) versus model size redu
 
 Mixed-bit palettization runs in two phases: _analysis_ and _application_.
 
-The goal of the analysis phase is to find points in the mixed-bit curve (the brown one above all the others in the figure) so we can choose our desired quality-vs-size tradeoff. As mentioned in the previous section, we iterate through the layers and select the lowest bit depths that yield results over a given PSNR threshold. We repeat the process for various thresholds to get different quantization strategies. The result of the process is thus a set of quantization recipes, where each recipe is just a JSON dictionary detailing the number of bits to use for each layer in the model. Layers with few parameters are ignored and kept in float16 for simplicity.
+The goal of the analysis phase is to find points in the mixed-bit curve (the brown one above all the others in the figure) so we can choose our desired quality-vs-size tradeoff. As mentioned in the previous section, we iterate through the layers and select the lowest bit depths that yield results above a given PSNR threshold. We repeat the process for various thresholds to get different quantization strategies. The result of the process is thus a set of quantization recipes, where each recipe is just a JSON dictionary detailing the number of bits to use for each layer in the model. Layers with few parameters are ignored and kept in float16 for simplicity.
 
 The application phase simply goes over the recipe and applies palettization with the number of bits specified in the JSON structure.
 
@@ -116,7 +117,7 @@ We provide scripts for each one of these phases:
 
 ## Converting Fine-Tuned Models
 
-If you’ve previously converted Stable Diffusion models to Core ML, the process for XL using [the command line converter is very similar](https://github.com/apple/ml-stable-diffusion#model-conversion). There’s a new flag to indicate whether the model belongs to the XL family, and you have to use `--attention-implementation ORIGINAL` if that’s the case.
+If you’ve previously converted Stable Diffusion models to Core ML, the process for XL using [the command line converter is very similar](https://github.com/apple/ml-stable-diffusion#-using-stable-diffusion-xl). There’s a new flag to indicate whether the model belongs to the XL family, and you have to use `--attention-implementation ORIGINAL` if that’s the case.
 
 For an introduction to the process, check the [instructions in the repo](https://github.com/apple/ml-stable-diffusion#-converting-models-to-core-ml) or one of [our previous blog posts](https://huggingface.co/blog/diffusers-coreml), and make sure you use the flags above.
 
@@ -133,7 +134,7 @@ You can download and apply them locally to experiment.
 
 In addition, we also applied the three best recipes from the Stable Diffusion XL analysis to the Core ML version of the UNet, and published them [here](https://huggingface.co/apple/coreml-stable-diffusion-mixed-bit-palettization/tree/main/unet-mbp-sdxl-1-base). Feel free to play with them and see how they work for you!
 
-Finally, as mentioned in the introduction, we created a [complete Stable Diffusion XL Core ML pipeline](https://huggingface.co/apple/coreml-stable-diffusion-mixed-bit-palettization) that uses the `4.5` recipe.
+Finally, as mentioned in the introduction, we created a [complete Stable Diffusion XL Core ML pipeline](https://huggingface.co/apple/coreml-stable-diffusion-mixed-bit-palettization) that uses a `4.5-bit` recipe.
 
 ### Resources
 
