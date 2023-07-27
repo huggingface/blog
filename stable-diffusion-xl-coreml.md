@@ -59,7 +59,8 @@ For reference, these are the performance figures we got on a few computers:
 
 ## What is Mixed-Bit Palettization?
 
-Last month we discussed 6-bit palettization, a post-training quantization method that converts 16-bit weights to just 6-bit per parameter. This achieves an important reduction in model size, but going beyond that is tricky because model quality becomes more and more impacted as the number of bits is decreased.
+[Last month we discussed 6-bit palettization](https://huggingface.co/blog/fast-diffusers-coreml), a post-training quantization method that converts 16-bit weights to just 6-bit per parameter. This achieves an important reduction in model size, but going beyond that is tricky because model quality becomes more and more impacted as the number of bits is decreased.
+
 One option to decrease model size further is to use _training time_ quantization, which consists of learning the quantization tables while we fine-tune the model. This works great, but you need to run a fine-tuning phase for every model you want to convert.
 
 We explored a different alternative instead: **mixed-bit palettization**. Instead of using 6 bits per parameter, we examine the model and decide how many quantization bits to use _per layer_. We make the decision based on how much each layer contributes to the overall quality degradation, which we measure by comparing the PSNR between the quantized model and the original model in `float16` mode, for a set of a few inputs. We explore several bit depths, per layer: `1` (!), `2`, `4` and `8`. If a layer degrades significantly when using, say, 2 bits, we move to `4` and so on. Some layers might be kept in 16-bit mode if they are critical to preserving quality.
