@@ -2537,3 +2537,14 @@
   date: July 24, 2023
   tags:
     - ethics
+
+- local: stable-diffusion-xl-coreml
+  title: "Stable Diffusion XL on Mac with Advanced Core ML Quantization"
+  author: pcuenq
+  thumbnail: /blog/assets/stable-diffusion-xl-coreml/thumbnail.png
+  date: July 27, 2023
+  tags:
+    - coreml
+    - stable-diffusion
+    - stable-diffusion-xl
+    - diffusers
