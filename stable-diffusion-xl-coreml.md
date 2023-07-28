@@ -67,7 +67,7 @@ We explored a different alternative instead: **mixed-bit palettization**. Instea
 
 Using this method, we can achieve effective quantizations of, for example, 2.8 bits on average, and we measure the impact on degradation for every combination we try. This allows us to be better informed about the best quantization to use for our target quality and size budgets.
 
-To illustrate the method, let’s consider the following quantization “recipes” that we got from an analysis run (we’ll explain later ow they were generated):
+To illustrate the method, let’s consider the following quantization “recipes” that we got from one of our analysis runs (we’ll explain later how they were generated):
 
 ```json
 {
