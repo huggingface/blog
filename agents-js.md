@@ -195,4 +195,4 @@ async function generate(image) {
 
 ## Demo 🎉
 
-We've been working on a demo for Agents.js that you can try out [here](https://nsarrazin-poc-agents-js.hf.space/). Currently for best result you should pass an OpenAI API key to use as your LLM. We are currently working on adding better open LLMs to this demo to hopefully demonstrate the full power of open source. 🚀
+We've been working on a demo for Agents.js that you can try out [here](https://nsarrazin-agents-js-oasst.hf.space/). It's powered by the same Open Assistant 30B model that we use on HuggingChat and uses tools called from the hub. 🚀
