@@ -1,6 +1,6 @@
 ---
 title: "Optimizing a Text-To-Speech model using 🤗 Transformers" 
-thumbnail: /blog/assets/optimizing_bark/thumbnail.png
+thumbnail: /blog/assets/bark_optimization/thumbnail.png
 authors:
 - user: ylacombe
 ---
