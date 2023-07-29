@@ -17,7 +17,7 @@ authors:
 
 As the time this blog post is released, MusicGen lacks dedicated `transformers` pipeline. To implement customer handler for MusicGen and serve it, we will..
 1. Duplicate the MusicGen repository we want to serve,
-2. Write custom handler in `handler.py`, and the dependencies in `requirements.txt`,
+2. Write custom handler in `handler.py`, and the dependencies in `requirements.txt` and add them to the duplicated repository,
 3. Create Inference Endpoint for that repository.
 
 ### Let's go!
