@@ -148,13 +148,32 @@ Before incorporating any optimizations, let's measure the performance of the bas
 
 with torch.inference_mode():
   speech_output = measure_latency_and_memory_use(model, inputs, nb_loops = 5)
+```
 
+**Output:**
+
+```
+Execution time: 9.3841625 seconds
+Max memory footprint 1.914612224  GB
+```
+
+Now, listen to the output:
+
+```python
 from IPython.display import Audio
 
 # now, listen to the output
 sampling_rate = model.generation_config.sample_rate
 Audio(speech_output[0].cpu().numpy(), rate=sampling_rate)
 ```
+
+
+The output sounds like this ([download audio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_base.wav)): 
+
+<audio controls> 
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_base.wav" type="audio/wav"> 
+Your browser does not support the audio element. 
+</audio> 
 
 ### Important note:
 
@@ -181,14 +200,23 @@ Turns out that Flash Attention is supported by 🤗 Better Transformer out of th
 ```python
 model =  model.to_bettertransformer()
 
-# measure and listen to the output
-
 with torch.inference_mode():
   speech_output = measure_latency_and_memory_use(model, inputs, nb_loops = 5)
-
-
-Audio(speech_output[0].cpu().numpy(), rate=sampling_rate)
 ```
+
+**Output:**
+
+```
+Execution time: 5.43284375 seconds
+Max memory footprint 1.9151841280000002  GB
+```
+
+The output sounds like this ([download audio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_bettertransformer.wav)): 
+
+<audio controls> 
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_bettertransformer.wav" type="audio/wav"> 
+Your browser does not support the audio element. 
+</audio> 
 
 **What does it bring to the table?**
 
@@ -209,14 +237,24 @@ In other words:
 ```python
 model = BarkModel.from_pretrained("suno/bark-small", torch_dtype=torch.float16).to(device)
 
-# measure and listen to the output
-
 with torch.inference_mode():
   speech_output = measure_latency_and_memory_use(model, inputs, nb_loops = 5)
-
-
-Audio(speech_output[0].cpu().numpy(), rate=sampling_rate)
 ```
+
+**Output:**
+
+```
+Execution time: 7.00045390625 seconds
+Max memory footprint 2.7436124160000004  GB
+```
+
+The output sounds like this ([download audio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_fp16.wav)): 
+
+<audio controls> 
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_fp16.wav" type="audio/wav"> 
+Your browser does not support the audio element. 
+</audio> 
+
 
 **What does it bring to the table?**
 
@@ -239,14 +277,24 @@ model = BarkModel.from_pretrained("suno/bark-small")
 # Enable CPU offload
 model.enable_cpu_offload()
 
-# measure and listen to the output
-
 with torch.inference_mode():
   speech_output = measure_latency_and_memory_use(model, inputs, nb_loops = 5)
-
-
-Audio(speech_output[0].cpu().numpy(), rate=sampling_rate)
 ```
+
+**Output:**
+
+```
+Execution time: 8.97633828125 seconds
+Max memory footprint 1.3231160320000002  GB
+```
+
+The output sounds like this ([download audio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_cpu_offload.wav)): 
+
+<audio controls> 
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_cpu_offload.wav" type="audio/wav"> 
+Your browser does not support the audio element. 
+</audio> 
+
 
 **What does it bring to the table?**
 
@@ -272,14 +320,24 @@ model = BetterTransformer.transform(model, keep_original_model=False)
 # enable CPU offload
 model.enable_cpu_offload()
 
-# measure and listen to the output
-
 with torch.inference_mode():
   speech_output = measure_latency_and_memory_use(model, inputs, nb_loops = 5)
-
-
-Audio(speech_output[0].cpu().numpy(), rate=sampling_rate)
 ```
+
+**Output:**
+
+```
+Execution time: 7.4496484375000005 seconds
+Max memory footprint 0.46871091200000004  GB
+```
+
+The output sounds like this ([download audio](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_cpu_offload.wav)): 
+
+<audio controls> 
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_optimized.wav" type="audio/wav"> 
+Your browser does not support the audio element. 
+</audio> 
+
 
 **What does it bring to the table?**
 
@@ -306,14 +364,27 @@ inputs = processor(text_prompt).to(device)
 with torch.inference_mode():
   # samples are generated all at once
   speech_output = model.generate(**inputs, do_sample = True, fine_temperature = 0.4, coarse_temperature = 0.8)
-
-
-
-# let's listen to the output samples!
-Audio(speech_output[0].cpu().numpy(), rate=sampling_rate)
-Audio(speech_output[1].cpu().numpy(), rate=sampling_rate)
-Audio(speech_output[2].cpu().numpy(), rate=sampling_rate)
 ```
+
+
+The output sounds like this (download [first](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_batch_0.wav), [second](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_batch_1.wav), and [last](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_batch_2.wav) audio): 
+
+<audio controls> 
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_batch_0.wav" type="audio/wav"> 
+Your browser does not support the audio element. 
+</audio> 
+
+<audio controls> 
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_batch_1.wav" type="audio/wav"> 
+Your browser does not support the audio element. 
+</audio> 
+
+
+<audio controls> 
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/bark_optimization/audio_sample_batch_2.wav" type="audio/wav"> 
+Your browser does not support the audio element. 
+</audio> 
+
 
 
 # Benchmark results
