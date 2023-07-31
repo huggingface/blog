@@ -23,8 +23,6 @@ This is where BentoML comes into the picture. BentoML is an open-source platform
 4. **Build a Bento**: By creating a configuration YAML file, you package all the models and the [Service](https://docs.bentoml.org/en/latest/concepts/service.html) into a [Bento](https://docs.bentoml.org/en/latest/concepts/bento.html), a deployable artifact containing all the code and dependencies.
 5. **Deploy the Bento**: Once the Bento is ready, you can containerize the Bento to create a Docker image and run it on Kubernetes. Alternatively, deploy the Bento directly to Yatai, an open-source, end-to-end solution for automating and running machine learning deployments on Kubernetes at scale.
 
-If you seek a fully managed service for building and operating AI applications, consider deploying Bentos through BentoCloud. All [Hugging Face Diffuser models](https://huggingface.co/docs/diffusers/index) and pipelines can be seamlessly integrated with BentoML and shipped to production via BentoCloud, which enables models to run on the most suitable hardware with independent scalability based on usage.
-
 In this blog post, we will demonstrate how to integrate [DeepFloyd IF](https://huggingface.co/docs/diffusers/api/pipelines/if) with BentoML by following the above workflow.
 
 ## Table of contents
@@ -49,7 +47,7 @@ DeepFloyd IF delivers a high degree of photorealism and sophisticated language u
 
 - Python 3.8+
 - `pip` installed
-- At least 2x16GB VRAM GPU or 1x40 VRAM GPU. For this project, we used a machine of type `n1-standard-16` from Google Cloud plus 64 GB of RAM and 2 NVIDIA T4 GPUs.
+- At least 2x16GB VRAM GPU or 1x40 VRAM GPU. For this project, we used a machine of type `n1-standard-16` from Google Cloud plus 64 GB of RAM and 2 NVIDIA T4 GPUs. Note that while it is possible to run IF on a single T4, it is not recommended for production-grade serving
 
 Once the prerequisites are met, clone the project repository to your local machine and navigate to the target directory.
 
@@ -196,7 +194,7 @@ To deploy the Bento in a more cloud-native way, generate a Docker image by runni
 bentoml containerize deepfloyd-if:6ufnybq3vwszgnry
 ```
 
-You can then deploy the model on Kubernetes. Alternatively, push the Bento to Yatai or BentoCloud. For more information, see [Deploying Bentos](https://docs.bentoml.org/en/latest/concepts/deploy.html).
+You can then deploy the model on Kubernetes.
 
 ## What’s next?
 
