@@ -14,8 +14,9 @@ authors:
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
+🤗 Transformers provides many of the latest state-of-the-art (SoTa) models across domains and tasks. To get the best performance from these models, they need to be optimized for inference speed and memory usage.
 
-The 🤗 Hugging Face ecosystem offers ready-to-use and easy-to-use optimization tools that can be applied generally to every model in the library. One can thus easily **reduce memory footprint** and **improve inference** with a few additional lines of code.
+The 🤗 Hugging Face ecosystem offers precisely such ready-to-use, easy-to-use optimization tools that can be applied across the board to every model in the library. This makes it easy to **reduce memory footprint** and **improve inference** with just a few extra lines of code.
 
 In this hands-on tutorial, I'll demonstrate how you can optimize [Bark](https://huggingface.co/docs/transformers/main/en/model_doc/bark#overview), a Text-To-Speech (TTS) model supported by 🤗 Transformers, based on three simple optimizations. These optimizations rely solely on the 🤗 Transformers, 🤗 Optimum and 🤗 Accelerate libraries.
 
