@@ -1,14 +1,11 @@
-# Running SD On Toasters
-
-## Open-sourcing Knowledge Distillation code and weights of SD-Small and SD-Tiny
-
+# Open-sourcing Knowledge Distillation Code and Weights of SD-Small and SD-Tiny
 
 ![image](assets/distill_sd/Picture1.png)
 
 
-Isn’t it the ideal utopian (or dystopian, for some) world we are zooming into? LLMs, generative models, and AGI so ubiquitous and pervasive that they can run even on a mundane home appliance like a toaster? The past few months have seen an explosion of larger and larger language models such as GPT-4, Falcon 40B, LLaMa-2 70B etc. The world is heading towards large all-knowing generalized models, increasing the complexity and compute capacities required to run such models. On the imaging side too, Stable diffusion has progressively moved towards larger and larger image generation models such as SD2.1 and SDXL, to deliver highly versatile, state-of-the-art image generations with just a single model, similar to what MidJourney has been doing for the past couple of years.
+The past few months have seen a cambrian explosion in larger and larger language models such as GPT-4, Falcon 40B, LLaMa-2 70B etc. The world is zooming towards building large, intelligent and generalized models, increasing the complexity and compute capacities required to run such models. On the imaging side too, Stable diffusion has progressively moved towards larger and larger image generation models such as SD2.1 and SDXL, to deliver highly versatile, state-of-the-art image generations with just a single model, similar to what MidJourney has been doing for the past couple of years. But can we make the models smaller, faster and more specialized, that can eventually run on your everyday electronic devices and even power smart home appliances?
 
-We, at Segmind, have been working on how to make the models faster and cheaper. Last year, we have open-sourced our accelerated SD-WebUI library called [voltaML](https://github.com/VoltaML/voltaML-fast-stable-diffusion), which is a AITemplate/TensorRT based inference acceleration library that has delivered between 4-6X increase in the inference speed. To continue towards the goal of making generative models faster, smaller and cheaper, we are open-sourcing the weights and training code of our compressed SD models; SD-Small and SD-Tiny. The pretrained checkpoints are available on [Huggingface 🤗](https://huggingface.co/segmind)
+We, at Segmind, have been working on how to make the models faster and cheaper. Last year, we have open-sourced our accelerated SD-WebUI library called [voltaML](https://github.com/VoltaML/voltaML-fast-stable-diffusion), which is a AITemplate/TensorRT based inference acceleration library that has delivered between 4-6X increase in the inference speed. To continue towards the goal of making generative models faster, smaller and cheaper, we are open-sourcing the weights and training code of our compressed **SD models; SD-Small and SD-Tiny**. The pretrained checkpoints are available on [Huggingface 🤗](https://huggingface.co/segmind)
 
 ## Knowledge Distillation:
 
