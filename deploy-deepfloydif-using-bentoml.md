@@ -3,7 +3,9 @@ title: "Deploying Hugging Face Models with BentoML: DeepFloyd IF in Action"
 thumbnail: /blog/assets/deploy-deepfloydif-using-bentoml/thumbnail.png
 authors:
 - user: Sherlockk
+  guest: true
 - user: larme
+  guest: true
 ---
 
 # Deploying Hugging Face Models with BentoML: DeepFloyd IF in Action
@@ -11,7 +13,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Hugging Face provides a centralized Model Hub that allows you to upload, share, and deploy your models with ease. It saves developers the time and computational resources required to train models from scratch. However, deploying models in a real-world production environment or in a cloud-native way can still present challenges.
+Hugging Face provides a Hub platform that allows you to upload, share, and deploy your models with ease. It saves developers the time and computational resources required to train models from scratch. However, deploying models in a real-world production environment or in a cloud-native way can still present challenges.
 
 This is where BentoML comes into the picture. BentoML is an open-source platform for machine learning model serving and deployment. It is a unified framework for building, shipping, and scaling production-ready AI applications incorporating traditional ML models, pre-trained AI models, Generative models, and Large Language Models. Here is how you use the BentoML framework from a high-level perspective:
 
@@ -23,11 +25,25 @@ This is where BentoML comes into the picture. BentoML is an open-source platform
 
 If you seek a fully managed service for building and operating AI applications, consider deploying Bentos through BentoCloud. All [Hugging Face Diffuser models](https://huggingface.co/docs/diffusers/index) and pipelines can be seamlessly integrated with BentoML and shipped to production via BentoCloud, which enables models to run on the most suitable hardware with independent scalability based on usage.
 
-In this blog post, we will demonstrate how to integrate [DeepFloyd IF](https://huggingface.co/docs/diffusers/api/pipelines/if) with BentoML by following the above workflow. DeepFloyd IF is a state-of-the-art, open-source text-to-image model. It stands apart from latent diffusion models like Stable Diffusion due to its distinct operational strategy and architecture.
+In this blog post, we will demonstrate how to integrate [DeepFloyd IF](https://huggingface.co/docs/diffusers/api/pipelines/if) with BentoML by following the above workflow.
 
-DeepFloyd delivers a high degree of photorealism and sophisticated language understanding. Unlike Stable Diffusion, DeepFloyd IF works directly in pixel space, leveraging a modular structure that encompasses a frozen text encoder and three cascaded pixel diffusion modules. Each module plays a unique role in the process: Stage 1 is responsible for the creation of a base 64x64 px image, which is then progressively upscaled to 1024x1024 px across Stage 2 and Stage 3. Another critical aspect of DeepFloyd IF’s uniqueness is its integration of a Large Language Model (T5-XXL-1.1) to encode prompts, which offers superior understanding of complex prompts. For more information, see this [Stability AI blog post about DeepFloyd IF](https://stability.ai/blog/deepfloyd-if-text-to-image-model).
+## Table of contents
 
-## Creating a DeepFloyd IF application with BentoML
+- [A brief introduction to DeepFloyd IF](#a-brief-introduction-to-deepfloyd-if)
+- [Preparing the environment](#preparing-the-environment)
+- [Downloading the model to the BentoML Model Store](#downloading-the-model-to-the-bentoml-model-store)
+- [Starting a BentoML Service](#starting-a-bentoml-service)
+- [Building and serving a Bento](#building-and-serving-a-bento)
+- [Testing the server](#testing-the-server)
+- [What's next](#whats-next)
+
+## A brief introduction to DeepFloyd IF
+
+DeepFloyd IF is a state-of-the-art, open-source text-to-image model. It stands apart from latent diffusion models like Stable Diffusion due to its distinct operational strategy and architecture.
+
+DeepFloyd IF delivers a high degree of photorealism and sophisticated language understanding. Unlike Stable Diffusion, DeepFloyd IF works directly in pixel space, leveraging a modular structure that encompasses a frozen text encoder and three cascaded pixel diffusion modules. Each module plays a unique role in the process: Stage 1 is responsible for the creation of a base 64x64 px image, which is then progressively upscaled to 1024x1024 px across Stage 2 and Stage 3. Another critical aspect of DeepFloyd IF’s uniqueness is its integration of a Large Language Model (T5-XXL-1.1) to encode prompts, which offers superior understanding of complex prompts. For more information, see this [Stability AI blog post about DeepFloyd IF](https://stability.ai/blog/deepfloyd-if-text-to-image-model).
+
+## Preparing the environment
 
 [This GitHub repository](https://github.com/bentoml/IF-multi-GPUs-demo) stores all necessary files for this project. To run this project locally, make sure you have the following:
 
@@ -44,13 +60,13 @@ cd IF-multi-GPUs-demo
 
 Before building the application, let’s briefly explore the key files within this directory:
 
-- `import_models.py`: Defines the models for each Stage. You use this file to download all the models to your local machine so that you can package them into a single Bento.
+- `import_models.py`: Defines the models for each stage of the [`IFPipeline`](https://huggingface.co/docs/diffusers/api/pipelines/if). You use this file to download all the models to your local machine so that you can package them into a single Bento.
 - `requirements.txt`: Defines all the packages and dependencies required for this project.
 - `service.py`: Defines a BentoML Service, which contains three Runners created using the `to_runner` method and exposes an API for generating images. The API takes a JSON object as input (i.e. prompts and negative prompts) and returns an image as output by using a sequence of models.
 - `start-server.py`: Starts a BentoML HTTP server through the Service defined in `service.py` and creates a Gradio web interface for users to enter prompts to generate images.
 - `bentofile.yaml`: Defines the metadata of the Bento to be built, including the Service, Python packages, and models.
 
-To begin, we recommend you create a Virtual Environment for dependency isolation. For example, run the following command to activate `myenv`:
+We recommend you create a Virtual Environment for dependency isolation. For example, run the following command to activate `myenv`:
 
 ```
 python -m venv venv
@@ -63,14 +79,16 @@ Install the required dependencies:
 pip install -r requirements.txt
 ```
 
-As mentioned above, the first step entails downloading all the models used by each DeepFloyd IF Stage. However, If you haven’t previously downloaded models from Hugging Face using the command line, you must log in first:
+If you haven’t previously downloaded models from Hugging Face using the command line, you must log in first:
 
 ```
 pip install -U huggingface_hub
 huggingface-cli login
 ```
 
-After that, run the following command to download models to your local Model store. The process may take some time.
+## Downloading the model to the BentoML Model Store
+
+As mentioned above, you need to download all the models used by each DeepFloyd IF stage. Once you have set up the environment, run the following command to download models to your local Model store. The process may take some time.
 
 ```
 python import_models.py
@@ -86,6 +104,8 @@ sd-upscaler:bb2ckpa3uoypynry                                        bentoml.diff
 if-stage2:v1.0                                                      bentoml.diffusers     13.63 GiB  2023-07-06 09:55:49
 if-stage1:v1.0                                                      bentoml.diffusers     19.33 GiB  2023-07-06 09:37:59
 ```
+
+## Starting a BentoML Service
 
 You can directly run the BentoML HTTP server with a web UI powered by Gradio using the `start-server.py` file, which is the entry point of this application. It provides various options for customizing the execution and managing GPU allocation among different Stages. You may use different commands depending on your GPU setup:
 
@@ -113,6 +133,8 @@ To see all customizable options (like the server’s port), run:
 python start-server.py --help
 ```
 
+## Testing the server
+
 Once the server starts, you can visit the web UI at http://localhost:7860. The BentoML API endpoint is also accessible at http://localhost:3000. Here is an example of a prompt and a negative prompt.
 
 Prompt:
@@ -126,6 +148,8 @@ Negative prompt:
 Result:
 
 ![Output](/blog/assets/deploy-deepfloydif-using-bentoml/output-image.png)
+
+## Building and serving a Bento
 
 Now that you have successfully run DeepFloyd IF locally, you can package it into a Bento by running the following command in the project directory.
 
