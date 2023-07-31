@@ -12,11 +12,11 @@ authors:
 
 ## Introduction
 
-Generative AI is a really useful. However, as detailed in my [earlier post](https://huggingface.co/blog/ml-for-games-3), text-to-3D lags behind 2D in terms of practical applicability. This is beginning to change. Today, we'll be revisiting practical workflows for 3D Asset Generation and taking a step-by-step look at how to integrate Generate AI in a PS1-style 3D workflow.
+Generative AI is an instrumental part of artistic workflows. However, as detailed in my [earlier post](https://huggingface.co/blog/ml-for-games-3), text-to-3D lags behind 2D in terms of practical applicability. This is beginning to change. Today, we'll be revisiting practical workflows for 3D Asset Generation and taking a step-by-step look at how to integrate Generate AI in a PS1-style 3D workflow.
+
+<img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/3d/result.png" alt="final result"/>
 
 Why the PS1 style? Because it's much more forgiving to the low fidelity of current text-to-3D models, and allows us to go from text to usable 3D asset with as little effort as possible.
-
->Note: The word `model` is very overloaded in this tutorial.
 
 ## Step 1: Generate a 3D Model
 
