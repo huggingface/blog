@@ -2548,3 +2548,15 @@
     - stable-diffusion
     - stable-diffusion-xl
     - diffusers
+
+- local: 3d-assets
+  title: "Practical 3D Asset Generation: A Step-by-Step Guide"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail-3d.png
+  date: August 01, 2023
+  tags:
+    - community
+    - guide
+    - cv
+    - diffusion
+    - game-dev
