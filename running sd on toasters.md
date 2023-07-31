@@ -2,7 +2,9 @@
 
 ## Open-sourcing Knowledge Distillation code and weights of SD-Small and SD-Tiny
 
-![image]("assets/distill_sd/Picture1.png")
+
+![image](assets/distill_sd/Picture1.png)
+
 
 Isn’t it the ideal utopian (or dystopian, for some) world we are zooming into? LLMs, generative models, and AGI so ubiquitous and pervasive that they can run even on a mundane home appliance like a toaster? The past few months have seen an explosion of larger and larger language models such as GPT-4, Falcon 40B, LLaMa-2 70B etc. The world is heading towards large all-knowing generalized models, increasing the complexity and compute capacities required to run such models. On the imaging side too, Stable diffusion has progressively moved towards larger and larger image generation models such as SD2.1 and SDXL, to deliver highly versatile, state-of-the-art image generations with just a single model, similar to what MidJourney has been doing for the past couple of years.
 
@@ -10,7 +12,7 @@ We, at Segmind, have been working on how to make the models faster and cheaper. 
 
 ## Knowledge Distillation:
 
-![image]("assets/distill_sd/Picture2.png")
+![image](assets/distill_sd/Picture2.png)
 
 Our new compressed models have been trained on Knowledge-Distillation (KD) techniques and the work has been largely based on this paper. The authors describe a Block-removal Knowledge-Distillation method where some of the UNet layers are removed and the student model weights are trained. Using the KD methods described in the paper, we were able to train two compressed models using the Huggingface 🤗 [Diffusers 🧨](https://github.com/huggingface/diffusers) library ; Small and Tiny, that have 35% and 55% fewer parameters respectively than the base model while achieving comparable image fidelity as the base model. We have open sourced our distillation code in this [repo](https://github.com/segmind/distill-sd) and pretrained checkpoints on [Huggingface 🤗](https://huggingface.co/segmind)
 
@@ -20,7 +22,7 @@ In this particular type of knowledge distillation, the student model is trained 
 
 Combining all of this makes up the Knowledge-Distillation training. Below is an architecture of the Block Removed UNet used in the KD as described in the paper.
 
-![image]("assets/distill_sd/Picture3.png")
+![image](assets/distill_sd/Picture3.png)
 
 Image taken from the [paper](https://arxiv.org/pdf/2305.15798.pdf)  “On Architectural Compression of Text-to-Image Diffusion Models” by Shinkook. et. al
 
@@ -31,7 +33,7 @@ We have taken Realistic-Vision 4.0 as our base teacher model and have trained on
 
 We have observed that distilled models are up to 100% faster than the original base models.
 
-![image]("assets/distill_sd/Picture4.png")
+![image](assets/distill_sd/Picture4.png)
 
 ## Fine-tuning SD-tiny model on portrait dataset
 
@@ -47,7 +49,7 @@ We have fine-tuned our sd-tiny model on portrait images generated with the Reali
 
 We were able to produce image quality close to the images produced by the original model, with almost 40% fewer parameters and the sample results below speak for themselves:
 
-![image]("assets/distill_sd/Picture5.png")
+![image](assets/distill_sd/Picture5.png)
 
 The code for fine-tuning the base models can be found [here](https://github.com/segmind/distill-sd/blob/master/checkpoint_training.py)
 
@@ -55,7 +57,7 @@ The code for fine-tuning the base models can be found [here](https://github.com/
 
 One of the advantages of LoRA training on a distilled model is faster training. Below are some of the images of the first LoRA we trained on the distilled model on some abstract concepts. The code for the LoRA training can be found [here](https://github.com/segmind/distill-sd/blob/master/lora_training.py).
 
-![image]("assets/distill_sd/Picture6.png")
+![image](assets/distill_sd/Picture6.png)
 
 ## Open-source collaboration
 
