@@ -68,7 +68,7 @@ When you're happy with your model, it's time to export it. Navigate to File -> E
 
 ## Step 7: Import in Unity
 
-Finally, let's see our model in action. Import it in [Unity](https://unity.com/download) (or your game engine of choice). To recreate a nostalgic PS1 aesthetic, I've customized it with custom vertex-lit shading, no shadows, lots of fog, and glitchy post-processing. You can read more about recreating the PS1 aesthetic [here](https://www.david-colson.com/2021/11/30/ps1-style-renderer.html).
+Finally, let's see our model in action. Import it in [Unity](https://unity.com/download) or your game engine of choice. To recreate a nostalgic PS1 aesthetic, I've customized it with custom vertex-lit shading, no shadows, lots of fog, and glitchy post-processing. You can read more about recreating the PS1 aesthetic [here](https://www.david-colson.com/2021/11/30/ps1-style-renderer.html).
 
 And there we have it - our low-fi, textured, 3D model in a virtual environment!
 
