@@ -89,7 +89,7 @@ Once we have some examples of text from a dataset, we need to predict the langua
 
 We pass 20 examples to the model representing rows from a dataset. This results in 20 individual language predictions (one per row) for each dataset.  
 
-Once we have these predictions, we do some additional filtering on the predictions to determine if we will use the prediction to suggest metadata or not. This roughly consists of:
+Once we have these predictions, we do some additional filtering to determine if we will accept the predictions as a metadata suggestion. This roughly consists of:
 
 - Grouping the predictions for each dataset by language: some datasets return predictions for multiple languages. We group these predictions by the language predicted i.e. if a dataset returns predictions for English and Dutch, we group the English and Dutch predictions together. 
 - For datasets with multiple languages predicted, we count how many predictions we have for each language. If a language is predicted less than 20% of the time, we discard this prediction. i.e. if we have 18 predictions for English and only 2 for Dutch we discard the Dutch predictions. 
