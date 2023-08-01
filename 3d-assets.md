@@ -5,7 +5,7 @@ authors:
 - user: dylanebert
 ---
 
-<h1>Practical 3D Asset Generation: A Step-by-Step Guide</h1>
+# Practical 3D Asset Generation: A Step-by-Step Guide
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
