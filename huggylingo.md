@@ -29,7 +29,7 @@ For example, the [IMDB dataset](https://huggingface.co/datasets/imdb) specifies 
 
 * Section of the YAML metadata for the IMDB dataset*
 
-It is perhaps unsurprising that English is by far the most common language for datasets on the Hub, with around 19% of datasets on the Hub listing their language as `en` (this isn't including variations of `en` that might be used on the Hub so the actual percentage of English datasets is likely to be much higher).
+It is perhaps unsurprising that English is by far the most common language for datasets on the Hub, with around 19% of datasets on the Hub listing their language as `en` (not including any variations of `en`, so the actual percentage is likely much higher).
 
 ![The frequency and percentage frequency for datasets on the Hugging Face Hub](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/huggy_lingo/lang_freq.png)
 
