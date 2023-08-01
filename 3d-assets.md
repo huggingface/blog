@@ -20,7 +20,7 @@ Why the PS1 style? Because it's much more forgiving to the low fidelity of curre
 
 ## Step 1: Generate a 3D Model
 
-Start by visiting the Shap-E Hugging Face Space [here](https://huggingface.co/spaces/hysts/Shap-E) or down below. This space uses the open-source [Shap-E model](https://github.com/openai/shap-e) from OpenAI to generate 3D models from text.
+Start by visiting the Shap-E Hugging Face Space [here](https://huggingface.co/spaces/hysts/Shap-E) or down below. This space uses the open-source [Shap-E model](https://github.com/openai/shap-e), a recent diffusion model from OpenAI to generate 3D models from text.
 
 <gradio-app theme_mode="light" space="hysts/Shap-E"></gradio-app>
 
