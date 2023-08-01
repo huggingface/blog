@@ -12,7 +12,7 @@ authors:
 
 ## Introduction
 
-Generative AI is an instrumental part of artistic workflows. However, as detailed in my [earlier post](https://huggingface.co/blog/ml-for-games-3), text-to-3D lags behind 2D in terms of practical applicability. This is beginning to change. Today, we'll be revisiting practical workflows for 3D Asset Generation and taking a step-by-step look at how to integrate Generate AI in a PS1-style 3D workflow.
+Generative AI has become an instrumental part of artistic workflows for game development. However, as detailed in my [earlier post](https://huggingface.co/blog/ml-for-games-3), text-to-3D lags behind 2D in terms of practical applicability. This is beginning to change. Today, we'll be revisiting practical workflows for 3D Asset Generation and taking a step-by-step look at how to integrate Generative AI in a PS1-style 3D workflow.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/3d/result.png" alt="final result"/>
 
