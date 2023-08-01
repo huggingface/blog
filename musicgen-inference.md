@@ -111,7 +111,7 @@ class EndpointHandler:
 
 Then, we will create a `requirements.txt` file that contains dependencies to be able to run above code. In this case, it is below.
 
-````
+```
 transformers
 accelerate
 ```
@@ -157,4 +157,7 @@ And voila!
 
 ## Conclusion
 
-In this blog post, we have shown you how to deploy MusicGen using Inference Endpoints using custom handler. The custom handler can be used not only for MusicGen, but any model on Hugging Face Hub that has no pipeline that you wish to deploy. All you have to do is to override the `Endpoint Handler` class in `handler.py` and add `requirements.txt` to have dependencies of your project.
+In this blog post, we have shown you how to deploy MusicGen using Inference Endpoints using custom handler. The custom handler can be used not only for MusicGen, but any model on Hugging Face Hub that has no pipeline that you wish to deploy. All you have to do is to override the `Endpoint Handler` class in `handler.py` and add `requirements.txt` to have dependencies of your project. 
+
+### Read More
+- [Inference Endpoints documentation covering Custom Handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler)
