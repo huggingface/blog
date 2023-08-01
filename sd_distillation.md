@@ -95,7 +95,8 @@ We were able to produce image quality close to the images produced by the origin
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/distill_sd/Picture5.png" width=500>
 </p>
 
-The code for fine-tuning the base models can be found [here](https://github.com/segmind/distill-sd/blob/master/checkpoint_training.py)
+
+The code for fine-tuning the base models can be found [here](https://github.com/segmind/distill-sd/blob/master/checkpoint_training.py).
 
 ## LoRA Training
 
