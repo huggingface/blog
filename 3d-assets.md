@@ -38,7 +38,7 @@ To reduce the polygon count, select your model, navigate to Modifiers, and choos
 
 ## Step 3: Install Dream Textures
 
-To add textures to our model, we'll be using [Dream Textures](https://github.com/carson-katri/dream-textures). Follow the instructions on the [official repository](https://github.com/carson-katri/dream-textures) to download and install the addon.
+To add textures to our model, we'll be using [Dream Textures](https://github.com/carson-katri/dream-textures), a stable diffusion texture generator for Blender. Follow the instructions on the [official repository](https://github.com/carson-katri/dream-textures) to download and install the addon.
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/124_ml-for-games/3d/dreamtextures.png" alt="installing dream textures"/>
 
