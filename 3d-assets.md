@@ -18,6 +18,10 @@ Generative AI has become an instrumental part of artistic workflows for game dev
 
 Why the PS1 style? Because it's much more forgiving to the low fidelity of current text-to-3D models, and allows us to go from text to usable 3D asset with as little effort as possible.
 
+### Prerequisites
+
+This tutorial assumes some basic knowledge of Blender and 3D concepts such as materials and UV mapping.
+
 ## Step 1: Generate a 3D Model
 
 Start by visiting the Shap-E Hugging Face Space [here](https://huggingface.co/spaces/hysts/Shap-E) or down below. This space uses the open-source [Shap-E model](https://github.com/openai/shap-e), a recent diffusion model from OpenAI to generate 3D models from text.
