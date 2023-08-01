@@ -13,7 +13,8 @@ authors:
 <h1> Open-sourcing Knowledge Distillation Code and Weights of SD-Small and SD-Tiny </h1>
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/distill_sd/thumbnail.png" width=500>
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/distill_sd/Picture1.png" width=500>
+
 </p>
 
 
