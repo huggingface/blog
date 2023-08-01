@@ -2549,6 +2549,17 @@
     - stable-diffusion-xl
     - diffusers
 
+- local: sd_distillation
+  title: "Open-sourcing Knowledge Distillation Code and Weights of SD-Small and SD-Tiny"
+  author: harishsegmind
+  guest: true
+  thumbnail: /blog/assets/distill_sd/thumbnail.png
+  date: August 1, 2023
+  tags:
+    - stable-diffusion
+    - research
+    - diffusers
+
 - local: 3d-assets
   title: "Practical 3D Asset Generation: A Step-by-Step Guide"
   author: dylanebert
