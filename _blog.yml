@@ -2548,3 +2548,13 @@
     - stable-diffusion
     - stable-diffusion-xl
     - diffusers
+
+- local: sd_distillation
+  title: "Open-sourcing Knowledge Distillation Code and Weights of SD-Small and SD-Tiny"
+  author: harishsegmind
+  thumbnail: /blog/assets/distill_sd/Picture1.png
+  date: August 1, 2023
+  tags:
+    - stable-diffusion
+    - distillation
+    - diffusers
