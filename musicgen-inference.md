@@ -106,7 +106,7 @@ class EndpointHandler:
         # postprocess the prediction
         prediction = outputs[0].cpu().numpy()
 
-        return [{"generated_audio": prediction}]
+        return [{"generated_text": prediction}]
 ```
 
 Then, we will create a `requirements.txt` file that contains dependencies to be able to run above code. In this case, it is below.
@@ -127,3 +127,34 @@ We can now create the Inference Endpoint. Simply head to [Inference Endpoints](h
 After creating the endpoint, it will be up and running. Then we can simply send a request to the endpoint.
 
 ![Endpoint Running](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/endpoint_running.png)
+
+We can query the endpoint with below snippet.
+
+```bash
+curl URL_OF_ENDPOINT \
+-X POST \
+-d '{"inputs":"alt rock song"}' \
+-H "Authorization: {YOUR_TOKEN_HERE}" \
+-H "Content-Type: application/json"
+```
+
+We can see the following waveform sequence as output.
+```
+[{"generated_text":[[-0.024490159,-0.03154691,-0.0079551935,-0.003828604, ...]]}]
+```
+
+You can convert the generated sequence to audio however you want. In Python, you can use `scipy` to write it to a .wav file. 
+
+```python
+import scipy
+import numpy as np
+
+output = [{"generated_text":[[-0.024490159,-0.03154691,-0.0079551935,-0.003828604, ...]]}]
+scipy.io.wavfile.write("musicgen_out.wav", rate=sampling_rate, data=np.array(output[0]["generated_text"][0]))
+```
+
+And voila! 
+
+## Conclusion
+
+In this blog post, we have shown you how to deploy MusicGen using Inference Endpoints using custom handler. The custom handler can be used not only for MusicGen, but any model on Hugging Face Hub that has no pipeline that you wish to deploy. All you have to do is to override the `Endpoint Handler` class in `handler.py` and add `requirements.txt` to have dependencies of your project.
