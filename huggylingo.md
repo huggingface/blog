@@ -87,7 +87,7 @@ This approach means that for the majority of datasets on the Hub we can quickly 
 
 Once we have some examples of text from a dataset, we need to predict the language. There are various options here, but for this work, we used the [facebook/fasttext-language-identification](https://huggingface.co/facebook/fasttext-language-identification) fastText model created by [Meta](https://huggingface.co/facebook) as part of the [No Language Left Behind](https://ai.facebook.com/research/no-language-left-behind/) work. This model can detect 217 languages which will likely represent the majority of languages for datasets hosted on the Hub. 
 
-We pass 20 examples to the model representing rows from a dataset. This results in 20 individual language predictions for each dataset (one for each row we pass to the model).  
+We pass 20 examples to the model representing rows from a dataset. This results in 20 individual language predictions (one per row) for each dataset.  
 
 Once we have these predictions, we do some additional filtering on the predictions to determine if we will use the prediction to suggest metadata or not. This roughly consists of:
 
