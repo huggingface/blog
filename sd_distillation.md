@@ -1,6 +1,6 @@
 ---
 title: "Open-sourcing Knowledge Distillation Code and Weights of SD-Small and SD-Tiny"
-thumbnail: /blog/assets/distill_sd/Picture1.png
+thumbnail: /blog/assets/distill_sd/thumbnail.png
 authors:
 - user: harishsegmind
   guest: true
