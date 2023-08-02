@@ -2529,7 +2529,7 @@
     - agents
     - javascript
     - web
-
+    
 - local: eu-ai-act-oss
   title: "AI Policy @🤗: Open ML Considerations in the EU AI Act"
   author: yjernite
@@ -2537,7 +2537,7 @@
   date: July 24, 2023
   tags:
     - ethics
-
+    
 - local: stable-diffusion-xl-coreml
   title: "Stable Diffusion XL on Mac with Advanced Core ML Quantization"
   author: pcuenq
@@ -2584,3 +2584,12 @@
     - research
     - FHE
     - llm
+
+- local: huggy-lingo
+  title: "Huggy Lingo: Using Machine Learning to Improve Language Metadata on the Hugging Face Hub"
+  author: davanstrien
+  thumbnail: /blog/assets/156_huggylingo/Huggy_Lingo.png
+  date: August 2, 2023
+  tags:
+    - announcement 
+    - research
