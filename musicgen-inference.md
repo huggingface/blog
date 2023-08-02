@@ -15,7 +15,7 @@ authors:
 
 `transformers` pipelines are powerful abstractions to do inference over `transformers` based models. The pipeline API also enables easy deployment of models in Inference Endpoints, with only few clicks. If the model we want to deploy in Inference Endpoints lacks pipeline, we can write our own inference function for it, called [custom handlers](https://huggingface.co/docs/inference-endpoints/guides/custom_handler). 
 
-As the time this blog post is released, MusicGen lacks dedicated `transformers` pipeline. To implement customer handler for MusicGen and serve it, we will..
+At the time of this blog post's release, MusicGen lacks a dedicated `transformers` pipeline. To implement a custom handler function for MusicGen and serve it, we will need to:
 1. Duplicate the MusicGen repository we want to serve,
 2. Write custom handler in `handler.py`, and the dependencies in `requirements.txt` and add them to the duplicated repository,
 3. Create Inference Endpoint for that repository.
