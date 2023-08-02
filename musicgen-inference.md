@@ -24,10 +24,10 @@ At the time of this blog post's release, MusicGen lacks a dedicated `transformer
 
 First, we will duplicate the [facebook/musicgen-small](https://huggingface.co/facebook/musicgen-small) repository to our own profile using [repository duplicator](https://huggingface.co/spaces/osanseviero/repo_duplicator).
 
-Then, from the duplicated repository, we will add `handler.py` and `requirements.txt`.
+Then, we will add `handler.py` and `requirements.txt` from the duplicated repository.
 First, let's take a look at how to infer MusicGen.
 
-You can initialize and use MusicGen with below code 👇 
+You can initialize and use MusicGen with the below code 👇 
 
 ```python
 from transformers import AutoProcessor, MusicgenForConditionalGeneration
@@ -76,10 +76,10 @@ from transformers import AutoProcessor, MusicgenForConditionalGeneration
 import torch
 
 class EndpointHandler:
-    def __init__(self, path="facebook/musicgen-small"):
+    def __init__(self, path=""):
         # load model and processor from path
         self.processor = AutoProcessor.from_pretrained(path)
-        self.model = MusicgenForConditionalGeneration.from_pretrained(path).to("cuda")
+        self.model = MusicgenForConditionalGeneration.from_pretrained(path, torch_dtype=torch.float16).to("cuda")
 
     def __call__(self, data: Dict[str, Any]) -> Dict[str, str]:
         """
@@ -99,14 +99,16 @@ class EndpointHandler:
 
         # pass inputs with all kwargs in data
         if parameters is not None:
-            outputs = self.model.generate(**inputs, max_new_tokens=256, **parameters)
+            with torch.autocast("cuda"):
+                outputs = self.model.generate(**inputs, **parameters)
         else:
-            outputs = self.model.generate(**inputs, max_new_tokens=256)
+            with torch.autocast("cuda"):
+                outputs = self.model.generate(**inputs,)
 
         # postprocess the prediction
-        prediction = outputs[0].cpu().numpy()
+        prediction = outputs[0].cpu().numpy().tolist()
 
-        return [{"generated_text": prediction}]
+        return [{"generated_audio": prediction}]
 ```
 
 Then, we will create a `requirements.txt` file that contains dependencies to be able to run the above code. In this case, it is below.
