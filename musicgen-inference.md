@@ -11,7 +11,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-[MusicGen](https://huggingface.co/docs/transformers/main/en/model_doc/musicgen) is a powerful music generation model that takes in text prompt and melody control and outputs music. In this blog post, we will walk you through how to deploy it using [Inference Endpoints](https://huggingface.co/inference-endpoints). 
+[MusicGen](https://huggingface.co/docs/transformers/main/en/model_doc/musicgen) is a powerful music generation model that takes in text prompt and melody control and outputs music. In this blog post, we will guide you through the process of deploying it using [Inference Endpoints](https://huggingface.co/inference-endpoints). 
 
 `transformers` pipelines are powerful abstractions to do inference over `transformers` based models. The pipeline API also enables easy deployment of models in Inference Endpoints, with only few clicks. If the model we want to deploy in Inference Endpoints lacks pipeline, we can write our own inference function for it, called [custom handlers](https://huggingface.co/docs/inference-endpoints/guides/custom_handler). 
 
