@@ -2535,7 +2535,7 @@
   tags:
     - ethics
  
-- local: huggylingo
+- local: huggy-lingo
   title: "Huggy Lingo: Using Machine Learning to Improve Language Metadata on the Hugging Face Hub"
   author: davanstrien
   thumbnail: /blog/assets/156_huggylingo/Huggy_Lingo.png
