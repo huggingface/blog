@@ -36,14 +36,14 @@ processor = AutoProcessor.from_pretrained("facebook/musicgen-small")
 model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-small")
 
 inputs = processor(
- text=["80s pop track with bassy drums and synth"],
- padding=True,
- return_tensors="pt",
+    text=["80s pop track with bassy drums and synth"],
+    padding=True,
+    return_tensors="pt",
 )
 audio_values = model.generate(**inputs, do_sample=True, guidance_scale=3, max_new_tokens=256)
 ```
 
-You can also input a melody to control the output, like below. 
+You can also input a melody to control the output like below. 
 
 ```python
 from transformers import AutoProcessor, MusicgenForConditionalGeneration
@@ -59,11 +59,11 @@ sample = next(iter(dataset))["audio"]
 sample["array"] = sample["array"][: len(sample["array"]) // 2]
 
 inputs = processor(
- audio=sample["array"],
- sampling_rate=sample["sampling_rate"],
- text=["80s blues track with groovy saxophone"],
- padding=True,
- return_tensors="pt",
+    audio=sample["array"],
+    sampling_rate=sample["sampling_rate"],
+    text=["80s blues track with groovy saxophone"],
+    padding=True,
+    return_tensors="pt",
 )
 audio_values = model.generate(**inputs, do_sample=True, guidance_scale=3, max_new_tokens=256)
 ```
@@ -76,39 +76,39 @@ from transformers import AutoProcessor, MusicgenForConditionalGeneration
 import torch
 
 class EndpointHandler:
- def __init__(self, path=""):
- # load model and processor from path
- self.processor = AutoProcessor.from_pretrained(path)
- self.model = MusicgenForConditionalGeneration.from_pretrained(path, torch_dtype=torch.float16).to("cuda")
+    def __init__(self, path=""):
+        # load model and processor from path
+        self.processor = AutoProcessor.from_pretrained(path)
+        self.model = MusicgenForConditionalGeneration.from_pretrained(path, torch_dtype=torch.float16).to("cuda")
 
- def __call__(self, data: Dict[str, Any]) -> Dict[str, str]:
- """
- Args:
- data (:dict:):
- The payload with the text prompt and generation parameters.
- """
- # process input
- inputs = data.pop("inputs", data)
- parameters = data.pop("parameters", None)
+    def __call__(self, data: Dict[str, Any]) -> Dict[str, str]:
+        """
+        Args:
+            data (:dict:):
+                The payload with the text prompt and generation parameters.
+        """
+        # process input
+        inputs = data.pop("inputs", data)
+        parameters = data.pop("parameters", None)
 
- # preprocess
- inputs = self.processor(
- text=[inputs],
- padding=True,
- return_tensors="pt",).to("cuda")
+        # preprocess
+        inputs = self.processor(
+            text=[inputs],
+            padding=True,
+            return_tensors="pt",).to("cuda")
 
- # pass inputs with all kwargs in data
- if parameters is not None:
- with torch.autocast("cuda"):
- outputs = self.model.generate(**inputs, **parameters)
- else:
- with torch.autocast("cuda"):
- outputs = self.model.generate(**inputs,)
+        # pass inputs with all kwargs in data
+        if parameters is not None:
+            with torch.autocast("cuda"):
+                outputs = self.model.generate(**inputs, **parameters)
+        else:
+            with torch.autocast("cuda"):
+                outputs = self.model.generate(**inputs,)
 
- # postprocess the prediction
- prediction = outputs[0].cpu().numpy().tolist()
+        # postprocess the prediction
+        prediction = outputs[0].cpu().numpy().tolist()
 
- return [{"generated_audio": prediction}]
+        return [{"generated_audio": prediction}]
 ```
 
 Then, we will create a `requirements.txt` file containing dependencies to run the above code. In this case, it is below.
@@ -118,7 +118,7 @@ transformers==4.31.0
 accelerate>=0.20.3
 ```
 
-Then, simply uploading these two files to our repository will serve the model.
+Then, simply uploading these two files to our repository will suffice to serve the model.
 
 ![inference-files](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/files.png)
 
@@ -126,7 +126,7 @@ We can now create the Inference Endpoint. Head to [Inference Endpoints](https://
 
 ![Create Endpoint](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/create_endpoint.png)
 
-After creating the endpoint, it will be up and running. Then we can send a request to the endpoint.
+After creating the endpoint, it will be up and running. Then we can simply send a request to the endpoint.
 
 ![Endpoint Running](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/endpoint_running.png)
 
@@ -145,7 +145,7 @@ We can see the following waveform sequence as output.
 [{"generated_audio":[[-0.024490159,-0.03154691,-0.0079551935,-0.003828604, ...]]}]
 ```
 
-You can convert the generated sequence to audio however you want. You can use `scipy` in Python to write the generated sequence to a .wav file. 
+You can convert the generated sequence to audio however you want. You can use `scipy` in Python to write it to a .wav file. 
 
 ```python
 import scipy
@@ -159,7 +159,7 @@ And voila!
 
 ## Conclusion
 
-In this blog post, we have shown you how to deploy MusicGen using Inference Endpoints using a custom handler. The custom handler can be used for MusicGen and any model on Hugging Face Hub you wish to deploy. All you have to do is override the `Endpoint Handler` class in `handler.py` and add `requirements.txt` to have your project's dependencies. 
+In this blog post, we have shown you how to deploy MusicGen using Inference Endpoints using a custom handler. The custom handler can be used for MusicGen and any model on Hugging Face Hub with no pipeline you wish to deploy. All you have to do is override the `Endpoint Handler` class in `handler.py` and add `requirements.txt` to have your project's dependencies. 
 
 ### Read More
 - [Inference Endpoints documentation covering Custom Handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler)
