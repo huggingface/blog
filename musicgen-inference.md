@@ -114,8 +114,8 @@ class EndpointHandler:
 Then, we will create a `requirements.txt` file that contains dependencies to be able to run the above code. In this case, it is below.
 
 ```
-transformers
-accelerate
+transformers==4.31.0
+accelerate>=0.20.3
 ```
 
 Then, simply uploading these two files to our repository will suffice to serve the model.
