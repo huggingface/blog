@@ -110,7 +110,7 @@ print(f"S3 bucket used for storing artifacts: {sess.default_bucket()}")
 
 # Choose 🤗 Transformers `examples/` script
 
-The [🤗 Transformers repository](https://github.com/huggingface/transformers/tree/master/examples) contains several `examples/`scripts for fine-tuning models on tasks from `language-modeling` to `token-classification`. In our case, we are using the `run_summarization.py` from the `seq2seq/` examples. 
+The [🤗 Transformers repository](https://github.com/huggingface/transformers/tree/master/examples) contains several `examples/`scripts for fine-tuning models on tasks from `language-modeling` to `token-classification`. In our case, we are using the `run_summarization.py` from the `legacy/seq2seq/` examples. 
 
 ***Note**: you can use this tutorial as-is to train your model on a different examples script.*
 
@@ -165,7 +165,7 @@ from sagemaker.huggingface import HuggingFace
 # create the Estimator
 huggingface_estimator = HuggingFace(
       entry_point='run_summarization.py', # script
-      source_dir='./examples/seq2seq', # relative path to example
+      source_dir='./examples/legacy/seq2seq', # relative path to example
       git_config=git_config,
       instance_type='ml.p3dn.24xlarge',
       instance_count=2,
