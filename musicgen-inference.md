@@ -6,7 +6,7 @@ authors:
 - user: merve
 ---
 
-<h1> Deploy MusicGen using Inference Endpoints </h1>
+<h1> Deploy MusicGen in no time with Inference Endpoints </h1>
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
