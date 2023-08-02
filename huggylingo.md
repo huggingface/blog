@@ -41,7 +41,7 @@ What does the distribution of languages look like if we exclude English? We can 
 
 *Distribution of language tags for datasets on the hub excluding English*
 
-However, there is a major caveat to this. Most datasets (around 87%) do not specify the language used; only approximately 13% of datasets include language information in their metadata.
+However, there is a major caveat to this. Most datasets (around 87%) do not specify any language at all!
 
 
 ![The percent of datasets which have language metadata. True indicates language metadata is specified, False means no language data is listed. No card data means that there isn't any metadata or it couldn't be loaded by the `huggingface_hub` Python library.](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/huggy_lingo/has_lang_info_bar.png)
