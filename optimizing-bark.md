@@ -14,11 +14,11 @@ authors:
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
-🤗 Transformers provides many of the latest state-of-the-art (SoTa) models across domains and tasks. To get the best performance from these models, they need to be optimized for inference speed and memory usage.
+🤗 Transformers provides many of the latest state-of-the-art (SoTA) models across domains and tasks. To get the best performance from these models, they need to be optimized for inference speed and memory usage.
 
-The 🤗 Hugging Face ecosystem offers precisely such ready-to-use, easy-to-use optimization tools that can be applied across the board to every model in the library. This makes it easy to **reduce memory footprint** and **improve inference** with just a few extra lines of code.
+The 🤗 Hugging Face ecosystem offers precisely such ready & easy to use optimization tools that can be applied across the board to all the models in the library. This makes it easy to **reduce memory footprint** and **improve inference** with just a few extra lines of code.
 
-In this hands-on tutorial, I'll demonstrate how you can optimize [Bark](https://huggingface.co/docs/transformers/main/en/model_doc/bark#overview), a Text-To-Speech (TTS) model supported by 🤗 Transformers, based on three simple optimizations. These optimizations rely solely on the 🤗 Transformers, 🤗 Optimum and 🤗 Accelerate libraries.
+In this hands-on tutorial, I'll demonstrate how you can optimize [Bark](https://huggingface.co/docs/transformers/main/en/model_doc/bark#overview), a Text-To-Speech (TTS) model supported by 🤗 Transformers, based on three simple optimizations. These optimizations rely solely on the [Transformers](https://github.com/huggingface/transformers), [Optimum](https://github.com/huggingface/optimum) and [Accelerate](https://github.com/huggingface/accelerate) libraries from the 🤗 ecosystem.
 
 This tutorial is also a demonstration of how one can benchmark a non-optimized model and its varying optimizatons.
 
@@ -53,7 +53,7 @@ Bark is made of 4 main models:
 - `BarkSemanticModel` (also referred to as the 'text' model): a causal auto-regressive transformer model that takes as input tokenized text, and predicts semantic text tokens that capture the meaning of the text.
 - `BarkCoarseModel` (also referred to as the 'coarse acoustics' model): a causal autoregressive transformer, that takes as input the results of the `BarkSemanticModel` model. It aims at predicting the first two audio codebooks necessary for EnCodec.
 - `BarkFineModel` (the 'fine acoustics' model), this time a non-causal autoencoder transformer, which iteratively predicts the last codebooks based on the sum of the previous codebooks embeddings.
-- having predicted all the codebook channels from the `EncodecModel`, Bark uses it to decode the output audio array.
+- having predicted all the codebook channels from the [`EncodecModel`](https://huggingface.co/docs/transformers/v4.31.0/model_doc/encodec), Bark uses it to decode the output audio array.
 
 At the time of writing, two Bark checkpoints are available, a [smaller](https://huggingface.co/suno/bark-small) and a [larger](https://huggingface.co/suno/bark) version.
 
@@ -188,11 +188,11 @@ One of the main reasons for the importance of increasing `nb_loops` is that the 
 
 Better Transformer is an 🤗 Optimum feature that performs kernel fusion under the hood. This means that certain model operations will be better optimized on the GPU and that the model will be ultimately faster.
 
-To be a bit more specific, most models supported by 🤗 Transformers rely on a technique called attention, which allows them to selectively focus on certain parts of the input when generating output. This enables the models to effectively handle long-range dependencies and capture complex contextual relationships in the data.
+To be more specific, most models supported by 🤗 Transformers rely on attention, which allows them to selectively focus on certain parts of the input when generating output. This enables the models to effectively handle long-range dependencies and capture complex contextual relationships in the data.
 
 The naive attention technique can be greatly optimized via a technique called [Flash Attention](https://arxiv.org/abs/2205.14135), proposed by the authors Dao et. al. in 2022.
 
-Flash Attention is a faster and more efficient algorithm for attention computations that uses a combination of traditional methods (such as tiling and recomputation) to minimize memory usage and increase speed. Unlike previous algorithms, Flash Attention reduces memory usage from quadratic to linear in sequence length, making it particularly useful for applications where memory efficiency is important.
+Flash Attention is a faster and more efficient algorithm for attention computations that combines traditional methods (such as tiling and recomputation) to minimize memory usage and increase speed. Unlike previous algorithms, Flash Attention reduces memory usage from quadratic to linear in sequence length, making it particularly useful for applications where memory efficiency is important.
 
 Turns out that Flash Attention is supported by 🤗 Better Transformer out of the box! It requires one line of code to export the model to 🤗 Better Transformer and enable Flash Attention:
 
@@ -263,11 +263,11 @@ With a slight degradation in performance, you benefit from a memory footprint re
 
 ## 3. CPU offload
 
-As mentioned in the first section of this booklet, Bark is made up of 4 sub-models, which are called up sequentially during audio generation. **In other words, while one sub-model is in use, the other sub-models are idle.**
+As mentioned in the first section of this booklet, Bark comprises 4 sub-models, which are called up sequentially during audio generation. **In other words, while one sub-model is in use, the other sub-models are idle.**
 
 Why is this a problem? GPU memory is precious in AI, because it's where operations are fastest, and it's often a bottleneck.
 
-A simple solution is to unload sub-models from the GPU when they are inactive. This operation is called CPU offload.
+A simple solution is to unload sub-models from the GPU when inactive. This operation is called CPU offload.
 
 **Good news:** CPU offload for Bark was integrated into 🤗 Transformers and you can use it with only one line of code.
 
@@ -419,7 +419,7 @@ It measures the number of samples generated per second. This time, batch size is
 
 In other words, it's equal to $\frac{nbLoops*batchSize}{elapsedTime}$.
 
-**A higher footprint is prefered.**
+**A higher throughput is prefered.**
 
 ## No batching
 
@@ -473,7 +473,7 @@ The impact of `fp16` on latency is less marked with `batch_size = 1`, but here i
 
 # Concluding remarks
 
-This notebook showcased a few simple optimization tricks that come bundled in the 🤗 ecosystem. Using anyone of these techniques, or a combination of all three, can greatly improve Bark inference speed and memory footprint.
+This blog post showcased a few simple optimization tricks bundled in the 🤗 ecosystem. Using anyone of these techniques, or a combination of all three, can greatly improve Bark inference speed and memory footprint.
 
 * You can use the large version of Bark without any performance degradation and a footprint of just 2GB instead of 5GB, 15% faster, **using 🤗 Better Transformer and CPU offload**.
 
