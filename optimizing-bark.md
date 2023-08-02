@@ -10,8 +10,8 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-<a target="_blank" href="https://colab.research.google.com/drive/1XO0RhINg4ZZCdJJmPeJ9lOQs98skJ8h_?usp=sharing">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+<a target="_blank" href="https://colab.research.google.com/github/ylacombe/notebooks/blob/main/Benchmark_Bark_HuggingFace.ipynb">
+    <img src="https://colab.research.google.com/github/ylacombe/notebooks/blob/main/Benchmark_Bark_HuggingFace.ipynb"/>
 </a>
 
 🤗 Transformers provides many of the latest state-of-the-art (SoTA) models across domains and tasks. To get the best performance from these models, they need to be optimized for inference speed and memory usage.
@@ -23,7 +23,7 @@ In this hands-on tutorial, I'll demonstrate how you can optimize [Bark](https://
 This tutorial is also a demonstration of how one can benchmark a non-optimized model and its varying optimizatons.
 
 For a more streamlined version of the tutorial 
-with fewer explanations but all the code, see the accompanying [Google Colab](https://colab.research.google.com/drive/1XO0RhINg4ZZCdJJmPeJ9lOQs98skJ8h_?usp=sharing).
+with fewer explanations but all the code, see the accompanying [Google Colab](https://colab.research.google.com/github/ylacombe/notebooks/blob/main/Benchmark_Bark_HuggingFace.ipynb).
 
 This blog post is organized as follows:
 
@@ -44,7 +44,7 @@ This blog post is organized as follows:
 The Bark model has been available in 🤗 Transformers since v4.31.0 onwards!
 
 
-You can play around with Bark and discover it's abilities [here](https://colab.research.google.com/drive/1dWWkZzvu7L9Bunq9zvD-W02RFUXoW-Pd?usp=sharing).
+You can play around with Bark and discover it's abilities [here](https://colab.research.google.com/github/ylacombe/notebooks/blob/main/Bark_HuggingFace_Demo.ipynb).
 
 
 
