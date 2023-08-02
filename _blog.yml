@@ -2575,6 +2575,40 @@
 - external: https://www.youtube.com/watch?v=t8Ek1aOtaQw
   title: "Leveraging Hugging Face for complex generative AI use cases"
   author: jeffboudier
-  date: August 1, 2023
+  date: July 1, 2023
+  tags:
+    - case-studies
+    
+- external: https://snorkel.ai/snorkel-hugging-face-unlock-foundation-models-for-enterprise/
+  title: "Snorkel AI x Hugging Face: unlock foundation models for enterprises"
+  author: Friea Berg
+  guest: true
+  date: April 6, 2023
+  tags:
+    - case-studies
+    
+- external: https://medium.com/mantisnlp/why-were-switching-to-hugging-face-inference-endpoints-and-maybe-you-should-too-829371dcd330
+  title: "Why we’re switching to Hugging Face Inference Endpoints, and maybe you should too"
+  author: mattupson
+  guest: true
+  date: February 15, 2023
+  tags:
+    - case-studies
+
+- external: https://www.genomicsengland.co.uk/blog/de-identify-pathology-reports
+  title: "Developing an algorithm to de-identify pathology reports"
+  author: arogeriogel
+  guest: true
+  date: March 3, 2023
+  tags:
+    - case-studies
+
+- external: https://www.databricks.com/blog/contributing-spark-loader-for-hugging-face-datasets
+  title: "Databricks ❤️ Hugging Face: up to 40% faster training and tuning of Large Language Models"
+  author: alighodsi
+  guest: true
+  author: maddiedawson
+  guest: true
+  date: April 26, 2023
   tags:
     - case-studies
