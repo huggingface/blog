@@ -35,6 +35,15 @@
     - guide
     - nlp
 
+- local: getting-started-habana
+  title: "基于 Habana Gaudi 的 Transformers 入门"
+  author: juliensimon
+  thumbnail: /blog/assets/61_getting_started_habana/thumbnail.png
+  date: April 26, 2022
+  tags:
+    - partnerships
+    - guide
+
 - local: bloom-megatron-deepspeed
   title: "BLOOM 训练背后的技术"
   author: stas
@@ -182,6 +191,15 @@
     - stable-diffusion
     - nlp
     - open-source-collab
+
+- local: habana-gaudi-2-benchmark
+  title: "更快的训练和推理：对比 Habana Gaudi®2 和英伟达 A100 80GB"
+  author: regisss
+  thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
+  date: December 14, 2022
+  tags:
+    - partnerships
+    - habana
 
 - local: intel-sapphire-rapids
   title: "使用英特尔 Sapphire Rapids 加速 PyTorch Transformers 模型（第一部分）"
@@ -695,6 +713,18 @@
   date: June 26, 2023
   tags:
     - ethics
+
+- local: bridgetower
+  title: "使用 Habana Gaudi2 加速视觉语言模型 BridgeTower"
+  author: regisss
+  thumbnail: /blog/assets/bridgetower/thumbnail.png
+  date: June 29, 2023
+  tags:
+    - partnerships
+    - multimodal
+    - nlp
+    - cv
+    - hardware
 
 - local: inference-endpoints-llm
   title: "用 Hugging Face 推理端点部署 LLM"

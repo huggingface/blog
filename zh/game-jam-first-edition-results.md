@@ -1,5 +1,4 @@
 ---
-
 title: "首届开源 AI 游戏挑战赛事结果"
 thumbnail: /blog/assets/game-jam-first-edition-results/thumbnail.jpg
 authors:
@@ -8,7 +7,8 @@ authors:
 - user: osanseviero
 translators:
 - user: SuSung-boy
-
+- user: zhongdongy
+  proofreader: true
 ---
 
 # 首届开源 AI 游戏挑战赛事结果
@@ -16,31 +16,31 @@ translators:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-北京时间 7 月 8 日到 7 月 10 日，**我们举办了 [首届开源 AI 游戏开发挑战赛](https://itch.io/jam/open-source-ai-game-jam)**。这是一场激动人心的赛事活动，游戏开发者在紧迫的 48 小时内使用 AI 创造、创新有创意的游戏。
+北京时间 7 月 8 日到 7 月 10 日， **我们举办了 [首届开源 AI 游戏开发挑战赛](https://itch.io/jam/open-source-ai-game-jam)**。这是一场激动人心的赛事活动，游戏开发者在紧迫的 48 小时内使用 AI 创造、创新有创意的游戏。
 
 本次赛事活动的主要目标是 **至少使用一个开源 AI 工具来创建游戏**，可以嵌入到工作流中辅助游戏开发，也可以集成到游戏内增加趣味玩法。尽管规则允许使用私有的 AI 工具，不过我们更鼓励参与者使用开源的 AI 工具。
 
 活动的反响超出了我们的预期，全球范围内注册数超过 1300 人，共 **提交了 88 款精彩游戏！**
 
-**所有游戏试玩地址：** 👉 https://itch.io/jam/open-source-ai-game-jam/entries
+**所有游戏试玩地址:** 👉 https://itch.io/jam/open-source-ai-game-jam/entries
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/UG9-gOAs2-4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## 主题: Expanding
 
-为了激发创造力，**我们决定以 “EXPANDING” 为主题**。我们对其进行开放性解释，让开发者能够探索、试验他们的新奇想法，从而创造出多样化的游戏。
+为了激发创造力， **我们决定以 “EXPANDING” 为主题**。我们对其进行开放性解释，让开发者能够探索、试验他们的新奇想法，从而创造出多样化的游戏。
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/theme.jpeg" alt="Game Jam Theme"/>
 
-最终游戏由从业者和贡献者根据三个关键标准进行评估: **趣味性, 创造性, 扣题度。**
+最终游戏由从业者和贡献者根据三个关键标准进行评估: **趣味性 , 创造性 , 扣题度。**
 
-排名前 10 的游戏将提交给三位评委 ([Dylan Ebert](https://twitter.com/dylan_ebert_), [Thomas Simonini](https://twitter.com/ThomasSimonini) 和 [Omar Sanseviero](https://twitter.com/osanseviero))，**由他们评选出最佳游戏。**
+排名前 10 的游戏将提交给三位评委 ([Dylan Ebert](https://twitter.com/dylan_ebert_), [Thomas Simonini](https://twitter.com/ThomasSimonini) 和 [Omar Sanseviero](https://twitter.com/osanseviero))， **由他们评选出最佳游戏。**
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/jury.jpg" alt="Game Jam Judges"/>
 
 ## 最佳游戏 🏆🥇
 
-经过认真审议，评委们将 **本届开源 AI 游戏挑战赛最佳游戏** 颁给了：
+经过认真审议，评委们将 **本届开源 AI 游戏挑战赛最佳游戏** 颁给了:
 
 **由 [ohmlet](https://itch.io/profile/ohmlet) 开发的 [Snip It](https://ohmlet.itch.io/snip-it)** 👏👏👏。
 
@@ -48,13 +48,13 @@ translators:
 AI 资产: Philippe Saade
 音乐 / SFX: Matthieu Deloffre
 
-在这款 AI 生成的游戏中，你将参观一座博物馆，馆内布满了栩栩如生的画作。**剪下画中的物体，揭开它们背后隐藏的秘密**。
+在这款 AI 生成的游戏中，你将参观一座博物馆，馆内布满了栩栩如生的画作。 **剪下画中的物体，揭开它们背后隐藏的秘密**。
 
 <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/game-jam-first-edition-results/snipit.jpg" alt="Snip it"/>
 
 在线试玩地址: 👉 https://ohmlet.itch.io/snip-it
 
-## 参赛者评选：Top 10 🥈🥉🏅
+## 参赛者评选: Top 10 🥈🥉🏅
 
 88 款精彩游戏作品中，最终有 Top 11 款 (有两款并列第 10 ) 游戏留下了深刻印象。
 
@@ -96,7 +96,7 @@ AI 资产: Philippe Saade
 
 在这款游戏中，你是全村最后的希望。在踏上冒险之旅前，你要做好万全的准备，佩戴精良的装备，与村民对话并寻求指引。村外的世界充满了变数，加油击败敌人收集积分，找到通往终点的路。
 
-🤖 使用了 GPT-4 放置瓦片图块和其他对象 (专有) 组件，以及使用了 Starcoder 编写代码（开源）
+🤖 使用了 GPT-4 放置瓦片图块和其他对象 (专有) 组件，以及使用了 Starcoder 编写代码 (开源)
 
 🎮👉 https://jofthomas.itch.io/everchanging-quest
 
@@ -178,7 +178,7 @@ AI 资产: Philippe Saade
 
 🎮👉 https://ilumine-ai.itch.io/dreamlike-hugging-face-open-source-ai-game-jam
 
-除了 Top 10 游戏之外，其他精彩游戏 (Ghost In Smoke、Outopolis、Dungeons and Decoders...) 也不容错过。**查看完整游戏列表可点击此处** 👉 https://itch.io/jam/open-source-ai-game-jam/entries
+除了 Top 10 游戏之外，其他精彩游戏 (Ghost In Smoke、Outopolis、Dungeons and Decoders…) 也不容错过。 **查看完整游戏列表可点击此处** 👉 https://itch.io/jam/open-source-ai-game-jam/entries
 
 ---
 
@@ -186,16 +186,16 @@ AI 资产: Philippe Saade
 
 我们渴望继续这一举措，并计划在未来举办更多活动，为广大游戏开发者提供展示技能的机会，并充分探索 AI 在游戏开发中的影响力。
 
-如果你对 AI for games 感兴趣，我们这里整理了一系列有价值的资源，包括游戏开发中可用的 AI 工具集、以及将 AI 集成到 Unity 等游戏引擎中的教程：
+如果你对 AI for games 感兴趣，我们这里整理了一系列有价值的资源，包括游戏开发中可用的 AI 工具集、以及将 AI 集成到 Unity 等游戏引擎中的教程:
 
 - **[游戏开发 AI 工具集](https://github.com/simoninithomas/awesome-ai-tools-for-game-dev)**
-- 如何安装和使用 Hugging Face Unity API: **https://huggingface.co/blog/zh/unity-api**
+- 如何安装和使用 Hugging Face Unity API:  **https://huggingface.co/blog/zh/unity-api**
 - 如何在 Unity 游戏中集成 AI 语音识别: **https://huggingface.co/blog/zh/unity-asr**
-- 使用 Transformers.js 制作 ML 驱动的网页游戏: **https://huggingface.co/blog/ml-web-games**
-- 使用 Hugging Face 🤗 and Unity 构建一个智能机器人 AI: **https://thomassimonini.substack.com/p/building-a-smart-robot-ai-using-hugging**
+- 使用 Transformers.js 制作 ML 驱动的网页游戏:  **https://huggingface.co/blog/ml-web-games**
+- 使用 Hugging Face 🤗 and Unity 构建一个智能机器人 AI:  **https://thomassimonini.substack.com/p/building-a-smart-robot-ai-using-hugging**
 
 想了解未来活动的最新动态，可以访问我们的 Discord 服务器，在这里你可以找到 AI for games 专用频道，与更多同好一起交流更加新奇的想法。
 
-加入我们的 Discord Server 👉 **https://hf.co/join/discord**
+加入我们的 Discord Server 👉  **https://hf.co/join/discord**
 
 **感谢所有参与者、贡献者和支持者，是你们让本次活动取得了令人难忘的成功！**
