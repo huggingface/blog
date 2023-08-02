@@ -111,7 +111,7 @@ class EndpointHandler:
         return [{"generated_audio": prediction}]
 ```
 
-Then, we will create a `requirements.txt` file that contains dependencies to be able to run the above code. In this case, it is below.
+Then, we will create a `requirements.txt` file containing dependencies to run the above code. In this case, it is below.
 
 ```
 transformers==4.31.0
@@ -122,7 +122,7 @@ Then, simply uploading these two files to our repository will suffice to serve t
 
 ![inference-files](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/files.png)
 
-We can now create the Inference Endpoint. Simply head to [Inference Endpoints](https://huggingface.co/inference-endpoints) page and click `Deploy your first model`. Enter the model repository to point at your duplicated repository identifier, select the hardware and create the endpoint. Any hardware with minimum of 16 GB RAM should work for `musicgen-small`.
+We can now create the Inference Endpoint. Head to [Inference Endpoints](https://huggingface.co/inference-endpoints) page and click `Deploy your first model`. Enter the model repository to point at your duplicated repository identifier, select the hardware and create the endpoint. Any hardware with a minimum of 16 GB RAM should work for `musicgen-small`.
 
 ![Create Endpoint](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/create_endpoint.png)
 
@@ -130,7 +130,7 @@ After creating the endpoint, it will be up and running. Then we can simply send 
 
 ![Endpoint Running](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/endpoint_running.png)
 
-We can query the endpoint with below snippet.
+We can query the endpoint with the below snippet.
 
 ```bash
 curl URL_OF_ENDPOINT \
@@ -142,24 +142,24 @@ curl URL_OF_ENDPOINT \
 
 We can see the following waveform sequence as output.
 ```
-[{"generated_text":[[-0.024490159,-0.03154691,-0.0079551935,-0.003828604, ...]]}]
+[{"generated_audio":[[-0.024490159,-0.03154691,-0.0079551935,-0.003828604, ...]]}]
 ```
 
-You can convert the generated sequence to audio however you want. In Python, you can use `scipy` to write it to a .wav file. 
+You can convert the generated sequence to audio however you want. You can use `scipy` in Python to write it to a .wav file. 
 
 ```python
 import scipy
 import numpy as np
 
-output = [{"generated_text":[[-0.024490159,-0.03154691,-0.0079551935,-0.003828604, ...]]}]
-scipy.io.wavfile.write("musicgen_out.wav", rate=sampling_rate, data=np.array(output[0]["generated_text"][0]))
+output = [{"generated_audio":[[-0.024490159,-0.03154691,-0.0079551935,-0.003828604, ...]]}]
+scipy.io.wavfile.write("musicgen_out.wav", rate=sampling_rate, data=np.array(output[0]["generated_audio"][0]))
 ```
 
 And voila! 
 
 ## Conclusion
 
-In this blog post, we have shown you how to deploy MusicGen using Inference Endpoints using custom handler. The custom handler can be used not only for MusicGen, but any model on Hugging Face Hub that has no pipeline that you wish to deploy. All you have to do is to override the `Endpoint Handler` class in `handler.py` and add `requirements.txt` to have dependencies of your project. 
+In this blog post, we have shown you how to deploy MusicGen using Inference Endpoints using a custom handler. The custom handler can be used for MusicGen and any model on Hugging Face Hub with no pipeline you wish to deploy. All you have to do is override the `Endpoint Handler` class in `handler.py` and add `requirements.txt` to have your project's dependencies. 
 
 ### Read More
 - [Inference Endpoints documentation covering Custom Handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler)
