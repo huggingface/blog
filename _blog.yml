@@ -2571,3 +2571,10 @@
     - cv
     - diffusion
     - game-dev
+
+- external: https://www.youtube.com/watch?v=t8Ek1aOtaQw
+  title: "Leveraging Hugging Face for complex generative AI use cases"
+  author: jeffboudier
+  date: August 1, 2023
+  tags:
+    - case-studies
