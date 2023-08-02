@@ -109,7 +109,7 @@ class EndpointHandler:
         return [{"generated_text": prediction}]
 ```
 
-Then, we will create a `requirements.txt` file that contains dependencies to be able to run above code. In this case, it is below.
+Then, we will create a `requirements.txt` file that contains dependencies to be able to run the above code. In this case, it is below.
 
 ```
 transformers
