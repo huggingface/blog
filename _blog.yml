@@ -2571,3 +2571,15 @@
     - cv
     - diffusion
     - game-dev
+
+- local: encrypted-llm
+  title: "Towards Encrypted Large Language Models with FHE"
+  author: RomanBredehoft
+  thumbnail: /blog/assets/encrypted-llm/thumbnail.png
+  date: August 02, 2023
+  tags:
+    - guide
+    - privacy
+    - research
+    - FHE
+    - llm
