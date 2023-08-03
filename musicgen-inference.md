@@ -49,7 +49,7 @@ audio_values = model.generate(**inputs, do_sample=True, guidance_scale=3, max_ne
 Let's hear what it sounds like:
 
 <audio controls>
-<source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/musicgen_out.wav" type="audio/wav"> 
+<source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/musicgen_out_minified.wav" type="audio/wav"> 
 Your browser does not support the audio element. 
 </audio> 
 
@@ -81,7 +81,7 @@ audio_values = model.generate(**inputs, do_sample=True, guidance_scale=3, max_ne
 Let's give it a listen:
 
 <audio controls>
-<source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/musicgen_out_melody.wav" type="audio/wav"> 
+<source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/musicgen_out_melody_minified.wav" type="audio/wav"> 
 Your browser does not support the audio element. 
 </audio> 
 
@@ -170,7 +170,7 @@ We can see the following waveform sequence as output.
 Here's how it sounds like:
 
 <audio controls>
-<source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/musicgen_inference.wav" type="audio/wav"> 
+<source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/musicgen_inference_minified.wav" type="audio/wav"> 
 Your browser does not support the audio element. 
 </audio> 
 
