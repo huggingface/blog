@@ -190,7 +190,7 @@ And voila!
 
 Play with the demo below to try the endpoint out.
 
-<gradio-app space="merve/MusicGen"></gradio-app>
+<gradio-app theme_mode="light" space="merve/MusicGen"></gradio-app>
 
 
 ## Conclusion
