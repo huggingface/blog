@@ -23,7 +23,7 @@ At the time of this blog post's release, MusicGen lacks a dedicated `transformer
 2. Write a custom handler in `handler.py` and the dependencies in `requirements.txt` and add them to the duplicated repository,
 3. Create Inference Endpoint for that repository.
 
-We've done this for you already, so you can skip steps 1-3 and deploy via a [custom MusicGen model repo](https://huggingface.co/reach-vb/musicgen-large-fp16-endpoint) we built.
+Or simply use the final result and deploy our [custom MusicGen model repo](https://huggingface.co/reach-vb/musicgen-large-fp16-endpoint), where we just followed the steps above :)
 
 ### Let's go!
 
