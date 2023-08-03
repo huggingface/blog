@@ -32,8 +32,6 @@ First, we will duplicate the [facebook/musicgen-small](https://huggingface.co/fa
 Then, we will add `handler.py` and `requirements.txt` to the duplicated repository.
 First, let's take a look at how to run inference with MusicGen.
 
-You can initialize and use MusicGen with the below code 👇 
-
 ```python
 from transformers import AutoProcessor, MusicgenForConditionalGeneration
 
