@@ -114,7 +114,7 @@ class EndpointHandler:
         return [{"generated_audio": prediction}]
 ```
 
-Then, we will create a `requirements.txt` file containing dependencies to run the above code. In this case, it is below.
+Then, we will create a `requirements.txt` file containing the dependencies we need to run the code:
 
 ```
 transformers==4.31.0
