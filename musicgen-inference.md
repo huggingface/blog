@@ -20,7 +20,7 @@ Let's demonstrate this process using MusicGen as an example. To implement a cust
 At the time of this blog post's release, MusicGen lacks a dedicated `transformers` pipeline. To implement a custom handler function for MusicGen and serve it, we will need to:
 
 1. Duplicate the MusicGen repository we want to serve,
-2. Write a custom handler in `handler.py` and the dependencies in `requirements.txt` and add them to the duplicated repository,
+2. Write a custom handler in `handler.py` and any dependencies in `requirements.txt` and add them to the duplicated repository,
 3. Create Inference Endpoint for that repository.
 
 Or simply use the final result and deploy our [custom MusicGen model repo](https://huggingface.co/reach-vb/musicgen-large-fp16-endpoint), where we just followed the steps above :)
