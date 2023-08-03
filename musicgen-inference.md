@@ -121,7 +121,7 @@ transformers==4.31.0
 accelerate>=0.20.3
 ```
 
-Then, simply uploading these two files to our repository will suffice to serve the model.
+Uploading these two files to our repository will suffice to serve the model.
 
 ![inference-files](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/files.png)
 
