@@ -171,6 +171,7 @@ You can also hit the endpoint with `huggingface-hub` Python library's `Inference
 
 ```python
 from huggingface_hub import InferenceClient
+
 client = InferenceClient(model = URL_OF_ENDPOINT)
 response = client.post(json={"inputs":"an alt rock song"})
 # response looks like this b'[{"generated_text":[[-0.182352,-0.17802449, ...]]}]
