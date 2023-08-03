@@ -100,7 +100,7 @@ text_prompt = "Let's try generating speech, with Bark, a text-to-speech model"
 inputs = processor(text_prompt).to(device)
 ```
 
-Measuring the latency and GPU memory footprint requires the use of specific CUDA methods. We define a utility function that measures both the latency and GPU memory footprint of the model at inference time. To ensure we get an accurate picture of these metrics, we average over a specified number of runs `nb_loop`:
+Measuring the latency and GPU memory footprint requires the use of specific CUDA methods. We define a utility function that measures both the latency and GPU memory footprint of the model at inference time. To ensure we get an accurate picture of these metrics, we average over a specified number of runs `nb_loops`:
 
 ```python
 import torch
