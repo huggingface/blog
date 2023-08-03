@@ -116,6 +116,7 @@ class EndpointHandler:
         return [{"generated_audio": prediction}]
 ```
 
+Note that in this example, we are only generating audio from text, and not using melody control.
 Then, we will create a `requirements.txt` file containing the dependencies we need to run the code:
 
 ```
