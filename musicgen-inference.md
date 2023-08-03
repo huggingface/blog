@@ -27,7 +27,7 @@ Or simply use the final result and deploy our [custom MusicGen model repo](https
 
 ### Let's go!
 
-First, we will duplicate the [facebook/musicgen-large](https://huggingface.co/facebook/musicgen-large) repository to our own profile using [repository duplicator](https://huggingface.co/spaces/osanseviero/repo_duplicator).
+First, we will duplicate the [facebook/musicgen-large](https://huggingface.co/facebook/musicgen-large) repository to our own profile using [repository duplicator](https://huggingface.co/spaces/huggingface-projects/repo_duplicator).
 
 Then, we will add `handler.py` and `requirements.txt` to the duplicated repository.
 First, let's take a look at how to run inference with MusicGen.
