@@ -175,7 +175,11 @@ So as can be seen we load the model in the 4-bit configuration and then train it
 
 ## Demo/Example/Conclusion
 
-The full source code of the training scripts for the SFT and DPO are available.
+The full source code of the training scripts for the SFT and DPO are available in the following [examples/stack_llama_2](https://github.com/lvwerra/trl/tree/main/examples/research_projects/stack_llama_2) directory for the keen readers to try out themselves.
+
+The WandB logs for the DPO training run can be found [here](https://wandb.ai/krasul/huggingface/runs/uoc2ntcy).
+
+
 
 What is the catch then? We do lose the ability to sample from the model when training the RL objective which is a hallmark of RL training in the presence of distributional shifts.
 
