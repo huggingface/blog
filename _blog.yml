@@ -2548,3 +2548,14 @@
     - stable-diffusion
     - stable-diffusion-xl
     - diffusers
+
+- local: optimizing-bark
+  title: "Optimizing a Text-To-Speech model using 🤗 Transformers"
+  author: ylacombe
+  thumbnail: /blog/assets/bark_optimization/thumbnail.png
+  date: August 3, 2023
+  tags:
+    - text-to-speech
+    - optimization
+    - benchmark
+    - bark
