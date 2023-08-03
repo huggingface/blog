@@ -131,7 +131,7 @@ We can now create the Inference Endpoint. Head to [Inference Endpoints](https://
 
 ![Create Endpoint](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/create_endpoint.png)
 
-After creating the endpoint, it will be up and running. Then we can simply send a request to the endpoint.
+After creating the endpoint, it will be automatically launched and ready to receive requests.
 
 ![Endpoint Running](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/endpoint_running.png)
 
