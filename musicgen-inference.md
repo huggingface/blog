@@ -188,6 +188,11 @@ scipy.io.wavfile.write("musicgen_out.wav", rate=32000, data=np.array(output[0]))
 
 And voila! 
 
+Play with the demo below to try the endpoint out.
+
+<gradio-app space="merve/MusicGen"></gradio-app>
+
+
 ## Conclusion
 
 In this blog post, we have shown how to deploy MusicGen using Inference Endpoints with a custom inference handler. The same technique can be used for any other model in the Hub that does not have an associated pipeline. All you have to do is override the `Endpoint Handler` class in `handler.py`, and add `requirements.txt` to reflect your project's dependencies. 
