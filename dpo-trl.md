@@ -97,7 +97,7 @@ The benefit of implementing the DPO trainer in TRL is that one can take advantag
 
 ### Supervised Fine Tuning
 
-The process as introduced above involves the supervised fine-tuning step using QLoRA on the 7B Llama v2 model on the SFT split of the data via TRL’s `SFTTrainer`:
+The process as introduced above involves the supervised fine-tuning step using [QLoRA](https://arxiv.org/abs/2305.14314) on the 7B Llama v2 model on the SFT split of the data via TRL’s `SFTTrainer`:
 
 ```python
 # load the base model in 4-bit quantization
