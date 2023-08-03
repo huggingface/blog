@@ -164,7 +164,7 @@ And voila!
 
 ## Conclusion
 
-In this blog post, we have shown you how to deploy MusicGen using Inference Endpoints using a custom handler. The custom handler can be used for MusicGen and any model on Hugging Face Hub with no pipeline you wish to deploy. All you have to do is override the `Endpoint Handler` class in `handler.py` and add `requirements.txt` to have your project's dependencies. 
+In this blog post, we have shown how to deploy MusicGen using Inference Endpoints with a custom inference handler. The same technique can be used for any other model in the Hub that does not have an associated pipeline. All you have to do is override the `Endpoint Handler` class in `handler.py`, and add `requirements.txt` to reflect your project's dependencies. 
 
 ### Read More
 - [Inference Endpoints documentation covering Custom Handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler)
