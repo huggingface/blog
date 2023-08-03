@@ -159,7 +159,7 @@ client = InferenceClient(model = URL_OF_ENDPOINT)
 response = client.post(json={"inputs":"an alt rock song"})
 # response looks like this b'[{"generated_text":[[-0.182352,-0.17802449, ...]]}]
 
-output = eval(response)[0]["generated_text"]
+output = eval(response)[0]["generated_audio"]
 ```
 
 You can convert the generated sequence to audio however you want. You can use `scipy` in Python to write it to a .wav file. 
@@ -169,7 +169,7 @@ import scipy
 import numpy as np
 
 # output is [[-0.182352,-0.17802449, ...]]
-scipy.io.wavfile.write("musicgen_out.wav", rate=sampling_rate, data=np.array(output[0]))
+scipy.io.wavfile.write("musicgen_out.wav", rate=32000, data=np.array(output[0]))
 ```
 
 And voila! 
