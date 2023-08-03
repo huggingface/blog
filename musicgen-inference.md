@@ -85,6 +85,8 @@ Let's give it a listen:
 Your browser does not support the audio element. 
 </audio> 
 
+In both the cases the `model.generate` method produces the audio and follows the same principles as text generation. You can read more about it in our [how to generate](https://huggingface.co/blog/how-to-generate) blog post.
+
 Alright! With the basic usage outlined above, let's deploy MusicGen for fun and profit!
 
 First, we'll define a custom handler in `handler.py`. We can use the [inference endpoints template](https://huggingface.co/docs/inference-endpoints/guides/custom_handler#3-customize-endpointhandler) and override the `__init__` and `__call__` methods with our custom inference code. `__init__` will initialize the model and the processor, and `__call__` will take the data and return the generated music. You can find the modified `EndpointHandler` class below. 👇 
