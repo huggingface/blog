@@ -2529,7 +2529,7 @@
     - agents
     - javascript
     - web
-
+    
 - local: eu-ai-act-oss
   title: "AI Policy @🤗: Open ML Considerations in the EU AI Act"
   author: yjernite
@@ -2537,7 +2537,7 @@
   date: July 24, 2023
   tags:
     - ethics
-
+    
 - local: stable-diffusion-xl-coreml
   title: "Stable Diffusion XL on Mac with Advanced Core ML Quantization"
   author: pcuenq
@@ -2548,6 +2548,51 @@
     - stable-diffusion
     - stable-diffusion-xl
     - diffusers
+
+- local: sd_distillation
+  title: "Open-sourcing Knowledge Distillation Code and Weights of SD-Small and SD-Tiny"
+  author: harishsegmind
+  guest: true
+  thumbnail: /blog/assets/distill_sd/thumbnail.png
+  date: August 1, 2023
+  tags:
+    - stable-diffusion
+    - research
+    - diffusers
+
+- local: 3d-assets
+  title: "Practical 3D Asset Generation: A Step-by-Step Guide"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail-3d.jpg
+  date: August 01, 2023
+  tags:
+    - community
+    - guide
+    - cv
+    - diffusion
+    - game-dev
+
+- local: encrypted-llm
+  title: "Towards Encrypted Large Language Models with FHE"
+  author: RomanBredehoft
+  guest: true
+  thumbnail: /blog/assets/encrypted-llm/thumbnail.png
+  date: August 02, 2023
+  tags:
+    - guide
+    - privacy
+    - research
+    - FHE
+    - llm
+
+- local: huggy-lingo
+  title: "Huggy Lingo: Using Machine Learning to Improve Language Metadata on the Hugging Face Hub"
+  author: davanstrien
+  thumbnail: /blog/assets/156_huggylingo/Huggy_Lingo.png
+  date: August 2, 2023
+  tags:
+    - announcement 
+    - research
 
 - local: optimizing-bark
   title: "Optimizing a Text-To-Speech model using 🤗 Transformers"
