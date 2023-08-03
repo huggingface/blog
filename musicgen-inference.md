@@ -20,6 +20,7 @@ At the time of this blog post's release, MusicGen lacks a dedicated `transformer
 2. Write a custom handler in `handler.py` and the dependencies in `requirements.txt` and add them to the duplicated repository,
 3. Create Inference Endpoint for that repository.
 4. Skip steps 1-3 and deploy via a [custom MusicGen model repo](https://huggingface.co/reach-vb/musicgen-large-fp16-endpoint).
+
 ### Let's go!
 
 First, we will duplicate the [facebook/musicgen-small](https://huggingface.co/facebook/musicgen-small) repository to our own profile using [repository duplicator](https://huggingface.co/spaces/osanseviero/repo_duplicator).
