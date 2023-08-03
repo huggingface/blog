@@ -1,5 +1,5 @@
 ---
-title: "Deploy MusicGen using Inference Endpoints" 
+title: "Deploy MusicGen in no time with Inference Endpoints" 
 thumbnail: /blog/assets/musicgen-inference/thumbnail.png
 authors:
 - user: reach-vb 
@@ -150,14 +150,25 @@ We can see the following waveform sequence as output.
 [{"generated_audio":[[-0.024490159,-0.03154691,-0.0079551935,-0.003828604, ...]]}]
 ```
 
+You can also hit the endpoint with `huggingface-hub` Python library's `InferenceClient` class.
+
+```python
+from huggingface_hub import InferenceClient
+client = InferenceClient(model = URL_OF_ENDPOINT)
+response = client.post(json={"inputs":"an alt rock song"})
+# response looks like this b'[{"generated_text":[[-0.182352,-0.17802449, ...]]}]
+
+output = eval(response)[0]["generated_text"]
+```
+
 You can convert the generated sequence to audio however you want. You can use `scipy` in Python to write it to a .wav file. 
 
 ```python
 import scipy
 import numpy as np
 
-output = [{"generated_audio":[[-0.024490159,-0.03154691,-0.0079551935,-0.003828604, ...]]}]
-scipy.io.wavfile.write("musicgen_out.wav", rate=sampling_rate, data=np.array(output[0]["generated_audio"][0]))
+# output is [[-0.182352,-0.17802449, ...]]
+scipy.io.wavfile.write("musicgen_out.wav", rate=sampling_rate, data=np.array(output[0]))
 ```
 
 And voila! 
