@@ -52,8 +52,8 @@ Optionally, you can also condition the output with a melody.
 from transformers import AutoProcessor, MusicgenForConditionalGeneration
 from datasets import load_dataset
 
-processor = AutoProcessor.from_pretrained("facebook/musicgen-small")
-model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-small")
+processor = AutoProcessor.from_pretrained("facebook/musicgen-large")
+model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-large")
 
 dataset = load_dataset("sanchit-gandhi/gtzan", split="train", streaming=True)
 sample = next(iter(dataset))["audio"]
@@ -116,8 +116,8 @@ class EndpointHandler:
         return [{"generated_audio": prediction}]
 ```
 
-Note that in this example, we are only generating audio from text, and not using melody control.
-Then, we will create a `requirements.txt` file containing the dependencies we need to run the code:
+To keep things simple in this example we are only generating audio from text, and not conditioning it with a melody.
+Next, we will create a `requirements.txt` file containing all the dependencies we need to run our inference code:
 
 ```
 transformers==4.31.0
