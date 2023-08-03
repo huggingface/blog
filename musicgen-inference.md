@@ -13,13 +13,17 @@ authors:
 
 [MusicGen](https://huggingface.co/docs/transformers/main/en/model_doc/musicgen) is a powerful music generation model that takes in text prompt and melody control and outputs music. This blog post will guide you through deploying it using [🤗 Inference Endpoints](https://huggingface.co/inference-endpoints). 
 
-`transformers` pipelines offer powerful abstractions to run inference with `transformers`-based models. The pipeline API enables easy deployment of models in Inference Endpoints with only a few clicks. Suppose the model we want to deploy in Inference Endpoints lacks a pipeline, or you wish to deploy a non-transformers model. We can write our inference function, called [custom handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler). 
+Inference Endpoints allows us to write custom inference functions called [custom handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler). These are particularly useful when a model is not supported out-of-the-box by the `transformers` high-level abstraction `pipeline`.
 
 At the time of this blog post's release, MusicGen lacks a dedicated `transformers` pipeline. To implement a custom handler function for MusicGen and serve it, we will need to:
+
+At the time of this blog post's release, MusicGen lacks a dedicated `transformers` pipeline. To implement a custom handler function for MusicGen and serve it, we will need to:
+
 1. Duplicate the MusicGen repository we want to serve,
 2. Write a custom handler in `handler.py` and the dependencies in `requirements.txt` and add them to the duplicated repository,
 3. Create Inference Endpoint for that repository.
-4. Skip steps 1-3 and deploy via a [custom MusicGen model repo](https://huggingface.co/reach-vb/musicgen-large-fp16-endpoint).
+
+We've done this for you already, so you can skip steps 1-3 and deploy via a [custom MusicGen model repo](https://huggingface.co/reach-vb/musicgen-large-fp16-endpoint) we built.
 
 ### Let's go!
 
