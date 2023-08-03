@@ -15,7 +15,7 @@ authors:
 
 Inference Endpoints allows us to write custom inference functions called [custom handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler). These are particularly useful when a model is not supported out-of-the-box by the `transformers` high-level abstraction `pipeline`.
 
-At the time of this blog post's release, MusicGen lacks a dedicated `transformers` pipeline. To implement a custom handler function for MusicGen and serve it, we will need to:
+Let's demonstrate this process using MusicGen as an example. To implement a custom handler function for MusicGen and deploy it, we will need to:
 
 At the time of this blog post's release, MusicGen lacks a dedicated `transformers` pipeline. To implement a custom handler function for MusicGen and serve it, we will need to:
 
