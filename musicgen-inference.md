@@ -132,7 +132,7 @@ class EndpointHandler:
         return [{"generated_audio": prediction}]
 ```
 
-To keep things simple in this example we are only generating audio from text, and not conditioning it with a melody.
+To keep things simple, in this example we are only generating audio from text, and not conditioning it with a melody.
 Next, we will create a `requirements.txt` file containing all the dependencies we need to run our inference code:
 
 ```
