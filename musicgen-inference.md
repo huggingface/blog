@@ -11,13 +11,13 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-[MusicGen](https://huggingface.co/docs/transformers/main/en/model_doc/musicgen) is a powerful music generation model that takes in text prompt and melody control and outputs music. This blog post will guide you through deploying it using [Inference Endpoints](https://huggingface.co/inference-endpoints). 
+[MusicGen](https://huggingface.co/docs/transformers/main/en/model_doc/musicgen) is a powerful music generation model that takes in text prompt and an optional melody to output music. This blog post will guide you through generating music with MusicGen using [Inference Endpoints](https://huggingface.co/inference-endpoints). 
 
-Inference Endpoints allows us to write custom inference functions called [custom handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler). These are particularly useful when a model is not supported out-of-the-box by the `transformers` high-level abstraction `pipeline`.
+Inference Endpoints allow us to write custom inference functions called [custom handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler). These are particularly useful when a model is not supported out-of-the-box by the `transformers` high-level abstraction `pipeline`.
+
+`transformers` pipelines offer powerful abstractions to run inference with `transformers`-based models. Inference Endpoints leverage the pipeline API to easily deploy models with only a few clicks. However, Inference Endpoints can also be used to deploy models that don't have a pipeline, or even non-transformer models! This is achieved using a custom inference function that we call a [custom handler](https://huggingface.co/docs/inference-endpoints/guides/custom_handler).
 
 Let's demonstrate this process using MusicGen as an example. To implement a custom handler function for MusicGen and deploy it, we will need to:
-
-At the time of this blog post's release, MusicGen lacks a dedicated `transformers` pipeline. To implement a custom handler function for MusicGen and serve it, we will need to:
 
 1. Duplicate the MusicGen repository we want to serve,
 2. Write a custom handler in `handler.py` and any dependencies in `requirements.txt` and add them to the duplicated repository,
@@ -27,7 +27,7 @@ Or simply use the final result and deploy our [custom MusicGen model repo](https
 
 ### Let's go!
 
-First, we will duplicate the [facebook/musicgen-small](https://huggingface.co/facebook/musicgen-small) repository to our own profile using [repository duplicator](https://huggingface.co/spaces/osanseviero/repo_duplicator).
+First, we will duplicate the [facebook/musicgen-large](https://huggingface.co/facebook/musicgen-large) repository to our own profile using [repository duplicator](https://huggingface.co/spaces/osanseviero/repo_duplicator).
 
 Then, we will add `handler.py` and `requirements.txt` to the duplicated repository.
 First, let's take a look at how to run inference with MusicGen.
