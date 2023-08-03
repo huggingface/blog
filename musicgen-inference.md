@@ -29,7 +29,7 @@ We've done this for you already, so you can skip steps 1-3 and deploy via a [cus
 
 First, we will duplicate the [facebook/musicgen-small](https://huggingface.co/facebook/musicgen-small) repository to our own profile using [repository duplicator](https://huggingface.co/spaces/osanseviero/repo_duplicator).
 
-Then, we will add `handler.py` and `requirements.txt` from the duplicated repository.
+Then, we will add `handler.py` and `requirements.txt` to the duplicated repository.
 First, let's take a look at how to run inference with MusicGen.
 
 You can initialize and use MusicGen with the below code 👇 
