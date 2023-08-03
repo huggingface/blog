@@ -35,8 +35,8 @@ First, let's take a look at how to run inference with MusicGen.
 ```python
 from transformers import AutoProcessor, MusicgenForConditionalGeneration
 
-processor = AutoProcessor.from_pretrained("facebook/musicgen-small")
-model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-small")
+processor = AutoProcessor.from_pretrained("facebook/musicgen-large")
+model = MusicgenForConditionalGeneration.from_pretrained("facebook/musicgen-large")
 
 inputs = processor(
     text=["80s pop track with bassy drums and synth"],
@@ -46,7 +46,7 @@ inputs = processor(
 audio_values = model.generate(**inputs, do_sample=True, guidance_scale=3, max_new_tokens=256)
 ```
 
-You can also input a melody to control the output like below. 
+Optionally, you can also condition the output with a melody. 
 
 ```python
 from transformers import AutoProcessor, MusicgenForConditionalGeneration
@@ -71,7 +71,9 @@ inputs = processor(
 audio_values = model.generate(**inputs, do_sample=True, guidance_scale=3, max_new_tokens=256)
 ```
 
-For `handler.py`, we can use [this template](https://huggingface.co/docs/inference-endpoints/guides/custom_handler#3-customize-endpointhandler) and override the `__init__` and `__call__` methods with our custom inference code. `__init__` will initialize the model and the processor, and `__call__` will take the data and return the generated music. You can find the modified `EndpointHandler` class below. 👇 
+Alright! With the basic usage outlined above, let's deploy MusicGen for fun and profit!
+
+First, we'll define a custom handler in `handler.py`. We can use the [inference endpoints template](https://huggingface.co/docs/inference-endpoints/guides/custom_handler#3-customize-endpointhandler) and override the `__init__` and `__call__` methods with our custom inference code. `__init__` will initialize the model and the processor, and `__call__` will take the data and return the generated music. You can find the modified `EndpointHandler` class below. 👇 
 
 ```python
 from typing import Dict, List, Any
@@ -125,7 +127,7 @@ Uploading these two files to our repository will suffice to serve the model.
 
 ![inference-files](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/files.png)
 
-We can now create the Inference Endpoint. Head to [Inference Endpoints](https://huggingface.co/inference-endpoints) page and click `Deploy your first model`. In the "Model repository" field, enter the identifier of your duplicated repository. Then select the hardware you want and create the endpoint. Any instance with a minimum of 16 GB RAM should work for `musicgen-small`.
+We can now create the Inference Endpoint. Head to [Inference Endpoints](https://huggingface.co/inference-endpoints) page and click `Deploy your first model`. In the "Model repository" field, enter the identifier of your duplicated repository. Then select the hardware you want and create the endpoint. Any instance with a minimum of 16 GB RAM should work for `musicgen-large`.
 
 ![Create Endpoint](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/create_endpoint.png)
 
