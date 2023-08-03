@@ -144,7 +144,7 @@ Uploading these two files to our repository will suffice to serve the model.
 
 ![inference-files](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/files.png)
 
-We can now create the Inference Endpoint. Head to [Inference Endpoints](https://huggingface.co/inference-endpoints) page and click `Deploy your first model`. In the "Model repository" field, enter the identifier of your duplicated repository. Then select the hardware you want and create the endpoint. Any instance with a minimum of 16 GB RAM should work for `musicgen-large`.
+We can now create the Inference Endpoint. Head to the [Inference Endpoints](https://huggingface.co/inference-endpoints) page and click `Deploy your first model`. In the "Model repository" field, enter the identifier of your duplicated repository. Then select the hardware you want and create the endpoint. Any instance with a minimum of 16 GB RAM should work for `musicgen-large`.
 
 ![Create Endpoint](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/ie_musicgen/create_endpoint.png)
 
