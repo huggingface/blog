@@ -46,6 +46,13 @@ inputs = processor(
 audio_values = model.generate(**inputs, do_sample=True, guidance_scale=3, max_new_tokens=256)
 ```
 
+Let's hear what it sounds like:
+
+<audio>
+<source src="https://huggingface.co/datasets/huggingface/documentation-images/blob/main/blog/ie_musicgen/musicgen_out.wav" type="audio/wav"> 
+Your browser does not support the audio element. 
+</audio> 
+
 Optionally, you can also condition the output with a melody. 
 
 ```python
@@ -70,6 +77,13 @@ inputs = processor(
 )
 audio_values = model.generate(**inputs, do_sample=True, guidance_scale=3, max_new_tokens=256)
 ```
+
+Let's give it a listen:
+
+<audio>
+<source src="https://huggingface.co/datasets/huggingface/documentation-images/blob/main/blog/ie_musicgen/musicgen_out_melody.wav" type="audio/wav"> 
+Your browser does not support the audio element. 
+</audio> 
 
 Alright! With the basic usage outlined above, let's deploy MusicGen for fun and profit!
 
