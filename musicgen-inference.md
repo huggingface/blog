@@ -53,7 +53,7 @@ Let's hear what it sounds like:
 Your browser does not support the audio element. 
 </audio> 
 
-Optionally, you can also condition the output with a melody. 
+Optionally, you can also condition the output with an audio snippet i.e. generate a complimentary snippet which combines the text generated audio with an input audio. 
 
 ```python
 from transformers import AutoProcessor, MusicgenForConditionalGeneration
