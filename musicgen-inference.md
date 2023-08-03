@@ -157,7 +157,7 @@ We can query the endpoint with the below snippet.
 ```bash
 curl URL_OF_ENDPOINT \
 -X POST \
--d '{"inputs":"alt rock song"}' \
+-d '{"inputs":"happy folk song, cheerful and lively"}' \
 -H "Authorization: {YOUR_TOKEN_HERE}" \
 -H "Content-Type: application/json"
 ```
@@ -166,6 +166,13 @@ We can see the following waveform sequence as output.
 ```
 [{"generated_audio":[[-0.024490159,-0.03154691,-0.0079551935,-0.003828604, ...]]}]
 ```
+
+Here's how it sounds like:
+
+<audio>
+<source src="https://huggingface.co/datasets/huggingface/documentation-images/blob/main/blog/ie_musicgen/musicgen_inference.wav" type="audio/wav"> 
+Your browser does not support the audio element. 
+</audio> 
 
 You can also hit the endpoint with `huggingface-hub` Python library's `InferenceClient` class.
 
