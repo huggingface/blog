@@ -2594,6 +2594,15 @@
     - announcement 
     - research
 
+- local: run-musicgen-as-an-api
+  title: "Deploy MusicGen in no time with Inference Endpoints"
+  author: reach-vb
+  thumbnail: /blog/assets/run-musicgen-as-an-api/thumbnail.png
+  date: August 4, 2023
+  tags:
+    - audio 
+    - guide
+
 - local: dpo-trl
   title: "Fine-tune Llama 2 with DPO"
   author: kashif

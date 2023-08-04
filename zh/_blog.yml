@@ -35,6 +35,14 @@
     - guide
     - nlp
 
+- local: transformers-design-philosophy
+  title: "不要重复自己 - 🤗 Transformers 的设计理念"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/59_transformers_philosophy/transformers.png
+  date: April 5, 2022
+  tags:
+    - community
+
 - local: getting-started-habana
   title: "基于 Habana Gaudi 的 Transformers 入门"
   author: juliensimon
