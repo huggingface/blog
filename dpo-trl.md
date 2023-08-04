@@ -26,7 +26,7 @@ In the traditional model of optimising human derived preferences via RL, the got
 
 The DPO formulation bypasses the reward modeling step and directly optimises the language model on preference data via a key insight: namely an analytical mapping from the reward function to the optimal policy that enables the authors to transform the RL loss over the reward  and reference models to a loss over the reference model directly!
 
-Thus this direct likelihood object can be optimized without the need for a reward model or the need to perform the potentially fiddly RL based optimisation.
+Thus this direct likelihood objective can be optimized without the need for a reward model or the need to perform the potentially fiddly RL based optimisation.
 
 ## How to train with TRL
 
