@@ -149,6 +149,7 @@ model = AutoPeftModelForCausalLM.from_pretrained(
     low_cpu_mem_usage=True,
     torch_dtype=torch.float16,
     load_in_4bit=True,
+    is_trainable=True,
 )
 model_ref = AutoPeftModelForCausalLM.from_pretrained(
     script_args.model_name_or_path,  # same model as the main one
@@ -177,7 +178,7 @@ So as can be seen we load the model in the 4-bit configuration and then train it
 
 The full source code of the training scripts for the SFT and DPO are available in the following [examples/stack_llama_2](https://github.com/lvwerra/trl/tree/main/examples/research_projects/stack_llama_2) directory for the keen readers to try out themselves.
 
-The WandB logs for the DPO training run can be found [here](https://wandb.ai/krasul/huggingface/runs/uoc2ntcy).
+The WandB logs for the DPO training run can be found [here](https://wandb.ai/krasul/huggingface/runs/c54lmder).
 
 
 
