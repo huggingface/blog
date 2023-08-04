@@ -37,11 +37,9 @@ This blog post is organized as follows:
 # Bark Architecture
 
 
-**Bark** is a transformer-based text-to-speech model proposed by Suno AI in [suno-ai/bark](https://github.com/suno-ai/bark). 
+**Bark** is a transformer-based text-to-speech model proposed by Suno AI in [suno-ai/bark](https://github.com/suno-ai/bark). It is capable of generating a wide range of audio outputs, including speech, music, background noise, and simple sound effects. Additionally, it can produce nonverbal communication sounds such as laughter, sighs, and sobs.
 
-**Bark** is capable of generating a wide range of audio outputs, including speech, music, background noise, and simple sound effects. Additionally, it can produce nonverbal communication sounds such as laughter, sighs, and sobs.
-
-The Bark model has been available in 🤗 Transformers since v4.31.0 onwards!
+Bark has been available in 🤗 Transformers since v4.31.0 onwards!
 
 
 You can play around with Bark and discover it's abilities [here](https://colab.research.google.com/github/ylacombe/notebooks/blob/main/Bark_HuggingFace_Demo.ipynb).
@@ -402,7 +400,7 @@ The benchmark was run on an NVIDIA TITAN RTX 24GB with a maximum of 256 new toke
 
 It measures the duration of a single call to the generation method, regardless of batch size.
 
-In other words, it's equal to $\frac{elapsedTime}{nbLoops}$.
+In other words, it's equal to \\(\frac{elapsedTime}{nbLoops}\\).
 
 **A lower latency is prefered.**
 
@@ -417,7 +415,7 @@ It measures the maximum memory used during a single call to the generation metho
 
 It measures the number of samples generated per second. This time, batch size is taken into account.
 
-In other words, it's equal to $\frac{nbLoops*batchSize}{elapsedTime}$.
+In other words, it's equal to \\(\frac{nbLoops*batchSize}{elapsedTime}\\).
 
 **A higher throughput is prefered.**
 
