@@ -141,7 +141,7 @@ trainer.train()
 
 ### DPO Training
 
-Once the SFT has finished, we can save the resulting model and move onto the DPO training. As is typically done we will utilize the saved model from the previous SFT step for both the base model as well as reference model of DPO. Then we can use these to train the model with the DPO objective on the stack-exchange preference data shown above. Since the models where trained via LoRa adaptors we load the models via Peft’s `AutoPeftModelForCausalLM` helpers:
+Once the SFT has finished, we can save the resulting model and move onto the DPO training. As is typically done we will utilize the saved model from the previous SFT step for both the base model as well as reference model of DPO. Then we can use these to train the model with the DPO objective on the stack-exchange preference data shown above. Since the models where trained via LoRa adapters we load the models via Peft’s `AutoPeftModelForCausalLM` helpers:
 
 ```python
 model = AutoPeftModelForCausalLM.from_pretrained(
