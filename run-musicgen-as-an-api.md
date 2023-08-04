@@ -1,6 +1,6 @@
 ---
 title: "Deploy MusicGen in no time with Inference Endpoints" 
-thumbnail: /blog/assets/musicgen-inference/thumbnail.png
+thumbnail: /blog/assets/run-musicgen-as-an-api/thumbnail.png
 authors:
 - user: reach-vb 
 - user: merve
