@@ -2594,11 +2594,20 @@
     - announcement 
     - research
 
+- local: run-musicgen-as-an-api
+  title: "Deploy MusicGen in no time with Inference Endpoints"
+  author: reach-vb
+  thumbnail: /blog/assets/run-musicgen-as-an-api/thumbnail.png
+  date: August 4, 2023
+  tags:
+    - audio 
+    - guide
+
 - local: optimizing-bark
   title: "Optimizing a Text-To-Speech model using 🤗 Transformers"
   author: ylacombe
   thumbnail: /blog/assets/bark_optimization/thumbnail.png
-  date: August 3, 2023
+  date: August 4, 2023
   tags:
     - text-to-speech
     - optimization
