@@ -184,6 +184,7 @@ The WandB logs for the DPO training run can be found [here](https://wandb.ai/kra
 * `rewards/accuracies`: mean of how often the chosen rewards are > than the corresponding rejected rewards
 * `rewards/margins`: the mean difference between the chosen and corresponding rejected rewards.
 
+Intuitively, during training we want the margins to increase and the accuracies to go to 1.0, or in other words the chosen reward to be higher than the rejected reward (or the margin bigger than zero). These metrics can then be calculated over some evaluation dataset.
 
 What is the catch then? We do lose the ability to sample from the model when training the RL objective which is a hallmark of RL training in the presence of distributional shifts.
 
