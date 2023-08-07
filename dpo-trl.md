@@ -176,7 +176,7 @@ So as can be seen we load the model in the 4-bit configuration and then train it
 
 ## Conclusion
 
-The full source code of the training scripts for the SFT and DPO are available in the following [examples/stack_llama_2](https://github.com/lvwerra/trl/tree/main/examples/research_projects/stack_llama_2) directory for the keen readers to try out themselves.
+The full source code of the training scripts for the SFT and DPO are available in the following [examples/stack_llama_2](https://github.com/lvwerra/trl/tree/main/examples/research_projects/stack_llama_2) directory and the trained model with the merged adapters can be found on the HF Hub [here](https://huggingface.co/kashif/stack-llama-2).
 
 The WandB logs for the DPO training run can be found [here](https://wandb.ai/krasul/huggingface/runs/c54lmder) where during training and evaluation the `DPOTrainer` records the following reward metrics:
 * `rewards/chosen`: the mean difference between the log probabilities of the policy model and the reference model for the chosen responses scaled by `beta`
