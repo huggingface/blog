@@ -79,7 +79,7 @@ dpo_trainer = DPOTrainer(
     model,                 # base model from SFT pipeline
     model_ref,             # typically a copy of the SFT trained base model
     beta=0.1,              # temperature hyperparameter of DPO
-    train_dataset=dataset, # dataset preperared above
+    train_dataset=dataset, # dataset prepared above
     tokenizer=tokenizer,   # tokenizer
     args=training_args,    # training arguments e.g. batch size, lr, etc.
 )
