@@ -2594,6 +2594,15 @@
     - announcement 
     - research
 
+- local: run-musicgen-as-an-api
+  title: "Deploy MusicGen in no time with Inference Endpoints"
+  author: reach-vb
+  thumbnail: /blog/assets/run-musicgen-as-an-api/thumbnail.png
+  date: August 4, 2023
+  tags:
+    - audio 
+    - guide
+
 - local: swift-coreml-llm
   title: "Swift Tools for On-Device LLM Inference with Core ML"
   author: pcuenq
