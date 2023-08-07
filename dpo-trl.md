@@ -178,8 +178,11 @@ So as can be seen we load the model in the 4-bit configuration and then train it
 
 The full source code of the training scripts for the SFT and DPO are available in the following [examples/stack_llama_2](https://github.com/lvwerra/trl/tree/main/examples/research_projects/stack_llama_2) directory for the keen readers to try out themselves.
 
-The WandB logs for the DPO training run can be found [here](https://wandb.ai/krasul/huggingface/runs/c54lmder).
-
+The WandB logs for the DPO training run can be found [here](https://wandb.ai/krasul/huggingface/runs/c54lmder) where during training and evaluation the `DPOTrainer` records the following reward metrics:
+* `rewards/chosen`: the mean difference between the log probabilities of the policy model and the reference model for the chosen responses scaled by `beta`
+* `rewards/rejected`: the mean difference between the log probabilities of the policy model and the reference model for the rejected responses scaled by `beta`
+* `rewards/accuracies`: mean of how often the chosen rewards are > than the corresponding rejected rewards
+* `rewards/margins`: the mean difference between the chosen and corresponding rejected rewards.
 
 
 What is the catch then? We do lose the ability to sample from the model when training the RL objective which is a hallmark of RL training in the presence of distributional shifts.
