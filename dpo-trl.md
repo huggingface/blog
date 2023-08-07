@@ -174,7 +174,7 @@ dpo_trainer.save_model()
 
 So as can be seen we load the model in the 4-bit configuration and then train it via the QLora method via the `peft_config` arguments. The trainer will also evaluate the progress during training with respect to the evaluation dataset and report back a number of key metrics like the implicit reward which can be recorded and displayed via WandB for example. We can then push the final trained model to the HuggingFace Hub.
 
-## Demo/Example/Conclusion
+## Conclusion
 
 The full source code of the training scripts for the SFT and DPO are available in the following [examples/stack_llama_2](https://github.com/lvwerra/trl/tree/main/examples/research_projects/stack_llama_2) directory for the keen readers to try out themselves.
 
@@ -186,6 +186,4 @@ The WandB logs for the DPO training run can be found [here](https://wandb.ai/kra
 
 Intuitively, during training we want the margins to increase and the accuracies to go to 1.0, or in other words the chosen reward to be higher than the rejected reward (or the margin bigger than zero). These metrics can then be calculated over some evaluation dataset.
 
-What is the catch then? We do lose the ability to sample from the model when training the RL objective which is a hallmark of RL training in the presence of distributional shifts.
-
-TODO: fill here
+We hope with the code release it lowers the barrier to entry for you the readers to try out this method aligning large language models on your own datasets and we cannot wait to see what you build!
