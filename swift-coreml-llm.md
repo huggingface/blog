@@ -10,9 +10,9 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-I have a lot of respect for iOS / mac developers. We started writing apps for iPhones in 2007, when not even APIs or documentation existed, and collectively managed to create top-notch applications that run on small devices with unfamiliar decisions in the constraint space. The combination of power, screen real-estate, UI idioms, network access, persistence, latency was different to what we were used to before.
+I have a lot of respect for iOS/Mac developers. We started writing apps for iPhones in 2007, when not even APIs or documentation existed, and collectively managed to create top-notch applications that ran on small devices with unfamiliar decisions in the constraint space. The combination of power, screen real estate, UI idioms, network access, persistence, and latency was different to what we were used to before.
 
-I believe that ML is a new way to build software, and I know that many developers want to incorporate AI features in their apps. The ML ecosystem has matured a lot, and there are thousands of models that solve a wide variety of problems. Moreover, LLMs have recently emerged as almost general-purpose tools themselves – they can be tweaked or bent to adapt to new domains, as long as we can model our task to work on text or text-like data. We are witness of a defining moment in compute history where LLMs are going out of research labs and becoming compute tools for everybody.
+I believe that ML is a new way to build software, and I know that many developers want to incorporate AI features in their apps. The ML ecosystem has matured a lot, and there are thousands of models that solve a wide variety of problems. Moreover, LLMs have recently emerged as almost general-purpose tools themselves – they can be tweaked or bent to adapt to new domains, as long as we can model our task to work on text or text-like data. We are witnessing a defining moment in computing history, where LLMs are going out of research labs and becoming compute tools for everybody.
 
 Using a model such as an LLM in an app involves several tasks, and many people are facing and solving them alone. We have been exploring this space, and we'd love to continue working on it with the community. We aim to create a set of tools and building blocks that developers can use to build faster.
 
@@ -24,13 +24,13 @@ TODO: screenshot / video.
 
 ## Tasks Overview
 
-When I publish tweets showing Falcon or Llama 2 running on my Mac, I get many questions from other developers asking how to convert those models to Core ML, because they want to use them in their apps as well. Conversion is a crucial step, but it's just the first piece of the puzzle. The real reason I write those apps is to face the same problems any other developer would, and identify areas where we can help. This is an outline of the rest of the post, where we cover some of the tasks involved and explain where (and where not) we have tools to help.
+When I publish tweets showing [Falcon](https://twitter.com/pcuenq/status/1664605575882366980) or [Llama 2](https://twitter.com/pcuenq/status/1681404748904431616) running on my Mac, I get many questions from other developers asking how to convert those models to Core ML, because they want to use them in their apps as well. Conversion is a crucial step, but it's just the first piece of the puzzle. The real reason I write those apps is to face the same problems that any other developer would, and identify areas where we can help. This is an outline of the rest of the post, where we cover some of the tasks involved and explain where (and where not) we have tools to help.
 
 - [Conversion to Core ML](#conversion-to-core-ml). We'll use Llama 2 as a real-life example.
-- [Optimization](#optimization) techniques to make your model (and app) run fast and consume as little memory as possible. This is an area that permeates across the project, as there's no silver-bullet solution you can apply.
+- [Optimization](#optimization) techniques to make your model (and app) run fast and consume as little memory as possible. This is an area that permeates across the project and there's no silver-bullet solution you can apply.
 - [`swift-transformers`](#swift-transformers), our new library to help with some common tasks.
-    - [Tokenizers](#tokenizers). Tokenization is the way to convert text input to the actual set of numbers that are processed by the model (and back to text from the generated predictions). This is a lot more involved than it looks, as there are many different options and strategies.
-    - [Model and Hub wrappers](#model-and-hub-wrappers). If we want to support the vast variety of models in the Hub, we can't afford to hardcode model settings. We created a simple `LanguageModel` abstraction and some utilities to download model and tokenizer configuration files from the Hub.
+    - [Tokenizers](#tokenizers). Tokenization is the way to convert text input to the actual set of numbers that are processed by the model (and back to text from the generated predictions). This is a lot more involved than it sounds, as there are many different options and strategies.
+    - [Model and Hub wrappers](#model-and-hub-wrappers). If we want to support the vast variety of models on the Hub, we can't afford to hardcode model settings. To solve this, we created a simple `LanguageModel` abstraction and various utilities to download model and tokenizer configuration files from the Hub.
     - [Generation Algorithms](#generation-algorithms). Language models are trained to predict a probability distribution of the next token that may appear after a sequence of text. To generate text output, we need to call the model multiple times and collect a token at a time. There are many ways to decide what's the next best token to use.
     - [Supported Models](#supported-models). Not all model families are supported (yet).
 - [`swift-chat`](#swift-chat). This is a small app that simply shows how to use `swift-transformers` in a project.
@@ -40,7 +40,7 @@ When I publish tweets showing Falcon or Llama 2 running on my Mac, I get many qu
 
 ## Conversion to Core ML
 
-To see what it looks like to convert a model in real-life, we'll take a look at converting the recently released Llama 2. The process can be sometimes convoluted, but we offer a couple of tools to help. They won't always work, as new models are being introduced all the time and we need to do adjustments and modifications.
+To see what it looks like to convert a model in real life, we'll take a look at converting the recently-released Llama 2 model. The process can sometimes be convoluted, but we offer a couple of tools to help. They won't always work, as new models are being introduced all the time and we need to do adjustments and modifications.
 
 Our recommended approach is:
 
@@ -49,11 +49,11 @@ Our recommended approach is:
 TODO: change the org, as per Julien's email thread.
 TODO: screenshot.
 
-This is an automated tool built on top of `exporters` (see below) that either works for your model, or doesn't. It requires no coding at all: you write the Hub model identifier, then select the task you're planning to use the model for, and apply. If conversion succeeds, you can push the converted Core ML weights to the Hub, and you are done.
+This is an automated tool built on top of `exporters` (see below) that either works for your model, or doesn't. It requires no coding at all: you enter the Hub model identifier, select the task you're planning to use the model for, and click apply. If conversion succeeds, you can push the converted Core ML weights to the Hub, and you are done!
 
 2. Use [`exporters`](https://github.com/huggingface/exporters), a Python conversion package built on top of Apple's `coremltools` (see below).
 
-It gives you a lot more options to configure the conversion task. In addition, it lets you create your own [conversion configuration class](https://github.com/huggingface/exporters#overriding-default-choices-in-the-configuration-object), which you may use for additional control, or to work around conversion issues.
+This library gives you a lot more options to configure the conversion task. In addition, it lets you create your own [conversion configuration class](https://github.com/huggingface/exporters#overriding-default-choices-in-the-configuration-object), which you may use for additional control, or to work around conversion issues.
 
 3. Use [`coremltools`](https://github.com/apple/coremltools), Apple's conversion package.
 
@@ -72,11 +72,11 @@ In my experience, there are two frequent reasons why PyTorch models fail to conv
 
 - Unsupported PyTorch operations or operation variants
 
-PyTorch has _a lot_ of operations, and all of them have to be mapped to an intermediate representation ([MIL](https://apple.github.io/coremltools/source/coremltools.converters.mil.mil.ops.defs.html), for _Model Intermediate Language_), which in turn is converted to native Core ML instructions. The set of PyTorch operations is not static, so new ones have to be added to `coremltools` too. In addition, some operations are really complex and can work on exotic combinations of their arguments. An example of a recently added, very complex op, was _scaled dot-product attention_, introduced in PyTorch 2. An example of a partially supported op is `einsum`: not all possible equations are translated to MIL.
+PyTorch has _a lot_ of operations, and all of them have to be mapped to an intermediate representation ([MIL](https://apple.github.io/coremltools/source/coremltools.converters.mil.mil.ops.defs.html), for _Model Intermediate Language_), which in turn is converted to native Core ML instructions. The set of PyTorch operations is not static, so new ones have to be added to `coremltools` too. In addition, some operations are really complex and can work on exotic combinations of their arguments. An example of a recently-added, very complex op, was _scaled dot-product attention_, introduced in PyTorch 2. An example of a partially supported op is `einsum`: not all possible equations are translated to MIL.
 
 - Edge cases and type mismatches
 
-Even for supported PyTorch operations, it's very hard to ensure that the translation process works on all possible inputs across all the different input types. Keep in mind that a single PyTorch op can have multiple backend implementations for different devices (cpu, CUDA), input types (integer, float), or precision (float16, float32). The product of all combinations is staggering, and some times the way a model uses PyTorch code triggers a translation path that may have not been considered or tested.
+Even for supported PyTorch operations, it's very difficult to ensure that the translation process works on all possible inputs across all the different input types. Keep in mind that a single PyTorch op can have multiple backend implementations for different devices (cpu, CUDA), input types (integer, float), or precision (float16, float32). The product of all combinations is staggering, and some times the way a model uses PyTorch code triggers a translation path that may have not been considered or tested.
 
 This is what happened when I first tried to convert Llama 2 using `coremltools`:
 
@@ -94,7 +94,7 @@ I've followed the process above for some recent models (Llama 2, Falcon, StarCod
 
 - If you have to use `coremltools`, use the latest version: `7.0b1`. Despite technically being a beta, I've been using it for weeks and it's really good: stable, includes a lot of fixes, supports PyTorch 2, and has new features like advanced quantization tools.
 - `exporters` no longer applies a softmax to outputs when converting text generation tasks. We realized this was necessary for some generation algorithms.
-- `exporters` now defaults to using fixed sequence lengths for text models. Core ML has a way to specify "flexible shapes", such that your input sequence may have any length between 1 and, say, 4096 characters. We discovered that flexible inputs only run on CPU, but not on GPU or the Neural Engine.
+- `exporters` now defaults to using fixed sequence lengths for text models. Core ML has a way to specify "flexible shapes", such that your input sequence may have any length between 1 and, say, 4096 tokens. We discovered that flexible inputs only run on CPU, but not on GPU or the Neural Engine.
 
 We'll keep adding best practices to our tools so you don't have to discover the same issues again.
 
@@ -141,7 +141,7 @@ There are a few general tokenization algorithms, and a lot of different normaliz
 
 It reads like this: normalization is a sequence of operations applied in order. First, we `Prepend` character `_` to the input string. Then we replace all spaces with `_`. There's a huge list of potential operations, they can be applied to regular expression matches, and they have to be performed in a very specific order. The code in the `tokenizers` library takes care of all these details for all the models in the Hub.
 
-In contrast, projects that use language models in other domains, such as Swift apps, usually resort to hardcoding these decisions as part of the app's source code. This is fine for a couple of models, but then it's hard to replace a model with a different one, and it's easy to make mistakes.
+In contrast, projects that use language models in other domains, such as Swift apps, usually resort to hardcoding these decisions as part of the app's source code. This is fine for a couple of models, but then it's difficult to replace a model with a different one, and it's easy to make mistakes.
 
 What we are doing in `swift-transformers` is replicate those abstractions in Swift, so we write them once and everybody can use them in their apps. We are just getting started, so coverage is still small. Feel free to open issues in the repo or contribute your own!
 
