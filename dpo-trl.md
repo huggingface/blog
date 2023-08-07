@@ -93,7 +93,7 @@ dpo_trainer.train()
 
 ## Experiment with Llama v2
 
-The benefit of implementing the DPO trainer in TRL is that one can take advantage of all the extra bells and whistles of training large LLMs which come with TRL and its dependent libraries like Peft and Accelerate. With these libraries we are even able to train a Llama v2 model using the QLoRA technique provided by the bitsandbytes library. 
+The benefit of implementing the DPO trainer in TRL is that one can take advantage of all the extra bells and whistles of training large LLMs which come with TRL and its dependent libraries like Peft and Accelerate. With these libraries we are even able to train a Llama v2 model using the [QLoRA technique](https://huggingface.co/blog/4bit-transformers-bitsandbytes) provided by the [bitsandbytes](https://github.com/TimDettmers/bitsandbytes) library. 
 
 ### Supervised Fine Tuning
 
@@ -186,4 +186,4 @@ The WandB logs for the DPO training run can be found [here](https://wandb.ai/kra
 
 Intuitively, during training we want the margins to increase and the accuracies to go to 1.0, or in other words the chosen reward to be higher than the rejected reward (or the margin bigger than zero). These metrics can then be calculated over some evaluation dataset.
 
-We hope with the code release it lowers the barrier to entry for you the readers to try out this method aligning large language models on your own datasets and we cannot wait to see what you build!
+We hope with the code release it lowers the barrier to entry for you the readers to try out this method of aligning large language models on your own datasets and we cannot wait to see what you build!
