@@ -2604,7 +2604,7 @@
     - guide
 
 - local: swift-coreml-llm
-  title: "Swift Tools for On-Device LLM Inference with Core ML"
+  title: "Releasing Swift Transformers: Run On-Device LLMs in Apple Devices"
   author: pcuenq
   thumbnail: /blog/assets/swift-coreml-llm/thumbnail.png
   date: August 7, 2023
