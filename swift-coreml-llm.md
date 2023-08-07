@@ -10,7 +10,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-I have a lot of respect for iOS/Mac developers. We started writing apps for iPhones in 2007, when not even APIs or documentation existed, and collectively managed to create top-notch applications that ran on small devices with unfamiliar decisions in the constraint space. The combination of power, screen real estate, UI idioms, network access, persistence, and latency was different to what we were used to before.
+I have a lot of respect for iOS/Mac developers. As part of this community, I started writing apps for iPhones in 2007, when not even APIs or documentation existed, and we collectively managed to create top-notch applications that ran on small devices with unfamiliar decisions in the constraint space. The combination of power, screen real estate, UI idioms, network access, persistence, and latency was different to what we were used to before.
 
 I believe that ML is a new way to build software, and I know that many developers want to incorporate AI features in their apps. The ML ecosystem has matured a lot, and there are thousands of models that solve a wide variety of problems. Moreover, LLMs have recently emerged as almost general-purpose tools themselves – they can be tweaked or bent to adapt to new domains, as long as we can model our task to work on text or text-like data. We are witnessing a defining moment in computing history, where LLMs are going out of research labs and becoming compute tools for everybody.
 
@@ -20,7 +20,19 @@ Today, we are publishing this guide to go through the steps required to run a mo
 
 Let's go.
 
-TODO: screenshot / video.
+<p align="center">
+  <video controls title="Falcon 7B Instruct running on an M1 MacBook Pro with Core ML">
+  <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/swift-transformers/llama-2-7b-chat.mp4" type="video/mp4">
+  <em>Video: Llama-2-7b-hf-chat model converted to Core ML and running on an M1 MacBook Pro.</em>
+</p>
+
+## What we are Releasing Today
+
+- [`swift-transformers`](https://github.com/huggingface/swift-transformers), an in-development Swift package to implement a transformers-like API in Swift, focused on text generation. It is an evolution of [`swift-coreml-transformers`](https://github.com/huggingface/swift-coreml-transformers) with broader goals: Hub integration, arbitrary tokenizer support, pluggable models.
+- [`swift-chat`](https://github.com/huggingface/swift-chat), a simple app that demonstrates how to use the package.
+- An updated version of [`exporters`](https://github.com/huggingface/exporters), a Core ML conversion package for transformers models.
+- An updated version of [`transformers-to-coreml`](https://huggingface.co/spaces/coreml-projects/transformers-to-coreml), a no-code Core ML conversion tool built on `exporters`, prepared to run with the latest dependencies of `transformers` and `coremltools`.
+- Some converted models, ready for use with these text generation tools. See [the Resources section](#resources) for details.
 
 ## Tasks Overview
 
@@ -34,7 +46,7 @@ When I publish tweets showing [Falcon](https://twitter.com/pcuenq/status/1664605
     - [Generation Algorithms](#generation-algorithms). Language models are trained to predict a probability distribution of the next token that may appear after a sequence of text. To generate text output, we need to call the model multiple times and collect a token at a time. There are many ways to decide what's the next best token to use.
     - [Supported Models](#supported-models). Not all model families are supported (yet).
 - [`swift-chat`](#swift-chat). This is a small app that simply shows how to use `swift-transformers` in a project.
-- [Missing Parts](#missing-parts). Some stuff that's important but not yet available, as directions for future work.
+- [Missing Parts / Coming Next](#missing-parts--coming-next). Some stuff that's important but not yet available, as directions for future work.
 - [Resources](#resources). Links to all the projects and tools.
 
 
@@ -44,12 +56,14 @@ To see what it looks like to convert a model in real life, we'll take a look at 
 
 Our recommended approach is:
 
-1. Use the [`transformers-to-coreml`](https://huggingface.co/spaces/huggingface-projects/transformers-to-coreml) conversion space.
-
-TODO: change the org, as per Julien's email thread.
-TODO: screenshot.
+1. Use the [`transformers-to-coreml`](https://huggingface.co/spaces/coreml-projects/transformers-to-coreml) conversion space:
 
 This is an automated tool built on top of `exporters` (see below) that either works for your model, or doesn't. It requires no coding at all: you enter the Hub model identifier, select the task you're planning to use the model for, and click apply. If conversion succeeds, you can push the converted Core ML weights to the Hub, and you are done!
+
+You can [visit the Space](https://huggingface.co/spaces/coreml-projects/transformers-to-coreml) or use it directly here:
+
+<gradio-app theme_mode="light" space="coreml-projects/transformers-to-coreml"></gradio-app>
+
 
 2. Use [`exporters`](https://github.com/huggingface/exporters), a Python conversion package built on top of Apple's `coremltools` (see below).
 
@@ -60,54 +74,33 @@ This library gives you a lot more options to configure the conversion task. In a
 This is the lowest-level approach and therefore provides maximum control. It can still fail for some models (especially new ones), but you always have the option to dive inside the source code and try to figure out why.
 
 
-The good news about Llama 2 is that we did the legwork and it now works using any of these methods. The bad news is that it _failed to convert_ when it was released, and we had to do some fixing to support it. I think it's useful to take a brief look at what happened so you get a taste of what to do when things go wrong.
-
-### Converting Llama 2 the hard way
-
-[This is a bit long, but people are interested. We could move it to a "Supplementary Material" appendix, or create another blog post later]
-
-You can safely ignore this section unless you've experienced Core ML conversion issues and are ready to fight :)
-
-In my experience, there are two frequent reasons why PyTorch models fail to convert to Core ML using `coremltools`:
-
-- Unsupported PyTorch operations or operation variants
-
-PyTorch has _a lot_ of operations, and all of them have to be mapped to an intermediate representation ([MIL](https://apple.github.io/coremltools/source/coremltools.converters.mil.mil.ops.defs.html), for _Model Intermediate Language_), which in turn is converted to native Core ML instructions. The set of PyTorch operations is not static, so new ones have to be added to `coremltools` too. In addition, some operations are really complex and can work on exotic combinations of their arguments. An example of a recently-added, very complex op, was _scaled dot-product attention_, introduced in PyTorch 2. An example of a partially supported op is `einsum`: not all possible equations are translated to MIL.
-
-- Edge cases and type mismatches
-
-Even for supported PyTorch operations, it's very difficult to ensure that the translation process works on all possible inputs across all the different input types. Keep in mind that a single PyTorch op can have multiple backend implementations for different devices (cpu, CUDA), input types (integer, float), or precision (float16, float32). The product of all combinations is staggering, and some times the way a model uses PyTorch code triggers a translation path that may have not been considered or tested.
-
-This is what happened when I first tried to convert Llama 2 using `coremltools`:
-
-[TODO: Screenshot]
-
-By comparing different versions of transformers, I could see the problem started happening when [this line of code](https://github.com/huggingface/transformers/blob/d114a6b71f243054db333dc5a3f55816161eb7ea/src/transformers/models/llama/modeling_llama.py#L52C5-L52C6) was introduced. It's part of a recent `transformers` refactor to better deal with causal masks in _all_ models that use them, so this would be a big problem for other models, not just Llama.
-
-What the error screenshot is telling us is that there's a type mismatch trying to fill the mask tensor. It comes from the `0` in the line: it's interpreted as an `int`, but the tensor to be filled contains `floats`, and using different types was rejected by the translation process. In this particular case, I came up with a [patch for `coremltools`](https://github.com/apple/coremltools/pull/1915), but fortunately this is rarely necessary. In many cases, you can patch your code (a `0.0` in a local copy of `transformers` would have worked), or create a "special operation" to deal with the exceptional case. Our `exporters` library has very good support for custom, special operations. See [this example](https://github.com/huggingface/exporters/blob/f134e5ceca05409ea8abcecc3df1c39b53d911fe/src/exporters/coreml/models.py#L139C9-L139C18) for a missing `einsum` equation, or [this one](https://github.com/huggingface/exporters/blob/f134e5ceca05409ea8abcecc3df1c39b53d911fe/src/exporters/coreml/models.py#L208C9-L208C18) for a workaround to make `StarCoder` models work until a new version of `coremltools` is released.
-
-Fortunately, `coremltools` coverage for new operations is good and the team reacts very fast.
+The good news about Llama 2 is that we did the legwork and it now works using any of these methods. The bad news is that it _failed to convert_ when it was released, and we had to do some fixing to support it. We take a brief look at what happened in [the appendix](#appendix-converting-llama-2-the-hard-way) so you can get a taste of what to do when things go wrong.
 
 ### Important lessons learned
 
-I've followed the process above for some recent models (Llama 2, Falcon, StarCoder), and I've applied what I learned to both `exporters` and the `transformers-to-coreml` space. This is a summary of some takeaways:
+I've followed the conversion process for some recent models (Llama 2, Falcon, StarCoder), and I've applied what I learned to both `exporters` and the `transformers-to-coreml` space. This is a summary of some takeaways:
 
 - If you have to use `coremltools`, use the latest version: `7.0b1`. Despite technically being a beta, I've been using it for weeks and it's really good: stable, includes a lot of fixes, supports PyTorch 2, and has new features like advanced quantization tools.
 - `exporters` no longer applies a softmax to outputs when converting text generation tasks. We realized this was necessary for some generation algorithms.
-- `exporters` now defaults to using fixed sequence lengths for text models. Core ML has a way to specify "flexible shapes", such that your input sequence may have any length between 1 and, say, 4096 tokens. We discovered that flexible inputs only run on CPU, but not on GPU or the Neural Engine.
+- `exporters` now defaults to using fixed sequence lengths for text models. Core ML has a way to specify "flexible shapes", such that your input sequence may have any length between 1 and, say, 4096 tokens. We discovered that flexible inputs only run on CPU, but not on GPU or the Neural Engine. More investigation coming soon!
 
 We'll keep adding best practices to our tools so you don't have to discover the same issues again.
 
-
 ## Optimization
 
-TODO. Link to the Stable Diffusion posts. Mention key-value caching. Discrete shapes for Core ML conversion.
+There's no point in converting models if they don't run fast on your target hardware and are respectful with system resources. The models mentioned in this post are pretty big for local use, and we are consciously using them to stretch the limits of what's possible with current technology, and understand where the bottlenecks are.
+
+There are a few key optimization areas we've identified. They are a very important topic for us and the subject of current and upcoming work. Some of them include:
+
+- Cache attention keys and values from previous generations, just like the transformers models do in the PyTorch implementation. The computation of attention scores needs to run on the whole sequence generated so far, but all the past key-value pairs were already computed in previous runs. We are currently _not_ using any caching mechanism for Core ML models, but are planning to do so!
+- Use discrete shapes instead of a small fixed sequence length. The main reason not to use flexible shapes is that they are not compatible with the GPU or the Neural Engine. A secondary reason is that generation would become slower as the sequence length grows, because of the absence of caching as mentioned above. Using a discrete set of fixed shapes, coupled with caching key-value pairs should allow for larger context sizes and a more natural chat experience.
+- Quantization techniques. We've already explored them in the context of Stable Diffusion models, and are really excited about the options they'd bring. For example, [6-bit palettization](https://huggingface.co/blog/fast-diffusers-coreml) decreases model size and is efficient with resources. [Mixed-bit quantization](https://huggingface.co/blog/stable-diffusion-xl-coreml), a new technique, can achieve 4-bit quantization (on average) with low impact on model quality. We are planning to work on these topics for language models too!
+
+For production applications, consider iterating with smaller models, especially during development, and then apply optimization techniques to select the smallest model you can afford for your use case.
 
 ## `swift-transformers`
 
 [`swift-transformers`](https://github.com/huggingface/swift-transformers) is an in-progress Swift package that aims to provide a transformers-like API to Swift developers. Let's see what it has, and what's missing.
-
-[TODO: mention swift-coreml-transformers as a reference]
 
 ### Tokenizers
 
@@ -149,7 +142,15 @@ Specifically, we currently have support for BPE (Byte-Pair Encoding) tokenizers,
 
 This is how to use the `Tokenizers` module in Swift:
 
-[TODO: example]
+```swift
+import Tokenizers
+
+func testTokenizer() async throws {
+    let tokenizer = try await AutoTokenizer.from(pretrained: "pcuenq/Llama-2-7b-chat-coreml")
+    let inputIds = tokenizer("Today she took a train to the West")
+    assert(inputIds == [1, 20628, 1183, 3614, 263, 7945, 304, 278, 3122])
+}
+```
 
 ### Model and Hub wrappers
 
@@ -159,7 +160,7 @@ Regarding models, we created a simple `LanguageModel` type as a wrapper for a Co
 
 In order to retrieve the appropriate metadata for the model you use, `swift-transformers` relies on a few custom metadata fields that must be added to the Core ML file when converting it. `swift-transformers` will use this information to download all the necessary configuration files from the Hub. These are the fields we use, as presented in Xcode's model preview:
 
-[screenshot]
+![Screenshot: Core ML model metadata fields](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/swift-transformers/coreml-model-metadata.png)
 
 `exporters` and `transformers-to-coreml` will automatically add these fields for you. Please, make sure you add them yourself if you use `coremltools` manually.
 
@@ -185,15 +186,15 @@ So far we've tested `swift-transformers` with a handful of models to validate th
 
 `swift-chat` is a simple demo app built on `swift-transformers`. Its main purpose is to show how to use `swift-transformers` in your code, but it can also be used as a model tester tool.
 
-[Screenshot]
+![Swift Chat UI](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/swift-transformers/swift-chat-ui.png)
 
 To use it, you download a Core ML model from the Hub or create your own, and select it from the UI. All the relevant model configuration files will be downloaded from the Hub, using the metadata information to identify what model type this is.
 
 The first time you load a new model it will take some time to prepare it. In this phase, the CoreML framework will compile the model and decide what compute devices to run it on, based on your machine specs and the model's structure. This information is cached and reused in future runs.
 
-The app lacks a few important features, mostly because of the current limitations in model context size. For example, it does not have any provision for "system prompts", which are [essential to specify the behaviour of your language model](https://huggingface.co/blog/llama2#how-to-prompt-llama-2) and even its personality.
+The app is intentionally simple to keep it small and show how to integrate `swift-transformers`. It also lacks a few features, mostly because of the current limitations in model context size. For example, it does not have any provision for "system prompts", which are [essential to specify the behaviour of your language model](https://huggingface.co/blog/llama2#how-to-prompt-llama-2) and even its personality.
 
-## Missing Parts
+## Missing Parts / Coming Next
 
 As stated, we are just getting started! Our upcoming priorities include:
 
@@ -207,10 +208,40 @@ Let us know what you think we should work on next!
 
 ## Conclusion
 
+We introduced a set of tools to help Swift developers incorporate language models in their apps. I can't wait to see what you create with them, and am looking forward to improving them with the community help! Don't hesitate to get in touch :)
+
+### _Appendix: Converting Llama 2 the Hard Way_
+
+[This is a bit long, but people are interested. We could move it to a "Supplementary Material" appendix, or create another blog post later]
+
+You can safely ignore this section unless you've experienced Core ML conversion issues and are ready to fight :)
+
+In my experience, there are two frequent reasons why PyTorch models fail to convert to Core ML using `coremltools`:
+
+- Unsupported PyTorch operations or operation variants
+
+PyTorch has _a lot_ of operations, and all of them have to be mapped to an intermediate representation ([MIL](https://apple.github.io/coremltools/source/coremltools.converters.mil.mil.ops.defs.html), for _Model Intermediate Language_), which in turn is converted to native Core ML instructions. The set of PyTorch operations is not static, so new ones have to be added to `coremltools` too. In addition, some operations are really complex and can work on exotic combinations of their arguments. An example of a recently-added, very complex op, was _scaled dot-product attention_, introduced in PyTorch 2. An example of a partially supported op is `einsum`: not all possible equations are translated to MIL.
+
+- Edge cases and type mismatches
+
+Even for supported PyTorch operations, it's very difficult to ensure that the translation process works on all possible inputs across all the different input types. Keep in mind that a single PyTorch op can have multiple backend implementations for different devices (cpu, CUDA), input types (integer, float), or precision (float16, float32). The product of all combinations is staggering, and some times the way a model uses PyTorch code triggers a translation path that may have not been considered or tested.
+
+This is what happened when I first tried to convert Llama 2 using `coremltools`:
+
+[TODO: Screenshot]
+
+By comparing different versions of transformers, I could see the problem started happening when [this line of code](https://github.com/huggingface/transformers/blob/d114a6b71f243054db333dc5a3f55816161eb7ea/src/transformers/models/llama/modeling_llama.py#L52C5-L52C6) was introduced. It's part of a recent `transformers` refactor to better deal with causal masks in _all_ models that use them, so this would be a big problem for other models, not just Llama.
+
+What the error screenshot is telling us is that there's a type mismatch trying to fill the mask tensor. It comes from the `0` in the line: it's interpreted as an `int`, but the tensor to be filled contains `floats`, and using different types was rejected by the translation process. In this particular case, I came up with a [patch for `coremltools`](https://github.com/apple/coremltools/pull/1915), but fortunately this is rarely necessary. In many cases, you can patch your code (a `0.0` in a local copy of `transformers` would have worked), or create a "special operation" to deal with the exceptional case. Our `exporters` library has very good support for custom, special operations. See [this example](https://github.com/huggingface/exporters/blob/f134e5ceca05409ea8abcecc3df1c39b53d911fe/src/exporters/coreml/models.py#L139C9-L139C18) for a missing `einsum` equation, or [this one](https://github.com/huggingface/exporters/blob/f134e5ceca05409ea8abcecc3df1c39b53d911fe/src/exporters/coreml/models.py#L208C9-L208C18) for a workaround to make `StarCoder` models work until a new version of `coremltools` is released.
+
+Fortunately, `coremltools` coverage for new operations is good and the team reacts very fast.
+
 ## Resources
 
-- swift-transformers
-- swift-chat
-- exporters
-- transformers-to-coreml
-- converted models
+- [`swift-transformers`](https://github.com/huggingface/swift-transformers).
+- [`swift-chat`](https://github.com/huggingface/swift-chat).
+- [`exporters`](https://github.com/huggingface/exporters).
+- [`transformers-to-coreml`](https://huggingface.co/spaces/coreml-projects/transformers-to-coreml).
+- Some Core ML models for text generation:
+  - [Llama-2-7b-chat-coreml](https://huggingface.co/coreml-projects/Llama-2-7b-chat-coreml)
+  - [Falcon-7b-instruct](https://huggingface.co/tiiuae/falcon-7b-instruct/tree/main/coreml)
