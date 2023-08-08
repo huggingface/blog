@@ -35,6 +35,23 @@
     - guide
     - nlp
 
+- local: transformers-design-philosophy
+  title: "不要重复自己 - 🤗 Transformers 的设计理念"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/59_transformers_philosophy/transformers.png
+  date: April 5, 2022
+  tags:
+    - community
+
+- local: getting-started-habana
+  title: "基于 Habana Gaudi 的 Transformers 入门"
+  author: juliensimon
+  thumbnail: /blog/assets/61_getting_started_habana/thumbnail.png
+  date: April 26, 2022
+  tags:
+    - partnerships
+    - guide
+
 - local: bloom-megatron-deepspeed
   title: "BLOOM 训练背后的技术"
   author: stas
@@ -183,6 +200,15 @@
     - nlp
     - open-source-collab
 
+- local: habana-gaudi-2-benchmark
+  title: "更快的训练和推理：对比 Habana Gaudi®2 和英伟达 A100 80GB"
+  author: regisss
+  thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
+  date: December 14, 2022
+  tags:
+    - partnerships
+    - habana
+
 - local: intel-sapphire-rapids
   title: "使用英特尔 Sapphire Rapids 加速 PyTorch Transformers 模型（第一部分）"
   author: juliensimon
@@ -281,7 +307,7 @@
   thumbnail: /blog/assets/lora/thumbnail.png
   date: January 26, 2023
   tags:
-    - diffusers
+    - diffusersgame
     - stable-diffusion
     - dreambooth
     - fine-tuning
@@ -696,6 +722,29 @@
   tags:
     - ethics
 
+- local: bridgetower
+  title: "使用 Habana Gaudi2 加速视觉语言模型 BridgeTower"
+  author: regisss
+  thumbnail: /blog/assets/bridgetower/thumbnail.png
+  date: June 29, 2023
+  tags:
+    - partnerships
+    - multimodal
+    - nlp
+    - cv
+    - hardware
+
+- local: inference-endpoints-llm
+  title: "用 Hugging Face 推理端点部署 LLM"
+  author: philschmid
+  thumbnail: /blog/assets/155_inference_endpoints_llm/thumbnail.jpg
+  date: July 4, 2023
+  tags:
+    - guide
+    - llm
+    - apps
+    - inference
+
 - local: stable-diffusion-finetuning-intel
   title: "在英特尔 CPU 上微调 Stable Diffusion 模型"
   author: juliensimon
@@ -706,4 +755,35 @@
     - intel
     - hardware
     - partnerships
+
+- local: llama2
+  title: "Llama 2 来袭 - 在 Hugging Face 上玩转它"
+  author: osanseviero
+  thumbnail: /blog/assets/llama2/thumbnail.jpg
+  date: July 18, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: diffusers-turns-1
+  title: "🤗 Diffusers 一岁啦!"
+  author: stevhliu
+  thumbnail: /blog/assets/diffusers-turns-1/diffusers-turns-1.png
+  date: July 20, 2023
+  tags:
+    - community
+    - open-source-collab
+    - diffusion
+    - diffusers
+
+- local: game-jam-first-edition-results
+  title: "首届开源 AI 游戏挑战赛事结果"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/game-jam-first-edition-results/thumbnail.jpg
+  date: July 21, 2023
+  tags:
+    - ai-for-games
+    - game-dev
 
