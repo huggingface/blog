@@ -2607,7 +2607,7 @@
   title: "Releasing Swift Transformers: Run On-Device LLMs in Apple Devices"
   author: pcuenq
   thumbnail: /blog/assets/swift-coreml-llm/thumbnail.png
-  date: August 7, 2023
+  date: August 8, 2023
   tags:
     - guide
     - coreml

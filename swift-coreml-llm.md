@@ -155,6 +155,8 @@ func testTokenizer() async throws {
 }
 ```
 
+However, you don't usually need to tokenize the input text yourself - the [`Generation` code](https://github.com/huggingface/swift-transformers/blob/17d4bfae3598482fc7ecf1a621aa77ab586d379a/Sources/Generation/Generation.swift#L82) will take care of it.
+
 ### Model and Hub wrappers
 
 As explained above, `transformers` heavily use configuration files stored in the Hub. We prepared a simple `Hub` module to download configuration files from the Hub, which is used to instantiate the tokenizer and retrieve metadata about the model.
@@ -183,7 +185,7 @@ So far, we've tested `swift-transformers` with a handful of models to validate t
 - Llama 2.
 - Falcon.
 - StarCoder models, based on a variant of the GPT architecture.
-- GPT family, including GPT2, distilgpt, GPTNeoX.
+- GPT family, including GPT2, distilgpt, GPT-NeoX, GPT-J.
 
 ## `swift-chat`
 
@@ -207,7 +209,7 @@ As stated, we are just getting started! Our upcoming priorities include:
 - Support key-value caching for optimization.
 - Use discrete sequence shapes for conversion. Together with key-value caching this will allow for larger contexts.
 
-Let us know what you think we should work on next! 
+Let us know what you think we should work on next, or head over to the repos for [Good First Issues](https://github.com/huggingface/swift-transformers/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) to try your hand on!
 
 ## Conclusion
 
