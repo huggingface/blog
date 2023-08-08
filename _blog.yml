@@ -2613,3 +2613,13 @@
     - coreml
     - llm
     - swift
+
+- local: dpo-trl
+  title: "Fine-tune Llama 2 with DPO"
+  author: kashif
+  thumbnail: /blog/assets/157_dpo_trl/dpo_thumbnail.png
+  date: August 3, 2023
+  tags:
+    - rl
+    - rlhf
+    - nlp
