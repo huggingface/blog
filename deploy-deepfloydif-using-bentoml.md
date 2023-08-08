@@ -15,7 +15,7 @@ authors:
 
 Hugging Face provides a Hub platform that allows you to upload, share, and deploy your models with ease. It saves developers the time and computational resources required to train models from scratch. However, deploying models in a real-world production environment or in a cloud-native way can still present challenges.
 
-This is where BentoML comes into the picture. BentoML is an open-source platform for machine learning model serving and deployment. It is a unified framework for building, shipping, and scaling production-ready AI applications incorporating traditional ML models, pre-trained AI models, Generative models, and Large Language Models. Here is how you use the BentoML framework from a high-level perspective:
+This is where BentoML comes into the picture. BentoML is an open-source platform for machine learning model serving and deployment. It is a unified framework for building, shipping, and scaling production-ready AI applications incorporating traditional, pre-trained, and generative models as well as Large Language Models. Here is how you use the BentoML framework from a high-level perspective:
 
 1. **Define a model**: Before you can use BentoML, you need a machine learning model (or multiple models). This model can be trained using a machine learning library such as TensorFlow and PyTorch.
 2. **Save the model**: Once you have a trained model, save it to the BentoML local Model Store, which is used for managing all your trained models locally as well as accessing them for serving.
@@ -53,7 +53,7 @@ To make sure your DeepFloyd IF application runs in high performance in productio
 
 Once the prerequisites are met, clone the project repository to your local machine and navigate to the target directory.
 
-```
+```bash
 git clone https://github.com/bentoml/IF-multi-GPUs-demo.git
 cd IF-multi-GPUs-demo
 ```
@@ -68,20 +68,20 @@ Before building the application, let’s briefly explore the key files within th
 
 We recommend you create a Virtual Environment for dependency isolation. For example, run the following command to activate `myenv`:
 
-```
+```bash
 python -m venv venv
 source venv/bin/activate
 ```
 
 Install the required dependencies:
 
-```
+```bash
 pip install -r requirements.txt
 ```
 
 If you haven’t previously downloaded models from Hugging Face using the command line, you must log in first:
 
-```
+```bash
 pip install -U huggingface_hub
 huggingface-cli login
 ```
@@ -90,13 +90,13 @@ huggingface-cli login
 
 As mentioned above, you need to download all the models used by each DeepFloyd IF stage. Once you have set up the environment, run the following command to download models to your local Model store. The process may take some time.
 
-```
+```bash
 python import_models.py
 ```
 
 Once the downloads are complete, view the models in the Model store.
 
-```
+```bash
 $ bentoml models list
 
 Tag                                                                 Module                Size       Creation Time
@@ -111,25 +111,25 @@ You can directly run the BentoML HTTP server with a web UI powered by Gradio usi
 
 - For a GPU with over 40GB VRAM, run all models on the same GPU.
 
-  ```
+  ```bash
   python start-server.py
   ```
 
 - For two Tesla T4 with 15GB VRAM each, assign the Stage 1 model to the first GPU, and the Stage 2 and Stage 3 models to the second GPU.
 
-  ```
+  ```bash
   python start-server.py --stage1-gpu=0 --stage2-gpu=1 --stage3-gpu=1
   ```
 
 - For one Tesla T4 with 15GB VRAM and two additional GPUs with smaller VRAM size, assign the Stage 1 model to T4, and Stage 2 and Stage 3 models to the second and third GPUs respectively.
 
-  ```
+  ```bash
   python start-server.py --stage1-gpu=0 --stage2-gpu=1 --stage3-gpu=2
   ```
 
 To see all customizable options (like the server’s port), run:
 
-```
+```bash
 python start-server.py --help
 ```
 
@@ -153,7 +153,7 @@ Result:
 
 Now that you have successfully run DeepFloyd IF locally, you can package it into a Bento by running the following command in the project directory.
 
-```
+```bash
 $ bentoml build
 
 Converting 'IF-stage1' to lowercase: 'if-stage1'.
@@ -177,7 +177,7 @@ Successfully built Bento(tag="deepfloyd-if:6ufnybq3vwszgnry").
 
 View the Bento in the local Bento Store.
 
-```
+```bash
 $ bentoml list
 
 Tag                               Size       Creation Time
@@ -186,13 +186,13 @@ deepfloyd-if:6ufnybq3vwszgnry     49.25 GiB  2023-07-06 11:34:52
 
 The Bento is now ready for serving in production.
 
-```
+```bash
 bentoml serve deepfloyd-if:6ufnybq3vwszgnry
 ```
 
 To deploy the Bento in a more cloud-native way, generate a Docker image by running the following command:
 
-```
+```bash
 bentoml containerize deepfloyd-if:6ufnybq3vwszgnry
 ```
 
