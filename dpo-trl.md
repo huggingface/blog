@@ -1,6 +1,6 @@
 ---
 title: "Fine-tune Llama 2 with DPO" 
-thumbnail: /blog/assets/157_dpo_trl/dpo_thumbnail.jpg
+thumbnail: /blog/assets/157_dpo_trl/dpo_thumbnail.png
 authors:
 - user: kashif
 - user: ybelkada
