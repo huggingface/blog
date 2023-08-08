@@ -2602,3 +2602,14 @@
   tags:
     - audio 
     - guide
+
+- local: swift-coreml-llm
+  title: "Releasing Swift Transformers: Run On-Device LLMs in Apple Devices"
+  author: pcuenq
+  thumbnail: /blog/assets/swift-coreml-llm/thumbnail.png
+  date: August 8, 2023
+  tags:
+    - guide
+    - coreml
+    - llm
+    - swift
