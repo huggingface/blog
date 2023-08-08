@@ -186,4 +186,4 @@ The WandB logs for the DPO training run can be found [here](https://wandb.ai/kra
 
 Intuitively, during training we want the margins to increase and the accuracies to go to 1.0, or in other words the chosen reward to be higher than the rejected reward (or the margin bigger than zero). These metrics can then be calculated over some evaluation dataset.
 
-We hope with the code release it lowers the barrier to entry for you the readers to try out this method of aligning large language models on your own datasets and we cannot wait to see what you build!
+We hope with the code release it lowers the barrier to entry for you the readers to try out this method of aligning large language models on your own datasets and we cannot wait to see what you build! And you if you want to try out the model yourself you can do so here: [trl-lib/stack-llama](https://huggingface.co/spaces/trl-lib/stack-llama).
