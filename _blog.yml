@@ -2638,7 +2638,7 @@
     - diffusers
 
 - local: optimizing-bark
-  title: "Optimizing a Text-To-Speech model using 🤗 Transformers"
+  title: "Optimizing Bark using 🤗 Transformers"
   author: ylacombe
   thumbnail: /blog/assets/bark_optimization/thumbnail.png
   date: August 9, 2023
