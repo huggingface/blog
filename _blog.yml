@@ -2603,11 +2603,45 @@
     - audio 
     - guide
 
+- local: swift-coreml-llm
+  title: "Releasing Swift Transformers: Run On-Device LLMs in Apple Devices"
+  author: pcuenq
+  thumbnail: /blog/assets/swift-coreml-llm/thumbnail.png
+  date: August 8, 2023
+  tags:
+    - guide
+    - coreml
+    - llm
+    - swift
+
+- local: dpo-trl
+  title: "Fine-tune Llama 2 with DPO"
+  author: kashif
+  thumbnail: /blog/assets/157_dpo_trl/dpo_thumbnail.png
+  date: August 8, 2023
+  tags:
+    - rl
+    - rlhf
+    - nlp
+    
+- local: deploy-deepfloydif-using-bentoml
+  title: "Deploying Hugging Face Models with BentoML: DeepFloyd IF in Action"
+  author: Sherlockk
+  guest: true
+  thumbnail: /blog/assets/deploy-deepfloydif-using-bentoml/thumbnail.png
+  date: August 9, 2023
+  tags:
+    - deployment
+    - open-source-collab
+    - bentoml
+    - guide
+    - diffusers
+
 - local: optimizing-bark
   title: "Optimizing a Text-To-Speech model using 🤗 Transformers"
   author: ylacombe
   thumbnail: /blog/assets/bark_optimization/thumbnail.png
-  date: August 4, 2023
+  date: August 9, 2023
   tags:
     - text-to-speech
     - optimization
