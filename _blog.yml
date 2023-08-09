@@ -2623,3 +2623,16 @@
     - rl
     - rlhf
     - nlp
+    
+- local: deploy-deepfloydif-using-bentoml
+  title: "Deploying Hugging Face Models with BentoML: DeepFloyd IF in Action"
+  author: Sherlockk
+  guest: true
+  thumbnail: /blog/assets/deploy-deepfloydif-using-bentoml/thumbnail.png
+  date: August 9, 2023
+  tags:
+    - deployment
+    - open-source-collab
+    - bentoml
+    - guide
+    - diffusers
