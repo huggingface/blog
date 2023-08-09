@@ -147,7 +147,7 @@ Negative prompt:
 
 Result:
 
-![Output](/blog/assets/deploy-deepfloydif-using-bentoml/output-image.png)
+![Output image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/deploy-deepfloydif-using-bentoml/output-image.png)
 
 ## Building and serving a Bento
 
