@@ -11,7 +11,7 @@ authors:
 <!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/ylacombe/notebooks/blob/main/Benchmark_Bark_HuggingFace.ipynb">
-    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+    <img src="https://colab.research.google.com/assets/colab-badge.svg">
 </a>
 
 🤗 Transformers provides many of the latest state-of-the-art (SoTA) models across domains and tasks. To get the best performance from these models, they need to be optimized for inference speed and memory usage.
