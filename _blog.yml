@@ -2636,3 +2636,14 @@
     - bentoml
     - guide
     - diffusers
+
+- local: optimizing-bark
+  title: "Optimizing a Text-To-Speech model using 🤗 Transformers"
+  author: ylacombe
+  thumbnail: /blog/assets/bark_optimization/thumbnail.png
+  date: August 9, 2023
+  tags:
+    - text-to-speech
+    - optimization
+    - benchmark
+    - bark
