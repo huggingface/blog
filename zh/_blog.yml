@@ -756,6 +756,16 @@
     - hardware
     - partnerships
 
+- local: os-llms
+  title: "Hugging Face 的文本生成和大语言模型的开源生态"
+  author: merve
+  thumbnail: /blog/assets/os_llms/thumbnail.png
+  date: July 17, 2023
+  tags:
+    - LLM
+    - inference
+    - nlp
+
 - local: llama2
   title: "Llama 2 来袭 - 在 Hugging Face 上玩转它"
   author: osanseviero
