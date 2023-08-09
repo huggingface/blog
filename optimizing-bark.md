@@ -1,5 +1,5 @@
 ---
-title: "Optimizing a Text-To-Speech model using 🤗 Transformers" 
+title: "Optimizing Bark using 🤗 Transformers" 
 thumbnail: /blog/assets/bark_optimization/thumbnail.png
 authors:
 - user: ylacombe
