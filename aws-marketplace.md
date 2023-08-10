@@ -1,0 +1,74 @@
+---
+title:  Hugging Face Platform now available on the AWS Marketplace
+thumbnail: /blog/assets/158_aws_marketplace/thumbnail.jpg
+authors:
+- user: philschmid
+- user: sbrandeis
+---
+
+# Introducing the Hugging Face LLM Inference Container for Amazon SageMaker
+
+<!-- {blog_metadata} -->
+<!-- {authors} -->
+
+The [Hugging Face Platform](https://aws.amazon.com/marketplace/pp/prodview-n6vsyhdjkfng2) has landed on the AWS Marketplace. Starting today, you can subscribe to the Hugging Face Platform through AWS Marketplace, giving you easy access to all of our managed services, including Inference Endpoints, Spaces Hardware Upgrades, and AutoTrain to easily train, test and deploy the most popular machine learning models like Llama 2, StarCoder, or BERT.
+
+By making [Hugging Face available on AWS Marketplace](https://aws.amazon.com/marketplace/pp/prodview-n6vsyhdjkfng2), we are removing barriers to adopting AI and making it easier for companies to leverage large language models. Now with just a few clicks, AWS customers can subscribe and connect their Hugging Face Account with their AWS account. 
+
+By subscribing through AWS Marketplace, usage charges for Hugging Face services like Inference Endpoints will automatically appear on your AWS bill instead of through separate Hugging Face billing.
+
+We are excited about this launch as it allows us to bring our technology to more developers and businesses who rely on AWS. 
+
+## Getting Started
+
+Before you can connect your AWS Account with your Hugging Face account, you need to fulfill the following prerequisites: 
+
+- An active AWS account with access to subscribe to products on the AWS Marketplace.
+- A [Hugging Face organization account](https://huggingface.co/organizations/new) with a registered and confirmed email. (You cannot connect user accounts)
+- Be a member of the organization you want to connect with the [“admin” role](https://huggingface.co/docs/hub/organizations-security).
+- Logged into the Hugging Face Platform.
+
+If you prepared all of those, you can start connecting your AWS Account with your Hugging Face account. 
+
+### 1. Subscribe to the Hugging Face Platform
+
+The first step is to go to the [AWS Marketplace offering](https://aws.amazon.com/marketplace/pp/prodview-n6vsyhdjkfng2) and subscribe to the Hugging Face Platform. There you open the [offer](https://aws.amazon.com/marketplace/pp/prodview-n6vsyhdjkfng2) and then click on “View purchase options” at the top right screen. 
+
+![Marketplace Offer](assets/158_aws_marketplace/01_offering.jpg "Marketplace Offer")
+
+You are now on the “subscribe” page, where you can see the summary of pricing and where you can subscribe. To subscribe to the offer, click “Subscribe”. 
+
+![Marketplace Subscribe](assets/158_aws_marketplace/02_subscribe.jpg "Marketplace Subscribe")
+
+After you successfully subscribe, you should see a green banner at the top with a button “Set up your account”. You need to click on “Set up your account” to connect your Hugging Face Account with your AWS account.  
+
+![Marketplace Redirect](assets/158_aws_marketplace/03_redirect.jpg "Marketplace Redirect")
+
+After clicking the button, you will be redirected to the Hugging Face Platform. Where you can now select the Hugging Face, account you want to link to your AWS account. After selecting your account, click “Submit” 
+
+![Connect Account](assets/158_aws_marketplace/04_connect.jpg "Connect Account")
+
+After clicking submit you will be redirected to the Billings settings of your Hugging Face Account, where you should see the current state of your subscription, which should be `subscribe-pending`.
+
+![Subscription Pending](assets/158_aws_marketplace/05_pending.jpg "Subscription Pending")
+
+After a few minutes you should receive 2 emails 1 from AWS confirming your subscription and one from Hugging Face, which should be like the one below
+
+![Email confirmation](assets/158_aws_marketplace/07_email.jpg "Email confirmation")
+
+After you have received this, your AWS Account and Hugging Face Account are successfully connected. To confirm this we can again open the billing settings from our organization account and should now see `subscribe-success`.
+
+![Subscription Confirmed](assets/158_aws_marketplace/06_success.jpg "Subscription Confirmed")
+
+Congratulations! 🥳 You can now start using our paid services 
+
+- [Inference Endpoints Deploy models in minutes](https://ui.endpoints.huggingface.co/)
+- [AutoTrain creates ML models without code](https://huggingface.co/autotrain)
+- [Enterprise Hub accelerates your AI roadmap](https://huggingface.co/enterprise)
+- [Spaces Hardware upgrades](https://huggingface.co/docs/hub/spaces-gpus)
+
+The Pricing for the marketplace offer is identical to the regular pricing, but will be billed through your AWS Account. More pricing information can be found on [the pricing page](https://huggingface.co/pricing) or under the Billing information in your organization settings.
+
+---
+
+Thanks for reading! If you have any questions, feel free to contact use at [api-enterprise@huggingface.co](mailto:api-enterprise@huggingface.co).
