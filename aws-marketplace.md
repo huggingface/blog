@@ -24,7 +24,7 @@ We are excited about this launch as it will bring our technology to more develop
 Before you can connect your AWS Account with your Hugging Face account, you need to fulfill the following prerequisites: 
 
 - Have access to an active AWS account with access to subscribe to products on the AWS Marketplace.
-- A [Hugging Face organization account](https://huggingface.co/organizations/new) with a registered and confirmed email. (You cannot connect user accounts)
+- Create a [Hugging Face organization account](https://huggingface.co/organizations/new) with a registered and confirmed email. (You cannot connect user accounts)
 - Be a member of the Hugging Face organization you want to connect with the [“admin” role](https://huggingface.co/docs/hub/organizations-security).
 - Logged into the Hugging Face Platform.
 
