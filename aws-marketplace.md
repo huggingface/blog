@@ -56,7 +56,8 @@ After a few minutes you should receive 2 emails: 1 from AWS confirming your subs
 
 ![Email confirmation](assets/158_aws_marketplace/07_email.jpg "Email confirmation")
 
-After you have received this, your AWS Account and Hugging Face Account are successfully connected. To confirm this we can again open the billing settings from our organization account and should now see `subscribe-success`.
+If you have received this, your AWS Account and Hugging Face organization account are now successfully connected! 
+To confirm it, you can open the Billing settings for [your organization account](https://huggingface.co/settings/organizations), where you should now see a `subscribe-success` status.
 
 ![Subscription Confirmed](assets/158_aws_marketplace/06_success.jpg "Subscription Confirmed")
 
