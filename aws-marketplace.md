@@ -52,7 +52,7 @@ After clicking "Submit", you will be redirected to the Billings settings of the 
 
 ![Subscription Pending](assets/158_aws_marketplace/05_pending.jpg "Subscription Pending")
 
-After a few minutes you should receive 2 emails 1 from AWS confirming your subscription and one from Hugging Face, which should be like the one below
+After a few minutes you should receive 2 emails: 1 from AWS confirming your subscription, and 1 from Hugging Face, which should look like the image below:
 
 ![Email confirmation](assets/158_aws_marketplace/07_email.jpg "Email confirmation")
 
