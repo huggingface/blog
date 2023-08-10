@@ -2649,7 +2649,7 @@
     - bark
 
 - local: aws-marketplace
-  title: "Hugging Face Platform now available on the AWS Marketplace"
+  title: "Hugging Face Platform on the AWS Marketplace: Pay with your AWS Account"
   author: philschmid
   thumbnail: /blog/assets/158_aws_marketplace/thumbnail.jpg
   date: August 10, 2023

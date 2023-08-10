@@ -1,12 +1,13 @@
 ---
-title:  Hugging Face Platform now available on the AWS Marketplace
+title: "Hugging Face Platform on the AWS Marketplace: Pay with your AWS Account"
 thumbnail: /blog/assets/158_aws_marketplace/thumbnail.jpg
 authors:
 - user: philschmid
 - user: sbrandeis
+- user: jeffboudier
 ---
 
-# Introducing the Hugging Face LLM Inference Container for Amazon SageMaker
+# Hugging Face Platform on the AWS Marketplace: Pay with your AWS Account
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
