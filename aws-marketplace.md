@@ -28,8 +28,7 @@ Before you can connect your AWS Account with your Hugging Face account, you need
 - Be a member of the organization you want to connect with the [“admin” role](https://huggingface.co/docs/hub/organizations-security).
 - Logged into the Hugging Face Platform.
 
-If you prepared all of those, you can start connecting your AWS Account with your Hugging Face account. 
-
+Once you have prepared thos pre-requisite, you can proceed with connecting your AWS and Hugging Face accounts.
 ### 1. Subscribe to the Hugging Face Platform
 
 The first step is to go to the [AWS Marketplace offering](https://aws.amazon.com/marketplace/pp/prodview-n6vsyhdjkfng2) and subscribe to the Hugging Face Platform. There you open the [offer](https://aws.amazon.com/marketplace/pp/prodview-n6vsyhdjkfng2) and then click on “View purchase options” at the top right screen. 
