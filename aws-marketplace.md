@@ -72,4 +72,4 @@ The Pricing for the marketplace offer is identical to the regular pricing, but w
 
 ---
 
-Thanks for reading! If you have any questions, feel free to contact use at [api-enterprise@huggingface.co](mailto:api-enterprise@huggingface.co).
+Thanks for reading! If you have any questions, feel free to contact us at [api-enterprise@huggingface.co](mailto:api-enterprise@huggingface.co).
