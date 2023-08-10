@@ -1,47 +1,32 @@
 ---
 title: "An Introduction to Deep Reinforcement Learning"
 thumbnail: /blog/assets/63_deep_rl_intro/thumbnail.png
+authors:
+- user: ThomasSimonini
+- user: osanseviero
 ---
 
-<html>
-<head>
-<style>
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
-</style>
+
 <h1>An Introduction to Deep Reinforcement Learning</h1>
 <h2>Chapter 1 of the <a href="https://github.com/huggingface/deep-rl-class">Deep Reinforcement Learning Class with Hugging Face 🤗</a></h2>
 
-<div class="author-card">
-    <a href="/ThomasSimonini">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1632748593235-60cae820b1c79a3e4b436664.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>ThomasSimonini</code>
-            <span class="fullname">Thomas Simonini</span>
-        </div>
-  </a>
-   <a href="/osanseviero">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1622621035602-6032802e1f993496bc14d9e3.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>osanseviero</code>
-            <span class="fullname">Omar Sanseviero</span>
-        </div>
-    </a>
-</div>
+<!-- {authors} -->
  
-</head>
 
-<body>
   
-*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://github.com/huggingface/deep-rl-class)*
+⚠️ A **new updated version of this article is available here** 👉 [https://huggingface.co/deep-rl-course/unit1/introduction](https://huggingface.co/deep-rl-course/unit1/introduction)
+
+*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://huggingface.co/deep-rl-course/unit0/introduction)*
 
 <img src="assets/63_deep_rl_intro/thumbnail.png" alt="Thumbnail"/>  
 
 ---
+
+
+⚠️ A **new updated version of this article is available here** 👉 [https://huggingface.co/deep-rl-course/unit1/introduction](https://huggingface.co/deep-rl-course/unit1/introduction)
+
+*This article is part of the Deep Reinforcement Learning Class. A free course from beginner to expert. Check the syllabus [here.](https://huggingface.co/deep-rl-course/unit0/introduction)*
+
 
 Welcome to the most fascinating topic in Artificial Intelligence: **Deep Reinforcement Learning.**
 
@@ -320,7 +305,7 @@ Our discounted cumulative expected rewards is:
 
 ### Type of tasks
 
-A task is an **instance** of a Reinforcement Learning problem. We can have two types of tasks: episodic and continuous.
+A task is an **instance** of a Reinforcement Learning problem. We can have two types of tasks: episodic and continuing.
 
 #### Episodic task
 
@@ -335,7 +320,7 @@ For instance, think about Super Mario Bros: an episode begin at the launch of a 
 </figure>
 
 
-#### Continuous tasks
+#### Continuing tasks
 
 These are tasks that continue forever (no terminal state). In this case, the agent must **learn how to choose the best actions and simultaneously interact with the environment.**
 
@@ -568,5 +553,3 @@ And don't forget to share with your friends who want to learn 🤗 !
 Finally, we want **to improve and update the course iteratively with your feedback**. If you have some, please fill this form 👉 https://forms.gle/3HgA7bEHwAmmLfwh9
 
 ### Keep learning, stay awesome,
-</body>
-</html>

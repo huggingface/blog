@@ -1,28 +1,14 @@
 ---
 title: "How to train your model dynamically using adversarial data"
 thumbnail: /blog/assets/88_mnist_adversarial/mnist-adversarial.png
+authors:
+- user: chrisjay
 ---
 
-<h1>
-    How to train your model dynamically using adversarial data
-</h1>
+# How to train your model dynamically using adversarial data
 
-<div class="blog-metadata">
-    <small>Published July 16, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/mnist-adversarial.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/chrisjay">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1634562259269-5fbfa21ec153e968e63deb56.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>chrisjay</code>
-            <span class="fullname">Chris Emezue</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ##### What you will learn here
 - 💡the basic idea of dynamic adversarial data collection and why it is important.
@@ -87,7 +73,7 @@ At this point we assume you have your trained model. Although this model is trai
 
 Below is a simple Space to interact with the `MNIST_Model` which I trained for 20 epochs (achieved 89% accuracy on the test set). You draw a number on the white canvas and the model predicts the number from your image. The full Space can be accessed [here](https://huggingface.co/spaces/chrisjay/simple-mnist-classification). Try to fool this model😁. Use your funniest handwriting; write on the sides of the canvas; go wild!
 
-<iframe src="https://hf.space/embed/chrisjay/simple-mnist-classification/+" frameBorder="0" width="100%" height="700px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<iframe src="https://chrisjay-simple-mnist-classification.hf.space" frameBorder="0" width="100%" height="700px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
 
 ### Flagging your model
   
@@ -104,7 +90,7 @@ I have written a custom `flag` function to do all that. For more details feel fr
 
 The final step is to put all the three components (configuring the model, interacting with it and flagging it) together as one demo Space! To that end, I have created the [MNIST Adversarial](https://huggingface.co/spaces/chrisjay/mnist-adversarial) Space for dynamic adversarial data collection for the MNIST handwritten recognition task. Feel free to test it out below.
 
-<iframe src="https://hf.space/embed/chrisjay/mnist-adversarial/+" frameBorder="0" width="100%" height="1400px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
+<iframe src="https://chrisjay-mnist-adversarial.hf.space" frameBorder="0" width="100%" height="1400px" title="Gradio app" allow="accelerometer; ambient-light-sensor; autoplay; battery; camera; document-domain; encrypted-media; fullscreen; geolocation; gyroscope; layout-animations; legacy-image-formats; magnetometer; microphone; midi; oversized-images; payment; picture-in-picture; publickey-credentials-get; sync-xhr; usb; vr ; wake-lock; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"></iframe>
 
 
 ## Conclusion

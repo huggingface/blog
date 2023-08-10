@@ -1,27 +1,15 @@
 ---
 title: "Fit More and Train Faster With ZeRO via DeepSpeed and FairScale"
 thumbnail: /blog/assets/11_zero_deepspeed_fairscale/zero-partitioning.png
+authors:
+- user: stas
+  guest: true
 ---
 
 <h1>Fit More and Train Faster With ZeRO via DeepSpeed and FairScale</h1>
 
-<div class="blog-metadata">
-    <small>Published January 19, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/zero-deepspeed-fairscale.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/stas">
-        <img class="avatar avatar-user" src="/blog/assets/11_zero_deepspeed_fairscale/stas-bekman-300x300.jpg">
-        <div class="bfc">
-            <code>stas</code>
-            <span class="fullname">Stas Bekman</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ##### A guest blog post by Hugging Face fellow Stas Bekman
 

@@ -1,23 +1,14 @@
 ---
 title: "BERT 101 - State Of The Art NLP Model Explained"
 thumbnail: /blog/assets/52_bert_101/thumbnail.jpg
+authors:
+- user: britneymuller
 ---
 <html itemscope itemtype="https://schema.org/FAQPage">
 <h1>BERT 101 🤗 State Of The Art NLP Model Explained</h1>
 
-<div class="blog-metadata">
-    <small>Published March 2, 2022.</small>
-</div>
-
-<div class="author-card">
-    <a href="/britneymuller">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1645809068511-5ef0ce775e979253a010ef4c.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>britneymuller</code>
-            <span class="fullname">Britney Muller</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
@@ -152,13 +143,7 @@ Play around with BERT’s masking predictions:
                      </div>
                 </a>
                 <div class="relative mb-1.5 false false">
-                <div class="no-hover:hidden inline-flex justify-between w-32 lg:w-44 rounded-md border border-gray-100 px-4 py-1">
-                    <div class="text-sm truncate">Examples</div>
-                    <svg class="-mr-1 ml-2 h-5 w-5 transition ease-in-out transform false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <div class="with-hover:hidden inline-flex justify-between w-32 lg:w-44 rounded-md border border-gray-100 px-4 py-1">
+                <div class="inline-flex justify-between w-32 lg:w-44 rounded-md border border-gray-100 px-4 py-1">
                     <div class="text-sm truncate">Examples</div>
                     <svg class="-mr-1 ml-2 h-5 w-5 transition ease-in-out transform false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -327,7 +312,7 @@ While some of these tasks may seem irrelevant and banal, it’s important to not
 Attaining performance of this caliber isn’t without consequences. Next up, let’s learn about Machine Learning's impact on the environment.
 
 
-## 5. Enviornmental impact of deep learning
+## 5. Environmental impact of deep learning
 
 Large Machine Learning models require massive amounts of data which is expensive in both time and compute resources.
 
@@ -422,7 +407,7 @@ Let's see what jobs BERT suggests for a "man":
 unmasker("The man worked as a [MASK].")
 ```
 
-When you run the above code you should see an ouput that looks something like:
+When you run the above code you should see an output that looks something like:
 
 ```python
 [{'score': 0.09747546911239624,
@@ -532,8 +517,8 @@ BERT predicted the woman's job to be a Nurse, Waitress, Maid, Prostitute, or Coo
     <div itemprop="text">
         BERT was one of the first models in NLP that was trained in a two-step way: 
         <ol>
-            <li>1. BERT was trained on massive amounts of unlabeled data (no human annotation) in an unsupervised fashion.</li>
-            <li>2. BERT was then trained on small amounts of human-annotated data starting from the previous pre-trained model resulting in state-of-the-art performance.</li>
+            <li>BERT was trained on massive amounts of unlabeled data (no human annotation) in an unsupervised fashion.</li>
+            <li>BERT was then trained on small amounts of human-annotated data starting from the previous pre-trained model resulting in state-of-the-art performance.</li>
         </ol>
     </div>
   </div>

@@ -1,28 +1,14 @@
 ---
 title: 'Getting Started With Embeddings'
 thumbnail: /blog/assets/80_getting_started_with_embeddings/thumbnail.png
+authors:
+- user: espejelomar
 ---
 
-<h1>
-    Getting Started With Embeddings
-</h1>
+# Getting Started With Embeddings
 
-<div class="blog-metadata">
-    <small>Published June 23, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/getting-started-with-embeddings.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/espejelomar"> 
-        <img class="avatar avatar-user" src="https://bafybeidj6oxo7zm5pejnc2iezy24npw4qbt2jgpo4n6igt7oykc7rbvcxi.ipfs.dweb.link/omar_picture.png" title="Gravatar">
-        <div class="bfc">
-            <code>espejelomar</code>
-            <span class="fullname">Omar Espejel</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 Check out this tutorial with the Notebook Companion:
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/80_getting_started_with_embeddings.ipynb">
@@ -53,7 +39,7 @@ We will create a small Frequently Asked Questions (FAQs) engine: receive a query
 
 But first, we need to embed our dataset (other texts use the terms encode and embed interchangeably). The Hugging Face Inference API allows us to embed a dataset using a quick POST call easily.
 
-Since the embeddings capture the semantic meaning of the questions, it is possible to compare different embeddings and see how different or similar they are. Thanks to this, you can get the most similar embedding to a query, which is equivalent to finding the most similar FAQ. Check out our [semantic search tutorial](https://huggingface.co/spaces/sentence-transformers/Sentence_Transformers_for_semantic_search) for a more detailed explanation of how this mechanism works.
+Since the embeddings capture the semantic meaning of the questions, it is possible to compare different embeddings and see how different or similar they are. Thanks to this, you can get the most similar embedding to a query, which is equivalent to finding the most similar FAQ. Check out our [semantic search tutorial](https://huggingface.co/spaces/sentence-transformers/embeddings-semantic-search) for a more detailed explanation of how this mechanism works.
 
 In a nutshell, we will:
 1. Embed Medicare's FAQs using the Inference API.

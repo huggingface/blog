@@ -1,0 +1,38 @@
+- value: analysis
+  label: 分析和解读
+
+- value: community
+  label: 社区动态
+
+- value: guide
+  label: 教程
+
+- value: open-source-collab
+  label: 开源协作
+
+- value: partnerships
+  label: 合作伙伴
+
+- value: research
+  label: 科研相关
+
+- value: nlp
+  label: NLP
+
+- value: audio
+  label: Audio
+
+- value: cv
+  label: CV
+
+- value: rl
+  label: RL
+
+- value: ethics
+  label: AI 伦理
+
+- value: diffusion
+  label: 扩散模型
+
+- value: game-dev
+  label: 游戏开发

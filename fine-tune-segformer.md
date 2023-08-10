@@ -1,40 +1,20 @@
 ---
 title: Fine-Tune a Semantic Segmentation Model with a Custom Dataset
 thumbnail: /blog/assets/56_fine_tune_segformer/thumb.png
+authors:
+- user: segments-tobias
+  guest: true
+- user: nielsr
 ---
 
-<h1>
-	Fine-Tune a Semantic Segmentation Model with a Custom Dataset
-</h1>
+# Fine-Tune a Semantic Segmentation Model with a Custom Dataset
 
-<div class="blog-metadata">
-    <small>Published March 17, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/fine-tune-segformer.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/segments-tobias">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/89590365?v=4" title="Gravatar">
-        <div class="bfc">
-            <code>segments-tobias</code>
-            <span class="fullname">Tobias Cornille</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-    <a href="/nielsr">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/48327001?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>nielsr</code>
-            <span class="fullname">Niels Rogge</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
 
-<a target="_blank" href="https://colab.research.google.com/drive/1BImTyBjW3KtvHGVcjGpYYFZdRGXzM3-j?usp=sharing">
+<a target="_blank" href="https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/56_fine_tune_segformer.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -47,13 +27,15 @@ Because semantic segmentation is a type of classification, the network architect
 [SegFormer](https://huggingface.co/docs/transformers/model_doc/segformer) is a model for semantic segmentation introduced by Xie et al. in 2021. It has a hierarchical Transformer encoder that doesn't use positional encodings (in contrast to ViT) and a simple multi-layer perceptron decoder. SegFormer achieves state-of-the-art performance on multiple common datasets. Let's see how our pizza delivery robot performs for sidewalk images.
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="Pizza delivery robot segmenting a scene" src="assets/56_fine_tune_segformer/pizza-scene.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="Pizza delivery robot segmenting a scene" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/56_fine_tune_segformer/pizza-scene.png"></medium-zoom>
 </figure>
 
-Let's get started by installing the necessary dependencies. Because we're going to push our dataset and model to the Hugging Face Hub, we need to install [Git LFS](https://git-lfs.github.com/) and log in to Hugging Face. The installation of `git-lfs` might be different on your system. 
+Let's get started by installing the necessary dependencies. Because we're going to push our dataset and model to the Hugging Face Hub, we need to install [Git LFS](https://git-lfs.github.com/) and log in to Hugging Face.
+
+The installation of `git-lfs` might be different on your system. Note that Google Colab has Git LFS pre-installed.
 
 ```bash
-pip install -q transformers datasets segments-ai
+pip install -q transformers datasets evaluate segments-ai
 apt-get install git-lfs
 git lfs install
 huggingface-cli login
@@ -77,7 +59,7 @@ To create your semantic segmentation dataset, you'll need two things:
 We went ahead and captured a thousand images of sidewalks in Belgium. Collecting and labeling such a dataset can take a long time, so you can start with a smaller dataset and expand it if the model does not perform well enough.
 
 <figure class="image table text-center m-0 w-full">
-    <medium-zoom background="rgba(0,0,0,.7)" alt="Example images from the sidewalk dataset" src="assets/56_fine_tune_segformer/sidewalk-examples.png"></medium-zoom>
+    <medium-zoom background="rgba(0,0,0,.7)" alt="Example images from the sidewalk dataset" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/56_fine_tune_segformer/sidewalk-examples.png"></medium-zoom>
     <figcaption>Some examples of the raw images in the sidewalk dataset.</figcaption>
 </figure>
 
@@ -86,7 +68,7 @@ To obtain segmentation labels, we need to indicate the classes of all the region
 ### Set up the labeling task on Segments.ai
 
 First, create an account at [https://segments.ai/join](https://segments.ai/join?utm_source=hf&utm_medium=colab&utm_campaign=sem_seg). 
-Next, create a new dataset and upload your images. You can either do this from the web interface or via the Python SDK (see the [notebook](https://colab.research.google.com/drive/1BImTyBjW3KtvHGVcjGpYYFZdRGXzM3-j?usp=sharing)).
+Next, create a new dataset and upload your images. You can either do this from the web interface or via the Python SDK (see the [notebook](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/56_fine_tune_segformer.ipynb)).
 
 
 ### Label the images
@@ -99,7 +81,7 @@ Now that the raw data is loaded, go to [segments.ai/home](https://segments.ai/ho
         style="max-width: 70%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
-      <source src="assets/56_fine_tune_segformer/sidewalk-labeling-crop.mp4" poster="assets/56_fine_tune_segformer/sidewalk-labeling-crop-poster.png" type="video/mp4">
+      <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/56_fine_tune_segformer/sidewalk-labeling-crop.mp4" poster="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/56_fine_tune_segformer/sidewalk-labeling-crop-poster.png" type="video/mp4">
   </video>
   <figcaption>Tip: when using the superpixel tool, scroll to change the superpixel size, and click and drag to select segments.</figcaption>
 </figure>
@@ -110,7 +92,7 @@ When you're done labeling, create a new dataset release containing the labeled d
 
 Note that creating the release can take a few seconds. You can check the releases tab on Segments.ai to check if your release is still being created.
 
-Now, we'll convert the release to a [Hugging Face dataset](https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset) via the Segments.ai Python SDK. If you haven't set up the Segments Python client yet, follow the instructions in the "Set up the labeling task on Segments.ai" section of the [notebook](https://colab.research.google.com/drive/1BImTyBjW3KtvHGVcjGpYYFZdRGXzM3-j#scrollTo=9T2Jr9t9y4HD). 
+Now, we'll convert the release to a [Hugging Face dataset](https://huggingface.co/docs/datasets/package_reference/main_classes.html#datasets.Dataset) via the Segments.ai Python SDK. If you haven't set up the Segments Python client yet, follow the instructions in the "Set up the labeling task on Segments.ai" section of the [notebook](https://colab.research.google.com/github/huggingface/blog/blob/main/notebooks/56_fine_tune_segformer.ipynb#scrollTo=9T2Jr9t9y4HD). 
 
 *Note that the conversion can take a while, depending on the size of your dataset.*
 
@@ -204,13 +186,13 @@ We'll extract the number of labels and the human-readable ids, so we can configu
 
 ```python
 import json
-from huggingface_hub import cached_download, hf_hub_url
+from huggingface_hub import hf_hub_download
 
 repo_id = f"datasets/{hf_dataset_identifier}"
 filename = "id2label.json"
-id2label = json.load(open(cached_download(hf_hub_url(repo_id, filename)), "r"))
+id2label = json.load(open(hf_hub_download(repo_id=hf_dataset_identifier, filename=filename, repo_type="dataset"), "r"))
 id2label = {int(k): v for k, v in id2label.items()}
-label2id = {v: k for k, v in id2label.items()
+label2id = {v: k for k, v in id2label.items()}
 
 num_labels = len(id2label)
 ```
@@ -255,7 +237,7 @@ test_ds.set_transform(val_transforms)
 The SegFormer authors define 5 models with increasing sizes: B0 to B5. The following chart (taken from the original paper) shows the performance of these different models on the ADE20K dataset, compared to other models.
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(0,0,0,.7)" alt="SegFormer model variants compared with other segmentation models" src="assets/56_fine_tune_segformer/segformer.png"></medium-zoom>
+  <medium-zoom background="rgba(0,0,0,.7)" alt="SegFormer model variants compared with other segmentation models" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/56_fine_tune_segformer/segformer.png"></medium-zoom>
   <figcaption><a href="https://arxiv.org/abs/2105.15203">Source</a></figcaption>
 </figure>
 
@@ -269,7 +251,6 @@ from transformers import SegformerForSemanticSegmentation
 pretrained_model_name = "nvidia/mit-b0" 
 model = SegformerForSemanticSegmentation.from_pretrained(
     pretrained_model_name,
-    num_labels=num_labels,
     id2label=id2label,
     label2id=label2id
 )
@@ -311,7 +292,7 @@ training_args = TrainingArguments(
 )
 ```
 
-Next, we'll define a function that computes the evaluation metric we want to work with. Because we're doing semantic segmentation, we'll use the mean Intersection over Union (mIoU), directly accessible in the `datasets` library (see [here](https://huggingface.co/metrics/mean_iou)). IoU represents the overlap of segmentation masks. Mean IoU is the average of the IoU of all semantic classes. Take a look at [this blogpost](https://www.jeremyjordan.me/evaluating-image-segmentation-models/) for an overview of evaluation metrics for image segmentation.
+Next, we'll define a function that computes the evaluation metric we want to work with. Because we're doing semantic segmentation, we'll use the [mean Intersection over Union (mIoU)](https://huggingface.co/spaces/evaluate-metric/mean_iou), directly accessible in the [`evaluate` library](https://huggingface.co/docs/evaluate/index). IoU represents the overlap of segmentation masks. Mean IoU is the average of the IoU of all semantic classes. Take a look at [this blogpost](https://www.jeremyjordan.me/evaluating-image-segmentation-models/) for an overview of evaluation metrics for image segmentation.
 
 Because our model outputs logits with dimensions height/4 and width/4, we have to upscale them before we can compute the mIoU.
 
@@ -319,9 +300,9 @@ Because our model outputs logits with dimensions height/4 and width/4, we have t
 ```python
 import torch
 from torch import nn
-from datasets import load_metric
+import evaluate
 
-metric = load_metric("mean_iou")
+metric = evaluate.load("mean_iou")
 
 def compute_metrics(eval_pred):
   with torch.no_grad():
@@ -336,13 +317,23 @@ def compute_metrics(eval_pred):
     ).argmax(dim=1)
 
     pred_labels = logits_tensor.detach().cpu().numpy()
-    metrics = metric.compute(predictions=pred_labels, references=labels, 
-                                   num_labels=num_labels, 
-                                   ignore_index=0,
-                                   reduce_labels=feature_extractor.reduce_labels)
-    for key, value in metrics.items():
-      if type(value) is np.ndarray:
-        metrics[key] = value.tolist()
+    # currently using _compute instead of compute
+    # see this issue for more info: https://github.com/huggingface/evaluate/pull/328#issuecomment-1286866576
+    metrics = metric._compute(
+            predictions=pred_labels,
+            references=labels,
+            num_labels=len(id2label),
+            ignore_index=0,
+            reduce_labels=feature_extractor.do_reduce_labels,
+        )
+    
+    # add per category metrics as individual key-value pairs
+    per_category_accuracy = metrics.pop("per_category_accuracy").tolist()
+    per_category_iou = metrics.pop("per_category_iou").tolist()
+
+    metrics.update({f"accuracy_{id2label[i]}": v for i, v in enumerate(per_category_accuracy)})
+    metrics.update({f"iou_{id2label[i]}": v for i, v in enumerate(per_category_iou)})
+    
     return metrics
 ```
 
@@ -396,7 +387,7 @@ However, you can also try out your model directly on the Hugging Face Hub, thank
         style="max-width: 70%; margin: auto;"
         autoplay loop autobuffer muted playsinline
     >
-      <source src="assets/56_fine_tune_segformer/widget.mp4" poster="assets/56_fine_tune_segformer/widget-poster.png" type="video/mp4">
+      <source src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/56_fine_tune_segformer/widget.mp4" poster="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/56_fine_tune_segformer/widget-poster.png" type="video/mp4">
   </video>
 </figure>
 
@@ -447,7 +438,7 @@ pred_seg = upsampled_logits.argmax(dim=1)[0]
 Now it's time to display the result. We'll display the result next to the ground-truth mask.
 
 <figure class="image table text-center m-0 w-full">
-  <medium-zoom background="rgba(1,1,1,1)" alt="SegFormer prediction vs the ground truth" src="assets/56_fine_tune_segformer/output.png"></medium-zoom>
+  <medium-zoom background="rgba(1,1,1,1)" alt="SegFormer prediction vs the ground truth" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/56_fine_tune_segformer/output.png"></medium-zoom>
 </figure>
 
 What do you think? Would you send our pizza delivery robot on the road with this segmentation information?

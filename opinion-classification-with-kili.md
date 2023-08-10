@@ -1,29 +1,15 @@
 ---
 title: "Opinion Classification with Kili and HuggingFace AutoTrain"
 thumbnail: /blog/assets/59_opinion-classification-with-kili/thumbnail.png
+authors:
+- user: alperiox
+  guest: true
 ---
 
-<h1>
-    Opinion Classification with Kili and HuggingFace AutoTrain
-</h1>
+# Opinion Classification with Kili and HuggingFace AutoTrain
 
-<div class="blog-metadata">
-    <small>Published April 28, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/opinion-classification-with-kili.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/alperiox">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/34214152" title="Gravatar">
-        <div class="bfc">
-            <code>alperiox</code>
-            <span class="fullname">Alper Balbay</span>
-            <span class="bg-gray-100 dark:bg-gray-700 rounded px-1 text-gray-600 text-sm font-mono">guest</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ## Introduction
 

@@ -1,49 +1,17 @@
 ---
 title: Stable Diffusion with 🧨 Diffusers
 thumbnail: /blog/assets/98_stable_diffusion/thumbnail.png
+authors:
+- user: valhalla
+- user: pcuenq
+- user: natolambert
+- user: patrickvonplaten
 ---
 
-<h1>
-	Stable Diffusion with 🧨 Diffusers
-</h1>
+# Stable Diffusion with 🧨 Diffusers
 
-<div class="blog-metadata">
-    <small>Published August 22nd, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/master/stable_diffusion.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/valhalla">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/27137566?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>valhalla</code>
-            <span class="fullname">Suraj Patil</span>
-        </div>
-    </a>
-	 <a href="/pcuenq">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/1177582?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>pcuenq</code>
-            <span class="fullname">Pedro Cuenca</span>
-        </div>
-    </a>
-	 <a href="/natolambert">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/10695622?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>natolambert</code>
-            <span class="fullname">Nathan Lambert</span>
-        </div>
-    </a>
-    <a href="/patrickvonplaten">
-        <img class="avatar avatar-user" src="https://avatars.githubusercontent.com/u/23423619?v=4" width="100" title="Gravatar">
-        <div class="bfc">
-            <code>patrickvonplaten</code>
-            <span class="fullname">Patrick von Platen</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/stable_diffusion.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
@@ -70,7 +38,7 @@ Now, let's get started by generating some images 🎨.
 
 ### License
 
-Before using the model, you need to accept the model [license](https://huggingface.co/spaces/CompVis/stable-diffusion-license) in order to download and use the weights.  
+Before using the model, you need to accept the model [license](https://huggingface.co/spaces/CompVis/stable-diffusion-license) in order to download and use the weights. **Note: the license does not need to be explicitly accepted through the UI anymore**.
 
 The license is designed to mitigate the potential harmful effects of such a powerful machine learning system. 
 We request users to **read the license entirely and carefully**. Here we offer a summary:
@@ -78,24 +46,15 @@ We request users to **read the license entirely and carefully**. Here we offer a
 2. We claim no rights on the outputs you generate, you are free to use them and are accountable for their use which should not go against the provisions set in the license, and
 3. You may re-distribute the weights and use the model commercially and/or as a service. If you do, please be aware you have to include the same use restrictions as the ones in the license and share a copy of the CreativeML OpenRAIL-M to all your users.
 
-_Note_: we are concurrently developing an additional blog post focusing on the model card and license of this system.
-
 ### Usage
 
-First, you should install `diffusers==0.2.4` to run the following code snippets:
+First, you should install `diffusers==0.10.2` to run the following code snippets:
 
 ```bash
-pip install diffusers==0.2.4 transformers scipy ftfy
+pip install diffusers==0.10.2 transformers scipy ftfy accelerate
 ```
 
-In this post we'll use model version `v1-4`, so you'll need to  visit [its card](https://huggingface.co/CompVis/stable-diffusion-v1-4), read the license and tick the checkbox if you agree. You have to be a registered user in 🤗 Hugging Face Hub, and you'll also need to use an access token for the code to work. For more information on access tokens, please refer to [this section of the documentation](https://huggingface.co/docs/hub/security-tokens).
-Once you have requested access, make sure to pass your user token as:
-
-```py
-YOUR_TOKEN="/your/huggingface/hub/token"
-```
-
-After that one-time setup out of the way, we can proceed with Stable Diffusion inference.
+In this post we'll use model version [`v1-4`](https://huggingface.co/CompVis/stable-diffusion-v1-4), but you can also use other versions of the model such as 1.5, 2, and 2.1 with minimal code changes.
 
 The Stable Diffusion model can be run in inference with just a couple of lines using the [`StableDiffusionPipeline`](https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion.py) pipeline. The pipeline sets up everything you need to generate images from text with 
 a simple `from_pretrained` function call.
@@ -103,8 +62,7 @@ a simple `from_pretrained` function call.
 ```python
 from diffusers import StableDiffusionPipeline
 
-# get your token at https://huggingface.co/settings/tokens
-pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", use_auth_token=YOUR_TOKEN)
+pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4")
 ```
 
 If a GPU is available, let's move it to one!
@@ -116,6 +74,7 @@ pipe.to("cuda")
 **Note**: If you are limited by GPU memory and have less than 10GB of GPU RAM available, please
 make sure to load the `StableDiffusionPipeline` in float16 precision instead of the default
 float32 precision as done above.
+
 You can do so by loading the weights from the `fp16` branch and by telling `diffusers` to expect the 
 weights to be in float16 precision:
 
@@ -123,16 +82,15 @@ weights to be in float16 precision:
 import torch
 from diffusers import StableDiffusionPipeline
 
-# get your token at https://huggingface.co/settings/tokens
-pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", revision="fp16", torch_dtype=torch.float16, use_auth_token=YOUR_TOKEN)
+pipe = StableDiffusionPipeline.from_pretrained("CompVis/stable-diffusion-v1-4", revision="fp16", torch_dtype=torch.float16)
 ```
 
-To run the pipeline, simply define the prompt and call `pipe`:
+To run the pipeline, simply define the prompt and call `pipe`.
 
 ```python
 prompt = "a photograph of an astronaut riding a horse"
 
-image = pipe(prompt)["sample"][0]
+image = pipe(prompt).images[0]
 
 # you can save the image with
 # image.save(f"astronaut_rides_horse.png")
@@ -155,7 +113,7 @@ print(result)
 
 ```json
 {
-    'sample': [<PIL.Image.Image image mode=RGB size=512x512>],
+    'images': [<PIL.Image.Image image mode=RGB size=512x512>],
     'nsfw_content_detected': [False]
 }
 ```
@@ -168,7 +126,7 @@ Every time you use a generator with the same seed you'll get the same image outp
 import torch
 
 generator = torch.Generator("cuda").manual_seed(1024)
-image = pipe(prompt, guidance_scale=7.5, generator=generator)["sample"][0]
+image = pipe(prompt, guidance_scale=7.5, generator=generator).images[0]
 
 # you can save the image with
 # image.save(f"astronaut_rides_horse.png")
@@ -192,7 +150,7 @@ Let's try out running the pipeline with less denoising steps.
 import torch
 
 generator = torch.Generator("cuda").manual_seed(1024)
-image = pipe(prompt, guidance_scale=7.5, num_inference_steps=15, generator=generator)["sample"][0]
+image = pipe(prompt, guidance_scale=7.5, num_inference_steps=15, generator=generator).images[0]
 
 # you can save the image with
 # image.save(f"astronaut_rides_horse.png")
@@ -210,7 +168,7 @@ Values between `7` and `8.5` are usually good choices for Stable Diffusion.  By 
 uses a `guidance_scale` of 7.5.
 
 If you use a very large value the images might look good, but will be less diverse. 
-You can learn about the technical details of this parameter in [this section](#how-to-write-your-own-inference-pipeline-with-diffusers) of the post.
+You can learn about the technical details of this parameter in [this section](#writing-your-own-inference-pipeline) of the post.
 
 Next, let's see how you can generate several images of the same prompt at once. 
 First, we'll create an `image_grid` function to help us visualize them nicely in a grid.
@@ -236,7 +194,7 @@ We can generate multiple images for the same prompt by simply using a list with 
 num_images = 3
 prompt = ["a photograph of an astronaut riding a horse"] * num_images
 
-images = pipe(prompt)["sample"]
+images = pipe(prompt).images
 
 grid = image_grid(images, rows=1, cols=3)
 
@@ -259,7 +217,7 @@ Let's run an example:
 
 ```python
 prompt = "a photograph of an astronaut riding a horse"
-image = pipe(prompt, height=512, width=768)["sample"][0]
+image = pipe(prompt, height=512, width=768).images[0]
 
 # you can save the image with
 # image.save(f"astronaut_rides_horse.png")
@@ -302,8 +260,8 @@ The U-Net has an encoder part and a decoder part both comprised of ResNet blocks
 The encoder compresses an image representation into a lower resolution image representation and the decoder decodes the lower resolution image representation back to the original higher resolution image representation that is supposedly less noisy.
 More specifically, the U-Net output predicts the noise residual which can be used to compute the predicted denoised image representation.
 
-To prevent the U-Net from loosing important information while downsampling, short-cut connections are usually added between the downsampling ResNets of the encoder to the upsampling ResNets of the decoder.
-Additionally, the stable diffusion U-Net is able to condition it's output on text-embeddings via cross-attention layers. The cross-attention layers are added to both the encodre and decoder part of the U-Net usually between ResNet blocks.
+To prevent the U-Net from losing important information while downsampling, short-cut connections are usually added between the downsampling ResNets of the encoder to the upsampling ResNets of the decoder.
+Additionally, the stable diffusion U-Net is able to condition its output on text-embeddings via cross-attention layers. The cross-attention layers are added to both the encoder and decoder part of the U-Net usually between ResNet blocks.
 
 **3. The Text-encoder**
 
@@ -327,7 +285,7 @@ Putting it all together, let's now take a closer look at how the model works in 
 
 The stable diffusion model takes both a latent seed and a text prompt as an input. The latent seed is then used to generate random latent image representations of size \\( 64 \times 64 \\) where as the text prompt is transformed to text embeddings of size \\( 77 \times 768 \\) via CLIP's text encoder.
 
-Next the U-Net iteratively *denoises* the random latent image representations while being conditioned on the text embeddings. The output of the U-Net, being the noise residual, is used to computed a denoised latent image representation via a scheduler algorithm. Many different scheduler algorithms can be used for this computation, each having its pro- and cons. For Stable Diffusion, we recommend using one of:
+Next the U-Net iteratively *denoises* the random latent image representations while being conditioned on the text embeddings. The output of the U-Net, being the noise residual, is used to compute a denoised latent image representation via a scheduler algorithm. Many different scheduler algorithms can be used for this computation, each having its pro- and cons. For Stable Diffusion, we recommend using one of:
 
 - [PNDM scheduler](https://github.com/huggingface/diffusers/blob/main/src/diffusers/schedulers/scheduling_pndm.py) (used by default)
 - [DDIM scheduler](https://github.com/huggingface/diffusers/blob/main/src/diffusers/schedulers/scheduling_ddim.py)
@@ -364,14 +322,14 @@ from transformers import CLIPTextModel, CLIPTokenizer
 from diffusers import AutoencoderKL, UNet2DConditionModel, PNDMScheduler
 
 # 1. Load the autoencoder model which will be used to decode the latents into image space. 
-vae = AutoencoderKL.from_pretrained("CompVis/stable-diffusion-v1-4", subfolder="vae", use_auth_token=YOUR_TOKEN)
+vae = AutoencoderKL.from_pretrained("CompVis/stable-diffusion-v1-4", subfolder="vae")
 
 # 2. Load the tokenizer and text encoder to tokenize and encode the text. 
 tokenizer = CLIPTokenizer.from_pretrained("openai/clip-vit-large-patch14")
 text_encoder = CLIPTextModel.from_pretrained("openai/clip-vit-large-patch14")
 
 # 3. The UNet model for generating the latents.
-unet = UNet2DConditionModel.from_pretrained("CompVis/stable-diffusion-v1-4", subfolder="unet", use_auth_token=YOUR_TOKEN)
+unet = UNet2DConditionModel.from_pretrained("CompVis/stable-diffusion-v1-4", subfolder="unet")
 ```
 
 Now instead of loading the pre-defined scheduler, we load the [K-LMS scheduler](https://github.com/huggingface/diffusers/blob/71ba8aec55b52a7ba5a1ff1db1265ffdd3c65ea2/src/diffusers/schedulers/scheduling_lms_discrete.py#L26) with some fitting parameters.
@@ -385,8 +343,6 @@ scheduler = LMSDiscreteScheduler(beta_start=0.00085, beta_end=0.012, beta_schedu
 Next, let's move the models to GPU.
 
 ```python
-from torch import autocast
-
 torch_device = "cuda"
 vae.to(torch_device)
 text_encoder.to(torch_device)
@@ -465,7 +421,7 @@ The K-LMS scheduler needs to multiply the `latents` by its `sigma` values. Let's
 
 
 ```python
-latents = latents * scheduler.sigmas[0]
+latents = latents * scheduler.init_noise_sigma
 ```
 
 We are ready to write the denoising loop.
@@ -473,27 +429,25 @@ We are ready to write the denoising loop.
 
 ```python
 from tqdm.auto import tqdm
-from torch import autocast
 
 scheduler.set_timesteps(num_inference_steps)
 
-with autocast("cuda"):
-  for i, t in tqdm(enumerate(scheduler.timesteps)):
+for t in tqdm(scheduler.timesteps):
     # expand the latents if we are doing classifier-free guidance to avoid doing two forward passes.
     latent_model_input = torch.cat([latents] * 2)
-    sigma = scheduler.sigmas[i]
-    latent_model_input = latent_model_input / ((sigma**2 + 1) ** 0.5)
+
+    latent_model_input = scheduler.scale_model_input(latent_model_input, timestep=t)
 
     # predict the noise residual
     with torch.no_grad():
-      noise_pred = unet(latent_model_input, t, encoder_hidden_states=text_embeddings)["sample"]
+        noise_pred = unet(latent_model_input, t, encoder_hidden_states=text_embeddings).sample
 
     # perform guidance
     noise_pred_uncond, noise_pred_text = noise_pred.chunk(2)
     noise_pred = noise_pred_uncond + guidance_scale * (noise_pred_text - noise_pred_uncond)
 
     # compute the previous noisy sample x_t -> x_t-1
-    latents = scheduler.step(noise_pred, i, latents)["prev_sample"]
+    latents = scheduler.step(noise_pred, t, latents).prev_sample
 ```
 
 We now use the `vae` to decode the generated `latents` back into the image.
@@ -502,7 +456,8 @@ We now use the `vae` to decode the generated `latents` back into the image.
 ```python
 # scale and decode the image latents with vae
 latents = 1 / 0.18215 * latents
-image = vae.decode(latents)
+with torch.no_grad():
+    image = vae.decode(latents).sample
 ```
 
 And finally, let's convert the image to PIL so we can display or save it.
@@ -523,3 +478,14 @@ We've gone from the basic use of Stable Diffusion using 🤗 Hugging Face Diffus
 - The [Getting Started with Diffusers](https://colab.research.google.com/github/huggingface/notebooks/blob/main/diffusers/diffusers_intro.ipynb) notebook, that gives a broader overview on Diffusion systems.
 - The [Annotated Diffusion Model](https://huggingface.co/blog/annotated-diffusion) blog post.
 - Our [code in GitHub](https://github.com/huggingface/diffusers) where we'd be more than happy if you leave a ⭐ if `diffusers` is useful to you!
+
+### Citation:
+```
+@article{patil2022stable,
+  author = {Patil, Suraj and Cuenca, Pedro and Lambert, Nathan and von Platen, Patrick},
+  title = {Stable Diffusion with 🧨 Diffusers},
+  journal = {Hugging Face Blog},
+  year = {2022},
+  note = {[https://huggingface.co/blog/rlhf](https://huggingface.co/blog/stable_diffusion)},
+}
+```

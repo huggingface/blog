@@ -1,27 +1,14 @@
 ---
 title: "Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models"
 thumbnail: /blog/assets/08_warm_starting_encoder_decoder/thumbnail.png
+authors:
+- user: patrickvonplaten
 ---
 
-<h1> Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models
-</h1>
+# Leveraging Pre-trained Language Model Checkpoints for Encoder-Decoder Models
 
-<div class="blog-metadata">
-    <small>Published November 09, 2020.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/warm-starting-encoder-decoder.md">
-      Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/patrickvonplaten">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1584435275418-5dfcb1aada6d0311fd3d5448.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>patrickvonplaten</code>
-            <span class="fullname">Patrick von Platen</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a target="_blank" href="https://colab.research.google.com/github/patrickvonplaten/notebooks/blob/master/Leveraging_Pre_trained_Checkpoints_for_Encoder_Decoder_Models.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
@@ -676,15 +663,15 @@ tasks of increasing complexity: sentence-level fusion, sentence-level
 splitting, translation, and abstractive summarization. The following
 table shows which datasets were used for each task.
 
-  |Seq2Seq Task               |Datasets                                                                Paper                                                                   |🤗datasets
-  |-------------------------- |----------------------------------------------------------------------- ----------------------------------------------------------------------- |-----------------------------------------------------------------------------------------
-  |Sentence Fusion            |DiscoFuse                                                               [Geva et al. (2019)](https://arxiv.org/abs/1902.10526)                  |[link](https://huggingface.co/nlp/viewer/?dataset=discofuse&config=discofuse-wikipedia)
-  |Sentence Splitting         |WikiSplit                                                               [Botha et al. (2018)](https://arxiv.org/abs/1808.09468)                 |\-
-  |Translation                |WMT14 EN =\> DE                                                         [Bojar et al. (2014)](http://www.aclweb.org/anthology/W/W14/W14-3302)   |[link](https://huggingface.co/nlp/viewer/?dataset=wmt14&config=de-en)
-  |WMT14 DE =\> EN            |[Bojar et al. (2014)](http://www.aclweb.org/anthology/W/W14/W14-3302)   																																				 |[link](https://huggingface.co/nlp/viewer/?dataset=wmt14&config=de-en)   
-  |Abstractive Summarizaion   |CNN/Dailymail                                                           [Hermann et al. (2015)](http://arxiv.org/abs/1704.04368)                |[link](https://huggingface.co/nlp/viewer/?dataset=cnn_dailymail&config=3.0.0)
-  |BBC XSum                   |[Narayan et al. (2018a)](https://arxiv.org/abs/1808.08745)              																																				 |[link](https://huggingface.co/nlp/viewer/?dataset=xsum)                 
-  |Gigaword                   |[Napoles et al. (2012)](http://dx.doi.org/10.18653/v1/D15-1044)         																																				 |[link](https://huggingface.co/nlp/viewer/?dataset=gigaword)              
+  |Seq2Seq Task               |Datasets                                                               |Paper                                                                   |🤗datasets |
+  |-------------------------- |-----------------------------------------------------------------------|----------------------------------------------------------------------- |----------------------------------------------------------------------------------------- |
+  |Sentence Fusion            |DiscoFuse                                                              |[Geva et al. (2019)](https://arxiv.org/abs/1902.10526)                  |[link](https://huggingface.co/nlp/viewer/?dataset=discofuse&config=discofuse-wikipedia) |
+  |Sentence Splitting         |WikiSplit                                                              |[Botha et al. (2018)](https://arxiv.org/abs/1808.09468)                 |\-|
+  |Translation                |WMT14 EN =\> DE                                                        |[Bojar et al. (2014)](http://www.aclweb.org/anthology/W/W14/W14-3302)   |[link](https://huggingface.co/nlp/viewer/?dataset=wmt14&config=de-en)|
+  |WMT14 DE =\> EN            |[Bojar et al. (2014)](http://www.aclweb.org/anthology/W/W14/W14-3302)  |																																				 |[link](https://huggingface.co/nlp/viewer/?dataset=wmt14&config=de-en)   |
+  |Abstractive Summarizaion   |CNN/Dailymail                                                          | [Hermann et al. (2015)](http://arxiv.org/abs/1704.04368)               |[link](https://huggingface.co/nlp/viewer/?dataset=cnn_dailymail&config=3.0.0)|
+  |BBC XSum                   |[Narayan et al. (2018a)](https://arxiv.org/abs/1808.08745)             |																																				 |[link](https://huggingface.co/nlp/viewer/?dataset=xsum)                 |
+  |Gigaword                   |[Napoles et al. (2012)](http://dx.doi.org/10.18653/v1/D15-1044)        |																																				 |[link](https://huggingface.co/nlp/viewer/?dataset=gigaword)              |
 
 Depending on the task, a slightly different training regime was used.
 *E.g.* according to the size of the dataset and the specific task, the
@@ -1211,8 +1198,6 @@ def process_data_to_model_inputs(batch):
 
   batch["input_ids"] = inputs.input_ids
   batch["attention_mask"] = inputs.attention_mask
-  batch["decoder_input_ids"] = outputs.input_ids
-  batch["decoder_attention_mask"] = outputs.attention_mask
   batch["labels"] = outputs.input_ids.copy()
 
   # because BERT automatically shifts the labels, the labels correspond exactly to `decoder_input_ids`. 
@@ -1266,7 +1251,7 @@ convert the data to PyTorch Tensors to be trained on GPU.
 
 ```python
 train_data.set_format(
-    type="torch", columns=["input_ids", "attention_mask", "decoder_input_ids", "decoder_attention_mask", "labels"],
+    type="torch", columns=["input_ids", "attention_mask", "labels"],
 )
 ```
 
@@ -1301,7 +1286,7 @@ and, finally, the validation data is also converted to PyTorch tensors.
 
 ```python
 val_data.set_format(
-    type="torch", columns=["input_ids", "attention_mask", "decoder_input_ids", "decoder_attention_mask", "labels"],
+    type="torch", columns=["input_ids", "attention_mask", "labels"],
 )
 ```
 

@@ -1,28 +1,14 @@
 ---
 title: "Supercharged Customer Service with Machine Learning"
 thumbnail: /blog/assets/61_supercharged_customer_service_with_nlp/thumbnail.png
+authors:
+- user: patrickvonplaten
 ---
 
-<h1>
-  	Supercharged Customer Service with Machine Learning
-</h1>
+# Supercharged Customer Service with Machine Learning
 
-<div class="blog-metadata">
-    <small>Published April 25, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/supercharge-customer-service-with-nlp.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/patrickvonplaten">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1584435275418-5dfcb1aada6d0311fd3d5448.jpeg?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>patrickvonplaten</code>
-            <span class="fullname">Patrick von Platen</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a target="_blank" href="https://github.com/patrickvonplaten/notebooks/blob/master/Using_%F0%9F%A4%97_Transformers_and_%F0%9F%A4%97_Datasets_filter_customer_feedback_filtering.ipynb">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>

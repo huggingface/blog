@@ -1,28 +1,27 @@
 ---
 title: "Introducing the Private Hub: A New Way to Build With Machine Learning"
 thumbnail: /blog/assets/92_introducing_private_hub/thumbnail.png
+authors:
+- user: federicopascual
 ---
 
 <h1>Introducing the Private Hub: A New Way to Build With Machine Learning</h1>
 
-<div class="blog-metadata">
-    <small>Published Aug 3, 2022.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/introducing-private-hub.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/federicopascual">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1624043388143-noauth.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>federicopascual</code>
-            <span class="fullname">Federico Pascual</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <script async defer src="https://unpkg.com/medium-zoom-element@0/dist/medium-zoom-element.min.js"></script>
+
+<br>
+<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 10px;">
+  June 2023 Update:
+  
+  The Private Hub is now called <b>Enterprise Hub</b>.
+  
+  The Enterprise Hub is a hosted solution that combines the best of Cloud Managed services (SaaS) and Enterprise security. It lets customers deploy specific services like <b>Inference Endpoints</b> on a wide scope of compute options, from on-cloud to on-prem. It offers advanced user administration and access controls through SSO.
+  
+  Get in touch with our [Enterprise team](/support) to find the best solution for your company.
+</div>
 
 Machine learning is changing how companies are building technology. From powering a new generation of disruptive products to enabling smarter features in well-known applications we all use and love, ML is at the core of the development process.
 

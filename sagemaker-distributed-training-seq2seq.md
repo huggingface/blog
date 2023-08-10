@@ -1,28 +1,14 @@
 ---
 title: 'Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker'
 thumbnail: /blog/assets/19_sagemaker_distributed_training_seq2seq/thumbnail.png
+authors:
+- user: philschmid
 ---
 
-<h1>
-    Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker
-</h1>
+# Distributed Training: Train BART/T5 for Summarization using 🤗 Transformers and Amazon SageMaker
 
-<div class="blog-metadata">
-    <small>Published April 8, 2021.</small>
-    <a target="_blank" class="btn no-underline text-sm mb-5 font-sans" href="https://github.com/huggingface/blog/blob/main/sagemaker-distributed-training-seq2seq.md">
-        Update on GitHub
-    </a>
-</div>
-
-<div class="author-card">
-    <a href="/philschmid">
-        <img class="avatar avatar-user" src="https://aeiljuispo.cloudimg.io/v7/https://s3.amazonaws.com/moonup/production/uploads/1613142338662-5ff5d596f244529b3ec0fb89.png?w=200&h=200&f=face" title="Gravatar">
-        <div class="bfc">
-            <code>philschmid</code>
-            <span class="fullname">Philipp Schmid</span>
-        </div>
-    </a>
-</div>
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 <a target="_blank" href="https://github.com/huggingface/notebooks/blob/master/sagemaker/08_distributed_summarization_bart_t5/sagemaker-notebook.ipynb">
     <img src="https://badgen.net/badge/Github/Open/black?icon=github" alt="Open on Github"/>
@@ -142,7 +128,7 @@ git_config = {'repo': 'https://github.com/philschmid/transformers.git','branch':
 
 ## Configure distributed training and hyperparameters
 
-Next, we will define our `hyperparameters` and configure our distributed training strategy. As hyperparameter, we can define any [Seq2SeqTrainingArguments](https://huggingface.co/transformers/main_classes/trainer.html#seq2seqtrainingarguments) and the ones defined in [run_summarization.py](https://github.com/huggingface/transformers/tree/master/examples/seq2seq#sequence-to-sequence-training-and-evaluation). 
+Next, we will define our `hyperparameters` and configure our distributed training strategy. As hyperparameter, we can define any [Seq2SeqTrainingArguments](https://huggingface.co/transformers/main_classes/trainer.html#seq2seqtrainingarguments) and the ones defined in [run_summarization.py](https://github.com/huggingface/transformers/tree/main/examples/legacy/seq2seq#sequence-to-sequence-training-and-evaluation). 
 
 ```python
 # hyperparameters, which are passed into the training job
