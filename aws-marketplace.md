@@ -44,7 +44,7 @@ After you successfully subscribe, you should see a green banner at the top with 
 
 ![Marketplace Redirect](assets/158_aws_marketplace/03_redirect.jpg "Marketplace Redirect")
 
-After clicking the button, you will be redirected to the Hugging Face Platform. Where you can now select the Hugging Face, account you want to link to your AWS account. After selecting your account, click “Submit” 
+After clicking the button, you will be redirected to the Hugging Face Platform, where you can select the Hugging Face organization account you want to link to your AWS account. After selecting your account, click “Submit” 
 
 ![Connect Account](assets/158_aws_marketplace/04_connect.jpg "Connect Account")
 
