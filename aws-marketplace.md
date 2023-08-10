@@ -48,7 +48,7 @@ After clicking the button, you will be redirected to the Hugging Face Platform, 
 
 ![Connect Account](assets/158_aws_marketplace/04_connect.jpg "Connect Account")
 
-After clicking submit you will be redirected to the Billings settings of your Hugging Face Account, where you should see the current state of your subscription, which should be `subscribe-pending`.
+After clicking "Submit", you will be redirected to the Billings settings of the Hugging Face organization, where you can see the current state of your subscription, which should be `subscribe-pending`.
 
 ![Subscription Pending](assets/158_aws_marketplace/05_pending.jpg "Subscription Pending")
 
