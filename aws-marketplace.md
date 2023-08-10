@@ -15,7 +15,7 @@ The [Hugging Face Platform](https://aws.amazon.com/marketplace/pp/prodview-n6vsy
 
 By making [Hugging Face available on AWS Marketplace](https://aws.amazon.com/marketplace/pp/prodview-n6vsyhdjkfng2), we are removing barriers to adopting AI and making it easier for companies to leverage large language models. Now with just a few clicks, AWS customers can subscribe and connect their Hugging Face Account with their AWS account. 
 
-By subscribing through AWS Marketplace, usage charges for Hugging Face services like Inference Endpoints will automatically appear on your AWS bill instead of through separate Hugging Face billing.
+By subscribing through AWS Marketplace, Hugging Face organization usage charges for services like Inference Endpoints will automatically appear on your AWS bill, instead of being charged by Hugging Face to the credit card on file for your organization.
 
 We are excited about this launch as it allows us to bring our technology to more developers and businesses who rely on AWS. 
 
