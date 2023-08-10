@@ -227,7 +227,7 @@ PyTorch has _a lot_ of operations, and all of them have to be mapped to an inter
 
 - Edge cases and type mismatches
 
-Even for supported PyTorch operations, it's very difficult to ensure that the translation process works on all possible inputs across all the different input types. Keep in mind that a single PyTorch op can have multiple backend implementations for different devices (cpu, CUDA), input types (integer, float), or precision (float16, float32). The product of all combinations is staggering, and some times the way a model uses PyTorch code triggers a translation path that may have not been considered or tested.
+Even for supported PyTorch operations, it's very difficult to ensure that the translation process works on all possible inputs across all the different input types. Keep in mind that a single PyTorch op can have multiple backend implementations for different devices (cpu, CUDA), input types (integer, float), or precision (float16, float32). The product of all combinations is staggering, and sometimes the way a model uses PyTorch code triggers a translation path that may have not been considered or tested.
 
 This is what happened when I first tried to convert Llama 2 using `coremltools`:
 
