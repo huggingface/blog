@@ -61,7 +61,7 @@ To confirm it, you can open the Billing settings for [your organization account]
 
 ![Subscription Confirmed](assets/158_aws_marketplace/06_success.jpg "Subscription Confirmed")
 
-Congratulations! 🥳 You can now start using our paid services 
+Congratulations! 🥳 All members of your organization can now start using Hugging Face premium services with billing directly managed by your AWS account: 
 
 - [Inference Endpoints Deploy models in minutes](https://ui.endpoints.huggingface.co/)
 - [AutoTrain creates ML models without code](https://huggingface.co/autotrain)
