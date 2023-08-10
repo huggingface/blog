@@ -68,7 +68,7 @@ Congratulations! 🥳 All members of your organization can now start using Hugg
 - [Enterprise Hub accelerates your AI roadmap](https://huggingface.co/enterprise)
 - [Spaces Hardware upgrades](https://huggingface.co/docs/hub/spaces-gpus)
 
-The Pricing for the marketplace offer is identical to the regular pricing, but will be billed through your AWS Account. More pricing information can be found on [the pricing page](https://huggingface.co/pricing) or under the Billing information in your organization settings.
+Pricing for Hugging Face Platform through the AWS marketplace offer is identical to the [public Hugging Face pricing](https://huggingface.co/pricing), but will be billed through your AWS Account. You can monitor the usage and billing of your organization at any time within the Billing section of your [organization settings](https://huggingface.co/settings/organizations).
 
 ---
 
