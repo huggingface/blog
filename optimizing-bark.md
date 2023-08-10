@@ -20,7 +20,7 @@ The 🤗 Hugging Face ecosystem offers precisely such ready & easy to use optimi
 
 In this hands-on tutorial, I'll demonstrate how you can optimize [Bark](https://huggingface.co/docs/transformers/main/en/model_doc/bark#overview), a Text-To-Speech (TTS) model supported by 🤗 Transformers, based on three simple optimizations. These optimizations rely solely on the [Transformers](https://github.com/huggingface/transformers), [Optimum](https://github.com/huggingface/optimum) and [Accelerate](https://github.com/huggingface/accelerate) libraries from the 🤗 ecosystem.
 
-This tutorial is also a demonstration of how one can benchmark a non-optimized model and its varying optimizatons.
+This tutorial is also a demonstration of how one can benchmark a non-optimized model and its varying optimizations.
 
 For a more streamlined version of the tutorial 
 with fewer explanations but all the code, see the accompanying [Google Colab](https://colab.research.google.com/github/ylacombe/notebooks/blob/main/Benchmark_Bark_HuggingFace.ipynb).
@@ -77,7 +77,7 @@ device = "cuda:0" if torch.cuda.is_available() else "cpu"
 model = model.to(device)
 ```
 
-Load the processor, which will takes care of tokenization and optional speaker embeddings.
+Load the processor, which will take care of tokenization and optional speaker embeddings.
 
 ```python
 from transformers import AutoProcessor
@@ -121,7 +121,7 @@ def measure_latency_and_memory_use(model, inputs, nb_loops = 5):
 
   # actually generate
   for _ in range(nb_loops):
-        # set seed for reproductibility
+        # set seed for reproducibility
         set_seed(0)
         output = model.generate(**inputs, do_sample = True, fine_temperature = 0.4, coarse_temperature = 0.8)
 
@@ -184,7 +184,7 @@ One of the main reasons for the importance of increasing `nb_loops` is that the 
 
 ## 1. 🤗 Better Transformer
 
-Better Transformer is an 🤗 Optimum feature that performs kernel fusion under the hood. This means that certain model operations will be better optimized on the GPU and that the model will be ultimately faster.
+Better Transformer is an 🤗 Optimum feature that performs kernel fusion under the hood. This means that certain model operations will be better optimized on the GPU and that the model will ultimately be faster.
 
 To be more specific, most models supported by 🤗 Transformers rely on attention, which allows them to selectively focus on certain parts of the input when generating output. This enables the models to effectively handle long-range dependencies and capture complex contextual relationships in the data.
 
@@ -223,11 +223,11 @@ There's no performance degradation, which means you can get exactly the same res
 
 ## 2. Half-precision
 
-Most AI models typically use a storage format called single-precision floating point, i.e `fp32`. What does it means in practice ? Each number is stored using 32 bits.
+Most AI models typically use a storage format called single-precision floating point, i.e. `fp32`. What does it mean in practice? Each number is stored using 32 bits.
 
-You can thus chose to encode the numbers using 16 bits, with what is called half-precision floating point, i.e `fp16`, and use half as many storage than before! More than that, you also get inference speed-up!
+You can thus choose to encode the numbers using 16 bits, with what is called half-precision floating point, i.e. `fp16`, and use half as much storage as before! More than that, you also get inference speed-up!
 
-Of course, it also comes with a small performance degradation, since operations inside the model won't be as precise as using `fp32`.
+Of course, it also comes with small performance degradation since operations inside the model won't be as precise as using `fp32`.
 
 You can load a 🤗 Transformers model with half-precision by simpling adding `torch_dtype=torch.float16` to the `BarkModel.from_pretrained(...)` line!
 
@@ -349,7 +349,7 @@ Want more?
 Altogether, the 3 optimization techniques bring even better results when batching.
 Batching means combining operations for multiple samples to bring the overall time spent generating the samples lower than generating sample per sample.
 
-Here is a quick example on how you can use it:
+Here is a quick example of how you can use it:
 
 ```python
 text_prompt = [
@@ -388,7 +388,7 @@ Your browser does not support the audio element.
 
 # Benchmark results
 
-As mentioned above, the little experiment we've carried out is an exercise in thinking and needs to be extended for a better measure of performance. One also needs to warm-up the GPU with a few blank iterations before properly measuring performance.
+As mentioned above, the little experiment we've carried out is an exercise in thinking and needs to be extended for a better measure of performance. One also needs to warm up the GPU with a few blank iterations before properly measuring performance.
 
 Here are the results of a 100-sample benchmark extending the measurements, **using the large version of Bark**.
 
@@ -402,22 +402,22 @@ It measures the duration of a single call to the generation method, regardless o
 
 In other words, it's equal to \\(\frac{elapsedTime}{nbLoops}\\).
 
-**A lower latency is prefered.**
+**A lower latency is preferred.**
 
 ### Maximum memory footprint
 
 It measures the maximum memory used during a single call to the generation method.
 
-**A lower footprint is prefered.**
+**A lower footprint is preferred.**
 
 
 ### Throughput
 
-It measures the number of samples generated per second. This time, batch size is taken into account.
+It measures the number of samples generated per second. This time, the batch size is taken into account.
 
 In other words, it's equal to \\(\frac{nbLoops*batchSize}{elapsedTime}\\).
 
-**A higher throughput is prefered.**
+**A higher throughput is preferred.**
 
 ## No batching
 
@@ -441,7 +441,7 @@ Here are the results with `batch_size=1`.
 
 As expected, CPU offload greatly reduces memory footprint while slightly increasing latency.
 
-However, combined with bettertransformer and `fp16`, we get the best of both world, huge latency and memory decrease !
+However, combined with bettertransformer and `fp16`, we get the best of both worlds, huge latency and memory decrease!
 
 ## Batch size set to 8
 And here are the benchmark results but with `batch_size=8` and throughput measurement.
