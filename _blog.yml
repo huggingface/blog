@@ -2529,7 +2529,7 @@
     - agents
     - javascript
     - web
-    
+
 - local: eu-ai-act-oss
   title: "AI Policy @🤗: Open ML Considerations in the EU AI Act"
   author: yjernite
@@ -2537,7 +2537,7 @@
   date: July 24, 2023
   tags:
     - ethics
-    
+
 - local: stable-diffusion-xl-coreml
   title: "Stable Diffusion XL on Mac with Advanced Core ML Quantization"
   author: pcuenq
@@ -2591,7 +2591,7 @@
   thumbnail: /blog/assets/156_huggylingo/Huggy_Lingo.png
   date: August 2, 2023
   tags:
-    - announcement 
+    - announcement
     - research
 
 - local: run-musicgen-as-an-api
@@ -2600,7 +2600,7 @@
   thumbnail: /blog/assets/run-musicgen-as-an-api/thumbnail.png
   date: August 4, 2023
   tags:
-    - audio 
+    - audio
     - guide
 
 - local: swift-coreml-llm
@@ -2623,7 +2623,7 @@
     - rl
     - rlhf
     - nlp
-    
+
 - local: deploy-deepfloydif-using-bentoml
   title: "Deploying Hugging Face Models with BentoML: DeepFloyd IF in Action"
   author: Sherlockk
@@ -2658,3 +2658,13 @@
     - announcement
     - partnerships
     - aws
+
+- local: introducing-idefics
+  title: "Introducing IDEFICS: An Open Reproduction of State-of-the-art Visual Langage Model"
+  author: VictorSanh
+  thumbnail: /blog/assets/introducing_idefics/thumbnail.png
+  date: August 22, 2023
+  tags:
+    - research
+    - nlp
+    - cv
