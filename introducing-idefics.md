@@ -21,19 +21,19 @@ authors:
 
 <!-- TODO: recognize full list of co-authors -->
 
-We are excited to announce the release of IDEFICS (**I**mage-aware **D**ecoder **E**nhanced à la **F**lamingo with **I**nterleaved **C**ross-attention**S**), an open-access visual language model. IDEFICS is based on [Flamingo](https://huggingface.co/papers/2204.14198), a state-of-the-art visual language model initially developed by DeepMind, which has not been released publicly. Similarly to GPT4, the model accepts arbitrary sequences of image and text inputs and produces text outputs. IDEFICS is built solely on publicly available data and models and comes in two variants: the base version and the instructed version.
+We are excited to release IDEFICS (**I**mage-aware **D**ecoder **E**nhanced à la **F**lamingo with **I**nterleaved **C**ross-attention**S**), an open-access visual language model. IDEFICS is based on [Flamingo](https://huggingface.co/papers/2204.14198), a state-of-the-art visual language model initially developed by DeepMind, which has not been released publicly. Similarly to GPT-4, the model accepts arbitrary sequences of image and text inputs and produces text outputs. IDEFICS is built solely on publicly available data and models and comes in two variants: the base version and the instructed version.
 
-We believe that the development of state-of-the-art AI models should be more transparent. Our goal with IDEFICS is to reproduce and provide the AI community with systems that match the capabilities of large proprietary models like Flamingo. As such, we take important steps contributing to bringing transparency to these AI systems: we use only publicly available data and we provide tooling to explore training datasets, we share [technical lessons and mistakes](https://github.com/huggingface/m4-logs/blob/master/memos/README.md) of building such artifacts and assessed the model’s harmfulness by adversarially prompting it before releasing it. We hope that IDEFICS will serve as a solid foundation for more open research in multimodal AI systems while contributing to the open-science community.
+We believe that the development of state-of-the-art AI models should be more transparent. Our goal with IDEFICS is to reproduce and provide the AI community with systems that match the capabilities of large proprietary models like Flamingo. As such, we took important steps contributing to bringing transparency to these AI systems: we used only publicly available data, we provided tooling to explore training datasets, we shared [technical lessons and mistakes](https://github.com/huggingface/m4-logs/blob/master/memos/README.md) of building such artifacts and assessed the model’s harmfulness by adversarially prompting it before releasing it. We are hopeful that IDEFICS will serve as a solid foundation for more open research in multimodal AI systems.
 
-Try out the [demo](TODO: link) and the [models](https://huggingface.co/HuggingFaceM4/idefics-80b-instruct)!
+Try out the [demo](TODO: link) and the [models](https://huggingface.co/HuggingFaceM4/idefics-80b-instruct) on the hub!
 
-![Screenshot of IDEFICS generation for Woodstock of AI](TODO)
+![Screenshot of IDEFICS generation for HF Woodstock of AI](TODO)
 
 ## What is IDEFICS?
 
-IDEFICS is an 80 billion parameter multimodal model that accepts sequences of images and text as input, and generates coherent text as output. It can answer questions about images, describe visual content, create stories grounded in multiple images, etc.
+IDEFICS is an 80 billion parameters multimodal model that accepts sequences of images and texts as input, and generates coherent text as output. It can answer questions about images, describe visual content, create stories grounded in multiple images, etc.
 
-IDEFICS is an open reproduction of Flamingo and is comparable in performance with the original closed-source model across various image-text understanding benchmarks. It comes in two variants - 80B parameters and 9B parameters.
+IDEFICS is an open-access reproduction of Flamingo and is comparable in performance with the original closed-source model across various image-text understanding benchmarks. It comes in two variants - 80 billion parameters and 9 billion parameters.
 
 ![Plot comparing the performance of Flamingo, OpenFlamingo and IDEFICS](TODO)
 
@@ -41,23 +41,23 @@ We also provide fine-tuned versions [idefics-80B-instruct](https://huggingface.c
 
 ## Training Data
 
-IDEFICS was trained on a mixture of openly available datasets: Wikipedia, PMD and LAION, as well as a new 115B token dataset called [OBELICS](https://huggingface.co/datasets/HuggingFaceM4/OBELICS) that we created. OBELICS consists of 141M interleaved image-text documents scraped from the web, containing 353M images.
+IDEFICS was trained on a mixture of openly available datasets: Wikipedia, Public Multimodal Dataset and LAION, as well as a new 115B token dataset called [OBELICS](https://huggingface.co/datasets/HuggingFaceM4/OBELICS) that we created. OBELICS consists of 141 million interleaved image-text documents scraped from the web and contains 353 million images.
 
 We provide an [interactive visualization](https://atlas.nomic.ai/map/f2fba2aa-3647-4f49-a0f3-9347daeee499/ee4a84bd-f125-4bcc-a683-1b4e231cb10f) of OBELICS that allows exploring the content of the dataset with [Nomic AI](https://home.nomic.ai/).
 
-The complete details of the IDEFICS architecture, training methodology, and evaluations, as well as information about the dataset are available in the [model card](https://huggingface.co/HuggingFaceM4/idefics-80b-instruct) and our [research paper](TODO).
+The details of IDEFICS' architecture, training methodology, and evaluations, as well as information about the dataset are available in the [model card](https://huggingface.co/HuggingFaceM4/idefics-80b-instruct) and our [research paper](TODO).
 
 ## Ethical evaluation
 
-At the outset of this project, through a set of discussions, the team developed an ethical charter (https://huggingface.co/blog/ethical-charter-multimodal) that would help steer decisions made during the project. This charter sets out values, including being self-critical, transparent, and fairness which we have sought to pursue in how we approached the project itself and the release of this model.
+At the outset of this project, through a set of discussions, we developed an ethical charter (https://huggingface.co/blog/ethical-charter-multimodal) that would help steer decisions made during the project. This charter sets out values, including being self-critical, transparent, and fairness which we have sought to pursue in how we approached the project itself and the release of this model.
 
 As part of the release process, we internally evaluated the model for potential biases by adversarially prompting the model with images and text that might elicit responses we do not want from the model (a process known as red teaming). We also carried out a more systematic evaluation of potential biases in the model.
 
-Please try out IDEFICS with the demo (link) and let us know your feedback by using the community tab! We are committed to improving these models and making large multimodal AI models more accessible to everyone.
+Please try out IDEFICS with the [demo](TODO) and let us know your feedback by using the community tab! We are committed to improving these models and making large multimodal AI models more accessible to the machine learing community.
 
 ## Getting Started with IDEFICS
 
-IDEFICS models are available on Hugging Face. Here is code sample to try it out:
+IDEFICS models are available on the Hugging Face Hub. Here is code sample to try it out:
 
 ```python
 import torch
