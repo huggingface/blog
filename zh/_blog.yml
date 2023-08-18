@@ -797,3 +797,14 @@
     - ai-for-games
     - game-dev
 
+- local: 3d-assets
+  title: "手把手教你使用人工智能生成 3D 素材"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail-3d.jpg
+  date: August 01, 2023
+  tags:
+    - community
+    - guide
+    - cv
+    - diffusion
+    - game-dev
