@@ -49,7 +49,7 @@ translators:
 
 ## 第四步：生成纹理
 
-让我们生成一个自定义纹理。在 Blender 中打开 UV 编辑器，按 'N' 打开属性菜单。点击 'Dream' 标签并选择 texture-diffusion 模型。将提示设置为 'texture'，无缝设置为 'both'。这将确保生成的图像是无缝纹理。
+让我们生成一个自定义纹理。在 Blender 中打开 UV 编辑器，按 'N' 打开属性菜单。点击 'Dream' 标签并选择 texture-diffusion 模型。将 Prompt 设置为 'texture'、Seamless 设置为 'both'。这将确保生成的图像是无缝纹理。
 
 在 'subject' 下，输入你想要的纹理，例如 'Wood Wall'，然后点击 'Generate'。当你对结果满意时，为其命名并保存。
 
