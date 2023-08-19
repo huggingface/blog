@@ -23,7 +23,7 @@ We are excited to release IDEFICS (**I**mage-aware **D**ecoder **E**nhanced à l
 
 The development of state-of-the-art AI models should be more transparent. Our goal with IDEFICS is to reproduce and provide the AI community with systems that match the capabilities of large proprietary models like Flamingo. As such, we took important steps contributing to bringing transparency to these AI systems: we used only publicly available data, we provided tooling to explore training datasets, we shared [technical lessons and mistakes](https://github.com/huggingface/m4-logs/blob/master/memos/README.md) of building such artifacts and assessed the model’s harmfulness by adversarially prompting it before releasing it. We are hopeful that IDEFICS will serve as a solid foundation for more open research in multimodal AI systems.
 
-Try out the [demo](TODO: link) and the [models](https://huggingface.co/HuggingFaceM4/idefics-80b-instruct) on the hub!
+Try out the [demo](TODO: link) and the [models](https://huggingface.co/HuggingFaceM4/idefics-80b-instruct) on the Hub!
 
 <p align="center">
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/introducing-idefics/woodstock_ai.png" width="600" alt="Screenshot of IDEFICS generation for HF Woodstock of AI"/>
