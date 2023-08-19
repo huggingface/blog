@@ -1,6 +1,6 @@
 ---
 title: "Introducing IDEFICS: An Open Reproduction of State-of-the-art Visual Langage Model"
-thumbnail: /blog/assets/71_ethical-charter/thumbnail.jpg
+thumbnail: /blog/assets/introducing_idefics/thumbnail.jpg
 authors:
 - user: HugoLaurencon
 - user: davanstrien
@@ -19,15 +19,15 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-<!-- TODO: recognize full list of co-authors -->
-
 We are excited to release IDEFICS (**I**mage-aware **D**ecoder **E**nhanced à la **F**lamingo with **I**nterleaved **C**ross-attention**S**), an open-access visual language model. IDEFICS is based on [Flamingo](https://huggingface.co/papers/2204.14198), a state-of-the-art visual language model initially developed by DeepMind, which has not been released publicly. Similarly to GPT-4, the model accepts arbitrary sequences of image and text inputs and produces text outputs. IDEFICS is built solely on publicly available data and models and comes in two variants: the base version and the instructed version.
 
 We believe that the development of state-of-the-art AI models should be more transparent. Our goal with IDEFICS is to reproduce and provide the AI community with systems that match the capabilities of large proprietary models like Flamingo. As such, we took important steps contributing to bringing transparency to these AI systems: we used only publicly available data, we provided tooling to explore training datasets, we shared [technical lessons and mistakes](https://github.com/huggingface/m4-logs/blob/master/memos/README.md) of building such artifacts and assessed the model’s harmfulness by adversarially prompting it before releasing it. We are hopeful that IDEFICS will serve as a solid foundation for more open research in multimodal AI systems.
 
 Try out the [demo](TODO: link) and the [models](https://huggingface.co/HuggingFaceM4/idefics-80b-instruct) on the hub!
 
-![Screenshot of IDEFICS generation for HF Woodstock of AI](TODO)
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/introducing-idefics/woodstock_ai.png" width="600" alt="Screenshot of IDEFICS generation for HF Woodstock of AI"/>
+</p>
 
 ## What is IDEFICS?
 
@@ -35,7 +35,9 @@ IDEFICS is an 80 billion parameters multimodal model that accepts sequences of i
 
 IDEFICS is an open-access reproduction of Flamingo and is comparable in performance with the original closed-source model across various image-text understanding benchmarks. It comes in two variants - 80 billion parameters and 9 billion parameters.
 
-![Plot comparing the performance of Flamingo, OpenFlamingo and IDEFICS](TODO)
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/introducing-idefics/Figure_Evals_IDEFICS.png" width="600" alt="Plot comparing the performance of Flamingo, OpenFlamingo and IDEFICS"/>
+</p>
 
 We also provide fine-tuned versions [idefics-80B-instruct](https://huggingface.co/HuggingFaceM4/idefics-80b-instruct) and [idefics-9B-instruct](https://huggingface.co/HuggingFaceM4/idefics-9b-instruct) adapted for conversational use cases.
 
@@ -45,7 +47,11 @@ IDEFICS was trained on a mixture of openly available datasets: Wikipedia, Public
 
 We provide an [interactive visualization](https://atlas.nomic.ai/map/f2fba2aa-3647-4f49-a0f3-9347daeee499/ee4a84bd-f125-4bcc-a683-1b4e231cb10f) of OBELICS that allows exploring the content of the dataset with [Nomic AI](https://home.nomic.ai/).
 
-The details of IDEFICS' architecture, training methodology, and evaluations, as well as information about the dataset, are available in the [model card](https://huggingface.co/HuggingFaceM4/idefics-80b-instruct) and our [research paper](TODO). Additionally, we have documented [technical insights and learnings](https://github.com/huggingface/m4-logs/blob/master/memos/README.md) from the model's training, offering valuable perspective on IDEFICS' development.
+<p align="center">
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/introducing-idefics/obelics_nomic_map.png" width="600" alt="Interactive visualization of OBELICS"/>
+</p>
+
+The details of IDEFICS' architecture, training methodology, and evaluations, as well as information about the dataset, are available in the [model card](https://huggingface.co/HuggingFaceM4/idefics-80b-instruct) and our [research paper](https://huggingface.co/papers/2306.16527). Additionally, we have documented [technical insights and learnings](https://github.com/huggingface/m4-logs/blob/master/memos/README.md) from the model's training, offering valuable perspective on IDEFICS' development.
 
 ## Ethical evaluation
 
