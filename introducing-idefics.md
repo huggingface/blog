@@ -55,6 +55,12 @@ As part of the release process, we internally evaluated the model for potential 
 
 Please try out IDEFICS with the [demo](TODO) and let us know your feedback by using the community tab! We are committed to improving these models and making large multimodal AI models more accessible to the machine learing community.
 
+## License
+
+The model is built on top of two pre-trained models: [laion/CLIP-ViT-H-14-laion2B-s32B-b79K](https://huggingface.co/laion/CLIP-ViT-H-14-laion2B-s32B-b79K) and [huggyllama/llama-65b](https://huggingface.co/huggyllama/llama-65b). The first was released under an MIT license, while the second was released under a specific non-commercial license focused on research purposes. As such, users should comply with that license by applying directly to [Meta's form](https://docs.google.com/forms/d/e/1FAIpQLSfqNECQnMkycAp2jP4Z9TFX0cGR4uf7b_fBxjY_OjhJILlKGA/viewform).
+
+The two pre-trained models are connected to each other with newly initialized parameters, and we release the additional weights we trained under an MIT license.
+
 ## Getting Started with IDEFICS
 
 IDEFICS models are available on the Hugging Face Hub. Here is code sample to try it out:
