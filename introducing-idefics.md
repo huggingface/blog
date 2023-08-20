@@ -69,7 +69,7 @@ The two pre-trained models are connected to each other with newly initialized pa
 
 ## Getting Started with IDEFICS
 
-IDEFICS models are available on the Hugging Face Hub. Here is code sample to try it out:
+IDEFICS models are available on the Hugging Face Hub and supported in the last `transformers` version. Here is a code sample to try it out:
 
 ```python
 import torch
