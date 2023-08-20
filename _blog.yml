@@ -2659,10 +2659,10 @@
     - partnerships
     - aws
 
-- local: introducing-idefics
+- local: idefics
   title: "Introducing IDEFICS: An Open Reproduction of State-of-the-art Visual Langage Model"
   author: VictorSanh
-  thumbnail: /blog/assets/introducing_idefics/thumbnail.png
+  thumbnail: /blog/assets/idefics/thumbnail.png
   date: August 22, 2023
   tags:
     - research
