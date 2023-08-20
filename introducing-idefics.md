@@ -8,8 +8,11 @@ authors:
 - user: Leyo
 - user: SaulLu
 - user: TimeRobber
+  guest: true
 - user: skaramcheti
+  guest: true
 - user: aps
+  guest: true
 - user: giadap
 - user: VictorSanh
 ---
@@ -19,9 +22,9 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-We are excited to release IDEFICS (**I**mage-aware **D**ecoder **E**nhanced à la **F**lamingo with **I**nterleaved **C**ross-attention**S**), an open-access visual language model. IDEFICS is based on [Flamingo](https://huggingface.co/papers/2204.14198), a state-of-the-art visual language model initially developed by DeepMind, which has not been released publicly. Similarly to GPT-4, the model accepts arbitrary sequences of image and text inputs and produces text outputs. IDEFICS is built solely on publicly available data and models and comes in two variants: the base version and the instructed version.
+We are excited to release IDEFICS (**I**mage-aware **D**ecoder **E**nhanced à la **F**lamingo with **I**nterleaved **C**ross-attention**S**), an open-access visual language model. IDEFICS is based on [Flamingo](https://huggingface.co/papers/2204.14198), a state-of-the-art visual language model initially developed by DeepMind, which has not been released publicly. Similarly to GPT-4, the model accepts arbitrary sequences of image and text inputs and produces text outputs. IDEFICS is built solely on publicly available data and models (LLaMA v1 and OpenCLIP) and comes in two variants—the base version and the instructed version. Each variant is available at the 9 billion and 80 billion parameter sizes.
 
-The development of state-of-the-art AI models should be more transparent. Our goal with IDEFICS is to reproduce and provide the AI community with systems that match the capabilities of large proprietary models like Flamingo. As such, we took important steps contributing to bringing transparency to these AI systems: we used only publicly available data, we provided tooling to explore training datasets, we shared [technical lessons and mistakes](https://github.com/huggingface/m4-logs/blob/master/memos/README.md) of building such artifacts and assessed the model’s harmfulness by adversarially prompting it before releasing it. We are hopeful that IDEFICS will serve as a solid foundation for more open research in multimodal AI systems.
+The development of state-of-the-art AI models should be more transparent. Our goal with IDEFICS is to reproduce and provide the AI community with systems that match the capabilities of large proprietary models like Flamingo. As such, we took important steps contributing to bringing transparency to these AI systems: we used only publicly available data, we provided tooling to explore training datasets, we shared [technical lessons and mistakes](https://github.com/huggingface/m4-logs/blob/master/memos/README.md) of building such artifacts and assessed the model’s harmfulness by adversarially prompting it before releasing it. We are hopeful that IDEFICS will serve as a solid foundation for more open research in multimodal AI systems, alongside models like [OpenFlamingo](https://huggingface.co/openflamingo)-another open reproduction of Flamingo at the 9 billion parameter scale.
 
 Try out the [demo](TODO: link) and the [models](https://huggingface.co/HuggingFaceM4/idefics-80b-instruct) on the Hub!
 
