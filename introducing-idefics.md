@@ -43,7 +43,7 @@ We also provide fine-tuned versions [idefics-80B-instruct](https://huggingface.c
 
 ## Training Data
 
-IDEFICS was trained on a mixture of openly available datasets: Wikipedia, Public Multimodal Dataset and LAION, as well as a new 115B token dataset called [OBELICS](https://huggingface.co/datasets/HuggingFaceM4/OBELICS) that we created. OBELICS consists of 141 million interleaved image-text documents scraped from the web and contains 353 million images.
+IDEFICS was trained on a mixture of openly available datasets: Wikipedia, Public Multimodal Dataset, and LAION, as well as a new 115B token dataset called [OBELICS](https://huggingface.co/datasets/HuggingFaceM4/OBELICS) that we created. OBELICS consists of 141 million interleaved image-text documents scraped from the web and contains 353 million images.
 
 We provide an [interactive visualization](https://atlas.nomic.ai/map/f2fba2aa-3647-4f49-a0f3-9347daeee499/ee4a84bd-f125-4bcc-a683-1b4e231cb10f) of OBELICS that allows exploring the content of the dataset with [Nomic AI](https://home.nomic.ai/).
 
