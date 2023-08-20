@@ -31,7 +31,7 @@ Try out the [demo](TODO: link) and the [models](https://huggingface.co/HuggingFa
 
 ## What is IDEFICS?
 
-IDEFICS is an 80 billion parameters multimodal model that accepts sequences of images and texts as input, and generates coherent text as output. It can answer questions about images, describe visual content, create stories grounded in multiple images, etc.
+IDEFICS is an 80 billion parameters multimodal model that accepts sequences of images and texts as input and generates coherent text as output. It can answer questions about images, describe visual content, create stories grounded in multiple images, etc.
 
 IDEFICS is an open-access reproduction of Flamingo and is comparable in performance with the original closed-source model across various image-text understanding benchmarks. It comes in two variants - 80 billion parameters and 9 billion parameters.
 
