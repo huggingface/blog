@@ -59,7 +59,7 @@ At the outset of this project, through a set of discussions, we developed an eth
 
 As part of the release process, we internally evaluated the model for potential biases by adversarially prompting the model with images and text that might elicit responses we do not want from the model (a process known as red teaming). We also carried out a more systematic evaluation of potential biases in the model.
 
-Please try out IDEFICS with the [demo](TODO) and let us know your feedback by using the community tab! We are committed to improving these models and making large multimodal AI models more accessible to the machine learing community.
+Please try out IDEFICS with the [demo](TODO) and let us know your feedback using the community tab! We are committed to improving these models and making large multimodal AI models accessible to the machine learning community.
 
 ## License
 
