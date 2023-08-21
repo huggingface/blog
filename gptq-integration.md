@@ -21,7 +21,7 @@ This integration is available both for Nvidia GPUs, and RoCm-powered AMD GPUs.
 This blogpost and release come with several resources to get started with GPTQ quantization:
 
 - [Original Paper](https://arxiv.org/pdf/2210.17323.pdf)
-- Basic usage Google Colab notebook -  This notebook shows how to quantize your transformers model with GPTQ method, how to do inference, and how to do fine-tuning with the quantized model.
+- [Basic usage Google Colab notebook](https://colab.research.google.com/drive/1_TIrmuKOFhuRRiTWN94iLKUFu6ZX4ceb?usp=sharing) -  This notebook shows how to quantize your transformers model with GPTQ method, how to do inference, and how to do fine-tuning with the quantized model.
 - Transformers integration [documentation](https://huggingface.co/docs/transformers/main/en/main_classes/quantization)
 - Optimum integration [documentation](https://huggingface.co/docs/optimum/llm_quantization/usage_guides/quantization)
 - The Bloke [repository](https://huggingface.co/TheBloke?sort_models=likes#models) with compatible GPTQ models.
