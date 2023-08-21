@@ -51,7 +51,9 @@ IDEFICS was trained on a mixture of openly available datasets: Wikipedia, Public
 We provide an [interactive visualization](https://atlas.nomic.ai/map/f2fba2aa-3647-4f49-a0f3-9347daeee499/ee4a84bd-f125-4bcc-a683-1b4e231cb10f) of OBELICS that allows exploring the content of the dataset with [Nomic AI](https://home.nomic.ai/).
 
 <p align="center">
-    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/idefics/obelics_nomic_map.png" width="600" alt="Interactive visualization of OBELICS"/>
+    <a href="https://atlas.nomic.ai/map/f2fba2aa-3647-4f49-a0f3-9347daeee499/ee4a84bd-f125-4bcc-a683-1b4e231cb10f">
+      <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/idefics/obelics_nomic_map.png" width="600" alt="Interactive visualization of OBELICS"/>
+    </a>
 </p>
 
 The details of IDEFICS' architecture, training methodology, and evaluations, as well as information about the dataset, are available in the [model card](https://huggingface.co/HuggingFaceM4/idefics-80b-instruct) and our [research paper](https://huggingface.co/papers/2306.16527). Additionally, we have documented [technical insights and learnings](https://github.com/huggingface/m4-logs/blob/master/memos/README.md) from the model's training, offering valuable perspective on IDEFICS' development.
