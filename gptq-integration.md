@@ -2,7 +2,7 @@
 title: "Llama 2 is here - get it on Hugging Face" 
 thumbnail: /blog/assets/159_autogptq_transformers/thumbnail.jpg
 authors:
-- user: marcsun
+- user: marcsun13
 - user: fxmarty
 - user: ybelkada
 - user: TheBloke

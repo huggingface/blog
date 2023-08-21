@@ -2658,3 +2658,13 @@
     - announcement
     - partnerships
     - aws
+
+- local: gptq-integration
+  title: "Making the LLMs lighter with AutoGPTQ, transformers and optimum"
+  author: marcsun13
+  thumbnail: /blog/assets/159_autogptq_transformers/thumbnail.jpg
+  date: August 23, 2023
+  tags:
+    - llm
+    - optimization
+    - quantization
