@@ -17,7 +17,7 @@ authors:
 
 Large language models have demonstrated remarkable capabilities in understanding and generating human-like text, revolutionizing applications across various domains. However, the demands they place on consumer hardware for training and deployment have become increasingly challenging to meet. 
 
-🤗 Hugging Face's core mission is to _democratize good machine learning_, and this includes making large models as accessible as possible for everyone. In the same spirit as our [bitsandbytes collaboration](https://huggingface.co/blog/4bit-transformers-bitsandbytes), we have just integrated the [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) library in Transformers, making it possible for users to quantize and run models in 8, 4, 3, or even 2-bit precision using the GPTQ algorithm ([Frantar et al. 2023](https://arxiv.org/pdf/2210.17323.pdf)). There is negligible accuracy degradation with 4-bit quantization, with inference speed comparable to the `fp16` baseline for small batch sizes. 
+🤗 Hugging Face's core mission is to _democratize good machine learning_, and this includes making large models as accessible as possible for everyone. In the same spirit as our [bitsandbytes collaboration](https://huggingface.co/blog/4bit-transformers-bitsandbytes), we have just integrated the [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) library in Transformers, making it possible for users to quantize and run models in 8, 4, 3, or even 2-bit precision using the GPTQ algorithm ([Frantar et al. 2023](https://arxiv.org/pdf/2210.17323.pdf)). There is negligible accuracy degradation with 4-bit quantization, with inference speed comparable to the `fp16` baseline for small batch sizes. Note that GPTQ method slightly differs from post-training quantization methods proposed by bitsandbytes as it requires to pass a calibration dataset.
 
 This integration is available both for Nvidia GPUs, and RoCm-powered AMD GPUs.
 
@@ -176,6 +176,8 @@ Do not miss the useful resources shared above for better understanding the integ
 
 ## Acknowledgements
 
-We would like to thank [William](https://github.com/PanQiWei) for his support and his work on the amazing AutoGPTQ library and for his help in the integration. We would also like to thank [TheBloke](https://huggingface.co/TheBloke) for his work on quantizing many models with AutoGPTQ and sharing them on the Hub and for his help with the integration. 
+We would like to thank [William](https://github.com/PanQiWei) for his support and his work on the amazing AutoGPTQ library and for his help in the integration. 
+We would also like to thank [TheBloke](https://huggingface.co/TheBloke) for his work on quantizing many models with AutoGPTQ and sharing them on the Hub and for his help with the integration. 
+We would also like to aknowledge [qwopqwop200](https://github.com/qwopqwop200) for his continuous contributions on AutoGPTQ library and his work on extending the library for CPU that is going to be released in the next versions of AutoGPTQ. 
 
 Finally, we would like to thank [Pedro Cuenca](https://github.com/pcuenca) for his help with the writing of this blogpost.
