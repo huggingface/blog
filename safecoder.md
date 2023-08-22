@@ -1,6 +1,6 @@
 ---
 title: "Introducing SafeCoder" 
-thumbnail: /blog/assets/159_safecoder/safecoder.png
+thumbnail: /blog/assets/159_safecoder/thumbnail.jpg
 authors:
 - user: jeffboudier
 - user: philschmid
@@ -21,6 +21,9 @@ Before we dive deeper, here’s what you need to know:
 - SafeCoder is built with security and privacy as core principles - code never leaves the VPC during training or inference
 - SafeCoder is designed for self-hosting by the customer on their own infrastructure
 - SafeCoder is designed for customers to own their own Code Large Language Model
+
+![example](/blog/assets/159_safecoder/coding-example.gif)
+
 
 ## Why SafeCoder?
 
@@ -85,5 +88,7 @@ Once SafeCoder is deployed and its endpoints are live within the customer VPC, d
 Today, we are announcing SafeCoder in collaboration with VMware at the VMware Explore conference and making SafeCoder available to VMware enterprise customers. Working with VMware helps ensure the deployment of SafeCoder on customers’ VMware Cloud infrastructure is successful – whichever cloud, on-premises or hybrid infrastructure scenario is preferred by the customer. In addition to utilizing SafeCoder, VMware has published a [reference architecture](https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/docs/vmware-baseline-reference-architecture-for-generative-ai.pdf) with code samples to enable the fastest possible time-to-value when deploying and operating SafeCoder on VMware infrastructure. VMware’s Private AI Reference Architecture makes it easy for organizations to quickly leverage popular open source projects such as ray and kubeflow to deploy AI services adjacent to their private datasets, while working with Hugging Face to ensure that organizations maintain the flexibility to take advantage of the latest and greatest in open-source models. This is all without tradeoffs in total cost of ownership or performance.
 
 “Our collaboration with Hugging Face around SafeCoder fully aligns to VMware’s goal of enabling customer choice of solutions while maintaining privacy and control of their business data. In fact, we have been running SafeCoder internally for months and have seen excellent results. Best of all, our collaboration with Hugging Face is just getting started, and I’m excited to take our solution to our hundreds of thousands of customers worldwide,” says Chris Wolf, Vice President of VMware AI Labs. Learn more about private AI and VMware’s differentiation in this emerging space [here](https://octo.vmware.com/vmware-private-ai-foundation/).
+
+---
 
 If you’re interested in SafeCoder for your company, please contact us [here](mailto:api-enterprise@huggingface.co?subject=SafeCoder) - our team will contact you to discuss your requirements!
