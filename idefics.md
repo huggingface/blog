@@ -61,7 +61,7 @@ The details of IDEFICS' architecture, training methodology, and evaluations, as 
 
 ## Ethical evaluation
 
-At the outset of this project, through a set of discussions, we developed an ethical charter (https://huggingface.co/blog/ethical-charter-multimodal) that would help steer decisions made during the project. This charter sets out values, including being self-critical, transparency, and fairnes which we have sought to pursue in how we approached the project and the release of the models.
+At the outset of this project, through a set of discussions, we developed an ethical charter (https://huggingface.co/blog/ethical-charter-multimodal) that would help steer decisions made during the project. This charter sets out values, including being self-critical, transparency, and fairness which we have sought to pursue in how we approached the project and the release of the models.
 
 As part of the release process, we internally evaluated the model for potential biases by adversarially prompting the model with images and text that might elicit responses we do not want from the model (a process known as red teaming).
 
