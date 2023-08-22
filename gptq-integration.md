@@ -151,4 +151,4 @@ On the kernel side as well, designing performant W4A16 kernels for larger batch 
 
 In this initial implementation, only large language models with a decoder or encoder only architecture are supported. This may sound a bit restrictive, but it encompasses most state of the art LLMs such as Llama, OPT, GPT-Neo, GPT-NeoX.
 
-Support for very large vision, audio, and multi-modal models are currently not supported yet.
+Very large vision, audio, and multi-modal models are currently not supported.
