@@ -1,5 +1,5 @@
 ---
-title: "Making LLMs lighter with AutoGPTQ, transformers and optimum" 
+title: "Making LLMs lighter with AutoGPTQ, transformers" 
 thumbnail: /blog/assets/159_autogptq_transformers/thumbnail.jpg
 authors:
 - user: marcsun13
@@ -13,7 +13,7 @@ authors:
   guest: true
 ---
 
-# Making LLMs lighter with AutoGPTQ, transformers and optimum
+# Making LLMs lighter with AutoGPTQ, transformers
 
 Large language models have demonstrated remarkable capabilities in understanding and generating human-like text, revolutionizing applications across various domains. However, the demands they place on consumer hardware for training and deployment have become increasingly challenging to meet. 
 
