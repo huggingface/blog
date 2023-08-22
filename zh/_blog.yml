@@ -808,3 +808,14 @@
     - cv
     - diffusion
     - game-dev
+
+- local: dpo-trl
+  title: "使用 DPO 微调 Llama 2"
+  author: kashif
+  thumbnail: /blog/assets/157_dpo_trl/dpo_thumbnail.png
+  date: August 8, 2023
+  tags:
+    - rl
+    - rlhf
+    - nlp
+
