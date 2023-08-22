@@ -68,7 +68,7 @@ To learn more about the exact algorithm and the different benchmarks on perplexi
 
 The AutoGPTQ library enables users to quantize 🤗 Transformers models using the GPTQ method. While parallel community efforts such as [GPTQ-for-LLaMa](https://github.com/qwopqwop200/GPTQ-for-LLaMa), [Exllama](https://github.com/turboderp/exllama) and [llama.cpp](https://github.com/ggerganov/llama.cpp/) implement quantization methods strictly for the Llama architecture, AutoGPTQ gained popularity through its smooth coverage of a wide range of transformer architectures.
 
-Thus, to make running large models through transformers even more accessible, we decided to provide an API natively in 🤗 Transformers to quantize and run models using AutoGPTQ. For now, we only integrated the most common optimization options such as CUDA kernels. For more advanced options such as Triton kernels or fused-attention compatibility, check out directly the [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) library.
+Since the AutoGPTQ library has a larger coverage of transformers models, we decided to provide an integrated 🤗 Transformers API to make LLM quantization more accessible to everyone. At this time we have integrated the most common optimization options, such as CUDA kernels. For more advanced options like Triton kernels or fused-attention compatibility, check out the [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) library.
 
 ## Native support of GPTQ models in 🤗 Transformers
 
