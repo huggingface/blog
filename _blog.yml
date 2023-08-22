@@ -2668,3 +2668,15 @@
     - research
     - nlp
     - cv
+
+- local: safecoder
+  title: "Introducing SafeCoder"
+  author: jeffboudier
+  thumbnail: /blog/assets/159_safecoder/safecoder.png
+  date: August 22, 2023
+  tags:
+    - announcement
+    - partnerships
+    - vmware
+    - bigcode
+
