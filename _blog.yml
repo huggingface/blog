@@ -2623,3 +2623,38 @@
     - rl
     - rlhf
     - nlp
+    
+- local: deploy-deepfloydif-using-bentoml
+  title: "Deploying Hugging Face Models with BentoML: DeepFloyd IF in Action"
+  author: Sherlockk
+  guest: true
+  thumbnail: /blog/assets/deploy-deepfloydif-using-bentoml/thumbnail.png
+  date: August 9, 2023
+  tags:
+    - deployment
+    - open-source-collab
+    - bentoml
+    - guide
+    - diffusers
+
+- local: optimizing-bark
+  title: "Optimizing Bark using 🤗 Transformers"
+  author: ylacombe
+  thumbnail: /blog/assets/bark_optimization/thumbnail.png
+  date: August 9, 2023
+  tags:
+    - text-to-speech
+    - optimization
+    - benchmark
+    - bark
+
+- local: aws-marketplace
+  title: "Hugging Face Platform on the AWS Marketplace: Pay with your AWS Account"
+  author: philschmid
+  thumbnail: /blog/assets/158_aws_marketplace/thumbnail.jpg
+  date: August 10, 2023
+  tags:
+    - guide
+    - announcement
+    - partnerships
+    - aws
