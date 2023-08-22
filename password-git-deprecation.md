@@ -1,5 +1,5 @@
 ---
-title: Password Git Authentication Deprecation
+title: Deprecation of Git Authentication using password
 thumbnail: TODO
 authors:
 - user: Sylvestre
@@ -12,12 +12,12 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-As part of our commitment to improving the security of our services, we are making changes to the way you authenticate with the Hugging Face Hub Git.
-Starting from **October 1st, 2023**, we will no longer accept account passwords for authenticated Git operations. Instead, we recommend using most secure authentication, such as personal access tokens or SSH keys.
+Because we are committed to improving the security of our services, we are making changes to the way you authenticate with the Hugging Face Hub Git.
+Starting from **October 1st, 2023**, we will no longer accept password as a way to authenticate your command-line Git operations. Instead, we recommend using most secure authentication, such replacing password with a personal access token, or using a SSH key.
 
 ## Background
 
-In recent months, we have implemented various security enhancements, including sign-in alerts and support for SSH keys. However, users have still been able to authenticate Git operations using their username and password. To further improve security, we are now transitioning to token-based or SSH key authentication.
+In recent months, we have implemented various security enhancements, including sign-in alerts and support for SSH keys in git. However, users have still been able to authenticate Git operations using their username and password. To further improve security, we are now transitioning to token-based or SSH key authentication.
 
 ## Action Required Today
 
@@ -32,13 +32,13 @@ After generating your access token, you can update your git repository using the
 $: git remote set-url origin https://<token>@huggingface.co/<user_name>/<repo_name>
 $: git pull https://<token>@huggingface.co/<user_name>/<repo_name>.git
 ```
-
+or if you clone a new repo, you can just input a token in place of a password when your Git credential manager asks you for your authentication credentials.
 
 ### Switching to SSH keys
 
 Follow our guide to generate a SSH key and add it to your account, https://huggingface.co/docs/hub/security-git-ssh
 
-Then I'll be able to update your git repository using:
+Then you'll be able to update your git repository using:
 
 ```bash
 $: git remote set-url origin git@hf.co:<user_name>/<repo_name>
