@@ -17,7 +17,7 @@ authors:
 - user: VictorSanh
 ---
 
-# Introducing IDEFICS: An Open Reproduction of State-of-the-art Visual Langage Model
+# Introducing IDEFICS: An Open Reproduction of State-of-the-Art Visual Language Model
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
