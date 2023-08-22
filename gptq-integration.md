@@ -152,3 +152,28 @@ On the kernel side as well, designing performant W4A16 kernels for larger batch 
 In this initial implementation, only large language models with a decoder or encoder only architecture are supported. This may sound a bit restrictive, but it encompasses most state of the art LLMs such as Llama, OPT, GPT-Neo, GPT-NeoX.
 
 Very large vision, audio, and multi-modal models are currently not supported.
+
+## Conclusion and final words
+
+In this blogpost we have presented the integration of the [AutoGPTQ library](https://github.com/PanQiWei/AutoGPTQ) in Transformers, making it possible to quantize LLMs with the GPTQ method to make them more accessible for anyone in the community to build exciting tools and applications with LLMs. 
+
+This integration is available both for Nvidia GPUs, and RoCm-powered AMD GPUs, which is a huge step towards democratizing quantized models for broader GPU architectures.
+
+The collaboration with the AutoGPTQ team has been very fruitful, and we are very grateful for their support and their work on this library.
+
+We hope that this integration will make it easier for everyone to use LLMs in their applications, and we are looking forward to seeing what you will build with it!
+
+Do not miss the useful resources shared above for better understanding the integration and how to quickly get started with GPTQ quantization.
+
+- [Original Paper](https://arxiv.org/pdf/2210.17323.pdf)
+- [Basic usage Google Colab notebook](https://colab.research.google.com/drive/1_TIrmuKOFhuRRiTWN94iLKUFu6ZX4ceb?usp=sharing) -  This notebook shows how to quantize your transformers model with GPTQ method, how to do inference, and how to do fine-tuning with the quantized model.
+- Transformers integration [documentation](https://huggingface.co/docs/transformers/main/en/main_classes/quantization)
+- Optimum integration [documentation](https://huggingface.co/docs/optimum/llm_quantization/usage_guides/quantization)
+- The Bloke [repositories](https://huggingface.co/TheBloke?sort_models=likes#models) with compatible GPTQ models.
+
+
+## Acknowledgements
+
+We would like to thank [William](https://github.com/PanQiWei) for his support and his work on the amazing AutoGPTQ library and for his help in the integration. We would also like to thank [TheBloke](https://huggingface.co/TheBloke) for his work on quantizing many models with AutoGPTQ and sharing them on the Hub and for his help with the integration. 
+
+Finally, we would like to thank [Pedro Cuenca](https://github.com/pcuenca) for his help with the writing of this blogpost.
