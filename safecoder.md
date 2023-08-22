@@ -41,7 +41,7 @@ The StarCoder models offer unique characteristics ideally suited to enterprise s
 
 - State of the art code completion results - see benchmarks in the [paper](https://huggingface.co/papers/2305.06161) and [multilingual code evaluation leaderboard](https://huggingface.co/spaces/bigcode/multilingual-code-evals)
 - Designed for inference performance: a 15B parameters model with code optimizations, Multi-Query Attention for reduced memory footprint, and Flash Attention to scale to 8,192 tokens context.
-- Trained on [the Stack](https://huggingface.co/datasets/bigcode/the-stack), an ethically sourced, open source code dataset containing only commercially permissible licensed code, with an developer opt-out mechanism from the get-go, refined through intensive PII removal and deduplication efforts.
+- Trained on [the Stack](https://huggingface.co/datasets/bigcode/the-stack), an ethically sourced, open source code dataset containing only commercially permissible licensed code, with a developer opt-out mechanism from the get-go, refined through intensive PII removal and deduplication efforts.
 
 Note: While StarCoder is the inspiration and model powering the initial version of SafeCoder, an important benefit of building a LLM solution upon open source models is that it can adapt to the latest and greatest open source models available. In the future, SafeCoder may offer other similarly commercially permissible open source models built upon ethically sourced and transparent datasets as the base LLM available for fine-tuning.
 
