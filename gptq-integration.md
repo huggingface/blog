@@ -4,6 +4,8 @@ thumbnail: /blog/assets/159_autogptq_transformers/thumbnail.jpg
 authors:
 - user: marcsun13
 - user: fxmarty
+- user: PanEa
+  guest: true
 - user: ybelkada
 - user: TheBloke
   guest: true
