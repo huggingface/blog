@@ -2660,7 +2660,7 @@
     - aws
 
 - local: idefics
-  title: "Introducing IDEFICS: An Open Reproduction of State-of-the-art Visual Langage Model"
+  title: "Introducing IDEFICS: An Open Reproduction of State-of-the-art Visual Language Model"
   author: VictorSanh
   thumbnail: /blog/assets/idefics/thumbnail.png
   date: August 22, 2023
@@ -2668,3 +2668,15 @@
     - research
     - nlp
     - cv
+
+- local: safecoder
+  title: "Introducing SafeCoder"
+  author: jeffboudier
+  thumbnail: /blog/assets/159_safecoder/thumbnail.jpg
+  date: August 22, 2023
+  tags:
+    - announcement
+    - partnerships
+    - vmware
+    - bigcode
+
