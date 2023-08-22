@@ -25,7 +25,7 @@ This blogpost and release come with several resources to get started with GPTQ q
 - [Basic usage Google Colab notebook](https://colab.research.google.com/drive/1_TIrmuKOFhuRRiTWN94iLKUFu6ZX4ceb?usp=sharing) -  This notebook shows how to quantize your transformers model with GPTQ method, how to do inference, and how to do fine-tuning with the quantized model.
 - Transformers integration [documentation](https://huggingface.co/docs/transformers/main/en/main_classes/quantization)
 - Optimum integration [documentation](https://huggingface.co/docs/optimum/llm_quantization/usage_guides/quantization)
-- The Bloke [repository](https://huggingface.co/TheBloke?sort_models=likes#models) with compatible GPTQ models.
+- The Bloke [repositories](https://huggingface.co/TheBloke?sort_models=likes#models) with compatible GPTQ models.
 
 
 ## **A gentle summary of the GPTQ paper**
