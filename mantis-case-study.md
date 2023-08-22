@@ -78,7 +78,7 @@ size   |  vCPU         |   Memory (GB)  |  ECS      |  🤗       |  % diff
 small  |  1            |  2             |  $ 33.18  | $ 43.80   |  0.24
 medium |  2            |  4             |  $ 60.38  | $ 87.61   |  0.31 
 large  |  4            |  8             |  $ 114.78 | $ 175.22  |  0.34
-xlarge |  8            | 16             |  $ 223.59 | $ 350.44  | 0.5 |
+xlarge |  8            | 16             |  $ 223.59 | $ 350.44  | 0.5 
 ```
 
 We can say a couple of things about this. Firstly, we want a managed solution to deployment, we don’t have a dedicated MLOPs team (yet), so we’re looking for a solution that helps us minimize the time we spend on deploying models, even if it costs a little more than handling the deployments ourselves.
