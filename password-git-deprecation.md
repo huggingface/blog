@@ -19,15 +19,6 @@ Starting from **October 1st, 2023**, we will no longer accept account passwords 
 
 In recent months, we have implemented various security enhancements, including sign-in alerts and support for SSH keys. However, users have still been able to authenticate Git operations using their username and password. To further improve security, we are now transitioning to token-based or SSH key authentication.
 
-## Advantages of Token-Based Authentication
-
-Token-based authentication offers several benefits over traditional password authentication:
-
-- **Unique**: Tokens can be generated per use or per device, providing an additional layer of security.
-- **Revocable**: Tokens can be individually revoked without affecting other credentials.
-- **Limited**: Tokens can be finely scoped for specific access needs.
-- **Random**: Tokens are immune to dictionary or brute force attacks.
-
 ## Action Required Today
 
 If you currently use a password to authenticate against the Git repositories of our models, datasets, or Spaces, please switch to using a personal access token or SSH keys before **October 1st, 2023**.
