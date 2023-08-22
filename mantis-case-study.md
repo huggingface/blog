@@ -12,7 +12,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Hugging Face recently launched [Inference Endpoints](); which as they put it: solves transformers in production. Inference Endpoints is a managed service that allows you to:
+Hugging Face recently launched [Inference Endpoints](https://huggingface.co/inference-endpoints); which as they put it: solves transformers in production. Inference Endpoints is a managed service that allows you to:
 
 - Deploy (almost) any model on Hugging Face Hub
 - To any cloud (AWS, and Azure, GCP on the way)
@@ -21,13 +21,13 @@ Hugging Face recently launched [Inference Endpoints](); which as they put it: so
 
 ## What were we doing?
 
-The models that we have switched over to Inference Endpoints were previously managed internally and were running on AWS [Elastic Container Service]() (ECS) backed by [AWS Fargate](). This gives you a serverless cluster which can run container based tasks. Our process was as follows:
+The models that we have switched over to Inference Endpoints were previously managed internally and were running on AWS [Elastic Container Service](https://aws.amazon.com/ecs/) (ECS) backed by [AWS Fargate](https://aws.amazon.com/fargate/). This gives you a serverless cluster which can run container based tasks. Our process was as follows:
 
-- Train model on a GPU instance (provisioned by [CML](), trained with [transformers]())
-- Upload to [Hugging Face Hub]()
-- Build API to serve model [(FastAPI)]()
-- Wrap API in container [(Docker)]()
-- Upload container to AWS [Elastic Container Repository]() (ECR)
+- Train model on a GPU instance (provisioned by [CML](https://cml.dev/), trained with [transformers](https://huggingface.co/docs/transformers/main/))
+- Upload to [Hugging Face Hub](https://huggingface.co/models)
+- Build API to serve model [(FastAPI)](https://fastapi.tiangolo.com/)
+- Wrap API in container [(Docker)](https://www.docker.com/)
+- Upload container to AWS [Elastic Container Repository](https://aws.amazon.com/ecr/) (ECR)
 - Deploy model to ECS Cluster
 
 Now, you can reasonably argue that ECS was not the best approach to serving ML models, but it served us up until now, and also allowed ML models to sit alongside other container based services, so it reduced cognitive load.
@@ -36,18 +36,18 @@ Now, you can reasonably argue that ECS was not the best approach to serving ML m
 
 With Inference Endpoints, our flow looks like this:
 
-- Train model on a GPU instance (provisioned by  [CML](), trained with [transformers]())
-- Upload to [Hugging Face Hub]()
+- Train model on a GPU instance (provisioned by  [CML](https://cml.dev/), trained with [transformers](https://huggingface.co/docs/transformers/main/))
+- Upload to [Hugging Face Hub](https://huggingface.co/models)
 - Deploy using Hugging Face Inference Endpoints.
 
-So this is significantly easier. We could also use another managed service such as [SageMaker](), [Seldon](), or [Bento ML](), etc., but since we are already uploading our model to Hugging Face hub to act as a model registry, and we’re pretty invested in Hugging Face’s other tools (like transformers, and [AutoTrain]()) using Inference Endpoints makes a lot of sense for us.
+So this is significantly easier. We could also use another managed service such as [SageMaker](https://aws.amazon.com/es/sagemaker/), [Seldon](https://www.seldon.io/), or [Bento ML](https://www.bentoml.com/), etc., but since we are already uploading our model to Hugging Face hub to act as a model registry, and we’re pretty invested in Hugging Face’s other tools (like transformers, and [AutoTrain](https://huggingface.co/autotrain)) using Inference Endpoints makes a lot of sense for us.
 
 
 ## What about Latency and Stability?
 
-Before switching to Inference Endpoints we tested different CPU endpoints types using [ab]().
+Before switching to Inference Endpoints we tested different CPU endpoints types using [ab](https://httpd.apache.org/docs/2.4/programs/ab.html).
 
-For ECS we didn’t test so extensively, but we know that a large container had a latency of about ~200ms from an instance in the same region. The tests we did for Inference Endpoints we based on text classification model fine tuned on [RoBERTa]() with the following test parameters:
+For ECS we didn’t test so extensively, but we know that a large container had a latency of about ~200ms from an instance in the same region. The tests we did for Inference Endpoints we based on text classification model fine tuned on [RoBERTa](https://huggingface.co/roberta-base) with the following test parameters:
 
 - Requester region: eu-east-1
 - Requester instance size: t3-medium
@@ -87,27 +87,27 @@ Inference Endpoints are more expensive that what we were doing before, there’s
 
 ## Some notes and caveats:
 
-- You can find pricing for Inference Endpoints [here](), but a different number is displayed when you deploy a new endpoint from the [GUI](). I’ve used the latter, which is higher.
-- The values that I present in the table for ECS + Fargate are an underestimate, but probably not by much. I extracted them from the [fargate pricing page]() and it includes just the cost of hosting the instance. I’m not including the data ingress/egress (probably the biggest thing is downloading the model from Hugging Face hub), nor have I included the costs related to ECR.
+- You can find pricing for Inference Endpoints [here](https://huggingface.co/pricing#endpoints), but a different number is displayed when you deploy a new endpoint from the [GUI](https://ui.endpoints.huggingface.co/new). I’ve used the latter, which is higher.
+- The values that I present in the table for ECS + Fargate are an underestimate, but probably not by much. I extracted them from the [fargate pricing page](https://aws.amazon.com/fargate/pricing/) and it includes just the cost of hosting the instance. I’m not including the data ingress/egress (probably the biggest thing is downloading the model from Hugging Face hub), nor have I included the costs related to ECR.
 
 ## Other considerations
 
 ### Deployment Options
 
-Currently you can deploy an Inference Endpoint from the [GUI]() or using a [RESTful API](). You can also make use of our command line tool [hugie]() (which will be the subject of a future blog) to launch Inference Endpoints in one line of code by passing a configuration, it’s really this simple:
+Currently you can deploy an Inference Endpoint from the [GUI](https://ui.endpoints.huggingface.co/new) or using a [RESTful API](https://huggingface.co/docs/inference-endpoints/api_reference). You can also make use of our command line tool [hugie](https://github.com/MantisAI/hfie) (which will be the subject of a future blog) to launch Inference Endpoints in one line of code by passing a configuration, it’s really this simple:
 
 ```bash
 hugie endpoint create example/development.json
 ```
 
-For me, what’s lacking is a [custom terraform provider](). It’s all well and good deploying an inference endpoint from a [GitHub action]() using hugie, as we do, but it would be better if we could use the awesome state machine that is terraform to keep track of these. I’m pretty sure that someone (if not Hugging Face) will write one soon enough — if not, we will.
+For me, what’s lacking is a [custom terraform provider](https://www.hashicorp.com/blog/writing-custom-terraform-providers). It’s all well and good deploying an inference endpoint from a [GitHub action](https://github.com/features/actions) using hugie, as we do, but it would be better if we could use the awesome state machine that is terraform to keep track of these. I’m pretty sure that someone (if not Hugging Face) will write one soon enough — if not, we will.
 
 ### Hosting multiple models on a single endpoint
 
-Philipp Schmid posted a really nice blog about how to write a custom [Endpoint Handler]() class to allow you to host multiple models on a single endpoint, potentially saving you quite a bit of money. His blog was about GPU inference, and the only real limitation is how many models you can fit into the GPU memory. I assume this will also work for CPU instances, though I’ve not tried yet.
+Philipp Schmid posted a really nice blog about how to write a custom [Endpoint Handler](https://www.philschmid.de/multi-model-inference-endpoints) class to allow you to host multiple models on a single endpoint, potentially saving you quite a bit of money. His blog was about GPU inference, and the only real limitation is how many models you can fit into the GPU memory. I assume this will also work for CPU instances, though I’ve not tried yet.
 
 ## To conclude…
 
-We find Hugging Face Inference Endpoints to be a very simple and convenient way to deploy transformer (and [sklearn]()) models into an endpoint so they can be consumed by an application. Whilst they cost a little more than the ECS approach we were using before, it’s well worth it because it saves us time on thinking about deployment, we can concentrate on the thing we want to: building NLP solutions for our clients to help solve their problems.
+We find Hugging Face Inference Endpoints to be a very simple and convenient way to deploy transformer (and [sklearn](https://huggingface.co/scikit-learn)) models into an endpoint so they can be consumed by an application. Whilst they cost a little more than the ECS approach we were using before, it’s well worth it because it saves us time on thinking about deployment, we can concentrate on the thing we want to: building NLP solutions for our clients to help solve their problems.
 
 _This article was originally published on February 15, 2023 [in Medium](https://medium.com/mantisnlp/why-were-switching-to-hugging-face-inference-endpoints-and-maybe-you-should-too-829371dcd330)._
