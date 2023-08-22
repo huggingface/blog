@@ -1,6 +1,6 @@
 ---
 title: "Introducing IDEFICS: An Open Reproduction of State-of-the-art Visual Langage Model"
-thumbnail: /blog/assets/introducing_idefics/thumbnail.jpg
+thumbnail: /blog/assets/idefics/thumbnail.png
 authors:
 - user: HugoLaurencon
 - user: davanstrien
