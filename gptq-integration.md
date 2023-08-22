@@ -6,17 +6,18 @@ authors:
 - user: fxmarty
 - user: ybelkada
 - user: TheBloke
+  guest: true
 ---
 
-# Making the LLMs lighter with AutoGPTQ, transformers and optimum
+# Making LLMs lighter with AutoGPTQ, transformers and optimum
 
-Large language model have demonstrated remarkable capabilities in understanding and generating human-like text, revolutionizing applications across various domains. However, as these LLMs continue to grow in size and complexity, the demands they place on consumer hardware for training and deployment have become increasingly challenging to meet. 
+Large language models have demonstrated remarkable capabilities in understanding and generating human-like text, revolutionizing applications across various domains. However, the demands they place on consumer hardware for training and deployment have become increasingly challenging to meet. 
 
-At Hugging Face 🤗, we strive to make large models as accessible as possible for everyone. In the same spirit as the bitsandbytes collaboration, we integrated in Transformers with the [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) library to allow users to quantize and run their models in 8, 4, 3 or even 2-bit precision using GPTQ algorithm ([Frantar et al. 2023](https://arxiv.org/pdf/2210.17323.pdf)). There is negligible accuracy degradation when quantizating down to 4-bit precision, with comparable inference speed over FP16 for small batch sizes.
+🤗 Hugging Face's core mission is to _democratize good machine learning_, and this includes making large models as accessible as possible for everyone. In the same spirit as our [bitsandbytes collaboration](https://huggingface.co/blog/4bit-transformers-bitsandbytes), we have just integrated the [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) library in Transformers, making it possible for users to quantize and run models in 8, 4, 3, or even 2-bit precision using the GPTQ algorithm ([Frantar et al. 2023](https://arxiv.org/pdf/2210.17323.pdf)). There is negligible accuracy degradation with 4-bit quantization, with inference speed comparable to the `fp16` baseline for small batch sizes.
 
 This integration is available both for Nvidia GPUs, and RoCm-powered AMD GPUs.
 
-## Ressources
+## Resources
 
 This blogpost and release come with several resources to get started with GPTQ quantization:
 
@@ -27,9 +28,9 @@ This blogpost and release come with several resources to get started with GPTQ q
 - The Bloke [repository](https://huggingface.co/TheBloke?sort_models=likes#models) with compatible GPTQ models.
 
 
-## **A gentle summary of GPTQ paper**
+## **A gentle summary of the GPTQ paper**
 
-Quantization methods are mostly contained into two categories: 
+Quantization methods usually belong into one of two categories: 
 
 1. Post-Training Quantization (PTQ): We quantize a pre-trained model using low resources, such as a few samples and a few hours of computation. 
 2. Quantization-Aware Training (QAT): Quantization is performed before training or further fine-tuning. 
@@ -55,7 +56,7 @@ In order to solve this layer-wise compression problem, the author uses the Optim
 
 $ \sum_{i=0}^{d_{row}} \|W_{l[i,:]}X-\hat{W}_{l[i,:]}X\|^{2}_{2} $
 
-This means that we can quantize each row independently. This is called per-channel quantization. For each row $W_{l[i,:]}$, OBQ quantize one weight at a time while always updating all not-yet-quantized weights, in order to compensate for the error incurred by quantizing a single weight. The update on selected weights has a closed-form formula, utilizing Hessian matrices. 
+This means that we can quantize each row independently. This is called per-channel quantization. For each row $W_{l[i,:]}$, OBQ quantizes one weight at a time while always updating all not-yet-quantized weights, in order to compensate for the error incurred by quantizing a single weight. The update on selected weights has a closed-form formula, utilizing Hessian matrices. 
 
 The GPTQ paper improves this framework by introducing a set of optimization that reduces the complexity of the quantization algorithm while retaining the accuracy of the model.
 
@@ -63,15 +64,15 @@ Compared to OBQ, the quantization step itself is also faster with GPTQ: it takes
 
 To learn more about the exact algorithm and the different benchmarks on perplexity and speedups, check out the original [paper](https://arxiv.org/pdf/2210.17323.pdf).
 
-## **AutoGPTQ library - the one-stop library for efficiently leveraging GPTQ method for LLMs**
+## AutoGPTQ library – the one-stop library for efficiently leveraging GPTQ for LLMs
 
-The AutoGPTQ library enables users to quantize 🤗 Transformers models using the GPTQ method. While parallel community efforts as [GPTQ-for-LLaMa](https://github.com/qwopqwop200/GPTQ-for-LLaMa), [Exllama](https://github.com/turboderp/exllama) and [llama.cpp](https://github.com/ggerganov/llama.cpp/) implement quantization methods as GPTQ with optimizations strictly for Llama, AutoGPTQ gained popularity through its smooth coverage of a wide range of transformers architectures.
+The AutoGPTQ library enables users to quantize 🤗 Transformers models using the GPTQ method. While parallel community efforts such as [GPTQ-for-LLaMa](https://github.com/qwopqwop200/GPTQ-for-LLaMa), [Exllama](https://github.com/turboderp/exllama) and [llama.cpp](https://github.com/ggerganov/llama.cpp/) implement quantization methods strictly for the Llama architecture, AutoGPTQ gained popularity through its smooth coverage of a wide range of transformer architectures.
 
 Thus, to make running large models through transformers even more accessible, we decided to provide an API natively in 🤗 Transformers to quantize and run models using AutoGPTQ. For now, we only integrated the most common optimization options such as CUDA kernels. For more advanced options such as Triton kernels or fused-attention compatibility, check out directly the [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) library.
 
 ## Native support of GPTQ models in 🤗 Transformers
 
-After [installing AutoGPTQ library](https://github.com/PanQiWei/AutoGPTQ#quick-installation) and optimum library, running GPTQ models in Transformers is now as simple as:
+After [installing the AutoGPTQ library](https://github.com/PanQiWei/AutoGPTQ#quick-installation) and `optimum` (`pip install optimum`), running GPTQ models in Transformers is now as simple as:
 
 ```python
 from transformers import AutoModelForCausalLM
@@ -81,7 +82,7 @@ model = AutoModelForCausalLM.from_pretrained("TheBloke/Llama-2-7b-Chat-GPTQ", to
 
 Check out the Transformers [documentation](https://huggingface.co/docs/transformers/main/en/main_classes/quantization) to learn more about all the features. 
 
-This integration through AutoGPTQ has many advantages:
+Our AutoGPTQ integration has many advantages:
 
 - Quantized models are serializable and can be shared on the Hub.
 - GPTQ drastically reduces the memory requirements to run LLMs, while the inference latency is on par with FP16 inference.
@@ -89,9 +90,9 @@ This integration through AutoGPTQ has many advantages:
 - The integration comes with native RoCm support for AMD GPUs.
 - Finetuning with PEFT is available.
 
-You can check on the Hub if your favorite model has already been quantized. TheBloke, one of Hugging Face top contributor, has quantized a lot of models with AutoGPTQ library and shared them on the Hugging Face Hub. We worked together to make sure that these repositories will work out of the box with our integration.
+You can check on the Hub if your favorite model has already been quantized. TheBloke, one of Hugging Face top contributors, has quantized a lot of models with AutoGPTQ and shared them on the Hugging Face Hub. We worked together to make sure that these repositories will work out of the box with our integration.
 
-Below is a sample of benchmark for the batch size = 1 case. The benchmark is done on a single NVIDIA A100-SXM4-80GB GPU. We use a prompt length of 512, and generate exactly 512 new tokens.
+This is a benchmark sample for the batch size = 1 case. The benchmark was run on a single NVIDIA A100-SXM4-80GB GPU. We used a prompt length of 512, and generated exactly 512 new tokens. The first row is the unquantized `fp16` baseline, while the other rows show memory consumption and performance using different AutoGPTQ kernels.
 
 | gptq  | act_order | bits | group_size | kernel            | Load time (s) | Per-token latency (ms) | Throughput (tokens/s) | Peak memory (MB) |
 |-------|-----------|------|------------|-------------------|---------------|------------------------|-----------------------|------------------|
@@ -102,11 +103,11 @@ Below is a sample of benchmark for the batch size = 1 case. The benchmark is don
 A more comprehensive reproducible benchmark is available [here](https://github.com/huggingface/optimum/tree/main/tests/benchmark#gptq-benchmark).
 
 
-## Quantizing models **through Optimum library**
+## Quantizing models **with the Optimum library**
 
-To integrate seemingly AutoGPTQ into Transformers library, we exposed a minimalist version of the AutoGPTQ API in [Optimum library](https://github.com/huggingface/optimum), the Hugging Face toolkit for training and inference optimization. By doing so, it is easy to integrate with Transformers through this external library, while letting people use the Optimum API if they want to quantize their own models! Check out the Optimum [documentation](https://huggingface.co/docs/optimum/llm_quantization/usage_guides/quantization) if you want to quantize your own LLMs. 
+To seamlessly integrate AutoGPTQ into Transformers, we used a minimalist version of the AutoGPTQ API that is available in [Optimum](https://github.com/huggingface/optimum), Hugging Face's toolkit for training and inference optimization. By following this approach, we achieved easy integration with Transformers, while allowing people to use the Optimum API if they want to quantize their own models! Check out the Optimum [documentation](https://huggingface.co/docs/optimum/llm_quantization/usage_guides/quantization) if you want to quantize your own LLMs. 
 
-Quantizing 🤗 Transformers models with GPTQ method can be done in a few lines:
+Quantizing 🤗 Transformers models with the GPTQ method can be done in a few lines:
 
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer, GPTQConfig
@@ -122,30 +123,30 @@ One major downside is that quantizing a model takes a long time. Note that for a
 
 ## Running GPTQ models through ***Text-Generation-Inference***
 
-In parallel to the integration of GPTQ in Transformers, GPTQ support was added in the [Text-Generation-Inference library](https://github.com/huggingface/text-generation-inference) (TGI), aimed at serving large language models with features as dynamic batching, paged attention and flash attention, that can now be used along GPTQ for a [wide range of architectures](https://huggingface.co/docs/text-generation-inference/main/en/supported_models).
+In parallel to the integration of GPTQ in Transformers, GPTQ support was added to the [Text-Generation-Inference library](https://github.com/huggingface/text-generation-inference) (TGI), aimed at serving large language models in production. GPTQ can now be used alongside features such as dynamic batching, paged attention and flash attention for a [wide range of architectures](https://huggingface.co/docs/text-generation-inference/main/en/supported_models).
 
-This integration allows for example to serve a 70b model on a single A100-80GB GPU, which is not possible using a fp16 checkpoint that exceeds the GPU available memory.
+As an example, this integration allows to serve a 70b model on a single A100-80GB GPU! This is not possible using a fp16 checkpoint as it exceeds the available GPU memory.
 
 You can find out more about the usage of GPTQ in TGI in [the documentation](https://huggingface.co/docs/text-generation-inference/main/en/basic_tutorials/preparing_model#quantization).
 
-Note that the kernel integrated in TGI does not scale very well with larger batch sizes, and although the approach saves memory, slowdowns are expected at larger batch size.
+Note that the kernel integrated in TGI does not scale very well with larger batch sizes. Although this approach saves memory, slowdowns are expected at larger batch sizes.
 
 ## **Fine-tune quantized models with PEFT**
 
-You can not train native quantized model. However, by leveraging the PEFT library, you can for example train adapters on top of them. To do that, we freeze all the layers of the quantized model and we add the adapters that are trainable. Here are some examples on how to use PEFT with GPTQ model : [colab notebook](https://colab.research.google.com/drive/1VoYNfYDKcKRQRor98Zbf2-9VQTtGJ24k?usp=sharing) and [finetuning](https://gist.github.com/SunMarc/dcdb499ac16d355a8f265aa497645996) script. 
+You can not further train a quantized model using the regular methods. However, by leveraging the PEFT library, you can train adapters on top! To do that, we freeze all the layers of the quantized model and add the trainable adapters. Here are some examples on how to use PEFT with a GPTQ model: [colab notebook](https://colab.research.google.com/drive/1VoYNfYDKcKRQRor98Zbf2-9VQTtGJ24k?usp=sharing) and [finetuning](https://gist.github.com/SunMarc/dcdb499ac16d355a8f265aa497645996) script. 
 
 ## Room for improvement
 
-As is, GPTQ already brings impressive benefits at a small cost in the quality of prediction. There are however still room for improvement, both in the quantization technique and kernel implementation.
+Our AutoGPTQ integration already brings impressive benefits at a small cost in the quality of prediction. There is still room for improvement, both in the quantization techniques and the kernel implementations.
 
-First, while AutoGPTQ integrates (to the best of our knowledge) with the most performant W4A16 kernel (weights as int4, activations as fp16) namely from the [exllama implementation](https://github.com/turboderp/exllama), there is good chance the kernel can still be improved. There have been other promising implementations [from Kim et al.](https://arxiv.org/pdf/2211.10017.pdf) and from [MIT Han Lab](https://github.com/mit-han-lab/llm-awq) that appear to be promising. Moreover, from internal benchmarks, there appears to still be no open-source performant W4A16 kernel written in Triton, which could be a direction to explore.
+First, while AutoGPTQ integrates (to the best of our knowledge) with the most performant W4A16 kernel (weights as int4, activations as fp16) from the [exllama implementation](https://github.com/turboderp/exllama), there is a good chance that the kernel can still be improved. There have been other promising implementations [from Kim et al.](https://arxiv.org/pdf/2211.10017.pdf) and from [MIT Han Lab](https://github.com/mit-han-lab/llm-awq) that appear to be promising. Moreover, from internal benchmarks, there appears to still be no open-source performant W4A16 kernel written in Triton, which could be a direction to explore.
 
-On the quantization side, let’s emphasize again that this method quantizes only the weights. There have been other approaches proposed for LLM quantization that can quantize both weights and activations at a small cost in prediction quality, as [LLM-QAT](https://arxiv.org/pdf/2305.17888.pdf) where a mixed int4/int8 scheme can be used, as well as quantization of the key-value cache. One of the strong advantage of such technique is the ability to use actual integer arithmetic for the compute, with e.g. [Nvidia Tensor Cores supporting int8 compute](https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf). However, to the best of our knowledge, there are no open-source W4A8 quantization kernel available, but this may well be [an interesting direction to explore](https://www.qualcomm.com/news/onq/2023/04/floating-point-arithmetic-for-ai-inference-hit-or-miss).
+On the quantization side, let’s emphasize again that this method only quantizes the weights. There have been other approaches proposed for LLM quantization that can quantize both weights and activations at a small cost in prediction quality, such as [LLM-QAT](https://arxiv.org/pdf/2305.17888.pdf) where a mixed int4/int8 scheme can be used, as well as quantization of the key-value cache. One of the strong advantages of this technique is the ability to use actual integer arithmetic for the compute, with e.g. [Nvidia Tensor Cores supporting int8 compute](https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/pdf/nvidia-a100-datasheet-us-nvidia-1758950-r4-web.pdf). However, to the best of our knowledge, there are no open-source W4A8 quantization kernels available, but this may well be [an interesting direction to explore](https://www.qualcomm.com/news/onq/2023/04/floating-point-arithmetic-for-ai-inference-hit-or-miss).
 
-On the kernel side as well, as the benchmarks above show, it remains open to design performant W4A16 kernel for larger batch sizes.
+On the kernel side as well, designing performant W4A16 kernels for larger batch sizes remains an open challenge.
 
 ### Supported models
 
-For now, only large language models with a decoder or encoder only architecture are supported. Even if it seems a little bit restrictive, it encompasses most of the state of art LLMs such as Llama, OPT, GPT-Neo, GPT-NeoX.
+In this initial implementation, only large language models with a decoder or encoder only architecture are supported. This may sound a bit restrictive, but it encompasses most state of the art LLMs such as Llama, OPT, GPT-Neo, GPT-NeoX.
 
 Support for very large vision, audio, and multi-modal models are currently not supported yet.
