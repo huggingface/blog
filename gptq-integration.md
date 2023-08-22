@@ -119,7 +119,7 @@ quantization_config = GPTQConfig(bits=4, dataset = "c4", tokenizer=tokenizer)
 model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto", quantization_config=quantization_config)
 ```
 
-Quantizing a model may take a long time. Note that for a 175B model, at least 4 GPU-hours are required. However, as mentioned above, many GPTQ models are already available on the Hugging Face Hub.
+Quantizing a model may take a long time. Note that for a 175B model, at least 4 GPU-hours are required if one uses a large dataset (e.g. `"c4"``). Note that one can quantize a model with their own dataset and domains if appropriate. In addition, as mentioned above, many GPTQ models are already available on the Hugging Face Hub, which bypasses the need to quantize a model yourself in most usecases.
 
 ## Running GPTQ models through ***Text-Generation-Inference***
 
