@@ -1792,6 +1792,14 @@
     - fine-tuning
     - community
     - dreambooth
+    
+- local: mantis-case-study
+  title: "Why we’re switching to Hugging Face Inference Endpoints, and maybe you should too"
+  author: mattupson
+  guest: true
+  date: February 15, 2023
+  tags:
+    - case-studies
 
 - local: blip-2
   title: "Zero-shot image-to-text generation with BLIP-2"
@@ -1982,6 +1990,14 @@
     - rl
     - rlhf
     - nlp
+    
+- local: snorkel-case-study
+  title: "Snorkel AI x Hugging Face: unlock foundation models for enterprises"
+  author: Friea Berg
+  guest: true
+  date: April 6, 2023
+  tags:
+    - case-studies
 
 - local: owkin-substra
   title: "Creating Privacy Preserving AI with Substra"
@@ -2033,6 +2049,16 @@
   tags:
     - partnerships
     - community
+
+- local: databricks-case-study
+  title: "Databricks ❤️ Hugging Face: up to 40% faster training and tuning of Large Language Models"
+  author: alighodsi
+  guest: true
+  author: maddiedawson
+  guest: true
+  date: April 26, 2023
+  tags:
+    - case-studies
 
 - local: tf_tpu
   title: "Training a language model with 🤗 Transformers using TensorFlow and TPUs"
@@ -2426,6 +2452,13 @@
     - cv
     - hardware
 
+- local: writer-case-study
+  title: "Leveraging Hugging Face for complex generative AI use cases"
+  author: jeffboudier
+  date: July 1, 2023
+  tags:
+    - case-studies
+
 - local: text-to-webapp
   title: "Making a web app generator with open ML models"
   author: jbilcke-hf
@@ -2571,37 +2604,3 @@
     - cv
     - diffusion
     - game-dev
-
-- local: writer-case-study
-  title: "Leveraging Hugging Face for complex generative AI use cases"
-  author: jeffboudier
-  date: July 1, 2023
-  tags:
-    - case-studies
-    
-- local: snorkel-case-study
-  title: "Snorkel AI x Hugging Face: unlock foundation models for enterprises"
-  author: Friea Berg
-  guest: true
-  date: April 6, 2023
-  tags:
-    - case-studies
-    
-- local: mantis-case-study
-  title: "Why we’re switching to Hugging Face Inference Endpoints, and maybe you should too"
-  author: mattupson
-  guest: true
-  date: February 15, 2023
-  tags:
-    - case-studies
-
-
-- local: databricks-case-study
-  title: "Databricks ❤️ Hugging Face: up to 40% faster training and tuning of Large Language Models"
-  author: alighodsi
-  guest: true
-  author: maddiedawson
-  guest: true
-  date: April 26, 2023
-  tags:
-    - case-studies
