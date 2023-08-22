@@ -1797,7 +1797,6 @@
   title: "Why we’re switching to Hugging Face Inference Endpoints, and maybe you should too"
   author: mattupson
   guest: true
-  thumbnail: /blog/assets/78_ml_director_insights/mantis1.png
   date: February 15, 2023
   tags:
     - case-studies
@@ -1994,8 +1993,7 @@
     
 - local: snorkel-case-study
   title: "Snorkel AI x Hugging Face: unlock foundation models for enterprises"
-  author: Friea Berg
-  guest: true
+  author: VioletteLepercq
   thumbnail: /blog/assets/78_ml_director_insights/snorkel.png
   date: April 6, 2023
   tags:
