@@ -1,5 +1,5 @@
 ---
-title: "Llama 2 is here - get it on Hugging Face" 
+title: "Making LLMs lighter with AutoGPTQ, transformers and optimum" 
 thumbnail: /blog/assets/159_autogptq_transformers/thumbnail.jpg
 authors:
 - user: marcsun13
