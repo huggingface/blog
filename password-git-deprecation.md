@@ -26,7 +26,7 @@ If you currently use your HF account password to authenticate with Git, please s
 ### Switching to personal access token
 You will need to generate an access token for your account; you can follow https://huggingface.co/docs/hub/security-tokens#user-access-tokens to generate one.
 
-After generating your access token, you can update your git repository using the following commands:
+After generating your access token, you can update your Git repository using the following commands:
 
 ```bash
 $: git remote set-url origin https://<user_name>:<token>@huggingface.co/<user_name>/<repo_name>
