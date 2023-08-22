@@ -58,7 +58,7 @@ $ \sum_{i=0}^{d_{row}} \|W_{l[i,:]}X-\hat{W}_{l[i,:]}X\|^{2}_{2} $
 
 This means that we can quantize each row independently. This is called per-channel quantization. For each row $W_{l[i,:]}$, OBQ quantizes one weight at a time while always updating all not-yet-quantized weights, in order to compensate for the error incurred by quantizing a single weight. The update on selected weights has a closed-form formula, utilizing Hessian matrices. 
 
-The GPTQ paper improves this framework by introducing a set of optimization that reduces the complexity of the quantization algorithm while retaining the accuracy of the model.
+The GPTQ paper improves this framework by introducing a set of optimizations that reduces the complexity of the quantization algorithm while retaining the accuracy of the model.
 
 Compared to OBQ, the quantization step itself is also faster with GPTQ: it takes 2 GPU-hours to quantize a BERT model (336M) with OBQ, whereas with GPTQ, a Bloom model (176B) can be quantized in less than 4 GPU-hours. 
 
