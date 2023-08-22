@@ -69,7 +69,7 @@ SafeCoder is a complete commercial solution, including service, software and sup
 
 ### Training your own SafeCoder model
 
-StarCoder was trained in more than 80 programming languages and offers state of the art performance on [multiple benchmarks](https://huggingface.co/spaces/bigcode/multilingual-code-evals). To offer better code suggestions specifically for a SafeCoder customer, we start the engagement with an optional training phase, where the Hugging Face team works directly with the customer team to guide them through prepare and build a training code dataset, and their own code generation model through fine-tuning, without ever exposing their codebase to third parties or the internet.
+StarCoder was trained in more than 80 programming languages and offers state of the art performance on [multiple benchmarks](https://huggingface.co/spaces/bigcode/multilingual-code-evals). To offer better code suggestions specifically for a SafeCoder customer, we start the engagement with an optional training phase, where the Hugging Face team works directly with the customer team to guide them through the steps to prepare and build a training code dataset, and to create their own code generation model through fine-tuning, without ever exposing their codebase to third parties or the internet.
 
 The end result is a model that is adapted to the code languages, standards and practices of the customer. Through this process, SafeCoder customers learn the process and build a pipeline for creating and updating their own models, ensuring no vendor lock-in, and keeping control of their AI capabilities.
 
