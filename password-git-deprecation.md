@@ -52,4 +52,4 @@ Here's what you can expect in the coming weeks:
 - Today: Users relying on passwords for Git authentication may receive emails urging them to update their authentication method.
 - October 1st: Personal access tokens or SSH keys will be mandatory for all Git operations.
 
-For more details, reach out to HF Support to address any questions or concerns.
+For more details, reach out to HF Support to address any questions or concerns at website@huggingface.co
