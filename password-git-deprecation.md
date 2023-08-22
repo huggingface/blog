@@ -3,7 +3,7 @@ title: Deprecation of Git Authentication using password
 thumbnail: TODO
 authors:
 - user: Sylvestre
-- user: TODO
+- user: julien-c
 
 ---
 
