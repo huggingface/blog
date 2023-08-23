@@ -2,8 +2,7 @@
 title: "Snorkel AI x Hugging Face: unlock foundation models for enterprises"
 thumbnail: /blog/assets/78_ml_director_insights/snorkel.png
 authors:
-- user: Friea Berg
-  guest: true
+- user: VioletteLepercq
 ---
 
 <h1>Snorkel AI x Hugging Face: unlock foundation models for enterprises</h1>
@@ -11,6 +10,9 @@ authors:
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
+
+_This article is a cross-post from an originally published post on April 6, 2023 [in Snorkel's blog](https://snorkel.ai/snorkel-hugging-face-unlock-foundation-models-for-enterprise/), by Friea Berg ._
+
 
 As OpenAI releases [GPT-4](https://openai.com/research/gpt-4) and Google debuts [Bard](https://gizmodo.com/google-bard-chatgpt-ai-rival-released-1850248162) in beta, enterprises around the world are excited to leverage the power of foundation models. As that excitement builds, so does the realization that most companies and organizations are not equipped to properly take advantage of foundation models.
 
@@ -47,6 +49,4 @@ Clement Delangue, co-founder and CEO, Hugging Face
 ## Conclusion
 
 Together, Snorkel and Hugging Face make it easier than ever for large companies, government agencies, and AI innovators to get value from foundation models. The ability to use Hugging Face’s comprehensive hub of foundation models means that users can pick the models that best align with their business needs without having to invest in the resources required to train them. This integration is a significant step forward in making foundation models more accessible to enterprises around the world.
-
-_This article was originally published on April 6, 2023 [in Snorkel's blog](https://snorkel.ai/snorkel-hugging-face-unlock-foundation-models-for-enterprise/)._
 
