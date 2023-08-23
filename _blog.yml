@@ -2680,3 +2680,11 @@
     - vmware
     - bigcode
 
+- local: password-git-deprecation
+  title: "Deprecation of Git Authentication using password"
+  author: Sylvestre
+  thumbnail: /blog/assets/password-git-deprecation/thumbnail.png
+  date: August 23, 2023
+  tags:
+    - announcement
+    - security

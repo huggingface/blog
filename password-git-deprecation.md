@@ -19,7 +19,7 @@ Starting from **October 1st, 2023**, we will no longer accept passwords as a way
 ## Background
 
 In recent months, we have implemented various security enhancements, including sign-in alerts and support for SSH keys in Git. However, users have still been able to authenticate Git operations using their username and password. To further improve security, we are now transitioning to token-based or SSH key authentication.
-
+Token-based and SSH key authentication offer several advantages over traditional password authentication, including unique, revocable, and random features that enhance security and control.
 ## Action Required Today
 
 If you currently use your HF account password to authenticate with Git, please switch to using a personal access token or SSH keys before **October 1st, 2023**.
@@ -44,7 +44,6 @@ Then you'll be able to update your Git repository using:
 ```bash
 $: git remote set-url origin git@hf.co:<user_name>/<repo_name>
 ```
-
 
 ## Timeline
 
