@@ -22,3 +22,6 @@ In this conversation, Jeff Boudier asks Waseem Alshikh, Co-founder and CTO of Wr
 - how important is efficiency and using CPUs for production?
 
 <iframe width="100%" style="aspect-ratio: 16 / 9;" src="https://www.youtube-nocookie.com/embed/t8Ek1aOtaQw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+_If you’re interested in Hugging Face Expert Acceleration Program for your company, please contact us [here](https://huggingface.co/support#form) - our team will contact you to discuss your requirements!_
