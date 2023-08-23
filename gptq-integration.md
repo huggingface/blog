@@ -1,5 +1,5 @@
 ---
-title: "Making LLMs lighter with AutoGPTQ, transformers" 
+title: "Making LLMs lighter with AutoGPTQ and transformers" 
 thumbnail: /blog/assets/159_autogptq_transformers/thumbnail.jpg
 authors:
 - user: marcsun13
@@ -13,7 +13,7 @@ authors:
   guest: true
 ---
 
-# Making LLMs lighter with AutoGPTQ, transformers
+# Making LLMs lighter with AutoGPTQ and transformers
 
 Large language models have demonstrated remarkable capabilities in understanding and generating human-like text, revolutionizing applications across various domains. However, the demands they place on consumer hardware for training and deployment have become increasingly challenging to meet. 
 
@@ -36,16 +36,16 @@ This blogpost and release come with several resources to get started with GPTQ q
 
 Quantization methods usually belong into one of two categories: 
 
-1. Post-Training Quantization (PTQ): We quantize a pre-trained model using low resources, such as a few samples and a few hours of computation. 
+1. Post-Training Quantization (PTQ): We quantize a pre-trained model using moderate resources, such as a calibration dataset and a few hours of computation.
 2. Quantization-Aware Training (QAT): Quantization is performed before training or further fine-tuning. 
 
-The GPTQ falls into the PTQ category and this is particularly interesting for massive models, for which full model training or even fine-tuning can be very expensive.
+GPTQ falls into the PTQ category and this is particularly interesting for massive models, for which full model training or even fine-tuning can be very expensive.
 
 Specifically, GPTQ adopts a mixed int4/fp16 quantization scheme where weights are quantized as int4 while activations remain in float16. During inference, weights are dequantized on the fly and the actual compute is performed in float16.
 
 The benefits of this scheme are twofold:
 
-- Memory savings close to x4 for int4 quantization, as the dequantization happens iteratively close to the compute unit in a fused kernel, and not in the GPU global memory.
+- Memory savings close to x4 for int4 quantization, as the dequantization happens close to the compute unit in a fused kernel, and not in the GPU global memory.
 - Potential speedups thanks to the time saved on data communication due to the lower bitwidth used for weights.
 
 The GPTQ paper tackles the layer-wise compression problem: 
@@ -123,13 +123,13 @@ quantization_config = GPTQConfig(bits=4, dataset = "c4", tokenizer=tokenizer)
 model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto", quantization_config=quantization_config)
 ```
 
-Quantizing a model may take a long time. Note that for a 175B model, at least 4 GPU-hours are required if one uses a large dataset (e.g. `"c4"``). Note that one can quantize a model with their own dataset and domains if appropriate. In addition, as mentioned above, many GPTQ models are already available on the Hugging Face Hub, which bypasses the need to quantize a model yourself in most usecases.
+Quantizing a model may take a long time. Note that for a 175B model, at least 4 GPU-hours are required if one uses a large dataset (e.g. `"c4"``). As mentioned above, many GPTQ models are already available on the Hugging Face Hub, which bypasses the need to quantize a model yourself in most use cases. Nevertheless, you can also quantize a model using your own dataset appropriate for the particular domain you are working on.
 
 ## Running GPTQ models through ***Text-Generation-Inference***
 
 In parallel to the integration of GPTQ in Transformers, GPTQ support was added to the [Text-Generation-Inference library](https://github.com/huggingface/text-generation-inference) (TGI), aimed at serving large language models in production. GPTQ can now be used alongside features such as dynamic batching, paged attention and flash attention for a [wide range of architectures](https://huggingface.co/docs/text-generation-inference/main/en/supported_models).
 
-As an example, this integration allows to serve a 70b model on a single A100-80GB GPU! This is not possible using a fp16 checkpoint as it exceeds the available GPU memory.
+As an example, this integration allows to serve a 70B model on a single A100-80GB GPU! This is not possible using a fp16 checkpoint as it exceeds the available GPU memory.
 
 You can find out more about the usage of GPTQ in TGI in [the documentation](https://huggingface.co/docs/text-generation-inference/main/en/basic_tutorials/preparing_model#quantization).
 
@@ -157,7 +157,7 @@ Very large vision, audio, and multi-modal models are currently not supported.
 
 ## Conclusion and final words
 
-In this blogpost we have presented the integration of the [AutoGPTQ library](https://github.com/PanQiWei/AutoGPTQ) in Transformers, making it possible to quantize LLMs with the GPTQ method to make them more accessible for anyone in the community to build exciting tools and applications with LLMs. 
+In this blogpost we have presented the integration of the [AutoGPTQ library](https://github.com/PanQiWei/AutoGPTQ) in Transformers, making it possible to quantize LLMs with the GPTQ method to make them more accessible for anyone in the community and empower them to build exciting tools and applications with LLMs. 
 
 This integration is available both for Nvidia GPUs, and RoCm-powered AMD GPUs, which is a huge step towards democratizing quantized models for broader GPU architectures.
 
