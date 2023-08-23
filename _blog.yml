@@ -2679,6 +2679,7 @@
     - partnerships
     - vmware
     - bigcode
+
 - local: gptq-integration
   title: "Making LLMs lighter with AutoGPTQ and transformers"
   author: marcsun13
@@ -2688,6 +2689,7 @@
     - llm
     - optimization
     - quantization
+
 - local: password-git-deprecation
   title: "Deprecation of Git Authentication using password"
   author: Sylvestre
