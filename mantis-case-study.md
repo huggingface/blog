@@ -110,4 +110,7 @@ Philipp Schmid posted a really nice blog about how to write a custom [Endpoint H
 
 We find Hugging Face Inference Endpoints to be a very simple and convenient way to deploy transformer (and [sklearn](https://huggingface.co/scikit-learn)) models into an endpoint so they can be consumed by an application. Whilst they cost a little more than the ECS approach we were using before, it’s well worth it because it saves us time on thinking about deployment, we can concentrate on the thing we want to: building NLP solutions for our clients to help solve their problems.
 
+_If you’re interested in Hugging Face Inference Endpoints for your company, please contact us [here](https://huggingface.co/inference-endpoints/enterprise) - our team will contact you to discuss your requirements!_
+
 _This article was originally published on February 15, 2023 [in Medium](https://medium.com/mantisnlp/why-were-switching-to-hugging-face-inference-endpoints-and-maybe-you-should-too-829371dcd330)._
+
