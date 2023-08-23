@@ -36,7 +36,7 @@ Hugging Face’s service allows users to create a model API in a few clicks and 
 
 – Snorkel CTO  and Co-founder Braden Hancock
 
-<iframe width="100%" style="aspect-ratio: 16 / 9;"src="https://youtu.be/woblG7iZPSw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" style="aspect-ratio: 16 / 9;" src="https://www.youtube-nocookie.com/embed/woblG7iZPSw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## How does this help Snorkel customers?
 
@@ -49,4 +49,6 @@ Clement Delangue, co-founder and CEO, Hugging Face
 ## Conclusion
 
 Together, Snorkel and Hugging Face make it easier than ever for large companies, government agencies, and AI innovators to get value from foundation models. The ability to use Hugging Face’s comprehensive hub of foundation models means that users can pick the models that best align with their business needs without having to invest in the resources required to train them. This integration is a significant step forward in making foundation models more accessible to enterprises around the world.
+
+_If you’re interested in Hugging Face Inference Endpoints for your company, please contact us [here](https://huggingface.co/inference-endpoints/enterprise) - our team will contact you to discuss your requirements!_
 
