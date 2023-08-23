@@ -2,9 +2,9 @@
 title: "Databricks ❤️ Hugging Face: up to 40% faster training and tuning of Large Language Models"
 thumbnail: /blog/assets/78_ml_director_insights/databricks.png
 authors:
-- author: alighodsi
+- user: alighodsi
   guest: true
-- author: maddiedawson
+- user: maddiedawson
   guest: true
 ---
 
