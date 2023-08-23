@@ -21,6 +21,21 @@ Large language models have demonstrated remarkable capabilities in understanding
 
 This integration is available both for Nvidia GPUs, and RoCm-powered AMD GPUs.
 
+## Table of contents
+
+- [Resources](#resources)
+- [**A gentle summary of the GPTQ paper**](#--a-gentle-summary-of-the-gptq-paper--)
+- [AutoGPTQ library – the one-stop library for efficiently leveraging GPTQ for LLMs](#autogptq-library---the-one-stop-library-for-efficiently-leveraging-gptq-for-llms)
+- [Native support of GPTQ models in 🤗 Transformers](#native-support-of-gptq-models-in----transformers)
+- [Quantizing models **with the Optimum library**](#quantizing-models---with-the-optimum-library--)
+- [Running GPTQ models through ***Text-Generation-Inference***](#running-gptq-models-through----text-generation-inference---)
+- [**Fine-tune quantized models with PEFT**](#--fine-tune-quantized-models-with-peft--)
+- [Room for improvement](#room-for-improvement)
+  * [Supported models](#supported-models)
+- [Conclusion and final words](#conclusion-and-final-words)
+- [Acknowledgements](#acknowledgements)
+
+
 ## Resources
 
 This blogpost and release come with several resources to get started with GPTQ quantization:
@@ -92,7 +107,7 @@ Our AutoGPTQ integration has many advantages:
 - GPTQ drastically reduces the memory requirements to run LLMs, while the inference latency is on par with FP16 inference.
 - AutoGPTQ supports Exllama kernels for a wide range of architectures.
 - The integration comes with native RoCm support for AMD GPUs.
-- Finetuning with PEFT is available.
+- [Finetuning with PEFT](#--fine-tune-quantized-models-with-peft--) is available.
 
 You can check on the Hub if your favorite model has already been quantized. TheBloke, one of Hugging Face top contributors, has quantized a lot of models with AutoGPTQ and shared them on the Hugging Face Hub. We worked together to make sure that these repositories will work out of the box with our integration.
 
