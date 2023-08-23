@@ -68,17 +68,19 @@ The benefits of this scheme are twofold:
 
 The GPTQ paper tackles the layer-wise compression problem: 
 
-Given a layer $l$ with weight matrix $W_{l}$ and layer input $X_{l}$, we want to find a quantized version of the weight $\hat{W}_{l}$ to minimize the mean squared error (MSE):
+Given a layer \\(l\\) with weight matrix \\(W_{l}\\) and layer input \\(X_{l}\\), we want to find a quantized version of the weight \\(\hat{W}_{l}\\) to minimize the mean squared error (MSE):
+
 
 \\({\hat{W}_{l}}^{*} = argmin_{\hat{W_{l}}} \|W_{l}X-\hat{W}_{l}X\|^{2}_{2}\\)
 
 Once this is solved per layer, a solution to the global problem can be obtained by combining the layer-wise solutions. 
 
-In order to solve this layer-wise compression problem, the author uses the Optimal Brain Quantization framework ([Frantar et al 2022](https://arxiv.org/abs/2208.11580)). The OBQ method starts from the observation that the above equation can be written as the sum of the squared errors, over each row of $W_{l}$.
+In order to solve this layer-wise compression problem, the author uses the Optimal Brain Quantization framework ([Frantar et al 2022](https://arxiv.org/abs/2208.11580)). The OBQ method starts from the observation that the above equation can be written as the sum of the squared errors, over each row of \\(W_{l}\\).
+
 
 \\( \sum_{i=0}^{d_{row}} \|W_{l[i,:]}X-\hat{W}_{l[i,:]}X\|^{2}_{2} \\)
 
-This means that we can quantize each row independently. This is called per-channel quantization. For each row $W_{l[i,:]}$, OBQ quantizes one weight at a time while always updating all not-yet-quantized weights, in order to compensate for the error incurred by quantizing a single weight. The update on selected weights has a closed-form formula, utilizing Hessian matrices. 
+This means that we can quantize each row independently. This is called per-channel quantization. For each row \\(W_{l[i,:]}\\), OBQ quantizes one weight at a time while always updating all not-yet-quantized weights, in order to compensate for the error incurred by quantizing a single weight. The update on selected weights has a closed-form formula, utilizing Hessian matrices. 
 
 The GPTQ paper improves this framework by introducing a set of optimizations that reduces the complexity of the quantization algorithm while retaining the accuracy of the model.
 
