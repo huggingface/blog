@@ -3,7 +3,8 @@ title: Deprecation of Git Authentication using password
 thumbnail: /blog/assets/password-git-deprecation/thumbnail.png
 authors:
 - user: Sylvestre
-- user: julien-c
+- user: pierric
+- user: sbrandeis
 
 ---
 
