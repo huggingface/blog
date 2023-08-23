@@ -21,4 +21,4 @@ In this conversation, Jeff Boudier asks Waseem Alshikh, Co-founder and CTO of Wr
 - how it Writer approaching production on CPU and GPU to serve LLMs at scale?
 - how important is efficiency and using CPUs for production?
 
-<iframe width="100%" style="aspect-ratio: 16 / 9;"src="https://www.youtube.com/watch?v=t8Ek1aOtaQw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="100%" style="aspect-ratio: 16 / 9;" src="https://www.youtube-nocookie.com/embed/t8Ek1aOtaQw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
