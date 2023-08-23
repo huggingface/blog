@@ -2679,7 +2679,15 @@
     - partnerships
     - vmware
     - bigcode
-
+- local: gptq-integration
+  title: "Making LLMs lighter with AutoGPTQ and transformers"
+  author: marcsun13
+  thumbnail: /blog/assets/159_autogptq_transformers/thumbnail.jpg
+  date: August 23, 2023
+  tags:
+    - llm
+    - optimization
+    - quantization
 - local: password-git-deprecation
   title: "Deprecation of Git Authentication using password"
   author: Sylvestre
