@@ -318,6 +318,7 @@ Follow the installation steps mentioned [here](https://github.com/huggingface/hu
 ![vs_code_endpoint](assets/170_personal_copilot/vs_code_endpoint.png)
 
 Usage will look like below:
+
 ![code_completion](assets/170_personal_copilot/vs_code_completion_usage.png)
 
 # Finetuning your own Code Chat Assistant
@@ -443,17 +444,20 @@ def get_code_completion(prefix, suffix, disable=False):
 #### First, let us consider `chatting/QA` task. 
 
 Let's disable adapters and see the outputs on a `generic` and `hf code` questions, specifically.
+
 ![disabled_chat_generic](assets/170_personal_copilot/disabled_chat.png)
 
 We can observe that it fails for both cases as the base model `starcoder` is only meant for code completion and is unsuitable for `chatting/question-answering`.
 
 Now, let's enable the `assistant` adapter.
+
 ![assistant_chat_generic](assets/170_personal_copilot/assistant_chat_generic.png)
 ![assistant_chat_hf](assets/170_personal_copilot/assistant_chat_hf.png)
 
 We can observe that generic question regarding scrapy is being answered properly. However, it is failing for the HF code related question which wasn't part of its pretraining data.
 
 Finally, let's enable the `copilot` adapter.
+
 ![copilot_chat_generic](assets/170_personal_copilot/copilot_chat_generic.png)
 ![copilot_chat_hf](assets/170_personal_copilot/copilot_chat_hf.png)
 
@@ -462,6 +466,7 @@ We can observe that it performs similar to disabled case because this LoRA was a
 ##### Let us now consider `code-completion` task.
 
 Let's disable adapters and see the outputs on a `generic` and `hf code` code blocks, specifically.
+
 ![disabled_code_generic](assets/170_personal_copilot/disabled_code_generic.png)
 ![disabled_code_hf](assets/170_personal_copilot/disabled_code_hf.png)
 
@@ -475,6 +480,7 @@ Time for us to check the `assistant` adapter for code-completion task.
 We can observe that the `assistant` performs similar to disabled case as it was trained on natural language conversations which didn't have any HF code repos. 
 
 Finally, let's enable the `copilot` adapter.
+
 ![copilot_code_generic](assets/170_personal_copilot/copilot_code_generic.png)
 ![copilot_code_hf](assets/170_personal_copilot/copilot_code_hf.png)
 
@@ -483,15 +489,18 @@ We can observe that the `copilot` adapter gets it right in both case. Therefore,
 **Now, as a user, I want to combine the ability of `assistant` as well as `copilot`. This will enable me to use it for code completion while coding in IDE and then have it as a chatbot to answer my questions regarding APIs, classes, methods, documentation. It should be able to provide answers to questions like `How do I use x`, `Please write a code snippet for Y` on my codebase.**
 
 PEFT allows you do it by via `add_weighted_adapter`. Let's create a new adapter `code_buddy` with equal weights to `assistant` and `copilot` adapters.
+
 ![combining_loras](assets/170_personal_copilot/combining_loras.png)
 
 Now, let's see how `code_buddy` performs on the `chatting/question_answering` tasks.
+
 ![mix_chat_generic](assets/170_personal_copilot/mix_chat_generic.png)
 ![mix_chat_hf](assets/170_personal_copilot/mix_chat_hf.png)
 
 We can observe that `code_buddy` is performing much better than `assistant` and `copilot` adapters. It is able to answer the generic question of computing quantiles as well as write a code snippet to show how to use a specific HF repo API. However, it is also hallucinating the wrong links to guide which remains a caveat for thes LLMs.
 
 Below is the performance of `code_buddy` on code completions task.
+
 ![mix_code_generic](assets/170_personal_copilot/mix_code_generic.png)
 ![mix_code_hf](assets/170_personal_copilot/mix_code_hf.png)
 
@@ -570,6 +579,7 @@ def get_model_pred(query, disable=False):
 ```
 
 **Performance on the Code Completion task**
+
 ![octocoder_code_generic](assets/170_personal_copilot/octocoder_code_generic.png)
 ![octocoder_code_hf](assets/170_personal_copilot/octocoder_code_hf.png)
 
@@ -580,6 +590,7 @@ We can observe that `octocoder` is performing great. It is able to complete gene
 As Octocoder is trained to answer questions and carry out conversations about coding, let's see if it can use our LoRA adapter to answer HF specific questions.
 
 First, let's see the output with adapter disabled to make sure it isn't part of the training data of Octocoder:
+
 ![octocoder_disabled_chat_hf](assets/170_personal_copilot/octocoder_disabled_chat_hf.png)
 
 We can see that it fails to correctly use the API of LoraConfig or to create a PEFT model. Now, let's see it performance with the adapter enabled.
@@ -600,6 +611,7 @@ We will be using this super cool open source library [mlc-llm](https://github.co
 1. Colab notebook for Full fine-tuning and PEFT LoRA finetuning of `starcoderbase-1b`: [link](https://colab.research.google.com/drive/1tTdvc2buL3Iy1PKwrG_bBIDP06DC9r5m?usp=sharing)
 
 The training loss, evaluation loss as well as leraning rate schedules are plotted below:
+
 ![loss_plots](assets/170_personal_copilot/loss_plots.png)
 
 Now, we will look at detailed steps for locally hosting the merged model [smangrul/starcoder1B-v2-personal-copilot-merged](https://huggingface.co/smangrul/starcoder1B-v2-personal-copilot-merged). 
@@ -648,8 +660,11 @@ time python3 -m mlc_llm.build --hf-path smangrul/starcoder1B-v2-personal-copilot
  python -m mlc_chat.rest --model dist/starcoder1B-v2-personal-copilot-merged-q4f16_1/params --lib-path dist/starcoder1B-v2-personal-copilot-merged-q4f16_1/starcoder1B-v2-personal-copilot-merged-q4f16_1-metal.so
 ```
 6. Change the end-point of HF Code Completion extension in VS Code to point to the local server:
+
 ![local_endpoint](assets/170_personal_copilot/local_endpoint.png)
+
 7. Open a new file in vs code and paste the below code and have the cursor in between the doc quotes so that the model tries to infill the doc string:
+
 ![local_inference](assets/170_personal_copilot/local_inference.png)
 
 Voila! ⭐️
