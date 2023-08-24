@@ -118,7 +118,7 @@ model = AutoModelForCausalLM.from_pretrained("TheBloke/Llama-2-7b-Chat-GPTQ", to
 你可以在 Hugging Face Hub 上查看你所喜爱的模型是否已经拥有 GPTQ 量化版本。TheBloke，Hugging Face 的顶级贡献者之一，已经使用 AutoGPTQ 量化了大量的模型并分享在 Hugging Face Hub 上。在我们的共同努力下，这些模型仓库都将可以与我们的集成一起开箱即用。
 
 
-以下是一个使用 batch size = 1 的测评结果示例。该测评结果通过在英伟达 A100-SXM4-80GB GPU 上运行得到。我们使用长度为512个词元的提示文本，并精确地生成512个新词元。表格的第一行展示的是未量化的 `fp16` 基线，另外两行则展示使用 AutoGPTQ 不同算子的内存开销和推理性能。
+以下是一个使用 batch size = 1 的测评结果示例。该测评结果通过在英伟达 A100-SXM4-80GB GPU 上运行得到。我们使用长度为 512 个词元的提示文本，并精确地生成 512 个新词元。表格的第一行展示的是未量化的 `fp16` 基线，另外两行则展示使用 AutoGPTQ 不同算子的内存开销和推理性能。
 
 | gptq  | act_order | bits | group_size | kernel            | Load time (s) | Per-token latency (ms) | Throughput (tokens/s) | Peak memory (MB) |
 |-------|-----------|------|------------|-------------------|---------------|------------------------|-----------------------|------------------|
