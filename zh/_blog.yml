@@ -820,4 +820,11 @@
     - nlp
 
 - local: gptq-integration
-  title: ""
+  title: "使用 AutoGPTQ 和 transformers 让大语言模型更轻量化"
+  author: marcsun13
+  thumbnail: /blog/assets/159_autogptq_transformers/thumbnail.jpg
+  date: August 23, 2023
+  tags:
+    - llm
+    - optimization
+    - quantization
