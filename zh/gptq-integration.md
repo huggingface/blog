@@ -14,6 +14,8 @@ authors:
 translators:
 - user: PanEa
   guest: true
+- user: zhongdongy
+  proofreader: true
 ---
 
 # 使用 AutoGPTQ 和 transformers 让大语言模型更轻量化
