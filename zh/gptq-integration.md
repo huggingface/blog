@@ -18,6 +18,9 @@ translators:
 
 # 使用 AutoGPTQ 和 transformers 让大语言模型更轻量化
 
+<!-- {blog_metadata} -->
+<!-- {authors} -->
+
 大语言模型在理解和生成人类水平的文字方面所展现出的非凡能力，正在许多领域带来应用上的革新。然而，在消费级硬件上训练和部署大语言模型的需求也变得越来越难以满足。
 
 🤗 Hugging Face 的核心使命是 _让优秀的机器学习大众化_ (TODO: 是否有官方正式的中译版本？)，而这正包括了尽可能地让所有人都能够使用上大模型。本着 [与 bitsandbytes 合作](https://huggingface.co/blog/4bit-transformers-bitsandbytes) 一样的精神，我们将 [AutoGPTQ](https://github.com/PanQiWei/AutoGPTQ) 代码库集成到了 Transformers 中，让用户使用 GPTQ 算法 ([Frantar et al. 2023](https://arxiv.org/pdf/2210.17323.pdf)) 在8位、4位、3位，甚至是2位精度下量化和运行模型成为可能。当使用 int4 量化时，精度的下降可以忽略不计，同时在小批量推理上保持着与 `fp16` 基线相当的速度。 需要注意的是，GPTQ 方法与 bitsandbytes 提出的训练后量化方法有所不同：它需要在量化阶段提供一个校准数据集。
