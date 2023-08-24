@@ -159,7 +159,7 @@ model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto", quanti
 
 ## **使用 PEFT 微调量化后的模型**
 
-在常规的方法下，你无法进一步微调量化后的模型。然而，通过使用 PEFT 代码库，你可以在量化后的模型之上训练适应性网络！为实现这一目标，我们冻结了量化过的基座模型的所有网络层，并额外添加可训练的适应性网络。这里是一些关于如何使用 PEFT 训练 GPTQ 模型的例子：[colab 笔记本](https://colab.research.google.com/drive/1VoYNfYDKcKRQRor98Zbf2-9VQTtGJ24k?usp=sharing) 和 [微调脚本](https://gist.github.com/SunMarc/dcdb499ac16d355a8f265aa497645996) 。
+在常规的方法下，你无法进一步微调量化后的模型。然而，通过使用 PEFT 代码库，你可以在量化后的模型之上训练适应性网络！为实现这一目标，我们冻结了量化过的基座模型的所有网络层，并额外添加可训练的适应性网络。这里是一些关于如何使用 PEFT 训练 GPTQ 模型的例子：[Colab 笔记本](https://colab.research.google.com/drive/1VoYNfYDKcKRQRor98Zbf2-9VQTtGJ24k?usp=sharing) 和 [微调脚本](https://gist.github.com/SunMarc/dcdb499ac16d355a8f265aa497645996) 。
 
 ## 改进空间
 
