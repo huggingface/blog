@@ -57,15 +57,433 @@ In the interest of less complexity, we didn’t consider deduplication of the da
 
 # Finetuning your own Personal Co-Pilot 
 
+In this section, we will show you how to fine-tune `bigcode/starcoder` (15.5B params), `bigcode/starcoderbase-1b` (1B params), `Deci/DeciCoder-1b` (1B params) on a single A100 40GB Colab Notebook using 🤗 PEFT. Then, we will show you how to fully finetune the `bigcode/starcoder` (15.5B params) on a machine with 8 A100 80GB GPUs using 🤗 Accelerate's FSDP integration.
+
+Why PEFT? Full Fine-tuning is expensive. Let’s put some numbers to put things in perspective:
+
+Minimum GPU memory required for Full Fine-tuning:
+
+1. Weight: 2 bytes (Mixed-Precision training)
+2. Weight gradient: 2 bytes
+3. Optimizer state when using Adam: 4 bytes for original FP32 weight + 8 bytes for first and second moment estimates
+4. Cost per parameter adding all the above: 16 bytes per parameter 
+5. **15.5B model -> 248GB of GPU memory without even considering huge memory requirements for storing intermediate activations -> minimum 4X A100 80GB GPUs required**
+
+Minimum GPU memory required for QLoRA method:
+Using 
+> trainable params: 110,428,160 || all params: 15,627,884,544 || trainable%: 0.7066097761926236
+
+1. Base model Weight: 0.5 bytes * 15.51B frozen params  = 7.755 GB
+2. Adapter weight: 2 bytes * 0.11B trainable params        = 0.22GB
+3. Weight gradient: 2 bytes * 0.11B trainable params       = 0.12GB
+4. Optimizer state when using Adam:  4 bytes * 0.11B trainable params * 3 = 1.32GB
+5. **Adding all of the above -> 9.51 GB ~10GB -> 1 A100 40GB GPU required** 🤯
+
+**Computing the cost for intemediate Activations**:
+
+1. Sequence length s = 2048
+2. Number of layers n = 40
+3. Number of attention heads a = 48
+4. Hidden dimension h = 6144
+5. Batch size b = 4
+8. LoRA rank r = 32
+7. Refer paper Reducing [Activation Recomputation in Large Transformer Models](https://arxiv.org/pdf/2205.05198.pdf) for approximate derivation of memory occupied by activations. Below is the screenshot of the relevant snippet showing activation memory per layer
+![activation memory per layer](assets/170_personal_copilot/activation_memory_computation.png)
+
+The above formula considers half-precision. As starcoder uses MQA, it will result in the following equation:
+```
+Activations memory per layer = sbh(30+4/a+5as/h)
+Total Activations memory = (2048*4*6144(30+(4/48)+((5*48*2048)/6144)) * 40)/(1024^3) GB = 206 GB
+```
+
+For LoRA, we need to account for the activations of the LoRA layers based on the targets `c_proj,c_attn,q_attn,c_fc,c_proj`:
+```
+LoRA Activations memory per layer = sbh(18+2/a+6r/h)
+Total LoRA Activations memory = (2048*4*6144(18+(2/48)+((6*32)/6144)) * 40)/(1024^3) = 34 GB
+```
+
+To overcome this, we leverage Flash Attention V2 and Gradient Checkpointing. 
+
+1. For QLoRA along with Flash Attention V2 and Gradient Checkpointing, the total memory occuiped by the model on a single A100 40GB GPU is **26 GB** with a **batch size of 4**.
+2. For Full Finetuning using FSDP along wth Flash Attention V2 and Gradient Checkpointing, the memory occupied per GPU ranges between **70 GB to 77.6 GB** with a **per_gpu_batch_size of 1**.
+
 ## PEFT 
+
+Resources: 
+
+1. Codebase: [link](https://github.com/pacman100/DHS-LLM-Workshop/tree/main/personal_copilot/training). It uses monkey patch of Flash Attention V2. 
+**Note:** Flash V2 support implemented here ignores padding/attention_mask/custom_mask. It is meant for continued pre-training/fine-tuning with dense packing inputs to consume the entire sequence lengths.
+2. Colab notebook : [link](https://colab.research.google.com/drive/1Tz9KKgacppA4S6H4eo_sw43qEaC9lFLs?usp=sharing). Make sure to choose A100 GPU with High RAM setting.
+3. Model: [bigcode/stacoder](https://huggingface.co/bigcode/starcoder)
+4. Dataset: [smangrul/hf-stack-v1](https://huggingface.co/datasets/smangrul/hf-stack-v1)
+5. Trained Model: [smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab](https://huggingface.co/smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab)
+
+The command to launch training is given below:
+```
+python train.py \
+    --model_path "bigcode/starcoder" \
+    --dataset_name "smangrul/hf-stack-v1" \
+    --subset "data" \
+    --data_column "content" \
+    --split "train" \
+    --seq_length 2048 \
+    --max_steps 2000 \
+    --batch_size 4 \
+    --gradient_accumulation_steps 4 \
+    --learning_rate 5e-4 \
+    --lr_scheduler_type "cosine" \
+    --weight_decay 0.01 \
+    --num_warmup_steps 30 \
+    --eval_freq 100 \
+    --save_freq 100 \
+    --log_freq 25 \
+    --num_workers 4 \
+    --bf16 \
+    --no_fp16 \
+    --output_dir "peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab" \
+    --fim_rate 0.5 \
+    --fim_spm_rate 0.5 \
+    --use_flash_attn \
+    --use_peft_lora \
+    --lora_r 32 \
+    --lora_alpha 64 \
+    --lora_dropout 0.0 \
+    --lora_target_modules "c_proj,c_attn,q_attn,c_fc,c_proj" \
+    --use_4bit_qunatization \
+    --use_nested_quant \
+    --bnb_4bit_compute_dtype "bfloat16"
+```
+
+The total training time was **12.5 Hours**. Taking the cost of **$1.10 / hr** based on [lambdalabs](https://lambdalabs.com/service/gpu-cloud/pricing), the total cost would be **$13.75**. That's pretty good! 🚀
 
 ## Full Finetuning
 
+1. Codebase: [link](https://github.com/pacman100/DHS-LLM-Workshop/tree/main/personal_copilot/training). It uses monkey patch of Flash Attention V2. 
+**Note:** Flash V2 support implemented here ignores padding/attention_mask/custom_mask. It is meant for continued pre-training/fine-tuning with dense packing inputs to consume the entire sequence lengths.
+2. FSDP Config: [fsdp_config.yaml](https://github.com/pacman100/DHS-LLM-Workshop/blob/main/personal_copilot/training/configs/fsdp_config.yaml)
+3. Model: [bigcode/stacoder](https://huggingface.co/bigcode/starcoder)
+4. Dataset: [smangrul/hf-stack-v1](https://huggingface.co/datasets/smangrul/hf-stack-v1)
+5. Trained Model: [smangrul/starcoder-personal-copilot](https://huggingface.co/smangrul/starcoder-personal-copilot)
+
+The command to launch training is given below:
+```
+accelerate launch --config_file "configs/fsdp_config.yaml"  train.py \
+    --model_path "bigcode/starcoder" \
+    --dataset_name "smangrul/hf-stack-v1" \
+    --subset "data" \
+    --data_column "content" \
+    --split "train" \
+    --seq_length 2048 \
+    --max_steps 2000 \
+    --batch_size 1 \
+    --gradient_accumulation_steps 2 \
+    --learning_rate 5e-5 \
+    --lr_scheduler_type "cosine" \
+    --weight_decay 0.01 \
+    --num_warmup_steps 30 \
+    --eval_freq 100 \
+    --save_freq 500 \
+    --log_freq 25 \
+    --num_workers 4 \
+    --bf16 \
+    --no_fp16 \
+    --output_dir "starcoder-personal-copilot-A100-40GB-colab" \
+    --fim_rate 0.5 \
+    --fim_spm_rate 0.5 \
+    --use_flash_attn
+```
+
+The total training time was **9 Hours**. Taking the cost of $12.00 / hr based on [lambdalabs](https://lambdalabs.com/service/gpu-cloud/pricing) for 8x A100 80GB GPUs, the total cost would be **$108**. That's **7.8X** higher than the cost for training with QLoRA. 
+
+## Comparison
+
+Below plot shows the eval loss, train loss and learning rate scheduler for QLoRA vs Full Finetuning.
+
+![plots](assets/170_personal_copilot/full_finetuning_vs_qlora.png)
+
+As we don't have a benchmark, we will look at some qualitative samples.
+
+Inference Code for Full Fine-tuned model:
+
+```python
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
+
+from dataclasses import dataclass, field
+from typing import Optional
+import contextlib
+
+import torch
+from datasets import load_dataset
+from transformers import (
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    BitsAndBytesConfig,
+    HfArgumentParser,
+    AutoTokenizer,
+    TrainingArguments,
+)
+model = "smangrul/starcoder-personal-copilot"
+tokenizer = AutoTokenizer.from_pretrained(model, trust_remote_code=True)
+model = AutoModelForCausalLM.from_pretrained(
+    model, quantization_config=None, 
+    device_map=None, 
+    trust_remote_code=True, 
+    torch_dtype=torch.bfloat16,
+)
+
+if not hasattr(model, "hf_device_map"):
+    model.cuda()
+
+def get_code_completion(prefix, suffix):
+    text = prompt = f"""<fim_prefix>{prefix}<fim_suffix>{suffix}<fim_middle>"""
+    model.eval()
+    outputs = model.generate(input_ids=tokenizer(text, return_tensors="pt").input_ids.cuda(), 
+                             max_new_tokens=128,
+                             temperature=0.2,
+                             top_k=50,
+                             top_p=0.95,
+                             do_sample=True,
+                             repetition_penalty=1.0,
+                            )
+    return tokenizer.batch_decode(outputs, skip_special_tokens=False)[0]
+```
+
+Inference Code for PEFT Model. We noticed that the QLoRA led to overfitting and as such we down weigh it by creating new weighted adapter with weight 0.8 via `add_weighted_adapter` utility of PEFT
+
+```python
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
+
+from dataclasses import dataclass, field
+from typing import Optional
+import contextlib
+
+import torch
+from datasets import load_dataset
+from peft import LoraConfig
+from transformers import (
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    BitsAndBytesConfig,
+    HfArgumentParser,
+    AutoTokenizer,
+    TrainingArguments,
+)
+from peft import (
+    prepare_model_for_kbit_training,
+    LoraConfig,
+    get_peft_model,
+    PeftModel
+)
+model = "bigcode/starcoder"
+tokenizer = AutoTokenizer.from_pretrained(model, trust_remote_code=True)
+model = AutoModelForCausalLM.from_pretrained(
+    model, quantization_config=None, 
+    device_map=None, 
+    trust_remote_code=True, 
+    torch_dtype=torch.bfloat16,
+)
+
+# model = model.merge_and_unload()
+if not hasattr(model, "hf_device_map"):
+    model.cuda()
+
+model_id = "smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab"
+model = PeftModel.from_pretrained(model, model_id, adapter_name="personal_copilot")
+model.add_weighted_adapter(["personal_copilot"], [0.8], "best_personal_copilot")
+model.set_adapter("best_personal_copilot")
+
+# get_code_completion same as above
+```
+
+Below screenshots of a table show the predictions by Fully fine-tuned model in comparison with the PEFT QloRA model:
+![qualitative_comparison_1](assets/170_personal_copilot/qualitative_comparison_1.png)
+![qualitative_comparison_2](assets/170_personal_copilot/qualitative_comparison_2.png)
+
+We can observe that the generations from both the variants are as per expectations. Awesome! 🚀
+
+## How do I use it in VS Code?
+
+🤗 VS Code Extension [HF Code Autocomplete](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) coupled with hosting the model via [🤗 Inference EndPoints](https://ui.endpoints.huggingface.co/). 
+
+### Setting an inference Inference Endpoint
+Below are the screenshots of the Inference Endpoint setting.
+![ie_1](assets/170_personal_copilot/inference_endpoint_1.png)
+![ie_2](assets/170_personal_copilot/inference_endpoint_2.png)
+
+### Setting up the VS Code Extension
+Follow the installation steps mentioned [here](https://github.com/huggingface/huggingface-vscode#installing). Replace the endpoint via the settings to the HF Inference endpoint in the field highlighted below.
+
+![vs_code_endpoint](assets/170_personal_copilot/vs_code_endpoint.png)
+
+Usage will look like below:
+![code_completion](assets/170_personal_copilot/vs_code_completion_usage.png)
+
 # Finetuning your own Code Chat Assistant
+
+So far, the models we trained were specifically trained as personal co-pilot for code completion tasks. They aren't trained to carry out conversations or for question answering. `Octocoder` and `StarChat` are great examples of such models. This section briefly describes how to achieve that.
+
+Resources: 
+
+1. Codebase: [link](https://github.com/pacman100/DHS-LLM-Workshop/tree/main/code_assistant/training). It uses monkey patch of Flash Attention V2. 
+**Note:** Flash V2 support implemented here ignores padding/attention_mask/custom_mask. It is meant for continued pre-training/fine-tuning with dense packing inputs to consume the entire sequence lengths.
+2. Colab notebook : [link](https://colab.research.google.com/drive/1XFyePK-3IoyX81RM94JO73CcIZtAU4i4?usp=sharing). Make sure to choose A100 GPU with High RAM setting.
+3. Model: [bigcode/stacoderplus](https://huggingface.co/bigcode/starcoderplus)
+4. Dataset: [smangrul/code-chat-assistant-v1](https://huggingface.co/datasets/smangrul/code-chat-assistant-v1). Mix of `LIMA+GUANACO` with proper formatting in a ready-to-train format.
+5. Trained Model: [smangrul/peft-lora-starcoderplus-chat-asst-A100-40GB-colab](https://huggingface.co/smangrul/peft-lora-starcoderplus-chat-asst-A100-40GB-colab) 
 
 # Dance of LoRAs
 
+If you have dabbled with Stable Diffusion models and LoRAs for making your own Dreambooth models, you might be familiar with the concepts of combining different LoRAs with different weights, using a loRA model with a different base model than the one on which it was trained. In text/code domain, this remains unexplored territory. We carry about experiments in this regard and have observed very promising findings. You Ready? let's go, let's go, let's go!!! 🚀
+
 ## Mix-and-Match LoRAs
+
+PEFT currently supports 3 ways of coimbining LoRA models, `linear`, `svd` and `cat`. For more details, refer: [tuners#peft.LoraModel.add_weighted_adapter](https://huggingface.co/docs/peft/main/en/package_reference/tuners#peft.LoraModel.add_weighted_adapter).
+
+Inference code:
+```python
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="3"
+
+from dataclasses import dataclass, field
+from typing import Optional
+import contextlib
+
+import torch
+from datasets import load_dataset
+from peft import LoraConfig
+from transformers import (
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    BitsAndBytesConfig,
+    HfArgumentParser,
+    AutoTokenizer,
+    TrainingArguments,
+)
+from peft import (
+    prepare_model_for_kbit_training,
+    LoraConfig,
+    get_peft_model,
+    PeftModel
+)
+model = "bigcode/starcoder"
+tokenizer = AutoTokenizer.from_pretrained(model, trust_remote_code=True)
+model = AutoModelForCausalLM.from_pretrained(
+    model, quantization_config=None, 
+    device_map=None, 
+    trust_remote_code=True, 
+    torch_dtype=torch.bfloat16,
+)
+
+model_id = "smangrul/peft-lora-starcoderplus-chat-asst-A100-40GB-colab"
+model = PeftModel.from_pretrained(model, model_id, adapter_name="assistant")
+
+model_id = "smangrul/peft-lora-starcoder15B-v2-personal-copilot-A100-40GB-colab"
+_ = model.load_adapter(model_id, adapter_name="copilot")
+
+if not hasattr(model, "hf_device_map"):
+    model.cuda()
+```
+
+Notice that we are loading the chat assistant on top of `starcoder` instead of `starcodeplus` on which it was fine-tuned. 
+
+Here, we will consider 2 abilities, i.e., `chatting/QA` and `code-completion` on 2 data distributions, i.e., `top 10 public hf codebase` and `generic codebase`. That gives us 4 axes on which to evaluate things. We will be carrying out qualitative analysis. 
+
+For `chatting/QA`, the inference function is below:
+```python
+system_prompt = """You are a helpful, respectful and honest assistant. Always answer as helpfully \
+as possible, while being safe. Your answers should not include any harmful, \
+unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that \
+your responses are socially unbiased and positive in nature.
+
+If a question does not make any sense, or is not factually coherent, explain why \
+instead of answering something not correct. If you don’t know the answer to a \
+question, please don’t share false information."""
+
+def get_model_pred(query, disable=False):
+    context = contextlib.nullcontext
+    if disable:
+        context = model.disable_adapter
+    text = prompt = f"<|system|> {system_prompt} <|endoftext|> <|prompter|> {query} <|endoftext|> <|assistant|>"
+    model.eval()
+    with context():
+        outputs = model.generate(input_ids=tokenizer(text, return_tensors="pt").input_ids.cuda(), 
+                                 max_new_tokens=512,
+                                 temperature=0.2,
+                                 top_k=50,
+                                 top_p=0.95,
+                                 do_sample=True,
+                                 repetition_penalty=1.1,
+                                 eos_token_id = tokenizer.eos_token_id)
+    return tokenizer.batch_decode(outputs, skip_special_tokens=False)[0]
+```
+
+For `code-completion`, the inference function is below:
+```
+def get_code_completion(prefix, suffix, disable=False):
+    context = contextlib.nullcontext
+    if disable:
+        context = model.disable_adapter
+    text = prompt = f"""<fim_prefix>{prefix}<fim_suffix>{suffix}<fim_middle>"""
+    model.eval()
+    with context():
+        outputs = model.generate(input_ids=tokenizer(text, return_tensors="pt").input_ids.cuda(), 
+                                 max_new_tokens=128,
+                                 temperature=0.2,
+                                 top_k=50,
+                                 top_p=0.95,
+                                 do_sample=True,
+                                 repetition_penalty=1.1,
+                                 #stopping_criteria=stopping_criteria
+                                )
+    return tokenizer.batch_decode(outputs, skip_special_tokens=False)[0]
+```
+
+#### First, let us consider `chatting/QA` task. 
+
+Let's disable adapters and see the outputs on a `generic` and `hf code` questions, specifically.
+![disabled_chat_generic](assets/170_personal_copilot/disabled_chat.png)
+
+We can observe that it fails for both cases as the base model `starcoder` is only meant for code completion and is unsuitable for `chatting/question-answering`.
+
+Now, let's enable the `assistant` adapter.
+![assistant_chat_generic](assets/170_personal_copilot/assistant_chat_generic.png)
+![assistant_chat_hf](assets/170_personal_copilot/assistant_chat_hf.png)
+
+We can observe that generic question regarding scrapy is being answered properly. However, it is failing for the HF code related question which wasn't part of its pretraining data.
+
+Finally, let's enable the `copilot` adapter.
+![copilot_chat_generic](assets/170_personal_copilot/copilot_chat_generic.png)
+![copilot_chat_hf](assets/170_personal_copilot/copilot_chat_hf.png)
+
+We can observe that it performs similar to disabled case because this LoRA was also specifically fine-tuned for code-completion.
+
+##### Let us now consider `code-completion` task.
+
+Let's disable adapters and see the outputs on a `generic` and `hf code` code blocks, specifically.
+![disabled_code_generic](assets/170_personal_copilot/disabled_code_generic.png)
+![disabled_code_hf](assets/170_personal_copilot/disabled_code_hf.png)
+
+Observe that the code completion for the generic two-sum is as expected. However, the HF code completion fails with wrong params to `LoraConfig` as the base model hasn't seen it in its pretraining data.
+
+Time for us to check the `assistant` adapter for code-completion task.
+
+![assistant_code_generic](assets/170_personal_copilot/assistant_code_generic.png)
+![assistant_code_hf](assets/170_personal_copilot/assistant_code_hf.png)
+
+We can observe that the `assistant` performs similar to disabled case as it was trained on natural language conversations which didn't have any HF code repos. 
+
+Finally, let's enable the `copilot` adapter.
+![copilot_code_generic](assets/170_personal_copilot/copilot_code_generic.png)
+![copilot_code_hf](assets/170_personal_copilot/copilot_code_hf.png)
+
+We can observe that the `copilot` adapter gets it right in both case. Therefore, it performs as expected for code-completions when working with HF specific codebase as well as generic codebases.
+
+Now, as a user, I want to combine the ability of `assistant` as well as `copilot` combined.
+
+
+
 
 ## Transfer LoRAs to different base models
 
