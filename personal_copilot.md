@@ -595,8 +595,8 @@ First, let's see the output with adapter disabled to make sure it isn't part of 
 
 We can see that it fails to correctly use the API of LoraConfig or to create a PEFT model. Now, let's see it performance with the adapter enabled.
 
-![octocoder_chat_generic](assets/170_personal_copilot/octocoder_chat_generic.png)
 ![octocoder_chat_hf](assets/170_personal_copilot/octocoder_chat_hf.png)
+![octocoder_chat_generic](assets/170_personal_copilot/octocoder_chat_generic.png)
 
 Yay! It correctly answers in detail how to create LoraConfig and related peft model along with correctly using the model name, dataset name as well as param values of LoraConfig. Also note that it does a great job at answering the generic query of using 
 scrapy for crawling.
