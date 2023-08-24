@@ -145,7 +145,7 @@ quantization_config = GPTQConfig(bits=4, dataset = "c4", tokenizer=tokenizer)
 model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto", quantization_config=quantization_config)
 ```
 
-量化一个模型可能花费较长的时间。对于一个 175B 参数量的模型，如果使用一个大型校准数据集（如 “c4”），至少需要4个 GPU 时。正如上面提到的那样，许多 GPTQ 模型已经可以在 Hugging Face Hub 上被取得，这让你在大多数情况下无需自行量化模型。当然，你仍可以使用你所专注的特定领域的数据集来量化模型。
+量化一个模型可能花费较长的时间。对于一个 175B 参数量的模型，如果使用一个大型校准数据集（如 “c4”），至少需要 4 个 GPU 时。正如上面提到的那样，许多 GPTQ 模型已经可以在 Hugging Face Hub 上被取得，这让你在大多数情况下无需自行量化模型。当然，你仍可以使用你所专注的特定领域的数据集来量化模型。
 
 ## 通过 ***Text-Generation-Inference*** 使用 GPTQ 模型
 
