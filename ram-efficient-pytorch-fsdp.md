@@ -5,6 +5,7 @@ authors:
 - user: smangrul
 - user: sgugger
 - user: letwun
+- user: philschmid 
 ---
 
 In this blog, we will look at how to fine-tune Llama-70B using PyTorch FSDP and related best practices. We will be leveraging Hugging Face Transformers, Accelerate and TRL. We will also learn how to use Accelerate with SLURM. For more information on what PyTorch FSDP is, please refer to this blog: [Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel](https://huggingface.co/blog/pytorch-fsdp)
