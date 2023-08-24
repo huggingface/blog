@@ -1,6 +1,6 @@
 ---
-title: "Fine-tuning Llama-70B using PyTorch FSDP" 
-thumbnail: /blog/assets/159_safecoder/thumbnail.jpg
+title: "Fine-tuning Llama 2 70B using PyTorch FSDP" 
+thumbnail: /blog/assets/160_fsdp_llama/thumbnail.jpg
 authors:
 - user: smangrul
 - user: sgugger
@@ -8,18 +8,18 @@ authors:
 - user: philschmid 
 ---
 
-In this blog, we will look at how to fine-tune Llama-70B using PyTorch FSDP and related best practices. We will be leveraging Hugging Face Transformers, Accelerate and TRL. We will also learn how to use Accelerate with SLURM. For more information on what PyTorch FSDP is, please refer to this blog: [Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel](https://huggingface.co/blog/pytorch-fsdp)
+In this blog, we will look at how to fine-tune Llama 2 70B using PyTorch FSDP and related best practices. We will be leveraging Hugging Face Transformers, Accelerate and TRL. We will also learn how to use Accelerate with SLURM. For more information on what PyTorch FSDP is, please refer to this blog: [Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel](https://huggingface.co/blog/pytorch-fsdp)
 
 # Hardware Used
 
-Number of nodes: 8. Minimum required is 1.
-Number of GPUs per node: 8
-GPU type: A100
-GPU memory: 80GB
-intra-node connection: NVLink
-RAM per node: 1TB
-CPU cores per node: 96
-inter-node connection: Elastic Fabric Adapter
+Number of nodes: 8. Minimum required is 1.  
+Number of GPUs per node: 8  
+GPU type: A100  
+GPU memory: 80GB  
+intra-node connection: NVLink  
+RAM per node: 1TB  
+CPU cores per node: 96  
+inter-node connection: Elastic Fabric Adapter  
 
 # Challenges
 
@@ -163,7 +163,8 @@ Let’s create the accelerate config via below command:
 ```
 accelerate config --config_file "fsdp_config.yaml"
 ```
-![fsdp_config](assets/160_fsdp_llama/fsdp_config.png)
+
+![fsdp_config](assets/160_fsdp_llama/fsdp_config.jpg)
 
 The resulting config is available here: DHS-LLM-Workshop/code_assistant/training/configs/fsdp_config.yaml at main. Here, the sharding strategy is `FULL_SHARD`. We are using `TRANSFORMER_BASED_WRAP` for auto wrap policy and it uses `_no_split_module`  to find the Transformer block name for nested FSDP auto wrap. We use  `SHARDED_STATE_DICT` to save the intermediate checkpoints and optimizer states in this format recommended by the PyTorch team. Make sure to enable broadcasting module parameters from rank 0 at the start as mentioned in the above paragraph on addressing Challenge 1. We are enabling bf16 mixed precision training.
 
@@ -231,7 +232,8 @@ srun --jobid $SLURM_JOBID bash -c "$CMD" 2>&1 | tee -a $LOG_PATH
 ```
 
 Fine-tuning completed in ~1 hour and below is the training loss plot.
-![train_loss](assets/160_fsdp_llama/train_loss.png)
+
+![train_loss](assets/160_fsdp_llama/train_loss.jpg)
 
 # Conclusion
 We successfully fine-tuned 70B Llama model using PyTorch FSDP in a multi-node multi-gpu setting while addressing various challenges. 
