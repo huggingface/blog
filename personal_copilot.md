@@ -20,7 +20,7 @@ Let’s begin 🚀
 
 [Insert ToC]
 
-
+https://github.com/pacman100/blog/assets/13534540/f792b506-c31a-4f73-a321-3333902c3c52
 
 # Our data collection workflow
 
