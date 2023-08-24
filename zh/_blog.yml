@@ -819,6 +819,18 @@
     - rlhf
     - nlp
 
+- local: optimizing-bark
+  title: "使用 🤗 Transformers 优化 Bark"
+  author: ylacombe
+  thumbnail: /blog/assets/bark_optimization/thumbnail.png
+  date: August 9, 2023
+  tags:
+    - text-to-speech
+    - optimization
+    - benchmark
+    - bark
+
+
 - local: gptq-integration
   title: "使用 AutoGPTQ 和 transformers 让大语言模型更轻量化"
   author: marcsun13
