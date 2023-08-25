@@ -90,7 +90,7 @@ With the upcoming release of `transformers` 4.33, you can use Code Llama and le
 
 Until `transformers` 4.33 is released, please install it from the main branch.
 
-```python
+```bash
 !pip install git+https://github.com/huggingface/transformers.git@main accelerate
 ```
 
