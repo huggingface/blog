@@ -29,7 +29,7 @@ This integration is available both for Nvidia GPUs, and RoCm-powered AMD GPUs.
 - [Resources](#resources)
 - [**A gentle summary of the GPTQ paper**](#a-gentle-summary-of-the-gptq-paper)
 - [AutoGPTQ library – the one-stop library for efficiently leveraging GPTQ for LLMs](#autogptq-library--the-one-stop-library-for-efficiently-leveraging-gptq-for-llms)
-- [Native support of GPTQ models in 🤗 Transformers](#native-support-of-gptq-models-in--transformers)
+- [Native support of GPTQ models in 🤗 Transformers](#native-support-of-gptq-models-in-🤗-transformers)
 - [Quantizing models **with the Optimum library**](#quantizing-models-with-the-optimum-library)
 - [Running GPTQ models through ***Text-Generation-Inference***](#running-gptq-models-through-text-generation-inference)
 - [**Fine-tune quantized models with PEFT**](#fine-tune-quantized-models-with-peft)
