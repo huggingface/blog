@@ -33,12 +33,19 @@ Code LLMs are an exciting development for software engineers because they can bo
 
 ## Table of Contents
 
-* [What’s Code Llama?](#whats-code-llama)
-* [How to use Code Llama?](#how-to-use-code-llama)
-    * [Demo](#demo)
-    * [Use in Transformers](#transformers)]
-    * [Using text-generation-inference and Inference Endpoints](#using-text-generation-inference-and-inference-endpoints)
-* [Evaluation](#evaluation)
+  - [Introduction](#introduction)
+  - [Table of Contents](#table-of-contents)
+  - [What’s Code Llama?](#whats-code-llama)
+  - [How to use Code Llama?](#how-to-use-code-llama)
+    - [Demo](#demo)
+    - [Transformers](#transformers)
+      - [Code Completion](#code-completion)
+      - [Code Infilling](#code-infilling)
+      - [Conversational Instructions](#conversational-instructions)
+      - [4-bit Loading](#4-bit-loading)
+    - [Using text-generation-inference and Inference Endpoints](#using-text-generation-inference-and-inference-endpoints)
+  - [Evaluation](#evaluation)
+  - [Additional Resources](#additional-resources)
 
 ## What’s Code Llama?
 
@@ -62,7 +69,7 @@ Code Llama is available in the Hugging Face ecosystem, starting with `transforme
 
 ### Demo
 
-You can easily try the Code Llama Model (7 billion parameters!) in **[this Space](https://huggingface.co/spaces/codellama/codellama-playground)** or in the playground embedded below:
+You can easily try the Code Llama Model (13 billion parameters!) in **[this Space](https://huggingface.co/spaces/codellama/codellama-playground)** or in the playground embedded below:
 
 ```
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.28.3/gradio.js"> </script>
