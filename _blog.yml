@@ -2694,7 +2694,7 @@
   title: "Deprecation of Git Authentication using password"
   author: Sylvestre
   thumbnail: /blog/assets/password-git-deprecation/thumbnail.png
-  date: August 23, 2023
+  date: August 25, 2023
   tags:
     - announcement
     - security
