@@ -334,7 +334,7 @@ While HumanEval is a Python benchmark there have been significant efforts to tra
 
 ## Additional Resources
 
-- [Models on the hub](https://huggingface.co/codellama)
+- [Models on the Hub](https://huggingface.co/codellama)
 - [Paper Page](https://huggingface.co/papers/2308.12950)
 - [Official Meta announcement](https://ai.meta.com/blog/code-llama-large-language-model-coding/)
 - [Responsible Use Guide](https://ai.meta.com/llama/responsible-use-guide/)
