@@ -31,6 +31,8 @@ Today, we’re excited to release:
 
 Code LLMs are an exciting development for software engineers because they can boost productivity through code completion in IDEs, take care of repetitive or annoying tasks like writing docstring, or create unit tests. 
 
+## Table of Contents
+
 * [What’s Code Llama?](#whats-code-llama)
 * [How to use Code Llama?](#how-to-use-code-llama)
 * [Evaluation](#evaluation)
