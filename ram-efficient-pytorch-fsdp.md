@@ -8,7 +8,7 @@ authors:
 - user: philschmid 
 ---
 
-In this blog, we will look at how to fine-tune Llama 2 70B using PyTorch FSDP and related best practices. We will be leveraging Hugging Face Transformers, Accelerate and TRL. We will also learn how to use Accelerate with SLURM. For more information on what PyTorch FSDP is, please refer to this blog: [Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel](https://huggingface.co/blog/pytorch-fsdp)
+In this blog post, we will look at how to fine-tune Llama 2 70B using PyTorch FSDP and related best practices. We will be leveraging Hugging Face Transformers, Accelerate and TRL. We will also learn how to use Accelerate with SLURM. For more information on what PyTorch FSDP is, please refer to this blog: [Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel](https://huggingface.co/blog/pytorch-fsdp)
 
 # Hardware Used
 
@@ -21,7 +21,9 @@ RAM per node: 1TB
 CPU cores per node: 96  
 inter-node connection: Elastic Fabric Adapter  
 
-# Challenges
+# Challenges with fine-tuning LLaMa 70B
+
+We encountered three main challenges when trying to fine-tune LLaMa 70B with FSDP:
 
 1. FSDP wraps the model after loading the pre-trained model. If each process/rank within a node loads the Llama-70B model, it would require 70*4*8 GB ~ 2TB of CPU RAM. This would result in the CPU RAM getting out of memory leading to processes being terminated.
 
@@ -29,8 +31,9 @@ inter-node connection: Elastic Fabric Adapter
 
 3. We need to improve the speed and reduce the VRAM usage to train faster and save compute costs.
 
-Let’s look at how to solve the above challenges and fine-tune 70B model. 
-All the required resources:
+Let’s look at how to solve the above challenges and fine-tune a 70B model!
+
+Before we get started, here's all the required resources to reproduce our results:
 1. Codebase:
 https://github.com/pacman100/DHS-LLM-Workshop/tree/main/code_assistant/training with flash-attn V2 monkey patch
 
@@ -44,7 +47,7 @@ https://github.com/pacman100/DHS-LLM-Workshop/tree/main/code_assistant/training 
 
 ## Pre-requisites
 
-First follow the these steps to install the Flash Attention V2:  Dao-AILab/flash-attention: Fast and memory-efficient exact attention (github.com). Install the latest nightlies of PyTorch with CUDA ≥11.8. Install the remaining requirements as per DHS-LLM-Workshop/code_assistant/training/requirements.txt
+First follow these steps to install Flash Attention V2:  Dao-AILab/flash-attention: Fast and memory-efficient exact attention (github.com). Install the latest nightlies of PyTorch with CUDA ≥11.8. Install the remaining requirements as per DHS-LLM-Workshop/code_assistant/training/requirements.txt
 
 # Fine-Tuning
 
