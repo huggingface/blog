@@ -24,10 +24,10 @@ Code Llama is a family of state-of-the-art, open-access versions of [Llama 2](ht
 Today, we’re excited to release:
 
 - Models on the Hub with their model cards and license
-- Code benchmarking
 - Transformers integration
 - Integration with Text Generation Inference for fast and efficient production-ready inference
 - Integration with Inference Endpoints
+- Code benchmarks
 
 Code LLMs are an exciting development for software engineers because they can boost productivity through code completion in IDEs, take care of repetitive or annoying tasks like writing docstrings, or create unit tests. 
 
