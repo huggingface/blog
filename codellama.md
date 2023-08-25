@@ -304,26 +304,26 @@ Language models for code are typically benchmarked on datatsets such as HumanEva
 
 While HumanEval is a Python benchmark there have been significant efforts to translate it to more programming languages and thus enable a more holistic evaluation. One such approach is [MultiPL-E](https://github.com/nuprl/MultiPL-E) which translates HumanEval to over a dozen languages. We are hosting a [multilingual code leaderboard](https://huggingface.co/spaces/bigcode/multilingual-code-evals) based on it to allow the community to compare models across different languages to evaluate which model fits their use-case best.
 
-| Model                  | License            | Dataset known | Commercial use? | Pretraining length [tokens] | Python | JavaScript | Leaderboard score |
-| ---------------------- | ------------------ | ------------- | --------------- | --------------------------- | ------ | ---------- | ----------------- |
-| CodeLlaMa-34B          | Llama 2 license    | ❌             | ✅               | 2,500B                      | 45.11  | 41.66      | 47.01             |
-| CodeLlaMa-13B          | Llama 2 license    | ❌             | ✅               | 2,500B                      | 35.07  | N/A        | 48.7              |
-| CodeLlaMa-7B           | Llama 2 license    | ❌             | ✅               | 2,500B                      | 29.98  | 31.8       | 49.71             |
-| CodeLlaMa-34B-Python   | Llama 2 license    | ❌             | ✅               | 2,620B                      | 53.29  | 44.72      | 54.32             |
-| CodeLlaMa-13B-Python   | Llama 2 license    | ❌             | ✅               | 2,620B                      | 42.89  | 40.66      | *                 |
-| CodeLlaMa-7B-Python    | Llama 2 license    | ❌             | ✅               | 2,620B                      | 40.48  | 36.34      | 58.67             |
-| CodeLlaMa-34B-Instruct | Llama 2 license    | ❌             | ✅               | 2,620B                      | 50.79  | 45.85      | 55.7              |
-| CodeLlaMa-13B-Instruct | Llama 2 license    | ❌             | ✅               | 2,620B                      | N/A    | 40.91      | 61.5              |
-| CodeLlaMa-7B-Instruct  | Llama 2 license    | ❌             | ✅               | 2,620B                      | 45.65  | 33.11      | 62.1              |
-| StarCoder-15B          | BigCode-OpenRail-M | ✅             | ✅               | 1,035B                      | 33.57  | 30.79      | *                 |
-| StarCoderBase-15B      | BigCode-OpenRail-M | ✅             | ✅               | 1,000B                      | 30.35  | 31.7       |                   |
-| WizardCoder-15B        | BigCode-OpenRail-M | ✅             | ✅               | 1,035B                      | 58.12  | 41.91      | 66.8              |
-| OctoCoder-15B          | BigCode-OpenRail-M | ✅             | ✅               | 1,000B                      | 45.3   | 32.8       |                   |
-| CodeGeeX-2-6B          | CodeGeeX License   | ❌             | ❌               | 2,000B                      | 33.49  | 29.9       |                   |
-| CodeGen-2.5-7B-Mono    | Apache-2.0         | ✅             | ✅               | 1400B                       | 45.65  | 23.22      |                   |
-| CodeGen-2.5-7B-Multi   | Apache-2.0         | ✅             | ✅               | 1400B                       | 28.7   | 26.27      |                   |
+| Model                  | License            | Dataset known | Commercial use? | Pretraining length [tokens] | Python | JavaScript | Leaderboard Avg Score |
+| ---------------------- | ------------------ | ------------- | --------------- | --------------------------- | ------ | ---------- | --------------------- |
+| CodeLlaMa-34B          | Llama 2 license    | ❌             | ✅               | 2,500B                      | 45.11  | 41.66      | 33.89                 |
+| CodeLlaMa-13B          | Llama 2 license    | ❌             | ✅               | 2,500B                      | 35.07  | 38.26      | 28.35                 |
+| CodeLlaMa-7B           | Llama 2 license    | ❌             | ✅               | 2,500B                      | 29.98  | 31.8       | 24.36                 |
+| CodeLlaMa-34B-Python   | Llama 2 license    | ❌             | ✅               | 2,620B                      | 53.29  | 44.72      | 33.87                 |
+| CodeLlaMa-13B-Python   | Llama 2 license    | ❌             | ✅               | 2,620B                      | 42.89  | 40.66      | 28.67                 |
+| CodeLlaMa-7B-Python    | Llama 2 license    | ❌             | ✅               | 2,620B                      | 40.48  | 36.34      | 23.5                  |
+| CodeLlaMa-34B-Instruct | Llama 2 license    | ❌             | ✅               | 2,620B                      | 50.79  | 45.85      | 35.09                 |
+| CodeLlaMa-13B-Instruct | Llama 2 license    | ❌             | ✅               | 2,620B                      | 50.6   | 40.91      | 31.29                 |
+| CodeLlaMa-7B-Instruct  | Llama 2 license    | ❌             | ✅               | 2,620B                      | 45.65  | 33.11      | 26.45                 |
+| StarCoder-15B          | BigCode-OpenRail-M | ✅             | ✅               | 1,035B                      | 33.57  | 30.79      | 22.74                 |
+| StarCoderBase-15B      | BigCode-OpenRail-M | ✅             | ✅               | 1,000B                      | 30.35  | 31.7       | 22.4                  |
+| WizardCoder-15B        | BigCode-OpenRail-M | ❌             | ✅               | 1,035B                      | 58.12  | 41.91      | 32.07                 |
+| OctoCoder-15B          | BigCode-OpenRail-M | ✅             | ✅               | 1,000B                      | 45.3   | 32.8       | 24.01                 |
+| CodeGeeX-2-6B          | CodeGeeX License   | ❌             | ❌               | 2,000B                      | 33.49  | 29.9       | 21.23                 |
+| CodeGen-2.5-7B-Mono    | Apache-2.0         | ✅             | ✅               | 1400B                       | 45.65  | 23.22      | 12.1                  |
+| CodeGen-2.5-7B-Multi   | Apache-2.0         | ✅             | ✅               | 1400B                       | 28.7   | 26.27      | 20.04                 |
 
-TODO: Add Code leaderboard
+**Note:** The scores presented in the table above are sourced from our code leaderboard, where we evaluate all models with the same settings. For more details, please refer to the [leaderboard](https://huggingface.co/spaces/bigcode/multilingual-code-evals).
 
 ## Additional Resources
 
