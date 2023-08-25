@@ -82,7 +82,7 @@ Until `transformers` 4.33 is released, please install it from the main branch.
 !pip install git+https://github.com/huggingface/transformers.git@main accelerate
 ```
 
-### Code Completion
+#### Code Completion
 
 The base models can be used for text/code completion or infilling. The following code snippet uses the `pipeline` interface to demonstrate text completion. It runs on the free tier of Colab, as long as you select a GPU runtime.
 
@@ -132,7 +132,7 @@ def fibonacci_memo(n, memo={}):
 
 Code Llama is specialized in code understanding, but it's a language model in its own right. You can use the same generation strategy to autocomplete comments or general text.
 
-### Code Infilling
+#### Code Infilling
 
 This is a specialized task particular to code models. The model is trained to generate the code (including comments) that best matches an existing prefix and suffix. This is the strategy typically used by code assistants: they are asked to fill the current cursor position, considering the contents that appear before and after it.
 
@@ -183,7 +183,7 @@ print(tokenizer.decode(output))
 
 In order to use the completion, you’ll need to process the output to cut the text between the `<MID>` and `<EOT>` tokens – that’s what goes between the prefix and suffix we supplied.
 
-### Conversational Instructions
+#### Conversational Instructions
 
  The base model can be used for both completion and infilling, as described. The Code Llama release also includes an instruction fine-tuned model that can be used in conversational interfaces.
 
@@ -210,7 +210,7 @@ prompt = f"<s>[INST] {user.strip()} [/INST]"
 inputs = tokenizer(prompt, return_tensors="pt", add_special_tokens=False).to("cuda")
 ```
 
-1. **First user query with system prompt**
+2. **First user query with system prompt**
 
 ```python
 system = "Provide answers in JavaScript"
@@ -220,7 +220,7 @@ prompt = f"<s><<SYS>>\\n{system}\\n<</SYS>>\\n\\n{user}"
 inputs = tokenizer(prompt, return_tensors="pt", add_special_tokens=False).to("cuda")
 ```
 
-1. **On-going conversation with previous answers**
+3. **On-going conversation with previous answers**
 
 The process is the same as in [Llama 2](https://huggingface.co/blog/llama2#how-to-prompt-llama-2). We haven’t used loops or generalized this example code for maximum clarity:
 
@@ -238,6 +238,43 @@ prompt += f"<s>[INST] {user_2.strip()} [/INST] {answer_2.strip()} </s>"
 prompt += f"<s>[INST] {user_3.strip()} [/INST]"
 
 inputs = tokenizer(prompt, return_tensors="pt", add_special_tokens=False).to("cuda")
+```
+
+#### 4-bit Loading
+
+Integration of Code Llama in Transformers means that you get immediate support for advanced features like 4-bit loading. This allows you to run the big 32B parameter models on consumer GPUs like nvidia 3090 cards!
+
+Here's how you can run inference in 4-bit mode:
+
+```Python
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+import torch
+
+model_id = "codellama/CodeLlama-34b-hf"
+quantization_config = BitsAndBytesConfig(
+   load_in_4bit=True,
+   bnb_4bit_compute_dtype=torch.float16
+)
+
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+model = AutoModelForCausalLM.from_pretrained(
+    model_id,
+    quantization_config=quantization_config,
+    device_map="auto",
+)
+
+prompt = 'def remove_non_ascii(s: str) -> str:\n    """ '
+inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
+
+output = model.generate(
+    inputs["input_ids"],
+    max_new_tokens=200,
+    do_sample=True,
+    top_p=0.9,
+    temperature=0.1,
+)
+output = output[0].to("cpu")
+print(tokenizer.decode(output))
 ```
 
 ### Using text-generation-inference and Inference Endpoints
