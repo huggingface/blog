@@ -17,7 +17,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Today we are exci## Introduction
+## Introduction
 
 Code Llama is a family of state-of-the-art open-access code-specialized versions of Metas [Llama 2](https://huggingface.co/blog/llama2) released by Meta, and we’re excited to release integration in the Hugging Face ecosystem! Code Llama is being released with the same permissive community license and is available for commercial use.
 
