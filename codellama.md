@@ -53,7 +53,7 @@ For the instruction model, they used two datasets: the instruction tuning datase
 
 ## How to use Code Llama?
 
-Codellama is available in the Hugging Face ecosystem, starting with `transformers` version 4.33. Until `transformers` 4.33 is released, please install it from the main branch.
+Code Llama is available in the Hugging Face ecosystem, starting with `transformers` version 4.33. Until `transformers` 4.33 is released, please install it from the main branch.
 
 ### Demo
 
