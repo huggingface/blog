@@ -71,10 +71,8 @@ Code Llama is available in the Hugging Face ecosystem, starting with `transforme
 
 You can easily try the Code Llama Model (13 billion parameters!) in **[this Space](https://huggingface.co/spaces/codellama/codellama-playground)** or in the playground embedded below:
 
-```
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.28.3/gradio.js"> </script>
 <gradio-app theme_mode="light" space="codellama/codellama-playground"></gradio-app>
-```
 
 Under the hood, this playground uses Hugging Face's [Text Generation Inference](https://github.com/huggingface/text-generation-inference), the same technology that powers [HuggingChat](https://huggingface.co/chat/), and we'll share more in the following sections.
 
