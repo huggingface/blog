@@ -76,7 +76,7 @@ You can easily try the Code Llama Model (13 billion parameters!) in **[this Spa
 
 Under the hood, this playground uses Hugging Face's [Text Generation Inference](https://github.com/huggingface/text-generation-inference), the same technology that powers [HuggingChat](https://huggingface.co/chat/), and we'll share more in the following sections.
 
-You can also check [this Space](https://huggingface.co/spaces/codellama/codellama-13b-chat) and clone it for your use – it's self-contained so you can examine the source code and adapt it as you wish!
+You can also check [this chat-based demo](https://huggingface.co/spaces/codellama/codellama-13b-chat) and clone it for your use – it's self-contained so you can examine the source code and adapt it as you wish!
 
 ### Transformers
 
@@ -338,5 +338,5 @@ While HumanEval is a Python benchmark there have been significant efforts to tra
 - [Paper Page](https://huggingface.co/papers/2308.12950)
 - [Official Meta announcement](https://ai.meta.com/blog/code-llama-large-language-model-coding/)
 - [Responsible Use Guide](https://ai.meta.com/llama/responsible-use-guide/)
-- [Demo (TGI)](https://huggingface.co/spaces/codellama/codellama-playground)
-- [Demo (self-contained, clonable)](https://huggingface.co/spaces/codellama/codellama-13b-chat)
+- [Demo (code completion, streaming server)](https://huggingface.co/spaces/codellama/codellama-playground)
+- [Demo (instruction fine-tuned, self-contained & clonable)](https://huggingface.co/spaces/codellama/codellama-13b-chat)
