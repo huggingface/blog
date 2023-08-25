@@ -285,4 +285,4 @@ TODO: Add Code leaderboard
 - [Paper Page](https://huggingface.co/papers/2308.12950)
 - [Official Meta announcement](https://ai.meta.com/blog/code-llama-large-language-model-coding/)
 - [Responsible Use Guide](https://ai.meta.com/llama/responsible-use-guide/)
-- Demo## Introduction
+- [Demo](https://huggingface.co/spaces/codellama/codellama-playground)
