@@ -160,7 +160,7 @@ model = AutoModelForCausalLM.from_pretrained(
 prefix = 'def remove_non_ascii(s: str) -> str:\n    """ '
 suffix = "\n    return result\n"
 
-prompt = f"<PRE> {prefix}<SUF>{suffix} <MID>"
+prompt = f"<PRE> {prefix} <SUF>{suffix} <MID>"
 inputs = tokenizer(prompt, return_tensors="pt").to("cuda")
 
 output = model.generate(
