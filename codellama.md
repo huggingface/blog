@@ -19,7 +19,7 @@ authors:
 
 ## Introduction
 
-Code Llama is a family of state-of-the-art open-access code-specialized versions of Metas [Llama 2](https://huggingface.co/blog/llama2) released by Meta, and we’re excited to release integration in the Hugging Face ecosystem! Code Llama is being released with the same permissive community license and is available for commercial use.
+Code Llama is a family of state-of-the-art open-access code-specialized versions of [Llama 2](https://huggingface.co/blog/llama2) released by Meta, and we’re excited to release integration in the Hugging Face ecosystem! Code Llama is being released with the same permissive community license as Llama 2 and is available for commercial use.
 
 Today, we’re excited to release:
 
@@ -29,28 +29,30 @@ Today, we’re excited to release:
 - Integration with Text Generation Inference for fast and efficient production-ready inference
 - Integration with Inference Endpoints
 
-Code LLMs are an exciting development for software engineers because they can boost productivity through code completion in IDEs, take care of repetitive or annoying tasks like writing docstring, or create unit tests. 
+Code LLMs are an exciting development for software engineers because they can boost productivity through code completion in IDEs, take care of repetitive or annoying tasks like writing docstrings, or create unit tests. 
 
 ## Table of Contents
 
 * [What’s Code Llama?](#whats-code-llama)
 * [How to use Code Llama?](#how-to-use-code-llama)
+    * [Demo](#demo)
+    * [Use in Transformers](#transformers)]
+    * [Using text-generation-inference and Inference Endpoints](#using-text-generation-inference-and-inference-endpoints)
 * [Evaluation](#evaluation)
 
 ## What’s Code Llama?
 
 The Code Llama release introduces a family of models of 7, 13, and 34 billion parameters. The base models are initialized from Llama 2 and then trained on 500 billion tokens of code data. Meta fine-tuned those base models for two different flavors: a Python specialist (100 billion tokens) and an instruction fine-tuned version, which can understand natural language instructions. 
 
-The models have state-of-the-art metrics in Python, C++, Java, PHP, C#, TypeScript, and Bash.
+The models have state-of-the-art metrics in Python, C++, Java, PHP, C#, TypeScript, and Bash. The 7B and 13B base and instruct variants support infilling based on surrounding content, making them ideal for use as code assistants.
 
-The base model was pre-trained using code infilling (e.g. inserting code into existing code or autocompleting), allowing it to perform source code completion or real-time docstring generation. Code Llama was trained on a 16k context window. The three models had additional long-context fine-tuning, allowing them to manage a context window of up to 100,000 tokens. 
+Code Llama was trained on a 16k context window. In addition, the three model variants had additional long-context fine-tuning, allowing them to manage a context window of up to 100,000 tokens.
 
 Increasing Llama 2’s 4k context window to Code Llama’s 16k (that can extrapolate up to 100k) was possible due to recent developments in RoPE scaling. The community found that Llama’s position embeddings can be interpolated linearly or in the frequency domain, which eases the transition to a larger context window through fine-tuning. In the case of Code Llama, the frequency domain scaling is done with a slack: the fine-tuning length is a fraction of the scaled pretrained length, giving the model powerful extrapolation capabilities. 
 
 ![Training Process](assets/160_codellama/training-process.jpg "Training Process")
 
-
-All models were initially trained with 500 billion tokens on a near-deduplicated dataset of publicly available. The dataset also contains some natural language datasets, such as discussions about code and code snippets. Unfortunately, there is not more information about the dataset. 
+All models were initially trained with 500 billion tokens on a near-deduplicated dataset of publicly available code. The dataset also contains some natural language datasets, such as discussions about code and code snippets. Unfortunately, there is not more information about the dataset.
 
 For the instruction model, they used two datasets: the instruction tuning dataset collected for Llama 2 Chat and a self-instruct dataset. The self-instruct dataset was created by using Llama 2 to create interview programming questions and then using Code Llama to generate unit tests and solutions, which are later evaluated by executing the tests.
 
@@ -87,7 +89,7 @@ Until `transformers` 4.33 is released, please install it from the main branch.
 
 #### Code Completion
 
-The base models can be used for text/code completion or infilling. The following code snippet uses the `pipeline` interface to demonstrate text completion. It runs on the free tier of Colab, as long as you select a GPU runtime.
+The 7B and 13B models can be used for text/code completion or infilling. The following code snippet uses the `pipeline` interface to demonstrate text completion. It runs on the free tier of Colab, as long as you select a GPU runtime.
 
 ```python
 from transformers import AutoTokenizer
@@ -138,6 +140,8 @@ Code Llama is specialized in code understanding, but it's a language model in it
 #### Code Infilling
 
 This is a specialized task particular to code models. The model is trained to generate the code (including comments) that best matches an existing prefix and suffix. This is the strategy typically used by code assistants: they are asked to fill the current cursor position, considering the contents that appear before and after it.
+
+This task is available in the **base** and **instruction** variants of the 7B and 13B models. It is _not_ available for any of the 34B models or the Python versions.
 
 To use this feature successfully, you need to pay close attention to the format used to train the model for this task, as it uses special separators to identify the different parts of the prompt. Let's see an example:
 
