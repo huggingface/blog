@@ -124,7 +124,7 @@ for seq in sequences:
 
 This may produce output like the following:
 
-```
+```python
 Result: def fibonacci(n):
     if n == 0:
         return 0
