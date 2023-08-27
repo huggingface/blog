@@ -12,6 +12,8 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
+*Update (23/08/2023): A benchmark on H100 was added to this blog post.*
+
 [Optimum Habana v1.6](https://github.com/huggingface/optimum-habana/tree/main) on Habana Gaudi2 achieves **almost x3 speedups compared to A100** when fine-tuning BridgeTower, a state-of-the-art vision-language model. Two new features contribute to the performance improvement: hardware-accelerated data loading and a fast DDP implementation.
 
 *These techniques apply to any other workloads constrained by data loading, which is frequently the case for many types of vision models.* This post will take you through the process and benchmark we used to compare BridgeTower fine-tuning on Habana Gaudi2 and Nvidia A100 80GB. It also demonstrates how easy it is to take advantage of these features in transformers-based models.
@@ -54,10 +56,13 @@ Let's run the two following experiments:
 
 Here are the throughputs we got on Gaudi2 and A100:
 
-| Device     | `dataloader_num_workers=0` | `dataloader_num_workers=1` |
-|:----------:|:--------------------------:|:--------------------------:|
-| Gaudi2 HPU | 532.4 samples/s            | 639.7 samples/s            |
-| A100 GPU   | 210.5 samples/s            | 296.6 samples/s            |
+| Device     | `dataloader_num_workers=0` | `dataloader_num_workers=1` | `dataloader_num_workers=2` |
+|:----------:|:--------------------------:|:--------------------------:|:--------------------------:|
+| Gaudi2 HPU | 532.4 samples/s            | 639.7 samples/s            | /                          |
+| A100 GPU   | 210.5 samples/s            | 296.6 samples/s            | /                          |
+| H100 GPU   | 336.5 samples/s            | 580.1 samples/s            | 602.1 samples/s            |
+
+*Update (23/08/2023): Gaudi2 is x1.06 faster than H100!*
 
 We first see that **Gaudi2 is x2.16 faster than A100** with `dataloader_num_workers=1` and x2.53 faster with `dataloader_num_workers=0`, which is on par with [the speedups we previously reported](https://huggingface.co/blog/habana-gaudi-2-benchmark)!
 
@@ -121,6 +126,9 @@ We are now going to benchmark a run with `dataloader_num_workers=1`, `distributi
 |:----------:|:--------------------------:|:--------------------------:|:---------------:|:---------------:|
 | Gaudi2 HPU | 532.4 samples/s            | 639.7 samples/s            | 705.9 samples/s | 802.1 samples/s |
 | A100 GPU   | 210.5 samples/s            | 296.6 samples/s            | /               | /               |
+| H100 GPU   | 336.5 samples/s            | 602.1 samples/s (`dataloader_num_workers=2`) | / | /           |
+
+*Update (23/08/2023): Gaudi2 is x1.33 faster than H100!*
 
 We got an additional x1.14 speedup compared to the previous run with `dataloader_num_workers=1` and `distribution_strategy="fast_ddp"`.
 This final run is thus x1.51 faster than our base run on Gaudi2 **simply adding 3 ready-to-use training arguments.** It is also **x2.70 faster than A100 with `dataloader_num_workers=1`!**
@@ -173,12 +181,16 @@ The results displayed in this benchmark were obtained with a Nvidia A100 80GB GC
 
 Note that `--distribution_strategy fast_ddp` and `--mediapipe_dataloader` are compatible with Gaudi2 only and will not work with A100.
 
+*Update (23/08/2023): The process is the same to reproduce the results on H100. fp8 results using [Transformer Engine](https://docs.nvidia.com/deeplearning/transformer-engine/user-guide/index.html) are not available because the code crashes and would require to modify the modeling of BridgeTower in Transformers.*
+
 
 ## Conclusion
 
 When dealing with images, we presented two solutions to speed up your training workflows: allocating more resources to the dataloader, and decoding and augmenting images directly on accelerator devices rather than on CPU.
 We showed that it leads to dramatic speedups when training a SOTA vision-language model like BridgeTower: **Habana Gaudi2 with Optimum Habana is almost 3x faster than Nvidia A100 80GB with Transformers!**
 And this is super easy to use as you just need to provide a few additional training arguments.
+
+*Update (23/08/2023): Habana Gaudi2 is also x1.33 faster than H100 on this task!  We will update this benchmark when fp8 is supported on Gaudi2.*
 
 To go further, we are looking forward to using HPU graphs for training models even faster and to presenting how to use DeepSpeed ZeRO-3 on Gaudi2 to accelerate the training of your LLMs. Stay tuned!
 
