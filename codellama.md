@@ -159,7 +159,7 @@ import transformers
 import torch
 
 model_id = "codellama/CodeLlama-7b-hf"
-tokenizer = CodeLlamaTokenizer.from_pretrained(model_id)
+tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForCausalLM.from_pretrained(
     model_id,
     torch_dtype=torch.float16
