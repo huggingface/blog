@@ -12,7 +12,7 @@ authors:
 - user: joaogante
 ---
 
-# Llama 2  learns to code
+# Codellama: Llama 2 learns to code
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->

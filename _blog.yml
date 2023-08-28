@@ -2734,7 +2734,7 @@
     - security
 
 - local: codellama
-  title: "Llama 2 learns to code" 
+  title: "Code Llama: Llama 2 learns to code" 
   author: philschmid
   thumbnail: /blog/assets/160_codellama/thumbnail.jpg
   date: August 25, 2023
