@@ -1,18 +1,18 @@
 ---
-title: "Llama 2 learns to code"
+title: "Llama 2 learns to code" 
 thumbnail: /blog/assets/160_codellama/thumbnail.jpg
 authors:
-  - user: philschmid
-  - user: osanseviero
-  - user: pcuenq
-  - user: lewtun
-  - user: lvwerra
-  - user: loubnabnl
-  - user: ArthurZ
-  - user: joaogante
+- user: philschmid
+- user: osanseviero
+- user: pcuenq
+- user: lewtun
+- user: lvwerra
+- user: loubnabnl
+- user: ArthurZ
+- user: joaogante
 ---
 
-# Llama 2 learns to code
+# Llama 2  learns to code
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -29,33 +29,33 @@ Today, we’re excited to release:
 - Integration with Inference Endpoints
 - Code benchmarks
 
-Code LLMs are an exciting development for software engineers because they can boost productivity through code completion in IDEs, take care of repetitive or annoying tasks like writing docstrings, or create unit tests.
+Code LLMs are an exciting development for software engineers because they can boost productivity through code completion in IDEs, take care of repetitive or annoying tasks like writing docstrings, or create unit tests. 
 
 ## Table of Contents
 
-- [Introduction](#introduction)
-- [Table of Contents](#table-of-contents)
-- [What’s Code Llama?](#whats-code-llama)
-- [How to use Code Llama?](#how-to-use-code-llama)
-  - [Demo](#demo)
-  - [Transformers](#transformers)
-    - [Code Completion](#code-completion)
-    - [Code Infilling](#code-infilling)
-    - [Conversational Instructions](#conversational-instructions)
-    - [4-bit Loading](#4-bit-loading)
-  - [Using text-generation-inference and Inference Endpoints](#using-text-generation-inference-and-inference-endpoints)
-- [Evaluation](#evaluation)
-- [Additional Resources](#additional-resources)
+  - [Introduction](#introduction)
+  - [Table of Contents](#table-of-contents)
+  - [What’s Code Llama?](#whats-code-llama)
+  - [How to use Code Llama?](#how-to-use-code-llama)
+    - [Demo](#demo)
+    - [Transformers](#transformers)
+      - [Code Completion](#code-completion)
+      - [Code Infilling](#code-infilling)
+      - [Conversational Instructions](#conversational-instructions)
+      - [4-bit Loading](#4-bit-loading)
+    - [Using text-generation-inference and Inference Endpoints](#using-text-generation-inference-and-inference-endpoints)
+  - [Evaluation](#evaluation)
+  - [Additional Resources](#additional-resources)
 
 ## What’s Code Llama?
 
-The Code Llama release introduces a family of models of 7, 13, and 34 billion parameters. The base models are initialized from Llama 2 and then trained on 500 billion tokens of code data. Meta fine-tuned those base models for two different flavors: a Python specialist (100 billion additional tokens) and an instruction fine-tuned version, which can understand natural language instructions.
+The Code Llama release introduces a family of models of 7, 13, and 34 billion parameters. The base models are initialized from Llama 2 and then trained on 500 billion tokens of code data. Meta fine-tuned those base models for two different flavors: a Python specialist (100 billion additional tokens) and an instruction fine-tuned version, which can understand natural language instructions. 
 
 The models show state-of-the-art performance in Python, C++, Java, PHP, C#, TypeScript, and Bash. The 7B and 13B base and instruct variants support infilling based on surrounding content, making them ideal for use as code assistants.
 
 Code Llama was trained on a 16k context window. In addition, the three model variants had additional long-context fine-tuning, allowing them to manage a context window of up to 100,000 tokens.
 
-Increasing Llama 2’s 4k context window to Code Llama’s 16k (that can extrapolate up to 100k) was possible due to recent developments in RoPE scaling. The community found that Llama’s position embeddings can be interpolated linearly or in the frequency domain, which eases the transition to a larger context window through fine-tuning. In the case of Code Llama, the frequency domain scaling is done with a slack: the fine-tuning length is a fraction of the scaled pretrained length, giving the model powerful extrapolation capabilities.
+Increasing Llama 2’s 4k context window to Code Llama’s 16k (that can extrapolate up to 100k) was possible due to recent developments in RoPE scaling. The community found that Llama’s position embeddings can be interpolated linearly or in the frequency domain, which eases the transition to a larger context window through fine-tuning. In the case of Code Llama, the frequency domain scaling is done with a slack: the fine-tuning length is a fraction of the scaled pretrained length, giving the model powerful extrapolation capabilities. 
 
 ![Training Process](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/160_codellama/training-process.jpg "Training Process")
 
@@ -72,7 +72,6 @@ Code Llama is available in the Hugging Face ecosystem, starting with `transforme
 You can easily try the Code Llama Model (13 billion parameters!) in **[this Space](https://huggingface.co/spaces/codellama/codellama-playground)** or in the playground embedded below:
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.28.3/gradio.js"> </script>
-
 <gradio-app theme_mode="light" space="codellama/codellama-playground"></gradio-app>
 
 Under the hood, this playground uses Hugging Face's [Text Generation Inference](https://github.com/huggingface/text-generation-inference), the same technology that powers [HuggingChat](https://huggingface.co/chat/), and we'll share more in the following sections.
@@ -80,14 +79,13 @@ Under the hood, this playground uses Hugging Face's [Text Generation Inference]
 You can also check [this chat-based demo](https://huggingface.co/spaces/codellama/codellama-13b-chat) and clone it for your use – it's self-contained so you can examine the source code and adapt it as you wish!
 
 If you want to try out the bigger instruct-tuned 34B model, it is now available on **HuggingChat**! You can try it out here: [hf.co/chat](https://hf.co/chat)
-
 ### Transformers
 
 With the upcoming release of `transformers` 4.33, you can use Code Llama and leverage all the tools within the HF ecosystem, such as:
 
 - training and inference scripts and examples
 - safe file format (`safetensors`)
-- integrations with tools such as `bitsandbytes` (4-bit quantization) and PEFT (parameter efficient fine-tuning)
+- integrations with tools such as `bitsandbytes`  (4-bit quantization) and PEFT (parameter efficient fine-tuning)
 - utilities and helpers to run generation with the model
 - mechanisms to export the models to deploy
 
@@ -202,7 +200,7 @@ In order to use the completion, you’ll need to process the output to cut the t
 
 #### Conversational Instructions
 
-The base model can be used for both completion and infilling, as described. The Code Llama release also includes an instruction fine-tuned model that can be used in conversational interfaces.
+ The base model can be used for both completion and infilling, as described. The Code Llama release also includes an instruction fine-tuned model that can be used in conversational interfaces.
 
 To prepare inputs for this task we have to use a prompt template like the one described in our [Llama 2 blog post](https://huggingface.co/blog/llama2#how-to-prompt-llama-2), which we reproduce again here:
 
@@ -304,7 +302,7 @@ You can try out Text Generation Inference on your own infrastructure, or you can
 - For 13B models, we advise you to select "GPU [xlarge] - 1x Nvidia A100".
 - For 34B models, we advise you to select "GPU [1xlarge] - 1x Nvidia A100" with `bitsandbytes` quantization enabled or "GPU [2xlarge] - 2x Nvidia A100"
 
-_Note: You might need to request a quota upgrade via email to **[api-enterprise@huggingface.co](mailto:api-enterprise@huggingface.co)** to access A100s_
+*Note: You might need to request a quota upgrade via email to **[api-enterprise@huggingface.co](mailto:api-enterprise@huggingface.co)** to access A100s*
 
 You can learn more on how to [Deploy LLMs with Hugging Face Inference Endpoints in our blog](https://huggingface.co/blog/inference-endpoints-llm). The [blog](https://huggingface.co/blog/inference-endpoints-llm) includes information about supported hyperparameters and how to stream your response using Python and Javascript.
 
@@ -316,22 +314,22 @@ While HumanEval is a Python benchmark there have been significant efforts to tra
 
 | Model                  | License            | Dataset known | Commercial use? | Pretraining length [tokens] | Python | JavaScript | Leaderboard Avg Score |
 | ---------------------- | ------------------ | ------------- | --------------- | --------------------------- | ------ | ---------- | --------------------- |
-| CodeLlaMa-34B          | Llama 2 license    | ❌            | ✅              | 2,500B                      | 45.11  | 41.66      | 33.89                 |
-| CodeLlaMa-13B          | Llama 2 license    | ❌            | ✅              | 2,500B                      | 35.07  | 38.26      | 28.35                 |
-| CodeLlaMa-7B           | Llama 2 license    | ❌            | ✅              | 2,500B                      | 29.98  | 31.8       | 24.36                 |
-| CodeLlaMa-34B-Python   | Llama 2 license    | ❌            | ✅              | 2,620B                      | 53.29  | 44.72      | 33.87                 |
-| CodeLlaMa-13B-Python   | Llama 2 license    | ❌            | ✅              | 2,620B                      | 42.89  | 40.66      | 28.67                 |
-| CodeLlaMa-7B-Python    | Llama 2 license    | ❌            | ✅              | 2,620B                      | 40.48  | 36.34      | 23.5                  |
-| CodeLlaMa-34B-Instruct | Llama 2 license    | ❌            | ✅              | 2,620B                      | 50.79  | 45.85      | 35.09                 |
-| CodeLlaMa-13B-Instruct | Llama 2 license    | ❌            | ✅              | 2,620B                      | 50.6   | 40.91      | 31.29                 |
-| CodeLlaMa-7B-Instruct  | Llama 2 license    | ❌            | ✅              | 2,620B                      | 45.65  | 33.11      | 26.45                 |
-| StarCoder-15B          | BigCode-OpenRail-M | ✅            | ✅              | 1,035B                      | 33.57  | 30.79      | 22.74                 |
-| StarCoderBase-15B      | BigCode-OpenRail-M | ✅            | ✅              | 1,000B                      | 30.35  | 31.7       | 22.4                  |
-| WizardCoder-15B        | BigCode-OpenRail-M | ❌            | ✅              | 1,035B                      | 58.12  | 41.91      | 32.07                 |
-| OctoCoder-15B          | BigCode-OpenRail-M | ✅            | ✅              | 1,000B                      | 45.3   | 32.8       | 24.01                 |
-| CodeGeeX-2-6B          | CodeGeeX License   | ❌            | ❌              | 2,000B                      | 33.49  | 29.9       | 21.23                 |
-| CodeGen-2.5-7B-Mono    | Apache-2.0         | ✅            | ✅              | 1400B                       | 45.65  | 23.22      | 12.1                  |
-| CodeGen-2.5-7B-Multi   | Apache-2.0         | ✅            | ✅              | 1400B                       | 28.7   | 26.27      | 20.04                 |
+| CodeLlaMa-34B          | Llama 2 license    | ❌             | ✅               | 2,500B                      | 45.11  | 41.66      | 33.89                 |
+| CodeLlaMa-13B          | Llama 2 license    | ❌             | ✅               | 2,500B                      | 35.07  | 38.26      | 28.35                 |
+| CodeLlaMa-7B           | Llama 2 license    | ❌             | ✅               | 2,500B                      | 29.98  | 31.8       | 24.36                 |
+| CodeLlaMa-34B-Python   | Llama 2 license    | ❌             | ✅               | 2,620B                      | 53.29  | 44.72      | 33.87                 |
+| CodeLlaMa-13B-Python   | Llama 2 license    | ❌             | ✅               | 2,620B                      | 42.89  | 40.66      | 28.67                 |
+| CodeLlaMa-7B-Python    | Llama 2 license    | ❌             | ✅               | 2,620B                      | 40.48  | 36.34      | 23.5                  |
+| CodeLlaMa-34B-Instruct | Llama 2 license    | ❌             | ✅               | 2,620B                      | 50.79  | 45.85      | 35.09                 |
+| CodeLlaMa-13B-Instruct | Llama 2 license    | ❌             | ✅               | 2,620B                      | 50.6   | 40.91      | 31.29                 |
+| CodeLlaMa-7B-Instruct  | Llama 2 license    | ❌             | ✅               | 2,620B                      | 45.65  | 33.11      | 26.45                 |
+| StarCoder-15B          | BigCode-OpenRail-M | ✅             | ✅               | 1,035B                      | 33.57  | 30.79      | 22.74                 |
+| StarCoderBase-15B      | BigCode-OpenRail-M | ✅             | ✅               | 1,000B                      | 30.35  | 31.7       | 22.4                  |
+| WizardCoder-15B        | BigCode-OpenRail-M | ❌             | ✅               | 1,035B                      | 58.12  | 41.91      | 32.07                 |
+| OctoCoder-15B          | BigCode-OpenRail-M | ✅             | ✅               | 1,000B                      | 45.3   | 32.8       | 24.01                 |
+| CodeGeeX-2-6B          | CodeGeeX License   | ❌             | ❌               | 2,000B                      | 33.49  | 29.9       | 21.23                 |
+| CodeGen-2.5-7B-Mono    | Apache-2.0         | ✅             | ✅               | 1400B                       | 45.65  | 23.22      | 12.1                  |
+| CodeGen-2.5-7B-Multi   | Apache-2.0         | ✅             | ✅               | 1400B                       | 28.7   | 26.27      | 20.04                 |
 
 **Note:** The scores presented in the table above are sourced from our code leaderboard, where we evaluate all models with the same settings. For more details, please refer to the [leaderboard](https://huggingface.co/spaces/bigcode/multilingual-code-evals).
 
