@@ -78,6 +78,7 @@ Under the hood, this playground uses Hugging Face's [Text Generation Inference]
 
 You can also check [this chat-based demo](https://huggingface.co/spaces/codellama/codellama-13b-chat) and clone it for your use – it's self-contained so you can examine the source code and adapt it as you wish!
 
+If you want to try out the bigger instruct-tuned 34B model, it is now available on **HuggingChat**! You can try it out here: [hf.co/chat](https://hf.co/chat)
 ### Transformers
 
 With the upcoming release of `transformers` 4.33, you can use Code Llama and leverage all the tools within the HF ecosystem, such as:
