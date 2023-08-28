@@ -1,5 +1,5 @@
 ---
-title: "Llama 2 learns to code" 
+title: "Code Llama: Llama 2 learns to code" 
 thumbnail: /blog/assets/160_codellama/thumbnail.jpg
 authors:
 - user: philschmid
@@ -12,7 +12,7 @@ authors:
 - user: joaogante
 ---
 
-# Codellama: Llama 2 learns to code
+# Code Llama: Llama 2 learns to code
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
