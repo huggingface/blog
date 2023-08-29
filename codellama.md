@@ -39,6 +39,7 @@ Code LLMs are an exciting development for software engineers because they can bo
   - [How to use Code Llama?](#how-to-use-code-llama)
     - [Demo](#demo)
     - [Transformers](#transformers)
+      - [A Note on dtypes](#a-note-on-dtypes)
       - [Code Completion](#code-completion)
       - [Code Infilling](#code-infilling)
       - [Conversational Instructions](#conversational-instructions)
@@ -76,9 +77,8 @@ You can easily try the Code Llama Model (13 billion parameters!) in **[this Spa
 
 Under the hood, this playground uses Hugging Face's [Text Generation Inference](https://github.com/huggingface/text-generation-inference), the same technology that powers [HuggingChat](https://huggingface.co/chat/), and we'll share more in the following sections.
 
-You can also check [this chat-based demo](https://huggingface.co/spaces/codellama/codellama-13b-chat) and clone it for your use – it's self-contained so you can examine the source code and adapt it as you wish!
+If you want to try out the bigger instruct-tuned 34B model, it is now available on **HuggingChat**! You can try it out here: [hf.co/chat](https://hf.co/chat). Make sure to specify the Code Llama model. You can also check [this chat-based demo](https://huggingface.co/spaces/codellama/codellama-13b-chat) and duplicate it for your use – it's self-contained, so you can examine the source code and adapt it as you wish!
 
-If you want to try out the bigger instruct-tuned 34B model, it is now available on **HuggingChat**! You can try it out here: [hf.co/chat](https://hf.co/chat)
 ### Transformers
 
 With the upcoming release of `transformers` 4.33, you can use Code Llama and leverage all the tools within the HF ecosystem, such as:
@@ -94,6 +94,15 @@ Until `transformers` 4.33 is released, please install it from the main branch.
 ```bash
 !pip install git+https://github.com/huggingface/transformers.git@main accelerate
 ```
+#### A Note on dtypes
+
+When using models like Code Llama, it's important to take a look at the data types of the models. 
+
+* 32-bit floating point (`float32`): PyTorch convention on model initialization is to load models in `float32`, no matter with which precision the model weights were stored. `transformers` also follows this convention for consistency with PyTorch.
+* 16-bit Brain floating point (`bfloat16`): Code Llama was trained with this precision, so we recommend using it for further training or fine-tuning.
+* 16-bit floating point (`float16`): We recommend running inference using this precision, as it's usually faster than `bfloat16`, and evaluation metrics show no discernible degradation with respect to `bfloat16`. You can also run inference using `bfloat16`, and we recommend you check inference results with both `float16` and `bfloat16` after fine-tuning.
+
+As mentioned above, `transformers` loads weights using `float32` (no matter with which precision the models are stored), so it's important to specify the desired `dtype` when loading the models. If you want to fine-tune Code Llama, it's recommended to use `bfloat16`, as using `float16` can lead to overflows and NaNs. If you run inference, we recommend using `float16` because `bfloat16` can be slower. 
 
 #### Code Completion
 
