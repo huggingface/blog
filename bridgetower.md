@@ -189,7 +189,7 @@ When dealing with images, we presented two solutions to speed up your training w
 We showed that it leads to dramatic speedups when training a SOTA vision-language model like BridgeTower: **Habana Gaudi2 with Optimum Habana is about x1.4 faster than Nvidia H100 and x2.5 faster than Nvidia A100 80GB with Transformers!**
 And this is super easy to use as you just need to provide a few additional training arguments.
 
-To go further, we are looking forward to using HPU graphs for training models even faster and presenting how to use DeepSpeed ZeRO-3 on Gaudi2 to accelerate the training of your LLMs. Stay tuned!
+To go further, we are looking forward to using HPU graphs for training models even faster and to presenting how to use DeepSpeed ZeRO-3 on Gaudi2 to accelerate the training of your LLMs. Stay tuned!
 
 If you are interested in accelerating your Machine Learning training and inference workflows using the latest AI hardware accelerators and software libraries, check out our [Expert Acceleration Program](https://huggingface.co/support). To learn more about Habana solutions, [read about our partnership and contact them here](https://huggingface.co/hardware/habana). To learn more about Hugging Face efforts to make AI hardware accelerators easy to use, check out our [Hardware Partner Program](https://huggingface.co/hardware).
 
