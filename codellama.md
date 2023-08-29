@@ -98,11 +98,11 @@ Until `transformers` 4.33 is released, please install it from the main branch.
 
 When using models like Code Llama, it's important to take a look at the data types of the models. Code Llama was trained in `bfloat16
 
-* 32-bit floating point (`float32`): PyTorch convention on model initialization is to load models in `float32`. `transformers` also follows this convention.
-* 16-bit Brain floating point (`bfloat16`): Code Llama was trained with this precision.
-* 16-bit floating point (`float16`): Code Llama is supposed to run inference with this precision.
+* 32-bit floating point (`float32`): PyTorch convention on model initialization is to load models in `float32`, no matter what the weight files contain. `transformers` also follows this convention for consistency with PyTorch.
+* 16-bit Brain floating point (`bfloat16`): Code Llama was trained with this precision, so we recommend to use it for further training or fine-tuning.
+* 16-bit floating point (`float16`): We recommend to run inference using this precision, as it's usually faster than `bfloat16` and evaluation metrics show no discernible degradation with respect to `bfloat16`. You can also run inference using `bfloat16`, and we recommend you check inference results with both `float16` and `bfloat16` after fine-tuning.
 
-As mentioned above, `transformers` loads using `float32` (no matter with which precision the models are stored), so it's important to specify the dtype when loading the models. If you want to fine-tune Code Llama, it's recommended to use `bfloat16`. Using `float16` can lead to overflows and NaNs. Similarly, if you run inference, it's recommended to use `float16`. Using `bfloat16` can lead to a slower inference. 
+As mentioned above, `transformers` loads weights using `float32` (no matter with which precision the models are stored), so it's important to specify the desired `dtype` when loading the models. If you want to fine-tune Code Llama, it's recommended to use `bfloat16`, as using `float16` can lead to overflows and NaNs. If you run inference, we recommended to use `float16` because `bfloat16` can be slower. 
 
 #### Code Completion
 
