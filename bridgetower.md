@@ -12,7 +12,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-*Update (29/08/2023): A benchmark on H100 was added to this blog post.*
+*Update (29/08/2023): A benchmark on H100 was added to this blog post. Also, all performance numbers have been updated with newer versions of software.*
 
 [Optimum Habana v1.7](https://github.com/huggingface/optimum-habana/tree/main) on Habana Gaudi2 achieves **x2.5 speedups compared to A100 and x1.4 compared to H100** when fine-tuning BridgeTower, a state-of-the-art vision-language model. This performance improvement relies on hardware-accelerated data loading to make the most of your devices.
 
@@ -176,7 +176,7 @@ For A100 and H100, you can use the same `run_bridgetower.py` script with a few s
 - Remove references to `GaudiConfig`, `gaudi_config` and `HabanaDataloaderTrainer`
 - Import `set_seed` directly from Transformers: `from transformers import set_seed`
 
-The results displayed in this benchmark were obtained with a Nvidia H100 Lambda instance and a Nvidia A100 80GB GCP instance with 8 GPUS.
+The results displayed in this benchmark were obtained with a Nvidia H100 Lambda instance and a Nvidia A100 80GB GCP instance both with 8 devices using [Nvidia's Docker images](https://docs.nvidia.com/deeplearning/frameworks/pytorch-release-notes/index.html).
 
 Note that `--mediapipe_dataloader` is compatible with Gaudi2 only and will not work with A100/H100.
 
