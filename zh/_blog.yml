@@ -809,6 +809,17 @@
     - diffusion
     - game-dev
 
+- local: sd_distillation
+  title: "开源 SD-Small 和 SD-Tiny 知识蒸馏代码与权重"
+  author: harishsegmind
+  guest: true
+  thumbnail: /blog/assets/distill_sd/thumbnail.png
+  date: August 1, 2023
+  tags:
+    - stable-diffusion
+    - research
+    - diffusers
+
 - local: dpo-trl
   title: "使用 DPO 微调 Llama 2"
   author: kashif
@@ -830,6 +841,16 @@
     - benchmark
     - bark
 
+- local: safecoder
+  title: "推介 SafeCoder"
+  author: jeffboudier
+  thumbnail: /blog/assets/159_safecoder/thumbnail.jpg
+  date: August 22, 2023
+  tags:
+    - announcement
+    - partnerships
+    - vmware
+    - bigcode
 
 - local: gptq-integration
   title: "使用 AutoGPTQ 和 transformers 让大语言模型更轻量化"
