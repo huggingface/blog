@@ -52,7 +52,7 @@ This blogpost and release come with several resources to get started with GPTQ q
 
 ## **A gentle summary of the GPTQ paper**
 
-Quantization methods usually belong into one of two categories: 
+Quantization methods usually belong to one of two categories: 
 
 1. Post-Training Quantization (PTQ): We quantize a pre-trained model using moderate resources, such as a calibration dataset and a few hours of computation.
 2. Quantization-Aware Training (QAT): Quantization is performed before training or further fine-tuning. 
