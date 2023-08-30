@@ -27,6 +27,7 @@ Today, we’re excited to release:
 - Transformers integration
 - Integration with Text Generation Inference for fast and efficient production-ready inference
 - Integration with Inference Endpoints
+- Integration with VS Code extension
 - Code benchmarks
 
 Code LLMs are an exciting development for software engineers because they can boost productivity through code completion in IDEs, take care of repetitive or annoying tasks like writing docstrings, or create unit tests. 
@@ -45,6 +46,7 @@ Code LLMs are an exciting development for software engineers because they can bo
       - [Conversational Instructions](#conversational-instructions)
       - [4-bit Loading](#4-bit-loading)
     - [Using text-generation-inference and Inference Endpoints](#using-text-generation-inference-and-inference-endpoints)
+    - [Using VS Code extension](#using-vs-code-extension)
   - [Evaluation](#evaluation)
   - [Additional Resources](#additional-resources)
 
@@ -316,6 +318,12 @@ You can try out Text Generation Inference on your own infrastructure, or you can
 *Note: You might need to request a quota upgrade via email to **[api-enterprise@huggingface.co](mailto:api-enterprise@huggingface.co)** to access A100s*
 
 You can learn more on how to [Deploy LLMs with Hugging Face Inference Endpoints in our blog](https://huggingface.co/blog/inference-endpoints-llm). The [blog](https://huggingface.co/blog/inference-endpoints-llm) includes information about supported hyperparameters and how to stream your response using Python and Javascript.
+
+### Using VS Code extension
+
+[HF Code Autocomplete](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) is a VS Code extension for testing open source code completion models. The extension was developed as part of [StarCode project](/blog/starcoder#tools--demos), and was updated to support [codellama/CodeLlama-13b-hf](/codellama/CodeLlama-13b-hf). Find more [here](https://github.com/huggingface/huggingface-vscode#code-llama) on how to install and run the extension with Code Llama. 
+
+![VS Code extension](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/160_codellama/vscode.png "VS Code extension")
 
 ## Evaluation
 
