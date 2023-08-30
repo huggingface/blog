@@ -37,7 +37,7 @@ is a text-to-audio _latent diffusion model (LDM)_ that learns continuous audio r
 
 The overall generation process is summarised as follows:
 
-1. Given a text input $\boldsymbol{x}$, two text encoder models are used to compute the text embeddings: the text-branch of [CLAP](https://huggingface.co/docs/transformers/main/en/model_doc/clap), and the text-encoder of [Flan-T5](https://huggingface.co/docs/transformers/main/en/model_doc/flan-t5)
+1. Given a text input \\(\boldsymbol{x}\\), two text encoder models are used to compute the text embeddings: the text-branch of [CLAP](https://huggingface.co/docs/transformers/main/en/model_doc/clap), and the text-encoder of [Flan-T5](https://huggingface.co/docs/transformers/main/en/model_doc/flan-t5)
 
 $$
 \boldsymbol{E}_{1} = \text{CLAP}\left(\boldsymbol{x} \right); \quad \boldsymbol{E}_{2} = \text{T5}\left(\boldsymbol{x}\right)
@@ -53,29 +53,31 @@ $$
 
 In the `diffusers` implementation, these projections are defined by the [AudioLDM2ProjectionModel](https://huggingface.co/docs/diffusers/api/pipelines/audioldm2/AudioLDM2ProjectionModel).
 
-3. A [GPT2](https://huggingface.co/docs/transformers/main/en/model_doc/gpt2) language model (LM) is used to auto-regressively generate a sequence of $N$ new embedding vectors, conditional on the projected CLAP and Flan-T5 embeddings:
+3. A [GPT2](https://huggingface.co/docs/transformers/main/en/model_doc/gpt2) language model (LM) is used to auto-regressively generate a sequence of \\(N\\) new embedding vectors, conditional on the projected CLAP and Flan-T5 embeddings:
 
 $$
 \boldsymbol{E}_{i} = \text{GPT2}\left(\boldsymbol{P}_{1}, \boldsymbol{P}_{2}, \boldsymbol{E}_{1:i-1}\right) \qquad \text{for } i=1,\dots,N
 $$
 
-4. The generated embedding vectors $\boldsymbol{E}_{1:N}$ and Flan-T5 text embeddings $\boldsymbol{E}_{2}$ are used as cross-attention conditioning in the LDM, which *de-noises*
-a random latent via a reverse diffusion process. The LDM is run in the reverse diffusion process for a total of $T$ inference steps:
+4. The generated embedding vectors \\(\boldsymbol{E}_{1:N}\\) and Flan-T5 text embeddings \\(\boldsymbol{E}_{2}\\) are used as cross-attention conditioning in the LDM, which *de-noises*
+a random latent via a reverse diffusion process. The LDM is run in the reverse diffusion process for a total of \\(T\\) inference steps:
 
 $$
 \boldsymbol{z}_{t} = \text{LDM}\left(\boldsymbol{z}_{t-1} | \boldsymbol{E}_{1:N}, \boldsymbol{E}_{2}\right) \qquad \text{for } t = 1, \dots, T
 $$
 
-where the initial latent variable $\boldsymbol{z}_{0}$ is drawn from a normal distribution $\mathcal{N} \left(\boldsymbol{0}, \boldsymbol{I} \right)$. The [UNet](https://huggingface.co/docs/diffusers/api/pipelines/audioldm2/AudioLDM2UNet2DConditionModel) of the LDM is unique in
-the sense that it takes **two** sets of cross-attention embeddings, $\boldsymbol{E}_{1:N}$ from the GPT2 langauge model, and $\boldsymbol{E}_{2}$ from Flan-T5, as opposed to one cross-attention conditioning as in most other LDMs.
+where the initial latent variable \\(\boldsymbol{z}_{0}\\) is drawn from a normal distribution \\(\mathcal{N} \left(\boldsymbol{0}, \boldsymbol{I} \right)\\). 
+The [UNet](https://huggingface.co/docs/diffusers/api/pipelines/audioldm2/AudioLDM2UNet2DConditionModel) of the LDM is unique in
+the sense that it takes **two** sets of cross-attention embeddings, \\(\boldsymbol{E}_{1:N}\\) from the GPT2 langauge model, and \\(\boldsymbol{E}_{2}\\) 
+from Flan-T5, as opposed to one cross-attention conditioning as in most other LDMs.
 
-5. The final de-noised latents $\boldsymbol{z}_{T}$ are passed to the VAE decoder to recover the Mel spectrogram $\boldsymbol{s}$:
+5. The final de-noised latents \\(\boldsymbol{z}_{T}\\) are passed to the VAE decoder to recover the Mel spectrogram \\(\boldsymbol{s}\\):
 
 $$
 \boldsymbol{s} = \text{VAE}_{\text{dec}} \left(\boldsymbol{z}_{T}\right)
 $$
 
-6. The Mel spectrogram is passed to the vocoder to obtain the output audio waveform $\mathbf{y}$:
+6. The Mel spectrogram is passed to the vocoder to obtain the output audio waveform \\(\mathbf{y}\\):
 
 $$
 \boldsymbol{y} = \text{Vocoder}\left(\boldsymbol{s}\right)
@@ -116,7 +118,7 @@ pipe = AudioLDM2Pipeline.from_pretrained(model_id)
 ```
 **Output:**
 ```
-Loading pipeline components...: 100%|███████████████████████████████████████████████████| 11/11 [00:01<00:00,  7.62it/s]
+Loading pipeline components...: 100%|███████████████████████████████████████████| 11/11 [00:01<00:00,  7.62it/s]
 ```
 
 The pipeline can be moved to the GPU in much the same way as a standard PyTorch nn module:
@@ -147,7 +149,7 @@ audio = pipe(prompt, audio_length_in_s=10.24, generator=generator).audios[0]
 
 **Output:**
 ```
-100%|█████████████████████████████████████████████████████████████████████████████████| 200/200 [00:13<00:00, 15.27it/s]
+100%|███████████████████████████████████████████| 200/200 [00:13<00:00, 15.27it/s]
 ```
 
 Cool! That run took about 13 seconds to generate. Let's have a listen to the output audio:
@@ -177,7 +179,7 @@ audio = pipe(prompt, negative_prompt=negative_prompt, generator=generator.manual
 
 **Output:**
 ```
-100%|█████████████████████████████████████████████████████████████████████████████████| 200/200 [00:12<00:00, 16.50it/s]
+100%|███████████████████████████████████████████| 200/200 [00:12<00:00, 16.50it/s]
 ```
 
 The inference time is un-changed when using a negative prompt\\({}^1\\); we simply replace the unconditional input to the 
@@ -216,7 +218,7 @@ audio = pipe(prompt, negative_prompt=negative_prompt, generator=generator.manual
 
 **Output:**
 ```
-100%|█████████████████████████████████████████████████████████████████████████████████| 200/200 [00:12<00:00, 16.60it/s]
+100%|███████████████████████████████████████████| 200/200 [00:12<00:00, 16.60it/s]
 ```
 
 For more details on the use of SDPA in `diffusers`, refer to the corresponding [documentation](https://huggingface.co/docs/diffusers/optimization/torch2.0).
@@ -248,7 +250,7 @@ Audio(audio, rate=16000)
 **Output:**
 
 ```
-100%|█████████████████████████████████████████████████████████████████████████████████| 200/200 [00:09<00:00, 20.94it/s]
+100%|███████████████████████████████████████████| 200/200 [00:09<00:00, 20.94it/s]
 ```
 
 <audio controls> 
@@ -280,7 +282,7 @@ audio = pipe(prompt, negative_prompt=negative_prompt, generator=generator.manual
 
 **Output:**
 ```
-100%|█████████████████████████████████████████████████████████████████████████████████| 200/200 [01:23<00:00,  2.39it/s]
+100%|███████████████████████████████████████████| 200/200 [01:23<00:00,  2.39it/s]
 ```
 
 Great! Now that the UNet is compiled, we can now run the full diffusion process and reap the benefits of faster inference:
@@ -291,7 +293,7 @@ audio = pipe(prompt, negative_prompt=negative_prompt, generator=generator.manual
 
 **Output:**
 ```
-100%|█████████████████████████████████████████████████████████████████████████████████| 200/200 [00:04<00:00, 48.98it/s]
+100%|███████████████████████████████████████████| 200/200 [00:04<00:00, 48.98it/s]
 ```
 
 Only 4 seconds to generate! In practice, you will only have to compile the UNet once, and then get faster inference for 
@@ -451,7 +453,5 @@ saving tricks, such as half-precision and CPU offload, to reduce peak memory usa
 checkpoint sizes.
 
 Blog post by [Sanchit Gandhi](https://huggingface.co/sanchit-gandhi). Many thanks to [Vaibhav Srivastav](https://huggingface.co/reach-vb)
-and [Sayak Paul](https://huggingface.co/sayakpaul) for their constructive comments.
-
-Spectrogram image source: [Getting to Know the Mel Spectrogram](https://towardsdatascience.com/getting-to-know-the-mel-spectrogram-31bca3e2d9d0). 
+and [Sayak Paul](https://huggingface.co/sayakpaul) for their constructive comments. Spectrogram image source: [Getting to Know the Mel Spectrogram](https://towardsdatascience.com/getting-to-know-the-mel-spectrogram-31bca3e2d9d0). 
 Waveform image source: [Aalto Speech Processing](https://speechprocessingbook.aalto.fi/Representations/Waveform.html).
