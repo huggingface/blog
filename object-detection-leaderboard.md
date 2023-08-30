@@ -15,8 +15,8 @@ In the field of Computer Vision, Object Detection refers to the technique of ide
 
 The following image, for instance, shows 5 detections, being 1 “ball” with confidence of 98% and 4 “person” with confidences 98%, 95%, 97% and 97%.
 
-<<<<---- IMAGE ---->>>>
-
+![image](assets/object-detection-leaderboard/intro_object_detection.png)
+Figure 1: Example of outputs performed by an object detector.
 
 Object detection models are versatile and have a wide range of applications across various domains. Some use cases where they are applied are **autonomous vehicles**, **face detection**, **surveillance and security**, **medical imaging**, **augmented reality**, **sport analysis**, **smart cities**, **gesture recognition**, etc.
 
@@ -28,14 +28,12 @@ However, the diversity of detectors go beyond the range of output classes they c
 
 A popular metric used to evaluate the accuracy of predictions made by an object detection model is a metric known as **Average Precision (AP)** and its variants, which will be explained further.
 
-The process to evaluate an object detection model encompassing several components like dataset with ground-truth annotations, detections (output prediction)  and metrics. This process is depicted in the schematic provided in Figure 1:
+The process to evaluate an object detection model encompassing several components like dataset with ground-truth annotations, detections (output prediction)  and metrics. This process is depicted in the schematic provided in Figure 2:
 
-<<<<---- IMAGE ---->>>>
+![image](assets/object-detection-leaderboard/pipeline_object_detection.png)
+Figure 2: Schematic illustrating the evaluation process for a traditional object detection model
 
-Figure 1: Schematic illustrating the evaluation process for a traditional object detection model
-
-It is not depicted in Figure 1, but as previously mentioned, certain models require text prompt inputs, to provide guidance on the specific classes the model is intended to detect.
-
+It is not depicted in Figure 2, but as previously mentioned, certain models require text prompt inputs, to provide guidance on the specific classes the model is intended to detect.
 
 First, a benchmarking dataset containing images with ground-truth bounding box annotations is chosen and fed into the object detection model. For each image, the model predicts bounding boxes, assigning associated class labels and confidence scores to each box. During the evaluation phase, these predicted bounding boxes are compared with the ground-truth boxes present in the dataset. The evaluation yields a set of metrics, each ranging between [0, 1], reflecting a specific evaluation criteria. We will cover each of them in a separate section.
 
@@ -50,12 +48,11 @@ Average Precision is a single-number metric that summarizes the precision-recall
 
 Every box predicted by the model is considered a “positive” detection. Based on a criteria known as Intersection over Union (IoU) between the predicted box and a ground-truth annotation, a detection is categorized either as a true positive (TP) or a false positive (FP). 
 
-The IoU measures the overlap between the predicted bounding box and the actual (ground truth) bounding box. It's computed by dividing the area where the two boxes overlap by the area covered by both boxes combined. Figure 2 visually demonstrates the IoU using an example of a predicted box and its corresponding ground-truth box.
+The IoU measures the overlap between the predicted bounding box and the actual (ground truth) bounding box. It's computed by dividing the area where the two boxes overlap by the area covered by both boxes combined. Figure 3 visually demonstrates the IoU using an example of a predicted box and its corresponding ground-truth box.
 
 
-<<<<---- IMAGE ---->>>>
-
-Figure 2: Intersection over Union (IoU) between a detection (in green) and ground-truth (in blue).
+![image](assets/object-detection-leaderboard/iou.png)
+Figure 3: Intersection over Union (IoU) between a detection (in green) and ground-truth (in blue).
 
 Clearly, if both the ground-truth and detected boxes share identical coordinates, representing the same region in the image, their IoU value is 1. Conversely, if the boxes do not overlap at any pixel, the IoU is considered to be 0.
 
@@ -79,7 +76,9 @@ which translates to the ratio of true positives over all detected boxes.
 
 * **Recall** gauges a model’s competence in finding all the relevant cases (all ground truth bounding boxes). It indicates the proportion of TP detected among all ground truths and is given by:
 
-Recall = TP / (TP + FN) = TP / all ground truths <<<<---- EQUATION ---->>>>
+\\( Recall = \frac{TP}{(TP + FN)} \\)
+
+ = TP / all ground truths <<<<---- EQUATION ---->>>>
 
 Note that TP, FP and FN depend on a predefined IoU threshold, and so do Precision and Recall.
 
