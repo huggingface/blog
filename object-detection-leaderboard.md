@@ -15,8 +15,11 @@ In the field of Computer Vision, Object Detection refers to the technique of ide
 
 The following image, for instance, shows 5 detections, being 1 “ball” with confidence of 98% and 4 “person” with confidences 98%, 95%, 97% and 97%.
 
-![image](assets/object-detection-leaderboard/intro_object_detection.png)
-Figure 1: Example of outputs performed by an object detector.
+<!-- ![image](assets/object-detection-leaderboard/intro_object_detection.png)
+Figure 1: Example of outputs performed by an object detector. -->
+
+<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/intro_object_detection.png">
+<center> Figure 1: Example of outputs performed by an object detector. </center>
 
 Object detection models are versatile and have a wide range of applications across various domains. Some use cases where they are applied are **autonomous vehicles**, **face detection**, **surveillance and security**, **medical imaging**, **augmented reality**, **sport analysis**, **smart cities**, **gesture recognition**, etc.
 
@@ -30,8 +33,12 @@ A popular metric used to evaluate the accuracy of predictions made by an object 
 
 The process to evaluate an object detection model encompassing several components like dataset with ground-truth annotations, detections (output prediction)  and metrics. This process is depicted in the schematic provided in Figure 2:
 
-![image](assets/object-detection-leaderboard/pipeline_object_detection.png)
-Figure 2: Schematic illustrating the evaluation process for a traditional object detection model
+<!-- ![image](assets/object-detection-leaderboard/pipeline_object_detection.png)
+Figure 2: Schematic illustrating the evaluation process for a traditional object detection model -->
+
+<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/pipeline_object_detection.png">
+<center> Figure 2: Schematic illustrating the evaluation process for a traditional object detection model. </center>
+
 
 It is not depicted in Figure 2, but as previously mentioned, certain models require text prompt inputs, to provide guidance on the specific classes the model is intended to detect.
 
@@ -51,8 +58,11 @@ Every box predicted by the model is considered a “positive” detection. Based
 The IoU measures the overlap between the predicted bounding box and the actual (ground truth) bounding box. It's computed by dividing the area where the two boxes overlap by the area covered by both boxes combined. Figure 3 visually demonstrates the IoU using an example of a predicted box and its corresponding ground-truth box.
 
 
-![image](assets/object-detection-leaderboard/iou.png)
-Figure 3: Intersection over Union (IoU) between a detection (in green) and ground-truth (in blue).
+<!-- ![image](assets/object-detection-leaderboard/iou.png)
+Figure 3: Intersection over Union (IoU) between a detection (in green) and ground-truth (in blue). -->
+
+<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/iou.png">
+<center> Figure 3: Intersection over Union (IoU) between a detection (in green) and ground-truth (in blue). </center>
 
 Clearly, if both the ground-truth and detected boxes share identical coordinates, representing the same region in the image, their IoU value is 1. Conversely, if the boxes do not overlap at any pixel, the IoU is considered to be 0.
 
@@ -70,35 +80,33 @@ Now that we can identify our TPs, FPs and FNs, we can define Precision and Recal
 
 * **Precision** is the ability of a model to identify only the relevant objects. It is the percentage of correct positive predictions and is given by:
 
-Precision = TP / (TP + FP) = TP / all detections, <<<<---- EQUATION ---->>>>
+<p style="text-align: center;">
+\\( \text{Precision} = \frac{TP}{(TP + FP)} = \frac{TP}{\text{all detections}} \\)
+</p>
 
 which translates to the ratio of true positives over all detected boxes.
 
 * **Recall** gauges a model’s competence in finding all the relevant cases (all ground truth bounding boxes). It indicates the proportion of TP detected among all ground truths and is given by:
 
-\\( Recall = \frac{TP}{(TP + FN)} \\)
 
- = TP / all ground truths <<<<---- EQUATION ---->>>>
+<p style="text-align: center;">
+\\( \text{Recall} = \frac{TP}{(TP + FN)} = \frac{TP}{\text{all ground truths}} \\)
+</p>
+
 
 Note that TP, FP and FN depend on a predefined IoU threshold, and so do Precision and Recall.
 
 Now, we'll illustrate the relationship between Precision and Recall by plotting their respective curves for a specific target class, say "dog".  We’ll adopt a moderate IoU threshold = 75% to delineate our TP, FP and FN. Subsequently we can compute the Precision and Recall values. For that, we need to vary the confidence scores of our detections. 
 
-Figure 3 shows an example of the Precision and Recall curve. For a deeper exploration into the computation of this curve, the papers “[A Comparative Analysis of Object Detection Metrics with a Companion Open-Source Toolkit](https://www.mdpi.com/2079-9292/10/3/2790)” (Padilla, et al) and “[A Survey on Performance Metrics for Object-Detection Algorithms](https://ieeexplore.ieee.org/document/9145130)” (Padilla, et al) offer more detailed toy examples demonstrating how to compute this curve.
+Figure 4 shows an example of the Precision and Recall curve. For a deeper exploration into the computation of this curve, the papers “[A Comparative Analysis of Object Detection Metrics with a Companion Open-Source Toolkit](https://www.mdpi.com/2079-9292/10/3/2790)” (Padilla, et al) and “[A Survey on Performance Metrics for Object-Detection Algorithms](https://ieeexplore.ieee.org/document/9145130)” (Padilla, et al) offer more detailed toy examples demonstrating how to compute this curve.
 
-<<<<----IMAGE---->>>>
-Figure 3: Precision x Recall curve for a target object “dog” considering TP detections using IoU_thresh = 0.75 
+<!-- ![image](assets/object-detection-leaderboard/pxr_te_iou075.png)
+Figure 4: Precision x Recall curve for a target object “dog” considering TP detections using IoU_thresh = 0.75  -->
+
+<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/pxr_te_iou075.png"> <center> Figure 4: Precision x Recall curve for a target object “dog” considering TP detections using IoU_thresh = 0.75. </center>
+
 
 The precision-recall curve illustrates the balance between precision and recall based on different confidence levels of a detector's bounding boxes. Each point of the plot is computed using a different confidence value. 
-
-
-
-
-
-
-
-
-
 
 
 
