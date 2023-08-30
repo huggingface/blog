@@ -2747,7 +2747,7 @@
 - local: audioldm2
   title: "AudioLDM 2, but faster ⚡️"
   author: sanchit-gandhi
-  thumbnail: /blog/assets/161_audioldm2/thumbnail.jpg
+  thumbnail: /blog/assets/161_audioldm2/thumbnail.png
   date: Aug 30, 2023
   tags:
     - guide
