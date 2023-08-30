@@ -450,5 +450,8 @@ the generation time of AudioLDM 2 from 14 seconds down to less than 1 second. We
 saving tricks, such as half-precision and CPU offload, to reduce peak memory usage for long audio samples or large 
 checkpoint sizes.
 
-Blog post by [Sanchit Gandhi](https://huggingface.co/sanchit-gandhi). Spectrogram image source: [Getting to Know the Mel Spectrogram](https://towardsdatascience.com/getting-to-know-the-mel-spectrogram-31bca3e2d9d0). 
+Blog post by [Sanchit Gandhi](https://huggingface.co/sanchit-gandhi). Many thanks to [Vaibhav Srivastav](https://huggingface.co/reach-vb)
+and [Sayak Paul](https://huggingface.co/sayakpaul) for their constructive comments.
+
+Spectrogram image source: [Getting to Know the Mel Spectrogram](https://towardsdatascience.com/getting-to-know-the-mel-spectrogram-31bca3e2d9d0). 
 Waveform image source: [Aalto Speech Processing](https://speechprocessingbook.aalto.fi/Representations/Waveform.html).
