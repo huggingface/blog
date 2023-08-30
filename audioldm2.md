@@ -84,7 +84,7 @@ $$
 The diagram below demonstrates how a text input is passed through the text conditioning models, with the two prompt embeddings used as cross-conditioning in the LDM:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/sanchit-gandhi/notebooks/main/audioldm2.png?raw=true" width="600"/>
+  <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/161_audioldm2/audioldm2.png?raw=true" width="600"/>
 </p>
 
 For full details on how the AudioLDM 2 model is trained, the reader is referred to the [AudioLDM 2 paper](https://arxiv.org/abs/2308.05734).
@@ -397,6 +397,7 @@ pipe.to("cuda")
 
 audio = pipe(prompt, negative_prompt=negative_prompt, num_waveforms_per_prompt=4, audio_length_in_s=150, num_inference_steps=20, generator=generator.manual_seed(0)).audios[0]
 ```
+
 **Output:**
 ```
 ---------------------------------------------------------------------------
