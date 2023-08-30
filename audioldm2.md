@@ -1,6 +1,6 @@
 ---
 title: "AudioLDM 2, but faster ⚡️" 
-thumbnail: /blog/assets/161_audioldm2/thumbnail.jpg
+thumbnail: /blog/assets/161_audioldm2/thumbnail.png
 authors:
 - user: sanchit-gandhi
 ---
