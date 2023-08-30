@@ -26,7 +26,7 @@ In this blog post, we showcase how to use AudioLDM 2 in the Hugging Face 🧨 Di
 optimisations such as half-precision, flash attention, and compilation, and model optimisations such as scheduler choice 
 and negative prompting, to reduce the inference time by over **10 times**, with minimal degradation in quality of the 
 output audio. The blog post is also accompanied by a more streamlined [Colab notebook](https://colab.research.google.com/github/sanchit-gandhi/notebooks/blob/main/AudioLDM-2.ipynb), 
-that contains all the code but fewer explanations
+that contains all the code but fewer explanations.
 
 Read to the end to find out how to generate a 10 second audio sample in just 1 second!
 
@@ -353,7 +353,7 @@ audio = pipe(prompt, negative_prompt=negative_prompt, num_inference_steps=20, ge
 
 **Output:**
 ```
-100%|███████████████████████████████████████████████████████████████████████████████████| 20/20 [00:00<00:00, 49.14it/s]
+100%|███████████████████████████████████████████| 20/20 [00:00<00:00, 49.14it/s]
 ```
 
 That took less than **1 second** to generate the audio! Let's have a listen to the resulting generation:
@@ -438,7 +438,7 @@ audio = pipe(prompt, negative_prompt=negative_prompt, num_waveforms_per_prompt=4
 
 **Output:**
 ```
-100%|███████████████████████████████████████████████████████████████████████████████████| 20/20 [00:36<00:00,  1.82s/it]
+100%|███████████████████████████████████████████| 20/20 [00:36<00:00,  1.82s/it]
 ```
 
 And with that, we can generate four samples, each of 150 seconds in duration, all in one call to the pipeline! Using the 
