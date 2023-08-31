@@ -861,3 +861,12 @@
     - llm
     - optimization
     - quantization
+
+- local: password-git-deprecation
+  title: "Hub 上的 Git 操作不再支持使用密码验证"
+  author: Sylvestre
+  thumbnail: /blog/assets/password-git-deprecation/thumbnail.png
+  date: August 25, 2023
+  tags:
+    - announcement
+    - security
