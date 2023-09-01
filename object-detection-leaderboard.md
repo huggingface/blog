@@ -6,10 +6,25 @@ authors:
 - user: amyeroberts
 ---
 
-# Object Detection Leaderboard
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
+
+
+# Object Detection Leaderboard: Decoding Metrics and Their Potential Pitfalls
+
+Welcome to our latest dive into the intricate world of models evaluation. In a [previous post](https://huggingface.co/blog/evaluating-mmlu-leaderboard), we navigated the waters of evaluating Large Language Models. Today, we set sail to a different, yet equally challenging domain - Object Detection. 
+
+Recently we have released our [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard), ranking object detection models available in our hub according to some metrics. In this blog, we will demonstrate how our models were evaluated and demystify the popular metrics used in Object Detection, from Intersection over Union (IoU) to Average Precision (AP) and Average Recall (AR). More importantly, we will spotlight the inherent divergences and pitfalls that can occur during evaluation, ensuring that you're equipped with the knowledge to not just understand but critically assess model performance.
+
+<!-- In the vast sea of Computer Vision applications, Object Detection is responsible to locate and identify various objects within images or video frames. However, as with any sophisticated system, the metrics that gauge its success are not without their complexities. -->
+
+Every developer and researcher aims for a model that can accurately detect and delineate objects, and our  [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard) is the right place to find an open-source model that best fits their needs. But what does "accurate" truly mean in this context? Which metrics should one trust? How are they computed? And, perhaps more crucially why some models may present divergent results in different reports? All these questions will be answered in this blog.
+
+So, Let's embark on this exploration together and unlock the secrets of the leaderboard!
+
+
+## What is Object Detection?
 
 In the field of Computer Vision, Object Detection refers to the technique of identifying and localizing individual objects within an image or a video frame. Unlike image classification, where the task is to determine the predominant object or scene in the image, object detection not only categorizes the object classes present but also provides spatial information drawing bounding boxes around each detected object. An object detector can also output a “score”, also referred to as “confidence”, for each box, representing the probability that the detected object truly belongs to the predicted class.
 
@@ -216,7 +231,10 @@ If you have restrictions on object sizes, **AP-S**, **AP-M** and **AP-L** come i
 
 ## Which parameters can impact the Average Precision results?
 
-By picking an object detection models in 🤗 Hugging Face’s hub, we can vary the output boxes by trying different parameters in the model’s post processing function.
+By picking an object detection models in 🤗 Hugging Face’s hub, we can vary the output boxes by trying different parameters in the model’s pre processing and post processing functions. There are some approaches that may influce the assessment metrics. We separated the mostly common factors that lead to variations in the results.
+
+* Disconsider detections by thresholding detections by their scores.  
+* Use ```batch_sizes > 1``` for inference. 
 
 Let’s take the DEtection TRansformer (DETR) ([facebook/detr-resnet-50](https://huggingface.co/facebook/detr-resnet-50)) as an example. It uses a DetrImageProcessor object to process the bounding boxes and logits, as shown in the snippet below:
 
@@ -242,6 +260,22 @@ results=processor.post_process_object_detection(outputs, target_sizes=target_siz
 
 ```
 
+The parameter ```threshold``` in function ```post_prcess_object_detection``` is used to filter the detected bounding boxes based on their confidence scores.
+
+As previously discusssed, the Precision x Recall curve is built by measuring the Precision and Recall across the full range of confidence values [0,1]. Thus, limiting the detections before evaluation will produce biased results, as we will be leaving some detections apart.  
+
+
+
+Get info from here: 
+https://docs.google.com/document/d/1mCloEn_4rA3vu2tOKD9ALlkt7BN4d8HMMoVqFwRp3O4/edit
+
+Include example of how batchsize can influence on the results.
+
+
+
+Results of some models
+TODO: Promote the leaderboard
+Comment results
 
 
 
