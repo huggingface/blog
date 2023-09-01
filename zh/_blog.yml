@@ -841,6 +841,19 @@
     - benchmark
     - bark
 
+- local: deploy-deepfloydif-using-bentoml
+  title: "使用 BentoML 部署 🤗 Hugging Face 上的模型：DeepFloyd IF 实战"
+  author: Sherlockk
+  guest: true
+  thumbnail: /blog/assets/deploy-deepfloydif-using-bentoml/thumbnail.png
+  date: August 9, 2023
+  tags:
+    - deployment
+    - open-source-collab
+    - bentoml
+    - guide
+    - diffusers
+
 - local: safecoder
   title: "推介 SafeCoder"
   author: jeffboudier
