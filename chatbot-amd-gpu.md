@@ -360,8 +360,8 @@ Quantize Vicuna-13b model with this command. QAT is done based on c4
 data-set but you can also use other data-sets, such as wikitext2
 
 (Note. Change group size with different combinations as long as the
-model accuracy increases significantly. Under some combination of wbit
-and groupsize, model accuracy can be increased significantly.)
+model accuracy increases significantly. Under some combination of `wbits`
+and `groupsize`, model accuracy can be increased significantly.)
 ```
 python llama.py ./Vicuna-13b c4 --wbits 4 --true-sequential --act-order \
 --save_safetensors Vicuna-13b-4bit-act-order.safetensors
