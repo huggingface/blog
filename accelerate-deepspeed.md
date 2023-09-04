@@ -330,7 +330,7 @@ accelerate launch run_clm_no_trainer.py \
 | Method | Batch Size Max | Train time per epoch (seconds) | Notes |
 | --- | --- | --- | --- |
 | DDP (Distributed Data Parallel) | - | - | OOM Error
-| DeepSpeed ZeRO Stage 2 | **16** | 6608.35 | |
+| DeepSpeed ZeRO Stage 3 | **16** | 6608.35 | |
 
 
 Table 3: Benchmarking DeepSpeed ZeRO Stage-3 CPU Offload on GPT-XL (1.5B) model
