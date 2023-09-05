@@ -204,7 +204,7 @@ client = InferenceClient(
 
 res = client.text_generation("User: Explain ML as a pirate", max_new_tokens=95)
 print(res)
-# hoy, matey! Gather 'round and let me tell ye a tale of machine learnin', the treasure of the digital seas. Machine learnin', in its simplest form, be a way for computers to learn from experience, just like a pirate learns from his voyages It's all about findin' patterns in data, and usin' those patterns to make predictions or decisions without bein' explicitly programmed to do so.
+# hoy, matey! Gather 'round and let me tell ye a tale of machine learnin'...
 ```
 
 Under the hood, the Inference API leverages Text Generation Inference. [Text Generation Inference](https://huggingface.co/docs/text-generation-inference/index) is a production-ready inference container developed by Hugging Face to enable easy deployment of large language models. It has features such as continuous batching, t[oken streaming](https://huggingface.co/docs/text-generation-inference/conceptual/streaming), tensor parallelism for fast inference on multiple GPUs. For example, by adding `stream=True`, we can use token streaming.
