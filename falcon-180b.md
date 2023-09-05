@@ -40,7 +40,8 @@ Architecture-wise, Falcon 180B is a scaled-up version of [Falcon 40B](https://hu
 
 The dataset for Falcon 180B consists predominantly of web data from [RefinedWeb](https://arxiv.org/abs/2306.01116) (\~85%). In addition, it has been trained on a mix of curated data such as conversations, technical papers, and a small fraction of code (\~3%). This pretraining dataset is big enough that even 3.5 trillion tokens constitute less than an epoch.
 
-The released [chat model](https://huggingface.co/tiiuae/falcon-180B-chat) is fine-tuned on chat and instruction datasets with a mix of the [Open-Platypus](https://huggingface.co/datasets/garage-bAInd/Open-Platypus), [UltraChat](https://huggingface.co/datasets/stingning/ultrachat), and [Airoboros](https://huggingface.co/datasets/jondurbin/airoboros-2.1) datasets. 
+The released [chat model](https://huggingface.co/tiiuae/falcon-180B-chat) is fine-tuned on chat and instruction datasets with a mix of several large-scale open-sourced conversational datasets.
+
 
 ## How good is Falcon 180B?
 
