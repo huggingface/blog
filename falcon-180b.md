@@ -24,12 +24,21 @@ In terms of capabilities, Falcon 180B achieves state-of-the-art results across n
 
 In this blog post, we explore what makes Falcon 180B so good by looking at some evaluation results and show how you can use the model both on your own hardware and using API services.
 
+* [What is Falcon-180B?](#what-is-falcon-180b)
+* [How good is Falcon 180B?](#how-good-is-falcon-180b)
+* [How to use Falcon 180B?](#how-to-use-falcon-180b)
+    * [Demo](#demo)
+    * [Hardware requirements](#hardware-requirements)
+    * [Prompt format](#prompt-format)
+    * [Transformers](#transformers)
+* [Additional Resources](#additional-resources)
+
 
 ## What is Falcon-180B?
 
 Architecture-wise, Falcon 180B is a scaled-up version of [Falcon 40B](https://huggingface.co/tiiuae/falcon-40b) and builds on its innovations such as multiquery attention for improved scalability. We recommend reviewing the [initial blog post](https://huggingface.co/blog/falcon) introducing Falcon to dive into the architecture. Falcon 180B was trained on 3.5 trillion tokens on up to 4096 GPUs simultaneously, using Amazon SageMaker for a total of ~7,000,000 GPU hours. This means Falcon 180B is 2.5 times larger than Llama 2 and was trained with 4x more compute. 
 
-The dataset for Falcon 180B consists predominantly of web data from [RefinedWeb](https://arxiv.org/abs/2306.01116) (~85%). In addition, it has been trained on a mix of curated data such as conversations, technical papers, and a small fraction of code (~3%). This pretraining dataset is big enough that even 3.5 trillion tokens constitute less than an epoch.
+The dataset for Falcon 180B consists predominantly of web data from [RefinedWeb](https://arxiv.org/abs/2306.01116) (\~85%). In addition, it has been trained on a mix of curated data such as conversations, technical papers, and a small fraction of code (\~3%). This pretraining dataset is big enough that even 3.5 trillion tokens constitute less than an epoch.
 
 The released [chat model](https://huggingface.co/tiiuae/falcon-180B-chat) is fine-tuned on chat and instruction datasets with a mix of the [Open-Platypus](https://huggingface.co/datasets/garage-bAInd/Open-Platypus), [UltraChat](https://huggingface.co/datasets/stingning/ultrachat), and [Airoboros](https://huggingface.co/datasets/jondurbin/airoboros-2.1) datasets. 
 
@@ -146,7 +155,7 @@ To use quantization, you need to install the `bitsandbytes` library and simply e
 model = AutoModelForCausalLM.from_pretrained(
     model_id,
     torch_dtype=torch.bfloat16,
-    **load_in_8bit=True,**
+    load_in_8bit=True,
     device_map="auto",
 )
 ```
@@ -193,7 +202,9 @@ client = InferenceClient(
     headers={"Authorization": f"Bearer {HF_TOKEN}"},
 )
 
-res = client.text_generation("User: Explain ML as a pirate")
+res = client.text_generation("User: Explain ML as a pirate", max_new_tokens=95)
+print(res)
+# hoy, matey! Gather 'round and let me tell ye a tale of machine learnin', the treasure of the digital seas. Machine learnin', in its simplest form, be a way for computers to learn from experience, just like a pirate learns from his voyages It's all about findin' patterns in data, and usin' those patterns to make predictions or decisions without bein' explicitly programmed to do so.
 ```
 
 Under the hood, the Inference API leverages Text Generation Inference. [Text Generation Inference](https://huggingface.co/docs/text-generation-inference/index) is a production-ready inference container developed by Hugging Face to enable easy deployment of large language models. It has features such as continuous batching, t[oken streaming](https://huggingface.co/docs/text-generation-inference/conceptual/streaming), tensor parallelism for fast inference on multiple GPUs. For example, by adding `stream=True`, we can use token streaming.
