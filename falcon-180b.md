@@ -194,20 +194,14 @@ For Python usage, you can use the `huggingface_hub` utilities to use the model
 ```bash
 from huggingface_hub import InferenceClient
 
-# TODO: update url
-API_URL = "https://api-inference.huggingface.co/models/tiiuae/falcon-180B-chat"
-
-client = InferenceClient(
-    API_URL,
-    headers={"Authorization": f"Bearer {HF_TOKEN}"},
-)
+client = InferenceClient("tiiuae/falcon-180B-chat", token=HF_TOKEN)
 
 res = client.text_generation("User: Explain ML as a pirate", max_new_tokens=95)
 print(res)
 # hoy, matey! Gather 'round and let me tell ye a tale of machine learnin'...
 ```
 
-Under the hood, the Inference API leverages Text Generation Inference. [Text Generation Inference](https://huggingface.co/docs/text-generation-inference/index) is a production-ready inference container developed by Hugging Face to enable easy deployment of large language models. It has features such as continuous batching, t[oken streaming](https://huggingface.co/docs/text-generation-inference/conceptual/streaming), tensor parallelism for fast inference on multiple GPUs. For example, by adding `stream=True`, we can use token streaming.
+Under the hood, the Inference API leverages Text Generation Inference. [Text Generation Inference](https://huggingface.co/docs/text-generation-inference/index) is a production-ready inference container developed by Hugging Face to enable easy deployment of large language models. It has features such as continuous batching, [token streaming](https://huggingface.co/docs/text-generation-inference/conceptual/streaming), tensor parallelism for fast inference on multiple GPUs. For example, by adding `stream=True`, we can use token streaming.
 
 ### Using Inference Endpoints
 
