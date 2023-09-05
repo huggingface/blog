@@ -2754,3 +2754,14 @@
     - audio
     - diffusers
     - diffusion
+
+- local: t
+  title: "AudioLDM 2, but faster ⚡️"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/161_audioldm2/thumbnail.png
+  date: Aug 30, 2023
+  tags:
+    - guide
+    - audio
+    - diffusers
+    - diffusion
