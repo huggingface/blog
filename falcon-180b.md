@@ -153,7 +153,7 @@ model = AutoModelForCausalLM.from_pretrained(
 
 **Chat Model**
 
-As mentioned above, the version of the model fine-tuned to follow conversations used a very straightforward training template. We have to follow the same pattern in order to run chat-style inference. For reference, you can take a look at the `[format_prompt](https://huggingface.co/spaces/hf-extreme-scale/falcon-180b-chat-demo/blob/main/app.py#L19)` function in the Chat demo, which looks like this:
+As mentioned above, the version of the model fine-tuned to follow conversations used a very straightforward training template. We have to follow the same pattern in order to run chat-style inference. For reference, you can take a look at the [format_prompt](https://huggingface.co/spaces/hf-extreme-scale/falcon-180b-chat-demo/blob/main/app.py#L19) function in the Chat demo, which looks like this:
 
 ```python
 def format_prompt(message, history, system_prompt):
