@@ -13,18 +13,31 @@ authors:
 
 # Object Detection Leaderboard: Decoding Metrics and Their Potential Pitfalls
 
-Welcome to our latest dive into the intricate world of models evaluation. In a [previous post](https://huggingface.co/blog/evaluating-mmlu-leaderboard), we navigated the waters of evaluating Large Language Models. Today, we set sail to a different, yet equally challenging domain - Object Detection. 
+Welcome to our latest dive into the world of leaderboard and models evaluation. In a [previous post](https://huggingface.co/blog/evaluating-mmlu-leaderboard), we navigated the waters of evaluating Large Language Models. Today, we set sail to a different, yet equally challenging domain - Object Detection. 
 
-Recently we have released our [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard), ranking object detection models available in our hub according to some metrics. In this blog, we will demonstrate how our models were evaluated and demystify the popular metrics used in Object Detection, from Intersection over Union (IoU) to Average Precision (AP) and Average Recall (AR). More importantly, we will spotlight the inherent divergences and pitfalls that can occur during evaluation, ensuring that you're equipped with the knowledge to not just understand but critically assess model performance.
+Recently, we have released our [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard), ranking object detection models available in our hub according to some metrics. In this blog, we will demonstrate how our models were evaluated and demystify the popular metrics used in Object Detection, from Intersection over Union (IoU) to Average Precision (AP) and Average Recall (AR). More importantly, we will spotlight the inherent divergences and pitfalls that can occur during evaluation, ensuring that you're equipped with the knowledge to not just understand but critically assess model performance.
 
-<!-- In the vast sea of Computer Vision applications, Object Detection is responsible to locate and identify various objects within images or video frames. However, as with any sophisticated system, the metrics that gauge its success are not without their complexities. -->
+Every developer and researcher aims for a model that can accurately detect and delineate objects. Our [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard) is the right place to find an open-source model that best fits their application needs. But what does "accurate" truly mean in this context? Which metrics should one trust? How are they computed? And, perhaps more crucially why some models may present divergent results in different reports? All these questions will be answered in this blog.
 
-Every developer and researcher aims for a model that can accurately detect and delineate objects, and our  [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard) is the right place to find an open-source model that best fits their needs. But what does "accurate" truly mean in this context? Which metrics should one trust? How are they computed? And, perhaps more crucially why some models may present divergent results in different reports? All these questions will be answered in this blog.
-
-So, Let's embark on this exploration together and unlock the secrets of the leaderboard!
+So, let's embark on this exploration together and unlock the secrets of the Object Detection Leaderboard leaderboard! If you prefer to skip the introduction part and learn how object detection metrics are computed, you can go to the [Metrics section](#metrics). If you wish to find how to pick the best models based on the [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard), you may check [Object Detection Leaderboard](#object-detection-leaderboard) section. 
 
 
-## What is Object Detection?
+## Table of Contents
+
+- [Introduction](#object-detection-leaderboard-decoding-metrics-and-their-potential-pitfalls)  
+- [What's Object Detection](#whats-object-detection)  
+- [Metrics](#metrics)  
+    - [What is Average Precision and how to compute it?](#what-is-average-precision-and-how-to-compute-it)  
+    - [What is Average Recall and how to compute it?](#what-is-average-recall-and-how-to-compute-it)  
+    - [What are the variants of Average Precision and Average Recall?](#what-are-the-variants-of-average-precision-and-average-recall)  
+- [Object Detection Leaderboard](#object-detection-leaderboard)  
+    - [How to pick the best model based on the metrics?](#how-to-pick-the-best-model-based-on-the-metrics)  
+    - [Which parameters can impact the Average Precision results?](#which-parameters-can-impact-the-average-precision-results)  
+- [Conclusions](#conclusions)  
+- [Additional Resources](#additional-resources)  
+
+
+## What's Object Detection?
 
 In the field of Computer Vision, Object Detection refers to the technique of identifying and localizing individual objects within an image or a video frame. Unlike image classification, where the task is to determine the predominant object or scene in the image, object detection not only categorizes the object classes present but also provides spatial information drawing bounding boxes around each detected object. An object detector can also output a “score”, also referred to as “confidence”, for each box, representing the probability that the detected object truly belongs to the predicted class.
 
@@ -57,14 +70,15 @@ Figure 2: Schematic illustrating the evaluation process for a traditional object
 
 It is not depicted in Figure 2, but as previously mentioned, certain models require text prompt inputs, to provide guidance on the specific classes the model is intended to detect.
 
-First, a benchmarking dataset containing images with ground-truth bounding box annotations is chosen and fed into the object detection model. For each image, the model predicts bounding boxes, assigning associated class labels and confidence scores to each box. During the evaluation phase, these predicted bounding boxes are compared with the ground-truth boxes present in the dataset. The evaluation yields a set of metrics, each ranging between [0, 1], reflecting a specific evaluation criteria. We will cover each of them in a separate section.
-
-In the following sections, we will delve into the definition of Average Precision, its variations and the computation methodologies associated with them. Next, we will explore the influence of pre-processing and post-processing parameters on a model’s outcomes. Following this, we will present metrics pertaining to object detectors available in the Hugging Face hub and published in our [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard). Concluding the discussion, we will shed light on the reasons why certain models might exhibit divergent results across different repositories. 
+First, a benchmarking dataset containing images with ground-truth bounding box annotations is chosen and fed into the object detection model. For each image, the model predicts bounding boxes, assigning associated class labels and confidence scores to each box. During the evaluation phase, these predicted bounding boxes are compared with the ground-truth boxes present in the dataset. The evaluation yields a set of metrics, each ranging between [0, 1], reflecting a specific evaluation criteria. In the next section, you the computation of the metrics will be explained in details.
 
 
 
-## What is Average Precision and how to compute it?
+## Metrics
 
+In this section, we will delve into the definition of Average Precision, Average Recall, its variations and the computation methodologies associated with them.
+
+### What's Average Precision and how to compute it?
 
 Average Precision is a single-number metric that summarizes the precision-recall curve. It captures the ability of a model to classify and localize objects correctly, while taking into account both false positive and false negative detections.
 
@@ -103,11 +117,9 @@ which translates to the ratio of true positives over all detected boxes.
 
 * **Recall** gauges a model’s competence in finding all the relevant cases (all ground truth bounding boxes). It indicates the proportion of TP detected among all ground truths and is given by:
 
-
 <p style="text-align: center;">
 \\( \text{Recall} = \frac{TP}{(TP + FN)} = \frac{TP}{\text{all ground truths}} \\)
 </p>
-
 
 Note that TP, FP and FN depend on a predefined IoU threshold, and so do Precision and Recall.
 
@@ -120,14 +132,13 @@ Figure 4: Precision x Recall curve for a target object “dog” considering TP 
 
 <img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/pxr_te_iou075.png"> <center> Figure 4: Precision x Recall curve for a target object “dog” considering TP detections using IoU_thresh = 0.75. </center>
 
-
 The precision-recall curve illustrates the balance between precision and recall based on different confidence levels of a detector's bounding boxes. Each point of the plot is computed using a different confidence value. 
 
 Let’s borrow the practical example presented in the paper [A Survey on performance metrics for object-detection algorithms](https://ieeexplore.ieee.org/document/9145130) to illustrate how to compute the Average Precision plot. Consider a dataset made of 7 images with 15 ground-truth objects of the same class, as shown in Figure 5. For simplification purposes let’s consider that all boxes belong to the same class “dog”.
 
 <img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/dataset_example.png"> <center> Figure 5: : Example of 24 detections (red boxes) performed by an object detector trained to detect 15 ground-truth objects (green boxes) belonging to the same class. </center>
 
-Our hypothetical object detector retrieved 24 objects in our dataset, illustrated by the red boxes. To evaluate how well the detector performed for this specific class in our benchmarking dataset, we need to compute the precision and recall using equations XX TODO and XX TODO for all confidence levels. For that, we need to establish some rules:
+Our hypothetical object detector retrieved 24 objects in our dataset, illustrated by the red boxes. To evaluate how well the detector performed for this specific class in our benchmarking dataset, we need to compute the precision and recall using the Precision and Recall equations for all confidence levels. For that, we need to establish some rules:
 * **Rule 1**: For a matter of simplicity let’s consider our detections a True Positive (TP) if the IoU >= 30%, otherwise, it is a False Positive (FP). 
 * **Rule 2**: For cases where a detection overlaps more than one ground-truth (as in Images 2 to 7), the predicted box with the highest IoU is considered TP, and the other is FP.
 
@@ -142,7 +153,6 @@ Now, we need to compute Precision and Recall for all confidence levels. A good w
 
 <center> Table 2: Computation of Precision and Recall values of detections from Table 1 </center>
 <img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/table_1.png"> 
-
 
 From top down, the accumulative TP (acc TP) column of Table 2 is increased in 1 every time a TP is noted, and the accumulative FP (acc FP) column is increased in 1 always when a FP is noted. Columns "acc TP" and "acc FP" basically tell us what are the TP and FP values given a particular confidence level. 
 
@@ -164,10 +174,9 @@ COCO’s approach, for instance, uses 101-interpolation, which computes 101 poin
 
 Figure 7 illustrates a Precision Recall curve (in blue) with 11 recall points equally spaced.
 
-<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/11-pointInterpolation.png"> <center> Figure 7: Example of a Precision x Recall curve using the  11-interpolation approach. The 11 red dots are computed with Equation XXXX TODO. </center>
+<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/11-pointInterpolation.png"> <center> Figure 7: Example of a Precision x Recall curve using the  11-interpolation approach. The 11 red dots are computed with Precision and Recall equations. </center>
 
-The red points are placed according to the Equation XXXX TODO:
-
+The red points are placed according to the following:
 
 \\( \rho_{\text{interp}} (R) = \max_{\tilde{r}:\tilde{r} \geq r} \rho \left( \tilde{r} \right) \\)
 
@@ -177,11 +186,10 @@ In this definition, instead of using the precision value \\( \rho (R)} \\) obser
 
 For this type of approach, the AUC, which represents the Average Precision, is approximated by the average of all points, and given by:
 
-
 \\( \text{AP}_{11} = \frac{1}{11} = \sum\limits_{R\in \left \{ 0, 0.1, ...,1 \right \}} \rho_{\text{interp}} (R) \\)
 
 
-## What is Average Recall and how to compute it?
+### What's Average Recall and how to compute it?
 
 Average Recall (AR) is a metric that's often used alongside AP to evaluate object detection models. While AP evaluates both precision and recall across different confidence thresholds to provide a single-number summary of model performance, AR focuses solely on the recall aspect, not taking the confidences into account, considering all detections into positives.
 
@@ -189,15 +197,13 @@ COCO’s approach computes AR as the mean of the maximum obtained recall over IO
 
 When using IOUs in the range of [0.5, 1] for AR, by averaging recall values within this interval, the model is assessed based on the premise that the object's location is significantly accurate. Hence, if your goal is to evaluate your model for both high recall and precise object localization, AR could be a valuable evaluation metric to consider.
 
-
-## What are the variants of Average Precision and Average Recall?
-
+### What are the variants of Average Precision and Average Recall?
 
 Based on predefined IoU thresholds and the areas associated with ground-truth objects, different versions of AP and AR can be obtained:
 
 * **AP@.5**: It sets IoU threshold = 0.5 and computes the Precision-Recall AUC for each target class in the image dataset. Then, the computed results for each class are summed up and divided by the number of classes.
 * **AP@.75**: It uses the same methodology as AP@.50, but it considers IoU threshold = 0.75. With this higher IoU requirement, AP@.75 is considered stricter than AP@.5 and should be considered to evaluate models that need to achieve a high level of localization accuracy in their detections.
-* **AP@[.5:.05:.95]**: also referred to AP by cocoeval tools: This is an expanded version of AP@.5 and AP@.75, as it computes AP@ with different IoU thresholds (0.5, 0.55, 0.6,...,0.95) and averages the computed results as shown in Equation XXX TODO. In comparison to AP@.5 and AP@.75, this metric provides a holistic evaluation, capturing a model’s performance across a broader range of localization accuracies.
+* **AP@[.5:.05:.95]**: also referred to AP by cocoeval tools: This is an expanded version of AP@.5 and AP@.75, as it computes AP@ with different IoU thresholds (0.5, 0.55, 0.6,...,0.95) and averages the computed results as shown in the following Equation. In comparison to AP@.5 and AP@.75, this metric provides a holistic evaluation, capturing a model’s performance across a broader range of localization accuracies.
 
 
 \\( \text{AP@[.5:.05:0.95} = \frac{\text{AP}_{0.5} + \text{AP}_{0.55} + ... + \text{AP}_{0.95}}{10} \\)
@@ -215,10 +221,23 @@ For Average Recall (AR), 10 IoU thresholds (0.5, 0.55, 0.6,...,0.95) are used to
 * **AR-M**: considers (medium-sized) objects with area 32^2 < area < 96^2 pixels.
 * **AR-L**: considers (large) objects with area > 96^2 pixels.
 
+  
+## Object Detection Leaderboard
 
-## How to pick the best model based on the metrics?
+Recently, we have released the [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard) to compare the accuracy and efficiency of open-source models from our Hub.  
+
+<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/screenshot-leaderboard.png"> <center> Figure 8: Object Detection Leaderboard. </center>
+
+To measure accuracy, we used 12 metrics involving Average Precision and Average Recall using [COCO style](https://cocodataset.org/#detection-eval), benchmarking over COCO val 2017 dataset.  
+
+As discussed previously, different tools may adopt different particularities during the evaluation, to prevent results mismatching, we prefered not to implement our own version of the metrics. Instead, we opted to use COCO's official evaluation code, also refered to as PyCOCOtools, code available [here](https://github.com/cocodataset/cocoapi/tree/master/PythonAPI).  
+
+In terms of efficiency, we calculate the frames per second (FPS) for each model by using the average evaluation time across the entire dataset, considering pre and post processing steps. Given the variability in GPU memory requirements for each model, we chose to evaluate with a batch size of 1 (this choice is also influenced by our pre-processing step, which we'll delve into later). However, it's worth noting that this approach may not align perfectly real-world performance, as larger batch sizes, often containing several images, are commonly used for better efficiency. 
+
+Next, we will provide tips on how to chose the bese model based on the metrics, and point out which parameters may interfer on the results. It's crucial to understand these nuances, as this might spark doubts and discussions within the community.
 
 
+### How to pick the best model based on the metrics?
 
 Selecting an appropriate metric to evaluate and compare object detectors takes into account several factors. The primary considerations include the purpose of the application and the characteristics of the dataset used to train and evaluate the models.
 
@@ -228,15 +247,22 @@ If you want a model with good object recognition and objects generally in the ri
 
 If you have restrictions on object sizes, **AP-S**, **AP-M** and **AP-L** come into play. For example, if your dataset or application predominantly features small objects, AP-S provides insights into the detector's efficacy in recognizing such small targets. This becomes crucial in scenarios such as detecting distant vehicles or small artifacts in medical imaging.
 
+### Which parameters can impact the Average Precision results?
 
-## Which parameters can impact the Average Precision results?
-
-By picking an object detection models in 🤗 Hugging Face’s hub, we can vary the output boxes by trying different parameters in the model’s pre processing and post processing functions. There are some approaches that may influce the assessment metrics. We separated the mostly common factors that lead to variations in the results.
+By picking an object detection models in 🤗 Hugging Face’s hub, we can vary the output boxes by trying different parameters in the model’s pre processing and post processing functions. There are some approaches that may influce the assessment metrics. We separated the mostly common factors that may lead to variations in the results:  
 
 * Disconsider detections by thresholding detections by their scores.  
-* Use ```batch_sizes > 1``` for inference. 
+* Use ```batch_sizes > 1``` for inference.  
+* Ported models do not output the same logits as the original models.  
+* Some ground-truth objects may be ignored by the evaluator.  
+* Computing the IoU may be complicated.
+* Text-conditioned models requires precise prompts.
 
-Let’s take the DEtection TRansformer (DETR) ([facebook/detr-resnet-50](https://huggingface.co/facebook/detr-resnet-50)) as an example. It uses a DetrImageProcessor object to process the bounding boxes and logits, as shown in the snippet below:
+Let’s take the DEtection TRansformer (DETR) ([facebook/detr-resnet-50](https://huggingface.co/facebook/detr-resnet-50)) model as our example case. We will show how these factors may affect the output results.
+
+#### Thresholding detections before evaluation
+
+Our sample model uses `DetrImageProcessor` [class](https://huggingface.co/docs/transformers/main/en/model_doc/detr#transformers.DetrImageProcessor) to process the bounding boxes and logits, as shown in the snippet below:
 
 ```python 
 
@@ -265,19 +291,64 @@ The parameter ```threshold``` in function ```post_prcess_object_detection``` is 
 As previously discusssed, the Precision x Recall curve is built by measuring the Precision and Recall across the full range of confidence values [0,1]. Thus, limiting the detections before evaluation will produce biased results, as we will be leaving some detections apart.  
 
 
+#### Varying the batch size
 
-Get info from here: 
-https://docs.google.com/document/d/1mCloEn_4rA3vu2tOKD9ALlkt7BN4d8HMMoVqFwRp3O4/edit
+The batch size not only affects the processing time, but may also result in different detected boxes. The image preprocessing step may change the resolution of the input images based on their sizes.
 
-Include example of how batchsize can influence on the results.
+In Detr documentation we see that: By default, `DetrImageProcessor` resizes the input images such that the shortest side is at least a certain amount of pixels while the longest is at most 1333 pixels. At inference time, the shortest side is set to 800. Due to this resizing, images in a batch can have different sizes. DETR solves this by padding images up to the largest size in a batch, and by creating a pixel mask that indicates which pixels are real/which are padding.
 
+To illustrate this process, let's consider the examples in Figure 9 and Figure 10. In Figure 9, we consider batch size = 1, so both images are processed independelty with `DetrImageProcessor`. The first image is resized to `(800, 1201)`, making the detector predict 28 boxes with class `vase`, 22 boxes with class `chair`, 10 boxes with class `bottle`, etc.
 
+Figure 10 shows the process with batch size = 2, where the same two images are processed with `DetrImageProcessor` in the same batch. Both images are resized to have the same shape `(873, 1201)` and padding is applied, so the part of the images with the content is keept with their original aspect ratios. However, the first image, for instance, outputs different number of objects: 31 boxes with class `vase`, 20 boxes with class `chair`, 8 boxes with class `bottle`, etc. Note that for the second image, with batch size = 2, a new class is detected `dog`. This occurs due the capacity of the model to detect objects with different sizes depending on the image's resolution.
 
-Results of some models
-TODO: Promote the leaderboard
-Comment results
-
-
+<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/example_batch_size_1.png"> <center> Figure 9: Two images proccessed with `DetrImageProcessor` using batch size = 1. </center>
 
 
+<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/example_batch_size_1.png"> <center> Figure 10: Two images proccessed with `DetrImageProcessor` using batch size = 2. </center>
 
+
+#### Ported models should output the same logits as the original models
+
+At HuggingFace, we are very criterious while porting models to our code base. Not only with respect to the architecture, clear documentation and coding structure, but we also need to guarantee that the ported models are able to produce the same logits as the original models given the same inputs.
+
+For the object detection task, when the model's outputs are post processed to produce the confidence scores, label ids and bounding box coordinates, small variations may result different metric results. You may recall [the example above](#what-is-average-precision-and-how-to-compute-it) where we discussed the process of computing Average Precision. We showed that the detections are sorted by confidence levels and small variations may lead to a different order and, thus, different results.
+
+It's important to recognize that models can produce boxes in various formats, and that also may be taken into consideration, making proper conversions required by the evaluator.
+
+* `(x, y, width, height)`: this represents the upper-left corner coordinates followed by the absolute dimensions (width and height).
+* `(x, y, x2, y2)`: this format indicates the coordinates of the upper-left corner and the lower-right corner.
+* `(rel_x_center, rel_y_center, rel_width, rel_height)`: the values represent the relative coordinates of the center and the relative dimensions of the box.
+
+#### Some ground-truths are ignored in some benchmarking datasets
+
+Some datasets use special labels for some objects, which are used to ignore such objects during the evaluation process.
+
+COCO, for instance, uses the tag `iscrowd` to label large groups of objects (e.g. many apples in a basket). During the evaluation, objects tagged as `iscrowd=1` are ignored. If this is not taken into consideration by evaluators, your may have different results for the metrics.
+
+#### Calculating the IoU requires careful consideration
+
+IoU, or Intersection over Union, might seem straightforward to calculate based on its definition. However, there's a crucial detail to be aware of: if the ground-truth and the detection don't overlap at all, not even by one pixel, the IoU should be `0`.  To ensure this, especially to avoid dividing by zero when calculating the union, you can add a small value (called _epsilon_ ), to the denominator. However, it's essential to choose the epsilon carefully. An epsilon value greater than 1e-4 might not be neutral enough to give an accurate result.
+
+#### Text-conditioned models demands the right prompts  
+
+There might be cases that we want to evaluate text-conditioned models such as [OWL-ViT](https://huggingface.co/google/owlvit-base-patch32), which are able to receive a text prompt and provide the location of the desired object.
+
+For such models, different prompts (e.g. "Find the dog" and "Where's the bulldog?") may result in the same results. However, we decide to follow the same the procedure described in each paper. For the OWL-ViT, for instance, we predict the objects by using the prompts "an image of a {}" where {} is replaced with the benchmarking dataset's classes. 
+
+
+## Conclusions
+
+In this post, we introduced the problem of Object Detection and depicted the main metrics used to evaluate them.
+
+As noted, evaluating object detection models may not be straightforward as it looks. The particularities of each model must be carefully taken into consideration to prevent biased results. Also, each metric represents a different point of view of the same model and picking "the best" metric depends on the model's application and the caracteristics of the chosen benchmarking dataset.  
+
+The results shown in our 🤗 [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard) are computed using an independent tool [PyCOCOtools](https://github.com/cocodataset/cocoapi/tree/master/PythonAPI) broadly used by the community for model benchmarking. As we progress, we are aiming for datasets of different domains (e.g. medical images, sports, autonomous vehicles, etc). Eager to see your model or dataset feature on our leaderboard? Don't hold back! Introduce us to your model and dataset, fine-tune, and let's get it ranked! 🥇
+
+
+## Additional Resources
+
+* [Object Detection Guide](https://huggingface.co/docs/transformers/tasks/object_detection)
+* [Task of Object Detection](https://huggingface.co/tasks/object-detection)
+* Paper [What Makes for Effective Detection Proposals](https://arxiv.org/abs/1502.05082)
+* Paper [A Comparative Analysis of Object Detection Metrics with a Companion Open-Source Toolkit](https://www.mdpi.com/2079-9292/10/3/2790) 
+* Paper [A Survey on Performance Metrics for Object-Detection Algorithms](https://ieeexplore.ieee.org/document/9145130) 
