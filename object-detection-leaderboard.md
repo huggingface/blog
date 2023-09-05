@@ -46,8 +46,12 @@ The following image, for instance, shows 5 detections, being 1 “ball” with c
 <!-- ![image](assets/object-detection-leaderboard/intro_object_detection.png)
 Figure 1: Example of outputs performed by an object detector. -->
 
-<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/intro_object_detection.png">
-<center> Figure 1: Example of outputs performed by an object detector. </center>
+<div display="block" margin-left="auto" margin-right="auto" width="50%">
+<center>
+    <img src="/blog/assets/object-detection-leaderboard/intro_object_detection.png" alt="intro_object_detection.png" />
+    <figcaption> Figure 1: Example of outputs performed by an object detector.</figcaption>
+</center>
+</div>
 
 Object detection models are versatile and have a wide range of applications across various domains. Some use cases where they are applied are **autonomous vehicles**, **face detection**, **surveillance and security**, **medical imaging**, **augmented reality**, **sport analysis**, **smart cities**, **gesture recognition**, etc.
 
@@ -61,12 +65,12 @@ A popular metric used to evaluate the accuracy of predictions made by an object 
 
 The process to evaluate an object detection model encompassing several components like dataset with ground-truth annotations, detections (output prediction)  and metrics. This process is depicted in the schematic provided in Figure 2:
 
-<!-- ![image](assets/object-detection-leaderboard/pipeline_object_detection.png)
-Figure 2: Schematic illustrating the evaluation process for a traditional object detection model -->
-
-<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/pipeline_object_detection.png">
-<center> Figure 2: Schematic illustrating the evaluation process for a traditional object detection model. </center>
-
+<div display="block" margin-left="auto" margin-right="auto" width="50%">
+<center>
+    <img src="/blog/assets/object-detection-leaderboard/pipeline_object_detection.png" alt="pipeline_object_detection.png" />
+    <figcaption> Figure 2: Schematic illustrating the evaluation process for a traditional object detection model.</figcaption>
+</center>
+</div>
 
 It is not depicted in Figure 2, but as previously mentioned, certain models require text prompt inputs, to provide guidance on the specific classes the model is intended to detect.
 
@@ -86,16 +90,16 @@ Every box predicted by the model is considered a “positive” detection. Based
 
 The IoU measures the overlap between the predicted bounding box and the actual (ground truth) bounding box. It's computed by dividing the area where the two boxes overlap by the area covered by both boxes combined. Figure 3 visually demonstrates the IoU using an example of a predicted box and its corresponding ground-truth box.
 
-
-<!-- ![image](assets/object-detection-leaderboard/iou.png)
-Figure 3: Intersection over Union (IoU) between a detection (in green) and ground-truth (in blue). -->
-
-<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/iou.png">
-<center> Figure 3: Intersection over Union (IoU) between a detection (in green) and ground-truth (in blue). </center>
+<div display="block" margin-left="auto" margin-right="auto" width="50%">
+<center>
+    <img src="/blog/assets/object-detection-leaderboard/iou.png" alt="iou.png" />
+    <figcaption> Figure 3: Intersection over Union (IoU) between a detection (in green) and ground-truth (in blue).</figcaption>
+</center>
+</div>
 
 Clearly, if both the ground-truth and detected boxes share identical coordinates, representing the same region in the image, their IoU value is 1. Conversely, if the boxes do not overlap at any pixel, the IoU is considered to be 0.
 
-In scenarios where high precision in detections is expected (e.g. an autonomous vehicle), the predicted bounding boxes should closely align with the ground-truth boxes. For that, a IoU threshold (\\( \text{T}_{\text{IOU}} \\)) approaching 1 is preferred. On the other hand, for applications where the exact position of the detected bounding boxes relative to the target object isn’t critical, the threshold can be relaxed, setting \\( \text{T}_{\text{IOU}} \\) closer to 0.
+In scenarios where high precision in detections is expected (e.g. an autonomous vehicle), the predicted bounding boxes should closely align with the ground-truth boxes. For that, a IoU threshold ( \\( \text{T}_{\text{IOU}} \\) ) approaching 1 is preferred. On the other hand, for applications where the exact position of the detected bounding boxes relative to the target object isn’t critical, the threshold can be relaxed, setting \\( \text{T}_{\text{IOU}} \\) closer to 0.
 
 Based on predefined \\( \text{T}_{\text{IOU}} \\), we can define True Positives and True Negatives:
 * **True Positive (TP)**: A correct detection where IoU ≥ \\( \text{T}_{\text{IOU}} \\).
@@ -127,16 +131,23 @@ Now, we'll illustrate the relationship between Precision and Recall by plotting 
 
 Figure 4 shows an example of the Precision and Recall curve. For a deeper exploration into the computation of this curve, the papers “[A Comparative Analysis of Object Detection Metrics with a Companion Open-Source Toolkit](https://www.mdpi.com/2079-9292/10/3/2790)” (Padilla, et al) and “[A Survey on Performance Metrics for Object-Detection Algorithms](https://ieeexplore.ieee.org/document/9145130)” (Padilla, et al) offer more detailed toy examples demonstrating how to compute this curve.
 
-<!-- ![image](assets/object-detection-leaderboard/pxr_te_iou075.png)
-Figure 4: Precision x Recall curve for a target object “dog” considering TP detections using IoU_thresh = 0.75  -->
-
-<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/pxr_te_iou075.png"> <center> Figure 4: Precision x Recall curve for a target object “dog” considering TP detections using IoU_thresh = 0.75. </center>
+<div display="block" margin-left="auto" margin-right="auto" width="50%">
+<center>
+    <img src="/blog/assets/object-detection-leaderboard/pxr_te_iou075.png" alt="pxr_te_iou075.png" />
+    <figcaption> Figure 4: Precision x Recall curve for a target object “dog” considering TP detections using IoU_thresh = 0.75.</figcaption>
+</center>
+</div>
 
 The precision-recall curve illustrates the balance between precision and recall based on different confidence levels of a detector's bounding boxes. Each point of the plot is computed using a different confidence value. 
 
 Let’s borrow the practical example presented in the paper [A Survey on performance metrics for object-detection algorithms](https://ieeexplore.ieee.org/document/9145130) to illustrate how to compute the Average Precision plot. Consider a dataset made of 7 images with 15 ground-truth objects of the same class, as shown in Figure 5. For simplification purposes let’s consider that all boxes belong to the same class “dog”.
 
-<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/dataset_example.png"> <center> Figure 5: : Example of 24 detections (red boxes) performed by an object detector trained to detect 15 ground-truth objects (green boxes) belonging to the same class. </center>
+<div display="block" margin-left="auto" margin-right="auto" width="50%">
+<center>
+    <img src="/blog/assets/object-detection-leaderboard/dataset_example.png" alt="dataset_example.png" />
+    <figcaption> Figure 5: Example of 24 detections (red boxes) performed by an object detector trained to detect 15 ground-truth objects (green boxes) belonging to the same class.</figcaption>
+</center>
+</div>
 
 Our hypothetical object detector retrieved 24 objects in our dataset, illustrated by the red boxes. To evaluate how well the detector performed for this specific class in our benchmarking dataset, we need to compute the precision and recall using the Precision and Recall equations for all confidence levels. For that, we need to establish some rules:
 * **Rule 1**: For a matter of simplicity let’s consider our detections a True Positive (TP) if the IoU >= 30%, otherwise, it is a False Positive (FP). 
@@ -144,23 +155,37 @@ Our hypothetical object detector retrieved 24 objects in our dataset, illustrate
 
 Based on these rules, we can classify each detection as TP or FP, as shown in Table 1:
 
-<center> Table 1: Detections from Figure 5 classified as TP or FP considering (\\( \text{T}_{\text{IOU}} = 30% \\)) </center>
-<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/table_1.png"> 
+<div display="block" margin-left="auto" margin-right="auto" width="50%">
+<center>
+    <figcaption> Table 1: Detections from Figure 5 classified as TP or FP considering \\( \text{T}_{\text{IOU}} = 30% \\).</figcaption>
+    <img src="/blog/assets/object-detection-leaderboard/table_1.png" alt="table_1.png" />
+</center>
+</div>
 
 Note that by rule 2, in image 1, “E” is TP while “D” is FP because IoU between “E” and the ground-truth is greater than IoU between “D” and the ground-truth.
 
 Now, we need to compute Precision and Recall for all confidence levels. A good way to do it, is to sort the detections by their confidences and, for each confidence level,   count how many TP would be left in the dataset. Then we compute the precision and recall values for that particular confidence level, as shown in Table 2. The computation of each value of Table 2 can be viewed in [this Spread Sheet](https://docs.google.com/spreadsheets/d/1mc-KPDsNHW61ehRpI5BXoyAHmP-NxA52WxoMjBqk7pw/edit?usp=sharing).
 
-<center> Table 2: Computation of Precision and Recall values of detections from Table 1 </center>
-<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/table_1.png"> 
+<div display="block" margin-left="auto" margin-right="auto" width="50%">
+<center>
+    <figcaption> Table 2: Computation of Precision and Recall values of detections from Table 1.</figcaption>
+    <img src="/blog/assets/object-detection-leaderboard/table_2.png" alt="table_2.png" />
+</center>
+</div>
+
 
 From top down, the accumulative TP (acc TP) column of Table 2 is increased in 1 every time a TP is noted, and the accumulative FP (acc FP) column is increased in 1 always when a FP is noted. Columns "acc TP" and "acc FP" basically tell us what are the TP and FP values given a particular confidence level. 
 
-For example, consider the 12th row (detection “P”) of Table 2. The value "acc TP = 4" means that if we benchmark our model in this particular dataset with a confidence of 0.62, we would correctly detect 4 target objects and incorrectly detect 8 target objects. This would result in Precision = 0.3333 (\\( \frac{\text{acc TP}}{(\text{acc TP} + \text{acc FP})} = \frac{4}{(4+8)} \\) ) and Recall = 0.2667 (\\( \frac{\text{acc TP}}{\text{all ground truths}} = \frac{4}{15} \\) ).
+For example, consider the 12th row (detection “P”) of Table 2. The value "acc TP = 4" means that if we benchmark our model in this particular dataset with a confidence of 0.62, we would correctly detect 4 target objects and incorrectly detect 8 target objects. This would result in \\( \text{Precision} =  \frac{\text{acc TP}}{(\text{acc TP} + \text{acc FP})} = \frac{4}{(4+8)} = 0.3333  \\) and \\( \text{Recall} =  \frac{\text{acc TP}}{\text{all ground truths}} = \frac{4}{15} = 0.2667 \\) .
 
 Now, we can plot the Precision x Recall curve with the values, as shown in Figure 6:
 
-<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/precision_recall_example.png"> <center> Figure 6: Precision x Recall curve for the detections computed in Table 2. </center>
+<div display="block" margin-left="auto" margin-right="auto" width="50%">
+<center>
+    <img src="/blog/assets/object-detection-leaderboard/precision_recall_example.png" alt="precision_recall_example.png" />
+    <figcaption> Figure 6: Precision x Recall curve for the detections computed in Table 2.</figcaption>
+</center>
+</div>
 
 By examining the curve, one may infer the potential trade-offs between precision and recall and expect to have a model’s optimal operating point based on a selected confidence threshold, even if this threshold is not explicitly depicted on the curve.
 
@@ -170,11 +195,15 @@ If a detector's confidence results in few false positives (FP), it is likely to 
 
 For a very large dataset, the detector is likely to output boxes with a wide range of confidence levels, resulting in a jagged Precision x Recall line, making it challenging to precisely compute its AUC (Average Precision). Different methods approximate the area of the curve with different approaches A popular approach is the called N-interpolation approach, where N represents how many points are sampled from the Precision x Recall blue line.
 
-COCO’s approach, for instance, uses 101-interpolation, which computes 101 points for equally spaced  recall values (0.  , 0.01, 0.02, … 1.00), while other approaches use 11 points, referred to as 11-interpolation.
+COCO’s approach, for instance, uses 101-interpolation, which computes 101 points for equally spaced  recall values (0.  , 0.01, 0.02, … 1.00), while other approaches use 11 points, referred to as 11-interpolation. Figure 7 illustrates a Precision Recall curve (in blue) with 11 recall points equally spaced.
 
-Figure 7 illustrates a Precision Recall curve (in blue) with 11 recall points equally spaced.
+<div display="block" margin-left="auto" margin-right="auto" width="50%">
+<center>
+    <img src="/blog/assets/object-detection-leaderboard/11-pointInterpolation.png" alt="11-pointInterpolation.png" />
+    <figcaption> Figure 7: Example of a Precision x Recall curve using the  11-interpolation approach. The 11 red dots are computed with Precision and Recall equations.</figcaption>
+</center>
+</div>
 
-<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/11-pointInterpolation.png"> <center> Figure 7: Example of a Precision x Recall curve using the  11-interpolation approach. The 11 red dots are computed with Precision and Recall equations. </center>
 
 The red points are placed according to the following:
 
@@ -182,7 +211,7 @@ The red points are placed according to the following:
 
 where \\( \rho \left( \tilde{r} \right) \\) is the measured precision at recall \\( \tilde{r} \\).
 
-In this definition, instead of using the precision value \\( \rho (R)} \\) observed in each recall level \\( R \\), the precision \\( \rho_{\text{interp}} (R) \\) is obtained by considering the maximum precision whose recall value is greater than \\( R \\).
+In this definition, instead of using the precision value \\( \rho(R) \\) observed in each recall level \\( R \\), the precision \\( \rho_{\text{interp}} (R) \\) is obtained by considering the maximum precision whose recall value is greater than \\( R \\).
 
 For this type of approach, the AUC, which represents the Average Precision, is approximated by the average of all points, and given by:
 
@@ -208,25 +237,30 @@ Based on predefined IoU thresholds and the areas associated with ground-truth ob
 
 \\( \text{AP@[.5:.05:0.95} = \frac{\text{AP}_{0.5} + \text{AP}_{0.55} + ... + \text{AP}_{0.95}}{10} \\)
 
-* **AP-S**: It applies AP@[.5:.05:.95] considering (small) ground-truth objects with area < 32^2 pixels.
-* **AP-M**: It applies AP@[.5:.05:.95] considering (medium-sized) ground-truth objects with 32^2 < area < 96^2 pixels.
-* **AP-L**: It applies AP@[.5:.05:.95] considering (large) ground-truth objects with 32^2 < area < 96^2 pixels.
+* **AP-S**: It applies AP@[.5:.05:.95] considering (small) ground-truth objects with \\( \text{area} < 32^2 \\) pixels.
+* **AP-M**: It applies AP@[.5:.05:.95] considering (medium-sized) ground-truth objects with \\( 32^2 < \text{area} < 96^2 \\) pixels.
+* **AP-L**: It applies AP@[.5:.05:.95] considering (large) ground-truth objects with \\( 32^2 < \text{area} < 96^2\\) pixels.
 
 For Average Recall (AR), 10 IoU thresholds (0.5, 0.55, 0.6,...,0.95) are used to compute the recall values. AR is computed by either limiting the number of detections per image or by limiting the detections based on the object's area.
 
 * **AR-1**: considers up to 1 detection per image.
 * **AR-10**: considers up to 10 detection per image.
 * **AR-100**: considers up to 100 detection per image.
-* **AR-S**: considers (small) objects with area < 32^2 pixels.
-* **AR-M**: considers (medium-sized) objects with area 32^2 < area < 96^2 pixels.
-* **AR-L**: considers (large) objects with area > 96^2 pixels.
+* **AR-S**: considers (small) objects with \\( \text{area} < 32^2 \\) pixels.
+* **AR-M**: considers (medium-sized) objects with \\(  32^2 < \text{area} < 96^2 \\) pixels.
+* **AR-L**: considers (large) objects with \\( \text{area} > 96^2 \\) pixels.
 
   
 ## Object Detection Leaderboard
 
 Recently, we have released the [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard) to compare the accuracy and efficiency of open-source models from our Hub.  
 
-<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/screenshot-leaderboard.png"> <center> Figure 8: Object Detection Leaderboard. </center>
+<div display="block" margin-left="auto" margin-right="auto" width="50%">
+<center>
+    <img src="/blog/assets/object-detection-leaderboard/screenshot-leaderboard.png" alt="screenshot-leaderboard.png" />
+    <figcaption> Figure 8: Object Detection Leaderboard.</figcaption>
+</center>
+</div>
 
 To measure accuracy, we used 12 metrics involving Average Precision and Average Recall using [COCO style](https://cocodataset.org/#detection-eval), benchmarking over COCO val 2017 dataset.  
 
@@ -265,7 +299,6 @@ Let’s take the DEtection TRansformer (DETR) ([facebook/detr-resnet-50](https:/
 Our sample model uses `DetrImageProcessor` [class](https://huggingface.co/docs/transformers/main/en/model_doc/detr#transformers.DetrImageProcessor) to process the bounding boxes and logits, as shown in the snippet below:
 
 ```python 
-
 from transformers import DetrImageProcessor, DetrForObjectDetection
 import torch
 from PIL import Image
@@ -301,11 +334,20 @@ To illustrate this process, let's consider the examples in Figure 9 and Figure 1
 
 Figure 10 shows the process with batch size = 2, where the same two images are processed with `DetrImageProcessor` in the same batch. Both images are resized to have the same shape `(873, 1201)` and padding is applied, so the part of the images with the content is keept with their original aspect ratios. However, the first image, for instance, outputs different number of objects: 31 boxes with class `vase`, 20 boxes with class `chair`, 8 boxes with class `bottle`, etc. Note that for the second image, with batch size = 2, a new class is detected `dog`. This occurs due the capacity of the model to detect objects with different sizes depending on the image's resolution.
 
-<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/example_batch_size_1.png"> <center> Figure 9: Two images proccessed with `DetrImageProcessor` using batch size = 1. </center>
+<div display="block" margin-left="auto" margin-right="auto" width="50%">
+<center>
+    <img src="/blog/assets/object-detection-leaderboard/example_batch_size_1.png" alt="example_batch_size_1.png" />
+    <figcaption> Figure 9: Two images proccessed with `DetrImageProcessor` using batch size = 1.</figcaption>
+</center>
+</div>
 
 
-<img class="mx-auto" style="float: left;" padding="5px" width="*" src="/blog/assets/object-detection-leaderboard/example_batch_size_1.png"> <center> Figure 10: Two images proccessed with `DetrImageProcessor` using batch size = 2. </center>
-
+<div display="block" margin-left="auto" margin-right="auto" width="50%">
+<center>
+    <img src="/blog/assets/object-detection-leaderboard/example_batch_size_2.png" alt="example_batch_size_2.png" />
+    <figcaption> Figure 10: Two images proccessed with `DetrImageProcessor` using batch size = 2.</figcaption>
+</center>
+</div>
 
 #### Ported models should output the same logits as the original models
 
