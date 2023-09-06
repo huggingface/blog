@@ -195,7 +195,7 @@ As you can see, interactions from the user and responses by the model are preced
 - [Models](https://huggingface.co/models?other=falcon&sort=trending&search=180)
 - [Demo](https://huggingface.co/spaces/tiiuae/falcon-180b-chat)
 - [The Falcon has landed in the Hugging Face ecosystem](https://huggingface.co/blog/falcon)
-- Official Announcement
+- [Official Announcement](https://falconllm.tii.ae/)
 
 ## Acknowledgments
 
