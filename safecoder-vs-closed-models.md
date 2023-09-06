@@ -15,7 +15,7 @@ For decades, software developers have designed methodologies, processes, and too
 
 In "How Google Tests Software" (Addison-Wesley, 2012), Google reports that fixing a bug during system tests, the final testing stage, is 1000x more expensive than fixing it at the unit testing stage. This puts a lot of pressure on developers, the first link in the chain, to write quality code from the get-go. 
 
-For all the hype surrounding generative AI, code generation seems a promising way to help developers deliver better code. Indeed, early studies show that managed services like [GitHub Copilot](https://github.blog/2023-06-27-the-economic-impact-of-the-ai-powered-developer-lifecycle-and-lessons-from-github-copilot) or [Amazon CodeWhisperer](https://aws.amazon.com/codewhisperer/) help developers be more productive.
+For all the hype surrounding generative AI, code generation seems a promising way to help developers deliver better code fast. Indeed, early studies show that managed services like [GitHub Copilot](https://github.blog/2023-06-27-the-economic-impact-of-the-ai-powered-developer-lifecycle-and-lessons-from-github-copilot) or [Amazon CodeWhisperer](https://aws.amazon.com/codewhisperer/) help developers be more productive.
 
 However, these services rely on closed-source models that can't be customized to your technical culture and processes. Hugging Face released [SafeCoder](https://huggingface.co/blog/starcoder) a few weeks ago to fix this. SafeCoder is a code assistant solution built for the enterprise that gives you state-of-the-art models, transparency, customizability, IT flexibility, and privacy.
 
