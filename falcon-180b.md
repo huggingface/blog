@@ -83,7 +83,9 @@ You can easily try the Big Falcon Model (180 billion parameters!) in [this Space
 
 ### Hardware requirements
 
-|             | Type      | Kind             | Minimum Requirement | Example setup   |
+We ran several tests on the hardware needed to run the model for different use cases. Those are not the minimum numbers, but the minimum numbers for the configurations we had access to.
+
+|             | Type      | Kind             | Memory | Example   |
 | ----------- | --------- | ---------------- | ------------------- | --------------- |
 | Falcon 180B | Training  | Full fine-tuning | 5120GB              | 8x 8x A100 80GB |
 | Falcon 180B | Training  | LoRA with ZeRO-3 | 1280GB              | 2x 8x A100 80GB |
