@@ -31,6 +31,8 @@ In this blog post, we explore what makes Falcon 180B so good by looking at some 
     * [Hardware requirements](#hardware-requirements)
     * [Prompt format](#prompt-format)
     * [Transformers](#transformers)
+    * [Inference API](#inference-api)
+    * [Using Inference Endpoints](#using-inference-endpoints)
 * [Additional Resources](#additional-resources)
 
 
