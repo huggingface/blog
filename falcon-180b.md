@@ -22,7 +22,7 @@ You can find the model on the Hugging Face Hub ([base](https://huggingface.co/ti
 
 In terms of capabilities, Falcon 180B achieves state-of-the-art results across natural language tasks. It tops the leaderboard for (pre-trained) open-access models and rivals proprietary models like PaLM-2. While difficult to rank definitively yet, it is considered on par with PaLM-2 Large, making Falcon 180B one of the most capable LLMs publicly known.
 
-In this blog post, we explore what makes Falcon 180B so good by looking at some evaluation results and show how you can use the model both on your own hardware and using API services.
+In this blog post, we explore what makes Falcon 180B so good by looking at some evaluation results and show how you can use the model.
 
 * [What is Falcon-180B?](#what-is-falcon-180b)
 * [How good is Falcon 180B?](#how-good-is-falcon-180b)
@@ -31,8 +31,6 @@ In this blog post, we explore what makes Falcon 180B so good by looking at some 
     * [Hardware requirements](#hardware-requirements)
     * [Prompt format](#prompt-format)
     * [Transformers](#transformers)
-    * [Inference API](#inference-api)
-    * [Using Inference Endpoints](#using-inference-endpoints)
 * [Additional Resources](#additional-resources)
 
 
@@ -192,42 +190,6 @@ def format_prompt(message, history, system_prompt):
 
 As you can see, interactions from the user and responses by the model are preceded by `User: ` and `Falcon: ` separators. We concatenate them together to form a prompt containing the conversation's whole history. We can provide a system prompt to tweak the generation style.
 
-### Inference API
-
-If you’re a [Hugging Face PRO user](https://huggingface.co/subscribe/pro), you get access to an inference API you can use for quick experimentation and prototyping. 
-
-```bash
-!curl https://api-inference.huggingface.co/models/tiiuae/falcon-180B-chat \
-	-X POST \
-	-d '{"inputs": "User: Explain ML to me as a pirate "}' \
-	-H "Authorization: Bearer API_TOKEN"
-```
-
-For Python usage, you can use the `huggingface_hub` utilities to use the model
-
-```bash
-from huggingface_hub import InferenceClient
-
-client = InferenceClient("tiiuae/falcon-180B-chat", token=HF_TOKEN)
-
-res = client.text_generation("User: Explain ML as a pirate", max_new_tokens=95)
-print(res)
-# hoy, matey! Gather 'round and let me tell ye a tale of machine learnin'...
-```
-
-Under the hood, the Inference API leverages Text Generation Inference. [Text Generation Inference](https://huggingface.co/docs/text-generation-inference/index) is a production-ready inference container developed by Hugging Face to enable easy deployment of large language models. It has features such as continuous batching, [token streaming](https://huggingface.co/docs/text-generation-inference/conceptual/streaming), tensor parallelism for fast inference on multiple GPUs. For example, by adding `stream=True`, we can use token streaming.
-
-### Using Inference Endpoints
-
-You can deploy Falcon as your own dedicated inference endpoint using Hugging Face's [Inference Endpoints](https://huggingface.co/inference-endpoints). To deploy a Falcon 180B model, go to the [model page](hhttps://huggingface.co/tiiuae/falcon-180B-chat) and click on the [Deploy -> Inference Endpoints](https://huggingface.co/tiiuae/falcon-180B-chat) widget.
-
-- *For GPTQ version, we advise you to select "GPU [4xlarge] - 4x Nvidia A100” with gptq quantization enabled. coming soon.*
-- For the BF16 version, we advise you to select "GPU [8xlarge] - 8x Nvidia A100”
-
-*Note: We currently offer 4x & 8x A100 only under the enterprise plan, if you are interested please reach out to us at **api-enterprise@huggingface.co** or fill-in [this form](https://huggingface.co/inference-endpoints/enterprise).*
-
-You can learn more on how to [Deploy LLMs with Hugging Face Inference Endpoints in our blog](https://huggingface.co/blog/inference-endpoints-llm). The [blog](https://huggingface.co/blog/inference-endpoints-llm) includes information about supported hyperparameters and how to stream your response using Python and Javascript.
-
 ## Additional Resources
 
 - [Models](https://huggingface.co/models?other=falcon&sort=trending&search=180)
@@ -237,4 +199,4 @@ You can learn more on how to [Deploy LLMs with Hugging Face Inference Endpoints 
 
 ## Acknowledgments
 
-Releasing such a model with support and evaluations in the ecosystem would not be possible without the contributions of many community members, including [Clémentine](https://huggingface.co/clefourrier) and [Eleuther Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) for LLM evaluations; [Loubna](https://huggingface.co/loubnabnl) and [BigCode](https://huggingface.co/bigcode) for code evaluations; [Nicolas](https://hf.co/narsil) for Inference API support; [Lysandre](https://huggingface.co/lysandre), [Matt](https://huggingface.co/Rocketknight1), [Daniel](https://huggingface.co/DanielHesslow), [Amy](https://huggingface.co/amyeroberts), [Joao](https://huggingface.co/joaogante), and [Arthur](https://huggingface.co/ArthurZ) for integrating Falcon into transformers. Thanks to [Baptiste](https://huggingface.co/BapBap) and [Patrick](https://huggingface.co/patrickvonplaten) for the open-source demo. Thanks to [Thom](https://huggingface.co/thomwolf), [Lewis](https://huggingface.co/lewtun), [TheBloke](https://huggingface.co/thebloke), [Nouamane](https://huggingface.co/nouamanetazi), [Tim Dettmers](https://huggingface.co/timdettmers) for multiple contributions enabling this to get out. Finally, thanks to the HF Cluster for enabling running LLM evaluations as well as providing inference for a free, open-source demo of the model.
+Releasing such a model with support and evaluations in the ecosystem would not be possible without the contributions of many community members, including [Clémentine](https://huggingface.co/clefourrier) and [Eleuther Evaluation Harness](https://github.com/EleutherAI/lm-evaluation-harness) for LLM evaluations; [Loubna](https://huggingface.co/loubnabnl) and [BigCode](https://huggingface.co/bigcode) for code evaluations; [Nicolas](https://hf.co/narsil) for Inference support; [Lysandre](https://huggingface.co/lysandre), [Matt](https://huggingface.co/Rocketknight1), [Daniel](https://huggingface.co/DanielHesslow), [Amy](https://huggingface.co/amyeroberts), [Joao](https://huggingface.co/joaogante), and [Arthur](https://huggingface.co/ArthurZ) for integrating Falcon into transformers. Thanks to [Baptiste](https://huggingface.co/BapBap) and [Patrick](https://huggingface.co/patrickvonplaten) for the open-source demo. Thanks to [Thom](https://huggingface.co/thomwolf), [Lewis](https://huggingface.co/lewtun), [TheBloke](https://huggingface.co/thebloke), [Nouamane](https://huggingface.co/nouamanetazi), [Tim Dettmers](https://huggingface.co/timdettmers) for multiple contributions enabling this to get out. Finally, thanks to the HF Cluster for enabling running LLM evaluations as well as providing inference for a free, open-source demo of the model.
