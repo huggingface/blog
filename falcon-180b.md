@@ -47,7 +47,7 @@ The released [chat model](https://huggingface.co/tiiuae/falcon-180B-chat) is fin
 
 Falcon 180B is the best openly released LLM today, outperforming Llama 2 70B and OpenAI’s GPT-3.5 on MMLU, and is on par with Google's PaLM 2-Large on HellaSwag, LAMBADA, WebQuestions, Winogrande, PIQA, ARC, BoolQ, CB, COPA, RTE, WiC, WSC, ReCoRD. Falcon 180B typically sits somewhere between GPT 3.5 and GPT4 depending on the evaluation benchmark and further finetuning from the community will be very interesting to follow now that it's openly released.
 
-![Palm 2 comparison](assets/162_falcon_180b/palm2_480.jpg)
+![Palm 2 comparison](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/162_falcon_180b/palm2_480.jpg)
 
 
 With 68.74 on the Hugging Face Leaderboard, Falcon 180B is the highest-scoring openly released pre-trained LLM, surpassing Meta’s LLaMA 2 (67.35).
@@ -60,7 +60,7 @@ With 68.74 on the Hugging Face Leaderboard, Falcon 180B is the highest-scoring o
 | Falcon  | 40B  | 61.48             | ✅                         | 1,000B             |
 | MPT     | 30B  | 56.15             | ✅                         | 1,000B             |
 
-![open_llm_leaderboard.png](assets/162_falcon_180b/open_llm_leaderboard.jpg)
+![open_llm_leaderboard.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/162_falcon_180b/open_llm_leaderboard.jpg)
 
 ## How to use Falcon 180B?
 
