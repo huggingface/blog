@@ -86,8 +86,8 @@ You can easily try the Big Falcon Model (180 billion parameters!) in [this Space
 | Falcon 180B | Training  | Full fine-tuning | 5120GB              | 8x 8x A100 80GB |
 | Falcon 180B | Training  | LoRA with ZeRO-3 | 1280GB              | 2x 8x A100 80GB |
 | Falcon 180B | Training  | QLoRA            | 160GB               | 2x A100 80GB    |
-| Falcon 180B | Inference | BF16/FP16        | 640GB               | 8x A100 80GB    |
-| Falcon 180B | Inference | GPTQ/int4        | 320GB               | 8x A100 40GB    |
+| Falcon 180B | Inference | BF16/FP16        | 320GB               | 4x A100 80GB    |
+| Falcon 180B | Inference | GPTQ/int4        | 90GB               | 2x A100 40GB    |
 
 ### Prompt format
 
