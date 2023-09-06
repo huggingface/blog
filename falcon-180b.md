@@ -108,7 +108,7 @@ With the release of Transformers 4.33, you can use Falcon 180B and leverage all 
 - RoPE scaling support for larger context lengths
 - rich and powerful generation parameters
 
-**Bf16**
+#### bfloat16
 
 This is how you’d use the base model in `bfloat16`. Falcon 180B is a big model, so please take into account the hardware requirements summarized in the table above.
 
@@ -148,7 +148,7 @@ My name is Pedro, I live in Portugal and I am 25 years old. I am a graphic desig
 I love to travel and I am always looking for new adventures. I love to meet new people and explore new places.
 ```
 
-**Bitsandbytes**
+#### 8-bit and 4-bit with `bitsandbytes`
 
 The 8-bit and 4-bit quantized versions of Falcon 180B show almost no difference in evaluation with respect to the `bfloat16` reference! This is very good news for inference, as you can confidently use a quantized version to reduce hardware requirements. Keep in mind, though, that 8-bit inference is *much faster* than running the model in `4-bit`.
 
@@ -163,7 +163,7 @@ model = AutoModelForCausalLM.from_pretrained(
 )
 ```
 
-**Chat Model**
+#### Chat Model
 
 As mentioned above, the version of the model fine-tuned to follow conversations used a very straightforward training template. We have to follow the same pattern in order to run chat-style inference. For reference, you can take a look at the [format_prompt](https://huggingface.co/spaces/hf-extreme-scale/falcon-180b-chat-demo/blob/main/app.py#L19) function in the Chat demo, which looks like this:
 
