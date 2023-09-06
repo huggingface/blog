@@ -74,7 +74,7 @@ Falcon 180B is available in the Hugging Face ecosystem, starting with Transforme
 
 ### Demo
 
-You can easily try the Big Falcon Model (180 billion parameters!) in [this Space](https://huggingface.co/spaces/HuggingFaceH4/falcon-chat) or in the playground embedded below:
+You can easily try the Big Falcon Model (180 billion parameters!) in [this Space](https://huggingface.co/spaces/tiiuae/falcon-180b-demo) or in the playground embedded below:
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.42.0/gradio.js"> </script>
 <gradio-app theme_mode="light" space="tiiuae/falcon-180b-chat"></gradio-app>
