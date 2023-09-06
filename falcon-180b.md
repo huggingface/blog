@@ -68,7 +68,7 @@ With 68.74 on the Hugging Face Leaderboard, Falcon 180B is the highest-scoring o
 
 ![open_llm_leaderboard.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/162_falcon_180b/open_llm_leaderboard.jpg)
 
-The quantized Falcon models preserve similar metrics across benchmark. The results were similar when evaluating `torch.float16`, `8bit`, and `4bit`. See results in the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard).
+The quantized Falcon models preserve similar metrics across benchmarks. The results were similar when evaluating `torch.float16`, `8bit`, and `4bit`. See results in the [Open LLM Leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard).
 
 ## How to use Falcon 180B?
 
