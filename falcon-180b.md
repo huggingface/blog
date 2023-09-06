@@ -108,6 +108,13 @@ With the release of Transformers 4.33, you can use Falcon 180B and leverage all 
 - RoPE scaling support for larger context lengths
 - rich and powerful generation parameters
 
+Use of the model requires you to accept its license and terms of use. Please, make sure you are logged into your Hugging Face account and ensure you have the latest version of `transformers`:
+
+```bash
+pip install --upgrade transformers
+huggingface-cli login
+```
+
 #### bfloat16
 
 This is how you’d use the base model in `bfloat16`. Falcon 180B is a big model, so please take into account the hardware requirements summarized in the table above.
