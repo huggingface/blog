@@ -28,7 +28,7 @@ SafeCoder relies on the [StarCoder](https://huggingface.co/blog/starcoder) model
 
 StarCoder is a 15.5 billion parameter model trained for code generation in over 80 programming languages. It uses innovative architectural concepts, like Multi-Query Attention (MQA), to improve throughput and reduce latency, a technique also present in the [Falcon](https://huggingface.co/blog/falcon) and adapted for [LLaMa 2](https://huggingface.co/blog/llama2) models.
 
-StarCoder has an 8-kilobyte context window, helping it take into account more of your existing code to generate new code. It can also do fill-in-the-middle, i.e., insert within existing code, instead of just appending new code at the end.
+StarCoder has an 8192 token context window, helping it take into account more of your existing code to generate new code. It can also do fill-in-the-middle, i.e., insert within existing code, instead of just appending new code at the end.
 
 Lastly, just like [HuggingChat](https://huggingface.co/chat/), SafeCoder will introduce new state-of-the-art models over time, giving you a seamless upgrade path.
 
