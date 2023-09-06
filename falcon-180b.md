@@ -44,6 +44,9 @@ The dataset for Falcon 180B consists predominantly of web data from [RefinedWeb]
 
 The released [chat model](https://huggingface.co/tiiuae/falcon-180B-chat) is fine-tuned on chat and instruction datasets with a mix of several large-scale conversational datasets.
 
+‼️ Commercial use: 
+Falcon 180b can be commercially used but under very restrictive conditions, excluding any "hosting use". We recommend to check the [license](https://huggingface.co/spaces/tiiuae/falcon-180b-license/blob/main/LICENSE.txt) and consult your legal team if you are interested in using it for commercial purposes.
+
 
 ## How good is Falcon 180B?
 
@@ -56,11 +59,12 @@ With 68.74 on the Hugging Face Leaderboard, Falcon 180B is the highest-scoring o
 
 | Model   | Size | Leaderboard score | Commercial use or license | Pretraining length |
 | ------- | ---- | ----------------- | ------------------------- | ------------------ |
-| Falcon  | 180B | 68.74             | ✅                         | 3,500B             |
-| Llama 2 | 70B  | 67.35             | ✅                         | 2,000B             |
-| LLaMA   | 65B  | 64.23             | ❌                         | 1,400B             |
-| Falcon  | 40B  | 61.48             | ✅                         | 1,000B             |
-| MPT     | 30B  | 56.15             | ✅                         | 1,000B             |
+| Falcon  | 180B | 68.74             | 🟠                         | 3,500B             |
+| Llama 2 | 70B  | 67.35             | 🟠                         | 2,000B             |
+| LLaMA   | 65B  | 64.23             | 🔴                         | 1,400B             |
+| Falcon  | 40B  | 61.48             | 🟢                         | 1,000B             |
+| MPT     | 30B  | 56.15             | 🟢                         | 1,000B             |
+
 
 ![open_llm_leaderboard.png](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/162_falcon_180b/open_llm_leaderboard.jpg)
 
