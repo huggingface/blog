@@ -11,7 +11,7 @@ authors:
 <!-- {authors} -->
 
 
-For decades, software developers have designed methodologies, processes, and tools that help them improve code quality and increase productivity. For instance, Agile, test-driven development, code reviews, CI/CD, and more are now staples in the software industry. 
+For decades, software developers have designed methodologies, processes, and tools that help them improve code quality and increase productivity. For instance, agile, test-driven development, code reviews, CI/CD, and more are now staples in the software industry. 
 
 In "How Google Tests Software" (Addison-Wesley, 2012), Google reports that fixing a bug during system tests, the final testing stage, is 1000x more expensive than fixing it at the unit testing stage. This puts a lot of pressure on developers, the first link in the chain, to write quality code from the get-go. 
 
