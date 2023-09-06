@@ -1,4 +1,6 @@
----
+from diffusers import DiffusionPipeline
+
+pipeline = DiffusionPipeline.from_pretrained("diffusers/stable-diffusion-xl-1.0-inpainting-0.1")
 title: 'Deploy Hugging Face models easily with Amazon SageMaker'
 thumbnail: /blog/assets/17_the_partnership_amazon_sagemaker_and_hugging_face/thumbnail.png
 ---
