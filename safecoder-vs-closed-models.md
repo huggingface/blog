@@ -26,7 +26,7 @@ In this post, we'll compare SafeCoder to closed-source services and highlight th
 
 SafeCoder relies on the [StarCoder](https://huggingface.co/blog/starcoder) models, a family of open-source models designed and trained within the [BigCode](https://huggingface.co/bigcode) collaborative project.
 
-StarCoder is a 15.5 billion parameter model trained for code generation in over 80 programming languages. It uses a state-of-the-art architecture called Multi-Query Attention (MQA) to improve throughput and reduce latency, a technique also present in the [Falcon](https://huggingface.co/blog/falcon) and [LLaMa 2](https://huggingface.co/blog/llama2) models.
+StarCoder is a 15.5 billion parameter model trained for code generation in over 80 programming languages. It uses innovative architectural concepts, like Multi-Query Attention (MQA), to improve throughput and reduce latency, a technique also present in the [Falcon](https://huggingface.co/blog/falcon) and adapted for [LLaMa 2](https://huggingface.co/blog/llama2) models.
 
 StarCoder has an 8-kilobyte context window, helping it take into account more of your existing code to generate new code. It can also do fill-in-the-middle, i.e., insert within existing code, instead of just appending new code at the end.
 
