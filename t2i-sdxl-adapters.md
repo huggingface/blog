@@ -1,0 +1,160 @@
+# Efficient Controllable Generation for SDXL with T2I Adapters
+
+![Untitled](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled.png)
+
+ControlNets provide a flexible way to condition the generation process of text-to-image diffusion models. For example, we can provide an open-pose image with an input prompt so that the generated image not only adheres to the prompt but also the pose image. 
+
+Despite this flexibility, ControlNets can be **computationally expensive** to run. This is because, during each denoising step of the reverse diffusion process, both the ControlNet and UNet need to be run. In addition, ControlNet emphasizes the importance of **copying the UNet encoder** as a control model, resulting in a larger parameter number. Thus, the generation is bottlenecked by the size of the ControlNet (the larger, the slower the process becomes). 
+
+**T2I-Adapters** provide a competitive advantage to ControlNets in this matter. T2I-Adapters are smaller in size, and unlike ControlNets, T2I-Adapters are run just for one for the entire course of the denoising process. 
+
+|  | Model Parameters | Storage (fp16) |
+| --- | --- | --- |
+| https://huggingface.co/diffusers/controlnet-canny-sdxl-1.0 | 1251 M | 2.5 GB |
+| https://huggingface.co/TencentARC/t2i-adapter-canny-sdxl-1.0 | 79 M (94% reduction) | 158 MB (94% reduction) |
+
+Over the past few weeks, the diffusers team and the T2I-Adapter authors have been collaborating to bring the support of T2I Adapters for Stable Diffusion XL (SDXL) in `diffusers`. In this blog post, we share our findings from training T2I Adapters on SDXL from scratch, some appealing results, and, of course, the T2I-Adapter checkpoints on various conditionings (sketch, canny, lineart, depth, and openpose)!
+
+![Untitled](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%201.png)
+
+Compared to previous versions of T2I-Adapter (SD-1.4/1.5), [T2I-Adapter-SDXL](https://github.com/TencentARC/T2I-Adapter) still uses the original recipe, driving 2.6B SDXL with a 79M Adapter! T2I-Adapter-SDXL maintains powerful control capabilities while inheriting the high-quality generation of SDXL!
+
+## Training T2I-Adapter-SDXL with `diffusers`
+
+We built our training script on this official example provided by `diffusers`. You can find the full-fledged training script here. 
+
+Most of the T2I Adapter models we mention in this blog post were trained on 3M high-resolution image-text pairs from LAION-Aesthetics V2 with the following settings: 
+
+- Training steps: 20000
+- Batch size: Data parallel with a single GPU batch size of 16 for a total batch size of 256.
+- Learning rate: Constant learning rate of 1e-5.
+- Mixed precision: fp16
+
+Refer to the original training script for more details on the exact training setup, setting up the condition images, and so on. 
+
+We encourage the community to use our scripts to train custom and powerful T2I Adapters striking a competitive trade-off between speed, memory, and quality. 
+
+## Using T2I-Adapter-SDXL in `diffusers`
+
+Here, we take the lineart condition as an example to demonstrate the usage of [T2I-Adapter-SDXL](https://github.com/TencentARC/T2I-Adapter/tree/XL). To get started, first install the required dependencies:
+
+```bash
+pip install git+https://github.com/huggingface/diffusers.git@t2iadapterxl # for now
+pip install -U controlnet_aux==0.0.7 # for conditioning models and detectors
+pip install transformers accelerate 
+```
+
+The generation process of the T2I-Adapter-SDXL mainly consists of the following two steps:
+
+1. Condition images are first prepared into the appropriate *control image* format.
+2. The *control image* and *prompt* are passed to the `[StableDiffusionXLAdapterPipeline](https://github.com/huggingface/diffusers/blob/main/src/diffusers/pipelines/t2i_adapter/pipeline_stable_diffusion_xl_adapter.py#L125)`.
+
+Let's have a look at a simple example using the [Lineart Adapter](https://huggingface.co/TencentARC/t2i-adapter-lineart-sdxl-1.0). We start by initializing the T2I Adapter pipeline for SDXL and the lineart detector. 
+
+```python
+import torch
+from controlnet_aux.lineart import LineartDetector
+from diffusers import (AutoencoderKL, EulerAncestralDiscreteScheduler,
+                       StableDiffusionXLAdapterPipeline, T2IAdapter)
+from diffusers.utils import load_image, make_image_grid
+
+# load adapter
+adapter = T2IAdapter.from_pretrained(
+    "TencentARC/t2i-adapter-lineart-sdxl-1.0", torch_dtype=torch.float16, varient="fp16"
+).to("cuda")
+
+# load pipeline
+model_id = "stabilityai/stable-diffusion-xl-base-1.0"
+euler_a = EulerAncestralDiscreteScheduler.from_pretrained(
+    model_id, subfolder="scheduler"
+)
+vae = AutoencoderKL.from_pretrained(
+    "madebyollin/sdxl-vae-fp16-fix", torch_dtype=torch.float16
+)
+pipe = StableDiffusionXLAdapterPipeline.from_pretrained(
+    model_id,
+    vae=vae,
+    adapter=adapter,
+    scheduler=euler_a,
+    torch_dtype=torch.float16,
+    variant="fp16",
+).to("cuda")
+
+# load lineart detector
+line_detector = LineartDetector.from_pretrained("lllyasviel/Annotators").to("cuda")
+```
+
+Then, load an image to detect lineart:
+
+```python
+url = "https://huggingface.co/Adapter/t2iadapter/resolve/main/figs_SDXLV1.0/org_lin.jpg"
+image = load_image(url)
+image = line_detector(image, detect_resolution=384, image_resolution=1024)
+```
+
+![Untitled](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%202.png)
+
+Then we generate: 
+
+```python
+prompt = "Ice dragon roar, 4k photo"
+negative_prompt = "anime, cartoon, graphic, text, painting, crayon, graphite, abstract, glitch, deformed, mutated, ugly, disfigured"
+gen_images = pipe(
+    prompt=prompt,
+    negative_prompt=negative_prompt,
+    image=image,
+    num_inference_steps=30,
+    adapter_conditioning_scale=0.8,
+    guidance_scale=7.5,
+).images[0]
+gen_images.save("out_lin.png")
+```
+
+![Untitled](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%203.png)
+
+## Try out the Demo
+
+You can easily try T2I-Adapter-SDXL in [this Space](https://huggingface.co/spaces/diffusers/T2I-Adapter-SDXL) or in the playground embedded below:
+
+```jsx
+<script
+	type="module"
+	src="https://gradio.s3-us-west-2.amazonaws.com/3.42.0/gradio.js"
+></script>
+
+<gradio-app src="https://diffusers-t2i-adapter-sdxl.hf.space"></gradio-app>
+```
+
+## More Results
+
+Below, we present results obtained from using different kinds of conditions. We also supplement the results with links to their corresponding pre-trained checkpoints. Their model cards contain more details on how they were trained, along with example usage. 
+
+### Lineart Guided
+
+![Model from `[TencentARC/t2i-adapter-lineart-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-lineart-sdxl-1.0)`](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%204.png)
+
+Model from `[TencentARC/t2i-adapter-lineart-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-lineart-sdxl-1.0)`
+
+### Sketch Guided
+
+![Model from `[TencentARC/t2i-adapter-sketch-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-sketch-sdxl-1.0)` ](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%205.png)
+
+Model from `[TencentARC/t2i-adapter-sketch-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-sketch-sdxl-1.0)` 
+
+### Canny Guided
+
+![Model from `[TencentARC/t2i-adapter-canny-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-canny-sdxl-1.0)` ](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%206.png)
+
+Model from `[TencentARC/t2i-adapter-canny-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-canny-sdxl-1.0)` 
+
+### Depth Guided
+
+![Depth guided models from `[TencentARC/t2i-adapter-depth-midas-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-depth-midas-sdxl-1.0)` and `[TencentARC/t2i-adapter-depth-zoe-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-depth-zoe-sdxl-1.0)` respectively](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%207.png)
+
+Depth guided models from `[TencentARC/t2i-adapter-depth-midas-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-depth-midas-sdxl-1.0)` and `[TencentARC/t2i-adapter-depth-zoe-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-depth-zoe-sdxl-1.0)` respectively
+
+### OpenPose Guided
+
+![Model from `[openpose_sdxl_1.0](https://huggingface.co/Adapter/t2iadapter/tree/main/openpose_sdxl_1.0)` ](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%208.png)
+
+Model from `[openpose_sdxl_1.0](https://huggingface.co/Adapter/t2iadapter/tree/main/openpose_sdxl_1.0)`
