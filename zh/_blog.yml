@@ -884,6 +884,12 @@
     - announcement
     - security
 
+- local: codellama
+  title: "Code Llama：Llama 2 学会写代码了！"
+  author: philschmid
+  thumbnail: /blog/assets/160_codellama/thumbnail.jpg
+  date: August 25, 2023
+
 - local: falcon-180b
   title: "Falcon 180B 现已登陆 Hugging Face Hub"
   author: philschmid
