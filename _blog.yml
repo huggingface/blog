@@ -2754,3 +2754,13 @@
     - audio
     - diffusers
     - diffusion
+
+- local: chat-templates
+  title: "Chat Templates: An End to the Silent Performance Killer"
+  author: rocketknight1
+  thumbnail: /blog/assets/161_audioldm2/thumbnail.png
+  date: Sep 7, 2023
+  tags:
+    - LLM
+    - nlp
+    - community
