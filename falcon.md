@@ -21,9 +21,8 @@ authors:
 
 Falcon is a new family of state-of-the-art language models created by the [Technology Innovation Institute](https://www.tii.ae/) in Abu Dhabi, and released under the Apache 2.0 license. **Notably, [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) is the first “truly open” model with capabilities rivaling many current closed-source models**. This is fantastic news for practitioners, enthusiasts, and industry, as it opens the door for many exciting use cases.
 
-<br>
 <div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 10px;">
-  September 2023 Update: [Falcon-180B](https://huggingface.co/blog/falcon-180b) has just been released! It's currently the largest openly available model, and rivals proprietary models like PaLM-2. 
+  September 2023 Update: <a href="https://huggingface.co/blog/falcon-180b">Falcon 180B</a> has just been released! It's currently the largest openly available model, and rivals proprietary models like PaLM-2. 
 </div>
 
 
