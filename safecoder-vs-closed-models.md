@@ -32,7 +32,7 @@ StarCoder has an 8192 token context window, helping it take into account more of
 
 Lastly, just like [HuggingChat](https://huggingface.co/chat/), SafeCoder will introduce new state-of-the-art models over time, giving you a seamless upgrade path.
 
-Unfortunately, closed-source services don't share information about the underlying models and their capabilities. 
+Unfortunately, closed-source code assistant services don't share information about the underlying models, their capabilities and their training data. 
 
 ## Transparency
 
