@@ -5,7 +5,7 @@ authors:
 - user: juliensimon
 ---
 
-# SafeCoder vs. Closed-source Services
+# SafeCoder vs. Closed-source Code Assistants
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
