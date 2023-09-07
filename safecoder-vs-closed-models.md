@@ -26,11 +26,11 @@ In this post, we'll compare SafeCoder to closed-source services and highlight th
 
 SafeCoder is currently built on top of the [StarCoder](https://huggingface.co/blog/starcoder) models, a family of open-source models designed and trained within the [BigCode](https://huggingface.co/bigcode) collaborative project.
 
-StarCoder is a 15.5 billion parameter model trained for code generation in over 80 programming languages. It uses innovative architectural concepts, like Multi-Query Attention (MQA), to improve throughput and reduce latency, a technique also present in the [Falcon](https://huggingface.co/blog/falcon) and adapted for [LLaMa 2](https://huggingface.co/blog/llama2) models.
+StarCoder is a 15.5 billion parameter model trained for code generation in over 80 programming languages. It uses innovative architectural concepts, like [Multi-Query Attention](https://arxiv.org/abs/1911.02150) (MQA), to improve throughput and reduce latency, a technique also present in the [Falcon](https://huggingface.co/blog/falcon) and adapted for [LLaMa 2](https://huggingface.co/blog/llama2) models.
 
-StarCoder has an 8192 token context window, helping it take into account more of your existing code to generate new code. It can also do fill-in-the-middle, i.e., insert within existing code, instead of just appending new code at the end.
+StarCoder has an 8192-token context window, helping it take into account more of your code to generate new code. It can also do fill-in-the-middle, i.e., insert within your code, instead of just appending new code at the end.
 
-Lastly, just like [HuggingChat](https://huggingface.co/chat/), SafeCoder will introduce new state-of-the-art models over time, giving you a seamless upgrade path.
+Lastly, like [HuggingChat](https://huggingface.co/chat/), SafeCoder will introduce new state-of-the-art models over time, giving you a seamless upgrade path.
 
 Unfortunately, closed-source code assistant services don't share information about the underlying models, their capabilities and their training data. 
 
@@ -69,7 +69,7 @@ Security is always a top concern, all the more when source code is involved. Int
 
 Whether you run on-premise or in the cloud, SafeCoder is 100% under your administrative control. You can apply and monitor your security controls and maintain strong and consistent compliance across your IT platform.
 
-SafeCoder doesn't spy on any of your data. Your prompts and suggestions are yours and yours only. SafeCoder doesn't call home and send telemetry data to Hugging Face or anyone else. No one but you needs to know how and when you're using SafeCoder. In fact, SafeCoder doesn't even require an Internet connection. You can (and should) run it fully air-gapped.
+SafeCoder doesn't spy on any of your data. Your prompts and suggestions are yours and yours only. SafeCoder doesn't call home and send telemetry data to Hugging Face or anyone else. No one but you needs to know how and when you're using SafeCoder. SafeCoder doesn't even require an Internet connection. You can (and should) run it fully air-gapped.
 
 Closed-source services rely on the security of the underlying cloud. Whether this works or not for your compliance posture is your call. For enterprise users, prompts and suggestions are not stored (they are for individual users). However, we regret to point out that GitHub collects  ["user engagement data"](https://docs.github.com/en/copilot/overview-of-github-copilot/about-github-copilot-for-business) with no possibility to opt-out. AWS does the same by default but lets you [opt out](https://docs.aws.amazon.com/codewhisperer/latest/userguide/sharing-data.html).
 
