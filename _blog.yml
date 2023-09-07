@@ -2755,11 +2755,22 @@
     - diffusers
     - diffusion
 
+- local: falcon-180b
+  title: "Spread Your Wings: Falcon 180B is here"
+  author: philschmid
+  thumbnail: /blog/assets/162_falcon_180b/thumbnail.jpg
+  date: September 6, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
 - local: chat-templates
   title: "Chat Templates: An End to the Silent Performance Killer"
   author: rocketknight1
   thumbnail: /blog/assets/161_audioldm2/thumbnail.png
-  date: Sep 7, 2023
+  date: September 7, 2023
   tags:
     - LLM
     - nlp
