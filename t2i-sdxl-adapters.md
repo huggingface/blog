@@ -1,4 +1,20 @@
+---
+title: "Efficient Controllable Generation for SDXL with T2I Adapters"
+thumbnail: /blog/assets/t2i-sdxl-adapters/thumbnail.png
+authors:
+- user: Adapter
+  guest: true
+- user: valhalla
+- user: sayakpaul
+- user: Xintao
+  guest: true
+- user: hysts
+---
+
 # Efficient Controllable Generation for SDXL with T2I Adapters
+
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 ![Untitled](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled.png)
 
@@ -131,30 +147,30 @@ Below, we present results obtained from using different kinds of conditions. We 
 
 ### Lineart Guided
 
-![Model from `[TencentARC/t2i-adapter-lineart-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-lineart-sdxl-1.0)`](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%204.png)
+![Model from [`TencentARC/t2i-adapter-lineart-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-lineart-sdxl-1.0)](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%204.png)
 
-Model from `[TencentARC/t2i-adapter-lineart-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-lineart-sdxl-1.0)`
+Model from [`TencentARC/t2i-adapter-lineart-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-lineart-sdxl-1.0)
 
 ### Sketch Guided
 
-![Model from `[TencentARC/t2i-adapter-sketch-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-sketch-sdxl-1.0)` ](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%205.png)
+![](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%205.png)
 
-Model from `[TencentARC/t2i-adapter-sketch-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-sketch-sdxl-1.0)` 
+Model from [`TencentARC/t2i-adapter-sketch-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-sketch-sdxl-1.0)
 
 ### Canny Guided
 
-![Model from `[TencentARC/t2i-adapter-canny-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-canny-sdxl-1.0)` ](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%206.png)
+![](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%206.png)
 
-Model from `[TencentARC/t2i-adapter-canny-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-canny-sdxl-1.0)` 
+Model from [`TencentARC/t2i-adapter-canny-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-canny-sdxl-1.0)
 
 ### Depth Guided
 
 ![Depth guided models from `[TencentARC/t2i-adapter-depth-midas-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-depth-midas-sdxl-1.0)` and `[TencentARC/t2i-adapter-depth-zoe-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-depth-zoe-sdxl-1.0)` respectively](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%207.png)
 
-Depth guided models from `[TencentARC/t2i-adapter-depth-midas-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-depth-midas-sdxl-1.0)` and `[TencentARC/t2i-adapter-depth-zoe-sdxl-1.0](https://huggingface.co/TencentARC/t2i-adapter-depth-zoe-sdxl-1.0)` respectively
+Depth guided models from [`TencentARC/t2i-adapter-depth-midas-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-depth-midas-sdxl-1.0) and [`TencentARC/t2i-adapter-depth-zoe-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-depth-zoe-sdxl-1.0) respectively
 
 ### OpenPose Guided
 
-![Model from `[openpose_sdxl_1.0](https://huggingface.co/Adapter/t2iadapter/tree/main/openpose_sdxl_1.0)` ](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%208.png)
+![](Efficient%20Controllable%20Generation%20for%20SDXL%20with%20T2%20b3f366700a0f4d9cb52a81adb62ce70f/Untitled%208.png)
 
-Model from `[openpose_sdxl_1.0](https://huggingface.co/Adapter/t2iadapter/tree/main/openpose_sdxl_1.0)`
+Model from [`openpose_sdxl_1.0`](https://huggingface.co/Adapter/t2iadapter/tree/main/openpose_sdxl_1.0)
