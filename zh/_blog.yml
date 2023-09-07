@@ -889,6 +889,11 @@
   author: philschmid
   thumbnail: /blog/assets/160_codellama/thumbnail.jpg
   date: August 25, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
 
 - local: falcon-180b
   title: "Falcon 180B 现已登陆 Hugging Face Hub"
