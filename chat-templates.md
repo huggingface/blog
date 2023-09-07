@@ -1,6 +1,6 @@
 ---
 title: "Chat Templates: An End to the Silent Performance Killer" 
-thumbnail: /blog/assets/101_decision-transformers-train/thumbnail.gif
+thumbnail: /blog/assets/chat-templates/thumbnail.gif
 authors:
 - user: rocketknight1
 ---

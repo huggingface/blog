@@ -2769,7 +2769,7 @@
 - local: chat-templates
   title: "Chat Templates: An End to the Silent Performance Killer"
   author: rocketknight1
-  thumbnail: /blog/assets/161_audioldm2/thumbnail.png
+  thumbnail: /blog/assets/chat-templates/thumbnail.png
   date: September 7, 2023
   tags:
     - LLM
