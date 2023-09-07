@@ -71,7 +71,7 @@ Whether you run on-premise or in the cloud, SafeCoder is 100% under your adminis
 
 SafeCoder doesn't spy on any of your data. Your prompts and suggestions are yours and yours only. SafeCoder doesn't call home and send telemetry data to Hugging Face or anyone else. No one but you needs to know how and when you're using SafeCoder. In fact, SafeCoder doesn't even require an Internet connection. You can (and should) run it fully air-gapped.
 
-Closed-source services rely on the security of the underlying cloud. Whether this works or not for your compliance posture is your call. For enterprise users, prompts and suggestions are not stored (they are for individual users). However, we regret to point out that GitHub collects  ["user engagement data](https://docs.github.com/en/copilot/overview-of-github-copilot/about-github-copilot-for-business)" with no possibility to opt-out. AWS does the same by default but lets you [opt out](https://docs.aws.amazon.com/codewhisperer/latest/userguide/sharing-data.html).
+Closed-source services rely on the security of the underlying cloud. Whether this works or not for your compliance posture is your call. For enterprise users, prompts and suggestions are not stored (they are for individual users). However, we regret to point out that GitHub collects  ["user engagement data"](https://docs.github.com/en/copilot/overview-of-github-copilot/about-github-copilot-for-business) with no possibility to opt-out. AWS does the same by default but lets you [opt out](https://docs.aws.amazon.com/codewhisperer/latest/userguide/sharing-data.html).
 
 ## Conclusion
 
