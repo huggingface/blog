@@ -241,7 +241,3 @@ There's a llama in my garden 😱 What should I do? [/INST]
 ## 总结
 
 Llama 2 的推出让我们非常兴奋！后面我们会围绕它陆陆续续推出更多内容，包括如何微调一个自己的模型，如何在设备侧运行 Llama 2 小模型等，敬请期待！
-
-> 英文原文: <url> https://huggingface.co/blog/llama2 </url>
-> 原文作者：Philipp Schmid，Omar Sanseviero，Pedro Cuenca，Lewis Tunstall
-> 译者: Matrix Yao (姚伟峰)，英特尔深度学习工程师，工作方向为 transformer-family 模型在各模态数据上的应用及大规模模型的训练推理。
