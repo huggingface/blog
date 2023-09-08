@@ -98,7 +98,11 @@ Although Jinja can be confusing at first if you're unfamiliar with it, in practi
 
 This is an excellent idea! Unfortunately, it's too late, because multiple important models have already been trained with very different chat formats.
 
-However, we can still mitigate this problem a bit. We think the closest thing to a 'standard' for formatting is the [ChatML format](https://github.com/openai/openai-python/blob/main/chatml.md) created by OpenAI. If you're training a new model for chat, and this format is suitable for you, we recommend using it and adding `<|im_start|>` and `<|im_end|>` tokens to your tokenizer. It has the advantage of being very flexible with roles, as the role is just inserted as a string rather than having specific role tokens.
+However, we can still mitigate this problem a bit. We think the closest thing to a 'standard' for formatting is the [ChatML format](https://github.com/openai/openai-python/blob/main/chatml.md) created by OpenAI. If you're training a new model for chat, and this format is suitable for you, we recommend using it and adding `<|im_start|>` and `<|im_end|>` tokens to your tokenizer. It has the advantage of being very flexible with roles, as the role is just inserted as a string rather than having specific role tokens. If you'd like to use this one, here it is in an easily copy-pastable one-line format!
+
+```
+{% for message in messages %}{{'<|im_start|>' + message['role'] + '\n' + message['content'] + '<|im_end|>' + '\n'}}{% endfor %}
+```
 
 There's also a second reason not to hardcode a standard format, though, beyond the proliferation of existing formats - we expect that templates will be broadly useful in preprocessing for many types of model, including those that might be doing very different things from standard chat. Hardcoding a standard format limits the ability of model developers to use this feature to do things we haven't even thought of yet, whereas templating gives users and developers maximum freedom. We strongly believe that the open-source ecosystem should enable you to do what you want, not dictate to you what you're permitted to do.
 
@@ -114,11 +118,13 @@ For information about how to set and apply chat templates, please see the techni
 
 ## How do I get started with templates?
 
-Easy! If a tokenizer has the `chat_template` attribute set, it's ready to go. You can use that model and tokenizer in `ConversationPipeline`, or you can call `tokenizer.apply_chat_template()` to format chats for inference or training.
+Easy! If a tokenizer has the `chat_template` attribute set, it's ready to go. You can use that model and tokenizer in `ConversationPipeline`, or you can call `tokenizer.apply_chat_template()` to format chats for inference or training. Please see our developer guide [link when available] or the apply_chat_template() documentation [link when available] for more!
 
 If a tokenizer doesn't have a `chat_template` attribute, it might still work, but it will use the default chat template set for that model class. This is fragile, as we mentioned above, and it's also a source of silent bugs when the class template doesn't match what the model was actually trained with. If you want to use a checkpoint that doesn't have a `chat_template`, we recommend checking docs like the model card to verify what the right format is, and then adding a correct `chat_template`for that format. We recommend doing this even if the default chat template is correct - it future-proofs the model, and also makes it clear that the template is present and suitable. 
 
-You can add a `chat_template` even for checkpoints that you're not the owner of, by opening a [pull request](https://huggingface.co/docs/hub/repositories-pull-requests-discussions). If you'd like to use a checkpoint for chat but you can't find any documentation on the chat format it used, you should probably open an issue on the checkpoint or ping the owner!
+You can add a `chat_template` even for checkpoints that you're not the owner of, by opening a [pull request](https://huggingface.co/docs/hub/repositories-pull-requests-discussions). The only change you need to make is to set the `tokenizer.chat_template` attribute to a Jinja template string. Once that's done, push your changes and you're ready to go! 
+
+If you'd like to use a checkpoint for chat but you can't find any documentation on the chat format it used, you should probably open an issue on the checkpoint or ping the owner! Once you figure out the format that model is using, please open a pull request to add a suitable `chat_template`. Other users will really appreciate it!
 
 ## Conclusion: Template philosophy
 
