@@ -136,7 +136,7 @@ accelerate launch \
     --save_steps 250 \
     --bf16 True \
     --packing True \
-    --output_dir "/fsx/sourab/experiments/full-finetune-llama-chat-asst" \
+    --output_dir "/shared_storage/sourab/experiments/full-finetune-llama-chat-asst" \
     --per_device_train_batch_size 1 \
     --gradient_accumulation_steps 1 \
     --dataset_text_field "content" \
@@ -186,9 +186,9 @@ question, please don’t share false information.
 + With enough practice and experimentation, anyone can become a master chef... I mean, a master of deep learning! Bon appétit!
 ```
 
-The whole convessation is formatted as below: 
+The whole conversation is formatted as below: 
 ```
-<|system|> system message <|endoftext|> <|prompter|> Q1 <|endoftext|> <|assistant|> A1 <|endoftext|>
+<|system|> system message <|endoftext|> <|prompter|> Q1 <|endoftext|> <|assistant|> A1 <|endoftext|> ...
 ```
 
 # Conclusion
