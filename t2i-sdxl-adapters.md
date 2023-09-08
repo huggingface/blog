@@ -24,7 +24,7 @@ authors:
 
 As a contemporaneous work, [ControlNet](https://hf.co/papers/2302.05543) has a similar function and is widely used. However, it can be **computationally expensive** to run. This is because, during each denoising step of the reverse diffusion process, both the ControlNet and UNet need to be run. In addition, ControlNet emphasizes the importance of copying the UNet encoder as a control model, resulting in a larger parameter number. Thus, the generation is bottlenecked by the size of the ControlNet (the larger, the slower the process becomes). 
 
-T2I-Adapters provide a competitive advantage to ControlNets in this matter. T2I-Adapters are smaller in size, and unlike ControlNets, T2I-Adapters are run just for one for the entire course of the denoising process. 
+T2I-Adapters provide a competitive advantage to ControlNets in this matter. T2I-Adapters are smaller in size, and unlike ControlNets, T2I-Adapters are run just once for the entire course of the denoising process. 
 
 | **Model Type** | **Model Parameters** | **Storage (fp16)** |
 | --- | --- | --- |
@@ -56,7 +56,7 @@ We encourage the community to use our scripts to train custom and powerful T2I-A
 Here, we take the lineart condition as an example to demonstrate the usage of [T2I-Adapter-SDXL](https://github.com/TencentARC/T2I-Adapter/tree/XL). To get started, first install the required dependencies:
 
 ```bash
-pip install git+https://github.com/huggingface/diffusers.git # for now
+pip install -U git+https://github.com/huggingface/diffusers.git
 pip install -U controlnet_aux==0.0.7 # for conditioning models and detectors
 pip install transformers accelerate 
 ```
