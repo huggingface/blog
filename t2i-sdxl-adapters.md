@@ -1,5 +1,5 @@
 ---
-title: "Efficient Controllable Generation for SDXL with T2I Adapters"
+title: "Efficient Controllable Generation for SDXL with T2I-Adapters"
 thumbnail: /blog/assets/t2i-sdxl-adapters/thumbnail.png
 authors:
 - user: Adapter
@@ -11,7 +11,7 @@ authors:
 - user: hysts
 ---
 
-# Efficient Controllable Generation for SDXL with T2I Adapters
+# Efficient Controllable Generation for SDXL with T2I-Adapters
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
