@@ -854,6 +854,16 @@
     - guide
     - diffusers
 
+- local: idefics
+  title: "IDEFICS 简介：最先进视觉语言模型的开源复现"
+  author: VictorSanh
+  thumbnail: /blog/assets/idefics/thumbnail.png
+  date: August 22, 2023
+  tags:
+    - research
+    - nlp
+    - cv
+
 - local: safecoder
   title: "推介 SafeCoder"
   author: jeffboudier
