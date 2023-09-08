@@ -145,14 +145,8 @@ For more details, we welcome you to check the [official documentation](https://h
 
 You can easily try T2I-Adapter-SDXL in [this Space](https://huggingface.co/spaces/diffusers/T2I-Adapter-SDXL) or in the playground embedded below:
 
-```jsx
-<script
-	type="module"
-	src="https://gradio.s3-us-west-2.amazonaws.com/3.42.0/gradio.js"
-></script>
-
-<gradio-app src="https://diffusers-t2i-adapter-sdxl.hf.space"></gradio-app>
-```
+<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.42.0/gradio.js"></script>
+<gradio-app src="https://tencentarc-t2i-adapter-sdxl.hf.space"></gradio-app>
 
 ## More Results
 
