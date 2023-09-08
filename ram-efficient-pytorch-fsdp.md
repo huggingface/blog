@@ -174,9 +174,9 @@ question, please don’t share false information.
 + So hoist the sails and set course for adventure with deep learnin', me hearties! It's a treasure trove o' knowledge just waitin' to be discovered. 
 + Fair winds and following seas!
 
-- Now explain it like a chef.
+- Human: Now explain it like a chef.
 
-+ Certainly! Here's an explanation of deep learning from a culinary perspective:
++ Assistant: Certainly! Here's an explanation of deep learning from a culinary perspective:
 
 + Think of a recipe as a sequence of steps used to transform raw ingredients into a delicious dish. 
 + Similarly, in deep learning, there are multiple layers of "ingredients" (or features) that are combined and transformed through various operations to produce a final output or prediction. 
