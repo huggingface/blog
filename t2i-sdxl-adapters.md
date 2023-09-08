@@ -26,9 +26,9 @@ T2I-Adapters provide a competitive advantage to ControlNets in this matter. T2I-
 
 | **Model Type** | **Model Parameters** | **Storage (fp16)** |
 | --- | --- | --- |
-| https://huggingface.co/diffusers/controlnet-canny-sdxl-1.0 | 1251 M | 2.5 GB |
-| https://huggingface.co/TencentARC/t2i-adapter-canny-sdxl-1.0 | 79 M (93.69% reduction) | 158 MB (94% reduction) |
-| https://huggingface.co/stabilityai/control-lora (with rank 128) | 197.78 M (84.19% reduction)  | 396 MB (84.53% reduction) |
+| [ControlNet-SDXL](https://huggingface.co/diffusers/controlnet-canny-sdxl-1.0) | 1251 M | 2.5 GB |
+| [ControlLoRA](https://huggingface.co/stabilityai/control-lora) (with rank 128) | 197.78 M (84.19% reduction)  | 396 MB (84.53% reduction) |
+| [T2I-Adapter-SDXL](https://huggingface.co/TencentARC/t2i-adapter-canny-sdxl-1.0) | 79 M (**_93.69% reduction_**) | 158 MB (**_94% reduction_**) |
 
 Over the past few weeks, the Diffusers team and the T2I-Adapter authors have been collaborating to bring the support of T2I-Adapters for Stable Diffusion XL (SDXL) in `diffusers`. In this blog post, we share our findings from training T2I-Adapters on SDXL from scratch, some appealing results, and, of course, the T2I-Adapter checkpoints on various conditionings (sketch, canny, lineart, depth, and openpose)!
 
