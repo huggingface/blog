@@ -148,7 +148,7 @@ You can easily try T2I-Adapter-SDXL in [this Space](https://huggingface.co/space
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.43.1/gradio.js"></script>
 <gradio-app src="https://tencentarc-t2i-adapter-sdxl.hf.space"></gradio-app>
 
-Try out [Doodly](https://huggingface.co/spaces/TencentARC/T2I-Adapter-SDXL-Sketch), built using the t2i-sketch model that turns your doodles into realistic images:
+You can also try out [Doodly](https://huggingface.co/spaces/TencentARC/T2I-Adapter-SDXL-Sketch), built using the sketch model that turns your doodles into realistic images (with language supervision):
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.43.1/gradio.js"></script>
 <gradio-app src="https://tencentarc-t2i-adapter-sdxl-sketch.hf.space"></gradio-app>
