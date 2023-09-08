@@ -2765,3 +2765,15 @@
     - community
     - research
     - LLM
+
+- local: t2i-sdxl-adapters
+  title: "Efficient Controllable Generation for SDXL with T2I Adapters"
+  author: Adapter
+  guest: true
+  thumbnail: /blog/assets/t2i-sdxl-adapters/thumbnail.png
+  date: September 8, 2023
+  tags:
+    - guide
+    - collaboration
+    - diffusers
+    - diffusion
