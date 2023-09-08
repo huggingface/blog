@@ -16,7 +16,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-![HF Tencent](t2i_adapters/hf_tencent.png)
+![HF Tencent](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/t2i-adapters-sdxlhf_tencent.png)
 
 T2I-Adapter is an efficient plug-and-play model that provides extra guidance to pre-trained text-to-image models while freezing the original large text-to-image models. T2I-Adapter aligns internal knowledge in T2I models with external control signals. We can train various adapters according to different conditions and achieve rich control and editing effects.
 
@@ -32,7 +32,7 @@ T2I-Adapters provide a competitive advantage to ControlNets in this matter. T2I-
 
 Over the past few weeks, the Diffusers team and the T2I-Adapter authors have been collaborating to bring the support of T2I-Adapters for Stable Diffusion XL (SDXL) in `diffusers`. In this blog post, we share our findings from training T2I-Adapters on SDXL from scratch, some appealing results, and, of course, the T2I-Adapter checkpoints on various conditionings (sketch, canny, lineart, depth, and openpose)!
 
-![Collage of the results](t2i_adapters/results_collage.png)
+![Collage of the results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/t2i-adapters-sdxlresults_collage.png)
 
 Compared to previous versions of T2I-Adapter (SD-1.4/1.5), [T2I-Adapter-SDXL](https://github.com/TencentARC/T2I-Adapter) still uses the original recipe, driving 2.6B SDXL with a 79M Adapter! T2I-Adapter-SDXL maintains powerful control capabilities while inheriting the high-quality generation of SDXL!
 
@@ -107,7 +107,7 @@ image = load_image(url)
 image = line_detector(image, detect_resolution=384, image_resolution=1024)
 ```
 
-![Lineart Dragon](t2i_adapters/lineart_dragon.png)
+![Lineart Dragon](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/t2i-adapters-sdxllineart_dragon.png)
 
 Then we generate: 
 
@@ -125,7 +125,7 @@ gen_images = pipe(
 gen_images.save("out_lin.png")
 ```
 
-![Lineart Generated Dragon](t2i_adapters/lineart_generated_dragon.png)
+![Lineart Generated Dragon](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/t2i-adapters-sdxllineart_generated_dragon.png)
 
 There are two important arguments to understand that help you control the amount of conditioning.
 
@@ -158,32 +158,29 @@ Below, we present results obtained from using different kinds of conditions. We 
 
 ### Lineart Guided
 
-![Lineart guided more results](t2i_adapters/lineart_guided.png)
-
-Model from [`TencentARC/t2i-adapter-lineart-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-lineart-sdxl-1.0)
+![Lineart guided more results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/t2i-adapters-sdxllineart_guided.png)
+*Model from [`TencentARC/t2i-adapter-lineart-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-lineart-sdxl-1.0)*
 
 ### Sketch Guided
 
-![Sketch guided results](t2i_adapters/sketch_guided.png)
-
-Model from [`TencentARC/t2i-adapter-sketch-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-sketch-sdxl-1.0)
+![Sketch guided results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/t2i-adapters-sdxlsketch_guided.png)
+*Model from [`TencentARC/t2i-adapter-sketch-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-sketch-sdxl-1.0)*
 
 ### Canny Guided
 
-![Sketch guided results](t2i_adapters/canny_guided.png)
-
-Model from [`TencentARC/t2i-adapter-canny-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-canny-sdxl-1.0)
+![Sketch guided results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/t2i-adapters-sdxlcanny_guided.png)
+*Model from [`TencentARC/t2i-adapter-canny-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-canny-sdxl-1.0)*
 
 ### Depth Guided
 
-![Depth guided results](t2i_adapters/depth_guided.png)
-
-Depth guided models from [`TencentARC/t2i-adapter-depth-midas-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-depth-midas-sdxl-1.0) and [`TencentARC/t2i-adapter-depth-zoe-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-depth-zoe-sdxl-1.0) respectively
+![Depth guided results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/t2i-adapters-sdxldepth_guided.png)
+*Depth guided models from [`TencentARC/t2i-adapter-depth-midas-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-depth-midas-sdxl-1.0) and [`TencentARC/t2i-adapter-depth-zoe-sdxl-1.0`](https://huggingface.co/TencentARC/t2i-adapter-depth-zoe-sdxl-1.0) respectively*
 
 ### OpenPose Guided
 
-![OpenPose guided results](t2i_adapters/pose_guided.png)
+![OpenPose guided results](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/t2i-adapters-sdxlpose_guided.png)
+*Model from [`TencentARC/t2i-adapter-openpose-sdxl-1.0`](https://hf.co/TencentARC/t2i-adapter-openpose-sdxl-1.0)*
 
-Model from [`TencentARC/t2i-adapter-openpose-sdxl-1.0`](https://hf.co/TencentARC/t2i-adapter-openpose-sdxl-1.0)
+---
 
 *Acknowledgements: Immense thanks to [William Berman](https://twitter.com/williamLberman) for helping us train the models and sharing his insights.*
