@@ -353,7 +353,7 @@ Figure 10 shows the process with batch size = 2, where the same two images are p
 
 At HuggingFace, we are very criterious while porting models to our code base. Not only with respect to the architecture, clear documentation and coding structure, but we also need to guarantee that the ported models are able to produce the same logits as the original models given the same inputs.
 
-For the object detection task, when the model's outputs are post processed to produce the confidence scores, label ids and bounding box coordinates, small variations may result different metric results. You may recall [the example above](#what-is-average-precision-and-how-to-compute-it) where we discussed the process of computing Average Precision. We showed that the detections are sorted by confidence levels and small variations may lead to a different order and, thus, different results.
+Small variations may result in different metric results for the object detection task when the model's outputs are post-processed to produce the confidence scores, label IDs, and bounding box coordinates. You may recall [the example above](#what-is-average-precision-and-how-to-compute-it), where we discussed the process of computing Average Precision. We showed that confidence levels sort the detections, and small variations may lead to a different order and, thus, different results.
 
 It's important to recognize that models can produce boxes in various formats, and that also may be taken into consideration, making proper conversions required by the evaluator.
 
