@@ -382,7 +382,7 @@ For such models, different prompts (e.g. "Find the dog" and "Where's the bulldog
 
 In this post, we introduced the problem of Object Detection and depicted the main metrics used to evaluate them.
 
-As noted, evaluating object detection models may not be straightforward as it looks. The particularities of each model must be carefully taken into consideration to prevent biased results. Also, each metric represents a different point of view of the same model and picking "the best" metric depends on the model's application and the caracteristics of the chosen benchmarking dataset.  
+As noted, evaluating object detection models may take more work than it looks. The particularities of each model must be carefully taken into consideration to prevent biased results. Also, each metric represents a different point of view of the same model, and picking "the best" metric depends on the model's application and the characteristics of the chosen benchmarking dataset. 
 
 The results shown in our 🤗 [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard) are computed using an independent tool [PyCOCOtools](https://github.com/cocodataset/cocoapi/tree/master/PythonAPI) broadly used by the community for model benchmarking. As we progress, we are aiming for datasets of different domains (e.g. medical images, sports, autonomous vehicles, etc). Eager to see your model or dataset feature on our leaderboard? Don't hold back! Introduce us to your model and dataset, fine-tune, and let's get it ranked! 🥇
 
