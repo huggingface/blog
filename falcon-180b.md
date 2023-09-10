@@ -95,7 +95,7 @@ We ran several tests on the hardware needed to run the model for different use c
 
 ### Prompt format
 
-The base model has no prompt format. Remember that it’s not a conversational model or trained with instructions, so don’t expect it to generate conversational responses—the pretrained model is a great platform for further finetuning, but you probably shouldn’t driectly use it out of the box. The Chat model has a very simple conversation structure.
+The base model has no prompt format. Remember that it’s not a conversational model or trained with instructions, so don’t expect it to generate conversational responses—the pretrained model is a great platform for further finetuning, but you probably shouldn’t directly use it out of the box. The Chat model has a very simple conversation structure.
 
 ```bash
 System: Add an optional system prompt here
