@@ -290,7 +290,7 @@ By picking an object detection models in 🤗 Hugging Face’s hub, we can vary 
 * Ported models do not output the same logits as the original models.  
 * Some ground-truth objects may be ignored by the evaluator.  
 * Computing the IoU may be complicated.
-* Text-conditioned models requires precise prompts.
+* Text-conditioned models require precise prompts.
 
 Let’s take the DEtection TRansformer (DETR) ([facebook/detr-resnet-50](https://huggingface.co/facebook/detr-resnet-50)) model as our example case. We will show how these factors may affect the output results.
 
