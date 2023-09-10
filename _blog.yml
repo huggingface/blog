@@ -2743,3 +2743,16 @@
     - community
     - research
     - LLM
+
+- local: object-detection-leaderboard
+  title: "Object Detection Leaderboard"
+  author: rafaelpadilla
+  guest: true
+  thumbnail: /blog/assets/t2i-sdxl-adapters/thumbnail.png
+  date: September 10, 2023
+  tags:
+    - community
+    - guide
+    - cv
+    - leaderboard
+    - evaluation
