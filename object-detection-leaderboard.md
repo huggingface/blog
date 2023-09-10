@@ -140,7 +140,7 @@ Figure 4 shows an example of the Precision and Recall curve. For a deeper explor
 
 The precision-recall curve illustrates the balance between precision and recall based on different confidence levels of a detector's bounding boxes. Each point of the plot is computed using a different confidence value. 
 
-Let’s borrow the practical example presented in the paper [A Survey on performance metrics for object-detection algorithms](https://ieeexplore.ieee.org/document/9145130) to illustrate how to compute the Average Precision plot. Consider a dataset made of 7 images with 15 ground-truth objects of the same class, as shown in Figure 5. For simplification purposes let’s consider that all boxes belong to the same class “dog”.
+Let's borrow the practical example presented in the paper [A Survey on performance metrics for object-detection algorithms](https://ieeexplore.ieee.org/document/9145130) to illustrate how to compute the Average Precision plot. Consider a dataset of 7 images with 15 ground-truth objects of the same class, as shown in Figure 5. Let's consider that all boxes belong to the same class, "dog" for simplification purposes.
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
