@@ -14,6 +14,8 @@ authors:
     <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
+**Note**: This blog post is also available as a documentation page on [Transformers](https://huggingface.co/docs/transformers/llm_tutorial_optimization)
+
 Large Language Models (LLMs) such as GPT3/4, [Falcon](https://huggingface.co/tiiuae/falcon-40b), and [LLama](https://huggingface.co/meta-llama/Llama-2-70b-hf) are rapidly advancing in their ability to tackle human-centric tasks, establishing themselves as essential tools in modern knowledge-based industries.
 Deploying these models in real-world tasks remains challenging, however:
 
