@@ -824,6 +824,7 @@
   tags:
     - expert-acceleration-program
     - case-study
+    - case-studies
 
 - local: deep-rl-q-part2
   title: "An Introduction to Q-Learning Part 2"
@@ -1463,6 +1464,7 @@
   tags:
     - guide
     - expert-acceleration-program
+    - case-studies
 
 - local: diffusion-models-event
   title: "Diffusion Models Live Event"
@@ -1790,6 +1792,15 @@
     - fine-tuning
     - community
     - dreambooth
+    
+- local: mantis-case-study
+  title: "Why we’re switching to Hugging Face Inference Endpoints, and maybe you should too"
+  author: mattupson
+  guest: true
+  thumbnail: /blog/assets/78_ml_director_insights/mantis1.png
+  date: February 15, 2023
+  tags:
+    - case-studies
 
 - local: blip-2
   title: "Zero-shot image-to-text generation with BLIP-2"
@@ -1841,10 +1852,11 @@
 - local: classification-use-cases
   title: "Leveraging Hugging Face for complex text classification use cases"
   author: VioletteLepercq
-  thumbnail: /blog/assets/78_ml_director_insights/blogthumbnail.png
+  thumbnail: /blog/assets/78_ml_director_insights/witty-works.png
   date: March 1, 2023
   tags:
     - nlp
+    - case-studies
 
 - local: ethics-diffusers
   title: "Ethical guidelines for developing the Diffusers library"
@@ -1979,6 +1991,14 @@
     - rl
     - rlhf
     - nlp
+    
+- local: snorkel-case-study
+  title: "Snorkel AI x Hugging Face: unlock foundation models for enterprises"
+  author: VioletteLepercq
+  thumbnail: /blog/assets/78_ml_director_insights/snorkel.png
+  date: April 6, 2023
+  tags:
+    - case-studies
 
 - local: owkin-substra
   title: "Creating Privacy Preserving AI with Substra"
@@ -2031,6 +2051,15 @@
     - partnerships
     - community
 
+- local: databricks-case-study
+  title: "Databricks ❤️ Hugging Face: up to 40% faster training and tuning of Large Language Models"
+  author: alighodsi
+  guest: true
+  thumbnail: /blog/assets/78_ml_director_insights/databricks.png
+  date: April 26, 2023
+  tags:
+    - case-studies
+
 - local: tf_tpu
   title: "Training a language model with 🤗 Transformers using TensorFlow and TPUs"
   author: rocketknight1
@@ -2069,7 +2098,7 @@
   tags:
     - nlp
     - community
-    - research 
+    - research
 
 - local: text-to-video
   title: "A Dive into Text-to-Video Models"
@@ -2102,7 +2131,7 @@
   tags:
     - nlp
     - research
-    
+
 - local: rwkv
   title: "Introducing RWKV — An RNN with the advantages of a transformer"
   author: BlinkDL
@@ -2111,7 +2140,7 @@
   tags:
     - nlp
     - community
-    - research 
+    - research
 
 - local: chatbot-amd-gpu
   title: "Run a Chatgpt-like Chatbot on a Single GPU with ROCm"
@@ -2249,7 +2278,7 @@
   date: June 1, 2023
   tags:
     - community
-  
+
 - local: unity-asr
   title: "AI Speech Recognition in Unity"
   author: dylanebert
@@ -2376,3 +2405,375 @@
   tags:
     - audio
     - research
+
+- local: panel-on-hugging-face
+  title: "Panel on Hugging Face"
+  author: sophiamyang
+  thumbnail: /blog/assets/panel-on-hugging-face/thumbnail.png
+  date: June 22, 2023
+  tags:
+    - open-source-collab
+    - panel
+    - deployment
+    - spaces
+    - visualization
+    - apps
+
+- local: evaluating-mmlu-leaderboard
+  title: "What's going on with the Open LLM Leaderboard?"
+  author: clefourrier
+  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
+  date: June 23, 2023
+  tags:
+    - community
+    - research
+    - nlp
+    - evaluation
+    - leaderboard
+
+
+- local: ethics-soc-4
+  title: "Ethics and Society Newsletter #4: Bias in Text-to-Image Models"
+  author:  sasha
+  thumbnail: /blog/assets/152_ethics_soc_4/ethics_4_thumbnail.png
+  date: June 26, 2023
+  tags:
+    - ethics
+
+- local: bridgetower
+  title: "Accelerating Vision-Language Models: BridgeTower on Habana Gaudi2"
+  author: regisss
+  thumbnail: /blog/assets/bridgetower/thumbnail.png
+  date: June 29, 2023
+  tags:
+    - partnerships
+    - multimodal
+    - nlp
+    - cv
+    - hardware
+
+- local: writer-case-study
+  title: "Leveraging Hugging Face for complex generative AI use cases"
+  author: jeffboudier
+  thumbnail: /blog/assets/78_ml_director_insights/writer.png
+  date: July 1, 2023
+  tags:
+    - case-studies
+
+- local: text-to-webapp
+  title: "Making a web app generator with open ML models"
+  author: jbilcke-hf
+  thumbnail: /blog/assets/153_text_to_webapp/thumbnail.jpg
+  date: July 3, 2023
+  tags:
+    - guide
+    - llm
+    - apps
+
+- local: inference-endpoints-llm
+  title: "Deploy LLMs with Hugging Face Inference Endpoints"
+  author: philschmid
+  thumbnail: /blog/assets/155_inference_endpoints_llm/thumbnail.jpg
+  date: July 4, 2023
+  tags:
+    - guide
+    - llm
+    - apps
+    - inference
+
+- local: ml-web-games
+  title: "Making ML-powered web games with Transformers.js"
+  author: Xenova
+  thumbnail: /blog/assets/ml-web-games/thumbnail.png
+  date: July 5, 2023
+  tags:
+    - game-dev
+    - guide
+    - web
+    - javascript
+    - transformers.js
+
+
+- local: stable-diffusion-finetuning-intel
+  title: "Fine-tuning Stable Diffusion models on Intel CPUs"
+  author: juliensimon
+  thumbnail: /blog/assets/stable-diffusion-finetuning-intel/dicoo_image.png
+  date: July 14, 2023
+  tags:
+    - guide
+    - intel
+    - hardware
+    - partnerships
+
+- local: os-llms
+  title: "Open-Source Text Generation & LLM Ecosystem at Hugging Face"
+  author: merve
+  thumbnail: /blog/assets/os_llms/thumbnail.png
+  date: July 17, 2023
+  tags:
+    - LLM
+    - inference
+    - nlp
+
+- local: ai-webtv
+  title: "Building an AI WebTV"
+  author: jbilcke-hf
+  thumbnail: /blog/assets/156_ai_webtv/thumbnail.gif
+  date: July 17, 2023
+  tags:
+    - text-to-video
+    - guide
+
+- local: llama2
+  title: "Llama 2 is here - get it on Hugging Face"
+  author: osanseviero
+  thumbnail: /blog/assets/llama2/thumbnail.jpg
+  date: July 18, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: diffusers-turns-1
+  title: "Happy 1st anniversary 🤗 Diffusers!"
+  author: stevhliu
+  thumbnail: /blog/assets/diffusers-turns-1/diffusers-turns-1.png
+  date: July 20, 2023
+  tags:
+    - community
+    - open-source-collab
+    - diffusion
+    - diffusers
+
+- local: game-jam-first-edition-results
+  title: "Results of the Open Source AI Game Jam"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/game-jam-first-edition-results/thumbnail.jpg
+  date: July 21, 2023
+  tags:
+    - game-dev
+
+- local: agents-js
+  title: "Introducing Agents.js: Give tools to your LLMs using JavaScript"
+  author: nsarrazin
+  thumbnail: /blog/assets/agents-js/thumbnail.png
+  date: July 24, 2023
+  tags:
+    - agents
+    - javascript
+    - web
+
+- local: eu-ai-act-oss
+  title: "AI Policy @🤗: Open ML Considerations in the EU AI Act"
+  author: yjernite
+  thumbnail: /blog/assets/eu_ai_act_oss/thumbnailEU.png
+  date: July 24, 2023
+  tags:
+    - ethics
+
+- local: stable-diffusion-xl-coreml
+  title: "Stable Diffusion XL on Mac with Advanced Core ML Quantization"
+  author: pcuenq
+  thumbnail: /blog/assets/stable-diffusion-xl-coreml/thumbnail.png
+  date: July 27, 2023
+  tags:
+    - coreml
+    - stable-diffusion
+    - stable-diffusion-xl
+    - diffusers
+
+- local: sd_distillation
+  title: "Open-sourcing Knowledge Distillation Code and Weights of SD-Small and SD-Tiny"
+  author: harishsegmind
+  guest: true
+  thumbnail: /blog/assets/distill_sd/thumbnail.png
+  date: August 1, 2023
+  tags:
+    - stable-diffusion
+    - research
+    - diffusers
+
+- local: 3d-assets
+  title: "Practical 3D Asset Generation: A Step-by-Step Guide"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail-3d.jpg
+  date: August 01, 2023
+  tags:
+    - community
+    - guide
+    - cv
+    - diffusion
+    - game-dev
+
+- local: encrypted-llm
+  title: "Towards Encrypted Large Language Models with FHE"
+  author: RomanBredehoft
+  guest: true
+  thumbnail: /blog/assets/encrypted-llm/thumbnail.png
+  date: August 02, 2023
+  tags:
+    - guide
+    - privacy
+    - research
+    - FHE
+    - llm
+
+- local: huggy-lingo
+  title: "Huggy Lingo: Using Machine Learning to Improve Language Metadata on the Hugging Face Hub"
+  author: davanstrien
+  thumbnail: /blog/assets/156_huggylingo/Huggy_Lingo.png
+  date: August 2, 2023
+  tags:
+    - announcement
+    - research
+
+- local: run-musicgen-as-an-api
+  title: "Deploy MusicGen in no time with Inference Endpoints"
+  author: reach-vb
+  thumbnail: /blog/assets/run-musicgen-as-an-api/thumbnail.png
+  date: August 4, 2023
+  tags:
+    - audio
+    - guide
+
+- local: swift-coreml-llm
+  title: "Releasing Swift Transformers: Run On-Device LLMs in Apple Devices"
+  author: pcuenq
+  thumbnail: /blog/assets/swift-coreml-llm/thumbnail.png
+  date: August 8, 2023
+  tags:
+    - guide
+    - coreml
+    - llm
+    - swift
+
+- local: dpo-trl
+  title: "Fine-tune Llama 2 with DPO"
+  author: kashif
+  thumbnail: /blog/assets/157_dpo_trl/dpo_thumbnail.png
+  date: August 8, 2023
+  tags:
+    - rl
+    - rlhf
+    - nlp
+
+- local: deploy-deepfloydif-using-bentoml
+  title: "Deploying Hugging Face Models with BentoML: DeepFloyd IF in Action"
+  author: Sherlockk
+  guest: true
+  thumbnail: /blog/assets/deploy-deepfloydif-using-bentoml/thumbnail.png
+  date: August 9, 2023
+  tags:
+    - deployment
+    - open-source-collab
+    - bentoml
+    - guide
+    - diffusers
+
+- local: optimizing-bark
+  title: "Optimizing Bark using 🤗 Transformers"
+  author: ylacombe
+  thumbnail: /blog/assets/bark_optimization/thumbnail.png
+  date: August 9, 2023
+  tags:
+    - text-to-speech
+    - optimization
+    - benchmark
+    - bark
+
+- local: aws-marketplace
+  title: "Hugging Face Platform on the AWS Marketplace: Pay with your AWS Account"
+  author: philschmid
+  thumbnail: /blog/assets/158_aws_marketplace/thumbnail.jpg
+  date: August 10, 2023
+  tags:
+    - guide
+    - announcement
+    - partnerships
+    - aws
+
+- local: idefics
+  title: "Introducing IDEFICS: An Open Reproduction of State-of-the-art Visual Language Model"
+  author: VictorSanh
+  thumbnail: /blog/assets/idefics/thumbnail.png
+  date: August 22, 2023
+  tags:
+    - research
+    - nlp
+    - cv
+
+- local: safecoder
+  title: "Introducing SafeCoder"
+  author: jeffboudier
+  thumbnail: /blog/assets/159_safecoder/thumbnail.jpg
+  date: August 22, 2023
+  tags:
+    - announcement
+    - partnerships
+    - vmware
+    - bigcode
+
+- local: gptq-integration
+  title: "Making LLMs lighter with AutoGPTQ and transformers"
+  author: marcsun13
+  thumbnail: /blog/assets/159_autogptq_transformers/thumbnail.jpg
+  date: August 23, 2023
+  tags:
+    - llm
+    - optimization
+    - quantization
+
+- local: password-git-deprecation
+  title: "Deprecation of Git Authentication using password"
+  author: Sylvestre
+  thumbnail: /blog/assets/password-git-deprecation/thumbnail.png
+  date: August 25, 2023
+  tags:
+    - announcement
+    - security
+
+- local: codellama
+  title: "Code Llama: Llama 2 learns to code" 
+  author: philschmid
+  thumbnail: /blog/assets/160_codellama/thumbnail.jpg
+  date: August 25, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: audioldm2
+  title: "AudioLDM 2, but faster ⚡️"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/161_audioldm2/thumbnail.png
+  date: Aug 30, 2023
+  tags:
+    - guide
+    - audio
+    - diffusers
+    - diffusion
+
+- local: falcon-180b
+  title: "Spread Your Wings: Falcon 180B is here"
+  author: philschmid
+  thumbnail: /blog/assets/162_falcon_180b/thumbnail.jpg
+  date: September 6, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: t2i-sdxl-adapters
+  title: "Efficient Controllable Generation for SDXL with T2I-Adapters"
+  author: Adapter
+  guest: true
+  thumbnail: /blog/assets/t2i-sdxl-adapters/thumbnail.png
+  date: September 8, 2023
+  tags:
+    - guide
+    - collaboration
+    - diffusers
+    - diffusion

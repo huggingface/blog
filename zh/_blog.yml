@@ -35,6 +35,23 @@
     - guide
     - nlp
 
+- local: transformers-design-philosophy
+  title: "不要重复自己 - 🤗 Transformers 的设计理念"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/59_transformers_philosophy/transformers.png
+  date: April 5, 2022
+  tags:
+    - community
+
+- local: getting-started-habana
+  title: "基于 Habana Gaudi 的 Transformers 入门"
+  author: juliensimon
+  thumbnail: /blog/assets/61_getting_started_habana/thumbnail.png
+  date: April 26, 2022
+  tags:
+    - partnerships
+    - guide
+
 - local: bloom-megatron-deepspeed
   title: "BLOOM 训练背后的技术"
   author: stas
@@ -102,6 +119,15 @@
     - guide
     - research
     - open-source-collab
+
+- local: fine-tune-whisper
+  title: "使用 🤗 Transformers 微调 Whisper 模型"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/111_fine_tune_whisper/thumbnail.jpg
+  date: Nov 3, 2022
+  tags:
+    - guide
+    - audio
 
 - local: dreambooth
   title: "使用 🧨 Diffusers 通过 Dreambooth 技术来训练 Stable Diffusion"
@@ -173,6 +199,15 @@
     - stable-diffusion
     - nlp
     - open-source-collab
+
+- local: habana-gaudi-2-benchmark
+  title: "更快的训练和推理：对比 Habana Gaudi®2 和英伟达 A100 80GB"
+  author: regisss
+  thumbnail: /blog/assets/habana-gaudi-2-benchmark/thumbnail.png
+  date: December 14, 2022
+  tags:
+    - partnerships
+    - habana
 
 - local: intel-sapphire-rapids
   title: "使用英特尔 Sapphire Rapids 加速 PyTorch Transformers 模型（第一部分）"
@@ -272,7 +307,7 @@
   thumbnail: /blog/assets/lora/thumbnail.png
   date: January 26, 2023
   tags:
-    - diffusers
+    - diffusersgame
     - stable-diffusion
     - dreambooth
     - fine-tuning
@@ -560,7 +595,7 @@
   tags:
     - nlp
     - community
-    - research 
+    - research
 
 - local: generative-ai-models-on-intel-cpu
   title: "越小越好：Q8-Chat，在英特尔至强 CPU 上体验高效的生成式 AI"
@@ -573,6 +608,40 @@
     - inference
     - intel
     - quantization
+
+- local: dedup
+  title: "BigCode 背后的大规模数据去重"
+  author: chenghao
+  guest: true
+  thumbnail: /blog/assets/dedup/thumbnail.png
+  date: May 16, 2023
+  tags:
+    - bigcode
+    - deduplication
+
+- local: instruction-tuning-sd
+  title: "使用 InstructPix2Pix 对 Stable Diffusion 进行指令微调"
+  author: sayakpaul
+  thumbnail: /blog/assets/instruction_tuning_sd/thumbnail.png
+  date: May 23, 2023
+  tags:
+    - diffusers
+    - diffusion
+    - instruction-tuning
+    - research
+    - guide 
+
+- local: train-optimize-sd-intel
+  title: "基于 NNCF 和 🤗 Optimum 面向 Intel CPU 对 Stable Diffusion 优化"
+  author: AlexKoff88
+  thumbnail: /blog/assets/train_optimize_sd_intel/thumbnail.png
+  date: May 25, 2023
+  tags:
+    - diffusers
+    - cpu
+    - intel
+    - guide
+      - quantization
 
 - local: unity-asr
   title: "如何在 Unity 游戏中集成 AI 语音识别？"
@@ -595,3 +664,254 @@
     - community
     - research
 
+- local: llm-leaderboard
+  title: "基础大模型能像人类一样标注数据吗？"
+  author: nazneen
+  thumbnail: /blog/assets/llm-leaderboard/leaderboard-thumbnail.png
+  date: June 12, 2023
+  tags:
+    - nlp
+    - evaluation
+    - leaderboard
+
+- local: autoformer
+  title: "Transformer 模型能够有效地进行时间序列预测 (使用 Autoformer)"
+  author: elisim
+  thumbnail: /blog/assets/150_autoformer/thumbnail.png
+  date: June 16, 2023
+  tags:
+    - guide
+    - research
+    - time-series
+
+- local: mms_adapters
+  title: "微调用于多语言 ASR 的 MMS 适配器模型"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/151_mms/mms_map.png
+  date: June 19, 2023
+  tags:
+    - audio
+    - research
+
+# - local: policy-ntia-rfc
+#   title: "人工智能政策@🤗：回应美国国家电信和信息管理局（ NTIA ）关于人工智能问责制的评论请求"
+#   author: yjernite
+#   thumbnail: /blog/assets/151_policy_ntia_rfc/us_policy_thumbnail.png
+#   date: June 20, 2023
+#   tags:
+#     - community
+#     - ethics
+
+- local: evaluating-mmlu-leaderboard
+  title: "Open LLM 排行榜近况"
+  author: clefourrier
+  thumbnail: /blog/assets/evaluating-mmlu-leaderboard/thumbnail.png
+  date: June 23, 2023
+  tags:
+    - community
+    - research
+    - nlp
+    - evaluation
+    - leaderboard
+
+- local: ethics-soc-4
+  title: "道德与社会问题简报 #4：文生图模型中的偏见"
+  author:  sasha
+  thumbnail: /blog/assets/152_ethics_soc_4/ethics_4_thumbnail.png
+  date: June 26, 2023
+  tags:
+    - ethics
+
+- local: bridgetower
+  title: "使用 Habana Gaudi2 加速视觉语言模型 BridgeTower"
+  author: regisss
+  thumbnail: /blog/assets/bridgetower/thumbnail.png
+  date: June 29, 2023
+  tags:
+    - partnerships
+    - multimodal
+    - nlp
+    - cv
+    - hardware
+
+- local: inference-endpoints-llm
+  title: "用 Hugging Face 推理端点部署 LLM"
+  author: philschmid
+  thumbnail: /blog/assets/155_inference_endpoints_llm/thumbnail.jpg
+  date: July 4, 2023
+  tags:
+    - guide
+    - llm
+    - apps
+    - inference
+
+- local: stable-diffusion-finetuning-intel
+  title: "在英特尔 CPU 上微调 Stable Diffusion 模型"
+  author: juliensimon
+  thumbnail: /blog/assets/stable-diffusion-finetuning-intel/dicoo_image.png
+  date: July 14, 2023
+  tags:
+    - guide
+    - intel
+    - hardware
+    - partnerships
+
+- local: os-llms
+  title: "Hugging Face 的文本生成和大语言模型的开源生态"
+  author: merve
+  thumbnail: /blog/assets/os_llms/thumbnail.png
+  date: July 17, 2023
+  tags:
+    - LLM
+    - inference
+    - nlp
+
+- local: llama2
+  title: "Llama 2 来袭 - 在 Hugging Face 上玩转它"
+  author: osanseviero
+  thumbnail: /blog/assets/llama2/thumbnail.jpg
+  date: July 18, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: diffusers-turns-1
+  title: "🤗 Diffusers 一岁啦!"
+  author: stevhliu
+  thumbnail: /blog/assets/diffusers-turns-1/diffusers-turns-1.png
+  date: July 20, 2023
+  tags:
+    - community
+    - open-source-collab
+    - diffusion
+    - diffusers
+
+- local: game-jam-first-edition-results
+  title: "首届开源 AI 游戏挑战赛事结果"
+  author: ThomasSimonini
+  thumbnail: /blog/assets/game-jam-first-edition-results/thumbnail.jpg
+  date: July 21, 2023
+  tags:
+    - ai-for-games
+    - game-dev
+
+- local: 3d-assets
+  title: "手把手教你使用人工智能生成 3D 素材"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail-3d.jpg
+  date: August 01, 2023
+  tags:
+    - community
+    - guide
+    - cv
+    - diffusion
+    - game-dev
+
+- local: sd_distillation
+  title: "开源 SD-Small 和 SD-Tiny 知识蒸馏代码与权重"
+  author: harishsegmind
+  guest: true
+  thumbnail: /blog/assets/distill_sd/thumbnail.png
+  date: August 1, 2023
+  tags:
+    - stable-diffusion
+    - research
+    - diffusers
+
+- local: dpo-trl
+  title: "使用 DPO 微调 Llama 2"
+  author: kashif
+  thumbnail: /blog/assets/157_dpo_trl/dpo_thumbnail.png
+  date: August 8, 2023
+  tags:
+    - rl
+    - rlhf
+    - nlp
+
+- local: optimizing-bark
+  title: "使用 🤗 Transformers 优化 Bark"
+  author: ylacombe
+  thumbnail: /blog/assets/bark_optimization/thumbnail.png
+  date: August 9, 2023
+  tags:
+    - text-to-speech
+    - optimization
+    - benchmark
+    - bark
+
+- local: deploy-deepfloydif-using-bentoml
+  title: "使用 BentoML 部署 🤗 Hugging Face 上的模型：DeepFloyd IF 实战"
+  author: Sherlockk
+  guest: true
+  thumbnail: /blog/assets/deploy-deepfloydif-using-bentoml/thumbnail.png
+  date: August 9, 2023
+  tags:
+    - deployment
+    - open-source-collab
+    - bentoml
+    - guide
+    - diffusers
+
+- local: idefics
+  title: "IDEFICS 简介：最先进视觉语言模型的开源复现"
+  author: VictorSanh
+  thumbnail: /blog/assets/idefics/thumbnail.png
+  date: August 22, 2023
+  tags:
+    - research
+    - nlp
+    - cv
+
+- local: safecoder
+  title: "推介 SafeCoder"
+  author: jeffboudier
+  thumbnail: /blog/assets/159_safecoder/thumbnail.jpg
+  date: August 22, 2023
+  tags:
+    - announcement
+    - partnerships
+    - vmware
+    - bigcode
+
+- local: gptq-integration
+  title: "使用 AutoGPTQ 和 transformers 让大语言模型更轻量化"
+  author: marcsun13
+  thumbnail: /blog/assets/159_autogptq_transformers/thumbnail.jpg
+  date: August 23, 2023
+  tags:
+    - llm
+    - optimization
+    - quantization
+
+- local: password-git-deprecation
+  title: "Hub 上的 Git 操作不再支持使用密码验证"
+  author: Sylvestre
+  thumbnail: /blog/assets/password-git-deprecation/thumbnail.png
+  date: August 25, 2023
+  tags:
+    - announcement
+    - security
+
+- local: codellama
+  title: "Code Llama：Llama 2 学会写代码了！"
+  author: philschmid
+  thumbnail: /blog/assets/160_codellama/thumbnail.jpg
+  date: August 25, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: falcon-180b
+  title: "Falcon 180B 现已登陆 Hugging Face Hub"
+  author: philschmid
+  thumbnail: /blog/assets/162_falcon_180b/thumbnail.jpg
+  date: September 6, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM

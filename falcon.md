@@ -21,6 +21,11 @@ authors:
 
 Falcon is a new family of state-of-the-art language models created by the [Technology Innovation Institute](https://www.tii.ae/) in Abu Dhabi, and released under the Apache 2.0 license. **Notably, [Falcon-40B](https://huggingface.co/tiiuae/falcon-40b) is the first “truly open” model with capabilities rivaling many current closed-source models**. This is fantastic news for practitioners, enthusiasts, and industry, as it opens the door for many exciting use cases.
 
+<div style="background-color: #e6f9e6; padding: 16px 32px; outline: 2px solid; border-radius: 5px;">
+  September 2023 Update: <a href="https://huggingface.co/blog/falcon-180b">Falcon 180B</a> has just been released! It's currently the largest openly available model, and rivals proprietary models like PaLM-2. 
+</div>
+
+
 In this blog, we will be taking a deep dive into the Falcon models: first discussing what makes them unique and then **showcasing how easy it is to build on top of them (inference, quantization, finetuning, and more) with tools from the Hugging Face ecosystem**. 
 
 ## Table of Contents
@@ -68,7 +73,7 @@ This trick doesn’t significantly influence pretraining, but it greatly [improv
 You can easily try the Big Falcon Model (40 billion parameters!) in [this Space](https://huggingface.co/spaces/HuggingFaceH4/falcon-chat) or in the playground embedded below:
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.32.0/gradio.js"> </script>
-<gradio-app space="HuggingFaceH4/falcon-chat-demo-for-blog"></gradio-app>
+<gradio-app theme_mode="light" space="HuggingFaceH4/falcon-chat-demo-for-blog"></gradio-app>
 
 Under the hood, this playground uses Hugging Face's [Text Generation Inference](https://github.com/huggingface/text-generation-inference), a scalable Rust, Python, and gRPC server for fast & efficient text generation. It's the same technology that powers [HuggingChat](https://huggingface.co/chat/).
 
@@ -107,7 +112,6 @@ pipeline = transformers.pipeline(
     trust_remote_code=True,
     device_map="auto",
 )
-
 ```
 
 And then, you'd run text generation using code like the following:
@@ -123,19 +127,17 @@ sequences = pipeline(
 )
 for seq in sequences:
     print(f"Result: {seq['generated_text']}")
-
 ```
 
 And you may get something like the following:
 
-```
+```bash
 Valencia, city of the sun
 The city that glitters like a star
 A city of a thousand colors
 Where the night is illuminated by stars
 Valencia, the city of my heart
 Where the past is kept in a golden chest
-
 ```
 
 ### Inference of Falcon 40B
@@ -275,7 +277,7 @@ model = AutoModelForCausalLM.from_pretrained(model_id, trust_remote_code=True)
 
 trainer = SFTTrainer(
     model,
-    tokenizer=tokenizer
+    tokenizer=tokenizer,
     train_dataset=dataset,
     dataset_text_field="text",
     max_seq_length=512,

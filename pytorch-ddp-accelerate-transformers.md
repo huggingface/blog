@@ -173,7 +173,7 @@ The optimizer needs to be declared based on the model *on the specific device* (
 Lastly, to run the script PyTorch has a convenient `torchrun` command line module that can help. Just pass in the number of nodes it should use as well as the script to run and you are set:
 
 ```bash
-torchrun --nproc_per_nodes=2 --nnodes=1 example_script.py
+torchrun --nproc_per_node=2 --nnodes=1 example_script.py
 ```
 
 The above will run the training script on two GPUs that live on a single machine and this is the barebones for performing only distributed training with PyTorch.

@@ -1,5 +1,0 @@
-list(include('tag'))
----
-tag:
-  value: str()
-  label: str()

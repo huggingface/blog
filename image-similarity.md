@@ -268,7 +268,7 @@ Finally, you can try out the following Space that builds a mini image similarity
 
 <script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.12.0/gradio.js"></script>
 
-<gradio-app space="sayakpaul/fetch-similar-images"></gradio-app>
+<gradio-app theme_mode="light" space="sayakpaul/fetch-similar-images"></gradio-app>
 
 In this post, we ran through a quickstart for building image similarity systems. If you found this post interesting, we highly recommend building on top of the concepts we discussed here so you can get more comfortable with the inner workings.
 
