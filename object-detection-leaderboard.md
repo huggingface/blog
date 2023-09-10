@@ -164,7 +164,7 @@ Based on these rules, we can classify each detection as TP or FP, as shown in Ta
 
 Note that by rule 2, in image 1, “E” is TP while “D” is FP because IoU between “E” and the ground-truth is greater than IoU between “D” and the ground-truth.
 
-Now, we need to compute Precision and Recall for all confidence levels. A good way to do it, is to sort the detections by their confidences and, for each confidence level,   count how many TP would be left in the dataset. Then we compute the precision and recall values for that particular confidence level, as shown in Table 2. The computation of each value of Table 2 can be viewed in [this Spread Sheet](https://docs.google.com/spreadsheets/d/1mc-KPDsNHW61ehRpI5BXoyAHmP-NxA52WxoMjBqk7pw/edit?usp=sharing).
+Now, we need to compute Precision and Recall for all confidence levels. A good way to do it is to sort the detections by their confidences and, for each confidence level, count how many TP would be left in the dataset. Then, we compute the precision and recall values for that particular confidence level, as shown in Table 2. The computation of each value of Table 2 can be viewed in [this Spread Sheet](https://docs.google.com/spreadsheets/d/1mc-KPDsNHW61ehRpI5BXoyAHmP-NxA52WxoMjBqk7pw/edit?usp=sharing).
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
