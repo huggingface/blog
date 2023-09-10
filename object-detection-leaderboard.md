@@ -39,7 +39,7 @@ So, let's embark on this exploration together and unlock the secrets of the Obje
 
 ## What's Object Detection?
 
-In the field of Computer Vision, Object Detection refers to the technique of identifying and localizing individual objects within an image or a video frame. Unlike image classification, where the task is to determine the predominant object or scene in the image, object detection not only categorizes the object classes present but also provides spatial information drawing bounding boxes around each detected object. An object detector can also output a “score”, also referred to as “confidence”, for each box, representing the probability that the detected object truly belongs to the predicted class.
+In the field of Computer Vision, Object Detection refers to the technique of identifying and localizing individual objects within an image or a video frame. Unlike image classification, where the task is to determine the predominant object or scene in the image, object detection not only categorizes the object classes present but also provides spatial information, drawing bounding boxes around each detected object. An object detector can also output a "score", also referred to as "confidence", for each box, representing the probability that the detected object truly belongs to the predicted class.
 
 The following image, for instance, shows 5 detections, being 1 “ball” with confidence of 98% and 4 “person” with confidences 98%, 95%, 97% and 97%.
 
