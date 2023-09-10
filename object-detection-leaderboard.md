@@ -129,7 +129,7 @@ Note that TP, FP and FN depend on a predefined IoU threshold, and so do Precisio
 
 Now, we'll illustrate the relationship between Precision and Recall by plotting their respective curves for a specific target class, say "dog".  We’ll adopt a moderate IoU threshold = 75% to delineate our TP, FP and FN. Subsequently we can compute the Precision and Recall values. For that, we need to vary the confidence scores of our detections. 
 
-Figure 4 shows an example of the Precision and Recall curve. For a deeper exploration into the computation of this curve, the papers “[A Comparative Analysis of Object Detection Metrics with a Companion Open-Source Toolkit](https://www.mdpi.com/2079-9292/10/3/2790)” (Padilla, et al) and “[A Survey on Performance Metrics for Object-Detection Algorithms](https://ieeexplore.ieee.org/document/9145130)” (Padilla, et al) offer more detailed toy examples demonstrating how to compute this curve.
+Figure 4 shows an example of the Precision-Recall curve. For a deeper exploration into the computation of this curve, the papers “[A Comparative Analysis of Object Detection Metrics with a Companion Open-Source Toolkit](https://www.mdpi.com/2079-9292/10/3/2790)” (Padilla, et al) and “[A Survey on Performance Metrics for Object-Detection Algorithms](https://ieeexplore.ieee.org/document/9145130)” (Padilla, et al) offer more detailed toy examples demonstrating how to compute this curve.
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
@@ -191,7 +191,7 @@ By examining the curve, one may infer the potential trade-offs between precision
 
 If a detector's confidence results in a few false positives (FP), it will likely have high precision. However, this might lead to missing many true positives (TP), causing a high false negative (FN) rate and, subsequently, low recall. On the other hand, accepting more positive detections can boost recall but might also raise the FP count, thereby reducing precision.
 
-**The area under the Precision and Recall curve (AUC) computed for a target class represents the Average Precision value for that particular class.** COCO evaluation approach refers to "AP" as the mean AUC value among all target classes in the image dataset, also referred to as Mean Average Precision (mAP) by other approaches.
+**The area under the Precision-Recall curve (AUC) computed for a target class represents the Average Precision value for that particular class.** COCO evaluation approach refers to "AP" as the mean AUC value among all target classes in the image dataset, also referred to as Mean Average Precision (mAP) by other approaches.
 
 For a very large dataset, the detector is likely to output boxes with a wide range of confidence levels, resulting in a jagged Precision x Recall line, making it challenging to precisely compute its AUC (Average Precision). Different methods approximate the area of the curve with different approaches A popular approach is the called N-interpolation approach, where N represents how many points are sampled from the Precision x Recall blue line.
 
