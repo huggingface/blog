@@ -1,5 +1,5 @@
 ---
-title: "Fine-Tune MMS Adapter Models for low-resource ASR"
+title: "Getting the most out of LLMs"
 thumbnail: /blog/assets/163_getting_most_out_of_llms/self_attn_tokens.png
 authors:
 - user: patrickvonplaten
