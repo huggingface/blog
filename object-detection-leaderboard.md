@@ -174,7 +174,7 @@ Now, we need to compute Precision and Recall for all confidence levels. A good w
 </div>
 
 
-From top down, the accumulative TP (acc TP) column of Table 2 is increased in 1 every time a TP is noted, and the accumulative FP (acc FP) column is increased in 1 always when a FP is noted. Columns "acc TP" and "acc FP" basically tell us what are the TP and FP values given a particular confidence level. 
+From top down, the accumulative TP (acc TP) column of Table 2 is increased in 1 every time a TP is noted, and the accumulative FP (acc FP) column is increased in 1 always when an FP is noted. Columns "acc TP" and "acc FP" basically tell us the TP and FP values given a particular confidence level. 
 
 For example, consider the 12th row (detection “P”) of Table 2. The value "acc TP = 4" means that if we benchmark our model in this particular dataset with a confidence of 0.62, we would correctly detect 4 target objects and incorrectly detect 8 target objects. This would result in \\( \text{Precision} =  \frac{\text{acc TP}}{(\text{acc TP} + \text{acc FP})} = \frac{4}{(4+8)} = 0.3333  \\) and \\( \text{Recall} =  \frac{\text{acc TP}}{\text{all ground truths}} = \frac{4}{15} = 0.2667 \\) .
 
