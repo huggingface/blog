@@ -34,11 +34,11 @@ Memory requirements of LLMs can be best understood by seeing the LLM as a set of
 
 At the time of writing this paper, LLMs consist of at least a couple billion parameters. Each parameter thereby is made of a decimal number, e.g. `4.5689` which is usually stored in either [float32](https://en.wikipedia.org/wiki/Single-precision_floating-point_format), [bfloat16](https://en.wikipedia.org/wiki/Bfloat16_floating-point_format), or [float16](https://en.wikipedia.org/wiki/Half-precision_floating-point_format) format. This allows us to easily compute the memory requirement to load the LLM into memory:
 
-> *Loading the weights of a model having X billion parameters requires roughly 4 * X GB of VRAM in float32 precision\*
+> *Loading the weights of a model having X billion parameters requires roughly 4 * X GB of VRAM in float32 precision*
 
 Nowadays, models are however rarely trained in full float32 precision, but usually in bfloat16 precision or less frequently in float16 precision. Therefore the role of thumb becomes:
 
-> *Loading the weights of a model having X billion parameters requires roughly 2 * X GB of VRAM in bfloat16/float16 precision\*
+> *Loading the weights of a model having X billion parameters requires roughly 2 * X GB of VRAM in bfloat16/float16 precision*
 
 For shorter text inputs (less than 1024 tokens), the memory requirement for inference is very much dominated by the memory requirement to load the weights. Therefore, for now, let's assume that the memory requirement for inference is equal to the memory requirement to load the model into the GPU VRAM.
 
@@ -458,8 +458,8 @@ Let's measure the memory consumption one last time.
 bytes_to_giga_bytes(torch.cuda.max_memory_allocated())
 ```
 
-```
 **Output**:
+```
 32.617331981658936
 ```
 
@@ -471,7 +471,7 @@ We can observe that we only use roughly 100MB more GPU memory when passing a ver
 flush()
 ```
 
-## 3. The Science Behind LLM Architectures: Strategic Selection for Long Text Inputs and Chat {#3-the-science-behind-llm-architectures-strategic-selection-for-long-text-inputs-and-chat}
+## 3. The Science Behind LLM Architectures: Strategic Selection for Long Text Inputs and Chat
 
 So far we have looked into improving computational and memory efficiency by:
 
