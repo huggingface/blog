@@ -2777,3 +2777,13 @@
     - collaboration
     - diffusers
     - diffusion
+
+- local: getting_the_most_out_of_LLMs
+  title: "Getting the most out of LLMs"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/163_getting_most_out_of_llms/self_attn_tokens.png
+  date: Sep 11, 2023
+  tags:
+    - nlp
+    - research
+    - LLM
