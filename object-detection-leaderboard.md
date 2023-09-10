@@ -189,7 +189,7 @@ Now, we can plot the Precision x Recall curve with the values, as shown in Figur
 
 By examining the curve, one may infer the potential trade-offs between precision and recall and expect a model's optimal operating point based on a selected confidence threshold, even if this threshold is not explicitly depicted on the curve.
 
-If a detector's confidence results in few false positives (FP), it is likely to have high precision. However, this might lead to missing many true positives (TP), causing a high false negative (FN) rate and subsequently, low recall. On the other hand, accepting more positive detections can boost recall but might also raise the FP count, thereby reducing precision.
+If a detector's confidence results in a few false positives (FP), it will likely have high precision. However, this might lead to missing many true positives (TP), causing a high false negative (FN) rate and, subsequently, low recall. On the other hand, accepting more positive detections can boost recall but might also raise the FP count, thereby reducing precision.
 
 **The area under the Precision and Recall curve (AUC) computed for a target class represents the Average Precision value for that particular class.** COCO evaluation approach refers to “AP” as the mean AUC value among all target classes in the image dataset, which is also referred to as Mean Average Precision (mAP) by other approaches.
 
