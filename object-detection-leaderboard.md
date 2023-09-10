@@ -191,7 +191,7 @@ By examining the curve, one may infer the potential trade-offs between precision
 
 If a detector's confidence results in a few false positives (FP), it will likely have high precision. However, this might lead to missing many true positives (TP), causing a high false negative (FN) rate and, subsequently, low recall. On the other hand, accepting more positive detections can boost recall but might also raise the FP count, thereby reducing precision.
 
-**The area under the Precision and Recall curve (AUC) computed for a target class represents the Average Precision value for that particular class.** COCO evaluation approach refers to “AP” as the mean AUC value among all target classes in the image dataset, which is also referred to as Mean Average Precision (mAP) by other approaches.
+**The area under the Precision and Recall curve (AUC) computed for a target class represents the Average Precision value for that particular class.** COCO evaluation approach refers to "AP" as the mean AUC value among all target classes in the image dataset, also referred to as Mean Average Precision (mAP) by other approaches.
 
 For a very large dataset, the detector is likely to output boxes with a wide range of confidence levels, resulting in a jagged Precision x Recall line, making it challenging to precisely compute its AUC (Average Precision). Different methods approximate the area of the curve with different approaches A popular approach is the called N-interpolation approach, where N represents how many points are sampled from the Precision x Recall blue line.
 
