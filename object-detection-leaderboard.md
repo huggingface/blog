@@ -59,7 +59,7 @@ The Hub has [hundreds of object detection models](https://huggingface.co/models?
 
 Some object detection models can receive additional text queries to search for target objects described in the text. This way, these detectors (called zero-shot) are not limited to detecting objects seen during training.  
 
-However, the diversity of detectors go beyond the range of output classes they can recognize. They vary in terms of underlying architectures, model sizes, processing speeds and prediction accuracy.
+However, the detectors' diversity goes beyond the range of output classes they can recognize. They vary in terms of underlying architectures, model sizes, processing speeds, and prediction accuracy.
 
 A popular metric used to evaluate the accuracy of predictions made by an object detection model is a metric known as **Average Precision (AP)** and its variants, which will be explained further.
 
