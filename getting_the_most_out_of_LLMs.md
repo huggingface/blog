@@ -1,4 +1,14 @@
+---
+title: "Fine-Tune MMS Adapter Models for low-resource ASR"
+thumbnail: /blog/assets/163_getting_most_out_of_llms/self_attn_tokens.png
+authors:
+- user: patrickvonplaten
+---
+
 # Getting the most out of LLMs
+
+<!-- {blog_metadata} -->
+<!-- {authors} -->
 
 Large Language Models (LLMs) such as GPT3/4, [Falcon](https://huggingface.co/tiiuae/falcon-40b), and [LLama](https://huggingface.co/meta-llama/Llama-2-70b-hf) are rapidly advancing in their ability to tackle human-centric tasks, establishing themselves as essential tools in modern knowledge-based industries.
 Deploying these models in real-world tasks remains challenging, however:
@@ -50,12 +60,12 @@ Pipeline parallelism is supported out of the box. For this, simply load the mode
 If you have access to an 8 x 80GB A100 node, you could load BLOOM as follows
 
 ```bash
-!pip install transformers accelerate bitsandbytes
+!pip install transformers accelerate bitsandbytes optimum
 ```
 ```python
 # from transformers import AutoModelForCausalLM
 
-# model = AutoModelForCausalLM.from_pretrained("bigscience/bloom", device_map="auto")
+# model = AutoModelForCausalLM.from_pretrained("bigscience/bloom", device_map="auto", pad_token_id=0)
 ```
  
 By using `device_map="auto"` the attention layers would be equally distributed over all available GPUs.
@@ -70,7 +80,7 @@ We first load the model and tokenizer and then pass both to Transformers' [pipel
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import torch
 
-model = AutoModelForCausalLM.from_pretrained("bigcode/octocoder", torch_dtype=torch.bfloat16, device_map="auto")
+model = AutoModelForCausalLM.from_pretrained("bigcode/octocoder", torch_dtype=torch.bfloat16, device_map="auto", pad_token_id=0)
 tokenizer = AutoTokenizer.from_pretrained("bigcode/octocoder")
 
 pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
@@ -79,7 +89,7 @@ pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
 ```python
 prompt = "Question: Please write a function in Python that transforms bytes to Giga bytes.\n\nAnswer:"
 
-result = pipe(prompt)[0]["generated_text"][len(prompt):]
+result = pipe(prompt, max_new_tokens=60)[0]["generated_text"][len(prompt):]
 result
 ```
 
@@ -167,7 +177,7 @@ the [`bitsandbytes`](https://github.com/TimDettmers/bitsandbytes) library is ins
 We can then load models in 8-bit quantization by simply adding a `load_in_8bit=True` flag to `from_pretrained`.
  
 ```python
-model = AutoModelForCausalLM.from_pretrained("bigcode/octocoder", load_in_8bit=True, low_cpu_mem_usage=True)
+model = AutoModelForCausalLM.from_pretrained("bigcode/octocoder", load_in_8bit=True, low_cpu_mem_usage=True, pad_token_id=0)
 ```
 
 Now, let's run our example again and measure the memory usage.
@@ -192,10 +202,10 @@ bytes_to_giga_bytes(torch.cuda.max_memory_allocated())
 
 **Output**:
 ```
-17.503968238830566
+15.219234466552734
 ```
 
-Significantly less! We're down to just 17.5 GBs and could therefore run this model on consumer GPUs like the 4090.
+Significantly less! We're down to just a bit over 15 GBs and could therefore run this model on consumer GPUs like the 4090.
 We're seeing a very nice gain in memory efficiency and more or less no degradation to the model's output. However, we can also notice a slight slow-down during inference.
 
 
@@ -212,7 +222,7 @@ flush()
 Let's see what peak GPU memory consumption 4-bit quantization gives. Quantizing the model to 4-bit can be done with the same API as before - this time by passing `load_in_4bit=True` instead of `load_in_8bit=True`.
 
 ```python
-model = AutoModelForCausalLM.from_pretrained("bigcode/octocoder", load_in_4bit=True, low_cpu_mem_usage=True)
+model = AutoModelForCausalLM.from_pretrained("bigcode/octocoder", load_in_4bit=True, low_cpu_mem_usage=True, pad_token_id=0)
 
 pipe = pipeline("text-generation", model=model, tokenizer=tokenizer)
 
@@ -222,10 +232,10 @@ result
 
 **Output**:
 ```
-'Question: Please write a function in Python that transforms bytes to Giga bytes.\n\nAnswer: Here                                                                               '}]
+Here is a Python function that transforms bytes to Giga bytes:\n\n```\ndef bytes_to_gigabytes(bytes):\n    return bytes / 1024 / 1024 / 1024\n```\n\nThis function takes a single argument
 ```
 
-We see that this time the generate function prematurely stopped, showing a loss in accuracy. Let's see how much memory was required.
+We're almost seeing the same output text as before - just the `python` is missing just before the code snippet. Let's see how much memory was required.
 
 ```python
 bytes_to_giga_bytes(torch.cuda.max_memory_allocated())
@@ -236,7 +246,11 @@ bytes_to_giga_bytes(torch.cuda.max_memory_allocated())
 9.543574333190918
 ```
 
-Just 9.5GB! That's really not much for a >15 billion parameter model, but we see that 4-bit quantization often comes with a degradation in performance.
+Just 9.5GB! That's really not a lot for a >15 billion parameter model.
+
+While we see very little degradation in accuracy for our model here, 4-bit quantization can in practice often lead to different results compared to 8-bit quantization or full `bfloat16` inference. It is up to the user to try it out.
+
+Also note that inference here was again a bit slower compared to 8-bit quantization which is due to the more aggressive quantization method used for 4-bit quantization leading to $\text{quantize}$ and $\text{dequantize}$ taking longer during inference.
 
 ```python
 del model
@@ -246,11 +260,13 @@ del pipe
 flush()
 ```
 
-Running OctoCoder in 4-bit precision reduces the required GPU VRAM from 32GB to just a bit over 9GB which is very low for a 15.5 billion parameter model. 4-bit quantization allows the model to be run on GPUs such as RTX3090, V100, and T4 which are quite accessible for most people.
+Overall, we saw that running OctoCoder in 8-bit precision reduced the required GPU VRAM from 32G GPU VRAM to only 15GB and running the model in 4-bit precision further reduces the required GPU VRAM to just a bit over 9GB.
+ 
+4-bit quantization allows the model to be run on GPUs such as RTX3090, V100, and T4 which are quite accessible for most people.
 
-To quantize the model even further, we recommend looking into the [`AutoGPTQ`](https://huggingface.co/docs/transformers/main/en/main_classes/quantization#autogptq-integration%60) implementation.
+For more information on quantization and to see how one can quantize models to require even less GPU VRAM memory than 4-bit, we recommend looking into the [`AutoGPTQ`](https://huggingface.co/docs/transformers/main/en/main_classes/quantization#autogptq-integration%60) implementation.
 
-> Overall, it is important to remember that model quantization trades improved memory efficiency against accuracy and in most cases inference time.
+> As a conclusion, it is important to remember that model quantization trades improved memory efficiency against accuracy and in most cases inference time.
 
 If GPU memory is not a constraint for your use case, there is often no need to look into quantization. However many GPUs simply can't run LLMs without quantization methods and in this case, 4-bit and 8-bit quantization schemes are extremely useful tools.
 
@@ -354,11 +370,11 @@ def alternating(list1, list2):
 -----
 """
 ```
-For demonstration purposes, we duplicate the system by five so that the input length is long enough to observe Flash Attention's memory savings.
+For demonstration purposes, we duplicate the system by ten so that the input length is long enough to observe Flash Attention's memory savings.
 We append the original text prompt `"Question: Please write a function in Python that transforms bytes to Giga bytes.\n\nAnswer: Here"`
 
 ```python
-long_prompt = 5 * system_prompt + prompt
+long_prompt = 10 * system_prompt + prompt
 ```
  
 We instantiate our model again in bfloat16 precision.
@@ -382,7 +398,17 @@ print(f"Generated in {time.time() - start_time} seconds.")
 result
 ```
 
-TODO(Patrick)
+**Output**:
+```
+Generated in 10.96854019165039 seconds.
+Sure. Here is a function that does that.\n\ndef bytes_to_giga(bytes):\n   return bytes / 1024 / 1024 / 1024\n\nAnswer: Sure. Here is a function that does that.\n\ndef
+````
+
+We're getting the same output as before, however this time, the model repeats the answer multiple times until it's 60 tokens cut-off. This is not surprising as we've repeated the system prompt ten times for demonstration purposes and thus cued the model to repeat itself.
+
+**Note** that the system prompt should not be repeated ten times in real-world applications - one time is enough!
+
+Let's measure the peak GPU memory requirement.
 
 ```python
 bytes_to_giga_bytes(torch.cuda.max_memory_allocated())
@@ -390,9 +416,12 @@ bytes_to_giga_bytes(torch.cuda.max_memory_allocated())
 
 **Output**:
 ```bash
-
+37.668193340301514
 ```
-Let's free the peak memory.
+
+As we can see the peak GPU memory requirement is now significantly highher than in the beginning, which is largely due to the longer input sequence. Also the generation takes a little over a minute now.
+
+We call `flush()` to free GPU memory for our next experiment.
 
 ```python
 flush()
@@ -415,9 +444,32 @@ print(f"Generated in {time.time() - start_time} seconds.")
 result
 ```
 
-As we can see
+**Output**:
+```
+Generated in 3.0211617946624756 seconds.
+ Sure. Here is a function that does that.\n\ndef bytes_to_giga(bytes):\n   return bytes / 1024 / 1024 / 1024\n\nAnswer: Sure. Here is a function that does that.\n\ndef
+```
 
-TODO(Patrick)
+We're getting the exact same result as before, but can observe a very significant speed-up thanks to Flash Attention.
+
+Let's measure the memory consumption one last time.
+
+```python
+bytes_to_giga_bytes(torch.cuda.max_memory_allocated())
+```
+
+```
+**Output**:
+32.617331981658936
+```
+
+And we're almost back to our original 29GB peak GPU memory from the beginning. 
+
+We can observe that we only use roughly 100MB more GPU memory when passing a very long input sequence with Flash Attention compared to passing a short input sequences as done in the beginning.
+
+```py
+flush()
+```
 
 ## 3. The Science Behind LLM Architectures: Strategic Selection for Long Text Inputs and Chat {#3-the-science-behind-llm-architectures-strategic-selection-for-long-text-inputs-and-chat}
 
@@ -446,7 +498,7 @@ Let's go over each component in more detail
 Self-attention puts each token in relation to each other's tokens.
 As an example, the $\text{Softmax}(\mathbf{QK}^T)$ matrix of the text input sequence *"Hello", "I", "love", "you"* could look as follows:
 
-![](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/self_attn_tokens.png)
+![](/blog/assets/163_getting_most_out_of_llms/self_attn_tokens.png)
 
 Each word token is given a probability mass at which it attends all other word tokens and, therefore is put into relation with all other word tokens. E.g. the word *"love"* attends to the word *"Hello"* with 0.05%, to *"I"* with 0.3%, and to itself with 0.65%.
 
@@ -492,7 +544,7 @@ $R_{\theta, i - j}$ thereby represents a rotational matrix. $\theta$ is *not* le
 
 As an alternative, *ALiBi* proposes a much simpler relative position encoding scheme. The relative distance that input tokens have to each other is added as a negative integer scaled by a pre-defined value `m` to each query-key entry of the $\mathbf{QK}^T$ matrix right before the softmax computation.
 
-![](https://raw.githubusercontent.com/patrickvonplaten/scientific_images/master/alibi.png)
+![](/blog/assets/163_getting_most_out_of_llms/alibi.png)
 
 As shown in the [ALiBi](https://arxiv.org/abs/2108.12409) paper, this simple relative positional encoding allows the model to retain a high performance even at very long text input sequences.
 
@@ -521,17 +573,27 @@ Please have a look at [Transformer's Generate Text Tutorial](https://huggingface
 Let's run a quick code snippet to show how auto-regressive works in practice. We will simply take the most likely next token via `torch.argmax`.
 
 ```python
-input_ids = tokenizer(prompt, return_tensors="pt")["input_ids"]
+input_ids = tokenizer(prompt, return_tensors="pt")["input_ids"].to("cuda")
 
 for _ in range(5):
-  next_logits = model(input_ids)["logits"][:, -1]
-  next_token_id = torch.argmax(next_logits)
+  next_logits = model(input_ids)["logits"][:, -1:]
+  next_token_id = torch.argmax(next_logits,dim=-1)
 
-  input_ids = torch.cat([input_ids, next_token_id])
+  input_ids = torch.cat([input_ids, next_token_id], dim=-1)
   print("shape of input_ids", input_ids.shape)
 
 generated_text = tokenizer.batch_decode(input_ids[:, -5:])
 generated_text
+```
+
+**Output**:
+```
+shape of input_ids torch.Size([1, 21])
+shape of input_ids torch.Size([1, 22])
+shape of input_ids torch.Size([1, 23])
+shape of input_ids torch.Size([1, 24])
+shape of input_ids torch.Size([1, 25])
+[' Here is a Python function']
 ```
  
 As we can see every time we increase the text input tokens by the just sampled token.
@@ -546,17 +608,34 @@ In Transformers, we can retrieve the key-value cache by passing the `use_cache` 
 ```python
 past_key_values = None # past_key_values is the key-value cache
 generated_tokens = []
+next_token_id = tokenizer(prompt, return_tensors="pt")["input_ids"].to("cuda")
 
 for _ in range(5):
-  next_logits, past_key_values = model(input_ids, past_key_values=past_key_values, use_cache=True).to_tuple()
-  input_ids = torch.argmax(next_logits)
+  next_logits, past_key_values = model(next_token_id, past_key_values=past_key_values, use_cache=True).to_tuple()
+  next_logits = next_logits[:, -1:]
+  next_token_id = torch.argmax(next_logits, dim=-1)
 
   print("shape of input_ids", input_ids.shape)
-  print("length of key-value cache", len(past_key_values[0][0][1]))  # past_key_values are of shape [num_layers, 0 for k, 1 for v, batch_size, length, hidden_dim]
-  generated_tokens.append(input_ids)
+  print("length of key-value cache", len(past_key_values[0][0]))  # past_key_values are of shape [num_layers, 0 for k, 1 for v, batch_size, length, hidden_dim]
+  generated_tokens.append(next_token_id.item())
 
 generated_text = tokenizer.batch_decode(generated_tokens)
 generated_text
+```
+
+**Output**:
+```
+shape of input_ids torch.Size([1, 20])
+length of key-value cache 20
+shape of input_ids torch.Size([1, 20])
+length of key-value cache 21
+shape of input_ids torch.Size([1, 20])
+length of key-value cache 22
+shape of input_ids torch.Size([1, 20])
+length of key-value cache 23
+shape of input_ids torch.Size([1, 20])
+length of key-value cache 24
+[' Here', ' is', ' a', ' Python', ' function']
 ```
 
 As one can see, when using the key-value cache the text input tokens are *not* increased in length, but remain a single input vector. The length of the key-value cache on the other hand is increased by one at every decoding step.
@@ -598,6 +677,11 @@ Computing this for our LLM at a hypothetical input sequence length of 16000 give
 ```python
 config = model.config
 2 * 16_000 * config.n_layer * config.n_head * config.n_embd // config.n_head
+```
+
+**Output**:
+```
+7864320000
 ```
 
 Roughly 8 billion float values! Storing 8 billion float values in `float16` precision requires around 15 GB of RAM which is circa half as much as the model weights themselves!
