@@ -375,7 +375,7 @@ IoU, or Intersection over Union, might seem straightforward to calculate based o
 
 There might be cases in which we want to evaluate text-conditioned models such as [OWL-ViT](https://huggingface.co/google/owlvit-base-patch32), which can receive a text prompt and provide the location of the desired object.
 
-For such models, different prompts (e.g. "Find the dog" and "Where's the bulldog?") may result in the same results. However, we decide to follow the same the procedure described in each paper. For the OWL-ViT, for instance, we predict the objects by using the prompts "an image of a {}" where {} is replaced with the benchmarking dataset's classes. 
+For such models, different prompts (e.g. "Find the dog" and "Where's the bulldog?") may result in the same results. However, we decided to follow the procedure described in each paper. For the OWL-ViT, for instance, we predict the objects by using the prompt "an image of a {}" where {} is replaced with the benchmarking dataset's classes. 
 
 
 ## Conclusions
