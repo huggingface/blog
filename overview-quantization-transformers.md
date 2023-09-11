@@ -4,6 +4,9 @@ thumbnail: /blog/assets/163_overview_quantization_transformers/thumbnail.jpg
 authors:
 - user: ybelkada
 - user: marcsun13
+- user: IlyasMoutawwakil
+- user: clefourrier
+- user: fxmarty
 ---
 
 # Overview of natively supported quantization schemes in 🤗 Transformers
@@ -19,7 +22,7 @@ Currently, quantizing models are used for two main purposes:
 - Running inference of a large model on a smaller device
 - Fine-tune adapters on top of quantized models 
 
-Currently 2 integration efforts have been made and are **natively** supported in transformers : bitsandbytes and auto-gptq.
+Currently 2 integration efforts have been made and are **natively** supported in transformers : *bitsandbytes* and *auto-gptq*.
 Note that some other quantization schemes are also supported in 🤗 optimum library but this is out of scope for this blogpost. 
 
 To learn more about each of the supported schemes, please have a look at one of the resources shared bolow. Please also have a look at the appropriate sections of the documentation.
@@ -38,7 +41,7 @@ Note also that the details shared below are only valid for `PyTorch` models, thi
 
 - [GPTQ blogpost](https://huggingface.co/blog/gptq-integration) - This blogpost gives an overview on what is GPTQ quantization method and how to use it. 
 - [bistandbytes 4-bit quantization blogpost](https://huggingface.co/blog/4bit-transformers-bitsandbytes) - This blogpost introduces 4-bit quantization and QLoRa, a efficient finetuning approach. 
-- [bistandbytes 8-bit quantization blogpost](https://huggingface.co/blog/hf-bitsandbytes-integration) - This blogpost explains how 8-bit quantization works in bitsandbytes.
+- [bistandbytes 8-bit quantization blogpost](https://huggingface.co/blog/hf-bitsandbytes-integration) - This blogpost explains how 8-bit quantization works with bitsandbytes.
 - [Basic usage Google Colab notebook for GPTQ](https://colab.research.google.com/drive/1_TIrmuKOFhuRRiTWN94iLKUFu6ZX4ceb?usp=sharing) -  This notebook shows how to quantize your transformers model with GPTQ method, how to do inference, and how to do fine-tuning with the quantized model.
 - [Basic usage Google Colab notebook for bitsandbytes](https://colab.research.google.com/drive/1ge2F1QSK8Q7h0hn3YKuBCOAS0bK8E0wf?usp=sharing) - This notebook shows how to use 4bit models in inference with all their variants, and how to run GPT-neo-X (a 20B parameter model) on a free Google Colab instance.
 - [Merve blogpost on quantization](https://huggingface.co/blog/merve/quantization) - This blogpost gives an overview of the quantization methods supported natively in transformers. 
@@ -52,13 +55,13 @@ In this section, we will go over the pros and cons of bistandbytes and gptq quan
 
 **cross-modality interoperability**: As the only condition to quantize a model is to contain a `torch.nn.Linear` layer, quantization works out of the box for any modality, making it possible to load models such as Whisper, ViT, Blip2, etc. in 8bit or 4bit out of the box.
 
-**0 performance degradation when merging adapters**: (Read more about adapters and PEFT in this blogpost if you are not familiar with it) If one trains adapters on top of base models quantized with bitsandbytes, they can load the base model in a higher precision (fp16 of bf16) and merge the adapters on the base model and directly deploy it for inference with no performance degradation. Note that this is not supported for GPTQ.
+**0 performance degradation when merging adapters**: (Read more about adapters and PEFT in [this blogpost](https://huggingface.co/blog/peft) if you are not familiar with it) If one trains adapters on top of base models quantized with bitsandbytes, they can load the base model in a higher precision (fp16 of bf16) and merge the adapters on the base model and directly deploy it for inference with no performance degradation. Note that this is not supported for GPTQ.
 
 
 ### Pros auto-gptq
-**fast**: GPTQ quantized models are fast compared to bitsandbytes quantized models. We will address the speed comparison in an appropriate section. 
+**fast for text generation**: GPTQ quantized models are fast compared to bitsandbytes quantized models for text generation. We will address the speed comparison in an appropriate section. 
 
-**n-bit support**: GPTQ algorithm makes it possible to quantize models up to 2 bits!. However,this might come up with severe performance degradation. The recommended number of bits remains 4 for the GPTQ algorithm, which seems to be the perfect tradeoff for now.
+**n-bit support**: GPTQ algorithm makes it possible to quantize models up to 2 bits! However, this might come up with severe performance degradation. The recommended number of bits remains 4 for the GPTQ algorithm, which seems to be the perfect tradeoff for now.
 
 **easly-serializable**: GPTQ models supports serialization for any number of bits loading models from TheBloke namespace: https://huggingface.co/TheBloke (with -GPTQ suffix) is supported out of the box, as long as you have the required packages installed. Bitsandbytes supports 8bit serialization but does not support 4bit serialization as of today.
 
@@ -81,7 +84,7 @@ We will use the following setup:
 - bitsandbytes: 4-bit quantization with `bnb_4bit_compute_dtype=torch.float16`. Make sure to use `bitsandbytes>=0.41.1` for fast 4-bit kernels. 
 - auto-gptq: 4-bit quantization with exllama kernels. You will need `auto-gptq>=0.4.0` to use ex-llama kernels. 
 
-### Training speed (forward pass only)
+### Inference speed (forward pass only)
 
 This benchmark measures only the prefill step, which corresponds to the foward during training. It  was run on a single NVIDIA A100-SXM4-80GB GPU with a prompt length of 512. The model we used was `meta-llama/Llama-2-13b-hf`.
 
@@ -105,20 +108,20 @@ From the benchmark, we can see that bitsandbyes and GPTQ are be equivalent with 
 
 ### Generate speed
 
-The following benchmarks measure the generation speed of the model, which corresponds to setting during inference. 
+The following benchmarks measure the generation speed of the model, which corresponds to setting during inference. The benchmarking script can be found [here](https://gist.github.com/younesbelkada/e576c0d5047c0c3f65b10944bc4c651c) for reproducibility.
 
 #### use_cache 
 Let's test `use_cache` to better understand the impact of caching the hidden state during the generation.
 
 The benchmark was run on a A100 with a prompt length of 30 and we generated exactly 30 tokens. The model we used was `meta-llama/Llama-2-7b-hf`. 
 
-with use_cache = True
+with `use_cache=True`
 
-![Benchmark use_cache=True A100](https://huggingface.co/datasets/huggingface/documentation-images/resolve/blog/163_overview-quantization-transformers/A100_use_cache_True.jpg)
+![Benchmark use_cache=True A100](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/163_overview-quantization-transformers/A100_use_cache_True.jpg)
 
-with use_cache = False
+with `use_cache=False`
 
-![Benchmark use_cache=False A100](https://huggingface.co/datasets/huggingface/documentation-images/resolve/blog/163_overview-quantization-transformers/A100_use_cache_False.jpg)
+![Benchmark use_cache=False A100](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/163_overview-quantization-transformers/A100_use_cache_False.jpg)
 
 From the two benchmarks, we conclude that the generation is faster when we use cache. Moreover, GPTQ model is faster than bitsandbytes model in general. For exemple, with `batch_size=4` and `use_cache=True`, it is twice as fast! Therefore let’s use `use_cache` for next benchmark. Note that using `use_cache` will consume more memory. 
 
@@ -126,17 +129,17 @@ From the two benchmarks, we conclude that the generation is faster when we use c
 
 In the following benchmark, we will try different hardwares to see its impact on the quantized model. We used a prompt length of 30 and we generated exactly 30 tokens. The model we used was `meta-llama/Llama-2-7b-hf`.
 
-with a A100: 
+with a NVIDIA A100: 
 
-![Benchmark A100](https://huggingface.co/datasets/huggingface/documentation-images/resolve/blog/163_overview-quantization-transformers/A100_use_cache_True.jpg)
+![Benchmark A100](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/163_overview-quantization-transformers/A100_use_cache_True.jpg)
 
-with a T4: 
+with a NVIDIA T4: 
 
-![Benchmark T4](https://huggingface.co/datasets/huggingface/documentation-images/resolve/blog/163_overview-quantization-transformers/T4.jpg)
+![Benchmark T4](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/163_overview-quantization-transformers/T4.jpg)
 
 with a Titan RTX: 
 
-![Benchmark TITAN RTX](https://huggingface.co/datasets/huggingface/documentation-images/resolve/blog/163_overview-quantization-transformers/RTX_Titan.jpg)
+![Benchmark TITAN RTX](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/163_overview-quantization-transformers/RTX_Titan.jpg)
 
 From the benchmark above, we can conclude that GPTQ is faster than bitsandbytes for those three hardwares. 
 
@@ -146,21 +149,21 @@ In the following benchmark, we will try different prompt length to see its impac
 
 with 30 tokens generated:
 
-![Benchmark A100](https://huggingface.co/datasets/huggingface/documentation-images/resolve/blog/163_overview-quantization-transformers/A100_use_cache_True.jpg)
+![Benchmark A100](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/163_overview-quantization-transformers/A100_use_cache_True.jpg)
 
 with 512 tokens generated:
 
-![Benchmark A100 512 tokens](https://huggingface.co/datasets/huggingface/documentation-images/resolve/blog/163_overview-quantization-transformers/A100_max_token_512.jpg)
+![Benchmark A100 512 tokens](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/163_overview-quantization-transformers/A100_max_token_512.jpg)
 
 From the benchmark above, we can conclude that GPTQ is faster than bitsandbytes independently of the generation length. 
 
 ### Adapter fine-tuning (forward + backward)
 
-It is not possible to perform pure training on quantized model. However, you can fine-tune quantized models by leveraging parameter efficient fine tuning methods (PEFT) and train for example adapters on top of them. The fine-tuning method will rely on a recent method called "Low Rank Adapters" (LoRA), instead of fine-tuning the entire model you just have to fine-tune these adapters and load them properly inside the model. Let's compare the finetuning speed ! 
+It is not possible to perform pure training on quantized model. However, you can fine-tune quantized models by leveraging parameter efficient fine tuning methods (PEFT) and train for example adapters on top of them. The fine-tuning method will rely on a recent method called "Low Rank Adapters" (LoRA), instead of fine-tuning the entire model you just have to fine-tune these adapters and load them properly inside the model. Let's compare the finetuning speed! 
 
-The benchmark was run on a A100 and the model we used was `meta-llama/Llama-2-7b-hf`. Note that for GPTQ model, we had to disabel the exllama kernels as it was unsable when used to fine-tuning the model.
+The benchmark was run on a NVIDIA A100 GPU and we used `meta-llama/Llama-2-7b-hf` model from the Hub. Note that for GPTQ model, we had to disable the exllama kernels as exllama is not supported for fine-tuning the model.
 
-![Benchmark A100 finetuning](https://huggingface.co/datasets/huggingface/documentation-images/resolve/blog/163_overview-quantization-transformers/A100_finetuning.png)
+![Benchmark A100 finetuning](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/163_overview-quantization-transformers/A100_finetuning.png)
 
 From the result, we conclude that bitsandbytes is faster than GPTQ for fine-tuning. 
 
@@ -194,9 +197,9 @@ In this blogpost, we compared bitsandbytes and GPTQ quantization across mutliple
 - (1) quantize the base model using bitsandbytes
 - (2) fine-tune the adapters
 - (4) merge the trained adapters to the base model
-- (5) quantize the merged model using GPTQ
+- (5) quantize the merged model using GPTQ and use it for deployment 
 
-We hope that this overview will make it easier for everyone to use LLMs in their applications, and we are looking forward to seeing what you will build with it!
+We hope that this overview will make it easier for everyone to use LLMs in their applications and usecases, and we are looking forward to seeing what you will build with it!
 
 ## Acknowledgements
 
