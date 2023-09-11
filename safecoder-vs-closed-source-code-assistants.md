@@ -1,6 +1,6 @@
 ---
-title: "XXX"
-thumbnail: /blog/assets/safecoder-vs-closed-source-services/XXX.png
+title: "SafeCoder vs. Closed-source Code Assistants"
+thumbnail: /blog/assets/safecoder-vs-closed-source-code-assistants/image.png
 authors:
 - user: juliensimon
 ---
