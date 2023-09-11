@@ -196,8 +196,8 @@ In this blogpost, we compared bitsandbytes and GPTQ quantization across mutliple
 
 - (1) quantize the base model using bitsandbytes
 - (2) fine-tune the adapters
-- (4) merge the trained adapters to the base model
-- (5) quantize the merged model using GPTQ and use it for deployment 
+- (3) merge the trained adapters to the base model
+- (4) quantize the merged model using GPTQ and use it for deployment 
 
 We hope that this overview will make it easier for everyone to use LLMs in their applications and usecases, and we are looking forward to seeing what you will build with it!
 
