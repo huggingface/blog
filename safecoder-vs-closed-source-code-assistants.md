@@ -11,9 +11,9 @@ authors:
 <!-- {authors} -->
 
 
-For decades, software developers have designed methodologies, processes, and tools that help them improve code quality and increase productivity. For instance, agile, test-driven development, code reviews, CI/CD, and more are now staples in the software industry. 
+For decades, software developers have designed methodologies, processes, and tools that help them improve code quality and increase productivity. For instance, agile, test-driven development, code reviews, and CI/CD are now staples in the software industry. 
 
-In "How Google Tests Software" (Addison-Wesley, 2012), Google reports that fixing a bug during system tests, the final testing stage, is 1000x more expensive than fixing it at the unit testing stage. This puts a lot of pressure on developers, the first link in the chain, to write quality code from the get-go. 
+In "How Google Tests Software" (Addison-Wesley, 2012), Google reports that fixing a bug during system tests - the final testing stage - is 1000x more expensive than fixing it at the unit testing stage. This puts much pressure on developers - the first link in the chain - to write quality code from the get-go. 
 
 For all the hype surrounding generative AI, code generation seems a promising way to help developers deliver better code fast. Indeed, early studies show that managed services like [GitHub Copilot](https://github.blog/2023-06-27-the-economic-impact-of-the-ai-powered-developer-lifecycle-and-lessons-from-github-copilot) or [Amazon CodeWhisperer](https://aws.amazon.com/codewhisperer/) help developers be more productive.
 
@@ -32,25 +32,27 @@ StarCoder has an 8192-token context window, helping it take into account more of
 
 Lastly, like [HuggingChat](https://huggingface.co/chat/), SafeCoder will introduce new state-of-the-art models over time, giving you a seamless upgrade path.
 
-Unfortunately, closed-source code assistant services don't share information about the underlying models, their capabilities and their training data. 
+Unfortunately, closed-source code assistant services don't share information about the underlying models, their capabilities, and their training data. 
 
 ## Transparency
 
 In line with the [Chinchilla Scaling Law](https://arxiv.org/abs/2203.15556v1), SafeCoder is a compute-optimal model trained on 1 trillion (1,000 billion) code tokens. These tokens are extracted from [The Stack](https://huggingface.co/datasets/bigcode/the-stack), a 2.7 terabyte dataset built from permissively licensed open-source repositories. 
 All efforts are made to honor opt-out requests, and we built a [tool](https://huggingface.co/spaces/bigcode/in-the-stack) that lets repository owners check if their code is part of the dataset.
 
-As expected, our [research paper](https://arxiv.org/abs/2305.06161) discloses the model architecture, the training process, and detailed metrics.
+In the spirit of transparency, our [research paper](https://arxiv.org/abs/2305.06161) discloses the model architecture, the training process, and detailed metrics.
 
 Unfortunately, closed-source services stick to vague information, such as "[the model was trained on] billions of lines of code." To the best of our knowledge, no metrics are available.
 
 ## Customization
 
-The StarCoder models have been specifically designed to be customizable. In fact, we have already built different versions. We also shared the [fine-tuning code](https://github.com/bigcode-project/starcoder/) on GitHub.
+The StarCoder models have been specifically designed to be customizable, and we have already built different versions:
 
 * [StarCoderBase](https://huggingface.co/bigcode/starcoderbase): the original model trained on 80+ languages from The Stack.
 * [StarCoder](https://huggingface.co/bigcode/starcoder): StarCoderBase further trained on Python.
 * [StarCoder+](https://huggingface.co/bigcode/starcoderplus): StarCoderBase further trained on English web data for coding conversations.
 
+We also shared the [fine-tuning code](https://github.com/bigcode-project/starcoder/) on GitHub.
+ 
 Every company has its preferred languages and coding guidelines, i.e., how to write inline documentation or unit tests, or do's and don'ts on security and performance. With SafeCoder, we can help you train models that learn the peculiarities of your software engineering process.  Our team will help you prepare high-quality datasets and fine-tune StarCoder on your infrastructure. Your data will never be exposed to anyone.
 
 Unfortunately, closed-source services cannot be customized.
@@ -67,7 +69,7 @@ Unfortunately, closed-source services are only available as managed services.
 
 Security is always a top concern, all the more when source code is involved. Intellectual property and privacy must be protected at all costs.
 
-Whether you run on-premise or in the cloud, SafeCoder is 100% under your administrative control. You can apply and monitor your security controls and maintain strong and consistent compliance across your IT platform.
+Whether you run on-premise or in the cloud, SafeCoder is under your complete administrative control. You can apply and monitor your security checks and maintain strong and consistent compliance across your IT platform.
 
 SafeCoder doesn't spy on any of your data. Your prompts and suggestions are yours and yours only. SafeCoder doesn't call home and send telemetry data to Hugging Face or anyone else. No one but you needs to know how and when you're using SafeCoder. SafeCoder doesn't even require an Internet connection. You can (and should) run it fully air-gapped.
 
