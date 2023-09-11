@@ -2790,7 +2790,7 @@
   title: "Overview of natively supported quantization schemes in 🤗 Transformers"
   author: ybelkada
   thumbnail: /blog/assets/163_overview_quantization_transformers/thumbnail.jpg
-  date: Septembre 12, 2023
+  date: September 12, 2023
   tags:
     - llm
     - optimization
