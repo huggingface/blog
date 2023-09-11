@@ -2777,3 +2777,11 @@
     - collaboration
     - diffusers
     - diffusion
+
+- local: safecoder-vs-closed-source-code-assistants
+  title: "SafeCoder vs. Closed-source Code Assistants"
+  author: julsimon
+  thumbnail: /blog/assets/safecoder-vs-closed-source-code-assistants/image.png
+  date: September 11, 2023
+  tags:
+    - bigcode
