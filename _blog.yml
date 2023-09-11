@@ -2754,3 +2754,26 @@
     - audio
     - diffusers
     - diffusion
+
+- local: falcon-180b
+  title: "Spread Your Wings: Falcon 180B is here"
+  author: philschmid
+  thumbnail: /blog/assets/162_falcon_180b/thumbnail.jpg
+  date: September 6, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: t2i-sdxl-adapters
+  title: "Efficient Controllable Generation for SDXL with T2I-Adapters"
+  author: Adapter
+  guest: true
+  thumbnail: /blog/assets/t2i-sdxl-adapters/thumbnail.png
+  date: September 8, 2023
+  tags:
+    - guide
+    - collaboration
+    - diffusers
+    - diffusion

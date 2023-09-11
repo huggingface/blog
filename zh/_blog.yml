@@ -854,6 +854,16 @@
     - guide
     - diffusers
 
+- local: idefics
+  title: "IDEFICS 简介：最先进视觉语言模型的开源复现"
+  author: VictorSanh
+  thumbnail: /blog/assets/idefics/thumbnail.png
+  date: August 22, 2023
+  tags:
+    - research
+    - nlp
+    - cv
+
 - local: safecoder
   title: "推介 SafeCoder"
   author: jeffboudier
@@ -883,3 +893,25 @@
   tags:
     - announcement
     - security
+
+- local: codellama
+  title: "Code Llama：Llama 2 学会写代码了！"
+  author: philschmid
+  thumbnail: /blog/assets/160_codellama/thumbnail.jpg
+  date: August 25, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: falcon-180b
+  title: "Falcon 180B 现已登陆 Hugging Face Hub"
+  author: philschmid
+  thumbnail: /blog/assets/162_falcon_180b/thumbnail.jpg
+  date: September 6, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM

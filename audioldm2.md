@@ -56,19 +56,19 @@ In the `diffusers` implementation, these projections are defined by the [AudioLD
 3. A [GPT2](https://huggingface.co/docs/transformers/main/en/model_doc/gpt2) language model (LM) is used to auto-regressively generate a sequence of \\(N\\) new embedding vectors, conditional on the projected CLAP and Flan-T5 embeddings:
 
 $$
-\boldsymbol{E}_{i} = \text{GPT2}\left(\boldsymbol{P}_{1}, \boldsymbol{P}_{2}, \boldsymbol{E}_{1:i-1}\right) \qquad \text{for } i=1,\dots,N
+\tilde{\boldsymbol{E}}_{i} = \text{GPT2}\left(\boldsymbol{P}_{1}, \boldsymbol{P}_{2}, \tilde{\boldsymbol{E}}_{1:i-1}\right) \qquad \text{for } i=1,\dots,N
 $$
 
-4. The generated embedding vectors \\(\boldsymbol{E}_{1:N}\\) and Flan-T5 text embeddings \\(\boldsymbol{E}_{2}\\) are used as cross-attention conditioning in the LDM, which *de-noises*
+4. The generated embedding vectors \\(\tilde{\boldsymbol{E}}_{1:N}\\) and Flan-T5 text embeddings \\(\boldsymbol{E}_{2}\\) are used as cross-attention conditioning in the LDM, which *de-noises*
 a random latent via a reverse diffusion process. The LDM is run in the reverse diffusion process for a total of \\(T\\) inference steps:
 
 $$
-\boldsymbol{z}_{t} = \text{LDM}\left(\boldsymbol{z}_{t-1} | \boldsymbol{E}_{1:N}, \boldsymbol{E}_{2}\right) \qquad \text{for } t = 1, \dots, T
+\boldsymbol{z}_{t} = \text{LDM}\left(\boldsymbol{z}_{t-1} | \tilde{\boldsymbol{E}}_{1:N}, \boldsymbol{E}_{2}\right) \qquad \text{for } t = 1, \dots, T
 $$
 
 where the initial latent variable \\(\boldsymbol{z}_{0}\\) is drawn from a normal distribution \\(\mathcal{N} \left(\boldsymbol{0}, \boldsymbol{I} \right)\\). 
 The [UNet](https://huggingface.co/docs/diffusers/api/pipelines/audioldm2/AudioLDM2UNet2DConditionModel) of the LDM is unique in
-the sense that it takes **two** sets of cross-attention embeddings, \\(\boldsymbol{E}_{1:N}\\) from the GPT2 langauge model, and \\(\boldsymbol{E}_{2}\\) 
+the sense that it takes **two** sets of cross-attention embeddings, \\(\tilde{\boldsymbol{E}}_{1:N}\\) from the GPT2 language model and \\(\boldsymbol{E}_{2}\\) 
 from Flan-T5, as opposed to one cross-attention conditioning as in most other LDMs.
 
 5. The final de-noised latents \\(\boldsymbol{z}_{T}\\) are passed to the VAE decoder to recover the Mel spectrogram \\(\boldsymbol{s}\\):
@@ -182,7 +182,7 @@ audio = pipe(prompt, negative_prompt=negative_prompt, generator=generator.manual
 100%|███████████████████████████████████████████| 200/200 [00:12<00:00, 16.50it/s]
 ```
 
-The inference time is un-changed when using a negative prompt\\({}^1\\); we simply replace the unconditional input to the 
+The inference time is un-changed when using a negative prompt \\({}^1\\); we simply replace the unconditional input to the 
 LDM with the negative input. That means any gains we get in audio quality we get for free.
 
 Let's take a listen to the resulting audio:
