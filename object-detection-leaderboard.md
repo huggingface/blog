@@ -337,7 +337,7 @@ Figure 10 shows the process with batch size = 2, where the same two images are p
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
     <img src="/blog/assets/object-detection-leaderboard/example_batch_size_1.png" alt="example_batch_size_1.png" />
-    <figcaption> Figure 9: Two images proccessed with `DetrImageProcessor` using batch size = 1.</figcaption>
+    <figcaption> Figure 9: Two images processed with `DetrImageProcessor` using batch size = 1.</figcaption>
 </center>
 </div>
 
