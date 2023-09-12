@@ -74,7 +74,7 @@ Evaluating an object detection model encompasses several components, like a data
 
 It is not depicted in Figure 2, but as previously mentioned, certain models require text prompt inputs to provide guidance on the specific classes the model is intended to detect.
 
-First, a benchmarking dataset containing images with ground-truth bounding box annotations is chosen and fed into the object detection model. For each image, the model predicts bounding boxes, assigning associated class labels and confidence scores to each box. During the evaluation phase, these predicted bounding boxes are compared with the ground-truth boxes present in the dataset. The evaluation yields a set of metrics, each ranging between [0, 1], reflecting a specific evaluation criteria. In the next section, you the computation of the metrics will be explained in details.
+First, a benchmarking dataset containing images with ground-truth bounding box annotations is chosen and fed into the object detection model. The model predicts bounding boxes for each image, assigning associated class labels and confidence scores to each box. During the evaluation phase, these predicted bounding boxes are compared with the ground-truth boxes in the dataset. The evaluation yields a set of metrics, each ranging between [0, 1], reflecting a specific evaluation criteria. In the next section, we'll dive into the computation of the metrics in detail.
 
 
 
