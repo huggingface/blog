@@ -76,3 +76,7 @@ or by using [xFormers](https://facebookresearch.github.io/xformers/)'s memory ef
 ```Python
 pipeline.enable_xformers_memory_efficient_attention()
 ```
+
+## Resources
+
+Further information about this model can be found in the official diffuser [documentation](https://huggingface.co/docs/diffusers/main/en/api/pipelines/wuerstchen).
