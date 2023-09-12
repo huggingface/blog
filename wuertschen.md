@@ -26,13 +26,13 @@ Würstchen is a diffusion model, whose text-conditional model works in a highly 
 
 ## Why another text-to-image model?
 
-Well, this one is pretty fast. Würstchen’s biggest benefits comes from the fact that it can generate images much faster than models like Stable Diffusion XL while using much less memory. So for all the consumer graphic cards, who don’t have A100 lying around, this will come in handy. Here is a comparison to SDXL over different batch sizes.
+Well, this one is pretty fast. Würstchen’s biggest benefits come from the fact that it can generate images much faster than models like Stable Diffusion XL while using much less memory. So for all the consumer graphic cards, who don’t have A100 lying around, this will come in handy. Here is a comparison with SDXL over different batch sizes.
 
 ![Inference Speed Plots](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/wuertschen/inference_speed_v2.jpg)
 
 Here is also a real-time comparison between both models and their inference speeds.
 
-However, the probably biggest benefit with Würstchen comes with the reduced training costs. Würstchen v1, which works at 512x512, required only 9.000 GPU hours of training. Comparing this to what Stable Diffusion 1.4 needed, namely 150.000 GPU hours, shows that this 16x reduction in costs not only benefits researchers when conducting new experiments, it also opens the doors for more companies to train such models. Würstchen v2 used 24.602 GPU hours. With resolutions going up to 1536, this is still 6x cheaper than SD1.4 which was only trained at 512x512.
+However, probably the most significant benefit of Würstchen comes with the reduced training costs. Würstchen v1, which works at 512x512, required only 9.000 GPU hours of training. Comparing this to what Stable Diffusion 1.4 needed, namely 150.000 GPU hours, shows that this 16x reduction in costs not only benefits researchers when conducting new experiments, it also opens the doors for more companies to train such models. Würstchen v2 used 24.602 GPU hours. With resolutions going up to 1536, this is still 6x cheaper than SD1.4 which was only trained at 512x512.
 
 ![Inference Speed Plots](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/wuertschen/compute_comparison.jpg)
 
@@ -51,7 +51,7 @@ from diffusers.pipelines.wuerstchen import DEFAULT_STAGE_C_TIMESTEPS
 
 pipeline = AutoPipelineForText2Image.from_pretrained("warp-ai/wuerstchen", torch_dtype=torch.float16).to("cuda")
 
-caption = "Anthropomorphic cat dressed as a fire fighter"
+caption = "Anthropomorphic cat dressed as a firefighter"
 images = pipeline(
 	caption,
 	height=1024,
@@ -71,7 +71,7 @@ pipeline.prior_prior = torch.compile(pipeline.prior_prior , mode="reduce-overhea
 pipeline.decoder = torch.compile(pipeline.decoder, mode="reduce-overhead", fullgraph=True)
 ```
 
-or by using [xFormers](https://facebookresearch.github.io/xformers/):
+or by using [xFormers](https://facebookresearch.github.io/xformers/)'s memory efficient attention:
 
 ```Python
 pipeline.enable_xformers_memory_efficient_attention()
