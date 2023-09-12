@@ -125,7 +125,7 @@ which translates to the ratio of true positives over all detected boxes.
 \\( \text{Recall} = \frac{TP}{(TP + FN)} = \frac{TP}{\text{all ground truths}} \\)
 </p>
 
-Note that TP, FP and FN depend on a predefined IoU threshold, and so do Precision and Recall.
+Note that TP, FP, and FN depend on a predefined IoU threshold, as do Precision and Recall.
 
 Now, we'll illustrate the relationship between Precision and Recall by plotting their respective curves for a specific target class, say "dog". We'll adopt a moderate IoU threshold = 75% to delineate our TP, FP and FN. Subsequently, we can compute the Precision and Recall values. For that, we need to vary the confidence scores of our detections. 
 
