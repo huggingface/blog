@@ -273,7 +273,7 @@ Next, we will provide tips on choosing the best model based on the metrics and p
 
 ### How to pick the best model based on the metrics?
 
-Selecting an appropriate metric to evaluate and compare object detectors takes into account several factors. The primary considerations include the purpose of the application and the characteristics of the dataset used to train and evaluate the models.
+Selecting an appropriate metric to evaluate and compare object detectors considers several factors. The primary considerations include the application's purpose and the dataset's characteristics used to train and evaluate the models.
 
 For general performance, **AP (AP@[.5:.05:.95])** is a good choice if you want an all-rounded model across different IoU thresholds, without a hard requirement on the localization of the detected objects.
 
