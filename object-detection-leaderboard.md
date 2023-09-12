@@ -275,7 +275,7 @@ Next, we will provide tips on choosing the best model based on the metrics and p
 
 Selecting an appropriate metric to evaluate and compare object detectors considers several factors. The primary considerations include the application's purpose and the dataset's characteristics used to train and evaluate the models.
 
-For general performance, **AP (AP@[.5:.05:.95])** is a good choice if you want an all-rounded model across different IoU thresholds, without a hard requirement on the localization of the detected objects.
+For general performance, **AP (AP@[.5:.05:.95])** is a good choice if you want an all-rounded model across different IoU thresholds without a hard requirement on the localization of the detected objects.
 
 If you want a model with good object recognition and objects generally in the right place, you can look at the **AP@.5**. But if you prefer a more accurate model in placing the bounding boxes, **AP@.75** is more appropriate.
 
