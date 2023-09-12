@@ -84,7 +84,7 @@ This section will delve into the definition of Average Precision and Average Rec
 
 ### What's Average Precision and how to compute it?
 
-Average Precision is a single-number metric that summarizes the precision-recall curve. It captures the ability of a model to classify and localize objects correctly while considering both false positive and false negative detections.
+Average Precision is a single-number metric that summarizes the Precision-Recall curve. It captures the ability of a model to classify and localize objects correctly while considering both false positive and false negative detections.
 
 Every box predicted by the model is considered a “positive” detection. Based on a criterion known as Intersection over Union (IoU) between the predicted box and a ground-truth annotation, a detection is categorized either as a true positive (TP) or a false positive (FP). 
 
@@ -99,7 +99,7 @@ The IoU measures the overlap between the predicted bounding box and the actual (
 
 If the ground truth and detected boxes share identical coordinates, representing the same region in the image, their IoU value is 1. Conversely, if the boxes do not overlap at any pixel, the IoU is considered to be 0.
 
-In scenarios where high precision in detections is expected (e.g. an autonomous vehicle), the predicted bounding boxes should closely align with the ground-truth boxes. For that, a IoU threshold ( \\( \text{T}_{\text{IOU}} \\) ) approaching 1 is preferred. On the other hand, for applications where the exact position of the detected bounding boxes relative to the target object isn’t critical, the threshold can be relaxed, setting \\( \text{T}_{\text{IOU}} \\) closer to 0.
+In scenarios where high Precision in detections is expected (e.g. an autonomous vehicle), the predicted bounding boxes should closely align with the ground-truth boxes. For that, a IoU threshold ( \\( \text{T}_{\text{IOU}} \\) ) approaching 1 is preferred. On the other hand, for applications where the exact position of the detected bounding boxes relative to the target object isn’t critical, the threshold can be relaxed, setting \\( \text{T}_{\text{IOU}} \\) closer to 0.
 
 Based on predefined \\( \text{T}_{\text{IOU}} \\), we can define True Positives and True Negatives:
 * **True Positive (TP)**: A correct detection where IoU ≥ \\( \text{T}_{\text{IOU}} \\).
@@ -138,7 +138,7 @@ Figure 4 shows an example of the Precision-Recall curve. For a deeper exploratio
 </center>
 </div>
 
-The precision-recall curve illustrates the balance between precision and recall based on different confidence levels of a detector's bounding boxes. Each point of the plot is computed using a different confidence value. 
+The Precision-Recall curve illustrates the balance between Precision and Recall based on different confidence levels of a detector's bounding boxes. Each point of the plot is computed using a different confidence value. 
 
 Let's borrow the practical example presented in the paper [A Survey on performance metrics for object-detection algorithms](https://ieeexplore.ieee.org/document/9145130) to illustrate how to compute the Average Precision plot. Consider a dataset of 7 images with 15 ground-truth objects of the same class, as shown in Figure 5. Let's consider that all boxes belong to the same class, "dog" for simplification purposes.
 
@@ -149,7 +149,7 @@ Let's borrow the practical example presented in the paper [A Survey on performan
 </center>
 </div>
 
-Our hypothetical object detector retrieved 24 objects in our dataset, illustrated by the red boxes. To compute precision and recall we use the Precision and Recall equations at all confidence levels to evaluate how well the detector performed for this specific class on our benchmarking dataset. For that, we need to establish some rules:
+Our hypothetical object detector retrieved 24 objects in our dataset, illustrated by the red boxes. To compute Precision and Recall we use the Precision and Recall equations at all confidence levels to evaluate how well the detector performed for this specific class on our benchmarking dataset. For that, we need to establish some rules:
 * **Rule 1**: For simplicity, let's consider our detections a True Positive (TP) if the IoU >= 30%; otherwise, it is a False Positive (FP). 
 * **Rule 2**: For cases where a detection overlaps with more than one ground-truth (as in Images 2 to 7), the predicted box with the highest IoU is considered TP, and the other is FP.
 
@@ -164,7 +164,7 @@ Based on these rules, we can classify each detection as TP or FP, as shown in Ta
 
 Note that by rule 2, in image 1, “E” is TP while “D” is FP because IoU between “E” and the ground-truth is greater than IoU between “D” and the ground-truth.
 
-Now, we need to compute Precision and Recall for all confidence levels. A good approach is to sort the detections by their confidence and, for each confidence value, count how many TP would be left in the dataset. Then, for that particular confidence level, compute the precision and recall values, as shown in Table 2. The computation of each value of Table 2 can be viewed in [this Spread Sheet](https://docs.google.com/spreadsheets/d/1mc-KPDsNHW61ehRpI5BXoyAHmP-NxA52WxoMjBqk7pw/edit?usp=sharing).
+Now, we need to compute Precision and Recall for all confidence levels. A good approach is to sort the detections by their confidence and, for each confidence value, count how many TP would be left in the dataset. Then, for that particular confidence level, compute the Precision and Recall values, as shown in Table 2. The computation of each value of Table 2 can be viewed in [this Spread Sheet](https://docs.google.com/spreadsheets/d/1mc-KPDsNHW61ehRpI5BXoyAHmP-NxA52WxoMjBqk7pw/edit?usp=sharing).
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
@@ -187,15 +187,15 @@ Now, we can plot the Precision x Recall curve with the values, as shown in Figur
 </center>
 </div>
 
-By examining the curve, one may infer the potential trade-offs between precision and recall and expect a model's optimal operating point based on a selected confidence threshold, even if this threshold is not explicitly depicted on the curve.
+By examining the curve, one may infer the potential trade-offs between Precision and Recall and expect a model's optimal operating point based on a selected confidence threshold, even if this threshold is not explicitly depicted on the curve.
 
-If a detector's confidence results in a few false positives (FP), it will likely have high precision. However, this might lead to missing many true positives (TP), causing a high false negative (FN) rate and, subsequently, low recall. On the other hand, accepting more positive detections can boost recall but might also raise the FP count, thereby reducing precision.
+If a detector's confidence results in a few false positives (FP), it will likely have high Precision. However, this might lead to missing many true positives (TP), causing a high false negative (FN) rate and, subsequently, low Recall. On the other hand, accepting more positive detections can boost Recall but might also raise the FP count, thereby reducing Precision.
 
 **The area under the Precision-Recall curve (AUC) computed for a target class represents the Average Precision value for that particular class.** COCO evaluation approach refers to "AP" as the mean AUC value among all target classes in the image dataset, also referred to as Mean Average Precision (mAP) by other approaches.
 
 For a very large dataset, the detector is likely to output boxes with a wide range of confidence levels, resulting in a jagged Precision x Recall line, making it challenging to precisely compute its AUC (Average Precision). Different methods approximate the area of the curve with different approaches A popular approach is the called N-interpolation approach, where N represents how many points are sampled from the Precision x Recall blue line.
 
-COCO’s approach, for instance, uses 101-interpolation, which computes 101 points for equally spaced  recall values (0.  , 0.01, 0.02, … 1.00), while other approaches use 11 points, referred to as 11-interpolation. Figure 7 illustrates a Precision Recall curve (in blue) with 11 recall points equally spaced.
+COCO’s approach, for instance, uses 101-interpolation, which computes 101 points for equally spaced  Recall values (0.  , 0.01, 0.02, … 1.00), while other approaches use 11 points, referred to as 11-interpolation. Figure 7 illustrates a Precision Recall curve (in blue) with 11 Recall points equally spaced.
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
@@ -209,9 +209,9 @@ The red points are placed according to the following:
 
 \\( \rho_{\text{interp}} (R) = \max_{\tilde{r}:\tilde{r} \geq r} \rho \left( \tilde{r} \right) \\)
 
-where \\( \rho \left( \tilde{r} \right) \\) is the measured precision at recall \\( \tilde{r} \\).
+where \\( \rho \left( \tilde{r} \right) \\) is the measured Precision at Recall \\( \tilde{r} \\).
 
-In this definition, instead of using the precision value \\( \rho(R) \\) observed in each recall level \\( R \\), the precision \\( \rho_{\text{interp}} (R) \\) is obtained by considering the maximum precision whose recall value is greater than \\( R \\).
+In this definition, instead of using the Precision value \\( \rho(R) \\) observed in each Recall level \\( R \\), the Precision \\( \rho_{\text{interp}} (R) \\) is obtained by considering the maximum Precision whose Recall value is greater than \\( R \\).
 
 For this type of approach, the AUC, which represents the Average Precision, is approximated by the average of all points, and given by:
 
@@ -220,11 +220,11 @@ For this type of approach, the AUC, which represents the Average Precision, is a
 
 ### What's Average Recall and how to compute it?
 
-Average Recall (AR) is a metric that's often used alongside AP to evaluate object detection models. While AP evaluates both precision and recall across different confidence thresholds to provide a single-number summary of model performance, AR focuses solely on the recall aspect, not taking the confidences into account, considering all detections into positives.
+Average Recall (AR) is a metric that's often used alongside AP to evaluate object detection models. While AP evaluates both Precision and Recall across different confidence thresholds to provide a single-number summary of model performance, AR focuses solely on the Recall aspect, not taking the confidences into account, considering all detections into positives.
 
-COCO’s approach computes AR as the mean of the maximum obtained recall over IOUs > 0.5 and classes. 
+COCO’s approach computes AR as the mean of the maximum obtained Recall over IOUs > 0.5 and classes. 
 
-When using IOUs in the range of [0.5, 1] for AR, by averaging recall values within this interval, the model is assessed based on the premise that the object's location is significantly accurate. Hence, if your goal is to evaluate your model for both high recall and precise object localization, AR could be a valuable evaluation metric to consider.
+When using IOUs in the range of [0.5, 1] for AR, by averaging Recall values within this interval, the model is assessed based on the premise that the object's location is significantly accurate. Hence, if your goal is to evaluate your model for both high Recall and precise object localization, AR could be a valuable evaluation metric to consider.
 
 ### What are the variants of Average Precision and Average Recall?
 
@@ -241,7 +241,7 @@ Based on predefined IoU thresholds and the areas associated with ground-truth ob
 * **AP-M**: It applies AP@[.5:.05:.95] considering (medium-sized) ground-truth objects with \\( 32^2 < \text{area} < 96^2 \\) pixels.
 * **AP-L**: It applies AP@[.5:.05:.95] considering (large) ground-truth objects with \\( 32^2 < \text{area} < 96^2\\) pixels.
 
-For Average Recall (AR), 10 IoU thresholds (0.5, 0.55, 0.6,...,0.95) are used to compute the recall values. AR is computed by either limiting the number of detections per image or by limiting the detections based on the object's area.
+For Average Recall (AR), 10 IoU thresholds (0.5, 0.55, 0.6,...,0.95) are used to compute the Recall values. AR is computed by either limiting the number of detections per image or by limiting the detections based on the object's area.
 
 * **AR-1**: considers up to 1 detection per image.
 * **AR-10**: considers up to 10 detection per image.
