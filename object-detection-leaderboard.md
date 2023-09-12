@@ -80,7 +80,7 @@ First, a benchmarking dataset containing images with ground-truth bounding box a
 
 ## Metrics
 
-In this section, we will delve into the definition of Average Precision, Average Recall, its variations and the computation methodologies associated with them.
+This section will delve into the definition of Average Precision and Average Recall, their variations, and their associated computation methodologies.
 
 ### What's Average Precision and how to compute it?
 
