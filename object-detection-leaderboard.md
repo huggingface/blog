@@ -253,7 +253,7 @@ For Average Recall (AR), 10 IoU thresholds (0.5, 0.55, 0.6,...,0.95) are used to
   
 ## Object Detection Leaderboard
 
-Recently, we have released the [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard) to compare the accuracy and efficiency of open-source models from our Hub.  
+We recently released the [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard) to compare the accuracy and efficiency of open-source models from our Hub. 
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
