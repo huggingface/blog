@@ -286,7 +286,7 @@ If you have restrictions on object sizes, **AP-S**, **AP-M** and **AP-L** come i
 By picking an object detection models in 🤗 Hugging Face’s hub, we can vary the output boxes by trying different parameters in the model’s pre processing and post processing functions. There are some approaches that may influce the assessment metrics. We separated the mostly common factors that may lead to variations in the results:  
 
 * Ignore detections that have a score under a certain threshold.  
-* Use ```batch_sizes > 1``` for inference.  
+* Use `batch_sizes > 1` for inference.  
 * Ported models do not output the same logits as the original models.  
 * Some ground-truth objects may be ignored by the evaluator.  
 * Computing the IoU may be complicated.
