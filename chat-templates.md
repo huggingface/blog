@@ -31,7 +31,9 @@ might be completely different, and the result will be that your model's performa
 
 Whether you're fine-tuning a model or using it directly for inference, it's always a good idea to minimize these distribution shifts and keep the input you give it as similar as possible to the input it was trained on. With regular language models, it's relatively easy to do that - simply load your tokenizer and model from the same checkpoint, and you're good to go. 
 
-With chat models, however, it's a bit different. This is because "chat" is not just a single string of text that can be straightforwardly tokenized - it's a sequence of messages, each of which contains a `role`, like `"user"` or `"assistant"` or `"system"`, as well as `content`, which is the actual text of the message. Here's an example chat:
+With chat models, however, it's a bit different. This is because "chat" is not just a single string of text that can be straightforwardly tokenized - it's a sequence of messages, each of which contains a `role as well as `content`, which is the actual text of the message. Most commonly, the roles are "user" for messages sent by the user, "assistant" for responses written by the model, and optionally "system" for high-level directives given at the start of the conversation. 
+
+If that all seems a bit abstract, here's an example chat to make it more concrete:
 ```python
 [
     {"role": "user", "content": "Hi there!"},
@@ -98,13 +100,13 @@ Although Jinja can be confusing at first if you're unfamiliar with it, in practi
 
 This is an excellent idea! Unfortunately, it's too late, because multiple important models have already been trained with very different chat formats.
 
-However, we can still mitigate this problem a bit. We think the closest thing to a 'standard' for formatting is the [ChatML format](https://github.com/openai/openai-python/blob/main/chatml.md) created by OpenAI. If you're training a new model for chat, and this format is suitable for you, we recommend using it and adding `<|im_start|>` and `<|im_end|>` tokens to your tokenizer. It has the advantage of being very flexible with roles, as the role is just inserted as a string rather than having specific role tokens. If you'd like to use this one, here it is in an easily copy-pastable one-line format!
+However, we can still mitigate this problem a bit. We think the closest thing to a 'standard' for formatting is the [ChatML format](https://github.com/openai/openai-python/blob/main/chatml.md) created by OpenAI. If you're training a new model for chat, and this format is suitable for you, we recommend using it and adding `<|im_start|>` and `<|im_end|>` tokens to your tokenizer. It has the advantage of being very flexible with roles, as the role is just inserted as a string rather than having specific role tokens. If you'd like to use this one, it's the third of the templates above, and you can set it with this simple one-liner:
 
 ```
-{% for message in messages %}{{'<|im_start|>' + message['role'] + '\n' + message['content'] + '<|im_end|>' + '\n'}}{% endfor %}
+tokenizer.chat_template = "{% for message in messages %}{{'<|im_start|>' + message['role'] + '\n' + message['content'] + '<|im_end|>' + '\n'}}{% endfor %}"
 ```
 
-There's also a second reason not to hardcode a standard format, though, beyond the proliferation of existing formats - we expect that templates will be broadly useful in preprocessing for many types of model, including those that might be doing very different things from standard chat. Hardcoding a standard format limits the ability of model developers to use this feature to do things we haven't even thought of yet, whereas templating gives users and developers maximum freedom. We strongly believe that the open-source ecosystem should enable you to do what you want, not dictate to you what you're permitted to do.
+There's also a second reason not to hardcode a standard format, though, beyond the proliferation of existing formats - we expect that templates will be broadly useful in preprocessing for many types of model, including those that might be doing very different things from standard chat. Hardcoding a standard format limits the ability of model developers to use this feature to do things we haven't even thought of yet, whereas templating gives users and developers maximum freedom. It's even possible to encode checks and logic in templates, which is a feature we don't use extensively in any of the default templates, but which we expect to have enormous power in the hands of adventurous users. We strongly believe that the open-source ecosystem should enable you to do what you want, not dictate to you what you're permitted to do.
 
 ## How do templates work?
 
