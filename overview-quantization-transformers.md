@@ -123,7 +123,7 @@ with `use_cache=False`
 
 ![Benchmark use_cache=False A100](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/163_overview-quantization-transformers/A100_use_cache_False.jpg)
 
-From the two benchmarks, we conclude that generation is faster when we use attention caching, as expected. Moreover, GPTQ is, in general, faster than bitsandbytes. For exemple, with `batch_size=4` and `use_cache=True`, it is twice as fast! Therefore let’s use `use_cache` for the next benchmarks. Note that `use_cache` will consume more memory. 
+From the two benchmarks, we conclude that generation is faster when we use attention caching, as expected. Moreover, GPTQ is, in general, faster than bitsandbytes. For example, with `batch_size=4` and `use_cache=True`, it is twice as fast! Therefore let’s use `use_cache` for the next benchmarks. Note that `use_cache` will consume more memory. 
 
 #### Hardware
 
