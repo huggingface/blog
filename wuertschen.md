@@ -53,12 +53,12 @@ pipeline = AutoPipelineForText2Image.from_pretrained("warp-ai/wuerstchen", torch
 
 caption = "Anthropomorphic cat dressed as a fire fighter"
 images = pipeline(
-    caption,
-		height=1024,
-		width=1536,
-		prior_timesteps=DEFAULT_STAGE_C_TIMESTEPS,
-		prior_guidance_scale=4.0,
-		num_images_per_prompt=4,
+	caption,
+	height=1024,
+	width=1536,
+	prior_timesteps=DEFAULT_STAGE_C_TIMESTEPS,
+	prior_guidance_scale=4.0,
+	num_images_per_prompt=4,
 ).images
 ```
 
