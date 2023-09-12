@@ -283,7 +283,7 @@ If you have restrictions on object sizes, **AP-S**, **AP-M** and **AP-L** come i
 
 ### Which parameters can impact the Average Precision results?
 
-By picking an object detection models in 🤗 Hugging Face’s hub, we can vary the output boxes by trying different parameters in the model’s pre processing and post processing functions. There are some approaches that may influce the assessment metrics. We separated the mostly common factors that may lead to variations in the results:  
+By picking an object detection model in the Hub, we can vary the output boxes by trying different parameters in the model's pre-processing and post-processing functions. There are some approaches that may influence the assessment metrics. We separated the most common factors that may lead to variations in the results: 
 
 * Ignore detections that have a score under a certain threshold.  
 * Use `batch_sizes > 1` for inference.  
