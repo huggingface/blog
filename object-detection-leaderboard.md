@@ -321,7 +321,7 @@ results=processor.post_process_object_detection(outputs, target_sizes=target_siz
 
 The parameter ```threshold``` in function ```post_prcess_object_detection``` is used to filter the detected bounding boxes based on their confidence scores.
 
-As previously discusssed, the Precision x Recall curve is built by measuring the Precision and Recall across the full range of confidence values [0,1]. Thus, limiting the detections before evaluation will produce biased results, as we will be leaving some detections apart.  
+As previously discussed, the Precision-Recall curve is built by measuring the Precision and Recall across the full range of confidence values [0,1]. Thus, limiting the detections before evaluation will produce biased results, as we will leave some detections apart. 
 
 
 #### Varying the batch size
