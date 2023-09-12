@@ -32,7 +32,7 @@ Note also that the details shared below are only valid for `PyTorch` models, thi
 ## Table of contents
 
 - [Resources](#resources)
-- [Pros and cons of bitsandbyes and auto-gptq](#Pros-and-cons-of-bitsandbyes-and-auto-gptq)
+- [Comparing bitsandbyes and auto-gptq](#Comparing-bitsandbyes-and-auto-gptq)
 - [Diving into speed benchmarks](#Diving-into-speed-benchmarks)
 - [Conclusion and final words](#conclusion-and-final-words)
 - [Acknowledgements](#acknowledgements)
@@ -47,7 +47,7 @@ Note also that the details shared below are only valid for `PyTorch` models, thi
 - [Merve's blogpost on quantization](https://huggingface.co/blog/merve/quantization) - This blogpost provides a gentle introduction to quantization and the quantization methods supported natively in transformers. 
 
 
-## Pros and cons of bitsandbyes and auto-gptq
+## Comparing bitsandbyes and auto-gptq
 In this section, we will go over the pros and cons of bitsandbytes and gptq quantization. Note that these are based on the feedback from the community and they can evolve over time as some of these features are in the roadmap of the respective libraries.
 
 ### What are the benefits of bitsandbytes?
