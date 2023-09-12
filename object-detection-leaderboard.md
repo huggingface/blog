@@ -213,7 +213,7 @@ where \\( \rho \left( \tilde{r} \right) \\) is the measured Precision at Recall 
 
 In this definition, instead of using the Precision value \\( \rho(R) \\) observed in each Recall level \\( R \\), the Precision \\( \rho_{\text{interp}} (R) \\) is obtained by considering the maximum Precision whose Recall value is greater than \\( R \\).
 
-For this type of approach, the AUC, which represents the Average Precision, is approximated by the average of all points, and given by:
+For this type of approach, the AUC, which represents the Average Precision, is approximated by the average of all points and given by:
 
 \\( \text{AP}_{11} = \frac{1}{11} = \sum\limits_{R\in \left \{ 0, 0.1, ...,1 \right \}} \rho_{\text{interp}} (R) \\)
 
