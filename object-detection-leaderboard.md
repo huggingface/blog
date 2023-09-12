@@ -53,7 +53,7 @@ Figure 1: Example of outputs performed by an object detector. -->
 </center>
 </div>
 
-Object detection models are versatile and have a wide range of applications across various domains. Some use cases where they are applied are autonomous vehicles, face detection, surveillance and security, medical imaging, augmented reality, sport analysis, smart cities, gesture recognition, etc.
+Object detection models are versatile and have a wide range of applications across various domains. Some use cases of object detection include vision in autonomous vehicles, face detection, surveillance and security, medical imaging, augmented reality, sports analysis, smart cities, gesture recognition, etc.
 
 Hugging Face Hub has [hundreds of object detection models](https://huggingface.co/models?pipeline_tag=object-detection) pre-trained in different datasets, able to identify and localize various object classes. 
 
