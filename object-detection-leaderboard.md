@@ -84,7 +84,7 @@ This section will delve into the definition of Average Precision and Average Rec
 
 ### What's Average Precision and how to compute it?
 
-Average Precision is a single-number metric that summarizes the Precision-Recall curve. It captures the ability of a model to classify and localize objects correctly while considering both false positive and false negative detections.
+Average Precision is a single-number metric that summarizes the Precision x Recall curve. It captures the ability of a model to classify and localize objects correctly while considering both false positive and false negative detections.
 
 Every box predicted by the model is considered a “positive” detection. Based on a criterion known as Intersection over Union (IoU) between the predicted box and a ground-truth annotation, a detection is categorized either as a true positive (TP) or a false positive (FP). 
 
@@ -129,7 +129,7 @@ Note that TP, FP, and FN depend on a predefined IoU threshold, as do Precision a
 
 Now, we'll illustrate the relationship between Precision and Recall by plotting their respective curves for a specific target class, say "dog". We'll adopt a moderate IoU threshold = 75% to delineate our TP, FP and FN. Subsequently, we can compute the Precision and Recall values. For that, we need to vary the confidence scores of our detections. 
 
-Figure 4 shows an example of the Precision-Recall curve. For a deeper exploration into the computation of this curve, the papers “[A Comparative Analysis of Object Detection Metrics with a Companion Open-Source Toolkit](https://www.mdpi.com/2079-9292/10/3/2790)” (Padilla, et al) and “[A Survey on Performance Metrics for Object-Detection Algorithms](https://ieeexplore.ieee.org/document/9145130)” (Padilla, et al) offer more detailed toy examples demonstrating how to compute this curve.
+Figure 4 shows an example of the Precision x Recall curve. For a deeper exploration into the computation of this curve, the papers “[A Comparative Analysis of Object Detection Metrics with a Companion Open-Source Toolkit](https://www.mdpi.com/2079-9292/10/3/2790)” (Padilla, et al) and “[A Survey on Performance Metrics for Object-Detection Algorithms](https://ieeexplore.ieee.org/document/9145130)” (Padilla, et al) offer more detailed toy examples demonstrating how to compute this curve.
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
@@ -138,7 +138,7 @@ Figure 4 shows an example of the Precision-Recall curve. For a deeper exploratio
 </center>
 </div>
 
-The Precision-Recall curve illustrates the balance between Precision and Recall based on different confidence levels of a detector's bounding boxes. Each point of the plot is computed using a different confidence value. 
+The Precision x Recall curve illustrates the balance between Precision and Recall based on different confidence levels of a detector's bounding boxes. Each point of the plot is computed using a different confidence value. 
 
 Let's borrow the practical example presented in the paper [A Survey on performance metrics for object-detection algorithms](https://ieeexplore.ieee.org/document/9145130) to illustrate how to compute the Average Precision plot. Consider a dataset of 7 images with 15 ground-truth objects of the same class, as shown in Figure 5. Let's consider that all boxes belong to the same class, "dog" for simplification purposes.
 
@@ -164,7 +164,10 @@ Based on these rules, we can classify each detection as TP or FP, as shown in Ta
 
 Note that by rule 2, in image 1, “E” is TP while “D” is FP because IoU between “E” and the ground-truth is greater than IoU between “D” and the ground-truth.
 
-Now, we need to compute Precision and Recall for all confidence levels. A good approach is to sort the detections by their confidence and, for each confidence value, count how many TP would be left in the dataset. Then, for that particular confidence level, compute the Precision and Recall values, as shown in Table 2. The computation of each value of Table 2 can be viewed in [this Spread Sheet](https://docs.google.com/spreadsheets/d/1mc-KPDsNHW61ehRpI5BXoyAHmP-NxA52WxoMjBqk7pw/edit?usp=sharing).
+
+Now, we need to compute Precision and Recall considering the confidence value of each detection. A good way to do it is to sort the detections by their confidence values as shown in Table 2. Then, for each confidence value in each row, we compute the Precision and Recall considering the accumulative TP (acc TP) and accumlative FP (acc FP). The "acc TP" of each row is increased in 1 every time a TP is noted, and the "acc FP" is increased in 1 when a FP is noted. Columns "acc TP" and "acc FP" basically tell us the TP and FP values given a particular confidence level. The computation of each value of Table 2 can be viewed in [this Spread Sheet](https://docs.google.com/spreadsheets/d/1mc-KPDsNHW61ehRpI5BXoyAHmP-NxA52WxoMjBqk7pw/edit?usp=sharing).
+
+For example, consider the 12th row (detection “P”) of Table 2. The value "acc TP = 4" means that if we benchmark our model on this particular dataset with a confidence of 0.62, we would correctly detect four target objects and incorrectly detect eight target objects. This would result in \\( \text{Precision} =  \frac{\text{acc TP}}{(\text{acc TP} + \text{acc FP})} = \frac{4}{(4+8)} = 0.3333  \\) and \\( \text{Recall} =  \frac{\text{acc TP}}{\text{all ground truths}} = \frac{4}{15} = 0.2667 \\) .
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
@@ -172,11 +175,6 @@ Now, we need to compute Precision and Recall for all confidence levels. A good a
     <img src="/blog/assets/object-detection-leaderboard/table_2.png" alt="table_2.png" />
 </center>
 </div>
-
-
-From top down, the accumulative TP (acc TP) column of Table 2 is increased in 1 every time a TP is noted, and the accumulative FP (acc FP) column is increased in 1 always when an FP is noted. Columns "acc TP" and "acc FP" basically tell us the TP and FP values given a particular confidence level. 
-
-For example, consider the 12th row (detection “P”) of Table 2. The value "acc TP = 4" means that if we benchmark our model on this particular dataset with a confidence of 0.62, we would correctly detect four target objects and incorrectly detect eight target objects. This would result in \\( \text{Precision} =  \frac{\text{acc TP}}{(\text{acc TP} + \text{acc FP})} = \frac{4}{(4+8)} = 0.3333  \\) and \\( \text{Recall} =  \frac{\text{acc TP}}{\text{all ground truths}} = \frac{4}{15} = 0.2667 \\) .
 
 Now, we can plot the Precision x Recall curve with the values, as shown in Figure 6:
 
@@ -191,7 +189,7 @@ By examining the curve, one may infer the potential trade-offs between Precision
 
 If a detector's confidence results in a few false positives (FP), it will likely have high Precision. However, this might lead to missing many true positives (TP), causing a high false negative (FN) rate and, subsequently, low Recall. On the other hand, accepting more positive detections can boost Recall but might also raise the FP count, thereby reducing Precision.
 
-**The area under the Precision-Recall curve (AUC) computed for a target class represents the Average Precision value for that particular class.** COCO evaluation approach refers to "AP" as the mean AUC value among all target classes in the image dataset, also referred to as Mean Average Precision (mAP) by other approaches.
+**The area under the Precision x Recall curve (AUC) computed for a target class represents the Average Precision value for that particular class.** COCO evaluation approach refers to "AP" as the mean AUC value among all target classes in the image dataset, also referred to as Mean Average Precision (mAP) by other approaches.
 
 For a large dataset, the detector will likely output boxes with a wide range of confidence levels, resulting in a jagged Precision x Recall line, making it challenging to compute its AUC (Average Precision) precisely. Different methods approximate the area of the curve with different approaches. A popular approach is called the N-interpolation approach, where N represents how many points are sampled from the Precision x Recall blue line.
 
@@ -230,7 +228,7 @@ When using IOUs in the range of [0.5, 1] for AR, by averaging Recall values with
 
 Based on predefined IoU thresholds and the areas associated with ground-truth objects, different versions of AP and AR can be obtained:
 
-* **AP@.5**: It sets IoU threshold = 0.5 and computes the Precision-Recall AUC for each target class in the image dataset. Then, the computed results for each class are summed up and divided by the number of classes.
+* **AP@.5**: It sets IoU threshold = 0.5 and computes the Precision x Recall AUC for each target class in the image dataset. Then, the computed results for each class are summed up and divided by the number of classes.
 * **AP@.75**: It uses the same methodology as AP@.50, but it considers IoU threshold = 0.75. With this higher IoU requirement, AP@.75 is considered stricter than AP@.5 and should be considered to evaluate models that need to achieve a high level of localization accuracy in their detections.
 * **AP@[.5:.05:.95]**: also referred to AP by cocoeval tools: This is an expanded version of AP@.5 and AP@.75, as it computes AP@ with different IoU thresholds (0.5, 0.55, 0.6,...,0.95) and averages the computed results as shown in the following Equation. In comparison to AP@.5 and AP@.75, this metric provides a holistic evaluation, capturing a model’s performance across a broader range of localization accuracies.
 
@@ -321,7 +319,7 @@ results=processor.post_process_object_detection(outputs, target_sizes=target_siz
 
 The parameter ```threshold``` in function ```post_prcess_object_detection``` is used to filter the detected bounding boxes based on their confidence scores.
 
-As previously discussed, the Precision-Recall curve is built by measuring the Precision and Recall across the full range of confidence values [0,1]. Thus, limiting the detections before evaluation will produce biased results, as we will leave some detections apart. 
+As previously discussed, the Precision x Recall curve is built by measuring the Precision and Recall across the full range of confidence values [0,1]. Thus, limiting the detections before evaluation will produce biased results, as we will leave some detections apart. 
 
 
 #### Varying the batch size
