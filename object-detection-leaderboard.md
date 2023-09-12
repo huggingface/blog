@@ -244,8 +244,8 @@ Based on predefined IoU thresholds and the areas associated with ground-truth ob
 For Average Recall (AR), 10 IoU thresholds (0.5, 0.55, 0.6,...,0.95) are used to compute the Recall values. AR is computed by either limiting the number of detections per image or by limiting the detections based on the object's area.
 
 * **AR-1**: considers up to 1 detection per image.
-* **AR-10**: considers up to 10 detection per image.
-* **AR-100**: considers up to 100 detection per image.
+* **AR-10**: considers up to 10 detections per image.
+* **AR-100**: considers up to 100 detections per image.
 * **AR-S**: considers (small) objects with \\( \text{area} < 32^2 \\) pixels.
 * **AR-M**: considers (medium-sized) objects with \\(  32^2 < \text{area} < 96^2 \\) pixels.
 * **AR-L**: considers (large) objects with \\( \text{area} > 96^2 \\) pixels.
