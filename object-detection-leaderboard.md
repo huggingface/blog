@@ -63,7 +63,7 @@ However, the detectors' diversity goes beyond the range of output classes they c
 
 A popular metric used to evaluate the accuracy of predictions made by an object detection model is the **Average Precision (AP)** and its variants, which will be explained further.
 
-The process to evaluate an object detection model encompassing several components like dataset with ground-truth annotations, detections (output prediction)  and metrics. This process is depicted in the schematic provided in Figure 2:
+Evaluating an object detection model encompasses several components, like a dataset with ground-truth annotations, detections (output prediction), and metrics. This process is depicted in the schematic provided in Figure 2:
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
