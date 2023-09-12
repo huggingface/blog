@@ -2766,11 +2766,44 @@
     - research
     - LLM
 
+- local: t2i-sdxl-adapters
+  title: "Efficient Controllable Generation for SDXL with T2I-Adapters"
+  author: Adapter
+  guest: true
+  thumbnail: /blog/assets/t2i-sdxl-adapters/thumbnail.png
+  date: September 8, 2023
+  tags:
+    - guide
+    - collaboration
+    - diffusers
+    - diffusion
+    
+- local: safecoder-vs-closed-source-code-assistants
+  title: "SafeCoder vs. Closed-source Code Assistants"
+  author: julsimon
+  thumbnail: /blog/assets/safecoder-vs-closed-source-code-assistants/image.png
+  date: September 11, 2023
+  tags:
+    - bigcode
+
+- local: overview-quantization-transformers
+  title: "Overview of natively supported quantization schemes in 🤗 Transformers"
+  author: ybelkada
+  thumbnail: /blog/assets/163_overview_quantization_transformers/thumbnail.jpg
+  date: September 12, 2023
+  tags:
+    - llm
+    - optimization
+    - quantization
+    - comparison
+    - bitsandbytes
+    - gptq
+
 - local: chat-templates
   title: "Chat Templates: An End to the Silent Performance Killer"
   author: rocketknight1
   thumbnail: /blog/assets/chat-templates/thumbnail.png
-  date: September 7, 2023
+  date: September 13, 2023
   tags:
     - LLM
     - nlp
