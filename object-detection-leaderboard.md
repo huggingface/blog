@@ -49,7 +49,7 @@ Figure 1: Example of outputs performed by an object detector. -->
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
     <img src="/blog/assets/object-detection-leaderboard/intro_object_detection.png" alt="intro_object_detection.png" />
-    <figcaption> Figure 1: Example of outputs performed by an object detector.</figcaption>
+    <figcaption> Figure 1: Example of outputs from an object detector.</figcaption>
 </center>
 </div>
 
