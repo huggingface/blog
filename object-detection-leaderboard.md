@@ -193,7 +193,7 @@ If a detector's confidence results in a few false positives (FP), it will likely
 
 **The area under the Precision-Recall curve (AUC) computed for a target class represents the Average Precision value for that particular class.** COCO evaluation approach refers to "AP" as the mean AUC value among all target classes in the image dataset, also referred to as Mean Average Precision (mAP) by other approaches.
 
-For a very large dataset, the detector is likely to output boxes with a wide range of confidence levels, resulting in a jagged Precision x Recall line, making it challenging to precisely compute its AUC (Average Precision). Different methods approximate the area of the curve with different approaches A popular approach is the called N-interpolation approach, where N represents how many points are sampled from the Precision x Recall blue line.
+For a large dataset, the detector will likely output boxes with a wide range of confidence levels, resulting in a jagged Precision x Recall line, making it challenging to compute its AUC (Average Precision) precisely. Different methods approximate the area of the curve with different approaches. A popular approach is called the N-interpolation approach, where N represents how many points are sampled from the Precision x Recall blue line.
 
 COCO’s approach, for instance, uses 101-interpolation, which computes 101 points for equally spaced  Recall values (0.  , 0.01, 0.02, … 1.00), while other approaches use 11 points, referred to as 11-interpolation. Figure 7 illustrates a Precision Recall curve (in blue) with 11 Recall points equally spaced.
 
