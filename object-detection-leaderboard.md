@@ -264,7 +264,7 @@ We recently released the [Object Detection Leaderboard](https://huggingface.co/s
 
 To measure accuracy, we used 12 metrics involving Average Precision and Average Recall using [COCO style](https://cocodataset.org/#detection-eval), benchmarking over COCO val 2017 dataset.  
 
-As discussed previously, different tools may adopt different particularities during the evaluation, to prevent results mismatching, we prefered not to implement our own version of the metrics. Instead, we opted to use COCO's official evaluation code, also refered to as PyCOCOtools, code available [here](https://github.com/cocodataset/cocoapi/tree/master/PythonAPI).  
+As discussed previously, different tools may adopt different particularities during the evaluation. To prevent results mismatching, we preferred not to implement our version of the metrics. Instead, we opted to use COCO's official evaluation code, also referred to as PyCOCOtools, code available [here](https://github.com/cocodataset/cocoapi/tree/master/PythonAPI). 
 
 In terms of efficiency, we calculate the frames per second (FPS) for each model by using the average evaluation time across the entire dataset, considering pre and post processing steps. Given the variability in GPU memory requirements for each model, we chose to evaluate with a batch size of 1 (this choice is also influenced by our pre-processing step, which we'll delve into later). However, it's worth noting that this approach may not align perfectly real-world performance, as larger batch sizes, often containing several images, are commonly used for better efficiency. 
 
