@@ -277,7 +277,7 @@ Selecting an appropriate metric to evaluate and compare object detectors conside
 
 For general performance, **AP (AP@[.5:.05:.95])** is a good choice if you want an all-rounded model across different IoU thresholds without a hard requirement on the localization of the detected objects.
 
-If you want a model with good object recognition and objects generally in the right place, you can look at the **AP@.5**. But if you prefer a more accurate model in placing the bounding boxes, **AP@.75** is more appropriate.
+If you want a model with good object recognition and objects generally in the right place, you can look at the **AP@.5**. But if you prefer a more accurate model for placing the bounding boxes, **AP@.75** is more appropriate.
 
 If you have restrictions on object sizes, **AP-S**, **AP-M** and **AP-L** come into play. For example, if your dataset or application predominantly features small objects, AP-S provides insights into the detector's efficacy in recognizing such small targets. This becomes crucial in scenarios such as detecting distant vehicles or small artifacts in medical imaging.
 
