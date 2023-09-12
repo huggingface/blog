@@ -109,7 +109,7 @@ Conversely, Negatives are evaluated  based on a ground-truth bounding and can be
 * **False Negative (FN)**: Refers to a ground-truth object that the model failed to detect.
 * **True Negative (TN)**: Denotes a correct non-detection. Within the domain of object detection, countless bounding boxes within an image should NOT be identified, as they don't represent the target object. Consider all possible boxes in an image that don’t represent the target object - quite a vast number, isn’t it? :) That's why we do not consider TN to compute object detection metrics.
 
-Now that we can identify our TPs, FPs and FNs, we can define Precision and Recall:
+Now that we can identify our TPs, FPs, and FNs, we can define Precision and Recall:
 
 * **Precision** is the ability of a model to identify only the relevant objects. It is the percentage of correct positive predictions and is given by:
 
