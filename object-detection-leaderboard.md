@@ -328,7 +328,7 @@ As previously discusssed, the Precision x Recall curve is built by measuring the
 
 The batch size not only affects the processing time, but may also result in different detected boxes. The image preprocessing step may change the resolution of the input images based on their sizes.
 
-As mentioned in DETR documentation, by default, `DetrImageProcessor` resizes the input images such that the shortest side is at least a certain amount of pixels while the longest is at most 1333 pixels. At inference time, the shortest side is set to 800. Due to this resizing, images in a batch can have different sizes. DETR solves this by padding images up to the largest size in a batch and by creating a pixel mask that indicates which pixels are real/which are padding.
+As mentioned in [DETR documentation](https://huggingface.co/docs/transformers/model_doc/detr), by default, `DetrImageProcessor` resizes the input images such that the shortest side is 800 pixels, and resizes again so that the longest is at most 1333 pixels. At inference time, the shortest side is set to 800. Due to this resizing, images in a batch can have different sizes. DETR solves this by padding images up to the largest size in a batch and by creating a pixel mask that indicates which pixels are real/which are padding.
 
 To illustrate this process, let's consider the examples in Figure 9 and Figure 10. In Figure 9, we consider batch size = 1, so both images are processed independelty with `DetrImageProcessor`. The first image is resized to `(800, 1201)`, making the detector predict 28 boxes with class `vase`, 22 boxes with class `chair`, 10 boxes with class `bottle`, etc.
 
