@@ -25,7 +25,7 @@ Currently, quantizing models are used for two main purposes:
 Currently 2 integration efforts have been made and are **natively** supported in transformers : *bitsandbytes* and *auto-gptq*.
 Note that some other quantization schemes are also supported in 🤗 optimum library but this is out of scope for this blogpost. 
 
-To learn more about each of the supported schemes, please have a look at one of the resources shared bolow. Please also have a look at the appropriate sections of the documentation.
+To learn more about each of the supported schemes, please have a look at one of the resources shared below. Please also have a look at the appropriate sections of the documentation.
 
 Note also that the details shared below are only valid for `PyTorch` models, this is currently out of scope for Tensorflow and Flax/JAX models.
 
