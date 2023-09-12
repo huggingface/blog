@@ -32,7 +32,7 @@ Note also that the details shared below are only valid for `PyTorch` models, thi
 ## Table of contents
 
 - [Resources](#resources)
-- [Pros and cons of bitsandbyes and auto-gptq](#Pros-and-cons-of-bitsandbyes-and-auto-gptq)
+- [Comparing bitsandbyes and auto-gptq](#Comparing-bitsandbyes-and-auto-gptq)
 - [Diving into speed benchmarks](#Diving-into-speed-benchmarks)
 - [Conclusion and final words](#conclusion-and-final-words)
 - [Acknowledgements](#acknowledgements)
@@ -47,10 +47,10 @@ Note also that the details shared below are only valid for `PyTorch` models, thi
 - [Merve's blogpost on quantization](https://huggingface.co/blog/merve/quantization) - This blogpost provides a gentle introduction to quantization and the quantization methods supported natively in transformers. 
 
 
-## Pros and cons of bitsandbyes and auto-gptq
+## Comparing bitsandbyes and auto-gptq
 In this section, we will go over the pros and cons of bitsandbytes and gptq quantization. Note that these are based on the feedback from the community and they can evolve over time as some of these features are in the roadmap of the respective libraries.
 
-### bitsandbytes Pros
+### What are the benefits of bitsandbytes?
 **easy**: bitsandbytes still remains the easiest way to quantize any model as it does not require calibrating the quantized model with input data (also called zero-shot quantization). It is possible to quantize any model out of the box as long as it contains `torch.nn.Linear` modules. Whenever a new architecture is added in transformers, as long as they can be loaded with accelerate’s `device_map=”auto”`, users can benefit from bitsandbytes quantization straight out of the box with minimal performance degradation. Quantization is performed on model load, no need to run any post-processing or preparation step.
 
 **cross-modality interoperability**: As the only condition to quantize a model is to contain a `torch.nn.Linear` layer, quantization works out of the box for any modality, making it possible to load models such as Whisper, ViT, Blip2, etc. in 8-bit or 4-bit out of the box.
@@ -58,7 +58,7 @@ In this section, we will go over the pros and cons of bitsandbytes and gptq quan
 **0 performance degradation when merging adapters**: (Read more about adapters and PEFT in [this blogpost](https://huggingface.co/blog/peft) if you are not familiar with it). If you train adapters on top of the quantized base model, the adapters can be merged on top of of the base model for deployment, with no inference performance degradation. You can also [merge](https://github.com/huggingface/peft/pull/851/files) the adapters on top of the dequantized model ! This is not supported for GPTQ. 
 
 
-### autoGPTQ Pros
+### What are the benefits of autoGPTQ?
 **fast for text generation**: GPTQ quantized models are fast compared to bitsandbytes quantized models for [text generation](https://huggingface.co/docs/transformers/main_classes/text_generation). We will address the speed comparison in an appropriate section. 
 
 **n-bit support**: The GPTQ algorithm makes it possible to quantize models up to 2 bits! However, this might come with severe quality degradation. The recommended number of bits is 4, which seems to be a great tradeoff for GPTQ at this time.
@@ -67,13 +67,13 @@ In this section, we will go over the pros and cons of bitsandbytes and gptq quan
 
 **AMD support**: The integration should work out of the box for AMD GPUs!
 
-### Cons bitsandbytes
+### What are the known limiations of bitsandbytes?
 **slower than GPTQ for text generation**: bitsandbytes 4-bit models are slow compared to GPTQ when using [`generate`](https://huggingface.co/docs/transformers/main_classes/text_generation).
 
 **4-bit weights are not serializable**: Currently, 4-bit models cannot be serialized. This is a frequent community request, and we believe it should be addressed very soon by the bitsandbytes maintainers as it's in their roadmap! 
 
-### autoGPTQ Cons
-**calibration dataset**: The need of a calibration dataset might discourage some users to go for GPTQ. Furthermore, it can take several hours to quantize the model (e.g. 4 GPU hours for a 180B model)
+### What are the known limiations of autoGPTQ?
+**calibration dataset**: The need of a calibration dataset might discourage some users to go for GPTQ. Furthermore, it can take several hours to quantize the model (e.g. 4 GPU hours for a 175B scale model [according to the paper](https://arxiv.org/pdf/2210.17323.pdf) - section 2)
 
 **works only for language models (for now)**: As of today, the API for quantizing a model with auto-GPTQ has been designed to support only language models. It should be possible to quantize non-text (or multimodal) models using the GPTQ algorithm, but the process has not been elaborated in the original paper or in the auto-gptq repository. If the community is excited about this topic this might be considered in the future.
 
@@ -123,7 +123,7 @@ with `use_cache=False`
 
 ![Benchmark use_cache=False A100](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/163_overview-quantization-transformers/A100_use_cache_False.jpg)
 
-From the two benchmarks, we conclude that generation is faster when we use attention caching, as expected. Moreover, GPTQ is, in general, faster than bitsandbytes. For exemple, with `batch_size=4` and `use_cache=True`, it is twice as fast! Therefore let’s use `use_cache` for the next benchmarks. Note that `use_cache` will consume more memory. 
+From the two benchmarks, we conclude that generation is faster when we use attention caching, as expected. Moreover, GPTQ is, in general, faster than bitsandbytes. For example, with `batch_size=4` and `use_cache=True`, it is twice as fast! Therefore let’s use `use_cache` for the next benchmarks. Note that `use_cache` will consume more memory. 
 
 #### Hardware
 
