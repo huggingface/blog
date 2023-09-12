@@ -60,7 +60,7 @@ translators:
 
 >>>> 英文原文: <url>https://huggingface.co/blog/accelerated-inference</url>
 >>>>
->>>> 原文作者: Hugo Laurençon，Daniel van Strien，Stas Bekman，Leo Tronchon，Lucile Saulnier，Thomas Wang，Siddharth Karamcheti，Amanpreet Singh，Giada Pistilli，Yacine Jernite，Victor Sanh
+>>>> 原文作者: Hugging Face
 >>>>
 >>>> 译者: Matrix Yao (姚伟峰)，英特尔深度学习工程师，工作方向为 transformer-family 模型在各模态数据上的应用及大规模模型的训练推理。
 >>>>
