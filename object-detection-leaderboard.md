@@ -84,7 +84,7 @@ This section will delve into the definition of Average Precision and Average Rec
 
 ### What's Average Precision and how to compute it?
 
-Average Precision is a single-number metric that summarizes the precision-recall curve. It captures the ability of a model to classify and localize objects correctly, while taking into account both false positive and false negative detections.
+Average Precision is a single-number metric that summarizes the precision-recall curve. It captures the ability of a model to classify and localize objects correctly while considering both false positive and false negative detections.
 
 Every box predicted by the model is considered a “positive” detection. Based on a criterion known as Intersection over Union (IoU) between the predicted box and a ground-truth annotation, a detection is categorized either as a true positive (TP) or a false positive (FP). 
 
