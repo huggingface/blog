@@ -369,7 +369,7 @@ COCO, for instance, uses the tag `iscrowd` to label large groups of objects (e.g
 
 #### Calculating the IoU requires careful consideration
 
-IoU, or Intersection over Union, might seem straightforward to calculate based on its definition. However, there's a crucial detail to be aware of: if the ground-truth and the detection don't overlap at all, not even by one pixel, the IoU should be `0`.  To ensure this, especially to avoid dividing by zero when calculating the union, you can add a small value (called _epsilon_ ), to the denominator. However, it's essential to choose the epsilon carefully. An epsilon value greater than 1e-4 might not be neutral enough to give an accurate result.
+IoU, or Intersection over Union, might seem straightforward to calculate based on its definition. However, there's a crucial detail to be aware of: if the ground-truth and the detection don't overlap at all, not even by one pixel, the IoU should be `0`.  To avoid dividing by zero when calculating the union, you can add a small value (called _epsilon_ ), to the denominator. However, it's essential to choose the epsilon carefully. An epsilon value greater than 1e-4 might not be neutral enough to give an accurate result.
 
 #### Text-conditioned models demand the right prompts 
 
