@@ -55,7 +55,7 @@ In this section, we will go over the pros and cons of bitsandbytes and gptq quan
 
 **cross-modality interoperability**: As the only condition to quantize a model is to contain a `torch.nn.Linear` layer, quantization works out of the box for any modality, making it possible to load models such as Whisper, ViT, Blip2, etc. in 8-bit or 4-bit out of the box.
 
-**0 performance degradation when merging adapters**: (Read more about adapters and PEFT in [this blogpost](https://huggingface.co/blog/peft) if you are not familiar with it). If you train adapters on top of base models quantized with bitsandbytes, the base model can be loaded in a higher precision (fp16 of bf16), and the adapters can be merged on top for deployment, with no inference performance degradation. This is not supported for GPTQ.
+**0 performance degradation when merging adapters**: (Read more about adapters and PEFT in [this blogpost](https://huggingface.co/blog/peft) if you are not familiar with it). If you train adapters on top of the quantized base model, the adapters can be merged on top of of the base model for deployment, with no inference performance degradation. You can also [merge](https://github.com/huggingface/peft/pull/851/files) the adapters on top of the dequantized model ! This is not supported for GPTQ. 
 
 
 ### autoGPTQ Pros
@@ -194,9 +194,9 @@ From the results above, we conclude that there is less degradation in bigger mod
 
 In this blogpost, we compared bitsandbytes and GPTQ quantization across mutliple setups. We saw that bitsandbytes is better suited for fine-tuning while GPTQ is better for generation. From this observation, one way to get better merged models would be to: 
 
-- (1) quantize the base model using bitsandbytes
-- (2) fine-tune the adapters
-- (3) merge the trained adapters to the base model
+- (1) quantize the base model using bitsandbytes (zero-shot quantization)
+- (2) add and fine-tune the adapters
+- (3) merge the trained adapters on top of the base model or the [dequantized model](https://github.com/huggingface/peft/pull/851/files) !
 - (4) quantize the merged model using GPTQ and use it for deployment 
 
 We hope that this overview will make it easier for everyone to use LLMs in their applications and usecases, and we are looking forward to seeing what you will build with it!
