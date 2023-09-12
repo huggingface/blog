@@ -326,7 +326,7 @@ As previously discussed, the Precision-Recall curve is built by measuring the Pr
 
 #### Varying the batch size
 
-The batch size not only affects the processing time, but may also result in different detected boxes. The image preprocessing step may change the resolution of the input images based on their sizes.
+The batch size not only affects the processing time but may also result in different detected boxes. The image pre-processing step may change the resolution of the input images based on their sizes.
 
 As mentioned in [DETR documentation](https://huggingface.co/docs/transformers/model_doc/detr), by default, `DetrImageProcessor` resizes the input images such that the shortest side is 800 pixels, and resizes again so that the longest is at most 1333 pixels. At inference time, the shortest side is set to 800. Due to this resizing, images in a batch can have different sizes. DETR solves this by padding images up to the largest size in a batch and by creating a pixel mask that indicates which pixels are real/which are padding.
 
