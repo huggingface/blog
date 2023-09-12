@@ -2777,7 +2777,7 @@
     - collaboration
     - diffusers
     - diffusion
-
+    
 - local: safecoder-vs-closed-source-code-assistants
   title: "SafeCoder vs. Closed-source Code Assistants"
   author: julsimon
@@ -2785,3 +2785,16 @@
   date: September 11, 2023
   tags:
     - bigcode
+
+- local: overview-quantization-transformers
+  title: "Overview of natively supported quantization schemes in 🤗 Transformers"
+  author: ybelkada
+  thumbnail: /blog/assets/163_overview_quantization_transformers/thumbnail.jpg
+  date: September 12, 2023
+  tags:
+    - llm
+    - optimization
+    - quantization
+    - comparison
+    - bitsandbytes
+    - gptq
