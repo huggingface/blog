@@ -32,7 +32,7 @@ Note also that the details shared below are only valid for `PyTorch` models, thi
 ## Table of contents
 
 - [Resources](#resources)
-- [Comparing bitsandbyes and auto-gptq](#Comparing-bitsandbyes-and-auto-gptq)
+- [Comparing bitsandbytes and auto-gptq](#Comparing-bitsandbytes-and-auto-gptq)
 - [Diving into speed benchmarks](#Diving-into-speed-benchmarks)
 - [Conclusion and final words](#conclusion-and-final-words)
 - [Acknowledgements](#acknowledgements)
@@ -47,7 +47,7 @@ Note also that the details shared below are only valid for `PyTorch` models, thi
 - [Merve's blogpost on quantization](https://huggingface.co/blog/merve/quantization) - This blogpost provides a gentle introduction to quantization and the quantization methods supported natively in transformers. 
 
 
-## Comparing bitsandbyes and auto-gptq
+## Comparing bitsandbytes and auto-gptq
 In this section, we will go over the pros and cons of bitsandbytes and gptq quantization. Note that these are based on the feedback from the community and they can evolve over time as some of these features are in the roadmap of the respective libraries.
 
 ### What are the benefits of bitsandbytes?
@@ -67,12 +67,12 @@ In this section, we will go over the pros and cons of bitsandbytes and gptq quan
 
 **AMD support**: The integration should work out of the box for AMD GPUs!
 
-### What are the known limitations of bitsandbytes?
+### What are the potential rooms of improvements of bitsandbytes?
 **slower than GPTQ for text generation**: bitsandbytes 4-bit models are slow compared to GPTQ when using [`generate`](https://huggingface.co/docs/transformers/main_classes/text_generation).
 
 **4-bit weights are not serializable**: Currently, 4-bit models cannot be serialized. This is a frequent community request, and we believe it should be addressed very soon by the bitsandbytes maintainers as it's in their roadmap! 
 
-### What are the known limitations of autoGPTQ?
+### What are the potential rooms of improvements of autoGPTQ?
 **calibration dataset**: The need of a calibration dataset might discourage some users to go for GPTQ. Furthermore, it can take several hours to quantize the model (e.g. 4 GPU hours for a 175B scale model [according to the paper](https://arxiv.org/pdf/2210.17323.pdf) - section 2)
 
 **works only for language models (for now)**: As of today, the API for quantizing a model with auto-GPTQ has been designed to support only language models. It should be possible to quantize non-text (or multimodal) models using the GPTQ algorithm, but the process has not been elaborated in the original paper or in the auto-gptq repository. If the community is excited about this topic this might be considered in the future.
