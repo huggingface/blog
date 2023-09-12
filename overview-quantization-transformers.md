@@ -59,7 +59,7 @@ In this section, we will go over the pros and cons of bitsandbytes and gptq quan
 
 
 ### autoGPTQ Pros
-**fast for text generation**: GPTQ quantized models are fast compared to bitsandbytes quantized models for text generation. We will address the speed comparison in an appropriate section. 
+**fast for text generation**: GPTQ quantized models are fast compared to bitsandbytes quantized models for [text generation](https://huggingface.co/docs/transformers/main_classes/text_generation). We will address the speed comparison in an appropriate section. 
 
 **n-bit support**: The GPTQ algorithm makes it possible to quantize models up to 2 bits! However, this might come with severe quality degradation. The recommended number of bits is 4, which seems to be a great tradeoff for GPTQ at this time.
 
