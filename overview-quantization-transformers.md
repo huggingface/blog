@@ -68,7 +68,7 @@ In this section, we will go over the pros and cons of bitsandbytes and gptq quan
 **AMD support**: The integration should work out of the box for AMD GPUs!
 
 ### Cons bitsandbytes
-**slower than GPTQ for text generation**: bitsandbytes 4-bit models are slow compared to GPTQ when using `generate`.
+**slower than GPTQ for text generation**: bitsandbytes 4-bit models are slow compared to GPTQ when using [`generate`](https://huggingface.co/docs/transformers/main_classes/text_generation).
 
 **4-bit weights are not serializable**: Currently, 4-bit models cannot be serialized. This is a frequent community request, and we believe it should be addressed very soon by the bitsandbytes maintainers as it's in their roadmap! 
 
