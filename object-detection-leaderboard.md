@@ -150,7 +150,7 @@ Let's borrow the practical example presented in the paper [A Survey on performan
 </div>
 
 Our hypothetical object detector retrieved 24 objects in our dataset, illustrated by the red boxes. To compute precision and recall we use the Precision and Recall equations at all confidence levels to evaluate how well the detector performed for this specific class on our benchmarking dataset. For that, we need to establish some rules:
-* **Rule 1**: For a matter of simplicity, let's consider our detections a True Positive (TP) if the IoU >= 30%; otherwise, it is a False Positive (FP). 
+* **Rule 1**: For simplicity, let's consider our detections a True Positive (TP) if the IoU >= 30%; otherwise, it is a False Positive (FP). 
 * **Rule 2**: For cases where a detection overlaps more than one ground-truth (as in Images 2 to 7), the predicted box with the highest IoU is considered TP, and the other is FP.
 
 Based on these rules, we can classify each detection as TP or FP, as shown in Table 1:
