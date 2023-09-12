@@ -268,7 +268,7 @@ As discussed previously, different tools may adopt different particularities dur
 
 In terms of efficiency, we calculate the frames per second (FPS) for each model using the average evaluation time across the entire dataset, considering pre and post-processing steps. Given the variability in GPU memory requirements for each model, we chose to evaluate with a batch size of 1 (this choice is also influenced by our pre-processing step, which we'll delve into later). However, it's worth noting that this approach may not align perfectly with real-world performance, as larger batch sizes, often containing several images, are commonly used for better efficiency. 
 
-Next, we will provide tips on how to chose the bese model based on the metrics, and point out which parameters may interfer on the results. It's crucial to understand these nuances, as this might spark doubts and discussions within the community.
+Next, we will provide tips on choosing the best model based on the metrics and point out which parameters may interfere with the results. Understanding these nuances is crucial, as this might spark doubts and discussions within the community.
 
 
 ### How to pick the best model based on the metrics?
