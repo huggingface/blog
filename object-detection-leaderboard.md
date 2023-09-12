@@ -57,7 +57,7 @@ Object detection models are versatile and have a wide range of applications acro
 
 Hugging Face Hub has [hundreds of object detection models](https://huggingface.co/models?pipeline_tag=object-detection) pre-trained in different datasets, able to identify and localize various object classes. 
 
-Some object detection models can receive additional text queries to search for target objects described in the text. This way, these detectors (called zero-shot) are not limited to detecting objects seen during training.  
+Specific type of object detection models, called _zero-shot_, can receive additional text queries to search for target objects described in the text. This way, these detectors can detect objects they haven't seen during training.
 
 However, the detectors' diversity goes beyond the range of output classes they can recognize. They vary in terms of underlying architectures, model sizes, processing speeds, and prediction accuracy.
 
