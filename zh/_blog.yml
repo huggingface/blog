@@ -16,6 +16,15 @@
     - research
     - nlp
 
+- local: accelerated-inference
+  title: 如何成功将 🤗 API 客户的 transformer 模型推理速度加快 100 倍
+  author: Narsil
+  thumbnail: /blog/assets/09_accelerated_inference/thumbnail.png
+  date: January 18, 2021
+  tags:
+    - analysis
+    - nlp
+
 - local: large-language-models
   title: "大语言模型: 新的摩尔定律？"
   author: juliensimon
