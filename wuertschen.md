@@ -1,6 +1,6 @@
 ---
 title: "Introducing Würtschen: Fast Diffusion for Image Generation" 
-thumbnail: /blog/assets/wuertschen/thumbnail.jpg
+thumbnail: /blog/assets/wuerstchen/thumbnail.jpg
 authors:
 - user: dome272
   guest: true
