@@ -244,7 +244,7 @@ inputs = tokenizer(prompt, return_tensors="pt", add_special_tokens=False).to("cu
 system = "Provide answers in JavaScript"
 user = "Write a function that computes the set of sums of all contiguous sublists of a given list."
 
-prompt = f"<s><<SYS>>\\n{system}\\n<</SYS>>\\n\\n{user}"
+prompt = f"<s>[INST] <<SYS>>\\n{system}\\n<</SYS>>\\n\\n{user}[/INST]"
 inputs = tokenizer(prompt, return_tensors="pt", add_special_tokens=False).to("cuda")
 ```
 
@@ -261,7 +261,7 @@ answer_2 = "answer_2"
 user_3 = "user_prompt_3"
 
 prompt  = f"<<SYS>>\\n{system}\\n<</SYS>>\\n\\n{user_1}"
-prompt  = f"<s>[INST] {prompt.strip()} [/INST] {answer_1.strip()} </s>"
+prompt += f"<s>[INST] {prompt.strip()} [/INST] {answer_1.strip()} </s>"
 prompt += f"<s>[INST] {user_2.strip()} [/INST] {answer_2.strip()} </s>"
 prompt += f"<s>[INST] {user_3.strip()} [/INST]"
 
