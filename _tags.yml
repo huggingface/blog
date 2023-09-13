@@ -1,6 +1,3 @@
-- value: analysis
-  label: analysis
-
 - value: community
   label: community
 
@@ -42,3 +39,6 @@
 
 - value: rlhf
   label: RLHF
+
+- value: case-studies
+  label: Case Studies
