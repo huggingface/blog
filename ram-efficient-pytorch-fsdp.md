@@ -123,7 +123,7 @@ This is precisely the problem that Flash Attention addresses. The idea is to **r
 ![kernel_fusion](./assets/160_fsdp_llama/kernel_fusion.webp)
 (Source: [link](https://gordicaleksa.medium.com/eli5-flash-attention-5c44017022ad))
 
- **Tiling** is used during forward and backward passes to chunk the NxN softmax/scores computation into blocks to overcome the limitation of SRAM memory size. To enable tiling, online softmax algorithm is used. **Recomputation** is used during backward pass in order to avoid storing the entire NxN softmax/score matrix during forward pass. This greatly reduce the memory consumption.
+ **Tiling** is used during forward and backward passes to chunk the NxN softmax/scores computation into blocks to overcome the limitation of SRAM memory size. To enable tiling, online softmax algorithm is used. **Recomputation** is used during backward pass in order to avoid storing the entire NxN softmax/score matrix during forward pass. This greatly reduces the memory consumption.
 
  For a simplified and in depth understanding of Flash Attention, please refer the blog posts [ELI5: FlashAttention](https://gordicaleksa.medium.com/eli5-flash-attention-5c44017022ad) and [Making Deep Learning Go Brrrr From First Principles](https://horace.io/brrr_intro.html) along with the original paper [FlashAttention: Fast and Memory-Efficient Exact Attention
 with IO-Awareness](https://arxiv.org/pdf/2205.14135.pdf).
