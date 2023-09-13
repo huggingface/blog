@@ -8,9 +8,9 @@ authors:
 - user: philschmid 
 ---
 
-In this blog post, we will look at how to fine-tune Llama 2 70B using PyTorch FSDP and related best practices. We will be leveraging Hugging Face Transformers, Accelerate and TRL. We will also learn how to use Accelerate with SLURM. For more information on what PyTorch FSDP is, please refer to this blog post: [Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel](https://huggingface.co/blog/pytorch-fsdp).
+In this blog post, we will look at how to fine-tune Llama 2 70B using PyTorch FSDP and related best practices. We will be leveraging Hugging Face Transformers, Accelerate and TRL. We will also learn how to use Accelerate with SLURM. 
 
-Fully Sharded Data Parallelism (FSDP) is a paradigm in which the optimizer states, gradients and parameters are sharded across devices. During the forward pass, each FSDP unit performs an _all-gather operation_ to get the complete weights, with computation performed by discarding the shards from other devices. After the forward pass, the loss is computed followed by the backward pass. In the backward pass, each FSDP unit performs an all-gather operation to get the complete weights, with computation performed to get the local gradients. These local gradients are averaged and sharded across the devices via a _reduce-scatter operation_ so that each device can update the parameters of its shard.
+Fully Sharded Data Parallelism (FSDP) is a paradigm in which the optimizer states, gradients and parameters are sharded across devices. During the forward pass, each FSDP unit performs an _all-gather operation_ to get the complete weights, computation is performed followed by discarding the shards from other devices. After the forward pass, the loss is computed followed by the backward pass. In the backward pass, each FSDP unit performs an all-gather operation to get the complete weights, with computation performed to get the local gradients. These local gradients are averaged and sharded across the devices via a _reduce-scatter operation_ so that each device can update the parameters of its shard. For more information on what PyTorch FSDP is, please refer to this blog post: [Accelerate Large Model Training using PyTorch Fully Sharded Data Parallel](https://huggingface.co/blog/pytorch-fsdp).
 
 ![FSDP Workflow](./assets/62_pytorch_fsdp/FSDP_workflow.png)
 
@@ -96,9 +96,9 @@ Let’s create the accelerate config via below command:
 accelerate config --config_file "fsdp_config.yaml"
 ```
 
-![fsdp_config](assets/160_fsdp_llama/fsdp_config.jpg)
+![fsdp_config](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/160_ram_efficient_fsdp/fsdp_config.jpg)
 
-The resulting config is available here: DHS-LLM-Workshop/code_assistant/training/configs/fsdp_config.yaml at main. Here, the sharding strategy is `FULL_SHARD`. We are using `TRANSFORMER_BASED_WRAP` for auto wrap policy and it uses `_no_split_module`  to find the Transformer block name for nested FSDP auto wrap. We use  `SHARDED_STATE_DICT` to save the intermediate checkpoints and optimizer states in this format recommended by the PyTorch team. Make sure to enable broadcasting module parameters from rank 0 at the start as mentioned in the above paragraph on addressing Challenge 1. We are enabling `bf16` mixed precision training.
+The resulting config is available here: [fsdp_config.yaml](https://github.com/pacman100/DHS-LLM-Workshop/blob/main/chat_assistant/training/configs/fsdp_config.yaml). Here, the sharding strategy is `FULL_SHARD`. We are using `TRANSFORMER_BASED_WRAP` for auto wrap policy and it uses `_no_split_module`  to find the Transformer block name for nested FSDP auto wrap. We use  `SHARDED_STATE_DICT` to save the intermediate checkpoints and optimizer states in this format recommended by the PyTorch team. Make sure to enable broadcasting module parameters from rank 0 at the start as mentioned in the above paragraph on addressing Challenge 1. We are enabling `bf16` mixed precision training.
 
 For final checkpoint being the whole model state dict, below code snippet is used:
 
@@ -116,12 +116,12 @@ Flash Attention and enabling gradient checkpointing are required for faster trai
 
 If we follow the blog [Making Deep Learning Go Brrrr From First Principles](https://horace.io/brrr_intro.html), we can figure out that `Attention` module on current hardware is `memory-bound/bandwidth-bound`. The reason being that Attention **mostly consists of elementwise operations** as shown below on the left hand side. We can observe that masking, softmax and dropout operations take up the bulk of the time instead of matrix multiplications which consists of the bulk of FLOPs. 
 
-![Attention Bottlenecks](./assets/160_fsdp_llama/attention_bottleneck.png)
+![Attention Bottlenecks](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/160_ram_efficient_fsdp/attention_bottleneck.png)
 
 (Source: [link](https://arxiv.org/pdf/2205.14135.pdf))
 
 This is precisely the problem that Flash Attention addresses. The idea is to **remove redundant HBM reads/writes.** It does so by keeping everything in SRAM, perform all the intermediate steps and only then write the final result back to HBM, also known as **Kernel Fusion**. Below is an illustration of how this overcomes the memory-bound bottleneck. 
-![kernel_fusion](./assets/160_fsdp_llama/kernel_fusion.webp)
+![kernel_fusion](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/160_ram_efficient_fsdp/kernel_fusion.webp)
 
 (Source: [link](https://gordicaleksa.medium.com/eli5-flash-attention-5c44017022ad))
 
@@ -165,15 +165,15 @@ accelerate launch \
     --use_flash_attn True
 ```
 
-Fine-tuning completed in ~13.5 hours and below is the training loss plot. Let's calcualte the Model Flops Utilization (MFU) for the training run.
+Fine-tuning completed in ~13.5 hours and below is the training loss plot. Let's calculate the Model Flops Utilization (MFU) for the training run.
 
 1. A100 GPUs perform ~ 3.12e14 FLOPS per seconds (in float32 or bfloat16
-2. Number of tokens trained on in the above experiments = sequence length \* batch size \* number of training steps = (2048 \* 16 \* 500) = 16,384,000 = 1.64e107
+2. Number of tokens trained on in the above experiments = sequence length \* batch size \* number of training steps = (2048 \* 16 \* 500) = 16,384,000 = 1.64e7
 3. Approx compute for above experiments = 6 \* P (num_params) \* D (num_tokens) = 6 \* 7e10 \* 1.64e7 = 6.89e18 FLOPS
 4. Training FLOPS per second = Approx compute / training time = 6.89e17 / (13.5 \* 3600)  = 6.89e18 / 4.86e4 = 1.42e14 FLOPS per second
 5. MFU = Training FLOPS per second / Peak A100 performance = 1.42e14 /  3.12e14 = 0.4551 = **45.51% of peak performance**
 
-![train_loss](assets/160_fsdp_llama/train_loss.png)
+![train_loss](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/160_ram_efficient_fsdp/train_loss.png)
 
 Below is an example conversation using the above model:
 
