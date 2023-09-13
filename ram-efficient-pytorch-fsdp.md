@@ -53,7 +53,7 @@ https://github.com/pacman100/DHS-LLM-Workshop/tree/main/chat_assistant/training 
 
 ## Pre-requisites
 
-First follow these steps to install Flash Attention V2:  Dao-AILab/flash-attention: Fast and memory-efficient exact attention (github.com). Install the latest nightlies of PyTorch with CUDA ≥11.8. Install the remaining requirements as per DHS-LLM-Workshop/code_assistant/training/requirements.txt
+First follow these steps to install Flash Attention V2:  Dao-AILab/flash-attention: Fast and memory-efficient exact attention (github.com). Install the latest nightlies of PyTorch with CUDA ≥11.8. Install the remaining requirements as per DHS-LLM-Workshop/code_assistant/training/requirements.txt. Here, we will be installing 🤗 Accelerate and 🤗 Transformers from the main branch. 
 
 # Fine-Tuning
 
