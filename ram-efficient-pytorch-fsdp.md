@@ -110,9 +110,24 @@ trainer.save_model(script_args.output_dir) # alternatively, trainer.push_to_hub(
 ```
 
 ## Addressing Challenge 3
-Flash Attention and enabling gradient checkpointing are required for faster training and reducing VRAM usage to enable fine-tuning and save compute costs. 
+Flash Attention and enabling gradient checkpointing are required for faster training and reducing VRAM usage to enable fine-tuning and save compute costs. The codebase currently uses monkey patching and the implementation is at [chat_assistant/training/llama_flash_attn_monkey_patch.py](https://github.com/pacman100/DHS-LLM-Workshop/blob/main/chat_assistant/training/llama_flash_attn_monkey_patch.py).
 
-Flash Attention 
+[FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness](https://arxiv.org/pdf/2205.14135.pdf) introduces a way to compute exact attention while being faster and memory-efficient by leveraging the knowledge of the memory hierarchy of the underlying hardware/GPUs - The higher the bandwidth/speed of the memory, the smaller its capacity as it becomes more expensive.
+
+If we follow the blog [Making Deep Learning Go Brrrr From First Principles](https://horace.io/brrr_intro.html), we can figure out that `Attention` module on current hardware is `memory-bound/bandwidth-bound`. The reason being that Attention **mostly consists of elementwise operations** as shown below on the left hand side. We can observe that masking, softmax and dropout operations take up the bulk of the time instead of matrix multiplications which consists of the bulk of FLOPs. 
+
+![Attention Bottlenecks](./assets/160_fsdp_llama/attention_bottleneck.png)
+(Source: [link](https://arxiv.org/pdf/2205.14135.pdf))
+
+This is precisely the problem that Flash Attention addresses. The idea is to **remove redundant HBM reads/writes.** It does so by keeping everything in SRAM, perform all the intermediate steps and only then write the final result back to HBM, also known as **Kernel Fusion**. Below is an illustration of how this overcomes the memory-bound bottleneck. 
+![kernel_fusion](./assets/160_fsdp_llama/kernel_fusion.webp)
+(Source: [link](https://gordicaleksa.medium.com/eli5-flash-attention-5c44017022ad))
+
+ **Tiling** is used during forward and backward passes to chunk the NxN softmax/scores computation into blocks to overcome the limitation of SRAM memory size. To enable tiling, online softmax algorithm is used. **Recomputation** is used during backward pass in order to avoid storing the entire NxN softmax/score matrix during forward pass. This greatly reduce the memory consumption.
+
+ For a simplified and in depth understanding of Flash Attention, please refer the blog posts [ELI5: FlashAttention](https://gordicaleksa.medium.com/eli5-flash-attention-5c44017022ad) and [Making Deep Learning Go Brrrr From First Principles](https://horace.io/brrr_intro.html) along with the original paper [FlashAttention: Fast and Memory-Efficient Exact Attention
+with IO-Awareness](https://arxiv.org/pdf/2205.14135.pdf).
+
 
 # Bringing it all-together
 
@@ -148,7 +163,13 @@ accelerate launch \
     --use_flash_attn True
 ```
 
-Fine-tuning completed in ~13.5 hours and below is the training loss plot.
+Fine-tuning completed in ~13.5 hours and below is the training loss plot. Let's calcualte the Model Flops Utilization (MFU) for the training run.
+
+1. A100 GPUs perform ~ 3.12e14 FLOPS per seconds (in float32 or bfloat16
+2. Number of tokens trained on in the above experiments = sequence length \* batch size \* number of training steps = (2048 \* 16 \* 500) = 16,384,000 = 1.64e107
+3. Approx compute for above experiments = 6 \* P (num_params) \* D (num_tokens) = 6 \* 7e10 \* 1.64e7 = 6.89e18 FLOPS
+4. Training FLOPS per second = Approx compute / training time = 6.89e17 / (13.5 \* 3600)  = 6.89e18 / 4.86e4 = 1.42e14 FLOPS per second
+5. MFU = Training FLOPS per second / Peak A100 performance = 1.42e14 /  3.12e14 = 0.4551 = **45.51% of peak performance**
 
 ![train_loss](assets/160_fsdp_llama/train_loss.png)
 
@@ -192,4 +213,4 @@ The whole conversation is formatted as below:
 ```
 
 # Conclusion
-We successfully fine-tuned 70B Llama model using PyTorch FSDP in a multi-node multi-gpu setting while addressing various challenges. 
+We successfully fine-tuned 70B Llama model using PyTorch FSDP in a multi-node multi-gpu setting while addressing various challenges. We saw how 🤗 Transformers and 🤗 Accelerates now supports efficient way of initializing large models when using FSDP to overcome CPU RAM getting out of memory. This was followed by recommended practices for saving/loading intermediate checkpoints and how to save the final model in a way to readily use it. To enable faster training and reducing GPU memory usage, we outlined the importance of Flash Attention and Gradient Checkpointing. Overall, we can see how a simple config using 🤗 Accelerate enables finetuning of such large models in a multi-node multi-gpu setting.
