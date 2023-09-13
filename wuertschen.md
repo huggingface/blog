@@ -64,18 +64,44 @@ images = pipeline(
 
 ![Anthropomorphic cat dressed as a fire-fighter](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/wuertschen/Anthropomorphic_cat_dressed_as_a_fire_fighter.jpg)
 
-More [speed-ups](https://huggingface.co/docs/diffusers/optimization/torch2.0) can be achieved by using `torch.compile`:
 
-```Python
-pipeline.prior_prior = torch.compile(pipeline.prior_prior , mode="reduce-overhead", fullgraph=True)
-pipeline.decoder = torch.compile(pipeline.decoder, mode="reduce-overhead", fullgraph=True)
+
+## Optimisation Technique 1: Flash Attention
+
+Starting from version 2.0, PyTorch has integrated a highly optimised and resource-friendly version of the attention mechanism called [`torch.nn.functional.scaled_dot_product_attention`](https://pytorch.org/docs/master/generated/torch.nn.functional.scaled_dot_product_attention) or SDPA. Depending on the nature of the input, this function taps into multiple inherent optimisations. Its performance and memory efficiency outshine the traditional attention model. Remarkably, the SDPA function mirrors the characteristics of the *flash attention* technique, as highlighted in the research paper [Fast and Memory-Efficient Exact Attention with IO-Awareness](https://arxiv.org/abs/2205.14135) penned by Dao and team.
+
+If you're using Diffusers with PyTorch 2.0 or a later version, and the SDPA function is accessible, these enhancements are automatically applied. Get started by setting up torch 2.0 or a newer version using the [official guidelines](https://pytorch.org/get-started/locally/)! 
+
+```python
+images = pipeline(caption, height=1024, width=1536, prior_timesteps=DEFAULT_STAGE_C_TIMESTEPS, prior_guidance_scale=4.0, num_images_per_prompt=4).images
 ```
 
-or by using [xFormers](https://facebookresearch.github.io/xformers/)'s memory efficient attention:
+For an in-depth look at how SDPA is integrated within `diffusers`, check out the dedicated [documentation](https://huggingface.co/docs/diffusers/optimization/torch2.0).
+
+If you're on a version of Pytorch earlier than 2.0, you can still achieve memory-efficient attention using the [xFormers](https://facebookresearch.github.io/xformers/) library:
 
 ```Python
 pipeline.enable_xformers_memory_efficient_attention()
 ```
+
+## Optimisation Technique 2: Torch Compile
+
+If you're on the hunt for an extra performance boost, you can make use of `torch.compile`. It is best to apply it to both the prior's
+and decoder's main model for the biggest increase in performance.
+
+```python
+pipeline.prior_prior = torch.compile(pipeline.prior_prior , mode="reduce-overhead", fullgraph=True)
+pipeline.decoder = torch.compile(pipeline.decoder, mode="reduce-overhead", fullgraph=True)
+```
+
+Bear in mind, after running this the first time, the initial inference step will take a while to compile for both models. This can take up to 2 minutes. After that you can just normally run the inference: 
+
+```python
+images = pipeline(caption, height=1024, width=1536, prior_timesteps=DEFAULT_STAGE_C_TIMESTEPS, prior_guidance_scale=4.0, num_images_per_prompt=4).images
+```
+
+And the good news is that this compilation is a one-time execution. Post that, you're set to experience faster inferences consistently for the same image resolutions. The initial time investment in compilation is quickly offset by the subsequent speed benefits. For a deeper dive into `torch.compile` and its nuances, check out the [torch compile](https://pytorch.org/tutorials/intermediate/torch_compile_tutorial.html) documentation.
+
 
 ## Resources
 
