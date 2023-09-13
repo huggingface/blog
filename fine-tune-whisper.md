@@ -143,12 +143,8 @@ assess the performance of our model. Finally, we'll
 use `gradio` to build a flashy demo of our fine-tuned model.
 
 ```bash
-!pip install datasets>=2.6.1
-!pip install git+https://github.com/huggingface/transformers
-!pip install librosa
-!pip install evaluate>=0.30
-!pip install jiwer
-!pip install gradio
+!pip install --upgrade pip
+!pip install --upgrade datasets transformers soundfile librosa evaluate jiwer gradio
 ```
 
 We strongly advise you to upload model checkpoints directly the [Hugging Face Hub](https://huggingface.co/) 
