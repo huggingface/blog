@@ -30,7 +30,7 @@ Well, this one is pretty fast and efficient. Würstchen’s biggest benefits com
 
 ![Inference Speed Plots](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/wuertschen/inference_speed_v2.jpg)
 
-However, probably the most significant benefit of Würstchen comes with the reduced training costs. Würstchen v1, which works at 512x512, required only 9.000 GPU hours of training. Comparing this to what Stable Diffusion 1.4 needed, namely 150,000 GPU hours, shows that this 16x reduction in costs not only benefits researchers when conducting new experiments, it also opens the doors for more companies to train such models. Würstchen v2 used 24,602 GPU hours. With resolutions going up to 1536, this is still 6x cheaper than SD1.4 which was only trained at 512x512.
+In addition to that, another greatly significant benefit of Würstchen comes with the reduced training costs. Würstchen v1, which works at 512x512, required only 9,000 GPU hours of training. Comparing this to the 150,000 GPU hours spent on Stable Diffusion 1.4 suggests that this 16x reduction in cost not only benefits researchers when conducting new experiments, but it also opens the door for more organizations to train such models. Würstchen v2 used 24,602 GPU hours. With resolutions going up to 1536, this is still 6x cheaper than SD1.4, which was only trained at 512x512.
 
 ![Inference Speed Plots](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/wuertschen/compute_comparison.jpg)
 
