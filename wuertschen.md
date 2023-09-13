@@ -74,7 +74,7 @@ If you're using Diffusers with PyTorch 2.0 or a later version, and the SDPA func
 images = pipeline(caption, height=1024, width=1536, prior_timesteps=DEFAULT_STAGE_C_TIMESTEPS, prior_guidance_scale=4.0, num_images_per_prompt=4).images
 ```
 
-For an in-depth look at how SDPA is integrated within `diffusers`, check out the dedicated [documentation](https://huggingface.co/docs/diffusers/optimization/torch2.0).
+For an in-depth look at how `diffusers` leverages SDPA, check out the [documentation](https://huggingface.co/docs/diffusers/optimization/torch2.0).
 
 If you're on a version of Pytorch earlier than 2.0, you can still achieve memory-efficient attention using the [xFormers](https://facebookresearch.github.io/xformers/) library:
 
