@@ -2777,7 +2777,7 @@
     - collaboration
     - diffusers
     - diffusion
-
+    
 - local: safecoder-vs-closed-source-code-assistants
   title: "SafeCoder vs. Closed-source Code Assistants"
   author: julsimon
@@ -2785,6 +2785,29 @@
   date: September 11, 2023
   tags:
     - bigcode
+
+- local: overview-quantization-transformers
+  title: "Overview of natively supported quantization schemes in 🤗 Transformers"
+  author: ybelkada
+  thumbnail: /blog/assets/163_overview_quantization_transformers/thumbnail.jpg
+  date: September 12, 2023
+  tags:
+    - llm
+    - optimization
+    - quantization
+    - comparison
+    - bitsandbytes
+    - gptq
+
+- local: ram-efficient-pytorch-fsdp
+  title: "Fine-tuning Llama 2 70B using PyTorch FSDP"
+  author: smangrul
+  thumbnail: /blog/assets/160_fsdp_llama/thumbnail.jpg
+  date: September 13, 2023
+  tags:
+    - llm
+    - guide
+    - nlp
 
 - local: wuertschen
   title: "Introducing Würtschen: Fast Diffusion for Image Generation"
