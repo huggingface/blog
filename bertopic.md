@@ -199,7 +199,7 @@ The benefits of this integration are particularly notable for production use cas
 In addition to the Hugging Face Hub integration, BERTopic now supports serialization using the [safetensors library](https://huggingface.co/docs/safetensors/). Safetensors is a new simple format for storing tensors safely (instead of pickle), which is still fast (zero-copy). We’re excited to see more and more libraries leveraging safetensors for safe serialization. You can read more about a recent audit of the library in this [blog post](https://huggingface.co/blog/safetensors-security-audit).
 
 
-### An example of using BERTopic to explore RLFH datasets
+### An example of using BERTopic to explore RLHF datasets
 
 To illustrate some of the power of BERTopic let's look at an example of how it can be used to monitor changes in topics in datasets used to train chat models. 
 
@@ -211,7 +211,7 @@ BERTopic gives us various ways of visualizing a dataset. We can see the top 8 to
 
 ![Words associated with top 8 topics](https://huggingface.co/datasets/huggingface/documentation-images/resolve/2d1113254a370972470d42e122df150f3551cc07/blog/BERTopic/topic_word_scores.png)
 
-[databricks/databricks-dolly-15k](https://huggingface.co/datasets/databricks/databricks-dolly-15k) is another dataset that can be used to train an RLFH model. The approach taken to creating this dataset was quite different from the OpenAssistant Conversations dataset since it was created by employees of Databricks instead of being crowd sourced via volunteers. Perhaps we can use our trained BERTopic model to compare the topics across these two datasets?
+[databricks/databricks-dolly-15k](https://huggingface.co/datasets/databricks/databricks-dolly-15k) is another dataset that can be used to train an RLHF model. The approach taken to creating this dataset was quite different from the OpenAssistant Conversations dataset since it was created by employees of Databricks instead of being crowd sourced via volunteers. Perhaps we can use our trained BERTopic model to compare the topics across these two datasets?
 
 The new BERTopic Hub integrations mean we can load this trained model and apply it to new examples. 
 

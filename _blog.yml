@@ -1852,7 +1852,7 @@
 - local: classification-use-cases
   title: "Leveraging Hugging Face for complex text classification use cases"
   author: VioletteLepercq
-  thumbnail: /blog/assets/78_ml_director_insights/blogthumbnail.png
+  thumbnail: /blog/assets/78_ml_director_insights/witty-works.png
   date: March 1, 2023
   tags:
     - nlp
@@ -2724,12 +2724,65 @@
     - optimization
     - quantization
 
+- local: password-git-deprecation
+  title: "Deprecation of Git Authentication using password"
+  author: Sylvestre
+  thumbnail: /blog/assets/password-git-deprecation/thumbnail.png
+  date: August 25, 2023
+  tags:
+    - announcement
+    - security
+
+- local: codellama
+  title: "Code Llama: Llama 2 learns to code" 
+  author: philschmid
+  thumbnail: /blog/assets/160_codellama/thumbnail.jpg
+  date: August 25, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: audioldm2
+  title: "AudioLDM 2, but faster ⚡️"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/161_audioldm2/thumbnail.png
+  date: Aug 30, 2023
+  tags:
+    - guide
+    - audio
+    - diffusers
+    - diffusion
+
+- local: falcon-180b
+  title: "Spread Your Wings: Falcon 180B is here"
+  author: philschmid
+  thumbnail: /blog/assets/162_falcon_180b/thumbnail.jpg
+  date: September 6, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: t2i-sdxl-adapters
+  title: "Efficient Controllable Generation for SDXL with T2I-Adapters"
+  author: Adapter
+  guest: true
+  thumbnail: /blog/assets/t2i-sdxl-adapters/thumbnail.png
+  date: September 8, 2023
+  tags:
+    - guide
+    - collaboration
+    - diffusers
+    - diffusion
 
 - local: ram-efficient-pytorch-fsdp
   title: "Fine-tuning Llama 2 70B using PyTorch FSDP"
   author: smangrul
   thumbnail: /blog/assets/160_fsdp_llama/thumbnail.jpg
-  date: August XX, 2023
+  date: September 13, 2023
   tags:
     - llm
     - guide

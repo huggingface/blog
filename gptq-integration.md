@@ -27,12 +27,12 @@ This integration is available both for Nvidia GPUs, and RoCm-powered AMD GPUs.
 ## Table of contents
 
 - [Resources](#resources)
-- [**A gentle summary of the GPTQ paper**](#--a-gentle-summary-of-the-gptq-paper--)
-- [AutoGPTQ library – the one-stop library for efficiently leveraging GPTQ for LLMs](#autogptq-library---the-one-stop-library-for-efficiently-leveraging-gptq-for-llms)
-- [Native support of GPTQ models in 🤗 Transformers](#native-support-of-gptq-models-in----transformers)
-- [Quantizing models **with the Optimum library**](#quantizing-models---with-the-optimum-library--)
-- [Running GPTQ models through ***Text-Generation-Inference***](#running-gptq-models-through----text-generation-inference---)
-- [**Fine-tune quantized models with PEFT**](#--fine-tune-quantized-models-with-peft--)
+- [**A gentle summary of the GPTQ paper**](#a-gentle-summary-of-the-gptq-paper)
+- [AutoGPTQ library – the one-stop library for efficiently leveraging GPTQ for LLMs](#autogptq-library--the-one-stop-library-for-efficiently-leveraging-gptq-for-llms)
+- [Native support of GPTQ models in 🤗 Transformers](#native-support-of-gptq-models-in-🤗-transformers)
+- [Quantizing models **with the Optimum library**](#quantizing-models-with-the-optimum-library)
+- [Running GPTQ models through ***Text-Generation-Inference***](#running-gptq-models-through-text-generation-inference)
+- [**Fine-tune quantized models with PEFT**](#fine-tune-quantized-models-with-peft)
 - [Room for improvement](#room-for-improvement)
   * [Supported models](#supported-models)
 - [Conclusion and final words](#conclusion-and-final-words)
@@ -52,7 +52,7 @@ This blogpost and release come with several resources to get started with GPTQ q
 
 ## **A gentle summary of the GPTQ paper**
 
-Quantization methods usually belong into one of two categories: 
+Quantization methods usually belong to one of two categories: 
 
 1. Post-Training Quantization (PTQ): We quantize a pre-trained model using moderate resources, such as a calibration dataset and a few hours of computation.
 2. Quantization-Aware Training (QAT): Quantization is performed before training or further fine-tuning. 
