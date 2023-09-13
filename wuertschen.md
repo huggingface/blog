@@ -68,13 +68,13 @@ images = pipeline(
 
 ### Diffusers integration
 Because Würstchen is fully integrated in `diffusers`, it automatically comes with various goodies and optimizations out of the box. These include:
-- Automatic use of PyTorch 2 `SDPA` accelerated attention, as described below.
-- Support for the xFormers flash attention implementation, if you need to use PyTorch 1.x instead of 2.
-- Model offload, to move unused components to CPU while they are not in use. This saves memory with negligible performance impact.
-- Sequential CPU offload, for situations where memory is really precious. Memory use will be minimized, at the cost of slower inference.
-- Prompt weighting with the [Compel](https://github.com/damian0815/compel) library.
-- Support for the `mps` device on Apple Silicon macs.
-- Use of generators for reproducibility.
+- Automatic use of [PyTorch 2 `SDPA`](https://huggingface.co/docs/diffusers/optimization/torch2.0) accelerated attention, as described below.
+- Support for the [xFormers flash attention](https://huggingface.co/docs/diffusers/optimization/xformers) implementation, if you need to use PyTorch 1.x instead of 2.
+- [Model offload](https://huggingface.co/docs/diffusers/optimization/fp16#model-offloading-for-fast-inference-and-memory-savings), to move unused components to CPU while they are not in use. This saves memory with negligible performance impact.
+- [Sequential CPU offload](https://huggingface.co/docs/diffusers/optimization/fp16#offloading-to-cpu-with-accelerate-for-memory-savings), for situations where memory is really precious. Memory use will be minimized, at the cost of slower inference.
+- [Prompt weighting](https://huggingface.co/docs/diffusers/using-diffusers/weighted_prompts) with the [Compel](https://github.com/damian0815/compel) library.
+- Support for the [`mps` device](https://huggingface.co/docs/diffusers/optimization/mps) on Apple Silicon macs.
+- Use of generators for [reproducibility](https://huggingface.co/docs/diffusers/using-diffusers/reproducibility).
 - Sensible defaults for inference to produce high-quality results in most situations. Of course you can tweak all parameters as you wish!
 
 
