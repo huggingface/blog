@@ -2798,3 +2798,13 @@
     - comparison
     - bitsandbytes
     - gptq
+
+- local: ram-efficient-pytorch-fsdp
+  title: "Fine-tuning Llama 2 70B using PyTorch FSDP"
+  author: smangrul
+  thumbnail: /blog/assets/160_fsdp_llama/thumbnail.jpg
+  date: September 13, 2023
+  tags:
+    - llm
+    - guide
+    - nlp
