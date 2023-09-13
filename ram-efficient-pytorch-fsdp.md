@@ -4,7 +4,7 @@ thumbnail: /blog/assets/160_fsdp_llama/thumbnail.jpg
 authors:
 - user: smangrul
 - user: sgugger
-- user: letwun
+- user: lewtun
 - user: philschmid 
 ---
 # Fine-tuning Llama 2 70B using PyTorch FSDP
