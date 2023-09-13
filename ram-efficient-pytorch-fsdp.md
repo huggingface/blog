@@ -117,10 +117,12 @@ Flash Attention and enabling gradient checkpointing are required for faster trai
 If we follow the blog [Making Deep Learning Go Brrrr From First Principles](https://horace.io/brrr_intro.html), we can figure out that `Attention` module on current hardware is `memory-bound/bandwidth-bound`. The reason being that Attention **mostly consists of elementwise operations** as shown below on the left hand side. We can observe that masking, softmax and dropout operations take up the bulk of the time instead of matrix multiplications which consists of the bulk of FLOPs. 
 
 ![Attention Bottlenecks](./assets/160_fsdp_llama/attention_bottleneck.png)
+
 (Source: [link](https://arxiv.org/pdf/2205.14135.pdf))
 
 This is precisely the problem that Flash Attention addresses. The idea is to **remove redundant HBM reads/writes.** It does so by keeping everything in SRAM, perform all the intermediate steps and only then write the final result back to HBM, also known as **Kernel Fusion**. Below is an illustration of how this overcomes the memory-bound bottleneck. 
 ![kernel_fusion](./assets/160_fsdp_llama/kernel_fusion.webp)
+
 (Source: [link](https://gordicaleksa.medium.com/eli5-flash-attention-5c44017022ad))
 
  **Tiling** is used during forward and backward passes to chunk the NxN softmax/scores computation into blocks to overcome the limitation of SRAM memory size. To enable tiling, online softmax algorithm is used. **Recomputation** is used during backward pass in order to avoid storing the entire NxN softmax/score matrix during forward pass. This greatly reduces the memory consumption.
