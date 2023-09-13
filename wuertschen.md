@@ -40,7 +40,7 @@ You can also find a detailed explanation video here:
 
 ## How to use Würstchen?
 
-The model is available through the Diffusers Library.
+The model is available through the Diffusers Library, so you can use the interface you are already familiar with. For example, this is how to run inference using the `AutoPipeline`:
 
 ```Python
 import torch
