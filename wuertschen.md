@@ -26,7 +26,7 @@ Würstchen is a diffusion model, whose text-conditional component works in a hig
 
 ## Why another text-to-image model?
 
-Well, this one is pretty fast. Würstchen’s biggest benefits come from the fact that it can generate images much faster than models like Stable Diffusion XL while using much less memory. So for all the consumer graphic cards, who don’t have A100 lying around, this will come in handy. Here is a comparison with SDXL over different batch sizes.
+Well, this one is pretty fast and efficient. Würstchen’s biggest benefits come from the fact that it can generate images much faster than models like Stable Diffusion XL, while using a lot less memory! So for all of us who don’t have A100s lying around, this will come in handy. Here is a comparison with SDXL over different batch sizes:
 
 ![Inference Speed Plots](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/wuertschen/inference_speed_v2.jpg)
 
