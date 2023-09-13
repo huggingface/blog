@@ -2790,7 +2790,7 @@
   title: "Introducing Würtschen: Fast Diffusion for Image Generation"
   author: dome272
   thumbnail: /blog/assets/wuertschen/thumbnail.png
-  date: September 12, 2023
+  date: September 13, 2023
   tags:
     - diffusion
     - diffusers
