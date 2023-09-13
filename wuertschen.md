@@ -92,7 +92,7 @@ pipeline.prior_prior = torch.compile(pipeline.prior_prior , mode="reduce-overhea
 pipeline.decoder = torch.compile(pipeline.decoder, mode="reduce-overhead", fullgraph=True)
 ```
 
-Bear in mind, after running this the first time, the initial inference step will take a while to compile for both models. This can take up to 2 minutes. After that you can just normally run the inference: 
+Bear in mind that the initial inference step will take a long time (up to 2 minutes) while the models are being compiled. After that you can just normally run inference: 
 
 ```python
 images = pipeline(caption, height=1024, width=1536, prior_timesteps=DEFAULT_STAGE_C_TIMESTEPS, prior_guidance_scale=4.0, num_images_per_prompt=4).images
