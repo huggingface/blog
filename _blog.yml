@@ -2810,7 +2810,7 @@
     - nlp
 
 - local: wuertschen
-  title: "Introducing Würtschen: Fast Diffusion for Image Generation"
+  title: "Introducing Würstchen: Fast Diffusion for Image Generation"
   author: dome272
   thumbnail: /blog/assets/wuerstchen/thumbnail.jpg
   date: September 13, 2023
