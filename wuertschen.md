@@ -66,6 +66,11 @@ images = pipeline(
 ![Anthropomorphic cat dressed as a fire-fighter](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/wuertschen/Anthropomorphic_cat_dressed_as_a_fire_fighter.jpg)
 
 
+### Models on the Hub
+All checkpoints can also be seen on the [Huggingface Hub](https://huggingface.co/warp-ai). Multiple checkpoints, as well as future demos and model weights can be found there. Right now there are 3 checkpoints for the Prior available and 1 checkpoint for the Decoder.
+Take a look at the [documentation](https://huggingface.co/docs/diffusers/main/en/api/pipelines/wuerstchen) where the checkpoints are explained and what the different Prior models are and can be used for.
+
+
 ### Diffusers integration
 Because Würstchen is fully integrated in `diffusers`, it automatically comes with various goodies and optimizations out of the box. These include:
 - Automatic use of [PyTorch 2 `SDPA`](https://huggingface.co/docs/diffusers/optimization/torch2.0) accelerated attention, as described below.
