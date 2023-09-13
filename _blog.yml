@@ -2812,7 +2812,7 @@
 - local: wuertschen
   title: "Introducing Würtschen: Fast Diffusion for Image Generation"
   author: dome272
-  thumbnail: /blog/assets/wuertschen/thumbnail.png
+  thumbnail: /blog/assets/wuerstchen/thumbnail.jpg
   date: September 13, 2023
   tags:
     - diffusion
