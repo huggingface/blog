@@ -121,5 +121,6 @@ And the good news is that this compilation is a one-time execution. Post that, y
 
 
 ## Resources
-
-Further information about this model can be found in the official diffuser [documentation](https://huggingface.co/docs/diffusers/main/en/api/pipelines/wuerstchen).
+* Further information about this model can be found in the official diffuser [documentation](https://huggingface.co/docs/diffusers/main/en/api/pipelines/wuerstchen).
+* All the checkpoints can be found on the [hub](https://huggingface.co/warp-ai)
+* You can try out the [demo here](https://huggingface.co/spaces/warp-ai/Wuerstchen).
