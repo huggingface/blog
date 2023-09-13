@@ -66,6 +66,17 @@ images = pipeline(
 ![Anthropomorphic cat dressed as a fire-fighter](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/wuertschen/Anthropomorphic_cat_dressed_as_a_fire_fighter.jpg)
 
 
+### Diffusers integration
+Because Würstchen is fully integrated in `diffusers`, it automatically comes with various goodies and optimizations out of the box. These include:
+- Automatic use of PyTorch 2 `SDPA` accelerated attention, as described below.
+- Support for the xFormers flash attention implementation, if you need to use PyTorch 1.x instead of 2.
+- Model offload, to move unused components to CPU while they are not in use. This saves memory with negligible performance impact.
+- Sequential CPU offload, for situations where memory is really precious. Memory use will be minimized, at the cost of slower inference.
+- Prompt weighting with the [Compel](https://github.com/damian0815/compel) library.
+- Support for the `mps` device on Apple Silicon macs.
+- Use of generators for reproducibility.
+- Sensible defaults for inference to produce high-quality results in most situations. Of course you can tweak all parameters as you wish!
+
 
 ## Optimisation Technique 1: Flash Attention
 
