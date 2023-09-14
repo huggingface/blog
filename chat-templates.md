@@ -15,7 +15,7 @@ authors:
 
 ## tl;dr
 
-Chat models have been trained with very different formats for converting conversations into a single tokenizable string. Using a format different from the format a model was trained with will usually cause severe, silent performance degradation, so matching the format used during training is extremely important! Hugging Face tokenizers now have a `chat_template` attribute that can be used to save the chat format the model was trained with. This attribute contains a Jinja template that converts conversation histories into a correctly formatted string. Please see the technical documentation [link when it's available] for information on how to write and apply chat templates in your code.
+Chat models have been trained with very different formats for converting conversations into a single tokenizable string. Using a format different from the format a model was trained with will usually cause severe, silent performance degradation, so matching the format used during training is extremely important! Hugging Face tokenizers now have a `chat_template` attribute that can be used to save the chat format the model was trained with. This attribute contains a Jinja template that converts conversation histories into a correctly formatted string. Please see the [technical documentation](https://huggingface.co/docs/transformers/main/en/chat_templating) for information on how to write and apply chat templates in your code.
 
 ## Introduction
 
@@ -110,17 +110,17 @@ There's also a second reason not to hardcode a standard format, though, beyond t
 
 ## How do templates work?
 
-Chat templates are part of the **tokenizer** because they fulfill the same role as tokenizers do: They store information about how data is preprocessed to ensure that you feed data to the model in the same format that it saw during training. We have designed it to be very easy to add template information to an existing tokenizer and save it or upload it to the Hub. 
+Chat templates are part of the **tokenizer**, because they fulfill the same role as tokenizers do: They store information about how data is preprocessed, to ensure that you feed data to the model in the same format that it saw during training. We have designed it to be very easy to add template information to an existing tokenizer and save it or upload it to the Hub. 
 
 Before chat templates, chat formatting information was stored at the **class level** - this meant that, for example, all LLaMA checkpoints would get the same chat formatting, using code that was hardcoded in `transformers` for the LLaMA model class. For backward compatibility, model classes that had custom chat format methods have been given **default chat templates** instead.
 
 Default chat templates are also set at the class level, and tell classes like `ConversationPipeline` how to format inputs when the model does not have a chat template. We're doing this **purely for backwards compatibility** - we highly recommend that you explicitly set a chat template on any chat model, even when the default chat template is appropriate. This ensures that any future changes or deprecations in the default chat template don't break your model. Although we will be keeping default chat templates for the forseeable future, we hope to transition all models to explicit chat templates over time, at which point the default chat templates may be removed entirely.
 
-For information about how to set and apply chat templates, please see the technical documentation [link when it's available].
+For information about how to set and apply chat templates, please see the [technical documentation](https://huggingface.co/docs/transformers/main/en/chat_templating).
 
 ## How do I get started with templates?
 
-Easy! If a tokenizer has the `chat_template` attribute set, it's ready to go. You can use that model and tokenizer in `ConversationPipeline`, or you can call `tokenizer.apply_chat_template()` to format chats for inference or training. Please see our developer guide [link when available] or the apply_chat_template() documentation [link when available] for more!
+Easy! If a tokenizer has the `chat_template` attribute set, it's ready to go. You can use that model and tokenizer in `ConversationPipeline`, or you can call `tokenizer.apply_chat_template()` to format chats for inference or training. Please see our [developer guide](https://huggingface.co/docs/transformers/main/en/chat_templating) or the [apply_chat_template documentation](https://huggingface.co/docs/transformers/main/en/internal/tokenization_utils#transformers.PreTrainedTokenizerBase.apply_chat_template) for more!
 
 If a tokenizer doesn't have a `chat_template` attribute, it might still work, but it will use the default chat template set for that model class. This is fragile, as we mentioned above, and it's also a source of silent bugs when the class template doesn't match what the model was actually trained with. If you want to use a checkpoint that doesn't have a `chat_template`, we recommend checking docs like the model card to verify what the right format is, and then adding a correct `chat_template`for that format. We recommend doing this even if the default chat template is correct - it future-proofs the model, and also makes it clear that the template is present and suitable. 
 
