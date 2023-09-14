@@ -2809,7 +2809,7 @@
     - guide
     - nlp
 
-- local: wuertschen
+- local: wuerstchen
   title: "Introducing Würstchen: Fast Diffusion for Image Generation"
   author: dome272
   thumbnail: /blog/assets/wuerstchen/thumbnail.jpg
