@@ -2799,11 +2799,31 @@
     - bitsandbytes
     - gptq
 
+- local: ram-efficient-pytorch-fsdp
+  title: "Fine-tuning Llama 2 70B using PyTorch FSDP"
+  author: smangrul
+  thumbnail: /blog/assets/160_fsdp_llama/thumbnail.jpg
+  date: September 13, 2023
+  tags:
+    - llm
+    - guide
+    - nlp
+
+- local: wuerstchen
+  title: "Introducing Würstchen: Fast Diffusion for Image Generation"
+  author: dome272
+  thumbnail: /blog/assets/wuerstchen/thumbnail.jpg
+  date: September 13, 2023
+  tags:
+    - diffusion
+    - diffusers
+    - text-to-image
+
 - local: chat-templates
   title: "Chat Templates: An End to the Silent Performance Killer"
   author: rocketknight1
   thumbnail: /blog/assets/chat-templates/thumbnail.png
-  date: September 13, 2023
+  date: September 14, 2023
   tags:
     - LLM
     - nlp
