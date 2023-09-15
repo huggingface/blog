@@ -530,7 +530,7 @@ Positional encodings, encode the position of each token into a numerical present
 
 The authors of the [*Attention Is All You Need*](https://arxiv.org/abs/1706.03762) paper introduced sinusoidal positional embeddings \\( \mathbf{P} = \mathbf{p}_1, \ldots, \mathbf{p}_N \\) .
 where each vector \\( \mathbf{p}_i \\) is computed as a sinusoidal function of its position \\( i \\) .
-The positional encodings are then simply added to the input sequence vectors \\( \mathbf{\hat{X}} = \mathbf{\hat{x}}_1, \ldots, \mathbf{\hat{x}}_N \\) = \\( \mathbf{x}_1 + \\mathbf{p}_1, \ldots, \mathbf{x}_N + \mathbf{p}_N \\) thereby cueing the model to better learn sentence order.
+The positional encodings are then simply added to the input sequence vectors \\( \mathbf{\hat{X}} = \mathbf{\hat{x}}_1, \ldots, \mathbf{\hat{x}}_N \\) = \\( \mathbf{x}_1 + \mathbf{p}_1, \ldots, \mathbf{x}_N + \mathbf{p}_N \\) thereby cueing the model to better learn sentence order.
 
 Instead of using fixed position embeddings, others (such as [Devlin et al.](https://arxiv.org/abs/1810.04805)) used learned positional encodings for which the positional embeddings 
 \\( \mathbf{P} \\) are learned during training.
@@ -687,10 +687,7 @@ Two things should be noted here:
 There is however one catch. While the required peak memory for the \\( \mathbf{QK}^T \\) matrix is significantly reduced, holding the key-value cache in memory can become very memory expensive for long input sequence or multi-turn chat. Remember that the key-value cache needs to store the key-value vectors for all previous input vectors \\( \mathbf{x}_i \text{, for } i \in \{1, \ldots, c - 1\} \\) for all self-attention layers and for all attention heads.
 
 Let's compute the number of float values that need to be stored in the key-value cache for the LLM `bigcode/octocoder` that we used before.
-The number of float values amounts to:
-
-$$ 2 \times \text{seq_len} \times \text{num_attn_heads} \times \text{attn_head_dim} \times \text{num_layers} $$
-
+The number of float values amounts to two times the sequence length times the number of attention heads times the attention head dimension and times the number of layers.
 Computing this for our LLM at a hypothetical input sequence length of 16000 gives:
 
 ```python
