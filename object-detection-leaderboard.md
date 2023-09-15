@@ -189,11 +189,11 @@ By examining the curve, one may infer the potential trade-offs between Precision
 
 If a detector's confidence results in a few false positives (FP), it will likely have high Precision. However, this might lead to missing many true positives (TP), causing a high false negative (FN) rate and, subsequently, low Recall. On the other hand, accepting more positive detections can boost Recall but might also raise the FP count, thereby reducing Precision.
 
-**The area under the Precision x Recall curve (AUC) computed for a target class represents the Average Precision value for that particular class.** COCO evaluation approach refers to "AP" as the mean AUC value among all target classes in the image dataset, also referred to as Mean Average Precision (mAP) by other approaches.
+**The area under the Precision x Recall curve (AUC) computed for a target class represents the Average Precision value for that particular class.** The COCO evaluation approach refers to "AP" as the mean AUC value among all target classes in the image dataset, also referred to as Mean Average Precision (mAP) by other approaches.
 
 For a large dataset, the detector will likely output boxes with a wide range of confidence levels, resulting in a jagged Precision x Recall line, making it challenging to compute its AUC (Average Precision) precisely. Different methods approximate the area of the curve with different approaches. A popular approach is called the N-interpolation approach, where N represents how many points are sampled from the Precision x Recall blue line.
 
-COCO's approach, for instance, uses 101-interpolation, which computes 101 points for equally spaced Recall values (0. , 0.01, 0.02, … 1.00), while other approaches use 11 points, referred to as 11-interpolation. Figure 7 illustrates a Precision x Recall curve (in blue) with 11 equal-spaced Recall points. 
+COCO approach, for instance, uses 101-interpolation, which computes 101 points for equally spaced Recall values (0. , 0.01, 0.02, … 1.00), while other approaches use 11 points, referred to as 11-interpolation. Figure 7 illustrates a Precision x Recall curve (in blue) with 11 equal-spaced Recall points. 
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
@@ -222,15 +222,15 @@ Average Recall (AR) is a metric that's often used alongside AP to evaluate objec
 
 COCO’s approach computes AR as the mean of the maximum obtained Recall over IOUs > 0.5 and classes. 
 
-When using IOUs in the range of [0.5, 1] for AR, the model is assessed based on the premise that the object's location is significantly accurate by averaging Recall values within this interval. Hence, if your goal is to evaluate your model for both high Recall and precise object localization, AR could be a valuable evaluation metric to consider.
+By using IOUs in the range [0.5, 1] and averaging Recall values across this interval, AR assesses the model's predictions on their object localization. Hence, if your goal is to evaluate your model for both high Recall and precise object localization, AR could be a valuable evaluation metric to consider.
 
 ### What are the variants of Average Precision and Average Recall?
 
 Based on predefined IoU thresholds and the areas associated with ground-truth objects, different versions of AP and AR can be obtained:
 
-* **AP@.5**: It sets IoU threshold = 0.5 and computes the Precision x Recall AUC for each target class in the image dataset. Then, the computed results for each class are summed up and divided by the number of classes.
-* **AP@.75**: It uses the same methodology as AP@.50, but it considers IoU threshold = 0.75. With this higher IoU requirement, AP@.75 is considered stricter than AP@.5 and should be considered to evaluate models that need to achieve a high level of localization accuracy in their detections.
-* **AP@[.5:.05:.95]**: also referred to AP by cocoeval tools: This is an expanded version of AP@.5 and AP@.75, as it computes AP@ with different IoU thresholds (0.5, 0.55, 0.6,...,0.95) and averages the computed results as shown in the following Equation. In comparison to AP@.5 and AP@.75, this metric provides a holistic evaluation, capturing a model’s performance across a broader range of localization accuracies.
+* **AP@.5**: sets IoU threshold = 0.5 and computes the Precision x Recall AUC for each target class in the image dataset. Then, the computed results for each class are summed up and divided by the number of classes.
+* **AP@.75**: uses the same methodology as AP@.50, with IoU threshold = 0.75. With this higher IoU requirement, AP@.75 is considered stricter than AP@.5 and should be used to evaluate models that need to achieve a high level of localization accuracy in their detections.
+* **AP@[.5:.05:.95]**: also referred to AP by cocoeval tools. This is an expanded version of AP@.5 and AP@.75, as it computes AP@ with different IoU thresholds (0.5, 0.55, 0.6,...,0.95) and averages the computed results as shown in the following equation. In comparison to AP@.5 and AP@.75, this metric provides a holistic evaluation, capturing a model’s performance across a broader range of localization accuracies.
 
 
 \\( \text{AP@[.5:.05:0.95} = \frac{\text{AP}_{0.5} + \text{AP}_{0.55} + ... + \text{AP}_{0.95}}{10} \\)
@@ -273,9 +273,9 @@ Next, we will provide tips on choosing the best model based on the metrics and p
 
 Selecting an appropriate metric to evaluate and compare object detectors considers several factors. The primary considerations include the application's purpose and the dataset's characteristics used to train and evaluate the models.
 
-For general performance, **AP (AP@[.5:.05:.95])** is a good choice if you want an all-rounded model across different IoU thresholds without a hard requirement on the localization of the detected objects.
+For general performance, **AP (AP@[.5:.05:.95])** is a good choice if you want all-round model performance across different IoU thresholds, without a hard requirement on the localization of the detected objects.
 
-If you want a model with good object recognition and objects generally in the right place, you can look at the **AP@.5**. But if you prefer a more accurate model for placing the bounding boxes, **AP@.75** is more appropriate.
+If you want a model with good object recognition and objects generally in the right place, you can look at the **AP@.5**. If you prefer a more accurate model for placing the bounding boxes, **AP@.75** is more appropriate.
 
 If you have restrictions on object sizes, **AP-S**, **AP-M** and **AP-L** come into play. For example, if your dataset or application predominantly features small objects, AP-S provides insights into the detector's efficacy in recognizing such small targets. This becomes crucial in scenarios such as detecting distant vehicles or small artifacts in medical imaging.
 
@@ -319,14 +319,14 @@ results=processor.post_process_object_detection(outputs, target_sizes=target_siz
 
 The parameter ```threshold``` in function ```post_prcess_object_detection``` is used to filter the detected bounding boxes based on their confidence scores.
 
-As previously discussed, the Precision x Recall curve is built by measuring the Precision and Recall across the full range of confidence values [0,1]. Thus, limiting the detections before evaluation will produce biased results, as we will leave some detections apart. 
+As previously discussed, the Precision x Recall curve is built by measuring the Precision and Recall across the full range of confidence values [0,1]. Thus, limiting the detections before evaluation will produce biased results, as we will leave some detections out. 
 
 
 #### Varying the batch size
 
 The batch size not only affects the processing time but may also result in different detected boxes. The image pre-processing step may change the resolution of the input images based on their sizes.
 
-As mentioned in [DETR documentation](https://huggingface.co/docs/transformers/model_doc/detr), by default, `DetrImageProcessor` resizes the input images such that the shortest side is 800 pixels, and resizes again so that the longest is at most 1333 pixels. At inference time, the shortest side is set to 800. Due to this resizing, images in a batch can have different sizes. DETR solves this by padding images up to the largest size in a batch and by creating a pixel mask that indicates which pixels are real/which are padding.
+As mentioned in [DETR documentation](https://huggingface.co/docs/transformers/model_doc/detr), by default, `DetrImageProcessor` resizes the input images such that the shortest side is 800 pixels, and resizes again so that the longest is at most 1333 pixels. Due to this, images in a batch can have different sizes. DETR solves this by padding images up to the largest size in a batch, and by creating a pixel mask that indicates which pixels are real/which are padding.
 
 To illustrate this process, let's consider the examples in Figure 9 and Figure 10. In Figure 9, we consider batch size = 1, so both images are processed independently with `DetrImageProcessor`. The first image is resized to `(800, 1201)`, making the detector predict 28 boxes with class `vase`, 22 boxes with class `chair`, ten boxes with class `bottle`, etc.
 
