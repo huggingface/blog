@@ -61,7 +61,7 @@ Specific type of object detection models, called _zero-shot_, can receive additi
 
 However, the detectors' diversity goes beyond the range of output classes they can recognize. They vary in terms of underlying architectures, model sizes, processing speeds, and prediction accuracy.
 
-A popular metric used to evaluate the accuracy of predictions made by an object detection model is the **Average Precision (AP)** and its variants, which will be explained further.
+A popular metric used to evaluate the accuracy of predictions made by an object detection model is the **Average Precision (AP)** and its variants, which will be explained later in this blog.
 
 Evaluating an object detection model encompasses several components, like a dataset with ground-truth annotations, detections (output prediction), and metrics. This process is depicted in the schematic provided in Figure 2:
 
@@ -105,7 +105,7 @@ Based on predefined \\( \text{T}_{\text{IOU}} \\), we can define True Positives 
 * **True Positive (TP)**: A correct detection where IoU ≥ \\( \text{T}_{\text{IOU}} \\).
 * **False Positive (FP)**: An incorrect detection (missed object), where the IoU < \\( \text{T}_{\text{IOU}} \\).
 
-Conversely, Negatives are evaluated  based on a ground-truth bounding and can be defined as False Negative (FN) or True Negative (TN):
+Conversely, negatives are evaluated based on a ground-truth bounding and can be defined as False Negative (FN) or True Negative (TN):
 * **False Negative (FN)**: Refers to a ground-truth object that the model failed to detect.
 * **True Negative (TN)**: Denotes a correct non-detection. Within the domain of object detection, countless bounding boxes within an image should NOT be identified, as they don't represent the target object. Consider all possible boxes in an image that don’t represent the target object - quite a vast number, isn’t it? :) That's why we do not consider TN to compute object detection metrics.
 
@@ -162,7 +162,7 @@ Based on these rules, we can classify each detection as TP or FP, as shown in Ta
 </center>
 </div>
 
-Note that by rule 2, in image 1, “E” is TP while “D” is FP because IoU between “E” and the ground-truth is greater than IoU between “D” and the ground-truth.
+Note that by rule 2, in image 1, "E" is TP while "D" is FP because IoU between "E" and the ground-truth is greater than IoU between "D" and the ground-truth.
 
 
 Now, we need to compute Precision and Recall considering the confidence value of each detection. A good way to do it is to sort the detections by their confidence values as shown in Table 2. Then, for each confidence value in each row, we compute the Precision and Recall considering the accumulative TP (acc TP) and accumlative FP (acc FP). The "acc TP" of each row is increased in 1 every time a TP is noted, and the "acc FP" is increased in 1 when a FP is noted. Columns "acc TP" and "acc FP" basically tell us the TP and FP values given a particular confidence level. The computation of each value of Table 2 can be viewed in [this Spread Sheet](https://docs.google.com/spreadsheets/d/1mc-KPDsNHW61ehRpI5BXoyAHmP-NxA52WxoMjBqk7pw/edit?usp=sharing).
@@ -343,7 +343,7 @@ Figure 10 shows the process with batch size = 2, where the same two images are p
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/object-detection-leaderboard/example_batch_size_2.png" alt="example_batch_size_2.png" />
-    <figcaption> Figure 10: Two images proccessed with `DetrImageProcessor` using batch size = 2.</figcaption>
+    <figcaption> Figure 10: Two images processed with `DetrImageProcessor` using batch size = 2.</figcaption>
 </center>
 </div>
 
