@@ -150,7 +150,7 @@ Let's borrow the practical example presented in the paper "A Survey on performan
 </div>
 
 Our hypothetical object detector retrieved 24 objects in our dataset, illustrated by the red boxes. To compute Precision and Recall we use the Precision and Recall equations at all confidence levels to evaluate how well the detector performed for this specific class on our benchmarking dataset. For that, we need to establish some rules:
-* **Rule 1**: For simplicity, let's consider our detections a True Positive (TP) if the  \\( \text{IOU} \ge 30\% \\); otherwise, it is a False Positive (FP). 
+* **Rule 1**: For simplicity, let's consider our detections a True Positive (TP) if the  IOU ≥ 30%; otherwise, it is a False Positive (FP). 
 * **Rule 2**: For cases where a detection overlaps with more than one ground-truth (as in Images 2 to 7), the predicted box with the highest IoU is considered TP, and the other is FP.
 
 Based on these rules, we can classify each detection as TP or FP, as shown in Table 1:
@@ -167,8 +167,12 @@ Note that by rule 2, in image 1, "E" is TP while "D" is FP because IoU between "
 
 Now, we need to compute Precision and Recall considering the confidence value of each detection. A good way to do so is to sort the detections by their confidence values as shown in Table 2. Then, for each confidence value in each row, we compute the Precision and Recall considering the accumulative TP (acc TP) and accumlative FP (acc FP). The "acc TP" of each row is increased in 1 every time a TP is noted, and the "acc FP" is increased in 1 when a FP is noted. Columns "acc TP" and "acc FP" basically tell us the TP and FP values given a particular confidence level. The computation of each value of Table 2 can be viewed in [this spreadsheet](https://docs.google.com/spreadsheets/d/1mc-KPDsNHW61ehRpI5BXoyAHmP-NxA52WxoMjBqk7pw/edit?usp=sharing).
 
-For example, consider the 12th row (detection "P") of Table 2. The value "acc TP = 4" means that if we benchmark our model on this particular dataset with a confidence of 0.62, we would correctly detect four target objects and incorrectly detect eight target objects. This would result in \\( \text{Precision} = \frac{\text{acc TP}}{(\text{acc TP} + \text{acc FP})} = \frac{4}{(4+8)} = 0.3333 \\) and \\( \text{Recall} = \frac{\text{acc TP}}{\text{all ground truths}} = \frac{4}{15} = 0.2667 \\) .
+For example, consider the 12th row (detection "P") of Table 2. The value "acc TP = 4" means that if we benchmark our model on this particular dataset with a confidence of 0.62, we would correctly detect four target objects and incorrectly detect eight target objects. This would result in 
 
+<p style="text-align: center;">
+\\( \text{Precision} = \frac{\text{acc TP}}{(\text{acc TP} + \text{acc FP})} = \frac{4}{(4+8)} = 0.3333 \\) and \\( \text{Recall} = \frac{\text{acc TP}}{\text{all ground truths}} = \frac{4}{15} = 0.2667 \\) .
+</p>
+ 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
     <figcaption> Table 2: Computation of Precision and Recall values of detections from Table 1.</figcaption>
@@ -205,7 +209,9 @@ COCO approach, for instance, uses 101-interpolation, which computes 101 points f
 
 The red points are placed according to the following:
 
+<p style="text-align: center;">
 \\( \rho_{\text{interp}} (R) = \max_{\tilde{r}:\tilde{r} \geq r} \rho \left( \tilde{r} \right) \\)
+</p>
 
 where \\( \rho \left( \tilde{r} \right) \\) is the measured Precision at Recall \\( \tilde{r} \\).
 
@@ -213,8 +219,9 @@ In this definition, instead of using the Precision value \\( \rho(R) \\) observe
 
 For this type of approach, the AUC, which represents the Average Precision, is approximated by the average of all points and given by:
 
+<p style="text-align: center;">
 \\( \text{AP}_{11} = \frac{1}{11} = \sum\limits_{R\in \left \{ 0, 0.1, ...,1 \right \}} \rho_{\text{interp}} (R) \\)
-
+</p>
 
 ### What's Average Recall and how to compute it?
 
@@ -232,8 +239,9 @@ Based on predefined IoU thresholds and the areas associated with ground-truth ob
 * **AP@.75**: uses the same methodology as AP@.50, with IoU threshold = 0.75. With this higher IoU requirement, AP@.75 is considered stricter than AP@.5 and should be used to evaluate models that need to achieve a high level of localization accuracy in their detections.
 * **AP@[.5:.05:.95]**: also referred to AP by cocoeval tools. This is an expanded version of AP@.5 and AP@.75, as it computes AP@ with different IoU thresholds (0.5, 0.55, 0.6,...,0.95) and averages the computed results as shown in the following equation. In comparison to AP@.5 and AP@.75, this metric provides a holistic evaluation, capturing a model’s performance across a broader range of localization accuracies.
 
-
+<p style="text-align: center;">
 \\( \text{AP@[.5:.05:0.95} = \frac{\text{AP}_{0.5} + \text{AP}_{0.55} + ... + \text{AP}_{0.95}}{10} \\)
+</p>
 
 * **AP-S**: It applies AP@[.5:.05:.95] considering (small) ground-truth objects with \\( \text{area} < 32^2 \\) pixels.
 * **AP-M**: It applies AP@[.5:.05:.95] considering (medium-sized) ground-truth objects with \\( 32^2 < \text{area} < 96^2 \\) pixels.
@@ -317,7 +325,7 @@ results=processor.post_process_object_detection(outputs, target_sizes=target_siz
 
 ```
 
-The parameter ```threshold``` in function ```post_prcess_object_detection``` is used to filter the detected bounding boxes based on their confidence scores.
+The parameter `threshold` in function `post_process_object_detection` is used to filter the detected bounding boxes based on their confidence scores.
 
 As previously discussed, the Precision x Recall curve is built by measuring the Precision and Recall across the full range of confidence values [0,1]. Thus, limiting the detections before evaluation will produce biased results, as we will leave some detections out. 
 
@@ -328,9 +336,9 @@ The batch size not only affects the processing time but may also result in diffe
 
 As mentioned in [DETR documentation](https://huggingface.co/docs/transformers/model_doc/detr), by default, `DetrImageProcessor` resizes the input images such that the shortest side is 800 pixels, and resizes again so that the longest is at most 1333 pixels. Due to this, images in a batch can have different sizes. DETR solves this by padding images up to the largest size in a batch, and by creating a pixel mask that indicates which pixels are real/which are padding.
 
-To illustrate this process, let's consider the examples in Figure 9 and Figure 10. In Figure 9, we consider batch size = 1, so both images are processed independently with `DetrImageProcessor`. The first image is resized to `(800, 1201)`, making the detector predict 28 boxes with class `vase`, 22 boxes with class `chair`, ten boxes with class `bottle`, etc.
+To illustrate this process, let's consider the examples in Figure 9 and Figure 10. In Figure 9, we consider batch size = 1, so both images are processed independently with `DetrImageProcessor`. The first image is resized to (800, 1201), making the detector predict 28 boxes with class `vase`, 22 boxes with class `chair`, ten boxes with class `bottle`, etc.
 
-Figure 10 shows the process with batch size = 2, where the same two images are processed with `DetrImageProcessor` in the same batch. Both images are resized to have the same shape `(873, 1201)`, and padding is applied, so the part of the images with the content is kept with their original aspect ratios. However, the first image, for instance, outputs a different number of objects: 31 boxes with the class `vase`, 20 boxes with the class `chair`, eight boxes with the class `bottle`, etc. Note that for the second image, with batch size = 2, a new class is detected `dog`. This occurs due to the model's capacity to detect objects of different sizes depending on the image's resolution.
+Figure 10 shows the process with batch size = 2, where the same two images are processed with `DetrImageProcessor` in the same batch. Both images are resized to have the same shape (873, 1201), and padding is applied, so the part of the images with the content is kept with their original aspect ratios. However, the first image, for instance, outputs a different number of objects: 31 boxes with the class `vase`, 20 boxes with the class `chair`, eight boxes with the class `bottle`, etc. Note that for the second image, with batch size = 2, a new class is detected `dog`. This occurs due to the model's capacity to detect objects of different sizes depending on the image's resolution.
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
@@ -355,9 +363,9 @@ The logits output by a model are post-processed to produce the confidence scores
 
 It's important to recognize that models can produce boxes in various formats, and that also may be taken into consideration, making proper conversions required by the evaluator.
 
-* `(x, y, width, height)`: this represents the upper-left corner coordinates followed by the absolute dimensions (width and height).
-* `(x, y, x2, y2)`: this format indicates the coordinates of the upper-left corner and the lower-right corner.
-* `(rel_x_center, rel_y_center, rel_width, rel_height)`: the values represent the relative coordinates of the center and the relative dimensions of the box.
+* (x, y, width, height): this represents the upper-left corner coordinates followed by the absolute dimensions (width and height).
+* (x, y, x2, y2): this format indicates the coordinates of the upper-left corner and the lower-right corner.
+* (rel_x_center, rel_y_center, rel_width, rel_height): the values represent the relative coordinates of the center and the relative dimensions of the box.
 
 #### Some ground-truths are ignored in some benchmarking datasets
 
