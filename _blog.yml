@@ -2778,12 +2778,53 @@
     - diffusers
     - diffusion
 
-- local: optimize-llm
-  title: "Optimizing your LLM in production"
-  author: patrickvonplaten
-  thumbnail: /blog/assets/163_optimize_llm/self_attn_tokens.png
-  date: Sep 18, 2023
+- local: safecoder-vs-closed-source-code-assistants
+  title: "SafeCoder vs. Closed-source Code Assistants"
+  author: julsimon
+  thumbnail: /blog/assets/safecoder-vs-closed-source-code-assistants/image.png
+  date: September 11, 2023
   tags:
+    - bigcode
+
+- local: overview-quantization-transformers
+  title: "Overview of natively supported quantization schemes in 🤗 Transformers"
+  author: ybelkada
+  thumbnail: /blog/assets/163_overview_quantization_transformers/thumbnail.jpg
+  date: September 12, 2023
+  tags:
+    - llm
+    - optimization
+    - quantization
+    - comparison
+    - bitsandbytes
+    - gptq
+
+- local: ram-efficient-pytorch-fsdp
+  title: "Fine-tuning Llama 2 70B using PyTorch FSDP"
+  author: smangrul
+  thumbnail: /blog/assets/160_fsdp_llama/thumbnail.jpg
+  date: September 13, 2023
+  tags:
+    - llm
+    - guide
     - nlp
-    - research
-    - LLM
+
+- local: wuerstchen
+  title: "Introducing Würstchen: Fast Diffusion for Image Generation"
+  author: dome272
+  thumbnail: /blog/assets/wuerstchen/thumbnail.jpg
+  date: September 13, 2023
+  tags:
+    - diffusion
+    - diffusers
+    - text-to-image
+
+# - local: optimize-llm
+#   title: "Optimizing your LLM in production"
+#   author: patrickvonplaten
+#   thumbnail: /blog/assets/163_optimize_llm/self_attn_tokens.png
+#   date: Sep 18, 2023
+#   tags:
+#     - nlp
+#     - research
+#     - LLM
