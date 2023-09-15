@@ -2819,12 +2819,12 @@
     - diffusers
     - text-to-image
 
-# - local: optimize-llm
-#   title: "Optimizing your LLM in production"
-#   author: patrickvonplaten
-#   thumbnail: /blog/assets/163_optimize_llm/self_attn_tokens.png
-#   date: Sep 18, 2023
-#   tags:
-#     - nlp
-#     - research
-#     - LLM
+- local: optimize-llm
+  title: "Optimizing your LLM in production"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/163_optimize_llm/optimize_llm.png
+  date: Sep 15, 2023
+  tags:
+    - nlp
+    - research
+    - LLM
