@@ -400,7 +400,6 @@ Below is a table that illustrates recommended metrics for specific use cases and
 | Recall for medium-sized objects              | Sports analysis for players           | AR-M               |
 | Recall for large objects                     | Wildlife tracking in wide landscapes  | AR-L               |
 
-
 The results shown in our 🤗 [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard) are computed using an independent tool [PyCOCOtools](https://github.com/cocodataset/cocoapi/tree/master/PythonAPI) widely used by the community for model benchmarking. We're aiming to collect datasets of different domains (e.g. medical images, sports, autonomous vehicles, etc). You can use the [discussion page](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard/discussions) to make requests for datasets, models and features. Eager to see your model or dataset feature on our leaderboard? Don't hold back! Introduce us to your model and dataset, fine-tune, and let's get it ranked! 🥇
 
 
@@ -411,3 +410,5 @@ The results shown in our 🤗 [Object Detection Leaderboard](https://huggingface
 * Paper [What Makes for Effective Detection Proposals](https://arxiv.org/abs/1502.05082)
 * Paper [A Comparative Analysis of Object Detection Metrics with a Companion Open-Source Toolkit](https://www.mdpi.com/2079-9292/10/3/2790) 
 * Paper [A Survey on Performance Metrics for Object-Detection Algorithms](https://ieeexplore.ieee.org/document/9145130) 
+
+Special thanks 🙌 to [@merve](https://huggingface.co/merve) and [@osanseviero](https://huggingface.co/osanseviero) for their feedback and great comments. 🤗 
