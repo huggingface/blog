@@ -314,7 +314,7 @@ As LLMs improve in text comprehension and generation, they are applied to increa
 
 How can we get rid of the exorbitant memory requirements for large input lengths? We need a new way to compute the self-attention mechanism that gets rid of the \\( QK^T )\\ matrix. [Tri Dao et al.](https://arxiv.org/abs/2205.14135) developed exactly such a new algorithm and called it **Flash Attention**.
 
-In a nutshell, Flash Attention breaks the  \\( \mathbf{V} \times \text{Softmax}(\mathbf{QK}^T) )\\ computation apart and instead computes smaller chunks of the output by iterating oven multiple softmax computation steps:
+In a nutshell, Flash Attention breaks the  \\(\mathbf{V} \times \text{Softmax}(\mathbf{QK}^T))\\ computation apart and instead computes smaller chunks of the output by iterating oven multiple softmax computation steps:
 
 $$ \textbf{O}_i \leftarrow s^a_{ij} * \textbf{O}_i + s^b_{ij} * \mathbf{V}_{j} \times \text{Softmax}(\mathbf{QK}^T_{i,j}) \text{ for multiple } i, j \text{ iterations} $$
 
