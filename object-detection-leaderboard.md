@@ -222,7 +222,7 @@ Average Recall (AR) is a metric that's often used alongside AP to evaluate objec
 
 COCO’s approach computes AR as the mean of the maximum obtained Recall over IOUs > 0.5 and classes. 
 
-When using IOUs in the range of [0.5, 1] for AR, by averaging Recall values within this interval, the model is assessed based on the premise that the object's location is significantly accurate. Hence, if your goal is to evaluate your model for both high Recall and precise object localization, AR could be a valuable evaluation metric to consider.
+When using IOUs in the range of [0.5, 1] for AR, the model is assessed based on the premise that the object's location is significantly accurate by averaging Recall values within this interval. Hence, if your goal is to evaluate your model for both high Recall and precise object localization, AR could be a valuable evaluation metric to consider.
 
 ### What are the variants of Average Precision and Average Recall?
 
