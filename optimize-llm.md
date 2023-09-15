@@ -1,6 +1,6 @@
 ---
 title: "Optimizing your LLM in production"
-thumbnail: /blog/assets/163_getting_most_out_of_llms/self_attn_tokens.png
+thumbnail: /blog/assets/163_getting_most_out_of_llms/optimize_llm.png
 authors:
 - user: patrickvonplaten
 ---
