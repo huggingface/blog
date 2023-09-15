@@ -174,7 +174,7 @@ There are various quantization techniques, which we won't discuss in detail here
 -   3.  Dynamically dequantize weights to bfloat16 to perform the computation with their input vectors in bfloat16 precision
 -   4.  Quantize the weights again to the target precision after computation with their inputs.
 
-In a nutshell, this means that *inputs-weight matrix* multiplications, with \\( X \\) being the *inputs*, \\( W )\\ being a weight matrix and \\( Y )\\ being the output:
+In a nutshell, this means that *inputs-weight matrix* multiplications, with \\( X \\) being the *inputs*, \\( W \\) being a weight matrix and \\( Y \\) being the output:
 
 $$ Y = X * W $$
 
