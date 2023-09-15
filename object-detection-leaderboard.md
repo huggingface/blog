@@ -48,7 +48,7 @@ Figure 1: Example of outputs performed by an object detector. -->
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
-    <img src="/blog/assets/object-detection-leaderboard/intro_object_detection.png" alt="intro_object_detection.png" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/object-detection-leaderboard/intro_object_detection.png" alt="intro_object_detection.png" />
     <figcaption> Figure 1: Example of outputs from an object detector.</figcaption>
 </center>
 </div>
@@ -67,7 +67,7 @@ Evaluating an object detection model encompasses several components, like a data
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
-    <img src="/blog/assets/object-detection-leaderboard/pipeline_object_detection.png" alt="pipeline_object_detection.png" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/object-detection-leaderboard/pipeline_object_detection.png" alt="pipeline_object_detection.png" />
     <figcaption> Figure 2: Schematic illustrating the evaluation process for a traditional object detection model.</figcaption>
 </center>
 </div>
@@ -84,22 +84,22 @@ This section will delve into the definition of Average Precision and Average Rec
 
 ### What's Average Precision and how to compute it?
 
-Average Precision is a single-number metric that summarizes the Precision x Recall curve. It captures the ability of a model to classify and localize objects correctly while considering both false positive and false negative detections.
+Average Precision (AP) is a metric used to evaluate the performance of an object detection model. AP is a single-number that summarizes the Precision x Recall curve. But before we dive into the details showing how Precision x Recall curve is generated and how to compute Average Precision, first we need to understand what Intersection over Union (IoU) is, and how to classify a detection as True Positive or False Positive.
 
-Every box predicted by the model is considered a “positive” detection. Based on a criterion known as Intersection over Union (IoU) between the predicted box and a ground-truth annotation, a detection is categorized either as a true positive (TP) or a false positive (FP). 
-
-The IoU measures the overlap between the predicted bounding box and the actual (ground truth) bounding box. It's computed by dividing the area where the two boxes overlap by the area covered by both boxes combined. Figure 3 visually demonstrates the IoU using an example of a predicted box and its corresponding ground-truth box.
+IoU is a metric represented by a number between 0 and 1 that measures the overlap between the predicted bounding box and the actual (ground truth) bounding box. It's computed by dividing the area where the two boxes overlap by the area covered by both boxes combined. Figure 3 visually demonstrates the IoU using an example of a predicted box and its corresponding ground-truth box.
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
-    <img src="/blog/assets/object-detection-leaderboard/iou.png" alt="iou.png" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/object-detection-leaderboard/iou.png" alt="iou.png" />
     <figcaption> Figure 3: Intersection over Union (IoU) between a detection (in green) and ground-truth (in blue).</figcaption>
 </center>
 </div>
 
 If the ground truth and detected boxes share identical coordinates, representing the same region in the image, their IoU value is 1. Conversely, if the boxes do not overlap at any pixel, the IoU is considered to be 0.
 
-In scenarios where high Precision in detections is expected (e.g. an autonomous vehicle), the predicted bounding boxes should closely align with the ground-truth boxes. For that, a IoU threshold ( \\( \text{T}_{\text{IOU}} \\) ) approaching 1 is preferred. On the other hand, for applications where the exact position of the detected bounding boxes relative to the target object isn’t critical, the threshold can be relaxed, setting \\( \text{T}_{\text{IOU}} \\) closer to 0.
+In scenarios where high precision in detections is expected (e.g. an autonomous vehicle), the predicted bounding boxes should closely align with the ground-truth boxes. For that, a IoU threshold ( \\( \text{T}_{\text{IOU}} \\) ) approaching 1 is preferred. On the other hand, for applications where the exact position of the detected bounding boxes relative to the target object isn’t critical, the threshold can be relaxed, setting \\( \text{T}_{\text{IOU}} \\) closer to 0.
+
+Every box predicted by the model is considered a “positive” detection. Based on a criterion known as Intersection over Union (IoU) between the predicted box and a ground-truth annotation, a detection is categorized either as a true positive (TP) or a false positive (FP). 
 
 Based on predefined \\( \text{T}_{\text{IOU}} \\), we can define True Positives and True Negatives:
 * **True Positive (TP)**: A correct detection where IoU ≥ \\( \text{T}_{\text{IOU}} \\).
@@ -127,24 +127,24 @@ which translates to the ratio of true positives over all detected boxes.
 
 Note that TP, FP, and FN depend on a predefined IoU threshold, as do Precision and Recall.
 
-Now, we'll illustrate the relationship between Precision and Recall by plotting their respective curves for a specific target class, say "dog". We'll adopt a moderate IoU threshold = 75% to delineate our TP, FP and FN. Subsequently, we can compute the Precision and Recall values. For that, we need to vary the confidence scores of our detections. 
+Average Precision captures the ability of a model to classify and localize objects correctly considering different values of Precision and Recall. For that we'll illustrate the relationship between Precision and Recall by plotting their respective curves for a specific target class, say "dog". We'll adopt a moderate IoU threshold = 75% to delineate our TP, FP and FN. Subsequently, we can compute the Precision and Recall values. For that, we need to vary the confidence scores of our detections. 
 
-Figure 4 shows an example of the Precision x Recall curve. For a deeper exploration into the computation of this curve, the papers “[A Comparative Analysis of Object Detection Metrics with a Companion Open-Source Toolkit](https://www.mdpi.com/2079-9292/10/3/2790)” (Padilla, et al) and “[A Survey on Performance Metrics for Object-Detection Algorithms](https://ieeexplore.ieee.org/document/9145130)” (Padilla, et al) offer more detailed toy examples demonstrating how to compute this curve.
+Figure 4 shows an example of the Precision x Recall curve. For a deeper exploration into the computation of this curve, the papers “A Comparative Analysis of Object Detection Metrics with a Companion Open-Source Toolkit” (Padilla, et al) and “A Survey on Performance Metrics for Object-Detection Algorithms” (Padilla, et al) offer more detailed toy examples demonstrating how to compute this curve.
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
-    <img src="/blog/assets/object-detection-leaderboard/pxr_te_iou075.png" alt="pxr_te_iou075.png" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/object-detection-leaderboard/pxr_te_iou075.png" alt="pxr_te_iou075.png" />
     <figcaption> Figure 4: Precision x Recall curve for a target object “dog” considering TP detections using IoU_thresh = 0.75.</figcaption>
 </center>
 </div>
 
 The Precision x Recall curve illustrates the balance between Precision and Recall based on different confidence levels of a detector's bounding boxes. Each point of the plot is computed using a different confidence value. 
 
-Let's borrow the practical example presented in the paper [A Survey on performance metrics for object-detection algorithms](https://ieeexplore.ieee.org/document/9145130) to illustrate how to compute the Average Precision plot. Consider a dataset of 7 images with 15 ground-truth objects of the same class, as shown in Figure 5. Let's consider that all boxes belong to the same class, "dog" for simplification purposes.
+Let's borrow the practical example presented in the paper "A Survey on performance metrics for object-detection algorithms" to illustrate how to compute the Average Precision plot. Consider a dataset of 7 images with 15 ground-truth objects of the same class, as shown in Figure 5. Let's consider that all boxes belong to the same class, "dog" for simplification purposes.
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
-    <img src="/blog/assets/object-detection-leaderboard/dataset_example.png" alt="dataset_example.png" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/object-detection-leaderboard/dataset_example.png" alt="dataset_example.png" />
     <figcaption> Figure 5: Example of 24 detections (red boxes) performed by an object detector trained to detect 15 ground-truth objects (green boxes) belonging to the same class.</figcaption>
 </center>
 </div>
@@ -158,7 +158,7 @@ Based on these rules, we can classify each detection as TP or FP, as shown in Ta
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
     <figcaption> Table 1: Detections from Figure 5 classified as TP or FP considering \\( \text{T}_{\text{IOU}} = 30% \\).</figcaption>
-    <img src="/blog/assets/object-detection-leaderboard/table_1.png" alt="table_1.png" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/object-detection-leaderboard/table_1.png" alt="table_1.png" />
 </center>
 </div>
 
@@ -172,7 +172,7 @@ For example, consider the 12th row (detection “P”) of Table 2. The value "ac
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
     <figcaption> Table 2: Computation of Precision and Recall values of detections from Table 1.</figcaption>
-    <img src="/blog/assets/object-detection-leaderboard/table_2.png" alt="table_2.png" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/object-detection-leaderboard/table_2.png" alt="table_2.png" />
 </center>
 </div>
 
@@ -180,7 +180,7 @@ Now, we can plot the Precision x Recall curve with the values, as shown in Figur
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
-    <img src="/blog/assets/object-detection-leaderboard/precision_recall_example.png" alt="precision_recall_example.png" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/object-detection-leaderboard/precision_recall_example.png" alt="precision_recall_example.png" />
     <figcaption> Figure 6: Precision x Recall curve for the detections computed in Table 2.</figcaption>
 </center>
 </div>
@@ -197,7 +197,7 @@ COCO’s approach, for instance, uses 101-interpolation, which computes 101 poin
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
-    <img src="/blog/assets/object-detection-leaderboard/11-pointInterpolation.png" alt="11-pointInterpolation.png" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/object-detection-leaderboard/11-pointInterpolation.png" alt="11-pointInterpolation.png" />
     <figcaption> Figure 7: Example of a Precision x Recall curve using the  11-interpolation approach. The 11 red dots are computed with Precision and Recall equations.</figcaption>
 </center>
 </div>
@@ -255,7 +255,7 @@ We recently released the [Object Detection Leaderboard](https://huggingface.co/s
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
-    <img src="/blog/assets/object-detection-leaderboard/screenshot-leaderboard.png" alt="screenshot-leaderboard.png" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/object-detection-leaderboard/screenshot-leaderboard.png" alt="screenshot-leaderboard.png" />
     <figcaption> Figure 8: Object Detection Leaderboard.</figcaption>
 </center>
 </div>
@@ -334,7 +334,7 @@ Figure 10 shows the process with batch size = 2, where the same two images are p
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
-    <img src="/blog/assets/object-detection-leaderboard/example_batch_size_1.png" alt="example_batch_size_1.png" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/object-detection-leaderboard/example_batch_size_1.png" alt="example_batch_size_1.png" />
     <figcaption> Figure 9: Two images processed with `DetrImageProcessor` using batch size = 1.</figcaption>
 </center>
 </div>
@@ -342,7 +342,7 @@ Figure 10 shows the process with batch size = 2, where the same two images are p
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
-    <img src="/blog/assets/object-detection-leaderboard/example_batch_size_2.png" alt="example_batch_size_2.png" />
+    <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/object-detection-leaderboard/example_batch_size_2.png" alt="example_batch_size_2.png" />
     <figcaption> Figure 10: Two images proccessed with `DetrImageProcessor` using batch size = 2.</figcaption>
 </center>
 </div>
@@ -351,7 +351,7 @@ Figure 10 shows the process with batch size = 2, where the same two images are p
 
 At Hugging Face, we are very careful when porting models to our code base. Not only with respect to the architecture, clear documentation and coding structure, but we also need to guarantee that the ported models are able to produce the same logits as the original models given the same inputs.
 
-Small variations may result in different metric results for the object detection task when the model's outputs are post-processed to produce the confidence scores, label IDs, and bounding box coordinates. You may recall [the example above](#what-is-average-precision-and-how-to-compute-it), where we discussed the process of computing Average Precision. We showed that confidence levels sort the detections, and small variations may lead to a different order and, thus, different results.
+The logits output by a model are post-processed to produce the confidence scores, label IDs, and bounding box coordinates. Thus, minor changes in the logits can influence the metrics results. You may recall [the example above](#what-is-average-precision-and-how-to-compute-it), where we discussed the process of computing Average Precision. We showed that confidence levels sort the detections, and small variations may lead to a different order and, thus, different results.
 
 It's important to recognize that models can produce boxes in various formats, and that also may be taken into consideration, making proper conversions required by the evaluator.
 
@@ -381,6 +381,25 @@ For such models, different prompts (e.g. "Find the dog" and "Where's the bulldog
 In this post, we introduced the problem of Object Detection and depicted the main metrics used to evaluate them.
 
 As noted, evaluating object detection models may take more work than it looks. The particularities of each model must be carefully taken into consideration to prevent biased results. Also, each metric represents a different point of view of the same model, and picking "the best" metric depends on the model's application and the characteristics of the chosen benchmarking dataset. 
+
+Below is a table that illustrates recommended metrics for specific use cases and provides real-world scenarios as examples. However, it's important to note that these are merely suggestions, and the ideal metric can vary based on the distinct particularities of each application.
+
+
+| Use Case                                     | Real-world Scenarios                  | Recommended Metric |
+|----------------------------------------------|---------------------------------------|--------------------|
+| General object detection performance         | Surveillance, sports analysis         | AP                 |
+| Low accuracy requirements (broad detection)  | Augmented reality, gesture recognition| AP@.5              |
+| High accuracy requirements (tight detection) | Face detection                        | AP@.75             |
+| Detecting small objects                      | Distant vehicles in autonomous cars, small artifacts in medical imaging | AP-S               |
+| Medium-sized objects detection               | Luggage detection in airport security scans | AP-M               |
+| Large-sized objects detection                | Detecting vehicles in parking lots    | AP-L               |
+| Detecting 1 object per image                 | Single object tracking in videos      | AR-1               |
+| Detecting up to 10 objects per image         | Pedestrian detection in street cameras| AR-10              |
+| Detecting up to 100 objects per image        | Crowd counting                        | AR-100             |
+| Recall for small objects                     | Medical imaging for tiny anomalies    | AR-S               |
+| Recall for medium-sized objects              | Sports analysis for players           | AR-M               |
+| Recall for large objects                     | Wildlife tracking in wide landscapes  | AR-L               |
+
 
 The results shown in our 🤗 [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard) are computed using an independent tool [PyCOCOtools](https://github.com/cocodataset/cocoapi/tree/master/PythonAPI) widely used by the community for model benchmarking. We're aiming to collect datasets of different domains (e.g. medical images, sports, autonomous vehicles, etc). You can use the [discussion page](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard/discussions) to make requests for datasets, models and features. Eager to see your model or dataset feature on our leaderboard? Don't hold back! Introduce us to your model and dataset, fine-tune, and let's get it ranked! 🥇
 
