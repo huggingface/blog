@@ -1852,7 +1852,7 @@
 - local: classification-use-cases
   title: "Leveraging Hugging Face for complex text classification use cases"
   author: VioletteLepercq
-  thumbnail: /blog/assets/78_ml_director_insights/blogthumbnail.png
+  thumbnail: /blog/assets/78_ml_director_insights/witty-works.png
   date: March 1, 2023
   tags:
     - nlp
@@ -2744,6 +2744,91 @@
     - research
     - LLM
 
+- local: audioldm2
+  title: "AudioLDM 2, but faster ⚡️"
+  author: sanchit-gandhi
+  thumbnail: /blog/assets/161_audioldm2/thumbnail.png
+  date: Aug 30, 2023
+  tags:
+    - guide
+    - audio
+    - diffusers
+    - diffusion
+
+- local: falcon-180b
+  title: "Spread Your Wings: Falcon 180B is here"
+  author: philschmid
+  thumbnail: /blog/assets/162_falcon_180b/thumbnail.jpg
+  date: September 6, 2023
+  tags:
+    - nlp
+    - community
+    - research
+    - LLM
+
+- local: t2i-sdxl-adapters
+  title: "Efficient Controllable Generation for SDXL with T2I-Adapters"
+  author: Adapter
+  guest: true
+  thumbnail: /blog/assets/t2i-sdxl-adapters/thumbnail.png
+  date: September 8, 2023
+  tags:
+    - guide
+    - collaboration
+    - diffusers
+    - diffusion
+
+- local: safecoder-vs-closed-source-code-assistants
+  title: "SafeCoder vs. Closed-source Code Assistants"
+  author: julsimon
+  thumbnail: /blog/assets/safecoder-vs-closed-source-code-assistants/image.png
+  date: September 11, 2023
+  tags:
+    - bigcode
+
+- local: overview-quantization-transformers
+  title: "Overview of natively supported quantization schemes in 🤗 Transformers"
+  author: ybelkada
+  thumbnail: /blog/assets/163_overview_quantization_transformers/thumbnail.jpg
+  date: September 12, 2023
+  tags:
+    - llm
+    - optimization
+    - quantization
+    - comparison
+    - bitsandbytes
+    - gptq
+
+- local: ram-efficient-pytorch-fsdp
+  title: "Fine-tuning Llama 2 70B using PyTorch FSDP"
+  author: smangrul
+  thumbnail: /blog/assets/160_fsdp_llama/thumbnail.jpg
+  date: September 13, 2023
+  tags:
+    - llm
+    - guide
+    - nlp
+
+- local: wuerstchen
+  title: "Introducing Würstchen: Fast Diffusion for Image Generation"
+  author: dome272
+  thumbnail: /blog/assets/wuerstchen/thumbnail.jpg
+  date: September 13, 2023
+  tags:
+    - diffusion
+    - diffusers
+    - text-to-image
+
+- local: optimize-llm
+  title: "Optimizing your LLM in production"
+  author: patrickvonplaten
+  thumbnail: /blog/assets/163_optimize_llm/optimize_llm.png
+  date: Sep 15, 2023
+  tags:
+    - nlp
+    - research
+    - LLM
+
 - local: object-detection-leaderboard
   title: "Object Detection Leaderboard"
   author: rafaelpadilla
@@ -2756,3 +2841,4 @@
     - cv
     - leaderboard
     - evaluation
+

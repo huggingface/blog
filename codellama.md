@@ -27,6 +27,7 @@ Today, we’re excited to release:
 - Transformers integration
 - Integration with Text Generation Inference for fast and efficient production-ready inference
 - Integration with Inference Endpoints
+- Integration with VS Code extension
 - Code benchmarks
 
 Code LLMs are an exciting development for software engineers because they can boost productivity through code completion in IDEs, take care of repetitive or annoying tasks like writing docstrings, or create unit tests. 
@@ -45,6 +46,7 @@ Code LLMs are an exciting development for software engineers because they can bo
       - [Conversational Instructions](#conversational-instructions)
       - [4-bit Loading](#4-bit-loading)
     - [Using text-generation-inference and Inference Endpoints](#using-text-generation-inference-and-inference-endpoints)
+    - [Using VS Code extension](#using-vs-code-extension)
   - [Evaluation](#evaluation)
   - [Additional Resources](#additional-resources)
 
@@ -242,7 +244,7 @@ inputs = tokenizer(prompt, return_tensors="pt", add_special_tokens=False).to("cu
 system = "Provide answers in JavaScript"
 user = "Write a function that computes the set of sums of all contiguous sublists of a given list."
 
-prompt = f"<s><<SYS>>\\n{system}\\n<</SYS>>\\n\\n{user}"
+prompt = f"<s>[INST] <<SYS>>\\n{system}\\n<</SYS>>\\n\\n{user}[/INST]"
 inputs = tokenizer(prompt, return_tensors="pt", add_special_tokens=False).to("cuda")
 ```
 
@@ -259,7 +261,7 @@ answer_2 = "answer_2"
 user_3 = "user_prompt_3"
 
 prompt  = f"<<SYS>>\\n{system}\\n<</SYS>>\\n\\n{user_1}"
-prompt  = f"<s>[INST] {prompt.strip()} [/INST] {answer_1.strip()} </s>"
+prompt += f"<s>[INST] {prompt.strip()} [/INST] {answer_1.strip()} </s>"
 prompt += f"<s>[INST] {user_2.strip()} [/INST] {answer_2.strip()} </s>"
 prompt += f"<s>[INST] {user_3.strip()} [/INST]"
 
@@ -317,9 +319,15 @@ You can try out Text Generation Inference on your own infrastructure, or you can
 
 You can learn more on how to [Deploy LLMs with Hugging Face Inference Endpoints in our blog](https://huggingface.co/blog/inference-endpoints-llm). The [blog](https://huggingface.co/blog/inference-endpoints-llm) includes information about supported hyperparameters and how to stream your response using Python and Javascript.
 
+### Using VS Code extension
+
+[HF Code Autocomplete](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) is a VS Code extension for testing open source code completion models. The extension was developed as part of [StarCoder project](/blog/starcoder#tools--demos) and was updated to support the medium-sized base model, [Code Llama 13B](/codellama/CodeLlama-13b-hf). Find more [here](https://github.com/huggingface/huggingface-vscode#code-llama) on how to install and run the extension with Code Llama. 
+
+![VS Code extension](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/160_codellama/vscode.png "VS Code extension")
+
 ## Evaluation
 
-Language models for code are typically benchmarked on datatsets such as HumanEval. It consists of programming challenges where the model is presented with a function signature and a docstring and is tasked to complete the function body. The proposed solution is then verified by running a set of predefined unit tests. Finally, a pass rate is reported which describes how many solutions passed all tests. The pass@1 rate describes how often the model generates a passing solution when having one shot whereas pass@10 describes how often at least one solution passes out of 10 proposed candidates.
+Language models for code are typically benchmarked on datasets such as HumanEval. It consists of programming challenges where the model is presented with a function signature and a docstring and is tasked to complete the function body. The proposed solution is then verified by running a set of predefined unit tests. Finally, a pass rate is reported which describes how many solutions passed all tests. The pass@1 rate describes how often the model generates a passing solution when having one shot whereas pass@10 describes how often at least one solution passes out of 10 proposed candidates.
 
 While HumanEval is a Python benchmark there have been significant efforts to translate it to more programming languages and thus enable a more holistic evaluation. One such approach is [MultiPL-E](https://github.com/nuprl/MultiPL-E) which translates HumanEval to over a dozen languages. We are hosting a [multilingual code leaderboard](https://huggingface.co/spaces/bigcode/multilingual-code-evals) based on it to allow the community to compare models across different languages to evaluate which model fits their use-case best.
 
