@@ -1,11 +1,11 @@
 ---
-title: "Getting the most out of LLMs"
+title: "Optimizing your LLM in production"
 thumbnail: /blog/assets/163_getting_most_out_of_llms/self_attn_tokens.png
 authors:
 - user: patrickvonplaten
 ---
 
-# Getting the most out of LLMs
+# Optimizing your LLM in production
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
@@ -61,7 +61,8 @@ As of writing this document, the largest GPU chip on the market is the A100 offe
 
 🤗 Transformers does not support tensor parallelism out of the box as it requires the model architecture to be written in a specific way. If you're interested in writing models in a tensor-parallelism-friendly way, feel free to have a look at [the text-generation-inference library](https://github.com/huggingface/text-generation-inference/tree/main/server/text_generation_server/models/custom_modeling).
 
-Pipeline parallelism is supported out of the box. For this, simply load the model with `device="auto"` which will automatically place the different layers on the available GPUs as explained [here](https://huggingface.co/docs/accelerate/v0.22.0/en/concept_guides/big_model_inference).
+Naive pipeline parallelism is supported out of the box. For this, simply load the model with `device="auto"` which will automatically place the different layers on the available GPUs as explained [here](https://huggingface.co/docs/accelerate/v0.22.0/en/concept_guides/big_model_inference).
+Note, however that while very effective, this naive pipeline parallelism does not tackle the issues of GPU idling. For this more advanced pipeline parallelism is required as explained [here](https://huggingface.co/docs/transformers/v4.15.0/parallelism#naive-model-parallel-vertical-and-pipeline-parallel).
 
 If you have access to an 8 x 80GB A100 node, you could load BLOOM as follows
 
@@ -126,6 +127,9 @@ Close enough to our back-of-the-envelope computation! We can see the number is n
 Note that if we had tried to run the model in full float32 precision, a whopping 64 GB of VRAM would have been required.
 
 > Almost all models are trained in bfloat16 nowadays, there is no reason to run the model in full float32 precision if [your GPU supports bfloat16](https://discuss.pytorch.org/t/bfloat16-native-support/117155/5). Float32 won't give better inference results than the precision that was used to train the model.
+
+If you are unsure in which format the model weights are stored on the Hub, you can always look into the checkpoint's config under `"torch_dtype"`, *e.g.* [here](https://huggingface.co/meta-llama/Llama-2-7b-hf/blob/6fdf2e60f86ff2481f2241aaee459f85b5b0bbb9/config.json#L21). It is recommended to set set the model to the same precision type as written in the config when loading with `from_pretrained(..., torch_dtype=...)` except for the original type is float32 in which case one can use both `float16` or `bfloat16` for inference.
+
 
 Let's define a `flush(...)` function to free all allocated memory so that we can accurately measure the peak allocated GPU memory.
  
