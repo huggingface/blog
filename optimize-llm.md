@@ -530,10 +530,10 @@ Positional encodings, encode the position of each token into a numerical present
 
 The authors of the [*Attention Is All You Need*](https://arxiv.org/abs/1706.03762) paper introduced sinusoidal positional embeddings \\( \mathbf{P} = \mathbf{p}_1, \ldots, \mathbf{p}_N \\) .
 where each vector \\( \mathbf{p}_i \\) is computed as a sinusoidal function of its position \\( i \\) .
-The positional encodings are then simply added to the input sequence vectors \\( \mathbf{\hat{X}} = \mathbf{\hat{x}}_1, \ldots, \mathbf{\hat{x}}_N \\) = \ \\) .\mathbf{x}\_1 + \\mathbf{p}\_1, \\ldots, \\mathbf{x}\_N + \\mathbf{x}\_N \ \\) . thereby cueing the model to better learn sentence order.
+The positional encodings are then simply added to the input sequence vectors \\( \mathbf{\hat{X}} = \mathbf{\hat{x}}_1, \ldots, \mathbf{\hat{x}}_N \\) = \\( .\mathbf{x}\_1 + \\mathbf{p}\_1, \\ldots, \\mathbf{x}\_N + \\mathbf{x}\_N \\) thereby cueing the model to better learn sentence order.
 
 Instead of using fixed position embeddings, others (such as [Devlin et al.](https://arxiv.org/abs/1810.04805)) used learned positional encodings for which the positional embeddings 
-\\( mathbf{P} \\) are learned during training.
+\\( \mathbf{P} \\) are learned during training.
 
 Sinusoidal and learned position embeddings used to be the predominant methods to encode sentence order into LLMs, but a couple of problems related to these positional encodings were found:
 
@@ -689,7 +689,7 @@ There is however one catch. While the required peak memory for the \\( \mathbf{Q
 Let's compute the number of float values that need to be stored in the key-value cache for the LLM `bigcode/octocoder` that we used before.
 The number of float values amounts to:
 
-$$ 2 \times (\text{seq_len} - 1) \times \text{num_attn_heads} \times \text{attn_head_dim} \times \text{num_layers} $$
+$$ 2 \times \(\text{seq_len} - 1\) \times \text{num_attn_heads} \times \text{attn_head_dim} \times \text{num_layers} $$
 
 Computing this for our LLM at a hypothetical input sequence length of 16000 gives:
 
