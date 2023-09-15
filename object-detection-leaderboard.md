@@ -408,7 +408,7 @@ The results shown in our 🤗 [Object Detection Leaderboard](https://huggingface
 * [Object Detection Guide](https://huggingface.co/docs/transformers/tasks/object_detection)
 * [Task of Object Detection](https://huggingface.co/tasks/object-detection)
 * Paper [What Makes for Effective Detection Proposals](https://arxiv.org/abs/1502.05082)
-* Paper [A Comparative Analysis of Object Detection Metrics with a Companion Open-Source Toolkit](https://www.mdpi.com/2079-9292/10/3/2790) 
+* Paper [A Comparative Analysis of Object Detection Metrics with a Companion Open-Source Toolkit](https://www.mdpi.com/2079-9292/10/3/279) 
 * Paper [A Survey on Performance Metrics for Object-Detection Algorithms](https://ieeexplore.ieee.org/document/9145130) 
 
 Special thanks 🙌 to [@merve](https://huggingface.co/merve) and [@osanseviero](https://huggingface.co/osanseviero) for their feedback and great comments. 🤗 
