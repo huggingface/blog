@@ -84,7 +84,7 @@ This section will delve into the definition of Average Precision and Average Rec
 
 ### What's Average Precision and how to compute it?
 
-Average Precision (AP) is a metric used to evaluate the performance of an object detection model. AP is a single-number that summarizes the Precision x Recall curve. But before we dive into the details showing how Precision x Recall curve is generated and how to compute Average Precision, first we need to understand what Intersection over Union (IoU) is, and how to classify a detection as True Positive or False Positive.
+Average Precision (AP) is a metric used to evaluate the performance of an object detection model. AP is a single-number that summarizes the Precision x Recall curve. But before we dive into the details showing how Precision x Recall curve is generated and how to compute Average Precision with it, first we need to understand what Intersection over Union (IoU) is, and how to classify a detection as True Positive or False Positive.
 
 IoU is a metric represented by a number between 0 and 1 that measures the overlap between the predicted bounding box and the actual (ground truth) bounding box. It's computed by dividing the area where the two boxes overlap by the area covered by both boxes combined. Figure 3 visually demonstrates the IoU using an example of a predicted box and its corresponding ground-truth box.
 
@@ -167,7 +167,7 @@ Note that by rule 2, in image 1, "E" is TP while "D" is FP because IoU between "
 
 Now, we need to compute Precision and Recall considering the confidence value of each detection. A good way to do it is to sort the detections by their confidence values as shown in Table 2. Then, for each confidence value in each row, we compute the Precision and Recall considering the accumulative TP (acc TP) and accumlative FP (acc FP). The "acc TP" of each row is increased in 1 every time a TP is noted, and the "acc FP" is increased in 1 when a FP is noted. Columns "acc TP" and "acc FP" basically tell us the TP and FP values given a particular confidence level. The computation of each value of Table 2 can be viewed in [this Spread Sheet](https://docs.google.com/spreadsheets/d/1mc-KPDsNHW61ehRpI5BXoyAHmP-NxA52WxoMjBqk7pw/edit?usp=sharing).
 
-For example, consider the 12th row (detection “P”) of Table 2. The value "acc TP = 4" means that if we benchmark our model on this particular dataset with a confidence of 0.62, we would correctly detect four target objects and incorrectly detect eight target objects. This would result in \\( \text{Precision} =  \frac{\text{acc TP}}{(\text{acc TP} + \text{acc FP})} = \frac{4}{(4+8)} = 0.3333  \\) and \\( \text{Recall} =  \frac{\text{acc TP}}{\text{all ground truths}} = \frac{4}{15} = 0.2667 \\) .
+For example, consider the 12th row (detection “P”) of Table 2. The value "acc TP = 4" means that if we benchmark our model on this particular dataset with a confidence of 0.62, we would correctly detect four target objects and incorrectly detect eight target objects. This would result in \\( \text{Precision} = \frac{\text{acc TP}}{(\text{acc TP} + \text{acc FP})} = \frac{4}{(4+8)} = 0.3333 \\) and \\( \text{Recall} = \frac{\text{acc TP}}{\text{all ground truths}} = \frac{4}{15} = 0.2667 \\) .
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
@@ -193,7 +193,7 @@ If a detector's confidence results in a few false positives (FP), it will likely
 
 For a large dataset, the detector will likely output boxes with a wide range of confidence levels, resulting in a jagged Precision x Recall line, making it challenging to compute its AUC (Average Precision) precisely. Different methods approximate the area of the curve with different approaches. A popular approach is called the N-interpolation approach, where N represents how many points are sampled from the Precision x Recall blue line.
 
-COCO’s approach, for instance, uses 101-interpolation, which computes 101 points for equally spaced  Recall values (0.  , 0.01, 0.02, … 1.00), while other approaches use 11 points, referred to as 11-interpolation. Figure 7 illustrates a Precision Recall curve (in blue) with 11 Recall points equally spaced.
+COCO's approach, for instance, uses 101-interpolation, which computes 101 points for equally spaced Recall values (0. , 0.01, 0.02, … 1.00), while other approaches use 11 points, referred to as 11-interpolation. Figure 7 illustrates a Precision x Recall curve (in blue) with 11 equal-spaced Recall points. 
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
