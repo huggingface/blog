@@ -2777,7 +2777,7 @@
     - collaboration
     - diffusers
     - diffusion
-    
+
 - local: safecoder-vs-closed-source-code-assistants
   title: "SafeCoder vs. Closed-source Code Assistants"
   author: julsimon
@@ -2818,3 +2818,13 @@
     - diffusion
     - diffusers
     - text-to-image
+
+# - local: optimize-llm
+#   title: "Optimizing your LLM in production"
+#   author: patrickvonplaten
+#   thumbnail: /blog/assets/163_optimize_llm/self_attn_tokens.png
+#   date: Sep 18, 2023
+#   tags:
+#     - nlp
+#     - research
+#     - LLM
