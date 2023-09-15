@@ -359,13 +359,13 @@ Figure 10 shows the process with batch size = 2, where the same two images are p
 
 At Hugging Face, we are very careful when porting models to our codebase. Not only with respect to the architecture, clear documentation and coding structure, but we also need to guarantee that the ported models are able to produce the same logits as the original models given the same inputs.
 
-The logits output by a model are post-processed to produce the confidence scores, label IDs, and bounding box coordinates. Thus, minor changes in the logits can influence the metrics results. You may recall [the example above](#what-is-average-precision-and-how-to-compute-it), where we discussed the process of computing Average Precision. We showed that confidence levels sort the detections, and small variations may lead to a different order and, thus, different results.
+The logits output by a model are post-processed to produce the confidence scores, label IDs, and bounding box coordinates. Thus, minor changes in the logits can influence the metrics results. You may recall [the example above](#whats-average-precision-and-how-to-compute-it), where we discussed the process of computing Average Precision. We showed that confidence levels sort the detections, and small variations may lead to a different order and, thus, different results.
 
 It's important to recognize that models can produce boxes in various formats, and that also may be taken into consideration, making proper conversions required by the evaluator.
 
-* (x, y, width, height): this represents the upper-left corner coordinates followed by the absolute dimensions (width and height).
-* (x, y, x2, y2): this format indicates the coordinates of the upper-left corner and the lower-right corner.
-* (rel_x_center, rel_y_center, rel_width, rel_height): the values represent the relative coordinates of the center and the relative dimensions of the box.
+* *(x, y, width, height)*: this represents the upper-left corner coordinates followed by the absolute dimensions (width and height).
+* *(x, y, x2, y2)*: this format indicates the coordinates of the upper-left corner and the lower-right corner.
+* *(rel_x_center, rel_y_center, rel_width, rel_height)*: the values represent the relative coordinates of the center and the relative dimensions of the box.
 
 #### Some ground-truths are ignored in some benchmarking datasets
 
