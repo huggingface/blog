@@ -303,7 +303,7 @@ Let's take a closer look. The formula to compute the output \\(\mathbf{O})\\ of 
 
 $$ \textbf{O} = \text{Attn}(\mathbf{X}) = \mathbf{V} \times \text{Softmax}(\mathbf{QK}^T) \text{ with } \mathbf{Q} = \mathbf{W}_q \mathbf{X}, \mathbf{V} = \mathbf{W}_v \mathbf{X}, \mathbf{K} = \mathbf{W}_k \mathbf{X} $$
 
-)\\.mathbf{X} = (\mathbf{x}_1, ... \mathbf{x}_{N}))\\ is thereby the input sequence to the attention layer. The projections \\(\mathbf{Q})\\ and \\(\mathbf{K})\\ will each consist of \\(N)\\ vectors resulting in the \\(\mathbf{QK}^T)\\ being of size \\(N^2)\\.
+\\( mathbf{X} = (\mathbf{x}_1, ... \mathbf{x}_{N}))\\ is thereby the input sequence to the attention layer. The projections \\(\mathbf{Q})\\ and \\(\mathbf{K})\\ will each consist of \\(N)\\ vectors resulting in the \\(\mathbf{QK}^T)\\ being of size \\(N^2)\\.
 
 LLMs usually have multiple attention heads, thus doing multiple self-attention computations in parallel.
 Assuming, the LLM has 40 attention heads and runs in bfloat16 precision, we can calculate the memory requirement to store the \\(\mathbf{QK^T})\\ matrices to be \\(40 * 2 * N^2)\\ bytes. For \\(N=1000)\\ only around 50 MB of VRAM are needed, however, for \\(N=16000)\\ we would need 19 GB of VRAM, and for \\(N=100,000)\\ we would need almost 1TB just to store the \\(\mathbf{QK}^T)\\ matrices.
@@ -533,7 +533,7 @@ where each vector \\(\mathbf{p}_i)\\ is computed as a sinusoidal function of its
 The positional encodings are then simply added to the input sequence vectors \\(\mathbf{\hat{X}} = \mathbf{\hat{x}}_1, \ldots, \mathbf{\hat{x}}_N)\\ = \)\\.\mathbf{x}\_1 + \\mathbf{p}\_1, \\ldots, \\mathbf{x}\_N + \\mathbf{x}\_N \)\\. thereby cueing the model to better learn sentence order.
 
 Instead of using fixed position embeddings, others (such as [Devlin et al.](https://arxiv.org/abs/1810.04805)) used learned positional encodings for which the positional embeddings 
-)\\.mathbf{P} are learned during training.
+\\(mathbf{P})\\ are learned during training.
 
 Sinusoidal and learned position embeddings used to be the predominant methods to encode sentence order into LLMs, but a couple of problems related to these positional encodings were found:
 
@@ -551,7 +551,7 @@ Without going into too many details, *RoPE* notes that positional information ca
 
 $$ \mathbf{\hat{q}}_i^T \mathbf{\hat{x}}_j = \mathbf{{q}}_i^T \mathbf{R}_{\theta, i -j} \mathbf{{x}}_j. $$
 
-)\\._{\theta, i - j})\\ thereby represents a rotational matrix. \\(\theta)\\ is *not* learned during training, but instead set to a pre-defined value that depends on the maximum input sequence length during training.
+\\(\mathbf{R}_{\theta, i - j})\\ thereby represents a rotational matrix. \\(\theta)\\ is *not* learned during training, but instead set to a pre-defined value that depends on the maximum input sequence length during training.
 
 > By doing so, the propability score between \\(\mathbf{q}_i)\\ and \\(\mathbf{q}_j)\\ is only affected if \\(i \ne j)\\ and solely depends on the relative distance \\(i - j)\\ regardless of each vector's specific positions \\(i)\\ and \\(j)\\.
 
