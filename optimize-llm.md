@@ -268,7 +268,7 @@ Just 9.5GB! That's really not a lot for a >15 billion parameter model.
 
 While we see very little degradation in accuracy for our model here, 4-bit quantization can in practice often lead to different results compared to 8-bit quantization or full `bfloat16` inference. It is up to the user to try it out.
 
-Also note that inference here was again a bit slower compared to 8-bit quantization which is due to the more aggressive quantization method used for 4-bit quantization leading to \\( \text{quantize} \\) and \\( \text{dequantize} )\\ taking longer during inference.
+Also note that inference here was again a bit slower compared to 8-bit quantization which is due to the more aggressive quantization method used for 4-bit quantization leading to \\( \text{quantize} \\) and \\( \text{dequantize} \\) taking longer during inference.
 
 ```python
 del model
@@ -299,14 +299,14 @@ Self-attention layers are central to Large Language Models (LLMs) in that they e
 However, the peak GPU memory consumption for self-attention layers grows *quadratically* both in compute and memory complexity with number of input tokens (also called *sequence length*) that we denote in the following by \\( N \\) .
 While this is not really noticeable for shorter input sequences (of up to 1000 input tokens), it becomes a serious problem for longer input sequences (at around 16000 input tokens).
 
-Let's take a closer look. The formula to compute the output \\( \mathbf{O} \\) of a self-attention layer for an input \\( \mathbf{X} )\\ of length \\( N )\\ is:
+Let's take a closer look. The formula to compute the output \\( \mathbf{O} \\) of a self-attention layer for an input \\( \mathbf{X} \\) of length \\( N )\\ is:
 
 $$ \textbf{O} = \text{Attn}(\mathbf{X}) = \mathbf{V} \times \text{Softmax}(\mathbf{QK}^T) \text{ with } \mathbf{Q} = \mathbf{W}_q \mathbf{X}, \mathbf{V} = \mathbf{W}_v \mathbf{X}, \mathbf{K} = \mathbf{W}_k \mathbf{X} $$
 
-\\(  mathbf{X} = (\mathbf{x}_1, ... \mathbf{x}_{N}) \\) is thereby the input sequence to the attention layer. The projections \\( \mathbf{Q} )\\ and \\( \mathbf{K} )\\ will each consist of \\( N )\\ vectors resulting in the \\( \mathbf{QK}^T )\\ being of size \\( N^2 )\\ .
+\\(  mathbf{X} = (\mathbf{x}_1, ... \mathbf{x}_{N}) \\) is thereby the input sequence to the attention layer. The projections \\( \mathbf{Q} \\) and \\( \mathbf{K} )\\ will each consist of \\( N )\\ vectors resulting in the \\( \mathbf{QK}^T )\\ being of size \\( N^2 )\\ .
 
 LLMs usually have multiple attention heads, thus doing multiple self-attention computations in parallel.
-Assuming, the LLM has 40 attention heads and runs in bfloat16 precision, we can calculate the memory requirement to store the \\( \mathbf{QK^T} \\) matrices to be \\( 40 * 2 * N^2 )\\ bytes. For \\( N=1000 )\\ only around 50 MB of VRAM are needed, however, for \\( N=16000 )\\ we would need 19 GB of VRAM, and for \\( N=100,000 )\\ we would need almost 1TB just to store the \\( \mathbf{QK}^T )\\ matrices.
+Assuming, the LLM has 40 attention heads and runs in bfloat16 precision, we can calculate the memory requirement to store the \\( \mathbf{QK^T} \\) matrices to be \\( 40 * 2 * N^2 \\) bytes. For \\( N=1000 )\\ only around 50 MB of VRAM are needed, however, for \\( N=16000 )\\ we would need 19 GB of VRAM, and for \\( N=100,000 )\\ we would need almost 1TB just to store the \\( \mathbf{QK}^T )\\ matrices.
 
 Long story short, the default self-attention algorithm quickly becomes prohibitively memory-expensive for large input contexts.
 
@@ -314,11 +314,11 @@ As LLMs improve in text comprehension and generation, they are applied to increa
 
 How can we get rid of the exorbitant memory requirements for large input lengths? We need a new way to compute the self-attention mechanism that gets rid of the \\( QK^T \\) matrix. [Tri Dao et al.](https://arxiv.org/abs/2205.14135) developed exactly such a new algorithm and called it **Flash Attention**.
 
-In a nutshell, Flash Attention breaks the  \\(\mathbf{V} \times \text{Softmax}(\mathbf{QK}^T)\\) computation apart and instead computes smaller chunks of the output by iterating oven multiple softmax computation steps:
+In a nutshell, Flash Attention breaks the  \\(\mathbf{V} \times \text{Softmax}(\mathbf{QK}^T\\)) computation apart and instead computes smaller chunks of the output by iterating oven multiple softmax computation steps:
 
 $$ \textbf{O}_i \leftarrow s^a_{ij} * \textbf{O}_i + s^b_{ij} * \mathbf{V}_{j} \times \text{Softmax}(\mathbf{QK}^T_{i,j}) \text{ for multiple } i, j \text{ iterations} $$
 
-with \\( s^a_{ij} \\) and \\( s^b_{ij} )\\ being some softmax normalization statistics that need to be recomputed for every \\( i )\\ and \\( j )\\ .
+with \\( s^a_{ij} \\) and \\( s^b_{ij} \\) being some softmax normalization statistics that need to be recomputed for every \\( i )\\ and \\( j )\\ .
 
 Please note that the whole Flash Attention is a bit more complex and is greatly simplified here as going in too much depth is out of scope for this notebook. The reader is invited to take a look at the well-written [Flash Attention paper](https://arxiv.org/pdf/2205.14135.pdf) for more details.
 
@@ -522,15 +522,15 @@ As an example, the \\( \text{Softmax}(\mathbf{QK}^T) \\) matrix of the text inpu
 Each word token is given a probability mass at which it attends all other word tokens and, therefore is put into relation with all other word tokens. E.g. the word *"love"* attends to the word *"Hello"* with 0.05%, to *"I"* with 0.3%, and to itself with 0.65%.
 
 A LLM based on self-attention, but without position embeddings would have great difficulties in understanding the positions of the text inputs to each other.
-This is because the probability score computed by \\( \mathbf{QK}^T \\) relates each word token to each other word token in \\( O(1) )\\ computations regardless of their relative positional distance to each other. 
+This is because the probability score computed by \\( \mathbf{QK}^T \\) relates each word token to each other word token in \\( O(1) \\) computations regardless of their relative positional distance to each other. 
 Therefore, for the LLM without position embeddings each token appears to be have the same distance to all other tokens, *e.g.* differentiating between *"Hello I love you"* and *"You love I hello"* would be very challenging.
 
 For the LLM to understand sentence order, an additional *cue* is needed and is usually applied in the form of *positional encodings* (or also called *positional embeddings*).
 Positional encodings, encode the position of each token into a numerical presentation that the LLM can leverage to better understand sentence order.
 
 The authors of the [*Attention Is All You Need*](https://arxiv.org/abs/1706.03762) paper introduced sinusoidal positional embeddings \\( \mathbf{P} = \mathbf{p}_1, \ldots, \mathbf{p}_N \\) .
-where each vector \\( \mathbf{p}_i \\) is computed as a sinusoidal function of its position \\( i )\\ .
-The positional encodings are then simply added to the input sequence vectors \\( \mathbf{\hat{X}} = \mathbf{\hat{x}}_1, \ldots, \mathbf{\hat{x}}_N \\) = \ )\\ .\mathbf{x}\_1 + \\mathbf{p}\_1, \\ldots, \\mathbf{x}\_N + \\mathbf{x}\_N \ )\\ . thereby cueing the model to better learn sentence order.
+where each vector \\( \mathbf{p}_i \\) is computed as a sinusoidal function of its position \\( i \\) .
+The positional encodings are then simply added to the input sequence vectors \\( \mathbf{\hat{X}} = \mathbf{\hat{x}}_1, \ldots, \mathbf{\hat{x}}_N \\) = \ \\) .\mathbf{x}\_1 + \\mathbf{p}\_1, \\ldots, \\mathbf{x}\_N + \\mathbf{x}\_N \ )\\ . thereby cueing the model to better learn sentence order.
 
 Instead of using fixed position embeddings, others (such as [Devlin et al.](https://arxiv.org/abs/1810.04805)) used learned positional encodings for which the positional embeddings 
 \\( mathbf{P} \\) are learned during training.
@@ -547,13 +547,13 @@ Recently, relative positional embeddings that can tackle the above mentioned pro
 
 Both *RoPE* and *ALiBi* argue that it's best to cue the LLM about sentence order directly in the self-attention algorithm as it's there that word tokens are put into relation with each other. More specifically, sentence order should be cued by modifying the \\( \mathbf{QK}^T \\) computation.
 
-Without going into too many details, *RoPE* notes that positional information can be encoded into query-key pairs, *e.g.* \\( \mathbf{q}_i \\) and \\( \mathbf{x}_j )\\ by rotating each vector by an angle \\( \theta * i )\\ and \\( \theta * j )\\ respectively with \\( i, j )\\ describing each vectors sentence position:
+Without going into too many details, *RoPE* notes that positional information can be encoded into query-key pairs, *e.g.* \\( \mathbf{q}_i \\) and \\( \mathbf{x}_j \\) by rotating each vector by an angle \\( \theta * i )\\ and \\( \theta * j )\\ respectively with \\( i, j )\\ describing each vectors sentence position:
 
 $$ \mathbf{\hat{q}}_i^T \mathbf{\hat{x}}_j = \mathbf{{q}}_i^T \mathbf{R}_{\theta, i -j} \mathbf{{x}}_j. $$
 
-\\( \mathbf{R}_{\theta, i - j} \\) thereby represents a rotational matrix. \\( \theta )\\ is *not* learned during training, but instead set to a pre-defined value that depends on the maximum input sequence length during training.
+\\( \mathbf{R}_{\theta, i - j} \\) thereby represents a rotational matrix. \\( \theta \\) is *not* learned during training, but instead set to a pre-defined value that depends on the maximum input sequence length during training.
 
-> By doing so, the propability score between \\( \mathbf{q}_i \\) and \\( \mathbf{q}_j )\\ is only affected if \\( i \ne j )\\ and solely depends on the relative distance \\( i - j )\\ regardless of each vector's specific positions \\( i )\\ and \\( j )\\ .
+> By doing so, the propability score between \\( \mathbf{q}_i \\) and \\( \mathbf{q}_j \\) is only affected if \\( i \ne j )\\ and solely depends on the relative distance \\( i - j )\\ regardless of each vector's specific positions \\( i )\\ and \\( j )\\ .
 
 *RoPE* is used in multiple of today's most important LLMs, such as:
 
@@ -574,14 +574,14 @@ As shown in the [ALiBi](https://arxiv.org/abs/2108.12409) paper, this simple rel
 
 Both *RoPE* and *ALiBi* position encodings can extrapolate to input lengths not seen during training whereas it has been shown that extrapolation work much better out-of-the-box for *ALiBi* as compared to *RoPE*.
 For ALiBi, one simply increases the values of the lower triangular position matrix to match the length of the input sequence.
-For *RoPE*, keeping the same \\( \theta \\) that was used during training leads to poor results when passing text inputs much longer than those seen during training, *c.f* [Press et al.](https://arxiv.org/abs/2108.12409). However, the community has found a couple of effective tricks that adapt \\( \theta )\\ . thereby allowing *RoPE* position embeddings to work well for extrapolated text input sequences (see [here](https://github.com/huggingface/transformers/pull/24653)).
+For *RoPE*, keeping the same \\( \theta \\) that was used during training leads to poor results when passing text inputs much longer than those seen during training, *c.f* [Press et al.](https://arxiv.org/abs/2108.12409). However, the community has found a couple of effective tricks that adapt \\( \theta \\) . thereby allowing *RoPE* position embeddings to work well for extrapolated text input sequences (see [here](https://github.com/huggingface/transformers/pull/24653)).
 
 > Both RoPE and ALiBi are relative positional embeddings that are *not* learned during training, but instead are based on the following intuitions:
  -   Positional cues about the text inputs should be given directly to the \\( QK^T \\) matrix of the self-attention layer
  -   The LLM should be incentivized to learn a constant *relative* distance positional encodings have to each other
  -   The further text input tokens are from each other, the lower the probability of their query-value probability. Both RoPE and ALiBi lower the query-key probability of tokens far away from each other. RoPE by decreasing their vector product by increasing the angle between the query-key vectors. ALiBi by adding large negative numbers to the vector product
 
-In conclusion, LLMs that are intended to be deployed in tasks that require handling large text inputs are better trained with relative positional embeddings, such as RoPE and ALiBi. Also note that even if an LLM with RoPE and ALiBi has been trained only on a fixed length of say \\( N_1 = 2048 \\) it can still be used in practice with text inputs much larger than \\( N_1 )\\ . like \\( N_2 = 8192 > N_1 )\\ by extrapolating the positional embeddings.
+In conclusion, LLMs that are intended to be deployed in tasks that require handling large text inputs are better trained with relative positional embeddings, such as RoPE and ALiBi. Also note that even if an LLM with RoPE and ALiBi has been trained only on a fixed length of say \\( N_1 = 2048 \\) it can still be used in practice with text inputs much larger than \\( N_1 \\) . like \\( N_2 = 8192 > N_1 )\\ by extrapolating the positional embeddings.
 
 ### 3.2 The key-value cache
 
@@ -619,7 +619,7 @@ As we can see every time we increase the text input tokens by the just sampled t
 
 With very few exceptions, LLMs are trained using the [causal language modeling objective](https://huggingface.co/docs/transformers/tasks/language_modeling#causal-language-modeling) and therefore mask the upper triangle matrix of the attention score - this is why in the two diagrams above the attention scores are left blank (*a.k.a* have 0 probability). For a quick recap on causal language modeling you can refer to the [*Illustrated Self Attention blog*](https://jalammar.github.io/illustrated-gpt2/#part-2-illustrated-self-attention).
 
-As a consequence, tokens *never* depend on previous tokens, more specifically the \\( \mathbf{q}_i \\) vector is never put in relation with any key, values vectors \\( \mathbf{k}_j, \mathbf{v}_j )\\ if \\( j > i )\\ . Instead \\( \mathbf{q}_i )\\ only attends to previous key-value vectors \\( \mathbf{k}_{m < i}, \mathbf{v}_{m < i} \text{ , for } m \in \{0, \ldots i - 1\} )\\. In order to reduce unnecessary computation, one can therefore cache each layer's key-value vectors for all previous timesteps.
+As a consequence, tokens *never* depend on previous tokens, more specifically the \\( \mathbf{q}_i \\) vector is never put in relation with any key, values vectors \\( \mathbf{k}_j, \mathbf{v}_j \\) if \\( j > i )\\ . Instead \\( \mathbf{q}_i )\\ only attends to previous key-value vectors \\( \mathbf{k}_{m < i}, \mathbf{v}_{m < i} \text{ , for } m \in \{0, \ldots i - 1\} )\\. In order to reduce unnecessary computation, one can therefore cache each layer's key-value vectors for all previous timesteps.
 
 In the following, we will tell the LLM to make user of the key-value cache by retrieving and forwarding it for each forward pass.
 In Transformers, we can retrieve the key-value cache by passing the `use_cache` flag to the `forward` call and can then pass it with the current token.
@@ -659,7 +659,7 @@ length of key-value cache 24
 
 As one can see, when using the key-value cache the text input tokens are *not* increased in length, but remain a single input vector. The length of the key-value cache on the other hand is increased by one at every decoding step.
 
-> Making use of the key-value cache means that the \\( \mathbf{QK}^T \\) is essentially reduced to \\( \mathbf{q}_c\mathbf{K}^T )\\ with \\( \mathbf{q}_c )\\ being the query projection of the currently passed input token which is *always* just a single vector.
+> Making use of the key-value cache means that the \\( \mathbf{QK}^T \\) is essentially reduced to \\( \mathbf{q}_c\mathbf{K}^T \\) with \\( \mathbf{q}_c )\\ being the query projection of the currently passed input token which is *always* just a single vector.
 
 Using the key-value cache has two advantages:
 -   Significant increase in computational efficiency as less computations are performed compared to computing the full \\( \mathbf{QK}^T \\) matrix. This leads to an increase in inference speed
@@ -684,7 +684,7 @@ Two things should be noted here:
 - 1. Keeping all the context is crucial for LLMs deployed in chat so that the LLM understands all the previous context of the conversation. E.g. for the example above the LLM needs to understand that the user refers to the population when asking `"And how many are in Germany"`.
 - 2. The key-value cache is extremely useful for chat as it allows us to continuously grow the encoded chat history instead of having to re-encode the chat history again from scratch (as e.g. would be the case when using an encoder-decoder architecture).
 
-There is however one catch. While the required peak memory for the \\( \mathbf{QK}^T \\) matrix is significantly reduced, holding the key-value cache in memory can become very memory expensive for long input sequence or multi-turn chat. Remember that the key-value cache needs to store the key-value vectors for all previous input vectors \\( \mathbf{x}_i \text{, for } i \in \{1, \ldots, c - 1\} )\\ for all self-attention layers and for all attention heads.
+There is however one catch. While the required peak memory for the \\( \mathbf{QK}^T \\) matrix is significantly reduced, holding the key-value cache in memory can become very memory expensive for long input sequence or multi-turn chat. Remember that the key-value cache needs to store the key-value vectors for all previous input vectors \\( \mathbf{x}_i \text{, for } i \in \{1, \ldots, c - 1\} \\) for all self-attention layers and for all attention heads.
 
 Let's compute the number of float values that need to be stored in the key-value cache for the LLM `bigcode/octocoder` that we used before.
 The number of float values amounts to:
