@@ -45,11 +45,11 @@ To compute the embeddings from the images, we'll use a vision model that has som
 For loading the model, we leverage the [`AutoModel` class](https://huggingface.co/docs/transformers/model_doc/auto#transformers.AutoModel). It provides an interface for us to load any compatible model checkpoint from the Hugging Face Hub. Alongside the model, we also load the processor associated with the model for data preprocessing. 
 
 ```py
-from transformers import AutoFeatureExtractor, AutoModel
+from transformers import AutoImageProcessor, AutoModel
 
 
 model_ckpt = "nateraw/vit-base-beans"
-extractor = AutoFeatureExtractor.from_pretrained(model_ckpt)
+extractor = AutoImageProcessor.from_pretrained(model_ckpt)
 model = AutoModel.from_pretrained(model_ckpt)
 ```
 

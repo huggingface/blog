@@ -52,11 +52,11 @@ translators:
 
 
 ```py
-from transformers import AutoFeatureExtractor, AutoModel
+from transformers import AutoImageProcessor, AutoModel
 
 
 model_ckpt = "nateraw/vit-base-beans"
-extractor = AutoFeatureExtractor.from_pretrained(model_ckpt)
+extractor = AutoImageProcessor.from_pretrained(model_ckpt)
 model = AutoModel.from_pretrained(model_ckpt)
 ```
 

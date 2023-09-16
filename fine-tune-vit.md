@@ -171,29 +171,28 @@ From what I'm seeing,
 - Bean Rust:  Has circular brown spots surrounded with a white-ish yellow ring
 - Healthy: ...looks healthy. 🤷‍♂️
 
-## Loading ViT Feature Extractor
+## Loading ViT Image Processor
 
 Now we know what our images look like and better understand the problem we're trying to solve. Let's see how we can prepare these images for our model!
 
 When ViT models are trained, specific transformations are applied to images fed into them. Use the wrong transformations on your image, and the model won't understand what it's seeing! 🖼 ➡️ 🔢
 
-To make sure we apply the correct transformations, we will use a [`ViTFeatureExtractor`](https://huggingface.co/docs/transformers/model_doc/vit#transformers.ViTFeatureExtractor) initialized with a configuration that was saved along with the pretrained model we plan to use. In our case, we'll be using the [google/vit-base-patch16-224-in21k](https://huggingface.co/google/vit-base-patch16-224-in21k) model, so let's load its feature extractor from the Hugging Face Hub.
+To make sure we apply the correct transformations, we will use a [`ViTImageProcessor`](https://huggingface.co/docs/transformers/model_doc/vit#transformers.ViTImageProcessor) initialized with a configuration that was saved along with the pretrained model we plan to use. In our case, we'll be using the [google/vit-base-patch16-224-in21k](https://huggingface.co/google/vit-base-patch16-224-in21k) model, so let's load its image processor from the Hugging Face Hub.
 
 
 ```python
-from transformers import ViTFeatureExtractor
+from transformers import ViTImageProcessor
 
 model_name_or_path = 'google/vit-base-patch16-224-in21k'
-feature_extractor = ViTFeatureExtractor.from_pretrained(model_name_or_path)
+processor = ViTImageProcessor.from_pretrained(model_name_or_path)
 ```
 
-You can see the feature extractor configuration by printing it.
+You can see the image processor configuration by printing it.
 
 
-    ViTFeatureExtractor {
+    ViTImageProcessor {
       "do_normalize": true,
       "do_resize": true,
-      "feature_extractor_type": "ViTFeatureExtractor",
       "image_mean": [
         0.5,
         0.5,
@@ -210,14 +209,14 @@ You can see the feature extractor configuration by printing it.
 
 
 
-To process an image, simply pass it to the feature extractor's call function. This will return a dict containing `pixel values`, which is the numeric representation to be passed to the model.
+To process an image, simply pass it to the image processor's call function. This will return a dict containing `pixel values`, which is the numeric representation to be passed to the model.
 
 You get a NumPy array by default, but if you add the `return_tensors='pt'` argument, you'll get back `torch` tensors instead.
 
 
 
 ```python
-feature_extractor(image, return_tensors='pt')
+processor(image, return_tensors='pt')
 ```
 
 Should give you something like...
@@ -235,7 +234,7 @@ Now that you know how to read images and transform them into inputs, let's write
 
 ```python
 def process_example(example):
-    inputs = feature_extractor(example['image'], return_tensors='pt')
+    inputs = processor(example['image'], return_tensors='pt')
     inputs['labels'] = example['labels']
     return inputs
 ```
@@ -263,7 +262,7 @@ ds = load_dataset('beans')
 
 def transform(example_batch):
     # Take a list of PIL images and turn them to pixel values
-    inputs = feature_extractor([x for x in example_batch['image']], return_tensors='pt')
+    inputs = processor([x for x in example_batch['image']], return_tensors='pt')
 
     # Don't forget to include the labels!
     inputs['labels'] = example_batch['labels']
@@ -399,7 +398,7 @@ trainer = Trainer(
     compute_metrics=compute_metrics,
     train_dataset=prepared_ds["train"],
     eval_dataset=prepared_ds["validation"],
-    tokenizer=feature_extractor,
+    tokenizer=processor,
 )
 ```
 
