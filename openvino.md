@@ -150,7 +150,7 @@ ov_eval_results = task_evaluator.compute(
     label_mapping=ov_pipe.model.config.label2id,
 )
 
-trfs_pipe = pipeline("image-classification", model=model, processor=processor)
+trfs_pipe = pipeline("image-classification", model=model, image_processor=processor)
 trfs_eval_results = task_evaluator.compute(
     model_or_pipeline=trfs_pipe,
     data=eval_dataset,

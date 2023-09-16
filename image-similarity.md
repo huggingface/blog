@@ -49,7 +49,7 @@ from transformers import AutoImageProcessor, AutoModel
 
 
 model_ckpt = "nateraw/vit-base-beans"
-extractor = AutoImageProcessor.from_pretrained(model_ckpt)
+processor = AutoImageProcessor.from_pretrained(model_ckpt)
 model = AutoModel.from_pretrained(model_ckpt)
 ```
 
