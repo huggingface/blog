@@ -51,9 +51,9 @@ The following image, for instance, shows five detections: one "ball" with a conf
 </center>
 </div>
 
-Object detection models are versatile and have a wide range of applications across various domains. Some use cases of object detection include vision in autonomous vehicles, face detection, surveillance and security, medical imaging, augmented reality, sports analysis, smart cities, gesture recognition, etc.
+Object detection models are versatile and have a wide range of applications across various domains. Some use cases include vision in autonomous vehicles, face detection, surveillance and security, medical imaging, augmented reality, sports analysis, smart cities, gesture recognition, etc.
 
-Hugging Face Hub has [hundreds of object detection models](https://huggingface.co/models?pipeline_tag=object-detection) pre-trained in different datasets, able to identify and localize various object classes. 
+The Hugging Face Hub has [hundreds of object detection models](https://huggingface.co/models?pipeline_tag=object-detection) pre-trained in different datasets, able to identify and localize various object classes. 
 
 Specific type of object detection models, called _zero-shot_, can receive additional text queries to search for target objects described in the text. This way, these detectors can detect objects they haven't seen during training.
 
