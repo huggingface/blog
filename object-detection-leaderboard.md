@@ -55,9 +55,9 @@ Object detection models are versatile and have a wide range of applications acro
 
 The Hugging Face Hub has [hundreds of object detection models](https://huggingface.co/models?pipeline_tag=object-detection) pre-trained in different datasets, able to identify and localize various object classes. 
 
-Specific type of object detection models, called _zero-shot_, can receive additional text queries to search for target objects described in the text. This way, these detectors can detect objects they haven't seen during training.
+One specific type of object detection models, called _zero-shot_, can receive additional text queries to search for target objects described in the text. These models can detect objects they haven't seen during training, instead of being constrained to the set of classes used during training.
 
-However, the detectors' diversity goes beyond the range of output classes they can recognize. They vary in terms of underlying architectures, model sizes, processing speeds, and prediction accuracy.
+The diversity of detectors goes beyond the range of output classes they can recognize. They vary in terms of underlying architectures, model sizes, processing speeds, and prediction accuracy.
 
 A popular metric used to evaluate the accuracy of predictions made by an object detection model is the **Average Precision (AP)** and its variants, which will be explained later in this blog.
 
