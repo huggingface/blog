@@ -416,4 +416,4 @@ The results shown in our 🤗 [Object Detection Leaderboard](https://huggingface
 * Paper [A Comparative Analysis of Object Detection Metrics with a Companion Open-Source Toolkit](https://www.mdpi.com/2079-9292/10/3/279) 
 * Paper [A Survey on Performance Metrics for Object-Detection Algorithms](https://ieeexplore.ieee.org/document/9145130) 
 
-Special thanks 🙌 to [@merve](https://huggingface.co/merve) and [@osanseviero](https://huggingface.co/osanseviero) for their feedback and great comments. 🤗 
+Special thanks 🙌 to [@merve](https://huggingface.co/merve), [@osanseviero](https://huggingface.co/osanseviero) and [@pcuenq](https://huggingface.co/pcuenq) for their feedback and great comments. 🤗 
