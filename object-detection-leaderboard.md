@@ -146,7 +146,7 @@ To demonstrate how to calculate the Average Precision plot, we'll use a practica
 </div>
 
 Our hypothetical object detector retrieved 24 objects in our dataset, illustrated by the red boxes. To compute Precision and Recall we use the Precision and Recall equations at all confidence levels to evaluate how well the detector performed for this specific class on our benchmarking dataset. For that, we need to establish some rules:
-* **Rule 1**: For simplicity, let's consider our detections a True Positive (TP) if the  IOU ≥ 30%; otherwise, it is a False Positive (FP). 
+* **Rule 1**: For simplicity, let's consider our detections a True Positive (TP) if IOU ≥ 30%; otherwise, it is a False Positive (FP). 
 * **Rule 2**: For cases where a detection overlaps with more than one ground-truth (as in Images 2 to 7), the predicted box with the highest IoU is considered TP, and the other is FP.
 
 Based on these rules, we can classify each detection as TP or FP, as shown in Table 1:
@@ -161,7 +161,7 @@ Based on these rules, we can classify each detection as TP or FP, as shown in Ta
 Note that by rule 2, in image 1, "E" is TP while "D" is FP because IoU between "E" and the ground-truth is greater than IoU between "D" and the ground-truth.
 
 
-Now, we need to compute Precision and Recall considering the confidence value of each detection. A good way to do so is to sort the detections by their confidence values as shown in Table 2. Then, for each confidence value in each row, we compute the Precision and Recall considering the accumulative TP (acc TP) and accumlative FP (acc FP). The "acc TP" of each row is increased in 1 every time a TP is noted, and the "acc FP" is increased in 1 when a FP is noted. Columns "acc TP" and "acc FP" basically tell us the TP and FP values given a particular confidence level. The computation of each value of Table 2 can be viewed in [this spreadsheet](https://docs.google.com/spreadsheets/d/1mc-KPDsNHW61ehRpI5BXoyAHmP-NxA52WxoMjBqk7pw/edit?usp=sharing).
+Now, we need to compute Precision and Recall considering the confidence value of each detection. A good way to do so is to sort the detections by their confidence values as shown in Table 2. Then, for each confidence value in each row, we compute the Precision and Recall considering the cumulative TP (acc TP) and cumulative FP (acc FP). The "acc TP" of each row is increased in 1 every time a TP is noted, and the "acc FP" is increased in 1 when a FP is noted. Columns "acc TP" and "acc FP" basically tell us the TP and FP values given a particular confidence level. The computation of each value of Table 2 can be viewed in [this spreadsheet](https://docs.google.com/spreadsheets/d/1mc-KPDsNHW61ehRpI5BXoyAHmP-NxA52WxoMjBqk7pw/edit?usp=sharing).
 
 For example, consider the 12th row (detection "P") of Table 2. The value "acc TP = 4" means that if we benchmark our model on this particular dataset with a confidence of 0.62, we would correctly detect four target objects and incorrectly detect eight target objects. This would result in: 
 
@@ -191,9 +191,9 @@ If a detector's confidence results in a few false positives (FP), it will likely
 
 **The area under the Precision x Recall curve (AUC) computed for a target class represents the Average Precision value for that particular class.** The COCO evaluation approach refers to "AP" as the mean AUC value among all target classes in the image dataset, also referred to as Mean Average Precision (mAP) by other approaches.
 
-For a large dataset, the detector will likely output boxes with a wide range of confidence levels, resulting in a jagged Precision x Recall line, making it challenging to compute its AUC (Average Precision) precisely. Different methods approximate the area of the curve with different approaches. A popular approach is called the N-interpolation approach, where N represents how many points are sampled from the Precision x Recall blue line.
+For a large dataset, the detector will likely output boxes with a wide range of confidence levels, resulting in a jagged Precision x Recall line, making it challenging to compute its AUC (Average Precision) precisely. Different methods approximate the area of the curve with different approaches. A popular approach is called N-interpolation, where N represents how many points are sampled from the Precision x Recall blue line.
 
-COCO approach, for instance, uses 101-interpolation, which computes 101 points for equally spaced Recall values (0. , 0.01, 0.02, … 1.00), while other approaches use 11 points, referred to as 11-interpolation. Figure 7 illustrates a Precision x Recall curve (in blue) with 11 equal-spaced Recall points. 
+The COCO approach, for instance, uses 101-interpolation, which computes 101 points for equally spaced Recall values (0. , 0.01, 0.02, … 1.00), while other approaches use 11 points (11-interpolation). Figure 7 illustrates a Precision x Recall curve (in blue) with 11 equal-spaced Recall points. 
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
@@ -221,7 +221,7 @@ For this type of approach, the AUC, which represents the Average Precision, is a
 
 ### What's Average Recall and how to compute it?
 
-Average Recall (AR) is a metric that's often used alongside AP to evaluate object detection models. While AP evaluates both Precision and Recall across different confidence thresholds to provide a single-number summary of model performance, AR focuses solely on the Recall aspect, not taking the confidences into account, considering all detections into positives.
+Average Recall (AR) is a metric that's often used alongside AP to evaluate object detection models. While AP evaluates both Precision and Recall across different confidence thresholds to provide a single-number summary of model performance, AR focuses solely on the Recall aspect, not taking the confidences into account and considering all detections as positives.
 
 COCO’s approach computes AR as the mean of the maximum obtained Recall over IOUs > 0.5 and classes. 
 
@@ -268,7 +268,7 @@ To measure accuracy, we used 12 metrics involving Average Precision and Average 
 
 As discussed previously, different tools may adopt different particularities during the evaluation. To prevent results mismatching, we preferred not to implement our version of the metrics. Instead, we opted to use COCO's official evaluation code, also referred to as PyCOCOtools, code available [here](https://github.com/cocodataset/cocoapi/tree/master/PythonAPI). 
 
-In terms of efficiency, we calculate the frames per second (FPS) for each model using the average evaluation time across the entire dataset, considering pre and post-processing steps. Given the variability in GPU memory requirements for each model, we chose to evaluate with a batch size of 1 (this choice is also influenced by our pre-processing step, which we'll delve into later). However, it's worth noting that this approach may not align perfectly with real-world performance, as larger batch sizes, often containing several images, are commonly used for better efficiency. 
+In terms of efficiency, we calculate the frames per second (FPS) for each model using the average evaluation time across the entire dataset, considering pre and post-processing steps. Given the variability in GPU memory requirements for each model, we chose to evaluate with a batch size of 1 (this choice is also influenced by our pre-processing step, which we'll delve into later). However, it's worth noting that this approach may not align perfectly with real-world performance, as larger batch sizes (often containing several images), are commonly used for better efficiency. 
 
 Next, we will provide tips on choosing the best model based on the metrics and point out which parameters may interfere with the results. Understanding these nuances is crucial, as this might spark doubts and discussions within the community.
 
@@ -285,7 +285,7 @@ If you have restrictions on object sizes, **AP-S**, **AP-M** and **AP-L** come i
 
 ### Which parameters can impact the Average Precision results?
 
-By picking an object detection model in the Hub, we can vary the output boxes by trying different parameters in the model's pre-processing and post-processing functions. There are some approaches that may influence the assessment metrics. We separated the most common factors that may lead to variations in the results: 
+After picking an object detection model from the Hub, we can vary the output boxes if we use different parameters in the model's pre-processing and post-processing steps. These may influence the assessment metrics. We identified some of the most common factors that may lead to variations in results: 
 
 * Ignore detections that have a score under a certain threshold.  
 * Use `batch_sizes > 1` for inference.  
