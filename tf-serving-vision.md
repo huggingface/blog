@@ -102,23 +102,22 @@ steps include:
 
 - Resizing the image so that it has a spatial resolution of (224, 224).
 
-You can confirm these by investigating the feature extractor associated
+You can confirm these by investigating the image processor associated
 with the model:
 
 ```py
-from transformers import AutoFeatureExtractor
+from transformers import AutoImageProcessor
 
-feature_extractor = AutoFeatureExtractor.from_pretrained(ckpt)
-print(feature_extractor)
+processor = AutoImageProcessor.from_pretrained(ckpt)
+print(processor)
 ```
 
 This should print:
 
 ```bash
-ViTFeatureExtractor {
+ViTImageProcessor {
   "do_normalize": true,
   "do_resize": true,
-  "feature_extractor_type": "ViTFeatureExtractor",
   "image_mean": [
     0.5,
     0.5,
@@ -152,7 +151,7 @@ components:
 
 ```py
 def normalize_img(
-    img, mean=feature_extractor.image_mean, std=feature_extractor.image_std
+    img, mean=processor.image_mean, std=processor.image_std
 ):
     # Scale to the value range of [0, 1] first and then normalize.
     img = img / 255
@@ -167,11 +166,11 @@ Transformers. The below code snippet shows all the preprocessing steps:
 
 ```py
 CONCRETE_INPUT = "pixel_values" # Which is what we investigated via the SavedModel CLI.
-SIZE = feature_extractor.size
+SIZE = processor.size["height"]
 
 
 def normalize_img(
-    img, mean=feature_extractor.image_mean, std=feature_extractor.image_std
+    img, mean=processor.image_mean, std=processor.image_std
 ):
     # Scale to the value range of [0, 1] first and then normalize.
     img = img / 255

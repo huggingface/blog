@@ -197,31 +197,31 @@ label2id = {v: k for k, v in id2label.items()}
 num_labels = len(id2label)
 ```
 
-## Feature extractor & data augmentation
+## Image processor & data augmentation
 
-A SegFormer model expects the input to be of a certain shape. To transform our training data to match the expected shape, we can use `SegFormerFeatureExtractor`. We could use the `ds.map` function to apply the feature extractor to the whole training dataset in advance, but this can take up a lot of disk space. Instead, we'll use a *transform*, which will only prepare a batch of data when that data is actually used (on-the-fly). This way, we can start training without waiting for further data preprocessing.
+A SegFormer model expects the input to be of a certain shape. To transform our training data to match the expected shape, we can use `SegFormerImageProcessor`. We could use the `ds.map` function to apply the image processor to the whole training dataset in advance, but this can take up a lot of disk space. Instead, we'll use a *transform*, which will only prepare a batch of data when that data is actually used (on-the-fly). This way, we can start training without waiting for further data preprocessing.
 
 In our transform, we'll also define some data augmentations to make our model more resilient to different lighting conditions. We'll use the [`ColorJitter`](https://pytorch.org/vision/main/generated/torchvision.transforms.ColorJitter.html) function from `torchvision` to randomly change the brightness, contrast, saturation, and hue of the images in the batch.
 
 
 ```python
 from torchvision.transforms import ColorJitter
-from transformers import SegformerFeatureExtractor
+from transformers import SegformerImageProcessor
 
-feature_extractor = SegformerFeatureExtractor()
+processor = SegformerImageProcessor()
 jitter = ColorJitter(brightness=0.25, contrast=0.25, saturation=0.25, hue=0.1) 
 
 def train_transforms(example_batch):
     images = [jitter(x) for x in example_batch['pixel_values']]
     labels = [x for x in example_batch['label']]
-    inputs = feature_extractor(images, labels)
+    inputs = processor(images, labels)
     return inputs
 
 
 def val_transforms(example_batch):
     images = [x for x in example_batch['pixel_values']]
     labels = [x for x in example_batch['label']]
-    inputs = feature_extractor(images, labels)
+    inputs = processor(images, labels)
     return inputs
 
 
@@ -324,7 +324,7 @@ def compute_metrics(eval_pred):
             references=labels,
             num_labels=len(id2label),
             ignore_index=0,
-            reduce_labels=feature_extractor.do_reduce_labels,
+            reduce_labels=processor.do_reduce_labels,
         )
     
     # add per category metrics as individual key-value pairs
@@ -359,7 +359,7 @@ Now that our trainer is set up, training is as simple as calling the `train` fun
 trainer.train()
 ```
 
-When we're done with training, we can push our fine-tuned model and the feature extractor to the Hub.
+When we're done with training, we can push our fine-tuned model and the image processor to the Hub.
 
 This will also automatically create a model card with our results. We'll supply some extra information in `kwargs` to make the model card more complete.
 
@@ -371,7 +371,7 @@ kwargs = {
     "dataset": hf_dataset_identifier,
 }
 
-feature_extractor.push_to_hub(hub_model_id)
+processor.push_to_hub(hub_model_id)
 trainer.push_to_hub(**kwargs)
 ```
 
@@ -396,9 +396,9 @@ However, you can also try out your model directly on the Hugging Face Hub, thank
 We'll first load the model from the Hub using `SegformerForSemanticSegmentation.from_pretrained()`.
 
 ```python
-from transformers import SegformerFeatureExtractor, SegformerForSemanticSegmentation
+from transformers import SegformerImageProcessor, SegformerForSemanticSegmentation
 
-feature_extractor = SegformerFeatureExtractor.from_pretrained("nvidia/segformer-b0-finetuned-ade-512-512")
+processor = SegformerImageProcessor.from_pretrained("nvidia/segformer-b0-finetuned-ade-512-512")
 model = SegformerForSemanticSegmentation.from_pretrained(f"{hf_username}/{hub_model_id}")
 ```
 
@@ -411,7 +411,7 @@ gt_seg = test_ds[0]['label']
 image
 ```
 
-To segment this test image, we first need to prepare the image using the feature extractor. Then we forward it through the model.
+To segment this test image, we first need to prepare the image using the image processor. Then we forward it through the model.
 
 We also need to remember to upscale the output logits to the original image size. In order to get the actual category predictions, we just have to apply an `argmax` on the logits.
 
@@ -419,7 +419,7 @@ We also need to remember to upscale the output logits to the original image size
 ```python
 from torch import nn
 
-inputs = feature_extractor(images=image, return_tensors="pt")
+inputs = processor(images=image, return_tensors="pt")
 outputs = model(**inputs)
 logits = outputs.logits  # shape (batch_size, num_labels, height/4, width/4)
 
