@@ -298,7 +298,7 @@ Let’s take the DEtection TRansformer (DETR) ([facebook/detr-resnet-50](https:/
 
 #### Thresholding detections before evaluation
 
-Our sample model uses `DetrImageProcessor` [class](https://huggingface.co/docs/transformers/main/en/model_doc/detr#transformers.DetrImageProcessor) to process the bounding boxes and logits, as shown in the snippet below:
+Our sample model uses the [`DetrImageProcessor` class](https://huggingface.co/docs/transformers/main/en/model_doc/detr#transformers.DetrImageProcessor) to process the bounding boxes and logits, as shown in the snippet below:
 
 ```python 
 from transformers import DetrImageProcessor, DetrForObjectDetection
@@ -309,15 +309,15 @@ import requests
 url = "http://images.cocodataset.org/val2017/000000039769.jpg"
 image = Image.open(requests.get(url, stream=True).raw)
 
-processor=DetrImageProcessor.from_pretrained("facebook/detr-resnet-50")
-model=DetrForObjectDetection.from_pretrained("facebook/detr-resnet-50")
+processor = DetrImageProcessor.from_pretrained("facebook/detr-resnet-50")
+model = DetrForObjectDetection.from_pretrained("facebook/detr-resnet-50")
 
 inputs = processor(images=image, return_tensors="pt")
 outputs = model(**inputs)
 
 # PIL images have their size in (w, h) format
 target_sizes = torch.tensor([image.size[::-1]])
-results=processor.post_process_object_detection(outputs, target_sizes=target_sizes, threshold=0.5)
+results = processor.post_process_object_detection(outputs, target_sizes=target_sizes, threshold=0.5)
 
 ```
 
