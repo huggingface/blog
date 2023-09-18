@@ -334,14 +334,15 @@ As mentioned in [DETR documentation](https://huggingface.co/docs/transformers/mo
 
 To illustrate this process, let's consider the examples in Figure 9 and Figure 10. In Figure 9, we consider batch size = 1, so both images are processed independently with `DetrImageProcessor`. The first image is resized to (800, 1201), making the detector predict 28 boxes with class `vase`, 22 boxes with class `chair`, ten boxes with class `bottle`, etc.
 
-Figure 10 shows the process with batch size = 2, where the same two images are processed with `DetrImageProcessor` in the same batch. Both images are resized to have the same shape (873, 1201), and padding is applied, so the part of the images with the content is kept with their original aspect ratios. However, the first image, for instance, outputs a different number of objects: 31 boxes with the class `vase`, 20 boxes with the class `chair`, eight boxes with the class `bottle`, etc. Note that for the second image, with batch size = 2, a new class is detected `dog`. This occurs due to the model's capacity to detect objects of different sizes depending on the image's resolution.
-
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/object-detection-leaderboard/example_batch_size_1.png" alt="example_batch_size_1.png" />
     <figcaption> Figure 9: Two images processed with `DetrImageProcessor` using batch size = 1.</figcaption>
 </center>
 </div>
+
+
+Figure 10 shows the process with batch size = 2, where the same two images are processed with `DetrImageProcessor` in the same batch. Both images are resized to have the same shape (873, 1201), and padding is applied, so the part of the images with the content is kept with their original aspect ratios. However, the first image, for instance, outputs a different number of objects: 31 boxes with the class `vase`, 20 boxes with the class `chair`, eight boxes with the class `bottle`, etc. Note that for the second image, with batch size = 2, a new class is detected `dog`. This occurs due to the model's capacity to detect objects of different sizes depending on the image's resolution.
 
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
