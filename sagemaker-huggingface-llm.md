@@ -98,7 +98,7 @@ from sagemaker.huggingface import get_huggingface_llm_image_uri
 # retrieve the llm image uri
 llm_image = get_huggingface_llm_image_uri(
   "huggingface",
-  version="0.9.3"
+  version="1.0.3"
 )
 
 # print ecr image uri
