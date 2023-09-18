@@ -2828,3 +2828,12 @@
     - nlp
     - research
     - LLM
+
+- local: rocketmoney-case-study
+  title: "Rocket Money case study: why we chose Hugging Face to manage our MLOps and inference workloads"
+  author: nicokuzak
+  guest: true
+  thumbnail: /blog/assets/78_ml_director_insights/rocketmoney.png
+  date: September 20, 2023
+  tags:
+    - case-studies
