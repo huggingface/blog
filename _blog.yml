@@ -2833,7 +2833,7 @@
   title: "Object Detection Leaderboard"
   author: rafaelpadilla
   guest: true
-  thumbnail: /blog/assets/t2i-sdxl-adapters/thumbnail.png
+  thumbnail: /blog/assets/object-detection-leaderboard/thumbnail.png
   date: September 10, 2023
   tags:
     - community
