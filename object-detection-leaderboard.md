@@ -3,6 +3,7 @@ title: "Object Detection Leaderboard"
 thumbnail: /blog/assets/object-detection-leaderboard/thumbnail.png
 authors:
 - user: rafaelpadilla
+  guest: true
 - user: amyeroberts
 ---
 
