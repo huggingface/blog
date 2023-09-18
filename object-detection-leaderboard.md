@@ -136,7 +136,7 @@ Figure 4 shows an example of the Precision x Recall curve. For a deeper explorat
 
 The Precision x Recall curve illustrates the balance between Precision and Recall based on different confidence levels of a detector's bounding boxes. Each point of the plot is computed using a different confidence value. 
 
-Let's borrow the practical example presented in the paper "A Survey on performance metrics for object-detection algorithms" to illustrate how to compute the Average Precision plot. Consider a dataset of 7 images with 15 ground-truth objects of the same class, as shown in Figure 5. Let's consider that all boxes belong to the same class, "dog" for simplification purposes.
+To demonstrate how to calculate the Average Precision plot, we'll use a practical example from one of the papers mentioned earlier. Consider a dataset of 7 images with 15 ground-truth objects of the same class, as shown in Figure 5. Let's consider that all boxes belong to the same class, "dog" for simplification purposes.
 
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
