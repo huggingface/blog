@@ -20,7 +20,7 @@ Recently, we released our [Object Detection Leaderboard](https://huggingface.co/
 
 Every developer and researcher aims for a model that can accurately detect and delineate objects. Our [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard) is the right place to find an open-source model that best fits their application needs. But what does "accurate" truly mean in this context? Which metrics should one trust? How are they computed? And, perhaps more crucially, why some models may present divergent results in different reports? All these questions will be answered in this blog.
 
-So, let's embark on this exploration together and unlock the secrets of the Object Detection Leaderboard! If you prefer to skip the introduction and learn how object detection metrics are computed, go to the [Metrics section](#metrics). If you wish to find how to pick the best models based on the [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard), you may check [Object Detection Leaderboard](#object-detection-leaderboard) section. 
+So, let's embark on this exploration together and unlock the secrets of the Object Detection Leaderboard! If you prefer to skip the introduction and learn how object detection metrics are computed, go to the [Metrics section](#metrics). If you wish to find how to pick the best models based on the [Object Detection Leaderboard](https://huggingface.co/spaces/rafaelpadilla/object_detection_leaderboard), you may check the [Object Detection Leaderboard](#object-detection-leaderboard) section. 
 
 
 ## Table of Contents
