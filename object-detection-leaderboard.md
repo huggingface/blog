@@ -44,9 +44,6 @@ In the field of Computer Vision, Object Detection refers to the task of identify
 
 The following image, for instance, shows five detections: one "ball" with a confidence of 98% and four "person" with a confidence of 98%, 95%, 97%, and 97%.
 
-<!-- ![image](assets/object-detection-leaderboard/intro_object_detection.png)
-Figure 1: Example of outputs performed by an object detector. -->
-
 <div display="block" margin-left="auto" margin-right="auto" width="50%">
 <center>
     <img src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/object-detection-leaderboard/intro_object_detection.png" alt="intro_object_detection.png" />
