@@ -15,8 +15,12 @@ authors:
 
 Check out the remote Gaussian Viewer space [here](https://huggingface.co/spaces/dylanebert/gaussian-viewer) or embedded below for an example of a Gaussian Splatting scene.
 
-<script type="module" src="https://gradio.s3-us-west-2.amazonaws.com/3.42.0/gradio.js"> </script>
-<gradio-app theme_mode="light" space="dylanebert/gaussian-viewer"></gradio-app>
+<iframe
+	src="https://dylanebert-gaussian-viewer.hf.space"
+	frameborder="0"
+	width="960"
+	height="720"
+></iframe>
 
 ## What is 3D Gaussian Splatting?
 
