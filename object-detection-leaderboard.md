@@ -80,7 +80,7 @@ This section will delve into the definition of Average Precision and Average Rec
 
 ### What's Average Precision and how to compute it?
 
-Average Precision (AP) is a metric used to evaluate the performance of an object detection model. AP is a single-number that summarizes the Precision x Recall curve. But before we dive into the details showing how Precision x Recall curve is generated and how to compute Average Precision with it, first we need to understand what Intersection over Union (IoU) is, and how to classify a detection as True Positive or False Positive.
+Average Precision (AP) is a single-number that summarizes the Precision x Recall curve. Before we explain how to compute it, we first need to understand the concept of Intersection over Union (IoU), and how to classify a detection as a True Positive or a False Positive.
 
 IoU is a metric represented by a number between 0 and 1 that measures the overlap between the predicted bounding box and the actual (ground truth) bounding box. It's computed by dividing the area where the two boxes overlap by the area covered by both boxes combined. Figure 3 visually demonstrates the IoU using an example of a predicted box and its corresponding ground-truth box.
 
@@ -95,13 +95,13 @@ If the ground truth and detected boxes share identical coordinates, representing
 
 In scenarios where high precision in detections is expected (e.g. an autonomous vehicle), the predicted bounding boxes should closely align with the ground-truth boxes. For that, a IoU threshold ( \\( \text{T}_{\text{IOU}} \\) ) approaching 1 is preferred. On the other hand, for applications where the exact position of the detected bounding boxes relative to the target object isn’t critical, the threshold can be relaxed, setting \\( \text{T}_{\text{IOU}} \\) closer to 0.
 
-Every box predicted by the model is considered a “positive” detection. Based on a criterion known as Intersection over Union (IoU) between the predicted box and a ground-truth annotation, a detection is categorized either as a true positive (TP) or a false positive (FP). 
+Every box predicted by the model is considered a “positive” detection. The Intersection over Union (IoU) criterion classifies each prediction as a true positive (TP) or a false positive (FP), according to the confidence threshold we defined.
 
 Based on predefined \\( \text{T}_{\text{IOU}} \\), we can define True Positives and True Negatives:
 * **True Positive (TP)**: A correct detection where IoU ≥ \\( \text{T}_{\text{IOU}} \\).
 * **False Positive (FP)**: An incorrect detection (missed object), where the IoU < \\( \text{T}_{\text{IOU}} \\).
 
-Conversely, negatives are evaluated based on a ground-truth bounding and can be defined as False Negative (FN) or True Negative (TN):
+Conversely, negatives are evaluated based on a ground-truth bounding box and can be defined as False Negative (FN) or True Negative (TN):
 * **False Negative (FN)**: Refers to a ground-truth object that the model failed to detect.
 * **True Negative (TN)**: Denotes a correct non-detection. Within the domain of object detection, countless bounding boxes within an image should NOT be identified, as they don't represent the target object. Consider all possible boxes in an image that don’t represent the target object - quite a vast number, isn’t it? :) That's why we do not consider TN to compute object detection metrics.
 
