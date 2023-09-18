@@ -2842,3 +2842,13 @@
     - leaderboard
     - evaluation
 
+- local: gaussian-splatting
+  title: "Introduction to 3D Gaussian Splatting"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail-gaussian-splatting.png
+  date: September 18, 2023
+  tags:
+    - community
+    - guide
+    - cv
+    - game-dev
