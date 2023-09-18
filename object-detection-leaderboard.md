@@ -366,13 +366,13 @@ It's important to recognize that models can produce boxes in various formats, an
 
 #### Some ground-truths are ignored in some benchmarking datasets
 
-Some datasets use special labels for some objects, which are used to ignore such objects during the evaluation process.
+Some datasets sometimes use special labels that are ignored during the evaluation process.
 
-COCO, for instance, uses the tag `iscrowd` to label large groups of objects (e.g. many apples in a basket). During the evaluation, objects tagged as `iscrowd=1` are ignored. If this is not taken into consideration by evaluators, your may have different results for the metrics.
+COCO, for instance, uses the tag `iscrowd` to label large groups of objects (e.g. many apples in a basket). During evaluation, objects tagged as `iscrowd=1` are ignored. If this is not taken into consideration, you may obtain different results.
 
 #### Calculating the IoU requires careful consideration
 
-IoU might seem straightforward to calculate based on its definition. However, there's a crucial detail to be aware of: if the ground truth and the detection don't overlap at all, not even by one pixel, the IoU should be 0.  To avoid dividing by zero when calculating the union, you can add a small value (called _epsilon_ ), to the denominator. However, it's essential to choose the epsilon carefully. An epsilon value greater than 1e-4 might not be neutral enough to give an accurate result.
+IoU might seem straightforward to calculate based on its definition. However, there's a crucial detail to be aware of: if the ground truth and the detection don't overlap at all, not even by one pixel, the IoU should be 0.  To avoid dividing by zero when calculating the union, you can add a small value (called _epsilon_), to the denominator. However, it's essential to choose epsilon carefully: a value greater than 1e-4 might not be neutral enough to give an accurate result.
 
 #### Text-conditioned models demand the right prompts 
 
