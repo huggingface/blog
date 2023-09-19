@@ -1,5 +1,5 @@
 ---
-title: "Rocket Money case study: why we chose Hugging Face to manage our MLOps and inference workloads"
+title: "Rocket Money x Hugging Face: Scaling Volatile ML Models in Production​"
 thumbnail: /blog/assets/78_ml_director_insights/rocketmoney.png
 authors:
 - user: nicokuzak
@@ -8,7 +8,7 @@ authors:
   guest: true
 ---
 
-<h1>Rocket Money case study: why we chose Hugging Face to manage our MLOps and inference workloads</h1>
+<h1>Rocket Money x Hugging Face: Scaling Volatile ML Models in Production</h1>
 
 <!-- {blog_metadata} -->
 <!-- {authors} -->
