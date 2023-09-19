@@ -94,7 +94,7 @@ If you're unfamiliar with Jinja, I strongly recommend that you take a moment to 
 
 ## Why templates?
 
-Although Jinja can be confusing at first if you're unfamiliar with it, in practice we find that Python programmers can pick it up quickly. During development of this feature, we considered other approaches, such a limited system that allows users to specify per-role prefixes and suffixes for messages. We found that this could become confusing and unwieldy, and was so inflexible that hacky workarounds were needed for several models. Templating, on the other hand, is powerful enough to cleanly support all of the message formats that we're aware of.
+Although Jinja can be confusing at first if you're unfamiliar with it, in practice we find that Python programmers can pick it up quickly. During development of this feature, we considered other approaches, such as a limited system to allow users to specify per-role prefixes and suffixes for messages. We found that this could become confusing and unwieldy, and was so inflexible that hacky workarounds were needed for several models. Templating, on the other hand, is powerful enough to cleanly support all of the message formats that we're aware of.
 
 ## Why bother doing this? Why not just pick a standard format?
 
