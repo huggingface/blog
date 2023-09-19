@@ -2829,6 +2829,30 @@
     - research
     - LLM
 
+- local: object-detection-leaderboard
+  title: "Object Detection Leaderboard"
+  author: rafaelpadilla
+  guest: true
+  thumbnail: /blog/assets/object-detection-leaderboard/thumbnail.png
+  date: September 18, 2023
+  tags:
+    - community
+    - guide
+    - cv
+    - leaderboard
+    - evaluation
+
+- local: gaussian-splatting
+  title: "Introduction to 3D Gaussian Splatting"
+  author: dylanebert
+  thumbnail: /blog/assets/124_ml-for-games/thumbnail-gaussian-splatting.png
+  date: September 18, 2023
+  tags:
+    - community
+    - guide
+    - cv
+    - game-dev
+    
 - local: rocketmoney-case-study
   title: "Rocket Money x Hugging Face: Scaling Volatile ML Models in Production"
   author: nicokuzak

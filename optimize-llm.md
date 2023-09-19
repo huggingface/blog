@@ -634,7 +634,7 @@ for _ in range(5):
   next_logits = next_logits[:, -1:]
   next_token_id = torch.argmax(next_logits, dim=-1)
 
-  print("shape of input_ids", input_ids.shape)
+  print("shape of input_ids", next_token_id.shape)
   print("length of key-value cache", len(past_key_values[0][0]))  # past_key_values are of shape [num_layers, 0 for k, 1 for v, batch_size, length, hidden_dim]
   generated_tokens.append(next_token_id.item())
 
@@ -644,15 +644,15 @@ generated_text
 
 **Output**:
 ```
-shape of input_ids torch.Size([1, 20])
+shape of input_ids torch.Size([1, 1])
 length of key-value cache 20
-shape of input_ids torch.Size([1, 20])
+shape of input_ids torch.Size([1, 1])
 length of key-value cache 21
-shape of input_ids torch.Size([1, 20])
+shape of input_ids torch.Size([1, 1])
 length of key-value cache 22
-shape of input_ids torch.Size([1, 20])
+shape of input_ids torch.Size([1, 1])
 length of key-value cache 23
-shape of input_ids torch.Size([1, 20])
+shape of input_ids torch.Size([1, 1])
 length of key-value cache 24
 [' Here', ' is', ' a', ' Python', ' function']
 ```
