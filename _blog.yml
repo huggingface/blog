@@ -2755,6 +2755,14 @@
     - diffusers
     - diffusion
 
+- local: fetch-case-study
+  title: "Fetch Cuts ML Processing Latency by 50% Using Amazon SageMaker & Hugging Face"
+  author: Violette
+  thumbnail: /blog/assets/78_ml_director_insights/fetch.png
+  date: September 1, 2023
+  tags:
+    - case-studies
+
 - local: falcon-180b
   title: "Spread Your Wings: Falcon 180B is here"
   author: philschmid
