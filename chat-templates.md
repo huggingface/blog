@@ -46,7 +46,7 @@ This sequence of messages needs to be converted into a text string before it can
 User: Hey there!
 Bot: Nice to meet you!
 ```
-Or you could add special tokens, to indicate the roles:
+Or you could add special tokens to indicate the roles:
 ```
 [USER] Hey there! [/USER]
 [ASST] Nice to meet you! [/ASST]
