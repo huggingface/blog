@@ -2830,7 +2830,7 @@
     - LLM
 
 - local: rocketmoney-case-study
-  title: "Rocket Money case study: why we chose Hugging Face to manage our MLOps and inference workloads"
+  title: "Rocket Money x Hugging Face: Scaling Volatile ML Models in Production"
   author: nicokuzak
   guest: true
   thumbnail: /blog/assets/78_ml_director_insights/rocketmoney.png
