@@ -126,7 +126,7 @@ If a tokenizer doesn't have a `chat_template` attribute, it might still work, bu
 
 You can add a `chat_template` even for checkpoints that you're not the owner of, by opening a [pull request](https://huggingface.co/docs/hub/repositories-pull-requests-discussions). The only change you need to make is to set the `tokenizer.chat_template` attribute to a Jinja template string. Once that's done, push your changes and you're ready to go! 
 
-If you'd like to use a checkpoint for chat but you can't find any documentation on the chat format it used, you should probably open an issue on the checkpoint or ping the owner! Once you figure out the format that model is using, please open a pull request to add a suitable `chat_template`. Other users will really appreciate it!
+If you'd like to use a checkpoint for chat but you can't find any documentation on the chat format it used, you should probably open an issue on the checkpoint or ping the owner! Once you figure out the format the model is using, please open a pull request to add a suitable `chat_template`. Other users will really appreciate it!
 
 ## Conclusion: Template philosophy
 
