@@ -26,7 +26,7 @@ tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 model = AutoModel.from_pretrained(checkpoint)
 ```
 By loading the tokenizer and model from the same checkpoint, you ensure that inputs are tokenized
-in the way that the model expects. If you pick a tokenizer from a different model, the input tokenization
+in the way the model expects. If you pick a tokenizer from a different model, the input tokenization
 might be completely different, and the result will be that your model's performance will be seriously damaged. The term for this is a **distribution shift** - the model has been learning data from one distribution (the tokenization it was trained with), and suddenly it has shifted to a completely different one. 
 
 Whether you're fine-tuning a model or using it directly for inference, it's always a good idea to minimize these distribution shifts and keep the input you give it as similar as possible to the input it was trained on. With regular language models, it's relatively easy to do that - simply load your tokenizer and model from the same checkpoint, and you're good to go. 
