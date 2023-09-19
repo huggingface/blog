@@ -31,7 +31,7 @@ might be completely different, and the result will be that your model's performa
 
 Whether you're fine-tuning a model or using it directly for inference, it's always a good idea to minimize these distribution shifts and keep the input you give it as similar as possible to the input it was trained on. With regular language models, it's relatively easy to do that - simply load your tokenizer and model from the same checkpoint, and you're good to go. 
 
-With chat models, however, it's a bit different. This is because "chat" is not just a single string of text that can be straightforwardly tokenized - it's a sequence of messages, each of which contains a `role as well as `content`, which is the actual text of the message. Most commonly, the roles are "user" for messages sent by the user, "assistant" for responses written by the model, and optionally "system" for high-level directives given at the start of the conversation. 
+With chat models, however, it's a bit different. This is because "chat" is not just a single string of text that can be straightforwardly tokenized - it's a sequence of messages, each of which contains a `role` as well as `content`, which is the actual text of the message. Most commonly, the roles are "user" for messages sent by the user, "assistant" for responses written by the model, and optionally "system" for high-level directives given at the start of the conversation. 
 
 If that all seems a bit abstract, here's an example chat to make it more concrete:
 ```python
