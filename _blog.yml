@@ -2852,3 +2852,12 @@
     - guide
     - cv
     - game-dev
+    
+- local: rocketmoney-case-study
+  title: "Rocket Money x Hugging Face: Scaling Volatile ML Models in Production"
+  author: nicokuzak
+  guest: true
+  thumbnail: /blog/assets/78_ml_director_insights/rocketmoney.png
+  date: September 19, 2023
+  tags:
+    - case-studies
