@@ -1850,7 +1850,7 @@
 
 
 - local: classification-use-cases
-  title: "Leveraging Hugging Face for complex text classification use cases"
+  title: "How Hugging Face Accelerated Development of Witty Works Writing Assistant"
   author: VioletteLepercq
   thumbnail: /blog/assets/78_ml_director_insights/witty-works.png
   date: March 1, 2023
