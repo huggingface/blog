@@ -1,5 +1,5 @@
 ---
-title: "Leveraging Hugging Face for complex text classification use cases"
+title: "How Hugging Face Accelerated Development of Witty Works Writing Assistant"
 thumbnail: /blog/assets/78_ml_director_insights/witty-works.png
 authors:
 - user: juliensimon
@@ -10,7 +10,7 @@ authors:
 - user: lsmith
   guest: true
 ---
-# Leveraging Hugging Face for complex text classification use cases
+# How Hugging Face Accelerated Development of Witty Works Writing Assistant
 
 ## The Success Story of Witty Works with the Hugging Face Expert Acceleration Program.
 
