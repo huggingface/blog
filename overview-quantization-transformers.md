@@ -86,7 +86,7 @@ We will use the following setup:
 
 ### Inference speed (forward pass only)
 
-This benchmark measures only the prefill step, which corresponds to the foward pass during training. It  was run on a single NVIDIA A100-SXM4-80GB GPU with a prompt length of 512. The model we used was `meta-llama/Llama-2-13b-hf`.
+This benchmark measures only the prefill step, which corresponds to the forward pass during training. It  was run on a single NVIDIA A100-SXM4-80GB GPU with a prompt length of 512. The model we used was `meta-llama/Llama-2-13b-hf`.
 
 with batch size = 1: 
 
@@ -113,7 +113,7 @@ The following benchmarks measure the generation speed of the model during infere
 #### use_cache 
 Let's test `use_cache` to better understand the impact of caching the hidden state during the generation.
 
-The benchmark was run on a A100 with a prompt length of 30 and we generated exactly 30 tokens. The model we used was `meta-llama/Llama-2-7b-hf`. 
+The benchmark was run on an A100 with a prompt length of 30 and we generated exactly 30 tokens. The model we used was `meta-llama/Llama-2-7b-hf`. 
 
 with `use_cache=True`
 
@@ -169,7 +169,7 @@ From the result, we conclude that bitsandbytes is faster than GPTQ for fine-tuni
 
 ### Performance degradation
 
-Quantization is great for reducing memory comsumption. However, it  does come with performance degradation. Let's compare the performance using the [Open-LLM leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) ! 
+Quantization is great for reducing memory consumption. However, it  does come with performance degradation. Let's compare the performance using the [Open-LLM leaderboard](https://huggingface.co/spaces/HuggingFaceH4/open_llm_leaderboard) ! 
 
 with 7b model: 
 
@@ -192,7 +192,7 @@ From the results above, we conclude that there is less degradation in bigger mod
 
 ## Conclusion and final words
 
-In this blogpost, we compared bitsandbytes and GPTQ quantization across mutliple setups. We saw that bitsandbytes is better suited for fine-tuning while GPTQ is better for generation. From this observation, one way to get better merged models would be to: 
+In this blogpost, we compared bitsandbytes and GPTQ quantization across multiple setups. We saw that bitsandbytes is better suited for fine-tuning while GPTQ is better for generation. From this observation, one way to get better merged models would be to: 
 
 - (1) quantize the base model using bitsandbytes (zero-shot quantization)
 - (2) add and fine-tune the adapters
