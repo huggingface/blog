@@ -3,6 +3,7 @@ title: "Non-engineers guide: Train a LLaMA 2 chatbot"
 thumbnail: /blog/assets/78_ml_director_insights/tuto.png
 authors:
 - user: 2legit2overfit
+- user: AbhishekThakur
 ---
 
 <!-- {blog_metadata} -->
