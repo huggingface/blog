@@ -137,6 +137,12 @@ For more details on how to control generation, please take a look at [this secti
 
 ### Controlling Image Generation
 
+If you want finer-grained control over images generated with the SDXL endpoint, you can use the following parameters:
+
+- `negative_prompt`: A text describing content that you want the model to steer _away_ from.
+- `guidance_scale`: How closely you want the model to match the prompt. Lower numbers are less accurate, very high numbers might decrease image quality or generate artifacts.
+- `width` and `height`: The desired image dimensions. SDXL works best for sizes between 768 and 1024.
+- `num_inference_steps`: The number of denoising steps to run. Larger numbers may produce better quality but will be slower. Typical values are between 20 and 50 steps.
 
 ### Caching
 
