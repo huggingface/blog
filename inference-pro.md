@@ -14,7 +14,7 @@ authors:
 
 Today, we're introducing Inference for PRO users - a community offering that gives you access to APIs of curated endpoints for some of the most exciting models available, as well as improved rate limits for the usage of free Inference API. 
 
-Hugging Face has provided a free Inference API for over 150,000 models from not only Transformers, Diffusers, but also many other libraries. Hugging Face PRO users benefit from higher rate limits, allowing them to use models to build prototypes and proof of concepts more extensively. On top of that, PRO users get exclusive access to Inference API for a curated list of models that benefit from extremely fast inference powered by [text-generation-inference](https://github.com/huggingface/text-generation-inference).
+Hugging Face provides a free Inference API for over 150,000 models from not only Transformers, Diffusers, but also many other libraries. Hugging Face PRO users benefit from higher rate limits, allowing them to use models to build prototypes and proof of concepts more extensively. On top of that, PRO users get exclusive access to Inference API for a curated list of models that benefit from extremely fast inference powered by [text-generation-inference](https://github.com/huggingface/text-generation-inference).
 
 ## Contents
 
