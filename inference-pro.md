@@ -283,19 +283,6 @@ curl -N https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-
     -H "Authorization: Bearer <YOUR_TOKEN>"
 ```
 
-### Error handling
-
-When errors occur, they may appear in the following flavors:
-- As an HTTP response code.
-- As a service-specific error that goes with a successful HTTP response code `200`. For example, if the model was evicted after a period of inactivity, you may encounter the following response:
-
-```json
-{'error': 'Model stabilityai/stable-diffusion-2-1-base is currently loading',
- 'estimated_time': 726.7694702148438}
-```
-
-Please make sure your code handles both cases appropriately.
-
 ## Subscribe to PRO
 
 You can sign up today for a PRO subscription [here](https://huggingface.co/subscribe/pro). Benefit from higher rate limits, custom accelerated endpoints for the latest models, and early access to features. If you've built some exciting projects with the Inference API or are looking for a model not available in Inference for PROs, please [use this discussion](https://huggingface.co/spaces/huggingface/HuggingDiscussions/discussions/13).
