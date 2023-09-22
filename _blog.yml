@@ -2869,3 +2869,16 @@
   date: September 19, 2023
   tags:
     - case-studies
+
+- local: inference-pro
+  title: "Inference for PROs"
+  author: osanseviero
+  thumbnail: /blog/assets/inference_pro/thumbnail.png
+  date: September 22, 2023
+  tags:
+    - community
+    - guide
+    - inference
+    - api
+    - llm
+    - stable-diffusion
