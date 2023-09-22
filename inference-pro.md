@@ -38,10 +38,10 @@ In addition to thousands of public models available in the Hub, PRO users get fr
 
 | Model               | Size             | Context Length | Use                                   |
 |---------------------|------------------|----------------|---------------------------------------|
-| Llama 2 Chat        | 7B, 13B, and 70B | 4k tokens      | One of the best conversational models |
-| Code Llama Base     | 7B and 13B       | 4k tokens      | Autocomplete and infill code          |
-| Code Llama Instruct | 70B              | 16k tokens     | Conversational code assistant         |
-| SDXL                | -                | -              | Generate images                       |
+| Llama 2 Chat        | [7B](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), [13B](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf), and [70B](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) | 4k tokens      | One of the best conversational models |
+| Code Llama Base     | [7B](https://huggingface.co/codellama/CodeLlama-7b-hf) and [13B](https://huggingface.co/codellama/CodeLlama-13b-hf)       | 4k tokens      | Autocomplete and infill code          |
+| Code Llama Instruct | [34B](https://huggingface.co/codellama/CodeLlama-34b-Instruct-hf)              | 16k tokens     | Conversational code assistant         |
+| Stable Diffusion XL | [3B UNet](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0)          | -              | Generate images                       |
 
 Inference for PROs makes it easy to experiment and prototype with new models without having to deploy them on your own infrastructure. It gives PRO users access to ready-to-use HTTP endpoints for all the models listed above. It’s not meant to be used for heavy production applications - for that, we recommend using [Inference Endpoints](https://ui.endpoints.huggingface.co/catalog). Inference for PROs also allows using applications that depend upon an LLM endpoint, such as using a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) for code completion, or have your own version of [Hugging Chat](http://hf.co/chat).
 
