@@ -84,34 +84,85 @@ print(output)
 
 ## Applications
 
-### Chat models with Llama and Code Llama 
+### Chat with Llama 2
 
-#### How to prompt
+Models prepared to follow chat conversations are trained with very particular and specific chat templates that depend on the model used. You need to be careful about the format the model expects and replicate it in your queries.
 
-For chat versions:
-Short description of how to prompt + link to article
+The following example was taken from [our Llama 2 blog post](https://huggingface.co/blog/llama2#how-to-prompt-llama-2), that describes in full detail how to query the model for conversation:
 
-For instruct:
-…
+```Python
+prompt = """<s>[INST] <<SYS>>
+You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.
+
+If a question does not make any sense, or is not factually coherent, explain why instead of answering something not correct. If you don't know the answer to a question, please don't share false information.
+<</SYS>>
+
+There's a llama in my garden 😱 What should I do? [/INST]
+"""
+
+response = client.text_generation(prompt, max_new_tokens=200)
+print(response)
+```
+
+This example shows the structure of the first message in a multi-turn conversation. Note how the `<<SYS>>` delimiter is used to provide the _system prompt_, which tells the model how we expect it to behave. Then our query is inserted between `[INST]` delimiters.
+
+If we wish to continue the conversation, we have to append the model response to the sequence, and issue a new followup instruction afterwards. This is the general structure of the prompt template we need to use for Llama 2:
+
+```
+<s>[INST] <<SYS>>
+{{ system_prompt }}
+<</SYS>>
+
+{{ user_msg_1 }} [/INST] {{ model_answer_1 }} </s><s>[INST] {{ user_msg_2 }} [/INST]
+```
+
+This same format can be used with Code Llama Instruct to engage in technical conversations with a code-savvy assistant!
+
+Please, refer to [our Llama 2 blog post](https://huggingface.co/blog/llama2#how-to-prompt-llama-2) for more details.
+
 
 ### Code infilling with Code Llama
 
 Code models like Code Llama can be used for code completion using the same generation strategy we used in the previous examples: you provide a starting string that may contain code or comments, and the model will try to continue the sequence with plausible content. Code models can also be used for _infilling_, a more specialized task where you provide prefix and suffix sequences, and the model will predict what should go in between. This is great for applications such as IDE extensions. Let's see an example using Code Llama:
 
 ```Python
-API_URL = "https://api-inference.huggingface.co/models/codellama/CodeLlama-13b-hf"
+client = InferenceClient(model="codellama/CodeLlama-13b-hf", token=YOUR_TOKEN)
 
-prompt = '''def remove_non_ascii(s: str) -> str:
-    """ <FILL_ME>
-    return result
-'''
+prompt_prefix = 'def remove_non_ascii(s: str) -> str:\n    """ '
+prompt_suffix = "\n    return result"
 
-output = text_completion(prompt, {"return_full_text": False, "max_new_tokens": 100})
-infilled = output[0]["generated_text"]
-print(prompt.replace("<FILL_ME>", infilled))
+prompt = f"<PRE> {prompt_prefix} <SUF>{prompt_suffix} <MID>"
+
+infilled = client.text_generation(prompt, max_new_tokens=150)
+infilled = infilled.rstrip(" <EOT>")
+print(f"{prompt_prefix}{infilled}{prompt_suffix}")
 ```
 
-In this example, we set return_full_text to False, so the model only returns the infilled portion and not the prompt we provided. We then replace the special string <FILL_ME> with the model output. For more details on how this task works, please take a look at https://huggingface.co/blog/codellama#code-completion
+```
+def remove_non_ascii(s: str) -> str:
+    """ Remove non-ASCII characters from a string.
+
+    Args:
+        s (str): The string to remove non-ASCII characters from.
+
+    Returns:
+        str: The string with non-ASCII characters removed.
+    """
+    result = ""
+    for c in s:
+        if ord(c) < 128:
+            result += c
+    return result
+```
+
+As you can see, the format used for infilling follows this pattern:
+
+```
+prompt = f"<PRE> {prompt_prefix} <SUF>{prompt_suffix} <MID>"
+```
+
+For more details on how this task works, please take a look at https://huggingface.co/blog/codellama#code-completion.
+
 
 ### Stable Diffusion XL
 
