@@ -214,8 +214,16 @@ Please make sure your code handles both cases appropriately.
 
 ## Subscribe to PRO
 
-to get access to Inference for PROs
+You can sign up today for a PRO subscription [here](https://huggingface.co/subscribe/pro). Benefit from higher rate limits, custom accelerated endpoints for the latest models, and early access to features. If you've built some exciting projects with the Inference API or are looking for a model not available in Inference for PROs, please [use this discussion](https://huggingface.co/spaces/huggingface/HuggingDiscussions/discussions/13).
 
-Are your looking for a model not available in Inference for PROs. Please use this discussion: xxx
+## FAQ
 
-Hugging Face is and will always be an open community of people, please share your findings with the community and … 
+**Does this affect the free Inference API?**
+
+No. We still expose thousands of models through free APIs that allow people to prototype and explore model capabilities quickly. 
+
+**Can I use my own models with PRO Inference API?**
+
+The free Inference API already supports a wide range of small and medium models from a variety of libraries (such as diffusers, transformers, and sentence transformers). If you have a custom model or custom inference logic, we recommend using [Inference Endpoints](https://ui.endpoints.huggingface.co/catalog).
+
+
