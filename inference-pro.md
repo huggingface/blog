@@ -14,7 +14,7 @@ authors:
 
 Today, we're introducing Inference for PRO users - a community offering that gives you access to APIs of curated endpoints for some of the most exciting models available, as well as improved rate limits for the usage of free Inference API.
 
-Hugging Face has provided a free Inference API for over 150,000 Transformers and Diffusers models (among other libraries!). Hugging Face PRO users benefit from higher rate limits, allowing to more extensively use models to build prototypes and proof of concepts. On top of that, PRO users get exclusive access to Inference API for a curated list of models which benefit of extremely fast inference powered by [text-generation-inference](https://github.com/huggingface/text-generation-inference).
+Hugging Face has provided a free Inference API for over 150,000 Transformers and Diffusers models (among other libraries!). Hugging Face PRO users benefit from higher rate limits, allowing to use models to build prototypes and proof of concepts more extensively. On top of that, PRO users get exclusive access to Inference API for a curated list of models that benefit of extremely fast inference powered by [text-generation-inference](https://github.com/huggingface/text-generation-inference).
 
 ## Contents
 
@@ -29,11 +29,11 @@ In addition to thousands of public models available in the Hub, PRO users get fr
 | Code Llama Instruct |        70B       | Conversational code assistant         |
 | SDXL                |                  | Generate images                       |
 
-Inference for PROs makes it easy to experiment and prototype with new models without having to deploy them on your own infrastructure. It gives PRO access to ready-to-use HTTP endpoints for all the available models listed above. It’s not meant to be used for heavy production applications - for that, we recommend using https://ui.endpoints.huggingface.co/catalog. Inference for PROs also allows using applications that depend upon a LLM endpoint, such as using a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) for code completion or have their own version of [Hugging Chat](http://hf.co/chat).
+Inference for PROs makes it easy to experiment and prototype with new models without having to deploy them on your own infrastructure. It gives PRO access to ready-to-use HTTP endpoints for all the available models listed above. It’s not meant to be used for heavy production applications - for that, we recommend using [Inference Endpoints](https://ui.endpoints.huggingface.co/catalog). Inference for PROs also allows using applications that depend upon an LLM endpoint, such as using a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) for code completion or have their own version of [Hugging Chat](http://hf.co/chat).
 
 ## Getting started with Inference For PROs
 
-Using Inference for PROs is as simple as sending a POST request to the API endpoint for the model you want to run. You'll also need to get an authentication token from [your token settings page](https://huggingface.co/settings/tokens), and use it in the request. For example, to generate text using [Llama 2 70B Chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) in a terminal session you'd do something like:
+Using Inference for PROs is as simple as sending a POST request to the API endpoint for the model you want to run. You'll also need to get an authentication token from [your token settings page](https://huggingface.co/settings/tokens) and use it in the request. For example, to generate text using [Llama 2 70B Chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) in a terminal session, you'd do something like:
 
 ```bash
 curl https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-hf \
@@ -62,10 +62,16 @@ curl https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-hf 
 ```json
 [{"generated_text":"In a surprising turn of events, 2K has announced that it will be releasing a new free-to-play game called NBA 2K23 Arcade Edition. This game will be available on Apple iOS devices and will allow players to compete against each other in quick, 3-on-3 basketball matches.\n\nThe game promises to deliver fast-paced, action-packed gameplay, with players able to choose from a variety of NBA teams and players, including some of the biggest"}]
 ```
-    
-To do the same thing in Python, you can take advantage of the `InferenceClient` api:
 
-```Python
+To do the same thing in Python, you can take advantage of the `huggingface_hub` Python library utility functions, such as `InferenceClient`:
+
+```bash
+pip install huggingface_hub
+```
+
+The `InferenceClient` is a helpful wrapper that allows you to make calls to the Inference API and Inference Endpoints easily:
+
+```python
 from huggingface_hub import InferenceClient
 
 client = InferenceClient(model="meta-llama/Llama-2-70b-chat-hf", token=YOUR_TOKEN)
@@ -165,7 +171,7 @@ When errors occur, they may appear in the following flavors:
  'estimated_time': 726.7694702148438}
 ```
 
-Please, make sure your code handles both cases appropriately.
+Please make sure your code handles both cases appropriately.
 
 ## Subscribe to PRO
 
