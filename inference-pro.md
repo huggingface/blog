@@ -14,7 +14,7 @@ authors:
 
 Today, we're introducing Inference for PRO users - a community offering that gives you access to APIs of curated endpoints for some of the most exciting models available, as well as improved rate limits for the usage of free Inference API. 
 
-Hugging Face has provided a free Inference API for over 150,000 Transformers and Diffusers models (among other libraries!). Hugging Face PRO users benefit from higher rate limits, allowing them to use models to build prototypes and proof of concepts more extensively. On top of that, PRO users get exclusive access to Inference API for a curated list of models that benefit from extremely fast inference powered by [text-generation-inference](https://github.com/huggingface/text-generation-inference).
+Hugging Face has provided a free Inference API for over 150,000 models from not only Transformers, Diffusers, but also many other libraries. Hugging Face PRO users benefit from higher rate limits, allowing them to use models to build prototypes and proof of concepts more extensively. On top of that, PRO users get exclusive access to Inference API for a curated list of models that benefit from extremely fast inference powered by [text-generation-inference](https://github.com/huggingface/text-generation-inference).
 
 ## Contents
 
@@ -44,7 +44,7 @@ In addition to thousands of public models available in the Hub, PRO users get fr
 | Code Llama Instruct | 70B              | 16k tokens     | Conversational code assistant         |
 | SDXL                | -                | -              | Generate images                       |
 
-Inference for PROs makes it easy to experiment and prototype with new models without having to deploy them on your own infrastructure. It gives PRO access to ready-to-use HTTP endpoints for all the available models listed above. It’s not meant to be used for heavy production applications - for that, we recommend using [Inference Endpoints](https://ui.endpoints.huggingface.co/catalog). Inference for PROs also allows using applications that depend upon an LLM endpoint, such as using a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) for code completion or have their own version of [Hugging Chat](http://hf.co/chat).
+Inference for PROs makes it easy to experiment and prototype with new models without having to deploy them on your own infrastructure. It gives PRO users access to ready-to-use HTTP endpoints for all the models listed above. It’s not meant to be used for heavy production applications - for that, we recommend using [Inference Endpoints](https://ui.endpoints.huggingface.co/catalog). Inference for PROs also allows using applications that depend upon an LLM endpoint, such as using a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) for code completion, or have your own version of [Hugging Chat](http://hf.co/chat).
 
 ## Getting started with Inference For PROs
 
@@ -78,15 +78,15 @@ curl https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-hf 
 [{"generated_text":"In a surprising turn of events, 2K has announced that it will be releasing a new free-to-play game called NBA 2K23 Arcade Edition. This game will be available on Apple iOS devices and will allow players to compete against each other in quick, 3-on-3 basketball matches.\n\nThe game promises to deliver fast-paced, action-packed gameplay, with players able to choose from a variety of NBA teams and players, including some of the biggest"}]
 ```
 
-For more details on the generation parameters, please take a look at [this section](#generation-parameters).
+For more details on the generation parameters, please take a look at [_Controlling Text Generation_](#controlling-text-generation) below.
     
-To do the same thing in Python, you can take advantage of the `huggingface_hub` Python library utility functions, such as `InferenceClient`:
+To send your requests in Python, you can take advantage of `InferenceClient`, a convenient utility available in the `huggingface_hub` Python library:
 
 ```bash
 pip install huggingface_hub
 ```
 
-The `InferenceClient` is a helpful wrapper that allows you to make calls to the Inference API and Inference Endpoints easily:
+`InferenceClient` is a helpful wrapper that allows you to make calls to the Inference API and Inference Endpoints easily:
 
 ```python
 from huggingface_hub import InferenceClient
@@ -97,7 +97,7 @@ output = client.text_generation("Can you please let us know more details about y
 print(output)
 ```
 
-If you don't want to pass the token explicitly every time you instantiate the client, you can use `notebook_login()` (in Jupyter notebooks), `huggingface-cli login` (in the terminal`, or `login(token=YOUR_TOKEN)` (everywhere else) to log in a single time. The token will then be automatically used from here.
+If you don't want to pass the token explicitly every time you instantiate the client, you can use `notebook_login()` (in Jupyter notebooks), `huggingface-cli login` (in the terminal), or `login(token=YOUR_TOKEN)` (everywhere else) to log in a single time. The token will then be automatically used from here.
 
 ## Applications
 
@@ -183,7 +183,7 @@ For more details on how this task works, please take a look at https://huggingfa
 
 ### Stable Diffusion XL
 
-SDXL is also available for PRO users. The response returned by the endpoint consists of a byte stream representing the generated image. If you use the `InferenceClient`, it will automatically decode to a `PIL` image for you:
+SDXL is also available for PRO users. The response returned by the endpoint consists of a byte stream representing the generated image. If you use `InferenceClient`, it will automatically decode to a `PIL` image for you:
 
 ```Python
 sdxl = InferenceClient(model="stabilityai/stable-diffusion-xl-base-1.0", token=YOUR_TOKEN)
@@ -229,7 +229,7 @@ For additional details on text-to-image generation, we recommend you check the [
 
 ### Caching
 
-If you run the same generation multiple times, you’ll see that the result returned by the API is the same (even if you are using sampling instead of greedy decoding). This is because recent results are cached. To force a different response each time, we’ll pass a header to tell the server to run a new generation each time: `x-use-cache: 0`.
+If you run the same generation multiple times, you’ll see that the result returned by the API is the same (even if you are using sampling instead of greedy decoding). This is because recent results are cached. To force a different response each time, we can use an HTTP header to tell the server to run a new generation each time: `x-use-cache: 0`.
 
 If you are using `InferenceClient`, you can simply append it to the `headers` client property:
 
