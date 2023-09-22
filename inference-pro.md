@@ -82,6 +82,8 @@ output = client.text_generation("Can you please let us know more details about y
 print(output)
 ```
 
+If you don't want to pass the token explicitly every time you instantiate the client, you can use `notebook_login()` (in Jupyter notebooks), `huggingface-cli login` (in the terminal`, or `login(token=YOUR_TOKEN)` (everywhere else) to log in a single time. The token will then be automatically used from here.
+
 ## Applications
 
 ### Chat models with Llama and Code Llama 
