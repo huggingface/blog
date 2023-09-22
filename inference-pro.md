@@ -14,7 +14,7 @@ authors:
 
 Today, we're introducing Inference for PRO users - a community offering that gives you access to APIs of curated endpoints for some of the most exciting models available, as well as improved rate limits for the usage of free Inference API. 
 
-Hugging Face provides a free Inference API for over 150,000 models from not only Transformers, Diffusers, but also many other libraries. Hugging Face PRO users benefit from higher rate limits, allowing them to use models to build prototypes and proof of concepts more extensively. On top of that, PRO users get exclusive access to Inference API for a curated list of models that benefit from extremely fast inference powered by [text-generation-inference](https://github.com/huggingface/text-generation-inference).
+Hugging Face provides a free Inference API for over 200,000 models from not only Transformers and Diffusers but also many other open-source libraries. Hugging Face PRO users benefit from higher rate limits, allowing them to use models to build prototypes and proof of concepts more extensively. On top of that, PRO users get exclusive access to Inference API for a curated list of models that benefit from extremely fast inference powered by [text-generation-inference](https://github.com/huggingface/text-generation-inference).
 
 ## Contents
 
@@ -29,7 +29,6 @@ Hugging Face provides a free Inference API for over 150,000 models from not only
     - [Controlling Image Generation](#controlling-image-generation)
     - [Caching](#caching)
     - [Streaming](#streaming)
-    - [Error Handling](#error-handling)
 - [Subscribe to PRO](#subscribe-to-pro)
 - [FAQ](#faq)
 
@@ -285,13 +284,17 @@ curl -N https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-
 
 ## Subscribe to PRO
 
-You can sign up today for a PRO subscription [here](https://huggingface.co/subscribe/pro). Benefit from higher rate limits, custom accelerated endpoints for the latest models, and early access to features. If you've built some exciting projects with the Inference API or are looking for a model not available in Inference for PROs, please [use this discussion](https://huggingface.co/spaces/huggingface/HuggingDiscussions/discussions/13).
+You can sign up today for a PRO subscription [here](https://huggingface.co/subscribe/pro). Benefit from higher rate limits, custom accelerated endpoints for the latest models, and early access to features. If you've built some exciting projects with the Inference API or are looking for a model not available in Inference for PROs, please [use this discussion](https://huggingface.co/spaces/huggingface/HuggingDiscussions/discussions/13). [Enterprise users](https://huggingface.co/enterprise) also benefit from PRO Inference API on top of other features, such as SSO.
 
 ## FAQ
 
 **Does this affect the free Inference API?**
 
 No. We still expose thousands of models through free APIs that allow people to prototype and explore model capabilities quickly. 
+
+**Does this affect Enterprise users?**
+
+Users with an Enterprise subscription also benefit from accelerated inference API for curated models.
 
 **Can I use my own models with PRO Inference API?**
 
