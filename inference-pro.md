@@ -12,9 +12,9 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Today, we're introducing Inference for PRO users - a community offering that gives you access to APIs of curated endpoints for some of the most exciting models available, as well as improved rate limits for the usage of free Inference API.
+Today, we're introducing Inference for PRO users - a community offering that gives you access to APIs of curated endpoints for some of the most exciting models available, as well as improved rate limits for the usage of free Inference API. 
 
-Hugging Face has provided a free Inference API for over 150,000 Transformers and Diffusers models (among other libraries!). Hugging Face PRO users benefit from higher rate limits, allowing to more extensively use models to build prototypes and proof of concepts. On top of that, PRO users get exclusive access to Inference API for a curated list of models which benefit of extremely fast inference powered by [text-generation-inference](https://github.com/huggingface/text-generation-inference).
+Hugging Face has provided a free Inference API for over 150,000 Transformers and Diffusers models (among other libraries!). Hugging Face PRO users benefit from higher rate limits, allowing to use models to build prototypes and proof of concepts more extensively. On top of that, PRO users get exclusive access to Inference API for a curated list of models that benefit of extremely fast inference powered by [text-generation-inference](https://github.com/huggingface/text-generation-inference).
 
 ## Contents
 
@@ -29,11 +29,11 @@ In addition to thousands of public models available in the Hub, PRO users get fr
 | Code Llama Instruct |        70B       | Conversational code assistant         |
 | SDXL                |                  | Generate images                       |
 
-Inference for PROs makes it easy to experiment and prototype with new models without having to deploy them on your own infrastructure. It gives PRO access to ready-to-use HTTP endpoints for all the available models listed above. It’s not meant to be used for heavy production applications - for that, we recommend using https://ui.endpoints.huggingface.co/catalog. Inference for PROs also allows using applications that depend upon a LLM endpoint, such as using a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) for code completion or have their own version of [Hugging Chat](http://hf.co/chat).
+Inference for PROs makes it easy to experiment and prototype with new models without having to deploy them on your own infrastructure. It gives PRO access to ready-to-use HTTP endpoints for all the available models listed above. It’s not meant to be used for heavy production applications - for that, we recommend using [Inference Endpoints](https://ui.endpoints.huggingface.co/catalog). Inference for PROs also allows using applications that depend upon an LLM endpoint, such as using a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) for code completion or have their own version of [Hugging Chat](http://hf.co/chat).
 
 ## Getting started with Inference For PROs
 
-Using Inference for PROs is as simple as sending a POST request to the API endpoint for the model you want to run. You'll also need to get an authentication token from [your token settings page](https://huggingface.co/settings/tokens), and use it in the request. For example, to generate text using [Llama 2 70B Chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) in a terminal session you'd do something like:
+Using Inference for PROs is as simple as sending a POST request to the API endpoint for the model you want to run. You'll also need to get an authentication token from [your token settings page](https://huggingface.co/settings/tokens) and use it in the request. For example, to generate text using [Llama 2 70B Chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) in a terminal session, you'd do something like:
 
 ```bash
 curl https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-hf \
@@ -65,9 +65,15 @@ curl https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-hf 
 
 For more details on the generation parameters, please take a look at [this section](#generation-parameters).
     
-To do the same thing in Python, you can take advantage of the `InferenceClient` api:
+To do the same thing in Python, you can take advantage of the `huggingface_hub` Python library utility functions, such as `InferenceClient`:
 
-```Python
+```bash
+pip install huggingface_hub
+```
+
+The `InferenceClient` is a helpful wrapper that allows you to make calls to the Inference API and Inference Endpoints easily:
+
+```python
 from huggingface_hub import InferenceClient
 
 client = InferenceClient(model="meta-llama/Llama-2-70b-chat-hf", token=YOUR_TOKEN)
@@ -150,7 +156,46 @@ text_completion("In a surprising turn of events, ", {"temperature": 0.7})
 ```
 
 ### Streaming
-Here we can put some content from https://huggingface.co/docs/text-generation-inference/conceptual/streaming 
+Token streaming is the mode in which the server returns the tokens one by one as the model generates them. This enables showing progressive generations to the user rather than waiting for the whole generation. Streaming is an essential aspect of the end-user experience as it reduces latency, one of the most critical aspects of a smooth experience.
+
+<div class="flex justify-center">
+    <img 
+        class="block dark:hidden" 
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/tgi/streaming-generation-visual_360.gif"
+    />
+    <img 
+        class="hidden dark:block" 
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/tgi/streaming-generation-visual-dark_360.gif"
+    />
+</div>
+
+To stream tokens with `InferenceClient`, simply pass `stream=True` and iterate over the response.
+
+```python
+for token in client.text_generation("How do you make cheese?", max_new_tokens=12, stream=True):
+    print(token)
+
+# To
+# make
+# cheese
+#,
+# you
+# need
+# to
+# start
+# with
+# milk
+```
+
+To use the generate_stream endpoint with curl, you can add the `-N`/`--no-buffer` flag, which disables curl default buffering and shows data as it arrives from the server.
+
+```
+curl -N https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-hf \
+    -X POST \
+    -d '{"inputs": "In a surprising turn of events, ", "parameters": {"temperature": 0.7, "max_new_tokens": 100}}' \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer <YOUR_TOKEN>"
+```
 
 ### Error handling
 
@@ -163,7 +208,7 @@ When errors occur, they may appear in the following flavors:
  'estimated_time': 726.7694702148438}
 ```
 
-Please, make sure your code handles both cases appropriately.
+Please make sure your code handles both cases appropriately.
 
 ## Subscribe to PRO
 
