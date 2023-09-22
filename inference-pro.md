@@ -22,12 +22,12 @@ Hugging Face has provided a free Inference API for over 150,000 Transformers and
 
 In addition to thousands of public models available in the Hub, PRO users get free access to the following state-of-the-art models:
 
-| Model               |       Size       | Use                                   |
-|---------------------|:----------------:|---------------------------------------|
-| Llama 2 Chat        | 7B, 13B, and 70B | One of the best conversational models |
-| Code Llama Base     |    7B and 13B    | Autocomplete code                     |
-| Code Llama Instruct |        70B       | Conversational code assistant         |
-| SDXL                |                  | Generate images                       |
+| Model               | Size             | Context Length | Use                                   |
+|---------------------|------------------|----------------|---------------------------------------|
+| Llama 2 Chat        | 7B, 13B, and 70B | 4k tokens      | One of the best conversational models |
+| Code Llama Base     | 7B and 13B       | 4k tokens      | Autocomplete and infill code          |
+| Code Llama Instruct | 70B              | 16k tokens     | Conversational code assistant         |
+| SDXL                | -                | -              | Generate images                       |
 
 Inference for PROs makes it easy to experiment and prototype with new models without having to deploy them on your own infrastructure. It gives PRO access to ready-to-use HTTP endpoints for all the available models listed above. It’s not meant to be used for heavy production applications - for that, we recommend using [Inference Endpoints](https://ui.endpoints.huggingface.co/catalog). Inference for PROs also allows using applications that depend upon an LLM endpoint, such as using a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) for code completion or have their own version of [Hugging Chat](http://hf.co/chat).
 
