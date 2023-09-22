@@ -12,7 +12,7 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Today, we're introducing Inference for PRO users - a community offering that gives you access to APIs of curated endpoints for some of the most exciting models available, as well as improved rate limits for the usage of free Inference API.
+Today, we're introducing Inference for PRO users - a community offering that gives you access to APIs of curated endpoints for some of the most exciting models available, as well as improved rate limits for the usage of free Inference API. 
 
 Hugging Face has provided a free Inference API for over 150,000 Transformers and Diffusers models (among other libraries!). Hugging Face PRO users benefit from higher rate limits, allowing to use models to build prototypes and proof of concepts more extensively. On top of that, PRO users get exclusive access to Inference API for a curated list of models that benefit of extremely fast inference powered by [text-generation-inference](https://github.com/huggingface/text-generation-inference).
 
@@ -158,7 +158,46 @@ text_completion("In a surprising turn of events, ", {"temperature": 0.7})
 ```
 
 ### Streaming
-Here we can put some content from https://huggingface.co/docs/text-generation-inference/conceptual/streaming 
+Token streaming is the mode in which the server returns the tokens one by one as the model generates them. This enables showing progressive generations to the user rather than waiting for the whole generation. Streaming is an essential aspect of the end-user experience as it reduces latency, one of the most critical aspects of a smooth experience.
+
+<div class="flex justify-center">
+    <img 
+        class="block dark:hidden" 
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/tgi/streaming-generation-visual_360.gif"
+    />
+    <img 
+        class="hidden dark:block" 
+        src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/tgi/streaming-generation-visual-dark_360.gif"
+    />
+</div>
+
+To stream tokens with `InferenceClient`, simply pass `stream=True` and iterate over the response.
+
+```python
+for token in client.text_generation("How do you make cheese?", max_new_tokens=12, stream=True):
+    print(token)
+
+# To
+# make
+# cheese
+#,
+# you
+# need
+# to
+# start
+# with
+# milk
+```
+
+To use the generate_stream endpoint with curl, you can add the `-N`/`--no-buffer` flag, which disables curl default buffering and shows data as it arrives from the server.
+
+```
+curl -N https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-hf \
+    -X POST \
+    -d '{"inputs": "In a surprising turn of events, ", "parameters": {"temperature": 0.7, "max_new_tokens": 100}}' \
+    -H "Content-Type: application/json" \
+    -H "Authorization: Bearer <YOUR_TOKEN>"
+```
 
 ### Error handling
 
