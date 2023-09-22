@@ -125,6 +125,8 @@ image = sdxl.text_to_image(
 )
 ```
 
+![SDXL example generation](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-for-pros/sdxl-example.png)
+
 For more details on how to control generation, please take a look at [this section](#controlling-image-generation).
 
 ## Generation Parameters
