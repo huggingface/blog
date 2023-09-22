@@ -14,7 +14,7 @@ authors:
 
 Today, we're introducing Inference for PRO users - a community offering that gives you access to APIs of curated endpoints for some of the most exciting models available, as well as improved rate limits for the usage of free Inference API. 
 
-Hugging Face has provided a free Inference API for over 150,000 Transformers and Diffusers models (among other libraries!). Hugging Face PRO users benefit from higher rate limits, allowing to use models to build prototypes and proof of concepts more extensively. On top of that, PRO users get exclusive access to Inference API for a curated list of models that benefit of extremely fast inference powered by [text-generation-inference](https://github.com/huggingface/text-generation-inference).
+Hugging Face has provided a free Inference API for over 150,000 Transformers and Diffusers models (among other libraries!). Hugging Face PRO users benefit from higher rate limits, allowing them to use models to build prototypes and proof of concepts more extensively. On top of that, PRO users get exclusive access to Inference API for a curated list of models that benefit from extremely fast inference powered by [text-generation-inference](https://github.com/huggingface/text-generation-inference).
 
 ## Contents
 
@@ -96,7 +96,7 @@ For instruct:
 
 ### Code infilling with Code Llama
 
-Code models like Code Llama can be used for code completion using the same generation strategy we used in the previous examples: you provide a starting string that may contain code or comments, and the model will try to continue the sequence with plausible content. Code models can also be used for _infilling_, a more specialized task where you provide prefix and suffix sequences, and the model will try to guess what should go in between. Let's see an example using Code Llama:
+Code models like Code Llama can be used for code completion using the same generation strategy we used in the previous examples: you provide a starting string that may contain code or comments, and the model will try to continue the sequence with plausible content. Code models can also be used for _infilling_, a more specialized task where you provide prefix and suffix sequences, and the model will predict what should go in between. This is great for applications such as IDE extensions. Let's see an example using Code Llama:
 
 ```Python
 API_URL = "https://api-inference.huggingface.co/models/codellama/CodeLlama-13b-hf"
@@ -111,11 +111,11 @@ infilled = output[0]["generated_text"]
 print(prompt.replace("<FILL_ME>", infilled))
 ```
 
-In this example, we set return_full_text to False so the model only returns the infilled portion, and not the prompt we provided. We then replace the special string <FILL_ME> with the model output. For more details on how this task works, please take a look at https://huggingface.co/blog/codellama#code-completion
+In this example, we set return_full_text to False, so the model only returns the infilled portion and not the prompt we provided. We then replace the special string <FILL_ME> with the model output. For more details on how this task works, please take a look at https://huggingface.co/blog/codellama#code-completion
 
 ### Stable Diffusion XL
 
-SDXL is also available for PRO users. The response returned by the endpoint consists of a byte stream representing the generated image. If you use the `InferenceClient` API it will be automatically decoded to a `PIL` image for you:
+SDXL is also available for PRO users. The response returned by the endpoint consists of a byte stream representing the generated image. If you use the `InferenceClient`, it will automatically decode to a `PIL` image for you:
 
 ```Python
 sdxl = InferenceClient(model="stabilityai/stable-diffusion-xl-base-1.0", token=YOUR_TOKEN)
@@ -125,7 +125,7 @@ image = sdxl.text_to_image(
 )
 ```
 
-For more details on how to control generation, please take a look at [this section](#controlling-image-generation)
+For more details on how to control generation, please take a look at [this section](#controlling-image-generation).
 
 ## Generation Parameters
 
