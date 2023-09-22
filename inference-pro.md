@@ -2,9 +2,9 @@
 title: Inference for PROs
 thumbnail: /blog/assets/inference_pro/thumbnail.png
 authors:
-- user: osanseviero
-- user: pcuenq
-- user: victor
+  - user: osanseviero
+  - user: pcuenq
+  - user: victor
 ---
 
 # Inference for PROs
@@ -12,7 +12,9 @@ authors:
 <!-- {blog_metadata} -->
 <!-- {authors} -->
 
-Today, we're introducing Inference for PRO users - a community offering that gives you access to APIs of curated endpoints for some of the most exciting models available, as well as improved rate limits for the usage of free Inference API. 
+![Inference for PROs image](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/inference-for-pros/Inference-for-pros.png)
+
+Today, we're introducing Inference for PRO users - a community offering that gives you access to APIs of curated endpoints for some of the most exciting models available, as well as improved rate limits for the usage of free Inference API.
 
 Hugging Face provides a free Inference API for over 200,000 models from not only Transformers and Diffusers but also many other open-source libraries. Hugging Face PRO users benefit from higher rate limits, allowing them to use models to build prototypes and proof of concepts more extensively. On top of that, PRO users get exclusive access to Inference API for a curated list of models that benefit from extremely fast inference powered by [text-generation-inference](https://github.com/huggingface/text-generation-inference).
 
@@ -21,14 +23,14 @@ Hugging Face provides a free Inference API for over 200,000 models from not only
 - [Supported Models](#supported-models)
 - [Getting started with Inference for PROs](#getting-started-with-inference-for-pros)
 - [Applications](#applications)
-    - [Chat with Llama 2 and Code Llama](#chat-with-llama-2-and-code-llama)
-    - [Code infilling with Code Llama](#code-infilling-with-code-llama)
-    - [Stable Diffusion XL](#stable-diffusion-xl)
+  - [Chat with Llama 2 and Code Llama](#chat-with-llama-2-and-code-llama)
+  - [Code infilling with Code Llama](#code-infilling-with-code-llama)
+  - [Stable Diffusion XL](#stable-diffusion-xl)
 - [Generation Parameters](#generation-parameters)
-    - [Controlling Text Generation](#controlling-text-generation)
-    - [Controlling Image Generation](#controlling-image-generation)
-    - [Caching](#caching)
-    - [Streaming](#streaming)
+  - [Controlling Text Generation](#controlling-text-generation)
+  - [Controlling Image Generation](#controlling-image-generation)
+  - [Caching](#caching)
+  - [Streaming](#streaming)
 - [Subscribe to PRO](#subscribe-to-pro)
 - [FAQ](#faq)
 
@@ -36,12 +38,12 @@ Hugging Face provides a free Inference API for over 200,000 models from not only
 
 In addition to thousands of public models available in the Hub, PRO users get free access to the following state-of-the-art models:
 
-| Model               | Size             | Context Length | Use                                   |
-|---------------------|------------------|----------------|---------------------------------------|
+| Model               | Size                                                                                                                                                                                       | Context Length | Use                                   |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------- | ------------------------------------- |
 | Llama 2 Chat        | [7B](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), [13B](https://huggingface.co/meta-llama/Llama-2-13b-chat-hf), and [70B](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) | 4k tokens      | One of the best conversational models |
-| Code Llama Base     | [7B](https://huggingface.co/codellama/CodeLlama-7b-hf) and [13B](https://huggingface.co/codellama/CodeLlama-13b-hf)       | 4k tokens      | Autocomplete and infill code          |
-| Code Llama Instruct | [34B](https://huggingface.co/codellama/CodeLlama-34b-Instruct-hf)              | 16k tokens     | Conversational code assistant         |
-| Stable Diffusion XL | [3B UNet](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0)          | -              | Generate images                       |
+| Code Llama Base     | [7B](https://huggingface.co/codellama/CodeLlama-7b-hf) and [13B](https://huggingface.co/codellama/CodeLlama-13b-hf)                                                                        | 4k tokens      | Autocomplete and infill code          |
+| Code Llama Instruct | [34B](https://huggingface.co/codellama/CodeLlama-34b-Instruct-hf)                                                                                                                          | 16k tokens     | Conversational code assistant         |
+| Stable Diffusion XL | [3B UNet](https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0)                                                                                                                 | -              | Generate images                       |
 
 Inference for PROs makes it easy to experiment and prototype with new models without having to deploy them on your own infrastructure. It gives PRO users access to ready-to-use HTTP endpoints for all the models listed above. It’s not meant to be used for heavy production applications - for that, we recommend using [Inference Endpoints](https://ui.endpoints.huggingface.co/catalog). Inference for PROs also allows using applications that depend upon an LLM endpoint, such as using a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) for code completion, or have your own version of [Hugging Chat](http://hf.co/chat).
 
@@ -60,7 +62,11 @@ curl https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-hf 
 Which would print something like this:
 
 ```json
-[{"generated_text":"In a surprising turn of events, 20th Century Fox has released a new trailer for Ridley Scott's Alien"}]
+[
+  {
+    "generated_text": "In a surprising turn of events, 20th Century Fox has released a new trailer for Ridley Scott's Alien"
+  }
+]
 ```
 
 You can also use many of the familiar transformers generation parameters, like `temperature` or `max_new_tokens`:
@@ -74,11 +80,15 @@ curl https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-hf 
 ```
 
 ```json
-[{"generated_text":"In a surprising turn of events, 2K has announced that it will be releasing a new free-to-play game called NBA 2K23 Arcade Edition. This game will be available on Apple iOS devices and will allow players to compete against each other in quick, 3-on-3 basketball matches.\n\nThe game promises to deliver fast-paced, action-packed gameplay, with players able to choose from a variety of NBA teams and players, including some of the biggest"}]
+[
+  {
+    "generated_text": "In a surprising turn of events, 2K has announced that it will be releasing a new free-to-play game called NBA 2K23 Arcade Edition. This game will be available on Apple iOS devices and will allow players to compete against each other in quick, 3-on-3 basketball matches.\n\nThe game promises to deliver fast-paced, action-packed gameplay, with players able to choose from a variety of NBA teams and players, including some of the biggest"
+  }
+]
 ```
 
 For more details on the generation parameters, please take a look at [_Controlling Text Generation_](#controlling-text-generation) below.
-    
+
 To send your requests in Python, you can take advantage of `InferenceClient`, a convenient utility available in the `huggingface_hub` Python library:
 
 ```bash
@@ -138,7 +148,6 @@ This same format can be used with Code Llama Instruct to engage in technical con
 
 Please, refer to [our Llama 2 blog post](https://huggingface.co/blog/llama2#how-to-prompt-llama-2) for more details.
 
-
 ### Code infilling with Code Llama
 
 Code models like Code Llama can be used for code completion using the same generation strategy we used in the previous examples: you provide a starting string that may contain code or comments, and the model will try to continue the sequence with plausible content. Code models can also be used for _infilling_, a more specialized task where you provide prefix and suffix sequences, and the model will predict what should go in between. This is great for applications such as IDE extensions. Let's see an example using Code Llama:
@@ -180,7 +189,6 @@ prompt = f"<PRE> {prompt_prefix} <SUF>{prompt_suffix} <MID>"
 ```
 
 For more details on how this task works, please take a look at https://huggingface.co/blog/codellama#code-completion.
-
 
 ### Stable Diffusion XL
 
@@ -243,6 +251,7 @@ print(output)
 ```
 
 ### Streaming
+
 Token streaming is the mode in which the server returns the tokens one by one as the model generates them. This enables showing progressive generations to the user rather than waiting for the whole generation. Streaming is an essential aspect of the end-user experience as it reduces latency, one of the most critical aspects of a smooth experience.
 
 <div class="flex justify-center">
@@ -292,7 +301,7 @@ You can sign up today for a PRO subscription [here](https://huggingface.co/subsc
 
 **Does this affect the free Inference API?**
 
-No. We still expose thousands of models through free APIs that allow people to prototype and explore model capabilities quickly. 
+No. We still expose thousands of models through free APIs that allow people to prototype and explore model capabilities quickly.
 
 **Does this affect Enterprise users?**
 
@@ -301,5 +310,3 @@ Users with an Enterprise subscription also benefit from accelerated inference AP
 **Can I use my own models with PRO Inference API?**
 
 The free Inference API already supports a wide range of small and medium models from a variety of libraries (such as diffusers, transformers, and sentence transformers). If you have a custom model or custom inference logic, we recommend using [Inference Endpoints](https://ui.endpoints.huggingface.co/catalog).
-
-
