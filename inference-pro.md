@@ -62,6 +62,8 @@ curl https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-hf 
 ```json
 [{"generated_text":"In a surprising turn of events, 2K has announced that it will be releasing a new free-to-play game called NBA 2K23 Arcade Edition. This game will be available on Apple iOS devices and will allow players to compete against each other in quick, 3-on-3 basketball matches.\n\nThe game promises to deliver fast-paced, action-packed gameplay, with players able to choose from a variety of NBA teams and players, including some of the biggest"}]
 ```
+
+For more details on the generation parameters, please take a look at [this section](#generation-parameters).
     
 To do the same thing in Python, you can take advantage of the `InferenceClient` api:
 
@@ -107,30 +109,26 @@ In this example, we set return_full_text to False so the model only returns the 
 
 ### Stable Diffusion XL
 
-SDXL is also available for PRO users. The response, in this case, consists of a byte stream representing the generated image. You need to decode the image before display, like the following code snippet shows:
+SDXL is also available for PRO users. The response returned by the endpoint consists of a byte stream representing the generated image. If you use the `InferenceClient` API it will be automatically decoded to a `PIL` image for you:
 
 ```Python
-import io
-from PIL import Image
-
-API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
-def text_to_image(prompt):
-    payload = { "inputs": prompt }
-    response = requests.post(API_URL, headers=headers, json=payload)
-    if response.ok:
-        return Image.open(io.BytesIO(response.content))
-    else:
-        response.raise_for_status()
-
-image = text_to_image("Labrador in the style of Vermeer")
-image
+sdxl = InferenceClient(model="stabilityai/stable-diffusion-xl-base-1.0", token=YOUR_TOKEN)
+image = sdxl.text_to_image(
+    "Dark gothic city in a misty night, lit by street lamps. A man in a cape is walking away from us",
+    guidance_scale=9,
+)
 ```
+
+For more details on how to control generation, please take a look at [this section](#controlling-image-generation)
 
 ## Generation Parameters
 
-### Controlling 
+### Controlling Text Generation
 
 -> write here about temperature, etc
+
+### Controlling Image Generation
+
 
 ### Caching
 
