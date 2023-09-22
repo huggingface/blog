@@ -133,7 +133,20 @@ For more details on how to control generation, please take a look at [this secti
 
 ### Controlling Text Generation
 
--> write here about temperature, etc
+Text generation is a rich topic, and there exist several generation strategies for different purposes. We recommend [this excellent overview](https://huggingface.co/blog/how-to-generate) on the subject. Many generation algorithms are supported by the text generation endpoints, and they can be configured using the following parameters:
+
+- `do_sample`: If set to `False` (the default), the generation method will be _greedy search_, which selects the most probable continuation sequence after the prompt you provide. Greedy search is deterministic, so the same results will always be returned from the same input. When `do_sample` is `True`, tokens will be sampled from a probability distribution and will therefore vary across invocations.
+- `temperature`: Controls the amount of variation we desire from the generation. A temperature of `0` is equivalent to greedy search. If we set a value for `temperature`, then `do_sample` will automatically be enabled. The same thing happens for `top_k` and `top_p`.
+- `top_k`. Enables "Top-K" sampling: the model will choose from the `K` most probable tokens that may occur after the input sequence. Typical values are between 10 to 50.
+- `top_p`. Enables "nucleus sampling": the model will choose from as many tokens as necessary to cover a particular probability mass. If `top_p` is 0.9, the 90% most probable tokens will be considered for sampling, and the trailing 10% will be ignored.
+- `repetition_penalty`: Tries to avoid repeated words in the generated sequence.
+- `seed`: Random seed that you can use in combination with sampling, for reproducibility purposes.
+
+In addition to the sampling parameters above, you can also control general aspects of the generation with the following:
+
+- `max_new_tokens`: maximum number of new tokens to generate. The default is `20`, feel free to increase if you want longer sequences.
+- `return_full_text`: whether to include the input sequence in the output returned by the endpoint. The default used by `InferenceClient` is `False`, but the endpoint itself uses `True` by default.
+- `stop_sequences`: a list of sequences that will cause generation to stop when encountered in the output.
 
 ### Controlling Image Generation
 
@@ -143,6 +156,8 @@ If you want finer-grained control over images generated with the SDXL endpoint, 
 - `guidance_scale`: How closely you want the model to match the prompt. Lower numbers are less accurate, very high numbers might decrease image quality or generate artifacts.
 - `width` and `height`: The desired image dimensions. SDXL works best for sizes between 768 and 1024.
 - `num_inference_steps`: The number of denoising steps to run. Larger numbers may produce better quality but will be slower. Typical values are between 20 and 50 steps.
+
+For additional details on text-to-image generation, we recommend you check the [diffusers library documentation](https://huggingface.co/docs/diffusers/using-diffusers/sdxl).
 
 ### Caching
 
