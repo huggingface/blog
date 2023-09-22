@@ -148,19 +148,14 @@ If you want finer-grained control over images generated with the SDXL endpoint, 
 
 If you run the same generation multiple times, you’ll see that the result returned by the API is the same (even if you are using sampling instead of greedy decoding). This is because recent results are cached. To force a different response each time, we’ll pass a header to tell the server to run a new generation each time: `x-use-cache: 0`.
 
+If you are using `InferenceClient`, you can simply append it to the `headers` client property:
+
 ```Python
-API_URL = "https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-hf"
-headers = {"Authorization": "Bearer <YOUR_TOKEN>", "x-use-cache: 0"}
+client = InferenceClient(model="meta-llama/Llama-2-70b-chat-hf", token=YOUR_TOKEN)
+client.headers["x-use-cache"] = "0"
 
-def text_completion(text, params=None):
-    payload = {
-       "inputs": text,
-       "parameters": params if params is not None else {},
-    }
-    response = requests.post(API_URL, headers=headers, json=payload)
-    return response.json()
-
-text_completion("In a surprising turn of events, ", {"temperature": 0.7})
+output = client.text_generation("In a surprising turn of events, ", do_sample=True)
+print(output)
 ```
 
 ### Streaming
