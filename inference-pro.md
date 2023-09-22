@@ -47,7 +47,7 @@ Inference for PROs makes it easy to experiment and prototype with new models wit
 
 ## Getting started with Inference For PROs
 
-Using Inference for PROs is as simple as sending a POST request to the API endpoint for the model you want to run. You'll also need to get an authentication token from [your token settings page](https://huggingface.co/settings/tokens) and use it in the request. For example, to generate text using [Llama 2 70B Chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) in a terminal session, you'd do something like:
+Using Inference for PROs is as simple as sending a POST request to the API endpoint for the model you want to run. You'll also need to get a PRO account authentication token from [your token settings page](https://huggingface.co/settings/tokens) and use it in the request. For example, to generate text using [Llama 2 70B Chat](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) in a terminal session, you'd do something like:
 
 ```bash
 curl https://api-inference.huggingface.co/models/meta-llama/Llama-2-70b-chat-hf \
