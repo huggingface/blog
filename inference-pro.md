@@ -18,6 +18,21 @@ Hugging Face has provided a free Inference API for over 150,000 Transformers and
 
 ## Contents
 
+- [Supported Models](#supported-models)
+- [Getting started with Inference for PROs](#getting-started-with-inference-for-pros)
+- [Applications](#applications)
+    - [Chat with Llama 2 and Code Llama](#chat-with-llama-2-and-code-llama)
+    - [Code infilling with Code Llama](#code-infilling-with-code-llama)
+    - [Stable Diffusion XL](#stable-diffusion-xl)
+- [Generation Parameters](#generation-parameters)
+    - [Controlling Text Generation](#controlling-text-generation)
+    - [Controlling Image Generation](#controlling-image-generation)
+    - [Caching](#caching)
+    - [Streaming](#streaming)
+    - [Error Handling](#error-handling)
+- [Subscribe to PRO](#subscribe-to-pro)
+- [FAQ](#faq)
+
 ## Supported Models
 
 In addition to thousands of public models available in the Hub, PRO users get free access to the following state-of-the-art models:
@@ -86,7 +101,7 @@ If you don't want to pass the token explicitly every time you instantiate the cl
 
 ## Applications
 
-### Chat with Llama 2
+### Chat with Llama 2 and Code Llama
 
 Models prepared to follow chat conversations are trained with very particular and specific chat templates that depend on the model used. You need to be careful about the format the model expects and replicate it in your queries.
 
