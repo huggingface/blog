@@ -22,12 +22,12 @@ Hugging Face has provided a free Inference API for over 150,000 Transformers and
 
 In addition to thousands of public models available in the Hub, PRO users get free access to the following state-of-the-art models:
 
-| Model               |       Size       | Use                                   |
-|---------------------|:----------------:|---------------------------------------|
-| Llama 2 Chat        | 7B, 13B, and 70B | One of the best conversational models |
-| Code Llama Base     |    7B and 13B    | Autocomplete code                     |
-| Code Llama Instruct |        70B       | Conversational code assistant         |
-| SDXL                |                  | Generate images                       |
+| Model               | Size             | Context Length | Use                                   |
+|---------------------|------------------|----------------|---------------------------------------|
+| Llama 2 Chat        | 7B, 13B, and 70B | 4k tokens      | One of the best conversational models |
+| Code Llama Base     | 7B and 13B       | 4k tokens      | Autocomplete and infill code          |
+| Code Llama Instruct | 70B              | 16k tokens     | Conversational code assistant         |
+| SDXL                | -                | -              | Generate images                       |
 
 Inference for PROs makes it easy to experiment and prototype with new models without having to deploy them on your own infrastructure. It gives PRO access to ready-to-use HTTP endpoints for all the available models listed above. It’s not meant to be used for heavy production applications - for that, we recommend using [Inference Endpoints](https://ui.endpoints.huggingface.co/catalog). Inference for PROs also allows using applications that depend upon an LLM endpoint, such as using a [VS Code extension](https://marketplace.visualstudio.com/items?itemName=HuggingFace.huggingface-vscode) for code completion or have their own version of [Hugging Chat](http://hf.co/chat).
 
@@ -81,6 +81,8 @@ client = InferenceClient(model="meta-llama/Llama-2-70b-chat-hf", token=YOUR_TOKE
 output = client.text_generation("Can you please let us know more details about your ")
 print(output)
 ```
+
+If you don't want to pass the token explicitly every time you instantiate the client, you can use `notebook_login()` (in Jupyter notebooks), `huggingface-cli login` (in the terminal`, or `login(token=YOUR_TOKEN)` (everywhere else) to log in a single time. The token will then be automatically used from here.
 
 ## Applications
 
